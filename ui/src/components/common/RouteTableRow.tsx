@@ -43,6 +43,8 @@ interface Props {
   route: RouteTableRowFragment;
   isSelectable?: boolean;
   rowVariant: RouteLineTableRowVariant;
+  selectedAlert?: unknown;
+  setSelectedAlert: (selectedAlert: unknown | undefined) => void;
 }
 
 /**
@@ -55,6 +57,8 @@ export const RouteTableRow = ({
   route,
   isSelectable = false,
   rowVariant,
+  selectedAlert,
+  setSelectedAlert,
 }: Props): JSX.Element => {
   const { showRouteOnMap } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
@@ -88,6 +92,8 @@ export const RouteTableRow = ({
       isSelected={isSelected}
       hasTimetables={hasTimetables}
       onSelectChanged={isSelectable ? onSelectChanged : undefined}
+      selectedAlert={selectedAlert}
+      setSelectedAlert={setSelectedAlert}
       testId={route.unique_label}
     />
   );

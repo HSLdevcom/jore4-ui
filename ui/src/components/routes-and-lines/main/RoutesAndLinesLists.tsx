@@ -35,8 +35,15 @@ const GQL_LIST_OWN_LINES = gql`
     }
   }
 `;
+type Props = {
+  selectedAlert?: unknown;
+  setSelectedAlert: (selectedAlert: unknown | undefined) => void;
+};
 
-export const RoutesAndLinesLists = (): JSX.Element => {
+export const RoutesAndLinesLists = ({
+  selectedAlert,
+  setSelectedAlert,
+}: Props): JSX.Element => {
   const { t } = useTranslation();
 
   // changing routes
@@ -68,11 +75,15 @@ export const RoutesAndLinesLists = (): JSX.Element => {
       <RoutesList
         rowVariant={RouteLineTableRowVariant.RoutesAndLines}
         routes={changingRoutes}
+        selectedAlert={selectedAlert}
+        setSelectedAlert={setSelectedAlert}
       />
       <h2 className="mb-14 mt-12">{t('lines.lines')}</h2>
       <LinesList
         rowVariant={RouteLineTableRowVariant.RoutesAndLines}
         lines={ownLines}
+        selectedAlert={selectedAlert}
+        setSelectedAlert={setSelectedAlert}
       />
     </div>
   );

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useRequiredParams,
@@ -20,6 +21,8 @@ export const LineDraftsPage = (): JSX.Element => {
 
   const { onClose } = useRoutesAndLinesDraftReturnToQueryParam();
 
+  const [selectedAlert, setSelectedAlert] = useState<unknown>();
+
   return (
     <Container>
       <Row>
@@ -38,7 +41,11 @@ export const LineDraftsPage = (): JSX.Element => {
       </Row>
 
       {routes?.length ? (
-        <RouteStopsTable routes={routes} />
+        <RouteStopsTable
+          routes={routes}
+          selectedAlert={selectedAlert}
+          setSelectedAlert={setSelectedAlert}
+        />
       ) : (
         <Row className="py-20">
           <h2 className="mx-auto flex">{t('lines.noDrafts')}</h2>

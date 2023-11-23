@@ -17,6 +17,8 @@ interface Props {
   line: LineTableRowFragment;
   isSelectable?: boolean;
   rowVariant: RouteLineTableRowVariant;
+  selectedAlert?: unknown;
+  setSelectedAlert: (selectedAlert: unknown | undefined) => void;
 }
 
 const GQL_LINE_TABLE_ROW = gql`
@@ -59,6 +61,8 @@ export const LineTableRow = ({
   line,
   isSelectable = false,
   rowVariant,
+  selectedAlert,
+  setSelectedAlert,
 }: Props): JSX.Element => {
   const { showRoutesOnMapByLineLabel } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
@@ -99,6 +103,8 @@ export const LineTableRow = ({
       onSelectChanged={isSelectable ? onSelectChanged : undefined}
       isSelected={isSelected}
       selectionDisabled={!hasRoutes}
+      selectedAlert={selectedAlert}
+      setSelectedAlert={setSelectedAlert}
       testId={line.label}
     />
   );

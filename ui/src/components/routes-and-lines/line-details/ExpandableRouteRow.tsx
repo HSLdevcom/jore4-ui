@@ -7,7 +7,7 @@ import {
 } from '../../../generated/graphql';
 import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
 import { parseI18nField } from '../../../i18n/utils';
-import { Row } from '../../../layoutComponents';
+import { Row, Visible } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import {
   MAX_DATE,
@@ -20,6 +20,7 @@ import {
   EditButton,
   LocatorButton,
 } from '../../../uiComponents';
+import { AlertPopover } from '../../common/AlertPopover';
 import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from './DirectionBadge';
 
@@ -41,6 +42,8 @@ interface Props {
   observationDate: DateTime;
   isExpanded: boolean;
   onToggle: () => void;
+  selectedAlert?: unknown;
+  setSelectedAlert: (selectedAlert: unknown | undefined) => void;
 }
 
 export const ExpandableRouteRow = ({
@@ -49,12 +52,16 @@ export const ExpandableRouteRow = ({
   observationDate,
   isExpanded,
   onToggle,
+  selectedAlert,
+  setSelectedAlert,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const { showRouteOnMap } = useShowRoutesOnModal();
 
-  const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
-  const alertStyle = getAlertStyle(getAlertLevel(route));
+  const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();
+  const alertStatus = getAlertStatus(route);
+  const alertStyle = getAlertStyle(alertStatus.alertLevel);
+  const isAlertOpen = selectedAlert === route;
 
   const onClickShowRouteOnMap = () => {
     showRouteOnMap(route);
@@ -98,7 +105,20 @@ export const ExpandableRouteRow = ({
             endDate: mapToShortDate(route.validity_end || MAX_DATE),
           })}
           {alertStyle.icon ? (
-            <i className={`${alertStyle.icon} ml-2 text-3xl`} />
+            <span>
+              <button type="button" onClick={() => setSelectedAlert(route)}>
+                <i className={`${alertStyle.icon} ml-2 text-3xl`} />
+              </button>
+              <Visible visible={isAlertOpen}>
+                <AlertPopover
+                  title={t(alertStatus.title, {
+                    type: t('routes.route'),
+                  })}
+                  description={t(alertStatus.description)}
+                  onClose={() => setSelectedAlert(undefined)}
+                />
+              </Visible>
+            </span>
           ) : (
             ''
           )}

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useAppDispatch,
@@ -33,6 +34,8 @@ export const RoutesAndLinesMainPage = (): JSX.Element => {
     toggleShowAllStops(true);
   };
 
+  const [selectedAlert, setSelectedAlert] = useState<unknown>();
+
   return (
     <Container>
       <Row>
@@ -50,7 +53,10 @@ export const RoutesAndLinesMainPage = (): JSX.Element => {
         </SimpleButton>
       </Row>
       <SearchContainer />
-      <RoutesAndLinesLists />
+      <RoutesAndLinesLists
+        selectedAlert={selectedAlert}
+        setSelectedAlert={setSelectedAlert}
+      />
     </Container>
   );
 };

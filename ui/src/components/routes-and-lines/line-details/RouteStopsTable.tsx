@@ -14,9 +14,17 @@ interface Props {
   className?: string;
   routes: RouteUniqueFieldsFragment[];
   testId?: string;
+  selectedAlert?: unknown;
+  setSelectedAlert: (selectedAlert: unknown | undefined) => void;
 }
 
-export const RouteStopsTable = ({ className = '', routes, testId }: Props) => {
+export const RouteStopsTable = ({
+  className = '',
+  routes,
+  testId,
+  selectedAlert,
+  setSelectedAlert,
+}: Props) => {
   const { t } = useTranslation();
   const [showUnusedStops, setShowUnusedStops] = useState(false);
 
@@ -44,6 +52,8 @@ export const RouteStopsTable = ({ className = '', routes, testId }: Props) => {
               key={item.route_id}
               routeUniqueFields={item}
               showUnusedStops={showUnusedStops}
+              selectedAlert={selectedAlert}
+              setSelectedAlert={setSelectedAlert}
             />
           );
         })}

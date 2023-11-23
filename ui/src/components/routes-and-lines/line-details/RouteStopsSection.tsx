@@ -24,12 +24,16 @@ interface Props {
   className?: string;
   routeUniqueFields: RouteUniqueFieldsFragment;
   showUnusedStops: boolean;
+  selectedAlert?: unknown;
+  setSelectedAlert: (selectedAlert: unknown | undefined) => void;
 }
 
 export const RouteStopsSection = ({
   className = '',
   routeUniqueFields,
   showUnusedStops,
+  selectedAlert,
+  setSelectedAlert,
 }: Props): JSX.Element => {
   const [isExpanded, expand] = useState(false);
   const { t } = useTranslation();
@@ -118,6 +122,8 @@ export const RouteStopsSection = ({
         observationDate={observationDate}
         isExpanded={isExpanded}
         onToggle={onToggle}
+        selectedAlert={selectedAlert}
+        setSelectedAlert={setSelectedAlert}
       />
       {isExpanded &&
         displayedStops.map((item, index) => (
@@ -130,6 +136,8 @@ export const RouteStopsSection = ({
             routeId={route.route_id}
             onAddToRoute={onAddToRoute}
             onRemoveFromRoute={onRemoveFromRoute}
+            selectedAlert={selectedAlert}
+            setSelectedAlert={setSelectedAlert}
           />
         ))}
     </tbody>

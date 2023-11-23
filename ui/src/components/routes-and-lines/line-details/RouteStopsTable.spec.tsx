@@ -1,5 +1,6 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, screen } from '@testing-library/react';
+import noop from 'lodash/noop';
 import { DateTime } from 'luxon';
 import { act } from 'react-dom/test-utils';
 import { GetRouteDetailsByIdDocument } from '../../../generated/graphql';
@@ -552,7 +553,12 @@ describe(`<${RouteStopsTable.name} />`, () => {
   test('Renders the route with stops along its geometry', async () => {
     const { container, asFragment } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <RouteStopsTable testId={testId} routes={routes} />
+        <RouteStopsTable
+          testId={testId}
+          routes={routes}
+          selectedAlert={undefined}
+          setSelectedAlert={noop}
+        />
       </MockedProvider>,
     );
 

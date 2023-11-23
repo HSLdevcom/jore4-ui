@@ -1,4 +1,5 @@
 import { buildLocalizedString, buildRoute } from '@hsl/jore4-test-db-manager';
+import noop from 'lodash/noop';
 import {
   LineTableRowFragment,
   RouteDirectionEnum,
@@ -38,6 +39,8 @@ describe(`<${RoutesTable.name} />`, () => {
             rowVariant={RouteLineTableRowVariant.RoutesAndLines}
             key={item.route_id}
             route={item}
+            selectedAlert={undefined}
+            setSelectedAlert={noop}
           />
         ))}
       </RoutesTable>,
@@ -56,6 +59,8 @@ describe(`<${RoutesTable.name} />`, () => {
             rowVariant={RouteLineTableRowVariant.Timetables}
             key={item.route_id}
             route={item}
+            selectedAlert={undefined}
+            setSelectedAlert={noop}
           />
         ))}
       </RoutesTable>,
@@ -113,6 +118,8 @@ describe(`<${RoutesTable.name} />`, () => {
             rowVariant={RouteLineTableRowVariant.RoutesAndLines}
             key={item.line_id}
             line={item}
+            selectedAlert={undefined}
+            setSelectedAlert={noop}
           />
         ))}
       </RoutesTable>,

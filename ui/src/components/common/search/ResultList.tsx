@@ -14,6 +14,8 @@ interface Props {
   routes?: RouteTableRowFragment[];
   displayedType: DisplayedSearchResultType;
   rowVariant: RouteLineTableRowVariant;
+  selectedAlert?: unknown;
+  setSelectedAlert: (selectedAlert: unknown | undefined) => void;
 }
 
 /** Depending on displayedType this component will return the
@@ -24,6 +26,8 @@ export const ResultList = ({
   routes,
   displayedType,
   rowVariant,
+  selectedAlert,
+  setSelectedAlert,
 }: Props): JSX.Element => {
   const { isSelectingRoutesForExport } = useAppSelector(selectExport);
 
@@ -34,6 +38,8 @@ export const ResultList = ({
           lines={lines}
           rowVariant={rowVariant}
           areItemsSelectable={isSelectingRoutesForExport}
+          selectedAlert={selectedAlert}
+          setSelectedAlert={setSelectedAlert}
         />
       );
     case DisplayedSearchResultType.Routes:
@@ -42,6 +48,8 @@ export const ResultList = ({
           rowVariant={rowVariant}
           routes={routes}
           areItemsSelectable={isSelectingRoutesForExport}
+          selectedAlert={selectedAlert}
+          setSelectedAlert={setSelectedAlert}
         />
       );
     default:

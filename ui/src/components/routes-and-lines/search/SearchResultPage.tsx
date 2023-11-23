@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearch, useSearchResults } from '../../../hooks';
 import { useBasePath } from '../../../hooks/useBasePath';
@@ -23,6 +24,8 @@ export const SearchResultPage = (): JSX.Element => {
 
   const displayedLines = getPaginatedData(lines, itemsPerPage);
   const displayedRoutes = getPaginatedData(reducedRoutes, itemsPerPage);
+
+  const [selectedAlert, setSelectedAlert] = useState<unknown>();
 
   const testIds = {
     container: 'SearchResultsPage::Container',
@@ -75,6 +78,8 @@ export const SearchResultPage = (): JSX.Element => {
           routes={displayedRoutes}
           rowVariant={displayInformation.rowVariant}
           displayedType={queryParameters.filter.displayedType}
+          selectedAlert={selectedAlert}
+          setSelectedAlert={setSelectedAlert}
         />
         <Visible visible={!!resultCount}>
           <div className="grid grid-cols-4">

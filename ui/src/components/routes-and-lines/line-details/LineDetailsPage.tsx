@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../generated/graphql';
 import {
@@ -68,6 +69,8 @@ export const LineDetailsPage = (): JSX.Element => {
       displayedRouteLabels?.includes(route.label),
     ) || [];
 
+  const [selectedAlert, setSelectedAlert] = useState<unknown>();
+
   return (
     <div>
       <PageHeader className={getHeaderBorderClassName()}>
@@ -87,7 +90,11 @@ export const LineDetailsPage = (): JSX.Element => {
             <Column className="w-full">
               <h1 className="mt-8">{t('lines.routes')}</h1>
               {line.line_routes?.length > 0 ? (
-                <RouteStopsTable routes={displayedRoutes} />
+                <RouteStopsTable
+                  routes={displayedRoutes}
+                  selectedAlert={selectedAlert}
+                  setSelectedAlert={setSelectedAlert}
+                />
               ) : (
                 <CreateRouteBox onCreateRoute={onCreateRoute} />
               )}

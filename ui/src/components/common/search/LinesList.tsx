@@ -6,6 +6,8 @@ type Props = {
   lines?: LineTableRowFragment[];
   areItemsSelectable?: boolean;
   rowVariant: RouteLineTableRowVariant;
+  selectedAlert?: unknown;
+  setSelectedAlert: (selectedAlert: unknown | undefined) => void;
 };
 
 const testIds = {
@@ -16,15 +18,21 @@ export const LinesList = ({
   lines,
   areItemsSelectable = false,
   rowVariant,
-}: Props): JSX.Element => (
-  <RoutesTable testId={testIds.table}>
-    {lines?.map((item: LineTableRowFragment) => (
-      <LineTableRow
-        rowVariant={rowVariant}
-        key={item.line_id}
-        line={item}
-        isSelectable={areItemsSelectable}
-      />
-    ))}
-  </RoutesTable>
-);
+  selectedAlert,
+  setSelectedAlert,
+}: Props): JSX.Element => {
+  return (
+    <RoutesTable testId={testIds.table}>
+      {lines?.map((item: LineTableRowFragment) => (
+        <LineTableRow
+          rowVariant={rowVariant}
+          key={item.line_id}
+          line={item}
+          isSelectable={areItemsSelectable}
+          selectedAlert={selectedAlert}
+          setSelectedAlert={setSelectedAlert}
+        />
+      ))}
+    </RoutesTable>
+  );
+};

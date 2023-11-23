@@ -10,6 +10,7 @@ import { Column, Row, Visible } from '../../layoutComponents';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../time';
 import { LocatorButton } from '../../uiComponents';
+import { AlertPopover } from './AlertPopover';
 import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
 import { RouteLabel } from './RouteLabel';
@@ -36,6 +37,8 @@ interface Props {
   isSelected?: boolean;
   onSelectChanged?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selectionDisabled?: boolean;
+  selectedAlert?: unknown;
+  setSelectedAlert: (selectedAlert: unknown | undefined) => void;
   testId: string;
 }
 
@@ -96,13 +99,17 @@ export const RouteLineTableRow = ({
   rowVariant,
   isSelected,
   selectionDisabled = false,
+  selectedAlert,
+  setSelectedAlert,
   testId,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
 
-  const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
-  const alertStyle = getAlertStyle(getAlertLevel(rowItem));
+  const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();
+  const alertStatus = getAlertStatus(rowItem);
+  const alertStyle = getAlertStyle(alertStatus.alertLevel);
   const alertIcon = alertStyle.icon || 'icon-_-placeholder';
+  const isAlertOpen = selectedAlert === rowItem;
 
   const displayInformation = getDisplayInformation(
     rowVariant,
@@ -132,7 +139,16 @@ export const RouteLineTableRow = ({
         </td>
       </Visible>
       <td className={`${alertStyle.listItemBorder} ${yBorderClassnames} p-4`}>
-        <i className={`${alertIcon} my-auto flex text-3xl`} />
+        <button type="button" onClick={() => setSelectedAlert(rowItem)}>
+          <i className={`${alertIcon} my-auto flex text-3xl`} />
+        </button>
+        <Visible visible={isAlertOpen}>
+          <AlertPopover
+            title={t(alertStatus.title)}
+            description={t(alertStatus.description)}
+            onClose={() => setSelectedAlert(undefined)}
+          />
+        </Visible>
       </td>
       <td className={`w-full py-4 ${yBorderClassnames}`}>
         <Link

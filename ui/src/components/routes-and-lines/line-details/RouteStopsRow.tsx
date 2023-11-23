@@ -13,6 +13,7 @@ import {
   mapToShortDateTime,
 } from '../../../time';
 import { IconButton } from '../../../uiComponents';
+import { AlertPopover } from '../../common/AlertPopover';
 import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';
 
@@ -32,6 +33,8 @@ interface Props {
   routeId: UUID;
   onAddToRoute: (stopLabel: string) => void;
   onRemoveFromRoute: (stopLabel: string) => void;
+  selectedAlert?: unknown;
+  setSelectedAlert: (selectedAlert: unknown | undefined) => void;
 }
 
 export const RouteStopsRow = ({
@@ -40,6 +43,8 @@ export const RouteStopsRow = ({
   routeId,
   onAddToRoute,
   onRemoveFromRoute,
+  selectedAlert,
+  setSelectedAlert,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -59,9 +64,11 @@ export const RouteStopsRow = ({
   const isUsedAsTimingPoint =
     scheduledStopPointInJourneyPattern?.is_used_as_timing_point;
 
-  const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
-  const alertStyle = getAlertStyle(getAlertLevel(stop));
+  const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();
+  const alertStatus = getAlertStatus(stop);
+  const alertStyle = getAlertStyle(alertStatus.alertLevel);
   const hastusCode = stop.timing_place?.label;
+  const isAlertOpen = selectedAlert === stop;
 
   const journeyPatternId =
     scheduledStopPointInJourneyPattern?.journey_pattern_id;
@@ -113,7 +120,20 @@ export const RouteStopsRow = ({
               })
             : t('stops.notPartOfRoute')}
           {alertStyle.icon && (
-            <i className={`${alertStyle.icon} ml-2 text-3xl`} />
+            <span>
+              <button type="button" onClick={() => setSelectedAlert(stop)}>
+                <i className={`${alertStyle.icon} ml-2 text-3xl`} />
+              </button>
+              <Visible visible={isAlertOpen}>
+                <AlertPopover
+                  title={t(alertStatus.title, {
+                    type: t('routes.route'),
+                  })}
+                  description={t(alertStatus.description)}
+                  onClose={() => setSelectedAlert(undefined)}
+                />
+              </Visible>
+            </span>
           )}
         </Row>
       </td>
