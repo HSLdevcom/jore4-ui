@@ -20,6 +20,7 @@ import {
   EditButton,
   LocatorButton,
 } from '../../../uiComponents';
+import { AlertPopover } from '../../common/AlertPopover';
 import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from './DirectionBadge';
 
@@ -53,8 +54,9 @@ export const ExpandableRouteRow = ({
   const { t } = useTranslation();
   const { showRouteOnMap } = useShowRoutesOnModal();
 
-  const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
-  const alertStyle = getAlertStyle(getAlertLevel(route));
+  const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();
+  const alertStatus = getAlertStatus(route);
+  const alertStyle = getAlertStyle(alertStatus.alertLevel);
 
   const onClickShowRouteOnMap = () => {
     showRouteOnMap(route);
@@ -97,11 +99,15 @@ export const ExpandableRouteRow = ({
             startDate: mapToShortDate(route.validity_start || MIN_DATE),
             endDate: mapToShortDate(route.validity_end || MAX_DATE),
           })}
-          {alertStyle.icon ? (
-            <i className={`${alertStyle.icon} ml-2 text-3xl`} />
-          ) : (
-            ''
-          )}
+          <span>
+            <AlertPopover
+              title={t(alertStatus.title, {
+                type: t('routes.route'),
+              })}
+              description={t(alertStatus.description)}
+              alertIcon={alertStyle.icon}
+            />
+          </span>
         </Row>
       </td>
       <td className="p-4">

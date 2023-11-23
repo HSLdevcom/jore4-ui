@@ -115,6 +115,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               class="flex flex-row items-center justify-end"
             >
               Voimassa 1.1.2000 - 13.12.2050
+              <span />
             </div>
           </td>
           <td
@@ -336,6 +337,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               class="flex flex-row items-center justify-end"
             >
               Voimassa 1.1.2000 - 13.12.2050
+              <span />
             </div>
           </td>
           <td
@@ -783,6 +785,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               class="flex flex-row items-center justify-end"
             >
               Voimassa 1.1.2000 - 13.12.2050
+              <span />
             </div>
           </td>
           <td

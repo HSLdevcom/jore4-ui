@@ -13,6 +13,7 @@ import {
   mapToShortDateTime,
 } from '../../../time';
 import { IconButton } from '../../../uiComponents';
+import { AlertPopover } from '../../common/AlertPopover';
 import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';
 
@@ -59,8 +60,9 @@ export const RouteStopsRow = ({
   const isUsedAsTimingPoint =
     scheduledStopPointInJourneyPattern?.is_used_as_timing_point;
 
-  const { getAlertLevel, getAlertStyle } = useAlertsAndHighLights();
-  const alertStyle = getAlertStyle(getAlertLevel(stop));
+  const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();
+  const alertStatus = getAlertStatus(stop);
+  const alertStyle = getAlertStyle(alertStatus.alertLevel);
   const hastusCode = stop.timing_place?.label;
 
   const journeyPatternId =
@@ -113,7 +115,15 @@ export const RouteStopsRow = ({
               })
             : t('stops.notPartOfRoute')}
           {alertStyle.icon && (
-            <i className={`${alertStyle.icon} ml-2 text-3xl`} />
+            <span>
+              <AlertPopover
+                title={t(alertStatus.title, {
+                  type: t('routes.route'),
+                })}
+                description={t(alertStatus.description)}
+                alertIcon={alertStyle.icon}
+              />
+            </span>
           )}
         </Row>
       </td>
