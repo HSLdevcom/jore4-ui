@@ -295,6 +295,48 @@ const timetableDataInput = {
         },
       },
     },
+    year2024: {
+      validity_start: DateTime.fromISO('2024-01-01'),
+      validity_end: DateTime.fromISO('2024-12-31'),
+      name: '2024',
+      booking_label: '2024 booking label',
+      _vehicle_services: {
+        saturday: {
+          day_type_id: defaultDayTypeIds.SATURDAY,
+          _blocks: {
+            block: {
+              _vehicle_journeys: {
+                route99Inbound1: {
+                  _journey_pattern_ref_name: 'route99inbound',
+                  _passing_times: [
+                    {
+                      _scheduled_stop_point_label: 'H1231',
+                      arrival_time: null,
+                      departure_time: Duration.fromISO('PT7H10M'),
+                    },
+                    {
+                      _scheduled_stop_point_label: 'H1232',
+                      arrival_time: Duration.fromISO('PT7H12M'),
+                      departure_time: Duration.fromISO('PT7H12M'),
+                    },
+                    {
+                      _scheduled_stop_point_label: 'H1233',
+                      arrival_time: Duration.fromISO('PT7H19M'),
+                      departure_time: Duration.fromISO('PT7H23M'),
+                    },
+                    {
+                      _scheduled_stop_point_label: 'H1234',
+                      arrival_time: Duration.fromISO('PT7H27M'),
+                      departure_time: null,
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   },
 };
 
@@ -478,4 +520,40 @@ describe('Timetable validity period', () => {
       route99InboundTimetableSection.assertRouteHasNoSchedules();
     },
   );
+
+  context('Overlapping validity periods', () => {
+    it(
+      'Should not let the user extend the validity period so that it overlaps the validity period of another timetable with the same priority',
+      { tags: [Tag.Timetables] },
+      () => {
+        // View the 2023 timetable
+        cy.visit(
+          `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
+        );
+        const route99InboundTimetableSection = new RouteTimetablesSection(
+          '99',
+          'inbound',
+        );
+
+        const route99InboundSaturdayVehicleService = new VehicleServiceTable(
+          route99InboundTimetableSection,
+          'LA',
+        );
+        route99InboundSaturdayVehicleService.clickChangeValidityDate();
+
+        // Try to extend the 2023 timetable into 2024, that already has a schedule with standard priority
+        vehicleScheduleDetailsPage.changeTimetablesValidityForm.setValidityEndDate(
+          '2024-03-03',
+        );
+
+        vehicleScheduleDetailsPage.changeTimetablesValidityForm
+          .getSaveButton()
+          .click();
+
+        vehicleScheduleDetailsPage.toast.checkDangerToastHasMessage(
+          'Tallennus epäonnistui: GraphQL errors: conflicting schedules detected',
+        );
+      },
+    );
+  });
 });
