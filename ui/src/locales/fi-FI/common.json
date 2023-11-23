@@ -528,5 +528,15 @@
     "friday": "perjantai",
     "saturday": "lauantai",
     "sunday": "sunnuntai"
+  },
+  "alert": {
+    "important": {
+      "topic": "Voimassaolo päättymässä ilman jatkoa",
+      "description": "Voimassaolo päätty 20 päivän sisällä, eikä sen tilalle ole jatkavaa versiota."
+    },
+    "warning": {
+      "topic": "Väliaikainen versio vaihtuu",
+      "description": "Voimassaolo päättyy 20 päivän sisällä."
+    }
   }
 }
