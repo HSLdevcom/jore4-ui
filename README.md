@@ -386,6 +386,10 @@ It is possible to override tailwindcss styles by adding overriding classname aft
 
 It should be noted, that the order of classnames given to component does not automatically mean anything. The classes and styles are applied in the order that they are in the css file, which could be quite random and should not be relied on. For that reason we are using [tailwind-merge](https://www.npmjs.com/package/tailwind-merge) package, which takes the order in account and removes the classnames which are overridden. Therefore whenever classnames are used so that the order should be taken into account, `twMerge` function should be used to combine the classnames.
 
+## Loading state of async request handling / indication
+
+To have consistency and reduce duplicated code and passing loading states through components we use redux for the loading state of async requests. We have `enum Operation` in `loader.ts` which contains different async operations e.g. `ConfirmTimetablesImport`. When making an async request, you can use the `setLoadingAction` with the correct `Operation` to handle the state. After this you can use the state how you please, but if you want to show the global `LoadingOverlay`, just add the chosen `Operation` to `joreOperations` in `loader.ts`.
+
 ## Yarn workspaces / monorepo structure
 
 This repository has currently yarn workspaces in following folders:

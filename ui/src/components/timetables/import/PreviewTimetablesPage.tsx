@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
+  useAppSelector,
   useConfirmTimetablesImportUIAction,
   useTimetablesImport,
   useToggle,
@@ -13,6 +14,7 @@ import {
   useVehicleScheduleFrameWithRouteLabelAndLineId,
 } from '../../../hooks/timetables-import/deviations';
 import { Container, Row, Visible } from '../../../layoutComponents';
+import { selectIsJoreOperationLoading } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { AccordionButton, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
@@ -27,6 +29,7 @@ const testIds = {
     'PreviewTimetablesPage::toggleShowStagingTimetables',
   saveButton: 'PreviewTimetablesPage::saveButton',
   closePreviewButton: 'PreviewTimetablesPage::closePreviewButton',
+  loading: 'PrieviewTimetablesPage::LoadingOverlay',
 };
 
 export const PreviewTimetablesPage = (): JSX.Element => {
@@ -51,6 +54,8 @@ export const PreviewTimetablesPage = (): JSX.Element => {
       fetchVehicleFrames,
       fetchStagingVehicleFrameIds,
     );
+
+  const isLoading = useAppSelector(selectIsJoreOperationLoading);
   const vehicleJourneyCount = vehicleJourneys?.length || 0;
   const importedTimetablesExist = vehicleJourneyCount > 0;
   // Default might be set incorrectly if data has not been fetched for the form.
@@ -133,6 +138,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
           <SimpleButton
             inverted
             testId={testIds.closePreviewButton}
+            disabled={isLoading}
             href={Path.timetablesImport}
           >
             {t('timetablesPreview.closePreview')}
@@ -140,7 +146,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
           <SimpleButton
             testId={testIds.saveButton}
             onClick={onSave}
-            disabled={!importedTimetablesExist}
+            disabled={!importedTimetablesExist || isLoading}
           >
             {t('timetablesPreview.save')}
           </SimpleButton>

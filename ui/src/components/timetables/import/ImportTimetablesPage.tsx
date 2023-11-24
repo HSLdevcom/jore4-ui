@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../../hooks';
 import { useTimetablesImport } from '../../../hooks/timetables-import/useTimetablesImport';
 import { Container, Row } from '../../../layoutComponents';
+import { selectIsJoreOperationLoading } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import {
   CloseIconButton,
@@ -20,6 +22,7 @@ const testIds = {
   saveButton: 'ImportTimetablesPage::saveButton',
   previewButton: 'ImportTimetablesPage::previewButton',
   closeButton: 'ImportTimetablesPage::closeButton',
+  loading: 'ImportTimetablesPage::LoadingOverlay',
 };
 
 export const ImportTimetablesPage = (): JSX.Element => {
@@ -33,10 +36,11 @@ export const ImportTimetablesPage = (): JSX.Element => {
   } = useTimetablesImport();
 
   const [fileList, setFileList] = useState<File[] | null>(null);
-  const [isSendingToHastus, setIsSendingToHastus] = useState(false);
   const [isAbortImportModalOpen, setIsAbortImportModalOpen] = useState(false);
   const [isConfirmImportModalOpen, setIsConfirmImportModalOpen] =
     useState(false);
+
+  const isLoading = useAppSelector(selectIsJoreOperationLoading);
 
   const handleClose = () => {
     navigate(Path.timetables);
@@ -65,10 +69,8 @@ export const ImportTimetablesPage = (): JSX.Element => {
 
   const handleUpload = async () => {
     if (fileList?.length) {
-      setIsSendingToHastus(true);
       const result = await sendToHastusImporter(fileList);
       setFileList(result.failedFiles);
-      setIsSendingToHastus(false);
     }
   };
 
@@ -89,29 +91,29 @@ export const ImportTimetablesPage = (): JSX.Element => {
         <SimpleButton
           testId={testIds.uploadButton}
           onClick={handleUpload}
-          disabled={!fileList?.length || isSendingToHastus}
+          disabled={!fileList?.length || isLoading}
         >
           {t('import.uploadFiles')}
         </SimpleButton>
         <div className="flex justify-end space-x-4">
           <SimpleButton
-            disabled={!importedTimetablesExist || isSendingToHastus}
             testId={testIds.abortButton}
             onClick={openAbortImportModal}
+            disabled={!importedTimetablesExist || isLoading}
           >
             {t('import.abort')}
           </SimpleButton>
           <SimpleButton
             testId={testIds.saveButton}
-            disabled={!importedTimetablesExist || isSendingToHastus}
             onClick={openConfirmImportModal}
+            disabled={!importedTimetablesExist || isLoading}
           >
             {t('save')}
           </SimpleButton>
           <SimpleButton
             testId={testIds.previewButton}
             href={Path.timetablesImportPreview}
-            disabled={!importedTimetablesExist || isSendingToHastus}
+            disabled={!importedTimetablesExist || isLoading}
           >
             {t('import.openPreview')}
           </SimpleButton>
