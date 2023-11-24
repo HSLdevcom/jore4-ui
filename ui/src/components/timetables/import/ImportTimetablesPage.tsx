@@ -16,7 +16,7 @@ import { FileImportDragAndDrop } from './FileImportDragAndDrop';
 
 const testIds = {
   uploadButton: 'ImportTimetablesPage::uploadButton',
-  cancelButton: 'ImportTimetablesPage::cancelButton',
+  abortButton: 'ImportTimetablesPage::abortButton',
   saveButton: 'ImportTimetablesPage::saveButton',
   previewButton: 'ImportTimetablesPage::previewButton',
   closeButton: 'ImportTimetablesPage::closeButton',
@@ -29,13 +29,12 @@ export const ImportTimetablesPage = (): JSX.Element => {
     vehicleJourneys,
     vehicleScheduleFrames,
     sendToHastusImporter,
-    cancelTimetablesImport,
+    abortTimetablesImport,
   } = useTimetablesImport();
 
   const [fileList, setFileList] = useState<File[] | null>(null);
   const [isSendingToHastus, setIsSendingToHastus] = useState(false);
-  const [isCancelingImportModalOpen, setIsCancelingImportModalOpen] =
-    useState(false);
+  const [isAbortImportModalOpen, setIsAbortImportModalOpen] = useState(false);
   const [isConfirmImportModalOpen, setIsConfirmImportModalOpen] =
     useState(false);
 
@@ -43,18 +42,18 @@ export const ImportTimetablesPage = (): JSX.Element => {
     navigate(Path.timetables);
   };
 
-  const openCancelImportModal = () => {
-    setIsCancelingImportModalOpen(true);
+  const openAbortImportModal = () => {
+    setIsAbortImportModalOpen(true);
   };
 
-  const onConfirmCancelingImport = async () => {
+  const onConfirmAbortImport = async () => {
     try {
-      await cancelTimetablesImport(
+      await abortTimetablesImport(
         vehicleScheduleFrames.map((vsf) => vsf.vehicle_schedule_frame_id),
       );
 
-      setIsCancelingImportModalOpen(false);
-      showSuccessToast(t('import.cancelledSuccessfully'));
+      setIsAbortImportModalOpen(false);
+      showSuccessToast(t('import.abortedSuccessfully'));
     } catch (err) {
       showDangerToastWithError(t('errors.saveFailed'), err);
     }
@@ -96,16 +95,16 @@ export const ImportTimetablesPage = (): JSX.Element => {
         </SimpleButton>
         <div className="flex justify-end space-x-4">
           <SimpleButton
-            testId={testIds.cancelButton}
-            onClick={openCancelImportModal}
             disabled={!importedTimetablesExist || isSendingToHastus}
+            testId={testIds.abortButton}
+            onClick={openAbortImportModal}
           >
-            {t('import.cancel')}
+            {t('import.abort')}
           </SimpleButton>
           <SimpleButton
             testId={testIds.saveButton}
-            onClick={openConfirmImportModal}
             disabled={!importedTimetablesExist || isSendingToHastus}
+            onClick={openConfirmImportModal}
           >
             {t('save')}
           </SimpleButton>
@@ -119,14 +118,14 @@ export const ImportTimetablesPage = (): JSX.Element => {
         </div>
       </FormRow>
       <ConfirmationDialog
-        isOpen={isCancelingImportModalOpen}
-        onCancel={() => setIsCancelingImportModalOpen(false)}
-        onConfirm={onConfirmCancelingImport}
+        isOpen={isAbortImportModalOpen}
+        onCancel={() => setIsAbortImportModalOpen(false)}
+        onConfirm={onConfirmAbortImport}
         widthClassName="max-w-md"
-        title={t('confirmTimetablesCancelImportDialog.title')}
-        description={t('confirmTimetablesCancelImportDialog.description')}
-        confirmText={t('confirmTimetablesCancelImportDialog.confirm')}
-        cancelText={t('confirmTimetablesCancelImportDialog.cancel')}
+        title={t('confirmTimetablesAbortImportDialog.title')}
+        description={t('confirmTimetablesAbortImportDialog.description')}
+        confirmText={t('confirmTimetablesAbortImportDialog.confirm')}
+        cancelText={t('confirmTimetablesAbortImportDialog.abort')}
       />
       <ConfirmTimetablesImportModal
         isOpen={isConfirmImportModalOpen}
