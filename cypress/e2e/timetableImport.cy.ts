@@ -1,21 +1,21 @@
 import {
   GetInfrastructureLinksByExternalIdsResult,
+  InfraLinkAlongRouteInsertInput,
+  JourneyPatternInsertInput,
+  LineInsertInput,
+  RouteDirectionEnum,
+  RouteInsertInput,
+  RouteTypeOfLineEnum,
+  StopInJourneyPatternInsertInput,
+  StopInsertInput,
+  TimetablePriority,
   buildLine,
   buildRoute,
   buildStop,
   buildStopInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
-  InfraLinkAlongRouteInsertInput,
-  JourneyPatternInsertInput,
-  LineInsertInput,
   mapToGetInfrastructureLinksByExternalIdsQuery,
-  RouteDirectionEnum,
-  RouteInsertInput,
-  StopInJourneyPatternInsertInput,
-  RouteTypeOfLineEnum,
-  StopInsertInput,
-  TimetablePriority,
 } from '@hsl/jore4-test-db-manager';
 import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
@@ -25,18 +25,18 @@ import {
   Navbar,
   PassingTimesByStopSection,
   PreviewTimetablesPage,
-  RoutesAndLinesPage,
   RouteTimetablesSection,
-  TimetablesMainpage,
+  RoutesAndLinesPage,
   TimetableVersionsPage,
-  VehicleServiceTable,
+  TimetablesMainpage,
   VehicleScheduleDetailsPage,
+  VehicleServiceTable,
 } from '../pageObjects';
 import { UUID } from '../types';
 import {
+  SupportedResources,
   insertToDbHelper,
   removeFromDbHelper,
-  SupportedResources,
 } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
@@ -953,7 +953,7 @@ describe('Timetable import', () => {
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
         );
-        importTimetablesPage.getCancelButton().click();
+        importTimetablesPage.getAbortButton().click();
         importTimetablesPage.confirmationDialog.getConfirmButton().click();
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           'Aikataulujen tuonti keskeytetty',

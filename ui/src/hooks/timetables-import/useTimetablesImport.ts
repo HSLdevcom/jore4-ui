@@ -196,7 +196,7 @@ export const useTimetablesImport = () => {
     await importedVehicleScheduleFramesResult.refetch();
   };
 
-  const cancelTimetablesImport = async (stagingFrameIdsToDelete: UUID[]) => {
+  const abortTimetablesImport = async (stagingFrameIdsToDelete: UUID[]) => {
     // Note: this also deletes all the children of the staging frames, because of cascade delete.
     await deleteStagingTimetables(
       mapToVariables({
@@ -275,7 +275,7 @@ export const useTimetablesImport = () => {
   return {
     confirmTimetablesImportByCombining,
     confirmTimetablesImportByReplacing,
-    cancelTimetablesImport,
+    abortTimetablesImport,
     vehicleJourneys,
     vehicleScheduleFrames,
     sendToHastusImporter,

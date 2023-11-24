@@ -6,8 +6,8 @@ export class ImportTimetablesPage {
 
   confirmationDialog = new ConfirmationDialog();
 
-  getCancelButton() {
-    return cy.getByTestId('ImportTimetablesPage::cancelButton');
+  getAbortButton() {
+    return cy.getByTestId('ImportTimetablesPage::abortButton');
   }
 
   getSaveButton() {
@@ -29,7 +29,7 @@ export class ImportTimetablesPage {
   }
 
   verifyImportFormButtonsDisabled = () => {
-    this.getCancelButton().should('be.disabled');
+    this.getAbortButton().should('be.disabled');
     this.getSaveButton().should('be.disabled');
     this.getPreviewButton()
       // This "button" is not actually a <button> so doesn't (and can't) have disabled attribute.
