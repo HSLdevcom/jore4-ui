@@ -414,11 +414,11 @@
     "modified": "Modified",
     "modifier": "Modifier"
   },
-  "confirmTimetablesCancelImportDialog": {
-    "title": "Cancel importing timetables",
+  "confirmTimetablesAbortImportDialog": {
+    "title": "Abort importing timetables",
     "description": "The imported timetables will not be saved to JORE.",
-    "cancel": "Do not cancel",
-    "confirm": "Cancel import"
+    "abort": "Do not abort",
+    "confirm": "Abort import"
   },
   "confirmTimetablesImportModal": {
     "title": "Save changes",
@@ -442,8 +442,8 @@
     "specialDayMixedPrioritiesWarning1": "Imported timetables contain special days and other timetables.",
     "specialDayMixedPrioritiesWarning2": "Importing not possible. Cancel the import and import one day priority timetables separately.",
     "dragAndDrop": "Drag and drop Hastus files or",
-    "cancel": "Cancel",
-    "cancelledSuccessfully": "Timetables import cancelled.",
+    "abort": "Abort",
+    "abortedSuccessfully": "Timetables import aborted.",
     "openPreview": "Open preview",
     "uploadFiles": "Upload files",
     "browse": "Browse",
