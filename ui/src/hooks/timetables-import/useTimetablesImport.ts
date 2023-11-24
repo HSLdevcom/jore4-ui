@@ -8,12 +8,14 @@ import {
   useGetStagingVehicleScheduleFramesQuery,
   useReplaceTimetablesMutation,
 } from '../../generated/graphql';
+import { Operation } from '../../redux';
 import { TimetablePriority } from '../../types/enums';
 import {
   mapToVariables,
   showDangerToastWithError,
   showSuccessToast,
 } from '../../utils';
+import { useLoader } from '../ui';
 
 const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
   fragment vehicle_journey_with_route_info on timetables_vehicle_journey_vehicle_journey {
@@ -164,6 +166,15 @@ export const useTimetablesImport = () => {
   const [replaceTimetables] = useReplaceTimetablesMutation();
   const [deleteStagingTimetables] = useDeleteStagingTimetablesMutation();
 
+  const { setIsLoading: setIsUploadLoading } = useLoader(
+    Operation.UploadFilesToHastusImport,
+  );
+  const { setIsLoading: setIsAbortLoading } = useLoader(Operation.AbortImport);
+
+  const { setIsLoading: setIsImportLoading } = useLoader(
+    Operation.ConfirmTimetablesImport,
+  );
+
   const importedVehicleScheduleFramesResult =
     useGetStagingVehicleScheduleFramesQuery();
 
@@ -171,6 +182,7 @@ export const useTimetablesImport = () => {
     stagingVehicleScheduleFrameIdsToCombine: UUID[],
     priority: TimetablePriority,
   ) => {
+    setIsImportLoading(true);
     await combineTimetables(
       mapToVariables({
         stagingVehicleScheduleFrameIds: stagingVehicleScheduleFrameIdsToCombine,
@@ -179,12 +191,14 @@ export const useTimetablesImport = () => {
     );
 
     await importedVehicleScheduleFramesResult.refetch();
+    setIsImportLoading(false);
   };
 
   const confirmTimetablesImportByReplacing = async (
     stagingVehicleScheduleFrameIdsForReplace: UUID[],
     priority: TimetablePriority,
   ) => {
+    setIsImportLoading(true);
     await replaceTimetables(
       mapToVariables({
         stagingVehicleScheduleFrameIds:
@@ -194,10 +208,12 @@ export const useTimetablesImport = () => {
     );
 
     await importedVehicleScheduleFramesResult.refetch();
+    setIsImportLoading(false);
   };
 
   const abortTimetablesImport = async (stagingFrameIdsToDelete: UUID[]) => {
     // Note: this also deletes all the children of the staging frames, because of cascade delete.
+    setIsAbortLoading(true);
     await deleteStagingTimetables(
       mapToVariables({
         stagingVehicleScheduleFrameIds: stagingFrameIdsToDelete,
@@ -205,6 +221,7 @@ export const useTimetablesImport = () => {
     );
     // All staging frames have been deleted -> refetch them to update view.
     await importedVehicleScheduleFramesResult.refetch();
+    setIsAbortLoading(false);
   };
 
   const vehicleScheduleFrames =
@@ -225,6 +242,7 @@ export const useTimetablesImport = () => {
   const sendToHastusImporter = async (fileList: File[]) => {
     const failedFiles: File[] = [];
     const successfulFiles: File[] = [];
+    setIsUploadLoading(true);
     // TODO: Currently sending multiple files at once fails. Only one will go through.
     // This might need changes to API as well, if we want to implement this.
     // Currently (27.3.2023), this is sufficient implementation for MVP
@@ -245,7 +263,9 @@ export const useTimetablesImport = () => {
             );
           });
       }),
-    );
+    ).finally(() => {
+      setIsUploadLoading(false);
+    });
 
     await importedVehicleScheduleFramesResult.refetch();
 
