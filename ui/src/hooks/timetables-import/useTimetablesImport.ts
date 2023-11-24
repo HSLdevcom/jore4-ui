@@ -227,9 +227,7 @@ export const useTimetablesImport = () => {
   const sendToHastusImporter = async (fileList: File[]) => {
     const failedFiles: HastusImportFailure[] = [];
     const successfulFiles: File[] = [];
-    // TODO: Currently sending multiple files at once fails. Only one will go through.
-    // This might need changes to API as well, if we want to implement this.
-    // Currently (27.3.2023), this is sufficient implementation for MVP
+
     await Promise.all(
       fileList.map(async (file: File) => {
         await sendFileToHastusImporter(file)
