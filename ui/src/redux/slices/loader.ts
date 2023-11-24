@@ -10,6 +10,8 @@ export enum Operation {
   CheckBrokenRoutes = 'checkBrokenRoutes',
   SaveTimingPlace = 'saveTimingPlace',
   ConfirmTimetablesImport = 'confirmTimetablesImport',
+  UploadFilesToHastusImport = 'uploadFilesToHastusImport',
+  AbortImport = 'abortImport',
 }
 
 export const mapOperations = [
@@ -22,6 +24,14 @@ export const mapOperations = [
   Operation.CheckBrokenRoutes,
   Operation.SaveTimingPlace,
 ];
+
+export const importOperations = [
+  Operation.ConfirmTimetablesImport,
+  Operation.UploadFilesToHastusImport,
+  Operation.AbortImport,
+];
+
+export const joreOperations = [...importOperations];
 
 type IState = {
   [key in Operation]: boolean;
@@ -37,6 +47,8 @@ const initialState: IState = {
   [Operation.CheckBrokenRoutes]: false,
   [Operation.SaveTimingPlace]: false,
   [Operation.ConfirmTimetablesImport]: false,
+  [Operation.UploadFilesToHastusImport]: false,
+  [Operation.AbortImport]: false,
 };
 
 const slice = createSlice({
