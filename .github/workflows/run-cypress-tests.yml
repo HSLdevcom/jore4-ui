@@ -31,25 +31,7 @@ jobs:
         run: |
           sudo apt-get -yqq install postgresql-client
 
-      - name: Seed db1 with infrastructure links
-        env:
-          DUMP_PATH: ./test-db-manager/src/dumps/infraLinks/infraLinks.sql
-        run: |
-          psql postgresql://dbadmin:adminpassword@localhost:6532/jore4e2e < ${{ env.DUMP_PATH }}
-
-      - name: Seed db2 with infrastructure links
-        env:
-          DUMP_PATH: ./test-db-manager/src/dumps/infraLinks/infraLinks.sql
-        run: |
-          psql postgresql://dbadmin:adminpassword@localhost:6533/jore4e2e < ${{ env.DUMP_PATH }}
-
-      - name: Seed db3 with infrastructure links
-        env:
-          DUMP_PATH: ./test-db-manager/src/dumps/infraLinks/infraLinks.sql
-        run: |
-          psql postgresql://dbadmin:adminpassword@localhost:6534/jore4e2e < ${{ env.DUMP_PATH }}
-
-      - name: Seed db4 with infrastructure links
+      - name: Seed db with infrastructure links
         env:
           DUMP_PATH: ./test-db-manager/src/dumps/infraLinks/infraLinks.sql
         run: |
