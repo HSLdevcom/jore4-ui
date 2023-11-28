@@ -1,5 +1,3 @@
-import { CurrentExecutorIndex } from './db-helpers/enums';
-
 export interface DatabaseConnectionInfo {
   host: string;
   port: number;
@@ -8,38 +6,32 @@ export interface DatabaseConnectionInfo {
   database: string;
 }
 
-const testDbPort: Record<CurrentExecutorIndex, number> = {
-  [CurrentExecutorIndex.e2e1]: 6532,
-  [CurrentExecutorIndex.e2e2]: 6533,
-  [CurrentExecutorIndex.e2e3]: 6534,
-  [CurrentExecutorIndex.default]: 6432,
+const testDbPort = {
+  local_e2e: 6532,
+  local_dev: 6432,
+  ci: 5432,
 };
 
-const ciTestDbHost: Record<CurrentExecutorIndex, string> = {
-  [CurrentExecutorIndex.e2e1]: 'jore4-testdb-e2e1',
-  [CurrentExecutorIndex.e2e2]: 'jore4-testdb-e2e2',
-  [CurrentExecutorIndex.e2e3]: 'jore4-testdb-e2e3',
-  [CurrentExecutorIndex.default]: 'jore4-testdb',
+const testDbHost = {
+  local: '127.0.0.1',
+  ci: 'jore4-testdb',
 };
 
 const getTestDbPort = () => {
-  const currentExecutorIndex =
-    process.env.CYPRESS_THREAD || CurrentExecutorIndex.default;
-
-  if (process.env.CI) {
-    return '5432';
+  if (process.env.CI === '1') {
+    return testDbPort.ci;
   }
-  return testDbPort[currentExecutorIndex];
+  if (process.env.CI === undefined && process.env.CYPRESS === 'true') {
+    return testDbPort.local_e2e;
+  }
+  return testDbPort.local_dev;
 };
 
 const getTestDbHost = () => {
-  const currentExecutorIndex =
-    process.env.CYPRESS_THREAD || CurrentExecutorIndex.default;
-
-  if (process.env.CI) {
-    return ciTestDbHost[currentExecutorIndex];
+  if (process.env.CI === '1') {
+    return testDbHost.ci;
   }
-  return '127.0.0.1';
+  return testDbHost.local;
 };
 
 export const e2eDatabaseConfig: DatabaseConnectionInfo = {
