@@ -10,6 +10,7 @@ interface Props {
   description: string;
   httpCode?: number;
   httpText?: string;
+  className?: string;
 }
 
 export const ErrorDialogItem: React.FC<Props> = ({
@@ -17,9 +18,10 @@ export const ErrorDialogItem: React.FC<Props> = ({
   description,
   httpCode,
   httpText,
+  className = '',
 }) => {
   return (
-    <article className="my-3 mr-5 rounded-sm bg-slate-100 px-4 py-3">
+    <article className={`rounded-sm bg-slate-100 px-4 py-3 ${className}`}>
       {customTitle && <h5 className="inline">{customTitle}</h5>}
       <div className="pl-3">
         <Dialog.Description

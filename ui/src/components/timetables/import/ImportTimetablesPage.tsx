@@ -164,19 +164,13 @@ export const ImportTimetablesPage = (): JSX.Element => {
       />
       <ErrorDialog
         isOpen={hasErrors}
-        onCancel={() => setImportErrors([])}
-        title={
-          errorList.length > 1
-            ? t('import.multipleErrors')
-            : t('import.fileUploadFailed', {
-                filename: fileList?.length ? fileList[0].name : '',
-              })
-        }
+        onClose={() => setImportErrors([])}
+        title={t('import.errorDialogTitle')}
         widthClassName="max-w-2xl"
       >
         {errorList.map((error) => (
           <ErrorDialogItem
-            customTitle={errorList.length === 1 ? '' : error.name}
+            customTitle={error.name}
             description={error.reason}
             httpCode={error.httpStatus}
             httpText={error.httpText}
