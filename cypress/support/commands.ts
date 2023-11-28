@@ -26,6 +26,13 @@
 
 import { CurrentExecutorIndex } from '@hsl/jore4-test-db-manager';
 
+const getExecutorIndex = () => {
+  if (Cypress.env('CI') === undefined && Cypress.env('CYPRESS') === 'true') {
+    return CurrentExecutorIndex.e2e1;
+  }
+  return CurrentExecutorIndex.default;
+};
+
 Cypress.Commands.add('getByTestId', (selector, ...args) => {
   return cy.get(`[data-testid="${selector}"]`, ...args);
 });
@@ -80,14 +87,14 @@ Cypress.Commands.add('setupMapTiles', () => {
     if (req.body && req.body.operationName) {
       // eslint-disable-next-line no-param-reassign
       req.alias = `gql${req.body.operationName}`;
-      // default instance = thread4, e2e1 = thread1, etc
-      const currentExecutorIndex =
-        Cypress.env('CYPRESS_THREAD') || CurrentExecutorIndex.default;
+
+      const executorIndex = getExecutorIndex();
+
       Cypress.log({
-        message: `UI Hasura executor index, ${currentExecutorIndex}`,
+        message: `UI Hasura executor index, ${executorIndex}`,
       });
       // eslint-disable-next-line no-param-reassign
-      req.headers['X-Environment'] = `e2e${currentExecutorIndex}`;
+      req.headers['X-Environment'] = `e2e${executorIndex}`;
       req.continue();
     }
   });
@@ -95,28 +102,28 @@ Cypress.Commands.add('setupMapTiles', () => {
   cy.intercept('POST', '/api/hastus/import', (req) => {
     // eslint-disable-next-line no-param-reassign
     req.alias = 'hastusImport';
-    // default instance = thread4, e2e1 = thread1, etc
-    const currentExecutorIndex =
-      Cypress.env('CYPRESS_THREAD') || CurrentExecutorIndex.default;
+
+    const executorIndex = getExecutorIndex();
+
     Cypress.log({
-      message: `Hastus executor index, ${currentExecutorIndex}`,
+      message: `Hastus executor index, ${executorIndex}`,
     });
     // eslint-disable-next-line no-param-reassign
-    req.headers['x-Environment'] = `e2e${currentExecutorIndex}`;
+    req.headers['x-Environment'] = `e2e${executorIndex}`;
     req.continue();
   });
 
   cy.intercept('POST', '/api/hastus/export/**', (req) => {
     // eslint-disable-next-line no-param-reassign
     req.alias = 'hastusExport';
-    // default instance = thread4, e2e1 = thread1, etc
-    const currentExecutorIndex =
-      Cypress.env('CYPRESS_THREAD') || CurrentExecutorIndex.default;
+
+    const executorIndex = getExecutorIndex();
+
     Cypress.log({
-      message: `Hastus executor index, ${currentExecutorIndex}`,
+      message: `Hastus executor index, ${executorIndex}`,
     });
     // eslint-disable-next-line no-param-reassign
-    req.headers['x-Environment'] = `e2e${currentExecutorIndex}`;
+    req.headers['x-Environment'] = `e2e${executorIndex}`;
     req.continue();
   });
 

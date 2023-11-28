@@ -111,17 +111,12 @@ We have those because sometimes there is need to do e.g. complex graphql queries
 Failed tests that have been run headlessly can be investigated visually by looking at videos and screenshots at `./cypress/reports`. Videos are disabled by default, and can be enabled in `cypress.config.ts` by setting the value of the `video` property to `true`.
 Anyway, debugging is generally easier when Cypress is opened with browser as then you can poke around with browsers devtools.
 
-### Local e2e test parallellization
+### Separate database in local e2e tests
 
-- Cypress e2e tests can be run in parallel locally with the `yarn test:e2e:parallel` command. Parallel execution is built using the [cypress-parallel](https://github.com/tnicola/cypress-parallel) library.
-- Parallel execution is not enabled in the CI currently.
-- Currently tests can be run in a maximum of three threads.
-- Parallel execution in three threads requires three separate instances of the `hasura` and `testdb` containers. These are started by default by the `start-dependencies.sh` script.
-- Routing of requests in parallel execution is handled in the following files: `jore4-ui/test-db-manager/src/hasuraApi.ts`, `jore4-ui/test-db-manager/src/config.ts`, `jore4-ui/cypress/support/commands.ts`, `nginx.conf`
+- Running e2e tests using a separate database requires additional instances of the `hasura`, `timetablesapi` and `testdb` containers. These are started by default by the `start-dependencies.sh` script.
+- Routing of requests in e2e test execution is handled in the following files: `jore4-ui/test-db-manager/src/hasuraApi.ts`, `jore4-ui/test-db-manager/src/config.ts`, `jore4-ui/cypress/support/commands.ts`, `nginx.conf`
 
-During parallel test execution Cypress assigns a value to `x-Environment` header value based on the current Cypress thread. Possible values are `e2e1`, `e2e2` and `e2e3`, and default value `e2e4` that is used when tests are not run in parallel, which also applies to using the environment manually. `e2e4` routes requests to `hasura` and `testdb` containers. In `docker-compose.custom.yml` the `HASURA_URL` environment value is set to point to the Hasura URL that the locally running UI is using to enable routing of the requests based on the `x-Environment` header value.
-
-Parallel execution generates or updates a file called `parallel-weights.json`. The file contains numeric values that represent the execution time of each file. The values are used to assign the spec files into threads evenly. Changes to the `parallel-weights.json` file should be committed at least when new e2e tests are added, and when changes to existing tests increase their execution time considerably.
+During e2e test execution Cypress assigns a value to `x-Environment` header value based on the envrionment variables `CI` and `CYPRESS`. The `CYPRESS` environment variable is set to `true` in the repository's root's `package.json` in the `yarn` commands where Cypress is invoked. The `CI` environment variable is `true` automatically in Github CI and `undefined` in the local environment. In `docker-compose.custom.yml` the `HASURA_URL` environment value is set to point to the Hasura URL that the locally running UI is using to enable routing of the requests based on the `x-Environment` header value.
 
 ### CI
 
