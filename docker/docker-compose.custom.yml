@@ -31,7 +31,7 @@ services:
     image: "hsldevcom/jore4-hastus:main--20240129-7983a414dfc1ca18be24cf29ffcf604d16156fb3"
     environment:
       # use the same Hasura URL that the UI uses to enable routing requests to correct Hasura instances
-      # when running e2e tests in parallel
+      # when running e2e tests locally
       HASURA_URL: "http://host.docker.internal:3300/api/graphql/v1/graphql"
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -41,22 +41,9 @@ services:
 
   jore4-timetablesapi:
     # pinning timetables api
-    image: "hsldevcom/jore4-timetables-api:main--20231214-daee5f99354cf3e3d76e93665be1466eb977b30b"
-
+    image: &timetablesapi-image 'hsldevcom/jore4-timetables-api:main--20231214-daee5f99354cf3e3d76e93665be1466eb977b30b'
   jore4-hasura-e2e1:
     image: *hasura-image
     depends_on:
       jore4-testdb-e2e1:
-        condition: service_healthy
-
-  jore4-hasura-e2e2:
-    image: *hasura-image
-    depends_on:
-      jore4-testdb-e2e2:
-        condition: service_healthy
-
-  jore4-hasura-e2e3:
-    image: *hasura-image
-    depends_on:
-      jore4-testdb-e2e3:
         condition: service_healthy
