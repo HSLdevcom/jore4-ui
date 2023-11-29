@@ -1,5 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   isOpen: boolean;
@@ -20,9 +21,18 @@ export const Modal: React.FC<Props> = ({
       open={isOpen}
       data-testid={testId}
       onClose={onClose}
-      className={`fixed top-1/2 left-1/2 z-10 -translate-y-1/2 -translate-x-1/2 overflow-y-auto bg-white drop-shadow-md ${className}`}
+      className="relative z-50"
     >
-      {children}
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div
+          className={twMerge(
+            'overflow-y-auto bg-white drop-shadow-md',
+            className,
+          )}
+        >
+          {children}
+        </div>
+      </div>
     </Dialog>
   );
 };
