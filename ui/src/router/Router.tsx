@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { getUserInfo } from '../api/user';
 import { MainPage } from '../components/main/MainPage';
-import { MapLoader, ModalMap } from '../components/map';
+import { MapLoader, MapModal } from '../components/map';
 import { JoreLoader } from '../components/map/JoreLoader';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
@@ -171,7 +171,7 @@ export const Router: FunctionComponent = () => {
           />
         ))}
       </Routes>
-      <ModalMap />
+      <MapModal />
       <MapLoader />
       <JoreLoader />
     </BrowserRouter>

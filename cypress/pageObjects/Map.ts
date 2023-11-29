@@ -12,7 +12,7 @@ export class Map {
   stopPopUp = new StopPopUp();
 
   zoomIn(n = 1) {
-    Cypress._.times(n, () => cy.getByTestId('modalMap').type('+'));
+    Cypress._.times(n, () => cy.getByTestId('mapModal').type('+'));
     this.waitForLoadToComplete();
     cy.wait('@gqlGetStopsByLocation');
   }
@@ -30,7 +30,7 @@ export class Map {
     cy.getByTestId(clickPoint.mapMarkerTestId).then((mark) => {
       const { x } = mark[0].getBoundingClientRect();
       const { y } = mark[0].getBoundingClientRect();
-      cy.getByTestId('modalMap').click(
+      cy.getByTestId('mapModal').click(
         x + clickPoint.rightOffset,
         y + clickPoint.downOffset,
       );
@@ -38,7 +38,7 @@ export class Map {
   }
 
   clickAtPosition(x: number, y: number) {
-    cy.getByTestId('modalMap').click(x, y);
+    cy.getByTestId('mapModal').click(x, y);
   }
 
   getNthSnappingPointHandle(nth: number) {
@@ -52,7 +52,7 @@ export class Map {
   clickRelativePoint(xPercentage: number, yPercentage: number) {
     const x = (Cypress.config('viewportWidth') / 100) * xPercentage;
     const y = (Cypress.config('viewportHeight') / 100) * yPercentage;
-    cy.getByTestId('modalMap').click(x, y);
+    cy.getByTestId('mapModal').click(x, y);
   }
 
   getStopByStopLabelAndPriority(testStopLabel: string, priority: Priority) {

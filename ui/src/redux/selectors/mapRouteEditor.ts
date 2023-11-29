@@ -8,13 +8,13 @@ export const selectMapRouteEditor = (state: RootState) =>
 
 export const selectIsInViewMode = createSelector(
   selectMapRouteEditor,
-  (modalMap) => modalMap.drawingMode === undefined,
+  (mapModal) => mapModal.drawingMode === undefined,
 );
 
 export const selectHasChangesInProgress = createSelector(
   selectMapRouteEditor,
   selectIsInViewMode,
-  (modalMap, viewMode) => modalMap.creatingNewRoute || !viewMode,
+  (mapModal, viewMode) => mapModal.creatingNewRoute || !viewMode,
 );
 
 export const selectEditedRouteData = createSelector(

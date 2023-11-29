@@ -23,7 +23,7 @@ export const RoutesAndLinesMainPage = (): JSX.Element => {
   const toggleShowAllStops = toggleFunction(FilterType.ShowAllBusStops);
 
   const createLineReactRoute = routeDetails[Path.createLine];
-  const onOpenModalMap = () => {
+  const onOpenMapModal = () => {
     dispatch(resetMapState());
     addMapOpenQueryParameter();
     /**
@@ -37,7 +37,7 @@ export const RoutesAndLinesMainPage = (): JSX.Element => {
     <Container>
       <Row>
         <h1>{t('routes.routes')}</h1>
-        <SimpleButton containerClassName="ml-auto" onClick={onOpenModalMap}>
+        <SimpleButton containerClassName="ml-auto" onClick={onOpenMapModal}>
           {t('map.open')}
         </SimpleButton>
         <SimpleButton

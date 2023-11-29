@@ -9,7 +9,7 @@ interface Props {
   className?: string;
 }
 
-const testIds = { modalMap: 'modalMap' };
+const testIds = { mapModal: 'mapModal' };
 
 // magic values that can be seen with browsers devtools.
 // probably won't work in all corner cases, but e.g. zooming
@@ -17,23 +17,23 @@ const testIds = { modalMap: 'modalMap' };
 const mapHeaderHeight = 64;
 const mapFooterHeight = 82;
 
-export const ModalMap: React.FC<Props> = ({ className = '' }) => {
+export const MapModal: React.FC<Props> = ({ className = '' }) => {
   const mapRef = useRef<ExplicitAny>(null);
 
   const { isMapOpen, deleteMapQueryParameters } = useMapQueryParams();
 
-  const onCloseModalMap = () => {
+  const onCloseMapModal = () => {
     deleteMapQueryParameters();
   };
 
   return (
     <Dialog
       open={isMapOpen}
-      onClose={onCloseModalMap}
-      data-testid={testIds.modalMap}
+      onClose={onCloseMapModal}
+      data-testid={testIds.mapModal}
       className={`absolute left-0 top-0 z-10 h-full w-full bg-background ${className}`}
     >
-      <MapHeader onClose={onCloseModalMap} />
+      <MapHeader onClose={onCloseMapModal} />
       {/* Setting height of map component dynamically seems to be tricky as
           it doesn't respect e.g. "height: 100%" rule.
           As a workaround we can use css's `calc` function and magically subtract

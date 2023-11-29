@@ -4,7 +4,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
 } from '../generated/graphql';
-import { Viewport } from '../redux/types/modalMap';
+import { Viewport } from '../redux/types/mapModal';
 import { Priority, TimetablePriority } from '../types/enums';
 
 /** Builds an object for gql to filter out all

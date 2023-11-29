@@ -7,7 +7,7 @@ import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopForm, StopFormInfo } from './StopForm';
 import { Toast } from './Toast';
 
-export class ModalMap {
+export class MapModal {
   map = new Map();
 
   mapFooter = new MapFooter();
