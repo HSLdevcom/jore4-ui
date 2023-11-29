@@ -4,7 +4,7 @@ import {
   timingPlaces,
 } from '@hsl/jore4-test-db-manager';
 import { Tag } from '../enums';
-import { ChangeValidityForm, ModalMap } from '../pageObjects';
+import { ChangeValidityForm, MapModal } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteStopsByLabels } from './utils';
@@ -26,7 +26,7 @@ const clearDatabase = () => {
 };
 
 describe('Stop creation tests', () => {
-  let modalMap: ModalMap;
+  let mapModal: MapModal;
   let mapFilterPanel: FilterPanel;
   let changeValidityForm: ChangeValidityForm;
 
@@ -34,14 +34,14 @@ describe('Stop creation tests', () => {
     clearDatabase();
     insertToDbHelper(dbResources);
 
-    modalMap = new ModalMap();
+    mapModal = new MapModal();
     mapFilterPanel = new FilterPanel();
     changeValidityForm = new ChangeValidityForm();
 
     cy.setupMapTiles();
     cy.mockLogin();
 
-    modalMap.map.visit({
+    mapModal.map.visit({
       zoom: 15,
       lat: 60.164074274478054,
       lng: 24.93021804533524,
@@ -56,7 +56,7 @@ describe('Stop creation tests', () => {
     'Should create stop on map',
     { tags: [Tag.Map, Tag.Stops, Tag.Smoke], scrollBehavior: 'bottom' },
     () => {
-      modalMap.createStopAtLocation({
+      mapModal.createStopAtLocation({
         stopFormInfo: {
           label: testStopLabels.testLabel1,
           validityStartISODate: '2022-01-01',
@@ -68,9 +68,9 @@ describe('Stop creation tests', () => {
         },
       });
 
-      modalMap.gqlStopShouldBeCreatedSuccessfully();
+      mapModal.gqlStopShouldBeCreatedSuccessfully();
 
-      modalMap.checkStopSubmitSuccessToast();
+      mapModal.checkStopSubmitSuccessToast();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -85,7 +85,7 @@ describe('Stop creation tests', () => {
     { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
     () => {
       // Create stop
-      modalMap.createStopAtLocation({
+      mapModal.createStopAtLocation({
         stopFormInfo: {
           label: testStopLabels.manualCoordinatesLabel,
           // Actual coordinates will be on Topeliuksenkatu
@@ -100,12 +100,12 @@ describe('Stop creation tests', () => {
         },
       });
 
-      modalMap.gqlStopShouldBeCreatedSuccessfully();
+      mapModal.gqlStopShouldBeCreatedSuccessfully();
 
-      modalMap.checkStopSubmitSuccessToast();
+      mapModal.checkStopSubmitSuccessToast();
 
       // Change map position to created stop location
-      modalMap.map.visit({
+      mapModal.map.visit({
         zoom: 15,
         lat: 60.1805636468358,
         lng: 24.918451016960763,
@@ -123,7 +123,7 @@ describe('Stop creation tests', () => {
     'Should create stop with end time on map',
     { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
     () => {
-      modalMap.createStopAtLocation({
+      mapModal.createStopAtLocation({
         stopFormInfo: {
           label: testStopLabels.endDateLabel,
           validityStartISODate: '2022-01-01',
@@ -136,9 +136,9 @@ describe('Stop creation tests', () => {
         },
       });
 
-      modalMap.gqlStopShouldBeCreatedSuccessfully();
+      mapModal.gqlStopShouldBeCreatedSuccessfully();
 
-      modalMap.checkStopSubmitSuccessToast();
+      mapModal.checkStopSubmitSuccessToast();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -146,7 +146,7 @@ describe('Stop creation tests', () => {
         `Map::Stops::stopMarker::${testStopLabels.endDateLabel}_Standard`,
       ).click();
 
-      modalMap.map.stopPopUp.getEditButton().click();
+      mapModal.map.stopPopUp.getEditButton().click();
 
       changeValidityForm.getEndDateInput().should('have.value', '2040-12-31');
     },
@@ -161,7 +161,7 @@ describe('Stop creation tests', () => {
       defaultCommandTimeout: 10000,
     },
     () => {
-      modalMap.createStopAtLocation({
+      mapModal.createStopAtLocation({
         stopFormInfo: {
           label: testStopLabels.timingPlaceLabel,
           // seed timing places should always have label defined
@@ -177,9 +177,9 @@ describe('Stop creation tests', () => {
         },
       });
 
-      modalMap.gqlStopShouldBeCreatedSuccessfully();
+      mapModal.gqlStopShouldBeCreatedSuccessfully();
 
-      modalMap.checkStopSubmitSuccessToast();
+      mapModal.checkStopSubmitSuccessToast();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -187,9 +187,9 @@ describe('Stop creation tests', () => {
         `Map::Stops::stopMarker::${testStopLabels.timingPlaceLabel}_Standard`,
       ).click();
 
-      modalMap.map.stopPopUp.getEditButton().click();
+      mapModal.map.stopPopUp.getEditButton().click();
 
-      modalMap.stopForm
+      mapModal.stopForm
         .getTimingPlaceDropdown()
         .should('contain', timingPlaces[0].label);
     },

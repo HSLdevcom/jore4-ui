@@ -8,8 +8,8 @@ import {
   RouteDirectionEnum,
   RouteInsertInput,
   RouteTypeOfLineEnum,
-  StopInsertInput,
   StopInJourneyPatternInsertInput,
+  StopInsertInput,
   buildLine,
   buildRoute,
   buildStop,
@@ -20,7 +20,7 @@ import {
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
-import { ModalMap, RouteEditor } from '../pageObjects';
+import { MapModal, RouteEditor } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { UUID } from '../types';
@@ -199,7 +199,7 @@ const stopTestIds = {
 };
 
 describe('Route creation', () => {
-  let modalMap: ModalMap;
+  let mapModal: MapModal;
   let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;
   const baseDbResources = {
@@ -231,7 +231,7 @@ describe('Route creation', () => {
   });
 
   beforeEach(() => {
-    modalMap = new ModalMap();
+    mapModal = new MapModal();
     const mapFilterPanel = new FilterPanel();
 
     deleteRoutesByLabel(Object.values(testRouteLabels));
@@ -247,7 +247,7 @@ describe('Route creation', () => {
     // Location where all test stops and routes are visible.
     const mapLocation = { lng: 24.929689228090112, lat: 60.16495016651525 };
 
-    modalMap.map.visit({
+    mapModal.map.visit({
       zoom: 15,
       lat: mapLocation.lat,
       lng: mapLocation.lng,
@@ -255,7 +255,7 @@ describe('Route creation', () => {
 
     mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
-    modalMap.map.waitForLoadToComplete();
+    mapModal.map.waitForLoadToComplete();
   });
 
   afterEach(() => {
@@ -272,7 +272,7 @@ describe('Route creation', () => {
     () => {
       const routeName = 'Testireitti 1';
 
-      modalMap.createRoute({
+      mapModal.createRoute({
         routeFormInfo: {
           finnishName: routeName,
           label: testRouteLabels.label1,
@@ -311,7 +311,7 @@ describe('Route creation', () => {
     () => {
       const routeName = 'Testireitti 2';
       const omittedStopsLabels = [stopLabels[1]];
-      modalMap.createRoute({
+      mapModal.createRoute({
         routeFormInfo: {
           finnishName: routeName,
           label: testRouteLabels.label2,
@@ -352,7 +352,7 @@ describe('Route creation', () => {
     () => {
       const routeName = 'Testireitti 3';
       const omittedStopsLabels = [stopLabels[1], stopLabels[2]];
-      modalMap.createRoute({
+      mapModal.createRoute({
         routeFormInfo: {
           finnishName: routeName,
           label: testRouteLabels.label3,
@@ -387,7 +387,7 @@ describe('Route creation', () => {
     () => {
       const routeName = 'Testireitti 4';
 
-      modalMap.createRoute({
+      mapModal.createRoute({
         routeFormInfo: {
           finnishName: routeName,
           label: testRouteLabels.label4,
@@ -422,7 +422,7 @@ describe('Route creation', () => {
     'Should create a new route using an existing route as a template',
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
-      modalMap.createRoute({
+      mapModal.createRoute({
         routeFormInfo: {
           finnishName: 'Reitin pohjalta luotu reitti',
           label: testRouteLabels.label5,

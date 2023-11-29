@@ -7,8 +7,8 @@ import {
   RouteDirectionEnum,
   RouteInsertInput,
   RouteTypeOfLineEnum,
-  StopInsertInput,
   StopInJourneyPatternInsertInput,
+  StopInsertInput,
   buildLine,
   buildRoute,
   buildStop,
@@ -22,7 +22,7 @@ import { Tag } from '../enums';
 import {
   Map,
   MapFooter,
-  ModalMap,
+  MapModal,
   RouteEditor,
   RoutesAndLinesPage,
   SearchResultsPage,
@@ -186,7 +186,7 @@ describe('Edit route geometry', () => {
   let routeEditor: RouteEditor;
   let searchResultsPage: SearchResultsPage;
   let routesAndLinesPage: RoutesAndLinesPage;
-  let modalMap: ModalMap;
+  let mapModal: MapModal;
   let mapFooter: MapFooter;
 
   const baseDbResources = {
@@ -228,7 +228,7 @@ describe('Edit route geometry', () => {
     routeEditor = new RouteEditor();
     searchResultsPage = new SearchResultsPage();
     routesAndLinesPage = new RoutesAndLinesPage();
-    modalMap = new ModalMap();
+    mapModal = new MapModal();
     mapFooter = new MapFooter();
 
     cy.setupMapTiles();
@@ -291,7 +291,7 @@ describe('Edit route geometry', () => {
         lng: mapLocation.lng,
       });
 
-      modalMap.createRoute({
+      mapModal.createRoute({
         routeFormInfo: {
           finnishName: 'Reitin pohjalta luotu reitti',
           label: testCreatedRouteLabels.templateRoute,
