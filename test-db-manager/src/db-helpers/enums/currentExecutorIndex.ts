@@ -4,5 +4,5 @@ export enum CurrentExecutorIndex {
    * route data to the same Hasura and DB instance in e2e or dev context.
    */
   e2e1 = '1',
-  default = '2',
+  default = '4',
 }
