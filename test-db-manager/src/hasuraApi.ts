@@ -1,30 +1,29 @@
 import fetch from 'cross-fetch';
-import { CurrentExecutorIndex } from './db-helpers/enums';
 
-// integration tests need this
-const localhostHasuraURL: Record<CurrentExecutorIndex, string> = {
-  [CurrentExecutorIndex.e2e1]: 'http://127.0.0.1:3211/v1/graphql',
-  [CurrentExecutorIndex.e2e2]: 'http://127.0.0.1:3212/v1/graphql',
-  [CurrentExecutorIndex.e2e3]: 'http://127.0.0.1:3213/v1/graphql',
-  [CurrentExecutorIndex.default]: 'http://127.0.0.1:3201/v1/graphql',
-};
-
-// e2e tests need this in the CI
-const e2eCIHasuraURL: Record<CurrentExecutorIndex, string> = {
-  [CurrentExecutorIndex.e2e1]: 'http://jore4-hasura-e2e1:8080/v1/graphql',
-  [CurrentExecutorIndex.e2e2]: 'http://jore4-hasura-e2e2:8080/v1/graphql',
-  [CurrentExecutorIndex.e2e3]: 'http://jore4-hasura-e2e3:8080/v1/graphql',
-  [CurrentExecutorIndex.default]: 'http://jore4-hasura:8080/v1/graphql',
-};
+enum HasuraURL {
+  Dev = 'http://127.0.0.1:3201/v1/graphql',
+  E2E = 'http://127.0.0.1:3211/v1/graphql',
+  CI = 'http://jore4-hasura:8080/v1/graphql',
+}
 
 const getHasuraURL = () => {
-  const currentExecutorIndex =
-    process.env.CYPRESS_THREAD || CurrentExecutorIndex.default;
-
-  if (process.env.CI && process.env.CYPRESS) {
-    return e2eCIHasuraURL[currentExecutorIndex];
+  // eslint-disable-next-line no-console
+  console.log(
+    `CYPRESS ENVIRONMENT VARIABLE VALUE IN hasuraApi.ts: ${String(
+      process.env.CYPRESS,
+    )}`,
+  );
+  // eslint-disable-next-line no-console
+  console.log(
+    `CI ENVIRONMENT VARIABLE VALUE IN hasuraApi.ts: ${String(process.env.CI)}`,
+  );
+  if (process.env.CI === 'true' && process.env.CYPRESS === 'true') {
+    return HasuraURL.CI;
   }
-  return localhostHasuraURL[currentExecutorIndex];
+  if (process.env.CI === undefined && process.env.CYPRESS === 'true') {
+    return HasuraURL.E2E;
+  }
+  return HasuraURL.Dev;
 };
 
 export const hasuraApi = async (jsonPayload: unknown): Promise<unknown> => {

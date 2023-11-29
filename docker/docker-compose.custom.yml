@@ -32,7 +32,7 @@ services:
 
   jore4-timetablesapi:
     # pinning timetables api
-    image: "hsldevcom/jore4-timetables-api:main--20231020-5bb539dfa08183fcb59561b84b5e648ee92133fe"
+    image: &timetablesapi-image "hsldevcom/jore4-timetables-api:main--20231020-5bb539dfa08183fcb59561b84b5e648ee92133fe"
 
   jore4-hasura-e2e1:
     image: *hasura-image
