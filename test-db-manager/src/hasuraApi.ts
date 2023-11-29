@@ -17,7 +17,7 @@ const getHasuraURL = () => {
   console.log(
     `CI ENVIRONMENT VARIABLE VALUE IN hasuraApi.ts: ${String(process.env.CI)}`,
   );
-  if (process.env.CI === 'true' && process.env.CYPRESS === 'true') {
+  if (process.env.CI === '1' && process.env.CYPRESS === 'true') {
     return HasuraURL.CI;
   }
   if (process.env.CI === undefined && process.env.CYPRESS === 'true') {

@@ -28,7 +28,7 @@ const getTestDbPort = () => {
   console.log(
     `CI ENVIRONMENT VARIABLE VALUE IN db config.ts: ${String(process.env.CI)}`,
   );
-  if (process.env.CI === 'true') {
+  if (process.env.CI === '1') {
     return testDbPort.ci;
   }
   if (process.env.CI === undefined && process.env.CYPRESS === 'true') {
@@ -38,7 +38,7 @@ const getTestDbPort = () => {
 };
 
 const getTestDbHost = () => {
-  if (process.env.CI === 'true') {
+  if (process.env.CI === '1') {
     return testDbHost.ci;
   }
   return testDbHost.local;
