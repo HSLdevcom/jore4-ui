@@ -1,6 +1,6 @@
+import { Dialog } from '@headlessui/react';
 import React, { useRef } from 'react';
 import { useMapQueryParams } from '../../hooks';
-import { Modal } from '../../uiComponents';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
@@ -8,6 +8,8 @@ import { MapHeader } from './MapHeader';
 interface Props {
   className?: string;
 }
+
+const testIds = { modalMap: 'modalMap' };
 
 // magic values that can be seen with browsers devtools.
 // probably won't work in all corner cases, but e.g. zooming
@@ -25,12 +27,11 @@ export const ModalMap: React.FC<Props> = ({ className = '' }) => {
   };
 
   return (
-    <Modal
-      isOpen={isMapOpen}
+    <Dialog
+      open={isMapOpen}
       onClose={onCloseModalMap}
-      testId="modalMap"
-      position="fullscreen"
-      className={`bg-background ${className}`}
+      data-testid={testIds.modalMap}
+      className={`absolute left-0 top-0 z-10 h-full w-full bg-background ${className}`}
     >
       <MapHeader onClose={onCloseModalMap} />
       {/* Setting height of map component dynamically seems to be tricky as
@@ -52,6 +53,6 @@ export const ModalMap: React.FC<Props> = ({ className = '' }) => {
         onCancel={() => mapRef.current.onCancel()}
         onSave={() => mapRef.current.onSave()}
       />
-    </Modal>
+    </Dialog>
   );
 };
