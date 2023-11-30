@@ -4,7 +4,7 @@ import { HTMLOverlay } from 'react-map-gl';
 import { submitFormByRef } from '../../../utils';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
-import { Modal } from '../Modal';
+import { Modal } from '../modal/Modal';
 
 const testIds = {
   modal: 'EditRouteModal',
