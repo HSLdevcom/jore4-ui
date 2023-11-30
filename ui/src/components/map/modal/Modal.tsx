@@ -1,8 +1,9 @@
 import { FunctionComponent, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row } from '../../layoutComponents';
-import { SimpleButton } from '../../uiComponents';
-import { ModalBody, ModalHeader } from '../../uiComponents/modal';
+import { Row } from '../../../layoutComponents';
+import { SimpleButton } from '../../../uiComponents';
+import { ModalBody } from './ModalBody';
+import { ModalHeader } from './ModalHeader';
 
 const testIds = {
   saveButton: 'Modal::saveButton',

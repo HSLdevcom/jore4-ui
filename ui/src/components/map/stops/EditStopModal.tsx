@@ -4,7 +4,7 @@ import { HTMLOverlay } from 'react-map-gl';
 import { CreateChanges, EditChanges } from '../../../hooks';
 import { submitFormByRef } from '../../../utils';
 import { FormState, StopForm } from '../../forms/stop/StopForm';
-import { Modal } from '../Modal';
+import { Modal } from '../modal/Modal';
 
 const testIds = {
   modal: 'EditStopModal',
