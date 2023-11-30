@@ -439,7 +439,6 @@ describe('Timetable validity period', () => {
         '2026-03-03',
       );
 
-      route99InboundSaturdayPassingTimesSection.clickChangeValidityDate();
       vehicleScheduleDetailsPage.changeTimetablesValidityForm
         .getSaveButton()
         .click();
