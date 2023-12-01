@@ -73,7 +73,8 @@ jobs:
         # Ubuntu Chrome version number needed by Dockerfile.cypress is appended with '-1'
         # but it is not included in the omahaproxy version number so we need to add it here manually
         run: |
-          echo "CHROME_VERSION=$(curl -s https://omahaproxy.appspot.com/linux)-1" >> $GITHUB_OUTPUT
+          echo "CHROME_VERSION=$(curl -X GET "https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=linux&num=1" | \
+          python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version'])")-1" >> $GITHUB_OUTPUT
 
       - name: Build docker images
         run: |
