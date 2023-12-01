@@ -75,20 +75,7 @@ export class OccasionalSubstitutePeriodForm {
   }
 
   selectLineTypes(lineTypes: string[]) {
-    /**
-     * Unchecks all line type checkboxes if any are checked
-     * and then checks the checkboxes for the line types that
-     * are provided as arguments. Checkbox unchecking is needed
-     * because the element functionality is unstable in Cypress and
-     * sometimes checkboxes are all checked and sometimes none are checked
-     * initially.
-     */
     this.getOccasionalSubstitutePeriodFormLineTypesDropdown().click();
-    this.getLineTypesList().then((ul) => {
-      if (ul.find('input[type="checkbox"]:checked').length > 0) {
-        cy.get('input[type="checkbox"]:checked').uncheck();
-      }
-    });
     cy.wrap(lineTypes).each((lineType: string) => {
       cy.get('li').contains(lineType).click();
     });
