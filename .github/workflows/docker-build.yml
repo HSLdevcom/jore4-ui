@@ -68,12 +68,12 @@ jobs:
       - name: Pull previous image to support caching
         run: docker pull $CYPRESS_IMAGE_NAME:latest || echo "Previous image not found"
 
-      - name: Get latest stable Chrome version number
-        id: chrome-version
-        # Ubuntu Chrome version number needed by Dockerfile.cypress is appended with '-1'
-        # but it is not included in the omahaproxy version number so we need to add it here manually
-        run: |
-          echo "CHROME_VERSION=$(curl -s https://omahaproxy.appspot.com/linux)-1" >> $GITHUB_OUTPUT
+      # - name: Get latest stable Chrome version number
+      #   id: chrome-version
+      #   # Ubuntu Chrome version number needed by Dockerfile.cypress is appended with '-1'
+      #   # but it is not included in the omahaproxy version number so we need to add it here manually
+      #   run: |
+      #     echo "CHROME_VERSION=$(curl -s https://omahaproxy.appspot.com/linux)-1" >> $GITHUB_OUTPUT
 
       - name: Build docker images
         run: |
@@ -81,7 +81,7 @@ jobs:
             --cache-from=$CYPRESS_IMAGE_NAME:latest \
             -t $CYPRESS_IMAGE_NAME:latest \
             -t $CYPRESS_IMAGE_NAME:$COMMIT_ID \
-            --build-arg CHROME_VERSION=${{ steps.chrome-version.outputs.CHROME_VERSION }} \
+            --build-arg CHROME_VERSION=119.0.6045.199-1 \
             --file Dockerfile.cypress \
             .
 
