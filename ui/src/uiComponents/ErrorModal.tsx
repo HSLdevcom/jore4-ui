@@ -4,14 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../layoutComponents';
 import { CloseIconButton } from './CloseIconButton';
-import { Modal, NewModalBody } from './modal';
 import { SimpleButton } from './SimpleButton';
+import { Modal, NewModalBody } from './modal';
 
 interface Props {
   heading: string;
   isOpen: boolean;
   onClose: () => void;
   className?: string;
+  bodyClassName?: string;
 }
 const testIds = {
   closeButton: 'ErrorModal::closeButton',
@@ -23,6 +24,7 @@ export const ErrorModal: FunctionComponent<Props> = ({
   isOpen,
   onClose,
   className = '',
+  bodyClassName = '',
   children,
 }) => {
   const { t } = useTranslation();
@@ -39,7 +41,7 @@ export const ErrorModal: FunctionComponent<Props> = ({
         </div>
         <CloseIconButton onClick={onClose} testId={testIds.closeIconButton} />
       </Row>
-      <NewModalBody>{children}</NewModalBody>
+      <NewModalBody className={bodyClassName}>{children}</NewModalBody>
       <Row className="justify-end space-x-1 px-5 pt-2 pb-4">
         <SimpleButton testId={testIds.closeButton} onClick={onClose}>
           {t('close')}
