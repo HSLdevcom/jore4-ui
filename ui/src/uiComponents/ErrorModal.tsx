@@ -34,9 +34,9 @@ export const ErrorModal: FunctionComponent<Props> = ({
       onClose={onClose}
       className={twMerge('w-1/4', className)}
     >
-      <Row className="flex items-end  justify-between px-5 pt-4 pb-2">
-        <div className="flex items-end space-x-1">
-          <i className="icon-alert text-xl text-hsl-red" />
+      <Row className="flex items-start justify-between px-5 pt-4 pb-2">
+        <div className="flex space-x-1">
+          <i className="icon-alert text-lg text-hsl-red" />
           <Dialog.Title as="h4">{heading}</Dialog.Title>
         </div>
         <CloseIconButton onClick={onClose} testId={testIds.closeIconButton} />
