@@ -112,6 +112,16 @@ export type StringComparisonExp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+export type ToCombineTargetVehicleScheduleFrameIdInput = {
+  stagingVehicleScheduleFrameId: Scalars['uuid'];
+  targetPriority: Scalars['Int'];
+};
+
+export type ToCombineTargetVehicleScheduleFrameIdOutput = {
+  __typename?: 'ToCombineTargetVehicleScheduleFrameIdOutput';
+  toCombineTargetVehicleScheduleFrameId: Scalars['uuid'];
+};
+
 export type ToReplaceVehicleScheduleFrameIdsInput = {
   stagingVehicleScheduleFrameId: Scalars['uuid'];
   targetPriority: Scalars['Int'];
@@ -4110,6 +4120,7 @@ export type QueryRoot = {
   timing_pattern_timing_place_aggregate: TimingPatternTimingPlaceAggregate;
   /** fetch data from the table: "timing_pattern.timing_place" using primary key columns */
   timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
+  toCombineTargetVehicleScheduleFrameId?: Maybe<ToCombineTargetVehicleScheduleFrameIdOutput>;
   toReplaceVehicleScheduleFrameIds?: Maybe<ToReplaceVehicleScheduleFrameIdsOutput>;
 };
 
@@ -4672,6 +4683,10 @@ export type QueryRootTimingPatternTimingPlaceAggregateArgs = {
 
 export type QueryRootTimingPatternTimingPlaceByPkArgs = {
   timing_place_id: Scalars['uuid'];
+};
+
+export type QueryRootToCombineTargetVehicleScheduleFrameIdArgs = {
+  arg1: ToCombineTargetVehicleScheduleFrameIdInput;
 };
 
 export type QueryRootToReplaceVehicleScheduleFrameIdsArgs = {

@@ -12,14 +12,18 @@ import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 interface Props {
   defaultValues?: Partial<FormState>;
   onSubmit: (state: FormState) => void;
+  fetchDuplicateJourneys: (priority: number) => void;
   fetchRouteDeviations: (priority: number) => void;
+  clearDuplicateJourneys: () => void;
   clearRouteDeviations: () => void;
 }
 
 export const ConfirmPreviewedTimetablesImportFormComponent = (
   {
+    clearDuplicateJourneys,
     clearRouteDeviations,
     defaultValues,
+    fetchDuplicateJourneys,
     fetchRouteDeviations,
     onSubmit,
   }: Props,
@@ -33,6 +37,19 @@ export const ConfirmPreviewedTimetablesImportFormComponent = (
   const { handleSubmit, watch } = methods;
 
   const { priority, timetableImportStrategy } = watch();
+
+  useEffect(() => {
+    if (timetableImportStrategy === 'combine' && priority) {
+      fetchDuplicateJourneys(priority);
+    } else {
+      clearDuplicateJourneys();
+    }
+  }, [
+    fetchDuplicateJourneys,
+    clearDuplicateJourneys,
+    priority,
+    timetableImportStrategy,
+  ]);
 
   useEffect(() => {
     if (timetableImportStrategy === 'replace' && priority) {
