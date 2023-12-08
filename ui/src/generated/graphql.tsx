@@ -116,6 +116,16 @@ export type StringComparisonExp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+export type ToCombineTargetVehicleScheduleFrameIdInput = {
+  stagingVehicleScheduleFrameId: Scalars['uuid'];
+  targetPriority: Scalars['Int'];
+};
+
+export type ToCombineTargetVehicleScheduleFrameIdOutput = {
+  __typename?: 'ToCombineTargetVehicleScheduleFrameIdOutput';
+  toCombineTargetVehicleScheduleFrameId: Scalars['uuid'];
+};
+
 export type ToReplaceVehicleScheduleFrameIdsInput = {
   stagingVehicleScheduleFrameId: Scalars['uuid'];
   targetPriority: Scalars['Int'];
@@ -4114,6 +4124,7 @@ export type QueryRoot = {
   timing_pattern_timing_place_aggregate: TimingPatternTimingPlaceAggregate;
   /** fetch data from the table: "timing_pattern.timing_place" using primary key columns */
   timing_pattern_timing_place_by_pk?: Maybe<TimingPatternTimingPlace>;
+  toCombineTargetVehicleScheduleFrameId?: Maybe<ToCombineTargetVehicleScheduleFrameIdOutput>;
   toReplaceVehicleScheduleFrameIds?: Maybe<ToReplaceVehicleScheduleFrameIdsOutput>;
 };
 
@@ -4676,6 +4687,10 @@ export type QueryRootTimingPatternTimingPlaceAggregateArgs = {
 
 export type QueryRootTimingPatternTimingPlaceByPkArgs = {
   timing_place_id: Scalars['uuid'];
+};
+
+export type QueryRootToCombineTargetVehicleScheduleFrameIdArgs = {
+  arg1: ToCombineTargetVehicleScheduleFrameIdInput;
 };
 
 export type QueryRootToReplaceVehicleScheduleFrameIdsArgs = {
@@ -21144,6 +21159,18 @@ export type GetSubstituteOperatingPeriodsQuery = {
   } | null;
 };
 
+export type GetToCombineTargetVehicleScheduleFrameIdQueryVariables = Exact<{
+  arg1: ToCombineTargetVehicleScheduleFrameIdInput;
+}>;
+
+export type GetToCombineTargetVehicleScheduleFrameIdQuery = {
+  __typename?: 'query_root';
+  toCombineTargetVehicleScheduleFrameId?: {
+    __typename?: 'ToCombineTargetVehicleScheduleFrameIdOutput';
+    toCombineTargetVehicleScheduleFrameId: UUID;
+  } | null;
+};
+
 export type GetToReplaceVehicleScheduleFramesQueryVariables = Exact<{
   arg1: ToReplaceVehicleScheduleFrameIdsInput;
 }>;
@@ -21153,6 +21180,59 @@ export type GetToReplaceVehicleScheduleFramesQuery = {
   toReplaceVehicleScheduleFrameIds?: {
     __typename?: 'ToReplaceVehicleScheduleFrameIdsOutput';
     toReplaceVehicleScheduleFrameIds: Array<UUID | null>;
+  } | null;
+};
+
+export type GetVehicleScheduleFrameWithJourneyInfoQueryVariables = Exact<{
+  vehicle_schedule_frame_ids: Array<Scalars['uuid']> | Scalars['uuid'];
+}>;
+
+export type GetVehicleScheduleFrameWithJourneyInfoQuery = {
+  __typename?: 'query_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_vehicle_schedule_vehicle_schedule_frame: Array<{
+      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+      vehicle_schedule_frame_id: UUID;
+      validity_start: luxon.DateTime;
+      validity_end: luxon.DateTime;
+      vehicle_services: Array<{
+        __typename?: 'timetables_vehicle_service_vehicle_service';
+        vehicle_service_id: UUID;
+        day_type: {
+          __typename?: 'timetables_service_calendar_day_type';
+          day_type_id: UUID;
+          label: string;
+          name_i18n: any;
+        };
+        blocks: Array<{
+          __typename?: 'timetables_vehicle_service_block';
+          block_id: UUID;
+          vehicle_journeys: Array<{
+            __typename?: 'timetables_vehicle_journey_vehicle_journey';
+            vehicle_journey_id: UUID;
+            start_time: luxon.Duration;
+            journey_pattern_ref: {
+              __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+              journey_pattern_ref_id: UUID;
+              journey_pattern_instance?: {
+                __typename?: 'journey_pattern_journey_pattern';
+                journey_pattern_id: UUID;
+                journey_pattern_route?: {
+                  __typename?: 'route_route';
+                  route_id: UUID;
+                  unique_label: string;
+                  direction: RouteDirectionEnum;
+                  variant?: number | null;
+                  name_i18n: LocalizedString;
+                  route_line: { __typename?: 'route_line'; line_id: UUID };
+                } | null;
+              } | null;
+            };
+          }>;
+        }>;
+      }>;
+    }>;
   } | null;
 };
 
@@ -26181,6 +26261,65 @@ export type GetSubstituteOperatingPeriodsQueryResult = Apollo.QueryResult<
   GetSubstituteOperatingPeriodsQuery,
   GetSubstituteOperatingPeriodsQueryVariables
 >;
+export const GetToCombineTargetVehicleScheduleFrameIdDocument = gql`
+  query GetToCombineTargetVehicleScheduleFrameId(
+    $arg1: ToCombineTargetVehicleScheduleFrameIdInput!
+  ) {
+    toCombineTargetVehicleScheduleFrameId(arg1: $arg1) {
+      toCombineTargetVehicleScheduleFrameId
+    }
+  }
+`;
+
+/**
+ * __useGetToCombineTargetVehicleScheduleFrameIdQuery__
+ *
+ * To run a query within a React component, call `useGetToCombineTargetVehicleScheduleFrameIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetToCombineTargetVehicleScheduleFrameIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetToCombineTargetVehicleScheduleFrameIdQuery({
+ *   variables: {
+ *      arg1: // value for 'arg1'
+ *   },
+ * });
+ */
+export function useGetToCombineTargetVehicleScheduleFrameIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetToCombineTargetVehicleScheduleFrameIdQuery,
+    GetToCombineTargetVehicleScheduleFrameIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetToCombineTargetVehicleScheduleFrameIdQuery,
+    GetToCombineTargetVehicleScheduleFrameIdQueryVariables
+  >(GetToCombineTargetVehicleScheduleFrameIdDocument, options);
+}
+export function useGetToCombineTargetVehicleScheduleFrameIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetToCombineTargetVehicleScheduleFrameIdQuery,
+    GetToCombineTargetVehicleScheduleFrameIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetToCombineTargetVehicleScheduleFrameIdQuery,
+    GetToCombineTargetVehicleScheduleFrameIdQueryVariables
+  >(GetToCombineTargetVehicleScheduleFrameIdDocument, options);
+}
+export type GetToCombineTargetVehicleScheduleFrameIdQueryHookResult =
+  ReturnType<typeof useGetToCombineTargetVehicleScheduleFrameIdQuery>;
+export type GetToCombineTargetVehicleScheduleFrameIdLazyQueryHookResult =
+  ReturnType<typeof useGetToCombineTargetVehicleScheduleFrameIdLazyQuery>;
+export type GetToCombineTargetVehicleScheduleFrameIdQueryResult =
+  Apollo.QueryResult<
+    GetToCombineTargetVehicleScheduleFrameIdQuery,
+    GetToCombineTargetVehicleScheduleFrameIdQueryVariables
+  >;
 export const GetToReplaceVehicleScheduleFramesDocument = gql`
   query GetToReplaceVehicleScheduleFrames(
     $arg1: ToReplaceVehicleScheduleFrameIdsInput!
@@ -26241,6 +26380,105 @@ export type GetToReplaceVehicleScheduleFramesQueryResult = Apollo.QueryResult<
   GetToReplaceVehicleScheduleFramesQuery,
   GetToReplaceVehicleScheduleFramesQueryVariables
 >;
+export const GetVehicleScheduleFrameWithJourneyInfoDocument = gql`
+  query GetVehicleScheduleFrameWithJourneyInfo(
+    $vehicle_schedule_frame_ids: [uuid!]!
+  ) {
+    timetables {
+      timetables_vehicle_schedule_vehicle_schedule_frame(
+        where: {
+          vehicle_schedule_frame_id: { _in: $vehicle_schedule_frame_ids }
+        }
+      ) {
+        vehicle_schedule_frame_id
+        validity_start
+        validity_end
+        vehicle_services {
+          vehicle_service_id
+          day_type {
+            day_type_id
+            label
+            name_i18n
+          }
+          blocks {
+            block_id
+            vehicle_journeys {
+              vehicle_journey_id
+              start_time
+              journey_pattern_ref {
+                journey_pattern_ref_id
+                journey_pattern_instance {
+                  journey_pattern_id
+                  journey_pattern_route {
+                    route_id
+                    unique_label
+                    direction
+                    variant
+                    name_i18n
+                    route_line {
+                      line_id
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetVehicleScheduleFrameWithJourneyInfoQuery__
+ *
+ * To run a query within a React component, call `useGetVehicleScheduleFrameWithJourneyInfoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVehicleScheduleFrameWithJourneyInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVehicleScheduleFrameWithJourneyInfoQuery({
+ *   variables: {
+ *      vehicle_schedule_frame_ids: // value for 'vehicle_schedule_frame_ids'
+ *   },
+ * });
+ */
+export function useGetVehicleScheduleFrameWithJourneyInfoQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetVehicleScheduleFrameWithJourneyInfoQuery,
+    GetVehicleScheduleFrameWithJourneyInfoQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetVehicleScheduleFrameWithJourneyInfoQuery,
+    GetVehicleScheduleFrameWithJourneyInfoQueryVariables
+  >(GetVehicleScheduleFrameWithJourneyInfoDocument, options);
+}
+export function useGetVehicleScheduleFrameWithJourneyInfoLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetVehicleScheduleFrameWithJourneyInfoQuery,
+    GetVehicleScheduleFrameWithJourneyInfoQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetVehicleScheduleFrameWithJourneyInfoQuery,
+    GetVehicleScheduleFrameWithJourneyInfoQueryVariables
+  >(GetVehicleScheduleFrameWithJourneyInfoDocument, options);
+}
+export type GetVehicleScheduleFrameWithJourneyInfoQueryHookResult = ReturnType<
+  typeof useGetVehicleScheduleFrameWithJourneyInfoQuery
+>;
+export type GetVehicleScheduleFrameWithJourneyInfoLazyQueryHookResult =
+  ReturnType<typeof useGetVehicleScheduleFrameWithJourneyInfoLazyQuery>;
+export type GetVehicleScheduleFrameWithJourneyInfoQueryResult =
+  Apollo.QueryResult<
+    GetVehicleScheduleFrameWithJourneyInfoQuery,
+    GetVehicleScheduleFrameWithJourneyInfoQueryVariables
+  >;
 export const GetVehicleScheduleFrameWithRouteAndLineInfoDocument = gql`
   query GetVehicleScheduleFrameWithRouteAndLineInfo(
     $vehicle_schedule_frame_ids: [uuid!]!
@@ -27778,6 +28016,14 @@ export function useGetSubstituteOperatingPeriodsAsyncQuery() {
 export type GetSubstituteOperatingPeriodsAsyncQueryHookResult = ReturnType<
   typeof useGetSubstituteOperatingPeriodsAsyncQuery
 >;
+export function useGetToCombineTargetVehicleScheduleFrameIdAsyncQuery() {
+  return useAsyncQuery<
+    GetToCombineTargetVehicleScheduleFrameIdQuery,
+    GetToCombineTargetVehicleScheduleFrameIdQueryVariables
+  >(GetToCombineTargetVehicleScheduleFrameIdDocument);
+}
+export type GetToCombineTargetVehicleScheduleFrameIdAsyncQueryHookResult =
+  ReturnType<typeof useGetToCombineTargetVehicleScheduleFrameIdAsyncQuery>;
 export function useGetToReplaceVehicleScheduleFramesAsyncQuery() {
   return useAsyncQuery<
     GetToReplaceVehicleScheduleFramesQuery,
@@ -27787,6 +28033,14 @@ export function useGetToReplaceVehicleScheduleFramesAsyncQuery() {
 export type GetToReplaceVehicleScheduleFramesAsyncQueryHookResult = ReturnType<
   typeof useGetToReplaceVehicleScheduleFramesAsyncQuery
 >;
+export function useGetVehicleScheduleFrameWithJourneyInfoAsyncQuery() {
+  return useAsyncQuery<
+    GetVehicleScheduleFrameWithJourneyInfoQuery,
+    GetVehicleScheduleFrameWithJourneyInfoQueryVariables
+  >(GetVehicleScheduleFrameWithJourneyInfoDocument);
+}
+export type GetVehicleScheduleFrameWithJourneyInfoAsyncQueryHookResult =
+  ReturnType<typeof useGetVehicleScheduleFrameWithJourneyInfoAsyncQuery>;
 export function useGetVehicleScheduleFrameWithRouteAndLineInfoAsyncQuery() {
   return useAsyncQuery<
     GetVehicleScheduleFrameWithRouteAndLineInfoQuery,

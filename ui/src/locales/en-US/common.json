@@ -394,6 +394,7 @@
     "closeContent": "Close content",
     "contentUsage": "Content usage",
     "departures": "Departures: {{ count }}",
+    "duplicateJourneysFetchFailed": "Failed to fetch duplicate journeys",
     "deviationFetchFailed": "Failed to fetch missing routes",
     "deviations": "Deviations ({{ count }})",
     "deviationsWarning": "The Hastus file is missing the schedules of the routes previously imported. These expire with this recording. If you want, import them separately or add them to this file.",
@@ -402,7 +403,16 @@
     "preview": "Preview",
     "save": "Save timetables",
     "showContent": "Show content",
-    "summary": "Summary"
+    "summary": "Summary",
+    "duplicateJourneys": {
+      "title": "Duplicate journeys",
+      "description": "Notice duplicate journeys. The following journeys are present in both current and imported timetables:",
+      "label": "Label",
+      "departureTime": "Departure",
+      "dayType": "Day type",
+      "validityStarts": "Starts",
+      "validityEnds": "Ends"
+    }
   },
   "timetableVersionsTableHeaders": {
     "status": "Status",

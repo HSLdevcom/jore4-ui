@@ -11,8 +11,13 @@ import {
   useGetStagingVehicleScheduleFrameIds,
   useReplaceDeviations,
   useToReplaceVehicleScheduleFrames,
+  useVehicleScheduleFrameWithJourneys,
   useVehicleScheduleFrameWithRouteLabelAndLineId,
 } from '../../../hooks/timetables-import/deviations';
+import {
+  useDuplicateJourneyDeviations,
+  useToCombineTargetVehicleScheduleFrameId,
+} from '../../../hooks/timetables-import/deviations/duplicate-journeys';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { selectIsJoreOperationLoading } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -43,15 +48,25 @@ export const PreviewTimetablesPage = (): JSX.Element => {
   } = useTimetablesImport();
   const [showStagingTimetables, toggleShowStagingTimetables] = useToggle(true);
   const { onConfirmTimetablesImport } = useConfirmTimetablesImportUIAction();
+  const { fetchToCombineTargetFrameId } =
+    useToCombineTargetVehicleScheduleFrameId();
   const { fetchToReplaceFrames } = useToReplaceVehicleScheduleFrames();
   const { fetchVehicleFrames } =
     useVehicleScheduleFrameWithRouteLabelAndLineId();
+  const { fetchVehicleFramesWithJourneys } =
+    useVehicleScheduleFrameWithJourneys();
   const { fetchStagingVehicleFrameIds } =
     useGetStagingVehicleScheduleFrameIds();
   const { clearRouteDeviations, deviations, fetchRouteDeviations } =
     useReplaceDeviations(
       fetchToReplaceFrames,
       fetchVehicleFrames,
+      fetchStagingVehicleFrameIds,
+    );
+  const { duplicateJourneys, fetchDuplicateJourneys, clearDuplicateJourneys } =
+    useDuplicateJourneyDeviations(
+      fetchToCombineTargetFrameId,
+      fetchVehicleFramesWithJourneys,
       fetchStagingVehicleFrameIds,
     );
 
@@ -116,7 +131,9 @@ export const PreviewTimetablesPage = (): JSX.Element => {
               <ConfirmPreviewedTimetablesImportForm
                 ref={formRef}
                 fetchRouteDeviations={fetchRouteDeviations}
+                fetchDuplicateJourneys={fetchDuplicateJourneys}
                 clearRouteDeviations={clearRouteDeviations}
+                clearDuplicateJourneys={clearDuplicateJourneys}
                 onSubmit={onSubmit}
                 defaultValues={getDefaultValues({ importingSomeSpecialDays })}
               />
@@ -132,7 +149,11 @@ export const PreviewTimetablesPage = (): JSX.Element => {
           </div>
         </Visible>
       </div>
-      <SummarySection className="mt-10" deviations={deviations} />
+      <SummarySection
+        className="mt-10"
+        deviations={deviations}
+        duplicateJourneys={duplicateJourneys}
+      />
       <div className="pt-10">
         <Row className="justify-end space-x-4">
           <SimpleButton

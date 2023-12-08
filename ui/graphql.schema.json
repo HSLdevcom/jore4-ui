@@ -733,6 +733,76 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "ToCombineTargetVehicleScheduleFrameIdInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "stagingVehicleScheduleFrameId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "targetPriority",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ToCombineTargetVehicleScheduleFrameIdOutput",
+        "description": null,
+        "fields": [
+          {
+            "name": "toCombineTargetVehicleScheduleFrameId",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "ToReplaceVehicleScheduleFrameIdsInput",
         "description": null,
         "fields": null,
@@ -29576,6 +29646,35 @@
             "type": {
               "kind": "OBJECT",
               "name": "timing_pattern_timing_place",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "toCombineTargetVehicleScheduleFrameId",
+            "description": null,
+            "args": [
+              {
+                "name": "arg1",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "ToCombineTargetVehicleScheduleFrameIdInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ToCombineTargetVehicleScheduleFrameIdOutput",
               "ofType": null
             },
             "isDeprecated": false,

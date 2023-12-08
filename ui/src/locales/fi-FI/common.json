@@ -394,6 +394,7 @@
     "closeContent": "Sulje sisältö",
     "contentUsage": "Sisällön käyttö",
     "departures": "Lähtöjä: {{ count }}",
+    "duplicateJourneysFetchFailed": "Päällekkäisten aikataulujen haku epäonnistui",
     "deviationFetchFailed": "Puuttuvien reittien haku epäonnistui",
     "deviations": "Poikkeamat ({{ count }})",
     "deviationsWarning": "Hastus-tiedostosta puuttuvat aiemmin samassa yhteydessä ladattujen reittien aikataulut. Näiden voimassaolo päättyy tällä tallennuksella. Tuo ne halutessasi erikseen tai lisää tähän tiedostoon.",
@@ -402,7 +403,16 @@
     "preview": "Esikatselu",
     "save": "Tallenna aikataulut",
     "showContent": "Näytä sisältö",
-    "summary": "Yhteenveto"
+    "summary": "Yhteenveto",
+    "duplicateJourneys": {
+      "title": "Päällekkäiset lähdöt",
+      "description": "Huomaa päällekkäiset lähdöt. Seuraavat lähdöt löytyvät sekä nyt tuotavista että jo voimassa olevista aikatauluista:",
+      "label": "Tunnus",
+      "departureTime": "Lähtöaika",
+      "dayType": "Päivätyyppi",
+      "validityStarts": "Alkaa",
+      "validityEnds": "Päättyy"
+    }
   },
   "timetableVersionsTableHeaders": {
     "status": "Tila",
