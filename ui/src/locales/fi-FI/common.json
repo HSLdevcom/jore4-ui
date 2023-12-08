@@ -402,7 +402,16 @@
     "preview": "Esikatselu",
     "save": "Tallenna aikataulut",
     "showContent": "Näytä sisältö",
-    "summary": "Yhteenveto"
+    "summary": "Yhteenveto",
+    "duplicateJourneys": {
+      "title": "Päällekkäiset lähdöt",
+      "description": "Huomaa päällekkäiset lähdöt. Seuraavat lähdöt löytyvät sekä nyt tuotavista että jo voimassa olevista aikatauluista:",
+      "label": "Tunnus",
+      "departureTime": "Lähtöaika",
+      "dayType": "Päivätyyppi",
+      "validityStarts": "Alkaa",
+      "validityEnds": "Päättyy"
+    }
   },
   "timetableVersionsTableHeaders": {
     "status": "Tila",

@@ -402,7 +402,16 @@
     "preview": "Preview",
     "save": "Save timetables",
     "showContent": "Show content",
-    "summary": "Summary"
+    "summary": "Summary",
+    "duplicateJourneys": {
+      "title": "Duplicate journeys",
+      "description": "Notice duplicate journeys. The following journeys are present in both current and imported timetables:",
+      "label": "Label",
+      "departureTime": "Departure",
+      "dayType": "Day type",
+      "validityStarts": "Starts",
+      "validityEnds": "Ends"
+    }
   },
   "timetableVersionsTableHeaders": {
     "status": "Status",
