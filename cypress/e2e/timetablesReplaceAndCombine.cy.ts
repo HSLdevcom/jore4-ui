@@ -1,21 +1,21 @@
 import {
   GetInfrastructureLinksByExternalIdsResult,
+  InfraLinkAlongRouteInsertInput,
+  JourneyPatternInsertInput,
+  LineInsertInput,
+  RouteDirectionEnum,
+  RouteInsertInput,
+  RouteTypeOfLineEnum,
+  StopInJourneyPatternInsertInput,
+  StopInsertInput,
+  TimetablePriority,
   buildLine,
   buildRoute,
   buildStop,
   buildStopInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
-  InfraLinkAlongRouteInsertInput,
-  JourneyPatternInsertInput,
-  LineInsertInput,
   mapToGetInfrastructureLinksByExternalIdsQuery,
-  RouteDirectionEnum,
-  RouteInsertInput,
-  StopInJourneyPatternInsertInput,
-  RouteTypeOfLineEnum,
-  StopInsertInput,
-  TimetablePriority,
 } from '@hsl/jore4-test-db-manager';
 import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
@@ -25,16 +25,16 @@ import {
   Navbar,
   PassingTimesByStopSection,
   PreviewTimetablesPage,
-  RoutesAndLinesPage,
   RouteTimetablesSection,
+  RoutesAndLinesPage,
   TimetablesMainpage,
   VehicleServiceTable,
 } from '../pageObjects';
 import { UUID } from '../types';
 import {
+  SupportedResources,
   insertToDbHelper,
   removeFromDbHelper,
-  SupportedResources,
 } from '../utils';
 
 const REPLACE_IMPORT_FILENAME = 'timetablesReplace1.exp';
@@ -568,7 +568,7 @@ describe('Timetable replacement and combination', () => {
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
-        `Tiedoston ${REPLACE_IMPORT_FILENAME} lataus onnistui!`,
+        `Tiedoston ${REPLACE_IMPORT_FILENAME} lataus onnistui`,
       );
       importTimetablesPage.clickPreviewButton();
       previewTimetablesPage.priorityForm.setAsStandard();
@@ -629,7 +629,7 @@ describe('Timetable replacement and combination', () => {
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
-        `Tiedoston ${COMBINE_IMPORT_FILENAME} lataus onnistui!`,
+        `Tiedoston ${COMBINE_IMPORT_FILENAME} lataus onnistui`,
       );
       importTimetablesPage.clickPreviewButton();
       previewTimetablesPage.priorityForm.setAsStandard();
@@ -690,7 +690,7 @@ describe('Timetable replacement and combination', () => {
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
-        `Tiedoston ${REPLACE_IMPORT_FILENAME} lataus onnistui!`,
+        `Tiedoston ${REPLACE_IMPORT_FILENAME} lataus onnistui`,
       );
       importTimetablesPage.getSaveButton().click();
 
@@ -733,7 +733,7 @@ describe('Timetable replacement and combination', () => {
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
-        `Tiedoston ${COMBINE_IMPORT_FILENAME} lataus onnistui!`,
+        `Tiedoston ${COMBINE_IMPORT_FILENAME} lataus onnistui`,
       );
       importTimetablesPage.getSaveButton().click();
       previewTimetablesPage.confirmTimetablesImportForm
