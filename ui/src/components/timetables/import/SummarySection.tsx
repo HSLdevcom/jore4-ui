@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { MdWarning } from 'react-icons/md';
 import {
   VehicleJourneyDuplicate,
   VehicleScheduleFrameInfo,
@@ -16,7 +17,7 @@ interface Props {
 
 export const SummarySection = ({
   className = '',
-  deviations,
+  deviations: routeDeviations,
   duplicateJourneys,
 }: Props) => {
   const [showDeviationSection, setShowDeviationSection] =
@@ -25,22 +26,36 @@ export const SummarySection = ({
 
   useEffect(() => {
     setShowDeviationSection(true);
-  }, [deviations]);
+  }, [routeDeviations]);
+
+  const totalDeviations = routeDeviations.length + duplicateJourneys.length;
 
   return (
     <div className={className}>
       <h2>{t('timetablesPreview.summary')}</h2>
 
-      <Visible visible={deviations.length > 0 && showDeviationSection}>
-        <MissingRouteDeviationsSection
-          className="mt-8 rounded-lg border bg-white px-12 py-6"
-          routeDeviations={deviations}
-          handleClose={() => setShowDeviationSection(false)}
-        />
-      </Visible>
+      <Visible visible={totalDeviations > 0}>
+        <div className="my-4 items-center space-y-4 rounded border py-6 px-16">
+          <h3>
+            <MdWarning
+              className="mr-2 inline h-6 w-6 text-hsl-red"
+              role="img"
+              title={t('timetablesPreview.attention')}
+            />
+            {t('timetablesPreview.deviations', { count: totalDeviations })}
+          </h3>
 
-      <Visible visible={!!duplicateJourneys.length}>
-        <DuplicateJourneysSection duplicateJourneys={duplicateJourneys} />
+          <Visible visible={routeDeviations.length > 0 && showDeviationSection}>
+            <MissingRouteDeviationsSection
+              routeDeviations={routeDeviations}
+              handleClose={() => setShowDeviationSection(false)}
+            />
+          </Visible>
+
+          <Visible visible={!!duplicateJourneys.length}>
+            <DuplicateJourneysSection duplicateJourneys={duplicateJourneys} />
+          </Visible>
+        </div>
       </Visible>
     </div>
   );
