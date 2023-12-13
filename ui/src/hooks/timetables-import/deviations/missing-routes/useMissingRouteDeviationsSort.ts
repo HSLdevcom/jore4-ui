@@ -1,7 +1,7 @@
 import orderBy from 'lodash/orderBy';
-import { VehicleScheduleFrameInfo } from './useCreateVehicleScheduleFrameInfo';
+import { VehicleScheduleFrameInfo } from '../useCreateVehicleScheduleFrameInfo';
 
-export const useDeviationSort = () => {
+export const useMissingRouteDeviationsSort = () => {
   const sortDeviations = (
     routeDeviations: VehicleScheduleFrameInfo[],
   ): VehicleScheduleFrameInfo[] => {

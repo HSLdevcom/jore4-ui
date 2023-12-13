@@ -3,11 +3,11 @@ import {
   buildLocalizedString,
 } from '@hsl/jore4-test-db-manager';
 import { renderHook } from '@testing-library/react';
-import { VehicleScheduleFrameInfo } from './useCreateVehicleScheduleFrameInfo';
-import { useDeviationSort } from './useDeviationSort';
+import { VehicleScheduleFrameInfo } from '../useCreateVehicleScheduleFrameInfo';
+import { useMissingRouteDeviationsSort } from './useMissingRouteDeviationsSort';
 
-describe('sortDeviations hook', () => {
-  const { result } = renderHook(useDeviationSort);
+describe('useMissingRouteDeviationsSort hook', () => {
+  const { result } = renderHook(useMissingRouteDeviationsSort);
 
   test('should sort by label in ascending order', () => {
     const data: VehicleScheduleFrameInfo[] = [

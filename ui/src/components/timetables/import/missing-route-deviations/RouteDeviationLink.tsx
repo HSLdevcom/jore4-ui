@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { VehicleScheduleFrameInfo } from '../../../hooks/timetables-import/deviations/useCreateVehicleScheduleFrameInfo';
-import { parseI18nField } from '../../../i18n/utils';
-import { routeDetails } from '../../../router/routeDetails';
-import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBadge';
+import { VehicleScheduleFrameInfo } from '../../../../hooks';
+import { parseI18nField } from '../../../../i18n/utils';
+import { routeDetails } from '../../../../router/routeDetails';
+import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
 
 interface Props {
   deviation: VehicleScheduleFrameInfo;

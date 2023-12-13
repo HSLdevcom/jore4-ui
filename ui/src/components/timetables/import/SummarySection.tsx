@@ -5,8 +5,8 @@ import {
   VehicleScheduleFrameInfo,
 } from '../../../hooks';
 import { Visible } from '../../../layoutComponents/Visible';
-import { DeviationSection } from './DeviationSection';
 import { DuplicateJourneysSection } from './duplicate-journeys';
+import { MissingRouteDeviationsSection } from './missing-route-deviations';
 
 interface Props {
   deviations: VehicleScheduleFrameInfo[];
@@ -30,9 +30,9 @@ export const SummarySection = ({
   return (
     <div className={className}>
       <h2>{t('timetablesPreview.summary')}</h2>
-      {/* TODO: maybe rename this to "missing route deviations" or something. */}
+
       <Visible visible={deviations.length > 0 && showDeviationSection}>
-        <DeviationSection
+        <MissingRouteDeviationsSection
           className="mt-8 rounded-lg border bg-white px-12 py-6"
           routeDeviations={deviations}
           handleClose={() => setShowDeviationSection(false)}
