@@ -450,6 +450,7 @@
     "filesToUpload": "Ladattavat tiedostot",
     "fileUploadSuccess": "Tiedoston {{ filename }} lataus onnistui",
     "fileUploadFailed": "Tiedoston {{ filename }} lataus epäonnistui",
+    "errorModalTitle": "Yhden tai useamman aikataulun lataus epäonnistui",
     "incorrectFileFormat": "Yhtä tai useampaa tiedostoa ei lisätty. Vain .exp ja .csv -formaatti on sallittu"
   },
   "export": {

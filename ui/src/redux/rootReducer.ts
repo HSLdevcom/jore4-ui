@@ -1,4 +1,5 @@
 import { AnyAction, combineReducers } from '@reduxjs/toolkit';
+import { errorModalReducer } from './slices/errorModal';
 import { exportReducer } from './slices/export';
 import { loaderReducer } from './slices/loader';
 import { mapFilterReducer } from './slices/mapFilter';
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
   mapRouteEditor: mapRouteEditorReducer,
   mapFilter: mapFilterReducer,
   mapModal: mapModalReducer,
+  errorModal: errorModalReducer,
   user: userReducer,
   modals: modalsReducer,
   timetable: timetableReducer,

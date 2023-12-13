@@ -25,6 +25,7 @@ import { TimetableVersionsPage } from '../components/timetables/versions/Timetab
 import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
 import { Spinner } from '../uiComponents';
+import { JoreErrorModal } from '../uiComponents/JoreErrorModal';
 import { showDangerToast } from '../utils';
 import { Path } from './routeDetails';
 
@@ -174,6 +175,7 @@ export const Router: FunctionComponent = () => {
       <MapModal />
       <MapLoader />
       <JoreLoader />
+      <JoreErrorModal />
     </BrowserRouter>
   );
 };
