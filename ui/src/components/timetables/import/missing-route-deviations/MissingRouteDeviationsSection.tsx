@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { MdClose, MdWarning } from 'react-icons/md';
+import { MdClose } from 'react-icons/md';
 import {
   VehicleScheduleFrameInfo,
   useMissingRouteDeviationsSort,
@@ -23,20 +23,7 @@ export const MissingRouteDeviationsSection = ({
 
   return (
     <div className={className}>
-      <h3>
-        <MdWarning
-          className="mr-2 inline h-6 w-6 text-hsl-red"
-          role="img"
-          title={t('timetablesPreview.attention')}
-        />
-        {t('timetablesPreview.deviations', { count: routeDeviations.length })}
-      </h3>
       <div className="relative mt-8 flex flex-row space-x-4 rounded-lg border border-hsl-highlight-yellow-dark bg-hsl-highlight-yellow-light p-6">
-        <MdWarning
-          className="mr-2 inline h-6 w-6 text-hsl-red"
-          role="img"
-          title={t('timetablesPreview.attention')}
-        />
         <div>
           <p>
             {t('timetablesPreview.missingRouteDeviations.deviationsWarning')}
