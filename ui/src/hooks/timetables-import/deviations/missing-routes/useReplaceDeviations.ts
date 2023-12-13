@@ -1,13 +1,13 @@
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TimetablePriority } from '../../../types/enums';
-import { showDangerToastWithError } from '../../../utils';
+import { TimetablePriority } from '../../../../types/enums';
+import { showDangerToastWithError } from '../../../../utils';
 import {
   VehicleScheduleFrameInfo,
   useCreateVehicleScheduleFrameInfo,
-} from './useCreateVehicleScheduleFrameInfo';
+} from '../useCreateVehicleScheduleFrameInfo';
+import { VehicleScheduleVehicleScheduleFrameWithRoutes } from '../useVehicleScheduleFrameWithRouteLabelAndLineId';
 import { useFindOrphanRoutes } from './useFindOrphanRoutes';
-import { VehicleScheduleVehicleScheduleFrameWithRoutes } from './useVehicleScheduleFrameWithRouteLabelAndLineId';
 
 export const useReplaceDeviations = (
   fetchToReplaceFrames: (
@@ -65,7 +65,7 @@ export const useReplaceDeviations = (
         setDeviations(foundDeviations);
       } catch (error) {
         showDangerToastWithError(
-          t('timetablesPreview.deviationFetchFailed'),
+          t('timetablesPreview.missingRouteDeviations.deviationFetchFailed'),
           error,
         );
         setDeviations([]);

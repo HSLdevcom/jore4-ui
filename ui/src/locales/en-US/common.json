@@ -397,15 +397,17 @@
     "closeContent": "Close content",
     "contentUsage": "Content usage",
     "departures": "Departures: {{ count }}",
-    "deviationFetchFailed": "Failed to fetch missing routes",
     "deviations": "Deviations ({{ count }})",
-    "deviationsWarning": "The Hastus file is missing the schedules of the routes previously imported. These expire with this recording. If you want, import them separately or add them to this file.",
     "fileContent": "File content",
     "missingRoutes": "Missing routes:",
     "preview": "Preview",
     "save": "Save timetables",
     "showContent": "Show content",
     "summary": "Summary",
+    "missingRouteDeviations": {
+      "deviationFetchFailed": "Failed to fetch missing routes",
+      "deviationsWarning": "The Hastus file is missing the schedules of the routes previously imported. These expire with this recording. If you want, import them separately or add them to this file."
+    },
     "duplicateJourneys": {
       "title": "Duplicate journeys",
       "description": "Notice duplicate journeys. The following journeys are present in both current and imported timetables:",

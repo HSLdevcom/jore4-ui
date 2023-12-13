@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { VehicleScheduleFrameInfo } from './useCreateVehicleScheduleFrameInfo';
+import { VehicleScheduleFrameInfo } from '../useCreateVehicleScheduleFrameInfo';
 
 export const useFindOrphanRoutes = () => {
   const routesAreEqual = (
