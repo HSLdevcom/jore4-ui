@@ -433,7 +433,7 @@ describe('Timetable import', () => {
       importTimetablesPage.getUploadButton().click();
       cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
-        `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+        `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
       );
       // Files uploaded -> nothing left to upload.
       importTimetablesPage.getUploadButton().should('be.disabled');
@@ -520,10 +520,10 @@ describe('Timetable import', () => {
           .its('response.statusCode')
           .should('equal', 200);
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME_2} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME_2} lataus onnistui`,
         );
         importTimetablesPage.clickPreviewButton();
 
@@ -594,7 +594,7 @@ describe('Timetable import', () => {
           .its('response.statusCode')
           .should('equal', 200);
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
         importTimetablesPage.clickPreviewButton();
 
@@ -687,7 +687,7 @@ describe('Timetable import', () => {
           .its('response.statusCode')
           .should('equal', 200);
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
         importTimetablesPage.clickPreviewButton();
 
@@ -785,7 +785,7 @@ describe('Timetable import', () => {
           .its('response.statusCode')
           .should('equal', 200);
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
         // Check that UI component states are correct in the confirmation modal
@@ -951,7 +951,7 @@ describe('Timetable import', () => {
           .its('response.statusCode')
           .should('equal', 200);
         importTimetablesPage.toast.checkSuccessToastHasMessage(
-          `Tiedoston ${IMPORT_FILENAME} lataus onnistui!`,
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
         importTimetablesPage.getAbortButton().click();
         importTimetablesPage.confirmationDialog.getConfirmButton().click();
