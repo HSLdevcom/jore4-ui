@@ -397,15 +397,17 @@
     "closeContent": "Sulje sisältö",
     "contentUsage": "Sisällön käyttö",
     "departures": "Lähtöjä: {{ count }}",
-    "deviationFetchFailed": "Puuttuvien reittien haku epäonnistui",
     "deviations": "Poikkeamat ({{ count }})",
-    "deviationsWarning": "Hastus-tiedostosta puuttuvat aiemmin samassa yhteydessä ladattujen reittien aikataulut. Näiden voimassaolo päättyy tällä tallennuksella. Tuo ne halutessasi erikseen tai lisää tähän tiedostoon.",
     "fileContent": "Tiedoston sisältö",
     "missingRoutes": "Puuttuvat reitit:",
     "preview": "Esikatselu",
     "save": "Tallenna aikataulut",
     "showContent": "Näytä sisältö",
     "summary": "Yhteenveto",
+    "missingRouteDeviations": {
+      "deviationFetchFailed": "Puuttuvien reittien haku epäonnistui",
+      "deviationsWarning": "Hastus-tiedostosta puuttuvat aiemmin samassa yhteydessä ladattujen reittien aikataulut. Näiden voimassaolo päättyy tällä tallennuksella. Tuo ne halutessasi erikseen tai lisää tähän tiedostoon."
+    },
     "duplicateJourneys": {
       "title": "Päällekkäiset lähdöt",
       "description": "Huomaa päällekkäiset lähdöt. Seuraavat lähdöt löytyvät sekä nyt tuotavista että jo voimassa olevista aikatauluista:",

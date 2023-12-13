@@ -1,13 +1,13 @@
 import { act, renderHook } from '@testing-library/react';
-import { RouteDirectionEnum } from '../../../generated/graphql';
+import { RouteDirectionEnum } from '../../../../generated/graphql';
+import { VehicleScheduleVehicleScheduleFrameWithRoutes } from '../useVehicleScheduleFrameWithRouteLabelAndLineId';
 import { useReplaceDeviations } from './useReplaceDeviations';
-import { VehicleScheduleVehicleScheduleFrameWithRoutes } from './useVehicleScheduleFrameWithRouteLabelAndLineId';
 
-jest.mock('../../../utils/toastService', () => ({
+jest.mock('../../../../utils/toastService', () => ({
   showDangerToastWithError: jest.fn(),
 }));
 const showDangerToastWithErrorMock = jest.requireMock(
-  '../../../utils/toastService',
+  '../../../../utils/toastService',
 ).showDangerToastWithError;
 
 const mockFetchReplacedFrames = jest.fn(() =>

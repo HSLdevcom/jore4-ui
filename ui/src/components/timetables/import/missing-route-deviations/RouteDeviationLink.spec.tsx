@@ -1,7 +1,7 @@
 import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
 import uniqueId from 'lodash/uniqueId';
-import { RouteDirectionEnum } from '../../../generated/graphql';
-import { render } from '../../../utils/test-utils';
+import { RouteDirectionEnum } from '../../../../generated/graphql';
+import { render } from '../../../../utils/test-utils';
 import { RouteDeviationLink } from './RouteDeviationLink';
 
 const deviationWithoutVariant = {

@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { MdClose, MdWarning } from 'react-icons/md';
-import { VehicleScheduleFrameInfo } from '../../../hooks/timetables-import/deviations/useCreateVehicleScheduleFrameInfo';
-import { useDeviationSort } from '../../../hooks/timetables-import/deviations/useDeviationSort';
-import { IconButton } from '../../../uiComponents';
+import {
+  VehicleScheduleFrameInfo,
+  useMissingRouteDeviationsSort,
+} from '../../../../hooks';
+import { IconButton } from '../../../../uiComponents';
 import { RouteDeviationLink } from './RouteDeviationLink';
 
-export const DeviationSection = ({
+export const MissingRouteDeviationsSection = ({
   className = '',
   routeDeviations,
   handleClose,
@@ -15,7 +17,7 @@ export const DeviationSection = ({
   handleClose: () => void;
 }) => {
   const { t } = useTranslation();
-  const { sortDeviations } = useDeviationSort();
+  const { sortDeviations } = useMissingRouteDeviationsSort();
 
   const sortedDeviations = sortDeviations(routeDeviations);
 
@@ -36,7 +38,9 @@ export const DeviationSection = ({
           title={t('timetablesPreview.attention')}
         />
         <div>
-          <p>{t('timetablesPreview.deviationsWarning')}</p>
+          <p>
+            {t('timetablesPreview.missingRouteDeviations.deviationsWarning')}
+          </p>
           <div className="flex flex-row">
             {t('timetablesPreview.missingRoutes')}
             {sortedDeviations.map((deviation, index, { length }) => (
