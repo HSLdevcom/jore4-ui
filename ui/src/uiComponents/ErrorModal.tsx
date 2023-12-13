@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../layoutComponents';
 import { CloseIconButton } from './CloseIconButton';
-import { SimpleButton } from './SimpleButton';
 import { Modal, NewModalBody } from './modal';
+import { SimpleButton } from './SimpleButton';
 
 interface Props {
   heading: string;

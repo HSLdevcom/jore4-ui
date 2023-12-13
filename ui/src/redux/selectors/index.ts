@@ -1,3 +1,4 @@
+export * from './errorModal';
 export * from './export';
 export * from './loader';
 export * from './mapFilter';

@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../hooks';
 import { useTimetablesImport } from '../../../hooks/timetables-import/useTimetablesImport';
 import { Container, Row } from '../../../layoutComponents';
-import { selectIsJoreOperationLoading } from '../../../redux';
+import {
+  ErrorItem,
+  openErrorModalAction,
+  selectIsJoreOperationLoading,
+} from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import {
   CloseIconButton,
@@ -39,6 +44,7 @@ export const ImportTimetablesPage = (): JSX.Element => {
   const [isAbortImportModalOpen, setIsAbortImportModalOpen] = useState(false);
   const [isConfirmImportModalOpen, setIsConfirmImportModalOpen] =
     useState(false);
+  const dispatch = useDispatch();
 
   const isLoading = useAppSelector(selectIsJoreOperationLoading);
 
@@ -70,7 +76,28 @@ export const ImportTimetablesPage = (): JSX.Element => {
   const handleUpload = async () => {
     if (fileList?.length) {
       const result = await sendToHastusImporter(fileList);
-      setFileList(result.failedFiles);
+
+      const failedFiles = result.failedFiles.map((failure) => failure.file);
+      setFileList(failedFiles);
+
+      if (result.failedFiles.length) {
+        const importErrors: ErrorItem[] = result.failedFiles.map((failure) => {
+          const filename = failure.file.name;
+
+          return {
+            message: t('import.fileUploadFailed', { filename }),
+            details: failure.error.response?.data?.reason || '',
+            additionalDetails: failure.error.message,
+            key: filename,
+          };
+        });
+        dispatch(
+          openErrorModalAction({
+            errorModalTitle: t('import.errorModalTitle'),
+            errorList: importErrors,
+          }),
+        );
+      }
     }
   };
 
