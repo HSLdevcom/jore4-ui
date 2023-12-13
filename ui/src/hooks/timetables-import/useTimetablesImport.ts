@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { AxiosError } from 'axios';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { sendFileToHastusImporter } from '../../api/hastus';
@@ -10,11 +11,7 @@ import {
 } from '../../generated/graphql';
 import { Operation } from '../../redux';
 import { TimetablePriority } from '../../types/enums';
-import {
-  mapToVariables,
-  showDangerToastWithError,
-  showSuccessToast,
-} from '../../utils';
+import { mapToVariables, showSuccessToast } from '../../utils';
 import { useLoader } from '../ui';
 
 const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
@@ -160,6 +157,11 @@ const GQL_DELETE_STAGING_TIMETABLES = gql`
   }
 `;
 
+export type HastusImportFailure = {
+  file: File;
+  error: AxiosError<{ reason: string }>;
+};
+
 export const useTimetablesImport = () => {
   const { t } = useTranslation();
   const [combineTimetables] = useCombineTimetablesMutation();
@@ -240,11 +242,11 @@ export const useTimetablesImport = () => {
    * Returns an object which has corresponding 'successfulFiles' and 'failedFiles'
    */
   const sendToHastusImporter = async (fileList: File[]) => {
-    const failedFiles: File[] = [];
+    const failedFiles: HastusImportFailure[] = [];
     const successfulFiles: File[] = [];
     setIsUploadLoading(true);
     await Promise.all(
-      fileList.map(async (file) => {
+      fileList.map(async (file: File) => {
         await sendFileToHastusImporter(file)
           .then(() => {
             successfulFiles.push(file);
@@ -253,11 +255,7 @@ export const useTimetablesImport = () => {
             );
           })
           .catch((error) => {
-            failedFiles.push(file);
-            showDangerToastWithError(
-              t('import.fileUploadFailed', { filename: file.name }),
-              error,
-            );
+            failedFiles.push({ file, error });
           });
       }),
     ).finally(() => {

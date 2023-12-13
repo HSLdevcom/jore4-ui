@@ -450,6 +450,7 @@
     "filesToUpload": "Files to upload",
     "fileUploadSuccess": "Uploading file {{ filename }} succeeded",
     "fileUploadFailed": "Uploading file {{ filename }} failed",
+    "errorModalTitle": "Failed to upload one or more timetables",
     "incorrectFileFormat": "One or more of the files were not added. Only .exp and .csv files are accepted."
   },
   "export": {
