@@ -470,7 +470,9 @@
     "description": "The schedule is deleted and cannot be restored",
     "confirmText": "Delete",
     "cancelText": "Do not delete",
-    "affectedRoutes": "The schedules are also removed from the following routes"
+    "affectedRoutes": "The schedules are also removed from the following routes",
+    "errorModalTitle": "Failed to delete timetable",
+    "errorMessage": "Error deleting timetable"
   },
   "save": "Save",
   "edit": "Edit",
