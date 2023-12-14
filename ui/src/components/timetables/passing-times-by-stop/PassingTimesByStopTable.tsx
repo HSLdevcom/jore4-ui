@@ -59,7 +59,8 @@ export const PassingTimesByStopTable = ({
   );
 
   const stopsInJourneyPattern =
-    route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns;
+    route.route_journey_patterns[0]
+      .ordered_scheduled_stop_point_in_journey_patterns;
 
   return (
     <table

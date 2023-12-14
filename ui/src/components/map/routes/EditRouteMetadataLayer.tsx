@@ -70,7 +70,7 @@ export const EditRouteMetadataLayer: React.FC = () => {
 
       const newJourneyPatternStops = pipe(
         routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0]
-          .scheduled_stop_point_in_journey_patterns,
+          .ordered_scheduled_stop_point_in_journey_patterns,
         (stopsInJourneyPattern) =>
           stopsInJourneyPattern.map((stopInJourneyPattern) => ({
             ...stopInJourneyPattern,

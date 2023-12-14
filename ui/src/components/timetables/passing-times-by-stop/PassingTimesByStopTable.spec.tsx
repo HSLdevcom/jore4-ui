@@ -164,7 +164,7 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
       {
         journey_pattern_id: '',
         on_route_id: '',
-        scheduled_stop_point_in_journey_patterns: [
+        ordered_scheduled_stop_point_in_journey_patterns: [
           {
             is_loading_time_allowed: false,
             is_regulated_timing_point: false,
