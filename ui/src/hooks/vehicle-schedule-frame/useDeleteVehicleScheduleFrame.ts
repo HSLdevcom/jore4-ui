@@ -1,9 +1,12 @@
-import { gql } from '@apollo/client';
+import { ApolloError, gql } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import {
   DeleteVehicleScheduleFrameMutationVariables,
   useDeleteVehicleScheduleFrameMutation,
 } from '../../generated/graphql';
-import { Operation } from '../../redux';
+import { Operation, openErrorModalAction } from '../../redux';
+import { getApolloErrorMessage } from '../../utils/apolloErrors';
 import { useLoader } from '../ui';
 
 const GQL_DELETE_VEHICLE_SCHEDULE_FRAME = gql`
@@ -23,6 +26,8 @@ export const useDeleteVehicleScheduleFrame = ({
 }: {
   onCompleted?: () => void;
 } = {}) => {
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [mutateFunction] = useDeleteVehicleScheduleFrameMutation({
     onCompleted,
   });
@@ -33,10 +38,29 @@ export const useDeleteVehicleScheduleFrame = ({
     variables: DeleteVehicleScheduleFrameMutationVariables,
   ) => {
     setIsLoading(true);
-    await mutateFunction({
-      variables,
-    });
-    setIsLoading(false);
+    try {
+      await mutateFunction({
+        variables,
+      });
+    } catch (error: unknown) {
+      if (error instanceof ApolloError) {
+        const errorText = getApolloErrorMessage(error);
+        dispatch(
+          openErrorModalAction({
+            errorModalTitle: t('deleteTimetableModal.errorModalTitle'),
+            errorList: [
+              {
+                message: t('deleteTimetableModal.errorMessage'),
+                details: errorText,
+                key: errorText,
+              },
+            ],
+          }),
+        );
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return {

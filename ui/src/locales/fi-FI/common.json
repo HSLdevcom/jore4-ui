@@ -470,7 +470,9 @@
     "description": "Aikataulu poistetaan, eikä sitä voi palauttaa",
     "confirmText": "Poista",
     "cancelText": "Älä poista",
-    "affectedRoutes": "Aikataulut poistuvat myös seuraavilta reiteiltä"
+    "affectedRoutes": "Aikataulut poistuvat myös seuraavilta reiteiltä",
+    "errorModalTitle": "Aikataulun poistaminen epäonnistui",
+    "errorMessage": "Virhe aikataulun poistamisessa"
   },
   "save": "Tallenna",
   "edit": "Muokkaa",
