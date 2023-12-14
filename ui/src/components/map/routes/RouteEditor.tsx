@@ -207,7 +207,7 @@ const RouteEditorComponent = (
 
       // Preserve journey pattern stop metadata (e.g. via info)
       const newJourneyPatternStops = pipe(
-        editedRouteJourneyPattern.scheduled_stop_point_in_journey_patterns,
+        editedRouteJourneyPattern.ordered_scheduled_stop_point_in_journey_patterns,
         (stopsInJourneyPattern) =>
           stopsInJourneyPattern.map((stopInJourneyPattern) => ({
             ...stopInJourneyPattern,

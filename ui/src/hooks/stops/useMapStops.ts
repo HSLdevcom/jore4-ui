@@ -32,7 +32,7 @@ const extractHighestPriorityStopsFromRoute = <
   observationDate: DateTime,
 ) => {
   const routeStopPoints =
-    route.route_journey_patterns[0].scheduled_stop_point_in_journey_patterns.flatMap(
+    route.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns.flatMap(
       (journeyPatternStop) => journeyPatternStop.scheduled_stop_points,
     ) ?? [];
 

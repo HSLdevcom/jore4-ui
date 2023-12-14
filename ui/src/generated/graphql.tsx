@@ -18017,7 +18017,7 @@ export type GetRouteWithJourneyPatternQuery = {
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
       on_route_id: UUID;
-      scheduled_stop_point_in_journey_patterns: Array<{
+      ordered_scheduled_stop_point_in_journey_patterns: Array<{
         __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
@@ -18238,7 +18238,7 @@ export type JourneyPatternWithStopsFragment = {
   __typename?: 'journey_pattern_journey_pattern';
   journey_pattern_id: UUID;
   on_route_id: UUID;
-  scheduled_stop_point_in_journey_patterns: Array<{
+  ordered_scheduled_stop_point_in_journey_patterns: Array<{
     __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
     journey_pattern_id: UUID;
     scheduled_stop_point_label: string;
@@ -18464,7 +18464,7 @@ export type RouteWithJourneyPatternStopsFragment = {
     __typename?: 'journey_pattern_journey_pattern';
     journey_pattern_id: UUID;
     on_route_id: UUID;
-    scheduled_stop_point_in_journey_patterns: Array<{
+    ordered_scheduled_stop_point_in_journey_patterns: Array<{
       __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
       journey_pattern_id: UUID;
       scheduled_stop_point_label: string;
@@ -18820,7 +18820,7 @@ export type GetRoutesWithStopsQuery = {
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
       on_route_id: UUID;
-      scheduled_stop_point_in_journey_patterns: Array<{
+      ordered_scheduled_stop_point_in_journey_patterns: Array<{
         __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
@@ -18968,7 +18968,7 @@ export type GetRouteDetailsByIdQuery = {
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
       on_route_id: UUID;
-      scheduled_stop_point_in_journey_patterns: Array<{
+      ordered_scheduled_stop_point_in_journey_patterns: Array<{
         __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
@@ -19116,7 +19116,7 @@ export type GetRouteDetailsByIdsQuery = {
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
       on_route_id: UUID;
-      scheduled_stop_point_in_journey_patterns: Array<{
+      ordered_scheduled_stop_point_in_journey_patterns: Array<{
         __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
@@ -19205,7 +19205,7 @@ export type GetRouteDetailsByLabelsQuery = {
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
       on_route_id: UUID;
-      scheduled_stop_point_in_journey_patterns: Array<{
+      ordered_scheduled_stop_point_in_journey_patterns: Array<{
         __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
@@ -20107,7 +20107,7 @@ export type LineWithRoutesFragment = {
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
       on_route_id: UUID;
-      scheduled_stop_point_in_journey_patterns: Array<{
+      ordered_scheduled_stop_point_in_journey_patterns: Array<{
         __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
@@ -20636,7 +20636,7 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
     __typename?: 'journey_pattern_journey_pattern';
     journey_pattern_id: UUID;
     on_route_id: UUID;
-    scheduled_stop_point_in_journey_patterns: Array<{
+    ordered_scheduled_stop_point_in_journey_patterns: Array<{
       __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
       journey_pattern_id: UUID;
       scheduled_stop_point_label: string;
@@ -20855,7 +20855,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
       __typename?: 'journey_pattern_journey_pattern';
       journey_pattern_id: UUID;
       on_route_id: UUID;
-      scheduled_stop_point_in_journey_patterns: Array<{
+      ordered_scheduled_stop_point_in_journey_patterns: Array<{
         __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
         journey_pattern_id: UUID;
         scheduled_stop_point_label: string;
@@ -22586,7 +22586,7 @@ export const JourneyPatternWithStopsFragmentDoc = gql`
   fragment journey_pattern_with_stops on journey_pattern_journey_pattern {
     journey_pattern_id
     on_route_id
-    scheduled_stop_point_in_journey_patterns(
+    ordered_scheduled_stop_point_in_journey_patterns: scheduled_stop_point_in_journey_patterns(
       order_by: { scheduled_stop_point_sequence: asc }
     ) {
       ...scheduled_stop_point_in_journey_pattern_all_fields
