@@ -52,3 +52,12 @@ export enum SubstituteDayOfWeek {
   Saturday = 'saturday',
   Sunday = 'sunday',
 }
+
+/**
+ * Day type used for example, to sort day types
+ */
+export enum DayType {
+  MP = 1, // Monday-friday
+  LA = 2, // Saturday
+  SU = 3, // Sunday
+}
