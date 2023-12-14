@@ -75,25 +75,20 @@ export const PassingTimesByStopTable = ({
         </tr>
       </thead>
       <tbody>
-        {Object.entries(passingTimesByStop).map(
-          ([stopLabel, stopPassingTimes]) => {
-            // Stop must be part of journey pattern
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const stopInJourneyPattern = stopsInJourneyPattern.find(
-              (jpStop) => jpStop.scheduled_stop_point_label === stopLabel,
-            )!;
+        {stopsInJourneyPattern.map((stopInJourneyPattern) => {
+          const stopLabel = stopInJourneyPattern.scheduled_stop_point_label;
+          const stopPassingTimes = passingTimesByStop[stopLabel];
 
-            return (
-              <PassingTimesByStopTableRow
-                key={stopLabel}
-                passingTimes={stopPassingTimes}
-                journeyPatternStop={stopInJourneyPattern}
-                selectedPassingTime={selectedPassingTime}
-                setSelectedPassingTime={setSelectedPassingTime}
-              />
-            );
-          },
-        )}
+          return (
+            <PassingTimesByStopTableRow
+              key={stopLabel}
+              passingTimes={stopPassingTimes}
+              journeyPatternStop={stopInJourneyPattern}
+              selectedPassingTime={selectedPassingTime}
+              setSelectedPassingTime={setSelectedPassingTime}
+            />
+          );
+        })}
       </tbody>
     </table>
   );
