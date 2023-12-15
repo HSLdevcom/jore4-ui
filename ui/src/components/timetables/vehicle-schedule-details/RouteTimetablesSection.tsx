@@ -11,9 +11,10 @@ import {
 } from '../../../hooks';
 import { parseI18nField } from '../../../i18n/utils';
 import { Row, Visible } from '../../../layoutComponents';
-import { selectTimetable } from '../../../redux';
+import { selectLoader, selectTimetable } from '../../../redux';
 import { DayType } from '../../../types/enums';
 import { AccordionButton } from '../../../uiComponents';
+import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
 import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBadge';
 import { PassingTimesByStopSection } from '../passing-times-by-stop/PassingTimesByStopSection';
@@ -36,6 +37,7 @@ const testIds = {
   accordionToggle: 'RouteTimetablesSection::AccordionToggle',
   timetableSection: (routeLabel: string, routeDirection: string) =>
     `RouteTimetablesSection::section::${routeLabel}::${routeDirection}`,
+  loadingRouteTimetables: 'LoadingWrapper::loadingRouteTimetables',
 };
 
 export const RouteTimetablesSection = ({
@@ -46,7 +48,7 @@ export const RouteTimetablesSection = ({
   const { showAllValid } = useAppSelector(selectTimetable);
   const [isOpen, toggleIsOpen] = useToggle(initiallyOpen);
   const { activeView, setShowPassingTimesByStop } = useTimetablesViewState();
-
+  const { fetchRouteTimetables } = useAppSelector(selectLoader);
   const routeResult = useGetRouteWithJourneyPatternQuery({
     variables: { routeId },
   });
@@ -111,33 +113,39 @@ export const RouteTimetablesSection = ({
           />
         </div>
       </Row>
-      <Visible visible={isOpen}>
-        <div className="mt-8">
-          {activeView === TimetablesView.DEFAULT && (
-            <div className="grid grid-cols-3 gap-x-8 gap-y-5">
-              {displayedVehicleJourneyGroups?.map((item) => (
-                <VehicleServiceTable
-                  vehicleJourneyGroup={item}
-                  key={`${item.priority}-${item.dayType.day_type_id}`}
-                  onClick={() =>
-                    setShowPassingTimesByStop(route.label, item.dayType.label)
-                  }
-                />
-              ))}
-            </div>
-          )}
-          {activeView === TimetablesView.PASSING_TIMES_BY_STOP &&
-            timetables && (
-              <PassingTimesByStopSection
-                vehicleJourneyGroups={timetables.vehicleJourneyGroups}
-                route={route}
-              />
+      <LoadingWrapper
+        className="flex justify-center p-5"
+        loading={fetchRouteTimetables}
+        testId={testIds.loadingRouteTimetables}
+      >
+        <Visible visible={isOpen}>
+          <div className="mt-8">
+            {activeView === TimetablesView.DEFAULT && (
+              <div className="grid grid-cols-3 gap-x-8 gap-y-5">
+                {displayedVehicleJourneyGroups?.map((item) => (
+                  <VehicleServiceTable
+                    vehicleJourneyGroup={item}
+                    key={`${item.priority}-${item.dayType.day_type_id}`}
+                    onClick={() =>
+                      setShowPassingTimesByStop(route.label, item.dayType.label)
+                    }
+                  />
+                ))}
+              </div>
             )}
-        </div>
-        <Visible visible={!timetables?.vehicleJourneyGroups.length}>
-          <p>{t('timetables.noSchedules')}</p>
+            {activeView === TimetablesView.PASSING_TIMES_BY_STOP &&
+              timetables && (
+                <PassingTimesByStopSection
+                  vehicleJourneyGroups={timetables.vehicleJourneyGroups}
+                  route={route}
+                />
+              )}
+          </div>
+          <Visible visible={!timetables?.vehicleJourneyGroups.length}>
+            <p>{t('timetables.noSchedules')}</p>
+          </Visible>
         </Visible>
-      </Visible>
+      </LoadingWrapper>
     </div>
   );
 };

@@ -7,10 +7,11 @@ import {
   VehicleScheduleFragment,
   useGetVehicleSchedulesForDateAsyncQuery,
 } from '../../generated/graphql';
-import { selectChangeTimetableValidityModal } from '../../redux';
+import { Operation, selectChangeTimetableValidityModal } from '../../redux';
 import { findEarliestTime, findLatestTime } from '../../time';
 import { TimetablePriority } from '../../types/enums';
 import { useAppSelector } from '../redux';
+import { useLoader } from '../ui';
 import { useObservationDateQueryParam } from '../urlQuery';
 
 const GQL_DAY_TYPE_FRAGMENT = gql`
@@ -240,6 +241,7 @@ export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
   const changeTimetableValidityModalState = useAppSelector(
     selectChangeTimetableValidityModal,
   );
+  const { setIsLoading } = useLoader(Operation.FetchRouteTimetables);
 
   const [timetables, setTimetables] = useState<TimetableWithMetadata>();
 
@@ -250,7 +252,7 @@ export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
     if (!journeyPatternId) {
       return;
     }
-
+    setIsLoading(true);
     const response = await getVehicleSchedulesForDate({
       journey_pattern_id: journeyPatternId,
       observation_date: observationDate,
@@ -284,7 +286,13 @@ export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
     };
 
     setTimetables(timetableWithMetadata);
-  }, [journeyPatternId, getVehicleSchedulesForDate, observationDate]);
+    setIsLoading(false);
+  }, [
+    journeyPatternId,
+    setIsLoading,
+    getVehicleSchedulesForDate,
+    observationDate,
+  ]);
 
   useEffect(() => {
     getTimetablesForRoute();
