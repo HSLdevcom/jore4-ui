@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import orderBy from 'lodash/orderBy';
+import sortBy from 'lodash/sortBy';
 import { useTranslation } from 'react-i18next';
 import { useGetRouteWithJourneyPatternQuery } from '../../../generated/graphql';
 import {
@@ -12,6 +12,7 @@ import {
 import { parseI18nField } from '../../../i18n/utils';
 import { Row, Visible } from '../../../layoutComponents';
 import { selectTimetable } from '../../../redux';
+import { DayType } from '../../../types/enums';
 import { AccordionButton } from '../../../uiComponents';
 import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBadge';
@@ -60,13 +61,15 @@ export const RouteTimetablesSection = ({
   }
 
   // depending on the showAll mode, we either show all day type timetables
-  // which are currently ordered only by priority
+  // which are currently ordered only by day type
   // OR we only show the one with inEffect value as true.
   const displayedVehicleJourneyGroups = (() => {
     const vehicleJourneyGroups = showAllValid
       ? timetables?.vehicleJourneyGroups
       : timetables?.vehicleJourneyGroups.filter((vjGroup) => vjGroup.inEffect);
-    return orderBy(vehicleJourneyGroups, ['priority'], ['desc']);
+    return sortBy(vehicleJourneyGroups, [
+      (item) => DayType[item.dayType.label as keyof typeof DayType],
+    ]);
   })();
 
   return (
