@@ -32,3 +32,8 @@ export const selectChangeTimetableValidityModal = createSelector(
   selectModals,
   (modals) => modals.changeTimetableValidityModal,
 );
+
+export const selectDeleteTimetableModal = createSelector(
+  selectModals,
+  (modals) => modals.deleteTimetableModal,
+);

@@ -14,6 +14,7 @@ import { TimetablePriority } from '../../../types/enums';
 import { CloseIconButton } from '../../../uiComponents';
 import { TimeRangeControl } from '../../common';
 import { FormColumn, FormRow } from '../../forms/common';
+import { DeleteTimetableModal } from './DeleteTimetableModal';
 import { TimetableVersionTable } from './TimetableVersionTable';
 
 const testIds = {
@@ -33,7 +34,7 @@ export const TimetableVersionsPage = (): JSX.Element => {
       endDate,
     });
   // Then we can fetch the timetable versions using SQL functions
-  const { versions } = useGetTimetableVersions({
+  const { versions, fetchTimetableVersions } = useGetTimetableVersions({
     // We need to use memoized value which only changes when the loading status is changed. Otherwise we
     // end up in infinite loop
     journeyPatternIdsGroupedByRouteLabel: useMemo(
@@ -99,6 +100,7 @@ export const TimetableVersionsPage = (): JSX.Element => {
           data={onlyDraftTimetables}
         />
       </Container>
+      <DeleteTimetableModal fetchTimetableVersions={fetchTimetableVersions} />
     </Container>
   );
 };
