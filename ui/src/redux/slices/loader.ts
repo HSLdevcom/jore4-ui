@@ -12,6 +12,7 @@ export enum Operation {
   ConfirmTimetablesImport = 'confirmTimetablesImport',
   UploadFilesToHastusImport = 'uploadFilesToHastusImport',
   AbortImport = 'abortImport',
+  FetchRouteTimetables = 'fetchRouteTimetables',
 }
 
 export const mapOperations = [
@@ -49,6 +50,7 @@ const initialState: IState = {
   [Operation.ConfirmTimetablesImport]: false,
   [Operation.UploadFilesToHastusImport]: false,
   [Operation.AbortImport]: false,
+  [Operation.FetchRouteTimetables]: false,
 };
 
 const slice = createSlice({
