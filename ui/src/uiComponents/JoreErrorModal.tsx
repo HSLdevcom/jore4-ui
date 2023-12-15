@@ -19,7 +19,7 @@ export const JoreErrorModal = () => {
       isOpen={isOpen}
       onClose={onClose}
       heading={errorModalTitle}
-      className="w-max rounded-md"
+      className="w-max max-w-[50%] rounded-md"
       bodyClassName="max-h-[50vh] space-y-2 overflow-y-auto"
     >
       {errorList.map((error) => (
