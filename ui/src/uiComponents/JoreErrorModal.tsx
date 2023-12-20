@@ -7,7 +7,7 @@ import { ErrorModalItem } from './ErrorModalItem';
 export const JoreErrorModal = () => {
   const dispatch = useDispatch();
 
-  const { isOpen, errorList, errorModalTitle } =
+  const { isOpen, errorModalTitle, singleErrorDetails, errorList } =
     useAppSelector(selectErrorModal);
 
   const onClose = () => {
@@ -22,8 +22,15 @@ export const JoreErrorModal = () => {
       className="w-max max-w-[50%] rounded-md"
       bodyClassName="max-h-[50vh] space-y-2 overflow-y-auto"
     >
+      {singleErrorDetails && (
+        <ErrorModalItem
+          details={singleErrorDetails.details}
+          additionalDetails={singleErrorDetails.additionalDetails}
+        />
+      )}
       {errorList.map((error) => (
         <ErrorModalItem
+          className="bg-slate-100"
           message={error.message}
           details={error.details}
           additionalDetails={error.additionalDetails}
