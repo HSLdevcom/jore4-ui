@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../generated/graphql';
-import { useToggle } from '../../../hooks';
-import { parseI18nField } from '../../../i18n/utils';
-import { Row, Visible } from '../../../layoutComponents';
-import { mapToShortDate } from '../../../time';
-import { AccordionButton } from '../../../uiComponents';
+import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../../generated/graphql';
+import { useToggle } from '../../../../hooks';
+import { parseI18nField } from '../../../../i18n/utils';
+import { Row, Visible } from '../../../../layoutComponents';
+import { mapToShortDate } from '../../../../time';
+import { AccordionButton } from '../../../../uiComponents';
 import { BlockVehicleJourneysTable } from './BlockVehicleJourneysTable';
 
 const testIds = {

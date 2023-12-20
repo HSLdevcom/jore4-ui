@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../generated/graphql';
+import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../../generated/graphql';
 import { VehicleScheduleFrameBlocksView } from './VehicleScheduleFrameBlocksView';
 
 interface Props {
