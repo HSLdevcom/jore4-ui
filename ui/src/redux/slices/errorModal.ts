@@ -1,16 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface ErrorItem {
-  message: string;
+export interface ErrorDetails {
   details: string;
-  key: string;
   additionalDetails?: string;
+}
+
+export interface ErrorListItem extends ErrorDetails {
+  key: string;
+  message: string;
 }
 
 interface IState {
   isOpen: boolean;
   errorModalTitle: string;
-  errorList: ErrorItem[];
+  errorList: ErrorListItem[];
 }
 
 const initialState: IState = {
@@ -23,11 +26,11 @@ const slice = createSlice({
   name: 'errorModal',
   initialState,
   reducers: {
-    openErrorModal: (
+    openErrorListModal: (
       state: IState,
       action: PayloadAction<{
         errorModalTitle: string;
-        errorList: ErrorItem[];
+        errorList: ErrorListItem[];
       }>,
     ) => {
       state.errorModalTitle = action.payload.errorModalTitle;
@@ -42,7 +45,7 @@ const slice = createSlice({
 });
 
 export const {
-  openErrorModal: openErrorModalAction,
+  openErrorListModal: openErrorListModalAction,
   closeErrorModal: closeErrorModalAction,
 } = slice.actions;
 
