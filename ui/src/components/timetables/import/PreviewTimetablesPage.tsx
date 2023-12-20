@@ -20,7 +20,7 @@ import { Path, routeDetails } from '../../../router/routeDetails';
 import { AccordionButton, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
 import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
-import { ImportContentsView } from './ImportContentsView';
+import { ImportContentsView } from './contents-view';
 import { SpecialDayMixedPrioritiesWarning } from './SpecialDayMixedPrioritiesWarning';
 import { SummarySection } from './SummarySection';
 import { FormState, getDefaultValues } from './TimetablesImportFormSchema';
