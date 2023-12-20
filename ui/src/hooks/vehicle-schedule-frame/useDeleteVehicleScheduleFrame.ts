@@ -5,7 +5,7 @@ import {
   DeleteVehicleScheduleFrameMutationVariables,
   useDeleteVehicleScheduleFrameMutation,
 } from '../../generated/graphql';
-import { Operation, openErrorModalAction } from '../../redux';
+import { Operation, openErrorListModalAction } from '../../redux';
 import { getApolloErrorMessage } from '../../utils/apolloErrors';
 import { useLoader } from '../ui';
 
@@ -46,7 +46,7 @@ export const useDeleteVehicleScheduleFrame = ({
       if (error instanceof ApolloError) {
         const errorText = getApolloErrorMessage(error);
         dispatch(
-          openErrorModalAction({
+          openErrorListModalAction({
             errorModalTitle: t('deleteTimetableModal.errorModalTitle'),
             errorList: [
               {
