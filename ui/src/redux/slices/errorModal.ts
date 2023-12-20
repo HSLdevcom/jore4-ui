@@ -7,7 +7,7 @@ export interface ErrorDetails {
 
 export interface ErrorListItem extends ErrorDetails {
   key: string;
-  message: string;
+  errorTitle: string;
 }
 
 interface IState {

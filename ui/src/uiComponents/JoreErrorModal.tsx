@@ -31,7 +31,7 @@ export const JoreErrorModal = () => {
       {errorList.map((error) => (
         <ErrorModalItem
           className="bg-slate-100"
-          message={error.message}
+          title={error.errorTitle}
           details={error.details}
           additionalDetails={error.additionalDetails}
           key={error.key}
