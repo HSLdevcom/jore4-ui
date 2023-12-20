@@ -7,22 +7,22 @@ const testIds = {
 };
 
 interface Props {
-  message?: string;
+  title?: string;
   details: string;
   additionalDetails?: string;
   className?: string;
 }
 
 export const ErrorModalItem: React.FC<Props> = ({
-  message,
+  title,
   details,
   additionalDetails,
   className = '',
 }) => {
   return (
     <div className={`rounded-sm px-4 py-3 ${className}`}>
-      <Visible visible={!!message}>
-        <h5 className="inline">{message}</h5>
+      <Visible visible={!!title}>
+        <h5 className="inline">{title}</h5>
       </Visible>
       <div className="pl-3">
         <Dialog.Description data-testid={testIds.textContent}>
