@@ -6,8 +6,8 @@ import { useAppSelector } from '../../../hooks';
 import { useTimetablesImport } from '../../../hooks/timetables-import/useTimetablesImport';
 import { Container, Row } from '../../../layoutComponents';
 import {
-  ErrorItem,
-  openErrorModalAction,
+  ErrorListItem,
+  openErrorListModalAction,
   selectIsJoreOperationLoading,
 } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
@@ -81,18 +81,20 @@ export const ImportTimetablesPage = (): JSX.Element => {
       setFileList(failedFiles);
 
       if (result.failedFiles.length) {
-        const importErrors: ErrorItem[] = result.failedFiles.map((failure) => {
-          const filename = failure.file.name;
+        const importErrors: ErrorListItem[] = result.failedFiles.map(
+          (failure) => {
+            const filename = failure.file.name;
 
-          return {
-            message: t('import.fileUploadFailed', { filename }),
-            details: failure.error.response?.data?.reason || '',
-            additionalDetails: failure.error.message,
-            key: filename,
-          };
-        });
+            return {
+              message: t('import.fileUploadFailed', { filename }),
+              details: failure.error.response?.data?.reason || '',
+              additionalDetails: failure.error.message,
+              key: filename,
+            };
+          },
+        );
         dispatch(
-          openErrorModalAction({
+          openErrorListModalAction({
             errorModalTitle: t('import.errorModalTitle'),
             errorList: importErrors,
           }),
