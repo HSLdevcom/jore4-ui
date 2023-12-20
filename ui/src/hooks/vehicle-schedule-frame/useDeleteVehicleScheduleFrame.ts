@@ -50,7 +50,7 @@ export const useDeleteVehicleScheduleFrame = ({
             errorModalTitle: t('deleteTimetableModal.errorModalTitle'),
             errorList: [
               {
-                message: t('deleteTimetableModal.errorMessage'),
+                errorTitle: t('deleteTimetableModal.errorMessage'),
                 details: errorText,
                 key: errorText,
               },

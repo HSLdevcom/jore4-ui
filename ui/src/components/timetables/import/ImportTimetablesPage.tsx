@@ -86,7 +86,7 @@ export const ImportTimetablesPage = (): JSX.Element => {
             const filename = failure.file.name;
 
             return {
-              message: t('import.fileUploadFailed', { filename }),
+              errorTitle: t('import.fileUploadFailed', { filename }),
               details: failure.error.response?.data?.reason || '',
               additionalDetails: failure.error.message,
               key: filename,
