@@ -114,7 +114,7 @@ export const ConflictResolverModal: React.FC<Props> = ({
   const isOpen = !!conflicts.length;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className={className}>
+    <Modal isOpen={isOpen} onClose={onClose} contentClassName={className}>
       <ModalBody>
         <Dialog.Title className="flex text-xl font-bold">
           {t('saveChangesModal.validityConflictTitle')}

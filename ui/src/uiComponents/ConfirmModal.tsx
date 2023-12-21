@@ -33,7 +33,7 @@ export const ConfirmModal: FunctionComponent<Props> = ({
     <Modal
       isOpen={isOpen}
       onClose={onCancel}
-      className={twMerge('w-1/4', className)}
+      contentClassName={twMerge('w-1/4', className)}
     >
       <Row className="flex justify-between py-4 px-5">
         <Dialog.Title as="h4">{heading}</Dialog.Title>
