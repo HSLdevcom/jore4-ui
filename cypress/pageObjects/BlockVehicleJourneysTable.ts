@@ -9,7 +9,7 @@ export class BlockVehicleJourneysTable {
 
   getVehicleJourneyRow(routeLabel: string, routeDirection: string) {
     return cy.getByTestId(
-      `BlockVehicleJourneysTable::vehicleJourneyRow::${routeLabel}::${routeDirection}`,
+      `VehicleJourneyRow::${routeLabel}::${routeDirection}`,
     );
   }
 

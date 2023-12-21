@@ -57,6 +57,10 @@ const GQL_VEHICLE_SERVICE_WITH_JOURNEYS_FRAGMENT = gql`
       vehicle_journeys {
         ...vehicle_journey_with_route_info
       }
+      vehicle_type {
+        vehicle_type_id
+        description_i18n
+      }
     }
   }
 `;

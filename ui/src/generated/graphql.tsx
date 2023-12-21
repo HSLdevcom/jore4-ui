@@ -21381,6 +21381,11 @@ export type VehicleServiceWithJourneysFragment = {
         };
       };
     }>;
+    vehicle_type?: {
+      __typename?: 'timetables_vehicle_type_vehicle_type';
+      vehicle_type_id: UUID;
+      description_i18n?: any | null;
+    } | null;
   }>;
 };
 
@@ -21455,6 +21460,11 @@ export type VehicleScheduleFrameWithRouteInfoFragment = {
           };
         };
       }>;
+      vehicle_type?: {
+        __typename?: 'timetables_vehicle_type_vehicle_type';
+        vehicle_type_id: UUID;
+        description_i18n?: any | null;
+      } | null;
     }>;
   }>;
 };
@@ -21538,6 +21548,11 @@ export type GetStagingVehicleScheduleFramesQuery = {
               };
             };
           }>;
+          vehicle_type?: {
+            __typename?: 'timetables_vehicle_type_vehicle_type';
+            vehicle_type_id: UUID;
+            description_i18n?: any | null;
+          } | null;
         }>;
       }>;
     }>;
@@ -22801,6 +22816,10 @@ export const VehicleServiceWithJourneysFragmentDoc = gql`
       block_id
       vehicle_journeys {
         ...vehicle_journey_with_route_info
+      }
+      vehicle_type {
+        vehicle_type_id
+        description_i18n
       }
     }
   }

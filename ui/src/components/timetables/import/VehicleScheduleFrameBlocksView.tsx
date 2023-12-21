@@ -77,6 +77,9 @@ export const VehicleScheduleFrameBlocksView = ({
               key={block.block.block_id}
               title={block.label}
               vehicleJourneys={block.block.vehicle_journeys}
+              vehicleType={parseI18nField(
+                block.block.vehicle_type?.description_i18n,
+              )}
             />
           ))}
         </div>

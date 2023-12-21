@@ -451,7 +451,7 @@ describe('Timetable import', () => {
         .click();
       previewTimetablesPage.blockVehicleJourneysTable
         .getTable()
-        .should('contain', 'Kalustotyyppi 3 - Normaalibussi')
+        .should('contain', 'Matala A2 -bussi')
         .and('contain', '99')
         .and('contain', 'Lauantai')
         .and('contain', '7:10')
@@ -538,14 +538,14 @@ describe('Timetable import', () => {
         previewTimetablesPage.vehicleScheduleFrameBlocksView
           .getFrameBlocksByLabel('0099')
           .should('contain', '1.1.2023 - 30.6.2043 | 1 autokiertoa')
-          .and('contain', 'Kalustotyyppi 3 - Normaalibussi')
+          .and('contain', 'Matala A2 -bussi')
           .and('contain', '99')
           .and('contain', 'Lauantai');
 
         previewTimetablesPage.vehicleScheduleFrameBlocksView
           .getFrameBlocksByLabel('1199')
           .should('contain', '1.6.2023 - 30.6.2023 | 1 autokiertoa')
-          .and('contain', 'Kalustotyyppi 3 - Normaalibussi')
+          .and('contain', 'Matala A2 -bussi')
           .and('contain', '99')
           .and('contain', 'Sunnuntai');
 
@@ -612,7 +612,7 @@ describe('Timetable import', () => {
           .should('contain', '1.6.2023 - 30.6.2023 | 1 autokiertoa');
         previewTimetablesPage.blockVehicleJourneysTable
           .getTable()
-          .should('contain', 'Kalustotyyppi 3 - Normaalibussi')
+          .should('contain', 'Matala A2 -bussi')
           .and('contain', '99')
           .and('contain', 'Sunnuntai')
           .and('contain', '7:10')
@@ -702,7 +702,7 @@ describe('Timetable import', () => {
           .click();
         previewTimetablesPage.blockVehicleJourneysTable
           .getTable()
-          .should('contain', 'Kalustotyyppi 3 - Normaalibussi')
+          .should('contain', 'Matala A2 -bussi')
           .and('contain', '99')
           .and('contain', 'Sunnuntai')
           .and('contain', '7:10')
@@ -830,7 +830,7 @@ describe('Timetable import', () => {
           .click();
         previewTimetablesPage.blockVehicleJourneysTable
           .getTable()
-          .should('contain', 'Kalustotyyppi 3 - Normaalibussi')
+          .should('contain', 'Matala A2 -bussi')
           .and('contain', '99')
           .and('contain', 'Sunnuntai')
           .and('contain', '6:10')
