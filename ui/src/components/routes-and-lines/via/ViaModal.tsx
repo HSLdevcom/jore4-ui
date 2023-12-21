@@ -84,7 +84,7 @@ export const ViaModal = ({ className = '' }: Props): JSX.Element => {
   };
 
   return (
-    <Modal isOpen onClose={onClose} className={className}>
+    <Modal isOpen onClose={onClose} contentClassName={className}>
       <ModalHeader
         onClose={onClose}
         heading={t('viaModal.viaModalTitle', {

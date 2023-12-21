@@ -69,7 +69,7 @@ export const ChangeTimetablesValidityModal: React.FC<Props> = ({
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className={className}>
+    <Modal isOpen={isOpen} onClose={onClose} contentClassName={className}>
       <ModalHeader
         onClose={onClose}
         heading={t('changeTimetablesValidityModal.title')}

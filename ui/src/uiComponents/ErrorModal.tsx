@@ -32,7 +32,7 @@ export const ErrorModal: FunctionComponent<Props> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      className={twMerge('w-1/4', className)}
+      contentClassName={twMerge('w-1/4', className)}
     >
       <Row className="flex items-start justify-between px-5 pt-4 pb-2">
         <div className="flex space-x-1">
