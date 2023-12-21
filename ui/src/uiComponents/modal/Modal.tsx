@@ -5,6 +5,7 @@ import { twMerge } from 'tailwind-merge';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  dialogClassName?: string;
   contentClassName?: string;
   testId?: string;
 }
@@ -12,6 +13,7 @@ interface Props {
 export const Modal: React.FC<Props> = ({
   isOpen,
   onClose,
+  dialogClassName = '',
   contentClassName = '',
   testId = null,
   children,
@@ -21,7 +23,7 @@ export const Modal: React.FC<Props> = ({
       open={isOpen}
       data-testid={testId}
       onClose={onClose}
-      className="relative z-50"
+      className={twMerge('relative z-40', dialogClassName)}
     >
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
         <div
