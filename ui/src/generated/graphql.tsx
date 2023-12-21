@@ -21908,6 +21908,21 @@ export type LineMapParamsFragment = {
   }>;
 };
 
+export type DeleteVehicleScheduleFrameMutationVariables = Exact<{
+  vehicle_schedule_frame_id: Scalars['uuid'];
+}>;
+
+export type DeleteVehicleScheduleFrameMutation = {
+  __typename?: 'mutation_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_mutation_frontend';
+    timetables_delete_vehicle_schedule_vehicle_schedule_frame_by_pk?: {
+      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+      vehicle_schedule_frame_id: UUID;
+    } | null;
+  } | null;
+};
+
 export type VehicleScheduleFrameWithRoutesFragment = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
   vehicle_schedule_frame_id: UUID;
@@ -27500,6 +27515,61 @@ export type GetTimetableVersionsByJourneyPatternIdsQueryResult =
     GetTimetableVersionsByJourneyPatternIdsQuery,
     GetTimetableVersionsByJourneyPatternIdsQueryVariables
   >;
+export const DeleteVehicleScheduleFrameDocument = gql`
+  mutation DeleteVehicleScheduleFrame($vehicle_schedule_frame_id: uuid!) {
+    timetables {
+      timetables_delete_vehicle_schedule_vehicle_schedule_frame_by_pk(
+        vehicle_schedule_frame_id: $vehicle_schedule_frame_id
+      ) {
+        vehicle_schedule_frame_id
+      }
+    }
+  }
+`;
+export type DeleteVehicleScheduleFrameMutationFn = Apollo.MutationFunction<
+  DeleteVehicleScheduleFrameMutation,
+  DeleteVehicleScheduleFrameMutationVariables
+>;
+
+/**
+ * __useDeleteVehicleScheduleFrameMutation__
+ *
+ * To run a mutation, you first call `useDeleteVehicleScheduleFrameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteVehicleScheduleFrameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteVehicleScheduleFrameMutation, { data, loading, error }] = useDeleteVehicleScheduleFrameMutation({
+ *   variables: {
+ *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
+ *   },
+ * });
+ */
+export function useDeleteVehicleScheduleFrameMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteVehicleScheduleFrameMutation,
+    DeleteVehicleScheduleFrameMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteVehicleScheduleFrameMutation,
+    DeleteVehicleScheduleFrameMutationVariables
+  >(DeleteVehicleScheduleFrameDocument, options);
+}
+export type DeleteVehicleScheduleFrameMutationHookResult = ReturnType<
+  typeof useDeleteVehicleScheduleFrameMutation
+>;
+export type DeleteVehicleScheduleFrameMutationResult =
+  Apollo.MutationResult<DeleteVehicleScheduleFrameMutation>;
+export type DeleteVehicleScheduleFrameMutationOptions =
+  Apollo.BaseMutationOptions<
+    DeleteVehicleScheduleFrameMutation,
+    DeleteVehicleScheduleFrameMutationVariables
+  >;
 export const GetVehicleScheduleFrameWithRoutesDocument = gql`
   query GetVehicleScheduleFrameWithRoutes($vehicle_schedule_frame_id: uuid!) {
     timetables {
@@ -28139,6 +28209,7 @@ export function useGetTimetableVersionsByJourneyPatternIdsAsyncQuery() {
 }
 export type GetTimetableVersionsByJourneyPatternIdsAsyncQueryHookResult =
   ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsAsyncQuery>;
+
 export function useGetVehicleScheduleFrameWithRoutesAsyncQuery() {
   return useAsyncQuery<
     GetVehicleScheduleFrameWithRoutesQuery,

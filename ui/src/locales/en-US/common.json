@@ -381,7 +381,10 @@
       "warningMessage": "Save or discard the form changes",
       "observationPeriodAdjusted": "Filtering period has been changed"
     },
-    "chooseSubstituteDay": "Select..."
+    "chooseSubstituteDay": "Select...",
+    "versions": {
+      "deleteTimetable": "Delete timetable"
+    }
   },
   "timetablesImportPriorityForm": {
     "importAsSpecialDay": "Import as special day",
@@ -470,6 +473,13 @@
     "hastusErrorTitle": "Failed to export to Hastus",
     "tooltip": "Export selected to Hastus",
     "disabledTooltip": "Select only one priority for the search to be able to export routes to Hastus."
+  },
+  "deleteTimetableModal": {
+    "title": "Remove schedule",
+    "description": "The schedule will be deleted and cannot be restored",
+    "affectedRoutesText": "The schedules will be removed from the following routes",
+    "confirmText": "Delete",
+    "cancelText": "Do not delete"
   },
   "save": "Save",
   "edit": "Edit",
