@@ -7,12 +7,8 @@ interface Props {
 export const RouteTimetableList = ({ routeIds }: Props): JSX.Element => {
   return (
     <div className="grid gap-y-5">
-      {routeIds.map((item, index) => (
-        <RouteTimetablesSection
-          key={item}
-          routeId={item}
-          initiallyOpen={index === 0}
-        />
+      {routeIds.map((item) => (
+        <RouteTimetablesSection key={item} routeId={item} />
       ))}
     </div>
   );
