@@ -5,6 +5,7 @@ interface IState {
   timingPlaceModal: TimingPlaceModalState;
   timingSettingsModal: TimingSettingsModalState;
   changeTimetableValidityModal: ChangeTimetableValidityModalState;
+  deleteTimetableModal: deleteTimetableModalState;
 }
 
 interface ViaModalState {
@@ -36,6 +37,11 @@ interface TimingPlaceModalState {
   isOpen: boolean;
 }
 
+interface deleteTimetableModalState {
+  isOpen: boolean;
+  vehicleScheduleFrameId?: UUID;
+}
+
 const initialState: IState = {
   viaModal: {
     isOpen: false,
@@ -53,6 +59,10 @@ const initialState: IState = {
     isOpen: false,
     vehicleScheduleFrameId: undefined,
     lastModifiedVehicleScheduleFrame: undefined,
+  },
+  deleteTimetableModal: {
+    isOpen: false,
+    vehicleScheduleFrameId: undefined,
   },
 };
 
@@ -122,6 +132,18 @@ const slice = createSlice({
         lastModifiedVehicleScheduleFrame: action.payload,
       };
     },
+    openDeleteTimetableModal: (state, action: PayloadAction<UUID>) => {
+      state.deleteTimetableModal = {
+        isOpen: true,
+        vehicleScheduleFrameId: action.payload,
+      };
+    },
+    closeDeleteTimetableModal: (state) => {
+      state.deleteTimetableModal = {
+        isOpen: false,
+        vehicleScheduleFrameId: undefined,
+      };
+    },
   },
 });
 
@@ -136,6 +158,8 @@ export const {
   setChangeTimetableValidityModalSuccessResult:
     setChangeTimetableValidityModalSuccessResultAction,
   closeChangeTimetableValidityModal: closeChangeTimetableValidityModalAction,
+  closeDeleteTimetableModal: closeDeleteTimetableModalAction,
+  openDeleteTimetableModal: openDeleteTimetableModalAction,
 } = slice.actions;
 
 export const modalsReducer = slice.reducer;
