@@ -47,7 +47,7 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className={className}>
+    <Modal isOpen={isOpen} onClose={onClose} contentClassName={className}>
       <NewModalHeader
         onClose={onClose}
         heading={t('confirmTimetablesImportModal.title')}

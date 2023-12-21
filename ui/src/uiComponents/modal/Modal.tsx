@@ -5,14 +5,14 @@ import { twMerge } from 'tailwind-merge';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  className?: string;
+  contentClassName?: string;
   testId?: string;
 }
 
 export const Modal: React.FC<Props> = ({
   isOpen,
   onClose,
-  className = '',
+  contentClassName = '',
   testId = null,
   children,
 }) => {
@@ -27,7 +27,7 @@ export const Modal: React.FC<Props> = ({
         <div
           className={twMerge(
             'overflow-y-auto bg-white drop-shadow-md',
-            className,
+            contentClassName,
           )}
         >
           {children}
