@@ -69,11 +69,13 @@ const VehicleJourneyRow = ({
 
 interface Props {
   vehicleJourneys: VehicleJourneyWithRouteInfoFragment[];
+  vehicleType: string;
   title: string;
 }
 
 export const BlockVehicleJourneysTable = ({
   vehicleJourneys,
+  vehicleType,
   title,
 }: Props): JSX.Element => {
   const [isOpen, toggleIsOpen] = useToggle();
@@ -93,7 +95,7 @@ export const BlockVehicleJourneysTable = ({
             colSpan={4}
           >
             <Row className="flex-1 items-center justify-between font-normal">
-              <p>!Kalustotyyppi 3 - Normaalibussi</p>
+              <p>{vehicleType}</p>
               <AccordionButton
                 testId={testIds.toggleShowTable}
                 isOpen={isOpen}

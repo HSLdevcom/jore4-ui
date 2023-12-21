@@ -584,7 +584,7 @@ describe('Timetable replacement and combination', () => {
       previewTimetablesPage.blockVehicleJourneysTable
         .getTable()
         .find('th')
-        .should('contain', 'Kalustotyyppi 3 - Normaalibussi');
+        .should('contain', 'Matala A2 -bussi');
       previewTimetablesPage.blockVehicleJourneysTable
         .getVehicleJourneyRow('99', 'inbound')
         .eq(0)
@@ -645,7 +645,7 @@ describe('Timetable replacement and combination', () => {
       previewTimetablesPage.blockVehicleJourneysTable
         .getTable()
         .find('th')
-        .should('contain', 'Kalustotyyppi 3 - Normaalibussi');
+        .should('contain', 'Matala A2 -bussi');
       previewTimetablesPage.blockVehicleJourneysTable
         .getVehicleJourneyRow('99', 'inbound')
         .eq(0)
