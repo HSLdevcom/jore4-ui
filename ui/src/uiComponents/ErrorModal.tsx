@@ -32,6 +32,7 @@ export const ErrorModal: FunctionComponent<Props> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
+      dialogClassName="z-50" // Display on top of other possible modals.
       contentClassName={twMerge('w-1/4', className)}
     >
       <Row className="flex items-start justify-between px-5 pt-4 pb-2">
