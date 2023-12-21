@@ -65,6 +65,7 @@ export interface TimetableVersionRowData {
     nameI18n: LocalizedString;
   };
   vehicleScheduleFrame: {
+    id: UUID | undefined;
     nameI18n: LocalizedString;
     priority: TimetablePriority;
     validityStart?: DateTime | null;
@@ -102,6 +103,8 @@ const mapVehicleScheduleFrameData = (
 ) => {
   return {
     vehicleScheduleFrame: {
+      id: timetableVersionData.vehicle_schedule_frame
+        ?.vehicle_schedule_frame_id,
       priority: timetableVersionData.priority,
       nameI18n:
         timetableVersionData.vehicle_schedule_frame?.name_i18n || '!Versio', // NOTE: this needs to be changed once we get versions.
@@ -204,5 +207,6 @@ export const useGetTimetableVersions = ({
 
   return {
     versions,
+    fetchTimetableVersions,
   };
 };

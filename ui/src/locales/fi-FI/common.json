@@ -381,7 +381,10 @@
       "warningMessage": "Tallenna tai hylkää lomakkeen muutokset",
       "observationPeriodAdjusted": "Suodatusjaksoa muutettu"
     },
-    "chooseSubstituteDay": "Valitse..."
+    "chooseSubstituteDay": "Valitse...",
+    "versions": {
+      "deleteTimetable": "Poista aikataulu"
+    }
   },
   "timetablesImportPriorityForm": {
     "importAsSpecialDay": "Tuo erityispäivänä",
@@ -461,6 +464,13 @@
     "hastusErrorTitle": "Vienti Hastukseen epäonnistui",
     "tooltip": "Vie valitut Hastukseen",
     "disabledTooltip": "Valitse hakuun vain yksi prioriteetti voidaksesi viedä reittejä Hastukseen."
+  },
+  "deleteTimetableModal": {
+    "title": "Poistetaan aikataulu",
+    "description": "Aikataulu poistetaan, eikä sitä voi palauttaa",
+    "affectedRoutesText": "Aikataulut poistuvat seuraavilta reiteiltä",
+    "confirmText": "Poista",
+    "cancelText": "Älä poista"
   },
   "save": "Tallenna",
   "edit": "Muokkaa",
