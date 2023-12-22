@@ -415,7 +415,8 @@
       "departureTime": "Lähtöaika",
       "dayType": "Päivätyyppi",
       "validityStarts": "Alkaa",
-      "validityEnds": "Päättyy"
+      "validityEnds": "Päättyy",
+      "contractNumber": "Sopimusnumero"
     }
   },
   "timetablesSubmitFailure": {

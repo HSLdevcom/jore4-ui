@@ -415,7 +415,8 @@
       "departureTime": "Departure",
       "dayType": "Day type",
       "validityStarts": "Starts",
-      "validityEnds": "Ends"
+      "validityEnds": "Ends",
+      "contractNumber": "Contract number"
     }
   },
   "timetablesSubmitFailure": {
