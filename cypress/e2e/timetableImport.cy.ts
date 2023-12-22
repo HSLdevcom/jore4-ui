@@ -250,6 +250,7 @@ const baseTimetableDataInput = {
               _vehicle_journeys: {
                 route99Inbound1: {
                   _journey_pattern_ref_name: 'route99inbound',
+                  contract_number: 'CONTRACT',
                   _passing_times: [
                     {
                       _scheduled_stop_point_label: 'H1231',
@@ -275,6 +276,7 @@ const baseTimetableDataInput = {
                 },
                 route99Inbound2: {
                   _journey_pattern_ref_name: 'route99inbound',
+                  contract_number: 'CONTRACT',
                   _passing_times: [
                     {
                       _scheduled_stop_point_label: 'H1231',

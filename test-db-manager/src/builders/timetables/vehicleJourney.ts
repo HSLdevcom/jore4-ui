@@ -33,6 +33,7 @@ export const buildVehicleJourneyInstance = (
   vehicleJourneyBase: VehicleJourneyInstanceBuilder,
 ): VehicleJourneyInsertInput => ({
   vehicle_journey_id: uuid(),
+  contract_number: 'DEFAULT_CONTRACT',
   journey_type: JourneyType.Standard,
   is_backup_journey: false,
   is_extra_journey: false,
@@ -175,6 +176,7 @@ export const buildVehicleJourneySequence = (
       journeyPattern,
       vehicleJourneyBase: {
         displayed_name: `trip ${count}`,
+        contract_number: 'DEFAULT_CONTRACT',
         ...vehicleJourneyBase,
       },
       ...vehicleJourneyBuildParams,
