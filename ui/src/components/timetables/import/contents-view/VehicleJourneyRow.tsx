@@ -59,6 +59,7 @@ export const VehicleJourneyRow = ({
           ? mapDurationToShortTime(vehicleJourney.end_time)
           : ''}
       </td>
+      <td>{vehicleJourney.contract_number}</td>
     </tr>
   );
 };
