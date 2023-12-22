@@ -15076,6 +15076,8 @@ export type TimetablesVehicleJourneyVehicleJourney = {
   block: TimetablesVehicleServiceBlock;
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id: Scalars['uuid'];
+  /** The contract number for this vehicle journey. */
+  contract_number: Scalars['String'];
   /** Displayed name of the journey. */
   displayed_name?: Maybe<Scalars['String']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_end_time" */
@@ -15189,6 +15191,7 @@ export type TimetablesVehicleJourneyVehicleJourneyBoolExp = {
   _or?: InputMaybe<Array<TimetablesVehicleJourneyVehicleJourneyBoolExp>>;
   block?: InputMaybe<TimetablesVehicleServiceBlockBoolExp>;
   block_id?: InputMaybe<UuidComparisonExp>;
+  contract_number?: InputMaybe<StringComparisonExp>;
   displayed_name?: InputMaybe<StringComparisonExp>;
   end_time?: InputMaybe<StringComparisonExp>;
   is_backup_journey?: InputMaybe<BooleanComparisonExp>;
@@ -15235,6 +15238,8 @@ export type TimetablesVehicleJourneyVehicleJourneyInsertInput = {
   block?: InputMaybe<TimetablesVehicleServiceBlockObjRelInsertInput>;
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: InputMaybe<Scalars['uuid']>;
+  /** The contract number for this vehicle journey. */
+  contract_number?: InputMaybe<Scalars['String']>;
   /** Displayed name of the journey. */
   displayed_name?: InputMaybe<Scalars['String']>;
   /** Is the journey a backup journey. */
@@ -15263,6 +15268,8 @@ export type TimetablesVehicleJourneyVehicleJourneyMaxFields = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey_max_fields';
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: Maybe<Scalars['uuid']>;
+  /** The contract number for this vehicle journey. */
+  contract_number?: Maybe<Scalars['String']>;
   /** Displayed name of the journey. */
   displayed_name?: Maybe<Scalars['String']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_end_time" */
@@ -15280,6 +15287,8 @@ export type TimetablesVehicleJourneyVehicleJourneyMaxFields = {
 export type TimetablesVehicleJourneyVehicleJourneyMaxOrderBy = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: InputMaybe<OrderBy>;
+  /** The contract number for this vehicle journey. */
+  contract_number?: InputMaybe<OrderBy>;
   /** Displayed name of the journey. */
   displayed_name?: InputMaybe<OrderBy>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
@@ -15294,6 +15303,8 @@ export type TimetablesVehicleJourneyVehicleJourneyMinFields = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey_min_fields';
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: Maybe<Scalars['uuid']>;
+  /** The contract number for this vehicle journey. */
+  contract_number?: Maybe<Scalars['String']>;
   /** Displayed name of the journey. */
   displayed_name?: Maybe<Scalars['String']>;
   /** A computed field, executes function "vehicle_journey.vehicle_journey_end_time" */
@@ -15311,6 +15322,8 @@ export type TimetablesVehicleJourneyVehicleJourneyMinFields = {
 export type TimetablesVehicleJourneyVehicleJourneyMinOrderBy = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: InputMaybe<OrderBy>;
+  /** The contract number for this vehicle journey. */
+  contract_number?: InputMaybe<OrderBy>;
   /** Displayed name of the journey. */
   displayed_name?: InputMaybe<OrderBy>;
   /** The JOURNEY PATTERN on which the VEHICLE JOURNEY travels */
@@ -15347,6 +15360,7 @@ export type TimetablesVehicleJourneyVehicleJourneyOnConflict = {
 export type TimetablesVehicleJourneyVehicleJourneyOrderBy = {
   block?: InputMaybe<TimetablesVehicleServiceBlockOrderBy>;
   block_id?: InputMaybe<OrderBy>;
+  contract_number?: InputMaybe<OrderBy>;
   displayed_name?: InputMaybe<OrderBy>;
   end_time?: InputMaybe<OrderBy>;
   is_backup_journey?: InputMaybe<OrderBy>;
@@ -15378,6 +15392,8 @@ export type TimetablesVehicleJourneyVehicleJourneyPrependInput = {
 export enum TimetablesVehicleJourneyVehicleJourneySelectColumn {
   /** column name */
   BlockId = 'block_id',
+  /** column name */
+  ContractNumber = 'contract_number',
   /** column name */
   DisplayedName = 'displayed_name',
   /** column name */
@@ -15424,6 +15440,8 @@ export enum TimetablesVehicleJourneyVehicleJourneySelectColumnVehicleJourneyVehi
 export type TimetablesVehicleJourneyVehicleJourneySetInput = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: InputMaybe<Scalars['uuid']>;
+  /** The contract number for this vehicle journey. */
+  contract_number?: InputMaybe<Scalars['String']>;
   /** Displayed name of the journey. */
   displayed_name?: InputMaybe<Scalars['String']>;
   /** Is the journey a backup journey. */
@@ -15457,6 +15475,8 @@ export type TimetablesVehicleJourneyVehicleJourneyStreamCursorInput = {
 export type TimetablesVehicleJourneyVehicleJourneyStreamCursorValueInput = {
   /** The BLOCK to which this VEHICLE JOURNEY belongs */
   block_id?: InputMaybe<Scalars['uuid']>;
+  /** The contract number for this vehicle journey. */
+  contract_number?: InputMaybe<Scalars['String']>;
   /** Displayed name of the journey. */
   displayed_name?: InputMaybe<Scalars['String']>;
   /** Is the journey a backup journey. */
@@ -15482,6 +15502,8 @@ export type TimetablesVehicleJourneyVehicleJourneyStreamCursorValueInput = {
 export enum TimetablesVehicleJourneyVehicleJourneyUpdateColumn {
   /** column name */
   BlockId = 'block_id',
+  /** column name */
+  ContractNumber = 'contract_number',
   /** column name */
   DisplayedName = 'displayed_name',
   /** column name */
