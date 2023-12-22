@@ -34,6 +34,7 @@ export const DuplicateJourneysSection = ({
             <th className="!pl-0">
               {t('timetablesPreview.duplicateJourneys.validityEnds')}
             </th>
+            <th>{t('timetablesPreview.duplicateJourneys.contractNumber')}</th>
             <th className="w-full">{/* Filler */}</th>
           </tr>
         </thead>
