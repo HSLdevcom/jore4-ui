@@ -21298,6 +21298,7 @@ export type VehicleJourneyWithRouteInfoFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   start_time: luxon.Duration;
   end_time: luxon.Duration;
+  contract_number: string;
   vehicle_journey_id: UUID;
   journey_pattern_ref: {
     __typename?: 'timetables_journey_pattern_journey_pattern_ref';
@@ -21362,6 +21363,7 @@ export type VehicleServiceWithJourneysFragment = {
       __typename?: 'timetables_vehicle_journey_vehicle_journey';
       start_time: luxon.Duration;
       end_time: luxon.Duration;
+      contract_number: string;
       vehicle_journey_id: UUID;
       journey_pattern_ref: {
         __typename?: 'timetables_journey_pattern_journey_pattern_ref';
@@ -21441,6 +21443,7 @@ export type VehicleScheduleFrameWithRouteInfoFragment = {
         __typename?: 'timetables_vehicle_journey_vehicle_journey';
         start_time: luxon.Duration;
         end_time: luxon.Duration;
+        contract_number: string;
         vehicle_journey_id: UUID;
         journey_pattern_ref: {
           __typename?: 'timetables_journey_pattern_journey_pattern_ref';
@@ -21529,6 +21532,7 @@ export type GetStagingVehicleScheduleFramesQuery = {
             __typename?: 'timetables_vehicle_journey_vehicle_journey';
             start_time: luxon.Duration;
             end_time: luxon.Duration;
+            contract_number: string;
             vehicle_journey_id: UUID;
             journey_pattern_ref: {
               __typename?: 'timetables_journey_pattern_journey_pattern_ref';
@@ -22799,6 +22803,7 @@ export const VehicleJourneyWithRouteInfoFragmentDoc = gql`
   fragment vehicle_journey_with_route_info on timetables_vehicle_journey_vehicle_journey {
     start_time
     end_time
+    contract_number
     vehicle_journey_id
     journey_pattern_ref {
       journey_pattern_ref_id
