@@ -18,6 +18,7 @@ const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
   fragment vehicle_journey_with_route_info on timetables_vehicle_journey_vehicle_journey {
     start_time
     end_time
+    contract_number
     vehicle_journey_id
     journey_pattern_ref {
       journey_pattern_ref_id
