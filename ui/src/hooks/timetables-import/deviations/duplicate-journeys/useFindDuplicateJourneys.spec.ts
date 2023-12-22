@@ -8,6 +8,7 @@ import { useFindDuplicateJourneys } from './useFindDuplicateJourneys';
 const baseVehicleJourneyInfo: VehicleJourneyInfo = {
   vehicleJourneyId: 'c9107f53-5199-43b0-96c4-e05738fdc7a2',
   startTime: Duration.fromISO('PT8H30M'),
+  contractNumber: 'DEFAULT_CONTRACT',
   validityStart: DateTime.fromISO('2023-01-01'),
   validityEnd: DateTime.fromISO('2023-12-31'),
   dayTypeLabel: 'LA',
@@ -65,6 +66,22 @@ describe('useFindDuplicateJourneys hook', () => {
     const targetJourney1 = {
       ...cloneDeep(baseVehicleJourneyInfo),
       startTime: Duration.fromISO('PT9H15M'),
+    };
+
+    const duplicateJourneys = result.current.findDuplicateJourneys({
+      stagingFrameJourneys: [stagingJourney1],
+      targetFrameJourneys: [targetJourney1],
+    });
+
+    expect(duplicateJourneys).toEqual([]);
+  });
+
+  it('should not return a journey with different contract number', () => {
+    const { result } = renderHook(() => useFindDuplicateJourneys());
+    const stagingJourney1 = cloneDeep(baseVehicleJourneyInfo);
+    const targetJourney1 = {
+      ...cloneDeep(baseVehicleJourneyInfo),
+      contractNumber: 'SOME OTHER CONTRACT',
     };
 
     const duplicateJourneys = result.current.findDuplicateJourneys({

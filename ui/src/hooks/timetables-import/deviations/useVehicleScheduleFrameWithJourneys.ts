@@ -32,6 +32,8 @@ const GQL_VEHICLE_SCHEDULE_FRAME_WITH_JOURNEY_INFO = gql`
             vehicle_journeys {
               vehicle_journey_id
               start_time
+              contract_number
+
               journey_pattern_ref {
                 journey_pattern_ref_id
                 journey_pattern_instance {

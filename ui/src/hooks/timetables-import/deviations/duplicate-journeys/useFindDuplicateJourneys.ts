@@ -15,7 +15,8 @@ export const useFindDuplicateJourneys = () => {
     // but we assume here that this method is only called for inputs where they are:
     // backend checks this when fetching the target frame.
     journeyA.routeId === journeyB.routeId && // Check that route and direction (due to being same route) are same.
-    journeyA.startTime.equals(journeyB.startTime);
+    journeyA.startTime.equals(journeyB.startTime) &&
+    journeyA.contractNumber === journeyB.contractNumber;
 
   const findDuplicateJourneys = useCallback(
     ({
