@@ -92350,6 +92350,22 @@
             "deprecationReason": null
           },
           {
+            "name": "contract_number",
+            "description": "The contract number for this vehicle journey.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "displayed_name",
             "description": "Displayed name of the journey.",
             "args": [],
@@ -93085,6 +93101,18 @@
             "deprecationReason": null
           },
           {
+            "name": "contract_number",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "displayed_name",
             "description": null,
             "type": {
@@ -93394,6 +93422,18 @@
             "deprecationReason": null
           },
           {
+            "name": "contract_number",
+            "description": "The contract number for this vehicle journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "displayed_name",
             "description": "Displayed name of the journey.",
             "type": {
@@ -93560,6 +93600,18 @@
             "deprecationReason": null
           },
           {
+            "name": "contract_number",
+            "description": "The contract number for this vehicle journey.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "displayed_name",
             "description": "Displayed name of the journey.",
             "args": [],
@@ -93656,6 +93708,18 @@
             "deprecationReason": null
           },
           {
+            "name": "contract_number",
+            "description": "The contract number for this vehicle journey.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "displayed_name",
             "description": "Displayed name of the journey.",
             "type": {
@@ -93720,6 +93784,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contract_number",
+            "description": "The contract number for this vehicle journey.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -93812,6 +93888,18 @@
           {
             "name": "block_id",
             "description": "The BLOCK to which this VEHICLE JOURNEY belongs",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contract_number",
+            "description": "The contract number for this vehicle journey.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -94047,6 +94135,18 @@
           },
           {
             "name": "block_id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contract_number",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -94295,6 +94395,12 @@
             "deprecationReason": null
           },
           {
+            "name": "contract_number",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "displayed_name",
             "description": "column name",
             "isDeprecated": false,
@@ -94427,6 +94533,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contract_number",
+            "description": "The contract number for this vehicle journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -94616,6 +94734,18 @@
             "deprecationReason": null
           },
           {
+            "name": "contract_number",
+            "description": "The contract number for this vehicle journey.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "displayed_name",
             "description": "Displayed name of the journey.",
             "type": {
@@ -94750,6 +94880,12 @@
         "enumValues": [
           {
             "name": "block_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contract_number",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
