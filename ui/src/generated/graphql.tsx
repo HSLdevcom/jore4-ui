@@ -21234,6 +21234,7 @@ export type GetVehicleScheduleFrameWithJourneyInfoQuery = {
             __typename?: 'timetables_vehicle_journey_vehicle_journey';
             vehicle_journey_id: UUID;
             start_time: luxon.Duration;
+            contract_number: string;
             journey_pattern_ref: {
               __typename?: 'timetables_journey_pattern_journey_pattern_ref';
               journey_pattern_ref_id: UUID;
@@ -26466,6 +26467,7 @@ export const GetVehicleScheduleFrameWithJourneyInfoDocument = gql`
             vehicle_journeys {
               vehicle_journey_id
               start_time
+              contract_number
               journey_pattern_ref {
                 journey_pattern_ref_id
                 journey_pattern_instance {

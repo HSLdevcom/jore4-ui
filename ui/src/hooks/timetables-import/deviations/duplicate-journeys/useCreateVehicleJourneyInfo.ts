@@ -8,6 +8,7 @@ import { VehicleScheduleVehicleScheduleFrameWithJourneys } from '../useVehicleSc
 export type VehicleJourneyInfo = {
   vehicleJourneyId: UUID;
   startTime: Duration;
+  contractNumber: string;
   validityStart: DateTime;
   validityEnd: DateTime;
   dayTypeLabel: string;
@@ -38,6 +39,7 @@ export const useCreateVehicleJourneyInfo = () => {
               return {
                 vehicleJourneyId: journey.vehicle_journey_id,
                 startTime: journey.start_time,
+                contractNumber: journey.contract_number,
                 validityStart: vehicleScheduleFrame.validity_start,
                 validityEnd: vehicleScheduleFrame.validity_end,
                 dayTypeLabel: service.day_type.label,
@@ -55,6 +57,7 @@ export const useCreateVehicleJourneyInfo = () => {
       const journeyInfos = compact(journeys).map((item) => ({
         vehicleJourneyId: item.vehicleJourneyId,
         startTime: item.startTime,
+        contractNumber: item.contractNumber,
         validityStart: item.validityStart,
         validityEnd: item.validityEnd,
         dayTypeLabel: item.dayTypeLabel,

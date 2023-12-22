@@ -410,7 +410,7 @@
     },
     "duplicateJourneys": {
       "title": "Duplicate journeys",
-      "description": "Notice duplicate journeys. The following journeys are present in both current and imported timetables:",
+      "description": "Notice duplicate journeys. The following journeys are present in both current and imported timetables with same contract number:",
       "label": "Label",
       "departureTime": "Departure",
       "dayType": "Day type",

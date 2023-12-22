@@ -410,7 +410,7 @@
     },
     "duplicateJourneys": {
       "title": "Päällekkäiset lähdöt",
-      "description": "Huomaa päällekkäiset lähdöt. Seuraavat lähdöt löytyvät sekä nyt tuotavista että jo voimassa olevista aikatauluista:",
+      "description": "Huomaa päällekkäiset lähdöt. Seuraavat lähdöt löytyvät samalla sopimusnumerolla sekä nyt tuotavista että jo voimassa olevista aikatauluista:",
       "label": "Tunnus",
       "departureTime": "Lähtöaika",
       "dayType": "Päivätyyppi",
