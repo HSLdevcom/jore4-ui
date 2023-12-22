@@ -23,6 +23,7 @@ export const VehicleJourneyRow = ({ vehicleJourneyInfo }: Props) => {
       <td className="border-r !pl-0">
         {mapToShortDate(vehicleJourneyInfo.validityEnd)}
       </td>
+      <td className="border-r">{vehicleJourneyInfo.contractNumber}</td>
       <td>{/* Filler */}</td>
     </tr>
   );
