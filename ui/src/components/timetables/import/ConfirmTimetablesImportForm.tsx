@@ -1,10 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Row, Visible } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { CombineSameContractWarning } from './CombineSameContractWarning';
 import { SpecialDayMixedPrioritiesWarning } from './SpecialDayMixedPrioritiesWarning';
 import { TimetableImportStrategyForm } from './TimetableImportStrategyForm';
 import {
@@ -16,7 +17,10 @@ import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 interface Props {
   defaultValues?: Partial<FormState>;
   className?: string;
+  combiningSameContractTimetables: boolean;
   inconsistentSpecialDayPrioritiesStaged: boolean;
+  fetchStagingAndTargetFramesForCombine: (priority: number) => void;
+  clearStagingAndTargetFramesForCombine: () => void;
   onSubmit: (state: FormState) => void;
   onCancel: () => void;
 }
@@ -30,7 +34,10 @@ const testIds = {
 export const ConfirmTimetablesImportForm = ({
   defaultValues,
   className = '',
+  combiningSameContractTimetables,
   inconsistentSpecialDayPrioritiesStaged,
+  fetchStagingAndTargetFramesForCombine,
+  clearStagingAndTargetFramesForCombine,
   onSubmit,
   onCancel,
 }: Props): JSX.Element => {
@@ -42,7 +49,21 @@ export const ConfirmTimetablesImportForm = ({
     resolver: zodResolver(timetablesImportFormSchema),
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+
+  const { priority, timetableImportStrategy } = watch();
+  useEffect(() => {
+    if (timetableImportStrategy === 'combine' && priority) {
+      fetchStagingAndTargetFramesForCombine(priority);
+    } else {
+      clearStagingAndTargetFramesForCombine();
+    }
+  }, [
+    fetchStagingAndTargetFramesForCombine,
+    clearStagingAndTargetFramesForCombine,
+    priority,
+    timetableImportStrategy,
+  ]);
 
   const onSave = () => {
     submitFormByRef(formRef);
@@ -62,6 +83,10 @@ export const ConfirmTimetablesImportForm = ({
           <TimetableImportStrategyForm
             testIdPrefix={testIds.strategyRadioButtonPrefix}
           />
+
+          <Visible visible={combiningSameContractTimetables}>
+            <CombineSameContractWarning />
+          </Visible>
 
           <h3>{t('confirmTimetablesImportModal.priority')}</h3>
           <TimetablesImportPriorityForm />
