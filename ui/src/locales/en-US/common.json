@@ -466,6 +466,7 @@
     "importTimetables": "Import timetables",
     "importTimetablesFromHastus": "Import timetables from Hastus",
     "importSuccess": "Timetables imported successfully!",
+    "combineSameContractWarning": "You are about to combine timetables with same contract number. This is typically not done.",
     "specialDayMixedPrioritiesWarning1": "Imported timetables contain special days and other timetables.",
     "specialDayMixedPrioritiesWarning2": "Importing not possible. Cancel the import and import one day priority timetables separately.",
     "dragAndDrop": "Drag and drop Hastus files or",

@@ -1,8 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  useCombiningSameContractTimetables,
   useConfirmTimetablesImportUIAction,
+  useGetStagingVehicleScheduleFrameIds,
+  useStagingAndTargetFramesForCombine,
   useTimetablesImport,
+  useToCombineTargetVehicleScheduleFrameId,
+  useVehicleScheduleFrameWithJourneys,
 } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { Modal, NewModalBody, NewModalHeader } from '../../../uiComponents';
@@ -28,6 +33,23 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
     importingSomeSpecialDays,
     inconsistentSpecialDayPrioritiesStaged,
   } = useTimetablesImport();
+  const { fetchToCombineTargetFrameId } =
+    useToCombineTargetVehicleScheduleFrameId();
+  const { fetchVehicleFramesWithJourneys } =
+    useVehicleScheduleFrameWithJourneys();
+  const { fetchStagingVehicleFrameIds } =
+    useGetStagingVehicleScheduleFrameIds();
+  const {
+    stagingAndTargetFramesForCombine,
+    fetchStagingAndTargetFramesForCombine,
+    clearStagingAndTargetFramesForCombine,
+  } = useStagingAndTargetFramesForCombine(
+    fetchToCombineTargetFrameId,
+    fetchVehicleFramesWithJourneys,
+    fetchStagingVehicleFrameIds,
+  );
+  const { combiningSameContractTimetables } =
+    useCombiningSameContractTimetables(stagingAndTargetFramesForCombine);
 
   // Default might be set incorrectly if data has not been fetched for the form.
   const formReadyForRender = !!vehicleScheduleFrames?.length;
@@ -57,6 +79,13 @@ export const ConfirmTimetablesImportModal: React.FC<Props> = ({
           <ConfirmTimetablesImportForm
             onSubmit={onSave}
             onCancel={onClose}
+            fetchStagingAndTargetFramesForCombine={
+              fetchStagingAndTargetFramesForCombine
+            }
+            clearStagingAndTargetFramesForCombine={
+              clearStagingAndTargetFramesForCombine
+            }
+            combiningSameContractTimetables={combiningSameContractTimetables}
             inconsistentSpecialDayPrioritiesStaged={
               inconsistentSpecialDayPrioritiesStaged
             }

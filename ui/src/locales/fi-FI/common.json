@@ -466,6 +466,7 @@
     "importTimetables": "Tuo aikatauluja",
     "importTimetablesFromHastus": "Tuo aikatauluja Hastuksesta",
     "importSuccess": "Aikataulujen tuonti onnistui!",
+    "combineSameContractWarning": "Olet yhdistämässä samalla sopimusnumerolla olevia aikatauluja. Näin ei yleensä tehdä.",
     "specialDayMixedPrioritiesWarning1": "Tuoduissa aikatauluissa on erityispäivien lisäksi myös muita aikatauluja.",
     "specialDayMixedPrioritiesWarning2": "Tallennus ei ole mahdollista. Keskeytä aikataulujen tuonti ja tuo yhden päivän pituiset aikataulut erikseen.",
     "dragAndDrop": "Vedä ja pudota Hastus-tiedostoja tai",
