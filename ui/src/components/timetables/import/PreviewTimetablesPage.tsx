@@ -7,6 +7,7 @@ import {
   useDuplicateJourneyDeviations,
   useGetStagingVehicleScheduleFrameIds,
   useReplaceDeviations,
+  useStagingAndTargetFramesForCombine,
   useTimetablesImport,
   useToCombineTargetVehicleScheduleFrameId,
   useToReplaceVehicleScheduleFrames,
@@ -60,12 +61,18 @@ export const PreviewTimetablesPage = (): JSX.Element => {
       fetchVehicleFrames,
       fetchStagingVehicleFrameIds,
     );
-  const { duplicateJourneys, fetchDuplicateJourneys, clearDuplicateJourneys } =
-    useDuplicateJourneyDeviations(
-      fetchToCombineTargetFrameId,
-      fetchVehicleFramesWithJourneys,
-      fetchStagingVehicleFrameIds,
-    );
+  const {
+    stagingAndTargetFramesForCombine,
+    fetchStagingAndTargetFramesForCombine,
+    clearStagingAndTargetFramesForCombine,
+  } = useStagingAndTargetFramesForCombine(
+    fetchToCombineTargetFrameId,
+    fetchVehicleFramesWithJourneys,
+    fetchStagingVehicleFrameIds,
+  );
+  const { duplicateJourneys } = useDuplicateJourneyDeviations(
+    stagingAndTargetFramesForCombine,
+  );
 
   const isLoading = useAppSelector(selectIsJoreOperationLoading);
   const vehicleJourneyCount = vehicleJourneys?.length || 0;
@@ -132,9 +139,13 @@ export const PreviewTimetablesPage = (): JSX.Element => {
               <ConfirmPreviewedTimetablesImportForm
                 ref={formRef}
                 fetchRouteDeviations={fetchRouteDeviations}
-                fetchDuplicateJourneys={fetchDuplicateJourneys}
+                fetchStagingAndTargetFramesForCombine={
+                  fetchStagingAndTargetFramesForCombine
+                }
                 clearRouteDeviations={clearRouteDeviations}
-                clearDuplicateJourneys={clearDuplicateJourneys}
+                clearStagingAndTargetFramesForCombine={
+                  clearStagingAndTargetFramesForCombine
+                }
                 onSubmit={onSubmit}
                 defaultValues={getDefaultValues({ importingSomeSpecialDays })}
               />

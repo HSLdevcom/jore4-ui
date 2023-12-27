@@ -12,18 +12,18 @@ import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 interface Props {
   defaultValues?: Partial<FormState>;
   onSubmit: (state: FormState) => void;
-  fetchDuplicateJourneys: (priority: number) => void;
+  fetchStagingAndTargetFramesForCombine: (priority: number) => void;
   fetchRouteDeviations: (priority: number) => void;
-  clearDuplicateJourneys: () => void;
+  clearStagingAndTargetFramesForCombine: () => void;
   clearRouteDeviations: () => void;
 }
 
 export const ConfirmPreviewedTimetablesImportFormComponent = (
   {
-    clearDuplicateJourneys,
+    clearStagingAndTargetFramesForCombine,
     clearRouteDeviations,
     defaultValues,
-    fetchDuplicateJourneys,
+    fetchStagingAndTargetFramesForCombine,
     fetchRouteDeviations,
     onSubmit,
   }: Props,
@@ -40,13 +40,13 @@ export const ConfirmPreviewedTimetablesImportFormComponent = (
 
   useEffect(() => {
     if (timetableImportStrategy === 'combine' && priority) {
-      fetchDuplicateJourneys(priority);
+      fetchStagingAndTargetFramesForCombine(priority);
     } else {
-      clearDuplicateJourneys();
+      clearStagingAndTargetFramesForCombine();
     }
   }, [
-    fetchDuplicateJourneys,
-    clearDuplicateJourneys,
+    fetchStagingAndTargetFramesForCombine,
+    clearStagingAndTargetFramesForCombine,
     priority,
     timetableImportStrategy,
   ]);
