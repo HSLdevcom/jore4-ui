@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   useAppSelector,
+  useCombiningSameContractTimetables,
   useConfirmTimetablesImportUIAction,
   useDuplicateJourneyDeviations,
   useGetStagingVehicleScheduleFrameIds,
@@ -20,6 +21,7 @@ import { selectIsJoreOperationLoading } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { AccordionButton, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { CombineSameContractWarning } from './CombineSameContractWarning';
 import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
 import { ImportContentsView } from './contents-view';
 import { SpecialDayMixedPrioritiesWarning } from './SpecialDayMixedPrioritiesWarning';
@@ -73,6 +75,8 @@ export const PreviewTimetablesPage = (): JSX.Element => {
   const { duplicateJourneys } = useDuplicateJourneyDeviations(
     stagingAndTargetFramesForCombine,
   );
+  const { combiningSameContractTimetables } =
+    useCombiningSameContractTimetables(stagingAndTargetFramesForCombine);
 
   const isLoading = useAppSelector(selectIsJoreOperationLoading);
   const vehicleJourneyCount = vehicleJourneys?.length || 0;
@@ -151,6 +155,9 @@ export const PreviewTimetablesPage = (): JSX.Element => {
               />
             </Visible>
           </Row>
+          <Visible visible={combiningSameContractTimetables}>
+            <CombineSameContractWarning />
+          </Visible>
           <Visible visible={inconsistentSpecialDayPrioritiesStaged}>
             <SpecialDayMixedPrioritiesWarning />
           </Visible>
