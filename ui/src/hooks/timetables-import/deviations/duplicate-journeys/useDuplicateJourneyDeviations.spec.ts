@@ -1,8 +1,7 @@
-import { act, renderHook } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
 import { DateTime, Duration } from 'luxon';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
-import { TimetablePriority } from '../../../../types/enums';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from '../useVehicleScheduleFrameWithJourneys';
 import { useDuplicateJourneyDeviations } from './useDuplicateJourneyDeviations';
 
@@ -102,106 +101,23 @@ const targetFrameWithRoutes: VehicleScheduleVehicleScheduleFrameWithJourneys = {
   ],
 };
 
-const mockFetchStagingVehicleFrameIds = jest.fn(() =>
-  Promise.resolve(['58634201-f971-4765-bad7-5ffb34205d25']),
-);
-const mockFetchToCombineTargetFrameId = jest.fn(() =>
-  Promise.resolve('65252ff7-a699-4e6f-ad56-b086d9878bb4'),
-);
-const mockFetchVehicleFrames = jest.fn(() =>
-  Promise.resolve([stagingFrameWithRoutes, targetFrameWithRoutes]),
-);
-
 describe('useDuplicateJourneyDeviations hook', () => {
-  it('should return no duplicate journeys when there are no staging vehicle schedule frames', async () => {
-    const { result } = renderHook(() =>
-      useDuplicateJourneyDeviations(
-        mockFetchToCombineTargetFrameId,
-        mockFetchVehicleFrames,
-        jest.fn().mockResolvedValueOnce([]),
-      ),
-    );
+  it('should return no duplicate journeys when there are no staging frames with target', async () => {
+    const { result } = renderHook(() => useDuplicateJourneyDeviations([]));
 
-    await act(async () => {
-      await result.current.fetchDuplicateJourneys(
-        TimetablePriority.Standard.valueOf(),
-      );
-    });
-    expect(result.current.duplicateJourneys).toEqual([]);
-  });
-
-  it('should return no duplicate journeys when there is no target frame found for the staging frame', async () => {
-    const { result } = renderHook(() =>
-      useDuplicateJourneyDeviations(
-        jest.fn().mockResolvedValueOnce(null),
-        mockFetchVehicleFrames,
-        mockFetchStagingVehicleFrameIds,
-      ),
-    );
-
-    await act(async () => {
-      await result.current.fetchDuplicateJourneys(
-        TimetablePriority.Standard.valueOf(),
-      );
-    });
-    expect(result.current.duplicateJourneys).toEqual([]);
-  });
-
-  it('should return no duplicate journeys when staging or target frame can not be found even if they should exist', async () => {
-    // Not a very realistic case, this would mean that something changed between the requests made from the hook, or we have a bug somewhere.
-    const { result } = renderHook(() =>
-      useDuplicateJourneyDeviations(
-        mockFetchToCombineTargetFrameId,
-        jest.fn().mockResolvedValueOnce([]),
-        mockFetchStagingVehicleFrameIds,
-      ),
-    );
-
-    await act(async () => {
-      await result.current.fetchDuplicateJourneys(
-        TimetablePriority.Standard.valueOf(),
-      );
-    });
-    expect(result.current.duplicateJourneys).toEqual([]);
-  });
-
-  it('should return no duplicate journeys when an error occurs', async () => {
-    const { result } = renderHook(() =>
-      useDuplicateJourneyDeviations(
-        jest.fn(() =>
-          Promise.reject(
-            new Error(
-              'Failed to fetch to combine target vehicle schedule frames: Error: Target frame not found',
-            ),
-          ),
-        ),
-        mockFetchVehicleFrames,
-        mockFetchStagingVehicleFrameIds,
-      ),
-    );
-
-    await act(async () => {
-      await result.current.fetchDuplicateJourneys(
-        TimetablePriority.Standard.valueOf(),
-      );
-    });
     expect(result.current.duplicateJourneys).toEqual([]);
   });
 
   it('should return duplicate journeys between the staging and target frame', async () => {
     const { result } = renderHook(() =>
-      useDuplicateJourneyDeviations(
-        mockFetchToCombineTargetFrameId,
-        mockFetchVehicleFrames,
-        mockFetchStagingVehicleFrameIds,
-      ),
+      useDuplicateJourneyDeviations([
+        {
+          stagingFrame: stagingFrameWithRoutes,
+          targetFrame: targetFrameWithRoutes,
+        },
+      ]),
     );
 
-    await act(async () => {
-      await result.current.fetchDuplicateJourneys(
-        TimetablePriority.Standard.valueOf(),
-      );
-    });
     expect(result.current.duplicateJourneys).toEqual([
       {
         stagingJourney: {
