@@ -21205,6 +21205,30 @@ export type GetToReplaceVehicleScheduleFramesQuery = {
   } | null;
 };
 
+export type VehicleJourneyWithPatternAndRouteFragmentFragment = {
+  __typename?: 'timetables_vehicle_journey_vehicle_journey';
+  vehicle_journey_id: UUID;
+  start_time: luxon.Duration;
+  contract_number: string;
+  journey_pattern_ref: {
+    __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+    journey_pattern_ref_id: UUID;
+    journey_pattern_instance?: {
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      journey_pattern_route?: {
+        __typename?: 'route_route';
+        route_id: UUID;
+        unique_label: string;
+        direction: RouteDirectionEnum;
+        variant?: number | null;
+        name_i18n: LocalizedString;
+        route_line: { __typename?: 'route_line'; line_id: UUID };
+      } | null;
+    } | null;
+  };
+};
+
 export type GetVehicleScheduleFrameWithJourneyInfoQueryVariables = Exact<{
   vehicle_schedule_frame_ids: Array<Scalars['uuid']> | Scalars['uuid'];
 }>;
@@ -22791,6 +22815,29 @@ export const RouteMetadataFragmentDoc = gql`
     validity_end
     direction
     variant
+  }
+`;
+export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
+  fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {
+    vehicle_journey_id
+    start_time
+    contract_number
+    journey_pattern_ref {
+      journey_pattern_ref_id
+      journey_pattern_instance {
+        journey_pattern_id
+        journey_pattern_route {
+          route_id
+          unique_label
+          direction
+          variant
+          name_i18n
+          route_line {
+            line_id
+          }
+        }
+      }
+    }
   }
 `;
 export const DayTypeAllFieldsFragmentDoc = gql`
@@ -26465,31 +26512,14 @@ export const GetVehicleScheduleFrameWithJourneyInfoDocument = gql`
           blocks {
             block_id
             vehicle_journeys {
-              vehicle_journey_id
-              start_time
-              contract_number
-              journey_pattern_ref {
-                journey_pattern_ref_id
-                journey_pattern_instance {
-                  journey_pattern_id
-                  journey_pattern_route {
-                    route_id
-                    unique_label
-                    direction
-                    variant
-                    name_i18n
-                    route_line {
-                      line_id
-                    }
-                  }
-                }
-              }
+              ...vehicle_journey_with_pattern_and_route_fragment
             }
           }
         }
       }
     }
   }
+  ${VehicleJourneyWithPatternAndRouteFragmentFragmentDoc}
 `;
 
 /**
