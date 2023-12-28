@@ -8,8 +8,14 @@ DUMP_LOCAL_FILENAME="jore4dump.pgdump"
 function download_dump {
   echo "Downloading JORE4 dump from Azure"
 
-  read -p "Dump file name (default: jore4e2e-test-20230804-data-only-1617be0c.pgdump): " DUMP_FILENAME
-  DUMP_FILENAME="${DUMP_FILENAME:-jore4e2e-test-20230804-data-only-1617be0c.pgdump}"
+  # Here is a breakdown of the dump name used below:
+  # - "jore4e2e"        ~ The name of the database to which the data dump applies
+  # - "test-20240104"   ~ The data originates from the Jore3 test database (not production) and specifically the snapshot taken on 4.1.2024.
+  # - "data-only"       ~ The dump contains only data. It does not contain DDL, i.e. table and other schema element definitions.
+  # - "8a28ef5f"        ~ The dump is based on the database migrations of the jore4-hasura image version starting with this hash.
+  # - "20240104" (2nd)  ~ The day when the jore3-importer was run
+  read -p "Dump file name (default: jore4e2e-test-20240104-data-only-8a28ef5f-20240104.pgdump): " DUMP_FILENAME
+  DUMP_FILENAME="${DUMP_FILENAME:-jore4e2e-test-20240104-data-only-8a28ef5f-20240104.pgdump}"
 
   echo "Log in to Azure"
   az login
