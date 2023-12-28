@@ -5,6 +5,31 @@ import {
   useGetVehicleScheduleFrameWithJourneyInfoAsyncQuery,
 } from '../../../generated/graphql';
 
+const GQL_VEHICLE_JOURNEY_WITH_PATTERN_AND_ROUTE_FRAGMENT = gql`
+  fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {
+    vehicle_journey_id
+    start_time
+    contract_number
+
+    journey_pattern_ref {
+      journey_pattern_ref_id
+      journey_pattern_instance {
+        journey_pattern_id
+        journey_pattern_route {
+          route_id
+          unique_label
+          direction
+          variant
+          name_i18n
+          route_line {
+            line_id
+          }
+        }
+      }
+    }
+  }
+`;
+
 const GQL_VEHICLE_SCHEDULE_FRAME_WITH_JOURNEY_INFO = gql`
   query GetVehicleScheduleFrameWithJourneyInfo(
     $vehicle_schedule_frame_ids: [uuid!]!
@@ -30,26 +55,7 @@ const GQL_VEHICLE_SCHEDULE_FRAME_WITH_JOURNEY_INFO = gql`
           blocks {
             block_id
             vehicle_journeys {
-              vehicle_journey_id
-              start_time
-              contract_number
-
-              journey_pattern_ref {
-                journey_pattern_ref_id
-                journey_pattern_instance {
-                  journey_pattern_id
-                  journey_pattern_route {
-                    route_id
-                    unique_label
-                    direction
-                    variant
-                    name_i18n
-                    route_line {
-                      line_id
-                    }
-                  }
-                }
-              }
+              ...vehicle_journey_with_pattern_and_route_fragment
             }
           }
         }
