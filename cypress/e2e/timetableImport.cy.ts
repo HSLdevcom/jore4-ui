@@ -237,11 +237,11 @@ const baseTimetableDataInput = {
     },
   },
   _vehicle_schedule_frames: {
-    year2023: {
-      validity_start: DateTime.fromISO('2023-01-01'),
-      validity_end: DateTime.fromISO('2023-12-31'),
-      name: '2023',
-      booking_label: '2023 booking label',
+    defaultFrame: {
+      validity_start: DateTime.fromISO('2020-01-01'),
+      validity_end: DateTime.fromISO('2049-12-31'),
+      name: '2020-2049',
+      booking_label: '2020-2049 booking label',
       _vehicle_services: {
         sunday: {
           day_type_id: defaultDayTypeIds.SUNDAY,
@@ -331,7 +331,7 @@ const verifyBaseTimetableValidity = () => {
     .should('contain', 'Sunnuntai');
   route99InboundSundayPassingTimesSectionStandard.vehicleJourneyGroupInfo
     .getValidityTimeRange()
-    .should('contain', '1.1.2023 - 31.12.2023');
+    .should('contain', '1.1.2020 - 31.12.2049');
 };
 
 describe('Timetable import', () => {
@@ -733,8 +733,8 @@ describe('Timetable import', () => {
           .eq(0)
           .should('contain', 'Voimassa')
           .and('contain', 'Sunnuntai')
-          .and('contain', '1.1.2023')
-          .and('contain', '31.12.2023')
+          .and('contain', '1.1.2020')
+          .and('contain', '31.12.2049')
           .and('contain', '99');
         timetableVersionsPage.timetableVersionTableRow
           .getRow()
