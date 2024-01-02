@@ -156,7 +156,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
             </Visible>
           </Row>
           <Visible visible={combiningSameContractTimetables}>
-            <CombineSameContractWarning />
+            <CombineSameContractWarning iconClassName="h-6 w-6" />
           </Visible>
           <Visible visible={inconsistentSpecialDayPrioritiesStaged}>
             <SpecialDayMixedPrioritiesWarning />

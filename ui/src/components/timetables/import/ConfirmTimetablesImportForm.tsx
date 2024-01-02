@@ -85,7 +85,10 @@ export const ConfirmTimetablesImportForm = ({
           />
 
           <Visible visible={combiningSameContractTimetables}>
-            <CombineSameContractWarning className="w-[480px]" />
+            <CombineSameContractWarning
+              className="w-[480px]"
+              iconClassName="h-12 w-12"
+            />
           </Visible>
 
           <h3>{t('confirmTimetablesImportModal.priority')}</h3>
