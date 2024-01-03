@@ -1,4 +1,4 @@
-import { VehicleJourneyWithRouteInfoFragment } from '../../../../generated/graphql';
+import { VehicleJourneyWithRouteInfoFragment, VehicleServiceWithJourneysFragment } from '../../../../generated/graphql';
 import { useToggle } from '../../../../hooks';
 import { Row, Visible } from '../../../../layoutComponents';
 import { AccordionButton } from '../../../../uiComponents';
@@ -11,12 +11,14 @@ const testIds = {
 
 interface Props {
   vehicleJourneys: VehicleJourneyWithRouteInfoFragment[];
+  vehicleService: VehicleServiceWithJourneysFragment;
   vehicleType: string;
   title: string;
 }
 
 export const BlockVehicleJourneysTable = ({
   vehicleJourneys,
+  vehicleService,
   vehicleType,
   title,
 }: Props): JSX.Element => {
@@ -54,6 +56,7 @@ export const BlockVehicleJourneysTable = ({
             <VehicleJourneyRow
               key={vehicleJourney.vehicle_journey_id}
               vehicleJourney={vehicleJourney}
+              vehicleService={vehicleService}
             />
           ))}
         </tbody>

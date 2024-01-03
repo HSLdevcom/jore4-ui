@@ -30,15 +30,6 @@ const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
         }
       }
     }
-    block {
-      block_id
-      vehicle_service {
-        vehicle_service_id
-        day_type {
-          ...day_type_all_fields
-        }
-      }
-    }
   }
 `;
 
@@ -46,10 +37,6 @@ const GQL_VEHICLE_SERVICE_WITH_JOURNEYS_FRAGMENT = gql`
   fragment vehicle_service_with_journeys on timetables_vehicle_service_vehicle_service {
     vehicle_service_id
     name_i18n
-    vehicle_schedule_frame {
-      vehicle_schedule_frame_id
-      priority
-    }
     day_type {
       ...day_type_all_fields
     }
