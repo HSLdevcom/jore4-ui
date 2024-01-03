@@ -26,7 +26,6 @@ export const VehicleScheduleFrameBlocksView = ({
   const [isOpen, toggleIsOpen] = useToggle(true);
 
   const blocks = vehicleScheduleFrame.vehicle_services.flatMap((service) =>
-    // TODO: Get Block label from vehicle service after it has been implemented to data model
     service.blocks.map((block) => ({
       label: parseI18nField(service.name_i18n),
       block,
