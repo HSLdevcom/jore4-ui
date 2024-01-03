@@ -1,4 +1,7 @@
-import { VehicleJourneyWithRouteInfoFragment, VehicleServiceWithJourneysFragment } from '../../../../generated/graphql';
+import {
+  VehicleJourneyWithRouteInfoFragment,
+  VehicleServiceWithJourneysFragment,
+} from '../../../../generated/graphql';
 import { useToggle } from '../../../../hooks';
 import { Row, Visible } from '../../../../layoutComponents';
 import { AccordionButton } from '../../../../uiComponents';
@@ -6,8 +9,11 @@ import { VehicleJourneyRow } from './VehicleJourneyRow';
 
 const testIds = {
   table: 'BlockVehicleJourneysTable::table',
+  title: 'BlockVehicleJourneysTable::title',
   toggleShowTable: 'BlockVehicleJourneysTable::toggleShowTable',
+  vehicleType: 'BlockVehicleJourneysTable::vehicleType',
 };
+export const BlockVehicleJourneysTableTestIds = testIds;
 
 interface Props {
   vehicleJourneys: VehicleJourneyWithRouteInfoFragment[];
@@ -31,7 +37,10 @@ export const BlockVehicleJourneysTable = ({
     >
       <thead>
         <tr className="[&>th]:border [&>th]:border-light-grey">
-          <th className="w-1/6 bg-brand py-2 px-6 text-left text-white">
+          <th
+            data-testid={testIds.title}
+            className="w-1/6 bg-brand py-2 px-6 text-left text-white"
+          >
             {title}
           </th>
           <th
@@ -39,7 +48,7 @@ export const BlockVehicleJourneysTable = ({
             colSpan={4}
           >
             <Row className="flex-1 items-center justify-between font-normal">
-              <p>{vehicleType}</p>
+              <p data-testid={testIds.vehicleType}>{vehicleType}</p>
               <AccordionButton
                 testId={testIds.toggleShowTable}
                 isOpen={isOpen}

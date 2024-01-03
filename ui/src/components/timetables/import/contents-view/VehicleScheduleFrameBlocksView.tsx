@@ -11,9 +11,11 @@ const testIds = {
   frameBlocks: (label: string) =>
     `VehicleScheduleFrameBlocksView::frameBlocks::${label}`,
   toggleShowTable: 'VehicleScheduleFrameBlocksView::toggleShowTable',
+  frameLabel: 'VehicleScheduleFrameBlocksView::frameLabel',
   validityTimeRangeText:
     'VehicleScheduleFrameBlocksView::validityTimeRangeText',
 };
+export const VehicleScheduleFrameBlocksViewTestIds = testIds;
 
 interface Props {
   vehicleScheduleFrame: VehicleScheduleFrameWithRouteInfoFragment;
@@ -52,7 +54,10 @@ export const VehicleScheduleFrameBlocksView = ({
   return (
     <div data-testid={testIds.frameBlocks(vehicleScheduleFrame.label)}>
       <Row className="border-brand-gray w-full border text-white">
-        <p className="flex w-1/6 items-center border border-light-grey bg-brand py-2 px-6 font-bold">
+        <p
+          data-testid={testIds.frameLabel}
+          className="flex w-1/6 items-center border border-light-grey bg-brand py-2 px-6 font-bold"
+        >
           {vehicleScheduleFrame.label}
         </p>
         <Row className="flex-1 border border-l border-light-grey border-l-white bg-brand py-2 px-4">

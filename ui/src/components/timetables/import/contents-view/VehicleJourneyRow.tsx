@@ -1,5 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { VehicleJourneyWithRouteInfoFragment, VehicleServiceWithJourneysFragment } from '../../../../generated/graphql';
+import {
+  VehicleJourneyWithRouteInfoFragment,
+  VehicleServiceWithJourneysFragment,
+} from '../../../../generated/graphql';
 import { parseI18nField } from '../../../../i18n/utils';
 import { Row } from '../../../../layoutComponents';
 import { mapDurationToShortTime } from '../../../../time';
@@ -9,14 +12,19 @@ import { DirectionBadge } from '../../../routes-and-lines/line-details/Direction
 const testIds = {
   vehicleJourneyRow: (routeLabel: string, routeDirection: string) =>
     `VehicleJourneyRow::${routeLabel}::${routeDirection}`,
+  dateTypeName: 'VehicleJourneyRow::dateTypeName',
+  startTime: 'VehicleJourneyRow::startTime',
+  endTime: 'VehicleJourneyRow::endTime',
+  contractNumber: 'VehicleJourneyRow::contractNumber',
 };
+export const VehicleJourneyRowTestIds = testIds;
 
 export const VehicleJourneyRow = ({
   vehicleJourney,
-  vehicleService
+  vehicleService,
 }: {
   vehicleJourney: VehicleJourneyWithRouteInfoFragment;
-  vehicleService: VehicleServiceWithJourneysFragment
+  vehicleService: VehicleServiceWithJourneysFragment;
 }): JSX.Element => {
   const { t } = useTranslation();
   const route =
@@ -46,22 +54,22 @@ export const VehicleJourneyRow = ({
           {getRouteLabelVariantText(route)}
         </Row>
       </td>
-      <td>
-        {parseI18nField(
-          vehicleService.day_type.name_i18n,
-        )}
+      <td data-testid={testIds.dateTypeName}>
+        {parseI18nField(vehicleService.day_type.name_i18n)}
       </td>
-      <td>
+      <td data-testid={testIds.startTime}>
         {vehicleJourney.start_time
           ? mapDurationToShortTime(vehicleJourney.start_time)
           : ''}
       </td>
-      <td>
+      <td data-testid={testIds.endTime}>
         {vehicleJourney.end_time
           ? mapDurationToShortTime(vehicleJourney.end_time)
           : ''}
       </td>
-      <td>{vehicleJourney.contract_number}</td>
+      <td data-testid={testIds.contractNumber}>
+        {vehicleJourney.contract_number}
+      </td>
     </tr>
   );
 };
