@@ -28,6 +28,7 @@ export const VehicleScheduleFrameBlocksView = ({
   const blocks = vehicleScheduleFrame.vehicle_services.flatMap((service) =>
     service.blocks.map((block) => ({
       label: parseI18nField(service.name_i18n),
+      service,
       block,
     })),
   );
@@ -76,6 +77,7 @@ export const VehicleScheduleFrameBlocksView = ({
               key={block.block.block_id}
               title={block.label}
               vehicleJourneys={block.block.vehicle_journeys}
+              vehicleService={block.service}
               vehicleType={parseI18nField(
                 block.block.vehicle_type?.description_i18n,
               )}

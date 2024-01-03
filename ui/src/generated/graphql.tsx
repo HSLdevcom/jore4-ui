@@ -21350,31 +21350,12 @@ export type VehicleJourneyWithRouteInfoFragment = {
       } | null;
     } | null;
   };
-  block: {
-    __typename?: 'timetables_vehicle_service_block';
-    block_id: UUID;
-    vehicle_service: {
-      __typename?: 'timetables_vehicle_service_vehicle_service';
-      vehicle_service_id: UUID;
-      day_type: {
-        __typename?: 'timetables_service_calendar_day_type';
-        day_type_id: UUID;
-        label: string;
-        name_i18n: any;
-      };
-    };
-  };
 };
 
 export type VehicleServiceWithJourneysFragment = {
   __typename?: 'timetables_vehicle_service_vehicle_service';
   vehicle_service_id: UUID;
   name_i18n?: any | null;
-  vehicle_schedule_frame: {
-    __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-    vehicle_schedule_frame_id: UUID;
-    priority: number;
-  };
   day_type: {
     __typename?: 'timetables_service_calendar_day_type';
     day_type_id: UUID;
@@ -21415,20 +21396,6 @@ export type VehicleServiceWithJourneysFragment = {
           } | null;
         } | null;
       };
-      block: {
-        __typename?: 'timetables_vehicle_service_block';
-        block_id: UUID;
-        vehicle_service: {
-          __typename?: 'timetables_vehicle_service_vehicle_service';
-          vehicle_service_id: UUID;
-          day_type: {
-            __typename?: 'timetables_service_calendar_day_type';
-            day_type_id: UUID;
-            label: string;
-            name_i18n: any;
-          };
-        };
-      };
     }>;
     vehicle_type?: {
       __typename?: 'timetables_vehicle_type_vehicle_type';
@@ -21450,11 +21417,6 @@ export type VehicleScheduleFrameWithRouteInfoFragment = {
     __typename?: 'timetables_vehicle_service_vehicle_service';
     vehicle_service_id: UUID;
     name_i18n?: any | null;
-    vehicle_schedule_frame: {
-      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-      vehicle_schedule_frame_id: UUID;
-      priority: number;
-    };
     day_type: {
       __typename?: 'timetables_service_calendar_day_type';
       day_type_id: UUID;
@@ -21495,20 +21457,6 @@ export type VehicleScheduleFrameWithRouteInfoFragment = {
             } | null;
           } | null;
         };
-        block: {
-          __typename?: 'timetables_vehicle_service_block';
-          block_id: UUID;
-          vehicle_service: {
-            __typename?: 'timetables_vehicle_service_vehicle_service';
-            vehicle_service_id: UUID;
-            day_type: {
-              __typename?: 'timetables_service_calendar_day_type';
-              day_type_id: UUID;
-              label: string;
-              name_i18n: any;
-            };
-          };
-        };
       }>;
       vehicle_type?: {
         __typename?: 'timetables_vehicle_type_vehicle_type';
@@ -21539,11 +21487,6 @@ export type GetStagingVehicleScheduleFramesQuery = {
         __typename?: 'timetables_vehicle_service_vehicle_service';
         vehicle_service_id: UUID;
         name_i18n?: any | null;
-        vehicle_schedule_frame: {
-          __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
-          vehicle_schedule_frame_id: UUID;
-          priority: number;
-        };
         day_type: {
           __typename?: 'timetables_service_calendar_day_type';
           day_type_id: UUID;
@@ -21583,20 +21526,6 @@ export type GetStagingVehicleScheduleFramesQuery = {
                   priority: number;
                 } | null;
               } | null;
-            };
-            block: {
-              __typename?: 'timetables_vehicle_service_block';
-              block_id: UUID;
-              vehicle_service: {
-                __typename?: 'timetables_vehicle_service_vehicle_service';
-                vehicle_service_id: UUID;
-                day_type: {
-                  __typename?: 'timetables_service_calendar_day_type';
-                  day_type_id: UUID;
-                  label: string;
-                  name_i18n: any;
-                };
-              };
             };
           }>;
           vehicle_type?: {
@@ -22863,27 +22792,13 @@ export const VehicleJourneyWithRouteInfoFragmentDoc = gql`
         }
       }
     }
-    block {
-      block_id
-      vehicle_service {
-        vehicle_service_id
-        day_type {
-          ...day_type_all_fields
-        }
-      }
-    }
   }
   ${RouteDefaultFieldsFragmentDoc}
-  ${DayTypeAllFieldsFragmentDoc}
 `;
 export const VehicleServiceWithJourneysFragmentDoc = gql`
   fragment vehicle_service_with_journeys on timetables_vehicle_service_vehicle_service {
     vehicle_service_id
     name_i18n
-    vehicle_schedule_frame {
-      vehicle_schedule_frame_id
-      priority
-    }
     day_type {
       ...day_type_all_fields
     }

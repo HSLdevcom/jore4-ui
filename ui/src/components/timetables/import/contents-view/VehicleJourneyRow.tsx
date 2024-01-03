@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { VehicleJourneyWithRouteInfoFragment } from '../../../../generated/graphql';
+import { VehicleJourneyWithRouteInfoFragment, VehicleServiceWithJourneysFragment } from '../../../../generated/graphql';
 import { parseI18nField } from '../../../../i18n/utils';
 import { Row } from '../../../../layoutComponents';
 import { mapDurationToShortTime } from '../../../../time';
@@ -13,8 +13,10 @@ const testIds = {
 
 export const VehicleJourneyRow = ({
   vehicleJourney,
+  vehicleService
 }: {
   vehicleJourney: VehicleJourneyWithRouteInfoFragment;
+  vehicleService: VehicleServiceWithJourneysFragment
 }): JSX.Element => {
   const { t } = useTranslation();
   const route =
@@ -46,7 +48,7 @@ export const VehicleJourneyRow = ({
       </td>
       <td>
         {parseI18nField(
-          vehicleJourney.block.vehicle_service.day_type.name_i18n,
+          vehicleService.day_type.name_i18n,
         )}
       </td>
       <td>
