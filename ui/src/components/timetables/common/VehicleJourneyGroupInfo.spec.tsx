@@ -72,7 +72,10 @@ describe(`<${VehicleJourneyGroupInfo.name} />`, () => {
 
   test('Renders VehicleJourneyGroupInfo with imported timetable', async () => {
     const { getByText, getByTestId } = render(
-      <VehicleJourneyGroupInfo vehicleJourneyGroup={vehicleJourneyGroup} />,
+      <VehicleJourneyGroupInfo
+        vehicleJourneyGroup={vehicleJourneyGroup}
+        validityPeriod={vehicleJourneyGroup.dayType.name_i18n}
+      />,
     );
 
     expect(getByText('1.1.2023 - 31.5.2023')).toBeVisible();
@@ -90,6 +93,7 @@ describe(`<${VehicleJourneyGroupInfo.name} />`, () => {
           ...vehicleJourneyGroup,
           vehicleScheduleFrameId: null,
         }}
+        validityPeriod={vehicleJourneyGroup.dayType.name_i18n}
       />,
     );
 
