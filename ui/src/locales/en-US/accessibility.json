@@ -4,6 +4,8 @@
     "showOnMap": "Show {{routeLabel}} on the map",
     "nextPage": "Next page",
     "prevPage": "Previous page",
+    "expandSearch": "Open advanced search",
+    "shrinkSearch": "Close advanced search",
     "line": {
       "details": "Show details for line {{label}}",
       "showOnMap": "Show line {{label}} on the map",
@@ -11,7 +13,20 @@
     },
     "route": {
       "showOnMap": "Show route {{label}} on the map",
-      "showTimetables": "Show timetables for route {{label}}"
+      "showTimetables": "Show timetables for route {{label}}",
+      "createNew": "Create new route",
+      "expandStops": "Open the stops list for the route {{label}}",
+      "closeStops": "Hide the stops of the route {{label}}",
+      "expandTimetable": "Open the timetables for the route {{label}}",
+      "closeTimetable": "Hide the timetables of the route {{label}}"
+    },
+    "map": {
+      "showFilters": "Show filters"
+    },
+    "timetables": {
+      "changeValidityPeriod": "Change the validity period for {{validityPeriod}}",
+      "substituteDayEdit": "Edit the substitute day of \"{{substituteDay}}\"",
+      "substituteDayEditClose": "Stop editing subsitute day \"{{substituteDay}}\""
     }
   }
 }

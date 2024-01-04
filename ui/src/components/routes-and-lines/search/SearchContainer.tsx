@@ -78,7 +78,11 @@ export const SearchContainer = (): JSX.Element => {
         </Column>
       </Row>
       <Visible visible={isExpanded}>
-        <div className="space-y-5 border-2 border-background p-10">
+        {/* This is controlled by ChevronToggle, test aria-controls reference */}
+        <div
+          id="advanced-search"
+          className="space-y-5 border-2 border-background p-10"
+        >
           <h2>{t('search.advancedSearchTitle')}</h2>
           <FormRow mdColumns={4}>
             <Column>
