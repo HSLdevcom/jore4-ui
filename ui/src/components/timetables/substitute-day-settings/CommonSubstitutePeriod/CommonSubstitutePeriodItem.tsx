@@ -1,4 +1,5 @@
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { mapToShortDate } from '../../../../time';
 import { EditCloseButton } from '../../../../uiComponents/EditCloseButton';
 import { InputField } from '../../../forms/common';
@@ -54,9 +55,18 @@ export const CommonSubstitutePeriodItem = ({
   field,
   update,
 }: Props): JSX.Element => {
+  const { t } = useTranslation();
   const { register, watch } = useFormContext<FormState>();
   const edited = watch(`commonDays.${index}.created`);
   const toBeDeleted = watch(`commonDays.${index}.toBeDeleted`) ?? false;
+  const titleEdit=t(
+    `accessibility:button.timetables.substituteDayEdit`,
+    { substituteDay: field.periodName },
+  );
+  const titleCloseEdit=t(
+    `accessibility:button.timetables.substituteDayEditClose`,
+    { substituteDay: field.periodName },
+  );
 
   return (
     <div className="flex basis-[28%] flex-wrap" key={field.id}>
@@ -67,6 +77,8 @@ export const CommonSubstitutePeriodItem = ({
       <div className="flex basis-1/12 justify-end">
         {field.fromDatabase ? (
           <EditCloseButton
+            titleEdit={titleEdit}
+            titleClose={titleCloseEdit}
             showEdit={toBeDeleted}
             onEdit={() => update(index, toBeDeleted, 'toBeDeleted')}
             onClose={() => update(index, toBeDeleted, 'toBeDeleted')}
@@ -74,6 +86,8 @@ export const CommonSubstitutePeriodItem = ({
           />
         ) : (
           <EditCloseButton
+          titleEdit={titleEdit}
+          titleClose={titleCloseEdit}
             showEdit={!edited}
             onEdit={() => update(index, edited, 'created')}
             onClose={() => update(index, edited, 'created')}
