@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
 import { useAppSelector, useFilterStops } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const ObservationDateOverlay = ({ className = '' }: Props) => {
+  const { t } = useTranslation();
   const { toggleShowFilters } = useFilterStops();
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
 
@@ -23,6 +25,7 @@ export const ObservationDateOverlay = ({ className = '' }: Props) => {
           </Column>
           <Column>
             <IconButton
+              title={t('accessibility:button.map.showFilters')}
               className="block h-11 w-11 self-stretch rounded-md border border-black"
               icon={<MdLayers className="text-2xl text-tweaked-brand" />}
               onClick={toggleShowFilters}
