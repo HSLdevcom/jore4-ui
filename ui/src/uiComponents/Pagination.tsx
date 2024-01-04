@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { usePagination } from '../hooks/usePagination';
 import { IconButton } from './IconButton';
@@ -34,6 +35,7 @@ export const Pagination = ({
   itemsPerPage = DEFAULT_ITEMS_PER_PAGE,
   className = '',
 }: Props): JSX.Element => {
+  const { t } = useTranslation();
   const {
     currentPage,
     setPage,
@@ -83,15 +85,17 @@ export const Pagination = ({
   return (
     <div className={`flex justify-evenly ${className}`}>
       <IconButton
+        disabled={onFirstPage}
+        tooltip={t('accessibility:common.prevPage')}
+        onClick={() => setPage(currentPage - 1)}
         testId="prevPageButtonIcon"
         className="flex-1"
-        onClick={() => setPage(currentPage - 1)}
-        disabled={onFirstPage}
         icon={
           <FaChevronLeft
             className={`text-3xl ${
               onFirstPage ? 'text-light-grey' : 'text-tweaked-brand'
             }`}
+            aria-hidden
           />
         }
       />
@@ -121,6 +125,7 @@ export const Pagination = ({
       )}
       <IconButton
         disabled={onLastPage}
+        tooltip={t('accessibility:common.nextPage')}
         onClick={() => setPage(currentPage + 1)}
         testId="nextPageButtonIcon"
         className="flex-1"
@@ -129,6 +134,7 @@ export const Pagination = ({
             className={`text-3xl ${
               onLastPage ? 'text-light-grey' : 'text-tweaked-brand'
             }`}
+            aria-hidden
           />
         }
       />

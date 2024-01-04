@@ -73,12 +73,18 @@ export const SearchContainer = (): JSX.Element => {
               testId={testIds.toggleExpand}
               isToggled={isExpanded}
               onClick={toggleIsExpanded}
+              controls="advanced-search"
+              openTooltip={t('accessibility:common.expandSearch')}
+              closeTooltip={t('accessibility:common.closeSearch')}
             />
           </Row>
         </Column>
       </Row>
       <Visible visible={isExpanded}>
-        <div className="space-y-5 border-2 border-background p-10">
+        <div
+          id="advanced-search"
+          className="space-y-5 border-2 border-background p-10"
+        >
           <h2>{t('search.advancedSearchTitle')}</h2>
           <FormRow mdColumns={4}>
             <Column>

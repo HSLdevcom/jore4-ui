@@ -167,7 +167,12 @@ module.exports = {
     'i18n-json/identical-keys': [
       'error',
       {
-        filePath: path.resolve('./ui/src/locales/fi-FI/common.json'),
+        filePath: {
+          'common.json': path.resolve('./ui/src/locales/fi-FI/common.json'),
+          'accessibility.json': path.resolve(
+            './ui/src/locales/fi-FI/accessibility.json',
+          ),
+        },
       },
     ],
     '@typescript-eslint/no-unused-vars': [

@@ -4,6 +4,8 @@
     "showOnMap": "Näytä kartalla {{label}}",
     "nextPage": "Seuraava sivu",
     "prevPage": "Edellinen sivu",
+    "expandSearch": "Avaa tarkennettu haku",
+    "closeSearch": "Sulje tarkennettu haku",
     "line": {
       "details": "Näytä tarkemmat tiedot linjalle {{label}}",
       "showOnMap": "Näytä kartalla linja {{label}}",
@@ -11,7 +13,20 @@
     },
     "route": {
       "showOnMap": "Näytä kartalla reitti {{label}}",
-      "showTimetables": "Näytä aikataulut reitille {{label}}"
+      "showTimetables": "Näytä aikataulut reitille {{label}}",
+      "createNew": "Luo uusi reitti",
+      "expandStops": "Näytä pysäkit reitille {{label}}",
+      "closeStops": "Piilota pysäkit reitiltä {{label}}",
+      "expandTimetable": "Avaa aikataulut reitille {{label}}",
+      "closeTimetable": "Piilota reitin {{label}} aikataulut"
+    },
+    "map": {
+      "showFilters": "Suodata näkymää"
+    },
+    "timetables": {
+      "changeValidityPeriod": "Muuta voimassaoloaikaa ajanjaksolle {{validityPeriod}}",
+      "substituteDayEdit": "Muokkaa poikkeuspäivää \"{{substituteDay}}\"",
+      "substituteDayEditClose": "Lopeta poikkeuspäivän \"{{substituteDay}}\" muokkaus"
     }
   }
 }
