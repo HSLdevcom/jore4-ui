@@ -404,19 +404,21 @@
     "save": "Save timetables",
     "showContent": "Show content",
     "summary": "Summary",
+    "tableHeaders": {
+      "routeLabel": "Label",
+      "departureTime": "Departure",
+      "dayType": "Day type",
+      "validityStarts": "Starts",
+      "validityEnds": "Ends",
+      "contractNumber": "Contract number"
+    },
     "missingRouteDeviations": {
       "deviationFetchFailed": "Failed to fetch missing routes",
       "deviationsWarning": "The Hastus file is missing the schedules of the routes previously imported. These expire with this recording. If you want, import them separately or add them to this file."
     },
     "duplicateJourneys": {
       "title": "Duplicate journeys",
-      "description": "Notice duplicate journeys. The following journeys are present in both current and imported timetables with same contract number:",
-      "label": "Label",
-      "departureTime": "Departure",
-      "dayType": "Day type",
-      "validityStarts": "Starts",
-      "validityEnds": "Ends",
-      "contractNumber": "Contract number"
+      "description": "Notice duplicate journeys. The following journeys are present in both current and imported timetables with same contract number:"
     }
   },
   "timetablesSubmitFailure": {
