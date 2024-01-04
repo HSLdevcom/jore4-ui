@@ -80,6 +80,7 @@ export const PassingTimesByStopSection = ({
             </div>
             <VehicleJourneyGroupInfo
               vehicleJourneyGroup={vehicleJourneyGroup}
+              validityPeriod={dayTypeUiNameMapper(dayType)}
             />
           </Row>
           {vehicleJourneyGroup.vehicleJourneys ? (

@@ -14,6 +14,7 @@ const testIds = {
 
 export interface Props {
   vehicleJourneyGroup: VehicleJourneyGroup;
+  validityPeriod: string;
   className?: string;
 }
 
@@ -23,6 +24,7 @@ export interface Props {
  */
 export const VehicleJourneyGroupInfo = ({
   vehicleJourneyGroup,
+  validityPeriod,
   className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
@@ -52,18 +54,20 @@ export const VehicleJourneyGroupInfo = ({
   // link to the substitute operating day's page
   const isDisabled = !vehicleJourneyGroup.vehicleScheduleFrameId;
   const hoverStyle = `${commonHoverStyle} hover:bg-light-grey`;
-
   return (
     <Row
       className={`items-center space-x-4 text-center text-sm text-hsl-dark-80 ${className}`}
     >
       <IconButton
+        title={t('accessibility:button.timetables.changeValidityPeriod', {
+          validityPeriod,
+        })}
         className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base  ${
           isDisabled ? 'text-light-grey' : hoverStyle
         }`}
         disabled={isDisabled}
         onClick={changeVehicleScheduleFrameValidity}
-        icon={<i className="icon-calendar" />}
+        icon={<i className="icon-calendar" aria-hidden />}
         testId={testIds.changeValidityButton}
       />
       <span data-testid={testIds.validityTimeRange}>

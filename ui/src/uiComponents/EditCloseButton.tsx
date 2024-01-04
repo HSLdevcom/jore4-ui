@@ -3,6 +3,7 @@ import { Visible } from '../layoutComponents';
 import { IconButton } from './IconButton';
 
 interface Props {
+  title: string;
   showEdit: boolean;
   onEdit: () => void;
   onClose: () => void;
@@ -16,6 +17,7 @@ interface Props {
  * otherwise renders the close option
  */
 export const EditCloseButton = ({
+  title,
   showEdit,
   onEdit,
   onClose,
@@ -25,16 +27,20 @@ export const EditCloseButton = ({
     <div>
       <Visible visible={!showEdit}>
         <IconButton
+          title={title}
+          // title={t('accessibility:button.timetables.substituteDayEdit')}
           className="text-base font-bold text-brand"
-          icon={<MdClose />}
+          icon={<MdClose aria-hidden />}
           onClick={onClose}
           testId={testId}
         />
       </Visible>
       <Visible visible={showEdit}>
         <IconButton
+          title={title}
+          // title={t('accessibility:button.timetables.substituteDayEdit')}
           className="text-base font-bold text-brand"
-          icon={<MdEdit />}
+          icon={<MdEdit aria-hidden />}
           onClick={onEdit}
           testId={testId}
         />
