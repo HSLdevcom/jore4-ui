@@ -1,6 +1,7 @@
 import orderBy from 'lodash/orderBy';
 import { useTranslation } from 'react-i18next';
 import { VehicleJourneyGroup, useAppDispatch } from '../../../hooks';
+import { parseI18nField } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
 import { openChangeTimetableValidityModalAction } from '../../../redux';
 import { mapDurationToShortTime, mapToShortDate } from '../../../time';
@@ -52,18 +53,20 @@ export const VehicleJourneyGroupInfo = ({
   // link to the substitute operating day's page
   const isDisabled = !vehicleJourneyGroup.vehicleScheduleFrameId;
   const hoverStyle = `${commonHoverStyle} hover:bg-light-grey`;
-
   return (
     <Row
       className={`items-center space-x-4 text-center text-sm text-hsl-dark-80 ${className}`}
     >
       <IconButton
+        tooltip={t('accessibility:timetables.changeValidityPeriod', {
+          dayType: parseI18nField(vehicleJourneyGroup.dayType.name_i18n),
+        })}
         className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base  ${
           isDisabled ? 'text-light-grey' : hoverStyle
         }`}
         disabled={isDisabled}
         onClick={changeVehicleScheduleFrameValidity}
-        icon={<i className="icon-calendar" />}
+        icon={<i className="icon-calendar" aria-hidden />}
         testId={testIds.changeValidityButton}
       />
       <span data-testid={testIds.validityTimeRange}>
