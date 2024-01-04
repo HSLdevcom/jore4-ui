@@ -26,15 +26,15 @@ export const DuplicateJourneysSection = ({
       >
         <thead>
           <tr className="[&>th]:p-2 [&>th]:px-8 [&>th]:font-normal">
-            <th>{t('timetablesPreview.duplicateJourneys.label')}</th>
-            <th>{t('timetablesPreview.duplicateJourneys.departureTime')}</th>
-            <th>{t('timetablesPreview.duplicateJourneys.dayType')}</th>
-            <th>{t('timetablesPreview.duplicateJourneys.validityStarts')}</th>
+            <th>{t('timetablesPreview.tableHeaders.routeLabel')}</th>
+            <th>{t('timetablesPreview.tableHeaders.departureTime')}</th>
+            <th>{t('timetablesPreview.tableHeaders.dayType')}</th>
+            <th>{t('timetablesPreview.tableHeaders.validityStarts')}</th>
             <th className="!px-2"> </th>
             <th className="!pl-0">
-              {t('timetablesPreview.duplicateJourneys.validityEnds')}
+              {t('timetablesPreview.tableHeaders.validityEnds')}
             </th>
-            <th>{t('timetablesPreview.duplicateJourneys.contractNumber')}</th>
+            <th>{t('timetablesPreview.tableHeaders.contractNumber')}</th>
             <th className="w-full">{/* Filler */}</th>
           </tr>
         </thead>

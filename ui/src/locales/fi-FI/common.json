@@ -404,19 +404,21 @@
     "save": "Tallenna aikataulut",
     "showContent": "Näytä sisältö",
     "summary": "Yhteenveto",
+    "tableHeaders": {
+      "routeLabel": "Tunnus",
+      "departureTime": "Lähtöaika",
+      "dayType": "Päivätyyppi",
+      "validityStarts": "Alkaa",
+      "validityEnds": "Päättyy",
+      "contractNumber": "Sopimusnumero"
+    },
     "missingRouteDeviations": {
       "deviationFetchFailed": "Puuttuvien reittien haku epäonnistui",
       "deviationsWarning": "Hastus-tiedostosta puuttuvat aiemmin samassa yhteydessä ladattujen reittien aikataulut. Näiden voimassaolo päättyy tällä tallennuksella. Tuo ne halutessasi erikseen tai lisää tähän tiedostoon."
     },
     "duplicateJourneys": {
       "title": "Päällekkäiset lähdöt",
-      "description": "Huomaa päällekkäiset lähdöt. Seuraavat lähdöt löytyvät samalla sopimusnumerolla sekä nyt tuotavista että jo voimassa olevista aikatauluista:",
-      "label": "Tunnus",
-      "departureTime": "Lähtöaika",
-      "dayType": "Päivätyyppi",
-      "validityStarts": "Alkaa",
-      "validityEnds": "Päättyy",
-      "contractNumber": "Sopimusnumero"
+      "description": "Huomaa päällekkäiset lähdöt. Seuraavat lähdöt löytyvät samalla sopimusnumerolla sekä nyt tuotavista että jo voimassa olevista aikatauluista:"
     }
   },
   "timetablesSubmitFailure": {
