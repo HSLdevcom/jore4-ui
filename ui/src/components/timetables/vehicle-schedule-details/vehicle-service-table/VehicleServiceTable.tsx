@@ -80,6 +80,8 @@ export const VehicleServiceTable = ({
     }
   };
 
+  const dayTypeName = parseI18nField(dayType.name_i18n);
+
   return (
     <div
       className="space-y-2"
@@ -97,7 +99,7 @@ export const VehicleServiceTable = ({
         data-testid={testIds.timetableHeadingButton}
       >
         <Column className="mr-auto">
-          <h4>{parseI18nField(dayType.name_i18n)}</h4>
+          <h4>{dayTypeName}</h4>
         </Column>
         <Column className="justify-center">
           <p className="text-sm">
