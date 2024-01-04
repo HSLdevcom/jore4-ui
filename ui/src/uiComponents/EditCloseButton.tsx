@@ -3,6 +3,8 @@ import { Visible } from '../layoutComponents';
 import { IconButton } from './IconButton';
 
 interface Props {
+  titleEdit: string;
+  titleClose: string;
   showEdit: boolean;
   onEdit: () => void;
   onClose: () => void;
@@ -16,6 +18,8 @@ interface Props {
  * otherwise renders the close option
  */
 export const EditCloseButton = ({
+  titleEdit,
+  titleClose,
   showEdit,
   onEdit,
   onClose,
@@ -25,16 +29,18 @@ export const EditCloseButton = ({
     <div>
       <Visible visible={!showEdit}>
         <IconButton
+          tooltip={titleClose}
           className="text-base font-bold text-brand"
-          icon={<MdClose />}
+          icon={<MdClose aria-hidden />}
           onClick={onClose}
           testId={testId}
         />
       </Visible>
       <Visible visible={showEdit}>
         <IconButton
+          tooltip={titleEdit}
           className="text-base font-bold text-brand"
-          icon={<MdEdit />}
+          icon={<MdEdit aria-hidden />}
           onClick={onEdit}
           testId={testId}
         />
