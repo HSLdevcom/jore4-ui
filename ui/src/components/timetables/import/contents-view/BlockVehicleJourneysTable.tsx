@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   VehicleJourneyWithRouteInfoFragment,
   VehicleServiceWithJourneysFragment,
@@ -12,6 +13,7 @@ const testIds = {
   title: 'BlockVehicleJourneysTable::title',
   toggleShowTable: 'BlockVehicleJourneysTable::toggleShowTable',
   vehicleType: 'BlockVehicleJourneysTable::vehicleType',
+  vehicleJourneyHeaders: 'BlockVehicleJourneysTable::vehicleJourneyHeaders',
 };
 export const blockVehicleJourneysTableTestIds = testIds;
 
@@ -28,6 +30,7 @@ export const BlockVehicleJourneysTable = ({
   vehicleType,
   title,
 }: Props): JSX.Element => {
+  const { t } = useTranslation();
   const [isOpen, toggleIsOpen] = useToggle();
 
   return (
@@ -35,8 +38,8 @@ export const BlockVehicleJourneysTable = ({
       className="border-brand-gray w-full border"
       data-testid={testIds.table}
     >
-      <thead>
-        <tr className="[&>th]:border [&>th]:border-light-grey">
+      <thead className="[&>tr>th]:border [&>tr>th]:border-light-grey">
+        <tr>
           <th
             data-testid={testIds.title}
             className="w-1/6 bg-brand py-2 px-6 text-left text-white"
@@ -58,6 +61,18 @@ export const BlockVehicleJourneysTable = ({
             </Row>
           </th>
         </tr>
+        {isOpen && (
+          <tr
+            className="bg-white [&>th]:px-5 [&>th]:py-2 [&>th]:text-left [&>th]:font-normal"
+            data-testid={testIds.vehicleJourneyHeaders}
+          >
+            <th>{t('timetablesPreview.tableHeaders.routeLabel')}</th>
+            <th>{t('timetablesPreview.tableHeaders.dayType')}</th>
+            <th>{t('timetablesPreview.tableHeaders.departureTime')}</th>
+            <th>{t('timetablesPreview.tableHeaders.endTime')}</th>
+            <th>{t('timetablesPreview.tableHeaders.contractNumber')}</th>
+          </tr>
+        )}
       </thead>
       <Visible visible={isOpen}>
         <tbody>
