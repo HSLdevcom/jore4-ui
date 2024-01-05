@@ -399,6 +399,7 @@
     "departures": "Lähtöjä: {{ count }}",
     "deviations": "Poikkeamat ({{ count }})",
     "fileContent": "Tiedoston sisältö",
+    "vehicleType": "Kalustotyyppi - {{vehicleTypeName}}",
     "missingRoutes": "Puuttuvat reitit:",
     "preview": "Esikatselu",
     "save": "Tallenna aikataulut",

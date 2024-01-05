@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import {
+  TimetablesVehicleTypeVehicleType,
   VehicleJourneyWithRouteInfoFragment,
   VehicleServiceWithJourneysFragment,
 } from '../../../../generated/graphql';
 import { useToggle } from '../../../../hooks';
+import { parseI18nField } from '../../../../i18n/utils';
 import { Row, Visible } from '../../../../layoutComponents';
 import { AccordionButton } from '../../../../uiComponents';
 import { VehicleJourneyRow } from './VehicleJourneyRow';
@@ -20,7 +22,10 @@ export const blockVehicleJourneysTableTestIds = testIds;
 interface Props {
   vehicleJourneys: VehicleJourneyWithRouteInfoFragment[];
   vehicleService: VehicleServiceWithJourneysFragment;
-  vehicleType: string;
+  vehicleType:
+    | Pick<TimetablesVehicleTypeVehicleType, 'description_i18n'>
+    | null
+    | undefined;
   title: string;
 }
 
@@ -51,7 +56,14 @@ export const BlockVehicleJourneysTable = ({
             colSpan={4}
           >
             <Row className="flex-1 items-center justify-between font-normal">
-              <p data-testid={testIds.vehicleType}>{vehicleType}</p>
+              <p data-testid={testIds.vehicleType}>
+                {vehicleType &&
+                  t('timetablesPreview.vehicleType', {
+                    vehicleTypeName: parseI18nField(
+                      vehicleType.description_i18n,
+                    ),
+                  })}
+              </p>
               <AccordionButton
                 testId={testIds.toggleShowTable}
                 isOpen={isOpen}
