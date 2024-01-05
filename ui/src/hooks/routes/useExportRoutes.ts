@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { exportRoutesToHastus as exportToHastus } from '../../api/hastus';
 import { RouteTableRowFragment } from '../../generated/graphql';
 import { mapPriorityToUiName } from '../../i18n/uiNameMappings';
+import { Operation } from '../../redux';
 import {
   downloadFile,
   extractJourneyPatternFirstStop,
@@ -9,11 +10,13 @@ import {
   showDangerToastWithError,
 } from '../../utils';
 import { useSearchQueryParser } from '../search';
+import { useLoader } from '../ui';
 import { useObservationDateQueryParam } from '../urlQuery';
 
 export const useExportRoutes = () => {
   const { observationDate } = useObservationDateQueryParam();
   const { search } = useSearchQueryParser();
+  const { setIsLoading } = useLoader(Operation.ExportRoute);
 
   const { priorities } = search;
   const { t } = useTranslation();
@@ -64,6 +67,8 @@ export const useExportRoutes = () => {
 
   const exportRoutesToHastus = async (routeLabels: string[]) => {
     try {
+      setIsLoading(true);
+
       const response = await exportToHastus({
         uniqueLabels: routeLabels,
         priority: priorities[0],
@@ -78,6 +83,8 @@ export const useExportRoutes = () => {
     } catch (error) {
       showDangerToastWithError(t('export.hastusErrorTitle'), error);
     }
+
+    setIsLoading(false);
   };
 
   return {

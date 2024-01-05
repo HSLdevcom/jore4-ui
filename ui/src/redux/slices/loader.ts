@@ -9,6 +9,7 @@ export enum Operation {
   MatchRoute = 'matchRoute',
   CheckBrokenRoutes = 'checkBrokenRoutes',
   SaveTimingPlace = 'saveTimingPlace',
+  ExportRoute = 'exportRoute',
   ConfirmTimetablesImport = 'confirmTimetablesImport',
   UploadFilesToHastusImport = 'uploadFilesToHastusImport',
   AbortImport = 'abortImport',
@@ -33,7 +34,11 @@ export const importOperations = [
   Operation.AbortImport,
 ];
 
-export const joreOperations = [...importOperations, Operation.DeleteTimetable];
+export const joreOperations = [
+  ...importOperations,
+  Operation.ExportRoute,
+  Operation.DeleteTimetable,
+];
 
 type IState = {
   [key in Operation]: boolean;
@@ -48,6 +53,7 @@ const initialState: IState = {
   [Operation.MatchRoute]: false,
   [Operation.CheckBrokenRoutes]: false,
   [Operation.SaveTimingPlace]: false,
+  [Operation.ExportRoute]: false,
   [Operation.ConfirmTimetablesImport]: false,
   [Operation.UploadFilesToHastusImport]: false,
   [Operation.AbortImport]: false,
