@@ -151,11 +151,11 @@ const testFrame1: VehicleScheduleFrameWithRouteInfoFragment = {
 };
 
 const testFrame2: VehicleScheduleFrameWithRouteInfoFragment = {
+  vehicle_schedule_frame_id: '3014ef8b-7e1e-43f5-a9ec-5e2e2dfb69d5',
   label: 'AUTUMN_SCHEDULES',
   validity_start: DateTime.fromISO('2023-09-01'),
   validity_end: DateTime.fromISO('2023-12-31'),
   name_i18n: buildLocalizedString('Autumn schedules'),
-  vehicle_schedule_frame_id: '0d55f677-d8c5-4917-b73d-a055411d96f3',
   priority: TimetablePriority.Standard,
   vehicle_services: [
     {
