@@ -10,6 +10,7 @@ import { Row, Visible } from '../../../layoutComponents';
 import {
   resetSelectedRowsAction,
   selectExport,
+  selectLoader,
   selectRowsAction,
   setIsSelectingRoutesForExportAction,
 } from '../../../redux';
@@ -36,6 +37,7 @@ export const ExportToolbar = (): JSX.Element => {
     useAppSelector(selectExport);
   const { canExport, exportRoutesToHastus, findNotEligibleRoutesForExport } =
     useExportRoutes();
+  const { exportRoute: isExportRouteLoading } = useAppSelector(selectLoader);
 
   const linesWithRoutes = lines.filter((line) => !!line.line_routes.length);
 
@@ -126,7 +128,7 @@ export const ExportToolbar = (): JSX.Element => {
       <Visible visible={isSelectingRoutesForExport}>
         <SimpleSmallButton
           inverted
-          disabled={!canExport || !selectedRows.length}
+          disabled={!canExport || !selectedRows.length || isExportRouteLoading}
           onClick={exportRoutes}
           label={t('export.exportSelected')}
           className="!rounded-full"
