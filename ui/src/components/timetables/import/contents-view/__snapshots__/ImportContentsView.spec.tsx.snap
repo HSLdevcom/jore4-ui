@@ -25,7 +25,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           <p
             data-testid="BlockVehicleJourneysTable::vehicleType"
           >
-            Mini B
+            Kalustotyyppi - Mini B
           </p>
           <button
             class="text-center "
@@ -294,7 +294,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   <p
                     data-testid="BlockVehicleJourneysTable::vehicleType"
                   >
-                    Mini B
+                    Kalustotyyppi - Mini B
                   </p>
                   <button
                     class="text-center "
@@ -349,7 +349,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   <p
                     data-testid="BlockVehicleJourneysTable::vehicleType"
                   >
-                    Mini B
+                    Kalustotyyppi - Mini B
                   </p>
                   <button
                     class="text-center "
@@ -459,7 +459,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   <p
                     data-testid="BlockVehicleJourneysTable::vehicleType"
                   >
-                    Mini A
+                    Kalustotyyppi - Mini A
                   </p>
                   <button
                     class="text-center "

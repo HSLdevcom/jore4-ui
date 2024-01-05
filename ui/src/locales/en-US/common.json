@@ -399,6 +399,7 @@
     "departures": "Departures: {{ count }}",
     "deviations": "Deviations ({{ count }})",
     "fileContent": "File content",
+    "vehicleType": "Vehicle type - {{vehicleTypeName}}",
     "missingRoutes": "Missing routes:",
     "preview": "Preview",
     "save": "Save timetables",

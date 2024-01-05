@@ -255,7 +255,7 @@ describe('<ImportContentsView />', () => {
     ).toHaveTextContent('Week day service');
     expect(
       within(block).getByTestId(blockVehicleJourneysTableTestIds.vehicleType),
-    ).toHaveTextContent('Mini B');
+    ).toHaveTextContent('Kalustotyyppi - Mini B');
   });
 
   it('should show vehicle journey rows correctly', () => {
