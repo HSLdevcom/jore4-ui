@@ -41,7 +41,7 @@ export const VehicleJourneyRow = ({
 
   return (
     <tr
-      className="odd:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
+      className="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
       data-testid={testIds.vehicleJourneyRow(route.label, route.direction)}
     >
       <td>

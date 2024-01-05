@@ -407,6 +407,7 @@
     "tableHeaders": {
       "routeLabel": "Label",
       "departureTime": "Departure",
+      "endTime": "Arrival",
       "dayType": "Day type",
       "validityStarts": "Starts",
       "validityEnds": "Ends",

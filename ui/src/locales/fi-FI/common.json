@@ -407,6 +407,7 @@
     "tableHeaders": {
       "routeLabel": "Tunnus",
       "departureTime": "Lähtöaika",
+      "endTime": "Päättymisaika",
       "dayType": "Päivätyyppi",
       "validityStarts": "Alkaa",
       "validityEnds": "Päättyy",

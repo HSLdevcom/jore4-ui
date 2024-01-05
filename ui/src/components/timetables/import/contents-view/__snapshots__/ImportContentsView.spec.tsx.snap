@@ -5,10 +5,10 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
   class="border-brand-gray w-full border"
   data-testid="BlockVehicleJourneysTable::table"
 >
-  <thead>
-    <tr
-      class="[&>th]:border [&>th]:border-light-grey"
-    >
+  <thead
+    class="[&>tr>th]:border [&>tr>th]:border-light-grey"
+  >
+    <tr>
       <th
         class="w-1/6 bg-brand py-2 px-6 text-left text-white"
         data-testid="BlockVehicleJourneysTable::title"
@@ -54,10 +54,30 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
         </div>
       </th>
     </tr>
+    <tr
+      class="bg-white [&>th]:px-5 [&>th]:py-2 [&>th]:text-left [&>th]:font-normal"
+      data-testid="BlockVehicleJourneysTable::vehicleJourneyHeaders"
+    >
+      <th>
+        Tunnus
+      </th>
+      <th>
+        Päivätyyppi
+      </th>
+      <th>
+        Lähtöaika
+      </th>
+      <th>
+        Päättymisaika
+      </th>
+      <th>
+        Sopimusnumero
+      </th>
+    </tr>
   </thead>
   <tbody>
     <tr
-      class="odd:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
+      class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
       data-testid="VehicleJourneyRow::35::outbound"
     >
       <td>
@@ -100,7 +120,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
       </td>
     </tr>
     <tr
-      class="odd:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
+      class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
       data-testid="VehicleJourneyRow::35::inbound"
     >
       <td>
@@ -143,7 +163,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
       </td>
     </tr>
     <tr
-      class="odd:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
+      class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
       data-testid="VehicleJourneyRow::35::outbound"
     >
       <td>
@@ -254,10 +274,10 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           class="border-brand-gray w-full border"
           data-testid="BlockVehicleJourneysTable::table"
         >
-          <thead>
-            <tr
-              class="[&>th]:border [&>th]:border-light-grey"
-            >
+          <thead
+            class="[&>tr>th]:border [&>tr>th]:border-light-grey"
+          >
+            <tr>
               <th
                 class="w-1/6 bg-brand py-2 px-6 text-left text-white"
                 data-testid="BlockVehicleJourneysTable::title"
@@ -309,10 +329,10 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           class="border-brand-gray w-full border"
           data-testid="BlockVehicleJourneysTable::table"
         >
-          <thead>
-            <tr
-              class="[&>th]:border [&>th]:border-light-grey"
-            >
+          <thead
+            class="[&>tr>th]:border [&>tr>th]:border-light-grey"
+          >
+            <tr>
               <th
                 class="w-1/6 bg-brand py-2 px-6 text-left text-white"
                 data-testid="BlockVehicleJourneysTable::title"
@@ -419,10 +439,10 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           class="border-brand-gray w-full border"
           data-testid="BlockVehicleJourneysTable::table"
         >
-          <thead>
-            <tr
-              class="[&>th]:border [&>th]:border-light-grey"
-            >
+          <thead
+            class="[&>tr>th]:border [&>tr>th]:border-light-grey"
+          >
+            <tr>
               <th
                 class="w-1/6 bg-brand py-2 px-6 text-left text-white"
                 data-testid="BlockVehicleJourneysTable::title"
