@@ -1,5 +1,15 @@
 {
-  "title": {},
+  "title": {
+    "line": {
+      "bus": "Bus line"
+    },
+    "route": {
+      "bus": "Bus route"
+    },
+    "timetable": {
+      "icon": "Timetables"
+    }
+  },
   "button": {
     "showOnMap": "Show {{routeLabel}} on the map",
     "nextPage": "Next page",
