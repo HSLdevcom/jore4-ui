@@ -34,6 +34,8 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   </h2>
                   <i
                     class="icon-bus-alt text-2xl text-tweaked-brand"
+                    role="img"
+                    title="Bussilinja"
                   />
                 </div>
                 <p>
@@ -62,9 +64,11 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
             data-testid="LocatorButton::button"
             disabled=""
+            title="Näytä aikataulut linjalle 65"
             type="button"
           >
             <i
+              aria-hidden="true"
               class="icon-calendar inline text-center"
             />
           </button>
@@ -72,40 +76,32 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
-          <div
-            class="group relative flex justify-center"
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
+            data-testid="LineTableRow::showLineRoutes"
+            title="Näytä kartalla linja 65"
+            type="button"
           >
-            <span
-              class="absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
-        text-white transition-all group-hover:scale-100 bottom-11 delay-700"
+            <svg
+              aria-hidden="true"
+              class="text-2xl inline text-center"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Näytä kartalla
-            </span>
-            <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-              data-testid="LineTableRow::showLineRoutes"
-              type="button"
-            >
-              <svg
-                class="text-2xl inline text-center"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
-                />
-              </svg>
-            </button>
-          </div>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </button>
         </td>
       </tr>
       <tr
@@ -135,6 +131,8 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   </h2>
                   <i
                     class="icon-bus-alt text-2xl text-tweaked-brand"
+                    role="img"
+                    title="Bussilinja"
                   />
                 </div>
                 <p>
@@ -163,9 +161,11 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
             data-testid="LocatorButton::button"
             disabled=""
+            title="Näytä aikataulut linjalle 71"
             type="button"
           >
             <i
+              aria-hidden="true"
               class="icon-calendar inline text-center"
             />
           </button>
@@ -173,40 +173,32 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
-          <div
-            class="group relative flex justify-center"
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
+            data-testid="LineTableRow::showLineRoutes"
+            title="Näytä kartalla linja 71"
+            type="button"
           >
-            <span
-              class="absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
-        text-white transition-all group-hover:scale-100 bottom-11 delay-700"
+            <svg
+              aria-hidden="true"
+              class="text-2xl inline text-center"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Näytä kartalla
-            </span>
-            <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-              data-testid="LineTableRow::showLineRoutes"
-              type="button"
-            >
-              <svg
-                class="text-2xl inline text-center"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
-                />
-              </svg>
-            </button>
-          </div>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </button>
         </td>
       </tr>
       <tr
@@ -236,6 +228,8 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   </h2>
                   <i
                     class="icon-bus-alt text-2xl text-tweaked-brand"
+                    role="img"
+                    title="Bussilinja"
                   />
                 </div>
                 <p>
@@ -264,9 +258,11 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
             data-testid="LocatorButton::button"
             disabled=""
+            title="Näytä aikataulut linjalle 785K"
             type="button"
           >
             <i
+              aria-hidden="true"
               class="icon-calendar inline text-center"
             />
           </button>
@@ -274,40 +270,32 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
-          <div
-            class="group relative flex justify-center"
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
+            data-testid="LineTableRow::showLineRoutes"
+            title="Näytä kartalla linja 785K"
+            type="button"
           >
-            <span
-              class="absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
-        text-white transition-all group-hover:scale-100 bottom-11 delay-700"
+            <svg
+              aria-hidden="true"
+              class="text-2xl inline text-center"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Näytä kartalla
-            </span>
-            <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-              data-testid="LineTableRow::showLineRoutes"
-              type="button"
-            >
-              <svg
-                class="text-2xl inline text-center"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
-                />
-              </svg>
-            </button>
-          </div>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </button>
         </td>
       </tr>
       <tr
@@ -337,6 +325,8 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
                   </h2>
                   <i
                     class="icon-bus-alt text-2xl text-tweaked-brand"
+                    role="img"
+                    title="Bussilinja"
                   />
                 </div>
                 <p>
@@ -365,9 +355,11 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
             data-testid="LocatorButton::button"
             disabled=""
+            title="Näytä aikataulut linjalle 1234"
             type="button"
           >
             <i
+              aria-hidden="true"
               class="icon-calendar inline text-center"
             />
           </button>
@@ -375,40 +367,32 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
-          <div
-            class="group relative flex justify-center"
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
+            data-testid="LineTableRow::showLineRoutes"
+            title="Näytä kartalla linja 1234"
+            type="button"
           >
-            <span
-              class="absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
-        text-white transition-all group-hover:scale-100 bottom-11 delay-700"
+            <svg
+              aria-hidden="true"
+              class="text-2xl inline text-center"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Näytä kartalla
-            </span>
-            <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
-              data-testid="LineTableRow::showLineRoutes"
-              type="button"
-            >
-              <svg
-                class="text-2xl inline text-center"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
-                />
-              </svg>
-            </button>
-          </div>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -452,6 +436,8 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
                   </h2>
                   <i
                     class="icon-bus-alt text-2xl text-tweaked-brand"
+                    role="img"
+                    title="Bussireitti"
                   />
                 </div>
                 <p>
@@ -480,9 +466,11 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
             data-testid="LocatorButton::button"
             disabled=""
+            title="Näytä aikataulut linjalle 1"
             type="button"
           >
             <i
+              aria-hidden="true"
               class="icon-calendar inline text-center"
             />
           </button>
@@ -490,41 +478,33 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
         <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
-          <div
-            class="group relative flex justify-center"
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            data-testid="RouteTableRow::showRoute"
+            disabled=""
+            title="Näytä kartalla reitti 1"
+            type="button"
           >
-            <span
-              class="absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
-        text-white transition-all group-hover:scale-100 bottom-11 delay-700"
+            <svg
+              aria-hidden="true"
+              class="text-2xl inline text-center"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Näytä kartalla
-            </span>
-            <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
-              data-testid="RouteTableRow::showRoute"
-              disabled=""
-              type="button"
-            >
-              <svg
-                class="text-2xl inline text-center"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
-                />
-              </svg>
-            </button>
-          </div>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -568,6 +548,8 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
                   </h2>
                   <i
                     class="icon-calendar text-2xl text-zinc-400"
+                    role="img"
+                    title="Timetable"
                   />
                   Ei aikatauluja
                 </div>
@@ -596,9 +578,11 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
             data-testid="LocatorButton::button"
+            title="Näytä tarkemmat tiedot linjalle 1"
             type="button"
           >
             <i
+              aria-hidden="true"
               class="icon-bus-alt inline text-center"
             />
           </button>
@@ -606,41 +590,33 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
         <td
           class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
         >
-          <div
-            class="group relative flex justify-center"
+          <button
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            data-testid="RouteTableRow::showRoute"
+            disabled=""
+            title="Näytä kartalla reitti 1"
+            type="button"
           >
-            <span
-              class="absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
-        text-white transition-all group-hover:scale-100 bottom-11 delay-700"
+            <svg
+              aria-hidden="true"
+              class="text-2xl inline text-center"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Näytä kartalla
-            </span>
-            <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
-              data-testid="RouteTableRow::showRoute"
-              disabled=""
-              type="button"
-            >
-              <svg
-                class="text-2xl inline text-center"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
-                />
-              </svg>
-            </button>
-          </div>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+              />
+            </svg>
+          </button>
         </td>
       </tr>
     </tbody>

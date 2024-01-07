@@ -1,5 +1,15 @@
 {
-  "title": {},
+  "title": {
+    "line": {
+      "bus": "bussilinja"
+    },
+    "route": {
+      "bus": "Bussireitti"
+    },
+    "timetable": {
+      "icon": "Aikataulut"
+    }
+  },
   "button": {
     "showOnMap": "Näytä kartalla {{label}}",
     "nextPage": "Seuraava sivu",
