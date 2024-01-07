@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { IconButton } from '../../uiComponents/IconButton';
@@ -10,6 +11,7 @@ const testIds = {
 interface Props {
   testId?: string;
   lineId: UUID;
+  label: string;
   routeLabel?: string;
   className?: string;
 }
@@ -17,19 +19,22 @@ interface Props {
 export const LineDetailsButton = ({
   testId,
   lineId,
+  label,
   routeLabel,
   className = '',
 }: Props): JSX.Element => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onClick = () => {
     navigate(routeDetails[Path.lineDetails].getLink(lineId, routeLabel));
   };
   return (
     <IconButton
+      title={t('accessibility:button.line.details', { label })}
       className={`h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand ${commonHoverStyle} ${className}`}
       onClick={onClick}
-      icon={<i className="icon-bus-alt" />}
+      icon={<i className="icon-bus-alt" aria-hidden />}
       testId={testId || testIds.button}
     />
   );

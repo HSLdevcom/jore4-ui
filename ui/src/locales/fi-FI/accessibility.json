@@ -1,5 +1,15 @@
 {
-  "title": {},
+  "title": {
+    "line": {
+      "icon": "{{vehicleType}}linja"
+    },
+    "route": {
+      "icon": "{{vehicleType}}reitti"
+    },
+    "timetable": {
+      "icon": "Aikataulut"
+    }
+  },
   "button": {
     "showOnMap": "Näytä kartalla {{label}}",
     "nextPage": "Seuraava sivu",
