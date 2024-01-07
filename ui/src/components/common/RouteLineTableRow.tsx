@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   LineTableRowFragment,
   RouteTableRowFragment,
+  ReusableComponentsVehicleModeEnum as Vehicle,
 } from '../../generated/graphql';
 import { isRoute } from '../../graphql';
 import { useAlertsAndHighLights } from '../../hooks';
@@ -10,6 +11,7 @@ import { Column, Row, Visible } from '../../layoutComponents';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../time';
 import { LocatorButton } from '../../uiComponents';
+import { VehicleIcon } from '../../uiComponents/VehicleIcon';
 import { AlertPopover } from './AlertPopover';
 import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
@@ -58,10 +60,16 @@ const getDisplayInformation = (
             className={`icon-calendar text-2xl ${
               hasTimetables ? 'text-tweaked-brand' : 'text-zinc-400'
             }`}
+            title="Timetable" // TODO: Not in a hook, so can't translate this. Refactor `VehicleIcon` or row completely?
+            role="img"
           />
         ),
         alternativeRowActionButton: (
-          <LineDetailsButton lineId={lineId} routeLabel={routeLabel} />
+          <LineDetailsButton
+            lineId={lineId}
+            routeLabel={routeLabel}
+            label={rowItem.label}
+          />
         ),
         linkTo: routeDetails[Path.lineTimetables].getLink(lineId, routeLabel),
         isDisabled: !hasTimetables,
@@ -69,12 +77,21 @@ const getDisplayInformation = (
     case RouteLineTableRowVariant.RoutesAndLines:
     default:
       return {
-        rowIcon: <i className="icon-bus-alt text-2xl text-tweaked-brand" />,
+        rowIcon: (
+          <VehicleIcon
+            className="text-2xl text-tweaked-brand"
+            vehicleMode={
+              Vehicle.Bus /* TODO: This hardcode needs proper logic when other vehicles are implemented */
+            }
+            rowItem={rowItem}
+          />
+        ),
         alternativeRowActionButton: (
           <LineTimetablesButton
             disabled={!hasTimetables}
             lineId={lineId}
             routeLabel={routeLabel}
+            label={rowItem.label}
           />
         ),
         linkTo: routeDetails[Path.lineDetails].getLink(lineId, routeLabel),
