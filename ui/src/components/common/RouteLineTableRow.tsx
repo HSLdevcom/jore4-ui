@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   LineTableRowFragment,
   RouteTableRowFragment,
+  ReusableComponentsVehicleModeEnum as Vehicle,
 } from '../../generated/graphql';
 import { isRoute } from '../../graphql';
 import { useAlertsAndHighLights } from '../../hooks';
@@ -10,6 +11,7 @@ import { Column, Row, Visible } from '../../layoutComponents';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../time';
 import { LocatorButton } from '../../uiComponents';
+import { VehicleIcon } from '../../uiComponents/VehicleIcon';
 import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
 import { RouteLabel } from './RouteLabel';
@@ -57,10 +59,16 @@ const getDisplayInformation = (
             className={`icon-calendar text-2xl ${
               hasTimetables ? 'text-tweaked-brand' : 'text-zinc-400'
             }`}
+            title="Timetable" // TODO: Not in a hook, so can't translate this. Refactor `VehicleIcon` or row completely?
+            role="img"
           />
         ),
         alternativeRowActionButton: (
-          <LineDetailsButton lineId={lineId} routeLabel={routeLabel} />
+          <LineDetailsButton
+            lineId={lineId}
+            routeLabel={routeLabel}
+            label={rowItem.label}
+          />
         ),
         linkTo: routeDetails[Path.lineTimetables].getLink(lineId, routeLabel),
         isDisabled: !hasTimetables,
@@ -68,12 +76,21 @@ const getDisplayInformation = (
     case RouteLineTableRowVariant.RoutesAndLines:
     default:
       return {
-        rowIcon: <i className="icon-bus-alt text-2xl text-tweaked-brand" />,
+        rowIcon: (
+          <VehicleIcon
+            className="text-2xl text-tweaked-brand"
+            vehicleMode={
+              Vehicle.Bus /* TODO: This hardcode needs proper logic when other vehicles are implemented */
+            }
+            rowItem={rowItem}
+          />
+        ),
         alternativeRowActionButton: (
           <LineTimetablesButton
             disabled={!hasTimetables}
             lineId={lineId}
             routeLabel={routeLabel}
+            label={rowItem.label}
           />
         ),
         linkTo: routeDetails[Path.lineDetails].getLink(lineId, routeLabel),
@@ -112,6 +129,29 @@ export const RouteLineTableRow = ({
   );
 
   const disabledStyle = 'pointer-events-none text-zinc-400';
+
+  /**
+   * Determine the proper title text for the map button.
+   * The title is mainly relevant for screen readers, but it also helps mouse users with added details.
+   * TODO: This could be done better if the tables were refactored, especially if the "generic" line/route structure is removed at the same time.
+   * @param RowItem
+   * @returns An accessible translated text for this section's buttons.
+   */
+  function getMapButtonTitle(item: RowItem): string {
+    const { label } = item;
+    // eslint-disable-next-line no-underscore-dangle
+    switch (item.__typename) {
+      case 'route_line': {
+        return t('accessibility:button.line.showOnMap', { label });
+      }
+      case 'route_route': {
+        return t('accessibility:button.route.showOnMap', { label });
+      }
+      default: {
+        return t('accessibility:button.showOnMap', { label });
+      }
+    }
+  }
 
   return (
     <tr className={className}>
@@ -185,6 +225,7 @@ export const RouteLineTableRow = ({
           onClick={onLocatorButtonClick!}
           disabled={!onLocatorButtonClick}
           testId={locatorButtonTestId}
+          title={getMapButtonTitle(rowItem)}
         />
       </td>
     </tr>
