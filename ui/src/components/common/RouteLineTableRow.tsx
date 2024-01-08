@@ -11,6 +11,7 @@ import { Column, Row, Visible } from '../../layoutComponents';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../time';
 import { LocatorButton } from '../../uiComponents';
+import { TimetableIcon } from '../../uiComponents/TimetableIcon';
 import { VehicleIcon } from '../../uiComponents/VehicleIcon';
 import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
@@ -55,13 +56,7 @@ const getDisplayInformation = (
     case RouteLineTableRowVariant.Timetables:
       return {
         rowIcon: (
-          <i
-            className={`icon-calendar text-2xl ${
-              hasTimetables ? 'text-tweaked-brand' : 'text-zinc-400'
-            }`}
-            title="Timetable" // TODO: Not in a hook, so can't translate this. Refactor `VehicleIcon` or row completely?
-            role="img"
-          />
+          <TimetableIcon className="text-2xl" hasTimetables={hasTimetables} />
         ),
         alternativeRowActionButton: (
           <LineDetailsButton

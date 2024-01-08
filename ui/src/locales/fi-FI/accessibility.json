@@ -7,7 +7,7 @@
       "icon": "{{vehicleType}}reitti"
     },
     "timetable": {
-      "icon": "Aikataulut"
+      "icon": "Aikataulu"
     }
   },
   "button": {

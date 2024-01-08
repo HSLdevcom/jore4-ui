@@ -571,9 +571,9 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
                     </b>
                   </h2>
                   <i
-                    class="icon-calendar text-2xl text-zinc-400"
+                    class="icon-calendar text-zinc-400 text-2xl"
                     role="img"
-                    title="Timetable"
+                    title=""
                   />
                   Ei aikatauluja
                 </div>
