@@ -448,7 +448,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
               {
                 journey_pattern_id: '43e1985d-4643-4415-8367-c4a37fbc0a87',
                 on_route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
-                scheduled_stop_point_in_journey_patterns: [
+                ordered_scheduled_stop_point_in_journey_patterns: [
                   {
                     journey_pattern_id: '43e1985d-4643-4415-8367-c4a37fbc0a87',
                     scheduled_stop_point_label: 'H1234',
