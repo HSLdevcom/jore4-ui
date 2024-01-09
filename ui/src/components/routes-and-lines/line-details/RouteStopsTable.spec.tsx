@@ -2,7 +2,16 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { act } from 'react-dom/test-utils';
-import { GetRouteDetailsByIdDocument } from '../../../generated/graphql';
+import {
+  GetRouteDetailsByIdDocument,
+  GetRouteDetailsByIdQuery,
+  HslRouteTransportTargetEnum,
+  InfrastructureNetworkDirectionEnum,
+  InfrastructureNetworkExternalSourceEnum,
+  ReusableComponentsVehicleModeEnum,
+  RouteDirectionEnum,
+  RouteTypeOfLineEnum,
+} from '../../../generated/graphql';
 import { RouteDirection } from '../../../types/RouteDirection';
 import { render, sleep } from '../../../utils/test-utils';
 import { RouteStopsTable } from './RouteStopsTable';
@@ -10,8 +19,11 @@ import { RouteStopsTable } from './RouteStopsTable';
 describe(`<${RouteStopsTable.name} />`, () => {
   const testId = 'routeStopsTable1';
 
-  // these responses are copy-pasted from the actual graphql response
-  const mocks: MockedResponse[] = [
+  // These responses are copy-pasted from the actual graphql response.
+  // The actual request for this is GET_ROUTE_DETAILS_BY_ID.
+  const mocks: Array<
+    MockedResponse & { result: { data: GetRouteDetailsByIdQuery } }
+  > = [
     {
       request: {
         query: GetRouteDetailsByIdDocument,
@@ -27,7 +39,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
             priority: 10,
             __typename: 'route_route',
             label: '65x',
-            direction: 'outbound',
+            direction: RouteDirectionEnum.Outbound,
             variant: null,
             route_id: '03d55414-e5cf-4cce-9faf-d86ccb7e5f98',
             name_i18n: { fi_FI: 'Reitti A - B FI', sv_FI: 'Reitti A - B SV' },
@@ -48,10 +60,6 @@ describe(`<${RouteStopsTable.name} />`, () => {
             on_line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
             route_shape: {
               type: 'LineString',
-              crs: {
-                type: 'name',
-                properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-              },
               coordinates: [
                 [24.92743115932746, 60.16363353459729, 8.80899999999383],
                 [24.929195905850854, 60.16425075458953, 8.62099999999919],
@@ -74,9 +82,10 @@ describe(`<${RouteStopsTable.name} />`, () => {
               validity_end: DateTime.fromISO('2050-12-13'),
               priority: 10,
               __typename: 'route_line',
-              primary_vehicle_mode: 'bus',
-              type_of_line: 'regional_bus_service',
-              transport_target: 'helsinki_internal_traffic',
+              primary_vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
+              type_of_line: RouteTypeOfLineEnum.RegionalBusService,
+              transport_target:
+                HslRouteTransportTargetEnum.HelsinkiInternalTraffic,
             },
             infrastructure_links_along_route: [
               {
@@ -89,22 +98,20 @@ describe(`<${RouteStopsTable.name} />`, () => {
                     'c63b749f-5060-4710-8b07-ec9ac017cb5f',
                   shape: {
                     type: 'LineString',
-                    crs: {
-                      type: 'name',
-                      properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-                    },
                     coordinates: [
                       [24.92743115932746, 60.16363353459729, 8.80899999999383],
                       [24.929195905850854, 60.16425075458953, 8.62099999999919],
                     ],
                   },
-                  direction: 'bidirectional',
+                  direction: InfrastructureNetworkDirectionEnum.Bidirectional,
                   __typename: 'infrastructure_network_infrastructure_link',
-                  external_link_source: 'digiroad_r',
+                  external_link_source:
+                    InfrastructureNetworkExternalSourceEnum.DigiroadR,
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
                       priority: 10,
-                      direction: 'bidirectional',
+                      direction:
+                        InfrastructureNetworkDirectionEnum.Bidirectional,
                       scheduled_stop_point_id:
                         'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                       label: 'H1234',
@@ -120,24 +127,16 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       __typename: 'service_pattern_scheduled_stop_point',
                       measured_location: {
                         type: 'Point',
-                        crs: {
-                          type: 'name',
-                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-                        },
                         coordinates: [24.928326557825727, 60.16391811339392, 0],
                       },
                       relative_distance_from_infrastructure_link_start: 0.4920981563179405,
                       closest_point_on_infrastructure_link: {
                         type: 'Point',
-                        crs: {
-                          type: 'name',
-                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-                        },
                         coordinates: [24.92829957953371, 60.16393727031912],
                       },
                       vehicle_mode_on_scheduled_stop_point: [
                         {
-                          vehicle_mode: 'bus',
+                          vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
                           __typename:
                             'service_pattern_vehicle_mode_on_scheduled_stop_point',
                         },
@@ -187,7 +186,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       other_label_instances: [
                         {
                           priority: 10,
-                          direction: 'bidirectional',
+                          direction:
+                            InfrastructureNetworkDirectionEnum.Bidirectional,
                           scheduled_stop_point_id:
                             'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                           label: 'H1234',
@@ -221,22 +221,20 @@ describe(`<${RouteStopsTable.name} />`, () => {
                     '2feba2ae-c7af-4034-a299-9e592e67358f',
                   shape: {
                     type: 'LineString',
-                    crs: {
-                      type: 'name',
-                      properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-                    },
                     coordinates: [
                       [24.929195905850854, 60.16425075458953, 8.62099999999919],
                       [24.932010800782077, 60.16523749159016, 10.900999999998],
                     ],
                   },
-                  direction: 'bidirectional',
+                  direction: InfrastructureNetworkDirectionEnum.Bidirectional,
                   __typename: 'infrastructure_network_infrastructure_link',
-                  external_link_source: 'digiroad_r',
+                  external_link_source:
+                    InfrastructureNetworkExternalSourceEnum.DigiroadR,
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
                       priority: 10,
-                      direction: 'bidirectional',
+                      direction:
+                        InfrastructureNetworkDirectionEnum.Bidirectional,
                       scheduled_stop_point_id:
                         '4d294d62-df17-46ff-9248-23f66f17fa87',
                       label: 'H1235',
@@ -252,10 +250,6 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       __typename: 'service_pattern_scheduled_stop_point',
                       measured_location: {
                         type: 'Point',
-                        crs: {
-                          type: 'name',
-                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-                        },
                         coordinates: [
                           24.930490150380855, 60.164635254660325, 0,
                         ],
@@ -263,15 +257,11 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       relative_distance_from_infrastructure_link_start: 0.43657733896325085,
                       closest_point_on_infrastructure_link: {
                         type: 'Point',
-                        crs: {
-                          type: 'name',
-                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-                        },
                         coordinates: [24.930424804348895, 60.16468154886878],
                       },
                       vehicle_mode_on_scheduled_stop_point: [
                         {
-                          vehicle_mode: 'bus',
+                          vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
                           __typename:
                             'service_pattern_vehicle_mode_on_scheduled_stop_point',
                         },
@@ -307,7 +297,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       other_label_instances: [
                         {
                           priority: 10,
-                          direction: 'bidirectional',
+                          direction:
+                            InfrastructureNetworkDirectionEnum.Bidirectional,
                           scheduled_stop_point_id:
                             '4d294d62-df17-46ff-9248-23f66f17fa87',
                           label: 'H1235',
@@ -341,22 +332,20 @@ describe(`<${RouteStopsTable.name} />`, () => {
                     'd3ed9fcf-d1fa-419a-a279-7ad3ffe47714',
                   shape: {
                     type: 'LineString',
-                    crs: {
-                      type: 'name',
-                      properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-                    },
                     coordinates: [
                       [24.932010800782077, 60.16523749159016, 10.900999999998],
                       [24.934523101958195, 60.16611826776014, 15.5639999999985],
                     ],
                   },
-                  direction: 'bidirectional',
+                  direction: InfrastructureNetworkDirectionEnum.Bidirectional,
                   __typename: 'infrastructure_network_infrastructure_link',
-                  external_link_source: 'digiroad_r',
+                  external_link_source:
+                    InfrastructureNetworkExternalSourceEnum.DigiroadR,
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
                       priority: 10,
-                      direction: 'bidirectional',
+                      direction:
+                        InfrastructureNetworkDirectionEnum.Bidirectional,
                       scheduled_stop_point_id:
                         'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                       label: 'H1236',
@@ -372,24 +361,16 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       __typename: 'service_pattern_scheduled_stop_point',
                       measured_location: {
                         type: 'Point',
-                        crs: {
-                          type: 'name',
-                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-                        },
                         coordinates: [24.933251767757206, 60.16565505738068, 0],
                       },
                       relative_distance_from_infrastructure_link_start: 0.48738065747222575,
                       closest_point_on_infrastructure_link: {
                         type: 'Point',
-                        crs: {
-                          type: 'name',
-                          properties: { name: 'urn:ogc:def:crs:EPSG::4326' },
-                        },
                         coordinates: [24.933235230916978, 60.16566677073708],
                       },
                       vehicle_mode_on_scheduled_stop_point: [
                         {
-                          vehicle_mode: 'bus',
+                          vehicle_mode: ReusableComponentsVehicleModeEnum.Bus,
                           __typename:
                             'service_pattern_vehicle_mode_on_scheduled_stop_point',
                         },
@@ -419,7 +400,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
                       other_label_instances: [
                         {
                           priority: 10,
-                          direction: 'bidirectional',
+                          direction:
+                            InfrastructureNetworkDirectionEnum.Bidirectional,
                           scheduled_stop_point_id:
                             'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                           label: 'H1236',
@@ -470,7 +452,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
                     scheduled_stop_points: [
                       {
                         priority: 10,
-                        direction: 'bidirectional',
+                        direction:
+                          InfrastructureNetworkDirectionEnum.Bidirectional,
                         scheduled_stop_point_id:
                           'e3528755-711f-4e4f-9461-7931a2c4bc6d',
                         label: 'H1234',
@@ -509,7 +492,8 @@ describe(`<${RouteStopsTable.name} />`, () => {
                     scheduled_stop_points: [
                       {
                         priority: 10,
-                        direction: 'bidirectional',
+                        direction:
+                          InfrastructureNetworkDirectionEnum.Bidirectional,
                         scheduled_stop_point_id:
                           'f8eace87-7901-4438-bfee-bb6f24f1c4c4',
                         label: 'H1236',
