@@ -18,6 +18,7 @@ import {
   showSuccessToast,
 } from '../../../utils';
 import { ExpandableRouteRow } from './ExpandableRouteRow';
+import { RouteRowLoader } from './RouteRowLoader';
 import { RouteStopsRow } from './RouteStopsRow';
 
 interface Props {
@@ -53,7 +54,14 @@ export const RouteStopsSection = ({
   const route = routeResult.data?.route_route_by_pk;
 
   if (!route) {
-    return <></>;
+    // Display a loader until all details have been loaded.
+    // Note: we would actually have some information about the route that we could display already,
+    // but made a design decision not to show anything until whole row can be shown.
+    return (
+      <tbody>
+        <RouteRowLoader className="[&>td]:h-[75px]" />
+      </tbody>
+    );
   }
 
   /**
@@ -113,6 +121,7 @@ export const RouteStopsSection = ({
   return (
     <tbody className={className}>
       <ExpandableRouteRow
+        className="[&>td]:h-[75px]"
         key={route.route_id}
         route={route}
         observationDate={observationDate}

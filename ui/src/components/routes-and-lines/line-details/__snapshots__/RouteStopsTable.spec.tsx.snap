@@ -36,7 +36,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
         class=""
       >
         <tr
-          class="border border-white bg-background  p-4"
+          class="border border-white bg-background [&>td]:h-[75px] p-4"
           data-testid="ExpandableRouteRow::65x"
         >
           <td
@@ -257,7 +257,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         class=""
       >
         <tr
-          class="border border-white bg-background  p-4"
+          class="border border-white bg-background [&>td]:h-[75px] p-4"
           data-testid="ExpandableRouteRow::65x"
         >
           <td
@@ -704,7 +704,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         class=""
       >
         <tr
-          class="border border-white bg-background  p-4"
+          class="border border-white bg-background [&>td]:h-[75px] p-4"
           data-testid="ExpandableRouteRow::65x"
         >
           <td
