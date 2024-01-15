@@ -123,6 +123,7 @@ export const ExpandableRouteRow = ({
             !route.route_shape /* some routes imported from jore3 are missing the geometry */
           }
           testId={testIds.showRouteButton}
+          tooltipText={route.label}
         />
       </td>
       <td className="w-20">
