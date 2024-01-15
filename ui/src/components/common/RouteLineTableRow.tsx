@@ -126,6 +126,29 @@ export const RouteLineTableRow = ({
 
   const disabledStyle = 'pointer-events-none text-zinc-400';
 
+  /**
+   * Determine the proper title text for the map button.
+   * The title is mainly relevant for screen readers, but it also helps mouse users with added details.
+   * TODO: This could be done better if the tables were refactored, especially if the "generic" line/route structure is removed at the same time.
+   * @param RowItem
+   * @returns An accessible translated text for this section's buttons.
+   */
+  function getMapButtonTooltip(item: RowItem): string {
+    const { label } = item;
+    // eslint-disable-next-line no-underscore-dangle
+    switch (item.__typename) {
+      case 'route_line': {
+        return t('accessibility:lines.showOnMap', { label });
+      }
+      case 'route_route': {
+        return t('accessibility:routes.showOnMap', { label });
+      }
+      default: {
+        return t('accessibility:common.showOnMap', { label });
+      }
+    }
+  }
+
   return (
     <tr className={className}>
       <Visible visible={!!onSelectChanged}>
@@ -202,6 +225,7 @@ export const RouteLineTableRow = ({
           onClick={onLocatorButtonClick!}
           disabled={!onLocatorButtonClick}
           testId={locatorButtonTestId}
+          tooltipText={getMapButtonTooltip(rowItem)}
         />
       </td>
     </tr>
