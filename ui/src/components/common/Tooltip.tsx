@@ -9,6 +9,8 @@ interface Props {
  * <Tooltip className="bottom-11 delay-700" message="Tooltip message">
  *   ...
  * </Tooltip>
+ * As of Jan 2024, not in active use anymore.
+ * There are designs for such an element to show extra information for Timing Points.
  */
 export const Tooltip: React.FC<Props> = ({
   message,
