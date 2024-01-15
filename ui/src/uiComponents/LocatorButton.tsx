@@ -1,6 +1,4 @@
-import { useTranslation } from 'react-i18next';
 import { MdPinDrop } from 'react-icons/md';
-import { Tooltip } from '../components/common/Tooltip';
 import { IconButton } from './IconButton';
 import { commonHoverStyle } from './SimpleButton';
 
@@ -13,6 +11,7 @@ interface Props {
   disabled?: boolean;
   onClick: () => void;
   className?: string;
+  title: string;
 }
 
 export const LocatorButton = ({
@@ -20,23 +19,19 @@ export const LocatorButton = ({
   onClick,
   disabled,
   className = '',
+  title,
 }: Props): JSX.Element => {
   const disabledStyle = '!bg-background opacity-70 pointer-events-none';
-  const { t } = useTranslation();
   return (
-    <Tooltip
-      tooltipClassName="bottom-11 delay-700"
-      message={t('map.showOnMap')}
-    >
-      <IconButton
-        className={`h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand ${commonHoverStyle} ${
-          disabled ? disabledStyle : ''
-        } ${className}`}
-        onClick={onClick}
-        disabled={disabled}
-        icon={<MdPinDrop className="text-2xl" />}
-        testId={testId || testIds.button}
-      />
-    </Tooltip>
+    <IconButton
+      className={`h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand ${commonHoverStyle} ${
+        disabled ? disabledStyle : ''
+      } ${className}`}
+      title={title}
+      onClick={onClick}
+      disabled={disabled}
+      icon={<MdPinDrop className="text-2xl" aria-hidden />}
+      testId={testId || testIds.button}
+    />
   );
 };
