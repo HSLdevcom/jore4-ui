@@ -1,42 +1,34 @@
 {
-  "title": {
-    "line": {
-      "bus": "bussilinja"
-    },
-    "route": {
-      "bus": "Bussireitti"
-    },
-    "timetable": {
-      "icon": "Aikataulu"
-    }
-  },
-  "button": {
+  "common": {
     "showOnMap": "Näytä kartalla {{label}}",
     "nextPage": "Seuraava sivu",
     "prevPage": "Edellinen sivu",
     "expandSearch": "Avaa tarkennettu haku",
-    "closeSearch": "Sulje tarkennettu haku",
-    "line": {
-      "details": "Näytä tarkemmat tiedot linjalle {{label}}",
-      "showOnMap": "Näytä kartalla linja {{label}}",
-      "showTimetables": "Näytä aikataulut linjalle {{label}}"
-    },
-    "route": {
-      "showOnMap": "Näytä kartalla reitti {{label}}",
-      "showTimetables": "Näytä aikataulut reitille {{label}}",
-      "createNew": "Luo uusi reitti",
-      "expandStops": "Näytä pysäkit reitille {{label}}",
-      "closeStops": "Piilota pysäkit reitiltä {{label}}",
-      "expandTimetable": "Avaa aikataulut reitille {{label}}",
-      "closeTimetable": "Piilota reitin {{label}} aikataulut"
-    },
-    "map": {
-      "showFilters": "Suodata näkymää"
-    },
-    "timetables": {
-      "changeValidityPeriod": "Muuta voimassaoloaikaa ajanjaksolle {{validityPeriod}}",
-      "substituteDayEdit": "Muokkaa poikkeuspäivää \"{{substituteDay}}\"",
-      "substituteDayEditClose": "Lopeta poikkeuspäivän \"{{substituteDay}}\" muokkaus"
-    }
+    "closeSearch": "Sulje tarkennettu haku"
+  },
+  "lines": {
+    "details": "Näytä tarkemmat tiedot linjalle {{label}}",
+    "showOnMap": "Näytä kartalla linja {{label}}",
+    "showTimetables": "Näytä aikataulut linjalle {{label}}",
+    "bus": "Bussilinja"
+  },
+  "routes": {
+    "showOnMap": "Näytä kartalla reitti {{label}}",
+    "showTimetables": "Näytä aikataulut reitille {{label}}",
+    "createNew": "Luo uusi reitti",
+    "expandStops": "Näytä pysäkit reitille {{label}}",
+    "closeStops": "Piilota pysäkit reitiltä {{label}}",
+    "expandTimetable": "Avaa aikataulut reitille {{label}}",
+    "closeTimetable": "Piilota reitin {{label}} aikataulut",
+    "bus": "Bussireitti"
+  },
+  "timetables": {
+    "icon": "Aikataulu",
+    "changeValidityPeriod": "Muuta voimassaoloaikaa päivätyypille {{dayType}}",
+    "substituteDayEdit": "Muokkaa poikkeuspäivää \"{{substituteDay}}\"",
+    "substituteDayEditClose": "Lopeta poikkeuspäivän \"{{substituteDay}}\" muokkaus"
+  },
+  "map": {
+    "showFilters": "Suodata näkymää"
   }
 }

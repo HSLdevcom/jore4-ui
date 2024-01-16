@@ -74,7 +74,7 @@ export const LineTitle: React.FC<Props> = ({
         </span>
         {onCreateRoute && (
           <IconButton
-            title={t(`accessibility:button.route.createNew`)}
+            title={t(`accessibility:routes.createNew`)}
             testId={testIds.createRouteButton}
             icon={<AiFillPlusCircle className="ml-2 text-3xl text-brand" />}
             onClick={onCreateRoute}
