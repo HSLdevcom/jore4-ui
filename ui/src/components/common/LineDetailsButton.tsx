@@ -31,7 +31,7 @@ export const LineDetailsButton = ({
   };
   return (
     <IconButton
-      title={t('accessibility:button.line.details', { label })}
+      title={t('accessibility:lines.details', { label })}
       className={`h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand ${commonHoverStyle} ${className}`}
       onClick={onClick}
       icon={<i className="icon-bus-alt" aria-hidden />}

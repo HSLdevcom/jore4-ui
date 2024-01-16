@@ -86,7 +86,7 @@ export const Pagination = ({
     <div className={`flex justify-evenly ${className}`}>
       <IconButton
         disabled={onFirstPage}
-        title={t('accessibility:button.prevPage')}
+        title={t('accessibility:common.prevPage')}
         onClick={() => setPage(currentPage - 1)}
         testId="prevPageButtonIcon"
         className="flex-1"
@@ -125,7 +125,7 @@ export const Pagination = ({
       )}
       <IconButton
         disabled={onLastPage}
-        title={t('accessibility:button.nextPage')}
+        title={t('accessibility:common.nextPage')}
         onClick={() => setPage(currentPage + 1)}
         testId="nextPageButtonIcon"
         className="flex-1"

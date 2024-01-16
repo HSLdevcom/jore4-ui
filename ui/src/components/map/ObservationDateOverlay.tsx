@@ -25,7 +25,7 @@ export const ObservationDateOverlay = ({ className = '' }: Props) => {
           </Column>
           <Column>
             <IconButton
-              title={t('accessibility:button.map.showFilters')}
+              title={t('accessibility:map.showFilters')}
               className="block h-11 w-11 self-stretch rounded-md border border-black"
               icon={<MdLayers className="text-2xl text-tweaked-brand" />}
               onClick={toggleShowFilters}

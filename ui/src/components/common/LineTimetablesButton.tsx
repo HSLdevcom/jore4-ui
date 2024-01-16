@@ -33,7 +33,7 @@ export const LineTimetablesButton = ({
   };
   return (
     <IconButton
-      title={t('accessibility:button.line.showTimetables', { label })}
+      title={t('accessibility:lines.showTimetables', { label })}
       className={`h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand ${commonHoverStyle} ${
         disabled ? disabledStyle : ''
       } ${className}`}
