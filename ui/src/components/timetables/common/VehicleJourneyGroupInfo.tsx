@@ -58,7 +58,7 @@ export const VehicleJourneyGroupInfo = ({
       className={`items-center space-x-4 text-center text-sm text-hsl-dark-80 ${className}`}
     >
       <IconButton
-        title={t('accessibility:button.timetables.changeValidityPeriod', {
+        title={t('accessibility:timetables.changeValidityPeriod', {
           dayType: parseI18nField(vehicleJourneyGroup.dayType.name_i18n),
         })}
         className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base  ${

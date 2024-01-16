@@ -1,42 +1,34 @@
 {
-  "title": {
-    "line": {
-      "bus": "Bus line"
-    },
-    "route": {
-      "bus": "Bus route"
-    },
-    "timetable": {
-      "icon": "Timetable"
-    }
-  },
-  "button": {
+  "common": {
     "showOnMap": "Show {{routeLabel}} on the map",
     "nextPage": "Next page",
     "prevPage": "Previous page",
     "expandSearch": "Open advanced search",
-    "closeSearch": "Close advanced search",
-    "line": {
-      "details": "Show details for line {{label}}",
-      "showOnMap": "Show line {{label}} on the map",
-      "showTimetables": "Show timetables for line {{label}}"
-    },
-    "route": {
-      "showOnMap": "Show route {{label}} on the map",
-      "showTimetables": "Show timetables for route {{label}}",
-      "createNew": "Create new route",
-      "expandStops": "Open the stops list for the route {{label}}",
-      "closeStops": "Hide the stops of the route {{label}}",
-      "expandTimetable": "Open the timetables for the route {{label}}",
-      "closeTimetable": "Hide the timetables of the route {{label}}"
-    },
-    "map": {
-      "showFilters": "Show filters"
-    },
-    "timetables": {
-      "changeValidityPeriod": "Change the validity period for {{validityPeriod}}",
-      "substituteDayEdit": "Edit the substitute day of \"{{substituteDay}}\"",
-      "substituteDayEditClose": "Stop editing subsitute day \"{{substituteDay}}\""
-    }
+    "closeSearch": "Close advanced search"
+  },
+  "lines": {
+    "details": "Show details for line {{label}}",
+    "showOnMap": "Show line {{label}} on the map",
+    "showTimetables": "Show timetables for line {{label}}",
+    "bus": "Bus line"
+  },
+  "routes": {
+    "showOnMap": "Show route {{label}} on the map",
+    "showTimetables": "Show timetables for route {{label}}",
+    "createNew": "Create new route",
+    "expandStops": "Open the stops list for the route {{label}}",
+    "closeStops": "Hide the stops of the route {{label}}",
+    "expandTimetable": "Open the timetables for the route {{label}}",
+    "closeTimetable": "Hide the timetables of the route {{label}}",
+    "bus": "Bus route"
+  },
+  "timetables": {
+    "icon": "Timetable",
+    "changeValidityPeriod": "Change the validity period for {{dayType}}",
+    "substituteDayEdit": "Edit the substitute day of \"{{substituteDay}}\"",
+    "substituteDayEditClose": "Stop editing subsitute day \"{{substituteDay}}\""
+  },
+  "map": {
+    "showFilters": "Show filters"
   }
 }
