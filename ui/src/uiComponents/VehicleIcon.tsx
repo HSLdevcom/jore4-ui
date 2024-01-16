@@ -21,9 +21,7 @@ export const VehicleIcon = ({
 }: Props) => {
   const { t } = useTranslation();
   const iconTitle = t(
-    isLine(rowItem)
-      ? 'accessibility:title.line.bus'
-      : 'accessibility:title.route.bus',
+    isLine(rowItem) ? 'accessibility:lines.bus' : 'accessibility:routes.bus',
   );
   return (
     <i
