@@ -14,6 +14,7 @@
   },
   "routes": {
     "showOnMap": "Show route {{label}} on the map",
+    "showOnMapDirection": "Show route {{label}} on the map, direction {{directionNumber}}",
     "showTimetables": "Show timetables for route {{label}}",
     "createNew": "Create new route",
     "expandStops": "Open the stops list for the route {{label}}",
