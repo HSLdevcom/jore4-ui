@@ -6,6 +6,7 @@ import {
   RouteDirectionEnum,
 } from '../../../generated/graphql';
 import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
+import { mapDirectionToShortUiName } from '../../../i18n/uiNameMappings';
 import { parseI18nField } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -61,11 +62,12 @@ export const ExpandableRouteRow = ({
   const onClickShowRouteOnMap = () => {
     showRouteOnMap(route);
   };
-
+  const { label } = route;
+  const directionNumber = mapDirectionToShortUiName(route.direction);
   return (
     <tr
       className={`border border-white bg-background ${className} p-4`}
-      data-testid={testIds.container(route.label)}
+      data-testid={testIds.container(label)}
     >
       <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
         <Row className="items-center">
@@ -75,7 +77,7 @@ export const ExpandableRouteRow = ({
             titleName={t(`directionEnum.${route.direction}`)}
           />
           <span className="text-xl" data-testid={testIds.label}>
-            <RouteLabel label={route.label} variant={route.variant} />
+            <RouteLabel label={label} variant={route.variant} />
           </span>
         </Row>
       </td>
@@ -123,7 +125,10 @@ export const ExpandableRouteRow = ({
             !route.route_shape /* some routes imported from jore3 are missing the geometry */
           }
           testId={testIds.showRouteButton}
-          tooltipText={route.label}
+          tooltipText={t('accessibility:routes.showOnMapDirection', {
+            label,
+            directionNumber,
+          })}
         />
       </td>
       <td className="w-20">

@@ -14,6 +14,7 @@
   },
   "routes": {
     "showOnMap": "Näytä kartalla reitti {{label}}",
+    "showOnMapDirection": "Näytä kartalla reitti {{label}}, suunta {{directionNumber}}",
     "showTimetables": "Näytä aikataulut reitille {{label}}",
     "createNew": "Luo uusi reitti",
     "expandStops": "Näytä pysäkit reitille {{label}}",
