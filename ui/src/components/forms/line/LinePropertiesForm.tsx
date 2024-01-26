@@ -85,13 +85,15 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
           />
         </FormRow>
         <Row className="items-center">
-          <span>{t('lines.showNameVersions')}</span>
-          <AccordionButton
-            className="ml-1"
-            isOpen={showNameVersions}
-            onToggle={setShowNameVersions}
-            testId={testIds.showNameVersionsButton}
-          />
+          <label className="my-0 cursor-pointer text-base font-normal">
+            {t('lines.showNameVersions')}
+            <AccordionButton
+              className="ml-1"
+              isOpen={showNameVersions}
+              onToggle={setShowNameVersions}
+              testId={testIds.showNameVersionsButton}
+            />
+          </label>
         </Row>
         {showNameVersions && (
           <FormColumn>
