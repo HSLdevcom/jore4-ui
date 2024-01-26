@@ -494,6 +494,19 @@
     "tooltip": "Export selected to Hastus",
     "disabledTooltip": "Select only one priority for the search to be able to export routes to Hastus."
   },
+  "hastusApiErrors": {
+    "cannotFindJourneyPatternRefByRouteLabelAndDirectionError": "Could not find journey pattern reference whose label and direction corresponds to the Hastus trip. Make sure that the timetable has been created based on route exported from JORE4.",
+    "cannotFindJourneyPatternRefByStopPointLabelsError": "Could not find matching journey pattern reference whose stop points correspond to the Hastus trip. Check if the route has been modified but not yet exported to Hastus.",
+    "cannotFindJourneyPatternRefByTimingPlaceLabelsError": "Could not find matching journey pattern reference whose timing place labels correspond to the Hastus trip. Check if the route has been modified but not yet exported to Hastus.",
+    "errorWhileProcessingHastusDataError": "Error while processing Hastus data.",
+    "firstStopNotTimingPointError": "The first stop point in the journey pattern is not a timing point.",
+    "graphQLAuthenticationFailedError": "A GraphQL authentication error occurred.",
+    "illegalArgumentError": "An error occurred due to an illegal argument.",
+    "invalidHastusDataError": "Invalid Hastus data.",
+    "lastStopNotTimingPointError": "The last stop point in the journey pattern is not a timing point.",
+    "tooFewStopPointsError": "Too few stop points in the journey pattern.",
+    "unknownError": "Unknown error."
+  },
   "deleteTimetableModal": {
     "title": "Remove schedule",
     "description": "The schedule will be deleted and cannot be restored",

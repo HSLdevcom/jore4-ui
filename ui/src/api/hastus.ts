@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { DateTime } from 'luxon';
 import { roleHeaderMap, userHasuraRole } from '../graphql/auth';
 import { Priority } from '../types/enums';
@@ -14,6 +14,21 @@ interface ExportBody extends CommonExportParams {
 
 interface ExportParams extends CommonExportParams {
   readonly observationDate: DateTime;
+}
+
+// See fi.hsl.jore4.hastus.api.util.HastusApiErrorType enum in the jore4-hastus repository.
+export enum HastusApiErrorType {
+  CannotFindJourneyPatternRefByRouteLabelAndDirectionError = 'CannotFindJourneyPatternRefByRouteLabelAndDirectionError',
+  CannotFindJourneyPatternRefByStopPointLabelsError = 'CannotFindJourneyPatternRefByStopPointLabelsError',
+  CannotFindJourneyPatternRefByTimingPlaceLabelsError = 'CannotFindJourneyPatternRefByTimingPlaceLabelsError',
+  ErrorWhileProcessingHastusDataError = 'ErrorWhileProcessingHastusDataError',
+  FirstStopNotTimingPointError = 'FirstStopNotTimingPointError',
+  LastStopNotTimingPointError = 'LastStopNotTimingPointError',
+  GraphQLAuthenticationFailedError = 'GraphQLAuthenticationFailedError',
+  IllegalArgumentError = 'IllegalArgumentError',
+  InvalidHastusDataError = 'InvalidHastusDataError',
+  TooFewStopPointsError = 'TooFewStopPointsError',
+  UnknownError = 'UnknownError',
 }
 
 const apiClient = axios.create({
@@ -48,4 +63,13 @@ export const sendFileToHastusImporter = (file: File) => {
       'Content-Type': 'text/csv;charset=iso-8859-1',
     },
   });
+};
+
+export const extractErrorType = (error: AxiosError): HastusApiErrorType => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const errorType = (error?.response?.data as any)
+    ?.type as keyof typeof HastusApiErrorType;
+  const errorTypeEnum = HastusApiErrorType[errorType];
+
+  return errorTypeEnum || HastusApiErrorType.UnknownError;
 };
