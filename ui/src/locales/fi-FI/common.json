@@ -494,6 +494,19 @@
     "tooltip": "Vie valitut Hastukseen",
     "disabledTooltip": "Valitse hakuun vain yksi prioriteetti voidaksesi viedä reittejä Hastukseen."
   },
+  "hastusApiErrors": {
+    "cannotFindJourneyPatternRefByRouteLabelAndDirectionError": "Kulkukuviota, jonka tunnus ja suunta vastaa Hastuksen lähtöä, ei löytynyt. Tarkista, että aikataulu on tehty JORE4:stä tuodun reittitiedon pohjalta.",
+    "cannotFindJourneyPatternRefByStopPointLabelsError": "Kulkukuviota, jonka pysäkit vastaavat Hastuksen lähtöä, ei löytynyt. Tarkista, onko reitistä olemassa versio, jota ei ole vielä viety Hastukseen.",
+    "cannotFindJourneyPatternRefByTimingPlaceLabelsError": "Kulkukuviota jonka Hastus-paikat vastaavat Hastuksen lähtöä ei löytynyt. Tarkista, onko reitistä olemassa versio, jota ei ole vielä viety Hastukseen.",
+    "errorWhileProcessingHastusDataError": "Virhe Hastus-datan käsittelyssä.",
+    "firstStopNotTimingPointError": "Kulkukuvion ensimmäinen pysäkki ei ole Hastus-paikka.",
+    "graphQLAuthenticationFailedError": "Virhe tunnistautumisessa GraphQL palvelimelle.",
+    "illegalArgumentError": "Käsittely epäonnistui virheellisestä arvosta johtuen.",
+    "invalidHastusDataError": "Virheellinen Hastus-data.",
+    "lastStopNotTimingPointError": "Kulkukuvion viimeinen pysäkki ei ole Hastus-paikka.",
+    "tooFewStopPointsError": "Kulkukuviossa on liian vähän pysäkkejä.",
+    "unknownError": "Tuntematon virhe."
+  },
   "deleteTimetableModal": {
     "title": "Poistetaan aikataulu",
     "description": "Aikataulu poistetaan, eikä sitä voi palauttaa",

@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { extractErrorType } from '../../../api/hastus';
 import { useAppSelector } from '../../../hooks';
 import { useTimetablesImport } from '../../../hooks/timetables-import/useTimetablesImport';
+import { mapHastusErrorTypeToErrorMessage } from '../../../i18n/hastusErrorMappings';
 import { Container, Row } from '../../../layoutComponents';
 import {
   ErrorListItem,
@@ -87,8 +89,10 @@ export const ImportTimetablesPage = (): JSX.Element => {
 
             return {
               errorTitle: t('import.fileUploadFailed', { filename }),
-              details: failure.error.response?.data?.reason || '',
-              additionalDetails: failure.error.message,
+              details: mapHastusErrorTypeToErrorMessage(
+                extractErrorType(failure.error),
+              ),
+              additionalDetails: failure.error.response?.data?.reason || '',
               key: filename,
             };
           },

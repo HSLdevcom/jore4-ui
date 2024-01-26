@@ -21,6 +21,7 @@ import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
 import { Tag } from '../enums';
 import {
+  ErrorModal,
   ImportTimetablesPage,
   Navbar,
   PassingTimesByStopSection,
@@ -974,6 +975,76 @@ describe('Timetable import', () => {
         cy.get('[data-testid="VehicleServiceTable::headingButton"]')
           .contains('Lauantai')
           .should('not.exist');
+      },
+    );
+  });
+
+  context('Failing hastus import', () => {
+    beforeEach(() => {
+      cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+    });
+
+    it(
+      'should display an error dialog when Hastus import fails',
+      { tags: [Tag.Timetables, Tag.HastusImport] },
+      () => {
+        const routesAndLinesPage = new RoutesAndLinesPage();
+        const errorModal = new ErrorModal();
+
+        const IMPORT_FILENAME = 'hastusImportFailing.exp';
+
+        // Skip searching via UI
+        cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+
+        // Export the route
+        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+        routesAndLinesPage.routeLineTableRow
+          .getRouteLineTableRowCheckbox('99')
+          .check();
+        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+        cy.wait('@hastusExport')
+          .its('response.statusCode')
+          .should('equal', 200);
+
+        // Import a timetable for the exported route
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.getImportButton().click();
+        importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+
+        errorModal.getModal().should('not.exist');
+
+        importTimetablesPage.getUploadButton().click();
+        cy.wait('@hastusImport')
+          .its('response.statusCode')
+          .should('equal', 400);
+
+        // Verify that error dialog is shown with correct contents.
+        errorModal.getModal().should('exist');
+        errorModal.errorModalItem
+          .getItem()
+          .should('be.visible')
+          .should('have.length', 1);
+        errorModal.errorModalItem
+          .getTitle()
+          .should(
+            'contain',
+            'Tiedoston hastusImportFailing.exp lataus epäonnistui',
+          );
+        errorModal.errorModalItem
+          .getDescription()
+          .should(
+            'contain',
+            'Kulkukuviota, jonka pysäkit vastaavat Hastuksen lähtöä, ei löytynyt. Tarkista, onko reitistä olemassa versio, jota ei ole vielä viety Hastukseen.',
+          );
+        errorModal.errorModalItem
+          .getAdditionalDetails()
+          .should(
+            'contain',
+            'Could not find matching journey pattern reference whose stop points correspond to the Hastus trip.',
+          );
+
+        errorModal.getCloseButton().click();
+        errorModal.getModal().should('not.exist');
       },
     );
   });

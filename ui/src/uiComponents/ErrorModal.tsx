@@ -15,6 +15,7 @@ interface Props {
   bodyClassName?: string;
 }
 const testIds = {
+  modal: 'ErrorModal::modal',
   closeButton: 'ErrorModal::closeButton',
   closeIconButton: 'ErrorModal::closeIconButton',
 };
@@ -31,6 +32,7 @@ export const ErrorModal: FunctionComponent<Props> = ({
   return (
     <Modal
       isOpen={isOpen}
+      testId={testIds.modal}
       onClose={onClose}
       dialogClassName="z-50" // Display on top of other possible modals.
       contentClassName={twMerge('w-1/4', className)}
