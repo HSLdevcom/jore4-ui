@@ -119,21 +119,17 @@ export const PreviewTimetablesPage = (): JSX.Element => {
             </h2>
           </div>
           <div className="flex items-center">
-            <button
-              onClick={toggleShowStagingTimetables}
-              type="button"
-              className="font-bold"
-            >
+            <label className="my-0 cursor-pointer text-base">
               {showStagingTimetables
                 ? t('timetablesPreview.closeContent')
                 : t('timetablesPreview.showContent')}
-            </button>
-            <AccordionButton
-              testId={testIds.toggleShowStagingTimetables}
-              isOpen={showStagingTimetables}
-              onToggle={toggleShowStagingTimetables}
-              iconClassName="text-white text-[50px]"
-            />
+              <AccordionButton
+                testId={testIds.toggleShowStagingTimetables}
+                isOpen={showStagingTimetables}
+                onToggle={toggleShowStagingTimetables}
+                iconClassName="text-white text-[50px]"
+              />
+            </label>
           </div>
         </Row>
         <div className="py-9 px-16">
