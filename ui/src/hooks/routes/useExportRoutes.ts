@@ -1,13 +1,19 @@
+import { AxiosError } from 'axios';
 import { useTranslation } from 'react-i18next';
-import { exportRoutesToHastus as exportToHastus } from '../../api/hastus';
+import { useDispatch } from 'react-redux';
+import {
+  exportRoutesToHastus as exportToHastus,
+  extractErrorType,
+  getExportErrorBody,
+} from '../../api/hastus';
 import { RouteTableRowFragment } from '../../generated/graphql';
+import { mapHastusErrorTypeToErrorMessage } from '../../i18n/hastusErrorMappings';
 import { mapPriorityToUiName } from '../../i18n/uiNameMappings';
-import { Operation } from '../../redux';
+import { Operation, openSingleErrorModalAction } from '../../redux';
 import {
   downloadFile,
   extractJourneyPatternFirstStop,
   extractJourneyPatternLastStop,
-  showDangerToastWithError,
 } from '../../utils';
 import { useSearchQueryParser } from '../search';
 import { useLoader } from '../ui';
@@ -17,6 +23,7 @@ export const useExportRoutes = () => {
   const { observationDate } = useObservationDateQueryParam();
   const { search } = useSearchQueryParser();
   const { setIsLoading } = useLoader(Operation.ExportRoute);
+  const dispatch = useDispatch();
 
   const { priorities } = search;
   const { t } = useTranslation();
@@ -81,7 +88,22 @@ export const useExportRoutes = () => {
 
       downloadFile(response.data, filename);
     } catch (error) {
-      showDangerToastWithError(t('export.hastusErrorTitle'), error);
+      if (!(error instanceof AxiosError)) {
+        throw error;
+      }
+      const errorResponseBody = await getExportErrorBody(error);
+
+      dispatch(
+        openSingleErrorModalAction({
+          errorModalTitle: t('export.hastusErrorTitle'),
+          errorDetails: {
+            details: mapHastusErrorTypeToErrorMessage(
+              extractErrorType(errorResponseBody),
+            ),
+            additionalDetails: errorResponseBody?.reason || '',
+          },
+        }),
+      );
     }
 
     setIsLoading(false);
