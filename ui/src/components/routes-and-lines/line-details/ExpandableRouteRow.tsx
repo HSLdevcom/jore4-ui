@@ -115,11 +115,14 @@ export const ExpandableRouteRow = ({
         </Row>
       </td>
       <td className="p-4">
-        <Row className="items-center justify-end">
+        <Row
+          className="items-center justify-end"
+          tooltip={t('accessibility:lines.versionHistory')}
+        >
           <span data-testid={testIds.lastEdited}>
             !{mapToShortDateTime(DateTime.now())}
           </span>
-          <MdHistory className="ml-2 inline text-xl text-tweaked-brand" />
+          <MdHistory className="aria-hidden ml-2 inline text-xl text-tweaked-brand" />
         </Row>
       </td>
       <td className="w-20 border-l-4 border-r-4 border-white px-6 text-center">
