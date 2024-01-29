@@ -92,6 +92,10 @@ export const ExpandableRouteRow = ({
               observationDate.toISODate(),
             )}
             testId={testIds.editRouteButton(parseI18nField(route.name_i18n))}
+            tooltip={t('accessibility:routes.editRouteDirection', {
+              label,
+              directionNumber,
+            })}
           />
         </Row>
       </td>
