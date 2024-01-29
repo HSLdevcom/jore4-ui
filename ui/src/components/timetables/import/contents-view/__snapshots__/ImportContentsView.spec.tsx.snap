@@ -22,6 +22,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
       >
         <div
           class="flex flex-row flex-1 items-center justify-between font-normal"
+          title=""
         >
           <p
             data-testid="BlockVehicleJourneysTable::vehicleType"
@@ -33,7 +34,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
             aria-expanded="true"
             class="text-center "
             data-testid="BlockVehicleJourneysTable::toggleShowTable"
-            title="Piilota lohkon SUMMER_SCHEDULES Week day service tiedot"
+            title="Piilota autokierron SUMMER_SCHEDULES Week day service tiedot"
             type="button"
           >
             <svg
@@ -89,6 +90,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
         <td>
           <div
             class="flex flex-row items-center font-bold"
+            title=""
           >
             <span
               class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
@@ -132,6 +134,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
         <td>
           <div
             class="flex flex-row items-center font-bold"
+            title=""
           >
             <span
               class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
@@ -175,6 +178,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
         <td>
           <div
             class="flex flex-row items-center font-bold"
+            title=""
           >
             <span
               class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
@@ -229,6 +233,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
     >
       <div
         class="flex flex-row border-brand-gray w-full border text-white"
+        title=""
       >
         <p
           class="flex w-1/6 items-center border border-light-grey bg-brand py-2 px-6 font-bold"
@@ -238,9 +243,11 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
         </p>
         <div
           class="flex flex-row flex-1 border border-l border-light-grey border-l-white bg-brand py-2 px-4"
+          title=""
         >
           <div
             class="flex flex-row flex-1 items-center justify-between font-normal"
+            title=""
           >
             <p
               data-testid="VehicleScheduleFrameBlocksView::validityTimeRangeText"
@@ -252,7 +259,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
               aria-expanded="true"
               class="text-center "
               data-testid="VehicleScheduleFrameBlocksView::toggleShowTable"
-              title="Piilota aikataulun SUMMER_SCHEDULES lohkot"
+              title="Piilota aikataulun SUMMER_SCHEDULES autokierrot"
               type="button"
             >
               <svg
@@ -304,6 +311,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                 >
                   <div
                     class="flex flex-row flex-1 items-center justify-between font-normal"
+                    title=""
                   >
                     <p
                       data-testid="BlockVehicleJourneysTable::vehicleType"
@@ -315,7 +323,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                       aria-expanded="false"
                       class="text-center "
                       data-testid="BlockVehicleJourneysTable::toggleShowTable"
-                      title="Näytä lohkon SUMMER_SCHEDULES Week day service tiedot"
+                      title="Näytä autokierron SUMMER_SCHEDULES Week day service tiedot"
                       type="button"
                     >
                       <svg
@@ -364,6 +372,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                 >
                   <div
                     class="flex flex-row flex-1 items-center justify-between font-normal"
+                    title=""
                   >
                     <p
                       data-testid="BlockVehicleJourneysTable::vehicleType"
@@ -375,7 +384,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                       aria-expanded="false"
                       class="text-center "
                       data-testid="BlockVehicleJourneysTable::toggleShowTable"
-                      title="Näytä lohkon SUMMER_SCHEDULES Saturday service tiedot"
+                      title="Näytä autokierron SUMMER_SCHEDULES Saturday service tiedot"
                       type="button"
                     >
                       <svg
@@ -411,6 +420,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
     >
       <div
         class="flex flex-row border-brand-gray w-full border text-white"
+        title=""
       >
         <p
           class="flex w-1/6 items-center border border-light-grey bg-brand py-2 px-6 font-bold"
@@ -420,9 +430,11 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
         </p>
         <div
           class="flex flex-row flex-1 border border-l border-light-grey border-l-white bg-brand py-2 px-4"
+          title=""
         >
           <div
             class="flex flex-row flex-1 items-center justify-between font-normal"
+            title=""
           >
             <p
               data-testid="VehicleScheduleFrameBlocksView::validityTimeRangeText"
@@ -434,7 +446,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
               aria-expanded="true"
               class="text-center "
               data-testid="VehicleScheduleFrameBlocksView::toggleShowTable"
-              title="Piilota aikataulun AUTUMN_SCHEDULES lohkot"
+              title="Piilota aikataulun AUTUMN_SCHEDULES autokierrot"
               type="button"
             >
               <svg
@@ -486,6 +498,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                 >
                   <div
                     class="flex flex-row flex-1 items-center justify-between font-normal"
+                    title=""
                   >
                     <p
                       data-testid="BlockVehicleJourneysTable::vehicleType"
@@ -497,7 +510,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                       aria-expanded="false"
                       class="text-center "
                       data-testid="BlockVehicleJourneysTable::toggleShowTable"
-                      title="Näytä lohkon AUTUMN_SCHEDULES Sunday service tiedot"
+                      title="Näytä autokierron AUTUMN_SCHEDULES Sunday service tiedot"
                       type="button"
                     >
                       <svg

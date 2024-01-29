@@ -54,7 +54,6 @@ export const LineTitle: React.FC<Props> = ({
   };
 
   const lineRoutes = uniqBy(line.line_routes, (route) => route.label);
-
   return (
     <Column>
       <Row className={`items-center ${className}`}>
@@ -74,7 +73,9 @@ export const LineTitle: React.FC<Props> = ({
         </span>
         {onCreateRoute && (
           <IconButton
-            title={t(`accessibility:routes.createNew`)}
+            tooltip={t(`accessibility:lines.createNewRoute`, {
+              label: line.label,
+            })}
             testId={testIds.createRouteButton}
             icon={<AiFillPlusCircle className="ml-2 text-3xl text-brand" />}
             onClick={onCreateRoute}
