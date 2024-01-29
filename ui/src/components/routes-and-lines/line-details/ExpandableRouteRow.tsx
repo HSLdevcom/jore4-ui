@@ -138,6 +138,15 @@ export const ExpandableRouteRow = ({
           isOpen={isExpanded}
           onToggle={onToggle}
           testId={testIds.toggleAccordion}
+          openTooltip={t('accessibility:routes.expandStops', {
+            label,
+            directionNumber,
+          })}
+          closeTooltip={t('accessibility:routes.closeStops', {
+            label,
+            directionNumber,
+          })}
+          controls="" // The current structure does not support this logically, the expandable row is in the same section as the items it controls
         />
       </td>
     </tr>
