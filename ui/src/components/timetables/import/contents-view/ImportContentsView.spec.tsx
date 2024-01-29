@@ -251,7 +251,7 @@ describe('<ImportContentsView />', () => {
     ).getAllByTestId(blockVehicleJourneysTableTestIds.table)[0];
 
     expect(
-      within(block).getByTestId(blockVehicleJourneysTableTestIds.title),
+      within(block).getByTestId(blockVehicleJourneysTableTestIds.blockLabel),
     ).toHaveTextContent('Week day service');
     expect(
       within(block).getByTestId(blockVehicleJourneysTableTestIds.vehicleType),
