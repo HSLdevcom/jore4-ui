@@ -38,6 +38,7 @@ export const AdditionalInformation: React.FC<Props> = ({
         <EditButton
           href={routeDetails[Path.editLine].getLink(line.line_id)}
           testId={testIds.editLineButton}
+          tooltip={t('accessibility:lines.edit', { label: line.label })}
         />
       </Row>
       <Row className="mb-5">
