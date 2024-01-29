@@ -26,7 +26,7 @@ export const RouteStopsTable = ({ className = '', routes, testId }: Props) => {
     <div>
       <div className="flex items-center">
         <HuiSwitch.Group>
-          <SwitchLabel className="my-8 mr-8">
+          <SwitchLabel className="my-8 mr-4">
             {t('routes.showUnusedStops')}
           </SwitchLabel>
           <Switch
