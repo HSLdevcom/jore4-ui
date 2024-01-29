@@ -27,6 +27,7 @@ interface Props {
     | null
     | undefined;
   title: string;
+  vehicleScheduleFrameLabel: string;
 }
 
 export const BlockVehicleJourneysTable = ({
@@ -34,14 +35,16 @@ export const BlockVehicleJourneysTable = ({
   vehicleService,
   vehicleType,
   title,
+  vehicleScheduleFrameLabel,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const [isOpen, toggleIsOpen] = useToggle();
-
+  const identifier = vehicleScheduleFrameLabel.concat('_', title);
   return (
     <table
       className="border-brand-gray w-full border"
       data-testid={testIds.table}
+      id={identifier}
     >
       <thead className="[&>tr>th]:border [&>tr>th]:border-light-grey">
         <tr>
@@ -69,6 +72,15 @@ export const BlockVehicleJourneysTable = ({
                 isOpen={isOpen}
                 onToggle={toggleIsOpen}
                 iconClassName="text-brand text-[50px]"
+                openTooltip={t(
+                  'accessibility:timetables.expandScheduleBlocksPreview',
+                  { scheduleBlock: identifier },
+                )}
+                closeTooltip={t(
+                  'accessibility:timetables.closeScheduleBlocksPreview',
+                  { scheduleBlock: identifier },
+                )}
+                controls={identifier}
               />
             </Row>
           </th>

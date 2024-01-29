@@ -31,6 +31,7 @@ const GQL_GET_ROUTE_WITH_JOURNEY_PATTERN = gql`
 interface Props {
   routeId: UUID;
   initiallyOpen?: boolean;
+  index: number;
 }
 
 const testIds = {
@@ -43,6 +44,7 @@ const testIds = {
 export const RouteTimetablesSection = ({
   routeId,
   initiallyOpen = true,
+  index,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const { showAllValid } = useAppSelector(selectTimetable);
@@ -73,7 +75,8 @@ export const RouteTimetablesSection = ({
       (item) => DayType[item.dayType.label as keyof typeof DayType],
     ]);
   })();
-
+  const routeName = parseI18nField(route.name_i18n);
+  const sectionIdentifier = index.toString();
   return (
     <div data-testid={testIds.timetableSection(route.label, route.direction)}>
       <Row>
@@ -86,7 +89,7 @@ export const RouteTimetablesSection = ({
           <h3 className="m-3.5">
             <RouteLabel label={route.label} variant={route.variant} />
           </h3>
-          <span className="text-xl">{parseI18nField(route.name_i18n)}</span>
+          <span className="text-xl">{routeName}</span>
         </div>
         <div className="ml-1 bg-background p-3">
           <AccordionButton
@@ -95,6 +98,13 @@ export const RouteTimetablesSection = ({
             isOpen={isOpen}
             onToggle={toggleIsOpen}
             testId={testIds.accordionToggle}
+            openTooltip={t('accessibility:routes.expandTimetable', {
+              label: routeName,
+            })}
+            closeTooltip={t('accessibility:routes.closeTimetable', {
+              label: routeName,
+            })}
+            controls={sectionIdentifier}
           />
         </div>
       </Row>
@@ -103,7 +113,7 @@ export const RouteTimetablesSection = ({
         loading={fetchRouteTimetables}
         testId={testIds.loadingRouteTimetables}
       >
-        <Visible visible={isOpen}>
+        <Visible visible={isOpen} identifier={sectionIdentifier}>
           <div className="mt-8">
             {activeView === TimetablesView.DEFAULT && (
               <div className="grid grid-cols-3 gap-x-8 gap-y-5">

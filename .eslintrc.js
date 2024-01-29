@@ -175,5 +175,12 @@ module.exports = {
       { varsIgnorePattern: '^GQL' },
     ], // ignore graphql query/mutation/fragment definitions
     'no-plusplus': 'off', // this rule is stupid. For loops should be able to use i++
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        controlComponents: ['AccordionButton'],
+        depth: 3,
+      },
+    ],
   },
 };
