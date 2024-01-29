@@ -81,12 +81,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               <a
                 data-testid="ExpandableRouteRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
+                title="Muokkaa reittiä 65x, suunta 1"
               >
                 <div
                   class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
                 >
                   <svg
-                    class="text-2xl text-tweaked-brand"
+                    class="aria-hidden text-2xl text-tweaked-brand"
                     fill="currentColor"
                     height="1em"
                     stroke="currentColor"
@@ -154,7 +155,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
             <button
               class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
               data-testid="ExpandableRouteRow::showRouteButton"
-              title="65x"
+              title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
             >
               <svg
@@ -186,12 +187,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
               aria-expanded="false"
               class="text-center h-full w-full"
               data-testid="ExpandableRouteRow::toggleAccordion"
-              title="Näytä pysäkit reitille Reitti A - B FI"
+              title="Näytä pysäkit reitille 65x, suunta 1"
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="text-3xl text-tweaked-brand text-3xl  inline text-center"
+                class="text-3xl text-tweaked-brand text-3xl pointer-events-none inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -298,12 +299,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               <a
                 data-testid="ExpandableRouteRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
+                title="Muokkaa reittiä 65x, suunta 1"
               >
                 <div
                   class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
                 >
                   <svg
-                    class="text-2xl text-tweaked-brand"
+                    class="aria-hidden text-2xl text-tweaked-brand"
                     fill="currentColor"
                     height="1em"
                     stroke="currentColor"
@@ -371,7 +373,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <button
               class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
               data-testid="ExpandableRouteRow::showRouteButton"
-              title="65x"
+              title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
             >
               <svg
@@ -403,12 +405,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               aria-expanded="true"
               class="text-center h-full w-full"
               data-testid="ExpandableRouteRow::toggleAccordion"
-              title="Piilota pysäkit reitiltä Reitti A - B FI"
+              title="Piilota pysäkit reitiltä 65x, suunta 1"
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="text-3xl text-tweaked-brand text-3xl inline text-center"
+                class="text-3xl text-tweaked-brand text-3xl pointer-events-none inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -741,12 +743,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <a
                 data-testid="ExpandableRouteRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
+                title="Muokkaa reittiä 65x, suunta 1"
               >
                 <div
                   class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
                 >
                   <svg
-                    class="text-2xl text-tweaked-brand"
+                    class="aria-hidden text-2xl text-tweaked-brand"
                     fill="currentColor"
                     height="1em"
                     stroke="currentColor"
@@ -814,7 +817,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <button
               class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
               data-testid="ExpandableRouteRow::showRouteButton"
-              title="65x"
+              title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
             >
               <svg
@@ -846,12 +849,12 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               aria-expanded="true"
               class="text-center h-full w-full"
               data-testid="ExpandableRouteRow::toggleAccordion"
-              title="Piilota pysäkit reitiltä Reitti A - B FI"
+              title="Piilota pysäkit reitiltä 65x, suunta 1"
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="text-3xl text-tweaked-brand text-3xl inline text-center"
+                class="text-3xl text-tweaked-brand text-3xl pointer-events-none inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"

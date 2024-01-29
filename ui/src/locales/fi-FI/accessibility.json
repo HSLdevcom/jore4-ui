@@ -10,6 +10,8 @@
     "details": "Näytä tarkemmat tiedot linjalle {{label}}",
     "showOnMap": "Näytä kartalla linja {{label}}",
     "showTimetables": "Näytä aikataulut linjalle {{label}}",
+    "expandNameVersions": "Näytä nimiversiot",
+    "closeNameVersions": "Sulje nimiversiot näkymä",
     "bus": "Bussilinja"
   },
   "routes": {
@@ -17,8 +19,8 @@
     "showOnMapDirection": "Näytä kartalla reitti {{label}}, suunta {{directionNumber}}",
     "showTimetables": "Näytä aikataulut reitille {{label}}",
     "createNew": "Luo uusi reitti",
-    "expandStops": "Näytä pysäkit reitille {{label}}",
-    "closeStops": "Piilota pysäkit reitiltä {{label}}",
+    "expandStops": "Näytä pysäkit reitille {{label}}, suunta {{directionNumber}}",
+    "closeStops": "Piilota pysäkit reitiltä {{label}}, suunta {{directionNumber}}",
     "expandTimetable": "Avaa aikataulut reitille {{label}}",
     "closeTimetable": "Piilota reitin {{label}} aikataulut",
     "bus": "Bussireitti"
@@ -27,7 +29,13 @@
     "icon": "Aikataulu",
     "changeValidityPeriod": "Muuta voimassaoloaikaa päivätyypille {{dayType}}",
     "substituteDayEdit": "Muokkaa poikkeuspäivää \"{{substituteDay}}\"",
-    "substituteDayEditClose": "Lopeta poikkeuspäivän \"{{substituteDay}}\" muokkaus"
+    "substituteDayEditClose": "Lopeta poikkeuspäivän \"{{substituteDay}}\" muokkaus",
+    "preview": "Näytä tiedoston sisältö",
+    "expandSchedulePreview": "Näytä aikataulun {{vehicleScheduleFrameLabel}} autokierrot",
+    "closeSchedulePreview": "Piilota aikataulun {{vehicleScheduleFrameLabel}} autokierrot",
+    "expandScheduleBlocksPreview": "Näytä autokierron {{scheduleBlock}} tiedot",
+    "closeScheduleBlocksPreview": "Piilota autokierron {{scheduleBlock}} tiedot",
+    "versionActions": "Lisää toimintoja aikataululle {{status}} {{schedule}} {{dayType}}"
   },
   "map": {
     "showFilters": "Suodata näkymää"
