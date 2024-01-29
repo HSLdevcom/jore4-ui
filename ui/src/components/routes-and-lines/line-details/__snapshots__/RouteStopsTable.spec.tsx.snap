@@ -7,7 +7,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
       class="flex items-center"
     >
       <label
-        class="my-8 mr-8 text-base font-normal"
+        class="my-8 mr-4 text-base font-normal"
         id="headlessui-label-:r0:"
       >
         Näytä reittiin kuulumattomat pysäkit
@@ -44,6 +44,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span
                 class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-4"
@@ -71,6 +72,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span
                 class="text-xl"
@@ -114,6 +116,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               Voimassa 1.1.2000 - 13.12.2050
             </div>
@@ -123,6 +126,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title="Versiohistoria"
             >
               <span
                 data-testid="ExpandableRouteRow::lastEdited"
@@ -130,7 +134,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 !14.2.2017 14.51
               </span>
               <svg
-                class="ml-2 inline text-xl text-tweaked-brand"
+                class="aria-hidden ml-2 inline text-xl text-tweaked-brand"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -225,7 +229,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
       class="flex items-center"
     >
       <label
-        class="my-8 mr-8 text-base font-normal"
+        class="my-8 mr-4 text-base font-normal"
         id="headlessui-label-:r0:"
       >
         Näytä reittiin kuulumattomat pysäkit
@@ -262,6 +266,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span
                 class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-4"
@@ -289,6 +294,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span
                 class="text-xl"
@@ -332,6 +338,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               Voimassa 1.1.2000 - 13.12.2050
             </div>
@@ -341,6 +348,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title="Versiohistoria"
             >
               <span
                 data-testid="ExpandableRouteRow::lastEdited"
@@ -348,7 +356,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 !14.2.2017 14.51
               </span>
               <svg
-                class="ml-2 inline text-xl text-tweaked-brand"
+                class="aria-hidden ml-2 inline text-xl text-tweaked-brand"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -446,6 +454,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span>
                 !Pysäkki X
@@ -458,6 +467,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               Voimassa 1.1.2000 - 13.12.2050
             </div>
@@ -467,6 +477,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               <span
                 data-testid="RouteStopsRow::lastEdited"
@@ -496,6 +507,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           <td>
             <div
               class="flex flex-row justify-center"
+              title=""
             >
               <div>
                 <span
@@ -511,6 +523,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="relative"
               data-headlessui-state=""
+              title="Lisää toimintoja pysäkille H1234"
             >
               <button
                 aria-expanded="false"
@@ -559,6 +572,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span>
                 !Pysäkki X
@@ -571,6 +585,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               Voimassa 1.1.2000 - 13.12.2050
             </div>
@@ -580,6 +595,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               <span
                 data-testid="RouteStopsRow::lastEdited"
@@ -609,6 +625,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           <td>
             <div
               class="flex flex-row justify-center"
+              title=""
             >
               <div>
                 <span
@@ -624,6 +641,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="relative"
               data-headlessui-state=""
+              title="Lisää toimintoja pysäkille H1236"
             >
               <button
                 aria-expanded="false"
@@ -669,7 +687,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
       class="flex items-center"
     >
       <label
-        class="my-8 mr-8 text-base font-normal"
+        class="my-8 mr-4 text-base font-normal"
         id="headlessui-label-:r0:"
       >
         Näytä reittiin kuulumattomat pysäkit
@@ -706,6 +724,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span
                 class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-4"
@@ -733,6 +752,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span
                 class="text-xl"
@@ -776,6 +796,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               Voimassa 1.1.2000 - 13.12.2050
             </div>
@@ -785,6 +806,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title="Versiohistoria"
             >
               <span
                 data-testid="ExpandableRouteRow::lastEdited"
@@ -792,7 +814,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 !14.2.2017 14.51
               </span>
               <svg
-                class="ml-2 inline text-xl text-tweaked-brand"
+                class="aria-hidden ml-2 inline text-xl text-tweaked-brand"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -890,6 +912,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span>
                 !Pysäkki X
@@ -902,6 +925,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               Voimassa 1.1.2000 - 13.12.2050
             </div>
@@ -911,6 +935,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               <span
                 data-testid="RouteStopsRow::lastEdited"
@@ -940,6 +965,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           <td>
             <div
               class="flex flex-row justify-center"
+              title=""
             >
               <div>
                 <span
@@ -955,6 +981,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <div
               class="relative"
               data-headlessui-state=""
+              title="Lisää toimintoja pysäkille H1234"
             >
               <button
                 aria-expanded="false"
@@ -1003,6 +1030,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span>
                 !Pysäkki X
@@ -1015,6 +1043,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               Ei reitin käytössä
             </div>
@@ -1024,6 +1053,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               <span
                 data-testid="RouteStopsRow::lastEdited"
@@ -1053,6 +1083,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           <td>
             <div
               class="flex flex-row justify-center"
+              title=""
             >
               <div>
                 <span
@@ -1068,6 +1099,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <div
               class="relative"
               data-headlessui-state=""
+              title="Lisää toimintoja pysäkille H1235"
             >
               <button
                 aria-expanded="false"
@@ -1116,6 +1148,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center"
+              title=""
             >
               <span>
                 !Pysäkki X
@@ -1128,6 +1161,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               Voimassa 1.1.2000 - 13.12.2050
             </div>
@@ -1137,6 +1171,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <div
               class="flex flex-row items-center justify-end"
+              title=""
             >
               <span
                 data-testid="RouteStopsRow::lastEdited"
@@ -1166,6 +1201,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           <td>
             <div
               class="flex flex-row justify-center"
+              title=""
             >
               <div>
                 <span
@@ -1181,6 +1217,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <div
               class="relative"
               data-headlessui-state=""
+              title="Lisää toimintoja pysäkille H1236"
             >
               <button
                 aria-expanded="false"
