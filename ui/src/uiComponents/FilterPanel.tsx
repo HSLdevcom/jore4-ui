@@ -13,6 +13,7 @@ interface Toggle {
 interface IconToggle extends Toggle {
   iconClassName: string; // eslint-disable-line react/no-unused-prop-types
   disabled?: boolean; // eslint-disable-line react/no-unused-prop-types
+  tooltip: string; // eslint-disable-line react/no-unused-prop-types
 }
 
 interface ToggleRowProps {
@@ -24,7 +25,14 @@ const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
     <Row className="mt-2">
       {toggles.map(
         (
-          { active, onToggle, iconClassName, disabled, testId }: IconToggle,
+          {
+            active,
+            onToggle,
+            iconClassName,
+            disabled,
+            testId,
+            tooltip,
+          }: IconToggle,
           index: number,
         ) => (
           <IconToggle
@@ -37,6 +45,7 @@ const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
             onToggle={onToggle}
             disabled={disabled}
             testId={testId}
+            tooltip={tooltip}
           />
         ),
       )}
@@ -47,6 +56,9 @@ const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
 const noop = () => null;
 // placeholder toggles of unimplemented features that can be used
 // for visual purposes.
+/**
+ * Can't use useTranslate() here, leave them be without proper tooltip?
+ */
 export const placeholderToggles: IconToggle[] = [
   {
     iconClassName: 'icon-tram',
@@ -54,6 +66,7 @@ export const placeholderToggles: IconToggle[] = [
     onToggle: noop,
     disabled: true,
     testId: 'placeholder',
+    tooltip: '',
   },
   {
     iconClassName: 'icon-train',
@@ -61,6 +74,7 @@ export const placeholderToggles: IconToggle[] = [
     onToggle: noop,
     disabled: true,
     testId: 'placeholder',
+    tooltip: '',
   },
   {
     iconClassName: 'icon-ferry',
@@ -68,6 +82,7 @@ export const placeholderToggles: IconToggle[] = [
     onToggle: noop,
     disabled: true,
     testId: 'placeholder',
+    tooltip: '',
   },
   {
     iconClassName: 'icon-metro',
@@ -75,6 +90,7 @@ export const placeholderToggles: IconToggle[] = [
     onToggle: noop,
     disabled: true,
     testId: 'placeholder',
+    tooltip: '',
   },
 ];
 
