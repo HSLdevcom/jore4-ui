@@ -1,4 +1,5 @@
 import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { HTMLOverlay, Layer, MapEvent } from 'react-map-gl';
 import {
   useAppDispatch,
@@ -139,6 +140,8 @@ export const MapComponent = (
     }
   };
 
+  const { t } = useTranslation();
+
   return (
     <Maplibre
       width={width}
@@ -167,6 +170,7 @@ export const MapComponent = (
                     onToggle: setShowRoute,
                     disabled: !routeDisplayed,
                     testId: 'FilterPanel::toggleShowBusRoutes',
+                    tooltip: t('vehicleModeEnum.bus'),
                   },
                   // We want to show placeholder toggles of unimplemented features for visual purposes
                   ...placeholderToggles,
@@ -177,6 +181,7 @@ export const MapComponent = (
                     active: isFilterActive(FilterType.ShowAllBusStops),
                     onToggle: toggleFunction(FilterType.ShowAllBusStops),
                     testId: 'FilterPanel::toggleShowAllBusStops',
+                    tooltip: t('vehicleModeEnum.bus'),
                   },
                   ...placeholderToggles,
                 ]}
