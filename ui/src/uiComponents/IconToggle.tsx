@@ -7,6 +7,7 @@ interface Props {
   className?: string;
   iconClassName: string;
   testId: string;
+  tooltip: string;
 }
 
 export const IconToggle = ({
@@ -16,6 +17,7 @@ export const IconToggle = ({
   className = '',
   iconClassName = '',
   testId,
+  tooltip,
 }: Props): JSX.Element => {
   const colorClassNames = active
     ? 'bg-tweaked-brand text-white'
@@ -33,9 +35,11 @@ export const IconToggle = ({
         className,
       )}
       onClick={() => onToggle(!active)}
+      aria-disabled={active}
+      title={tooltip}
     >
       <i
-        className={`text-5xl ${iconClassName}`}
+        className={`text-5xl ${iconClassName} aria-hidden`}
         // our icon library's css file adds margins with ::before pseudo element and this inline style is hack to get rid of those
         style={{ marginLeft: '-.2em', marginRight: '-0.2em' }}
       />

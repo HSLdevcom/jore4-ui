@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { i18n } from '../i18n';
 import { Row } from '../layoutComponents';
 import { Card } from './Card';
 import { IconToggle } from './IconToggle';
@@ -13,6 +14,7 @@ interface Toggle {
 interface IconToggle extends Toggle {
   iconClassName: string; // eslint-disable-line react/no-unused-prop-types
   disabled?: boolean; // eslint-disable-line react/no-unused-prop-types
+  tooltip: string; // eslint-disable-line react/no-unused-prop-types
 }
 
 interface ToggleRowProps {
@@ -24,7 +26,14 @@ const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
     <Row className="mt-2">
       {toggles.map(
         (
-          { active, onToggle, iconClassName, disabled, testId }: IconToggle,
+          {
+            active,
+            onToggle,
+            iconClassName,
+            disabled,
+            testId,
+            tooltip,
+          }: IconToggle,
           index: number,
         ) => (
           <IconToggle
@@ -37,6 +46,7 @@ const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
             onToggle={onToggle}
             disabled={disabled}
             testId={testId}
+            tooltip={tooltip}
           />
         ),
       )}
@@ -54,6 +64,7 @@ export const placeholderToggles: IconToggle[] = [
     onToggle: noop,
     disabled: true,
     testId: 'placeholder',
+    tooltip: i18n.t('vehicleModeEnum.tram'),
   },
   {
     iconClassName: 'icon-train',
@@ -61,6 +72,7 @@ export const placeholderToggles: IconToggle[] = [
     onToggle: noop,
     disabled: true,
     testId: 'placeholder',
+    tooltip: i18n.t('vehicleModeEnum.train'),
   },
   {
     iconClassName: 'icon-ferry',
@@ -68,6 +80,7 @@ export const placeholderToggles: IconToggle[] = [
     onToggle: noop,
     disabled: true,
     testId: 'placeholder',
+    tooltip: i18n.t('vehicleModeEnum.ferry'),
   },
   {
     iconClassName: 'icon-metro',
@@ -75,6 +88,7 @@ export const placeholderToggles: IconToggle[] = [
     onToggle: noop,
     disabled: true,
     testId: 'placeholder',
+    tooltip: i18n.t('vehicleModeEnum.metro'),
   },
 ];
 
