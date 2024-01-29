@@ -8,11 +8,13 @@
   },
   "lines": {
     "details": "Show details for line {{label}}",
+    "createNewRoute": "Create new route for line {{label}}",
     "showOnMap": "Show line {{label}} on the map",
     "showTimetables": "Show timetables for line {{label}}",
     "expandNameVersions": "Show name versions",
     "closeNameVersions": "Close the name version view",
     "edit": "Edit line {{label}}",
+    "versionHistory": "Version history",
     "bus": "Bus line"
   },
   "routes": {
@@ -20,11 +22,10 @@
     "showOnMapDirection": "Show route {{label}} on the map, direction {{directionNumber}}",
     "editRouteDirection": "Edit the route {{label}}, direction {{directionNumber}}",
     "showTimetables": "Show timetables for route {{label}}",
-    "createNew": "Create new route",
     "expandStops": "Open the stops list for the route {{label}}, direction {{directionNumber}}",
     "closeStops": "Hide the stops of the route {{label}, direction {{directionNumber}}",
-    "expandTimetable": "Open the timetables for the route {{label}}",
-    "closeTimetable": "Hide the timetables of the route {{label}}",
+    "expandTimetable": "Open the timetables for the route {{routeName}}",
+    "closeTimetable": "Hide the timetables of the route {{routeName}}",
     "bus": "Bus route"
   },
   "timetables": {
