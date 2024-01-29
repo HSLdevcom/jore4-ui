@@ -56,6 +56,20 @@ export const exportRoutesToHastus = async ({
   return response;
 };
 
+export const getExportErrorBody = async (errorResponse: AxiosError) => {
+  // Since the response type is a "blob" (see exportRoutes above),
+  // we need to parse the JSON out of error responses manually...
+  // Note that the text() method is asynchronous.
+  const blobBody = errorResponse.response?.data;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const jsonText = (await (blobBody as any)?.text()) || '{}';
+  return JSON.parse(jsonText);
+};
+
+export const getImportErrorBody = (errorResponse: AxiosError) => {
+  return errorResponse?.response?.data;
+};
+
 export const sendFileToHastusImporter = (file: File) => {
   return apiClient.post('import', file, {
     headers: {
@@ -65,10 +79,10 @@ export const sendFileToHastusImporter = (file: File) => {
   });
 };
 
-export const extractErrorType = (error: AxiosError): HastusApiErrorType => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const errorType = (error?.response?.data as any)
-    ?.type as keyof typeof HastusApiErrorType;
+export const extractErrorType = (
+  errorResponseBody: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+): HastusApiErrorType => {
+  const errorType = errorResponseBody?.type as keyof typeof HastusApiErrorType;
   const errorTypeEnum = HastusApiErrorType[errorType];
 
   return errorTypeEnum || HastusApiErrorType.UnknownError;
