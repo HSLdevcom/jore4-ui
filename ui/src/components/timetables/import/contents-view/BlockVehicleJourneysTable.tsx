@@ -12,7 +12,7 @@ import { VehicleJourneyRow } from './VehicleJourneyRow';
 
 const testIds = {
   table: 'BlockVehicleJourneysTable::table',
-  title: 'BlockVehicleJourneysTable::title',
+  blockLabel: 'BlockVehicleJourneysTable::blockLabel',
   toggleShowTable: 'BlockVehicleJourneysTable::toggleShowTable',
   vehicleType: 'BlockVehicleJourneysTable::vehicleType',
   vehicleJourneyHeaders: 'BlockVehicleJourneysTable::vehicleJourneyHeaders',
@@ -26,30 +26,33 @@ interface Props {
     | Pick<TimetablesVehicleTypeVehicleType, 'description_i18n'>
     | null
     | undefined;
-  title: string;
+  blockLabel: string;
+  vehicleScheduleFrameLabel: string;
 }
 
 export const BlockVehicleJourneysTable = ({
   vehicleJourneys,
   vehicleService,
   vehicleType,
-  title,
+  blockLabel,
+  vehicleScheduleFrameLabel,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const [isOpen, toggleIsOpen] = useToggle();
-
+  const identifier = `${vehicleScheduleFrameLabel} ${blockLabel}`;
   return (
     <table
       className="border-brand-gray w-full border"
       data-testid={testIds.table}
+      id={identifier}
     >
       <thead className="[&>tr>th]:border [&>tr>th]:border-light-grey">
         <tr>
           <th
-            data-testid={testIds.title}
+            data-testid={testIds.blockLabel}
             className="w-1/6 bg-brand py-2 px-6 text-left text-white"
           >
-            {title}
+            {blockLabel}
           </th>
           <th
             className="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
@@ -69,6 +72,15 @@ export const BlockVehicleJourneysTable = ({
                 isOpen={isOpen}
                 onToggle={toggleIsOpen}
                 iconClassName="text-brand text-[50px]"
+                openTooltip={t(
+                  'accessibility:timetables.expandScheduleBlocksPreview',
+                  { scheduleBlock: identifier },
+                )}
+                closeTooltip={t(
+                  'accessibility:timetables.closeScheduleBlocksPreview',
+                  { scheduleBlock: identifier },
+                )}
+                controls={identifier}
               />
             </Row>
           </th>

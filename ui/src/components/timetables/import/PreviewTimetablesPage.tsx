@@ -128,6 +128,8 @@ export const PreviewTimetablesPage = (): JSX.Element => {
                 isOpen={showStagingTimetables}
                 onToggle={toggleShowStagingTimetables}
                 iconClassName="text-white text-[50px]"
+                ariaLabel={t('accessibility:timetables.preview')}
+                controls="fileContent"
               />
             </label>
           </div>
@@ -158,7 +160,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
             <SpecialDayMixedPrioritiesWarning />
           </Visible>
         </div>
-        <Visible visible={showStagingTimetables}>
+        <Visible identifier="fileContent" visible={showStagingTimetables}>
           <div className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue py-9 px-16">
             <ImportContentsView vehicleScheduleFrames={vehicleScheduleFrames} />
           </div>

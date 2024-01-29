@@ -92,11 +92,14 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
               isOpen={showNameVersions}
               onToggle={setShowNameVersions}
               testId={testIds.showNameVersionsButton}
+              openTooltip={t('accessibility:lines.expandNameVersions')}
+              closeTooltip={t('accessibility:lines.closeNameVersions')}
+              controls="nameVersions"
             />
           </label>
         </Row>
         {showNameVersions && (
-          <FormColumn>
+          <FormColumn id="nameVersions">
             <FormRow mdColumns={3}>
               <InputField<FormState>
                 type="text"
