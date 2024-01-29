@@ -50,15 +50,16 @@ export const VehicleScheduleFrameBlocksView = ({
     validityPeriodString,
     blockCountString,
   ].join(' | ');
-
+  const vehicleScheduleFrameLabel = vehicleScheduleFrame.label;
+  const vehicleScheduleFrameBlocksId = `${vehicleScheduleFrameLabel}Blocks`;
   return (
-    <div data-testid={testIds.frameBlocks(vehicleScheduleFrame.label)}>
+    <div data-testid={testIds.frameBlocks(vehicleScheduleFrameLabel)}>
       <Row className="border-brand-gray w-full border text-white">
         <p
           data-testid={testIds.frameLabel}
           className="flex w-1/6 items-center border border-light-grey bg-brand py-2 px-6 font-bold"
         >
-          {vehicleScheduleFrame.label}
+          {vehicleScheduleFrameLabel}
         </p>
         <Row className="flex-1 border border-l border-light-grey border-l-white bg-brand py-2 px-4">
           <Row className="flex-1 items-center justify-between font-normal">
@@ -70,17 +71,25 @@ export const VehicleScheduleFrameBlocksView = ({
               isOpen={isOpen}
               onToggle={toggleIsOpen}
               iconClassName="text-white text-[50px]"
+              openTooltip={t('accessibility:timetables.expandSchedulePreview', {
+                vehicleScheduleFrameLabel,
+              })}
+              closeTooltip={t('accessibility:timetables.closeSchedulePreview', {
+                vehicleScheduleFrameLabel,
+              })}
+              controls={vehicleScheduleFrameBlocksId}
             />
           </Row>
         </Row>
       </Row>
 
       <Visible visible={isOpen}>
-        <div className="my-4 space-y-4">
+        <div id={vehicleScheduleFrameBlocksId} className="my-4 space-y-4">
           {blocks.map((block) => (
             <BlockVehicleJourneysTable
               key={block.block.block_id}
-              title={block.label}
+              blockLabel={block.label}
+              vehicleScheduleFrameLabel={vehicleScheduleFrameLabel}
               vehicleJourneys={block.block.vehicle_journeys}
               vehicleService={block.service}
               vehicleType={block.block.vehicle_type}
