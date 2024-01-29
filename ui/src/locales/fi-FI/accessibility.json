@@ -12,11 +12,13 @@
     "showTimetables": "Näytä aikataulut linjalle {{label}}",
     "expandNameVersions": "Näytä nimiversiot",
     "closeNameVersions": "Sulje nimiversiot näkymä",
+    "edit": "Muokkaa linjaa {{label}}",
     "bus": "bussilinja"
   },
   "routes": {
     "showOnMap": "Näytä kartalla reitti {{label}}",
     "showOnMapDirection": "Näytä kartalla reitti {{label}}, suunta {{directionNumber}}",
+    "editRouteDirection": "Muokkaa reittiä {{label}}, suunta {{directionNumber}}",
     "showTimetables": "Näytä aikataulut reitille {{label}}",
     "createNew": "Luo uusi reitti",
     "expandStops": "Näytä pysäkit reitille {{label}}, suunta {{directionNumber}}",
@@ -37,6 +39,7 @@
     "closeScheduleBlocksPreview": "Piilota lohkon {{scheduleBlock}} tiedot"
   },
   "map": {
-    "showFilters": "Suodata näkymää"
+    "showFilters": "Suodata näkymää",
+    "editRoute": "Muokkaa reitin {{routeName}} tietoja"
   }
 }
