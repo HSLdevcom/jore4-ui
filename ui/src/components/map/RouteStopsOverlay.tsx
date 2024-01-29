@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { pipe } from 'remeda';
 import {
   belongsToJourneyPattern,
@@ -39,6 +40,8 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
   const { selectedRouteId, creatingNewRoute } =
     useAppSelector(selectMapRouteEditor);
 
+  const { t } = useTranslation();
+
   const {
     routeMetadata,
     includedStopLabels,
@@ -68,7 +71,7 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
     : highestPriorityStopsEligibleForJourneyPattern.filter((stop) =>
         belongsToJourneyPattern(includedStopLabels, stop.label),
       );
-
+  const routeName = routeMetadata?.name_i18n.fi_FI;
   return (
     <MapOverlay className={className}>
       <MapOverlayHeader testId={testIds.mapOverlayHeader}>
@@ -80,13 +83,12 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
               variant={routeMetadata.variant}
             />
           </h2>
-          <p className="text-light text-xs text-gray-500">
-            {routeMetadata?.name_i18n.fi_FI}
-          </p>
+          <p className="text-light text-xs text-gray-500">{routeName}</p>
         </div>
         <Visible visible={creatingNewRoute}>
           <EditButton
             onClick={() => dispatch(setRouteMetadataFormOpenAction(true))}
+            tooltip={t('accessibility:map.editRoute', { routeName })}
           />
         </Visible>
       </MapOverlayHeader>
