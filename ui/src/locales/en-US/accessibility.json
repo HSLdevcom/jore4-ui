@@ -38,10 +38,12 @@
     "expandSchedulePreview": "Show the schedule {{vehicleScheduleFrameLabel}}'s blocks",
     "closeSchedulePreview": "Hide the schedule {{vehicleScheduleFrameLabel}}'s blocks",
     "expandScheduleBlocksPreview": "Show the {{scheduleBlock}} block's information",
-    "closeScheduleBlocksPreview": "Hide the {{scheduleBlock}} block's information"
+    "closeScheduleBlocksPreview": "Hide the {{scheduleBlock}} block's information",
+    "versionActions": "More actions for the schedule {{status}} {{schedule}} {{dayType}}"
   },
   "map": {
     "showFilters": "Show filters",
-    "editRoute": "Edit route {{routeName}}'s data"
+    "editRoute": "Edit route {{routeName}}'s data",
+    "routeStopsOverlayRowActions": "More actions for stop {{stopLabel}}"
   }
 }

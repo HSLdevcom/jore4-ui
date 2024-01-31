@@ -38,10 +38,12 @@
     "expandSchedulePreview": "Näytä aikataulun {{vehicleScheduleFrameLabel}} lohkot",
     "closeSchedulePreview": "Piilota aikataulun {{vehicleScheduleFrameLabel}} lohkot",
     "expandScheduleBlocksPreview": "Näytä lohkon {{scheduleBlock}} tiedot",
-    "closeScheduleBlocksPreview": "Piilota lohkon {{scheduleBlock}} tiedot"
+    "closeScheduleBlocksPreview": "Piilota lohkon {{scheduleBlock}} tiedot",
+    "versionActions": "Lisää toimintoja aikataululle {{status}} {{schedule}} {{dayType}}"
   },
   "map": {
     "showFilters": "Suodata näkymää",
-    "editRoute": "Muokkaa reitin {{routeName}} tietoja"
+    "editRoute": "Muokkaa reitin {{routeName}} tietoja",
+    "routeStopsOverlayRowActions": "Lisää toimintoja pysäkille {{stopLabel}}"
   }
 }
