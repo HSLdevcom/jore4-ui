@@ -159,6 +159,7 @@ export const RouteStopsRow = ({
       </td>
       <td>
         <StopActionsDropdown
+          tooltip={t('accessibility:routes.stopActions', { stopLabel })}
           stopLabel={stopLabel}
           stopBelongsToJourneyPattern={stopBelongsToJourneyPattern}
           isViaPoint={isViaPoint}
