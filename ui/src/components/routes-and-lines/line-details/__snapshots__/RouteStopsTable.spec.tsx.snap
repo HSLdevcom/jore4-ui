@@ -535,7 +535,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 type="button"
               >
                 <svg
-                  class="text-3xl"
+                  class="aria-hidden text-3xl"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -653,7 +653,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 type="button"
               >
                 <svg
-                  class="text-3xl"
+                  class="aria-hidden text-3xl"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -993,7 +993,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 type="button"
               >
                 <svg
-                  class="text-3xl"
+                  class="aria-hidden text-3xl"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -1111,7 +1111,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 type="button"
               >
                 <svg
-                  class="text-3xl"
+                  class="aria-hidden text-3xl"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -1229,7 +1229,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 type="button"
               >
                 <svg
-                  class="text-3xl"
+                  class="aria-hidden text-3xl"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"

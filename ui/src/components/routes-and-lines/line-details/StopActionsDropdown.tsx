@@ -24,6 +24,7 @@ interface Props {
   isViaPoint: boolean | undefined;
   onAddToRoute: (stopLabel: string) => void;
   onRemoveFromRoute: (stopLabel: string) => void;
+  tooltip: string;
 }
 
 export const StopActionsDropdown = ({
@@ -34,6 +35,7 @@ export const StopActionsDropdown = ({
   isViaPoint,
   onAddToRoute,
   onRemoveFromRoute,
+  tooltip,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -62,7 +64,11 @@ export const StopActionsDropdown = ({
   };
 
   return (
-    <SimpleDropdownMenu alignItems={AlignDirection.Left} testId={testIds.menu}>
+    <SimpleDropdownMenu
+      alignItems={AlignDirection.Left}
+      testId={testIds.menu}
+      tooltip={tooltip}
+    >
       {stopBelongsToJourneyPattern ? (
         <SimpleDropdownMenuItem
           onClick={() => onRemoveFromRoute(stopLabel)}
