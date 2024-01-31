@@ -84,6 +84,10 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
     data.vehicleScheduleFrame.priority,
   )} bg-opacity-25`;
 
+  const dayType = parseI18nField(data.dayType.nameI18n);
+  const vehicleScheduleFrameName = parseI18nField(
+    data.vehicleScheduleFrame.nameI18n,
+  );
   return (
     <tr
       className="h-14 text-center [&>td]:border [&>td]:border-light-grey"
@@ -91,7 +95,7 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
     >
       <td className={statusClassName}>{statusText}</td>
       <td className={dayTypeClassName}>
-        {parseI18nField(data.dayType.nameI18n)}
+        {dayType}
         {data.substituteDay?.supersededDate && (
           <span className="flex justify-center whitespace-nowrap text-xs">
             {substituteDayOperatingText}
@@ -101,12 +105,20 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
       <td>{mapToShortDate(data.vehicleScheduleFrame.validityStart)}</td>
       <td>{mapToShortDate(data.vehicleScheduleFrame.validityEnd)}</td>
       <td>{data.routeLabelAndVariant}</td>
-      <td>{parseI18nField(data.vehicleScheduleFrame.nameI18n)}</td>
+      <td>{vehicleScheduleFrameName}</td>
       <td>!Muokkaaja</td>
       <td>!Muokattu</td>
       <td>
         <Visible visible={!!data.vehicleScheduleFrame.id}>
-          <SimpleDropdownMenu alignItems={AlignDirection.Right} testId="menu">
+          <SimpleDropdownMenu
+            alignItems={AlignDirection.Right}
+            testId="menu"
+            tooltip={t('accessibility:timetables.versionActions', {
+              status: statusText,
+              schedule: vehicleScheduleFrameName,
+              dayType,
+            })}
+          >
             <SimpleDropdownMenuItem
               onClick={onClick}
               testId={testIds.deleteTimetableMenuItem}

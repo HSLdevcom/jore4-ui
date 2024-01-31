@@ -26,6 +26,7 @@
     "closeStops": "Hide the stops of the route {{label}, direction {{directionNumber}}",
     "expandTimetable": "Open the timetables for the route {{routeName}}",
     "closeTimetable": "Hide the timetables of the route {{routeName}}",
+    "showStopActions": "More actions for the stop {{stopLabel}}",
     "bus": "Bus route"
   },
   "timetables": {
@@ -37,10 +38,12 @@
     "expandSchedulePreview": "Show the schedule {{vehicleScheduleFrameLabel}}'s blocks",
     "closeSchedulePreview": "Hide the schedule {{vehicleScheduleFrameLabel}}'s blocks",
     "expandScheduleBlocksPreview": "Show the {{scheduleBlock}} block's information",
-    "closeScheduleBlocksPreview": "Hide the {{scheduleBlock}} block's information"
+    "closeScheduleBlocksPreview": "Hide the {{scheduleBlock}} block's information",
+    "versionActions": "More actions for the schedule {{status}} {{schedule}} {{dayType}}"
   },
   "map": {
     "showFilters": "Show filters",
-    "editRoute": "Edit route {{routeName}}'s data"
+    "editRoute": "Edit route {{routeName}}'s data",
+    "routeStopsOverlayRowActions": "More actions for stop {{stopLabel}}"
   }
 }

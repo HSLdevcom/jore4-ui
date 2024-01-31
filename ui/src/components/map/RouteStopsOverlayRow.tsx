@@ -62,6 +62,9 @@ export const RouteStopsOverlayRow = ({
           <SimpleDropdownMenu
             alignItems={AlignDirection.Left}
             testId={testIds.menuButton(stop.label)}
+            tooltip={t('accessibility:map.routeStopsOverlayRowActions', {
+              stopLabel: stop.label,
+            })}
           >
             <button
               type="button"

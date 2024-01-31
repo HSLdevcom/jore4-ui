@@ -26,6 +26,7 @@
     "closeStops": "Piilota pysäkit reitiltä {{label}}, suunta {{directionNumber}}",
     "expandTimetable": "Avaa aikataulut reitille {{routeName}}",
     "closeTimetable": "Piilota reitin {{routeName}} aikataulut",
+    "showStopActions": "Lisää toimintoja pysäkille {{stopLabel}}",
     "bus": "Bussireitti"
   },
   "timetables": {
@@ -42,6 +43,7 @@
   },
   "map": {
     "showFilters": "Suodata näkymää",
-    "editRoute": "Muokkaa reitin {{routeName}} tietoja"
+    "editRoute": "Muokkaa reitin {{routeName}} tietoja",
+    "routeStopsOverlayRowActions": "Lisää toimintoja pysäkille {{stopLabel}}"
   }
 }
