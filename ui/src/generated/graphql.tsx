@@ -22394,6 +22394,30 @@ export type SearchLinesAndRoutesQuery = {
   }>;
 };
 
+export type GetStopDetailsByIdQueryVariables = Exact<{
+  scheduled_stop_point_id: Scalars['uuid'];
+}>;
+
+export type GetStopDetailsByIdQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point_by_pk?: {
+    __typename?: 'service_pattern_scheduled_stop_point';
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
+    timing_place_id?: UUID | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    located_on_infrastructure_link_id: UUID;
+    timing_place?: {
+      __typename?: 'timing_pattern_timing_place';
+      timing_place_id: UUID;
+      label: string;
+    } | null;
+  } | null;
+};
+
 export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
   stopLabel: Scalars['String'];
   journeyPatternId: Scalars['uuid'];
@@ -27233,6 +27257,67 @@ export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<
   SearchLinesAndRoutesQuery,
   SearchLinesAndRoutesQueryVariables
 >;
+export const GetStopDetailsByIdDocument = gql`
+  query GetStopDetailsById($scheduled_stop_point_id: uuid!) {
+    service_pattern_scheduled_stop_point_by_pk(
+      scheduled_stop_point_id: $scheduled_stop_point_id
+    ) {
+      ...scheduled_stop_point_default_fields
+    }
+  }
+  ${ScheduledStopPointDefaultFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetStopDetailsByIdQuery__
+ *
+ * To run a query within a React component, call `useGetStopDetailsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopDetailsByIdQuery({
+ *   variables: {
+ *      scheduled_stop_point_id: // value for 'scheduled_stop_point_id'
+ *   },
+ * });
+ */
+export function useGetStopDetailsByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetStopDetailsByIdQuery,
+    GetStopDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStopDetailsByIdQuery,
+    GetStopDetailsByIdQueryVariables
+  >(GetStopDetailsByIdDocument, options);
+}
+export function useGetStopDetailsByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopDetailsByIdQuery,
+    GetStopDetailsByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopDetailsByIdQuery,
+    GetStopDetailsByIdQueryVariables
+  >(GetStopDetailsByIdDocument, options);
+}
+export type GetStopDetailsByIdQueryHookResult = ReturnType<
+  typeof useGetStopDetailsByIdQuery
+>;
+export type GetStopDetailsByIdLazyQueryHookResult = ReturnType<
+  typeof useGetStopDetailsByIdLazyQuery
+>;
+export type GetStopDetailsByIdQueryResult = Apollo.QueryResult<
+  GetStopDetailsByIdQuery,
+  GetStopDetailsByIdQueryVariables
+>;
 export const PatchScheduledStopPointTimingSettingsDocument = gql`
   mutation PatchScheduledStopPointTimingSettings(
     $stopLabel: String!
@@ -29441,6 +29526,15 @@ export function useSearchLinesAndRoutesAsyncQuery() {
 }
 export type SearchLinesAndRoutesAsyncQueryHookResult = ReturnType<
   typeof useSearchLinesAndRoutesAsyncQuery
+>;
+export function useGetStopDetailsByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetStopDetailsByIdQuery,
+    GetStopDetailsByIdQueryVariables
+  >(GetStopDetailsByIdDocument);
+}
+export type GetStopDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetStopDetailsByIdAsyncQuery
 >;
 
 export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery() {
