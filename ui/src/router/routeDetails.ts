@@ -3,8 +3,13 @@ import { QueryParameterName } from '../hooks/urlQuery/useUrlQuery';
 
 export enum Path {
   root = '/',
+
+  // Main pages
   routes = '/routes',
+  stopRegistry = '/stop-registry',
   timetables = '/timetables',
+
+  // Routes and lines
   routesSearch = '/routes/search',
   timetablesSearch = '/timetables/search',
   editRoute = '/routes/:id/edit',
@@ -12,11 +17,22 @@ export enum Path {
   lineDetails = '/lines/:id',
   lineDrafts = '/lines/:label/drafts',
   editLine = '/lines/:id/edit',
+
+  // Stop registry
+  // stopSearch = '/stop-registry/stops/search',
+  stopDetails = '/stop-registry/stops/:id',
+  // stopVersions = '/stop-registry/stops/:id/versions',
+  // stopChangeHistory = '/stop-registry/stops/:id/history',
+  // terminalDetails = '/stop-registry/terminals/:id',
+  // stopAreaDetails = '/stop-registry/stop-areas/:id',
+
+  // Timetables
   lineTimetables = '/timetables/lines/:id',
   timetablesImport = '/timetables/import',
   timetablesImportPreview = '/timetables/import/preview',
   lineTimetableVersions = '/timetables/lines/:label/versions',
   substituteOperatingPeriodSettings = '/timetables/settings',
+
   fallback = '*',
 }
 
@@ -46,9 +62,16 @@ export const routeDetails: Record<Path, RouteDetail> = {
     translationKey: 'routes.root',
     includeInNav: true,
   },
+
+  // Main pages
   [Path.routes]: {
     getLink: () => Path.routes,
     translationKey: 'routes.routes',
+    includeInNav: true,
+  },
+  [Path.stopRegistry]: {
+    getLink: () => Path.stopRegistry,
+    translationKey: 'stops.stops',
     includeInNav: true,
   },
   [Path.timetables]: {
@@ -56,6 +79,8 @@ export const routeDetails: Record<Path, RouteDetail> = {
     translationKey: 'timetables.timetables',
     includeInNav: true,
   },
+
+  // Routes and lines
   [Path.routesSearch]: {
     getLink: () => Path.routesSearch,
     translationKey: 'routes.routesSearchResult',
@@ -95,6 +120,15 @@ export const routeDetails: Record<Path, RouteDetail> = {
     translationKey: 'lines.editLine',
     includeInNav: false,
   },
+
+  // Stop registry
+  [Path.stopDetails]: {
+    getLink: () => Path.stopDetails,
+    translationKey: 'stops.stop',
+    includeInNav: false,
+  },
+
+  // Timetables
   [Path.lineTimetables]: {
     getLink: (id: string, routeLabel?: string) =>
       getLineIdRouteLabelLink(Path.lineTimetables, id, routeLabel),
@@ -119,6 +153,7 @@ export const routeDetails: Record<Path, RouteDetail> = {
     translationKey: 'timetables.settings',
     includeInNav: false,
   },
+
   [Path.fallback]: {
     getLink: () => '404',
     translationKey: '404',
