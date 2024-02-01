@@ -4,6 +4,7 @@ interface Props {
   className?: string;
   testId?: string;
   tooltip?: string;
+  identifier?: string;
 }
 
 export const Row: React.FC<Props> = ({
@@ -11,12 +12,14 @@ export const Row: React.FC<Props> = ({
   children,
   testId = null,
   tooltip = '',
+  identifier,
 }) => {
   return (
     <div
       className={`flex flex-row ${className}`}
       title={tooltip}
       data-testid={testId}
+      id={identifier}
     >
       {children}
     </div>
