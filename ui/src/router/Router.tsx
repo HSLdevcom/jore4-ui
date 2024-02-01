@@ -14,6 +14,7 @@ import { LineDetailsPage } from '../components/routes-and-lines/line-details/Lin
 import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineDraftsPage';
 import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/RoutesAndLinesMainPage';
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
+import { StopDetailsPage } from '../components/stop-registry';
 import {
   SubstituteDaySettingsPage,
   TimetablesMainPage,
@@ -77,16 +78,25 @@ export const Router: FunctionComponent = () => {
       _routerRoute: Path.root,
       element: <MainPage />,
     },
+
+    // Main pages
     [Path.routes]: {
       _routerRoute: Path.routes,
       protected: true,
       element: <RoutesAndLinesMainPage />,
+    },
+    [Path.stopRegistry]: {
+      _routerRoute: Path.stopRegistry,
+      protected: true,
+      element: <FallbackRoute />, // TODO
     },
     [Path.timetables]: {
       _routerRoute: Path.timetables,
       protected: true,
       element: <TimetablesMainPage />,
     },
+
+    // Route and lines
     [Path.routesSearch]: {
       _routerRoute: Path.routesSearch,
       protected: true,
@@ -122,6 +132,15 @@ export const Router: FunctionComponent = () => {
       protected: true,
       element: <EditLinePage />,
     },
+
+    // Stop registry
+    [Path.stopDetails]: {
+      _routerRoute: Path.stopDetails,
+      protected: true,
+      element: <StopDetailsPage />,
+    },
+
+    // Timetables
     [Path.lineTimetables]: {
       _routerRoute: Path.lineTimetables,
       protected: true,
@@ -147,6 +166,7 @@ export const Router: FunctionComponent = () => {
       protected: true,
       element: <SubstituteDaySettingsPage />,
     },
+
     [Path.fallback]: {
       _routerRoute: Path.fallback,
       protected: true,
