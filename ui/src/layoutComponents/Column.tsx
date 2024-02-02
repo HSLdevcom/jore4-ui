@@ -5,11 +5,7 @@ interface Props {
   id?: string;
 }
 
-export const Column: React.FC<Props> = ({
-  className = '',
-  id = '',
-  children,
-}) => {
+export const Column: React.FC<Props> = ({ className = '', id, children }) => {
   return (
     <div id={id} className={`flex flex-col ${className}`}>
       {children}
