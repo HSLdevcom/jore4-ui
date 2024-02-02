@@ -34,9 +34,8 @@ export const TemplateRouteSelector = ({
       <h3 className="mb-4">{t('routes.searchTemplate')}</h3>
       <Row className="mb-4">
         <Column>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label>{t('priority.label')}</label>
-          <Row className="space-x-1">
+          <label htmlFor="priorityButtons">{t('priority.label')}</label>
+          <Row identifier="priorityButtons" className="space-x-1">
             <SimpleButton
               onClick={() => setPriority(Priority.Standard)}
               inverted={priority !== Priority.Standard}

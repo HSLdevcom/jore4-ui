@@ -85,9 +85,13 @@ export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
           />
         </FormRow>
         <Row className="items-center">
-          <label className="my-0 cursor-pointer text-base font-normal">
+          <label
+            htmlFor="showNameVersionsToggle"
+            className="my-0 cursor-pointer text-base font-normal"
+          >
             {t('lines.showNameVersions')}
             <AccordionButton
+              identifier="showNameVersionsToggle"
               className="ml-1"
               isOpen={showNameVersions}
               onToggle={setShowNameVersions}
