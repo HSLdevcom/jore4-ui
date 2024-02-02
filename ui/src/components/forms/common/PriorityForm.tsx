@@ -65,9 +65,8 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
 
   return (
     <Column>
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label>{t('priority.label')}</label>
-      <Row className="flex-wrap gap-2">
+      <label htmlFor="priorityButtons">{t('priority.label')}</label>
+      <Row identifier="priorityButtons" className="flex-wrap gap-2">
         {displayedPriorities.map(
           ({ priority, testIdPrefix, translationKey }) => (
             <SimpleButton

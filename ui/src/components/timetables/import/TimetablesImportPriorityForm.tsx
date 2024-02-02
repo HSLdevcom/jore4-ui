@@ -70,10 +70,9 @@ export const TimetablesImportPriorityForm = ({
   return (
     <Column>
       <Visible visible={showLabel}>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label>{t('priority.label')}</label>
+        <label htmlFor="priorityButtons">{t('priority.label')}</label>
       </Visible>
-      <Row className="flex-wrap gap-2">
+      <Row identifier="priorityButtons" className="flex-wrap gap-2">
         {displayedPriorities.map(
           ({ priority, testIdPrefix, translationKey }) => (
             <SimpleButton
