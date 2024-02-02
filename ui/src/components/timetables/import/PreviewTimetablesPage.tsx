@@ -119,11 +119,15 @@ export const PreviewTimetablesPage = (): JSX.Element => {
             </h2>
           </div>
           <div className="flex items-center">
-            <label className="my-0 cursor-pointer text-base">
+            <label
+              htmlFor="timetablesPreviewToggle"
+              className="my-0 cursor-pointer text-base"
+            >
               {showStagingTimetables
                 ? t('timetablesPreview.closeContent')
                 : t('timetablesPreview.showContent')}
               <AccordionButton
+                identifier="timetablesPreviewToggle"
                 testId={testIds.toggleShowStagingTimetables}
                 isOpen={showStagingTimetables}
                 onToggle={toggleShowStagingTimetables}
