@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from 'react';
 import {
   GetStopPlaceByLabelQuery,
   ScheduledStopPointDefaultFieldsFragment,
+  StopRegistryEmbeddableMultilingualString,
+  StopRegistryNameType,
   useGetStopDetailsByIdQuery,
   useGetStopPlaceByLabelAsyncQuery,
 } from '../../generated/graphql';
@@ -79,9 +81,39 @@ const getStopDetailsByLabelResult = (
   return isStopPlace(stopPlace) ? stopPlace : null;
 };
 
+type ExtraStopPlaceDetails = {
+  finnishName: string | undefined;
+  swedishName: string | undefined;
+};
+
+export type EnrichedStopPlace = StopPlace & ExtraStopPlaceDetails;
+
+const findAlternativeName = (
+  stopPlace: StopPlace,
+  lang: string,
+  nameType: StopRegistryNameType = StopRegistryNameType.Translation,
+): StopRegistryEmbeddableMultilingualString | null => {
+  const matchingName = stopPlace.alternativeNames?.find(
+    (an) => an?.name.lang === lang && an.nameType === nameType,
+  );
+  return matchingName?.name || null;
+};
+
+const enrichStopPlace = (stopPlace: StopPlace): EnrichedStopPlace => {
+  const extraDetails = {
+    finnishName: stopPlace.name?.value || undefined,
+    swedishName: findAlternativeName(stopPlace, 'sv_FI')?.value || undefined,
+  };
+
+  return {
+    ...stopPlace,
+    ...extraDetails,
+  };
+};
+
 /** Gets the stop details, including the stop place, depending on query parameters. */
 export type StopWithDetails = ScheduledStopPointDefaultFieldsFragment & {
-  stopPlace: StopPlace | null;
+  stopPlace: EnrichedStopPlace | null;
 };
 
 export const useGetStopDetails = (): {
@@ -118,7 +150,7 @@ export const useGetStopDetails = (): {
   return {
     stopDetails: stopDetails && {
       ...stopDetails,
-      stopPlace,
+      stopPlace: stopPlace && enrichStopPlace(stopPlace),
     },
   };
 };
