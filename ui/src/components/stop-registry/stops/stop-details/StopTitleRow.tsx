@@ -10,12 +10,9 @@ export const StopTitleRow: React.FC<Props> = ({ stopDetails }) => {
       <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
       <h2 className="mr-2 font-bold">{stopDetails.label}</h2>
       <div className="text-xl">
-        <span>{stopDetails.stopPlace?.name?.value || '-'}</span>
+        <span>{stopDetails.stopPlace?.finnishName || '-'}</span>
         <span className="mx-2">|</span>
-        <span>
-          {/* Swedish name. TODO: add some better way to access this... */}
-          {stopDetails.stopPlace?.alternativeNames?.[0]?.name.value || '-'}
-        </span>
+        <span>{stopDetails.stopPlace?.swedishName || '-'}</span>
       </div>
     </div>
   );
