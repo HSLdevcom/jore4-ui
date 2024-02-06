@@ -414,6 +414,28 @@ Workspaces-specific dependencies should be installed to workspaces themselves an
 
 Prettier and eslint live currently on workspace root as that allows having same config for those for all workspaces.
 
+## Tips & Tricks
+
+### Yarn lock changed (for no reason)
+
+Did your `yarn.lock` file change without any reason? You can run the following chained commands to get a clean slate:
+
+```sh
+rm -rf node_modules; rm -rf cypress/node_modules/; rm -rf test-db-manager/node_modules/; rm -rf ui/node_modules/ &&
+yarn cache clean &&
+git checkout -- yarn.lock &&
+yarn install
+```
+
+### Docker prune
+
+Running a little low on memory, or the local setup doesn't work for a mystical reason?
+Try pruning your docker registry:
+
+```sh
+docker system prune --all --volumes
+```
+
 ## License
 
 The project license is in [`LICENSE`](./LICENSE).
