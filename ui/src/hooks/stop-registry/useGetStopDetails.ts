@@ -2,6 +2,8 @@ import { gql } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import {
   ScheduledStopPointDefaultFieldsFragment,
+  StopRegistryEmbeddableMultilingualString,
+  StopRegistryNameType,
   useGetStopDetailsByIdQuery,
   useGetStopPlaceByLabelAsyncQuery,
 } from '../../generated/graphql';
@@ -18,9 +20,33 @@ const GQL_GET_STOP_DETAILS_BY_ID = gql`
   }
 `;
 
+const findAlternativeName = (
+  stopPlace: StopPlace,
+  lang: string,
+  nameType: StopRegistryNameType = StopRegistryNameType.Translation,
+): StopRegistryEmbeddableMultilingualString | null => {
+  const matchingName = stopPlace.alternativeNames?.find(
+    (an) => an?.name.lang === lang && an.nameType === nameType,
+  );
+  return matchingName?.name || null;
+};
+export type EnrichedStopPlaceDetails = {
+  finnishName: string | undefined;
+  swedishName: string | undefined;
+};
+const enrichStopPlace = (
+  stopPlace: StopPlace,
+): StopPlace & EnrichedStopPlaceDetails => {
+  return {
+    ...stopPlace,
+    finnishName: stopPlace.name?.value || undefined,
+    swedishName: findAlternativeName(stopPlace, 'sv_FI')?.value || undefined,
+  };
+};
+
 /** Gets the stop details, including the stop place, depending on query parameters. */
 export type StopWithDetails = ScheduledStopPointDefaultFieldsFragment & {
-  stopPlace: StopPlace | null;
+  stopPlace: (StopPlace & EnrichedStopPlaceDetails) | null;
 };
 export const useGetStopDetails = (): {
   stopDetails: StopWithDetails | null | undefined;
@@ -56,7 +82,7 @@ export const useGetStopDetails = (): {
   return {
     stopDetails: stopDetails && {
       ...stopDetails,
-      stopPlace,
+      stopPlace: stopPlace && enrichStopPlace(stopPlace),
     },
   };
 };
