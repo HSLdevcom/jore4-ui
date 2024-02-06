@@ -22418,6 +22418,68 @@ export type GetStopDetailsByIdQuery = {
   } | null;
 };
 
+export type GetStopPlaceByLabelQueryVariables = Exact<{
+  stop_place_label:
+    | Array<InputMaybe<Scalars['String']>>
+    | InputMaybe<Scalars['String']>;
+}>;
+
+export type GetStopPlaceByLabelQuery = {
+  __typename?: 'query_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister';
+    stopPlace?: Array<
+      | {
+          __typename?: 'stop_registry_ParentStopPlace';
+          id?: string | null;
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          alternativeNames?: Array<{
+            __typename?: 'stop_registry_AlternativeName';
+            nameType: StopRegistryNameType;
+            name: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            };
+          } | null> | null;
+          keyValues?: Array<{
+            __typename?: 'stop_registry_KeyValues';
+            key?: string | null;
+            values?: Array<string | null> | null;
+          } | null> | null;
+        }
+      | {
+          __typename?: 'stop_registry_StopPlace';
+          id?: string | null;
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          alternativeNames?: Array<{
+            __typename?: 'stop_registry_AlternativeName';
+            nameType: StopRegistryNameType;
+            name: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            };
+          } | null> | null;
+          keyValues?: Array<{
+            __typename?: 'stop_registry_KeyValues';
+            key?: string | null;
+            values?: Array<string | null> | null;
+          } | null> | null;
+        }
+      | null
+    > | null;
+  } | null;
+};
+
 export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
   stopLabel: Scalars['String'];
   journeyPatternId: Scalars['uuid'];
@@ -27318,6 +27380,81 @@ export type GetStopDetailsByIdQueryResult = Apollo.QueryResult<
   GetStopDetailsByIdQuery,
   GetStopDetailsByIdQueryVariables
 >;
+export const GetStopPlaceByLabelDocument = gql`
+  query GetStopPlaceByLabel($stop_place_label: [String]!) {
+    stop_registry {
+      stopPlace(key: "label", values: $stop_place_label) {
+        id
+        name {
+          lang
+          value
+        }
+        alternativeNames {
+          name {
+            lang
+            value
+          }
+          nameType
+        }
+        keyValues {
+          key
+          values
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetStopPlaceByLabelQuery__
+ *
+ * To run a query within a React component, call `useGetStopPlaceByLabelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopPlaceByLabelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopPlaceByLabelQuery({
+ *   variables: {
+ *      stop_place_label: // value for 'stop_place_label'
+ *   },
+ * });
+ */
+export function useGetStopPlaceByLabelQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetStopPlaceByLabelQuery,
+    GetStopPlaceByLabelQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStopPlaceByLabelQuery,
+    GetStopPlaceByLabelQueryVariables
+  >(GetStopPlaceByLabelDocument, options);
+}
+export function useGetStopPlaceByLabelLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopPlaceByLabelQuery,
+    GetStopPlaceByLabelQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopPlaceByLabelQuery,
+    GetStopPlaceByLabelQueryVariables
+  >(GetStopPlaceByLabelDocument, options);
+}
+export type GetStopPlaceByLabelQueryHookResult = ReturnType<
+  typeof useGetStopPlaceByLabelQuery
+>;
+export type GetStopPlaceByLabelLazyQueryHookResult = ReturnType<
+  typeof useGetStopPlaceByLabelLazyQuery
+>;
+export type GetStopPlaceByLabelQueryResult = Apollo.QueryResult<
+  GetStopPlaceByLabelQuery,
+  GetStopPlaceByLabelQueryVariables
+>;
 export const PatchScheduledStopPointTimingSettingsDocument = gql`
   mutation PatchScheduledStopPointTimingSettings(
     $stopLabel: String!
@@ -29535,6 +29672,15 @@ export function useGetStopDetailsByIdAsyncQuery() {
 }
 export type GetStopDetailsByIdAsyncQueryHookResult = ReturnType<
   typeof useGetStopDetailsByIdAsyncQuery
+>;
+export function useGetStopPlaceByLabelAsyncQuery() {
+  return useAsyncQuery<
+    GetStopPlaceByLabelQuery,
+    GetStopPlaceByLabelQueryVariables
+  >(GetStopPlaceByLabelDocument);
+}
+export type GetStopPlaceByLabelAsyncQueryHookResult = ReturnType<
+  typeof useGetStopPlaceByLabelAsyncQuery
 >;
 
 export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery() {
