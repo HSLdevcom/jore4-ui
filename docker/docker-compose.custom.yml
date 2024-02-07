@@ -15,6 +15,8 @@ services:
     depends_on:
       jore4-testdb:
         condition: service_healthy
+      jore4-tiamat:
+        condition: service_healthy
     # Uncomment the lines below to direct timetables-api actions from Hasura
     # to a locally built timetables API running on localhost instead of the dockerized version.
     # extra_hosts:
@@ -33,6 +35,9 @@ services:
       HASURA_URL: "http://host.docker.internal:3300/api/graphql/v1/graphql"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+  jore4-tiamat:
+    image: "hsldevcom/jore4-tiamat:main--20240205-160cf1f7f33d8e6252199574d90de6768c2cd96a"
 
   jore4-timetablesapi:
     # pinning timetables api
