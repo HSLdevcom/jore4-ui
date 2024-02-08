@@ -6,6 +6,7 @@ export enum Tag {
   Routes = '@routes',
   Lines = '@lines',
   Login = '@login',
+  StopRegistry = '@stopRegistry',
   Timetables = '@timetables',
   HastusExport = '@hastusExport',
   HastusImport = '@hastusImport',
