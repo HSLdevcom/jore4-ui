@@ -13,3 +13,13 @@ export interface GetInfrastructureLinksByExternalIdsResult {
     }[];
   };
 }
+
+export interface InsertStopPlaceResult {
+  data: {
+    stop_registry: {
+      mutateStopPlace: {
+        id: UUID;
+      }[];
+    };
+  };
+}
