@@ -48,11 +48,11 @@ const config = [
     plugins: commonPlugins,
   },
   {
-    input: 'src/seed.ts',
+    input: 'src/seedTimetables.ts',
     external: commonExternals,
     output: [
       {
-        file: 'dist/seed.js',
+        file: 'dist/seedTimetables.js',
         format: 'cjs', // commonJS
         sourcemap: true,
       },
