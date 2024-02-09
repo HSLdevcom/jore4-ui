@@ -19601,3 +19601,30 @@ export type GetInfrastructureLinksByExternalIdsQuery = {
     infrastructure_link_id: UUID;
   }>;
 };
+
+export type InsertStopPlaceMutationVariables = Exact<{
+  stopPlace: StopRegistryStopPlaceInput;
+}>;
+
+export type InsertStopPlaceMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateStopPlace?: Array<{
+      __typename?: 'stop_registry_StopPlace';
+      id?: string | null;
+    } | null> | null;
+  } | null;
+};
+
+export type DeleteStopPlaceMutationVariables = Exact<{
+  stopPlaceId: Scalars['String'];
+}>;
+
+export type DeleteStopPlaceMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    deleteStopPlace?: boolean | null;
+  } | null;
+};

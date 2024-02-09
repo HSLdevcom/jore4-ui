@@ -53,6 +53,11 @@ export const hasuraAPI = (request: any) => {
   return hasuraApi(request);
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const hasuraAPIMultiple = (requests: Array<any>) => {
+  return Promise.all(requests.map((r) => hasuraApi(r)));
+};
+
 export const truncateTimetablesDatabase = () => {
   const truncateQuery = fs.readFileSync(
     'fixtures/truncateTimetables/truncateTimetables.sql',
