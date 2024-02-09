@@ -2,10 +2,16 @@ import {
   buildStop,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
+  extractStopPlaceIdFromResponse,
   GetInfrastructureLinksByExternalIdsResult,
+  InsertStopPlaceResult,
   mapToGetInfrastructureLinksByExternalIdsQuery,
+  mapToDeleteStopPlaceMutation,
+  mapToInsertStopPlaceMutation,
   Priority,
   StopInsertInput,
+  StopRegistryStopPlace,
+  StopRegistryNameType,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
@@ -42,6 +48,23 @@ const timingPlaces = [
 ];
 
 const stopLabels = ['H1122', 'H1234'];
+
+const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
+  {
+    name: { lang: 'fi_FI', value: 'Puistokaari' },
+    keyValues: [{ key: 'label', values: [stopLabels[0]] }],
+  },
+  {
+    name: { lang: 'fi_FI', value: 'Lapinrinne' },
+    alternativeNames: [
+      {
+        name: { lang: 'sv_FI', value: 'Lappbrinken' },
+        nameType: StopRegistryNameType.Translation,
+      },
+    ],
+    keyValues: [{ key: 'label', values: [stopLabels[1]] }],
+  },
+];
 
 const buildScheduledStopPoints = (
   infrastructureLinkIds: UUID[],
@@ -83,6 +106,7 @@ describe('Stop details', () => {
   };
   let dbResources: SupportedResources &
     Required<Pick<SupportedResources, 'stops'>>;
+  let stopPlaceIds: Array<string>;
 
   before(() => {
     cy.task<GetInfrastructureLinksByExternalIdsResult>(
@@ -99,6 +123,13 @@ describe('Stop details', () => {
         stops,
       };
     });
+
+    cy.task<InsertStopPlaceResult[]>(
+      'hasuraAPIMultiple',
+      stopPlaceData.map((stopPlace) => mapToInsertStopPlaceMutation(stopPlace)),
+    ).then((responses) => {
+      stopPlaceIds = responses.map(extractStopPlaceIdFromResponse);
+    });
   });
 
   beforeEach(() => {
@@ -112,6 +143,13 @@ describe('Stop details', () => {
 
   afterEach(() => {
     removeFromDbHelper(dbResources);
+
+    cy.task(
+      'hasuraAPIMultiple',
+      stopPlaceIds.map((stopPlaceId) =>
+        mapToDeleteStopPlaceMutation(stopPlaceId),
+      ),
+    );
   });
 
   it(
@@ -122,7 +160,7 @@ describe('Stop details', () => {
       stopDetailsPage.page().should('be.visible');
 
       stopDetailsPage.label().should('have.text', 'H1234');
-      stopDetailsPage.names().should('have.text', '-|-'); // TODO: data comes from stop registry DB.
+      stopDetailsPage.names().should('have.text', 'Lapinrinne|Lappbrinken');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
     },
   );
