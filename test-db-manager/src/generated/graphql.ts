@@ -19655,6 +19655,20 @@ export type GetInfrastructureLinksByExternalIdsQuery = {
   }>;
 };
 
+export type GetStopPointByLabelQueryVariables = Exact<{
+  label: Scalars['String'];
+}>;
+
+export type GetStopPointByLabelQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    stop_place_ref?: string | null;
+  }>;
+};
+
 export type UpdateScheduledStopPointStopPlaceRefMutationVariables = Exact<{
   scheduled_stop_point_id: Scalars['uuid'];
   stop_place_ref: Scalars['String'];

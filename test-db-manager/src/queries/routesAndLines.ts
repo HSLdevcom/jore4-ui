@@ -1,6 +1,16 @@
 import gql from 'graphql-tag';
 import { getGqlString } from '../builders/mutations/utils';
 
+const GQL_GET_STOP_POINT_BY_LABEL = gql`
+  query GetStopPointByLabel($label: String!) {
+    service_pattern_scheduled_stop_point(where: { label: { _eq: $label } }) {
+      scheduled_stop_point_id
+      label
+      stop_place_ref
+    }
+  }
+`;
+
 const GQL_UPDATE_STOP_POINT_STOP_PLACE_REF = gql`
   mutation UpdateScheduledStopPointStopPlaceRef(
     $scheduled_stop_point_id: uuid!
@@ -15,6 +25,17 @@ const GQL_UPDATE_STOP_POINT_STOP_PLACE_REF = gql`
     }
   }
 `;
+
+export const mapToGetStopPointByLabelQuery = (
+  scheduledStopPointLabel: string,
+) => {
+  return {
+    query: getGqlString(GQL_GET_STOP_POINT_BY_LABEL),
+    variables: {
+      label: scheduledStopPointLabel,
+    },
+  };
+};
 
 export const mapToUpdateScheduledStopPointStopPlaceRefMutation = ({
   scheduledStopPointId,

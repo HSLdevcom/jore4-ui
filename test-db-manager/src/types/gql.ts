@@ -24,6 +24,16 @@ export interface InsertStopPlaceResult {
   };
 }
 
+export interface GetStopPointByLabelResult {
+  data: {
+    service_pattern_scheduled_stop_point: Array<{
+      scheduled_stop_point_id: UUID;
+      label: string;
+      stop_place_ref: string | null;
+    }>;
+  };
+}
+
 export interface UpdateScheduledStopPointStopPlaceRefResult {
   data: {
     update_service_pattern_scheduled_stop_point_by_pk: {
