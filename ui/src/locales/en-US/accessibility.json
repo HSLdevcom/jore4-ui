@@ -30,7 +30,8 @@
     "bus": "Bus route"
   },
   "stops": {
-    "showStopDetails": "Show details for stop {{ stopLabel }}"
+    "showStopDetails": "Show details for stop {{ stopLabel }}",
+    "timingPlace": "Hastus place"
   },
   "timetables": {
     "icon": "Timetable",

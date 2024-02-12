@@ -30,7 +30,8 @@
     "bus": "Bussireitti"
   },
   "stops": {
-    "showStopDetails": "Näytä pysäkin {{ stopLabel }} tiedot"
+    "showStopDetails": "Näytä pysäkin {{ stopLabel }} tiedot",
+    "timingPlace": "Hastus-paikka"
   },
   "timetables": {
     "icon": "Aikataulu",
