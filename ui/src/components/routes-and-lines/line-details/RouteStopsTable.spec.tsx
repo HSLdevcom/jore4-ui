@@ -1,5 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, within } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { act } from 'react-dom/test-utils';
 import {
@@ -564,5 +564,31 @@ describe(`<${RouteStopsTable.name} />`, () => {
     // all the stops should show when unused stops toggle has been clicked
     expect(container.querySelectorAll('tr')).toHaveLength(4);
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('Generates links for stop details', async () => {
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <RouteStopsTable testId={testId} routes={routes} />
+      </MockedProvider>,
+    );
+
+    // wait for the graphql call to execute
+    await act(() => sleep(0));
+
+    const accordionButton = screen.getByTestId(
+      'ExpandableRouteRow::toggleAccordion',
+    );
+    fireEvent.click(accordionButton);
+
+    const label = within(
+      screen.getByTestId('RouteStopsRow::H1234'),
+    ).getByTestId('RouteStopsRow::label');
+    expect(label).toHaveTextContent('H1234');
+    expect(label.title).toContain('H1234');
+    expect(label).toHaveAttribute(
+      'href',
+      '/stop-registry/stops/e3528755-711f-4e4f-9461-7931a2c4bc6d',
+    );
   });
 });

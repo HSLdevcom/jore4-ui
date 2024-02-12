@@ -444,9 +444,14 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
-            data-testid="RouteStopsRow::label"
           >
-            H1234
+            <a
+              data-testid="RouteStopsRow::label"
+              href="/stop-registry/stops/e3528755-711f-4e4f-9461-7931a2c4bc6d"
+              title="Näytä pysäkin H1234 tiedot"
+            >
+              H1234
+            </a>
           </td>
           <td
             class="w-auto"
@@ -562,9 +567,14 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
-            data-testid="RouteStopsRow::label"
           >
-            H1236
+            <a
+              data-testid="RouteStopsRow::label"
+              href="/stop-registry/stops/f8eace87-7901-4438-bfee-bb6f24f1c4c4"
+              title="Näytä pysäkin H1236 tiedot"
+            >
+              H1236
+            </a>
           </td>
           <td
             class="w-auto"
@@ -902,9 +912,14 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
-            data-testid="RouteStopsRow::label"
           >
-            H1234
+            <a
+              data-testid="RouteStopsRow::label"
+              href="/stop-registry/stops/e3528755-711f-4e4f-9461-7931a2c4bc6d"
+              title="Näytä pysäkin H1234 tiedot"
+            >
+              H1234
+            </a>
           </td>
           <td
             class="w-auto"
@@ -1020,9 +1035,14 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
-            data-testid="RouteStopsRow::label"
           >
-            H1235
+            <a
+              data-testid="RouteStopsRow::label"
+              href="/stop-registry/stops/4d294d62-df17-46ff-9248-23f66f17fa87"
+              title="Näytä pysäkin H1235 tiedot"
+            >
+              H1235
+            </a>
           </td>
           <td
             class="w-auto"
@@ -1138,9 +1158,14 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
         >
           <td
             class="border-l-10 border-hsl-dark-green p-4 pl-16 text-2xl"
-            data-testid="RouteStopsRow::label"
           >
-            H1236
+            <a
+              data-testid="RouteStopsRow::label"
+              href="/stop-registry/stops/f8eace87-7901-4438-bfee-bb6f24f1c4c4"
+              title="Näytä pysäkin H1236 tiedot"
+            >
+              H1236
+            </a>
           </td>
           <td
             class="w-auto"

@@ -6,6 +6,7 @@ import { RouteStopFieldsFragment } from '../../../generated/graphql';
 import { useAlertsAndHighLights, useAppDispatch } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import { openTimingSettingsModalAction } from '../../../redux';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import {
   MAX_DATE,
   MIN_DATE,
@@ -84,6 +85,7 @@ export const RouteStopsRow = ({
       );
     }
   };
+
   // TODO: Rework table into basic elements
   return (
     <tr
@@ -92,11 +94,16 @@ export const RouteStopsRow = ({
       } ${className}`}
       data-testid={testIds.container(stop.label)}
     >
-      <td
-        className={`${alertStyle.listItemBorder || ''} p-4 pl-16 text-2xl`}
-        data-testid={testIds.label}
-      >
-        {stop.label}
+      <td className={`${alertStyle.listItemBorder || ''} p-4 pl-16 text-2xl`}>
+        <a
+          href={routeDetails[Path.stopDetails].getLink(
+            stop.scheduled_stop_point_id,
+          )}
+          data-testid={testIds.label}
+          title={t('accessibility:stops.showStopDetails', { stopLabel })}
+        >
+          {stop.label}
+        </a>
       </td>
       <td className="w-auto" data-testid={testIds.name}>
         <Row className="items-center">
