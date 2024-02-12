@@ -29,6 +29,9 @@
     "showStopActions": "Lisää toimintoja pysäkille {{stopLabel}}",
     "bus": "Bussireitti"
   },
+  "stops": {
+    "showStopDetails": "Näytä pysäkin {{ stopLabel }} tiedot"
+  },
   "timetables": {
     "icon": "Aikataulu",
     "changeValidityPeriod": "Muuta voimassaoloaikaa päivätyypille {{dayType}}",
