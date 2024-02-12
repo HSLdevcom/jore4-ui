@@ -27,7 +27,7 @@ fi
 # Import routes and lines dump to db
 echo "y" | ./scripts/development.sh dump:import
 
-# Seed timetables
+# Seed timetables and stop registry
 cd ./test-db-manager
 yarn seed
 

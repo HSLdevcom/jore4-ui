@@ -60,6 +60,18 @@ const config = [
     plugins: commonPlugins,
   },
   {
+    input: 'src/seedStopRegistry.ts',
+    external: commonExternals,
+    output: [
+      {
+        file: 'dist/seedStopRegistry.js',
+        format: 'cjs', // commonJS
+        sourcemap: true,
+      },
+    ],
+    plugins: commonPlugins,
+  },
+  {
     input: './ts-dist/types/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
     plugins: [dts()],
