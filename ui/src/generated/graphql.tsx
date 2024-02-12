@@ -19124,16 +19124,6 @@ export type RouteTableRowFragment = {
   }>;
 };
 
-export type StopPopupInfoFragment = {
-  __typename?: 'service_pattern_scheduled_stop_point';
-  scheduled_stop_point_id: UUID;
-  label: string;
-  priority: number;
-  validity_start?: luxon.DateTime | null;
-  validity_end?: luxon.DateTime | null;
-  measured_location: GeoJSON.Point;
-};
-
 export type LineWithRoutesUniqueFieldsFragment = {
   __typename?: 'route_line';
   primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -23862,16 +23852,6 @@ export const RouteTableRowFragmentDoc = gql`
     }
   }
   ${RouteMapParamsFragmentDoc}
-`;
-export const StopPopupInfoFragmentDoc = gql`
-  fragment stop_popup_info on service_pattern_scheduled_stop_point {
-    scheduled_stop_point_id
-    label
-    priority
-    validity_start
-    validity_end
-    measured_location
-  }
 `;
 export const LineDefaultFieldsFragmentDoc = gql`
   fragment line_default_fields on route_line {
