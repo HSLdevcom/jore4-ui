@@ -19126,6 +19126,7 @@ export type RouteTableRowFragment = {
 
 export type StopPopupInfoFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
+  scheduled_stop_point_id: UUID;
   label: string;
   priority: number;
   validity_start?: luxon.DateTime | null;
@@ -23864,6 +23865,7 @@ export const RouteTableRowFragmentDoc = gql`
 `;
 export const StopPopupInfoFragmentDoc = gql`
   fragment stop_popup_info on service_pattern_scheduled_stop_point {
+    scheduled_stop_point_id
     label
     priority
     validity_start

@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
-<metadata>Copyright (C) 2022 by original authors @ fontello.com</metadata>
+<metadata>Copyright (C) 2024 by original authors @ fontello.com</metadata>
 <defs>
 <font id="hsl-icons" horiz-adv-x="1000" >
 <font-face font-family="hsl-icons" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
@@ -131,6 +131,8 @@
 <glyph glyph-name="metro" unicode="&#xe83f;" d="M618 411v12c0 0 1 1 3 1v-278h84v409h-124l-78-280-1-19h-2l-2 19-78 280h-124v-409h85v278c0 0 2-1 2-1v-12l75-265h84l76 265z" horiz-adv-x="1000" />
 
 <glyph glyph-name="via" unicode="&#xe841;" d="M50 350c0-248 202-450 450-450 249 0 450 202 450 450 0 249-201 450-450 450-248 0-450-201-450-450z m950 0c0-276-224-500-500-500-276 0-500 224-500 500 0 276 224 500 500 500 276 0 500-224 500-500z m-668-175h36l103 322h-36l-71-234c-6-17-10-35-14-53-4 17-9 35-14 53l-69 234h-38l103-322z m164 0h35v322h-35v-322z m157 322l-102-322h37l29 98h110l31-98h40l-108 322h-37z m64-190h-90l29 95c6 20 11 41 15 61 4-17 10-39 18-66l28-90z" horiz-adv-x="1000" />
+
+<glyph glyph-name="open-in-new" unicode="&#xe843;" d="M792 58h-584v584h292v83h-292c-46 0-83-37-83-83v-584c0-45 37-83 83-83h584c46 0 83 38 83 83v292h-83v-292z m-209 667v-83h150l-410-410 59-59 410 410v-150h83v292h-292z" horiz-adv-x="1000" />
 
 <glyph glyph-name="time2-1" unicode="&#xe87e;" d="M0 350c0 276 224 500 500 500 276 0 500-224 500-500 0-276-224-500-500-500-276 0-500 224-500 500z m458-208c0-23 19-42 42-42 23 0 42 19 42 42 0 23-19 41-42 41-23 0-42-18-42-41z m0 583v-167h84v80c141-20 250-141 250-288 0-161-131-292-292-292-161 0-292 131-292 292 0 70 25 134 66 184l226-226 59 59-284 283v0c-91-69-150-177-150-300 0-207 168-375 375-375 207 0 375 168 375 375 0 207-168 375-375 375h-42z m292-375c0 23-19 42-42 42-23 0-41-19-41-42 0-23 18-42 41-42 23 0 42 19 42 42z m-500 0c0-23 19-42 42-42 23 0 41 19 41 42 0 23-18 42-41 42-23 0-42-19-42-42z" horiz-adv-x="1000" />
 
