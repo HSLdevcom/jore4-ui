@@ -29,6 +29,9 @@
     "showStopActions": "More actions for the stop {{stopLabel}}",
     "bus": "Bus route"
   },
+  "stops": {
+    "showStopDetails": "Show details for stop {{ stopLabel }}"
+  },
   "timetables": {
     "icon": "Timetable",
     "changeValidityPeriod": "Change the validity period for {{dayType}}",
