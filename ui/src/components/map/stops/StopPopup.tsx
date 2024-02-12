@@ -4,6 +4,7 @@ import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl';
 import { StopPopupInfoFragment } from '../../../generated/graphql';
 import { Column, Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import { mapLngLatToPoint, mapToValidityPeriod } from '../../../utils';
 import { PriorityBadge } from '../PriorityBadge';
@@ -18,6 +19,7 @@ interface Props {
 
 const GQL_STOP_POPUP_INFO = gql`
   fragment stop_popup_info on service_pattern_scheduled_stop_point {
+    scheduled_stop_point_id
     label
     priority
     validity_start
@@ -27,6 +29,7 @@ const GQL_STOP_POPUP_INFO = gql`
 `;
 
 const testIds = {
+  label: 'StopPopUp::label',
   moveButton: 'StopPopUp::moveButton',
   editButton: 'StopPopUp::editButton',
   deleteButton: 'StopPopUp::deleteButton',
@@ -42,7 +45,7 @@ export const StopPopup = ({
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   // eslint-disable-next-line camelcase
-  const { label, priority, validity_start, validity_end } = stop;
+  const { label: stopLabel, priority, validity_start, validity_end } = stop;
   const location = mapLngLatToPoint(stop.measured_location.coordinates);
   return (
     <Popup
@@ -59,7 +62,22 @@ export const StopPopup = ({
         <Row>
           <Column className="w-full">
             <Row>
-              <h3>{t('stops.stopWithLabel', { stopLabel: label })}</h3>
+              <h3>
+                <a
+                  href={routeDetails[Path.stopDetails].getLink(
+                    stop.scheduled_stop_point_id,
+                  )}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-testid={testIds.label}
+                  title={t('accessibility:stops.showStopDetails', {
+                    stopLabel,
+                  })}
+                >
+                  {t('stops.stopWithLabel', { stopLabel })}
+                  <i className="icon-open-in-new" />
+                </a>
+              </h3>
               <CloseIconButton
                 className="ml-auto"
                 onClick={onClose}
