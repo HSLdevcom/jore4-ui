@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl';
 import { StopWithLocation } from '../../../graphql';
-import { Column, Row } from '../../../layoutComponents';
+import { Column, Row, Visible } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import { mapLngLatToPoint, mapToValidityPeriod } from '../../../utils';
@@ -37,7 +37,7 @@ export const StopPopup = ({
   const location = mapLngLatToPoint(stop.measured_location.coordinates);
   return (
     <Popup
-      className="w-80"
+      className="min-w-80"
       tipSize={10}
       offsetTop={25}
       anchor="top"
@@ -49,7 +49,7 @@ export const StopPopup = ({
       <div className="p-2">
         <Row>
           <Column className="w-full">
-            <Row>
+            <Row className="items-center">
               <h3>
                 <a
                   href={routeDetails[Path.stopDetails].getLink(
@@ -66,6 +66,14 @@ export const StopPopup = ({
                   <i className="icon-open-in-new" />
                 </a>
               </h3>
+              <Visible visible={!!stop.timing_place?.label}>
+                <span
+                  className="text-sm text-hsl-dark-80"
+                  title={t('accessibility:stops.timingPlace')}
+                >
+                  {stop.timing_place?.label}
+                </span>
+              </Visible>
               <CloseIconButton
                 className="ml-auto"
                 onClick={onClose}
