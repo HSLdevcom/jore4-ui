@@ -124,7 +124,7 @@ export const routeDetails: Record<Path, RouteDetail> = {
 
   // Stop registry
   [Path.stopDetails]: {
-    getLink: () => Path.stopDetails,
+    getLink: (id: string) => Path.stopDetails.replace(':id', id),
     translationKey: 'stops.stop',
     includeInNav: false,
   },
