@@ -1,8 +1,7 @@
-import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl';
-import { StopPopupInfoFragment } from '../../../generated/graphql';
+import { StopWithLocation } from '../../../graphql';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
@@ -10,23 +9,12 @@ import { mapLngLatToPoint, mapToValidityPeriod } from '../../../utils';
 import { PriorityBadge } from '../PriorityBadge';
 
 interface Props {
-  stop: StopPopupInfoFragment;
+  stop: Required<StopWithLocation>;
   onEdit: () => void;
   onMove: () => void;
   onClose: () => void;
   onDelete: () => void;
 }
-
-const GQL_STOP_POPUP_INFO = gql`
-  fragment stop_popup_info on service_pattern_scheduled_stop_point {
-    scheduled_stop_point_id
-    label
-    priority
-    validity_start
-    validity_end
-    measured_location
-  }
-`;
 
 const testIds = {
   label: 'StopPopUp::label',
