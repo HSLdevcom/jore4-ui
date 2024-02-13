@@ -1,5 +1,5 @@
 import distance from '@turf/distance';
-import { point, Units } from '@turf/helpers';
+import { Units, point } from '@turf/helpers';
 import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
 import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';

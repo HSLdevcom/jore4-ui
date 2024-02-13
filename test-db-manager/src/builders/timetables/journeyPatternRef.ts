@@ -5,8 +5,8 @@ import {
   JourneyPatternRefInsertInputDeep,
 } from '../../types';
 import {
-  buildStopInJourneyPatternSequence,
   StopInJourneyPatternSequenceBuilder,
+  buildStopInJourneyPatternSequence,
 } from './stopInJourneyPatternRef';
 
 export type JourneyPatternRefInstanceBuilder =

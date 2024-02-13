@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { StopWithLocation } from '../../graphql';
-import { mapToStoreType, StoreType } from '../mappers/storeType';
+import { StoreType, mapToStoreType } from '../mappers/storeType';
 
 export interface MapStopEditorState {
   selectedStopId?: UUID;

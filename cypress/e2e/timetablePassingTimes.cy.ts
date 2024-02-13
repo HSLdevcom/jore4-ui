@@ -1,21 +1,21 @@
 import {
   GetInfrastructureLinksByExternalIdsResult,
+  InfraLinkAlongRouteInsertInput,
+  JourneyPatternInsertInput,
+  LineInsertInput,
+  RouteDirectionEnum,
+  RouteInsertInput,
+  RouteTypeOfLineEnum,
+  StopInJourneyPatternInsertInput,
+  StopInsertInput,
+  TimetablePriority,
   buildLine,
   buildRoute,
   buildStop,
   buildStopInJourneyPattern,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
-  InfraLinkAlongRouteInsertInput,
-  JourneyPatternInsertInput,
-  LineInsertInput,
   mapToGetInfrastructureLinksByExternalIdsQuery,
-  RouteDirectionEnum,
-  RouteInsertInput,
-  RouteTypeOfLineEnum,
-  StopInsertInput,
-  TimetablePriority,
-  StopInJourneyPatternInsertInput,
 } from '@hsl/jore4-test-db-manager';
 import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
@@ -28,9 +28,9 @@ import {
 } from '../pageObjects';
 import { UUID } from '../types';
 import {
+  SupportedResources,
   insertToDbHelper,
   removeFromDbHelper,
-  SupportedResources,
 } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.

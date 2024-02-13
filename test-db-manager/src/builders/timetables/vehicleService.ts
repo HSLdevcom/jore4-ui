@@ -5,14 +5,14 @@ import {
   VehicleServiceInsertInput,
   VehicleServiceInsertInputDeep,
 } from '../../types';
-import { buildCount, Count } from '../common';
+import { Count, buildCount } from '../common';
 import { buildLocalizedString } from '../entities';
 import {
   BlockSequenceBuilder,
   buildBlockSequence,
   defaultBlockSequenceParams,
 } from './block';
-import { buildTimeSequence, TimeSequenceParams } from './timeSequence';
+import { TimeSequenceParams, buildTimeSequence } from './timeSequence';
 import { defaultTimetabledPassingTimeParams } from './timetabledPassingTime';
 import { defaultVehicleJourneySequenceParams } from './vehicleJourney';
 

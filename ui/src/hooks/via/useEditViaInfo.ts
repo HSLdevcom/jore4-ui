@@ -4,7 +4,7 @@ import {
   PatchScheduledStopPointViaInfoMutationVariables,
   usePatchScheduledStopPointViaInfoMutation,
 } from '../../generated/graphql';
-import { extendHook, MutationHook } from '../mutationHook';
+import { MutationHook, extendHook } from '../mutationHook';
 
 type ViaInfoPatch = Pick<
   JourneyPatternScheduledStopPointInJourneyPatternSetInput,

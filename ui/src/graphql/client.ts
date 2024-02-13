@@ -1,15 +1,15 @@
 import {
   ApolloClient,
-  from,
   HttpLink,
   InMemoryCache,
+  from,
   split,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { withScalars } from 'apollo-link-scalars';
-import { buildClientSchema, IntrospectionQuery } from 'graphql';
+import { IntrospectionQuery, buildClientSchema } from 'graphql';
 import isString from 'lodash/isString';
 import { DateTime, Duration } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';

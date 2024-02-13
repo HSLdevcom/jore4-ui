@@ -8,15 +8,15 @@ import {
 } from '../../types';
 import {
   ArrayItemPickMethod,
-  buildCount,
   Count,
+  buildCount,
   pickArrayItem,
 } from '../common';
 import { buildLocalizedString } from '../entities';
-import { buildTimeSequence, TimeSequenceParams } from './timeSequence';
+import { TimeSequenceParams, buildTimeSequence } from './timeSequence';
 import {
-  buildTimetabledPassingTimeSequence,
   TimetabledPassingTimeSequenceBuilder,
+  buildTimetabledPassingTimeSequence,
 } from './timetabledPassingTime';
 
 /** Parameters for building a single vehicle journey instance */

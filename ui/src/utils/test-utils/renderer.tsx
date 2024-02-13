@@ -1,7 +1,7 @@
 // Based on https://testing-library.com/docs/react-testing-library/setup#custom-render
 
 import { MockedProvider } from '@apollo/client/testing';
-import { render, RenderOptions } from '@testing-library/react';
+import { RenderOptions, render } from '@testing-library/react';
 import React, { FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ReduxProvider } from '../../redux';

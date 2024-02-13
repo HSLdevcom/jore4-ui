@@ -4,9 +4,9 @@ import nearestPointOnLine from '@turf/nearest-point-on-line';
 import pointToLineDistance from '@turf/point-to-line-distance';
 import { Coords } from '../../types';
 import {
-  createGeometryLineBetweenPoints,
   Geometry,
   MaplibreGLMap,
+  createGeometryLineBetweenPoints,
   removeLayer,
 } from './mapUtils';
 

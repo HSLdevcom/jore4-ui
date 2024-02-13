@@ -7,9 +7,9 @@ import {
   TimetabledPassingTimeInsertInput,
 } from '../../types';
 import {
+  TimeSequenceParams,
   buildPassingTimeSequence,
   buildTimeSequence,
-  TimeSequenceParams,
 } from './timeSequence';
 
 /** Parameters for building a single timetabled passing time instance */

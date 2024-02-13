@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Viewport } from '../types';
 
 export const HELSINKI_CITY_CENTER_COORDINATES = {
