@@ -1,9 +1,9 @@
 import {
-  buildLine,
-  buildRoute,
   LineInsertInput,
   RouteInsertInput,
   RouteTypeOfLineEnum,
+  buildLine,
+  buildRoute,
 } from '@hsl/jore4-test-db-manager';
 import { Tag } from '../enums';
 import { RoutesAndLinesPage, SearchResultsPage } from '../pageObjects';

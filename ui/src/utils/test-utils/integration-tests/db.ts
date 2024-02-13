@@ -1,12 +1,16 @@
 import {
+  InfraLinkAlongRouteInsertInput,
+  InfraLinkInsertInput,
+  JourneyPatternInsertInput,
+  LineInsertInput,
+  RouteInsertInput,
+  StopInJourneyPatternInsertInput,
+  StopInsertInput,
+  VehicleSubmodeOnInfraLinkInsertInput,
   e2eDatabaseConfig,
   getDbConnection,
   hasuraApi,
-  InfraLinkAlongRouteInsertInput,
-  InfraLinkInsertInput,
   insertVehicleSubmodeOnInfraLink,
-  JourneyPatternInsertInput,
-  LineInsertInput,
   mapToCreateInfraLinkAlongRouteMutation,
   mapToCreateInfraLinksMutation,
   mapToCreateJourneyPatternsMutation,
@@ -22,10 +26,6 @@ import {
   mapToDeleteStopsInJourneyPatternMutation,
   mapToDeleteStopsMutation,
   removeVehicleSubmodeOnInfraLink,
-  RouteInsertInput,
-  StopInJourneyPatternInsertInput,
-  StopInsertInput,
-  VehicleSubmodeOnInfraLinkInsertInput,
 } from '@hsl/jore4-test-db-manager';
 
 const logOnError = (message: string, res: ExplicitAny) => {

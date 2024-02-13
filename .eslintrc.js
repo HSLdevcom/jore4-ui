@@ -124,6 +124,8 @@ module.exports = {
         ],
       },
     ],
+    // Sort members of each import, since import/order rule does not take care of that.
+    'sort-imports': ['error', { ignoreDeclarationSort: true }],
     'import/order': [
       // require imports to be sorted like vscode automatically does with its "organize imports" feature.
       // https://code.visualstudio.com/docs/languages/typescript#_organize-imports

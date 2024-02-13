@@ -1,15 +1,15 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import {
-  oldVisit,
   PluginFunction,
   Types,
+  oldVisit,
 } from '@graphql-codegen/plugin-helpers';
 import { LoadedFragment } from '@graphql-codegen/visitor-plugin-common';
 import {
-  concatAST,
   FragmentDefinitionNode,
   GraphQLSchema,
   Kind,
+  concatAST,
 } from 'graphql';
 import { AsyncQueryRawPluginConfig, ReactApolloVisitor } from './visitor';
 

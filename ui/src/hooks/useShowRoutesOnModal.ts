@@ -13,9 +13,9 @@ import { getRouteShapeFirstCoordinates } from '../utils/routeShape';
 import { useAppDispatch } from './redux';
 import {
   DisplayedRouteParams,
+  ViewPortParams,
   useMapQueryParams,
   useObservationDateQueryParam,
-  ViewPortParams,
 } from './urlQuery';
 
 const GQL_ROUTE_MAP_PARAMS = gql`

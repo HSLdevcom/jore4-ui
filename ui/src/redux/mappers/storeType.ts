@@ -3,9 +3,9 @@ import { DateTime } from 'luxon';
 import { isLine, isRoute, isStop } from '../../graphql';
 import { isDateLike, parseDate } from '../../time';
 import {
+  PlainObject,
   getObjectStringKeys,
   isPlainObject,
-  PlainObject,
 } from '../../utils/object';
 
 // types that must be serialized

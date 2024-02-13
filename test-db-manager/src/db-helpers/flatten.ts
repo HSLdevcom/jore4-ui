@@ -6,7 +6,7 @@ import {
   VehicleScheduleFrameInsertInputDeep,
   VehicleServiceInsertInputDeep,
 } from '../types/inputs';
-import { mergeTimetablesResources, TimetablesResources } from './timetables';
+import { TimetablesResources, mergeTimetablesResources } from './timetables';
 
 const flattenVehicleJourney = (
   vehicleJourney: VehicleJourneyInsertInputDeep,

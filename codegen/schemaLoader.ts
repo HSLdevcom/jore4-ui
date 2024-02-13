@@ -1,4 +1,4 @@
-import { loadSchema, LoadSchemaOptions } from '@graphql-tools/load';
+import { LoadSchemaOptions, loadSchema } from '@graphql-tools/load';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { gql } from 'graphql-tag';

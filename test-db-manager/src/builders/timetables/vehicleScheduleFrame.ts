@@ -6,8 +6,8 @@ import {
 } from '../../types';
 import { buildLocalizedString } from '../entities';
 import {
-  buildVehicleServiceSequencesByDayType,
   VehicleServiceSequenceByDayTypeBuilder,
+  buildVehicleServiceSequencesByDayType,
 } from './vehicleService';
 
 export type VehicleScheduleFrameInstanceBuilder = RequiredKeys<
