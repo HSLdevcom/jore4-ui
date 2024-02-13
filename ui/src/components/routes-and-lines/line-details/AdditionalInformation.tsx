@@ -12,13 +12,12 @@ import { EditButton } from '../../../uiComponents';
 import { FieldValue } from './FieldValue';
 
 const testIds = {
-  editLineButton: 'LineDetailsPage::AdditionalInformation::editLineButton',
-  name: 'LineDetailsPage::AdditionalInformation::name',
-  primaryVehicleMode:
-    'LineDetailsPage::AdditionalInformation::primaryVehicleMode',
-  label: 'LineDetailsPage::AdditionalInformation::label',
-  typeOfLine: 'LineDetailsPage::AdditionalInformation::typeOfLine',
-  transportTarget: 'LineDetailsPage::AdditionalInformation::transportTarget',
+  editLineButton: 'AdditionalInformation::editLineButton',
+  name: 'AdditionalInformation::name',
+  primaryVehicleMode: 'AdditionalInformation::primaryVehicleMode',
+  label: 'AdditionalInformation::label',
+  typeOfLine: 'AdditionalInformation::typeOfLine',
+  transportTarget: 'AdditionalInformation::transportTarget',
 };
 
 interface Props {

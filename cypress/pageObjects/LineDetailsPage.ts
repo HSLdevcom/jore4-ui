@@ -12,32 +12,26 @@ export class LineDetailsPage {
   }
 
   getEditLineButton() {
-    return cy.getByTestId(
-      'LineDetailsPage::AdditionalInformation::editLineButton',
-    );
+    return cy.getByTestId('AdditionalInformation::editLineButton');
   }
 
   getLineName() {
-    return cy.getByTestId('LineDetailsPage::AdditionalInformation::name');
+    return cy.getByTestId('AdditionalInformation::name');
   }
 
   getLineLabel() {
-    return cy.getByTestId('LineDetailsPage::AdditionalInformation::label');
+    return cy.getByTestId('AdditionalInformation::label');
   }
 
   getTypeOfLine() {
-    return cy.getByTestId('LineDetailsPage::AdditionalInformation::typeOfLine');
+    return cy.getByTestId('AdditionalInformation::typeOfLine');
   }
 
   getTransportTarget() {
-    return cy.getByTestId(
-      'LineDetailsPage::AdditionalInformation::transportTarget',
-    );
+    return cy.getByTestId('AdditionalInformation::transportTarget');
   }
 
   getPrimaryVehicleMode() {
-    return cy.getByTestId(
-      'LineDetailsPage::AdditionalInformation::primaryVehicleMode',
-    );
+    return cy.getByTestId('AdditionalInformation::primaryVehicleMode');
   }
 }
