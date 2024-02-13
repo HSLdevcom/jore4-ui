@@ -2,7 +2,7 @@ import {
   RemoveScheduledStopPointViaInfoMutationVariables,
   useRemoveScheduledStopPointViaInfoMutation,
 } from '../../generated/graphql';
-import { extendHook, MutationHook } from '../mutationHook';
+import { MutationHook, extendHook } from '../mutationHook';
 
 interface RemoveParams {
   journeyPatternId: UUID;

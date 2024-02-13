@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import uniq from 'lodash/uniq';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
@@ -7,7 +7,7 @@ import {
   RouteStopFieldsFragment,
 } from '../../generated/graphql';
 import { RouteInfraLink } from '../../graphql';
-import { mapToStoreType, StoreType } from '../mappers/storeType';
+import { StoreType, mapToStoreType } from '../mappers/storeType';
 import { JourneyPattern } from '../types';
 
 export interface EditedRouteData {

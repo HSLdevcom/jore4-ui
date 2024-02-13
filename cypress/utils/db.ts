@@ -2,6 +2,10 @@ import {
   InfraLinkAlongRouteInsertInput,
   JourneyPatternInsertInput,
   LineInsertInput,
+  RouteInsertInput,
+  StopInJourneyPatternInsertInput,
+  StopInsertInput,
+  TimingPatternTimingPlaceInsertInput,
   mapToCreateInfraLinkAlongRouteMutation,
   mapToCreateJourneyPatternsMutation,
   mapToCreateLinesMutation,
@@ -16,10 +20,6 @@ import {
   mapToDeleteStopsInJourneyPatternMutation,
   mapToDeleteStopsMutation,
   mapToDeleteTimingPlacesMutation,
-  RouteInsertInput,
-  StopInJourneyPatternInsertInput,
-  StopInsertInput,
-  TimingPatternTimingPlaceInsertInput,
 } from '@hsl/jore4-test-db-manager';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

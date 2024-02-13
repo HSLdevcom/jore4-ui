@@ -16,8 +16,8 @@ import {
 } from '../../../redux';
 import { stopInJourneyPatternFieldsToRemove } from '../../../utils';
 import {
-  routeFormSchema,
   RouteFormState,
+  routeFormSchema,
 } from '../../forms/route/RoutePropertiesForm.types';
 import { EditRouteModal } from './EditRouteModal';
 

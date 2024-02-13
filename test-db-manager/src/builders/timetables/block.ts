@@ -5,12 +5,12 @@ import {
   BlockInsertInputDeep,
   VehicleServiceBlockInsertInput,
 } from '../../types';
-import { buildCount, Count } from '../common';
-import { buildTimeSequence, TimeSequenceParams } from './timeSequence';
+import { Count, buildCount } from '../common';
+import { TimeSequenceParams, buildTimeSequence } from './timeSequence';
 import {
+  VehicleJourneySequenceBuilder,
   buildVehicleJourneySequence,
   getVehicleJourneyTimes,
-  VehicleJourneySequenceBuilder,
 } from './vehicleJourney';
 
 export type BlockInstanceBuilder = Partial<VehicleServiceBlockInsertInput>;
