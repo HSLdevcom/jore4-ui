@@ -7745,6 +7745,9 @@ export type ServicePatternScheduledStopPoint = {
   scheduled_stop_point_in_journey_patterns: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** An aggregate relationship */
   scheduled_stop_point_in_journey_patterns_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
+  stop_place?: Maybe<Array<Maybe<StopRegistryStopPlaceInterface>>>;
+  /** The id of the related stop place in stop registry database. */
+  stop_place_ref?: Maybe<Scalars['String']>;
   /** An object relationship */
   timing_place?: Maybe<TimingPatternTimingPlace>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
@@ -7804,6 +7807,33 @@ export type ServicePatternScheduledStopPointScheduledStopPointInJourneyPatternsA
     >;
     where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   };
+
+/** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
+export type ServicePatternScheduledStopPointStopPlaceArgs = {
+  allVersions?: InputMaybe<Scalars['Boolean']>;
+  code?: InputMaybe<Scalars['String']>;
+  countryReference?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  countyReference?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  hasParking?: InputMaybe<Scalars['Boolean']>;
+  importedId?: InputMaybe<Scalars['String']>;
+  key?: InputMaybe<Scalars['String']>;
+  municipalityReference?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  onlyMonomodalStopPlaces?: InputMaybe<Scalars['Boolean']>;
+  page?: InputMaybe<Scalars['Int']>;
+  pointInTime?: InputMaybe<Scalars['stop_registry_DateTime']>;
+  query?: InputMaybe<Scalars['String']>;
+  size?: InputMaybe<Scalars['Int']>;
+  stopPlaceType?: InputMaybe<Array<InputMaybe<StopRegistryStopPlaceType>>>;
+  tags?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  values?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  version?: InputMaybe<Scalars['Int']>;
+  versionValidity?: InputMaybe<StopRegistryVersionValidity>;
+  withDuplicatedQuayImportedIds?: InputMaybe<Scalars['Boolean']>;
+  withNearbySimilarDuplicates?: InputMaybe<Scalars['Boolean']>;
+  withTags?: InputMaybe<Scalars['Boolean']>;
+  withoutLocationOnly?: InputMaybe<Scalars['Boolean']>;
+  withoutQuaysOnly?: InputMaybe<Scalars['Boolean']>;
+};
 
 /** The scheduled stop points: https://www.transmodel-cen.eu/model/index.htm?goto=2:3:4:845 . Colloquially known as stops from the perspective of timetable planning. */
 export type ServicePatternScheduledStopPointVehicleModeOnScheduledStopPointArgs =
@@ -7926,6 +7956,7 @@ export type ServicePatternScheduledStopPointBoolExp = {
   scheduled_stop_point_id?: InputMaybe<UuidComparisonExp>;
   scheduled_stop_point_in_journey_patterns?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
   scheduled_stop_point_in_journey_patterns_aggregate?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateBoolExp>;
+  stop_place_ref?: InputMaybe<StringComparisonExp>;
   timing_place?: InputMaybe<TimingPatternTimingPlaceBoolExp>;
   timing_place_id?: InputMaybe<UuidComparisonExp>;
   validity_end?: InputMaybe<DateComparisonExp>;
@@ -7938,6 +7969,8 @@ export type ServicePatternScheduledStopPointBoolExp = {
 export enum ServicePatternScheduledStopPointConstraint {
   /** unique or primary key constraint on columns "scheduled_stop_point_id" */
   ScheduledStopPointPkey = 'scheduled_stop_point_pkey',
+  /** unique or primary key constraint on columns "stop_place_ref" */
+  ScheduledStopPointStopPlaceRefIdx = 'scheduled_stop_point_stop_place_ref_idx',
 }
 
 export type ServicePatternScheduledStopPointInJourneyPatternRefAggregateBoolExp =
@@ -7976,6 +8009,8 @@ export type ServicePatternScheduledStopPointInsertInput = {
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
   scheduled_stop_point_in_journey_patterns?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternArrRelInsertInput>;
+  /** The id of the related stop place in stop registry database. */
+  stop_place_ref?: InputMaybe<Scalars['String']>;
   timing_place?: InputMaybe<TimingPatternTimingPlaceObjRelInsertInput>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: InputMaybe<Scalars['uuid']>;
@@ -7998,6 +8033,8 @@ export type ServicePatternScheduledStopPointMaxFields = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  /** The id of the related stop place in stop registry database. */
+  stop_place_ref?: Maybe<Scalars['String']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<Scalars['uuid']>;
   /** end of the operating date span in the scheduled stop point's local time (inclusive). */
@@ -8015,6 +8052,8 @@ export type ServicePatternScheduledStopPointMaxOrderBy = {
   priority?: InputMaybe<OrderBy>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: InputMaybe<OrderBy>;
+  /** The id of the related stop place in stop registry database. */
+  stop_place_ref?: InputMaybe<OrderBy>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: InputMaybe<OrderBy>;
   /** end of the operating date span in the scheduled stop point's local time (inclusive). */
@@ -8035,6 +8074,8 @@ export type ServicePatternScheduledStopPointMinFields = {
   relative_distance_from_infrastructure_link_start?: Maybe<Scalars['float8']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: Maybe<Scalars['uuid']>;
+  /** The id of the related stop place in stop registry database. */
+  stop_place_ref?: Maybe<Scalars['String']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: Maybe<Scalars['uuid']>;
   /** end of the operating date span in the scheduled stop point's local time (inclusive). */
@@ -8052,6 +8093,8 @@ export type ServicePatternScheduledStopPointMinOrderBy = {
   priority?: InputMaybe<OrderBy>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: InputMaybe<OrderBy>;
+  /** The id of the related stop place in stop registry database. */
+  stop_place_ref?: InputMaybe<OrderBy>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: InputMaybe<OrderBy>;
   /** end of the operating date span in the scheduled stop point's local time (inclusive). */
@@ -8089,6 +8132,7 @@ export type ServicePatternScheduledStopPointOrderBy = {
   relative_distance_from_infrastructure_link_start?: InputMaybe<OrderBy>;
   scheduled_stop_point_id?: InputMaybe<OrderBy>;
   scheduled_stop_point_in_journey_patterns_aggregate?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternAggregateOrderBy>;
+  stop_place_ref?: InputMaybe<OrderBy>;
   timing_place?: InputMaybe<TimingPatternTimingPlaceOrderBy>;
   timing_place_id?: InputMaybe<OrderBy>;
   validity_end?: InputMaybe<OrderBy>;
@@ -8117,6 +8161,8 @@ export enum ServicePatternScheduledStopPointSelectColumn {
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
   /** column name */
+  StopPlaceRef = 'stop_place_ref',
+  /** column name */
   TimingPlaceId = 'timing_place_id',
   /** column name */
   ValidityEnd = 'validity_end',
@@ -8137,6 +8183,8 @@ export type ServicePatternScheduledStopPointSetInput = {
   priority?: InputMaybe<Scalars['Int']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
+  /** The id of the related stop place in stop registry database. */
+  stop_place_ref?: InputMaybe<Scalars['String']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: InputMaybe<Scalars['uuid']>;
   /** end of the operating date span in the scheduled stop point's local time (inclusive). */
@@ -8205,6 +8253,8 @@ export type ServicePatternScheduledStopPointStreamCursorValueInput = {
   priority?: InputMaybe<Scalars['Int']>;
   /** The ID of the scheduled stop point. */
   scheduled_stop_point_id?: InputMaybe<Scalars['uuid']>;
+  /** The id of the related stop place in stop registry database. */
+  stop_place_ref?: InputMaybe<Scalars['String']>;
   /** Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing. */
   timing_place_id?: InputMaybe<Scalars['uuid']>;
   /** end of the operating date span in the scheduled stop point's local time (inclusive). */
@@ -8240,6 +8290,8 @@ export enum ServicePatternScheduledStopPointUpdateColumn {
   Priority = 'priority',
   /** column name */
   ScheduledStopPointId = 'scheduled_stop_point_id',
+  /** column name */
+  StopPlaceRef = 'stop_place_ref',
   /** column name */
   TimingPlaceId = 'timing_place_id',
   /** column name */
@@ -9513,6 +9565,7 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   privateCode?: Maybe<StopRegistryPrivateCode>;
   publicCode?: Maybe<Scalars['String']>;
   quays?: Maybe<Array<Maybe<StopRegistryQuay>>>;
+  scheduled_stop_point?: Maybe<ServicePatternScheduledStopPoint>;
   shortName?: Maybe<StopRegistryEmbeddableMultilingualString>;
   stopPlaceType?: Maybe<StopRegistryStopPlaceType>;
   submode?: Maybe<StopRegistrySubmodeType>;

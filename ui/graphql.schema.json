@@ -47737,6 +47737,335 @@
             "deprecationReason": null
           },
           {
+            "name": "stop_place",
+            "description": null,
+            "args": [
+              {
+                "name": "allVersions",
+                "description": "Fetch all versions for entitites in result. Should not be combined with argument versionValidity",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "code",
+                "description": "Filter results by data producer code space - i.e. code from original imported ID",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "countryReference",
+                "description": "Only return StopPlaces located in given countries.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "countyReference",
+                "description": "Only return StopPlaces located in given counties.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "hasParking",
+                "description": "hasParking",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "importedId",
+                "description": "Searches for StopPlace by importedId.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "key",
+                "description": "Must be used together with parameter 'values', other search-parameters are ignored. Defines key to search for.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "municipalityReference",
+                "description": "Only return StopPlaces located in given municipalities.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "onlyMonomodalStopPlaces",
+                "description": "Set to true to only return mono modal stop places.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "Pagenumber when using pagination - default is 0",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": "0",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pointInTime",
+                "description": "Sets the point in time to use in search. Only StopPlaces valid on the given timestamp will be returned. If no value is provided, the search will fall back versionValidity's default value. Cannot be combined with versionValidity Date format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "stop_registry_DateTime",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "query",
+                "description": "Searches for StopPlace by name, id, imported-id, merged-id or a single tag prefixed with #",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "size",
+                "description": "Number of hits per page when using pagination - default is 20",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": "20",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "stopPlaceType",
+                "description": "Only return StopPlaces with given StopPlaceType(s).",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "stop_registry_StopPlaceType",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "tags",
+                "description": "Only return StopPlaces reffered to by the tag names provided. Values should not start with #",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "values",
+                "description": "Must be used together with parameter 'key', other search-parameters are ignored. Defines value to search for.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "version",
+                "description": "Find stop place from id and version. Only used together with id argument",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "versionValidity",
+                "description": "Find stop place from id and version. Only used together with id argument",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "stop_registry_VersionValidity",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "withDuplicatedQuayImportedIds",
+                "description": "Set to true to only return stop places that have quays with duplicated imported IDs.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "withNearbySimilarDuplicates",
+                "description": "withNearbySimilarDuplicates",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "withTags",
+                "description": "If set to true, only stop places with valid tags are returned. If false, filter does not apply.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "withoutLocationOnly",
+                "description": "Set to true to only return objects that do not have coordinates.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "withoutQuaysOnly",
+                "description": "withoutQuaysOnly",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "INTERFACE",
+                "name": "stop_registry_StopPlaceInterface",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "stop_place_ref",
+            "description": "The id of the related stop place in stop registry database.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timing_place",
             "description": "An object relationship",
             "args": [],
@@ -48768,6 +49097,18 @@
             "deprecationReason": null
           },
           {
+            "name": "stop_place_ref",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timing_place",
             "description": null,
             "type": {
@@ -48855,6 +49196,12 @@
           {
             "name": "scheduled_stop_point_pkey",
             "description": "unique or primary key constraint on columns \"scheduled_stop_point_id\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_point_stop_place_ref_idx",
+            "description": "unique or primary key constraint on columns \"stop_place_ref\"",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -49113,6 +49460,18 @@
             "deprecationReason": null
           },
           {
+            "name": "stop_place_ref",
+            "description": "The id of the related stop place in stop registry database.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timing_place",
             "description": null,
             "type": {
@@ -49243,6 +49602,18 @@
             "deprecationReason": null
           },
           {
+            "name": "stop_place_ref",
+            "description": "The id of the related stop place in stop registry database.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timing_place_id",
             "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
             "args": [],
@@ -49329,6 +49700,18 @@
           {
             "name": "scheduled_stop_point_id",
             "description": "The ID of the scheduled stop point.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "stop_place_ref",
+            "description": "The id of the related stop place in stop registry database.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -49445,6 +49828,18 @@
             "deprecationReason": null
           },
           {
+            "name": "stop_place_ref",
+            "description": "The id of the related stop place in stop registry database.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timing_place_id",
             "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
             "args": [],
@@ -49531,6 +49926,18 @@
           {
             "name": "scheduled_stop_point_id",
             "description": "The ID of the scheduled stop point.",
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "stop_place_ref",
+            "description": "The id of the related stop place in stop registry database.",
             "type": {
               "kind": "ENUM",
               "name": "order_by",
@@ -49834,6 +50241,18 @@
             "deprecationReason": null
           },
           {
+            "name": "stop_place_ref",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timing_place",
             "description": null,
             "type": {
@@ -49970,6 +50389,12 @@
             "deprecationReason": null
           },
           {
+            "name": "stop_place_ref",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timing_place_id",
             "description": "column name",
             "isDeprecated": false,
@@ -50062,6 +50487,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "stop_place_ref",
+            "description": "The id of the related stop place in stop registry database.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -50401,6 +50838,18 @@
             "deprecationReason": null
           },
           {
+            "name": "stop_place_ref",
+            "description": "The id of the related stop place in stop registry database.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timing_place_id",
             "description": "Optional reference to a TIMING PLACE. If NULL, the SCHEDULED STOP POINT is not used for timing.",
             "type": {
@@ -50539,6 +50988,12 @@
           },
           {
             "name": "scheduled_stop_point_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "stop_place_ref",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -59671,6 +60126,18 @@
                 "name": "stop_registry_Quay",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduled_stop_point",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "service_pattern_scheduled_stop_point",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
