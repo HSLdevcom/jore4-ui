@@ -22455,6 +22455,7 @@ export type GetStopDetailsByIdQuery = {
   __typename?: 'query_root';
   service_pattern_scheduled_stop_point_by_pk?: {
     __typename?: 'service_pattern_scheduled_stop_point';
+    stop_place_ref?: string | null;
     priority: number;
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
@@ -22463,12 +22464,63 @@ export type GetStopDetailsByIdQuery = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place?: Array<
+      | { __typename?: 'stop_registry_ParentStopPlace' }
+      | {
+          __typename?: 'stop_registry_StopPlace';
+          id?: string | null;
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          alternativeNames?: Array<{
+            __typename?: 'stop_registry_AlternativeName';
+            nameType: StopRegistryNameType;
+            name: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            };
+          } | null> | null;
+          keyValues?: Array<{
+            __typename?: 'stop_registry_KeyValues';
+            key?: string | null;
+            values?: Array<string | null> | null;
+          } | null> | null;
+        }
+      | null
+    > | null;
     timing_place?: {
       __typename?: 'timing_pattern_timing_place';
       timing_place_id: UUID;
       label: string;
     } | null;
   } | null;
+};
+
+export type StopPlaceDetailsFragment = {
+  __typename?: 'stop_registry_StopPlace';
+  id?: string | null;
+  name?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
+  alternativeNames?: Array<{
+    __typename?: 'stop_registry_AlternativeName';
+    nameType: StopRegistryNameType;
+    name: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      lang?: string | null;
+      value?: string | null;
+    };
+  } | null> | null;
+  keyValues?: Array<{
+    __typename?: 'stop_registry_KeyValues';
+    key?: string | null;
+    values?: Array<string | null> | null;
+  } | null> | null;
 };
 
 export type GetStopPlaceByLabelQueryVariables = Exact<{
@@ -24267,6 +24319,26 @@ export const RouteMetadataFragmentDoc = gql`
     validity_end
     direction
     variant
+  }
+`;
+export const StopPlaceDetailsFragmentDoc = gql`
+  fragment stop_place_details on stop_registry_StopPlace {
+    id
+    name {
+      lang
+      value
+    }
+    alternativeNames {
+      name {
+        lang
+        value
+      }
+      nameType
+    }
+    keyValues {
+      key
+      values
+    }
   }
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
@@ -27378,9 +27450,14 @@ export const GetStopDetailsByIdDocument = gql`
       scheduled_stop_point_id: $scheduled_stop_point_id
     ) {
       ...scheduled_stop_point_default_fields
+      stop_place_ref
+      stop_place {
+        ...stop_place_details
+      }
     }
   }
   ${ScheduledStopPointDefaultFieldsFragmentDoc}
+  ${StopPlaceDetailsFragmentDoc}
 `;
 
 /**

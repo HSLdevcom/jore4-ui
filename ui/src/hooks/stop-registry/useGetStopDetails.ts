@@ -1,12 +1,11 @@
 import { gql } from '@apollo/client';
-import { useCallback, useEffect, useState } from 'react';
 import {
-  GetStopPlaceByLabelQuery,
+  GetStopDetailsByIdQuery,
   ScheduledStopPointDefaultFieldsFragment,
+  StopPlaceDetailsFragment,
   StopRegistryEmbeddableMultilingualString,
   StopRegistryNameType,
   useGetStopDetailsByIdQuery,
-  useGetStopPlaceByLabelAsyncQuery,
 } from '../../generated/graphql';
 import { GqlQueryResult, hasTypeName } from '../../graphql';
 import { useRequiredParams } from '../useRequiredParams';
@@ -17,6 +16,31 @@ const GQL_GET_STOP_DETAILS_BY_ID = gql`
       scheduled_stop_point_id: $scheduled_stop_point_id
     ) {
       ...scheduled_stop_point_default_fields
+      stop_place_ref
+      stop_place {
+        ...stop_place_details
+      }
+    }
+  }
+`;
+
+const GQL_STOP_PLACE_DETAILS = gql`
+  fragment stop_place_details on stop_registry_StopPlace {
+    id
+    name {
+      lang
+      value
+    }
+    alternativeNames {
+      name {
+        lang
+        value
+      }
+      nameType
+    }
+    keyValues {
+      key
+      values
     }
   }
 `;
@@ -46,38 +70,38 @@ const GQL_GET_STOP_PLACE_BY_LABEL = gql`
   }
 `;
 
-// The items in stop place query result also contain some types that should be be there at all:
+export type StopPlace = StopPlaceDetailsFragment;
+
+// The items in stop place query result also contain some types that should not be there at all:
 // possible null values and parent stop places.
 // We want to omit those here since they're not possible.
-type ParentStopPlace = {
-  __typename?: 'stop_registry_ParentStopPlace' | undefined;
-};
-type StopPlaceResultRaw = NonNullable<
-  NonNullable<GetStopPlaceByLabelQuery['stop_registry']>['stopPlace']
->[number];
-export type StopPlace = Exclude<StopPlaceResultRaw, ParentStopPlace | null>;
-
 const isStopPlace = (
   stopPlaceResult: unknown,
 ): stopPlaceResult is Pick<StopPlace, '__typename'> => {
   return !!(
-    hasTypeName(stopPlaceResult) &&
-    // eslint-disable-next-line no-underscore-dangle
-    stopPlaceResult.__typename === 'stop_registry_StopPlace'
+    (
+      hasTypeName(stopPlaceResult) && // Null obviously does not have type name at all.
+      // eslint-disable-next-line no-underscore-dangle
+      stopPlaceResult.__typename === 'stop_registry_StopPlace'
+    ) // For parent type this would be stop_registry_ParentStopPlace
   );
 };
 
-const getStopDetailsByLabelResult = (
-  result: GqlQueryResult<GetStopPlaceByLabelQuery>,
+const getStopPlaceFromQueryResult = (
+  scheduledStopPoint: NonNullable<
+    GqlQueryResult<GetStopDetailsByIdQuery>['data']
+  >['service_pattern_scheduled_stop_point_by_pk'],
 ): StopPlace | null => {
-  const stopPlaces = result.data?.stop_registry?.stopPlace || [];
+  // Should be an object but for whatever reason always returns an array.
+  const stopPlaces = scheduledStopPoint?.stop_place || [];
 
   if (stopPlaces.length > 1) {
-    // We are querying by label, that is (should be) unique, so this shouldn't happen.
+    // We are querying by id, that is (should be) unique, so this shouldn't happen.
     console.warn('Multiple stop places found.', stopPlaces); // eslint-disable-line no-console
   }
 
   const [stopPlace] = stopPlaces;
+
   return isStopPlace(stopPlace) ? stopPlace : null;
 };
 
@@ -113,44 +137,25 @@ const enrichStopPlace = (stopPlace: StopPlace): EnrichedStopPlace => {
 
 /** Gets the stop details, including the stop place, depending on query parameters. */
 export type StopWithDetails = ScheduledStopPointDefaultFieldsFragment & {
-  stopPlace: EnrichedStopPlace | null;
+  stop_place: EnrichedStopPlace | null;
 };
 
 export const useGetStopDetails = (): {
   stopDetails: StopWithDetails | null | undefined;
 } => {
   const { id } = useRequiredParams<{ id: string }>();
-  const [stopPlace, setStopPlace] = useState<StopPlace | null>(null);
-  const [getStopPlaceByLabelQuery] = useGetStopPlaceByLabelAsyncQuery();
   // TODO: observation date?
 
   const result = useGetStopDetailsByIdQuery({
     variables: { scheduled_stop_point_id: id },
   });
   const stopDetails = result.data?.service_pattern_scheduled_stop_point_by_pk;
-
-  const fetchStopPlace = useCallback(async () => {
-    if (stopDetails) {
-      const stopPlaceResult = await getStopPlaceByLabelQuery({
-        stop_place_label: stopDetails.label,
-      });
-
-      const mappedStopPlace = getStopDetailsByLabelResult(stopPlaceResult);
-
-      if (mappedStopPlace) {
-        setStopPlace(mappedStopPlace);
-      }
-    }
-  }, [stopDetails, getStopPlaceByLabelQuery]);
-
-  useEffect(() => {
-    fetchStopPlace();
-  }, [stopDetails, fetchStopPlace]);
+  const stopPlace = getStopPlaceFromQueryResult(stopDetails);
 
   return {
     stopDetails: stopDetails && {
       ...stopDetails,
-      stopPlace: stopPlace && enrichStopPlace(stopPlace),
+      stop_place: stopPlace && enrichStopPlace(stopPlace),
     },
   };
 };
