@@ -1,7 +1,10 @@
 import {
+  StopInsertInput,
+  StopRegistryStopPlace,
   e2eDatabaseConfig,
   getDbConnection,
   hasuraApi,
+  insertStopPlaceForScheduledStopPoint,
   timetablesDatabaseConfig,
   truncateDb,
 } from '@hsl/jore4-test-db-manager';
@@ -56,6 +59,39 @@ export const hasuraAPI = (request: any) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const hasuraAPIMultiple = (requests: Array<any>) => {
   return Promise.all(requests.map((r) => hasuraApi(r)));
+};
+
+/**
+ * Inserts stop place for each stop point.
+ * The scheduled stop points and stop places are matched by index.
+ */
+export const insertStopPlaces = async ({
+  scheduledStopPoints,
+  stopPlaces,
+}: {
+  scheduledStopPoints: Array<StopInsertInput>;
+  stopPlaces: Array<Partial<StopRegistryStopPlace>>;
+}): Promise<Array<string>> => {
+  if (scheduledStopPoints.length !== stopPlaces.length) {
+    throw new Error(
+      'insertStopPlaces should be called with same amount of scheduled stop points and stop places',
+    );
+  }
+
+  const stopPlaceIds: Array<string> = [];
+  for (let index = 0; index < scheduledStopPoints.length; index++) {
+    const scheduledStopPoint = scheduledStopPoints[index];
+    const stopPlace = stopPlaces[index];
+
+    // eslint-disable-next-line no-await-in-loop
+    const stopPlaceId = await insertStopPlaceForScheduledStopPoint(
+      scheduledStopPoint.scheduled_stop_point_id,
+      stopPlace,
+    );
+    stopPlaceIds.push(stopPlaceId);
+  }
+
+  return stopPlaceIds;
 };
 
 export const truncateTimetablesDatabase = () => {

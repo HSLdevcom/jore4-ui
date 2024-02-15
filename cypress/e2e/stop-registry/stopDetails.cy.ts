@@ -1,6 +1,5 @@
 import {
   GetInfrastructureLinksByExternalIdsResult,
-  InsertStopPlaceResult,
   Priority,
   StopInsertInput,
   StopRegistryNameType,
@@ -8,10 +7,8 @@ import {
   buildStop,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
-  extractStopPlaceIdFromResponse,
   mapToDeleteStopPlaceMutation,
   mapToGetInfrastructureLinksByExternalIdsQuery,
-  mapToInsertStopPlaceMutation,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
@@ -47,12 +44,9 @@ const timingPlaces = [
   buildTimingPlace('0388c3fb-a08b-461c-8655-581f06e9c2f5', '1AURLA'),
 ];
 
-const stopLabels = ['H1122', 'H1234'];
-
 const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
   {
     name: { lang: 'fi_FI', value: 'Puistokaari' },
-    keyValues: [{ key: 'label', values: [stopLabels[0]] }],
   },
   {
     name: { lang: 'fi_FI', value: 'Lapinrinne' },
@@ -62,7 +56,6 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
         nameType: StopRegistryNameType.Translation,
       },
     ],
-    keyValues: [{ key: 'label', values: [stopLabels[1]] }],
   },
 ];
 
@@ -71,7 +64,7 @@ const buildScheduledStopPoints = (
 ): StopInsertInput[] => [
   {
     ...buildStop({
-      label: stopLabels[0],
+      label: 'H1122',
       located_on_infrastructure_link_id: infrastructureLinkIds[0],
     }),
     validity_start: DateTime.fromISO('2020-03-20'),
@@ -85,7 +78,7 @@ const buildScheduledStopPoints = (
   },
   {
     ...buildStop({
-      label: stopLabels[1],
+      label: 'H1234',
       located_on_infrastructure_link_id: infrastructureLinkIds[1],
     }),
     validity_start: DateTime.fromISO('2020-03-20'),
@@ -123,18 +116,18 @@ describe('Stop details', () => {
         stops,
       };
     });
-
-    cy.task<InsertStopPlaceResult[]>(
-      'hasuraAPIMultiple',
-      stopPlaceData.map((stopPlace) => mapToInsertStopPlaceMutation(stopPlace)),
-    ).then((responses) => {
-      stopPlaceIds = responses.map(extractStopPlaceIdFromResponse);
-    });
   });
 
   beforeEach(() => {
     removeFromDbHelper(dbResources);
     insertToDbHelper(dbResources);
+
+    cy.task<string[]>('insertStopPlaces', {
+      scheduledStopPoints: dbResources.stops,
+      stopPlaces: stopPlaceData,
+    }).then((_stopPlaceIds) => {
+      stopPlaceIds = _stopPlaceIds;
+    });
 
     stopDetailsPage = new StopDetailsPage();
 
