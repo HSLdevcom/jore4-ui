@@ -23,3 +23,12 @@ export interface InsertStopPlaceResult {
     };
   };
 }
+
+export interface UpdateScheduledStopPointStopPlaceRefResult {
+  data: {
+    update_service_pattern_scheduled_stop_point_by_pk: {
+      scheduled_stop_point_id: UUID;
+      stop_place_ref: string;
+    };
+  };
+}
