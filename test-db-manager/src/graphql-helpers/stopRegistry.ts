@@ -33,7 +33,9 @@ export const insertStopPlaceForScheduledStopPoint = async (
 
   if (!updateResult?.data?.update_service_pattern_scheduled_stop_point_by_pk) {
     throw new Error(
-      `Failed to update scheduled stop point after inserting stop place! scheduledStopPointId: ${scheduledStopPointId}, stopPlaceRef: ${stopPlaceRef}`,
+      `Failed to update scheduled stop point after inserting stop place! scheduledStopPointId: ${scheduledStopPointId}, stopPlaceRef: ${stopPlaceRef}, response: ${JSON.stringify(
+        updateResult,
+      )}`,
     );
   }
 
