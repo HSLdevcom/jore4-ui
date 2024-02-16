@@ -37,5 +37,6 @@ jobs:
         run: yarn ws:db build
 
         # Verify that the seed data generators succeed without errors, no further testing for now
+        # Only running timetables seed, because stop registry seed requires routes DB to be populated as well.
       - name: Insert seed data
-        run: yarn ws:db seed
+        run: yarn ws:db seed:timetables
