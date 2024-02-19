@@ -33,4 +33,4 @@ i18next.use(initReactI18next).init({
 export const i18n = i18next;
 
 // All the translation key paths as strings (e.g. "navigation.logout")
-export type TranslationKeys = Paths<typeof translationsJson>;
+export type TranslationKey = Paths<typeof translationsJson>;

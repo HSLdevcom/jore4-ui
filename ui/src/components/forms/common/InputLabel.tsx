@@ -1,12 +1,12 @@
 import get from 'lodash/get';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { TranslationKeys } from '../../../i18n';
+import { TranslationKey } from '../../../i18n';
 
 interface Props<FormState extends FieldValues> {
   className?: string;
   fieldPath: Path<FormState>;
-  translationPrefix: TranslationKeys;
+  translationPrefix: TranslationKey;
 }
 
 export const InputLabel = <FormState extends FieldValues>({
