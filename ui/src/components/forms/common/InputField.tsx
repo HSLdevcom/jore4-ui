@@ -1,6 +1,6 @@
 import React, { HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
-import { TranslationKeys } from '../../../i18n';
+import { TranslationKey } from '../../../i18n';
 import { Column } from '../../../layoutComponents';
 import {
   ControlledElement,
@@ -13,7 +13,7 @@ import { ValidationErrorList } from './ValidationErrorList';
 interface CommonInputProps<FormState extends FieldValues> {
   className?: string;
   fieldPath: Path<FormState>;
-  translationPrefix: TranslationKeys;
+  translationPrefix: TranslationKey;
   testId: string;
 }
 
