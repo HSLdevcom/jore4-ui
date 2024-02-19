@@ -11,7 +11,6 @@ export enum Path {
 
   // Routes and lines
   routesSearch = '/routes/search',
-  timetablesSearch = '/timetables/search',
   editRoute = '/routes/:id/edit',
   createLine = '/lines/create',
   lineDetails = '/lines/:id',
@@ -27,6 +26,7 @@ export enum Path {
   // stopAreaDetails = '/stop-registry/stop-areas/:id',
 
   // Timetables
+  timetablesSearch = '/timetables/search',
   lineTimetables = '/timetables/lines/:id',
   timetablesImport = '/timetables/import',
   timetablesImportPreview = '/timetables/import/preview',
@@ -87,11 +87,6 @@ export const routeDetails: Record<Path, RouteDetail> = {
     translationKey: 'routes.routesSearchResult',
     includeInNav: false,
   },
-  [Path.timetablesSearch]: {
-    getLink: () => Path.timetablesSearch,
-    translationKey: 'routes.timetablesSearchResult',
-    includeInNav: false,
-  },
   [Path.editRoute]: {
     getLink: (id: string, observationIsoDate: string) =>
       `${Path.editRoute.replace(':id', id)}?${qs.stringify({
@@ -130,6 +125,11 @@ export const routeDetails: Record<Path, RouteDetail> = {
   },
 
   // Timetables
+  [Path.timetablesSearch]: {
+    getLink: () => Path.timetablesSearch,
+    translationKey: 'routes.timetablesSearchResult',
+    includeInNav: false,
+  },
   [Path.lineTimetables]: {
     getLink: (id: string, routeLabel?: string) =>
       getLineIdRouteLabelLink(Path.lineTimetables, id, routeLabel),
