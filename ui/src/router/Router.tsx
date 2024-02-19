@@ -102,11 +102,6 @@ export const Router: FunctionComponent = () => {
       protected: true,
       element: <SearchResultPage />,
     },
-    [Path.timetablesSearch]: {
-      _routerRoute: Path.timetablesSearch,
-      protected: true,
-      element: <SearchResultPage />,
-    },
     [Path.editRoute]: {
       _routerRoute: Path.editRoute,
       protected: true,
@@ -141,6 +136,11 @@ export const Router: FunctionComponent = () => {
     },
 
     // Timetables
+    [Path.timetablesSearch]: {
+      _routerRoute: Path.timetablesSearch,
+      protected: true,
+      element: <SearchResultPage />,
+    },
     [Path.lineTimetables]: {
       _routerRoute: Path.lineTimetables,
       protected: true,
