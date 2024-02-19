@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+import { TranslationKey } from '../../../i18n';
 import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
 import { SimpleButton } from '../../../uiComponents';
@@ -19,7 +20,7 @@ const testIds = {
 interface PriorityButtonProps {
   priority: Priority;
   testIdPrefix: string;
-  translationKey: string;
+  translationKey: TranslationKey;
 }
 
 interface Props {
