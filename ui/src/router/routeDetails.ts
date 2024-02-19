@@ -1,5 +1,6 @@
 import qs from 'qs';
 import { QueryParameterName } from '../hooks/urlQuery/useUrlQuery';
+import { TranslationKey } from '../i18n';
 
 export enum Path {
   root = '/',
@@ -38,7 +39,7 @@ export enum Path {
 
 interface RouteDetail {
   getLink: (...args: ExplicitAny[]) => string;
-  translationKey?: string;
+  translationKey?: TranslationKey; // Currently only needed if the route is included in navigation.
   includeInNav?: boolean;
 }
 
@@ -84,7 +85,6 @@ export const routeDetails: Record<Path, RouteDetail> = {
   // Routes and lines
   [Path.routesSearch]: {
     getLink: () => Path.routesSearch,
-    translationKey: 'routes.routesSearchResult',
     includeInNav: false,
   },
   [Path.editRoute]: {
@@ -92,42 +92,35 @@ export const routeDetails: Record<Path, RouteDetail> = {
       `${Path.editRoute.replace(':id', id)}?${qs.stringify({
         [QueryParameterName.ObservationDate]: observationIsoDate,
       })}`,
-    translationKey: 'routes.editRoute',
     includeInNav: false,
   },
   [Path.createLine]: {
     getLink: () => Path.createLine,
-    translationKey: 'lines.createNew',
     includeInNav: false,
   },
   [Path.lineDetails]: {
     getLink: (id: string, routeLabel?: string) =>
       getLineIdRouteLabelLink(Path.lineDetails, id, routeLabel),
-    translationKey: 'lines.lineDetails',
     includeInNav: false,
   },
   [Path.lineDrafts]: {
     getLink: (label: string) => Path.lineDrafts.replace(':label', label),
-    translationKey: 'lines.lineDrafts',
     includeInNav: false,
   },
   [Path.editLine]: {
     getLink: (id: string) => Path.editLine.replace(':id', id),
-    translationKey: 'lines.editLine',
     includeInNav: false,
   },
 
   // Stop registry
   [Path.stopDetails]: {
     getLink: (id: string) => Path.stopDetails.replace(':id', id),
-    translationKey: 'stops.stop',
     includeInNav: false,
   },
 
   // Timetables
   [Path.timetablesSearch]: {
     getLink: () => Path.timetablesSearch,
-    translationKey: 'routes.timetablesSearchResult',
     includeInNav: false,
   },
   [Path.lineTimetables]: {
@@ -137,12 +130,10 @@ export const routeDetails: Record<Path, RouteDetail> = {
   },
   [Path.timetablesImport]: {
     getLink: () => Path.timetablesImport,
-    translationKey: 'timetables.import',
     includeInNav: false,
   },
   [Path.timetablesImportPreview]: {
     getLink: () => Path.timetablesImportPreview,
-    translationKey: 'import.importPreview',
   },
   [Path.lineTimetableVersions]: {
     getLink: (label: string) =>
@@ -151,12 +142,10 @@ export const routeDetails: Record<Path, RouteDetail> = {
   },
   [Path.substituteOperatingPeriodSettings]: {
     getLink: () => Path.substituteOperatingPeriodSettings,
-    translationKey: 'timetables.settings',
     includeInNav: false,
   },
 
   [Path.fallback]: {
     getLink: () => '404',
-    translationKey: '404',
   },
 };
