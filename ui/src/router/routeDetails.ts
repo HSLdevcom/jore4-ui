@@ -19,7 +19,7 @@ export enum Path {
   editLine = '/lines/:id/edit',
 
   // Stop registry
-  // stopSearch = '/stop-registry/stops/search',
+  stopSearch = '/stop-registry/search',
   stopDetails = '/stop-registry/stops/:id',
   // stopVersions = '/stop-registry/stops/:id/versions',
   // stopChangeHistory = '/stop-registry/stops/:id/history',
@@ -113,6 +113,10 @@ export const routeDetails: Record<Path, RouteDetail> = {
   },
 
   // Stop registry
+  [Path.stopSearch]: {
+    getLink: () => Path.stopSearch,
+    includeInNav: false,
+  },
   [Path.stopDetails]: {
     getLink: (id: string) => Path.stopDetails.replace(':id', id),
     includeInNav: false,

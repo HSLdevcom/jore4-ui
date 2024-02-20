@@ -28,9 +28,12 @@ export const mapToSqlLikeValue = (str: string) => {
  * If the value is missing or is 'All', we return empty object because
  * we do not want to create the GQL filter at all.
  */
-const buildOptionalSearchConditionGqlFilter = <TType>(
+export const buildOptionalSearchConditionGqlFilter = <
+  TType,
+  TBuildType = RouteLineBoolExp | RouteRouteBoolExp,
+>(
   value: TType | AllOptionEnum.All | undefined,
-  buildFunction: (value: TType) => RouteLineBoolExp | RouteRouteBoolExp,
+  buildFunction: (value: TType) => TBuildType,
 ) => {
   if (value && value !== AllOptionEnum.All) {
     return buildFunction(value);
