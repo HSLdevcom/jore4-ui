@@ -1,6 +1,8 @@
 import orderBy from 'lodash/orderBy';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import { VehicleJourneyGroup, useAppDispatch } from '../../../hooks';
+import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
+import { useAppDispatch } from '../../../hooks';
 import { parseI18nField } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
 import { openChangeTimetableValidityModalAction } from '../../../redux';
@@ -14,7 +16,13 @@ const testIds = {
 };
 
 export interface Props {
-  vehicleJourneyGroup: VehicleJourneyGroup;
+  vehicleScheduleFrameId: UUID | null | undefined;
+  vehicleJourneys:
+    | Pick<VehicleJourneyWithServiceFragment, 'start_time'>[]
+    | null;
+  validityStart: DateTime;
+  validityEnd: DateTime;
+  dayTypeNameI18n: LocalizedString;
   className?: string;
 }
 
@@ -23,23 +31,21 @@ export interface Props {
  * number of trips and first and last trip
  */
 export const VehicleJourneyGroupInfo = ({
-  vehicleJourneyGroup,
+  vehicleScheduleFrameId,
+  vehicleJourneys,
+  validityStart,
+  validityEnd,
+  dayTypeNameI18n,
   className = '',
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const changeVehicleScheduleFrameValidity = () => {
-    if (vehicleJourneyGroup.vehicleScheduleFrameId) {
-      dispatch(
-        openChangeTimetableValidityModalAction(
-          vehicleJourneyGroup.vehicleScheduleFrameId,
-        ),
-      );
+    if (vehicleScheduleFrameId) {
+      dispatch(openChangeTimetableValidityModalAction(vehicleScheduleFrameId));
     }
   };
-
-  const { vehicleJourneys } = vehicleJourneyGroup;
 
   const hasTimetables = !!vehicleJourneys;
   const tripCount = vehicleJourneys?.length;
@@ -51,7 +57,7 @@ export const VehicleJourneyGroupInfo = ({
   // disable the button in case of substitute operating day
   // TODO: in the future there might be a need for using this button to
   // link to the substitute operating day's page
-  const isDisabled = !vehicleJourneyGroup.vehicleScheduleFrameId;
+  const isDisabled = !vehicleScheduleFrameId;
   const hoverStyle = `${commonHoverStyle} hover:bg-light-grey`;
   return (
     <Row
@@ -59,7 +65,7 @@ export const VehicleJourneyGroupInfo = ({
     >
       <IconButton
         tooltip={t('accessibility:timetables.changeValidityPeriod', {
-          dayType: parseI18nField(vehicleJourneyGroup.dayType.name_i18n),
+          dayType: parseI18nField(dayTypeNameI18n),
         })}
         className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base  ${
           isDisabled ? 'text-light-grey' : hoverStyle
@@ -70,9 +76,7 @@ export const VehicleJourneyGroupInfo = ({
         testId={testIds.changeValidityButton}
       />
       <span data-testid={testIds.validityTimeRange}>
-        {`${mapToShortDate(
-          vehicleJourneyGroup.validity.validityStart,
-        )} - ${mapToShortDate(vehicleJourneyGroup.validity.validityEnd)}`}
+        {`${mapToShortDate(validityStart)} - ${mapToShortDate(validityEnd)}`}
       </span>
       {hasTimetables && (
         <>
