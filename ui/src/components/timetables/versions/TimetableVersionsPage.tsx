@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   TimetableVersionRowData,
+  useAppDispatch,
+  useAppSelector,
   useGetJourneyPatternIdsByLineLabel,
   useGetTimetableVersions,
   useRequiredParams,
@@ -10,11 +12,17 @@ import {
   useTimetableVersionsReturnToQueryParam,
 } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
+import {
+  closeChangeTimetableValidityModalAction,
+  selectChangeTimetableValidityModal,
+} from '../../../redux';
 import { TimetablePriority } from '../../../types/enums';
 import { CloseIconButton } from '../../../uiComponents';
 import { TimeRangeControl } from '../../common';
 import { FormColumn, FormRow } from '../../forms/common';
+import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import { DeleteTimetableModal } from './DeleteTimetableModal';
+import { TimetableVersionDetailsPanel } from './timetable-version-details-panel/TimetableVersionDetailsPanel';
 import { TimetableVersionTable } from './TimetableVersionTable';
 
 const testIds = {
@@ -25,6 +33,14 @@ export const TimetableVersionsPage = (): JSX.Element => {
   const { t } = useTranslation();
   const { label } = useRequiredParams<{ label: string }>();
   const { startDate, endDate } = useTimeRangeQueryParams();
+  const dispatch = useAppDispatch();
+
+  const onCloseTimetableValidityModal = () => {
+    dispatch(closeChangeTimetableValidityModalAction());
+  };
+  const changeTimetableValidityModalState = useAppSelector(
+    selectChangeTimetableValidityModal,
+  );
 
   // We first need to get the journey pattern ids for all line routes by line label
   const { journeyPatternIdsGroupedByRouteLabel, loading } =
@@ -71,6 +87,12 @@ export const TimetableVersionsPage = (): JSX.Element => {
     );
   };
 
+  // If the validity of a vehicleScheduleFrame is changed, we need to
+  // re-fetch the timetableVersion to update the view
+  const onChangeValidity = () => {
+    fetchTimetableVersions();
+  };
+
   return (
     <Container>
       <FormRow mdColumns={2}>
@@ -101,6 +123,12 @@ export const TimetableVersionsPage = (): JSX.Element => {
         />
       </Container>
       <DeleteTimetableModal fetchTimetableVersions={fetchTimetableVersions} />
+      <TimetableVersionDetailsPanel />
+      <ChangeTimetablesValidityModal
+        isOpen={changeTimetableValidityModalState.isOpen}
+        onClose={onCloseTimetableValidityModal}
+        onChange={onChangeValidity}
+      />
     </Container>
   );
 };
