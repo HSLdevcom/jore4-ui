@@ -334,6 +334,7 @@
   "timetables": {
     "timetables": "Timetables",
     "timetableValidity": "Valid {{ validityStart }} - {{ validityEnd }}",
+    "scheduleValid": "Schedule valid",
     "departures": "Departures",
     "noSchedules": "No schedules",
     "noTraffic": "No traffic",
@@ -387,7 +388,8 @@
     },
     "chooseSubstituteDay": "Select...",
     "versions": {
-      "deleteTimetable": "Delete timetable"
+      "deleteTimetable": "Delete timetable",
+      "showInfo": "Show info"
     }
   },
   "timetablesImportPriorityForm": {

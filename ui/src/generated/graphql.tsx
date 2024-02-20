@@ -23484,6 +23484,80 @@ export type DeleteVehicleScheduleFrameMutation = {
   } | null;
 };
 
+export type GetVehicleScheduleFrameSchedulesQueryVariables = Exact<{
+  vehicle_schedule_frame_id: Scalars['uuid'];
+}>;
+
+export type GetVehicleScheduleFrameSchedulesQuery = {
+  __typename?: 'query_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_vehicle_schedule_vehicle_schedule_frame_by_pk?: {
+      __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
+      vehicle_schedule_frame_id: UUID;
+      validity_start: luxon.DateTime;
+      validity_end: luxon.DateTime;
+      priority: number;
+      created_at: luxon.DateTime;
+      vehicle_services: Array<{
+        __typename?: 'timetables_vehicle_service_vehicle_service';
+        vehicle_service_id: UUID;
+        day_type: {
+          __typename?: 'timetables_service_calendar_day_type';
+          day_type_id: UUID;
+          label: string;
+          name_i18n: any;
+        };
+        blocks: Array<{
+          __typename?: 'timetables_vehicle_service_block';
+          block_id: UUID;
+          vehicle_journeys: Array<{
+            __typename?: 'timetables_vehicle_journey_vehicle_journey';
+            vehicle_journey_id: UUID;
+            start_time: luxon.Duration;
+            journey_pattern_ref: {
+              __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+              journey_pattern_ref_id: UUID;
+              journey_pattern_instance?: {
+                __typename?: 'journey_pattern_journey_pattern';
+                journey_pattern_id: UUID;
+                journey_pattern_route?: {
+                  __typename?: 'route_route';
+                  route_id: UUID;
+                  unique_label: string;
+                  direction: RouteDirectionEnum;
+                  name_i18n: LocalizedString;
+                } | null;
+              } | null;
+            };
+          }>;
+        }>;
+      }>;
+    } | null;
+  } | null;
+};
+
+export type VehicleJourneyWithStartTimeInfoFragment = {
+  __typename?: 'timetables_vehicle_journey_vehicle_journey';
+  vehicle_journey_id: UUID;
+  start_time: luxon.Duration;
+  journey_pattern_ref: {
+    __typename?: 'timetables_journey_pattern_journey_pattern_ref';
+    journey_pattern_ref_id: UUID;
+    journey_pattern_instance?: {
+      __typename?: 'journey_pattern_journey_pattern';
+      journey_pattern_id: UUID;
+      journey_pattern_route?: {
+        __typename?: 'route_route';
+        route_id: UUID;
+        unique_label: string;
+        direction: RouteDirectionEnum;
+        name_i18n: LocalizedString;
+      } | null;
+    } | null;
+  };
+};
+
 export type VehicleScheduleFrameWithRoutesFragment = {
   __typename?: 'timetables_vehicle_schedule_vehicle_schedule_frame';
   vehicle_schedule_frame_id: UUID;
@@ -24469,6 +24543,24 @@ export const TimetableVersionFragmentDoc = gql`
     validity_end
     priority
     in_effect
+  }
+`;
+export const VehicleJourneyWithStartTimeInfoFragmentDoc = gql`
+  fragment vehicle_journey_with_start_time_info on timetables_vehicle_journey_vehicle_journey {
+    vehicle_journey_id
+    start_time
+    journey_pattern_ref {
+      journey_pattern_ref_id
+      journey_pattern_instance {
+        journey_pattern_id
+        journey_pattern_route {
+          route_id
+          unique_label
+          direction
+          name_i18n
+        }
+      }
+    }
   }
 `;
 export const VehicleScheduleFrameWithRoutesFragmentDoc = gql`
@@ -29281,6 +29373,87 @@ export type DeleteVehicleScheduleFrameMutationOptions =
     DeleteVehicleScheduleFrameMutation,
     DeleteVehicleScheduleFrameMutationVariables
   >;
+export const GetVehicleScheduleFrameSchedulesDocument = gql`
+  query GetVehicleScheduleFrameSchedules($vehicle_schedule_frame_id: uuid!) {
+    timetables {
+      timetables_vehicle_schedule_vehicle_schedule_frame_by_pk(
+        vehicle_schedule_frame_id: $vehicle_schedule_frame_id
+      ) {
+        vehicle_schedule_frame_id
+        validity_start
+        validity_end
+        priority
+        created_at
+        vehicle_services {
+          vehicle_service_id
+          day_type {
+            day_type_id
+            label
+            name_i18n
+          }
+          blocks {
+            block_id
+            vehicle_journeys {
+              ...vehicle_journey_with_start_time_info
+            }
+          }
+        }
+      }
+    }
+  }
+  ${VehicleJourneyWithStartTimeInfoFragmentDoc}
+`;
+
+/**
+ * __useGetVehicleScheduleFrameSchedulesQuery__
+ *
+ * To run a query within a React component, call `useGetVehicleScheduleFrameSchedulesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVehicleScheduleFrameSchedulesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVehicleScheduleFrameSchedulesQuery({
+ *   variables: {
+ *      vehicle_schedule_frame_id: // value for 'vehicle_schedule_frame_id'
+ *   },
+ * });
+ */
+export function useGetVehicleScheduleFrameSchedulesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetVehicleScheduleFrameSchedulesQuery,
+    GetVehicleScheduleFrameSchedulesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetVehicleScheduleFrameSchedulesQuery,
+    GetVehicleScheduleFrameSchedulesQueryVariables
+  >(GetVehicleScheduleFrameSchedulesDocument, options);
+}
+export function useGetVehicleScheduleFrameSchedulesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetVehicleScheduleFrameSchedulesQuery,
+    GetVehicleScheduleFrameSchedulesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetVehicleScheduleFrameSchedulesQuery,
+    GetVehicleScheduleFrameSchedulesQueryVariables
+  >(GetVehicleScheduleFrameSchedulesDocument, options);
+}
+export type GetVehicleScheduleFrameSchedulesQueryHookResult = ReturnType<
+  typeof useGetVehicleScheduleFrameSchedulesQuery
+>;
+export type GetVehicleScheduleFrameSchedulesLazyQueryHookResult = ReturnType<
+  typeof useGetVehicleScheduleFrameSchedulesLazyQuery
+>;
+export type GetVehicleScheduleFrameSchedulesQueryResult = Apollo.QueryResult<
+  GetVehicleScheduleFrameSchedulesQuery,
+  GetVehicleScheduleFrameSchedulesQueryVariables
+>;
 export const GetVehicleScheduleFrameWithRoutesDocument = gql`
   query GetVehicleScheduleFrameWithRoutes($vehicle_schedule_frame_id: uuid!) {
     timetables {
@@ -29939,6 +30112,15 @@ export function useGetTimetableVersionsByJourneyPatternIdsAsyncQuery() {
 export type GetTimetableVersionsByJourneyPatternIdsAsyncQueryHookResult =
   ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsAsyncQuery>;
 
+export function useGetVehicleScheduleFrameSchedulesAsyncQuery() {
+  return useAsyncQuery<
+    GetVehicleScheduleFrameSchedulesQuery,
+    GetVehicleScheduleFrameSchedulesQueryVariables
+  >(GetVehicleScheduleFrameSchedulesDocument);
+}
+export type GetVehicleScheduleFrameSchedulesAsyncQueryHookResult = ReturnType<
+  typeof useGetVehicleScheduleFrameSchedulesAsyncQuery
+>;
 export function useGetVehicleScheduleFrameWithRoutesAsyncQuery() {
   return useAsyncQuery<
     GetVehicleScheduleFrameWithRoutesQuery,

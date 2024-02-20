@@ -41,6 +41,7 @@
     "substituteDayEditClose": "Lopeta poikkeuspäivän \"{{substituteDay}}\" muokkaus",
     "showPreview": "Näytä tiedoston sisältö",
     "closePreview": "Sulje tiedoston sisältö",
+    "showTimetable": "Näytä aikataulu",
     "expandSchedulePreview": "Näytä aikataulun {{vehicleScheduleFrameLabel}} autokierrot",
     "closeSchedulePreview": "Piilota aikataulun {{vehicleScheduleFrameLabel}} autokierrot",
     "expandScheduleBlocksPreview": "Näytä autokierron {{scheduleBlock}} tiedot",

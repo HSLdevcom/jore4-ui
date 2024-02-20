@@ -334,6 +334,7 @@
   "timetables": {
     "timetables": "Aikataulut",
     "timetableValidity": "Voimassa {{ validityStart }} - {{ validityEnd }}",
+    "scheduleValid": "Aikataulu voimassa",
     "departures": "Lähdöt",
     "noSchedules": "Ei vuoroja",
     "noTraffic": "Ei liikennöintiä",
@@ -387,7 +388,8 @@
     },
     "chooseSubstituteDay": "Valitse...",
     "versions": {
-      "deleteTimetable": "Poista aikataulu"
+      "deleteTimetable": "Poista aikataulu",
+      "showInfo": "Näytä tietoja"
     }
   },
   "timetablesImportPriorityForm": {
