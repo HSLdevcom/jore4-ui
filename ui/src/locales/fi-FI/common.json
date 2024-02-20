@@ -114,8 +114,10 @@
     "timingPlaceRequired": "Pysäkkiä käytetään Hastus-paikkana seuraavilla reiteillä: {{ routeLabels }}. Aseta Hastus-paikka tai poista Hastus-paikka käytöstä reiteiltä."
   },
   "stopDetails": {
-    "stopDetails": "Pysäkkitiedot",
-    "validityPeriod": "Voimassaolo"
+    "stopDetails": "Pysäkkitiedot"
+  },
+  "stopRegistrySearch": {
+    "searchResultsTitle": "Pysäkit"
   },
   "timingPlaces": {
     "label": "Uusi Hastus-paikka",

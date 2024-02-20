@@ -32,7 +32,8 @@
   },
   "stops": {
     "showStopDetails": "Näytä pysäkin {{ stopLabel }} tiedot",
-    "timingPlace": "Hastus-paikka"
+    "timingPlace": "Hastus-paikka",
+    "validityPeriod": "Voimassaolo"
   },
   "timetables": {
     "icon": "Aikataulu",

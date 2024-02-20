@@ -114,8 +114,10 @@
     "timingPlaceRequired": "The stop is used as timing place on the following routes: {{ routeLabels }}. Attach timing place or stop using as timing point on the routes."
   },
   "stopDetails": {
-    "stopDetails": "Stop details",
-    "validityPeriod": "Validity period"
+    "stopDetails": "Stop details"
+  },
+  "stopRegistrySearch": {
+    "searchResultsTitle": "Stops"
   },
   "timingPlaces": {
     "label": "New Hastus place",
