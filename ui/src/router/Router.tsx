@@ -14,7 +14,11 @@ import { LineDetailsPage } from '../components/routes-and-lines/line-details/Lin
 import { LineDraftsPage } from '../components/routes-and-lines/line-drafts/LineDraftsPage';
 import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/RoutesAndLinesMainPage';
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
-import { StopDetailsPage } from '../components/stop-registry';
+import {
+  StopDetailsPage,
+  StopRegistryMainPage,
+  StopSearchResultPage,
+} from '../components/stop-registry';
 import {
   SubstituteDaySettingsPage,
   TimetablesMainPage,
@@ -88,7 +92,7 @@ export const Router: FunctionComponent = () => {
     [Path.stopRegistry]: {
       _routerRoute: Path.stopRegistry,
       protected: true,
-      element: <FallbackRoute />, // TODO
+      element: <StopRegistryMainPage />,
     },
     [Path.timetables]: {
       _routerRoute: Path.timetables,
@@ -129,6 +133,11 @@ export const Router: FunctionComponent = () => {
     },
 
     // Stop registry
+    [Path.stopSearch]: {
+      _routerRoute: Path.stopSearch,
+      protected: true,
+      element: <StopSearchResultPage />,
+    },
     [Path.stopDetails]: {
       _routerRoute: Path.stopDetails,
       protected: true,
