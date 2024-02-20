@@ -32,7 +32,8 @@
   },
   "stops": {
     "showStopDetails": "Show details for stop {{ stopLabel }}",
-    "timingPlace": "Timing place"
+    "timingPlace": "Timing place",
+    "validityPeriod": "Validity period"
   },
   "timetables": {
     "icon": "Timetable",
