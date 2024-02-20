@@ -44,6 +44,7 @@ interface Props {
 }
 
 const yBorderClassnames = 'border-y border-y-light-grey';
+const rBorderClassNames = 'border-r border-r-light-grey';
 
 const getDisplayInformation = (
   routeLineTableRowVariant: RouteLineTableRowVariant,
@@ -150,7 +151,7 @@ export const RouteLineTableRow = ({
   }
 
   return (
-    <tr className={className}>
+    <tr className={`${rBorderClassNames} ${className}`}>
       <Visible visible={!!onSelectChanged}>
         {/*
           Hard coded width, so this column does not take too much space and
@@ -216,9 +217,7 @@ export const RouteLineTableRow = ({
       >
         {displayInformation.alternativeRowActionButton}
       </td>
-      <td
-        className={`w-1/12 border-r p-6 text-right align-middle ${yBorderClassnames}`}
-      >
+      <td className={`w-1/12 p-6 text-right align-middle ${yBorderClassnames}`}>
         <LocatorButton
           // Button is disabled if function is not defined
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
