@@ -8,7 +8,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
   >
     <tbody>
       <tr
-        class=""
+        class="border-r border-r-light-grey "
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
@@ -76,7 +76,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </button>
         </td>
         <td
-          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
+          class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -107,7 +107,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         </td>
       </tr>
       <tr
-        class=""
+        class="border-r border-r-light-grey "
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
@@ -175,7 +175,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </button>
         </td>
         <td
-          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
+          class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -206,7 +206,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         </td>
       </tr>
       <tr
-        class=""
+        class="border-r border-r-light-grey "
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
@@ -274,7 +274,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </button>
         </td>
         <td
-          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
+          class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -305,7 +305,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         </td>
       </tr>
       <tr
-        class=""
+        class="border-r border-r-light-grey "
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
@@ -373,7 +373,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           </button>
         </td>
         <td
-          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
+          class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -416,7 +416,7 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
   >
     <tbody>
       <tr
-        class=""
+        class="border-r border-r-light-grey "
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
@@ -486,7 +486,7 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
           </button>
         </td>
         <td
-          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
+          class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
@@ -530,7 +530,7 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
   >
     <tbody>
       <tr
-        class=""
+        class="border-r border-r-light-grey "
       >
         <td
           class="border-l-10 border-hsl-dark-green border-y border-y-light-grey p-4"
@@ -600,7 +600,7 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
           </button>
         </td>
         <td
-          class="w-1/12 border-r p-6 text-right align-middle border-y border-y-light-grey"
+          class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
             class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
