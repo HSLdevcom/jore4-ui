@@ -7,4 +7,5 @@ export * from './mapRouteEditor';
 export * from './mapStopEditor';
 export * from './modals';
 export * from './timetable';
+export * from './timetableVersionPanel';
 export * from './user';

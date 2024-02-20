@@ -42,6 +42,7 @@
     "substituteDayEditClose": "Stop editing subsitute day \"{{substituteDay}}\"",
     "showPreview": "Show the file's content",
     "closePreview": "Close the file's content",
+    "showTimetable": "Show timetable",
     "expandSchedulePreview": "Show the schedule {{vehicleScheduleFrameLabel}}'s blocks",
     "closeSchedulePreview": "Hide the schedule {{vehicleScheduleFrameLabel}}'s blocks",
     "expandScheduleBlocksPreview": "Show the {{scheduleBlock}} block's information",

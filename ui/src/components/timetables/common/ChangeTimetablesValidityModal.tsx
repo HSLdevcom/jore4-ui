@@ -23,12 +23,14 @@ import {
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onChange?: () => void;
   className?: string;
 }
 
 export const ChangeTimetablesValidityModal: React.FC<Props> = ({
   isOpen,
   onClose,
+  onChange,
   className = '',
 }) => {
   const { t } = useTranslation();
@@ -57,7 +59,9 @@ export const ChangeTimetablesValidityModal: React.FC<Props> = ({
           }),
         );
       }
-
+      if (onChange) {
+        onChange();
+      }
       onClose();
     } catch (err) {
       showDangerToastWithError(t('errors.saveFailed'), err);

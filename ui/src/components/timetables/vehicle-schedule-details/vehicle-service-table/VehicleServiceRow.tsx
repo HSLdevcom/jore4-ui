@@ -8,10 +8,13 @@ export interface VehicleServiceRowData {
 
 interface Props {
   data: VehicleServiceRowData;
-  oddRowColor: string;
+  oddRowColor?: string;
 }
 
-export const VehicleServiceRow = ({ data, oddRowColor }: Props) => {
+export const VehicleServiceRow = ({
+  data,
+  oddRowColor = 'bg-hsl-neutral-blue',
+}: Props) => {
   const { hours, minutes } = data;
   return (
     <Row className={`items-center gap-x-3 odd:${oddRowColor}`}>
