@@ -7,15 +7,23 @@ import {
 } from '../../../i18n/uiNameMappings';
 import { parseI18nField } from '../../../i18n/utils';
 import { Visible } from '../../../layoutComponents';
-import { openDeleteTimetableModalAction } from '../../../redux';
+import {
+  openDeleteTimetableModalAction,
+  openVersionPanelAction,
+} from '../../../redux';
 import { mapToShortDate } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
-import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
+import {
+  AlignDirection,
+  IconButton,
+  SimpleDropdownMenu,
+} from '../../../uiComponents';
 import { SimpleDropdownMenuItem } from '../../routes-and-lines/line-details/SimpleDropdownMenuItem';
 
 const testIds = {
   timetableVersionTableRow: 'TimetableVersionTableRow::row',
   deleteTimetableMenuItem: 'TimetableVersionTableRow::deleteTimetableMenuItem',
+  versionPanelMenuItem: 'TimetableVersionTableRow:versionPanelMenuItem',
 };
 
 const getStatusClassName = ({
@@ -65,6 +73,16 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
     }
   };
 
+  const openVersionPanel = () => {
+    if (data.vehicleScheduleFrame.id) {
+      dispatch(
+        openVersionPanelAction({
+          vehicleScheduleFrameId: data.vehicleScheduleFrame.id,
+        }),
+      );
+    }
+  };
+
   const statusClassName = ` ${getStatusClassName({
     priority: data.vehicleScheduleFrame.priority,
     inEffect: data.inEffect,
@@ -95,7 +113,15 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
     >
       <td className={statusClassName}>{statusText}</td>
       <td className={dayTypeClassName}>
-        {dayType}
+        {parseI18nField(data.dayType.nameI18n)}
+        {/* TODO: <Visible> component was changed so can't be used here as it is, since it currently
+        wraps children in div. Use Visible  component here after it has been refactored or reverted */}
+        {data.vehicleScheduleFrame.id && (
+          <IconButton
+            onClick={openVersionPanel}
+            icon={<i className="icon-calendar" />}
+          />
+        )}
         {data.substituteDay?.supersededDate && (
           <span className="flex justify-center whitespace-nowrap text-xs">
             {substituteDayOperatingText}
@@ -116,13 +142,18 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
             tooltip={t('accessibility:timetables.versionActions', {
               status: statusText,
               schedule: vehicleScheduleFrameName,
-              dayType,
+              dayType: parseI18nField(dayType),
             })}
           >
             <SimpleDropdownMenuItem
               onClick={onClick}
               testId={testIds.deleteTimetableMenuItem}
               text={t('timetables.versions.deleteTimetable')}
+            />
+            <SimpleDropdownMenuItem
+              onClick={openVersionPanel}
+              testId={testIds.versionPanelMenuItem}
+              text={t('timetables.versions.showInfo')}
             />
           </SimpleDropdownMenu>
         </Visible>
