@@ -25,7 +25,7 @@ export const StopDetailsPage = (): JSX.Element => {
         <h2 className="">{t('stopDetails.stopDetails')}</h2>
         <div
           className="ml-4"
-          title={t('stopDetails.validityPeriod')}
+          title={t('accessibility:stops.validityPeriod')}
           data-testid={testIds.validityPeriod}
         >
           {mapToShortDate(stopDetails.validity_start)}
