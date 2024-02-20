@@ -72,7 +72,13 @@ describe(`<${VehicleJourneyGroupInfo.name} />`, () => {
 
   test('Renders VehicleJourneyGroupInfo with imported timetable', async () => {
     const { getByText, getByTestId } = render(
-      <VehicleJourneyGroupInfo vehicleJourneyGroup={vehicleJourneyGroup} />,
+      <VehicleJourneyGroupInfo
+        vehicleJourneys={vehicleJourneyGroup.vehicleJourneys}
+        vehicleScheduleFrameId={vehicleJourneyGroup.vehicleScheduleFrameId}
+        validityStart={vehicleJourneyGroup.validity.validityStart}
+        validityEnd={vehicleJourneyGroup.validity.validityEnd}
+        dayTypeNameI18n={vehicleJourneyGroup.dayType.name_i18n}
+      />,
     );
 
     expect(getByText('1.1.2023 - 31.5.2023')).toBeVisible();
@@ -86,10 +92,11 @@ describe(`<${VehicleJourneyGroupInfo.name} />`, () => {
   test('Render VehicleJourneyGroupInfo with substitute timetable (no vsf id)', async () => {
     const { getByText, getByTestId } = render(
       <VehicleJourneyGroupInfo
-        vehicleJourneyGroup={{
-          ...vehicleJourneyGroup,
-          vehicleScheduleFrameId: null,
-        }}
+        vehicleJourneys={vehicleJourneyGroup.vehicleJourneys}
+        vehicleScheduleFrameId={null}
+        validityStart={vehicleJourneyGroup.validity.validityStart}
+        validityEnd={vehicleJourneyGroup.validity.validityEnd}
+        dayTypeNameI18n={vehicleJourneyGroup.dayType.name_i18n}
       />,
     );
 
