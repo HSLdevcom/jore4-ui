@@ -107,7 +107,11 @@ export const VehicleServiceTable = ({
         </Column>
       </div>
       <VehicleJourneyGroupInfo
-        vehicleJourneyGroup={vehicleJourneyGroup}
+        vehicleJourneys={vehicleJourneyGroup.vehicleJourneys}
+        validityStart={vehicleJourneyGroup.validity.validityStart}
+        validityEnd={vehicleJourneyGroup.validity.validityEnd}
+        vehicleScheduleFrameId={vehicleJourneyGroup.vehicleScheduleFrameId}
+        dayTypeNameI18n={vehicleJourneyGroup.dayType.name_i18n}
         className="space-x-2"
       />
       <Visible visible={hasVehicleJourneys}>
