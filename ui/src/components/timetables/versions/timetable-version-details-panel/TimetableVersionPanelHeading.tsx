@@ -1,0 +1,30 @@
+import { t } from 'i18next';
+import { DateTime } from 'luxon';
+import { Row } from '../../../../layoutComponents';
+import { mapToShortDate } from '../../../../time';
+import { CloseIconButton } from '../../../../uiComponents';
+
+const testIds = {
+  closeButton: 'TimetableVersionPanelHeading::closeButton',
+};
+
+export const TimetableVersionPanelHeading: React.FC<{
+  onClose: () => void;
+  validityStart?: DateTime;
+  validityEnd?: DateTime;
+}> = ({ validityStart, validityEnd, onClose }) => (
+  <Row className="mb-4 ml-2 justify-between">
+    <h2>
+      <span className="block text-sm">{t('timetables.scheduleValid')}</span>
+      <span className="text-2xl">{`${mapToShortDate(
+        validityStart,
+      )} - ${mapToShortDate(validityEnd)}`}</span>
+    </h2>
+    <CloseIconButton
+      label={t('close')}
+      className="text-base font-bold text-brand"
+      onClick={onClose}
+      testId={testIds.closeButton}
+    />
+  </Row>
+);
