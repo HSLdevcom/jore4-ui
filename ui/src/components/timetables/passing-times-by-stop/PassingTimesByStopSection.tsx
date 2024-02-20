@@ -79,7 +79,13 @@ export const PassingTimesByStopSection = ({
               />
             </div>
             <VehicleJourneyGroupInfo
-              vehicleJourneyGroup={vehicleJourneyGroup}
+              vehicleJourneys={vehicleJourneyGroup.vehicleJourneys}
+              vehicleScheduleFrameId={
+                vehicleJourneyGroup.vehicleScheduleFrameId
+              }
+              validityStart={vehicleJourneyGroup.validity.validityStart}
+              validityEnd={vehicleJourneyGroup.validity.validityEnd}
+              dayTypeNameI18n={vehicleJourneyGroup.dayType.name_i18n}
             />
           </Row>
           {vehicleJourneyGroup.vehicleJourneys ? (
