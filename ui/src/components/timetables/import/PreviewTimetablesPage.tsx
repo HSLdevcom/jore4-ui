@@ -122,6 +122,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
             <label
               htmlFor="timetablesPreviewToggle"
               className="my-0 cursor-pointer text-base"
+              aria-hidden
             >
               {showStagingTimetables
                 ? t('timetablesPreview.closeContent')
@@ -132,9 +133,8 @@ export const PreviewTimetablesPage = (): JSX.Element => {
                 isOpen={showStagingTimetables}
                 onToggle={toggleShowStagingTimetables}
                 iconClassName="text-white text-[50px]"
-                openTooltip={t('timetablesPreview.showContent')}
-                closeTooltip={t('timetablesPreview.closeContent')}
-                ariaLabel={t('accessibility:timetables.preview')}
+                openTooltip={t('accessibility:timetables.showPreview')}
+                closeTooltip={t('accessibility:timetables.closePreview')}
                 controls="fileContent"
               />
             </label>
