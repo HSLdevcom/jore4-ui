@@ -132,6 +132,8 @@ export const PreviewTimetablesPage = (): JSX.Element => {
                 isOpen={showStagingTimetables}
                 onToggle={toggleShowStagingTimetables}
                 iconClassName="text-white text-[50px]"
+                openTooltip={t('timetablesPreview.showContent')}
+                closeTooltip={t('timetablesPreview.closeContent')}
                 ariaLabel={t('accessibility:timetables.preview')}
                 controls="fileContent"
               />
