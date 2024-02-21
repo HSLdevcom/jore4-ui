@@ -158,6 +158,9 @@ export const RouteStopsRow = ({
                   }`}
                 />
               }
+              tooltip={`${t('accessibility:routes.addHastusPlace', {
+                stopLabel,
+              })}`}
               onClick={showTimingSettingsModal}
               disabled={!stopBelongsToJourneyPattern}
             />
