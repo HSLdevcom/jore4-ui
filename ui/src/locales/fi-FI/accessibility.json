@@ -27,6 +27,7 @@
     "expandTimetable": "Avaa aikataulut reitille {{routeName}}",
     "closeTimetable": "Piilota reitin {{routeName}} aikataulut",
     "showStopActions": "Lisää toimintoja pysäkille {{stopLabel}}",
+    "openTimingSettings": "Avaa aika-asetukset pysäkille {{stopLabel}}",
     "bus": "Bussireitti"
   },
   "stops": {

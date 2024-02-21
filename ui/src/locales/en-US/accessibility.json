@@ -27,6 +27,7 @@
     "expandTimetable": "Open the timetables for the route {{routeName}}",
     "closeTimetable": "Hide the timetables of the route {{routeName}}",
     "showStopActions": "More actions for the stop {{stopLabel}}",
+    "openTimingSettings": "Open the timing settings for the stop {{stopLabel}}",
     "bus": "Bus route"
   },
   "stops": {
