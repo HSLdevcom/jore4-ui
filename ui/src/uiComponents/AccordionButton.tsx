@@ -8,8 +8,8 @@ interface Props {
   className?: string;
   iconClassName?: string;
   controls: string;
-  openTooltip?: string;
-  closeTooltip?: string;
+  openTooltip: string;
+  closeTooltip: string;
   ariaLabel?: string;
   identifier?: string;
 }
