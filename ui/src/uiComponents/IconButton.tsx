@@ -3,7 +3,7 @@ import { addClassName } from '../utils/components';
 
 interface Props {
   testId?: string;
-  tooltip?: string;
+  tooltip: string;
   className?: string;
   disabled?: boolean;
   icon: React.ReactNode;
