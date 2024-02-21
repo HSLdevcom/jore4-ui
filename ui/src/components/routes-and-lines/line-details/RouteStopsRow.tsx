@@ -158,6 +158,9 @@ export const RouteStopsRow = ({
                   }`}
                 />
               }
+              tooltip={`${t('accessibility:routes.openTimingSettings', {
+                stopLabel,
+              })}`}
               onClick={showTimingSettingsModal}
               disabled={!stopBelongsToJourneyPattern}
             />
