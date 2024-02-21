@@ -44,7 +44,8 @@
     "closeSchedulePreview": "Piilota aikataulun {{vehicleScheduleFrameLabel}} autokierrot",
     "expandScheduleBlocksPreview": "Näytä autokierron {{scheduleBlock}} tiedot",
     "closeScheduleBlocksPreview": "Piilota autokierron {{scheduleBlock}} tiedot",
-    "versionActions": "Lisää toimintoja aikataululle {{status}} {{schedule}} {{dayType}}"
+    "versionActions": "Lisää toimintoja aikataululle {{status}} {{schedule}} {{dayType}}",
+    "closeMissingRouteDeviationsWarning": "Sulje huomio poikkeamasta"
   },
   "map": {
     "showFilters": "Suodata näkymää",

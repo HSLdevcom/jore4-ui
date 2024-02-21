@@ -41,8 +41,11 @@ export const MissingRouteDeviationsSection = ({
           </div>
           <IconButton
             className="absolute top-4 right-4 text-xl"
-            icon={<MdClose />}
+            icon={<MdClose aria-hidden />}
             onClick={handleClose}
+            tooltip={`${t(
+              'accessibility:timetables.closeMissingRouteDeviationsWarning',
+            )}`}
           />
         </div>
       </div>

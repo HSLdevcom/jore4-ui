@@ -44,7 +44,8 @@
     "closeSchedulePreview": "Hide the schedule {{vehicleScheduleFrameLabel}}'s blocks",
     "expandScheduleBlocksPreview": "Show the {{scheduleBlock}} block's information",
     "closeScheduleBlocksPreview": "Hide the {{scheduleBlock}} block's information",
-    "versionActions": "More actions for the schedule {{status}} {{schedule}} {{dayType}}"
+    "versionActions": "More actions for the schedule {{status}} {{schedule}} {{dayType}}",
+    "closeMissingRouteDeviationsWarning": "Close deviation warning"
   },
   "map": {
     "showFilters": "Show filters",
