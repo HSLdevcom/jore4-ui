@@ -71,10 +71,8 @@ export const useSearchQueryParser = () => {
   const {
     getStringParamFromUrlQuery,
     getPriorityArrayFromUrlQuery,
-    getReusableComponentsVehicleModeEnumFromUrlQuery,
-    getRouteTypeOfLineEnumFromUrlQuery,
+    getEnumFromUrlQuery,
     getDateTimeFromUrlQuery,
-    getDisplayedSearchResultTypeFromUrlQuery,
   } = useUrlQuery();
   const label =
     getStringParamFromUrlQuery(SearchQueryParameterNames.Label) ??
@@ -85,17 +83,21 @@ export const useSearchQueryParser = () => {
     DEFAULT_PRIORITIES;
 
   const primaryVehicleMode =
-    getReusableComponentsVehicleModeEnumFromUrlQuery(
+    getEnumFromUrlQuery(
       SearchQueryParameterNames.PrimaryVehicleMode,
+      ReusableComponentsVehicleModeEnum,
     ) ?? DEFAULT_PRIMARY_VEHICLE_MODE;
 
   const typeOfLine =
-    getRouteTypeOfLineEnumFromUrlQuery(SearchQueryParameterNames.TypeOfLine) ??
-    DEFAULT_TYPE_OF_LINE;
+    getEnumFromUrlQuery(
+      SearchQueryParameterNames.TypeOfLine,
+      RouteTypeOfLineEnum,
+    ) ?? DEFAULT_TYPE_OF_LINE;
 
   const displayedType =
-    getDisplayedSearchResultTypeFromUrlQuery(
+    getEnumFromUrlQuery(
       SearchQueryParameterNames.DisplayedType,
+      DisplayedSearchResultType,
     ) ?? DEFAULT_DISPLAYED_DATA;
   const observationDate =
     getDateTimeFromUrlQuery(SearchQueryParameterNames.ObservationDate) ??

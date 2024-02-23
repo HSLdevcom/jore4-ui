@@ -6,13 +6,8 @@ import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {
-  ReusableComponentsVehicleModeEnum,
-  RouteTypeOfLineEnum,
-} from '../../generated/graphql';
 import { parseDate } from '../../time';
 import { Priority } from '../../types/enums';
-import { DisplayedSearchResultType } from '../../utils/enum';
 
 export enum QueryParameterName {
   MapOpen = 'mapOpen',
@@ -209,48 +204,17 @@ export const useUrlQuery = () => {
       ?.filter((p) => Object.values(Priority).includes(p));
   };
 
-  /** Returns a query parameter in ReusableComponentsVehicleModeEnum if exists,
+  /** Returns a query parameter as given enum if exists,
    * otherwise returns undefined
    */
-  const getReusableComponentsVehicleModeEnumFromUrlQuery = (
+  const getEnumFromUrlQuery = <T extends object>(
     paramName: string,
-  ): ReusableComponentsVehicleModeEnum | undefined => {
-    const vehicleMode = queryParams[paramName];
+    enumType: T,
+  ): T[keyof T] | undefined => {
+    const paramValue = queryParams[paramName] as T[keyof T];
 
-    return Object.values(ReusableComponentsVehicleModeEnum).includes(
-      vehicleMode as ReusableComponentsVehicleModeEnum,
-    )
-      ? (vehicleMode as ReusableComponentsVehicleModeEnum)
-      : undefined;
-  };
-
-  /** Returns a query parameter in RouteTypeOfLine if exists,
-   * otherwise returns undefined
-   */
-  const getRouteTypeOfLineEnumFromUrlQuery = (
-    paramName: string,
-  ): RouteTypeOfLineEnum | undefined => {
-    const typeOfLine = queryParams[paramName];
-
-    return Object.values(RouteTypeOfLineEnum).includes(
-      typeOfLine as RouteTypeOfLineEnum,
-    )
-      ? (typeOfLine as RouteTypeOfLineEnum)
-      : undefined;
-  };
-
-  /** Returns a query parameter in DisplayedSearchResultType if exists,
-   * otherwise returns undefined
-   */
-  const getDisplayedSearchResultTypeFromUrlQuery = (
-    paramName: string,
-  ): DisplayedSearchResultType | undefined => {
-    const searchResultType = queryParams[paramName];
-
-    return Object.values(DisplayedSearchResultType).includes(
-      searchResultType as DisplayedSearchResultType,
-    )
-      ? (searchResultType as DisplayedSearchResultType)
+    return Object.values(enumType).includes(paramValue)
+      ? paramValue
       : undefined;
   };
 
@@ -335,9 +299,7 @@ export const useUrlQuery = () => {
     setArrayToUrlQuery,
     getArrayFromUrlQuery,
     getPriorityArrayFromUrlQuery,
-    getReusableComponentsVehicleModeEnumFromUrlQuery,
-    getRouteTypeOfLineEnumFromUrlQuery,
-    getDisplayedSearchResultTypeFromUrlQuery,
+    getEnumFromUrlQuery,
     getStringParamFromUrlQuery,
     getBooleanParamFromUrlQuery,
     getDateTimeFromUrlQuery,
