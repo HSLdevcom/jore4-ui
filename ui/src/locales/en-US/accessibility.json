@@ -32,7 +32,7 @@
   },
   "stops": {
     "showStopDetails": "Show details for stop {{ stopLabel }}",
-    "timingPlace": "Hastus place"
+    "timingPlace": "Timing place"
   },
   "timetables": {
     "icon": "Timetable",
