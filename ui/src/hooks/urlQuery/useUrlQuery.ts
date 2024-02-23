@@ -42,6 +42,20 @@ export type QueryParameterTypes =
   | string[];
 type ParameterWriteOptions = { replace?: boolean };
 
+/**
+ * Maps the query parameters into QueryParameter<QueryParameterTypes> for
+ * setMultipleParametersToUrlQuery function.
+ */
+export const mapObjectToQueryParameterObjects = <
+  T extends Record<string, QueryParameterTypes>,
+>(
+  queryStringParameters: T,
+): QueryParameter<QueryParameterTypes>[] => {
+  return Object.entries(queryStringParameters).map(([key, value]) => {
+    return { paramName: key, value };
+  });
+};
+
 export const useUrlQuery = () => {
   const query = useLocation().search;
   const queryParams = useMemo(

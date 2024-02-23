@@ -3,13 +3,9 @@ import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { Priority } from '../../types/enums';
 import { DisplayedSearchResultType } from '../../utils';
-import { QueryParameter, QueryParameterTypes, useUrlQuery } from '../urlQuery';
+import { mapObjectToQueryParameterObjects, useUrlQuery } from '../urlQuery';
 import { useBasePath } from '../useBasePath';
-import {
-  DeserializedQueryStringParameters,
-  FilterConditions,
-  useSearchQueryParser,
-} from './useSearchQueryParser';
+import { FilterConditions, useSearchQueryParser } from './useSearchQueryParser';
 
 export const useSearch = () => {
   const { basePath } = useBasePath();
@@ -27,18 +23,6 @@ export const useSearch = () => {
     setSearchConditions({
       ...searchConditions,
       [condition]: value,
-    });
-  };
-
-  /**
-   * Maps the search parameters in to QueryParameter<QueryParameterTypes> for
-   * setMultipleParametersToUrlQuery function.
-   */
-  const mapSearchParametersToQueryParameterObjects = (
-    searchParameters: DeserializedQueryStringParameters,
-  ): QueryParameter<QueryParameterTypes>[] => {
-    return Object.entries(searchParameters).map(([key, value]) => {
-      return { paramName: key, value };
     });
   };
 
@@ -61,8 +45,7 @@ export const useSearch = () => {
     };
 
     setMultipleParametersToUrlQuery({
-      parameters:
-        mapSearchParametersToQueryParameterObjects(combinedParameters),
+      parameters: mapObjectToQueryParameterObjects(combinedParameters),
       pathname: `${basePath}/search`,
     });
   };
@@ -78,8 +61,7 @@ export const useSearch = () => {
     };
 
     setMultipleParametersToUrlQuery({
-      parameters:
-        mapSearchParametersToQueryParameterObjects(combinedParameters),
+      parameters: mapObjectToQueryParameterObjects(combinedParameters),
       pathname: `${basePath}/search`,
     });
   };
@@ -94,8 +76,7 @@ export const useSearch = () => {
     };
 
     setMultipleParametersToUrlQuery({
-      parameters:
-        mapSearchParametersToQueryParameterObjects(combinedParameters),
+      parameters: mapObjectToQueryParameterObjects(combinedParameters),
       pathname: `${basePath}`,
     });
   };
