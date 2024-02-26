@@ -31,7 +31,6 @@ const GQL_GET_ROUTE_WITH_JOURNEY_PATTERN = gql`
 interface Props {
   routeId: UUID;
   initiallyOpen?: boolean;
-  index: number;
 }
 
 const testIds = {
@@ -44,7 +43,6 @@ const testIds = {
 export const RouteTimetablesSection = ({
   routeId,
   initiallyOpen = true,
-  index,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const { showAllValid } = useAppSelector(selectTimetable);
@@ -76,7 +74,7 @@ export const RouteTimetablesSection = ({
     ]);
   })();
   const routeName = parseI18nField(route.name_i18n);
-  const sectionIdentifier = index.toString();
+  const sectionIdentifier = `${route.direction}-${route.label}-route-timetables-section`;
 
   return (
     <div data-testid={testIds.timetableSection(route.label, route.direction)}>
