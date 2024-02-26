@@ -40,12 +40,13 @@ export const SimpleDropdownMenu = ({
   const menuItemClassName = `border-x border-b first-of-type:border-t whitespace-nowrap border-black w-full py-1 px-2 focus:outline-none text-left`;
 
   return (
-    <Menu as="div" className="relative" title={tooltip}>
+    <Menu as="div" className="relative">
       {({ open }) => (
         <>
           <Menu.Button
             className="mx-auto flex items-center px-3 focus:outline-none"
             data-testid={testId}
+            title={tooltip}
           >
             <MdMoreVert className="aria-hidden text-3xl" />
           </Menu.Button>

@@ -528,7 +528,6 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="relative"
               data-headlessui-state=""
-              title="Lisää toimintoja pysäkille H1234"
             >
               <button
                 aria-expanded="false"
@@ -537,6 +536,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r2:"
+                title="Lisää toimintoja pysäkille H1234"
                 type="button"
               >
                 <svg
@@ -651,7 +651,6 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
             <div
               class="relative"
               data-headlessui-state=""
-              title="Lisää toimintoja pysäkille H1236"
             >
               <button
                 aria-expanded="false"
@@ -660,6 +659,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r3:"
+                title="Lisää toimintoja pysäkille H1236"
                 type="button"
               >
                 <svg
@@ -996,7 +996,6 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <div
               class="relative"
               data-headlessui-state=""
-              title="Lisää toimintoja pysäkille H1234"
             >
               <button
                 aria-expanded="false"
@@ -1005,6 +1004,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r2:"
+                title="Lisää toimintoja pysäkille H1234"
                 type="button"
               >
                 <svg
@@ -1119,7 +1119,6 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <div
               class="relative"
               data-headlessui-state=""
-              title="Lisää toimintoja pysäkille H1235"
             >
               <button
                 aria-expanded="false"
@@ -1128,6 +1127,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r4:"
+                title="Lisää toimintoja pysäkille H1235"
                 type="button"
               >
                 <svg
@@ -1242,7 +1242,6 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
             <div
               class="relative"
               data-headlessui-state=""
-              title="Lisää toimintoja pysäkille H1236"
             >
               <button
                 aria-expanded="false"
@@ -1251,6 +1250,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r5:"
+                title="Lisää toimintoja pysäkille H1236"
                 type="button"
               >
                 <svg
