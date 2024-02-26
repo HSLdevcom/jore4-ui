@@ -47,3 +47,5 @@ services:
     depends_on:
       jore4-testdb-e2e1:
         condition: service_healthy
+      jore4-tiamat:
+        condition: service_healthy
