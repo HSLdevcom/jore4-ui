@@ -229,7 +229,7 @@ describe('Route editing', () => {
     routesAndLinesPage = new RoutesAndLinesPage();
     searchResultsPage = new SearchResultsPage();
 
-    cy.setupMapTiles();
+    cy.setupTests();
     cy.mockLogin();
   });
 

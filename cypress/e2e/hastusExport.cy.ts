@@ -169,7 +169,7 @@ const setup = (resources: SupportedResources) => {
   removeFromDbHelper(resources);
   insertToDbHelper(resources);
 
-  cy.setupMapTiles();
+  cy.setupTests();
   cy.mockLogin();
   cy.visit('/routes');
 };

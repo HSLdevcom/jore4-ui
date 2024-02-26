@@ -27,8 +27,8 @@ declare namespace Cypress {
 
     /**
      * Sets up default configurations for every test.
-     * @example cy.setupMapTiles()
+     * @example cy.setupTests()
      */
-    setupMapTiles(): Chainable<void>;
+    setupTests(): Chainable<void>;
   }
 }

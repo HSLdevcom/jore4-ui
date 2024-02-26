@@ -378,7 +378,7 @@ describe('Timetable validity period', () => {
 
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
 
-    cy.setupMapTiles();
+    cy.setupTests();
     cy.mockLogin();
     cy.visit('/');
   });

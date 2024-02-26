@@ -2,7 +2,7 @@ import { Tag } from '../enums';
 
 describe('Login tests', () => {
   beforeEach(() => {
-    cy.setupMapTiles();
+    cy.setupTests();
   });
 
   it(
