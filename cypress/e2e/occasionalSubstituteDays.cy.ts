@@ -436,7 +436,7 @@ describe('Occasional substitute operating periods', () => {
     toast = new Toast();
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
 
-    cy.setupMapTiles();
+    cy.setupTests();
     cy.mockLogin();
 
     cy.task('insertHslTimetablesDatasetToDb', timetableDataInput);

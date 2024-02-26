@@ -381,7 +381,7 @@ describe('Timetable import', () => {
     navbar = new Navbar();
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
 
-    cy.setupMapTiles();
+    cy.setupTests();
     cy.mockLogin();
     cy.visit('/');
   });

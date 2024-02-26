@@ -134,7 +134,7 @@ describe(
     });
 
     beforeEach(() => {
-      cy.setupMapTiles();
+      cy.setupTests();
       cy.mockLogin();
       cy.visit('/routes');
       routesAndLinesPage.searchContainer.getSearchInput().clear();

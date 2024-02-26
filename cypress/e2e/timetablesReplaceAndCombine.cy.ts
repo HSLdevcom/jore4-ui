@@ -529,7 +529,7 @@ describe('Timetable replacement and combination', () => {
     previewTimetablesPage = new PreviewTimetablesPage();
     navbar = new Navbar();
 
-    cy.setupMapTiles();
+    cy.setupTests();
     cy.mockLogin();
     cy.visit('/');
 

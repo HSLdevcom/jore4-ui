@@ -131,6 +131,7 @@ describe('Stop details', () => {
 
     stopDetailsPage = new StopDetailsPage();
 
+    cy.setupTests();
     cy.mockLogin();
   });
 

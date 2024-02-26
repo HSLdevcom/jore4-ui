@@ -336,7 +336,7 @@ describe('Timetable passing times', () => {
 
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
 
-    cy.setupMapTiles();
+    cy.setupTests();
     cy.mockLogin();
     cy.visit('/');
   });

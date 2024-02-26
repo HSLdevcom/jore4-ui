@@ -100,7 +100,7 @@ describe('Stop editing tests', () => {
     stopForm = new StopForm();
     toast = new Toast();
 
-    cy.setupMapTiles();
+    cy.setupTests();
     cy.mockLogin();
     map.visit({
       zoom: 15,
