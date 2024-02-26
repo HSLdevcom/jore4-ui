@@ -166,8 +166,11 @@ export const PreviewTimetablesPage = (): JSX.Element => {
             <SpecialDayMixedPrioritiesWarning />
           </Visible>
         </div>
-        <Visible identifier="fileContent" visible={showStagingTimetables}>
-          <div className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue py-9 px-16">
+        <Visible visible={showStagingTimetables}>
+          <div
+            id="fileContent"
+            className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue py-9 px-16"
+          >
             <ImportContentsView vehicleScheduleFrames={vehicleScheduleFrames} />
           </div>
         </Visible>
