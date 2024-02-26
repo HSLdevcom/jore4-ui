@@ -81,142 +81,140 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
       </th>
     </tr>
   </thead>
-  <div>
-    <tbody>
-      <tr
-        class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
-        data-testid="VehicleJourneyRow::35::outbound"
-      >
-        <td>
-          <div
-            class="flex flex-row items-center font-bold"
-            title=""
+  <tbody>
+    <tr
+      class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
+      data-testid="VehicleJourneyRow::35::outbound"
+    >
+      <td>
+        <div
+          class="flex flex-row items-center font-bold"
+          title=""
+        >
+          <span
+            class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
+            data-testid="DirectionBadge::container"
+            title="1 - Keskustasta pois"
           >
             <span
-              class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
-              data-testid="DirectionBadge::container"
-              title="1 - Keskustasta pois"
+              data-testid="DirectionBadge::outbound"
             >
-              <span
-                data-testid="DirectionBadge::outbound"
-              >
-                1
-              </span>
+              1
             </span>
-            35
-          </div>
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::dateTypeName"
-        >
-          Maanantai - Perjantai
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::startTime"
-        >
-          15:00
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::endTime"
-        >
-          15:25
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::contractNumber"
-        >
-          CONTRACT_1
-        </td>
-      </tr>
-      <tr
-        class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
-        data-testid="VehicleJourneyRow::35::inbound"
+          </span>
+          35
+        </div>
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::dateTypeName"
       >
-        <td>
-          <div
-            class="flex flex-row items-center font-bold"
-            title=""
+        Maanantai - Perjantai
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::startTime"
+      >
+        15:00
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::endTime"
+      >
+        15:25
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::contractNumber"
+      >
+        CONTRACT_1
+      </td>
+    </tr>
+    <tr
+      class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
+      data-testid="VehicleJourneyRow::35::inbound"
+    >
+      <td>
+        <div
+          class="flex flex-row items-center font-bold"
+          title=""
+        >
+          <span
+            class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
+            data-testid="DirectionBadge::container"
+            title="2 - Keskustaan päin"
           >
             <span
-              class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
-              data-testid="DirectionBadge::container"
-              title="2 - Keskustaan päin"
+              data-testid="DirectionBadge::inbound"
             >
-              <span
-                data-testid="DirectionBadge::inbound"
-              >
-                2
-              </span>
+              2
             </span>
-            35
-          </div>
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::dateTypeName"
-        >
-          Maanantai - Perjantai
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::startTime"
-        >
-          15:30
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::endTime"
-        >
-          15:55
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::contractNumber"
-        >
-          CONTRACT_1
-        </td>
-      </tr>
-      <tr
-        class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
-        data-testid="VehicleJourneyRow::35::outbound"
+          </span>
+          35
+        </div>
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::dateTypeName"
       >
-        <td>
-          <div
-            class="flex flex-row items-center font-bold"
-            title=""
+        Maanantai - Perjantai
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::startTime"
+      >
+        15:30
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::endTime"
+      >
+        15:55
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::contractNumber"
+      >
+        CONTRACT_1
+      </td>
+    </tr>
+    <tr
+      class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
+      data-testid="VehicleJourneyRow::35::outbound"
+    >
+      <td>
+        <div
+          class="flex flex-row items-center font-bold"
+          title=""
+        >
+          <span
+            class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
+            data-testid="DirectionBadge::container"
+            title="1 - Keskustasta pois"
           >
             <span
-              class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
-              data-testid="DirectionBadge::container"
-              title="1 - Keskustasta pois"
+              data-testid="DirectionBadge::outbound"
             >
-              <span
-                data-testid="DirectionBadge::outbound"
-              >
-                1
-              </span>
+              1
             </span>
-            35
-          </div>
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::dateTypeName"
-        >
-          Maanantai - Perjantai
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::startTime"
-        >
-          16:00
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::endTime"
-        >
-          16:25
-        </td>
-        <td
-          data-testid="VehicleJourneyRow::contractNumber"
-        >
-          CONTRACT_1
-        </td>
-      </tr>
-    </tbody>
-  </div>
+          </span>
+          35
+        </div>
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::dateTypeName"
+      >
+        Maanantai - Perjantai
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::startTime"
+      >
+        16:00
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::endTime"
+      >
+        16:25
+      </td>
+      <td
+        data-testid="VehicleJourneyRow::contractNumber"
+      >
+        CONTRACT_1
+      </td>
+    </tr>
+  </tbody>
 </table>
 `;
 
@@ -285,134 +283,132 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           </div>
         </div>
       </div>
-      <div>
-        <div
-          class="my-4 space-y-4"
-          id="SUMMER_SCHEDULESBlocks"
+      <div
+        class="my-4 space-y-4"
+        id="SUMMER_SCHEDULESBlocks"
+      >
+        <table
+          class="border-brand-gray w-full border"
+          data-testid="BlockVehicleJourneysTable::table"
+          id="SUMMER_SCHEDULES Week day service"
         >
-          <table
-            class="border-brand-gray w-full border"
-            data-testid="BlockVehicleJourneysTable::table"
-            id="SUMMER_SCHEDULES Week day service"
+          <thead
+            class="[&>tr>th]:border [&>tr>th]:border-light-grey"
           >
-            <thead
-              class="[&>tr>th]:border [&>tr>th]:border-light-grey"
-            >
-              <tr>
-                <th
-                  class="w-1/6 bg-brand py-2 px-6 text-left text-white"
-                  data-testid="BlockVehicleJourneysTable::blockLabel"
+            <tr>
+              <th
+                class="w-1/6 bg-brand py-2 px-6 text-left text-white"
+                data-testid="BlockVehicleJourneysTable::blockLabel"
+              >
+                Week day service
+              </th>
+              <th
+                class="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
+                colspan="4"
+              >
+                <div
+                  class="flex flex-row flex-1 items-center justify-between font-normal"
+                  title=""
                 >
-                  Week day service
-                </th>
-                <th
-                  class="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
-                  colspan="4"
-                >
-                  <div
-                    class="flex flex-row flex-1 items-center justify-between font-normal"
-                    title=""
+                  <p
+                    data-testid="BlockVehicleJourneysTable::vehicleType"
                   >
-                    <p
-                      data-testid="BlockVehicleJourneysTable::vehicleType"
+                    Kalustotyyppi - Mini B
+                  </p>
+                  <button
+                    aria-controls="SUMMER_SCHEDULES Week day service"
+                    aria-expanded="false"
+                    class="text-center "
+                    data-testid="BlockVehicleJourneysTable::toggleShowTable"
+                    title="Näytä autokierron SUMMER_SCHEDULES Week day service tiedot"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="text-3xl text-tweaked-brand text-brand text-[50px] pointer-events-none inline text-center"
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      Kalustotyyppi - Mini B
-                    </p>
-                    <button
-                      aria-controls="SUMMER_SCHEDULES Week day service"
-                      aria-expanded="false"
-                      class="text-center "
-                      data-testid="BlockVehicleJourneysTable::toggleShowTable"
-                      title="Näytä autokierron SUMMER_SCHEDULES Week day service tiedot"
-                      type="button"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="text-3xl text-tweaked-brand text-brand text-[50px] pointer-events-none inline text-center"
-                        fill="currentColor"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-width="0"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0 0h24v24H0V0z"
-                          fill="none"
-                        />
-                        <path
-                          d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-          </table>
-          <table
-            class="border-brand-gray w-full border"
-            data-testid="BlockVehicleJourneysTable::table"
-            id="SUMMER_SCHEDULES Saturday service"
+                      <path
+                        d="M0 0h24v24H0V0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </th>
+            </tr>
+          </thead>
+        </table>
+        <table
+          class="border-brand-gray w-full border"
+          data-testid="BlockVehicleJourneysTable::table"
+          id="SUMMER_SCHEDULES Saturday service"
+        >
+          <thead
+            class="[&>tr>th]:border [&>tr>th]:border-light-grey"
           >
-            <thead
-              class="[&>tr>th]:border [&>tr>th]:border-light-grey"
-            >
-              <tr>
-                <th
-                  class="w-1/6 bg-brand py-2 px-6 text-left text-white"
-                  data-testid="BlockVehicleJourneysTable::blockLabel"
+            <tr>
+              <th
+                class="w-1/6 bg-brand py-2 px-6 text-left text-white"
+                data-testid="BlockVehicleJourneysTable::blockLabel"
+              >
+                Saturday service
+              </th>
+              <th
+                class="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
+                colspan="4"
+              >
+                <div
+                  class="flex flex-row flex-1 items-center justify-between font-normal"
+                  title=""
                 >
-                  Saturday service
-                </th>
-                <th
-                  class="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
-                  colspan="4"
-                >
-                  <div
-                    class="flex flex-row flex-1 items-center justify-between font-normal"
-                    title=""
+                  <p
+                    data-testid="BlockVehicleJourneysTable::vehicleType"
                   >
-                    <p
-                      data-testid="BlockVehicleJourneysTable::vehicleType"
+                    Kalustotyyppi - Mini B
+                  </p>
+                  <button
+                    aria-controls="SUMMER_SCHEDULES Saturday service"
+                    aria-expanded="false"
+                    class="text-center "
+                    data-testid="BlockVehicleJourneysTable::toggleShowTable"
+                    title="Näytä autokierron SUMMER_SCHEDULES Saturday service tiedot"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="text-3xl text-tweaked-brand text-brand text-[50px] pointer-events-none inline text-center"
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      Kalustotyyppi - Mini B
-                    </p>
-                    <button
-                      aria-controls="SUMMER_SCHEDULES Saturday service"
-                      aria-expanded="false"
-                      class="text-center "
-                      data-testid="BlockVehicleJourneysTable::toggleShowTable"
-                      title="Näytä autokierron SUMMER_SCHEDULES Saturday service tiedot"
-                      type="button"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="text-3xl text-tweaked-brand text-brand text-[50px] pointer-events-none inline text-center"
-                        fill="currentColor"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-width="0"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0 0h24v24H0V0z"
-                          fill="none"
-                        />
-                        <path
-                          d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-          </table>
-        </div>
+                      <path
+                        d="M0 0h24v24H0V0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </th>
+            </tr>
+          </thead>
+        </table>
       </div>
     </div>
     <div
@@ -472,73 +468,71 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           </div>
         </div>
       </div>
-      <div>
-        <div
-          class="my-4 space-y-4"
-          id="AUTUMN_SCHEDULESBlocks"
+      <div
+        class="my-4 space-y-4"
+        id="AUTUMN_SCHEDULESBlocks"
+      >
+        <table
+          class="border-brand-gray w-full border"
+          data-testid="BlockVehicleJourneysTable::table"
+          id="AUTUMN_SCHEDULES Sunday service"
         >
-          <table
-            class="border-brand-gray w-full border"
-            data-testid="BlockVehicleJourneysTable::table"
-            id="AUTUMN_SCHEDULES Sunday service"
+          <thead
+            class="[&>tr>th]:border [&>tr>th]:border-light-grey"
           >
-            <thead
-              class="[&>tr>th]:border [&>tr>th]:border-light-grey"
-            >
-              <tr>
-                <th
-                  class="w-1/6 bg-brand py-2 px-6 text-left text-white"
-                  data-testid="BlockVehicleJourneysTable::blockLabel"
+            <tr>
+              <th
+                class="w-1/6 bg-brand py-2 px-6 text-left text-white"
+                data-testid="BlockVehicleJourneysTable::blockLabel"
+              >
+                Sunday service
+              </th>
+              <th
+                class="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
+                colspan="4"
+              >
+                <div
+                  class="flex flex-row flex-1 items-center justify-between font-normal"
+                  title=""
                 >
-                  Sunday service
-                </th>
-                <th
-                  class="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
-                  colspan="4"
-                >
-                  <div
-                    class="flex flex-row flex-1 items-center justify-between font-normal"
-                    title=""
+                  <p
+                    data-testid="BlockVehicleJourneysTable::vehicleType"
                   >
-                    <p
-                      data-testid="BlockVehicleJourneysTable::vehicleType"
+                    Kalustotyyppi - Mini A
+                  </p>
+                  <button
+                    aria-controls="AUTUMN_SCHEDULES Sunday service"
+                    aria-expanded="false"
+                    class="text-center "
+                    data-testid="BlockVehicleJourneysTable::toggleShowTable"
+                    title="Näytä autokierron AUTUMN_SCHEDULES Sunday service tiedot"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="text-3xl text-tweaked-brand text-brand text-[50px] pointer-events-none inline text-center"
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      Kalustotyyppi - Mini A
-                    </p>
-                    <button
-                      aria-controls="AUTUMN_SCHEDULES Sunday service"
-                      aria-expanded="false"
-                      class="text-center "
-                      data-testid="BlockVehicleJourneysTable::toggleShowTable"
-                      title="Näytä autokierron AUTUMN_SCHEDULES Sunday service tiedot"
-                      type="button"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="text-3xl text-tweaked-brand text-brand text-[50px] pointer-events-none inline text-center"
-                        fill="currentColor"
-                        height="1em"
-                        stroke="currentColor"
-                        stroke-width="0"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0 0h24v24H0V0z"
-                          fill="none"
-                        />
-                        <path
-                          d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-          </table>
-        </div>
+                      <path
+                        d="M0 0h24v24H0V0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </th>
+            </tr>
+          </thead>
+        </table>
       </div>
     </div>
   </div>

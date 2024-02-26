@@ -4,7 +4,6 @@ interface Props {
   // This visible parameter has to be required, but the value can be undefined.
   visible: boolean | undefined;
   children: JSX.Element | JSX.Element[];
-  identifier?: string;
 }
 
 /*
@@ -13,10 +12,6 @@ interface Props {
  * same as `{myBooleanFlag && <MyComponent />}`, but this might
  * be easier to read if there are multiple children components.
  */
-export const Visible: React.FC<Props> = ({
-  visible = false,
-  identifier,
-  children,
-}) => {
-  return visible ? <div id={identifier}>{children}</div> : null;
+export const Visible: React.FC<Props> = ({ visible = false, children }) => {
+  return visible ? <>{children}</> : null;
 };

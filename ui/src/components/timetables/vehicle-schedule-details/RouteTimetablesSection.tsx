@@ -112,8 +112,8 @@ export const RouteTimetablesSection = ({
         loading={fetchRouteTimetables}
         testId={testIds.loadingRouteTimetables}
       >
-        <Visible visible={isOpen} identifier={sectionIdentifier}>
-          <div className="mt-8">
+        <Visible visible={isOpen}>
+          <div id={sectionIdentifier} className="mt-8">
             {activeView === TimetablesView.DEFAULT && (
               <div className="grid grid-cols-3 gap-x-8 gap-y-5">
                 {displayedVehicleJourneyGroups?.map((item) => (
