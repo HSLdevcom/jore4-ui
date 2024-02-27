@@ -10,13 +10,20 @@ interface Props {
   stop: EnrichedStopTableRow;
 }
 
+const testIds = {
+  row: (label: string) => `StopTableRow::row::${label}`,
+};
+
 export const StopTableRow = ({ className = '', stop }: Props): JSX.Element => {
   const { t } = useTranslation();
 
   const yBorderClassNames = 'border-y border-y-light-grey';
 
   return (
-    <tr className={`text-hsl-dark-80 ${className}`}>
+    <tr
+      className={`text-hsl-dark-80 ${className}`}
+      data-testid={testIds.row(stop.label)}
+    >
       {/* TODO: select column */}
       {/* TODO: alert style column */}
       <td className={`w-auto px-8 py-3 pr-20 ${yBorderClassNames}`}>
