@@ -43,7 +43,7 @@ interface Props {
   testId: string;
 }
 
-const yBorderClassnames = 'border-y border-y-light-grey';
+const yBorderClassNames = 'border-y border-y-light-grey';
 const rBorderClassNames = 'border-r border-r-light-grey';
 
 const getDisplayInformation = (
@@ -168,14 +168,14 @@ export const RouteLineTableRow = ({
           />
         </td>
       </Visible>
-      <td className={`${alertStyle.listItemBorder} ${yBorderClassnames} p-4`}>
+      <td className={`${alertStyle.listItemBorder} ${yBorderClassNames} p-4`}>
         <AlertPopover
           title={t(alertStatus.title)}
           description={t(alertStatus.description)}
           alertIcon={alertStyle.icon}
         />
       </td>
-      <td className={`w-full py-4 ${yBorderClassnames}`}>
+      <td className={`w-full py-4 ${yBorderClassNames}`}>
         <Link
           to={displayInformation.linkTo}
           className={displayInformation.isDisabled ? disabledStyle : ''}
@@ -213,11 +213,11 @@ export const RouteLineTableRow = ({
         </Link>
       </td>
       <td
-        className={`w-1/12 pl-6 text-right align-middle ${yBorderClassnames}`}
+        className={`w-1/12 pl-6 text-right align-middle ${yBorderClassNames}`}
       >
         {displayInformation.alternativeRowActionButton}
       </td>
-      <td className={`w-1/12 p-6 text-right align-middle ${yBorderClassnames}`}>
+      <td className={`w-1/12 p-6 text-right align-middle ${yBorderClassNames}`}>
         <LocatorButton
           // Button is disabled if function is not defined
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
