@@ -1,6 +1,7 @@
 {
   "name": "@hsl/jore4-cypress",
   "version": "1.0.0",
+  "license": "EUPL-1.2",
   "description": "Cypress for jore4 e2e testing",
   "private": true,
   "scripts": {
