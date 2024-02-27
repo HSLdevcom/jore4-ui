@@ -1,6 +1,7 @@
 {
   "name": "@hsl/jore4-ui",
   "version": "0.1.0",
+  "license": "EUPL-1.2",
   "private": true,
   "scripts": {
     "predev": "yarn generate-theme",

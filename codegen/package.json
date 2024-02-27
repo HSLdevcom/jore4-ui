@@ -1,6 +1,7 @@
 {
   "name": "@hsl/jore4-codegen",
   "version": "1.0.0",
+  "license": "EUPL-1.2",
   "description": "Graphql code generator for Jore4",
   "private": true,
   "scripts": {
