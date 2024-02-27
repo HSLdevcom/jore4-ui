@@ -21,7 +21,7 @@ const devProxy = {
     },
     router: (req) => {
       switch (req.headers['x-environment']) {
-        case 'e2e1':
+        case 'e2e':
           return 'http://127.0.0.1:3211';
         default:
           return 'http://127.0.0.1:3201';

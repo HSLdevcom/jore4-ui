@@ -1,1 +1,1 @@
-export * from './currentExecutorIndex';
+export * from './hasuraEnvironment';

@@ -24,13 +24,13 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-import { CurrentExecutorIndex } from '@hsl/jore4-test-db-manager';
+import { HasuraEnvironment } from '@hsl/jore4-test-db-manager';
 
-const getExecutorIndex = () => {
+const getHasuraEnvironment = () => {
   if (Cypress.env('CI') === undefined && Cypress.env('CYPRESS') === 'true') {
-    return CurrentExecutorIndex.e2e1;
+    return HasuraEnvironment.e2e;
   }
-  return CurrentExecutorIndex.default;
+  return HasuraEnvironment.default;
 };
 
 Cypress.Commands.add('getByTestId', (selector, ...args) => {
@@ -88,13 +88,13 @@ Cypress.Commands.add('setupTests', () => {
       // eslint-disable-next-line no-param-reassign
       req.alias = `gql${req.body.operationName}`;
 
-      const executorIndex = getExecutorIndex();
+      const hasuraEnvironment = getHasuraEnvironment();
 
       Cypress.log({
-        message: `UI Hasura executor index, ${executorIndex}`,
+        message: `Hasura environment for GraphQL, ${hasuraEnvironment}`,
       });
       // eslint-disable-next-line no-param-reassign
-      req.headers['X-Environment'] = `e2e${executorIndex}`;
+      req.headers['X-Environment'] = hasuraEnvironment;
       req.continue();
     }
   });
@@ -103,13 +103,13 @@ Cypress.Commands.add('setupTests', () => {
     // eslint-disable-next-line no-param-reassign
     req.alias = 'hastusImport';
 
-    const executorIndex = getExecutorIndex();
+    const hasuraEnvironment = getHasuraEnvironment();
 
     Cypress.log({
-      message: `Hastus executor index, ${executorIndex}`,
+      message: `Hasura environment for import, ${hasuraEnvironment}`,
     });
     // eslint-disable-next-line no-param-reassign
-    req.headers['x-Environment'] = `e2e${executorIndex}`;
+    req.headers['x-Environment'] = hasuraEnvironment;
     req.continue();
   });
 
@@ -117,13 +117,13 @@ Cypress.Commands.add('setupTests', () => {
     // eslint-disable-next-line no-param-reassign
     req.alias = 'hastusExport';
 
-    const executorIndex = getExecutorIndex();
+    const hasuraEnvironment = getHasuraEnvironment();
 
     Cypress.log({
-      message: `Hastus executor index, ${executorIndex}`,
+      message: `Hasura environment for export, ${hasuraEnvironment}`,
     });
     // eslint-disable-next-line no-param-reassign
-    req.headers['x-Environment'] = `e2e${executorIndex}`;
+    req.headers['x-Environment'] = hasuraEnvironment;
     req.continue();
   });
 
