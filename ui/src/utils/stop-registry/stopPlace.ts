@@ -68,6 +68,6 @@ export const getStopPlaceDetailsForEnrichment = <
 ): StopPlaceEnrichmentProperties => {
   return {
     finnishName: stopPlace.name?.value || undefined,
-    swedishName: findAlternativeName(stopPlace, 'sv_FI')?.value || undefined,
+    swedishName: findAlternativeName(stopPlace, 'swe')?.value || undefined,
   };
 };
