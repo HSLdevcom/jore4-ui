@@ -47,19 +47,19 @@ const timingPlaces = [
 
 const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
   {
-    name: { lang: 'fi_FI', value: 'Puistokaari' },
+    name: { lang: 'fin', value: 'Puistokaari' },
   },
   {
-    name: { lang: 'fi_FI', value: 'Lapinrinne' },
+    name: { lang: 'fin', value: 'Lapinrinne' },
     alternativeNames: [
       {
-        name: { lang: 'sv_FI', value: 'Lappbrinken' },
+        name: { lang: 'swe', value: 'Lappbrinken' },
         nameType: StopRegistryNameType.Translation,
       },
     ],
   },
   {
-    name: { lang: 'fi_FI', value: 'Tuusulanväylä' },
+    name: { lang: 'fin', value: 'Tuusulanväylä' },
   },
 ];
 
