@@ -20,10 +20,10 @@ const mapToStopPlaceInput = (
   return {
     label: seedStopPlace.label,
     stopPlace: {
-      name: { lang: 'fi_FI', value: seedStopPlace.nameFi },
+      name: { lang: 'fin', value: seedStopPlace.nameFi },
       alternativeNames: [
         {
-          name: { lang: 'sv_FI', value: seedStopPlace.nameSV },
+          name: { lang: 'swe', value: seedStopPlace.nameSV },
           nameType: StopRegistryNameType.Translation,
         },
       ],
