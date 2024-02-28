@@ -28,14 +28,18 @@ const insertStopPlace = async ({ label, stopPlace }: StopPlaceInput) => {
       `Found multiple stop points for label ${label}, using the first one...`,
     );
   }
-  if (stopPoint.stop_place_ref) {
-    console.warn(
-      `Stop point ${stopPointId} with label ${label} already has a stop place with id ${stopPoint.stop_place_ref}. Overwriting...`,
-    );
-  }
 
   try {
-    await insertStopPlaceForScheduledStopPoint(stopPointId, stopPlace);
+    const stopPlaceRef = await insertStopPlaceForScheduledStopPoint(
+      stopPointId,
+      stopPlace,
+    );
+
+    if (stopPoint.stop_place_ref) {
+      console.warn(
+        `Stop point ${stopPointId} with label ${label} already has a stop place with id ${stopPoint.stop_place_ref}. Overwrote with ${stopPlaceRef}.`,
+      );
+    }
   } catch (error) {
     console.error(
       'An error occurred while inserting stop place!',
