@@ -31,7 +31,7 @@ const mapToStopPlaceInput = (
   };
 };
 
-export const seedStopPlaces: Array<StopPlaceInput> = [
+const seedData: Array<StopPlaceSeedData> = [
   // Stops for route 35:
   { label: 'H1376', nameFin: 'Rakuunantie 8', nameSwe: 'Dragonvägen 8' },
   {
@@ -48,4 +48,6 @@ export const seedStopPlaces: Array<StopPlaceInput> = [
   { label: 'H1455', nameFin: 'Niemenmäentie', nameSwe: 'Näshöjdsvägen' },
   { label: 'H1456', nameFin: 'Rakuunantie', nameSwe: 'Dragonvägen' }, // Rakuunantie 16
   { label: 'H1458', nameFin: 'Rakuunantie', nameSwe: 'Dragonvägen' }, // Huopalahdentie
-].map(mapToStopPlaceInput);
+];
+export const seedStopPlaces: Array<StopPlaceInput> =
+  seedData.map(mapToStopPlaceInput);
