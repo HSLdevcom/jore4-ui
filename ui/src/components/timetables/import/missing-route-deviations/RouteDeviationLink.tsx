@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { VehicleScheduleFrameInfo } from '../../../../hooks';
 import { parseI18nField } from '../../../../i18n/utils';
@@ -21,7 +20,6 @@ export const RouteDeviationLink = ({
   isLast,
   testIdPrefix,
 }: Props) => {
-  const { t } = useTranslation();
   const { lineId, uniqueLabel, direction } = deviation;
   return (
     <Link
@@ -32,7 +30,6 @@ export const RouteDeviationLink = ({
       <div className="flex items-center">
         <DirectionBadge
           direction={direction}
-          titleName={t(`directionEnum.${direction}`)}
           className="mx-1 !h-4 !w-4 text-sm"
         />
         <span
