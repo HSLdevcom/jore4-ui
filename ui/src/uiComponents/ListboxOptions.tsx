@@ -42,8 +42,8 @@ export const ListboxOptions = forwardRef<HTMLUListElement, Props>(
                   ? addClassName(
                       child,
                       `${
-                        optionProps.active ? 'bg-background' : ''
-                      } flex group text-left px-2 py-2 focus:outline-none border-b border-grey`,
+                        optionProps.active ? 'bg-dark-grey text-white' : ''
+                      } flex group text-left px-2 py-2 border-b border-grey`,
                     )
                   : child;
               }}
