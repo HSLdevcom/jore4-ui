@@ -19,7 +19,7 @@ export const DropdownMenu = ({
       {({ open }) => (
         <>
           <Menu.Button
-            className="mx-4 flex h-full items-center border-b-4 border-transparent px-3 hover:border-white focus:outline-none"
+            className="mx-4 flex h-full items-center border-b-4 border-transparent px-3 hover:border-white"
             data-testid={testId}
           >
             {buttonContent}
@@ -34,7 +34,7 @@ export const DropdownMenu = ({
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <Menu.Items
               static
-              className="absolute right-0 w-full origin-top-right rounded-b-md border-t border-black border-opacity-20 bg-brand shadow-md focus:outline-none"
+              className="absolute right-0 w-full origin-top-right rounded-b-md border-t border-black border-opacity-20 bg-brand shadow-md"
             >
               <div className="my-4">
                 {React.Children.map(children, (child) => (
