@@ -69,46 +69,48 @@ export const TimetablesImportPriorityForm = ({
 
   return (
     <Column>
-      <Visible visible={showLabel}>
-        <label htmlFor="priorityButtons">{t('priority.label')}</label>
-      </Visible>
-      <Row identifier="priorityButtons" className="flex-wrap gap-2">
-        {displayedPriorities.map(
-          ({ priority, testIdPrefix, translationKey }) => (
-            <SimpleButton
-              key={testIdPrefix}
-              disabled={isSpecialPriority}
-              onClick={() => setPriority(priority)}
-              selected={selectedPriority === priority}
-              inverted={selectedPriority !== priority}
-              testId={testIds.priorityButton(testIdPrefix)}
-            >
-              {t(translationKey)}
-            </SimpleButton>
-          ),
-        )}
-
-        <label
-          htmlFor={testIds.priorityButton('specialDay')}
-          title={t(
-            'timetablesImportPriorityForm.specialDayDisabledExplanation',
+      <fieldset>
+        <Visible visible={showLabel}>
+          <legend className="font-bold">{t('priority.label')}</legend>
+        </Visible>
+        <Row className="flex-wrap gap-2">
+          {displayedPriorities.map(
+            ({ priority, testIdPrefix, translationKey }) => (
+              <SimpleButton
+                key={testIdPrefix}
+                disabled={isSpecialPriority}
+                onClick={() => setPriority(priority)}
+                selected={selectedPriority === priority}
+                inverted={selectedPriority !== priority}
+                testId={testIds.priorityButton(testIdPrefix)}
+              >
+                {t(translationKey)}
+              </SimpleButton>
+            ),
           )}
-          className={`inline-flex items-center pl-4 text-base font-normal ${
-            !isSpecialPriority ? 'hidden' : ''
-          }`}
-        >
-          {t('timetablesImportPriorityForm.importAsSpecialDay')}
-          <input
-            type="checkbox"
-            id={testIds.priorityButton('specialDay')}
-            checked={isSpecialPriority}
-            disabled
-            className="ml-3 h-6 w-6"
-            data-testid={testIds.priorityButton('specialDay')}
-          />
-        </label>
-      </Row>
-      <p>{errors.priority && t('formValidation.required')}</p>
+
+          <label
+            htmlFor={testIds.priorityButton('specialDay')}
+            title={t(
+              'timetablesImportPriorityForm.specialDayDisabledExplanation',
+            )}
+            className={`inline-flex items-center pl-4 text-base font-normal ${
+              !isSpecialPriority ? 'hidden' : ''
+            }`}
+          >
+            {t('timetablesImportPriorityForm.importAsSpecialDay')}
+            <input
+              type="checkbox"
+              id={testIds.priorityButton('specialDay')}
+              checked={isSpecialPriority}
+              disabled
+              className="ml-3 h-6 w-6"
+              data-testid={testIds.priorityButton('specialDay')}
+            />
+          </label>
+        </Row>
+        <p>{errors.priority && t('formValidation.required')}</p>
+      </fieldset>
     </Column>
   );
 };
