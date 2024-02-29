@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import {
   VehicleJourneyWithRouteInfoFragment,
   VehicleServiceWithJourneysFragment,
@@ -26,7 +25,6 @@ export const VehicleJourneyRow = ({
   vehicleJourney: VehicleJourneyWithRouteInfoFragment;
   vehicleService: VehicleServiceWithJourneysFragment;
 }): JSX.Element => {
-  const { t } = useTranslation();
   const route =
     vehicleJourney.journey_pattern_ref.journey_pattern_instance
       ?.journey_pattern_route;
@@ -49,7 +47,6 @@ export const VehicleJourneyRow = ({
           <DirectionBadge
             direction={route.direction}
             className="mr-2 h-5 w-5 text-base"
-            titleName={t(`directionEnum.${route.direction}`)}
           />
           {getRouteLabelVariantText(route)}
         </Row>

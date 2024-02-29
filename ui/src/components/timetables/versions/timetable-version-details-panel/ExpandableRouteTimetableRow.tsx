@@ -31,11 +31,7 @@ export const ExpandableRouteTimetableRow: React.FC<Props> = ({
     <div className={className}>
       <Row>
         <div className="flex flex-1 items-center bg-background">
-          <DirectionBadge
-            direction={direction}
-            className="my-5 ml-12"
-            titleName={t(`directionEnum.${direction}`)}
-          />
+          <DirectionBadge direction={direction} className="my-5 ml-12" />
           <div className="ml-3.5 mt-1">
             <h3 className="text-base">{routeLabel}</h3>
             {routeName}

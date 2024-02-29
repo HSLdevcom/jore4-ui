@@ -74,7 +74,6 @@ export const ExpandableRouteRow = ({
           <DirectionBadge
             direction={route.direction as RouteDirectionEnum}
             className="mr-4"
-            titleName={t(`directionEnum.${route.direction}`)}
           />
           <span className="text-xl" data-testid={testIds.label}>
             <RouteLabel label={label} variant={route.variant} />
