@@ -7,12 +7,12 @@ import { GetStopPointByLabelResult } from './types';
 
 const insertStopPlace = async ({ label, stopPlace }: StopPlaceInput) => {
   // Find related scheduled stop point.
-  const stopPlaceResult = (await hasuraApi(
+  const stopPointResult = (await hasuraApi(
     mapToGetStopPointByLabelQuery(label),
   )) as GetStopPointByLabelResult;
 
   const stopPoints =
-    stopPlaceResult?.data?.service_pattern_scheduled_stop_point;
+    stopPointResult?.data?.service_pattern_scheduled_stop_point;
   const stopPoint = stopPoints && stopPoints[0];
   const stopPointId = stopPoint?.scheduled_stop_point_id;
 
