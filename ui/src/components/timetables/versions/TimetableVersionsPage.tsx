@@ -96,9 +96,10 @@ export const TimetableVersionsPage = (): JSX.Element => {
   return (
     <Container>
       <FormRow mdColumns={2}>
-        <h2>{`${t('timetables.versionsTitle')} | ${t('lines.line', {
-          label,
-        })}`}</h2>
+        <h1 className="text-2xl">
+          {`${t('timetables.versionsTitle')} |
+          ${t('lines.line', { label })}`}
+        </h1>
         <FormColumn className="items-end">
           <CloseIconButton
             label={t('close')}
@@ -109,14 +110,14 @@ export const TimetableVersionsPage = (): JSX.Element => {
         </FormColumn>
       </FormRow>
       <Container>
-        <h3>{t('timetables.timeline')}</h3>
+        <h2 className="text-xl">{t('timetables.timeline')}</h2>
         <TimeRangeControl className="mb-8" />
-        <h3>{t('timetables.operatingCalendar')}</h3>
+        <h2 className="text-xl">{t('timetables.operatingCalendar')}</h2>
         <TimetableVersionTable
           className="mb-8 w-full"
           data={sortTimetables(timetablesExcludingDrafts)}
         />
-        <h3>{t('timetables.drafts')}</h3>
+        <h2 className="text-xl">{t('timetables.drafts')}</h2>
         <TimetableVersionTable
           className="mb-8 w-full"
           data={onlyDraftTimetables}
