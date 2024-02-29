@@ -1,7 +1,11 @@
 import {
+  StopRegistryCycleStorageEquipmentInput,
+  StopRegistryCycleStorageType,
   StopRegistryGeoJsonType,
   StopRegistryInterchangeWeightingType,
   StopRegistryNameType,
+  StopRegistryShelterEquipmentInput,
+  StopRegistrySignContentType,
   StopRegistryStopPlace,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
@@ -25,6 +29,9 @@ export type StopPlaceSeedData = {
   locationLat?: number;
   locationLong?: number;
   postalCode?: string;
+  generalSign?: string;
+  shelterEquipment?: StopRegistryShelterEquipmentInput;
+  cycleStorageEquipment?: StopRegistryCycleStorageEquipmentInput;
 };
 
 export type StopPlaceInput = {
@@ -90,6 +97,16 @@ const mapToStopPlaceInput = (
               nameType: StopRegistryNameType.Alias,
             },
           ],
+
+          // Equipment properties:
+          placeEquipments: {
+            shelterEquipment: seedStopPlace.shelterEquipment && [
+              seedStopPlace.shelterEquipment,
+            ],
+            cycleStorageEquipment: seedStopPlace.cycleStorageEquipment && [
+              seedStopPlace.cycleStorageEquipment,
+            ],
+          },
         },
       ],
 
@@ -112,6 +129,17 @@ const mapToStopPlaceInput = (
       ],
       // TODO: Pysäkin osoite
       // TODO: toiminnalinen alue
+
+      // Equipment properties:
+      placeEquipments: {
+        generalSign: seedStopPlace.generalSign && [
+          {
+            // Note: this could have "content" as well.
+            privateCode: { type: 'HSL', value: seedStopPlace.generalSign }, // TODO: the values still need further specification.
+            signContentType: StopRegistrySignContentType.TransportMode,
+          },
+        ],
+      },
     },
   };
 };
@@ -154,6 +182,16 @@ const seedData: Array<StopPlaceSeedData> = [
     locationLat: 60.180413,
     locationLong: 24.92799,
     postalCode: '00100',
+    generalSign: 'Tolppamerkki',
+    shelterEquipment: {
+      enclosed: true,
+      stepFree: false,
+      // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
+    },
+    cycleStorageEquipment: {
+      cycleStorageType: StopRegistryCycleStorageType.Other,
+      // There also exists `numberOfSpaces` field here, but we currently don't have plans for that in the UI so leaving it out.
+    },
   },
 ];
 export const seedStopPlaces: Array<StopPlaceInput> =
