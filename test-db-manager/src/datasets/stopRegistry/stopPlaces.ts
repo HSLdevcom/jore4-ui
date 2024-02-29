@@ -1,4 +1,5 @@
 import {
+  StopRegistryGeoJsonType,
   StopRegistryInterchangeWeightingType,
   StopRegistryNameType,
   StopRegistryStopPlace,
@@ -21,6 +22,9 @@ export type StopPlaceSeedData = {
   publicCode?: string;
   elyNumber?: string;
   interchangeWeighting?: StopRegistryInterchangeWeightingType;
+  locationLat?: number;
+  locationLong?: number;
+  postalCode?: string;
 };
 
 export type StopPlaceInput = {
@@ -88,6 +92,26 @@ const mapToStopPlaceInput = (
           ],
         },
       ],
+
+      // Location properties:
+      geometry: seedStopPlace.locationLat &&
+        seedStopPlace.locationLong && {
+          coordinates: [
+            [seedStopPlace.locationLat, seedStopPlace.locationLong],
+          ],
+          type: StopRegistryGeoJsonType.Point,
+        },
+      // TODO: topographicPlace. These can't be inserted through StopPlace GraphQL.
+      // TODO: these require more specification and probably need to be inserted separately somehow.
+      // tariffZones: [{ /* 'A' */ }],
+      keyValues: [
+        seedStopPlace.postalCode && {
+          key: 'postalCode',
+          values: [seedStopPlace.postalCode],
+        },
+      ],
+      // TODO: Pysäkin osoite
+      // TODO: toiminnalinen alue
     },
   };
 };
@@ -126,6 +150,10 @@ const seedData: Array<StopPlaceSeedData> = [
     locationSwe: 'Norraesplanaden (plats)',
     interchangeWeighting:
       StopRegistryInterchangeWeightingType.RecommendedInterchange,
+    // TODO: the coordinates should come from routes DB really.
+    locationLat: 60.180413,
+    locationLong: 24.92799,
+    postalCode: '00100',
   },
 ];
 export const seedStopPlaces: Array<StopPlaceInput> =
