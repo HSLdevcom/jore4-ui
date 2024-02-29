@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 button:focus {
-  outline: none;
+  outline-offset: 2px;
+}
+
+a:focus {
+  outline-offset: 2px;
 }
 
 input {
