@@ -3,7 +3,6 @@ import React from 'react';
 interface Props {
   // This visible parameter has to be required, but the value can be undefined.
   visible: boolean | undefined;
-  children: JSX.Element | JSX.Element[];
 }
 
 /*
