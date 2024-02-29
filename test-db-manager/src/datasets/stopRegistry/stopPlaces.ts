@@ -1,8 +1,10 @@
 import {
+  StopRegistryAccessibilityLimitationsInput,
   StopRegistryCycleStorageEquipmentInput,
   StopRegistryCycleStorageType,
   StopRegistryGeoJsonType,
   StopRegistryInterchangeWeightingType,
+  StopRegistryLimitationStatusType,
   StopRegistryNameType,
   StopRegistryShelterEquipmentInput,
   StopRegistrySignContentType,
@@ -32,7 +34,17 @@ export type StopPlaceSeedData = {
   generalSign?: string;
   shelterEquipment?: StopRegistryShelterEquipmentInput;
   cycleStorageEquipment?: StopRegistryCycleStorageEquipmentInput;
+  accessibilityLimitations?: Partial<StopRegistryAccessibilityLimitationsInput>;
 };
+
+const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput =
+  {
+    audibleSignalsAvailable: StopRegistryLimitationStatusType.Unknown,
+    escalatorFreeAccess: StopRegistryLimitationStatusType.Unknown,
+    liftFreeAccess: StopRegistryLimitationStatusType.Unknown,
+    stepFreeAccess: StopRegistryLimitationStatusType.Unknown,
+    wheelchairAccess: StopRegistryLimitationStatusType.Unknown,
+  };
 
 export type StopPlaceInput = {
   label: string;
@@ -140,6 +152,14 @@ const mapToStopPlaceInput = (
           },
         ],
       },
+
+      // Accessibility properties:
+      accessibilityAssessment: seedStopPlace.accessibilityLimitations && {
+        limitations: {
+          ...defaultAccessibilityLimitations,
+          ...seedStopPlace.accessibilityLimitations,
+        },
+      },
     },
   };
 };
@@ -191,6 +211,9 @@ const seedData: Array<StopPlaceSeedData> = [
     cycleStorageEquipment: {
       cycleStorageType: StopRegistryCycleStorageType.Other
       // There also exists `numberOfSpaces` field here, but we currently don't have plans for that in the UI so leaving it out.
+    },
+    accessibilityLimitations: {
+      wheelchairAccess: StopRegistryLimitationStatusType.Partial,
     },
   },
 ];
