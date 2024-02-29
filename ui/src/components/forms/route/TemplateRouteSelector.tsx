@@ -34,30 +34,32 @@ export const TemplateRouteSelector = ({
       <h3 className="mb-4">{t('routes.searchTemplate')}</h3>
       <Row className="mb-4">
         <Column>
-          <label htmlFor="priorityButtons">{t('priority.label')}</label>
-          <Row identifier="priorityButtons" className="space-x-1">
-            <SimpleButton
-              onClick={() => setPriority(Priority.Standard)}
-              inverted={priority !== Priority.Standard}
-              testId={testIds.standardPriorityButton}
-            >
-              {t('priority.standard')}
-            </SimpleButton>
-            <SimpleButton
-              onClick={() => setPriority(Priority.Draft)}
-              inverted={priority !== Priority.Draft}
-              testId={testIds.draftPriorityButton}
-            >
-              {t('priority.draft')}
-            </SimpleButton>
-            <SimpleButton
-              onClick={() => setPriority(Priority.Temporary)}
-              inverted={priority !== Priority.Temporary}
-              testId={testIds.temporaryPriorityButton}
-            >
-              {t('priority.temporary')}
-            </SimpleButton>
-          </Row>
+          <fieldset>
+            <legend className="font-bold">{t('priority.label')}</legend>
+            <Row className="space-x-1">
+              <SimpleButton
+                onClick={() => setPriority(Priority.Standard)}
+                inverted={priority !== Priority.Standard}
+                testId={testIds.standardPriorityButton}
+              >
+                {t('priority.standard')}
+              </SimpleButton>
+              <SimpleButton
+                onClick={() => setPriority(Priority.Draft)}
+                inverted={priority !== Priority.Draft}
+                testId={testIds.draftPriorityButton}
+              >
+                {t('priority.draft')}
+              </SimpleButton>
+              <SimpleButton
+                onClick={() => setPriority(Priority.Temporary)}
+                inverted={priority !== Priority.Temporary}
+                testId={testIds.temporaryPriorityButton}
+              >
+                {t('priority.temporary')}
+              </SimpleButton>
+            </Row>
+          </fieldset>
         </Column>
       </Row>
       <Column className="mb-4">

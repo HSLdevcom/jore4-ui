@@ -66,23 +66,25 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
 
   return (
     <Column>
-      <label htmlFor="priorityButtons">{t('priority.label')}</label>
-      <Row identifier="priorityButtons" className="flex-wrap gap-2">
-        {displayedPriorities.map(
-          ({ priority, testIdPrefix, translationKey }) => (
-            <SimpleButton
-              key={testIdPrefix}
-              onClick={() => setPriority(priority)}
-              selected={selectedPriority === priority}
-              inverted={selectedPriority !== priority}
-              testId={testIds.priorityButton(testIdPrefix)}
-            >
-              {t(translationKey)}
-            </SimpleButton>
-          ),
-        )}
-      </Row>
-      <p>{errors.priority && t('formValidation.required')}</p>
+      <fieldset>
+        <legend className="font-bold">{t('priority.label')}</legend>
+        <Row className="flex-wrap gap-2">
+          {displayedPriorities.map(
+            ({ priority, testIdPrefix, translationKey }) => (
+              <SimpleButton
+                key={testIdPrefix}
+                onClick={() => setPriority(priority)}
+                selected={selectedPriority === priority}
+                inverted={selectedPriority !== priority}
+                testId={testIds.priorityButton(testIdPrefix)}
+              >
+                {t(translationKey)}
+              </SimpleButton>
+            ),
+          )}
+        </Row>
+        <p>{errors.priority && t('formValidation.required')}</p>
+      </fieldset>
     </Column>
   );
 };

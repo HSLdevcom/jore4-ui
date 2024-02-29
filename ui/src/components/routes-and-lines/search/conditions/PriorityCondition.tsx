@@ -44,20 +44,22 @@ export const PriorityCondition = ({
 
   return (
     <Column>
-      <p className="font-bold">{t('priority.label')}</p>
-      <Row className="space-x-2">
-        {priorityButtonData.map((item) => (
-          <SimpleButton
-            onClick={() => onClickPriority(item.priority)}
-            selected={priorities.includes(item.priority)}
-            inverted={!priorities.includes(item.priority)}
-            key={item.priority}
-            testId={testIds.priorityButton(item.priority)}
-          >
-            {item.label}
-          </SimpleButton>
-        ))}
-      </Row>
+      <fieldset>
+        <legend className="font-bold">{t('priority.label')}</legend>
+        <Row className="space-x-2">
+          {priorityButtonData.map((item) => (
+            <SimpleButton
+              onClick={() => onClickPriority(item.priority)}
+              selected={priorities.includes(item.priority)}
+              inverted={!priorities.includes(item.priority)}
+              key={item.priority}
+              testId={testIds.priorityButton(item.priority)}
+            >
+              {item.label}
+            </SimpleButton>
+          ))}
+        </Row>
+      </fieldset>
     </Column>
   );
 };
