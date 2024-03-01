@@ -153,7 +153,7 @@ export const RouteStopsRow = ({
               testId={testIds.openTimingSettingsButton}
               icon={
                 <AiFillPlusCircle
-                  className={`ml-2 text-xl ${
+                  className={`text-xl ${
                     stopBelongsToJourneyPattern ? 'text-brand' : 'text-gray-300'
                   }`}
                 />
@@ -162,6 +162,7 @@ export const RouteStopsRow = ({
                 stopLabel,
               })}`}
               onClick={showTimingSettingsModal}
+              className="ml-2 rounded-full leading-none"
               disabled={!stopBelongsToJourneyPattern}
             />
           )}
