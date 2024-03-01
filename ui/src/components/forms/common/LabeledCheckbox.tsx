@@ -1,5 +1,8 @@
 import React from 'react';
-import { SimpleButton } from '../../../uiComponents';
+import {
+  LabeledContainer,
+  labeledContainerInputStyles,
+} from './LabeledContainer';
 
 interface Props {
   label: string;
@@ -8,9 +11,7 @@ interface Props {
   id?: string;
   testId?: string;
   className?: string;
-  containerClassName?: string;
   selected?: boolean;
-  selectedClassName?: string;
   disabled?: boolean;
   disabledTooltip?: string;
 }
@@ -21,28 +22,37 @@ export const LabeledCheckbox = ({
   tooltip,
   id,
   testId,
-  className,
-  containerClassName,
+  className = '',
   selected,
-  selectedClassName,
   disabled,
   disabledTooltip,
 }: Props): JSX.Element => {
   return (
-    <SimpleButton
-      id={id}
-      testId={testId}
-      className={className}
-      containerClassName={containerClassName}
+    <LabeledContainer
       onClick={onClick}
+      label={label}
       tooltip={tooltip}
-      selected={selected}
-      inverted={!selected}
-      invertedClassName={selectedClassName}
-      disabled={disabled}
+      className={className}
       disabledTooltip={disabledTooltip}
+      selected={selected}
+      disabled={disabled}
     >
-      {label}
-    </SimpleButton>
+      <input
+        id={id}
+        tabIndex={-1} // Focus the button instead.
+        data-testid={testId}
+        className={`icon-check appearance-none text-[18px]
+           ${
+             selected
+               ? labeledContainerInputStyles.selected
+               : labeledContainerInputStyles.unselected
+           }
+        `}
+        type="checkbox"
+        onChange={onClick}
+        checked={selected}
+        disabled={disabled}
+      />
+    </LabeledContainer>
   );
 };
