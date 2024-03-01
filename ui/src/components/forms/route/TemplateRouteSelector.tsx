@@ -35,7 +35,7 @@ export const TemplateRouteSelector = ({
   // However our parent component already has one with "priority" field,
   // which we don't want to mess with, so need to create a new one.
   const methods = useForm<PriorityFormState>({
-    values: {
+    defaultValues: {
       priority: Priority.Standard,
     },
     resolver: zodResolver(priorityFormSchema),

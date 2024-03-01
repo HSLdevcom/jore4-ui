@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../../layoutComponents';
 import { Priority } from '../../../../types/enums';
-import { SimpleButton } from '../../../../uiComponents';
+import { LabeledCheckbox } from '../../../forms/common';
 
 const testIds = {
   priorityButton: (priority: Priority) =>
@@ -48,15 +48,13 @@ export const PriorityCondition = ({
         <legend className="font-bold">{t('priority.label')}</legend>
         <Row className="space-x-2">
           {priorityButtonData.map((item) => (
-            <SimpleButton
+            <LabeledCheckbox
+              label={item.label}
               onClick={() => onClickPriority(item.priority)}
               selected={priorities.includes(item.priority)}
-              inverted={!priorities.includes(item.priority)}
               key={item.priority}
               testId={testIds.priorityButton(item.priority)}
-            >
-              {item.label}
-            </SimpleButton>
+            />
           ))}
         </Row>
       </fieldset>

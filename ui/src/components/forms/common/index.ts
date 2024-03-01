@@ -7,6 +7,8 @@ export * from './FormRow';
 export * from './InputElement';
 export * from './InputField';
 export * from './InputLabel';
+export * from './LabeledCheckbox';
+export * from './LabeledRadioButton';
 export * from './ObservationDateInput';
 export * from './PriorityForm';
 export * from './ValidationErrorList';
