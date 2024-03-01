@@ -1,16 +1,20 @@
 import React from 'react';
-import { SimpleButton } from '../../../uiComponents';
+import { InputElement } from './InputElement';
+import {
+  LabeledContainer,
+  labeledContainerInputStyles,
+} from './LabeledContainer';
 
 interface Props {
   label: string;
   onClick: () => void;
   tooltip?: string;
-  id?: string;
-  testId?: string;
+  id: string;
+  fieldPath: string;
+  value: string;
+  testId: string;
   className?: string;
-  containerClassName?: string;
   selected?: boolean;
-  selectedClassName?: string;
   disabled?: boolean;
   disabledTooltip?: string;
 }
@@ -20,29 +24,42 @@ export const LabeledRadioButton = ({
   onClick,
   tooltip,
   id,
+  fieldPath,
+  value,
   testId,
-  className,
-  containerClassName,
+  className = '',
   selected,
-  selectedClassName,
   disabled,
   disabledTooltip,
 }: Props): JSX.Element => {
   return (
-    <SimpleButton
-      id={id}
-      testId={testId}
-      className={className}
-      containerClassName={containerClassName}
+    <LabeledContainer
       onClick={onClick}
+      label={label}
       tooltip={tooltip}
-      selected={selected}
-      inverted={!selected}
-      invertedClassName={selectedClassName}
-      disabled={disabled}
+      className={className}
       disabledTooltip={disabledTooltip}
+      selected={selected}
+      disabled={disabled}
     >
-      {label}
-    </SimpleButton>
+      <InputElement
+        id={id}
+        name={fieldPath}
+        fieldPath={fieldPath}
+        type="radio"
+        value={value}
+        tabIndex={-1} // Focus the button instead.
+        testId={testId}
+        className={`appearance-none rounded-full before:h-[14px] before:w-[14px] before:rounded-full before:bg-tweaked-brand
+          ${
+            selected
+              ? labeledContainerInputStyles.selected
+              : labeledContainerInputStyles.unselected
+          }`}
+        onChange={onClick}
+        checked={selected}
+        disabled={disabled}
+      />
+    </LabeledContainer>
   );
 };

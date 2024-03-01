@@ -72,6 +72,9 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
           {displayedPriorities.map(
             ({ priority, testIdPrefix, translationKey }) => (
               <LabeledRadioButton
+                id={`priority.${testIdPrefix}`}
+                fieldPath="priority"
+                value={priority.toString()}
                 key={testIdPrefix}
                 label={t(translationKey)}
                 onClick={() => setPriority(priority)}
