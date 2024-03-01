@@ -37,7 +37,8 @@ export const SimpleDropdownMenu = ({
 }: Props): JSX.Element => {
   const alignClassName = getAlignClassName(alignItems);
   const commonClassName = `${alignClassName} absolute z-10 origin-top-right overflow-visible bg-white text-black shadow-md focus:outline-none`;
-  const menuItemClassName = `border-x border-b first-of-type:border-t whitespace-nowrap border-black w-full py-1 px-2 focus:outline-none text-left`;
+  const commonMenuItemClassName = `border-x border-b first-of-type:border-t whitespace-nowrap border-black w-full py-1 px-2 focus:outline-none text-left`;
+  const activeMenuItemClassName = `${commonMenuItemClassName} bg-dark-grey text-white`;
 
   return (
     <Menu as="div" className="relative">
@@ -55,9 +56,16 @@ export const SimpleDropdownMenu = ({
             <Menu.Items static className={commonClassName}>
               {React.Children.map(children, (child) => (
                 <Menu.Item>
-                  {() =>
+                  {({ active }) =>
                     React.isValidElement(child)
-                      ? addClassName(child, menuItemClassName)
+                      ? addClassName(
+                          child,
+                          `${
+                            active
+                              ? activeMenuItemClassName
+                              : commonMenuItemClassName
+                          }`,
+                        )
                       : child
                   }
                 </Menu.Item>
