@@ -46,7 +46,7 @@ export const TemplateRouteSelector = ({
   return (
     <div
       data-testid={testIds.container}
-      className="prelative relative w-full rounded-md border border-light-grey bg-background px-3 py-4"
+      className="relative w-full rounded-md border border-light-grey bg-background px-3 py-4"
     >
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <FormProvider {...methods}>
