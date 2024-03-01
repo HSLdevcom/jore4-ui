@@ -60,7 +60,9 @@ export const SimpleButton: React.FC<Props> = (props) => {
   const colorClassNames = inverted
     ? `text-brand bg-white border border-grey active:border-brand ${invertedClassName}`
     : `text-white bg-brand border border-brand active:bg-opacity-50`;
-  const disabledClassNames = disabled ? 'cursor-not-allowed opacity-70' : '';
+  const disabledClassNames = disabled
+    ? 'cursor-not-allowed opacity-70 text-white bg-light-grey border-light-grey'
+    : '';
   const commonClassNames = `px-4 py-2 font-bold rounded-full ${colorClassNames} ${getHoverStyles(
     inverted,
     disabled,
