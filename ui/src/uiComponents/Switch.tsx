@@ -26,7 +26,9 @@ export const Switch: React.FC<Props> = ({
     >
       <span
         className={`${
-          checked ? 'translate-x-5 border-brand' : '-translate-x-1 border-grey'
+          checked
+            ? 'translate-x-5 border-brand'
+            : '-translate-x-0.5 border-grey'
         } inline-block h-6 w-6 transform rounded-full border bg-white transition-transform`}
       />
     </HuiSwitch>
