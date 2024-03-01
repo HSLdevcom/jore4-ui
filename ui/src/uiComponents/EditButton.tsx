@@ -19,7 +19,7 @@ type Props = CommonProps & (LinkProps | ButtonProps);
 
 const ButtonContent = () => (
   <div
-    className={`ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white ${commonHoverStyle}`}
+    className={`flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white ${commonHoverStyle}`}
   >
     <MdModeEdit className="aria-hidden text-2xl text-tweaked-brand" />
   </div>
@@ -32,7 +32,12 @@ export const EditButton: React.FC<Props> = (props) => {
 
   if (href) {
     return (
-      <Link to={href} data-testid={testId} title={tooltip}>
+      <Link
+        to={href}
+        data-testid={testId}
+        title={tooltip}
+        className="ml-5 rounded-full"
+      >
         <ButtonContent />
       </Link>
     );
@@ -44,6 +49,7 @@ export const EditButton: React.FC<Props> = (props) => {
       type="button"
       data-testid={testId}
       title={tooltip}
+      className="ml-5 rounded-full"
     >
       <ButtonContent />
     </button>

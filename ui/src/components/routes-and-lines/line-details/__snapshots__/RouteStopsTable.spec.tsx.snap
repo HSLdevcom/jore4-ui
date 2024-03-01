@@ -81,12 +81,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
                 Reitti A - B FI
               </span>
               <a
+                class="ml-5 rounded-full"
                 data-testid="ExpandableRouteRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
                 title="Muokkaa reittiä 65x, suunta 1"
               >
                 <div
-                  class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
+                  class="flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
                 >
                   <svg
                     class="aria-hidden text-2xl text-tweaked-brand"
@@ -303,12 +304,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
                 Reitti A - B FI
               </span>
               <a
+                class="ml-5 rounded-full"
                 data-testid="ExpandableRouteRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
                 title="Muokkaa reittiä 65x, suunta 1"
               >
                 <div
-                  class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
+                  class="flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
                 >
                   <svg
                     class="aria-hidden text-2xl text-tweaked-brand"
@@ -532,7 +534,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center px-3 focus:outline-none"
+                class="mx-auto mx-3 flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r2:"
@@ -655,7 +657,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center px-3 focus:outline-none"
+                class="mx-auto mx-3 flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r3:"
@@ -771,12 +773,13 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
                 Reitti A - B FI
               </span>
               <a
+                class="ml-5 rounded-full"
                 data-testid="ExpandableRouteRow::editRouteButton::Reitti A - B FI"
                 href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
                 title="Muokkaa reittiä 65x, suunta 1"
               >
                 <div
-                  class="ml-5 flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
+                  class="flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
                 >
                   <svg
                     class="aria-hidden text-2xl text-tweaked-brand"
@@ -1000,7 +1003,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center px-3 focus:outline-none"
+                class="mx-auto mx-3 flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r2:"
@@ -1123,7 +1126,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center px-3 focus:outline-none"
+                class="mx-auto mx-3 flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r4:"
@@ -1246,7 +1249,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto flex items-center px-3 focus:outline-none"
+                class="mx-auto mx-3 flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r5:"
