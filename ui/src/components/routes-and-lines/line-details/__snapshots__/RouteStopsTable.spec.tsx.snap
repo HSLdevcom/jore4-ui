@@ -24,7 +24,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 1`]
         type="button"
       >
         <span
-          class="-translate-x-1 border-grey inline-block h-6 w-6 transform rounded-full border bg-white transition-transform"
+          class="-translate-x-0.5 border-grey inline-block h-6 w-6 transform rounded-full border bg-white transition-transform"
         />
       </button>
     </div>
@@ -246,7 +246,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
         type="button"
       >
         <span
-          class="-translate-x-1 border-grey inline-block h-6 w-6 transform rounded-full border bg-white transition-transform"
+          class="-translate-x-0.5 border-grey inline-block h-6 w-6 transform rounded-full border bg-white transition-transform"
         />
       </button>
     </div>
