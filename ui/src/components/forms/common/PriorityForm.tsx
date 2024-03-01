@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { TranslationKey } from '../../../i18n';
 import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
-import { SimpleButton } from '../../../uiComponents';
+import { LabeledRadioButton } from './LabeledRadioButton';
 
 export const priorityFormSchema = z.object({
   priority: z.nativeEnum(Priority),
@@ -71,15 +71,16 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
         <Row className="flex-wrap gap-2">
           {displayedPriorities.map(
             ({ priority, testIdPrefix, translationKey }) => (
-              <SimpleButton
+              <LabeledRadioButton
+                id={`priority.${testIdPrefix}`}
+                fieldPath="priority"
+                value={priority}
                 key={testIdPrefix}
+                label={t(translationKey)}
                 onClick={() => setPriority(priority)}
                 selected={selectedPriority === priority}
-                inverted={selectedPriority !== priority}
                 testId={testIds.priorityButton(testIdPrefix)}
-              >
-                {t(translationKey)}
-              </SimpleButton>
+              />
             ),
           )}
         </Row>
