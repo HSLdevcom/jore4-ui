@@ -13,7 +13,10 @@ module.exports = {
       colors: {
         brand: colors.brand,
         'brand-darker': colors.brandDarker,
-        'tweaked-brand': colors.tweakedBrand,
+        'tweaked-brand': {
+          DEFAULT: colors.tweakedBrand,
+          darker30: colors.tweakedBrandDarker30,
+        },
         stop: colors.stop,
         background: colors.background,
         'hsl-dark-80': colors.hslDark80,
