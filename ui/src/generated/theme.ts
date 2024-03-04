@@ -3,6 +3,7 @@ export const theme = {
     brand: "#007AC9",
     brandDarker: "#0068ab",
     tweakedBrand: "#0074bf",
+    tweakedBrandDarker30: "#005186",
     stop: "#004B7B",
     background: "#F2F5F7",
     hslDark80: "#333333",
