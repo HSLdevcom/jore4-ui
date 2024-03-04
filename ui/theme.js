@@ -1,8 +1,9 @@
 const theme = {
   colors: {
     brand: '#007AC9',
-    brandDarker: '#0068ab',
+    brandDarker: '#0068ab', // = tweakedBrand * ~90% HSL lightness
     tweakedBrand: '#0074bf',
+    tweakedBrandDarker30: '#005186', // = tweakedBrand * 70% HSL lightness
     stop: '#004B7B',
     background: '#F2F5F7',
     hslDark80: '#333333',
