@@ -14,6 +14,7 @@ interface Props {
 }
 
 const testIds = {
+  row: 'ExpandableRouteTimetableRow::row',
   expandButton: 'ExpandableRouteTimetableRow::AccordionButton',
 };
 
@@ -28,7 +29,7 @@ export const ExpandableRouteTimetableRow: React.FC<Props> = ({
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
   return (
-    <div className={className}>
+    <div data-testid={testIds.row} className={className}>
       <Row>
         <div className="flex flex-1 items-center bg-background">
           <DirectionBadge direction={direction} className="my-5 ml-12" />
