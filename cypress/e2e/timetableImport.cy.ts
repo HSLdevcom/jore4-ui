@@ -727,10 +727,10 @@ describe('Timetable import', () => {
           '2023-06-30',
         );
         timetableVersionsPage.timetableVersionTableRow
-          .getRow()
+          .getRows()
           .should('have.length', 2);
         timetableVersionsPage.timetableVersionTableRow
-          .getRow()
+          .getRows()
           .eq(0)
           .should('contain', 'Voimassa')
           .and('contain', 'Sunnuntai')
@@ -738,7 +738,7 @@ describe('Timetable import', () => {
           .and('contain', '31.12.2049')
           .and('contain', '99');
         timetableVersionsPage.timetableVersionTableRow
-          .getRow()
+          .getRows()
           .eq(1)
           .should('contain', 'Luonnos')
           .and('contain', 'Sunnuntai')
