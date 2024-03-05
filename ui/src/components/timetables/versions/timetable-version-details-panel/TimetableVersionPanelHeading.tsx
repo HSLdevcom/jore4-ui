@@ -5,6 +5,7 @@ import { mapToShortDate } from '../../../../time';
 import { CloseIconButton } from '../../../../uiComponents';
 
 const testIds = {
+  heading: 'TimetableVersionPanelHeading::heading',
   closeButton: 'TimetableVersionPanelHeading::closeButton',
 };
 
@@ -14,7 +15,7 @@ export const TimetableVersionPanelHeading: React.FC<{
   validityEnd?: DateTime;
 }> = ({ validityStart, validityEnd, onClose }) => (
   <Row className="mb-4 ml-2 justify-between">
-    <h2>
+    <h2 data-testid={testIds.heading}>
       <span className="block text-sm">{t('timetables.scheduleValid')}</span>
       <span className="text-2xl">{`${mapToShortDate(
         validityStart,

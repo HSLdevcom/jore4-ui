@@ -1,3 +1,4 @@
+export * from './ChangeTimetablesValidityForm';
 export * from './ChangeValidityForm';
 export * from './ConfirmationDialog';
 export * from './EditRoutePage';
@@ -20,7 +21,6 @@ export * from './RouteTimetablesSection';
 export * from './RoutesAndLinesPage';
 export * from './SearchResultsPage';
 export * from './StopForm';
-export * from './stop-registry';
 export * from './SubstituteDaySettingsPage';
 export * from './TemplateRouteSelector';
 export * from './TerminusNameInputs';
@@ -29,3 +29,5 @@ export * from './TimetablesMainPage';
 export * from './Toast';
 export * from './VehicleScheduleDetailsPage';
 export * from './VehicleServiceTable';
+export * from './stop-registry';
+export * from './timetables';

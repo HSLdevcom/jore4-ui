@@ -22,8 +22,12 @@ import { SimpleDropdownMenuItem } from '../../routes-and-lines/line-details/Simp
 
 const testIds = {
   timetableVersionTableRow: 'TimetableVersionTableRow::row',
+  timetableVersionTableRowValidityStart:
+    'TimetableVersionTableRow::validityStart',
+  timetableVersionTableRowValidityEnd: 'TimetableVersionTableRow::validityEnd',
+  timetableVersionTableRowActions: 'TimetableVersionTableRow::actions',
   deleteTimetableMenuItem: 'TimetableVersionTableRow::deleteTimetableMenuItem',
-  versionPanelMenuItem: 'TimetableVersionTableRow:versionPanelMenuItem',
+  versionPanelMenuItem: 'TimetableVersionTableRow::versionPanelMenuItem',
 };
 
 const getStatusClassName = ({
@@ -127,8 +131,12 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
           </span>
         )}
       </td>
-      <td>{mapToShortDate(data.vehicleScheduleFrame.validityStart)}</td>
-      <td>{mapToShortDate(data.vehicleScheduleFrame.validityEnd)}</td>
+      <td data-testid={testIds.timetableVersionTableRowValidityStart}>
+        {mapToShortDate(data.vehicleScheduleFrame.validityStart)}
+      </td>
+      <td data-testid={testIds.timetableVersionTableRowValidityEnd}>
+        {mapToShortDate(data.vehicleScheduleFrame.validityEnd)}
+      </td>
       <td>{data.routeLabelAndVariant}</td>
       <td>{vehicleScheduleFrameName}</td>
       <td>!Muokkaaja</td>
@@ -137,7 +145,7 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
         <Visible visible={!!data.vehicleScheduleFrame.id}>
           <SimpleDropdownMenu
             alignItems={AlignDirection.Right}
-            testId="menu"
+            testId={testIds.timetableVersionTableRowActions}
             tooltip={t('accessibility:timetables.versionActions', {
               status: statusText,
               schedule: vehicleScheduleFrameName,
