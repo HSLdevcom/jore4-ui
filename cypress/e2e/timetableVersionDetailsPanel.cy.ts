@@ -502,7 +502,7 @@ describe('Timetable version details panel', () => {
 
   it('Should open, have correct details, and close', () => {
     timetableVersionsPage.timetableVersionTableRow
-      .getRow()
+      .getRows()
       .should('have.length', 1);
 
     timetableVersionsPage.timetableVersionTableRow.openNthRowVersionDetailsPanel(
@@ -604,7 +604,7 @@ describe('Timetable version details panel', () => {
 
     // Check that the version row's validity changed
     timetableVersionsPage.timetableVersionTableRow
-      .getRow()
+      .getRows()
       .eq(0)
       .findByTestId('TimetableVersionTableRow::validityEnd')
       .contains('31.3.2024');
