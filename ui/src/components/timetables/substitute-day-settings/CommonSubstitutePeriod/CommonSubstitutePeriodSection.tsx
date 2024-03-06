@@ -6,6 +6,7 @@ import {
   useGetSubstituteOperatingPeriods,
 } from '../../../../hooks/substitute-operating-periods';
 import { useTimeRangeQueryParams } from '../../../../hooks/urlQuery';
+import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { showDangerToastWithError, showSuccessToast } from '../../../../utils';
 import {
   CommonSubstitutePeriodForm,
@@ -17,6 +18,11 @@ interface Props {
   className?: string;
 }
 
+const testIds = {
+  loadingCommonSubstitutePeriods:
+    'CommonSubstitutePeriodSection::loadingCommonSubstitutePeriods',
+};
+
 export const CommonSubstitutePeriodSection = ({
   className = '',
 }: Props): JSX.Element => {
@@ -25,6 +31,7 @@ export const CommonSubstitutePeriodSection = ({
 
   const {
     commonSubstituteOperatingPeriods,
+    isLoadingCommonSubstituteOperatingPeriods,
     refetchCommonSubstituteOperatingPeriods,
   } = useGetSubstituteOperatingPeriods({ startDate, endDate });
 
@@ -65,13 +72,19 @@ export const CommonSubstitutePeriodSection = ({
   return (
     <div className={className}>
       <h2>{t('timetables.settings.commonSubstituteDays')}</h2>
-      <CommonSubstitutePeriodForm
-        className="my-8"
-        commonDays={mapCommonSubstituteOperatingPeriodsToCommonDays(
-          commonSubstituteOperatingPeriods,
-        )}
-        onSubmit={onSubmit}
-      />
+      <LoadingWrapper
+        loading={isLoadingCommonSubstituteOperatingPeriods}
+        testId={testIds.loadingCommonSubstitutePeriods}
+        className="flex justify-center"
+      >
+        <CommonSubstitutePeriodForm
+          className="my-8"
+          commonDays={mapCommonSubstituteOperatingPeriodsToCommonDays(
+            commonSubstituteOperatingPeriods,
+          )}
+          onSubmit={onSubmit}
+        />
+      </LoadingWrapper>
     </div>
   );
 };
