@@ -2,7 +2,7 @@ import fetch from 'cross-fetch';
 
 enum HasuraURL {
   Dev = 'http://127.0.0.1:3201/v1/graphql',
-  E2E = 'http://127.0.0.1:3211/v1/graphql',
+  E2E = 'http://127.0.0.1:3201/v1/graphql',
   CI = 'http://jore4-hasura:8080/v1/graphql',
 }
 

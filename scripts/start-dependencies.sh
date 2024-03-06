@@ -71,9 +71,6 @@ function start_docker_bundle {
 
   # start up only services that are needed in local ui development
   e2eServices=""
-  if [ "$INCLUDE_E2E" = true ]; then
-    e2eServices="jore4-testdb-e2e1 jore4-hasura-e2e1"
-  fi
   $DOCKER_COMPOSE_CMD up -d jore4-auth jore4-testdb jore4-hasura ${e2eServices} jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-hastus jore4-tiamat jore4-timetablesapi
 }
 
@@ -81,7 +78,4 @@ download_docker_bundle
 check_pinned_hasura
 start_docker_bundle "${1:-x}"
 ./scripts/seed-infrastructure-links.sh testdb &
-if [ "$INCLUDE_E2E" = true ]; then
-  ./scripts/seed-infrastructure-links.sh testdb-e2e1 &
-fi
 wait

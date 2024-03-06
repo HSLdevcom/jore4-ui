@@ -42,10 +42,4 @@ services:
   jore4-timetablesapi:
     # pinning timetables api
     image: &timetablesapi-image 'hsldevcom/jore4-timetables-api:main--20231214-daee5f99354cf3e3d76e93665be1466eb977b30b'
-  jore4-hasura-e2e1:
-    image: *hasura-image
-    depends_on:
-      jore4-testdb-e2e1:
-        condition: service_healthy
-      jore4-tiamat:
-        condition: service_healthy
+

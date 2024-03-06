@@ -7,7 +7,7 @@ export interface DatabaseConnectionInfo {
 }
 
 const testDbPort = {
-  local_e2e: 6532,
+  local_e2e: 6432,
   local_dev: 6432,
   ci: 5432,
 };
