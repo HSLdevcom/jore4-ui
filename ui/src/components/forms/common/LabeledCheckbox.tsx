@@ -31,6 +31,7 @@ export const LabeledCheckbox = ({
     <LabeledContainer
       onClick={onClick}
       label={label}
+      role="checkbox"
       tooltip={tooltip}
       className={className}
       disabledTooltip={disabledTooltip}
@@ -52,6 +53,7 @@ export const LabeledCheckbox = ({
         onChange={onClick}
         checked={selected}
         disabled={disabled}
+        aria-hidden="true"
       />
     </LabeledContainer>
   );

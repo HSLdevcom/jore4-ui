@@ -3,6 +3,7 @@ import React from 'react';
 interface Props {
   label: string;
   onClick: () => void;
+  role: string;
   className?: string;
   tooltip?: string;
   selected?: boolean;
@@ -23,6 +24,7 @@ export const labeledContainerInputStyles = {
 export const LabeledContainer: React.FC<Props> = ({
   label,
   onClick,
+  role,
   className = '',
   tooltip,
   selected,
@@ -54,6 +56,8 @@ export const LabeledContainer: React.FC<Props> = ({
         ${className}
       `}
       onClick={onClick}
+      role={role}
+      aria-checked={selected}
       disabled={disabled}
       title={disabled ? disabledTooltip : tooltip}
     >
