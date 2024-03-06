@@ -10,4 +10,8 @@ export class VehicleJourneyGroupInfo {
   getTripCount() {
     return cy.getByTestId('VehicleJourneyGroupInfo::tripCount');
   }
+
+  getTripTimeRange() {
+    return cy.getByTestId('VehicleJourneyGroupInfo::tripTimeRange');
+  }
 }
