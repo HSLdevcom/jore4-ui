@@ -35,6 +35,7 @@ export const LabeledRadioButton = ({
     <LabeledContainer
       onClick={onClick}
       label={label}
+      role="radio"
       tooltip={tooltip}
       className={className}
       disabledTooltip={disabledTooltip}
@@ -57,6 +58,7 @@ export const LabeledRadioButton = ({
         onChange={onClick}
         checked={selected}
         disabled={disabled}
+        aria-hidden="true"
       />
     </LabeledContainer>
   );
