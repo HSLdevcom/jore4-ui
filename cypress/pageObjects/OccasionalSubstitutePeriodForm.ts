@@ -76,11 +76,8 @@ export class OccasionalSubstitutePeriodForm {
 
   selectLineTypes(lineTypes: string[]) {
     this.getOccasionalSubstitutePeriodFormLineTypesDropdown().click();
-    this.getLineTypesList().then((ul) => {
-      if (ul.find('input[type="checkbox"]:checked').length > 0) {
-        cy.get('input[type="checkbox"]:checked').uncheck();
-      }
-    });
+    cy.get('li').contains('Kaikki').click();
+
     cy.wrap(lineTypes).each((lineType: string) => {
       cy.get('li').contains(lineType).click();
     });
