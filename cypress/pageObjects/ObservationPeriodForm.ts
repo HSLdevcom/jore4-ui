@@ -14,4 +14,9 @@ export class ObservationPeriodForm {
   setEndDate(isoDate: string) {
     this.getEndDateInput().type(isoDate);
   }
+
+  setObservationPeriod(startDate: string, endDate: string) {
+    this.setStartDate(startDate);
+    this.setEndDate(endDate);
+  }
 }

@@ -27,7 +27,7 @@ import {
   PreviewTimetablesPage,
   RouteTimetablesSection,
   RoutesAndLinesPage,
-  TimetablesMainpage,
+  TimetablesMainPage,
   VehicleServiceTable,
 } from '../pageObjects';
 import { UUID } from '../types';
@@ -487,7 +487,7 @@ const confirmTimetablesInCombineCase = () => {
 };
 
 describe('Timetable replacement and combination', () => {
-  let timetablesMainPage: TimetablesMainpage;
+  let timetablesMainPage: TimetablesMainPage;
   let importTimetablesPage: ImportTimetablesPage;
   let previewTimetablesPage: PreviewTimetablesPage;
   let navbar: Navbar;
@@ -524,7 +524,7 @@ describe('Timetable replacement and combination', () => {
     removeFromDbHelper(dbResources);
     insertToDbHelper(dbResources);
 
-    timetablesMainPage = new TimetablesMainpage();
+    timetablesMainPage = new TimetablesMainPage();
     importTimetablesPage = new ImportTimetablesPage();
     previewTimetablesPage = new PreviewTimetablesPage();
     navbar = new Navbar();
