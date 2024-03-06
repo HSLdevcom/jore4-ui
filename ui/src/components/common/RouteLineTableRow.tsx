@@ -19,6 +19,7 @@ import { LineTimetablesButton } from './LineTimetablesButton';
 import { RouteLabel } from './RouteLabel';
 
 const testIds = {
+  row: (testId: string) => `RouteLineTableRow::row::${testId}`,
   checkbox: (testId: string) => `RouteLineTableRow::checkbox::${testId}`,
 };
 
@@ -151,7 +152,10 @@ export const RouteLineTableRow = ({
   }
 
   return (
-    <tr className={`${rBorderClassNames} ${className}`}>
+    <tr
+      className={`${rBorderClassNames} ${className}`}
+      data-testid={testIds.row(testId)}
+    >
       <Visible visible={!!onSelectChanged}>
         {/*
           Hard coded width, so this column does not take too much space and

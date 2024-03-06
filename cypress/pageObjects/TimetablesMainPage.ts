@@ -2,7 +2,7 @@ import { ExportToolBar } from './ExportToolBar';
 import { RouteLineTableRow } from './RouteLineTableRow';
 import { SearchContainer } from './SearchContainer';
 
-export class TimetablesMainpage {
+export class TimetablesMainPage {
   searchContainer = new SearchContainer();
 
   exportToolBar = new ExportToolBar();
@@ -16,4 +16,8 @@ export class TimetablesMainpage {
   getSettingsButton() {
     return cy.getByTestId('TimetablesMainPage::settingsButton');
   }
+
+  openSettings = () => {
+    return cy.getByTestId('TimetablesMainPage::settingsButton').click();
+  };
 }

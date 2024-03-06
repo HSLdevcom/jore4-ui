@@ -29,7 +29,7 @@ import {
   RouteTimetablesSection,
   RoutesAndLinesPage,
   TimetableVersionsPage,
-  TimetablesMainpage,
+  TimetablesMainPage,
   VehicleScheduleDetailsPage,
   VehicleServiceTable,
 } from '../pageObjects';
@@ -336,7 +336,7 @@ const verifyBaseTimetableValidity = () => {
 };
 
 describe('Timetable import', () => {
-  let timetablesMainPage: TimetablesMainpage;
+  let timetablesMainPage: TimetablesMainPage;
   let importTimetablesPage: ImportTimetablesPage;
   let previewTimetablesPage: PreviewTimetablesPage;
   let navbar: Navbar;
@@ -375,7 +375,7 @@ describe('Timetable import', () => {
     removeFromDbHelper(dbResources);
     insertToDbHelper(dbResources);
 
-    timetablesMainPage = new TimetablesMainpage();
+    timetablesMainPage = new TimetablesMainPage();
     importTimetablesPage = new ImportTimetablesPage();
     previewTimetablesPage = new PreviewTimetablesPage();
     navbar = new Navbar();

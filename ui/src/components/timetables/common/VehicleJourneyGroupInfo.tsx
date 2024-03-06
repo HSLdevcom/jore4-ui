@@ -13,6 +13,7 @@ const testIds = {
   changeValidityButton: 'VehicleJourneyGroupInfo::changeValidityButton',
   validityTimeRange: 'VehicleJourneyGroupInfo::validityTimeRange',
   tripCount: 'VehicleJourneyGroupInfo::tripCount',
+  tripTimeRange: 'VehicleJourneyGroupInfo::tripTimeRange',
 };
 
 export interface Props {
@@ -85,7 +86,7 @@ export const VehicleJourneyGroupInfo = ({
             {t('timetables.tripCount', { count: tripCount })}
           </span>
           <span>|</span>
-          <span>
+          <span data-testid={testIds.tripTimeRange}>
             {`${mapDurationToShortTime(
               firstTrip.start_time,
             )} ... ${mapDurationToShortTime(lastTrip.start_time)}`}
