@@ -443,7 +443,7 @@ describe('Timetable import', () => {
 
       // Not a single day timetable -> can't select special day.
       previewTimetablesPage.priorityForm
-        .getSpecialDayPriorityCheckbox()
+        .getSpecialDayPriorityButton()
         .should('not.be.visible');
 
       previewTimetablesPage.priorityForm.setAsStandard();
@@ -530,7 +530,7 @@ describe('Timetable import', () => {
 
         // Not a single day timetable -> can't select special day.
         previewTimetablesPage.priorityForm
-          .getSpecialDayPriorityCheckbox()
+          .getSpecialDayPriorityButton()
           .should('not.be.visible');
         previewTimetablesPage.priorityForm.setAsStandard();
 
@@ -601,7 +601,7 @@ describe('Timetable import', () => {
 
         // Not a single day timetable -> can't select special day.
         previewTimetablesPage.priorityForm
-          .getSpecialDayPriorityCheckbox()
+          .getSpecialDayPriorityButton()
           .should('not.be.visible');
 
         previewTimetablesPage.priorityForm.setAsTemporary();
@@ -694,7 +694,7 @@ describe('Timetable import', () => {
 
         // Not a single day timetable -> can't select special day.
         previewTimetablesPage.priorityForm
-          .getSpecialDayPriorityCheckbox()
+          .getSpecialDayPriorityButton()
           .should('not.be.visible');
 
         previewTimetablesPage.priorityForm.setAsDraft();
@@ -801,10 +801,10 @@ describe('Timetable import', () => {
           .getTemporaryPriorityButton()
           .should('be.disabled');
         previewTimetablesPage.confirmTimetablesImportForm.priorityForm
-          .getSpecialDayPriorityCheckbox()
+          .getSpecialDayPriorityButton()
           .should('be.visible')
           .and('be.checked')
-          .and('be.disabled');
+          .and('not.be.disabled');
         previewTimetablesPage.confirmTimetablesImportForm
           .getCancelButton()
           .click();
@@ -821,10 +821,10 @@ describe('Timetable import', () => {
           .getTemporaryPriorityButton()
           .should('be.disabled');
         previewTimetablesPage.priorityForm
-          .getSpecialDayPriorityCheckbox()
+          .getSpecialDayPriorityButton()
           .should('be.visible')
           .and('be.checked')
-          .and('be.disabled');
+          .and('not.be.disabled');
 
         previewTimetablesPage.blockVehicleJourneysTable
           .getToggleShowTableButton()
