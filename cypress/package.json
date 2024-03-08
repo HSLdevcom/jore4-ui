@@ -13,19 +13,19 @@
     "cy:run:video": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress run --browser chrome --config-file ./cypress.config.video.ts"
   },
   "dependencies": {
-    "@4tw/cypress-drag-drop": "^2.2.3",
+    "@4tw/cypress-drag-drop": "^2.2.5",
     "@hsl/jore4-test-db-manager": "1.0.0",
     "@hsl/timetables-data-inserter": "1.0.0",
-    "cypress": "^13.4.0",
-    "luxon": "^3.3.0",
-    "qs": "^6.11.1"
+    "cypress": "^13.6.6",
+    "luxon": "^3.4.4",
+    "qs": "^6.12.0"
   },
   "devDependencies": {
-    "@cypress/grep": "^3.1.5",
+    "@cypress/grep": "^4.0.1",
     "@types/node": "^18.19.0",
-    "@types/qs": "^6.9.7",
-    "cypress-multi-reporters": "^1.6.3",
-    "eslint-plugin-cypress": "^2.12.1",
-    "find-test-names": "^1.28.3"
+    "@types/qs": "^6.9.12",
+    "cypress-multi-reporters": "^1.6.4",
+    "eslint-plugin-cypress": "^2.15.1",
+    "find-test-names": "^1.28.18"
   }
 }
