@@ -395,7 +395,6 @@
     }
   },
   "timetablesImportPriorityForm": {
-    "importAsSpecialDay": "Tuo erityispäivänä",
     "specialDayDisabledExplanation": "Yhden päivän pituiset aikataulut käsitellään aina erityispäivinä"
   },
   "timetablesPreview": {
