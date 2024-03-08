@@ -30,11 +30,6 @@ interface Props {
 
 const defaultPriorities: PriorityButtonProps[] = [
   {
-    priority: Priority.Draft,
-    testIdPrefix: 'draft',
-    translationKey: 'priority.draft',
-  },
-  {
     priority: Priority.Standard,
     testIdPrefix: 'standard',
     translationKey: 'priority.standard',
@@ -43,6 +38,11 @@ const defaultPriorities: PriorityButtonProps[] = [
     priority: Priority.Temporary,
     testIdPrefix: 'temporary',
     translationKey: 'priority.temporary',
+  },
+  {
+    priority: Priority.Draft,
+    testIdPrefix: 'draft',
+    translationKey: 'priority.draft',
   },
 ];
 
