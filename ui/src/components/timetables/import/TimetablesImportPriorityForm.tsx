@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Column, Row, Visible } from '../../../layoutComponents';
 import { TimetablePriority } from '../../../types/enums';
-import { SimpleButton } from '../../../uiComponents';
+import { LabeledRadioButton, ValidationErrorList } from '../../forms/common';
 
 export const timetablesImportPriorityFormSchema = z.object({
   priority: z.nativeEnum(TimetablePriority),
@@ -44,7 +44,7 @@ export const TimetablesImportPriorityForm = ({
 
   const selectedPriority = watch('priority');
   const setPriority = (value: TimetablePriority) => {
-    setValue('priority', value);
+    setValue('priority', value, { shouldValidate: true });
   };
 
   const displayedPriorities: PriorityButtonProps[] = [
@@ -66,6 +66,9 @@ export const TimetablesImportPriorityForm = ({
   ];
 
   const isSpecialPriority = selectedPriority === TimetablePriority.Special;
+  const specialDayExplanationTooltip = t(
+    'timetablesImportPriorityForm.specialDayDisabledExplanation',
+  );
 
   return (
     <Column>
@@ -74,42 +77,38 @@ export const TimetablesImportPriorityForm = ({
           <legend className="font-bold">{t('priority.label')}</legend>
         </Visible>
         <Row className="flex-wrap gap-2">
+          <LabeledRadioButton
+            id="priority.specialDay"
+            fieldPath="priority"
+            value={TimetablePriority.Special}
+            key="specialDay"
+            className={!isSpecialPriority ? 'hidden' : ''}
+            label={t('priority.special')}
+            onClick={() => setPriority(TimetablePriority.Special)}
+            selected={isSpecialPriority}
+            tooltip={specialDayExplanationTooltip}
+            hasError={!!errors.priority}
+            testId={testIds.priorityButton('specialDay')}
+          />
           {displayedPriorities.map(
             ({ priority, testIdPrefix, translationKey }) => (
-              <SimpleButton
+              <LabeledRadioButton
+                id={`priority.${testIdPrefix}`}
+                fieldPath="priority"
+                value={priority}
                 key={testIdPrefix}
-                disabled={isSpecialPriority}
+                label={t(translationKey)}
                 onClick={() => setPriority(priority)}
                 selected={selectedPriority === priority}
-                inverted={selectedPriority !== priority}
+                hasError={!!errors.priority}
+                disabled={isSpecialPriority}
+                disabledTooltip={specialDayExplanationTooltip}
                 testId={testIds.priorityButton(testIdPrefix)}
-              >
-                {t(translationKey)}
-              </SimpleButton>
+              />
             ),
           )}
-
-          <label
-            htmlFor={testIds.priorityButton('specialDay')}
-            title={t(
-              'timetablesImportPriorityForm.specialDayDisabledExplanation',
-            )}
-            className={`inline-flex items-center pl-4 text-base font-normal ${
-              !isSpecialPriority ? 'hidden' : ''
-            }`}
-          >
-            {t('timetablesImportPriorityForm.importAsSpecialDay')}
-            <input
-              type="checkbox"
-              id={testIds.priorityButton('specialDay')}
-              checked={isSpecialPriority}
-              disabled
-              className="ml-3 h-6 w-6"
-              data-testid={testIds.priorityButton('specialDay')}
-            />
-          </label>
         </Row>
-        <p>{errors.priority && t('formValidation.required')}</p>
+        <ValidationErrorList fieldPath="priority" />
       </fieldset>
     </Column>
   );
