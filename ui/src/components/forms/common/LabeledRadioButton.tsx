@@ -16,6 +16,7 @@ interface Props {
   selected?: boolean;
   disabled?: boolean;
   disabledTooltip?: string;
+  hasError?: boolean;
 }
 
 export const LabeledRadioButton = ({
@@ -30,6 +31,7 @@ export const LabeledRadioButton = ({
   selected,
   disabled,
   disabledTooltip,
+  hasError,
 }: Props): JSX.Element => {
   return (
     <LabeledContainer
@@ -41,6 +43,7 @@ export const LabeledRadioButton = ({
       disabledTooltip={disabledTooltip}
       selected={selected}
       disabled={disabled}
+      hasError={hasError}
     >
       <input
         id={id}
@@ -50,6 +53,7 @@ export const LabeledRadioButton = ({
         tabIndex={-1} // Focus the button instead.
         data-testid={testId}
         className={`appearance-none rounded-full before:h-[14px] before:w-[14px] before:rounded-full before:bg-tweaked-brand
+          [.has-error>&]:before:bg-hsl-red
           ${
             selected
               ? labeledContainerInputStyles.selected

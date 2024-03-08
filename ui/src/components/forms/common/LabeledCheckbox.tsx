@@ -14,6 +14,7 @@ interface Props {
   selected?: boolean;
   disabled?: boolean;
   disabledTooltip?: string;
+  hasError?: boolean;
 }
 
 export const LabeledCheckbox = ({
@@ -26,6 +27,7 @@ export const LabeledCheckbox = ({
   selected,
   disabled,
   disabledTooltip,
+  hasError,
 }: Props): JSX.Element => {
   return (
     <LabeledContainer
@@ -37,6 +39,7 @@ export const LabeledCheckbox = ({
       disabledTooltip={disabledTooltip}
       selected={selected}
       disabled={disabled}
+      hasError={hasError}
     >
       <input
         id={id}
