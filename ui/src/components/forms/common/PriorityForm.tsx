@@ -5,6 +5,7 @@ import { TranslationKey } from '../../../i18n';
 import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
 import { LabeledRadioButton } from './LabeledRadioButton';
+import { ValidationErrorList } from './ValidationErrorList';
 
 export const priorityFormSchema = z.object({
   priority: z.nativeEnum(Priority),
@@ -84,7 +85,7 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
             ),
           )}
         </Row>
-        <p>{errors.priority && t('formValidation.required')}</p>
+        <ValidationErrorList fieldPath="priority" />
       </fieldset>
     </Column>
   );
