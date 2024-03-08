@@ -1,0 +1,58 @@
+services:
+  jore4-testdb-e2e:
+    extends:
+      file: docker-compose.base.yml
+      service: jore4-testdb-base
+    container_name: "testdb-e2e"
+    ports:
+      - "127.0.0.1:6532:5432"
+
+  jore4-tiamat-e2e:
+    extends:
+      file: docker-compose.base.yml
+      service: jore4-tiamat-base
+    image: "hsldevcom/jore4-tiamat:main--20240308-e48810ff84b05790b2ea859c4ad21f3681df0206"
+    container_name: "tiamat-e2e"
+    environment:
+      - SKIP_SET_VARIABLE_SECRET_OVERRIDE=true
+      - JORE4_DB_HOSTNAME=jore4-testdb-e2e
+    ports:
+      - "127.0.0.1:3110:5432"
+    depends_on:
+      jore4-testdb-e2e:
+        condition: service_healthy
+
+  jore4-timetablesapi-e2e:
+    extends:
+      file: docker-compose.base.yml
+      service: jore4-timetablesapi-base
+    image: 'hsldevcom/jore4-timetables-api:main--20240308-71865803aa2654bfcf7be1eff580736b6b489d4a'
+    container_name: "timetablesapi-e2e"
+    environment:
+      - SKIP_SET_VARIABLE_SECRET_OVERRIDE=true
+      - JORE4_DB_HOSTNAME=jore4-testdb-e2e
+    ports:
+      - "127.0.0.1:3109:5432"
+    depends_on:
+      jore4-testdb-e2e:
+        condition: service_healthy
+
+  jore4-hasura-e2e:
+    extends:
+      file: docker-compose.base.yml
+      service: jore4-hasura-base
+    image: 'hsldevcom/jore4-hasura:hsl-main--20240307-bd3cfaf806979363d9ecaa74c1631bdf3677e377'
+    container_name: "hasura-e2e"
+    ports:
+      - "127.0.0.1:3211:8080"
+    environment:
+      - SKIP_SET_VARIABLE_SECRET_OVERRIDE=true
+      - TIAMAT_HOSTNAME=jore4-tiamat-e2e
+      - JORE4_DB_HOSTNAME=jore4-testdb-e2e
+      - TIMETABLESAPI_HOSTNAME=jore4-timetablesapi-e2e
+      - DB_HOSTNAME=jore4-testdb-e2e
+    depends_on:
+      jore4-testdb-e2e:
+        condition: service_healthy
+      jore4-tiamat-e2e:
+        condition: service_healthy
