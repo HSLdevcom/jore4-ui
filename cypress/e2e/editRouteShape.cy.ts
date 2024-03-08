@@ -18,6 +18,7 @@ import {
   mapToGetInfrastructureLinksByExternalIdsQuery,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
+import { testInfraLinksThree } from '../datasets';
 import { Tag } from '../enums';
 import {
   Map,
@@ -45,28 +46,9 @@ const testCreatedRouteLabels = {
   templateRoute: 'T-reitti 2',
 };
 
-// These infralink IDs exist in the 'infraLinks.sql' test data file.
-// These form a straight line on Eerikinkatu in Helsinki.
-// Coordinates are partial since they are needed only for the stop creation.
-
 const timingPlaces = [
   buildTimingPlace('f7fd2b8c-380b-48da-b87c-78bfa1690aa3', '1AACKT'),
   buildTimingPlace('3faa5ec1-aa5c-423e-9064-1523c460299e', '1AURLA'),
-];
-
-const testInfraLinks = [
-  {
-    externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
-  },
-  {
-    externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
-  },
-  {
-    externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
-  },
 ];
 
 const stopLabels = ['E2E001', 'E2E002', 'E2E003'];
@@ -91,7 +73,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[0].coordinates,
+      coordinates: testInfraLinksThree[0].coordinates,
     },
   },
   {
@@ -102,7 +84,7 @@ const buildStopsOnInfrastrucureLinks = (
     scheduled_stop_point_id: '779e9352-ae03-42f6-bd1e-2519887cdaa3',
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[1].coordinates,
+      coordinates: testInfraLinksThree[1].coordinates,
     },
   },
   {
@@ -114,7 +96,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
+      coordinates: testInfraLinksThree[2].coordinates,
     },
   },
 ];
@@ -202,7 +184,7 @@ describe('Edit route geometry', () => {
     cy.task<GetInfrastructureLinksByExternalIdsResult>(
       'hasuraAPI',
       mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
+        testInfraLinksThree.map((infralink) => infralink.externalId),
       ),
     ).then((res) => {
       const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
