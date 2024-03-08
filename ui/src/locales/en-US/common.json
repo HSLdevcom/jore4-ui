@@ -395,7 +395,6 @@
     }
   },
   "timetablesImportPriorityForm": {
-    "importAsSpecialDay": "Import as special day",
     "specialDayDisabledExplanation": "Single day timetables are always handled as special days."
   },
   "timetablesPreview": {

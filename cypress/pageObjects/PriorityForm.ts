@@ -49,23 +49,17 @@ export class PriorityForm {
     switch (priority) {
       case Priority.Draft:
         cy.getByTestId('PriorityForm::draftPriorityButton').should(
-          'have.attr',
-          'data-selected',
-          'true',
+          'be.checked',
         );
         break;
       case Priority.Temporary:
         cy.getByTestId('PriorityForm::temporaryPriorityButton').should(
-          'have.attr',
-          'data-selected',
-          'true',
+          'be.checked',
         );
         break;
       case Priority.Standard:
         cy.getByTestId('PriorityForm::standardPriorityButton').should(
-          'have.attr',
-          'data-selected',
-          'true',
+          'be.checked',
         );
         break;
       default:
