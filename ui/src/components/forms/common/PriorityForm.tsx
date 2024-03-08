@@ -81,6 +81,7 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
                 label={t(translationKey)}
                 onClick={() => setPriority(priority)}
                 selected={selectedPriority === priority}
+                hasError={!!errors.priority}
                 testId={testIds.priorityButton(testIdPrefix)}
               />
             ),
