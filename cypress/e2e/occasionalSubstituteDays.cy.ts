@@ -453,6 +453,12 @@ describe('Occasional substitute operating periods', () => {
     'Should create and delete an occasional substitute operating period successfully',
     { tags: [Tag.Timetables, Tag.Smoke] },
     () => {
+      // Set observation period so that the saved ocasional substitute day will
+      // not be in the range of this period
+      substituteDaySettingsPage.observationPeriodForm.setStartDate(
+        '2023-01-01',
+      );
+      substituteDaySettingsPage.observationPeriodForm.setEndDate('2023-12-31');
       // Add an occasional substitute day
       substituteDaySettingsPage.occasionalSubstitutePeriodForm
         .getAddOccasionalSubstitutePeriodButton()
