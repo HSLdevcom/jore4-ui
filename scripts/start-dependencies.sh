@@ -60,20 +60,20 @@ function check_pinned_hasura {
 }
 
 function start_docker_bundle {
+  DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml"
   if [ "$USE_VOLUME" = true ]; then
     # start the testdb with mounted volume
-    DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.testdb-volume.yml -f ./docker/docker-compose.custom.yml"
-    echo $DOCKER_COMPOSE_CMD
-  else
-    DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml"
-    echo $DOCKER_COMPOSE_CMD
+    DOCKER_COMPOSE_CMD="$DOCKER_COMPOSE_CMD -f ./docker/docker-compose.testdb-volume.yml"
   fi
 
   # start up only services that are needed in local ui development
   e2eServices=""
   if [ "$INCLUDE_E2E" = true ]; then
-    e2eServices="jore4-testdb-e2e1 jore4-hasura-e2e1"
+    DOCKER_COMPOSE_CMD="$DOCKER_COMPOSE_CMD -f ./docker/docker-compose.e2e.yml"
+    e2eServices="jore4-testdb-e2e jore4-hasura-e2e jore4-tiamat-e2e jore4-timetablesapi-e2e"
   fi
+  echo "Running docker compose command: $DOCKER_COMPOSE_CMD"
+
   $DOCKER_COMPOSE_CMD up -d jore4-auth jore4-testdb jore4-hasura ${e2eServices} jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-hastus jore4-tiamat jore4-timetablesapi
 }
 
@@ -82,6 +82,6 @@ check_pinned_hasura
 start_docker_bundle "${1:-x}"
 ./scripts/seed-infrastructure-links.sh testdb &
 if [ "$INCLUDE_E2E" = true ]; then
-  ./scripts/seed-infrastructure-links.sh testdb-e2e1 &
+  ./scripts/seed-infrastructure-links.sh testdb-e2e &
 fi
 wait
