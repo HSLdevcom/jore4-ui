@@ -59,7 +59,8 @@ export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
   } = useFormContext<PriorityFormState>();
 
   const selectedPriority = watch('priority');
-  const setPriority = (value: Priority) => setValue('priority', value);
+  const setPriority = (value: Priority) =>
+    setValue('priority', value, { shouldValidate: true });
 
   const displayedPriorities = defaultPriorities.filter(
     (priority) => !hiddenPriorities?.includes(priority.priority),
