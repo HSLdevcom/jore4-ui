@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { theme } from '../../../generated/theme';
+import { useCallbackOnKeyEscape } from '../../../hooks';
 import { resetEnabledModesAction } from '../../../redux';
 import { Coords } from '../../../types';
 import { Circle } from '../markers';
@@ -34,17 +35,8 @@ export const CreateStopMarker = ({ onCursorMove }: Props): JSX.Element => {
     setMouseCoords(undefined);
   };
 
-  const detectKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      dispatch(resetEnabledModesAction());
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('keydown', detectKeyDown, true);
-    return () => document.removeEventListener('keydown', detectKeyDown, true);
-  });
+  const resetModes = () => dispatch(resetEnabledModesAction());
+  useCallbackOnKeyEscape(resetModes);
 
   return (
     <div
