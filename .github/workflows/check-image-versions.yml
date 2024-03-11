@@ -1,0 +1,18 @@
+name: Check image versions
+
+on:
+  pull_request:
+
+jobs:
+  check_image_versions:
+    name: Check if the image versions match in custom and e2e docker compose files.
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Verify that image version checking script does not find any mismatches
+        run: scripts/verify-image-versions-match.sh
