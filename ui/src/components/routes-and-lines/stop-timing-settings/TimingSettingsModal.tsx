@@ -104,7 +104,7 @@ export const TimingSettingsModal = (): JSX.Element => {
   };
 
   return (
-    <Modal isOpen onClose={onClose} contentClassName="w-1/4">
+    <Modal isOpen onClose={onClose}>
       <ModalHeader
         onClose={onClose}
         heading={t('timingSettingsModal.timingSettingsModalTitle', {
