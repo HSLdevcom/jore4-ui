@@ -48,6 +48,14 @@ export const getStopPlaceFromQueryResult = <T extends StopPlaceType>(
 export type StopPlaceEnrichmentProperties = {
   nameFin: string | undefined;
   nameSwe: string | undefined;
+  nameLongFin: string | undefined;
+  nameLongSwe: string | undefined;
+  abbreviation5CharFin: string | undefined;
+  abbreviation5CharSwe: string | undefined;
+  elyNumber: string | undefined;
+  locationFin: string | undefined;
+  locationSwe: string | undefined;
+  postalCode: string | undefined;
 };
 
 const findAlternativeName = (
@@ -61,6 +69,15 @@ const findAlternativeName = (
   return matchingName?.name || null;
 };
 
+const findKeyValue = (
+  stopPlace: StopRegistryStopPlace,
+  key: string,
+): string | undefined => {
+  const keyValue = stopPlace.keyValues?.find((kv) => kv?.key === key);
+  // Note: the "values" could be an array with many values.
+  return (keyValue && keyValue.values?.[0]) || undefined;
+};
+
 export const getStopPlaceDetailsForEnrichment = <
   T extends StopRegistryStopPlace,
 >(
@@ -71,5 +88,24 @@ export const getStopPlaceDetailsForEnrichment = <
     nameSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Translation)
         ?.value || undefined,
+    nameLongFin:
+      findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Alias)
+        ?.value || undefined,
+    nameLongSwe:
+      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Alias)
+        ?.value || undefined,
+    abbreviation5CharFin:
+      findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Label)
+        ?.value || undefined,
+    abbreviation5CharSwe:
+      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Label)
+        ?.value || undefined,
+    elyNumber: stopPlace.privateCode?.value || undefined,
+    locationFin: stopPlace.description?.value || undefined,
+    locationSwe:
+      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
+        ?.value || undefined,
+    postalCode: findKeyValue(stopPlace, 'postalCode'),
+    // TODO: quays.
   };
 };

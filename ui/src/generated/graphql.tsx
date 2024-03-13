@@ -22551,11 +22551,11 @@ export type GetStopDetailsByIdQuery = {
   service_pattern_scheduled_stop_point_by_pk?: {
     __typename?: 'service_pattern_scheduled_stop_point';
     stop_place_ref?: string | null;
+    timing_place_id?: UUID | null;
     priority: number;
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
-    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -22564,6 +22564,8 @@ export type GetStopDetailsByIdQuery = {
       | {
           __typename?: 'stop_registry_StopPlace';
           id?: string | null;
+          transportMode?: StopRegistryTransportModeType | null;
+          publicCode?: string | null;
           name?: {
             __typename?: 'stop_registry_EmbeddableMultilingualString';
             lang?: string | null;
@@ -22583,6 +22585,46 @@ export type GetStopDetailsByIdQuery = {
             key?: string | null;
             values?: Array<string | null> | null;
           } | null> | null;
+          privateCode?: {
+            __typename?: 'stop_registry_PrivateCode';
+            value?: string | null;
+            type?: string | null;
+          } | null;
+          description?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          geometry?: {
+            __typename?: 'stop_registry_GeoJSON';
+            coordinates?: any | null;
+            type?: StopRegistryGeoJsonType | null;
+          } | null;
+          quays?: Array<{
+            __typename?: 'stop_registry_Quay';
+            publicCode?: string | null;
+            alternativeNames?: Array<{
+              __typename?: 'stop_registry_AlternativeName';
+              nameType: StopRegistryNameType;
+              name: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString';
+                lang?: string | null;
+                value?: string | null;
+              };
+            } | null> | null;
+            placeEquipments?: {
+              __typename?: 'stop_registry_PlaceEquipments';
+              shelterEquipment?: Array<{
+                __typename?: 'stop_registry_ShelterEquipment';
+                enclosed?: boolean | null;
+                stepFree?: boolean | null;
+              } | null> | null;
+              cycleStorageEquipment?: Array<{
+                __typename?: 'stop_registry_CycleStorageEquipment';
+                cycleStorageType?: StopRegistryCycleStorageType | null;
+              } | null> | null;
+            } | null;
+          } | null> | null;
         }
       | null
     > | null;
@@ -22594,9 +22636,37 @@ export type GetStopDetailsByIdQuery = {
   } | null;
 };
 
+export type QuayDetailsFragment = {
+  __typename?: 'stop_registry_Quay';
+  publicCode?: string | null;
+  alternativeNames?: Array<{
+    __typename?: 'stop_registry_AlternativeName';
+    nameType: StopRegistryNameType;
+    name: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      lang?: string | null;
+      value?: string | null;
+    };
+  } | null> | null;
+  placeEquipments?: {
+    __typename?: 'stop_registry_PlaceEquipments';
+    shelterEquipment?: Array<{
+      __typename?: 'stop_registry_ShelterEquipment';
+      enclosed?: boolean | null;
+      stepFree?: boolean | null;
+    } | null> | null;
+    cycleStorageEquipment?: Array<{
+      __typename?: 'stop_registry_CycleStorageEquipment';
+      cycleStorageType?: StopRegistryCycleStorageType | null;
+    } | null> | null;
+  } | null;
+};
+
 export type StopPlaceDetailsFragment = {
   __typename?: 'stop_registry_StopPlace';
   id?: string | null;
+  transportMode?: StopRegistryTransportModeType | null;
+  publicCode?: string | null;
   name?: {
     __typename?: 'stop_registry_EmbeddableMultilingualString';
     lang?: string | null;
@@ -22615,6 +22685,46 @@ export type StopPlaceDetailsFragment = {
     __typename?: 'stop_registry_KeyValues';
     key?: string | null;
     values?: Array<string | null> | null;
+  } | null> | null;
+  privateCode?: {
+    __typename?: 'stop_registry_PrivateCode';
+    value?: string | null;
+    type?: string | null;
+  } | null;
+  description?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
+  geometry?: {
+    __typename?: 'stop_registry_GeoJSON';
+    coordinates?: any | null;
+    type?: StopRegistryGeoJsonType | null;
+  } | null;
+  quays?: Array<{
+    __typename?: 'stop_registry_Quay';
+    publicCode?: string | null;
+    alternativeNames?: Array<{
+      __typename?: 'stop_registry_AlternativeName';
+      nameType: StopRegistryNameType;
+      name: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      };
+    } | null> | null;
+    placeEquipments?: {
+      __typename?: 'stop_registry_PlaceEquipments';
+      shelterEquipment?: Array<{
+        __typename?: 'stop_registry_ShelterEquipment';
+        enclosed?: boolean | null;
+        stepFree?: boolean | null;
+      } | null> | null;
+      cycleStorageEquipment?: Array<{
+        __typename?: 'stop_registry_CycleStorageEquipment';
+        cycleStorageType?: StopRegistryCycleStorageType | null;
+      } | null> | null;
+    } | null;
   } | null> | null;
 };
 
@@ -24453,6 +24563,27 @@ export const StopTableRowFragmentDoc = gql`
   }
   ${StopTableRowStopPlaceFragmentDoc}
 `;
+export const QuayDetailsFragmentDoc = gql`
+  fragment quay_details on stop_registry_Quay {
+    publicCode
+    alternativeNames {
+      name {
+        lang
+        value
+      }
+      nameType
+    }
+    placeEquipments {
+      shelterEquipment {
+        enclosed
+        stepFree
+      }
+      cycleStorageEquipment {
+        cycleStorageType
+      }
+    }
+  }
+`;
 export const StopPlaceDetailsFragmentDoc = gql`
   fragment stop_place_details on stop_registry_StopPlace {
     id
@@ -24471,7 +24602,25 @@ export const StopPlaceDetailsFragmentDoc = gql`
       key
       values
     }
+    transportMode
+    publicCode
+    privateCode {
+      value
+      type
+    }
+    description {
+      lang
+      value
+    }
+    geometry {
+      coordinates
+      type
+    }
+    quays {
+      ...quay_details
+    }
   }
+  ${QuayDetailsFragmentDoc}
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
   fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {
@@ -27667,6 +27816,11 @@ export const GetStopDetailsByIdDocument = gql`
       stop_place_ref
       stop_place {
         ...stop_place_details
+      }
+      timing_place_id
+      timing_place {
+        timing_place_id
+        label
       }
     }
   }
