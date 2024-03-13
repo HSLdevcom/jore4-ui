@@ -52,8 +52,8 @@ export const StopTableRow = ({ className = '', stop }: Props): JSX.Element => {
         className={`w-full px-8 py-3 ${yBorderClassNames} align-top text-sm font-bold leading-6`}
       >
         <div className="border-l border-l-background pl-3">
-          <Row>{stop.stop_place?.finnishName}</Row>
-          <Row>{stop.stop_place?.swedishName}</Row>
+          <Row>{stop.stop_place?.nameFin}</Row>
+          <Row>{stop.stop_place?.nameSwe}</Row>
         </div>
       </td>
       <td

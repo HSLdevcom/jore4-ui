@@ -46,8 +46,8 @@ export const getStopPlaceFromQueryResult = <T extends StopPlaceType>(
 };
 
 export type StopPlaceEnrichmentProperties = {
-  finnishName: string | undefined;
-  swedishName: string | undefined;
+  nameFin: string | undefined;
+  nameSwe: string | undefined;
 };
 
 const findAlternativeName = (
@@ -67,7 +67,9 @@ export const getStopPlaceDetailsForEnrichment = <
   stopPlace: T,
 ): StopPlaceEnrichmentProperties => {
   return {
-    finnishName: stopPlace.name?.value || undefined,
-    swedishName: findAlternativeName(stopPlace, 'swe')?.value || undefined,
+    nameFin: stopPlace.name?.value || undefined,
+    nameSwe:
+      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Translation)
+        ?.value || undefined,
   };
 };
