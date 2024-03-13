@@ -3,6 +3,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   RouteTypeOfLineEnum,
+  StopRegistryTransportModeType,
 } from '../generated/graphql';
 import { i18n } from '../i18n';
 import {
@@ -51,6 +52,10 @@ export const mapDayOfWeekToUiName = (key: DayOfWeek) => {
 export const mapVehicleModeToUiName = (
   key: ReusableComponentsVehicleModeEnum | AllOptionEnum.All,
 ) => i18n.t(key === AllOptionEnum.All ? 'all' : `vehicleModeEnum.${key}`);
+
+export const mapStopRegistryTransportModeTypeToUiName = (
+  key: StopRegistryTransportModeType,
+) => i18n.t(`stopRegistryTransportModeTypeEnum.${key}`);
 
 export const mapLineTypeToUiName = (
   key: RouteTypeOfLineEnum | AllOptionEnum.All,

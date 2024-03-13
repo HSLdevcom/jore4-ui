@@ -6,6 +6,7 @@ const theme = {
     tweakedBrandDarker30: '#005186', // = tweakedBrand * 70% HSL lightness
     stop: '#004B7B',
     background: '#F2F5F7',
+    backgroundHslBlue: '#BFDEF1',
     hslDark80: '#333333',
     grey: '#888888',
     lightGrey: '#CCCCCC',
@@ -14,6 +15,7 @@ const theme = {
     hslDarkGreen: '#3B7F00',
     hslRed: '#DC0451',
     hslNeutralBlue: '#E5F2FA',
+    hslFerry10: '#DFF1FB',
     cityBicycleYellow: '#FCBC19',
     hslWarningYellow: '#FED100',
     hslHighlightYellowDark: '#C89515',
