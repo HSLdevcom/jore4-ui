@@ -21,6 +21,33 @@ const GQL_GET_STOP_DETAILS_BY_ID = gql`
       stop_place {
         ...stop_place_details
       }
+      timing_place_id
+      timing_place {
+        timing_place_id
+        label
+      }
+    }
+  }
+`;
+
+const GQL_QUAY_DETAILS = gql`
+  fragment quay_details on stop_registry_Quay {
+    publicCode
+    alternativeNames {
+      name {
+        lang
+        value
+      }
+      nameType
+    }
+    placeEquipments {
+      shelterEquipment {
+        enclosed
+        stepFree
+      }
+      cycleStorageEquipment {
+        cycleStorageType
+      }
     }
   }
 `;
@@ -42,6 +69,23 @@ const GQL_STOP_PLACE_DETAILS = gql`
     keyValues {
       key
       values
+    }
+    transportMode
+    publicCode
+    privateCode {
+      value
+      type
+    }
+    description {
+      lang
+      value
+    }
+    geometry {
+      coordinates
+      type
+    }
+    quays {
+      ...quay_details
     }
   }
 `;

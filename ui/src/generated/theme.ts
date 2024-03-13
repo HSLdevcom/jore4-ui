@@ -14,6 +14,7 @@ export const theme = {
     hslDarkGreen: "#3B7F00",
     hslRed: "#DC0451",
     hslNeutralBlue: "#E5F2FA",
+    hslFerry10: "#DFF1FB",
     cityBicycleYellow: "#FCBC19",
     hslWarningYellow: "#FED100",
     hslHighlightYellowDark: "#C89515",

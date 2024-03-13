@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetStopDetails } from '../../../../hooks';
 import { Container } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
+import { BasicDetailsSection } from './BasicDetailsSection';
 import { StopTitleRow } from './StopTitleRow';
 
 const testIds = {
@@ -33,6 +34,8 @@ export const StopDetailsPage = (): JSX.Element => {
           {mapToShortDate(stopDetails.validity_end)}
         </div>
       </div>
+      {/* TODO: tabs. */}
+      <BasicDetailsSection stop={stopDetails} />
     </Container>
   );
 };

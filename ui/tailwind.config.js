@@ -27,6 +27,7 @@ module.exports = {
         'hsl-dark-green': colors.hslDarkGreen,
         'hsl-red': colors.hslRed,
         'hsl-neutral-blue': colors.hslNeutralBlue,
+        'hsl-ferry-10': colors.hslFerry10,
         'city-bicycle-yellow': colors.cityBicycleYellow,
         'hsl-warning-yellow': colors.hslWarningYellow,
         'hsl-highlight-yellow-dark': colors.hslHighlightYellowDark,
