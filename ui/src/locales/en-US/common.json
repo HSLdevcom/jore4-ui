@@ -114,7 +114,24 @@
     "timingPlaceRequired": "The stop is used as timing place on the following routes: {{ routeLabels }}. Attach timing place or stop using as timing point on the routes."
   },
   "stopDetails": {
-    "stopDetails": "Stop details"
+    "stopDetails": "Stop details",
+    "basicDetails": "Basic details",
+    "label": "Label",
+    "publicCode": "Public code",
+    "nameFin": "Name (Finnish)",
+    "nameSwe": "Name (Swedish)",
+    "nameLongFin": "Long name (Finnish)",
+    "nameLongSwe": "Long name (Swedish)",
+    "locationFin": "Location (Finnish)",
+    "locationSwe": "Location (Swedishi)",
+    "abbreviationFin": "Abbreviation (Finnish)",
+    "abbreviationSwe": "Abbreviation (Swedish)",
+    "abbreviation5CharFin": "Abbreviation 5 characters (Finnish)",
+    "abbreviation5CharSwe": "Abbreviation 5 characters (Swedish)",
+    "transportMode": "Transport type",
+    "stopType": "Stop type",
+    "stopStatus": "Stop status",
+    "elyNumber": "ELY number"
   },
   "stopRegistrySearch": {
     "searchResultsTitle": "Stops"
@@ -221,6 +238,13 @@
     "metro": "Metro",
     "train": "Train",
     "tram": "Tram"
+  },
+  "stopRegistryTransportModeTypeEnum": {
+    "bus": "Bus",
+    "metro": "Metro",
+    "rail": "Train",
+    "tram": "Tram",
+    "water": "Ferry"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Regional rail service",

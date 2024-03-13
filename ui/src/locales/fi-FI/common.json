@@ -114,7 +114,24 @@
     "timingPlaceRequired": "Pysäkkiä käytetään Hastus-paikkana seuraavilla reiteillä: {{ routeLabels }}. Aseta Hastus-paikka tai poista Hastus-paikka käytöstä reiteiltä."
   },
   "stopDetails": {
-    "stopDetails": "Pysäkkitiedot"
+    "stopDetails": "Pysäkkitiedot",
+    "basicDetails": "Perustiedot",
+    "label": "Lyhyttunniste",
+    "publicCode": "Tunniste",
+    "nameFin": "Nimi (suomi)",
+    "nameSwe": "Nimi (ruotsi)",
+    "nameLongFin": "Pitkänimi (suomi)",
+    "nameLongSwe": "Pitkänimi (ruotsi)",
+    "locationFin": "Sijainti (suomi)",
+    "locationSwe": "Sijainti (ruotsi)",
+    "abbreviationFin": "Lyhenne (suomi)",
+    "abbreviationSwe": "Lyhenne (ruotsi)",
+    "abbreviation5CharFin": "Lyhenne 5 merkkiä (suomi)",
+    "abbreviation5CharSwe": "Lyhenne 5 merkkiä (ruotsi)",
+    "transportMode": "Joukkoliikennetyyppi",
+    "stopType": "Pysäkkityyppi",
+    "stopStatus": "Pysäkin tila",
+    "elyNumber": "ELY-numero"
   },
   "stopRegistrySearch": {
     "searchResultsTitle": "Pysäkit"
@@ -221,6 +238,13 @@
     "metro": "Metro",
     "train": "Juna",
     "tram": "Raitiovaunu"
+  },
+  "stopRegistryTransportModeTypeEnum": {
+    "bus": "Bussi",
+    "metro": "Metro",
+    "rail": "Juna",
+    "tram": "Raitiovaunu",
+    "water": "Lautta"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Seudullinen juna",
