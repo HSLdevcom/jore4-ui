@@ -46,31 +46,6 @@ const GQL_STOP_PLACE_DETAILS = gql`
   }
 `;
 
-const GQL_GET_STOP_PLACE_BY_LABEL = gql`
-  query GetStopPlaceByLabel($stop_place_label: [String]!) {
-    stop_registry {
-      stopPlace(key: "label", values: $stop_place_label) {
-        id
-        name {
-          lang
-          value
-        }
-        alternativeNames {
-          name {
-            lang
-            value
-          }
-          nameType
-        }
-        keyValues {
-          key
-          values
-        }
-      }
-    }
-  }
-`;
-
 export type StopPlace = StopPlaceDetailsFragment;
 export type EnrichedStopPlace = StopPlace & StopPlaceEnrichmentProperties;
 
