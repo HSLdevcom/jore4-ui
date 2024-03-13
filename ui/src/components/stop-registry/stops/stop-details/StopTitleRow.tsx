@@ -17,9 +17,9 @@ export const StopTitleRow: React.FC<Props> = ({ stopDetails }) => {
         {stopDetails.label}
       </h2>
       <div className="text-xl" data-testid={testIds.names}>
-        <span>{stopDetails.stop_place?.finnishName || '-'}</span>
+        <span>{stopDetails.stop_place?.nameFin || '-'}</span>
         <span className="mx-2">|</span>
-        <span>{stopDetails.stop_place?.swedishName || '-'}</span>
+        <span>{stopDetails.stop_place?.nameSwe || '-'}</span>
       </div>
     </div>
   );
