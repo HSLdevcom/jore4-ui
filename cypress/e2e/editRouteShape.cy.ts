@@ -57,15 +57,15 @@ const timingPlaces = [
 const testInfraLinks = [
   {
     externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
+    coordinates: [24.925682785, 60.163824160000004, 7.3515],
   },
   {
     externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
+    coordinates: [24.929275791498405, 60.1651950480433, 0],
   },
   {
     externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
+    coordinates: [24.93312261043133, 60.16645636069328, 13.390046659939703],
   },
 ];
 
@@ -91,7 +91,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[0].coordinates,
+      coordinates: testInfraLinks[2].coordinates,
     },
   },
   {
@@ -114,7 +114,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
+      coordinates: testInfraLinks[0].coordinates,
     },
   },
 ];
@@ -136,19 +136,19 @@ const buildInfraLinksAlongRoute = (
     route_id: routes[0].route_id,
     infrastructure_link_id: infrastructureLinkIds[0],
     infrastructure_link_sequence: 0,
-    is_traversal_forwards: true,
+    is_traversal_forwards: false,
   },
   {
     route_id: routes[0].route_id,
     infrastructure_link_id: infrastructureLinkIds[1],
     infrastructure_link_sequence: 1,
-    is_traversal_forwards: true,
+    is_traversal_forwards: false,
   },
   {
     route_id: routes[0].route_id,
     infrastructure_link_id: infrastructureLinkIds[2],
     infrastructure_link_sequence: 2,
-    is_traversal_forwards: true,
+    is_traversal_forwards: false,
   },
 ];
 
