@@ -21,7 +21,6 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
         className={`
           flex items-center justify-between rounded-t-lg border
           bg-hsl-neutral-blue px-4 py-2 ${isExpanded ? '' : 'rounded-b-lg'}
-          hover:border hover:border-brand hover:bg-background-hsl-blue
         `}
       >
         <h4>{title}</h4>
