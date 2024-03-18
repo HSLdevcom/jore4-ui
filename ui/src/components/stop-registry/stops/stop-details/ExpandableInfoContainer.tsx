@@ -16,7 +16,7 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
   children,
 }) => {
   return (
-    <div className="[&>*]:border-border-hsl-ferry-10 my-3">
+    <div className="my-3 [&>*]:border-border-hsl-blue">
       <div
         className={`
           flex items-center justify-between rounded-t-lg border
