@@ -42,13 +42,11 @@ const theme = {
     hslDarkGreen: '#3B7F00',
     hslRed: '#DC0451',
     hslNeutralBlue: '#E5F2FA',
-    hslFerry10: '#DFF1FB',
     cityBicycleYellow: '#FCBC19',
     hslWarningYellow: '#FED100',
     hslHighlightYellowDark: '#C89515',
     hslHighlightYellowLight: '#FFD771',
     hslLightPurple: '#DDC8E0',
-    hslPurple: '#C5A3CC',
     hslOrange: '#FFA87E',
     routes: {
       bus: '#0074BF',

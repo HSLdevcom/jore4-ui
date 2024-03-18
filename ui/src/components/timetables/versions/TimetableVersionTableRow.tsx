@@ -43,7 +43,7 @@ const getStatusClassName = ({
   const statusClassNames: Record<TimetablePriority, string> = {
     [TimetablePriority.Standard]: 'bg-brand text-white',
     [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
-    [TimetablePriority.Special]: 'bg-hsl-purple',
+    [TimetablePriority.Special]: 'bg-border-hsl-commuter-train-purple', // Background purple would be too light in this context.
     [TimetablePriority.SubstituteByLineType]: 'bg-hsl-orange',
     [TimetablePriority.Draft]: 'bg-background',
     [TimetablePriority.Staging]: 'bg-hsl-red',
@@ -55,7 +55,7 @@ const getDayTypeClassName = (priority: TimetablePriority) => {
   const dayTypeClassNames: Record<TimetablePriority, string> = {
     [TimetablePriority.Standard]: 'bg-hsl-dark-green',
     [TimetablePriority.Temporary]: 'bg-city-bicycle-yellow',
-    [TimetablePriority.Special]: 'bg-hsl-purple',
+    [TimetablePriority.Special]: 'bg-border-hsl-commuter-train-purple',
     [TimetablePriority.SubstituteByLineType]: 'bg-hsl-orange',
     [TimetablePriority.Draft]: 'bg-background',
     [TimetablePriority.Staging]: 'bg-hsl-red',
