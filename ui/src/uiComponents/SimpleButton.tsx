@@ -28,6 +28,8 @@ interface LinkButtonProps {
 
 type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
 
+export type SimpleButtonProps = Props;
+
 export const commonHoverStyle = 'hover:border-2 hover:border-tweaked-brand';
 
 const getHoverStyles = (inverted = false, disabled = false) => {
