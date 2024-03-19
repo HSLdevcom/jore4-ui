@@ -131,7 +131,26 @@
     "transportMode": "Transport type",
     "stopType": "Stop type",
     "stopStatus": "Stop status",
-    "elyNumber": "ELY number"
+    "elyNumber": "ELY number",
+    "location": {
+      "title": "Location",
+      "stopAddress": "Stop address",
+      "postalCode": "Postal code",
+      "municipality": "Municipality",
+      "tariffZone": "Tariff zone",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "altitude": "Altitude",
+      "functionalArea": "Functional area",
+      "stopArea": "Stop area",
+      "stopAreaName": "Stop area name",
+      "stopAreaStops": "Stop area stops",
+      "quay": "Quay",
+      "stopAreaQuays": "Stop area quays",
+      "terminal": "Terminal",
+      "terminalName": "Terminal name",
+      "terminalStops": "Terminal stops"
+    }
   },
   "stopRegistrySearch": {
     "searchResultsTitle": "Stops"

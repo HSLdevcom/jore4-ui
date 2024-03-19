@@ -22545,6 +22545,7 @@ export type SearchStopsQuery = {
 export type ScheduledStopPointDetailFieldsFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
   stop_place_ref?: string | null;
+  measured_location: GeoJSON.Point;
   priority: number;
   direction: InfrastructureNetworkDirectionEnum;
   scheduled_stop_point_id: UUID;
@@ -22569,6 +22570,7 @@ export type GetStopDetailsByIdQuery = {
   service_pattern_scheduled_stop_point_by_pk?: {
     __typename?: 'service_pattern_scheduled_stop_point';
     stop_place_ref?: string | null;
+    measured_location: GeoJSON.Point;
     priority: number;
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
@@ -24585,6 +24587,7 @@ export const ScheduledStopPointDetailFieldsFragmentDoc = gql`
   fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
     ...scheduled_stop_point_default_fields
     stop_place_ref
+    measured_location
   }
   ${ScheduledStopPointDefaultFieldsFragmentDoc}
 `;

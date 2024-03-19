@@ -131,7 +131,26 @@
     "transportMode": "Joukkoliikennetyyppi",
     "stopType": "Pysäkkityyppi",
     "stopStatus": "Pysäkin tila",
-    "elyNumber": "ELY-numero"
+    "elyNumber": "ELY-numero",
+    "location": {
+      "title": "Sijainti",
+      "stopAddress": "Pysäkin osoite",
+      "postalCode": "Postinumero",
+      "municipality": "Kunta",
+      "tariffZone": "Maksuvyöhyke",
+      "latitude": "Leveysaste",
+      "longitude": "Pituusaste",
+      "altitude": "Korkeus",
+      "functionalArea": "Toiminnallinen alue",
+      "stopArea": "Pysäkkialue",
+      "stopAreaName": "Pysäkkialueen nimi",
+      "stopAreaStops": "Jäsenpysäkit",
+      "quay": "Laituri",
+      "stopAreaQuays": "Jäsenlaiturit",
+      "terminal": "Terminaali",
+      "terminalName": "Terminaalin nimi",
+      "terminalStops": "Jäsenpysäkit"
+    }
   },
   "stopRegistrySearch": {
     "searchResultsTitle": "Pysäkit"

@@ -3,6 +3,7 @@ import { useGetStopDetails } from '../../../../hooks';
 import { Container } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { BasicDetailsSection } from './BasicDetailsSection';
+import { LocationDetailsSection } from './LocationDetailsSection';
 import { StopTitleRow } from './StopTitleRow';
 
 const testIds = {
@@ -36,6 +37,7 @@ export const StopDetailsPage = (): JSX.Element => {
       </div>
       {/* TODO: tabs. */}
       <BasicDetailsSection stop={stopDetails} />
+      <LocationDetailsSection stop={stopDetails} />
     </Container>
   );
 };
