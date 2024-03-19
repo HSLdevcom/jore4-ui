@@ -22542,6 +22542,24 @@ export type SearchStopsQuery = {
   }>;
 };
 
+export type ScheduledStopPointDetailFieldsFragment = {
+  __typename?: 'service_pattern_scheduled_stop_point';
+  stop_place_ref?: string | null;
+  priority: number;
+  direction: InfrastructureNetworkDirectionEnum;
+  scheduled_stop_point_id: UUID;
+  label: string;
+  timing_place_id?: UUID | null;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  located_on_infrastructure_link_id: UUID;
+  timing_place?: {
+    __typename?: 'timing_pattern_timing_place';
+    timing_place_id: UUID;
+    label: string;
+  } | null;
+};
+
 export type GetStopDetailsByIdQueryVariables = Exact<{
   scheduled_stop_point_id: Scalars['uuid'];
 }>;
@@ -22551,11 +22569,11 @@ export type GetStopDetailsByIdQuery = {
   service_pattern_scheduled_stop_point_by_pk?: {
     __typename?: 'service_pattern_scheduled_stop_point';
     stop_place_ref?: string | null;
-    timing_place_id?: UUID | null;
     priority: number;
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
     label: string;
+    timing_place_id?: UUID | null;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
@@ -24562,6 +24580,13 @@ export const StopTableRowFragmentDoc = gql`
     }
   }
   ${StopTableRowStopPlaceFragmentDoc}
+`;
+export const ScheduledStopPointDetailFieldsFragmentDoc = gql`
+  fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
+    ...scheduled_stop_point_default_fields
+    stop_place_ref
+  }
+  ${ScheduledStopPointDefaultFieldsFragmentDoc}
 `;
 export const QuayDetailsFragmentDoc = gql`
   fragment quay_details on stop_registry_Quay {
@@ -27812,19 +27837,13 @@ export const GetStopDetailsByIdDocument = gql`
     service_pattern_scheduled_stop_point_by_pk(
       scheduled_stop_point_id: $scheduled_stop_point_id
     ) {
-      ...scheduled_stop_point_default_fields
-      stop_place_ref
+      ...scheduled_stop_point_detail_fields
       stop_place {
         ...stop_place_details
       }
-      timing_place_id
-      timing_place {
-        timing_place_id
-        label
-      }
     }
   }
-  ${ScheduledStopPointDefaultFieldsFragmentDoc}
+  ${ScheduledStopPointDetailFieldsFragmentDoc}
   ${StopPlaceDetailsFragmentDoc}
 `;
 

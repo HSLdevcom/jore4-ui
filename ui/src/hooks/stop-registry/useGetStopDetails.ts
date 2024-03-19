@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import {
-  ScheduledStopPointDefaultFieldsFragment,
+  ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
   useGetStopDetailsByIdQuery,
 } from '../../generated/graphql';
@@ -11,20 +11,21 @@ import {
 } from '../../utils';
 import { useRequiredParams } from '../useRequiredParams';
 
+const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
+  fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
+    ...scheduled_stop_point_default_fields
+    stop_place_ref
+  }
+`;
+
 const GQL_GET_STOP_DETAILS_BY_ID = gql`
   query GetStopDetailsById($scheduled_stop_point_id: uuid!) {
     service_pattern_scheduled_stop_point_by_pk(
       scheduled_stop_point_id: $scheduled_stop_point_id
     ) {
-      ...scheduled_stop_point_default_fields
-      stop_place_ref
+      ...scheduled_stop_point_detail_fields
       stop_place {
         ...stop_place_details
-      }
-      timing_place_id
-      timing_place {
-        timing_place_id
-        label
       }
     }
   }
@@ -107,7 +108,7 @@ const getEnrichedStopPlace = (
 };
 
 /** Gets the stop details, including the stop place, depending on query parameters. */
-export type StopWithDetails = ScheduledStopPointDefaultFieldsFragment & {
+export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
   stop_place: EnrichedStopPlace | null;
 };
 
