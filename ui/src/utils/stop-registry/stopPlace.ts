@@ -50,6 +50,8 @@ export type StopPlaceEnrichmentProperties = {
   nameSwe: string | undefined;
   nameLongFin: string | undefined;
   nameLongSwe: string | undefined;
+  abbreviationFin: string | undefined;
+  abbreviationSwe: string | undefined;
   abbreviation5CharFin: string | undefined;
   abbreviation5CharSwe: string | undefined;
   elyNumber: string | undefined;
@@ -59,7 +61,7 @@ export type StopPlaceEnrichmentProperties = {
 };
 
 const findAlternativeName = (
-  stopPlace: StopRegistryStopPlace,
+  stopPlace: Pick<StopRegistryStopPlace, 'alternativeNames'>,
   lang: string,
   nameType: StopRegistryNameType = StopRegistryNameType.Translation,
 ): StopRegistryEmbeddableMultilingualString | null => {
@@ -94,6 +96,18 @@ export const getStopPlaceDetailsForEnrichment = <
     nameLongSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Alias)
         ?.value || undefined,
+    abbreviationFin:
+      findAlternativeName(
+        stopPlace.quays?.[0] || {},
+        'fin',
+        StopRegistryNameType.Alias,
+      )?.value || undefined,
+    abbreviationSwe:
+      findAlternativeName(
+        stopPlace.quays?.[0] || {},
+        'swe',
+        StopRegistryNameType.Alias,
+      )?.value || undefined,
     abbreviation5CharFin:
       findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Label)
         ?.value || undefined,
@@ -106,6 +120,5 @@ export const getStopPlaceDetailsForEnrichment = <
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
         ?.value || undefined,
     postalCode: findKeyValue(stopPlace, 'postalCode'),
-    // TODO: quays.
   };
 };
