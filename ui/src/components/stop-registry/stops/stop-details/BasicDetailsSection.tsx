@@ -62,11 +62,11 @@ export const BasicDetailsSection = ({ stop }: Props): JSX.Element => {
       <DetailRow>
         <LabeledDetail
           title={t('stopDetails.abbreviationFin')}
-          detail={'-' /* TODO */}
+          detail={stop.stop_place?.abbreviationFin}
         />
         <LabeledDetail
           title={t('stopDetails.abbreviationSwe')}
-          detail={'-' /* TODO */}
+          detail={stop.stop_place?.abbreviationSwe}
         />
         <div className="h-9 w-[0px] border-r border-black" />
         <LabeledDetail
