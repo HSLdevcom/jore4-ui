@@ -82,11 +82,11 @@ export const BasicDetailsSection = ({ stop }: Props): JSX.Element => {
       <DetailRow>
         <LabeledDetail
           title={t('stopDetails.transportMode')}
-          detail={transportMode || '-'}
+          detail={transportMode}
         />
         <LabeledDetail
           title={t('stops.timingPlaceId')}
-          detail={stop.timing_place?.label || '-'}
+          detail={stop.timing_place?.label}
         />
         <LabeledDetail
           title={t('stopDetails.stopType')}
