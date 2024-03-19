@@ -68,7 +68,7 @@ const mapToStopPlaceInput = (
           nameType: StopRegistryNameType.Label,
         },
         seedStopPlace.abbreviationSwe5Char && {
-          name: { lang: 'fin', value: seedStopPlace.abbreviationSwe5Char },
+          name: { lang: 'swe', value: seedStopPlace.abbreviationSwe5Char },
           nameType: StopRegistryNameType.Label,
         },
         seedStopPlace.nameFinLong && {
@@ -190,10 +190,10 @@ const seedData: Array<StopPlaceSeedData> = [
     nameSwe: 'Norraesplanaden',
     nameFinLong: 'Pohjoisesplanadi (pitkä)',
     nameSweLong: 'Norraesplanaden (lång)',
-    abbreviationFin5Char: 'Pohj.esplanadi',
-    abbreviationSwe5Char: 'N.esplanaden',
-    abbreviationFin: 'P.Esp',
-    abbreviationSwe: 'N.Esp',
+    abbreviationFin5Char: 'P.Esp',
+    abbreviationSwe5Char: 'N.Esp',
+    abbreviationFin: 'Pohj.esplanadi',
+    abbreviationSwe: 'N.esplanaden',
     locationFin: 'Pohjoisesplanadi (sij.)',
     locationSwe: 'Norraesplanaden (plats)',
     interchangeWeighting:
