@@ -15,6 +15,7 @@ const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
   fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
     ...scheduled_stop_point_default_fields
     stop_place_ref
+    measured_location
   }
 `;
 
