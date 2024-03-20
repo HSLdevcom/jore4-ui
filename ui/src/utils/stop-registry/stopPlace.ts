@@ -57,6 +57,7 @@ export type StopPlaceEnrichmentProperties = {
   elyNumber: string | undefined;
   locationFin: string | undefined;
   locationSwe: string | undefined;
+  streetAddress: string | undefined;
   postalCode: string | undefined;
 };
 
@@ -119,6 +120,7 @@ export const getStopPlaceDetailsForEnrichment = <
     locationSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
         ?.value || undefined,
+    streetAddress: findKeyValue(stopPlace, 'streetAddress'),
     postalCode: findKeyValue(stopPlace, 'postalCode'),
   };
 };
