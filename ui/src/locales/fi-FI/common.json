@@ -130,7 +130,7 @@
     "abbreviation5CharSwe": "Lyhenne 5 merkkiä (ruotsi)",
     "transportMode": "Joukkoliikennetyyppi",
     "stopType": "Pysäkkityyppi",
-    "stopStatus": "Pysäkin tila",
+    "stopState": "Pysäkin tila",
     "elyNumber": "ELY-numero",
     "location": {
       "title": "Sijainti",
@@ -264,6 +264,12 @@
     "rail": "Juna",
     "tram": "Raitiovaunu",
     "water": "Lautta"
+  },
+  "stopPlaceStateEnum": {
+    "InOperation": "Käytössä",
+    "OutOfOperation": "Pois käytöstä",
+    "PermanentlyOutOfOperation": "Pysyvästi pois käytöstä",
+    "Removed": "Poistettu"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Seudullinen juna",

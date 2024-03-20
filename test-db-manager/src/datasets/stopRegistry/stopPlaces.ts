@@ -28,6 +28,7 @@ export type StopPlaceSeedData = {
   publicCode?: string;
   elyNumber?: string;
   interchangeWeighting?: StopRegistryInterchangeWeightingType;
+  stopState?: string /* See StopPlaceState */;
   locationLat?: number;
   locationLong?: number;
   postalCode?: string;
@@ -138,6 +139,10 @@ const mapToStopPlaceInput = (
           key: 'postalCode',
           values: [seedStopPlace.postalCode],
         },
+        seedStopPlace.stopState && {
+          key: 'state',
+          values: [seedStopPlace.stopState],
+        },
       ],
       // TODO: Pysäkin osoite
       // TODO: toiminnalinen alue
@@ -198,6 +203,7 @@ const seedData: Array<StopPlaceSeedData> = [
     locationSwe: 'Norraesplanaden (plats)',
     interchangeWeighting:
       StopRegistryInterchangeWeightingType.RecommendedInterchange,
+    stopState: 'OutOfOperation',
     // TODO: the coordinates should come from routes DB really.
     locationLat: 60.180413,
     locationLong: 24.92799,

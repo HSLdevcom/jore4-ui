@@ -5,6 +5,7 @@ import {
   StopRegistryStopPlace,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
+import { StopPlaceState } from '../../types/stop-registry';
 
 type StopPlaceType = Pick<StopRegistryStopPlace, '__typename'>;
 type ParentStopPlaceType = Pick<StopRegistryParentStopPlace, '__typename'>;
@@ -58,6 +59,7 @@ export type StopPlaceEnrichmentProperties = {
   locationFin: string | undefined;
   locationSwe: string | undefined;
   postalCode: string | undefined;
+  stopState: StopPlaceState | undefined;
 };
 
 const findAlternativeName = (
@@ -120,5 +122,6 @@ export const getStopPlaceDetailsForEnrichment = <
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
         ?.value || undefined,
     postalCode: findKeyValue(stopPlace, 'postalCode'),
+    stopState: findKeyValue(stopPlace, 'state') as StopPlaceState,
   };
 };
