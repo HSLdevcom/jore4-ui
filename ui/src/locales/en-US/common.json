@@ -130,7 +130,7 @@
     "abbreviation5CharSwe": "Abbreviation 5 characters (Swedish)",
     "transportMode": "Transport type",
     "stopType": "Stop type",
-    "stopStatus": "Stop status",
+    "stopState": "Stop state",
     "elyNumber": "ELY number",
     "location": {
       "title": "Location",
@@ -264,6 +264,12 @@
     "rail": "Train",
     "tram": "Tram",
     "water": "Ferry"
+  },
+  "stopPlaceStateEnum": {
+    "InOperation": "In operation",
+    "OutOfOperation": "Out of operation",
+    "PermanentlyOutOfOperation": "Permanently out of operation",
+    "Removed": "Removed"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Regional rail service",

@@ -1,6 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails, useToggle } from '../../../../hooks';
-import { mapStopRegistryTransportModeTypeToUiName } from '../../../../i18n/uiNameMappings';
+import {
+  mapStopPlaceStateToUiName,
+  mapStopRegistryTransportModeTypeToUiName,
+} from '../../../../i18n/uiNameMappings';
 import { DetailRow } from './DetailRow';
 import { ExpandableInfoContainer } from './ExpandableInfoContainer';
 import { HorizontalSeparator } from './HorizontalSeparator';
@@ -17,6 +20,10 @@ export const BasicDetailsSection = ({ stop }: Props): JSX.Element => {
   const transportMode =
     stop.stop_place?.transportMode &&
     mapStopRegistryTransportModeTypeToUiName(stop.stop_place?.transportMode);
+
+  const stopState =
+    stop.stop_place?.stopState &&
+    mapStopPlaceStateToUiName(stop.stop_place?.stopState);
 
   return (
     <ExpandableInfoContainer
@@ -92,10 +99,7 @@ export const BasicDetailsSection = ({ stop }: Props): JSX.Element => {
           title={t('stopDetails.stopType')}
           detail={'-' /* TODO */}
         />
-        <LabeledDetail
-          title={t('stopDetails.stopStatus')}
-          detail={'-' /* TODO */}
-        />
+        <LabeledDetail title={t('stopDetails.stopState')} detail={stopState} />
         <LabeledDetail
           title={t('stopDetails.elyNumber')}
           detail={stop.stop_place?.elyNumber}
