@@ -1,3 +1,4 @@
+import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../hooks';
 import { DetailRow } from './DetailRow';
@@ -10,6 +11,11 @@ interface Props {
 
 export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
   const { t } = useTranslation();
+
+  const functionalArea =
+    isNumber(stop.stop_place?.functionalArea) &&
+    `${stop.stop_place?.functionalArea} m`;
+
   return (
     <div>
       <DetailRow>
@@ -45,7 +51,7 @@ export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
         />
         <LabeledDetail
           title={t('stopDetails.location.functionalArea')}
-          detail={null /* TODO */}
+          detail={functionalArea}
         />
       </DetailRow>
       <HorizontalSeparator />

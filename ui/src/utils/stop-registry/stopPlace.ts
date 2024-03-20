@@ -59,6 +59,7 @@ export type StopPlaceEnrichmentProperties = {
   locationSwe: string | undefined;
   streetAddress: string | undefined;
   postalCode: string | undefined;
+  functionalArea: number | undefined;
 };
 
 const findAlternativeName = (
@@ -79,6 +80,18 @@ const findKeyValue = (
   const keyValue = stopPlace.keyValues?.find((kv) => kv?.key === key);
   // Note: the "values" could be an array with many values.
   return (keyValue && keyValue.values?.[0]) || undefined;
+};
+
+const findKeyValueParsed = <T = string>(
+  stopPlace: StopRegistryStopPlace,
+  key: string,
+  parser: (arg0: string) => T,
+): T | undefined => {
+  const keyValue = findKeyValue(stopPlace, key);
+  if (keyValue === undefined) {
+    return keyValue;
+  }
+  return parser(keyValue);
 };
 
 export const getStopPlaceDetailsForEnrichment = <
@@ -122,5 +135,6 @@ export const getStopPlaceDetailsForEnrichment = <
         ?.value || undefined,
     streetAddress: findKeyValue(stopPlace, 'streetAddress'),
     postalCode: findKeyValue(stopPlace, 'postalCode'),
+    functionalArea: findKeyValueParsed(stopPlace, 'functionalArea', parseFloat),
   };
 };
