@@ -8,6 +8,7 @@ import { DetailRow } from './DetailRow';
 import { ExpandableInfoContainer } from './ExpandableInfoContainer';
 import { HorizontalSeparator } from './HorizontalSeparator';
 import { LabeledDetail } from './LabeledDetail';
+import { translateStopTypes } from './utils';
 
 interface Props {
   stop: StopWithDetails;
@@ -97,7 +98,7 @@ export const BasicDetailsSection = ({ stop }: Props): JSX.Element => {
         />
         <LabeledDetail
           title={t('stopDetails.stopType')}
-          detail={'-' /* TODO */}
+          detail={stop.stop_place && translateStopTypes(stop.stop_place)}
         />
         <LabeledDetail title={t('stopDetails.stopState')} detail={stopState} />
         <LabeledDetail

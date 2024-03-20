@@ -113,6 +113,12 @@
     "stopBreaksRoutes": "The stop to be added is not compatible with the following routes: ({{ routeLabels }})",
     "timingPlaceRequired": "The stop is used as timing place on the following routes: {{ routeLabels }}. Attach timing place or stop using as timing point on the routes."
   },
+  "stopPlaceTypes": {
+    "mainLine": "Main line",
+    "interchange": "Interchange",
+    "railReplacement": "Rail replacement",
+    "virtual": "Virtual"
+  },
   "stopDetails": {
     "stopDetails": "Stop details",
     "basicDetails": "Basic details",
