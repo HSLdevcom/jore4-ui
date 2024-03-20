@@ -32,6 +32,7 @@ export type StopPlaceSeedData = {
   locationLong?: number;
   streetAddress?: string;
   postalCode?: string;
+  functionalArea?: string; // Really more of a number, but keyValues can only take strings.
   generalSign?: string;
   shelterEquipment?: StopRegistryShelterEquipmentInput;
   cycleStorageEquipment?: StopRegistryCycleStorageEquipmentInput;
@@ -143,8 +144,11 @@ const mapToStopPlaceInput = (
           key: 'postalCode',
           values: [seedStopPlace.postalCode],
         },
+        seedStopPlace.functionalArea && {
+          key: 'functionalArea',
+          values: [seedStopPlace.functionalArea],
+        },
       ],
-      // TODO: toiminnalinen alue
 
       // Equipment properties:
       placeEquipments: {
@@ -207,6 +211,7 @@ const seedData: Array<StopPlaceSeedData> = [
     locationLong: 24.92799,
     streetAddress: 'Mannerheimintie 22-24',
     postalCode: '00100',
+    functionalArea: '20',
     generalSign: 'Tolppamerkki',
     shelterEquipment: {
       enclosed: true,
