@@ -1,8 +1,10 @@
 import {
   StopRegistryEmbeddableMultilingualString,
+  StopRegistryInterchangeWeightingType,
   StopRegistryNameType,
   StopRegistryParentStopPlace,
   StopRegistryStopPlace,
+  StopRegistrySubmodeType,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
 import { StopPlaceState } from '../../types/stop-registry';
@@ -62,6 +64,12 @@ export type StopPlaceEnrichmentProperties = {
   postalCode: string | undefined;
   functionalArea: number | undefined;
   stopState: StopPlaceState | undefined;
+  stopType: {
+    mainLine: boolean;
+    interchange: boolean;
+    railReplacement: boolean;
+    virtual: boolean;
+  };
 };
 
 const findAlternativeName = (
@@ -139,5 +147,14 @@ export const getStopPlaceDetailsForEnrichment = <
     postalCode: findKeyValue(stopPlace, 'postalCode'),
     functionalArea: findKeyValueParsed(stopPlace, 'functionalArea', parseFloat),
     stopState: findKeyValue(stopPlace, 'state') as StopPlaceState,
+    stopType: {
+      mainLine: findKeyValue(stopPlace, 'mainLine') === 'true',
+      interchange:
+        stopPlace.weighting ===
+        StopRegistryInterchangeWeightingType.RecommendedInterchange,
+      railReplacement:
+        stopPlace.submode === StopRegistrySubmodeType.RailReplacementBus,
+      virtual: findKeyValue(stopPlace, 'virtual') === 'true',
+    },
   };
 };

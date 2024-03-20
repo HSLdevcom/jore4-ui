@@ -22585,6 +22585,8 @@ export type GetStopDetailsByIdQuery = {
           __typename?: 'stop_registry_StopPlace';
           id?: string | null;
           transportMode?: StopRegistryTransportModeType | null;
+          weighting?: StopRegistryInterchangeWeightingType | null;
+          submode?: StopRegistrySubmodeType | null;
           publicCode?: string | null;
           name?: {
             __typename?: 'stop_registry_EmbeddableMultilingualString';
@@ -22686,6 +22688,8 @@ export type StopPlaceDetailsFragment = {
   __typename?: 'stop_registry_StopPlace';
   id?: string | null;
   transportMode?: StopRegistryTransportModeType | null;
+  weighting?: StopRegistryInterchangeWeightingType | null;
+  submode?: StopRegistrySubmodeType | null;
   publicCode?: string | null;
   name?: {
     __typename?: 'stop_registry_EmbeddableMultilingualString';
@@ -24631,6 +24635,8 @@ export const StopPlaceDetailsFragmentDoc = gql`
       values
     }
     transportMode
+    weighting
+    submode
     publicCode
     privateCode {
       value

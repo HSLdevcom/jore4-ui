@@ -73,6 +73,8 @@ const GQL_STOP_PLACE_DETAILS = gql`
       values
     }
     transportMode
+    weighting
+    submode
     publicCode
     privateCode {
       value

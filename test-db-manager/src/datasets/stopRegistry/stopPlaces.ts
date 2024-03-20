@@ -9,6 +9,7 @@ import {
   StopRegistryShelterEquipmentInput,
   StopRegistrySignContentType,
   StopRegistryStopPlace,
+  StopRegistrySubmodeType,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
 
@@ -27,8 +28,13 @@ export type StopPlaceSeedData = {
   transportMode?: StopRegistryTransportModeType;
   publicCode?: string;
   elyNumber?: string;
-  interchangeWeighting?: StopRegistryInterchangeWeightingType;
   stopState?: string /* See StopPlaceState */;
+  stopType?: {
+    mainLine: boolean;
+    interchange: boolean;
+    railReplacement: boolean;
+    virtual: boolean;
+  };
   locationLat?: number;
   locationLong?: number;
   streetAddress?: string;
@@ -98,7 +104,14 @@ const mapToStopPlaceInput = (
         lang: 'fin',
         value: seedStopPlace.locationFin,
       },
-      weighting: seedStopPlace.interchangeWeighting, // For "vaihtopysäkki"
+      weighting:
+        (seedStopPlace.stopType?.interchange &&
+          StopRegistryInterchangeWeightingType.RecommendedInterchange) ||
+        undefined,
+      submode:
+        (seedStopPlace.stopType?.railReplacement &&
+          StopRegistrySubmodeType.RailReplacementBus) ||
+        undefined,
       quays: [
         {
           publicCode: seedStopPlace.label,
@@ -152,6 +165,14 @@ const mapToStopPlaceInput = (
         seedStopPlace.stopState && {
           key: 'state',
           values: [seedStopPlace.stopState],
+        },
+        seedStopPlace.stopType && {
+          key: 'mainLine',
+          values: [seedStopPlace.stopType.mainLine.toString()],
+        },
+        seedStopPlace.stopType && {
+          key: 'virtual',
+          values: [seedStopPlace.stopType.virtual.toString()],
         },
       ],
 
@@ -209,9 +230,13 @@ const seedData: Array<StopPlaceSeedData> = [
     abbreviationSwe: 'N.esplanaden',
     locationFin: 'Pohjoisesplanadi (sij.)',
     locationSwe: 'Norraesplanaden (plats)',
-    interchangeWeighting:
-      StopRegistryInterchangeWeightingType.RecommendedInterchange,
     stopState: 'OutOfOperation',
+    stopType: {
+      mainLine: true,
+      interchange: true,
+      railReplacement: false,
+      virtual: false,
+    },
     // TODO: the coordinates should come from routes DB really.
     locationLat: 60.180413,
     locationLong: 24.92799,
