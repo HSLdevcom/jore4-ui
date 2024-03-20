@@ -10,6 +10,11 @@ interface Props {
 
 export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
   const { t } = useTranslation();
+
+  const functionalArea =
+    stop.stop_place?.functionalArea !== undefined &&
+    `${stop.stop_place?.functionalArea} m`;
+
   return (
     <div>
       <DetailRow>
@@ -45,7 +50,7 @@ export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
         />
         <LabeledDetail
           title={t('stopDetails.location.functionalArea')}
-          detail={null /* TODO */}
+          detail={functionalArea}
         />
       </DetailRow>
       <HorizontalSeparator />
