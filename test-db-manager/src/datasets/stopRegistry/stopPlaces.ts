@@ -30,6 +30,7 @@ export type StopPlaceSeedData = {
   interchangeWeighting?: StopRegistryInterchangeWeightingType;
   locationLat?: number;
   locationLong?: number;
+  streetAddress?: string;
   postalCode?: string;
   generalSign?: string;
   shelterEquipment?: StopRegistryShelterEquipmentInput;
@@ -134,12 +135,15 @@ const mapToStopPlaceInput = (
       // TODO: these require more specification and probably need to be inserted separately somehow.
       // tariffZones: [{ /* 'A' */ }],
       keyValues: [
+        seedStopPlace.streetAddress && {
+          key: 'streetAddress',
+          values: [seedStopPlace.streetAddress],
+        },
         seedStopPlace.postalCode && {
           key: 'postalCode',
           values: [seedStopPlace.postalCode],
         },
       ],
-      // TODO: Pysäkin osoite
       // TODO: toiminnalinen alue
 
       // Equipment properties:
@@ -201,6 +205,7 @@ const seedData: Array<StopPlaceSeedData> = [
     // TODO: the coordinates should come from routes DB really.
     locationLat: 60.180413,
     locationLong: 24.92799,
+    streetAddress: 'Mannerheimintie 22-24',
     postalCode: '00100',
     generalSign: 'Tolppamerkki',
     shelterEquipment: {

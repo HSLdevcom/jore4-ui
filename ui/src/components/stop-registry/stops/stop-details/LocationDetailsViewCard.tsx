@@ -15,7 +15,7 @@ export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
       <DetailRow>
         <LabeledDetail
           title={t('stopDetails.location.stopAddress')}
-          detail={null /* TODO */}
+          detail={stop.stop_place?.streetAddress}
         />
         <LabeledDetail
           title={t('stopDetails.location.postalCode')}
