@@ -28,6 +28,7 @@ export type StopPlaceSeedData = {
   publicCode?: string;
   elyNumber?: string;
   interchangeWeighting?: StopRegistryInterchangeWeightingType;
+  stopState?: string /* See StopPlaceState */;
   locationLat?: number;
   locationLong?: number;
   streetAddress?: string;
@@ -148,6 +149,10 @@ const mapToStopPlaceInput = (
           key: 'functionalArea',
           values: [seedStopPlace.functionalArea],
         },
+        seedStopPlace.stopState && {
+          key: 'stopState',
+          values: [seedStopPlace.stopState],
+        },
       ],
 
       // Equipment properties:
@@ -206,6 +211,7 @@ const seedData: Array<StopPlaceSeedData> = [
     locationSwe: 'Norraesplanaden (plats)',
     interchangeWeighting:
       StopRegistryInterchangeWeightingType.RecommendedInterchange,
+    stopState: 'OutOfOperation',
     // TODO: the coordinates should come from routes DB really.
     locationLat: 60.180413,
     locationLong: 24.92799,

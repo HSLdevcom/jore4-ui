@@ -13,6 +13,7 @@ import {
   TimetablePriority,
 } from '../types/enums';
 import { RouteDirection } from '../types/RouteDirection';
+import { StopPlaceState } from '../types/stop-registry';
 import { AllOptionEnum } from '../utils';
 
 export const mapPriorityToUiName = (key: Priority) => {
@@ -56,6 +57,9 @@ export const mapVehicleModeToUiName = (
 export const mapStopRegistryTransportModeTypeToUiName = (
   key: StopRegistryTransportModeType,
 ) => i18n.t(`stopRegistryTransportModeTypeEnum.${key}`);
+
+export const mapStopPlaceStateToUiName = (key: StopPlaceState) =>
+  i18n.t(`stopPlaceStateEnum.${key}`);
 
 export const mapLineTypeToUiName = (
   key: RouteTypeOfLineEnum | AllOptionEnum.All,
