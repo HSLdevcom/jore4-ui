@@ -22544,8 +22544,6 @@ export type SearchStopsQuery = {
 
 export type ScheduledStopPointDetailFieldsFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
-  stop_place_ref?: string | null;
-  measured_location: GeoJSON.Point;
   priority: number;
   direction: InfrastructureNetworkDirectionEnum;
   scheduled_stop_point_id: UUID;
@@ -22554,6 +22552,8 @@ export type ScheduledStopPointDetailFieldsFragment = {
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   located_on_infrastructure_link_id: UUID;
+  stop_place_ref?: string | null;
+  measured_location: GeoJSON.Point;
   timing_place?: {
     __typename?: 'timing_pattern_timing_place';
     timing_place_id: UUID;
@@ -22569,8 +22569,6 @@ export type GetStopDetailsByIdQuery = {
   __typename?: 'query_root';
   service_pattern_scheduled_stop_point_by_pk?: {
     __typename?: 'service_pattern_scheduled_stop_point';
-    stop_place_ref?: string | null;
-    measured_location: GeoJSON.Point;
     priority: number;
     direction: InfrastructureNetworkDirectionEnum;
     scheduled_stop_point_id: UUID;
@@ -22579,6 +22577,8 @@ export type GetStopDetailsByIdQuery = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
+    measured_location: GeoJSON.Point;
     stop_place?: Array<
       | { __typename?: 'stop_registry_ParentStopPlace' }
       | {
@@ -24585,11 +24585,21 @@ export const StopTableRowFragmentDoc = gql`
 `;
 export const ScheduledStopPointDetailFieldsFragmentDoc = gql`
   fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
-    ...scheduled_stop_point_default_fields
+    priority
+    direction
+    scheduled_stop_point_id
+    label
+    timing_place_id
+    timing_place {
+      timing_place_id
+      label
+    }
+    validity_start
+    validity_end
+    located_on_infrastructure_link_id
     stop_place_ref
     measured_location
   }
-  ${ScheduledStopPointDefaultFieldsFragmentDoc}
 `;
 export const QuayDetailsFragmentDoc = gql`
   fragment quay_details on stop_registry_Quay {
