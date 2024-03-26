@@ -5,6 +5,26 @@ import { DetailRow } from './DetailRow';
 import { HorizontalSeparator } from './HorizontalSeparator';
 import { LabeledDetail } from './LabeledDetail';
 
+const testIds = {
+  container: 'LocationDetailsViewCard::container',
+  stopAddress: 'LocationDetailsViewCard::stopAddress',
+  postalCode: 'LocationDetailsViewCard::postalCode',
+  municipality: 'LocationDetailsViewCard::municipality',
+  tariffZone: 'LocationDetailsViewCard::tariffZone',
+  latitude: 'LocationDetailsViewCard::latitude',
+  longitude: 'LocationDetailsViewCard::longitude',
+  altitude: 'LocationDetailsViewCard::altitude',
+  functionalArea: 'LocationDetailsViewCard::functionalArea',
+  stopArea: 'LocationDetailsViewCard::stopArea',
+  stopAreaName: 'LocationDetailsViewCard::stopAreaName',
+  stopAreaStops: 'LocationDetailsViewCard::stopAreaStops',
+  quay: 'LocationDetailsViewCard::quay',
+  stopAreaQuays: 'LocationDetailsViewCard::stopAreaQuays',
+  terminal: 'LocationDetailsViewCard::terminal',
+  terminalName: 'LocationDetailsViewCard::terminalName',
+  terminalStops: 'LocationDetailsViewCard::terminalStops',
+};
+
 interface Props {
   stop: StopWithDetails;
 }
@@ -17,41 +37,49 @@ export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
     `${stop.stop_place?.functionalArea} m`;
 
   return (
-    <div>
+    <div data-testid={testIds.container}>
       <DetailRow>
         <LabeledDetail
           title={t('stopDetails.location.stopAddress')}
           detail={stop.stop_place?.streetAddress}
+          testId={testIds.stopAddress}
         />
         <LabeledDetail
           title={t('stopDetails.location.postalCode')}
           detail={stop.stop_place?.postalCode}
+          testId={testIds.postalCode}
         />
         <LabeledDetail
           title={t('stopDetails.location.municipality')}
           detail={null /* TODO */}
+          testId={testIds.municipality}
         />
         <LabeledDetail
           title={t('stopDetails.location.tariffZone')}
           detail={null}
+          testId={testIds.tariffZone}
         />
       </DetailRow>
       <DetailRow>
         <LabeledDetail
           title={t('stopDetails.location.latitude')}
           detail={stop.measured_location.coordinates[1]}
+          testId={testIds.latitude}
         />
         <LabeledDetail
           title={t('stopDetails.location.longitude')}
           detail={stop.measured_location.coordinates[0]}
+          testId={testIds.longitude}
         />
         <LabeledDetail
           title={t('stopDetails.location.altitude')}
           detail={stop.measured_location.coordinates[2]}
+          testId={testIds.altitude}
         />
         <LabeledDetail
           title={t('stopDetails.location.functionalArea')}
           detail={functionalArea}
+          testId={testIds.functionalArea}
         />
       </DetailRow>
       <HorizontalSeparator />
@@ -59,22 +87,27 @@ export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
         <LabeledDetail
           title={t('stopDetails.location.stopArea')}
           detail={null /* TODO */}
+          testId={testIds.stopArea}
         />
         <LabeledDetail
           title={t('stopDetails.location.stopAreaName')}
           detail={null /* TODO */}
+          testId={testIds.stopAreaName}
         />
         <LabeledDetail
           title={t('stopDetails.location.stopAreaStops')}
           detail={null /* TODO */}
+          testId={testIds.stopAreaStops}
         />
         <LabeledDetail
           title={t('stopDetails.location.quay')}
           detail={null /* TODO */}
+          testId={testIds.quay}
         />
         <LabeledDetail
           title={t('stopDetails.location.stopAreaQuays')}
           detail={null /* TODO */}
+          testId={testIds.stopAreaQuays}
         />
       </DetailRow>
       <HorizontalSeparator />
@@ -82,14 +115,17 @@ export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
         <LabeledDetail
           title={t('stopDetails.location.terminal')}
           detail={null /* TODO */}
+          testId={testIds.terminal}
         />
         <LabeledDetail
           title={t('stopDetails.location.terminalName')}
           detail={null /* TODO */}
+          testId={testIds.terminalName}
         />
         <LabeledDetail
           title={t('stopDetails.location.terminalStops')}
           detail={null /* TODO */}
+          testId={testIds.terminalStops}
         />
       </DetailRow>
     </div>

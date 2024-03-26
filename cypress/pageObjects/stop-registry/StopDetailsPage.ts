@@ -1,8 +1,10 @@
 import { UUID } from '../../types';
-import { BasicDetailsSection } from './stop-details';
+import { BasicDetailsSection, LocationDetailsViewCard } from './stop-details';
 
 export class StopDetailsPage {
   basicDetails = new BasicDetailsSection();
+
+  locationDetailsViewCard = new LocationDetailsViewCard();
 
   visit(scheduledStopPointId: UUID) {
     cy.visit(`/stop-registry/stops/${scheduledStopPointId}`);
