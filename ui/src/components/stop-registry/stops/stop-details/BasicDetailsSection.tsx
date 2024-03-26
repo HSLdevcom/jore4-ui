@@ -16,7 +16,7 @@ interface Props {
 
 export const BasicDetailsSection = ({ stop }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const [isExpanded, toggleIsExpanded] = useToggle();
+  const [isExpanded, toggleIsExpanded] = useToggle(true);
 
   const transportMode =
     stop.stop_place?.transportMode &&

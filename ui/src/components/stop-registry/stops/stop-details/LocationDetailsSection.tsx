@@ -9,7 +9,7 @@ interface Props {
 
 export const LocationDetailsSection = ({ stop }: Props): JSX.Element => {
   const { t } = useTranslation();
-  const [isExpanded, toggleIsExpanded] = useToggle();
+  const [isExpanded, toggleIsExpanded] = useToggle(true);
 
   return (
     <ExpandableInfoContainer
