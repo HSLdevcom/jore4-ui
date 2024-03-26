@@ -198,8 +198,7 @@ const mapToStopPlaceInput = (
   };
 };
 
-const seedData: Array<StopPlaceSeedData> = [
-  // Stops for route 35:
+const route35Stops: Array<StopPlaceSeedData> = [
   { label: 'H1376', nameFin: 'Rakuunantie 8', nameSwe: 'Dragonvägen 8' },
   {
     label: 'H1377',
@@ -215,48 +214,50 @@ const seedData: Array<StopPlaceSeedData> = [
   { label: 'H1455', nameFin: 'Niemenmäentie', nameSwe: 'Näshöjdsvägen' },
   { label: 'H1456', nameFin: 'Rakuunantie', nameSwe: 'Dragonvägen' }, // Rakuunantie 16
   { label: 'H1458', nameFin: 'Rakuunantie', nameSwe: 'Dragonvägen' }, // Huopalahdentie
-  // Other stops
-  {
-    label: 'H2003',
-    publicCode: '10003',
-    elyNumber: '1234567',
-    nameFin: 'Pohjoisesplanadi',
-    nameSwe: 'Norraesplanaden',
-    nameFinLong: 'Pohjoisesplanadi (pitkä)',
-    nameSweLong: 'Norraesplanaden (lång)',
-    abbreviationFin5Char: 'P.Esp',
-    abbreviationSwe5Char: 'N.Esp',
-    abbreviationFin: 'Pohj.esplanadi',
-    abbreviationSwe: 'N.esplanaden',
-    locationFin: 'Pohjoisesplanadi (sij.)',
-    locationSwe: 'Norraesplanaden (plats)',
-    stopState: 'OutOfOperation',
-    stopType: {
-      mainLine: true,
-      interchange: true,
-      railReplacement: false,
-      virtual: false,
-    },
-    // TODO: the coordinates should come from routes DB really.
-    locationLat: 60.180413,
-    locationLong: 24.92799,
-    streetAddress: 'Mannerheimintie 22-24',
-    postalCode: '00100',
-    functionalArea: '20',
-    generalSign: 'Tolppamerkki',
-    shelterEquipment: {
-      enclosed: true,
-      stepFree: false,
-      // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
-    },
-    cycleStorageEquipment: {
-      cycleStorageType: StopRegistryCycleStorageType.Other,
-      // There also exists `numberOfSpaces` field here, but we currently don't have plans for that in the UI so leaving it out.
-    },
-    accessibilityLimitations: {
-      wheelchairAccess: StopRegistryLimitationStatusType.Partial,
-    },
-  },
 ];
+const H2003: StopPlaceSeedData = {
+  label: 'H2003',
+  publicCode: '10003',
+  elyNumber: '1234567',
+  nameFin: 'Pohjoisesplanadi',
+  nameSwe: 'Norraesplanaden',
+  nameFinLong: 'Pohjoisesplanadi (pitkä)',
+  nameSweLong: 'Norraesplanaden (lång)',
+  abbreviationFin5Char: 'P.Esp',
+  abbreviationSwe5Char: 'N.Esp',
+  abbreviationFin: 'Pohj.esplanadi',
+  abbreviationSwe: 'N.esplanaden',
+  locationFin: 'Pohjoisesplanadi (sij.)',
+  locationSwe: 'Norraesplanaden (plats)',
+  stopState: 'OutOfOperation',
+  stopType: {
+    mainLine: true,
+    interchange: true,
+    railReplacement: false,
+    virtual: false,
+  },
+  // TODO: the coordinates should come from routes DB really.
+  locationLat: 60.180413,
+  locationLong: 24.92799,
+  streetAddress: 'Mannerheimintie 22-24',
+  postalCode: '00100',
+  functionalArea: '20',
+  generalSign: 'Tolppamerkki',
+  shelterEquipment: {
+    enclosed: true,
+    stepFree: false,
+    // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
+  },
+  cycleStorageEquipment: {
+    cycleStorageType: StopRegistryCycleStorageType.Other,
+    // There also exists `numberOfSpaces` field here, but we currently don't have plans for that in the UI so leaving it out.
+  },
+  accessibilityLimitations: {
+    wheelchairAccess: StopRegistryLimitationStatusType.Partial,
+  },
+};
+const seedData: Array<StopPlaceSeedData> = [...route35Stops, H2003];
+
 export const seedStopPlaces: Array<StopPlaceInput> =
   seedData.map(mapToStopPlaceInput);
+export const stopPlaceH2003 = mapToStopPlaceInput(H2003).stopPlace;

@@ -2,13 +2,13 @@ import {
   GetInfrastructureLinksByExternalIdsResult,
   Priority,
   StopInsertInput,
-  StopRegistryNameType,
   StopRegistryStopPlace,
   buildStop,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   mapToDeleteStopPlaceMutation,
   mapToGetInfrastructureLinksByExternalIdsQuery,
+  stopPlaceH2003,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
@@ -48,15 +48,7 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
   {
     name: { lang: 'fin', value: 'Puistokaari' },
   },
-  {
-    name: { lang: 'fin', value: 'Lapinrinne' },
-    alternativeNames: [
-      {
-        name: { lang: 'swe', value: 'Lappbrinken' },
-        nameType: StopRegistryNameType.Translation,
-      },
-    ],
-  },
+  stopPlaceH2003,
 ];
 
 const buildScheduledStopPoints = (
@@ -78,16 +70,16 @@ const buildScheduledStopPoints = (
   },
   {
     ...buildStop({
-      label: 'H1234',
-      located_on_infrastructure_link_id: infrastructureLinkIds[1],
+      label: 'H2003',
+      located_on_infrastructure_link_id: infrastructureLinkIds[2],
     }),
     validity_start: DateTime.fromISO('2020-03-20'),
     validity_end: DateTime.fromISO('2050-05-31'),
-    scheduled_stop_point_id: '3354eef5-0eaf-4b43-8b2f-14c867633342',
-    timing_place_id: timingPlaces[0].timing_place_id,
+    scheduled_stop_point_id: '29dfb688-7ecc-4cb5-876d-c2c7f1a1f00a',
+    timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[1].coordinates,
+      coordinates: testInfraLinks[2].coordinates,
     },
   },
 ];
@@ -153,8 +145,10 @@ describe('Stop details', () => {
       stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
       stopDetailsPage.page().should('be.visible');
 
-      stopDetailsPage.label().should('have.text', 'H1234');
-      stopDetailsPage.names().should('have.text', 'Lapinrinne|Lappbrinken');
+      stopDetailsPage.label().should('have.text', 'H2003');
+      stopDetailsPage
+        .names()
+        .should('have.text', 'Pohjoisesplanadi|Norraesplanaden');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
     },
   );
