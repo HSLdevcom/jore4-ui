@@ -177,4 +177,28 @@ describe('Stop details', () => {
     details.getStopState().should('have.text', 'Pois käytöstä');
     details.getElyNumber().should('have.text', '1234567');
   });
+
+  it('should view location details', { tags: [Tag.StopRegistry] }, () => {
+    stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+    stopDetailsPage.page().should('be.visible');
+
+    const details = stopDetailsPage.locationDetailsViewCard;
+    details.getContainer().should('be.visible');
+    details.getStopAddress().should('have.text', 'Mannerheimintie 22-24');
+    details.getPostalCode().should('have.text', '00100');
+    details.getMunicipality().should('have.text', '-');
+    details.getTariffZone().should('have.text', '-');
+    details.getLatitude().should('have.text', '60.166003223527824');
+    details.getLongitude().should('have.text', '24.932072417514647');
+    details.getAltitude().should('have.text', '0');
+    details.getFunctionalArea().should('have.text', '20 m');
+    details.getStopArea().should('have.text', '-');
+    details.getStopAreaName().should('have.text', '-');
+    details.getStopAreaStops().should('have.text', '-');
+    details.getQuay().should('have.text', '-');
+    details.getStopAreaQuays().should('have.text', '-');
+    details.getTerminal().should('have.text', '-');
+    details.getTerminalName().should('have.text', '-');
+    details.getTerminalStops().should('have.text', '-');
+  });
 });

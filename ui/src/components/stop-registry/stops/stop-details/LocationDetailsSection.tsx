@@ -16,6 +16,7 @@ export const LocationDetailsSection = ({ stop }: Props): JSX.Element => {
       onToggle={toggleIsExpanded}
       isExpanded={isExpanded}
       title={t('stopDetails.location.title')}
+      testIdPrefix="LocationDetailsSection"
     >
       <LocationDetailsViewCard stop={stop} />
     </ExpandableInfoContainer>
