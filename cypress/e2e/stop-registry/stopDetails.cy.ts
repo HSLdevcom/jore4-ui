@@ -152,4 +152,29 @@ describe('Stop details', () => {
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
     },
   );
+
+  it('should view basic details', { tags: [Tag.StopRegistry] }, () => {
+    stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+    stopDetailsPage.page().should('be.visible');
+
+    const details = stopDetailsPage.basicDetails;
+    details.getContent().should('be.visible');
+    details.getLabel().should('have.text', 'H2003');
+    details.getPublicCode().should('have.text', '10003');
+    details.getNameFin().should('have.text', 'Pohjoisesplanadi');
+    details.getNameSwe().should('have.text', 'Norraesplanaden');
+    details.getNameLongFin().should('have.text', 'Pohjoisesplanadi (pitkä)');
+    details.getNameLongSwe().should('have.text', 'Norraesplanaden (lång)');
+    details.getLocationFin().should('have.text', 'Pohjoisesplanadi (sij.)');
+    details.getLocationSwe().should('have.text', 'Norraesplanaden (plats)');
+    details.getAbbreviationFin().should('have.text', 'Pohj.esplanadi');
+    details.getAbbreviationSwe().should('have.text', 'N.esplanaden');
+    details.getAbbreviation5CharFin().should('have.text', 'P.Esp');
+    details.getAbbreviation5CharSwe().should('have.text', 'N.Esp');
+    details.getTransportMode().should('have.text', 'Bussi');
+    details.getTimingPlaceId().should('have.text', '1AURLA');
+    details.getStopType().should('have.text', 'Runkolinja, vaihtopysäkki');
+    details.getStopState().should('have.text', 'Pois käytöstä');
+    details.getElyNumber().should('have.text', '1234567');
+  });
 });

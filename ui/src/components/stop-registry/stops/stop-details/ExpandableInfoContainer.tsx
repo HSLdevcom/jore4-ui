@@ -7,12 +7,19 @@ interface Props {
   isExpanded: boolean;
   onToggle: () => void;
   title: string | ReactNode;
+  testIdPrefix?: string;
 }
+
+const testIds = {
+  toggle: (prefix: string) => `${prefix}::toggle`,
+  content: (prefix: string) => `${prefix}::content`,
+};
 
 export const ExpandableInfoContainer: React.FC<Props> = ({
   isExpanded,
   onToggle,
   title,
+  testIdPrefix = '',
   children,
 }) => {
   return (
@@ -26,7 +33,11 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
         <h4>{title}</h4>
         <div>
           {/* TODO: add other buttons, possibly depending on context. */}
-          <SimpleButton onClick={onToggle} inverted={!isExpanded}>
+          <SimpleButton
+            onClick={onToggle}
+            inverted={!isExpanded}
+            testId={testIds.toggle(testIdPrefix)}
+          >
             {isExpanded ? (
               <FaChevronUp className="text-white" aria-hidden />
             ) : (
@@ -36,7 +47,10 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
         </div>
       </div>
       <Visible visible={isExpanded}>
-        <div className="rounded-b-lg border-x border-b p-5 [&>hr]:mt-5">
+        <div
+          data-testid={testIds.content(testIdPrefix)}
+          className="rounded-b-lg border-x border-b p-5 [&>hr]:mt-5"
+        >
           {children}
         </div>
       </Visible>
