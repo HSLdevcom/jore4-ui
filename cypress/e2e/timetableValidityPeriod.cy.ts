@@ -19,6 +19,7 @@ import {
 } from '@hsl/jore4-test-db-manager';
 import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
+import { testInfraLinksFour } from '../datasets';
 import { Tag } from '../enums';
 import {
   PassingTimesByStopSection,
@@ -32,29 +33,6 @@ import {
   insertToDbHelper,
   removeFromDbHelper,
 } from '../utils';
-
-// These infralink IDs exist in the 'infraLinks.sql' test data file.
-// These form a straight line on Eerikinkatu in Helsinki.
-// Coordinates are partial since they are needed only for the stop creation.
-
-const testInfraLinks = [
-  {
-    externalId: '445156',
-    coordinates: [24.925682785, 60.163824160000004, 7.3515],
-  },
-  {
-    externalId: '442331',
-    coordinates: [24.927565858, 60.1644843305, 9.778500000000001],
-  },
-  {
-    externalId: '442424',
-    coordinates: [24.929825718, 60.165285984, 9.957],
-  },
-  {
-    externalId: '442325',
-    coordinates: [24.93312261043133, 60.16645636069328, 13.390046659939703],
-  },
-];
 
 const stopLabels = ['H1231', 'H1232', 'H1233', 'H1234'];
 
@@ -84,7 +62,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[0].coordinates,
+      coordinates: testInfraLinksFour[0].coordinates,
     },
   },
   {
@@ -95,7 +73,7 @@ const buildStopsOnInfrastrucureLinks = (
     scheduled_stop_point_id: '9a9cbf66-44ce-4aea-8c2a-23ae963d24fb',
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[1].coordinates,
+      coordinates: testInfraLinksFour[1].coordinates,
     },
   },
   {
@@ -107,7 +85,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
+      coordinates: testInfraLinksFour[2].coordinates,
     },
   },
   {
@@ -119,7 +97,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[2].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[3].coordinates,
+      coordinates: testInfraLinksFour[3].coordinates,
     },
   },
 ];
@@ -355,7 +333,7 @@ describe('Timetable validity period', () => {
     cy.task<GetInfrastructureLinksByExternalIdsResult>(
       'hasuraAPI',
       mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
+        testInfraLinksFour.map((infralink) => infralink.externalId),
       ),
     ).then((res) => {
       const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);

@@ -17,6 +17,7 @@ import {
 } from '@hsl/jore4-test-db-manager';
 import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
+import { testInfraLinksThree } from '../datasets';
 import { Tag } from '../enums';
 import {
   RouteTimetablesSection,
@@ -32,25 +33,6 @@ import {
   insertToDbHelper,
   removeFromDbHelper,
 } from '../utils';
-
-// These infralink IDs exist in the 'infraLinks.sql' test data file.
-// These form a straight line on Eerikinkatu in Helsinki.
-// Coordinates are partial since they are needed only for the stop creation.
-
-const testInfraLinks = [
-  {
-    externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
-  },
-  {
-    externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
-  },
-  {
-    externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
-  },
-];
 
 const stopLabels = ['H1234', 'H1235', 'H1236'];
 
@@ -79,7 +61,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[0].coordinates,
+      coordinates: testInfraLinksThree[0].coordinates,
     },
   },
   {
@@ -90,7 +72,7 @@ const buildStopsOnInfrastrucureLinks = (
     scheduled_stop_point_id: '359da508-e6a0-4474-bc96-3ab52c3453b0',
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[1].coordinates,
+      coordinates: testInfraLinksThree[1].coordinates,
     },
   },
   {
@@ -102,7 +84,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
+      coordinates: testInfraLinksThree[2].coordinates,
     },
   },
 ];
@@ -367,7 +349,7 @@ describe('Common substitute operating periods', () => {
     cy.task<GetInfrastructureLinksByExternalIdsResult>(
       'hasuraAPI',
       mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
+        testInfraLinksThree.map((infralink) => infralink.externalId),
       ),
     ).then((res) => {
       const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);

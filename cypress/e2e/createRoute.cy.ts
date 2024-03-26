@@ -19,6 +19,7 @@ import {
   mapToGetInfrastructureLinksByExternalIdsQuery,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
+import { testInfraLinksThree } from '../datasets';
 import { Tag } from '../enums';
 import { MapModal, RouteEditor } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
@@ -38,25 +39,6 @@ const testRouteLabels = {
   label4: 'Indefinite end time route',
   label5: 'Template route',
 };
-
-// These infralink IDs exist in the 'infraLinks.sql' test data file.
-// These form a straight line on Eerikinkatu in Helsinki.
-// Coordinates are partial since they are needed only for the stop creation.
-
-const testInfraLinks = [
-  {
-    externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
-  },
-  {
-    externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
-  },
-  {
-    externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
-  },
-];
 
 const stopLabels = ['Test stop 1', 'Test stop 2', 'Test stop 3'];
 
@@ -101,7 +83,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[0].coordinates,
+      coordinates: testInfraLinksThree[0].coordinates,
     },
   },
   {
@@ -113,7 +95,7 @@ const buildStopsOnInfrastrucureLinks = (
     scheduled_stop_point_id: '431a6791-f1f5-45d4-8c9d-9e154a2531e0',
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[1].coordinates,
+      coordinates: testInfraLinksThree[1].coordinates,
     },
   },
   {
@@ -126,7 +108,7 @@ const buildStopsOnInfrastrucureLinks = (
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
+      coordinates: testInfraLinksThree[2].coordinates,
     },
   },
 ];
@@ -214,7 +196,7 @@ describe('Route creation', () => {
     cy.task<GetInfrastructureLinksByExternalIdsResult>(
       'hasuraAPI',
       mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
+        testInfraLinksThree.map((infralink) => infralink.externalId),
       ),
     ).then((res) => {
       const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
