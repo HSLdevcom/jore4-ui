@@ -4,6 +4,7 @@ import { Container } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { BasicDetailsSection } from './BasicDetailsSection';
 import { LocationDetailsSection } from './LocationDetailsSection';
+import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
 import { StopTitleRow } from './StopTitleRow';
 
 const testIds = {
@@ -22,6 +23,7 @@ export const StopDetailsPage = (): JSX.Element => {
   return (
     <Container testId={testIds.page}>
       <StopTitleRow stopDetails={stopDetails} />
+      <StopHeaderSummaryRow stopDetails={stopDetails} />
       <hr className="my-4" />
       <div className="flex items-center">
         <h2 className="">{t('stopDetails.stopDetails')}</h2>
