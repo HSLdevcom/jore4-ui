@@ -16,7 +16,7 @@ export const StopDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
 
   if (!stopDetails) {
-    return <div>404{/* TODO */}</div>;
+    return <></>;
   }
 
   return (
