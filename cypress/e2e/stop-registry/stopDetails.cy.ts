@@ -201,4 +201,20 @@ describe('Stop details', () => {
     details.getTerminalName().should('have.text', '-');
     details.getTerminalStops().should('have.text', '-');
   });
+
+  it('should view signage details', { tags: [Tag.StopRegistry] }, () => {
+    stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+    stopDetailsPage.page().should('be.visible');
+
+    const details = stopDetailsPage.signageDetailsViewCard;
+    details.getContainer().should('be.visible');
+    details.getSignType().should('have.text', 'Tolppamerkki');
+    details.getNumberOfFrames().should('have.text', '12');
+    details.getLineSignage().should('have.text', 'Kyllä');
+    details
+      .getSignageInstructionExceptions()
+      .should('have.text', 'Ohjetekstiä...');
+    details.getReplacesRailSign().should('have.text', 'Ei');
+    details.getMainLineSign().should('have.text', 'Ei');
+  });
 });

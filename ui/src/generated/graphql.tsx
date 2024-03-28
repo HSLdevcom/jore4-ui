@@ -9006,13 +9006,23 @@ export type StopRegistryGeneralSign = {
   __typename?: 'stop_registry_GeneralSign';
   content?: Maybe<StopRegistryEmbeddableMultilingualString>;
   id?: Maybe<Scalars['String']>;
+  lineSignage?: Maybe<Scalars['Boolean']>;
+  mainLineSign?: Maybe<Scalars['Boolean']>;
+  note?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  numberOfFrames?: Maybe<Scalars['Int']>;
   privateCode?: Maybe<StopRegistryPrivateCode>;
+  replacesRailSign?: Maybe<Scalars['Boolean']>;
   signContentType?: Maybe<StopRegistrySignContentType>;
 };
 
 export type StopRegistryGeneralSignInput = {
   content?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  lineSignage?: InputMaybe<Scalars['Boolean']>;
+  mainLineSign?: InputMaybe<Scalars['Boolean']>;
+  note?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  numberOfFrames?: InputMaybe<Scalars['Int']>;
   privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
+  replacesRailSign?: InputMaybe<Scalars['Boolean']>;
   signContentType?: InputMaybe<StopRegistrySignContentType>;
 };
 
@@ -22622,6 +22632,27 @@ export type GetStopDetailsByIdQuery = {
             coordinates?: any | null;
             type?: StopRegistryGeoJsonType | null;
           } | null;
+          placeEquipments?: {
+            __typename?: 'stop_registry_PlaceEquipments';
+            generalSign?: Array<{
+              __typename?: 'stop_registry_GeneralSign';
+              signContentType?: StopRegistrySignContentType | null;
+              numberOfFrames?: number | null;
+              lineSignage?: boolean | null;
+              mainLineSign?: boolean | null;
+              replacesRailSign?: boolean | null;
+              privateCode?: {
+                __typename?: 'stop_registry_PrivateCode';
+                value?: string | null;
+                type?: string | null;
+              } | null;
+              note?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString';
+                lang?: string | null;
+                value?: string | null;
+              } | null;
+            } | null> | null;
+          } | null;
           quays?: Array<{
             __typename?: 'stop_registry_Quay';
             publicCode?: string | null;
@@ -22724,6 +22755,27 @@ export type StopPlaceDetailsFragment = {
     __typename?: 'stop_registry_GeoJSON';
     coordinates?: any | null;
     type?: StopRegistryGeoJsonType | null;
+  } | null;
+  placeEquipments?: {
+    __typename?: 'stop_registry_PlaceEquipments';
+    generalSign?: Array<{
+      __typename?: 'stop_registry_GeneralSign';
+      signContentType?: StopRegistrySignContentType | null;
+      numberOfFrames?: number | null;
+      lineSignage?: boolean | null;
+      mainLineSign?: boolean | null;
+      replacesRailSign?: boolean | null;
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode';
+        value?: string | null;
+        type?: string | null;
+      } | null;
+      note?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   quays?: Array<{
     __typename?: 'stop_registry_Quay';
@@ -24659,6 +24711,23 @@ export const StopPlaceDetailsFragmentDoc = gql`
     geometry {
       coordinates
       type
+    }
+    placeEquipments {
+      generalSign {
+        privateCode {
+          value
+          type
+        }
+        signContentType
+        numberOfFrames
+        lineSignage
+        mainLineSign
+        replacesRailSign
+        note {
+          lang
+          value
+        }
+      }
     }
     quays {
       ...quay_details

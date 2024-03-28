@@ -156,6 +156,15 @@
       "terminal": "Terminaali",
       "terminalName": "Terminaalin nimi",
       "terminalStops": "Jäsenpysäkit"
+    },
+    "signs": {
+      "title": "Pysäkkikilvet",
+      "signType": "Pysäkkikilpien tyyppi",
+      "numberOfFrames": "Kilpikehikoiden määrä",
+      "lineSignage": "Linjakilvet",
+      "signageInstructionExceptions": "Kilvitysohjeen poikkeus",
+      "replacesRailSign": "Raideliikennettä korvaava",
+      "mainLineSign": "Runkolinjapysäkki"
     }
   },
   "stopRegistrySearch": {
@@ -276,6 +285,13 @@
     "OutOfOperation": "Pois käytöstä",
     "PermanentlyOutOfOperation": "Pysyvästi pois käytöstä",
     "Removed": "Poistettu"
+  },
+  "stopPlaceSignTypeEnum": {
+    "None": "Ei ole",
+    "StopSign": "Pysäkinmerkki",
+    "CanopyFrame": "Katoskehikko",
+    "PoleSign": "Tolppamerkki",
+    "JokerSign": "Jokerimerkki"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Seudullinen juna",
@@ -587,6 +603,8 @@
   "hide": "Piilota",
   "all": "Kaikki",
   "selected": " {{ count }} valittu",
+  "yes": "Kyllä",
+  "no": "Ei",
   "welcomePage": {
     "heading": "JORE4 | Aikataulujen testikäyttö alkaa",
     "subheading1": "Mitä?",

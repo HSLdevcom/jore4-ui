@@ -1,4 +1,4 @@
-import { translateStopTypes } from './utils';
+import { optionalBooleanToUiText, translateStopTypes } from './utils';
 
 describe('Stop registry utils', () => {
   describe('translateStopTypes', () => {
@@ -41,6 +41,28 @@ describe('Stop registry utils', () => {
       };
       const result = translateStopTypes(stopPlace);
       expect(result).toBe('');
+    });
+  });
+
+  describe('optionalBooleanToUiText', () => {
+    it('should translate true', () => {
+      const result = optionalBooleanToUiText(true);
+      expect(result).toBe('Kyllä');
+    });
+
+    it('should translate false', () => {
+      const result = optionalBooleanToUiText(false);
+      expect(result).toBe('Ei');
+    });
+
+    it('should not translate undefined', () => {
+      const result = optionalBooleanToUiText(undefined);
+      expect(result).toBe(undefined);
+    });
+
+    it('should not translate null', () => {
+      const result = optionalBooleanToUiText(null);
+      expect(result).toBe(undefined);
     });
   });
 });

@@ -99,6 +99,23 @@ const GQL_STOP_PLACE_DETAILS = gql`
       coordinates
       type
     }
+    placeEquipments {
+      generalSign {
+        privateCode {
+          value
+          type
+        }
+        signContentType
+        numberOfFrames
+        lineSignage
+        mainLineSign
+        replacesRailSign
+        note {
+          lang
+          value
+        }
+      }
+    }
     quays {
       ...quay_details
     }

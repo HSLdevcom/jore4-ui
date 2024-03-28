@@ -4,6 +4,7 @@ import { Container } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { BasicDetailsSection } from './BasicDetailsSection';
 import { LocationDetailsSection } from './LocationDetailsSection';
+import { SignageDetailsSection } from './SignageDetailsSection';
 import { StopTitleRow } from './StopTitleRow';
 
 const testIds = {
@@ -16,7 +17,7 @@ export const StopDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
 
   if (!stopDetails) {
-    return <div>404{/* TODO */}</div>;
+    return <></>;
   }
 
   return (
@@ -38,6 +39,7 @@ export const StopDetailsPage = (): JSX.Element => {
       {/* TODO: tabs. */}
       <BasicDetailsSection stop={stopDetails} />
       <LocationDetailsSection stop={stopDetails} />
+      <SignageDetailsSection stop={stopDetails} />
     </Container>
   );
 };

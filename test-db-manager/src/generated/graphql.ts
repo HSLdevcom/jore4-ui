@@ -9002,13 +9002,23 @@ export type StopRegistryGeneralSign = {
   __typename?: 'stop_registry_GeneralSign';
   content?: Maybe<StopRegistryEmbeddableMultilingualString>;
   id?: Maybe<Scalars['String']>;
+  lineSignage?: Maybe<Scalars['Boolean']>;
+  mainLineSign?: Maybe<Scalars['Boolean']>;
+  note?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  numberOfFrames?: Maybe<Scalars['Int']>;
   privateCode?: Maybe<StopRegistryPrivateCode>;
+  replacesRailSign?: Maybe<Scalars['Boolean']>;
   signContentType?: Maybe<StopRegistrySignContentType>;
 };
 
 export type StopRegistryGeneralSignInput = {
   content?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  lineSignage?: InputMaybe<Scalars['Boolean']>;
+  mainLineSign?: InputMaybe<Scalars['Boolean']>;
+  note?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  numberOfFrames?: InputMaybe<Scalars['Int']>;
   privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
+  replacesRailSign?: InputMaybe<Scalars['Boolean']>;
   signContentType?: InputMaybe<StopRegistrySignContentType>;
 };
 

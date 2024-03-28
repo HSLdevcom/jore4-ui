@@ -22,3 +22,18 @@ export const translateStopTypes = (
   // Capitalize the final result.
   return result.charAt(0).toUpperCase() + result.slice(1);
 };
+
+/**
+ * Maps a boolean to a translated yes/no text.
+ *
+ * Missing values are NOT translated.
+ */
+export const optionalBooleanToUiText = (value: boolean | undefined | null) => {
+  if (value) {
+    return i18n.t('yes');
+  }
+  if (value === false) {
+    return i18n.t('no');
+  }
+  return undefined;
+};

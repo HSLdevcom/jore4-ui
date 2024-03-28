@@ -40,10 +40,17 @@ export type StopPlaceSeedData = {
   streetAddress?: string;
   postalCode?: string;
   functionalArea?: string; // Really more of a number, but keyValues can only take strings.
-  generalSign?: string;
   shelterEquipment?: StopRegistryShelterEquipmentInput;
   cycleStorageEquipment?: StopRegistryCycleStorageEquipmentInput;
   accessibilityLimitations?: Partial<StopRegistryAccessibilityLimitationsInput>;
+  signs?: {
+    signType: string /* see StopPlaceSignType */;
+    note?: string;
+    numberOfFrames: number;
+    lineSignage: boolean;
+    mainLineSign: boolean;
+    replacesRailSign: boolean;
+  };
 };
 
 const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput =
@@ -178,11 +185,22 @@ const mapToStopPlaceInput = (
 
       // Equipment properties:
       placeEquipments: {
-        generalSign: seedStopPlace.generalSign && [
+        generalSign: seedStopPlace.signs && [
           {
-            // Note: this could have "content" as well.
-            privateCode: { type: 'HSL', value: seedStopPlace.generalSign }, // TODO: the values still need further specification.
+            privateCode: { type: 'HSL', value: seedStopPlace.signs.signType },
             signContentType: StopRegistrySignContentType.TransportMode,
+            numberOfFrames: seedStopPlace.signs.numberOfFrames,
+            lineSignage: seedStopPlace.signs.lineSignage,
+            mainLineSign: seedStopPlace.signs.mainLineSign,
+            replacesRailSign: seedStopPlace.signs.replacesRailSign,
+            ...(seedStopPlace.signs.note
+              ? {
+                  note: {
+                    lang: 'fin',
+                    value: seedStopPlace.signs.note,
+                  },
+                }
+              : {}),
           },
         ],
       },
@@ -242,7 +260,6 @@ const H2003: StopPlaceSeedData = {
   streetAddress: 'Mannerheimintie 22-24',
   postalCode: '00100',
   functionalArea: '20',
-  generalSign: 'Tolppamerkki',
   shelterEquipment: {
     enclosed: true,
     stepFree: false,
@@ -254,6 +271,14 @@ const H2003: StopPlaceSeedData = {
   },
   accessibilityLimitations: {
     wheelchairAccess: StopRegistryLimitationStatusType.Partial,
+  },
+  signs: {
+    signType: 'PoleSign',
+    note: 'Ohjetekstiä...',
+    numberOfFrames: 12,
+    lineSignage: true,
+    mainLineSign: false,
+    replacesRailSign: false,
   },
 };
 const seedData: Array<StopPlaceSeedData> = [...route35Stops, H2003];

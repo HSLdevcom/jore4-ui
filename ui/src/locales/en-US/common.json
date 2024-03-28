@@ -156,6 +156,15 @@
       "terminal": "Terminal",
       "terminalName": "Terminal name",
       "terminalStops": "Terminal stops"
+    },
+    "signs": {
+      "title": "Signs",
+      "signType": "Sign type",
+      "numberOfFrames": "Number of frames",
+      "lineSignage": "Line signage",
+      "signageInstructionExceptions": "Signage instruction exceptions",
+      "replacesRailSign": "Replaces rail sign",
+      "mainLineSign": "Main line sign"
     }
   },
   "stopRegistrySearch": {
@@ -276,6 +285,13 @@
     "OutOfOperation": "Out of operation",
     "PermanentlyOutOfOperation": "Permanently out of operation",
     "Removed": "Removed"
+  },
+  "stopPlaceSignTypeEnum": {
+    "None": "None",
+    "StopSign": "Stop sign",
+    "CanopyFrame": "Canopy frame",
+    "PoleSign": "Pole sign",
+    "JokerSign": "Joker sign"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Regional rail service",
@@ -587,6 +603,8 @@
   "hide": "Hide",
   "all": "All",
   "selected": " {{ count }} selected",
+  "yes": "Yes",
+  "no": "No",
   "welcomePage": {
     "heading": "JORE4 | Aikataulujen testikäyttö alkaa",
     "subheading1": "Mitä?",
