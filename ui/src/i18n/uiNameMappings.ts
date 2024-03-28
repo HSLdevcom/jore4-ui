@@ -61,6 +61,9 @@ export const mapStopRegistryTransportModeTypeToUiName = (
 export const mapStopPlaceStateToUiName = (key: StopPlaceState) =>
   i18n.t(`stopPlaceStateEnum.${key}`);
 
+export const mapStopPlaceSignTypeToUiName = (key: StopPlaceSignType) =>
+  i18n.t(`stopPlaceSignTypeEnum.${key}`);
+
 export const mapLineTypeToUiName = (
   key: RouteTypeOfLineEnum | AllOptionEnum.All,
 ) => i18n.t(key === AllOptionEnum.All ? 'all' : `lineTypeEnum.${key}`);
