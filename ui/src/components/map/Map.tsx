@@ -1,6 +1,6 @@
 import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { HTMLOverlay, Layer, MapEvent } from 'react-map-gl';
+import { Layer, MapEvent } from 'react-map-gl';
 import {
   useAppDispatch,
   useAppSelector,
@@ -19,6 +19,7 @@ import {
   setSelectedRouteIdAction,
 } from '../../redux';
 import { FilterPanel, placeholderToggles } from '../../uiComponents';
+import { CustomOverlay } from './CustomOverlay';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
@@ -149,81 +150,52 @@ export const MapComponent = (
       className={className}
     >
       <Stops ref={stopsRef} />
-      <HTMLOverlay
-        style={{
-          width: 'auto',
-          height: 'auto',
-          maxHeight: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-        // eslint-disable-next-line react/no-unstable-nested-components
-        redraw={() => (
-          <>
-            <Column className="items-start overflow-hidden p-8">
-              <FilterPanel
-                routes={[
-                  {
-                    iconClassName: 'icon-bus',
-                    active: showRoute,
-                    onToggle: setShowRoute,
-                    disabled: !routeDisplayed,
-                    testId: 'FilterPanel::toggleShowBusRoutes',
-                    tooltip: t('vehicleModeEnum.bus'),
-                  },
-                  // We want to show placeholder toggles of unimplemented features for visual purposes
-                  ...placeholderToggles,
-                ]}
-                stops={[
-                  {
-                    iconClassName: 'icon-bus',
-                    active: isFilterActive(FilterType.ShowAllBusStops),
-                    onToggle: toggleFunction(FilterType.ShowAllBusStops),
-                    testId: 'FilterPanel::toggleShowAllBusStops',
-                    tooltip: t('vehicleModeEnum.bus'),
-                  },
-                  ...placeholderToggles,
-                ]}
-                infraLinks={{
-                  active: showInfraLinks,
-                  onToggle: setShowInfraLinks,
-                  testId: 'FilterPanel::toggleShowInfraLinks',
-                }}
-              />
-              {(!!selectedRouteId || hasDraftRouteGeometry) && (
-                <RouteStopsOverlay className="mt-4 overflow-hidden" />
-              )}
-            </Column>
-          </>
-        )}
-        captureClick
-        captureDoubleClick
-        captureDrag
-        captureScroll
-      />
-      <HTMLOverlay
-        style={{
-          top: 'auto',
-          left: 'auto',
-          bottom: 0,
-          right: 0,
-          width: 'auto',
-          height: 'auto',
-        }}
-        // eslint-disable-next-line react/no-unstable-nested-components
-        redraw={() => (
-          <Column>
-            {showStopFilterOverlay && (
-              <StopFilterOverlay className="mr-12 mb-4" />
+      <CustomOverlay position="top-left">
+        <>
+          <Column className="items-start overflow-hidden p-8">
+            <FilterPanel
+              routes={[
+                {
+                  iconClassName: 'icon-bus',
+                  active: showRoute,
+                  onToggle: setShowRoute,
+                  disabled: !routeDisplayed,
+                  testId: 'FilterPanel::toggleShowBusRoutes',
+                  tooltip: t('vehicleModeEnum.bus'),
+                },
+                // We want to show placeholder toggles of unimplemented features for visual purposes
+                ...placeholderToggles,
+              ]}
+              stops={[
+                {
+                  iconClassName: 'icon-bus',
+                  active: isFilterActive(FilterType.ShowAllBusStops),
+                  onToggle: toggleFunction(FilterType.ShowAllBusStops),
+                  testId: 'FilterPanel::toggleShowAllBusStops',
+                  tooltip: t('vehicleModeEnum.bus'),
+                },
+                ...placeholderToggles,
+              ]}
+              infraLinks={{
+                active: showInfraLinks,
+                onToggle: setShowInfraLinks,
+                testId: 'FilterPanel::toggleShowInfraLinks',
+              }}
+            />
+            {(!!selectedRouteId || hasDraftRouteGeometry) && (
+              <RouteStopsOverlay className="mt-4 overflow-hidden" />
             )}
-            <ObservationDateOverlay className="mr-12 mb-8" />
           </Column>
-        )}
-        captureClick
-        captureDoubleClick
-        captureDrag
-        captureScroll
-      />
+        </>
+      </CustomOverlay>
+      <CustomOverlay position="top-left">
+        <Column>
+          {showStopFilterOverlay && (
+            <StopFilterOverlay className="mr-12 mb-4" />
+          )}
+          <ObservationDateOverlay className="mr-12 mb-8" />
+        </Column>
+      </CustomOverlay>
       <EditRouteMetadataLayer />
       {showInfraLinks && <InfraLinksVectorLayer />}
       {/**
