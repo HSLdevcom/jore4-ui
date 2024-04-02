@@ -36,7 +36,6 @@ import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
 
 interface Props {
-  drawable?: boolean;
   className?: string;
   width?: string;
   height?: string;
@@ -44,7 +43,6 @@ interface Props {
 
 export const MapComponent = (
   {
-    drawable = false,
     className = '',
     width = '100vw',
     height = '100vh',
