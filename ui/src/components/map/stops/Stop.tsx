@@ -1,5 +1,4 @@
 import { Marker } from 'react-map-gl';
-import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
 import { useAppSelector } from '../../../hooks';
@@ -13,7 +12,6 @@ interface Props extends Point {
   testId?: string;
   selected?: boolean;
   onClick: () => void;
-  onDragEnd?: (event: CallbackEvent) => void;
   vehicleMode?: ReusableComponentsVehicleModeEnum;
   isHighlighted?: boolean;
 }
@@ -51,7 +49,6 @@ export const Stop = ({
   latitude,
   longitude,
   onClick,
-  onDragEnd,
   selected = false,
   vehicleMode = undefined,
   isHighlighted = false,
@@ -77,10 +74,6 @@ export const Stop = ({
     <Marker
       longitude={longitude}
       latitude={latitude}
-      offsetTop={-1 * ((selected ? selectedIconSize : iconSize) / 2)}
-      offsetLeft={-1 * ((selected ? selectedIconSize : iconSize) / 2)}
-      onDragEnd={onDragEnd}
-      className="rounded-full"
     >
       <Circle
         size={selected ? selectedIconSize : iconSize}
