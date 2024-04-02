@@ -1,4 +1,8 @@
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, {
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl';
 import {
   ServicePatternScheduledStopPoint,
@@ -125,7 +129,7 @@ export const Stops = React.forwardRef((props, ref) => {
       }
       setIsLoading(false);
     },
-    onMoveStop: (e: MapEvent) => {
+    onMoveStop: (e: MapLayerMouseEvent) => {
       editStopLayerRef.current.onMoveStop(e);
     },
   }));

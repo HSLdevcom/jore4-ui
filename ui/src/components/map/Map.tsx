@@ -1,6 +1,6 @@
 import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Layer, MapEvent } from 'react-map-gl';
+import { Layer, MapLayerMouseEvent } from 'react-map-gl';
 import {
   useAppDispatch,
   useAppSelector,
@@ -94,19 +94,19 @@ export const MapComponent = (
     },
   }));
 
-  const onCreateStop = (e: MapEvent) => {
+  const onCreateStop = (e: MapLayerMouseEvent) => {
     if (stopsRef.current && drawingMode === undefined) {
       stopsRef.current.onCreateStop(e);
     }
   };
 
-  const onMoveStop = (e: MapEvent) => {
+  const onMoveStop = (e: MapLayerMouseEvent) => {
     if (!drawingMode) {
       stopsRef.current?.onMoveStop(e);
     }
   };
 
-  const onClick = (e: MapEvent) => {
+  const onClick = (e: MapLayerMouseEvent) => {
     if (isCreateStopModeEnabled) {
       onCreateStop(e);
       return;
