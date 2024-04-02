@@ -24,7 +24,6 @@ import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
 import {
   DraftRouteGeometryLayer,
-  DrawRouteLayer,
   EditRouteMetadataLayer,
   RouteEditor,
   isRouteGeometryLayer,
@@ -226,7 +225,6 @@ export const MapComponent = (
         captureScroll
       />
       <EditRouteMetadataLayer />
-      {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}
       {/**
        * Empty layer for dynamically ordering route layers
