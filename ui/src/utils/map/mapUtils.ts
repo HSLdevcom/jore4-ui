@@ -1,3 +1,4 @@
+import compact from 'lodash/compact';
 import { LayerProps, MapRef } from 'react-map-gl';
 import { isRouteGeometryLayer } from '../../components/map/routes';
 
@@ -74,5 +75,6 @@ export const getInteractiveLayerIds = (mapRef: React.RefObject<MapRef>) => {
     ?.layers?.map((layer: LayerProps) => layer.id);
 
   // Filter only layer ids that are route geometry layers
-  return layers?.filter(isRouteGeometryLayer) || [];
+  const tmp = layers?.filter(isRouteGeometryLayer) || [];
+  return compact(tmp);
 };
