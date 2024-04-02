@@ -1,6 +1,6 @@
 import React, { Ref, useEffect, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapEvent } from 'react-map-gl';
+import { MapLayerMouseEvent } from 'react-map-gl';
 import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { useDispatch } from 'react-redux';
 import { ScheduledStopPointSetInput, StopWithLocation } from '../../../graphql';
@@ -287,7 +287,7 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
     };
 
     useImperativeHandle(ref, () => ({
-      onMoveStop: async (e: MapEvent) => onMoveStop(e),
+      onMoveStop: async (e: MapLayerMouseEvent) => onMoveStop(e),
     }));
 
     const currentConflicts = getCurrentConflicts();

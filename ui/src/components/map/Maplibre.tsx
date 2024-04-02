@@ -3,7 +3,7 @@ import { Units, point } from '@turf/helpers';
 import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
 import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
-import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
+import MapGL, { MapLayerMouseEvent, MapRef, NavigationControl } from 'react-map-gl';
 import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
 import { Operation, setViewPortAction } from '../../redux';
 import {
@@ -19,7 +19,7 @@ interface Props {
   // but in other hand "100%" doesn't seem to work...
   width?: string;
   height?: string;
-  onClick?: (e: MapEvent) => void;
+  onClick?: (e: MapLayerMouseEvent) => void;
   useVectorTilesAsBaseMap?: boolean;
 }
 
