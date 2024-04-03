@@ -9,6 +9,7 @@ import { i18n } from '../i18n';
 import {
   DayOfWeek,
   Priority,
+  StopRegistryTransportModeTypeSubset,
   SubstituteDayOfWeek,
   TimetablePriority,
 } from '../types/enums';
@@ -85,6 +86,29 @@ export const mapSubstituteDayOfWeekToUiName = (key: SubstituteDayOfWeek) => {
     [SubstituteDayOfWeek.Friday]: i18n.t('timetableDayEnum.friday'),
     [SubstituteDayOfWeek.Saturday]: i18n.t('timetableDayEnum.saturday'),
     [SubstituteDayOfWeek.Sunday]: i18n.t('timetableDayEnum.sunday'),
+  };
+  return uiStrings[key];
+};
+
+export const mapStopRegistryTransportModeSubsetToUiName = (
+  key: StopRegistryTransportModeTypeSubset,
+) => {
+  const uiStrings: Record<StopRegistryTransportModeTypeSubset, string> = {
+    [StopRegistryTransportModeTypeSubset.Bus]: i18n.t(
+      'stopRegistryTransportModeTypeEnum.bus',
+    ),
+    [StopRegistryTransportModeTypeSubset.Tram]: i18n.t(
+      'stopRegistryTransportModeTypeEnum.tram',
+    ),
+    [StopRegistryTransportModeTypeSubset.Metro]: i18n.t(
+      'stopRegistryTransportModeTypeEnum.metro',
+    ),
+    [StopRegistryTransportModeTypeSubset.Rail]: i18n.t(
+      'stopRegistryTransportModeTypeEnum.rail',
+    ),
+    [StopRegistryTransportModeTypeSubset.Water]: i18n.t(
+      'stopRegistryTransportModeTypeEnum.water',
+    ),
   };
   return uiStrings[key];
 };

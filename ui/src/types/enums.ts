@@ -67,3 +67,15 @@ export enum DayType {
   LA = 8, // Saturday
   SU = 9, // Sunday
 }
+
+/**
+ * Subset of @StopRegistryTransportModeType, which is a generated enum from tiamat
+ * and we do not use all of the types
+ */
+export enum StopRegistryTransportModeTypeSubset {
+  Bus = 'bus',
+  Tram = 'tram',
+  Metro = 'metro',
+  Rail = 'rail',
+  Water = 'water',
+}
