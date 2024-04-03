@@ -45,6 +45,7 @@ const GQL_GET_STOP_DETAILS_BY_ID = gql`
 
 const GQL_QUAY_DETAILS = gql`
   fragment quay_details on stop_registry_Quay {
+    id
     publicCode
     alternativeNames {
       name {

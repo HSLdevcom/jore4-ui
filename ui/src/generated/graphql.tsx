@@ -22624,6 +22624,7 @@ export type GetStopDetailsByIdQuery = {
           } | null;
           quays?: Array<{
             __typename?: 'stop_registry_Quay';
+            id?: string | null;
             publicCode?: string | null;
             alternativeNames?: Array<{
               __typename?: 'stop_registry_AlternativeName';
@@ -22660,6 +22661,7 @@ export type GetStopDetailsByIdQuery = {
 
 export type QuayDetailsFragment = {
   __typename?: 'stop_registry_Quay';
+  id?: string | null;
   publicCode?: string | null;
   alternativeNames?: Array<{
     __typename?: 'stop_registry_AlternativeName';
@@ -22727,6 +22729,7 @@ export type StopPlaceDetailsFragment = {
   } | null;
   quays?: Array<{
     __typename?: 'stop_registry_Quay';
+    id?: string | null;
     publicCode?: string | null;
     alternativeNames?: Array<{
       __typename?: 'stop_registry_AlternativeName';
@@ -24607,6 +24610,7 @@ export const ScheduledStopPointDetailFieldsFragmentDoc = gql`
 `;
 export const QuayDetailsFragmentDoc = gql`
   fragment quay_details on stop_registry_Quay {
+    id
     publicCode
     alternativeNames {
       name {
