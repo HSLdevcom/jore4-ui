@@ -99,7 +99,7 @@ const buildWebSocketLink = () => {
 const errorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ extensions }) => {
-      if (extensions.code === 'access-denied') {
+      if (extensions?.code === 'access-denied') {
         window.location.reload();
       }
     });
