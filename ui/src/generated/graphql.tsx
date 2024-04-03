@@ -22552,6 +22552,106 @@ export type SearchStopsQuery = {
   }>;
 };
 
+export type UpdateStopPlaceMutationVariables = Exact<{
+  input: StopRegistryStopPlaceInput;
+}>;
+
+export type UpdateStopPlaceMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateStopPlace?: Array<{
+      __typename?: 'stop_registry_StopPlace';
+      id?: string | null;
+      transportMode?: StopRegistryTransportModeType | null;
+      weighting?: StopRegistryInterchangeWeightingType | null;
+      submode?: StopRegistrySubmodeType | null;
+      publicCode?: string | null;
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      alternativeNames?: Array<{
+        __typename?: 'stop_registry_AlternativeName';
+        nameType: StopRegistryNameType;
+        name: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        };
+      } | null> | null;
+      keyValues?: Array<{
+        __typename?: 'stop_registry_KeyValues';
+        key?: string | null;
+        values?: Array<string | null> | null;
+      } | null> | null;
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode';
+        value?: string | null;
+        type?: string | null;
+      } | null;
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      geometry?: {
+        __typename?: 'stop_registry_GeoJSON';
+        coordinates?: any | null;
+        type?: StopRegistryGeoJsonType | null;
+      } | null;
+      placeEquipments?: {
+        __typename?: 'stop_registry_PlaceEquipments';
+        generalSign?: Array<{
+          __typename?: 'stop_registry_GeneralSign';
+          signContentType?: StopRegistrySignContentType | null;
+          numberOfFrames?: number | null;
+          lineSignage?: boolean | null;
+          mainLineSign?: boolean | null;
+          replacesRailSign?: boolean | null;
+          privateCode?: {
+            __typename?: 'stop_registry_PrivateCode';
+            value?: string | null;
+            type?: string | null;
+          } | null;
+          note?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+        } | null> | null;
+      } | null;
+      quays?: Array<{
+        __typename?: 'stop_registry_Quay';
+        id?: string | null;
+        publicCode?: string | null;
+        alternativeNames?: Array<{
+          __typename?: 'stop_registry_AlternativeName';
+          nameType: StopRegistryNameType;
+          name: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          };
+        } | null> | null;
+        placeEquipments?: {
+          __typename?: 'stop_registry_PlaceEquipments';
+          shelterEquipment?: Array<{
+            __typename?: 'stop_registry_ShelterEquipment';
+            enclosed?: boolean | null;
+            stepFree?: boolean | null;
+          } | null> | null;
+          cycleStorageEquipment?: Array<{
+            __typename?: 'stop_registry_CycleStorageEquipment';
+            cycleStorageType?: StopRegistryCycleStorageType | null;
+          } | null> | null;
+        } | null;
+      } | null> | null;
+    } | null> | null;
+  } | null;
+};
+
 export type ScheduledStopPointDetailFieldsFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
   priority: number;
@@ -27924,6 +28024,59 @@ export type SearchStopsQueryResult = Apollo.QueryResult<
   SearchStopsQuery,
   SearchStopsQueryVariables
 >;
+export const UpdateStopPlaceDocument = gql`
+  mutation UpdateStopPlace($input: stop_registry_StopPlaceInput!) {
+    stop_registry {
+      mutateStopPlace(StopPlace: $input) {
+        ...stop_place_details
+      }
+    }
+  }
+  ${StopPlaceDetailsFragmentDoc}
+`;
+export type UpdateStopPlaceMutationFn = Apollo.MutationFunction<
+  UpdateStopPlaceMutation,
+  UpdateStopPlaceMutationVariables
+>;
+
+/**
+ * __useUpdateStopPlaceMutation__
+ *
+ * To run a mutation, you first call `useUpdateStopPlaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStopPlaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateStopPlaceMutation, { data, loading, error }] = useUpdateStopPlaceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateStopPlaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateStopPlaceMutation,
+    UpdateStopPlaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateStopPlaceMutation,
+    UpdateStopPlaceMutationVariables
+  >(UpdateStopPlaceDocument, options);
+}
+export type UpdateStopPlaceMutationHookResult = ReturnType<
+  typeof useUpdateStopPlaceMutation
+>;
+export type UpdateStopPlaceMutationResult =
+  Apollo.MutationResult<UpdateStopPlaceMutation>;
+export type UpdateStopPlaceMutationOptions = Apollo.BaseMutationOptions<
+  UpdateStopPlaceMutation,
+  UpdateStopPlaceMutationVariables
+>;
 export const GetStopDetailsByIdDocument = gql`
   query GetStopDetailsById($scheduled_stop_point_id: uuid!) {
     service_pattern_scheduled_stop_point_by_pk(
@@ -30287,6 +30440,7 @@ export function useSearchStopsAsyncQuery() {
 export type SearchStopsAsyncQueryHookResult = ReturnType<
   typeof useSearchStopsAsyncQuery
 >;
+
 export function useGetStopDetailsByIdAsyncQuery() {
   return useAsyncQuery<
     GetStopDetailsByIdQuery,
