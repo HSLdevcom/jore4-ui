@@ -1,3 +1,4 @@
+export * from '../stop-registry/useEditStopBasicInformation';
 export * from './useCreateStop';
 export * from './useDeleteStop';
 export * from './useEditStop';
