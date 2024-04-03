@@ -9,6 +9,7 @@ import { i18n } from '../i18n';
 import {
   DayOfWeek,
   Priority,
+  StopRegistryTransportModeTypeSubset,
   SubstituteDayOfWeek,
   TimetablePriority,
 } from '../types/enums';
@@ -55,7 +56,7 @@ export const mapVehicleModeToUiName = (
 ) => i18n.t(key === AllOptionEnum.All ? 'all' : `vehicleModeEnum.${key}`);
 
 export const mapStopRegistryTransportModeTypeToUiName = (
-  key: StopRegistryTransportModeType,
+  key: StopRegistryTransportModeType | StopRegistryTransportModeTypeSubset,
 ) => i18n.t(`stopRegistryTransportModeTypeEnum.${key}`);
 
 export const mapStopPlaceStateToUiName = (key: StopPlaceState) =>
