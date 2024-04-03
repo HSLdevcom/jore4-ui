@@ -1,6 +1,10 @@
+import cloneDeep from 'lodash/cloneDeep';
 import {
+  Maybe,
+  StopRegistryAlternativeName,
   StopRegistryEmbeddableMultilingualString,
   StopRegistryInterchangeWeightingType,
+  StopRegistryKeyValues,
   StopRegistryNameType,
   StopRegistryParentStopPlace,
   StopRegistryStopPlace,
@@ -83,6 +87,40 @@ const findAlternativeName = (
   return matchingName?.name || null;
 };
 
+export const setAlternativeName = (
+  initialAlternativeNames: (StopRegistryAlternativeName | null)[] | undefined,
+  newAlternativeName: {
+    name: { lang: string; value: string | undefined };
+    nameType: StopRegistryNameType;
+  },
+) => {
+  const alternativeNames = cloneDeep(initialAlternativeNames) || [];
+  const existingAlternativeName = alternativeNames.find(
+    (alternativeName) =>
+      alternativeName?.nameType === newAlternativeName.nameType &&
+      alternativeName?.name.lang === newAlternativeName.name.lang,
+  );
+
+  if (existingAlternativeName) {
+    existingAlternativeName.name.value = newAlternativeName.name.value;
+  } else {
+    alternativeNames.push(newAlternativeName);
+  }
+  return alternativeNames;
+};
+
+export const setMultipleAlternativeNames = (
+  initialAlternativeNames: (StopRegistryAlternativeName | null)[] | undefined,
+  updates: {
+    name: { lang: string; value: string | undefined };
+    nameType: StopRegistryNameType;
+  }[],
+) => {
+  return updates.reduce((acc, newAlternativeName) => {
+    return setAlternativeName(acc, newAlternativeName);
+  }, initialAlternativeNames);
+};
+
 const findKeyValue = (
   stopPlace: StopRegistryStopPlace,
   key: string,
@@ -90,6 +128,36 @@ const findKeyValue = (
   const keyValue = stopPlace.keyValues?.find((kv) => kv?.key === key);
   // Note: the "values" could be an array with many values.
   return (keyValue && keyValue.values?.[0]) || undefined;
+};
+
+/**
+ * Changes the value of given key in initialKeyValues if the key is found,
+ * otherwise adds the key values pair to initialKeyValues
+ */
+export const setKeyValue = (
+  initialKeyValues: (StopRegistryKeyValues | null)[] | undefined,
+  key: string,
+  values: Maybe<string>[],
+): (StopRegistryKeyValues | null)[] => {
+  const keyValues = cloneDeep(initialKeyValues) || [];
+  const existingKey = keyValues.find(
+    (keyValuePair) => keyValuePair?.key === key,
+  );
+  if (existingKey) {
+    existingKey.values = values;
+  } else {
+    keyValues.push({ key, values });
+  }
+  return keyValues;
+};
+
+export const setMultipleKeyValues = (
+  initialKeyValues: (StopRegistryKeyValues | null)[] | undefined,
+  updates: { key: string; values: string[] }[],
+) => {
+  return updates.reduce((acc, { key, values }) => {
+    return setKeyValue(acc, key, values);
+  }, initialKeyValues);
 };
 
 const findKeyValueParsed = <T = string>(
