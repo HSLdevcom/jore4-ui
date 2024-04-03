@@ -22,3 +22,24 @@ export const translateStopTypes = (
   // Capitalize the final result.
   return result.charAt(0).toUpperCase() + result.slice(1);
 };
+
+// TODO: how to type this correctly?
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const deepStripTypename = (obj: any) => {
+  // TODO: is this safe enough?
+  if (typeof obj === 'object' && !Array.isArray(obj)) {
+    const newObj = { ...obj };
+    // eslint-disable-next-line no-underscore-dangle
+    delete newObj.__typename;
+
+    Object.keys(newObj).forEach((key) => {
+      const property = newObj[key];
+      if (typeof property === 'object') {
+        newObj[key] = deepStripTypename(property);
+      }
+    });
+
+    return newObj;
+  }
+  return obj;
+};
