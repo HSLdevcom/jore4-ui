@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch } from '../../../hooks/redux';
 import { closeTimingPlaceModalAction } from '../../../redux/slices/modals';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
