@@ -12,3 +12,15 @@ export enum StopPlaceSignType {
   PoleSign = 'PoleSign',
   JokerSign = 'JokerSign',
 }
+
+/**
+ * Subset of @StopRegistryTransportModeType, which is a generated enum from tiamat
+ * and we do not use all of the types in Jore
+ */
+export enum JoreStopRegistryTransportModeType {
+  Bus = 'bus',
+  Tram = 'tram',
+  Metro = 'metro',
+  Rail = 'rail',
+  Water = 'water',
+}
