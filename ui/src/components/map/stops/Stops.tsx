@@ -1,9 +1,5 @@
-import React, {
-  useEffect,
-  useImperativeHandle,
-  useRef,
-} from 'react';
-import { MapLayerMouseEvent, useMap } from 'react-map-gl';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import {
   ServicePatternScheduledStopPoint,
   useGetStopsByLocationQuery,

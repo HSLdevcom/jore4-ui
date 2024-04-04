@@ -1,6 +1,6 @@
 import React, { Ref, useEffect, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapLayerMouseEvent } from 'react-map-gl';
+import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import { ScheduledStopPointSetInput, StopWithLocation } from '../../../graphql';
 import {

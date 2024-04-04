@@ -1,4 +1,4 @@
-import { Marker } from 'react-map-gl';
+import { Marker } from 'react-map-gl/maplibre';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
 import { useAppSelector } from '../../../hooks';

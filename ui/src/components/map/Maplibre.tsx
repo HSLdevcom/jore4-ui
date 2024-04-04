@@ -7,7 +7,7 @@ import MapGL, {
   MapLayerMouseEvent,
   MapRef,
   NavigationControl,
-} from 'react-map-gl';
+} from 'react-map-gl/maplibre';
 import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
 import { Operation, setViewPortAction } from '../../redux';
 import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';

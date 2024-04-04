@@ -1,12 +1,11 @@
 import compact from 'lodash/compact';
-import { LayerProps, MapRef } from 'react-map-gl';
+import { LayerProps, MapRef } from 'react-map-gl/maplibre';
 import { isRouteGeometryLayer } from '../../components/map/routes';
 
 // TODO: Can we import these somewhere?
-export type MaplibreGLMap = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 export type Geometry = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-export const removeLayer = (map: MaplibreGLMap, id: string) => {
+export const removeLayer = (map: MapInstance, id: string) => {
   if (map.getLayer(id)) {
     map.removeLayer(id);
   }
