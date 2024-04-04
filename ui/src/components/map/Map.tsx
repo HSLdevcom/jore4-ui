@@ -7,7 +7,7 @@ import {
   useFilterStops,
   useGetRoutesDisplayedInMap,
 } from '../../hooks';
-import { Column } from '../../layoutComponents';
+import { Column, Visible } from '../../layoutComponents';
 import {
   FilterType,
   selectHasDraftRouteGeometry,
@@ -20,6 +20,7 @@ import {
 } from '../../redux';
 import { FilterPanel, placeholderToggles } from '../../uiComponents';
 import { CustomOverlay } from './CustomOverlay';
+import { DrawRouteLayer } from './DrawRouteLayer';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
@@ -42,17 +43,12 @@ interface Props {
 }
 
 export const MapComponent = (
-  {
-    className = '',
-    width = '100vw',
-    height = '100vh',
-  }: Props,
+  { className = '', width = '100vw', height = '100vh' }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
   const routeEditorRef = useRef<ExplicitAny>(null);
 
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
-
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { showStopFilterOverlay } = useAppSelector(selectMapFilter);
 
@@ -220,6 +216,9 @@ export const MapComponent = (
         onDeleteDrawnRoute={() => editorLayerRef.current?.onDeleteRoute()}
         ref={routeEditorRef}
       />
+      <Visible visible={drawingMode !== undefined}>
+        <DrawRouteLayer />
+      </Visible>
     </Maplibre>
   );
 };

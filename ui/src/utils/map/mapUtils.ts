@@ -1,6 +1,8 @@
 import compact from 'lodash/compact';
-import { LayerProps, MapRef } from 'react-map-gl/maplibre';
+import { LayerSpecification } from 'maplibre-gl';
+import { MapInstance, MapRef } from 'react-map-gl/maplibre';
 import { isRouteGeometryLayer } from '../../components/map/routes';
+import { theme } from '../../generated/theme';
 
 // TODO: Can we import these somewhere?
 export type Geometry = any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -23,30 +25,28 @@ export const createGeometryLineBetweenPoints = (
 
 export const loadMapAssets = (mapRef: React.RefObject<MapRef>) => {
   const map = mapRef.current?.getMap();
+  if (!map) {
+    return;
+  }
 
   const imageAssets: { name: string; fileUrl: string }[] = [
     { name: 'arrow', fileUrl: '/img/arrow-right.png' },
   ];
 
-  imageAssets.forEach((asset) => {
-    if (map?.hasImage(asset.name)) {
+  imageAssets.forEach(async (asset) => {
+    if (map.hasImage(asset.name)) {
       return;
     }
 
-    map?.loadImage(asset.fileUrl, (error: unknown, image: unknown) => {
-      if (error) {
-        throw error;
-      }
-
-      // Even though we have already checked if the map has the image,
-      // we need to check it again here because this code is inside event callback
-      // which could be called multiple times before the map actually has the image
-      if (!map.hasImage(asset.name)) {
-        // Enable Signed Distance Fields (sdf) to make enable icon coloring.
-        // https://docs.mapbox.com/help/troubleshooting/using-recolorable-images-in-mapbox-maps/
-        map.addImage(asset.name, image, { sdf: true });
-      }
-    });
+    const response = await map.loadImage(asset.fileUrl);
+    // Even though we have already checked if the map has the image,
+    // we need to check it again here because this code is inside event callback
+    // which could be called multiple times before the map actually has the image
+    if (!map.hasImage(asset.name)) {
+      // Enable Signed Distance Fields (sdf) to make enable icon coloring.
+      // https://docs.mapbox.com/help/troubleshooting/using-recolorable-images-in-mapbox-maps/
+      map.addImage(asset.name, response.data, { sdf: true });
+    }
   });
 };
 
@@ -71,9 +71,48 @@ export const getInteractiveLayerIds = (mapRef: React.RefObject<MapRef>) => {
   const layers = mapRef.current
     ?.getMap()
     ?.getStyle()
-    ?.layers?.map((layer: LayerProps) => layer.id);
+    ?.layers?.map((layer: LayerSpecification) => layer.id);
 
   // Filter only layer ids that are route geometry layers
   const tmp = layers?.filter(isRouteGeometryLayer) || [];
   return compact(tmp);
+};
+
+export const removeRoute = (map: MapInstance, id: string) => {
+  if (map.getLayer(id)) {
+    map.removeLayer(id);
+  }
+  // when route is created with map.addLayer, corresponding
+  // source seems to be also created and we have to remove
+  // also it before we can create new route with same id
+  if (map.getSource(id)) {
+    map.removeSource(id);
+  }
+};
+
+export const addRoute = (map: MapInstance, id: string, geometry: Geometry) => {
+  // remove possible existing layers with same id
+  removeRoute(map, id);
+  map.addLayer({
+    id,
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: {
+        type: 'Feature',
+        properties: {},
+        geometry,
+      },
+    },
+    layout: {
+      'line-join': 'round',
+      'line-cap': 'round',
+    },
+    paint: {
+      'line-color': theme.colors.selectedMapItem,
+      'line-width': 8,
+      'line-opacity': 1,
+      'line-offset': 6,
+    },
+  });
 };
