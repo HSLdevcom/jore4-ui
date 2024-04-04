@@ -2,10 +2,10 @@ import flatten from '@turf/flatten';
 import { Feature, LineString, Point, point } from '@turf/helpers';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import pointToLineDistance from '@turf/point-to-line-distance';
+import { MapInstance } from 'react-map-gl';
 import { Coords } from '../../types';
 import {
   Geometry,
-  MaplibreGLMap,
   createGeometryLineBetweenPoints,
   removeLayer,
 } from './mapUtils';
@@ -23,7 +23,7 @@ const ROAD_LAYER_ID = 'digiroad_r_links';
 const SEARCH_RADIUS_IN_PIXELS = 100;
 
 const findFeaturesForLayerWithRadius = (
-  map: MaplibreGLMap,
+  map: MapInstance,
   layerId: string,
   coords: Coords,
   radius: number,
@@ -64,12 +64,12 @@ const distanceToNearestPointOnFeature = (
     );
 };
 
-export const removeLineFromStopToInfraLink = (map: MaplibreGLMap) => {
+export const removeLineFromStopToInfraLink = (map: MapInstance) => {
   removeLayer(map, INFRA_CONNECTION_NAME);
 };
 
 export const addLineFromStopToInfraLink = (
-  map: MaplibreGLMap,
+  map: MapInstance,
   geometry: Geometry,
 ) => {
   const source = map.getSource(INFRA_CONNECTION_NAME);
@@ -105,7 +105,7 @@ export const addLineFromStopToInfraLink = (
   }
 };
 
-export const drawLineToClosestRoad = (map: MaplibreGLMap, coords: Coords) => {
+export const drawLineToClosestRoad = (map: MapInstance, coords: Coords) => {
   const features: Feature<LineString>[] = findFeaturesForLayerWithRadius(
     map,
     ROAD_LAYER_ID,

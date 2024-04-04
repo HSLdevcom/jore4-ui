@@ -4,12 +4,12 @@
 import * as React from 'react';
 import { cloneElement, useState } from 'react';
 import { createPortal } from 'react-dom';
-import type { ControlPosition, IControl, MapboxMap } from 'react-map-gl';
-import { useControl } from 'react-map-gl';
+import type { ControlPosition, IControl, MapInstance } from 'react-map-gl/maplibre';
+import { useControl } from 'react-map-gl/maplibre';
 
 // Based on template in https://docs.mapbox.com/mapbox-gl-js/api/markers/#icontrol
 class OverlayControl implements IControl {
-  _map: MapboxMap | null = null;
+  _map: MapInstance | null = null;
 
   _container: HTMLElement | undefined;
 
@@ -22,7 +22,7 @@ class OverlayControl implements IControl {
     this._position = position;
   }
 
-  onAdd(map: MapboxMap) {
+  onAdd(map: MapInstance) {
     this._map = map;
     map.on('move', this._redraw);
     /* global document */

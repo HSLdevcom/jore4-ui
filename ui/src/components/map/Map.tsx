@@ -1,6 +1,6 @@
 import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Layer, MapLayerMouseEvent } from 'react-map-gl';
+import { Layer, MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import {
   useAppDispatch,
   useAppSelector,
