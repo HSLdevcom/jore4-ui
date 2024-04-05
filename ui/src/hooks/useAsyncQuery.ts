@@ -10,7 +10,7 @@ import { useCallback, useState } from 'react';
 // based on https://github.com/apollographql/apollo-client/issues/7714
 export const useAsyncQuery = <
   TData extends { __typename?: 'query_root' },
-  TVariables = OperationVariables,
+  TVariables extends OperationVariables = OperationVariables,
 >(
   query: DocumentNode | TypedDocumentNode<TData, TVariables>,
 ): [

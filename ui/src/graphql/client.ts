@@ -6,6 +6,7 @@ import {
   split,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { withScalars } from 'apollo-link-scalars';
@@ -273,8 +274,10 @@ export const createGraphqlClient = () => {
 
   const scalarMappingLink = buildScalarMappingLink();
   const connectionLink = buildConnectionLink(!!process.browser, isTesting);
+  const removeTypenameLink = removeTypenameFromVariables();
 
   const link = from([
+    removeTypenameLink,
     errorLink,
     scalarMappingLink,
     authRoleMiddleware,
