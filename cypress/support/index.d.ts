@@ -18,6 +18,26 @@ declare namespace Cypress {
     findByTestId(value: string): Chainable<JQuery<HTMLElement>>;
 
     /**
+     * Custom command to clear an input field and type the value
+     */
+    clearAndType(value: string): Chainable<JQuery<HtmlElement>>;
+
+    /**
+     * Custom command to check if element has text
+     */
+    shouldHaveText(value: string): Chainable<JQuery<HtmlElement>>;
+
+    /**
+     * Custom command to check if element is visible
+     */
+    shouldBeVisible(): Chainable<JQuery<HtmlElement>>;
+
+    /**
+     * Custom command to check if element is disabled
+     */
+    shouldBeDisabled(): Chainable<JQuery<HtmlElement>>;
+
+    /**
      * Mimics admin login by mocking auth backend response and authenticating
      * graphql calls with secret admin headers.
      * Does not support logging it with given credentials or roles so far.
