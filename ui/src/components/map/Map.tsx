@@ -47,6 +47,8 @@ export const MapComponent = (
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
   const routeEditorRef = useRef<ExplicitAny>(null);
+  const editorLayerRef = useRef<ExplicitAny>(null);
+  const stopsRef = useRef<ExplicitAny>(null);
 
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
@@ -65,10 +67,6 @@ export const MapComponent = (
 
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
-
-  // TODO: avoid any type
-  const editorLayerRef = useRef<ExplicitAny>(null);
-  const stopsRef = useRef<ExplicitAny>(null);
 
   useImperativeHandle(externalRef, () => ({
     onDrawRoute: () => {
@@ -145,42 +143,40 @@ export const MapComponent = (
     >
       <Stops ref={stopsRef} />
       <CustomOverlay position="top-left">
-        <>
-          <Column className="items-start overflow-hidden p-8">
-            <FilterPanel
-              routes={[
-                {
-                  iconClassName: 'icon-bus',
-                  active: showRoute,
-                  onToggle: setShowRoute,
-                  disabled: !routeDisplayed,
-                  testId: 'FilterPanel::toggleShowBusRoutes',
-                  tooltip: t('vehicleModeEnum.bus'),
-                },
-                // We want to show placeholder toggles of unimplemented features for visual purposes
-                ...placeholderToggles,
-              ]}
-              stops={[
-                {
-                  iconClassName: 'icon-bus',
-                  active: isFilterActive(FilterType.ShowAllBusStops),
-                  onToggle: toggleFunction(FilterType.ShowAllBusStops),
-                  testId: 'FilterPanel::toggleShowAllBusStops',
-                  tooltip: t('vehicleModeEnum.bus'),
-                },
-                ...placeholderToggles,
-              ]}
-              infraLinks={{
-                active: showInfraLinks,
-                onToggle: setShowInfraLinks,
-                testId: 'FilterPanel::toggleShowInfraLinks',
-              }}
-            />
-            {(!!selectedRouteId || hasDraftRouteGeometry) && (
-              <RouteStopsOverlay className="mt-4 overflow-hidden" />
-            )}
-          </Column>
-        </>
+        <Column className="items-start overflow-hidden p-8">
+          <FilterPanel
+            routes={[
+              {
+                iconClassName: 'icon-bus',
+                active: showRoute,
+                onToggle: setShowRoute,
+                disabled: !routeDisplayed,
+                testId: 'FilterPanel::toggleShowBusRoutes',
+                tooltip: t('vehicleModeEnum.bus'),
+              },
+              // We want to show placeholder toggles of unimplemented features for visual purposes
+              ...placeholderToggles,
+            ]}
+            stops={[
+              {
+                iconClassName: 'icon-bus',
+                active: isFilterActive(FilterType.ShowAllBusStops),
+                onToggle: toggleFunction(FilterType.ShowAllBusStops),
+                testId: 'FilterPanel::toggleShowAllBusStops',
+                tooltip: t('vehicleModeEnum.bus'),
+              },
+              ...placeholderToggles,
+            ]}
+            infraLinks={{
+              active: showInfraLinks,
+              onToggle: setShowInfraLinks,
+              testId: 'FilterPanel::toggleShowInfraLinks',
+            }}
+          />
+          {(!!selectedRouteId || hasDraftRouteGeometry) && (
+            <RouteStopsOverlay className="mt-4 overflow-hidden" />
+          )}
+        </Column>
       </CustomOverlay>
       <CustomOverlay position="top-left">
         <Column>
@@ -213,11 +209,11 @@ export const MapComponent = (
         ))}
       <DraftRouteGeometryLayer />
       <RouteEditor
-        onDeleteDrawnRoute={() => editorLayerRef.current?.onDeleteRoute()}
+        onDeleteDrawnRoute={() => editorLayerRef.current?.onDelete()}
         ref={routeEditorRef}
       />
       <Visible visible={drawingMode !== undefined}>
-        <DrawRouteLayer />
+        <DrawRouteLayer editorRef={editorLayerRef} />
       </Visible>
     </Maplibre>
   );
