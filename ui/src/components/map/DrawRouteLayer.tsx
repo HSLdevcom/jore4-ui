@@ -1,7 +1,10 @@
 import debounce from 'lodash/debounce';
+import isEmpty from 'lodash/isEmpty';
 import React, {
+  Ref,
   useCallback,
   useEffect,
+  useImperativeHandle,
   useMemo,
   useRef,
   useState,
@@ -37,7 +40,11 @@ import { DrawControl } from './DrawControl';
 
 const SNAPPING_LINE_LAYER_ID = 'snapping-line';
 
-export const DrawRouteLayer = () => {
+interface Props {
+  editorRef: Ref<ExplicitAny>;
+}
+
+export const DrawRouteLayer = ({ editorRef }: Props) => {
   const drawRef = useRef<MapboxDraw | null>(null);
   const { current: mapRef } = useMap();
 
@@ -69,16 +76,13 @@ export const DrawRouteLayer = () => {
 
   const baseRoute = baseRouteResult.data?.route_route_by_pk || undefined;
 
-  const onDelete = useCallback(
-    (routeId: string) => {
-      setSnappingLine(undefined);
-      if (mapRef) {
-        removeRoute(mapRef.getMap(), routeId);
-        dispatch(resetDraftRouteGeometryAction());
-      }
-    },
-    [dispatch, mapRef],
-  );
+  const onDelete = useCallback(() => {
+    setSnappingLine(undefined);
+    if (mapRef) {
+      removeRoute(mapRef.getMap(), SNAPPING_LINE_LAYER_ID);
+      dispatch(resetDraftRouteGeometryAction());
+    }
+  }, [dispatch, mapRef]);
 
   const onUpdateRouteGeometry = useCallback(
     async (snappingLineFeature: LineStringFeature) => {
@@ -91,7 +95,6 @@ export const DrawRouteLayer = () => {
         return;
       }
 
-      // TODO WHY EDITED ROUTE DATA IS MISSING WHEN EDITING?!?!?!?
       // we can only find the stops belonging to the route if its metadata is available
       // (when editing, fetch it from graphql; when creating, filled in through form)
       if (
@@ -169,7 +172,7 @@ export const DrawRouteLayer = () => {
         // map matching backend didn't returned valid route. -> remove
         // also drawn route. Maybe we should show notification to the user
         // when this happens?
-        onDelete(SNAPPING_LINE_LAYER_ID);
+        onDelete();
       }
     },
     [
@@ -195,8 +198,26 @@ export const DrawRouteLayer = () => {
   useEffect(() => {
     // If creating new route (without a template) or snapping line already exists,
     // no need to initialize snapping line
-    if ((creatingNewRoute && !templateRouteId) || snappingLine) {
+    if (snappingLine) {
       return;
+    }
+    if (
+      creatingNewRoute &&
+      !templateRouteId &&
+      editedRouteData.infraLinks &&
+      !isEmpty(editedRouteData.infraLinks)
+    ) {
+      const infraSnappingLine = mapInfraLinksToFeature(
+        editedRouteData.infraLinks,
+      );
+      setSnappingLine(infraSnappingLine);
+      drawRef.current?.add({
+        id: SNAPPING_LINE_LAYER_ID,
+        ...infraSnappingLine,
+      });
+      drawRef.current?.changeMode('direct_select', {
+        featureId: SNAPPING_LINE_LAYER_ID,
+      });
     }
 
     if (drawingMode === Mode.Edit && baseRoute) {
@@ -222,6 +243,7 @@ export const DrawRouteLayer = () => {
     creatingNewRoute,
     debouncedOnAddRoute,
     drawingMode,
+    editedRouteData.infraLinks,
     onUpdateRouteGeometry,
     snappingLine,
     templateRouteId,
@@ -232,6 +254,10 @@ export const DrawRouteLayer = () => {
       drawRef.current?.trash();
     }
   }, []);
+
+  useImperativeHandle(editorRef, () => ({
+    onDelete,
+  }));
 
   useEffect(() => {
     document.addEventListener('keydown', keyDown, false);
