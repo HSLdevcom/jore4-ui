@@ -12,13 +12,16 @@ import {
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
-import { StopDetailsPage } from '../../pageObjects';
+import { StopDetailsPage, Toast } from '../../pageObjects';
+import { BasicDetailsForm } from '../../pageObjects/stop-registry/stop-details/BasicDetailsForm';
+import { BasicDetailsViewCard } from '../../pageObjects/stop-registry/stop-details/BasicDetailsViewCard';
 import { UUID } from '../../types';
 import {
   SupportedResources,
   insertToDbHelper,
   removeFromDbHelper,
 } from '../../utils';
+import { deleteTimingPlacesByLabel } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
 // These form a straight line on Eerikinkatu in Helsinki.
@@ -86,6 +89,7 @@ const buildScheduledStopPoints = (
 
 describe('Stop details', () => {
   let stopDetailsPage: StopDetailsPage;
+  let toast: Toast;
   const baseDbResources = {
     timingPlaces,
   };
@@ -113,6 +117,7 @@ describe('Stop details', () => {
   beforeEach(() => {
     removeFromDbHelper(dbResources);
     insertToDbHelper(dbResources);
+    toast = new Toast();
 
     cy.task<string[]>('insertStopPlaces', {
       scheduledStopPoints: dbResources.stops,
@@ -143,78 +148,293 @@ describe('Stop details', () => {
     { tags: [Tag.StopRegistry, Tag.Smoke] },
     () => {
       stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
-      stopDetailsPage.page().should('be.visible');
+      stopDetailsPage.page().shouldBeVisible();
 
-      stopDetailsPage.label().should('have.text', 'H2003');
+      stopDetailsPage.label().shouldHaveText('H2003');
       stopDetailsPage
         .names()
-        .should('have.text', 'Pohjoisesplanadi|Norraesplanaden');
+        .shouldHaveText('Pohjoisesplanadi|Norraesplanaden');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
     },
   );
 
-  it('should view basic details', { tags: [Tag.StopRegistry] }, () => {
-    stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
-    stopDetailsPage.page().should('be.visible');
+  describe('basic details', () => {
+    let bdForm: BasicDetailsForm;
+    let bdView: BasicDetailsViewCard;
 
-    const details = stopDetailsPage.basicDetails;
-    details.getContent().should('be.visible');
-    details.getLabel().should('have.text', 'H2003');
-    details.getPublicCode().should('have.text', '10003');
-    details.getNameFin().should('have.text', 'Pohjoisesplanadi');
-    details.getNameSwe().should('have.text', 'Norraesplanaden');
-    details.getNameLongFin().should('have.text', 'Pohjoisesplanadi (pitkä)');
-    details.getNameLongSwe().should('have.text', 'Norraesplanaden (lång)');
-    details.getLocationFin().should('have.text', 'Pohjoisesplanadi (sij.)');
-    details.getLocationSwe().should('have.text', 'Norraesplanaden (plats)');
-    details.getAbbreviationFin().should('have.text', 'Pohj.esplanadi');
-    details.getAbbreviationSwe().should('have.text', 'N.esplanaden');
-    details.getAbbreviation5CharFin().should('have.text', 'P.Esp');
-    details.getAbbreviation5CharSwe().should('have.text', 'N.Esp');
-    details.getTransportMode().should('have.text', 'Bussi');
-    details.getTimingPlaceId().should('have.text', '1AURLA');
-    details.getStopType().should('have.text', 'Runkolinja, vaihtopysäkki');
-    details.getStopState().should('have.text', 'Pois käytöstä');
-    details.getElyNumber().should('have.text', '1234567');
+    beforeEach(() => {
+      bdView = stopDetailsPage.basicDetails.basicDetailsViewCard;
+      bdForm = stopDetailsPage.basicDetails.basicDetailsForm;
+    });
+    it(
+      'should view and edit basic details text fields',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+        stopDetailsPage.page().shouldBeVisible();
+
+        bdView.getContent().shouldBeVisible();
+        bdView.getLabel().shouldHaveText('H2003');
+        bdView.getPublicCode().shouldHaveText('10003');
+        bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
+        bdView.getNameSwe().shouldHaveText('Norraesplanaden');
+
+        bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
+        bdView.getNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
+        bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
+        bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
+        bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
+        bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
+        bdView.getAbbreviation5CharFin().shouldHaveText('P.Esp');
+        bdView.getAbbreviation5CharSwe().shouldHaveText('N.Esp');
+        bdView.getElyNumber().shouldHaveText('1234567');
+
+        bdView.getEditButton().click();
+
+        // TODO: when this assert fails, remove this line and implement tests for label change
+        bdForm.getLabelInput().shouldBeDisabled();
+
+        bdForm.getPublicCodeInput().clearAndType('10004');
+        bdForm.getNameFinInput().clearAndType('NewPohjoisesplanadi');
+        bdForm.getNameSweInput().clearAndType('NewNorraesplanaden');
+
+        bdForm
+          .getNameLongFinInput()
+          .clearAndType('NewPohjoisesplanadi (pitkä)');
+        bdForm.getNameLongSweInput().clearAndType('NewNorraesplanaden (lång)');
+        bdForm.getLocationFinInput().clearAndType('NewPohjoisesplanadi (sij.)');
+        bdForm.getLocationSweInput().clearAndType('NewNorraesplanaden (plats)');
+        bdForm.getAbbreviationFinInput().clearAndType('NewPohj.esplanadi');
+        bdForm.getAbbreviationSweInput().clearAndType('NewN.esplanaden');
+        bdForm.getAbbreviation5CharFinInput().clearAndType('NewP.Esp');
+        bdForm.getAbbreviation5CharSweInput().clearAndType('NewN.Esp');
+
+        bdForm.getElyNumberInput().clearAndType('1234568');
+
+        bdView.getSaveButton().click();
+
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+
+        bdView.getLabel().shouldHaveText('H2003');
+        bdView.getPublicCode().shouldHaveText('10004');
+        bdView.getNameFin().shouldHaveText('NewPohjoisesplanadi');
+        bdView.getNameSwe().shouldHaveText('NewNorraesplanaden');
+        bdView.getNameLongFin().shouldHaveText('NewPohjoisesplanadi (pitkä)');
+        bdView.getNameLongSwe().shouldHaveText('NewNorraesplanaden (lång)');
+        bdView.getLocationFin().shouldHaveText('NewPohjoisesplanadi (sij.)');
+        bdView.getLocationSwe().shouldHaveText('NewNorraesplanaden (plats)');
+        bdView.getAbbreviationFin().shouldHaveText('NewPohj.esplanadi');
+        bdView.getAbbreviationSwe().shouldHaveText('NewN.esplanaden');
+        bdView.getAbbreviation5CharFin().shouldHaveText('NewP.Esp');
+        bdView.getAbbreviation5CharSwe().shouldHaveText('NewN.Esp');
+        bdView.getElyNumber().shouldHaveText('1234568');
+      },
+    );
+
+    it(
+      'should view and edit basic details dropdowns and checkboxes',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+        stopDetailsPage.page().shouldBeVisible();
+
+        bdView.getContent().shouldBeVisible();
+
+        bdView.getLabel().shouldHaveText('H2003');
+        bdView.getPublicCode().shouldHaveText('10003');
+        bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
+        bdView.getNameSwe().shouldHaveText('Norraesplanaden');
+        bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
+        bdView.getNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
+        bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
+        bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
+        bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
+        bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
+        bdView.getAbbreviation5CharFin().shouldHaveText('P.Esp');
+        bdView.getAbbreviation5CharSwe().shouldHaveText('N.Esp');
+        bdView.getTransportMode().shouldHaveText('Bussi');
+        bdView.getTimingPlaceId().shouldHaveText('1AURLA');
+        bdView.getStopType().shouldHaveText('Runkolinja, vaihtopysäkki');
+        bdView.getStopState().shouldHaveText('Pois käytöstä');
+        bdView.getElyNumber().shouldHaveText('1234567');
+
+        bdView.getEditButton().click();
+
+        bdForm.getMainLineCheckbox().click();
+        bdForm.getInterchangeCheckbox().click();
+
+        // Rail replacement is only available for transport mode: bus
+        bdForm.getRailReplacementCheckbox().click();
+        bdForm.getTransportModeDropdownButton().shouldBeDisabled();
+
+        bdForm.getVirtualCheckbox().click();
+
+        bdView.getSaveButton().click();
+
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+
+        bdView.getLabel().shouldHaveText('H2003');
+        bdView.getPublicCode().shouldHaveText('10003');
+        bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
+        bdView.getNameSwe().shouldHaveText('Norraesplanaden');
+        bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
+        bdView.getNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
+        bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
+        bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
+        bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
+        bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
+        bdView.getAbbreviation5CharFin().shouldHaveText('P.Esp');
+        bdView.getAbbreviation5CharSwe().shouldHaveText('N.Esp');
+        bdView.getTransportMode().shouldHaveText('Bussi');
+        bdView.getTimingPlaceId().shouldHaveText('1AURLA');
+        bdView
+          .getStopType()
+          .shouldHaveText('Raideliikennettä korvaava, virtuaalipysäkki');
+        bdView.getStopState().shouldHaveText('Pois käytöstä');
+        bdView.getElyNumber().shouldHaveText('1234567');
+
+        bdView.getEditButton().click();
+
+        bdForm.getRailReplacementCheckbox().click();
+        bdForm.getTransportModeDropdownButton().click();
+        bdForm
+          .getTransportModeDropdownOptions()
+          .contains('Raitiovaunu')
+          .click();
+
+        // Rail replacement is only available for transport mode: bus
+        bdForm.getRailReplacementCheckbox().shouldBeDisabled();
+
+        bdForm.getStopPlaceStateDropdownButton().click();
+        bdForm.getStopPlaceStateDropdownOptions().contains('Käytössä').click();
+        bdForm.getTimingPlaceDropdown().type('1AACKT');
+
+        bdForm.getTimingPlaceDropdown().find('li').contains('1AACKT').click();
+
+        bdView.getSaveButton().click();
+        bdView.getTransportMode().shouldHaveText('Raitiovaunu');
+        bdView.getStopState().shouldHaveText('Käytössä');
+        bdView.getTimingPlaceId().shouldHaveText('1AACKT');
+      },
+    );
+
+    describe('creating new timing place', () => {
+      before(() => {
+        deleteTimingPlacesByLabel(['1TEST']);
+      });
+      after(() => {
+        deleteTimingPlacesByLabel(['1TEST']);
+      });
+      it(
+        'should create new timing place correctly',
+        { tags: [Tag.StopRegistry] },
+        () => {
+          const { createTimingPlaceForm } = bdForm;
+          stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+          stopDetailsPage.page().shouldBeVisible();
+
+          bdView.getContent().shouldBeVisible();
+
+          bdView.getLabel().shouldHaveText('H2003');
+          bdView.getPublicCode().shouldHaveText('10003');
+          bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
+          bdView.getNameSwe().shouldHaveText('Norraesplanaden');
+          bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
+          bdView.getNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
+          bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
+          bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
+          bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
+          bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
+          bdView.getAbbreviation5CharFin().shouldHaveText('P.Esp');
+          bdView.getAbbreviation5CharSwe().shouldHaveText('N.Esp');
+          bdView.getTransportMode().shouldHaveText('Bussi');
+          bdView.getTimingPlaceId().shouldHaveText('1AURLA');
+          bdView.getStopType().shouldHaveText('Runkolinja, vaihtopysäkki');
+          bdView.getStopState().shouldHaveText('Pois käytöstä');
+          bdView.getElyNumber().shouldHaveText('1234567');
+
+          bdView.getEditButton().click();
+
+          bdForm.getAddTimingPlaceButton().click();
+
+          createTimingPlaceForm.fillTimingPlaceFormAndSave({
+            label: '1TEST',
+            description: 'Test description',
+          });
+
+          toast.checkSuccessToastHasMessage('Hastus-paikka luotu');
+
+          bdView.getSaveButton().click();
+
+          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+
+          bdView.getLabel().shouldHaveText('H2003');
+          bdView.getPublicCode().shouldHaveText('10003');
+          bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
+          bdView.getNameSwe().shouldHaveText('Norraesplanaden');
+          bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
+          bdView.getNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
+          bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
+          bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
+          bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
+          bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
+          bdView.getAbbreviation5CharFin().shouldHaveText('P.Esp');
+          bdView.getAbbreviation5CharSwe().shouldHaveText('N.Esp');
+          bdView.getTransportMode().shouldHaveText('Bussi');
+          bdView.getTimingPlaceId().shouldHaveText('1TEST');
+          bdView.getStopType().shouldHaveText('Runkolinja, vaihtopysäkki');
+          bdView.getStopState().shouldHaveText('Pois käytöstä');
+          bdView.getElyNumber().shouldHaveText('1234567');
+        },
+      );
+    });
+
+    // TODO: test for removing timing place from stop that is used
+    // as timing point on a route. This is better to be created after
+    // e2e test data unification
   });
 
-  it('should view location details', { tags: [Tag.StopRegistry] }, () => {
-    stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
-    stopDetailsPage.page().should('be.visible');
+  describe('location details', () => {
+    it('should view location details', { tags: [Tag.StopRegistry] }, () => {
+      stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+      stopDetailsPage.page().shouldBeVisible();
 
-    const details = stopDetailsPage.locationDetailsViewCard;
-    details.getContainer().should('be.visible');
-    details.getStopAddress().should('have.text', 'Mannerheimintie 22-24');
-    details.getPostalCode().should('have.text', '00100');
-    details.getMunicipality().should('have.text', '-');
-    details.getTariffZone().should('have.text', '-');
-    details.getLatitude().should('have.text', '60.166003223527824');
-    details.getLongitude().should('have.text', '24.932072417514647');
-    details.getAltitude().should('have.text', '0');
-    details.getFunctionalArea().should('have.text', '20 m');
-    details.getStopArea().should('have.text', '-');
-    details.getStopAreaName().should('have.text', '-');
-    details.getStopAreaStops().should('have.text', '-');
-    details.getQuay().should('have.text', '-');
-    details.getStopAreaQuays().should('have.text', '-');
-    details.getTerminal().should('have.text', '-');
-    details.getTerminalName().should('have.text', '-');
-    details.getTerminalStops().should('have.text', '-');
+      const details = stopDetailsPage.locationDetailsViewCard;
+      details.getContainer().shouldBeVisible();
+      details.getStopAddress().shouldHaveText('Mannerheimintie 22-24');
+      details.getPostalCode().shouldHaveText('00100');
+      details.getMunicipality().shouldHaveText('-');
+      details.getTariffZone().shouldHaveText('-');
+      details.getLatitude().shouldHaveText('60.166003223527824');
+      details.getLongitude().shouldHaveText('24.932072417514647');
+      details.getAltitude().shouldHaveText('0');
+      details.getFunctionalArea().shouldHaveText('20 m');
+      details.getStopArea().shouldHaveText('-');
+      details.getStopAreaName().shouldHaveText('-');
+      details.getStopAreaStops().shouldHaveText('-');
+      details.getQuay().shouldHaveText('-');
+      details.getStopAreaQuays().shouldHaveText('-');
+      details.getTerminal().shouldHaveText('-');
+      details.getTerminalName().shouldHaveText('-');
+      details.getTerminalStops().shouldHaveText('-');
+    });
   });
 
-  it('should view signage details', { tags: [Tag.StopRegistry] }, () => {
-    stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
-    stopDetailsPage.page().should('be.visible');
+  describe('signage details', () => {
+    it('should view signage details', { tags: [Tag.StopRegistry] }, () => {
+      stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+      stopDetailsPage.page().shouldBeVisible();
 
-    const details = stopDetailsPage.signageDetailsViewCard;
-    details.getContainer().should('be.visible');
-    details.getSignType().should('have.text', 'Tolppamerkki');
-    details.getNumberOfFrames().should('have.text', '12');
-    details.getLineSignage().should('have.text', 'Kyllä');
-    details
-      .getSignageInstructionExceptions()
-      .should('have.text', 'Ohjetekstiä...');
-    details.getReplacesRailSign().should('have.text', 'Ei');
-    details.getMainLineSign().should('have.text', 'Ei');
+      const details = stopDetailsPage.signageDetailsViewCard;
+      details.getContainer().shouldBeVisible();
+      details.getSignType().shouldHaveText('Tolppamerkki');
+      details.getNumberOfFrames().shouldHaveText('12');
+      details.getLineSignage().shouldHaveText('Kyllä');
+      details
+        .getSignageInstructionExceptions()
+        .shouldHaveText('Ohjetekstiä...');
+      details.getReplacesRailSign().shouldHaveText('Ei');
+      details.getMainLineSign().shouldHaveText('Ei');
+    });
   });
 });

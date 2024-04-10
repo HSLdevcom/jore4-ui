@@ -81,6 +81,30 @@ Cypress.Commands.add('setupTests', () => {
     }).as('blockDigitransit');
   }
 
+  Cypress.Commands.add(
+    'clearAndType',
+    { prevSubject: true },
+    (subject, text) => {
+      return cy.wrap(subject).clear().type(text);
+    },
+  );
+
+  Cypress.Commands.add(
+    'shouldHaveText',
+    { prevSubject: true },
+    (subject, expectedText) => {
+      cy.wrap(subject).should('have.text', expectedText);
+    },
+  );
+
+  Cypress.Commands.add('shouldBeVisible', { prevSubject: true }, (subject) => {
+    cy.wrap(subject).should('be.visible');
+  });
+
+  Cypress.Commands.add('shouldBeDisabled', { prevSubject: true }, (subject) => {
+    cy.wrap(subject).should('be.disabled');
+  });
+
   // label all graphql calls that they can be expected in tests
   // e.g. GetAllLines query can be waited as cy.wait('@gqlGetAllLines')
   cy.intercept('POST', '/api/graphql/**', (req) => {
