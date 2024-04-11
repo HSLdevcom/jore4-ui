@@ -12,6 +12,7 @@ import { ValidationErrorList } from './ValidationErrorList';
 
 interface CommonInputProps<FormState extends FieldValues> {
   className?: string;
+  inputClassName?: string;
   fieldPath: Path<FormState>;
   translationPrefix: TranslationKey;
   testId: string;
@@ -31,6 +32,7 @@ type Props<FormState extends FieldValues> = CommonInputProps<FormState> &
 
 export const InputField = <FormState extends FieldValues>({
   className = '',
+  inputClassName = '',
   fieldPath,
   translationPrefix,
   testId,
@@ -67,6 +69,7 @@ export const InputField = <FormState extends FieldValues>({
           fieldPath={fieldPath}
           id={id}
           testId={testId}
+          className={inputClassName}
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...inputHTMLAttributes}
         />
