@@ -39,7 +39,7 @@ if [ $FORCE == false ]; then
   # There should be a "is_consistent" field in the response, eg:
   #   "is_consistent": false
   # Parse the boolean value:
-  IS_CONSISTENT=$(echo "$RESPONSE" | grep -oP '"is_consistent":\s*(?:true|false)' | sed 's/"is_consistent":\s*//')
+  IS_CONSISTENT=$(echo "$RESPONSE" | sed -n 's/.*"is_consistent":[[:space:]]*\([a-z]*\).*/\1/p')
 
   if [[ "$IS_CONSISTENT" != "false" && "$IS_CONSISTENT" != "true" ]]; then
     echo "Unrecognized value for is_consistent: $IS_CONSISTENT"
