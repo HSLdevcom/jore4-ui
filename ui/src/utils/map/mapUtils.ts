@@ -78,7 +78,10 @@ export const getInteractiveLayerIds = (mapRef: React.RefObject<MapRef>) => {
   return compact(tmp);
 };
 
-export const removeRoute = (map: MapInstance, id: string) => {
+export const removeRoute = (map: MapInstance | undefined, id: string) => {
+  if (!map) {
+    return;
+  }
   if (map.getLayer(id)) {
     map.removeLayer(id);
   }

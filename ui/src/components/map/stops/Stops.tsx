@@ -25,7 +25,6 @@ import {
   setIsCreateStopModeEnabledAction,
   setSelectedStopIdAction,
 } from '../../../redux';
-import { Coords } from '../../../types';
 import { Priority } from '../../../types/enums';
 import {
   buildWithinViewportGqlFilter,
@@ -36,7 +35,6 @@ import {
 import {
   addLineFromStopToInfraLink,
   createGeometryLineBetweenPoints,
-  drawLineToClosestRoad,
   removeLineFromStopToInfraLink,
 } from '../../../utils/map';
 import { CreateStopMarker } from './CreateStopMarker';
@@ -167,9 +165,7 @@ export const Stops = React.forwardRef((props, ref) => {
       )}
       {/* Display hovering bus stop while in create mode */}
       {(isCreateStopModeEnabled || isMoveStopModeEnabled) && (
-        <CreateStopMarker
-          onCursorMove={(coords: Coords) => drawLineToClosestRoad(map?.getMap(), coords)}
-        />
+        <CreateStopMarker />
       )}
     </>
   );
