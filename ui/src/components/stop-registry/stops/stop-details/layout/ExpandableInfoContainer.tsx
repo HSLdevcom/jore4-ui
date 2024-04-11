@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { Visible } from '../../../../layoutComponents';
-import { SimpleButton } from '../../../../uiComponents';
+import { Visible } from '../../../../../layoutComponents';
+import { SimpleButton } from '../../../../../uiComponents';
 import { SlimSimpleButton } from './SlimSimpleButton';
 
 interface Props {

@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
-} from '../../../../../i18n/uiNameMappings';
-import { Column, Row } from '../../../../../layoutComponents';
+} from '../../../../../../i18n/uiNameMappings';
+import { Column, Row } from '../../../../../../layoutComponents';
 import {
   JoreStopRegistryTransportModeType,
   StopPlaceState,
-} from '../../../../../types/stop-registry';
-import { SimpleButton } from '../../../../../uiComponents';
-import { EnumDropdown, FormRow, InputField } from '../../../../forms/common';
-import { ChooseTimingPlaceDropdown } from '../../../../forms/stop/ChooseTimingPlaceDropdown';
+} from '../../../../../../types/stop-registry';
+import { SimpleButton } from '../../../../../../uiComponents';
+import { EnumDropdown, FormRow, InputField } from '../../../../../forms/common';
+import { ChooseTimingPlaceDropdown } from '../../../../../forms/stop/ChooseTimingPlaceDropdown';
 import { StopBasicDetailsFormState } from './schema';
 
 const testIds = {

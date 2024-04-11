@@ -1,13 +1,11 @@
 import { t } from 'i18next';
-import { StopWithDetails } from '../../../../hooks';
+import { StopWithDetails } from '../../../../../hooks';
 import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
-} from '../../../../i18n/uiNameMappings';
-import { DetailRow } from './DetailRow';
-import { HorizontalSeparator } from './HorizontalSeparator';
-import { LabeledDetail } from './LabeledDetail';
-import { translateStopTypes } from './utils';
+} from '../../../../../i18n/uiNameMappings';
+import { DetailRow, HorizontalSeparator, LabeledDetail } from '../layout';
+import { translateStopTypes } from '../utils';
 
 interface Props {
   stop: StopWithDetails;

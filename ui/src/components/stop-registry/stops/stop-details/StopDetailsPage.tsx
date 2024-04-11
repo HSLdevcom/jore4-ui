@@ -2,9 +2,9 @@ import { useTranslation } from 'react-i18next';
 import { useGetStopDetails } from '../../../../hooks';
 import { Container } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
-import { BasicDetailsSection } from './BasicDetailsSection';
-import { LocationDetailsSection } from './LocationDetailsSection';
-import { SignageDetailsSection } from './SignageDetailsSection';
+import { BasicDetailsSection } from './basic-details/BasicDetailsSection';
+import { LocationDetailsSection } from './location-details/LocationDetailsSection';
+import { SignageDetailsSection } from './signage-details/SignageDetailsSection';
 import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
 import { StopTitleRow } from './StopTitleRow';
 

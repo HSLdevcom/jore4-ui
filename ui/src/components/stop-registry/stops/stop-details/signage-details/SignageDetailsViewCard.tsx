@@ -1,10 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { StopWithDetails } from '../../../../hooks';
-import { mapStopPlaceSignTypeToUiName } from '../../../../i18n/uiNameMappings';
-import { StopPlaceSignType } from '../../../../types/stop-registry';
-import { DetailRow } from './DetailRow';
-import { LabeledDetail } from './LabeledDetail';
-import { optionalBooleanToUiText } from './utils';
+import { StopWithDetails } from '../../../../../hooks';
+import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings';
+import { StopPlaceSignType } from '../../../../../types/stop-registry';
+import { DetailRow, LabeledDetail } from '../layout';
+import { optionalBooleanToUiText } from '../utils';
 
 const testIds = {
   container: 'SignageDetailsViewCard::container',

@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
-import { StopBasicDetailsFormState } from '../../components/stop-registry/stops/stop-details/basic-details-form/schema';
+import { StopBasicDetailsFormState } from '../../components/stop-registry/stops/stop-details/basic-details/basic-details-form/schema';
 import {
   EditStopMutationVariables,
   RouteUniqueFieldsFragment,

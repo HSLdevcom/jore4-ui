@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { StopWithDetails, useToggle } from '../../../../hooks';
-import { ExpandableInfoContainer } from './ExpandableInfoContainer';
+import { StopWithDetails, useToggle } from '../../../../../hooks';
+import { ExpandableInfoContainer } from '../layout';
 import { SignageDetailsViewCard } from './SignageDetailsViewCard';
 
 interface Props {
