@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import { useFormContext } from 'react-hook-form';
-import { StopRegistryTransportModeType } from '../../../../../generated/graphql';
-import { FormRow, InputElement } from '../../../../forms/common';
+import { StopRegistryTransportModeType } from '../../../../../../generated/graphql';
+import { FormRow, InputElement } from '../../../../../forms/common';
 import { StopBasicDetailsFormState } from './schema';
 
 const testIds = {

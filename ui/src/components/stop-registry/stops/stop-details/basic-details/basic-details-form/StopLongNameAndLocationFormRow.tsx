@@ -1,5 +1,5 @@
-import { Column } from '../../../../../layoutComponents';
-import { FormRow, InputField } from '../../../../forms/common';
+import { Column } from '../../../../../../layoutComponents';
+import { FormRow, InputField } from '../../../../../forms/common';
 import { StopBasicDetailsFormState } from './schema';
 
 const testIds = {

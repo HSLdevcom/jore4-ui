@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import { SimpleButton, SimpleButtonProps } from '../../../../uiComponents';
+import { SimpleButton, SimpleButtonProps } from '../../../../../uiComponents';
 
 export const SlimSimpleButton: React.FC<SimpleButtonProps> = ({ ...props }) => (
   // eslint-disable-next-line react/jsx-props-no-spreading

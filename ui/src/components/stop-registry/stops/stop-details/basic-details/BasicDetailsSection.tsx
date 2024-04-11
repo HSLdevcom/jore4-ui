@@ -4,12 +4,12 @@ import {
   StopWithDetails,
   useEditStopBasicDetails,
   useToggle,
-} from '../../../../hooks';
-import { showSuccessToast, submitFormByRef } from '../../../../utils';
+} from '../../../../../hooks';
+import { showSuccessToast, submitFormByRef } from '../../../../../utils';
+import { ExpandableInfoContainer } from '../layout';
 import { StopBasicDetailsFormState } from './basic-details-form/schema';
 import { StopBasicDetailsForm } from './basic-details-form/StopBasicDetailsForm';
 import { BasicDetailsViewCard } from './BasicDetailsViewCard';
-import { ExpandableInfoContainer } from './ExpandableInfoContainer';
 
 const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
   const formState: Partial<StopBasicDetailsFormState> = {
