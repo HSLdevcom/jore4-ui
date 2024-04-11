@@ -64,55 +64,65 @@ const distanceToNearestPointOnFeature = (
     );
 };
 
-export const removeLineFromStopToInfraLink = (map: MapInstance) => {
-  removeLayer(map, INFRA_CONNECTION_NAME);
+export const removeLineFromStopToInfraLink = (map: MapInstance | undefined) => {
+  if (map) {
+    removeLayer(map, INFRA_CONNECTION_NAME);
+  }
 };
 
 export const addLineFromStopToInfraLink = (
-  map: MapInstance,
+  map: MapInstance | undefined,
   geometry: Geometry,
 ) => {
-  const source = map.getSource(INFRA_CONNECTION_NAME);
-  if (!source) {
-    map.addSource(INFRA_CONNECTION_NAME, {
-      type: 'geojson',
-      data: { type: 'Feature', properties: {}, geometry },
-    });
-  } else {
-    source.setData({
-      type: 'Feature',
-      properties: {},
-      geometry,
-    });
-  }
+  if (map) {
+    const source = map.getSource(INFRA_CONNECTION_NAME);
+    if (!source) {
+      map.addSource(INFRA_CONNECTION_NAME, {
+        type: 'geojson',
+        data: { type: 'Feature', properties: {}, geometry },
+      });
+    } else {
+      source.setData({
+        type: 'Feature',
+        properties: {},
+        geometry,
+      });
+    }
 
-  if (!map.getLayer(INFRA_CONNECTION_NAME)) {
-    map.addLayer({
-      id: INFRA_CONNECTION_NAME,
-      type: 'line',
-      source: INFRA_CONNECTION_NAME,
-      layout: {
-        'line-cap': 'round',
-      },
-      paint: {
-        'line-color': 'darkGrey',
-        'line-width': 4,
-        'line-opacity': 1,
-        'line-offset': 0,
-        'line-dasharray': [1, 1.5],
-      },
-    });
+    if (!map.getLayer(INFRA_CONNECTION_NAME)) {
+      map.addLayer({
+        id: INFRA_CONNECTION_NAME,
+        type: 'line',
+        source: INFRA_CONNECTION_NAME,
+        layout: {
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': 'darkGrey',
+          'line-width': 4,
+          'line-opacity': 1,
+          'line-offset': 0,
+          'line-dasharray': [1, 1.5],
+        },
+      });
+    }
   }
 };
 
-export const drawLineToClosestRoad = (map: MapInstance, coords: Coords) => {
+export const drawLineToClosestRoad = (
+  map: MapInstance | undefined,
+  coords: Coords,
+) => {
+  if (!map) {
+    return;
+  }
+  
   const features: Feature<LineString>[] = findFeaturesForLayerWithRadius(
     map,
     ROAD_LAYER_ID,
     coords,
     SEARCH_RADIUS_IN_PIXELS,
   );
-
   if (features && features.length > 0) {
     // convert cursor location from pixel coordinates to lat/lng
     const cursorLocation = point(map.unproject(coords).toArray());
@@ -135,7 +145,6 @@ export const drawLineToClosestRoad = (map: MapInstance, coords: Coords) => {
       nearestPoint.geometry.coordinates,
       cursorLocation.geometry.coordinates,
     );
-
     addLineFromStopToInfraLink(map, lineToNetworkConnection);
   } else {
     removeLineFromStopToInfraLink(map);
