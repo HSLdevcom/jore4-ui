@@ -11,4 +11,5 @@ export * from './LabeledCheckbox';
 export * from './LabeledRadioButton';
 export * from './ObservationDateInput';
 export * from './PriorityForm';
+export * from './TextAreaElement';
 export * from './ValidationErrorList';

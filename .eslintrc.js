@@ -102,7 +102,7 @@ module.exports = {
       //   with `react-hook-form`'s `register` method: https://react-hook-form.com/get-started
       // - in certain `react-map-gl` related components as it seems to be
       //   convention also with those: https://visgl.github.io/react-map-gl/docs/api-reference/layer
-      { exceptions: ['input', 'Layer'] },
+      { exceptions: ['input', 'textarea', 'Layer'] },
     ],
     'import/extensions': [
       'error',

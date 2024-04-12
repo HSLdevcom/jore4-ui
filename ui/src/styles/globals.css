@@ -10,7 +10,8 @@ a:focus {
   outline-offset: 0.2em;
 }
 
-input {
+input,
+textarea {
   height: 44px;
   padding: 12px 10px 12px 10px;
   border: 1px solid #888888;
@@ -18,7 +19,8 @@ input {
   background-color: white;
 }
 
-input:disabled {
+input:disabled,
+textarea:disabled {
   background-color: #f2f5f7;
   color: #666666;
 }

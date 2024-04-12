@@ -9,6 +9,7 @@ import {
   EnumDropdown,
   InputElement,
   InputField,
+  TextAreaElement,
 } from '../../../../forms/common';
 import { SignageDetailsFormState, signageDetailsFormSchema } from './schema';
 
@@ -108,10 +109,19 @@ const SignageDetailsFormComponent = (
           </Column>
           <Column className="h-auto grow">
             <InputField<SignageDetailsFormState>
-              type="text"
               translationPrefix="stopDetails.signs"
               fieldPath="signageInstructionExceptions"
               testId={testIds.signageInstructionExceptions}
+              className="h-full"
+              // eslint-disable-next-line react/no-unstable-nested-components, @typescript-eslint/no-unused-vars
+              inputElementRenderer={({ fieldState, ...props }) => (
+                <TextAreaElement
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                  fieldPath="signageInstructionExceptions"
+                  className="h-full"
+                />
+              )}
             />
           </Column>
         </Row>
