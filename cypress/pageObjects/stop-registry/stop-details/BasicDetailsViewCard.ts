@@ -40,8 +40,4 @@ export class BasicDetailsViewCard {
   getStopState = () => cy.getByTestId('BasicDetailsSection::stopState');
 
   getElyNumber = () => cy.getByTestId('BasicDetailsSection::elyNumber');
-
-  getEditButton = () => cy.getByTestId('BasicDetailsSection::editButton');
-
-  getSaveButton = () => cy.getByTestId('BasicDetailsSection::saveButton');
 }

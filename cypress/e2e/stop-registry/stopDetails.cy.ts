@@ -194,7 +194,7 @@ describe('Stop details', () => {
         bdView.getAbbreviation5CharSwe().shouldHaveText('N.Esp');
         bdView.getElyNumber().shouldHaveText('1234567');
 
-        bdView.getEditButton().click();
+        stopDetailsPage.basicDetails.getEditButton().click();
 
         // TODO: when this assert fails, remove this line and implement tests for label change
         bdForm.getLabelInput().shouldBeDisabled();
@@ -216,7 +216,7 @@ describe('Stop details', () => {
 
         bdForm.getElyNumberInput().clearAndType('1234568');
 
-        bdView.getSaveButton().click();
+        stopDetailsPage.basicDetails.getSaveButton().click();
 
         toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
@@ -249,7 +249,7 @@ describe('Stop details', () => {
         bdView.getTimingPlaceId().shouldHaveText('1AURLA');
         bdView.getStopType().shouldHaveText('Runkolinja, vaihtopysäkki');
 
-        bdView.getEditButton().click();
+        stopDetailsPage.basicDetails.getEditButton().click();
 
         bdForm.getMainLineCheckbox().click();
         bdForm.getInterchangeCheckbox().click();
@@ -260,7 +260,7 @@ describe('Stop details', () => {
 
         bdForm.getVirtualCheckbox().click();
 
-        bdView.getSaveButton().click();
+        stopDetailsPage.basicDetails.getSaveButton().click();
 
         toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
@@ -287,7 +287,7 @@ describe('Stop details', () => {
         bdView.getStopState().shouldHaveText('Pois käytöstä');
         bdView.getElyNumber().shouldHaveText('1234567');
 
-        bdView.getEditButton().click();
+        stopDetailsPage.basicDetails.getEditButton().click();
 
         bdForm.getRailReplacementCheckbox().click();
         bdForm.getTransportModeDropdownButton().click();
@@ -305,7 +305,7 @@ describe('Stop details', () => {
 
         bdForm.getTimingPlaceDropdown().find('li').contains('1AACKT').click();
 
-        bdView.getSaveButton().click();
+        stopDetailsPage.basicDetails.getSaveButton().click();
         bdView.getTransportMode().shouldHaveText('Raitiovaunu');
         bdView.getStopState().shouldHaveText('Käytössä');
         bdView.getTimingPlaceId().shouldHaveText('1AACKT');
@@ -334,7 +334,7 @@ describe('Stop details', () => {
           bdView.getLabel().shouldHaveText('H2003');
           bdView.getTimingPlaceId().shouldHaveText('1AURLA');
 
-          bdView.getEditButton().click();
+          stopDetailsPage.basicDetails.getEditButton().click();
 
           bdForm.getAddTimingPlaceButton().click();
 
@@ -345,7 +345,7 @@ describe('Stop details', () => {
 
           toast.checkSuccessToastHasMessage('Hastus-paikka luotu');
 
-          bdView.getSaveButton().click();
+          stopDetailsPage.basicDetails.getSaveButton().click();
 
           toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
