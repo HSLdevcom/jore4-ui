@@ -45,11 +45,6 @@ export const SignageDetailsViewCard = ({ stop }: Props): JSX.Element => {
           testId={testIds.numberOfFrames}
         />
         <LabeledDetail
-          title={t('stopDetails.signs.lineSignage')}
-          detail={optionalBooleanToUiText(generalSign?.lineSignage)}
-          testId={testIds.lineSignage}
-        />
-        <LabeledDetail
           title={t('stopDetails.signs.signageInstructionExceptions')}
           detail={generalSign?.note?.value}
           testId={testIds.signageInstructionExceptions}
@@ -57,14 +52,19 @@ export const SignageDetailsViewCard = ({ stop }: Props): JSX.Element => {
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.signs.replacesRailSign')}
-          detail={optionalBooleanToUiText(generalSign?.replacesRailSign)}
-          testId={testIds.replacesRailSign}
+          title={t('stopDetails.signs.lineSignage')}
+          detail={optionalBooleanToUiText(generalSign?.lineSignage)}
+          testId={testIds.lineSignage}
         />
         <LabeledDetail
           title={t('stopDetails.signs.mainLineSign')}
           detail={optionalBooleanToUiText(generalSign?.mainLineSign)}
           testId={testIds.mainLineSign}
+        />
+        <LabeledDetail
+          title={t('stopDetails.signs.replacesRailSign')}
+          detail={optionalBooleanToUiText(generalSign?.replacesRailSign)}
+          testId={testIds.replacesRailSign}
         />
       </DetailRow>
     </div>
