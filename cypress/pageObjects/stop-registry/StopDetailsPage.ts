@@ -2,7 +2,7 @@ import { UUID } from '../../types';
 import {
   BasicDetailsSection,
   LocationDetailsViewCard,
-  SignageDetailsViewCard,
+  SignageDetailsSection,
 } from './stop-details';
 
 export class StopDetailsPage {
@@ -10,7 +10,7 @@ export class StopDetailsPage {
 
   locationDetailsViewCard = new LocationDetailsViewCard();
 
-  signageDetailsViewCard = new SignageDetailsViewCard();
+  signageDetails = new SignageDetailsSection();
 
   visit(scheduledStopPointId: UUID) {
     cy.visit(`/stop-registry/stops/${scheduledStopPointId}`);
