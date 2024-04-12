@@ -46,6 +46,7 @@ export const SignageDetailsViewCard = ({ stop }: Props): JSX.Element => {
         />
         <LabeledDetail
           title={t('stopDetails.signs.signageInstructionExceptions')}
+          className="max-w-[500px]"
           detail={generalSign?.note?.value}
           testId={testIds.signageInstructionExceptions}
         />
