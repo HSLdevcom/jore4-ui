@@ -19,6 +19,7 @@ import {
   StopDetailsPage,
   Toast,
 } from '../../pageObjects';
+import { SignageDetailsForm } from '../../pageObjects/stop-registry/stop-details/SignageDetailsForm';
 import { UUID } from '../../types';
 import {
   SupportedResources,
@@ -387,25 +388,65 @@ describe('Stop details', () => {
   });
 
   describe('signage details', () => {
+    let signForm: SignageDetailsForm;
     let signView: SignageDetailsViewCard;
 
     beforeEach(() => {
+      signForm = stopDetailsPage.signageDetails.form;
       signView = stopDetailsPage.signageDetails.viewCard;
     });
 
-    it('should view signage details', { tags: [Tag.StopRegistry] }, () => {
-      stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
-      stopDetailsPage.page().shouldBeVisible();
+    it(
+      'should view and edit signage details',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+        stopDetailsPage.page().shouldBeVisible();
 
-      signView.getContainer().shouldBeVisible();
-      signView.getSignType().shouldHaveText('Tolppamerkki');
-      signView.getNumberOfFrames().shouldHaveText('12');
-      signView.getLineSignage().shouldHaveText('Kyllä');
-      signView
-        .getSignageInstructionExceptions()
-        .shouldHaveText('Ohjetekstiä...');
-      signView.getReplacesRailSign().shouldHaveText('Ei');
-      signView.getMainLineSign().shouldHaveText('Ei');
-    });
+        signView.getContainer().shouldBeVisible();
+        signView.getSignType().shouldHaveText('Tolppamerkki');
+        signView.getNumberOfFrames().shouldHaveText('12');
+        signView.getLineSignage().shouldHaveText('Kyllä');
+        signView.getMainLineSign().shouldHaveText('Ei');
+        signView.getReplacesRailSign().shouldHaveText('Ei');
+        signView
+          .getSignageInstructionExceptions()
+          .shouldHaveText('Ohjetekstiä...');
+
+        stopDetailsPage.signageDetails.getEditButton().click();
+        signView.getContainer().should('not.exist');
+
+        signForm
+          .getSignTypeDropdownButton()
+          .shouldHaveText('Tolppamerkki')
+          .click();
+        signForm.getSignTypeDropdownOptions().contains('Katoskehikko').click();
+        signForm
+          .getNumberOfFramesInput()
+          .should('have.value', 12)
+          .clearAndType('7');
+        signForm.getLineSignageCheckbox().should('be.checked').click();
+        signForm.getReplacesRailSignCheckbox().should('not.be.checked').click();
+        signForm.getMainLineSignCheckbox().should('not.be.checked').click();
+        signForm
+          .getSignageInstructionExceptionsInput()
+          .should('have.value', 'Ohjetekstiä...')
+          .clearAndType('Uusi teksti');
+
+        stopDetailsPage.signageDetails.getSaveButton().click();
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        signView.getContainer().shouldBeVisible();
+
+        signView.getContainer().shouldBeVisible();
+        signView.getSignType().shouldHaveText('Katoskehikko');
+        signView.getNumberOfFrames().shouldHaveText('7');
+        signView.getLineSignage().shouldHaveText('Ei');
+        signView.getMainLineSign().shouldHaveText('Kyllä');
+        signView.getReplacesRailSign().shouldHaveText('Kyllä');
+        signView
+          .getSignageInstructionExceptions()
+          .shouldHaveText('Uusi teksti');
+      },
+    );
   });
 });
