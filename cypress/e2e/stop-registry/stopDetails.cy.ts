@@ -12,9 +12,13 @@ import {
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
-import { StopDetailsPage, Toast } from '../../pageObjects';
-import { BasicDetailsForm } from '../../pageObjects/stop-registry/stop-details/BasicDetailsForm';
-import { BasicDetailsViewCard } from '../../pageObjects/stop-registry/stop-details/BasicDetailsViewCard';
+import {
+  BasicDetailsForm,
+  BasicDetailsViewCard,
+  SignageDetailsViewCard,
+  StopDetailsPage,
+  Toast,
+} from '../../pageObjects';
 import { UUID } from '../../types';
 import {
   SupportedResources,
@@ -166,6 +170,7 @@ describe('Stop details', () => {
       bdView = stopDetailsPage.basicDetails.viewCard;
       bdForm = stopDetailsPage.basicDetails.form;
     });
+
     it(
       'should view and edit basic details text fields',
       { tags: [Tag.StopRegistry] },
@@ -311,9 +316,11 @@ describe('Stop details', () => {
       before(() => {
         deleteTimingPlacesByLabel(['1TEST']);
       });
+
       after(() => {
         deleteTimingPlacesByLabel(['1TEST']);
       });
+
       it(
         'should create new timing place correctly',
         { tags: [Tag.StopRegistry] },
@@ -380,20 +387,25 @@ describe('Stop details', () => {
   });
 
   describe('signage details', () => {
+    let signView: SignageDetailsViewCard;
+
+    beforeEach(() => {
+      signView = stopDetailsPage.signageDetails.viewCard;
+    });
+
     it('should view signage details', { tags: [Tag.StopRegistry] }, () => {
       stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
       stopDetailsPage.page().shouldBeVisible();
 
-      const details = stopDetailsPage.signageDetailsViewCard;
-      details.getContainer().shouldBeVisible();
-      details.getSignType().shouldHaveText('Tolppamerkki');
-      details.getNumberOfFrames().shouldHaveText('12');
-      details.getLineSignage().shouldHaveText('Kyllä');
-      details
+      signView.getContainer().shouldBeVisible();
+      signView.getSignType().shouldHaveText('Tolppamerkki');
+      signView.getNumberOfFrames().shouldHaveText('12');
+      signView.getLineSignage().shouldHaveText('Kyllä');
+      signView
         .getSignageInstructionExceptions()
         .shouldHaveText('Ohjetekstiä...');
-      details.getReplacesRailSign().shouldHaveText('Ei');
-      details.getMainLineSign().shouldHaveText('Ei');
+      signView.getReplacesRailSign().shouldHaveText('Ei');
+      signView.getMainLineSign().shouldHaveText('Ei');
     });
   });
 });
