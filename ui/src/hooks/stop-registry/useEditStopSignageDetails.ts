@@ -50,6 +50,11 @@ export const useEditStopSignageDetails = () => {
           },
         ],
       },
+      // TODO: find out if there's a more robust way to do this.
+      // Needs to be included because otherwise the mutation will clear this field.
+      description:
+        stop.stop_place?.description &&
+        omit(stop.stop_place?.description, '__typename'),
     };
 
     return input;
