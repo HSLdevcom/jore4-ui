@@ -156,7 +156,10 @@
       "stopAreaQuays": "Stop area quays",
       "terminal": "Terminal",
       "terminalName": "Terminal name",
-      "terminalStops": "Terminal stops"
+      "terminalStops": "Terminal stops",
+      "input": {
+        "functionalArea": "Functional area (m)"
+      }
     },
     "signs": {
       "title": "Signs",
