@@ -210,8 +210,9 @@ export const useEditStop = () => {
     // changes that are applied if the stop's location is changed
     const newLocation = patch.measured_location;
     const oldLocation = stopWithRouteGraphData.measured_location;
+
     const hasLocationChanged =
-      newLocation && !isEqual(newLocation, oldLocation);
+      newLocation && !isEqual(newLocation.coordinates, oldLocation.coordinates);
     const locationChanges = hasLocationChanged
       ? await onStopLocationChanged(stopWithRouteGraphData, patch, stopId)
       : {};
