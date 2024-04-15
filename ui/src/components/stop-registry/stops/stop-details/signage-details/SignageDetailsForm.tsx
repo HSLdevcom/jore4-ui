@@ -11,6 +11,7 @@ import {
   InputField,
   TextAreaElement,
 } from '../../../../forms/common';
+import { MainLineWarning } from '../MainLineWarning';
 import { SignageDetailsFormState, signageDetailsFormSchema } from './schema';
 
 const testIds = {
@@ -27,10 +28,11 @@ interface Props {
   className?: string;
   defaultValues: Partial<SignageDetailsFormState>;
   onSubmit: (state: SignageDetailsFormState) => void;
+  isMainLineStop: boolean;
 }
 
 const SignageDetailsFormComponent = (
-  { className = '', defaultValues, onSubmit }: Props,
+  { className = '', defaultValues, onSubmit, isMainLineStop }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
@@ -38,7 +40,8 @@ const SignageDetailsFormComponent = (
     defaultValues,
     resolver: zodResolver(signageDetailsFormSchema),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+  const hasMainLineSign = watch('mainLineSign');
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -91,6 +94,11 @@ const SignageDetailsFormComponent = (
                   testId={testIds.mainLineSign}
                 />
                 {t('stopDetails.signs.mainLineSign')}
+                <MainLineWarning
+                  className="ml-2"
+                  isMainLineStop={isMainLineStop}
+                  hasMainLineSign={!!hasMainLineSign}
+                />
               </label>
               <label
                 htmlFor="replacesRailSign"

@@ -2,7 +2,12 @@ import { t } from 'i18next';
 import { useFormContext } from 'react-hook-form';
 import { StopRegistryTransportModeType } from '../../../../../../generated/graphql';
 import { FormRow, InputElement } from '../../../../../forms/common';
+import { MainLineWarning } from '../../MainLineWarning';
 import { StopBasicDetailsFormState } from './schema';
+
+interface Props {
+  hasMainLineSign: boolean;
+}
 
 const testIds = {
   mainLine: 'StopBasicDetailsForm::mainLine',
@@ -11,10 +16,11 @@ const testIds = {
   virtual: 'StopBasicDetailsForm::virtual',
 };
 
-export const StopTypesFormRow = () => {
+export const StopTypesFormRow = ({ hasMainLineSign }: Props) => {
   const { watch } = useFormContext();
   const isBusTransportMode =
     watch('transportMode') === StopRegistryTransportModeType.Bus;
+  const isMainLineStop = watch('stopTypes.mainLine');
 
   return (
     <FormRow mdColumns={4}>
@@ -27,6 +33,11 @@ export const StopTypesFormRow = () => {
           testId={testIds.mainLine}
         />
         {t('stopPlaceTypes.mainLine')}
+        <MainLineWarning
+          className="ml-2"
+          isMainLineStop={isMainLineStop}
+          hasMainLineSign={hasMainLineSign}
+        />
       </label>
       <label htmlFor="interchange" className="inline-flex font-normal">
         <InputElement<StopBasicDetailsFormState>

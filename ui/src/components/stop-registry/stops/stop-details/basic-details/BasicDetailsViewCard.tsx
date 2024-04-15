@@ -5,6 +5,7 @@ import {
   mapStopRegistryTransportModeTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { DetailRow, HorizontalSeparator, LabeledDetail } from '../layout';
+import { MainLineWarning } from '../MainLineWarning';
 import { translateStopTypes } from '../utils';
 
 interface Props {
@@ -122,11 +123,19 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
           detail={stop.timing_place?.label}
           testId={testIds.timingPlaceId}
         />
-        <LabeledDetail
-          title={t('stopDetails.stopType')}
-          detail={stop.stop_place && translateStopTypes(stop.stop_place)}
-          testId={testIds.stopType}
-        />
+        <div className="flex items-center gap-4">
+          <LabeledDetail
+            title={t('stopDetails.stopType')}
+            detail={stop.stop_place && translateStopTypes(stop.stop_place)}
+            testId={testIds.stopType}
+          />
+          <MainLineWarning
+            isMainLineStop={!!stop.stop_place?.stopType.mainLine}
+            hasMainLineSign={
+              !!stop.stop_place?.placeEquipments?.generalSign?.[0]?.mainLineSign
+            }
+          />
+        </div>
         <LabeledDetail
           title={t('stopDetails.stopState')}
           detail={stopState}
