@@ -71,6 +71,7 @@ export const SignageDetailsSection = ({ stop }: Props): JSX.Element => {
           defaultValues={defaultValues}
           ref={formRef}
           onSubmit={onSubmit}
+          isMainLineStop={!!stop.stop_place?.stopType.mainLine}
         />
       ) : (
         <SignageDetailsViewCard stop={stop} />
