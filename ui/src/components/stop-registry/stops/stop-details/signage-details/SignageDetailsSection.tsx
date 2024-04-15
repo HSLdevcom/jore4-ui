@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopWithDetails, useToggle } from '../../../../../hooks';
-import { useEditStopSignageDetails } from '../../../../../hooks/stop-registry/useEditStopSignageDetails';
+import { StopWithDetails, useEditStopSignageDetails, useToggle } from '../../../../../hooks';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { ExpandableInfoContainer } from '../layout';
