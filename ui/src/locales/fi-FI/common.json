@@ -156,7 +156,10 @@
       "stopAreaQuays": "Jäsenlaiturit",
       "terminal": "Terminaali",
       "terminalName": "Terminaalin nimi",
-      "terminalStops": "Jäsenpysäkit"
+      "terminalStops": "Jäsenpysäkit",
+      "input": {
+        "functionalArea": "Toiminnallinen alue (m)"
+      }
     },
     "signs": {
       "title": "Pysäkkikilvet",
