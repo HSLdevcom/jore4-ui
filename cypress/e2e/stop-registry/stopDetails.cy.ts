@@ -200,6 +200,21 @@ describe('Stop details', () => {
         // TODO: when this assert fails, remove this line and implement tests for label change
         bdForm.getLabelInput().shouldBeDisabled();
 
+        // Verify correct initial values.
+        bdForm.getLabelInput().should('have.value', 'H2003');
+        bdForm.getPublicCodeInput().should('have.value', '10003');
+        bdForm.getNameFinInput().should('have.value', 'Pohjoisesplanadi');
+        bdForm.getNameSweInput().should('have.value', 'Norraesplanaden');
+        bdForm.getNameLongFinInput().should('have.value', 'Pohjoisesplanadi (pitkä)');
+        bdForm.getNameLongSweInput().should('have.value', 'Norraesplanaden (lång)');
+        bdForm.getLocationFinInput().should('have.value', 'Pohjoisesplanadi (sij.)');
+        bdForm.getLocationSweInput().should('have.value', 'Norraesplanaden (plats)');
+        bdForm.getAbbreviationFinInput().should('have.value', 'Pohj.esplanadi');
+        bdForm.getAbbreviationSweInput().should('have.value', 'N.esplanaden');
+        bdForm.getAbbreviation5CharFinInput().should('have.value', 'P.Esp');
+        bdForm.getAbbreviation5CharSweInput().should('have.value', 'N.Esp');
+        bdForm.getElyNumberInput().should('have.value', '1234567');
+
         bdForm.getPublicCodeInput().clearAndType('10004');
         bdForm.getNameFinInput().clearAndType('NewPohjoisesplanadi');
         bdForm.getNameSweInput().clearAndType('NewNorraesplanaden');
