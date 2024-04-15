@@ -22,10 +22,11 @@ interface Props {
   className?: string;
   defaultValues: Partial<StopBasicDetailsFormState>;
   onSubmit: (state: StopBasicDetailsFormState) => void;
+  hasMainLineSign: boolean;
 }
 
 const StopBasicDetailsFormComponent = (
-  { className = '', defaultValues, onSubmit }: Props,
+  { className = '', defaultValues, onSubmit, hasMainLineSign }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const StopBasicDetailsFormComponent = (
           <StopLongNameAndLocationFormRow />
           <StopAbbreviationsFormRow />
           <HorizontalSeparator />
-          <StopTypesFormRow />
+          <StopTypesFormRow hasMainLineSign={hasMainLineSign} />
           <StopOtherDetailsFormRow
             onClickOpenTimingSettingsModal={openTimingPlaceModal}
           />

@@ -81,6 +81,9 @@ export const BasicDetailsSection = ({ stop }: Props): JSX.Element => {
           defaultValues={defaultValues}
           ref={formRef}
           onSubmit={onSubmit}
+          hasMainLineSign={
+            !!stop.stop_place?.placeEquipments?.generalSign?.[0]?.mainLineSign
+          }
         />
       ) : (
         <BasicDetailsViewCard stop={stop} />

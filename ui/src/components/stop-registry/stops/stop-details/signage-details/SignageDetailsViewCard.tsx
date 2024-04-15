@@ -3,6 +3,7 @@ import { StopWithDetails } from '../../../../../hooks';
 import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
 import { DetailRow, LabeledDetail } from '../layout';
+import { MainLineWarning } from '../MainLineWarning';
 import { optionalBooleanToUiText } from '../utils';
 
 const testIds = {
@@ -57,11 +58,19 @@ export const SignageDetailsViewCard = ({ stop }: Props): JSX.Element => {
           detail={optionalBooleanToUiText(generalSign?.lineSignage)}
           testId={testIds.lineSignage}
         />
-        <LabeledDetail
-          title={t('stopDetails.signs.mainLineSign')}
-          detail={optionalBooleanToUiText(generalSign?.mainLineSign)}
-          testId={testIds.mainLineSign}
-        />
+        <div className="flex items-center gap-4">
+          <LabeledDetail
+            title={t('stopDetails.signs.mainLineSign')}
+            detail={optionalBooleanToUiText(generalSign?.mainLineSign)}
+            testId={testIds.mainLineSign}
+          />
+          <MainLineWarning
+            isMainLineStop={!!stop.stop_place?.stopType.mainLine}
+            hasMainLineSign={
+              !!stop.stop_place?.placeEquipments?.generalSign?.[0]?.mainLineSign
+            }
+          />
+        </div>
         <LabeledDetail
           title={t('stopDetails.signs.replacesRailSign')}
           detail={optionalBooleanToUiText(generalSign?.replacesRailSign)}

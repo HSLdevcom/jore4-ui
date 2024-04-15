@@ -138,6 +138,7 @@
     "stopType": "Stop type",
     "stopState": "Stop state",
     "elyNumber": "ELY number",
+    "mainLineWarning": "The stop's main line setting and related signage setting do not match.",
     "location": {
       "title": "Location",
       "stopAddress": "Stop address",
