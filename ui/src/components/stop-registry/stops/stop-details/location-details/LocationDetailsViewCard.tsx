@@ -5,7 +5,7 @@ import { DetailRow, HorizontalSeparator, LabeledDetail } from '../layout';
 
 const testIds = {
   container: 'LocationDetailsViewCard::container',
-  stopAddress: 'LocationDetailsViewCard::stopAddress',
+  streetAddress: 'LocationDetailsViewCard::streetAddress',
   postalCode: 'LocationDetailsViewCard::postalCode',
   municipality: 'LocationDetailsViewCard::municipality',
   tariffZone: 'LocationDetailsViewCard::tariffZone',
@@ -38,9 +38,9 @@ export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
     <div data-testid={testIds.container}>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.location.stopAddress')}
+          title={t('stopDetails.location.streetAddress')}
           detail={stop.stop_place?.streetAddress}
-          testId={testIds.stopAddress}
+          testId={testIds.streetAddress}
         />
         <LabeledDetail
           title={t('stopDetails.location.postalCode')}

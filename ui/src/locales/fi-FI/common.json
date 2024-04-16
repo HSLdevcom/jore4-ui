@@ -141,7 +141,7 @@
     "mainLineWarning": "Pysäkin runkolinja-asetus ja kilvityksen asetukset eivät täsmää",
     "location": {
       "title": "Sijainti",
-      "stopAddress": "Pysäkin osoite",
+      "streetAddress": "Pysäkin osoite",
       "postalCode": "Postinumero",
       "municipality": "Kunta",
       "tariffZone": "Maksuvyöhyke",

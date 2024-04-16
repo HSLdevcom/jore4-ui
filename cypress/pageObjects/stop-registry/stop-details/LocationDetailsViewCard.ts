@@ -1,7 +1,8 @@
 export class LocationDetailsViewCard {
   getContainer = () => cy.getByTestId('LocationDetailsViewCard::container');
 
-  getStopAddress = () => cy.getByTestId('LocationDetailsViewCard::stopAddress');
+  getStreetAddress = () =>
+    cy.getByTestId('LocationDetailsViewCard::streetAddress');
 
   getPostalCode = () => cy.getByTestId('LocationDetailsViewCard::postalCode');
 
