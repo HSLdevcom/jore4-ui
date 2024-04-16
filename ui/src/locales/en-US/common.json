@@ -141,7 +141,7 @@
     "mainLineWarning": "The stop's main line setting and related signage setting do not match.",
     "location": {
       "title": "Location",
-      "stopAddress": "Stop address",
+      "streetAddress": "Street address",
       "postalCode": "Postal code",
       "municipality": "Municipality",
       "tariffZone": "Tariff zone",

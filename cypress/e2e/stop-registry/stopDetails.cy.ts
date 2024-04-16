@@ -400,7 +400,7 @@ describe('Stop details', () => {
 
       const details = stopDetailsPage.locationDetailsViewCard;
       details.getContainer().shouldBeVisible();
-      details.getStopAddress().shouldHaveText('Mannerheimintie 22-24');
+      details.getStreetAddress().shouldHaveText('Mannerheimintie 22-24');
       details.getPostalCode().shouldHaveText('00100');
       details.getMunicipality().shouldHaveText('-');
       details.getTariffZone().shouldHaveText('-');
