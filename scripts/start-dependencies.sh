@@ -85,3 +85,8 @@ if [ "$INCLUDE_E2E" = true ]; then
   ./scripts/seed-infrastructure-links.sh testdb-e2e &
 fi
 wait
+./scripts/seed-municipalities-and-fare-zones.sh 3010 &
+if [ "$INCLUDE_E2E" = true ]; then
+  ./scripts/seed-municipalities-and-fare-zones.sh 3110 &
+fi
+wait
