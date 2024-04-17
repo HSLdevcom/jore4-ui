@@ -20,6 +20,7 @@ import {
   StopDetailsPage,
   Toast,
 } from '../../pageObjects';
+import { LocationDetailsForm } from '../../pageObjects/stop-registry/stop-details/LocationDetailsForm';
 import { SignageDetailsForm } from '../../pageObjects/stop-registry/stop-details/SignageDetailsForm';
 import { UUID } from '../../types';
 import {
@@ -395,9 +396,11 @@ describe('Stop details', () => {
   });
 
   describe('location details', () => {
+    let locationForm: LocationDetailsForm;
     let locationView: LocationDetailsViewCard;
 
     beforeEach(() => {
+      locationForm = stopDetailsPage.locationDetails.form;
       locationView = stopDetailsPage.locationDetails.viewCard;
     });
 
@@ -422,6 +425,45 @@ describe('Stop details', () => {
       locationView.getTerminal().shouldHaveText('-');
       locationView.getTerminalName().shouldHaveText('-');
       locationView.getTerminalStops().shouldHaveText('-');
+
+      stopDetailsPage.locationDetails.getEditButton().click();
+      locationView.getContainer().should('not.exist');
+
+      locationForm
+        .getLatitudeInput()
+        .should('be.disabled')
+        .should('have.value', 60.166003223527824);
+      locationForm
+        .getLongitudeInput()
+        .should('be.disabled')
+        .should('have.value', 24.932072417514647);
+      locationForm
+        .getAltitudeInput()
+        .should('be.disabled')
+        .should('have.value', 0);
+
+      locationForm
+        .getStreetAddressInput()
+        .should('have.value', 'Mannerheimintie 22-24')
+        .clearAndType('Marskintie 42');
+      locationForm
+        .getPostalCodeInput()
+        .should('have.value', '00100')
+        .clearAndType('33720');
+      locationForm
+        .getFunctionalAreaInput()
+        .should('have.value', '20')
+        .clearAndType('7');
+
+      stopDetailsPage.locationDetails.getSaveButton().click();
+      toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+      locationView.getContainer().shouldBeVisible();
+
+      locationView.getStreetAddress().shouldHaveText('Marskintie 42');
+      locationView.getPostalCode().shouldHaveText('33720');
+      locationView.getLatitude().shouldHaveText('60.166003223527824');
+      locationView.getLongitude().shouldHaveText('24.932072417514647');
+      locationView.getFunctionalArea().shouldHaveText('7 m');
     });
   });
 
