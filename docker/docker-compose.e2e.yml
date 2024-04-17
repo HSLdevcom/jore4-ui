@@ -16,7 +16,7 @@ services:
     environment:
       - TIAMAT_DB_URL=jdbc:postgresql://jore4-testdb-e2e:5432/stopdb?stringtype=unspecified
     ports:
-      - "127.0.0.1:3110:5432"
+      - "127.0.0.1:3110:1888"
     depends_on:
       jore4-testdb-e2e:
         condition: service_healthy
@@ -31,7 +31,7 @@ services:
       - SKIP_SET_VARIABLE_SECRET_OVERRIDE=true
       - JORE4_DB_HOSTNAME=jore4-testdb-e2e
     ports:
-      - "127.0.0.1:3109:5432"
+      - "127.0.0.1:3109:8080"
     depends_on:
       jore4-testdb-e2e:
         condition: service_healthy
