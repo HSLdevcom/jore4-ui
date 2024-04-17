@@ -85,3 +85,10 @@ if [ "$INCLUDE_E2E" = true ]; then
   ./scripts/seed-infrastructure-links.sh testdb-e2e &
 fi
 wait
+
+# Use port 3010 for tiamat and 3110 for tiamat-e2e
+./scripts/seed-municipalities-and-fare-zones.sh 3010 &
+if [ "$INCLUDE_E2E" = true ]; then
+  ./scripts/seed-municipalities-and-fare-zones.sh 3110 &
+fi
+wait
