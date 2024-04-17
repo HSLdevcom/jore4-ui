@@ -1,14 +1,14 @@
 import { UUID } from '../../types';
 import {
   BasicDetailsSection,
-  LocationDetailsViewCard,
+  LocationDetailsSection,
   SignageDetailsSection,
 } from './stop-details';
 
 export class StopDetailsPage {
   basicDetails = new BasicDetailsSection();
 
-  locationDetailsViewCard = new LocationDetailsViewCard();
+  locationDetails = new LocationDetailsSection();
 
   signageDetails = new SignageDetailsSection();
 
