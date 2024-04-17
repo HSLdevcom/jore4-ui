@@ -15,6 +15,7 @@ import { Tag } from '../../enums';
 import {
   BasicDetailsForm,
   BasicDetailsViewCard,
+  LocationDetailsViewCard,
   SignageDetailsViewCard,
   StopDetailsPage,
   Toast,
@@ -394,28 +395,33 @@ describe('Stop details', () => {
   });
 
   describe('location details', () => {
+    let locationView: LocationDetailsViewCard;
+
+    beforeEach(() => {
+      locationView = stopDetailsPage.locationDetails.viewCard;
+    });
+
     it('should view location details', { tags: [Tag.StopRegistry] }, () => {
       stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
       stopDetailsPage.page().shouldBeVisible();
 
-      const details = stopDetailsPage.locationDetailsViewCard;
-      details.getContainer().shouldBeVisible();
-      details.getStreetAddress().shouldHaveText('Mannerheimintie 22-24');
-      details.getPostalCode().shouldHaveText('00100');
-      details.getMunicipality().shouldHaveText('-');
-      details.getTariffZone().shouldHaveText('-');
-      details.getLatitude().shouldHaveText('60.166003223527824');
-      details.getLongitude().shouldHaveText('24.932072417514647');
-      details.getAltitude().shouldHaveText('0');
-      details.getFunctionalArea().shouldHaveText('20 m');
-      details.getStopArea().shouldHaveText('-');
-      details.getStopAreaName().shouldHaveText('-');
-      details.getStopAreaStops().shouldHaveText('-');
-      details.getQuay().shouldHaveText('-');
-      details.getStopAreaQuays().shouldHaveText('-');
-      details.getTerminal().shouldHaveText('-');
-      details.getTerminalName().shouldHaveText('-');
-      details.getTerminalStops().shouldHaveText('-');
+      locationView.getContainer().shouldBeVisible();
+      locationView.getStreetAddress().shouldHaveText('Mannerheimintie 22-24');
+      locationView.getPostalCode().shouldHaveText('00100');
+      locationView.getMunicipality().shouldHaveText('-');
+      locationView.getTariffZone().shouldHaveText('-');
+      locationView.getLatitude().shouldHaveText('60.166003223527824');
+      locationView.getLongitude().shouldHaveText('24.932072417514647');
+      locationView.getAltitude().shouldHaveText('0');
+      locationView.getFunctionalArea().shouldHaveText('20 m');
+      locationView.getStopArea().shouldHaveText('-');
+      locationView.getStopAreaName().shouldHaveText('-');
+      locationView.getStopAreaStops().shouldHaveText('-');
+      locationView.getQuay().shouldHaveText('-');
+      locationView.getStopAreaQuays().shouldHaveText('-');
+      locationView.getTerminal().shouldHaveText('-');
+      locationView.getTerminalName().shouldHaveText('-');
+      locationView.getTerminalStops().shouldHaveText('-');
     });
   });
 
