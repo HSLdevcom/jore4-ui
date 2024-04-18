@@ -150,6 +150,63 @@ describe('Stop details', () => {
     );
   });
 
+  const verifyInitialBasicDetails = () => {
+    const bdView = stopDetailsPage.basicDetails.viewCard;
+
+    bdView.getContent().shouldBeVisible();
+    bdView.getLabel().shouldHaveText('H2003');
+    bdView.getPublicCode().shouldHaveText('10003');
+    bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
+    bdView.getNameSwe().shouldHaveText('Norraesplanaden');
+    bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
+    bdView.getNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
+    bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
+    bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
+    bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
+    bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
+    bdView.getAbbreviation5CharFin().shouldHaveText('P.Esp');
+    bdView.getAbbreviation5CharSwe().shouldHaveText('N.Esp');
+    bdView.getElyNumber().shouldHaveText('1234567');
+
+    bdView.getTimingPlaceId().shouldHaveText('1AURLA');
+    bdView.getStopType().shouldHaveText('Runkolinja, vaihtopysäkki');
+    bdView.getTransportMode().shouldHaveText('Bussi');
+  };
+
+  const verifyInitialLocationDetails = () => {
+    const locationView = stopDetailsPage.locationDetails.viewCard;
+
+    locationView.getContainer().shouldBeVisible();
+    locationView.getStreetAddress().shouldHaveText('Mannerheimintie 22-24');
+    locationView.getPostalCode().shouldHaveText('00100');
+    locationView.getMunicipality().shouldHaveText('-');
+    locationView.getTariffZone().shouldHaveText('-');
+    locationView.getLatitude().shouldHaveText('60.166003223527824');
+    locationView.getLongitude().shouldHaveText('24.932072417514647');
+    locationView.getAltitude().shouldHaveText('0');
+    locationView.getFunctionalArea().shouldHaveText('20 m');
+    locationView.getStopArea().shouldHaveText('-');
+    locationView.getStopAreaName().shouldHaveText('-');
+    locationView.getStopAreaStops().shouldHaveText('-');
+    locationView.getQuay().shouldHaveText('-');
+    locationView.getStopAreaQuays().shouldHaveText('-');
+    locationView.getTerminal().shouldHaveText('-');
+    locationView.getTerminalName().shouldHaveText('-');
+    locationView.getTerminalStops().shouldHaveText('-');
+  };
+
+  const verifyInitialSignageDetails = () => {
+    const signView = stopDetailsPage.signageDetails.viewCard;
+
+    signView.getContainer().shouldBeVisible();
+    signView.getSignType().shouldHaveText('Tolppamerkki');
+    signView.getNumberOfFrames().shouldHaveText('12');
+    signView.getLineSignage().shouldHaveText('Kyllä');
+    signView.getMainLineSign().shouldHaveText('Ei');
+    signView.getReplacesRailSign().shouldHaveText('Ei');
+    signView.getSignageInstructionExceptions().shouldHaveText('Ohjetekstiä...');
+  };
+
   it(
     'should view details for a stop',
     { tags: [Tag.StopRegistry, Tag.Smoke] },
@@ -408,23 +465,7 @@ describe('Stop details', () => {
       stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
       stopDetailsPage.page().shouldBeVisible();
 
-      locationView.getContainer().shouldBeVisible();
-      locationView.getStreetAddress().shouldHaveText('Mannerheimintie 22-24');
-      locationView.getPostalCode().shouldHaveText('00100');
-      locationView.getMunicipality().shouldHaveText('-');
-      locationView.getTariffZone().shouldHaveText('-');
-      locationView.getLatitude().shouldHaveText('60.166003223527824');
-      locationView.getLongitude().shouldHaveText('24.932072417514647');
-      locationView.getAltitude().shouldHaveText('0');
-      locationView.getFunctionalArea().shouldHaveText('20 m');
-      locationView.getStopArea().shouldHaveText('-');
-      locationView.getStopAreaName().shouldHaveText('-');
-      locationView.getStopAreaStops().shouldHaveText('-');
-      locationView.getQuay().shouldHaveText('-');
-      locationView.getStopAreaQuays().shouldHaveText('-');
-      locationView.getTerminal().shouldHaveText('-');
-      locationView.getTerminalName().shouldHaveText('-');
-      locationView.getTerminalStops().shouldHaveText('-');
+      verifyInitialLocationDetails();
 
       stopDetailsPage.locationDetails.getEditButton().click();
       locationView.getContainer().should('not.exist');
@@ -483,15 +524,7 @@ describe('Stop details', () => {
         stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
         stopDetailsPage.page().shouldBeVisible();
 
-        signView.getContainer().shouldBeVisible();
-        signView.getSignType().shouldHaveText('Tolppamerkki');
-        signView.getNumberOfFrames().shouldHaveText('12');
-        signView.getLineSignage().shouldHaveText('Kyllä');
-        signView.getMainLineSign().shouldHaveText('Ei');
-        signView.getReplacesRailSign().shouldHaveText('Ei');
-        signView
-          .getSignageInstructionExceptions()
-          .shouldHaveText('Ohjetekstiä...');
+        verifyInitialSignageDetails();
 
         stopDetailsPage.signageDetails.getEditButton().click();
         signView.getContainer().should('not.exist');
@@ -528,5 +561,33 @@ describe('Stop details', () => {
           .shouldHaveText('Uusi teksti');
       },
     );
+  });
+
+  // A regression test to ensure that our mutations don't eg. reset any fields they are not supposed to.
+  it('should keep stop place intact when submitting without actual changes', () => {
+    stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+    stopDetailsPage.page().shouldBeVisible();
+
+    verifyInitialBasicDetails();
+    verifyInitialLocationDetails();
+    verifyInitialSignageDetails();
+
+    // Submit each section, without any actual changes.
+    stopDetailsPage.basicDetails.getEditButton().click();
+    stopDetailsPage.basicDetails.getSaveButton().click();
+    toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+
+    stopDetailsPage.locationDetails.getEditButton().click();
+    stopDetailsPage.locationDetails.getSaveButton().click();
+    toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+
+    stopDetailsPage.signageDetails.getEditButton().click();
+    stopDetailsPage.signageDetails.getSaveButton().click();
+    toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+
+    // The stop should have same data as when we started.
+    verifyInitialBasicDetails();
+    verifyInitialLocationDetails();
+    verifyInitialSignageDetails();
   });
 });

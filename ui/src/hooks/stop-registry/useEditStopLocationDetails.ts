@@ -7,7 +7,11 @@ import {
   StopRegistryGeoJsonType,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
-import { setMultipleKeyValues, showDangerToast } from '../../utils';
+import {
+  getRequiredStopPlaceMutationProperties,
+  setMultipleKeyValues,
+  showDangerToast,
+} from '../../utils';
 import { StopWithDetails } from './useGetStopDetails';
 
 interface EditTiamatParams {
@@ -54,6 +58,7 @@ export const useEditStopLocationDetails = () => {
     const stopPlaceId = stop.stop_place?.id;
 
     const input = {
+      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
       id: stopPlaceId,
       keyValues: combinedKeyValues,
       // Note: this can't be modified (at the moment at least), but currently this is the only place where it is synced to timetables DB.
@@ -61,11 +66,6 @@ export const useEditStopLocationDetails = () => {
         coordinates: [[state.longitude, state.latitude]],
         type: StopRegistryGeoJsonType.Point,
       },
-      // TODO: find out if there's a more robust way to do this.
-      // Needs to be included because otherwise the mutation will clear this field.
-      description:
-        stop.stop_place?.description &&
-        omit(stop.stop_place?.description, '__typename'),
     };
 
     return input;
