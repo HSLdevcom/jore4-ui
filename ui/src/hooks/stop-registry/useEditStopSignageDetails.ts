@@ -3,7 +3,10 @@ import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 import { SignageDetailsFormState } from '../../components/stop-registry/stops/stop-details/signage-details/schema';
 import { useUpdateStopPlaceMutation } from '../../generated/graphql';
-import { showDangerToast } from '../../utils';
+import {
+  getRequiredStopPlaceMutationProperties,
+  showDangerToast,
+} from '../../utils';
 import { StopWithDetails } from './useGetStopDetails';
 
 interface EditTiamatParams {
@@ -19,13 +22,11 @@ export const useEditStopSignageDetails = () => {
     state,
     stop,
   }: EditTiamatParams) => {
-    const stopPlaceId = stop.stop_place?.id;
-
     const initialPlaceEquipments = stop.stop_place?.placeEquipments || {};
     const initialGeneralSign = initialPlaceEquipments?.generalSign?.[0] || {};
 
     const input = {
-      id: stopPlaceId,
+      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
       placeEquipments: {
         ...omit(initialPlaceEquipments, '__typename'),
         // Note, assuming here that there is always 0-1 general signs
@@ -50,11 +51,6 @@ export const useEditStopSignageDetails = () => {
           },
         ],
       },
-      // TODO: find out if there's a more robust way to do this.
-      // Needs to be included because otherwise the mutation will clear this field.
-      description:
-        stop.stop_place?.description &&
-        omit(stop.stop_place?.description, '__typename'),
     };
 
     return input;

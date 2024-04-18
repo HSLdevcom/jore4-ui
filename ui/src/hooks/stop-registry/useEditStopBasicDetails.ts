@@ -20,6 +20,7 @@ import {
   InternalError,
   TimingPlaceRequiredError,
   defaultTo,
+  getRequiredStopPlaceMutationProperties,
   setMultipleAlternativeNames,
   setMultipleKeyValues,
   showDangerToast,
@@ -183,7 +184,6 @@ export const useEditStopBasicDetails = () => {
           },
       ) || [];
 
-    const stopPlaceId = stop.stop_place?.id;
     const stopPlaceQuayId =
       stop.stop_place?.quays && stop.stop_place?.quays[0]?.id;
 
@@ -238,7 +238,7 @@ export const useEditStopBasicDetails = () => {
     );
 
     const input = {
-      id: stopPlaceId,
+      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
       publicCode: state.publicCode,
       privateCode: { value: state.elyNumber, type: 'ELY' },
       name: {

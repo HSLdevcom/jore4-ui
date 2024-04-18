@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
+import omit from 'lodash/omit';
 import {
   Maybe,
   StopRegistryAlternativeName,
@@ -8,6 +9,7 @@ import {
   StopRegistryNameType,
   StopRegistryParentStopPlace,
   StopRegistryStopPlace,
+  StopRegistryStopPlaceInput,
   StopRegistrySubmodeType,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
@@ -224,5 +226,28 @@ export const getStopPlaceDetailsForEnrichment = <
         stopPlace.submode === StopRegistrySubmodeType.RailReplacementBus,
       virtual: findKeyValue(stopPlace, 'virtual') === 'true',
     },
+  };
+};
+
+/**
+ * A helper that returns properties which should always be included when updating a stop place.
+ * Without these the mutation might have undesired side effects.
+ * These can still be overridden in the mutation if needed.
+ */
+export const getRequiredStopPlaceMutationProperties = <
+  T extends StopRegistryStopPlace & StopPlaceEnrichmentProperties,
+>(
+  stopPlace: T | null,
+): Partial<StopRegistryStopPlaceInput> => {
+  if (!stopPlace) {
+    return {};
+  }
+
+  return {
+    // Without id the mutation creates a new stop place.
+    id: stopPlace.id,
+    // Needs to be included because otherwise the mutation will clear this field.
+    description:
+      stopPlace.description && omit(stopPlace.description, '__typename'),
   };
 };
