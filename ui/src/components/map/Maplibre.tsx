@@ -163,7 +163,8 @@ export const Maplibre: FunctionComponent<Props> = ({
       onLoad={onLoad}
       transformRequest={transformRequest}
       interactiveLayerIds={interactiveLayerIds}
-      cursor='auto'
+      cursor="auto"
+      attributionControl={false}
     >
       {children}
       <NavigationControl style={navStyle} showCompass={false} />

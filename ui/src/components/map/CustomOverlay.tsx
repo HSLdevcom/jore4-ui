@@ -4,7 +4,11 @@
 import * as React from 'react';
 import { cloneElement, useState } from 'react';
 import { createPortal } from 'react-dom';
-import type { ControlPosition, IControl, MapInstance } from 'react-map-gl/maplibre';
+import type {
+  ControlPosition,
+  IControl,
+  MapInstance,
+} from 'react-map-gl/maplibre';
 import { useControl } from 'react-map-gl/maplibre';
 
 // Based on template in https://docs.mapbox.com/mapbox-gl-js/api/markers/#icontrol

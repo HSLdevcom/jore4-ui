@@ -5,8 +5,8 @@ interface Props {
   layerId: string;
   geometry: GeoJSON.LineString;
   beforeId?: string;
-  layout?: Partial<mapboxgl.SymbolLayout>;
-  paint?: Partial<mapboxgl.SymbolPaint>;
+  layout?: any;
+  paint?: any;
   minzoom?: number;
 }
 
@@ -19,7 +19,7 @@ export const ArrowRenderLayer = ({
   paint,
   minzoom,
 }: Props) => {
-  const defaultLayout: mapboxgl.SymbolLayout = {
+  const defaultLayout = {
     'symbol-placement': 'line',
     'symbol-spacing': 100,
     'icon-allow-overlap': true,

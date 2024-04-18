@@ -143,7 +143,7 @@ export const MapComponent = (
     >
       <Stops ref={stopsRef} />
       <CustomOverlay position="top-left">
-        <Column className="items-start overflow-hidden p-8">
+        <Column className="items-start overflow-hidden p-2">
           <FilterPanel
             routes={[
               {
@@ -174,16 +174,14 @@ export const MapComponent = (
             }}
           />
           {(!!selectedRouteId || hasDraftRouteGeometry) && (
-            <RouteStopsOverlay className="mt-4 overflow-hidden" />
+            <RouteStopsOverlay className="mt-2 max-h-[60vh] overflow-hidden" />
           )}
         </Column>
       </CustomOverlay>
-      <CustomOverlay position="top-left">
-        <Column>
-          {showStopFilterOverlay && (
-            <StopFilterOverlay className="mr-12 mb-4" />
-          )}
-          <ObservationDateOverlay className="mr-12 mb-8" />
+      <CustomOverlay position="bottom-right">
+        <Column className="items-end p-2">
+          {showStopFilterOverlay && <StopFilterOverlay className="mb-2" />}
+          <ObservationDateOverlay />
         </Column>
       </CustomOverlay>
       <EditRouteMetadataLayer />

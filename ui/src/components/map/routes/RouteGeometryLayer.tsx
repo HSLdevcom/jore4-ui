@@ -49,23 +49,23 @@ export const RouteGeometryLayer = ({
   // Offset line to right side of the infra link
   const lineOffset = 6;
 
-  const linePaint: mapboxgl.LinePaint = {
+  const linePaint = {
     'line-color': color,
     'line-width': isHighlighted ? 9 : 8,
     'line-offset': lineOffset,
   };
 
-  const arrowLayout: mapboxgl.SymbolLayout = {
+  const arrowLayout = {
     'icon-offset': [0, lineOffset],
   };
 
-  const arrowPaint: mapboxgl.SymbolPaint = {
+  const arrowPaint = {
     'icon-color': color,
   };
 
   const lineRenderLayerId = routeId
     ? mapRouteIdToLineLayerId(routeId)
-    : NEW_ROUTE_LINE_ID
+    : NEW_ROUTE_LINE_ID;
   const arrowRenderLayerId = routeId
     ? mapRouteIdToArrowLayerId(routeId)
     : NEW_ROUTE_ARROWS_ID;

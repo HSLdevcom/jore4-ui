@@ -116,7 +116,7 @@ export const drawLineToClosestRoad = (
   if (!map) {
     return;
   }
-  
+
   const features: Feature<LineString>[] = findFeaturesForLayerWithRadius(
     map,
     ROAD_LAYER_ID,
