@@ -28,7 +28,7 @@ export const CreateStopMarker = (): JSX.Element => {
     () => debounce(drawLineToClosestRoad, 1),
     [],
   );
-  
+
   // useCallback ensures that onMouseMove function is same
   // when calling map.on and map.off
   const onMouseMove = useCallback(

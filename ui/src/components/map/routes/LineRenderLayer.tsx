@@ -6,8 +6,8 @@ interface Props {
   layerId: string;
   geometry: GeoJSON.LineString;
   beforeId?: string;
-  layout?: Partial<mapboxgl.LineLayout>;
-  paint?: Partial<mapboxgl.LinePaint>;
+  layout?: any;
+  paint?: any;
 }
 
 // this layer renders a static line
@@ -18,12 +18,12 @@ export const LineRenderLayer = ({
   layout,
   paint,
 }: Props) => {
-  const defaultLayout: mapboxgl.LineLayout = {
+  const defaultLayout = {
     'line-join': 'round',
     'line-cap': 'round',
   };
 
-  const defaultPaint: mapboxgl.LinePaint = {
+  const defaultPaint = {
     'line-color': theme.colors.routes.bus,
     'line-width': 8,
     'line-offset': 6,

@@ -71,10 +71,7 @@ export const Stop = ({
   const centerDotSize = 3;
 
   return (
-    <Marker
-      longitude={longitude}
-      latitude={latitude}
-    >
+    <Marker longitude={longitude} latitude={latitude}>
       <Circle
         size={selected ? selectedIconSize : iconSize}
         testId={testId}
