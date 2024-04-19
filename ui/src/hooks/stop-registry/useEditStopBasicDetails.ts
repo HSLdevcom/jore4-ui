@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
-import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 import { StopBasicDetailsFormState } from '../../components/stop-registry/stops/stop-details/basic-details/basic-details-form/schema';
 import {
@@ -21,8 +20,8 @@ import {
   TimingPlaceRequiredError,
   defaultTo,
   getRequiredStopPlaceMutationProperties,
-  setMultipleAlternativeNames,
-  setMultipleKeyValues,
+  patchAlternativeNames,
+  patchKeyValues,
   showDangerToast,
 } from '../../utils';
 import { useValidateTimingSettings } from '../stops/useValidateTimingSettings';
@@ -157,46 +156,20 @@ export const useEditStopBasicDetails = () => {
     state,
     stop,
   }: EditTiamatParams) => {
-    // TODO: These maps and typanem omits can be avoided completely by using
-    // newer version of apollo client and then adding removeTypenameFromVariables link
-    // but that currently causes a random cache desync with timing settings dropdown
-    // so lets just use these omits for now and replace them in an individual PR
-    // where we upgrade apollo client to > 3.8
-    const initialKeyValues =
-      stop?.stop_place?.keyValues?.map((keyValue) =>
-        omit(keyValue, '__typename'),
-      ) || [];
-    const initialAlternativeNames = stop.stop_place?.alternativeNames?.map(
-      (alternativeName) =>
-        alternativeName && {
-          name: omit(alternativeName.name, '__typename'),
-          nameType: alternativeName.nameType,
-        },
-    );
-    const initialQuayAlternativeNames =
-      (
-        stop.stop_place?.quays && stop.stop_place?.quays[0]?.alternativeNames
-      )?.map(
-        (alternativeName) =>
-          alternativeName && {
-            name: omit(alternativeName?.name, '__typename'),
-            nameType: alternativeName.nameType,
-          },
-      ) || [];
-
     const stopPlaceId = stop.stop_place?.id;
     const stopPlaceQuayId =
       stop.stop_place?.quays && stop.stop_place?.quays[0]?.id;
 
-    const combinedKeyValues = setMultipleKeyValues(initialKeyValues, [
-      { key: 'stopState', values: [state.stopState.toString()] },
-      { key: 'mainLine', values: [state.stopTypes.mainLine.toString()] },
-      { key: 'virtual', values: [state.stopTypes.virtual.toString()] },
-    ]);
-
-    const combinedAlternativeNames = setMultipleAlternativeNames(
-      initialAlternativeNames,
-      [
+    const input = {
+      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
+      id: stopPlaceId,
+      publicCode: state.publicCode,
+      privateCode: { value: state.elyNumber, type: 'ELY' },
+      name: {
+        lang: 'fin',
+        value: state.nameFin,
+      },
+      alternativeNames: patchAlternativeNames(stop.stop_place, [
         {
           name: { lang: 'swe', value: state.nameSwe },
           nameType: StopRegistryNameType.Translation,
@@ -221,33 +194,7 @@ export const useEditStopBasicDetails = () => {
           name: { lang: 'swe', value: state.nameLongSwe },
           nameType: StopRegistryNameType.Alias,
         },
-      ],
-    );
-
-    const combinedQuayAlternativeNames = setMultipleAlternativeNames(
-      initialQuayAlternativeNames,
-      [
-        {
-          name: { lang: 'fin', value: state.abbreviationFin },
-          nameType: StopRegistryNameType.Alias,
-        },
-        {
-          name: { lang: 'swe', value: state.abbreviationSwe },
-          nameType: StopRegistryNameType.Alias,
-        },
-      ],
-    );
-
-    const input = {
-      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
-      id: stopPlaceId,
-      publicCode: state.publicCode,
-      privateCode: { value: state.elyNumber, type: 'ELY' },
-      name: {
-        lang: 'fin',
-        value: state.nameFin,
-      },
-      alternativeNames: combinedAlternativeNames,
+      ]),
       weighting: state.stopTypes.interchange
         ? StopRegistryInterchangeWeightingType.RecommendedInterchange
         : StopRegistryInterchangeWeightingType.NoInterchange,
@@ -255,13 +202,26 @@ export const useEditStopBasicDetails = () => {
         (state.stopTypes.railReplacement &&
           StopRegistrySubmodeType.RailReplacementBus) ||
         null,
-      keyValues: combinedKeyValues,
+      keyValues: patchKeyValues(stop.stop_place, [
+        { key: 'stopState', values: [state.stopState.toString()] },
+        { key: 'mainLine', values: [state.stopTypes.mainLine.toString()] },
+        { key: 'virtual', values: [state.stopTypes.virtual.toString()] },
+      ]),
       description: { lang: 'fin', value: state.locationFin },
       quays: [
         {
           publicCode: state.label,
           id: stopPlaceQuayId,
-          alternativeNames: combinedQuayAlternativeNames,
+          alternativeNames: patchAlternativeNames(stop.stop_place, [
+            {
+              name: { lang: 'fin', value: state.abbreviationFin },
+              nameType: StopRegistryNameType.Alias,
+            },
+            {
+              name: { lang: 'swe', value: state.abbreviationSwe },
+              nameType: StopRegistryNameType.Alias,
+            },
+          ]),
         },
       ],
       transportMode: state.transportMode,
