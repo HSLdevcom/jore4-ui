@@ -162,6 +162,45 @@ export const setMultipleKeyValues = (
   }, initialKeyValues);
 };
 
+// TODO: This typename omit can be avoided completely by using
+// newer version of apollo client and then adding removeTypenameFromVariables link
+// but that currently causes a random cache desync with timing settings dropdown
+// so lets just use these omits for now and replace them in an individual PR
+// where we upgrade apollo client to > 3.8
+const omitTypename = <T extends { __typename?: string } | null>(
+  obj: T,
+): Omit<T, '__typename'> => {
+  return obj && omit(obj, '__typename');
+};
+
+export const patchKeyValues = (
+  stopPlace: Pick<StopRegistryStopPlace, 'keyValues'> | null,
+  updates: { key: string; values: string[] }[],
+) => {
+  const initialKeyValues =
+    stopPlace?.keyValues?.map((keyValue) => omitTypename(keyValue)) || [];
+
+  return setMultipleKeyValues(initialKeyValues, updates);
+};
+
+export const patchAlternativeNames = (
+  stopPlace: Pick<StopRegistryStopPlace, 'alternativeNames'> | null,
+  updates: {
+    name: { lang: string; value: string | undefined };
+    nameType: StopRegistryNameType;
+  }[],
+) => {
+  const initialAlternativeNames = stopPlace?.alternativeNames?.map(
+    (alternativeName) =>
+      alternativeName && {
+        name: omitTypename(alternativeName.name),
+        nameType: alternativeName.nameType,
+      },
+  );
+
+  return setMultipleAlternativeNames(initialAlternativeNames, updates);
+};
+
 const findKeyValueParsed = <T = string>(
   stopPlace: StopRegistryStopPlace,
   key: string,

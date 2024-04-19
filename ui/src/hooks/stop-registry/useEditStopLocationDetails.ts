@@ -1,6 +1,5 @@
 import compact from 'lodash/compact';
 import isNumber from 'lodash/isNumber';
-import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 import { LocationDetailsFormState } from '../../components/stop-registry/stops/stop-details/location-details/schema';
 import {
@@ -9,7 +8,7 @@ import {
 } from '../../generated/graphql';
 import {
   getRequiredStopPlaceMutationProperties,
-  setMultipleKeyValues,
+  patchKeyValues,
   showDangerToast,
 } from '../../utils';
 import { StopWithDetails } from './useGetStopDetails';
@@ -27,37 +26,25 @@ export const useEditStopLocationDetails = () => {
     state,
     stop,
   }: EditTiamatParams) => {
-    // TODO: These maps and typanem omits can be avoided completely by using
-    // newer version of apollo client and then adding removeTypenameFromVariables link
-    // but that currently causes a random cache desync with timing settings dropdown
-    // so lets just use these omits for now and replace them in an individual PR
-    // where we upgrade apollo client to > 3.8
-    const initialKeyValues =
-      stop?.stop_place?.keyValues?.map((keyValue) =>
-        omit(keyValue, '__typename'),
-      ) || [];
-
-    const combinedKeyValues = setMultipleKeyValues(
-      initialKeyValues,
-      compact([
-        state.streetAddress && {
-          key: 'streetAddress',
-          values: [state.streetAddress.toString()],
-        },
-        state.postalCode && {
-          key: 'postalCode',
-          values: [state.postalCode.toString()],
-        },
-        isNumber(state.functionalArea) && {
-          key: 'functionalArea',
-          values: [state.functionalArea.toString()],
-        },
-      ]),
-    );
-
     const input = {
       ...getRequiredStopPlaceMutationProperties(stop.stop_place),
-      keyValues: combinedKeyValues,
+      keyValues: patchKeyValues(
+        stop?.stop_place,
+        compact([
+          state.streetAddress && {
+            key: 'streetAddress',
+            values: [state.streetAddress.toString()],
+          },
+          state.postalCode && {
+            key: 'postalCode',
+            values: [state.postalCode.toString()],
+          },
+          isNumber(state.functionalArea) && {
+            key: 'functionalArea',
+            values: [state.functionalArea.toString()],
+          },
+        ]),
+      ),
       // Note: this can't be modified (at the moment at least), but currently this is the only place where it is synced to timetables DB.
       geometry: {
         coordinates: [[state.longitude, state.latitude]],
