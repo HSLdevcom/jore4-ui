@@ -10333,8 +10333,6 @@ export type StopRegistryTopographicPlace = {
 
 export type StopRegistryTopographicPlaceInput = {
   id?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
-  topographicPlaceType?: InputMaybe<StopRegistryTopographicPlaceType>;
 };
 
 export enum StopRegistryTopographicPlaceType {
