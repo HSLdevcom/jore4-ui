@@ -66,6 +66,16 @@ const GQL_QUAY_DETAILS = gql`
   }
 `;
 
+const GQL_TOPOGRAPHIC_PLACE_DETAILS = gql`
+  fragment topographic_place_details on stop_registry_TopographicPlace {
+    id
+    name {
+      value
+      lang
+    }
+  }
+`;
+
 const GQL_STOP_PLACE_DETAILS = gql`
   fragment stop_place_details on stop_registry_StopPlace {
     id
@@ -99,6 +109,9 @@ const GQL_STOP_PLACE_DETAILS = gql`
     geometry {
       coordinates
       type
+    }
+    topographicPlace {
+      ...topographic_place_details
     }
     placeEquipments {
       generalSign {

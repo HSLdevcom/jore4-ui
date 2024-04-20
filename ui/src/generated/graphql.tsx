@@ -65279,6 +65279,15 @@ export type UpdateStopPlaceMutation = {
         coordinates?: any | null;
         type?: StopRegistryGeoJsonType | null;
       } | null;
+      topographicPlace?: {
+        __typename?: 'stop_registry_TopographicPlace';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+          lang?: string | null;
+        } | null;
+      } | null;
       placeEquipments?: {
         __typename?: 'stop_registry_PlaceEquipments';
         generalSign?: Array<{
@@ -65410,6 +65419,15 @@ export type GetStopDetailsByIdQuery = {
             coordinates?: any | null;
             type?: StopRegistryGeoJsonType | null;
           } | null;
+          topographicPlace?: {
+            __typename?: 'stop_registry_TopographicPlace';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+              lang?: string | null;
+            } | null;
+          } | null;
           placeEquipments?: {
             __typename?: 'stop_registry_PlaceEquipments';
             generalSign?: Array<{
@@ -65495,6 +65513,16 @@ export type QuayDetailsFragment = {
   } | null;
 };
 
+export type TopographicPlaceDetailsFragment = {
+  __typename?: 'stop_registry_TopographicPlace';
+  id?: string | null;
+  name?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    value?: string | null;
+    lang?: string | null;
+  } | null;
+};
+
 export type StopPlaceDetailsFragment = {
   __typename?: 'stop_registry_StopPlace';
   id?: string | null;
@@ -65535,6 +65563,15 @@ export type StopPlaceDetailsFragment = {
     __typename?: 'stop_registry_GeoJSON';
     coordinates?: any | null;
     type?: StopRegistryGeoJsonType | null;
+  } | null;
+  topographicPlace?: {
+    __typename?: 'stop_registry_TopographicPlace';
+    id?: string | null;
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      value?: string | null;
+      lang?: string | null;
+    } | null;
   } | null;
   placeEquipments?: {
     __typename?: 'stop_registry_PlaceEquipments';
@@ -67438,6 +67475,15 @@ export const ScheduledStopPointDetailFieldsFragmentDoc = gql`
     measured_location
   }
 `;
+export const TopographicPlaceDetailsFragmentDoc = gql`
+  fragment topographic_place_details on stop_registry_TopographicPlace {
+    id
+    name {
+      value
+      lang
+    }
+  }
+`;
 export const QuayDetailsFragmentDoc = gql`
   fragment quay_details on stop_registry_Quay {
     id
@@ -67494,6 +67540,9 @@ export const StopPlaceDetailsFragmentDoc = gql`
       coordinates
       type
     }
+    topographicPlace {
+      ...topographic_place_details
+    }
     placeEquipments {
       generalSign {
         privateCode {
@@ -67515,6 +67564,7 @@ export const StopPlaceDetailsFragmentDoc = gql`
       ...quay_details
     }
   }
+  ${TopographicPlaceDetailsFragmentDoc}
   ${QuayDetailsFragmentDoc}
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
