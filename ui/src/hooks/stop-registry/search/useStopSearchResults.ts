@@ -1,19 +1,15 @@
 import { gql } from '@apollo/client';
 import {
-  OrderBy,
+  SearchStopsQueryResult,
   SearchStopsQueryVariables,
-  ServicePatternScheduledStopPointBoolExp,
-  ServicePatternScheduledStopPointOrderBy,
   StopTableRowFragment,
   StopTableRowStopPlaceFragment,
+  StopsDatabaseStopPlaceNewestVersionBoolExp,
   useSearchStopsQuery,
 } from '../../../generated/graphql';
 import {
-  StopPlaceEnrichmentProperties,
-  buildLabelLikeGqlFilter,
   buildOptionalSearchConditionGqlFilter,
-  getStopPlaceDetailsForEnrichment,
-  getStopPlaceFromQueryResult,
+  buildTiamatStopQuayPublicCodeLikeGqlFilter,
   mapToSqlLikeValue,
   mapToVariables,
 } from '../../../utils';
@@ -21,23 +17,6 @@ import {
   StopSearchConditions,
   useStopSearchQueryParser,
 } from './useStopSearchQueryParser';
-
-const GQL_STOP_TABLE_ROW_STOP_PLACE = gql`
-  fragment stop_table_row_stop_place on stop_registry_StopPlace {
-    id
-    name {
-      lang
-      value
-    }
-    alternativeNames {
-      nameType
-      name {
-        lang
-        value
-      }
-    }
-  }
-`;
 
 const GQL_STOP_TABLE_ROW = gql`
   fragment stop_table_row on service_pattern_scheduled_stop_point {
@@ -50,95 +29,106 @@ const GQL_STOP_TABLE_ROW = gql`
       timing_place_id
       label
     }
-    stop_place_ref
-    stop_place {
-      ...stop_table_row_stop_place
+  }
+`;
+
+const GQL_STOP_TABLE_ROW_STOP_PLACE = gql`
+  fragment stop_table_row_stop_place on stops_database_stop_place_newest_version {
+    id
+    name_value
+    stop_place_alternative_names {
+      alternative_name {
+        name_lang
+        name_type
+        name_value
+      }
+    }
+    scheduled_stop_point_instance {
+      ...stop_table_row
     }
   }
 `;
 
 const GQL_SEARCH_STOPS = gql`
   query SearchStops(
-    $stopFilter: service_pattern_scheduled_stop_point_bool_exp
-    $stopOrderBy: [service_pattern_scheduled_stop_point_order_by!]
+    $stopFilter: stops_database_stop_place_newest_version_bool_exp
   ) {
-    service_pattern_scheduled_stop_point(
-      where: $stopFilter
-      order_by: $stopOrderBy
-    ) {
-      ...stop_table_row
+    stops_database {
+      stops_database_stop_place_newest_version(where: $stopFilter) {
+        ...stop_table_row_stop_place
+      }
     }
   }
 `;
+
+type StopPlaceSearchRowDetails = {
+  nameFin?: string | null;
+  nameSwe?: string | null;
+};
+
+export type StopSearchRow = StopTableRowFragment & {
+  stop_place: StopPlaceSearchRowDetails;
+};
 
 const buildSearchStopsGqlQueryVariables = (
   searchConditions: StopSearchConditions,
 ): SearchStopsQueryVariables => {
   const stopFilter = buildOptionalSearchConditionGqlFilter<
     string,
-    ServicePatternScheduledStopPointBoolExp
-  >(mapToSqlLikeValue(searchConditions.label), buildLabelLikeGqlFilter);
-
-  // TODO: add sorting.
-  const stopOrderBy: Array<ServicePatternScheduledStopPointOrderBy> = [
-    { label: OrderBy.Asc },
-    { validity_start: OrderBy.Asc },
-  ];
+    StopsDatabaseStopPlaceNewestVersionBoolExp
+  >(
+    mapToSqlLikeValue(searchConditions.label),
+    buildTiamatStopQuayPublicCodeLikeGqlFilter,
+  );
 
   return {
     stopFilter,
-    stopOrderBy,
   };
 };
 
-type EnrichedStopTableRowStopPlace = StopTableRowStopPlaceFragment &
-  StopPlaceEnrichmentProperties;
-
-const getEnrichedStopPlace = (
-  stopPlace: StopTableRowStopPlaceFragment | null,
-): EnrichedStopTableRowStopPlace | null => {
-  if (!stopPlace) {
-    return null;
-  }
-
+const mapResultRowToStopSearchRow = (
+  stopPlace: StopTableRowStopPlaceFragment,
+) => {
   return {
-    ...stopPlace,
-    ...getStopPlaceDetailsForEnrichment(stopPlace),
+    ...(stopPlace.scheduled_stop_point_instance as StopTableRowFragment),
+    stop_place: {
+      nameFin: stopPlace.name_value,
+      nameSwe: stopPlace.stop_place_alternative_names.find(
+        (alternativeName) =>
+          alternativeName.alternative_name.name_lang === 'swe' &&
+          alternativeName.alternative_name.name_type === 'TRANSLATION',
+      )?.alternative_name.name_value,
+    },
   };
 };
 
-export type EnrichedStopTableRow = Omit<StopTableRowFragment, 'stop_place'> & {
-  stop_place: null | EnrichedStopTableRowStopPlace;
-};
+const mapQueryResultToStopSearchRows = (
+  result: SearchStopsQueryResult,
+): StopSearchRow[] =>
+  result.data?.stops_database?.stops_database_stop_place_newest_version.map(
+    mapResultRowToStopSearchRow,
+  ) || [];
 
 export const useStopSearchResults = (): {
   loading: boolean;
   resultCount: number;
-  stops: Array<EnrichedStopTableRow>;
+  stops: Array<StopSearchRow>;
 } => {
   const parsedSearchQueryParameters = useStopSearchQueryParser();
 
-  const searchQueryVariables = buildSearchStopsGqlQueryVariables(
+  const newSearchQueryVariables = buildSearchStopsGqlQueryVariables(
     parsedSearchQueryParameters.search,
   );
 
-  const result = useSearchStopsQuery(mapToVariables(searchQueryVariables));
+  const result = useSearchStopsQuery(mapToVariables(newSearchQueryVariables));
+
+  const stopSearchRows = mapQueryResultToStopSearchRows(result);
+
   const { loading } = result;
-  const stops = result.data?.service_pattern_scheduled_stop_point || [];
-  const stopsWithEnrichedDetails = stops.map((stop) => {
-    return {
-      ...stop,
-      stop_place: getEnrichedStopPlace(
-        getStopPlaceFromQueryResult<StopTableRowStopPlaceFragment>(
-          stop?.stop_place,
-        ),
-      ),
-    };
-  });
 
   return {
     loading,
-    resultCount: stops.length,
-    stops: stopsWithEnrichedDetails,
+    resultCount: stopSearchRows.length,
+    stops: stopSearchRows,
   };
 };
