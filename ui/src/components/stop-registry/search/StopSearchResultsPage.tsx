@@ -7,18 +7,19 @@ import {
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { CloseIconButton, Pagination } from '../../../uiComponents';
 import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
+import { sortAlphabetically } from '../../../utils';
 import { StopSearchBar } from './StopSearchBar';
 import { StopSearchResultList } from './StopSearchResultList';
 
 export const StopSearchResultPage = (): JSX.Element => {
   const { handleClose } = useStopSearch();
-  const { resultCount } = useStopSearchResults();
   const { t } = useTranslation();
-  const { stops, loading } = useStopSearchResults();
+  const { stops, loading, resultCount } = useStopSearchResults();
 
   const itemsPerPage = 10;
   const { getPaginatedData } = usePagination();
-  const displayedStops = getPaginatedData(stops, itemsPerPage);
+  const sortedStopsByLabel = sortAlphabetically(stops, 'label');
+  const displayedStops = getPaginatedData(sortedStopsByLabel, itemsPerPage);
 
   const testIds = {
     container: 'StopSearchResultsPage::Container',
