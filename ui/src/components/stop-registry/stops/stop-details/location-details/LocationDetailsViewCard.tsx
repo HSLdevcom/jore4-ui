@@ -8,7 +8,7 @@ const testIds = {
   streetAddress: 'LocationDetailsViewCard::streetAddress',
   postalCode: 'LocationDetailsViewCard::postalCode',
   municipality: 'LocationDetailsViewCard::municipality',
-  tariffZone: 'LocationDetailsViewCard::tariffZone',
+  fareZone: 'LocationDetailsViewCard::fareZone',
   latitude: 'LocationDetailsViewCard::latitude',
   longitude: 'LocationDetailsViewCard::longitude',
   altitude: 'LocationDetailsViewCard::altitude',
@@ -53,9 +53,9 @@ export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
           testId={testIds.municipality}
         />
         <LabeledDetail
-          title={t('stopDetails.location.tariffZone')}
+          title={t('stopDetails.location.fareZone')}
           detail={null}
-          testId={testIds.tariffZone}
+          testId={testIds.fareZone}
         />
       </DetailRow>
       <DetailRow>

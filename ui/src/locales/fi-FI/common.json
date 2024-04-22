@@ -145,7 +145,7 @@
       "postalCode": "Postinumero",
       "municipality": "Kunta",
       "municipalityInputNote": "Kunta määräytyy sijainnin perusteella.",
-      "tariffZone": "Maksuvyöhyke",
+      "fareZone": "Maksuvyöhyke",
       "latitude": "Leveysaste",
       "longitude": "Pituusaste",
       "altitude": "Korkeus",
