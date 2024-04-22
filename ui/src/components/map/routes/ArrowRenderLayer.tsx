@@ -5,11 +5,22 @@ interface Props {
   layerId: string;
   geometry: GeoJSON.LineString;
   beforeId?: string;
-  layout?: any;
-  paint?: any;
+  layout?: Partial<ArrowLayout>;
+  paint?: ArrowPaint;
   minzoom?: number;
 }
 
+export interface ArrowLayout {
+  'symbol-placement': 'line' | 'point' | 'line-center' | undefined;
+  'symbol-spacing': number;
+  'icon-allow-overlap': boolean;
+  'icon-image': string;
+  'icon-offset': [number, number];
+}
+
+export interface ArrowPaint {
+  'icon-color': string;
+}
 // this layer renders a static arrows
 export const ArrowRenderLayer = ({
   layerId,
@@ -19,7 +30,7 @@ export const ArrowRenderLayer = ({
   paint,
   minzoom,
 }: Props) => {
-  const defaultLayout = {
+  const defaultLayout: Partial<ArrowLayout> = {
     'symbol-placement': 'line',
     'symbol-spacing': 100,
     'icon-allow-overlap': true,
