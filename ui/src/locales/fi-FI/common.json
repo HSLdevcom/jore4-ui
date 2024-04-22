@@ -146,6 +146,7 @@
       "municipality": "Kunta",
       "municipalityInputNote": "Kunta määräytyy sijainnin perusteella.",
       "fareZone": "Maksuvyöhyke",
+      "fareZoneInputNote": "Maksuvyöhyke määräytyy sijainnin perusteella.",
       "latitude": "Leveysaste",
       "longitude": "Pituusaste",
       "altitude": "Korkeus",

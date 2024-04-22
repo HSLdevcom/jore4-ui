@@ -10,6 +10,7 @@ const testIds = {
   streetAddress: 'LocationDetailsForm::streetAddress',
   postalCode: 'LocationDetailsForm::postalCode',
   municipality: 'LocationDetailsForm::municipality',
+  fareZone: 'LocationDetailsForm::fareZone',
   latitude: 'LocationDetailsForm::latitude',
   longitude: 'LocationDetailsForm::longitude',
   altitude: 'LocationDetailsForm::altitude',
@@ -20,11 +21,12 @@ interface Props {
   className?: string;
   defaultValues: Partial<LocationDetailsFormState>;
   municipality?: string | null;
+  fareZone?: string | null;
   onSubmit: (state: LocationDetailsFormState) => void;
 }
 
 const LocationDetailsFormComponent = (
-  { className = '', defaultValues, municipality, onSubmit }: Props,
+  { className = '', defaultValues, municipality, fareZone, onSubmit }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
@@ -68,6 +70,24 @@ const LocationDetailsFormComponent = (
                   data-testid={testIds.municipality}
                 >
                   {municipality || '-'}
+                </span>
+                <i className="icon-info text-lg text-brand" />
+              </div>
+            </Column>
+            <Column>
+              <InputLabel
+                fieldPath="fareZone"
+                translationPrefix="stopDetails.location"
+              />
+              <div
+                className="flex h-full items-center"
+                title={t('stopDetails.location.fareZoneInputNote')}
+              >
+                <span
+                  id="stopDetails.location.fareZone"
+                  data-testid={testIds.fareZone}
+                >
+                  {fareZone || '-'}
                 </span>
                 <i className="icon-info text-lg text-brand" />
               </div>
