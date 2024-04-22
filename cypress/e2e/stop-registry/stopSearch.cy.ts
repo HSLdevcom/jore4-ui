@@ -48,6 +48,7 @@ const timingPlaces = [
 const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
   {
     name: { lang: 'fin', value: 'Puistokaari' },
+    quays: [{ publicCode: 'H1122' }],
   },
   {
     name: { lang: 'fin', value: 'Lapinrinne' },
@@ -57,9 +58,11 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
         nameType: StopRegistryNameType.Translation,
       },
     ],
+    quays: [{ publicCode: 'H1234' }],
   },
   {
     name: { lang: 'fin', value: 'Tuusulanväylä' },
+    quays: [{ publicCode: 'H2233' }],
   },
 ];
 
@@ -156,7 +159,7 @@ describe('Stop search', () => {
     cy.setupTests();
     cy.mockLogin();
 
-    cy.visit('/stop-registry/search');
+    cy.visit('/stop-registry');
     stopSearchBar.getSearchInput().clear();
   });
 
