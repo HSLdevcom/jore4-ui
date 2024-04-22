@@ -4,6 +4,9 @@ export class LocationDetailsForm {
 
   getPostalCodeInput = () => cy.getByTestId('LocationDetailsForm::postalCode');
 
+  getMunicipalityReadOnly = () =>
+    cy.getByTestId('LocationDetailsForm::municipality');
+
   getLatitudeInput = () => cy.getByTestId('LocationDetailsForm::latitude');
 
   getLongitudeInput = () => cy.getByTestId('LocationDetailsForm::longitude');

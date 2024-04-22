@@ -4,6 +4,7 @@ import { requiredNumber } from '../../../../forms/common';
 export const locationDetailsFormSchema = z.object({
   streetAddress: z.string().optional().nullable(),
   postalCode: z.string().optional().nullable(),
+  municipality: z.string().optional().nullable(),
   latitude: z.number(),
   longitude: z.number(),
   altitude: z.number(),

@@ -146,6 +146,7 @@ const mapToStopPlaceInput = (
       ],
 
       // Location properties:
+      // Note: Tiamat sets topographicPlace automatically based on coordinates. It can not be changed otherwise.
       geometry: seedStopPlace.locationLat &&
         seedStopPlace.locationLong && {
           coordinates: [
@@ -153,7 +154,6 @@ const mapToStopPlaceInput = (
           ],
           type: StopRegistryGeoJsonType.Point,
         },
-      // TODO: topographicPlace. These can't be inserted through StopPlace GraphQL.
       // TODO: these require more specification and probably need to be inserted separately somehow.
       // tariffZones: [{ /* 'A' */ }],
       keyValues: [
