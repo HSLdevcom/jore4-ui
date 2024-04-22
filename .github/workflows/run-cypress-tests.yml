@@ -37,6 +37,9 @@ jobs:
         run: |
           psql postgresql://dbadmin:adminpassword@localhost:6432/jore4e2e < ${{ env.DUMP_PATH }}
 
+      - name: Seed Tiamat DB
+        run: scripts/seed-municipalities-and-fare-zones.sh 3010
+
       - name: Run e2e tests from github action
         env:
           CYPRESS_TESTS_KEPT_IN_MEMORY: 0
