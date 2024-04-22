@@ -189,3 +189,11 @@ export const buildIsPresetSubstituteOperatingPeriodFilter = (
     _eq: isPreset,
   },
 });
+
+export const buildTiamatStopQuayPublicCodeLikeGqlFilter = (label: string) => ({
+  stop_place_quays: {
+    quay: {
+      public_code: { _ilike: label },
+    },
+  },
+});
