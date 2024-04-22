@@ -70,6 +70,7 @@ export const LocationDetailsSection = ({ stop }: Props): JSX.Element => {
         <LocationDetailsForm
           defaultValues={defaultValues}
           municipality={stop.stop_place?.topographicPlace?.name?.value}
+          fareZone={stop.stop_place?.fareZone}
           ref={formRef}
           onSubmit={onSubmit}
         />

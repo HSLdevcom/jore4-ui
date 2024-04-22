@@ -146,6 +146,7 @@
       "municipality": "Municipality",
       "municipalityInputNote": "Municipality is set based on location.",
       "fareZone": "Fare zone",
+      "fareZoneInputNote": "Fare zone is set based on location.",
       "latitude": "Latitude",
       "longitude": "Longitude",
       "altitude": "Altitude",
