@@ -65914,25 +65914,6 @@ export type SearchLinesAndRoutesQuery = {
   }>;
 };
 
-export type StopTableRowStopPlaceFragment = {
-  __typename?: 'stop_registry_StopPlace';
-  id?: string | null;
-  name?: {
-    __typename?: 'stop_registry_EmbeddableMultilingualString';
-    lang?: string | null;
-    value?: string | null;
-  } | null;
-  alternativeNames?: Array<{
-    __typename?: 'stop_registry_AlternativeName';
-    nameType: StopRegistryNameType;
-    name: {
-      __typename?: 'stop_registry_EmbeddableMultilingualString';
-      lang?: string | null;
-      value?: string | null;
-    };
-  } | null> | null;
-};
-
 export type StopTableRowFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
   scheduled_stop_point_id: UUID;
@@ -65940,82 +65921,77 @@ export type StopTableRowFragment = {
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   timing_place_id?: UUID | null;
-  stop_place_ref?: string | null;
   timing_place?: {
     __typename?: 'timing_pattern_timing_place';
     timing_place_id: UUID;
     label: string;
   } | null;
-  stop_place?: Array<
-    | { __typename?: 'stop_registry_ParentStopPlace' }
-    | {
-        __typename?: 'stop_registry_StopPlace';
-        id?: string | null;
-        name?: {
-          __typename?: 'stop_registry_EmbeddableMultilingualString';
-          lang?: string | null;
-          value?: string | null;
-        } | null;
-        alternativeNames?: Array<{
-          __typename?: 'stop_registry_AlternativeName';
-          nameType: StopRegistryNameType;
-          name: {
-            __typename?: 'stop_registry_EmbeddableMultilingualString';
-            lang?: string | null;
-            value?: string | null;
-          };
-        } | null> | null;
-      }
-    | null
-  > | null;
 };
 
-export type SearchStopsQueryVariables = Exact<{
-  stopFilter?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
-  stopOrderBy?: InputMaybe<
-    | Array<ServicePatternScheduledStopPointOrderBy>
-    | ServicePatternScheduledStopPointOrderBy
-  >;
-}>;
-
-export type SearchStopsQuery = {
-  __typename?: 'query_root';
-  service_pattern_scheduled_stop_point: Array<{
+export type StopTableRowStopPlaceNewestVersionFragment = {
+  __typename?: 'stops_database_stop_place_newest_version';
+  id?: any | null;
+  name_value?: string | null;
+  stop_place_alternative_names: Array<{
+    __typename?: 'stops_database_stop_place_alternative_names';
+    alternative_name: {
+      __typename?: 'stops_database_alternative_name';
+      name_lang?: string | null;
+      name_type?: string | null;
+      name_value?: string | null;
+    };
+  }>;
+  scheduled_stop_point_instance?: {
     __typename?: 'service_pattern_scheduled_stop_point';
     scheduled_stop_point_id: UUID;
     label: string;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     timing_place_id?: UUID | null;
-    stop_place_ref?: string | null;
     timing_place?: {
       __typename?: 'timing_pattern_timing_place';
       timing_place_id: UUID;
       label: string;
     } | null;
-    stop_place?: Array<
-      | { __typename?: 'stop_registry_ParentStopPlace' }
-      | {
-          __typename?: 'stop_registry_StopPlace';
-          id?: string | null;
-          name?: {
-            __typename?: 'stop_registry_EmbeddableMultilingualString';
-            lang?: string | null;
-            value?: string | null;
-          } | null;
-          alternativeNames?: Array<{
-            __typename?: 'stop_registry_AlternativeName';
-            nameType: StopRegistryNameType;
-            name: {
-              __typename?: 'stop_registry_EmbeddableMultilingualString';
-              lang?: string | null;
-              value?: string | null;
-            };
-          } | null> | null;
-        }
-      | null
-    > | null;
-  }>;
+  } | null;
+};
+
+export type SearchStopsQueryVariables = Exact<{
+  stopFilter?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
+}>;
+
+export type SearchStopsQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stops_database_stop_place_newest_version: Array<{
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
+      name_value?: string | null;
+      stop_place_alternative_names: Array<{
+        __typename?: 'stops_database_stop_place_alternative_names';
+        alternative_name: {
+          __typename?: 'stops_database_alternative_name';
+          name_lang?: string | null;
+          name_type?: string | null;
+          name_value?: string | null;
+        };
+      }>;
+      scheduled_stop_point_instance?: {
+        __typename?: 'service_pattern_scheduled_stop_point';
+        scheduled_stop_point_id: UUID;
+        label: string;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
+        timing_place_id?: UUID | null;
+        timing_place?: {
+          __typename?: 'timing_pattern_timing_place';
+          timing_place_id: UUID;
+          label: string;
+        } | null;
+      } | null;
+    }>;
+  } | null;
 };
 
 export type UpdateStopPlaceMutationVariables = Exact<{
@@ -68211,22 +68187,6 @@ export const RouteMetadataFragmentDoc = gql`
     variant
   }
 `;
-export const StopTableRowStopPlaceFragmentDoc = gql`
-  fragment stop_table_row_stop_place on stop_registry_StopPlace {
-    id
-    name {
-      lang
-      value
-    }
-    alternativeNames {
-      nameType
-      name {
-        lang
-        value
-      }
-    }
-  }
-`;
 export const StopTableRowFragmentDoc = gql`
   fragment stop_table_row on service_pattern_scheduled_stop_point {
     scheduled_stop_point_id
@@ -68238,12 +68198,24 @@ export const StopTableRowFragmentDoc = gql`
       timing_place_id
       label
     }
-    stop_place_ref
-    stop_place {
-      ...stop_table_row_stop_place
+  }
+`;
+export const StopTableRowStopPlaceNewestVersionFragmentDoc = gql`
+  fragment stop_table_row_stop_place_newest_version on stops_database_stop_place_newest_version {
+    id
+    name_value
+    stop_place_alternative_names {
+      alternative_name {
+        name_lang
+        name_type
+        name_value
+      }
+    }
+    scheduled_stop_point_instance {
+      ...stop_table_row
     }
   }
-  ${StopTableRowStopPlaceFragmentDoc}
+  ${StopTableRowFragmentDoc}
 `;
 export const ScheduledStopPointDetailFieldsFragmentDoc = gql`
   fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
@@ -71478,17 +71450,15 @@ export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<
 >;
 export const SearchStopsDocument = gql`
   query SearchStops(
-    $stopFilter: service_pattern_scheduled_stop_point_bool_exp
-    $stopOrderBy: [service_pattern_scheduled_stop_point_order_by!]
+    $stopFilter: stops_database_stop_place_newest_version_bool_exp
   ) {
-    service_pattern_scheduled_stop_point(
-      where: $stopFilter
-      order_by: $stopOrderBy
-    ) {
-      ...stop_table_row
+    stops_database {
+      stops_database_stop_place_newest_version(where: $stopFilter) {
+        ...stop_table_row_stop_place_newest_version
+      }
     }
   }
-  ${StopTableRowFragmentDoc}
+  ${StopTableRowStopPlaceNewestVersionFragmentDoc}
 `;
 
 /**
@@ -71504,7 +71474,6 @@ export const SearchStopsDocument = gql`
  * const { data, loading, error } = useSearchStopsQuery({
  *   variables: {
  *      stopFilter: // value for 'stopFilter'
- *      stopOrderBy: // value for 'stopOrderBy'
  *   },
  * });
  */
