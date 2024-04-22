@@ -26,7 +26,7 @@ https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu
 
             <tariffZones>
                 <FareZone id="HSL:FareZone:20" version="1">
-                    <Name>A</Name>
+                    <Name lang="fin">A</Name>
                     <PrivateCode>A</PrivateCode>
                     <gml:Polygon gml:id="GEN-PolygonType-100">
                         <gml:exterior>
@@ -37,7 +37,7 @@ https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu
                     </gml:Polygon>
                 </FareZone>
                 <FareZone id="HSL:FareZone:21" version="1">
-                    <Name>B</Name>
+                    <Name lang="fin">B</Name>
                     <PrivateCode>B</PrivateCode>
                     <gml:Polygon gml:id="GEN-PolygonType-101">
                         <gml:exterior>
@@ -48,7 +48,7 @@ https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu
                     </gml:Polygon>
                 </FareZone>
                 <FareZone id="HSL:FareZone:22" version="1">
-                    <Name>C</Name>
+                    <Name lang="fin">C</Name>
                     <PrivateCode>C</PrivateCode>
                     <gml:Polygon gml:id="GEN-PolygonType-102">
                         <gml:exterior>
@@ -59,7 +59,7 @@ https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu
                     </gml:Polygon>
                 </FareZone>
                 <FareZone id="HSL:FareZone:23" version="1">
-                    <Name>D</Name>
+                    <Name lang="fin">D</Name>
                     <PrivateCode>D</PrivateCode>
                     <gml:Polygon gml:id="GEN-PolygonType-103">
                         <gml:exterior>
@@ -79,7 +79,7 @@ https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu
                     -->
                 </FareZone>
             </tariffZones>
-            
+
             <topographicPlaces>
                 <TopographicPlace created="2024-01-01T00:00:00" modification="new" version="1" id="HSL:TopographicPlace:1">
                     <ValidBetween>
