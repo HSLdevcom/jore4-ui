@@ -49,7 +49,7 @@ export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
         />
         <LabeledDetail
           title={t('stopDetails.location.municipality')}
-          detail={stop.stop_place?.topographicPlace?.name?.value}
+          detail={stop.stop_place?.municipality}
           testId={testIds.municipality}
         />
         <LabeledDetail

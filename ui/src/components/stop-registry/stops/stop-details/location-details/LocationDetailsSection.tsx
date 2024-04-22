@@ -69,7 +69,7 @@ export const LocationDetailsSection = ({ stop }: Props): JSX.Element => {
       {isEditMode && !!defaultValues ? (
         <LocationDetailsForm
           defaultValues={defaultValues}
-          municipality={stop.stop_place?.topographicPlace?.name?.value}
+          municipality={stop.stop_place?.municipality}
           fareZone={stop.stop_place?.fareZone}
           ref={formRef}
           onSubmit={onSubmit}
