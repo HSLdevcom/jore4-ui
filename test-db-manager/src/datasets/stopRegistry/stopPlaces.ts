@@ -233,6 +233,47 @@ const route35Stops: Array<StopPlaceSeedData> = [
   { label: 'H1456', nameFin: 'Rakuunantie', nameSwe: 'Dragonvägen' }, // Rakuunantie 16
   { label: 'H1458', nameFin: 'Rakuunantie', nameSwe: 'Dragonvägen' }, // Huopalahdentie
 ];
+
+// A long route that spans multiple cities and fare zones.
+// Gets unnecessarily long and ugly with "prettier" so disabling it for this array.
+// prettier-ignore
+const route530Stops: Array<StopPlaceSeedData> = [
+  { label: "V1562", locationLong: 24.85559,  locationLat: 60.26118,   nameFin: 'Myyrmäen asema',    nameSwe: 'Myrbacka station' },
+  { label: "V1598", locationLong: 24.85224,  locationLat: 60.25926,   nameFin: 'Iskostie',          nameSwe: 'Stenflisvägen' },
+  { label: "V1502", locationLong: 24.842287, locationLat: 60.259445,  nameFin: 'Raappavuorentie',   nameSwe: 'Raappavuorentie' },
+  { label: "V1310", locationLong: 24.83456,  locationLat: 60.25875,   nameFin: 'Lastutie',          nameSwe: 'Spånvägen' },
+  { label: "V1308", locationLong: 24.82877,  locationLat: 60.25622,   nameFin: 'Vapaalanpolku',     nameSwe: 'Friherrsstigen' },
+  { label: "V1201", locationLong: 24.81982,  locationLat: 60.25397,   nameFin: 'Köysikuja',         nameSwe: 'Repgränden' },
+  { label: "V1203", locationLong: 24.81418,  locationLat: 60.25461,   nameFin: 'Koivuvaarankuja',   nameSwe: 'Björkbergagränden' },
+  { label: "V1205", locationLong: 24.80591,  locationLat: 60.25572,   nameFin: 'Mantelikuja',       nameSwe: 'Mandelgränden' },
+  { label: "V1291", locationLong: 24.79965,  locationLat: 60.25508,   nameFin: 'Terhotie',          nameSwe: 'Ollonvägen' },
+  { label: "V1009", locationLong: 24.7786,   locationLat: 60.25467,   nameFin: 'Linnaistentie',     nameSwe: 'Linnaisvägen' },
+  { label: "E1438", locationLong: 24.772509, locationLat: 60.253188,  nameFin: 'Jupperinympyrä',    nameSwe: 'Jupperrondellen' },
+  { label: "E1434", locationLong: 24.76301,  locationLat: 60.25041,   nameFin: 'Huvilamäki',        nameSwe: 'Villabacken' },
+  { label: "E1423", locationLong: 24.74724,  locationLat: 60.24338,   nameFin: 'Kuttulammentie',    nameSwe: 'Kututräskvägen' },
+  { label: "E1430", locationLong: 24.738327, locationLat: 60.240036,  nameFin: 'Lähderannanristi',  nameSwe: 'Källstrandskorset' },
+  { label: "E1539", locationLong: 24.722068, locationLat: 60.23536,   nameFin: 'Vilniemi',          nameSwe: 'Villnäs' },
+  { label: "E1534", locationLong: 24.716022, locationLat: 60.231825,  nameFin: 'Auroran koulu',     nameSwe: 'Auroran koulu' },
+  { label: "E1530", locationLong: 24.709818, locationLat: 60.228014,  nameFin: 'Kolkeranta',        nameSwe: 'Klappstranden' },
+  { label: "E1524", locationLong: 24.705575, locationLat: 60.224182,  nameFin: 'Petas',             nameSwe: 'Petas' },
+  { label: "E6301", locationLong: 24.687416, locationLat: 60.223379,  nameFin: 'Jorvi',             nameSwe: 'Jorv' },
+  { label: "E6312", locationLong: 24.669556, locationLat: 60.221276,  nameFin: 'Fallåker',          nameSwe: 'Fallåker' },
+  { label: "E6309", locationLong: 24.661122, locationLat: 60.218001,  nameFin: 'Ikea Espoo',        nameSwe: 'Ikea Esbo' },
+  { label: "E6032", locationLong: 24.65783,  locationLat: 60.21543,   nameFin: 'Lommila',           nameSwe: 'Gloms' },
+  { label: "E6002", locationLong: 24.65328,  locationLat: 60.2131,    nameFin: 'Lehtimäki',         nameSwe: 'Lövkulla' },
+  { label: "E6020", locationLong: 24.66041,  locationLat: 60.20801,   nameFin: 'Kaivomestarinkatu', nameSwe: 'Brunnsmästargatan' },
+  { label: "E6008", locationLong: 24.658466, locationLat: 60.206091,  nameFin: 'Espoon asema',      nameSwe: 'Esbo station' },
+  { label: "E6170", locationLong: 24.65257,  locationLat: 60.2023,    nameFin: 'Samaria',           nameSwe: 'Samaria' },
+  { label: "E6016", locationLong: 24.6548,   locationLat: 60.19896,   nameFin: 'Kiltakallio',       nameSwe: 'Gillesberget' },
+  { label: "E6172", locationLong: 24.663459, locationLat: 60.195213,  nameFin: 'Lugnet',            nameSwe: 'Lugnet' },
+  { label: "E4328", locationLong: 24.67732,  locationLat: 60.17993,   nameFin: 'Kukkumäki',         nameSwe: 'Kuckubacka' },
+  { label: "E4329", locationLong: 24.689947, locationLat: 60.172966,  nameFin: 'Puolarmetsänkatu',  nameSwe: 'Bolarskogsgatan' },
+  { label: "E4905", locationLong: 24.702882, locationLat: 60.164212,  nameFin: 'Niittyrinne',       nameSwe: 'Ängsbrinken' },
+  { label: "E4464", locationLong: 24.706945, locationLat: 60.157696,  nameFin: 'Finnoonkartano',    nameSwe: 'Finnogården' },
+  { label: "E4461", locationLong: 24.709598, locationLat: 60.154934,  nameFin: 'Finnoo (M)',        nameSwe: 'Finno (M)' },
+  { label: "E3142", locationLong: 24.72747,  locationLat: 60.15706,   nameFin: 'Kalaonni',          nameSwe: 'Fiskelyckan' },
+];
+
 const H2003: StopPlaceSeedData = {
   label: 'H2003',
   publicCode: '10003',
@@ -281,7 +322,11 @@ const H2003: StopPlaceSeedData = {
     replacesRailSign: false,
   },
 };
-const seedData: Array<StopPlaceSeedData> = [...route35Stops, H2003];
+const seedData: Array<StopPlaceSeedData> = [
+  ...route35Stops,
+  ...route530Stops,
+  H2003,
+];
 
 export const seedStopPlaces: Array<StopPlaceInput> =
   seedData.map(mapToStopPlaceInput);
