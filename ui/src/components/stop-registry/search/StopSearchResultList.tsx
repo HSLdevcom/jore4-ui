@@ -1,8 +1,8 @@
-import { EnrichedStopTableRow } from '../../../hooks';
+import { StopSearchRow } from '../../../hooks';
 import { StopTableRow } from './StopTableRow';
 
 interface Props {
-  stops: Array<EnrichedStopTableRow>;
+  stops: Array<StopSearchRow>;
 }
 
 const testIds = {
@@ -16,7 +16,7 @@ export const StopSearchResultList = ({ stops }: Props): JSX.Element => {
       data-testid={testIds.table}
     >
       <tbody>
-        {stops?.map((item: EnrichedStopTableRow) => (
+        {stops?.map((item: StopSearchRow) => (
           <StopTableRow key={item.scheduled_stop_point_id} stop={item} />
         ))}
       </tbody>

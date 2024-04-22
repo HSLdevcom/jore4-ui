@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { EnrichedStopTableRow } from '../../../hooks';
+import { StopSearchRow } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToShortDate } from '../../../time';
 
 interface Props {
   className?: string;
-  stop: EnrichedStopTableRow;
+  stop: StopSearchRow;
 }
 
 const testIds = {
