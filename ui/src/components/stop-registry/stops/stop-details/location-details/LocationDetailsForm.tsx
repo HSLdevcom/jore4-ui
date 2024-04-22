@@ -1,13 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Row } from '../../../../../layoutComponents';
-import { FormColumn, InputField } from '../../../../forms/common';
+import { useTranslation } from 'react-i18next';
+import { Column, Row } from '../../../../../layoutComponents';
+import { FormColumn, InputField, InputLabel } from '../../../../forms/common';
 import { LocationDetailsFormState, locationDetailsFormSchema } from './schema';
 
 const testIds = {
   streetAddress: 'LocationDetailsForm::streetAddress',
   postalCode: 'LocationDetailsForm::postalCode',
+  municipality: 'LocationDetailsForm::municipality',
   latitude: 'LocationDetailsForm::latitude',
   longitude: 'LocationDetailsForm::longitude',
   altitude: 'LocationDetailsForm::altitude',
@@ -17,13 +19,16 @@ const testIds = {
 interface Props {
   className?: string;
   defaultValues: Partial<LocationDetailsFormState>;
+  municipality?: string | null;
   onSubmit: (state: LocationDetailsFormState) => void;
 }
 
 const LocationDetailsFormComponent = (
-  { className = '', defaultValues, onSubmit }: Props,
+  { className = '', defaultValues, municipality, onSubmit }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
+  const { t } = useTranslation();
+
   const methods = useForm<LocationDetailsFormState>({
     defaultValues,
     resolver: zodResolver(locationDetailsFormSchema),
@@ -49,6 +54,24 @@ const LocationDetailsFormComponent = (
               fieldPath="postalCode"
               testId={testIds.postalCode}
             />
+            <Column>
+              <InputLabel
+                fieldPath="municipality"
+                translationPrefix="stopDetails.location"
+              />
+              <div
+                className="flex h-full items-center"
+                title={t('stopDetails.location.municipalityInputNote')}
+              >
+                <span
+                  id="stopDetails.location.municipality"
+                  data-testid={testIds.municipality}
+                >
+                  {municipality || '-'}
+                </span>
+                <i className="icon-info text-lg text-brand" />
+              </div>
+            </Column>
           </Row>
           <Row className="flex-wrap gap-4">
             <InputField<LocationDetailsFormState>

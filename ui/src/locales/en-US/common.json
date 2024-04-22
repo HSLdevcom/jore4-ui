@@ -144,6 +144,7 @@
       "streetAddress": "Street address",
       "postalCode": "Postal code",
       "municipality": "Municipality",
+      "municipalityInputNote": "Municipality is set based on location.",
       "tariffZone": "Tariff zone",
       "latitude": "Latitude",
       "longitude": "Longitude",

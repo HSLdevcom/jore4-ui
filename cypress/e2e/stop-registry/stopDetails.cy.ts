@@ -491,6 +491,7 @@ describe('Stop details', () => {
         .getPostalCodeInput()
         .should('have.value', '00100')
         .clearAndType('33720');
+      locationForm.getMunicipalityReadOnly().shouldHaveText('Helsinki');
       locationForm
         .getFunctionalAreaInput()
         .should('have.value', '20')
@@ -502,6 +503,7 @@ describe('Stop details', () => {
 
       locationView.getStreetAddress().shouldHaveText('Marskintie 42');
       locationView.getPostalCode().shouldHaveText('33720');
+      locationView.getMunicipality().shouldHaveText('Helsinki');
       locationView.getLatitude().shouldHaveText('60.166003223527824');
       locationView.getLongitude().shouldHaveText('24.932072417514647');
       locationView.getFunctionalArea().shouldHaveText('7 m');
