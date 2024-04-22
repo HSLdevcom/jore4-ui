@@ -180,7 +180,7 @@ describe('Stop details', () => {
     locationView.getStreetAddress().shouldHaveText('Mannerheimintie 22-24');
     locationView.getPostalCode().shouldHaveText('00100');
     locationView.getMunicipality().shouldHaveText('Helsinki');
-    locationView.getTariffZone().shouldHaveText('-');
+    locationView.getFareZone().shouldHaveText('-');
     locationView.getLatitude().shouldHaveText('60.166003223527824');
     locationView.getLongitude().shouldHaveText('24.932072417514647');
     locationView.getAltitude().shouldHaveText('0');

@@ -9,7 +9,7 @@ export class LocationDetailsViewCard {
   getMunicipality = () =>
     cy.getByTestId('LocationDetailsViewCard::municipality');
 
-  getTariffZone = () => cy.getByTestId('LocationDetailsViewCard::tariffZone');
+  getFareZone = () => cy.getByTestId('LocationDetailsViewCard::fareZone');
 
   getLatitude = () => cy.getByTestId('LocationDetailsViewCard::latitude');
 
