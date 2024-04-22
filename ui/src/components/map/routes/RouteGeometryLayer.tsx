@@ -1,6 +1,6 @@
 import { theme } from '../../../generated/theme';
-import { ArrowRenderLayer } from './ArrowRenderLayer';
-import { LineRenderLayer } from './LineRenderLayer';
+import { ArrowLayout, ArrowPaint, ArrowRenderLayer } from './ArrowRenderLayer';
+import { LinePaint, LineRenderLayer } from './LineRenderLayer';
 
 const { colors } = theme;
 
@@ -49,17 +49,17 @@ export const RouteGeometryLayer = ({
   // Offset line to right side of the infra link
   const lineOffset = 6;
 
-  const linePaint = {
+  const linePaint: LinePaint = {
     'line-color': color,
     'line-width': isHighlighted ? 9 : 8,
     'line-offset': lineOffset,
   };
 
-  const arrowLayout = {
+  const arrowLayout: Partial<ArrowLayout> = {
     'icon-offset': [0, lineOffset],
   };
 
-  const arrowPaint = {
+  const arrowPaint: ArrowPaint = {
     'icon-color': color,
   };
 
