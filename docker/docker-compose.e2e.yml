@@ -11,10 +11,11 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-tiamat-base
-    image: "hsldevcom/jore4-tiamat:main--20240419-f868472f7131dc3aaee6e75ecc7d18f36a52d73d"
+    image: "hsldevcom/jore4-tiamat:main--20240422-c14cd3b74fe0258d0fa801bbe1edeed4a06577c4"
     container_name: "tiamat-e2e"
     environment:
       - TIAMAT_DB_URL=jdbc:postgresql://jore4-testdb-e2e:5432/stopdb?stringtype=unspecified
+      - TIAMAT_HAZELCAST_CLUSTER=tiamatE2E
     ports:
       - "127.0.0.1:3110:1888"
     depends_on:
