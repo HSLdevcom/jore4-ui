@@ -65288,6 +65288,15 @@ export type UpdateStopPlaceMutation = {
           lang?: string | null;
         } | null;
       } | null;
+      fareZones?: Array<{
+        __typename?: 'stop_registry_FareZone';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+          lang?: string | null;
+        } | null;
+      } | null> | null;
       placeEquipments?: {
         __typename?: 'stop_registry_PlaceEquipments';
         generalSign?: Array<{
@@ -65428,6 +65437,15 @@ export type GetStopDetailsByIdQuery = {
               lang?: string | null;
             } | null;
           } | null;
+          fareZones?: Array<{
+            __typename?: 'stop_registry_FareZone';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+              lang?: string | null;
+            } | null;
+          } | null> | null;
           placeEquipments?: {
             __typename?: 'stop_registry_PlaceEquipments';
             generalSign?: Array<{
@@ -65523,6 +65541,16 @@ export type TopographicPlaceDetailsFragment = {
   } | null;
 };
 
+export type FareZoneDetailsFragment = {
+  __typename?: 'stop_registry_FareZone';
+  id?: string | null;
+  name?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    value?: string | null;
+    lang?: string | null;
+  } | null;
+};
+
 export type StopPlaceDetailsFragment = {
   __typename?: 'stop_registry_StopPlace';
   id?: string | null;
@@ -65573,6 +65601,15 @@ export type StopPlaceDetailsFragment = {
       lang?: string | null;
     } | null;
   } | null;
+  fareZones?: Array<{
+    __typename?: 'stop_registry_FareZone';
+    id?: string | null;
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      value?: string | null;
+      lang?: string | null;
+    } | null;
+  } | null> | null;
   placeEquipments?: {
     __typename?: 'stop_registry_PlaceEquipments';
     generalSign?: Array<{
@@ -67484,6 +67521,15 @@ export const TopographicPlaceDetailsFragmentDoc = gql`
     }
   }
 `;
+export const FareZoneDetailsFragmentDoc = gql`
+  fragment fare_zone_details on stop_registry_FareZone {
+    id
+    name {
+      value
+      lang
+    }
+  }
+`;
 export const QuayDetailsFragmentDoc = gql`
   fragment quay_details on stop_registry_Quay {
     id
@@ -67543,6 +67589,9 @@ export const StopPlaceDetailsFragmentDoc = gql`
     topographicPlace {
       ...topographic_place_details
     }
+    fareZones {
+      ...fare_zone_details
+    }
     placeEquipments {
       generalSign {
         privateCode {
@@ -67565,6 +67614,7 @@ export const StopPlaceDetailsFragmentDoc = gql`
     }
   }
   ${TopographicPlaceDetailsFragmentDoc}
+  ${FareZoneDetailsFragmentDoc}
   ${QuayDetailsFragmentDoc}
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`

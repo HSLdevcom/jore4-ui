@@ -76,6 +76,16 @@ const GQL_TOPOGRAPHIC_PLACE_DETAILS = gql`
   }
 `;
 
+const GQL_FARE_ZONE_DETAILS = gql`
+  fragment fare_zone_details on stop_registry_FareZone {
+    id
+    name {
+      value
+      lang
+    }
+  }
+`;
+
 const GQL_STOP_PLACE_DETAILS = gql`
   fragment stop_place_details on stop_registry_StopPlace {
     id
@@ -112,6 +122,9 @@ const GQL_STOP_PLACE_DETAILS = gql`
     }
     topographicPlace {
       ...topographic_place_details
+    }
+    fareZones {
+      ...fare_zone_details
     }
     placeEquipments {
       generalSign {

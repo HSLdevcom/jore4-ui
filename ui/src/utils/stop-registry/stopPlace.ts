@@ -68,6 +68,7 @@ export type StopPlaceEnrichmentProperties = {
   locationSwe: string | undefined;
   streetAddress: string | undefined;
   postalCode: string | undefined;
+  fareZone: string | undefined;
   functionalArea: number | undefined;
   stopState: StopPlaceState | undefined;
   stopType: {
@@ -254,6 +255,7 @@ export const getStopPlaceDetailsForEnrichment = <
         ?.value || undefined,
     streetAddress: findKeyValue(stopPlace, 'streetAddress'),
     postalCode: findKeyValue(stopPlace, 'postalCode'),
+    fareZone: stopPlace.fareZones?.[0]?.name?.value || undefined,
     functionalArea: findKeyValueParsed(stopPlace, 'functionalArea', parseFloat),
     stopState: findKeyValue(stopPlace, 'stopState') as StopPlaceState,
     stopType: {
