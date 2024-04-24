@@ -15,6 +15,9 @@ interface CommonButtonProps {
   invertedClassName?: string;
   tooltip?: string;
   disabledTooltip?: string;
+  ariaSelected?: boolean;
+  role?: string;
+  ariaControls?: string;
 }
 
 interface ButtonProps {
@@ -57,6 +60,9 @@ export const SimpleButton: React.FC<Props> = (props) => {
     invertedClassName = '',
     tooltip,
     disabledTooltip,
+    ariaSelected,
+    role,
+    ariaControls,
   } = props;
 
   const colorClassNames = inverted
@@ -82,6 +88,9 @@ export const SimpleButton: React.FC<Props> = (props) => {
           disabled={disabled}
           data-testid={testId}
           title={disabled ? disabledTooltip : tooltip}
+          aria-selected={ariaSelected}
+          role={role}
+          aria-controls={ariaControls}
         >
           {children}
         </button>

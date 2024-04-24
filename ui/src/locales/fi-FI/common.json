@@ -121,6 +121,11 @@
   },
   "stopDetails": {
     "stopDetails": "Pysäkkitiedot",
+    "detailTabs": {
+      "basic": "Perustiedot",
+      "technical": "Tekniset ominaisuudet",
+      "info": "Infopaikat"
+    },
     "basicDetails": {
       "title": "Perustiedot",
       "label": "Lyhyttunnus",

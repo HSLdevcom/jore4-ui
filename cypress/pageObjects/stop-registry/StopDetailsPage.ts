@@ -31,4 +31,28 @@ export class StopDetailsPage {
   validityPeriod() {
     return cy.getByTestId('StopDetailsPage::validityPeriod');
   }
+
+  basicDetailsTabButton() {
+    return cy.getByTestId('StopDetailsPage::basicDetailsTabButton');
+  }
+
+  basicDetailsTabPanel() {
+    return cy.getByTestId('StopDetailsPage::basicDetailsTabPanel');
+  }
+
+  technicalFeaturesTabButton() {
+    return cy.getByTestId('StopDetailsPage::technicalFeaturesTabButton');
+  }
+
+  technicalFeaturesTabPanel() {
+    return cy.getByTestId('StopDetailsPage::technicalFeaturesTabPanel');
+  }
+
+  infoSpotsTabButton() {
+    return cy.getByTestId('StopDetailsPage::infoSpotsTabButton');
+  }
+
+  infoSpotsTabPanel() {
+    return cy.getByTestId('StopDetailsPage::infoSpotsTabPanel');
+  }
 }
