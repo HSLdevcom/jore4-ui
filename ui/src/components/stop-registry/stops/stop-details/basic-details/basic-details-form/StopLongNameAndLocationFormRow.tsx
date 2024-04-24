@@ -14,7 +14,7 @@ export const StopLongNameAndLocationFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="nameLongFin"
           testId={testIds.nameLongFin}
         />
@@ -22,7 +22,7 @@ export const StopLongNameAndLocationFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="nameLongSwe"
           testId={testIds.nameLongSwe}
         />
@@ -30,7 +30,7 @@ export const StopLongNameAndLocationFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="locationFin"
           testId={testIds.locationFin}
         />
@@ -38,7 +38,7 @@ export const StopLongNameAndLocationFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="locationSwe"
           testId={testIds.locationSwe}
         />

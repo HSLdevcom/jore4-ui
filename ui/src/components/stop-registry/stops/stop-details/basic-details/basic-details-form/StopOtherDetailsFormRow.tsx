@@ -38,7 +38,7 @@ export const StopOtherDetailsFormRow = ({
         {/* Currently we can only have one transportMode, so use dropdown for it.
                Later we need checkboxes here for the transportModes */}
         <InputField<StopBasicDetailsFormState>
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="transportMode"
           testId={testIds.transportMode}
           // eslint-disable-next-line react/no-unstable-nested-components
@@ -82,7 +82,7 @@ export const StopOtherDetailsFormRow = ({
         {/* TODO: Currently we can only have one transportMode, so we use dropdown for it.
                Later we need custom icon checkbox inputs here for the transportModes */}
         <InputField<StopBasicDetailsFormState>
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="stopState"
           testId={testIds.stopPlaceState}
           // eslint-disable-next-line react/no-unstable-nested-components
@@ -100,7 +100,7 @@ export const StopOtherDetailsFormRow = ({
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="elyNumber"
           testId={testIds.elyNumber}
         />

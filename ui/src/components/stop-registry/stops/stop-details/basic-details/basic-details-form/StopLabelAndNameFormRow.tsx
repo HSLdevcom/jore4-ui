@@ -15,7 +15,7 @@ export const StopLabelAndNameFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="label"
           // TODO: This is disabled until we add a confirmation dialog, because changing
           // the label of a stop will remove it from routes.
@@ -26,7 +26,7 @@ export const StopLabelAndNameFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="publicCode"
           testId={testIds.publicCode}
         />
@@ -34,7 +34,7 @@ export const StopLabelAndNameFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="nameFin"
           testId={testIds.nameFin}
         />
@@ -42,7 +42,7 @@ export const StopLabelAndNameFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="nameSwe"
           testId={testIds.nameSwe}
         />
