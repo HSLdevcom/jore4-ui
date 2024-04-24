@@ -219,6 +219,10 @@ describe('Stop details', () => {
         .names()
         .shouldHaveText('Pohjoisesplanadi|Norraesplanaden');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
+
+      stopDetailsPage.basicDetailsTabPanel().should('be.visible');
+      stopDetailsPage.technicalFeaturesTabPanel().should('not.exist');
+      stopDetailsPage.infoSpotsTabPanel().should('not.exist');
     },
   );
 
@@ -565,6 +569,34 @@ describe('Stop details', () => {
           .shouldHaveText('Uusi teksti');
       },
     );
+  });
+
+  describe('technical features', () => {
+    it('should view technical features', { tags: [Tag.StopRegistry] }, () => {
+      stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+      stopDetailsPage.page().shouldBeVisible();
+      stopDetailsPage.label().shouldHaveText('H2003');
+
+      stopDetailsPage.technicalFeaturesTabButton().click();
+
+      stopDetailsPage.technicalFeaturesTabPanel().should('be.visible');
+      stopDetailsPage.basicDetailsTabPanel().should('not.exist');
+      stopDetailsPage.infoSpotsTabPanel().should('not.exist');
+    });
+  });
+
+  describe('info spots', () => {
+    it('should view info spots', { tags: [Tag.StopRegistry] }, () => {
+      stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+      stopDetailsPage.page().shouldBeVisible();
+      stopDetailsPage.label().shouldHaveText('H2003');
+
+      stopDetailsPage.infoSpotsTabButton().click();
+
+      stopDetailsPage.infoSpotsTabPanel().should('be.visible');
+      stopDetailsPage.technicalFeaturesTabPanel().should('not.exist');
+      stopDetailsPage.basicDetailsTabPanel().should('not.exist');
+    });
   });
 
   // A regression test to ensure that our mutations don't eg. reset any fields they are not supposed to.

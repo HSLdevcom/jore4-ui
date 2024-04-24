@@ -121,6 +121,11 @@
   },
   "stopDetails": {
     "stopDetails": "Stop details",
+    "detailTabs": {
+      "basic": "Basic information",
+      "technical": "Technical features",
+      "info": "Info spots"
+    },
     "basicDetails": {
       "title": "Basic details",
       "label": "Label",
