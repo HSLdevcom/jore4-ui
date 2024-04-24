@@ -44,22 +44,22 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
     <div>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.label')}
+          title={t('stopDetails.basicDetails.label')}
           detail={stop.label}
           testId={testIds.label}
         />
         <LabeledDetail
-          title={t('stopDetails.publicCode')}
+          title={t('stopDetails.basicDetails.publicCode')}
           detail={stop.stop_place?.publicCode}
           testId={testIds.publicCode}
         />
         <LabeledDetail
-          title={t('stopDetails.nameFin')}
+          title={t('stopDetails.basicDetails.nameFin')}
           detail={stop.stop_place?.nameFin}
           testId={testIds.nameFin}
         />
         <LabeledDetail
-          title={t('stopDetails.nameSwe')}
+          title={t('stopDetails.basicDetails.nameSwe')}
           detail={stop.stop_place?.nameSwe}
           testId={testIds.nameSwe}
         />
@@ -67,46 +67,46 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
       <HorizontalSeparator />
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.nameLongFin')}
+          title={t('stopDetails.basicDetails.nameLongFin')}
           detail={stop.stop_place?.nameLongFin}
           testId={testIds.nameLongFin}
         />
         <LabeledDetail
-          title={t('stopDetails.nameLongSwe')}
+          title={t('stopDetails.basicDetails.nameLongSwe')}
           detail={stop.stop_place?.nameLongSwe}
           testId={testIds.nameLongSwe}
         />
         <div className="h-9 w-[0px] border-r border-black" />
         <LabeledDetail
-          title={t('stopDetails.locationFin')}
+          title={t('stopDetails.basicDetails.locationFin')}
           detail={stop.stop_place?.locationFin}
           testId={testIds.locationFin}
         />
         <LabeledDetail
-          title={t('stopDetails.locationSwe')}
+          title={t('stopDetails.basicDetails.locationSwe')}
           detail={stop.stop_place?.locationSwe}
           testId={testIds.locationSwe}
         />
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.abbreviationFin')}
+          title={t('stopDetails.basicDetails.abbreviationFin')}
           detail={stop.stop_place?.abbreviationFin}
           testId={testIds.abbreviationFin}
         />
         <LabeledDetail
-          title={t('stopDetails.abbreviationSwe')}
+          title={t('stopDetails.basicDetails.abbreviationSwe')}
           detail={stop.stop_place?.abbreviationSwe}
           testId={testIds.abbreviationSwe}
         />
         <div className="h-9 w-[0px] border-r border-black" />
         <LabeledDetail
-          title={t('stopDetails.abbreviation5CharFin')}
+          title={t('stopDetails.basicDetails.abbreviation5CharFin')}
           detail={stop.stop_place?.abbreviation5CharFin}
           testId={testIds.abbreviation5CharFin}
         />
         <LabeledDetail
-          title={t('stopDetails.abbreviation5CharSwe')}
+          title={t('stopDetails.basicDetails.abbreviation5CharSwe')}
           detail={stop.stop_place?.abbreviation5CharSwe}
           testId={testIds.abbreviation5CharSwe}
         />
@@ -114,7 +114,7 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
       <HorizontalSeparator />
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.transportMode')}
+          title={t('stopDetails.basicDetails.transportMode')}
           detail={transportMode}
           testId={testIds.transportMode}
         />
@@ -125,7 +125,7 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
         />
         <div className="flex items-center gap-4">
           <LabeledDetail
-            title={t('stopDetails.stopType')}
+            title={t('stopDetails.basicDetails.stopType')}
             detail={stop.stop_place && translateStopTypes(stop.stop_place)}
             testId={testIds.stopType}
           />
@@ -137,12 +137,12 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
           />
         </div>
         <LabeledDetail
-          title={t('stopDetails.stopState')}
+          title={t('stopDetails.basicDetails.stopState')}
           detail={stopState}
           testId={testIds.stopState}
         />
         <LabeledDetail
-          title={t('stopDetails.elyNumber')}
+          title={t('stopDetails.basicDetails.elyNumber')}
           detail={stop.stop_place?.elyNumber}
           testId={testIds.elyNumber}
         />

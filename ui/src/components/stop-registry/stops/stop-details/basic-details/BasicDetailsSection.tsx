@@ -69,7 +69,7 @@ export const BasicDetailsSection = ({ stop }: Props): JSX.Element => {
     <ExpandableInfoContainer
       onToggle={toggleIsExpanded}
       isExpanded={isExpanded}
-      title={t('stopDetails.basicDetails')}
+      title={t('stopDetails.basicDetails.title')}
       testIdPrefix="BasicDetailsSection"
       isEditMode={isEditMode}
       onCancel={onCancel}

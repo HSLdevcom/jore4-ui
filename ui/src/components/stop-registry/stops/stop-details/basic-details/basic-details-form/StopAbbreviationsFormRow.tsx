@@ -14,7 +14,7 @@ export const StopAbbreviationsFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="abbreviationFin"
           testId={testIds.abbreviationFin}
         />
@@ -22,7 +22,7 @@ export const StopAbbreviationsFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="abbreviationSwe"
           testId={testIds.abbreviationSwe}
         />
@@ -30,7 +30,7 @@ export const StopAbbreviationsFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="abbreviation5CharFin"
           testId={testIds.abbreviation5CharFin}
         />
@@ -38,7 +38,7 @@ export const StopAbbreviationsFormRow = () => {
       <Column>
         <InputField<StopBasicDetailsFormState>
           type="text"
-          translationPrefix="stopDetails"
+          translationPrefix="stopDetails.basicDetails"
           fieldPath="abbreviation5CharSwe"
           testId={testIds.abbreviation5CharSwe}
         />
