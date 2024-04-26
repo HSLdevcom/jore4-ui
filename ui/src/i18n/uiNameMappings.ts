@@ -3,6 +3,11 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   RouteTypeOfLineEnum,
+  StopRegistryGuidanceType,
+  StopRegistryMapType,
+  StopRegistryPedestrianCrossingRampType,
+  StopRegistryShelterType,
+  StopRegistryStopType,
   StopRegistryTransportModeType,
 } from '../generated/graphql';
 import { i18n } from '../i18n';
@@ -67,6 +72,24 @@ export const mapStopPlaceStateToUiName = (key: StopPlaceState) =>
 
 export const mapStopPlaceSignTypeToUiName = (key: StopPlaceSignType) =>
   i18n.t(`stopPlaceSignTypeEnum.${key}`);
+
+export const mapStopRegistryStopTypeToUiName = (key: StopRegistryStopType) =>
+  i18n.t(`stopRegistryStopTypeEnum.${key}`);
+
+export const mapStopRegistryShelterTypeToUiName = (
+  key: StopRegistryShelterType,
+) => i18n.t(`stopRegistryShelterTypeEnum.${key}`);
+
+export const mapStopRegistryPedestrianCrossingRampTypeToUiName = (
+  key: StopRegistryPedestrianCrossingRampType,
+) => i18n.t(`stopRegistryPedestrianCrossingRampTypeEnum.${key}`);
+
+export const mapStopRegistryGuidanceTypeToUiName = (
+  key: StopRegistryGuidanceType,
+) => i18n.t(`stopRegistryGuidanceTypeEnum.${key}`);
+
+export const mapStopRegistryMapTypeToUiName = (key: StopRegistryMapType) =>
+  i18n.t(`stopRegistryMapTypeEnum.${key}`);
 
 export const mapLineTypeToUiName = (
   key: RouteTypeOfLineEnum | AllOptionEnum.All,
