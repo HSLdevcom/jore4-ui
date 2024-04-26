@@ -178,6 +178,35 @@
       "signageInstructionExceptions": "Signage instruction exceptions",
       "replacesRailSign": "Replaces rail sign",
       "mainLineSign": "Main line sign"
+    },
+    "measurements": {
+      "title": "Measurements and accessibility",
+      "stopType": "Stop type",
+      "curvedStop": "Curved",
+      "shelterType": "Shelter",
+      "shelterLaneDistance": "Distance between shelter and lane\u00A0(cm)",
+      "curbBackOfRailDistance": "Curb distance from the back of the rail\u00A0(cm)",
+      "stopAreaSideSlope": "Stop area side slope\u00A0(%)",
+      "stopAreaLengthwiseSlope": "Stop area lengthwise slope\u00A0(%)",
+      "structureLaneDistance": "Distance between structure and lane\u00A0(cm)",
+      "stopElevationFromRailTop": "Stop height from top of rail\u00A0(cm)",
+      "stopElevationFromSidewalk": "Stop height from sidewalk\u00A0(cm)",
+      "lowerCleatHeight": "Lower cleat height\u00A0(cm)",
+      "curbDriveSideOfRailDistance": "Curb distance from the drive side of the rail\u00A0(cm)",
+      "endRampSlope": "End ramp slope\u00A0(%)",
+      "serviceAreaWidth": "Service area width\u00A0(m)",
+      "serviceAreaLength": "Service area length\u00A0(m)",
+      "pedestrianCrossingRampType": "Pedestrian crossing ramp type",
+      "stopAreaSurroundingsAccessible": "Stop area surroundings",
+      "guidanceType": "Guidance",
+      "mapType": "Map",
+      "platformEdgeWarningArea": "Platform edge has warning area",
+      "sidewalkAccessibleConnection": "Accessible connection to sidewalk",
+      "guidanceStripe": "Guidance stripe",
+      "serviceAreaStripes": "Service area has stripes",
+      "guidanceTiles": "Guidance tiles",
+      "accessible": "Accessible",
+      "inaccessible": "Inaccessible"
     }
   },
   "stopRegistrySearch": {
@@ -305,6 +334,33 @@
     "CanopyFrame": "Canopy frame",
     "PoleSign": "Pole sign",
     "JokerSign": "Joker sign"
+  },
+  "stopRegistryStopTypeEnum": {
+    "busBulb": "Bus bulb",
+    "inLane": "In lane",
+    "pullOut": "Pull out",
+    "other": "Other"
+  },
+  "stopRegistryShelterTypeEnum": {
+    "narrow": "Narrow",
+    "wide": "Wide",
+    "other": "Other"
+  },
+  "stopRegistryPedestrianCrossingRampTypeEnum": {
+    "LR": "LR - Ramp curbstone",
+    "RK4": "RK4 - Vertical curbstone",
+    "RK4_LR": "RK4+LR - Vertical and ramp curbstone",
+    "other": "Other"
+  },
+  "stopRegistryGuidanceTypeEnum": {
+    "braille": "Braille",
+    "none": "None",
+    "other": "Other"
+  },
+  "stopRegistryMapTypeEnum": {
+    "tactile": "Tactile",
+    "other": "Other",
+    "none": "None"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Regional rail service",
