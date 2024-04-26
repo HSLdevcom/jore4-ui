@@ -178,6 +178,9 @@
       "signageInstructionExceptions": "Kilvitysohjeen poikkeus",
       "replacesRailSign": "Raideliikennettä korvaava",
       "mainLineSign": "Runkolinjapysäkki"
+    },
+    "measurements": {
+      "title": "Mitat ja esteettömyys"
     }
   },
   "stopRegistrySearch": {

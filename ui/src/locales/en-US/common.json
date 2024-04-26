@@ -178,6 +178,9 @@
       "signageInstructionExceptions": "Signage instruction exceptions",
       "replacesRailSign": "Replaces rail sign",
       "mainLineSign": "Main line sign"
+    },
+    "measurements": {
+      "title": "Measurements and accessibility"
     }
   },
   "stopRegistrySearch": {
