@@ -10,6 +10,7 @@ import {
   detailTabs,
 } from './DetailTabSelector';
 import { LocationDetailsSection } from './location-details/LocationDetailsSection';
+import { MeasurementsSection } from './measurements';
 import { SignageDetailsSection } from './signage-details/SignageDetailsSection';
 import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
 import { StopTitleRow } from './StopTitleRow';
@@ -73,7 +74,7 @@ export const StopDetailsPage = (): JSX.Element => {
           aria-labelledby={detailTabs.technical.buttonId}
           role="tabpanel"
         >
-          TODO: Technical features
+          <MeasurementsSection stop={stopDetails} />
         </div>
       </Visible>
       <Visible visible={activeDetailTab === detailTabs.info.type}>

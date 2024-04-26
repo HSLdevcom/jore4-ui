@@ -86,6 +86,36 @@ const GQL_FARE_ZONE_DETAILS = gql`
   }
 `;
 
+const GQL_HSL_ACCESSIBILITY_PROPERTIES_DETAILS = gql`
+  fragment hsl_accessibility_properties_details on stop_registry_HslAccessibilityProperties {
+    id
+    stopAreaSideSlope
+    stopAreaLengthwiseSlope
+    endRampSlope
+    shelterLaneDistance
+    curbBackOfRailDistance
+    curbDriveSideOfRailDistance
+    structureLaneDistance
+    stopElevationFromRailTop
+    stopElevationFromSidewalk
+    lowerCleatHeight
+    serviceAreaWidth
+    serviceAreaLength
+    platformEdgeWarningArea
+    guidanceTiles
+    guidanceStripe
+    serviceAreaStripes
+    sidewalkAccessibleConnection
+    stopAreaSurroundingsAccessible
+    curvedStop
+    stopType
+    shelterType
+    guidanceType
+    mapType
+    pedestrianCrossingRampType
+  }
+`;
+
 const GQL_STOP_PLACE_DETAILS = gql`
   fragment stop_place_details on stop_registry_StopPlace {
     id
@@ -145,6 +175,12 @@ const GQL_STOP_PLACE_DETAILS = gql`
     }
     quays {
       ...quay_details
+    }
+    accessibilityAssessment {
+      id
+      hslAccessibilityProperties {
+        ...hsl_accessibility_properties_details
+      }
     }
   }
 `;

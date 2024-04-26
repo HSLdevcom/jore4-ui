@@ -178,6 +178,35 @@
       "signageInstructionExceptions": "Kilvitysohjeen poikkeus",
       "replacesRailSign": "Raideliikennettä korvaava",
       "mainLineSign": "Runkolinjapysäkki"
+    },
+    "measurements": {
+      "title": "Mitat ja esteettömyys",
+      "stopType": "Pysäkin tyyppi",
+      "curvedStop": "Kaareva",
+      "shelterType": "Katos",
+      "shelterLaneDistance": "Katoksen ja ajoradan välinen leveys\u00A0(cm)",
+      "curbBackOfRailDistance": "Reunakiven etäisyys kiskon selästä\u00A0(cm)",
+      "stopAreaSideSlope": "Pysäkkialueen sivukaltevuus\u00A0(%)",
+      "stopAreaLengthwiseSlope": "Pysäkkialueen pituuskaltevuus\u00A0(%)",
+      "structureLaneDistance": "Rakenteiden ja ajoradan välinen pienin leveys\u00A0(cm)",
+      "stopElevationFromRailTop": "Pysäkin korotus kiskon ajopintaan nähden\u00A0(cm)",
+      "stopElevationFromSidewalk": "Pysäkin korotus jalkakäytävään nähden\u00A0(cm)",
+      "lowerCleatHeight": "Alapienan korkeus\u00A0(cm)",
+      "curbDriveSideOfRailDistance": "Reunakiven etäisyys kiskon ajoreunasta\u00A0(cm)",
+      "endRampSlope": "Päätyluiskan kaltevuus\u00A0(%)",
+      "serviceAreaWidth": "Palvelualueen leveys\u00A0(m)",
+      "serviceAreaLength": "Palvelualueen pituus\u00A0(m)",
+      "pedestrianCrossingRampType": "Suojatien luiskaus",
+      "stopAreaSurroundingsAccessible": "Pysäkin ympäristö",
+      "guidanceType": "Opasteet",
+      "mapType": "Kartta",
+      "platformEdgeWarningArea": "Pysäkkialueen varoitusalue",
+      "sidewalkAccessibleConnection": "Esteetön yhteys jalkakäytävältä pysäkille",
+      "guidanceStripe": "Opasteraita",
+      "serviceAreaStripes": "Palvelualueen raidoitus",
+      "guidanceTiles": "Opaslaatat",
+      "accessible": "Estseetön",
+      "inaccessible": "Esteellinen"
     }
   },
   "stopRegistrySearch": {
@@ -305,6 +334,33 @@
     "CanopyFrame": "Katoskehikko",
     "PoleSign": "Tolppamerkki",
     "JokerSign": "Jokerimerkki"
+  },
+  "stopRegistryStopTypeEnum": {
+    "busBulb": "Uloke",
+    "inLane": "Ajoradalla",
+    "pullOut": "Syvennys",
+    "other": "Muu"
+  },
+  "stopRegistryShelterTypeEnum": {
+    "narrow": "Kapea",
+    "wide": "Leveä",
+    "other": "Muu"
+  },
+  "stopRegistryPedestrianCrossingRampTypeEnum": {
+    "LR": "LR - Luiskattu reunatukiosuus",
+    "RK4": "RK4 - Pystysuora reunatukiosuus",
+    "RK4_LR": "RK4+LR - Pystysuora ja luiskattu reunatukiosuus",
+    "other": "Muu"
+  },
+  "stopRegistryGuidanceTypeEnum": {
+    "braille": "Pisteopaste",
+    "none": "Ei opastetta",
+    "other": "Muu opastus"
+  },
+  "stopRegistryMapTypeEnum": {
+    "tactile": "Kohokartta",
+    "other": "Muu kartta",
+    "none": "Ei karttaa"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Seudullinen juna",

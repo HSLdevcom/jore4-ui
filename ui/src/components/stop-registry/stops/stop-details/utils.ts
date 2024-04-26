@@ -28,12 +28,18 @@ export const translateStopTypes = (
  *
  * Missing values are NOT translated.
  */
-export const optionalBooleanToUiText = (value: boolean | undefined | null) => {
+export const optionalBooleanToUiText = (
+  value: boolean | undefined | null,
+  translations: { true: string; false: string } = {
+    true: i18n.t('yes'),
+    false: i18n.t('no'),
+  },
+) => {
   if (value) {
-    return i18n.t('yes');
+    return translations.true;
   }
   if (value === false) {
-    return i18n.t('no');
+    return translations.false;
   }
   return undefined;
 };
