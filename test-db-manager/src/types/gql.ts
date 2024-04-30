@@ -10,6 +10,7 @@ export interface GetInfrastructureLinksByExternalIdsResult {
   data: {
     infrastructure_network_infrastructure_link: {
       infrastructure_link_id: string;
+      external_link_id: string;
     }[];
   };
 }
