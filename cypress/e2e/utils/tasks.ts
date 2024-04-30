@@ -1,10 +1,12 @@
 import {
+  GetInfrastructureLinksByExternalIdsResult,
   StopInsertInput,
   StopRegistryStopPlace,
   e2eDatabaseConfig,
   getDbConnection,
   hasuraApi,
   insertStopPlaceForScheduledStopPoint,
+  mapToGetInfrastructureLinksByExternalIdsQuery,
   timetablesDatabaseConfig,
   truncateDb,
 } from '@hsl/jore4-test-db-manager';
@@ -60,6 +62,32 @@ export const hasuraAPI = (request: any) => {
 export const hasuraAPIMultiple = (requests: Array<any>) => {
   return Promise.all(requests.map((r) => hasuraApi(r)));
 };
+
+/**
+ * Gets infrastuctureLink ids that match given external_link_ids
+ * Also returns them in the same order as the external ids were given
+ */
+export const getInfrastructureLinkIdsByExternalIds = (
+  infrastructureLinkExternalIds: string[],
+) =>
+  hasuraApi(
+    mapToGetInfrastructureLinksByExternalIdsQuery(
+      infrastructureLinkExternalIds,
+    ),
+  ).then((res: GetInfrastructureLinksByExternalIdsResult) => {
+    return infrastructureLinkExternalIds.map((id) => {
+      const matchingLink =
+        res.data.infrastructure_network_infrastructure_link.find(
+          (link) => link.external_link_id === id,
+        );
+      if (!matchingLink) {
+        throw new Error(
+          `No matching infrastructure link found for external id ${id}`,
+        );
+      }
+      return matchingLink.infrastructure_link_id;
+    });
+  });
 
 /**
  * Inserts stop place for each stop point.
