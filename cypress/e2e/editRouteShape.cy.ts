@@ -1,5 +1,4 @@
 import {
-  GetInfrastructureLinksByExternalIdsResult,
   InfraLinkAlongRouteInsertInput,
   JourneyPatternInsertInput,
   LineInsertInput,
@@ -13,9 +12,7 @@ import {
   buildRoute,
   buildStop,
   buildStopInJourneyPattern,
-  buildTimingPlace,
-  extractInfrastructureLinkIdsFromResponse,
-  mapToGetInfrastructureLinksByExternalIdsQuery,
+  buildTimingPlace
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../enums';
@@ -199,14 +196,10 @@ describe('Edit route geometry', () => {
   let dbResources: SupportedResources;
 
   before(() => {
-    cy.task<GetInfrastructureLinksByExternalIdsResult>(
-      'hasuraAPI',
-      mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
-      ),
-    ).then((res) => {
-      const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
-
+    cy.task<UUID[]>(
+      'getInfrastructureLinkIdsByExternalIds',
+      testInfraLinks.map((infralink) => infralink.externalId),
+    ).then((infraLinkIds) => {
       const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
       const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
       dbResources = {
