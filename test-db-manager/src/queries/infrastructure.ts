@@ -8,6 +8,7 @@ const GQL_GET_INFRASTRUCTURE_LINKS_BY_EXTERNAL_IDS = gql`
       where: { external_link_id: { _in: $external_ids } }
     ) {
       infrastructure_link_id
+      external_link_id
     }
   }
 `;

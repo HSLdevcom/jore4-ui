@@ -63263,6 +63263,7 @@ export type GetInfrastructureLinksByExternalIdsQuery = {
   infrastructure_network_infrastructure_link: Array<{
     __typename?: 'infrastructure_network_infrastructure_link';
     infrastructure_link_id: UUID;
+    external_link_id: string;
   }>;
 };
 
