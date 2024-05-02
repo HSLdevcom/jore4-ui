@@ -18,7 +18,8 @@
     "@hsl/timetables-data-inserter": "1.0.0",
     "cypress": "^13.4.0",
     "luxon": "^3.3.0",
-    "qs": "^6.11.1"
+    "qs": "^6.11.1",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@cypress/grep": "^3.1.5",
@@ -26,6 +27,7 @@
     "@types/qs": "^6.9.7",
     "cypress-multi-reporters": "^1.6.3",
     "eslint-plugin-cypress": "^2.12.1",
-    "find-test-names": "^1.28.3"
+    "find-test-names": "^1.28.3",
+    "@types/lodash": "^4.14.191"
   }
 }

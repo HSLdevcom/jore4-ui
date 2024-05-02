@@ -30,6 +30,7 @@ export const schema = z
 export type FormState = z.infer<typeof schema> & PriorityFormState;
 
 const testIds = {
+  container: 'ChangeValidityForm::container',
   priorityButton: (priorityLabel: string) =>
     `ChangeValidityForm::${priorityLabel}PriorityButton`,
   startDateInput: 'ChangeValidityForm::startDateInput',
@@ -56,7 +57,7 @@ export const ChangeValidityForm = ({
   const indefinite = watch('indefinite');
 
   return (
-    <div className={className}>
+    <div className={className} data-testid={testIds.container}>
       <h3>{t('saveChangesModal.validityPeriod')}</h3>
       <Row className="mb-4 pt-6">
         <PriorityForm hiddenPriorities={hiddenPriorities} />
