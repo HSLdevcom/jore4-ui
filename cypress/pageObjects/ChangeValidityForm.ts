@@ -1,3 +1,4 @@
+import { Priority } from '@hsl/jore4-test-db-manager';
 import { PriorityForm } from './PriorityForm';
 
 export interface ChangeValidityFormInfo {
@@ -17,6 +18,50 @@ export class ChangeValidityForm {
       .invoke('removeAttr', 'type')
       .type(isoDate);
   }
+
+  getContainer() {
+    return cy.getByTestId('ChangeValidityForm::container');
+  }
+
+  setAsStandard() {
+    return this.getContainer()
+      .findByTestId('PriorityForm::standardPriorityButton')
+      .should('be.visible')
+      .and('be.enabled')
+      .click();
+  }
+
+  setAsDraft() {
+    return this.getContainer()
+      .findByTestId('PriorityForm::draftPriorityButton')
+      .should('be.visible')
+      .and('be.enabled')
+      .click();
+  }
+
+  setAsTemporary() {
+    return this.getContainer()
+      .findByTestId('PriorityForm::temporaryPriorityButton')
+      .should('be.visible')
+      .and('be.enabled')
+      .click();
+  }
+
+  setPriority = (priority: Priority) => {
+    switch (priority) {
+      case Priority.Draft:
+        this.setAsDraft();
+        break;
+      case Priority.Temporary:
+        this.setAsTemporary();
+        break;
+      case Priority.Standard:
+        this.setAsStandard();
+        break;
+      default:
+        throw new Error(`Unknown priority "${priority}"`);
+    }
+  };
 
   getStartDateInput() {
     return cy.getByTestId('ChangeValidityForm::startDateInput');
