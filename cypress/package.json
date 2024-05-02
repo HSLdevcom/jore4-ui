@@ -17,11 +17,13 @@
     "@hsl/jore4-test-db-manager": "1.0.0",
     "@hsl/timetables-data-inserter": "1.0.0",
     "cypress": "^13.4.0",
+    "lodash": "^4.17.21",
     "luxon": "^3.3.0",
     "qs": "^6.11.1"
   },
   "devDependencies": {
     "@cypress/grep": "^3.1.5",
+    "@types/lodash": "^4.14.191",
     "@types/node": "^18.19.0",
     "@types/qs": "^6.9.7",
     "cypress-multi-reporters": "^1.6.3",
