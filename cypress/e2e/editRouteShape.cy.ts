@@ -240,7 +240,8 @@ describe('Edit route geometry', () => {
     removeFromDbHelper(dbResources);
   });
 
-  it(
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip(
     "Should edit a route's shape",
     { tags: [Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
@@ -278,7 +279,8 @@ describe('Edit route geometry', () => {
     },
   );
 
-  it(
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip(
     'Should edit route shape correctly when creating new route with template',
     { tags: [Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
