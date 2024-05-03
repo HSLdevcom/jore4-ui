@@ -9,14 +9,6 @@ module.exports = {
       },
     ];
   },
-  webpack: (config) => {
-    // eslint-disable-next-line no-param-reassign
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      'mapbox-gl': 'maplibre-gl',
-    };
-    return config;
-  },
   eslint: {
     // Don't run eslint as part of builds.
     // We have separate CI job to run it, so it is not useful to run it

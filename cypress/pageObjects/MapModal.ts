@@ -112,8 +112,9 @@ export class MapModal {
         this.map.clickAtPositionFromMapMarkerByTestId(routePoint);
       });
 
-      const lastSnappingPointHandleIndex = routePoints.length - 1;
-      this.map.clickNthSnappingPointHandle(lastSnappingPointHandleIndex);
+      this.map.clickAtPositionFromMapMarkerByTestId(
+        routePoints[routePoints.length - 1],
+      );
     }
 
     cy.wait('@mapMatching');
