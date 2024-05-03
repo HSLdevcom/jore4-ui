@@ -61,6 +61,12 @@ export const DrawRouteLayer = ({ editorRef }: Props) => {
   const { getInfraLinksWithStopsForGeometry, getRemovedStopLabels } =
     useExtractRouteFromFeature();
 
+  if (mapRef && drawingMode === Mode.Draw) {
+    mapRef.getCanvas().style.cursor = 'crosshair';
+  } else if (mapRef && drawingMode === Mode.Edit) {
+    mapRef.getCanvas().style.cursor = 'auto';
+  }
+
   const { templateRouteId } = editedRouteData;
   // Fetch existing route's stops and geometry in case editing existing route
   // or creating a new route based on a template route
@@ -278,11 +284,16 @@ export const DrawRouteLayer = ({ editorRef }: Props) => {
       // we are still in the middle of creating the snapping line
       return;
     }
+
     const snappingLineFeature = e.features[0] as LineStringFeature;
     setSnappingLine(snappingLineFeature);
     debouncedOnAddRoute(snappingLineFeature);
 
     dispatch(stopRouteEditingAction());
+
+    if (mapRef) {
+      mapRef.getCanvas().style.cursor = 'auto';
+    }
   };
 
   const onUpdate = (e: { features: object[]; action: string }) => {
