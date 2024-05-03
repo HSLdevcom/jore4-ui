@@ -46,6 +46,8 @@ export const MapComponent = (
   { className = '', width = '100vw', height = '100vh' }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
+  const { t } = useTranslation();
+
   const routeEditorRef = useRef<ExplicitAny>(null);
   const editorLayerRef = useRef<ExplicitAny>(null);
   const stopsRef = useRef<ExplicitAny>(null);
@@ -131,8 +133,6 @@ export const MapComponent = (
       dispatch(setSelectedRouteIdAction(undefined));
     }
   };
-
-  const { t } = useTranslation();
 
   return (
     <Maplibre

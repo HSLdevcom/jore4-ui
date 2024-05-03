@@ -50,21 +50,6 @@ export const loadMapAssets = (mapRef: React.RefObject<MapRef>) => {
   });
 };
 
-export const getCursor = ({
-  isHovering,
-  isDragging,
-}: {
-  isLoaded: boolean;
-  isDragging: boolean;
-  isHovering: boolean;
-}) => {
-  if (isDragging) {
-    return 'grabbing';
-  }
-
-  return isHovering ? 'pointer' : 'default';
-};
-
 // Construct an array of interactive (e.g. hoverable) layer ids
 export const getInteractiveLayerIds = (mapRef: React.RefObject<MapRef>) => {
   // Get all rendered layer ids
