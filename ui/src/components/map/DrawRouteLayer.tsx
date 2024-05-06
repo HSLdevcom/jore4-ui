@@ -37,6 +37,8 @@ import { parseDate } from '../../time';
 import { MapMatchingNoSegmentError, log, showDangerToast } from '../../utils';
 import { addRoute, removeRoute } from '../../utils/map';
 import { DrawControl } from './DrawControl';
+import { NEW_ROUTE_ARROWS_ID, NEW_ROUTE_LINE_ID } from './routes';
+import { ACTIVE_LINE_STROKE_ID } from './routes/editorStyles';
 
 const SNAPPING_LINE_LAYER_ID = 'snapping-line';
 
@@ -47,7 +49,6 @@ interface Props {
 export const DrawRouteLayer = ({ editorRef }: Props) => {
   const drawRef = useRef<MapboxDraw | null>(null);
   const { current: mapRef } = useMap();
-
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { setIsLoading } = useLoader(Operation.LoadMap);
@@ -89,6 +90,16 @@ export const DrawRouteLayer = ({ editorRef }: Props) => {
       dispatch(resetDraftRouteGeometryAction());
     }
   }, [dispatch, mapRef]);
+
+  const addSnappingLineToMap = (infraSnappingLine: LineStringFeature) => {
+    drawRef.current?.add({
+      id: SNAPPING_LINE_LAYER_ID,
+      ...infraSnappingLine,
+    });
+    drawRef.current?.changeMode('direct_select', {
+      featureId: SNAPPING_LINE_LAYER_ID,
+    });
+  };
 
   const onUpdateRouteGeometry = useCallback(
     async (snappingLineFeature: LineStringFeature) => {
@@ -188,7 +199,7 @@ export const DrawRouteLayer = ({ editorRef }: Props) => {
       editedRouteData,
       getInfraLinksWithStopsForGeometry,
       getRemovedStopLabels,
-      mapRef, 
+      mapRef,
       onDelete,
       setIsLoading,
       t,
@@ -200,8 +211,27 @@ export const DrawRouteLayer = ({ editorRef }: Props) => {
     [onUpdateRouteGeometry],
   );
 
+  const moveLayers = useCallback(
+    (layerIds: string[]) => {
+      if (mapRef?.getLayer(`${ACTIVE_LINE_STROKE_ID}.cold`)) {
+        layerIds.forEach((layerId) => {
+          if (mapRef?.getLayer(layerId)) {
+            mapRef?.moveLayer(layerId, `${ACTIVE_LINE_STROKE_ID}.cold`);
+          }
+        });
+      }
+    },
+    [mapRef],
+  );
+
   // Initializing snapping line
   useEffect(() => {
+    moveLayers([
+      SNAPPING_LINE_LAYER_ID,
+      NEW_ROUTE_ARROWS_ID,
+      NEW_ROUTE_LINE_ID,
+    ]);
+
     // If creating new route (without a template) or snapping line already exists,
     // no need to initialize snapping line
     if (snappingLine) {
@@ -217,13 +247,7 @@ export const DrawRouteLayer = ({ editorRef }: Props) => {
         editedRouteData.infraLinks,
       );
       setSnappingLine(infraSnappingLine);
-      drawRef.current?.add({
-        id: SNAPPING_LINE_LAYER_ID,
-        ...infraSnappingLine,
-      });
-      drawRef.current?.changeMode('direct_select', {
-        featureId: SNAPPING_LINE_LAYER_ID,
-      });
+      addSnappingLineToMap(infraSnappingLine);
     }
 
     if (drawingMode === Mode.Edit && baseRoute) {
@@ -232,14 +256,7 @@ export const DrawRouteLayer = ({ editorRef }: Props) => {
       const infraSnappingLine = mapInfraLinksToFeature(infraLinks);
       setSnappingLine(infraSnappingLine);
       debouncedOnAddRoute(infraSnappingLine);
-
-      drawRef.current?.add({
-        id: SNAPPING_LINE_LAYER_ID,
-        ...infraSnappingLine,
-      });
-      drawRef.current?.changeMode('direct_select', {
-        featureId: SNAPPING_LINE_LAYER_ID,
-      });
+      addSnappingLineToMap(infraSnappingLine);
     } else {
       // If not drawing or editing, clear snapping line
       setSnappingLine(undefined);
@@ -250,6 +267,8 @@ export const DrawRouteLayer = ({ editorRef }: Props) => {
     debouncedOnAddRoute,
     drawingMode,
     editedRouteData.infraLinks,
+    mapRef,
+    moveLayers,
     onUpdateRouteGeometry,
     snappingLine,
     templateRouteId,
@@ -311,11 +330,21 @@ export const DrawRouteLayer = ({ editorRef }: Props) => {
     }
   };
 
+  const onModeChange = () => {
+    // Disables all other modes when editing
+    if (drawingMode === Mode.Edit) {
+      drawRef.current?.changeMode('direct_select', {
+        featureId: SNAPPING_LINE_LAYER_ID,
+      });
+    }
+  };
+
   return (
     <DrawControl
-      defaultMode="draw_line_string"
       ref={drawRef}
+      defaultMode="draw_line_string"
       onCreate={onCreate}
+      onModeChange={onModeChange}
       onUpdate={onUpdate}
     />
   );

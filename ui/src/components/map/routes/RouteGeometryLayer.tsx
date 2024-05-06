@@ -32,6 +32,9 @@ interface Props {
   isHighlighted: boolean;
 }
 
+export const NEW_ROUTE_LINE_ID = 'new_route_line';
+export const NEW_ROUTE_ARROWS_ID = 'new_route_arrows';
+
 // This layer renders route on map
 export const RouteGeometryLayer = ({
   routeId,
@@ -62,10 +65,10 @@ export const RouteGeometryLayer = ({
 
   const lineRenderLayerId = routeId
     ? mapRouteIdToLineLayerId(routeId)
-    : 'new_route_line';
+    : NEW_ROUTE_LINE_ID
   const arrowRenderLayerId = routeId
     ? mapRouteIdToArrowLayerId(routeId)
-    : 'new_route_arrows';
+    : NEW_ROUTE_ARROWS_ID;
 
   return (
     <>
