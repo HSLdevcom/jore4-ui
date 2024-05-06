@@ -1,86 +1,69 @@
-import { RENDER_STATE } from 'react-map-gl-draw';
-
-// Handle styles
-
-const RECT_STYLE = {
-  x: -10,
-  y: -10,
-  strokeWidth: 4,
-};
-
-export const handleStyle =
-  (selectedSnapPoints: number[]) =>
-  ({ state, index }: { state: RENDER_STATE; index: number }) => {
-    if (state === RENDER_STATE.HOVERED) {
-      return {
-        ...RECT_STYLE,
-        stroke: 'black',
-        strokeWidth: 6,
-      };
-    }
-    if (selectedSnapPoints.includes(index)) {
-      return {
-        ...RECT_STYLE,
-        stroke: 'red',
-      };
-    }
-    return {
-      ...RECT_STYLE,
-      stroke: 'black',
-    };
-  };
-
-// Feature styles
-
 const FEATURE_INACTIVE_COLOR = '#696969'; // Dark grey
 const FEATURE_ACTIVE_COLOR = FEATURE_INACTIVE_COLOR;
 
-const FEATURE_STYLE = {
-  strokeWidth: 6,
-  fill: 'none',
-};
+export const ACTIVE_LINE_STROKE_ID = 'active-line-stroke';
 
-const SELECTED_STYLE = {
-  stroke: FEATURE_ACTIVE_COLOR,
-};
-
-const HOVERED_STYLE = { ...SELECTED_STYLE };
-
-const UNCOMMITTED_STYLE = {
-  stroke: FEATURE_INACTIVE_COLOR,
-  strokeDasharray: '8,3',
-};
-
-const INACTIVE_STYLE = { ...UNCOMMITTED_STYLE };
-
-const DEFAULT_STYLE = {
-  stroke: 'black',
-};
-
-export const featureStyle = ({ state }: { state: RENDER_STATE }) => {
-  let style = null;
-
-  switch (state) {
-    case RENDER_STATE.SELECTED:
-      style = { ...SELECTED_STYLE };
-      break;
-
-    case RENDER_STATE.HOVERED:
-      style = { ...HOVERED_STYLE };
-      break;
-
-    case RENDER_STATE.UNCOMMITTED:
-    case RENDER_STATE.CLOSING:
-      style = { ...UNCOMMITTED_STYLE };
-      break;
-
-    case RENDER_STATE.INACTIVE:
-      style = { ...INACTIVE_STYLE };
-      break;
-
-    default:
-      style = { ...DEFAULT_STYLE };
-  }
-
-  return { ...FEATURE_STYLE, ...style };
-};
+export const styles = [
+  {
+    id: ACTIVE_LINE_STROKE_ID,
+    type: 'line',
+    filter: ['all', ['==', '$type', 'LineString'], ['!=', 'mode', 'static']],
+    layout: {
+      'line-cap': 'butt',
+      'line-join': 'round',
+    },
+    paint: {
+      'line-color': FEATURE_INACTIVE_COLOR,
+      'line-dasharray': [1.2, 0.8],
+      'line-width': 8,
+    },
+  },
+  {
+    id: 'gl-draw-polygon-midpoint',
+    type: 'circle',
+    filter: ['all', ['==', '$type', 'Point'], ['==', 'meta', 'midpoint']],
+    paint: {
+      'circle-radius': 8,
+      'circle-color': FEATURE_INACTIVE_COLOR,
+    },
+  },
+  {
+    id: 'gl-draw-line-vertex-halo-inactive',
+    type: 'circle',
+    filter: ['all', ['==', 'meta', 'vertex'], ['==', '$type', 'Point']],
+    paint: {
+      'circle-radius': 12,
+      'circle-color': FEATURE_INACTIVE_COLOR,
+    },
+  },
+  {
+    id: 'gl-draw-line-vertex-inactive',
+    type: 'circle',
+    filter: [
+      'all',
+      ['==', 'meta', 'vertex'],
+      ['==', '$type', 'Point'],
+      ['!=', 'mode', 'static'],
+      ['!=', 'mode', 'simple_select'],
+    ],
+    paint: {
+      'circle-radius': 9,
+      'circle-color': 'white',
+    },
+  },
+  {
+    id: 'gl-draw-line-vertex-active',
+    type: 'circle',
+    filter: [
+      'all',
+      ['==', 'meta', 'vertex'],
+      ['==', '$type', 'Point'],
+      ['!=', 'mode', 'static'],
+      ['==', 'active', 'true'],
+    ],
+    paint: {
+      'circle-radius': 4,
+      'circle-color': FEATURE_ACTIVE_COLOR,
+    },
+  },
+];
