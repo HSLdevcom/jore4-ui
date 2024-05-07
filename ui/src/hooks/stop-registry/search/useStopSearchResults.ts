@@ -123,6 +123,9 @@ export const useStopSearchResults = (): {
 
   const result = useSearchStopsQuery(mapToVariables(searchQueryVariables));
 
+  if (result.error) {
+    throw new Error(`${result.error.message} ${JSON.stringify(result.error)}`);
+  }
   const stopSearchRows = mapQueryResultToStopSearchRows(result);
 
   const { loading } = result;
