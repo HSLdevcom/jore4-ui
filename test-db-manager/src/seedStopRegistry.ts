@@ -37,7 +37,7 @@ const insertStopPlace = async ({ label, stopPlace }: StopPlaceInput) => {
 
     if (stopPoint.stop_place_ref) {
       console.warn(
-        `Stop point ${stopPointId} with label ${label} already has a stop place with id ${stopPoint.stop_place_ref}. Overwrote with ${stopPlaceRef}.`,
+        `Stop point ${label} (${stopPointId}) already has a stop place with id ${stopPoint.stop_place_ref}. Overwrote with ${stopPlaceRef}.`,
       );
     }
   } catch (error) {
@@ -56,8 +56,12 @@ const seedStopRegistry = async () => {
   // Need to run these sequentially. Will get transaction errors if trying to do concurrently.
   for (let index = 0; index < seedStopPlaces.length; index++) {
     const stopPoint = seedStopPlaces[index];
+    console.log(
+      `Stop point ${stopPoint?.label}: stop place insert starting...`,
+    );
     // eslint-disable-next-line no-await-in-loop
     await insertStopPlace(stopPoint);
+    console.log(`Stop point ${stopPoint?.label}: stop place insert finished!`);
   }
   console.log(`Inserted ${seedStopPlaces.length} stop places.`);
 };
