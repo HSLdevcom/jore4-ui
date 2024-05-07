@@ -7,6 +7,9 @@ enum HasuraURL {
 }
 
 const getHasuraURL = () => {
+  if (process.env.HASURA_URL) {
+    return process.env.HASURA_URL;
+  }
   if (process.env.CI === '1' && process.env.CYPRESS === 'true') {
     return HasuraURL.CI;
   }
@@ -16,13 +19,26 @@ const getHasuraURL = () => {
   return HasuraURL.Dev;
 };
 
+const getHasuraAuthenticationHeaders = () => {
+  if (process.env.HASURA_API_COOKIE) {
+    return {
+      Cookie: process.env.HASURA_API_COOKIE, // Eg. 'SESSION=AbcAbcAbc...'
+      'x-hasura-role': 'admin',
+    };
+  }
+
+  return {
+    'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET || 'hasura',
+  };
+};
+
 export const hasuraApi = async (jsonPayload: unknown): Promise<unknown> => {
   const req = {
     method: 'POST',
     body: JSON.stringify(jsonPayload),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
-      'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET || 'hasura',
+      ...getHasuraAuthenticationHeaders(),
     },
   };
   return fetch(getHasuraURL(), req).then((response) => response.json());
