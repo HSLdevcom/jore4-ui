@@ -1,6 +1,6 @@
 # Jore4 test db manager
 
-Jore4 test db manager is intented to be used with e2e/integration tests.
+Jore4 test db manager is intended to be used with e2e/integration tests.
 It is implemented as separate package so that it can be used in different situations without direct dependency to `jore4-ui` project.
 
 ## Getting started
