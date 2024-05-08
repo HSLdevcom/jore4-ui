@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import {
-  SearchQueryParameterNames,
+  StopSearchQueryParameterNames,
   useStopSearch,
   useToggle,
 } from '../../../hooks';
@@ -25,7 +25,7 @@ export const StopSearchBar = (): JSX.Element => {
   };
 
   const onChangeLabel = (value: string) => {
-    setSearchCondition(SearchQueryParameterNames.Label, value);
+    setSearchCondition(StopSearchQueryParameterNames.Label, value);
   };
 
   const onSearch = () => {
