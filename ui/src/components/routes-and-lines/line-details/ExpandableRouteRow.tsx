@@ -33,8 +33,7 @@ const testIds = {
   lastEdited: 'ExpandableRouteRow::lastEdited',
   showRouteButton: 'ExpandableRouteRow::showRouteButton',
   toggleAccordion: 'ExpandableRouteRow::toggleAccordion',
-  editRouteButton: (routeName?: string) =>
-    `ExpandableRouteRow::editRouteButton::${routeName}`,
+  editRouteButton: 'ExpandableRouteRow::editRouteButton',
 };
 
 interface Props {
@@ -90,7 +89,7 @@ export const ExpandableRouteRow = ({
               route.route_id,
               observationDate.toISODate(),
             )}
-            testId={testIds.editRouteButton(parseI18nField(route.name_i18n))}
+            testId={testIds.editRouteButton}
             tooltip={t('accessibility:routes.editRouteDirection', {
               label,
               directionNumber,
