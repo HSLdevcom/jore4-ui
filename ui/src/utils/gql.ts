@@ -197,3 +197,11 @@ export const buildTiamatStopQuayPublicCodeLikeGqlFilter = (label: string) => ({
     },
   },
 });
+
+// No other type of private code is used in the application
+const ELY_NUMBER_TYPE = 'ELY';
+
+export const buildTiamatPrivateCodeLikeGqlFilter = (value: string) => ({
+  private_code_type: { _ilike: ELY_NUMBER_TYPE },
+  private_code_value: { _ilike: value },
+});

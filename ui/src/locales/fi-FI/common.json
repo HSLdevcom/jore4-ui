@@ -379,12 +379,14 @@
     "stopFiltersAdjusted": "Pysäkkien suodattimia muutettu"
   },
   "search": {
-    "advancedSearchTitle": "Tarkenna",
+    "advancedSearchTitle": "Kohdenna haku",
     "searchResultsTitle": "Hakutulokset",
     "resultCount": "{{ resultCount }} hakutulosta",
     "searchPlaceholder": "Anna tunnus",
     "searchLabel": "Haku",
     "search": "Hae",
+    "elyNumber": "ELY-numero",
+    "elyNumberPlaceholder": "Anna ELY-numero",
     "searching": "Haku käynnissä..."
   },
   "tableHeaders": {
