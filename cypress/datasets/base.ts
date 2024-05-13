@@ -122,7 +122,7 @@ const lines: LineInsertInput[] = [
   },
 ];
 
-const routes: RouteInsertInput[] = [
+export const routes: RouteInsertInput[] = [
   {
     ...buildRoute({ label: '901' }),
     route_id: '994a7d79-4991-423b-9c1a-0ca621a6d9ed',
