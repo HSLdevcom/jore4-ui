@@ -3,12 +3,18 @@ import {
   StopRegistryCycleStorageEquipmentInput,
   StopRegistryCycleStorageType,
   StopRegistryGeoJsonType,
+  StopRegistryGuidanceType,
+  StopRegistryHslAccessibilityProperties,
   StopRegistryInterchangeWeightingType,
   StopRegistryLimitationStatusType,
+  StopRegistryMapType,
   StopRegistryNameType,
+  StopRegistryPedestrianCrossingRampType,
   StopRegistryShelterEquipmentInput,
+  StopRegistryShelterType,
   StopRegistrySignContentType,
   StopRegistryStopPlace,
+  StopRegistryStopType,
   StopRegistrySubmodeType,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
@@ -42,6 +48,7 @@ export type StopPlaceSeedData = {
   functionalArea?: string; // Really more of a number, but keyValues can only take strings.
   shelterEquipment?: StopRegistryShelterEquipmentInput;
   cycleStorageEquipment?: StopRegistryCycleStorageEquipmentInput;
+  accessibilityProperties?: Partial<StopRegistryHslAccessibilityProperties>;
   accessibilityLimitations?: Partial<StopRegistryAccessibilityLimitationsInput>;
   signs?: {
     signType: string /* see StopPlaceSignType */;
@@ -204,8 +211,11 @@ const mapToStopPlaceInput = (
       },
 
       // Accessibility properties:
-      accessibilityAssessment: seedStopPlace.accessibilityLimitations && {
-        limitations: {
+      accessibilityAssessment: (seedStopPlace.accessibilityProperties ||
+        seedStopPlace.accessibilityLimitations) && {
+        hslAccessibilityProperties:
+          seedStopPlace.accessibilityProperties || null,
+        limitations: seedStopPlace.accessibilityLimitations && {
           ...defaultAccessibilityLimitations,
           ...seedStopPlace.accessibilityLimitations,
         },
@@ -307,6 +317,32 @@ const H2003: StopPlaceSeedData = {
   cycleStorageEquipment: {
     cycleStorageType: StopRegistryCycleStorageType.Other,
     // There also exists `numberOfSpaces` field here, but we currently don't have plans for that in the UI so leaving it out.
+  },
+  accessibilityProperties: {
+    stopAreaSideSlope: 5.3,
+    stopAreaLengthwiseSlope: 1.8,
+    endRampSlope: 3.5,
+    shelterLaneDistance: 123,
+    curbBackOfRailDistance: 45.6,
+    curbDriveSideOfRailDistance: 5,
+    structureLaneDistance: 6,
+    stopElevationFromRailTop: 10,
+    stopElevationFromSidewalk: 7,
+    lowerCleatHeight: 8,
+    serviceAreaWidth: 4.6,
+    serviceAreaLength: 55.2,
+    platformEdgeWarningArea: true,
+    guidanceTiles: true,
+    guidanceStripe: true,
+    serviceAreaStripes: true,
+    sidewalkAccessibleConnection: true,
+    stopAreaSurroundingsAccessible: false,
+    curvedStop: false,
+    stopType: StopRegistryStopType.PullOut,
+    shelterType: StopRegistryShelterType.Wide,
+    guidanceType: StopRegistryGuidanceType.Braille,
+    mapType: StopRegistryMapType.Tactile,
+    pedestrianCrossingRampType: StopRegistryPedestrianCrossingRampType.Lr,
   },
   accessibilityLimitations: {
     wheelchairAccess: StopRegistryLimitationStatusType.Partial,
