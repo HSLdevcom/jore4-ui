@@ -34,4 +34,8 @@ export class LineDetailsPage {
   getPrimaryVehicleMode() {
     return cy.getByTestId('AdditionalInformation::primaryVehicleMode');
   }
+
+  getShowDraftsButton() {
+    return cy.getByTestId('ActionsRow::showDraftsButton');
+  }
 }
