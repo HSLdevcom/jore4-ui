@@ -1,0 +1,33 @@
+route;901;line 901;0;0;0
+rvariant;1;route 901;0;0;9011;901
+rvpoint;1AACKT;0.000;1;0;0;E2E001;9011
+rvpoint;;;0;0;0;E2E002;9011
+rvpoint;1AURLA;0.461;1;0;0;E2E003;9011
+rvpoint;;;0;0;0;E2E004;9011
+rvpoint;1EIRA;0.276;1;0;0;E2E005;9011
+rvariant;2;route 901;1;0;9012;901
+rvpoint;1EIRA;0.000;1;0;0;E2E005;9012
+rvpoint;1AURLA;0.444;1;0;0;E2E006;9012
+rvpoint;;;0;0;0;E2E007;9012
+rvpoint;;;0;0;0;E2E008;9012
+rvpoint;1AACKT;0.475;1;0;0;E2E009;9012
+stop;E2E001;00;kuvaus;beskrivning;katu;gata;1AACKT;60.165513;24.939009;E2E001
+stop;E2E002;00;kuvaus;beskrivning;katu;gata;;60.166486;24.937611;E2E002
+stop;E2E003;00;kuvaus;beskrivning;katu;gata;1AURLA;60.165645;24.932863;E2E003
+stop;E2E004;00;kuvaus;beskrivning;katu;gata;;60.164869;24.932290;E2E004
+stop;E2E005;00;kuvaus;beskrivning;katu;gata;1EIRA;60.163981;24.931403;E2E005
+stop;E2E006;00;kuvaus;beskrivning;katu;gata;1AURLA;60.165433;24.932967;E2E006
+stop;E2E007;00;kuvaus;beskrivning;katu;gata;;60.166447;24.935714;E2E007
+stop;E2E008;00;kuvaus;beskrivning;katu;gata;;60.166453;24.937282;E2E008
+stop;E2E009;00;kuvaus;beskrivning;katu;gata;1AACKT;60.165377;24.938770;E2E009
+place;1AACKT;1AACKT
+place;1AURLA;1AURLA
+place;1EIRA;1EIRA
+stpdist;E2E001;E2E002;1;133
+stpdist;E2E002;E2E003;1;328
+stpdist;E2E003;E2E004;1;107
+stpdist;E2E004;E2E005;1;168
+stpdist;E2E005;E2E006;1;443
+stpdist;E2E006;E2E007;1;189
+stpdist;E2E007;E2E008;1;139
+stpdist;E2E008;E2E009;1;145
