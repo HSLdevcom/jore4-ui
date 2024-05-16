@@ -1,23 +1,13 @@
-import {
-  GetInfrastructureLinksByExternalIdsResult,
-  InfraLinkAlongRouteInsertInput,
-  JourneyPatternInsertInput,
-  LineInsertInput,
-  RouteInsertInput,
-  RouteTypeOfLineEnum,
-  StopInJourneyPatternInsertInput,
-  StopInsertInput,
-  buildLine,
-  buildRoute,
-  buildStop,
-  buildStopInJourneyPattern,
-  buildTimingPlace,
-  extractInfrastructureLinkIdsFromResponse,
-  mapToGetInfrastructureLinksByExternalIdsQuery,
-} from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
+import {
+  baseDbResources,
+  buildInfraLinksAlongRoute,
+  buildStopsOnInfraLinks,
+  testInfraLinkExternalIds,
+} from '../datasets/base';
 import { Tag } from '../enums';
-import { RoutesAndLinesPage } from '../pageObjects';
+import { LineDetailsPage, Navbar, RoutesAndLinesPage } from '../pageObjects';
+import { TimingSettingsForm } from '../pageObjects/TimingSettingsForm';
 import { UUID } from '../types';
 import {
   SupportedResources,
@@ -25,234 +15,57 @@ import {
   removeFromDbHelper,
 } from '../utils';
 
-// These external IDs exist in the infralink seed data.
-// These form a straight line on Eerikinkatu in Helsinki.
-// Coordinates are partial since they are needed only for the stop creation.
-
-const testInfraLinks = [
-  {
-    externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
-  },
-  {
-    externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
-  },
-  {
-    externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
-  },
-];
-
-const stopLabels = ['H1234', 'H1235', 'H1236'];
-
-const lines: LineInsertInput[] = [
-  {
-    ...buildLine({ label: '123' }),
-    line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
-    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-  },
-];
-
-const timingPlaces = [
-  buildTimingPlace('78ee94c3-e856-4fdc-89ad-10b72cadb444', '1AACKT'),
-  buildTimingPlace('f8a93c6f-5ef7-4b09-ae5e-0a04ea8597e9', '1ELIMK'),
-  buildTimingPlace('5240633b-5c94-49c1-b1c2-26e9d61a01cd', '1AURLA'),
-];
-
-const buildStopsOnInfrastrucureLinks = (
-  infrastructureLinkIds: UUID[],
-): StopInsertInput[] => [
-  {
-    ...buildStop({
-      label: stopLabels[0],
-      located_on_infrastructure_link_id: infrastructureLinkIds[0],
-    }),
-    scheduled_stop_point_id: '7ef42a37-142d-44be-9b69-dbe6adca7f34',
-    timing_place_id: timingPlaces[0].timing_place_id,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[0].coordinates,
-    },
-  },
-  {
-    ...buildStop({
-      label: stopLabels[1],
-      located_on_infrastructure_link_id: infrastructureLinkIds[1],
-    }),
-    scheduled_stop_point_id: '4f8df0bc-a5cb-4fbe-a6dc-0425d55be382',
-    timing_place_id: timingPlaces[1].timing_place_id,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[1].coordinates,
-    },
-  },
-  {
-    ...buildStop({
-      label: stopLabels[2],
-      located_on_infrastructure_link_id: infrastructureLinkIds[2],
-    }),
-    scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
-    timing_place_id: timingPlaces[2].timing_place_id,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
-    },
-  },
-];
-
-const routes: RouteInsertInput[] = [
-  {
-    ...buildRoute({ label: '123' }),
-    route_id: '829e9d55-aa25-4ab9-858b-f2a5aa81d931',
-    on_line_id: lines[0].line_id,
-    validity_start: DateTime.fromISO('2022-08-11T13:08:43.315+03:00'),
-    validity_end: DateTime.fromISO('2032-08-11T13:08:43.315+03:00'),
-  },
-];
-
-const buildInfraLinksAlongRoute = (
-  infrastructureLinkIds: UUID[],
-): InfraLinkAlongRouteInsertInput[] => [
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[0],
-    infrastructure_link_sequence: 0,
-    is_traversal_forwards: true,
-  },
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[1],
-    infrastructure_link_sequence: 1,
-    is_traversal_forwards: true,
-  },
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[2],
-    infrastructure_link_sequence: 2,
-    is_traversal_forwards: true,
-  },
-];
-
-const journeyPatterns: JourneyPatternInsertInput[] = [
-  {
-    journey_pattern_id: '6cae356b-20f4-4e04-a969-097999b351f0',
-    on_route_id: routes[0].route_id,
-  },
-];
-
-const stopsInJourneyPatternBase = (
-  isFirstStopUsedAsTimingPoint: boolean,
-  isLastStopUsedAsTimingPoint: boolean,
-): StopInJourneyPatternInsertInput[] => [
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[0],
-    scheduledStopPointSequence: 0,
-    isUsedAsTimingPoint: isFirstStopUsedAsTimingPoint,
-  }),
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[1],
-    scheduledStopPointSequence: 1,
-    isUsedAsTimingPoint: false,
-  }),
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[2],
-    scheduledStopPointSequence: 2,
-    isUsedAsTimingPoint: isLastStopUsedAsTimingPoint,
-  }),
-];
-
 const setup = (resources: SupportedResources) => {
   removeFromDbHelper(resources);
   insertToDbHelper(resources);
 
   cy.setupTests();
   cy.mockLogin();
-  cy.visit('/routes');
 };
 
 const exportDate = DateTime.now().toISODate();
 const exportFilePath = `${Cypress.config(
   'downloadsFolder',
-)}/123_Perusversio_${exportDate}.csv`;
+)}/901_Perusversio_${exportDate}.csv`;
 
 const teardown = (resources: SupportedResources) => {
   removeFromDbHelper(resources);
   cy.task('emptyDownloadsFolder');
 };
 
-const comparisonExportFilePath = `${Cypress.config(
+const comparisonRouteExportFilePath = `${Cypress.config(
   'fixturesFolder',
-)}/hastusExport/comparison-export-1.csv`;
-
-const baseDbResources = (
-  stopsInJourneyPattern: StopInJourneyPatternInsertInput[],
-): Partial<SupportedResources> => {
-  return {
-    lines,
-    routes,
-    journeyPatterns,
-    stopsInJourneyPattern,
-  };
-};
-
-const buildTestResources = (
-  infraLinkIds: UUID[],
-  stopsInJourneyPattern: StopInJourneyPatternInsertInput[],
-): SupportedResources => {
-  const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
-  const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
-
-  return {
-    ...baseDbResources(stopsInJourneyPattern),
-    timingPlaces,
-    stops,
-    infraLinksAlongRoute,
-  };
-};
-
-const testExportWhenFirstOrLastStopIsNotATimingPoint = () => {
-  const routesAndLinesPage = new RoutesAndLinesPage();
-
-  // Skip searching via UI
-  cy.visit('/routes/search?label=123&priorities=10&displayedType=routes');
-  routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-  routesAndLinesPage.routeLineTableRow
-    .getRouteLineTableRowCheckbox('123')
-    .check();
-  routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-  routesAndLinesPage.toast.checkDangerToastHasMessage(
-    'Seuraavia reittejä ei voida viedä: 123 (inbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
-  );
-};
+)}/hastusExport/comparison-export-901-route.csv`;
 
 describe('Hastus export', () => {
-  let infraLinkIds: UUID[];
+  let dbResources: SupportedResources;
 
-  before(() => {
-    cy.task<GetInfrastructureLinksByExternalIdsResult>(
-      'hasuraAPI',
-      mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
-      ),
-    ).then((res) => {
-      infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
-      return infraLinkIds;
-    });
-  });
+  let routesAndLinesPage: RoutesAndLinesPage;
+  let lineDetailsPage: LineDetailsPage;
+  let timingSettingsForm: TimingSettingsForm;
+  let navBar: Navbar;
 
-  context('Success cases', () => {
-    const stopsInJourneyPattern = stopsInJourneyPatternBase(true, true);
-    let dbResources: SupportedResources;
-
+  describe('Success cases', () => {
     before(() => {
-      dbResources = buildTestResources(infraLinkIds, stopsInJourneyPattern);
+      cy.task<UUID[]>(
+        'getInfrastructureLinkIdsByExternalIds',
+        testInfraLinkExternalIds,
+      ).then((infraLinkIds) => {
+        const stops = buildStopsOnInfraLinks(infraLinkIds);
+
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+
+        dbResources = {
+          ...baseDbResources,
+          stops,
+          infraLinksAlongRoute,
+        };
+      });
     });
 
     beforeEach(() => {
+      routesAndLinesPage = new RoutesAndLinesPage();
+
       setup(dbResources);
     });
 
@@ -260,23 +73,27 @@ describe('Hastus export', () => {
       teardown(dbResources);
     });
 
-    it(
+    // TODO: Add another route to the line. Currently this practically tests the same thing as
+    // 'should export route', since there is only one route within this line. So should skip until
+    // we have more data.
+    // eslint-disable-next-line jest/no-disabled-tests
+    it.skip(
       'Should export a line',
       { tags: [Tag.Lines, Tag.HastusExport, Tag.Smoke] },
       () => {
-        const routesAndLinesPage = new RoutesAndLinesPage();
+        cy.visit('/routes');
 
-        routesAndLinesPage.searchContainer.getSearchInput().type('123{enter}');
+        routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
         routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
         routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('123')
+          .getRouteLineTableRowCheckbox('901')
           .check();
         routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
         cy.wait('@hastusExport')
           .its('response.statusCode')
           .should('equal', 200);
         cy.readFile(exportFilePath).then((exportedFile) => {
-          cy.readFile(comparisonExportFilePath).should('eq', exportedFile);
+          cy.readFile(comparisonRouteExportFilePath).should('eq', exportedFile);
         });
       },
     );
@@ -285,91 +102,163 @@ describe('Hastus export', () => {
       'Should export a route',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
-        const routesAndLinesPage = new RoutesAndLinesPage();
-
         // Skip searching via UI
-        cy.visit('/routes/search?label=123&priorities=10&displayedType=routes');
+        cy.visit('/routes/search?label=901&priorities=10&displayedType=routes');
         routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
         routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('123')
+          .getRouteLineTableRowCheckbox('901')
           .check();
         routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
         cy.wait('@hastusExport')
           .its('response.statusCode')
           .should('equal', 200);
         cy.readFile(exportFilePath).then((exportedFile) => {
-          cy.readFile(comparisonExportFilePath).should('eq', exportedFile);
+          cy.readFile(comparisonRouteExportFilePath).should('eq', exportedFile);
         });
       },
     );
   });
 
-  context('First and last stop are not timing points', () => {
-    const stopsInJourneyPattern = stopsInJourneyPatternBase(false, false);
-    let dbResources: SupportedResources;
-
+  describe('Fail cases, first and/or last stop are not used as timing points', () => {
     before(() => {
-      dbResources = buildTestResources(infraLinkIds, stopsInJourneyPattern);
+      cy.task<UUID[]>(
+        'getInfrastructureLinkIdsByExternalIds',
+        testInfraLinkExternalIds,
+      ).then((infraLinkIds) => {
+        const stops = buildStopsOnInfraLinks(infraLinkIds);
+
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+
+        dbResources = {
+          ...baseDbResources,
+          stops,
+          infraLinksAlongRoute,
+        };
+      });
     });
 
     beforeEach(() => {
+      routesAndLinesPage = new RoutesAndLinesPage();
+      lineDetailsPage = new LineDetailsPage();
+      timingSettingsForm = new TimingSettingsForm();
+      navBar = new Navbar();
+
       setup(dbResources);
     });
 
     afterEach(() => {
       teardown(dbResources);
     });
-
     it(
-      'Should show an error when trying to export a route whose first and last stop are not timing points',
+      'should show an error, when the first stop is not a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
-      testExportWhenFirstOrLastStopIsNotATimingPoint,
+      () => {
+        lineDetailsPage.visit(baseDbResources.lines[0].line_id);
+
+        lineDetailsPage.routeStopsTable.expandableRouteRow.toggleRouteSection(
+          '901',
+        );
+        lineDetailsPage.routeStopsTable.routeStopsRow.openTimingSettingsForm(
+          'E2E001',
+        );
+
+        // Set route 901 first stop to not be used as timing point
+        timingSettingsForm
+          .getIsUsedAsTimingPointCheckbox()
+          .should('be.checked');
+        timingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
+        timingSettingsForm.getSavebutton().click();
+
+        navBar.getRoutesAndLinesLink().click();
+        routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
+
+        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+        routesAndLinesPage.routeLineTableRow
+          .getRouteLineTableRowCheckbox('901')
+          .check();
+        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+        routesAndLinesPage.toast.checkDangerToastHasMessage(
+          'Seuraavia reittejä ei voida viedä: 901 (outbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
+        );
+      },
     );
-  });
-
-  context('First stop is not a timing point, but the last stop is', () => {
-    const stopsInJourneyPattern = stopsInJourneyPatternBase(false, true);
-    let dbResources: SupportedResources;
-
-    before(() => {
-      dbResources = buildTestResources(infraLinkIds, stopsInJourneyPattern);
-    });
-
-    beforeEach(() => {
-      setup(dbResources);
-    });
-
-    afterEach(() => {
-      teardown(dbResources);
-    });
 
     it(
-      'Should show an error when trying to export a route whose first stop is not a timing point',
+      'should show an error, when the last stop is not a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
-      testExportWhenFirstOrLastStopIsNotATimingPoint,
+      () => {
+        lineDetailsPage.visit(baseDbResources.lines[0].line_id);
+
+        lineDetailsPage.routeStopsTable.expandableRouteRow.toggleRouteSection(
+          '901',
+        );
+
+        // Set route 901 last stop to not be used as timing point
+        lineDetailsPage.routeStopsTable.routeStopsRow.openTimingSettingsForm(
+          'E2E005',
+        );
+        timingSettingsForm
+          .getIsUsedAsTimingPointCheckbox()
+          .should('be.checked');
+        timingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
+        timingSettingsForm.getSavebutton().click();
+
+        navBar.getRoutesAndLinesLink().click();
+        routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
+
+        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+        routesAndLinesPage.routeLineTableRow
+          .getRouteLineTableRowCheckbox('901')
+          .check();
+        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+        routesAndLinesPage.toast.checkDangerToastHasMessage(
+          'Seuraavia reittejä ei voida viedä: 901 (outbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
+        );
+      },
     );
-  });
-
-  context('Last stop is not a timing point, but the first stop is', () => {
-    const stopsInJourneyPattern = stopsInJourneyPatternBase(true, false);
-    let dbResources: SupportedResources;
-
-    before(() => {
-      dbResources = buildTestResources(infraLinkIds, stopsInJourneyPattern);
-    });
-
-    beforeEach(() => {
-      setup(dbResources);
-    });
-
-    afterEach(() => {
-      teardown(dbResources);
-    });
 
     it(
-      'Should show an error when trying to export a route whose last stop is not a timing point',
+      'should show an error, when neither the last stop nor the first stop is a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
-      testExportWhenFirstOrLastStopIsNotATimingPoint,
+      () => {
+        lineDetailsPage.visit(baseDbResources.lines[0].line_id);
+
+        lineDetailsPage.routeStopsTable.expandableRouteRow.toggleRouteSection(
+          '901',
+        );
+
+        // Set route 901 first stop to not be used as timing point
+        lineDetailsPage.routeStopsTable.routeStopsRow.openTimingSettingsForm(
+          'E2E001',
+        );
+        timingSettingsForm
+          .getIsUsedAsTimingPointCheckbox()
+          .should('be.checked');
+        timingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
+        timingSettingsForm.getSavebutton().click();
+
+        // Set route 901 last stop to not be used as timing point
+        lineDetailsPage.routeStopsTable.routeStopsRow.openTimingSettingsForm(
+          'E2E005',
+        );
+        timingSettingsForm
+          .getIsUsedAsTimingPointCheckbox()
+          .should('be.checked');
+        timingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
+        timingSettingsForm.getSavebutton().click();
+
+        navBar.getRoutesAndLinesLink().click();
+        routesAndLinesPage.searchContainer.getSearchInput().type('901{enter}');
+
+        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
+        routesAndLinesPage.routeLineTableRow
+          .getRouteLineTableRowCheckbox('901')
+          .check();
+        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
+        routesAndLinesPage.toast.checkDangerToastHasMessage(
+          'Seuraavia reittejä ei voida viedä: 901 (outbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
+        );
+      },
     );
   });
 });
