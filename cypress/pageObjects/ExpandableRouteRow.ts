@@ -18,4 +18,9 @@ export class ExpandableRouteRow {
       'ExpandableRouteRow::validityPeriod',
     );
   }
+
+  getEditRouteButton = (routeLabel: string) =>
+    this.getRouteHeaderRow(routeLabel).findByTestId(
+      'ExpandableRouteRow::editRouteButton',
+    );
 }

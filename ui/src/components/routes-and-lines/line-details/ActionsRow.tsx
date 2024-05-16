@@ -8,6 +8,10 @@ import { SimpleButton } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormRow } from '../../forms/common';
 
+const testIds = {
+  showDraftsButton: 'ActionsRow::showDraftsButton',
+};
+
 export const ActionsRow = ({
   className = '',
 }: {
@@ -27,6 +31,7 @@ export const ActionsRow = ({
             <SimpleButton
               inverted
               href={getDraftsUrl(line.label, line.line_id)}
+              testId={testIds.showDraftsButton}
             >
               {t('lines.showDrafts')}
             </SimpleButton>
