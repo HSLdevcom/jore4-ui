@@ -3,6 +3,10 @@ export class Navbar {
     return cy.getByTestId('NavLinks::routes.root');
   }
 
+  getRoutesAndLinesLink() {
+    return cy.getByTestId('NavLinks::routes.routes');
+  }
+
   getTimetablesLink() {
     return cy.getByTestId('NavLinks::timetables.timetables');
   }
