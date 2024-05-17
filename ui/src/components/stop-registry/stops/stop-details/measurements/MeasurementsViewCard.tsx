@@ -8,7 +8,7 @@ import {
   mapStopRegistryStopTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { DetailRow, LabeledDetail } from '../layout';
-import { adjustDecimalPlaces, optionalBooleanToUiText } from '../utils';
+import { optionalBooleanToUiText } from '../utils';
 
 const testIds = {
   container: 'MeasurementsViewCard::container',

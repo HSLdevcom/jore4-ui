@@ -352,6 +352,12 @@
     "RK4_LR": "RK4+LR - Pystysuora ja luiskattu reunatukiosuus",
     "other": "Muu"
   },
+  "stopRegistryPedestrianCrossingRampTypeEnumShort": {
+    "LR": "LR",
+    "RK4": "RK4",
+    "RK4_LR": "RK4+LR",
+    "other": "Muu"
+  },
   "stopRegistryGuidanceTypeEnum": {
     "braille": "Pisteopaste",
     "none": "Ei opastetta",
