@@ -35,11 +35,11 @@ export const ConfirmModal: FunctionComponent<Props> = ({
       onClose={onCancel}
       contentClassName={twMerge('w-1/4', className)}
     >
-      <Row className="flex justify-between py-4 px-5">
+      <Row className="flex justify-between px-5 py-4">
         <Dialog.Title as="h4">{heading}</Dialog.Title>
       </Row>
       <NewModalBody>{children}</NewModalBody>
-      <Row className="justify-end space-x-1 py-4 px-5">
+      <Row className="justify-end space-x-1 px-5 py-4">
         <SimpleButton testId={testIds.cancelButton} onClick={onCancel} inverted>
           {cancelButtonText}
         </SimpleButton>

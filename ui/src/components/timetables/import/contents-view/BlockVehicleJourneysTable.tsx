@@ -50,12 +50,12 @@ export const BlockVehicleJourneysTable = ({
         <tr>
           <th
             data-testid={testIds.blockLabel}
-            className="w-1/6 bg-brand py-2 px-6 text-left text-white"
+            className="w-1/6 bg-brand px-6 py-2 text-left text-white"
           >
             {blockLabel}
           </th>
           <th
-            className="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
+            className="border-l border-l-white bg-white px-4 py-2 text-left text-hsl-dark-80"
             colSpan={4}
           >
             <Row className="flex-1 items-center justify-between font-normal">

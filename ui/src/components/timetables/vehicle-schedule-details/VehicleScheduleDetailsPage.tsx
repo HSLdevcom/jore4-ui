@@ -98,7 +98,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
         <FormRow mdColumns={6} className="mb-8">
           <ObservationDateControl className="max-w-max" />
           <Visible visible={activeView === TimetablesView.DEFAULT}>
-            <div className="justify-normal col-span-2 mb-1 flex items-center space-x-4 self-end">
+            <div className="col-span-2 mb-1 flex items-center justify-normal space-x-4 self-end">
               <HuiSwitch.Group>
                 <SwitchLabel>{t('timetables.showAllValid')}</SwitchLabel>
                 <Switch
@@ -113,7 +113,7 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
           <Visible
             visible={activeView === TimetablesView.PASSING_TIMES_BY_STOP}
           >
-            <div className="justify-normal col-span-2 flex items-center space-x-4 self-end">
+            <div className="col-span-2 flex items-center justify-normal space-x-4 self-end">
               <HuiSwitch.Group>
                 <SwitchLabel>{t('timetables.showArrivalTimes')}</SwitchLabel>
                 <Switch

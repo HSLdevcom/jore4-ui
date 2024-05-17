@@ -57,11 +57,11 @@ export const VehicleScheduleFrameBlocksView = ({
       <Row className="border-brand-gray w-full border text-white">
         <p
           data-testid={testIds.frameLabel}
-          className="flex w-1/6 items-center border border-light-grey bg-brand py-2 px-6 font-bold"
+          className="flex w-1/6 items-center border border-light-grey bg-brand px-6 py-2 font-bold"
         >
           {vehicleScheduleFrameLabel}
         </p>
-        <Row className="flex-1 border border-l border-light-grey border-l-white bg-brand py-2 px-4">
+        <Row className="flex-1 border border-l border-light-grey border-l-white bg-brand px-4 py-2">
           <Row className="flex-1 items-center justify-between font-normal">
             <p data-testid={testIds.validityTimeRangeText}>
               {vehicleScheduleFrameTitleText}

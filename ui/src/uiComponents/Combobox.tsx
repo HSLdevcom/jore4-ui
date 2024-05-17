@@ -84,14 +84,14 @@ export const Combobox = ({
             onChange={(event) => onQueryChange(event.target.value)}
             displayValue={() => ''}
             data-testid={testId ? testIds.input(testId) : undefined}
-            className="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
+            className="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
           />
           <HUICombobox.Button
             className="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
             data-testid={testId ? testIds.button(testId) : undefined}
           >
             {buttonContent}
-            <MdSearch className="mr-1 ml-auto text-2xl text-tweaked-brand" />
+            <MdSearch className="ml-auto mr-1 text-2xl text-tweaked-brand" />
             <i
               className={`icon-arrow text-tweaked-brand transition duration-150 ease-in-out ${
                 open ? '-rotate-180' : 'rotate-0'

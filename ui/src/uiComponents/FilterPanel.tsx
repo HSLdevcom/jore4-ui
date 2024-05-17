@@ -117,7 +117,7 @@ export const FilterPanel = ({
         <h6 className={headingClassName}>{t('map.showStops')}</h6>
         <ToggleRow toggles={stops} />
       </Card>
-      <Card className="flex-col rounded-t-none !py-2.5 !px-5">
+      <Card className="flex-col rounded-t-none !px-5 !py-2.5">
         <label htmlFor="show-network" className="inline-flex font-normal">
           <input
             type="checkbox"
