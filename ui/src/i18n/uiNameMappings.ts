@@ -23,7 +23,7 @@ import {
   StopPlaceSignType,
   StopPlaceState,
 } from '../types/stop-registry';
-import { AllOptionEnum } from '../utils';
+import { AllOptionEnum, NullOptionEnum } from '../utils';
 
 export const mapPriorityToUiName = (key: Priority) => {
   const uiStrings: Record<Priority, string> = {
@@ -73,27 +73,55 @@ export const mapStopPlaceStateToUiName = (key: StopPlaceState) =>
 export const mapStopPlaceSignTypeToUiName = (key: StopPlaceSignType) =>
   i18n.t(`stopPlaceSignTypeEnum.${key}`);
 
-export const mapStopRegistryStopTypeToUiName = (key: StopRegistryStopType) =>
-  i18n.t(`stopRegistryStopTypeEnum.${key}`);
+export const mapStopRegistryStopTypeToUiName = (
+  key: StopRegistryStopType | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null ? 'unknown' : `stopRegistryStopTypeEnum.${key}`,
+  );
 
 export const mapStopRegistryShelterTypeToUiName = (
-  key: StopRegistryShelterType,
-) => i18n.t(`stopRegistryShelterTypeEnum.${key}`);
+  key: StopRegistryShelterType | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null
+      ? 'unknown'
+      : `stopRegistryShelterTypeEnum.${key}`,
+  );
 
 export const mapStopRegistryPedestrianCrossingRampTypeToUiName = (
-  key: StopRegistryPedestrianCrossingRampType,
-) => i18n.t(`stopRegistryPedestrianCrossingRampTypeEnum.${key}`);
+  key: StopRegistryPedestrianCrossingRampType | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null
+      ? 'unknown'
+      : `stopRegistryPedestrianCrossingRampTypeEnum.${key}`,
+  );
 
 export const mapStopRegistryPedestrianCrossingRampTypeToShortUiName = (
-  key: StopRegistryPedestrianCrossingRampType,
-) => i18n.t(`stopRegistryPedestrianCrossingRampTypeEnumShort.${key}`);
+  key: StopRegistryPedestrianCrossingRampType | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null
+      ? 'unknown'
+      : `stopRegistryPedestrianCrossingRampTypeEnumShort.${key}`,
+  );
 
 export const mapStopRegistryGuidanceTypeToUiName = (
-  key: StopRegistryGuidanceType,
-) => i18n.t(`stopRegistryGuidanceTypeEnum.${key}`);
+  key: StopRegistryGuidanceType | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null
+      ? 'unknown'
+      : `stopRegistryGuidanceTypeEnum.${key}`,
+  );
 
-export const mapStopRegistryMapTypeToUiName = (key: StopRegistryMapType) =>
-  i18n.t(`stopRegistryMapTypeEnum.${key}`);
+export const mapStopRegistryMapTypeToUiName = (
+  key: StopRegistryMapType | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null ? 'unknown' : `stopRegistryMapTypeEnum.${key}`,
+  );
 
 export const mapLineTypeToUiName = (
   key: RouteTypeOfLineEnum | AllOptionEnum.All,

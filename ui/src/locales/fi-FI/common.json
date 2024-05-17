@@ -678,6 +678,7 @@
   "version": "Versio: {{ version }}",
   "hide": "Piilota",
   "all": "Kaikki",
+  "unknown": "Ei tiedossa",
   "selected": " {{ count }} valittu",
   "yes": "Kyllä",
   "no": "Ei",

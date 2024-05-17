@@ -12,6 +12,12 @@ export enum AllOptionEnum {
   All = 'all',
 }
 
+/** This enum is used to add the null option to enumDropdowns.
+ */
+export enum NullOptionEnum {
+  Null = 'null',
+}
+
 /** Enum for different search result options */
 export enum DisplayedSearchResultType {
   Routes = 'routes',
