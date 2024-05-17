@@ -12,10 +12,12 @@ const testIds = {
 export interface EnumDropdownProps<TEnum> extends FormInputProps {
   id?: string;
   testId?: string;
+  className?: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
   enumType: Object;
   uiNameMapper: (key: TEnum) => string;
   placeholder: string;
+  buttonClassNames?: string;
   includeAllOption?: boolean;
 }
 
@@ -31,6 +33,7 @@ export const EnumDropdown = <TEnum extends Object>({
   uiNameMapper,
   placeholder,
   value,
+  buttonClassNames = '',
   includeAllOption,
   ...formInputProps
 }: EnumDropdownProps<TEnum>): JSX.Element => {
@@ -63,6 +66,7 @@ export const EnumDropdown = <TEnum extends Object>({
       }
       options={options}
       value={value}
+      buttonClassNames={buttonClassNames}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
