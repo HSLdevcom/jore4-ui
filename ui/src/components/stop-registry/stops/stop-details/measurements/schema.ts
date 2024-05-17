@@ -6,7 +6,7 @@ import {
   StopRegistryShelterType,
   StopRegistryStopType,
 } from '../../../../../generated/graphql';
-import { nullableNumber } from '../../../../forms/common';
+import { createNullableEnum, nullableNumber } from '../../../../forms/common';
 
 export const measurementsFormSchema = z.object({
   stopAreaSideSlope: nullableNumber,
@@ -29,13 +29,12 @@ export const measurementsFormSchema = z.object({
   sidewalkAccessibleConnection: z.boolean().nullable(),
   stopAreaSurroundingsAccessible: z.boolean().nullable(),
   curvedStop: z.boolean().nullable(),
-  stopType: z.nativeEnum(StopRegistryStopType).nullable(),
-  shelterType: z.nativeEnum(StopRegistryShelterType).nullable(),
-  guidanceType: z.nativeEnum(StopRegistryGuidanceType).nullable(),
-  mapType: z.nativeEnum(StopRegistryMapType).nullable(),
-  pedestrianCrossingRampType: z
-    .nativeEnum(StopRegistryPedestrianCrossingRampType)
-    .nullable(),
+  stopType: createNullableEnum<StopRegistryStopType>(),
+  shelterType: createNullableEnum<StopRegistryShelterType>(),
+  guidanceType: createNullableEnum<StopRegistryGuidanceType>(),
+  mapType: createNullableEnum<StopRegistryMapType>(),
+  pedestrianCrossingRampType:
+    createNullableEnum<StopRegistryPedestrianCrossingRampType>(),
 });
 
 export type MeasurementsFormState = z.infer<typeof measurementsFormSchema>;
