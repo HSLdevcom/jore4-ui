@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { NullOptionEnum } from '../../../utils/enum';
 
 export const REQUIRED_FIELD_ERROR_MESSAGE = 'Required';
 
@@ -40,6 +41,16 @@ export const localizedStringOptional = z.object({
 export const nullableNumber = z.any().transform((value): number | null => {
   return Number.isNaN(value) ? null : value;
 });
+
+// A helper to create zod fields that accept an enum + a null value.
+export const createNullableEnum = <T>() => {
+  return z.any().transform((value): T | NullOptionEnum | null => {
+    if (!value || value === NullOptionEnum.Null) {
+      return null;
+    }
+    return value as T;
+  });
+};
 
 export const requiredDate = requiredString.regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/);
 
