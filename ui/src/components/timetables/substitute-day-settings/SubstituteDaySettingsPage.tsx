@@ -53,7 +53,7 @@ export const SubstituteDaySettingsPage = (): JSX.Element => {
           onClick={handleClose}
         />
       </Row>
-      <div className="space-y-4 rounded-md bg-hsl-neutral-blue px-8 pt-10 pb-4">
+      <div className="space-y-4 rounded-md bg-hsl-neutral-blue px-8 pb-4 pt-10">
         <h4>{t('timetables.filter')}</h4>
         <ObservationPeriodForm />
       </div>

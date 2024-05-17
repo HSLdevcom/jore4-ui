@@ -18,7 +18,7 @@ export const NewModalFooter: FunctionComponent<Props> = ({
     <Row
       testId={testIds.modalFooter}
       className={twMerge(
-        'justify-end space-x-1 border border-light-grey bg-background py-4 px-5',
+        'justify-end space-x-1 border border-light-grey bg-background px-5 py-4',
         className,
       )}
     >

@@ -52,7 +52,7 @@ export const StopFilterOverlay = ({ className = '' }: Props): JSX.Element => {
       <MapOverlayHeader>
         <h4>{t('filters.title')}</h4>
       </MapOverlayHeader>
-      <div className="px-4 pt-4 pb-2">
+      <div className="px-4 pb-2 pt-4">
         <p className="mb-3.5 font-bold">{t('stops.stops')} </p>
         <FilterRow className="mb-4" filter={highestPriorityCurrentFilterItem} />
         <Section>

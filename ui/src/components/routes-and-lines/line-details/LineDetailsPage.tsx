@@ -76,7 +76,7 @@ export const LineDetailsPage = (): JSX.Element => {
           {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
         </Row>
       </PageHeader>
-      <ActionsRow className="!pt-4 !pb-0" />
+      <ActionsRow className="!pb-0 !pt-4" />
       {line && (
         <Container className="pt-10">
           <Row>

@@ -11,13 +11,13 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
   >
     <tr>
       <th
-        class="w-1/6 bg-brand py-2 px-6 text-left text-white"
+        class="w-1/6 bg-brand px-6 py-2 text-left text-white"
         data-testid="BlockVehicleJourneysTable::blockLabel"
       >
         Week day service
       </th>
       <th
-        class="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
+        class="border-l border-l-white bg-white px-4 py-2 text-left text-hsl-dark-80"
         colspan="4"
       >
         <div
@@ -234,13 +234,13 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
         title=""
       >
         <p
-          class="flex w-1/6 items-center border border-light-grey bg-brand py-2 px-6 font-bold"
+          class="flex w-1/6 items-center border border-light-grey bg-brand px-6 py-2 font-bold"
           data-testid="VehicleScheduleFrameBlocksView::frameLabel"
         >
           SUMMER_SCHEDULES
         </p>
         <div
-          class="flex flex-row flex-1 border border-l border-light-grey border-l-white bg-brand py-2 px-4"
+          class="flex flex-row flex-1 border border-l border-light-grey border-l-white bg-brand px-4 py-2"
           title=""
         >
           <div
@@ -297,13 +297,13 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           >
             <tr>
               <th
-                class="w-1/6 bg-brand py-2 px-6 text-left text-white"
+                class="w-1/6 bg-brand px-6 py-2 text-left text-white"
                 data-testid="BlockVehicleJourneysTable::blockLabel"
               >
                 Week day service
               </th>
               <th
-                class="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
+                class="border-l border-l-white bg-white px-4 py-2 text-left text-hsl-dark-80"
                 colspan="4"
               >
                 <div
@@ -358,13 +358,13 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           >
             <tr>
               <th
-                class="w-1/6 bg-brand py-2 px-6 text-left text-white"
+                class="w-1/6 bg-brand px-6 py-2 text-left text-white"
                 data-testid="BlockVehicleJourneysTable::blockLabel"
               >
                 Saturday service
               </th>
               <th
-                class="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
+                class="border-l border-l-white bg-white px-4 py-2 text-left text-hsl-dark-80"
                 colspan="4"
               >
                 <div
@@ -419,13 +419,13 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
         title=""
       >
         <p
-          class="flex w-1/6 items-center border border-light-grey bg-brand py-2 px-6 font-bold"
+          class="flex w-1/6 items-center border border-light-grey bg-brand px-6 py-2 font-bold"
           data-testid="VehicleScheduleFrameBlocksView::frameLabel"
         >
           AUTUMN_SCHEDULES
         </p>
         <div
-          class="flex flex-row flex-1 border border-l border-light-grey border-l-white bg-brand py-2 px-4"
+          class="flex flex-row flex-1 border border-l border-light-grey border-l-white bg-brand px-4 py-2"
           title=""
         >
           <div
@@ -482,13 +482,13 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           >
             <tr>
               <th
-                class="w-1/6 bg-brand py-2 px-6 text-left text-white"
+                class="w-1/6 bg-brand px-6 py-2 text-left text-white"
                 data-testid="BlockVehicleJourneysTable::blockLabel"
               >
                 Sunday service
               </th>
               <th
-                class="border-l border-l-white bg-white py-2 px-4 text-left text-hsl-dark-80"
+                class="border-l border-l-white bg-white px-4 py-2 text-left text-hsl-dark-80"
                 colspan="4"
               >
                 <div

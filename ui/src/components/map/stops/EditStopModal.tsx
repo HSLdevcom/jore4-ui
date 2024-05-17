@@ -37,7 +37,7 @@ export const EditStopModal = ({
       style={{ zIndex: 10 }}
       // eslint-disable-next-line react/no-unstable-nested-components
       redraw={() => (
-        <div className="flex max-h-full py-5 px-5">
+        <div className="flex max-h-full px-5 py-5">
           <Modal
             testId={testIds.modal}
             onSave={onSave}

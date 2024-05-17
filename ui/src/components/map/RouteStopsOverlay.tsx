@@ -92,7 +92,7 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
           />
         </Visible>
       </MapOverlayHeader>
-      <div className="flex items-start border-b py-2 px-3">
+      <div className="flex items-start border-b px-3 py-2">
         <div className="ml-1 mt-1 flex h-6 w-6 items-center justify-center rounded-sm bg-brand font-bold text-white">
           {mapDirectionToShortUiName(routeMetadata.direction)}
         </div>

@@ -29,7 +29,7 @@ export const ListboxButton = ({
       className={twMerge(
         `${hasError ? buttonErrorStyles : ''} ${
           disabled ? 'input-disabled' : ''
-        } flex w-full items-center rounded-md border border-grey bg-white py-3 px-2 text-left  ${buttonClassNames}`,
+        } flex w-full items-center rounded-md border border-grey bg-white px-2 py-3 text-left  ${buttonClassNames}`,
       )}
       data-testid={testId}
     >

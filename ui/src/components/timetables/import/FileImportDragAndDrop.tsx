@@ -108,7 +108,7 @@ export const FileImportDragAndDrop = ({ fileList, setFileList }: Props) => {
         >
           <label
             htmlFor="file-upload-input"
-            className="absolute top-6 left-6 flex h-60 w-60 cursor-pointer items-center justify-center rounded-full bg-white p-5 text-center"
+            className="absolute left-6 top-6 flex h-60 w-60 cursor-pointer items-center justify-center rounded-full bg-white p-5 text-center"
           >
             <i
               className={twMerge(

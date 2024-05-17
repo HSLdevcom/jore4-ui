@@ -534,7 +534,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto mx-3 flex items-center rounded-full"
+                class="mx-3 mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r2:"
@@ -657,7 +657,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto mx-3 flex items-center rounded-full"
+                class="mx-3 mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r3:"
@@ -1003,7 +1003,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto mx-3 flex items-center rounded-full"
+                class="mx-3 mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r2:"
@@ -1126,7 +1126,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto mx-3 flex items-center rounded-full"
+                class="mx-3 mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r4:"
@@ -1249,7 +1249,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-auto mx-3 flex items-center rounded-full"
+                class="mx-3 mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r5:"

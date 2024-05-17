@@ -215,9 +215,9 @@ export const MapComponent = (
         redraw={() => (
           <Column>
             {showStopFilterOverlay && (
-              <StopFilterOverlay className="mr-12 mb-4" />
+              <StopFilterOverlay className="mb-4 mr-12" />
             )}
-            <ObservationDateOverlay className="mr-12 mb-8" />
+            <ObservationDateOverlay className="mb-8 mr-12" />
           </Column>
         )}
         captureClick

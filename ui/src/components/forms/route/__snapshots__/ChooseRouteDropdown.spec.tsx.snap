@@ -11,7 +11,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 1`] = `
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r5:"
@@ -35,7 +35,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 1`] = `
         Valitse reitti
       </div>
       <svg
-        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        class="ml-auto mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -72,7 +72,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 2`] = `
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r5:"
@@ -96,7 +96,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 2`] = `
         Valitse reitti
       </div>
       <svg
-        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        class="ml-auto mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -135,7 +135,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
       aria-autocomplete="list"
       aria-controls="headlessui-combobox-options-:r7:"
       aria-expanded="true"
-      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
       data-headlessui-state="open"
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r5:"
@@ -155,7 +155,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
       type="button"
     >
       <svg
-        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        class="ml-auto mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -247,7 +247,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r0:"
@@ -271,7 +271,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         Valitse reitti
       </div>
       <svg
-        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        class="ml-auto mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -308,7 +308,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r0:"
@@ -332,7 +332,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         Valitse reitti
       </div>
       <svg
-        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        class="ml-auto mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -371,7 +371,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
       aria-autocomplete="list"
       aria-controls="headlessui-combobox-options-:r2:"
       aria-expanded="true"
-      class="relative h-full w-full rounded-md border border-grey bg-white py-3 px-2"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
       data-headlessui-state="open"
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r0:"
@@ -396,7 +396,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         Valitse reitti
       </div>
       <svg
-        class="mr-1 ml-auto text-2xl text-tweaked-brand"
+        class="ml-auto mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"

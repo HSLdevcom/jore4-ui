@@ -27,7 +27,7 @@ export const DetailTab = ({
       ariaSelected={isActive}
       onClick={onClick}
       label={title}
-      className={`py-1 px-4 ${className}`}
+      className={`px-4 py-1 ${className}`}
       aria-controls={tabPanelId}
       role="tab"
     />

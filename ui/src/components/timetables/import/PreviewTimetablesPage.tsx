@@ -140,7 +140,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
             </label>
           </div>
         </Row>
-        <div className="py-9 px-16">
+        <div className="px-16 py-9">
           <Row className="items-center space-x-14">
             <h3>{t('timetablesPreview.contentUsage')}</h3>
             <Visible visible={formReadyForRender}>
@@ -169,7 +169,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
         <Visible visible={showStagingTimetables}>
           <div
             id="fileContent"
-            className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue py-9 px-16"
+            className="items-center space-x-14 rounded-b-sm bg-hsl-neutral-blue px-16 py-9"
           >
             <ImportContentsView vehicleScheduleFrames={vehicleScheduleFrames} />
           </div>

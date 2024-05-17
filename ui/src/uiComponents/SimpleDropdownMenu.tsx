@@ -45,7 +45,7 @@ export const SimpleDropdownMenu = ({
       {({ open }) => (
         <>
           <Menu.Button
-            className="mx-auto mx-3 flex items-center rounded-full"
+            className="mx-3 mx-auto flex items-center rounded-full"
             data-testid={testId}
             title={tooltip}
           >
