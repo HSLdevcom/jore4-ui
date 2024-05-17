@@ -66274,6 +66274,16 @@ export type UpdateStopPlaceMutation = {
           mapType?: StopRegistryMapType | null;
           pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
         } | null;
+        limitations?: {
+          __typename?: 'stop_registry_AccessibilityLimitations';
+          id?: string | null;
+          version?: string | null;
+          audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+          escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+          liftFreeAccess?: StopRegistryLimitationStatusType | null;
+          stepFreeAccess?: StopRegistryLimitationStatusType | null;
+          wheelchairAccess?: StopRegistryLimitationStatusType | null;
+        } | null;
       } | null;
     } | null> | null;
   } | null;
@@ -66454,6 +66464,16 @@ export type GetStopDetailsByIdQuery = {
               guidanceType?: StopRegistryGuidanceType | null;
               mapType?: StopRegistryMapType | null;
               pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+            } | null;
+            limitations?: {
+              __typename?: 'stop_registry_AccessibilityLimitations';
+              id?: string | null;
+              version?: string | null;
+              audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+              escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+              liftFreeAccess?: StopRegistryLimitationStatusType | null;
+              stepFreeAccess?: StopRegistryLimitationStatusType | null;
+              wheelchairAccess?: StopRegistryLimitationStatusType | null;
             } | null;
           } | null;
         }
@@ -66679,6 +66699,16 @@ export type StopPlaceDetailsFragment = {
       guidanceType?: StopRegistryGuidanceType | null;
       mapType?: StopRegistryMapType | null;
       pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+    } | null;
+    limitations?: {
+      __typename?: 'stop_registry_AccessibilityLimitations';
+      id?: string | null;
+      version?: string | null;
+      audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+      escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+      liftFreeAccess?: StopRegistryLimitationStatusType | null;
+      stepFreeAccess?: StopRegistryLimitationStatusType | null;
+      wheelchairAccess?: StopRegistryLimitationStatusType | null;
     } | null;
   } | null;
 };
@@ -68665,6 +68695,15 @@ export const StopPlaceDetailsFragmentDoc = gql`
       id
       hslAccessibilityProperties {
         ...hsl_accessibility_properties_details
+      }
+      limitations {
+        id
+        version
+        audibleSignalsAvailable
+        escalatorFreeAccess
+        liftFreeAccess
+        stepFreeAccess
+        wheelchairAccess
       }
     }
   }

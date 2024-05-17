@@ -84,6 +84,10 @@ export const mapStopRegistryPedestrianCrossingRampTypeToUiName = (
   key: StopRegistryPedestrianCrossingRampType,
 ) => i18n.t(`stopRegistryPedestrianCrossingRampTypeEnum.${key}`);
 
+export const mapStopRegistryPedestrianCrossingRampTypeToShortUiName = (
+  key: StopRegistryPedestrianCrossingRampType,
+) => i18n.t(`stopRegistryPedestrianCrossingRampTypeEnumShort.${key}`);
+
 export const mapStopRegistryGuidanceTypeToUiName = (
   key: StopRegistryGuidanceType,
 ) => i18n.t(`stopRegistryGuidanceTypeEnum.${key}`);
