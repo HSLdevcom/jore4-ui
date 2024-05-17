@@ -181,6 +181,15 @@ const GQL_STOP_PLACE_DETAILS = gql`
       hslAccessibilityProperties {
         ...hsl_accessibility_properties_details
       }
+      limitations {
+        id
+        version
+        audibleSignalsAvailable
+        escalatorFreeAccess
+        liftFreeAccess
+        stepFreeAccess
+        wheelchairAccess
+      }
     }
   }
 `;
