@@ -1,5 +1,5 @@
 import { FormInputProps, Listbox } from '../../../uiComponents';
-import { AllOptionEnum, getEnumValues } from '../../../utils';
+import { AllOptionEnum, NullOptionEnum, getEnumValues } from '../../../utils';
 
 const testIds = {
   enumDropdown: 'EnumDropdown::button',
@@ -19,6 +19,8 @@ export interface EnumDropdownProps<TEnum> extends FormInputProps {
   placeholder: string;
   buttonClassNames?: string;
   includeAllOption?: boolean;
+  includeNullOption?: boolean;
+  nullOptionText?: string;
 }
 
 /**
@@ -35,11 +37,14 @@ export const EnumDropdown = <TEnum extends Object>({
   value,
   buttonClassNames = '',
   includeAllOption,
+  includeNullOption,
   ...formInputProps
 }: EnumDropdownProps<TEnum>): JSX.Element => {
-  const values = getEnumValues(
-    includeAllOption ? { ...AllOptionEnum, ...enumType } : enumType,
-  );
+  const values = getEnumValues({
+    ...(includeAllOption ? { ...AllOptionEnum } : {}),
+    ...enumType,
+    ...(includeNullOption ? { ...NullOptionEnum } : {}),
+  });
 
   const mapToOption = (item: string) => ({
     key: item,

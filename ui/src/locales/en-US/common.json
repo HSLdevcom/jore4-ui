@@ -677,6 +677,7 @@
   "version": "Version: {{ version }}",
   "hide": "Hide",
   "all": "All",
+  "unknown": "Unknown",
   "selected": " {{ count }} selected",
   "yes": "Yes",
   "no": "No",
