@@ -155,10 +155,9 @@ const DrawRouteLayerComponent = (
         if (err instanceof MapMatchingNoSegmentError) {
           showDangerToast(t('errors.tooFarFromInfrastructureLink'));
         } else {
+          setIsLoading(false);
           throw err;
         }
-      } finally {
-        setIsLoading(false);
       }
 
       if (!infraLinksWithStops) return;
@@ -199,6 +198,7 @@ const DrawRouteLayerComponent = (
           geometry: matchedGeometry,
         }),
       );
+      setIsLoading(false);
     },
     [
       baseRoute,
