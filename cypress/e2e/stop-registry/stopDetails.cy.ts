@@ -16,6 +16,8 @@ import {
   BasicDetailsForm,
   BasicDetailsViewCard,
   LocationDetailsViewCard,
+  MeasurementsForm,
+  MeasurementsViewCard,
   SignageDetailsViewCard,
   StopDetailsPage,
   Toast,
@@ -205,6 +207,43 @@ describe('Stop details', () => {
     signView.getMainLineSign().shouldHaveText('Ei');
     signView.getReplacesRailSign().shouldHaveText('Ei');
     signView.getSignageInstructionExceptions().shouldHaveText('Ohjetekstiä...');
+  };
+
+  const verifyInitialMeasurements = () => {
+    const measurementsView = stopDetailsPage.measurements.viewCard;
+
+    measurementsView.getContainer().shouldBeVisible();
+    measurementsView.getStopType().shouldHaveText('Syvennys');
+    measurementsView.getCurvedStop().shouldHaveText('Ei');
+    measurementsView.getShelterType().shouldHaveText('Leveä');
+    measurementsView.getShelterLaneDistance().shouldHaveText('123');
+    measurementsView.getCurbBackOfRailDistance().shouldHaveText('45.6');
+    measurementsView.getStopAreaSideSlope().shouldHaveText('5.3');
+    measurementsView.getStopAreaLengthwiseSlope().shouldHaveText('1.8');
+
+    measurementsView.getStructureLaneDistance().shouldHaveText('6');
+    measurementsView.getStopElevationFromRailTop().shouldHaveText('10');
+    measurementsView.getStopElevationFromSidewalk().shouldHaveText('7');
+    measurementsView.getLowerCleatHeight().shouldHaveText('8');
+
+    measurementsView.getPlatformEdgeWarningArea().shouldHaveText('Kyllä');
+    measurementsView.getSidewalkAccessibleConnection().shouldHaveText('Kyllä');
+    measurementsView.getGuidanceStripe().shouldHaveText('Kyllä');
+    measurementsView.getServiceAreaStripes().shouldHaveText('Kyllä');
+    measurementsView.getGuidanceType().shouldHaveText('Pisteopaste');
+    measurementsView.getGuidanceTiles().shouldHaveText('Kyllä');
+    measurementsView.getMapType().shouldHaveText('Kohokartta');
+
+    measurementsView.getCurbDriveSideOfRailDistance().shouldHaveText('5');
+    measurementsView.getEndRampSlope().shouldHaveText('3.5');
+    measurementsView.getServiceAreaWidth().shouldHaveText('4.6');
+    measurementsView.getServiceAreaLength().shouldHaveText('55.2');
+    measurementsView
+      .getPedestrianCrossingRampType()
+      .shouldHaveText('LR - Luiskattu reunatukiosuus');
+    measurementsView
+      .getStopAreaSurroundingsAccessible()
+      .shouldHaveText('Esteellinen');
   };
 
   it(
@@ -572,16 +611,273 @@ describe('Stop details', () => {
   });
 
   describe('technical features', () => {
-    it('should view technical features', { tags: [Tag.StopRegistry] }, () => {
+    beforeEach(() => {
       stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
       stopDetailsPage.page().shouldBeVisible();
       stopDetailsPage.label().shouldHaveText('H2003');
 
       stopDetailsPage.technicalFeaturesTabButton().click();
+    });
 
+    it('should view technical features', { tags: [Tag.StopRegistry] }, () => {
       stopDetailsPage.technicalFeaturesTabPanel().should('be.visible');
       stopDetailsPage.basicDetailsTabPanel().should('not.exist');
       stopDetailsPage.infoSpotsTabPanel().should('not.exist');
+    });
+
+    describe('measurements', () => {
+      let form: MeasurementsForm;
+      let view: MeasurementsViewCard;
+
+      beforeEach(() => {
+        form = stopDetailsPage.measurements.form;
+        view = stopDetailsPage.measurements.viewCard;
+      });
+
+      it(
+        'should view and edit measurement deatils',
+        { tags: [Tag.StopRegistry] },
+        () => {
+          verifyInitialMeasurements();
+
+          stopDetailsPage.measurements.getEditButton().click();
+          view.getContainer().should('not.exist');
+
+          // Verify correct initial values:
+          form.getStopTypeDropdownButton().shouldHaveText('Syvennys');
+          form.getCurvedStopDropdownButton().shouldHaveText('Ei');
+          form.getShelterTypeDropdownButton().shouldHaveText('Leveä');
+          form.getShelterLaneDistanceInput().should('have.value', '123');
+          form.getCurbBackOfRailDistanceInput().should('have.value', '45.6');
+          form.getStopAreaSideSlopeInput().should('have.value', '5.3');
+          form.getStopAreaLengthwiseSlopeInput().should('have.value', '1.8');
+
+          form.getStructureLaneDistanceInput().should('have.value', '6');
+          form.getStopElevationFromRailTopInput().should('have.value', '10');
+          form.getStopElevationFromSidewalkInput().should('have.value', '7');
+          form.getLowerCleatHeightInput().should('have.value', '8');
+
+          form
+            .getPlatformEdgeWarningAreaDropdownButton()
+            .shouldHaveText('Kyllä');
+          form
+            .getSidewalkAccessibleConnectionDropdownButton()
+            .shouldHaveText('Kyllä');
+          form.getGuidanceStripeDropdownButton().shouldHaveText('Kyllä');
+          form.getServiceAreaStripesDropdownButton().shouldHaveText('Kyllä');
+          form.getGuidanceTypeDropdownButton().shouldHaveText('Pisteopaste');
+          form.getGuidanceTilesDropdownButton().shouldHaveText('Kyllä');
+          form.getMapTypeDropdownButton().shouldHaveText('Kohokartta');
+
+          form.getCurbDriveSideOfRailDistanceInput().should('have.value', '5');
+          form.getEndRampSlopeInput().should('have.value', '3.5');
+          form.getServiceAreaWidthInput().should('have.value', '4.6');
+          form.getServiceAreaLengthInput().should('have.value', '55.2');
+          form
+            .getPedestrianCrossingRampTypeDropdownButton()
+            .shouldHaveText('LR - Luiskattu reunatukiosuus');
+          form
+            .getStopAreaSurroundingsAccessibleDropdownButton()
+            .shouldHaveText('Esteellinen');
+
+          // Change everything:
+          form.getStopTypeDropdownButton().click();
+          form.getStopTypeDropdownOptions().contains('Uloke').click();
+          form.getCurvedStopDropdownButton().click();
+          form.getCurvedStopDropdownOptions().contains('Kyllä').click();
+          form.getShelterTypeDropdownButton().click();
+          form.getShelterTypeDropdownOptions().contains('Kapea').click();
+          form.getShelterLaneDistanceInput().clearAndType('231');
+          form.getCurbBackOfRailDistanceInput().clearAndType('111');
+          form.getStopAreaSideSlopeInput().clearAndType('2.2');
+          form.getStopAreaLengthwiseSlopeInput().clearAndType('-3.3');
+
+          form.getStructureLaneDistanceInput().clearAndType('4');
+          form.getStopElevationFromRailTopInput().clearAndType('55');
+          form.getStopElevationFromSidewalkInput().clearAndType('6');
+          form.getLowerCleatHeightInput().clearAndType('7');
+
+          form.getPlatformEdgeWarningAreaDropdownButton().click();
+          form
+            .getPlatformEdgeWarningAreaDropdownOptions()
+            .contains('Ei')
+            .click();
+          form.getSidewalkAccessibleConnectionDropdownButton().click();
+          form
+            .getSidewalkAccessibleConnectionDropdownOptions()
+            .contains('Ei')
+            .click();
+          form.getGuidanceStripeDropdownButton().click();
+          form.getGuidanceStripeDropdownOptions().contains('Ei').click();
+          form.getServiceAreaStripesDropdownButton().click();
+          form.getServiceAreaStripesDropdownOptions().contains('Ei').click();
+          form.getGuidanceTypeDropdownButton().click();
+          form
+            .getGuidanceTypeDropdownOptions()
+            .contains('Ei opastetta')
+            .click();
+          form.getGuidanceTilesDropdownButton().click();
+          form.getGuidanceTilesDropdownOptions().contains('Ei').click();
+          form.getMapTypeDropdownButton().click();
+          form.getMapTypeDropdownOptions().contains('Muu kartta').click();
+
+          form.getCurbDriveSideOfRailDistanceInput().clearAndType('8');
+          form.getEndRampSlopeInput().clearAndType('9.9');
+          form.getServiceAreaWidthInput().clearAndType('1.1');
+          form.getServiceAreaLengthInput().clearAndType('12.23');
+          form.getPedestrianCrossingRampTypeDropdownButton().click();
+          form
+            .getPedestrianCrossingRampTypeDropdownOptions()
+            .contains('RK4 - Pystysuora reunatukiosuus')
+            .click();
+          form.getStopAreaSurroundingsAccessibleDropdownButton().click();
+          form
+            .getStopAreaSurroundingsAccessibleDropdownOptions()
+            .contains('Esteetön')
+            .click();
+
+          // Submit.
+          stopDetailsPage.measurements.getSaveButton().click();
+          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+          view.getContainer().shouldBeVisible();
+
+          // Verify changes visible in view card:
+          view.getStopType().shouldHaveText('Uloke');
+          view.getCurvedStop().shouldHaveText('Kyllä');
+          view.getShelterType().shouldHaveText('Kapea');
+          view.getShelterLaneDistance().shouldHaveText('231');
+          view.getCurbBackOfRailDistance().shouldHaveText('111');
+          view.getStopAreaSideSlope().shouldHaveText('2.2');
+          view.getStopAreaLengthwiseSlope().shouldHaveText('-3.3');
+
+          view.getStructureLaneDistance().shouldHaveText('4');
+          view.getStopElevationFromRailTop().shouldHaveText('55');
+          view.getStopElevationFromSidewalk().shouldHaveText('6');
+          view.getLowerCleatHeight().shouldHaveText('7');
+
+          view.getPlatformEdgeWarningArea().shouldHaveText('Ei');
+          view.getSidewalkAccessibleConnection().shouldHaveText('Ei');
+          view.getGuidanceStripe().shouldHaveText('Ei');
+          view.getServiceAreaStripes().shouldHaveText('Ei');
+          view.getGuidanceType().shouldHaveText('Ei opastetta');
+          view.getGuidanceTiles().shouldHaveText('Ei');
+          view.getMapType().shouldHaveText('Muu kartta');
+
+          view.getCurbDriveSideOfRailDistance().shouldHaveText('8');
+          view.getEndRampSlope().shouldHaveText('9.9');
+          view.getServiceAreaWidth().shouldHaveText('1.1');
+          view.getServiceAreaLength().shouldHaveText('12.23');
+          view
+            .getPedestrianCrossingRampType()
+            .shouldHaveText('RK4 - Pystysuora reunatukiosuus');
+          view.getStopAreaSurroundingsAccessible().shouldHaveText('Esteetön');
+        },
+      );
+
+      it(
+        'should be able to clear measurement fields',
+        { tags: [Tag.StopRegistry] },
+        () => {
+          stopDetailsPage.measurements.getEditButton().click();
+          view.getContainer().should('not.exist');
+
+          // Clear all the fields.
+          form.getStopTypeDropdownButton().click();
+          form.getStopTypeDropdownOptions().contains('Ei tiedossa').click();
+          form.getCurvedStopDropdownButton().click();
+          form.getCurvedStopDropdownOptions().contains('Ei tiedossa').click();
+          form.getShelterTypeDropdownButton().click();
+          form.getShelterTypeDropdownOptions().contains('Ei tiedossa').click();
+          form.getShelterLaneDistanceInput().clear();
+          form.getCurbBackOfRailDistanceInput().clear();
+          form.getStopAreaSideSlopeInput().clear();
+          form.getStopAreaLengthwiseSlopeInput().clear();
+
+          form.getStructureLaneDistanceInput().clear();
+          form.getStopElevationFromRailTopInput().clear();
+          form.getStopElevationFromSidewalkInput().clear();
+          form.getLowerCleatHeightInput().clear();
+
+          form.getPlatformEdgeWarningAreaDropdownButton().click();
+          form
+            .getPlatformEdgeWarningAreaDropdownOptions()
+            .contains('Ei tiedossa')
+            .click();
+          form.getSidewalkAccessibleConnectionDropdownButton().click();
+          form
+            .getSidewalkAccessibleConnectionDropdownOptions()
+            .contains('Ei tiedossa')
+            .click();
+          form.getGuidanceStripeDropdownButton().click();
+          form
+            .getGuidanceStripeDropdownOptions()
+            .contains('Ei tiedossa')
+            .click();
+          form.getServiceAreaStripesDropdownButton().click();
+          form
+            .getServiceAreaStripesDropdownOptions()
+            .contains('Ei tiedossa')
+            .click();
+          form.getGuidanceTypeDropdownButton().click();
+          form.getGuidanceTypeDropdownOptions().contains('Ei tiedossa').click();
+          form.getGuidanceTilesDropdownButton().click();
+          form
+            .getGuidanceTilesDropdownOptions()
+            .contains('Ei tiedossa')
+            .click();
+          form.getMapTypeDropdownButton().click();
+          form.getMapTypeDropdownOptions().contains('Ei tiedossa').click();
+
+          form.getCurbDriveSideOfRailDistanceInput().clear();
+          form.getEndRampSlopeInput().clear();
+          form.getServiceAreaWidthInput().clear();
+          form.getServiceAreaLengthInput().clear();
+          form.getPedestrianCrossingRampTypeDropdownButton().click();
+          form
+            .getPedestrianCrossingRampTypeDropdownOptions()
+            .contains('Ei tiedossa')
+            .click();
+          form.getStopAreaSurroundingsAccessibleDropdownButton().click();
+          form
+            .getStopAreaSurroundingsAccessibleDropdownOptions()
+            .contains('Ei tiedossa')
+            .click();
+
+          // Submit.
+          stopDetailsPage.measurements.getSaveButton().click();
+          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+          view.getContainer().shouldBeVisible();
+
+          // Verify changes visible in view card:
+          view.getStopType().shouldHaveText('-');
+          view.getCurvedStop().shouldHaveText('-');
+          view.getShelterType().shouldHaveText('-');
+          view.getShelterLaneDistance().shouldHaveText('-');
+          view.getCurbBackOfRailDistance().shouldHaveText('-');
+          view.getStopAreaSideSlope().shouldHaveText('-');
+          view.getStopAreaLengthwiseSlope().shouldHaveText('-');
+
+          view.getStructureLaneDistance().shouldHaveText('-');
+          view.getStopElevationFromRailTop().shouldHaveText('-');
+          view.getStopElevationFromSidewalk().shouldHaveText('-');
+          view.getLowerCleatHeight().shouldHaveText('-');
+
+          view.getPlatformEdgeWarningArea().shouldHaveText('-');
+          view.getSidewalkAccessibleConnection().shouldHaveText('-');
+          view.getGuidanceStripe().shouldHaveText('-');
+          view.getServiceAreaStripes().shouldHaveText('-');
+          view.getGuidanceType().shouldHaveText('-');
+          view.getGuidanceTiles().shouldHaveText('-');
+          view.getMapType().shouldHaveText('-');
+
+          view.getCurbDriveSideOfRailDistance().shouldHaveText('-');
+          view.getEndRampSlope().shouldHaveText('-');
+          view.getServiceAreaWidth().shouldHaveText('-');
+          view.getServiceAreaLength().shouldHaveText('-');
+          view.getPedestrianCrossingRampType().shouldHaveText('-');
+          view.getStopAreaSurroundingsAccessible().shouldHaveText('-');
+        },
+      );
     });
   });
 
@@ -621,9 +917,18 @@ describe('Stop details', () => {
     stopDetailsPage.signageDetails.getSaveButton().click();
     toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
+    stopDetailsPage.technicalFeaturesTabButton().click();
+    stopDetailsPage.measurements.getEditButton().click();
+    stopDetailsPage.measurements.getSaveButton().click();
+    toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+
     // The stop should have same data as when we started.
+    stopDetailsPage.basicDetailsTabButton().click();
     verifyInitialBasicDetails();
     verifyInitialLocationDetails();
     verifyInitialSignageDetails();
+
+    stopDetailsPage.technicalFeaturesTabButton().click();
+    verifyInitialMeasurements();
   });
 });
