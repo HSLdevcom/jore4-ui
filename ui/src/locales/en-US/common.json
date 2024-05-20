@@ -352,12 +352,6 @@
     "RK4_LR": "RK4+LR - Vertical and ramp curbstone",
     "other": "Other"
   },
-  "stopRegistryPedestrianCrossingRampTypeEnumShort": {
-    "LR": "LR",
-    "RK4": "RK4",
-    "RK4_LR": "RK4+LR",
-    "other": "Other"
-  },
   "stopRegistryGuidanceTypeEnum": {
     "braille": "Braille",
     "none": "None",
