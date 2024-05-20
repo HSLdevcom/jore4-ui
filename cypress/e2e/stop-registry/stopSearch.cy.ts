@@ -49,6 +49,7 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
   {
     name: { lang: 'fin', value: 'Puistokaari' },
     quays: [{ publicCode: 'H1122' }],
+    privateCode: { value: '123456', type: 'ELY' },
   },
   {
     name: { lang: 'fin', value: 'Lapinrinne' },
@@ -59,6 +60,7 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
       },
     ],
     quays: [{ publicCode: 'H1234' }],
+    privateCode: { value: '123499', type: 'ELY' },
   },
   {
     name: { lang: 'fin', value: 'Tuusulanväylä' },
@@ -209,6 +211,56 @@ describe('Stop search', () => {
       { tags: Tag.StopRegistry },
       () => {
         stopSearchBar.getSearchInput().type(`*404*{enter}`);
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('not.exist');
+      },
+    );
+  });
+
+  describe('by ELY number', () => {
+    it(
+      'should be able to search with an exact ELY number',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.getExpandToggle().click();
+        stopSearchBar.getElyInput().type(`123456`);
+        stopSearchBar.getSearchButton().click();
+
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H1122');
+      },
+    );
+
+    it(
+      'should be able to search with an asterix',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.getExpandToggle().click();
+        stopSearchBar.getElyInput().type(`1234*`);
+        stopSearchBar.getSearchButton().click();
+
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 2);
+        stopSearchResultsPage.getResultRows().should('contain', 'H1122');
+        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
+      },
+    );
+
+    it(
+      'should show no results when search does not match any stops',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.getExpandToggle().click();
+        stopSearchBar.getElyInput().type(`not-an-ELY-number`);
+        stopSearchBar.getSearchButton().click();
+
         cy.wait('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
