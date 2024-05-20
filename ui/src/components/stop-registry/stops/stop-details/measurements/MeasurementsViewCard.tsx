@@ -200,7 +200,6 @@ export const MeasurementsViewCard = ({ stop }: Props): JSX.Element => {
           detail={pedestrianCrossingRampType}
           testId={testIds.pedestrianCrossingRampType}
         />
-        {/* TODO: ramp type info */}
         <LabeledDetail
           title={t('stopDetails.measurements.stopAreaSurroundingsAccessible')}
           detail={optionalBooleanToUiText(
