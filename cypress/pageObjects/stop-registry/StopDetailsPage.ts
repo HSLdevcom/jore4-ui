@@ -2,6 +2,7 @@ import { UUID } from '../../types';
 import {
   BasicDetailsSection,
   LocationDetailsSection,
+  MeasurementsSection,
   SignageDetailsSection,
 } from './stop-details';
 
@@ -11,6 +12,8 @@ export class StopDetailsPage {
   locationDetails = new LocationDetailsSection();
 
   signageDetails = new SignageDetailsSection();
+
+  measurements = new MeasurementsSection();
 
   visit(scheduledStopPointId: UUID) {
     cy.visit(`/stop-registry/stops/${scheduledStopPointId}`);
