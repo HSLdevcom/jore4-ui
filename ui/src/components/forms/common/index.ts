@@ -9,6 +9,7 @@ export * from './InputField';
 export * from './InputLabel';
 export * from './LabeledCheckbox';
 export * from './LabeledRadioButton';
+export * from './NullableBooleanDropdown';
 export * from './ObservationDateInput';
 export * from './PriorityForm';
 export * from './TextAreaElement';

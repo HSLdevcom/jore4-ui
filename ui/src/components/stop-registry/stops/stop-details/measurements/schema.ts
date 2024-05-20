@@ -6,7 +6,11 @@ import {
   StopRegistryShelterType,
   StopRegistryStopType,
 } from '../../../../../generated/graphql';
-import { createNullableEnum, nullableNumber } from '../../../../forms/common';
+import {
+  createNullableEnum,
+  nullableBoolean,
+  nullableNumber,
+} from '../../../../forms/common';
 
 export const measurementsFormSchema = z.object({
   stopAreaSideSlope: nullableNumber,
@@ -21,14 +25,13 @@ export const measurementsFormSchema = z.object({
   lowerCleatHeight: nullableNumber,
   serviceAreaWidth: nullableNumber,
   serviceAreaLength: nullableNumber,
-  // TODO: make sure these can be nulled.
-  platformEdgeWarningArea: z.boolean().nullable(),
-  guidanceTiles: z.boolean().nullable(),
-  guidanceStripe: z.boolean().nullable(),
-  serviceAreaStripes: z.boolean().nullable(),
-  sidewalkAccessibleConnection: z.boolean().nullable(),
-  stopAreaSurroundingsAccessible: z.boolean().nullable(),
-  curvedStop: z.boolean().nullable(),
+  platformEdgeWarningArea: nullableBoolean,
+  guidanceTiles: nullableBoolean,
+  guidanceStripe: nullableBoolean,
+  serviceAreaStripes: nullableBoolean,
+  sidewalkAccessibleConnection: nullableBoolean,
+  stopAreaSurroundingsAccessible: nullableBoolean,
+  curvedStop: nullableBoolean,
   stopType: createNullableEnum<StopRegistryStopType>(),
   shelterType: createNullableEnum<StopRegistryShelterType>(),
   guidanceType: createNullableEnum<StopRegistryGuidanceType>(),
