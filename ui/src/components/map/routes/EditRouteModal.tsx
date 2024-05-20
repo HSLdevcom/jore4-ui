@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { HTMLOverlay } from 'react-map-gl';
 import { submitFormByRef } from '../../../utils';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
+import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal/Modal';
 
 const testIds = {
@@ -31,30 +31,23 @@ export const EditRouteModal = ({
   };
 
   return (
-    <HTMLOverlay
-      // eslint-disable-next-line react/no-unstable-nested-components
-      redraw={() => (
-        <div className="flex max-h-full justify-center py-5">
-          <Modal
-            testId={testIds.modal}
-            onSave={onModalSave}
-            onCancel={onCancel}
-            onClose={onClose}
-            heading={t('routes.enterRouteData')}
-          >
-            <RoutePropertiesForm
-              className="max-w-2xl"
-              defaultValues={defaultValues}
-              ref={formRef}
-              onSubmit={onSuccess}
-            />
-          </Modal>
-        </div>
-      )}
-      captureClick
-      captureDoubleClick
-      captureDrag
-      captureScroll
-    />
+    <CustomOverlay position="top-right">
+      <div className="py-5">
+        <Modal
+          testId={testIds.modal}
+          onSave={onModalSave}
+          onCancel={onCancel}
+          onClose={onClose}
+          heading={t('routes.enterRouteData')}
+        >
+          <RoutePropertiesForm
+            className="max-w-2xl max-h-[850px] overflow-auto"
+            defaultValues={defaultValues}
+            ref={formRef}
+            onSubmit={onSuccess}
+          />
+        </Modal>
+      </div>
+    </CustomOverlay>
   );
 };
