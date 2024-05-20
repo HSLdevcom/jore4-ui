@@ -42,6 +42,18 @@ export const nullableNumber = z.any().transform((value): number | null => {
   return Number.isNaN(value) ? null : value;
 });
 
+// A helper to create zod enums for fields that accept booleans + null.
+// Intended to be used with `NullableBooleanDropdown`.
+export const nullableBoolean = z.any().transform((value): boolean | null => {
+  if (value === true || value === 'true') {
+    return true;
+  }
+  if (value === false || value === 'false') {
+    return false;
+  }
+  return null;
+});
+
 // A helper to create zod fields that accept an enum + a null value.
 export const createNullableEnum = <T>() => {
   return z.any().transform((value): T | NullOptionEnum | null => {

@@ -17,7 +17,11 @@ import {
   mapStopRegistryStopTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { Column, Row } from '../../../../../layoutComponents';
-import { EnumDropdown, InputField } from '../../../../forms/common';
+import {
+  EnumDropdown,
+  InputField,
+  NullableBooleanDropdown,
+} from '../../../../forms/common';
 import { MeasurementsFormState, measurementsFormSchema } from './schema';
 
 const testIds = {
@@ -89,7 +93,20 @@ const MeasurementsFormComponent = (
                 />
               )}
             />
-            {/* curvedStop */}
+            <InputField<MeasurementsFormState>
+              translationPrefix="stopDetails.measurements"
+              fieldPath="curvedStop"
+              testId={testIds.curvedStop}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              inputElementRenderer={(props) => (
+                <NullableBooleanDropdown
+                  placeholder={t('unknown')}
+                  buttonClassName="min-w-32"
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                />
+              )}
+            />
             <InputField<MeasurementsFormState>
               translationPrefix="stopDetails.measurements"
               fieldPath="shelterType"
@@ -179,11 +196,63 @@ const MeasurementsFormComponent = (
               testId={testIds.lowerCleatHeight}
             />
           </Row>
-          <Row className="flex-wrap items-end gap-4 md:flex-nowrap">
-            {/* platformEdgeWarningArea */}
-            {/* sidewalkAccessibleConnection */}
-            {/* guidanceStripe */}
-            {/* serviceAreaStripes */}
+          <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
+            <InputField<MeasurementsFormState>
+              translationPrefix="stopDetails.measurements"
+              fieldPath="platformEdgeWarningArea"
+              testId={testIds.platformEdgeWarningArea}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              inputElementRenderer={(props) => (
+                <NullableBooleanDropdown
+                  placeholder={t('unknown')}
+                  buttonClassName="min-w-32"
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                />
+              )}
+            />
+            <InputField<MeasurementsFormState>
+              translationPrefix="stopDetails.measurements"
+              fieldPath="sidewalkAccessibleConnection"
+              testId={testIds.sidewalkAccessibleConnection}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              inputElementRenderer={(props) => (
+                <NullableBooleanDropdown
+                  placeholder={t('unknown')}
+                  buttonClassName="min-w-32"
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                />
+              )}
+            />
+            <InputField<MeasurementsFormState>
+              translationPrefix="stopDetails.measurements"
+              fieldPath="guidanceStripe"
+              testId={testIds.guidanceStripe}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              inputElementRenderer={(props) => (
+                <NullableBooleanDropdown
+                  placeholder={t('unknown')}
+                  buttonClassName="min-w-32"
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                />
+              )}
+            />
+            <InputField<MeasurementsFormState>
+              translationPrefix="stopDetails.measurements"
+              fieldPath="serviceAreaStripes"
+              testId={testIds.serviceAreaStripes}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              inputElementRenderer={(props) => (
+                <NullableBooleanDropdown
+                  placeholder={t('unknown')}
+                  buttonClassName="min-w-32"
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                />
+              )}
+            />
             <InputField<MeasurementsFormState>
               translationPrefix="stopDetails.measurements"
               fieldPath="guidanceType"
@@ -201,7 +270,20 @@ const MeasurementsFormComponent = (
                 />
               )}
             />
-            {/* guidanceTiles */}
+            <InputField<MeasurementsFormState>
+              translationPrefix="stopDetails.measurements"
+              fieldPath="guidanceTiles"
+              testId={testIds.guidanceTiles}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              inputElementRenderer={(props) => (
+                <NullableBooleanDropdown
+                  placeholder={t('unknown')}
+                  buttonClassName="min-w-32"
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                />
+              )}
+            />
             <InputField<MeasurementsFormState>
               translationPrefix="stopDetails.measurements"
               fieldPath="mapType"
@@ -274,7 +356,25 @@ const MeasurementsFormComponent = (
                 />
               )}
             />
-            {/* stopAreaSurroundingsAccessible */}
+            <InputField<MeasurementsFormState>
+              translationPrefix="stopDetails.measurements"
+              fieldPath="stopAreaSurroundingsAccessible"
+              testId={testIds.stopAreaSurroundingsAccessible}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              inputElementRenderer={(props) => (
+                <NullableBooleanDropdown
+                  placeholder={t('unknown')}
+                  buttonClassName="min-w-32"
+                  translationKeys={{
+                    true: 'stopDetails.measurements.accessible',
+                    false: 'stopDetails.measurements.inaccessible',
+                    null: 'unknown',
+                  }}
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                />
+              )}
+            />
           </Row>
         </Column>
       </form>
