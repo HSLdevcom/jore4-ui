@@ -9,6 +9,7 @@ import {
 } from '../../../generated/graphql';
 import {
   buildOptionalSearchConditionGqlFilter,
+  buildTiamatPrivateCodeLikeGqlFilter,
   buildTiamatStopQuayPublicCodeLikeGqlFilter,
   mapToSqlLikeValue,
   mapToVariables,
@@ -73,13 +74,23 @@ export type StopSearchRow = StopTableRowFragment & {
 const buildSearchStopsGqlQueryVariables = (
   searchConditions: StopSearchConditions,
 ): SearchStopsQueryVariables => {
-  const stopFilter = buildOptionalSearchConditionGqlFilter<
+  const labelFilter = buildOptionalSearchConditionGqlFilter<
     string,
     StopsDatabaseStopPlaceNewestVersionBoolExp
   >(
     mapToSqlLikeValue(searchConditions.label),
     buildTiamatStopQuayPublicCodeLikeGqlFilter,
   );
+
+  const elyNumberFilter = buildOptionalSearchConditionGqlFilter<
+    string,
+    StopsDatabaseStopPlaceNewestVersionBoolExp
+  >(
+    mapToSqlLikeValue(searchConditions.elyNumber),
+    buildTiamatPrivateCodeLikeGqlFilter,
+  );
+
+  const stopFilter = { ...labelFilter, ...elyNumberFilter };
 
   return {
     stopFilter,

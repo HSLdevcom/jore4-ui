@@ -9,7 +9,6 @@ import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
 import { ChevronToggle, SimpleButton } from '../../../uiComponents';
 import { SearchInput } from '../../common';
-import { FormRow } from '../../forms/common';
 
 export const StopSearchBar = (): JSX.Element => {
   const { searchConditions, setSearchCondition, handleSearch } =
@@ -22,10 +21,15 @@ export const StopSearchBar = (): JSX.Element => {
     searchInput: 'StopSearchBar::searchInput',
     toggleExpand: 'StopSearchBar::chevronToggle',
     searchButton: 'StopSearchBar::searchButton',
+    elyInput: 'StopSearchBar::elyInput',
   };
 
   const onChangeLabel = (value: string) => {
     setSearchCondition(StopSearchQueryParameterNames.Label, value);
+  };
+
+  const onChangeELY = (value: string) => {
+    setSearchCondition(StopSearchQueryParameterNames.ELYNumber, value);
   };
 
   const onSearch = () => {
@@ -64,7 +68,18 @@ export const StopSearchBar = (): JSX.Element => {
           className="space-y-5 border-2 border-background p-10"
         >
           <h2>{t('search.advancedSearchTitle')}</h2>
-          <FormRow mdColumns={4}>TODO</FormRow>
+          <Row className="space-x-4">
+            <Column className="w-1/6">
+              <label htmlFor="label">{t('search.elyNumber')} </label>
+              <input
+                data-testid={testIds.elyInput}
+                className="flex-1"
+                type="text"
+                value={searchConditions.elyNumber}
+                onChange={(e) => onChangeELY(e.target.value)}
+              />
+            </Column>
+          </Row>
         </div>
         <Row className="flex justify-end bg-background py-4">
           <SimpleButton
