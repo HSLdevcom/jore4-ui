@@ -13,7 +13,7 @@ import {
 import {
   mapStopRegistryGuidanceTypeToUiName,
   mapStopRegistryMapTypeToUiName,
-  mapStopRegistryPedestrianCrossingRampTypeToShortUiName,
+  mapStopRegistryPedestrianCrossingRampTypeToUiName,
   mapStopRegistryShelterTypeToUiName,
   mapStopRegistryStopTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
@@ -260,33 +260,22 @@ const MeasurementsFormComponent = (
             inputClassName="w-20"
             testId={testIds.serviceAreaLength}
           />
-          <div>
-            <InputField<MeasurementsFormState>
-              translationPrefix="stopDetails.measurements"
-              fieldPath="pedestrianCrossingRampType"
-              testId={testIds.pedestrianCrossingRampType}
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <div className="inline-flex items-center">
-                  <EnumDropdown<StopRegistryPedestrianCrossingRampType>
-                    enumType={StopRegistryPedestrianCrossingRampType}
-                    placeholder={t('unknown')}
-                    uiNameMapper={
-                      mapStopRegistryPedestrianCrossingRampTypeToShortUiName
-                    }
-                    includeNullOption
-                    buttonClassNames="min-w-28"
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    {...props}
-                  />
-                  <i
-                    className="icon-info text-2xl text-brand"
-                    title="Luiskaus info, TODO"
-                  />
-                </div>
-              )}
-            />
-          </div>
+          <InputField<MeasurementsFormState>
+            translationPrefix="stopDetails.measurements"
+            fieldPath="pedestrianCrossingRampType"
+            testId={testIds.pedestrianCrossingRampType}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <EnumDropdown<StopRegistryPedestrianCrossingRampType>
+                enumType={StopRegistryPedestrianCrossingRampType}
+                placeholder={t('unknown')}
+                uiNameMapper={mapStopRegistryPedestrianCrossingRampTypeToUiName}
+                includeNullOption
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+              />
+            )}
+          />
           {/* stopAreaSurroundingsAccessible */}
         </Row>
       </form>
