@@ -70,7 +70,7 @@ export const StopSearchBar = (): JSX.Element => {
           <h2>{t('search.advancedSearchTitle')}</h2>
           <Row className="space-x-4">
             <Column className="w-1/6">
-              <label htmlFor="label">{t('search.elyNumber')} </label>
+              <label htmlFor="label">{t('stopRegistrySearch.elyNumber')}</label>
               <input
                 data-testid={testIds.elyInput}
                 className="flex-1"
