@@ -50,6 +50,7 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
     name: { lang: 'fin', value: 'Puistokaari' },
     quays: [{ publicCode: 'H1122' }],
     privateCode: { value: '123456', type: 'ELY' },
+    keyValues: [{ key: 'streetAddress', values: ['Puistokaari 1'] }],
   },
   {
     name: { lang: 'fin', value: 'Lapinrinne' },
@@ -61,10 +62,12 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
     ],
     quays: [{ publicCode: 'H1234' }],
     privateCode: { value: '123499', type: 'ELY' },
+    keyValues: [{ key: 'streetAddress', values: ['Lapinrinteentie 25'] }],
   },
   {
     name: { lang: 'fin', value: 'Tuusulanväylä' },
     quays: [{ publicCode: 'H2233' }],
+    keyValues: [{ key: 'streetAddress', values: ['Tuusulanväylä 10-16'] }],
   },
 ];
 
@@ -181,6 +184,9 @@ describe('Stop search', () => {
       'should be able to search with an exact stop label',
       { tags: Tag.StopRegistry },
       () => {
+        stopSearchBar.searchCriteriaRadioButtons
+          .getLabelRadioButton()
+          .should('be.checked');
         stopSearchBar.getSearchInput().type(`H1234{enter}`);
         cy.wait('@gqlSearchStops');
 
@@ -265,6 +271,95 @@ describe('Stop search', () => {
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('not.exist');
+      },
+    );
+  });
+
+  describe('by address', () => {
+    it(
+      'should be able to search with an exact address',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.searchCriteriaRadioButtons
+          .getAddressRadioButton()
+          .click();
+        stopSearchBar.getSearchInput().type(`Tuusulanväylä 10-16{enter}`);
+
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+      },
+    );
+
+    it(
+      'should be able to search with an asterix',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.searchCriteriaRadioButtons
+          .getAddressRadioButton()
+          .click();
+        stopSearchBar.getSearchInput().type(`Tuusul*{enter}`);
+
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+      },
+    );
+
+    it(
+      'should show no results when search does not match any stops',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.searchCriteriaRadioButtons
+          .getAddressRadioButton()
+          .click();
+        stopSearchBar.getSearchInput().type(`no address 22{enter}`);
+
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('not.exist');
+      },
+    );
+  });
+  describe('Search criteria', () => {
+    it(
+      'Should trigger search when the search criteria is changed and the search input field contains text',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.getSearchInput().type(`Puistokaari 1`);
+        stopSearchBar.searchCriteriaRadioButtons
+          .getAddressRadioButton()
+          .click();
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H1122');
+      },
+    );
+    it(
+      'Should not trigger a search when the search criteria is changed if the search input field is empty',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.getSearchInput().type(`H2233{enter}`);
+        cy.wait('@gqlSearchStops');
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+
+        stopSearchBar.getSearchInput().clear();
+        stopSearchBar.searchCriteriaRadioButtons
+          .getAddressRadioButton()
+          .click();
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
       },
     );
   });
