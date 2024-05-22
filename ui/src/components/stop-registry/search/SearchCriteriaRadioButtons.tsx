@@ -26,7 +26,7 @@ export const SearchCriteriaRadioButtons = ({
   ];
 
   return (
-    <>
+    <div className="space-x-4">
       {searchByOptions.map((option) => (
         <label htmlFor={option.name} className="inline-flex" key={option.name}>
           <input
@@ -42,6 +42,6 @@ export const SearchCriteriaRadioButtons = ({
           {option.label}
         </label>
       ))}
-    </>
+    </div>
   );
 };
