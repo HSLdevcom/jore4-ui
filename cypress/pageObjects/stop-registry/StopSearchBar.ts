@@ -1,4 +1,8 @@
+import { SearchCriteriaRadioButtons } from './SearchCriteriaRadioButtons';
+
 export class StopSearchBar {
+  searchCriteriaRadioButtons = new SearchCriteriaRadioButtons();
+
   getSearchInput() {
     return cy.getByTestId('StopSearchBar::searchInput');
   }
