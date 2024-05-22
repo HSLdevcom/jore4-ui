@@ -12,6 +12,7 @@ import {
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
+import { SearchCriteriaRadioButtons } from '../../pageObjects/stop-registry/SearchCriteriaRadioButtons';
 import { StopSearchBar } from '../../pageObjects/stop-registry/StopSearchBar';
 import { StopSearchResultsPage } from '../../pageObjects/stop-registry/StopSearchResultsPage';
 import { UUID } from '../../types';
@@ -65,6 +66,7 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
   {
     name: { lang: 'fin', value: 'Tuusulanväylä' },
     quays: [{ publicCode: 'H2233' }],
+    keyValues: [{ key: 'streetAddress', values: ['Tuusulanväylä 10-16'] }],
   },
 ];
 
@@ -118,6 +120,7 @@ const buildScheduledStopPoints = (
 describe('Stop search', () => {
   let stopSearchBar: StopSearchBar;
   let stopSearchResultsPage: StopSearchResultsPage;
+  let searchCriteriaRadioButtons: SearchCriteriaRadioButtons;
   const baseDbResources = {
     timingPlaces,
   };
@@ -155,6 +158,7 @@ describe('Stop search', () => {
 
     stopSearchBar = new StopSearchBar();
     stopSearchResultsPage = new StopSearchResultsPage();
+    searchCriteriaRadioButtons = new SearchCriteriaRadioButtons();
   });
 
   beforeEach(() => {
@@ -260,6 +264,52 @@ describe('Stop search', () => {
         stopSearchBar.getExpandToggle().click();
         stopSearchBar.getElyInput().type(`not-an-ELY-number`);
         stopSearchBar.getSearchButton().click();
+
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('not.exist');
+      },
+    );
+  });
+
+  describe('by address', () => {
+    it(
+      'should be able to search with an exact address',
+      { tags: Tag.StopRegistry },
+      () => {
+        searchCriteriaRadioButtons.getAddressRadioButton().click();
+        stopSearchBar.getSearchInput().type(`Tuusulanväylä 10-16{enter}`);
+
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+      },
+    );
+
+    it(
+      'should be able to search with an asterix',
+      { tags: Tag.StopRegistry },
+      () => {
+        searchCriteriaRadioButtons.getAddressRadioButton().click();
+        stopSearchBar.getSearchInput().type(`Tuusul*{enter}`);
+
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+      },
+    );
+
+    it(
+      'should show no results when search does not match any stops',
+      { tags: Tag.StopRegistry },
+      () => {
+        searchCriteriaRadioButtons.getAddressRadioButton().click();
+        stopSearchBar.getSearchInput().type(`no address 22{enter}`);
 
         cy.wait('@gqlSearchStops');
 
