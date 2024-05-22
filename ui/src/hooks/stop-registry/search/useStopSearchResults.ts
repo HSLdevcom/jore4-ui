@@ -9,6 +9,7 @@ import {
 } from '../../../generated/graphql';
 import {
   buildOptionalSearchConditionGqlFilter,
+  buildTiamatAddressLikeGqlFilter,
   buildTiamatPrivateCodeLikeGqlFilter,
   buildTiamatStopQuayPublicCodeLikeGqlFilter,
   mapToSqlLikeValue,
@@ -89,8 +90,15 @@ const buildSearchStopsGqlQueryVariables = (
     mapToSqlLikeValue(searchConditions.elyNumber),
     buildTiamatPrivateCodeLikeGqlFilter,
   );
+  const addressFilter = buildOptionalSearchConditionGqlFilter<
+    string,
+    StopsDatabaseStopPlaceNewestVersionBoolExp
+  >(
+    mapToSqlLikeValue(searchConditions.address),
+    buildTiamatAddressLikeGqlFilter,
+  );
 
-  const stopFilter = { ...labelFilter, ...elyNumberFilter };
+  const stopFilter = { ...labelFilter, ...elyNumberFilter, ...addressFilter };
 
   return {
     stopFilter,

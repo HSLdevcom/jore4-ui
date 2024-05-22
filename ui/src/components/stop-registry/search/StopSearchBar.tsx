@@ -1,3 +1,5 @@
+import isEmpty from 'lodash/isEmpty';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import {
@@ -9,33 +11,66 @@ import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
 import { ChevronToggle, SimpleButton } from '../../../uiComponents';
 import { SearchInput } from '../../common';
+import {
+  SearchBy,
+  SearchCriteriaRadioButtons,
+  isSearchBy,
+} from './SearchCriteriaRadioButtons';
+
+const testIds = {
+  searchInput: 'StopSearchBar::searchInput',
+  toggleExpand: 'StopSearchBar::chevronToggle',
+  searchButton: 'StopSearchBar::searchButton',
+  elyInput: 'StopSearchBar::elyInput',
+};
 
 export const StopSearchBar = (): JSX.Element => {
-  const { searchConditions, setSearchCondition, handleSearch } =
-    useStopSearch();
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const [isExpanded, toggleIsExpanded] = useToggle();
-  const testIds = {
-    searchInput: 'StopSearchBar::searchInput',
-    toggleExpand: 'StopSearchBar::chevronToggle',
-    searchButton: 'StopSearchBar::searchButton',
-    elyInput: 'StopSearchBar::elyInput',
-  };
+  const {
+    searchConditions,
+    setSearchInputValue,
+    setSearchCondition,
+    setMultipleSearchConditions,
+    handleSearch,
+  } = useStopSearch();
 
-  const onChangeLabel = (value: string) => {
-    setSearchCondition(StopSearchQueryParameterNames.Label, value);
-  };
+  const [isExpanded, toggleIsExpanded] = useToggle();
 
   const onChangeELY = (value: string) => {
     setSearchCondition(StopSearchQueryParameterNames.ELYNumber, value);
+  };
+
+  const [searchBy, setSearchBy] = useState<SearchBy>('label');
+
+  const handleSearchByChange = (value: string) => {
+    const oldValue = searchConditions[searchBy];
+    setMultipleSearchConditions({
+      [searchBy]: '',
+      [value]: oldValue,
+    });
+    setSearchBy(value as SearchBy);
+  };
+
+  const onSearchInputChange = (value: string) => {
+    setSearchInputValue(searchBy, value);
   };
 
   const onSearch = () => {
     dispatch(resetSelectedRowsAction());
     handleSearch();
   };
+
+  useEffect(() => {
+    Object.entries(searchConditions).forEach(([key, value]) => {
+      if (isSearchBy(key) && !isEmpty(value)) {
+        setSearchBy(key);
+        setSearchInputValue(key, value);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container className="py-10">
@@ -47,9 +82,9 @@ export const StopSearchBar = (): JSX.Element => {
           <Row className="space-x-4">
             <SearchInput
               testId={testIds.searchInput}
-              value={searchConditions.label}
+              value={searchConditions[searchBy]}
               onSearch={onSearch}
-              onChange={onChangeLabel}
+              onChange={onSearchInputChange}
             />
             <ChevronToggle
               testId={testIds.toggleExpand}
@@ -58,6 +93,12 @@ export const StopSearchBar = (): JSX.Element => {
               controls="advanced-search"
               openTooltip={t('accessibility:common.expandSearch')}
               closeTooltip={t('accessibility:common.closeSearch')}
+            />
+          </Row>
+          <Row className="space-x-4 py-4">
+            <SearchCriteriaRadioButtons
+              handleSearchByChange={handleSearchByChange}
+              searchBy={searchBy}
             />
           </Row>
         </Column>

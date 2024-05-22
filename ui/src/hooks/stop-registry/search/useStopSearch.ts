@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Path } from '../../../router/routeDetails';
 import { mapObjectToQueryParameterObjects, useUrlQuery } from '../../urlQuery';
-import { useStopSearchQueryParser } from './useStopSearchQueryParser';
+import {
+  StopSearchConditions,
+  useStopSearchQueryParser,
+} from './useStopSearchQueryParser';
 
 export const useStopSearch = () => {
   const { setMultipleParametersToUrlQuery } = useUrlQuery();
@@ -15,6 +18,19 @@ export const useStopSearch = () => {
     setSearchConditions({
       ...searchConditions,
       [condition]: value,
+    });
+  };
+
+  const setSearchInputValue = (searchBy: string, value: string) => {
+    setSearchCondition(searchBy, value);
+  };
+
+  const setMultipleSearchConditions = (
+    conditions: Partial<StopSearchConditions>,
+  ) => {
+    setSearchConditions({
+      ...searchConditions,
+      ...conditions,
     });
   };
 
@@ -51,6 +67,8 @@ export const useStopSearch = () => {
 
   return {
     setSearchCondition,
+    setMultipleSearchConditions,
+    setSearchInputValue,
     searchConditions,
     handleSearch,
     handleClose,
