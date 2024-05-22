@@ -9432,6 +9432,7 @@ export type StopRegistryStopPlaceRegisterTopographicPlaceArgs = {
 
 export type StopRegistryAccessibilityAssessment = {
   __typename?: 'stop_registry_AccessibilityAssessment';
+  hslAccessibilityProperties?: Maybe<StopRegistryHslAccessibilityProperties>;
   id?: Maybe<Scalars['String']>;
   limitations?: Maybe<StopRegistryAccessibilityLimitations>;
   mobilityImpairedAccess?: Maybe<StopRegistryLimitationStatusType>;
@@ -9439,6 +9440,7 @@ export type StopRegistryAccessibilityAssessment = {
 };
 
 export type StopRegistryAccessibilityAssessmentInput = {
+  hslAccessibilityProperties?: InputMaybe<StopRegistryHslAccessibilityPropertiesInput>;
   id?: InputMaybe<Scalars['String']>;
   limitations?: InputMaybe<StopRegistryAccessibilityLimitationsInput>;
 };
@@ -9660,6 +9662,88 @@ export type StopRegistryGroupOfTariffZones = {
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   version?: Maybe<Scalars['String']>;
   versionComment?: Maybe<Scalars['String']>;
+};
+
+export type StopRegistryHslAccessibilityProperties = {
+  __typename?: 'stop_registry_HslAccessibilityProperties';
+  /** Reunakiven etäisyys kiskon selästä (cm) */
+  curbBackOfRailDistance?: Maybe<Scalars['Float']>;
+  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
+  curbDriveSideOfRailDistance?: Maybe<Scalars['Float']>;
+  /** Kaareva pysäkki */
+  curvedStop?: Maybe<Scalars['Boolean']>;
+  /** Päätyluiskan kaltevuus (%) */
+  endRampSlope?: Maybe<Scalars['Float']>;
+  /** Opasteraita */
+  guidanceStripe?: Maybe<Scalars['Boolean']>;
+  /** Opaslaatat */
+  guidanceTiles?: Maybe<Scalars['Boolean']>;
+  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
+  guidanceType?: Maybe<StopRegistryGuidanceType>;
+  id?: Maybe<Scalars['String']>;
+  /** Alapienan korkeus (cm) */
+  lowerCleatHeight?: Maybe<Scalars['Float']>;
+  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
+  mapType?: Maybe<StopRegistryMapType>;
+  /** Suojatien luiskaus */
+  pedestrianCrossingRampType?: Maybe<StopRegistryPedestrianCrossingRampType>;
+  /** Pysäkkialueen varoitusalue */
+  platformEdgeWarningArea?: Maybe<Scalars['Boolean']>;
+  /** Palvelualueen pituus (m) */
+  serviceAreaLength?: Maybe<Scalars['Float']>;
+  /** Palvelualueen raidoitus */
+  serviceAreaStripes?: Maybe<Scalars['Boolean']>;
+  /** Palvelualueen leveys (m) */
+  serviceAreaWidth?: Maybe<Scalars['Float']>;
+  /** Katoksen ja ajoradan välinen leveys (cm) */
+  shelterLaneDistance?: Maybe<Scalars['Float']>;
+  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
+  shelterType?: Maybe<StopRegistryShelterType>;
+  /** Esteetön yhteys jalkakäytävältä pysäkille */
+  sidewalkAccessibleConnection?: Maybe<Scalars['Boolean']>;
+  /** Pysäkkialueen pituuskaltevuus (%) */
+  stopAreaLengthwiseSlope?: Maybe<Scalars['Float']>;
+  /** Pysäkkialueen sivukaltevuus (%) */
+  stopAreaSideSlope?: Maybe<Scalars['Float']>;
+  /** Pysäkin ympäristo: Esteellinen / Esteetön */
+  stopAreaSurroundingsAccessible?: Maybe<Scalars['Boolean']>;
+  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
+  stopElevationFromRailTop?: Maybe<Scalars['Float']>;
+  /** Pysäkin korotus jalkakäytävään nähden (cm) */
+  stopElevationFromSidewalk?: Maybe<Scalars['Float']>;
+  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
+  stopType?: Maybe<StopRegistryStopType>;
+  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
+  structureLaneDistance?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type StopRegistryHslAccessibilityPropertiesInput = {
+  curbBackOfRailDistance?: InputMaybe<Scalars['Float']>;
+  curbDriveSideOfRailDistance?: InputMaybe<Scalars['Float']>;
+  curvedStop?: InputMaybe<Scalars['Boolean']>;
+  endRampSlope?: InputMaybe<Scalars['Float']>;
+  guidanceStripe?: InputMaybe<Scalars['Boolean']>;
+  guidanceTiles?: InputMaybe<Scalars['Boolean']>;
+  guidanceType?: InputMaybe<StopRegistryGuidanceType>;
+  id?: InputMaybe<Scalars['String']>;
+  lowerCleatHeight?: InputMaybe<Scalars['Float']>;
+  mapType?: InputMaybe<StopRegistryMapType>;
+  pedestrianCrossingRampType?: InputMaybe<StopRegistryPedestrianCrossingRampType>;
+  platformEdgeWarningArea?: InputMaybe<Scalars['Boolean']>;
+  serviceAreaLength?: InputMaybe<Scalars['Float']>;
+  serviceAreaStripes?: InputMaybe<Scalars['Boolean']>;
+  serviceAreaWidth?: InputMaybe<Scalars['Float']>;
+  shelterLaneDistance?: InputMaybe<Scalars['Float']>;
+  shelterType?: InputMaybe<StopRegistryShelterType>;
+  sidewalkAccessibleConnection?: InputMaybe<Scalars['Boolean']>;
+  stopAreaLengthwiseSlope?: InputMaybe<Scalars['Float']>;
+  stopAreaSideSlope?: InputMaybe<Scalars['Float']>;
+  stopAreaSurroundingsAccessible?: InputMaybe<Scalars['Boolean']>;
+  stopElevationFromRailTop?: InputMaybe<Scalars['Float']>;
+  stopElevationFromSidewalk?: InputMaybe<Scalars['Float']>;
+  stopType?: InputMaybe<StopRegistryStopType>;
+  structureLaneDistance?: InputMaybe<Scalars['Float']>;
 };
 
 export enum StopRegistryInterchangeWeightingType {
@@ -10496,12 +10580,37 @@ export enum StopRegistryGender {
   SameSexOnly = 'sameSexOnly',
 }
 
+export enum StopRegistryGuidanceType {
+  Braille = 'braille',
+  None = 'none',
+  Other = 'other',
+}
+
+export enum StopRegistryMapType {
+  None = 'none',
+  Other = 'other',
+  Tactile = 'tactile',
+}
+
 export enum StopRegistryNameType {
   Alias = 'alias',
   Copy = 'copy',
   Label = 'label',
   Other = 'other',
   Translation = 'translation',
+}
+
+export enum StopRegistryPedestrianCrossingRampType {
+  Lr = 'LR',
+  Rk4 = 'RK4',
+  Rk4Lr = 'RK4_LR',
+  Other = 'other',
+}
+
+export enum StopRegistryShelterType {
+  Narrow = 'narrow',
+  Other = 'other',
+  Wide = 'wide',
 }
 
 export enum StopRegistrySignContentType {
@@ -10517,6 +10626,13 @@ export enum StopRegistrySignContentType {
   Tickets = 'tickets',
   TouchPoint = 'touchPoint',
   TransportMode = 'transportMode',
+}
+
+export enum StopRegistryStopType {
+  BusBulb = 'busBulb',
+  InLane = 'inLane',
+  Other = 'other',
+  PullOut = 'pullOut',
 }
 
 /** columns and relationships of "access_space" */
@@ -12294,6 +12410,7 @@ export type StopsDatabaseAccessibilityAssessment = {
   changed_by?: Maybe<Scalars['String']>;
   created?: Maybe<Scalars['timestamp']>;
   from_date?: Maybe<Scalars['timestamp']>;
+  hsl_accessibility_properties_id?: Maybe<Scalars['bigint']>;
   id: Scalars['bigint'];
   mobility_impaired_access?: Maybe<Scalars['String']>;
   netex_id?: Maybe<Scalars['String']>;
@@ -12362,6 +12479,7 @@ export type StopsDatabaseAccessibilityAssessmentAggregateFieldsCountArgs = {
 /** aggregate avg on columns */
 export type StopsDatabaseAccessibilityAssessmentAvgFields = {
   __typename?: 'stops_database_accessibility_assessment_avg_fields';
+  hsl_accessibility_properties_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
 };
@@ -12377,6 +12495,7 @@ export type StopsDatabaseAccessibilityAssessmentBoolExp = {
   changed_by?: InputMaybe<StringComparisonExp>;
   created?: InputMaybe<TimestampComparisonExp>;
   from_date?: InputMaybe<TimestampComparisonExp>;
+  hsl_accessibility_properties_id?: InputMaybe<BigintComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
   mobility_impaired_access?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
@@ -12395,6 +12514,7 @@ export enum StopsDatabaseAccessibilityAssessmentConstraint {
 
 /** input type for incrementing numeric columns in table "accessibility_assessment" */
 export type StopsDatabaseAccessibilityAssessmentIncInput = {
+  hsl_accessibility_properties_id?: InputMaybe<Scalars['bigint']>;
   id?: InputMaybe<Scalars['bigint']>;
   version?: InputMaybe<Scalars['bigint']>;
 };
@@ -12406,6 +12526,7 @@ export type StopsDatabaseAccessibilityAssessmentInsertInput = {
   changed_by?: InputMaybe<Scalars['String']>;
   created?: InputMaybe<Scalars['timestamp']>;
   from_date?: InputMaybe<Scalars['timestamp']>;
+  hsl_accessibility_properties_id?: InputMaybe<Scalars['bigint']>;
   id?: InputMaybe<Scalars['bigint']>;
   mobility_impaired_access?: InputMaybe<Scalars['String']>;
   netex_id?: InputMaybe<Scalars['String']>;
@@ -12716,6 +12837,7 @@ export type StopsDatabaseAccessibilityAssessmentMaxFields = {
   changed_by?: Maybe<Scalars['String']>;
   created?: Maybe<Scalars['timestamp']>;
   from_date?: Maybe<Scalars['timestamp']>;
+  hsl_accessibility_properties_id?: Maybe<Scalars['bigint']>;
   id?: Maybe<Scalars['bigint']>;
   mobility_impaired_access?: Maybe<Scalars['String']>;
   netex_id?: Maybe<Scalars['String']>;
@@ -12731,6 +12853,7 @@ export type StopsDatabaseAccessibilityAssessmentMinFields = {
   changed_by?: Maybe<Scalars['String']>;
   created?: Maybe<Scalars['timestamp']>;
   from_date?: Maybe<Scalars['timestamp']>;
+  hsl_accessibility_properties_id?: Maybe<Scalars['bigint']>;
   id?: Maybe<Scalars['bigint']>;
   mobility_impaired_access?: Maybe<Scalars['String']>;
   netex_id?: Maybe<Scalars['String']>;
@@ -12769,6 +12892,7 @@ export type StopsDatabaseAccessibilityAssessmentOrderBy = {
   changed_by?: InputMaybe<OrderBy>;
   created?: InputMaybe<OrderBy>;
   from_date?: InputMaybe<OrderBy>;
+  hsl_accessibility_properties_id?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   mobility_impaired_access?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
@@ -12793,6 +12917,8 @@ export enum StopsDatabaseAccessibilityAssessmentSelectColumn {
   /** column name */
   FromDate = 'from_date',
   /** column name */
+  HslAccessibilityPropertiesId = 'hsl_accessibility_properties_id',
+  /** column name */
   Id = 'id',
   /** column name */
   MobilityImpairedAccess = 'mobility_impaired_access',
@@ -12812,6 +12938,7 @@ export type StopsDatabaseAccessibilityAssessmentSetInput = {
   changed_by?: InputMaybe<Scalars['String']>;
   created?: InputMaybe<Scalars['timestamp']>;
   from_date?: InputMaybe<Scalars['timestamp']>;
+  hsl_accessibility_properties_id?: InputMaybe<Scalars['bigint']>;
   id?: InputMaybe<Scalars['bigint']>;
   mobility_impaired_access?: InputMaybe<Scalars['String']>;
   netex_id?: InputMaybe<Scalars['String']>;
@@ -12823,6 +12950,7 @@ export type StopsDatabaseAccessibilityAssessmentSetInput = {
 /** aggregate stddev on columns */
 export type StopsDatabaseAccessibilityAssessmentStddevFields = {
   __typename?: 'stops_database_accessibility_assessment_stddev_fields';
+  hsl_accessibility_properties_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
 };
@@ -12830,6 +12958,7 @@ export type StopsDatabaseAccessibilityAssessmentStddevFields = {
 /** aggregate stddev_pop on columns */
 export type StopsDatabaseAccessibilityAssessmentStddevPopFields = {
   __typename?: 'stops_database_accessibility_assessment_stddev_pop_fields';
+  hsl_accessibility_properties_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
 };
@@ -12837,6 +12966,7 @@ export type StopsDatabaseAccessibilityAssessmentStddevPopFields = {
 /** aggregate stddev_samp on columns */
 export type StopsDatabaseAccessibilityAssessmentStddevSampFields = {
   __typename?: 'stops_database_accessibility_assessment_stddev_samp_fields';
+  hsl_accessibility_properties_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
 };
@@ -12855,6 +12985,7 @@ export type StopsDatabaseAccessibilityAssessmentStreamCursorValueInput = {
   changed_by?: InputMaybe<Scalars['String']>;
   created?: InputMaybe<Scalars['timestamp']>;
   from_date?: InputMaybe<Scalars['timestamp']>;
+  hsl_accessibility_properties_id?: InputMaybe<Scalars['bigint']>;
   id?: InputMaybe<Scalars['bigint']>;
   mobility_impaired_access?: InputMaybe<Scalars['String']>;
   netex_id?: InputMaybe<Scalars['String']>;
@@ -12866,6 +12997,7 @@ export type StopsDatabaseAccessibilityAssessmentStreamCursorValueInput = {
 /** aggregate sum on columns */
 export type StopsDatabaseAccessibilityAssessmentSumFields = {
   __typename?: 'stops_database_accessibility_assessment_sum_fields';
+  hsl_accessibility_properties_id?: Maybe<Scalars['bigint']>;
   id?: Maybe<Scalars['bigint']>;
   version?: Maybe<Scalars['bigint']>;
 };
@@ -12880,6 +13012,8 @@ export enum StopsDatabaseAccessibilityAssessmentUpdateColumn {
   Created = 'created',
   /** column name */
   FromDate = 'from_date',
+  /** column name */
+  HslAccessibilityPropertiesId = 'hsl_accessibility_properties_id',
   /** column name */
   Id = 'id',
   /** column name */
@@ -12906,6 +13040,7 @@ export type StopsDatabaseAccessibilityAssessmentUpdates = {
 /** aggregate var_pop on columns */
 export type StopsDatabaseAccessibilityAssessmentVarPopFields = {
   __typename?: 'stops_database_accessibility_assessment_var_pop_fields';
+  hsl_accessibility_properties_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
 };
@@ -12913,6 +13048,7 @@ export type StopsDatabaseAccessibilityAssessmentVarPopFields = {
 /** aggregate var_samp on columns */
 export type StopsDatabaseAccessibilityAssessmentVarSampFields = {
   __typename?: 'stops_database_accessibility_assessment_var_samp_fields';
+  hsl_accessibility_properties_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
 };
@@ -12920,6 +13056,7 @@ export type StopsDatabaseAccessibilityAssessmentVarSampFields = {
 /** aggregate variance on columns */
 export type StopsDatabaseAccessibilityAssessmentVarianceFields = {
   __typename?: 'stops_database_accessibility_assessment_variance_fields';
+  hsl_accessibility_properties_id?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
 };

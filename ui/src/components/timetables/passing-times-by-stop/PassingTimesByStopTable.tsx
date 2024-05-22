@@ -41,7 +41,9 @@ export const PassingTimesByStopTable = ({
   const [selectedPassingTime, setSelectedPassingTime] =
     useState<PassingTimeByStopFragment>();
 
-  if (!vehicleJourneys) return <></>;
+  if (!vehicleJourneys) {
+    return <></>;
+  }
 
   const passingTimesByStop = pipe(
     // Get passing times from vehicle journeys

@@ -161,7 +161,9 @@ const DrawRouteLayerComponent = (
         setIsLoading(false);
       }
 
-      if (!infraLinksWithStops) return;
+      if (!infraLinksWithStops) {
+        return;
+      }
 
       // retrieve stop and infra link data from base route if we don't yet have edited data
       // TODO: this should happen only once, not every time the snapping line is updated

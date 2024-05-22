@@ -223,10 +223,14 @@ export const EditRoutePage = (): JSX.Element => {
         isOpen={draftStops?.length > 0}
         onCancel={() => setDraftStops([])}
         onRemoveStops={() => {
-          if (routeFormData) onRemoveStopsFromRoute(routeFormData);
+          if (routeFormData) {
+            onRemoveStopsFromRoute(routeFormData);
+          }
         }}
         onConfirm={() => {
-          if (routeFormData) onSubmit(routeFormData);
+          if (routeFormData) {
+            onSubmit(routeFormData);
+          }
         }}
         routeLabel={route?.label}
         stopsLabelsToRemove={draftStops.map((stop) => stop.label)}
