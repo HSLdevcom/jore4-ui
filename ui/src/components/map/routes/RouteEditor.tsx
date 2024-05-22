@@ -189,8 +189,9 @@ const RouteEditorComponent = (
       const routeDetailsResult = await getRouteDetailsById({
         routeId: selectedRouteId,
       });
-      if (!routeDetailsResult.data?.route_route_by_pk?.route_line)
+      if (!routeDetailsResult.data?.route_route_by_pk?.route_line) {
         throw new Error("Can't find route and line details");
+      }
 
       dispatch(
         setLineInfoAction(routeDetailsResult.data.route_route_by_pk.route_line),

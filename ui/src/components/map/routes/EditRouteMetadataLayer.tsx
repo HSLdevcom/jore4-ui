@@ -65,8 +65,9 @@ export const EditRouteMetadataLayer: React.FC = () => {
       const routeDetailsResult = await getRouteDetailsById({
         routeId: templateRouteId,
       });
-      if (!routeDetailsResult.data.route_route_by_pk)
+      if (!routeDetailsResult.data.route_route_by_pk) {
         throw new Error("Can't find route and line details");
+      }
 
       const newJourneyPatternStops = pipe(
         routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0]

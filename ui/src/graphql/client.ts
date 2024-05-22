@@ -96,12 +96,13 @@ const buildWebSocketLink = () => {
 // triggers userinfo check, and if user is not logged -> redirect to front page and inform
 // user to log in. This can and probably should be removed after we get different user accessess.
 const errorLink = onError(({ graphQLErrors }) => {
-  if (graphQLErrors)
+  if (graphQLErrors) {
     graphQLErrors.forEach(({ extensions }) => {
       if (extensions?.code === 'access-denied') {
         window.location.reload();
       }
     });
+  }
 });
 
 const buildHttpLink = (isTesting: boolean) => {

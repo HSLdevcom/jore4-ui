@@ -91,7 +91,9 @@ export const Maplibre: FunctionComponent<Props> = ({
 
       // Viewport change event can be fired before map is completely loaded
       // resulting in stops to be loaded for incorrect view
-      if (!mapGL.loaded()) return;
+      if (!mapGL.loaded()) {
+        return;
+      }
 
       const bounds = mapGL.getBounds();
 

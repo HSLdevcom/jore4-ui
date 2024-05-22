@@ -11,7 +11,9 @@ export const useDeleteRoute = () => {
   const [mutateFunction] = useDeleteRouteMutation();
 
   const deleteRoute = async (routeId?: UUID) => {
-    if (!routeId) throw new Error('Missing routeId');
+    if (!routeId) {
+      throw new Error('Missing routeId');
+    }
 
     const result = await mutateFunction({
       ...mapToVariables({ route_id: routeId }),
