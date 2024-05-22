@@ -181,7 +181,8 @@
     }
   },
   "stopRegistrySearch": {
-    "searchResultsTitle": "Pysäkit"
+    "searchResultsTitle": "Pysäkit",
+    "elyNumber": "ELY-numero"
   },
   "timingPlaces": {
     "label": "Uusi Hastus-paikka",
@@ -385,7 +386,6 @@
     "searchPlaceholder": "Anna tunnus",
     "searchLabel": "Haku",
     "search": "Hae",
-    "elyNumber": "ELY-numero",
     "searching": "Haku käynnissä..."
   },
   "tableHeaders": {

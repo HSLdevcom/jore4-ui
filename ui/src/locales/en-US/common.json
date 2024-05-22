@@ -181,7 +181,8 @@
     }
   },
   "stopRegistrySearch": {
-    "searchResultsTitle": "Stops"
+    "searchResultsTitle": "Stops",
+    "elyNumber": "ELY number"
   },
   "timingPlaces": {
     "label": "New Hastus place",
@@ -385,7 +386,6 @@
     "searchPlaceholder": "Enter label",
     "searchLabel": "Search",
     "search": "Search",
-    "elyNumber": "ELY number",
     "searching": "Searching..."
   },
   "tableHeaders": {
