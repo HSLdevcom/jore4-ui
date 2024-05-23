@@ -27,14 +27,14 @@ export class RouteStopsTable {
   assertRouteDirection(routeLabel: string, routeDirection: RouteDirectionEnum) {
     if (routeDirection === RouteDirectionEnum.Inbound) {
       return this.expandableRouteRow
-        .getRouteHeaderRow(routeLabel)
+        .getRouteHeaderRow(routeLabel, routeDirection)
         .within(() => {
           this.directionBadge.getInboundDirectionBadge();
         });
     }
     if (routeDirection === RouteDirectionEnum.Outbound) {
       return this.expandableRouteRow
-        .getRouteHeaderRow(routeLabel)
+        .getRouteHeaderRow(routeLabel, routeDirection)
         .within(() => {
           this.directionBadge.getOutboundDirectionBadge();
         });
