@@ -1,3 +1,4 @@
+import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
@@ -81,8 +82,7 @@ describe('Hastus export', () => {
     // TODO: Add another route to the line. Currently this practically tests the same thing as
     // 'should export route', since there is only one route within this line. So should skip until
     // we have more data.
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip(
+    it(
       'Should export a line',
       { tags: [Tag.Lines, Tag.HastusExport, Tag.Smoke] },
       () => {
@@ -133,6 +133,7 @@ describe('Hastus export', () => {
 
         lineDetailsPage.routeStopsTable.expandableRouteRow.toggleRouteSection(
           '901',
+          RouteDirectionEnum.Outbound,
         );
         lineDetailsPage.routeStopsTable.routeStopsRow.openTimingSettingsForm(
           'E2E001',
@@ -167,6 +168,7 @@ describe('Hastus export', () => {
 
         lineDetailsPage.routeStopsTable.expandableRouteRow.toggleRouteSection(
           '901',
+          RouteDirectionEnum.Outbound,
         );
 
         // Set route 901 last stop to not be used as timing point
@@ -201,6 +203,7 @@ describe('Hastus export', () => {
 
         lineDetailsPage.routeStopsTable.expandableRouteRow.toggleRouteSection(
           '901',
+          RouteDirectionEnum.Outbound,
         );
 
         // Set route 901 first stop to not be used as timing point

@@ -26,7 +26,8 @@ import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from './DirectionBadge';
 
 const testIds = {
-  container: (routeLabel: string) => `ExpandableRouteRow::${routeLabel}`,
+  container: (routeLabel: string, direction: RouteDirectionEnum) =>
+    `ExpandableRouteRow::${routeLabel}-${direction}`,
   label: 'ExpandableRouteRow::label',
   name: 'ExpandableRouteRow::name',
   validityPeriod: 'ExpandableRouteRow::validityPeriod',
@@ -66,7 +67,7 @@ export const ExpandableRouteRow = ({
   return (
     <tr
       className={`border border-white bg-background ${className} p-4`}
-      data-testid={testIds.container(label)}
+      data-testid={testIds.container(label, route.direction)}
     >
       <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
         <Row className="items-center">
