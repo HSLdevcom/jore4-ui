@@ -58,8 +58,7 @@ describe('Route editing', () => {
     it("Should edit a routes's information", { tags: Tag.Routes }, () => {
       lineDetailsPage.visit(baseDbResources.lines[0].line_id);
       lineDetailsPage.routeStopsTable.expandableRouteRow
-        .getEditRouteButton('901')
-        .first()
+        .getEditRouteButton('901', RouteDirectionEnum.Inbound)
         .click();
 
       // Edit the route's information
@@ -93,19 +92,19 @@ describe('Route editing', () => {
         .getRouteName()
         .should('contain', 'Edited route name');
       lineDetailsPage.routeStopsTable.expandableRouteRow
-        .getRouteHeaderRow('901E')
+        .getRouteHeaderRow('901E', RouteDirectionEnum.Outbound)
         .should('be.visible');
       lineDetailsPage.routeStopsTable.assertRouteDirection(
         '901E',
         RouteDirectionEnum.Outbound,
       );
       lineDetailsPage.routeStopsTable.expandableRouteRow
-        .getRouteValidityPeriod('901E')
+        .getRouteValidityPeriod('901E', RouteDirectionEnum.Outbound)
         .should('contain', '1.1.2022 - 31.12.2030');
 
       // Verify rest of the information from the edit route page
       lineDetailsPage.routeStopsTable.expandableRouteRow
-        .getEditRouteButton('901E')
+        .getEditRouteButton('901E', RouteDirectionEnum.Outbound)
         .click();
 
       editRoutePage.routePropertiesForm
@@ -131,12 +130,7 @@ describe('Route editing', () => {
       lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
       lineDetailsPage.routeStopsTable.expandableRouteRow
-        .getRouteHeaderRow('901')
-        .should('have.length', 2);
-
-      lineDetailsPage.routeStopsTable.expandableRouteRow
-        .getEditRouteButton('901')
-        .first()
+        .getEditRouteButton('901', RouteDirectionEnum.Outbound)
         .click();
 
       editRoutePage.routePropertiesForm.getForm().should('be.visible');
@@ -149,8 +143,12 @@ describe('Route editing', () => {
       toast.checkSuccessToastHasMessage('Reitti poistettu');
 
       lineDetailsPage.routeStopsTable.expandableRouteRow
-        .getRouteHeaderRow('901')
-        .should('have.length', 1);
+        .getRouteHeaderRow('901', RouteDirectionEnum.Outbound)
+        .should('not.exist');
+
+      lineDetailsPage.routeStopsTable.expandableRouteRow
+        .getRouteHeaderRow('901', RouteDirectionEnum.Inbound)
+        .should('exist');
     });
   });
 
@@ -201,7 +199,7 @@ describe('Route editing', () => {
         lineDetailsPage.getShowDraftsButton().click();
 
         lineDetailsPage.routeStopsTable.expandableRouteRow
-          .getEditRouteButton('901')
+          .getEditRouteButton('901', RouteDirectionEnum.Outbound)
           .click();
 
         editRoutePage.priorityForm.setAsStandard();
