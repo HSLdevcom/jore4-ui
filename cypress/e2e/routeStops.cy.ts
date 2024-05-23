@@ -201,7 +201,10 @@ describe('Line details page: stops on route', () => {
     'Verify that stops of route are shown on its list view',
     { tags: [Tag.Stops, Tag.Routes, Tag.Smoke] },
     () => {
-      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(
+        routes[0].label,
+        routes[0].direction,
+      );
 
       // verify that stops 0, 1 and 3 are included on route
       routeStopsTable.routeStopsRow.getStopRow(stopLabels[0]);
@@ -223,7 +226,10 @@ describe('Line details page: stops on route', () => {
     'User can add stops to the route and remove them from the route',
     { tags: Tag.Stops },
     () => {
-      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(
+        routes[0].label,
+        routes[0].direction,
+      );
 
       routeStopsTable.toggleShowUnusedStops();
 
@@ -253,7 +259,10 @@ describe('Line details page: stops on route', () => {
     'User cannot delete too many stops from route',
     { tags: Tag.Stops },
     () => {
-      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(
+        routes[0].label,
+        routes[0].direction,
+      );
       // Route has to have at least two stops
       routeStopsTable.routeStopsRow.removeStopFromRoute(stopLabels[3]);
       toast.checkSuccessToastHasMessage('Reitti tallennettu');
@@ -268,7 +277,10 @@ describe('Line details page: stops on route', () => {
     'Should add Via info to a stop and then remove it',
     { tags: Tag.Stops },
     () => {
-      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(
+        routes[0].label,
+        routes[0].direction,
+      );
       // Open via point creation modal
       routeStopsTable.routeStopsRow.openCreateViaPointModal(stopLabels[0]);
       // Input via info to form
@@ -308,7 +320,10 @@ describe('Line details page: stops on route', () => {
     'Checking "Use Hastus place" should not be possible when the stop has no timing point',
     { tags: Tag.Stops },
     () => {
-      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(
+        routes[0].label,
+        routes[0].direction,
+      );
       // This stop does not have a timing point
       // so it should not be possible to click 'Use Hastus place'
       routeStopsTable.routeStopsRow.openTimingSettingsForm(stopLabels[1]);
@@ -322,7 +337,10 @@ describe('Line details page: stops on route', () => {
     "Should check stop's 'Use Hastus place', 'Is regulated timing point' and 'Is loading time allowed' checkboxes and add a timing point",
     { tags: Tag.Stops },
     () => {
-      routeStopsTable.expandableRouteRow.toggleRouteSection(routes[0].label);
+      routeStopsTable.expandableRouteRow.toggleRouteSection(
+        routes[0].label,
+        routes[0].direction,
+      );
       // Open timing settings modal
       routeStopsTable.routeStopsRow.openTimingSettingsForm(stopLabels[0]);
       // Unchecking IsUsedAsTimingPointCheckbox should disable IsRegulatedTimingPointCheckbox
