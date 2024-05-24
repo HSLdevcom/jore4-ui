@@ -6,7 +6,7 @@ import {
   StopRegistryGuidanceType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
-  StopRegistryShelterType,
+  StopRegistryShelterWidthType,
   StopRegistryStopType,
   StopRegistryTransportModeType,
 } from '../generated/graphql';
@@ -80,13 +80,13 @@ export const mapStopRegistryStopTypeToUiName = (
     key === NullOptionEnum.Null ? 'unknown' : `stopRegistryStopTypeEnum.${key}`,
   );
 
-export const mapStopRegistryShelterTypeToUiName = (
-  key: StopRegistryShelterType | NullOptionEnum,
+export const mapStopRegistryShelterWidthTypeToUiName = (
+  key: StopRegistryShelterWidthType | NullOptionEnum,
 ) =>
   i18n.t(
     key === NullOptionEnum.Null
       ? 'unknown'
-      : `stopRegistryShelterTypeEnum.${key}`,
+      : `stopRegistryShelterWidthTypeEnum.${key}`,
   );
 
 export const mapStopRegistryPedestrianCrossingRampTypeToUiName = (

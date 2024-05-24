@@ -4,7 +4,7 @@ import {
   mapStopRegistryGuidanceTypeToUiName,
   mapStopRegistryMapTypeToUiName,
   mapStopRegistryPedestrianCrossingRampTypeToUiName,
-  mapStopRegistryShelterTypeToUiName,
+  mapStopRegistryShelterWidthTypeToUiName,
   mapStopRegistryStopTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { DetailRow, LabeledDetail } from '../layout';
@@ -57,7 +57,7 @@ export const MeasurementsViewCard = ({ stop }: Props): JSX.Element => {
     mapStopRegistryStopTypeToUiName(accessibilityProps.stopType);
   const shelterType =
     accessibilityProps?.shelterType &&
-    mapStopRegistryShelterTypeToUiName(accessibilityProps.shelterType);
+    mapStopRegistryShelterWidthTypeToUiName(accessibilityProps.shelterType);
   const pedestrianCrossingRampType =
     accessibilityProps?.pedestrianCrossingRampType &&
     mapStopRegistryPedestrianCrossingRampTypeToUiName(
