@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { pipe } from 'remeda';
+import { RouteDirectionEnum } from '../../generated/graphql';
 import {
   belongsToJourneyPattern,
   useAppDispatch,
@@ -27,6 +28,8 @@ import { RouteStopsOverlayRow } from './RouteStopsOverlayRow';
 
 const testIds = {
   mapOverlayHeader: 'RouteStopsOverlay::mapOverlayHeader',
+  routeStopListHeader: (label: string, direction: RouteDirectionEnum) =>
+    `RouteStopsOverlay::routeStopListHeader::${label}-${direction}`,
 };
 
 interface Props {
@@ -72,6 +75,7 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
         belongsToJourneyPattern(includedStopLabels, stop.label),
       );
   const routeName = routeMetadata?.name_i18n.fi_FI;
+
   return (
     <MapOverlay className={className}>
       <MapOverlayHeader testId={testIds.mapOverlayHeader}>
@@ -96,7 +100,13 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
         <div className="ml-1 mt-1 flex h-6 w-6 items-center justify-center rounded-sm bg-brand font-bold text-white">
           {mapDirectionToShortUiName(routeMetadata.direction)}
         </div>
-        <div className="ml-2 flex flex-col">
+        <div
+          data-testid={testIds.routeStopListHeader(
+            routeMetadata.label,
+            routeMetadata.direction,
+          )}
+          className="ml-2 flex flex-col"
+        >
           <Row className="items-center gap-2">
             <p className="text-base text-black">
               <RouteLabel

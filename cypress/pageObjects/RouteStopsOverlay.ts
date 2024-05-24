@@ -1,3 +1,5 @@
+import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
+
 export class RouteStopsOverlay {
   getRouteStopRow(stopLabel: string) {
     return cy.getByTestId(`RouteStopsOverlayRow::label::${stopLabel}`);
@@ -17,8 +19,10 @@ export class RouteStopsOverlay {
     );
   }
 
-  routeShouldBeSelected(routeName: string) {
-    return this.getHeader().get('div').contains(routeName).should('exist');
+  getRouteStopListHeader(label: string, direction: RouteDirectionEnum) {
+    return cy.getByTestId(
+      `RouteStopsOverlay::routeStopListHeader::${label}-${direction}`,
+    );
   }
 
   removeStopsFromRoute(stopLabels: string[]) {

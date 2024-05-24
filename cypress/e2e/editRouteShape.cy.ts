@@ -90,7 +90,9 @@ describe('Edit route geometry', () => {
 
       map.zoomIn(3);
 
-      routeStopsOverlay.routeShouldBeSelected('901');
+      routeStopsOverlay
+        .getRouteStopListHeader('901', RouteDirectionEnum.Outbound)
+        .shouldBeVisible();
 
       routeStopsOverlay.stopsShouldBeIncludedInRoute([
         'E2E001',
@@ -127,7 +129,9 @@ describe('Edit route geometry', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected('901');
+      routeStopsOverlay
+        .getRouteStopListHeader('901', RouteDirectionEnum.Outbound)
+        .shouldBeVisible();
 
       routeStopsOverlay.stopsShouldBeIncludedInRoute([
         'E2E001',
@@ -216,7 +220,9 @@ describe('Edit route geometry', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected('902');
+      routeStopsOverlay
+        .getRouteStopListHeader('902', RouteDirectionEnum.Outbound)
+        .shouldBeVisible();
 
       // Verify that the edited route shape excludes the second stop
       // and that the stop count is correct
