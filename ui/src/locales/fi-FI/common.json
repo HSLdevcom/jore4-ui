@@ -181,6 +181,7 @@
     },
     "measurements": {
       "title": "Mitat ja esteettömyys",
+      "accessibilityLevelTooltip": "Esteettömyys",
       "stopType": "Pysäkin tyyppi",
       "curvedStop": "Kaareva",
       "shelterType": "Katos",
@@ -361,6 +362,13 @@
     "tactile": "Kohokartta",
     "other": "Muu kartta",
     "none": "Ei karttaa"
+  },
+  "stopAccessibilityLevelEnum": {
+    "FullyAccessible": "Esteetön",
+    "MostlyAccessible": "Vähäisiä esteitä",
+    "PartiallyInaccessible": "Osittain esteellinen",
+    "Inaccessible": "Esteellinen",
+    "Unknown": "Esteettömyystietoja puuttuu"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Seudullinen juna",
