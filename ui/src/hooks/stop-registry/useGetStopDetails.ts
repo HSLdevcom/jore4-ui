@@ -43,6 +43,25 @@ const GQL_GET_STOP_DETAILS_BY_ID = gql`
   }
 `;
 
+const GQL_SHELTER_EQUIPMENT_DETAILS = gql`
+  fragment shelter_equipment_details on stop_registry_ShelterEquipment {
+    id
+    enclosed
+    stepFree
+    shelterType
+    shelterElectricity
+    shelterLighting
+    shelterCondition
+    timetableCabinets
+    trashCan
+    shelterHasDisplay
+    bicycleParking
+    leaningRail
+    outsideBench
+    shelterFasciaBoardTaping
+  }
+`;
+
 const GQL_QUAY_DETAILS = gql`
   fragment quay_details on stop_registry_Quay {
     id
@@ -55,9 +74,9 @@ const GQL_QUAY_DETAILS = gql`
       nameType
     }
     placeEquipments {
+      id
       shelterEquipment {
-        enclosed
-        stepFree
+        ...shelter_equipment_details
       }
       cycleStorageEquipment {
         cycleStorageType
