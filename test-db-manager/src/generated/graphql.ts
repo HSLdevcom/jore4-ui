@@ -9694,7 +9694,7 @@ export type StopRegistryHslAccessibilityProperties = {
   /** Katoksen ja ajoradan välinen leveys (cm) */
   shelterLaneDistance?: Maybe<Scalars['Float']>;
   /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
-  shelterType?: Maybe<StopRegistryShelterType>;
+  shelterType?: Maybe<StopRegistryShelterWidthType>;
   /** Esteetön yhteys jalkakäytävältä pysäkille */
   sidewalkAccessibleConnection?: Maybe<Scalars['Boolean']>;
   /** Pysäkkialueen pituuskaltevuus (%) */
@@ -9731,7 +9731,7 @@ export type StopRegistryHslAccessibilityPropertiesInput = {
   serviceAreaStripes?: InputMaybe<Scalars['Boolean']>;
   serviceAreaWidth?: InputMaybe<Scalars['Float']>;
   shelterLaneDistance?: InputMaybe<Scalars['Float']>;
-  shelterType?: InputMaybe<StopRegistryShelterType>;
+  shelterType?: InputMaybe<StopRegistryShelterWidthType>;
   sidewalkAccessibleConnection?: InputMaybe<Scalars['Boolean']>;
   stopAreaLengthwiseSlope?: InputMaybe<Scalars['Float']>;
   stopAreaSideSlope?: InputMaybe<Scalars['Float']>;
@@ -10193,16 +10193,60 @@ export enum StopRegistryScopingMethodEnumerationType {
 
 export type StopRegistryShelterEquipment = {
   __typename?: 'stop_registry_ShelterEquipment';
+  /** Pyöräpysäköinti */
+  bicycleParking?: Maybe<Scalars['Boolean']>;
   enclosed?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['String']>;
+  /** Nojailutanko */
+  leaningRail?: Maybe<Scalars['Boolean']>;
+  /** Ulkopenkki */
+  outsideBench?: Maybe<Scalars['Boolean']>;
   seats?: Maybe<Scalars['stop_registry_BigInteger']>;
+  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
+  shelterCondition?: Maybe<StopRegistryShelterCondition>;
+  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
+  shelterElectricity?: Maybe<StopRegistryShelterElectricity>;
+  /** Pysäkkikatoksen otsalaudan teippaus */
+  shelterFasciaBoardTaping?: Maybe<Scalars['Boolean']>;
+  /** Katoksesssa näyttö */
+  shelterHasDisplay?: Maybe<Scalars['Boolean']>;
+  /** Katoksessa valot */
+  shelterLighting?: Maybe<Scalars['Boolean']>;
+  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
+  shelterType?: Maybe<StopRegistryShelterType>;
   stepFree?: Maybe<Scalars['Boolean']>;
+  /** Aikataulukaappien lukumäärä */
+  timetableCabinets?: Maybe<Scalars['Int']>;
+  /** Katoksessa roska-astia */
+  trashCan?: Maybe<Scalars['Boolean']>;
 };
 
 export type StopRegistryShelterEquipmentInput = {
+  /** Pyöräpysäköinti */
+  bicycleParking?: InputMaybe<Scalars['Boolean']>;
   enclosed?: InputMaybe<Scalars['Boolean']>;
+  /** Nojailutanko */
+  leaningRail?: InputMaybe<Scalars['Boolean']>;
+  /** Ulkopenkki */
+  outsideBench?: InputMaybe<Scalars['Boolean']>;
   seats?: InputMaybe<Scalars['stop_registry_BigInteger']>;
+  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
+  shelterCondition?: InputMaybe<StopRegistryShelterCondition>;
+  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
+  shelterElectricity?: InputMaybe<StopRegistryShelterElectricity>;
+  /** Pysäkkikatoksen otsalaudan teippaus */
+  shelterFasciaBoardTaping?: InputMaybe<Scalars['Boolean']>;
+  /** Katoksesssa näyttö */
+  shelterHasDisplay?: InputMaybe<Scalars['Boolean']>;
+  /** Katoksessa valot */
+  shelterLighting?: InputMaybe<Scalars['Boolean']>;
+  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
+  shelterType?: InputMaybe<StopRegistryShelterType>;
   stepFree?: InputMaybe<Scalars['Boolean']>;
+  /** Aikataulukaappien lukumäärä */
+  timetableCabinets?: InputMaybe<Scalars['Int']>;
+  /** Katoksessa roska-astia */
+  trashCan?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
@@ -10603,7 +10647,32 @@ export enum StopRegistryPedestrianCrossingRampType {
   Other = 'other',
 }
 
+export enum StopRegistryShelterCondition {
+  Bad = 'bad',
+  Good = 'good',
+  Mediocre = 'mediocre',
+}
+
+export enum StopRegistryShelterElectricity {
+  Continuous = 'continuous',
+  ContinuousPlanned = 'continuousPlanned',
+  ContinuousUnderConstruction = 'continuousUnderConstruction',
+  Light = 'light',
+  None = 'none',
+  TemporarilyOff = 'temporarilyOff',
+}
+
 export enum StopRegistryShelterType {
+  Concrete = 'concrete',
+  Glass = 'glass',
+  Post = 'post',
+  Steel = 'steel',
+  Urban = 'urban',
+  Virtual = 'virtual',
+  Wooden = 'wooden',
+}
+
+export enum StopRegistryShelterWidthType {
   Narrow = 'narrow',
   Other = 'other',
   Wide = 'wide',
@@ -23163,6 +23232,8 @@ export type StopsDatabaseInstalledEquipmentVarianceFields = {
 export type StopsDatabaseInstalledEquipmentVersionStructure = {
   __typename?: 'stops_database_installed_equipment_version_structure';
   air_conditioned?: Maybe<Scalars['Boolean']>;
+  /** Pyöräpysäköinti */
+  bicycle_parking?: Maybe<Scalars['Boolean']>;
   brand_graphic?: Maybe<Scalars['String']>;
   changed?: Maybe<Scalars['timestamp']>;
   changed_by?: Maybe<Scalars['String']>;
@@ -23183,6 +23254,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructure = {
   installed_equipment_version_structure_installed_equipments: Array<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipment>;
   /** An aggregate relationship */
   installed_equipment_version_structure_installed_equipments_aggregate: StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipmentAggregate;
+  /** Nojailutanko */
+  leaning_rail?: Maybe<Scalars['Boolean']>;
   length?: Maybe<Scalars['numeric']>;
   line_signage?: Maybe<Scalars['Boolean']>;
   machine_readable?: Maybe<Scalars['Boolean']>;
@@ -23195,17 +23268,35 @@ export type StopsDatabaseInstalledEquipmentVersionStructure = {
   number_of_spaces?: Maybe<Scalars['numeric']>;
   number_of_toilets?: Maybe<Scalars['numeric']>;
   out_of_service?: Maybe<Scalars['Boolean']>;
+  /** Ulkopenkki */
+  outside_bench?: Maybe<Scalars['Boolean']>;
   private_code_type?: Maybe<Scalars['String']>;
   private_code_value?: Maybe<Scalars['String']>;
   replaces_rail_sign?: Maybe<Scalars['Boolean']>;
   seats?: Maybe<Scalars['numeric']>;
+  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
+  shelter_condition?: Maybe<Scalars['String']>;
+  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
+  shelter_electricity?: Maybe<Scalars['String']>;
+  /** Pysäkkikatoksen otsalaudan teippaus */
+  shelter_fascia_board_taping?: Maybe<Scalars['Boolean']>;
+  /** Katoksesssa näyttö */
+  shelter_has_display?: Maybe<Scalars['Boolean']>;
+  /** Katoksessa valot */
+  shelter_lighting?: Maybe<Scalars['Boolean']>;
+  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
+  shelter_type?: Maybe<Scalars['String']>;
   sign_content_type?: Maybe<Scalars['String']>;
   sign_graphic?: Maybe<Scalars['String']>;
   smoking_allowed?: Maybe<Scalars['Boolean']>;
   step_free?: Maybe<Scalars['Boolean']>;
   ticket_machines?: Maybe<Scalars['Boolean']>;
   ticket_office?: Maybe<Scalars['Boolean']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Int']>;
   to_date?: Maybe<Scalars['timestamp']>;
+  /** Katoksessa roska-astia */
+  trash_can?: Maybe<Scalars['Boolean']>;
   version: Scalars['bigint'];
   version_comment?: Maybe<Scalars['String']>;
   wheelchair_area_length?: Maybe<Scalars['numeric']>;
@@ -23288,6 +23379,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureAvgFields = {
   number_of_spaces?: Maybe<Scalars['Float']>;
   number_of_toilets?: Maybe<Scalars['Float']>;
   seats?: Maybe<Scalars['Float']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
   wheelchair_area_length?: Maybe<Scalars['Float']>;
   wheelchair_area_width?: Maybe<Scalars['Float']>;
@@ -23304,6 +23397,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureBoolExp = {
     Array<StopsDatabaseInstalledEquipmentVersionStructureBoolExp>
   >;
   air_conditioned?: InputMaybe<BooleanComparisonExp>;
+  bicycle_parking?: InputMaybe<BooleanComparisonExp>;
   brand_graphic?: InputMaybe<StringComparisonExp>;
   changed?: InputMaybe<TimestampComparisonExp>;
   changed_by?: InputMaybe<StringComparisonExp>;
@@ -23322,6 +23416,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureBoolExp = {
   id?: InputMaybe<BigintComparisonExp>;
   installed_equipment_version_structure_installed_equipments?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipmentBoolExp>;
   installed_equipment_version_structure_installed_equipments_aggregate?: InputMaybe<InstalledEquipmentVersionStructureInstalledEquipmentAggregateBoolExp>;
+  leaning_rail?: InputMaybe<BooleanComparisonExp>;
   length?: InputMaybe<NumericComparisonExp>;
   line_signage?: InputMaybe<BooleanComparisonExp>;
   machine_readable?: InputMaybe<BooleanComparisonExp>;
@@ -23334,17 +23429,26 @@ export type StopsDatabaseInstalledEquipmentVersionStructureBoolExp = {
   number_of_spaces?: InputMaybe<NumericComparisonExp>;
   number_of_toilets?: InputMaybe<NumericComparisonExp>;
   out_of_service?: InputMaybe<BooleanComparisonExp>;
+  outside_bench?: InputMaybe<BooleanComparisonExp>;
   private_code_type?: InputMaybe<StringComparisonExp>;
   private_code_value?: InputMaybe<StringComparisonExp>;
   replaces_rail_sign?: InputMaybe<BooleanComparisonExp>;
   seats?: InputMaybe<NumericComparisonExp>;
+  shelter_condition?: InputMaybe<StringComparisonExp>;
+  shelter_electricity?: InputMaybe<StringComparisonExp>;
+  shelter_fascia_board_taping?: InputMaybe<BooleanComparisonExp>;
+  shelter_has_display?: InputMaybe<BooleanComparisonExp>;
+  shelter_lighting?: InputMaybe<BooleanComparisonExp>;
+  shelter_type?: InputMaybe<StringComparisonExp>;
   sign_content_type?: InputMaybe<StringComparisonExp>;
   sign_graphic?: InputMaybe<StringComparisonExp>;
   smoking_allowed?: InputMaybe<BooleanComparisonExp>;
   step_free?: InputMaybe<BooleanComparisonExp>;
   ticket_machines?: InputMaybe<BooleanComparisonExp>;
   ticket_office?: InputMaybe<BooleanComparisonExp>;
+  timetable_cabinets?: InputMaybe<IntComparisonExp>;
   to_date?: InputMaybe<TimestampComparisonExp>;
+  trash_can?: InputMaybe<BooleanComparisonExp>;
   version?: InputMaybe<BigintComparisonExp>;
   version_comment?: InputMaybe<StringComparisonExp>;
   wheelchair_area_length?: InputMaybe<NumericComparisonExp>;
@@ -23374,6 +23478,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureIncInput = {
   number_of_spaces?: InputMaybe<Scalars['numeric']>;
   number_of_toilets?: InputMaybe<Scalars['numeric']>;
   seats?: InputMaybe<Scalars['numeric']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: InputMaybe<Scalars['Int']>;
   version?: InputMaybe<Scalars['bigint']>;
   wheelchair_area_length?: InputMaybe<Scalars['numeric']>;
   wheelchair_area_width?: InputMaybe<Scalars['numeric']>;
@@ -23383,6 +23489,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureIncInput = {
 /** input type for inserting data into table "installed_equipment_version_structure" */
 export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   air_conditioned?: InputMaybe<Scalars['Boolean']>;
+  /** Pyöräpysäköinti */
+  bicycle_parking?: InputMaybe<Scalars['Boolean']>;
   brand_graphic?: InputMaybe<Scalars['String']>;
   changed?: InputMaybe<Scalars['timestamp']>;
   changed_by?: InputMaybe<Scalars['String']>;
@@ -23400,6 +23508,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   height_from_floor?: InputMaybe<Scalars['numeric']>;
   id?: InputMaybe<Scalars['bigint']>;
   installed_equipment_version_structure_installed_equipments?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipmentArrRelInsertInput>;
+  /** Nojailutanko */
+  leaning_rail?: InputMaybe<Scalars['Boolean']>;
   length?: InputMaybe<Scalars['numeric']>;
   line_signage?: InputMaybe<Scalars['Boolean']>;
   machine_readable?: InputMaybe<Scalars['Boolean']>;
@@ -23412,17 +23522,35 @@ export type StopsDatabaseInstalledEquipmentVersionStructureInsertInput = {
   number_of_spaces?: InputMaybe<Scalars['numeric']>;
   number_of_toilets?: InputMaybe<Scalars['numeric']>;
   out_of_service?: InputMaybe<Scalars['Boolean']>;
+  /** Ulkopenkki */
+  outside_bench?: InputMaybe<Scalars['Boolean']>;
   private_code_type?: InputMaybe<Scalars['String']>;
   private_code_value?: InputMaybe<Scalars['String']>;
   replaces_rail_sign?: InputMaybe<Scalars['Boolean']>;
   seats?: InputMaybe<Scalars['numeric']>;
+  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
+  shelter_condition?: InputMaybe<Scalars['String']>;
+  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
+  shelter_electricity?: InputMaybe<Scalars['String']>;
+  /** Pysäkkikatoksen otsalaudan teippaus */
+  shelter_fascia_board_taping?: InputMaybe<Scalars['Boolean']>;
+  /** Katoksesssa näyttö */
+  shelter_has_display?: InputMaybe<Scalars['Boolean']>;
+  /** Katoksessa valot */
+  shelter_lighting?: InputMaybe<Scalars['Boolean']>;
+  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
+  shelter_type?: InputMaybe<Scalars['String']>;
   sign_content_type?: InputMaybe<Scalars['String']>;
   sign_graphic?: InputMaybe<Scalars['String']>;
   smoking_allowed?: InputMaybe<Scalars['Boolean']>;
   step_free?: InputMaybe<Scalars['Boolean']>;
   ticket_machines?: InputMaybe<Scalars['Boolean']>;
   ticket_office?: InputMaybe<Scalars['Boolean']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: InputMaybe<Scalars['Int']>;
   to_date?: InputMaybe<Scalars['timestamp']>;
+  /** Katoksessa roska-astia */
+  trash_can?: InputMaybe<Scalars['Boolean']>;
   version?: InputMaybe<Scalars['bigint']>;
   version_comment?: InputMaybe<Scalars['String']>;
   wheelchair_area_length?: InputMaybe<Scalars['numeric']>;
@@ -23792,8 +23920,16 @@ export type StopsDatabaseInstalledEquipmentVersionStructureMaxFields = {
   private_code_type?: Maybe<Scalars['String']>;
   private_code_value?: Maybe<Scalars['String']>;
   seats?: Maybe<Scalars['numeric']>;
+  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
+  shelter_condition?: Maybe<Scalars['String']>;
+  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
+  shelter_electricity?: Maybe<Scalars['String']>;
+  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
+  shelter_type?: Maybe<Scalars['String']>;
   sign_content_type?: Maybe<Scalars['String']>;
   sign_graphic?: Maybe<Scalars['String']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Int']>;
   to_date?: Maybe<Scalars['timestamp']>;
   version?: Maybe<Scalars['bigint']>;
   version_comment?: Maybe<Scalars['String']>;
@@ -23829,8 +23965,16 @@ export type StopsDatabaseInstalledEquipmentVersionStructureMinFields = {
   private_code_type?: Maybe<Scalars['String']>;
   private_code_value?: Maybe<Scalars['String']>;
   seats?: Maybe<Scalars['numeric']>;
+  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
+  shelter_condition?: Maybe<Scalars['String']>;
+  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
+  shelter_electricity?: Maybe<Scalars['String']>;
+  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
+  shelter_type?: Maybe<Scalars['String']>;
   sign_content_type?: Maybe<Scalars['String']>;
   sign_graphic?: Maybe<Scalars['String']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Int']>;
   to_date?: Maybe<Scalars['timestamp']>;
   version?: Maybe<Scalars['bigint']>;
   version_comment?: Maybe<Scalars['String']>;
@@ -23865,6 +24009,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureOnConflict = {
 /** Ordering options when selecting data from "installed_equipment_version_structure". */
 export type StopsDatabaseInstalledEquipmentVersionStructureOrderBy = {
   air_conditioned?: InputMaybe<OrderBy>;
+  bicycle_parking?: InputMaybe<OrderBy>;
   brand_graphic?: InputMaybe<OrderBy>;
   changed?: InputMaybe<OrderBy>;
   changed_by?: InputMaybe<OrderBy>;
@@ -23882,6 +24027,7 @@ export type StopsDatabaseInstalledEquipmentVersionStructureOrderBy = {
   height_from_floor?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   installed_equipment_version_structure_installed_equipments_aggregate?: InputMaybe<StopsDatabaseInstalledEquipmentVersionStructureInstalledEquipmentAggregateOrderBy>;
+  leaning_rail?: InputMaybe<OrderBy>;
   length?: InputMaybe<OrderBy>;
   line_signage?: InputMaybe<OrderBy>;
   machine_readable?: InputMaybe<OrderBy>;
@@ -23894,17 +24040,26 @@ export type StopsDatabaseInstalledEquipmentVersionStructureOrderBy = {
   number_of_spaces?: InputMaybe<OrderBy>;
   number_of_toilets?: InputMaybe<OrderBy>;
   out_of_service?: InputMaybe<OrderBy>;
+  outside_bench?: InputMaybe<OrderBy>;
   private_code_type?: InputMaybe<OrderBy>;
   private_code_value?: InputMaybe<OrderBy>;
   replaces_rail_sign?: InputMaybe<OrderBy>;
   seats?: InputMaybe<OrderBy>;
+  shelter_condition?: InputMaybe<OrderBy>;
+  shelter_electricity?: InputMaybe<OrderBy>;
+  shelter_fascia_board_taping?: InputMaybe<OrderBy>;
+  shelter_has_display?: InputMaybe<OrderBy>;
+  shelter_lighting?: InputMaybe<OrderBy>;
+  shelter_type?: InputMaybe<OrderBy>;
   sign_content_type?: InputMaybe<OrderBy>;
   sign_graphic?: InputMaybe<OrderBy>;
   smoking_allowed?: InputMaybe<OrderBy>;
   step_free?: InputMaybe<OrderBy>;
   ticket_machines?: InputMaybe<OrderBy>;
   ticket_office?: InputMaybe<OrderBy>;
+  timetable_cabinets?: InputMaybe<OrderBy>;
   to_date?: InputMaybe<OrderBy>;
+  trash_can?: InputMaybe<OrderBy>;
   version?: InputMaybe<OrderBy>;
   version_comment?: InputMaybe<OrderBy>;
   wheelchair_area_length?: InputMaybe<OrderBy>;
@@ -23922,6 +24077,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructurePkColumnsInput = {
 export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
   /** column name */
   AirConditioned = 'air_conditioned',
+  /** column name */
+  BicycleParking = 'bicycle_parking',
   /** column name */
   BrandGraphic = 'brand_graphic',
   /** column name */
@@ -23955,6 +24112,8 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
   /** column name */
   Id = 'id',
   /** column name */
+  LeaningRail = 'leaning_rail',
+  /** column name */
   Length = 'length',
   /** column name */
   LineSignage = 'line_signage',
@@ -23979,6 +24138,8 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
   /** column name */
   OutOfService = 'out_of_service',
   /** column name */
+  OutsideBench = 'outside_bench',
+  /** column name */
   PrivateCodeType = 'private_code_type',
   /** column name */
   PrivateCodeValue = 'private_code_value',
@@ -23986,6 +24147,18 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
   ReplacesRailSign = 'replaces_rail_sign',
   /** column name */
   Seats = 'seats',
+  /** column name */
+  ShelterCondition = 'shelter_condition',
+  /** column name */
+  ShelterElectricity = 'shelter_electricity',
+  /** column name */
+  ShelterFasciaBoardTaping = 'shelter_fascia_board_taping',
+  /** column name */
+  ShelterHasDisplay = 'shelter_has_display',
+  /** column name */
+  ShelterLighting = 'shelter_lighting',
+  /** column name */
+  ShelterType = 'shelter_type',
   /** column name */
   SignContentType = 'sign_content_type',
   /** column name */
@@ -23999,7 +24172,11 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
   /** column name */
   TicketOffice = 'ticket_office',
   /** column name */
+  TimetableCabinets = 'timetable_cabinets',
+  /** column name */
   ToDate = 'to_date',
+  /** column name */
+  TrashCan = 'trash_can',
   /** column name */
   Version = 'version',
   /** column name */
@@ -24017,6 +24194,8 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureSelectColumn {
 /** input type for updating data in table "installed_equipment_version_structure" */
 export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   air_conditioned?: InputMaybe<Scalars['Boolean']>;
+  /** Pyöräpysäköinti */
+  bicycle_parking?: InputMaybe<Scalars['Boolean']>;
   brand_graphic?: InputMaybe<Scalars['String']>;
   changed?: InputMaybe<Scalars['timestamp']>;
   changed_by?: InputMaybe<Scalars['String']>;
@@ -24033,6 +24212,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   height?: InputMaybe<Scalars['numeric']>;
   height_from_floor?: InputMaybe<Scalars['numeric']>;
   id?: InputMaybe<Scalars['bigint']>;
+  /** Nojailutanko */
+  leaning_rail?: InputMaybe<Scalars['Boolean']>;
   length?: InputMaybe<Scalars['numeric']>;
   line_signage?: InputMaybe<Scalars['Boolean']>;
   machine_readable?: InputMaybe<Scalars['Boolean']>;
@@ -24045,17 +24226,35 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSetInput = {
   number_of_spaces?: InputMaybe<Scalars['numeric']>;
   number_of_toilets?: InputMaybe<Scalars['numeric']>;
   out_of_service?: InputMaybe<Scalars['Boolean']>;
+  /** Ulkopenkki */
+  outside_bench?: InputMaybe<Scalars['Boolean']>;
   private_code_type?: InputMaybe<Scalars['String']>;
   private_code_value?: InputMaybe<Scalars['String']>;
   replaces_rail_sign?: InputMaybe<Scalars['Boolean']>;
   seats?: InputMaybe<Scalars['numeric']>;
+  /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
+  shelter_condition?: InputMaybe<Scalars['String']>;
+  /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
+  shelter_electricity?: InputMaybe<Scalars['String']>;
+  /** Pysäkkikatoksen otsalaudan teippaus */
+  shelter_fascia_board_taping?: InputMaybe<Scalars['Boolean']>;
+  /** Katoksesssa näyttö */
+  shelter_has_display?: InputMaybe<Scalars['Boolean']>;
+  /** Katoksessa valot */
+  shelter_lighting?: InputMaybe<Scalars['Boolean']>;
+  /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
+  shelter_type?: InputMaybe<Scalars['String']>;
   sign_content_type?: InputMaybe<Scalars['String']>;
   sign_graphic?: InputMaybe<Scalars['String']>;
   smoking_allowed?: InputMaybe<Scalars['Boolean']>;
   step_free?: InputMaybe<Scalars['Boolean']>;
   ticket_machines?: InputMaybe<Scalars['Boolean']>;
   ticket_office?: InputMaybe<Scalars['Boolean']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: InputMaybe<Scalars['Int']>;
   to_date?: InputMaybe<Scalars['timestamp']>;
+  /** Katoksessa roska-astia */
+  trash_can?: InputMaybe<Scalars['Boolean']>;
   version?: InputMaybe<Scalars['bigint']>;
   version_comment?: InputMaybe<Scalars['String']>;
   wheelchair_area_length?: InputMaybe<Scalars['numeric']>;
@@ -24078,6 +24277,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStddevFields = {
   number_of_spaces?: Maybe<Scalars['Float']>;
   number_of_toilets?: Maybe<Scalars['Float']>;
   seats?: Maybe<Scalars['Float']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
   wheelchair_area_length?: Maybe<Scalars['Float']>;
   wheelchair_area_width?: Maybe<Scalars['Float']>;
@@ -24098,6 +24299,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStddevPopFields = {
   number_of_spaces?: Maybe<Scalars['Float']>;
   number_of_toilets?: Maybe<Scalars['Float']>;
   seats?: Maybe<Scalars['Float']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
   wheelchair_area_length?: Maybe<Scalars['Float']>;
   wheelchair_area_width?: Maybe<Scalars['Float']>;
@@ -24118,6 +24321,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStddevSampFields = {
   number_of_spaces?: Maybe<Scalars['Float']>;
   number_of_toilets?: Maybe<Scalars['Float']>;
   seats?: Maybe<Scalars['Float']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
   wheelchair_area_length?: Maybe<Scalars['Float']>;
   wheelchair_area_width?: Maybe<Scalars['Float']>;
@@ -24136,6 +24341,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorInput = {
 export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInput =
   {
     air_conditioned?: InputMaybe<Scalars['Boolean']>;
+    /** Pyöräpysäköinti */
+    bicycle_parking?: InputMaybe<Scalars['Boolean']>;
     brand_graphic?: InputMaybe<Scalars['String']>;
     changed?: InputMaybe<Scalars['timestamp']>;
     changed_by?: InputMaybe<Scalars['String']>;
@@ -24152,6 +24359,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInpu
     height?: InputMaybe<Scalars['numeric']>;
     height_from_floor?: InputMaybe<Scalars['numeric']>;
     id?: InputMaybe<Scalars['bigint']>;
+    /** Nojailutanko */
+    leaning_rail?: InputMaybe<Scalars['Boolean']>;
     length?: InputMaybe<Scalars['numeric']>;
     line_signage?: InputMaybe<Scalars['Boolean']>;
     machine_readable?: InputMaybe<Scalars['Boolean']>;
@@ -24164,17 +24373,35 @@ export type StopsDatabaseInstalledEquipmentVersionStructureStreamCursorValueInpu
     number_of_spaces?: InputMaybe<Scalars['numeric']>;
     number_of_toilets?: InputMaybe<Scalars['numeric']>;
     out_of_service?: InputMaybe<Scalars['Boolean']>;
+    /** Ulkopenkki */
+    outside_bench?: InputMaybe<Scalars['Boolean']>;
     private_code_type?: InputMaybe<Scalars['String']>;
     private_code_value?: InputMaybe<Scalars['String']>;
     replaces_rail_sign?: InputMaybe<Scalars['Boolean']>;
     seats?: InputMaybe<Scalars['numeric']>;
+    /** Katoksen kunto: Hyvä (good), Välttävä (mediocre), Huono (bad) */
+    shelter_condition?: InputMaybe<Scalars['String']>;
+    /** Katoksen sähköt: Jatkuva sähkö (continuous) / Valosähkö (light) / Jatkuva rakenteilla (continuousUnderConstruction) / Jatkuva suunniteltu (continuousPlanned) / Tilapäisesti pois (temporarilyOff) / Ei sähköä (none) */
+    shelter_electricity?: InputMaybe<Scalars['String']>;
+    /** Pysäkkikatoksen otsalaudan teippaus */
+    shelter_fascia_board_taping?: InputMaybe<Scalars['Boolean']>;
+    /** Katoksesssa näyttö */
+    shelter_has_display?: InputMaybe<Scalars['Boolean']>;
+    /** Katoksessa valot */
+    shelter_lighting?: InputMaybe<Scalars['Boolean']>;
+    /** Katoksen tyyppi: Lasikatos (glass) / Teräskatos (steel) / Tolppa (post) / Urbaanikatos (urban) / Betonikatos (concrete) / Puukatos (wooden) / Virtuaali (virtual) */
+    shelter_type?: InputMaybe<Scalars['String']>;
     sign_content_type?: InputMaybe<Scalars['String']>;
     sign_graphic?: InputMaybe<Scalars['String']>;
     smoking_allowed?: InputMaybe<Scalars['Boolean']>;
     step_free?: InputMaybe<Scalars['Boolean']>;
     ticket_machines?: InputMaybe<Scalars['Boolean']>;
     ticket_office?: InputMaybe<Scalars['Boolean']>;
+    /** Aikataulukaappien lukumäärä */
+    timetable_cabinets?: InputMaybe<Scalars['Int']>;
     to_date?: InputMaybe<Scalars['timestamp']>;
+    /** Katoksessa roska-astia */
+    trash_can?: InputMaybe<Scalars['Boolean']>;
     version?: InputMaybe<Scalars['bigint']>;
     version_comment?: InputMaybe<Scalars['String']>;
     wheelchair_area_length?: InputMaybe<Scalars['numeric']>;
@@ -24197,6 +24424,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSumFields = {
   number_of_spaces?: Maybe<Scalars['numeric']>;
   number_of_toilets?: Maybe<Scalars['numeric']>;
   seats?: Maybe<Scalars['numeric']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Int']>;
   version?: Maybe<Scalars['bigint']>;
   wheelchair_area_length?: Maybe<Scalars['numeric']>;
   wheelchair_area_width?: Maybe<Scalars['numeric']>;
@@ -24207,6 +24436,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureSumFields = {
 export enum StopsDatabaseInstalledEquipmentVersionStructureUpdateColumn {
   /** column name */
   AirConditioned = 'air_conditioned',
+  /** column name */
+  BicycleParking = 'bicycle_parking',
   /** column name */
   BrandGraphic = 'brand_graphic',
   /** column name */
@@ -24240,6 +24471,8 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureUpdateColumn {
   /** column name */
   Id = 'id',
   /** column name */
+  LeaningRail = 'leaning_rail',
+  /** column name */
   Length = 'length',
   /** column name */
   LineSignage = 'line_signage',
@@ -24264,6 +24497,8 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureUpdateColumn {
   /** column name */
   OutOfService = 'out_of_service',
   /** column name */
+  OutsideBench = 'outside_bench',
+  /** column name */
   PrivateCodeType = 'private_code_type',
   /** column name */
   PrivateCodeValue = 'private_code_value',
@@ -24271,6 +24506,18 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureUpdateColumn {
   ReplacesRailSign = 'replaces_rail_sign',
   /** column name */
   Seats = 'seats',
+  /** column name */
+  ShelterCondition = 'shelter_condition',
+  /** column name */
+  ShelterElectricity = 'shelter_electricity',
+  /** column name */
+  ShelterFasciaBoardTaping = 'shelter_fascia_board_taping',
+  /** column name */
+  ShelterHasDisplay = 'shelter_has_display',
+  /** column name */
+  ShelterLighting = 'shelter_lighting',
+  /** column name */
+  ShelterType = 'shelter_type',
   /** column name */
   SignContentType = 'sign_content_type',
   /** column name */
@@ -24284,7 +24531,11 @@ export enum StopsDatabaseInstalledEquipmentVersionStructureUpdateColumn {
   /** column name */
   TicketOffice = 'ticket_office',
   /** column name */
+  TimetableCabinets = 'timetable_cabinets',
+  /** column name */
   ToDate = 'to_date',
+  /** column name */
+  TrashCan = 'trash_can',
   /** column name */
   Version = 'version',
   /** column name */
@@ -24322,6 +24573,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureVarPopFields = {
   number_of_spaces?: Maybe<Scalars['Float']>;
   number_of_toilets?: Maybe<Scalars['Float']>;
   seats?: Maybe<Scalars['Float']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
   wheelchair_area_length?: Maybe<Scalars['Float']>;
   wheelchair_area_width?: Maybe<Scalars['Float']>;
@@ -24342,6 +24595,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureVarSampFields = {
   number_of_spaces?: Maybe<Scalars['Float']>;
   number_of_toilets?: Maybe<Scalars['Float']>;
   seats?: Maybe<Scalars['Float']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
   wheelchair_area_length?: Maybe<Scalars['Float']>;
   wheelchair_area_width?: Maybe<Scalars['Float']>;
@@ -24362,6 +24617,8 @@ export type StopsDatabaseInstalledEquipmentVersionStructureVarianceFields = {
   number_of_spaces?: Maybe<Scalars['Float']>;
   number_of_toilets?: Maybe<Scalars['Float']>;
   seats?: Maybe<Scalars['Float']>;
+  /** Aikataulukaappien lukumäärä */
+  timetable_cabinets?: Maybe<Scalars['Float']>;
   version?: Maybe<Scalars['Float']>;
   wheelchair_area_length?: Maybe<Scalars['Float']>;
   wheelchair_area_width?: Maybe<Scalars['Float']>;
