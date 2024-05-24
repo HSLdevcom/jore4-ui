@@ -344,7 +344,7 @@
     "pullOut": "Pull out",
     "other": "Other"
   },
-  "stopRegistryShelterTypeEnum": {
+  "stopRegistryShelterWidthTypeEnum": {
     "narrow": "Narrow",
     "wide": "Wide",
     "other": "Other"

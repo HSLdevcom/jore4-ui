@@ -6,14 +6,14 @@ import {
   StopRegistryGuidanceType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
-  StopRegistryShelterType,
+  StopRegistryShelterWidthType,
   StopRegistryStopType,
 } from '../../../../../generated/graphql';
 import {
   mapStopRegistryGuidanceTypeToUiName,
   mapStopRegistryMapTypeToUiName,
   mapStopRegistryPedestrianCrossingRampTypeToUiName,
-  mapStopRegistryShelterTypeToUiName,
+  mapStopRegistryShelterWidthTypeToUiName,
   mapStopRegistryStopTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { Column, Row } from '../../../../../layoutComponents';
@@ -113,10 +113,10 @@ const MeasurementsFormComponent = (
               testId={testIds.shelterType}
               // eslint-disable-next-line react/no-unstable-nested-components
               inputElementRenderer={(props) => (
-                <EnumDropdown<StopRegistryShelterType>
-                  enumType={StopRegistryShelterType}
+                <EnumDropdown<StopRegistryShelterWidthType>
+                  enumType={StopRegistryShelterWidthType}
                   placeholder={t('unknown')}
-                  uiNameMapper={mapStopRegistryShelterTypeToUiName}
+                  uiNameMapper={mapStopRegistryShelterWidthTypeToUiName}
                   includeNullOption
                   // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}

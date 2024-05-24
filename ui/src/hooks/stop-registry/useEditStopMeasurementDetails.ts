@@ -5,7 +5,7 @@ import {
   StopRegistryLimitationStatusType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
-  StopRegistryShelterType,
+  StopRegistryShelterWidthType,
   StopRegistryStopType,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
@@ -85,7 +85,7 @@ export const useEditStopMeasurementDetails = () => {
             ? (state.stopType as StopRegistryStopType)
             : null,
           shelterType: state.shelterType
-            ? (state.shelterType as StopRegistryShelterType)
+            ? (state.shelterType as StopRegistryShelterWidthType)
             : null,
           guidanceType: state.guidanceType
             ? (state.guidanceType as StopRegistryGuidanceType)
