@@ -66489,10 +66489,23 @@ export type UpdateStopPlaceMutation = {
         } | null> | null;
         placeEquipments?: {
           __typename?: 'stop_registry_PlaceEquipments';
+          id?: string | null;
           shelterEquipment?: Array<{
             __typename?: 'stop_registry_ShelterEquipment';
+            id?: string | null;
             enclosed?: boolean | null;
             stepFree?: boolean | null;
+            shelterType?: StopRegistryShelterType | null;
+            shelterElectricity?: StopRegistryShelterElectricity | null;
+            shelterLighting?: boolean | null;
+            shelterCondition?: StopRegistryShelterCondition | null;
+            timetableCabinets?: number | null;
+            trashCan?: boolean | null;
+            shelterHasDisplay?: boolean | null;
+            bicycleParking?: boolean | null;
+            leaningRail?: boolean | null;
+            outsideBench?: boolean | null;
+            shelterFasciaBoardTaping?: boolean | null;
           } | null> | null;
           cycleStorageEquipment?: Array<{
             __typename?: 'stop_registry_CycleStorageEquipment';
@@ -66680,10 +66693,23 @@ export type GetStopDetailsByIdQuery = {
             } | null> | null;
             placeEquipments?: {
               __typename?: 'stop_registry_PlaceEquipments';
+              id?: string | null;
               shelterEquipment?: Array<{
                 __typename?: 'stop_registry_ShelterEquipment';
+                id?: string | null;
                 enclosed?: boolean | null;
                 stepFree?: boolean | null;
+                shelterType?: StopRegistryShelterType | null;
+                shelterElectricity?: StopRegistryShelterElectricity | null;
+                shelterLighting?: boolean | null;
+                shelterCondition?: StopRegistryShelterCondition | null;
+                timetableCabinets?: number | null;
+                trashCan?: boolean | null;
+                shelterHasDisplay?: boolean | null;
+                bicycleParking?: boolean | null;
+                leaningRail?: boolean | null;
+                outsideBench?: boolean | null;
+                shelterFasciaBoardTaping?: boolean | null;
               } | null> | null;
               cycleStorageEquipment?: Array<{
                 __typename?: 'stop_registry_CycleStorageEquipment';
@@ -66744,6 +66770,24 @@ export type GetStopDetailsByIdQuery = {
   } | null;
 };
 
+export type ShelterEquipmentDetailsFragment = {
+  __typename?: 'stop_registry_ShelterEquipment';
+  id?: string | null;
+  enclosed?: boolean | null;
+  stepFree?: boolean | null;
+  shelterType?: StopRegistryShelterType | null;
+  shelterElectricity?: StopRegistryShelterElectricity | null;
+  shelterLighting?: boolean | null;
+  shelterCondition?: StopRegistryShelterCondition | null;
+  timetableCabinets?: number | null;
+  trashCan?: boolean | null;
+  shelterHasDisplay?: boolean | null;
+  bicycleParking?: boolean | null;
+  leaningRail?: boolean | null;
+  outsideBench?: boolean | null;
+  shelterFasciaBoardTaping?: boolean | null;
+};
+
 export type QuayDetailsFragment = {
   __typename?: 'stop_registry_Quay';
   id?: string | null;
@@ -66759,10 +66803,23 @@ export type QuayDetailsFragment = {
   } | null> | null;
   placeEquipments?: {
     __typename?: 'stop_registry_PlaceEquipments';
+    id?: string | null;
     shelterEquipment?: Array<{
       __typename?: 'stop_registry_ShelterEquipment';
+      id?: string | null;
       enclosed?: boolean | null;
       stepFree?: boolean | null;
+      shelterType?: StopRegistryShelterType | null;
+      shelterElectricity?: StopRegistryShelterElectricity | null;
+      shelterLighting?: boolean | null;
+      shelterCondition?: StopRegistryShelterCondition | null;
+      timetableCabinets?: number | null;
+      trashCan?: boolean | null;
+      shelterHasDisplay?: boolean | null;
+      bicycleParking?: boolean | null;
+      leaningRail?: boolean | null;
+      outsideBench?: boolean | null;
+      shelterFasciaBoardTaping?: boolean | null;
     } | null> | null;
     cycleStorageEquipment?: Array<{
       __typename?: 'stop_registry_CycleStorageEquipment';
@@ -66915,10 +66972,23 @@ export type StopPlaceDetailsFragment = {
     } | null> | null;
     placeEquipments?: {
       __typename?: 'stop_registry_PlaceEquipments';
+      id?: string | null;
       shelterEquipment?: Array<{
         __typename?: 'stop_registry_ShelterEquipment';
+        id?: string | null;
         enclosed?: boolean | null;
         stepFree?: boolean | null;
+        shelterType?: StopRegistryShelterType | null;
+        shelterElectricity?: StopRegistryShelterElectricity | null;
+        shelterLighting?: boolean | null;
+        shelterCondition?: StopRegistryShelterCondition | null;
+        timetableCabinets?: number | null;
+        trashCan?: boolean | null;
+        shelterHasDisplay?: boolean | null;
+        bicycleParking?: boolean | null;
+        leaningRail?: boolean | null;
+        outsideBench?: boolean | null;
+        shelterFasciaBoardTaping?: boolean | null;
       } | null> | null;
       cycleStorageEquipment?: Array<{
         __typename?: 'stop_registry_CycleStorageEquipment';
@@ -68837,6 +68907,24 @@ export const FareZoneDetailsFragmentDoc = gql`
     }
   }
 `;
+export const ShelterEquipmentDetailsFragmentDoc = gql`
+  fragment shelter_equipment_details on stop_registry_ShelterEquipment {
+    id
+    enclosed
+    stepFree
+    shelterType
+    shelterElectricity
+    shelterLighting
+    shelterCondition
+    timetableCabinets
+    trashCan
+    shelterHasDisplay
+    bicycleParking
+    leaningRail
+    outsideBench
+    shelterFasciaBoardTaping
+  }
+`;
 export const QuayDetailsFragmentDoc = gql`
   fragment quay_details on stop_registry_Quay {
     id
@@ -68849,15 +68937,16 @@ export const QuayDetailsFragmentDoc = gql`
       nameType
     }
     placeEquipments {
+      id
       shelterEquipment {
-        enclosed
-        stepFree
+        ...shelter_equipment_details
       }
       cycleStorageEquipment {
         cycleStorageType
       }
     }
   }
+  ${ShelterEquipmentDetailsFragmentDoc}
 `;
 export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
   fragment hsl_accessibility_properties_details on stop_registry_HslAccessibilityProperties {
