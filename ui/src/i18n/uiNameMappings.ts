@@ -10,6 +10,7 @@ import {
   StopRegistryStopType,
   StopRegistryTransportModeType,
 } from '../generated/graphql';
+import { StopAccessibilityLevel } from '../hooks/stop-registry/useCalculateStopAccessibilityLevel';
 import { i18n } from '../i18n';
 import {
   DayOfWeek,
@@ -113,6 +114,10 @@ export const mapStopRegistryMapTypeToUiName = (
   i18n.t(
     key === NullOptionEnum.Null ? 'unknown' : `stopRegistryMapTypeEnum.${key}`,
   );
+
+export const mapStopAccessibilityLevelToUiName = (
+  key: StopAccessibilityLevel,
+) => i18n.t(`stopAccessibilityLevelEnum.${key}`);
 
 export const mapLineTypeToUiName = (
   key: RouteTypeOfLineEnum | AllOptionEnum.All,

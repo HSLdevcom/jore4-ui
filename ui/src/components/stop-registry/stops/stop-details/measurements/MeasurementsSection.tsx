@@ -9,14 +9,21 @@ import {
 } from '../../../../../generated/graphql';
 import {
   StopWithDetails,
+  useCalculateStopAccessibilityLevel,
   useEditStopMeasurementDetails,
   useToggle,
 } from '../../../../../hooks';
+import { mapStopAccessibilityLevelToUiName } from '../../../../../i18n/uiNameMappings';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { ExpandableInfoContainer } from '../layout';
 import { MeasurementsForm } from './MeasurementsForm';
 import { MeasurementsViewCard } from './MeasurementsViewCard';
 import { MeasurementsFormState } from './schema';
+
+const testIds = {
+  prefix: 'MeasurementsSection',
+  accessibilityLevel: 'MeasurementsSection::accessibilityLevel',
+};
 
 interface Props {
   stop: StopWithDetails;
@@ -74,8 +81,12 @@ export const MeasurementsSection = ({ stop }: Props): JSX.Element => {
   const { t } = useTranslation();
   const { saveStopPlaceMeasurementDetails, defaultErrorHandler } =
     useEditStopMeasurementDetails();
+  const { calculateStopAccessibilityLevel } =
+    useCalculateStopAccessibilityLevel();
   const [isExpanded, toggleIsExpanded] = useToggle(true);
   const [isEditMode, toggleEditMode] = useToggle(false);
+
+  const accessibilityLevel = calculateStopAccessibilityLevel(stop.stop_place);
 
   const onCancel = () => {
     toggleEditMode();
@@ -100,8 +111,18 @@ export const MeasurementsSection = ({ stop }: Props): JSX.Element => {
     <ExpandableInfoContainer
       onToggle={toggleIsExpanded}
       isExpanded={isExpanded}
-      title={t('stopDetails.measurements.title')}
-      testIdPrefix="MeasurementsSection"
+      title={
+        <div className="flex items-center">
+          <h4>{t('stopDetails.measurements.title')}</h4>
+          <div className="mx-4 h-8 border-l border-dark-grey"> </div>
+          <div title={t('stopDetails.measurements.accessibilityLevelTooltip')}>
+            <span data-testid={testIds.accessibilityLevel}>
+              {mapStopAccessibilityLevelToUiName(accessibilityLevel)}
+            </span>
+          </div>
+        </div>
+      }
+      testIdPrefix={testIds.prefix}
       isEditMode={isEditMode}
       onCancel={onCancel}
       onSave={onSave}
