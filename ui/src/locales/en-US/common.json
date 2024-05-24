@@ -181,6 +181,7 @@
     },
     "measurements": {
       "title": "Measurements and accessibility",
+      "accessibilityLevelTooltip": "Accessibility",
       "stopType": "Stop type",
       "curvedStop": "Curved",
       "shelterType": "Shelter",
@@ -364,6 +365,13 @@
     "tactile": "Tactile",
     "other": "Other",
     "none": "None"
+  },
+  "stopAccessibilityLevelEnum": {
+    "FullyAccessible": "Accessible",
+    "MostlyAccessible": "Minor obstacles",
+    "PartiallyInaccessible": "Partially inaccessible",
+    "Inaccessible": "Inaccessible",
+    "Unknown": "Missing accessibility data"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Regional rail service",
