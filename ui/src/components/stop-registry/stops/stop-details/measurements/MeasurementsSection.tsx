@@ -4,7 +4,7 @@ import {
   StopRegistryGuidanceType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
-  StopRegistryShelterType,
+  StopRegistryShelterWidthType,
   StopRegistryStopType,
 } from '../../../../../generated/graphql';
 import {
@@ -56,7 +56,7 @@ const mapMeasurementsDataToFormState = (
       ? (accessibilityProps.stopType as StopRegistryStopType)
       : null,
     shelterType: accessibilityProps.shelterType
-      ? (accessibilityProps.shelterType as StopRegistryShelterType)
+      ? (accessibilityProps.shelterType as StopRegistryShelterWidthType)
       : null,
     guidanceType: accessibilityProps.guidanceType
       ? (accessibilityProps.guidanceType as StopRegistryGuidanceType)

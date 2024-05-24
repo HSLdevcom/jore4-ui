@@ -341,7 +341,7 @@
     "pullOut": "Syvennys",
     "other": "Muu"
   },
-  "stopRegistryShelterTypeEnum": {
+  "stopRegistryShelterWidthTypeEnum": {
     "narrow": "Kapea",
     "wide": "Leveä",
     "other": "Muu"

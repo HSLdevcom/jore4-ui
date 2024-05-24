@@ -3,7 +3,7 @@ import {
   StopRegistryGuidanceType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
-  StopRegistryShelterType,
+  StopRegistryShelterWidthType,
   StopRegistryStopType,
 } from '../../../../../generated/graphql';
 import {
@@ -33,7 +33,7 @@ export const measurementsFormSchema = z.object({
   stopAreaSurroundingsAccessible: nullableBoolean,
   curvedStop: nullableBoolean,
   stopType: createNullableEnum<StopRegistryStopType>(),
-  shelterType: createNullableEnum<StopRegistryShelterType>(),
+  shelterType: createNullableEnum<StopRegistryShelterWidthType>(),
   guidanceType: createNullableEnum<StopRegistryGuidanceType>(),
   mapType: createNullableEnum<StopRegistryMapType>(),
   pedestrianCrossingRampType:
