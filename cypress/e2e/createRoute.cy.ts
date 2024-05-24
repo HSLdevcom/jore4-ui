@@ -301,7 +301,9 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(routeName);
+      routeStopsOverlay
+        .getRouteStopListHeader('T-reitti 1', RouteDirectionEnum.Outbound)
+        .shouldBeVisible();
     },
   );
 
@@ -340,7 +342,9 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(routeName);
+      routeStopsOverlay
+        .getRouteStopListHeader('T-reitti 2', RouteDirectionEnum.Inbound)
+        .shouldBeVisible();
 
       routeStopsOverlay.stopsShouldNotBeIncludedInRoute(omittedStopsLabels);
     },
@@ -414,7 +418,12 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(routeName);
+      routeStopsOverlay
+        .getRouteStopListHeader(
+          'Indefinite end time route',
+          RouteDirectionEnum.Outbound,
+        )
+        .shouldBeVisible();
     },
   );
 
@@ -445,7 +454,9 @@ describe('Route creation', () => {
 
       routeEditor.checkRouteSubmitSuccessToast();
 
-      routeStopsOverlay.routeShouldBeSelected(testRouteLabels.label5);
+      routeStopsOverlay
+        .getRouteStopListHeader('Template route', RouteDirectionEnum.Outbound)
+        .shouldBeVisible();
 
       // Verify that the stops from the template route are included in the new route
       // and that the stop count is correct
