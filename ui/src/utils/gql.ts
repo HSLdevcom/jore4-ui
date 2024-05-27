@@ -205,3 +205,20 @@ export const buildTiamatPrivateCodeLikeGqlFilter = (value: string) => ({
   private_code_type: { _ilike: ELY_NUMBER_TYPE },
   private_code_value: { _ilike: value },
 });
+
+enum TiamatKeyValueKeys {
+  Address = 'streetAddress',
+}
+
+export const buildTiamatKeyValueLikeGqlFilter = (
+  key: TiamatKeyValueKeys,
+  value: string,
+) => ({
+  stop_place_key_values: {
+    key_values_key: { _ilike: key },
+    value: { value_items: { items: { _ilike: value } } },
+  },
+});
+
+export const buildTiamatAddressLikeGqlFilter = (value: string) =>
+  buildTiamatKeyValueLikeGqlFilter(TiamatKeyValueKeys.Address, value);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Path } from '../../../router/routeDetails';
 import { mapObjectToQueryParameterObjects, useUrlQuery } from '../../urlQuery';
 import { useStopSearchQueryParser } from './useStopSearchQueryParser';
@@ -18,11 +18,15 @@ export const useStopSearch = () => {
     });
   };
 
+  const setSearchInputValue = (searchBy: string, value: string) => {
+    setSearchCondition(searchBy, value);
+  };
+
   /**
    * Pushes selected search conditions and live filters to query string.
    * This will trigger GraphQL request, if the searchConditions have changed.
    */
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     const combinedParameters = {
       ...searchConditions,
       ...queryParameters.filter,
@@ -32,7 +36,11 @@ export const useStopSearch = () => {
       parameters: mapObjectToQueryParameterObjects(combinedParameters),
       pathname: Path.stopSearch,
     });
-  };
+  }, [
+    queryParameters.filter,
+    searchConditions,
+    setMultipleParametersToUrlQuery,
+  ]);
 
   /**
    * Navigates back to stop registry main view but retains the query parameters.
@@ -51,6 +59,7 @@ export const useStopSearch = () => {
 
   return {
     setSearchCondition,
+    setSearchInputValue,
     searchConditions,
     handleSearch,
     handleClose,
