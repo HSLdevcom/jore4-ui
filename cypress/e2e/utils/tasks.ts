@@ -6,7 +6,6 @@ import {
   hasuraApi,
   insertStopPlaceForScheduledStopPoint,
   timetablesDatabaseConfig,
-  truncateDb,
 } from '@hsl/jore4-test-db-manager';
 import {
   HslTimetablesDatasetInput,
@@ -40,10 +39,6 @@ export const checkDbConnection = () => {
         return undefined;
       })
   );
-};
-
-export const truncateDatabase = () => {
-  return truncateDb(jore4db);
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
