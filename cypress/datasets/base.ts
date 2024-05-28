@@ -189,7 +189,7 @@ export const routes: RouteInsertInput[] = [
   },
 ];
 
-const journeyPatterns: JourneyPatternInsertInput[] = [
+export const journeyPatterns: JourneyPatternInsertInput[] = [
   {
     journey_pattern_id: '6cae356b-20f4-4e04-a969-097999b351f0',
     on_route_id: routes[0].route_id,
@@ -357,7 +357,8 @@ const baseDbResources = {
   stopsInJourneyPattern,
 };
 
-/** Returns a clone of baseDbResources so that the caller can
+/**
+ * Returns a clone of baseDbResources so that the caller can
  * modify the data freely without side effects
  */
 export const getClonedBaseDbResources = () => cloneDeep(baseDbResources);
