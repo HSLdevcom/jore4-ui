@@ -7,7 +7,7 @@ export class MeasurementsSection {
   viewCard = new MeasurementsViewCard();
 
   getAccessibilityLevel() {
-    return cy.getByTestId('MeasurementsSection::accessibilityLevel');
+    return cy.getByTestId('AccessibilityLevelInfo::accessibilityLevel');
   }
 
   getEditButton() {
