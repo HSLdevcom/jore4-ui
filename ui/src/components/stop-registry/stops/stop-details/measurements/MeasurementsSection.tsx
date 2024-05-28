@@ -9,13 +9,12 @@ import {
 } from '../../../../../generated/graphql';
 import {
   StopWithDetails,
-  useCalculateStopAccessibilityLevel,
   useEditStopMeasurementDetails,
   useToggle,
 } from '../../../../../hooks';
-import { mapStopAccessibilityLevelToUiName } from '../../../../../i18n/uiNameMappings';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { ExpandableInfoContainer } from '../layout';
+import { AccessibilityLevelInfo } from './AccessibilityLevelInfo';
 import { MeasurementsForm } from './MeasurementsForm';
 import { MeasurementsViewCard } from './MeasurementsViewCard';
 import { MeasurementsFormState } from './schema';
@@ -81,12 +80,8 @@ export const MeasurementsSection = ({ stop }: Props): JSX.Element => {
   const { t } = useTranslation();
   const { saveStopPlaceMeasurementDetails, defaultErrorHandler } =
     useEditStopMeasurementDetails();
-  const { calculateStopAccessibilityLevel } =
-    useCalculateStopAccessibilityLevel();
   const [isExpanded, toggleIsExpanded] = useToggle(true);
   const [isEditMode, toggleEditMode] = useToggle(false);
-
-  const accessibilityLevel = calculateStopAccessibilityLevel(stop.stop_place);
 
   const onCancel = () => {
     toggleEditMode();
@@ -112,14 +107,10 @@ export const MeasurementsSection = ({ stop }: Props): JSX.Element => {
       onToggle={toggleIsExpanded}
       isExpanded={isExpanded}
       title={
-        <div className="flex items-center">
+        <div className="flex items-start">
           <h4>{t('stopDetails.measurements.title')}</h4>
           <div className="mx-4 h-8 border-l border-dark-grey"> </div>
-          <div title={t('stopDetails.measurements.accessibilityLevelTooltip')}>
-            <span data-testid={testIds.accessibilityLevel}>
-              {mapStopAccessibilityLevelToUiName(accessibilityLevel)}
-            </span>
-          </div>
+          <AccessibilityLevelInfo stop={stop} />
         </div>
       }
       testIdPrefix={testIds.prefix}
