@@ -211,7 +211,9 @@
   },
   "stopRegistrySearch": {
     "searchResultsTitle": "Pysäkit",
-    "elyNumber": "ELY-numero"
+    "elyNumber": "ELY-numero",
+    "byAddress": "Osoitteella",
+    "byLabel": "Tunnuksella"
   },
   "timingPlaces": {
     "label": "Uusi Hastus-paikka",
