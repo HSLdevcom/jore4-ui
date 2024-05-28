@@ -181,7 +181,6 @@
     },
     "measurements": {
       "title": "Measurements and accessibility",
-      "accessibilityLevelTooltip": "Accessibility",
       "stopType": "Stop type",
       "curvedStop": "Curved",
       "shelterType": "Shelter",
@@ -208,6 +207,41 @@
       "guidanceTiles": "Guidance tiles",
       "accessible": "Accessible",
       "inaccessible": "Inaccessible"
+    },
+    "accessibilityLevelDescriptions": {
+      "modalTriggerTitle": "Accessibility",
+      "modalTitle": "Accessibility levels",
+      "fullyAccessible": {
+        "item1": "stop area width is at least 1,5 m",
+        "item2": "stop elevation is 25-30 cm for trams, 16-25 cm for buses",
+        "item3": "lengthwise slope is at most 3 %",
+        "item4": "side slope is at most 2 %"
+      },
+      "mostlyAccessible": {
+        "item1": "stop area width is at least 1,5 m",
+        "item2": "stop elevation is 25-30 cm for trams, 16-25 cm for buses",
+        "item3": "lengthwise slope is at most 5 %",
+        "item4": "side slope is at most 3 %"
+      },
+      "partiallyInaccessible": {
+        "item1": "stop area width is at least 1,2 m",
+        "item2": "stop elevation is at least 20 cm for trams, at least 12 cm for buses",
+        "item3": "lengthwise slope is at most 8 %",
+        "item4": "side slope is at most 5 %"
+      },
+      "inaccessible": {
+        "item1": "stop area width is over 1,2 m",
+        "item2": "stop elevation is less than 20 cm for trams, less than 12 cm for buses",
+        "item3": "lengthwise slope is over 8 %",
+        "item4": "side slope is over 5 %"
+      },
+      "additionalInfo": {
+        "title": "\"Fully accessible\" and \"Minor obstacles\" -levels also require stops to have the following properties:",
+        "item1": "no objects that could cause a collision hazard",
+        "item2": "platform edge has warning area",
+        "item3": "shelter and bench",
+        "item4": "lighting"
+      }
     }
   },
   "stopRegistrySearch": {
@@ -367,7 +401,7 @@
     "none": "None"
   },
   "stopAccessibilityLevelEnum": {
-    "FullyAccessible": "Accessible",
+    "FullyAccessible": "Fully accessible",
     "MostlyAccessible": "Minor obstacles",
     "PartiallyInaccessible": "Partially inaccessible",
     "Inaccessible": "Inaccessible",

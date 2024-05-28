@@ -181,7 +181,6 @@
     },
     "measurements": {
       "title": "Mitat ja esteettömyys",
-      "accessibilityLevelTooltip": "Esteettömyys",
       "stopType": "Pysäkin tyyppi",
       "curvedStop": "Kaareva",
       "shelterType": "Katos",
@@ -208,6 +207,41 @@
       "guidanceTiles": "Opaslaatat",
       "accessible": "Esteetön",
       "inaccessible": "Esteellinen"
+    },
+    "accessibilityLevelDescriptions": {
+      "modalTriggerTitle": "Esteettömyys",
+      "modalTitle": "Esteettömyystasot",
+      "fullyAccessible": {
+        "item1": "pysäkkialueen leveys on vähintään 1,5 m",
+        "item2": "pysäkkitason korkeus on raitiovaunuille 25-30 cm, busseille 16-25 cm",
+        "item3": "pitkittäiskaltevuus on korkeintaan 3 %",
+        "item4": "sivukaltevuus on korkeintaan 2 %"
+      },
+      "mostlyAccessible": {
+        "item1": "pysäkkialueen leveys on vähintään 1,5 m",
+        "item2": "pysäkkitason korkeus on raitiovaunuille 25-30 cm, busseille 16-25 cm",
+        "item3": "pitkittäiskaltevuus on korkeintaan 5 %",
+        "item4": "sivukaltevuus on korkeintaan 3 %"
+      },
+      "partiallyInaccessible": {
+        "item1": "pysäkkialueen leveys on vähintään 1,2 m",
+        "item2": "pysäkkitason korkeus on raitiovaunuille vähintään 20 cm ja busseille vähintään 12 cm",
+        "item3": "pitkittäiskaltevuus on korkeintaan 8 %",
+        "item4": "sivukaltevuus on korkeintaan 5 %"
+      },
+      "inaccessible": {
+        "item1": "pysäkkialueen leveys on vähemmän kuin 1,2 m",
+        "item2": "pysäkkitason korkeus on raitiovaunuille vähemmän kuin 20 cm, busseille vähemmän kuin 12 cm",
+        "item3": "pitkittäiskaltevuus on enemmän kuin 8 %",
+        "item4": "sivukaltevuus on enemmän kuin 5 %"
+      },
+      "additionalInfo": {
+        "title": "\"Täysin esteetön\" ja \"Vähäisiä esteitä\" -luokissa pysäkeiltä edellytetään lisäksi seuraavia asioita:",
+        "item1": "ei törmäysvaaraa aiheuttavia esineitä/kalusteita",
+        "item2": "varoitusalue pysäkkialueen reunassa",
+        "item3": "katos ja penkki",
+        "item4": "valaistus"
+      }
     }
   },
   "stopRegistrySearch": {
@@ -367,7 +401,7 @@
     "none": "Ei karttaa"
   },
   "stopAccessibilityLevelEnum": {
-    "FullyAccessible": "Esteetön",
+    "FullyAccessible": "Täysin esteetön",
     "MostlyAccessible": "Vähäisiä esteitä",
     "PartiallyInaccessible": "Osittain esteellinen",
     "Inaccessible": "Esteellinen",
