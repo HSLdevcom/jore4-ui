@@ -24,7 +24,7 @@ export const EnumMultiSelectDropdown = <TEnum extends Object>({
   // To handle array values in multi select component
   const mappedValue = value ? value.split(',') : [];
 
-  const values = getEnumValues({ ...AllOptionEnum, ...enumType });
+  const values = [...getEnumValues(AllOptionEnum), ...getEnumValues(enumType)];
 
   const mapToOption = (item: string) => ({
     key: item,
