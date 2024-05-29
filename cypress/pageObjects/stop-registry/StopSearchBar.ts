@@ -18,4 +18,22 @@ export class StopSearchBar {
   getSearchButton() {
     return cy.getByTestId('StopSearchBar::searchButton');
   }
+
+  getMunicipalitiesDropdown() {
+    return cy.getByTestId(
+      'StopSearchBar::municipalitiesDropdown::ListboxButton',
+    );
+  }
+
+  openMunicipalityDropdown() {
+    this.getMunicipalitiesDropdown().click();
+  }
+
+  clickMunicipality(municipality: string) {
+    cy.get('li').contains(municipality).click();
+  }
+
+  isMunicipalitySelected(municipality: string) {
+    cy.get('li').contains(municipality).get('input').should('be.checked');
+  }
 }

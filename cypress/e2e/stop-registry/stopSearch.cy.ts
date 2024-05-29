@@ -2,6 +2,7 @@ import {
   GetInfrastructureLinksByExternalIdsResult,
   Priority,
   StopInsertInput,
+  StopRegistryGeoJsonType,
   StopRegistryNameType,
   StopRegistryStopPlace,
   buildStop,
@@ -51,6 +52,10 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
     quays: [{ publicCode: 'H1122' }],
     privateCode: { value: '123456', type: 'ELY' },
     keyValues: [{ key: 'streetAddress', values: ['Puistokaari 1'] }],
+    geometry: {
+      coordinates: [[24.86309, 60.15988]],
+      type: StopRegistryGeoJsonType.Point,
+    },
   },
   {
     name: { lang: 'fin', value: 'Lapinrinne' },
@@ -63,11 +68,19 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
     quays: [{ publicCode: 'H1234' }],
     privateCode: { value: '123499', type: 'ELY' },
     keyValues: [{ key: 'streetAddress', values: ['Lapinrinteentie 25'] }],
+    geometry: {
+      coordinates: [[24.87639, 60.32894]],
+      type: StopRegistryGeoJsonType.Point,
+    },
   },
   {
     name: { lang: 'fin', value: 'Tuusulanväylä' },
     quays: [{ publicCode: 'H2233' }],
     keyValues: [{ key: 'streetAddress', values: ['Tuusulanväylä 10-16'] }],
+    geometry: {
+      coordinates: [[24.99721, 60.32129]],
+      type: StopRegistryGeoJsonType.Point,
+    },
   },
 ];
 
@@ -326,6 +339,7 @@ describe('Stop search', () => {
       },
     );
   });
+
   describe('Search criteria', () => {
     it(
       'Should trigger search when the search criteria is changed and the search input field contains text',
@@ -342,6 +356,7 @@ describe('Stop search', () => {
         stopSearchResultsPage.getResultRows().should('contain', 'H1122');
       },
     );
+
     it(
       'Should not trigger a search when the search criteria is changed if the search input field is empty',
       { tags: Tag.StopRegistry },
@@ -359,6 +374,42 @@ describe('Stop search', () => {
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+      },
+    );
+  });
+
+  describe('by municipality', () => {
+    it(
+      'Should search by all municipalities by default',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.getSearchInput().type(`*`);
+        stopSearchBar.getExpandToggle().click();
+        stopSearchBar.openMunicipalityDropdown();
+        stopSearchBar.isMunicipalitySelected('Kaikki');
+        stopSearchBar.getSearchButton().click();
+        cy.wait('@gqlSearchStops');
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 3);
+      },
+    );
+
+    it(
+      'should be able to search with one municipality',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.getExpandToggle().click();
+        stopSearchBar.openMunicipalityDropdown();
+        stopSearchBar.isMunicipalitySelected('Kaikki');
+        stopSearchBar.clickMunicipality('Kaikki');
+        stopSearchBar.clickMunicipality('Vantaa');
+        stopSearchBar.getSearchButton().click();
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 2);
+        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
         stopSearchResultsPage.getResultRows().should('contain', 'H2233');
       },
     );
