@@ -213,7 +213,9 @@
     "searchResultsTitle": "Pysäkit",
     "elyNumber": "ELY-numero",
     "byAddress": "Osoitteella",
-    "byLabel": "Tunnuksella"
+    "byLabel": "Tunnuksella",
+    "municipality": "Kunta",
+    "municipalityPlaceholder": "Valitse"
   },
   "timingPlaces": {
     "label": "Uusi Hastus-paikka",

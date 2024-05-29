@@ -67,3 +67,15 @@ export enum DayType {
   LA = 8, // Saturday
   SU = 9, // Sunday
 }
+
+export enum Municipality {
+  Helsinki = 3,
+  Vantaa = 4,
+  Espoo = 5,
+  Kauniainen = 6,
+  Siuntio = 7,
+  Kirkkonummi = 8,
+  Sipoo = 9,
+  Kerava = 10,
+  Tuusula = 11,
+}

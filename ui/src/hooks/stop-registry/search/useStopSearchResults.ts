@@ -7,9 +7,12 @@ import {
   StopsDatabaseStopPlaceNewestVersionBoolExp,
   useSearchStopsQuery,
 } from '../../../generated/graphql';
+import { Municipality } from '../../../types/enums';
 import {
+  AllOptionEnum,
   buildOptionalSearchConditionGqlFilter,
   buildTiamatAddressLikeGqlFilter,
+  buildTiamatMunicipalityGqlFilter,
   buildTiamatPrivateCodeLikeGqlFilter,
   buildTiamatStopQuayPublicCodeLikeGqlFilter,
   mapToSqlLikeValue,
@@ -99,7 +102,27 @@ const buildSearchStopsGqlQueryVariables = (
     buildTiamatAddressLikeGqlFilter,
   );
 
-  const stopFilter = { ...labelFilter, ...elyNumberFilter, ...addressFilter };
+  const mapStringToMunicipalityEnums = (value: string) => {
+    return value
+      .split(',')
+      .filter((s) => s !== AllOptionEnum.All)
+      .map((v) => Municipality[v as keyof typeof Municipality]);
+  };
+
+  const municipalityFilter = buildOptionalSearchConditionGqlFilter<
+    Municipality[],
+    StopsDatabaseStopPlaceNewestVersionBoolExp
+  >(
+    mapStringToMunicipalityEnums(searchConditions.municipalities),
+    buildTiamatMunicipalityGqlFilter,
+  );
+
+  const stopFilter = {
+    ...labelFilter,
+    ...elyNumberFilter,
+    ...addressFilter,
+    ...municipalityFilter,
+  };
 
   return {
     stopFilter,

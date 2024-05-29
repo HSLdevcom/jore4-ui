@@ -213,7 +213,9 @@
     "searchResultsTitle": "Stops",
     "elyNumber": "ELY number",
     "byAddress": "By address",
-    "byLabel": "By label"
+    "byLabel": "By label",
+    "municipality": "Municipality",
+    "municipalityPlaceholder": "Choose"
   },
   "timingPlaces": {
     "label": "New Hastus place",

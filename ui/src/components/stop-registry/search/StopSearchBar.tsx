@@ -6,10 +6,13 @@ import {
   useStopSearch,
   useToggle,
 } from '../../../hooks';
+import { mapMunicipalityToUiName } from '../../../i18n/uiNameMappings';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
+import { Municipality } from '../../../types/enums';
 import { ChevronToggle, SimpleButton } from '../../../uiComponents';
 import { SearchInput } from '../../common';
+import { EnumMultiSelectDropdown } from '../../forms/common/EnumMultiSelectDropdown';
 import { SearchCriteriaRadioButtons } from './SearchCriteriaRadioButtons';
 
 const testIds = {
@@ -17,6 +20,7 @@ const testIds = {
   toggleExpand: 'StopSearchBar::chevronToggle',
   searchButton: 'StopSearchBar::searchButton',
   elyInput: 'StopSearchBar::elyInput',
+  municipalitiesDropdown: 'StopSearchBar::municipalitiesDropdown',
 };
 
 export const StopSearchBar = (): JSX.Element => {
@@ -38,6 +42,10 @@ export const StopSearchBar = (): JSX.Element => {
 
   const onChangeSearchBy = (value: string) => {
     setSearchCondition(StopSearchQueryParameterNames.searchBy, value);
+  };
+
+  const onChangeMunicipalities = (value: string) => {
+    setSearchCondition(StopSearchQueryParameterNames.Municipalities, value);
   };
 
   const onSearch = () => {
@@ -98,6 +106,19 @@ export const StopSearchBar = (): JSX.Element => {
                 type="text"
                 value={searchConditions.elyNumber}
                 onChange={(e) => onChangeELY(e.target.value)}
+              />
+            </Column>
+            <Column className="w-1/6">
+              <label htmlFor="label">
+                {t('stopRegistrySearch.municipality')}
+              </label>
+              <EnumMultiSelectDropdown<Municipality>
+                enumType={Municipality}
+                onChange={(e) => onChangeMunicipalities(e.target.value)}
+                placeholder={t('stopRegistrySearch.municipalityPlaceholder')}
+                uiNameMapper={mapMunicipalityToUiName}
+                testId={testIds.municipalitiesDropdown}
+                value={searchConditions.municipalities}
               />
             </Column>
           </Row>

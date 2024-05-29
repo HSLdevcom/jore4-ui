@@ -13,6 +13,7 @@ import {
 import { i18n } from '../i18n';
 import {
   DayOfWeek,
+  Municipality,
   Priority,
   SubstituteDayOfWeek,
   TimetablePriority,
@@ -140,4 +141,8 @@ export const mapSubstituteDayOfWeekToUiName = (key: SubstituteDayOfWeek) => {
     [SubstituteDayOfWeek.Sunday]: i18n.t('timetableDayEnum.sunday'),
   };
   return uiStrings[key];
+};
+
+export const mapMunicipalityToUiName = (key: Municipality | AllOptionEnum) => {
+  return key === AllOptionEnum.All ? i18n.t('all') : key.toString();
 };

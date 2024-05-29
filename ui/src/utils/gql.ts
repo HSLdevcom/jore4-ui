@@ -5,7 +5,7 @@ import {
   RouteTypeOfLineEnum,
 } from '../generated/graphql';
 import { Viewport } from '../redux/types/mapModal';
-import { Priority, TimetablePriority } from '../types/enums';
+import { Municipality, Priority, TimetablePriority } from '../types/enums';
 
 /** Builds an object for gql to filter out all
  * results which are not active on the given date
@@ -222,3 +222,9 @@ export const buildTiamatKeyValueLikeGqlFilter = (
 
 export const buildTiamatAddressLikeGqlFilter = (value: string) =>
   buildTiamatKeyValueLikeGqlFilter(TiamatKeyValueKeys.Address, value);
+
+export const buildTiamatMunicipalityGqlFilter = (value: Municipality[]) => {
+  return {
+    topographic_place_id: { _in: value },
+  };
+};
