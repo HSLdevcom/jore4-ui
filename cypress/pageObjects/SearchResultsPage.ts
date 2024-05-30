@@ -11,6 +11,12 @@ export class SearchResultsPage {
     return cy.getByTestId('LinesList::table');
   }
 
+  getRouteLineTableRowByLabel(label: string) {
+    return this.getLinesSearchResultTable().findByTestId(
+      `RouteLineTableRow::row::${label}`,
+    );
+  }
+
   getSearchResultsContainer() {
     return cy.getByTestId('SearchResultsPage::Container');
   }

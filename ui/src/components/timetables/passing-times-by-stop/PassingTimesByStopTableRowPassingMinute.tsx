@@ -66,6 +66,7 @@ export const PassingTimesByStopTableRowPassingMinute = ({
   return (
     <span className="inline-flex">
       <button
+        data-highlighted={isHighlighted}
         className={twMerge(
           'inline-flex flex-col items-end rounded-sm border border-transparent px-0.5 align-text-bottom text-xs',
           'px-1 hover:border-hsl-highlight-yellow-dark hover:bg-city-bicycle-yellow',

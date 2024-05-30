@@ -1,31 +1,19 @@
+import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
 import {
-  GetInfrastructureLinksByExternalIdsResult,
-  InfraLinkAlongRouteInsertInput,
-  JourneyPatternInsertInput,
-  LineInsertInput,
-  RouteDirectionEnum,
-  RouteInsertInput,
-  RouteTypeOfLineEnum,
-  StopInJourneyPatternInsertInput,
-  StopInsertInput,
-  TimetablePriority,
-  buildLine,
-  buildRoute,
-  buildStop,
-  buildStopInJourneyPattern,
-  buildTimingPlace,
-  extractInfrastructureLinkIdsFromResponse,
-  mapToGetInfrastructureLinksByExternalIdsQuery,
-} from '@hsl/jore4-test-db-manager';
-import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
-import { DateTime, Duration } from 'luxon';
+  buildInfraLinksAlongRoute,
+  buildStopsOnInfraLinks,
+  getClonedBaseDbResources,
+  testInfraLinkExternalIds,
+} from '../datasets/base';
+import { getClonedBaseTimetableDataInput } from '../datasets/timetables';
 import { Tag } from '../enums';
 import {
-  PassingTimesByStopSection,
-  RouteTimetablesSection,
+  SearchResultsPage,
+  TimetablesMainPage,
   VehicleScheduleDetailsPage,
-  VehicleServiceTable,
 } from '../pageObjects';
+import { PassingTimesByStopTable } from '../pageObjects/timetables/PassingTimesByStopTable';
+import { RouteTimetablesSection } from '../pageObjects/timetables/RouteTimetablesSection';
 import { UUID } from '../types';
 import {
   SupportedResources,
@@ -33,295 +21,29 @@ import {
   removeFromDbHelper,
 } from '../utils';
 
-// These infralink IDs exist in the 'infraLinks.sql' test data file.
-// These form a straight line on Eerikinkatu in Helsinki.
-// Coordinates are partial since they are needed only for the stop creation.
-
-const testInfraLinks = [
-  {
-    externalId: '445156',
-    coordinates: [24.925682785, 60.163824160000004, 7.3515],
-  },
-  {
-    externalId: '442331',
-    coordinates: [24.927565858, 60.1644843305, 9.778500000000001],
-  },
-  {
-    externalId: '442424',
-    coordinates: [24.929825718, 60.165285984, 9.957],
-  },
-  {
-    externalId: '442325',
-    coordinates: [24.93312261043133, 60.16645636069328, 13.390046659939703],
-  },
-];
-
-const stopLabels = ['H1231', 'H1232', 'H1233', 'H1234'];
-
-const lines: LineInsertInput[] = [
-  {
-    ...buildLine({ label: '99' }),
-    line_id: 'f148d51b-36ff-4321-8cf1-049946f75f73',
-    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-  },
-];
-
-const timingPlaces = [
-  buildTimingPlace('50623e7b-abd0-4c9a-85fa-f88ff7f65a06', '1AACKT'),
-  buildTimingPlace('f8a93c6f-5ef7-4b09-ae5e-0a04ea8597e9', '1ELIMK'),
-  buildTimingPlace('31a2592e-0af1-48b7-8f2f-373dcca39ddd', '1AURLA'),
-];
-
-const buildStopsOnInfrastrucureLinks = (
-  infrastructureLinkIds: UUID[],
-): StopInsertInput[] => [
-  {
-    ...buildStop({
-      label: stopLabels[0],
-      located_on_infrastructure_link_id: infrastructureLinkIds[0],
-    }),
-    scheduled_stop_point_id: 'd9f0bc78-45f2-4d44-9cac-4674f856a400',
-    timing_place_id: timingPlaces[0].timing_place_id,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[0].coordinates,
-    },
-  },
-  {
-    ...buildStop({
-      label: stopLabels[1],
-      located_on_infrastructure_link_id: infrastructureLinkIds[1],
-    }),
-    scheduled_stop_point_id: '63bd05f9-de46-4fa3-bdd9-10e9a81702e3',
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[1].coordinates,
-    },
-  },
-  {
-    ...buildStop({
-      label: stopLabels[2],
-      located_on_infrastructure_link_id: infrastructureLinkIds[2],
-    }),
-    scheduled_stop_point_id: 'f732ceb2-fc41-4843-8164-ead6ec7dd33b',
-    timing_place_id: timingPlaces[1].timing_place_id,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
-    },
-  },
-  {
-    ...buildStop({
-      label: stopLabels[3],
-      located_on_infrastructure_link_id: infrastructureLinkIds[3],
-    }),
-    scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
-    timing_place_id: timingPlaces[2].timing_place_id,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[3].coordinates,
-    },
-  },
-];
-
-const routes: RouteInsertInput[] = [
-  {
-    ...buildRoute({ label: '99' }),
-    route_id: '829e9d55-aa25-4ab9-858b-f2a5aa81d931',
-    on_line_id: lines[0].line_id,
-    validity_start: DateTime.fromISO('2023-01-01T13:08:43.315+03:00'),
-    validity_end: DateTime.fromISO('2043-06-30T13:08:43.315+03:00'),
-    direction: RouteDirectionEnum.Inbound,
-  },
-];
-
-const buildInfraLinksAlongRoute = (
-  infrastructureLinkIds: UUID[],
-): InfraLinkAlongRouteInsertInput[] => [
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[0],
-    infrastructure_link_sequence: 0,
-    is_traversal_forwards: true,
-  },
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[1],
-    infrastructure_link_sequence: 1,
-    is_traversal_forwards: true,
-  },
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[2],
-    infrastructure_link_sequence: 2,
-    is_traversal_forwards: true,
-  },
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[3],
-    infrastructure_link_sequence: 3,
-    is_traversal_forwards: true,
-  },
-];
-
-const journeyPatterns: JourneyPatternInsertInput[] = [
-  {
-    journey_pattern_id: '72ff8c33-33aa-4169-803e-53f2426a4508',
-    on_route_id: routes[0].route_id,
-  },
-];
-
-const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[0],
-    scheduledStopPointSequence: 0,
-    isUsedAsTimingPoint: true,
-  }),
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[1],
-    scheduledStopPointSequence: 1,
-    isUsedAsTimingPoint: false,
-  }),
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[2],
-    scheduledStopPointSequence: 2,
-    isUsedAsTimingPoint: true,
-  }),
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[3],
-    scheduledStopPointSequence: 3,
-    isUsedAsTimingPoint: true,
-  }),
-];
-
-const timetableDataInput = {
-  _journey_pattern_refs: {
-    route99inbound: {
-      route_label: '99',
-      route_direction: 'inbound',
-      journey_pattern_id: journeyPatterns[0].journey_pattern_id,
-      _stop_points: [
-        {
-          scheduled_stop_point_sequence: 1,
-          scheduled_stop_point_label: 'H1231',
-          timing_place_label: '1AACKT',
-        },
-        {
-          scheduled_stop_point_sequence: 2,
-          scheduled_stop_point_label: 'H1232',
-        },
-        {
-          scheduled_stop_point_sequence: 3,
-          scheduled_stop_point_label: 'H1233',
-          timing_place_label: '1ELIMK',
-        },
-        {
-          scheduled_stop_point_sequence: 4,
-          scheduled_stop_point_label: 'H1234',
-          timing_place_label: '1AURLA',
-        },
-      ],
-    },
-  },
-  _vehicle_schedule_frames: {
-    year2023: {
-      validity_start: DateTime.fromISO('2023-01-01'),
-      validity_end: DateTime.fromISO('2023-12-31'),
-      name: '2023',
-      booking_label: '2023 booking label',
-      _vehicle_services: {
-        saturday: {
-          day_type_id: defaultDayTypeIds.SATURDAY,
-          _blocks: {
-            block: {
-              _vehicle_journeys: {
-                route99Inbound1: {
-                  _journey_pattern_ref_name: 'route99inbound',
-                  _passing_times: [
-                    {
-                      _scheduled_stop_point_label: 'H1231',
-                      arrival_time: null,
-                      departure_time: Duration.fromISO('PT7H05M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1232',
-                      arrival_time: Duration.fromISO('PT7H12M'),
-                      departure_time: Duration.fromISO('PT7H12M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1233',
-                      arrival_time: Duration.fromISO('PT7H19M'),
-                      departure_time: Duration.fromISO('PT7H23M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1234',
-                      arrival_time: Duration.fromISO('PT7H27M'),
-                      departure_time: null,
-                    },
-                  ],
-                },
-                route99Inbound2: {
-                  _journey_pattern_ref_name: 'route99inbound',
-                  _passing_times: [
-                    {
-                      _scheduled_stop_point_label: 'H1231',
-                      arrival_time: null,
-                      departure_time: Duration.fromISO('PT8H20M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1232',
-                      arrival_time: Duration.fromISO('PT8H22M'),
-                      departure_time: Duration.fromISO('PT8H22M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1233',
-                      arrival_time: Duration.fromISO('PT8H26M'),
-                      departure_time: Duration.fromISO('PT8H27M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1234',
-                      arrival_time: Duration.fromISO('PT8H29M'),
-                      departure_time: null,
-                    },
-                  ],
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-};
-
 describe('Timetable passing times', () => {
+  let timetablesMainPage: TimetablesMainPage;
   let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
+  let searchResultsPage: SearchResultsPage;
+  let routeTimetablesSection: RouteTimetablesSection;
+  let passingTimesByStopTable: PassingTimesByStopTable;
 
-  const baseDbResources = {
-    lines,
-    routes,
-    journeyPatterns,
-    stopsInJourneyPattern,
-  };
   let dbResources: SupportedResources;
 
+  const baseDbResources = getClonedBaseDbResources();
+  const baseTimetableDataInput = getClonedBaseTimetableDataInput();
+
   before(() => {
-    cy.task<GetInfrastructureLinksByExternalIdsResult>(
-      'hasuraAPI',
-      mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
-      ),
-    ).then((res) => {
-      const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
-      const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+    cy.task<UUID[]>(
+      'getInfrastructureLinkIdsByExternalIds',
+      testInfraLinkExternalIds,
+    ).then((infraLinkIds) => {
+      const stops = buildStopsOnInfraLinks(infraLinkIds);
+
       const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+
       dbResources = {
         ...baseDbResources,
-        timingPlaces,
         stops,
         infraLinksAlongRoute,
       };
@@ -332,13 +54,16 @@ describe('Timetable passing times', () => {
     cy.task('truncateTimetablesDatabase');
     removeFromDbHelper(dbResources);
     insertToDbHelper(dbResources);
-    cy.task('insertHslTimetablesDatasetToDb', timetableDataInput);
+    cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
 
+    timetablesMainPage = new TimetablesMainPage();
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
+    searchResultsPage = new SearchResultsPage();
+    routeTimetablesSection = new RouteTimetablesSection();
+    passingTimesByStopTable = new PassingTimesByStopTable();
 
     cy.setupTests();
     cy.mockLogin();
-    cy.visit('/');
   });
 
   afterEach(() => {
@@ -349,59 +74,201 @@ describe('Timetable passing times', () => {
   });
 
   it(
-    'Should show arrival times and highlight departures',
+    'Should highlight vehicle journey passing times',
     { tags: [Tag.Timetables, Tag.HastusImport] },
     () => {
-      const route99InboundTimetableSection = new RouteTimetablesSection(
-        '99',
-        'inbound',
+      cy.visit('/timetables');
+      timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
+
+      searchResultsPage.getRouteLineTableRowByLabel('901').click();
+
+      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+        '2023-04-29',
       );
 
-      const route99InboundSaturdayVehicleService = new VehicleServiceTable(
-        route99InboundTimetableSection,
-        'LA',
+      routeTimetablesSection
+        .getRouteSectionHeadingButton('901', RouteDirectionEnum.Outbound)
+        .click();
+
+      routeTimetablesSection
+        .getRouteSection('901', RouteDirectionEnum.Outbound)
+        .within(() => {
+          // Click one passing time to highlight the journey
+          passingTimesByStopTable
+            .getAllStopPassingTimesMinuteButtons('E2E001')
+            .eq(3)
+            .click();
+
+          // Then check that the right passing times are highlighted
+          passingTimesByStopTable.assertStopNthPassingTimeShouldBeHighlighted(
+            'E2E001',
+            3,
+          );
+
+          passingTimesByStopTable.assertStopNthPassingTimeShouldBeHighlighted(
+            'E2E002',
+            3,
+          );
+
+          passingTimesByStopTable.assertStopNthPassingTimeShouldBeHighlighted(
+            'E2E003',
+            3,
+          );
+
+          passingTimesByStopTable.assertStopNthPassingTimeShouldBeHighlighted(
+            'E2E004',
+            3,
+          );
+
+          passingTimesByStopTable.assertStopNthPassingTimeShouldBeHighlighted(
+            'E2E005',
+            3,
+          );
+
+          // Check that we have the correct amount of elements highlighted
+          passingTimesByStopTable
+            .getHighlightedElements()
+            .should('have.length', 5);
+        });
+
+      // Check that the other direction route section has no highlighted elements
+      routeTimetablesSection
+        .getRouteSection('901', RouteDirectionEnum.Inbound)
+        .within(() => {
+          passingTimesByStopTable
+            .getHighlightedElements()
+            .should('have.length', 0);
+        });
+    },
+  );
+
+  it(
+    'Should show arrival times',
+    { tags: [Tag.Timetables, Tag.HastusImport] },
+    () => {
+      cy.visit('/timetables');
+      timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
+
+      searchResultsPage.getRouteLineTableRowByLabel('901').click();
+
+      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+        '2023-04-29',
       );
 
-      const route99InboundSaturdayPassingTimesSection =
-        new PassingTimesByStopSection(
-          route99InboundTimetableSection,
-          'LA',
-          TimetablePriority.Standard,
-        );
+      routeTimetablesSection
+        .getRouteSectionHeadingButton('901', RouteDirectionEnum.Outbound)
+        .click();
 
-      // Check the imported timetable on a Saturday, which is the day type of the timetable
-      cy.visit(
-        `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
-      );
-      route99InboundSaturdayVehicleService.getHeadingButton().click();
+      passingTimesByStopTable
+        .getAllPassingTimeArrivalTimes()
+        .should('have.length', 0);
+
       vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
 
-      route99InboundSaturdayPassingTimesSection.clickToHighlightNthPassingTimeOnStopRow(
-        stopLabels[0],
-        1,
-      );
+      routeTimetablesSection
+        .getRouteSection('901', RouteDirectionEnum.Outbound)
+        .within(() => {
+          // E2E003
+          passingTimesByStopTable.getStopRow('E2E003').within(() => {
+            // Hour 07
+            passingTimesByStopTable.row
+              .getTimeContainerByHour('7')
+              .within(() => {
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(0)
+                  .should('contain', '19');
 
-      // Assert that departures in the second column are highlighted
-      cy.wrap(stopLabels).each((stopLabel) => {
-        return route99InboundSaturdayPassingTimesSection.assertNthPassingTimeHighlightOnStopRow(
-          {
-            stopLabel: String(stopLabel),
-            nthPassingTime: 1,
-            isHighlighted: true,
-          },
-        );
-      });
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(1)
+                  .should('contain', '29');
+              });
 
-      // Assert that departures in the first column are not highlighted
-      cy.wrap(stopLabels).each((stopLabel) => {
-        return route99InboundSaturdayPassingTimesSection.assertNthPassingTimeHighlightOnStopRow(
-          {
-            stopLabel: String(stopLabel),
-            nthPassingTime: 0,
-            isHighlighted: false,
-          },
-        );
-      });
+            // Hour 08
+            passingTimesByStopTable.row
+              .getTimeContainerByHour('8')
+              .within(() => {
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(0)
+                  .should('contain', '00');
+
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(1)
+                  .should('contain', '10');
+              });
+
+            // Hour 09
+            passingTimesByStopTable.row
+              .getTimeContainerByHour('9')
+              .within(() => {
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(0)
+                  .should('contain', '42');
+
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(1)
+                  .should('contain', '52');
+              });
+          });
+
+          // E2E004
+          passingTimesByStopTable.getStopRow('E2E004').within(() => {
+            // Hour 07
+            passingTimesByStopTable.row
+              .getTimeContainerByHour('7')
+              .within(() => {
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(0)
+                  .should('contain', '24');
+
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(1)
+                  .should('contain', '34');
+              });
+
+            // Hour 08
+            passingTimesByStopTable.row
+              .getTimeContainerByHour('8')
+              .within(() => {
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(0)
+                  .should('contain', '05');
+
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(1)
+                  .should('contain', '15');
+              });
+
+            // Hour 09
+            passingTimesByStopTable.row
+              .getTimeContainerByHour('9')
+              .within(() => {
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(0)
+                  .should('contain', '50');
+              });
+
+            // Hour 10
+            passingTimesByStopTable.row
+              .getTimeContainerByHour('10')
+              .within(() => {
+                passingTimesByStopTable.row.passingTime
+                  .getArrivalTime()
+                  .eq(0)
+                  .should('contain', '00');
+              });
+          });
+        });
     },
   );
 });
