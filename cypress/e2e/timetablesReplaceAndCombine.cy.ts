@@ -25,7 +25,7 @@ import {
   Navbar,
   PassingTimesByStopSection,
   PreviewTimetablesPage,
-  RouteTimetablesSection,
+  RouteTimetablesSectionLegacy,
   RoutesAndLinesPage,
   TimetablesMainPage,
   VehicleServiceTable,
@@ -303,7 +303,7 @@ const timetableDataInput = {
   },
 };
 
-const route99InboundTimetableSection = new RouteTimetablesSection(
+const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
   '99',
   'inbound',
 );
