@@ -20,4 +20,19 @@ export class PassingTimesByStopTableRowPassingTime {
         '[data-testid="PassingTimesByStopTableRowPassingTime::timeContainer"]',
       );
   }
+
+  assertNthMinuteShouldBeHighlighted(nth: number) {
+    return this.passingMinute
+      .getMinute()
+      .eq(nth)
+      .should('have.attr', 'data-highlighted', 'true');
+  }
+
+  assertTotalMinuteCount(count: number) {
+    this.passingMinute.getMinute().should('have.length', count);
+  }
+
+  assertNthArrivalTime(nth: number, arrivalTime: string) {
+    this.passingMinute.getArrivalTime().eq(nth).should('contain', arrivalTime);
+  }
 }
