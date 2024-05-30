@@ -26,7 +26,7 @@ import {
   Navbar,
   PassingTimesByStopSection,
   PreviewTimetablesPage,
-  RouteTimetablesSection,
+  RouteTimetablesSectionLegacy,
   RoutesAndLinesPage,
   TimetableVersionsPage,
   TimetablesMainPage,
@@ -309,7 +309,7 @@ const baseTimetableDataInput = {
 };
 
 const verifyBaseTimetableValidity = () => {
-  const route99InboundTimetableSection = new RouteTimetablesSection(
+  const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
     '99',
     'inbound',
   );
@@ -400,7 +400,7 @@ describe('Timetable import', () => {
 
       const IMPORT_FILENAME = 'hastusImport.exp';
 
-      const route99InboundTimetableSection = new RouteTimetablesSection(
+      const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
         '99',
         'inbound',
       );
@@ -567,7 +567,7 @@ describe('Timetable import', () => {
       'Should export a route and import a Hastus timetable as temporary',
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
-        const route99InboundTimetableSection = new RouteTimetablesSection(
+        const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
           '99',
           'inbound',
         );
@@ -758,7 +758,7 @@ describe('Timetable import', () => {
       'Should import a special day timetable for a route',
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
-        const route99InboundTimetableSection = new RouteTimetablesSection(
+        const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
           '99',
           'inbound',
         );

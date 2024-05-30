@@ -20,7 +20,7 @@ import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
 import { Tag } from '../enums';
 import {
-  RouteTimetablesSection,
+  RouteTimetablesSectionLegacy,
   SubstituteDaySettingsPage,
   Toast,
   VehicleScheduleDetailsPage,
@@ -380,7 +380,7 @@ const timetableDataInput = {
   },
 };
 
-const route99InboundTimetableSection = new RouteTimetablesSection(
+const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
   '99',
   'inbound',
 );

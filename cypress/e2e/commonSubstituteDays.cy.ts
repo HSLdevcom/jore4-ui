@@ -19,7 +19,7 @@ import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
 import { Tag } from '../enums';
 import {
-  RouteTimetablesSection,
+  RouteTimetablesSectionLegacy,
   SubstituteDaySettingsPage,
   TimetablesMainPage,
   Toast,
@@ -407,7 +407,7 @@ describe('Common substitute operating periods', () => {
     'Should create and delete a common substitute operating period successfully',
     { tags: [Tag.Timetables, Tag.Smoke] },
     () => {
-      const route1231InboundTimetableSection = new RouteTimetablesSection(
+      const route1231InboundTimetableSection = new RouteTimetablesSectionLegacy(
         '1232',
         'inbound',
       );
@@ -527,7 +527,7 @@ describe('Common substitute operating periods', () => {
     "Should create and delete a 'No traffic' common substitute operating period successfully",
     { tags: [Tag.Timetables, Tag.Smoke] },
     () => {
-      const route1231InboundTimetableSection = new RouteTimetablesSection(
+      const route1231InboundTimetableSection = new RouteTimetablesSectionLegacy(
         '1232',
         'inbound',
       );
