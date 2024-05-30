@@ -1,4 +1,11 @@
-export class RouteTimetablesSection {
+/**
+ * This page object is marked as legacy as the new simpler page object
+ * is taking place in pageObjects/timetables/RouteTimetablesSection.ts
+ * This constructor class pattern is probably a bit too heavy and we should
+ * stick with simpler page objects and using .within() and .findByTestId()
+ * methods
+ */
+export class RouteTimetablesSectionLegacy {
   label: string;
 
   direction: string;

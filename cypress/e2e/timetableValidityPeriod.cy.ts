@@ -22,7 +22,7 @@ import { DateTime, Duration } from 'luxon';
 import { Tag } from '../enums';
 import {
   PassingTimesByStopSection,
-  RouteTimetablesSection,
+  RouteTimetablesSectionLegacy,
   VehicleScheduleDetailsPage,
   VehicleServiceTable,
 } from '../pageObjects';
@@ -396,7 +396,7 @@ describe('Timetable validity period', () => {
       cy.visit(
         `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
       );
-      const route99InboundTimetableSection = new RouteTimetablesSection(
+      const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
         '99',
         'inbound',
       );
@@ -461,7 +461,7 @@ describe('Timetable validity period', () => {
         `timetables/lines/${lines[0].line_id}?routeLabels=${routes[0].label}&observationDate=2023-04-29&timetablesView=passingTimesByStop&dayType=LA`,
       );
 
-      const route99InboundTimetableSection = new RouteTimetablesSection(
+      const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
         '99',
         'inbound',
       );
@@ -529,7 +529,7 @@ describe('Timetable validity period', () => {
         cy.visit(
           `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
         );
-        const route99InboundTimetableSection = new RouteTimetablesSection(
+        const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
           '99',
           'inbound',
         );
