@@ -643,10 +643,9 @@ describe('Stop details', () => {
           stopDetailsPage.measurements.getEditButton().click();
           view.getContainer().should('not.exist');
 
-          // TODO: this should be something else once we have shelters implemented.
           stopDetailsPage.measurements
             .getAccessibilityLevel()
-            .shouldHaveText('Esteettömyystietoja puuttuu');
+            .shouldHaveText('Esteellinen');
 
           // Verify correct initial values:
           form.getStopTypeDropdownButton().shouldHaveText('Syvennys');
@@ -777,11 +776,10 @@ describe('Stop details', () => {
             .shouldHaveText('RK4 - Pystysuora reunatukiosuus');
           view.getStopAreaSurroundingsAccessible().shouldHaveText('Esteetön');
 
-          // TODO: this should be something else once we have shelters implemented.
           // TODO: would be ideal if accessibility level actually changes from initial value.
           stopDetailsPage.measurements
             .getAccessibilityLevel()
-            .shouldHaveText('Esteettömyystietoja puuttuu');
+            .shouldHaveText('Esteellinen');
         },
       );
 
