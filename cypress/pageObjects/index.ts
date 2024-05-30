@@ -20,7 +20,7 @@ export * from './PreviewTimetablesPage';
 export * from './RouteEditor';
 export * from './RoutePropertiesForm';
 export * from './RouteStopsTable';
-export * from './RouteTimetablesSection';
+export * from './RouteTimetablesSectionLegacy';
 export * from './RoutesAndLinesPage';
 export * from './SearchResultsPage';
 export * from './StopForm';
