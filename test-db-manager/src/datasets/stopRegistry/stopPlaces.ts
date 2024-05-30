@@ -10,7 +10,10 @@ import {
   StopRegistryMapType,
   StopRegistryNameType,
   StopRegistryPedestrianCrossingRampType,
+  StopRegistryShelterCondition,
+  StopRegistryShelterElectricity,
   StopRegistryShelterEquipmentInput,
+  StopRegistryShelterType,
   StopRegistryShelterWidthType,
   StopRegistrySignContentType,
   StopRegistryStopPlace,
@@ -312,6 +315,17 @@ const H2003: StopPlaceSeedData = {
   shelterEquipment: {
     enclosed: true,
     stepFree: false,
+    shelterType: StopRegistryShelterType.Steel,
+    shelterElectricity: StopRegistryShelterElectricity.Continuous,
+    shelterLighting: true,
+    shelterCondition: StopRegistryShelterCondition.Mediocre,
+    timetableCabinets: 1,
+    trashCan: true,
+    shelterHasDisplay: true,
+    bicycleParking: true,
+    leaningRail: true,
+    outsideBench: true,
+    shelterFasciaBoardTaping: true,
     // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
   },
   cycleStorageEquipment: {
