@@ -693,12 +693,12 @@ describe('Stop details', () => {
           form.getShelterTypeDropdownOptions().contains('Kapea').click();
           form.getShelterLaneDistanceInput().clearAndType('231');
           form.getCurbBackOfRailDistanceInput().clearAndType('111');
-          form.getStopAreaSideSlopeInput().clearAndType('2.2');
-          form.getStopAreaLengthwiseSlopeInput().clearAndType('-3.3');
+          form.getStopAreaSideSlopeInput().clearAndType('1.1');
+          form.getStopAreaLengthwiseSlopeInput().clearAndType('2.2');
 
           form.getStructureLaneDistanceInput().clearAndType('4');
           form.getStopElevationFromRailTopInput().clearAndType('55');
-          form.getStopElevationFromSidewalkInput().clearAndType('6');
+          form.getStopElevationFromSidewalkInput().clearAndType('20');
           form.getLowerCleatHeightInput().clearAndType('7');
 
           form.getPlatformEdgeWarningAreaDropdownButton().click();
@@ -727,7 +727,7 @@ describe('Stop details', () => {
 
           form.getCurbDriveSideOfRailDistanceInput().clearAndType('8');
           form.getEndRampSlopeInput().clearAndType('9.9');
-          form.getServiceAreaWidthInput().clearAndType('1.1');
+          form.getServiceAreaWidthInput().clearAndType('1.6');
           form.getServiceAreaLengthInput().clearAndType('12.23');
           form.getPedestrianCrossingRampTypeDropdownButton().click();
           form
@@ -751,12 +751,12 @@ describe('Stop details', () => {
           view.getShelterType().shouldHaveText('Kapea');
           view.getShelterLaneDistance().shouldHaveText('231');
           view.getCurbBackOfRailDistance().shouldHaveText('111');
-          view.getStopAreaSideSlope().shouldHaveText('2.2');
-          view.getStopAreaLengthwiseSlope().shouldHaveText('-3.3');
+          view.getStopAreaSideSlope().shouldHaveText('1.1');
+          view.getStopAreaLengthwiseSlope().shouldHaveText('2.2');
 
           view.getStructureLaneDistance().shouldHaveText('4');
           view.getStopElevationFromRailTop().shouldHaveText('55');
-          view.getStopElevationFromSidewalk().shouldHaveText('6');
+          view.getStopElevationFromSidewalk().shouldHaveText('20');
           view.getLowerCleatHeight().shouldHaveText('7');
 
           view.getPlatformEdgeWarningArea().shouldHaveText('Ei');
@@ -769,17 +769,16 @@ describe('Stop details', () => {
 
           view.getCurbDriveSideOfRailDistance().shouldHaveText('8');
           view.getEndRampSlope().shouldHaveText('9.9');
-          view.getServiceAreaWidth().shouldHaveText('1.1');
+          view.getServiceAreaWidth().shouldHaveText('1.6');
           view.getServiceAreaLength().shouldHaveText('12.23');
           view
             .getPedestrianCrossingRampType()
             .shouldHaveText('RK4 - Pystysuora reunatukiosuus');
           view.getStopAreaSurroundingsAccessible().shouldHaveText('Esteetön');
 
-          // TODO: would be ideal if accessibility level actually changes from initial value.
           stopDetailsPage.measurements
             .getAccessibilityLevel()
-            .shouldHaveText('Esteellinen');
+            .shouldHaveText('Osittain esteellinen');
         },
       );
 
