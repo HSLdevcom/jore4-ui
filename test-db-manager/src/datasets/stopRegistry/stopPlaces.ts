@@ -1,4 +1,5 @@
 import {
+  StopRegistryAccessibilityLevel,
   StopRegistryAccessibilityLimitationsInput,
   StopRegistryCycleStorageEquipmentInput,
   StopRegistryCycleStorageType,
@@ -357,6 +358,7 @@ const H2003: StopPlaceSeedData = {
     guidanceType: StopRegistryGuidanceType.Braille,
     mapType: StopRegistryMapType.Tactile,
     pedestrianCrossingRampType: StopRegistryPedestrianCrossingRampType.Lr,
+    accessibilityLevel: StopRegistryAccessibilityLevel.Inaccessible,
   },
   accessibilityLimitations: {
     wheelchairAccess: StopRegistryLimitationStatusType.Partial,

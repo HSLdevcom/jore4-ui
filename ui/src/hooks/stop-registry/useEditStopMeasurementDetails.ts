@@ -13,6 +13,7 @@ import {
   getRequiredStopPlaceMutationProperties,
   showDangerToast,
 } from '../../utils';
+import { useCalculateStopAccessibilityLevel } from './useCalculateStopAccessibilityLevel';
 import { StopWithDetails } from './useGetStopDetails';
 
 interface EditTiamatParams {
@@ -23,6 +24,8 @@ interface EditTiamatParams {
 export const useEditStopMeasurementDetails = () => {
   const { t } = useTranslation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
+  const { calculateStopAccessibilityLevel } =
+    useCalculateStopAccessibilityLevel();
 
   const mapStopEditChangesToTiamatDbInput = ({
     state,
@@ -31,6 +34,12 @@ export const useEditStopMeasurementDetails = () => {
     const stopPlaceId = stop.stop_place?.id;
 
     const limitations = stop.stop_place?.accessibilityAssessment?.limitations;
+    const accessibilityLevel = calculateStopAccessibilityLevel({
+      accessibilityAssessment: {
+        hslAccessibilityProperties: state,
+      },
+      quays: stop.stop_place?.quays,
+    });
 
     const input = {
       ...getRequiredStopPlaceMutationProperties(stop.stop_place),
@@ -96,6 +105,7 @@ export const useEditStopMeasurementDetails = () => {
           pedestrianCrossingRampType: state.pedestrianCrossingRampType
             ? (state.pedestrianCrossingRampType as StopRegistryPedestrianCrossingRampType)
             : null,
+          accessibilityLevel,
         },
       },
     };

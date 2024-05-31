@@ -779,6 +779,12 @@ describe('Stop details', () => {
           stopDetailsPage.measurements
             .getAccessibilityLevel()
             .shouldHaveText('Osittain esteellinen');
+
+          cy.wait('@gqlUpdateStopPlace')
+            .its(
+              'request.body.variables.input.accessibilityAssessment.hslAccessibilityProperties.accessibilityLevel',
+            )
+            .should('equal', 'partiallyInaccessible');
         },
       );
 
@@ -889,6 +895,12 @@ describe('Stop details', () => {
           stopDetailsPage.measurements
             .getAccessibilityLevel()
             .shouldHaveText('Esteettömyystietoja puuttuu');
+
+          cy.wait('@gqlUpdateStopPlace')
+            .its(
+              'request.body.variables.input.accessibilityAssessment.hslAccessibilityProperties.accessibilityLevel',
+            )
+            .should('equal', 'unknown');
         },
       );
     });
