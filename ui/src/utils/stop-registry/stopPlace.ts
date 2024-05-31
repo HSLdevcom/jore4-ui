@@ -2,6 +2,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
 import {
   Maybe,
+  StopRegistryAccessibilityLevel,
   StopRegistryAlternativeName,
   StopRegistryEmbeddableMultilingualString,
   StopRegistryInterchangeWeightingType,
@@ -54,6 +55,9 @@ export const getStopPlaceFromQueryResult = <T extends StopPlaceType>(
   return isStopPlace(stopPlace) ? stopPlace : null;
 };
 
+// Required in DB so can't be null.
+export const defaultAccessibilityLevel = StopRegistryAccessibilityLevel.Unknown;
+
 export type StopPlaceEnrichmentProperties = {
   nameFin: string | undefined;
   nameSwe: string | undefined;
@@ -72,6 +76,7 @@ export type StopPlaceEnrichmentProperties = {
   fareZone: string | undefined;
   functionalArea: number | undefined;
   stopState: StopPlaceState | undefined;
+  accessibilityLevel: StopRegistryAccessibilityLevel;
   stopType: {
     mainLine: boolean;
     interchange: boolean;
@@ -260,6 +265,9 @@ export const getStopPlaceDetailsForEnrichment = <
     fareZone: stopPlace.fareZones?.[0]?.name?.value || undefined,
     functionalArea: findKeyValueParsed(stopPlace, 'functionalArea', parseFloat),
     stopState: findKeyValue(stopPlace, 'stopState') as StopPlaceState,
+    accessibilityLevel:
+      stopPlace.accessibilityAssessment?.hslAccessibilityProperties
+        ?.accessibilityLevel || defaultAccessibilityLevel,
     stopType: {
       mainLine: findKeyValue(stopPlace, 'mainLine') === 'true',
       interchange:

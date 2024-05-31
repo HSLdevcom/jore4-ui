@@ -66554,6 +66554,7 @@ export type UpdateStopPlaceMutation = {
           guidanceType?: StopRegistryGuidanceType | null;
           mapType?: StopRegistryMapType | null;
           pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+          accessibilityLevel?: StopRegistryAccessibilityLevel | null;
         } | null;
         limitations?: {
           __typename?: 'stop_registry_AccessibilityLimitations';
@@ -66758,6 +66759,7 @@ export type GetStopDetailsByIdQuery = {
               guidanceType?: StopRegistryGuidanceType | null;
               mapType?: StopRegistryMapType | null;
               pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+              accessibilityLevel?: StopRegistryAccessibilityLevel | null;
             } | null;
             limitations?: {
               __typename?: 'stop_registry_AccessibilityLimitations';
@@ -66886,6 +66888,7 @@ export type HslAccessibilityPropertiesDetailsFragment = {
   guidanceType?: StopRegistryGuidanceType | null;
   mapType?: StopRegistryMapType | null;
   pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+  accessibilityLevel?: StopRegistryAccessibilityLevel | null;
 };
 
 export type StopPlaceDetailsFragment = {
@@ -67037,6 +67040,7 @@ export type StopPlaceDetailsFragment = {
       guidanceType?: StopRegistryGuidanceType | null;
       mapType?: StopRegistryMapType | null;
       pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+      accessibilityLevel?: StopRegistryAccessibilityLevel | null;
     } | null;
     limitations?: {
       __typename?: 'stop_registry_AccessibilityLimitations';
@@ -68986,6 +68990,7 @@ export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
     guidanceType
     mapType
     pedestrianCrossingRampType
+    accessibilityLevel
   }
 `;
 export const StopPlaceDetailsFragmentDoc = gql`
