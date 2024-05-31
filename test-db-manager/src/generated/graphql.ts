@@ -9662,6 +9662,8 @@ export type StopRegistryGroupOfTariffZones = {
 
 export type StopRegistryHslAccessibilityProperties = {
   __typename?: 'stop_registry_HslAccessibilityProperties';
+  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
+  accessibilityLevel?: Maybe<StopRegistryAccessibilityLevel>;
   /** Reunakiven etäisyys kiskon selästä (cm) */
   curbBackOfRailDistance?: Maybe<Scalars['Float']>;
   /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
@@ -9715,6 +9717,7 @@ export type StopRegistryHslAccessibilityProperties = {
 };
 
 export type StopRegistryHslAccessibilityPropertiesInput = {
+  accessibilityLevel?: InputMaybe<StopRegistryAccessibilityLevel>;
   curbBackOfRailDistance?: InputMaybe<Scalars['Float']>;
   curbDriveSideOfRailDistance?: InputMaybe<Scalars['Float']>;
   curvedStop?: InputMaybe<Scalars['Boolean']>;
@@ -10587,6 +10590,14 @@ export enum StopRegistryZoneTopologyEnumerationType {
   Ring = 'ring',
   Sequence = 'sequence',
   Tiled = 'tiled',
+}
+
+export enum StopRegistryAccessibilityLevel {
+  FullyAccessible = 'fullyAccessible',
+  Inaccessible = 'inaccessible',
+  MostlyAccessible = 'mostlyAccessible',
+  PartiallyInaccessible = 'partiallyInaccessible',
+  Unknown = 'unknown',
 }
 
 export type StopRegistryAddToMultiModalStopPlaceInput = {
