@@ -103,7 +103,7 @@ describe('Stop editing tests', () => {
     cy.setupTests();
     cy.mockLogin();
     map.visit({
-      zoom: 14,
+      zoom: 15,
       lat: testCoordinates1.lat,
       lng: testCoordinates1.lng,
     });
@@ -119,10 +119,7 @@ describe('Stop editing tests', () => {
     { tags: Tag.Stops, scrollBehavior: 'bottom' },
     () => {
       // Coordinates for the point where the stop is moved in the test.
-      const endCoordinates = {
-        lng: 24.923290685436285,
-        lat: 60.16296354684172,
-      };
+      const endCoordinates = { lng: 24.92410607697449, lat: 60.16321976836281 };
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 

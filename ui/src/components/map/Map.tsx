@@ -1,16 +1,15 @@
 import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Layer, MapLayerMouseEvent } from 'react-map-gl/maplibre';
+import { HTMLOverlay, Layer, MapEvent } from 'react-map-gl';
 import {
   useAppDispatch,
   useAppSelector,
   useFilterStops,
   useGetRoutesDisplayedInMap,
 } from '../../hooks';
-import { Column, Visible } from '../../layoutComponents';
+import { Column } from '../../layoutComponents';
 import {
   FilterType,
-  Mode,
   selectHasDraftRouteGeometry,
   selectIsCreateStopModeEnabled,
   selectIsMoveStopModeEnabled,
@@ -20,13 +19,12 @@ import {
   setSelectedRouteIdAction,
 } from '../../redux';
 import { FilterPanel, placeholderToggles } from '../../uiComponents';
-import { CustomOverlay } from './CustomOverlay';
-import { DrawRouteLayer } from './DrawRouteLayer';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
 import {
   DraftRouteGeometryLayer,
+  DrawRouteLayer,
   EditRouteMetadataLayer,
   RouteEditor,
   isRouteGeometryLayer,
@@ -38,22 +36,25 @@ import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
 
 interface Props {
+  drawable?: boolean;
   className?: string;
   width?: string;
   height?: string;
 }
 
 export const MapComponent = (
-  { className = '', width = '100vw', height = '100vh' }: Props,
+  {
+    drawable = false,
+    className = '',
+    width = '100vw',
+    height = '100vh',
+  }: Props,
   externalRef: Ref<ExplicitAny>,
 ): JSX.Element => {
-  const { t } = useTranslation();
-
   const routeEditorRef = useRef<ExplicitAny>(null);
-  const editorLayerRef = useRef<ExplicitAny>(null);
-  const stopsRef = useRef<ExplicitAny>(null);
 
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
+
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
   const { showStopFilterOverlay } = useAppSelector(selectMapFilter);
 
@@ -70,6 +71,10 @@ export const MapComponent = (
 
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
+
+  // TODO: avoid any type
+  const editorLayerRef = useRef<ExplicitAny>(null);
+  const stopsRef = useRef<ExplicitAny>(null);
 
   useImperativeHandle(externalRef, () => ({
     onDrawRoute: () => {
@@ -89,19 +94,19 @@ export const MapComponent = (
     },
   }));
 
-  const onCreateStop = (e: MapLayerMouseEvent) => {
+  const onCreateStop = (e: MapEvent) => {
     if (stopsRef.current && drawingMode === undefined) {
       stopsRef.current.onCreateStop(e);
     }
   };
 
-  const onMoveStop = (e: MapLayerMouseEvent) => {
+  const onMoveStop = (e: MapEvent) => {
     if (!drawingMode) {
       stopsRef.current?.onMoveStop(e);
     }
   };
 
-  const onClick = (e: MapLayerMouseEvent) => {
+  const onClick = (e: MapEvent) => {
     if (isCreateStopModeEnabled) {
       onCreateStop(e);
       return;
@@ -135,6 +140,8 @@ export const MapComponent = (
     }
   };
 
+  const { t } = useTranslation();
+
   return (
     <Maplibre
       width={width}
@@ -143,49 +150,83 @@ export const MapComponent = (
       className={className}
     >
       <Stops ref={stopsRef} />
-      <CustomOverlay position="top-left">
-        <Column className="items-start overflow-hidden p-2">
-          <FilterPanel
-            routes={[
-              {
-                iconClassName: 'icon-bus',
-                active: showRoute,
-                onToggle: setShowRoute,
-                disabled: !routeDisplayed,
-                testId: 'FilterPanel::toggleShowBusRoutes',
-                tooltip: t('vehicleModeEnum.bus'),
-              },
-              // We want to show placeholder toggles of unimplemented features for visual purposes
-              ...placeholderToggles,
-            ]}
-            stops={[
-              {
-                iconClassName: 'icon-bus',
-                active: isFilterActive(FilterType.ShowAllBusStops),
-                onToggle: toggleFunction(FilterType.ShowAllBusStops),
-                testId: 'FilterPanel::toggleShowAllBusStops',
-                tooltip: t('vehicleModeEnum.bus'),
-              },
-              ...placeholderToggles,
-            ]}
-            infraLinks={{
-              active: showInfraLinks,
-              onToggle: setShowInfraLinks,
-              testId: 'FilterPanel::toggleShowInfraLinks',
-            }}
-          />
-          {(!!selectedRouteId || hasDraftRouteGeometry) && (
-            <RouteStopsOverlay className="mt-2 max-h-[60vh] overflow-hidden" />
-          )}
-        </Column>
-      </CustomOverlay>
-      <CustomOverlay position="bottom-right">
-        <Column className="items-end p-2">
-          {showStopFilterOverlay && <StopFilterOverlay className="mb-2" />}
-          <ObservationDateOverlay />
-        </Column>
-      </CustomOverlay>
+      <HTMLOverlay
+        style={{
+          width: 'auto',
+          height: 'auto',
+          maxHeight: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        redraw={() => (
+          <>
+            <Column className="items-start overflow-hidden p-8">
+              <FilterPanel
+                routes={[
+                  {
+                    iconClassName: 'icon-bus',
+                    active: showRoute,
+                    onToggle: setShowRoute,
+                    disabled: !routeDisplayed,
+                    testId: 'FilterPanel::toggleShowBusRoutes',
+                    tooltip: t('vehicleModeEnum.bus'),
+                  },
+                  // We want to show placeholder toggles of unimplemented features for visual purposes
+                  ...placeholderToggles,
+                ]}
+                stops={[
+                  {
+                    iconClassName: 'icon-bus',
+                    active: isFilterActive(FilterType.ShowAllBusStops),
+                    onToggle: toggleFunction(FilterType.ShowAllBusStops),
+                    testId: 'FilterPanel::toggleShowAllBusStops',
+                    tooltip: t('vehicleModeEnum.bus'),
+                  },
+                  ...placeholderToggles,
+                ]}
+                infraLinks={{
+                  active: showInfraLinks,
+                  onToggle: setShowInfraLinks,
+                  testId: 'FilterPanel::toggleShowInfraLinks',
+                }}
+              />
+              {(!!selectedRouteId || hasDraftRouteGeometry) && (
+                <RouteStopsOverlay className="mt-4 overflow-hidden" />
+              )}
+            </Column>
+          </>
+        )}
+        captureClick
+        captureDoubleClick
+        captureDrag
+        captureScroll
+      />
+      <HTMLOverlay
+        style={{
+          top: 'auto',
+          left: 'auto',
+          bottom: 0,
+          right: 0,
+          width: 'auto',
+          height: 'auto',
+        }}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        redraw={() => (
+          <Column>
+            {showStopFilterOverlay && (
+              <StopFilterOverlay className="mb-4 mr-12" />
+            )}
+            <ObservationDateOverlay className="mb-8 mr-12" />
+          </Column>
+        )}
+        captureClick
+        captureDoubleClick
+        captureDrag
+        captureScroll
+      />
       <EditRouteMetadataLayer />
+      {drawable && <DrawRouteLayer mode={drawingMode} ref={editorLayerRef} />}
       {showInfraLinks && <InfraLinksVectorLayer />}
       {/**
        * Empty layer for dynamically ordering route layers
@@ -208,12 +249,9 @@ export const MapComponent = (
         ))}
       <DraftRouteGeometryLayer />
       <RouteEditor
-        onDeleteDrawnRoute={() => editorLayerRef.current?.onDelete()}
+        onDeleteDrawnRoute={() => editorLayerRef.current?.onDeleteRoute()}
         ref={routeEditorRef}
       />
-      <Visible visible={drawingMode === Mode.Draw || drawingMode === Mode.Edit}>
-        <DrawRouteLayer editorRef={editorLayerRef} />
-      </Visible>
     </Maplibre>
   );
 };

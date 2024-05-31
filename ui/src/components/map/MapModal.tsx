@@ -43,6 +43,7 @@ export const MapModal: React.FC<Props> = ({ className = '' }) => {
         */}
       <Map
         height={`calc(100vh - ${mapHeaderHeight + mapFooterHeight}px)`}
+        drawable
         ref={mapRef}
       />
       <MapFooter

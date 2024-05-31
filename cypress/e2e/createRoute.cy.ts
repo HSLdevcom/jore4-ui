@@ -350,8 +350,7 @@ describe('Route creation', () => {
     },
   );
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip(
+  it(
     'Should not let the user create a route with only one stop',
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
@@ -428,8 +427,7 @@ describe('Route creation', () => {
     },
   );
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip(
+  it(
     'Should create a new route using an existing route as a template',
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {

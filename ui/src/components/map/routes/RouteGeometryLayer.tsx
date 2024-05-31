@@ -1,6 +1,6 @@
 import { theme } from '../../../generated/theme';
-import { ArrowLayout, ArrowPaint, ArrowRenderLayer } from './ArrowRenderLayer';
-import { LinePaint, LineRenderLayer } from './LineRenderLayer';
+import { ArrowRenderLayer } from './ArrowRenderLayer';
+import { LineRenderLayer } from './LineRenderLayer';
 
 const { colors } = theme;
 
@@ -32,9 +32,6 @@ interface Props {
   isHighlighted: boolean;
 }
 
-export const NEW_ROUTE_LINE_ID = 'new_route_line';
-export const NEW_ROUTE_ARROWS_ID = 'new_route_arrows';
-
 // This layer renders route on map
 export const RouteGeometryLayer = ({
   routeId,
@@ -49,26 +46,26 @@ export const RouteGeometryLayer = ({
   // Offset line to right side of the infra link
   const lineOffset = 6;
 
-  const linePaint: LinePaint = {
+  const linePaint: mapboxgl.LinePaint = {
     'line-color': color,
     'line-width': isHighlighted ? 9 : 8,
     'line-offset': lineOffset,
   };
 
-  const arrowLayout: Partial<ArrowLayout> = {
+  const arrowLayout: mapboxgl.SymbolLayout = {
     'icon-offset': [0, lineOffset],
   };
 
-  const arrowPaint: ArrowPaint = {
+  const arrowPaint: mapboxgl.SymbolPaint = {
     'icon-color': color,
   };
 
   const lineRenderLayerId = routeId
     ? mapRouteIdToLineLayerId(routeId)
-    : NEW_ROUTE_LINE_ID;
+    : 'new_route_line';
   const arrowRenderLayerId = routeId
     ? mapRouteIdToArrowLayerId(routeId)
-    : NEW_ROUTE_ARROWS_ID;
+    : 'new_route_arrows';
 
   return (
     <>
