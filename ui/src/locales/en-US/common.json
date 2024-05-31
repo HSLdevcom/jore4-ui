@@ -401,11 +401,11 @@
     "none": "None"
   },
   "stopAccessibilityLevelEnum": {
-    "FullyAccessible": "Fully accessible",
-    "MostlyAccessible": "Minor obstacles",
-    "PartiallyInaccessible": "Partially inaccessible",
-    "Inaccessible": "Inaccessible",
-    "Unknown": "Missing accessibility data"
+    "fullyAccessible": "Fully accessible",
+    "mostlyAccessible": "Minor obstacles",
+    "partiallyInaccessible": "Partially inaccessible",
+    "inaccessible": "Inaccessible",
+    "unknown": "Missing accessibility data"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Regional rail service",

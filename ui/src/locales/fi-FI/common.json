@@ -401,11 +401,11 @@
     "none": "Ei karttaa"
   },
   "stopAccessibilityLevelEnum": {
-    "FullyAccessible": "Täysin esteetön",
-    "MostlyAccessible": "Vähäisiä esteitä",
-    "PartiallyInaccessible": "Osittain esteellinen",
-    "Inaccessible": "Esteellinen",
-    "Unknown": "Esteettömyystietoja puuttuu"
+    "fullyAccessible": "Täysin esteetön",
+    "mostlyAccessible": "Vähäisiä esteitä",
+    "partiallyInaccessible": "Osittain esteellinen",
+    "inaccessible": "Esteellinen",
+    "unknown": "Esteettömyystietoja puuttuu"
   },
   "lineTypeEnum": {
     "regional_rail_service": "Seudullinen juna",

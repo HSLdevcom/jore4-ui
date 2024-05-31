@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopAccessibilityLevel } from '../../../../../hooks';
+import { StopRegistryAccessibilityLevel } from '../../../../../generated/graphql';
 import { Column, Row } from '../../../../../layoutComponents';
 import { NewModalBody, NewModalHeader } from '../../../../../uiComponents';
 import { AccessibilityLevelIcon } from './AccessibilityLevelIcon';
@@ -76,7 +76,7 @@ export const AccessibilityLevelDescriptionsDialog: React.FC<Props> = ({
       <NewModalBody className="max-w-md !p-0">
         <div className={`${infoSectionClassName}`}>
           <h3 className="text-lg">
-            4: {t('stopAccessibilityLevelEnum.FullyAccessible')}
+            4: {t('stopAccessibilityLevelEnum.fullyAccessible')}
           </h3>
           <Row>
             <Column>
@@ -89,14 +89,14 @@ export const AccessibilityLevelDescriptionsDialog: React.FC<Props> = ({
             </Column>
             <Column>
               <AccessibilityLevelIcon
-                level={StopAccessibilityLevel.FullyAccessible}
+                level={StopRegistryAccessibilityLevel.FullyAccessible}
               />
             </Column>
           </Row>
         </div>
         <div className={`${infoSectionClassName}`}>
           <h3 className="text-lg">
-            3: {t('stopAccessibilityLevelEnum.MostlyAccessible')}
+            3: {t('stopAccessibilityLevelEnum.mostlyAccessible')}
           </h3>
           <Row>
             <Column>
@@ -109,14 +109,14 @@ export const AccessibilityLevelDescriptionsDialog: React.FC<Props> = ({
             </Column>
             <Column>
               <AccessibilityLevelIcon
-                level={StopAccessibilityLevel.MostlyAccessible}
+                level={StopRegistryAccessibilityLevel.MostlyAccessible}
               />
             </Column>
           </Row>
         </div>
         <div className={`${infoSectionClassName}`}>
           <h3 className="text-lg">
-            2: {t('stopAccessibilityLevelEnum.PartiallyInaccessible')}
+            2: {t('stopAccessibilityLevelEnum.partiallyInaccessible')}
           </h3>
           <Row>
             <Column>
@@ -129,14 +129,14 @@ export const AccessibilityLevelDescriptionsDialog: React.FC<Props> = ({
             </Column>
             <Column>
               <AccessibilityLevelIcon
-                level={StopAccessibilityLevel.PartiallyInaccessible}
+                level={StopRegistryAccessibilityLevel.PartiallyInaccessible}
               />
             </Column>
           </Row>
         </div>
         <div className={`${infoSectionClassName}`}>
           <h3 className="text-lg">
-            1: {t('stopAccessibilityLevelEnum.Inaccessible')}
+            1: {t('stopAccessibilityLevelEnum.inaccessible')}
           </h3>
           <Row>
             <Column>
@@ -149,7 +149,7 @@ export const AccessibilityLevelDescriptionsDialog: React.FC<Props> = ({
             </Column>
             <Column>
               <AccessibilityLevelIcon
-                level={StopAccessibilityLevel.Inaccessible}
+                level={StopRegistryAccessibilityLevel.Inaccessible}
               />
             </Column>
           </Row>

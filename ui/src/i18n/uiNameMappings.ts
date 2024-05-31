@@ -3,6 +3,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
   RouteTypeOfLineEnum,
+  StopRegistryAccessibilityLevel,
   StopRegistryGuidanceType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
@@ -10,7 +11,6 @@ import {
   StopRegistryStopType,
   StopRegistryTransportModeType,
 } from '../generated/graphql';
-import { StopAccessibilityLevel } from '../hooks/stop-registry/useCalculateStopAccessibilityLevel';
 import { i18n } from '../i18n';
 import {
   DayOfWeek,
@@ -116,7 +116,7 @@ export const mapStopRegistryMapTypeToUiName = (
   );
 
 export const mapStopAccessibilityLevelToUiName = (
-  key: StopAccessibilityLevel,
+  key: StopRegistryAccessibilityLevel,
 ) => i18n.t(`stopAccessibilityLevelEnum.${key}`);
 
 export const mapLineTypeToUiName = (
