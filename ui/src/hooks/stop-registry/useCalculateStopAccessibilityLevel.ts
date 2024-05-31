@@ -3,16 +3,9 @@ import isNumber from 'lodash/isNumber';
 import {
   HslAccessibilityPropertiesDetailsFragment,
   ShelterEquipmentDetailsFragment,
+  StopRegistryAccessibilityLevel,
   StopRegistryShelterType,
 } from '../../generated/graphql';
-
-export const enum StopAccessibilityLevel {
-  FullyAccessible = 'FullyAccessible',
-  MostlyAccessible = 'MostlyAccessible',
-  PartiallyInaccessible = 'PartiallyInaccessible',
-  Inaccessible = 'Inaccessible',
-  Unknown = 'Unknown',
-}
 
 export type HslAccessibilityLevelCalculationProperties = Pick<
   HslAccessibilityPropertiesDetailsFragment,
@@ -80,7 +73,7 @@ export const useCalculateStopAccessibilityLevel = () => {
     const measurements =
       stop?.accessibilityAssessment?.hslAccessibilityProperties;
     if (!measurements) {
-      return StopAccessibilityLevel.Unknown;
+      return StopRegistryAccessibilityLevel.Unknown;
     }
 
     const {
@@ -118,7 +111,7 @@ export const useCalculateStopAccessibilityLevel = () => {
       !isBoolean(platformEdgeWarningArea) ||
       !shelterWithAccessibilityProperties
     ) {
-      return StopAccessibilityLevel.Unknown;
+      return StopRegistryAccessibilityLevel.Unknown;
     }
 
     const hasHighAccessibilityProperties =
@@ -134,7 +127,7 @@ export const useCalculateStopAccessibilityLevel = () => {
       stopAreaSideSlope <= 2 &&
       hasHighAccessibilityProperties
     ) {
-      return StopAccessibilityLevel.FullyAccessible;
+      return StopRegistryAccessibilityLevel.FullyAccessible;
     }
 
     if (
@@ -145,7 +138,7 @@ export const useCalculateStopAccessibilityLevel = () => {
       stopAreaSideSlope <= 3 &&
       hasHighAccessibilityProperties
     ) {
-      return StopAccessibilityLevel.MostlyAccessible;
+      return StopRegistryAccessibilityLevel.MostlyAccessible;
     }
 
     if (
@@ -155,10 +148,10 @@ export const useCalculateStopAccessibilityLevel = () => {
       stopAreaLengthwiseSlope <= 8 &&
       stopAreaSideSlope <= 5
     ) {
-      return StopAccessibilityLevel.PartiallyInaccessible;
+      return StopRegistryAccessibilityLevel.PartiallyInaccessible;
     }
 
-    return StopAccessibilityLevel.Inaccessible;
+    return StopRegistryAccessibilityLevel.Inaccessible;
   };
 
   return {

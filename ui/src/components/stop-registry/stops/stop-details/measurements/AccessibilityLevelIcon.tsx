@@ -1,9 +1,9 @@
-import { StopAccessibilityLevel } from '../../../../../hooks';
+import { StopRegistryAccessibilityLevel } from '../../../../../generated/graphql';
 import { mapStopAccessibilityLevelToUiName } from '../../../../../i18n/uiNameMappings';
 
 type AccessibilityLevelWithIcon = Exclude<
-  StopAccessibilityLevel,
-  StopAccessibilityLevel.Unknown
+  StopRegistryAccessibilityLevel,
+  StopRegistryAccessibilityLevel.Unknown
 >;
 
 interface Props {
@@ -11,10 +11,10 @@ interface Props {
 }
 
 const iconFiles: Record<AccessibilityLevelWithIcon, string> = {
-  FullyAccessible: 'accessibility_level_4.svg',
-  MostlyAccessible: 'accessibility_level_3.svg',
-  PartiallyInaccessible: 'accessibility_level_2.svg',
-  Inaccessible: 'accessibility_level_1.svg',
+  fullyAccessible: 'accessibility_level_4.svg',
+  mostlyAccessible: 'accessibility_level_3.svg',
+  partiallyInaccessible: 'accessibility_level_2.svg',
+  inaccessible: 'accessibility_level_1.svg',
 };
 
 export const AccessibilityLevelIcon = ({ level }: Props) => {
