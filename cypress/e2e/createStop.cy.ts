@@ -42,7 +42,7 @@ describe('Stop creation tests', () => {
     cy.mockLogin();
 
     mapModal.map.visit({
-      zoom: 13,
+      zoom: 15,
       lat: 60.164074274478054,
       lng: 24.93021804533524,
     });
@@ -106,7 +106,7 @@ describe('Stop creation tests', () => {
 
       // Change map position to created stop location
       mapModal.map.visit({
-        zoom: 13,
+        zoom: 15,
         lat: 60.1805636468358,
         lng: 24.918451016960763,
       });

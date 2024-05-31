@@ -1,65 +1,55 @@
-import debounce from 'lodash/debounce';
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { theme } from '../../../generated/theme';
 import { useCallbackOnKeyEscape } from '../../../hooks';
 import { resetEnabledModesAction } from '../../../redux';
 import { Coords } from '../../../types';
-import {
-  drawLineToClosestRoad,
-  removeLineFromStopToInfraLink,
-} from '../../../utils/map';
 import { Circle } from '../markers';
 
 const { colors } = theme;
 
-export const CreateStopMarker = (): JSX.Element => {
+interface Props {
+  onCursorMove?: (coords: Coords) => void;
+}
+export const CreateStopMarker = ({ onCursorMove }: Props): JSX.Element => {
   const [mouseCoords, setMouseCoords] = React.useState<Coords>();
   const dispatch = useDispatch();
-  const { current: map } = useMap();
 
   const createStopMarkerSize = 20;
 
-  // Without debounce when drawing line from infralink to stop
-  // map tries to draw a line atleast every 0.01ms
-  // This makes the drawn line to lag behind
-  const debouncedDrawLineToClosestRoad = useMemo(
-    () => debounce(drawLineToClosestRoad, 1),
-    [],
-  );
+  // gets the mouse coordinates relative to the container's top left corner
+  const onMouseMove = (e: React.MouseEvent) => {
+    const containerBoundingBox = document
+      .querySelector('#create-stop-marker')
+      ?.getBoundingClientRect();
+    const x = e.clientX - (containerBoundingBox?.left || 0);
+    const y = e.clientY - (containerBoundingBox?.top || 0);
 
-  // useCallback ensures that onMouseMove function is same
-  // when calling map.on and map.off
-  const onMouseMove = useCallback(
-    (e: MapLayerMouseEvent) => {
-      setMouseCoords(e.point);
-      debouncedDrawLineToClosestRoad(map?.getMap(), e.point);
-    },
-    [debouncedDrawLineToClosestRoad, map],
-  );
+    onCursorMove?.({ x, y });
 
-  useEffect(() => {
-    map?.on('mousemove', onMouseMove);
-    return () => {
-      map?.off('mousemove', onMouseMove);
-      removeLineFromStopToInfraLink(map?.getMap());
-    };
-  }, [map, onMouseMove]);
-
-  const resetModes = () => {
-    dispatch(resetEnabledModesAction());
+    setMouseCoords({ x, y });
   };
 
+  const onMouseLeave = () => {
+    // hide marker if the mouse leaves from the map area
+    setMouseCoords(undefined);
+  };
+
+  const resetModes = () => dispatch(resetEnabledModesAction());
   useCallbackOnKeyEscape(resetModes);
 
   return (
-    <>
+    <div
+      id="create-stop-marker"
+      className="h-full w-full"
+      onMouseMove={onMouseMove}
+      onMouseEnter={onMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
       {/* Display hovering bus stop while in create mode */}
       {mouseCoords && (
         <div
           style={{
-            pointerEvents: 'none',
             position: 'absolute',
             left: mouseCoords.x - createStopMarkerSize / 2,
             top: mouseCoords.y - createStopMarkerSize / 2,
@@ -72,6 +62,6 @@ export const CreateStopMarker = (): JSX.Element => {
           />
         </div>
       )}
-    </>
+    </div>
   );
 };

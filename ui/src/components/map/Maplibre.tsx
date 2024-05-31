@@ -3,14 +3,14 @@ import { Units, point } from '@turf/helpers';
 import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
 import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
-import MapGL, {
-  MapLayerMouseEvent,
-  MapRef,
-  NavigationControl,
-} from 'react-map-gl/maplibre';
+import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
 import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
 import { Operation, setViewPortAction } from '../../redux';
-import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';
+import {
+  getCursor,
+  getInteractiveLayerIds,
+  loadMapAssets,
+} from '../../utils/map';
 
 interface Props {
   className?: string;
@@ -19,7 +19,7 @@ interface Props {
   // but in other hand "100%" doesn't seem to work...
   width?: string;
   height?: string;
-  onClick?: (e: MapLayerMouseEvent) => void;
+  onClick?: (e: MapEvent) => void;
   useVectorTilesAsBaseMap?: boolean;
 }
 
@@ -47,6 +47,7 @@ const style = generateStyle({
 });
 
 export const Maplibre: FunctionComponent<Props> = ({
+  className = '',
   onClick,
   width = '100vw',
   height = '100vh',
@@ -131,7 +132,7 @@ export const Maplibre: FunctionComponent<Props> = ({
         url: newUrl,
       };
     }
-    return { url };
+    return undefined;
   };
 
   const onLoad = () => {
@@ -153,20 +154,21 @@ export const Maplibre: FunctionComponent<Props> = ({
     <MapGL
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...viewport}
-      style={{
-        width,
-        height,
-      }}
+      width={width}
+      height={height}
+      onViewportChange={onViewportChange}
       onClick={onClick}
-      mapStyle={style as ExplicitAny}
-      onMove={(event) => onViewportChange(event.viewState)}
+      className={className}
+      mapStyle={style}
+      getCursor={getCursor}
+      transformRequest={transformRequest}
       doubleClickZoom={false}
       ref={mapRef}
       onLoad={onLoad}
-      transformRequest={transformRequest}
       interactiveLayerIds={interactiveLayerIds}
-      cursor="auto"
-      attributionControl={false}
+      // Increased click radius to make it easier to click a route on map
+      clickRadius={3}
+      transitionDuration={0}
     >
       {children}
       <NavigationControl style={navStyle} showCompass={false} />

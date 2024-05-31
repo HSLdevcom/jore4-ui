@@ -1,6 +1,7 @@
 import React, { Ref, useEffect, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
+import { MapEvent } from 'react-map-gl';
+import { CallbackEvent } from 'react-map-gl/src/components/draggable-control';
 import { useDispatch } from 'react-redux';
 import { ScheduledStopPointSetInput, StopWithLocation } from '../../../graphql';
 import {
@@ -156,12 +157,12 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
       }
     };
 
-    const onMoveStop = async (event: MapLayerMouseEvent) => {
+    const onMoveStop = async (event: CallbackEvent) => {
       const stopId = editedStopData.scheduled_stop_point_id;
       if (stopId) {
         // if this is a stop existing on the backend, also prepare the changes to be confirmed
         const patch: ScheduledStopPointSetInput = {
-          measured_location: mapLngLatToGeoJSON(event.lngLat.toArray()),
+          measured_location: mapLngLatToGeoJSON(event.lngLat),
         };
         setIsLoadingBrokenRoutes(true);
         try {
@@ -178,7 +179,7 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
         // for draft stops, just update the edited stop data
         setEditedStopData({
           ...editedStopData,
-          measured_location: mapLngLatToGeoJSON(event.lngLat.toArray()),
+          measured_location: mapLngLatToGeoJSON(event.lngLat),
         });
       }
     };
@@ -286,7 +287,7 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
     };
 
     useImperativeHandle(ref, () => ({
-      onMoveStop: async (e: MapLayerMouseEvent) => onMoveStop(e),
+      onMoveStop: async (e: MapEvent) => onMoveStop(e),
     }));
 
     const currentConflicts = getCurrentConflicts();
