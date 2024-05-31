@@ -1,10 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import {
-  StopWithDetails,
-  useCalculateStopAccessibilityLevel,
-  useToggle,
-} from '../../../../../hooks';
+import { StopWithDetails, useToggle } from '../../../../../hooks';
 import { mapStopAccessibilityLevelToUiName } from '../../../../../i18n/uiNameMappings';
+import { defaultAccessibilityLevel } from '../../../../../utils';
 import { AccessibilityLevelDescriptionsDialog } from './AccessibilityLevelDescriptionsDialog';
 
 const testIds = {
@@ -18,9 +15,8 @@ interface Props {
 export const AccessibilityLevelInfo: React.FC<Props> = ({ stop }) => {
   const { t } = useTranslation();
   const [isModalOpen, toggleIsModalOpen] = useToggle();
-  const { calculateStopAccessibilityLevel } =
-    useCalculateStopAccessibilityLevel();
-  const accessibilityLevel = calculateStopAccessibilityLevel(stop.stop_place);
+  const accessibilityLevel =
+    stop.stop_place?.accessibilityLevel || defaultAccessibilityLevel;
 
   return (
     <div

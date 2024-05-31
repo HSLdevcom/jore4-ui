@@ -1,9 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { StopRegistryAccessibilityLevel } from '../../../../generated/graphql';
-import {
-  StopWithDetails,
-  useCalculateStopAccessibilityLevel,
-} from '../../../../hooks';
+import { StopWithDetails } from '../../../../hooks';
 import { mapStopPlaceStateToUiName } from '../../../../i18n/uiNameMappings';
 import { Visible } from '../../../../layoutComponents';
 import { StopPlaceState } from '../../../../types/stop-registry';
@@ -19,12 +16,8 @@ export const StopHeaderSummaryRow: React.FC<Props> = ({
   className = '',
 }) => {
   const { t } = useTranslation();
-  const { calculateStopAccessibilityLevel } =
-    useCalculateStopAccessibilityLevel();
 
-  const accessibilityLevel = calculateStopAccessibilityLevel(
-    stopDetails.stop_place,
-  );
+  const accessibilityLevel = stopDetails.stop_place?.accessibilityLevel;
   const isAccessible =
     accessibilityLevel === StopRegistryAccessibilityLevel.FullyAccessible;
   const anyIconsShown = isAccessible;

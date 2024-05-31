@@ -132,6 +132,7 @@ const GQL_HSL_ACCESSIBILITY_PROPERTIES_DETAILS = gql`
     guidanceType
     mapType
     pedestrianCrossingRampType
+    accessibilityLevel
   }
 `;
 
