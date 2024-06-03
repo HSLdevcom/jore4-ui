@@ -15,15 +15,16 @@ import { Tag } from '../../enums';
 import {
   BasicDetailsForm,
   BasicDetailsViewCard,
+  LocationDetailsForm,
   LocationDetailsViewCard,
   MeasurementsForm,
   MeasurementsViewCard,
+  ShelterViewCard,
+  SignageDetailsForm,
   SignageDetailsViewCard,
   StopDetailsPage,
   Toast,
 } from '../../pageObjects';
-import { LocationDetailsForm } from '../../pageObjects/stop-registry/stop-details/LocationDetailsForm';
-import { SignageDetailsForm } from '../../pageObjects/stop-registry/stop-details/SignageDetailsForm';
 import { UUID } from '../../types';
 import {
   SupportedResources,
@@ -207,6 +208,24 @@ describe('Stop details', () => {
     signView.getMainLineSign().shouldHaveText('Ei');
     signView.getReplacesRailSign().shouldHaveText('Ei');
     signView.getSignageInstructionExceptions().shouldHaveText('Ohjetekstiä...');
+  };
+
+  const verifyInitialShelters = () => {
+    const shelterView = stopDetailsPage.shelters.viewCard;
+
+    shelterView.getContainer().shouldBeVisible();
+    shelterView.getContainer().should('have.length', 1);
+    shelterView.getShelterType().shouldHaveText('Teräskatos');
+    shelterView.getElectricity().shouldHaveText('Jatkuva sähkö');
+    shelterView.getLighting().shouldHaveText('Kyllä');
+    shelterView.getCondition().shouldHaveText('Välttävä');
+    shelterView.getTimetableCabinets().shouldHaveText('1');
+    shelterView.getTrashCan().shouldHaveText('Kyllä');
+    shelterView.getHasDisplay().shouldHaveText('Kyllä');
+    shelterView.getBicycleParking().shouldHaveText('Kyllä');
+    shelterView.getLeaningRail().shouldHaveText('Kyllä');
+    shelterView.getOutsideBench().shouldHaveText('Kyllä');
+    shelterView.getFasciaBoardTaping().shouldHaveText('Kyllä');
   };
 
   const verifyInitialMeasurements = () => {
@@ -623,6 +642,27 @@ describe('Stop details', () => {
       stopDetailsPage.technicalFeaturesTabPanel().should('be.visible');
       stopDetailsPage.basicDetailsTabPanel().should('not.exist');
       stopDetailsPage.infoSpotsTabPanel().should('not.exist');
+    });
+
+    describe('shelters', () => {
+      let view: ShelterViewCard;
+
+      beforeEach(() => {
+        view = stopDetailsPage.shelters.viewCard;
+      });
+
+      it(
+        'should view (TODO: and edit) shelter details',
+        { tags: [Tag.StopRegistry] },
+        () => {
+          verifyInitialShelters();
+
+          stopDetailsPage.shelters.getEditButton().click();
+          view.getContainer().should('not.exist');
+
+          // TODO: editing.
+        },
+      );
     });
 
     describe('measurements', () => {
