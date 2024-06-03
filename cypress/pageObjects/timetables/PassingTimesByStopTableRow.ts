@@ -1,20 +1,11 @@
-import { PassingTimesByStopTableRowPassingMinute } from '../PassingTimesByStopTableRowPassingMinute';
+import { PassingTimesByStopTableRowPassingTime } from '../PassingTimesByStopTableRowPassingTime';
 
 export class PassingTimesByStopTableRow {
-  passingTime = new PassingTimesByStopTableRowPassingMinute();
-
-  getTimeContainer() {
-    return cy.getByTestId(
-      'PassingTimesByStopTableRowPassingTime::timeContainer',
-    );
-  }
-
-  getHour() {
-    return cy.getByTestId('PassingTimesByStopTableRowPassingTime::hour');
-  }
+  passingTime = new PassingTimesByStopTableRowPassingTime();
 
   getTimeContainerByHour(hour: string) {
-    return this.getHour()
+    return cy
+      .getByTestId('PassingTimesByStopTableRowPassingTime::hour')
       .contains(hour)
       .parent(
         '[data-testid="PassingTimesByStopTableRowPassingTime::timeContainer"]',

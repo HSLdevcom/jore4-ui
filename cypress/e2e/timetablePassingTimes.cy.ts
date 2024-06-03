@@ -93,41 +93,45 @@ describe('Timetable passing times', () => {
       routeTimetablesSection
         .getRouteSection('901', RouteDirectionEnum.Outbound)
         .within(() => {
-          // Click one passing time to highlight the journey
-          passingTimesByStopTable
-            .getAllStopPassingTimesMinuteButtons('E2E001')
-            .eq(3)
-            .click();
+          const { row } = passingTimesByStopTable;
+          const { passingTime } = row;
 
-          // Then check that the right passing times are highlighted
-          passingTimesByStopTable.assertStopNthPassingTimeShouldBeHighlighted(
-            'E2E001',
-            3,
-          );
+          passingTimesByStopTable.getStopRow('E2E001').within(() => {
+            row.getTimeContainerByHour('8').within(() => {
+              // Click one passing time to highlight the journey
+              passingTime.passingMinute.getMinute().click();
 
-          passingTimesByStopTable.assertStopNthPassingTimeShouldBeHighlighted(
-            'E2E002',
-            3,
-          );
+              passingTime.assertNthMinuteShouldBeHighlighted(0);
+            });
+          });
 
-          passingTimesByStopTable.assertStopNthPassingTimeShouldBeHighlighted(
-            'E2E003',
-            3,
-          );
+          passingTimesByStopTable.getStopRow('E2E002').within(() => {
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertNthMinuteShouldBeHighlighted(0);
+            });
+          });
 
-          passingTimesByStopTable.assertStopNthPassingTimeShouldBeHighlighted(
-            'E2E004',
-            3,
-          );
+          passingTimesByStopTable.getStopRow('E2E003').within(() => {
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertNthMinuteShouldBeHighlighted(1);
+            });
+          });
 
-          passingTimesByStopTable.assertStopNthPassingTimeShouldBeHighlighted(
-            'E2E005',
-            3,
-          );
+          passingTimesByStopTable.getStopRow('E2E004').within(() => {
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertNthMinuteShouldBeHighlighted(1);
+            });
+          });
+
+          passingTimesByStopTable.getStopRow('E2E005').within(() => {
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertNthMinuteShouldBeHighlighted(1);
+            });
+          });
 
           // Check that we have the correct amount of elements highlighted
           passingTimesByStopTable
-            .getHighlightedElements()
+            .getAllHighlightedElements()
             .should('have.length', 5);
         });
 
@@ -136,7 +140,7 @@ describe('Timetable passing times', () => {
         .getRouteSection('901', RouteDirectionEnum.Inbound)
         .within(() => {
           passingTimesByStopTable
-            .getHighlightedElements()
+            .getAllHighlightedElements()
             .should('have.length', 0);
         });
     },
@@ -168,105 +172,64 @@ describe('Timetable passing times', () => {
       routeTimetablesSection
         .getRouteSection('901', RouteDirectionEnum.Outbound)
         .within(() => {
+          const { row } = passingTimesByStopTable;
+          const { passingTime } = row;
           // E2E003
           passingTimesByStopTable.getStopRow('E2E003').within(() => {
             // Hour 07
-            passingTimesByStopTable.row
-              .getTimeContainerByHour('7')
-              .within(() => {
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(0)
-                  .should('contain', '19');
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthArrivalTime(0, '19');
 
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(1)
-                  .should('contain', '29');
-              });
+              passingTime.assertNthArrivalTime(1, '29');
+            });
 
             // Hour 08
-            passingTimesByStopTable.row
-              .getTimeContainerByHour('8')
-              .within(() => {
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(0)
-                  .should('contain', '00');
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthArrivalTime(0, '00');
 
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(1)
-                  .should('contain', '10');
-              });
+              passingTime.assertNthArrivalTime(1, '10');
+            });
 
             // Hour 09
-            passingTimesByStopTable.row
-              .getTimeContainerByHour('9')
-              .within(() => {
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(0)
-                  .should('contain', '42');
+            row.getTimeContainerByHour('9').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthArrivalTime(0, '42');
 
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(1)
-                  .should('contain', '52');
-              });
+              passingTime.assertNthArrivalTime(1, '52');
+            });
           });
 
           // E2E004
           passingTimesByStopTable.getStopRow('E2E004').within(() => {
             // Hour 07
-            passingTimesByStopTable.row
-              .getTimeContainerByHour('7')
-              .within(() => {
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(0)
-                  .should('contain', '24');
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthArrivalTime(0, '24');
 
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(1)
-                  .should('contain', '34');
-              });
+              passingTime.assertNthArrivalTime(1, '34');
+            });
 
             // Hour 08
-            passingTimesByStopTable.row
-              .getTimeContainerByHour('8')
-              .within(() => {
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(0)
-                  .should('contain', '05');
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthArrivalTime(0, '05');
 
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(1)
-                  .should('contain', '15');
-              });
+              passingTime.assertNthArrivalTime(1, '15');
+            });
 
             // Hour 09
-            passingTimesByStopTable.row
-              .getTimeContainerByHour('9')
-              .within(() => {
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(0)
-                  .should('contain', '50');
-              });
+            row.getTimeContainerByHour('9').within(() => {
+              passingTime.assertTotalMinuteCount(1);
+              passingTime.assertNthArrivalTime(0, '50');
+            });
 
             // Hour 10
-            passingTimesByStopTable.row
-              .getTimeContainerByHour('10')
-              .within(() => {
-                passingTimesByStopTable.row.passingTime
-                  .getArrivalTime()
-                  .eq(0)
-                  .should('contain', '00');
-              });
+            row.getTimeContainerByHour('10').within(() => {
+              passingTime.assertTotalMinuteCount(1);
+              passingTime.assertNthArrivalTime(0, '00');
+            });
           });
         });
     },
