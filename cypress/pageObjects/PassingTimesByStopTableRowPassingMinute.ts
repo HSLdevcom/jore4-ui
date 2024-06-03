@@ -11,7 +11,7 @@ export class PassingTimesByStopTableRowPassingMinute {
     );
   }
 
-  getHighlightButton() {
+  getMinute() {
     return cy.getByTestId('PassingTimesByStopTableRowPassingMinute::button');
   }
 }

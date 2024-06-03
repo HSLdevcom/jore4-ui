@@ -114,7 +114,7 @@ export class PassingTimesByStopSection {
         .eq(nthPassingTime)
         .within(() => {
           this.passingTimesByStopTableRowPassingTime.passingMinute
-            .getHighlightButton()
+            .getMinute()
             .click();
         });
     });
@@ -146,11 +146,11 @@ export class PassingTimesByStopSection {
         .within(() => {
           if (isHighlighted) {
             this.passingTimesByStopTableRowPassingTime.passingMinute
-              .getHighlightButton()
+              .getMinute()
               .should('have.class', 'bg-city-bicycle-yellow');
           } else {
             this.passingTimesByStopTableRowPassingTime.passingMinute
-              .getHighlightButton()
+              .getMinute()
               .should('not.have.class', 'bg-city-bicycle-yellow');
           }
         });
