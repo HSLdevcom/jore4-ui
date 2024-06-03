@@ -245,6 +245,15 @@ export const useUrlQuery = () => {
       : null;
   };
 
+  const getEnumArrayFromUrlQuery = <T extends object>(
+    paramName: string,
+    enumType: T,
+  ): T[] | undefined => {
+    return getArrayFromUrlQuery(paramName)
+      ?.filter((s) => Object.values(enumType).includes(s))
+      .map((s) => s as unknown as typeof enumType);
+  };
+
   /** Deletes parameter from URL query
    * replace flag can be given to replace the earlier url query instead
    * of pushing it. This affects how the back button or history.back() works.
@@ -298,6 +307,7 @@ export const useUrlQuery = () => {
     setDateTimeToUrlQuery,
     setArrayToUrlQuery,
     getArrayFromUrlQuery,
+    getEnumArrayFromUrlQuery,
     getPriorityArrayFromUrlQuery,
     getEnumFromUrlQuery,
     getStringParamFromUrlQuery,
