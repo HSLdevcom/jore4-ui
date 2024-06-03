@@ -11,6 +11,7 @@ import {
 } from './DetailTabSelector';
 import { LocationDetailsSection } from './location-details/LocationDetailsSection';
 import { MeasurementsSection } from './measurements';
+import { SheltersSection } from './shelters';
 import { SignageDetailsSection } from './signage-details/SignageDetailsSection';
 import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
 import { StopTitleRow } from './StopTitleRow';
@@ -74,6 +75,7 @@ export const StopDetailsPage = (): JSX.Element => {
           aria-labelledby={detailTabs.technical.buttonId}
           role="tabpanel"
         >
+          <SheltersSection stop={stopDetails} />
           <MeasurementsSection stop={stopDetails} />
         </div>
       </Visible>
