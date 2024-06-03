@@ -7,6 +7,8 @@ export * from './LocationDetailsViewCard';
 export * from './MeasurementsForm';
 export * from './MeasurementsSection';
 export * from './MeasurementsViewCard';
+export * from './ShelterSection';
+export * from './ShelterViewCard';
 export * from './SignageDetailsForm';
 export * from './SignageDetailsSection';
 export * from './SignageDetailsViewCard';
