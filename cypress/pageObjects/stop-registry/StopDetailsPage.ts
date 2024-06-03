@@ -5,6 +5,7 @@ import {
   MeasurementsSection,
   SignageDetailsSection,
 } from './stop-details';
+import { SheltersSection } from './stop-details/ShelterSection';
 
 export class StopDetailsPage {
   basicDetails = new BasicDetailsSection();
@@ -12,6 +13,8 @@ export class StopDetailsPage {
   locationDetails = new LocationDetailsSection();
 
   signageDetails = new SignageDetailsSection();
+
+  shelters = new SheltersSection();
 
   measurements = new MeasurementsSection();
 
