@@ -55,7 +55,7 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
           bg-hsl-neutral-blue px-4 py-2 ${isExpanded ? '' : 'rounded-b-lg'}
         `}
       >
-        {React.isValidElement(title) ? <h4>{title}</h4> : title}
+        {React.isValidElement(title) ? title : <h4>{title}</h4>}
         <div className="flex space-x-2">
           {!isEditMode && toggleEditMode && (
             <SlimSimpleButton
