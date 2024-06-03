@@ -1,1 +1,1 @@
-export const HorizontalSeparator = (): JSX.Element => <hr className="py-2" />;
+export const HorizontalSeparator = (): JSX.Element => <hr className="my-2" />;
