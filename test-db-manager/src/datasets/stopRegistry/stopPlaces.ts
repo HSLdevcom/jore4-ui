@@ -50,7 +50,7 @@ export type StopPlaceSeedData = {
   streetAddress?: string;
   postalCode?: string;
   functionalArea?: string; // Really more of a number, but keyValues can only take strings.
-  shelterEquipment?: StopRegistryShelterEquipmentInput;
+  shelterEquipment?: Array<StopRegistryShelterEquipmentInput>;
   cycleStorageEquipment?: StopRegistryCycleStorageEquipmentInput;
   accessibilityProperties?: Partial<StopRegistryHslAccessibilityProperties>;
   accessibilityLimitations?: Partial<StopRegistryAccessibilityLimitationsInput>;
@@ -146,9 +146,8 @@ const mapToStopPlaceInput = (
 
           // Equipment properties:
           placeEquipments: {
-            shelterEquipment: seedStopPlace.shelterEquipment && [
-              seedStopPlace.shelterEquipment,
-            ],
+            shelterEquipment:
+              seedStopPlace.shelterEquipment && seedStopPlace.shelterEquipment,
             cycleStorageEquipment: seedStopPlace.cycleStorageEquipment && [
               seedStopPlace.cycleStorageEquipment,
             ],
@@ -313,22 +312,24 @@ const H2003: StopPlaceSeedData = {
   streetAddress: 'Mannerheimintie 22-24',
   postalCode: '00100',
   functionalArea: '20',
-  shelterEquipment: {
-    enclosed: true,
-    stepFree: false,
-    shelterType: StopRegistryShelterType.Steel,
-    shelterElectricity: StopRegistryShelterElectricity.Continuous,
-    shelterLighting: true,
-    shelterCondition: StopRegistryShelterCondition.Mediocre,
-    timetableCabinets: 1,
-    trashCan: true,
-    shelterHasDisplay: true,
-    bicycleParking: true,
-    leaningRail: true,
-    outsideBench: true,
-    shelterFasciaBoardTaping: true,
-    // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
-  },
+  shelterEquipment: [
+    {
+      enclosed: true,
+      stepFree: false,
+      shelterType: StopRegistryShelterType.Steel,
+      shelterElectricity: StopRegistryShelterElectricity.Continuous,
+      shelterLighting: true,
+      shelterCondition: StopRegistryShelterCondition.Mediocre,
+      timetableCabinets: 1,
+      trashCan: true,
+      shelterHasDisplay: true,
+      bicycleParking: true,
+      leaningRail: true,
+      outsideBench: true,
+      shelterFasciaBoardTaping: true,
+      // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
+    },
+  ],
   cycleStorageEquipment: {
     cycleStorageType: StopRegistryCycleStorageType.Other,
     // There also exists `numberOfSpaces` field here, but we currently don't have plans for that in the UI so leaving it out.
