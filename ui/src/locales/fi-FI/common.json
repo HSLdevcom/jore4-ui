@@ -242,6 +242,20 @@
         "item3": "katos ja penkki",
         "item4": "valaistus"
       }
+    },
+    "shelters": {
+      "title": "Pysäkkikatos ({{count}})",
+      "shelterType": "Katoksen tyyppi",
+      "shelterElectricity": "Sähkö",
+      "shelterLighting": "Valaistus",
+      "shelterCondition": "Katoksen kunto",
+      "timetableCabinets": "Aikataulukaappeja (kpl)",
+      "trashCan": "Roska-astia",
+      "shelterHasDisplay": "Näyttölaite",
+      "bicycleParking": "Pyöräpysäköinti",
+      "leaningRail": "Nojailutanko",
+      "outsideBench": "Ulkopenkki",
+      "shelterFasciaBoardTaping": "Pysäkkikatoksen otsalaudan teippaus"
     }
   },
   "stopRegistrySearch": {
@@ -401,6 +415,28 @@
     "tactile": "Kohokartta",
     "other": "Muu kartta",
     "none": "Ei karttaa"
+  },
+  "stopRegistryShelterConditionEnum": {
+    "bad": "Huono",
+    "good": "Hyvä",
+    "mediocre": "Välttävä"
+  },
+  "stopRegistryShelterElectricityEnum": {
+    "continuous": "Jatkuva sähkö",
+    "continuousPlanned": "Jatkuva suunniteltu",
+    "continuousUnderConstruction": "Jatkuva rakenteilla",
+    "light": "Valosähkö",
+    "none": "Ei sähköä",
+    "temporarilyOff": "Tilapäisesti pois"
+  },
+  "stopRegistryShelterTypeEnum": {
+    "concrete": "Betonikatos",
+    "glass": "Lasikatos",
+    "post": "Tolppa",
+    "steel": "Teräskatos",
+    "urban": "Urbankatos",
+    "virtual": "Virtuaalipysäkki",
+    "wooden": "Puukatos"
   },
   "stopAccessibilityLevelEnum": {
     "fullyAccessible": "Täysin esteetön",

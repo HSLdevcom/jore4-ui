@@ -7,6 +7,9 @@ import {
   StopRegistryGuidanceType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
+  StopRegistryShelterCondition,
+  StopRegistryShelterElectricity,
+  StopRegistryShelterType,
   StopRegistryShelterWidthType,
   StopRegistryStopType,
   StopRegistryTransportModeType,
@@ -114,6 +117,33 @@ export const mapStopRegistryMapTypeToUiName = (
 ) =>
   i18n.t(
     key === NullOptionEnum.Null ? 'unknown' : `stopRegistryMapTypeEnum.${key}`,
+  );
+
+export const mapStopRegistryShelterConditionEnumToUiName = (
+  key: StopRegistryShelterCondition | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null
+      ? 'unknown'
+      : `stopRegistryShelterConditionEnum.${key}`,
+  );
+
+export const mapStopRegistryShelterElectricityEnumToUiName = (
+  key: StopRegistryShelterElectricity | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null
+      ? 'unknown'
+      : `stopRegistryShelterElectricityEnum.${key}`,
+  );
+
+export const mapStopRegistryShelterTypeEnumToUiName = (
+  key: StopRegistryShelterType | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null
+      ? 'unknown'
+      : `stopRegistryShelterTypeEnum.${key}`,
   );
 
 export const mapStopAccessibilityLevelToUiName = (

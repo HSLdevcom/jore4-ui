@@ -242,6 +242,20 @@
         "item3": "shelter and bench",
         "item4": "lighting"
       }
+    },
+    "shelters": {
+      "title": "Shelter ({{count}})",
+      "shelterType": "Type",
+      "shelterElectricity": "Electricity",
+      "shelterLighting": "Lighting",
+      "shelterCondition": "Condition",
+      "timetableCabinets": "Timetable cabinets (no.)",
+      "trashCan": "Trash can",
+      "shelterHasDisplay": "Has display",
+      "bicycleParking": "Bicycle parking",
+      "leaningRail": "Leaning rail",
+      "outsideBench": "Outside bench",
+      "shelterFasciaBoardTaping": "Fascia board taping"
     }
   },
   "stopRegistrySearch": {
@@ -401,6 +415,28 @@
     "tactile": "Tactile",
     "other": "Other",
     "none": "None"
+  },
+  "stopRegistryShelterConditionEnum": {
+    "bad": "Bad",
+    "good": "Good",
+    "mediocre": "Mediocre"
+  },
+  "stopRegistryShelterElectricityEnum": {
+    "continuous": "Continuous",
+    "continuousPlanned": "Continuous planned",
+    "continuousUnderConstruction": "Continuous under construction",
+    "light": "Light",
+    "none": "None",
+    "temporarilyOff": "Temporarily off"
+  },
+  "stopRegistryShelterTypeEnum": {
+    "concrete": "Concrete",
+    "glass": "Glass",
+    "post": "Post",
+    "steel": "Steel",
+    "urban": "Urban",
+    "virtual": "Virtual",
+    "wooden": "Wooden"
   },
   "stopAccessibilityLevelEnum": {
     "fullyAccessible": "Fully accessible",
