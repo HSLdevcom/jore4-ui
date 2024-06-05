@@ -79,6 +79,13 @@ Cypress.Commands.add('setupTests', () => {
       statusCode: 404,
       body: '404 Not Found!',
     }).as('blockDigitransit');
+    cy.intercept(
+      'https://hslstoragekarttatuotanto.z6.web.core.windows.net/**',
+      {
+        statusCode: 404,
+        body: '404 Not Found!',
+      },
+    ).as('blockDigitransit');
   }
 
   Cypress.Commands.add(
