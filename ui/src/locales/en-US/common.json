@@ -255,7 +255,9 @@
       "bicycleParking": "Bicycle parking",
       "leaningRail": "Leaning rail",
       "outsideBench": "Outside bench",
-      "shelterFasciaBoardTaping": "Fascia board taping"
+      "shelterFasciaBoardTaping": "Fascia board taping",
+      "addShelter": "Add shelter",
+      "deleteShelter": "Delete shelter"
     }
   },
   "stopRegistrySearch": {

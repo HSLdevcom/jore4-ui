@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import {
+  ShelterEquipmentDetailsFragment,
   StopRegistryShelterCondition,
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
@@ -30,3 +31,21 @@ export const sheltersFormSchema = z.object({
 
 export type ShelterFormRowState = z.infer<typeof shelterFormRowSchema>;
 export type SheltersFormState = z.infer<typeof sheltersFormSchema>;
+
+export const mapShelterDataToFormState = (
+  shelter: ShelterEquipmentDetailsFragment,
+): ShelterFormRowState => {
+  return {
+    shelterType: shelter.shelterType ?? null,
+    shelterElectricity: shelter.shelterElectricity ?? null,
+    shelterLighting: shelter.shelterLighting ?? null,
+    shelterCondition: shelter.shelterCondition ?? null,
+    timetableCabinets: shelter.timetableCabinets ?? null,
+    trashCan: shelter.trashCan ?? null,
+    shelterHasDisplay: shelter.shelterHasDisplay ?? null,
+    bicycleParking: shelter.bicycleParking ?? null,
+    leaningRail: shelter.leaningRail ?? null,
+    outsideBench: shelter.outsideBench ?? null,
+    shelterFasciaBoardTaping: shelter.shelterFasciaBoardTaping ?? null,
+  };
+};

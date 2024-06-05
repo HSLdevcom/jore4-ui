@@ -9,32 +9,13 @@ import {
 } from '../../../../../hooks';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { ExpandableInfoContainer } from '../layout';
-import { ShelterFormRowState, SheltersFormState } from './schema';
+import { SheltersFormState, mapShelterDataToFormState } from './schema';
 import { SheltersForm } from './SheltersForm';
 import { SheltersViewList } from './SheltersViewList';
 
 interface Props {
   stop: StopWithDetails;
 }
-
-const mapShelterDataToFormState = (
-  shelter: ShelterEquipmentDetailsFragment,
-): ShelterFormRowState => {
-  return {
-    id: shelter.id || null,
-    shelterType: shelter.shelterType ?? null,
-    shelterElectricity: shelter.shelterElectricity ?? null,
-    shelterLighting: shelter.shelterLighting ?? null,
-    shelterCondition: shelter.shelterCondition ?? null,
-    timetableCabinets: shelter.timetableCabinets ?? null,
-    trashCan: shelter.trashCan ?? null,
-    shelterHasDisplay: shelter.shelterHasDisplay ?? null,
-    bicycleParking: shelter.bicycleParking ?? null,
-    leaningRail: shelter.leaningRail ?? null,
-    outsideBench: shelter.outsideBench ?? null,
-    shelterFasciaBoardTaping: shelter.shelterFasciaBoardTaping ?? null,
-  };
-};
 
 export const SheltersSection = ({ stop }: Props): JSX.Element => {
   const { t } = useTranslation();

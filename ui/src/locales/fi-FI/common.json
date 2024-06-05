@@ -255,7 +255,9 @@
       "bicycleParking": "Pyöräpysäköinti",
       "leaningRail": "Nojailutanko",
       "outsideBench": "Ulkopenkki",
-      "shelterFasciaBoardTaping": "Pysäkkikatoksen otsalaudan teippaus"
+      "shelterFasciaBoardTaping": "Pysäkkikatoksen otsalaudan teippaus",
+      "addShelter": "Lisää katos",
+      "deleteShelter": "Poista katos"
     }
   },
   "stopRegistrySearch": {

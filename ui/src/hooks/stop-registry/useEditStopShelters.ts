@@ -66,7 +66,7 @@ export const useEditStopShelters = () => {
         {
           id: stopPlaceQuayId,
           placeEquipments: {
-            shelterEquipment: sheltersInput,
+            shelterEquipment: sheltersInput.length ? sheltersInput : null,
             // TODO: also set cycleStorageEquipment.cycleStorageType
           },
         },
