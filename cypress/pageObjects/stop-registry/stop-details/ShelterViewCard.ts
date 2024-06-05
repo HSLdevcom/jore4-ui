@@ -1,5 +1,7 @@
 export class ShelterViewCard {
-  getContainer = () => cy.getByTestId('ShelterViewCard::container');
+  getContainers = () => cy.getByTestId('ShelterViewCard::container');
+
+  getNthContainer = (index: number) => this.getContainers().eq(index);
 
   getShelterType = () => cy.getByTestId('ShelterViewCard::shelterType');
 
