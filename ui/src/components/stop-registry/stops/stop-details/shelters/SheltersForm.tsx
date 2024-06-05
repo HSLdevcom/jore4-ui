@@ -12,6 +12,7 @@ import {
 import { ShelterFormRow } from './ShelterFormRow';
 
 const testIds = {
+  shelterRow: 'SheltersForm::shelterRow',
   deleteShelter: 'SheltersForm::deleteShelter',
   addShelter: 'SheltersForm::addShelter',
 };
@@ -57,7 +58,7 @@ const SheltersFormComponent = (
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         {shelters.map((shelterRow, idx) => (
-          <div key={shelterRow.id}>
+          <div key={shelterRow.id} data-testid={testIds.shelterRow}>
             <ShelterFormRow index={idx} />
             <div className="mb-8 mt-6 flex gap-4">
               <SlimSimpleButton

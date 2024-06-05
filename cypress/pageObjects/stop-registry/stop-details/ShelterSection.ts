@@ -1,6 +1,9 @@
+import { SheltersForm } from './SheltersForm';
 import { ShelterViewCard } from './ShelterViewCard';
 
 export class SheltersSection {
+  form = new SheltersForm();
+
   viewCard = new ShelterViewCard();
 
   getEditButton() {
