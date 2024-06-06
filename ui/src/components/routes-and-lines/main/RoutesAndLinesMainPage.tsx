@@ -1,13 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import {
-  useAppDispatch,
-  useFilterStops,
-  useMapQueryParams,
-} from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
-import { FilterType, resetMapState } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SimpleButton } from '../../../uiComponents';
+import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import { SearchContainer } from '../search/SearchContainer';
 import { RoutesAndLinesLists } from './RoutesAndLinesLists';
 
@@ -17,29 +12,13 @@ const testIds = {
 
 export const RoutesAndLinesMainPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-  const { addMapOpenQueryParameter } = useMapQueryParams();
-  const { toggleFunction } = useFilterStops();
-  const toggleShowAllStops = toggleFunction(FilterType.ShowAllBusStops);
-
   const createLineReactRoute = routeDetails[Path.createLine];
-  const onOpenMapModal = () => {
-    dispatch(resetMapState());
-    addMapOpenQueryParameter();
-    /**
-     * By default only stops that belong to displayed route are shown on map.
-     * Now that no routes are shown on map, show all stops by default.
-     */
-    toggleShowAllStops(true);
-  };
 
   return (
     <Container>
       <Row>
         <h1>{t('routes.routes')}</h1>
-        <SimpleButton containerClassName="ml-auto" onClick={onOpenMapModal}>
-          {t('map.open')}
-        </SimpleButton>
+        <OpenDefaultMapButton containerClassName="ml-auto" />
         <SimpleButton
           id="create-line-button"
           data-testid={testIds.createLineButton}
