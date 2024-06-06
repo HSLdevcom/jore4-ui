@@ -2,6 +2,7 @@ import {
   ApolloClient,
   HttpLink,
   InMemoryCache,
+  UriFunction,
   from,
   split,
 } from '@apollo/client';
@@ -65,16 +66,27 @@ const buildScalarMappingLink = () => {
   return withScalars({ schema, typesMap });
 };
 
-const getGraphqlUrl = (isTesting: boolean, isWebsocket: boolean) => {
+function getGraphqlUrl(
+  isTesting: boolean,
+  isWebsocket: false,
+): string | UriFunction;
+function getGraphqlUrl(isTesting: boolean, isWebsocket: true): string;
+function getGraphqlUrl(
+  isTesting: boolean,
+  isWebsocket: boolean,
+): string | UriFunction {
   const path = '/api/graphql/v1/graphql';
+
   if (isTesting) {
     return `http://127.0.0.1:3300${path}`;
   }
+
   if (isWebsocket) {
     return mapHttpToWs(`${window.location.origin}${path}`);
   }
-  return path;
-};
+
+  return (operation) => `${path}?q=${operation.operationName}`;
+}
 
 const buildWebSocketLink = () => {
   return new WebSocketLink({
