@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import {
@@ -27,8 +27,20 @@ export const StopSearchBar = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
+  const firstRender = useRef(true);
   const { searchConditions, setSearchCondition, handleSearch } =
     useStopSearch();
+
+  useEffect(() => {
+    if (!firstRender.current && searchConditions.searchKey) {
+      handleSearch();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [firstRender, searchConditions.searchBy]);
+
+  useEffect(() => {
+    firstRender.current = false;
+  }, []);
 
   const [isExpanded, toggleIsExpanded] = useToggle();
 
@@ -52,13 +64,6 @@ export const StopSearchBar = (): JSX.Element => {
     dispatch(resetSelectedRowsAction());
     handleSearch();
   };
-
-  useEffect(() => {
-    if (searchConditions.searchKey) {
-      onSearch();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchConditions.searchBy]);
 
   return (
     <Container className="py-10">
