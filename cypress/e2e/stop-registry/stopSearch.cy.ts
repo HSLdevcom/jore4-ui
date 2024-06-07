@@ -49,6 +49,20 @@ const timingPlaces = [
 const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
   {
     name: { lang: 'fin', value: 'Puistokaari' },
+    alternativeNames: [
+      {
+        name: { lang: 'swe', value: 'Parkkurvan' },
+        nameType: StopRegistryNameType.Translation,
+      },
+      {
+        name: { lang: 'fin', value: 'Puistokaari (pitkä)' },
+        nameType: StopRegistryNameType.Alias,
+      },
+      {
+        name: { lang: 'swe', value: 'Parkkurvan (lång)' },
+        nameType: StopRegistryNameType.Alias,
+      },
+    ],
     quays: [{ publicCode: 'H1122' }],
     privateCode: { value: '123456', type: 'ELY' },
     keyValues: [{ key: 'streetAddress', values: ['Puistokaari 1'] }],
@@ -64,6 +78,14 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
         name: { lang: 'swe', value: 'Lappbrinken' },
         nameType: StopRegistryNameType.Translation,
       },
+      {
+        name: { lang: 'fin', value: 'Lapinrinne (pitkä)' },
+        nameType: StopRegistryNameType.Alias,
+      },
+      {
+        name: { lang: 'swe', value: 'Lappbrinken (lång)' },
+        nameType: StopRegistryNameType.Alias,
+      },
     ],
     quays: [{ publicCode: 'H1234' }],
     privateCode: { value: '123499', type: 'ELY' },
@@ -75,6 +97,20 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
   },
   {
     name: { lang: 'fin', value: 'Tuusulanväylä' },
+    alternativeNames: [
+      {
+        name: { lang: 'swe', value: 'Tusbyleden' },
+        nameType: StopRegistryNameType.Translation,
+      },
+      {
+        name: { lang: 'fin', value: 'Tuusulanväylä (pitkä)' },
+        nameType: StopRegistryNameType.Alias,
+      },
+      {
+        name: { lang: 'swe', value: 'Tusbyleden (lång)' },
+        nameType: StopRegistryNameType.Alias,
+      },
+    ],
     quays: [{ publicCode: 'H2233' }],
     keyValues: [{ key: 'streetAddress', values: ['Tuusulanväylä 10-16'] }],
     geometry: {
@@ -411,6 +447,71 @@ describe('Stop search', () => {
         stopSearchResultsPage.getResultRows().should('have.length', 2);
         stopSearchResultsPage.getResultRows().should('contain', 'H1234');
         stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+      },
+    );
+  });
+
+  describe('by name variants', () => {
+    it(
+      'should be able to search with an exact name',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.searchCriteriaRadioButtons
+          .getLabelRadioButton()
+          .should('be.checked');
+        stopSearchBar.getSearchInput().type(`Lapinrinne{enter}`);
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
+      },
+    );
+
+    it(
+      'should be able to search with an exact translation name',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.searchCriteriaRadioButtons
+          .getLabelRadioButton()
+          .should('be.checked');
+        stopSearchBar.getSearchInput().type(`Lappbrinken{enter}`);
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
+      },
+    );
+
+    it(
+      'should be able to search with an exact finnish name alias (long name)',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.searchCriteriaRadioButtons
+          .getLabelRadioButton()
+          .should('be.checked');
+        stopSearchBar.getSearchInput().type(`Lapinrinne (pitkä){enter}`);
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
+      },
+    );
+    it(
+      'should be able to search with an exact swedish name alias (long name)',
+      { tags: Tag.StopRegistry },
+      () => {
+        stopSearchBar.searchCriteriaRadioButtons
+          .getLabelRadioButton()
+          .should('be.checked');
+        stopSearchBar.getSearchInput().type(`Lappbrinken (lång){enter}`);
+        cy.wait('@gqlSearchStops');
+
+        stopSearchResultsPage.getContainer().should('be.visible');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
       },
     );
   });
