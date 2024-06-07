@@ -23,7 +23,7 @@ const DEFAULT_SEARCH_KEY = '';
 const DEFAULT_SEARCH_BY = SearchBy.Label;
 const DEFAULT_MUNICIPALITIES = [
   ...getEnumValues(StopRegistryMunicipality),
-  AllOptionEnum.All,
+  'all',
 ];
 
 export const useStopSearchQueryParser = () => {
@@ -32,6 +32,22 @@ export const useStopSearchQueryParser = () => {
     getEnumFromUrlQuery,
     getEnumArrayFromUrlQuery,
   } = useUrlQuery();
+
+  const getMunicipalitiesFromURLQuery = () => {
+    const municipalitiesFromURLQuery = getEnumArrayFromUrlQuery(
+      StopSearchQueryParameterNames.Municipalities,
+      StopRegistryMunicipality,
+    )?.map((m) => m.toString());
+
+    if (
+      municipalitiesFromURLQuery?.length ===
+      Object.keys(StopRegistryMunicipality).length / 2
+    ) {
+      municipalitiesFromURLQuery.push(AllOptionEnum.All);
+    }
+    return municipalitiesFromURLQuery;
+  };
+
   const searchKey =
     getStringParamFromUrlQuery(StopSearchQueryParameterNames.SearchKey) ??
     DEFAULT_SEARCH_KEY;
@@ -41,11 +57,9 @@ export const useStopSearchQueryParser = () => {
   const elyNumber =
     getStringParamFromUrlQuery(StopSearchQueryParameterNames.ELYNumber) ??
     DEFAULT_ELY_NUMBER;
+
   const municipalities = (
-    getEnumArrayFromUrlQuery(
-      StopSearchQueryParameterNames.Municipalities,
-      StopRegistryMunicipality || AllOptionEnum,
-    ) ?? DEFAULT_MUNICIPALITIES
+    getMunicipalitiesFromURLQuery() ?? DEFAULT_MUNICIPALITIES
   ).join(',');
 
   return {
