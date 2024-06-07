@@ -234,3 +234,45 @@ export const buildTiamatMunicipalityGqlFilter = (
     topographic_place_id: { _in: value },
   };
 };
+
+const LANG = {
+  SWE: 'swe',
+  FIN: 'fin',
+};
+
+const NAME_TYPES = {
+  TRANSLATION: 'translation',
+  ALIAS: 'alias',
+};
+
+const buildLanguageFilter = (label: string, lang: string, field: string) => ({
+  [`${field}_value`]: { _ilike: label },
+  [`${field}_lang`]: { _eq: lang },
+});
+
+const buildAlternativeNameFilter = (
+  label: string,
+  nameType: string,
+  lang: string,
+) => ({
+  stop_place_alternative_names: {
+    alternative_name: {
+      name_type: { _ilike: nameType },
+      name_value: { _ilike: label },
+      name_lang: { _ilike: lang },
+    },
+  },
+});
+
+export const buildTiamatStopQuayPublicCodeOrNameLikeGqlFilter = (
+  label: string,
+) => ({
+  _or: [
+    buildTiamatStopQuayPublicCodeLikeGqlFilter(label),
+    buildLanguageFilter(label, LANG.SWE, 'name'),
+    buildLanguageFilter(label, LANG.FIN, 'name'),
+    buildAlternativeNameFilter(label, NAME_TYPES.TRANSLATION, LANG.SWE),
+    buildAlternativeNameFilter(label, NAME_TYPES.ALIAS, LANG.SWE),
+    buildAlternativeNameFilter(label, NAME_TYPES.ALIAS, LANG.FIN),
+  ],
+});

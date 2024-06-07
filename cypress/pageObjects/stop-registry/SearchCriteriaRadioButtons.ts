@@ -4,6 +4,6 @@ export class SearchCriteriaRadioButtons {
   }
 
   getLabelRadioButton() {
-    return cy.getByTestId('SearchCriteriaRadioButtons::label');
+    return cy.getByTestId('SearchCriteriaRadioButtons::labelOrName');
   }
 }
