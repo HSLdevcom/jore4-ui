@@ -15,6 +15,7 @@ import {
   buildTiamatMunicipalityGqlFilter,
   buildTiamatPrivateCodeLikeGqlFilter,
   buildTiamatStopQuayPublicCodeLikeGqlFilter,
+  buildTiamatStopQuayPublicCodeOrNameLikeGqlFilter,
   mapToSqlLikeValue,
   mapToVariables,
 } from '../../../utils';
@@ -78,13 +79,16 @@ export type StopSearchRow = StopTableRowFragment & {
 const buildSearchStopsGqlQueryVariables = (
   searchConditions: StopSearchConditions,
 ): SearchStopsQueryVariables => {
-  const labelFilter = buildOptionalSearchConditionGqlFilter<
+  const labelOrName = searchConditions.labelOrName ?? '';
+  const labelOrNameFilterToUse =
+    labelOrName.length > 3
+      ? buildTiamatStopQuayPublicCodeOrNameLikeGqlFilter
+      : buildTiamatStopQuayPublicCodeLikeGqlFilter;
+
+  const labelOrNameFilter = buildOptionalSearchConditionGqlFilter<
     string,
     StopsDatabaseStopPlaceNewestVersionBoolExp
-  >(
-    mapToSqlLikeValue(searchConditions.label ?? ''),
-    buildTiamatStopQuayPublicCodeLikeGqlFilter,
-  );
+  >(mapToSqlLikeValue(labelOrName), labelOrNameFilterToUse);
 
   const elyNumberFilter = buildOptionalSearchConditionGqlFilter<
     string,
@@ -121,7 +125,7 @@ const buildSearchStopsGqlQueryVariables = (
   );
 
   const stopFilter = {
-    ...labelFilter,
+    ...labelOrNameFilter,
     ...elyNumberFilter,
     ...addressFilter,
     ...municipalityFilter,

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 export enum SearchBy {
-  Label = 'label',
+  LabelOrName = 'labelOrName',
   Address = 'address',
 }
 
@@ -16,7 +16,7 @@ export const SearchCriteriaRadioButtons = ({
 
   const searchByOptions = [
     {
-      name: SearchBy.Label,
+      name: SearchBy.LabelOrName,
       label: t('stopRegistrySearch.byLabel'),
     },
     {
