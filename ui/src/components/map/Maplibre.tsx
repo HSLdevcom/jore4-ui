@@ -3,14 +3,14 @@ import { Units, point } from '@turf/helpers';
 import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
 import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
-import MapGL, { MapEvent, MapRef, NavigationControl } from 'react-map-gl';
+import MapGL, {
+  MapLayerMouseEvent,
+  MapRef,
+  NavigationControl,
+} from 'react-map-gl/maplibre';
 import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
 import { Operation, setViewPortAction } from '../../redux';
-import {
-  getCursor,
-  getInteractiveLayerIds,
-  loadMapAssets,
-} from '../../utils/map';
+import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';
 
 interface Props {
   className?: string;
@@ -19,7 +19,7 @@ interface Props {
   // but in other hand "100%" doesn't seem to work...
   width?: string;
   height?: string;
-  onClick?: (e: MapEvent) => void;
+  onClick?: (e: MapLayerMouseEvent) => void;
   useVectorTilesAsBaseMap?: boolean;
 }
 
@@ -47,7 +47,6 @@ const style = generateStyle({
 });
 
 export const Maplibre: FunctionComponent<Props> = ({
-  className = '',
   onClick,
   width = '100vw',
   height = '100vh',
@@ -64,9 +63,7 @@ export const Maplibre: FunctionComponent<Props> = ({
   });
 
   const dispatch = useAppDispatch();
-  const { setIsLoading } = useLoader(Operation.LoadMap, {
-    immediatelyOn: true,
-  });
+  const { setIsLoading } = useLoader(Operation.LoadMap);
 
   const updateMapDetailsDebounced = useMemo(
     () =>
@@ -91,7 +88,8 @@ export const Maplibre: FunctionComponent<Props> = ({
 
       // Viewport change event can be fired before map is completely loaded
       // resulting in stops to be loaded for incorrect view
-      if (!mapGL.loaded()) {
+      // eslint-disable-next-line no-underscore-dangle
+      if (!mapGL._loaded) {
         return;
       }
 
@@ -132,7 +130,7 @@ export const Maplibre: FunctionComponent<Props> = ({
         url: newUrl,
       };
     }
-    return undefined;
+    return { url };
   };
 
   const onLoad = () => {
@@ -154,21 +152,20 @@ export const Maplibre: FunctionComponent<Props> = ({
     <MapGL
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...viewport}
-      width={width}
-      height={height}
-      onViewportChange={onViewportChange}
+      style={{
+        width,
+        height,
+      }}
       onClick={onClick}
-      className={className}
-      mapStyle={style}
-      getCursor={getCursor}
-      transformRequest={transformRequest}
+      mapStyle={style as ExplicitAny}
+      onMove={(event) => onViewportChange(event.viewState)}
       doubleClickZoom={false}
       ref={mapRef}
       onLoad={onLoad}
+      transformRequest={transformRequest}
       interactiveLayerIds={interactiveLayerIds}
-      // Increased click radius to make it easier to click a route on map
-      clickRadius={3}
-      transitionDuration={0}
+      cursor="auto"
+      attributionControl={false}
     >
       {children}
       <NavigationControl style={navStyle} showCompass={false} />

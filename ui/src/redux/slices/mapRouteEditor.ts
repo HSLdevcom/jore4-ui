@@ -132,10 +132,15 @@ const slice = createSlice({
         ? undefined
         : state.selectedRouteId;
 
-      state.drawingMode = Mode.Edit;
       state.editedRouteData = {
         ...state.editedRouteData,
         id: routeToEdit,
+      };
+    },
+    setRouteToEditMode: (state: IState) => {
+      return {
+        ...state,
+        drawingMode: Mode.Edit,
       };
     },
     /**
@@ -336,6 +341,7 @@ export const {
   setSelectedRouteId: setSelectedRouteIdAction,
   setRouteMetadataFormOpen: setRouteMetadataFormOpenAction,
   setDraftRouteJourneyPattern: setDraftRouteJourneyPatternAction,
+  setRouteToEditMode: setRouteToEditModeAction,
 } = slice.actions;
 
 export const mapRouteEditorReducer = slice.reducer;

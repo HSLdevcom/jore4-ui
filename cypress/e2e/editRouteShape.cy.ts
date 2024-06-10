@@ -102,26 +102,23 @@ describe('Edit route geometry', () => {
         'E2E005',
       ]);
 
-      // Route is edited so that the second stop is not included
       mapFooter.editRoute();
-      // Force click because element might be covered by some other element, like a stop circle
-      routeEditor.getRouteDashedLine().click({ force: true });
-
-      // Move the two handles so that E2E002 should not be included in the route.
-      routeEditor.moveRouteEditHandle({
-        handleIndex: 2,
-        deltaX: -50,
-        deltaY: 200,
-      });
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
 
-      routeEditor.moveRouteEditHandle({
-        handleIndex: 3,
-        deltaX: -50,
-        deltaY: 200,
-        position: 'topRight',
+      mapModal.map.moveRouteEditorHandle({
+        start: { x: 776, y: 272 },
+        destination: { x: 639, y: 419 },
       });
+
+      mapModal.map.getLoader().should('exist');
+      mapModal.map.getLoader().should('not.exist');
+
+      mapModal.map.moveRouteEditorHandle({
+        start: { x: 616, y: 272 },
+        destination: { x: 580, y: 400 },
+      });
+
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
 
@@ -193,24 +190,20 @@ describe('Edit route geometry', () => {
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
 
-      // Force click because element might be covered by some other element, like a stop circle
-      // TODO: Research the force click. Im not sure if the reason above is the actual reason.
-      routeEditor.getRouteDashedLine().click({ force: true });
-
       // Move the two handles so that E2E002 should not be included in the route.
-      routeEditor.moveRouteEditHandle({
-        handleIndex: 2,
-        deltaX: -50,
-        deltaY: 200,
+      mapModal.map.moveRouteEditorHandle({
+        start: { x: 1672, y: 235 },
+        destination: { x: 1619, y: 382 },
       });
+
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
 
-      routeEditor.moveRouteEditHandle({
-        handleIndex: 3,
-        deltaX: -50,
-        deltaY: 200,
+      mapModal.map.moveRouteEditorHandle({
+        start: { x: 1516, y: 235 },
+        destination: { x: 1483, y: 385 },
       });
+
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
 
