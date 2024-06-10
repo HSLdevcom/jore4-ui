@@ -1,10 +1,5 @@
-import React, {
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-} from 'react';
-import { MapContext, MapEvent } from 'react-map-gl';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import {
   ServicePatternScheduledStopPoint,
   useGetStopsByLocationQuery,
@@ -30,7 +25,6 @@ import {
   setIsCreateStopModeEnabledAction,
   setSelectedStopIdAction,
 } from '../../../redux';
-import { Coords } from '../../../types';
 import { Priority } from '../../../types/enums';
 import {
   buildWithinViewportGqlFilter,
@@ -41,9 +35,9 @@ import {
 import {
   addLineFromStopToInfraLink,
   createGeometryLineBetweenPoints,
-  drawLineToClosestRoad,
   removeLineFromStopToInfraLink,
 } from '../../../utils/map';
+import { EditStoplayerRef } from '../refTypes';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
@@ -53,10 +47,9 @@ const testIds = {
     `Map::Stops::stopMarker::${label}_${Priority[priority]}`,
 };
 
-export const Stops = React.forwardRef((props, ref) => {
+export const Stops = React.forwardRef((_props, ref) => {
   const { filter } = useFilterStops();
-  const { map } = useContext(MapContext);
-
+  const { current: map } = useMap();
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedStopData = useAppSelector(selectEditedStopData);
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
@@ -67,7 +60,7 @@ export const Stops = React.forwardRef((props, ref) => {
     setIsCreateStopModeEnabledAction,
   );
 
-  const editStopLayerRef = useRef<ExplicitAny>(null);
+  const editStopLayerRef = useRef<EditStoplayerRef>(null);
 
   const { setIsLoading } = useLoader(Operation.FetchStops);
 
@@ -109,7 +102,7 @@ export const Stops = React.forwardRef((props, ref) => {
         stop.measured_location.coordinates,
         stop.closest_point_on_infrastructure_link.coordinates,
       );
-      addLineFromStopToInfraLink(map, nearestRoad);
+      addLineFromStopToInfraLink(map?.getMap(), nearestRoad);
     }
 
     setSelectedStopId(stop.scheduled_stop_point_id || undefined);
@@ -119,10 +112,10 @@ export const Stops = React.forwardRef((props, ref) => {
   const { createDraftStop } = useCreateStop();
   const { defaultErrorHandler } = useEditStop();
   useImperativeHandle(ref, () => ({
-    onCreateStop: async (e: MapEvent) => {
+    onCreateStop: async (e: MapLayerMouseEvent) => {
       setIsLoading(true);
       try {
-        const stopLocation = mapLngLatToGeoJSON(e.lngLat);
+        const stopLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
         const draftStop = await createDraftStop(stopLocation);
         onEditStop(draftStop);
         setIsCreateStopModeEnabled(false);
@@ -131,8 +124,8 @@ export const Stops = React.forwardRef((props, ref) => {
       }
       setIsLoading(false);
     },
-    onMoveStop: (e: MapEvent) => {
-      editStopLayerRef.current.onMoveStop(e);
+    onMoveStop: (e: MapLayerMouseEvent) => {
+      editStopLayerRef.current?.onMoveStop(e);
     },
   }));
 
@@ -168,14 +161,12 @@ export const Stops = React.forwardRef((props, ref) => {
           ref={editStopLayerRef}
           editedStopData={editedStopData}
           onEditingFinished={onEditingFinished}
-          onPopupClose={() => removeLineFromStopToInfraLink(map)}
+          onPopupClose={() => removeLineFromStopToInfraLink(map?.getMap())}
         />
       )}
       {/* Display hovering bus stop while in create mode */}
       {(isCreateStopModeEnabled || isMoveStopModeEnabled) && (
-        <CreateStopMarker
-          onCursorMove={(coords: Coords) => drawLineToClosestRoad(map, coords)}
-        />
+        <CreateStopMarker />
       )}
     </>
   );
