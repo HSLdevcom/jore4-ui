@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
-import { Popup } from 'react-map-gl';
+import { Popup } from 'react-map-gl/maplibre';
 import { StopWithLocation } from '../../../graphql';
 import { Column, Row, Visible } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -38,8 +38,6 @@ export const StopPopup = ({
   return (
     <Popup
       className="min-w-80"
-      tipSize={10}
-      offsetTop={25}
       anchor="top"
       longitude={location.longitude}
       latitude={location.latitude}

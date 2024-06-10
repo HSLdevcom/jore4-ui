@@ -102,26 +102,38 @@ describe('Edit route geometry', () => {
         'E2E005',
       ]);
 
-      // Route is edited so that the second stop is not included
       mapFooter.editRoute();
-      // Force click because element might be covered by some other element, like a stop circle
-      routeEditor.getRouteDashedLine().click({ force: true });
 
-      // Move the two handles so that E2E002 should not be included in the route.
-      routeEditor.moveRouteEditHandle({
-        handleIndex: 2,
-        deltaX: -50,
-        deltaY: 200,
-      });
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
+      cy.get('*[class^="maplibregl-canvas"]').last().focus();
+      cy.getByTestId('mapModal')
+        .trigger('mousedown', {
+          which: 1,
+          x: 776,
+          y: 272,
+        })
+        .trigger('mousemove', {
+          which: 1,
+          x: 639,
+          y: 419,
+        })
 
-      routeEditor.moveRouteEditHandle({
-        handleIndex: 3,
-        deltaX: -50,
-        deltaY: 200,
-        position: 'topRight',
-      });
+        .trigger('mouseup');
+
+      cy.getByTestId('mapModal')
+        .trigger('mousedown', {
+          which: 1,
+          x: 616,
+          y: 272,
+        })
+        .trigger('mousemove', {
+          which: 1,
+          x: 580,
+          y: 400,
+        })
+        .trigger('mouseup');
+
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
 
@@ -193,24 +205,34 @@ describe('Edit route geometry', () => {
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
 
-      // Force click because element might be covered by some other element, like a stop circle
-      // TODO: Research the force click. Im not sure if the reason above is the actual reason.
-      routeEditor.getRouteDashedLine().click({ force: true });
-
       // Move the two handles so that E2E002 should not be included in the route.
-      routeEditor.moveRouteEditHandle({
-        handleIndex: 2,
-        deltaX: -50,
-        deltaY: 200,
-      });
-      mapModal.map.getLoader().should('exist');
-      mapModal.map.getLoader().should('not.exist');
+      cy.get('*[class^="maplibregl-canvas"]').last().focus();
+      cy.getByTestId('mapModal')
+        .trigger('mousedown', {
+          which: 1,
+          x: 1672,
+          y: 235,
+        })
+        .trigger('mousemove', {
+          which: 1,
+          x: 1619,
+          y: 382,
+        })
 
-      routeEditor.moveRouteEditHandle({
-        handleIndex: 3,
-        deltaX: -50,
-        deltaY: 200,
-      });
+        .trigger('mouseup');
+      cy.getByTestId('mapModal')
+        .trigger('mousedown', {
+          which: 1,
+          x: 1516,
+          y: 235,
+        })
+        .trigger('mousemove', {
+          which: 1,
+          x: 1483,
+          y: 385,
+        })
+        .trigger('mouseup');
+
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
 

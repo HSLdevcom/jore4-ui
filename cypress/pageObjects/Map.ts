@@ -12,6 +12,7 @@ export class Map {
   stopPopUp = new StopPopUp();
 
   zoomIn(n = 1) {
+    cy.get('*[class^="maplibregl-canvas"]').last().focus();
     Cypress._.times(n, () => cy.getByTestId('mapModal').type('+'));
     this.waitForLoadToComplete();
     cy.wait('@gqlGetStopsByLocation');
