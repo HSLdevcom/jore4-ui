@@ -28,6 +28,7 @@ import {
   setDraftRouteJourneyPatternAction,
   setLineInfoAction,
   setRouteMetadataAction,
+  setRouteToEditModeAction,
   setSelectedRouteIdAction,
   startRouteCreatingAction,
   startRouteEditingAction,
@@ -222,6 +223,7 @@ const RouteEditorComponent = (
           stops: newJourneyPatternStops,
         }),
       );
+      dispatch(setRouteToEditModeAction());
     }
   };
 

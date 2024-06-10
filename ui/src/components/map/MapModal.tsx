@@ -4,6 +4,7 @@ import { useMapQueryParams } from '../../hooks';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
+import { RouteEditorRef } from './refTypes';
 
 interface Props {
   className?: string;
@@ -18,7 +19,7 @@ const mapHeaderHeight = 64;
 const mapFooterHeight = 82;
 
 export const MapModal: React.FC<Props> = ({ className = '' }) => {
-  const mapRef = useRef<ExplicitAny>(null);
+  const mapRef = useRef<RouteEditorRef>(null);
 
   const { isMapOpen, deleteMapQueryParameters } = useMapQueryParams();
 
@@ -43,15 +44,14 @@ export const MapModal: React.FC<Props> = ({ className = '' }) => {
         */}
       <Map
         height={`calc(100vh - ${mapHeaderHeight + mapFooterHeight}px)`}
-        drawable
         ref={mapRef}
       />
       <MapFooter
-        onDrawRoute={() => mapRef.current.onDrawRoute()}
-        onEditRoute={() => mapRef.current.onEditRoute()}
-        onDeleteRoute={() => mapRef.current.onDeleteRoute()}
-        onCancel={() => mapRef.current.onCancel()}
-        onSave={() => mapRef.current.onSave()}
+        onDrawRoute={() => mapRef.current?.onDrawRoute()}
+        onEditRoute={() => mapRef.current?.onEditRoute()}
+        onDeleteRoute={() => mapRef.current?.onDeleteRoute()}
+        onCancel={() => mapRef.current?.onCancel()}
+        onSave={() => mapRef.current?.onSave()}
       />
     </Dialog>
   );
