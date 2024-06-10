@@ -12,6 +12,7 @@ export class Map {
   stopPopUp = new StopPopUp();
 
   zoomIn(n = 1) {
+    cy.get('*[class^="maplibregl-canvas"]').last().focus();
     Cypress._.times(n, () => cy.getByTestId('mapModal').type('+'));
     this.waitForLoadToComplete();
     cy.wait('@gqlGetStopsByLocation');
@@ -93,4 +94,26 @@ export class Map {
   waitForLoadToComplete() {
     return this.getLoader().should('not.exist');
   }
+
+  // Route editor handle needs to exists in start coordinate
+  moveRouteEditorHandle = (coordinates: {
+    start: { x: number; y: number };
+    destination: { x: number; y: number };
+  }) => {
+    // Focus canvas before triggering mouse events
+    // Cypress mousedown event doesn't focus map when triggering
+    cy.get('*[class^="maplibregl-canvas"]').last().focus();
+    cy.getByTestId('mapModal')
+      .trigger('mousedown', {
+        which: 1,
+        x: coordinates.start.x,
+        y: coordinates.start.y,
+      })
+      .trigger('mousemove', {
+        which: 1,
+        x: coordinates.destination.x,
+        y: coordinates.destination.y,
+      })
+      .trigger('mouseup');
+  };
 }

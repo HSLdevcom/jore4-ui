@@ -72,13 +72,20 @@ Cypress.Commands.add('setupTests', () => {
   if (Cypress.env('DISABLE_MAP_TILES')) {
     Cypress.log({ message: 'Disabling map tile rendering' });
     cy.intercept('https://api.digitransit.fi/**', {
-      statusCode: 404,
-      body: '404 Not Found!',
+      statusCode: 200,
+      body: '[]',
     }).as('blockDigitransit');
     cy.intercept('https://digitransit-dev-cdn-origin.azureedge.net/**', {
-      statusCode: 404,
-      body: '404 Not Found!',
+      statusCode: 200,
+      body: '[]',
     }).as('blockDigitransit');
+    cy.intercept(
+      'https://hslstoragekarttatuotanto.z6.web.core.windows.net/**',
+      {
+        statusCode: 200,
+        body: '[]',
+      },
+    ).as('blockDigitransit3');
   }
 
   Cypress.Commands.add(
