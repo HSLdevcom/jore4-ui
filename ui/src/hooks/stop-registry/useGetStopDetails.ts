@@ -2,13 +2,14 @@ import { gql } from '@apollo/client';
 import {
   ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
-  useGetStopDetailsByIdQuery,
+  useGetHighestPriorityStopDetailsByLabelAndDateQuery,
 } from '../../generated/graphql';
 import {
   StopPlaceEnrichmentProperties,
   getStopPlaceDetailsForEnrichment,
   getStopPlaceFromQueryResult,
 } from '../../utils';
+import { useObservationDateQueryParam } from '../urlQuery';
 import { useRequiredParams } from '../useRequiredParams';
 
 const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
@@ -34,6 +35,34 @@ const GQL_GET_STOP_DETAILS_BY_ID = gql`
   query GetStopDetailsById($scheduled_stop_point_id: uuid!) {
     service_pattern_scheduled_stop_point_by_pk(
       scheduled_stop_point_id: $scheduled_stop_point_id
+    ) {
+      ...scheduled_stop_point_detail_fields
+      stop_place {
+        ...stop_place_details
+      }
+    }
+  }
+`;
+
+const GQL_GET_HIGHEST_PRIORITY_STOP_DETAILS_BY_LABEL_AND_DATE = gql`
+  query GetHighestPriorityStopDetailsByLabelAndDate(
+    $label: String!
+    $observationDate: date!
+  ) {
+    service_pattern_scheduled_stop_point(
+      where: {
+        _and: [
+          { label: { _eq: $label } }
+          {
+            _and: [
+              { validity_start: { _lte: $observationDate } }
+              { validity_end: { _gte: $observationDate } }
+            ]
+          }
+        ]
+      }
+      order_by: { priority: desc }
+      limit: 1
     ) {
       ...scheduled_stop_point_detail_fields
       stop_place {
@@ -237,14 +266,16 @@ export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
 
 export const useGetStopDetails = (): {
   stopDetails: StopWithDetails | null | undefined;
+  isLoading: boolean;
 } => {
-  const { id } = useRequiredParams<{ id: string }>();
-  // TODO: observation date?
+  const { label } = useRequiredParams<{ label: string }>();
+  const { observationDate } = useObservationDateQueryParam();
 
-  const result = useGetStopDetailsByIdQuery({
-    variables: { scheduled_stop_point_id: id },
+  const result = useGetHighestPriorityStopDetailsByLabelAndDateQuery({
+    variables: { label, observationDate },
   });
-  const stopDetails = result.data?.service_pattern_scheduled_stop_point_by_pk;
+
+  const stopDetails = result.data?.service_pattern_scheduled_stop_point[0];
 
   return {
     stopDetails: stopDetails && {
@@ -253,5 +284,6 @@ export const useGetStopDetails = (): {
         getStopPlaceFromQueryResult<StopPlace>(stopDetails.stop_place),
       ),
     },
+    isLoading: result.loading,
   };
 };

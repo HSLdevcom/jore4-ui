@@ -66783,6 +66783,200 @@ export type GetStopDetailsByIdQuery = {
   } | null;
 };
 
+export type GetHighestPriorityStopDetailsByLabelAndDateQueryVariables = Exact<{
+  label: Scalars['String'];
+  observationDate: Scalars['date'];
+}>;
+
+export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
+    timing_place_id?: UUID | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
+    measured_location: GeoJSON.Point;
+    stop_place?: Array<
+      | { __typename?: 'stop_registry_ParentStopPlace' }
+      | {
+          __typename?: 'stop_registry_StopPlace';
+          id?: string | null;
+          transportMode?: StopRegistryTransportModeType | null;
+          weighting?: StopRegistryInterchangeWeightingType | null;
+          submode?: StopRegistrySubmodeType | null;
+          publicCode?: string | null;
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          alternativeNames?: Array<{
+            __typename?: 'stop_registry_AlternativeName';
+            nameType: StopRegistryNameType;
+            name: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            };
+          } | null> | null;
+          keyValues?: Array<{
+            __typename?: 'stop_registry_KeyValues';
+            key?: string | null;
+            values?: Array<string | null> | null;
+          } | null> | null;
+          privateCode?: {
+            __typename?: 'stop_registry_PrivateCode';
+            value?: string | null;
+            type?: string | null;
+          } | null;
+          description?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          geometry?: {
+            __typename?: 'stop_registry_GeoJSON';
+            coordinates?: any | null;
+            type?: StopRegistryGeoJsonType | null;
+          } | null;
+          topographicPlace?: {
+            __typename?: 'stop_registry_TopographicPlace';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+              lang?: string | null;
+            } | null;
+          } | null;
+          fareZones?: Array<{
+            __typename?: 'stop_registry_FareZone';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+              lang?: string | null;
+            } | null;
+          } | null> | null;
+          placeEquipments?: {
+            __typename?: 'stop_registry_PlaceEquipments';
+            generalSign?: Array<{
+              __typename?: 'stop_registry_GeneralSign';
+              signContentType?: StopRegistrySignContentType | null;
+              numberOfFrames?: number | null;
+              lineSignage?: boolean | null;
+              mainLineSign?: boolean | null;
+              replacesRailSign?: boolean | null;
+              privateCode?: {
+                __typename?: 'stop_registry_PrivateCode';
+                value?: string | null;
+                type?: string | null;
+              } | null;
+              note?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString';
+                lang?: string | null;
+                value?: string | null;
+              } | null;
+            } | null> | null;
+          } | null;
+          quays?: Array<{
+            __typename?: 'stop_registry_Quay';
+            id?: string | null;
+            publicCode?: string | null;
+            alternativeNames?: Array<{
+              __typename?: 'stop_registry_AlternativeName';
+              nameType: StopRegistryNameType;
+              name: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString';
+                lang?: string | null;
+                value?: string | null;
+              };
+            } | null> | null;
+            placeEquipments?: {
+              __typename?: 'stop_registry_PlaceEquipments';
+              id?: string | null;
+              shelterEquipment?: Array<{
+                __typename?: 'stop_registry_ShelterEquipment';
+                id?: string | null;
+                enclosed?: boolean | null;
+                stepFree?: boolean | null;
+                shelterType?: StopRegistryShelterType | null;
+                shelterElectricity?: StopRegistryShelterElectricity | null;
+                shelterLighting?: boolean | null;
+                shelterCondition?: StopRegistryShelterCondition | null;
+                timetableCabinets?: number | null;
+                trashCan?: boolean | null;
+                shelterHasDisplay?: boolean | null;
+                bicycleParking?: boolean | null;
+                leaningRail?: boolean | null;
+                outsideBench?: boolean | null;
+                shelterFasciaBoardTaping?: boolean | null;
+              } | null> | null;
+              cycleStorageEquipment?: Array<{
+                __typename?: 'stop_registry_CycleStorageEquipment';
+                cycleStorageType?: StopRegistryCycleStorageType | null;
+              } | null> | null;
+            } | null;
+          } | null> | null;
+          accessibilityAssessment?: {
+            __typename?: 'stop_registry_AccessibilityAssessment';
+            id?: string | null;
+            hslAccessibilityProperties?: {
+              __typename?: 'stop_registry_HslAccessibilityProperties';
+              id?: string | null;
+              stopAreaSideSlope?: number | null;
+              stopAreaLengthwiseSlope?: number | null;
+              endRampSlope?: number | null;
+              shelterLaneDistance?: number | null;
+              curbBackOfRailDistance?: number | null;
+              curbDriveSideOfRailDistance?: number | null;
+              structureLaneDistance?: number | null;
+              stopElevationFromRailTop?: number | null;
+              stopElevationFromSidewalk?: number | null;
+              lowerCleatHeight?: number | null;
+              serviceAreaWidth?: number | null;
+              serviceAreaLength?: number | null;
+              platformEdgeWarningArea?: boolean | null;
+              guidanceTiles?: boolean | null;
+              guidanceStripe?: boolean | null;
+              serviceAreaStripes?: boolean | null;
+              sidewalkAccessibleConnection?: boolean | null;
+              stopAreaSurroundingsAccessible?: boolean | null;
+              curvedStop?: boolean | null;
+              stopType?: StopRegistryStopType | null;
+              shelterType?: StopRegistryShelterWidthType | null;
+              guidanceType?: StopRegistryGuidanceType | null;
+              mapType?: StopRegistryMapType | null;
+              pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+              accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+            } | null;
+            limitations?: {
+              __typename?: 'stop_registry_AccessibilityLimitations';
+              id?: string | null;
+              version?: string | null;
+              audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+              escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+              liftFreeAccess?: StopRegistryLimitationStatusType | null;
+              stepFreeAccess?: StopRegistryLimitationStatusType | null;
+              wheelchairAccess?: StopRegistryLimitationStatusType | null;
+            } | null;
+          } | null;
+        }
+      | null
+    > | null;
+    timing_place?: {
+      __typename?: 'timing_pattern_timing_place';
+      timing_place_id: UUID;
+      label: string;
+    } | null;
+  }>;
+};
+
 export type ShelterEquipmentDetailsFragment = {
   __typename?: 'stop_registry_ShelterEquipment';
   id?: string | null;
@@ -72374,6 +72568,86 @@ export type GetStopDetailsByIdQueryResult = Apollo.QueryResult<
   GetStopDetailsByIdQuery,
   GetStopDetailsByIdQueryVariables
 >;
+export const GetHighestPriorityStopDetailsByLabelAndDateDocument = gql`
+  query GetHighestPriorityStopDetailsByLabelAndDate(
+    $label: String!
+    $observationDate: date!
+  ) {
+    service_pattern_scheduled_stop_point(
+      where: {
+        _and: [
+          { label: { _eq: $label } }
+          {
+            _and: [
+              { validity_start: { _lte: $observationDate } }
+              { validity_end: { _gte: $observationDate } }
+            ]
+          }
+        ]
+      }
+      order_by: { priority: desc }
+      limit: 1
+    ) {
+      ...scheduled_stop_point_detail_fields
+      stop_place {
+        ...stop_place_details
+      }
+    }
+  }
+  ${ScheduledStopPointDetailFieldsFragmentDoc}
+  ${StopPlaceDetailsFragmentDoc}
+`;
+
+/**
+ * __useGetHighestPriorityStopDetailsByLabelAndDateQuery__
+ *
+ * To run a query within a React component, call `useGetHighestPriorityStopDetailsByLabelAndDateQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHighestPriorityStopDetailsByLabelAndDateQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHighestPriorityStopDetailsByLabelAndDateQuery({
+ *   variables: {
+ *      label: // value for 'label'
+ *      observationDate: // value for 'observationDate'
+ *   },
+ * });
+ */
+export function useGetHighestPriorityStopDetailsByLabelAndDateQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >(GetHighestPriorityStopDetailsByLabelAndDateDocument, options);
+}
+export function useGetHighestPriorityStopDetailsByLabelAndDateLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >(GetHighestPriorityStopDetailsByLabelAndDateDocument, options);
+}
+export type GetHighestPriorityStopDetailsByLabelAndDateQueryHookResult =
+  ReturnType<typeof useGetHighestPriorityStopDetailsByLabelAndDateQuery>;
+export type GetHighestPriorityStopDetailsByLabelAndDateLazyQueryHookResult =
+  ReturnType<typeof useGetHighestPriorityStopDetailsByLabelAndDateLazyQuery>;
+export type GetHighestPriorityStopDetailsByLabelAndDateQueryResult =
+  Apollo.QueryResult<
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >;
 export const PatchScheduledStopPointTimingSettingsDocument = gql`
   mutation PatchScheduledStopPointTimingSettings(
     $stopLabel: String!
@@ -74682,6 +74956,14 @@ export function useGetStopDetailsByIdAsyncQuery() {
 export type GetStopDetailsByIdAsyncQueryHookResult = ReturnType<
   typeof useGetStopDetailsByIdAsyncQuery
 >;
+export function useGetHighestPriorityStopDetailsByLabelAndDateAsyncQuery() {
+  return useAsyncQuery<
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >(GetHighestPriorityStopDetailsByLabelAndDateDocument);
+}
+export type GetHighestPriorityStopDetailsByLabelAndDateAsyncQueryHookResult =
+  ReturnType<typeof useGetHighestPriorityStopDetailsByLabelAndDateAsyncQuery>;
 
 export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery() {
   return useAsyncQuery<

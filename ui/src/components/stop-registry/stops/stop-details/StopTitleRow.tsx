@@ -1,7 +1,8 @@
 import { StopWithDetails } from '../../../../hooks';
 
 interface Props {
-  stopDetails: StopWithDetails;
+  stopDetails: StopWithDetails | null | undefined;
+  defaultLabel: string;
 }
 
 const testIds = {
@@ -9,17 +10,20 @@ const testIds = {
   names: 'StopTitleRow::names',
 };
 
-export const StopTitleRow: React.FC<Props> = ({ stopDetails }) => {
+export const StopTitleRow: React.FC<Props> = ({
+  stopDetails,
+  defaultLabel,
+}) => {
   return (
     <div className="flex items-center">
       <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
       <h2 className="mr-2 font-bold" data-testid={testIds.label}>
-        {stopDetails.label}
+        {stopDetails?.label || defaultLabel}
       </h2>
       <div className="text-xl" data-testid={testIds.names}>
-        <span>{stopDetails.stop_place?.nameFin || '-'}</span>
+        <span>{stopDetails?.stop_place?.nameFin || '-'}</span>
         <span className="mx-2">|</span>
-        <span>{stopDetails.stop_place?.nameSwe || '-'}</span>
+        <span>{stopDetails?.stop_place?.nameSwe || '-'}</span>
       </div>
     </div>
   );

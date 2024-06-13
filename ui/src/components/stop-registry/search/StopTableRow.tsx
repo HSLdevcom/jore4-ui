@@ -29,9 +29,7 @@ export const StopTableRow = ({ className = '', stop }: Props): JSX.Element => {
       <td className={`w-auto px-8 py-3 pr-20 ${yBorderClassNames}`}>
         <Row className="mb-2 items-center font-bold leading-none">
           <Link
-            to={routeDetails[Path.stopDetails].getLink(
-              stop.scheduled_stop_point_id,
-            )}
+            to={routeDetails[Path.stopDetails].getLink(stop.label)}
             title={t('accessibility:stops.showStopDetails', {
               stopLabel: stop.label,
             })}

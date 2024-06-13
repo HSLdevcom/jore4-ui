@@ -1,4 +1,3 @@
-import { UUID } from '../../types';
 import {
   BasicDetailsSection,
   LocationDetailsSection,
@@ -18,8 +17,8 @@ export class StopDetailsPage {
 
   measurements = new MeasurementsSection();
 
-  visit(scheduledStopPointId: UUID) {
-    cy.visit(`/stop-registry/stops/${scheduledStopPointId}`);
+  visit(label: string) {
+    cy.visit(`/stop-registry/stops/${label}`);
   }
 
   page() {

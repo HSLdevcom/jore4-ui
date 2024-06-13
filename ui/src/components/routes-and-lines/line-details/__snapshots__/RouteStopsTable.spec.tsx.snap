@@ -449,7 +449,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <a
               data-testid="RouteStopsRow::label"
-              href="/stop-registry/stops/e3528755-711f-4e4f-9461-7931a2c4bc6d"
+              href="/stop-registry/stops/H1234"
               title="Näytä pysäkin H1234 tiedot"
             >
               H1234
@@ -572,7 +572,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 2`]
           >
             <a
               data-testid="RouteStopsRow::label"
-              href="/stop-registry/stops/f8eace87-7901-4438-bfee-bb6f24f1c4c4"
+              href="/stop-registry/stops/H1236"
               title="Näytä pysäkin H1236 tiedot"
             >
               H1236
@@ -918,7 +918,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <a
               data-testid="RouteStopsRow::label"
-              href="/stop-registry/stops/e3528755-711f-4e4f-9461-7931a2c4bc6d"
+              href="/stop-registry/stops/H1234"
               title="Näytä pysäkin H1234 tiedot"
             >
               H1234
@@ -1041,7 +1041,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <a
               data-testid="RouteStopsRow::label"
-              href="/stop-registry/stops/4d294d62-df17-46ff-9248-23f66f17fa87"
+              href="/stop-registry/stops/H1235"
               title="Näytä pysäkin H1235 tiedot"
             >
               H1235
@@ -1164,7 +1164,7 @@ exports[`<RouteStopsTable /> Renders the route with stops along its geometry 3`]
           >
             <a
               data-testid="RouteStopsRow::label"
-              href="/stop-registry/stops/f8eace87-7901-4438-bfee-bb6f24f1c4c4"
+              href="/stop-registry/stops/H1236"
               title="Näytä pysäkin H1236 tiedot"
             >
               H1236

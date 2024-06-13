@@ -121,6 +121,7 @@
   },
   "stopDetails": {
     "stopDetails": "Stop details",
+    "notValidOnObservationDate": "Stop is not valid on chosen date.",
     "detailTabs": {
       "basic": "Basic information",
       "technical": "Technical features",

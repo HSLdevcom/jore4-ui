@@ -586,9 +586,6 @@ describe(`<${RouteStopsTable.name} />`, () => {
     ).getByTestId('RouteStopsRow::label');
     expect(label).toHaveTextContent('H1234');
     expect(label.title).toContain('H1234');
-    expect(label).toHaveAttribute(
-      'href',
-      '/stop-registry/stops/e3528755-711f-4e4f-9461-7931a2c4bc6d',
-    );
+    expect(label).toHaveAttribute('href', '/stop-registry/stops/H1234');
   });
 });
