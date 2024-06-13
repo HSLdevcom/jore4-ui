@@ -96,9 +96,7 @@ export const RouteStopsRow = ({
     >
       <td className={`${alertStyle.listItemBorder || ''} p-4 pl-16 text-2xl`}>
         <a
-          href={routeDetails[Path.stopDetails].getLink(
-            stop.scheduled_stop_point_id,
-          )}
+          href={routeDetails[Path.stopDetails].getLink(stop.label)}
           data-testid={testIds.label}
           title={t('accessibility:stops.showStopDetails', { stopLabel })}
         >

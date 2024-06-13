@@ -66590,13 +66590,14 @@ export type ScheduledStopPointDetailFieldsFragment = {
   } | null;
 };
 
-export type GetStopDetailsByIdQueryVariables = Exact<{
-  scheduled_stop_point_id: Scalars['uuid'];
+export type GetHighestPriorityStopDetailsByLabelAndDateQueryVariables = Exact<{
+  label: Scalars['String'];
+  observationDate: Scalars['date'];
 }>;
 
-export type GetStopDetailsByIdQuery = {
+export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
   __typename?: 'query_root';
-  service_pattern_scheduled_stop_point_by_pk?: {
+  service_pattern_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
     priority: number;
     direction: InfrastructureNetworkDirectionEnum;
@@ -66780,7 +66781,7 @@ export type GetStopDetailsByIdQuery = {
       timing_place_id: UUID;
       label: string;
     } | null;
-  } | null;
+  }>;
 };
 
 export type ShelterEquipmentDetailsFragment = {
@@ -72309,10 +72310,25 @@ export type UpdateStopPlaceMutationOptions = Apollo.BaseMutationOptions<
   UpdateStopPlaceMutation,
   UpdateStopPlaceMutationVariables
 >;
-export const GetStopDetailsByIdDocument = gql`
-  query GetStopDetailsById($scheduled_stop_point_id: uuid!) {
-    service_pattern_scheduled_stop_point_by_pk(
-      scheduled_stop_point_id: $scheduled_stop_point_id
+export const GetHighestPriorityStopDetailsByLabelAndDateDocument = gql`
+  query GetHighestPriorityStopDetailsByLabelAndDate(
+    $label: String!
+    $observationDate: date!
+  ) {
+    service_pattern_scheduled_stop_point(
+      where: {
+        _and: [
+          { label: { _eq: $label } }
+          {
+            _and: [
+              { validity_start: { _lte: $observationDate } }
+              { validity_end: { _gte: $observationDate } }
+            ]
+          }
+        ]
+      }
+      order_by: { priority: desc }
+      limit: 1
     ) {
       ...scheduled_stop_point_detail_fields
       stop_place {
@@ -72325,55 +72341,55 @@ export const GetStopDetailsByIdDocument = gql`
 `;
 
 /**
- * __useGetStopDetailsByIdQuery__
+ * __useGetHighestPriorityStopDetailsByLabelAndDateQuery__
  *
- * To run a query within a React component, call `useGetStopDetailsByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopDetailsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetHighestPriorityStopDetailsByLabelAndDateQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHighestPriorityStopDetailsByLabelAndDateQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetStopDetailsByIdQuery({
+ * const { data, loading, error } = useGetHighestPriorityStopDetailsByLabelAndDateQuery({
  *   variables: {
- *      scheduled_stop_point_id: // value for 'scheduled_stop_point_id'
+ *      label: // value for 'label'
+ *      observationDate: // value for 'observationDate'
  *   },
  * });
  */
-export function useGetStopDetailsByIdQuery(
+export function useGetHighestPriorityStopDetailsByLabelAndDateQuery(
   baseOptions: Apollo.QueryHookOptions<
-    GetStopDetailsByIdQuery,
-    GetStopDetailsByIdQueryVariables
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<
-    GetStopDetailsByIdQuery,
-    GetStopDetailsByIdQueryVariables
-  >(GetStopDetailsByIdDocument, options);
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >(GetHighestPriorityStopDetailsByLabelAndDateDocument, options);
 }
-export function useGetStopDetailsByIdLazyQuery(
+export function useGetHighestPriorityStopDetailsByLabelAndDateLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetStopDetailsByIdQuery,
-    GetStopDetailsByIdQueryVariables
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<
-    GetStopDetailsByIdQuery,
-    GetStopDetailsByIdQueryVariables
-  >(GetStopDetailsByIdDocument, options);
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >(GetHighestPriorityStopDetailsByLabelAndDateDocument, options);
 }
-export type GetStopDetailsByIdQueryHookResult = ReturnType<
-  typeof useGetStopDetailsByIdQuery
->;
-export type GetStopDetailsByIdLazyQueryHookResult = ReturnType<
-  typeof useGetStopDetailsByIdLazyQuery
->;
-export type GetStopDetailsByIdQueryResult = Apollo.QueryResult<
-  GetStopDetailsByIdQuery,
-  GetStopDetailsByIdQueryVariables
->;
+export type GetHighestPriorityStopDetailsByLabelAndDateQueryHookResult =
+  ReturnType<typeof useGetHighestPriorityStopDetailsByLabelAndDateQuery>;
+export type GetHighestPriorityStopDetailsByLabelAndDateLazyQueryHookResult =
+  ReturnType<typeof useGetHighestPriorityStopDetailsByLabelAndDateLazyQuery>;
+export type GetHighestPriorityStopDetailsByLabelAndDateQueryResult =
+  Apollo.QueryResult<
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >;
 export const PatchScheduledStopPointTimingSettingsDocument = gql`
   mutation PatchScheduledStopPointTimingSettings(
     $stopLabel: String!
@@ -74673,15 +74689,14 @@ export type SearchStopsAsyncQueryHookResult = ReturnType<
   typeof useSearchStopsAsyncQuery
 >;
 
-export function useGetStopDetailsByIdAsyncQuery() {
+export function useGetHighestPriorityStopDetailsByLabelAndDateAsyncQuery() {
   return useAsyncQuery<
-    GetStopDetailsByIdQuery,
-    GetStopDetailsByIdQueryVariables
-  >(GetStopDetailsByIdDocument);
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >(GetHighestPriorityStopDetailsByLabelAndDateDocument);
 }
-export type GetStopDetailsByIdAsyncQueryHookResult = ReturnType<
-  typeof useGetStopDetailsByIdAsyncQuery
->;
+export type GetHighestPriorityStopDetailsByLabelAndDateAsyncQueryHookResult =
+  ReturnType<typeof useGetHighestPriorityStopDetailsByLabelAndDateAsyncQuery>;
 
 export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery() {
   return useAsyncQuery<
