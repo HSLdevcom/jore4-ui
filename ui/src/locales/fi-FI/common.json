@@ -121,6 +121,7 @@
   },
   "stopDetails": {
     "stopDetails": "Pysäkkitiedot",
+    "notValidOnObservationDate": "Pysäkki ei ole voimassa valittuna päivänä.",
     "detailTabs": {
       "basic": "Perustiedot",
       "technical": "Tekniset ominaisuudet",

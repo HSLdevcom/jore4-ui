@@ -269,7 +269,7 @@ describe('Stop details', () => {
     'should view details for a stop',
     { tags: [Tag.StopRegistry, Tag.Smoke] },
     () => {
-      stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+      stopDetailsPage.visit('H2003');
       stopDetailsPage.page().shouldBeVisible();
 
       stopDetailsPage.label().shouldHaveText('H2003');
@@ -297,7 +297,7 @@ describe('Stop details', () => {
       'should view and edit basic details text fields',
       { tags: [Tag.StopRegistry] },
       () => {
-        stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+        stopDetailsPage.visit('H2003');
         stopDetailsPage.page().shouldBeVisible();
 
         bdView.getContent().shouldBeVisible();
@@ -385,7 +385,7 @@ describe('Stop details', () => {
       'should view and edit basic details dropdowns and checkboxes',
       { tags: [Tag.StopRegistry] },
       () => {
-        stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+        stopDetailsPage.visit('H2003');
         stopDetailsPage.page().shouldBeVisible();
 
         bdView.getContent().shouldBeVisible();
@@ -480,7 +480,7 @@ describe('Stop details', () => {
         { tags: [Tag.StopRegistry] },
         () => {
           const { createTimingPlaceForm } = bdForm;
-          stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+          stopDetailsPage.visit('H2003');
           stopDetailsPage.page().shouldBeVisible();
 
           bdView.getContent().shouldBeVisible();
@@ -524,7 +524,7 @@ describe('Stop details', () => {
     });
 
     it('should view location details', { tags: [Tag.StopRegistry] }, () => {
-      stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+      stopDetailsPage.visit('H2003');
       stopDetailsPage.page().shouldBeVisible();
 
       verifyInitialLocationDetails();
@@ -587,7 +587,7 @@ describe('Stop details', () => {
       'should view and edit signage details',
       { tags: [Tag.StopRegistry] },
       () => {
-        stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+        stopDetailsPage.visit('H2003');
         stopDetailsPage.page().shouldBeVisible();
 
         verifyInitialSignageDetails();
@@ -631,7 +631,7 @@ describe('Stop details', () => {
 
   describe('technical features', () => {
     beforeEach(() => {
-      stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+      stopDetailsPage.visit('H2003');
       stopDetailsPage.page().shouldBeVisible();
       stopDetailsPage.label().shouldHaveText('H2003');
 
@@ -936,7 +936,7 @@ describe('Stop details', () => {
 
   describe('info spots', () => {
     it('should view info spots', { tags: [Tag.StopRegistry] }, () => {
-      stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+      stopDetailsPage.visit('H2003');
       stopDetailsPage.page().shouldBeVisible();
       stopDetailsPage.label().shouldHaveText('H2003');
 
@@ -950,7 +950,7 @@ describe('Stop details', () => {
 
   // A regression test to ensure that our mutations don't eg. reset any fields they are not supposed to.
   it('should keep stop place intact when submitting without actual changes', () => {
-    stopDetailsPage.visit(dbResources.stops[1].scheduled_stop_point_id);
+    stopDetailsPage.visit('H2003');
     stopDetailsPage.page().shouldBeVisible();
 
     verifyInitialBasicDetails();

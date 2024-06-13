@@ -52,9 +52,7 @@ export const StopPopup = ({
             <Row className="items-center">
               <h3>
                 <a
-                  href={routeDetails[Path.stopDetails].getLink(
-                    stop.scheduled_stop_point_id,
-                  )}
+                  href={routeDetails[Path.stopDetails].getLink(stop.label)}
                   target="_blank"
                   rel="noreferrer"
                   data-testid={testIds.label}
