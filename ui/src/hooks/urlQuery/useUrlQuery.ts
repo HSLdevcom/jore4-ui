@@ -248,10 +248,10 @@ export const useUrlQuery = () => {
   const getEnumArrayFromUrlQuery = <T extends object>(
     paramName: string,
     enumType: T,
-  ): T[] | undefined => {
+  ): T[keyof T][] | undefined => {
     return getArrayFromUrlQuery(paramName)
-      ?.filter((s) => Object.values(enumType).includes(s))
-      .map((s) => s as unknown as typeof enumType);
+      ?.filter((s) => s && Object.values(enumType).includes(s))
+      .map((s) => s as T[keyof T]);
   };
 
   /** Deletes parameter from URL query
