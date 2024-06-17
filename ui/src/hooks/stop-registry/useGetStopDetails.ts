@@ -41,9 +41,31 @@ const GQL_GET_HIGHEST_PRIORITY_STOP_DETAILS_BY_LABEL_AND_DATE = gql`
         _and: [
           { label: { _eq: $label } }
           {
-            _and: [
-              { validity_start: { _lte: $observationDate } }
-              { validity_end: { _gte: $observationDate } }
+            _or: [
+              {
+                _and: [
+                  { validity_start: { _lte: $observationDate } }
+                  { validity_end: { _gte: $observationDate } }
+                ]
+              }
+              {
+                _and: [
+                  { validity_start: { _lte: $observationDate } }
+                  { validity_end: { _is_null: true } }
+                ]
+              }
+              {
+                _and: [
+                  { validity_start: { _is_null: true } }
+                  { validity_end: { _gte: $observationDate } }
+                ]
+              }
+              {
+                _and: [
+                  { validity_start: { _is_null: true } }
+                  { validity_end: { _is_null: true } }
+                ]
+              }
             ]
           }
         ]

@@ -72320,9 +72320,31 @@ export const GetHighestPriorityStopDetailsByLabelAndDateDocument = gql`
         _and: [
           { label: { _eq: $label } }
           {
-            _and: [
-              { validity_start: { _lte: $observationDate } }
-              { validity_end: { _gte: $observationDate } }
+            _or: [
+              {
+                _and: [
+                  { validity_start: { _lte: $observationDate } }
+                  { validity_end: { _gte: $observationDate } }
+                ]
+              }
+              {
+                _and: [
+                  { validity_start: { _lte: $observationDate } }
+                  { validity_end: { _is_null: true } }
+                ]
+              }
+              {
+                _and: [
+                  { validity_start: { _is_null: true } }
+                  { validity_end: { _gte: $observationDate } }
+                ]
+              }
+              {
+                _and: [
+                  { validity_start: { _is_null: true } }
+                  { validity_end: { _is_null: true } }
+                ]
+              }
             ]
           }
         ]
