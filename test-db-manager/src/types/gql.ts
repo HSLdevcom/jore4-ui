@@ -43,3 +43,13 @@ export interface UpdateScheduledStopPointStopPlaceRefResult {
     };
   };
 }
+
+export interface InsertStopAreaResult {
+  data: {
+    stop_registry: {
+      mutateGroupOfStopPlaces: {
+        id: string;
+      };
+    };
+  };
+}

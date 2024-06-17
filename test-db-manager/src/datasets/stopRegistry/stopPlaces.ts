@@ -73,6 +73,11 @@ const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput
     wheelchairAccess: StopRegistryLimitationStatusType.Unknown,
   };
 
+export type StopPlaceNetexRef = {
+  label: string;
+  netex: string;
+};
+
 export type StopPlaceInput = {
   label: string;
   stopPlace: Partial<StopRegistryStopPlace>;
