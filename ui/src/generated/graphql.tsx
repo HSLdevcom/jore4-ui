@@ -9627,11 +9627,13 @@ export enum StopRegistryGeoJsonType {
 export type StopRegistryGroupOfStopPlaces = {
   __typename?: 'stop_registry_GroupOfStopPlaces';
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']>;
   members?: Maybe<Array<Maybe<StopRegistryStopPlaceInterface>>>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   purposeOfGrouping?: Maybe<StopRegistryPurposeOfGrouping>;
   shortName?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  validBetween?: Maybe<StopRegistryValidBetween>;
   version?: Maybe<Scalars['String']>;
   versionComment?: Maybe<Scalars['String']>;
 };
@@ -9641,6 +9643,7 @@ export type StopRegistryGroupOfStopPlacesInput = {
     Array<InputMaybe<StopRegistryAlternativeNameInput>>
   >;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   /** Ignore ID when creating new */
   id?: InputMaybe<Scalars['String']>;
   /** References to group of stop places members. Stop place IDs. */
@@ -9651,6 +9654,7 @@ export type StopRegistryGroupOfStopPlacesInput = {
   /** References to purpose of grouping */
   purposeOfGrouping?: InputMaybe<StopRegistryVersionLessEntityRefInput>;
   shortName?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  validBetween?: InputMaybe<StopRegistryValidBetweenInput>;
   versionComment?: InputMaybe<Scalars['String']>;
 };
 
