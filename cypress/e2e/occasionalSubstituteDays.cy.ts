@@ -507,6 +507,10 @@ describe('Occasional substitute operating periods', () => {
         '2025-03-08',
       );
       substituteDaySettingsPage.observationPeriodForm.setEndDate('2025-03-08');
+      substituteDaySettingsPage.commonSubstitutePeriodForm
+        .getSaveButton()
+        .shouldBeVisible();
+
       substituteDaySettingsPage.occasionalSubstitutePeriodForm.deleteNthOccasionalSubstituteDay(
         0,
       );
