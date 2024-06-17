@@ -7,7 +7,7 @@ export type StopSearchConditions = {
   elyNumber: string;
   municipalities: string;
   address?: string;
-  label?: string;
+  labelOrName?: string;
 };
 
 export enum StopSearchQueryParameterNames {
@@ -20,7 +20,7 @@ export enum StopSearchQueryParameterNames {
 
 const DEFAULT_ELY_NUMBER = '';
 const DEFAULT_SEARCH_KEY = '';
-const DEFAULT_SEARCH_BY = SearchBy.Label;
+const DEFAULT_SEARCH_BY = SearchBy.LabelOrName;
 const DEFAULT_MUNICIPALITIES = [
   ...getEnumValues(StopRegistryMunicipality),
   AllOptionEnum.All,
