@@ -3,6 +3,7 @@ import {
   GeographyComparisonExp,
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
+  StopsDatabaseStopPlaceNewestVersionBoolExp,
 } from '../generated/graphql';
 import { Viewport } from '../redux/types/mapModal';
 import {
@@ -194,7 +195,9 @@ export const buildIsPresetSubstituteOperatingPeriodFilter = (
   },
 });
 
-export const buildTiamatStopQuayPublicCodeLikeGqlFilter = (label: string) => ({
+export const buildTiamatStopQuayPublicCodeLikeGqlFilter = (
+  label: string,
+): StopsDatabaseStopPlaceNewestVersionBoolExp => ({
   stop_place_quays: {
     quay: {
       public_code: { _ilike: label },
@@ -234,3 +237,72 @@ export const buildTiamatMunicipalityGqlFilter = (
     topographic_place_id: { _in: value },
   };
 };
+
+enum LANG {
+  SWE = 'swe',
+  FIN = 'fin',
+}
+
+enum NAME_TYPE {
+  TRANSLATION = 'translation',
+  ALIAS = 'alias',
+  LABEL = 'label',
+}
+
+const buildLanguageFilter = (
+  label: string,
+  lang: LANG,
+): StopsDatabaseStopPlaceNewestVersionBoolExp => {
+  return {
+    name_value: { _ilike: label },
+    name_lang: { _eq: lang },
+  };
+};
+
+const buildAlternativeNameFilter = (
+  label: string,
+  nameType: NAME_TYPE,
+  lang: LANG,
+): StopsDatabaseStopPlaceNewestVersionBoolExp => ({
+  stop_place_alternative_names: {
+    alternative_name: {
+      name_value: { _ilike: label },
+      name_type: { _ilike: nameType },
+      name_lang: { _eq: lang },
+    },
+  },
+});
+
+export const buildShortNameFilter = (
+  label: string,
+  nameType: NAME_TYPE,
+  lang: LANG,
+): StopsDatabaseStopPlaceNewestVersionBoolExp => ({
+  stop_place_quays: {
+    quay: {
+      quay_alternative_names: {
+        alternative_name: {
+          name_value: { _ilike: label },
+          name_type: { _ilike: nameType },
+          name_lang: { _eq: lang },
+        },
+      },
+    },
+  },
+});
+
+export const buildTiamatStopQuayPublicCodeOrNameLikeGqlFilter = (
+  label: string,
+) => ({
+  _or: [
+    buildTiamatStopQuayPublicCodeLikeGqlFilter(label),
+    buildLanguageFilter(label, LANG.FIN),
+    buildAlternativeNameFilter(label, NAME_TYPE.TRANSLATION, LANG.SWE),
+    buildAlternativeNameFilter(label, NAME_TYPE.ALIAS, LANG.FIN),
+    buildAlternativeNameFilter(label, NAME_TYPE.ALIAS, LANG.SWE),
+    buildAlternativeNameFilter(label, NAME_TYPE.LABEL, LANG.FIN),
+    buildAlternativeNameFilter(label, NAME_TYPE.LABEL, LANG.SWE),
+    buildShortNameFilter(label, NAME_TYPE.ALIAS, LANG.FIN),
+    buildShortNameFilter(label, NAME_TYPE.ALIAS, LANG.SWE),
+  ],
+});
