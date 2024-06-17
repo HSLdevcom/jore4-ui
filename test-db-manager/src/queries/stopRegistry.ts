@@ -1,6 +1,9 @@
 import gql from 'graphql-tag';
 import { getGqlString } from '../builders/mutations/utils';
-import { StopRegistryStopPlace } from '../generated/graphql';
+import {
+  StopRegistryGroupOfStopPlacesInput,
+  StopRegistryStopPlace,
+} from '../generated/graphql';
 import { InsertStopPlaceResult } from '../types';
 
 const GQL_INSERT_STOP_PLACE = gql`
@@ -17,6 +20,16 @@ const GQL_DELETE_STOP_PLACE = gql`
   mutation DeleteStopPlace($stopPlaceId: String!) {
     stop_registry {
       deleteStopPlace(stopPlaceId: $stopPlaceId)
+    }
+  }
+`;
+
+const GQL_INSERT_STOP_AREA = gql`
+  mutation InsertStopArea($stopArea: stop_registry_GroupOfStopPlacesInput!) {
+    stop_registry {
+      mutateGroupOfStopPlaces(GroupOfStopPlaces: $stopArea) {
+        id
+      }
     }
   }
 `;
@@ -38,5 +51,14 @@ export const mapToDeleteStopPlaceMutation = (stopPlaceId: string) => {
   return {
     query: getGqlString(GQL_DELETE_STOP_PLACE),
     variables: { stopPlaceId },
+  };
+};
+
+export const mapToInsertStopAreaMutation = (
+  input: Partial<StopRegistryGroupOfStopPlacesInput>,
+) => {
+  return {
+    query: getGqlString(GQL_INSERT_STOP_AREA),
+    variables: { stopArea: input },
   };
 };
