@@ -20,8 +20,11 @@ import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
 import { Tag } from '../enums';
 import {
+  Navbar,
   RouteTimetablesSectionLegacy,
+  SearchResultsPage,
   SubstituteDaySettingsPage,
+  TimetablesMainPage,
   Toast,
   VehicleScheduleDetailsPage,
   VehicleServiceTable,
@@ -399,6 +402,9 @@ describe('Occasional substitute operating periods', () => {
   let substituteDaySettingsPage: SubstituteDaySettingsPage;
   let toast: Toast;
   let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
+  let navbar: Navbar;
+  let searchResultsPage: SearchResultsPage;
+  let timetablesMainPage: TimetablesMainPage;
 
   const baseDbResources = {
     lines,
@@ -435,13 +441,14 @@ describe('Occasional substitute operating periods', () => {
     substituteDaySettingsPage = new SubstituteDaySettingsPage();
     toast = new Toast();
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
+    navbar = new Navbar();
+    searchResultsPage = new SearchResultsPage();
+    timetablesMainPage = new TimetablesMainPage();
 
     cy.setupTests();
     cy.mockLogin();
 
     cy.task('insertHslTimetablesDatasetToDb', timetableDataInput);
-
-    cy.visit('/timetables/settings');
   });
 
   afterEach(() => {
@@ -453,6 +460,7 @@ describe('Occasional substitute operating periods', () => {
     'Should create and delete an occasional substitute operating period successfully',
     { tags: [Tag.Timetables, Tag.Smoke] },
     () => {
+      cy.visit('/timetables/settings');
       // Set observation period so that the saved ocasional substitute day will
       // not be in the range of this period
       substituteDaySettingsPage.observationPeriodForm.setStartDate(
@@ -485,10 +493,17 @@ describe('Occasional substitute operating periods', () => {
         .should('equal', 200);
       toast.checkWarningToastHasMessage('Suodatusjaksoa muutettu');
 
-      // Check that the Saturday schedule is the same as the Sunday schedule
-      cy.visit(
-        `timetables/lines/${lines[0].line_id}?observationDate=2025-03-08&routeLabels=${routes[0].label}`,
+      // Navigate to route's timetable
+      navbar.getTimetablesLink().click();
+      timetablesMainPage.searchContainer
+        .getSearchInput()
+        .type(`${routes[0].label}{enter}`);
+      searchResultsPage.getRouteLineTableRowByLabel(routes[0].label).click();
+      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+        '2025-03-08',
       );
+
+      // Check that the Saturday schedule is the same as the Sunday schedule
       vehicleScheduleDetailsPage.getShowAllValidSwitch().click();
       route99InboundSaturdayVehicleService
         .get()
@@ -502,7 +517,8 @@ describe('Occasional substitute operating periods', () => {
         .and('contain', '11:05 ... 13:05');
 
       // Remove the substitute day
-      cy.visit('/timetables/settings');
+      navbar.getTimetablesLink().click();
+      timetablesMainPage.getSettingsButton().click();
       substituteDaySettingsPage.observationPeriodForm.setStartDate(
         '2025-03-08',
       );
@@ -518,11 +534,17 @@ describe('Occasional substitute operating periods', () => {
         .getSaveButton()
         .click();
 
-      // Check that the Saturday schedule is not the same as the Sunday schedule
-      cy.visit(
-        `timetables/lines/${lines[0].line_id}?observationDate=2025-03-08&routeLabels=${routes[0].label}`,
+      // Navigate to route's timetable
+      navbar.getTimetablesLink().click();
+      timetablesMainPage.searchContainer
+        .getSearchInput()
+        .type(`${routes[0].label}{enter}`);
+      searchResultsPage.getRouteLineTableRowByLabel(routes[0].label).click();
+      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+        '2025-03-08',
       );
-      vehicleScheduleDetailsPage.getShowAllValidSwitch().click();
+
+      // Check that the Saturday schedule is not the same as the Sunday schedule
       route99InboundSaturdayVehicleService
         .get()
         .should('contain', '1.1.2025 - 31.12.2025')
@@ -540,6 +562,7 @@ describe('Occasional substitute operating periods', () => {
     "Should create a 'No traffic' day successfully",
     { tags: [Tag.Timetables] },
     () => {
+      cy.visit('/timetables/settings');
       substituteDaySettingsPage.occasionalSubstitutePeriodForm
         .getAddOccasionalSubstitutePeriodButton()
         .click();
@@ -564,17 +587,26 @@ describe('Occasional substitute operating periods', () => {
         .its('response.statusCode')
         .should('equal', 200);
 
-      // Check the timetable on the date when there should be no operation
-      cy.visit(
-        `timetables/lines/${lines[0].line_id}?observationDate=2025-01-18&routeLabels=${routes[0].label}`,
+      // Navigate to route's timetable
+      navbar.getTimetablesLink().click();
+      timetablesMainPage.searchContainer
+        .getSearchInput()
+        .type(`${routes[0].label}{enter}`);
+      searchResultsPage.getRouteLineTableRowByLabel(routes[0].label).click();
+      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+        '2025-01-18',
       );
+
+      // Check the timetable on the date when there should be no operation
       route99InboundSaturdayVehicleService
         .get()
         .should('contain', 'Ei liikennöintiä');
-      // Check that next Saturday's timetable remains unaffected
-      cy.visit(
-        `timetables/lines/${lines[0].line_id}?observationDate=2025-01-25&routeLabels=${routes[0].label}`,
+
+      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+        '2025-01-25',
       );
+
+      // Check that next Saturday's timetable remains unaffected
       route99InboundSaturdayVehicleService
         .get()
         .should('contain', '1.1.2025 - 31.12.2025')
@@ -587,6 +619,7 @@ describe('Occasional substitute operating periods', () => {
     'Should create a substitute period based on a partial day successfully',
     { tags: [Tag.Timetables] },
     () => {
+      cy.visit('/timetables/settings');
       substituteDaySettingsPage.occasionalSubstitutePeriodForm
         .getAddOccasionalSubstitutePeriodButton()
         .click();
@@ -611,18 +644,26 @@ describe('Occasional substitute operating periods', () => {
         .its('response.statusCode')
         .should('equal', 200);
 
-      // Check that the setting was applied to the selected date
-      cy.visit(
-        `timetables/lines/${lines[0].line_id}?observationDate=2025-03-15&routeLabels=${routes[0].label}`,
+      // Navigate to route's timetable
+      navbar.getTimetablesLink().click();
+      timetablesMainPage.searchContainer
+        .getSearchInput()
+        .type(`${routes[0].label}{enter}`);
+      searchResultsPage.getRouteLineTableRowByLabel(routes[0].label).click();
+      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+        '2025-03-15',
       );
+
+      // Check that the setting was applied to the selected date
       route99InboundSaturdayVehicleService
         .get()
         .should('contain', '15.3.2025 - 15.3.2025')
         .and('contain', '1 lähtöä')
         .and('contain', '12:20 ... 12:20');
+
       // Check that next Saturday's timetable remains unaffected
-      cy.visit(
-        `timetables/lines/${lines[0].line_id}?observationDate=2025-03-22&routeLabels=${routes[0].label}`,
+      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+        '2025-03-22',
       );
       route99InboundSaturdayVehicleService
         .get()
