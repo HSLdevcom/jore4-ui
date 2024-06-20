@@ -11,6 +11,10 @@ export class Navbar {
     return cy.getByTestId('NavLinks::timetables.timetables');
   }
 
+  getStopsLink() {
+    return cy.getByTestId('NavLinks::stops.stops');
+  }
+
   getLanguageDropdown() {
     return cy.getByTestId('LanguageDropdown::toggleDropdown');
   }

@@ -4,7 +4,14 @@ import {
   timingPlaces,
 } from '@hsl/jore4-test-db-manager';
 import { Tag } from '../enums';
-import { ChangeValidityForm, MapModal } from '../pageObjects';
+import {
+  ChangeValidityForm,
+  MapModal,
+  Navbar,
+  StopDetailsPage,
+  StopSearchBar,
+  StopSearchResultsPage,
+} from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
 import { insertToDbHelper, removeFromDbHelper } from '../utils';
 import { deleteStopsByLabels } from './utils';
@@ -29,6 +36,10 @@ describe('Stop creation tests', () => {
   let mapModal: MapModal;
   let mapFilterPanel: FilterPanel;
   let changeValidityForm: ChangeValidityForm;
+  let navbar: Navbar;
+  let stopSearchBar: StopSearchBar;
+  let stopSearchResultsPage: StopSearchResultsPage;
+  let stopDetailsPage: StopDetailsPage;
 
   beforeEach(() => {
     clearDatabase();
@@ -37,6 +48,10 @@ describe('Stop creation tests', () => {
     mapModal = new MapModal();
     mapFilterPanel = new FilterPanel();
     changeValidityForm = new ChangeValidityForm();
+    navbar = new Navbar();
+    stopSearchBar = new StopSearchBar();
+    stopSearchResultsPage = new StopSearchResultsPage();
+    stopDetailsPage = new StopDetailsPage();
 
     cy.setupTests();
     cy.mockLogin();
@@ -192,6 +207,35 @@ describe('Stop creation tests', () => {
       mapModal.stopForm
         .getTimingPlaceDropdown()
         .should('contain', timingPlaces[0].label);
+    },
+  );
+
+  it(
+    'Should create stop and have its stop registry details correctly',
+    { tags: [Tag.Map, Tag.Stops, Tag.StopRegistry], scrollBehavior: 'bottom' },
+    () => {
+      mapModal.mapFooter.addStop();
+      mapModal.map.clickRelativePoint(43.5, 53);
+
+      mapModal.stopForm.fillForm({
+        label: 'T0001',
+        validityStartISODate: '2022-01-01',
+        priority: Priority.Standard,
+      });
+
+      mapModal.stopForm.save();
+
+      mapModal.checkStopSubmitSuccessToast();
+      mapModal.getCloseButton().click();
+
+      navbar.getStopsLink().click();
+
+      stopSearchBar.getSearchInput().type('T0001{enter}');
+      stopSearchResultsPage.getRowLinkByLabel('T0001').click();
+
+      // NOTE: After adding the name inputs to stop creation flow, this will fail and
+      // needs to be updated to the correct names
+      stopDetailsPage.names().shouldHaveText('T0001|-');
     },
   );
 });
