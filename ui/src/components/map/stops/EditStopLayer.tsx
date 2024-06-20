@@ -81,7 +81,13 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
       Operation.SaveStop,
     );
 
-    const { mapCreateChangesToVariables, insertStopMutation } = useCreateStop();
+    const {
+      mapCreateChangesToVariables,
+      insertStopMutation,
+      mapCreateChangesToTiamatVariables,
+      insertStopPlaceMutation,
+      updateScheduledStopPointStopPlaceRefMutation,
+    } = useCreateStop();
     const {
       prepareEdit,
       mapEditChangesToVariables,
@@ -190,11 +196,39 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
       setEditChanges(undefined);
     };
 
+    /**
+     * Inserts scheduled_stop_point, then inserts stopPlace to tiamat
+     * Then updates the scheduled_stop_point's stop_place_ref
+     * Note: this might all change if we get a transaction service, but for now
+     * this is the way to go.
+     */
     const doCreateStop = async (changes: CreateChanges) => {
       setIsLoadingSaveStop(true);
       try {
         const variables = mapCreateChangesToVariables(changes);
-        await insertStopMutation(variables);
+        const stopResult = await insertStopMutation(variables);
+
+        if (
+          !stopResult.data?.insert_service_pattern_scheduled_stop_point_one
+            ?.scheduled_stop_point_id
+        ) {
+          return;
+        }
+
+        const tiamatVariables = mapCreateChangesToTiamatVariables(changes);
+
+        const stopPlaceResult = await insertStopPlaceMutation(tiamatVariables);
+
+        updateScheduledStopPointStopPlaceRefMutation({
+          variables: {
+            scheduled_stop_point_id:
+              stopResult.data?.insert_service_pattern_scheduled_stop_point_one
+                ?.scheduled_stop_point_id,
+            stop_place_ref:
+              stopPlaceResult?.data?.stop_registry?.mutateStopPlace &&
+              stopPlaceResult?.data?.stop_registry?.mutateStopPlace[0]?.id,
+          },
+        });
 
         showSuccessToast(t('stops.saveSuccess'));
         updateObservationDateByValidityPeriodIfNeeded(changes.stopToCreate);
