@@ -141,4 +141,8 @@ export class MapModal {
       .its('response.statusCode')
       .should('equal', 200);
   }
+
+  getCloseButton() {
+    return cy.getByTestId('MapHeader::closeButton');
+  }
 }

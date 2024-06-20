@@ -18,4 +18,8 @@ export class StopSearchResultsPage {
   getRowByLabel(label: string) {
     return cy.getByTestId(`StopTableRow::row::${label}`);
   }
+
+  getRowLinkByLabel(label: string) {
+    return this.getRowByLabel(label).findByTestId('StopTableRow::link');
+  }
 }
