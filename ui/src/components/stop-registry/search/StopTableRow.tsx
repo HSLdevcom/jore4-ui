@@ -12,6 +12,7 @@ interface Props {
 
 const testIds = {
   row: (label: string) => `StopTableRow::row::${label}`,
+  link: 'StopTableRow::link',
 };
 
 export const StopTableRow = ({ className = '', stop }: Props): JSX.Element => {
@@ -30,6 +31,7 @@ export const StopTableRow = ({ className = '', stop }: Props): JSX.Element => {
         <Row className="mb-2 items-center font-bold leading-none">
           <Link
             to={routeDetails[Path.stopDetails].getLink(stop.label)}
+            data-testid={testIds.link}
             title={t('accessibility:stops.showStopDetails', {
               stopLabel: stop.label,
             })}
