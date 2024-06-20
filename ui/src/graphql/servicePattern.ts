@@ -124,23 +124,6 @@ const GET_STOPS_BY_LABELS = gql`
   }
 `;
 
-const INSERT_STOP = gql`
-  mutation InsertStop(
-    $object: service_pattern_scheduled_stop_point_insert_input!
-  ) {
-    insert_service_pattern_scheduled_stop_point_one(object: $object) {
-      scheduled_stop_point_id
-      located_on_infrastructure_link_id
-      direction
-      priority
-      measured_location
-      label
-      validity_start
-      validity_end
-    }
-  }
-`;
-
 const EDIT_STOP = gql`
   mutation EditStop(
     $stop_id: uuid!
