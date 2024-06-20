@@ -65088,25 +65088,6 @@ export type GetStopsByLabelsQuery = {
   }>;
 };
 
-export type InsertStopMutationVariables = Exact<{
-  object: ServicePatternScheduledStopPointInsertInput;
-}>;
-
-export type InsertStopMutation = {
-  __typename?: 'mutation_root';
-  insert_service_pattern_scheduled_stop_point_one?: {
-    __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    located_on_infrastructure_link_id: UUID;
-    direction: InfrastructureNetworkDirectionEnum;
-    priority: number;
-    measured_location: GeoJSON.Point;
-    label: string;
-    validity_start?: luxon.DateTime | null;
-    validity_end?: luxon.DateTime | null;
-  } | null;
-};
-
 export type EditStopMutationVariables = Exact<{
   stop_id: Scalars['uuid'];
   stop_label: Scalars['String'];
@@ -66401,6 +66382,26 @@ export type SearchStopsQuery = {
   } | null;
 };
 
+export type InsertStopPlaceMutationVariables = Exact<{
+  object?: InputMaybe<StopRegistryStopPlaceInput>;
+}>;
+
+export type InsertStopPlaceMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateStopPlace?: Array<{
+      __typename?: 'stop_registry_StopPlace';
+      publicCode?: string | null;
+      id?: string | null;
+      quays?: Array<{
+        __typename?: 'stop_registry_Quay';
+        publicCode?: string | null;
+      } | null> | null;
+    } | null> | null;
+  } | null;
+};
+
 export type UpdateStopPlaceMutationVariables = Exact<{
   input: StopRegistryStopPlaceInput;
 }>;
@@ -67101,6 +67102,39 @@ export type PatchScheduledStopPointTimingSettingsMutation = {
         on_route_id: UUID;
       };
     }>;
+  } | null;
+};
+
+export type InsertStopMutationVariables = Exact<{
+  object: ServicePatternScheduledStopPointInsertInput;
+}>;
+
+export type InsertStopMutation = {
+  __typename?: 'mutation_root';
+  insert_service_pattern_scheduled_stop_point_one?: {
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    located_on_infrastructure_link_id: UUID;
+    direction: InfrastructureNetworkDirectionEnum;
+    priority: number;
+    measured_location: GeoJSON.Point;
+    label: string;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+  } | null;
+};
+
+export type UpdateScheduledStopPointStopPlaceRefMutationVariables = Exact<{
+  scheduled_stop_point_id: Scalars['uuid'];
+  stop_place_ref?: InputMaybe<Scalars['String']>;
+}>;
+
+export type UpdateScheduledStopPointStopPlaceRefMutation = {
+  __typename?: 'mutation_root';
+  update_service_pattern_scheduled_stop_point_by_pk?: {
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    stop_place_ref?: string | null;
   } | null;
 };
 
@@ -71355,65 +71389,6 @@ export type GetStopsByLabelsQueryResult = Apollo.QueryResult<
   GetStopsByLabelsQuery,
   GetStopsByLabelsQueryVariables
 >;
-export const InsertStopDocument = gql`
-  mutation InsertStop(
-    $object: service_pattern_scheduled_stop_point_insert_input!
-  ) {
-    insert_service_pattern_scheduled_stop_point_one(object: $object) {
-      scheduled_stop_point_id
-      located_on_infrastructure_link_id
-      direction
-      priority
-      measured_location
-      label
-      validity_start
-      validity_end
-    }
-  }
-`;
-export type InsertStopMutationFn = Apollo.MutationFunction<
-  InsertStopMutation,
-  InsertStopMutationVariables
->;
-
-/**
- * __useInsertStopMutation__
- *
- * To run a mutation, you first call `useInsertStopMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInsertStopMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [insertStopMutation, { data, loading, error }] = useInsertStopMutation({
- *   variables: {
- *      object: // value for 'object'
- *   },
- * });
- */
-export function useInsertStopMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    InsertStopMutation,
-    InsertStopMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<InsertStopMutation, InsertStopMutationVariables>(
-    InsertStopDocument,
-    options,
-  );
-}
-export type InsertStopMutationHookResult = ReturnType<
-  typeof useInsertStopMutation
->;
-export type InsertStopMutationResult =
-  Apollo.MutationResult<InsertStopMutation>;
-export type InsertStopMutationOptions = Apollo.BaseMutationOptions<
-  InsertStopMutation,
-  InsertStopMutationVariables
->;
 export const EditStopDocument = gql`
   mutation EditStop(
     $stop_id: uuid!
@@ -72261,6 +72236,62 @@ export type SearchStopsQueryResult = Apollo.QueryResult<
   SearchStopsQuery,
   SearchStopsQueryVariables
 >;
+export const InsertStopPlaceDocument = gql`
+  mutation InsertStopPlace($object: stop_registry_StopPlaceInput) {
+    stop_registry {
+      mutateStopPlace(StopPlace: $object) {
+        publicCode
+        id
+        quays {
+          publicCode
+        }
+      }
+    }
+  }
+`;
+export type InsertStopPlaceMutationFn = Apollo.MutationFunction<
+  InsertStopPlaceMutation,
+  InsertStopPlaceMutationVariables
+>;
+
+/**
+ * __useInsertStopPlaceMutation__
+ *
+ * To run a mutation, you first call `useInsertStopPlaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertStopPlaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertStopPlaceMutation, { data, loading, error }] = useInsertStopPlaceMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertStopPlaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    InsertStopPlaceMutation,
+    InsertStopPlaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    InsertStopPlaceMutation,
+    InsertStopPlaceMutationVariables
+  >(InsertStopPlaceDocument, options);
+}
+export type InsertStopPlaceMutationHookResult = ReturnType<
+  typeof useInsertStopPlaceMutation
+>;
+export type InsertStopPlaceMutationResult =
+  Apollo.MutationResult<InsertStopPlaceMutation>;
+export type InsertStopPlaceMutationOptions = Apollo.BaseMutationOptions<
+  InsertStopPlaceMutation,
+  InsertStopPlaceMutationVariables
+>;
 export const UpdateStopPlaceDocument = gql`
   mutation UpdateStopPlace($input: stop_registry_StopPlaceInput!) {
     stop_registry {
@@ -72487,6 +72518,125 @@ export type PatchScheduledStopPointTimingSettingsMutationOptions =
   Apollo.BaseMutationOptions<
     PatchScheduledStopPointTimingSettingsMutation,
     PatchScheduledStopPointTimingSettingsMutationVariables
+  >;
+export const InsertStopDocument = gql`
+  mutation InsertStop(
+    $object: service_pattern_scheduled_stop_point_insert_input!
+  ) {
+    insert_service_pattern_scheduled_stop_point_one(object: $object) {
+      scheduled_stop_point_id
+      located_on_infrastructure_link_id
+      direction
+      priority
+      measured_location
+      label
+      validity_start
+      validity_end
+    }
+  }
+`;
+export type InsertStopMutationFn = Apollo.MutationFunction<
+  InsertStopMutation,
+  InsertStopMutationVariables
+>;
+
+/**
+ * __useInsertStopMutation__
+ *
+ * To run a mutation, you first call `useInsertStopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertStopMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertStopMutation, { data, loading, error }] = useInsertStopMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertStopMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    InsertStopMutation,
+    InsertStopMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<InsertStopMutation, InsertStopMutationVariables>(
+    InsertStopDocument,
+    options,
+  );
+}
+export type InsertStopMutationHookResult = ReturnType<
+  typeof useInsertStopMutation
+>;
+export type InsertStopMutationResult =
+  Apollo.MutationResult<InsertStopMutation>;
+export type InsertStopMutationOptions = Apollo.BaseMutationOptions<
+  InsertStopMutation,
+  InsertStopMutationVariables
+>;
+export const UpdateScheduledStopPointStopPlaceRefDocument = gql`
+  mutation updateScheduledStopPointStopPlaceRef(
+    $scheduled_stop_point_id: uuid!
+    $stop_place_ref: String
+  ) {
+    update_service_pattern_scheduled_stop_point_by_pk(
+      pk_columns: { scheduled_stop_point_id: $scheduled_stop_point_id }
+      _set: { stop_place_ref: $stop_place_ref }
+    ) {
+      scheduled_stop_point_id
+      stop_place_ref
+    }
+  }
+`;
+export type UpdateScheduledStopPointStopPlaceRefMutationFn =
+  Apollo.MutationFunction<
+    UpdateScheduledStopPointStopPlaceRefMutation,
+    UpdateScheduledStopPointStopPlaceRefMutationVariables
+  >;
+
+/**
+ * __useUpdateScheduledStopPointStopPlaceRefMutation__
+ *
+ * To run a mutation, you first call `useUpdateScheduledStopPointStopPlaceRefMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateScheduledStopPointStopPlaceRefMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateScheduledStopPointStopPlaceRefMutation, { data, loading, error }] = useUpdateScheduledStopPointStopPlaceRefMutation({
+ *   variables: {
+ *      scheduled_stop_point_id: // value for 'scheduled_stop_point_id'
+ *      stop_place_ref: // value for 'stop_place_ref'
+ *   },
+ * });
+ */
+export function useUpdateScheduledStopPointStopPlaceRefMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateScheduledStopPointStopPlaceRefMutation,
+    UpdateScheduledStopPointStopPlaceRefMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateScheduledStopPointStopPlaceRefMutation,
+    UpdateScheduledStopPointStopPlaceRefMutationVariables
+  >(UpdateScheduledStopPointStopPlaceRefDocument, options);
+}
+export type UpdateScheduledStopPointStopPlaceRefMutationHookResult = ReturnType<
+  typeof useUpdateScheduledStopPointStopPlaceRefMutation
+>;
+export type UpdateScheduledStopPointStopPlaceRefMutationResult =
+  Apollo.MutationResult<UpdateScheduledStopPointStopPlaceRefMutation>;
+export type UpdateScheduledStopPointStopPlaceRefMutationOptions =
+  Apollo.BaseMutationOptions<
+    UpdateScheduledStopPointStopPlaceRefMutation,
+    UpdateScheduledStopPointStopPlaceRefMutationVariables
   >;
 export const GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument = gql`
   query GetScheduledStopPointsInJourneyPatternsUsedAsTimingPoints(

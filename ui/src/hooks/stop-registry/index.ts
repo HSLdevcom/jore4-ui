@@ -1,5 +1,6 @@
 export * from './search';
 export * from './useCalculateStopAccessibilityLevel';
+export * from './useCreateStopPlace';
 export * from './useEditStopBasicDetails';
 export * from './useEditStopLocationDetails';
 export * from './useEditStopMeasurementDetails';

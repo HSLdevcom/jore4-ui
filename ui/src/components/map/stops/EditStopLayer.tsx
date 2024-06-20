@@ -11,6 +11,7 @@ import {
   useAppAction,
   useAppSelector,
   useCreateStop,
+  useCreateStopPlace,
   useDeleteStop,
   useEditStop,
   useFilterStops,
@@ -81,7 +82,15 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
       Operation.SaveStop,
     );
 
-    const { mapCreateChangesToVariables, insertStopMutation } = useCreateStop();
+    const {
+      mapCreateChangesToVariables,
+      insertStopMutation,
+
+      updateScheduledStopPointStopPlaceRefMutation,
+    } = useCreateStop();
+    const { mapToInsertStopPlaceVariables, insertStopPlaceMutation } =
+      useCreateStopPlace();
+
     const {
       prepareEdit,
       mapEditChangesToVariables,
@@ -190,11 +199,42 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
       setEditChanges(undefined);
     };
 
+    /**
+     * Inserts scheduled_stop_point, then inserts stopPlace to tiamat
+     * Then updates the scheduled_stop_point's stop_place_ref
+     * Note: this might all change if we get a transaction service, but for now
+     * this is the way to go.
+     */
     const doCreateStop = async (changes: CreateChanges) => {
       setIsLoadingSaveStop(true);
       try {
         const variables = mapCreateChangesToVariables(changes);
-        await insertStopMutation(variables);
+        const stopResult = await insertStopMutation(variables);
+
+        const scheduledStopPointId =
+          stopResult.data?.insert_service_pattern_scheduled_stop_point_one
+            ?.scheduled_stop_point_id;
+
+        if (!scheduledStopPointId) {
+          // if for some reason the insert fails but does not throw an error
+          // we can't continue with this creation process. This should not happen,
+          // but needed for non-null-assertion for the updateMutation
+          return;
+        }
+
+        const tiamatVariables = mapToInsertStopPlaceVariables({
+          label: changes.stopToCreate.label,
+          coordinates: changes.stopToCreate.measured_location.coordinates,
+        });
+        const stopPlaceResult = await insertStopPlaceMutation(tiamatVariables);
+
+        updateScheduledStopPointStopPlaceRefMutation({
+          variables: {
+            scheduled_stop_point_id: scheduledStopPointId,
+            stop_place_ref:
+              stopPlaceResult?.data?.stop_registry?.mutateStopPlace?.[0]?.id,
+          },
+        });
 
         showSuccessToast(t('stops.saveSuccess'));
         updateObservationDateByValidityPeriodIfNeeded(changes.stopToCreate);

@@ -1,9 +1,11 @@
+import { gql } from '@apollo/client';
 import flow from 'lodash/flow';
 import {
   InsertStopMutationVariables,
   ScheduledStopPointDefaultFieldsFragment,
   ServicePatternScheduledStopPointInsertInput,
   useInsertStopMutation,
+  useUpdateScheduledStopPointStopPlaceRefMutation,
 } from '../../generated/graphql';
 import { StopWithLocation } from '../../graphql';
 import { OptionalKeys } from '../../types';
@@ -30,8 +32,46 @@ export interface CreateChanges {
   conflicts?: ScheduledStopPointDefaultFieldsFragment[];
 }
 
+const GQL_INSERT_STOP = gql`
+  mutation InsertStop(
+    $object: service_pattern_scheduled_stop_point_insert_input!
+  ) {
+    insert_service_pattern_scheduled_stop_point_one(object: $object) {
+      scheduled_stop_point_id
+      located_on_infrastructure_link_id
+      direction
+      priority
+      measured_location
+      label
+      validity_start
+      validity_end
+    }
+  }
+`;
+
+// This update is needed in the creation process, where we first create
+// the scheduled stop point, then we create the stop place and
+// lastly we update the scheduled stop point stop place ref
+// This all is probably going to change if we get some transaction service
+const GQL_UPDATE_SCHEDULED_STOP_POINT_STOP_PLACE_REF = gql`
+  mutation updateScheduledStopPointStopPlaceRef(
+    $scheduled_stop_point_id: uuid!
+    $stop_place_ref: String
+  ) {
+    update_service_pattern_scheduled_stop_point_by_pk(
+      pk_columns: { scheduled_stop_point_id: $scheduled_stop_point_id }
+      _set: { stop_place_ref: $stop_place_ref }
+    ) {
+      scheduled_stop_point_id
+      stop_place_ref
+    }
+  }
+`;
+
 export const useCreateStop = () => {
   const [mutateFunction] = useInsertStopMutation();
+  const [updateScheduledStopPointStopPlaceRefMutation] =
+    useUpdateScheduledStopPointStopPlaceRefMutation();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
   const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
   const { getRoutesBrokenByStopChange } = useEditStop();
@@ -137,6 +177,7 @@ export const useCreateStop = () => {
     prepareCreate,
     mapCreateChangesToVariables,
     insertStopMutation,
+    updateScheduledStopPointStopPlaceRefMutation,
     prepareAndExecute,
   };
 };
