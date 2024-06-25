@@ -45,7 +45,7 @@ export const StopOtherDetailsFormRow = ({
           inputElementRenderer={(props) => (
             <EnumDropdown<JoreStopRegistryTransportModeType>
               enumType={JoreStopRegistryTransportModeType}
-              placeholder={t('stopDetails.transportMode')}
+              placeholder={t('stopDetails.basicDetails.transportMode')}
               uiNameMapper={mapStopRegistryTransportModeTypeToUiName}
               disabled={isRailReplacement}
               // eslint-disable-next-line react/jsx-props-no-spreading
@@ -89,7 +89,7 @@ export const StopOtherDetailsFormRow = ({
           inputElementRenderer={(props) => (
             <EnumDropdown<StopPlaceState>
               enumType={StopPlaceState}
-              placeholder={t('stopDetails.stopState')}
+              placeholder={t('stopDetails.basicDetails.stopState')}
               uiNameMapper={mapStopPlaceStateToUiName}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
