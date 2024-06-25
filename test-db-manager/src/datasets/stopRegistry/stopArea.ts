@@ -32,8 +32,8 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
         value: seedStopArea.name,
       },
       validBetween: {
-        fromDate: seedStopArea.validityStart.toISO(),
-        toDate: seedStopArea.validityEnd?.toISO() || null,
+        fromDate: seedStopArea.validityStart,
+        toDate: seedStopArea.validityEnd || null,
       },
       geometry: seedStopArea.locationLat &&
         seedStopArea.locationLong && {
