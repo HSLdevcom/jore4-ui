@@ -10,6 +10,7 @@ const scalars = {
   timestamptz: 'luxon.DateTime',
   date: 'luxon.DateTime',
   interval: 'luxon.Duration',
+  stop_registry_DateTime: 'luxon.DateTime',
   float8: 'number',
   smallint: 'number',
 };

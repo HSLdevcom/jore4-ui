@@ -39,7 +39,7 @@ export type Scalars = {
   stop_registry_BigInteger: any;
   stop_registry_Coordinates: any;
   /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
-  stop_registry_DateTime: any;
+  stop_registry_DateTime: luxon.DateTime;
   timestamp: any;
   timestamptz: luxon.DateTime;
   uuid: UUID;
