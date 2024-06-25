@@ -287,6 +287,16 @@ const buildCacheDefinition = () => {
           },
         },
       },
+      // "Nested ROOT QUERY" of stops_database
+      stops_database_stops_database_query: {
+        merge: true,
+      },
+      group_of_stop_places_alternative_names: {
+        keyFields: ['group_of_stop_places_id', 'alternative_names_id'],
+      },
+      group_of_stop_places_members: {
+        keyFields: ['group_of_stop_places_id', 'ref', 'version'],
+      },
     },
   });
 
