@@ -753,6 +753,13 @@ describe('Stop details', () => {
           view.getLeaningRail().should('have.text', 'Ei');
           view.getOutsideBench().should('have.text', 'Ei');
           view.getFasciaBoardTaping().should('have.text', 'Ei');
+
+          // "enclosed" is not visible anywhere in UI, check from request that it got sent.
+          cy.wait('@gqlUpdateStopPlace')
+            .its(
+              'request.body.variables.input.quays.0.placeEquipments.shelterEquipment.0.enclosed',
+            )
+            .should('equal', false);
         },
       );
 
