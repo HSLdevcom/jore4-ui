@@ -7,6 +7,7 @@ export * from './slices/loader';
 export * from './slices/mapFilter';
 export * from './slices/mapModal';
 export * from './slices/mapRouteEditor';
+export * from './slices/mapStopAreaEditor';
 export * from './slices/mapStopEditor';
 export * from './slices/timetableVersionPanel';
 export * from './slices/modals';
