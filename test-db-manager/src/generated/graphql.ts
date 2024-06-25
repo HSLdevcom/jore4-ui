@@ -21289,6 +21289,8 @@ export type StopsDatabaseGroupOfStopPlacesMembers = {
   __typename?: 'stops_database_group_of_stop_places_members';
   group_of_stop_places_id: Scalars['bigint'];
   ref?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  stop_place?: Maybe<StopsDatabaseStopPlace>;
   version?: Maybe<Scalars['String']>;
 };
 
@@ -21361,6 +21363,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersBoolExp = {
   _or?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersBoolExp>>;
   group_of_stop_places_id?: InputMaybe<BigintComparisonExp>;
   ref?: InputMaybe<StringComparisonExp>;
+  stop_place?: InputMaybe<StopsDatabaseStopPlaceBoolExp>;
   version?: InputMaybe<StringComparisonExp>;
 };
 
@@ -21373,6 +21376,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersIncInput = {
 export type StopsDatabaseGroupOfStopPlacesMembersInsertInput = {
   group_of_stop_places_id?: InputMaybe<Scalars['bigint']>;
   ref?: InputMaybe<Scalars['String']>;
+  stop_place?: InputMaybe<StopsDatabaseStopPlaceObjRelInsertInput>;
   version?: InputMaybe<Scalars['String']>;
 };
 
@@ -21419,6 +21423,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersMutationResponse = {
 export type StopsDatabaseGroupOfStopPlacesMembersOrderBy = {
   group_of_stop_places_id?: InputMaybe<OrderBy>;
   ref?: InputMaybe<OrderBy>;
+  stop_place?: InputMaybe<StopsDatabaseStopPlaceOrderBy>;
   version?: InputMaybe<OrderBy>;
 };
 
