@@ -4,6 +4,7 @@ export * from './loader';
 export * from './mapFilter';
 export * from './mapModal';
 export * from './mapRouteEditor';
+export * from './mapStopAreaEditor';
 export * from './mapStopEditor';
 export * from './modals';
 export * from './timetable';
