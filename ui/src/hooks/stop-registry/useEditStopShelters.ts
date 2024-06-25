@@ -58,6 +58,7 @@ export const useEditStopShelters = () => {
     const stopPlaceQuayId = quay?.id;
 
     const sheltersInput = state.shelters.map(mapShelterFormToInput);
+    const hasBicycleParking = sheltersInput.some((s) => s.bicycleParking);
 
     const input = {
       ...getRequiredStopPlaceMutationProperties(stop.stop_place),
@@ -67,7 +68,14 @@ export const useEditStopShelters = () => {
           id: stopPlaceQuayId,
           placeEquipments: {
             shelterEquipment: sheltersInput.length ? sheltersInput : null,
-            // TODO: also set cycleStorageEquipment.cycleStorageType
+            cycleStorageEquipment: hasBicycleParking
+              ? [
+                  {
+                    // Use "Other" since we don't know the specific type
+                    cycleStorageType: StopRegistryCycleStorageType.Other,
+                  },
+                ]
+              : null,
           },
         },
       ],
