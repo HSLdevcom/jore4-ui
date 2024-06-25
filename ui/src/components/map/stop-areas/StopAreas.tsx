@@ -15,6 +15,7 @@ import {
   notNullish,
 } from '../../../utils';
 import { EditStopAreaLayer } from './EditStopAreaLayer';
+import { MemberStops } from './MemberStops';
 import { StopArea } from './StopArea';
 
 export const StopAreas = () => {
@@ -69,6 +70,8 @@ export const StopAreas = () => {
             editedArea={editedArea}
             onPopupClose={onPopupClose}
           />
+
+          <MemberStops area={editedArea} />
         </>
       ) : null}
     </>
