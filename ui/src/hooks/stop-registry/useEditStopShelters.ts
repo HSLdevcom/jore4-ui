@@ -4,6 +4,7 @@ import {
   SheltersFormState,
 } from '../../components/stop-registry/stops/stop-details/shelters/schema';
 import {
+  StopRegistryCycleStorageType,
   StopRegistryShelterCondition,
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
@@ -20,11 +21,22 @@ interface EditTiamatParams {
   stop: StopWithDetails;
 }
 
+const enclosedShelterTypes = [
+  StopRegistryShelterType.Glass,
+  StopRegistryShelterType.Steel,
+];
+
 const mapShelterFormToInput = (shelter: ShelterState) => {
+  const enclosed = !!(
+    shelter.shelterType && shelter.shelterType in enclosedShelterTypes
+  );
+
   return {
-    // TODO: what values should be used for these? They don't exist in UI.
-    // enclosed: shelter.enclosed,
-    // stepFree: shelter.stepFree,
+    enclosed,
+    // Leaving stepFree unset because it looks like it isn't used for anything important in Tiamat.
+    // Could maybe deduce from accessibility properties, but that would mean we would need to
+    // update shelters whenever those change = added complexity = not worth.
+    stepFree: null,
     shelterType: shelter.shelterType
       ? (shelter.shelterType as StopRegistryShelterType)
       : null,
