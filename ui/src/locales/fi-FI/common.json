@@ -113,6 +113,10 @@
     "stopBreaksRoutes": "Lisättävä pysäkki ei ole yhteensopiva seuraavien reittien kanssa: ({{ routeLabels }})",
     "timingPlaceRequired": "Pysäkkiä käytetään Hastus-paikkana seuraavilla reiteillä: {{ routeLabels }}. Aseta Hastus-paikka tai poista Hastus-paikka käytöstä reiteiltä."
   },
+  "stopArea": {
+    "areaWithLabel": "{{areaLabel}} Pysäkkialue",
+    "delete": "Poista pysäkkialue"
+  },
   "stopPlaceTypes": {
     "mainLine": "Runkolinja",
     "interchange": "Vaihtopysäkki",

@@ -1,5 +1,59 @@
+import { i18n } from '../i18n';
+
 export const defaultLocalizedString = (locStr?: LocalizedString | null) => ({
   fi_FI: '',
   sv_FI: '',
   ...locStr,
 });
+
+type AlternativeName = {
+  readonly name_lang?: string | null;
+  readonly name_value?: string | null;
+};
+
+const i18nLangToMultilingualStringLangOrder = {
+  'fi-FI': ['fin', 'swe', 'eng'],
+  'en-US': ['eng', 'fin', 'swe'],
+} as const;
+
+function getFindOrder(): ReadonlyArray<string> {
+  if (i18n.language in i18nLangToMultilingualStringLangOrder) {
+    return i18nLangToMultilingualStringLangOrder[
+      i18n.language as keyof typeof i18nLangToMultilingualStringLangOrder
+    ];
+  }
+
+  return i18nLangToMultilingualStringLangOrder['fi-FI'];
+}
+
+export function getNameFromAlternatives(
+  defaultName: string,
+  defaultLang: string | undefined,
+  alternatives: ReadonlyArray<AlternativeName> | undefined | null,
+): string;
+export function getNameFromAlternatives(
+  defaultName: string | undefined | null,
+  defaultLang: string | undefined | null,
+  alternatives: ReadonlyArray<AlternativeName> | undefined | null,
+): string | null;
+export function getNameFromAlternatives(
+  defaultName: string | null | undefined,
+  defaultLang: string | null | undefined,
+  alternatives: ReadonlyArray<AlternativeName> | null | undefined,
+): string | null {
+  const findOrder = getFindOrder();
+
+  if (defaultLang !== findOrder.at(0) && alternatives) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const preferredLang of findOrder) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const alt of alternatives) {
+        if (alt.name_lang === preferredLang && alt.name_value) {
+          return alt.name_value;
+        }
+      }
+    }
+  }
+
+  return defaultName ?? null;
+}

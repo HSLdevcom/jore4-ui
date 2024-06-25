@@ -7,3 +7,4 @@ export * from './resultMappers';
 export * from './route';
 export * from './servicePattern';
 export * from './types';
+export * from './stopAreas';

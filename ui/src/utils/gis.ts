@@ -2,6 +2,8 @@ import along from '@turf/along';
 import { Feature, LineString } from '@turf/helpers';
 import length from '@turf/length';
 import flow from 'lodash/flow';
+import isObject from 'lodash/isObject';
+import { StopRegistryGeoJsonType } from '../generated/graphql';
 import { Point } from '../types';
 
 export const mapPointToGeoJSON = ({
@@ -16,18 +18,17 @@ export const mapPointToGeoJSON = ({
   return geoJsonPoint;
 };
 
-export const mapLngLatToPoint = (lngLat: number[]) => {
+export const mapLngLatToPoint = (lngLat: ReadonlyArray<number>): Point => {
   if (lngLat.length < 2 || lngLat.length > 3) {
     throw new Error(
       `Expected lngLat to be like [number, number] or [number, number, number] but got ${lngLat}`,
     );
   }
-  const point: Point = {
+  return {
     longitude: lngLat[0],
     latitude: lngLat[1],
-    elevation: lngLat[2] || 0,
+    elevation: lngLat[2] ?? 0,
   };
-  return point;
 };
 
 export const mapLngLatToGeoJSON = flow(mapLngLatToPoint, mapPointToGeoJSON);
@@ -55,3 +56,41 @@ export const relativeAlong = (
 
   return along(feature, featureLength * percentage);
 };
+
+export function isGeoJSONPoint(
+  geometry: GeoJSON.Geometry,
+): geometry is GeoJSON.Point {
+  return geometry.type === 'Point';
+}
+
+export function getGeometryPoint(geometry: null | undefined): null;
+export function getGeometryPoint(geometry: GeoJSON.Geometry): Point | null;
+export function getGeometryPoint(
+  geometry: GeoJSON.Geometry | null | undefined,
+): Point | null;
+export function getGeometryPoint(
+  geometry: GeoJSON.Geometry | null | undefined,
+): Point | null {
+  if (geometry && isGeoJSONPoint(geometry)) {
+    return mapLngLatToPoint(geometry.coordinates);
+  }
+
+  return null;
+}
+
+export function getPointPosition(geometry: null | undefined): null;
+export function getPointPosition(
+  geometry: GeoJSON.Geometry,
+): GeoJSON.Position | null;
+export function getPointPosition(
+  geometry: GeoJSON.Geometry | null | undefined,
+): GeoJSON.Position | null;
+export function getPointPosition(
+  geometry: GeoJSON.Geometry | null | undefined,
+): GeoJSON.Position | null {
+  if (geometry && isGeoJSONPoint(geometry)) {
+    return geometry.coordinates;
+  }
+
+  return null;
+}
