@@ -115,7 +115,10 @@
   },
   "stopArea": {
     "areaWithLabel": "{{areaLabel}} Pysäkkialue",
-    "delete": "Poista pysäkkialue"
+    "delete": "Poista pysäkkialue",
+    "errors": {
+      "failed_to_resolve_scheduled_stop_point": "Pysäkin tietojen selvitys epäonnistui! Syy"
+    }
   },
   "stopPlaceTypes": {
     "mainLine": "Runkolinja",
