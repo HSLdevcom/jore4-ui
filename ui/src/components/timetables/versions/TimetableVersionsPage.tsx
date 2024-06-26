@@ -82,8 +82,9 @@ export const TimetableVersionsPage = (): JSX.Element => {
         (version) => version.inEffect,
         (version) => version.routeLabelAndVariant,
         (version) => version.vehicleScheduleFrame.validityStart,
+        (version) => version.dayType.label,
       ],
-      ['desc', 'asc', 'asc'],
+      ['desc', 'asc', 'asc', 'asc'],
     );
   };
 
