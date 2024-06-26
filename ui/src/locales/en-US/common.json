@@ -115,7 +115,10 @@
   },
   "stopArea": {
     "areaWithLabel": "{{areaLabel}} Stop Area ",
-    "delete": "Delete stop area"
+    "delete": "Delete stop area",
+    "errors": {
+      "failedToResolveScheduledStopPoint": "Failed to resolve Scheduled Stop Point! Reason"
+    }
   },
   "stopPlaceTypes": {
     "mainLine": "Main line",
