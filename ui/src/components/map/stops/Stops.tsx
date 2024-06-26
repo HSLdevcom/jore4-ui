@@ -21,6 +21,7 @@ import {
   selectIsMoveStopModeEnabled,
   selectMapViewport,
   selectSelectedStopId,
+  selectStopAreaEditorIsActive,
   setEditedStopDataAction,
   setIsCreateStopModeEnabledAction,
   setSelectedStopIdAction,
@@ -30,7 +31,6 @@ import {
   buildWithinViewportGqlFilter,
   mapLngLatToGeoJSON,
   mapLngLatToPoint,
-  mapToVariables,
 } from '../../../utils';
 import {
   addLineFromStopToInfraLink,
@@ -50,10 +50,13 @@ const testIds = {
 export const Stops = React.forwardRef((_props, ref) => {
   const { filter } = useFilterStops();
   const { current: map } = useMap();
+
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedStopData = useAppSelector(selectEditedStopData);
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
+  const stopAreaEditorIsActive = useAppSelector(selectStopAreaEditorIsActive);
+
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setEditedStopData = useAppAction(setEditedStopDataAction);
   const setIsCreateStopModeEnabled = useAppAction(
@@ -70,11 +73,12 @@ export const Stops = React.forwardRef((_props, ref) => {
 
   const viewport = useAppSelector(selectMapViewport);
 
-  const stopsResult = useGetStopsByLocationQuery(
-    mapToVariables({
+  const stopsResult = useGetStopsByLocationQuery({
+    variables: {
       measured_location_filter: buildWithinViewportGqlFilter(viewport),
-    }),
-  );
+    },
+    skip: stopAreaEditorIsActive,
+  });
 
   useEffect(() => {
     /**
@@ -136,6 +140,10 @@ export const Stops = React.forwardRef((_props, ref) => {
     await stopsResult.refetch();
     setIsLoadingSaveStop(false);
   };
+
+  if (stopAreaEditorIsActive) {
+    return null;
+  }
 
   return (
     <>
