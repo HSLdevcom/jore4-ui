@@ -65401,6 +65401,37 @@ export type MemberStopFieldsFragment = {
   centroid?: GeoJSON.Geometry | null;
 };
 
+export type GetScheduledStopPointByStopPlaceRefQueryVariables = Exact<{
+  stopPlaceRef: Scalars['String'];
+}>;
+
+export type GetScheduledStopPointByStopPlaceRefQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    measured_location: GeoJSON.Point;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
+    timing_place_id?: UUID | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    located_on_infrastructure_link_id: UUID;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+    timing_place?: {
+      __typename?: 'timing_pattern_timing_place';
+      timing_place_id: UUID;
+      label: string;
+    } | null;
+  }>;
+};
+
 export type InfrastructureLinkWithStopsFragment = {
   __typename?: 'infrastructure_network_infrastructure_link';
   direction: InfrastructureNetworkDirectionEnum;
@@ -71881,6 +71912,68 @@ export type GetStopAreasByLocationQueryResult = Apollo.QueryResult<
   GetStopAreasByLocationQuery,
   GetStopAreasByLocationQueryVariables
 >;
+export const GetScheduledStopPointByStopPlaceRefDocument = gql`
+  query GetScheduledStopPointByStopPlaceRef($stopPlaceRef: String!) {
+    service_pattern_scheduled_stop_point(
+      where: { stop_place_ref: { _eq: $stopPlaceRef } }
+      limit: 1
+    ) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetScheduledStopPointByStopPlaceRefQuery__
+ *
+ * To run a query within a React component, call `useGetScheduledStopPointByStopPlaceRefQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetScheduledStopPointByStopPlaceRefQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetScheduledStopPointByStopPlaceRefQuery({
+ *   variables: {
+ *      stopPlaceRef: // value for 'stopPlaceRef'
+ *   },
+ * });
+ */
+export function useGetScheduledStopPointByStopPlaceRefQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >(GetScheduledStopPointByStopPlaceRefDocument, options);
+}
+export function useGetScheduledStopPointByStopPlaceRefLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >(GetScheduledStopPointByStopPlaceRefDocument, options);
+}
+export type GetScheduledStopPointByStopPlaceRefQueryHookResult = ReturnType<
+  typeof useGetScheduledStopPointByStopPlaceRefQuery
+>;
+export type GetScheduledStopPointByStopPlaceRefLazyQueryHookResult = ReturnType<
+  typeof useGetScheduledStopPointByStopPlaceRefLazyQuery
+>;
+export type GetScheduledStopPointByStopPlaceRefQueryResult = Apollo.QueryResult<
+  GetScheduledStopPointByStopPlaceRefQuery,
+  GetScheduledStopPointByStopPlaceRefQueryVariables
+>;
 export const GetHighestPriorityLineDetailsWithRoutesDocument = gql`
   query GetHighestPriorityLineDetailsWithRoutes(
     $lineFilters: route_line_bool_exp
@@ -75053,6 +75146,14 @@ export function useGetStopAreasByLocationAsyncQuery() {
 export type GetStopAreasByLocationAsyncQueryHookResult = ReturnType<
   typeof useGetStopAreasByLocationAsyncQuery
 >;
+export function useGetScheduledStopPointByStopPlaceRefAsyncQuery() {
+  return useAsyncQuery<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >(GetScheduledStopPointByStopPlaceRefDocument);
+}
+export type GetScheduledStopPointByStopPlaceRefAsyncQueryHookResult =
+  ReturnType<typeof useGetScheduledStopPointByStopPlaceRefAsyncQuery>;
 export function useGetHighestPriorityLineDetailsWithRoutesAsyncQuery() {
   return useAsyncQuery<
     GetHighestPriorityLineDetailsWithRoutesQuery,

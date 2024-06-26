@@ -16,6 +16,7 @@ export enum Operation {
   AbortImport = 'abortImport',
   FetchRouteTimetables = 'fetchRouteTimetables',
   DeleteTimetable = 'deleteTimetable',
+  ResolveScheduledStopPoint = 'resolveScheduledStopPoint',
 }
 
 export const mapOperations = [
@@ -28,6 +29,7 @@ export const mapOperations = [
   Operation.MatchRoute,
   Operation.CheckBrokenRoutes,
   Operation.SaveTimingPlace,
+  Operation.ResolveScheduledStopPoint,
 ];
 
 export const importOperations = [
@@ -62,6 +64,7 @@ const initialState: IState = {
   [Operation.AbortImport]: false,
   [Operation.FetchRouteTimetables]: false,
   [Operation.DeleteTimetable]: false,
+  [Operation.ResolveScheduledStopPoint]: false,
 };
 
 const slice = createSlice({
