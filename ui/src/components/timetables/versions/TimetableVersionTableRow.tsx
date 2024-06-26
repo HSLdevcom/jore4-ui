@@ -21,11 +21,11 @@ import {
 import { SimpleDropdownMenuItem } from '../../routes-and-lines/line-details/SimpleDropdownMenuItem';
 
 const testIds = {
-  timetableVersionTableRow: 'TimetableVersionTableRow::row',
-  timetableVersionTableRowValidityStart:
-    'TimetableVersionTableRow::validityStart',
-  timetableVersionTableRowValidityEnd: 'TimetableVersionTableRow::validityEnd',
-  timetableVersionTableRowActions: 'TimetableVersionTableRow::actions',
+  row: 'TimetableVersionTableRow::row',
+  dayType: 'TimetableVersionTableRow::dayType',
+  validityStart: 'TimetableVersionTableRow::validityStart',
+  validityEnd: 'TimetableVersionTableRow::validityEnd',
+  actions: 'TimetableVersionTableRow::actions',
   deleteTimetableMenuItem: 'TimetableVersionTableRow::deleteTimetableMenuItem',
   versionPanelMenuItem: 'TimetableVersionTableRow::versionPanelMenuItem',
 };
@@ -113,10 +113,10 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
   return (
     <tr
       className="h-14 text-center [&>td]:border [&>td]:border-light-grey"
-      data-testid={testIds.timetableVersionTableRow}
+      data-testid={testIds.row}
     >
       <td className={statusClassName}>{statusText}</td>
-      <td className={dayTypeClassName}>
+      <td className={dayTypeClassName} data-testid={testIds.dayType}>
         {dayType}
         <Visible visible={!!data.vehicleScheduleFrame.id}>
           <IconButton
@@ -131,10 +131,10 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
           </span>
         )}
       </td>
-      <td data-testid={testIds.timetableVersionTableRowValidityStart}>
+      <td data-testid={testIds.validityStart}>
         {mapToShortDate(data.vehicleScheduleFrame.validityStart)}
       </td>
-      <td data-testid={testIds.timetableVersionTableRowValidityEnd}>
+      <td data-testid={testIds.validityEnd}>
         {mapToShortDate(data.vehicleScheduleFrame.validityEnd)}
       </td>
       <td>{data.routeLabelAndVariant}</td>
@@ -145,7 +145,7 @@ export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
         <Visible visible={!!data.vehicleScheduleFrame.id}>
           <SimpleDropdownMenu
             alignItems={AlignDirection.Right}
-            testId={testIds.timetableVersionTableRowActions}
+            testId={testIds.actions}
             tooltip={t('accessibility:timetables.versionActions', {
               status: statusText,
               schedule: vehicleScheduleFrameName,
