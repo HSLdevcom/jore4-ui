@@ -1,5 +1,5 @@
 import compact from 'lodash/compact';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import {
@@ -42,16 +42,21 @@ export const SheltersSection = ({ stop }: Props): JSX.Element => {
   const shelters: Array<ShelterEquipmentDetailsFragment> = compact(
     stop.stop_place?.quays?.[0]?.placeEquipments?.shelterEquipment || [],
   );
+  const [shelterCount, setShelterCount] = useState(shelters.length);
 
   const shelterFormDefaultValues = {
     shelters: shelters.map(mapShelterDataToFormState),
   };
 
+  const sectionTitle = shelterCount
+    ? t('stopDetails.shelters.title', { count: shelterCount })
+    : t('stopDetails.shelters.titleNoShelters');
+
   return (
     <ExpandableInfoContainer
       onToggle={toggleIsExpanded}
       isExpanded={isExpanded}
-      title={t('stopDetails.shelters.title', { count: shelters.length })}
+      title={sectionTitle}
       testIdPrefix="SheltersSection"
       isEditMode={isEditMode}
       onCancel={onCancel}
@@ -62,6 +67,7 @@ export const SheltersSection = ({ stop }: Props): JSX.Element => {
         <SheltersForm
           defaultValues={shelterFormDefaultValues}
           ref={formRef}
+          onShelterCountChanged={setShelterCount}
           onSubmit={onSubmit}
         />
       ) : (

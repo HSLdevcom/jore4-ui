@@ -17,6 +17,7 @@ interface Props {
 }
 
 const testIds = {
+  title: (prefix: string) => `${prefix}::title`,
   toggle: (prefix: string) => `${prefix}::toggle`,
   content: (prefix: string) => `${prefix}::content`,
   editButton: (prefix: string) => `${prefix}::editButton`,
@@ -55,7 +56,9 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
           bg-hsl-neutral-blue px-4 py-2 ${isExpanded ? '' : 'rounded-b-lg'}
         `}
       >
-        {React.isValidElement(title) ? title : <h4>{title}</h4>}
+        <span data-testid={testIds.title(testIdPrefix)}>
+          {React.isValidElement(title) ? title : <h4>{title}</h4>}
+        </span>
         <div className="flex space-x-2">
           {!isEditMode && toggleEditMode && (
             <SlimSimpleButton

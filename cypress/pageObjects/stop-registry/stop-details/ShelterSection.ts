@@ -6,6 +6,10 @@ export class SheltersSection {
 
   viewCard = new ShelterViewCard();
 
+  getTitle() {
+    return cy.getByTestId('SheltersSection::title');
+  }
+
   getEditButton() {
     return cy.getByTestId('SheltersSection::editButton');
   }
