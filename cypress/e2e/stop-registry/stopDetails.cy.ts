@@ -767,14 +767,24 @@ describe('Stop details', () => {
         'should be able to add and delete shelters',
         { tags: [Tag.StopRegistry] },
         () => {
+          stopDetailsPage.shelters
+            .getTitle()
+            .should('have.text', 'Pysäkkikatos (1)');
+
           stopDetailsPage.shelters.getEditButton().click();
           view.getContainers().should('not.exist');
 
           // Add more shelters.
           form.getShelters().should('have.length', 1);
+          stopDetailsPage.shelters
+            .getTitle()
+            .should('have.text', 'Pysäkkikatos (1)');
           form.getAddNewShelterButton().click();
           form.getAddNewShelterButton().click();
           form.getShelters().should('have.length', 3);
+          stopDetailsPage.shelters
+            .getTitle()
+            .should('have.text', 'Pysäkkikatos (3)');
           // Add button shown at the end of last shelter row only
           form.getAddNewShelterButton().should('have.length', 1);
           form.getNthShelter(2).within(() => {
@@ -795,6 +805,9 @@ describe('Stop details', () => {
 
           view.getContainers().shouldBeVisible();
           view.getContainers().should('have.length', 3);
+          stopDetailsPage.shelters
+            .getTitle()
+            .should('have.text', 'Pysäkkikatos (3)');
 
           // Delete the 2nd.
           stopDetailsPage.shelters.getEditButton().click();
@@ -831,6 +844,9 @@ describe('Stop details', () => {
           form.getDeleteShelterButtons().eq(0).click();
           // TODO: accept confirmation
           form.getShelters().should('not.exist');
+          stopDetailsPage.shelters
+            .getTitle()
+            .should('have.text', 'Ei pysäkkikatosta');
 
           // Should still show the add shelters button.
           form.getAddNewShelterButton().should('have.length', 1);
@@ -839,6 +855,9 @@ describe('Stop details', () => {
           toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
           view.getContainers().should('not.exist');
+          stopDetailsPage.shelters
+            .getTitle()
+            .should('have.text', 'Ei pysäkkikatosta');
         },
       );
     });
