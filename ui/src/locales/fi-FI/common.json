@@ -246,6 +246,7 @@
     },
     "shelters": {
       "title": "Pysäkkikatos ({{count}})",
+      "titleNoShelters": "Ei pysäkkikatosta",
       "shelterType": "Katoksen tyyppi",
       "shelterElectricity": "Sähkö",
       "shelterLighting": "Valaistus",

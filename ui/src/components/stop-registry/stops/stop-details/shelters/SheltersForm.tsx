@@ -21,10 +21,11 @@ interface Props {
   className?: string;
   defaultValues: SheltersFormState;
   onSubmit: (state: SheltersFormState) => void;
+  onShelterCountChanged: (newShelterCount: number) => void;
 }
 
 const SheltersFormComponent = (
-  { className, defaultValues, onSubmit }: Props,
+  { className, defaultValues, onSubmit, onShelterCountChanged }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
@@ -44,10 +45,12 @@ const SheltersFormComponent = (
   });
   const addNewShelter = () => {
     append(mapShelterDataToFormState({}));
+    onShelterCountChanged(shelters.length + 1);
   };
   const onRemoveShelter = (idx: number) => {
     // TODO: confirmation. Either here or with some more complex mechanism, check with design.
     remove(idx);
+    onShelterCountChanged(shelters.length - 1);
   };
   const isLast = (idx: number) => idx === shelters.length - 1;
 
