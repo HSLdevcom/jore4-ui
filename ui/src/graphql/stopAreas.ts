@@ -57,3 +57,14 @@ const QUERY_GET_STOP_AREAS_BY_LOCATION = gql`
     centroid
   }
 `;
+
+const GET_SCHEDULED_STOP_POINT_BY_STOP_PLACE_REF = gql`
+  query GetScheduledStopPointByStopPlaceRef($stopPlaceRef: String!) {
+    service_pattern_scheduled_stop_point(
+      where: { stop_place_ref: { _eq: $stopPlaceRef } }
+      limit: 1 # stop_place_ref is UNIQUE in the DB
+    ) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+`;
