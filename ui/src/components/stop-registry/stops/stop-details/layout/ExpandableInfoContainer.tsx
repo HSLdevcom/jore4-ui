@@ -1,14 +1,14 @@
 import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { Visible } from '../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../uiComponents';
-import { SlimSimpleButton } from './SlimSimpleButton';
+import { EditableContainerHeaderButtons } from './EditableContainerHeaderButtons';
 
 interface Props {
   isExpanded: boolean;
   onToggle: () => void;
   title: string | ReactNode;
+  headerButtons?: ReactNode;
   onCancel?: () => void;
   onSave?: () => void;
   isEditMode?: boolean;
@@ -18,9 +18,7 @@ interface Props {
 
 const testIds = {
   title: (prefix: string) => `${prefix}::title`,
-  toggle: (prefix: string) => `${prefix}::toggle`,
   content: (prefix: string) => `${prefix}::content`,
-  editButton: (prefix: string) => `${prefix}::editButton`,
   cancelButton: (prefix: string) => `${prefix}::cancelButton`,
   saveButton: (prefix: string) => `${prefix}::saveButton`,
 };
@@ -31,22 +29,13 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
   onCancel,
   onSave,
   title,
+  headerButtons,
   testIdPrefix = '',
   isEditMode,
   toggleEditMode,
   children,
 }) => {
   const { t } = useTranslation();
-
-  // When toggling edit mode, if the card is not expanded: expand it.
-  const onToggleEditMode = () => {
-    if (toggleEditMode) {
-      toggleEditMode();
-    }
-    if (!isExpanded) {
-      onToggle();
-    }
-  };
 
   return (
     <div className="my-3 [&>*]:border-border-hsl-blue">
@@ -60,26 +49,16 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
           {React.isValidElement(title) ? title : <h4>{title}</h4>}
         </span>
         <div className="flex space-x-2">
-          {!isEditMode && toggleEditMode && (
-            <SlimSimpleButton
-              testId={testIds.editButton(testIdPrefix)}
-              onClick={onToggleEditMode}
-            >
-              {t('edit')}
-            </SlimSimpleButton>
-          )}
-          {!isEditMode && (
-            <SlimSimpleButton
-              onClick={onToggle}
-              inverted={!isExpanded}
-              testId={testIds.toggle(testIdPrefix)}
-            >
-              {isExpanded ? (
-                <FaChevronUp className="text-white" aria-hidden />
-              ) : (
-                <FaChevronDown className="text-tweaked-brand" aria-hidden />
-              )}
-            </SlimSimpleButton>
+          {React.isValidElement(headerButtons) ? (
+            headerButtons
+          ) : (
+            <EditableContainerHeaderButtons
+              isEditMode={isEditMode}
+              toggleEditMode={toggleEditMode}
+              testIdPrefix={testIdPrefix}
+              onToggle={onToggle}
+              isExpanded={isExpanded}
+            />
           )}
         </div>
       </div>
