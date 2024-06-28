@@ -7,6 +7,10 @@ interface Props {
   className: string;
 }
 
+const testIds = {
+  table: 'TimetableVersionTable',
+};
+
 export const TimetableVersionTable = ({
   data,
   className = '',
@@ -32,7 +36,7 @@ export const TimetableVersionTable = ({
   // on same page. This is not by any means optimal solution, so feel free to
   // change if a better solution comes up.
   return (
-    <table className={`${className}`}>
+    <table data-testid={testIds.table} className={`${className}`}>
       <thead className="text-center [&>th]:p-4">
         <tr>
           <th className="w-[10%]">

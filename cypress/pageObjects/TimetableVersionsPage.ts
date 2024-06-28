@@ -1,8 +1,8 @@
 import { TimeRangeControl } from './TimeRangeControl';
-import { TimetableVersionTableRow } from './TimetableVersionTableRow';
+import { TimetableVersionTable } from './timetables';
 
 export class TimetableVersionsPage {
-  timetableVersionTableRow = new TimetableVersionTableRow();
+  timetableVersionTable = new TimetableVersionTable();
 
   timeRangeControl = new TimeRangeControl();
 

@@ -72,13 +72,22 @@ describe('Timetable version details panel', () => {
   });
 
   it('Should open, have correct details, and close', () => {
-    timetableVersionsPage.timetableVersionTableRow
+    const { timetableVersionTable } = timetableVersionsPage;
+    const { timetableVersionTableRow } = timetableVersionTable;
+
+    timetableVersionsPage.timetableVersionTable
       .getRows()
       .should('have.length', 1);
 
-    timetableVersionsPage.timetableVersionTableRow.openNthRowVersionDetailsPanel(
-      0,
-    );
+    timetableVersionTable
+      .getRows()
+      .eq(0)
+      .within(() => {
+        timetableVersionTableRow.getDayType().shouldHaveText('Lauantai');
+
+        timetableVersionTableRow.getActionsButton().click();
+        timetableVersionTableRow.getVersionPanelMenuItemButton().click();
+      });
 
     timetableVersionDetailsPanel
       .getHeading()
@@ -192,9 +201,18 @@ describe('Timetable version details panel', () => {
   });
 
   it('Should change the validity period and update all correct validities', () => {
-    timetableVersionsPage.timetableVersionTableRow.openNthRowVersionDetailsPanel(
-      0,
-    );
+    const { timetableVersionTable } = timetableVersionsPage;
+    const { timetableVersionTableRow } = timetableVersionTable;
+
+    timetableVersionTable
+      .getRows()
+      .eq(0)
+      .within(() => {
+        timetableVersionTableRow.getDayType().shouldHaveText('Lauantai');
+
+        timetableVersionTableRow.getActionsButton().click();
+        timetableVersionTableRow.getVersionPanelMenuItemButton().click();
+      });
 
     timetableVersionDetailsPanel
       .getHeading()
@@ -223,17 +241,17 @@ describe('Timetable version details panel', () => {
     timetableVersionDetailsPanel.vehicleJourneyGroupInfo
       .getValidityTimeRange()
       .eq(0)
-      .should('contain', '1.1.2023 - 31.3.2024');
+      .shouldHaveText('1.1.2023 - 31.3.2024');
     timetableVersionDetailsPanel.vehicleJourneyGroupInfo
       .getValidityTimeRange()
       .eq(1)
-      .should('contain', '1.1.2023 - 31.3.2024');
+      .shouldHaveText('1.1.2023 - 31.3.2024');
 
     // Check that the version row's validity changed
-    timetableVersionsPage.timetableVersionTableRow
-      .getRows()
-      .eq(0)
-      .findByTestId('TimetableVersionTableRow::validityEnd')
-      .should('contain', '31.3.2024');
+    timetableVersionTable.getNthRow(0).within(() => {
+      timetableVersionTableRow.getDayType().shouldHaveText('Lauantai');
+
+      timetableVersionTableRow.getValidityEnd().shouldHaveText('31.3.2024');
+    });
   });
 });
