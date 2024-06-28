@@ -1,5 +1,5 @@
 import compact from 'lodash/compact';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import {
@@ -9,6 +9,7 @@ import {
 } from '../../../../../hooks';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { ExpandableInfoContainer } from '../layout';
+import { EmptyListHeaderButtons } from '../layout/EmptyListHeaderButtons';
 import { SheltersFormState, mapShelterDataToFormState } from './schema';
 import { SheltersForm } from './SheltersForm';
 import { SheltersViewList } from './SheltersViewList';
@@ -47,15 +48,50 @@ export const SheltersSection = ({ stop }: Props): JSX.Element => {
   const shelterFormDefaultValues = {
     shelters: shelters.map(mapShelterDataToFormState),
   };
+  if (!shelterFormDefaultValues.shelters.length) {
+    shelterFormDefaultValues.shelters.push(mapShelterDataToFormState({}));
+  }
 
   const sectionTitle = shelterCount
     ? t('stopDetails.shelters.title', { count: shelterCount })
     : t('stopDetails.shelters.titleNoShelters');
 
+  const showAddNewShelterHeader = !isEditMode && !shelters.length;
+  useEffect(() => {
+    if (!isEditMode) {
+      setShelterCount(shelters.length);
+      // Special case when in view mode with no shelters.
+      if (showAddNewShelterHeader && isExpanded) {
+        toggleIsExpanded();
+      }
+    }
+  }, [
+    isEditMode,
+    isExpanded,
+    shelters,
+    showAddNewShelterHeader,
+    toggleIsExpanded,
+  ]);
+
+  const editAndAddShelter = () => {
+    toggleEditMode();
+    setShelterCount(shelterFormDefaultValues.shelters.length);
+    toggleIsExpanded();
+  };
+
   return (
     <ExpandableInfoContainer
       onToggle={toggleIsExpanded}
       isExpanded={isExpanded}
+      headerButtons={
+        showAddNewShelterHeader ? (
+          <EmptyListHeaderButtons
+            addNewItemText={t('stopDetails.shelters.addShelter')}
+            onAddNewItem={editAndAddShelter}
+            testIdPrefix="SheltersSection"
+          />
+        ) : null
+      }
       title={sectionTitle}
       testIdPrefix="SheltersSection"
       isEditMode={isEditMode}
