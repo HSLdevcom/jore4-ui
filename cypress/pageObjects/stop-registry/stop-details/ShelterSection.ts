@@ -14,6 +14,10 @@ export class SheltersSection {
     return cy.getByTestId('SheltersSection::editButton');
   }
 
+  getAddShelterButton() {
+    return cy.getByTestId('SheltersSection::addNewItemButton');
+  }
+
   getSaveButton() {
     return cy.getByTestId('SheltersSection::saveButton');
   }
