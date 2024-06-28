@@ -1,14 +1,21 @@
 export class TimetableVersionTableRow {
-  getRows() {
-    return cy.getByTestId('TimetableVersionTableRow::row');
+  getDayType() {
+    return cy.getByTestId('TimetableVersionTableRow::dayType');
   }
 
-  openNthRowVersionDetailsPanel(rowNumber: number) {
-    this.getRows()
-      .eq(rowNumber)
-      .findByTestId('TimetableVersionTableRow::actions')
-      .click();
+  getValidityStart() {
+    return cy.getByTestId('TimetableVersionTableRow::validityStart');
+  }
 
-    cy.getByTestId('TimetableVersionTableRow::versionPanelMenuItem').click();
+  getValidityEnd() {
+    return cy.getByTestId('TimetableVersionTableRow::validityEnd');
+  }
+
+  getActionsButton() {
+    return cy.getByTestId('TimetableVersionTableRow::actions');
+  }
+
+  getVersionPanelMenuItemButton() {
+    return cy.getByTestId('TimetableVersionTableRow::versionPanelMenuItem');
   }
 }
