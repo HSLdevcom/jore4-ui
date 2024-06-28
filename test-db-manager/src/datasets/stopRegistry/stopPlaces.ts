@@ -45,8 +45,8 @@ export type StopPlaceSeedData = {
     railReplacement: boolean;
     virtual: boolean;
   };
-  locationLat?: number;
-  locationLong?: number;
+  locationLat: number;
+  locationLong: number;
   streetAddress?: string;
   postalCode?: string;
   functionalArea?: string; // Really more of a number, but keyValues can only take strings.
@@ -231,27 +231,23 @@ const mapToStopPlaceInput = (
     },
   };
 };
-
+// Gets unnecessarily long and ugly with "prettier" so disabling it for these arrays.
+// prettier-ignore
 const route35Stops: Array<StopPlaceSeedData> = [
-  { label: 'H1376', nameFin: 'Rakuunantie 8', nameSwe: 'Dragonvägen 8' },
-  {
-    label: 'H1377',
-    nameFin: 'Munkkivuoren kirkko',
-    nameSwe: 'Munkshöjdens kyrka',
-  },
-  { label: 'H1398', nameFin: 'Munkkivuori', nameSwe: 'Munkshöjden' }, // Lapinmäentie
-  { label: 'H1416', nameFin: 'Munkkivuori', nameSwe: 'Munkshöjden' }, // Raumantie
-  { label: 'H1451', nameFin: 'Luuvaniementie', nameSwe: 'Lognäsvägen' }, // Opposite of H1452
-  { label: 'H1452', nameFin: 'Luuvaniementie', nameSwe: 'Lognäsvägen' }, // Opposite of H1451
-  { label: 'H1453', nameFin: 'Niemenmäenkuja', nameSwe: 'Näshöjdsgränden' },
-  { label: 'H1454', nameFin: 'Niemenmäki', nameSwe: 'Näshöjden' },
-  { label: 'H1455', nameFin: 'Niemenmäentie', nameSwe: 'Näshöjdsvägen' },
-  { label: 'H1456', nameFin: 'Rakuunantie', nameSwe: 'Dragonvägen' }, // Rakuunantie 16
-  { label: 'H1458', nameFin: 'Rakuunantie', nameSwe: 'Dragonvägen' }, // Huopalahdentie
+  { label: 'H1376', locationLong: 24.885561, locationLat: 60.198389, nameFin: 'Rakuunantie 8',       nameSwe: 'Dragonvägen 8' },
+  { label: 'H1377', locationLong: 24.87594,  locationLat: 60.205858, nameFin: 'Munkkivuoren kirkko', nameSwe: 'Munkshöjdens kyrka' },
+  { label: 'H1398', locationLong: 24.88078,  locationLat: 60.20663,  nameFin: 'Munkkivuori',         nameSwe: 'Munkshöjden' }, // Lapinmäentie
+  { label: 'H1416', locationLong: 24.879,    locationLat: 60.2055,   nameFin: 'Munkkivuori',         nameSwe: 'Munkshöjden' }, // Raumantie
+  { label: 'H1451', locationLong: 24.883581, locationLat: 60.205589, nameFin: 'Luuvaniementie',      nameSwe: 'Lognäsvägen' }, // Opposite of H1452
+  { label: 'H1452', locationLong: 24.883556, locationLat: 60.205493, nameFin: 'Luuvaniementie',      nameSwe: 'Lognäsvägen' }, // Opposite of H1451
+  { label: 'H1453', locationLong: 24.884656, locationLat: 60.204225, nameFin: 'Niemenmäenkuja',      nameSwe: 'Näshöjdsgränden' },
+  { label: 'H1454', locationLong: 24.884535, locationLat: 60.203123, nameFin: 'Niemenmäki',          nameSwe: 'Näshöjden' },
+  { label: 'H1455', locationLong: 24.88356,  locationLat: 60.203794, nameFin: 'Niemenmäentie',       nameSwe: 'Näshöjdsvägen' },
+  { label: 'H1456', locationLong: 24.884701, locationLat: 60.200373, nameFin: 'Rakuunantie',         nameSwe: 'Dragonvägen' }, // Rakuunantie 16
+  { label: 'H1458', locationLong: 24.883186, locationLat: 60.200773, nameFin: 'Rakuunantie',         nameSwe: 'Dragonvägen' }, // Huopalahdentie
 ];
 
 // A long route that spans multiple cities and fare zones.
-// Gets unnecessarily long and ugly with "prettier" so disabling it for this array.
 // prettier-ignore
 const route530Stops: Array<StopPlaceSeedData> = [
   { label: "V1562", locationLong: 24.85559,  locationLat: 60.26118,   nameFin: 'Myyrmäen asema',    nameSwe: 'Myrbacka station' },
