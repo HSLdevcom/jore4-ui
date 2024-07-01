@@ -1,3 +1,4 @@
+import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
 import { ChangeTimetablesValidityForm } from './ChangeTimetablesValidityForm';
 import { ObservationDateControl } from './ObservationDateControl';
 import { Toast } from './Toast';
@@ -19,5 +20,14 @@ export class VehicleScheduleDetailsPage {
 
   getShowAllValidSwitch() {
     return cy.getByTestId('VehicleScheduleDetailsPage::showAllValidSwitch');
+  }
+
+  getRouteSectionByLabelAndDirection(
+    label: string,
+    direction: RouteDirectionEnum,
+  ) {
+    return cy.getByTestId(
+      `RouteTimetablesSection::section::${label}::${direction}`,
+    );
   }
 }
