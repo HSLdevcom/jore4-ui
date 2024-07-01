@@ -35,6 +35,7 @@ import {
 } from './routes';
 import { ExistingRouteGeometryLayer } from './routes/ExistingRouteGeometryLayer';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
+import { StopAreas } from './stop-areas';
 import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
 
@@ -144,6 +145,7 @@ export const MapComponent = (
       className={className}
     >
       <Stops ref={stopsRef} />
+      <StopAreas />
       <CustomOverlay position="top-left">
         <Column className="items-start overflow-hidden p-2">
           <FilterPanel

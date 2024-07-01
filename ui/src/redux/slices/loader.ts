@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export enum Operation {
   LoadMap = 'loadMap',
+  FetchStopAreas = 'fetchStopAreas',
   FetchStops = 'fetchStops',
   FetchRoutes = 'fetchRoutes',
   SaveStop = 'saveStop',
@@ -15,10 +16,12 @@ export enum Operation {
   AbortImport = 'abortImport',
   FetchRouteTimetables = 'fetchRouteTimetables',
   DeleteTimetable = 'deleteTimetable',
+  ResolveScheduledStopPoint = 'resolveScheduledStopPoint',
 }
 
 export const mapOperations = [
   Operation.LoadMap,
+  Operation.FetchStopAreas,
   Operation.FetchStops,
   Operation.FetchRoutes,
   Operation.SaveStop,
@@ -26,6 +29,7 @@ export const mapOperations = [
   Operation.MatchRoute,
   Operation.CheckBrokenRoutes,
   Operation.SaveTimingPlace,
+  Operation.ResolveScheduledStopPoint,
 ];
 
 export const importOperations = [
@@ -46,6 +50,7 @@ type IState = {
 
 const initialState: IState = {
   [Operation.LoadMap]: false,
+  [Operation.FetchStopAreas]: false,
   [Operation.FetchStops]: false,
   [Operation.FetchRoutes]: false,
   [Operation.SaveStop]: false,
@@ -59,6 +64,7 @@ const initialState: IState = {
   [Operation.AbortImport]: false,
   [Operation.FetchRouteTimetables]: false,
   [Operation.DeleteTimetable]: false,
+  [Operation.ResolveScheduledStopPoint]: false,
 };
 
 const slice = createSlice({

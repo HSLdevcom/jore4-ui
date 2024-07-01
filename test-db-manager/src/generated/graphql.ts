@@ -21289,6 +21289,8 @@ export type StopsDatabaseGroupOfStopPlacesMembers = {
   __typename?: 'stops_database_group_of_stop_places_members';
   group_of_stop_places_id: Scalars['bigint'];
   ref?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  stop_place_newest_version?: Maybe<StopsDatabaseStopPlaceNewestVersion>;
   version?: Maybe<Scalars['String']>;
 };
 
@@ -21361,6 +21363,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersBoolExp = {
   _or?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersBoolExp>>;
   group_of_stop_places_id?: InputMaybe<BigintComparisonExp>;
   ref?: InputMaybe<StringComparisonExp>;
+  stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
   version?: InputMaybe<StringComparisonExp>;
 };
 
@@ -21373,6 +21376,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersIncInput = {
 export type StopsDatabaseGroupOfStopPlacesMembersInsertInput = {
   group_of_stop_places_id?: InputMaybe<Scalars['bigint']>;
   ref?: InputMaybe<Scalars['String']>;
+  stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionObjRelInsertInput>;
   version?: InputMaybe<Scalars['String']>;
 };
 
@@ -21419,6 +21423,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersMutationResponse = {
 export type StopsDatabaseGroupOfStopPlacesMembersOrderBy = {
   group_of_stop_places_id?: InputMaybe<OrderBy>;
   ref?: InputMaybe<OrderBy>;
+  stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionOrderBy>;
   version?: InputMaybe<OrderBy>;
 };
 
@@ -38971,6 +38976,59 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   weighting?: InputMaybe<StringComparisonExp>;
 };
 
+/** input type for inserting data into table "stop_place_newest_version" */
+export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
+  accessibility_assessment_id?: InputMaybe<Scalars['bigint']>;
+  air_submode?: InputMaybe<Scalars['String']>;
+  all_areas_wheelchair_accessible?: InputMaybe<Scalars['Boolean']>;
+  border_crossing?: InputMaybe<Scalars['Boolean']>;
+  bus_submode?: InputMaybe<Scalars['String']>;
+  centroid?: InputMaybe<Scalars['geometry']>;
+  changed?: InputMaybe<Scalars['timestamp']>;
+  changed_by?: InputMaybe<Scalars['String']>;
+  coach_submode?: InputMaybe<Scalars['String']>;
+  covered?: InputMaybe<Scalars['Int']>;
+  created?: InputMaybe<Scalars['timestamp']>;
+  description_lang?: InputMaybe<Scalars['String']>;
+  description_value?: InputMaybe<Scalars['String']>;
+  from_date?: InputMaybe<Scalars['timestamp']>;
+  funicular_submode?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['bigint']>;
+  metro_submode?: InputMaybe<Scalars['String']>;
+  modification_enumeration?: InputMaybe<Scalars['String']>;
+  name_lang?: InputMaybe<Scalars['String']>;
+  name_value?: InputMaybe<Scalars['String']>;
+  netex_id?: InputMaybe<Scalars['String']>;
+  parent_site_ref?: InputMaybe<Scalars['String']>;
+  parent_site_ref_version?: InputMaybe<Scalars['String']>;
+  parent_stop_place?: InputMaybe<Scalars['Boolean']>;
+  place_equipments_id?: InputMaybe<Scalars['bigint']>;
+  polygon_id?: InputMaybe<Scalars['bigint']>;
+  private_code_type?: InputMaybe<Scalars['String']>;
+  private_code_value?: InputMaybe<Scalars['String']>;
+  public_code?: InputMaybe<Scalars['String']>;
+  rail_submode?: InputMaybe<Scalars['String']>;
+  short_name_lang?: InputMaybe<Scalars['String']>;
+  short_name_value?: InputMaybe<Scalars['String']>;
+  stop_place_access_spaces?: InputMaybe<StopsDatabaseStopPlaceAccessSpacesArrRelInsertInput>;
+  stop_place_alternative_names?: InputMaybe<StopsDatabaseStopPlaceAlternativeNamesArrRelInsertInput>;
+  stop_place_children?: InputMaybe<StopsDatabaseStopPlaceChildrenArrRelInsertInput>;
+  stop_place_equipment_places?: InputMaybe<StopsDatabaseStopPlaceEquipmentPlacesArrRelInsertInput>;
+  stop_place_key_values?: InputMaybe<StopsDatabaseStopPlaceKeyValuesArrRelInsertInput>;
+  stop_place_quays?: InputMaybe<StopsDatabaseStopPlaceQuaysArrRelInsertInput>;
+  stop_place_tariff_zones?: InputMaybe<StopsDatabaseStopPlaceTariffZonesArrRelInsertInput>;
+  stop_place_type?: InputMaybe<Scalars['String']>;
+  telecabin_submode?: InputMaybe<Scalars['String']>;
+  to_date?: InputMaybe<Scalars['timestamp']>;
+  topographic_place_id?: InputMaybe<Scalars['bigint']>;
+  tram_submode?: InputMaybe<Scalars['String']>;
+  transport_mode?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['bigint']>;
+  version_comment?: InputMaybe<Scalars['String']>;
+  water_submode?: InputMaybe<Scalars['String']>;
+  weighting?: InputMaybe<Scalars['String']>;
+};
+
 /** aggregate max on columns */
 export type StopsDatabaseStopPlaceNewestVersionMaxFields = {
   __typename?: 'stops_database_stop_place_newest_version_max_fields';
@@ -39055,6 +39113,11 @@ export type StopsDatabaseStopPlaceNewestVersionMinFields = {
   version_comment?: Maybe<Scalars['String']>;
   water_submode?: Maybe<Scalars['String']>;
   weighting?: Maybe<Scalars['String']>;
+};
+
+/** input type for inserting object relation for remote table "stop_place_newest_version" */
+export type StopsDatabaseStopPlaceNewestVersionObjRelInsertInput = {
+  data: StopsDatabaseStopPlaceNewestVersionInsertInput;
 };
 
 /** Ordering options when selecting data from "stop_place_newest_version". */

@@ -5,6 +5,7 @@ import { loaderReducer } from './slices/loader';
 import { mapFilterReducer } from './slices/mapFilter';
 import { mapModalReducer } from './slices/mapModal';
 import { mapRouteEditorReducer } from './slices/mapRouteEditor';
+import { mapStopAreaEditorReducer } from './slices/mapStopAreaEditor';
 import { mapStopEditorReducer } from './slices/mapStopEditor';
 import { modalsReducer } from './slices/modals';
 import { timetableReducer } from './slices/timetable';
@@ -14,6 +15,7 @@ import { loginFailedAction, userReducer } from './slices/user';
 const appReducer = combineReducers({
   export: exportReducer,
   loader: loaderReducer,
+  mapStopAreaEditor: mapStopAreaEditorReducer,
   mapStopEditor: mapStopEditorReducer,
   mapRouteEditor: mapRouteEditorReducer,
   mapFilter: mapFilterReducer,

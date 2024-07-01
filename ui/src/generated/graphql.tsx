@@ -21293,6 +21293,8 @@ export type StopsDatabaseGroupOfStopPlacesMembers = {
   __typename?: 'stops_database_group_of_stop_places_members';
   group_of_stop_places_id: Scalars['bigint'];
   ref?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  stop_place_newest_version?: Maybe<StopsDatabaseStopPlaceNewestVersion>;
   version?: Maybe<Scalars['String']>;
 };
 
@@ -21365,6 +21367,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersBoolExp = {
   _or?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersBoolExp>>;
   group_of_stop_places_id?: InputMaybe<BigintComparisonExp>;
   ref?: InputMaybe<StringComparisonExp>;
+  stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
   version?: InputMaybe<StringComparisonExp>;
 };
 
@@ -21377,6 +21380,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersIncInput = {
 export type StopsDatabaseGroupOfStopPlacesMembersInsertInput = {
   group_of_stop_places_id?: InputMaybe<Scalars['bigint']>;
   ref?: InputMaybe<Scalars['String']>;
+  stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionObjRelInsertInput>;
   version?: InputMaybe<Scalars['String']>;
 };
 
@@ -21423,6 +21427,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersMutationResponse = {
 export type StopsDatabaseGroupOfStopPlacesMembersOrderBy = {
   group_of_stop_places_id?: InputMaybe<OrderBy>;
   ref?: InputMaybe<OrderBy>;
+  stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionOrderBy>;
   version?: InputMaybe<OrderBy>;
 };
 
@@ -38975,6 +38980,59 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   weighting?: InputMaybe<StringComparisonExp>;
 };
 
+/** input type for inserting data into table "stop_place_newest_version" */
+export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
+  accessibility_assessment_id?: InputMaybe<Scalars['bigint']>;
+  air_submode?: InputMaybe<Scalars['String']>;
+  all_areas_wheelchair_accessible?: InputMaybe<Scalars['Boolean']>;
+  border_crossing?: InputMaybe<Scalars['Boolean']>;
+  bus_submode?: InputMaybe<Scalars['String']>;
+  centroid?: InputMaybe<Scalars['geometry']>;
+  changed?: InputMaybe<Scalars['timestamp']>;
+  changed_by?: InputMaybe<Scalars['String']>;
+  coach_submode?: InputMaybe<Scalars['String']>;
+  covered?: InputMaybe<Scalars['Int']>;
+  created?: InputMaybe<Scalars['timestamp']>;
+  description_lang?: InputMaybe<Scalars['String']>;
+  description_value?: InputMaybe<Scalars['String']>;
+  from_date?: InputMaybe<Scalars['timestamp']>;
+  funicular_submode?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['bigint']>;
+  metro_submode?: InputMaybe<Scalars['String']>;
+  modification_enumeration?: InputMaybe<Scalars['String']>;
+  name_lang?: InputMaybe<Scalars['String']>;
+  name_value?: InputMaybe<Scalars['String']>;
+  netex_id?: InputMaybe<Scalars['String']>;
+  parent_site_ref?: InputMaybe<Scalars['String']>;
+  parent_site_ref_version?: InputMaybe<Scalars['String']>;
+  parent_stop_place?: InputMaybe<Scalars['Boolean']>;
+  place_equipments_id?: InputMaybe<Scalars['bigint']>;
+  polygon_id?: InputMaybe<Scalars['bigint']>;
+  private_code_type?: InputMaybe<Scalars['String']>;
+  private_code_value?: InputMaybe<Scalars['String']>;
+  public_code?: InputMaybe<Scalars['String']>;
+  rail_submode?: InputMaybe<Scalars['String']>;
+  short_name_lang?: InputMaybe<Scalars['String']>;
+  short_name_value?: InputMaybe<Scalars['String']>;
+  stop_place_access_spaces?: InputMaybe<StopsDatabaseStopPlaceAccessSpacesArrRelInsertInput>;
+  stop_place_alternative_names?: InputMaybe<StopsDatabaseStopPlaceAlternativeNamesArrRelInsertInput>;
+  stop_place_children?: InputMaybe<StopsDatabaseStopPlaceChildrenArrRelInsertInput>;
+  stop_place_equipment_places?: InputMaybe<StopsDatabaseStopPlaceEquipmentPlacesArrRelInsertInput>;
+  stop_place_key_values?: InputMaybe<StopsDatabaseStopPlaceKeyValuesArrRelInsertInput>;
+  stop_place_quays?: InputMaybe<StopsDatabaseStopPlaceQuaysArrRelInsertInput>;
+  stop_place_tariff_zones?: InputMaybe<StopsDatabaseStopPlaceTariffZonesArrRelInsertInput>;
+  stop_place_type?: InputMaybe<Scalars['String']>;
+  telecabin_submode?: InputMaybe<Scalars['String']>;
+  to_date?: InputMaybe<Scalars['timestamp']>;
+  topographic_place_id?: InputMaybe<Scalars['bigint']>;
+  tram_submode?: InputMaybe<Scalars['String']>;
+  transport_mode?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['bigint']>;
+  version_comment?: InputMaybe<Scalars['String']>;
+  water_submode?: InputMaybe<Scalars['String']>;
+  weighting?: InputMaybe<Scalars['String']>;
+};
+
 /** aggregate max on columns */
 export type StopsDatabaseStopPlaceNewestVersionMaxFields = {
   __typename?: 'stops_database_stop_place_newest_version_max_fields';
@@ -39059,6 +39117,11 @@ export type StopsDatabaseStopPlaceNewestVersionMinFields = {
   version_comment?: Maybe<Scalars['String']>;
   water_submode?: Maybe<Scalars['String']>;
   weighting?: Maybe<Scalars['String']>;
+};
+
+/** input type for inserting object relation for remote table "stop_place_newest_version" */
+export type StopsDatabaseStopPlaceNewestVersionObjRelInsertInput = {
+  data: StopsDatabaseStopPlaceNewestVersionInsertInput;
 };
 
 /** Ordering options when selecting data from "stop_place_newest_version". */
@@ -65253,6 +65316,122 @@ export type GetRoutesBrokenByStopChangeQuery = {
   }>;
 };
 
+export type GetStopAreasByLocationQueryVariables = Exact<{
+  measured_location_filter?: InputMaybe<GeometryComparisonExp>;
+}>;
+
+export type GetStopAreasByLocationQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    areas: Array<{
+      __typename?: 'stops_database_group_of_stop_places';
+      id: any;
+      netex_id?: string | null;
+      centroid?: GeoJSON.Geometry | null;
+      from_date?: any | null;
+      to_date?: any | null;
+      name_lang?: string | null;
+      name_value?: string | null;
+      alternative_names: Array<{
+        __typename?: 'stops_database_group_of_stop_places_alternative_names';
+        group_of_stop_places_id: any;
+        alternative_names_id: any;
+        alternative_name: {
+          __typename?: 'stops_database_alternative_name';
+          id: any;
+          name_value?: string | null;
+          name_lang?: string | null;
+        };
+      }>;
+      members: Array<{
+        __typename?: 'stops_database_group_of_stop_places_members';
+        group_of_stop_places_id: any;
+        ref?: string | null;
+        version?: string | null;
+        stop_place?: {
+          __typename?: 'stops_database_stop_place_newest_version';
+          id?: any | null;
+          netex_id?: string | null;
+          centroid?: GeoJSON.Geometry | null;
+        } | null;
+      }>;
+    }>;
+  } | null;
+};
+
+export type StopAreaMinimalShowOnMapFieldsFragment = {
+  __typename?: 'stops_database_group_of_stop_places';
+  id: any;
+  netex_id?: string | null;
+  centroid?: GeoJSON.Geometry | null;
+  from_date?: any | null;
+  to_date?: any | null;
+  name_lang?: string | null;
+  name_value?: string | null;
+  alternative_names: Array<{
+    __typename?: 'stops_database_group_of_stop_places_alternative_names';
+    group_of_stop_places_id: any;
+    alternative_names_id: any;
+    alternative_name: {
+      __typename?: 'stops_database_alternative_name';
+      id: any;
+      name_value?: string | null;
+      name_lang?: string | null;
+    };
+  }>;
+  members: Array<{
+    __typename?: 'stops_database_group_of_stop_places_members';
+    group_of_stop_places_id: any;
+    ref?: string | null;
+    version?: string | null;
+    stop_place?: {
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
+      netex_id?: string | null;
+      centroid?: GeoJSON.Geometry | null;
+    } | null;
+  }>;
+};
+
+export type MemberStopFieldsFragment = {
+  __typename?: 'stops_database_stop_place_newest_version';
+  id?: any | null;
+  netex_id?: string | null;
+  centroid?: GeoJSON.Geometry | null;
+};
+
+export type GetScheduledStopPointByStopPlaceRefQueryVariables = Exact<{
+  stopPlaceRef: Scalars['String'];
+}>;
+
+export type GetScheduledStopPointByStopPlaceRefQuery = {
+  __typename?: 'query_root';
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    measured_location: GeoJSON.Point;
+    relative_distance_from_infrastructure_link_start: number;
+    closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+    priority: number;
+    direction: InfrastructureNetworkDirectionEnum;
+    scheduled_stop_point_id: UUID;
+    label: string;
+    timing_place_id?: UUID | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    located_on_infrastructure_link_id: UUID;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+    timing_place?: {
+      __typename?: 'timing_pattern_timing_place';
+      timing_place_id: UUID;
+      label: string;
+    } | null;
+  }>;
+};
+
 export type InfrastructureLinkWithStopsFragment = {
   __typename?: 'infrastructure_network_infrastructure_link';
   direction: InfrastructureNetworkDirectionEnum;
@@ -68750,6 +68929,42 @@ export const RouteWithInfrastructureLinksFragmentDoc = gql`
   ${RouteAllFieldsFragmentDoc}
   ${LineAllFieldsFragmentDoc}
 `;
+export const MemberStopFieldsFragmentDoc = gql`
+  fragment member_stop_fields on stops_database_stop_place_newest_version {
+    id
+    netex_id
+    centroid
+  }
+`;
+export const StopAreaMinimalShowOnMapFieldsFragmentDoc = gql`
+  fragment stop_area_minimal_show_on_map_fields on stops_database_group_of_stop_places {
+    id
+    netex_id
+    centroid
+    from_date
+    to_date
+    name_lang
+    name_value
+    alternative_names: group_of_stop_places_alternative_names {
+      group_of_stop_places_id
+      alternative_names_id
+      alternative_name {
+        id
+        name_value
+        name_lang
+      }
+    }
+    members: group_of_stop_places_members {
+      group_of_stop_places_id
+      ref
+      version
+      stop_place: stop_place_newest_version {
+        ...member_stop_fields
+      }
+    }
+  }
+  ${MemberStopFieldsFragmentDoc}
+`;
 export const InfrastructureLinkDefaultFieldsFragmentDoc = gql`
   fragment infrastructure_link_default_fields on infrastructure_network_infrastructure_link {
     infrastructure_link_id
@@ -71628,6 +71843,136 @@ export type GetRoutesBrokenByStopChangeLazyQueryHookResult = ReturnType<
 export type GetRoutesBrokenByStopChangeQueryResult = Apollo.QueryResult<
   GetRoutesBrokenByStopChangeQuery,
   GetRoutesBrokenByStopChangeQueryVariables
+>;
+export const GetStopAreasByLocationDocument = gql`
+  query GetStopAreasByLocation(
+    $measured_location_filter: geometry_comparison_exp
+  ) {
+    stops_database {
+      areas: stops_database_group_of_stop_places(
+        where: {
+          centroid: $measured_location_filter
+          netex_id: { _is_null: false }
+        }
+      ) {
+        ...stop_area_minimal_show_on_map_fields
+      }
+    }
+  }
+  ${StopAreaMinimalShowOnMapFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetStopAreasByLocationQuery__
+ *
+ * To run a query within a React component, call `useGetStopAreasByLocationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopAreasByLocationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopAreasByLocationQuery({
+ *   variables: {
+ *      measured_location_filter: // value for 'measured_location_filter'
+ *   },
+ * });
+ */
+export function useGetStopAreasByLocationQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetStopAreasByLocationQuery,
+    GetStopAreasByLocationQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStopAreasByLocationQuery,
+    GetStopAreasByLocationQueryVariables
+  >(GetStopAreasByLocationDocument, options);
+}
+export function useGetStopAreasByLocationLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopAreasByLocationQuery,
+    GetStopAreasByLocationQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopAreasByLocationQuery,
+    GetStopAreasByLocationQueryVariables
+  >(GetStopAreasByLocationDocument, options);
+}
+export type GetStopAreasByLocationQueryHookResult = ReturnType<
+  typeof useGetStopAreasByLocationQuery
+>;
+export type GetStopAreasByLocationLazyQueryHookResult = ReturnType<
+  typeof useGetStopAreasByLocationLazyQuery
+>;
+export type GetStopAreasByLocationQueryResult = Apollo.QueryResult<
+  GetStopAreasByLocationQuery,
+  GetStopAreasByLocationQueryVariables
+>;
+export const GetScheduledStopPointByStopPlaceRefDocument = gql`
+  query GetScheduledStopPointByStopPlaceRef($stopPlaceRef: String!) {
+    service_pattern_scheduled_stop_point(
+      where: { stop_place_ref: { _eq: $stopPlaceRef } }
+      limit: 1
+    ) {
+      ...scheduled_stop_point_all_fields
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetScheduledStopPointByStopPlaceRefQuery__
+ *
+ * To run a query within a React component, call `useGetScheduledStopPointByStopPlaceRefQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetScheduledStopPointByStopPlaceRefQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetScheduledStopPointByStopPlaceRefQuery({
+ *   variables: {
+ *      stopPlaceRef: // value for 'stopPlaceRef'
+ *   },
+ * });
+ */
+export function useGetScheduledStopPointByStopPlaceRefQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >(GetScheduledStopPointByStopPlaceRefDocument, options);
+}
+export function useGetScheduledStopPointByStopPlaceRefLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >(GetScheduledStopPointByStopPlaceRefDocument, options);
+}
+export type GetScheduledStopPointByStopPlaceRefQueryHookResult = ReturnType<
+  typeof useGetScheduledStopPointByStopPlaceRefQuery
+>;
+export type GetScheduledStopPointByStopPlaceRefLazyQueryHookResult = ReturnType<
+  typeof useGetScheduledStopPointByStopPlaceRefLazyQuery
+>;
+export type GetScheduledStopPointByStopPlaceRefQueryResult = Apollo.QueryResult<
+  GetScheduledStopPointByStopPlaceRefQuery,
+  GetScheduledStopPointByStopPlaceRefQueryVariables
 >;
 export const GetHighestPriorityLineDetailsWithRoutesDocument = gql`
   query GetHighestPriorityLineDetailsWithRoutes(
@@ -74792,6 +75137,23 @@ export function useGetRoutesBrokenByStopChangeAsyncQuery() {
 export type GetRoutesBrokenByStopChangeAsyncQueryHookResult = ReturnType<
   typeof useGetRoutesBrokenByStopChangeAsyncQuery
 >;
+export function useGetStopAreasByLocationAsyncQuery() {
+  return useAsyncQuery<
+    GetStopAreasByLocationQuery,
+    GetStopAreasByLocationQueryVariables
+  >(GetStopAreasByLocationDocument);
+}
+export type GetStopAreasByLocationAsyncQueryHookResult = ReturnType<
+  typeof useGetStopAreasByLocationAsyncQuery
+>;
+export function useGetScheduledStopPointByStopPlaceRefAsyncQuery() {
+  return useAsyncQuery<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >(GetScheduledStopPointByStopPlaceRefDocument);
+}
+export type GetScheduledStopPointByStopPlaceRefAsyncQueryHookResult =
+  ReturnType<typeof useGetScheduledStopPointByStopPlaceRefAsyncQuery>;
 export function useGetHighestPriorityLineDetailsWithRoutesAsyncQuery() {
   return useAsyncQuery<
     GetHighestPriorityLineDetailsWithRoutesQuery,

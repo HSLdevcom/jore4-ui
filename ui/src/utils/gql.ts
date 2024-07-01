@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import {
   GeographyComparisonExp,
+  GeometryComparisonExp,
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
   StopsDatabaseStopPlaceNewestVersionBoolExp,
@@ -162,6 +163,18 @@ export const buildRouteLineLabelGqlFilter = (label: string) => ({
 export const buildWithinViewportGqlFilter = (
   viewport: Viewport,
 ): GeographyComparisonExp => ({
+  _st_d_within: {
+    from: {
+      type: 'Point',
+      coordinates: [viewport.longitude, viewport.latitude],
+    },
+    distance: viewport.radius,
+  },
+});
+
+export const buildWithinViewportGqlGeometryFilter = (
+  viewport: Viewport,
+): GeometryComparisonExp => ({
   _st_d_within: {
     from: {
       type: 'Point',

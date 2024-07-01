@@ -14,10 +14,10 @@ interface LineLayout {
 }
 interface Props {
   layerId: string;
-  geometry: GeoJSON.LineString;
+  geometry: GeoJSON.LineString | GeoJSON.MultiLineString;
   beforeId?: string;
-  layout?: LineLayout;
-  paint?: LinePaint;
+  layout?: Partial<LineLayout>;
+  paint?: Partial<LinePaint>;
 }
 
 // this layer renders a static line
