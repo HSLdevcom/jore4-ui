@@ -12,4 +12,8 @@ export class RouteTimetablesSection {
       'VehicleServiceTable::headingButton',
     );
   }
+
+  getVehicleServiceTableByDayType(dayTypeLabel: string) {
+    return cy.getByTestId(`VehicleServiceTable::${dayTypeLabel}`);
+  }
 }
