@@ -837,6 +837,7 @@ describe('Stop details', () => {
         'should be able to delete all shelters',
         { tags: [Tag.StopRegistry] },
         () => {
+          stopDetailsPage.shelters.getAddShelterButton().should('not.exist');
           stopDetailsPage.shelters.getEditButton().click();
           view.getContainers().should('not.exist');
 
@@ -858,6 +859,15 @@ describe('Stop details', () => {
           stopDetailsPage.shelters
             .getTitle()
             .should('have.text', 'Ei pysäkkikatosta');
+
+          // No shelters left: edit mode will be started with one new shelter.
+          stopDetailsPage.shelters.getAddShelterButton().should('be.visible');
+          stopDetailsPage.shelters.getAddShelterButton().click();
+          view.getContainers().should('not.exist');
+          form.getShelters().should('have.length', 1);
+          stopDetailsPage.shelters
+            .getTitle()
+            .should('have.text', 'Pysäkkikatos (1)');
         },
       );
     });
