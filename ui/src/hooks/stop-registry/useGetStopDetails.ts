@@ -270,6 +270,7 @@ export const useGetStopDetails = (): {
 
   const result = useGetHighestPriorityStopDetailsByLabelAndDateQuery({
     variables: { label, observationDate },
+    notifyOnNetworkStatusChange: true, // Required so that `loading` updates on refetches.
   });
 
   const stopDetails = result.data?.service_pattern_scheduled_stop_point[0];
