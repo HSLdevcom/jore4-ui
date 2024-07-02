@@ -1,4 +1,10 @@
-import { ApolloCache, Reference, StoreObject } from '@apollo/client';
+import {
+  ApolloCache,
+  NetworkStatus,
+  QueryResult,
+  Reference,
+  StoreObject,
+} from '@apollo/client';
 
 export const mapToObject = (object: ExplicitAny) => {
   return { object };
@@ -46,4 +52,22 @@ export const convertArrayTypeForHasura = <T>(array: T[]): string => {
   });
 
   return `{${convertedItems.join(',')}}`;
+};
+
+/**
+ * Returns `true` if the query should be considered to be currently loading the result.
+ * Use together with `notifyOnNetworkStatusChange: true` option for the query.
+ */
+export const isResultLoading = ({
+  loading,
+  networkStatus,
+}: Pick<QueryResult, 'loading' | 'networkStatus'>) => {
+  // `loading: true` is only set for initial load on the queries.
+  // Network status needs to be checked as well to detect loading on refetches etc.
+  const loadingStatuses = [
+    NetworkStatus.refetch,
+    NetworkStatus.fetchMore,
+    NetworkStatus.loading,
+  ];
+  return loading || networkStatus in loadingStatuses;
 };

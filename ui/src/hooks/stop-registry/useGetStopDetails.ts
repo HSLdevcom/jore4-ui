@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { NetworkStatus, gql } from '@apollo/client';
 import {
   ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
@@ -8,6 +8,7 @@ import {
   StopPlaceEnrichmentProperties,
   getStopPlaceDetailsForEnrichment,
   getStopPlaceFromQueryResult,
+  isResultLoading,
 } from '../../utils';
 import { useObservationDateQueryParam } from '../urlQuery';
 import { useRequiredParams } from '../useRequiredParams';
@@ -270,6 +271,7 @@ export const useGetStopDetails = (): {
 
   const result = useGetHighestPriorityStopDetailsByLabelAndDateQuery({
     variables: { label, observationDate },
+    notifyOnNetworkStatusChange: true,
   });
 
   const stopDetails = result.data?.service_pattern_scheduled_stop_point[0];
@@ -281,6 +283,6 @@ export const useGetStopDetails = (): {
         getStopPlaceFromQueryResult<StopPlace>(stopDetails.stop_place),
       ),
     },
-    isLoading: result.loading,
+    isLoading: isResultLoading(result),
   };
 };
