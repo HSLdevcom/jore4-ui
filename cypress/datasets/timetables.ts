@@ -675,7 +675,7 @@ const satVehicleScheduleFrame = {
                 },
                 {
                   _scheduled_stop_point_label: 'E2E005',
-                  arrival_time: Duration.fromISO('PT8H20M'),
+                  arrival_time: Duration.fromISO('PT8H19M'),
                   departure_time: null,
                 },
               ],
