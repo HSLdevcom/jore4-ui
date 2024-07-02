@@ -77,7 +77,7 @@ describe('Timetable version details panel', () => {
 
     timetableVersionsPage.timetableVersionTable
       .getRows()
-      .should('have.length', 1);
+      .should('have.length', 2);
 
     timetableVersionTable
       .getRows()
