@@ -55,11 +55,16 @@ Cypress.Commands.add('mockLogin', () => {
       body: userInfo,
     }).as('userInfo');
 
-    // intercept calls to hasura and log in as admin (to avoid it going to auth backend)
-    // TODO: we should match only '/api/graphql' requests, but for some
-    // reason that doesn't seem to work. (Could be because our graphql
-    // requests use ws:// protocol?)
-    cy.intercept('**', (req) => {
+    // intercept calls to hastus service
+    // and log in as admin (to avoid it going to auth backend)
+    cy.intercept('/api/hastus/**', (req) => {
+      // eslint-disable-next-line no-param-reassign
+      req.headers['x-hasura-admin-secret'] = 'hasura';
+    }).as('hastusAuth');
+
+    // intercept calls to hasura
+    // and log in as admin (to avoid it going to auth backend)
+    cy.intercept('/api/graphql/**', (req) => {
       // eslint-disable-next-line no-param-reassign
       req.headers['x-hasura-admin-secret'] = 'hasura';
     }).as('hasuraAuth');
