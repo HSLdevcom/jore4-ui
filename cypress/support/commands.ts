@@ -59,7 +59,13 @@ Cypress.Commands.add('mockLogin', () => {
     // TODO: we should match only '/api/graphql' requests, but for some
     // reason that doesn't seem to work. (Could be because our graphql
     // requests use ws:// protocol?)
-    cy.intercept('**', (req) => {
+
+    cy.intercept('/api/hastus/**', (req) => {
+      // eslint-disable-next-line no-param-reassign
+      req.headers['x-hasura-admin-secret'] = 'hasura';
+    }).as('hasuraAuth');
+
+    cy.intercept('/api/graphql/**', (req) => {
       // eslint-disable-next-line no-param-reassign
       req.headers['x-hasura-admin-secret'] = 'hasura';
     }).as('hasuraAuth');
