@@ -10,7 +10,13 @@ interface PassingTimeInfo {
   arrivalMinutes?: string[];
 }
 
-export class PassingTimesByStopSection {
+/**
+ * This page object is marked as legacy.
+ * This constructor class pattern is probably a bit too heavy and we should
+ * stick with simpler page objects and using .within() and .findByTestId()
+ * methods
+ */
+export class PassingTimesByStopSectionLegacy {
   getParent: ParentPageObject['get'];
 
   dayType: string;

@@ -21,10 +21,10 @@ import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
 import { Tag } from '../enums';
 import {
-  PassingTimesByStopSection,
+  PassingTimesByStopSectionLegacy,
   RouteTimetablesSectionLegacy,
   VehicleScheduleDetailsPage,
-  VehicleServiceTable,
+  VehicleServiceTableLegacy,
 } from '../pageObjects';
 import { UUID } from '../types';
 import {
@@ -401,10 +401,8 @@ describe('Timetable validity period', () => {
         'inbound',
       );
 
-      const route99InboundSaturdayVehicleService = new VehicleServiceTable(
-        route99InboundTimetableSection,
-        'LA',
-      );
+      const route99InboundSaturdayVehicleService =
+        new VehicleServiceTableLegacy(route99InboundTimetableSection, 'LA');
 
       route99InboundSaturdayVehicleService.clickChangeValidityDate();
 
@@ -467,7 +465,7 @@ describe('Timetable validity period', () => {
       );
 
       const route99InboundSaturdayPassingTimesSection =
-        new PassingTimesByStopSection(
+        new PassingTimesByStopSectionLegacy(
           route99InboundTimetableSection,
           'LA',
           TimetablePriority.Standard,
@@ -534,10 +532,8 @@ describe('Timetable validity period', () => {
           'inbound',
         );
 
-        const route99InboundSaturdayVehicleService = new VehicleServiceTable(
-          route99InboundTimetableSection,
-          'LA',
-        );
+        const route99InboundSaturdayVehicleService =
+          new VehicleServiceTableLegacy(route99InboundTimetableSection, 'LA');
         route99InboundSaturdayVehicleService.clickChangeValidityDate();
 
         // Try to extend the 2023 timetable into 2024, that already has a schedule with standard priority
