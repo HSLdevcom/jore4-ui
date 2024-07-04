@@ -22,4 +22,12 @@ export class PassingTimesByStopTable {
       'PassingTimesByStopTableRowPassingMinute::arrivalTime',
     );
   }
+
+  getChangeValidityButton() {
+    return cy.getByTestId('VehicleJourneyGroupInfo::changeValidityButton');
+  }
+
+  getVehicleJourneyGroupInfo() {
+    return cy.getByTestId('VehicleJourneyGroupInfo');
+  }
 }

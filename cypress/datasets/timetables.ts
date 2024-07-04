@@ -3,7 +3,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { DateTime, Duration } from 'luxon';
 import { journeyPatterns } from './base';
 
-const monFriVehicleScheduleFrame = {
+export const monFriVehicleScheduleFrame = {
   validity_start: DateTime.fromISO('2023-01-01'),
   validity_end: DateTime.fromISO('2023-12-31'),
   name: '2023 mon fri',
@@ -390,7 +390,7 @@ const monFriVehicleScheduleFrame = {
   },
 };
 
-const satVehicleScheduleFrame = {
+export const satVehicleScheduleFrame = {
   validity_start: DateTime.fromISO('2023-01-01'),
   validity_end: DateTime.fromISO('2023-12-31'),
   name: '2023 sat',
