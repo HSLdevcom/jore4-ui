@@ -10,6 +10,7 @@ import { mapDurationToShortTime, mapToShortDate } from '../../../time';
 import { IconButton, commonHoverStyle } from '../../../uiComponents';
 
 const testIds = {
+  container: 'VehicleJourneyGroupInfo',
   changeValidityButton: 'VehicleJourneyGroupInfo::changeValidityButton',
   validityTimeRange: 'VehicleJourneyGroupInfo::validityTimeRange',
   tripCount: 'VehicleJourneyGroupInfo::tripCount',
@@ -62,6 +63,7 @@ export const VehicleJourneyGroupInfo = ({
   const hoverStyle = `${commonHoverStyle} hover:bg-light-grey`;
   return (
     <Row
+      testId={testIds.container}
       className={`items-center space-x-4 text-center text-sm text-hsl-dark-80 ${className}`}
     >
       <IconButton
