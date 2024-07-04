@@ -1,4 +1,8 @@
 export class VehicleJourneyGroupInfo {
+  get() {
+    return cy.getByTestId('VehicleJourneyGroupInfo');
+  }
+
   getChangeValidityButton() {
     return cy.getByTestId('VehicleJourneyGroupInfo::changeValidityButton');
   }
