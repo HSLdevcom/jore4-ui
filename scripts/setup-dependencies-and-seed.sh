@@ -29,6 +29,7 @@ echo "y" | ./scripts/development.sh dump:import
 
 # Seed timetables and stop registry
 cd ./test-db-manager
+yarn build
 yarn seed
 
 echo "All done! Happy coding! :)"
