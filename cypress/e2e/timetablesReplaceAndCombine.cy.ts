@@ -23,12 +23,12 @@ import { Tag } from '../enums';
 import {
   ImportTimetablesPage,
   Navbar,
-  PassingTimesByStopSection,
+  PassingTimesByStopSectionLegacy,
   PreviewTimetablesPage,
   RouteTimetablesSectionLegacy,
   RoutesAndLinesPage,
   TimetablesMainPage,
-  VehicleServiceTable,
+  VehicleServiceTableLegacy,
 } from '../pageObjects';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
@@ -304,16 +304,17 @@ const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
   'inbound',
 );
 
-const route99InboundSaturdayVehicleService = new VehicleServiceTable(
+const route99InboundSaturdayVehicleService = new VehicleServiceTableLegacy(
   route99InboundTimetableSection,
   'LA',
 );
 
-const route99InboundSaturdayPassingTimesSection = new PassingTimesByStopSection(
-  route99InboundTimetableSection,
-  'LA',
-  TimetablePriority.Standard,
-);
+const route99InboundSaturdayPassingTimesSection =
+  new PassingTimesByStopSectionLegacy(
+    route99InboundTimetableSection,
+    'LA',
+    TimetablePriority.Standard,
+  );
 
 const confirmTimetablesInReplaceCase = () => {
   // Check the timetable on a Saturday before the change date

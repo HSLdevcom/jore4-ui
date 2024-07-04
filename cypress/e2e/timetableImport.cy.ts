@@ -24,14 +24,14 @@ import {
   ErrorModal,
   ImportTimetablesPage,
   Navbar,
-  PassingTimesByStopSection,
+  PassingTimesByStopSectionLegacy,
   PreviewTimetablesPage,
   RouteTimetablesSectionLegacy,
   RoutesAndLinesPage,
   TimetableVersionsPage,
   TimetablesMainPage,
   VehicleScheduleDetailsPage,
-  VehicleServiceTable,
+  VehicleServiceTableLegacy,
 } from '../pageObjects';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
@@ -310,13 +310,13 @@ const verifyBaseTimetableValidity = () => {
     'inbound',
   );
 
-  const route99InboundSundayVehicleService = new VehicleServiceTable(
+  const route99InboundSundayVehicleService = new VehicleServiceTableLegacy(
     route99InboundTimetableSection,
     'SU',
   );
 
   const route99InboundSundayPassingTimesSectionStandard =
-    new PassingTimesByStopSection(
+    new PassingTimesByStopSectionLegacy(
       route99InboundTimetableSection,
       'SU',
       TimetablePriority.Standard,
@@ -395,13 +395,11 @@ describe('Timetable import', () => {
         'inbound',
       );
 
-      const route99InboundSaturdayVehicleService = new VehicleServiceTable(
-        route99InboundTimetableSection,
-        'LA',
-      );
+      const route99InboundSaturdayVehicleService =
+        new VehicleServiceTableLegacy(route99InboundTimetableSection, 'LA');
 
       const route99InboundSaturdayPassingTimesSection =
-        new PassingTimesByStopSection(
+        new PassingTimesByStopSectionLegacy(
           route99InboundTimetableSection,
           'LA',
           TimetablePriority.Standard,
@@ -562,13 +560,11 @@ describe('Timetable import', () => {
           'inbound',
         );
 
-        const route99InboundSundayVehicleService = new VehicleServiceTable(
-          route99InboundTimetableSection,
-          'SU',
-        );
+        const route99InboundSundayVehicleService =
+          new VehicleServiceTableLegacy(route99InboundTimetableSection, 'SU');
 
         const route99InboundSundayPassingTimesSectionTemporary =
-          new PassingTimesByStopSection(
+          new PassingTimesByStopSectionLegacy(
             route99InboundTimetableSection,
             'SU',
             TimetablePriority.Temporary,
@@ -753,13 +749,11 @@ describe('Timetable import', () => {
           'inbound',
         );
 
-        const route99InboundSundayVehicleService = new VehicleServiceTable(
-          route99InboundTimetableSection,
-          'SU',
-        );
+        const route99InboundSundayVehicleService =
+          new VehicleServiceTableLegacy(route99InboundTimetableSection, 'SU');
 
         const route99InboundSundayPassingTimesSectionSpecial =
-          new PassingTimesByStopSection(
+          new PassingTimesByStopSectionLegacy(
             route99InboundTimetableSection,
             'SU',
             TimetablePriority.Special,
