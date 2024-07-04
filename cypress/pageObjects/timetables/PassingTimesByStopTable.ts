@@ -1,6 +1,9 @@
+import { VehicleJourneyGroupInfo } from '../VehicleJourneyGroupInfo';
 import { PassingTimesByStopTableRow } from './PassingTimesByStopTableRow';
 
 export class PassingTimesByStopTable {
+  vehicleJourneyGroupInfo = new VehicleJourneyGroupInfo();
+
   row = new PassingTimesByStopTableRow();
 
   getTable() {
