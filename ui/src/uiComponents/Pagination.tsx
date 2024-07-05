@@ -82,11 +82,14 @@ export const Pagination = ({
     </button>
   );
 
+  const ariaLabelPrevious = t('accessibility:common.prevPage');
+  const ariaLabelNext = t('accessibility:common.nextPage');
+
   return (
     <div className={`flex justify-evenly ${className}`}>
       <IconButton
         disabled={onFirstPage}
-        tooltip={t('accessibility:common.prevPage')}
+        tooltip={ariaLabelPrevious}
         onClick={() => setPage(currentPage - 1)}
         testId="prevPageButtonIcon"
         className="flex-1"
@@ -98,6 +101,9 @@ export const Pagination = ({
             aria-hidden
           />
         }
+        ariaAttributes={{
+          ariaLabel: ariaLabelPrevious,
+        }}
       />
       {showAdditionalElementsOnStart && (
         <>
@@ -125,7 +131,7 @@ export const Pagination = ({
       )}
       <IconButton
         disabled={onLastPage}
-        tooltip={t('accessibility:common.nextPage')}
+        tooltip={ariaLabelNext}
         onClick={() => setPage(currentPage + 1)}
         testId="nextPageButtonIcon"
         className="flex-1"
@@ -137,6 +143,9 @@ export const Pagination = ({
             aria-hidden
           />
         }
+        ariaAttributes={{
+          ariaLabel: ariaLabelNext,
+        }}
       />
     </div>
   );
