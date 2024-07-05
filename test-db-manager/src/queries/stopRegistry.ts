@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import { getGqlString } from '../builders/mutations/utils';
 import {
   StopRegistryGroupOfStopPlacesInput,
+  StopRegistryInfoSpotInput,
   StopRegistryStopPlace,
 } from '../generated/graphql';
 import { InsertStopPlaceResult } from '../types';
@@ -34,6 +35,16 @@ const GQL_INSERT_STOP_AREA = gql`
   }
 `;
 
+const GQL_INSERT_INFO_SPOT = gql`
+  mutation InsertInfoSpot($infoSpot: stop_registry_InfoSpotInput!) {
+    stop_registry {
+      mutateInfoSpot(InfoSpot: $infoSpot) {
+        id
+      }
+    }
+  }
+`;
+
 export const mapToInsertStopPlaceMutation = (
   input: Partial<StopRegistryStopPlace>,
 ) => {
@@ -60,5 +71,14 @@ export const mapToInsertStopAreaMutation = (
   return {
     query: getGqlString(GQL_INSERT_STOP_AREA),
     variables: { stopArea: input },
+  };
+};
+
+export const mapToInsertInfoSpotMutation = (
+  input: StopRegistryInfoSpotInput,
+) => {
+  return {
+    query: getGqlString(GQL_INSERT_INFO_SPOT),
+    variables: { infoSpot: input },
   };
 };

@@ -63673,3 +63673,18 @@ export type InsertStopAreaMutation = {
     } | null;
   } | null;
 };
+
+export type InsertInfoSpotMutationVariables = Exact<{
+  infoSpot: StopRegistryInfoSpotInput;
+}>;
+
+export type InsertInfoSpotMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateInfoSpot?: {
+      __typename?: 'stop_registry_InfoSpot';
+      id?: string | null;
+    } | null;
+  } | null;
+};
