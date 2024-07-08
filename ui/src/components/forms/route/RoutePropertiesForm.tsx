@@ -102,7 +102,7 @@ const RoutePropertiesFormComponent = (
               fieldPath="variant"
               testId={testIds.variant}
               className="col-span-1"
-              min="0"
+              min={0}
             />
             <InputField<FormState>
               translationPrefix="routes"
