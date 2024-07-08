@@ -11,7 +11,7 @@ import {
 } from '../../../hooks';
 import { parseI18nField } from '../../../i18n/utils';
 import { Row, Visible } from '../../../layoutComponents';
-import { selectLoader, selectTimetable } from '../../../redux';
+import { LoadingState, selectLoader, selectTimetable } from '../../../redux';
 import { DayType } from '../../../types/enums';
 import { AccordionButton } from '../../../uiComponents';
 import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
@@ -105,7 +105,7 @@ export const RouteTimetablesSection = ({
       </Row>
       <LoadingWrapper
         className="flex justify-center p-5"
-        loading={fetchRouteTimetables}
+        loading={fetchRouteTimetables !== LoadingState.NotLoading}
         testId={testIds.loadingRouteTimetables}
       >
         <Visible visible={isOpen}>
