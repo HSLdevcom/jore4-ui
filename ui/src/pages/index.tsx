@@ -5,6 +5,7 @@ import { ApolloProvider } from '../graphql';
 import { ReduxProvider } from '../redux';
 import { Router } from '../router/Router';
 import { Toaster } from '../uiComponents/Toaster';
+import { InitialUrParamsProvider } from '../utils/InitialUrParams';
 
 const Index = () => {
   const { t } = useTranslation();
@@ -16,9 +17,11 @@ const Index = () => {
       </Head>
       <ApolloProvider>
         <ReduxProvider>
-          <UserProvider />
-          <Router />
-          <Toaster />
+          <InitialUrParamsProvider>
+            <UserProvider />
+            <Router />
+            <Toaster />
+          </InitialUrParamsProvider>
         </ReduxProvider>
       </ApolloProvider>
       <footer className="mt-6 flex justify-center">

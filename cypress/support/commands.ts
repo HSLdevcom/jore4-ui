@@ -166,5 +166,69 @@ Cypress.Commands.add('setupTests', () => {
   cy.intercept('/api/mapmatching/api/route/v1/**').as('mapMatching');
 });
 
+function getUrlFromObject(obj: unknown): string | null {
+  if (
+    typeof obj === 'object' &&
+    obj !== null &&
+    'url' in obj &&
+    typeof obj.url === 'string'
+  ) {
+    return obj.url;
+  }
+
+  return null;
+}
+
+function getVisitUrl(
+  urlOrOptions: unknown,
+  optionsOrEmpty: unknown,
+): string | null {
+  if (typeof urlOrOptions === 'string') {
+    return urlOrOptions;
+  }
+
+  return getUrlFromObject(urlOrOptions) ?? getUrlFromObject(optionsOrEmpty);
+}
+
+function getVisitOptions(
+  urlOrOptions: unknown,
+  optionsOrEmpty: unknown,
+): Partial<Cypress.VisitOptions> {
+  if (typeof urlOrOptions === 'object' && urlOrOptions !== null) {
+    return urlOrOptions;
+  }
+
+  if (typeof optionsOrEmpty === 'object' && optionsOrEmpty !== null) {
+    return optionsOrEmpty;
+  }
+
+  return {};
+}
+
+Cypress.Commands.overwrite('visit', (originalFn, ...args) => {
+  const [urlOrOptions, optionsOrEmpty] = args as ReadonlyArray<unknown>;
+
+  const realUrl = getVisitUrl(urlOrOptions, optionsOrEmpty);
+  const realOptions = getVisitOptions(urlOrOptions, optionsOrEmpty);
+
+  if (realUrl === null) {
+    throw new Error(
+      `Expected to have an URL for call to cy.visit. But the given parameters were: ${[
+        urlOrOptions,
+        optionsOrEmpty,
+      ]}`,
+    );
+  }
+
+  return originalFn({
+    ...realOptions,
+    url: realUrl,
+    qs: {
+      e2e: true,
+      ...(realOptions.qs ?? {}),
+    },
+  });
+});
+
 // workaround for 'commands.ts' cannot be compiled under '--isolatedModules' because it is considered a global script file. Add an import, export, or an empty 'export {}' statement to make it a module.ts(1208)
 export {};
