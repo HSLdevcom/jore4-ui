@@ -20,6 +20,27 @@ export enum Operation {
   ResolveScheduledStopPoint = 'resolveScheduledStopPoint',
 }
 
+export enum LoadingState {
+  NotLoading = 'notLoading',
+  LowPriority = 'lowPriority',
+  MediumPriority = 'mediumPriority',
+  HighPriority = 'highPriority',
+}
+
+export function getHighestLoadingState(
+  loadingStates: ReadonlyArray<LoadingState>,
+): LoadingState {
+  if (loadingStates.includes(LoadingState.HighPriority)) {
+    return LoadingState.HighPriority;
+  }
+
+  if (loadingStates.includes(LoadingState.LowPriority)) {
+    return LoadingState.LowPriority;
+  }
+
+  return LoadingState.NotLoading;
+}
+
 export const mapOperations = [
   Operation.LoadMap,
   Operation.FetchStopAreas,
@@ -47,28 +68,16 @@ export const joreOperations = [
 ];
 
 type IState = {
-  [key in Operation]: boolean;
+  [key in Operation]: LoadingState;
 };
 
-const initialState: IState = {
-  [Operation.LoadMap]: false,
-  [Operation.FetchStopAreas]: false,
-  [Operation.FetchStops]: false,
-  [Operation.FetchRoutes]: false,
-  [Operation.SaveStop]: false,
-  [Operation.SaveStopArea]: false,
-  [Operation.SaveRoute]: false,
-  [Operation.MatchRoute]: false,
-  [Operation.CheckBrokenRoutes]: false,
-  [Operation.SaveTimingPlace]: false,
-  [Operation.ExportRoute]: false,
-  [Operation.ConfirmTimetablesImport]: false,
-  [Operation.UploadFilesToHastusImport]: false,
-  [Operation.AbortImport]: false,
-  [Operation.FetchRouteTimetables]: false,
-  [Operation.DeleteTimetable]: false,
-  [Operation.ResolveScheduledStopPoint]: false,
-};
+const initialState: IState = Object.values(Operation).reduce(
+  (state: IState, operation) => ({
+    ...state,
+    [operation]: LoadingState.NotLoading,
+  }),
+  {} as IState,
+);
 
 const slice = createSlice({
   name: 'loader',
@@ -78,11 +87,22 @@ const slice = createSlice({
       state: IState,
       action: PayloadAction<{ operation: Operation; isLoading: boolean }>,
     ) => {
-      state[action.payload.operation] = action.payload.isLoading;
+      state[action.payload.operation] = action.payload.isLoading
+        ? LoadingState.HighPriority
+        : LoadingState.NotLoading;
+    },
+    setLoadingState: (
+      state: IState,
+      action: PayloadAction<{ operation: Operation; state: LoadingState }>,
+    ) => {
+      state[action.payload.operation] = action.payload.state;
     },
   },
 });
 
-export const { setLoading: setLoadingAction } = slice.actions;
+export const {
+  setLoading: setLoadingAction,
+  setLoadingState: setLoadingStateAction,
+} = slice.actions;
 
 export const loaderReducer = slice.reducer;
