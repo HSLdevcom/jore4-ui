@@ -5,6 +5,7 @@ import {
 } from '../../../generated/graphql';
 import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
 import {
+  LoadingState,
   Operation,
   selectMapViewport,
   selectSelectedStopAreaId,
@@ -22,7 +23,7 @@ export const StopAreas = () => {
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
 
-  const { setIsLoading } = useLoader(Operation.FetchStopAreas);
+  const { setLoadingState } = useLoader(Operation.FetchStopAreas);
 
   const viewport = useAppSelector(selectMapViewport);
   const stopAreasResult = useGetStopAreasByLocationQuery({
@@ -38,8 +39,12 @@ export const StopAreas = () => {
      * We could also use useLoader's immediatelyOn option instead of useEffect,
      * but using options to dynamically control loading state feels semantically wrong.
      */
-    setIsLoading(stopAreasResult.loading);
-  }, [setIsLoading, stopAreasResult.loading]);
+    setLoadingState(
+      stopAreasResult.loading
+        ? LoadingState.LowPriority
+        : LoadingState.NotLoading,
+    );
+  }, [setLoadingState, stopAreasResult.loading]);
 
   const onClick = (area: StopAreaMinimalShowOnMapFieldsFragment) =>
     setSelectedMapStopAreaId(area.netex_id ?? undefined);

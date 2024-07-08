@@ -9,7 +9,7 @@ import MapGL, {
   NavigationControl,
 } from 'react-map-gl/maplibre';
 import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
-import { Operation, setViewPortAction } from '../../redux';
+import { LoadingState, Operation, setViewPortAction } from '../../redux';
 import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';
 
 interface Props {
@@ -63,7 +63,9 @@ export const Maplibre: FunctionComponent<Props> = ({
   });
 
   const dispatch = useAppDispatch();
-  const { setIsLoading } = useLoader(Operation.LoadMap);
+  const { setLoadingState } = useLoader(Operation.LoadMap, {
+    immediatelyOn: LoadingState.HighPriority,
+  });
 
   const updateMapDetailsDebounced = useMemo(
     () =>
@@ -134,7 +136,7 @@ export const Maplibre: FunctionComponent<Props> = ({
   };
 
   const onLoad = () => {
-    setIsLoading(false);
+    setLoadingState(LoadingState.NotLoading);
     onViewportChange(viewport);
   };
 

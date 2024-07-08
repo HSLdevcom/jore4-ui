@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useGetScheduledStopPointByStopPlaceRefAsyncQuery } from '../../generated/graphql';
 import { StopWithLocation } from '../../graphql';
-import { Operation } from '../../redux';
+import { LoadingState, Operation } from '../../redux';
 import { useLoader } from '../ui';
 
 type ResolveScheduledStopPointByStopPlaceRefFn = (
@@ -11,11 +11,11 @@ type ResolveScheduledStopPointByStopPlaceRefFn = (
 export function useResolveScheduledStopPointByStopPlaceRef() {
   const [getScheduledStopPointByStopPlaceRef] =
     useGetScheduledStopPointByStopPlaceRefAsyncQuery();
-  const { setIsLoading } = useLoader(Operation.ResolveScheduledStopPoint);
+  const { setLoadingState } = useLoader(Operation.ResolveScheduledStopPoint);
 
   return useCallback<ResolveScheduledStopPointByStopPlaceRefFn>(
     async (stopPlaceRef) => {
-      setIsLoading(true);
+      setLoadingState(LoadingState.MediumPriority);
 
       try {
         const result = await getScheduledStopPointByStopPlaceRef({
@@ -31,9 +31,9 @@ export function useResolveScheduledStopPointByStopPlaceRef() {
 
         return stop as StopWithLocation;
       } finally {
-        setIsLoading(false);
+        setLoadingState(LoadingState.NotLoading);
       }
     },
-    [getScheduledStopPointByStopPlaceRef, setIsLoading],
+    [getScheduledStopPointByStopPlaceRef, setLoadingState],
   );
 }
