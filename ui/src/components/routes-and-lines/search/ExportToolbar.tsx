@@ -8,6 +8,7 @@ import {
 } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import {
+  LoadingState,
   resetSelectedRowsAction,
   selectExport,
   selectLoader,
@@ -37,7 +38,7 @@ export const ExportToolbar = (): React.ReactElement => {
     useAppSelector(selectExport);
   const { canExport, exportRoutesToHastus, findNotEligibleRoutesForExport } =
     useExportRoutes();
-  const { exportRoute: isExportRouteLoading } = useAppSelector(selectLoader);
+  const { exportRoute: exportRouteLoadingState } = useAppSelector(selectLoader);
 
   const linesWithRoutes = lines.filter((line) => !!line.line_routes.length);
 
@@ -128,7 +129,11 @@ export const ExportToolbar = (): React.ReactElement => {
       <Visible visible={isSelectingRoutesForExport}>
         <SimpleSmallButton
           inverted
-          disabled={!canExport || !selectedRows.length || isExportRouteLoading}
+          disabled={
+            !canExport ||
+            !selectedRows.length ||
+            exportRouteLoadingState !== LoadingState.NotLoading
+          }
           onClick={exportRoutes}
           label={t('export.exportSelected')}
           className="!rounded-full"
