@@ -9155,6 +9155,8 @@ export type StopRegistryStopPlaceMutation = {
   moveQuaysToStop?: Maybe<StopRegistryStopPlaceInterface>;
   /** Mutate group of stop places */
   mutateGroupOfStopPlaces?: Maybe<StopRegistryGroupOfStopPlaces>;
+  /** Create new or update existing InfoSpots */
+  mutateInfoSpot?: Maybe<StopRegistryInfoSpot>;
   /** Update existing Parent StopPlace */
   mutateParentStopPlace?: Maybe<Array<Maybe<StopRegistryParentStopPlace>>>;
   /** Create new or update existing Parking */
@@ -9236,6 +9238,10 @@ export type StopRegistryStopPlaceMutationMutateGroupOfStopPlacesArgs = {
   GroupOfStopPlaces?: InputMaybe<StopRegistryGroupOfStopPlacesInput>;
 };
 
+export type StopRegistryStopPlaceMutationMutateInfoSpotArgs = {
+  InfoSpot?: InputMaybe<StopRegistryInfoSpotInput>;
+};
+
 export type StopRegistryStopPlaceMutationMutateParentStopPlaceArgs = {
   ParentStopPlace?: InputMaybe<StopRegistryParentStopPlaceInput>;
 };
@@ -9297,6 +9303,8 @@ export type StopRegistryStopPlaceRegister = {
   groupOfStopPlaces?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
   /** Group of tariff zones */
   groupOfTariffZones?: Maybe<Array<Maybe<StopRegistryGroupOfTariffZones>>>;
+  /** Info spots */
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   /** Find parking */
   parking?: Maybe<Array<Maybe<StopRegistryParking>>>;
   /** Find path links */
@@ -9747,6 +9755,42 @@ export type StopRegistryHslAccessibilityPropertiesInput = {
   stopElevationFromSidewalk?: InputMaybe<Scalars['Float']>;
   stopType?: InputMaybe<StopRegistryStopType>;
   structureLaneDistance?: InputMaybe<Scalars['Float']>;
+};
+
+export type StopRegistryInfoSpot = {
+  __typename?: 'stop_registry_InfoSpot';
+  backlight?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  displayType?: Maybe<StopRegistryDisplayType>;
+  floor?: Maybe<Scalars['String']>;
+  geometry?: Maybe<StopRegistryGeoJson>;
+  id?: Maybe<Scalars['String']>;
+  label?: Maybe<Scalars['String']>;
+  maintenance?: Maybe<Scalars['String']>;
+  posterPlaceSize?: Maybe<StopRegistryPosterPlaceSize>;
+  posterPlaceType?: Maybe<StopRegistryPosterPlaceType>;
+  purpose?: Maybe<Scalars['String']>;
+  railInformation?: Maybe<Scalars['String']>;
+  speechProperty?: Maybe<Scalars['Boolean']>;
+  validBetween?: Maybe<StopRegistryValidBetween>;
+  version?: Maybe<Scalars['String']>;
+  zoneLabel?: Maybe<Scalars['String']>;
+};
+
+export type StopRegistryInfoSpotInput = {
+  backlight?: InputMaybe<Scalars['Boolean']>;
+  description?: InputMaybe<Scalars['String']>;
+  displayType?: InputMaybe<StopRegistryDisplayType>;
+  floor?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
+  maintenance?: InputMaybe<Scalars['String']>;
+  posterPlaceSize?: InputMaybe<StopRegistryPosterPlaceSize>;
+  posterPlaceType?: InputMaybe<StopRegistryPosterPlaceType>;
+  purpose?: InputMaybe<Scalars['String']>;
+  railInformation?: InputMaybe<Scalars['String']>;
+  speechProperty?: InputMaybe<Scalars['Boolean']>;
+  zoneLabel?: InputMaybe<Scalars['String']>;
 };
 
 export enum StopRegistryInterchangeWeightingType {
@@ -10628,6 +10672,15 @@ export enum StopRegistryCycleStorageType {
   Railings = 'railings',
 }
 
+export enum StopRegistryDisplayType {
+  BatteryEInk = 'batteryEInk',
+  BatteryMultiRow = 'batteryMultiRow',
+  BatteryOneRow = 'batteryOneRow',
+  ChargeableEInk = 'chargeableEInk',
+  ElectricTft = 'electricTFT',
+  None = 'none',
+}
+
 export enum StopRegistryGender {
   Both = 'both',
   FemaleOnly = 'femaleOnly',
@@ -10660,6 +10713,18 @@ export enum StopRegistryPedestrianCrossingRampType {
   Rk4 = 'RK4',
   Rk4Lr = 'RK4_LR',
   Other = 'other',
+}
+
+export enum StopRegistryPosterPlaceSize {
+  A3 = 'a3',
+  A4 = 'a4',
+  Cm80x120 = 'cm80x120',
+}
+
+export enum StopRegistryPosterPlaceType {
+  Dynamic = 'dynamic',
+  SoundBeacon = 'soundBeacon',
+  Static = 'static',
 }
 
 export enum StopRegistryShelterCondition {
