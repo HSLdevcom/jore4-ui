@@ -70743,6 +70743,30 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
   }>;
 };
 
+export type GetInfoSpotsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetInfoSpotsQuery = {
+  __typename?: 'query_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister';
+    infoSpots?: Array<{
+      __typename?: 'stop_registry_InfoSpot';
+      id?: string | null;
+      backlight?: boolean | null;
+      description?: string | null;
+      displayType?: StopRegistryDisplayType | null;
+      floor?: string | null;
+      label?: string | null;
+      posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+      posterPlaceType?: StopRegistryPosterPlaceType | null;
+      purpose?: string | null;
+      railInformation?: string | null;
+      speechProperty?: boolean | null;
+      zoneLabel?: string | null;
+    } | null> | null;
+  } | null;
+};
+
 export type ShelterEquipmentDetailsFragment = {
   __typename?: 'stop_registry_ShelterEquipment';
   id?: string | null;
@@ -71059,6 +71083,22 @@ export type UpsertOrganisationMutation = {
       id?: string | null;
     } | null> | null;
   } | null;
+};
+
+export type InfoSpotDetailsFragment = {
+  __typename?: 'stop_registry_InfoSpot';
+  id?: string | null;
+  backlight?: boolean | null;
+  description?: string | null;
+  displayType?: StopRegistryDisplayType | null;
+  floor?: string | null;
+  label?: string | null;
+  posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+  posterPlaceType?: StopRegistryPosterPlaceType | null;
+  purpose?: string | null;
+  railInformation?: string | null;
+  speechProperty?: boolean | null;
+  zoneLabel?: string | null;
 };
 
 export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
@@ -73354,6 +73394,22 @@ export const StopPlaceDetailsFragmentDoc = gql`
   ${QuayDetailsFragmentDoc}
   ${HslAccessibilityPropertiesDetailsFragmentDoc}
   ${StopPlaceOrganisationFieldsFragmentDoc}
+`;
+export const InfoSpotDetailsFragmentDoc = gql`
+  fragment info_spot_details on stop_registry_InfoSpot {
+    id
+    backlight
+    description
+    displayType
+    floor
+    label
+    posterPlaceSize
+    posterPlaceType
+    purpose
+    railInformation
+    speechProperty
+    zoneLabel
+  }
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
   fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {
@@ -77672,6 +77728,67 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQueryResult =
     GetHighestPriorityStopDetailsByLabelAndDateQuery,
     GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
   >;
+export const GetInfoSpotsDocument = gql`
+  query GetInfoSpots {
+    stop_registry {
+      infoSpots {
+        ...info_spot_details
+      }
+    }
+  }
+  ${InfoSpotDetailsFragmentDoc}
+`;
+
+/**
+ * __useGetInfoSpotsQuery__
+ *
+ * To run a query within a React component, call `useGetInfoSpotsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInfoSpotsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetInfoSpotsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetInfoSpotsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetInfoSpotsQuery,
+    GetInfoSpotsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetInfoSpotsQuery, GetInfoSpotsQueryVariables>(
+    GetInfoSpotsDocument,
+    options,
+  );
+}
+export function useGetInfoSpotsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetInfoSpotsQuery,
+    GetInfoSpotsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetInfoSpotsQuery, GetInfoSpotsQueryVariables>(
+    GetInfoSpotsDocument,
+    options,
+  );
+}
+export type GetInfoSpotsQueryHookResult = ReturnType<
+  typeof useGetInfoSpotsQuery
+>;
+export type GetInfoSpotsLazyQueryHookResult = ReturnType<
+  typeof useGetInfoSpotsLazyQuery
+>;
+export type GetInfoSpotsQueryResult = Apollo.QueryResult<
+  GetInfoSpotsQuery,
+  GetInfoSpotsQueryVariables
+>;
+  >;
 export const UpsertOrganisationDocument = gql`
   mutation UpsertOrganisation($objects: [stop_registry_OrganisationInput]) {
     stop_registry {
@@ -80454,4 +80571,505 @@ export type GetVehicleSchedulesForDateSuspenseQueryHookResult = ReturnType<
 export type GetVehicleSchedulesForDateQueryResult = Apollo.QueryResult<
   GetVehicleSchedulesForDateQuery,
   GetVehicleSchedulesForDateQueryVariables
+>;
+
+export function useListChangingRoutesAsyncQuery() {
+  return useAsyncQuery<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >(ListChangingRoutesDocument);
+}
+export type ListChangingRoutesAsyncQueryHookResult = ReturnType<
+  typeof useListChangingRoutesAsyncQuery
+>;
+export function useListOwnLinesAsyncQuery() {
+  return useAsyncQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
+    ListOwnLinesDocument,
+  );
+}
+export type ListOwnLinesAsyncQueryHookResult = ReturnType<
+  typeof useListOwnLinesAsyncQuery
+>;
+export function useGetScheduledStopPointWithTimingSettingsAsyncQuery() {
+  return useAsyncQuery<
+    GetScheduledStopPointWithTimingSettingsQuery,
+    GetScheduledStopPointWithTimingSettingsQueryVariables
+  >(GetScheduledStopPointWithTimingSettingsDocument);
+}
+export type GetScheduledStopPointWithTimingSettingsAsyncQueryHookResult =
+  ReturnType<typeof useGetScheduledStopPointWithTimingSettingsAsyncQuery>;
+export function useGetRouteWithJourneyPatternAsyncQuery() {
+  return useAsyncQuery<
+    GetRouteWithJourneyPatternQuery,
+    GetRouteWithJourneyPatternQueryVariables
+  >(GetRouteWithJourneyPatternDocument);
+}
+export type GetRouteWithJourneyPatternAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteWithJourneyPatternAsyncQuery
+>;
+export function useQueryClosestLinkAsyncQuery() {
+  return useAsyncQuery<QueryClosestLinkQuery, QueryClosestLinkQueryVariables>(
+    QueryClosestLinkDocument,
+  );
+}
+export type QueryClosestLinkAsyncQueryHookResult = ReturnType<
+  typeof useQueryClosestLinkAsyncQuery
+>;
+export function useQueryPointDirectionOnLinkAsyncQuery() {
+  return useAsyncQuery<
+    QueryPointDirectionOnLinkQuery,
+    QueryPointDirectionOnLinkQueryVariables
+  >(QueryPointDirectionOnLinkDocument);
+}
+export type QueryPointDirectionOnLinkAsyncQueryHookResult = ReturnType<
+  typeof useQueryPointDirectionOnLinkAsyncQuery
+>;
+export function useGetStopsAlongInfrastructureLinksAsyncQuery() {
+  return useAsyncQuery<
+    GetStopsAlongInfrastructureLinksQuery,
+    GetStopsAlongInfrastructureLinksQueryVariables
+  >(GetStopsAlongInfrastructureLinksDocument);
+}
+export type GetStopsAlongInfrastructureLinksAsyncQueryHookResult = ReturnType<
+  typeof useGetStopsAlongInfrastructureLinksAsyncQuery
+>;
+
+export function useGetScheduledStopPointWithViaInfoAsyncQuery() {
+  return useAsyncQuery<
+    GetScheduledStopPointWithViaInfoQuery,
+    GetScheduledStopPointWithViaInfoQueryVariables
+  >(GetScheduledStopPointWithViaInfoDocument);
+}
+export type GetScheduledStopPointWithViaInfoAsyncQueryHookResult = ReturnType<
+  typeof useGetScheduledStopPointWithViaInfoAsyncQuery
+>;
+export function useGetLineDetailsByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetLineDetailsByIdQuery,
+    GetLineDetailsByIdQueryVariables
+  >(GetLineDetailsByIdDocument);
+}
+export type GetLineDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetLineDetailsByIdAsyncQuery
+>;
+export function useGetLineValidityPeriodByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetLineValidityPeriodByIdQuery,
+    GetLineValidityPeriodByIdQueryVariables
+  >(GetLineValidityPeriodByIdDocument);
+}
+export type GetLineValidityPeriodByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetLineValidityPeriodByIdAsyncQuery
+>;
+export function useGetLinesByValidityAsyncQuery() {
+  return useAsyncQuery<
+    GetLinesByValidityQuery,
+    GetLinesByValidityQueryVariables
+  >(GetLinesByValidityDocument);
+}
+export type GetLinesByValidityAsyncQueryHookResult = ReturnType<
+  typeof useGetLinesByValidityAsyncQuery
+>;
+export function useGetLineDetailsWithRoutesByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetLineDetailsWithRoutesByIdQuery,
+    GetLineDetailsWithRoutesByIdQueryVariables
+  >(GetLineDetailsWithRoutesByIdDocument);
+}
+export type GetLineDetailsWithRoutesByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetLineDetailsWithRoutesByIdAsyncQuery
+>;
+export function useGetRoutesWithStopsAsyncQuery() {
+  return useAsyncQuery<
+    GetRoutesWithStopsQuery,
+    GetRoutesWithStopsQueryVariables
+  >(GetRoutesWithStopsDocument);
+}
+export type GetRoutesWithStopsAsyncQueryHookResult = ReturnType<
+  typeof useGetRoutesWithStopsAsyncQuery
+>;
+export function useGetRouteDetailsByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetRouteDetailsByIdQuery,
+    GetRouteDetailsByIdQueryVariables
+  >(GetRouteDetailsByIdDocument);
+}
+export type GetRouteDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByIdAsyncQuery
+>;
+export function useGetRouteDetailsByIdsAsyncQuery() {
+  return useAsyncQuery<
+    GetRouteDetailsByIdsQuery,
+    GetRouteDetailsByIdsQueryVariables
+  >(GetRouteDetailsByIdsDocument);
+}
+export type GetRouteDetailsByIdsAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByIdsAsyncQuery
+>;
+export function useGetRouteRenderInfoByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetRouteRenderInfoByIdQuery,
+    GetRouteRenderInfoByIdQueryVariables
+  >(GetRouteRenderInfoByIdDocument);
+}
+export type GetRouteRenderInfoByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteRenderInfoByIdAsyncQuery
+>;
+export function useGetRouteDetailsByLabelsAsyncQuery() {
+  return useAsyncQuery<
+    GetRouteDetailsByLabelsQuery,
+    GetRouteDetailsByLabelsQueryVariables
+  >(GetRouteDetailsByLabelsDocument);
+}
+export type GetRouteDetailsByLabelsAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelsAsyncQuery
+>;
+export function useGetRoutesWithInfrastructureLinksAsyncQuery() {
+  return useAsyncQuery<
+    GetRoutesWithInfrastructureLinksQuery,
+    GetRoutesWithInfrastructureLinksQueryVariables
+  >(GetRoutesWithInfrastructureLinksDocument);
+}
+export type GetRoutesWithInfrastructureLinksAsyncQueryHookResult = ReturnType<
+  typeof useGetRoutesWithInfrastructureLinksAsyncQuery
+>;
+export function useGetRoutesByValidityAsyncQuery() {
+  return useAsyncQuery<
+    GetRoutesByValidityQuery,
+    GetRoutesByValidityQueryVariables
+  >(GetRoutesByValidityDocument);
+}
+export type GetRoutesByValidityAsyncQueryHookResult = ReturnType<
+  typeof useGetRoutesByValidityAsyncQuery
+>;
+
+export function useGetScheduledStopsOnRouteAsyncQuery() {
+  return useAsyncQuery<
+    GetScheduledStopsOnRouteQuery,
+    GetScheduledStopsOnRouteQueryVariables
+  >(GetScheduledStopsOnRouteDocument);
+}
+export type GetScheduledStopsOnRouteAsyncQueryHookResult = ReturnType<
+  typeof useGetScheduledStopsOnRouteAsyncQuery
+>;
+
+export function useGetStopsByLocationAsyncQuery() {
+  return useAsyncQuery<
+    GetStopsByLocationQuery,
+    GetStopsByLocationQueryVariables
+  >(GetStopsByLocationDocument);
+}
+export type GetStopsByLocationAsyncQueryHookResult = ReturnType<
+  typeof useGetStopsByLocationAsyncQuery
+>;
+export function useGetStopsByValidityAsyncQuery() {
+  return useAsyncQuery<
+    GetStopsByValidityQuery,
+    GetStopsByValidityQueryVariables
+  >(GetStopsByValidityDocument);
+}
+export type GetStopsByValidityAsyncQueryHookResult = ReturnType<
+  typeof useGetStopsByValidityAsyncQuery
+>;
+export function useGetStopsByIdsAsyncQuery() {
+  return useAsyncQuery<GetStopsByIdsQuery, GetStopsByIdsQueryVariables>(
+    GetStopsByIdsDocument,
+  );
+}
+export type GetStopsByIdsAsyncQueryHookResult = ReturnType<
+  typeof useGetStopsByIdsAsyncQuery
+>;
+export function useGetStopsByLabelsAsyncQuery() {
+  return useAsyncQuery<GetStopsByLabelsQuery, GetStopsByLabelsQueryVariables>(
+    GetStopsByLabelsDocument,
+  );
+}
+export type GetStopsByLabelsAsyncQueryHookResult = ReturnType<
+  typeof useGetStopsByLabelsAsyncQuery
+>;
+
+export function useGetStopWithRouteGraphDataByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetStopWithRouteGraphDataByIdQuery,
+    GetStopWithRouteGraphDataByIdQueryVariables
+  >(GetStopWithRouteGraphDataByIdDocument);
+}
+export type GetStopWithRouteGraphDataByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetStopWithRouteGraphDataByIdAsyncQuery
+>;
+export function useGetRoutesBrokenByStopChangeAsyncQuery() {
+  return useAsyncQuery<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >(GetRoutesBrokenByStopChangeDocument);
+}
+export type GetRoutesBrokenByStopChangeAsyncQueryHookResult = ReturnType<
+  typeof useGetRoutesBrokenByStopChangeAsyncQuery
+>;
+export function useGetStopAreasByLocationAsyncQuery() {
+  return useAsyncQuery<
+    GetStopAreasByLocationQuery,
+    GetStopAreasByLocationQueryVariables
+  >(GetStopAreasByLocationDocument);
+}
+export type GetStopAreasByLocationAsyncQueryHookResult = ReturnType<
+  typeof useGetStopAreasByLocationAsyncQuery
+>;
+export function useGetScheduledStopPointByStopPlaceRefAsyncQuery() {
+  return useAsyncQuery<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >(GetScheduledStopPointByStopPlaceRefDocument);
+}
+export type GetScheduledStopPointByStopPlaceRefAsyncQueryHookResult =
+  ReturnType<typeof useGetScheduledStopPointByStopPlaceRefAsyncQuery>;
+export function useGetHighestPriorityLineDetailsWithRoutesAsyncQuery() {
+  return useAsyncQuery<
+    GetHighestPriorityLineDetailsWithRoutesQuery,
+    GetHighestPriorityLineDetailsWithRoutesQueryVariables
+  >(GetHighestPriorityLineDetailsWithRoutesDocument);
+}
+export type GetHighestPriorityLineDetailsWithRoutesAsyncQueryHookResult =
+  ReturnType<typeof useGetHighestPriorityLineDetailsWithRoutesAsyncQuery>;
+
+export function useGetLinksWithStopsByExternalLinkIdsAsyncQuery() {
+  return useAsyncQuery<
+    GetLinksWithStopsByExternalLinkIdsQuery,
+    GetLinksWithStopsByExternalLinkIdsQueryVariables
+  >(GetLinksWithStopsByExternalLinkIdsDocument);
+}
+export type GetLinksWithStopsByExternalLinkIdsAsyncQueryHookResult = ReturnType<
+  typeof useGetLinksWithStopsByExternalLinkIdsAsyncQuery
+>;
+export function useGetLineRoutesByLabelAsyncQuery() {
+  return useAsyncQuery<
+    GetLineRoutesByLabelQuery,
+    GetLineRoutesByLabelQueryVariables
+  >(GetLineRoutesByLabelDocument);
+}
+export type GetLineRoutesByLabelAsyncQueryHookResult = ReturnType<
+  typeof useGetLineRoutesByLabelAsyncQuery
+>;
+export function useGetRouteByFiltersAsyncQuery() {
+  return useAsyncQuery<GetRouteByFiltersQuery, GetRouteByFiltersQueryVariables>(
+    GetRouteByFiltersDocument,
+  );
+}
+export type GetRouteByFiltersAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteByFiltersAsyncQuery
+>;
+export function useGetRouteWithInfrastructureLinksWithStopsAsyncQuery() {
+  return useAsyncQuery<
+    GetRouteWithInfrastructureLinksWithStopsQuery,
+    GetRouteWithInfrastructureLinksWithStopsQueryVariables
+  >(GetRouteWithInfrastructureLinksWithStopsDocument);
+}
+export type GetRouteWithInfrastructureLinksWithStopsAsyncQueryHookResult =
+  ReturnType<typeof useGetRouteWithInfrastructureLinksWithStopsAsyncQuery>;
+export function useSearchLinesAndRoutesAsyncQuery() {
+  return useAsyncQuery<
+    SearchLinesAndRoutesQuery,
+    SearchLinesAndRoutesQueryVariables
+  >(SearchLinesAndRoutesDocument);
+}
+export type SearchLinesAndRoutesAsyncQueryHookResult = ReturnType<
+  typeof useSearchLinesAndRoutesAsyncQuery
+>;
+export function useSearchStopsAsyncQuery() {
+  return useAsyncQuery<SearchStopsQuery, SearchStopsQueryVariables>(
+    SearchStopsDocument,
+  );
+}
+export type SearchStopsAsyncQueryHookResult = ReturnType<
+  typeof useSearchStopsAsyncQuery
+>;
+
+export function useGetHighestPriorityStopDetailsByLabelAndDateAsyncQuery() {
+  return useAsyncQuery<
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >(GetHighestPriorityStopDetailsByLabelAndDateDocument);
+}
+export type GetHighestPriorityStopDetailsByLabelAndDateAsyncQueryHookResult =
+  ReturnType<typeof useGetHighestPriorityStopDetailsByLabelAndDateAsyncQuery>;
+export function useGetInfoSpotsAsyncQuery() {
+  return useAsyncQuery<GetInfoSpotsQuery, GetInfoSpotsQueryVariables>(
+    GetInfoSpotsDocument,
+  );
+}
+export type GetInfoSpotsAsyncQueryHookResult = ReturnType<
+  typeof useGetInfoSpotsAsyncQuery
+>;
+
+export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery() {
+  return useAsyncQuery<
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
+  >(GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument);
+}
+export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQueryHookResult =
+  ReturnType<
+    typeof useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery
+  >;
+
+export function useGetSubstituteOperatingPeriodsAsyncQuery() {
+  return useAsyncQuery<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >(GetSubstituteOperatingPeriodsDocument);
+}
+export type GetSubstituteOperatingPeriodsAsyncQueryHookResult = ReturnType<
+  typeof useGetSubstituteOperatingPeriodsAsyncQuery
+>;
+export function useGetToCombineTargetVehicleScheduleFrameIdAsyncQuery() {
+  return useAsyncQuery<
+    GetToCombineTargetVehicleScheduleFrameIdQuery,
+    GetToCombineTargetVehicleScheduleFrameIdQueryVariables
+  >(GetToCombineTargetVehicleScheduleFrameIdDocument);
+}
+export type GetToCombineTargetVehicleScheduleFrameIdAsyncQueryHookResult =
+  ReturnType<typeof useGetToCombineTargetVehicleScheduleFrameIdAsyncQuery>;
+export function useGetToReplaceVehicleScheduleFramesAsyncQuery() {
+  return useAsyncQuery<
+    GetToReplaceVehicleScheduleFramesQuery,
+    GetToReplaceVehicleScheduleFramesQueryVariables
+  >(GetToReplaceVehicleScheduleFramesDocument);
+}
+export type GetToReplaceVehicleScheduleFramesAsyncQueryHookResult = ReturnType<
+  typeof useGetToReplaceVehicleScheduleFramesAsyncQuery
+>;
+export function useGetVehicleScheduleFrameWithJourneyInfoAsyncQuery() {
+  return useAsyncQuery<
+    GetVehicleScheduleFrameWithJourneyInfoQuery,
+    GetVehicleScheduleFrameWithJourneyInfoQueryVariables
+  >(GetVehicleScheduleFrameWithJourneyInfoDocument);
+}
+export type GetVehicleScheduleFrameWithJourneyInfoAsyncQueryHookResult =
+  ReturnType<typeof useGetVehicleScheduleFrameWithJourneyInfoAsyncQuery>;
+export function useGetVehicleScheduleFrameWithRouteAndLineInfoAsyncQuery() {
+  return useAsyncQuery<
+    GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
+    GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
+  >(GetVehicleScheduleFrameWithRouteAndLineInfoDocument);
+}
+export type GetVehicleScheduleFrameWithRouteAndLineInfoAsyncQueryHookResult =
+  ReturnType<typeof useGetVehicleScheduleFrameWithRouteAndLineInfoAsyncQuery>;
+export function useGetStagingVehicleScheduleFramesAsyncQuery() {
+  return useAsyncQuery<
+    GetStagingVehicleScheduleFramesQuery,
+    GetStagingVehicleScheduleFramesQueryVariables
+  >(GetStagingVehicleScheduleFramesDocument);
+}
+export type GetStagingVehicleScheduleFramesAsyncQueryHookResult = ReturnType<
+  typeof useGetStagingVehicleScheduleFramesAsyncQuery
+>;
+
+export function useGetTimingPlacesByLabelAsyncQuery() {
+  return useAsyncQuery<
+    GetTimingPlacesByLabelQuery,
+    GetTimingPlacesByLabelQueryVariables
+  >(GetTimingPlacesByLabelDocument);
+}
+export type GetTimingPlacesByLabelAsyncQueryHookResult = ReturnType<
+  typeof useGetTimingPlacesByLabelAsyncQuery
+>;
+export function useGetLinesForComboboxAsyncQuery() {
+  return useAsyncQuery<
+    GetLinesForComboboxQuery,
+    GetLinesForComboboxQueryVariables
+  >(GetLinesForComboboxDocument);
+}
+export type GetLinesForComboboxAsyncQueryHookResult = ReturnType<
+  typeof useGetLinesForComboboxAsyncQuery
+>;
+export function useGetSelectedLineDetailsByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetSelectedLineDetailsByIdQuery,
+    GetSelectedLineDetailsByIdQueryVariables
+  >(GetSelectedLineDetailsByIdDocument);
+}
+export type GetSelectedLineDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetSelectedLineDetailsByIdAsyncQuery
+>;
+export function useGetRouteDetailsByLabelWildcardAsyncQuery() {
+  return useAsyncQuery<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >(GetRouteDetailsByLabelWildcardDocument);
+}
+export type GetRouteDetailsByLabelWildcardAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteDetailsByLabelWildcardAsyncQuery
+>;
+export function useGetSelectedRouteDetailsByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetSelectedRouteDetailsByIdQuery,
+    GetSelectedRouteDetailsByIdQueryVariables
+  >(GetSelectedRouteDetailsByIdDocument);
+}
+export type GetSelectedRouteDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetSelectedRouteDetailsByIdAsyncQuery
+>;
+export function useGetTimingPlacesForComboboxAsyncQuery() {
+  return useAsyncQuery<
+    GetTimingPlacesForComboboxQuery,
+    GetTimingPlacesForComboboxQueryVariables
+  >(GetTimingPlacesForComboboxDocument);
+}
+export type GetTimingPlacesForComboboxAsyncQueryHookResult = ReturnType<
+  typeof useGetTimingPlacesForComboboxAsyncQuery
+>;
+export function useGetSelectedTimingPlaceDetailsByIdAsyncQuery() {
+  return useAsyncQuery<
+    GetSelectedTimingPlaceDetailsByIdQuery,
+    GetSelectedTimingPlaceDetailsByIdQueryVariables
+  >(GetSelectedTimingPlaceDetailsByIdDocument);
+}
+export type GetSelectedTimingPlaceDetailsByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetSelectedTimingPlaceDetailsByIdAsyncQuery
+>;
+export function useGetRouteInfoForTimetableVersionsAsyncQuery() {
+  return useAsyncQuery<
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
+  >(GetRouteInfoForTimetableVersionsDocument);
+}
+export type GetRouteInfoForTimetableVersionsAsyncQueryHookResult = ReturnType<
+  typeof useGetRouteInfoForTimetableVersionsAsyncQuery
+>;
+export function useGetTimetableVersionsByJourneyPatternIdsAsyncQuery() {
+  return useAsyncQuery<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >(GetTimetableVersionsByJourneyPatternIdsDocument);
+}
+export type GetTimetableVersionsByJourneyPatternIdsAsyncQueryHookResult =
+  ReturnType<typeof useGetTimetableVersionsByJourneyPatternIdsAsyncQuery>;
+
+export function useGetVehicleScheduleFrameSchedulesAsyncQuery() {
+  return useAsyncQuery<
+    GetVehicleScheduleFrameSchedulesQuery,
+    GetVehicleScheduleFrameSchedulesQueryVariables
+  >(GetVehicleScheduleFrameSchedulesDocument);
+}
+export type GetVehicleScheduleFrameSchedulesAsyncQueryHookResult = ReturnType<
+  typeof useGetVehicleScheduleFrameSchedulesAsyncQuery
+>;
+export function useGetVehicleScheduleFrameWithRoutesAsyncQuery() {
+  return useAsyncQuery<
+    GetVehicleScheduleFrameWithRoutesQuery,
+    GetVehicleScheduleFrameWithRoutesQueryVariables
+  >(GetVehicleScheduleFrameWithRoutesDocument);
+}
+export type GetVehicleScheduleFrameWithRoutesAsyncQueryHookResult = ReturnType<
+  typeof useGetVehicleScheduleFrameWithRoutesAsyncQuery
+>;
+
+export function useGetVehicleSchedulesForDateAsyncQuery() {
+  return useAsyncQuery<
+    GetVehicleSchedulesForDateQuery,
+    GetVehicleSchedulesForDateQueryVariables
+  >(GetVehicleSchedulesForDateDocument);
+}
+export type GetVehicleSchedulesForDateAsyncQueryHookResult = ReturnType<
+  typeof useGetVehicleSchedulesForDateAsyncQuery
 >;
