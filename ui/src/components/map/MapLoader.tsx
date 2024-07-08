@@ -11,6 +11,10 @@ export const MapLoader = (): JSX.Element => {
   const isLoading = useAppSelector(selectIsMapOperationLoading);
 
   return (
-    <LoadingOverlay testId={testIds.loader} visible={isMapOpen && isLoading} />
+    <LoadingOverlay
+      delay={200}
+      isLoading={isMapOpen && isLoading}
+      testId={testIds.loader}
+    />
   );
 };

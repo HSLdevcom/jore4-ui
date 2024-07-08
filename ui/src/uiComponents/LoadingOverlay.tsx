@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { theme } from '../generated/theme';
 
 interface Props {
-  visible: boolean;
+  delay?: number;
+  isLoading: boolean;
   testId?: string;
 }
 
-export const LoadingOverlay: React.FC<Props> = ({ visible, testId = '' }) => {
+export const LoadingOverlay: React.FC<Props> = ({
+  delay = 0,
+  isLoading,
+  testId = '',
+}) => {
+  const [visible, setVisible] = useState(isLoading);
+
+  useEffect(() => {
+    if (!isLoading) {
+      return setVisible(false);
+    }
+
+    const setVisibleTimeout = setTimeout(() => setVisible(true), delay);
+    return clearTimeout(setVisibleTimeout);
+  }, [isLoading, delay]);
+
   if (!visible) {
     return null;
   }
