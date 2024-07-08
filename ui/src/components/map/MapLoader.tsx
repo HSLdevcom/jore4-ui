@@ -1,5 +1,5 @@
 import { useAppSelector, useMapQueryParams } from '../../hooks';
-import { selectIsMapOperationLoading } from '../../redux';
+import { LoadingState, selectMapOperationLoadingState } from '../../redux';
 import { LoadingOverlay } from '../../uiComponents';
 
 const testIds = {
@@ -8,9 +8,12 @@ const testIds = {
 
 export const MapLoader = (): React.ReactElement => {
   const { isMapOpen } = useMapQueryParams();
-  const isLoading = useAppSelector(selectIsMapOperationLoading);
+  const loadingState = useAppSelector(selectMapOperationLoadingState);
 
   return (
-    <LoadingOverlay testId={testIds.loader} visible={isMapOpen && isLoading} />
+    <LoadingOverlay
+      loadingState={isMapOpen ? loadingState : LoadingState.NotLoading}
+      testId={testIds.loader}
+    />
   );
 };

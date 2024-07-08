@@ -19,6 +19,7 @@ import {
   useUpsertStopArea,
 } from '../../../hooks';
 import {
+  LoadingState,
   Operation,
   selectEditedStopAreaData,
   selectIsCreateStopAreaModeEnabled,
@@ -59,7 +60,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
   );
 
   const { defaultErrorHandler, initializeStopArea } = useUpsertStopArea();
-  const { setIsLoading } = useLoader(Operation.FetchStopAreas);
+  const { setLoadingState, setIsLoading } = useLoader(Operation.FetchStopAreas);
 
   const viewport = useAppSelector(selectMapViewport);
   const stopAreasResult = useGetStopAreasByLocationQuery({
@@ -90,8 +91,12 @@ export const StopAreas = React.forwardRef((_props, ref) => {
      * We could also use useLoader's immediatelyOn option instead of useEffect,
      * but using options to dynamically control loading state feels semantically wrong.
      */
-    setIsLoading(stopAreasResult.loading);
-  }, [setIsLoading, stopAreasResult.loading]);
+    setLoadingState(
+      stopAreasResult.loading
+        ? LoadingState.LowPriority
+        : LoadingState.NotLoading,
+    );
+  }, [setLoadingState, stopAreasResult.loading]);
 
   const onEditStopArea = (stopArea: StopAreaByIdResult) => {
     setEditedStopAreaData(stopArea);
