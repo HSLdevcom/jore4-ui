@@ -74,3 +74,19 @@ export const requiredInterval = requiredString.regex(
   /^([0-9]|0[4-9]|1[0-9]|2[0-8]):[0-5][0-9]$/,
   'invalidTime',
 );
+
+export const nullablePositiveNumber = z
+  .any()
+  .transform((value, ctx): number | null => {
+    if (Number.isInteger(value)) {
+      if (value < 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          minimum: 0,
+          inclusive: true,
+          type: 'number',
+        });
+      }
+    }
+    return Number.isNaN(value) ? null : value;
+  });

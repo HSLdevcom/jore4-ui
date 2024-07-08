@@ -8,7 +8,7 @@ import {
 import {
   createNullableEnum,
   nullableBoolean,
-  nullableNumber,
+  nullablePositiveNumber,
 } from '../../../../forms/common';
 
 const shelterSchema = z.object({
@@ -16,7 +16,7 @@ const shelterSchema = z.object({
   shelterElectricity: createNullableEnum<StopRegistryShelterElectricity>(),
   shelterLighting: nullableBoolean,
   shelterCondition: createNullableEnum<StopRegistryShelterCondition>(),
-  timetableCabinets: nullableNumber,
+  timetableCabinets: nullablePositiveNumber,
   trashCan: nullableBoolean,
   shelterHasDisplay: nullableBoolean,
   bicycleParking: nullableBoolean,

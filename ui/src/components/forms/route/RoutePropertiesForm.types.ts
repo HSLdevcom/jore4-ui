@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { RouteDirection } from '../../../types/RouteDirection';
 import {
   localizedStringRequired,
-  nullableNumber,
+  nullablePositiveNumber,
   requiredString,
   requiredUuid,
 } from '../common';
@@ -24,7 +24,7 @@ export const routeFormSchema = z
     direction: z.nativeEnum(RouteDirection),
     origin: namesSchema.required(),
     destination: namesSchema.required(),
-    variant: nullableNumber,
+    variant: nullablePositiveNumber,
   })
   .merge(changeValidityFormSchema);
 
