@@ -8,7 +8,6 @@ import {
   buildStop,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
-  mapToDeleteStopPlaceMutation,
   mapToGetInfrastructureLinksByExternalIdsQuery,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
@@ -16,11 +15,7 @@ import { Tag } from '../../enums';
 import { StopSearchBar } from '../../pageObjects/stop-registry/StopSearchBar';
 import { StopSearchResultsPage } from '../../pageObjects/stop-registry/StopSearchResultsPage';
 import { UUID } from '../../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../../utils';
+import { SupportedResources, insertToDbHelper } from '../../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
 // These form a straight line on Eerikinkatu in Helsinki.
@@ -175,7 +170,6 @@ describe('Stop search', () => {
   };
   let dbResources: SupportedResources &
     Required<Pick<SupportedResources, 'stops'>>;
-  let stopPlaceIds: Array<string>;
 
   before(() => {
     cy.task<GetInfrastructureLinksByExternalIdsResult>(
@@ -195,14 +189,12 @@ describe('Stop search', () => {
   });
 
   beforeEach(() => {
-    removeFromDbHelper(dbResources);
+    cy.task('resetDbs');
     insertToDbHelper(dbResources);
 
     cy.task<string[]>('insertStopPlaces', {
       scheduledStopPoints: dbResources.stops,
       stopPlaces: stopPlaceData,
-    }).then((_stopPlaceIds) => {
-      stopPlaceIds = _stopPlaceIds;
     });
 
     stopSearchBar = new StopSearchBar();
@@ -215,17 +207,6 @@ describe('Stop search', () => {
 
     cy.visit('/stop-registry');
     stopSearchBar.getSearchInput().clear();
-  });
-
-  afterEach(() => {
-    removeFromDbHelper(dbResources);
-
-    cy.task(
-      'hasuraAPIMultiple',
-      stopPlaceIds.map((stopPlaceId) =>
-        mapToDeleteStopPlaceMutation(stopPlaceId),
-      ),
-    );
   });
 
   describe('by label', () => {

@@ -17,11 +17,7 @@ import {
 } from '../pageObjects';
 import { RouteTimetablesSection } from '../pageObjects/timetables/RouteTimetablesSection';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 describe('Common substitute operating periods', () => {
   let dbResources: SupportedResources;
@@ -54,8 +50,7 @@ describe('Common substitute operating periods', () => {
   });
 
   beforeEach(() => {
-    cy.task('truncateTimetablesDatabase');
-    removeFromDbHelper(dbResources);
+    cy.task('resetDbs');
     insertToDbHelper(dbResources);
     cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
 
@@ -69,11 +64,6 @@ describe('Common substitute operating periods', () => {
 
     cy.setupTests();
     cy.mockLogin();
-  });
-
-  afterEach(() => {
-    removeFromDbHelper(dbResources);
-    cy.task('truncateTimetablesDatabase');
   });
 
   it(

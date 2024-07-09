@@ -63608,3 +63608,16 @@ export type InsertStopAreaMutation = {
     } | null;
   } | null;
 };
+
+export type GetAllStopPlaceIdsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAllStopPlaceIdsQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stops_database_stop_place: Array<{
+      __typename?: 'stops_database_stop_place';
+      netex_id?: string | null;
+    }>;
+  } | null;
+};

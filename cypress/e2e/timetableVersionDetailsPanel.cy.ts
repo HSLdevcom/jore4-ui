@@ -13,11 +13,7 @@ import {
   VehicleServiceRow,
 } from '../pageObjects';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 describe('Timetable version details panel', () => {
   let dbResources: SupportedResources;
@@ -48,8 +44,7 @@ describe('Timetable version details panel', () => {
   });
 
   beforeEach(() => {
-    cy.task('truncateTimetablesDatabase');
-    removeFromDbHelper(dbResources);
+    cy.task('resetDbs');
     insertToDbHelper(dbResources);
     cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
 
@@ -64,11 +59,6 @@ describe('Timetable version details panel', () => {
     cy.visit(
       `/timetables/lines/901/versions?startDate=2023-03-04&endDate=2024-03-04`,
     );
-  });
-
-  afterEach(() => {
-    removeFromDbHelper(dbResources);
-    cy.task('truncateTimetablesDatabase');
   });
 
   it('Should open, have correct details, and close', () => {

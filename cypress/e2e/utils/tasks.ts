@@ -1,4 +1,5 @@
 import {
+  GetAllStopPlaceIdsResult,
   GetInfrastructureLinksByExternalIdsResult,
   StopInsertInput,
   StopRegistryStopPlace,
@@ -6,9 +7,11 @@ import {
   getDbConnection,
   hasuraApi,
   insertStopPlaceForScheduledStopPoint,
+  mapToDeleteStopPlaceMutation,
+  mapToGetAllStopPlaceIds,
   mapToGetInfrastructureLinksByExternalIdsQuery,
+  resetRoutesAndLinesDb,
   timetablesDatabaseConfig,
-  truncateDb,
 } from '@hsl/jore4-test-db-manager';
 import {
   HslTimetablesDatasetInput,
@@ -42,10 +45,6 @@ export const checkDbConnection = () => {
         return undefined;
       })
   );
-};
-
-export const truncateDatabase = () => {
-  return truncateDb(jore4db);
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -129,6 +128,30 @@ export const truncateTimetablesDatabase = () => {
     'utf8',
   );
   return timetablesDb.raw(truncateQuery);
+};
+
+export const getAllStopPlaceIds = () => {
+  return hasuraAPI(mapToGetAllStopPlaceIds());
+};
+
+export const resetDbs = async () => {
+  const stopPlaceIdsResult =
+    (await getAllStopPlaceIds()) as GetAllStopPlaceIdsResult;
+
+  const stopPlaceIds =
+    stopPlaceIdsResult.data.stops_database.stops_database_stop_place.map(
+      (scheduledStopPoint) => scheduledStopPoint.netex_id,
+    );
+
+  return Promise.all([
+    hasuraAPIMultiple(
+      stopPlaceIds.map((stopPlaceId) =>
+        mapToDeleteStopPlaceMutation(stopPlaceId),
+      ),
+    ),
+    resetRoutesAndLinesDb(jore4db),
+    truncateTimetablesDatabase(),
+  ]);
 };
 
 export const deleteFile = (filePath: string) => {

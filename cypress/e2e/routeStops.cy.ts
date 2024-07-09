@@ -21,11 +21,7 @@ import { DateTime } from 'luxon';
 import { Tag } from '../enums';
 import { LineDetailsPage, RouteStopsTable, Toast } from '../pageObjects';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 const infrastructureLinkExternalIds = ['445156', '442424', '442325'];
 const stopLabels = ['E2E001', 'E2E002', 'E2E003', 'E2E004'];
@@ -177,25 +173,20 @@ describe('Line details page: stops on route', () => {
         stopsInJourneyPattern,
         infraLinksAlongRoute: buildInfraLinksAlongRoute(infraLinkIds),
       };
-
-      removeFromDbHelper(dbResources);
     });
   });
 
   beforeEach(() => {
+    cy.task('resetDbs');
+    insertToDbHelper(dbResources);
+
     lineDetailsPage = new LineDetailsPage();
     toast = new Toast();
     routeStopsTable = new RouteStopsTable();
 
-    insertToDbHelper(dbResources);
-
     cy.setupTests();
     cy.mockLogin();
     lineDetailsPage.visit(lines[0].line_id);
-  });
-
-  afterEach(() => {
-    removeFromDbHelper(dbResources);
   });
 
   it(
