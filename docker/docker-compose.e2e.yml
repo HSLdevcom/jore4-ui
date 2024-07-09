@@ -30,7 +30,9 @@ services:
     container_name: "timetablesapi-e2e"
     environment:
       - SKIP_SET_VARIABLE_SECRET_OVERRIDE=true
-      - JORE4_DB_HOSTNAME=jore4-testdb-e2e
+      # Set the URL to e2e database, because for some reason giving the JORE4_DB_HOST and
+      # JORE4_DB_PORT and JORE4_DB_DATABASE does not work properly and using them points to dev database.
+      - JORE4_DB_URL=jdbc:postgresql://jore4-testdb-e2e:5432/timetablesdb?stringtype=unspecified
     ports:
       - "127.0.0.1:3109:8080"
     depends_on:
