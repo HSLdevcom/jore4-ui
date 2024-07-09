@@ -1,25 +1,19 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
 import { Tag } from '../enums';
 import { LineDetailsPage, LineForm } from '../pageObjects';
-import { deleteLineByLabel } from './utils';
 
 describe('Verify that creating new line works', () => {
   let lineForm: LineForm;
   let lineDetailsPage: LineDetailsPage;
 
   beforeEach(() => {
+    cy.task('resetDbs');
     lineForm = new LineForm();
     lineDetailsPage = new LineDetailsPage();
 
     cy.setupTests();
     cy.mockLogin();
     cy.visit('/lines/create');
-    // delete label we are about to create (if exists) to avoid
-    // possible constraint violation
-    deleteLineByLabel('7327');
-  });
-  after(() => {
-    deleteLineByLabel('7327');
   });
 
   it('Creates new line as expected', { tags: [Tag.Smoke, Tag.Lines] }, () => {

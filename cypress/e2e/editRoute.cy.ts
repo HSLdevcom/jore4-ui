@@ -8,11 +8,7 @@ import {
 import { Tag } from '../enums';
 import { EditRoutePage, LineDetailsPage, Toast } from '../pageObjects';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 describe('Route editing', () => {
   let editRoutePage: EditRoutePage;
@@ -40,7 +36,7 @@ describe('Route editing', () => {
     });
 
     beforeEach(() => {
-      removeFromDbHelper(dbResources);
+      cy.task('resetDbs');
       insertToDbHelper(dbResources);
 
       editRoutePage = new EditRoutePage();
@@ -49,10 +45,6 @@ describe('Route editing', () => {
 
       cy.setupTests();
       cy.mockLogin();
-    });
-
-    afterEach(() => {
-      removeFromDbHelper(dbResources);
     });
 
     it("Should edit a routes's information", { tags: Tag.Routes }, () => {
@@ -176,7 +168,7 @@ describe('Route editing', () => {
     });
 
     beforeEach(() => {
-      removeFromDbHelper(dbResources);
+      cy.task('resetDbs');
       insertToDbHelper(dbResources);
 
       editRoutePage = new EditRoutePage();
@@ -185,10 +177,6 @@ describe('Route editing', () => {
 
       cy.setupTests();
       cy.mockLogin();
-    });
-
-    afterEach(() => {
-      removeFromDbHelper(dbResources);
     });
 
     it(

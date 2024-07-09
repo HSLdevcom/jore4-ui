@@ -16,12 +16,7 @@ import {
 } from '../pageObjects';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
-import { deleteRoutesByLabel } from './utils';
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 describe('Edit route geometry', () => {
   let map: Map;
@@ -54,9 +49,7 @@ describe('Edit route geometry', () => {
   });
 
   beforeEach(() => {
-    deleteRoutesByLabel(['902']);
-    removeFromDbHelper(dbResources);
-
+    cy.task('resetDbs');
     insertToDbHelper(dbResources);
 
     map = new Map();
@@ -69,11 +62,6 @@ describe('Edit route geometry', () => {
 
     cy.setupTests();
     cy.mockLogin();
-  });
-
-  afterEach(() => {
-    deleteRoutesByLabel(['902']);
-    removeFromDbHelper(dbResources);
   });
 
   it(
