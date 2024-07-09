@@ -9159,6 +9159,8 @@ export type StopRegistryStopPlaceMutation = {
   moveQuaysToStop?: Maybe<StopRegistryStopPlaceInterface>;
   /** Mutate group of stop places */
   mutateGroupOfStopPlaces?: Maybe<StopRegistryGroupOfStopPlaces>;
+  /** Create new or update existing InfoSpots */
+  mutateInfoSpot?: Maybe<StopRegistryInfoSpot>;
   /** Update existing Parent StopPlace */
   mutateParentStopPlace?: Maybe<Array<Maybe<StopRegistryParentStopPlace>>>;
   /** Create new or update existing Parking */
@@ -9240,6 +9242,10 @@ export type StopRegistryStopPlaceMutationMutateGroupOfStopPlacesArgs = {
   GroupOfStopPlaces?: InputMaybe<StopRegistryGroupOfStopPlacesInput>;
 };
 
+export type StopRegistryStopPlaceMutationMutateInfoSpotArgs = {
+  InfoSpot?: InputMaybe<StopRegistryInfoSpotInput>;
+};
+
 export type StopRegistryStopPlaceMutationMutateParentStopPlaceArgs = {
   ParentStopPlace?: InputMaybe<StopRegistryParentStopPlaceInput>;
 };
@@ -9301,6 +9307,8 @@ export type StopRegistryStopPlaceRegister = {
   groupOfStopPlaces?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
   /** Group of tariff zones */
   groupOfTariffZones?: Maybe<Array<Maybe<StopRegistryGroupOfTariffZones>>>;
+  /** Info spots */
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   /** Find parking */
   parking?: Maybe<Array<Maybe<StopRegistryParking>>>;
   /** Find path links */
@@ -9751,6 +9759,42 @@ export type StopRegistryHslAccessibilityPropertiesInput = {
   stopElevationFromSidewalk?: InputMaybe<Scalars['Float']>;
   stopType?: InputMaybe<StopRegistryStopType>;
   structureLaneDistance?: InputMaybe<Scalars['Float']>;
+};
+
+export type StopRegistryInfoSpot = {
+  __typename?: 'stop_registry_InfoSpot';
+  backlight?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  displayType?: Maybe<StopRegistryDisplayType>;
+  floor?: Maybe<Scalars['String']>;
+  geometry?: Maybe<StopRegistryGeoJson>;
+  id?: Maybe<Scalars['String']>;
+  label?: Maybe<Scalars['String']>;
+  maintenance?: Maybe<Scalars['String']>;
+  posterPlaceSize?: Maybe<StopRegistryPosterPlaceSize>;
+  posterPlaceType?: Maybe<StopRegistryPosterPlaceType>;
+  purpose?: Maybe<Scalars['String']>;
+  railInformation?: Maybe<Scalars['String']>;
+  speechProperty?: Maybe<Scalars['Boolean']>;
+  validBetween?: Maybe<StopRegistryValidBetween>;
+  version?: Maybe<Scalars['String']>;
+  zoneLabel?: Maybe<Scalars['String']>;
+};
+
+export type StopRegistryInfoSpotInput = {
+  backlight?: InputMaybe<Scalars['Boolean']>;
+  description?: InputMaybe<Scalars['String']>;
+  displayType?: InputMaybe<StopRegistryDisplayType>;
+  floor?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
+  maintenance?: InputMaybe<Scalars['String']>;
+  posterPlaceSize?: InputMaybe<StopRegistryPosterPlaceSize>;
+  posterPlaceType?: InputMaybe<StopRegistryPosterPlaceType>;
+  purpose?: InputMaybe<Scalars['String']>;
+  railInformation?: InputMaybe<Scalars['String']>;
+  speechProperty?: InputMaybe<Scalars['Boolean']>;
+  zoneLabel?: InputMaybe<Scalars['String']>;
 };
 
 export enum StopRegistryInterchangeWeightingType {
@@ -10632,6 +10676,15 @@ export enum StopRegistryCycleStorageType {
   Railings = 'railings',
 }
 
+export enum StopRegistryDisplayType {
+  BatteryEInk = 'batteryEInk',
+  BatteryMultiRow = 'batteryMultiRow',
+  BatteryOneRow = 'batteryOneRow',
+  ChargeableEInk = 'chargeableEInk',
+  ElectricTft = 'electricTFT',
+  None = 'none',
+}
+
 export enum StopRegistryGender {
   Both = 'both',
   FemaleOnly = 'femaleOnly',
@@ -10664,6 +10717,18 @@ export enum StopRegistryPedestrianCrossingRampType {
   Rk4 = 'RK4',
   Rk4Lr = 'RK4_LR',
   Other = 'other',
+}
+
+export enum StopRegistryPosterPlaceSize {
+  A3 = 'a3',
+  A4 = 'a4',
+  Cm80x120 = 'cm80x120',
+}
+
+export enum StopRegistryPosterPlaceType {
+  Dynamic = 'dynamic',
+  SoundBeacon = 'soundBeacon',
+  Static = 'static',
 }
 
 export enum StopRegistryShelterCondition {
@@ -66968,6 +67033,30 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
   }>;
 };
 
+export type GetInfoSpotsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetInfoSpotsQuery = {
+  __typename?: 'query_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister';
+    infoSpots?: Array<{
+      __typename?: 'stop_registry_InfoSpot';
+      id?: string | null;
+      backlight?: boolean | null;
+      description?: string | null;
+      displayType?: StopRegistryDisplayType | null;
+      floor?: string | null;
+      label?: string | null;
+      posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+      posterPlaceType?: StopRegistryPosterPlaceType | null;
+      purpose?: string | null;
+      railInformation?: string | null;
+      speechProperty?: boolean | null;
+      zoneLabel?: string | null;
+    } | null> | null;
+  } | null;
+};
+
 export type ShelterEquipmentDetailsFragment = {
   __typename?: 'stop_registry_ShelterEquipment';
   id?: string | null;
@@ -67238,6 +67327,22 @@ export type StopPlaceDetailsFragment = {
       wheelchairAccess?: StopRegistryLimitationStatusType | null;
     } | null;
   } | null;
+};
+
+export type InfoSpotDetailsFragment = {
+  __typename?: 'stop_registry_InfoSpot';
+  id?: string | null;
+  backlight?: boolean | null;
+  description?: string | null;
+  displayType?: StopRegistryDisplayType | null;
+  floor?: string | null;
+  label?: string | null;
+  posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+  posterPlaceType?: StopRegistryPosterPlaceType | null;
+  purpose?: string | null;
+  railInformation?: string | null;
+  speechProperty?: boolean | null;
+  zoneLabel?: string | null;
 };
 
 export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
@@ -69327,6 +69432,22 @@ export const StopPlaceDetailsFragmentDoc = gql`
   ${FareZoneDetailsFragmentDoc}
   ${QuayDetailsFragmentDoc}
   ${HslAccessibilityPropertiesDetailsFragmentDoc}
+`;
+export const InfoSpotDetailsFragmentDoc = gql`
+  fragment info_spot_details on stop_registry_InfoSpot {
+    id
+    backlight
+    description
+    displayType
+    floor
+    label
+    posterPlaceSize
+    posterPlaceType
+    purpose
+    railInformation
+    speechProperty
+    zoneLabel
+  }
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
   fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {
@@ -72780,6 +72901,66 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQueryResult =
     GetHighestPriorityStopDetailsByLabelAndDateQuery,
     GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
   >;
+export const GetInfoSpotsDocument = gql`
+  query GetInfoSpots {
+    stop_registry {
+      infoSpots {
+        ...info_spot_details
+      }
+    }
+  }
+  ${InfoSpotDetailsFragmentDoc}
+`;
+
+/**
+ * __useGetInfoSpotsQuery__
+ *
+ * To run a query within a React component, call `useGetInfoSpotsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInfoSpotsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetInfoSpotsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetInfoSpotsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetInfoSpotsQuery,
+    GetInfoSpotsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetInfoSpotsQuery, GetInfoSpotsQueryVariables>(
+    GetInfoSpotsDocument,
+    options,
+  );
+}
+export function useGetInfoSpotsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetInfoSpotsQuery,
+    GetInfoSpotsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetInfoSpotsQuery, GetInfoSpotsQueryVariables>(
+    GetInfoSpotsDocument,
+    options,
+  );
+}
+export type GetInfoSpotsQueryHookResult = ReturnType<
+  typeof useGetInfoSpotsQuery
+>;
+export type GetInfoSpotsLazyQueryHookResult = ReturnType<
+  typeof useGetInfoSpotsLazyQuery
+>;
+export type GetInfoSpotsQueryResult = Apollo.QueryResult<
+  GetInfoSpotsQuery,
+  GetInfoSpotsQueryVariables
+>;
 export const PatchScheduledStopPointTimingSettingsDocument = gql`
   mutation PatchScheduledStopPointTimingSettings(
     $stopLabel: String!
@@ -75223,6 +75404,14 @@ export function useGetHighestPriorityStopDetailsByLabelAndDateAsyncQuery() {
 }
 export type GetHighestPriorityStopDetailsByLabelAndDateAsyncQueryHookResult =
   ReturnType<typeof useGetHighestPriorityStopDetailsByLabelAndDateAsyncQuery>;
+export function useGetInfoSpotsAsyncQuery() {
+  return useAsyncQuery<GetInfoSpotsQuery, GetInfoSpotsQueryVariables>(
+    GetInfoSpotsDocument,
+  );
+}
+export type GetInfoSpotsAsyncQueryHookResult = ReturnType<
+  typeof useGetInfoSpotsAsyncQuery
+>;
 
 export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery() {
   return useAsyncQuery<

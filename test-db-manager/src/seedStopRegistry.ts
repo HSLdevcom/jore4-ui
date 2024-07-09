@@ -1,15 +1,20 @@
 /* eslint-disable no-console */
 import {
+  InfoSpotInput,
   StopAreaInput,
   StopPlaceInput,
   StopPlaceNetexRef,
+  seedInfoSpots,
   seedStopAreas,
   seedStopPlaces,
 } from './datasets';
 import { StopRegistryVersionLessEntityRefInput } from './generated/graphql';
 import { insertStopPlaceForScheduledStopPoint } from './graphql-helpers';
 import { hasuraApi } from './hasuraApi';
-import { mapToInsertStopAreaMutation } from './queries';
+import {
+  mapToInsertInfoSpotMutation,
+  mapToInsertStopAreaMutation,
+} from './queries';
 import { mapToGetStopPointByLabelQuery } from './queries/routesAndLines';
 import { GetStopPointByLabelResult, InsertStopAreaResult } from './types';
 
@@ -94,6 +99,24 @@ const insertStopArea = async (
   }
 };
 
+const insertInfoSpot = async (infoSpot: InfoSpotInput) => {
+  try {
+    const returnValue = (await hasuraApi(
+      mapToInsertInfoSpotMutation(infoSpot),
+    )) as InsertStopAreaResult;
+    if (returnValue.data == null) {
+      throw new Error('Null data returned from Tiamat');
+    }
+  } catch (error) {
+    console.error(
+      'An error occurred while inserting info spot!',
+      infoSpot.label,
+      error,
+    );
+    throw error;
+  }
+};
+
 const seedStopRegistry = async () => {
   const collectedStopIds: Map<string, string> = new Map();
   console.log('Inserting stop places...');
@@ -123,6 +146,16 @@ const seedStopRegistry = async () => {
     );
   }
   console.log(`Inserted ${seedStopAreas.length} stop areas.`);
+
+  console.log('Inserting info spots...');
+  for (let index = 0; index < seedInfoSpots.length; index++) {
+    const infoSpot = seedInfoSpots[index];
+    console.log(`Info spot ${infoSpot.label}: insert starting...`);
+    // eslint-disable-next-line no-await-in-loop
+    await insertInfoSpot(infoSpot);
+    console.log(`Info spot ${infoSpot.label}: insert finished!`);
+  }
+  console.log(`Inserted ${seedInfoSpots.length} info spots.`);
 };
 
 seedStopRegistry();
