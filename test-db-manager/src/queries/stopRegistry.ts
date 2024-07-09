@@ -34,6 +34,16 @@ const GQL_INSERT_STOP_AREA = gql`
   }
 `;
 
+const GQL_GET_ALL_STOP_PLACE_IDS = gql`
+  query GetAllStopPlaceIds {
+    stops_database {
+      stops_database_stop_place {
+        netex_id
+      }
+    }
+  }
+`;
+
 export const mapToInsertStopPlaceMutation = (
   input: Partial<StopRegistryStopPlace>,
 ) => {
@@ -60,5 +70,11 @@ export const mapToInsertStopAreaMutation = (
   return {
     query: getGqlString(GQL_INSERT_STOP_AREA),
     variables: { stopArea: input },
+  };
+};
+
+export const mapToGetAllStopPlaceIds = () => {
+  return {
+    query: getGqlString(GQL_GET_ALL_STOP_PLACE_IDS),
   };
 };

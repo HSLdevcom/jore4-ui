@@ -34,11 +34,7 @@ import {
   VehicleServiceTable,
 } from '../pageObjects';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
 // These form a straight line on Eerikinkatu in Helsinki.
@@ -371,8 +367,8 @@ describe('Timetable import', () => {
   });
 
   beforeEach(() => {
-    cy.task('truncateTimetablesDatabase');
-    removeFromDbHelper(dbResources);
+    cy.task('resetDbs');
+    cy.task('emptyDownloadsFolder');
     insertToDbHelper(dbResources);
 
     timetablesMainPage = new TimetablesMainPage();
@@ -384,12 +380,6 @@ describe('Timetable import', () => {
     cy.setupTests();
     cy.mockLogin();
     cy.visit('/');
-  });
-
-  afterEach(() => {
-    cy.task('emptyDownloadsFolder');
-    removeFromDbHelper(dbResources);
-    cy.task('truncateTimetablesDatabase');
   });
 
   it(

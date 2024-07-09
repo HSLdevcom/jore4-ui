@@ -6,7 +6,7 @@ import {
 } from '@hsl/jore4-test-db-manager';
 import { Tag } from '../enums';
 import { LineDetailsPage, LineForm } from '../pageObjects';
-import { insertToDbHelper, removeFromDbHelper } from '../utils';
+import { insertToDbHelper } from '../utils';
 
 const testInputs = {
   newLabel: 'Muokattu label 1999',
@@ -27,17 +27,11 @@ const dbResources = {
   lines,
 };
 
-const deleteCreatedResources = () => {
-  removeFromDbHelper(dbResources);
-};
-
 describe('Line editing', () => {
   let lineForm: LineForm;
   let lineDetailsPage: LineDetailsPage;
-  before(() => {
-    deleteCreatedResources();
-  });
   beforeEach(() => {
+    cy.task('resetDbs');
     lineForm = new LineForm();
     lineDetailsPage = new LineDetailsPage();
 
@@ -45,9 +39,6 @@ describe('Line editing', () => {
     cy.mockLogin();
     insertToDbHelper(dbResources);
     lineDetailsPage.visit(lines[0].line_id);
-  });
-  afterEach(() => {
-    deleteCreatedResources();
   });
 
   it(

@@ -53,3 +53,13 @@ export interface InsertStopAreaResult {
     };
   };
 }
+
+export interface GetAllStopPlaceIdsResult {
+  data: {
+    stops_database: {
+      stops_database_stop_place: {
+        netex_id: string;
+      }[];
+    };
+  };
+}

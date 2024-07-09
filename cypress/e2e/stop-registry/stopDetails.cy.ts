@@ -6,7 +6,6 @@ import {
   buildStop,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
-  mapToDeleteStopPlaceMutation,
   mapToGetInfrastructureLinksByExternalIdsQuery,
   stopPlaceH2003,
 } from '@hsl/jore4-test-db-manager';
@@ -27,12 +26,7 @@ import {
   Toast,
 } from '../../pageObjects';
 import { UUID } from '../../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../../utils';
-import { deleteTimingPlacesByLabel } from '../utils';
+import { SupportedResources, insertToDbHelper } from '../../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
 // These form a straight line on Eerikinkatu in Helsinki.
@@ -106,7 +100,6 @@ describe('Stop details', () => {
   };
   let dbResources: SupportedResources &
     Required<Pick<SupportedResources, 'stops'>>;
-  let stopPlaceIds: Array<string>;
 
   before(() => {
     cy.task<GetInfrastructureLinksByExternalIdsResult>(
@@ -126,32 +119,19 @@ describe('Stop details', () => {
   });
 
   beforeEach(() => {
-    removeFromDbHelper(dbResources);
+    cy.task('resetDbs');
+
     insertToDbHelper(dbResources);
     toast = new Toast();
-
     cy.task<string[]>('insertStopPlaces', {
       scheduledStopPoints: dbResources.stops,
       stopPlaces: stopPlaceData,
-    }).then((_stopPlaceIds) => {
-      stopPlaceIds = _stopPlaceIds;
     });
 
     stopDetailsPage = new StopDetailsPage();
 
     cy.setupTests();
     cy.mockLogin();
-  });
-
-  afterEach(() => {
-    removeFromDbHelper(dbResources);
-
-    cy.task(
-      'hasuraAPIMultiple',
-      stopPlaceIds.map((stopPlaceId) =>
-        mapToDeleteStopPlaceMutation(stopPlaceId),
-      ),
-    );
   });
 
   const verifyInitialBasicDetails = () => {
@@ -468,14 +448,6 @@ describe('Stop details', () => {
     );
 
     describe('creating new timing place', () => {
-      before(() => {
-        deleteTimingPlacesByLabel(['1TEST']);
-      });
-
-      after(() => {
-        deleteTimingPlacesByLabel(['1TEST']);
-      });
-
       it(
         'should create new timing place correctly',
         { tags: [Tag.StopRegistry] },

@@ -10,29 +10,12 @@ import { Tag } from '../enums';
 import { LineDetailsPage, Navbar, RoutesAndLinesPage } from '../pageObjects';
 import { TimingSettingsForm } from '../pageObjects/TimingSettingsForm';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
-
-const setup = (resources: SupportedResources) => {
-  removeFromDbHelper(resources);
-  insertToDbHelper(resources);
-
-  cy.setupTests();
-  cy.mockLogin();
-};
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 const exportDate = DateTime.now().toISODate();
 const exportFilePath = `${Cypress.config(
   'downloadsFolder',
 )}/901_Perusversio_${exportDate}.csv`;
-
-const teardown = (resources: SupportedResources) => {
-  removeFromDbHelper(resources);
-  cy.task('emptyDownloadsFolder');
-};
 
 const comparisonRouteExportFilePath = `${Cypress.config(
   'fixturesFolder',
@@ -66,16 +49,17 @@ describe('Hastus export', () => {
   });
 
   beforeEach(() => {
+    cy.task('resetDbs');
+    cy.task('emptyDownloadsFolder');
+    insertToDbHelper(dbResources);
+
     routesAndLinesPage = new RoutesAndLinesPage();
     lineDetailsPage = new LineDetailsPage();
     timingSettingsForm = new TimingSettingsForm();
     navBar = new Navbar();
 
-    setup(dbResources);
-  });
-
-  afterEach(() => {
-    teardown(dbResources);
+    cy.setupTests();
+    cy.mockLogin();
   });
 
   describe('Success cases', () => {

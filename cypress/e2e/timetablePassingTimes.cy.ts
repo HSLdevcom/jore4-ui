@@ -15,11 +15,7 @@ import {
 import { PassingTimesByStopTable } from '../pageObjects/timetables/PassingTimesByStopTable';
 import { RouteTimetablesSection } from '../pageObjects/timetables/RouteTimetablesSection';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 describe('Timetable passing times', () => {
   let timetablesMainPage: TimetablesMainPage;
@@ -51,8 +47,7 @@ describe('Timetable passing times', () => {
   });
 
   beforeEach(() => {
-    cy.task('truncateTimetablesDatabase');
-    removeFromDbHelper(dbResources);
+    cy.task('resetDbs');
     insertToDbHelper(dbResources);
     cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
 
@@ -64,13 +59,6 @@ describe('Timetable passing times', () => {
 
     cy.setupTests();
     cy.mockLogin();
-  });
-
-  afterEach(() => {
-    cy.task('emptyDownloadsFolder');
-
-    removeFromDbHelper(dbResources);
-    cy.task('truncateTimetablesDatabase');
   });
 
   it(

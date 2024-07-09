@@ -19,12 +19,7 @@ import {
   Toast,
 } from '../pageObjects';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
-import { deleteTimingPlacesByLabel } from './utils';
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 // Stops are created on these infralinks via insertToDbHelper or the map view.
 
@@ -89,8 +84,7 @@ describe('Stop editing tests', () => {
   });
 
   beforeEach(() => {
-    removeFromDbHelper(dbResources);
-    deleteTimingPlacesByLabel(Object.values(testTimingPlaceLabels));
+    cy.task('resetDbs');
 
     insertToDbHelper(dbResources);
 
@@ -107,11 +101,6 @@ describe('Stop editing tests', () => {
       lat: testCoordinates1.lat,
       lng: testCoordinates1.lng,
     });
-  });
-
-  afterEach(() => {
-    removeFromDbHelper(dbResources);
-    deleteTimingPlacesByLabel(Object.values(testTimingPlaceLabels));
   });
 
   it(

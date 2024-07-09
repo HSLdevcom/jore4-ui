@@ -13,13 +13,6 @@ import {
   mapToCreateStopsMutation,
   mapToCreateStopsOnJourneyPatternMutation,
   mapToCreateTimingPlacesMutation,
-  mapToDeleteInfraLinksAlongRouteMutation,
-  mapToDeleteJourneyPatternsMutation,
-  mapToDeleteLinesMutation,
-  mapToDeleteRoutesMutation,
-  mapToDeleteStopsInJourneyPatternMutation,
-  mapToDeleteStopsMutation,
-  mapToDeleteTimingPlacesMutation,
 } from '@hsl/jore4-test-db-manager';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -120,73 +113,6 @@ export const insertToDbHelper = ({
     );
     cy.task('hasuraAPI', mutation).then((res) =>
       handleResponse('Inserting stops in journey pattern', mutation, res),
-    );
-  }
-};
-
-export const removeFromDbHelper = ({
-  lines,
-  timingPlaces,
-  stops,
-  routes,
-  infraLinksAlongRoute,
-  journeyPatterns,
-  stopsInJourneyPattern,
-}: SupportedResources) => {
-  if (routes) {
-    const mutation = mapToDeleteRoutesMutation(
-      routes.map((route) => route.route_id),
-    );
-    cy.task('hasuraAPI', mutation).then((res) =>
-      handleResponse('Removing route', mutation, res),
-    );
-  }
-  if (lines) {
-    const mutation = mapToDeleteLinesMutation(
-      lines.map((line) => line.line_id),
-    );
-    cy.task('hasuraAPI', mutation).then((res) =>
-      handleResponse('Removing line', mutation, res),
-    );
-  }
-  if (stops) {
-    const mutation = mapToDeleteStopsMutation(
-      stops.map((item) => item.scheduled_stop_point_id),
-    );
-    cy.task('hasuraAPI', mutation).then((res) =>
-      handleResponse('Removing stops', mutation, res),
-    );
-  }
-  if (infraLinksAlongRoute) {
-    const mutation = mapToDeleteInfraLinksAlongRouteMutation(
-      infraLinksAlongRoute.map((item) => item.infrastructure_link_id),
-    );
-    cy.task('hasuraAPI', mutation).then((res) =>
-      handleResponse('Removing infra links along route', mutation, res),
-    );
-  }
-  if (journeyPatterns) {
-    const mutation = mapToDeleteJourneyPatternsMutation(
-      journeyPatterns.map((item) => item.journey_pattern_id),
-    );
-    cy.task('hasuraAPI', mutation).then((res) =>
-      handleResponse('Removing journey patterns', mutation, res),
-    );
-  }
-  if (stopsInJourneyPattern) {
-    const mutation = mapToDeleteStopsInJourneyPatternMutation(
-      stopsInJourneyPattern.map((item) => item.journey_pattern_id),
-    );
-    cy.task('hasuraAPI', mutation).then((res) =>
-      handleResponse('Removing stops in journey pattern', mutation, res),
-    );
-  }
-  if (timingPlaces) {
-    const mutation = mapToDeleteTimingPlacesMutation(
-      timingPlaces.map((timingPlace) => timingPlace.timing_place_id),
-    );
-    cy.task('hasuraAPI', mutation).then((res) =>
-      handleResponse('Removing timing place', mutation, res),
     );
   }
 };
