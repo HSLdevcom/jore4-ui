@@ -13,8 +13,7 @@ import {
   StopSearchResultsPage,
 } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
-import { insertToDbHelper, removeFromDbHelper } from '../utils';
-import { deleteStopsByLabels } from './utils';
+import { insertToDbHelper } from '../utils';
 
 const testStopLabels = {
   testLabel1: 'T0001',
@@ -27,11 +26,6 @@ const dbResources = {
   timingPlaces,
 };
 
-const clearDatabase = () => {
-  deleteStopsByLabels(Object.values(testStopLabels));
-  removeFromDbHelper(dbResources);
-};
-
 describe('Stop creation tests', () => {
   let mapModal: MapModal;
   let mapFilterPanel: FilterPanel;
@@ -42,7 +36,7 @@ describe('Stop creation tests', () => {
   let stopDetailsPage: StopDetailsPage;
 
   beforeEach(() => {
-    clearDatabase();
+    cy.task('resetDbs');
     insertToDbHelper(dbResources);
 
     mapModal = new MapModal();
@@ -61,10 +55,6 @@ describe('Stop creation tests', () => {
       lat: 60.164074274478054,
       lng: 24.93021804533524,
     });
-  });
-
-  after(() => {
-    clearDatabase();
   });
 
   it(

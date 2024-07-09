@@ -31,11 +31,7 @@ import {
   VehicleServiceTable,
 } from '../pageObjects';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 const REPLACE_IMPORT_FILENAME = 'timetablesReplace1.exp';
 const COMBINE_IMPORT_FILENAME = 'timetablesCombine1.exp';
@@ -520,8 +516,8 @@ describe('Timetable replacement and combination', () => {
   });
 
   beforeEach(() => {
-    cy.task('truncateTimetablesDatabase');
-    removeFromDbHelper(dbResources);
+    cy.task('resetDbs');
+    cy.task('emptyDownloadsFolder');
     insertToDbHelper(dbResources);
 
     timetablesMainPage = new TimetablesMainPage();
@@ -534,15 +530,6 @@ describe('Timetable replacement and combination', () => {
     cy.visit('/');
 
     cy.task('insertHslTimetablesDatasetToDb', timetableDataInput);
-  });
-
-  afterEach(() => {
-    removeFromDbHelper(dbResources);
-    cy.task('truncateTimetablesDatabase');
-  });
-
-  after(() => {
-    cy.task('emptyDownloadsFolder');
   });
 
   it(

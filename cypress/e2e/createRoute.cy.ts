@@ -24,12 +24,7 @@ import { MapModal, RouteEditor } from '../pageObjects';
 import { FilterPanel } from '../pageObjects/FilterPanel';
 import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
 import { UUID } from '../types';
-import {
-  SupportedResources,
-  insertToDbHelper,
-  removeFromDbHelper,
-} from '../utils';
-import { deleteRoutesByLabel } from './utils';
+import { SupportedResources, insertToDbHelper } from '../utils';
 
 const testRouteLabels = {
   label1: 'T-reitti 1',
@@ -231,12 +226,10 @@ describe('Route creation', () => {
   });
 
   beforeEach(() => {
+    cy.task('resetDbs');
+
     mapModal = new MapModal();
     const mapFilterPanel = new FilterPanel();
-
-    deleteRoutesByLabel(Object.values(testRouteLabels));
-    removeFromDbHelper(dbResources);
-
     insertToDbHelper(dbResources);
 
     routeStopsOverlay = new RouteStopsOverlay();
@@ -256,11 +249,6 @@ describe('Route creation', () => {
     mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
     mapModal.map.waitForLoadToComplete();
-  });
-
-  afterEach(() => {
-    deleteRoutesByLabel(Object.values(testRouteLabels));
-    removeFromDbHelper(dbResources);
   });
 
   it(
