@@ -4,7 +4,6 @@ import {
   ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
   useGetHighestPriorityStopDetailsByLabelAndDateQuery,
-  useGetInfoSpotsQuery,
 } from '../../generated/graphql';
 import {
   StopPlaceEnrichmentProperties,
@@ -66,16 +65,6 @@ const GQL_GET_HIGHEST_PRIORITY_STOP_DETAILS_BY_LABEL_AND_DATE = gql`
       ...scheduled_stop_point_detail_fields
       stop_place {
         ...stop_place_details
-      }
-    }
-  }
-`;
-
-const GQL_GET_INFO_SPOTS = gql`
-  query GetInfoSpots {
-    stop_registry {
-      infoSpots {
-        ...info_spot_details
       }
     }
   }
@@ -268,50 +257,53 @@ const GQL_STOP_PLACE_DETAILS = gql`
         ...stop_place_organisation_fields
       }
     }
+    infoSpots {
+      ...info_spot_details
+    }
   }
 `;
 
 const GQL_INFO_SPOT_DETAILS = gql`
-  fragment info_spot_details on stop_registry_InfoSpot {
+  fragment info_spot_details on stop_registry_infoSpot {
     id
     backlight
-    description
+    description {
+      lang
+      value
+    }
     displayType
     floor
     label
     posterPlaceSize
-    posterPlaceType
+    infoSpotLocations
+    infoSpotType
     purpose
     railInformation
     speechProperty
     zoneLabel
+    maintenance
+    poster {
+      label
+      posterSize
+      lines
+    }
   }
 `;
 
 export type StopPlace = StopPlaceDetailsFragment;
 export type StopPlaceInfoSpots = InfoSpotDetailsFragment;
-export type EnrichedStopPlace = StopPlace &
-  StopPlaceEnrichmentProperties & {
-    infoSpots: Array<InfoSpotDetailsFragment> | null;
-  };
+export type EnrichedStopPlace = StopPlace & StopPlaceEnrichmentProperties;
 
 const getEnrichedStopPlace = (
   stopPlace: StopPlace | null,
-  infoSpots: Array<StopPlaceInfoSpots | null | undefined> | null | undefined,
 ): EnrichedStopPlace | null => {
   if (!stopPlace) {
     return null;
   }
 
-  const filteredInfoSpots = infoSpots?.filter(
-    (spot): spot is InfoSpotDetailsFragment => !!spot,
-  );
-
   return {
     ...stopPlace,
     ...getStopPlaceDetailsForEnrichment(stopPlace),
-    // TODO: move these to enriched stop place handling?
-    infoSpots: filteredInfoSpots || null,
   };
 };
 
@@ -350,20 +342,7 @@ export const useGetStopDetails = (): {
     variables: { label, observationDate },
   });
 
-  // TODO: these should be fetched with the stop details query.
-  // Currently we just have _all_ info spots in the DB here.
-  const infoSpotsResult = useGetInfoSpotsQuery();
-  const stopDetails = result.data?.service_pattern_scheduled_stop_point[0];
-  const infoSpots = infoSpotsResult.data?.stop_registry?.infoSpots;
-
   return {
-    stopDetails: stopDetails && {
-      ...stopDetails,
-      stop_place: getEnrichedStopPlace(
-        getStopPlaceFromQueryResult<StopPlace>(stopDetails.stop_place),
-        infoSpots,
-      ),
-    },
     stopDetails: getStopDetails(result),
     isLoading: result.loading,
   };
