@@ -325,6 +325,38 @@
       "addShelter": "Lisää katos",
       "deleteShelter": "Poista katos",
       "cancelDeleteShelter": "Peruuta poisto"
+    },
+    "infoSpots": {
+      "backlight": "Taustavalo",
+      "description": "Kuvaus",
+      "floor": "Kerros",
+      "label": "Infopaikan tunnus",
+      "maintenance": "Huoltotiedot",
+      "posterPlaceSize": "Koko",
+      "posterPlaceType": "Julistepaikan tyyppi",
+      "displayType": "Näytön tyyppi",
+      "speechProperty": "Puheominaisuus",
+      "purpose": "Käyttötarkoitus",
+      "railInformation": "Raidetieto",
+      "zoneLabel": "Vyöhyketunnus",
+      "stops": "Pysäkit",
+      "terminals": "Terminaalit",
+      "posterLabel": "Painotuote",
+      "posterSize": "Tuotteen koko",
+      "posterLines": "Linjat",
+      "type": {
+        "dynamic": "Dynaaminen",
+        "static": "Staattinen",
+        "soundBeacon": "Äänimajakka"
+      },
+      "displayTypes": {
+        "electricTFT": "Sähkönäyttö TFT",
+        "batteryOneRow": "Patteri, yksi rivi",
+        "batteryMultiRow": "Patteri, monirivi",
+        "batteryEInk": "Patteri, E-muste",
+        "chargeableEInk": "Ladattava, E-muste",
+        "none": "Ei näyttöä"
+      }
     }
   },
   "stopRegistrySearch": {
