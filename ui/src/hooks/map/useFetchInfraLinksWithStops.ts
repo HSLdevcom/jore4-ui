@@ -5,7 +5,7 @@ import { Operation } from '../../redux';
 import { MapMatchingNoSegmentError, showDangerToast } from '../../utils';
 
 export const useFetchInfraLinksWithStops = () => {
-  const { setIsLoading } = useLoader(Operation.LoadMap);
+  const { setIsLoading } = useLoader(Operation.FetchInfraLinksWithStops);
   const { t } = useTranslation();
   const { getInfraLinksWithStopsForGeometry } = useExtractRouteFromFeature();
 
@@ -13,8 +13,7 @@ export const useFetchInfraLinksWithStops = () => {
     async (geometry: GeoJSON.LineString) => {
       setIsLoading(true);
       try {
-        const response = await getInfraLinksWithStopsForGeometry(geometry);
-        return response;
+        return await getInfraLinksWithStopsForGeometry(geometry);
       } catch (err) {
         if (err instanceof MapMatchingNoSegmentError) {
           showDangerToast(t('errors.tooFarFromInfrastructureLink'));
