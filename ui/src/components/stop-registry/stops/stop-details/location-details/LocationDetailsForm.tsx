@@ -69,7 +69,7 @@ const LocationDetailsFormComponent = (
                   id="stopDetails.location.municipality"
                   data-testid={testIds.municipality}
                 >
-                  {municipality || '-'}
+                  {municipality ?? '-'}
                 </span>
                 <i className="icon-info text-lg text-brand" />
               </div>
@@ -87,7 +87,7 @@ const LocationDetailsFormComponent = (
                   id="stopDetails.location.fareZone"
                   data-testid={testIds.fareZone}
                 >
-                  {fareZone || '-'}
+                  {fareZone ?? '-'}
                 </span>
                 <i className="icon-info text-lg text-brand" />
               </div>

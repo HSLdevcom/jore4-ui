@@ -78,7 +78,7 @@ export const DrawRouteLayer = ({ editorLayerRef }: Props) => {
     variables: { routeId: baseRouteId! },
   });
 
-  const baseRoute = baseRouteResult.data?.route_route_by_pk || undefined;
+  const baseRoute = baseRouteResult.data?.route_route_by_pk ?? undefined;
 
   const {
     debouncedOnAddRoute,

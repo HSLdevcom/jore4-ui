@@ -23,8 +23,8 @@ export const LineValidityPeriod: React.FC<Props> = ({
     validityStart?: DateLike | null,
     validityEnd?: DateLike | null,
   ) =>
-    `${mapToShortDate(validityStart) || ''} - ${
-      mapToShortDate(validityEnd) || ''
+    `${mapToShortDate(validityStart) ?? ''} - ${
+      mapToShortDate(validityEnd) ?? ''
     }`;
 
   return (

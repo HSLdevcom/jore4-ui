@@ -220,13 +220,13 @@ export const useTimetablesImport = () => {
 
   const vehicleScheduleFrames =
     importedVehicleScheduleFramesResult.data?.timetables
-      ?.timetables_vehicle_schedule_vehicle_schedule_frame || [];
+      ?.timetables_vehicle_schedule_vehicle_schedule_frame ?? [];
 
   const vehicleJourneys =
     vehicleScheduleFrames
       ?.flatMap((frame) => frame.vehicle_services)
       .flatMap((service) => service.blocks)
-      .flatMap((block) => block.vehicle_journeys) || [];
+      .flatMap((block) => block.vehicle_journeys) ?? [];
 
   /**
    * Sends list of files to hastus importer. They will be sent one by one and

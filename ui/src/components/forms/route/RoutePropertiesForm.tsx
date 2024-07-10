@@ -68,8 +68,8 @@ const RoutePropertiesFormComponent = (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
-        id={id || 'route-properties-form'}
-        className={className || ''}
+        id={id ?? 'route-properties-form'}
+        className={className ?? ''}
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >

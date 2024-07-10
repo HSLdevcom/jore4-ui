@@ -7,7 +7,7 @@ import { GqlQueryResult } from './types';
 type StopLike = Pick<ServicePatternScheduledStopPoint, '__typename'>;
 type QueryRootLike<T> = Pick<QueryRoot, '__typename'> & T;
 
-// Using a static, constant array (instead of `result || []`) as a default value for array queries
+// Using a static, constant array (instead of `result ?? []`) as a default value for array queries
 // to avoid infinite render loop caused by constantly changing object reference. This array is
 // constant as we don't want anyone to write to this globally shared variable.
 const emptyArray = [] as const;
@@ -25,5 +25,5 @@ export const mapStopResultToStop = (result: GqlQueryResult<StopQueryResult>) =>
 
 export const mapStopResultToStops = (result: GqlQueryResult<StopQueryResult>) =>
   (result.data
-    ?.service_pattern_scheduled_stop_point as ServicePatternScheduledStopPoint[]) ||
+    ?.service_pattern_scheduled_stop_point as ServicePatternScheduledStopPoint[]) ??
   emptyArray;

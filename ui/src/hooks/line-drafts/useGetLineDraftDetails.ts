@@ -21,7 +21,7 @@ export const useGetLineDraftDetails = () => {
 
   const result = useGetRoutesWithStopsQuery(mapToVariables({ routeFilters }));
 
-  const routes = result.data?.route_route || [];
+  const routes = result.data?.route_route ?? [];
 
   // Filter routes by observationDate in UI (and not in gql query) to avoid
   // unnecessary graphql queries which would cause the list to reload on every date change

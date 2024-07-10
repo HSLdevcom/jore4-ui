@@ -78,7 +78,7 @@ export const mapStopDataToFormState = (
 
   const formState: Partial<FormState> = {
     stopId: stop.scheduled_stop_point_id,
-    label: stop.label || '',
+    label: stop.label ?? '',
     latitude,
     longitude,
     priority: stop.priority,
@@ -183,7 +183,7 @@ const StopFormComponent = (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
-        className={className || ''}
+        className={className ?? ''}
         onSubmit={handleSubmit(onFormSubmit)}
         ref={ref}
       >

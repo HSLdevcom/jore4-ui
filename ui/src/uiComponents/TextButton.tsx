@@ -15,7 +15,7 @@ export const TextButton: React.FC<Props> = ({
   <button
     onClick={onClick}
     type="button"
-    className={`${className || ''} active:underline ${
+    className={`${className ?? ''} active:underline ${
       active ? 'font-bold underline' : ''
     }`}
   >

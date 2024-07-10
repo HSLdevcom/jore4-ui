@@ -58,14 +58,14 @@ export const mapRouteFormToInput = (state: RouteFormState) => {
 export const mapRouteToFormState = (
   route: RouteAllFieldsFragment,
 ): RouteFormState => ({
-  finnishName: route.name_i18n?.fi_FI || '',
+  finnishName: route.name_i18n?.fi_FI ?? '',
   label: route.label,
   onLineId: route.on_line_id,
-  variant: route.variant || null,
+  variant: route.variant ?? null,
   direction: route.direction as RouteDirection,
   priority: route.priority,
-  validityStart: mapToISODate(route.validity_start) || '',
-  validityEnd: mapToISODate(route.validity_end) || '',
+  validityStart: mapToISODate(route.validity_start) ?? '',
+  validityEnd: mapToISODate(route.validity_end) ?? '',
   indefinite: !route.validity_end,
   origin: {
     name: defaultLocalizedString(route.origin_name_i18n),
@@ -97,8 +97,8 @@ export const useEditRouteMetadata = () => {
       {
         label: form.label,
         priority: form.priority,
-        validityStart: input.validity_start || MIN_DATE,
-        validityEnd: input.validity_end || undefined,
+        validityStart: input.validity_start ?? MIN_DATE,
+        validityEnd: input.validity_end ?? undefined,
         direction: form.direction,
         variant: form.variant,
       },

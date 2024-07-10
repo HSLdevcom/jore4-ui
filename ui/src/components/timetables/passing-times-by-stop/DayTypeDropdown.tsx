@@ -42,7 +42,7 @@ export const DayTypeDropdown = ({
   return (
     <Listbox
       id={id}
-      testId={testId || testIds.dropdown}
+      testId={testId ?? testIds.dropdown}
       buttonContent={uiNameMapper(value)}
       options={options}
       value={value}

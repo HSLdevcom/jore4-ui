@@ -52,7 +52,7 @@ export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = <
   infraLinks?.map((link) => ({
     ...link.infrastructure_link,
     is_traversal_forwards: link.is_traversal_forwards,
-  })) || [];
+  })) ?? [];
 
 export const mapInfraLinksAlongRouteToGraphQL = (
   infraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[],

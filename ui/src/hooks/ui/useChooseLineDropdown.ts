@@ -62,7 +62,7 @@ export const useChooseLineDropdown = (
   const linesResult = useGetLinesForComboboxQuery(
     mapToVariables({
       labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,
-      date: observationDate || today.toISO(),
+      date: observationDate ?? today.toISO(),
     }),
   );
 

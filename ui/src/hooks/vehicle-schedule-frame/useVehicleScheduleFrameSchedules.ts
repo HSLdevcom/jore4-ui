@@ -100,7 +100,7 @@ const groupJourneysByLabelAndDirection = (
     if (!updatedAcc[label][direction]) {
       updatedAcc[label][direction] = {
         journeys: [],
-        nameI18n: nameI18n || {},
+        nameI18n: nameI18n ?? {},
       };
     }
     updatedAcc[label][direction]?.journeys.push(item);

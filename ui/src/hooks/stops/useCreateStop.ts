@@ -127,8 +127,8 @@ export const useCreateStop = () => {
       // these form values always exist
       label: input.label,
       priority: input.priority,
-      validityStart: input.validity_start || undefined,
-      validityEnd: input.validity_end || undefined,
+      validityStart: input.validity_start ?? undefined,
+      validityEnd: input.validity_end ?? undefined,
     });
     // we need to fetch the infra link and direction for the stop
     const { closestLink, direction } = await getStopLinkAndDirection({
