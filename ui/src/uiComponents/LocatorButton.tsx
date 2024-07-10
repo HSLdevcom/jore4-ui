@@ -31,7 +31,7 @@ export const LocatorButton = ({
       onClick={onClick}
       disabled={disabled}
       icon={<MdPinDrop className="text-2xl" aria-hidden />}
-      testId={testId || testIds.button}
+      testId={testId ?? testIds.button}
     />
   );
 };

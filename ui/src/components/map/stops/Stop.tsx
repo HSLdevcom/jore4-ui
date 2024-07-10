@@ -38,7 +38,7 @@ const determineBorderColor = (
     return colors.selectedMapItem;
   }
   if (stopVehicleMode) {
-    return colors.stops[stopVehicleMode] || 'black';
+    return colors.stops[stopVehicleMode] ?? 'black';
   }
 
   return 'black';

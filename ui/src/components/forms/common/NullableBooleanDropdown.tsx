@@ -47,11 +47,11 @@ export const NullableBooleanDropdown = ({
   const uiNameMapper = (val: string) => {
     switch (val) {
       case 'true':
-        return t(translationKeys.true || defaultTranslationKeys.true);
+        return t(translationKeys.true ?? defaultTranslationKeys.true);
       case 'false':
-        return t(translationKeys.false || defaultTranslationKeys.false);
+        return t(translationKeys.false ?? defaultTranslationKeys.false);
       case 'null':
-        return t(translationKeys.null || defaultTranslationKeys.null);
+        return t(translationKeys.null ?? defaultTranslationKeys.null);
       default:
         return '?'; // Should never happen, right?
     }
@@ -74,7 +74,7 @@ export const NullableBooleanDropdown = ({
   return (
     <Listbox
       id={id}
-      testId={testId || testIds.dropdown}
+      testId={testId ?? testIds.dropdown}
       buttonContent={uiNameMapper(String(value ?? null))}
       options={options}
       value={value}

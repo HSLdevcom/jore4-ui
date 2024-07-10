@@ -79,7 +79,7 @@ export const PreviewTimetablesPage = (): JSX.Element => {
     useCombiningSameContractTimetables(stagingAndTargetFramesForCombine);
 
   const isLoading = useAppSelector(selectIsJoreOperationLoading);
-  const vehicleJourneyCount = vehicleJourneys?.length || 0;
+  const vehicleJourneyCount = vehicleJourneys?.length ?? 0;
   const importedTimetablesExist = vehicleJourneyCount > 0;
   // Default might be set incorrectly if data has not been fetched for the form.
   const formReadyForRender = !!vehicleScheduleFrames?.length;

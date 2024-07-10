@@ -68,7 +68,7 @@ export const EnumMultiSelectDropdown = <TEnum extends Object>({
   return (
     <MultiSelectListbox
       id={id}
-      testId={testId || testIds.enumDropdown}
+      testId={testId ?? testIds.enumDropdown}
       buttonContent={getButtonContent(value)}
       options={options}
       value={mappedValue}

@@ -62,7 +62,7 @@ export const useMapStops = () => {
   );
 
   const displayedRoutes = useMemo(
-    () => displayedRoutesResult.data?.route_route || [],
+    () => displayedRoutesResult.data?.route_route ?? [],
     [displayedRoutesResult],
   );
 
@@ -88,7 +88,7 @@ export const useMapStops = () => {
     ): ReusableComponentsVehicleModeEnum | undefined => {
       const stopsLabelsOnRoutes = [
         ...editedRouteStopLabels,
-        ...(displayedRoutes?.flatMap((route) => getRouteStopLabels(route)) ||
+        ...(displayedRoutes?.flatMap((route) => getRouteStopLabels(route)) ??
           []),
       ];
 

@@ -136,7 +136,7 @@ export const useEditStopBasicDetails = () => {
       stop_label: changes.stopLabel,
       stop_patch: changes.patch,
       delete_from_journey_pattern_ids:
-        changes.deleteStopFromJourneyPatternIds || [],
+        changes.deleteStopFromJourneyPatternIds ?? [],
     };
     return { variables };
   };
@@ -198,10 +198,9 @@ export const useEditStopBasicDetails = () => {
       weighting: state.stopTypes.interchange
         ? StopRegistryInterchangeWeightingType.RecommendedInterchange
         : StopRegistryInterchangeWeightingType.NoInterchange,
-      submode:
-        (state.stopTypes.railReplacement &&
-          StopRegistrySubmodeType.RailReplacementBus) ||
-        null,
+      submode: state.stopTypes.railReplacement
+        ? StopRegistrySubmodeType.RailReplacementBus
+        : null,
       keyValues: patchKeyValues(stop.stop_place, [
         { key: 'stopState', values: [state.stopState.toString()] },
         { key: 'mainLine', values: [state.stopTypes.mainLine.toString()] },

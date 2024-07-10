@@ -65,13 +65,13 @@ export const useMapQueryParams = () => {
       parameters: [
         {
           paramName: QueryParameterName.Latitude,
-          value: latitude || HELSINKI_CITY_CENTER_COORDINATES.latitude,
+          value: latitude ?? HELSINKI_CITY_CENTER_COORDINATES.latitude,
         },
         {
           paramName: QueryParameterName.Longitude,
-          value: longitude || HELSINKI_CITY_CENTER_COORDINATES.longitude,
+          value: longitude ?? HELSINKI_CITY_CENTER_COORDINATES.longitude,
         },
-        { paramName: QueryParameterName.Zoom, value: zoom || DEFAULT_ZOOM },
+        { paramName: QueryParameterName.Zoom, value: zoom ?? DEFAULT_ZOOM },
         { paramName: QueryParameterName.MapOpen, value: true },
         {
           paramName: QueryParameterName.ObservationDate,

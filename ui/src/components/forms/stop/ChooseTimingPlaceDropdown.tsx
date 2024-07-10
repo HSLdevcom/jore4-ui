@@ -44,7 +44,7 @@ export const ChooseTimingPlaceDropdown = ({
     ? timingPlaces.slice(0, optionAmount - 1)
     : timingPlaces;
 
-  const options = timingPlacesToMap.map(mapToOption) || [];
+  const options = timingPlacesToMap.map(mapToOption) ?? [];
 
   const mapToButtonContent = (
     displayedTimingPlace?: TimingPlaceForComboboxFragment,

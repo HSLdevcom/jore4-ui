@@ -62,7 +62,7 @@ export const getExportErrorBody = async (errorResponse: AxiosError) => {
   // Note that the text() method is asynchronous.
   const blobBody = errorResponse.response?.data;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const jsonText = (await (blobBody as any)?.text()) || '{}';
+  const jsonText = (await (blobBody as any)?.text()) ?? '{}';
   return JSON.parse(jsonText);
 };
 
@@ -85,5 +85,5 @@ export const extractErrorType = (
   const errorType = errorResponseBody?.type as keyof typeof HastusApiErrorType;
   const errorTypeEnum = HastusApiErrorType[errorType];
 
-  return errorTypeEnum || HastusApiErrorType.UnknownError;
+  return errorTypeEnum ?? HastusApiErrorType.UnknownError;
 };

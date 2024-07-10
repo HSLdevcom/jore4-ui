@@ -71,7 +71,7 @@ export const EditRoutePage = (): JSX.Element => {
   const routeDetailsResult = useGetRouteDetailsByIdsQuery({
     ...mapToVariables({ route_ids: [id] }),
   });
-  const route = routeDetailsResult.data?.route_route?.[0] || undefined;
+  const route = routeDetailsResult.data?.route_route?.[0] ?? undefined;
   const { t } = useTranslation();
 
   const onSave = () => {
@@ -160,7 +160,7 @@ export const EditRoutePage = (): JSX.Element => {
       <PageHeader>
         <h1>
           <i className="icon-bus-alt text-tweaked-brand" />
-          {t('lines.line', { label: route?.route_line?.label || '' })}
+          {t('lines.line', { label: route?.route_line?.label ?? '' })}
         </h1>
       </PageHeader>
       <Container>

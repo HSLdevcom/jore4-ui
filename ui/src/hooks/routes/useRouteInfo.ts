@@ -143,7 +143,7 @@ export const useRouteInfo = (routeId: UUID | undefined): RouteInfo => {
     variables: { route_id: routeId! },
     skip: !routeId && !routeEditingInProgress,
   });
-  const fetchedRoute = routesResult.data?.route_route_by_pk || undefined;
+  const fetchedRoute = routesResult.data?.route_route_by_pk ?? undefined;
 
   if (routeEditingInProgress) {
     /**

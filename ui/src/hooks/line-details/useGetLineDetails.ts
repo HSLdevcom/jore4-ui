@@ -208,13 +208,13 @@ export const useGetLineDetails = () => {
   /** Fetches line details and filters results by observation date */
   const fetchLineDetails = useCallback(async () => {
     if (lineDetailsResult?.data && observationDate?.isValid) {
-      const lineDetails = lineDetailsResult.data.route_line_by_pk || undefined;
+      const lineDetails = lineDetailsResult.data.route_line_by_pk ?? undefined;
 
       const lineByDateResult = await getHighestPriorityLineDetails(
         buildLineDetailsGqlFilters(lineDetails, observationDate),
       );
 
-      const lineByDate = lineByDateResult.data?.route_line?.[0] || undefined;
+      const lineByDate = lineByDateResult.data?.route_line?.[0] ?? undefined;
 
       const filteredLine = lineByDate
         ? filterLineDetailsByDate(lineByDate)

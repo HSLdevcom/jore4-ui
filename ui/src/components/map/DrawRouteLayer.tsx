@@ -69,7 +69,7 @@ export const DrawRouteLayer = ({ editorLayerRef }: Props) => {
   // Fetch existing route's stops and geometry in case editing existing route
   // or creating a new route based on a template route
 
-  const baseRouteId = editedRouteData.id || templateRouteId;
+  const baseRouteId = editedRouteData.id ?? templateRouteId;
 
   const baseRouteResult = useGetRouteDetailsByIdQuery({
     skip: !baseRouteId,
@@ -78,7 +78,7 @@ export const DrawRouteLayer = ({ editorLayerRef }: Props) => {
     variables: { routeId: baseRouteId! },
   });
 
-  const baseRoute = baseRouteResult.data?.route_route_by_pk || undefined;
+  const baseRoute = baseRouteResult.data?.route_route_by_pk ?? undefined;
 
   const {
     debouncedOnAddRoute,

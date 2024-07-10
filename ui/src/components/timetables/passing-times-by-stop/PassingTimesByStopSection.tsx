@@ -34,7 +34,7 @@ export const PassingTimesByStopSection = ({
   const vehicleJourneyGroupsToDisplay =
     vehicleJourneyGroups?.filter(
       (vehicleJourneyGroup) => vehicleJourneyGroup.dayType.label === dayType,
-    ) || [];
+    ) ?? [];
 
   const dayTypes = pipe(
     vehicleJourneyGroups.map(

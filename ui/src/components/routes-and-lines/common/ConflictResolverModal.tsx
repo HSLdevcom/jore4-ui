@@ -44,8 +44,8 @@ interface CommonConflictItem {
 export const mapRouteToCommonConflictItem = (
   route: RouteUniqueFieldsFragment,
 ): CommonConflictItem => ({
-  validityStart: route.validity_start || undefined,
-  validityEnd: route.validity_end || undefined,
+  validityStart: route.validity_start ?? undefined,
+  validityEnd: route.validity_end ?? undefined,
   priority: route.priority,
   label: route.label,
   variant: route.variant,
@@ -56,8 +56,8 @@ export const mapRouteToCommonConflictItem = (
 export const mapLineToCommonConflictItem = (
   line: LineDefaultFieldsFragment,
 ): CommonConflictItem => ({
-  validityStart: line.validity_start || undefined,
-  validityEnd: line.validity_end || undefined,
+  validityStart: line.validity_start ?? undefined,
+  validityEnd: line.validity_end ?? undefined,
   priority: line.priority,
   label: line.label,
   id: line.line_id,
@@ -67,8 +67,8 @@ export const mapLineToCommonConflictItem = (
 export const mapStopToCommonConflictItem = (
   item: ScheduledStopPointDefaultFieldsFragment,
 ): CommonConflictItem => ({
-  validityStart: item.validity_start || undefined,
-  validityEnd: item.validity_end || undefined,
+  validityStart: item.validity_start ?? undefined,
+  validityEnd: item.validity_end ?? undefined,
   priority: item.priority,
   label: item.label,
   id: item.scheduled_stop_point_id,
@@ -87,10 +87,10 @@ const ConflictItemRow = ({
     >
       <td>{mapPriorityToUiName(item.priority)}</td>
       <td>
-        {mapToShortDate(item.validityStart) || t('saveChangesModal.indefinite')}
+        {mapToShortDate(item.validityStart) ?? t('saveChangesModal.indefinite')}
       </td>
       <td>
-        {mapToShortDate(item.validityEnd) || t('saveChangesModal.indefinite')}
+        {mapToShortDate(item.validityEnd) ?? t('saveChangesModal.indefinite')}
       </td>
       <td>
         {item.href ? (

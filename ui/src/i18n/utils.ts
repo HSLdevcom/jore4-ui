@@ -8,6 +8,6 @@ export const parseI18nField = (i18nField: ExplicitAny) => {
   // but api returns those as 'fi_FI'.
   const locale = i18n.language.replace('-', '_');
   const requestedtranslation = i18nField[locale];
-  const fallbackTranslation = i18nField.fi_FI || '';
-  return requestedtranslation || fallbackTranslation;
+  const fallbackTranslation = i18nField.fi_FI ?? '';
+  return requestedtranslation ?? fallbackTranslation;
 };
