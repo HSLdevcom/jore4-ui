@@ -14,7 +14,7 @@ export const LabeledDetail = <T extends ExplicitAny>({
     <div className={`inline-flex flex-col ${className}`}>
       <div className="text-sm">{title}</div>
       <div className="text-sm font-bold" data-testid={testId}>
-        {detail ?? '-'}
+        {detail || '-'}
       </div>
     </div>
   );

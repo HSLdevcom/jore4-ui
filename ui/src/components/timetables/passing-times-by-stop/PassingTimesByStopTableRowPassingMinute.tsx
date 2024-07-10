@@ -37,7 +37,7 @@ export const PassingTimesByStopTableRowPassingMinute = ({
   const passing = passingTime.passing_time;
 
   // If arrival is undefined, arrival time is same as passing time
-  const arrival = passingTime.arrival_time || passing;
+  const arrival = passingTime.arrival_time ?? passing;
 
   // Highlight passing minute, if it belongs to the same vehicle journey as selected passing minute
   const isHighlighted =

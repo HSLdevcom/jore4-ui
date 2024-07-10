@@ -55,7 +55,7 @@ export const useCreateLine = () => {
       // this form value always exists
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: input.validity_start!,
-      validityEnd: input.validity_end || undefined,
+      validityEnd: input.validity_end ?? undefined,
     });
 
     const changes: CreateChanges = {

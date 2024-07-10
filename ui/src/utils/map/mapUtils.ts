@@ -59,7 +59,7 @@ export const getInteractiveLayerIds = (mapRef: React.RefObject<MapRef>) => {
     ?.layers?.map((layer: LayerSpecification) => layer.id);
 
   // Filter only layer ids that are route geometry layers
-  const tmp = layers?.filter(isRouteGeometryLayer) || [];
+  const tmp = layers?.filter(isRouteGeometryLayer) ?? [];
   return compact(tmp);
 };
 

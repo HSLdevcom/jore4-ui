@@ -48,8 +48,8 @@ export const useSearchResults = (): {
   );
   const { loading } = result;
 
-  const lines = result.data?.route_line || [];
-  const routes = result.data?.route_route || [];
+  const lines = result.data?.route_line ?? [];
+  const routes = result.data?.route_route ?? [];
 
   // Reduce routes to only have the 'Outbound' versions of the routes if there are two
   // versions of the route

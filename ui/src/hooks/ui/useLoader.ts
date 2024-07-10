@@ -16,7 +16,7 @@ export const useLoader = (operation: Operation, options?: LoaderOptions) => {
   );
 
   useEffect(() => {
-    setIsLoading(options?.immediatelyOn || false);
+    setIsLoading(!!options?.immediatelyOn);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

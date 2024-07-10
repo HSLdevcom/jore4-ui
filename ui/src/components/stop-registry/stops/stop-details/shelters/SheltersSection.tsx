@@ -37,7 +37,7 @@ export const SheltersSection = ({ stop }: Props): JSX.Element => {
   };
 
   const shelters: Array<ShelterEquipmentDetailsFragment> = compact(
-    stop.stop_place?.quays?.[0]?.placeEquipments?.shelterEquipment || [],
+    stop.stop_place?.quays?.[0]?.placeEquipments?.shelterEquipment ?? [],
   );
   const [shelterCount, setShelterCount] = useState(shelters.length);
 

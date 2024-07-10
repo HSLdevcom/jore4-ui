@@ -218,9 +218,9 @@ export const useUrlQuery = () => {
       : undefined;
   };
 
-  /** Returns a query parameter in boolean type */
+  /** Returns a query parameter in string type */
   const getStringParamFromUrlQuery = (paramName: string) => {
-    return (queryParams[paramName] as string) || undefined;
+    return queryParams[paramName] as string | undefined;
   };
 
   /** Returns a query parameter in boolean type */

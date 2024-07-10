@@ -43,7 +43,7 @@ export const getStopPlaceFromQueryResult = <T extends StopPlaceType>(
   stopPlaceResult: Array<T | ParentStopPlaceType | null> | undefined | null,
 ): T | null => {
   // Should be an object but for whatever reason always returns an array.
-  const stopPlaces = stopPlaceResult || [];
+  const stopPlaces = stopPlaceResult ?? [];
 
   if (stopPlaces.length > 1) {
     // Should not happen when querying by id.
@@ -93,7 +93,7 @@ const findAlternativeName = (
   const matchingName = stopPlace.alternativeNames?.find(
     (an) => an?.name.lang === lang && an.nameType === nameType,
   );
-  return matchingName?.name || null;
+  return matchingName?.name ?? null;
 };
 
 export const setAlternativeName = (
@@ -103,7 +103,7 @@ export const setAlternativeName = (
     nameType: StopRegistryNameType;
   },
 ) => {
-  const alternativeNames = cloneDeep(initialAlternativeNames) || [];
+  const alternativeNames = cloneDeep(initialAlternativeNames) ?? [];
   const existingAlternativeName = alternativeNames.find(
     (alternativeName) =>
       alternativeName?.nameType === newAlternativeName.nameType &&
@@ -136,7 +136,7 @@ const findKeyValue = (
 ): string | undefined => {
   const keyValue = stopPlace.keyValues?.find((kv) => kv?.key === key);
   // Note: the "values" could be an array with many values.
-  return (keyValue && keyValue.values?.[0]) || undefined;
+  return keyValue?.values?.[0] ?? undefined;
 };
 
 /**
@@ -148,7 +148,7 @@ export const setKeyValue = (
   key: string,
   values: Maybe<string>[],
 ): (StopRegistryKeyValues | null)[] => {
-  const keyValues = cloneDeep(initialKeyValues) || [];
+  const keyValues = cloneDeep(initialKeyValues) ?? [];
   const existingKey = keyValues.find(
     (keyValuePair) => keyValuePair?.key === key,
   );
@@ -185,7 +185,7 @@ export const patchKeyValues = (
   updates: { key: string; values: string[] }[],
 ) => {
   const initialKeyValues =
-    stopPlace?.keyValues?.map((keyValue) => omitTypename(keyValue)) || [];
+    stopPlace?.keyValues?.map((keyValue) => omitTypename(keyValue)) ?? [];
 
   return setMultipleKeyValues(initialKeyValues, updates);
 };
@@ -229,45 +229,45 @@ export const getStopPlaceDetailsForEnrichment = <
     nameFin: stopPlace.name?.value || undefined,
     nameSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Translation)
-        ?.value || undefined,
+        ?.value ?? undefined,
     nameLongFin:
       findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Alias)
-        ?.value || undefined,
+        ?.value ?? undefined,
     nameLongSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Alias)
-        ?.value || undefined,
+        ?.value ?? undefined,
     abbreviationFin:
       findAlternativeName(
-        stopPlace.quays?.[0] || {},
+        stopPlace.quays?.[0] ?? {},
         'fin',
         StopRegistryNameType.Alias,
-      )?.value || undefined,
+      )?.value ?? undefined,
     abbreviationSwe:
       findAlternativeName(
-        stopPlace.quays?.[0] || {},
+        stopPlace.quays?.[0] ?? {},
         'swe',
         StopRegistryNameType.Alias,
-      )?.value || undefined,
+      )?.value ?? undefined,
     abbreviation5CharFin:
       findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Label)
-        ?.value || undefined,
+        ?.value ?? undefined,
     abbreviation5CharSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Label)
-        ?.value || undefined,
-    elyNumber: stopPlace.privateCode?.value || undefined,
-    locationFin: stopPlace.description?.value || undefined,
+        ?.value ?? undefined,
+    elyNumber: stopPlace.privateCode?.value ?? undefined,
+    locationFin: stopPlace.description?.value ?? undefined,
     locationSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
-        ?.value || undefined,
+        ?.value ?? undefined,
     streetAddress: findKeyValue(stopPlace, 'streetAddress'),
     postalCode: findKeyValue(stopPlace, 'postalCode'),
-    municipality: stopPlace.topographicPlace?.name?.value || undefined,
-    fareZone: stopPlace.fareZones?.[0]?.name?.value || undefined,
+    municipality: stopPlace.topographicPlace?.name?.value ?? undefined,
+    fareZone: stopPlace.fareZones?.[0]?.name?.value ?? undefined,
     functionalArea: findKeyValueParsed(stopPlace, 'functionalArea', parseFloat),
     stopState: findKeyValue(stopPlace, 'stopState') as StopPlaceState,
     accessibilityLevel:
       stopPlace.accessibilityAssessment?.hslAccessibilityProperties
-        ?.accessibilityLevel || defaultAccessibilityLevel,
+        ?.accessibilityLevel ?? defaultAccessibilityLevel,
     stopType: {
       mainLine: findKeyValue(stopPlace, 'mainLine') === 'true',
       interchange:

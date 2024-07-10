@@ -71,7 +71,7 @@ export const Combobox = ({
   return (
     <HUICombobox
       as="div"
-      id={id || 'combobox'}
+      id={id ?? 'combobox'}
       className="relative w-full"
       value={value}
       onChange={onItemSelected}

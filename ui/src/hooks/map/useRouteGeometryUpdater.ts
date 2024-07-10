@@ -33,7 +33,7 @@ export const useRouteGeometryUpdater = (
   const routeMetadata = useRouteMetadata();
   const fetchInfraLinksWithStops = useFetchInfraLinksWithStops();
   const { creatingNewRoute } = useAppSelector(selectMapRouteEditor);
-  const baseRouteId = editedRouteData.id || editedRouteData.templateRouteId;
+  const baseRouteId = editedRouteData.id ?? editedRouteData.templateRouteId;
 
   const baseRouteResult = useGetRouteDetailsByIdQuery({
     skip: !baseRouteId,
@@ -42,7 +42,7 @@ export const useRouteGeometryUpdater = (
     variables: { routeId: baseRouteId! },
   });
 
-  const baseRoute = baseRouteResult.data?.route_route_by_pk || undefined;
+  const baseRoute = baseRouteResult.data?.route_route_by_pk ?? undefined;
   return useCallback(
     async (snappingLineFeature) => {
       if (!baseRoute && !creatingNewRoute) {

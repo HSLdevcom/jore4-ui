@@ -101,7 +101,7 @@ const RouteEditorComponent = (
       stopsEligibleForJourneyPattern,
       includedStopLabels,
       journeyPatternStops: journeyPattern.stops,
-      infraLinksAlongRoute: infraLinks || [],
+      infraLinksAlongRoute: infraLinks ?? [],
       // journeyPattern id is defined when editing route
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       journeyPatternId: journeyPattern.id!,
@@ -122,7 +122,7 @@ const RouteEditorComponent = (
       stopsEligibleForJourneyPattern,
       includedStopLabels,
       journeyPatternStops: journeyPattern.stops,
-      infraLinksAlongRoute: infraLinks || [],
+      infraLinksAlongRoute: infraLinks ?? [],
     });
     if (changes.conflicts?.length) {
       setConflicts(changes.conflicts);

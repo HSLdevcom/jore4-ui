@@ -65,7 +65,7 @@ export const EnumDropdown = <TEnum extends Object>({
   return (
     <Listbox
       id={id}
-      testId={testId || testIds.enumDropdown}
+      testId={testId ?? testIds.enumDropdown}
       buttonContent={
         value ? uiNameMapper(value as unknown as TEnum) : placeholder
       }

@@ -107,7 +107,7 @@ const mapVehicleScheduleFrameData = (
         ?.vehicle_schedule_frame_id,
       priority: timetableVersionData.priority,
       nameI18n:
-        timetableVersionData.vehicle_schedule_frame?.name_i18n || '!Versio', // NOTE: this needs to be changed once we get versions.
+        timetableVersionData.vehicle_schedule_frame?.name_i18n ?? '!Versio', // NOTE: this needs to be changed once we get versions.
       validityStart: timetableVersionData.validity_start,
       validityEnd: timetableVersionData.validity_end,
     },
@@ -179,7 +179,7 @@ export const useGetTimetableVersions = ({
             result.data.timetables?.timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids?.map(
               (entry: TimetableVersionFragment) =>
                 mapToTimetableVersionRowData(key, entry),
-            ) || []
+            ) ?? []
           );
         },
       ),

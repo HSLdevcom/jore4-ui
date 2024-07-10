@@ -207,8 +207,8 @@ export const RouteLineTableRow = ({
             <Column className="w-1/2 text-right">
               <p className="font-bold">
                 {t('validity.validDuring', {
-                  startDate: mapToShortDate(rowItem.validity_start || MIN_DATE),
-                  endDate: mapToShortDate(rowItem.validity_end || MAX_DATE),
+                  startDate: mapToShortDate(rowItem.validity_start ?? MIN_DATE),
+                  endDate: mapToShortDate(rowItem.validity_end ?? MAX_DATE),
                 })}
               </p>
               <p>!Muokattu dd.mm.yyyy hh:mm | S. Suunnittelija</p>

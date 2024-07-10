@@ -307,7 +307,7 @@ export const EditStopLayer: React.FC<Props> = React.forwardRef(
       if (createChanges && editChanges) {
         throw new Error('Undefined state');
       }
-      return createChanges || editChanges;
+      return createChanges ?? editChanges;
     };
 
     const getCurrentConflicts = () => {

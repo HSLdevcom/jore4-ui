@@ -14,7 +14,7 @@ export const getApolloErrorMessage = (err: ApolloError) => {
       // @ts-expect-error "Property 'error' does not exist on type '{}"
       // Typings seems to be somehow off, this seems still be the way to
       // receive internal error message.
-      return gqlError.extensions?.internal?.error?.message || gqlError.message;
+      return gqlError.extensions?.internal?.error?.message ?? gqlError.message;
     });
 
     return `GraphQL errors: ${errorMessages.join(' | ')}`;
