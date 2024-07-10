@@ -49,11 +49,11 @@ export const RoutesAndLinesLists = (): JSX.Element => {
     variables: { limit: changingRoutesLimit },
   });
 
-  const changingRoutes = changingRoutesResult.data?.route_route || [];
+  const changingRoutes = changingRoutesResult.data?.route_route ?? [];
 
   // own lines
   const ownLinesResult = useListOwnLinesQuery();
-  const ownLines = ownLinesResult.data?.route_line || [];
+  const ownLines = ownLinesResult.data?.route_line ?? [];
 
   return (
     <div>

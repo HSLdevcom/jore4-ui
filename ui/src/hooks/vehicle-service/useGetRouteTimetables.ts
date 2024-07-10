@@ -203,11 +203,11 @@ const combineVehicleSchedulesToVehicleJourneyGroups = (
         // NOTE: Not sure why the type codegen-generator thinks this can be null. It shouldnt be.
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const dayTypeId = obj.day_type!.day_type_id;
-        const vehicleJourney = obj.vehicle_journey || null;
+        const vehicleJourney = obj.vehicle_journey ?? null;
 
         // If there is no entry already in acc[dayTypeId], we create one with
         // empty vehicleJourney array
-        const vehicleJourneyGroup = acc[dayTypeId] || {
+        const vehicleJourneyGroup = acc[dayTypeId] ?? {
           vehicleJourneys: [],
         };
 
@@ -232,7 +232,7 @@ const combineVehicleSchedulesToVehicleJourneyGroups = (
         return { ...acc, [dayTypeId]: updatedVehicleJourneyGroup };
       },
       {} as { [key: string]: VehicleJourneyGroup },
-    ) || {},
+    ) ?? {},
   );
 };
 

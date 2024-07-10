@@ -37,8 +37,8 @@ export const useEditLine = () => {
       {
         label: form.label,
         priority: form.priority,
-        validityStart: input.validity_start || MIN_DATE,
-        validityEnd: input.validity_end || undefined,
+        validityStart: input.validity_start ?? MIN_DATE,
+        validityEnd: input.validity_end ?? undefined,
       },
       lineId,
     );

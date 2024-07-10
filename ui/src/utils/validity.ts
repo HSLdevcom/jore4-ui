@@ -9,7 +9,7 @@ export const mapToValidityPeriod = (
   validityEnd?: DateTime | null,
 ) => {
   return `${mapToShortDate(validityStart)} -  ${
-    mapToShortDate(validityEnd) || t('saveChangesModal.indefinite')
+    mapToShortDate(validityEnd) ?? t('saveChangesModal.indefinite')
   }`;
 };
 

@@ -94,7 +94,7 @@ export const useGetRoutesDisplayedInMap = () => {
     skip: !routeLabels?.length && !routeId,
   });
 
-  const routesByRouteInfo = routesByRouteInfoResult.data?.route_route || [];
+  const routesByRouteInfo = routesByRouteInfoResult.data?.route_route ?? [];
 
   // Get routes by LINE LABEL
   const lineFilters = {
@@ -112,7 +112,7 @@ export const useGetRoutesDisplayedInMap = () => {
   const routesByLineLabel =
     routesByLineLabelResult?.data?.route_line.flatMap(
       (line) => line.line_routes,
-    ) || [];
+    ) ?? [];
 
   const routes = [...routesByRouteInfo, ...routesByLineLabel];
 

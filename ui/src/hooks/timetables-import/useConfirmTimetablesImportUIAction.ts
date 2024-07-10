@@ -56,7 +56,7 @@ export const useConfirmTimetablesImportUIAction = () => {
         errorModalTitle: t('timetablesSubmitFailure.modalTitle'),
         errorDetails: {
           details: translateError(extractErrorType(error)),
-          additionalDetails: extractRawSqlError(error) || '',
+          additionalDetails: extractRawSqlError(error) ?? '',
         },
       }),
     );

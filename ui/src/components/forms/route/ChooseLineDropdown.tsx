@@ -15,8 +15,8 @@ const mapToOptionContent = (item: LineForComboboxFragment) => (
     <span>{`${item.label} (${item.name_i18n.fi_FI})`}</span>
     <div className="text-sm">
       <DateRange
-        startDate={item.validity_start || MIN_DATE}
-        endDate={item.validity_end || MAX_DATE}
+        startDate={item.validity_start ?? MIN_DATE}
+        endDate={item.validity_end ?? MAX_DATE}
       />
     </div>
   </div>
@@ -40,7 +40,7 @@ export const ChooseLineDropdown = ({
 
   const { lines, selectedLine } = useChooseLineDropdown(query, value);
 
-  const options = lines?.map(mapToOption) || [];
+  const options = lines?.map(mapToOption) ?? [];
 
   const mapToButtonContent = (displayedLine?: LineForComboboxFragment) => {
     // If no line is selected, show "Choose line"

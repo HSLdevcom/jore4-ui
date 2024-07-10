@@ -20,7 +20,7 @@ export const ExistingRouteGeometryLayer = ({
     mapToVariables({ routeId }),
   );
   const routeRenderInfo =
-    routeRenderInfoResult.data?.route_route_by_pk || undefined;
+    routeRenderInfoResult.data?.route_route_by_pk ?? undefined;
 
   // do not render anything before data is received
   if (!routeRenderInfo?.route_shape) {
@@ -28,7 +28,7 @@ export const ExistingRouteGeometryLayer = ({
   }
 
   const vehicleMode =
-    routeRenderInfo.route_line?.primary_vehicle_mode ||
+    routeRenderInfo.route_line?.primary_vehicle_mode ??
     ReusableComponentsVehicleModeEnum.Bus;
 
   const routeColor = mapVehicleModeToRouteColor(vehicleMode);

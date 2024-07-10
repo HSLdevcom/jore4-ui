@@ -30,8 +30,8 @@ const mapLineToFormState = (line: LineAllFieldsFragment): FormState => ({
   priority: line.priority,
   transportTarget: line.transport_target,
   typeOfLine: line.type_of_line,
-  validityStart: mapToISODate(line.validity_start) || '',
-  validityEnd: mapToISODate(line.validity_end) || '',
+  validityStart: mapToISODate(line.validity_start) ?? '',
+  validityEnd: mapToISODate(line.validity_end) ?? '',
   indefinite: !line.validity_end,
 });
 

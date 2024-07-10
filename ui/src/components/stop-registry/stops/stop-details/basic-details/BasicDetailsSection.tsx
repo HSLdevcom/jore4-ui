@@ -13,7 +13,7 @@ import { BasicDetailsViewCard } from './BasicDetailsViewCard';
 
 const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
   const formState: Partial<StopBasicDetailsFormState> = {
-    label: stop.label || '',
+    label: stop.label ?? '',
     publicCode: stop.stop_place?.publicCode,
     nameFin: stop.stop_place?.nameFin,
     nameSwe: stop.stop_place?.nameSwe,

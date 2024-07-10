@@ -45,7 +45,7 @@ export const DialogWithButtons: React.FC<Props> = ({
       <div className="flex h-full items-center justify-center">
         <div
           className={`w-full rounded-md bg-white p-5 shadow-md ${
-            widthClassName || 'max-w-sm'
+            widthClassName ?? 'max-w-sm'
           }`}
         >
           <Dialog.Title className="flex" as="h3">

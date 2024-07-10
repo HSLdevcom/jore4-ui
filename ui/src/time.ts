@@ -45,7 +45,7 @@ export const formatDate = (
   }
 
   // if not explicitly defined, the i18n locale is used
-  const dateLocale = locale || i18n.language;
+  const dateLocale = locale ?? i18n.language;
 
   return dateTime.setLocale(dateLocale).toFormat(format);
 };
@@ -77,8 +77,8 @@ export const isDateInRange = (
 // The luxon Interval does not handle infinite start/end, so using MIN_DATE and MAX_DATE instead
 export const mapValidityPeriodToInterval = (entity: ValidityPeriod) =>
   Interval.fromDateTimes(
-    entity.validity_start || MIN_DATE,
-    entity.validity_end || MAX_DATE,
+    entity.validity_start ?? MIN_DATE,
+    entity.validity_end ?? MAX_DATE,
   );
 
 export const areValidityPeriodsOverlapping = (

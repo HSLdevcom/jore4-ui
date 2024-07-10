@@ -66,7 +66,7 @@ export const LineDetailsPage = (): JSX.Element => {
   const displayedRoutes =
     line?.line_routes?.filter((route) =>
       displayedRouteLabels?.includes(route.label),
-    ) || [];
+    ) ?? [];
 
   return (
     <div>
