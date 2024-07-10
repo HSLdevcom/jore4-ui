@@ -66,13 +66,13 @@ export const TimetableVersionsPage = (): JSX.Element => {
     versions?.filter(
       (version) =>
         version.vehicleScheduleFrame?.priority !== TimetablePriority.Draft,
-    ) || [];
+    ) ?? [];
 
   const onlyDraftTimetables =
     versions?.filter(
       (version) =>
         version.vehicleScheduleFrame?.priority === TimetablePriority.Draft,
-    ) || [];
+    ) ?? [];
   const { onClose } = useTimetableVersionsReturnToQueryParam();
 
   const sortTimetables = (timetables: TimetableVersionRowData[]) => {

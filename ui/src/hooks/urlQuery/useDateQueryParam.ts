@@ -41,7 +41,7 @@ export const useDateQueryParam = ({
   // Memoize the actual value to prevent unnecessary updates
   const date = useMemo(() => {
     try {
-      return getDateTimeFromUrlQuery(queryParamName) || defaultDate;
+      return getDateTimeFromUrlQuery(queryParamName) ?? defaultDate;
     } catch {
       // If parsing date fails, set default date
       setDateToUrl(defaultDate, true);

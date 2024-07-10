@@ -32,7 +32,7 @@ export const useToCombineTargetVehicleScheduleFrameId = () => {
         const foundTargetFrameId =
           response.data.toCombineTargetVehicleScheduleFrameId
             ?.toCombineTargetVehicleScheduleFrameId;
-        return foundTargetFrameId || null;
+        return foundTargetFrameId ?? null;
       } catch (error) {
         throw new Error(
           `Failed to fetch to combine target vehicle schedule frames: ${error}`,

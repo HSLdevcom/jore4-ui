@@ -97,7 +97,7 @@ export const Stops = React.forwardRef((_props, ref) => {
       ? stopsResult.previousData?.service_pattern_scheduled_stop_point
       : stopsResult.data?.service_pattern_scheduled_stop_point
   ) as ServicePatternScheduledStopPoint[];
-  const stops = filter(unfilteredStops || []);
+  const stops = filter(unfilteredStops ?? []);
 
   // can be used for triggering the edit for both existing and draft stops
   const onEditStop = (stop: StopWithLocation) => {
@@ -109,7 +109,7 @@ export const Stops = React.forwardRef((_props, ref) => {
       addLineFromStopToInfraLink(map?.getMap(), nearestRoad);
     }
 
-    setSelectedStopId(stop.scheduled_stop_point_id || undefined);
+    setSelectedStopId(stop.scheduled_stop_point_id ?? undefined);
     setEditedStopData(stop);
   };
 

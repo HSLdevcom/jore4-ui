@@ -85,12 +85,12 @@ export const LineTitle: React.FC<Props> = ({
       </Row>
       <Row>
         <span className="font-bold" data-testid={testIds.name}>
-          {line.name_i18n.fi_FI || ''}
+          {line.name_i18n.fi_FI ?? ''}
         </span>
         {line.name_i18n.sv_FI && (
           <>
             <span className="mx-1">|</span>
-            <span className="font-bold">{line.name_i18n.sv_FI || ''}</span>
+            <span className="font-bold">{line.name_i18n.sv_FI ?? ''}</span>
           </>
         )}
       </Row>

@@ -6,6 +6,11 @@ import { useUrlQuery } from './urlQuery/useUrlQuery';
 
 const ADDITIONAL_BUTTON_AMOUNT = 2;
 
+function parseNumberOrDefault(str: string, defaultValue: number): number {
+  const parsed = Number.parseInt(str, 10);
+  return Number.isFinite(parsed) ? parsed : defaultValue;
+}
+
 export const usePagination = (): {
   currentPage: number;
   getPaginatedData: <T>(data: Array<T>, itemsPerPage: number) => Array<T>;
@@ -19,7 +24,7 @@ export const usePagination = (): {
 } => {
   const navigate = useNavigate();
   const { queryParams } = useUrlQuery();
-  const initialPage = parseInt(queryParams?.page as string, 10) || 1;
+  const initialPage = parseNumberOrDefault(queryParams?.page as string, 1);
 
   const getPaginatedData = <T>(data: Array<T>, itemsPerPage: number) => {
     const currentPage = initialPage;

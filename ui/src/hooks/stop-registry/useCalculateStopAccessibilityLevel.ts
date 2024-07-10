@@ -59,11 +59,12 @@ export const useCalculateStopAccessibilityLevel = () => {
   const findShelterWithAccessibilityPropertiesSet = (
     stop: NonNullable<StopAccessibilityLevelCalculationProperties>,
   ) => {
-    const shelters = stop?.quays?.[0]?.placeEquipments?.shelterEquipment || [];
+    const shelters = stop?.quays?.[0]?.placeEquipments?.shelterEquipment ?? [];
     return (
-      shelters.find((shelter) => {
-        return !!shelter?.shelterType && isBoolean(shelter?.shelterLighting);
-      }) || null
+      shelters.find(
+        (shelter) =>
+          !!shelter?.shelterType && isBoolean(shelter?.shelterLighting),
+      ) ?? null
     );
   };
 

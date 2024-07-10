@@ -94,7 +94,7 @@ export const RouteStopsRow = ({
       } ${className}`}
       data-testid={testIds.container(stop.label)}
     >
-      <td className={`${alertStyle.listItemBorder || ''} p-4 pl-16 text-2xl`}>
+      <td className={`${alertStyle.listItemBorder ?? ''} p-4 pl-16 text-2xl`}>
         <a
           href={routeDetails[Path.stopDetails].getLink(stop.label)}
           data-testid={testIds.label}
@@ -115,8 +115,8 @@ export const RouteStopsRow = ({
         <Row className="items-center justify-end">
           {stopBelongsToJourneyPattern
             ? t('validity.validDuring', {
-                startDate: mapToShortDate(stop.validity_start || MIN_DATE),
-                endDate: mapToShortDate(stop.validity_end || MAX_DATE),
+                startDate: mapToShortDate(stop.validity_start ?? MIN_DATE),
+                endDate: mapToShortDate(stop.validity_end ?? MAX_DATE),
               })
             : t('stops.notPartOfRoute')}
           {alertStyle.icon && (

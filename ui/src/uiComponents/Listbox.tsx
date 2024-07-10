@@ -59,7 +59,7 @@ export const Listbox = ({
 
   return (
     <HUIListbox
-      id={id || 'listbox'}
+      id={id ?? 'listbox'}
       as="div"
       className="relative"
       value={value}

@@ -100,7 +100,7 @@ export const useExportRoutes = () => {
             details: mapHastusErrorTypeToErrorMessage(
               extractErrorType(errorResponseBody),
             ),
-            additionalDetails: errorResponseBody?.reason || '',
+            additionalDetails: errorResponseBody?.reason ?? '',
           },
         }),
       );

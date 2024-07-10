@@ -366,7 +366,7 @@ export const getOldRouteGeometryVariables = (
     | undefined,
   baseRoute?: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 ) => {
-  const previouslyEditedRouteInfrastructureLinks = stateInfraLinks || [];
+  const previouslyEditedRouteInfrastructureLinks = stateInfraLinks ?? [];
 
   // If we are editing existing route and it has not been edited yet,
   // extract and return stops and infra links from the original route

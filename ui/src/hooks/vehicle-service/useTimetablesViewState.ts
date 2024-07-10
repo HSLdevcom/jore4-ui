@@ -22,7 +22,7 @@ export const useTimetablesViewState = () => {
 
   const activeView = useMemo(
     () =>
-      getStringParamFromUrlQuery(QueryParameterName.TimetablesViewName) ||
+      getStringParamFromUrlQuery(QueryParameterName.TimetablesViewName) ??
       TimetablesView.DEFAULT,
     [getStringParamFromUrlQuery],
   );

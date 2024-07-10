@@ -40,7 +40,7 @@ export const LineTimetablesButton = ({
       onClick={onClick}
       disabled={disabled}
       icon={<i className="icon-calendar" aria-hidden />}
-      testId={testId || testIds.button}
+      testId={testId ?? testIds.button}
     />
   );
 };

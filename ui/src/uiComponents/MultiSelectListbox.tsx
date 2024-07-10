@@ -92,7 +92,7 @@ export const MultiSelectListbox = ({
 
   return (
     <HUIListbox
-      id={id || 'multiSelectListbox'}
+      id={id ?? 'multiSelectListbox'}
       as="div"
       className="relative"
       value={value}
