@@ -1,6 +1,7 @@
 import compact from 'lodash/compact';
 import { EnrichedStopPlace } from '../../../../hooks';
 import { i18n } from '../../../../i18n';
+import translationsFi from '../../../../locales/fi-FI/common.json';
 
 /**
  * Returns a translated string that includes all stop types of a given stop place.
@@ -42,4 +43,44 @@ export const optionalBooleanToUiText = (
     return translations.false;
   }
   return undefined;
+};
+
+// Element implicitly has an 'any' type because expression of type 'string' can't be used to index type
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getNestedTranslation = (path: string, obj: any) => {
+  return path.split('.').reduce((o, p) => (o ? o[p] : undefined), obj);
+};
+
+/**
+ * Maps strings to translated texts.
+ *
+ * Missing values are NOT translated.
+ */
+export const valueToUiText = (
+  value: string | undefined | null,
+  stringTranslations: { [key: string]: string } = translationsFi.stopDetails
+    .infoSpots,
+) => {
+  if (typeof value === 'string') {
+    const translation = getNestedTranslation(value, stringTranslations);
+    if (translation) {
+      return translation;
+    }
+  }
+  return undefined;
+};
+
+export const formatDimension = (dimension: string | undefined | null) => {
+  // Extract the numerical part from the string
+  const match = dimension?.match(/^cm(\d+x\d+)$/);
+
+  if (!match) {
+    return dimension;
+  }
+
+  // Extract the dimension part
+  const extractedDimension = match[1];
+
+  // Return the reformatted string
+  return `${extractedDimension}cm`;
 };

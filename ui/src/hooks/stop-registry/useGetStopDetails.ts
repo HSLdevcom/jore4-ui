@@ -272,19 +272,29 @@ const GQL_STOP_PLACE_DETAILS = gql`
 `;
 
 const GQL_INFO_SPOT_DETAILS = gql`
-  fragment info_spot_details on stop_registry_InfoSpot {
+  fragment info_spot_details on stop_registry_infoSpot {
     id
     backlight
-    description
+    description {
+      lang
+      value
+    }
     displayType
     floor
     label
     posterPlaceSize
-    posterPlaceType
+    infoSpotLocations
+    infoSpotType
     purpose
     railInformation
     speechProperty
     zoneLabel
+    maintenance
+    poster {
+      label
+      posterSize
+      lines
+    }
   }
 `;
 
@@ -311,7 +321,7 @@ const getEnrichedStopPlace = (
     ...stopPlace,
     ...getStopPlaceDetailsForEnrichment(stopPlace),
     // TODO: move these to enriched stop place handling?
-    infoSpots: filteredInfoSpots || null,
+    infoSpots: filteredInfoSpots ?? null,
   };
 };
 
@@ -324,6 +334,7 @@ const getStopDetails = (
   result: ReturnType<
     typeof useGetHighestPriorityStopDetailsByLabelAndDateQuery
   >,
+  infoSpots: Array<StopPlaceInfoSpots | null | undefined> | null | undefined,
 ): StopWithDetails | null => {
   const stopPoint = result.data?.service_pattern_scheduled_stop_point[0];
   if (!stopPoint) {
@@ -335,7 +346,7 @@ const getStopDetails = (
   );
   return {
     ...stopPoint,
-    stop_place: getEnrichedStopPlace(stopPlace),
+    stop_place: getEnrichedStopPlace(stopPlace, infoSpots),
   };
 };
 
@@ -353,18 +364,10 @@ export const useGetStopDetails = (): {
   // TODO: these should be fetched with the stop details query.
   // Currently we just have _all_ info spots in the DB here.
   const infoSpotsResult = useGetInfoSpotsQuery();
-  const stopDetails = result.data?.service_pattern_scheduled_stop_point[0];
   const infoSpots = infoSpotsResult.data?.stop_registry?.infoSpots;
 
   return {
-    stopDetails: stopDetails && {
-      ...stopDetails,
-      stop_place: getEnrichedStopPlace(
-        getStopPlaceFromQueryResult<StopPlace>(stopDetails.stop_place),
-        infoSpots,
-      ),
-    },
-    stopDetails: getStopDetails(result),
-    isLoading: result.loading,
+    stopDetails: getStopDetails(result, infoSpots),
+    isLoading: result.loading || infoSpotsResult.loading,
   };
 };
