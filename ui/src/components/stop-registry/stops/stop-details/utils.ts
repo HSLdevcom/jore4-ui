@@ -43,3 +43,25 @@ export const optionalBooleanToUiText = (
   }
   return undefined;
 };
+
+export const valueToUiText = (value: string | undefined | null) => {
+  if (value) {
+    return i18n.t(`stopDetails.infoSpots.${value}`);
+  }
+  return undefined;
+};
+
+export const formatDimension = (dimension: string | undefined | null) => {
+  // Extract the numerical part from the string
+  const match = dimension?.match(/^cm(\d+x\d+)$/);
+
+  if (!match) {
+    return dimension;
+  }
+
+  // Extract the dimension part
+  const extractedDimension = match[1];
+
+  // Return the reformatted string
+  return `${extractedDimension}cm`;
+};
