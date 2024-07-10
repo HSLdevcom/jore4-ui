@@ -48,21 +48,21 @@ export const useEditStopMeasurementDetails = () => {
         id: stop.stop_place?.accessibilityAssessment?.id,
         // Limitations are required when submitting accessibility assessment
         limitations: {
-          id: limitations?.id || null,
+          id: limitations?.id ?? null,
           audibleSignalsAvailable:
-            limitations?.audibleSignalsAvailable ||
+            limitations?.audibleSignalsAvailable ??
             StopRegistryLimitationStatusType.Unknown,
           escalatorFreeAccess:
-            limitations?.escalatorFreeAccess ||
+            limitations?.escalatorFreeAccess ??
             StopRegistryLimitationStatusType.Unknown,
           liftFreeAccess:
-            limitations?.liftFreeAccess ||
+            limitations?.liftFreeAccess ??
             StopRegistryLimitationStatusType.Unknown,
           stepFreeAccess:
-            limitations?.stepFreeAccess ||
+            limitations?.stepFreeAccess ??
             StopRegistryLimitationStatusType.Unknown,
           wheelchairAccess:
-            limitations?.wheelchairAccess ||
+            limitations?.wheelchairAccess ??
             StopRegistryLimitationStatusType.Unknown,
         },
         hslAccessibilityProperties: {

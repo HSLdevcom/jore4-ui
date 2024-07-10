@@ -24,8 +24,8 @@ export const useEditStopSignageDetails = () => {
   }: EditTiamatParams) => {
     const stopPlaceId = stop.stop_place?.id;
 
-    const initialPlaceEquipments = stop.stop_place?.placeEquipments || {};
-    const initialGeneralSign = initialPlaceEquipments?.generalSign?.[0] || {};
+    const initialPlaceEquipments = stop.stop_place?.placeEquipments ?? {};
+    const initialGeneralSign = initialPlaceEquipments?.generalSign?.[0] ?? {};
 
     const input = {
       ...getRequiredStopPlaceMutationProperties(stop.stop_place),
@@ -45,12 +45,12 @@ export const useEditStopSignageDetails = () => {
             lineSignage: state.lineSignage,
             replacesRailSign: state.replacesRailSign,
             mainLineSign: state.mainLineSign,
-            note:
-              (isString(state.signageInstructionExceptions) && {
-                lang: 'fin',
-                value: state.signageInstructionExceptions,
-              }) ||
-              undefined,
+            note: isString(state.signageInstructionExceptions)
+              ? {
+                  lang: 'fin',
+                  value: state.signageInstructionExceptions,
+                }
+              : undefined,
           },
         ],
       },

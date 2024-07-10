@@ -101,8 +101,8 @@ export const useCreateRoute = () => {
       // For some reason form state is saved as Partial<> so we have to use non-null assertions here...
       label: form.label!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
       priority: form.priority!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
-      validityStart: input.object.validity_start || MIN_DATE,
-      validityEnd: input.object.validity_end || undefined,
+      validityStart: input.object.validity_start ?? MIN_DATE,
+      validityEnd: input.object.validity_end ?? undefined,
       direction: form.direction!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
       variant: form.variant,
     });

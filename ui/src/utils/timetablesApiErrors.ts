@@ -24,7 +24,7 @@ export const extractErrorType = (
     ?.type as keyof typeof TimetablesApiErrorType;
   const errorTypeEnum = TimetablesApiErrorType[errorType];
 
-  return errorTypeEnum || TimetablesApiErrorType.UnknownError;
+  return errorTypeEnum ?? TimetablesApiErrorType.UnknownError;
 };
 
 export const extractRawSqlError = (error: ApolloError): string | null => {

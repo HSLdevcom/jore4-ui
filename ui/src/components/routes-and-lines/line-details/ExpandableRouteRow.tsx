@@ -69,7 +69,7 @@ export const ExpandableRouteRow = ({
       className={`border border-white bg-background ${className} p-4`}
       data-testid={testIds.container(label, route.direction)}
     >
-      <td className={`${alertStyle.listItemBorder || ''} p-4 pl-12`}>
+      <td className={`${alertStyle.listItemBorder ?? ''} p-4 pl-12`}>
         <Row className="items-center">
           <DirectionBadge
             direction={route.direction as RouteDirectionEnum}
@@ -101,8 +101,8 @@ export const ExpandableRouteRow = ({
       <td className="p-4" data-testid={testIds.validityPeriod}>
         <Row className="items-center justify-end">
           {t('validity.validDuring', {
-            startDate: mapToShortDate(route.validity_start || MIN_DATE),
-            endDate: mapToShortDate(route.validity_end || MAX_DATE),
+            startDate: mapToShortDate(route.validity_start ?? MIN_DATE),
+            endDate: mapToShortDate(route.validity_end ?? MAX_DATE),
           })}
           <AlertPopover
             title={t(alertStatus.title, {

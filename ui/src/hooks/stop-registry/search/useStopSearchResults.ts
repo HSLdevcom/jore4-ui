@@ -160,7 +160,7 @@ const mapQueryResultToStopSearchRows = (
   result.data?.stops_database?.stops_database_stop_place_newest_version
     // Filter out stops which do not have a matching stop in routes and lines
     .filter((stop) => !!stop.scheduled_stop_point_instance)
-    .map(mapResultRowToStopSearchRow) || [];
+    .map(mapResultRowToStopSearchRow) ?? [];
 
 export const useStopSearchResults = (): {
   loading: boolean;

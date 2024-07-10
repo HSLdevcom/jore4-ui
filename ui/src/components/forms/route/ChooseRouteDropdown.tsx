@@ -22,8 +22,8 @@ const mapToOptionContent = (item: RouteAllFieldsFragment) => (
     </div>
     <div className="text-sm">
       <DateRange
-        startDate={item.validity_start || MIN_DATE}
-        endDate={item.validity_end || MAX_DATE}
+        startDate={item.validity_start ?? MIN_DATE}
+        endDate={item.validity_end ?? MAX_DATE}
       />
     </div>
   </div>
@@ -54,7 +54,7 @@ export const ChooseRouteDropdown = ({
     routeId: value,
   });
 
-  const options = routes?.map(mapToOption) || [];
+  const options = routes?.map(mapToOption) ?? [];
 
   const mapToButtonContent = (displayedRoute?: RouteAllFieldsFragment) => {
     // If no route is selected, show "Choose route"

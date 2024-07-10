@@ -40,7 +40,7 @@ export const useObservationDateQueryParam = (
   const observationDate = useMemo(() => {
     try {
       return (
-        getDateTimeFromUrlQuery(QueryParameterName.ObservationDate) ||
+        getDateTimeFromUrlQuery(QueryParameterName.ObservationDate) ??
         defaultDate
       );
     } catch {
@@ -60,7 +60,7 @@ export const useObservationDateQueryParam = (
       // If validity_start is undefined, validity_end is defined,
       // otherwise observationDate would be within the validity period
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, camelcase
-      setObservationDateToUrl(validity_start || validity_end!);
+      setObservationDateToUrl(validity_start ?? validity_end!);
 
       if (showToast) {
         showWarningToast(t('filters.observationDateAdjusted'));

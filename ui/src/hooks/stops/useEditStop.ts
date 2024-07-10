@@ -132,8 +132,8 @@ export const useEditStop = () => {
       newLink: closestLink,
       newDirection: direction,
       newStop,
-      label: newStop.label || oldStop.label,
-      priority: newStop.priority || oldStop.priority,
+      label: newStop.label ?? oldStop.label,
+      priority: newStop.priority ?? oldStop.priority,
       stopId,
     });
 
@@ -182,12 +182,12 @@ export const useEditStop = () => {
               defaultTo(
                 patch.validity_start,
                 stopWithRouteGraphData?.validity_start,
-              ) || undefined,
+              ) ?? undefined,
             validityEnd:
               defaultTo(
                 patch.validity_end,
                 stopWithRouteGraphData?.validity_end,
-              ) || undefined,
+              ) ?? undefined,
           },
           stopId,
         )
@@ -249,7 +249,7 @@ export const useEditStop = () => {
       stop_label: changes.stopLabel,
       stop_patch: changes.patch,
       delete_from_journey_pattern_ids:
-        changes.deleteStopFromJourneyPatternIds || [],
+        changes.deleteStopFromJourneyPatternIds ?? [],
     };
     return variables;
   };

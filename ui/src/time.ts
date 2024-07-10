@@ -77,8 +77,8 @@ export const isDateInRange = (
 // The luxon Interval does not handle infinite start/end, so using MIN_DATE and MAX_DATE instead
 export const mapValidityPeriodToInterval = (entity: ValidityPeriod) =>
   Interval.fromDateTimes(
-    entity.validity_start || MIN_DATE,
-    entity.validity_end || MAX_DATE,
+    entity.validity_start ?? MIN_DATE,
+    entity.validity_end ?? MAX_DATE,
   );
 
 export const areValidityPeriodsOverlapping = (

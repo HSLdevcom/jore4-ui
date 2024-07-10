@@ -24,7 +24,7 @@ export const ListHeader = ({
   const limitOptions = [5, 10, 15];
 
   return (
-    <Row className={`${className || ''} `}>
+    <Row className={`${className ?? ''} `}>
       <Row className="grow items-center">
         {/** Hide until "own routes" can be selected */}
         <Visible visible={false}>

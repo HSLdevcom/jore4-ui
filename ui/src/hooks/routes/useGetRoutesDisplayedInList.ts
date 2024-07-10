@@ -13,7 +13,7 @@ export const useGetRoutesDisplayedInList = (
 
   const uniqueLineRouteLabels = pipe(
     line?.line_routes,
-    (routes) => routes?.map((route) => route.label) || [],
+    (routes) => routes?.map((route) => route.label) ?? [],
     (routeLabels) => uniq(routeLabels),
   );
 
@@ -51,7 +51,7 @@ export const useGetRoutesDisplayedInList = (
         displayedRouteLabels.filter((label) => label !== routeLabel),
       );
     } else {
-      setDisplayedRoutesToUrl([...(displayedRouteLabels || []), routeLabel]);
+      setDisplayedRoutesToUrl([...(displayedRouteLabels ?? []), routeLabel]);
     }
   };
 

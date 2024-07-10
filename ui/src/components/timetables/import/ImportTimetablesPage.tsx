@@ -92,7 +92,7 @@ export const ImportTimetablesPage = (): JSX.Element => {
               details: mapHastusErrorTypeToErrorMessage(
                 extractErrorType(getImportErrorBody(failure.error)),
               ),
-              additionalDetails: failure.error.response?.data?.reason || '',
+              additionalDetails: failure.error.response?.data?.reason ?? '',
               key: filename,
             };
           },
