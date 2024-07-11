@@ -11,10 +11,9 @@ import {
   useAppSelector,
   useCreateStopArea,
   useGetStopAreaById,
-  useLoader,
+  useMapDataLayerSimpleQueryLoader,
 } from '../../../hooks';
 import {
-  LoadingState,
   Operation,
   selectEditedStopAreaData,
   selectIsCreateStopAreaModeEnabled,
@@ -49,14 +48,17 @@ export const StopAreas = React.forwardRef((_props, ref) => {
   );
 
   const { defaultErrorHandler, initializeStopArea } = useCreateStopArea();
-  const { setLoadingState } = useLoader(Operation.FetchStopAreas);
 
   const viewport = useAppSelector(selectMapViewport);
   const stopAreasResult = useGetStopAreasByLocationQuery({
     variables: {
       measured_location_filter: buildWithinViewportGqlGeometryFilter(viewport),
     },
+    // Skip initial 0 radius fetch and wait for the map to get loaded,
+    // so that we have a proper viewport.
+    skip: viewport.radius <= 0,
   });
+  useMapDataLayerSimpleQueryLoader(Operation.FetchStopAreas, stopAreasResult);
 
   const { getStopAreaById } = useGetStopAreaById();
 
@@ -72,20 +74,6 @@ export const StopAreas = React.forwardRef((_props, ref) => {
   useEffect(() => {
     fetchSelectedStopArea();
   }, [selectedStopAreaId, fetchSelectedStopArea]);
-
-  useEffect(() => {
-    /**
-     * Here we sync getStopAreasByLocationQuery query loading state with useLoader hook state.
-     *
-     * We could also use useLoader's immediatelyOn option instead of useEffect,
-     * but using options to dynamically control loading state feels semantically wrong.
-     */
-    setLoadingState(
-      stopAreasResult.loading
-        ? LoadingState.LowPriority
-        : LoadingState.NotLoading,
-    );
-  }, [setLoadingState, stopAreasResult.loading]);
 
   const onEditStopArea = (stopArea: StopRegistryGroupOfStopPlaces) => {
     setEditedStopAreaData(stopArea);
