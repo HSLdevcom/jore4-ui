@@ -4,7 +4,14 @@
     "noEmit": true,
     // be explicit about types included
     // to avoid clashing with Jest types
-    "types": ["cypress", "./support", "@cypress/grep"]
+    "types": ["cypress", "./support", "@cypress/grep"],
+    "allowJs": false,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["./**/*.ts", "./**/*.tsx"]
 }
