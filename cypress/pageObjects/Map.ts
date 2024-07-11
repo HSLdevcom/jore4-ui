@@ -66,7 +66,7 @@ export class Map {
     if (params) {
       cy.visit(
         `/routes?${qs.stringify({
-          z: params.zoom || 13, // 13 is default zoom level
+          z: params.zoom ?? 13, // 13 is default zoom level
           mapOpen: true,
           lat: params.lat,
           lng: params.lng,

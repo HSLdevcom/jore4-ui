@@ -110,8 +110,8 @@ export class RoutePropertiesForm {
     }
 
     this.terminusNameInputs.fillTerminusNameInputsForm(
-      values.origin || defaultTerminusOriginInput,
-      values.destination || defaultTerminusDestinationInput,
+      values.origin ?? defaultTerminusOriginInput,
+      values.destination ?? defaultTerminusDestinationInput,
     );
 
     if (values.priority) {
