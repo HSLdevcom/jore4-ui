@@ -184,4 +184,18 @@ module.exports = {
     ], // ignore graphql query/mutation/fragment definitions
     'no-plusplus': 'off', // this rule is stupid. For loops should be able to use i++
   },
+  overrides: [
+    // These overrides enable prefer-nullish-coalescing rule for TypeScript files.
+    // These options and rules need to be enabled for ts files only, as otherwise
+    // errors will be generated, when linting JSON files.
+    {
+      files: ['*.ts', '*.tsx'],
+      parserOptions: {
+        project: true,
+      },
+      rules: {
+        '@typescript-eslint/prefer-nullish-coalescing': 'error',
+      },
+    },
+  ],
 };

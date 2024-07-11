@@ -225,6 +225,7 @@ export const getStopPlaceDetailsForEnrichment = <
 >(
   stopPlace: T,
 ): StopPlaceEnrichmentProperties => {
+  /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
   return {
     nameFin: stopPlace.name?.value || undefined,
     nameSwe:
@@ -278,6 +279,7 @@ export const getStopPlaceDetailsForEnrichment = <
       virtual: findKeyValue(stopPlace, 'virtual') === 'true',
     },
   };
+  /* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
 };
 
 /**
