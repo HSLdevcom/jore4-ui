@@ -15,6 +15,12 @@ import { AsyncQueryRawPluginConfig, ReactApolloVisitor } from './visitor';
 
 // based on https://github.com/dotansimha/graphql-code-generator/tree/master/packages/plugins/typescript/react-apollo
 
+function notUndefined<T>(
+  value: T | undefined,
+): value is Exclude<T, 'undefined'> {
+  return value !== undefined;
+}
+
 export const plugin: PluginFunction<
   AsyncQueryRawPluginConfig,
   Types.ComplexPluginOutput
@@ -23,7 +29,10 @@ export const plugin: PluginFunction<
   documents: Types.DocumentFile[],
   config: AsyncQueryRawPluginConfig,
 ) => {
-  const allAst = concatAST(documents.map((item) => item.document));
+  const documentNodes = documents
+    .map((item) => item.document)
+    .filter(notUndefined);
+  const allAst = concatAST(documentNodes);
 
   const allFragments: LoadedFragment[] = [
     ...(
@@ -36,7 +45,7 @@ export const plugin: PluginFunction<
       onType: fragmentDef.typeCondition.name.value,
       isExternal: false,
     })),
-    ...(config.externalFragments || []),
+    ...(config.externalFragments ?? []),
   ];
 
   const visitor = new ReactApolloVisitor(
@@ -45,6 +54,9 @@ export const plugin: PluginFunction<
     config,
     documents,
   );
+  // TS is complaining about `visitor` not being compatible with `leave`
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const visitorResult = oldVisit(allAst, { leave: visitor });
 
   return {
