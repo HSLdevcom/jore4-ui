@@ -87,7 +87,7 @@ const insertStopArea = async (
   } catch (error) {
     console.error(
       'An error occurred while inserting stop area!',
-      stopArea.stopArea.name.value,
+      stopArea.stopArea.name?.value,
       error,
     );
     throw error;
@@ -114,12 +114,12 @@ const seedStopRegistry = async () => {
   for (let index = 0; index < seedStopAreas.length; index++) {
     const stopArea = seedStopAreas[index];
     console.log(
-      `Stop area ${stopArea?.stopArea.name.value}: stop area insert starting...`,
+      `Stop area ${stopArea?.stopArea.name?.value}: stop area insert starting...`,
     );
     // eslint-disable-next-line no-await-in-loop
     await insertStopArea(stopArea, collectedStopIds);
     console.log(
-      `Stop area ${stopArea?.stopArea.name.value}: stop area insert finished!`,
+      `Stop area ${stopArea?.stopArea.name?.value}: stop area insert finished!`,
     );
   }
   console.log(`Inserted ${seedStopAreas.length} stop areas.`);

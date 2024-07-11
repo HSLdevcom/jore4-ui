@@ -5,6 +5,7 @@ import {
   VehicleServiceInsertInput,
   VehicleServiceInsertInputDeep,
 } from '../../types';
+import { expectValue } from '../../utils';
 import { Count, buildCount } from '../common';
 import { buildLocalizedString } from '../entities';
 import {
@@ -44,7 +45,7 @@ export const buildVehicleServiceDeep = (
     vehicleServiceBase,
   );
   const blocks = buildBlockSequence(
-    vehicleService.vehicle_service_id,
+    expectValue(vehicleService.vehicle_service_id),
     blockBuilder,
   );
   return {

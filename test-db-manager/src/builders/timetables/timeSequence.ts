@@ -53,7 +53,7 @@ export const buildPassingTimeSequence = (
     return [];
   }
 
-  const passingTimeSequence = timeSequence.map((time) => ({
+  const passingTimeSequence: PassingTime[] = timeSequence.map((time) => ({
     arrival_time: time,
     departure_time: time,
   }));

@@ -6,6 +6,7 @@ import {
   VehicleJourneyInsertInput,
   VehicleJourneyInsertInputDeep,
 } from '../../types';
+import { expectValue } from '../../utils';
 import {
   ArrayItemPickMethod,
   Count,
@@ -75,7 +76,7 @@ export const buildVehicleJourneyDeep = (
   // build the main vehicle journey entity
   const vehicleJourney = buildVehicleJourneyInstance(
     blockId,
-    journeyPattern.journey_pattern_ref_id,
+    expectValue(journeyPattern.journey_pattern_ref_id),
     vehicleJourneyBase,
   );
 
@@ -83,7 +84,7 @@ export const buildVehicleJourneyDeep = (
   const stops =
     journeyPattern.scheduled_stop_point_in_journey_pattern_refs.data;
   const timetabledPassingTimes = buildTimetabledPassingTimeSequence(
-    vehicleJourney.vehicle_journey_id,
+    expectValue(vehicleJourney.vehicle_journey_id),
     { stops, ...timetabledPassingTimeBuildParams },
   );
 

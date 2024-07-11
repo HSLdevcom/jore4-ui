@@ -5,6 +5,7 @@ import {
   InfrastructureNetworkInfrastructureLinkInsertInput,
   ReusableComponentsVehicleSubmodeEnum,
 } from '../../generated/graphql';
+import { expectValue } from '../../utils';
 
 // Note: These infra links don't actually exist, so they won't work in map matching.
 export const infrastructureLinks: InfrastructureNetworkInfrastructureLinkInsertInput[] =
@@ -56,15 +57,21 @@ export const infrastructureLinks: InfrastructureNetworkInfrastructureLinkInsertI
 export const vehicleSubmodeOnInfrastructureLink: VehicleSubmodeOnInfraLinkInsertInput[] =
   [
     {
-      infrastructure_link_id: infrastructureLinks[0].infrastructure_link_id,
+      infrastructure_link_id: expectValue(
+        infrastructureLinks[0].infrastructure_link_id,
+      ),
       vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
     },
     {
-      infrastructure_link_id: infrastructureLinks[1].infrastructure_link_id,
+      infrastructure_link_id: expectValue(
+        infrastructureLinks[1].infrastructure_link_id,
+      ),
       vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
     },
     {
-      infrastructure_link_id: infrastructureLinks[2].infrastructure_link_id,
+      infrastructure_link_id: expectValue(
+        infrastructureLinks[2].infrastructure_link_id,
+      ),
       vehicle_submode: ReusableComponentsVehicleSubmodeEnum.GenericBus,
     },
   ];

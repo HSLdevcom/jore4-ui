@@ -2,6 +2,7 @@ import padStart from 'lodash/padStart';
 import range from 'lodash/range';
 import { v4 as uuid } from 'uuid';
 import { StopInJourneyPatternRefInsertInput } from '../../types';
+import { expectValue } from '../../utils';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
 
 const buildLabels = ({
@@ -54,9 +55,15 @@ const buildStopSequence = ({
   return stops;
 };
 
-const journeyPatternRefId0 = seedJourneyPatternRefs[0].journey_pattern_ref_id;
-const journeyPatternRefId1 = seedJourneyPatternRefs[1].journey_pattern_ref_id;
-const journeyPatternRefId2 = seedJourneyPatternRefs[2].journey_pattern_ref_id;
+const journeyPatternRefId0 = expectValue(
+  seedJourneyPatternRefs[0].journey_pattern_ref_id,
+);
+const journeyPatternRefId1 = expectValue(
+  seedJourneyPatternRefs[1].journey_pattern_ref_id,
+);
+const journeyPatternRefId2 = expectValue(
+  seedJourneyPatternRefs[2].journey_pattern_ref_id,
+);
 
 export const seedStopsInJourneyPatternRefsByJourneyPattern = {
   [journeyPatternRefId0]: buildStopSequence({

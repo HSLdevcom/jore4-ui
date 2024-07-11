@@ -24,6 +24,7 @@ import {
   VehicleServiceBlockInsertInput,
   VehicleServiceInsertInput,
 } from '../types';
+import { isNotNullish } from '../utils';
 
 export interface TimetablesResources {
   journeyPatternRefs?: JourneyPatternRefInsertInput[];
@@ -38,7 +39,7 @@ export interface TimetablesResources {
 const concatArrays = <T extends ExplicitAny>(
   to: T[] | undefined,
   from: T[] | undefined,
-) => (to || []).concat(from || []);
+) => (to ?? []).concat(from ?? []);
 
 export const mergeTimetablesResources = (
   resources: TimetablesResources[],
@@ -96,7 +97,9 @@ export const clearTimetablesDb = async ({
   if (timetabledPassingTimes) {
     const res = await hasuraApi(
       mapToDeleteTimetabledPassingTimesMutation(
-        timetabledPassingTimes.map((item) => item.timetabled_passing_time_id),
+        timetabledPassingTimes
+          .map((item) => item.timetabled_passing_time_id)
+          .filter(isNotNullish),
       ),
     );
     handleErrors('Deleting vehicle journeys', res);
@@ -104,7 +107,9 @@ export const clearTimetablesDb = async ({
   if (vehicleJourneys) {
     const res = await hasuraApi(
       mapToDeleteVehicleJourneysMutation(
-        vehicleJourneys.map((item) => item.vehicle_journey_id),
+        vehicleJourneys
+          .map((item) => item.vehicle_journey_id)
+          .filter(isNotNullish),
       ),
     );
     handleErrors('Deleting vehicle journeys', res);
@@ -112,7 +117,7 @@ export const clearTimetablesDb = async ({
   if (vehicleServiceBlocks) {
     const res = await hasuraApi(
       mapToDeleteVehicleServiceBlocksMutation(
-        vehicleServiceBlocks.map((item) => item.block_id),
+        vehicleServiceBlocks.map((item) => item.block_id).filter(isNotNullish),
       ),
     );
     handleErrors('Deleting vehicle service blocks', res);
@@ -120,7 +125,9 @@ export const clearTimetablesDb = async ({
   if (vehicleServices) {
     const res = await hasuraApi(
       mapToDeleteVehicleServicesMutation(
-        vehicleServices.map((item) => item.vehicle_service_id),
+        vehicleServices
+          .map((item) => item.vehicle_service_id)
+          .filter(isNotNullish),
       ),
     );
     handleErrors('Deleting vehicle services', res);
@@ -128,7 +135,9 @@ export const clearTimetablesDb = async ({
   if (vehicleScheduleFrames) {
     const res = await hasuraApi(
       mapToDeleteVehicleScheduleFramesMutation(
-        vehicleScheduleFrames.map((item) => item.vehicle_schedule_frame_id),
+        vehicleScheduleFrames
+          .map((item) => item.vehicle_schedule_frame_id)
+          .filter(isNotNullish),
       ),
     );
     handleErrors('Deleting vehicle schedule frames', res);
@@ -136,9 +145,9 @@ export const clearTimetablesDb = async ({
   if (stopsInJourneyPatternRefs) {
     const res = await hasuraApi(
       mapToDeleteStopInJourneyPatternRefMutation(
-        stopsInJourneyPatternRefs.map(
-          (item) => item.scheduled_stop_point_in_journey_pattern_ref_id,
-        ),
+        stopsInJourneyPatternRefs
+          .map((item) => item.scheduled_stop_point_in_journey_pattern_ref_id)
+          .filter(isNotNullish),
       ),
     );
     handleErrors('Deleting stops in journey pattern refs', res);
@@ -147,7 +156,9 @@ export const clearTimetablesDb = async ({
   if (journeyPatternRefs) {
     const res = await hasuraApi(
       mapToDeleteTimetablesJourneyPatternRefsMutation(
-        journeyPatternRefs.map((item) => item.journey_pattern_ref_id),
+        journeyPatternRefs
+          .map((item) => item.journey_pattern_ref_id)
+          .filter(isNotNullish),
       ),
     );
     handleErrors('Deleting journey pattern refs', res);
