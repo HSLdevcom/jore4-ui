@@ -27,6 +27,17 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parserOptions: {
+        project: true,
+      },
+      rules: {
+        '@typescript-eslint/prefer-nullish-coalescing': 'error',
+      },
+    },
+  ],
   settings: {
     react: {
       version: 'detect',

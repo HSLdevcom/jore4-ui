@@ -226,6 +226,7 @@ export const getStopPlaceDetailsForEnrichment = <
   stopPlace: T,
 ): StopPlaceEnrichmentProperties => {
   return {
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     nameFin: stopPlace.name?.value || undefined,
     nameSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Translation)

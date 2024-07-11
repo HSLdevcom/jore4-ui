@@ -14,7 +14,10 @@ export const LabeledDetail = <T extends ExplicitAny>({
     <div className={`inline-flex flex-col ${className}`}>
       <div className="text-sm">{title}</div>
       <div className="text-sm font-bold" data-testid={testId}>
-        {detail || '-'}
+        {
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+          detail || '-'
+        }
       </div>
     </div>
   );

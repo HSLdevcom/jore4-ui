@@ -69,7 +69,10 @@ const LocationDetailsFormComponent = (
                   id="stopDetails.location.municipality"
                   data-testid={testIds.municipality}
                 >
-                  {municipality || '-'}
+                  {
+                    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                    municipality || '-'
+                  }
                 </span>
                 <i className="icon-info text-lg text-brand" />
               </div>
@@ -87,7 +90,10 @@ const LocationDetailsFormComponent = (
                   id="stopDetails.location.fareZone"
                   data-testid={testIds.fareZone}
                 >
-                  {fareZone || '-'}
+                  {
+                    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                    fareZone || '-'
+                  }
                 </span>
                 <i className="icon-info text-lg text-brand" />
               </div>
