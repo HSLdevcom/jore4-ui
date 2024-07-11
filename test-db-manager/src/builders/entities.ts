@@ -97,10 +97,10 @@ export const buildStopInJourneyPattern = ({
   journeyPatternId,
   stopLabel,
   scheduledStopPointSequence,
-  isUsedAsTimingPoint,
-  isLoadingTimeAllowed,
-  isRegulatedTimingPoint,
-  isViaPoint,
+  isUsedAsTimingPoint = false,
+  isLoadingTimeAllowed = false,
+  isRegulatedTimingPoint = false,
+  isViaPoint = false,
 }: {
   journeyPatternId: UUID;
   stopLabel: UUID;
@@ -113,10 +113,10 @@ export const buildStopInJourneyPattern = ({
   journey_pattern_id: journeyPatternId,
   scheduled_stop_point_label: stopLabel,
   scheduled_stop_point_sequence: scheduledStopPointSequence,
-  is_used_as_timing_point: isUsedAsTimingPoint || false,
-  is_loading_time_allowed: isLoadingTimeAllowed || false,
-  is_regulated_timing_point: isRegulatedTimingPoint || false,
-  is_via_point: isViaPoint || false,
+  is_used_as_timing_point: isUsedAsTimingPoint,
+  is_loading_time_allowed: isLoadingTimeAllowed,
+  is_regulated_timing_point: isRegulatedTimingPoint,
+  is_via_point: isViaPoint,
 });
 
 export const buildTimingPlace = (

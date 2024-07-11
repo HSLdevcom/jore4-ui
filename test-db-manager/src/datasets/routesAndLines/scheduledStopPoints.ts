@@ -6,14 +6,16 @@ import {
   ServicePatternVehicleModeOnScheduledStopPointInsertInput,
 } from '../../generated/graphql';
 import { Priority } from '../../types';
+import { expectValue } from '../../utils';
 import { infrastructureLinks } from './infrastructureLinks';
 
 export const scheduledStopPoints: ServicePatternScheduledStopPointInsertInput[] =
   [
     {
       scheduled_stop_point_id: '3f604abf-06a9-42c6-90fc-649bf7d8c5eb',
-      located_on_infrastructure_link_id:
+      located_on_infrastructure_link_id: expectValue(
         infrastructureLinks[0].infrastructure_link_id,
+      ),
       direction: InfrastructureNetworkDirectionEnum.Forward,
       measured_location: {
         type: 'Point',

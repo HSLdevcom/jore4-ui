@@ -1,4 +1,5 @@
 import { gql } from 'graphql-tag';
+import { Knex } from 'knex';
 import {
   InfrastructureNetworkInfrastructureLinkInsertInput,
   JourneyPatternJourneyPatternInsertInput,
@@ -250,7 +251,7 @@ export interface VehicleSubmodeOnInfraLinkInsertInput {
 // Thus we have to use raw sql connection for handling those.
 // (Other solution could be renaming the tables.)
 export const insertVehicleSubmodeOnInfraLink = (
-  db,
+  db: Knex,
   infraLinks: VehicleSubmodeOnInfraLinkInsertInput[],
 ) => {
   return db('infrastructure_network.vehicle_submode_on_infrastructure_link')
@@ -259,7 +260,7 @@ export const insertVehicleSubmodeOnInfraLink = (
 };
 
 export const removeVehicleSubmodeOnInfraLink = (
-  db,
+  db: Knex,
   infraLinks: VehicleSubmodeOnInfraLinkInsertInput[],
 ) => {
   return db('infrastructure_network.vehicle_submode_on_infrastructure_link')

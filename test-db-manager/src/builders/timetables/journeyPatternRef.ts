@@ -4,6 +4,7 @@ import {
   JourneyPatternRefInsertInput,
   JourneyPatternRefInsertInputDeep,
 } from '../../types';
+import { expectValue } from '../../utils';
 import {
   StopInJourneyPatternSequenceBuilder,
   buildStopInJourneyPatternSequence,
@@ -35,7 +36,7 @@ export const buildJourneyPatternRefDeep = (
   );
 
   const stops = buildStopInJourneyPatternSequence(
-    journeyPatternRef.journey_pattern_ref_id,
+    expectValue(journeyPatternRef.journey_pattern_ref_id),
     { stopBase, stopLabels },
   );
 

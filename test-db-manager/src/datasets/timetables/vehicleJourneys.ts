@@ -1,19 +1,27 @@
 import times from 'lodash/times';
 import { v4 as uuid } from 'uuid';
 import { JourneyType, VehicleJourneyInsertInput } from '../../types';
+import { expectValue } from '../../utils';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
 import { seedVehicleServiceBlocksByName } from './vehicleServiceBlocks';
 
-const monFriBlockId = seedVehicleServiceBlocksByName.v1MonFri.block_id;
-const satBlockId = seedVehicleServiceBlocksByName.v1Sat.block_id;
-const sunBlockId = seedVehicleServiceBlocksByName.v1Sun.block_id;
-const decBlockId = seedVehicleServiceBlocksByName.v1December23.block_id;
-const hiddenVariantMonFriBlockId =
-  seedVehicleServiceBlocksByName.hiddenVariantMonFri.block_id;
+const monFriBlockId = expectValue(
+  seedVehicleServiceBlocksByName.v1MonFri.block_id,
+);
+const satBlockId = expectValue(seedVehicleServiceBlocksByName.v1Sat.block_id);
+const sunBlockId = expectValue(seedVehicleServiceBlocksByName.v1Sun.block_id);
+const decBlockId = expectValue(
+  seedVehicleServiceBlocksByName.v1December23.block_id,
+);
+const hiddenVariantMonFriBlockId = expectValue(
+  seedVehicleServiceBlocksByName.hiddenVariantMonFri.block_id,
+);
 
 const buildVehicleJourney = ({
   vehicleJourneyId,
-  journeyPatternRefId = seedJourneyPatternRefs[0].journey_pattern_ref_id,
+  journeyPatternRefId = expectValue(
+    seedJourneyPatternRefs[0].journey_pattern_ref_id,
+  ),
   blockId = monFriBlockId,
   journeyType = JourneyType.Standard,
   isVehicleTypeMandatory = false,
@@ -44,7 +52,9 @@ export const seedVehicleJourneys: VehicleJourneyInsertInput[] = [
   ...times(5, () =>
     buildVehicleJourney({
       vehicleJourneyId: uuid(),
-      journeyPatternRefId: seedJourneyPatternRefs[1].journey_pattern_ref_id,
+      journeyPatternRefId: expectValue(
+        seedJourneyPatternRefs[1].journey_pattern_ref_id,
+      ),
     }),
   ),
   // Journeys 26-29, all belong to same journey pattern and service block (Vehicle 1 Sat)
@@ -63,7 +73,9 @@ export const seedVehicleJourneys: VehicleJourneyInsertInput[] = [
   // Journey 41: for hidden variant Mon-Fri block.
   buildVehicleJourney({
     vehicleJourneyId: uuid(),
-    journeyPatternRefId: seedJourneyPatternRefs[2].journey_pattern_ref_id,
+    journeyPatternRefId: expectValue(
+      seedJourneyPatternRefs[2].journey_pattern_ref_id,
+    ),
     blockId: hiddenVariantMonFriBlockId,
   }),
 ];

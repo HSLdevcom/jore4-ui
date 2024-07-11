@@ -19,7 +19,7 @@ const getHasuraURL = () => {
   return HasuraURL.Dev;
 };
 
-const getHasuraAuthenticationHeaders = () => {
+const getHasuraAuthenticationHeaders = (): { [key: string]: string } => {
   if (process.env.HASURA_API_COOKIE) {
     return {
       Cookie: process.env.HASURA_API_COOKIE, // Eg. 'SESSION=AbcAbcAbc...'
@@ -28,7 +28,7 @@ const getHasuraAuthenticationHeaders = () => {
   }
 
   return {
-    'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET || 'hasura',
+    'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET ?? 'hasura',
   };
 };
 

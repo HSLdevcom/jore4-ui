@@ -1,10 +1,10 @@
-import reverse from 'lodash/reverse';
 import { Duration } from 'luxon';
 import { v4 as uuid } from 'uuid';
 import {
   BlockInsertInputDeep,
   VehicleServiceBlockInsertInput,
 } from '../../types';
+import { expectValue, isNotNullish } from '../../utils';
 import { Count, buildCount } from '../common';
 import { TimeSequenceParams, buildTimeSequence } from './timeSequence';
 import {
@@ -39,7 +39,7 @@ export const buildBlockDeep = (
 ): BlockInsertInputDeep => {
   const block = buildBlock(vehicleServiceId, blockBase);
   const vehicleJourneys = buildVehicleJourneySequence(
-    block.block_id,
+    expectValue(block.block_id),
     vehicleJourneySequenceBuilder,
   );
   return {
@@ -53,25 +53,18 @@ export const getBlockTimes = (block: BlockInsertInputDeep) => {
 
   // find the first valid vehicle journey with a start time
   // note: vehicle journeys with no stops have no start and end time
-  let blockStart: Duration;
-  // eslint-disable-next-line no-restricted-syntax
-  for (const item of vehicleJourneys) {
-    blockStart = getVehicleJourneyTimes(item).start;
-    if (blockStart) {
-      break;
-    }
-  }
+  const blockStart = vehicleJourneys
+    .map(getVehicleJourneyTimes)
+    .map((it) => it.start)
+    .find(isNotNullish);
 
   // find the last valid vehicle journey with an end time
   // note: vehicle journeys with no stops have no start and end time
-  let blockEnd: Duration;
-  // eslint-disable-next-line no-restricted-syntax
-  for (const item of reverse(vehicleJourneys)) {
-    blockEnd = getVehicleJourneyTimes(item).end;
-    if (blockEnd) {
-      break;
-    }
-  }
+  const blockEnd = vehicleJourneys
+    .map(getVehicleJourneyTimes)
+    .map((it) => it.end)
+    .reverse()
+    .find(isNotNullish);
 
   const duration =
     blockStart && blockEnd ? blockEnd.minus(blockStart) : undefined;
@@ -125,7 +118,7 @@ export const buildBlockSequence = (
 
     // wait after the block before the next one starts
     const blockDuration =
-      getBlockTimes(block).duration || Duration.fromMillis(0);
+      getBlockTimes(block).duration ?? Duration.fromMillis(0);
     const waitAfter = waitSequence[i];
     currentTime = currentTime.plus(blockDuration).plus(waitAfter);
   }

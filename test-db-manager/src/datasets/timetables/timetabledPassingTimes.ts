@@ -3,6 +3,7 @@ import {
   StopInJourneyPatternRefInsertInput,
   TimetabledPassingTimeInsertInput,
 } from '../../types';
+import { expectValue, isNotNullish } from '../../utils';
 import { multiplyDuration } from '../../utils/time';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
 import {
@@ -20,11 +21,15 @@ interface TimetabledPassingTimesForJourney {
 }
 
 const DIRECTION1_STOP_LABELS = seedStopsInJourneyPatternRefsByJourneyPattern[
-  seedJourneyPatternRefs[0].journey_pattern_ref_id
-].map((item) => item.scheduled_stop_point_label);
+  expectValue(seedJourneyPatternRefs[0].journey_pattern_ref_id)
+]
+  .map((item) => item.scheduled_stop_point_label)
+  .filter(isNotNullish);
 const DIRECTION2_STOP_LABELS = seedStopsInJourneyPatternRefsByJourneyPattern[
-  seedJourneyPatternRefs[1].journey_pattern_ref_id
-].map((item) => item.scheduled_stop_point_label);
+  expectValue(seedJourneyPatternRefs[1].journey_pattern_ref_id)
+]
+  .map((item) => item.scheduled_stop_point_label)
+  .filter(isNotNullish);
 
 const findStopIdByLabel = (
   label: string,
@@ -40,10 +45,10 @@ const findStopIdByLabel = (
 };
 
 const buildTimetabledPassingTime = (params: {
-  vehicleJourneyId: UUID;
-  stopInJourneyPatternRefId: UUID;
-  arrivalTime: Duration;
-  departureTime: Duration;
+  vehicleJourneyId: UUID | null | undefined;
+  stopInJourneyPatternRefId: UUID | null | undefined;
+  arrivalTime: Duration | null | undefined;
+  departureTime: Duration | null | undefined;
 }): TimetabledPassingTimeInsertInput => ({
   vehicle_journey_id: params.vehicleJourneyId,
   scheduled_stop_point_in_journey_pattern_ref_id:
@@ -59,7 +64,7 @@ const buildTimetabledPassingTimesForJourney = ({
   stopInterval = Duration.fromISO('PT5M'),
   waitTimeOnStops = Duration.fromISO('PT0M'),
 }: TimetabledPassingTimesForJourney): TimetabledPassingTimeInsertInput[] => {
-  const passingTimes = [];
+  const passingTimes: Array<TimetabledPassingTimeInsertInput> = [];
   let currentTime = journeyStartTime; // Keep track of progress between loops.
   scheduledStopLabels.forEach((item, index) => {
     const arrivalTime: Duration = currentTime;
@@ -105,9 +110,9 @@ const buildBulkJourneys = ({
 
 const journey1Id = seedVehicleJourneys[0].vehicle_journey_id;
 
-const seedVehicleJourneyIds = seedVehicleJourneys.map(
-  (item) => item.vehicle_journey_id,
-);
+const seedVehicleJourneyIds = seedVehicleJourneys
+  .map((item) => item.vehicle_journey_id)
+  .filter(isNotNullish);
 
 const seedTimetabledPassingTimesMonFri: TimetabledPassingTimeInsertInput[] = [
   // journey 1, goes from H2201->H2208. Defined manually to have some "random"
@@ -162,42 +167,42 @@ const seedTimetabledPassingTimesMonFri: TimetabledPassingTimeInsertInput[] = [
   },
   // journey 2, goes from H2201->H2204, waits 2 mins on each stop
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[1].vehicle_journey_id,
+    vehicleJourneyId: expectValue(seedVehicleJourneys[1].vehicle_journey_id),
     scheduledStopLabels: ['H2201', 'H2202', 'H2203', 'H2204'],
     journeyStartTime: Duration.fromISO('PT8H5M'),
     waitTimeOnStops: Duration.fromISO('PT2M'),
   }),
   // journey 3, goes from H2204->H2208, waits 2 mins on each stop
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[2].vehicle_journey_id,
+    vehicleJourneyId: expectValue(seedVehicleJourneys[2].vehicle_journey_id),
     scheduledStopLabels: ['H2204', 'H2205', 'H2206', 'H2207', 'H2208'],
     journeyStartTime: Duration.fromISO('PT7H29M'),
     waitTimeOnStops: Duration.fromISO('PT2M'),
   }),
   // journey 4, goes from H2201->H2208 but misses H2202, H2204, H2206
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[3].vehicle_journey_id,
+    vehicleJourneyId: expectValue(seedVehicleJourneys[3].vehicle_journey_id),
     scheduledStopLabels: ['H2201', 'H2203', 'H2205', 'H2207', 'H2208'],
     journeyStartTime: Duration.fromISO('PT9H5M'),
     stopInterval: Duration.fromISO('PT10M'),
   }),
   // journey 5, goes through all stops, waits 1 min on each stop
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[4].vehicle_journey_id,
+    vehicleJourneyId: expectValue(seedVehicleJourneys[4].vehicle_journey_id),
     journeyStartTime: Duration.fromISO('PT7H10M'),
     stopInterval: Duration.fromISO('PT12M'),
     waitTimeOnStops: Duration.fromISO('PT1M'),
   }),
   // journey 6, waits 10 mins on each stop
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[5].vehicle_journey_id,
+    vehicleJourneyId: expectValue(seedVehicleJourneys[5].vehicle_journey_id),
     scheduledStopLabels: ['H2201', 'H2202', 'H2203', 'H2207'],
     journeyStartTime: Duration.fromISO('PT7H12M'),
     stopInterval: Duration.fromISO('PT10M'),
   }),
   // journey 7, waits 15 mins on each stop
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[6].vehicle_journey_id,
+    vehicleJourneyId: expectValue(seedVehicleJourneys[6].vehicle_journey_id),
     journeyStartTime: Duration.fromISO('PT7H15M'),
     stopInterval: Duration.fromISO('PT15M'),
   }),
@@ -226,7 +231,7 @@ const seedTimetabledPassingTimesSat: TimetabledPassingTimeInsertInput[] = [
 
 const seedTimetabledPassingTimesSun: TimetabledPassingTimeInsertInput[] = [
   ...buildTimetabledPassingTimesForJourney({
-    vehicleJourneyId: seedVehicleJourneys[29].vehicle_journey_id,
+    vehicleJourneyId: expectValue(seedVehicleJourneys[29].vehicle_journey_id),
     journeyStartTime: Duration.fromISO('PT10H15M'),
     stopInterval: Duration.fromISO('PT15M'),
     scheduledStopLabels: DIRECTION1_STOP_LABELS,

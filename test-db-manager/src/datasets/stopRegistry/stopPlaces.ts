@@ -95,58 +95,70 @@ const mapToStopPlaceInput = (
           name: { lang: 'swe', value: seedStopPlace.nameSwe },
           nameType: StopRegistryNameType.Translation,
         },
-        seedStopPlace.abbreviationFin5Char && {
-          name: { lang: 'fin', value: seedStopPlace.abbreviationFin5Char },
-          nameType: StopRegistryNameType.Label,
-        },
-        seedStopPlace.abbreviationSwe5Char && {
-          name: { lang: 'swe', value: seedStopPlace.abbreviationSwe5Char },
-          nameType: StopRegistryNameType.Label,
-        },
-        seedStopPlace.nameFinLong && {
-          name: { lang: 'fin', value: seedStopPlace.nameFinLong },
-          nameType: StopRegistryNameType.Alias,
-        },
-        seedStopPlace.nameSweLong && {
-          name: { lang: 'swe', value: seedStopPlace.nameSweLong },
-          nameType: StopRegistryNameType.Alias,
-        },
+        seedStopPlace.abbreviationFin5Char
+          ? {
+              name: { lang: 'fin', value: seedStopPlace.abbreviationFin5Char },
+              nameType: StopRegistryNameType.Label,
+            }
+          : null,
+        seedStopPlace.abbreviationSwe5Char
+          ? {
+              name: { lang: 'swe', value: seedStopPlace.abbreviationSwe5Char },
+              nameType: StopRegistryNameType.Label,
+            }
+          : null,
+        seedStopPlace.nameFinLong
+          ? {
+              name: { lang: 'fin', value: seedStopPlace.nameFinLong },
+              nameType: StopRegistryNameType.Alias,
+            }
+          : null,
+        seedStopPlace.nameSweLong
+          ? {
+              name: { lang: 'swe', value: seedStopPlace.nameSweLong },
+              nameType: StopRegistryNameType.Alias,
+            }
+          : null,
         {
           name: { lang: 'swe', value: seedStopPlace.locationSwe },
           nameType: StopRegistryNameType.Other,
         },
       ],
       transportMode:
-        seedStopPlace.transportMode || StopRegistryTransportModeType.Bus,
+        seedStopPlace.transportMode ?? StopRegistryTransportModeType.Bus,
       publicCode: seedStopPlace.publicCode,
-      privateCode: seedStopPlace.elyNumber && {
-        value: seedStopPlace.elyNumber,
-        type: 'ELY',
-      },
+      privateCode: seedStopPlace.elyNumber
+        ? {
+            value: seedStopPlace.elyNumber,
+            type: 'ELY',
+          }
+        : null,
       description: {
         lang: 'fin',
         value: seedStopPlace.locationFin,
       },
-      weighting:
-        (seedStopPlace.stopType?.interchange &&
-          StopRegistryInterchangeWeightingType.RecommendedInterchange) ||
-        undefined,
-      submode:
-        (seedStopPlace.stopType?.railReplacement &&
-          StopRegistrySubmodeType.RailReplacementBus) ||
-        undefined,
+      weighting: seedStopPlace.stopType?.interchange
+        ? StopRegistryInterchangeWeightingType.RecommendedInterchange
+        : undefined,
+      submode: seedStopPlace.stopType?.railReplacement
+        ? StopRegistrySubmodeType.RailReplacementBus
+        : undefined,
       quays: [
         {
           publicCode: seedStopPlace.label,
           alternativeNames: [
-            seedStopPlace.abbreviationFin && {
-              name: { lang: 'fin', value: seedStopPlace.abbreviationFin },
-              nameType: StopRegistryNameType.Alias,
-            },
-            seedStopPlace.abbreviationSwe && {
-              name: { lang: 'swe', value: seedStopPlace.abbreviationSwe },
-              nameType: StopRegistryNameType.Alias,
-            },
+            seedStopPlace.abbreviationFin
+              ? {
+                  name: { lang: 'fin', value: seedStopPlace.abbreviationFin },
+                  nameType: StopRegistryNameType.Alias,
+                }
+              : null,
+            seedStopPlace.abbreviationSwe
+              ? {
+                  name: { lang: 'swe', value: seedStopPlace.abbreviationSwe },
+                  nameType: StopRegistryNameType.Alias,
+                }
+              : null,
           ],
 
           // Equipment properties:
@@ -162,38 +174,52 @@ const mapToStopPlaceInput = (
 
       // Location properties:
       // Note: Tiamat sets topographicPlace and fareZone automatically based on coordinates. They can not be changed otherwise.
-      geometry: seedStopPlace.locationLat &&
-        seedStopPlace.locationLong && {
-          coordinates: [
-            [seedStopPlace.locationLong, seedStopPlace.locationLat],
-          ],
-          type: StopRegistryGeoJsonType.Point,
-        },
+      geometry:
+        seedStopPlace.locationLat && seedStopPlace.locationLong
+          ? {
+              coordinates: [
+                [seedStopPlace.locationLong, seedStopPlace.locationLat],
+              ],
+              type: StopRegistryGeoJsonType.Point,
+            }
+          : null,
       keyValues: [
-        seedStopPlace.streetAddress && {
-          key: 'streetAddress',
-          values: [seedStopPlace.streetAddress],
-        },
-        seedStopPlace.postalCode && {
-          key: 'postalCode',
-          values: [seedStopPlace.postalCode],
-        },
-        seedStopPlace.functionalArea && {
-          key: 'functionalArea',
-          values: [seedStopPlace.functionalArea],
-        },
-        seedStopPlace.stopState && {
-          key: 'stopState',
-          values: [seedStopPlace.stopState],
-        },
-        seedStopPlace.stopType && {
-          key: 'mainLine',
-          values: [seedStopPlace.stopType.mainLine.toString()],
-        },
-        seedStopPlace.stopType && {
-          key: 'virtual',
-          values: [seedStopPlace.stopType.virtual.toString()],
-        },
+        seedStopPlace.streetAddress
+          ? {
+              key: 'streetAddress',
+              values: [seedStopPlace.streetAddress],
+            }
+          : null,
+        seedStopPlace.postalCode
+          ? {
+              key: 'postalCode',
+              values: [seedStopPlace.postalCode],
+            }
+          : null,
+        seedStopPlace.functionalArea
+          ? {
+              key: 'functionalArea',
+              values: [seedStopPlace.functionalArea],
+            }
+          : null,
+        seedStopPlace.stopState
+          ? {
+              key: 'stopState',
+              values: [seedStopPlace.stopState],
+            }
+          : null,
+        seedStopPlace.stopType
+          ? {
+              key: 'mainLine',
+              values: [seedStopPlace.stopType.mainLine.toString()],
+            }
+          : null,
+        seedStopPlace.stopType
+          ? {
+              key: 'virtual',
+              values: [seedStopPlace.stopType.virtual.toString()],
+            }
+          : null,
       ],
 
       // Equipment properties:
@@ -222,7 +248,7 @@ const mapToStopPlaceInput = (
       accessibilityAssessment: (seedStopPlace.accessibilityProperties ||
         seedStopPlace.accessibilityLimitations) && {
         hslAccessibilityProperties:
-          seedStopPlace.accessibilityProperties || null,
+          seedStopPlace.accessibilityProperties ?? null,
         limitations: seedStopPlace.accessibilityLimitations && {
           ...defaultAccessibilityLimitations,
           ...seedStopPlace.accessibilityLimitations,

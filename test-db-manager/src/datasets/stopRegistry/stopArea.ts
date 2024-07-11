@@ -33,13 +33,17 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
       },
       validBetween: {
         fromDate: seedStopArea.validityStart,
-        toDate: seedStopArea.validityEnd || null,
+        toDate: seedStopArea.validityEnd ?? null,
       },
-      geometry: seedStopArea.locationLat &&
-        seedStopArea.locationLong && {
-          coordinates: [[seedStopArea.locationLong, seedStopArea.locationLat]],
-          type: StopRegistryGeoJsonType.Point,
-        },
+      geometry:
+        seedStopArea.locationLat && seedStopArea.locationLong
+          ? {
+              coordinates: [
+                [seedStopArea.locationLong, seedStopArea.locationLat],
+              ],
+              type: StopRegistryGeoJsonType.Point,
+            }
+          : null,
     },
   };
 };

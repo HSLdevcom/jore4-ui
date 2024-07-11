@@ -37,15 +37,15 @@ const getTestDbHost = () => {
 export const e2eDatabaseConfig: DatabaseConnectionInfo = {
   host: getTestDbHost(),
   port: getTestDbPort(),
-  user: process.env.POSTGRES_USER || 'dbadmin',
-  password: process.env.POSTGRES_PASSWORD || 'adminpassword',
-  database: process.env.POSTGRES_DB || 'jore4e2e',
+  user: process.env.POSTGRES_USER ?? 'dbadmin',
+  password: process.env.POSTGRES_PASSWORD ?? 'adminpassword',
+  database: process.env.POSTGRES_DB ?? 'jore4e2e',
 };
 
 export const timetablesDatabaseConfig: DatabaseConnectionInfo = {
   host: getTestDbHost(),
   port: getTestDbPort(),
-  user: process.env.POSTGRES_USER || 'dbadmin',
-  password: process.env.POSTGRES_PASSWORD || 'adminpassword',
+  user: process.env.POSTGRES_USER ?? 'dbadmin',
+  password: process.env.POSTGRES_PASSWORD ?? 'adminpassword',
   database: 'timetablesdb',
 };

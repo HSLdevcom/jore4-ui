@@ -1,11 +1,11 @@
-let lastRandom: number;
+let lastRandom = 0.123;
 /**
  * Generates a new pseudorandom number. Used instead of Math.random() because this one is
  * deterministic (generates the same random numbers with every run)
  * @returns random number between 0.0000... - 0.9999...
  */
 export const pseudoRandom = () => {
-  const newRandom = lastRandom * 31 || 0.123;
+  const newRandom = lastRandom * 31;
   lastRandom = newRandom - Math.floor(newRandom);
   return lastRandom;
 };

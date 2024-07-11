@@ -11,7 +11,14 @@
     // syntheticDefaultImports seem to be needed for avoiding "This module is declared with 'export =', and can only be used with a default import when using the 'allowSyntheticDefaultImports' flag." error from imports like "import padStart from 'lodash/padStart';"
     "allowSyntheticDefaultImports": true,
     // for some reason building this project gives errors if this is not defined
-    "skipLibCheck": true /* Skip type checking of all declaration files (*.d.ts). */
+    "skipLibCheck": true /* Skip type checking of all declaration files (*.d.ts). */,
+    "allowJs": false,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src"]
 }

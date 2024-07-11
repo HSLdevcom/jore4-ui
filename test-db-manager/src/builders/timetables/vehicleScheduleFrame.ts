@@ -4,6 +4,7 @@ import {
   VehicleScheduleFrameInsertInput,
   VehicleScheduleFrameInsertInputDeep,
 } from '../../types';
+import { expectValue } from '../../utils';
 import { buildLocalizedString } from '../entities';
 import {
   VehicleServiceSequenceByDayTypeBuilder,
@@ -20,7 +21,7 @@ export const buildVehicleScheduleFrameInstance = (
 ): VehicleScheduleFrameInsertInput => ({
   vehicle_schedule_frame_id: uuid(),
   ...vehicleScheduleFrameBase,
-  name_i18n: buildLocalizedString(vehicleScheduleFrameBase.label),
+  name_i18n: buildLocalizedString(expectValue(vehicleScheduleFrameBase.label)),
 });
 
 export type VehicleScheduleFrameDeepBuilder = {
@@ -36,7 +37,7 @@ export const buildVehicleScheduleFrameDeep = ({
     vehicleScheduleFrameBase,
   );
   const vehicleServices = buildVehicleServiceSequencesByDayType(
-    vehicleScheduleFrame.vehicle_schedule_frame_id,
+    expectValue(vehicleScheduleFrame.vehicle_schedule_frame_id),
     vehicleServiceByDayType,
   );
   return {

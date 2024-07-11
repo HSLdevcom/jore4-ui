@@ -6,6 +6,7 @@ import {
   StopInJourneyPatternRefInsertInput,
   TimetabledPassingTimeInsertInput,
 } from '../../types';
+import { expectValue } from '../../utils';
 import {
   TimeSequenceParams,
   buildPassingTimeSequence,
@@ -92,7 +93,7 @@ export const buildTimetabledPassingTimeSequence = (
     const passingTime = passingTimeSequence[index];
     // for hastus stops, add a 1 minute difference between arrival and departure times
     if (
-      hastusStopLabels.includes(stop.scheduled_stop_point_label) &&
+      hastusStopLabels.includes(stop.scheduled_stop_point_label as string) &&
       passingTime.arrival_time &&
       passingTime.departure_time
     ) {
@@ -107,7 +108,7 @@ export const buildTimetabledPassingTimeSequence = (
     };
     return buildTimetabledPassingTimeInstance(
       vehicleJourneyId,
-      stop.scheduled_stop_point_in_journey_pattern_ref_id,
+      expectValue(stop.scheduled_stop_point_in_journey_pattern_ref_id),
       tptDefaultAttributes,
     );
   });
