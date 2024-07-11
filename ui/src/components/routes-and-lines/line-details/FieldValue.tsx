@@ -17,7 +17,10 @@ export const FieldValue = ({
   return (
     <Column className={className}>
       <span className="text-3xl font-semibold" data-testid={testId}>
-        {value || '-'}
+        {
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+          value || '-'
+        }
       </span>
       <span>{fieldName}</span>
     </Column>

@@ -45,6 +45,7 @@ export const formatDate = (
   }
 
   // if not explicitly defined, the i18n locale is used
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   const dateLocale = locale || i18n.language;
 
   return dateTime.setLocale(dateLocale).toFormat(format);
