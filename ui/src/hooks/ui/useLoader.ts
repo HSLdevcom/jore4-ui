@@ -1,3 +1,4 @@
+import { QueryResult } from '@apollo/client';
 import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -49,4 +50,32 @@ export function useLoader(operation: Operation, options?: LoaderOptions) {
   }, []);
 
   return { setIsLoading, setLoadingState };
+}
+
+export function useMapDataLayerLoader(
+  operation: Operation,
+  initialLoadDone: boolean,
+  loading: boolean,
+) {
+  const { setLoadingState } = useLoader(operation);
+
+  useEffect(() => {
+    if (!initialLoadDone) {
+      setLoadingState(LoadingState.HighPriority);
+    } else {
+      setLoadingState(
+        loading ? LoadingState.LowPriority : LoadingState.NotLoading,
+      );
+    }
+  }, [loading, initialLoadDone, setLoadingState]);
+
+  return setLoadingState;
+}
+
+export function useMapDataLayerSimpleQueryLoader<T>(
+  operation: Operation,
+  { data, loading, previousData }: QueryResult<T>,
+) {
+  const initialLoadDone = !!(previousData ?? data);
+  return useMapDataLayerLoader(operation, initialLoadDone, loading);
 }
