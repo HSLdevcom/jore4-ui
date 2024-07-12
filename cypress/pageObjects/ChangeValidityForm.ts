@@ -12,11 +12,10 @@ export class ChangeValidityForm {
   setStartDate(isoDate: string) {
     // This invoke is a workaround to
     // prevent map from zooming out when typing '-' value to the date input
-    return cy
-      .getByTestId('ChangeValidityForm::startDateInput')
-      .clear()
-      .invoke('removeAttr', 'type')
-      .type(isoDate);
+    this.getStartDateInput().clear();
+    this.getStartDateInput().invoke('removeAttr', 'type');
+    this.getStartDateInput().type(isoDate);
+    return this.getStartDateInput();
   }
 
   getContainer() {
