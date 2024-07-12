@@ -1,6 +1,9 @@
 // load type definitions that come with Cypress module
 /// <reference types="cypress" />
 
+// load type definitions for Luxon
+/// <reference types="@types/luxon" />
+
 declare namespace Cypress {
   interface Chainable {
     /**
@@ -50,5 +53,11 @@ declare namespace Cypress {
      * @example cy.setupTests()
      */
     setupTests(): Chainable<void>;
+  }
+}
+
+declare namespace luxon {
+  interface TSSettings {
+    throwOnInvalid: true;
   }
 }

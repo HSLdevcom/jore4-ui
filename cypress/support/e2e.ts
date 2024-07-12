@@ -16,10 +16,10 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-import registerCypressGrep from '@cypress/grep/src/support';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import registerCypressGrep from '@cypress/grep';
+import { Settings } from 'luxon';
 
 registerCypressGrep();
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+Settings.throwOnInvalid = true;
