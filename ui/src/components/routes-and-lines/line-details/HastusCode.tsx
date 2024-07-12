@@ -1,4 +1,4 @@
-import { GoPrimitiveDot } from 'react-icons/go';
+import { GoDotFill } from 'react-icons/go';
 
 interface Props {
   hastusCode: string;
@@ -17,7 +17,7 @@ export const HastusCode = ({
         <div className="relative">
           <span data-testid={testId}>{hastusCode}</span>
           <span className="absolute my-1 text-green-700">
-            <GoPrimitiveDot />
+            <GoDotFill />
           </span>
         </div>
       ) : (
