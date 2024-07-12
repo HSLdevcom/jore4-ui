@@ -7,9 +7,10 @@ export class ValidityPeriodForm {
   setStartDate(isoDate: string) {
     // This invoke is a workaround to
     // prevent map from zooming out when typing '-' value to the date input
+    cy.getByTestId('ValidityPeriodForm::startDateInput').clear();
+
     return cy
       .getByTestId('ValidityPeriodForm::startDateInput')
-      .clear()
       .invoke('removeAttr', 'type')
       .type(isoDate);
   }
