@@ -53,7 +53,6 @@ module.exports = {
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',
-        './asyncQueryPlugin/index.ts',
       ],
       config: {
         ...defaultConfig,

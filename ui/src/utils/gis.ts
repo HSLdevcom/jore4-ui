@@ -3,7 +3,6 @@ import { Feature, LineString } from '@turf/helpers';
 import length from '@turf/length';
 import flow from 'lodash/flow';
 import {
-  Scalars,
   StopRegistryGeoJson,
   StopRegistryGeoJsonType,
 } from '../generated/graphql';
@@ -22,7 +21,7 @@ export const mapPointToGeoJSON = ({
 };
 
 export type StopRegistryGeoJsonDefined = {
-  coordinates: Scalars['stop_registry_Coordinates'];
+  coordinates: GeoJSON.Position;
   type: StopRegistryGeoJsonType;
 };
 
@@ -30,16 +29,15 @@ export const mapPointToStopRegistryGeoJSON = ({
   longitude,
   latitude,
 }: Point): StopRegistryGeoJsonDefined => {
-  const coordinates: Scalars['stop_registry_Coordinates'] = [
+  const coordinates: GeoJSON.Position = [
     longitude,
     latitude,
     /* Tiamat does not support altitude, and currently breaks quite badly if one attempts to persist it. */
   ];
-  const geoJsonPoint = {
+  return {
     coordinates,
     type: StopRegistryGeoJsonType.Point,
   };
-  return geoJsonPoint;
 };
 
 export const mapLngLatToPoint = (lngLat: ReadonlyArray<number>): Point => {

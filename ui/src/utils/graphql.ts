@@ -1,4 +1,5 @@
 import { ApolloCache, Reference, StoreObject } from '@apollo/client';
+import { log } from './logger';
 
 export const mapToObject = (object: ExplicitAny) => {
   return { object };
@@ -18,16 +19,26 @@ export const defaultTo = <V, D>(value: V, defaultValue: D) =>
 // Removes item from apollo's cache.
 // TODO: do we really have to do this manually?
 export const removeFromApolloCache = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cache: ApolloCache<any>,
+  cache: ApolloCache<ExplicitAny>,
   identity: StoreObject | Reference,
 ) => {
-  // Based on https://stackoverflow.com/a/66713628
-  const cached = cache.identify(identity);
-  // @ts-expect-error something seems to be wrong here. The solution mentioned
-  // above stackoverflow response won't give ts errors, but it doesn't work either...
-  cache.evict(cached);
-  cache.gc();
+  try {
+    // Based on https://stackoverflow.com/a/66713628
+    const cached = cache.identify(identity);
+    // @ts-expect-error something seems to be wrong here. The solution mentioned
+    // above stackoverflow response won't give ts errors, but it doesn't work either...
+    cache.evict(cached);
+    cache.gc();
+  } catch (e) {
+    log.warn(
+      `Failed to evict entity '\`${JSON.stringify(
+        identity,
+        null,
+        0,
+      )}\`' from Apollo cache! Reason:`,
+      e,
+    );
+  }
 };
 
 /**

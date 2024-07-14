@@ -197,6 +197,8 @@ describe('Edit route geometry', () => {
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
 
+      // Wait until the unwanted stops have actually disapeared from the listing.
+      routeStopsOverlay.stopsShouldNotBeIncludedInRoute(['E2E002', 'E2E007']);
       mapFooter.save();
 
       routeEditor.gqlRouteShouldBeCreatedSuccessfully();

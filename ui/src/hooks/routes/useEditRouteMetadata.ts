@@ -6,7 +6,7 @@ import {
   RouteDefaultFieldsFragment,
   RouteRouteSetInput,
   ServicePatternScheduledStopPoint,
-  useGetScheduledStopsOnRouteAsyncQuery,
+  useGetScheduledStopsOnRouteLazyQuery,
   usePatchRouteMutation,
 } from '../../generated/graphql';
 import { MIN_DATE, mapToISODate } from '../../time';
@@ -87,7 +87,7 @@ export const useEditRouteMetadata = () => {
   const [mutateFunction] = usePatchRouteMutation();
   const { getConflictingRoutes } = useCheckValidityAndPriorityConflicts();
   const { validateMetadata } = useValidateRoute();
-  const [getScheduledStopsOnRoute] = useGetScheduledStopsOnRouteAsyncQuery();
+  const [getScheduledStopsOnRoute] = useGetScheduledStopsOnRouteLazyQuery();
 
   const prepareEdit = async ({ routeId, form }: EditParams) => {
     const input = mapRouteFormToInput(form);
@@ -128,21 +128,23 @@ export const useEditRouteMetadata = () => {
 
     if (oldPriority === Priority.Draft && input.priority !== Priority.Draft) {
       const result = await getScheduledStopsOnRoute({
-        routeId,
+        variables: {
+          routeId,
+        },
       });
-      const scheduledStopPoints = result.data.journey_pattern_journey_pattern
-        .flatMap(
-          (journeyPattern) =>
-            journeyPattern.scheduled_stop_point_in_journey_patterns,
-        )
-        .flatMap((scheduledStopPointsInJourneyPatterns) =>
-          scheduledStopPointsInJourneyPatterns.scheduled_stop_points.map(
-            (scheduledStopPoint) =>
-              scheduledStopPoint as ServicePatternScheduledStopPoint,
-          ),
-        );
-      return scheduledStopPoints.filter(
-        (stop) => stop.priority === Priority.Draft,
+      return (
+        result.data?.journey_pattern_journey_pattern
+          .flatMap(
+            (journeyPattern) =>
+              journeyPattern.scheduled_stop_point_in_journey_patterns,
+          )
+          .flatMap((scheduledStopPointsInJourneyPatterns) =>
+            scheduledStopPointsInJourneyPatterns.scheduled_stop_points.map(
+              (scheduledStopPoint) =>
+                scheduledStopPoint as ServicePatternScheduledStopPoint,
+            ),
+          )
+          .filter((stop) => stop.priority === Priority.Draft) ?? []
       );
     }
 
