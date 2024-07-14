@@ -11,7 +11,6 @@ export * from './timetables-import';
 export * from './timing-places';
 export * from './ui';
 export * from './urlQuery';
-export * from './useAsyncQuery';
 export * from './useCheckValidityAndPriorityConflicts';
 export * from './useCallbackOnKeyEscape';
 export * from './useDebouncedString';

@@ -11,7 +11,7 @@ import {
   StopRegistryNameType,
   StopRegistrySubmodeType,
   useEditStopMutation,
-  useGetStopWithRouteGraphDataByIdAsyncQuery,
+  useGetStopWithRouteGraphDataByIdLazyQuery,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
 import { ScheduledStopPointSetInput, mapStopResultToStop } from '../../graphql';
@@ -64,7 +64,7 @@ export const useEditStopBasicDetails = () => {
   const [editStopMutation] = useEditStopMutation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
   const [getStopWithRouteGraphData] =
-    useGetStopWithRouteGraphDataByIdAsyncQuery();
+    useGetStopWithRouteGraphDataByIdLazyQuery();
   const [validateTimingSettings] = useValidateTimingSettings();
 
   const mapFormStateToRoutesAndLinesDbInput = (
@@ -84,7 +84,9 @@ export const useEditStopBasicDetails = () => {
     state,
   }: EditRoutesAndLinesParams) => {
     const patch = mapFormStateToRoutesAndLinesDbInput(state);
-    const stopWithRoutesResult = await getStopWithRouteGraphData({ stopId });
+    const stopWithRoutesResult = await getStopWithRouteGraphData({
+      variables: { stopId },
+    });
     const stopWithRouteGraphData = mapStopResultToStop(stopWithRoutesResult);
 
     // data model and form validation should ensure that

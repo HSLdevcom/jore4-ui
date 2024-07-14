@@ -15,8 +15,8 @@ import {
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
   ScheduledStopPointDefaultFieldsFragment,
   StopWithJourneyPatternFieldsFragment,
-  useGetLinksWithStopsByExternalLinkIdsAsyncQuery,
-  useGetStopsAlongInfrastructureLinksAsyncQuery,
+  useGetLinksWithStopsByExternalLinkIdsLazyQuery,
+  useGetStopsAlongInfrastructureLinksLazyQuery,
 } from '../../generated/graphql';
 import {
   RouteInfraLink,
@@ -390,9 +390,9 @@ export const getOldRouteGeometryVariables = (
 
 export const useExtractRouteFromFeature = () => {
   const [fetchLinksWithStopsByExternalLinkIds] =
-    useGetLinksWithStopsByExternalLinkIdsAsyncQuery();
+    useGetLinksWithStopsByExternalLinkIdsLazyQuery();
   const [fetchStopsAlongInfrastructureLinks] =
-    useGetStopsAlongInfrastructureLinksAsyncQuery();
+    useGetStopsAlongInfrastructureLinksLazyQuery();
 
   const fetchInfraLinksWithStopsByExternalIds = useCallback(
     async (externalLinkIds: string[]) => {
@@ -400,11 +400,13 @@ export const useExtractRouteFromFeature = () => {
       // This will return the links in arbitrary order.
       const infraLinksWithStopsResponse =
         await fetchLinksWithStopsByExternalLinkIds({
-          externalLinkIds,
+          variables: {
+            externalLinkIds,
+          },
         });
       const unorderedInfraLinksWithStops =
         infraLinksWithStopsResponse.data
-          .infrastructure_network_infrastructure_link;
+          ?.infrastructure_network_infrastructure_link;
       if (!unorderedInfraLinksWithStops) {
         throw new Error("could not fetch route's infra links");
       }
@@ -461,7 +463,9 @@ export const useExtractRouteFromFeature = () => {
   const getRemovedStopLabels = useCallback(
     async (infrastructureLinkIds: UUID[], currentStopLabels: string[]) => {
       const stopsResult = await fetchStopsAlongInfrastructureLinks({
-        infrastructure_link_ids: infrastructureLinkIds,
+        variables: {
+          infrastructure_link_ids: infrastructureLinkIds,
+        },
       });
 
       return mapStopResultToStops(stopsResult)

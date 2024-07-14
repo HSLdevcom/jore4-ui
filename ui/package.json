@@ -16,7 +16,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@apollo/client": "3.4.11",
+    "@apollo/client": "^3.10.8",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@headlessui/react": "1.7.10",
     "@hookform/resolvers": "^3.9.0",
@@ -35,6 +35,7 @@
     "axios": "1.3.4",
     "eslint-config-next": "^14.0.1",
     "graphql": "^16.9.0",
+    "graphql-ws": "^5.16.0",
     "hsl-map-style": "HSLdevcom/hsl-map-style#114c58e",
     "i18next": "^22.5.1",
     "immer": "^9.0.21",
@@ -55,7 +56,6 @@
     "react-spinners": "^0.14.1",
     "redux-logger": "^3.0.6",
     "remeda": "^1.61.0",
-    "subscriptions-transport-ws": "^0.11.0",
     "tailwind-merge": "^1.14.0",
     "zod": "3.21.4"
   },

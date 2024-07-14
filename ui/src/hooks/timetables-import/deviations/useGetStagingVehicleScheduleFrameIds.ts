@@ -1,12 +1,14 @@
 import { useCallback } from 'react';
-import { useGetStagingVehicleScheduleFramesAsyncQuery } from '../../../generated/graphql';
+import { useGetStagingVehicleScheduleFramesLazyQuery } from '../../../generated/graphql';
 
 export const useGetStagingVehicleScheduleFrameIds = () => {
   const [getStagingVehicleScheduleFramesQuery] =
-    useGetStagingVehicleScheduleFramesAsyncQuery();
+    useGetStagingVehicleScheduleFramesLazyQuery();
 
   const fetchStagingVehicleFrameIds = useCallback(async () => {
-    const result = await getStagingVehicleScheduleFramesQuery({});
+    const result = await getStagingVehicleScheduleFramesQuery({
+      variables: {},
+    });
 
     const vehicleScheduleFrames =
       result.data?.timetables

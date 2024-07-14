@@ -139,8 +139,9 @@ const hasuraOverrideTypeDefs = gql`
 export default async (schemaString: string, config: LoadSchemaOptions) => {
   const hasuraSchema = await loadSchema(schemaString, config);
 
+  // Override hasura fields with the declared overrides.
   const mergedTypeDefs = mergeTypeDefs([hasuraOverrideTypeDefs, hasuraSchema], {
-    ignoreFieldConflicts: true,
+    onFieldTypeConflict: (existingField) => existingField,
   });
 
   const mergedSchema = makeExecutableSchema({
