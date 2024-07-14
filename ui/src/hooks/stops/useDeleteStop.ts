@@ -3,7 +3,7 @@ import {
   RemoveStopMutationVariables,
   RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
-  useGetStopWithRouteGraphDataByIdAsyncQuery,
+  useGetStopWithRouteGraphDataByIdLazyQuery,
   useRemoveStopMutation,
 } from '../../generated/graphql';
 import { mapStopResultToStop } from '../../graphql';
@@ -29,7 +29,7 @@ export const useDeleteStop = () => {
   const { t } = useTranslation();
   const [removeStopMutation] = useRemoveStopMutation();
   const [getStopWithRouteGraphData] =
-    useGetStopWithRouteGraphDataByIdAsyncQuery();
+    useGetStopWithRouteGraphDataByIdLazyQuery();
 
   // find all journey patterns from which this stop will be removed
   const getJourneyPatternsToDeleteStopFrom = (
@@ -48,7 +48,9 @@ export const useDeleteStop = () => {
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareDelete = async ({ stopId }: DeleteParams) => {
     // check if we tried to delete the starting or ending stop of an existing route
-    const stopWithRoutesResult = await getStopWithRouteGraphData({ stopId });
+    const stopWithRoutesResult = await getStopWithRouteGraphData({
+      variables: { stopId },
+    });
     const stopWithRouteGraphData = mapStopResultToStop(stopWithRoutesResult);
 
     if (!stopWithRouteGraphData) {
@@ -80,7 +82,7 @@ export const useDeleteStop = () => {
   };
 
   const removeStop = (variables: RemoveStopMutationVariables) => {
-    removeStopMutation({
+    return removeStopMutation({
       variables,
       // remove stop from cache after mutation
       update(cache) {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { identity, pipe } from 'remeda';
+import { pipe } from 'remeda';
 import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
 import { stopBelongsToJourneyPattern } from '../../../graphql';
 import {
@@ -62,7 +62,7 @@ export const LineRouteListItem = ({
         route.priority === Priority.Draft,
       ),
     showUnusedStops
-      ? identity // Return stops array unchanged
+      ? (stops) => stops // Return stops array unchanged
       : (stops) =>
           stops.filter((stop) =>
             stopBelongsToJourneyPattern(stop, route.route_id),

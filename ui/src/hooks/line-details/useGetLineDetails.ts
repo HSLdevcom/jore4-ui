@@ -9,9 +9,9 @@ import {
   RouteDirectionEnum,
   RouteUniqueFieldsFragment,
   RouteValidityFragment,
-  useGetHighestPriorityLineDetailsWithRoutesAsyncQuery,
+  useGetHighestPriorityLineDetailsWithRoutesLazyQuery,
   useGetLineDetailsByIdQuery,
-  useGetLineValidityPeriodByIdAsyncQuery,
+  useGetLineValidityPeriodByIdLazyQuery,
 } from '../../generated/graphql';
 import { mapLineValidityPeriod } from '../../graphql';
 import {
@@ -171,10 +171,10 @@ export const useGetLineDetails = () => {
     useObservationDateQueryParam();
 
   const [getLineValidityPeriodByIdQuery] =
-    useGetLineValidityPeriodByIdAsyncQuery();
+    useGetLineValidityPeriodByIdLazyQuery();
 
   const [getHighestPriorityLineDetails] =
-    useGetHighestPriorityLineDetailsWithRoutesAsyncQuery();
+    useGetHighestPriorityLineDetailsWithRoutesLazyQuery();
 
   const [line, setLine] = useState<LineWithRoutesUniqueFieldsFragment>();
 
@@ -185,7 +185,9 @@ export const useGetLineDetails = () => {
   /** Determines and sets date to query parameters if it's not there */
   const initializeObservationDate = useCallback(async () => {
     if (!observationDate) {
-      const result = await getLineValidityPeriodByIdQuery({ line_id: id });
+      const result = await getLineValidityPeriodByIdQuery({
+        variables: { line_id: id },
+      });
       const lineDetails = mapLineValidityPeriod(result);
       if (lineDetails) {
         const initialDate = getInitialDate(
@@ -210,9 +212,9 @@ export const useGetLineDetails = () => {
     if (lineDetailsResult?.data && observationDate?.isValid) {
       const lineDetails = lineDetailsResult.data.route_line_by_pk ?? undefined;
 
-      const lineByDateResult = await getHighestPriorityLineDetails(
-        buildLineDetailsGqlFilters(lineDetails, observationDate),
-      );
+      const lineByDateResult = await getHighestPriorityLineDetails({
+        variables: buildLineDetailsGqlFilters(lineDetails, observationDate),
+      });
 
       const lineByDate = lineByDateResult.data?.route_line?.[0] ?? undefined;
 

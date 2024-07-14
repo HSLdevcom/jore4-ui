@@ -4,7 +4,7 @@ import { pipe } from 'remeda';
 import {
   RouteDefaultFieldsFragment,
   RouteRoute,
-  useGetRouteDetailsByIdAsyncQuery,
+  useGetRouteDetailsByIdLazyQuery,
 } from '../../../generated/graphql';
 import {
   mapRouteToFormState,
@@ -77,7 +77,7 @@ const RouteEditorComponent = (
   const [isDeleting, setIsDeleting] = useState(false);
   const [conflicts, setConflicts] = useState<RouteDefaultFieldsFragment[]>([]);
 
-  const [getRouteDetailsById] = useGetRouteDetailsByIdAsyncQuery();
+  const [getRouteDetailsById] = useGetRouteDetailsByIdLazyQuery();
 
   const {
     prepareCreate,
@@ -188,7 +188,9 @@ const RouteEditorComponent = (
 
       // if editing an existing route, find the route's metadata and line information, store it in editedRouteData
       const routeDetailsResult = await getRouteDetailsById({
-        routeId: selectedRouteId,
+        variables: {
+          routeId: selectedRouteId,
+        },
       });
       if (!routeDetailsResult.data?.route_route_by_pk?.route_line) {
         throw new Error("Can't find route and line details");
