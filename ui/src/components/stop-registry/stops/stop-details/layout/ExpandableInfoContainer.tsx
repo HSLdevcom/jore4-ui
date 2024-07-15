@@ -50,10 +50,7 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
   return (
     <div className="my-3 [&>*]:border-border-hsl-blue">
       <div
-        className={`
-          flex h-14 items-center justify-between rounded-t-lg border
-          bg-hsl-neutral-blue px-4 py-2 ${isExpanded ? '' : 'rounded-b-lg'}
-        `}
+        className={`flex h-14 items-center justify-between rounded-t-lg border bg-hsl-neutral-blue px-4 py-2 ${isExpanded ? '' : 'rounded-b-lg'} `}
       >
         <span data-testid={testIds.title(testIdPrefix)}>
           {React.isValidElement(title) ? title : <h4>{title}</h4>}
@@ -83,13 +80,7 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
         </div>
       </Visible>
       <Visible visible={isExpanded && isEditMode}>
-        <div
-          className={`
-          flex items-center justify-end space-x-2 rounded-b-lg
-          border
-          bg-hsl-neutral-blue px-4 py-2
-        `}
-        >
+        <div className="flex items-center justify-end space-x-2 rounded-b-lg border bg-hsl-neutral-blue px-4 py-2">
           {onCancel && (
             <SimpleButton
               onClick={onCancel}

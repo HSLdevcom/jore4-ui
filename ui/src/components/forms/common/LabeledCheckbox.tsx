@@ -45,13 +45,11 @@ export const LabeledCheckbox = ({
         id={id}
         tabIndex={-1} // Focus the button instead.
         data-testid={testId}
-        className={`icon-check appearance-none text-[18px]
-           ${
-             selected
-               ? labeledContainerInputStyles.selected
-               : labeledContainerInputStyles.unselected
-           }
-        `}
+        className={`icon-check appearance-none text-[18px] ${
+          selected
+            ? labeledContainerInputStyles.selected
+            : labeledContainerInputStyles.unselected
+        } `}
         type="checkbox"
         onChange={onClick}
         checked={selected}

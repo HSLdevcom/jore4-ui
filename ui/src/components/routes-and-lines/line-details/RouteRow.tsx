@@ -79,9 +79,7 @@ export const RouteRow: FC<PropsWithChildren<Props>> = ({
 
   return (
     <div
-      className={`relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24
-        ${pseudoBottomBorderClassName}
-        ${alertStyle.listItemBorder ?? ''} ${className}`}
+      className={`relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24 ${pseudoBottomBorderClassName} ${alertStyle.listItemBorder ?? ''} ${className}`}
       data-testid={testIds.container(label, route.direction)}
     >
       <div
@@ -131,7 +129,7 @@ export const RouteRow: FC<PropsWithChildren<Props>> = ({
         !{mapToShortDateTime(DateTime.now())}
         <MdHistory className="aria-hidden ml-1 inline text-xl text-tweaked-brand" />
       </span>
-      <div className="col-span-2 flex h-full items-center justify-center border-l-4 border-white ">
+      <div className="col-span-2 flex h-full items-center justify-center border-l-4 border-white">
         <LocatorButton
           onClick={onClickShowRouteOnMap}
           disabled={

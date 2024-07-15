@@ -20,8 +20,7 @@ export const Tooltip: React.FC<Props> = ({
   return (
     <div className="group relative flex justify-center">
       <span
-        className={`absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
-        text-white transition-all group-hover:scale-100 ${tooltipClassName}`}
+        className={`absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs text-white transition-all group-hover:scale-100 ${tooltipClassName}`}
       >
         {message}
       </span>

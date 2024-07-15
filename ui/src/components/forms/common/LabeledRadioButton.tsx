@@ -52,13 +52,11 @@ export const LabeledRadioButton = ({
         value={value}
         tabIndex={-1} // Focus the button instead.
         data-testid={testId}
-        className={`appearance-none rounded-full before:h-[14px] before:w-[14px] before:rounded-full before:bg-tweaked-brand
-          [.has-error>&]:before:bg-hsl-red
-          ${
-            selected
-              ? labeledContainerInputStyles.selected
-              : labeledContainerInputStyles.unselected
-          }`}
+        className={`appearance-none rounded-full before:h-[14px] before:w-[14px] before:rounded-full before:bg-tweaked-brand [.has-error>&]:before:bg-hsl-red ${
+          selected
+            ? labeledContainerInputStyles.selected
+            : labeledContainerInputStyles.unselected
+        }`}
         onChange={onClick}
         checked={selected}
         disabled={disabled}

@@ -73,7 +73,7 @@ const insertStopArea = async (
       (label) =>
         ({
           ref: stopPlaces.get(label),
-        } as StopRegistryVersionLessEntityRefInput),
+        }) as StopRegistryVersionLessEntityRefInput,
     ),
   };
 

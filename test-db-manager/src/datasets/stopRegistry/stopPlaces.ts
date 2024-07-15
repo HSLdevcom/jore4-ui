@@ -246,15 +246,18 @@ const mapToStopPlaceInput = (
       },
 
       // Accessibility properties:
-      accessibilityAssessment: (seedStopPlace.accessibilityProperties ||
-        seedStopPlace.accessibilityLimitations) && {
-        hslAccessibilityProperties:
-          seedStopPlace.accessibilityProperties ?? null,
-        limitations: seedStopPlace.accessibilityLimitations && {
-          ...defaultAccessibilityLimitations,
-          ...seedStopPlace.accessibilityLimitations,
-        },
-      },
+      accessibilityAssessment:
+        (seedStopPlace.accessibilityProperties ??
+        seedStopPlace.accessibilityLimitations)
+          ? {
+              hslAccessibilityProperties:
+                seedStopPlace.accessibilityProperties ?? null,
+              limitations: seedStopPlace.accessibilityLimitations && {
+                ...defaultAccessibilityLimitations,
+                ...seedStopPlace.accessibilityLimitations,
+              },
+            }
+          : undefined,
     },
   };
 };
