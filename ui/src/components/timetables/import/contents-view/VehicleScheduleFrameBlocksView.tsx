@@ -23,7 +23,7 @@ interface Props {
 
 export const VehicleScheduleFrameBlocksView = ({
   vehicleScheduleFrame,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const [isOpen, toggleIsOpen] = useToggle(true);
 

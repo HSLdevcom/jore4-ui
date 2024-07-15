@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../uiComponents';
@@ -14,6 +14,7 @@ interface Props {
   isEditMode?: boolean;
   toggleEditMode?: () => void;
   testIdPrefix?: string;
+  children: ReactNode;
 }
 
 const testIds = {
@@ -23,7 +24,7 @@ const testIds = {
   saveButton: (prefix: string) => `${prefix}::saveButton`,
 };
 
-export const ExpandableInfoContainer: React.FC<Props> = ({
+export const ExpandableInfoContainer: FC<Props> = ({
   isExpanded,
   onToggle,
   onCancel,

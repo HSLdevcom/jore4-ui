@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { getUserInfo } from '../api/user';
@@ -34,11 +34,11 @@ import { JoreErrorModal } from '../uiComponents/JoreErrorModal';
 import { showDangerToast } from '../utils';
 import { Path } from './routeDetails';
 
-const FallbackRoute: FunctionComponent = () => {
+const FallbackRoute: FC = () => {
   return React.createElement('p', null, `404, page not found`);
 };
 
-export const ProtectedRoute: FunctionComponent = ({ children }) => {
+export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
   const [isLoading, setLoading] = useState(!userInfo);
@@ -70,11 +70,11 @@ export const ProtectedRoute: FunctionComponent = ({ children }) => {
   return <>{children}</>;
 };
 
-export const Router: FunctionComponent = () => {
+export const Router: FC = () => {
   interface Route {
     _routerRoute: Path;
     protected?: boolean;
-    element: JSX.Element;
+    element: React.ReactElement;
   }
 
   const routes: Record<Path, Route> = {

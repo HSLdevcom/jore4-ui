@@ -34,7 +34,7 @@ export const SimpleDropdownMenu = ({
   testId,
   alignItems = AlignDirection.NoAlign,
   tooltip,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const alignClassName = getAlignClassName(alignItems);
   const commonClassName = `${alignClassName} absolute z-10 origin-top-right overflow-visible bg-white text-black shadow-md focus:outline-none`;
   const commonMenuItemClassName = `border-x border-b first-of-type:border-t whitespace-nowrap border-black w-full py-1 px-2 focus:outline-none text-left`;
@@ -57,16 +57,20 @@ export const SimpleDropdownMenu = ({
               {React.Children.map(children, (child) => (
                 <Menu.Item>
                   {({ active }) =>
-                    React.isValidElement(child)
-                      ? addClassName(
-                          child,
-                          `${
-                            active
-                              ? activeMenuItemClassName
-                              : commonMenuItemClassName
-                          }`,
-                        )
-                      : child
+                    React.isValidElement(child) ? (
+                      addClassName(
+                        child,
+                        `${
+                          active
+                            ? activeMenuItemClassName
+                            : commonMenuItemClassName
+                        }`,
+                      )
+                    ) : (
+                      // Menu.Item requires all the rendered children to be of type ReactElement.
+                      // TODO: Is this still true after we update headlessui?
+                      <>{child}</>
+                    )
                   }
                 </Menu.Item>
               ))}

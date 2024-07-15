@@ -8,7 +8,7 @@ const testIds = {
   createStopButton: 'StopRegistryMainPage::createStopButton',
 };
 
-export const StopRegistryMainPage = (): JSX.Element => {
+export const StopRegistryMainPage = (): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

@@ -14,7 +14,7 @@ interface Props {
   stop: StopWithDetails;
 }
 
-export const SheltersSection = ({ stop }: Props): JSX.Element => {
+export const SheltersSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { saveStopPlaceShelters, defaultErrorHandler } = useEditStopShelters();
   const [isExpanded, setIsExpanded] = useState(true);

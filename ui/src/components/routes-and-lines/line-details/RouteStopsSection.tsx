@@ -31,7 +31,7 @@ export const RouteStopsSection = ({
   className = '',
   routeUniqueFields,
   showUnusedStops,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const [isExpanded, expand] = useState(false);
   const { t } = useTranslation();
 

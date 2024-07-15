@@ -34,7 +34,7 @@ interface Props {
  */
 export const TimetablesImportPriorityForm = ({
   showLabel = true,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const {
     setValue,

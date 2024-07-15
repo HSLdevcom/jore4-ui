@@ -28,7 +28,7 @@ export const ConfirmPreviewedTimetablesImportFormComponent = (
     onSubmit,
   }: Props,
   externalRef: ExplicitAny,
-): JSX.Element => {
+): React.ReactElement => {
   const methods = useForm<FormState>({
     defaultValues,
     resolver: zodResolver(timetablesImportFormSchema),

@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Column, Row } from '../../layoutComponents';
 
 interface MapOverlayProps {
   className?: string;
+  children: ReactNode;
 }
 
-export const MapOverlay: React.FC<MapOverlayProps> = ({
+export const MapOverlay: FC<MapOverlayProps> = ({
   className = '',
   children,
 }) => {
@@ -19,9 +20,10 @@ export const MapOverlay: React.FC<MapOverlayProps> = ({
 interface MapOverlayHeaderProps {
   className?: string;
   testId?: string;
+  children: ReactNode;
 }
 
-export const MapOverlayHeader: React.FC<MapOverlayHeaderProps> = ({
+export const MapOverlayHeader: FC<MapOverlayHeaderProps> = ({
   className = '',
   children,
   testId,

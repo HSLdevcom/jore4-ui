@@ -36,7 +36,7 @@ export const BlockVehicleJourneysTable = ({
   vehicleType,
   blockLabel,
   vehicleScheduleFrameLabel,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const [isOpen, toggleIsOpen] = useToggle();
   const identifier = `${vehicleScheduleFrameLabel} ${blockLabel}`;

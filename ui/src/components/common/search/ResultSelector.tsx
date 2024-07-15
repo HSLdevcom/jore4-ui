@@ -13,7 +13,7 @@ const testIds = {
   routesResultsButton: 'ResultSelector::routes',
 };
 
-export const ResultSelector = (): JSX.Element => {
+export const ResultSelector = (): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { queryParameters, setFilter } = useSearch();

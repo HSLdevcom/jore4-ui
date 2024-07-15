@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 
 interface Props {
   className?: string;
   testId?: string;
   tooltip?: string;
   identifier?: string;
+  children: ReactNode;
 }
 
-export const Row: React.FC<Props> = ({
+export const Row: FC<Props> = ({
   className = '',
   children,
   testId = null,

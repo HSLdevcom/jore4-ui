@@ -24,7 +24,7 @@ export const VehicleJourneyRow = ({
 }: {
   vehicleJourney: VehicleJourneyWithRouteInfoFragment;
   vehicleService: VehicleServiceWithJourneysFragment;
-}): JSX.Element => {
+}): React.ReactElement => {
   const route =
     vehicleJourney.journey_pattern_ref.journey_pattern_instance
       ?.journey_pattern_route;

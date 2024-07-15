@@ -39,7 +39,7 @@ export const InputField = <FormState extends FieldValues>({
   type,
   inputElementRenderer,
   ...inputHTMLAttributes
-}: Props<FormState>): JSX.Element => {
+}: Props<FormState>): React.ReactElement => {
   if ((!inputElementRenderer && !type) || (inputElementRenderer && type)) {
     throw new Error(
       'You need to provide exactly one of the "inputElementRenderer" and "type" props',

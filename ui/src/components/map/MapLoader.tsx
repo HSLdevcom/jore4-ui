@@ -6,7 +6,7 @@ const testIds = {
   loader: 'MapLoader::loader',
 };
 
-export const MapLoader = (): JSX.Element => {
+export const MapLoader = (): React.ReactElement => {
   const { isMapOpen } = useMapQueryParams();
   const isLoading = useAppSelector(selectIsMapOperationLoading);
 

@@ -27,7 +27,9 @@ interface Props {
   stop: StopWithDetails;
 }
 
-export const LocationDetailsViewCard = ({ stop }: Props): JSX.Element => {
+export const LocationDetailsViewCard = ({
+  stop,
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const functionalArea =

@@ -28,7 +28,7 @@ interface Props {
 const LocationDetailsFormComponent = (
   { className = '', defaultValues, municipality, fareZone, onSubmit }: Props,
   ref: ExplicitAny,
-): JSX.Element => {
+): React.ReactElement => {
   const { t } = useTranslation();
 
   const methods = useForm<LocationDetailsFormState>({

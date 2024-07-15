@@ -22,7 +22,7 @@ const CircleComponent = ({
   centerDot = false,
   centerDotSize = 2,
   onClick,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const [isMouseHovering, setIsMouseHovering] = useState(false);
   return (
     <svg

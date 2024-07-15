@@ -23,7 +23,9 @@ interface Props {
   className?: string;
 }
 
-export const TerminusNameInputs = ({ className = '' }: Props): JSX.Element => {
+export const TerminusNameInputs = ({
+  className = '',
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   return (
     <div className={`${className} w-full`}>

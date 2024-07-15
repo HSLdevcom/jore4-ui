@@ -50,7 +50,9 @@ const defaultPriorities: PriorityButtonProps[] = [
  * Component for selecting priority.
  * Can be merged with other forms.
  */
-export const PriorityForm = ({ hiddenPriorities }: Props): JSX.Element => {
+export const PriorityForm = ({
+  hiddenPriorities,
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const {
     setValue,

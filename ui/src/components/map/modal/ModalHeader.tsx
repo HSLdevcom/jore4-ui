@@ -10,7 +10,10 @@ interface Props {
   heading: string;
 }
 
-export const ModalHeader = ({ onClose, heading }: Props): JSX.Element => {
+export const ModalHeader = ({
+  onClose,
+  heading,
+}: Props): React.ReactElement => {
   return (
     <Row className="border border-light-grey bg-background px-10 py-7">
       <h2>{heading}</h2>

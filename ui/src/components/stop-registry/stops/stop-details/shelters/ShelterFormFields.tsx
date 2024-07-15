@@ -35,7 +35,7 @@ interface Props {
   index: number;
 }
 
-export const ShelterFormFields = ({ index }: Props): JSX.Element => {
+export const ShelterFormFields = ({ index }: Props): React.ReactElement => {
   return (
     <Column className="space-y-4">
       <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">

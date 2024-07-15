@@ -27,7 +27,7 @@ type Props = {
 export const PassingTimesByStopSection = ({
   vehicleJourneyGroups,
   route,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { dayType, setDayType } = useTimetablesViewState();
   const { t } = useTranslation();
 

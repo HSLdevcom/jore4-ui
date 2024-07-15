@@ -6,7 +6,7 @@ interface Props {
 export const AffectedRouteLabels = ({
   affectedRouteLabels,
   text,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <div className="my-6 flex flex-row items-center space-x-6">
       <i className="icon-alert text-hsl-red" />

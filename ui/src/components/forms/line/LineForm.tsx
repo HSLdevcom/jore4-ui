@@ -30,7 +30,10 @@ interface Props {
   onSubmit: (state: FormState) => void;
 }
 
-export const LineForm = ({ defaultValues, onSubmit }: Props): JSX.Element => {
+export const LineForm = ({
+  defaultValues,
+  onSubmit,
+}: Props): React.ReactElement => {
   const navigate = useNavigate();
   const formRef = useRef<ExplicitAny>(null);
 

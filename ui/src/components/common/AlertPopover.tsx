@@ -17,7 +17,7 @@ export const AlertPopover = ({
   title,
   description,
   alertIcon,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <Visible visible={!!alertIcon}>
       <Popover>

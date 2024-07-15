@@ -11,7 +11,7 @@ import { sortAlphabetically } from '../../../utils';
 import { StopSearchBar } from './StopSearchBar';
 import { StopSearchResultList } from './StopSearchResultList';
 
-export const StopSearchResultPage = (): JSX.Element => {
+export const StopSearchResultPage = (): React.ReactElement => {
   const { handleClose } = useStopSearch();
   const { t } = useTranslation();
   const { stops, loading, resultCount } = useStopSearchResults();

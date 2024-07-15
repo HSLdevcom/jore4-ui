@@ -52,7 +52,7 @@ export const Toast = ({
   message,
   type = 'primary',
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { icon, textColor, bg, border, testId } = propsByType[type];
   return (
     <div className={`rounded-md bg-white ${className}`} data-testid={testId}>

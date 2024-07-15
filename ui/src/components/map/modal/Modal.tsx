@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FC, PropsWithChildren, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCallbackOnKeyEscape } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
@@ -10,7 +10,7 @@ const testIds = {
   saveButton: 'Modal::saveButton',
 };
 
-const HeaderFooterContainer: FunctionComponent = ({ children }) => {
+const HeaderFooterContainer: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="border border-light-grey bg-background px-14 py-7">
       {children}
@@ -23,7 +23,7 @@ interface FooterProps {
   onSave: () => void;
 }
 
-const ModalFooter = ({ onCancel, onSave }: FooterProps): JSX.Element => {
+const ModalFooter = ({ onCancel, onSave }: FooterProps): React.ReactElement => {
   const { t } = useTranslation();
   return (
     <HeaderFooterContainer>
@@ -45,9 +45,10 @@ interface Props {
   onClose: () => void;
   onCancel: () => void;
   onSave: () => void;
+  children: ReactNode;
 }
 
-export const Modal: FunctionComponent<Props> = ({
+export const Modal: FC<Props> = ({
   testId,
   heading,
   onClose,

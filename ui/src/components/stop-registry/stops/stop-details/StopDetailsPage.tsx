@@ -29,7 +29,7 @@ const testIds = {
   loadingStopDetails: 'StopDetailsPage::loadingStopDetails',
 };
 
-export const StopDetailsPage = (): JSX.Element => {
+export const StopDetailsPage = (): React.ReactElement => {
   const { stopDetails, isLoading } = useGetStopDetails();
   const { t } = useTranslation();
   const [activeDetailTab, selectDetailTab] = useState(

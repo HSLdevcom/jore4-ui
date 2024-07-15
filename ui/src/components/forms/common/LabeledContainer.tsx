@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
   disabled?: boolean;
   disabledTooltip?: string;
   hasError?: boolean;
+  children: ReactNode;
 }
 
 // Note: there is no error style defined for "selected" case. Couldn't think of a reasonable case where that would be needed.
@@ -28,7 +29,7 @@ export const labeledContainerInputStyles = {
   unselected: `${commonInputStyles} text-white border-grey before:opacity-0 enabled:group-hover:bg-background enabled:group-hover:border-grey`,
 };
 
-export const LabeledContainer: React.FC<Props> = ({
+export const LabeledContainer: FC<Props> = ({
   label,
   onClick,
   role,
@@ -39,7 +40,7 @@ export const LabeledContainer: React.FC<Props> = ({
   disabledTooltip,
   hasError = false,
   children,
-}): JSX.Element => {
+}) => {
   // When border is thicker, the paddings need to be reduced to maintain size...
   const containerThickBorders = 'border-2 py-[5px] pl-[5px] pr-[12px]';
   const containerThickBordersHover =

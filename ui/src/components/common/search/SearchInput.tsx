@@ -13,7 +13,7 @@ export const SearchInput = ({
   onChange,
   onSearch,
   testId,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const onKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {

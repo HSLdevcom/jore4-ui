@@ -29,7 +29,7 @@ const testIds = {
   closeButton: 'TimetableVersionsPage::closeButton',
 };
 
-export const TimetableVersionsPage = (): JSX.Element => {
+export const TimetableVersionsPage = (): React.ReactElement => {
   const { t } = useTranslation();
   const { label } = useRequiredParams<{ label: string }>();
   const { startDate, endDate } = useTimeRangeQueryParams();

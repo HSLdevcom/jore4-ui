@@ -25,7 +25,7 @@ export const DateControl = ({
   dateInputId,
   queryParamName,
   initialize,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { date, setDateToUrl } = useDateQueryParam({
     queryParamName,
     initialize,
