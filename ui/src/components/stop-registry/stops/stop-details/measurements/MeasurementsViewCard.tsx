@@ -46,7 +46,7 @@ interface Props {
   stop: StopWithDetails;
 }
 
-export const MeasurementsViewCard = ({ stop }: Props): JSX.Element => {
+export const MeasurementsViewCard = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const accessibilityProps =

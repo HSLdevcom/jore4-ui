@@ -18,7 +18,7 @@ export const ObservationDateInput = ({
   testId,
   required = false,
   disabled = false,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const dateInputId = 'observation-date-input';
   return (

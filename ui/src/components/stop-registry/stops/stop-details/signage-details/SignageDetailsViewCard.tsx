@@ -21,7 +21,7 @@ interface Props {
   stop: StopWithDetails;
 }
 
-export const SignageDetailsViewCard = ({ stop }: Props): JSX.Element => {
+export const SignageDetailsViewCard = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const generalSign = stop.stop_place?.placeEquipments?.generalSign?.[0];

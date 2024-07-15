@@ -22,7 +22,7 @@ export const RadioButton = <FormState extends FieldValues>({
   testId,
   value,
   ...inputHTMLAttributes
-}: Props<FormState>): JSX.Element => {
+}: Props<FormState>): React.ReactElement => {
   return (
     <InputElement
       id={id}

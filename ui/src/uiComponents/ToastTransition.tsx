@@ -1,11 +1,12 @@
 import { Transition } from '@headlessui/react';
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 
 interface Props {
   show: boolean;
+  children: ReactNode;
 }
 
-export const ToastTransition: React.FC<Props> = ({ show, children }) => {
+export const ToastTransition: FC<Props> = ({ show, children }) => {
   return (
     <Transition
       appear

@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import { FunctionComponent } from 'react';
+import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../layoutComponents';
@@ -13,6 +13,7 @@ interface Props {
   onClose: () => void;
   className?: string;
   bodyClassName?: string;
+  children: ReactNode;
 }
 const testIds = {
   modal: 'ErrorModal::modal',
@@ -20,7 +21,7 @@ const testIds = {
   closeIconButton: 'ErrorModal::closeIconButton',
 };
 
-export const ErrorModal: FunctionComponent<Props> = ({
+export const ErrorModal: FC<Props> = ({
   heading,
   isOpen,
   onClose,

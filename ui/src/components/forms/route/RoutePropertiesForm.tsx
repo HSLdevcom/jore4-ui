@@ -43,7 +43,7 @@ const testIds = {
 const RoutePropertiesFormComponent = (
   { id, routeLabel, className = '', defaultValues, onSubmit }: RouteFormProps,
   ref: ExplicitAny,
-): JSX.Element => {
+): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

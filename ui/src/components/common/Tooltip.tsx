@@ -1,6 +1,9 @@
+import { FC, ReactNode } from 'react';
+
 interface Props {
   message: string;
   tooltipClassName?: string;
+  children: ReactNode;
 }
 
 /**
@@ -12,7 +15,7 @@ interface Props {
  * As of Jan 2024, not in active use anymore.
  * There are designs for such an element to show extra information for Timing Points.
  */
-export const Tooltip: React.FC<Props> = ({
+export const Tooltip: FC<Props> = ({
   message,
   tooltipClassName = '',
   children,

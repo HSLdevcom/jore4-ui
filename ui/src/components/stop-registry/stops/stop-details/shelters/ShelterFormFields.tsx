@@ -39,7 +39,10 @@ interface Props {
   onRemove: (index: number) => void;
 }
 
-export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
+export const ShelterFormFields = ({
+  index,
+  onRemove,
+}: Props): React.ReactElement => {
   const { register, watch } = useFormContext<SheltersFormState>();
   const toBeDeleted = watch(`shelters.${index}.toBeDeleted`);
 

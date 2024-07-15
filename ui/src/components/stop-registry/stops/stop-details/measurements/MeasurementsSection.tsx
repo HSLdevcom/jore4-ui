@@ -76,7 +76,7 @@ const mapMeasurementsDataToFormState = (
   };
 };
 
-export const MeasurementsSection = ({ stop }: Props): JSX.Element => {
+export const MeasurementsSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { saveStopPlaceMeasurementDetails, defaultErrorHandler } =
     useEditStopMeasurementDetails();

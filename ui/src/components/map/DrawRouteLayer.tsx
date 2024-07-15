@@ -157,7 +157,7 @@ export const DrawRouteLayer = ({ editorLayerRef }: Props) => {
     templateRouteId,
   ]);
 
-  const keyDown = useCallback((event) => {
+  const keyDown = useCallback((event: KeyboardEvent) => {
     if (event.key === 'Backspace' || event.key === 'Delete') {
       drawRef.current?.trash();
     }

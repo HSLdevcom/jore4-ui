@@ -41,7 +41,7 @@ export const RouteGeometryLayer = ({
   geometry,
   defaultColor = colors.routes.bus,
   isHighlighted,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const beforeId = isHighlighted ? undefined : 'route_base';
 
   const color = isHighlighted ? colors.selectedMapItem : defaultColor;

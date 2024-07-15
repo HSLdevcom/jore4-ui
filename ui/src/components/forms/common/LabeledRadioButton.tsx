@@ -32,7 +32,7 @@ export const LabeledRadioButton = ({
   disabled,
   disabledTooltip,
   hasError,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <LabeledContainer
       onClick={onClick}

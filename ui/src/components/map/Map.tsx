@@ -54,7 +54,7 @@ interface Props {
 export const MapComponent = (
   { className = '', width = '100vw', height = '100vh' }: Props,
   externalRef: Ref<RouteEditorRef>,
-): JSX.Element => {
+): React.ReactElement => {
   const { t } = useTranslation();
 
   const routeEditorRef = useRef<RouteEditorRef>(null);

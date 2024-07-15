@@ -43,20 +43,20 @@ export const SimpleDropdownMenuItems = ({
     // eslint-disable-next-line react/jsx-props-no-spreading
     <Transition show={isOpen} as={Fragment} {...dropdownTransition}>
       <Menu.Items static className={commonClassName}>
-        {React.Children.map(children, (child) => (
-          <Menu.Item>
-            {({ active }) =>
-              React.isValidElement(child)
-                ? addClassName(
-                    child,
-                    `${
-                      active ? activeMenuItemClassName : commonMenuItemClassName
-                    }`,
-                  )
-                : child
-            }
-          </Menu.Item>
-        ))}
+        {React.Children.map(children, (child) =>
+          React.isValidElement(child) ? (
+            <Menu.Item>
+              {({ active }) =>
+                addClassName(
+                  child,
+                  active ? activeMenuItemClassName : commonMenuItemClassName,
+                )
+              }
+            </Menu.Item>
+          ) : (
+            <Menu.Item>{child}</Menu.Item>
+          ),
+        )}
       </Menu.Items>
     </Transition>
   );

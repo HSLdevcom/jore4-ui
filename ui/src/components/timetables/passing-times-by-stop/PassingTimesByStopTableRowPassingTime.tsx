@@ -20,7 +20,7 @@ export const PassingTimesByStopTableRowPassingTime = ({
   passingTimes,
   selectedPassingTime,
   setSelectedPassingTime,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const sortedPassingTimes = sortBy(
     passingTimes,
     (passingTime) => passingTime.passing_time,

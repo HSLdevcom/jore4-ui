@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
@@ -8,9 +8,10 @@ interface Props {
   dialogClassName?: string;
   contentClassName?: string;
   testId?: string;
+  children: ReactNode;
 }
 
-export const Modal: React.FC<Props> = ({
+export const Modal: FC<Props> = ({
   isOpen,
   onClose,
   dialogClassName = '',

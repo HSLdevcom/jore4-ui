@@ -40,7 +40,7 @@ export const NullableBooleanDropdown = ({
   translationKeys = defaultTranslationKeys,
   buttonClassName = '',
   ...formInputProps
-}: NullableBooleanDropdownProps): JSX.Element => {
+}: NullableBooleanDropdownProps): React.ReactElement => {
   const { t } = useTranslation();
   const values = ['true', 'false', 'null'];
 

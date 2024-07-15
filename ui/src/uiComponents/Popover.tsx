@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { CloseIconButton } from './CloseIconButton';
 
 const testIds = {
@@ -8,13 +8,10 @@ const testIds = {
 type Props = {
   className?: string;
   onClose: () => void;
+  children: ReactNode;
 };
 
-export const Popover: React.FC<Props> = ({
-  children,
-  onClose,
-  className = '',
-}) => {
+export const Popover: FC<Props> = ({ children, onClose, className = '' }) => {
   return (
     <div
       className={`absolute inline-flex flex-row items-start rounded-lg border border-hsl-highlight-yellow-dark bg-hsl-highlight-yellow-light p-3 ${className}`}

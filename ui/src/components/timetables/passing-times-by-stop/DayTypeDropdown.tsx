@@ -24,7 +24,7 @@ export const DayTypeDropdown = ({
   value,
   values,
   ...formInputProps
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const mapToOption = (item: string) => ({
     key: item,
     value: item,

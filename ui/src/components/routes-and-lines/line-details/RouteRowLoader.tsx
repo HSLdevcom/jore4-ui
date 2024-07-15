@@ -5,7 +5,9 @@ interface Props {
   className?: string;
 }
 
-export const RouteRowLoader = ({ className = '' }: Props): JSX.Element => {
+export const RouteRowLoader = ({
+  className = '',
+}: Props): React.ReactElement => {
   return (
     <div
       className={`mt-1 inline-flex min-h-16 w-full flex-col items-center justify-center bg-lighter-grey ${className}`}

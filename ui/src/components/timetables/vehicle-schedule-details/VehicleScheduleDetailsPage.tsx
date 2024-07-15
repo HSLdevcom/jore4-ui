@@ -34,7 +34,7 @@ const testIds = {
   showVersionsButton: 'VehicleScheduleDetailsPage::showVersionsButton',
 };
 
-export const VehicleScheduleDetailsPage = (): JSX.Element => {
+export const VehicleScheduleDetailsPage = (): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

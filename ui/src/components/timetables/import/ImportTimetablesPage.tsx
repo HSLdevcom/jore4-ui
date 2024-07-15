@@ -32,7 +32,7 @@ const testIds = {
   loading: 'ImportTimetablesPage::LoadingOverlay',
 };
 
-export const ImportTimetablesPage = (): JSX.Element => {
+export const ImportTimetablesPage = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {

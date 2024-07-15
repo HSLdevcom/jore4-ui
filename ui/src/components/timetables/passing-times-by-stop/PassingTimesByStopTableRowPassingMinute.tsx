@@ -32,7 +32,7 @@ export const PassingTimesByStopTableRowPassingMinute = ({
   passingTime,
   selectedPassingTime,
   setSelectedPassingTime,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { showArrivalTimes } = useAppSelector(selectTimetable);
   const passing = passingTime.passing_time;
 

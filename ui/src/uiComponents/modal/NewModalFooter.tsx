@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../../layoutComponents';
 
@@ -8,12 +8,10 @@ const testIds = {
 
 interface Props {
   className?: string;
+  children: ReactNode;
 }
 
-export const NewModalFooter: FunctionComponent<Props> = ({
-  children,
-  className = '',
-}) => {
+export const NewModalFooter: FC<Props> = ({ children, className = '' }) => {
   return (
     <Row
       testId={testIds.modalFooter}

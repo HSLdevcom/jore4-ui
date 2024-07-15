@@ -22,7 +22,7 @@ export const EditRouteModal = ({
   onSuccess,
   onCancel,
   onClose,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const formRef = useRef<ExplicitAny>(null);
   const { t } = useTranslation();
 

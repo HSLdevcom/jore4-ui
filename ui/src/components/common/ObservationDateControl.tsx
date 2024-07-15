@@ -17,7 +17,7 @@ interface Props {
 export const ObservationDateControl = ({
   className = '',
   disabled = false,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { observationDate, setObservationDateToUrl } =
     useObservationDateQueryParam();
   const onDateChange = (date: DateTime) => {

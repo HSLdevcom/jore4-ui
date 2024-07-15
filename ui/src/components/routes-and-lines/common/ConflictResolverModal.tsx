@@ -78,7 +78,7 @@ const ConflictItemRow = ({
   item,
 }: {
   item: CommonConflictItem;
-}): JSX.Element => {
+}): React.ReactElement => {
   const { t } = useTranslation();
   return (
     <tr

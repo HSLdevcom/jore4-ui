@@ -51,7 +51,7 @@ export const TimingSettingsForm = ({
   className = '',
   onSubmit,
   onCancel,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
   const dispatch = useAppDispatch();

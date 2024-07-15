@@ -24,7 +24,7 @@ export const ResultList = ({
   routes,
   displayedType,
   rowVariant,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { isSelectingRoutesForExport } = useAppSelector(selectExport);
 
   switch (displayedType) {

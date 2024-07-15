@@ -8,6 +8,6 @@ interface DateRangeProps {
 export const DateRange = ({
   startDate,
   endDate,
-}: DateRangeProps): JSX.Element => {
+}: DateRangeProps): React.ReactElement => {
   return <>{`${mapToShortDate(startDate)} - ${mapToShortDate(endDate)}`}</>;
 };

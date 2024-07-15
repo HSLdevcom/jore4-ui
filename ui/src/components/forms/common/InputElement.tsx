@@ -24,7 +24,7 @@ export const InputElement = <FormState extends FieldValues>({
   testId,
   type,
   ...inputHTMLAttributes
-}: Props<FormState>): JSX.Element => {
+}: Props<FormState>): React.ReactElement => {
   const {
     register,
     formState: { errors },

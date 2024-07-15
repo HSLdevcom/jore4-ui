@@ -39,7 +39,7 @@ export const VehicleJourneyGroupInfo = ({
   validityEnd,
   dayTypeNameI18n,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

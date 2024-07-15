@@ -59,7 +59,7 @@ export const LineTableRow = ({
   line,
   isSelectable = false,
   rowVariant,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { showRoutesOnMapByLineLabel } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
   const { selectedRows } = useAppSelector(selectExport);
