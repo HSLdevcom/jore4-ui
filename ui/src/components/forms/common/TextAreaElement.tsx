@@ -21,7 +21,7 @@ export const TextAreaElement = <FormState extends FieldValues>({
   fieldPath,
   testId,
   ...textAreaHTMLAttributes
-}: Props<FormState>): JSX.Element => {
+}: Props<FormState>): React.ReactElement => {
   const {
     register,
     formState: { errors },

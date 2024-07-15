@@ -14,7 +14,7 @@ import { Circle } from '../markers';
 
 const { colors } = theme;
 
-export const CreateStopMarker = (): JSX.Element => {
+export const CreateStopMarker = (): React.ReactElement => {
   const [mouseCoords, setMouseCoords] = React.useState<Coords>();
   const dispatch = useDispatch();
   const { current: map } = useMap();

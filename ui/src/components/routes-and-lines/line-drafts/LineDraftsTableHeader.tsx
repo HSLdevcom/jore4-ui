@@ -4,7 +4,7 @@ export const LineDraftTableHeader = ({
   className = '',
 }: {
   className?: string;
-}): JSX.Element => {
+}): React.ReactElement => {
   const { t } = useTranslation();
   const commonClassName = 'p-4';
   return (

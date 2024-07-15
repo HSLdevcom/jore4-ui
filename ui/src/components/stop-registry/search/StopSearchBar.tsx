@@ -23,7 +23,7 @@ const testIds = {
   municipalitiesDropdown: 'StopSearchBar::municipalitiesDropdown',
 };
 
-export const StopSearchBar = (): JSX.Element => {
+export const StopSearchBar = (): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 

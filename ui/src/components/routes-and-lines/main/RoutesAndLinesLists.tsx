@@ -36,7 +36,7 @@ const GQL_LIST_OWN_LINES = gql`
   }
 `;
 
-export const RoutesAndLinesLists = (): JSX.Element => {
+export const RoutesAndLinesLists = (): React.ReactElement => {
   const { t } = useTranslation();
 
   // changing routes

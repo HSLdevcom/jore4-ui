@@ -26,7 +26,7 @@ export const ListboxOptions = forwardRef<HTMLUListElement, Props>(
   function MyComponent(
     { options, testId }: Props,
     ref: ForwardedRef<HTMLUListElement>,
-  ): JSX.Element {
+  ): React.ReactElement {
     return (
       <HUIListbox.Options
         data-testid={testId}
@@ -38,14 +38,18 @@ export const ListboxOptions = forwardRef<HTMLUListElement, Props>(
             <HUIListbox.Option key={item.key} value={item.value}>
               {(optionProps) => {
                 const child = item.render(optionProps);
-                return React.isValidElement(child)
-                  ? addClassName(
-                      child,
-                      `${
-                        optionProps.active ? 'bg-dark-grey text-white' : ''
-                      } flex group text-left px-2 py-2 border-b border-grey`,
-                    )
-                  : child;
+                return React.isValidElement(child) ? (
+                  addClassName(
+                    child,
+                    `${
+                      optionProps.active ? 'bg-dark-grey text-white' : ''
+                    } flex group text-left px-2 py-2 border-b border-grey`,
+                  )
+                ) : (
+                  // HUIListbox.Option requires all the rendered children to be of type ReactElement.
+                  // TODO: Is this still true after we update headlessui?
+                  <>{child}</>
+                );
               }}
             </HUIListbox.Option>
           ))}

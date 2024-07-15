@@ -15,7 +15,7 @@ const testIds = {
   closeButton: 'SubstituteDaySettingsPage::closeButton',
 };
 
-export const SubstituteDaySettingsPage = (): JSX.Element => {
+export const SubstituteDaySettingsPage = (): React.ReactElement => {
   const { t } = useTranslation();
 
   const {

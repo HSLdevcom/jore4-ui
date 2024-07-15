@@ -23,7 +23,7 @@ export const ListboxButton = ({
   buttonClassNames,
   arrowButtonClassNames,
   disabled,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <HUIListbox.Button
       className={twMerge(

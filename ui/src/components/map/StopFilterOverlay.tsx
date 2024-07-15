@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FilterItem, useFilterStops } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
@@ -8,13 +8,12 @@ interface Props {
   className?: string;
 }
 
-const FilterRow = ({
-  filter,
-  className = '',
-}: {
+interface FilterRowProps {
   filter: FilterItem;
   className?: string;
-}): JSX.Element => {
+}
+
+const FilterRow: FC<FilterRowProps> = ({ filter, className = '' }) => {
   const { id, isActive, label, toggleFunction, disabled } = filter;
 
   return (
@@ -34,11 +33,13 @@ const FilterRow = ({
   );
 };
 
-const Section: FC = ({ children }) => (
+const Section: FC<PropsWithChildren> = ({ children }) => (
   <Column className="space-y-2 border-t pb-4 pt-4">{children}</Column>
 );
 
-export const StopFilterOverlay = ({ className = '' }: Props): JSX.Element => {
+export const StopFilterOverlay = ({
+  className = '',
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const {

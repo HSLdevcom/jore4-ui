@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 
 type Props = {
   active?: boolean;
   onClick: () => void;
   className?: string;
+  children: ReactNode;
 };
 
-export const TextButton: React.FC<Props> = ({
+export const TextButton: FC<Props> = ({
   active,
   onClick,
   children,
   className = '',
-}): JSX.Element => (
+}) => (
   <button
     onClick={onClick}
     type="button"

@@ -22,7 +22,7 @@ export const LineDetailsButton = ({
   label,
   routeLabel,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 

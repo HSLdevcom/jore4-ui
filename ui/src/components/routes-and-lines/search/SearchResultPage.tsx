@@ -12,7 +12,7 @@ import { ExportToolbar } from './ExportToolbar';
 import { FiltersContainer } from './filters/FiltersContainer';
 import { SearchContainer } from './SearchContainer';
 
-export const SearchResultPage = (): JSX.Element => {
+export const SearchResultPage = (): React.ReactElement => {
   const { handleClose, queryParameters } = useSearch();
   const { resultCount } = useSearchResults();
   const { t } = useTranslation();

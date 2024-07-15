@@ -24,7 +24,7 @@ interface WarningTextProps {
 const WarningText = ({
   warningMessage,
   className = '',
-}: WarningTextProps): JSX.Element => {
+}: WarningTextProps): React.ReactElement => {
   return (
     <Row className={`${className} items-center`}>
       <MdWarning className="mr-2 inline text-lg text-grey" />
@@ -33,7 +33,7 @@ const WarningText = ({
   );
 };
 
-export const ObservationPeriodForm = (): JSX.Element => {
+export const ObservationPeriodForm = (): React.ReactElement => {
   const { t } = useTranslation();
   const { isInvalidDateRange } = useTimeRangeQueryParams();
   const {

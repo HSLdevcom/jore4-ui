@@ -6,7 +6,7 @@ const testIds = {
   loader: 'JoreLoader::loader',
 };
 
-export const JoreLoader = (): JSX.Element => {
+export const JoreLoader = (): React.ReactElement => {
   const isLoading = useAppSelector(selectIsJoreOperationLoading);
 
   return <LoadingOverlay testId={testIds.loader} visible={isLoading} />;

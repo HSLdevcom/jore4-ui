@@ -13,7 +13,7 @@ export const LineTypeMultiSelectDropdown = ({
   id,
   testId,
   ...formInputProps
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

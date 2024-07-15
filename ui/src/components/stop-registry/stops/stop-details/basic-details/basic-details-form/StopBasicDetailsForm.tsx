@@ -28,7 +28,7 @@ interface Props {
 const StopBasicDetailsFormComponent = (
   { className = '', defaultValues, onSubmit, hasMainLineSign }: Props,
   ref: ExplicitAny,
-): JSX.Element => {
+): React.ReactElement => {
   const dispatch = useDispatch();
   const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 

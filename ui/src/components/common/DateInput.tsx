@@ -23,7 +23,7 @@ export const DateInput = ({
   disabled = false,
   dateInputId,
   onClick,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <Column className={className}>
       <label htmlFor={dateInputId}>{label}</label>

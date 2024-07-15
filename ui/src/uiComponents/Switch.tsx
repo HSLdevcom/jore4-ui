@@ -1,5 +1,5 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 
 interface Props {
   className?: string;
@@ -37,12 +37,10 @@ export const Switch: React.FC<Props> = ({
 
 interface LabelProps {
   className?: string;
+  children: ReactNode;
 }
 
-export const SwitchLabel: React.FC<LabelProps> = ({
-  className = '',
-  children,
-}) => {
+export const SwitchLabel: FC<LabelProps> = ({ className = '', children }) => {
   return (
     <HuiSwitch.Label className={`${className} text-base font-normal`}>
       {children}

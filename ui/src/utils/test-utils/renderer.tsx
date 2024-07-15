@@ -2,11 +2,11 @@
 
 import { MockedProvider } from '@apollo/client/testing';
 import { RenderOptions, render } from '@testing-library/react';
-import React, { FC } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ReduxProvider } from '../../redux';
 
-const AllTheProviders: FC = ({ children }) => {
+const AllTheProviders: FC<PropsWithChildren> = ({ children }) => {
   // Add "providers" or "wrappers" that are needed in all DOM render tests here
   return (
     <MockedProvider addTypename={false}>

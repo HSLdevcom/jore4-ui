@@ -18,7 +18,7 @@ export const ListHeader = ({
   onShowOwnChange,
   onLimitChange,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const limitOptions = [5, 10, 15];

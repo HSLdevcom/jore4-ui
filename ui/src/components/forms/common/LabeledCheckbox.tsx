@@ -28,7 +28,7 @@ export const LabeledCheckbox = ({
   disabled,
   disabledTooltip,
   hasError,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <LabeledContainer
       onClick={onClick}

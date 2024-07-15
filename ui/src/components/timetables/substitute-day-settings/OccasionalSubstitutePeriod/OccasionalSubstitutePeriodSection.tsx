@@ -18,7 +18,7 @@ import {
 } from './OccasionalSubstitutePeriodForm';
 import { FormState } from './OccasionalSubstitutePeriodForm.types';
 
-export const OccasionalSubstitutePeriodSection = (): JSX.Element => {
+export const OccasionalSubstitutePeriodSection = (): React.ReactElement => {
   const { t } = useTranslation();
   const { startDate, endDate, updateTimeRangeIfNeeded } =
     useTimeRangeQueryParams();

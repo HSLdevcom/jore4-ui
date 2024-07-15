@@ -32,7 +32,7 @@ const mapSignageDetailsToFormState = (
   };
 };
 
-export const SignageDetailsSection = ({ stop }: Props): JSX.Element => {
+export const SignageDetailsSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { saveStopPlaceSignageDetails, defaultErrorHandler } =
     useEditStopSignageDetails();

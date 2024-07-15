@@ -19,7 +19,7 @@ export const SimpleDropdownMenu = ({
   testId,
   alignItems = AlignDirection.NoAlign,
   tooltip,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <Menu as="div" className="relative">
       {({ open }) => (

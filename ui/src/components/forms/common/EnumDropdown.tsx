@@ -39,7 +39,7 @@ export const EnumDropdown = <TEnum extends Object>({
   includeAllOption,
   includeNullOption,
   ...formInputProps
-}: EnumDropdownProps<TEnum>): JSX.Element => {
+}: EnumDropdownProps<TEnum>): React.ReactElement => {
   const values = getEnumValues({
     ...(includeAllOption ? { ...AllOptionEnum } : {}),
     ...enumType,

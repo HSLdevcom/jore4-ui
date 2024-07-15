@@ -46,7 +46,7 @@ export const Combobox = ({
   onChange,
   onBlur: onBlurParent,
   onQueryChange,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const onItemSelected = (val: string) => {
     const event: ComboboxEvent = { target: { value: val } };
     onChange(event);

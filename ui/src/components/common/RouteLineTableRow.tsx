@@ -112,7 +112,7 @@ export const RouteLineTableRow = ({
   isSelected,
   selectionDisabled = false,
   testId,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();

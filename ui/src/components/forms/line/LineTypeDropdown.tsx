@@ -15,7 +15,7 @@ export const LineTypeDropdown = ({
   testId,
   includeAllOption,
   ...formInputProps
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

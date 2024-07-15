@@ -26,7 +26,7 @@ export const ConfirmationDialog = ({
   cancelText,
   className = '',
   widthClassName = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <DialogWithButtons
       isOpen={isOpen}

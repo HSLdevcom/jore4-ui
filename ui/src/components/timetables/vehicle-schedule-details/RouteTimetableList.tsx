@@ -4,7 +4,7 @@ interface Props {
   routeIds: UUID[];
 }
 
-export const RouteTimetableList = ({ routeIds }: Props): JSX.Element => {
+export const RouteTimetableList = ({ routeIds }: Props): React.ReactElement => {
   return (
     <div className="grid gap-y-5">
       {routeIds.map((item) => (

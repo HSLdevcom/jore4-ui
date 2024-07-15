@@ -26,7 +26,7 @@ interface Props {
 const SheltersFormComponent = (
   { className = '', defaultValues, onSubmit, onShelterCountChanged }: Props,
   ref: ExplicitAny,
-): JSX.Element => {
+): React.ReactElement => {
   const { t } = useTranslation();
   const methods = useForm<SheltersFormState>({
     defaultValues,

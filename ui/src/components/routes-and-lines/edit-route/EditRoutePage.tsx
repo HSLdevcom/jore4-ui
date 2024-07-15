@@ -40,7 +40,7 @@ const testIds = {
   deleteButton: 'EditRoutePage::deleteButton',
 };
 
-export const EditRoutePage = (): JSX.Element => {
+export const EditRoutePage = (): React.ReactElement => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [draftStops, setDraftStops] = useState<

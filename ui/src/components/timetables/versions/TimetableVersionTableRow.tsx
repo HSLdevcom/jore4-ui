@@ -67,7 +67,9 @@ interface Props {
   data: TimetableVersionRowData;
 }
 
-export const TimetableVersionTableRow = ({ data }: Props): JSX.Element => {
+export const TimetableVersionTableRow = ({
+  data,
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

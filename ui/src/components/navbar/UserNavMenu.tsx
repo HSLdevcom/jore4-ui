@@ -15,7 +15,7 @@ export const testIds = {
   logoutButton: 'UserNavMenu::logoutButton',
 };
 
-export const UserNavMenu = ({ className = '' }: Props): JSX.Element => {
+export const UserNavMenu = ({ className = '' }: Props): React.ReactElement => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
 

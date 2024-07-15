@@ -21,7 +21,7 @@ interface ToggleRowProps {
   toggles: IconToggle[];
 }
 
-const ToggleRow = ({ toggles }: ToggleRowProps): JSX.Element => {
+const ToggleRow = ({ toggles }: ToggleRowProps): React.ReactElement => {
   return (
     <Row className="mt-2">
       {toggles.map(
@@ -104,7 +104,7 @@ export const FilterPanel = ({
   stops,
   infraLinks,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const headingClassName = 'text-sm font-bold';
   return (
