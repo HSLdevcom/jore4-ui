@@ -108,7 +108,7 @@ export const StopDetailsPage = (): JSX.Element => {
           <div className="my-2 flex h-52 items-center justify-center rounded-md border border-light-grey bg-background">
             <span className="">
               <MdWarning
-                className={`mr-2 inline h-6 w-6 text-hsl-red `}
+                className="mr-2 inline h-6 w-6 text-hsl-red"
                 role="img"
                 title={t('stopDetails.notValidOnObservationDate')}
               />

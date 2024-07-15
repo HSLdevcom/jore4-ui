@@ -183,6 +183,10 @@ module.exports = {
       { varsIgnorePattern: '^GQL' },
     ], // ignore graphql query/mutation/fragment definitions
     'no-plusplus': 'off', // this rule is stupid. For loops should be able to use i++
+
+    // Previously enabled by-default by the recommended rule set.
+    '@typescript-eslint/no-non-null-assertion': 'error',
+    '@typescript-eslint/no-empty-function': 'error',
   },
   overrides: [
     // These overrides enable prefer-nullish-coalescing rule for TypeScript files.

@@ -29,7 +29,7 @@ export const AlertPopover = ({
             <div className="mb-1 space-x-3">
               <h5 className="inline text-lg">{title}</h5>
             </div>
-            <p className=" text-sm">{description}</p>
+            <p className="text-sm">{description}</p>
           </div>
           <Popover.Button>
             <CloseIconButton onClick={noop} testId={testIds.closeButton} />

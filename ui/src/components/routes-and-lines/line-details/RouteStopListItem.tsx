@@ -94,12 +94,9 @@ export const RouteStopListItem = ({
 
   return (
     <li
-      className={`relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
-        ${pseudoBottomBorderClassName}
-        ${alertStyle.listItemBorder ?? ''}
-        ${
-          stopBelongsToJourneyPattern ? '' : 'bg-background text-dark-grey'
-        } ${className}`}
+      className={`relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 ${pseudoBottomBorderClassName} ${alertStyle.listItemBorder ?? ''} ${
+        stopBelongsToJourneyPattern ? '' : 'bg-background text-dark-grey'
+      } ${className}`}
       aria-labelledby={labelledBy}
       data-testid={testIds.container(stop.label)}
     >
