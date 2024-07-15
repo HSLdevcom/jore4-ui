@@ -68,10 +68,10 @@ export const VehicleScheduleDetailsPage = (): JSX.Element => {
   // selected routes for default view as well
   const displayedRoutes =
     activeView === TimetablesView.DEFAULT
-      ? line?.line_routes?.filter((route) =>
+      ? (line?.line_routes?.filter((route) =>
           displayedRouteLabels?.includes(route.label),
-        ) ?? []
-      : line?.line_routes.filter((route) => route.label === routeLabel) ?? [];
+        ) ?? [])
+      : (line?.line_routes.filter((route) => route.label === routeLabel) ?? []);
 
   return (
     <div>

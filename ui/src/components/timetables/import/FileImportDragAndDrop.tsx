@@ -94,11 +94,7 @@ export const FileImportDragAndDrop = ({ fileList, setFileList }: Props) => {
       onDrop={handleOnDrop}
     >
       {!!fileList?.length && <h5>{t('import.filesToUpload')}</h5>}
-      <ul>
-        {fileList?.map((file) => (
-          <li key={file.name}>{file.name}</li>
-        ))}
-      </ul>
+      <ul>{fileList?.map((file) => <li key={file.name}>{file.name}</li>)}</ul>
       <Row className="flex justify-center">
         <div
           className={twMerge(

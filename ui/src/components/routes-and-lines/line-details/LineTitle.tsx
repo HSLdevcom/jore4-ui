@@ -78,7 +78,7 @@ export const LineTitle: React.FC<Props> = ({
             })}
             testId={testIds.createRouteButton}
             icon={<AiFillPlusCircle className="text-3xl text-brand" />}
-            className="ml-2 rounded-full    "
+            className="ml-2 rounded-full"
             onClick={onCreateRoute}
           />
         )}

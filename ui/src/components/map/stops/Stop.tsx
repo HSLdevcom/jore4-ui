@@ -65,7 +65,8 @@ export const Stop = ({
     vehicleMode,
   );
 
-  const iconFillColor = vehicleMode || selected ? 'white' : colors.lightGrey;
+  const iconFillColor =
+    vehicleMode !== undefined || selected ? 'white' : colors.lightGrey;
 
   const iconBorderWidth = 3;
   const centerDotSize = 3;

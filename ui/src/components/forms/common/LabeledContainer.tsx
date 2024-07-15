@@ -67,18 +67,12 @@ export const LabeledContainer: React.FC<Props> = ({
     // eg. styling the label based on input:focus-visible.
     <button
       type="button"
-      className={`
-        group inline-flex cursor-default select-none items-center gap-2 rounded-[5px] border-solid
-        text-sm font-bold
-        focus-visible:outline focus-visible:outline-2 focus-visible:outline-black disabled:cursor-not-allowed
-        disabled:opacity-70
-        ${twMerge(
-          containerStyleSelectedStatus,
-          containerStyleErrorStatus,
-          containerBorderSizeStyles,
-          className,
-        )}
-      `}
+      className={`group inline-flex cursor-default select-none items-center gap-2 rounded-[5px] border-solid text-sm font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-70 ${twMerge(
+        containerStyleSelectedStatus,
+        containerStyleErrorStatus,
+        containerBorderSizeStyles,
+        className,
+      )} `}
       onClick={onClick}
       role={role}
       aria-checked={selected}

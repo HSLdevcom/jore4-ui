@@ -12,6 +12,16 @@ export const isPlainObject = (input: unknown): input is PlainObject => {
   );
 };
 
+export function assertIsPlainObject(
+  input: unknown,
+): asserts input is PlainObject {
+  if (!isPlainObject(input)) {
+    throw new TypeError(
+      `Expected input to be a plain object, but it is of type: ${typeof input} value of: ${input}`,
+    );
+  }
+}
+
 // the built-in Object.keys() method returns only a limited string[] type.
 // The actual return type should be keyof T[]
 export const getObjectKeys = <T extends PlainObject>(input: T) => {

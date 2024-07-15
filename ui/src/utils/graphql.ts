@@ -14,6 +14,7 @@ export const mapToData = (data: ExplicitAny) => {
 
 // null values are valid for patches, so here checking for undefined values only
 export const defaultTo = <V, D>(value: V, defaultValue: D) =>
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   value === undefined ? defaultValue : value;
 
 // Removes item from apollo's cache.

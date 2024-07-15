@@ -146,9 +146,8 @@ export const useEditStopBasicDetails = () => {
   const updateRoutesAndLinesStop = async (
     editParams: EditRoutesAndLinesParams,
   ) => {
-    const changesToRoutesAndLinesDb = await prepareEditForRoutesAndLinesDb(
-      editParams,
-    );
+    const changesToRoutesAndLinesDb =
+      await prepareEditForRoutesAndLinesDb(editParams);
     const variablesForRoutesAndLinesDb =
       mapEditChangesToRoutesAndLinesDbVariables(changesToRoutesAndLinesDb);
     await editStopMutation(variablesForRoutesAndLinesDb);

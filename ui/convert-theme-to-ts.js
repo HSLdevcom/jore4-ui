@@ -23,12 +23,12 @@ const js = `
 export const theme = ${themeStr}
 `;
 
-try {
+async function main() {
   fs.writeFileSync(
     path.resolve(process.cwd(), './src/generated/theme.ts'),
-    prettier.format(js, { parser: 'babel' }),
+    await prettier.format(js, { parser: 'babel' }),
     'utf-8',
   );
-} catch (err) {
-  console.log(err.message);
 }
+
+main().catch((err) => console.log(err.message));

@@ -4,6 +4,7 @@ import { isLine, isRoute, isStop } from '../../graphql';
 import { isDateLike, parseDate } from '../../time';
 import {
   PlainObject,
+  assertIsPlainObject,
   getObjectStringKeys,
   isPlainObject,
 } from '../../utils/object';
@@ -15,12 +16,12 @@ type SerializedTypes = DateTime;
 export type StoreType<T> = T extends SerializedTypes // serializable property -> convert to string
   ? string
   : T extends Array<infer U> // array -> recurse
-  ? Array<StoreType<U>>
-  : T extends PlainObject // object -> recurse
-  ? {
-      [Property in keyof T]: StoreType<T[Property]>;
-    }
-  : T; // otherwise return as-is
+    ? Array<StoreType<U>>
+    : T extends PlainObject // object -> recurse
+      ? {
+          [Property in keyof T]: StoreType<T[Property]>;
+        }
+      : T; // otherwise return as-is
 
 export type SerializerFunction<
   T extends PlainObject = PlainObject,
@@ -89,6 +90,7 @@ export function mapToStoreType<T extends PlainObject>(
     // value is an array
     if (isArray(serializedValue)) {
       return {
+        // @ts-expect-error Something's wonky with the StoreType, ts things its not an object
         ...result,
         [key]: serializedValue.map((item) =>
           // array item is an object -> recurse
@@ -100,6 +102,7 @@ export function mapToStoreType<T extends PlainObject>(
     // the value is an object -> recurse
     if (isPlainObject(serializedValue)) {
       return {
+        // @ts-expect-error Something's wonky with the StoreType, ts things its not an object
         ...result,
         [key]: mapToStoreType(serializedValue, serializerFunc),
       };
@@ -107,6 +110,7 @@ export function mapToStoreType<T extends PlainObject>(
 
     // other scalar value -> return as is
     return {
+      // @ts-expect-error Something's wonky with the StoreType, ts things its not an object
       ...result,
       [key]: serializedValue,
     };
@@ -117,6 +121,11 @@ export function mapFromStoreType<T extends PlainObject>(
   input: StoreType<T>,
   deserializerFunc: DeserializerFunction = defaultDeserializer,
 ): T {
+  // Something's wonky with the StoreType,
+  // and TS believes it could be a string in here,
+  // even tough T extends PlainObject.
+  assertIsPlainObject(input);
+
   return getObjectStringKeys(input).reduce<T>((result, key) => {
     const value = input[key];
 
