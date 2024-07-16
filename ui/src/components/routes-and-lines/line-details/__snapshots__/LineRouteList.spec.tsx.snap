@@ -31,9 +31,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
     <ul>
       <li>
         <div
-          class="relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24
-        
-        border-l-10 border-hsl-dark-green "
+          class="relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24  border-l-10 border-hsl-dark-green "
           data-testid="RouteRow::65x-outbound"
         >
           <div
@@ -92,7 +90,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
                   fill="none"
                 />
                 <path
-                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
                 />
               </svg>
             </div>
@@ -126,12 +124,12 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
                 fill="none"
               />
               <path
-                d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
               />
             </svg>
           </span>
           <div
-            class="col-span-2 flex h-full items-center justify-center border-l-4 border-white "
+            class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
               class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -155,7 +153,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
                   fill="none"
                 />
                 <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 1 1-4 0zM5 20v2h14v-2H5z"
                 />
               </svg>
             </button>
@@ -184,7 +182,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
                 fill="none"
               />
               <path
-                d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+                d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
               />
             </svg>
           </button>
@@ -226,9 +224,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
     <ul>
       <li>
         <div
-          class="relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24
-        
-        border-l-10 border-hsl-dark-green "
+          class="relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24  border-l-10 border-hsl-dark-green "
           data-testid="RouteRow::65x-outbound"
         >
           <div
@@ -287,7 +283,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                   fill="none"
                 />
                 <path
-                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
                 />
               </svg>
             </div>
@@ -321,12 +317,12 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 fill="none"
               />
               <path
-                d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
               />
             </svg>
           </span>
           <div
-            class="col-span-2 flex h-full items-center justify-center border-l-4 border-white "
+            class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
               class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -350,7 +346,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                   fill="none"
                 />
                 <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 1 1-4 0zM5 20v2h14v-2H5z"
                 />
               </svg>
             </button>
@@ -379,7 +375,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 fill="none"
               />
               <path
-                d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"
+                d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z"
               />
             </svg>
           </button>
@@ -389,10 +385,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
         >
           <li
             aria-labelledby="direction-and-label-65x-null-outbound"
-            class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
-        after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
-        border-l-10 border-hsl-dark-green
-         "
+            class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green  "
             data-testid="RouteStopListItem::H1234"
           >
             <div
@@ -443,7 +436,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                   fill="none"
                 />
                 <path
-                  d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                  d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
                 />
               </svg>
             </span>
@@ -496,10 +489,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
           </li>
           <li
             aria-labelledby="direction-and-label-65x-null-outbound"
-            class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
-        after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
-        border-l-10 border-hsl-dark-green
-         "
+            class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green  "
             data-testid="RouteStopListItem::H1236"
           >
             <div
@@ -550,7 +540,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                   fill="none"
                 />
                 <path
-                  d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                  d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
                 />
               </svg>
             </span>
@@ -639,9 +629,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
     <ul>
       <li>
         <div
-          class="relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24
-        
-        border-l-10 border-hsl-dark-green "
+          class="relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24  border-l-10 border-hsl-dark-green "
           data-testid="RouteRow::65x-outbound"
         >
           <div
@@ -700,7 +688,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   fill="none"
                 />
                 <path
-                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
                 />
               </svg>
             </div>
@@ -734,12 +722,12 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 fill="none"
               />
               <path
-                d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
               />
             </svg>
           </span>
           <div
-            class="col-span-2 flex h-full items-center justify-center border-l-4 border-white "
+            class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
               class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
@@ -763,7 +751,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   fill="none"
                 />
                 <path
-                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 11-4 0zM5 20v2h14v-2H5z"
+                  d="M18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 4.5 6 11 6 11s6-6.5 6-11zm-8 0c0-1.1.9-2 2-2s2 .9 2 2a2 2 0 1 1-4 0zM5 20v2h14v-2H5z"
                 />
               </svg>
             </button>
@@ -792,7 +780,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 fill="none"
               />
               <path
-                d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"
+                d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z"
               />
             </svg>
           </button>
@@ -802,10 +790,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
         >
           <li
             aria-labelledby="direction-and-label-65x-null-outbound"
-            class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
-        after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
-        border-l-10 border-hsl-dark-green
-         "
+            class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green  "
             data-testid="RouteStopListItem::H1234"
           >
             <div
@@ -856,7 +841,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   fill="none"
                 />
                 <path
-                  d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                  d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
                 />
               </svg>
             </span>
@@ -909,10 +894,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
           </li>
           <li
             aria-labelledby="direction-and-label-65x-null-outbound"
-            class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
-        after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
-        border-l-10 border-hsl-dark-green
-        bg-background text-dark-grey "
+            class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green bg-background text-dark-grey "
             data-testid="RouteStopListItem::H1235"
           >
             <div
@@ -963,7 +945,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   fill="none"
                 />
                 <path
-                  d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                  d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
                 />
               </svg>
             </span>
@@ -1016,10 +998,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
           </li>
           <li
             aria-labelledby="direction-and-label-65x-null-outbound"
-            class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
-        after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
-        border-l-10 border-hsl-dark-green
-         "
+            class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green  "
             data-testid="RouteStopListItem::H1236"
           >
             <div
@@ -1070,7 +1049,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                   fill="none"
                 />
                 <path
-                  d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                  d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
                 />
               </svg>
             </span>

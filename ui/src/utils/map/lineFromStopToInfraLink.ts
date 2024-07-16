@@ -1,7 +1,8 @@
 import flatten from '@turf/flatten';
-import { Feature, LineString, Point, point } from '@turf/helpers';
+import { point } from '@turf/helpers';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import pointToLineDistance from '@turf/point-to-line-distance';
+import { Feature, LineString, Point } from 'geojson';
 import { MapInstance } from 'react-map-gl';
 import { Coords } from '../../types';
 import {

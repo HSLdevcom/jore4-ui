@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { pipe, uniq } from 'remeda';
+import { pipe, unique } from 'remeda';
 import { LineWithRoutesUniqueFieldsFragment } from '../../generated/graphql';
 import { QueryParameterName, useUrlQuery } from '../urlQuery/useUrlQuery';
 
@@ -14,7 +14,7 @@ export const useGetRoutesDisplayedInList = (
   const uniqueLineRouteLabels = pipe(
     line?.line_routes,
     (routes) => routes?.map((route) => route.label) ?? [],
-    (routeLabels) => uniq(routeLabels),
+    (routeLabels) => unique(routeLabels),
   );
 
   /**

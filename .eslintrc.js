@@ -45,6 +45,7 @@ module.exports = {
   ],
   ignorePatterns: [
     'ui/src/generated/*.tsx',
+    'ui/jest.setup.ts',
     'test-db-manager/src/generated/*.ts',
     'test-db-manager/dist',
     'test-db-manager/ts-dist',

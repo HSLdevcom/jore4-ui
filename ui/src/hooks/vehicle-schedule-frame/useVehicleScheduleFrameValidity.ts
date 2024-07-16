@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
-import { compact, flatMap, pipe } from 'remeda';
+import { filter, flatMap, isTruthy, pipe } from 'remeda';
 import {
   useGetVehicleScheduleFrameWithRoutesQuery,
   useUpdateVehicleScheduleFrameValidityMutation,
@@ -95,7 +95,7 @@ export const useVehicleScheduleFrameValidity = (
           (journeyPattern) => journeyPattern?.journey_pattern_route?.label,
         ),
         uniq,
-        compact,
+        filter(isTruthy),
       )
     : [];
 

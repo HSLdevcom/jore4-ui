@@ -1,12 +1,16 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
-import { act, fireEvent, screen } from '@testing-library/react';
+import { act, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import {
   GetLinesForComboboxDocument,
   GetSelectedLineDetailsByIdDocument,
 } from '../../../generated/graphql';
-import { render, sleep } from '../../../utils/test-utils';
+import {
+  fireFullMouseClickSequence,
+  render,
+  sleep,
+} from '../../../utils/test-utils';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 
 describe('<ChooseLineDropdown />', () => {
@@ -68,7 +72,7 @@ describe('<ChooseLineDropdown />', () => {
   ];
 
   test('Shows correct texts when loading with preselected line', async () => {
-    const { container, asFragment } = render(
+    const { asFragment } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <ChooseLineDropdown
           testId={testId}
@@ -81,7 +85,7 @@ describe('<ChooseLineDropdown />', () => {
 
     // dropdown is collapsed, value is not yet bound to dropdown, 'Choose line' text shows
     expect(screen.getByTestId(testId)).toHaveTextContent('Valitse linja');
-    expect(container.querySelector('li')).toBeNull();
+    expect(screen.queryAllByRole('option')).toHaveLength(0);
     expect(asFragment()).toMatchSnapshot();
 
     // wait for the graphql call to execute
@@ -94,7 +98,7 @@ describe('<ChooseLineDropdown />', () => {
   });
 
   test('Shows correct texts when loading without pre-selected line', async () => {
-    const { container, asFragment } = render(
+    const { asFragment } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <ChooseLineDropdown
           testId={testId}
@@ -107,7 +111,7 @@ describe('<ChooseLineDropdown />', () => {
 
     // dropdown is collapsed, value is not yet bound to dropdown, 'Choose line' text shows
     expect(screen.getByTestId(testId)).toHaveTextContent('Valitse linja');
-    expect(container.querySelector('li')).toBeNull();
+    expect(screen.queryAllByRole('option')).toHaveLength(0);
     expect(asFragment()).toMatchSnapshot();
 
     // wait for the graphql call to execute
@@ -120,7 +124,7 @@ describe('<ChooseLineDropdown />', () => {
   });
 
   test('Opens dropdown when clicked and shows all lines', async () => {
-    const { container, asFragment } = render(
+    const { asFragment } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <ChooseLineDropdown
           testId={testId}
@@ -136,16 +140,16 @@ describe('<ChooseLineDropdown />', () => {
 
     // click dropdown to open it:
     const openDropdownButton = screen.getByTestId(buttonTestId);
-    fireEvent.click(openDropdownButton);
+    fireFullMouseClickSequence(openDropdownButton);
 
     // dropdown is open, both lines show
     expect(screen.queryByText('Valitse linja')).toBeNull();
 
-    const items = container.querySelectorAll('li');
+    const items = screen.queryAllByRole('option');
 
     expect(items.length).toBe(2);
-    expect(items[0].textContent).toBe('1 (Line1 name)13.2.2017 - 31.12.2050');
-    expect(items[1].textContent).toBe('2 (Line2 name)13.2.2017 - 31.12.2050');
+    expect(items[0]).toHaveTextContent('1 (Line1 name)13.2.2017 - 31.12.2050');
+    expect(items[1]).toHaveTextContent('2 (Line2 name)13.2.2017 - 31.12.2050');
 
     expect(asFragment()).toMatchSnapshot();
   });

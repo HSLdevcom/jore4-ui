@@ -1,4 +1,4 @@
-import produce from 'immer';
+import { produce } from 'immer';
 import isArray from 'lodash/isArray';
 import isBoolean from 'lodash/isBoolean';
 import isNumber from 'lodash/isNumber';
