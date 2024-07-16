@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { identity, pipe } from 'remeda';
+import { pipe } from 'remeda';
 import {
   RouteUniqueFieldsFragment,
   useGetRouteDetailsByIdQuery,
@@ -79,7 +79,7 @@ export const RouteStopsSection = ({
         route.priority === Priority.Draft,
       ),
     showUnusedStops
-      ? identity // Return stops array unchanged
+      ? (stops) => stops // Return stops array unchanged
       : (stops) =>
           stops.filter((stop) =>
             stopBelongsToJourneyPattern(stop, route.route_id),

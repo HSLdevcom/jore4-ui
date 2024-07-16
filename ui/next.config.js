@@ -17,4 +17,5 @@ module.exports = {
     ignoreDuringBuilds: true,
   },
   output: 'export',
+  productionBrowserSourceMaps: true,
 };

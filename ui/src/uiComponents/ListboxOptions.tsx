@@ -21,21 +21,27 @@ interface Props {
 }
 
 // HUIListbox throws an error if ref is not set when using children component for options
-export const ListboxOptions = forwardRef<HTMLUListElement, Props>(
+export const ListboxOptions = forwardRef<HTMLDivElement, Props>(
   // eslint-disable-next-line prefer-arrow-callback
-  function MyComponent(
+  function ListboxOptions(
     { options, testId }: Props,
-    ref: ForwardedRef<HTMLUListElement>,
+    ref: ForwardedRef<HTMLDivElement>,
   ): React.ReactElement {
     return (
       <HUIListbox.Options
+        as="div"
         data-testid={testId}
         ref={ref}
         className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
       >
         <div>
           {options?.map((item) => (
-            <HUIListbox.Option key={item.key} value={item.value}>
+            <HUIListbox.Option
+              as="div"
+              id={`listbox-option-${item.key}`}
+              key={item.key}
+              value={item.value}
+            >
               {(optionProps) => {
                 const child = item.render(optionProps);
                 return React.isValidElement(child) ? (
@@ -46,8 +52,7 @@ export const ListboxOptions = forwardRef<HTMLUListElement, Props>(
                     } flex group text-left px-2 py-2 border-b border-grey`,
                   )
                 ) : (
-                  // HUIListbox.Option requires all the rendered children to be of type ReactElement.
-                  // TODO: Is this still true after we update headlessui?
+                  // HUIListboxOption requires all the rendered children to be of type ReactElement.
                   <>{child}</>
                 );
               }}

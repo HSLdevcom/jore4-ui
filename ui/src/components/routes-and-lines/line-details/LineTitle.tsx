@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
+import uniqBy from 'lodash/uniqBy';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
-import { uniqBy } from 'remeda';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
 import { useGetRoutesDisplayedInList } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';

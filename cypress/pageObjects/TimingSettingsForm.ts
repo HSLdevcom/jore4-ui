@@ -30,6 +30,9 @@ export class TimingSettingsForm {
     cy.wait('@gqlGetTimingPlacesForCombobox')
       .its('response.statusCode')
       .should('equal', 200);
-    this.getTimingPlaceDropdown().find('li').contains(timingPlaceName).click();
+    this.getTimingPlaceDropdown()
+      .find('[role="option"]')
+      .contains(timingPlaceName)
+      .click();
   }
 }

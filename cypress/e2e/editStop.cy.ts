@@ -282,7 +282,7 @@ describe('Stop editing tests', () => {
 
       stopForm
         .getTimingPlaceDropdown()
-        .find('ul')
+        .find('[role="listbox"]')
         .should('contain', testTimingPlaceLabels.label1);
     },
   );

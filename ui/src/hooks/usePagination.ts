@@ -1,4 +1,4 @@
-import produce from 'immer';
+import { produce } from 'immer';
 import range from 'lodash/range';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';

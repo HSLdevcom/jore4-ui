@@ -67,8 +67,7 @@ export const SimpleDropdownMenu = ({
                         }`,
                       )
                     ) : (
-                      // Menu.Item requires all the rendered children to be of type ReactElement.
-                      // TODO: Is this still true after we update headlessui?
+                      // MenuItem requires all the rendered children to be of type ReactElement.
                       <>{child}</>
                     )
                   }
