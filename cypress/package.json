@@ -17,17 +17,16 @@
     "@cypress/grep": "^4.1.0",
     "@hsl/jore4-test-db-manager": "1.0.0",
     "@hsl/timetables-data-inserter": "1.0.0",
-    "cypress": "^13.13.0",
+    "cypress": "^13.13.1",
     "lodash": "^4.17.21",
-    "luxon": "3.3.0",
+    "luxon": "^3.4.4",
     "qs": "^6.12.3"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.6",
-    "@types/node": "^18.19.39",
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^18.19.40",
     "@types/qs": "^6.9.15",
-    "@types/luxon": "3.3.8",
-    "cypress-multi-reporters": "^1.6.4",
+    "@types/luxon": "^3.4.2",
     "eslint-plugin-cypress": "^3.3.0",
     "find-test-names": "^1.28.23"
   }
