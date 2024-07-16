@@ -1,3 +1,4 @@
+import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { Row } from '../layoutComponents';
 
 export type ToastType = 'primary' | 'success' | 'danger' | 'warning';
@@ -48,14 +49,17 @@ const propsByType: Record<
   },
 };
 
-export const Toast = ({
-  message,
-  type = 'primary',
-  className = '',
-}: Props): React.ReactElement => {
+const ToastImpl: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { message, type = 'primary', className = '' },
+  ref,
+) => {
   const { icon, textColor, bg, border, testId } = propsByType[type];
   return (
-    <div className={`rounded-md bg-white ${className}`} data-testid={testId}>
+    <div
+      className={`rounded-md bg-white ${className}`}
+      data-testid={testId}
+      ref={ref}
+    >
       <div className={`${bg} ${border} rounded-md border`}>
         <Row className="my-6 ml-16 mr-16 items-center">
           <i className={icon} />
@@ -65,3 +69,5 @@ export const Toast = ({
     </div>
   );
 };
+
+export const Toast = forwardRef(ToastImpl);

@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import produce from 'immer';
+import { produce } from 'immer';
 import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';

@@ -61,10 +61,10 @@ export class RoutePropertiesForm {
 
     switch (direction) {
       case RouteDirectionEnum.Inbound:
-        cy.get('li').contains('2 - Keskustaan päin').click();
+        cy.get('[role="option"]').contains('2 - Keskustaan päin').click();
         break;
       case RouteDirectionEnum.Outbound:
-        cy.get('li').contains('1 - Keskustasta pois').click();
+        cy.get('[role="option"]').contains('1 - Keskustasta pois').click();
         break;
       default:
         break;
@@ -73,7 +73,7 @@ export class RoutePropertiesForm {
 
   selectLine(name: string) {
     cy.getByTestId('RoutePropertiesFormComponent::chooseLineDropdown').click();
-    cy.get('li').contains(name).click();
+    cy.get('[role="option"]').contains(name).click();
   }
 
   fillRouteProperties(values: RouteFormInfo) {

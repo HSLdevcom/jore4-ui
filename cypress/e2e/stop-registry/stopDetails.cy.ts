@@ -438,7 +438,11 @@ describe('Stop details', () => {
         bdForm.getStopPlaceStateDropdownOptions().contains('Käytössä').click();
         bdForm.getTimingPlaceDropdown().type('1AACKT');
 
-        bdForm.getTimingPlaceDropdown().find('li').contains('1AACKT').click();
+        bdForm
+          .getTimingPlaceDropdown()
+          .find('[role="option"]')
+          .contains('1AACKT')
+          .click();
 
         stopDetailsPage.basicDetails.getSaveButton().click();
         bdView.getTransportMode().shouldHaveText('Raitiovaunu');

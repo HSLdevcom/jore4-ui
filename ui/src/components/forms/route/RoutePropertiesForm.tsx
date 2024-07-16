@@ -1,6 +1,6 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useState } from 'react';
+import React, { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -40,10 +40,10 @@ const testIds = {
     'RoutePropertiesFormComponent::useTemplateRouteButton',
 };
 
-const RoutePropertiesFormComponent = (
-  { id, routeLabel, className = '', defaultValues, onSubmit }: RouteFormProps,
-  ref: ExplicitAny,
-): React.ReactElement => {
+export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
+  HTMLFormElement,
+  RouteFormProps
+> = ({ id, routeLabel, className = '', defaultValues, onSubmit }, ref) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -169,6 +169,4 @@ const RoutePropertiesFormComponent = (
   );
 };
 
-export const RoutePropertiesForm = React.forwardRef(
-  RoutePropertiesFormComponent,
-);
+export const RoutePropertiesForm = forwardRef(RoutePropertiesFormComponent);

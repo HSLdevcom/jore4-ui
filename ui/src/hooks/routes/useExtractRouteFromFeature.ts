@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
-import { Feature, LineString, Point } from '@turf/helpers';
 import length from '@turf/length';
+import { Feature, LineString, Point } from 'geojson';
 import isEqual from 'lodash/isEqual';
 import { useCallback } from 'react';
 import { pipe } from 'remeda';
