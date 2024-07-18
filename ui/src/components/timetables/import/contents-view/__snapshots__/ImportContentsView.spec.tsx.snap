@@ -9,7 +9,9 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
   <thead
     class="[&>tr>th]:border [&>tr>th]:border-light-grey"
   >
-    <tr>
+    <tr
+      data-testid="BlockVehicleJourneysTable::titleRow"
+    >
       <th
         class="w-1/6 bg-brand px-6 py-2 text-left text-white"
         data-testid="BlockVehicleJourneysTable::blockLabel"
@@ -102,7 +104,11 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
               1
             </span>
           </span>
-          35
+          <span
+            data-testid="VehicleJourneyRow::label"
+          >
+            35
+          </span>
         </div>
       </td>
       <td
@@ -146,7 +152,11 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
               2
             </span>
           </span>
-          35
+          <span
+            data-testid="VehicleJourneyRow::label"
+          >
+            35
+          </span>
         </div>
       </td>
       <td
@@ -190,7 +200,11 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
               1
             </span>
           </span>
-          35
+          <span
+            data-testid="VehicleJourneyRow::label"
+          >
+            35
+          </span>
         </div>
       </td>
       <td
@@ -231,6 +245,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
     >
       <div
         class="flex flex-row border-brand-gray w-full border text-white"
+        data-testid="VehicleScheduleFrameBlocksView::frameTitleRow"
         title=""
       >
         <p
@@ -295,7 +310,9 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           <thead
             class="[&>tr>th]:border [&>tr>th]:border-light-grey"
           >
-            <tr>
+            <tr
+              data-testid="BlockVehicleJourneysTable::titleRow"
+            >
               <th
                 class="w-1/6 bg-brand px-6 py-2 text-left text-white"
                 data-testid="BlockVehicleJourneysTable::blockLabel"
@@ -356,7 +373,9 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           <thead
             class="[&>tr>th]:border [&>tr>th]:border-light-grey"
           >
-            <tr>
+            <tr
+              data-testid="BlockVehicleJourneysTable::titleRow"
+            >
               <th
                 class="w-1/6 bg-brand px-6 py-2 text-left text-white"
                 data-testid="BlockVehicleJourneysTable::blockLabel"
@@ -416,6 +435,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
     >
       <div
         class="flex flex-row border-brand-gray w-full border text-white"
+        data-testid="VehicleScheduleFrameBlocksView::frameTitleRow"
         title=""
       >
         <p
@@ -480,7 +500,9 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
           <thead
             class="[&>tr>th]:border [&>tr>th]:border-light-grey"
           >
-            <tr>
+            <tr
+              data-testid="BlockVehicleJourneysTable::titleRow"
+            >
               <th
                 class="w-1/6 bg-brand px-6 py-2 text-left text-white"
                 data-testid="BlockVehicleJourneysTable::blockLabel"
