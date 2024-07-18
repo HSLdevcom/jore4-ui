@@ -283,7 +283,7 @@ describe('<ImportContentsView />', () => {
     ).queryByTestId;
 
     expect(
-      queryFromOutboundRow(vehicleJourneyRowTestIds.dateTypeName),
+      queryFromOutboundRow(vehicleJourneyRowTestIds.dayTypeName),
     ).toHaveTextContent('Maanantai - Perjantai');
     expect(
       queryFromOutboundRow(vehicleJourneyRowTestIds.startTime),

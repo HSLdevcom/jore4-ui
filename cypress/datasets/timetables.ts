@@ -789,6 +789,7 @@ const baseTimetableDataInput = {
     route901outbound: {
       route_label: '901',
       route_direction: 'outbound',
+      route_validity_start: DateTime.fromISO('2023-01-01'),
       journey_pattern_id: journeyPatterns[0].journey_pattern_id,
       _stop_points: [
         {
@@ -819,6 +820,7 @@ const baseTimetableDataInput = {
     route901inbound: {
       route_label: '901',
       route_direction: 'inbound',
+      route_validity_start: DateTime.fromISO('2023-01-01'),
       journey_pattern_id: journeyPatterns[1].journey_pattern_id,
       _stop_points: [
         {

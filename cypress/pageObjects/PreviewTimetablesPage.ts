@@ -19,4 +19,14 @@ export class PreviewTimetablesPage {
   getSaveButton() {
     return cy.getByTestId('PreviewTimetablesPage::saveButton');
   }
+
+  getTitle() {
+    return cy.getByTestId('PreviewTimetablesPage::previewTitle');
+  }
+
+  getVehicleScheduleFrameBlockByLabel(label: string) {
+    return cy.getByTestId(
+      `VehicleScheduleFrameBlocksView::frameBlocks::${label}`,
+    );
+  }
 }

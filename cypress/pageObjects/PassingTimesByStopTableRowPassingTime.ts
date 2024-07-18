@@ -35,4 +35,8 @@ export class PassingTimesByStopTableRowPassingTime {
   assertNthArrivalTime(nth: number, arrivalTime: string) {
     this.passingMinute.getArrivalTime().eq(nth).should('contain', arrivalTime);
   }
+
+  assertNthDepartureTime(nth: number, depTime: string) {
+    this.passingMinute.getDepartureTime().eq(nth).should('contain', depTime);
+  }
 }
