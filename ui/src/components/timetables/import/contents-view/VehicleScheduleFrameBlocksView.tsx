@@ -11,6 +11,7 @@ const testIds = {
   frameBlocks: (label: string) =>
     `VehicleScheduleFrameBlocksView::frameBlocks::${label}`,
   toggleShowTable: 'VehicleScheduleFrameBlocksView::toggleShowTable',
+  frameTitleRow: 'VehicleScheduleFrameBlocksView::frameTitleRow',
   frameLabel: 'VehicleScheduleFrameBlocksView::frameLabel',
   validityTimeRangeText:
     'VehicleScheduleFrameBlocksView::validityTimeRangeText',
@@ -54,7 +55,10 @@ export const VehicleScheduleFrameBlocksView = ({
   const vehicleScheduleFrameBlocksId = `${vehicleScheduleFrameLabel}Blocks`;
   return (
     <div data-testid={testIds.frameBlocks(vehicleScheduleFrameLabel)}>
-      <Row className="border-brand-gray w-full border text-white">
+      <Row
+        testId={testIds.frameTitleRow}
+        className="border-brand-gray w-full border text-white"
+      >
         <p
           data-testid={testIds.frameLabel}
           className="flex w-1/6 items-center border border-light-grey bg-brand px-6 py-2 font-bold"

@@ -29,6 +29,7 @@ import { SummarySection } from './SummarySection';
 import { FormState, getDefaultValues } from './TimetablesImportFormSchema';
 
 const testIds = {
+  previewTitle: 'PreviewTimetablesPage::previewTitle',
   toggleShowStagingTimetables:
     'PreviewTimetablesPage::toggleShowStagingTimetables',
   saveButton: 'PreviewTimetablesPage::saveButton',
@@ -111,13 +112,11 @@ export const PreviewTimetablesPage = (): JSX.Element => {
       <h1>{t('timetablesPreview.preview')}</h1>
       <div className="overflow-none mt-9 rounded border border-grey">
         <Row className="justify-between rounded-t-sm border-brand bg-brand pl-16 pr-8 text-white">
-          <div className="py-2">
-            <h2>
-              {t('timetablesPreview.departures', {
-                count: vehicleJourneyCount,
-              })}
-            </h2>
-          </div>
+          <h2 className="py-2" data-testid={testIds.previewTitle}>
+            {t('timetablesPreview.departures', {
+              count: vehicleJourneyCount,
+            })}
+          </h2>
           <div className="flex items-center">
             <label
               htmlFor="timetablesPreviewToggle"

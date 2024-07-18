@@ -14,6 +14,7 @@ const testIds = {
   table: 'BlockVehicleJourneysTable::table',
   blockLabel: 'BlockVehicleJourneysTable::blockLabel',
   toggleShowTable: 'BlockVehicleJourneysTable::toggleShowTable',
+  titleRow: 'BlockVehicleJourneysTable::titleRow',
   vehicleType: 'BlockVehicleJourneysTable::vehicleType',
   vehicleJourneyHeaders: 'BlockVehicleJourneysTable::vehicleJourneyHeaders',
 };
@@ -47,7 +48,7 @@ export const BlockVehicleJourneysTable = ({
       id={identifier}
     >
       <thead className="[&>tr>th]:border [&>tr>th]:border-light-grey">
-        <tr>
+        <tr data-testid={testIds.titleRow}>
           <th
             data-testid={testIds.blockLabel}
             className="w-1/6 bg-brand px-6 py-2 text-left text-white"

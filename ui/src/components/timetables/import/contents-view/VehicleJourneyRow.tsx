@@ -12,6 +12,7 @@ const testIds = {
   vehicleJourneyRow: (routeLabel: string, routeDirection: string) =>
     `VehicleJourneyRow::${routeLabel}::${routeDirection}`,
   dateTypeName: 'VehicleJourneyRow::dateTypeName',
+  label: 'VehicleJourneyRow::label',
   startTime: 'VehicleJourneyRow::startTime',
   endTime: 'VehicleJourneyRow::endTime',
   contractNumber: 'VehicleJourneyRow::contractNumber',
@@ -48,7 +49,9 @@ export const VehicleJourneyRow = ({
             direction={route.direction}
             className="mr-2 h-5 w-5 text-base"
           />
-          {getRouteLabelVariantText(route)}
+          <span data-testid={testIds.label}>
+            {getRouteLabelVariantText(route)}
+          </span>
         </Row>
       </td>
       <td data-testid={testIds.dateTypeName}>
