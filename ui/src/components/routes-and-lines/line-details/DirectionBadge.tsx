@@ -3,7 +3,7 @@ import { RouteDirectionEnum } from '../../../generated/graphql';
 import { mapDirectionToShortUiName } from '../../../i18n/uiNameMappings';
 
 const testIds = {
-  container: 'DirectionBadge::container',
+  container: 'DirectionBadge',
   directionBadge: (direction: RouteDirectionEnum) =>
     `DirectionBadge::${direction}`,
 };

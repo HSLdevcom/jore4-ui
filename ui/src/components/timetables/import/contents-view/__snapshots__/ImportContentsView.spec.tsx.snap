@@ -87,6 +87,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
     <tr
       class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
       data-testid="VehicleJourneyRow::35::outbound"
+      data-testidtemp="VehicleJourneyRow"
     >
       <td>
         <div
@@ -95,7 +96,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
         >
           <span
             class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
-            data-testid="DirectionBadge::container"
+            data-testid="DirectionBadge"
             title="1 - Keskustasta pois"
           >
             <span
@@ -112,7 +113,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
         </div>
       </td>
       <td
-        data-testid="VehicleJourneyRow::dateTypeName"
+        data-testid="VehicleJourneyRow::dayTypeName"
       >
         Maanantai - Perjantai
       </td>
@@ -135,6 +136,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
     <tr
       class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
       data-testid="VehicleJourneyRow::35::inbound"
+      data-testidtemp="VehicleJourneyRow"
     >
       <td>
         <div
@@ -143,7 +145,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
         >
           <span
             class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
-            data-testid="DirectionBadge::container"
+            data-testid="DirectionBadge"
             title="2 - Keskustaan päin"
           >
             <span
@@ -160,7 +162,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
         </div>
       </td>
       <td
-        data-testid="VehicleJourneyRow::dateTypeName"
+        data-testid="VehicleJourneyRow::dayTypeName"
       >
         Maanantai - Perjantai
       </td>
@@ -183,6 +185,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
     <tr
       class="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
       data-testid="VehicleJourneyRow::35::outbound"
+      data-testidtemp="VehicleJourneyRow"
     >
       <td>
         <div
@@ -191,7 +194,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
         >
           <span
             class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
-            data-testid="DirectionBadge::container"
+            data-testid="DirectionBadge"
             title="1 - Keskustasta pois"
           >
             <span
@@ -208,7 +211,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
         </div>
       </td>
       <td
-        data-testid="VehicleJourneyRow::dateTypeName"
+        data-testid="VehicleJourneyRow::dayTypeName"
       >
         Maanantai - Perjantai
       </td>

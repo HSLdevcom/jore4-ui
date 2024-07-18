@@ -1,335 +1,27 @@
+import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
 import {
-  GetInfrastructureLinksByExternalIdsResult,
-  InfraLinkAlongRouteInsertInput,
-  JourneyPatternInsertInput,
-  LineInsertInput,
-  RouteDirectionEnum,
-  RouteInsertInput,
-  RouteTypeOfLineEnum,
-  StopInJourneyPatternInsertInput,
-  StopInsertInput,
-  TimetablePriority,
-  buildLine,
-  buildRoute,
-  buildStop,
-  buildStopInJourneyPattern,
-  buildTimingPlace,
-  extractInfrastructureLinkIdsFromResponse,
-  mapToGetInfrastructureLinksByExternalIdsQuery,
-} from '@hsl/jore4-test-db-manager';
-import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
-import { DateTime, Duration } from 'luxon';
+  buildInfraLinksAlongRoute,
+  buildStopsOnInfraLinks,
+  getClonedBaseDbResources,
+  testInfraLinkExternalIds,
+} from '../datasets/base';
+import { getClonedBaseTimetableDataInput } from '../datasets/timetables';
 import { Tag } from '../enums';
 import {
   ErrorModal,
   ImportTimetablesPage,
   Navbar,
-  PassingTimesByStopSectionLegacy,
+  PassingTimesByStopTable,
   PreviewTimetablesPage,
-  RouteTimetablesSectionLegacy,
+  RouteTimetablesSection,
   RoutesAndLinesPage,
+  SearchResultsPage,
   TimetableVersionsPage,
   TimetablesMainPage,
   VehicleScheduleDetailsPage,
-  VehicleServiceTableLegacy,
 } from '../pageObjects';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
-
-// These infralink IDs exist in the 'infraLinks.sql' test data file.
-// These form a straight line on Eerikinkatu in Helsinki.
-// Coordinates are partial since they are needed only for the stop creation.
-
-const testInfraLinks = [
-  {
-    externalId: '445156',
-    coordinates: [24.925682785, 60.163824160000004, 7.3515],
-  },
-  {
-    externalId: '442331',
-    coordinates: [24.927565858, 60.1644843305, 9.778500000000001],
-  },
-  {
-    externalId: '442424',
-    coordinates: [24.929825718, 60.165285984, 9.957],
-  },
-  {
-    externalId: '442325',
-    coordinates: [24.93312261043133, 60.16645636069328, 13.390046659939703],
-  },
-];
-
-const stopLabels = ['H1231', 'H1232', 'H1233', 'H1234'];
-
-const lines: LineInsertInput[] = [
-  {
-    ...buildLine({ label: '99' }),
-    line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
-    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-  },
-];
-
-const timingPlaces = [
-  buildTimingPlace('78ee94c3-e856-4fdc-89ad-10b72cadb444', '1AACKT'),
-  buildTimingPlace('f8a93c6f-5ef7-4b09-ae5e-0a04ea8597e9', '1ELIMK'),
-  buildTimingPlace('5240633b-5c94-49c1-b1c2-26e9d61a01cd', '1AURLA'),
-];
-
-const buildStopsOnInfrastrucureLinks = (
-  infrastructureLinkIds: UUID[],
-): StopInsertInput[] => [
-  {
-    ...buildStop({
-      label: stopLabels[0],
-      located_on_infrastructure_link_id: infrastructureLinkIds[0],
-    }),
-    scheduled_stop_point_id: '7ef42a37-142d-44be-9b69-dbe6adca7f34',
-    timing_place_id: timingPlaces[0].timing_place_id,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[0].coordinates,
-    },
-  },
-  {
-    ...buildStop({
-      label: stopLabels[1],
-      located_on_infrastructure_link_id: infrastructureLinkIds[1],
-    }),
-    scheduled_stop_point_id: '4f8df0bc-a5cb-4fbe-a6dc-0425d55be382',
-    timing_place_id: null,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[1].coordinates,
-    },
-  },
-  {
-    ...buildStop({
-      label: stopLabels[2],
-      located_on_infrastructure_link_id: infrastructureLinkIds[2],
-    }),
-    scheduled_stop_point_id: 'b17e9ca3-44d1-4c18-8caf-018f28793ec2',
-    timing_place_id: timingPlaces[1].timing_place_id,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
-    },
-  },
-  {
-    ...buildStop({
-      label: stopLabels[3],
-      located_on_infrastructure_link_id: infrastructureLinkIds[3],
-    }),
-    scheduled_stop_point_id: '322a32cc-7a50-402b-9c01-5dc6a6b39af6',
-    timing_place_id: timingPlaces[2].timing_place_id,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[3].coordinates,
-    },
-  },
-];
-
-const routes: RouteInsertInput[] = [
-  {
-    ...buildRoute({ label: '99' }),
-    route_id: '829e9d55-aa25-4ab9-858b-f2a5aa81d931',
-    on_line_id: lines[0].line_id,
-    validity_start: DateTime.fromISO('2023-01-01'),
-    validity_end: DateTime.fromISO('2043-06-30'),
-    direction: RouteDirectionEnum.Inbound,
-  },
-];
-
-const buildInfraLinksAlongRoute = (
-  infrastructureLinkIds: UUID[],
-): InfraLinkAlongRouteInsertInput[] => [
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[0],
-    infrastructure_link_sequence: 0,
-    is_traversal_forwards: true,
-  },
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[1],
-    infrastructure_link_sequence: 1,
-    is_traversal_forwards: true,
-  },
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[2],
-    infrastructure_link_sequence: 2,
-    is_traversal_forwards: true,
-  },
-  {
-    route_id: routes[0].route_id,
-    infrastructure_link_id: infrastructureLinkIds[3],
-    infrastructure_link_sequence: 3,
-    is_traversal_forwards: true,
-  },
-];
-
-const journeyPatterns: JourneyPatternInsertInput[] = [
-  {
-    journey_pattern_id: '6cae356b-20f4-4e04-a969-097999b351f0',
-    on_route_id: routes[0].route_id,
-  },
-];
-
-const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[0],
-    scheduledStopPointSequence: 0,
-    isUsedAsTimingPoint: true,
-  }),
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[1],
-    scheduledStopPointSequence: 1,
-    isUsedAsTimingPoint: false,
-  }),
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[2],
-    scheduledStopPointSequence: 2,
-    isUsedAsTimingPoint: true,
-  }),
-  buildStopInJourneyPattern({
-    journeyPatternId: journeyPatterns[0].journey_pattern_id,
-    stopLabel: stopLabels[3],
-    scheduledStopPointSequence: 3,
-    isUsedAsTimingPoint: true,
-  }),
-];
-
-const baseTimetableDataInput = {
-  _journey_pattern_refs: {
-    route99inbound: {
-      route_label: '99',
-      route_direction: 'inbound',
-      route_validity_start: routes[0].validity_start,
-      route_validity_end: routes[0].validity_end,
-      journey_pattern_id: journeyPatterns[0].journey_pattern_id,
-      _stop_points: [
-        {
-          scheduled_stop_point_sequence: 1,
-          scheduled_stop_point_label: 'H1231',
-          timing_place_label: '1AACKT',
-        },
-        {
-          scheduled_stop_point_sequence: 2,
-          scheduled_stop_point_label: 'H1232',
-        },
-        {
-          scheduled_stop_point_sequence: 3,
-          scheduled_stop_point_label: 'H1233',
-          timing_place_label: '1ELIMK',
-        },
-        {
-          scheduled_stop_point_sequence: 4,
-          scheduled_stop_point_label: 'H1234',
-          timing_place_label: '1AURLA',
-        },
-      ],
-    },
-  },
-  _vehicle_schedule_frames: {
-    defaultFrame: {
-      validity_start: DateTime.fromISO('2020-01-01'),
-      validity_end: DateTime.fromISO('2049-12-31'),
-      name: '2020-2049',
-      booking_label: '2020-2049 booking label',
-      _vehicle_services: {
-        sunday: {
-          day_type_id: defaultDayTypeIds.SUNDAY,
-          _blocks: {
-            block: {
-              _vehicle_journeys: {
-                route99Inbound1: {
-                  _journey_pattern_ref_name: 'route99inbound',
-                  _passing_times: [
-                    {
-                      _scheduled_stop_point_label: 'H1231',
-                      arrival_time: null,
-                      departure_time: Duration.fromISO('PT7H05M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1232',
-                      arrival_time: Duration.fromISO('PT7H12M'),
-                      departure_time: Duration.fromISO('PT7H13M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1233',
-                      arrival_time: Duration.fromISO('PT7H19M'),
-                      departure_time: Duration.fromISO('PT7H23M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1234',
-                      arrival_time: Duration.fromISO('PT7H27M'),
-                      departure_time: null,
-                    },
-                  ],
-                },
-                route99Inbound2: {
-                  _journey_pattern_ref_name: 'route99inbound',
-                  _passing_times: [
-                    {
-                      _scheduled_stop_point_label: 'H1231',
-                      arrival_time: null,
-                      departure_time: Duration.fromISO('PT8H20M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1232',
-                      arrival_time: Duration.fromISO('PT8H22M'),
-                      departure_time: Duration.fromISO('PT8H23M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1233',
-                      arrival_time: Duration.fromISO('PT8H26M'),
-                      departure_time: Duration.fromISO('PT8H27M'),
-                    },
-                    {
-                      _scheduled_stop_point_label: 'H1234',
-                      arrival_time: Duration.fromISO('PT8H29M'),
-                      departure_time: null,
-                    },
-                  ],
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-};
-
-const verifyBaseTimetableValidity = () => {
-  const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
-    '99',
-    'inbound',
-  );
-
-  const route99InboundSundayVehicleService = new VehicleServiceTableLegacy(
-    route99InboundTimetableSection,
-    'SU',
-  );
-
-  const route99InboundSundayPassingTimesSectionStandard =
-    new PassingTimesByStopSectionLegacy(
-      route99InboundTimetableSection,
-      'SU',
-      TimetablePriority.Standard,
-    );
-
-  route99InboundSundayVehicleService.getHeadingButton().click();
-  route99InboundSundayPassingTimesSectionStandard
-    .getDayTypeDropdownButton()
-    .should('contain', 'Sunnuntai');
-  route99InboundSundayPassingTimesSectionStandard.vehicleJourneyGroupInfo
-    .getValidityTimeRange()
-    .should('contain', '1.1.2020 - 31.12.2049');
-};
 
 describe('Timetable import', () => {
   let timetablesMainPage: TimetablesMainPage;
@@ -338,28 +30,25 @@ describe('Timetable import', () => {
   let navbar: Navbar;
   let vehicleScheduleDetailsPage: VehicleScheduleDetailsPage;
   let timetableVersionsPage: TimetableVersionsPage;
-
-  const baseDbResources = {
-    lines,
-    routes,
-    journeyPatterns,
-    stopsInJourneyPattern,
-  };
+  let routeTimetablesSection: RouteTimetablesSection;
+  let passingTimesByStopTable: PassingTimesByStopTable;
+  let searchResultsPage: SearchResultsPage;
   let dbResources: SupportedResources;
 
+  const baseDbResources = getClonedBaseDbResources();
+  const baseTimetableDataInput = getClonedBaseTimetableDataInput();
+
   before(() => {
-    cy.task<GetInfrastructureLinksByExternalIdsResult>(
-      'hasuraAPI',
-      mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
-      ),
-    ).then((res) => {
-      const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
-      const stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+    cy.task<UUID[]>(
+      'getInfrastructureLinkIdsByExternalIds',
+      testInfraLinkExternalIds,
+    ).then((infraLinkIds) => {
+      const stops = buildStopsOnInfraLinks(infraLinkIds);
+
       const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+
       dbResources = {
         ...baseDbResources,
-        timingPlaces,
         stops,
         infraLinksAlongRoute,
       };
@@ -376,10 +65,12 @@ describe('Timetable import', () => {
     previewTimetablesPage = new PreviewTimetablesPage();
     navbar = new Navbar();
     vehicleScheduleDetailsPage = new VehicleScheduleDetailsPage();
+    routeTimetablesSection = new RouteTimetablesSection();
+    passingTimesByStopTable = new PassingTimesByStopTable();
+    searchResultsPage = new SearchResultsPage();
 
     cy.setupTests();
     cy.mockLogin();
-    cy.visit('/');
   });
 
   it(
@@ -387,30 +78,17 @@ describe('Timetable import', () => {
     { tags: [Tag.Smoke, Tag.Timetables, Tag.HastusImport] },
     () => {
       const routesAndLinesPage = new RoutesAndLinesPage();
+      const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
+      const { blockVehicleJourneysTable } = vehicleScheduleFrameBlocksView;
+      const { vehicleJourneyRow } = blockVehicleJourneysTable;
 
-      const IMPORT_FILENAME = 'hastusImport.exp';
+      const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
 
-      const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
-        '99',
-        'inbound',
-      );
-
-      const route99InboundSaturdayVehicleService =
-        new VehicleServiceTableLegacy(route99InboundTimetableSection, 'LA');
-
-      const route99InboundSaturdayPassingTimesSection =
-        new PassingTimesByStopSectionLegacy(
-          route99InboundTimetableSection,
-          'LA',
-          TimetablePriority.Standard,
-        );
-
-      // Skip searching via UI
-      cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
+      cy.visit('/routes/search?label=901&priorities=10&displayedType=routes');
       // Export the route
       routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
       routesAndLinesPage.routeLineTableRow
-        .getRouteLineTableRowCheckbox('99')
+        .getRouteLineTableRowCheckbox('901')
         .check();
       routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
       cy.wait('@hastusExport').its('response.statusCode').should('equal', 200);
@@ -420,7 +98,6 @@ describe('Timetable import', () => {
       timetablesMainPage.getImportButton().click();
       importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
       importTimetablesPage.getUploadButton().click();
-      cy.wait('@hastusImport').its('response.statusCode').should('equal', 200);
       importTimetablesPage.toast.checkSuccessToastHasMessage(
         `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
       );
@@ -433,59 +110,308 @@ describe('Timetable import', () => {
       previewTimetablesPage.priorityForm
         .getSpecialDayPriorityButton()
         .should('not.be.visible');
+      previewTimetablesPage.getTitle().shouldHaveText('Lähtöjä: 8');
 
       previewTimetablesPage.priorityForm.setAsStandard();
-      previewTimetablesPage.blockVehicleJourneysTable
-        .getToggleShowTableButton()
-        .click();
-      previewTimetablesPage.blockVehicleJourneysTable
-        .getTable()
-        .should('contain', 'Matala A2 -bussi')
-        .and('contain', '99')
-        .and('contain', 'Lauantai')
-        .and('contain', '7:10')
-        .and('contain', '7:16');
+      previewTimetablesPage
+        .getVehicleScheduleFrameBlockByLabel('0901')
+        .within(() => {
+          vehicleScheduleFrameBlocksView
+            .getFrameTitleRow()
+            .should('contain', '0901')
+            .and('contain', '1.4.2023 - 30.6.2023')
+            .and('contain', '2 autokiertoa');
+          vehicleScheduleFrameBlocksView.getTables().should('have.length', 2);
+          vehicleScheduleFrameBlocksView.getNthTable(0).within(() => {
+            blockVehicleJourneysTable
+              .getTitleRow()
+              .should('contain', '901 - 1')
+              .and('contain', 'Matala A2 -bussi');
+            blockVehicleJourneysTable.getToggleShowTableButton().click();
+            blockVehicleJourneysTable.getTableRows().should('have.length', 4);
+
+            blockVehicleJourneysTable.getNthTableRow(0).within(() => {
+              vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
+              vehicleJourneyRow.getLabel().shouldHaveText('901');
+              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+              vehicleJourneyRow.getStartTime().shouldHaveText('07:15');
+              vehicleJourneyRow.getEndTime().shouldHaveText('07:39');
+              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
+            });
+
+            blockVehicleJourneysTable.getNthTableRow(1).within(() => {
+              vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
+              vehicleJourneyRow.getLabel().shouldHaveText('901');
+              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+              vehicleJourneyRow.getStartTime().shouldHaveText('07:40');
+              vehicleJourneyRow.getEndTime().shouldHaveText('07:58');
+              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
+            });
+
+            blockVehicleJourneysTable.getNthTableRow(2).within(() => {
+              vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
+              vehicleJourneyRow.getLabel().shouldHaveText('901');
+              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+              vehicleJourneyRow.getStartTime().shouldHaveText('08:00');
+              vehicleJourneyRow.getEndTime().shouldHaveText('08:24');
+              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
+            });
+
+            blockVehicleJourneysTable.getNthTableRow(3).within(() => {
+              vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
+              vehicleJourneyRow.getLabel().shouldHaveText('901');
+              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+              vehicleJourneyRow.getStartTime().shouldHaveText('08:25');
+              vehicleJourneyRow.getEndTime().shouldHaveText('08:43');
+              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
+            });
+          });
+
+          vehicleScheduleFrameBlocksView.getNthTable(1).within(() => {
+            blockVehicleJourneysTable
+              .getTitleRow()
+              .should('contain', '901 - 2')
+              .and('contain', 'A1 sähköbussi');
+            blockVehicleJourneysTable.getToggleShowTableButton().click();
+            blockVehicleJourneysTable.getTableRows().should('have.length', 4);
+
+            blockVehicleJourneysTable.getNthTableRow(0).within(() => {
+              vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
+              vehicleJourneyRow.getLabel().shouldHaveText('901');
+              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+              vehicleJourneyRow.getStartTime().shouldHaveText('07:35');
+              vehicleJourneyRow.getEndTime().shouldHaveText('07:59');
+              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
+            });
+
+            blockVehicleJourneysTable.getNthTableRow(1).within(() => {
+              vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
+              vehicleJourneyRow.getLabel().shouldHaveText('901');
+              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+              vehicleJourneyRow.getStartTime().shouldHaveText('08:00');
+              vehicleJourneyRow.getEndTime().shouldHaveText('08:18');
+              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
+            });
+
+            blockVehicleJourneysTable.getNthTableRow(2).within(() => {
+              vehicleJourneyRow.getDirectionBadge().shouldHaveText('1');
+              vehicleJourneyRow.getLabel().shouldHaveText('901');
+              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+              vehicleJourneyRow.getStartTime().shouldHaveText('08:20');
+              vehicleJourneyRow.getEndTime().shouldHaveText('08:44');
+              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
+            });
+
+            blockVehicleJourneysTable.getNthTableRow(3).within(() => {
+              vehicleJourneyRow.getDirectionBadge().shouldHaveText('2');
+              vehicleJourneyRow.getLabel().shouldHaveText('901');
+              vehicleJourneyRow.getDayType().shouldHaveText('Lauantai');
+              vehicleJourneyRow.getStartTime().shouldHaveText('08:45');
+              vehicleJourneyRow.getEndTime().shouldHaveText('09:03');
+              vehicleJourneyRow.getContractNumber().shouldHaveText('CONTRACT');
+            });
+          });
+        });
+
       previewTimetablesPage.getSaveButton().click();
       importTimetablesPage.toast.checkSuccessToastHasMessage(
         'Aikataulujen tuonti onnistui!',
       );
 
-      // Check the imported timetable on a Saturday, which is the day type of the imported timetable
-      cy.visit(
-        `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
+      // Navigate to timetables page
+      navbar.getTimetablesLink().click();
+      timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
+      searchResultsPage.getRouteLineTableRowByLabel('901').click();
+
+      vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+        '2023-04-29',
       );
-      route99InboundSaturdayVehicleService.getHeadingButton().click();
-      route99InboundSaturdayPassingTimesSection
-        .getDayTypeDropdownButton()
-        .should('contain', 'Lauantai');
-      route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
-        stopLabel: stopLabels[0],
-        nthPassingTime: 0,
-        hour: '7',
-        departureTime: '10',
-      });
-      route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
-        stopLabel: stopLabels[1],
-        nthPassingTime: 0,
-        hour: '7',
-        departureTime: '11',
-      });
-      route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
-        stopLabel: stopLabels[2],
-        nthPassingTime: 0,
-        hour: '7',
-        departureTime: '13',
-      });
-      route99InboundSaturdayPassingTimesSection.assertNthPassingTimeOnStop({
-        stopLabel: stopLabels[3],
-        nthPassingTime: 0,
-        hour: '7',
-        departureTime: '16',
-      });
+
+      // Check the imported timetable
+      routeTimetablesSection
+        .getRouteSectionHeadingButton('901', RouteDirectionEnum.Outbound)
+        .click();
+      vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
+
+      routeTimetablesSection
+        .getRouteSection('901', RouteDirectionEnum.Outbound)
+        .within(() => {
+          const { row } = passingTimesByStopTable;
+          const { passingTime } = row;
+          // E2E001
+          passingTimesByStopTable.getStopRow('E2E001').within(() => {
+            // Hour 07
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthDepartureTime(0, '15');
+              passingTime.assertNthDepartureTime(1, '35');
+            });
+            // Hour 08
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthDepartureTime(0, '00');
+              passingTime.assertNthDepartureTime(1, '20');
+            });
+          });
+          // E2E002
+          passingTimesByStopTable.getStopRow('E2E002').within(() => {
+            // Hour 07
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthDepartureTime(0, '22');
+              passingTime.assertNthDepartureTime(1, '42');
+            });
+            // Hour 08
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthDepartureTime(0, '07');
+              passingTime.assertNthDepartureTime(1, '27');
+            });
+          });
+          // E2E003
+          passingTimesByStopTable.getStopRow('E2E003').within(() => {
+            // Hour 07
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthArrivalTime(0, '29');
+              passingTime.assertNthDepartureTime(0, '30');
+              passingTime.assertNthArrivalTime(1, '49');
+              passingTime.assertNthDepartureTime(1, '50');
+            });
+            // Hour 08
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthArrivalTime(0, '14');
+              passingTime.assertNthDepartureTime(0, '15');
+              passingTime.assertNthArrivalTime(1, '34');
+              passingTime.assertNthDepartureTime(1, '35');
+            });
+          });
+          // E2E004
+          passingTimesByStopTable.getStopRow('E2E004').within(() => {
+            // Hour 07
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthDepartureTime(0, '34');
+              passingTime.assertNthDepartureTime(1, '54');
+            });
+            // Hour 08
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthDepartureTime(0, '19');
+              passingTime.assertNthDepartureTime(1, '39');
+            });
+          });
+          // E2E005
+          passingTimesByStopTable.getStopRow('E2E005').within(() => {
+            // Hour 07
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthDepartureTime(0, '39');
+              passingTime.assertNthDepartureTime(1, '59');
+            });
+            // Hour 08
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthDepartureTime(0, '24');
+              passingTime.assertNthDepartureTime(1, '44');
+            });
+          });
+        });
+
+      routeTimetablesSection
+        .getRouteSection('901', RouteDirectionEnum.Inbound)
+        .within(() => {
+          const { row } = passingTimesByStopTable;
+          const { passingTime } = row;
+          // E2E005
+          passingTimesByStopTable.getStopRow('E2E005').within(() => {
+            // Hour 07
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(1);
+              passingTime.assertNthDepartureTime(0, '40');
+            });
+            // Hour 08
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(3);
+              passingTime.assertNthDepartureTime(0, '00');
+              passingTime.assertNthDepartureTime(1, '25');
+              passingTime.assertNthDepartureTime(2, '45');
+            });
+          });
+          // E2E006
+          passingTimesByStopTable.getStopRow('E2E006').within(() => {
+            // Hour 07
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(1);
+              passingTime.assertNthDepartureTime(0, '47');
+            });
+            // Hour 08
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(3);
+              passingTime.assertNthDepartureTime(0, '07');
+              passingTime.assertNthDepartureTime(1, '32');
+              passingTime.assertNthDepartureTime(2, '52');
+            });
+          });
+          // E2E007
+          passingTimesByStopTable.getStopRow('E2E007').within(() => {
+            // Hour 07
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(1);
+              passingTime.assertNthArrivalTime(0, '50');
+              passingTime.assertNthDepartureTime(0, '51');
+            });
+            // Hour 08
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(3);
+              passingTime.assertNthArrivalTime(0, '10');
+              passingTime.assertNthDepartureTime(0, '11');
+              passingTime.assertNthArrivalTime(1, '35');
+              passingTime.assertNthDepartureTime(1, '36');
+              passingTime.assertNthArrivalTime(2, '55');
+              passingTime.assertNthDepartureTime(2, '56');
+            });
+          });
+          // E2E008
+          passingTimesByStopTable.getStopRow('E2E008').within(() => {
+            // Hour 07
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(1);
+              passingTime.assertNthDepartureTime(0, '54');
+            });
+            // Hour 08
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(3);
+              passingTime.assertNthDepartureTime(0, '14');
+              passingTime.assertNthDepartureTime(1, '39');
+              passingTime.assertNthDepartureTime(2, '59');
+            });
+          });
+          // E2E009
+          passingTimesByStopTable.getStopRow('E2E009').within(() => {
+            // Hour 07
+            row.getTimeContainerByHour('7').within(() => {
+              passingTime.assertTotalMinuteCount(1);
+              passingTime.assertNthDepartureTime(0, '58');
+            });
+            // Hour 08
+            row.getTimeContainerByHour('8').within(() => {
+              passingTime.assertTotalMinuteCount(2);
+              passingTime.assertNthDepartureTime(0, '18');
+              passingTime.assertNthDepartureTime(1, '43');
+            });
+            // Hour 09
+            row.getTimeContainerByHour('9').within(() => {
+              passingTime.assertTotalMinuteCount(1);
+              passingTime.assertNthDepartureTime(0, '03');
+            });
+          });
+        });
     },
   );
 
-  context('Multiple import files', () => {
+  describe('Multiple import files', () => {
     beforeEach(() => {
       cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
     });
@@ -494,49 +420,73 @@ describe('Timetable import', () => {
       'Should import two timetables at the same time',
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
-        const IMPORT_FILENAME = 'hastusImport.exp';
-        const IMPORT_FILENAME_2 = 'hastusImportSundayJune2023.exp';
+        const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
+        const { blockVehicleJourneysTable } = vehicleScheduleFrameBlocksView;
 
-        // Import two timetable files
-        navbar.getTimetablesLink().click();
+        const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
+        const IMPORT_FILENAME_2 = 'hastusImportSunday901June2023.exp';
+
+        cy.visit('/timetables');
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFilesToImport([
           IMPORT_FILENAME,
           IMPORT_FILENAME_2,
         ]);
         importTimetablesPage.getUploadButton().click();
-        cy.wait('@hastusImport')
-          .its('response.statusCode')
-          .should('equal', 200);
+
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           `Tiedoston ${IMPORT_FILENAME_2} lataus onnistui`,
         );
-        importTimetablesPage.clickPreviewButton();
 
+        importTimetablesPage.clickPreviewButton();
         // Not a single day timetable -> can't select special day.
         previewTimetablesPage.priorityForm
           .getSpecialDayPriorityButton()
           .should('not.be.visible');
         previewTimetablesPage.priorityForm.setAsStandard();
 
-        previewTimetablesPage.blockVehicleJourneysTable.clickAllTableToggles();
+        previewTimetablesPage
+          .getVehicleScheduleFrameBlockByLabel('0911')
+          .within(() => {
+            vehicleScheduleFrameBlocksView
+              .getFrameTitleRow()
+              .should('contain', '0911')
+              .and('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '1 autokiertoa');
 
-        previewTimetablesPage.vehicleScheduleFrameBlocksView
-          .getFrameBlocksByLabel('0099')
-          .should('contain', '1.1.2023 - 30.6.2043 | 1 autokiertoa')
-          .and('contain', 'Matala A2 -bussi')
-          .and('contain', '99')
-          .and('contain', 'Lauantai');
+            vehicleScheduleFrameBlocksView.getNthTable(0).within(() => {
+              blockVehicleJourneysTable
+                .getTitleRow()
+                .should('contain', '901 - 1')
+                .and('contain', 'Matala A2 -bussi');
+            });
+          });
 
-        previewTimetablesPage.vehicleScheduleFrameBlocksView
-          .getFrameBlocksByLabel('1199')
-          .should('contain', '1.6.2023 - 30.6.2023 | 1 autokiertoa')
-          .and('contain', 'Matala A2 -bussi')
-          .and('contain', '99')
-          .and('contain', 'Sunnuntai');
+        previewTimetablesPage
+          .getVehicleScheduleFrameBlockByLabel('0901')
+          .within(() => {
+            vehicleScheduleFrameBlocksView
+              .getFrameTitleRow()
+              .should('contain', '0901')
+              .and('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '2 autokiertoa');
+            vehicleScheduleFrameBlocksView.getNthTable(0).within(() => {
+              blockVehicleJourneysTable
+                .getTitleRow()
+                .should('contain', '901 - 1')
+                .and('contain', 'Matala A2 -bussi');
+            });
+
+            vehicleScheduleFrameBlocksView.getNthTable(1).within(() => {
+              blockVehicleJourneysTable
+                .getTitleRow()
+                .should('contain', '901 - 2')
+                .and('contain', 'A1 sähköbussi');
+            });
+          });
 
         previewTimetablesPage.getSaveButton().click();
         importTimetablesPage.toast.checkSuccessToastHasMessage(
@@ -546,113 +496,116 @@ describe('Timetable import', () => {
     );
   });
 
-  context('Temporary timetables', () => {
+  describe('Temporary timetables', () => {
     beforeEach(() => {
       cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
     });
 
     it(
-      'Should export a route and import a Hastus timetable as temporary',
+      'Should import a Hastus timetable as temporary',
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
-        const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
-          '99',
-          'inbound',
-        );
+        const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
 
-        const route99InboundSundayVehicleService =
-          new VehicleServiceTableLegacy(route99InboundTimetableSection, 'SU');
+        const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
 
-        const route99InboundSundayPassingTimesSectionTemporary =
-          new PassingTimesByStopSectionLegacy(
-            route99InboundTimetableSection,
-            'SU',
-            TimetablePriority.Temporary,
-          );
-
-        const IMPORT_FILENAME = 'hastusImportSundayJune2023.exp';
-
-        // Import a timetable for the route
+        cy.visit('/');
         navbar.getTimetablesLink().click();
         timetablesMainPage.getImportButton().click();
-        importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+        importTimetablesPage.selectFilesToImport([IMPORT_FILENAME]);
         importTimetablesPage.getUploadButton().click();
-        cy.wait('@hastusImport')
-          .its('response.statusCode')
-          .should('equal', 200);
+
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
-        importTimetablesPage.clickPreviewButton();
 
+        importTimetablesPage.clickPreviewButton();
         // Not a single day timetable -> can't select special day.
         previewTimetablesPage.priorityForm
           .getSpecialDayPriorityButton()
           .should('not.be.visible');
-
         previewTimetablesPage.priorityForm.setAsTemporary();
-        previewTimetablesPage.blockVehicleJourneysTable
-          .getToggleShowTableButton()
-          .click();
-        previewTimetablesPage.vehicleScheduleFrameBlocksView
-          .getValidityTimeRangeText()
-          .should('contain', '1.6.2023 - 30.6.2023 | 1 autokiertoa');
-        previewTimetablesPage.blockVehicleJourneysTable
-          .getTable()
-          .should('contain', 'Matala A2 -bussi')
-          .and('contain', '99')
-          .and('contain', 'Sunnuntai')
-          .and('contain', '7:10')
-          .and('contain', '7:16')
-          .and('contain', '8:20')
-          .and('contain', '8:26');
+
+        previewTimetablesPage
+          .getVehicleScheduleFrameBlockByLabel('0901')
+          .within(() => {
+            vehicleScheduleFrameBlocksView
+              .getFrameTitleRow()
+              .should('contain', '0901')
+              .and('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '2 autokiertoa');
+          });
+
         previewTimetablesPage.getSaveButton().click();
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           'Aikataulujen tuonti onnistui!',
         );
 
-        // Check the imported timetable on a Sunday, which is the day type of the imported timetable
-        cy.visit(
-          `timetables/lines/${lines[0].line_id}?observationDate=2023-06-04&routeLabels=${routes[0].label}`,
-        );
-        route99InboundSundayVehicleService.getHeadingButton().click();
-        route99InboundSundayPassingTimesSectionTemporary
-          .getDayTypeDropdownButton()
-          .should('contain', 'Sunnuntai');
-        route99InboundSundayPassingTimesSectionTemporary.vehicleJourneyGroupInfo
-          .getValidityTimeRange()
-          .should('contain', '1.6.2023 - 30.6.2023');
-        route99InboundSundayPassingTimesSectionTemporary.assertStopTimes({
-          stopLabel: stopLabels[0],
-          hour: '7',
-          departureMinutes: ['10'],
-        });
-        route99InboundSundayPassingTimesSectionTemporary.assertStopTimes({
-          stopLabel: stopLabels[1],
-          hour: '7',
-          departureMinutes: ['11'],
-        });
-        route99InboundSundayPassingTimesSectionTemporary.assertStopTimes({
-          stopLabel: stopLabels[2],
-          hour: '7',
-          departureMinutes: ['13'],
-        });
-        route99InboundSundayPassingTimesSectionTemporary.assertStopTimes({
-          stopLabel: stopLabels[3],
-          hour: '7',
-          departureMinutes: ['16'],
-        });
+        // Navigate to timetables page
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
+        searchResultsPage.getRouteLineTableRowByLabel('901').click();
 
-        // Check the Sunday timetable after the temporary timetable is not valid
-        cy.visit(
-          `timetables/lines/${lines[0].line_id}?observationDate=2023-07-02&routeLabels=${routes[0].label}`,
+        // Check that the original Standard priority Saturday timetable is unchanged
+        vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+          '2023-01-07',
         );
-        verifyBaseTimetableValidity();
+
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection(
+            '901',
+            RouteDirectionEnum.Outbound,
+          )
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:05 ... 09:40');
+          });
+
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:30 ... 10:05');
+          });
+
+        // Check that the imported Temporary priority timetable is now in effect
+        vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+          '2023-04-01',
+        );
+
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection(
+            '901',
+            RouteDirectionEnum.Outbound,
+          )
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '4 lähtöä')
+              .and('contain', '07:15 ... 08:20');
+          });
+
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '4 lähtöä')
+              .and('contain', '07:40 ... 08:45');
+          });
       },
     );
   });
 
-  context('Draft timetables', () => {
+  describe('Draft timetables', () => {
     beforeEach(() => {
       cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
     });
@@ -662,49 +615,72 @@ describe('Timetable import', () => {
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
         timetableVersionsPage = new TimetableVersionsPage();
+        const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
+        const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
 
-        const IMPORT_FILENAME = 'hastusImportSundayJune2023.exp';
-
-        // Import a timetable for the route
-        navbar.getTimetablesLink().click();
+        cy.visit('/timetables');
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
-        cy.wait('@hastusImport')
-          .its('response.statusCode')
-          .should('equal', 200);
+
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
-        importTimetablesPage.clickPreviewButton();
 
+        importTimetablesPage.clickPreviewButton();
         // Not a single day timetable -> can't select special day.
         previewTimetablesPage.priorityForm
           .getSpecialDayPriorityButton()
           .should('not.be.visible');
 
         previewTimetablesPage.priorityForm.setAsDraft();
-        previewTimetablesPage.blockVehicleJourneysTable
-          .getToggleShowTableButton()
-          .click();
-        previewTimetablesPage.blockVehicleJourneysTable
-          .getTable()
-          .should('contain', 'Matala A2 -bussi')
-          .and('contain', '99')
-          .and('contain', 'Sunnuntai')
-          .and('contain', '7:10')
-          .and('contain', '7:16');
+        previewTimetablesPage
+          .getVehicleScheduleFrameBlockByLabel('0901')
+          .within(() => {
+            vehicleScheduleFrameBlocksView
+              .getFrameTitleRow()
+              .should('contain', '0901')
+              .and('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '2 autokiertoa');
+          });
+
         previewTimetablesPage.getSaveButton().click();
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           'Aikataulujen tuonti onnistui!',
         );
 
-        // Check the Sunday timetable within time range of the draft timetable
-        cy.visit(
-          `timetables/lines/${lines[0].line_id}?observationDate=2023-06-04&routeLabels=${routes[0].label}`,
+        // Navigate to timetables page
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
+        searchResultsPage.getRouteLineTableRowByLabel('901').click();
+
+        // Check the original Standard priority Saturday timetable within timerange of the draft
+        vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+          '2023-04-01',
         );
 
-        verifyBaseTimetableValidity();
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection(
+            '901',
+            RouteDirectionEnum.Outbound,
+          )
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:05 ... 09:40');
+          });
+
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:30 ... 10:05');
+          });
 
         // Verify that the draft timetable is listed on the timetable versions page
         vehicleScheduleDetailsPage.getShowVersionsButton().click();
@@ -714,28 +690,35 @@ describe('Timetable import', () => {
         );
         timetableVersionsPage.timetableVersionTable
           .getRows()
-          .should('have.length', 2);
+          .should('have.length', 3);
         timetableVersionsPage.timetableVersionTable
-          .getRows()
-          .eq(0)
-          .should('contain', 'Voimassa')
-          .and('contain', 'Sunnuntai')
-          .and('contain', '1.1.2020')
-          .and('contain', '31.12.2049')
-          .and('contain', '99');
+          .getNthRow(0)
+          .should('contain', 'Perusversio')
+          .and('contain', 'Lauantai')
+          .and('contain', '1.1.2023')
+          .and('contain', '31.12.2023')
+          .and('contain', '901');
+
         timetableVersionsPage.timetableVersionTable
-          .getRows()
-          .eq(1)
+          .getNthRow(1)
+          .should('contain', 'Perusversio')
+          .and('contain', 'Maanantai - Perjantai')
+          .and('contain', '1.1.2023')
+          .and('contain', '31.12.2023')
+          .and('contain', '901');
+
+        timetableVersionsPage.timetableVersionTable
+          .getNthRow(2)
           .should('contain', 'Luonnos')
-          .and('contain', 'Sunnuntai')
-          .and('contain', '1.6.2023')
+          .and('contain', 'Lauantai')
+          .and('contain', '1.4.2023')
           .and('contain', '30.6.2023')
-          .and('contain', '99');
+          .and('contain', '901');
       },
     );
   });
 
-  context('Special days', () => {
+  describe('Special days', () => {
     beforeEach(() => {
       cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
     });
@@ -744,31 +727,15 @@ describe('Timetable import', () => {
       'Should import a special day timetable for a route',
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
-        const route99InboundTimetableSection = new RouteTimetablesSectionLegacy(
-          '99',
-          'inbound',
-        );
+        const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
 
-        const route99InboundSundayVehicleService =
-          new VehicleServiceTableLegacy(route99InboundTimetableSection, 'SU');
+        const IMPORT_FILENAME = 'hastusImportSaturday901specialDay2023.exp';
 
-        const route99InboundSundayPassingTimesSectionSpecial =
-          new PassingTimesByStopSectionLegacy(
-            route99InboundTimetableSection,
-            'SU',
-            TimetablePriority.Special,
-          );
-
-        const IMPORT_FILENAME = 'specialDaySunday.exp';
-
-        // Import the special day timetable for the route
-        navbar.getTimetablesLink().click();
+        cy.visit('/timetables');
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
-        cy.wait('@hastusImport')
-          .its('response.statusCode')
-          .should('equal', 200);
+
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
@@ -789,6 +756,7 @@ describe('Timetable import', () => {
           .should('be.visible')
           .and('be.checked')
           .and('not.be.disabled');
+
         previewTimetablesPage.confirmTimetablesImportForm
           .getCancelButton()
           .click();
@@ -810,79 +778,81 @@ describe('Timetable import', () => {
           .and('be.checked')
           .and('not.be.disabled');
 
-        previewTimetablesPage.blockVehicleJourneysTable
-          .getToggleShowTableButton()
-          .click();
-        previewTimetablesPage.blockVehicleJourneysTable
-          .getTable()
-          .should('contain', 'Matala A2 -bussi')
-          .and('contain', '99')
-          .and('contain', 'Sunnuntai')
-          .and('contain', '6:10')
-          .and('contain', '6:16');
+        previewTimetablesPage
+          .getVehicleScheduleFrameBlockByLabel('0912')
+          .within(() => {
+            vehicleScheduleFrameBlocksView
+              .getFrameTitleRow()
+              .should('contain', '0912')
+              .and('contain', '1.4.2023 - 1.4.2023')
+              .and('contain', '1 autokiertoa');
+          });
+
         previewTimetablesPage.getSaveButton().click();
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           'Aikataulujen tuonti onnistui!',
         );
 
+        // Navigate to timetables page
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
+        searchResultsPage.getRouteLineTableRowByLabel('901').click();
+
+        // Check the original Standard priority Saturday timetable is unchanged
+        vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+          '2023-01-07',
+        );
+
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection(
+            '901',
+            RouteDirectionEnum.Outbound,
+          )
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:05 ... 09:40');
+          });
+
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:30 ... 10:05');
+          });
+
         // Check the imported timetable on the date of the special day
-        cy.visit(
-          `timetables/lines/${lines[0].line_id}?observationDate=2023-11-12&routeLabels=${routes[0].label}`,
+        vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+          '2023-04-01',
         );
-        route99InboundSundayVehicleService.getHeadingButton().click();
-        route99InboundSundayPassingTimesSectionSpecial
-          .getDayTypeDropdownButton()
-          .should('contain', 'Sunnuntai');
-        route99InboundSundayPassingTimesSectionSpecial.vehicleJourneyGroupInfo
-          .getValidityTimeRange()
-          .should('contain', '12.11.2023 - 12.11.2023');
-        route99InboundSundayPassingTimesSectionSpecial.assertStopTimes({
-          stopLabel: stopLabels[0],
-          hour: '6',
-          departureMinutes: ['10'],
-        });
-        route99InboundSundayPassingTimesSectionSpecial.assertStopTimes({
-          stopLabel: stopLabels[1],
-          hour: '6',
-          departureMinutes: ['11'],
-        });
-        route99InboundSundayPassingTimesSectionSpecial.assertStopTimes({
-          stopLabel: stopLabels[2],
-          hour: '6',
-          departureMinutes: ['13'],
-        });
-        route99InboundSundayPassingTimesSectionSpecial.assertStopTimes({
-          stopLabel: stopLabels[3],
-          hour: '6',
-          departureMinutes: ['16'],
-        });
 
-        route99InboundSundayPassingTimesSectionSpecial.assertStopTimes({
-          stopLabel: stopLabels[0],
-          hour: '7',
-          departureMinutes: ['20'],
-        });
-        route99InboundSundayPassingTimesSectionSpecial.assertStopTimes({
-          stopLabel: stopLabels[1],
-          hour: '7',
-          departureMinutes: ['21'],
-        });
-        route99InboundSundayPassingTimesSectionSpecial.assertStopTimes({
-          stopLabel: stopLabels[2],
-          hour: '7',
-          departureMinutes: ['23'],
-        });
-        route99InboundSundayPassingTimesSectionSpecial.assertStopTimes({
-          stopLabel: stopLabels[3],
-          hour: '7',
-          departureMinutes: ['26'],
-        });
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection(
+            '901',
+            RouteDirectionEnum.Outbound,
+          )
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.4.2023 - 1.4.2023')
+              .and('contain', '2 lähtöä')
+              .and('contain', '07:15 ... 08:00');
+          });
 
-        // Check the Sunday timetable a week from the special day
-        cy.visit(
-          `timetables/lines/${lines[0].line_id}?observationDate=2023-11-19&routeLabels=${routes[0].label}`,
-        );
-        verifyBaseTimetableValidity();
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.4.2023 - 1.4.2023')
+              .and('contain', '2 lähtöä')
+              .and('contain', '07:40 ... 08:25');
+          });
       },
     );
 
@@ -890,19 +860,21 @@ describe('Timetable import', () => {
       'Should show an error message when trying to import a normal timetable and a special day timetable at the same time',
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
-        const IMPORT_FILENAME = 'specialDaySunday.exp';
-        const IMPORT_FILENAME_2 = 'hastusImport.exp';
+        const IMPORT_FILENAME = 'hastusImportSaturday901specialDay2023.exp';
+        const IMPORT_FILENAME_2 = 'hastusImportSaturday901Apr-Jun2023.exp';
 
-        navbar.getTimetablesLink().click();
+        cy.visit('/timetables');
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFilesToImport([
           IMPORT_FILENAME,
           IMPORT_FILENAME_2,
         ]);
         importTimetablesPage.getUploadButton().click();
-        cy.wait('@hastusImport')
-          .its('response.statusCode')
-          .should('equal', 200);
+
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
+        );
+
         importTimetablesPage.getSaveButton().click();
         cy.contains(
           'Tuoduissa aikatauluissa on erityispäivien lisäksi myös muita aikatauluja.',
@@ -914,7 +886,7 @@ describe('Timetable import', () => {
     );
   });
 
-  context('Cancel timetable import', () => {
+  describe('Cancel timetable import', () => {
     beforeEach(() => {
       cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
     });
@@ -925,16 +897,14 @@ describe('Timetable import', () => {
       () => {
         timetableVersionsPage = new TimetableVersionsPage();
 
-        const IMPORT_FILENAME = 'hastusImport.exp';
+        const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
 
+        cy.visit('/timetables');
         // Import a timetable for the route
-        navbar.getTimetablesLink().click();
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
-        cy.wait('@hastusImport')
-          .its('response.statusCode')
-          .should('equal', 200);
+
         importTimetablesPage.toast.checkSuccessToastHasMessage(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
@@ -946,24 +916,58 @@ describe('Timetable import', () => {
 
         importTimetablesPage.verifyImportFormButtonsDisabled();
 
-        // Check the imported timetable on a Saturday, which is the day type of the timetable in the import file
-        cy.visit(
-          `timetables/lines/${lines[0].line_id}?observationDate=2023-04-29&routeLabels=${routes[0].label}`,
+        // Navigate to timetables page
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.searchContainer.getSearchInput().type('901{enter}');
+        searchResultsPage.getRouteLineTableRowByLabel('901').click();
+
+        // Check the original Standard priority Saturday timetable is unchanged
+        vehicleScheduleDetailsPage.observationDateControl.setObservationDate(
+          '2023-01-07',
         );
 
+        // Check the imported timetable on a Saturday, which is the day type of the timetable in the import file
         vehicleScheduleDetailsPage.getShowAllValidSwitch().click();
 
-        cy.getByTestId('VehicleServiceTable::headingButton')
-          .contains('Sunnuntai')
-          .should('exist');
-        cy.get('[data-testid="VehicleServiceTable::headingButton"]')
-          .contains('Lauantai')
-          .should('not.exist');
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection(
+            '901',
+            RouteDirectionEnum.Outbound,
+          )
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('MP')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '06:05 ... 08:40');
+
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:05 ... 09:40');
+          });
+
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('MP')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '06:30 ... 09:05');
+
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:30 ... 10:05');
+          });
       },
     );
   });
 
-  context('Failing hastus import', () => {
+  describe('Failing hastus import', () => {
     beforeEach(() => {
       cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
     });
@@ -972,24 +976,16 @@ describe('Timetable import', () => {
       'should display an error dialog when Hastus import fails',
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
-        const routesAndLinesPage = new RoutesAndLinesPage();
         const errorModal = new ErrorModal();
 
-        const IMPORT_FILENAME = 'hastusImportFailing.exp';
+        // In the file there is one error on line 9, E2E004 should be E2E003, which
+        // should cause error
+        const IMPORT_FILENAME = 'hastusImportErronous901.exp';
 
-        // Skip searching via UI
-        cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
-
-        // Export the route
-        routesAndLinesPage.exportToolBar.getToggleSelectingButton().click();
-        routesAndLinesPage.routeLineTableRow
-          .getRouteLineTableRowCheckbox('99')
-          .check();
-        routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        cy.wait('@hastusExport')
-          .its('response.statusCode')
-          .should('equal', 200);
-
+        cy.visit('/timetables');
+        // Import a timetable for the exported route
+        timetablesMainPage.getImportButton().click();
+        importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         // Import a timetable for the exported route
         navbar.getTimetablesLink().click();
         timetablesMainPage.getImportButton().click();
@@ -1010,10 +1006,7 @@ describe('Timetable import', () => {
           .should('have.length', 1);
         errorModal.errorModalItem
           .getTitle()
-          .should(
-            'contain',
-            'Tiedoston hastusImportFailing.exp lataus epäonnistui',
-          );
+          .should('contain', `Tiedoston ${IMPORT_FILENAME} lataus epäonnistui`);
         errorModal.errorModalItem
           .getDescription()
           .should(
