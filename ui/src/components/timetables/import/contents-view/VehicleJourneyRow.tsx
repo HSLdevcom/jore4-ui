@@ -11,8 +11,9 @@ import { DirectionBadge } from '../../../routes-and-lines/line-details/Direction
 const testIds = {
   vehicleJourneyRow: (routeLabel: string, routeDirection: string) =>
     `VehicleJourneyRow::${routeLabel}::${routeDirection}`,
-  dateTypeName: 'VehicleJourneyRow::dateTypeName',
+  vehicleJourneyRowTemp: 'VehicleJourneyRow',
   label: 'VehicleJourneyRow::label',
+  dayTypeName: 'VehicleJourneyRow::dayTypeName',
   startTime: 'VehicleJourneyRow::startTime',
   endTime: 'VehicleJourneyRow::endTime',
   contractNumber: 'VehicleJourneyRow::contractNumber',
@@ -42,6 +43,7 @@ export const VehicleJourneyRow = ({
     <tr
       className="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
       data-testid={testIds.vehicleJourneyRow(route.label, route.direction)}
+      data-testidtemp={testIds.vehicleJourneyRowTemp}
     >
       <td>
         <Row className="items-center font-bold">
@@ -54,7 +56,7 @@ export const VehicleJourneyRow = ({
           </span>
         </Row>
       </td>
-      <td data-testid={testIds.dateTypeName}>
+      <td data-testid={testIds.dayTypeName}>
         {parseI18nField(vehicleService.day_type.name_i18n)}
       </td>
       <td data-testid={testIds.startTime}>

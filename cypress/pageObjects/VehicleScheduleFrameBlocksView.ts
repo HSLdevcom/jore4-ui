@@ -1,4 +1,8 @@
+import { BlockVehicleJourneysTable } from './BlockVehicleJourneysTable';
+
 export class VehicleScheduleFrameBlocksView {
+  blockVehicleJourneysTable = new BlockVehicleJourneysTable();
+
   getFrameBlocksByLabel(label: string) {
     return cy.getByTestId(
       `VehicleScheduleFrameBlocksView::frameBlocks::${label}`,
@@ -9,8 +13,12 @@ export class VehicleScheduleFrameBlocksView {
     return cy.getByTestId('VehicleScheduleFrameBlocksView::toggleShowTable');
   }
 
-  getTable() {
-    return cy.getByTestId('VehicleScheduleFrameBlocksView::table');
+  getFrameTitleRow() {
+    return cy.getByTestId('VehicleScheduleFrameBlocksView::frameTitleRow');
+  }
+
+  getTables() {
+    return cy.getByTestId('BlockVehicleJourneysTable::table');
   }
 
   getValidityTimeRangeText() {
