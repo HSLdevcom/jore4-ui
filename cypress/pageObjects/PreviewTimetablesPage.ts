@@ -1,6 +1,5 @@
 import { BlockVehicleJourneysTable } from './BlockVehicleJourneysTable';
 import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
-import { ConfirmTimetablesImportForm } from './ConfirmTimetableImportForm';
 import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 import { VehicleScheduleFrameBlocksView } from './VehicleScheduleFrameBlocksView';
 
@@ -13,8 +12,6 @@ export class PreviewTimetablesPage {
     new ConfirmPreviewedTimetablesImportForm();
 
   vehicleScheduleFrameBlocksView = new VehicleScheduleFrameBlocksView();
-
-  confirmTimetablesImportForm = new ConfirmTimetablesImportForm();
 
   getSaveButton() {
     return cy.getByTestId('PreviewTimetablesPage::saveButton');
