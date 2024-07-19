@@ -9,6 +9,7 @@ import {
 import { getClonedBaseTimetableDataInput } from '../datasets/timetables';
 import { Tag } from '../enums';
 import {
+  ErrorModal,
   ImportTimetablesPage,
   Navbar,
   PassingTimesByStopTable,
@@ -16,7 +17,7 @@ import {
   RouteTimetablesSection,
   SearchResultsPage,
   TimetablesMainPage,
-  VehicleScheduleDetailsPage
+  VehicleScheduleDetailsPage,
 } from '../pageObjects';
 import { ConfirmTimetablesImportModal } from '../pageObjects/timetables/import/ConfirmTimetablesImportModal';
 import { UUID } from '../types';
@@ -729,5 +730,173 @@ describe('Timetable replacement and combination', () => {
       },
     );
   });
-  // TODO: add a test for a fail case when it is handled in the UI
+
+  describe('Error cases', () => {
+    describe('Combining mismatching timetable', () => {
+      beforeEach(() => {
+        cy.task('insertHslTimetablesDatasetToDb', baseTimetableDataInput);
+      });
+
+      it('should throw an error when the target timetable has different validity than import', () => {
+        const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
+        const errorModal = new ErrorModal();
+        const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
+
+        // Observation date is the first day the imported timetable would be in effect
+        cy.visit(
+          '/timetables/lines/08d1fa6b-440c-421e-ad4d-0778d65afe60?observationDate=2023-04-01',
+        );
+
+        // Check existing timetable validity
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection(
+            '901',
+            RouteDirectionEnum.Outbound,
+          )
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:05 ... 09:40');
+          });
+
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.1.2023 - 31.12.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:30 ... 10:05');
+          });
+
+        // Navigate to timetables import and import new timetable with combine
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.getImportButton().click();
+        importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+        importTimetablesPage.getUploadButton().click();
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
+        );
+
+        importTimetablesPage.clickPreviewButton();
+        previewTimetablesPage.priorityForm.setAsStandard();
+        previewTimetablesPage.confirmPreviewedTimetablesImportForm
+          .getCombineRadioButton()
+          .check();
+        previewTimetablesPage
+          .getVehicleScheduleFrameBlockByLabel('0901')
+          .within(() => {
+            // Check that the imported timetable has different validity than the existing
+            vehicleScheduleFrameBlocksView
+              .getFrameTitleRow()
+              .should('contain', '0901')
+              .and('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '2 autokiertoa');
+          });
+        previewTimetablesPage.getSaveButton().click();
+
+        errorModal.getModal().should('exist');
+        errorModal.errorModalItem
+          .getItem()
+          .should('be.visible')
+          .should('have.length', 1);
+        errorModal.errorModalItem
+          .getDescription()
+          .shouldHaveText(
+            'Tuotavia aikatauluja ei voitu yhdistää: kohdeaikataulua ei löytynyt.',
+          );
+      });
+    });
+
+    describe('Replacing timetable from the beginning of its validity', () => {
+      beforeEach(() => {
+        cy.task('insertHslTimetablesDatasetToDb', {
+          ...baseTimetableDataInput,
+          _vehicle_schedule_frames: {
+            // eslint-disable-next-line no-underscore-dangle
+            ...baseTimetableDataInput._vehicle_schedule_frames,
+            year2023Sat: {
+              // eslint-disable-next-line no-underscore-dangle
+              ...baseTimetableDataInput._vehicle_schedule_frames.year2023Sat,
+              validity_start: DateTime.fromISO('2023-04-01'),
+              validity_end: DateTime.fromISO('2023-06-30'),
+            },
+          },
+        });
+      });
+
+      it('should throw an error when the target timetables validity starts at the same time', () => {
+        const IMPORT_FILENAME = 'hastusImportSaturday901Apr-Jun2023.exp';
+        const errorModal = new ErrorModal();
+        const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
+
+        cy.visit(
+          '/timetables/lines/08d1fa6b-440c-421e-ad4d-0778d65afe60?observationDate=2023-04-01',
+        );
+
+        // Check existing timetable validity
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection(
+            '901',
+            RouteDirectionEnum.Outbound,
+          )
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:05 ... 09:40');
+          });
+
+        vehicleScheduleDetailsPage
+          .getRouteSectionByLabelAndDirection('901', RouteDirectionEnum.Inbound)
+          .within(() => {
+            routeTimetablesSection
+              .getVehicleServiceTableByDayType('LA')
+              .should('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '6 lähtöä')
+              .and('contain', '07:30 ... 10:05');
+          });
+
+        // Navigate to timetables import and import new timetable with combine
+        navbar.getTimetablesLink().click();
+        timetablesMainPage.getImportButton().click();
+        importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
+        importTimetablesPage.getUploadButton().click();
+        importTimetablesPage.toast.checkSuccessToastHasMessage(
+          `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
+        );
+
+        importTimetablesPage.clickPreviewButton();
+        previewTimetablesPage.priorityForm.setAsStandard();
+        previewTimetablesPage.confirmPreviewedTimetablesImportForm
+          .getReplaceRadioButton()
+          .should('be.checked');
+        previewTimetablesPage
+          .getVehicleScheduleFrameBlockByLabel('0901')
+          .within(() => {
+            // Check that the imported timetable has the same validity than the existing
+            vehicleScheduleFrameBlocksView
+              .getFrameTitleRow()
+              .should('contain', '0901')
+              .and('contain', '1.4.2023 - 30.6.2023')
+              .and('contain', '2 autokiertoa');
+          });
+        previewTimetablesPage.getSaveButton().click();
+
+        errorModal.getModal().should('exist');
+        errorModal.errorModalItem
+          .getItem()
+          .should('be.visible')
+          .should('have.length', 1);
+        errorModal.errorModalItem
+          .getDescription()
+          .shouldHaveText(
+            'Tallentaminen epäonnistui: aikataulukehyksissä on päällekkäisyyksiä.',
+          );
+      });
+    });
+  });
 });
