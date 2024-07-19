@@ -20,6 +20,7 @@ import {
   TimetablesMainPage,
   VehicleScheduleDetailsPage,
 } from '../pageObjects';
+import { ConfirmTimetablesImportModal } from '../pageObjects/timetables/import/ConfirmTimetablesImportModal';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 
@@ -728,6 +729,7 @@ describe('Timetable import', () => {
       { tags: [Tag.Timetables, Tag.HastusImport] },
       () => {
         const { vehicleScheduleFrameBlocksView } = previewTimetablesPage;
+        const confirmTimetablesImportModal = new ConfirmTimetablesImportModal();
 
         const IMPORT_FILENAME = 'hastusImportSaturday901specialDay2023.exp';
 
@@ -742,22 +744,22 @@ describe('Timetable import', () => {
 
         // Check that UI component states are correct in the confirmation modal
         importTimetablesPage.getSaveButton().click();
-        previewTimetablesPage.confirmTimetablesImportForm.priorityForm
+        confirmTimetablesImportModal.confirmTimetablesImportForm.priorityForm
           .getDraftPriorityButton()
           .should('be.disabled');
-        previewTimetablesPage.confirmTimetablesImportForm.priorityForm
+        confirmTimetablesImportModal.confirmTimetablesImportForm.priorityForm
           .getStandardPriorityButton()
           .should('be.disabled');
-        previewTimetablesPage.confirmTimetablesImportForm.priorityForm
+        confirmTimetablesImportModal.confirmTimetablesImportForm.priorityForm
           .getTemporaryPriorityButton()
           .should('be.disabled');
-        previewTimetablesPage.confirmTimetablesImportForm.priorityForm
+        confirmTimetablesImportModal.confirmTimetablesImportForm.priorityForm
           .getSpecialDayPriorityButton()
           .should('be.visible')
           .and('be.checked')
           .and('not.be.disabled');
 
-        previewTimetablesPage.confirmTimetablesImportForm
+        confirmTimetablesImportModal.confirmTimetablesImportForm
           .getCancelButton()
           .click();
 

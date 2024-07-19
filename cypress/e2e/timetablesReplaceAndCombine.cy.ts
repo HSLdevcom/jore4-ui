@@ -21,6 +21,7 @@ import { defaultDayTypeIds } from '@hsl/timetables-data-inserter';
 import { DateTime, Duration } from 'luxon';
 import { Tag } from '../enums';
 import {
+  ConfirmTimetablesImportModal,
   ImportTimetablesPage,
   Navbar,
   PassingTimesByStopSectionLegacy,
@@ -660,6 +661,7 @@ describe('Timetable replacement and combination', () => {
     { tags: [Tag.Timetables, Tag.HastusImport] },
     () => {
       const routesAndLinesPage = new RoutesAndLinesPage();
+      const confirmTimetablesImportModal = new ConfirmTimetablesImportModal();
 
       // Skip searching via UI
       cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
@@ -682,11 +684,13 @@ describe('Timetable replacement and combination', () => {
       );
       importTimetablesPage.getSaveButton().click();
 
-      previewTimetablesPage.confirmTimetablesImportForm
+      confirmTimetablesImportModal.confirmTimetablesImportForm
         .getReplaceRadioButton()
         .should('be.checked');
-      previewTimetablesPage.confirmTimetablesImportForm.priorityForm.setAsStandard();
-      previewTimetablesPage.confirmTimetablesImportForm.getSaveButton().click();
+      confirmTimetablesImportModal.confirmTimetablesImportForm.priorityForm.setAsStandard();
+      confirmTimetablesImportModal.confirmTimetablesImportForm
+        .getSaveButton()
+        .click();
       importTimetablesPage.toast.checkSuccessToastHasMessage(
         'Aikataulujen tuonti onnistui!',
       );
@@ -703,6 +707,7 @@ describe('Timetable replacement and combination', () => {
     { tags: [Tag.Timetables, Tag.HastusImport] },
     () => {
       const routesAndLinesPage = new RoutesAndLinesPage();
+      const confirmTimetablesImportModal = new ConfirmTimetablesImportModal();
 
       // Skip searching via UI
       cy.visit('/routes/search?label=99&priorities=10&displayedType=routes');
@@ -724,12 +729,14 @@ describe('Timetable replacement and combination', () => {
         `Tiedoston ${COMBINE_IMPORT_FILENAME} lataus onnistui`,
       );
       importTimetablesPage.getSaveButton().click();
-      previewTimetablesPage.confirmTimetablesImportForm
+      confirmTimetablesImportModal.confirmTimetablesImportForm
         .getCombineRadioButton()
         .click();
-      previewTimetablesPage.confirmTimetablesImportForm.priorityForm.setAsStandard();
+      confirmTimetablesImportModal.confirmTimetablesImportForm.priorityForm.setAsStandard();
       // TODO: check that to-be-replaced frames are shown correctly
-      previewTimetablesPage.confirmTimetablesImportForm.getSaveButton().click();
+      confirmTimetablesImportModal.confirmTimetablesImportForm
+        .getSaveButton()
+        .click();
       importTimetablesPage.toast.checkSuccessToastHasMessage(
         'Aikataulujen tuonti onnistui!',
       );
