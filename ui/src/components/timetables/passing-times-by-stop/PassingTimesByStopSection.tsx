@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { pipe, uniq } from 'remeda';
+import { pipe, unique } from 'remeda';
 import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
 import { VehicleJourneyGroup, useTimetablesViewState } from '../../../hooks';
 import { parseI18nField } from '../../../i18n/utils';
@@ -27,7 +27,7 @@ type Props = {
 export const PassingTimesByStopSection = ({
   vehicleJourneyGroups,
   route,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { dayType, setDayType } = useTimetablesViewState();
   const { t } = useTranslation();
 
@@ -40,7 +40,7 @@ export const PassingTimesByStopSection = ({
     vehicleJourneyGroups.map(
       (vehicleJourneyGroup) => vehicleJourneyGroup.dayType,
     ),
-    (types) => uniq(types),
+    (types) => unique(types),
   );
 
   const dayTypeUiNameMapper = (dayTypeLabel: string) => {

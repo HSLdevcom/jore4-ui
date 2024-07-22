@@ -1,4 +1,9 @@
-import React, { Ref, useEffect, useImperativeHandle, useState } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
@@ -53,10 +58,9 @@ interface Props {
   editedStopData: StopWithLocation;
   onEditingFinished?: () => void;
   onPopupClose?: () => void;
-  ref: Ref<EditStoplayerRef>;
 }
 
-export const EditStopLayer: React.FC<Props> = React.forwardRef(
+export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
   ({ editedStopData, onEditingFinished, onPopupClose }, ref) => {
     const [createChanges, setCreateChanges] = useState<CreateChanges>();
     const [editChanges, setEditChanges] = useState<EditChanges>();

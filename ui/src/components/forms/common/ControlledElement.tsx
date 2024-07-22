@@ -18,7 +18,7 @@ export const ControlledElement = <FormState extends FieldValues>({
   fieldPath,
   testId,
   inputElementRenderer,
-}: Props<FormState>): JSX.Element => {
+}: Props<FormState>): React.ReactElement => {
   const { control } = useFormContext<FormState>();
 
   return (

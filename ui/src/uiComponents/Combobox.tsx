@@ -46,7 +46,7 @@ export const Combobox = ({
   onChange,
   onBlur: onBlurParent,
   onQueryChange,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const onItemSelected = (val: string) => {
     const event: ComboboxEvent = { target: { value: val } };
     onChange(event);
@@ -102,11 +102,12 @@ export const Combobox = ({
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <HUICombobox.Options
+              as="div"
               static
               className="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
             >
               {options.map((item) => (
-                <HUICombobox.Option key={item.key} value={item.value} as="li">
+                <HUICombobox.Option as="div" key={item.key} value={item.value}>
                   {(optionProps) => {
                     const child = item.render(optionProps);
 

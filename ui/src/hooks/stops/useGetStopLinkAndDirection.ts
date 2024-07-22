@@ -1,7 +1,7 @@
 import {
   InfrastructureNetworkDirectionEnum,
-  useQueryClosestLinkAsyncQuery,
-  useQueryPointDirectionOnLinkAsyncQuery,
+  useQueryClosestLinkLazyQuery,
+  useQueryPointDirectionOnLinkLazyQuery,
 } from '../../generated/graphql';
 import {
   mapClosestLinkResult,
@@ -19,8 +19,8 @@ interface Params {
 }
 
 export const useGetStopLinkAndDirection = () => {
-  const [fetchClosestLink] = useQueryClosestLinkAsyncQuery();
-  const [fetchStopDirection] = useQueryPointDirectionOnLinkAsyncQuery();
+  const [fetchClosestLink] = useQueryClosestLinkLazyQuery();
+  const [fetchStopDirection] = useQueryPointDirectionOnLinkLazyQuery();
 
   // based on internal_service_pattern.check_scheduled_stop_point_infrastructure_link_direction()
   const areDirectionsCompatible = (
@@ -43,7 +43,9 @@ export const useGetStopLinkAndDirection = () => {
   }: Params) => {
     // fetch the closest link to the stop location
     const closestLinkResult = await fetchClosestLink({
-      point: stopLocation,
+      variables: {
+        point: stopLocation,
+      },
     });
     const closestLink = mapClosestLinkResult(closestLinkResult);
 
@@ -56,9 +58,11 @@ export const useGetStopLinkAndDirection = () => {
 
     // fetch the direction for the link
     const stopDirectionResult = await fetchStopDirection({
-      point_of_interest: stopLocation,
-      infrastructure_link_uuid: closestLink.infrastructure_link_id,
-      point_max_distance_in_meters: maxSearchDistance,
+      variables: {
+        point_of_interest: stopLocation,
+        infrastructure_link_uuid: closestLink.infrastructure_link_id,
+        point_max_distance_in_meters: maxSearchDistance,
+      },
     });
     const direction = mapGetPointDirectionOnLinkResult(stopDirectionResult);
 

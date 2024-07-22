@@ -123,7 +123,7 @@ export const OccasionalSubstitutePeriodForm = ({
   onSubmit,
   values,
   loading,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const [isResetting, setIsResetting] = useState<boolean>(false);
   const dispatch = useAppDispatch();

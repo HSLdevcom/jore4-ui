@@ -63,7 +63,7 @@ interface Props {
 const MeasurementsFormComponent = (
   { className = '', defaultValues, onSubmit }: Props,
   ref: ExplicitAny,
-): JSX.Element => {
+): React.ReactElement => {
   const { t } = useTranslation();
   const methods = useForm<MeasurementsFormState>({
     defaultValues,

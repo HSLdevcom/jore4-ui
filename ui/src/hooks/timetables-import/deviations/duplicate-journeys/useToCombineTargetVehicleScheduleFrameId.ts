@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
-import { useGetToCombineTargetVehicleScheduleFrameIdAsyncQuery } from '../../../../generated/graphql';
+import { useGetToCombineTargetVehicleScheduleFrameIdLazyQuery } from '../../../../generated/graphql';
 import { TimetablePriority } from '../../../../types/enums';
 
 const GQL_GET_COMBINE_TARGET_VEHICLE_SCHEDULE_FRAME_ID = gql`
@@ -14,7 +14,7 @@ const GQL_GET_COMBINE_TARGET_VEHICLE_SCHEDULE_FRAME_ID = gql`
 `;
 export const useToCombineTargetVehicleScheduleFrameId = () => {
   const [getCombineTargetIdQuery] =
-    useGetToCombineTargetVehicleScheduleFrameIdAsyncQuery();
+    useGetToCombineTargetVehicleScheduleFrameIdLazyQuery();
 
   const fetchToCombineTargetFrameId = useCallback(
     async (
@@ -23,14 +23,16 @@ export const useToCombineTargetVehicleScheduleFrameId = () => {
     ) => {
       try {
         const response = await getCombineTargetIdQuery({
-          arg1: {
-            stagingVehicleScheduleFrameId,
-            targetPriority,
+          variables: {
+            arg1: {
+              stagingVehicleScheduleFrameId,
+              targetPriority,
+            },
           },
         });
 
         const foundTargetFrameId =
-          response.data.toCombineTargetVehicleScheduleFrameId
+          response.data?.toCombineTargetVehicleScheduleFrameId
             ?.toCombineTargetVehicleScheduleFrameId;
         return foundTargetFrameId ?? null;
       } catch (error) {

@@ -46,6 +46,7 @@ const GQL_PATCH_SCHEDULED_STOP_POINT_TIMING_SETTINGS = gql`
     ) {
       returning {
         scheduled_stop_point_id
+        timing_place_id
         timing_place {
           timing_place_id
         }

@@ -25,7 +25,7 @@ const testIds = {
 
 export const CommonSubstitutePeriodSection = ({
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { startDate, endDate } = useTimeRangeQueryParams();
 

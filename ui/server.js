@@ -14,21 +14,37 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const next = require('next');
 
+function getApiProtocol(req) {
+  if (req.url.startsWith('ws')) {
+    return 'ws:';
+  }
+
+  return 'http:';
+}
+
+function getApiPort(req) {
+  if (req.headers['x-environment'] === 'e2e') {
+    return 3211;
+  }
+
+  return 3201;
+}
+
 const devProxy = {
   '/api/graphql': {
     pathRewrite: {
       '^/api/graphql': '', // remove path.
     },
     router: (req) => {
-      switch (req.headers['x-environment']) {
-        case 'e2e':
-          return 'http://127.0.0.1:3211';
-        default:
-          return 'http://127.0.0.1:3201';
-      }
+      const protocol = getApiProtocol(req);
+      const port = getApiPort(req);
+      return { protocol, port, host: '127.0.0.1' };
     },
     changeOrigin: true,
-    ws: true,
+    // This does not seem to play well with nextJS.
+    // Besides it was already broken earlier, but now it also breaks
+    // and conflicts with Hot reloading if enabled.
+    ws: false,
   },
   '/api/auth': {
     // Proxy auth api requests to auth backend
@@ -66,7 +82,8 @@ const app = next({
   dev: true,
 });
 
-const requestHandler = app.getRequestHandler();
+const nextRequestHandler = app.getRequestHandler();
+const nextUpgradeHandler = app.getUpgradeHandler();
 
 let server;
 app
@@ -74,20 +91,40 @@ app
   .then(() => {
     server = express();
 
+    const wsProxies = {};
     // Set up the proxy.
-    Object.keys(devProxy).forEach((key) => {
-      const proxy = createProxyMiddleware(key, devProxy[key]);
-      server.use(key, proxy);
+    Object.entries(devProxy).forEach(([path, options]) => {
+      const proxy = createProxyMiddleware({
+        logger: console,
+        ...options,
+      });
+
+      server.use(path, proxy);
+
+      if (options.ws) {
+        wsProxies[path] = proxy;
+      }
     });
 
     // Default catch-all handler to allow Next.js to handle all other routes
-    server.all('*', (req, res) => requestHandler(req, res));
+    server.all('*', (req, res) => nextRequestHandler(req, res));
 
-    server.listen(port, (err) => {
+    const httpServer = server.listen(port, (err) => {
       if (err) {
         throw err;
       }
       console.log(`> Ready on port ${port}`);
+    });
+
+    httpServer.on('upgrade', (req, proxy, head) => {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [path, hpm] of Object.entries(wsProxies)) {
+        if (req.url.includes(path)) {
+          return hpm.upgrade(req, proxy, head);
+        }
+      }
+
+      return nextUpgradeHandler(req, proxy, head);
     });
   })
   .catch((err) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
 
@@ -7,7 +7,7 @@ import { selectUser } from '../redux';
  * non-logged in users. Should be removed when proper user
  * permissions are implemented.
  */
-export const LoggedIn: React.FC = ({ children }) => {
+export const LoggedIn: FC<PropsWithChildren> = ({ children }) => {
   const { userInfo } = useAppSelector(selectUser);
   const loggedIn = !!userInfo?.permissions;
   return loggedIn ? <>{children}</> : null;

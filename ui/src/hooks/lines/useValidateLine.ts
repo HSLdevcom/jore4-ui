@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import {
   RouteLineSetInput,
-  useGetLineDetailsWithRoutesByIdAsyncQuery,
+  useGetLineDetailsWithRoutesByIdLazyQuery,
 } from '../../generated/graphql';
 import { useValidateRoute } from '../routes/useValidateRoute';
 
@@ -15,14 +15,16 @@ export const useValidateLine = () => {
 
   const { checkIsRouteValidityInsideLineValidity } = useValidateRoute();
 
-  const [getLineWithRoutesById] = useGetLineDetailsWithRoutesByIdAsyncQuery();
+  const [getLineWithRoutesById] = useGetLineDetailsWithRoutesByIdLazyQuery();
 
   const checkIsLineValidityOutsideRouteValidity = async ({
     lineId,
     input,
   }: ValidateParams) => {
-    const lineResult = await getLineWithRoutesById({ line_id: lineId });
-    const line = lineResult.data.route_line_by_pk;
+    const lineResult = await getLineWithRoutesById({
+      variables: { line_id: lineId },
+    });
+    const line = lineResult.data?.route_line_by_pk;
 
     const routes = line?.line_routes;
     const conflictingRoutes: string[] = [];

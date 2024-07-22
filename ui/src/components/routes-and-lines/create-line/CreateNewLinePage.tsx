@@ -17,7 +17,7 @@ import {
   mapLineToCommonConflictItem,
 } from '../common/ConflictResolverModal';
 
-export const CreateNewLinePage = (): JSX.Element => {
+export const CreateNewLinePage = (): React.ReactElement => {
   const {
     prepareCreate,
     mapCreateChangesToVariables,

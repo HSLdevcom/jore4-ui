@@ -2,7 +2,7 @@ import distance from '@turf/distance';
 import { Units, point } from '@turf/helpers';
 import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
-import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import MapGL, {
   MapLayerMouseEvent,
   MapRef,
@@ -21,6 +21,7 @@ interface Props {
   height?: string;
   onClick?: (e: MapLayerMouseEvent) => void;
   useVectorTilesAsBaseMap?: boolean;
+  children: ReactNode;
 }
 
 interface MaplibreViewport {
@@ -46,7 +47,7 @@ const style = generateStyle({
   ],
 });
 
-export const Maplibre: FunctionComponent<Props> = ({
+export const Maplibre: FC<Props> = ({
   onClick,
   width = '100vw',
   height = '100vh',

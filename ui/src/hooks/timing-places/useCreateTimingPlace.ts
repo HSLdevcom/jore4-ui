@@ -6,7 +6,7 @@ import {
   InsertTimingPlaceMutationVariables,
   NewTimingPlaceFragment,
   TimingPatternTimingPlaceInsertInput,
-  useGetTimingPlacesByLabelAsyncQuery,
+  useGetTimingPlacesByLabelLazyQuery,
   useInsertTimingPlaceMutation,
 } from '../../generated/graphql';
 import { showDangerToast } from '../../utils';
@@ -57,7 +57,7 @@ export const useCreateTimingPlace = () => {
   const { t } = useTranslation();
 
   const [mutateFunction] = useInsertTimingPlaceMutation();
-  const [getTimingPlacesByLabel] = useGetTimingPlacesByLabelAsyncQuery();
+  const [getTimingPlacesByLabel] = useGetTimingPlacesByLabelLazyQuery();
 
   const insertTimingPlaceMutation = async (
     variables: InsertTimingPlaceMutationVariables,
@@ -68,11 +68,13 @@ export const useCreateTimingPlace = () => {
 
   const getConflictingTimingPlaces = async (label: string) => {
     const existingTimingPlacesResult = await getTimingPlacesByLabel({
-      label,
+      variables: {
+        label,
+      },
     });
 
     const existingTimingPlaces =
-      existingTimingPlacesResult.data.timing_pattern_timing_place;
+      existingTimingPlacesResult.data?.timing_pattern_timing_place;
 
     return existingTimingPlaces;
   };

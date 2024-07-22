@@ -36,7 +36,9 @@ interface Props {
   className?: string;
 }
 
-export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
+export const RouteStopsOverlay = ({
+  className = '',
+}: Props): React.ReactElement => {
   const dispatch = useAppDispatch();
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
   const { observationDate } = useObservationDateQueryParam();

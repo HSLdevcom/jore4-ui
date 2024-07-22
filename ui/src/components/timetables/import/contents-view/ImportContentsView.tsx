@@ -8,7 +8,7 @@ interface Props {
 
 export const ImportContentsView = ({
   vehicleScheduleFrames,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   return (
     <div className="space-y-3">

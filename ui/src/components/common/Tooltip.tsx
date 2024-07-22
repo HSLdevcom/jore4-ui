@@ -1,6 +1,9 @@
+import { FC, ReactNode } from 'react';
+
 interface Props {
   message: string;
   tooltipClassName?: string;
+  children: ReactNode;
 }
 
 /**
@@ -12,7 +15,7 @@ interface Props {
  * As of Jan 2024, not in active use anymore.
  * There are designs for such an element to show extra information for Timing Points.
  */
-export const Tooltip: React.FC<Props> = ({
+export const Tooltip: FC<Props> = ({
   message,
   tooltipClassName = '',
   children,
@@ -20,8 +23,7 @@ export const Tooltip: React.FC<Props> = ({
   return (
     <div className="group relative flex justify-center">
       <span
-        className={`absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs 
-        text-white transition-all group-hover:scale-100 ${tooltipClassName}`}
+        className={`absolute z-10 w-max scale-0 rounded-md bg-dark-grey p-2 text-xs text-white transition-all group-hover:scale-100 ${tooltipClassName}`}
       >
         {message}
       </span>

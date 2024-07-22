@@ -24,7 +24,7 @@ export const EditCloseButton = ({
   onEdit,
   onClose,
   testId,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <div>
       <Visible visible={!showEdit}>

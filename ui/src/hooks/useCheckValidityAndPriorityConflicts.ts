@@ -4,9 +4,9 @@ import {
   RouteLineBoolExp,
   RouteRouteBoolExp,
   ServicePatternScheduledStopPointBoolExp,
-  useGetLinesByValidityAsyncQuery,
-  useGetRoutesByValidityAsyncQuery,
-  useGetStopsByValidityAsyncQuery,
+  useGetLinesByValidityLazyQuery,
+  useGetRoutesByValidityLazyQuery,
+  useGetStopsByValidityLazyQuery,
 } from '../generated/graphql';
 import { Priority } from '../types/enums';
 import { buildVariantGqlFilter } from '../utils';
@@ -157,9 +157,9 @@ const buildCommonGqlFilter = (params: CommonParams) => {
 };
 
 export const useCheckValidityAndPriorityConflicts = () => {
-  const [getLineValidity] = useGetLinesByValidityAsyncQuery();
-  const [getStopValidity] = useGetStopsByValidityAsyncQuery();
-  const [getRouteValidity] = useGetRoutesByValidityAsyncQuery();
+  const [getLineValidity] = useGetLinesByValidityLazyQuery();
+  const [getStopValidity] = useGetStopsByValidityLazyQuery();
+  const [getRouteValidity] = useGetRoutesByValidityLazyQuery();
 
   const getConflictingLines = async (params: CommonParams, lineId?: UUID) => {
     const isDraft = params.priority === Priority.Draft;
@@ -178,10 +178,10 @@ export const useCheckValidityAndPriorityConflicts = () => {
     const commonFilter: RouteLineBoolExp = buildCommonGqlFilter(params);
 
     const { data } = await getLineValidity({
-      filter: { ...lineFilter, ...commonFilter },
+      variables: { filter: { ...lineFilter, ...commonFilter } },
     });
 
-    return data.route_line;
+    return data?.route_line ?? [];
   };
 
   const getConflictingStops = async (params: CommonParams, stopId?: UUID) => {
@@ -204,10 +204,12 @@ export const useCheckValidityAndPriorityConflicts = () => {
       buildCommonGqlFilter(params);
 
     const { data } = await getStopValidity({
-      filter: { ...stopsFilter, ...commonFilter },
+      variables: {
+        filter: { ...stopsFilter, ...commonFilter },
+      },
     });
 
-    return data.service_pattern_scheduled_stop_point;
+    return data?.service_pattern_scheduled_stop_point;
   };
 
   const getConflictingRoutes = async (params: RouteParams, routeId?: UUID) => {
@@ -238,15 +240,17 @@ export const useCheckValidityAndPriorityConflicts = () => {
     const commonFilter: RouteRouteBoolExp = buildCommonGqlFilter(params);
 
     const { data } = await getRouteValidity({
-      filter: {
-        ...directionFilter,
-        ...variantFilter,
-        ...routesFilter,
-        ...commonFilter,
+      variables: {
+        filter: {
+          ...directionFilter,
+          ...variantFilter,
+          ...routesFilter,
+          ...commonFilter,
+        },
       },
     });
 
-    return data.route_route;
+    return data?.route_route ?? [];
   };
 
   return {

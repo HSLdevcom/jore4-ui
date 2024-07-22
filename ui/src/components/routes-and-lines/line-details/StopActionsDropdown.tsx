@@ -36,7 +36,7 @@ export const StopActionsDropdown = ({
   onAddToRoute,
   onRemoveFromRoute,
   tooltip,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

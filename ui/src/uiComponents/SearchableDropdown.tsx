@@ -11,8 +11,8 @@ interface Props<T> extends ComboboxInputProps {
   query: string;
   selectedItem: T | undefined;
   onQueryChange: (query: string) => void;
-  mapToButtonContent: (displayedItem?: T) => JSX.Element;
-  nullOptionRender?: () => JSX.Element;
+  mapToButtonContent: (displayedItem?: T) => React.ReactElement;
+  nullOptionRender?: () => React.ReactElement;
   options: ComboboxOptionRenderer[];
 }
 
@@ -25,7 +25,7 @@ export const SearchableDropdown = <T extends ExplicitAny>({
   nullOptionRender,
   onQueryChange: parentOnQueryChange,
   ...otherProps
-}: Props<T>): JSX.Element => {
+}: Props<T>): React.ReactElement => {
   const nullOption = nullOptionRender
     ? { key: 'none', value: null, render: nullOptionRender }
     : undefined;

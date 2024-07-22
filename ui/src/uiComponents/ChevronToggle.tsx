@@ -17,7 +17,7 @@ export const ChevronToggle = ({
   controls,
   openTooltip,
   closeTooltip,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const iconClassName = 'text-3xl text-tweaked-brand';
   return (
     <IconButton

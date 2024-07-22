@@ -4,7 +4,7 @@ module.exports = {
   transform: {
     '.(ts|tsx)': ['ts-jest', { tsconfig: 'tsconfig.test.json' }],
   },
-  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+  setupFilesAfterEnv: ['./jest.setup.ts'],
   moduleDirectories: ['node_modules', 'src/utils'],
   testPathIgnorePatterns: ['node_modules', './cypress'],
 };

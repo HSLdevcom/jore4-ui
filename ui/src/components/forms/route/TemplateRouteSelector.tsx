@@ -28,7 +28,7 @@ const testIds = {
 export const TemplateRouteSelector = ({
   value,
   onChange,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   // PriorityForm uses a FormState.

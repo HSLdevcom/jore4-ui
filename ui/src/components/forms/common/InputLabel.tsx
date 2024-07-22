@@ -13,7 +13,7 @@ export const InputLabel = <FormState extends FieldValues>({
   className = '',
   fieldPath,
   translationPrefix,
-}: Props<FormState>): JSX.Element => {
+}: Props<FormState>): React.ReactElement => {
   const { t } = useTranslation();
   const {
     formState: { errors },

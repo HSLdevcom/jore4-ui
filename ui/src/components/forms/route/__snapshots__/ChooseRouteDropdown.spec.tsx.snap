@@ -49,7 +49,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 1`] = `
           fill="none"
         />
         <path
-          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
         />
       </svg>
       <i
@@ -110,7 +110,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 2`] = `
           fill="none"
         />
         <path
-          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
         />
       </svg>
       <i
@@ -169,7 +169,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
           fill="none"
         />
         <path
-          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
         />
       </svg>
       <i
@@ -177,14 +177,14 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
         style="font-size: 10px;"
       />
     </button>
-    <ul
+    <div
       aria-labelledby="headlessui-combobox-button-:r6:"
       class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
       data-headlessui-state="open"
       id="headlessui-combobox-options-:r7:"
       role="listbox"
     >
-      <li
+      <div
         aria-selected="false"
         data-headlessui-state="active"
         id="headlessui-combobox-option-:r8:"
@@ -209,7 +209,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
               fill="none"
             />
             <path
-              d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+              d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
             />
           </svg>
           <div
@@ -230,8 +230,8 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
             </div>
           </div>
         </span>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -285,7 +285,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
           fill="none"
         />
         <path
-          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
         />
       </svg>
       <i
@@ -346,7 +346,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
           fill="none"
         />
         <path
-          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
         />
       </svg>
       <i
@@ -410,7 +410,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
           fill="none"
         />
         <path
-          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
         />
       </svg>
       <i
@@ -418,14 +418,14 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         style="font-size: 10px;"
       />
     </button>
-    <ul
+    <div
       aria-labelledby="headlessui-combobox-button-:r1:"
       class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
       data-headlessui-state="open"
       id="headlessui-combobox-options-:r2:"
       role="listbox"
     >
-      <li
+      <div
         aria-selected="false"
         data-headlessui-state="active"
         id="headlessui-combobox-option-:r3:"
@@ -450,7 +450,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
               fill="none"
             />
             <path
-              d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+              d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
             />
           </svg>
           <div
@@ -471,8 +471,8 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
             </div>
           </div>
         </span>
-      </li>
-      <li
+      </div>
+      <div
         aria-selected="false"
         data-headlessui-state=""
         id="headlessui-combobox-option-:r4:"
@@ -497,7 +497,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
               fill="none"
             />
             <path
-              d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+              d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
             />
           </svg>
           <div
@@ -518,8 +518,8 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
             </div>
           </div>
         </span>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;

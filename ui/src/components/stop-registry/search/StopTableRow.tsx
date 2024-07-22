@@ -15,7 +15,10 @@ const testIds = {
   link: 'StopTableRow::link',
 };
 
-export const StopTableRow = ({ className = '', stop }: Props): JSX.Element => {
+export const StopTableRow = ({
+  className = '',
+  stop,
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const yBorderClassNames = 'border-y border-y-light-grey';

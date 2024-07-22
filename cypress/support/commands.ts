@@ -97,7 +97,9 @@ Cypress.Commands.add('setupTests', () => {
     'clearAndType',
     { prevSubject: true },
     (subject, text) => {
-      return cy.wrap(subject).clear().type(text);
+      cy.wrap(subject).clear();
+      cy.wrap(subject).type(text);
+      return cy.wrap(subject);
     },
   );
 

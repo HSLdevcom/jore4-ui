@@ -1,10 +1,7 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
-import {
-  Maybe,
-  useGetLineDetailsByIdAsyncQuery,
-} from '../../generated/graphql';
+import { Maybe, useGetLineDetailsByIdLazyQuery } from '../../generated/graphql';
 import { mapLineDetailsResult } from '../../graphql';
 import {
   mapDateInputToValidityEnd,
@@ -23,7 +20,7 @@ interface JourneyPattern {
 export const useValidateRoute = () => {
   const { t } = useTranslation();
 
-  const [getLineById] = useGetLineDetailsByIdAsyncQuery();
+  const [getLineById] = useGetLineDetailsByIdLazyQuery();
 
   /**
    * Check that there are enoung stops on the route
@@ -61,7 +58,9 @@ export const useValidateRoute = () => {
     // Check route's validity period is inside line's validity period
 
     const lineResult = await getLineById({
-      line_id: routeMetadata.onLineId,
+      variables: {
+        line_id: routeMetadata.onLineId,
+      },
     });
     const line = mapLineDetailsResult(lineResult);
 

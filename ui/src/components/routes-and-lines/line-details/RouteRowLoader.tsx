@@ -5,7 +5,9 @@ interface Props {
   className?: string;
 }
 
-export const RouteRowLoader = ({ className = '' }: Props): JSX.Element => {
+export const RouteRowLoader = ({
+  className = '',
+}: Props): React.ReactElement => {
   return (
     <tr className={`border border-white bg-lighter-grey ${className} p-4`}>
       <td className="p-4" colSpan={6}>

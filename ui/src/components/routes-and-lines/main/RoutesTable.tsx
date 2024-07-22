@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 
 interface Props {
   className?: string;
   testId?: string;
+  children: ReactNode;
 }
 
-export const RoutesTable: React.FC<Props> = ({
+export const RoutesTable: FC<Props> = ({
   className = '',
   testId,
   children,

@@ -47,7 +47,10 @@ export class TemplateRouteSelector {
     }
     if (values.label) {
       this.getChooseRouteDropdownButton().click();
-      this.getChooseRouteDropdown().find('li').contains(values.label).click();
+      this.getChooseRouteDropdown()
+        .find('[role="option"]')
+        .contains(values.label)
+        .click();
     }
   }
 }

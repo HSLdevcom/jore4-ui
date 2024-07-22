@@ -36,7 +36,7 @@ export const PassingTimesByStopTable = ({
   vehicleJourneys,
   route,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const [selectedPassingTime, setSelectedPassingTime] =
     useState<PassingTimeByStopFragment>();

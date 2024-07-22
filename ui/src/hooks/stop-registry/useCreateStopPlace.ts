@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { Position } from '@turf/helpers';
+import { Position } from 'geojson';
 import {
   StopRegistryGeoJsonType,
   useInsertStopPlaceMutation,

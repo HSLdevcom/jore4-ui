@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { routeDetails } from '../../router/routeDetails';
@@ -7,7 +7,7 @@ const testIds = {
   navLink: (translationKey?: string) => `NavLinks::${translationKey}`,
 };
 
-export const NavLinks: FunctionComponent = () => {
+export const NavLinks: FC = () => {
   const { t } = useTranslation();
   return (
     <>

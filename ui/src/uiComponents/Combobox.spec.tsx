@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { render } from '../utils/test-utils';
+import { fireFullMouseClickSequence, render } from '../utils/test-utils';
 import { Combobox, testIds } from './Combobox';
 
 describe('<Combobox />', () => {
@@ -31,7 +31,7 @@ describe('<Combobox />', () => {
 
     // click dropdown to open it:
     const openDropdownButton = screen.getByTestId(testIds.button(testId));
-    fireEvent.click(openDropdownButton);
+    fireFullMouseClickSequence(openDropdownButton);
 
     // dropdown is open:
     expect(screen.queryByText('button')).toBeVisible();

@@ -64,7 +64,7 @@ export const PassingTimesByStopTableRow = ({
   selectedPassingTime,
   journeyPatternStop,
   setSelectedPassingTime,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   // This component only shows information about one stop and one journey pattern.

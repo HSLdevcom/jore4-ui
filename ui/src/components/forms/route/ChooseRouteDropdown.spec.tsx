@@ -8,7 +8,11 @@ import {
   RouteDirectionEnum,
 } from '../../../generated/graphql';
 import { Priority } from '../../../types/enums';
-import { render, sleep } from '../../../utils/test-utils';
+import {
+  fireFullMouseClickSequence,
+  render,
+  sleep,
+} from '../../../utils/test-utils';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 describe(`<${ChooseRouteDropdown.name} />`, () => {
@@ -91,7 +95,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
   ];
 
   test('Opens dropdown when clicked and shows all routes', async () => {
-    const { container, asFragment } = render(
+    const { asFragment } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <ChooseRouteDropdown
           testId={testId}
@@ -108,7 +112,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     expect(screen.getByTestId(buttonTestId)).toHaveTextContent(
       'Valitse reitti',
     );
-    expect(container.querySelector('li')).toBeNull();
+    expect(screen.queryAllByRole('option')).toHaveLength(0);
     expect(asFragment()).toMatchSnapshot();
 
     // wait for the graphql call to execute
@@ -118,15 +122,15 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     expect(screen.getByTestId(buttonTestId)).toHaveTextContent(
       'Valitse reitti',
     );
-    expect(container.querySelector('li')).toBeNull();
+    expect(screen.queryAllByRole('option')).toHaveLength(0);
     expect(asFragment()).toMatchSnapshot();
 
     // click dropdown to open it:
     const openDropdownButton = screen.getByTestId(buttonTestId);
-    fireEvent.click(openDropdownButton);
+    fireFullMouseClickSequence(openDropdownButton);
 
     // dropdown is open, both lines show
-    const items = container.querySelectorAll('li');
+    const items = screen.queryAllByRole('option');
 
     expect(items[0].querySelectorAll('div > div')[0].textContent).toBe(
       `123 | route 123`,
@@ -146,7 +150,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
   });
 
   test('Filters shown routes when query is set', async () => {
-    const { container, asFragment } = render(
+    const { asFragment } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <ChooseRouteDropdown
           testId={testId}
@@ -163,7 +167,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     expect(screen.getByTestId(buttonTestId)).toHaveTextContent(
       'Valitse reitti',
     );
-    expect(container.querySelector('li')).toBeNull();
+    expect(screen.queryAllByRole('option')).toHaveLength(0);
     expect(asFragment()).toMatchSnapshot();
 
     // wait for the graphql call to execute
@@ -173,7 +177,7 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     expect(screen.getByTestId(buttonTestId)).toHaveTextContent(
       'Valitse reitti',
     );
-    expect(container.querySelector('li')).toBeNull();
+    expect(screen.queryAllByRole('option')).toHaveLength(0);
     expect(asFragment()).toMatchSnapshot();
 
     // write a query to the input textbox
@@ -182,9 +186,8 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
 
     // To make sure that the query result is ready, we need to use real timers again
     await act(async () => sleep(0));
-
     // dropdown is open, first line shows
-    const items = container.querySelectorAll('li');
+    const items = screen.queryAllByRole('option');
 
     expect(items[0].querySelectorAll('div > div')[0].textContent).toBe(
       `123 | route 123`,

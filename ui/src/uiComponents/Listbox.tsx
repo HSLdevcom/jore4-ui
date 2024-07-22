@@ -49,7 +49,7 @@ export const Listbox = ({
   buttonClassNames = '',
   arrowButtonClassNames = '',
   disabled = false,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const onItemSelected = (val: string) => {
     const event = { target: { value: val } };
     onChange(event);

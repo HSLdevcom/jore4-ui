@@ -10,7 +10,7 @@ export const CloseIconButton = ({
   className = '',
   label,
   testId,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <button
       className={className}

@@ -38,7 +38,7 @@ interface Props {
   stop: StopWithDetails;
 }
 
-export const BasicDetailsSection = ({ stop }: Props): JSX.Element => {
+export const BasicDetailsSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { saveStopPlaceDetails, defaultErrorHandler } =
     useEditStopBasicDetails();

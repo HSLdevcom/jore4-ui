@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 
-export const SpecialDayMixedPrioritiesWarning = (): JSX.Element => {
+export const SpecialDayMixedPrioritiesWarning = (): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

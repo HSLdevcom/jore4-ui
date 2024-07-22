@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
 import { Row, Visible } from '../../../../layoutComponents';
@@ -11,6 +11,7 @@ interface Props {
   routeName: string;
   sectionIdentifier: string;
   className?: string;
+  children: ReactNode;
 }
 
 const testIds = {
@@ -18,7 +19,7 @@ const testIds = {
   expandButton: 'ExpandableRouteTimetableRow::AccordionButton',
 };
 
-export const ExpandableRouteTimetableRow: React.FC<Props> = ({
+export const ExpandableRouteTimetableRow: FC<Props> = ({
   children,
   direction,
   routeLabel,

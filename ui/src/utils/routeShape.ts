@@ -1,4 +1,4 @@
-import { LineString } from '@turf/helpers';
+import { LineString } from 'geojson';
 import { Maybe } from 'graphql/jsutils/Maybe';
 
 const getFirstCoordinatesFromLineString = (routeShape: LineString) => {

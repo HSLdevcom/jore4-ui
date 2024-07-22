@@ -18,7 +18,7 @@ export const DetailTab = ({
   isActive,
   onClick,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <SimpleSmallButton
       id={id}

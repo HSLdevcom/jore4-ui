@@ -42,7 +42,7 @@ export const ChooseRouteDropdown = ({
   onBlur,
   date,
   priorities,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const [query, setQuery] = useState('');

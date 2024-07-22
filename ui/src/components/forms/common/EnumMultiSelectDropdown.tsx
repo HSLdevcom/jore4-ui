@@ -18,7 +18,7 @@ export const EnumMultiSelectDropdown = <TEnum extends Object>({
   placeholder,
   value,
   ...formInputProps
-}: EnumDropdownProps<TEnum>): JSX.Element => {
+}: EnumDropdownProps<TEnum>): React.ReactElement => {
   const { t } = useTranslation();
 
   // To handle array values in multi select component

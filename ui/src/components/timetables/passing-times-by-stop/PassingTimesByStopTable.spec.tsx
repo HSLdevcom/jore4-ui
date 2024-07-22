@@ -205,7 +205,7 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
   const DispatchSetShowArrivalTimesActionWrapper = ({
     children,
   }: {
-    children: JSX.Element;
+    children: React.ReactElement;
   }) => {
     const dispatch = useAppDispatch();
     dispatch(setShowArrivalTimesAction(true));

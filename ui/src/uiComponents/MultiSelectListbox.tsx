@@ -36,7 +36,7 @@ export const MultiSelectListbox = ({
   disabled,
   buttonClassNames = '',
   arrowButtonClassNames = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const getRemovedItem = (
     changedItems: string[],
     items: string[] | undefined,

@@ -25,7 +25,7 @@ const testIds = {
 
 export const DeleteTimetableModal = ({
   fetchTimetableVersions,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

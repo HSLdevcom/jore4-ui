@@ -47,7 +47,9 @@ interface Props {
   className?: string;
 }
 
-export const LinePropertiesForm = ({ className = '' }: Props): JSX.Element => {
+export const LinePropertiesForm = ({
+  className = '',
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { getValues } = useFormContext<FormState>();
 

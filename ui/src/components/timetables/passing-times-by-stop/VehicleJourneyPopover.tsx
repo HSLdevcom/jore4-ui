@@ -12,7 +12,7 @@ export const VehicleJourneyPopover = ({
   passingTime,
   vehicleTypeDescription,
   onClose,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <Popover className="ml-10" onClose={onClose}>
       <div className="mb-1 space-x-3">

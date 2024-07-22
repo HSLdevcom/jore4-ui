@@ -14,7 +14,7 @@ const testIds = {
 export const TimetableVersionTable = ({
   data,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   // Uniqueness is determined by validity period, label and variant, priority and day type.

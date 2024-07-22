@@ -48,7 +48,7 @@ export const ViaForm = ({
   onSubmit,
   onCancel,
   onRemove,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
 

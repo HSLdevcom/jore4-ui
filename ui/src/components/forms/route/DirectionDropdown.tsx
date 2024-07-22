@@ -13,7 +13,7 @@ export const DirectionDropdown = ({
   value,
   onChange,
   onBlur,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

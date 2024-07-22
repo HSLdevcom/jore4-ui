@@ -39,7 +39,7 @@ export const VehicleJourneyGroupInfo = ({
   validityEnd,
   dayTypeNameI18n,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -70,7 +70,7 @@ export const VehicleJourneyGroupInfo = ({
         tooltip={t('accessibility:timetables.changeValidityPeriod', {
           dayType: parseI18nField(dayTypeNameI18n),
         })}
-        className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base  ${
+        className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base ${
           isDisabled ? 'text-light-grey' : hoverStyle
         }`}
         disabled={isDisabled}

@@ -1,7 +1,7 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, screen, within } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import { act } from 'react-dom/test-utils';
+import { act } from 'react';
 import {
   GetRouteDetailsByIdDocument,
   GetRouteDetailsByIdQuery,

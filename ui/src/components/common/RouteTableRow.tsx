@@ -55,7 +55,7 @@ export const RouteTableRow = ({
   route,
   isSelectable = false,
   rowVariant,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { showRouteOnMap } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
   const { selectedRows } = useAppSelector(selectExport);

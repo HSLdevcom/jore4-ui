@@ -19,7 +19,7 @@ export const MainPage: React.FC = () => {
       className="min-h-screen bg-brand bg-opacity-50 p-20"
     >
       <div className="mx-auto w-4/5 rounded-lg bg-white p-10 leading-8 shadow-2xl">
-        <h1 className="mb-10 text-center text-4xl ">
+        <h1 className="mb-10 text-center text-4xl">
           {t('welcomePage.heading')}
         </h1>
         <div className="mb-6 space-y-6 text-xl">

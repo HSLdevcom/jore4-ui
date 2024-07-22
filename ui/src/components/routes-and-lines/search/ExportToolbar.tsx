@@ -26,7 +26,7 @@ const testIds = {
   exportSelectedButton: 'ExportToolBar::exportSelectedButton',
 };
 
-export const ExportToolbar = (): JSX.Element => {
+export const ExportToolbar = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { observationDate } = useObservationDateQueryParam();

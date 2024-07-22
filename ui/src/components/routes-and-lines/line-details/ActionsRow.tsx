@@ -16,7 +16,7 @@ export const ActionsRow = ({
   className = '',
 }: {
   className?: string;
-}): JSX.Element => {
+}): React.ReactElement => {
   const { t } = useTranslation();
 
   const { line } = useGetLineDetails();

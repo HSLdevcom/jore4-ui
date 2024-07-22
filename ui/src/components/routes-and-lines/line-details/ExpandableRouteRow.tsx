@@ -51,7 +51,7 @@ export const ExpandableRouteRow = ({
   observationDate,
   isExpanded,
   onToggle,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { showRouteOnMap } = useShowRoutesOnModal();
 

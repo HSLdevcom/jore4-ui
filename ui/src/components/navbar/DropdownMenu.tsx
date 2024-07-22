@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import React, { Fragment, ReactNode } from 'react';
+import React, { FC, Fragment, ReactNode } from 'react';
 import { dropdownTransition } from '../../uiComponents';
 import { addClassName } from '../../utils';
 
@@ -9,11 +9,11 @@ interface Props {
   testId?: string;
 }
 
-export const DropdownMenu = ({
+export const DropdownMenu: FC<Props> = ({
   buttonContent,
   children,
   testId,
-}: Props): JSX.Element => {
+}) => {
   return (
     <Menu as="div" className="relative h-full">
       {({ open }) => (
@@ -40,14 +40,18 @@ export const DropdownMenu = ({
                 {React.Children.map(children, (child) => (
                   <Menu.Item>
                     {({ active }) =>
-                      React.isValidElement(child)
-                        ? addClassName(
-                            child,
-                            `${
-                              active ? 'bg-brand-darker !rounded-none' : ''
-                            } group rounded-md items-center text-center w-full px-4 py-2  focus:outline-none`,
-                          )
-                        : child
+                      React.isValidElement(child) ? (
+                        addClassName(
+                          child,
+                          `${
+                            active ? 'bg-brand-darker !rounded-none' : ''
+                          } group rounded-md items-center text-center w-full px-4 py-2  focus:outline-none`,
+                        )
+                      ) : (
+                        // Menu.Item requires all the rendered children to be of type ReactElement.
+                        // TODO: Is this still true after we update headlessui?
+                        <>{child}</>
+                      )
                     }
                   </Menu.Item>
                 ))}

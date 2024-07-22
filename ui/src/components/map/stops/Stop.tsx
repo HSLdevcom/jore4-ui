@@ -52,7 +52,7 @@ export const Stop = ({
   selected = false,
   vehicleMode = undefined,
   isHighlighted = false,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
   const iconSize = 30;
   const selectedIconSize = 32;
@@ -65,7 +65,8 @@ export const Stop = ({
     vehicleMode,
   );
 
-  const iconFillColor = vehicleMode || selected ? 'white' : colors.lightGrey;
+  const iconFillColor =
+    vehicleMode !== undefined || selected ? 'white' : colors.lightGrey;
 
   const iconBorderWidth = 3;
   const centerDotSize = 3;

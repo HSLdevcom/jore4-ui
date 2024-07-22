@@ -9,7 +9,7 @@ interface Props {
 export const Spinner = ({
   showSpinner,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <div className={className}>
       <ClipLoader loading={showSpinner} />

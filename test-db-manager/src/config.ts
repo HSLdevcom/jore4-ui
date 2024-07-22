@@ -1,3 +1,7 @@
+import { Settings } from 'luxon';
+
+Settings.throwOnInvalid = true;
+
 export interface DatabaseConnectionInfo {
   host: string;
   port: number;

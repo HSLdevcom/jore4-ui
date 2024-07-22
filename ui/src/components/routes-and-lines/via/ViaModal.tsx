@@ -24,7 +24,7 @@ interface Props {
   className?: string;
 }
 
-export const ViaModal = ({ className = '' }: Props): JSX.Element => {
+export const ViaModal = ({ className = '' }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const viaModalState = useAppSelector(selectViaModal);
   const { journeyPatternId, stopLabel } = viaModalState;

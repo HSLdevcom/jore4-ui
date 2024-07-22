@@ -42,7 +42,7 @@ export const RouteStopsRow = ({
   routeId,
   onAddToRoute,
   onRemoveFromRoute,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

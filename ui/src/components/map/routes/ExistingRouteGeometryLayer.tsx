@@ -15,7 +15,7 @@ interface Props {
 export const ExistingRouteGeometryLayer = ({
   routeId,
   isSelected,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const routeRenderInfoResult = useGetRouteRenderInfoByIdQuery(
     mapToVariables({ routeId }),
   );

@@ -5,7 +5,7 @@ import {
   DayTypeAllFieldsFragment,
   VehicleJourneyWithServiceFragment,
   VehicleScheduleFragment,
-  useGetVehicleSchedulesForDateAsyncQuery,
+  useGetVehicleSchedulesForDateLazyQuery,
 } from '../../generated/graphql';
 import { Operation, selectChangeTimetableValidityModal } from '../../redux';
 import { findEarliestTime, findLatestTime } from '../../time';
@@ -245,8 +245,7 @@ export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
 
   const [timetables, setTimetables] = useState<TimetableWithMetadata>();
 
-  const [getVehicleSchedulesForDate] =
-    useGetVehicleSchedulesForDateAsyncQuery();
+  const [getVehicleSchedulesForDate] = useGetVehicleSchedulesForDateLazyQuery();
 
   const getTimetablesForRoute = useCallback(async () => {
     if (!journeyPatternId) {
@@ -254,15 +253,17 @@ export const useGetRouteTimetables = (journeyPatternId?: UUID) => {
     }
     setIsLoading(true);
     const response = await getVehicleSchedulesForDate({
-      journey_pattern_id: journeyPatternId,
-      observation_date: observationDate,
+      variables: {
+        journey_pattern_id: journeyPatternId,
+        observation_date: observationDate,
+      },
     });
     const vehicleSchedulesOnDate =
-      response.data.timetables
+      response.data?.timetables
         ?.timetables_vehicle_journey_get_vehicle_schedules_on_date;
 
     const activeDayTypeIds =
-      response.data.timetables?.timetables_service_calendar_get_active_day_types_for_date.map(
+      response.data?.timetables?.timetables_service_calendar_get_active_day_types_for_date.map(
         (dayType) => dayType.day_type_id,
       );
 

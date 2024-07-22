@@ -57,7 +57,7 @@ export const CommonSubstitutePeriodItem = ({
   index,
   field,
   update,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { register, watch } = useFormContext<FormState>();
   const edited = watch(`commonDays.${index}.created`);

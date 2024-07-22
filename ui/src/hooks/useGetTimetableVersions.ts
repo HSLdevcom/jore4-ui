@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
 import {
   TimetableVersionFragment,
-  useGetTimetableVersionsByJourneyPatternIdsAsyncQuery,
+  useGetTimetableVersionsByJourneyPatternIdsLazyQuery,
 } from '../generated/graphql';
 import { DayOfWeek, TimetablePriority } from '../types/enums';
 import { convertArrayTypeForHasura } from '../utils';
@@ -163,20 +163,22 @@ export const useGetTimetableVersions = ({
 }) => {
   const [versions, setVersions] = useState<TimetableVersionRowData[]>();
   const [getTimetableVersionsByJourneyPatternIds] =
-    useGetTimetableVersionsByJourneyPatternIdsAsyncQuery();
+    useGetTimetableVersionsByJourneyPatternIdsLazyQuery();
 
   const fetchTimetableVersions = useCallback(async () => {
     const timetableVersions = await Promise.all(
       Object.entries(journeyPatternIdsGroupedByRouteLabel).map(
         async ([key, value]) => {
           const result = await getTimetableVersionsByJourneyPatternIds({
-            journey_pattern_ids: convertArrayTypeForHasura<UUID>(value),
-            start_date: startDate,
-            end_date: endDate,
-            observation_date: DateTime.now(),
+            variables: {
+              journey_pattern_ids: convertArrayTypeForHasura<UUID>(value),
+              start_date: startDate,
+              end_date: endDate,
+              observation_date: DateTime.now(),
+            },
           });
           return (
-            result.data.timetables?.timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids?.map(
+            result.data?.timetables?.timetables_vehicle_service_get_timetable_versions_by_journey_pattern_ids?.map(
               (entry: TimetableVersionFragment) =>
                 mapToTimetableVersionRowData(key, entry),
             ) ?? []

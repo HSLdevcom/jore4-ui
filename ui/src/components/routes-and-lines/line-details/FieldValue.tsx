@@ -13,7 +13,7 @@ export const FieldValue = ({
   fieldName,
   value,
   testId,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   return (
     <Column className={className}>
       <span className="text-3xl font-semibold" data-testid={testId}>

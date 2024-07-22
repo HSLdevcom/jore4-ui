@@ -1,4 +1,5 @@
 import { Dialog } from '@headlessui/react';
+import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../../layoutComponents';
 import { CloseIconButton } from '../CloseIconButton';
@@ -13,11 +14,11 @@ interface Props {
   className?: string;
 }
 
-export const NewModalHeader = ({
+export const NewModalHeader: FC<Props> = ({
   onClose,
   heading,
   className = '',
-}: Props): JSX.Element => {
+}: Props) => {
   return (
     <Row
       className={twMerge(

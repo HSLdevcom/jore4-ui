@@ -28,7 +28,7 @@ export const SimpleSmallButton = ({
   ariaSelected,
   role,
   ariaControls,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const commonClassNames = `!rounded text-sm font-light py-0`;
 
   return (

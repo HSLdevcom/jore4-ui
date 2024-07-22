@@ -37,7 +37,7 @@ const testIds = {
   loading: 'PrieviewTimetablesPage::LoadingOverlay',
 };
 
-export const PreviewTimetablesPage = (): JSX.Element => {
+export const PreviewTimetablesPage = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {

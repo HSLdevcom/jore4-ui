@@ -16,7 +16,7 @@ type Props = {
 export const PriorityCondition = ({
   priorities,
   onClick,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const onClickPriority = (priority: Priority) => {

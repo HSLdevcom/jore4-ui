@@ -50,7 +50,7 @@ interface Props {
 export const ChangeValidityForm = ({
   className = '',
   hiddenPriorities,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { register, watch } = useFormContext<FormState>();
 

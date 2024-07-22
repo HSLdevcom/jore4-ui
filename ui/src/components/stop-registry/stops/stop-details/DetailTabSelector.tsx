@@ -41,7 +41,7 @@ export const DetailTabSelector = ({
   activeDetailTab,
   selectDetailTab,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

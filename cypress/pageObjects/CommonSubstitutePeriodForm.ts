@@ -21,7 +21,7 @@ export class CommonSubstitutePeriodForm {
         this.commonSubstitutePeriodItem
           .getSubstituteDayOfWeekDropdown()
           .click();
-        cy.get('li').contains(values.substituteDay).click();
+        cy.get('[role="option"]').contains(values.substituteDay).click();
 
         if (values.lineTypes) {
           this.commonSubstitutePeriodItem.getLineTypeDropdown().click();
@@ -29,7 +29,7 @@ export class CommonSubstitutePeriodForm {
           cy.wrap(values.lineTypes).each((lineType: string) => {
             this.commonSubstitutePeriodItem
               .getLineTypesList()
-              .find('li')
+              .find('[role="option"]')
               .contains(lineType)
               .click();
           });

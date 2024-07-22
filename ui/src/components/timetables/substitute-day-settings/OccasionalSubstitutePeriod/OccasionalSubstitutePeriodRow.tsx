@@ -39,7 +39,7 @@ export const OccasionalSubstitutePeriodRow = ({
   field,
   remove,
   update,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { register, watch } = useFormContext<FormState>();
   const tobeDeleted = watch(`periods.${index}.toBeDeleted`);

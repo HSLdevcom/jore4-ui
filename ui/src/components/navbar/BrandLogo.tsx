@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Path, routeDetails } from '../../router/routeDetails';
@@ -8,10 +8,7 @@ interface Props {
   style?: React.CSSProperties;
 }
 
-export const BrandLogo: FunctionComponent<Props> = ({
-  className = '',
-  style,
-}) => {
+export const BrandLogo: FC<Props> = ({ className = '', style }) => {
   const { t } = useTranslation();
   const target = routeDetails[Path.root];
   return (

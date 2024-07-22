@@ -16,7 +16,7 @@ interface Props extends ClassNameProps {
 const DEFAULT_AMOUNT_OF_NEIGHBOURS = 2;
 const DEFAULT_ITEMS_PER_PAGE = 10;
 
-const Dots = ({ className = '' }: ClassNameProps): JSX.Element => (
+const Dots = ({ className = '' }: ClassNameProps): React.ReactElement => (
   <span className={className}>...</span>
 );
 
@@ -34,7 +34,7 @@ export const Pagination = ({
   totalItemsCount,
   itemsPerPage = DEFAULT_ITEMS_PER_PAGE,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const {
     currentPage,
@@ -72,7 +72,11 @@ export const Pagination = ({
   const commonClassName = `text-1xl px-4 py-2 text-center flex-1`;
 
   // eslint-disable-next-line react/no-unstable-nested-components
-  const PageButton = ({ pageNumber }: { pageNumber: number }): JSX.Element => (
+  const PageButton = ({
+    pageNumber,
+  }: {
+    pageNumber: number;
+  }): React.ReactElement => (
     <button
       onClick={() => setPage(pageNumber)}
       type="button"

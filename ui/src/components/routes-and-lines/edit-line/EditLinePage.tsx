@@ -35,7 +35,7 @@ const mapLineToFormState = (line: LineAllFieldsFragment): FormState => ({
   indefinite: !line.validity_end,
 });
 
-export const EditLinePage = (): JSX.Element => {
+export const EditLinePage = (): React.ReactElement => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [conflicts, setConflicts] = useState<LineAllFieldsFragment[]>([]);
   const {

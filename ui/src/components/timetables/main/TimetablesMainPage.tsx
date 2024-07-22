@@ -9,7 +9,7 @@ const testIds = {
   settingsButton: 'TimetablesMainPage::settingsButton',
 };
 
-export const TimetablesMainPage = (): JSX.Element => {
+export const TimetablesMainPage = (): React.ReactElement => {
   const { t } = useTranslation();
 
   const importTimetablesRoute = routeDetails[Path.timetablesImport];

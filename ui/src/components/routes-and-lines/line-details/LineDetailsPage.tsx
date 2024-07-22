@@ -27,7 +27,7 @@ import { LineTitle } from './LineTitle';
 import { MapPreview } from './MapPreview';
 import { RouteStopsTable } from './RouteStopsTable';
 
-export const LineDetailsPage = (): JSX.Element => {
+export const LineDetailsPage = (): React.ReactElement => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();

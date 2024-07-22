@@ -45,6 +45,7 @@ module.exports = {
   ],
   ignorePatterns: [
     'ui/src/generated/*.tsx',
+    'ui/jest.setup.ts',
     'test-db-manager/src/generated/*.ts',
     'test-db-manager/dist',
     'test-db-manager/ts-dist',
@@ -183,6 +184,10 @@ module.exports = {
       { varsIgnorePattern: '^GQL' },
     ], // ignore graphql query/mutation/fragment definitions
     'no-plusplus': 'off', // this rule is stupid. For loops should be able to use i++
+
+    // Previously enabled by-default by the recommended rule set.
+    '@typescript-eslint/no-non-null-assertion': 'error',
+    '@typescript-eslint/no-empty-function': 'error',
   },
   overrides: [
     // These overrides enable prefer-nullish-coalescing rule for TypeScript files.

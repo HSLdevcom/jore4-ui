@@ -18,7 +18,7 @@ export const VehicleModeDropdown = ({
   testId,
   includeAllOption,
   ...formInputProps
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

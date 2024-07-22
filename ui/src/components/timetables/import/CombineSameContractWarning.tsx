@@ -9,7 +9,7 @@ interface Props {
 export const CombineSameContractWarning = ({
   className = '',
   iconClassName = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

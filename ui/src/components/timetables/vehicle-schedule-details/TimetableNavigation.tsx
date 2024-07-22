@@ -13,7 +13,7 @@ export interface Props {
 /**
  * Displays close button. Might include breadcrumb in the future
  */
-export const TimetableNavigation = ({ onClose }: Props): JSX.Element => {
+export const TimetableNavigation = ({ onClose }: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

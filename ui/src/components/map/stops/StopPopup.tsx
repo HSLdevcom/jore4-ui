@@ -30,7 +30,7 @@ export const StopPopup = ({
   onMove,
   onClose,
   onDelete,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   // eslint-disable-next-line camelcase
   const { label: stopLabel, priority, validity_start, validity_end } = stop;

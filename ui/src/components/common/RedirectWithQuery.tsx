@@ -2,7 +2,7 @@ import qs from 'qs';
 import { Navigate, NavigateProps } from 'react-router-dom';
 import { useUrlQuery } from '../../hooks';
 
-export const RedirectWithQuery = (props: NavigateProps): JSX.Element => {
+export const RedirectWithQuery = (props: NavigateProps): React.ReactElement => {
   const { queryParams } = useUrlQuery();
   const { to, ...propsWithoutTo } = props;
   return (

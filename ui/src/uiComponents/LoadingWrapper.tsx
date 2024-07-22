@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FC, ReactNode } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { theme } from '../generated/theme';
 
@@ -10,6 +10,7 @@ interface Props {
   size?: number;
   color?: string;
   speedMultiplier?: number;
+  children: ReactNode;
 }
 
 /**
@@ -18,7 +19,7 @@ interface Props {
  * elements that need to be hidden during the loading with this, hence the name.
  * There is also an optional loading text below the spinner.
  */
-export const LoadingWrapper: FunctionComponent<Props> = ({
+export const LoadingWrapper: FC<Props> = ({
   testId,
   children,
   loadingText,

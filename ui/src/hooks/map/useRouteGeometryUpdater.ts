@@ -2,6 +2,7 @@ import { Map } from 'maplibre-gl';
 import { useCallback } from 'react';
 import { MapRef } from 'react-map-gl/dist/esm/mapbox/create-ref';
 import {
+  LineStringFeature,
   extractJourneyPatternCandidateStops,
   getOldRouteGeometryVariables,
   getStopLabelsIncludedInRoute,
@@ -44,7 +45,7 @@ export const useRouteGeometryUpdater = (
 
   const baseRoute = baseRouteResult.data?.route_route_by_pk ?? undefined;
   return useCallback(
-    async (snappingLineFeature) => {
+    async (snappingLineFeature: LineStringFeature) => {
       if (!baseRoute && !creatingNewRoute) {
         log.warn(
           'Trying to edit an existing route but could not find a base route (yet)',

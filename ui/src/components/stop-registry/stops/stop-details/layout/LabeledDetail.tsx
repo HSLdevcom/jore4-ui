@@ -23,7 +23,7 @@ export const LabeledDetail = <T extends ExplicitAny>({
   detail,
   testId = '',
   className = '',
-}: Props<T>): JSX.Element => {
+}: Props<T>): React.ReactElement => {
   return (
     <div className={`inline-flex flex-col ${className}`}>
       <div className="text-sm">{title}</div>

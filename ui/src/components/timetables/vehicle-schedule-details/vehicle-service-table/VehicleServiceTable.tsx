@@ -48,7 +48,7 @@ const getOddRowColor = (key: TimetablePriority) => {
 export const VehicleServiceTable = ({
   vehicleJourneyGroup,
   onClick,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const { vehicleJourneys, priority, dayType, createdAt } = vehicleJourneyGroup;

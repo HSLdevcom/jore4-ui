@@ -13,7 +13,7 @@ interface ErrorProps {
 export const ValidationError = ({
   className = '',
   errorMessage,
-}: ErrorProps): JSX.Element => (
+}: ErrorProps): React.ReactElement => (
   <Row className={`${className} items-center`}>
     <MdWarning className="mr-2 inline text-lg text-hsl-red" />
     <span className="text-hsl-red">{errorMessage}</span>
@@ -28,7 +28,7 @@ interface ErrorListProps {
 export const ValidationErrorList = <FormState extends FieldValues>({
   className = '',
   fieldPath,
-}: ErrorListProps): JSX.Element | null => {
+}: ErrorListProps): React.ReactElement | null => {
   const { t } = useTranslation();
   const {
     formState: { errors },

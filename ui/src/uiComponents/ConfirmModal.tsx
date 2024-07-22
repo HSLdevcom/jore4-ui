@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import { FunctionComponent } from 'react';
+import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../layoutComponents';
 import { Modal, NewModalBody } from './modal';
@@ -13,13 +13,14 @@ interface Props {
   confirmButtonText: string;
   cancelButtonText: string;
   className?: string;
+  children: ReactNode;
 }
 const testIds = {
   cancelButton: 'ConfirmModal::cancelButton',
   confirmButton: 'ConfirmModal::confirmButton',
 };
 
-export const ConfirmModal: FunctionComponent<Props> = ({
+export const ConfirmModal: FC<Props> = ({
   heading,
   isOpen,
   onCancel,

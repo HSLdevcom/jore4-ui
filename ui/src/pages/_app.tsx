@@ -5,7 +5,7 @@ import '../generated/fontello/css/hsl-icons.css';
 import '../i18n';
 import '../styles/globals.css';
 
-const SafeHydrate = ({ children }: { children: JSX.Element }) => {
+const SafeHydrate = ({ children }: { children: React.ReactElement }) => {
   // We are not using SSR. Use useEffect as workaround to
   // get rid of hydration mismatch error on first render as
   // suggested in nextjs documentation:

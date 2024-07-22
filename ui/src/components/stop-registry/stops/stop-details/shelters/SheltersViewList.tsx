@@ -7,7 +7,7 @@ interface Props {
   shelters: Array<ShelterEquipmentDetailsFragment>;
 }
 
-export const SheltersViewList = ({ shelters }: Props): JSX.Element => {
+export const SheltersViewList = ({ shelters }: Props): React.ReactElement => {
   return (
     <div>
       {shelters.map((shelter, idx) => (

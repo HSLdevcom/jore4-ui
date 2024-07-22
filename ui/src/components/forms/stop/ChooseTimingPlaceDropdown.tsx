@@ -30,7 +30,7 @@ export const ChooseTimingPlaceDropdown = ({
   onChange,
   onBlur,
   optionAmount,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const [query, setQuery] = useState('');

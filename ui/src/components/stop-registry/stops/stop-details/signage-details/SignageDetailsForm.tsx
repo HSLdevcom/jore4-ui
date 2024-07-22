@@ -34,7 +34,7 @@ interface Props {
 const SignageDetailsFormComponent = (
   { className = '', defaultValues, onSubmit, isMainLineStop }: Props,
   ref: ExplicitAny,
-): JSX.Element => {
+): React.ReactElement => {
   const { t } = useTranslation();
   const methods = useForm<SignageDetailsFormState>({
     defaultValues,

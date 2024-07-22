@@ -13,7 +13,7 @@ const testIds = {
   closeButton: 'LineDraftsPage::closeButton',
 };
 
-export const LineDraftsPage = (): JSX.Element => {
+export const LineDraftsPage = (): React.ReactElement => {
   const { t } = useTranslation();
   const { label } = useRequiredParams<{ label: string }>();
   const { routes } = useGetLineDraftDetails();

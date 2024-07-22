@@ -33,21 +33,21 @@ export class LineForm {
     cy.getByTestId(
       'LinePropertiesForm::transportTargetInput::ListboxButton',
     ).click();
-    cy.get('li').contains(target).click();
+    cy.get('[role="option"]').contains(target).click();
   }
 
   selectVehicleType(type: string) {
     cy.getByTestId(
       'LinePropertiesForm::primaryVehicleModeInput::ListboxButton',
     ).click();
-    cy.get('li').contains(type).click();
+    cy.get('[role="option"]').contains(type).click();
   }
 
   selectLineType(type: string) {
     cy.getByTestId(
       'LinePropertiesForm::typeOfLineInput::ListboxButton',
     ).click();
-    cy.get('li').contains(type).click();
+    cy.get('[role="option"]').contains(type).click();
   }
 
   save() {

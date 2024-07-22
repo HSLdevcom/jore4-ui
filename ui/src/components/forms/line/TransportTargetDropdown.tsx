@@ -11,7 +11,7 @@ interface Props extends FormInputProps {
 export const TransportTargetDropdown = ({
   testId,
   ...formInputProps
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

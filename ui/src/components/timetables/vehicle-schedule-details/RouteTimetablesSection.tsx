@@ -43,7 +43,7 @@ const testIds = {
 export const RouteTimetablesSection = ({
   routeId,
   initiallyOpen = true,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { showAllValid } = useAppSelector(selectTimetable);
   const [isOpen, toggleIsOpen] = useToggle(initiallyOpen);

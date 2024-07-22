@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery } from '../../generated/graphql';
+import { useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQuery } from '../../generated/graphql';
 import {
   TimingPlaceRequiredError,
   getRouteLabelVariantText,
@@ -44,7 +44,7 @@ interface Params {
  */
 export const useValidateTimingSettings = () => {
   const [getScheduledStopPointsInJourneyPatternsUsedAsTimingPoints] =
-    useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsAsyncQuery();
+    useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQuery();
 
   const validateTimingSettings = async ({
     stopLabel,
@@ -57,11 +57,13 @@ export const useValidateTimingSettings = () => {
 
     const timingPointScheduledStopPoints =
       await getScheduledStopPointsInJourneyPatternsUsedAsTimingPoints({
-        label: stopLabel,
+        variables: {
+          label: stopLabel,
+        },
       });
 
     const routesUsingStopAsTimingPoint =
-      timingPointScheduledStopPoints.data.journey_pattern_scheduled_stop_point_in_journey_pattern.map(
+      timingPointScheduledStopPoints.data?.journey_pattern_scheduled_stop_point_in_journey_pattern.map(
         // journey pattern and route info is always defined and fetched for a stop in journey pattern
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         (stop) => stop.journey_pattern.journey_pattern_route!,

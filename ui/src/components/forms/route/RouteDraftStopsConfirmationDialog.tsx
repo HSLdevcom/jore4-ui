@@ -19,7 +19,7 @@ export const RouteDraftStopsConfirmationDialog = ({
   routeLabel,
   stopsLabelsToRemove,
   className = '',
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (

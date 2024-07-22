@@ -30,7 +30,7 @@ export const VehicleServiceRow = ({
       {/* TODO: Maybe we can get monospaced arial in the future */}
       <span
         data-testid={testIds.hour}
-        className="border-r border-dark-grey px-4 font-mono text-lg font-bold "
+        className="border-r border-dark-grey px-4 font-mono text-lg font-bold"
         aria-label={`The departure minutes for the hour ${hours} are as follows:`}
       >
         {padToTwoDigits(hours)}

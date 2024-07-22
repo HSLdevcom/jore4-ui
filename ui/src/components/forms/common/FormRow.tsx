@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 
 interface Props {
   className?: string;
   mdColumns?: number;
   smColumns?: number;
   testId?: string;
+  children: ReactNode;
 }
 
-export const FormRow: React.FC<Props> = ({
+export const FormRow: FC<Props> = ({
   className = '',
   mdColumns = 1,
   smColumns = mdColumns,

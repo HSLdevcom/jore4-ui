@@ -54,7 +54,7 @@ const GQL_GET_SCHEDULED_STOP_POINT_WITH_TIMING_SETTINGS = gql`
   }
 `;
 
-export const TimingSettingsModal = (): JSX.Element => {
+export const TimingSettingsModal = (): React.ReactElement => {
   const { t } = useTranslation();
   const timingSettingsModalState = useAppSelector(selectTimingSettingsModal);
   const { data: timingSettings } = timingSettingsModalState;

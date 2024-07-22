@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../uiComponents';
@@ -14,6 +14,7 @@ interface Props {
   isEditMode?: boolean;
   toggleEditMode?: () => void;
   testIdPrefix?: string;
+  children: ReactNode;
 }
 
 const testIds = {
@@ -23,7 +24,7 @@ const testIds = {
   saveButton: (prefix: string) => `${prefix}::saveButton`,
 };
 
-export const ExpandableInfoContainer: React.FC<Props> = ({
+export const ExpandableInfoContainer: FC<Props> = ({
   isExpanded,
   onToggle,
   onCancel,
@@ -50,10 +51,7 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
   return (
     <div className="my-3 [&>*]:border-border-hsl-blue">
       <div
-        className={`
-          flex h-14 items-center justify-between rounded-t-lg border
-          bg-hsl-neutral-blue px-4 py-2 ${isExpanded ? '' : 'rounded-b-lg'}
-        `}
+        className={`flex h-14 items-center justify-between rounded-t-lg border bg-hsl-neutral-blue px-4 py-2 ${isExpanded ? '' : 'rounded-b-lg'} `}
       >
         <span data-testid={testIds.title(testIdPrefix)}>
           {React.isValidElement(title) ? title : <h4>{title}</h4>}
@@ -83,13 +81,7 @@ export const ExpandableInfoContainer: React.FC<Props> = ({
         </div>
       </Visible>
       <Visible visible={isExpanded && isEditMode}>
-        <div
-          className={`
-          flex items-center justify-end space-x-2 rounded-b-lg
-          border
-          bg-hsl-neutral-blue px-4 py-2
-        `}
-        >
+        <div className="flex items-center justify-end space-x-2 rounded-b-lg border bg-hsl-neutral-blue px-4 py-2">
           {onCancel && (
             <SimpleButton
               onClick={onCancel}

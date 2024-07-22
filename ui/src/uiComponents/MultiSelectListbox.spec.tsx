@@ -1,5 +1,5 @@
-import { fireEvent, screen } from '@testing-library/react';
-import { render } from '../utils/test-utils';
+import { screen, waitFor } from '@testing-library/react';
+import { fireFullMouseClickSequence, render } from '../utils/test-utils';
 import { MultiSelectListbox } from './MultiSelectListbox';
 
 describe('<MultiSelectListbox />', () => {
@@ -30,7 +30,7 @@ describe('<MultiSelectListbox />', () => {
 
     // click dropdown to open it
     const openDropdownButton = screen.getByTestId(`${testId}::ListboxButton`);
-    fireEvent.click(openDropdownButton);
+    fireFullMouseClickSequence(openDropdownButton);
 
     // dropdown is open
     const dropdownMenu = screen.getByTestId(`${testId}::ListboxOptions`);
@@ -38,9 +38,13 @@ describe('<MultiSelectListbox />', () => {
     expect(dropdownMenu).toHaveTextContent('label2');
 
     // click dropdown to close it
-    fireEvent.click(openDropdownButton);
+    fireFullMouseClickSequence(openDropdownButton);
 
-    expect(screen.queryByTestId(`${testId}::ListboxOptions`)).toBeNull();
+    await waitFor(() =>
+      expect(
+        screen.queryByTestId(`${testId}::ListboxOptions`),
+      ).not.toBeInTheDocument(),
+    );
   });
   // TODO: Add at least a test for selecting a value
 });

@@ -18,7 +18,7 @@ export const IconToggle = ({
   iconClassName = '',
   testId,
   tooltip,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const colorClassNames = active
     ? 'bg-tweaked-brand text-white'
     : 'bg-white text-tweaked-brand';

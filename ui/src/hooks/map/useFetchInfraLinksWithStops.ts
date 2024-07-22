@@ -10,7 +10,7 @@ export const useFetchInfraLinksWithStops = () => {
   const { getInfraLinksWithStopsForGeometry } = useExtractRouteFromFeature();
 
   return useCallback(
-    async (geometry) => {
+    async (geometry: GeoJSON.LineString) => {
       setIsLoading(true);
       try {
         const response = await getInfraLinksWithStopsForGeometry(geometry);

@@ -10,7 +10,7 @@ const testIds = {
   createLineButton: 'RoutesAndLinesPage::createLineButton',
 };
 
-export const RoutesAndLinesMainPage = (): JSX.Element => {
+export const RoutesAndLinesMainPage = (): React.ReactElement => {
   const { t } = useTranslation();
   const createLineReactRoute = routeDetails[Path.createLine];
 

@@ -23,8 +23,8 @@ export const scheduledStopPoints: ServicePatternScheduledStopPointInsertInput[] 
       },
       label: 'stop1',
       priority: Priority.Standard,
-      validity_start: DateTime.fromISO('2005-01-01 12:34:56'),
-      validity_end: DateTime.fromISO('2065-02-01 12:34:56'),
+      validity_start: DateTime.fromISO('2005-01-01T12:34:56'),
+      validity_end: DateTime.fromISO('2065-02-01T12:34:56'),
     },
   ];
 

@@ -20,7 +20,7 @@ export const LocatorButton = ({
   disabled,
   className = '',
   tooltipText,
-}: Props): JSX.Element => {
+}: Props): React.ReactElement => {
   const disabledStyle = '!bg-background opacity-70 pointer-events-none';
   return (
     <IconButton

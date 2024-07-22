@@ -16,7 +16,7 @@ export const LinesList = ({
   lines,
   areItemsSelectable = false,
   rowVariant,
-}: Props): JSX.Element => (
+}: Props): React.ReactElement => (
   <RoutesTable testId={testIds.table}>
     {lines?.map((item: LineTableRowFragment) => (
       <LineTableRow

@@ -9,7 +9,7 @@ const testIds = {
   table: 'StopSearchResultList::table',
 };
 
-export const StopSearchResultList = ({ stops }: Props): JSX.Element => {
+export const StopSearchResultList = ({ stops }: Props): React.ReactElement => {
   return (
     <table
       className="h-1 w-full border-x border-x-light-grey"

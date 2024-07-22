@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 import {
   GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
-  useGetVehicleScheduleFrameWithRouteAndLineInfoAsyncQuery,
+  useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery,
 } from '../../../generated/graphql';
 
 const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTE_AND_LINE_INFO = gql`
@@ -45,12 +45,14 @@ export type VehicleScheduleVehicleScheduleFrameWithRoutes = NonNullable<
 
 export const useVehicleScheduleFrameWithRouteLabelAndLineId = () => {
   const [getVehicleScheduleFramesQuery] =
-    useGetVehicleScheduleFrameWithRouteAndLineInfoAsyncQuery();
+    useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery();
 
   const fetchVehicleFrames = useCallback(
     async (ids: UUID[]) => {
       const result = await getVehicleScheduleFramesQuery({
-        vehicle_schedule_frame_ids: ids,
+        variables: {
+          vehicle_schedule_frame_ids: ids,
+        },
       });
       const vehicleScheduleFrames: VehicleScheduleVehicleScheduleFrameWithRoutes[] =
         result.data?.timetables

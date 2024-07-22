@@ -7,11 +7,12 @@ import {
   split,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import { WebSocketLink } from '@apollo/client/link/ws';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { withScalars } from 'apollo-link-scalars';
 import { FunctionsMap } from 'apollo-link-scalars/src/types/functions-map';
 import { IntrospectionQuery, buildClientSchema } from 'graphql';
+import { createClient as createWsClient } from 'graphql-ws';
 import isString from 'lodash/isString';
 import { DateTime, Duration } from 'luxon';
 import introspectionResult from '../../graphql.schema.json';
@@ -102,18 +103,15 @@ function getGraphqlUrl(
 }
 
 const buildWebSocketLink = () => {
-  return new WebSocketLink({
-    // WebSocketLink doesn't work with relative url's, so we have to
-    // turn relative url into absolute.
-    uri: getGraphqlUrl(false, true),
-    options: {
-      reconnect: true,
-      // TODO: deal with authentication properly. Some possibly useful info here: https://github.com/apollographql/apollo-client/issues/3967
+  return new GraphQLWsLink(
+    createWsClient({
+      url: getGraphqlUrl(false, true),
       connectionParams: {
         headers: roleHeaderMap(userHasuraRole),
       },
-    },
-  });
+      lazy: true,
+    }),
+  );
 };
 
 // To temporarily deal with the site giving pages without any information due to stop & start

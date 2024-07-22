@@ -29,7 +29,7 @@ const mapLocationDetailsToFormState = (
   };
 };
 
-export const LocationDetailsSection = ({ stop }: Props): JSX.Element => {
+export const LocationDetailsSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const [isExpanded, toggleIsExpanded] = useToggle(true);
   const { saveStopPlaceLocationDetails, defaultErrorHandler } =

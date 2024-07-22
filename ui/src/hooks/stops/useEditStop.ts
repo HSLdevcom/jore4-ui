@@ -11,8 +11,8 @@ import {
   RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
   useEditStopMutation,
-  useGetRoutesBrokenByStopChangeAsyncQuery,
-  useGetStopWithRouteGraphDataByIdAsyncQuery,
+  useGetRoutesBrokenByStopChangeLazyQuery,
+  useGetStopWithRouteGraphDataByIdLazyQuery,
 } from '../../generated/graphql';
 import {
   ScheduledStopPointSetInput,
@@ -70,9 +70,9 @@ export const useEditStop = () => {
   const [editStopMutation] = useEditStopMutation();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
   const [getStopWithRouteGraphData] =
-    useGetStopWithRouteGraphDataByIdAsyncQuery();
+    useGetStopWithRouteGraphDataByIdLazyQuery();
   const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
-  const [getBrokenRoutes] = useGetRoutesBrokenByStopChangeAsyncQuery();
+  const [getBrokenRoutes] = useGetRoutesBrokenByStopChangeLazyQuery();
   const [validateTimingSettings] = useValidateTimingSettings();
   const dispatch = useDispatch();
 
@@ -86,17 +86,19 @@ export const useEditStop = () => {
   }: BrokenRouteCheckParams) => {
     // if a stop is moved away from the route geometry, remove it from its journey patterns
     const brokenRoutesResult = await getBrokenRoutes({
-      new_located_on_infrastructure_link_id: newLink.infrastructure_link_id,
-      new_direction: newDirection,
-      new_label: label,
-      new_validity_start: newStop.validity_start,
-      new_validity_end: newStop.validity_end,
-      new_priority: priority,
-      replace_scheduled_stop_point_id: stopId,
-      // data model and form validation should ensure that
-      // measured_location always exists
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      new_measured_location: newStop.measured_location!,
+      variables: {
+        new_located_on_infrastructure_link_id: newLink.infrastructure_link_id,
+        new_direction: newDirection,
+        new_label: label,
+        new_validity_start: newStop.validity_start,
+        new_validity_end: newStop.validity_end,
+        new_priority: priority,
+        replace_scheduled_stop_point_id: stopId,
+        // data model and form validation should ensure that
+        // measured_location always exists
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        new_measured_location: newStop.measured_location!,
+      },
     });
 
     const brokenRouteList =
@@ -152,7 +154,9 @@ export const useEditStop = () => {
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
   const prepareEdit = async ({ stopId, patch }: EditParams) => {
-    const stopWithRoutesResult = await getStopWithRouteGraphData({ stopId });
+    const stopWithRoutesResult = await getStopWithRouteGraphData({
+      variables: { stopId },
+    });
     const stopWithRouteGraphData = mapStopResultToStop(stopWithRoutesResult);
 
     // data model and form validation should ensure that

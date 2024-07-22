@@ -6,6 +6,17 @@ import { i18n } from './i18n';
 
 Settings.defaultZone = 'Europe/Helsinki';
 
+declare module 'luxon' {
+  // This is in fact false at the moment.
+  // Previous versions of the luxon typings did not care about validity.
+  // Currently, our code base can produce NPEs when working with Luxon classes.
+  // Settings.throwOnInvalid = true; should be set next to defaultZone.
+  // TODO: Set the throwOnInvalid setting or fix the codebase to deal with nulls produced by Luxon.
+  interface TSSettings {
+    throwOnInvalid: true;
+  }
+}
+
 export type DateLike = DateTime | string;
 
 export function isDateLike(input?: unknown): input is DateLike {

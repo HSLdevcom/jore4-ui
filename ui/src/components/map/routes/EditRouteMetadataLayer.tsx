@@ -1,8 +1,8 @@
 import React from 'react';
 import { pipe } from 'remeda';
 import {
-  useGetLineDetailsByIdAsyncQuery,
-  useGetRouteDetailsByIdAsyncQuery,
+  useGetLineDetailsByIdLazyQuery,
+  useGetRouteDetailsByIdLazyQuery,
 } from '../../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
@@ -26,8 +26,8 @@ const areFormValuesValid = (formData?: Partial<RouteFormState>) =>
 
 export const EditRouteMetadataLayer: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [getLineDetailsById] = useGetLineDetailsByIdAsyncQuery();
-  const [getRouteDetailsById] = useGetRouteDetailsByIdAsyncQuery();
+  const [getLineDetailsById] = useGetLineDetailsByIdLazyQuery();
+  const [getRouteDetailsById] = useGetRouteDetailsByIdLazyQuery();
   const { isRouteMetadataFormOpen } = useAppSelector(selectMapRouteEditor);
   const {
     templateRouteId,
@@ -50,7 +50,9 @@ export const EditRouteMetadataLayer: React.FC = () => {
 
   const onSuccess = async (formData: RouteFormState) => {
     // The line might have been changed by the user, so have to refresh its data in the redux store
-    const results = await getLineDetailsById({ line_id: formData.onLineId });
+    const results = await getLineDetailsById({
+      variables: { line_id: formData.onLineId },
+    });
     if (!results?.data?.route_line_by_pk) {
       throw new Error("Couldn't get line details!");
     }
@@ -63,9 +65,11 @@ export const EditRouteMetadataLayer: React.FC = () => {
      */
     if (templateRouteId) {
       const routeDetailsResult = await getRouteDetailsById({
-        routeId: templateRouteId,
+        variables: {
+          routeId: templateRouteId,
+        },
       });
-      if (!routeDetailsResult.data.route_route_by_pk) {
+      if (!routeDetailsResult.data?.route_route_by_pk) {
         throw new Error("Can't find route and line details");
       }
 
