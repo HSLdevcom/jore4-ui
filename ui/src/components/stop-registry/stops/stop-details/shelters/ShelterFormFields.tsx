@@ -15,6 +15,7 @@ import {
   InputField,
   NullableBooleanDropdown,
 } from '../../../../forms/common';
+import { SlimSimpleButton } from '../layout';
 import { SheltersFormState } from './schema';
 
 const testIds = {
@@ -29,13 +30,15 @@ const testIds = {
   leaningRail: 'ShelterFormFields::leaningRail',
   outsideBench: 'ShelterFormFields::outsideBench',
   shelterFasciaBoardTaping: 'ShelterFormFields::shelterFasciaBoardTaping',
+  deleteShelter: 'ShelterFormFields::deleteShelter',
 };
 
 interface Props {
   index: number;
+  onRemove: (index: number) => void;
 }
 
-export const ShelterFormFields = ({ index }: Props): JSX.Element => {
+export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
   return (
     <Column className="space-y-4">
       <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
@@ -200,6 +203,15 @@ export const ShelterFormFields = ({ index }: Props): JSX.Element => {
           )}
         />
       </Row>
+      <div className="mb-8 mt-6 flex gap-4">
+        <SlimSimpleButton
+          testId={testIds.deleteShelter}
+          onClick={() => onRemove(index)}
+          inverted
+        >
+          {t('stopDetails.shelters.deleteShelter')}
+        </SlimSimpleButton>
+      </div>
     </Column>
   );
 };

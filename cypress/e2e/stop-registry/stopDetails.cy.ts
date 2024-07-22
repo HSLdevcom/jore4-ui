@@ -779,7 +779,9 @@ describe('Stop details', () => {
           // Delete the 2nd.
           stopDetailsPage.shelters.getEditButton().click();
           form.getShelters().should('have.length', 3);
-          form.getDeleteShelterButtons().eq(1).click();
+          form.getNthShelter(1).within(() => {
+            form.shelters.getDeleteShelterButton().click();
+          });
           // TODO: confirmation:
           // - decline initially
           // - check nothing deleted
@@ -809,7 +811,9 @@ describe('Stop details', () => {
           view.getContainers().should('not.exist');
 
           form.getShelters().should('have.length', 1);
-          form.getDeleteShelterButtons().eq(0).click();
+          form.getNthShelter(0).within(() => {
+            form.shelters.getDeleteShelterButton().click();
+          });
           // TODO: accept confirmation
           form.getShelters().should('not.exist');
           stopDetailsPage.shelters
