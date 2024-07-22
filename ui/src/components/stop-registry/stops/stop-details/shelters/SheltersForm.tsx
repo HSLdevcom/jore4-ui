@@ -69,25 +69,17 @@ const SheltersFormComponent = (
               >
                 {t('stopDetails.shelters.deleteShelter')}
               </SlimSimpleButton>
-              <Visible visible={isLast(idx)}>
-                <SlimSimpleButton
-                  testId={testIds.addShelter}
-                  onClick={addNewShelter}
-                >
-                  {t('stopDetails.shelters.addShelter')}
-                </SlimSimpleButton>
-              </Visible>
             </div>
             <Visible visible={!isLast(idx)}>
               <HorizontalSeparator className="my-4" />
             </Visible>
           </div>
         ))}
-        <Visible visible={!shelters.length}>
+        <div className="mt-4">
           <SlimSimpleButton testId={testIds.addShelter} onClick={addNewShelter}>
             {t('stopDetails.shelters.addShelter')}
           </SlimSimpleButton>
-        </Visible>
+        </div>
       </form>
     </FormProvider>
   );

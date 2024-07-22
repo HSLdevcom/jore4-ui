@@ -757,11 +757,6 @@ describe('Stop details', () => {
           stopDetailsPage.shelters
             .getTitle()
             .should('have.text', 'Pysäkkikatos (3)');
-          // Add button shown at the end of last shelter row only
-          form.getAddNewShelterButton().should('have.length', 1);
-          form.getNthShelter(2).within(() => {
-            form.getAddNewShelterButton().should('be.be.visible');
-          });
 
           form.getNthShelter(1).within(() => {
             form.shelters.getTimetableCabinetsInput().clearAndType('22');
@@ -820,9 +815,6 @@ describe('Stop details', () => {
           stopDetailsPage.shelters
             .getTitle()
             .should('have.text', 'Ei pysäkkikatosta');
-
-          // Should still show the add shelters button.
-          form.getAddNewShelterButton().should('have.length', 1);
 
           stopDetailsPage.shelters.getSaveButton().click();
           toast.checkSuccessToastHasMessage('Pysäkki muokattu');
