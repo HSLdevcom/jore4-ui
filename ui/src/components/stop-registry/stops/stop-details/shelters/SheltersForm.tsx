@@ -13,7 +13,6 @@ import { ShelterFormFields } from './ShelterFormFields';
 
 const testIds = {
   shelter: 'SheltersForm::shelter',
-  deleteShelter: 'SheltersForm::deleteShelter',
   addShelter: 'SheltersForm::addShelter',
 };
 
@@ -60,16 +59,7 @@ const SheltersFormComponent = (
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         {shelters.map((shelter, idx) => (
           <div key={shelter.id} data-testid={testIds.shelter}>
-            <ShelterFormFields index={idx} />
-            <div className="mb-8 mt-6 flex gap-4">
-              <SlimSimpleButton
-                testId={testIds.deleteShelter}
-                onClick={() => onRemoveShelter(idx)}
-                inverted
-              >
-                {t('stopDetails.shelters.deleteShelter')}
-              </SlimSimpleButton>
-            </div>
+            <ShelterFormFields index={idx} onRemove={onRemoveShelter} />
             <Visible visible={!isLast(idx)}>
               <HorizontalSeparator className="my-4" />
             </Visible>
