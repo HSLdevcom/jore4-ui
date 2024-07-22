@@ -11,10 +11,6 @@ export class SheltersForm {
     return this.getShelters().eq(index);
   }
 
-  getDeleteShelterButtons() {
-    return cy.getByTestId('SheltersForm::deleteShelter');
-  }
-
   getAddNewShelterButton() {
     return cy.getByTestId('SheltersForm::addShelter');
   }
