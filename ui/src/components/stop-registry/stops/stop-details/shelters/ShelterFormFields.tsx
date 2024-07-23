@@ -1,4 +1,5 @@
 import { t } from 'i18next';
+import { useFormContext } from 'react-hook-form';
 import {
   StopRegistryShelterCondition,
   StopRegistryShelterElectricity,
@@ -39,6 +40,9 @@ interface Props {
 }
 
 export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
+  const { register, watch } = useFormContext<SheltersFormState>();
+  const toBeDeleted = watch(`shelters.${index}.toBeDeleted`);
+
   return (
     <Column className="space-y-4">
       <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
@@ -54,6 +58,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
               uiNameMapper={mapStopRegistryShelterTypeEnumToUiName}
               buttonClassName="min-w-36"
               includeNullOption
+              disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -71,6 +76,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
               uiNameMapper={mapStopRegistryShelterElectricityEnumToUiName}
               buttonClassName="min-w-44"
               includeNullOption
+              disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -85,6 +91,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
             <NullableBooleanDropdown
               placeholder={t('unknown')}
               buttonClassName="min-w-32"
+              disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -101,6 +108,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
               placeholder={t('unknown')}
               uiNameMapper={mapStopRegistryShelterConditionEnumToUiName}
               includeNullOption
+              disabled={toBeDeleted}
               buttonClassName="min-w-32"
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
@@ -114,6 +122,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
           fieldPath={`shelters.${index}.timetableCabinets`}
           inputClassName="w-20"
           testId={testIds.timetableCabinets}
+          disabled={toBeDeleted}
         />
       </Row>
       <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
@@ -126,6 +135,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
             <NullableBooleanDropdown
               placeholder={t('unknown')}
               buttonClassName="min-w-32"
+              disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -140,6 +150,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
             <NullableBooleanDropdown
               placeholder={t('unknown')}
               buttonClassName="min-w-32"
+              disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -154,6 +165,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
             <NullableBooleanDropdown
               placeholder={t('unknown')}
               buttonClassName="min-w-32"
+              disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -168,6 +180,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
             <NullableBooleanDropdown
               placeholder={t('unknown')}
               buttonClassName="min-w-32"
+              disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -182,6 +195,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
             <NullableBooleanDropdown
               placeholder={t('unknown')}
               buttonClassName="min-w-32"
+              disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -197,6 +211,7 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
             <NullableBooleanDropdown
               placeholder={t('unknown')}
               buttonClassName="min-w-32"
+              disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -204,12 +219,21 @@ export const ShelterFormFields = ({ index, onRemove }: Props): JSX.Element => {
         />
       </Row>
       <div className="mb-8 mt-6 flex gap-4">
+        <input
+          type="checkbox"
+          hidden
+          {...register(`shelters.${index}.toBeDeleted`)}
+        />
         <SlimSimpleButton
           testId={testIds.deleteShelter}
           onClick={() => onRemove(index)}
           inverted
         >
-          {t('stopDetails.shelters.deleteShelter')}
+          {t(
+            toBeDeleted
+              ? 'stopDetails.shelters.cancelDeleteShelter'
+              : 'stopDetails.shelters.deleteShelter',
+          )}
         </SlimSimpleButton>
       </div>
     </Column>

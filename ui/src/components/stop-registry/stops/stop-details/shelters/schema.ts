@@ -12,6 +12,7 @@ import {
 } from '../../../../forms/common';
 
 const shelterSchema = z.object({
+  shelterId: z.string().nullable(),
   shelterType: createNullableEnum<StopRegistryShelterType>(),
   shelterElectricity: createNullableEnum<StopRegistryShelterElectricity>(),
   shelterLighting: nullableBoolean,
@@ -23,6 +24,7 @@ const shelterSchema = z.object({
   leaningRail: nullableBoolean,
   outsideBench: nullableBoolean,
   shelterFasciaBoardTaping: nullableBoolean,
+  toBeDeleted: z.boolean(),
 });
 
 export const sheltersFormSchema = z.object({
@@ -36,6 +38,7 @@ export const mapShelterDataToFormState = (
   shelter: ShelterEquipmentDetailsFragment,
 ): ShelterState => {
   return {
+    shelterId: shelter.id ?? null,
     shelterType: shelter.shelterType ?? null,
     shelterElectricity: shelter.shelterElectricity ?? null,
     shelterLighting: shelter.shelterLighting ?? null,
@@ -47,5 +50,6 @@ export const mapShelterDataToFormState = (
     leaningRail: shelter.leaningRail ?? null,
     outsideBench: shelter.outsideBench ?? null,
     shelterFasciaBoardTaping: shelter.shelterFasciaBoardTaping ?? null,
+    toBeDeleted: false,
   };
 };
