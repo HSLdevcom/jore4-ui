@@ -19,6 +19,7 @@ export * from './PreviewTimetablesPage';
 export * from './RouteEditor';
 export * from './RoutePropertiesForm';
 export * from './RouteStopsTable';
+export * from './RouteStopsOverlayRow';
 export * from './RoutesAndLinesPage';
 export * from './SearchResultsPage';
 export * from './StopForm';

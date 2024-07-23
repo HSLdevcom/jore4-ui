@@ -1,6 +1,9 @@
 import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
+import { RouteStopsOverlayRow } from './RouteStopsOverlayRow';
 
 export class RouteStopsOverlay {
+  routeStopsOverlayRow = new RouteStopsOverlayRow();
+
   getRouteStopRow(stopLabel: string) {
     return cy.getByTestId(`RouteStopsOverlayRow::label::${stopLabel}`);
   }
@@ -9,29 +12,22 @@ export class RouteStopsOverlay {
     return cy.getByTestId('RouteStopsOverlay::mapOverlayHeader');
   }
 
-  getRouteStopRowMenu(stopLabel: string) {
-    return cy.getByTestId(`RouteStopsOverlayRow::${stopLabel}::menu`);
+  getRouteStopsOverlayRows() {
+    return cy.getByTestId('RouteStopsOverlayRow');
   }
 
-  getAddToJourneyPatternButton(stopLabel: string) {
-    return cy.getByTestId(
-      `RouteStopsOverlayRow::${stopLabel}::menu::addToJourneyPatternButton`,
-    );
+  getNthRouteStopsOverlayRow(nth: number) {
+    return this.getRouteStopsOverlayRows().eq(nth);
+  }
+
+  getRouteStopRowMenu(stopLabel: string) {
+    return cy.getByTestId(`RouteStopsOverlayRow::${stopLabel}::menu`);
   }
 
   getRouteStopListHeader(label: string, direction: RouteDirectionEnum) {
     return cy.getByTestId(
       `RouteStopsOverlay::routeStopListHeader::${label}-${direction}`,
     );
-  }
-
-  removeStopsFromRoute(stopLabels: string[]) {
-    stopLabels.forEach((label) => {
-      this.getRouteStopRowMenu(label).should('be.visible');
-      this.getRouteStopRowMenu(label).click();
-      this.getAddToJourneyPatternButton(label).should('be.visible');
-      this.getAddToJourneyPatternButton(label).click({ force: true });
-    });
   }
 
   stopsShouldNotBeIncludedInRoute(stopLabels: string[]) {

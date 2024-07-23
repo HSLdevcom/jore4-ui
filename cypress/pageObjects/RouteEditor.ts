@@ -28,35 +28,4 @@ export class RouteEditor {
   checkRouteSubmitSuccessToast() {
     this.toast.checkSuccessToastHasMessage('Reitti tallennettu');
   }
-
-  checkRouteSubmitFailureToast() {
-    this.toast.checkDangerToastHasMessage('Tallennus epäonnistui');
-  }
-
-  getRouteDashedLine() {
-    // Locator matches multiple elements, but we need only one of them to be able to click the route.
-    return cy.get('[data-type="feature"]').eq(1);
-  }
-
-  moveRouteEditHandle(values: MoveRouteEditHandleInfo) {
-    this.map.getNthSnappingPointHandle(values.handleIndex).move(values);
-  }
-
-  /**
-   * Starts the route editing process, moves one editHandle by the given offset
-   * and saves the route.
-   * @example const moveHandleInfo: MoveRouteEditHandleInfo =
-   * { handleIndex: 2, deltaX: 10, deltaY: -90}
-   * editOneRoutePoint(moveHandleInfo)
-   */
-  editOneRoutePoint(values: MoveRouteEditHandleInfo) {
-    this.mapFooter.editRoute();
-    this.map.waitForLoadToComplete();
-    // Force click because element might be covered by some other element, like a stop circle
-    this.getRouteDashedLine().click('topLeft', { force: true });
-    this.moveRouteEditHandle(values);
-    cy.wait('@mapMatching');
-    cy.wait('@gqlGetLinksWithStopsByExternalLinkIds');
-    cy.wait('@gqlGetStopsByLocation');
-  }
 }
