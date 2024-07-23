@@ -212,7 +212,7 @@ describe('<ImportContentsView />', () => {
     // Expand the block.
     fireEvent.click(toggleShowFirstBlock);
     const vehicleJourneyRowOutbound = within(block).getAllByTestId(
-      vehicleJourneyRowTestIds.vehicleJourneyRow('35', 'outbound'),
+      vehicleJourneyRowTestIds.vehicleJourneyRow,
     )[0];
     expect(vehicleJourneyRowOutbound).toBeVisible();
 
@@ -271,11 +271,11 @@ describe('<ImportContentsView />', () => {
     // Toggle open.
     fireEvent.click(toggleShowFirstBlock);
     const vehicleJourneyRowOutbound = within(block).getAllByTestId(
-      vehicleJourneyRowTestIds.vehicleJourneyRow('35', 'outbound'),
+      vehicleJourneyRowTestIds.vehicleJourneyRow,
     )[0];
     const vehicleJourneyRowInbound = within(block).getAllByTestId(
-      vehicleJourneyRowTestIds.vehicleJourneyRow('35', 'inbound'),
-    )[0];
+      vehicleJourneyRowTestIds.vehicleJourneyRow,
+    )[1];
     expect(vehicleJourneyRowOutbound).toBeVisible();
 
     const queryFromOutboundRow = within(
@@ -351,7 +351,7 @@ describe('<ImportContentsView />', () => {
 
     const queryJourneyRow = (block: HTMLElement) =>
       within(block).queryAllByTestId(
-        vehicleJourneyRowTestIds.vehicleJourneyRow('35', 'outbound'),
+        vehicleJourneyRowTestIds.vehicleJourneyRow,
       );
 
     // Initially hidden.
