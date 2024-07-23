@@ -32,7 +32,13 @@ const SheltersFormComponent = (
     defaultValues,
     resolver: zodResolver(sheltersFormSchema),
   });
-  const { control, handleSubmit } = methods;
+  const { control, setValue, getValues, handleSubmit } = methods;
+  const updateShelterCount = () => {
+    const shelterCount = getValues('shelters').filter(
+      (s) => !s.toBeDeleted,
+    ).length;
+    onShelterCountChanged(shelterCount);
+  };
 
   const {
     append,
@@ -44,12 +50,23 @@ const SheltersFormComponent = (
   });
   const addNewShelter = () => {
     append(mapShelterDataToFormState({}));
-    onShelterCountChanged(shelters.length + 1);
+    updateShelterCount();
   };
   const onRemoveShelter = (idx: number) => {
-    // TODO: confirmation. Either here or with some more complex mechanism, check with design.
-    remove(idx);
-    onShelterCountChanged(shelters.length - 1);
+    const shelter = shelters[idx];
+    // A newly added, non persisted shelter is deleted immediately.
+    // A persisted one is only marked as to be deleted later when saving.
+    if (!shelter.shelterId) {
+      remove(idx);
+    } else {
+      const newToBeDeleted = !getValues(`shelters.${idx}.toBeDeleted`);
+      setValue(`shelters.${idx}.toBeDeleted`, newToBeDeleted, {
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+    }
+
+    updateShelterCount();
   };
   const isLast = (idx: number) => idx === shelters.length - 1;
 

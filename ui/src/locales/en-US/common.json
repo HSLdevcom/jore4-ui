@@ -266,7 +266,8 @@
       "outsideBench": "Outside bench",
       "shelterFasciaBoardTaping": "Fascia board taping",
       "addShelter": "Add shelter",
-      "deleteShelter": "Delete shelter"
+      "deleteShelter": "Delete shelter",
+      "cancelDeleteShelter": "Cancel deletion"
     }
   },
   "stopRegistrySearch": {

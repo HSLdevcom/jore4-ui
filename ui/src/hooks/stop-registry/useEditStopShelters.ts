@@ -69,7 +69,9 @@ export const useEditStopShelters = () => {
     const quay = stop.stop_place?.quays?.[0];
     const stopPlaceQuayId = quay?.id;
 
-    const sheltersInput = state.shelters.map(mapShelterFormToInput);
+    const sheltersInput = state.shelters
+      .filter((s) => !s.toBeDeleted)
+      .map(mapShelterFormToInput);
     const hasBicycleParking = sheltersInput.some((s) => s.bicycleParking);
 
     const input = {
