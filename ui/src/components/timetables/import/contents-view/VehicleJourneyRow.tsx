@@ -9,9 +9,7 @@ import { getRouteLabelVariantText } from '../../../../utils';
 import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
 
 const testIds = {
-  vehicleJourneyRow: (routeLabel: string, routeDirection: string) =>
-    `VehicleJourneyRow::${routeLabel}::${routeDirection}`,
-  vehicleJourneyRowTemp: 'VehicleJourneyRow',
+  vehicleJourneyRow: 'VehicleJourneyRow',
   label: 'VehicleJourneyRow::label',
   dayTypeName: 'VehicleJourneyRow::dayTypeName',
   startTime: 'VehicleJourneyRow::startTime',
@@ -42,8 +40,7 @@ export const VehicleJourneyRow = ({
   return (
     <tr
       className="even:bg-white [&>td]:border [&>td]:border-light-grey [&>td]:px-5 [&>td]:py-2"
-      data-testid={testIds.vehicleJourneyRow(route.label, route.direction)}
-      data-testidtemp={testIds.vehicleJourneyRowTemp}
+      data-testid={testIds.vehicleJourneyRow}
     >
       <td>
         <Row className="items-center font-bold">
