@@ -24,7 +24,7 @@ interface Props {
 }
 
 const SheltersFormComponent = (
-  { className, defaultValues, onSubmit, onShelterCountChanged }: Props,
+  { className = '', defaultValues, onSubmit, onShelterCountChanged }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
@@ -73,7 +73,11 @@ const SheltersFormComponent = (
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
-      <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
+      <form
+        className={`space-y-4 ${className}`}
+        onSubmit={handleSubmit(onSubmit)}
+        ref={ref}
+      >
         {shelters.map((shelter, idx) => (
           <div key={shelter.id} data-testid={testIds.shelter}>
             <ShelterFormFields index={idx} onRemove={onRemoveShelter} />
@@ -82,11 +86,9 @@ const SheltersFormComponent = (
             </Visible>
           </div>
         ))}
-        <div className="mt-4">
-          <SlimSimpleButton testId={testIds.addShelter} onClick={addNewShelter}>
-            {t('stopDetails.shelters.addShelter')}
-          </SlimSimpleButton>
-        </div>
+        <SlimSimpleButton testId={testIds.addShelter} onClick={addNewShelter}>
+          {t('stopDetails.shelters.addShelter')}
+        </SlimSimpleButton>
       </form>
     </FormProvider>
   );
