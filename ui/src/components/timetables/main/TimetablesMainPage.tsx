@@ -18,24 +18,24 @@ export const TimetablesMainPage = (): JSX.Element => {
 
   return (
     <Container>
-      <Row className="justify-between">
+      <Row>
         <h1>{t('timetables.timetables')}</h1>
-        <div className="space-x-4">
-          <SimpleButton
-            id="timetables-settings-button"
-            testId={testIds.settingsButton}
-            href={substituteOperatingPeriodSettings.getLink()}
-          >
-            {t('timetables.settingsButton')}
-          </SimpleButton>
-          <SimpleButton
-            id="import-timetables-button"
-            testId={testIds.importButton}
-            href={importTimetablesRoute.getLink()}
-          >
-            {t('import.importTimetables')}
-          </SimpleButton>
-        </div>
+        <SimpleButton
+          id="timetables-settings-button"
+          testId={testIds.settingsButton}
+          containerClassName="ml-auto"
+          href={substituteOperatingPeriodSettings.getLink()}
+        >
+          {t('timetables.settingsButton')}
+        </SimpleButton>
+        <SimpleButton
+          id="import-timetables-button"
+          testId={testIds.importButton}
+          containerClassName="ml-3"
+          href={importTimetablesRoute.getLink()}
+        >
+          {t('import.importTimetables')}
+        </SimpleButton>
       </Row>
       <SearchContainer />
     </Container>
