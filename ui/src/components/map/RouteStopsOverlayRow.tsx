@@ -15,10 +15,11 @@ interface Props {
 }
 
 const testIds = {
+  row: 'RouteStopsOverlayRow',
   rowLabel: (label: string) => `RouteStopsOverlayRow::label::${label}`,
-  menuButton: (label: string) => `RouteStopsOverlayRow::${label}::menu`,
-  addToJourneyPatternButton: (label: string) =>
-    `RouteStopsOverlayRow::${label}::menu::addToJourneyPatternButton`,
+  menuButton: 'RouteStopsOverlayRow::menu',
+  toggleStopInJourneyPatternButton:
+    'RouteStopsOverlayRow::menu::toggleStopInJourneyPatternButton',
 };
 
 export const RouteStopsOverlayRow = ({
@@ -39,7 +40,10 @@ export const RouteStopsOverlayRow = ({
   };
 
   return (
-    <div className="flex h-10 items-center justify-between border-b p-2">
+    <div
+      data-testid={testIds.row}
+      className="flex h-10 items-center justify-between border-b p-2"
+    >
       <div className="flex items-center">
         <div className="w-10">
           <PriorityBadge
@@ -61,7 +65,7 @@ export const RouteStopsOverlayRow = ({
         <div className="text-tweaked-brand">
           <SimpleDropdownMenu
             alignItems={AlignDirection.Left}
-            testId={testIds.menuButton(stop.label)}
+            testId={testIds.menuButton}
             tooltip={t('accessibility:map.routeStopsOverlayRowActions', {
               stopLabel: stop.label,
             })}
@@ -71,7 +75,7 @@ export const RouteStopsOverlayRow = ({
               onClick={() =>
                 setBelongsToJourneyPattern(!belongsToJourneyPattern)
               }
-              data-testid={testIds.addToJourneyPatternButton(stop.label)}
+              data-testid={testIds.toggleStopInJourneyPatternButton}
             >
               {belongsToJourneyPattern
                 ? t('stops.removeFromRoute')
