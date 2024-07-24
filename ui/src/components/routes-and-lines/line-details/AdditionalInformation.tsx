@@ -35,6 +35,7 @@ export const AdditionalInformation: React.FC<Props> = ({
       <Row className="mb-10 items-center text-3xl font-semibold">
         {t('lines.additionalInformation')}
         <EditButton
+          className="ml-5"
           href={routeDetails[Path.editLine].getLink(line.line_id)}
           testId={testIds.editLineButton}
           tooltip={t('accessibility:lines.edit', { label: line.label })}

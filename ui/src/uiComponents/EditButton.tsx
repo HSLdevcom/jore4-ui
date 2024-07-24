@@ -13,6 +13,7 @@ interface ButtonProps {
 interface CommonProps {
   testId?: string;
   tooltip: string;
+  className?: string;
 }
 
 type Props = CommonProps & (LinkProps | ButtonProps);
@@ -26,7 +27,7 @@ const ButtonContent = () => (
 );
 
 export const EditButton: React.FC<Props> = (props) => {
-  const { testId, tooltip } = props;
+  const { testId, tooltip, className = '' } = props;
   const href = (props as LinkProps)?.href;
   const onClick = (props as ButtonProps)?.onClick;
 
@@ -36,7 +37,7 @@ export const EditButton: React.FC<Props> = (props) => {
         to={href}
         data-testid={testId}
         title={tooltip}
-        className="ml-5 rounded-full"
+        className={`rounded-full ${className}`}
       >
         <ButtonContent />
       </Link>
@@ -49,7 +50,7 @@ export const EditButton: React.FC<Props> = (props) => {
       type="button"
       data-testid={testId}
       title={tooltip}
-      className="ml-5 rounded-full"
+      className={`rounded-full ${className}`}
     >
       <ButtonContent />
     </button>

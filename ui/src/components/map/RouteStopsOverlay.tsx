@@ -91,6 +91,7 @@ export const RouteStopsOverlay = ({ className = '' }: Props): JSX.Element => {
         </div>
         <Visible visible={creatingNewRoute}>
           <EditButton
+            className="ml-5"
             onClick={() => dispatch(setRouteMetadataFormOpenAction(true))}
             tooltip={t('accessibility:map.editRoute', { routeName })}
           />

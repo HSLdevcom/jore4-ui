@@ -86,6 +86,7 @@ export const ExpandableRouteRow = ({
             {parseI18nField(route.name_i18n)}
           </span>
           <EditButton
+            className="ml-5"
             href={routeDetails[Path.editRoute].getLink(
               route.route_id,
               observationDate.toISODate(),
