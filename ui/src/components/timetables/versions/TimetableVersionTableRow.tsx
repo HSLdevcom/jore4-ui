@@ -17,8 +17,8 @@ import {
   AlignDirection,
   IconButton,
   SimpleDropdownMenu,
+  SimpleDropdownMenuItem,
 } from '../../../uiComponents';
-import { SimpleDropdownMenuItem } from '../../routes-and-lines/line-details/SimpleDropdownMenuItem';
 
 const testIds = {
   row: 'TimetableVersionTableRow::row',

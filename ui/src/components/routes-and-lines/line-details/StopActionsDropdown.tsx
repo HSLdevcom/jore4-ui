@@ -4,8 +4,11 @@ import {
   openTimingSettingsModalAction,
   openViaModalAction,
 } from '../../../redux';
-import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
-import { SimpleDropdownMenuItem } from './SimpleDropdownMenuItem';
+import {
+  AlignDirection,
+  SimpleDropdownMenu,
+  SimpleDropdownMenuItem,
+} from '../../../uiComponents';
 
 const testIds = {
   menu: 'StopActionsDropdown::menu',
