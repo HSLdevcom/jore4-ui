@@ -21,6 +21,7 @@ export * from './Popover';
 export * from './SearchableDropdown';
 export * from './SimpleButton';
 export * from './SimpleDropdownMenu';
+export * from './SimpleDropdownMenuItems';
 export * from './SimpleSmallButton';
 export * from './Spinner';
 export * from './Switch';
