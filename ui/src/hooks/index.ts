@@ -4,6 +4,7 @@ export * from './mutationHook';
 export * from './redux';
 export * from './routes';
 export * from './search';
+export * from './stop-areas';
 export * from './stop-registry';
 export * from './stop-timing-settings';
 export * from './stops';
