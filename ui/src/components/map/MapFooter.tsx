@@ -14,6 +14,7 @@ import {
   setIsCreateStopModeEnabledAction,
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
+import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
 
 interface Props {
   onDrawRoute: () => void;
@@ -94,6 +95,19 @@ export const MapFooter: React.FC<Props> = ({
       >
         {t('map.addStop')}
       </SimpleButton>
+      <MapFooterActionsDropdown
+        disabled={
+          isCreateStopModeEnabled ||
+          drawingMode !== undefined ||
+          creatingNewRoute ||
+          hasChangesInProgress ||
+          isRouteMetadataFormOpen
+        }
+        tooltip={t('map.footerActionsTooltip')}
+        onCreateNewStopArea={() => {
+          /* TODO */
+        }}
+      />
       <SimpleButton
         className="h-full !px-3 text-xl"
         onClick={onDeleteRoute}
