@@ -305,7 +305,10 @@
     "location": "Location",
     "latitude": "Latitude",
     "longitude": "Longitude",
-    "showOnMap": "Show on map"
+    "showOnMap": "Show on map",
+    "footerActionsTooltip": "Create new...",
+    "createNewTerminal": "Create new terminal",
+    "createNewStopArea": "Create new stop area"
   },
   "saveChangesModal": {
     "title": "Save changes",

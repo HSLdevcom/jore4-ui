@@ -10,6 +10,7 @@ interface Props {
 }
 
 export enum AlignDirection {
+  Top,
   Right,
   Left,
   NoAlign,
@@ -17,6 +18,8 @@ export enum AlignDirection {
 
 const getAlignClassName = (alignItems: AlignDirection) => {
   switch (alignItems) {
+    case AlignDirection.Top:
+      return 'bottom-[calc(100%+10px)]';
     case AlignDirection.Right:
       return 'left-0';
     case AlignDirection.Left:

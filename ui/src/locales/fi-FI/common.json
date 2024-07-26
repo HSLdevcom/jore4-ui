@@ -305,7 +305,10 @@
     "location": "Sijainti",
     "latitude": "Latitude",
     "longitude": "Longitude",
-    "showOnMap": "Näytä kartalla"
+    "showOnMap": "Näytä kartalla",
+    "footerActionsTooltip": "Luo uusi...",
+    "createNewTerminal": "Luo uusi terminaali",
+    "createNewStopArea": "Luo uusi pysäkkialue"
   },
   "saveChangesModal": {
     "title": "Tallenna muutos",
