@@ -26,13 +26,13 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-timetablesapi-base
-    image: 'hsldevcom/jore4-timetables-api:main--20240308-71865803aa2654bfcf7be1eff580736b6b489d4a'
+    image: 'hsldevcom/jore4-timetables-api:main--20240620-99de2c80992abbea6dca50c49aa4a627c6f45c28'
     container_name: "timetablesapi-e2e"
     environment:
       - SKIP_SET_VARIABLE_SECRET_OVERRIDE=true
-      # Set the URL to e2e database, because for some reason giving the JORE4_DB_HOSTNAME and
-      # JORE4_DB_PORT and JORE4_DB_DATABASE does not work properly and using them points to dev database.
-      - JORE4_DB_URL=jdbc:postgresql://jore4-testdb-e2e:5432/timetablesdb?stringtype=unspecified
+      - JORE4_DB_PORT=5432
+      - JORE4_DB_HOSTNAME=jore4-testdb-e2e
+      - JORE4_DB_DATABASE=timetablesdb
     ports:
       - "127.0.0.1:3109:8080"
     depends_on:
