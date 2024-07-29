@@ -45,4 +45,4 @@ services:
   jore4-timetablesapi:
     # Pin timetables api to a compatible version.
     # Note: also update jore4-timetablesapi-e2e in docker-compose.e2e when changing this.
-    image: 'hsldevcom/jore4-timetables-api:main--20240308-71865803aa2654bfcf7be1eff580736b6b489d4a'
+    image: 'hsldevcom/jore4-timetables-api:main--20240620-99de2c80992abbea6dca50c49aa4a627c6f45c28'
