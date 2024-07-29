@@ -2,9 +2,7 @@ import compact from 'lodash/compact';
 import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
 import { LocationDetailsFormState } from '../../components/stop-registry/stops/stop-details/location-details/schema';
-import {
-  useUpdateStopPlaceMutation,
-} from '../../generated/graphql';
+import { useUpdateStopPlaceMutation } from '../../generated/graphql';
 import {
   getRequiredStopPlaceMutationProperties,
   mapPointToStopRegistryGeoJSON,

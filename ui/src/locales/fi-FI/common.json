@@ -114,8 +114,11 @@
     "timingPlaceRequired": "Pysäkkiä käytetään Hastus-paikkana seuraavilla reiteillä: {{ routeLabels }}. Aseta Hastus-paikka tai poista Hastus-paikka käytöstä reiteiltä."
   },
   "stopArea": {
+    "stopArea": "Pysäkkialue",
     "areaWithLabel": "{{areaLabel}} Pysäkkialue",
     "delete": "Poista pysäkkialue",
+    "name": "Nimi",
+    "label": "Tunnus",
     "errors": {
       "failedToResolveScheduledStopPoint": "Pysäkin tietojen selvitys epäonnistui! Syy"
     }

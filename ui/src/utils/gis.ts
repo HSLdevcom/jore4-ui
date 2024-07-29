@@ -21,10 +21,15 @@ export const mapPointToGeoJSON = ({
   return geoJsonPoint;
 };
 
+export type StopRegistryGeoJsonDefined = {
+  coordinates: Scalars['stop_registry_Coordinates'];
+  type: StopRegistryGeoJsonType;
+};
+
 export const mapPointToStopRegistryGeoJSON = ({
   longitude,
   latitude,
-}: Point) => {
+}: Point): StopRegistryGeoJsonDefined => {
   const coordinates: Scalars['stop_registry_Coordinates'] = [
     longitude,
     latitude,
