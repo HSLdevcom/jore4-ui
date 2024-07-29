@@ -66534,6 +66534,21 @@ export type SearchLinesAndRoutesQuery = {
   }>;
 };
 
+export type InsertStopAreaMutationVariables = Exact<{
+  object?: InputMaybe<StopRegistryGroupOfStopPlacesInput>;
+}>;
+
+export type InsertStopAreaMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateGroupOfStopPlaces?: {
+      __typename?: 'stop_registry_GroupOfStopPlaces';
+      id?: string | null;
+    } | null;
+  } | null;
+};
+
 export type StopTableRowFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
   scheduled_stop_point_id: UUID;
@@ -72698,6 +72713,58 @@ export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<
   SearchLinesAndRoutesQuery,
   SearchLinesAndRoutesQueryVariables
 >;
+export const InsertStopAreaDocument = gql`
+  mutation InsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
+    stop_registry {
+      mutateGroupOfStopPlaces(GroupOfStopPlaces: $object) {
+        id
+      }
+    }
+  }
+`;
+export type InsertStopAreaMutationFn = Apollo.MutationFunction<
+  InsertStopAreaMutation,
+  InsertStopAreaMutationVariables
+>;
+
+/**
+ * __useInsertStopAreaMutation__
+ *
+ * To run a mutation, you first call `useInsertStopAreaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertStopAreaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertStopAreaMutation, { data, loading, error }] = useInsertStopAreaMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useInsertStopAreaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    InsertStopAreaMutation,
+    InsertStopAreaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    InsertStopAreaMutation,
+    InsertStopAreaMutationVariables
+  >(InsertStopAreaDocument, options);
+}
+export type InsertStopAreaMutationHookResult = ReturnType<
+  typeof useInsertStopAreaMutation
+>;
+export type InsertStopAreaMutationResult =
+  Apollo.MutationResult<InsertStopAreaMutation>;
+export type InsertStopAreaMutationOptions = Apollo.BaseMutationOptions<
+  InsertStopAreaMutation,
+  InsertStopAreaMutationVariables
+>;
 export const SearchStopsDocument = gql`
   query SearchStops(
     $stopFilter: stops_database_stop_place_newest_version_bool_exp
@@ -75445,6 +75512,7 @@ export function useSearchLinesAndRoutesAsyncQuery() {
 export type SearchLinesAndRoutesAsyncQueryHookResult = ReturnType<
   typeof useSearchLinesAndRoutesAsyncQuery
 >;
+
 export function useSearchStopsAsyncQuery() {
   return useAsyncQuery<SearchStopsQuery, SearchStopsQueryVariables>(
     SearchStopsDocument,

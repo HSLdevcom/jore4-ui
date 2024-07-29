@@ -2,7 +2,10 @@ import { useTranslation } from 'react-i18next';
 import { Marker } from 'react-map-gl/maplibre';
 import { StopRegistryStopPlace } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
-import { useAppAction, useResolveScheduledStopPointByStopPlaceRef } from '../../../hooks';
+import {
+  useAppAction,
+  useResolveScheduledStopPointByStopPlaceRef,
+} from '../../../hooks';
 import {
   setEditedStopDataAction,
   setSelectedMapStopAreaIdAction,

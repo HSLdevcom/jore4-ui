@@ -114,8 +114,11 @@
     "timingPlaceRequired": "The stop is used as timing place on the following routes: {{ routeLabels }}. Attach timing place or stop using as timing point on the routes."
   },
   "stopArea": {
+    "stopArea": "Stop area",
     "areaWithLabel": "{{areaLabel}} Stop Area ",
     "delete": "Delete stop area",
+    "name": "Name",
+    "label": "Label",
     "errors": {
       "failedToResolveScheduledStopPoint": "Failed to resolve Scheduled Stop Point! Reason"
     }
