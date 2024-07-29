@@ -18,5 +18,10 @@ export const selectStopAreaEditorIsActive = createSelector(
 
 export const selectEditedStopAreaData = createSelector(
   selectMapStopAreaEditor,
-  (mapStopAreEditor) => mapStopAreEditor.editedStopAreaData,
+  (mapStopAreaEditor) => mapStopAreaEditor.editedStopAreaData,
+);
+
+export const selectIsCreateStopAreaModeEnabled = createSelector(
+  selectMapStopAreaEditor,
+  (mapStopAreEditor) => mapStopAreEditor.isCreateStopAreaModeEnabled,
 );
