@@ -12,6 +12,7 @@ import {
   FilterType,
   Mode,
   selectHasDraftRouteGeometry,
+  selectIsCreateStopAreaModeEnabled,
   selectIsCreateStopModeEnabled,
   selectIsMoveStopModeEnabled,
   selectMapFilter,
@@ -25,7 +26,12 @@ import { DrawRouteLayer } from './DrawRouteLayer';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
-import { EditorLayerRef, RouteEditorRef, StopsRef } from './refTypes';
+import {
+  EditorLayerRef,
+  RouteEditorRef,
+  StopAreasRef,
+  StopsRef,
+} from './refTypes';
 import {
   DraftRouteGeometryLayer,
   EditRouteMetadataLayer,
@@ -54,6 +60,7 @@ export const MapComponent = (
   const routeEditorRef = useRef<RouteEditorRef>(null);
   const editorLayerRef = useRef<EditorLayerRef>(null);
   const stopsRef = useRef<StopsRef>(null);
+  const stopAreasRef = useRef<StopAreasRef>(null);
 
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
@@ -72,6 +79,9 @@ export const MapComponent = (
 
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
+  const isCreateStopAreaModeEnabled = useAppSelector(
+    selectIsCreateStopAreaModeEnabled,
+  );
 
   useImperativeHandle(externalRef, () => ({
     onDrawRoute: () => {
@@ -97,6 +107,12 @@ export const MapComponent = (
     }
   };
 
+  const onCreateStopArea = (e: MapLayerMouseEvent) => {
+    if (stopAreasRef.current && drawingMode === undefined) {
+      stopAreasRef.current.onCreateStopArea(e);
+    }
+  };
+
   const onMoveStop = (e: MapLayerMouseEvent) => {
     if (!drawingMode) {
       stopsRef.current?.onMoveStop(e);
@@ -106,6 +122,10 @@ export const MapComponent = (
   const onClick = (e: MapLayerMouseEvent) => {
     if (isCreateStopModeEnabled) {
       onCreateStop(e);
+      return;
+    }
+    if (isCreateStopAreaModeEnabled) {
+      onCreateStopArea(e);
       return;
     }
     if (isMoveStopModeEnabled) {
@@ -145,7 +165,7 @@ export const MapComponent = (
       className={className}
     >
       <Stops ref={stopsRef} />
-      <StopAreas />
+      <StopAreas ref={stopAreasRef} />
       <CustomOverlay position="top-left">
         <Column className="items-start overflow-hidden p-2">
           <FilterPanel
