@@ -32,4 +32,6 @@ cd ./test-db-manager
 yarn build
 yarn seed
 
+../scripts/check-for-new-image-versions.sh
+
 echo "All done! Happy coding! :)"
