@@ -92,3 +92,5 @@ if [ "$INCLUDE_E2E" = true ]; then
   ./scripts/seed-municipalities-and-fare-zones.sh 3110 &
 fi
 wait
+
+./scripts/check-for-new-image-versions.sh
