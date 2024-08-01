@@ -35,12 +35,14 @@ interface Props {
   className?: string;
   stop: RouteStopFieldsFragment;
   route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
+  labelledBy: string;
 }
 
 export const RouteStopListItem = ({
   className = '',
   stop,
   route,
+  labelledBy,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -92,6 +94,7 @@ export const RouteStopListItem = ({
         ${
           stopBelongsToJourneyPattern ? '' : 'bg-background text-dark-grey'
         } ${className}`}
+      aria-labelledby={labelledBy}
       data-testid={testIds.container(stop.label)}
     >
       <div className="col-span-3 items-center justify-center text-center text-2xl">

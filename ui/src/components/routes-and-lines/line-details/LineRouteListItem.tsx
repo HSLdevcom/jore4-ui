@@ -69,18 +69,23 @@ export const LineRouteListItem = ({
           ),
   );
 
+  const routeRowElementId = `route-row-${route.label}-${route.variant}-${route.direction}`;
+  const routeStopListElementId = 'route-stop-list';
+
   return (
     <li>
       <RouteRow
+        id={routeRowElementId}
         key={routeId}
         route={route}
         observationDate={observationDate}
         isExpanded={isExpanded}
         onToggle={onToggle}
         isLast={isLast}
+        controls={routeStopListElementId}
       />
       {isExpanded && (
-        <ul>
+        <ul id={routeStopListElementId}>
           {displayedStops.map((item, index) => (
             <RouteStopListItem
               // This list is recreated every time when changes happen, so we can
@@ -89,6 +94,7 @@ export const LineRouteListItem = ({
               key={`${item.label}_${index}`}
               stop={item}
               route={route}
+              labelledBy={routeRowElementId}
             />
           ))}
         </ul>
