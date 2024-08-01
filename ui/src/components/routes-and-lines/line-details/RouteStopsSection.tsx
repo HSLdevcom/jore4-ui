@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { identity, pipe } from 'remeda';
 import {
   RouteUniqueFieldsFragment,
@@ -8,15 +7,10 @@ import {
 import { stopBelongsToJourneyPattern } from '../../../graphql';
 import {
   getEligibleStopsAlongRoute,
-  useEditRouteJourneyPattern,
   useObservationDateQueryParam,
 } from '../../../hooks';
 import { Priority } from '../../../types/enums';
-import {
-  filterHighestPriorityCurrentStops,
-  showDangerToast,
-  showSuccessToast,
-} from '../../../utils';
+import { filterHighestPriorityCurrentStops } from '../../../utils';
 import { ExpandableRouteRow } from './ExpandableRouteRow';
 import { RouteRowLoader } from './RouteRowLoader';
 import { RouteStopsRow } from './RouteStopsRow';
@@ -33,14 +27,6 @@ export const RouteStopsSection = ({
   showUnusedStops,
 }: Props): JSX.Element => {
   const [isExpanded, expand] = useState(false);
-  const { t } = useTranslation();
-
-  const {
-    prepareAddStopToRoute,
-    prepareDeleteStopFromRoute,
-    mapEditJourneyPatternChangesToVariables,
-    updateRouteGeometryMutation,
-  } = useEditRouteJourneyPattern();
 
   const onToggle = () => {
     expand(!isExpanded);
@@ -86,38 +72,6 @@ export const RouteStopsSection = ({
           ),
   );
 
-  const onAddToRoute = async (stopLabel: string) => {
-    try {
-      const changes = prepareAddStopToRoute({
-        stopPointLabels: [stopLabel],
-        route,
-      });
-
-      const variables = mapEditJourneyPatternChangesToVariables(changes);
-
-      await updateRouteGeometryMutation(variables);
-      showSuccessToast(t('routes.saveSuccess'));
-    } catch (err) {
-      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
-    }
-  };
-
-  const onRemoveFromRoute = async (stopLabel: string) => {
-    try {
-      const changes = prepareDeleteStopFromRoute({
-        stopPointLabels: [stopLabel],
-        route,
-      });
-
-      const variables = mapEditJourneyPatternChangesToVariables(changes);
-
-      await updateRouteGeometryMutation(variables);
-      showSuccessToast(t('routes.saveSuccess'));
-    } catch (err) {
-      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
-    }
-  };
-
   return (
     <tbody className={className}>
       <ExpandableRouteRow
@@ -136,9 +90,7 @@ export const RouteStopsSection = ({
             // eslint-disable-next-line react/no-array-index-key
             key={`${item.label}_${index}`}
             stop={item}
-            routeId={route.route_id}
-            onAddToRoute={onAddToRoute}
-            onRemoveFromRoute={onRemoveFromRoute}
+            route={route}
           />
         ))}
     </tbody>
