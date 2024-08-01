@@ -2,7 +2,10 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { MdHistory } from 'react-icons/md';
-import { RouteStopFieldsFragment } from '../../../generated/graphql';
+import {
+  RouteStopFieldsFragment,
+  RouteWithInfrastructureLinksWithStopsAndJpsFragment,
+} from '../../../generated/graphql';
 import { useAlertsAndHighLights, useAppDispatch } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import { openTimingSettingsModalAction } from '../../../redux';
@@ -31,17 +34,13 @@ const testIds = {
 interface Props {
   className?: string;
   stop: RouteStopFieldsFragment;
-  routeId: UUID;
-  onAddToRoute: (stopLabel: string) => void;
-  onRemoveFromRoute: (stopLabel: string) => void;
+  route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
 }
 
 export const RouteStopsRow = ({
   className = '',
   stop,
-  routeId,
-  onAddToRoute,
-  onRemoveFromRoute,
+  route,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -49,7 +48,7 @@ export const RouteStopsRow = ({
   // find the journey pattern instance that belongs to this route
   const scheduledStopPointInJourneyPattern =
     stop.scheduled_stop_point_in_journey_patterns.find(
-      (item) => item.journey_pattern.on_route_id === routeId,
+      (item) => item.journey_pattern.on_route_id === route.route_id,
     );
 
   // does the stop belong to this route's journey pattern?
@@ -168,12 +167,11 @@ export const RouteStopsRow = ({
       </td>
       <td>
         <StopActionsDropdown
+          route={route}
           tooltip={t('accessibility:routes.showStopActions', { stopLabel })}
           stopLabel={stopLabel}
           stopBelongsToJourneyPattern={stopBelongsToJourneyPattern}
           isViaPoint={isViaPoint}
-          onAddToRoute={onAddToRoute}
-          onRemoveFromRoute={onRemoveFromRoute}
           journeyPatternId={journeyPatternId}
           scheduledStopPointSequence={scheduledStopPointSequence}
         />
