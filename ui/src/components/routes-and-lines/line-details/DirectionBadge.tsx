@@ -16,13 +16,19 @@ type Props = {
 
 export const DirectionBadge = ({ direction, className = '' }: Props) => {
   const { t } = useTranslation();
+
+  const directionText = t(`directionEnum.${direction}`);
   return (
     <span
-      title={t(`directionEnum.${direction}`)}
+      title={directionText}
       data-testid={testIds.container}
       className={`relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white ${className}`}
     >
-      <span data-testid={testIds.directionBadge(direction)}>
+      <span
+        aria-hidden
+        aria-label={directionText}
+        data-testid={testIds.directionBadge(direction)}
+      >
         {mapDirectionToShortUiName(direction)}
       </span>
     </span>

@@ -38,21 +38,25 @@ const testIds = {
 };
 
 interface Props {
+  directionAndLabelId: string;
   className?: string;
   route: RouteAllFieldsFragment;
   observationDate: DateTime;
   isExpanded: boolean;
   isLast: boolean;
   onToggle: () => void;
+  controls: string;
 }
 
 export const RouteRow: FC<PropsWithChildren<Props>> = ({
+  directionAndLabelId,
   className = '',
   route,
   observationDate,
   isExpanded,
   isLast,
   onToggle,
+  controls,
 }) => {
   const { t } = useTranslation();
   const { showRouteOnMap } = useShowRoutesOnModal();
@@ -80,7 +84,10 @@ export const RouteRow: FC<PropsWithChildren<Props>> = ({
         ${alertStyle.listItemBorder ?? ''} ${className}`}
       data-testid={testIds.container(label, route.direction)}
     >
-      <div className="col-span-3 flex h-full items-center justify-evenly">
+      <div
+        id={directionAndLabelId}
+        className="col-span-3 flex h-full items-center justify-evenly"
+      >
         <DirectionBadge direction={route.direction as RouteDirectionEnum} />
         {/* Route label max is 6 characters including space and the variant */}
         <span className="w-[6ch] text-xl" data-testid={testIds.label}>
@@ -151,7 +158,7 @@ export const RouteRow: FC<PropsWithChildren<Props>> = ({
           label,
           directionNumber,
         })}
-        controls="" // The current structure does not support this logically, the expandable row is in the same section as the items it controls
+        controls={controls}
       />
     </div>
   );

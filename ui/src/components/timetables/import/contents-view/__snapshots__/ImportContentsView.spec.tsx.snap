@@ -99,6 +99,8 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
             title="1 - Keskustasta pois"
           >
             <span
+              aria-hidden="true"
+              aria-label="1 - Keskustasta pois"
               data-testid="DirectionBadge::outbound"
             >
               1
@@ -147,6 +149,8 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
             title="2 - Keskustaan päin"
           >
             <span
+              aria-hidden="true"
+              aria-label="2 - Keskustaan päin"
               data-testid="DirectionBadge::inbound"
             >
               2
@@ -195,6 +199,8 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
             title="1 - Keskustasta pois"
           >
             <span
+              aria-hidden="true"
+              aria-label="1 - Keskustasta pois"
               data-testid="DirectionBadge::outbound"
             >
               1
