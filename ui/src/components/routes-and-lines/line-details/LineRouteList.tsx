@@ -4,22 +4,19 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteUniqueFieldsFragment } from '../../../generated/graphql';
 import { Switch, SwitchLabel } from '../../../uiComponents';
-import { RouteStopsSection } from './RouteStopsSection';
-
-const testIds = {
-  showUnusedStopsSwitch: 'RouteStopsTable::showUnusedStopsSwitch',
-};
+import { LineRouteListItem } from './LineRouteListItem';
 
 interface Props {
-  className?: string;
   routes: RouteUniqueFieldsFragment[];
-  testId?: string;
 }
 
-export const RouteStopsTable = ({ className = '', routes, testId }: Props) => {
+const testIds = {
+  showUnusedStopsSwitch: 'LineRouteList::showUnusedStopsSwitch',
+};
+
+export const LineRouteList = ({ routes }: Props) => {
   const { t } = useTranslation();
   const [showUnusedStops, setShowUnusedStops] = useState(false);
-
   const sortedRoutes = orderBy(routes, ['label', 'direction'], ['asc', 'desc']);
 
   return (
@@ -36,18 +33,18 @@ export const RouteStopsTable = ({ className = '', routes, testId }: Props) => {
           />
         </HuiSwitch.Group>
       </div>
-      {/* setting a fake "height: 1px" so that "height: 100%" would work for the table cells */}
-      <table className={`h-1 w-full ${className}`} data-testid={testId}>
-        {sortedRoutes.map((item) => {
+      <ul>
+        {sortedRoutes.map((item, index) => {
           return (
-            <RouteStopsSection
-              key={item.route_id}
-              routeUniqueFields={item}
+            <LineRouteListItem
               showUnusedStops={showUnusedStops}
+              key={item.route_id}
+              routeId={item.route_id}
+              isLast={index === sortedRoutes.length - 1}
             />
           );
         })}
-      </table>
+      </ul>
     </div>
   );
 };

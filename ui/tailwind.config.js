@@ -10,6 +10,10 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'], // Tailwind can tree-shake unused styles in production in files defined in these directories
   theme: {
     extend: {
+      gridTemplateColumns: {
+        13: 'repeat(13, minmax(0, 1fr))',
+        24: 'repeat(24, minmax(0, 1fr))',
+      },
       colors: {
         brand: colors.brand,
         'brand-darker': colors.brandDarker,

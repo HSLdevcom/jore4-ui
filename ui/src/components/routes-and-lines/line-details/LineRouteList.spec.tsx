@@ -14,11 +14,9 @@ import {
 } from '../../../generated/graphql';
 import { RouteDirection } from '../../../types/RouteDirection';
 import { render, sleep } from '../../../utils/test-utils';
-import { RouteStopsTable } from './RouteStopsTable';
+import { LineRouteList } from './LineRouteList';
 
-describe(`<${RouteStopsTable.name} />`, () => {
-  const testId = 'routeStopsTable1';
-
+describe(`<${LineRouteList.name} />`, () => {
   // These responses are copy-pasted from the actual graphql response.
   // The actual request for this is GET_ROUTE_DETAILS_BY_ID.
   const mocks: Array<
@@ -536,7 +534,7 @@ describe(`<${RouteStopsTable.name} />`, () => {
   test('Renders the route with stops along its geometry', async () => {
     const { container, asFragment } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <RouteStopsTable testId={testId} routes={routes} />
+        <LineRouteList routes={routes} />
       </MockedProvider>,
     );
 
@@ -544,46 +542,42 @@ describe(`<${RouteStopsTable.name} />`, () => {
     await act(() => sleep(0));
 
     // the stops don't show as the accordion is not open, 2 routes show
-    expect(container.querySelectorAll('tr')).toHaveLength(1);
+    expect(container.querySelectorAll('li')).toHaveLength(1);
     expect(asFragment()).toMatchSnapshot();
 
-    const accordionButton = screen.getByTestId(
-      'ExpandableRouteRow::toggleAccordion',
-    );
+    const accordionButton = screen.getByTestId('RouteRow::toggleAccordion');
     fireEvent.click(accordionButton);
 
     // the stops on journey pattern should show when the accordion opens
-    expect(container.querySelectorAll('tr')).toHaveLength(3);
+    expect(container.querySelectorAll('li')).toHaveLength(3);
     expect(asFragment()).toMatchSnapshot();
 
     const showUnusedStopsToggle = screen.getByTestId(
-      'RouteStopsTable::showUnusedStopsSwitch',
+      'LineRouteList::showUnusedStopsSwitch',
     );
     fireEvent.click(showUnusedStopsToggle);
 
     // all the stops should show when unused stops toggle has been clicked
-    expect(container.querySelectorAll('tr')).toHaveLength(4);
+    expect(container.querySelectorAll('li')).toHaveLength(4);
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('Generates links for stop details', async () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <RouteStopsTable testId={testId} routes={routes} />
+        <LineRouteList routes={routes} />
       </MockedProvider>,
     );
 
     // wait for the graphql call to execute
     await act(() => sleep(0));
 
-    const accordionButton = screen.getByTestId(
-      'ExpandableRouteRow::toggleAccordion',
-    );
+    const accordionButton = screen.getByTestId('RouteRow::toggleAccordion');
     fireEvent.click(accordionButton);
 
     const label = within(
-      screen.getByTestId('RouteStopsRow::H1234'),
-    ).getByTestId('RouteStopsRow::label');
+      screen.getByTestId('RouteStopListItem::H1234'),
+    ).getByTestId('RouteStopListItem::label');
     expect(label).toHaveTextContent('H1234');
     expect(label.title).toContain('H1234');
     expect(label).toHaveAttribute('href', '/stop-registry/stops/H1234');

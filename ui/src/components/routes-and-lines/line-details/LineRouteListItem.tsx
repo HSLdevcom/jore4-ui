@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { identity, pipe } from 'remeda';
-import {
-  RouteUniqueFieldsFragment,
-  useGetRouteDetailsByIdQuery,
-} from '../../../generated/graphql';
+import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
 import { stopBelongsToJourneyPattern } from '../../../graphql';
 import {
   getEligibleStopsAlongRoute,
@@ -11,20 +8,20 @@ import {
 } from '../../../hooks';
 import { Priority } from '../../../types/enums';
 import { filterHighestPriorityCurrentStops } from '../../../utils';
-import { ExpandableRouteRow } from './ExpandableRouteRow';
+import { RouteRow } from './RouteRow';
 import { RouteRowLoader } from './RouteRowLoader';
-import { RouteStopsRow } from './RouteStopsRow';
+import { RouteStopListItem } from './RouteStopListItem';
 
 interface Props {
-  className?: string;
-  routeUniqueFields: RouteUniqueFieldsFragment;
+  routeId: UUID;
   showUnusedStops: boolean;
+  isLast: boolean;
 }
 
-export const RouteStopsSection = ({
-  className = '',
-  routeUniqueFields,
+export const LineRouteListItem = ({
+  routeId,
   showUnusedStops,
+  isLast,
 }: Props): JSX.Element => {
   const [isExpanded, expand] = useState(false);
 
@@ -35,7 +32,7 @@ export const RouteStopsSection = ({
   const { observationDate } = useObservationDateQueryParam();
 
   const routeResult = useGetRouteDetailsByIdQuery({
-    variables: { routeId: routeUniqueFields.route_id },
+    variables: { routeId },
   });
   const route = routeResult.data?.route_route_by_pk;
 
@@ -44,9 +41,9 @@ export const RouteStopsSection = ({
     // Note: we would actually have some information about the route that we could display already,
     // but made a design decision not to show anything until whole row can be shown.
     return (
-      <tbody>
-        <RouteRowLoader className="[&>td]:h-[75px]" />
-      </tbody>
+      <li>
+        <RouteRowLoader />
+      </li>
     );
   }
 
@@ -73,26 +70,29 @@ export const RouteStopsSection = ({
   );
 
   return (
-    <tbody className={className}>
-      <ExpandableRouteRow
-        className="[&>td]:h-[75px]"
-        key={route.route_id}
+    <li>
+      <RouteRow
+        key={routeId}
         route={route}
         observationDate={observationDate}
         isExpanded={isExpanded}
         onToggle={onToggle}
+        isLast={isLast}
       />
-      {isExpanded &&
-        displayedStops.map((item, index) => (
-          <RouteStopsRow
-            // This list is recreated every time when changes happen, so we can
-            // use index as key here
-            // eslint-disable-next-line react/no-array-index-key
-            key={`${item.label}_${index}`}
-            stop={item}
-            route={route}
-          />
-        ))}
-    </tbody>
+      {isExpanded && (
+        <ul>
+          {displayedStops.map((item, index) => (
+            <RouteStopListItem
+              // This list is recreated every time when changes happen, so we can
+              // use index as key here
+              // eslint-disable-next-line react/no-array-index-key
+              key={`${item.label}_${index}`}
+              stop={item}
+              route={route}
+            />
+          ))}
+        </ul>
+      )}
+    </li>
   );
 };
