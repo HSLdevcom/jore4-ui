@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '../../../hooks';
+import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../generated/graphql';
+import { useAppDispatch, useEditRouteJourneyPattern } from '../../../hooks';
 import {
   openTimingSettingsModalAction,
   openViaModalAction,
@@ -9,6 +10,7 @@ import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../uiComponents';
+import { showDangerToast, showSuccessToast } from '../../../utils';
 
 const testIds = {
   menu: 'StopActionsDropdown::menu',
@@ -25,8 +27,7 @@ interface Props {
   stopLabel: string;
   stopBelongsToJourneyPattern: boolean;
   isViaPoint: boolean | undefined;
-  onAddToRoute: (stopLabel: string) => void;
-  onRemoveFromRoute: (stopLabel: string) => void;
+  route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
   tooltip: string;
 }
 
@@ -36,12 +37,18 @@ export const StopActionsDropdown = ({
   stopLabel,
   stopBelongsToJourneyPattern,
   isViaPoint,
-  onAddToRoute,
-  onRemoveFromRoute,
+  route,
   tooltip,
 }: Props): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+
+  const {
+    prepareAddStopToRoute,
+    prepareDeleteStopFromRoute,
+    mapEditJourneyPatternChangesToVariables,
+    updateRouteGeometryMutation,
+  } = useEditRouteJourneyPattern();
 
   const showViaModal = () => {
     if (journeyPatternId) {
@@ -66,6 +73,38 @@ export const StopActionsDropdown = ({
     }
   };
 
+  const onAddToRoute = async () => {
+    try {
+      const changes = prepareAddStopToRoute({
+        stopPointLabels: [stopLabel],
+        route,
+      });
+
+      const variables = mapEditJourneyPatternChangesToVariables(changes);
+
+      await updateRouteGeometryMutation(variables);
+      showSuccessToast(t('routes.saveSuccess'));
+    } catch (err) {
+      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
+    }
+  };
+
+  const onRemoveFromRoute = async () => {
+    try {
+      const changes = prepareDeleteStopFromRoute({
+        stopPointLabels: [stopLabel],
+        route,
+      });
+
+      const variables = mapEditJourneyPatternChangesToVariables(changes);
+
+      await updateRouteGeometryMutation(variables);
+      showSuccessToast(t('routes.saveSuccess'));
+    } catch (err) {
+      showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
+    }
+  };
+
   return (
     <SimpleDropdownMenu
       alignItems={AlignDirection.Left}
@@ -74,13 +113,13 @@ export const StopActionsDropdown = ({
     >
       {stopBelongsToJourneyPattern ? (
         <SimpleDropdownMenuItem
-          onClick={() => onRemoveFromRoute(stopLabel)}
+          onClick={onRemoveFromRoute}
           text={t('stops.removeFromRoute')}
           testId={testIds.removeStop}
         />
       ) : (
         <SimpleDropdownMenuItem
-          onClick={() => onAddToRoute(stopLabel)}
+          onClick={onAddToRoute}
           text={t('stops.addToRoute')}
           testId={testIds.addStop}
         />
