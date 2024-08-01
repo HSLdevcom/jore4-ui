@@ -23,9 +23,9 @@ import { ViaModal } from '../via/ViaModal';
 import { ActionsRow } from './ActionsRow';
 import { AdditionalInformation } from './AdditionalInformation';
 import { CreateRouteBox } from './CreateRouteBox';
+import { LineRouteList } from './LineRouteList';
 import { LineTitle } from './LineTitle';
 import { MapPreview } from './MapPreview';
-import { RouteStopsTable } from './RouteStopsTable';
 
 export const LineDetailsPage = (): JSX.Element => {
   const { t } = useTranslation();
@@ -87,7 +87,7 @@ export const LineDetailsPage = (): JSX.Element => {
             <Column className="w-full">
               <h1 className="mt-8">{t('lines.routes')}</h1>
               {line.line_routes?.length > 0 ? (
-                <RouteStopsTable routes={displayedRoutes} />
+                <LineRouteList routes={displayedRoutes} />
               ) : (
                 <CreateRouteBox onCreateRoute={onCreateRoute} />
               )}

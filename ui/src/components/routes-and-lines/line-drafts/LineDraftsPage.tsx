@@ -7,7 +7,7 @@ import { useGetLineDraftDetails } from '../../../hooks/line-drafts/useGetLineDra
 import { Column, Container, Row } from '../../../layoutComponents';
 import { CloseIconButton } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
-import { RouteStopsTable } from '../line-details/RouteStopsTable';
+import { LineRouteList } from '../line-details/LineRouteList';
 
 const testIds = {
   closeButton: 'LineDraftsPage::closeButton',
@@ -38,7 +38,7 @@ export const LineDraftsPage = (): JSX.Element => {
       </Row>
 
       {routes?.length ? (
-        <RouteStopsTable routes={routes} />
+        <LineRouteList routes={routes} />
       ) : (
         <Row className="py-20">
           <h2 className="mx-auto flex">{t('lines.noDrafts')}</h2>

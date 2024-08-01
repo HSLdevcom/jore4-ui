@@ -115,11 +115,11 @@ describe('Hastus export', () => {
       () => {
         lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        lineDetailsPage.routeStopsTable.expandableRouteRow.toggleRouteSection(
+        lineDetailsPage.lineRouteList.routeRow.toggleRouteSection(
           '901',
           RouteDirectionEnum.Outbound,
         );
-        lineDetailsPage.routeStopsTable.routeStopsRow.openTimingSettingsForm(
+        lineDetailsPage.lineRouteList.routeStopListItem.openTimingSettingsForm(
           'E2E001',
         );
 
@@ -150,13 +150,13 @@ describe('Hastus export', () => {
       () => {
         lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        lineDetailsPage.routeStopsTable.expandableRouteRow.toggleRouteSection(
+        lineDetailsPage.lineRouteList.routeRow.toggleRouteSection(
           '901',
           RouteDirectionEnum.Outbound,
         );
 
         // Set route 901 (outbound) last stop to not be used as timing point
-        lineDetailsPage.routeStopsTable.routeStopsRow.openTimingSettingsForm(
+        lineDetailsPage.lineRouteList.routeStopListItem.openTimingSettingsForm(
           'E2E005',
         );
         timingSettingsForm
@@ -185,13 +185,13 @@ describe('Hastus export', () => {
       () => {
         lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        lineDetailsPage.routeStopsTable.expandableRouteRow.toggleRouteSection(
+        lineDetailsPage.lineRouteList.routeRow.toggleRouteSection(
           '901',
           RouteDirectionEnum.Outbound,
         );
 
         // Set route 901 (outbound) first stop to not be used as timing point
-        lineDetailsPage.routeStopsTable.routeStopsRow.openTimingSettingsForm(
+        lineDetailsPage.lineRouteList.routeStopListItem.openTimingSettingsForm(
           'E2E001',
         );
         timingSettingsForm
@@ -201,7 +201,7 @@ describe('Hastus export', () => {
         timingSettingsForm.getSavebutton().click();
 
         // Set route 901 (outbound) last stop to not be used as timing point
-        lineDetailsPage.routeStopsTable.routeStopsRow.openTimingSettingsForm(
+        lineDetailsPage.lineRouteList.routeStopListItem.openTimingSettingsForm(
           'E2E005',
         );
         timingSettingsForm

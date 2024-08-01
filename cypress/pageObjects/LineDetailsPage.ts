@@ -1,9 +1,9 @@
 import { UUID } from '../types';
+import { LineRouteList } from './LineRouteList';
 import { LineValidityPeriod } from './LineValidityPeriod';
-import { RouteStopsTable } from './RouteStopsTable';
 
 export class LineDetailsPage {
-  routeStopsTable = new RouteStopsTable();
+  lineRouteList = new LineRouteList();
 
   lineValidityPeriod = new LineValidityPeriod();
 

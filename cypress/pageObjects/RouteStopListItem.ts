@@ -1,6 +1,6 @@
-export class RouteStopsRow {
+export class RouteStopListItem {
   getStopRow(stopLabel: string) {
-    return cy.getByTestId(`RouteStopsRow::${stopLabel}`);
+    return cy.getByTestId(`RouteStopListItem::${stopLabel}`);
   }
 
   getStopDropdown(stopLabel: string) {
