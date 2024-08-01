@@ -1,23 +1,23 @@
 import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
 import { DirectionBadge } from './DirectionBadge';
-import { ExpandableRouteRow } from './ExpandableRouteRow';
-import { RouteStopsRow } from './RouteStopsRow';
+import { RouteRow } from './RouteRow';
+import { RouteStopListItem } from './RouteStopListItem';
 import { TimingSettingsForm } from './TimingSettingsForm';
 import { ViaForm } from './ViaForm';
 
-export class RouteStopsTable {
+export class LineRouteList {
   viaForm = new ViaForm();
 
   timingSettingsForm = new TimingSettingsForm();
 
-  expandableRouteRow = new ExpandableRouteRow();
+  routeRow = new RouteRow();
 
-  routeStopsRow = new RouteStopsRow();
+  routeStopListItem = new RouteStopListItem();
 
   directionBadge = new DirectionBadge();
 
   getShowUnusedStopsSwitch() {
-    return cy.getByTestId('RouteStopsTable::showUnusedStopsSwitch');
+    return cy.getByTestId('LineRouteList::showUnusedStopsSwitch');
   }
 
   toggleShowUnusedStops() {
@@ -26,14 +26,14 @@ export class RouteStopsTable {
 
   assertRouteDirection(routeLabel: string, routeDirection: RouteDirectionEnum) {
     if (routeDirection === RouteDirectionEnum.Inbound) {
-      return this.expandableRouteRow
+      return this.routeRow
         .getRouteHeaderRow(routeLabel, routeDirection)
         .within(() => {
           this.directionBadge.getInboundDirectionBadge();
         });
     }
     if (routeDirection === RouteDirectionEnum.Outbound) {
-      return this.expandableRouteRow
+      return this.routeRow
         .getRouteHeaderRow(routeLabel, routeDirection)
         .within(() => {
           this.directionBadge.getOutboundDirectionBadge();
