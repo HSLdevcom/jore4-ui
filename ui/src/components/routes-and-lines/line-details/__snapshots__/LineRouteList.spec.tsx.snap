@@ -35,6 +35,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
         
         border-l-10 border-hsl-dark-green "
           data-testid="RouteRow::65x-outbound"
+          id="route-row-65x-null-outbound"
         >
           <div
             class="col-span-3 flex h-full items-center justify-evenly"
@@ -158,7 +159,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             </button>
           </div>
           <button
-            aria-controls=""
+            aria-controls="route-stop-list"
             aria-expanded="false"
             class="text-center h-full border-l-4 border-white"
             data-testid="RouteRow::toggleAccordion"
@@ -227,6 +228,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
         
         border-l-10 border-hsl-dark-green "
           data-testid="RouteRow::65x-outbound"
+          id="route-row-65x-null-outbound"
         >
           <div
             class="col-span-3 flex h-full items-center justify-evenly"
@@ -350,7 +352,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             </button>
           </div>
           <button
-            aria-controls=""
+            aria-controls="route-stop-list"
             aria-expanded="true"
             class="text-center h-full border-l-4 border-white"
             data-testid="RouteRow::toggleAccordion"
@@ -378,8 +380,11 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             </svg>
           </button>
         </div>
-        <ul>
+        <ul
+          id="route-stop-list"
+        >
           <li
+            aria-labelledby="route-row-65x-null-outbound"
             class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
         after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
         border-l-10 border-hsl-dark-green
@@ -486,6 +491,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             </div>
           </li>
           <li
+            aria-labelledby="route-row-65x-null-outbound"
             class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
         after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
         border-l-10 border-hsl-dark-green
@@ -633,6 +639,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
         
         border-l-10 border-hsl-dark-green "
           data-testid="RouteRow::65x-outbound"
+          id="route-row-65x-null-outbound"
         >
           <div
             class="col-span-3 flex h-full items-center justify-evenly"
@@ -756,7 +763,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             </button>
           </div>
           <button
-            aria-controls=""
+            aria-controls="route-stop-list"
             aria-expanded="true"
             class="text-center h-full border-l-4 border-white"
             data-testid="RouteRow::toggleAccordion"
@@ -784,8 +791,11 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             </svg>
           </button>
         </div>
-        <ul>
+        <ul
+          id="route-stop-list"
+        >
           <li
+            aria-labelledby="route-row-65x-null-outbound"
             class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
         after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
         border-l-10 border-hsl-dark-green
@@ -892,6 +902,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             </div>
           </li>
           <li
+            aria-labelledby="route-row-65x-null-outbound"
             class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
         after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
         border-l-10 border-hsl-dark-green
@@ -998,6 +1009,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             </div>
           </li>
           <li
+            aria-labelledby="route-row-65x-null-outbound"
             class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24
         after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
         border-l-10 border-hsl-dark-green

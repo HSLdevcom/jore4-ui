@@ -38,21 +38,25 @@ const testIds = {
 };
 
 interface Props {
+  id: string;
   className?: string;
   route: RouteAllFieldsFragment;
   observationDate: DateTime;
   isExpanded: boolean;
   isLast: boolean;
   onToggle: () => void;
+  controls: string;
 }
 
 export const RouteRow: FC<PropsWithChildren<Props>> = ({
+  id,
   className = '',
   route,
   observationDate,
   isExpanded,
   isLast,
   onToggle,
+  controls,
 }) => {
   const { t } = useTranslation();
   const { showRouteOnMap } = useShowRoutesOnModal();
@@ -78,6 +82,7 @@ export const RouteRow: FC<PropsWithChildren<Props>> = ({
       className={`relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24
         ${pseudoBottomBorderClassName}
         ${alertStyle.listItemBorder ?? ''} ${className}`}
+      id={id}
       data-testid={testIds.container(label, route.direction)}
     >
       <div className="col-span-3 flex h-full items-center justify-evenly">
@@ -151,7 +156,7 @@ export const RouteRow: FC<PropsWithChildren<Props>> = ({
           label,
           directionNumber,
         })}
-        controls="" // The current structure does not support this logically, the expandable row is in the same section as the items it controls
+        controls={controls}
       />
     </div>
   );
