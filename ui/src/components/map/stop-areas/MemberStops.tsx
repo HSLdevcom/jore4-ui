@@ -1,5 +1,8 @@
 import { useMemo } from 'react';
-import { StopAreaMinimalShowOnMapFieldsFragment } from '../../../generated/graphql';
+import {
+  StopAreaFormFieldsFragment,
+  StopRegistryStopPlace,
+} from '../../../generated/graphql';
 import { getPointPosition, notNullish } from '../../../utils';
 import { LinePaint, LineRenderLayer } from '../routes';
 import { MemberStop } from './MemberStop';
@@ -10,13 +13,11 @@ const memberLinePaint: Partial<LinePaint> = {
 };
 
 function useMemberLines(
-  area: StopAreaMinimalShowOnMapFieldsFragment,
+  area: StopAreaFormFieldsFragment,
 ): GeoJSON.MultiLineString | null {
   return useMemo(() => {
-    const areaPosition = getPointPosition(area.centroid);
-    const nonNullStops = area.members
-      .map((member) => member.stop_place)
-      .filter(notNullish);
+    const areaPosition = getPointPosition(area.geometry);
+    const nonNullStops = area.members?.filter(notNullish);
 
     if (!areaPosition || !nonNullStops) {
       return null;
@@ -25,7 +26,7 @@ function useMemberLines(
     return {
       type: 'MultiLineString',
       coordinates: nonNullStops
-        .map((it) => it.centroid)
+        .map((it) => it.geometry)
         .map(getPointPosition)
         .filter(notNullish)
         .map((memberPosition) => [areaPosition, memberPosition]),
@@ -33,15 +34,12 @@ function useMemberLines(
   }, [area]);
 }
 
-function useMemberStops(area: StopAreaMinimalShowOnMapFieldsFragment) {
-  return useMemo(
-    () => area.members?.map((member) => member?.stop_place).filter(notNullish),
-    [area],
-  );
+function useMemberStops(area: StopAreaFormFieldsFragment) {
+  return useMemo(() => area.members?.filter(notNullish), [area]);
 }
 
 type MemberStopsProps = {
-  area: StopAreaMinimalShowOnMapFieldsFragment;
+  area: StopAreaFormFieldsFragment;
 };
 
 export const MemberStops = ({ area }: MemberStopsProps) => {
@@ -50,8 +48,8 @@ export const MemberStops = ({ area }: MemberStopsProps) => {
 
   return (
     <>
-      {memberStops.map((stop) => (
-        <MemberStop key={stop.id} stop={stop} />
+      {memberStops?.map((stop) => (
+        <MemberStop key={stop.id} stop={stop as StopRegistryStopPlace} />
       ))}
 
       {memberLines ? (

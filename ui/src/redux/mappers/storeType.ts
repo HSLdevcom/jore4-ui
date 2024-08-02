@@ -1,6 +1,6 @@
 import isArray from 'lodash/isArray';
 import { DateTime } from 'luxon';
-import { isLine, isRoute, isStop } from '../../graphql';
+import { isLine, isRoute, isStop, isValidBetween } from '../../graphql';
 import { isDateLike, parseDate } from '../../time';
 import {
   PlainObject,
@@ -45,8 +45,11 @@ const defaultSerializer: SerializerFunction = <
   parentObject: T,
 ) => {
   if (
-    (isStop(parentObject) || isRoute(parentObject) || isLine(parentObject)) &&
-    ['validity_start', 'validity_end'].includes(key) &&
+    (isStop(parentObject) ||
+      isRoute(parentObject) ||
+      isLine(parentObject) ||
+      isValidBetween(parentObject)) &&
+    ['validity_start', 'validity_end', 'fromDate', 'toDate'].includes(key) &&
     DateTime.isDateTime(value)
   ) {
     return value.toISO();

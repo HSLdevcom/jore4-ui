@@ -11,6 +11,7 @@ const scalars = {
   date: 'luxon.DateTime',
   interval: 'luxon.Duration',
   stop_registry_DateTime: 'luxon.DateTime',
+  stop_registry_Coordinates: 'GeoJSON.Position',
   float8: 'number',
   smallint: 'number',
 };

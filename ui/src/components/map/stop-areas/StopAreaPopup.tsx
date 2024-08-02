@@ -2,14 +2,10 @@ import noop from 'lodash/noop';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
-import { StopAreaMinimalShowOnMapFieldsFragment } from '../../../generated/graphql';
+import { StopAreaFormFieldsFragment } from '../../../generated/graphql';
 import { Column, Row } from '../../../layoutComponents';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
-import {
-  getGeometryPoint,
-  getNameFromAlternatives,
-  mapToValidityPeriod,
-} from '../../../utils';
+import { getGeometryPoint, mapToValidityPeriod } from '../../../utils';
 
 const testIds = {
   label: 'StopAreaPopup::label',
@@ -20,19 +16,15 @@ const testIds = {
 };
 
 type StopAreaPopupProps = {
-  area: StopAreaMinimalShowOnMapFieldsFragment;
+  area: StopAreaFormFieldsFragment;
   onClose: () => void;
 };
 
 export const StopAreaPopup = ({ area, onClose }: StopAreaPopupProps) => {
   const { t } = useTranslation();
 
-  const point = getGeometryPoint(area.centroid);
-  const areaLabel = getNameFromAlternatives(
-    area.name_value,
-    area.name_lang,
-    area.alternative_names.map((it) => it.alternative_name),
-  );
+  const point = getGeometryPoint(area.geometry);
+  const areaLabel = area.name?.value;
 
   if (!point || !areaLabel) {
     return null;
@@ -64,7 +56,11 @@ export const StopAreaPopup = ({ area, onClose }: StopAreaPopupProps) => {
         </Row>
 
         <Row className="text-sm">
-          {mapToValidityPeriod(t, area.from_date, area.to_date)}
+          {mapToValidityPeriod(
+            t,
+            area.validBetween?.fromDate,
+            area.validBetween?.toDate,
+          )}
         </Row>
 
         <Row className="mt-16">
