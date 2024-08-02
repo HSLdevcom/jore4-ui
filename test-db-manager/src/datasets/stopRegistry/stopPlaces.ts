@@ -178,7 +178,8 @@ const mapToStopPlaceInput = (
         seedStopPlace.locationLat && seedStopPlace.locationLong
           ? {
               coordinates: [
-                [seedStopPlace.locationLong, seedStopPlace.locationLat],
+                seedStopPlace.locationLong,
+                seedStopPlace.locationLat,
               ],
               type: StopRegistryGeoJsonType.Point,
             }

@@ -39,7 +39,8 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
         seedStopArea.locationLat && seedStopArea.locationLong
           ? {
               coordinates: [
-                [seedStopArea.locationLong, seedStopArea.locationLat],
+                seedStopArea.locationLong,
+                seedStopArea.locationLat,
               ],
               type: StopRegistryGeoJsonType.Point,
             }
