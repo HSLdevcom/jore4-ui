@@ -38,7 +38,7 @@ export type Scalars = {
   /** An arbitrary precision signed integer */
   stop_registry_BigInteger: any;
   /** GeoJSON Coordinates */
-  stop_registry_Coordinates: any;
+  stop_registry_Coordinates: GeoJSON.Position;
   /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
   stop_registry_DateTime: luxon.DateTime;
   /** Legacy GeoJSON Coordinates */

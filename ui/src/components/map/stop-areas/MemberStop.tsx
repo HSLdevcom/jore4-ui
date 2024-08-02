@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Marker } from 'react-map-gl/maplibre';
-import { MemberStopFieldsFragment } from '../../../generated/graphql';
+import { StopRegistryStopPlace } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
 import { useAppAction } from '../../../hooks';
 import { useResolveScheduledStopPointByStopPlaceRef } from '../../../hooks/stop-areas/useResolveScheduledStopPointByStopPlaceRef';
@@ -13,12 +13,12 @@ import { getGeometryPoint, showDangerToastWithError } from '../../../utils';
 import { Circle } from '../markers';
 
 const testIds = {
-  memberStop: ({ id }: MemberStopFieldsFragment) =>
+  memberStop: ({ id }: StopRegistryStopPlace) =>
     `Map::StopArea::memberStop::${id}`,
 };
 
 type MemberStopProps = {
-  stop: MemberStopFieldsFragment;
+  stop: StopRegistryStopPlace;
 };
 
 export const MemberStop = ({ stop }: MemberStopProps) => {
@@ -31,12 +31,12 @@ export const MemberStop = ({ stop }: MemberStopProps) => {
   const setEditedStopData = useAppAction(setEditedStopDataAction);
 
   const onClick = async () => {
-    if (!stop.netex_id) {
+    if (!stop.id) {
       return;
     }
 
     try {
-      const scheduledStopPoint = await resolveScheduledStopPoint(stop.netex_id);
+      const scheduledStopPoint = await resolveScheduledStopPoint(stop.id);
       setSelectedMapStopAreaId(undefined);
       setSelectedStopId(scheduledStopPoint.scheduled_stop_point_id);
       setEditedStopData(scheduledStopPoint);
@@ -48,7 +48,7 @@ export const MemberStop = ({ stop }: MemberStopProps) => {
     }
   };
 
-  const point = getGeometryPoint(stop.centroid);
+  const point = getGeometryPoint(stop.geometry);
   if (!point) {
     return null;
   }

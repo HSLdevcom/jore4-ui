@@ -42,7 +42,7 @@ export type Scalars = {
   /** An arbitrary precision signed integer */
   stop_registry_BigInteger: any;
   /** GeoJSON Coordinates */
-  stop_registry_Coordinates: any;
+  stop_registry_Coordinates: GeoJSON.Position;
   /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
   stop_registry_DateTime: luxon.DateTime;
   /** Legacy GeoJSON Coordinates */
@@ -65443,33 +65443,6 @@ export type GetStopAreasByLocationQuery = {
       id: any;
       netex_id?: string | null;
       centroid?: GeoJSON.Geometry | null;
-      from_date?: any | null;
-      to_date?: any | null;
-      name_lang?: string | null;
-      name_value?: string | null;
-      alternative_names: Array<{
-        __typename?: 'stops_database_group_of_stop_places_alternative_names';
-        group_of_stop_places_id: any;
-        alternative_names_id: any;
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name';
-          id: any;
-          name_value?: string | null;
-          name_lang?: string | null;
-        };
-      }>;
-      members: Array<{
-        __typename?: 'stops_database_group_of_stop_places_members';
-        group_of_stop_places_id: any;
-        ref?: string | null;
-        version?: string | null;
-        stop_place?: {
-          __typename?: 'stops_database_stop_place_newest_version';
-          id?: any | null;
-          netex_id?: string | null;
-          centroid?: GeoJSON.Geometry | null;
-        } | null;
-      }>;
     }>;
   } | null;
 };
@@ -65479,40 +65452,128 @@ export type StopAreaMinimalShowOnMapFieldsFragment = {
   id: any;
   netex_id?: string | null;
   centroid?: GeoJSON.Geometry | null;
-  from_date?: any | null;
-  to_date?: any | null;
-  name_lang?: string | null;
-  name_value?: string | null;
-  alternative_names: Array<{
-    __typename?: 'stops_database_group_of_stop_places_alternative_names';
-    group_of_stop_places_id: any;
-    alternative_names_id: any;
-    alternative_name: {
-      __typename?: 'stops_database_alternative_name';
-      id: any;
-      name_value?: string | null;
-      name_lang?: string | null;
-    };
-  }>;
-  members: Array<{
-    __typename?: 'stops_database_group_of_stop_places_members';
-    group_of_stop_places_id: any;
-    ref?: string | null;
-    version?: string | null;
-    stop_place?: {
-      __typename?: 'stops_database_stop_place_newest_version';
-      id?: any | null;
-      netex_id?: string | null;
-      centroid?: GeoJSON.Geometry | null;
-    } | null;
-  }>;
 };
 
-export type MemberStopFieldsFragment = {
-  __typename?: 'stops_database_stop_place_newest_version';
-  id?: any | null;
-  netex_id?: string | null;
-  centroid?: GeoJSON.Geometry | null;
+export type StopAreaFormFieldsFragment = {
+  __typename?: 'stop_registry_GroupOfStopPlaces';
+  id?: string | null;
+  name?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
+  description?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
+  geometry?: {
+    __typename?: 'stop_registry_GeoJSON';
+    coordinates?: GeoJSON.Position | null;
+    type?: StopRegistryGeoJsonType | null;
+  } | null;
+  validBetween?: {
+    __typename?: 'stop_registry_ValidBetween';
+    fromDate?: luxon.DateTime | null;
+    toDate?: luxon.DateTime | null;
+  } | null;
+  members?: Array<
+    | {
+        __typename?: 'stop_registry_ParentStopPlace';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+          lang?: string | null;
+        } | null;
+        geometry?: {
+          __typename?: 'stop_registry_GeoJSON';
+          coordinates?: GeoJSON.Position | null;
+          type?: StopRegistryGeoJsonType | null;
+        } | null;
+      }
+    | {
+        __typename?: 'stop_registry_StopPlace';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+          lang?: string | null;
+        } | null;
+        geometry?: {
+          __typename?: 'stop_registry_GeoJSON';
+          coordinates?: GeoJSON.Position | null;
+          type?: StopRegistryGeoJsonType | null;
+        } | null;
+      }
+    | null
+  > | null;
+};
+
+export type GetStopAreaByIdQueryVariables = Exact<{
+  stopAreaId: Scalars['String'];
+}>;
+
+export type GetStopAreaByIdQuery = {
+  __typename?: 'query_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister';
+    groupOfStopPlaces?: Array<{
+      __typename?: 'stop_registry_GroupOfStopPlaces';
+      id?: string | null;
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      geometry?: {
+        __typename?: 'stop_registry_GeoJSON';
+        coordinates?: GeoJSON.Position | null;
+        type?: StopRegistryGeoJsonType | null;
+      } | null;
+      validBetween?: {
+        __typename?: 'stop_registry_ValidBetween';
+        fromDate?: luxon.DateTime | null;
+        toDate?: luxon.DateTime | null;
+      } | null;
+      members?: Array<
+        | {
+            __typename?: 'stop_registry_ParentStopPlace';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+              lang?: string | null;
+            } | null;
+            geometry?: {
+              __typename?: 'stop_registry_GeoJSON';
+              coordinates?: GeoJSON.Position | null;
+              type?: StopRegistryGeoJsonType | null;
+            } | null;
+          }
+        | {
+            __typename?: 'stop_registry_StopPlace';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+              lang?: string | null;
+            } | null;
+            geometry?: {
+              __typename?: 'stop_registry_GeoJSON';
+              coordinates?: GeoJSON.Position | null;
+              type?: StopRegistryGeoJsonType | null;
+            } | null;
+          }
+        | null
+      > | null;
+    } | null> | null;
+  } | null;
 };
 
 export type GetScheduledStopPointByStopPlaceRefQueryVariables = Exact<{
@@ -66741,7 +66802,7 @@ export type UpdateStopPlaceMutation = {
       } | null;
       geometry?: {
         __typename?: 'stop_registry_GeoJSON';
-        coordinates?: any | null;
+        coordinates?: GeoJSON.Position | null;
         type?: StopRegistryGeoJsonType | null;
       } | null;
       topographicPlace?: {
@@ -66947,7 +67008,7 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
           } | null;
           geometry?: {
             __typename?: 'stop_registry_GeoJSON';
-            coordinates?: any | null;
+            coordinates?: GeoJSON.Position | null;
             type?: StopRegistryGeoJsonType | null;
           } | null;
           topographicPlace?: {
@@ -67228,7 +67289,7 @@ export type StopPlaceDetailsFragment = {
   } | null;
   geometry?: {
     __typename?: 'stop_registry_GeoJSON';
-    coordinates?: any | null;
+    coordinates?: GeoJSON.Position | null;
     type?: StopRegistryGeoJsonType | null;
   } | null;
   topographicPlace?: {
@@ -69043,41 +69104,44 @@ export const RouteWithInfrastructureLinksFragmentDoc = gql`
   ${RouteAllFieldsFragmentDoc}
   ${LineAllFieldsFragmentDoc}
 `;
-export const MemberStopFieldsFragmentDoc = gql`
-  fragment member_stop_fields on stops_database_stop_place_newest_version {
-    id
-    netex_id
-    centroid
-  }
-`;
 export const StopAreaMinimalShowOnMapFieldsFragmentDoc = gql`
   fragment stop_area_minimal_show_on_map_fields on stops_database_group_of_stop_places {
     id
     netex_id
     centroid
-    from_date
-    to_date
-    name_lang
-    name_value
-    alternative_names: group_of_stop_places_alternative_names {
-      group_of_stop_places_id
-      alternative_names_id
-      alternative_name {
-        id
-        name_value
-        name_lang
-      }
+  }
+`;
+export const StopAreaFormFieldsFragmentDoc = gql`
+  fragment stop_area_form_fields on stop_registry_GroupOfStopPlaces {
+    id
+    name {
+      lang
+      value
     }
-    members: group_of_stop_places_members {
-      group_of_stop_places_id
-      ref
-      version
-      stop_place: stop_place_newest_version {
-        ...member_stop_fields
+    description {
+      lang
+      value
+    }
+    geometry {
+      coordinates
+      type
+    }
+    validBetween {
+      fromDate
+      toDate
+    }
+    members {
+      id
+      name {
+        value
+        lang
+      }
+      geometry {
+        coordinates
+        type
       }
     }
   }
-  ${MemberStopFieldsFragmentDoc}
 `;
 export const InfrastructureLinkDefaultFieldsFragmentDoc = gql`
   fragment infrastructure_link_default_fields on infrastructure_network_infrastructure_link {
@@ -72025,6 +72089,67 @@ export type GetStopAreasByLocationLazyQueryHookResult = ReturnType<
 export type GetStopAreasByLocationQueryResult = Apollo.QueryResult<
   GetStopAreasByLocationQuery,
   GetStopAreasByLocationQueryVariables
+>;
+export const GetStopAreaByIdDocument = gql`
+  query GetStopAreaById($stopAreaId: String!) {
+    stop_registry {
+      groupOfStopPlaces(id: $stopAreaId) {
+        ...stop_area_form_fields
+      }
+    }
+  }
+  ${StopAreaFormFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetStopAreaByIdQuery__
+ *
+ * To run a query within a React component, call `useGetStopAreaByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopAreaByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopAreaByIdQuery({
+ *   variables: {
+ *      stopAreaId: // value for 'stopAreaId'
+ *   },
+ * });
+ */
+export function useGetStopAreaByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetStopAreaByIdQuery,
+    GetStopAreaByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetStopAreaByIdQuery, GetStopAreaByIdQueryVariables>(
+    GetStopAreaByIdDocument,
+    options,
+  );
+}
+export function useGetStopAreaByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopAreaByIdQuery,
+    GetStopAreaByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopAreaByIdQuery,
+    GetStopAreaByIdQueryVariables
+  >(GetStopAreaByIdDocument, options);
+}
+export type GetStopAreaByIdQueryHookResult = ReturnType<
+  typeof useGetStopAreaByIdQuery
+>;
+export type GetStopAreaByIdLazyQueryHookResult = ReturnType<
+  typeof useGetStopAreaByIdLazyQuery
+>;
+export type GetStopAreaByIdQueryResult = Apollo.QueryResult<
+  GetStopAreaByIdQuery,
+  GetStopAreaByIdQueryVariables
 >;
 export const GetScheduledStopPointByStopPlaceRefDocument = gql`
   query GetScheduledStopPointByStopPlaceRef($stopPlaceRef: String!) {
@@ -75259,6 +75384,14 @@ export function useGetStopAreasByLocationAsyncQuery() {
 }
 export type GetStopAreasByLocationAsyncQueryHookResult = ReturnType<
   typeof useGetStopAreasByLocationAsyncQuery
+>;
+export function useGetStopAreaByIdAsyncQuery() {
+  return useAsyncQuery<GetStopAreaByIdQuery, GetStopAreaByIdQueryVariables>(
+    GetStopAreaByIdDocument,
+  );
+}
+export type GetStopAreaByIdAsyncQueryHookResult = ReturnType<
+  typeof useGetStopAreaByIdAsyncQuery
 >;
 export function useGetScheduledStopPointByStopPlaceRefAsyncQuery() {
   return useAsyncQuery<

@@ -19,40 +19,48 @@ const GQL_QUERY_GET_STOP_AREAS_BY_LOCATION = gql`
   fragment stop_area_minimal_show_on_map_fields on stops_database_group_of_stop_places {
     id
     netex_id
-
     centroid
+  }
+`;
 
-    from_date
-    to_date
-
-    name_lang
-    name_value
-
-    alternative_names: group_of_stop_places_alternative_names {
-      group_of_stop_places_id
-      alternative_names_id
-      alternative_name {
-        id
-        name_value
-        name_lang
-      }
+const GQL_GET_STOP_AREA_BY_ID = gql`
+  fragment stop_area_form_fields on stop_registry_GroupOfStopPlaces {
+    id
+    name {
+      lang
+      value
     }
-
-    members: group_of_stop_places_members {
-      group_of_stop_places_id
-      ref
-      version
-
-      stop_place: stop_place_newest_version {
-        ...member_stop_fields
+    description {
+      lang
+      value
+    }
+    geometry {
+      coordinates
+      type
+    }
+    validBetween {
+      fromDate
+      toDate
+    }
+    members {
+      id
+      name {
+        value
+        lang
+      }
+      geometry {
+        coordinates
+        type
       }
     }
   }
 
-  fragment member_stop_fields on stops_database_stop_place_newest_version {
-    id
-    netex_id
-    centroid
+  query GetStopAreaById($stopAreaId: String!) {
+    stop_registry {
+      groupOfStopPlaces(id: $stopAreaId) {
+        ...stop_area_form_fields
+      }
+    }
   }
 `;
 

@@ -8,10 +8,15 @@ export const selectMapStopAreaEditor = (state: RootState) =>
 
 export const selectSelectedStopAreaId = createSelector(
   selectMapStopAreaEditor,
-  (mapStopAreEditor) => mapStopAreEditor.selectedStopArea,
+  (mapStopAreEditor) => mapStopAreEditor.selectedStopAreaId,
 );
 
 export const selectStopAreaEditorIsActive = createSelector(
   selectMapStopAreaEditor,
-  (mapStopAreEditor) => mapStopAreEditor.selectedStopArea !== undefined,
+  (mapStopAreEditor) => mapStopAreEditor.selectedStopAreaId !== undefined,
+);
+
+export const selectEditedStopAreaData = createSelector(
+  selectMapStopAreaEditor,
+  (mapStopAreEditor) => mapStopAreEditor.editedStopAreaData,
 );

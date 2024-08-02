@@ -6,4 +6,5 @@ export * from './journeyPattern';
 export * from './resultMappers';
 export * from './route';
 export * from './servicePattern';
+export * from './stop-registry';
 export * from './types';

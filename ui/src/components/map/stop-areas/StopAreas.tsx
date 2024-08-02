@@ -1,13 +1,17 @@
-import { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   StopAreaMinimalShowOnMapFieldsFragment,
+  useGetStopAreaByIdAsyncQuery,
   useGetStopAreasByLocationQuery,
 } from '../../../generated/graphql';
 import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
 import {
   Operation,
+  selectEditedStopAreaData,
   selectMapViewport,
   selectSelectedStopAreaId,
+  setEditedStopAreaDataAction,
   setSelectedMapStopAreaIdAction,
 } from '../../../redux';
 import {
@@ -19,7 +23,10 @@ import { MemberStops } from './MemberStops';
 import { StopArea } from './StopArea';
 
 export const StopAreas = () => {
+  const dispatch = useDispatch();
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
+  const editedStopAreaData = useAppSelector(selectEditedStopAreaData);
+
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
 
   const { setIsLoading } = useLoader(Operation.FetchStopAreas);
@@ -30,6 +37,25 @@ export const StopAreas = () => {
       measured_location_filter: buildWithinViewportGqlGeometryFilter(viewport),
     },
   });
+
+  const [getStopAreaById] = useGetStopAreaByIdAsyncQuery();
+
+  const fetchStopArea = useCallback(async () => {
+    if (selectedStopAreaId) {
+      const stopAreaResult = await getStopAreaById({
+        stopAreaId: selectedStopAreaId,
+      });
+      const stopArea =
+        stopAreaResult.data?.stop_registry?.groupOfStopPlaces?.[0] ?? undefined;
+      dispatch(setEditedStopAreaDataAction(stopArea));
+    } else {
+      dispatch(setEditedStopAreaDataAction(undefined));
+    }
+  }, [getStopAreaById, selectedStopAreaId, dispatch]);
+
+  useEffect(() => {
+    fetchStopArea();
+  }, [selectedStopAreaId, fetchStopArea]);
 
   useEffect(() => {
     /**
@@ -51,29 +77,25 @@ export const StopAreas = () => {
     : stopAreasResult.data;
   const areas = data?.stops_database?.areas?.filter(notNullish) ?? [];
 
-  const editedArea = areas.find(
-    (area) => area?.netex_id === selectedStopAreaId,
-  );
-
   return (
     <>
       {areas.map((area) => (
         <StopArea
           area={area}
-          selected={area.netex_id === editedArea?.netex_id}
+          selected={area.netex_id === selectedStopAreaId}
           key={area.id}
           onClick={onClick}
         />
       ))}
 
-      {editedArea ? (
+      {editedStopAreaData ? (
         <>
           <EditStopAreaLayer
-            editedArea={editedArea}
+            editedArea={editedStopAreaData}
             onPopupClose={onPopupClose}
           />
 
-          <MemberStops area={editedArea} />
+          <MemberStops area={editedStopAreaData} />
         </>
       ) : null}
     </>
