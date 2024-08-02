@@ -1,8 +1,8 @@
-import { StopAreaMinimalShowOnMapFieldsFragment } from '../../../generated/graphql';
+import { StopRegistryGroupOfStopPlaces } from '../../../generated/graphql';
 import { StopAreaPopup } from './StopAreaPopup';
 
 type EditStopAreaLayerProps = {
-  editedArea: StopAreaMinimalShowOnMapFieldsFragment;
+  editedArea: StopRegistryGroupOfStopPlaces;
   onPopupClose: () => void;
 };
 

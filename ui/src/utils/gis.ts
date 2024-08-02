@@ -2,7 +2,11 @@ import along from '@turf/along';
 import { Feature, LineString } from '@turf/helpers';
 import length from '@turf/length';
 import flow from 'lodash/flow';
-import { Point } from '../types';
+import {
+  StopRegistryGeoJson,
+  StopRegistryGeoJsonType,
+} from '../generated/graphql';
+import { NonNullableKeys, Point } from '../types';
 
 export const mapPointToGeoJSON = ({
   longitude,
@@ -55,38 +59,32 @@ export const relativeAlong = (
   return along(feature, featureLength * percentage);
 };
 
-export function isGeoJSONPoint(
-  geometry: GeoJSON.Geometry,
-): geometry is GeoJSON.Point {
-  return geometry.type === 'Point';
+type ValidGeoJsonPoint = Required<
+  NonNullableKeys<StopRegistryGeoJson, 'coordinates'>
+> & { type: StopRegistryGeoJsonType.Point };
+
+export function isValidGeoJSONPoint(
+  geometry: GeoJSON.Geometry | StopRegistryGeoJson | null | undefined,
+): geometry is ValidGeoJsonPoint {
+  return (
+    !!geometry && geometry.type === 'Point' && !!geometry.coordinates?.length
+  );
 }
 
-export function getGeometryPoint(geometry: null | undefined): null;
-export function getGeometryPoint(geometry: GeoJSON.Geometry): Point | null;
 export function getGeometryPoint(
-  geometry: GeoJSON.Geometry | null | undefined,
-): Point | null;
-export function getGeometryPoint(
-  geometry: GeoJSON.Geometry | null | undefined,
+  geometry: GeoJSON.Geometry | StopRegistryGeoJson | null | undefined,
 ): Point | null {
-  if (geometry && isGeoJSONPoint(geometry)) {
+  if (isValidGeoJSONPoint(geometry)) {
     return mapLngLatToPoint(geometry.coordinates);
   }
 
   return null;
 }
 
-export function getPointPosition(geometry: null | undefined): null;
 export function getPointPosition(
-  geometry: GeoJSON.Geometry,
-): GeoJSON.Position | null;
-export function getPointPosition(
-  geometry: GeoJSON.Geometry | null | undefined,
-): GeoJSON.Position | null;
-export function getPointPosition(
-  geometry: GeoJSON.Geometry | null | undefined,
+  geometry: GeoJSON.Geometry | StopRegistryGeoJson | null | undefined,
 ): GeoJSON.Position | null {
-  if (geometry && isGeoJSONPoint(geometry)) {
+  if (isValidGeoJSONPoint(geometry)) {
     return geometry.coordinates;
   }
 

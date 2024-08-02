@@ -1,14 +1,17 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { StoreType } from '../mappers';
+import { StopRegistryGroupOfStopPlaces } from '../../generated/graphql';
+import { StoreType, mapToStoreType } from '../mappers';
 
 export type MapStopAreaEditor = {
-  readonly selectedStopArea?: string;
+  readonly selectedStopAreaId?: string;
+  readonly editedStopAreaData?: StopRegistryGroupOfStopPlaces;
 };
 
 type IState = StoreType<MapStopAreaEditor>;
 
 const initialState: IState = {
-  selectedStopArea: undefined,
+  selectedStopAreaId: undefined,
+  editedStopAreaData: undefined,
 };
 
 const slice = createSlice({
@@ -19,7 +22,20 @@ const slice = createSlice({
       state,
       action: PayloadAction<string | undefined>,
     ) => {
-      state.selectedStopArea = action.payload;
+      state.selectedStopAreaId = action.payload;
+    },
+    setEditedStopAreaData: {
+      reducer: (
+        state,
+        action: PayloadAction<
+          StoreType<StopRegistryGroupOfStopPlaces> | undefined
+        >,
+      ) => {
+        state.editedStopAreaData = action.payload;
+      },
+      prepare: (stopArea: StopRegistryGroupOfStopPlaces | undefined) => ({
+        payload: stopArea ? mapToStoreType(stopArea) : undefined,
+      }),
     },
     reset: () => initialState,
   },
@@ -27,6 +43,7 @@ const slice = createSlice({
 
 export const {
   setSelectedStopAreaId: setSelectedMapStopAreaIdAction,
+  setEditedStopAreaData: setEditedStopAreaDataAction,
   reset: resetMapStopAreaEditorAction,
 } = slice.actions;
 
