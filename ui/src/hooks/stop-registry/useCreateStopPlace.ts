@@ -38,8 +38,8 @@ export const useCreateStopPlace = () => {
         name: { lang: 'fin', value: label },
         quays: [{ publicCode: label }],
         geometry: {
-          // Due to tiamat reasons, we need to wrap the coordinates in an array.
-          coordinates: [coordinates],
+          // Tiamat does not support altitude, and currently breaks quite badly if one attempts to persist it.
+          coordinates: coordinates.slice(0, 2),
           type: StopRegistryGeoJsonType.Point,
         },
       },

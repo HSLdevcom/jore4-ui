@@ -62,7 +62,7 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
     privateCode: { value: '123456', type: 'ELY' },
     keyValues: [{ key: 'streetAddress', values: ['Puistokaari 1'] }],
     geometry: {
-      coordinates: [[24.86309, 60.15988]], // Municipality = Helsinki
+      coordinates: [24.86309, 60.15988], // Municipality = Helsinki
       type: StopRegistryGeoJsonType.Point,
     },
   },
@@ -86,7 +86,7 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
     privateCode: { value: '123499', type: 'ELY' },
     keyValues: [{ key: 'streetAddress', values: ['Lapinrinteentie 25'] }],
     geometry: {
-      coordinates: [[24.87639, 60.32894]], // Municipality = Vantaa
+      coordinates: [24.87639, 60.32894], // Municipality = Vantaa
       type: StopRegistryGeoJsonType.Point,
     },
   },
@@ -109,7 +109,7 @@ const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
     quays: [{ publicCode: 'H2233' }],
     keyValues: [{ key: 'streetAddress', values: ['Tuusulanväylä 10-16'] }],
     geometry: {
-      coordinates: [[24.99721, 60.32129]], // Municipality = Vantaa
+      coordinates: [24.99721, 60.32129], // Municipality = Vantaa
       type: StopRegistryGeoJsonType.Point,
     },
   },

@@ -48,7 +48,11 @@ export const useEditStopLocationDetails = () => {
       ),
       // Note: this can't be modified (at the moment at least), but currently this is the only place where it is synced to timetables DB.
       geometry: {
-        coordinates: [[state.longitude, state.latitude]],
+        coordinates: [
+          state.longitude,
+          state.latitude,
+          /* Tiamat does not support altitude */
+        ],
         type: StopRegistryGeoJsonType.Point,
       },
     };
