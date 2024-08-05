@@ -60,7 +60,7 @@ function check_pinned_hasura {
 }
 
 function start_docker_bundle {
-  DOCKER_COMPOSE_CMD="docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml"
+  DOCKER_COMPOSE_CMD="docker compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml"
   if [ "$USE_VOLUME" = true ]; then
     # start the testdb with mounted volume
     DOCKER_COMPOSE_CMD="$DOCKER_COMPOSE_CMD -f ./docker/docker-compose.testdb-volume.yml"
