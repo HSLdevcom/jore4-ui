@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { useEffect } from 'react';
 import {
   RouteRouteBoolExp,
   useGetLineRoutesByLabelQuery,
@@ -13,7 +12,7 @@ import {
   buildPriorityInGqlFilter,
 } from '../../utils';
 import { filterRoutesByHighestPriority } from '../line-details';
-import { useLoader } from '../ui';
+import { useMapDataLayerLoader } from '../ui';
 import { useMapQueryParams, useObservationDateQueryParam } from '../urlQuery';
 
 const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
@@ -68,13 +67,12 @@ export const useGetRoutesDisplayedInMap = () => {
     priorities,
   } = useMapQueryParams();
 
-  const { setIsLoading } = useLoader(Operation.FetchRoutes);
-
   const routeFilters = {
     ...buildActiveDateGqlFilter(observationDate),
     ...(priorities ? buildPriorityInGqlFilter(priorities) : {}),
   };
 
+  const skipRoutesByRouteInfoResult = !routeLabels?.length && !routeId;
   // Get routes by ROUTE LABEL OR ID
   const routesByRouteInfoResult = useGetRouteByFiltersQuery({
     variables: {
@@ -91,7 +89,7 @@ export const useGetRoutesDisplayedInMap = () => {
         ],
       },
     },
-    skip: !routeLabels?.length && !routeId,
+    skip: skipRoutesByRouteInfoResult,
   });
 
   const routesByRouteInfo = routesByRouteInfoResult.data?.route_route ?? [];
@@ -101,12 +99,13 @@ export const useGetRoutesDisplayedInMap = () => {
     ...buildLabelGqlFilter(lineLabel),
   };
 
+  const skipRoutesByLineLabelResult = !lineLabel;
   const routesByLineLabelResult = useGetLineRoutesByLabelQuery({
     variables: {
       lineFilters,
       lineRouteFilters: routeFilters,
     },
-    skip: !lineLabel,
+    skip: skipRoutesByLineLabelResult,
   });
 
   const routesByLineLabel =
@@ -122,15 +121,18 @@ export const useGetRoutesDisplayedInMap = () => {
     ? filterRoutesByHighestPriority(routes)
     : routes;
 
+  const initialLoadDone =
+    !!(
+      routesByRouteInfoResult.previousData ??
+      routesByRouteInfoResult.data ??
+      routesByLineLabelResult.previousData ??
+      routesByLineLabelResult.data
+    ) ||
+    (skipRoutesByRouteInfoResult && skipRoutesByLineLabelResult);
   const isLoading =
     routesByRouteInfoResult.loading || routesByLineLabelResult.loading;
 
-  useEffect(() => {
-    // Here we sync route fetch query loading state with useLoader hook state.
-    // We could also use useLoader's immediatelyOn option instead of useEffect,
-    // but using options to dynamically control loading state feels semantically wrong.
-    setIsLoading(isLoading);
-  }, [setIsLoading, isLoading]);
+  useMapDataLayerLoader(Operation.FetchRoutes, initialLoadDone, isLoading);
 
   return {
     displayedRouteIds: displayedRoutes.map((route) => route.route_id),

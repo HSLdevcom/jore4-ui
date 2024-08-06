@@ -9,5 +9,5 @@ const testIds = {
 export const JoreLoader = (): JSX.Element => {
   const isLoading = useAppSelector(selectIsJoreOperationLoading);
 
-  return <LoadingOverlay testId={testIds.loader} visible={isLoading} />;
+  return <LoadingOverlay testId={testIds.loader} isLoading={isLoading} />;
 };

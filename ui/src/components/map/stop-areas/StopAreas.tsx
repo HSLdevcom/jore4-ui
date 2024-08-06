@@ -1,9 +1,12 @@
-import { useEffect } from 'react';
 import {
   StopAreaMinimalShowOnMapFieldsFragment,
   useGetStopAreasByLocationQuery,
 } from '../../../generated/graphql';
-import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
+import {
+  useAppAction,
+  useAppSelector,
+  useMapDataLayerSimpleQueryLoader,
+} from '../../../hooks';
 import {
   Operation,
   selectMapViewport,
@@ -22,24 +25,17 @@ export const StopAreas = () => {
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
 
-  const { setIsLoading } = useLoader(Operation.FetchStopAreas);
-
   const viewport = useAppSelector(selectMapViewport);
   const stopAreasResult = useGetStopAreasByLocationQuery({
     variables: {
       measured_location_filter: buildWithinViewportGqlGeometryFilter(viewport),
     },
+    // Skip initial 0 radius fetch and wait for the map to get loaded,
+    // so that we have a proper viewport.
+    skip: viewport.radius <= 0,
   });
 
-  useEffect(() => {
-    /**
-     * Here we sync getStopAreasByLocationQuery query loading state with useLoader hook state.
-     *
-     * We could also use useLoader's immediatelyOn option instead of useEffect,
-     * but using options to dynamically control loading state feels semantically wrong.
-     */
-    setIsLoading(stopAreasResult.loading);
-  }, [setIsLoading, stopAreasResult.loading]);
+  useMapDataLayerSimpleQueryLoader(Operation.FetchStopAreas, stopAreasResult);
 
   const onClick = (area: StopAreaMinimalShowOnMapFieldsFragment) =>
     setSelectedMapStopAreaId(area.netex_id ?? undefined);

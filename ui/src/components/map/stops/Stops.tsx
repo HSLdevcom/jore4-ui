@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import {
   ServicePatternScheduledStopPoint,
@@ -12,9 +12,11 @@ import {
   useEditStop,
   useFilterStops,
   useLoader,
+  useMapDataLayerSimpleQueryLoader,
   useMapStops,
 } from '../../../hooks';
 import {
+  LoadingState,
   Operation,
   selectEditedStopData,
   selectIsCreateStopModeEnabled,
@@ -65,30 +67,24 @@ export const Stops = React.forwardRef((_props, ref) => {
 
   const editStopLayerRef = useRef<EditStoplayerRef>(null);
 
-  const { setIsLoading } = useLoader(Operation.FetchStops);
-
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
   const viewport = useAppSelector(selectMapViewport);
-
   const stopsResult = useGetStopsByLocationQuery({
     variables: {
       measured_location_filter: buildWithinViewportGqlFilter(viewport),
     },
-    skip: stopAreaEditorIsActive,
+    // Skip initial 0 radius fetch and wait for the map to get loaded,
+    // so that we have a proper viewport.
+    skip: stopAreaEditorIsActive || viewport.radius <= 0,
   });
 
-  useEffect(() => {
-    /**
-     * Here we sync getStopsByLocation query loading state with useLoader hook state.
-     *
-     * We could also use useLoader's immediatelyOn option instead of useEffect,
-     * but using options to dynamically control loading state feels semantically wrong.
-     */
-    setIsLoading(stopsResult.loading);
-  }, [setIsLoading, stopsResult.loading]);
+  const setFetchStopsLoadingState = useMapDataLayerSimpleQueryLoader(
+    Operation.FetchStops,
+    stopsResult,
+  );
 
   // When stops are loading, show previously loaded stops to avoid stops
   // disappearing and flickering on every map move / zoom
@@ -117,7 +113,7 @@ export const Stops = React.forwardRef((_props, ref) => {
   const { defaultErrorHandler } = useEditStop();
   useImperativeHandle(ref, () => ({
     onCreateStop: async (e: MapLayerMouseEvent) => {
-      setIsLoading(true);
+      setFetchStopsLoadingState(LoadingState.HighPriority);
       try {
         const stopLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
         const draftStop = await createDraftStop(stopLocation);
@@ -126,7 +122,7 @@ export const Stops = React.forwardRef((_props, ref) => {
       } catch (err) {
         defaultErrorHandler(err as Error);
       }
-      setIsLoading(false);
+      setFetchStopsLoadingState(LoadingState.NotLoading);
     },
     onMoveStop: (e: MapLayerMouseEvent) => {
       editStopLayerRef.current?.onMoveStop(e);

@@ -1,12 +1,18 @@
+import { QueryResult } from '@apollo/client';
 import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Operation, setLoadingAction } from '../../redux';
+import {
+  LoadingState,
+  Operation,
+  setLoadingAction,
+  setLoadingStateAction,
+} from '../../redux';
 
 interface LoaderOptions {
-  immediatelyOn?: boolean;
+  immediatelyOn?: boolean | LoadingState;
 }
 
-export const useLoader = (operation: Operation, options?: LoaderOptions) => {
+export function useLoader(operation: Operation, options?: LoaderOptions) {
   const dispatch = useDispatch();
 
   const setIsLoading = useCallback(
@@ -15,10 +21,61 @@ export const useLoader = (operation: Operation, options?: LoaderOptions) => {
     [dispatch, operation],
   );
 
+  const setLoadingState = useCallback(
+    (state: LoadingState) =>
+      dispatch(setLoadingStateAction({ operation, state })),
+    [dispatch, operation],
+  );
+
   useEffect(() => {
-    setIsLoading(!!options?.immediatelyOn);
+    const immediatelyOn = options?.immediatelyOn;
+
+    switch (immediatelyOn) {
+      case true:
+        setLoadingState(LoadingState.HighPriority);
+        break;
+
+      case false:
+        setLoadingState(LoadingState.NotLoading);
+        break;
+
+      case undefined:
+        break;
+
+      default:
+        setLoadingState(immediatelyOn);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { setIsLoading };
-};
+  return { setIsLoading, setLoadingState };
+}
+
+export function useMapDataLayerLoader(
+  operation: Operation,
+  initialLoadDone: boolean,
+  loading: boolean,
+) {
+  const { setLoadingState } = useLoader(operation);
+
+  useEffect(() => {
+    if (!initialLoadDone) {
+      setLoadingState(LoadingState.HighPriority);
+    } else {
+      setLoadingState(
+        loading ? LoadingState.LowPriority : LoadingState.NotLoading,
+      );
+    }
+  }, [loading, initialLoadDone, setLoadingState]);
+
+  return setLoadingState;
+}
+
+export function useMapDataLayerSimpleQueryLoader<T>(
+  operation: Operation,
+  { data, loading, previousData }: QueryResult<T>,
+) {
+  const initialLoadDone = !!(previousData ?? data);
+  return useMapDataLayerLoader(operation, initialLoadDone, loading);
+}
