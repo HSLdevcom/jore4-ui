@@ -17,6 +17,7 @@ export enum Operation {
   FetchRouteTimetables = 'fetchRouteTimetables',
   DeleteTimetable = 'deleteTimetable',
   ResolveScheduledStopPoint = 'resolveScheduledStopPoint',
+  UpdateRouteJourneyPattern = 'updateRouteJourneyPattern',
 }
 
 export const mapOperations = [
@@ -42,6 +43,7 @@ export const joreOperations = [
   ...importOperations,
   Operation.ExportRoute,
   Operation.DeleteTimetable,
+  Operation.UpdateRouteJourneyPattern,
 ];
 
 type IState = {
@@ -65,6 +67,7 @@ const initialState: IState = {
   [Operation.FetchRouteTimetables]: false,
   [Operation.DeleteTimetable]: false,
   [Operation.ResolveScheduledStopPoint]: false,
+  [Operation.UpdateRouteJourneyPattern]: false,
 };
 
 const slice = createSlice({
