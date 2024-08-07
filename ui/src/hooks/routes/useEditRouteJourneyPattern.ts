@@ -17,7 +17,6 @@ import {
   buildJourneyPatternStopSequence,
   filterDistinctConsecutiveStops,
   mapRouteStopsToJourneyPatternStops,
-  removeFromApolloCache,
 } from '../../utils';
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 import { useValidateRoute } from './useValidateRoute';
@@ -155,13 +154,6 @@ export const useEditRouteJourneyPattern = () => {
   ) => {
     await updateRouteJourneyPatternMutation({
       variables,
-      // remove scheduled stop point from cache after mutation
-      update(cache) {
-        removeFromApolloCache(cache, {
-          journey_pattern_id: variables.journey_pattern_id,
-          __typename: 'journey_pattern_journey_pattern',
-        });
-      },
     });
   };
 
