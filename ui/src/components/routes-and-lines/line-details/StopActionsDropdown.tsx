@@ -1,9 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../generated/graphql';
-import { useAppDispatch, useEditRouteJourneyPattern } from '../../../hooks';
 import {
+  useAppDispatch,
+  useAppSelector,
+  useEditRouteJourneyPattern,
+  useLoader,
+} from '../../../hooks';
+import {
+  Operation,
   openTimingSettingsModalAction,
   openViaModalAction,
+  selectIsJoreOperationLoading,
 } from '../../../redux';
 import {
   AlignDirection,
@@ -42,6 +49,8 @@ export const StopActionsDropdown = ({
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { setIsLoading } = useLoader(Operation.UpdateRouteJourneyPattern);
+  const isLoading = useAppSelector(selectIsJoreOperationLoading);
 
   const {
     prepareAddStopToRoute,
@@ -74,6 +83,7 @@ export const StopActionsDropdown = ({
   };
 
   const onAddToRoute = async () => {
+    setIsLoading(true);
     try {
       const changes = prepareAddStopToRoute({
         stopPointLabels: [stopLabel],
@@ -87,9 +97,11 @@ export const StopActionsDropdown = ({
     } catch (err) {
       showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
     }
+    setIsLoading(false);
   };
 
   const onRemoveFromRoute = async () => {
+    setIsLoading(true);
     try {
       const changes = prepareDeleteStopFromRoute({
         stopPointLabels: [stopLabel],
@@ -103,12 +115,14 @@ export const StopActionsDropdown = ({
     } catch (err) {
       showDangerToast(`${t('errors.saveFailed')}, '${err}'`);
     }
+    setIsLoading(false);
   };
 
   return (
     <SimpleDropdownMenu
       alignItems={AlignDirection.Left}
       testId={testIds.menu}
+      disabled={isLoading}
       tooltip={tooltip}
     >
       {stopBelongsToJourneyPattern ? (
