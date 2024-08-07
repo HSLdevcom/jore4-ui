@@ -20,6 +20,7 @@ export enum Operation {
   FetchRouteTimetables = 'fetchRouteTimetables',
   DeleteTimetable = 'deleteTimetable',
   ResolveScheduledStopPoint = 'resolveScheduledStopPoint',
+  UpdateRouteJourneyPattern = 'updateRouteJourneyPattern',
 }
 
 /**
@@ -91,6 +92,7 @@ export const joreOperations = [
   ...importOperations,
   Operation.ExportRoute,
   Operation.DeleteTimetable,
+  Operation.UpdateRouteJourneyPattern,
 ];
 
 type IState = {
