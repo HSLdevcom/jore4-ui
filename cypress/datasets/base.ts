@@ -200,8 +200,7 @@ export const journeyPatterns: JourneyPatternInsertInput[] = [
   },
 ];
 
-const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
-  // 901 Outbound
+export const stopsInJourneyPattern901Outbound = [
   buildStopInJourneyPattern({
     journeyPatternId: journeyPatterns[0].journey_pattern_id,
     stopLabel: 'E2E001',
@@ -232,7 +231,9 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
     scheduledStopPointSequence: 4,
     isUsedAsTimingPoint: true,
   }),
-  // 901 Inbound
+];
+
+export const stopsInJourneyPattern901Inbound = [
   buildStopInJourneyPattern({
     journeyPatternId: journeyPatterns[1].journey_pattern_id,
     stopLabel: 'E2E005',
@@ -263,6 +264,10 @@ const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
     scheduledStopPointSequence: 4,
     isUsedAsTimingPoint: true,
   }),
+];
+const stopsInJourneyPattern: StopInJourneyPatternInsertInput[] = [
+  ...stopsInJourneyPattern901Outbound,
+  ...stopsInJourneyPattern901Inbound,
 ];
 
 export const buildInfraLinksAlongRoute = (
