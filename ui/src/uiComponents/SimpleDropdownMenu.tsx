@@ -12,6 +12,7 @@ interface Props {
   /** Set value to align menu items to right or left. Default: no alignment */
   alignItems?: AlignDirection;
   tooltip: string;
+  disabled?: boolean;
 }
 
 export const SimpleDropdownMenu = ({
@@ -19,6 +20,7 @@ export const SimpleDropdownMenu = ({
   testId,
   alignItems = AlignDirection.NoAlign,
   tooltip,
+  disabled,
 }: Props): React.ReactElement => {
   return (
     <Menu as="div" className="relative">
@@ -27,6 +29,7 @@ export const SimpleDropdownMenu = ({
           <Menu.Button
             className="mx-3 mx-auto flex items-center rounded-full"
             data-testid={testId}
+            disabled={disabled}
             title={tooltip}
           >
             <MdMoreVert className="aria-hidden text-3xl" />
