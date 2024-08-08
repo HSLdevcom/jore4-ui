@@ -1,8 +1,5 @@
 import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
-import {
-  ChangeValidityForm,
-  ChangeValidityFormInfo,
-} from './ChangeValidityForm';
+import { ChangeValidityForm } from './ChangeValidityForm';
 import { PriorityForm, PriorityFormInfo } from './PriorityForm';
 import { MoveRouteEditHandleInfo, RouteEditor } from './RouteEditor';
 import {
@@ -10,9 +7,10 @@ import {
   TemplateRouteSelectorInfo,
 } from './TemplateRouteSelector';
 import { TerminusNameInputs, TerminusValues } from './TerminusNameInputs';
+import { ValidityPeriodFormInfo } from './ValidityPeriodForm';
 
 export interface RouteFormInfo
-  extends ChangeValidityFormInfo,
+  extends ValidityPeriodFormInfo,
     PriorityFormInfo {
   finnishName?: string;
   label?: string;
@@ -125,7 +123,7 @@ export class RoutePropertiesForm {
       );
     }
 
-    this.changeValidityForm.fillForm(values);
+    this.changeValidityForm.validityPeriodForm.fillForm(values);
   }
 
   getVariantInput() {
