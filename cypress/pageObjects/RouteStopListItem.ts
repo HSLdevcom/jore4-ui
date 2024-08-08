@@ -1,34 +1,31 @@
+import { StopActionsDropdown } from './routes-and-lines/line-details-page/StopActionsDropdown';
+
 export class RouteStopListItem {
+  stopActionsDropdown = new StopActionsDropdown();
+
+  getHastusCode() {
+    return cy.getByTestId('RouteStopListItem::hastusCode');
+  }
+
+  getOpenTimingSettingsButton() {
+    return cy.getByTestId('RouteStopListItem::openTimingSettingsButton');
+  }
+
+  getViaIcon() {
+    return cy.getByTestId('RouteStopListItem::viaIcon');
+  }
+
+  // TODO: this should be on parent
   getStopRow(stopLabel: string) {
-    return cy.getByTestId(`RouteStopListItem::${stopLabel}`);
+    return cy.getByTestId(`RouteStopListItem::container::${stopLabel}`);
   }
 
   getStopDropdown(stopLabel: string) {
     return this.getStopRow(stopLabel).findByTestId('StopActionsDropdown::menu');
   }
 
-  addStopToRoute(stopLabel: string) {
-    return this.getStopDropdown(stopLabel)
-      .click()
-      .getByTestId('StopActionsDropdown::addStopToRouteButton')
-      .click();
-  }
-
-  removeStopFromRoute(stopLabel: string) {
-    return this.getStopDropdown(stopLabel)
-      .click()
-      .getByTestId('StopActionsDropdown::removeStopFromRouteButton')
-      .click();
-  }
-
-  openCreateViaPointModal(stopLabel: string) {
-    this.getStopDropdown(stopLabel).click();
-    cy.getByTestId('StopActionsDropdown::createViaPoint').click();
-  }
-
-  openEditViaPointModal(stopLabel: string) {
-    this.getStopDropdown(stopLabel).click();
-    cy.getByTestId('StopActionsDropdown::editViaPoint').click();
+  getStopActionsDropdown() {
+    return cy.getByTestId('StopActionsDropdown::menu');
   }
 
   openTimingSettingsForm(stopLabel: string) {
