@@ -7,7 +7,12 @@ import {
   testInfraLinkExternalIds,
 } from '../datasets/base';
 import { Tag } from '../enums';
-import { LineDetailsPage, Navbar, RoutesAndLinesPage } from '../pageObjects';
+import {
+  LineDetailsPage,
+  LineRouteListItem,
+  Navbar,
+  RoutesAndLinesPage,
+} from '../pageObjects';
 import { TimingSettingsForm } from '../pageObjects/TimingSettingsForm';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
@@ -26,6 +31,7 @@ describe('Hastus export', () => {
 
   let routesAndLinesPage: RoutesAndLinesPage;
   let lineDetailsPage: LineDetailsPage;
+  let lineRouteListItem: LineRouteListItem;
   let timingSettingsForm: TimingSettingsForm;
   let navBar: Navbar;
 
@@ -55,6 +61,7 @@ describe('Hastus export', () => {
 
     routesAndLinesPage = new RoutesAndLinesPage();
     lineDetailsPage = new LineDetailsPage();
+    lineRouteListItem = new LineRouteListItem();
     timingSettingsForm = new TimingSettingsForm();
     navBar = new Navbar();
 
@@ -113,15 +120,11 @@ describe('Hastus export', () => {
       'should show an error, when the first stop is not a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
+        const { routeRow, routeStopListItem } = lineRouteListItem;
         lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        lineDetailsPage.lineRouteList.routeRow.toggleRouteSection(
-          '901',
-          RouteDirectionEnum.Outbound,
-        );
-        lineDetailsPage.lineRouteList.routeStopListItem.openTimingSettingsForm(
-          'E2E001',
-        );
+        routeRow.toggleRouteSection('901', RouteDirectionEnum.Outbound);
+        routeStopListItem.openTimingSettingsForm('E2E001');
 
         // Set route 901 (outbound) first stop to not be used as timing point
         timingSettingsForm
@@ -148,17 +151,13 @@ describe('Hastus export', () => {
       'should show an error, when the last stop is not a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
+        const { routeRow, routeStopListItem } = lineRouteListItem;
         lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        lineDetailsPage.lineRouteList.routeRow.toggleRouteSection(
-          '901',
-          RouteDirectionEnum.Outbound,
-        );
+        routeRow.toggleRouteSection('901', RouteDirectionEnum.Outbound);
 
         // Set route 901 (outbound) last stop to not be used as timing point
-        lineDetailsPage.lineRouteList.routeStopListItem.openTimingSettingsForm(
-          'E2E005',
-        );
+        routeStopListItem.openTimingSettingsForm('E2E005');
         timingSettingsForm
           .getIsUsedAsTimingPointCheckbox()
           .should('be.checked');
@@ -183,17 +182,13 @@ describe('Hastus export', () => {
       'should show an error, when neither the last stop nor the first stop is a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
+        const { routeRow, routeStopListItem } = lineRouteListItem;
         lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        lineDetailsPage.lineRouteList.routeRow.toggleRouteSection(
-          '901',
-          RouteDirectionEnum.Outbound,
-        );
+        routeRow.toggleRouteSection('901', RouteDirectionEnum.Outbound);
 
         // Set route 901 (outbound) first stop to not be used as timing point
-        lineDetailsPage.lineRouteList.routeStopListItem.openTimingSettingsForm(
-          'E2E001',
-        );
+        routeStopListItem.openTimingSettingsForm('E2E001');
         timingSettingsForm
           .getIsUsedAsTimingPointCheckbox()
           .should('be.checked');
@@ -201,9 +196,7 @@ describe('Hastus export', () => {
         timingSettingsForm.getSavebutton().click();
 
         // Set route 901 (outbound) last stop to not be used as timing point
-        lineDetailsPage.lineRouteList.routeStopListItem.openTimingSettingsForm(
-          'E2E005',
-        );
+        routeStopListItem.openTimingSettingsForm('E2E005');
         timingSettingsForm
           .getIsUsedAsTimingPointCheckbox()
           .should('be.checked');
