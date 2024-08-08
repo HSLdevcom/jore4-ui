@@ -1,8 +1,15 @@
 import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
+import { DirectionBadge } from './DirectionBadge';
 
 export class RouteRow {
+  directionBadge = new DirectionBadge();
+
   getRouteHeaderRow(routeLabel: string, direction: RouteDirectionEnum) {
     return cy.getByTestId(`RouteRow::${routeLabel}-${direction}`);
+  }
+
+  getToggleAccordionButton() {
+    return cy.getByTestId('RouteRow::toggleAccordion');
   }
 
   toggleRouteSection(routeLabel: string, direction: RouteDirectionEnum) {

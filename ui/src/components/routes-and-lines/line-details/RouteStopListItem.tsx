@@ -22,13 +22,15 @@ import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';
 
 const testIds = {
-  container: (stopLabel: string) => `RouteStopListItem::${stopLabel}`,
+  container: (stopLabel: string) =>
+    `RouteStopListItem::container::${stopLabel}`,
   label: 'RouteStopListItem::label',
   name: 'RouteStopListItem::name',
   validityPeriod: 'RouteStopListItem::validityPeriod',
   lastEdited: 'RouteStopListItem::lastEdited',
   hastusCode: 'RouteStopListItem::hastusCode',
   openTimingSettingsButton: 'RouteStopListItem::openTimingSettingsButton',
+  viaIcon: 'RouteStopListItem::viaIcon',
 };
 
 interface Props {
@@ -112,7 +114,10 @@ export const RouteStopListItem = ({
       <div className="col-span-9 flex items-center" data-testid={testIds.name}>
         <span>!Pysäkki X</span>
         <Visible visible={isViaPoint}>
-          <i className="icon-via text-4xl text-hsl-dark-green" />
+          <i
+            data-testid={testIds.viaIcon}
+            className="icon-via text-4xl text-hsl-dark-green"
+          />
         </Visible>
       </div>
       <span
