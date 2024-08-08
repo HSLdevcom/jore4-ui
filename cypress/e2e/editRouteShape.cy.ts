@@ -170,10 +170,12 @@ describe('Edit route geometry', () => {
         Priority.Standard,
       );
 
-      mapModal.routePropertiesForm.changeValidityForm.setStartDate(
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
         '2022-08-11',
       );
-      mapModal.routePropertiesForm.changeValidityForm.setEndDate('2032-08-11');
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
+        '2032-08-11',
+      );
       mapModal.editRouteModal.save();
       mapModal.map.getLoader().should('exist');
       mapModal.map.getLoader().should('not.exist');
