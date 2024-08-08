@@ -23,6 +23,10 @@ export class TimingSettingsForm {
     return cy.getByTestId('TimingSettingsForm::timingPlaceDropdown');
   }
 
+  getTimingPlaceOptionByLabel(label: string) {
+    return cy.get('[role="option"]').contains(label);
+  }
+
   selectTimingPlace(timingPlaceName: string) {
     // type to form to make sure that desired timing place is visible
     this.getTimingPlaceDropdownButton().type(timingPlaceName);

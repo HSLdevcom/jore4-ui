@@ -1,14 +1,11 @@
 import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
 import { DirectionBadge } from './DirectionBadge';
 import { RouteRow } from './RouteRow';
+import { LineRouteListItem } from './routes-and-lines';
 import { RouteStopListItem } from './RouteStopListItem';
-import { TimingSettingsForm } from './TimingSettingsForm';
-import { ViaForm } from './ViaForm';
 
 export class LineRouteList {
-  viaForm = new ViaForm();
-
-  timingSettingsForm = new TimingSettingsForm();
+  lineRouteListItem = new LineRouteListItem();
 
   routeRow = new RouteRow();
 
@@ -16,12 +13,16 @@ export class LineRouteList {
 
   directionBadge = new DirectionBadge();
 
-  getShowUnusedStopsSwitch() {
-    return cy.getByTestId('LineRouteList::showUnusedStopsSwitch');
+  getLineRouteListItems() {
+    return cy.getByTestId('LineRouteListItem');
   }
 
-  toggleShowUnusedStops() {
-    return this.getShowUnusedStopsSwitch().click();
+  getNthLineRouteListItem(nth: number) {
+    return this.getLineRouteListItems().eq(nth);
+  }
+
+  getShowUnusedStopsSwitch() {
+    return cy.getByTestId('LineRouteList::showUnusedStopsSwitch');
   }
 
   assertRouteDirection(routeLabel: string, routeDirection: RouteDirectionEnum) {

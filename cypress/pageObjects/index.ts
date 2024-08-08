@@ -30,5 +30,6 @@ export * from './TimetableVersionsPage';
 export * from './TimetablesMainPage';
 export * from './Toast';
 export * from './VehicleScheduleDetailsPage';
+export * from './routes-and-lines';
 export * from './stop-registry';
 export * from './timetables';
