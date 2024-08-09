@@ -153,7 +153,9 @@ describe('Stop creation tests', () => {
 
       mapModal.map.stopPopUp.getEditButton().click();
 
-      changeValidityForm.getEndDateInput().should('have.value', '2040-12-31');
+      changeValidityForm.validityPeriodForm
+        .getEndDateInput()
+        .should('have.value', '2040-12-31');
     },
   );
 

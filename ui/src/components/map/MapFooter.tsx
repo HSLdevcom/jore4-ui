@@ -7,10 +7,12 @@ import {
   Mode,
   selectHasChangesInProgress,
   selectHasDraftRouteGeometry,
+  selectIsCreateStopAreaModeEnabled,
   selectIsCreateStopModeEnabled,
   selectIsInViewMode,
   selectIsMoveStopModeEnabled,
   selectMapRouteEditor,
+  setIsCreateStopAreaModeEnabledAction,
   setIsCreateStopModeEnabledAction,
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
@@ -58,8 +60,19 @@ export const MapFooter: React.FC<Props> = ({
     setIsCreateStopModeEnabledAction,
   );
 
+  const isCreateStopAreaModeEnabled = useAppSelector(
+    selectIsCreateStopAreaModeEnabled,
+  );
+  const setIsCreateStopAreaModeEnabled = useAppAction(
+    setIsCreateStopAreaModeEnabledAction,
+  );
+
   const onAddStops = () => {
     setIsCreateStopModeEnabled(!isCreateStopModeEnabled);
+  };
+
+  const onAddStopArea = () => {
+    setIsCreateStopAreaModeEnabled(!isCreateStopAreaModeEnabled);
   };
 
   return (
@@ -71,7 +84,8 @@ export const MapFooter: React.FC<Props> = ({
           !isInViewMode ||
           creatingNewRoute ||
           isCreateStopModeEnabled ||
-          isMoveStopModeEnabled
+          isMoveStopModeEnabled ||
+          isCreateStopAreaModeEnabled
         }
         inverted={drawingMode !== Mode.Draw}
       >
@@ -89,7 +103,11 @@ export const MapFooter: React.FC<Props> = ({
       </SimpleButton>
       <SimpleButton
         onClick={onAddStops}
-        disabled={drawingMode !== undefined || creatingNewRoute}
+        disabled={
+          drawingMode !== undefined ||
+          creatingNewRoute ||
+          isCreateStopAreaModeEnabled
+        }
         inverted={!isCreateStopModeEnabled}
         testId={testIds.addStopButton}
       >
@@ -104,9 +122,7 @@ export const MapFooter: React.FC<Props> = ({
           isRouteMetadataFormOpen
         }
         tooltip={t('map.footerActionsTooltip')}
-        onCreateNewStopArea={() => {
-          /* TODO */
-        }}
+        onCreateNewStopArea={onAddStopArea}
       />
       <SimpleButton
         className="h-full !px-3 text-xl"

@@ -5,6 +5,7 @@ import { StoreType, mapToStoreType } from '../mappers';
 export type MapStopAreaEditor = {
   readonly selectedStopAreaId?: string;
   readonly editedStopAreaData?: StopRegistryGroupOfStopPlaces;
+  readonly isCreateStopAreaModeEnabled: boolean;
 };
 
 type IState = StoreType<MapStopAreaEditor>;
@@ -12,6 +13,7 @@ type IState = StoreType<MapStopAreaEditor>;
 const initialState: IState = {
   selectedStopAreaId: undefined,
   editedStopAreaData: undefined,
+  isCreateStopAreaModeEnabled: false,
 };
 
 const slice = createSlice({
@@ -37,6 +39,12 @@ const slice = createSlice({
         payload: stopArea ? mapToStoreType(stopArea) : undefined,
       }),
     },
+    setIsCreateStopAreaModeEnabled: (state, action: PayloadAction<boolean>) => {
+      state.isCreateStopAreaModeEnabled = action.payload;
+    },
+    resetEnabledStopAreaModes: (state) => {
+      state.isCreateStopAreaModeEnabled = false;
+    },
     reset: () => initialState,
   },
 });
@@ -44,6 +52,8 @@ const slice = createSlice({
 export const {
   setSelectedStopAreaId: setSelectedMapStopAreaIdAction,
   setEditedStopAreaData: setEditedStopAreaDataAction,
+  setIsCreateStopAreaModeEnabled: setIsCreateStopAreaModeEnabledAction,
+  resetEnabledStopAreaModes: resetEnabledStopAreaModesAction,
   reset: resetMapStopAreaEditorAction,
 } = slice.actions;
 

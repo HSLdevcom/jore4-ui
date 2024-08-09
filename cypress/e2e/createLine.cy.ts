@@ -27,8 +27,8 @@ describe('Verify that creating new line works', () => {
     lineForm.selectLineType('Peruslinja');
 
     lineForm.priorityForm.setPriority(Priority.Standard);
-    lineForm.changeValidityForm.setStartDate('2022-01-01');
-    lineForm.changeValidityForm.setEndDate('2050-01-01');
+    lineForm.changeValidityForm.validityPeriodForm.setStartDate('2022-01-01');
+    lineForm.changeValidityForm.validityPeriodForm.setEndDate('2050-01-01');
 
     lineForm.save();
     lineForm.checkLineSubmitSuccess();

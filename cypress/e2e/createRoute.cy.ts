@@ -101,10 +101,12 @@ describe('Route creation', () => {
         Priority.Standard,
       );
 
-      mapModal.routePropertiesForm.changeValidityForm.setStartDate(
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
         '2022-01-01',
       );
-      mapModal.routePropertiesForm.changeValidityForm.setEndDate('2025-12-01');
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
+        '2025-12-01',
+      );
       mapModal.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001,
@@ -174,10 +176,12 @@ describe('Route creation', () => {
       mapModal.routePropertiesForm.changeValidityForm.setPriority(
         Priority.Standard,
       );
-      mapModal.routePropertiesForm.changeValidityForm.setStartDate(
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
         '2022-01-01',
       );
-      mapModal.routePropertiesForm.changeValidityForm.setEndDate('2025-12-01');
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
+        '2025-12-01',
+      );
       mapModal.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001 - E2E004
@@ -250,10 +254,12 @@ describe('Route creation', () => {
         Priority.Standard,
       );
 
-      mapModal.routePropertiesForm.changeValidityForm.setStartDate(
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
         '2022-01-01',
       );
-      mapModal.routePropertiesForm.changeValidityForm.setEndDate('2025-12-01');
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
+        '2025-12-01',
+      );
       mapModal.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001 and E2E002
@@ -314,10 +320,10 @@ describe('Route creation', () => {
       mapModal.routePropertiesForm.changeValidityForm.setPriority(
         Priority.Standard,
       );
-      mapModal.routePropertiesForm.changeValidityForm.setStartDate(
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
         '2022-01-01',
       );
-      mapModal.routePropertiesForm.changeValidityForm
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm
         .getIndefiniteCheckbox()
         .click();
       mapModal.editRouteModal.save();
@@ -376,10 +382,12 @@ describe('Route creation', () => {
       mapModal.routePropertiesForm.changeValidityForm.setPriority(
         Priority.Standard,
       );
-      mapModal.routePropertiesForm.changeValidityForm.setStartDate(
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
         '2022-01-01',
       );
-      mapModal.routePropertiesForm.changeValidityForm.setEndDate('2025-12-01');
+      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
+        '2025-12-01',
+      );
 
       mapModal.editRouteModal.save();
 

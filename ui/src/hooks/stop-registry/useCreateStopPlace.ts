@@ -1,9 +1,7 @@
 import { gql } from '@apollo/client';
 import { Position } from '@turf/helpers';
-import {
-  StopRegistryGeoJsonType,
-  useInsertStopPlaceMutation,
-} from '../../generated/graphql';
+import { useInsertStopPlaceMutation } from '../../generated/graphql';
+import { mapPointToStopRegistryGeoJSON } from '../../utils';
 
 export interface InsertStopPlaceInput {
   label: string;
@@ -37,11 +35,10 @@ export const useCreateStopPlace = () => {
         // For now we use label as placeholder so that we can create the tiamat instance of the stop
         name: { lang: 'fin', value: label },
         quays: [{ publicCode: label }],
-        geometry: {
-          // Tiamat does not support altitude, and currently breaks quite badly if one attempts to persist it.
-          coordinates: coordinates.slice(0, 2),
-          type: StopRegistryGeoJsonType.Point,
-        },
+        geometry: mapPointToStopRegistryGeoJSON({
+          longitude: coordinates[0],
+          latitude: coordinates[1],
+        }),
       },
     },
   });

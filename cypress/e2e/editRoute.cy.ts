@@ -73,9 +73,15 @@ describe('Route editing', () => {
         },
       });
       editRoutePage.priorityForm.setAsTemporary();
-      editRoutePage.changeValidityForm.getIndefiniteCheckbox().click();
-      editRoutePage.changeValidityForm.setStartDate('2022-01-01');
-      editRoutePage.changeValidityForm.setEndDate('2030-12-31');
+      editRoutePage.changeValidityForm.validityPeriodForm
+        .getIndefiniteCheckbox()
+        .click();
+      editRoutePage.changeValidityForm.validityPeriodForm.setStartDate(
+        '2022-01-01',
+      );
+      editRoutePage.changeValidityForm.validityPeriodForm.setEndDate(
+        '2030-12-31',
+      );
 
       editRoutePage.getSaveRouteButton().click();
 

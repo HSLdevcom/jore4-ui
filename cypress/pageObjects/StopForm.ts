@@ -1,11 +1,9 @@
-import {
-  ChangeValidityForm,
-  ChangeValidityFormInfo,
-} from './ChangeValidityForm';
+import { ChangeValidityForm } from './ChangeValidityForm';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 import { PriorityForm, PriorityFormInfo } from './PriorityForm';
+import { ValidityPeriodFormInfo } from './ValidityPeriodForm';
 
-export interface StopFormInfo extends ChangeValidityFormInfo, PriorityFormInfo {
+export interface StopFormInfo extends ValidityPeriodFormInfo, PriorityFormInfo {
   label: string;
   longitude?: string;
   latitude?: string;
@@ -63,7 +61,7 @@ export class StopForm {
     if (values.priority) {
       this.priorityForm.setPriority(values.priority);
     }
-    this.changeValidityForm.fillForm(values);
+    this.changeValidityForm.validityPeriodForm.fillForm(values);
   }
 
   /** Clicks the Edit stop modal's save button. Can be given forceAction = true

@@ -53,7 +53,7 @@ describe('Line editing', () => {
       lineForm.selectLineType('Peruslinja');
 
       lineForm.priorityForm.setAsDraft();
-      lineForm.changeValidityForm.setStartDate('2022-01-01');
+      lineForm.changeValidityForm.validityPeriodForm.setStartDate('2022-01-01');
 
       lineForm.save();
       lineForm.checkLineSubmitSuccess();
