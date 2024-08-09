@@ -29,7 +29,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
       </button>
     </div>
     <ul>
-      <li>
+      <li
+        data-testid="LineRouteListItem"
+      >
         <div
           class="relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24
         
@@ -224,7 +226,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
       </button>
     </div>
     <ul>
-      <li>
+      <li
+        data-testid="LineRouteListItem"
+      >
         <div
           class="relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24
         
@@ -393,7 +397,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
         after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
         border-l-10 border-hsl-dark-green
          "
-            data-testid="RouteStopListItem::H1234"
+            data-testid="RouteStopListItem::container::H1234"
           >
             <div
               class="col-span-3 items-center justify-center text-center text-2xl"
@@ -500,7 +504,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
         after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
         border-l-10 border-hsl-dark-green
          "
-            data-testid="RouteStopListItem::H1236"
+            data-testid="RouteStopListItem::container::H1236"
           >
             <div
               class="col-span-3 items-center justify-center text-center text-2xl"
@@ -637,7 +641,9 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
       </button>
     </div>
     <ul>
-      <li>
+      <li
+        data-testid="LineRouteListItem"
+      >
         <div
           class="relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24
         
@@ -806,7 +812,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
         after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
         border-l-10 border-hsl-dark-green
          "
-            data-testid="RouteStopListItem::H1234"
+            data-testid="RouteStopListItem::container::H1234"
           >
             <div
               class="col-span-3 items-center justify-center text-center text-2xl"
@@ -913,7 +919,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
         after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
         border-l-10 border-hsl-dark-green
         bg-background text-dark-grey "
-            data-testid="RouteStopListItem::H1235"
+            data-testid="RouteStopListItem::container::H1235"
           >
             <div
               class="col-span-3 items-center justify-center text-center text-2xl"
@@ -1020,7 +1026,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
         after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100
         border-l-10 border-hsl-dark-green
          "
-            data-testid="RouteStopListItem::H1236"
+            data-testid="RouteStopListItem::container::H1236"
           >
             <div
               class="col-span-3 items-center justify-center text-center text-2xl"

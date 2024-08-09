@@ -6,13 +6,19 @@ import {
   testInfraLinkExternalIds,
 } from '../datasets/base';
 import { Tag } from '../enums';
-import { EditRoutePage, LineDetailsPage, Toast } from '../pageObjects';
+import {
+  EditRoutePage,
+  LineDetailsPage,
+  LineRouteListItem,
+  Toast,
+} from '../pageObjects';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 
 describe('Route editing', () => {
   let editRoutePage: EditRoutePage;
   let lineDetailsPage: LineDetailsPage;
+  let lineRouteListItem: LineRouteListItem;
   let toast: Toast;
 
   let dbResources: SupportedResources;
@@ -41,6 +47,7 @@ describe('Route editing', () => {
 
       editRoutePage = new EditRoutePage();
       lineDetailsPage = new LineDetailsPage();
+      lineRouteListItem = new LineRouteListItem();
       toast = new Toast();
 
       cy.setupTests();
@@ -48,10 +55,9 @@ describe('Route editing', () => {
     });
 
     it("Should edit a routes's information", { tags: Tag.Routes }, () => {
+      const { routeRow } = lineRouteListItem;
       lineDetailsPage.visit(baseDbResources.lines[0].line_id);
-      lineDetailsPage.lineRouteList.routeRow
-        .getEditRouteButton('901', RouteDirectionEnum.Inbound)
-        .click();
+      routeRow.getEditRouteButton('901', RouteDirectionEnum.Inbound).click();
 
       // Edit the route's information
       editRoutePage.routePropertiesForm.fillRouteProperties({
@@ -80,24 +86,20 @@ describe('Route editing', () => {
       editRoutePage.getSaveRouteButton().click();
 
       // Verify information after transitioning to the line details page
-      lineDetailsPage.lineRouteList.routeRow
-        .getRouteName()
-        .should('contain', 'Edited route name');
-      lineDetailsPage.lineRouteList.routeRow
+      routeRow.getRouteName().should('contain', 'Edited route name');
+      routeRow
         .getRouteHeaderRow('901E', RouteDirectionEnum.Outbound)
         .should('be.visible');
       lineDetailsPage.lineRouteList.assertRouteDirection(
         '901E',
         RouteDirectionEnum.Outbound,
       );
-      lineDetailsPage.lineRouteList.routeRow
+      routeRow
         .getRouteValidityPeriod('901E', RouteDirectionEnum.Outbound)
         .should('contain', '1.1.2022 - 31.12.2030');
 
       // Verify rest of the information from the edit route page
-      lineDetailsPage.lineRouteList.routeRow
-        .getEditRouteButton('901E', RouteDirectionEnum.Outbound)
-        .click();
+      routeRow.getEditRouteButton('901E', RouteDirectionEnum.Outbound).click();
 
       editRoutePage.routePropertiesForm
         .getVariantInput()
@@ -119,11 +121,10 @@ describe('Route editing', () => {
     });
 
     it('Should delete a route', { tags: Tag.Routes }, () => {
+      const { routeRow } = lineRouteListItem;
       lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-      lineDetailsPage.lineRouteList.routeRow
-        .getEditRouteButton('901', RouteDirectionEnum.Outbound)
-        .click();
+      routeRow.getEditRouteButton('901', RouteDirectionEnum.Outbound).click();
 
       editRoutePage.routePropertiesForm.getForm().should('be.visible');
       editRoutePage.getDeleteRouteButton().click();
@@ -134,11 +135,11 @@ describe('Route editing', () => {
         .should('equal', 200);
       toast.checkSuccessToastHasMessage('Reitti poistettu');
 
-      lineDetailsPage.lineRouteList.routeRow
+      routeRow
         .getRouteHeaderRow('901', RouteDirectionEnum.Outbound)
         .should('not.exist');
 
-      lineDetailsPage.lineRouteList.routeRow
+      routeRow
         .getRouteHeaderRow('901', RouteDirectionEnum.Inbound)
         .should('exist');
     });
@@ -183,12 +184,11 @@ describe('Route editing', () => {
       'Should show a warning when trying to change the priority of a draft route that has draft stops',
       { tags: Tag.Routes },
       () => {
+        const { routeRow } = lineRouteListItem;
         lineDetailsPage.visit(baseDbResources.lines[0].line_id);
         lineDetailsPage.getShowDraftsButton().click();
 
-        lineDetailsPage.lineRouteList.routeRow
-          .getEditRouteButton('901', RouteDirectionEnum.Outbound)
-          .click();
+        routeRow.getEditRouteButton('901', RouteDirectionEnum.Outbound).click();
 
         editRoutePage.priorityForm.setAsStandard();
         editRoutePage.getSaveRouteButton().click();

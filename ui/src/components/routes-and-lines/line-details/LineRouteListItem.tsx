@@ -18,6 +18,9 @@ interface Props {
   isLast: boolean;
 }
 
+const testIds = {
+  lineRouteListItem: 'LineRouteListItem',
+};
 export const LineRouteListItem = ({
   routeId,
   showUnusedStops,
@@ -73,7 +76,7 @@ export const LineRouteListItem = ({
   const routeStopListElementId = 'route-stop-list';
 
   return (
-    <li>
+    <li data-testid={testIds.lineRouteListItem}>
       <RouteRow
         directionAndLabelId={directionAndLabelElementId}
         key={routeId}
