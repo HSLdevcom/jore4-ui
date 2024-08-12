@@ -109,7 +109,7 @@ const StopFormComponent = (
     return input;
   };
 
-  const onFormSubmit = async (state: FormState) => {
+  const onFormSubmit = (state: FormState) => {
     const changes = mapFormStateToInput(state);
     onSubmit(changes);
   };
