@@ -9,9 +9,9 @@ import {
 import {
   useAppAction,
   useAppSelector,
-  useCreateStopArea,
   useGetStopAreaById,
   useLoader,
+  useUpsertStopArea,
 } from '../../../hooks';
 import {
   Operation,
@@ -47,7 +47,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
     setIsCreateStopAreaModeEnabledAction,
   );
 
-  const { defaultErrorHandler, initializeStopArea } = useCreateStopArea();
+  const { defaultErrorHandler, initializeStopArea } = useUpsertStopArea();
   const { setIsLoading } = useLoader(Operation.FetchStopAreas);
 
   const viewport = useAppSelector(selectMapViewport);

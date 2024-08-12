@@ -3,7 +3,7 @@ import {
   StopRegistryGroupOfStopPlaces,
   StopRegistryGroupOfStopPlacesInput,
 } from '../../../generated/graphql';
-import { useAppAction, useCreateStopArea, useLoader } from '../../../hooks';
+import { useAppAction, useLoader, useUpsertStopArea } from '../../../hooks';
 import { Operation, setEditedStopAreaDataAction } from '../../../redux';
 import { StopRegistryGeoJsonDefined } from '../../../utils';
 import { EditStopAreaModal } from './EditStopAreaModal';
@@ -30,7 +30,7 @@ export const EditStopAreaLayer = ({
   const [displayedEditor, setDisplayedEditor] = useState<StopAreaEditorViews>(
     StopAreaEditorViews.None,
   );
-  const { createStopArea, defaultErrorHandler } = useCreateStopArea();
+  const { upsertStopArea, defaultErrorHandler } = useUpsertStopArea();
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
   const { setIsLoading } = useLoader(Operation.SaveStopArea);
 
@@ -62,7 +62,7 @@ export const EditStopAreaLayer = ({
   ) => {
     setIsLoading(true);
     try {
-      await createStopArea(changes);
+      await upsertStopArea(changes);
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error);

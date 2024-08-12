@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import {
   StopRegistryGroupOfStopPlaces,
   StopRegistryGroupOfStopPlacesInput,
-  useInsertStopAreaMutation,
-} from '../../generated/graphql';
-import { showDangerToast } from '../../utils';
+  useUpsertStopAreaMutation,
+} from '../../../generated/graphql';
+import { showDangerToast } from '../../../utils';
 
-const GQL_INSERT_STOP_AREA = gql`
-  mutation InsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
+const GQL_UPSERT_STOP_AREA = gql`
+  mutation UpsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
     stop_registry {
       mutateGroupOfStopPlaces(GroupOfStopPlaces: $object) {
         id
@@ -17,9 +17,9 @@ const GQL_INSERT_STOP_AREA = gql`
   }
 `;
 
-export const useCreateStopArea = () => {
+export const useUpsertStopArea = () => {
   const { t } = useTranslation();
-  const [insertStopAreaMutation] = useInsertStopAreaMutation();
+  const [upsertStopAreaMutation] = useUpsertStopAreaMutation();
 
   const initializeStopArea = (
     stopAreaLocation: GeoJSON.Point,
@@ -32,10 +32,15 @@ export const useCreateStopArea = () => {
     };
   };
 
-  const createStopArea = async (
+  /**
+   * Update an existing stop area, or create a new one.
+   * If id is given, this will update the matching entity,
+   * otherwise a new one is created.
+   */
+  const upsertStopArea = async (
     stopArea: StopRegistryGroupOfStopPlacesInput,
   ) => {
-    const result = await insertStopAreaMutation({
+    const result = await upsertStopAreaMutation({
       variables: { object: stopArea },
     });
     return result.data?.stop_registry?.mutateGroupOfStopPlaces;
@@ -47,7 +52,7 @@ export const useCreateStopArea = () => {
 
   return {
     initializeStopArea,
-    createStopArea,
+    upsertStopArea,
     defaultErrorHandler,
   };
 };
