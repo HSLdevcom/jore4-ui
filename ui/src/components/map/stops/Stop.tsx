@@ -20,28 +20,32 @@ interface Props extends Point {
  * different aspects which are affecting this determination. These are
  * * isPlaceholder: when moving a stop we have a placeholder for the stop's
  * original location.
- * * isHighlighted: if the stop is selected, or we are highlighting the stop because
- * it belongs to a currently selected route.
+ * * isSelected: if the stop is selected.
+ * * isHighlighted: if the stop is highlighted because it belongs to a currently selected route.
  * * stopVehicleMode: If neither of the above applies and vehicleMode is given,
  * we use the vehicleMode color defined in colors theme.
- * * If none of the above apply, we use 'black' as the border color
+ * * If none of the above apply, we use 'hsl-dark-80' as the border color
  */
 const determineBorderColor = (
   isHilighted: boolean,
+  isSelected: boolean,
   isPlaceholder: boolean,
   stopVehicleMode?: ReusableComponentsVehicleModeEnum,
 ) => {
   if (isPlaceholder) {
     return colors.grey;
   }
+  if (isSelected) {
+    return colors.hslDark80;
+  }
   if (isHilighted) {
     return colors.selectedMapItem;
   }
   if (stopVehicleMode) {
-    return colors.stops[stopVehicleMode] ?? 'black';
+    return colors.stops[stopVehicleMode] ?? colors.hslDark80;
   }
 
-  return 'black';
+  return colors.hslDark80;
 };
 
 export const Stop = ({
@@ -61,6 +65,7 @@ export const Stop = ({
   const isPlaceholder = selected && isMoveStopModeEnabled;
   const iconBorderColor = determineBorderColor(
     isHighlighted,
+    selected,
     isPlaceholder,
     vehicleMode,
   );

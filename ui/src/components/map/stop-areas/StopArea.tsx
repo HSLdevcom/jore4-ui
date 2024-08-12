@@ -25,7 +25,6 @@ export const StopArea = ({ area, selected, onClick }: StopAreaProps) => {
       <StopAreaMarker
         onClick={() => onClick(area)}
         selected={selected}
-        size={selected ? 32 : 30}
         testId={testIds.stopArea(area)}
       />
     </Marker>
