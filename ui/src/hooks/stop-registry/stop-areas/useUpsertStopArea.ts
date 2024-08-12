@@ -38,11 +38,22 @@ export const useUpsertStopArea = () => {
     };
   };
 
-  const mapFormStateToInput = (
-    state: StopAreaFormState,
-  ): StopRegistryGroupOfStopPlacesInput => {
+  const mapFormStateToInput = ({
+    stopArea,
+    state,
+  }: {
+    stopArea: StopRegistryGroupOfStopPlaces;
+    state: StopAreaFormState;
+  }): StopRegistryGroupOfStopPlacesInput => {
     const validityStart = mapDateInputToValidityStart(state.validityStart);
+    const members = stopArea.members?.map((stopPlace) => {
+      // An existing stop place reference -> id is defined.
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+      return { ref: stopPlace?.id! };
+    });
+
     const input: StopRegistryGroupOfStopPlacesInput = {
+      id: stopArea.id,
       name: {
         value: state.label,
         lang: 'fin',
@@ -56,6 +67,8 @@ export const useUpsertStopArea = () => {
         fromDate: validityStart,
         toDate: mapDateInputToValidityEnd(state.validityEnd, state.indefinite),
       },
+      // Tiamat doesn't accept an empty members array...
+      members: members?.length ? members : null,
     };
     return input;
   };
@@ -65,8 +78,14 @@ export const useUpsertStopArea = () => {
    * If id is given, this will update the matching entity,
    * otherwise a new one is created.
    */
-  const upsertStopArea = async (stopArea: StopAreaFormState) => {
-    const input = mapFormStateToInput(stopArea);
+  const upsertStopArea = async ({
+    stopArea,
+    state,
+  }: {
+    stopArea: StopRegistryGroupOfStopPlaces;
+    state: StopAreaFormState;
+  }) => {
+    const input = mapFormStateToInput({ stopArea, state });
     const result = await upsertStopAreaMutation({
       variables: { object: input },
     });

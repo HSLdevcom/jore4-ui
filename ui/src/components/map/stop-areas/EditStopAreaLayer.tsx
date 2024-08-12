@@ -41,6 +41,10 @@ export const EditStopAreaLayer = ({
     setDisplayedEditor(defaultDisplayedEditor);
   }, [defaultDisplayedEditor]);
 
+  const onEditStopArea = () => {
+    setDisplayedEditor(StopAreaEditorViews.Modal);
+  };
+
   const onCloseEditors = () => {
     setEditedStopAreaData(undefined);
     setDisplayedEditor(StopAreaEditorViews.None);
@@ -55,10 +59,10 @@ export const EditStopAreaLayer = ({
     }
   };
 
-  const onStopAreaFormSubmit = async (changes: StopAreaFormState) => {
+  const onStopAreaFormSubmit = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
-      await upsertStopArea(changes);
+      await upsertStopArea({ stopArea: editedArea, state });
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -69,7 +73,11 @@ export const EditStopAreaLayer = ({
   return (
     <>
       {displayedEditor === StopAreaEditorViews.Popup && (
-        <StopAreaPopup area={editedArea} onClose={onCloseEditors} />
+        <StopAreaPopup
+          area={editedArea}
+          onEdit={onEditStopArea}
+          onClose={onCloseEditors}
+        />
       )}
       {displayedEditor === StopAreaEditorViews.Modal && (
         <EditStopAreaModal
