@@ -63,6 +63,7 @@ export const mapStopAreaDataToFormState = (
     longitude: longitude ?? null,
     validityStart: mapToISODate(stopArea.validBetween?.fromDate),
     validityEnd: mapToISODate(stopArea.validBetween?.toDate),
+    indefinite: !stopArea.validBetween?.toDate,
   };
 
   return formState;
