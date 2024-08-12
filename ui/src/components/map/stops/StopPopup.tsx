@@ -37,7 +37,7 @@ export const StopPopup = ({
   const location = mapLngLatToPoint(stop.measured_location.coordinates);
   return (
     <Popup
-      className="min-w-80"
+      className="mt-5 min-w-80"
       anchor="top"
       longitude={location.longitude}
       latitude={location.latitude}
