@@ -17,10 +17,15 @@ const testIds = {
 
 type StopAreaPopupProps = {
   area: StopAreaFormFieldsFragment;
+  onEdit: () => void;
   onClose: () => void;
 };
 
-export const StopAreaPopup = ({ area, onClose }: StopAreaPopupProps) => {
+export const StopAreaPopup = ({
+  area,
+  onEdit,
+  onClose,
+}: StopAreaPopupProps) => {
   const { t } = useTranslation();
 
   const point = getGeometryPoint(area.geometry);
@@ -83,8 +88,7 @@ export const StopAreaPopup = ({ area, onClose }: StopAreaPopupProps) => {
           </SimpleButton>
           <SimpleButton
             containerClassName="ml-2"
-            disabled
-            onClick={noop}
+            onClick={onEdit}
             testId={testIds.editButton}
           >
             {t('edit')}
