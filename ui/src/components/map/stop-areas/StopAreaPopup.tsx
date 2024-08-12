@@ -33,7 +33,7 @@ export const StopAreaPopup = ({ area, onClose }: StopAreaPopupProps) => {
   return (
     <Popup
       anchor="top"
-      className="min-w-80"
+      className="mt-5 min-w-80"
       closeOnClick={false}
       closeButton={false}
       latitude={point.latitude}
