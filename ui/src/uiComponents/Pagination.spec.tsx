@@ -101,7 +101,7 @@ describe(`<${Pagination.name}>`, () => {
 
     // Check firstchild, because comparing the whole element
     // would timeout in case of mismatch
-    expect(firstPageButton.nextSibling?.firstChild).toBe(
+    expect(firstPageButton.parentElement?.nextSibling?.firstChild).toBe(
       dotsArray[0].firstChild,
     );
   });
@@ -136,7 +136,7 @@ describe(`<${Pagination.name}>`, () => {
 
     // Check firstchild, because comparing the whole element
     // would timeout in case of mismatch
-    expect(lastPageButton.previousSibling?.firstChild).toBe(
+    expect(lastPageButton.parentElement?.previousSibling?.firstChild).toBe(
       dotsArray[0].firstChild,
     );
   });
@@ -169,10 +169,10 @@ describe(`<${Pagination.name}>`, () => {
 
     // Check firstchild, because comparing the whole element
     // would timeout in case of mismatch
-    expect(firstPageButton.nextSibling?.firstChild).toBe(
+    expect(firstPageButton.parentElement?.nextSibling?.firstChild).toBe(
       dotsArray[0].firstChild,
     );
-    expect(lastPageButton.previousSibling?.firstChild).toBe(
+    expect(lastPageButton.parentElement?.previousSibling?.firstChild).toBe(
       dotsArray[1].firstChild,
     );
   });

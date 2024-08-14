@@ -3,6 +3,9 @@
     "showOnMap": "Näytä kartalla {{label}}",
     "nextPage": "Seuraava sivu",
     "prevPage": "Edellinen sivu",
+    "currentPage": "Nykyinen sivu",
+    "goToPage": "Mene sivulle",
+    "paginationNavigation": "Sivutusnavigaatio",
     "expandSearch": "Avaa tarkennettu haku",
     "closeSearch": "Sulje tarkennettu haku"
   },
