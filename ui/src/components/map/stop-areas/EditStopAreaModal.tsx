@@ -1,20 +1,20 @@
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopRegistryGroupOfStopPlacesInput } from '../../../generated/graphql';
 import { submitFormByRef } from '../../../utils';
 import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal/Modal';
-import { FormState, StopAreaForm } from './StopAreaForm';
+import { StopAreaForm } from './StopAreaForm';
+import { StopAreaFormState } from './stopAreaFormSchema';
 
 const testIds = {
   modal: 'EditStopAreaModal',
 };
 
 interface Props {
-  defaultValues: Partial<FormState>;
+  defaultValues: Partial<StopAreaFormState>;
   onCancel: () => void;
   onClose: () => void;
-  onSubmit: (changes: StopRegistryGroupOfStopPlacesInput) => void;
+  onSubmit: (changes: StopAreaFormState) => void;
 }
 
 export const EditStopAreaModal = ({
