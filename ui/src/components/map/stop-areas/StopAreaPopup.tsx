@@ -18,12 +18,14 @@ const testIds = {
 type StopAreaPopupProps = {
   area: StopAreaFormFieldsFragment;
   onEdit: () => void;
+  onMove: () => void;
   onClose: () => void;
 };
 
 export const StopAreaPopup = ({
   area,
   onEdit,
+  onMove,
   onClose,
 }: StopAreaPopupProps) => {
   const { t } = useTranslation();
@@ -80,8 +82,7 @@ export const StopAreaPopup = ({
           </SimpleButton>
           <SimpleButton
             containerClassName="ml-auto"
-            disabled
-            onClick={noop}
+            onClick={onMove}
             testId={testIds.moveButton}
           >
             {t('move')}

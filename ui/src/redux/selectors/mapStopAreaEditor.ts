@@ -27,3 +27,8 @@ export const selectIsCreateStopAreaModeEnabled = createSelector(
   selectMapStopAreaEditor,
   (mapStopAreEditor) => mapStopAreEditor.isCreateStopAreaModeEnabled,
 );
+
+export const selectIsMoveStopAreaModeEnabled = createSelector(
+  selectMapStopAreaEditor,
+  (mapStopAreEditor) => mapStopAreEditor.isMoveStopAreaModeEnabled,
+);
