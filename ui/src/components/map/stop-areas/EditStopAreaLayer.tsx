@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import {
-  StopRegistryGroupOfStopPlaces,
-  StopRegistryGroupOfStopPlacesInput,
-} from '../../../generated/graphql';
+import { StopRegistryGroupOfStopPlaces } from '../../../generated/graphql';
 import { useAppAction, useLoader, useUpsertStopArea } from '../../../hooks';
 import { Operation, setEditedStopAreaDataAction } from '../../../redux';
 import { StopRegistryGeoJsonDefined } from '../../../utils';
 import { EditStopAreaModal } from './EditStopAreaModal';
 import { mapStopAreaDataToFormState } from './StopAreaForm';
+import { StopAreaFormState } from './stopAreaFormSchema';
 import { StopAreaPopup } from './StopAreaPopup';
 
 enum StopAreaEditorViews {
@@ -57,9 +55,7 @@ export const EditStopAreaLayer = ({
     }
   };
 
-  const onStopAreaFormSubmit = async (
-    changes: StopRegistryGroupOfStopPlacesInput,
-  ) => {
+  const onStopAreaFormSubmit = async (changes: StopAreaFormState) => {
     setIsLoading(true);
     try {
       await upsertStopArea(changes);
