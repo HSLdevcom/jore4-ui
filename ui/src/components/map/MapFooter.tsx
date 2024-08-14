@@ -10,6 +10,7 @@ import {
   selectIsCreateStopAreaModeEnabled,
   selectIsCreateStopModeEnabled,
   selectIsInViewMode,
+  selectIsMoveStopAreaModeEnabled,
   selectIsMoveStopModeEnabled,
   selectMapRouteEditor,
   setIsCreateStopAreaModeEnabledAction,
@@ -66,6 +67,9 @@ export const MapFooter: React.FC<Props> = ({
   const setIsCreateStopAreaModeEnabled = useAppAction(
     setIsCreateStopAreaModeEnabledAction,
   );
+  const isMoveStopAreaModeEnabled = useAppSelector(
+    selectIsMoveStopAreaModeEnabled,
+  );
 
   const onAddStops = () => {
     setIsCreateStopModeEnabled(!isCreateStopModeEnabled);
@@ -85,7 +89,8 @@ export const MapFooter: React.FC<Props> = ({
           creatingNewRoute ||
           isCreateStopModeEnabled ||
           isMoveStopModeEnabled ||
-          isCreateStopAreaModeEnabled
+          isCreateStopAreaModeEnabled ||
+          isMoveStopAreaModeEnabled
         }
         inverted={drawingMode !== Mode.Draw}
       >
@@ -106,7 +111,8 @@ export const MapFooter: React.FC<Props> = ({
         disabled={
           drawingMode !== undefined ||
           creatingNewRoute ||
-          isCreateStopAreaModeEnabled
+          isCreateStopAreaModeEnabled ||
+          isMoveStopAreaModeEnabled
         }
         inverted={!isCreateStopModeEnabled}
         testId={testIds.addStopButton}
@@ -119,7 +125,8 @@ export const MapFooter: React.FC<Props> = ({
           drawingMode !== undefined ||
           creatingNewRoute ||
           hasChangesInProgress ||
-          isRouteMetadataFormOpen
+          isRouteMetadataFormOpen ||
+          isMoveStopAreaModeEnabled
         }
         tooltip={t('map.footerActionsTooltip')}
         onCreateNewStopArea={onAddStopArea}

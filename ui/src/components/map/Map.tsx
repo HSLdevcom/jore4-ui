@@ -14,6 +14,7 @@ import {
   selectHasDraftRouteGeometry,
   selectIsCreateStopAreaModeEnabled,
   selectIsCreateStopModeEnabled,
+  selectIsMoveStopAreaModeEnabled,
   selectIsMoveStopModeEnabled,
   selectMapFilter,
   selectMapRouteEditor,
@@ -82,6 +83,9 @@ export const MapComponent = (
   const isCreateStopAreaModeEnabled = useAppSelector(
     selectIsCreateStopAreaModeEnabled,
   );
+  const isMoveStopAreaModeEnabled = useAppSelector(
+    selectIsMoveStopAreaModeEnabled,
+  );
 
   useImperativeHandle(externalRef, () => ({
     onDrawRoute: () => {
@@ -119,6 +123,10 @@ export const MapComponent = (
     }
   };
 
+  const onMoveStopArea = (e: MapLayerMouseEvent) => {
+    stopAreasRef.current?.onMoveStopArea(e);
+  };
+
   const onClick = (e: MapLayerMouseEvent) => {
     if (isCreateStopModeEnabled) {
       onCreateStop(e);
@@ -126,6 +134,10 @@ export const MapComponent = (
     }
     if (isCreateStopAreaModeEnabled) {
       onCreateStopArea(e);
+      return;
+    }
+    if (isMoveStopAreaModeEnabled) {
+      onMoveStopArea(e);
       return;
     }
     if (isMoveStopModeEnabled) {
