@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useImperativeHandle } from 'react';
+import React, { useEffect, useImperativeHandle } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import {
   StopAreaMinimalShowOnMapFieldsFragment,
-  StopRegistryGroupOfStopPlaces,
   useGetStopAreasByLocationQuery,
 } from '../../../generated/graphql';
 import {
@@ -29,6 +28,10 @@ import {
   mapLngLatToGeoJSON,
   notNullish,
 } from '../../../utils';
+import {
+  filterCancellationError,
+  makePromiseCleanupHelper,
+} from '../../../utils/makePromiseCleanupHelper';
 import { CreateStopAreaMarker } from './CreateStopAreaMarker';
 import { EditStopAreaLayer } from './EditStopAreaLayer';
 import { MemberStops } from './MemberStops';
@@ -49,8 +52,10 @@ export const StopAreas = React.forwardRef((_props, ref) => {
   );
 
   const { defaultErrorHandler, initializeStopArea } = useCreateStopArea();
-  const { setLoadingState } = useLoader(Operation.FetchStopAreas);
 
+  const { setLoadingState: setFetchAreasLoadingState } = useLoader(
+    Operation.FetchStopAreas,
+  );
   const viewport = useAppSelector(selectMapViewport);
   const stopAreasResult = useGetStopAreasByLocationQuery({
     variables: {
@@ -58,20 +63,38 @@ export const StopAreas = React.forwardRef((_props, ref) => {
     },
   });
 
+  const { setLoadingState: setFetchStopAreaDetailsLoadingState } = useLoader(
+    Operation.FetchStopAreaDetails,
+  );
   const { getStopAreaById } = useGetStopAreaById();
 
-  const fetchSelectedStopArea = useCallback(async () => {
-    if (selectedStopAreaId) {
-      const stopArea = await getStopAreaById(selectedStopAreaId);
-      dispatch(setEditedStopAreaDataAction(stopArea));
-    } else {
-      dispatch(setEditedStopAreaDataAction(undefined));
-    }
-  }, [getStopAreaById, selectedStopAreaId, dispatch]);
-
   useEffect(() => {
-    fetchSelectedStopArea();
-  }, [selectedStopAreaId, fetchSelectedStopArea]);
+    setFetchStopAreaDetailsLoadingState(LoadingState.MediumPriority);
+
+    const cleanupHelper = makePromiseCleanupHelper();
+    const basePromise = selectedStopAreaId
+      ? getStopAreaById(selectedStopAreaId)
+      : Promise.resolve(undefined);
+
+    basePromise
+      .then(cleanupHelper.blockOnCleanup)
+      .then(setEditedStopAreaDataAction)
+      .then(dispatch)
+      .catch(filterCancellationError(defaultErrorHandler))
+      .finally(() => {
+        if (!cleanupHelper.cleanedUp) {
+          setFetchStopAreaDetailsLoadingState(LoadingState.NotLoading);
+        }
+      });
+
+    return cleanupHelper.cleanup;
+  }, [
+    selectedStopAreaId,
+    getStopAreaById,
+    dispatch,
+    setFetchStopAreaDetailsLoadingState,
+    defaultErrorHandler,
+  ]);
 
   useEffect(() => {
     /**
@@ -80,29 +103,19 @@ export const StopAreas = React.forwardRef((_props, ref) => {
      * We could also use useLoader's immediatelyOn option instead of useEffect,
      * but using options to dynamically control loading state feels semantically wrong.
      */
-    setLoadingState(
+    setFetchAreasLoadingState(
       stopAreasResult.loading
         ? LoadingState.LowPriority
         : LoadingState.NotLoading,
     );
-  }, [setLoadingState, stopAreasResult.loading]);
-
-  const onEditStopArea = (stopArea: StopRegistryGroupOfStopPlaces) => {
-    setEditedStopAreaData(stopArea);
-  };
+  }, [setFetchAreasLoadingState, stopAreasResult.loading]);
 
   useImperativeHandle(ref, () => ({
-    onCreateStopArea: async (e: MapLayerMouseEvent) => {
-      setIsLoading(true);
-      try {
-        const stopAreaLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
-        const newStopArea = initializeStopArea(stopAreaLocation);
-        onEditStopArea(newStopArea);
-        setIsCreateStopAreaModeEnabled(false);
-      } catch (err) {
-        defaultErrorHandler(err as Error);
-      }
-      setIsLoading(false);
+    onCreateStopArea: (e: MapLayerMouseEvent) => {
+      const stopAreaLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
+      const newStopArea = initializeStopArea(stopAreaLocation);
+      setEditedStopAreaData(newStopArea);
+      setIsCreateStopAreaModeEnabled(false);
     },
   }));
 

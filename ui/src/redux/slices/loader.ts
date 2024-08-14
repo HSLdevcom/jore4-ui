@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 export enum Operation {
   LoadMap = 'loadMap',
   FetchInfraLinksWithStops = 'fetchInfraLinksWithStops',
+  FetchStopAreaDetails = 'fetchStopAreaDetails',
   FetchStopAreas = 'fetchStopAreas',
   FetchStops = 'fetchStops',
   FetchRoutes = 'fetchRoutes',
@@ -67,6 +68,7 @@ export function getHighestLoadingState(
 export const mapOperations = [
   Operation.LoadMap,
   Operation.FetchInfraLinksWithStops,
+  Operation.FetchStopAreaDetails,
   Operation.FetchStopAreas,
   Operation.FetchStops,
   Operation.FetchRoutes,

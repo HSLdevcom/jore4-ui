@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   StopRegistryGroupOfStopPlaces,
@@ -17,33 +18,43 @@ const GQL_INSERT_STOP_AREA = gql`
   }
 `;
 
+function initializeStopArea(
+  stopAreaLocation: GeoJSON.Point,
+): StopRegistryGroupOfStopPlaces {
+  return {
+    geometry: {
+      coordinates: stopAreaLocation.coordinates,
+    },
+    members: [],
+  };
+}
+
 export const useCreateStopArea = () => {
   const { t } = useTranslation();
   const [insertStopAreaMutation] = useInsertStopAreaMutation();
 
-  const initializeStopArea = (
-    stopAreaLocation: GeoJSON.Point,
-  ): StopRegistryGroupOfStopPlaces => {
-    return {
-      geometry: {
-        coordinates: stopAreaLocation.coordinates,
-      },
-      members: [],
-    };
-  };
+  const createStopArea = useCallback(
+    async (stopArea: StopRegistryGroupOfStopPlacesInput) => {
+      const result = await insertStopAreaMutation({
+        variables: { object: stopArea },
+      });
+      return result.data?.stop_registry?.mutateGroupOfStopPlaces;
+    },
+    [insertStopAreaMutation],
+  );
 
-  const createStopArea = async (
-    stopArea: StopRegistryGroupOfStopPlacesInput,
-  ) => {
-    const result = await insertStopAreaMutation({
-      variables: { object: stopArea },
-    });
-    return result.data?.stop_registry?.mutateGroupOfStopPlaces;
-  };
-
-  const defaultErrorHandler = (err: Error) => {
-    showDangerToast(`${t('errors.saveFailed')}, ${err}, ${err.message}`);
-  };
+  const defaultErrorHandler = useCallback(
+    (error: unknown) => {
+      if (error instanceof Error) {
+        showDangerToast(
+          `${t('errors.saveFailed')}, ${error}, ${error.message}`,
+        );
+      } else {
+        showDangerToast(`${t('errors.saveFailed')}, ${error}`);
+      }
+    },
+    [t],
+  );
 
   return {
     initializeStopArea,
