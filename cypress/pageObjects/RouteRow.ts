@@ -12,12 +12,6 @@ export class RouteRow {
     return cy.getByTestId('RouteRow::toggleAccordion');
   }
 
-  toggleRouteSection(routeLabel: string, direction: RouteDirectionEnum) {
-    return this.getRouteHeaderRow(routeLabel, direction)
-      .findByTestId('RouteRow::toggleAccordion')
-      .click();
-  }
-
   getRouteName() {
     return cy.getByTestId('RouteRow::name');
   }

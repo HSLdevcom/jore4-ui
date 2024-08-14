@@ -1,4 +1,3 @@
-import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
@@ -9,7 +8,7 @@ import {
 import { Tag } from '../enums';
 import {
   LineDetailsPage,
-  LineRouteListItem,
+  LineRouteList,
   Navbar,
   RoutesAndLinesPage,
 } from '../pageObjects';
@@ -31,7 +30,7 @@ describe('Hastus export', () => {
 
   let routesAndLinesPage: RoutesAndLinesPage;
   let lineDetailsPage: LineDetailsPage;
-  let lineRouteListItem: LineRouteListItem;
+  let lineRouteList: LineRouteList;
   let timingSettingsForm: TimingSettingsForm;
   let navBar: Navbar;
 
@@ -61,7 +60,7 @@ describe('Hastus export', () => {
 
     routesAndLinesPage = new RoutesAndLinesPage();
     lineDetailsPage = new LineDetailsPage();
-    lineRouteListItem = new LineRouteListItem();
+    lineRouteList = new LineRouteList();
     timingSettingsForm = new TimingSettingsForm();
     navBar = new Navbar();
 
@@ -120,11 +119,21 @@ describe('Hastus export', () => {
       'should show an error, when the first stop is not a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
+        const { lineRouteListItem } = lineRouteList;
         const { routeRow, routeStopListItem } = lineRouteListItem;
         lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        routeRow.toggleRouteSection('901', RouteDirectionEnum.Outbound);
-        routeStopListItem.openTimingSettingsForm('E2E001');
+        lineRouteList.getNthLineRouteListItem(0).within(() => {
+          routeRow.getToggleAccordionButton().click();
+
+          // Open E2E001 timing settings
+          lineRouteListItem.getNthRouteStopListItem(0).within(() => {
+            routeStopListItem.getStopActionsDropdown().click();
+            routeStopListItem.stopActionsDropdown
+              .getOpenTimingSettingsButton()
+              .click();
+          });
+        });
 
         // Set route 901 (outbound) first stop to not be used as timing point
         timingSettingsForm
@@ -151,13 +160,22 @@ describe('Hastus export', () => {
       'should show an error, when the last stop is not a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
+        const { lineRouteListItem } = lineRouteList;
         const { routeRow, routeStopListItem } = lineRouteListItem;
         lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        routeRow.toggleRouteSection('901', RouteDirectionEnum.Outbound);
+        lineRouteList.getNthLineRouteListItem(0).within(() => {
+          routeRow.getToggleAccordionButton().click();
 
-        // Set route 901 (outbound) last stop to not be used as timing point
-        routeStopListItem.openTimingSettingsForm('E2E005');
+          // Open E2E005 timing settings
+          lineRouteListItem.getNthRouteStopListItem(4).within(() => {
+            routeStopListItem.getStopActionsDropdown().click();
+            routeStopListItem.stopActionsDropdown
+              .getOpenTimingSettingsButton()
+              .click();
+          });
+        });
+
         timingSettingsForm
           .getIsUsedAsTimingPointCheckbox()
           .should('be.checked');
@@ -182,21 +200,39 @@ describe('Hastus export', () => {
       'should show an error, when neither the last stop nor the first stop is a timing point',
       { tags: [Tag.Routes, Tag.HastusExport] },
       () => {
+        const { lineRouteListItem } = lineRouteList;
         const { routeRow, routeStopListItem } = lineRouteListItem;
         lineDetailsPage.visit(baseDbResources.lines[0].line_id);
 
-        routeRow.toggleRouteSection('901', RouteDirectionEnum.Outbound);
+        lineRouteList.getNthLineRouteListItem(0).within(() => {
+          routeRow.getToggleAccordionButton().click();
 
-        // Set route 901 (outbound) first stop to not be used as timing point
-        routeStopListItem.openTimingSettingsForm('E2E001');
+          // Open E2E001 timing settings
+          lineRouteListItem.getNthRouteStopListItem(0).within(() => {
+            routeStopListItem.getStopActionsDropdown().click();
+            routeStopListItem.stopActionsDropdown
+              .getOpenTimingSettingsButton()
+              .click();
+          });
+        });
+
         timingSettingsForm
           .getIsUsedAsTimingPointCheckbox()
           .should('be.checked');
         timingSettingsForm.getIsUsedAsTimingPointCheckbox().click();
         timingSettingsForm.getSavebutton().click();
 
+        lineRouteList.getNthLineRouteListItem(0).within(() => {
+          // Open E2E005 timing settings
+          lineRouteListItem.getNthRouteStopListItem(4).within(() => {
+            routeStopListItem.getStopActionsDropdown().click();
+            routeStopListItem.stopActionsDropdown
+              .getOpenTimingSettingsButton()
+              .click();
+          });
+        });
+
         // Set route 901 (outbound) last stop to not be used as timing point
-        routeStopListItem.openTimingSettingsForm('E2E005');
         timingSettingsForm
           .getIsUsedAsTimingPointCheckbox()
           .should('be.checked');
