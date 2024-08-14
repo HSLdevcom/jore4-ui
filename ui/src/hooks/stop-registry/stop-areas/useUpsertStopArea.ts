@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopAreaFormState } from '../../../components/map/stop-areas/stopAreaFormSchema';
 import {
@@ -23,78 +24,91 @@ const GQL_UPSERT_STOP_AREA = gql`
   }
 `;
 
+const initializeStopArea = (
+  stopAreaLocation: GeoJSON.Point,
+): StopAreaByIdResult => {
+  return {
+    geometry: {
+      coordinates: stopAreaLocation.coordinates,
+    },
+    members: [],
+  };
+};
+
+const mapFormStateToInput = ({
+  stopArea,
+  state,
+}: {
+  stopArea: StopAreaByIdResult;
+  state: StopAreaFormState;
+}): StopRegistryGroupOfStopPlacesInput => {
+  const validityStart = mapDateInputToValidityStart(state.validityStart);
+  const members = stopArea.members?.map((stopPlace) => {
+    // An existing stop place reference -> id is defined.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+    return { ref: stopPlace?.id! };
+  });
+
+  const input: StopRegistryGroupOfStopPlacesInput = {
+    id: stopArea.id,
+    name: {
+      value: state.label,
+      lang: 'fin',
+    },
+    description: {
+      value: state.name,
+      lang: 'fin',
+    },
+    geometry: mapPointToStopRegistryGeoJSON(state),
+    validBetween: validityStart && {
+      fromDate: validityStart,
+      toDate: mapDateInputToValidityEnd(state.validityEnd, state.indefinite),
+    },
+    // Tiamat doesn't accept an empty members array...
+    members: members?.length ? members : null,
+  };
+  return input;
+};
+
 export const useUpsertStopArea = () => {
   const { t } = useTranslation();
   const [upsertStopAreaMutation] = useUpsertStopAreaMutation();
-
-  const initializeStopArea = (
-    stopAreaLocation: GeoJSON.Point,
-  ): StopAreaByIdResult => {
-    return {
-      geometry: {
-        coordinates: stopAreaLocation.coordinates,
-      },
-      members: [],
-    };
-  };
-
-  const mapFormStateToInput = ({
-    stopArea,
-    state,
-  }: {
-    stopArea: StopAreaByIdResult;
-    state: StopAreaFormState;
-  }): StopRegistryGroupOfStopPlacesInput => {
-    const validityStart = mapDateInputToValidityStart(state.validityStart);
-    const members = stopArea.members?.map((stopPlace) => {
-      // An existing stop place reference -> id is defined.
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
-      return { ref: stopPlace?.id! };
-    });
-
-    const input: StopRegistryGroupOfStopPlacesInput = {
-      id: stopArea.id,
-      name: {
-        value: state.label,
-        lang: 'fin',
-      },
-      description: {
-        value: state.name,
-        lang: 'fin',
-      },
-      geometry: mapPointToStopRegistryGeoJSON(state),
-      validBetween: validityStart && {
-        fromDate: validityStart,
-        toDate: mapDateInputToValidityEnd(state.validityEnd, state.indefinite),
-      },
-      // Tiamat doesn't accept an empty members array...
-      members: members?.length ? members : null,
-    };
-    return input;
-  };
 
   /**
    * Update an existing stop area, or create a new one.
    * If id is given, this will update the matching entity,
    * otherwise a new one is created.
    */
-  const upsertStopArea = async ({
-    stopArea,
-    state,
-  }: {
-    stopArea: StopAreaByIdResult;
-    state: StopAreaFormState;
-  }) => {
-    const input = mapFormStateToInput({ stopArea, state });
-    const result = await upsertStopAreaMutation({
-      variables: { object: input },
-    });
-    return result.data?.stop_registry?.mutateGroupOfStopPlaces;
-  };
+  const upsertStopArea = useCallback(
+    async ({
+      stopArea,
+      state,
+    }: {
+      stopArea: StopAreaByIdResult;
+      state: StopAreaFormState;
+    }) => {
+      const input = mapFormStateToInput({ stopArea, state });
+      const result = await upsertStopAreaMutation({
+        variables: { object: input },
+      });
 
-  const defaultErrorHandler = (err: Error) => {
-    showDangerToast(`${t('errors.saveFailed')}, ${err}, ${err.message}`);
-  };
+      return result.data?.stop_registry?.mutateGroupOfStopPlaces;
+    },
+    [upsertStopAreaMutation],
+  );
+
+  const defaultErrorHandler = useCallback(
+    (error: unknown) => {
+      if (error instanceof Error) {
+        showDangerToast(
+          `${t('errors.saveFailed')}, ${error}, ${error.message}`,
+        );
+      } else {
+        showDangerToast(`${t('errors.saveFailed')}, ${error}`);
+      }
+    },
+    [t],
+  );
 
   return {
     initializeStopArea,
