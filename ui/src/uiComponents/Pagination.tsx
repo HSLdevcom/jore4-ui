@@ -69,7 +69,7 @@ export const Pagination = ({
 
   const currentPageClassName =
     'rounded-full border border-brand bg-brand text-white';
-  const commonClassName = `text-1xl px-4 py-2 text-center flex-1`;
+  const commonClassName = `text-1xl px-4 py-2 text-center flex-1 cursor-pointer`;
 
   // eslint-disable-next-line react/no-unstable-nested-components
   const PageButton = ({
@@ -77,26 +77,32 @@ export const Pagination = ({
   }: {
     pageNumber: number;
   }): React.ReactElement => (
-    <button
-      onClick={() => setPage(pageNumber)}
-      type="button"
-      className={commonClassName}
-    >
-      {getRenderedPageNumber(pageNumber)}
-    </button>
+    <li className={`inline-block ${commonClassName}`}>
+      <button
+        onClick={() => setPage(pageNumber)}
+        type="button"
+        aria-label={`${t('accessibility:common.goToPage')} ${pageNumber}`}
+      >
+        {getRenderedPageNumber(pageNumber)}
+      </button>
+    </li>
   );
 
   const ariaLabelPrevious = t('accessibility:common.prevPage');
   const ariaLabelNext = t('accessibility:common.nextPage');
 
   return (
-    <div className={`flex justify-evenly ${className}`}>
+    <nav
+      role="navigation"
+      aria-label={`${t('accessibility:common.paginationNavigation')}`}
+      className={`flex justify-evenly ${className}`}
+    >
       <IconButton
         disabled={onFirstPage}
         tooltip={ariaLabelPrevious}
         onClick={() => setPage(currentPage - 1)}
         testId="prevPageButtonIcon"
-        className="flex-1"
+        className="w-32"
         icon={
           <FaChevronLeft
             className={`text-3xl ${
@@ -115,18 +121,27 @@ export const Pagination = ({
           {showDotsNearStart && <Dots className={commonClassName} />}
         </>
       )}
-      {displayedPageNumbers.map((pageNumber) =>
-        pageNumber !== currentPage ? (
-          <PageButton key={pageNumber} pageNumber={pageNumber} />
-        ) : (
-          <span
-            key={pageNumber}
-            className={`${commonClassName} ${currentPageClassName}`}
-          >
-            {getRenderedPageNumber(pageNumber)}
-          </span>
-        ),
-      )}
+      <ul className="flex flex-1 justify-evenly">
+        {displayedPageNumbers.map((pageNumber) =>
+          pageNumber !== currentPage ? (
+            <PageButton key={pageNumber} pageNumber={pageNumber} />
+          ) : (
+            <li
+              className={`inline-block ${commonClassName} ${currentPageClassName}`}
+              key={pageNumber}
+            >
+              <span
+                aria-label={`${t(
+                  'accessibility:common.currentPage',
+                )} ${pageNumber}`}
+                aria-current="page"
+              >
+                {getRenderedPageNumber(pageNumber)}
+              </span>
+            </li>
+          ),
+        )}
+      </ul>
       {showAdditionalElementsOnEnd && (
         <>
           {showDotsNearEnd && <Dots className={commonClassName} />}
@@ -138,7 +153,7 @@ export const Pagination = ({
         tooltip={ariaLabelNext}
         onClick={() => setPage(currentPage + 1)}
         testId="nextPageButtonIcon"
-        className="flex-1"
+        className="w-32"
         icon={
           <FaChevronRight
             className={`text-3xl ${
@@ -151,6 +166,6 @@ export const Pagination = ({
           ariaLabel: ariaLabelNext,
         }}
       />
-    </div>
+    </nav>
   );
 };

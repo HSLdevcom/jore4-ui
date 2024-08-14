@@ -3,6 +3,9 @@
     "showOnMap": "Show {{routeLabel}} on the map",
     "nextPage": "Next page",
     "prevPage": "Previous page",
+    "currentPage": "Current page",
+    "goToPage": "Go to page",
+    "paginationNavigation": "Pagination Navigation",
     "expandSearch": "Open advanced search",
     "closeSearch": "Close advanced search"
   },
