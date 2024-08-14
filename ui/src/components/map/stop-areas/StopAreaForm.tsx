@@ -3,40 +3,20 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { z } from 'zod';
-import {
-  StopRegistryGroupOfStopPlaces,
-  StopRegistryGroupOfStopPlacesInput,
-} from '../../../generated/graphql';
+import { StopRegistryGroupOfStopPlaces } from '../../../generated/graphql';
 import { Column } from '../../../layoutComponents';
 import { mapToISODate } from '../../../time';
-import {
-  StopRegistryGeoJsonDefined,
-  mapDateInputToValidityEnd,
-  mapDateInputToValidityStart,
-  mapLngLatToPoint,
-  mapPointToStopRegistryGeoJSON,
-} from '../../../utils';
+import { StopRegistryGeoJsonDefined, mapLngLatToPoint } from '../../../utils';
 import {
   FormColumn,
   FormRow,
   InputField,
   ValidityPeriodForm,
-  ValidityPeriodFormState,
-  requiredNumber,
-  requiredString,
-  validityPeriodFormSchema,
 } from '../../forms/common';
-
-const schema = z
-  .object({
-    // id: z.string().uuid().optional(), // for stop areas that are edited, TODO
-    label: requiredString,
-    name: requiredString,
-    latitude: requiredNumber.min(-180).max(180),
-    longitude: requiredNumber.min(-180).max(180),
-  })
-  .merge(validityPeriodFormSchema);
+import {
+  StopAreaFormState as FormState,
+  stopAreaFormSchema,
+} from './stopAreaFormSchema';
 
 const testIds = {
   label: 'StopAreaFormComponent::label',
@@ -44,8 +24,6 @@ const testIds = {
   latitude: 'StopAreaFormComponent::latitude',
   longitude: 'StopAreaFormComponent::longitude',
 };
-
-export type FormState = z.infer<typeof schema> & ValidityPeriodFormState;
 
 export const mapStopAreaDataToFormState = (
   stopArea: StopRegistryGroupOfStopPlaces & {
@@ -72,7 +50,7 @@ export const mapStopAreaDataToFormState = (
 interface Props {
   className?: string;
   defaultValues: Partial<FormState>;
-  onSubmit: (changes: StopRegistryGroupOfStopPlacesInput) => void;
+  onSubmit: (changes: FormState) => void;
 }
 
 const StopFormComponent = (
@@ -83,43 +61,16 @@ const StopFormComponent = (
 
   const methods = useForm<FormState>({
     defaultValues,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(stopAreaFormSchema),
   });
   const { handleSubmit } = methods;
-
-  const mapFormStateToInput = (
-    state: FormState,
-  ): StopRegistryGroupOfStopPlacesInput => {
-    const validityStart = mapDateInputToValidityStart(state.validityStart);
-    const input: StopRegistryGroupOfStopPlacesInput = {
-      name: {
-        value: state.label,
-        lang: 'fin',
-      },
-      description: {
-        value: state.name,
-        lang: 'fin',
-      },
-      geometry: mapPointToStopRegistryGeoJSON(state),
-      validBetween: validityStart && {
-        fromDate: validityStart,
-        toDate: mapDateInputToValidityEnd(state.validityEnd, state.indefinite),
-      },
-    };
-    return input;
-  };
-
-  const onFormSubmit = (state: FormState) => {
-    const changes = mapFormStateToInput(state);
-    onSubmit(changes);
-  };
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         className={twMerge('space-y-6', className)}
-        onSubmit={handleSubmit(onFormSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >
         <h3>{t('stopArea.stopArea')}</h3>
