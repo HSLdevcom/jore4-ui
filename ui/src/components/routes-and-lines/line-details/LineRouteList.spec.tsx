@@ -576,7 +576,7 @@ describe(`<${LineRouteList.name} />`, () => {
     fireEvent.click(accordionButton);
 
     const label = within(
-      screen.getByTestId('RouteStopListItem::container::H1234'),
+      screen.getAllByTestId('RouteStopListItem::container')[0],
     ).getByTestId('RouteStopListItem::label');
     expect(label).toHaveTextContent('H1234');
     expect(label.title).toContain('H1234');
