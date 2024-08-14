@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useImperativeHandle } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import {
@@ -17,6 +22,7 @@ import {
   Operation,
   selectEditedStopAreaData,
   selectIsCreateStopAreaModeEnabled,
+  selectIsMoveStopAreaModeEnabled,
   selectMapViewport,
   selectSelectedStopAreaId,
   setEditedStopAreaDataAction,
@@ -28,6 +34,7 @@ import {
   mapLngLatToGeoJSON,
   notNullish,
 } from '../../../utils';
+import { EditStopAreaLayerRef } from '../refTypes';
 import { CreateStopAreaMarker } from './CreateStopAreaMarker';
 import { EditStopAreaLayer } from './EditStopAreaLayer';
 import { MemberStops } from './MemberStops';
@@ -38,10 +45,14 @@ export const StopAreas = React.forwardRef((_props, ref) => {
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
   const editedStopAreaData = useAppSelector(selectEditedStopAreaData);
+  const editStopAreaLayerRef = useRef<EditStopAreaLayerRef>(null);
 
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const isCreateStopAreaModeEnabled = useAppSelector(
     selectIsCreateStopAreaModeEnabled,
+  );
+  const isMoveStopAreaModeEnabled = useAppSelector(
+    selectIsMoveStopAreaModeEnabled,
   );
   const setIsCreateStopAreaModeEnabled = useAppAction(
     setIsCreateStopAreaModeEnabledAction,
@@ -99,6 +110,9 @@ export const StopAreas = React.forwardRef((_props, ref) => {
       }
       setIsLoading(false);
     },
+    onMoveStopArea: (e: MapLayerMouseEvent) => {
+      editStopAreaLayerRef.current?.onMoveStopArea(e);
+    },
   }));
 
   const onEditingFinished = async () => {
@@ -132,6 +146,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
       {editedStopAreaData ? (
         <>
           <EditStopAreaLayer
+            ref={editStopAreaLayerRef}
             editedArea={editedStopAreaData}
             onEditingFinished={onEditingFinished}
             onPopupClose={onPopupClose}
@@ -140,7 +155,9 @@ export const StopAreas = React.forwardRef((_props, ref) => {
           <MemberStops area={editedStopAreaData} />
         </>
       ) : null}
-      {isCreateStopAreaModeEnabled && <CreateStopAreaMarker />}
+      {(isCreateStopAreaModeEnabled || isMoveStopAreaModeEnabled) && (
+        <CreateStopAreaMarker />
+      )}
     </>
   );
 });

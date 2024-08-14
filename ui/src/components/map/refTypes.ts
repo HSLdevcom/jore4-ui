@@ -20,6 +20,10 @@ export interface StopsRef {
   onCreateStop: (e: MapLayerMouseEvent) => Promise<void>;
 }
 
+export interface EditStopAreaLayerRef {
+  onMoveStopArea: (e: MapLayerMouseEvent) => Promise<void>;
+}
 export interface StopAreasRef {
   onCreateStopArea: (e: MapLayerMouseEvent) => Promise<void>;
+  onMoveStopArea: (e: MapLayerMouseEvent) => Promise<void>;
 }

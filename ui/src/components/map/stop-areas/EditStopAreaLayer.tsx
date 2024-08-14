@@ -1,8 +1,22 @@
-import { useEffect, useState } from 'react';
+import { MapLayerMouseEvent } from 'maplibre-gl';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { StopRegistryGroupOfStopPlaces } from '../../../generated/graphql';
 import { useAppAction, useLoader, useUpsertStopArea } from '../../../hooks';
-import { Operation, setEditedStopAreaDataAction } from '../../../redux';
-import { StopRegistryGeoJsonDefined } from '../../../utils';
+import {
+  Operation,
+  setEditedStopAreaDataAction,
+  setIsMoveStopAreaModeEnabledAction,
+} from '../../../redux';
+import {
+  StopRegistryGeoJsonDefined,
+  mapPointToStopRegistryGeoJSON,
+} from '../../../utils';
+import { EditStopAreaLayerRef } from '../refTypes';
 import { EditStopAreaModal } from './EditStopAreaModal';
 import { mapStopAreaDataToFormState } from './StopAreaForm';
 import { StopAreaFormState } from './stopAreaFormSchema';
@@ -20,16 +34,18 @@ type EditStopAreaLayerProps = {
   onPopupClose: () => void;
 };
 
-export const EditStopAreaLayer = ({
-  editedArea,
-  onEditingFinished,
-  onPopupClose,
-}: EditStopAreaLayerProps) => {
+export const EditStopAreaLayer = forwardRef<
+  EditStopAreaLayerRef,
+  EditStopAreaLayerProps
+>(({ editedArea, onEditingFinished, onPopupClose }, ref) => {
   const [displayedEditor, setDisplayedEditor] = useState<StopAreaEditorViews>(
     StopAreaEditorViews.None,
   );
   const { upsertStopArea, defaultErrorHandler } = useUpsertStopArea();
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
+  const setIsMoveStopAreaModeEnabled = useAppAction(
+    setIsMoveStopAreaModeEnabledAction,
+  );
   const { setIsLoading } = useLoader(Operation.SaveStopArea);
 
   const isExistingStopArea = !!editedArea.id;
@@ -43,6 +59,15 @@ export const EditStopAreaLayer = ({
 
   const onEditStopArea = () => {
     setDisplayedEditor(StopAreaEditorViews.Modal);
+  };
+
+  const hideEditors = () => {
+    setDisplayedEditor(StopAreaEditorViews.None);
+  };
+
+  const onStartMoveStopArea = () => {
+    hideEditors();
+    setIsMoveStopAreaModeEnabled(true);
   };
 
   const onCloseEditors = () => {
@@ -70,12 +95,36 @@ export const EditStopAreaLayer = ({
     setIsLoading(false);
   };
 
+  const onMoveStopArea = async (e: MapLayerMouseEvent) => {
+    const [longitude, latitude] = e.lngLat.toArray();
+    const geometry = mapPointToStopRegistryGeoJSON({
+      longitude,
+      latitude,
+    });
+
+    const stopAreaFormState = mapStopAreaDataToFormState({
+      ...editedArea,
+      geometry,
+    });
+    // An existing stop area, so all required properties have already been persisted -> safe to cast.
+    await onStopAreaFormSubmit(
+      stopAreaFormState as Required<StopAreaFormState>,
+    );
+    setIsMoveStopAreaModeEnabled(false);
+    onFinishEditing();
+  };
+
+  useImperativeHandle(ref, () => ({
+    onMoveStopArea: async (e: MapLayerMouseEvent) => onMoveStopArea(e),
+  }));
+
   return (
     <>
       {displayedEditor === StopAreaEditorViews.Popup && (
         <StopAreaPopup
           area={editedArea}
           onEdit={onEditStopArea}
+          onMove={onStartMoveStopArea}
           onClose={onCloseEditors}
         />
       )}
@@ -93,4 +142,6 @@ export const EditStopAreaLayer = ({
       )}
     </>
   );
-};
+});
+
+EditStopAreaLayer.displayName = 'EditStopAreaLayer';

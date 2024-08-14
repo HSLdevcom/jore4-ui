@@ -3,7 +3,10 @@ import React, { useCallback, useEffect } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import { useCallbackOnKeyEscape } from '../../../hooks';
-import { resetEnabledStopAreaModesAction } from '../../../redux';
+import {
+  resetEnabledStopAreaModesAction,
+  setSelectedMapStopAreaIdAction,
+} from '../../../redux';
 import { Coords } from '../../../types';
 import { StopAreaMarker } from '../markers';
 
@@ -29,6 +32,7 @@ export const CreateStopAreaMarker = (): JSX.Element => {
 
   const resetModes = () => {
     dispatch(resetEnabledStopAreaModesAction());
+    dispatch(setSelectedMapStopAreaIdAction(undefined));
   };
 
   useCallbackOnKeyEscape(resetModes);
