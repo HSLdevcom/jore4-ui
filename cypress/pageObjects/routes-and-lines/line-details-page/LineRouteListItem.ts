@@ -7,7 +7,7 @@ export class LineRouteListItem {
   routeStopListItem = new RouteStopListItem();
 
   getRouteStopListItems() {
-    return cy.get('[data-testid^="RouteStopListItem::container"]');
+    return cy.getByTestId('RouteStopListItem::container');
   }
 
   getNthRouteStopListItem(nth: number) {

@@ -22,8 +22,7 @@ import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';
 
 const testIds = {
-  container: (stopLabel: string) =>
-    `RouteStopListItem::container::${stopLabel}`,
+  container: 'RouteStopListItem::container',
   label: 'RouteStopListItem::label',
   name: 'RouteStopListItem::name',
   validityPeriod: 'RouteStopListItem::validityPeriod',
@@ -100,7 +99,7 @@ export const RouteStopListItem = ({
         stopBelongsToJourneyPattern ? '' : 'bg-background text-dark-grey'
       } ${className}`}
       aria-labelledby={labelledBy}
-      data-testid={testIds.container(stop.label)}
+      data-testid={testIds.container}
     >
       <div className="col-span-3 items-center justify-center text-center text-2xl">
         <a

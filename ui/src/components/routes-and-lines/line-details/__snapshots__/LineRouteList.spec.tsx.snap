@@ -390,7 +390,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
           <li
             aria-labelledby="direction-and-label-65x-null-outbound"
             class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green  "
-            data-testid="RouteStopListItem::container::H1234"
+            data-testid="RouteStopListItem::container"
           >
             <div
               class="col-span-3 items-center justify-center text-center text-2xl"
@@ -494,7 +494,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
           <li
             aria-labelledby="direction-and-label-65x-null-outbound"
             class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green  "
-            data-testid="RouteStopListItem::container::H1236"
+            data-testid="RouteStopListItem::container"
           >
             <div
               class="col-span-3 items-center justify-center text-center text-2xl"
@@ -797,7 +797,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
           <li
             aria-labelledby="direction-and-label-65x-null-outbound"
             class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green  "
-            data-testid="RouteStopListItem::container::H1234"
+            data-testid="RouteStopListItem::container"
           >
             <div
               class="col-span-3 items-center justify-center text-center text-2xl"
@@ -901,7 +901,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
           <li
             aria-labelledby="direction-and-label-65x-null-outbound"
             class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green bg-background text-dark-grey "
-            data-testid="RouteStopListItem::container::H1235"
+            data-testid="RouteStopListItem::container"
           >
             <div
               class="col-span-3 items-center justify-center text-center text-2xl"
@@ -1005,7 +1005,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
           <li
             aria-labelledby="direction-and-label-65x-null-outbound"
             class="relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 after:absolute after:bottom-0 after:left-0 after:right-0 after:border-b-2 after:border-gray-100 border-l-10 border-hsl-dark-green  "
-            data-testid="RouteStopListItem::container::H1236"
+            data-testid="RouteStopListItem::container"
           >
             <div
               class="col-span-3 items-center justify-center text-center text-2xl"
