@@ -66724,6 +66724,18 @@ export type SearchStopsQuery = {
   } | null;
 };
 
+export type DeleteStopAreaMutationVariables = Exact<{
+  stop_area_id: Scalars['String']['input'];
+}>;
+
+export type DeleteStopAreaMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    deleteGroupOfStopPlaces?: boolean | null;
+  } | null;
+};
+
 export type StopAreaFormFieldsFragment = {
   __typename?: 'stop_registry_GroupOfStopPlaces';
   id?: string | null;
@@ -73477,6 +73489,56 @@ export type SearchStopsSuspenseQueryHookResult = ReturnType<
 export type SearchStopsQueryResult = Apollo.QueryResult<
   SearchStopsQuery,
   SearchStopsQueryVariables
+>;
+export const DeleteStopAreaDocument = gql`
+  mutation DeleteStopArea($stop_area_id: String!) {
+    stop_registry {
+      deleteGroupOfStopPlaces(id: $stop_area_id)
+    }
+  }
+`;
+export type DeleteStopAreaMutationFn = Apollo.MutationFunction<
+  DeleteStopAreaMutation,
+  DeleteStopAreaMutationVariables
+>;
+
+/**
+ * __useDeleteStopAreaMutation__
+ *
+ * To run a mutation, you first call `useDeleteStopAreaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteStopAreaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteStopAreaMutation, { data, loading, error }] = useDeleteStopAreaMutation({
+ *   variables: {
+ *      stop_area_id: // value for 'stop_area_id'
+ *   },
+ * });
+ */
+export function useDeleteStopAreaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteStopAreaMutation,
+    DeleteStopAreaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteStopAreaMutation,
+    DeleteStopAreaMutationVariables
+  >(DeleteStopAreaDocument, options);
+}
+export type DeleteStopAreaMutationHookResult = ReturnType<
+  typeof useDeleteStopAreaMutation
+>;
+export type DeleteStopAreaMutationResult =
+  Apollo.MutationResult<DeleteStopAreaMutation>;
+export type DeleteStopAreaMutationOptions = Apollo.BaseMutationOptions<
+  DeleteStopAreaMutation,
+  DeleteStopAreaMutationVariables
 >;
 export const GetStopAreaByIdDocument = gql`
   query GetStopAreaById($stopAreaId: String!) {

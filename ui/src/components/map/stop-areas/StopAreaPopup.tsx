@@ -1,4 +1,3 @@
-import noop from 'lodash/noop';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
@@ -17,6 +16,7 @@ const testIds = {
 
 type StopAreaPopupProps = {
   area: StopAreaFormFieldsFragment;
+  onDelete: () => void;
   onEdit: () => void;
   onMove: () => void;
   onClose: () => void;
@@ -24,6 +24,7 @@ type StopAreaPopupProps = {
 
 export const StopAreaPopup = ({
   area,
+  onDelete,
   onEdit,
   onMove,
   onClose,
@@ -73,8 +74,7 @@ export const StopAreaPopup = ({
         <Row className="mt-16">
           <SimpleButton
             className="h-full !px-3"
-            disabled
-            onClick={noop}
+            onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
           >
