@@ -5,6 +5,7 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StopRegistryGroupOfStopPlaces } from '../../../generated/graphql';
 import {
   useAppAction,
@@ -17,11 +18,13 @@ import {
   setEditedStopAreaDataAction,
   setIsMoveStopAreaModeEnabledAction,
 } from '../../../redux';
+import { ConfirmationDialog } from '../../../uiComponents';
 import {
   StopRegistryGeoJsonDefined,
   mapPointToStopRegistryGeoJSON,
 } from '../../../utils';
 import { EditStopAreaLayerRef } from '../refTypes';
+import { ConfirmStopAreaDeletionDialog } from './ConfirmStopAreaDeletionDialog';
 import { EditStopAreaModal } from './EditStopAreaModal';
 import { mapStopAreaDataToFormState } from './StopAreaForm';
 import { StopAreaFormState } from './stopAreaFormSchema';
@@ -43,9 +46,21 @@ export const EditStopAreaLayer = forwardRef<
   EditStopAreaLayerRef,
   EditStopAreaLayerProps
 >(({ editedArea, onEditingFinished, onPopupClose }, ref) => {
+  const { t } = useTranslation();
   const [displayedEditor, setDisplayedEditor] = useState<StopAreaEditorViews>(
     StopAreaEditorViews.None,
   );
+  const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] =
+    useState(false);
+  const [isConfirmMoveDialogOpen, setIsConfirmMoveDialogOpen] = useState(false);
+  const [isConfirmEditDialogOpen, setIsConfirmEditDialogOpen] = useState(false);
+  const [newStopAreaLocation, setNewStopAreaLocation] = useState<{
+    longitude: number;
+    latitude: number;
+  }>();
+  const [stopAreaEditChanges, setStopAreaEditChanges] =
+    useState<StopAreaFormState>();
+
   const { upsertStopArea, defaultErrorHandler } = useUpsertStopArea();
   const { deleteStopArea } = useDeleteStopArea();
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
@@ -63,7 +78,7 @@ export const EditStopAreaLayer = forwardRef<
     setDisplayedEditor(defaultDisplayedEditor);
   }, [defaultDisplayedEditor]);
 
-  const onEditStopArea = () => {
+  const onStartEditStopArea = () => {
     setDisplayedEditor(StopAreaEditorViews.Modal);
   };
 
@@ -90,7 +105,24 @@ export const EditStopAreaLayer = forwardRef<
     }
   };
 
-  const onDeleteStopArea = async () => {
+  const onDeleteStopArea = () => {
+    setIsConfirmDeleteDialogOpen(true);
+  };
+  const onCancelDeleteStopArea = () => {
+    setIsConfirmDeleteDialogOpen(false);
+  };
+  const onMoveStopArea = (e: MapLayerMouseEvent) => {
+    const [longitude, latitude] = e.lngLat.toArray();
+    setNewStopAreaLocation({ longitude, latitude });
+    setIsConfirmMoveDialogOpen(true);
+  };
+  const onCancelMoveStopArea = () => {
+    setIsConfirmMoveDialogOpen(false);
+    setDisplayedEditor(StopAreaEditorViews.Popup);
+    setIsMoveStopAreaModeEnabled(false);
+  };
+
+  const onConfirmDeleteStopArea = async () => {
     const stopAreaId = editedArea.id;
     if (!stopAreaId) {
       // Shouldn't really end up here ever since we only delete persisted stop areas = have id.
@@ -100,6 +132,7 @@ export const EditStopAreaLayer = forwardRef<
     setIsLoading(true);
     try {
       await deleteStopArea(stopAreaId);
+      setIsConfirmDeleteDialogOpen(false);
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -107,7 +140,7 @@ export const EditStopAreaLayer = forwardRef<
     setIsLoading(false);
   };
 
-  const onStopAreaFormSubmit = async (state: StopAreaFormState) => {
+  const doEditStopArea = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
       await upsertStopArea({ stopArea: editedArea, state });
@@ -118,8 +151,33 @@ export const EditStopAreaLayer = forwardRef<
     setIsLoading(false);
   };
 
-  const onMoveStopArea = async (e: MapLayerMouseEvent) => {
-    const [longitude, latitude] = e.lngLat.toArray();
+  const onEditStopArea = (state: StopAreaFormState) => {
+    // Confirm if editing an existing area, but submit new area creation without confirmation.
+    if (editedArea.id) {
+      setStopAreaEditChanges(state);
+      setIsConfirmEditDialogOpen(true);
+    } else {
+      doEditStopArea(state);
+    }
+  };
+
+  const onCancelEditStopArea = () => {
+    setIsConfirmEditDialogOpen(false);
+  };
+
+  const onConfirmEditStopArea = async () => {
+    if (!stopAreaEditChanges) {
+      return;
+    }
+    await doEditStopArea(stopAreaEditChanges);
+  };
+
+  const onConfirmMoveStopArea = async () => {
+    if (!newStopAreaLocation) {
+      return;
+    }
+
+    const { longitude, latitude } = newStopAreaLocation;
     const geometry = mapPointToStopRegistryGeoJSON({
       longitude,
       latitude,
@@ -130,9 +188,7 @@ export const EditStopAreaLayer = forwardRef<
       geometry,
     });
     // An existing stop area, so all required properties have already been persisted -> safe to cast.
-    await onStopAreaFormSubmit(
-      stopAreaFormState as Required<StopAreaFormState>,
-    );
+    await doEditStopArea(stopAreaFormState as Required<StopAreaFormState>);
     setIsMoveStopAreaModeEnabled(false);
     onFinishEditing();
   };
@@ -147,7 +203,7 @@ export const EditStopAreaLayer = forwardRef<
         <StopAreaPopup
           area={editedArea}
           onDelete={onDeleteStopArea}
-          onEdit={onEditStopArea}
+          onEdit={onStartEditStopArea}
           onMove={onStartMoveStopArea}
           onClose={onCloseEditors}
         />
@@ -161,9 +217,37 @@ export const EditStopAreaLayer = forwardRef<
           )}
           onCancel={onCloseEditors}
           onClose={onCloseEditors}
-          onSubmit={onStopAreaFormSubmit}
+          onSubmit={onEditStopArea}
         />
       )}
+      <ConfirmStopAreaDeletionDialog
+        onCancel={onCancelDeleteStopArea}
+        onConfirm={onConfirmDeleteStopArea}
+        isOpen={isConfirmDeleteDialogOpen}
+        stopArea={editedArea}
+      />
+      <ConfirmationDialog
+        isOpen={isConfirmMoveDialogOpen}
+        onCancel={onCancelMoveStopArea}
+        onConfirm={onConfirmMoveStopArea}
+        title={t('confirmEditStopAreaDialog.title')}
+        description={t('confirmEditStopAreaDialog.description', {
+          stopAreaLabel: editedArea.name?.value ?? '',
+        })}
+        confirmText={t('confirmEditStopAreaDialog.confirmText')}
+        cancelText={t('cancel')}
+      />
+      <ConfirmationDialog
+        isOpen={isConfirmEditDialogOpen}
+        onCancel={onCancelEditStopArea}
+        onConfirm={onConfirmEditStopArea}
+        title={t('confirmEditStopAreaDialog.title')}
+        description={t('confirmEditStopAreaDialog.description', {
+          stopAreaLabel: editedArea.name?.value ?? '',
+        })}
+        confirmText={t('confirmEditStopAreaDialog.confirmText')}
+        cancelText={t('cancel')}
+      />
     </>
   );
 });

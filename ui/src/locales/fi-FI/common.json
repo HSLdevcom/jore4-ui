@@ -368,6 +368,17 @@
     "confirmText": "Kyllä",
     "cancelText": "Palaa"
   },
+  "confirmStopAreaDeletionDialog": {
+    "title": "Pysäkkialue poistetaan",
+    "description1": "Alueeseen on yhdistetty {{ stopCount }} pysäkkiä. Niitä ei poisteta.",
+    "description2": "Poistetaanko pysäkkialue?",
+    "confirmText": "Poista"
+  },
+  "confirmEditStopAreaDialog": {
+    "title": "Vahvista muutos",
+    "description": "Vahvista pysäkkialueen muokkaus ({{ stopAreaLabel }})",
+    "confirmText": "OK"
+  },
   "priority": {
     "label": "Prioriteetti",
     "standard": "Perusversio",
