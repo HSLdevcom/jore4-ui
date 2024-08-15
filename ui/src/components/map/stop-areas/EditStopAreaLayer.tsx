@@ -9,6 +9,7 @@ import { StopRegistryGroupOfStopPlaces } from '../../../generated/graphql';
 import {
   useAppAction,
   useAppSelector,
+  useDeleteStopArea,
   useLoader,
   useUpsertStopArea,
 } from '../../../hooks';
@@ -52,6 +53,7 @@ export const EditStopAreaLayer = forwardRef<
   );
 
   const { upsertStopArea, defaultErrorHandler } = useUpsertStopArea();
+  const { deleteStopArea } = useDeleteStopArea();
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
   const setIsMoveStopAreaModeEnabled = useAppAction(
     setIsMoveStopAreaModeEnabledAction,
@@ -96,6 +98,23 @@ export const EditStopAreaLayer = forwardRef<
     }
   };
 
+  const onDeleteStopArea = async () => {
+    const stopAreaId = editedArea.id;
+    if (!stopAreaId) {
+      // Shouldn't really end up here ever since we only delete persisted stop areas = have id.
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await deleteStopArea(stopAreaId);
+      onFinishEditing();
+    } catch (err) {
+      defaultErrorHandler(err as Error);
+    }
+    setIsLoading(false);
+  };
+
   const onStopAreaFormSubmit = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
@@ -135,6 +154,7 @@ export const EditStopAreaLayer = forwardRef<
       {displayedEditor === StopAreaEditorViews.Popup && (
         <StopAreaPopup
           area={editedArea}
+          onDelete={onDeleteStopArea}
           onEdit={onEditStopArea}
           onMove={onStartMoveStopArea}
           onClose={onCloseEditors}
