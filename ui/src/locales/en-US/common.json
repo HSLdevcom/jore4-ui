@@ -368,6 +368,17 @@
     "confirmText": "Yes",
     "cancelText": "Return"
   },
+  "confirmStopAreaDeletionDialog": {
+    "title": "Remove stop area",
+    "description1": "Stop area has {{ stopCount }} member stops. They will not be removed.",
+    "description2": "Remove stop area?",
+    "confirmText": "Remove"
+  },
+  "confirmEditStopAreaDialog": {
+    "title": "Confirm changes",
+    "description": "Confirm editing stop area ({{ stopAreaLabel }})",
+    "confirmText": "OK"
+  },
   "priority": {
     "label": "Priority",
     "standard": "Standard",
