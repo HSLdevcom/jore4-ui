@@ -6,8 +6,8 @@ import React, {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopRegistryGroupOfStopPlaces } from '../../../generated/graphql';
 import {
+  StopAreaByIdResult,
   useAppAction,
   useAppSelector,
   useDeleteStopArea,
@@ -39,7 +39,7 @@ enum StopAreaEditorViews {
 }
 
 type EditStopAreaLayerProps = {
-  editedArea: StopRegistryGroupOfStopPlaces;
+  editedArea: StopAreaByIdResult;
   onEditingFinished?: () => void;
   onPopupClose: () => void;
 };
@@ -218,7 +218,7 @@ export const EditStopAreaLayer = forwardRef<
       {displayedEditor === StopAreaEditorViews.Modal && (
         <EditStopAreaModal
           defaultValues={mapStopAreaDataToFormState(
-            editedArea as StopRegistryGroupOfStopPlaces & {
+            editedArea as StopAreaByIdResult & {
               geometry: StopRegistryGeoJsonDefined;
             },
           )}

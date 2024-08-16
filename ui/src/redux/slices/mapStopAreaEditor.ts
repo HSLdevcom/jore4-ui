@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { StopRegistryGroupOfStopPlaces } from '../../generated/graphql';
+import { StopAreaByIdResult } from '../../hooks/stop-registry/stop-areas/useGetStopAreaById';
 import { StoreType, mapToStoreType } from '../mappers';
 
 export type MapStopAreaEditor = {
   readonly selectedStopAreaId?: string;
-  readonly editedStopAreaData?: StopRegistryGroupOfStopPlaces;
+  readonly editedStopAreaData?: StopAreaByIdResult;
   readonly isCreateStopAreaModeEnabled: boolean;
   readonly isMoveStopAreaModeEnabled: boolean;
 };
@@ -31,13 +31,11 @@ const slice = createSlice({
     setEditedStopAreaData: {
       reducer: (
         state,
-        action: PayloadAction<
-          StoreType<StopRegistryGroupOfStopPlaces> | undefined
-        >,
+        action: PayloadAction<StoreType<StopAreaByIdResult> | undefined>,
       ) => {
         state.editedStopAreaData = action.payload;
       },
-      prepare: (stopArea: StopRegistryGroupOfStopPlaces | undefined) => ({
+      prepare: (stopArea: StopAreaByIdResult | undefined) => ({
         payload: stopArea ? mapToStoreType(stopArea) : undefined,
       }),
     },

@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
-import {
-  StopAreaFormFieldsFragment,
-  StopRegistryStopPlace,
-} from '../../../generated/graphql';
+import { StopRegistryStopPlace } from '../../../generated/graphql';
+import { StopAreaByIdResult } from '../../../hooks';
 import { getPointPosition, notNullish } from '../../../utils';
 import { LinePaint, LineRenderLayer } from '../routes';
 import { MemberStop } from './MemberStop';
@@ -13,7 +11,7 @@ const memberLinePaint: Partial<LinePaint> = {
 };
 
 function useMemberLines(
-  area: StopAreaFormFieldsFragment,
+  area: StopAreaByIdResult,
 ): GeoJSON.MultiLineString | null {
   return useMemo(() => {
     const areaPosition = getPointPosition(area.geometry);
@@ -34,12 +32,12 @@ function useMemberLines(
   }, [area]);
 }
 
-function useMemberStops(area: StopAreaFormFieldsFragment) {
+function useMemberStops(area: StopAreaByIdResult) {
   return useMemo(() => area.members?.filter(notNullish), [area]);
 }
 
 type MemberStopsProps = {
-  area: StopAreaFormFieldsFragment;
+  area: StopAreaByIdResult;
 };
 
 export const MemberStops = ({ area }: MemberStopsProps) => {

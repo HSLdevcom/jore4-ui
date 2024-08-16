@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
-import { StopAreaFormFieldsFragment } from '../../../generated/graphql';
+import { StopAreaByIdResult } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import { getGeometryPoint, mapToValidityPeriod } from '../../../utils';
@@ -15,7 +15,7 @@ const testIds = {
 };
 
 type StopAreaPopupProps = {
-  area: StopAreaFormFieldsFragment;
+  area: StopAreaByIdResult;
   onDelete: () => void;
   onEdit: () => void;
   onMove: () => void;
