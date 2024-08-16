@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { StopAreaFormState } from '../../../components/map/stop-areas/stopAreaFormSchema';
 import {
-  StopRegistryGroupOfStopPlaces,
   StopRegistryGroupOfStopPlacesInput,
   useUpsertStopAreaMutation,
 } from '../../../generated/graphql';
@@ -12,6 +11,7 @@ import {
   mapPointToStopRegistryGeoJSON,
   showDangerToast,
 } from '../../../utils';
+import { StopAreaByIdResult } from './useGetStopAreaById';
 
 const GQL_UPSERT_STOP_AREA = gql`
   mutation UpsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
@@ -29,7 +29,7 @@ export const useUpsertStopArea = () => {
 
   const initializeStopArea = (
     stopAreaLocation: GeoJSON.Point,
-  ): StopRegistryGroupOfStopPlaces => {
+  ): StopAreaByIdResult => {
     return {
       geometry: {
         coordinates: stopAreaLocation.coordinates,
@@ -42,7 +42,7 @@ export const useUpsertStopArea = () => {
     stopArea,
     state,
   }: {
-    stopArea: StopRegistryGroupOfStopPlaces;
+    stopArea: StopAreaByIdResult;
     state: StopAreaFormState;
   }): StopRegistryGroupOfStopPlacesInput => {
     const validityStart = mapDateInputToValidityStart(state.validityStart);
@@ -82,7 +82,7 @@ export const useUpsertStopArea = () => {
     stopArea,
     state,
   }: {
-    stopArea: StopRegistryGroupOfStopPlaces;
+    stopArea: StopAreaByIdResult;
     state: StopAreaFormState;
   }) => {
     const input = mapFormStateToInput({ stopArea, state });
