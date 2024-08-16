@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import { getGqlString } from '../builders/mutations/utils';
 import {
   StopRegistryGroupOfStopPlacesInput,
+  StopRegistryOrganisationInput,
   StopRegistryStopPlace,
 } from '../generated/graphql';
 import { InsertStopPlaceResult } from '../types';
@@ -44,6 +45,19 @@ const GQL_GET_ALL_STOP_PLACE_IDS = gql`
   }
 `;
 
+const GQL_INSERT_ORGANISATION = gql`
+  mutation InsertOrganisation(
+    $organisation: [stop_registry_OrganisationInput!]
+  ) {
+    stop_registry {
+      mutateOrganisation(Organisation: $organisation) {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const mapToInsertStopPlaceMutation = (
   input: Partial<StopRegistryStopPlace>,
 ) => {
@@ -76,5 +90,14 @@ export const mapToInsertStopAreaMutation = (
 export const mapToGetAllStopPlaceIds = () => {
   return {
     query: getGqlString(GQL_GET_ALL_STOP_PLACE_IDS),
+  };
+};
+
+export const mapToInsertOrganisationMutation = (
+  input: Partial<StopRegistryOrganisationInput>,
+) => {
+  return {
+    query: getGqlString(GQL_INSERT_ORGANISATION),
+    variables: { organisation: input },
   };
 };
