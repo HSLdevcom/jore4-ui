@@ -2,21 +2,96 @@
 import {
   StopAreaInput,
   StopPlaceInput,
+  StopPlaceMaintenance,
   StopPlaceNetexRef,
+  seedOrganisations,
+  seedOrganisationsByLabel,
   seedStopAreas,
   seedStopPlaces,
 } from './datasets';
-import { StopRegistryVersionLessEntityRefInput } from './generated/graphql';
+import {
+  StopRegistryOrganisationInput,
+  StopRegistryStopPlaceOrganisationRef,
+  StopRegistryStopPlaceOrganisationRelationshipType,
+  StopRegistryVersionLessEntityRefInput,
+} from './generated/graphql';
 import { insertStopPlaceForScheduledStopPoint } from './graphql-helpers';
 import { hasuraApi } from './hasuraApi';
-import { mapToInsertStopAreaMutation } from './queries';
+import {
+  mapToInsertOrganisationMutation,
+  mapToInsertStopAreaMutation,
+} from './queries';
 import { mapToGetStopPointByLabelQuery } from './queries/routesAndLines';
-import { GetStopPointByLabelResult, InsertStopAreaResult } from './types';
+import {
+  GetStopPointByLabelResult,
+  InsertOrganisationResult,
+  InsertStopAreaResult,
+} from './types';
+import { isNotNullish } from './utils';
 
-const insertStopPlace = async ({
-  label,
-  stopPlace,
-}: StopPlaceInput): Promise<StopPlaceNetexRef> => {
+const insertOrganisation = async (
+  organisation: StopRegistryOrganisationInput,
+) => {
+  try {
+    const returnValue = (await hasuraApi(
+      mapToInsertOrganisationMutation(organisation),
+    )) as InsertOrganisationResult;
+
+    if (returnValue.data == null) {
+      throw new Error('Null data returned from Tiamat');
+    }
+
+    return returnValue.data.stop_registry.mutateOrganisation[0];
+  } catch (error) {
+    console.error(
+      'An error occurred while inserting organisation!',
+      organisation.name,
+      error,
+    );
+    throw error;
+  }
+};
+
+const mapStopPlaceMaintenanceToInput = (
+  maintenance: StopPlaceMaintenance | null,
+  organisationIdsByLabel: Map<string, string>,
+): Array<StopRegistryStopPlaceOrganisationRef> | undefined => {
+  if (!maintenance) {
+    return undefined;
+  }
+
+  const organisationRefs: Array<StopRegistryStopPlaceOrganisationRef> =
+    Object.entries(maintenance)
+      .map(([key, organisationLabel]) => {
+        if (!organisationLabel) {
+          return null;
+        }
+
+        const organisationName =
+          seedOrganisationsByLabel[organisationLabel]?.name;
+        const maintenanceOrganisationId =
+          organisationIdsByLabel.get(organisationName);
+        if (!maintenanceOrganisationId) {
+          throw new Error(
+            `Could not find organisation with label ${organisationLabel}`,
+          );
+        }
+
+        return {
+          organisationRef: maintenanceOrganisationId,
+          relationshipType:
+            key as StopRegistryStopPlaceOrganisationRelationshipType,
+        };
+      })
+      .filter(isNotNullish);
+
+  return organisationRefs;
+};
+
+const insertStopPlace = async (
+  { label, maintenance, stopPlace }: StopPlaceInput,
+  organisationIdsByLabel: Map<string, string>,
+): Promise<StopPlaceNetexRef> => {
   // Find related scheduled stop point.
   const stopPointResult = (await hasuraApi(
     mapToGetStopPointByLabelQuery(label),
@@ -41,9 +116,17 @@ const insertStopPlace = async ({
   }
 
   try {
+    const stopPlaceForInsert = {
+      ...stopPlace,
+      organisations: mapStopPlaceMaintenanceToInput(
+        maintenance,
+        organisationIdsByLabel,
+      ),
+    };
+
     const stopPlaceRef = await insertStopPlaceForScheduledStopPoint(
       stopPointId,
-      stopPlace,
+      stopPlaceForInsert,
     );
 
     if (stopPoint.stop_place_ref) {
@@ -95,16 +178,33 @@ const insertStopArea = async (
 };
 
 const seedStopRegistry = async () => {
+  const collectedOrganisationIds: Map<string, string> = new Map();
+  console.log('Inserting organisations...');
+  // Need to run these sequentially. Will get transaction errors if trying to do concurrently.
+  for (let index = 0; index < seedOrganisations.length; index++) {
+    const organisation = seedOrganisations[index];
+    console.log(
+      `Organisation ${organisation.name}: organisation insert starting...`,
+    );
+    // eslint-disable-next-line no-await-in-loop
+    const result = await insertOrganisation(organisation);
+    collectedOrganisationIds.set(result.name, result.id);
+    console.log(
+      `Organisation ${organisation.name}: organisation insert finished!`,
+    );
+  }
+  console.log(`Inserted ${seedOrganisations.length} organisations.`);
+  console.log('Seed organisation ids: ', collectedOrganisationIds);
+
   const collectedStopIds: Map<string, string> = new Map();
   console.log('Inserting stop places...');
-  // Need to run these sequentially. Will get transaction errors if trying to do concurrently.
   for (let index = 0; index < seedStopPlaces.length; index++) {
     const stopPoint = seedStopPlaces[index];
     console.log(
       `Stop point ${stopPoint?.label}: stop place insert starting...`,
     );
     // eslint-disable-next-line no-await-in-loop
-    const netexRef = await insertStopPlace(stopPoint);
+    const netexRef = await insertStopPlace(stopPoint, collectedOrganisationIds);
     collectedStopIds.set(netexRef.label, netexRef.netexId);
     console.log(`Stop point ${stopPoint?.label}: stop place insert finished!`);
   }

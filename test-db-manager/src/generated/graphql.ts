@@ -63912,3 +63912,21 @@ export type GetAllStopPlaceIdsQuery = {
     }>;
   } | null;
 };
+
+export type InsertOrganisationMutationVariables = Exact<{
+  organisation?: InputMaybe<
+    Array<StopRegistryOrganisationInput> | StopRegistryOrganisationInput
+  >;
+}>;
+
+export type InsertOrganisationMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateOrganisation?: Array<{
+      __typename?: 'stop_registry_Organisation';
+      id?: string | null;
+      name?: string | null;
+    } | null> | null;
+  } | null;
+};
