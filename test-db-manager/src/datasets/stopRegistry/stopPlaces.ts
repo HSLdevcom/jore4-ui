@@ -22,6 +22,19 @@ import {
   StopRegistrySubmodeType,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
+import { seedOrganisationsByLabel } from './organisations';
+
+type SeedOrganisationLabels = keyof typeof seedOrganisationsByLabel;
+
+// Use the keys of organisation seed data for referencing.
+// Could use eg. name as well, but this provides some additional type safety.
+export type StopPlaceMaintenance = {
+  cleaning: SeedOrganisationLabels | null;
+  infoUpkeep: SeedOrganisationLabels | null;
+  maintenance: SeedOrganisationLabels | null;
+  owner: SeedOrganisationLabels | null;
+  winterMaintenance: SeedOrganisationLabels | null;
+};
 
 export type StopPlaceSeedData = {
   label: string;
@@ -62,6 +75,7 @@ export type StopPlaceSeedData = {
     mainLineSign: boolean;
     replacesRailSign: boolean;
   };
+  maintenance?: StopPlaceMaintenance;
 };
 
 const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput =
@@ -80,6 +94,7 @@ export type StopPlaceNetexRef = {
 
 export type StopPlaceInput = {
   label: string;
+  maintenance: StopPlaceMaintenance | null; // Actual maintenance relations will be populated based on these.
   stopPlace: Partial<StopRegistryStopPlace>;
 };
 
@@ -88,6 +103,7 @@ const mapToStopPlaceInput = (
 ): StopPlaceInput => {
   return {
     label: seedStopPlace.label,
+    maintenance: seedStopPlace.maintenance ?? null,
     stopPlace: {
       name: { lang: 'fin', value: seedStopPlace.nameFin },
       alternativeNames: [
@@ -402,6 +418,13 @@ const H2003: StopPlaceSeedData = {
     lineSignage: true,
     mainLineSign: false,
     replacesRailSign: false,
+  },
+  maintenance: {
+    cleaning: 'clearChannel',
+    infoUpkeep: null,
+    maintenance: 'ely',
+    owner: 'jcd',
+    winterMaintenance: 'ely',
   },
 };
 const seedData: Array<StopPlaceSeedData> = [
