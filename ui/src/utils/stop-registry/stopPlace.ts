@@ -22,9 +22,9 @@ type ParentStopPlaceType = Pick<StopRegistryParentStopPlace, '__typename'>;
 // The items in stop place query result also contain some types that should not be there at all:
 // possible null values and parent stop places.
 // We want to omit those here since they're not possible.
-const isStopPlace = (
+const isStopPlace = <T extends StopPlaceType>(
   stopPlaceResult: unknown,
-): stopPlaceResult is StopPlaceType => {
+): stopPlaceResult is T => {
   return !!(
     (
       hasTypeName(stopPlaceResult) && // Null obviously does not have type name at all.
@@ -35,24 +35,14 @@ const isStopPlace = (
 };
 
 /**
- * Takes a StopPlace object from a GraphQL query result.
- * Filters unwanted types from the result, and returns a single StopPlace object with correct type.
- * Expected to be used for queries that return a single StopPlace and not multiple.
+ * Takes an array of StopPlace objects from a GraphQL query result.
+ * Filters unwanted types from the result, and returns StopPlace objects with correct type.
  */
-export const getStopPlaceFromQueryResult = <T extends StopPlaceType>(
+export const getStopPlacesFromQueryResult = <T extends StopPlaceType>(
   stopPlaceResult: Array<T | ParentStopPlaceType | null> | undefined | null,
-): T | null => {
-  // Should be an object but for whatever reason always returns an array.
+): Array<T> => {
   const stopPlaces = stopPlaceResult ?? [];
-
-  if (stopPlaces.length > 1) {
-    // Should not happen when querying by id.
-    console.warn('Multiple stop places found.', stopPlaces); // eslint-disable-line no-console
-  }
-
-  const [stopPlace] = stopPlaces;
-
-  return isStopPlace(stopPlace) ? stopPlace : null;
+  return stopPlaces.filter(isStopPlace<T>);
 };
 
 // Required in DB so can't be null.

@@ -7,7 +7,7 @@ import {
 import {
   StopPlaceEnrichmentProperties,
   getStopPlaceDetailsForEnrichment,
-  getStopPlaceFromQueryResult,
+  getStopPlacesFromQueryResult,
 } from '../../utils';
 import { useObservationDateQueryParam } from '../urlQuery';
 import { useRequiredParams } from '../useRequiredParams';
@@ -261,8 +261,27 @@ export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
   stop_place: EnrichedStopPlace | null;
 };
 
+const getStopDetails = (
+  result: ReturnType<
+    typeof useGetHighestPriorityStopDetailsByLabelAndDateQuery
+  >,
+): StopWithDetails | null => {
+  const stopPoint = result.data?.service_pattern_scheduled_stop_point[0];
+  if (!stopPoint) {
+    return null;
+  }
+
+  const [stopPlace] = getStopPlacesFromQueryResult<StopPlace>(
+    stopPoint.stop_place,
+  );
+  return {
+    ...stopPoint,
+    stop_place: getEnrichedStopPlace(stopPlace),
+  };
+};
+
 export const useGetStopDetails = (): {
-  stopDetails: StopWithDetails | null | undefined;
+  stopDetails: StopWithDetails | null;
   isLoading: boolean;
 } => {
   const { label } = useRequiredParams<{ label: string }>();
@@ -272,15 +291,8 @@ export const useGetStopDetails = (): {
     variables: { label, observationDate },
   });
 
-  const stopDetails = result.data?.service_pattern_scheduled_stop_point[0];
-
   return {
-    stopDetails: stopDetails && {
-      ...stopDetails,
-      stop_place: getEnrichedStopPlace(
-        getStopPlaceFromQueryResult<StopPlace>(stopDetails.stop_place),
-      ),
-    },
+    stopDetails: getStopDetails(result),
     isLoading: result.loading,
   };
 };
