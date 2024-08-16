@@ -8,10 +8,10 @@ import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import {
   StopAreaMinimalShowOnMapFieldsFragment,
-  StopRegistryGroupOfStopPlaces,
   useGetStopAreasByLocationQuery,
 } from '../../../generated/graphql';
 import {
+  StopAreaByIdResult,
   useAppAction,
   useAppSelector,
   useGetStopAreaById,
@@ -93,7 +93,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
     setIsLoading(stopAreasResult.loading);
   }, [setIsLoading, stopAreasResult.loading]);
 
-  const onEditStopArea = (stopArea: StopRegistryGroupOfStopPlaces) => {
+  const onEditStopArea = (stopArea: StopAreaByIdResult) => {
     setEditedStopAreaData(stopArea);
   };
 

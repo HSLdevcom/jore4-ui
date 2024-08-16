@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopRegistryGroupOfStopPlaces } from '../../../generated/graphql';
+import { StopAreaByIdResult } from '../../../hooks';
 import { ConfirmationDialog } from '../../../uiComponents';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   onConfirm: () => void;
   onCancel: () => void;
   className?: string;
-  stopArea: StopRegistryGroupOfStopPlaces;
+  stopArea: StopAreaByIdResult;
 }
 
 // renders a confirmation dialog for confirming changes when a stop is deleted
