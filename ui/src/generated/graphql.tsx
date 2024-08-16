@@ -66736,6 +66736,26 @@ export type DeleteStopAreaMutation = {
   } | null;
 };
 
+export type StopAreaMemberFieldsFragment = {
+  __typename?: 'stop_registry_StopPlace';
+  id?: string | null;
+  name?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    value?: string | null;
+    lang?: string | null;
+  } | null;
+  geometry?: {
+    __typename?: 'stop_registry_GeoJSON';
+    coordinates?: GeoJSON.Position | null;
+    type?: StopRegistryGeoJsonType | null;
+  } | null;
+  scheduled_stop_point?: {
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+  } | null;
+};
+
 export type StopAreaFormFieldsFragment = {
   __typename?: 'stop_registry_GroupOfStopPlaces';
   id?: string | null;
@@ -66760,20 +66780,7 @@ export type StopAreaFormFieldsFragment = {
     toDate?: luxon.DateTime | null;
   } | null;
   members?: Array<
-    | {
-        __typename?: 'stop_registry_ParentStopPlace';
-        id?: string | null;
-        name?: {
-          __typename?: 'stop_registry_EmbeddableMultilingualString';
-          value?: string | null;
-          lang?: string | null;
-        } | null;
-        geometry?: {
-          __typename?: 'stop_registry_GeoJSON';
-          coordinates?: GeoJSON.Position | null;
-          type?: StopRegistryGeoJsonType | null;
-        } | null;
-      }
+    | { __typename?: 'stop_registry_ParentStopPlace' }
     | {
         __typename?: 'stop_registry_StopPlace';
         id?: string | null;
@@ -66786,6 +66793,11 @@ export type StopAreaFormFieldsFragment = {
           __typename?: 'stop_registry_GeoJSON';
           coordinates?: GeoJSON.Position | null;
           type?: StopRegistryGeoJsonType | null;
+        } | null;
+        scheduled_stop_point?: {
+          __typename?: 'service_pattern_scheduled_stop_point';
+          scheduled_stop_point_id: UUID;
+          label: string;
         } | null;
       }
     | null
@@ -66824,20 +66836,7 @@ export type GetStopAreaByIdQuery = {
         toDate?: luxon.DateTime | null;
       } | null;
       members?: Array<
-        | {
-            __typename?: 'stop_registry_ParentStopPlace';
-            id?: string | null;
-            name?: {
-              __typename?: 'stop_registry_EmbeddableMultilingualString';
-              value?: string | null;
-              lang?: string | null;
-            } | null;
-            geometry?: {
-              __typename?: 'stop_registry_GeoJSON';
-              coordinates?: GeoJSON.Position | null;
-              type?: StopRegistryGeoJsonType | null;
-            } | null;
-          }
+        | { __typename?: 'stop_registry_ParentStopPlace' }
         | {
             __typename?: 'stop_registry_StopPlace';
             id?: string | null;
@@ -66850,6 +66849,11 @@ export type GetStopAreaByIdQuery = {
               __typename?: 'stop_registry_GeoJSON';
               coordinates?: GeoJSON.Position | null;
               type?: StopRegistryGeoJsonType | null;
+            } | null;
+            scheduled_stop_point?: {
+              __typename?: 'service_pattern_scheduled_stop_point';
+              scheduled_stop_point_id: UUID;
+              label: string;
             } | null;
           }
         | null
@@ -69430,6 +69434,23 @@ export const StopTableRowStopPlaceFragmentDoc = gql`
   }
   ${StopTableRowFragmentDoc}
 `;
+export const StopAreaMemberFieldsFragmentDoc = gql`
+  fragment stop_area_member_fields on stop_registry_StopPlace {
+    id
+    name {
+      value
+      lang
+    }
+    geometry {
+      coordinates
+      type
+    }
+    scheduled_stop_point {
+      scheduled_stop_point_id
+      label
+    }
+  }
+`;
 export const StopAreaFormFieldsFragmentDoc = gql`
   fragment stop_area_form_fields on stop_registry_GroupOfStopPlaces {
     id
@@ -69450,17 +69471,12 @@ export const StopAreaFormFieldsFragmentDoc = gql`
       toDate
     }
     members {
-      id
-      name {
-        value
-        lang
-      }
-      geometry {
-        coordinates
-        type
+      ... on stop_registry_StopPlace {
+        ...stop_area_member_fields
       }
     }
   }
+  ${StopAreaMemberFieldsFragmentDoc}
 `;
 export const ScheduledStopPointDetailFieldsFragmentDoc = gql`
   fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
