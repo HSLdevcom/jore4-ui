@@ -1,3 +1,4 @@
+import isString from 'lodash/isString';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopAreaByIdResult } from '../../../hooks';
@@ -20,15 +21,16 @@ export const ConfirmStopAreaDeletionDialog: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
 
-  // TODO: list member stop labels.
   // TODO: stop labels should be bolded like in designs. This requires some rework on ConfirmationDialog.
-  const memberStopCount = stopArea.members?.length ?? 0;
-  const memberStopLabels: string[] = [];
+  const memberStopLabels: string[] = (stopArea.members ?? [])
+    .map((sp) => sp.scheduled_stop_point?.label)
+    .filter(isString)
+    .sort();
 
-  const memberStopDescriptions = memberStopCount
+  const memberStopDescriptions = memberStopLabels.length
     ? [
         t('confirmStopAreaDeletionDialog.description1', {
-          stopCount: memberStopCount,
+          stopCount: memberStopLabels.length,
         }),
         '',
         memberStopLabels.join(', '),
