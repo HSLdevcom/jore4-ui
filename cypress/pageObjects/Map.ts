@@ -12,8 +12,20 @@ export class Map {
   stopPopUp = new StopPopUp();
 
   zoomIn(n = 1) {
-    cy.get('*[class^="maplibregl-canvas"]').last().focus();
-    Cypress._.times(n, () => cy.getByTestId('mapModal').type('+'));
+    Cypress._.times(n, (iteration) => {
+      cy.get('button[class*="maplibregl-ctrl-zoom-in"]').click();
+
+      if (iteration < n) {
+        // Panning and zoom events are debounced in the UI with delay of 800ms.
+        // Thus, we need to wait between the zooms, to allow the UI settle down
+        // and properly apply the new zoom state.
+        // There is no need to wait after the last zoom.
+        // Wait for 1s just in case some cypress time sync fuckery happens.
+
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000);
+      }
+    });
     this.waitForLoadToComplete();
     cy.wait('@gqlGetStopsByLocation');
   }
