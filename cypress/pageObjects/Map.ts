@@ -12,8 +12,19 @@ export class Map {
   stopPopUp = new StopPopUp();
 
   zoomIn(n = 1) {
-    cy.get('*[class^="maplibregl-canvas"]').last().focus();
-    Cypress._.times(n, () => cy.getByTestId('mapModal').type('+'));
+    Cypress._.times(n, (iteration) => {
+      cy.get('button[class*="maplibregl-ctrl-zoom-in"]').click();
+
+      if (iteration < n) {
+        // The zoom in action takes some time to settle down.
+        // The Map component ignores zoom actions if they are triggered
+        // while the map is still displaying the animation from the previous
+        // action.
+
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000);
+      }
+    });
     this.waitForLoadToComplete();
     cy.wait('@gqlGetStopsByLocation');
   }
