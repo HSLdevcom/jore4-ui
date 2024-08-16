@@ -35,24 +35,21 @@ const isStopPlace = (
 };
 
 /**
- * Takes a StopPlace object from a GraphQL query result.
- * Filters unwanted types from the result, and returns a single StopPlace object with correct type.
- * Expected to be used for queries that return a single StopPlace and not multiple.
+ * Takes an array of StopPlace objects from a GraphQL query result.
+ * Filters unwanted types from the result, and returns StopPlace objects with correct type.
  */
-export const getStopPlaceFromQueryResult = <T extends StopPlaceType>(
+export const getStopPlacesFromQueryResult = <T extends StopPlaceType>(
   stopPlaceResult: Array<T | ParentStopPlaceType | null> | undefined | null,
-): T | null => {
-  // Should be an object but for whatever reason always returns an array.
+): Array<T> => {
   const stopPlaces = stopPlaceResult ?? [];
 
-  if (stopPlaces.length > 1) {
-    // Should not happen when querying by id.
-    console.warn('Multiple stop places found.', stopPlaces); // eslint-disable-line no-console
-  }
-
-  const [stopPlace] = stopPlaces;
-
-  return isStopPlace(stopPlace) ? stopPlace : null;
+  const filtered: Array<T> = [];
+  stopPlaces.forEach((sp) => {
+    if (isStopPlace(sp)) {
+      filtered.push(sp);
+    }
+  });
+  return filtered;
 };
 
 // Required in DB so can't be null.

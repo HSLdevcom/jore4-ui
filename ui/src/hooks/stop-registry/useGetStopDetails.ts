@@ -7,7 +7,7 @@ import {
 import {
   StopPlaceEnrichmentProperties,
   getStopPlaceDetailsForEnrichment,
-  getStopPlaceFromQueryResult,
+  getStopPlacesFromQueryResult,
 } from '../../utils';
 import { useObservationDateQueryParam } from '../urlQuery';
 import { useRequiredParams } from '../useRequiredParams';
@@ -272,15 +272,20 @@ export const useGetStopDetails = (): {
     variables: { label, observationDate },
   });
 
-  const stopDetails = result.data?.service_pattern_scheduled_stop_point[0];
+  const stopPoint = result.data?.service_pattern_scheduled_stop_point[0];
+  let stopDetails = null;
+  if (stopPoint) {
+    const [stopPlace] = getStopPlacesFromQueryResult<StopPlace>(
+      stopPoint.stop_place,
+    );
+    stopDetails = {
+      ...stopPoint,
+      stop_place: getEnrichedStopPlace(stopPlace),
+    };
+  }
 
   return {
-    stopDetails: stopDetails && {
-      ...stopDetails,
-      stop_place: getEnrichedStopPlace(
-        getStopPlaceFromQueryResult<StopPlace>(stopDetails.stop_place),
-      ),
-    },
+    stopDetails,
     isLoading: result.loading,
   };
 };
