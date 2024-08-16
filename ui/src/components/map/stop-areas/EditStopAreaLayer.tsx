@@ -56,7 +56,7 @@ export const EditStopAreaLayer = forwardRef<
   const setIsMoveStopAreaModeEnabled = useAppAction(
     setIsMoveStopAreaModeEnabledAction,
   );
-  const { setIsLoading } = useLoader(Operation.SaveStopArea);
+  const { setIsLoading } = useLoader(Operation.ModifyStopArea);
 
   const isExistingStopArea = !!editedArea.id;
   const defaultDisplayedEditor = isExistingStopArea
