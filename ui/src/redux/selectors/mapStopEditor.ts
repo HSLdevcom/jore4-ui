@@ -3,8 +3,10 @@ import { mapFromStoreType } from '../mappers';
 import { MapStopEditorState } from '../slices/mapStopEditor';
 import { RootState } from '../store';
 
-export const selectMapStopEditor = (state: RootState) =>
-  mapFromStoreType<MapStopEditorState>(state.mapStopEditor);
+export const selectMapStopEditor = createSelector(
+  (state: RootState) => state.mapStopEditor,
+  (mapStopEditor) => mapFromStoreType<MapStopEditorState>(mapStopEditor),
+);
 
 export const selectSelectedStopId = createSelector(
   selectMapStopEditor,

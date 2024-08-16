@@ -3,8 +3,10 @@ import { mapFromStoreType } from '../mappers';
 import { MapRouteEditorState } from '../slices/mapRouteEditor';
 import { RootState } from '../store';
 
-export const selectMapRouteEditor = (state: RootState) =>
-  mapFromStoreType<MapRouteEditorState>(state.mapRouteEditor);
+export const selectMapRouteEditor = createSelector(
+  (state: RootState) => state.mapRouteEditor,
+  (mapRouteEditor) => mapFromStoreType<MapRouteEditorState>(mapRouteEditor),
+);
 
 export const selectIsInViewMode = createSelector(
   selectMapRouteEditor,
