@@ -63,3 +63,14 @@ export interface GetAllStopPlaceIdsResult {
     };
   };
 }
+
+export interface InsertOrganisationResult {
+  data: {
+    stop_registry: {
+      mutateOrganisation: {
+        id: string;
+        name: string;
+      }[];
+    };
+  };
+}
