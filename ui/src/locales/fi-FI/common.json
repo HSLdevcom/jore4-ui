@@ -219,6 +219,16 @@
       "accessible": "Esteetön",
       "inaccessible": "Esteellinen"
     },
+    "maintenance": {
+      "title": "Ylläpito",
+      "maintainers": {
+        "cleaning": "Siivous",
+        "infoUpkeep": "Infohoito",
+        "maintenance": "Kunnossapito",
+        "owner": "Omistaja",
+        "winterMaintenance": "Talvikunnossapito"
+      }
+    },
     "accessibilityLevelDescriptions": {
       "modalTriggerTitle": "Esteettömyys",
       "modalTitle": "Esteettömyystasot",
