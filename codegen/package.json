@@ -18,6 +18,7 @@
     "@graphql-tools/load": "^8.0.2",
     "@graphql-tools/merge": "^9.0.5",
     "@graphql-tools/schema": "^10.0.5",
+    "@parcel/watcher": "^2.4.1",
     "graphql": "^16.9.0",
     "graphql-tag": "^2.12.6"
   }
