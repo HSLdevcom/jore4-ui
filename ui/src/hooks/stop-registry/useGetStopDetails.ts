@@ -162,6 +162,18 @@ const GQL_HSL_ACCESSIBILITY_PROPERTIES_DETAILS = gql`
   }
 `;
 
+const GQL_STOP_PLACE_ORGANISATION_FIELDS = gql`
+  fragment stop_place_organisation_fields on stop_registry_Organisation {
+    id
+    name
+    privateContactDetails {
+      id
+      email
+      phone
+    }
+  }
+`;
+
 const GQL_STOP_PLACE_DETAILS = gql`
   fragment stop_place_details on stop_registry_StopPlace {
     id
@@ -235,6 +247,13 @@ const GQL_STOP_PLACE_DETAILS = gql`
         liftFreeAccess
         stepFreeAccess
         wheelchairAccess
+      }
+    }
+    organisations {
+      relationshipType
+      organisationRef
+      organisation {
+        ...stop_place_organisation_fields
       }
     }
   }

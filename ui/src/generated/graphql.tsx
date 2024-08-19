@@ -67068,6 +67068,22 @@ export type UpdateStopPlaceMutation = {
           wheelchairAccess?: StopRegistryLimitationStatusType | null;
         } | null;
       } | null;
+      organisations?: Array<{
+        __typename?: 'stop_registry_StopPlaceOrganisationRef';
+        relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+        organisationRef: string;
+        organisation?: {
+          __typename?: 'stop_registry_Organisation';
+          id?: string | null;
+          name?: string | null;
+          privateContactDetails?: {
+            __typename?: 'stop_registry_Contact';
+            id?: string | null;
+            email?: string | null;
+            phone?: string | null;
+          } | null;
+        } | null;
+      } | null> | null;
     } | null> | null;
   } | null;
 };
@@ -67274,6 +67290,22 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
               wheelchairAccess?: StopRegistryLimitationStatusType | null;
             } | null;
           } | null;
+          organisations?: Array<{
+            __typename?: 'stop_registry_StopPlaceOrganisationRef';
+            relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+            organisationRef: string;
+            organisation?: {
+              __typename?: 'stop_registry_Organisation';
+              id?: string | null;
+              name?: string | null;
+              privateContactDetails?: {
+                __typename?: 'stop_registry_Contact';
+                id?: string | null;
+                email?: string | null;
+                phone?: string | null;
+              } | null;
+            } | null;
+          } | null> | null;
         }
       | null
     > | null;
@@ -67391,6 +67423,18 @@ export type HslAccessibilityPropertiesDetailsFragment = {
   mapType?: StopRegistryMapType | null;
   pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
   accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+};
+
+export type StopPlaceOrganisationFieldsFragment = {
+  __typename?: 'stop_registry_Organisation';
+  id?: string | null;
+  name?: string | null;
+  privateContactDetails?: {
+    __typename?: 'stop_registry_Contact';
+    id?: string | null;
+    email?: string | null;
+    phone?: string | null;
+  } | null;
 };
 
 export type StopPlaceDetailsFragment = {
@@ -67555,6 +67599,22 @@ export type StopPlaceDetailsFragment = {
       wheelchairAccess?: StopRegistryLimitationStatusType | null;
     } | null;
   } | null;
+  organisations?: Array<{
+    __typename?: 'stop_registry_StopPlaceOrganisationRef';
+    relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+    organisationRef: string;
+    organisation?: {
+      __typename?: 'stop_registry_Organisation';
+      id?: string | null;
+      name?: string | null;
+      privateContactDetails?: {
+        __typename?: 'stop_registry_Contact';
+        id?: string | null;
+        email?: string | null;
+        phone?: string | null;
+      } | null;
+    } | null;
+  } | null> | null;
 };
 
 export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
@@ -69586,6 +69646,17 @@ export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
     accessibilityLevel
   }
 `;
+export const StopPlaceOrganisationFieldsFragmentDoc = gql`
+  fragment stop_place_organisation_fields on stop_registry_Organisation {
+    id
+    name
+    privateContactDetails {
+      id
+      email
+      phone
+    }
+  }
+`;
 export const StopPlaceDetailsFragmentDoc = gql`
   fragment stop_place_details on stop_registry_StopPlace {
     id
@@ -69661,11 +69732,19 @@ export const StopPlaceDetailsFragmentDoc = gql`
         wheelchairAccess
       }
     }
+    organisations {
+      relationshipType
+      organisationRef
+      organisation {
+        ...stop_place_organisation_fields
+      }
+    }
   }
   ${TopographicPlaceDetailsFragmentDoc}
   ${FareZoneDetailsFragmentDoc}
   ${QuayDetailsFragmentDoc}
   ${HslAccessibilityPropertiesDetailsFragmentDoc}
+  ${StopPlaceOrganisationFieldsFragmentDoc}
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
   fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {
