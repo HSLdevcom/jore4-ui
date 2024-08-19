@@ -219,6 +219,16 @@
       "accessible": "Accessible",
       "inaccessible": "Inaccessible"
     },
+    "maintenance": {
+      "title": "Maintenance",
+      "maintainers": {
+        "cleaning": "Cleaning",
+        "infoUpkeep": "Info upkeep",
+        "maintenance": "Maintenance",
+        "owner": "Owner",
+        "winterMaintenance": "Winter maintenance"
+      }
+    },
     "accessibilityLevelDescriptions": {
       "modalTriggerTitle": "Accessibility",
       "modalTitle": "Accessibility levels",

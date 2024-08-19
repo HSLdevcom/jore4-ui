@@ -14,6 +14,7 @@ import {
   detailTabs,
 } from './DetailTabSelector';
 import { LocationDetailsSection } from './location-details/LocationDetailsSection';
+import { MaintenanceSection } from './maintenance';
 import { MeasurementsSection } from './measurements';
 import { SheltersSection } from './shelters';
 import { SignageDetailsSection } from './signage-details/SignageDetailsSection';
@@ -90,6 +91,7 @@ export const StopDetailsPage = (): React.ReactElement => {
               >
                 <SheltersSection stop={stopDetails} />
                 <MeasurementsSection stop={stopDetails} />
+                <MaintenanceSection stop={stopDetails} />
               </div>
             </Visible>
             <Visible visible={activeDetailTab === detailTabs.info.type}>
