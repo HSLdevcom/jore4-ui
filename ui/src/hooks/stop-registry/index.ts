@@ -8,3 +8,4 @@ export * from './useEditStopMeasurementDetails';
 export * from './useEditStopShelters';
 export * from './useEditStopSignageDetails';
 export * from './useGetStopDetails';
+export * from './useEditStopMaintenanceDetails';
