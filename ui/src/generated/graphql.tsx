@@ -63509,6 +63509,26 @@ export type GetScheduledStopPointWithTimingSettingsQuery = {
   }>;
 };
 
+export type GetOrganisationsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetOrganisationsQuery = {
+  __typename?: 'query_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister';
+    organisation?: Array<{
+      __typename?: 'stop_registry_Organisation';
+      id?: string | null;
+      name?: string | null;
+      privateContactDetails?: {
+        __typename?: 'stop_registry_Contact';
+        id?: string | null;
+        email?: string | null;
+        phone?: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+};
+
 export type VehicleJourneyByStopFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   journey_pattern_ref_id: UUID;
@@ -70283,6 +70303,81 @@ export type GetScheduledStopPointWithTimingSettingsQueryResult =
     GetScheduledStopPointWithTimingSettingsQuery,
     GetScheduledStopPointWithTimingSettingsQueryVariables
   >;
+export const GetOrganisationsDocument = gql`
+  query GetOrganisations {
+    stop_registry {
+      organisation {
+        ...stop_place_organisation_fields
+      }
+    }
+  }
+  ${StopPlaceOrganisationFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetOrganisationsQuery__
+ *
+ * To run a query within a React component, call `useGetOrganisationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOrganisationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOrganisationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetOrganisationsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetOrganisationsQuery,
+    GetOrganisationsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetOrganisationsQuery, GetOrganisationsQueryVariables>(
+    GetOrganisationsDocument,
+    options,
+  );
+}
+export function useGetOrganisationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetOrganisationsQuery,
+    GetOrganisationsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetOrganisationsQuery,
+    GetOrganisationsQueryVariables
+  >(GetOrganisationsDocument, options);
+}
+export function useGetOrganisationsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetOrganisationsQuery,
+    GetOrganisationsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetOrganisationsQuery,
+    GetOrganisationsQueryVariables
+  >(GetOrganisationsDocument, options);
+}
+export type GetOrganisationsQueryHookResult = ReturnType<
+  typeof useGetOrganisationsQuery
+>;
+export type GetOrganisationsLazyQueryHookResult = ReturnType<
+  typeof useGetOrganisationsLazyQuery
+>;
+export type GetOrganisationsSuspenseQueryHookResult = ReturnType<
+  typeof useGetOrganisationsSuspenseQuery
+>;
+export type GetOrganisationsQueryResult = Apollo.QueryResult<
+  GetOrganisationsQuery,
+  GetOrganisationsQueryVariables
+>;
 export const GetRouteWithJourneyPatternDocument = gql`
   query GetRouteWithJourneyPattern($routeId: uuid!) {
     route_route_by_pk(route_id: $routeId) {
