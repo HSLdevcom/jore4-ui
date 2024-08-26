@@ -246,9 +246,7 @@ export const buildTiamatAddressLikeGqlFilter = (value: string) =>
 export const buildTiamatMunicipalityGqlFilter = (
   value: StopRegistryMunicipality[],
 ) => {
-  return {
-    topographic_place_id: { _in: value },
-  };
+  return value.length ? { topographic_place_id: { _in: value } } : {};
 };
 
 enum LANG {

@@ -119,6 +119,8 @@
     "delete": "Poista pysäkkialue",
     "name": "Nimi",
     "label": "Tunnus",
+    "memberStops": "Jäsenpysäkit",
+    "sharedNameNotice": "Muista nimetä jäsenpysäkit pysäkkialueen nimellä.",
     "errors": {
       "failedToResolveScheduledStopPoint": "Pysäkin tietojen selvitys epäonnistui! Syy"
     }
@@ -575,7 +577,8 @@
     "searchPlaceholder": "Anna tunnus",
     "searchLabel": "Haku",
     "search": "Hae",
-    "searching": "Haku käynnissä..."
+    "searching": "Haku käynnissä...",
+    "showMore": "Näytä lisää hakutuloksia"
   },
   "tableHeaders": {
     "name": "Nimi",

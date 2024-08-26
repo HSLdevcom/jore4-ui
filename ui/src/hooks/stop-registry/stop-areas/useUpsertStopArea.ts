@@ -43,11 +43,7 @@ const mapFormStateToInput = ({
   state: StopAreaFormState;
 }): StopRegistryGroupOfStopPlacesInput => {
   const validityStart = mapDateInputToValidityStart(state.validityStart);
-  const members = stopArea.members?.map((stopPlace) => {
-    // An existing stop place reference -> id is defined.
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
-    return { ref: stopPlace?.id! };
-  });
+  const members = state.memberStops.map((stopPlace) => ({ ref: stopPlace.id }));
 
   const input: StopRegistryGroupOfStopPlacesInput = {
     id: stopArea.id,
