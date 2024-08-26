@@ -1,6 +1,9 @@
 import sortBy from 'lodash/sortBy';
+import { useTranslation } from 'react-i18next';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/graphql';
 import { FormInputProps, Listbox } from '../../../../../uiComponents';
+
+export const CREATE_NEW_ORGANISATION_OPTION = 'createNewOrganisation';
 
 const testIds = {
   dropdown: 'ChooseOrganisationDropdown::button',
@@ -19,6 +22,7 @@ export const ChooseOrganisationDropdown = ({
   organisations,
   ...formInputProps
 }: Props) => {
+  const { t } = useTranslation();
   const selectedOrganisation = organisations.find((o) => o?.id === value);
 
   const uiNameMapper = (
@@ -41,6 +45,10 @@ export const ChooseOrganisationDropdown = ({
     mapToOption(String(null), '-'),
     ...sortedOrganisations.map((o) =>
       mapToOption(String(o.id ?? null), uiNameMapper(o) ?? ''),
+    ),
+    mapToOption(
+      CREATE_NEW_ORGANISATION_OPTION,
+      t('stopDetails.maintenance.organisation.createNewOrganisation'),
     ),
   ];
 
