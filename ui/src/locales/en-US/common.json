@@ -119,6 +119,7 @@
     "delete": "Delete stop area",
     "name": "Name",
     "label": "Label",
+    "memberStops": "Member stops",
     "errors": {
       "failedToResolveScheduledStopPoint": "Failed to resolve Scheduled Stop Point! Reason"
     }
@@ -525,7 +526,8 @@
     "timeRange": "Start date has to be before end date.",
     "invalidTime": "04:30-28:30",
     "substituteDayOfWeek": "Select day",
-    "lineTypes": "Select type"
+    "lineTypes": "Select type",
+    "stopAreaMemberStopSharedName": "Each member stop must share their name with them Stop Area."
   },
   "errors": {
     "saveFailed": "Something went wrong",
@@ -553,7 +555,8 @@
     "searchPlaceholder": "Enter label",
     "searchLabel": "Search",
     "search": "Search",
-    "searching": "Searching..."
+    "searching": "Searching...",
+    "showMore": "Show more search results"
   },
   "tableHeaders": {
     "name": "Name",

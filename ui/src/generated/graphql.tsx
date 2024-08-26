@@ -63333,6 +63333,52 @@ export type RouteTableRowFragment = {
   }>;
 };
 
+export type FindStopPlaceByQueryStringQueryVariables = Exact<{
+  query: Scalars['String']['input'];
+  page: Scalars['Int']['input'];
+}>;
+
+export type FindStopPlaceByQueryStringQuery = {
+  __typename?: 'query_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister';
+    stopPlace?: Array<
+      | {
+          __typename?: 'stop_registry_ParentStopPlace';
+          id?: string | null;
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          groups?: Array<{
+            __typename?: 'stop_registry_GroupOfStopPlaces';
+            id?: string | null;
+          } | null> | null;
+        }
+      | {
+          __typename?: 'stop_registry_StopPlace';
+          id?: string | null;
+          scheduled_stop_point?: {
+            __typename?: 'service_pattern_scheduled_stop_point';
+            scheduled_stop_point_id: UUID;
+            label: string;
+          } | null;
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          groups?: Array<{
+            __typename?: 'stop_registry_GroupOfStopPlaces';
+            id?: string | null;
+          } | null> | null;
+        }
+      | null
+    > | null;
+  } | null;
+};
+
 export type LineWithRoutesUniqueFieldsFragment = {
   __typename?: 'route_line';
   primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -69957,6 +70003,99 @@ export const JourneyPatternStopFragmentDoc = gql`
     via_point_short_name_i18n
   }
 `;
+export const FindStopPlaceByQueryStringDocument = gql`
+  query findStopPlaceByQueryString($query: String!, $page: Int!) {
+    stop_registry {
+      stopPlace(query: $query, page: $page, size: 10) {
+        id
+        name {
+          lang
+          value
+        }
+        groups {
+          id
+        }
+        ... on stop_registry_StopPlace {
+          scheduled_stop_point {
+            scheduled_stop_point_id
+            label
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useFindStopPlaceByQueryStringQuery__
+ *
+ * To run a query within a React component, call `useFindStopPlaceByQueryStringQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindStopPlaceByQueryStringQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindStopPlaceByQueryStringQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *      page: // value for 'page'
+ *   },
+ * });
+ */
+export function useFindStopPlaceByQueryStringQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    FindStopPlaceByQueryStringQuery,
+    FindStopPlaceByQueryStringQueryVariables
+  > &
+    (
+      | { variables: FindStopPlaceByQueryStringQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    FindStopPlaceByQueryStringQuery,
+    FindStopPlaceByQueryStringQueryVariables
+  >(FindStopPlaceByQueryStringDocument, options);
+}
+export function useFindStopPlaceByQueryStringLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    FindStopPlaceByQueryStringQuery,
+    FindStopPlaceByQueryStringQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    FindStopPlaceByQueryStringQuery,
+    FindStopPlaceByQueryStringQueryVariables
+  >(FindStopPlaceByQueryStringDocument, options);
+}
+export function useFindStopPlaceByQueryStringSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    FindStopPlaceByQueryStringQuery,
+    FindStopPlaceByQueryStringQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    FindStopPlaceByQueryStringQuery,
+    FindStopPlaceByQueryStringQueryVariables
+  >(FindStopPlaceByQueryStringDocument, options);
+}
+export type FindStopPlaceByQueryStringQueryHookResult = ReturnType<
+  typeof useFindStopPlaceByQueryStringQuery
+>;
+export type FindStopPlaceByQueryStringLazyQueryHookResult = ReturnType<
+  typeof useFindStopPlaceByQueryStringLazyQuery
+>;
+export type FindStopPlaceByQueryStringSuspenseQueryHookResult = ReturnType<
+  typeof useFindStopPlaceByQueryStringSuspenseQuery
+>;
+export type FindStopPlaceByQueryStringQueryResult = Apollo.QueryResult<
+  FindStopPlaceByQueryStringQuery,
+  FindStopPlaceByQueryStringQueryVariables
+>;
 export const ListChangingRoutesDocument = gql`
   query ListChangingRoutes($limit: Int) {
     route_route(
