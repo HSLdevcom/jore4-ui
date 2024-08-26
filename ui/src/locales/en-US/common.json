@@ -119,6 +119,8 @@
     "delete": "Delete stop area",
     "name": "Name",
     "label": "Label",
+    "memberStops": "Member stops",
+    "sharedNameNotice": "Remember that member stops need to share name with the area.",
     "errors": {
       "failedToResolveScheduledStopPoint": "Failed to resolve Scheduled Stop Point! Reason"
     }
@@ -575,7 +577,8 @@
     "searchPlaceholder": "Enter label",
     "searchLabel": "Search",
     "search": "Search",
-    "searching": "Searching..."
+    "searching": "Searching...",
+    "showMore": "Show more search results"
   },
   "tableHeaders": {
     "name": "Name",

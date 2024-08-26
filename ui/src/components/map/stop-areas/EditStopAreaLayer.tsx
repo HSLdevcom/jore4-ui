@@ -217,6 +217,7 @@ export const EditStopAreaLayer = forwardRef<
       )}
       {displayedEditor === StopAreaEditorViews.Modal && (
         <EditStopAreaModal
+          editedStopAreaId={editedArea.id}
           defaultValues={mapStopAreaDataToFormState(
             editedArea as StopAreaByIdResult & {
               geometry: StopRegistryGeoJsonDefined;
