@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
   StopRegistryStopPlaceOrganisationRelationshipType as MaintainerType,
@@ -8,6 +8,7 @@ import {
   useGetOrganisationsQuery,
 } from '../../../../../generated/graphql';
 import { MaintainerFormFields } from './MaintainerFormFields';
+import { OrganisationDetailsModal } from './OrganisationDetailsModal';
 import {
   MaintenanceDetailsFormState,
   maintenanceDetailsFormSchema,
@@ -52,6 +53,26 @@ const MaintenanceDetailsFormComponent = (
   });
   const { handleSubmit } = methods;
 
+  const [isEditingOrganisation, setIsEditingOrganisation] = useState(false);
+  const [editedOrganisation, setEditedOrganisation] = useState<
+    StopPlaceOrganisationFieldsFragment | undefined
+  >(undefined);
+  const onEditOrganisation = (
+    org: StopPlaceOrganisationFieldsFragment | undefined,
+  ) => {
+    setIsEditingOrganisation(true);
+    setEditedOrganisation(org);
+  };
+  const onStopEditingOrganisation = () => {
+    setIsEditingOrganisation(false);
+    setEditedOrganisation(undefined);
+  };
+  const onOrganisationUpdated =
+    (/* org: StopPlaceOrganisationFieldsFragment */) => {
+      onStopEditingOrganisation();
+      organisationsResult.refetch();
+    };
+
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
@@ -64,28 +85,39 @@ const MaintenanceDetailsFormComponent = (
           data-testid={testIds.owner}
           maintainerType={MaintainerType.Owner}
           organisations={organisations}
+          editOrganisation={onEditOrganisation}
         />
         <MaintainerFormFields
           data-testid={testIds.maintenance}
           maintainerType={MaintainerType.Maintenance}
           organisations={organisations}
+          editOrganisation={onEditOrganisation}
         />
         <MaintainerFormFields
           data-testid={testIds.winterMaintenance}
           maintainerType={MaintainerType.WinterMaintenance}
           organisations={organisations}
+          editOrganisation={onEditOrganisation}
         />
         <MaintainerFormFields
           data-testid={testIds.infoUpkeep}
           maintainerType={MaintainerType.InfoUpkeep}
           organisations={organisations}
+          editOrganisation={onEditOrganisation}
         />
         <MaintainerFormFields
           data-testid={testIds.cleaning}
           maintainerType={MaintainerType.Cleaning}
           organisations={organisations}
+          editOrganisation={onEditOrganisation}
         />
       </form>
+      <OrganisationDetailsModal
+        isOpen={isEditingOrganisation}
+        organisation={editedOrganisation}
+        onClose={onStopEditingOrganisation}
+        onSubmit={onOrganisationUpdated}
+      />
     </FormProvider>
   );
 };
