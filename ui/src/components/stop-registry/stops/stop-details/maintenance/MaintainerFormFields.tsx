@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
@@ -7,7 +8,10 @@ import {
 import { Visible } from '../../../../../layoutComponents';
 import { InputField } from '../../../../forms/common';
 import { SlimSimpleButton } from '../layout';
-import { ChooseOrganisationDropdown } from './ChooseOrganisationDropdown';
+import {
+  CREATE_NEW_ORGANISATION_OPTION,
+  ChooseOrganisationDropdown,
+} from './ChooseOrganisationDropdown';
 import { MaintenanceDetailsFormState } from './schema';
 
 const testIds = {
@@ -20,6 +24,7 @@ interface Props {
   organisations: Array<StopPlaceOrganisationFieldsFragment>;
   editOrganisation: (
     org: StopPlaceOrganisationFieldsFragment | undefined,
+    relationshipType: StopRegistryStopPlaceOrganisationRelationshipType,
   ) => void;
 }
 
@@ -29,14 +34,36 @@ export const MaintainerFormFields = ({
   editOrganisation,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  const { watch } = useFormContext<MaintenanceDetailsFormState>();
+  const { setValue, resetField, watch } =
+    useFormContext<MaintenanceDetailsFormState>();
   const selectedMaintainerId = watch(`maintainers.${maintainerType}`);
   const selectedMaintainer = organisations.find(
     (o) => o?.id === selectedMaintainerId,
   );
+  const [previousValue, setPreviousValue] = useState<string | null>(
+    selectedMaintainerId,
+  );
+
+  useEffect(() => {
+    if (selectedMaintainerId === CREATE_NEW_ORGANISATION_OPTION) {
+      editOrganisation(undefined, maintainerType);
+      // "Reset" to previous value immediately,
+      // to have a sensible value selected in case user cancels adding new organisation.
+      setValue(`maintainers.${maintainerType}`, previousValue);
+    } else if (previousValue !== selectedMaintainerId) {
+      setPreviousValue(selectedMaintainerId);
+    }
+  }, [
+    maintainerType,
+    previousValue,
+    selectedMaintainerId,
+    editOrganisation,
+    resetField,
+    setValue,
+  ]);
 
   const onEditOrganisation = () => {
-    editOrganisation(selectedMaintainer);
+    editOrganisation(selectedMaintainer, maintainerType);
   };
 
   return (

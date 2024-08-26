@@ -230,6 +230,8 @@
       },
       "organisation": {
         "modalTitleEdit": "Edit organisation details",
+        "modalTitleCreate": "New organisation",
+        "createNewOrganisation": "Create new organisation",
         "modalEditDisclaimer": "Editing contact information will be updated to all instances where this organisation is used.",
         "name": "Organisation name",
         "privateContactDetails": {
