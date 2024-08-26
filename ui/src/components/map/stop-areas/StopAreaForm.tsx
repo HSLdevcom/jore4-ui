@@ -13,9 +13,11 @@ import {
   InputField,
   ValidityPeriodForm,
 } from '../../forms/common';
+import { SelectMemberStopsDropdown } from './SelectMemberStopsDropdown';
 import {
   StopAreaFormState as FormState,
   stopAreaFormSchema,
+  stopAreaMemberStopSchema,
 } from './stopAreaFormSchema';
 
 const testIds = {
@@ -23,6 +25,7 @@ const testIds = {
   name: 'StopAreaFormComponent::name',
   latitude: 'StopAreaFormComponent::latitude',
   longitude: 'StopAreaFormComponent::longitude',
+  memberStops: 'StopAreaFormComponent::memberStops',
 };
 
 export const mapStopAreaDataToFormState = (
@@ -34,11 +37,17 @@ export const mapStopAreaDataToFormState = (
     stopArea?.geometry?.coordinates,
   );
 
+  const mappedMembers = stopArea.members
+    ?.map((rawMember) => stopAreaMemberStopSchema.safeParse(rawMember))
+    .filter((parseResult) => parseResult.success)
+    .map((parseResult) => parseResult.data);
+
   const formState: Partial<FormState> = {
     label: stopArea.name?.value ?? undefined,
     name: stopArea.description?.value ?? undefined,
-    latitude: latitude ?? null,
-    longitude: longitude ?? null,
+    latitude,
+    longitude,
+    memberStops: mappedMembers ?? [],
     validityStart: mapToISODate(stopArea.validBetween?.fromDate),
     validityEnd: mapToISODate(stopArea.validBetween?.toDate),
     indefinite: !stopArea.validBetween?.toDate,
@@ -50,11 +59,12 @@ export const mapStopAreaDataToFormState = (
 interface Props {
   className?: string;
   defaultValues: Partial<FormState>;
+  editedStopAreaId: string | null | undefined;
   onSubmit: (changes: FormState) => void;
 }
 
 const StopFormComponent = (
-  { className = '', defaultValues, onSubmit }: Props,
+  { className = '', defaultValues, editedStopAreaId, onSubmit }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
   const { t } = useTranslation();
@@ -93,24 +103,47 @@ const StopFormComponent = (
               />
             </Column>
           </FormRow>
+          <FormRow mdColumns={4}>
+            <Column>
+              <InputField<FormState>
+                type="number"
+                translationPrefix="map"
+                fieldPath="latitude"
+                testId={testIds.latitude}
+                step="any"
+              />
+            </Column>
+            <Column>
+              <InputField<FormState>
+                type="number"
+                translationPrefix="map"
+                fieldPath="longitude"
+                testId={testIds.longitude}
+                step="any"
+              />
+            </Column>
+            <Column className="col-span-2">
+              <InputField<FormState>
+                fieldPath="memberStops"
+                translationPrefix="stopArea"
+                testId={testIds.memberStops}
+                // eslint-disable-next-line react/no-unstable-nested-components
+                inputElementRenderer={({ value, onChange }) => (
+                  <SelectMemberStopsDropdown
+                    editedStopAreaId={editedStopAreaId}
+                    // The form related component typings have been effed up.
+                    // Everything is typed as a string.
+                    // Cast to Any until the form-typings get fixed (huge rewrite)
+                    value={value as ExplicitAny}
+                    onChange={onChange}
+                  />
+                )}
+              />
+            </Column>
+          </FormRow>
           <FormRow mdColumns={2}>
-            <Column className="space-y-4">
-              <FormRow mdColumns={2}>
-                <InputField<FormState>
-                  type="number"
-                  translationPrefix="map"
-                  fieldPath="latitude"
-                  testId={testIds.latitude}
-                  step="any"
-                />
-                <InputField<FormState>
-                  type="number"
-                  translationPrefix="map"
-                  fieldPath="longitude"
-                  testId={testIds.longitude}
-                  step="any"
-                />
-              </FormRow>
+            <Column className="col-start-2">
+              <p className="text-hsl-red">{t('stopArea.sharedNameNotice')}</p>
             </Column>
           </FormRow>
           <FormRow>

@@ -21817,6 +21817,8 @@ export type StopsDatabaseGroupOfStopPlacesMaxFields = {
 /** columns and relationships of "group_of_stop_places_members" */
 export type StopsDatabaseGroupOfStopPlacesMembers = {
   __typename?: 'stops_database_group_of_stop_places_members';
+  /** An object relationship */
+  group_of_stop_place: StopsDatabaseGroupOfStopPlaces;
   group_of_stop_places_id: Scalars['bigint']['output'];
   ref?: Maybe<Scalars['String']['output']>;
   /** An object relationship */
@@ -21891,6 +21893,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersBoolExp = {
   _and?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersBoolExp>>;
   _not?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
   _or?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersBoolExp>>;
+  group_of_stop_place?: InputMaybe<StopsDatabaseGroupOfStopPlacesBoolExp>;
   group_of_stop_places_id?: InputMaybe<BigintComparisonExp>;
   ref?: InputMaybe<StringComparisonExp>;
   stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
@@ -21904,6 +21907,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersIncInput = {
 
 /** input type for inserting data into table "group_of_stop_places_members" */
 export type StopsDatabaseGroupOfStopPlacesMembersInsertInput = {
+  group_of_stop_place?: InputMaybe<StopsDatabaseGroupOfStopPlacesObjRelInsertInput>;
   group_of_stop_places_id?: InputMaybe<Scalars['bigint']['input']>;
   ref?: InputMaybe<Scalars['String']['input']>;
   stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionObjRelInsertInput>;
@@ -21951,6 +21955,7 @@ export type StopsDatabaseGroupOfStopPlacesMembersMutationResponse = {
 
 /** Ordering options when selecting data from "group_of_stop_places_members". */
 export type StopsDatabaseGroupOfStopPlacesMembersOrderBy = {
+  group_of_stop_place?: InputMaybe<StopsDatabaseGroupOfStopPlacesOrderBy>;
   group_of_stop_places_id?: InputMaybe<OrderBy>;
   ref?: InputMaybe<OrderBy>;
   stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionOrderBy>;
@@ -22394,6 +22399,13 @@ export type StopsDatabaseGroupOfStopPlacesNewestVersionVarianceFields = {
   id?: Maybe<Scalars['Float']['output']>;
   purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** input type for inserting object relation for remote table "group_of_stop_places" */
+export type StopsDatabaseGroupOfStopPlacesObjRelInsertInput = {
+  data: StopsDatabaseGroupOfStopPlacesInsertInput;
+  /** upsert condition */
+  on_conflict?: InputMaybe<StopsDatabaseGroupOfStopPlacesOnConflict>;
 };
 
 /** on_conflict condition type for table "group_of_stop_places" */
@@ -41026,6 +41038,10 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   funicular_submode?: Maybe<Scalars['String']['output']>;
+  /** An array relationship */
+  group_of_stop_places_members: Array<StopsDatabaseGroupOfStopPlacesMembers>;
+  /** An aggregate relationship */
+  group_of_stop_places_members_aggregate: StopsDatabaseGroupOfStopPlacesMembersAggregate;
   id?: Maybe<Scalars['bigint']['output']>;
   metro_submode?: Maybe<Scalars['String']['output']>;
   modification_enumeration?: Maybe<Scalars['String']['output']>;
@@ -41112,6 +41128,29 @@ export type StopsDatabaseStopPlaceNewestVersionTiamatStopPlaceArgs = {
   withoutLocationOnly?: InputMaybe<Scalars['Boolean']['input']>;
   withoutQuaysOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
+/** columns and relationships of "stop_place_newest_version" */
+export type StopsDatabaseStopPlaceNewestVersionGroupOfStopPlacesMembersArgs = {
+  distinct_on?: InputMaybe<
+    Array<StopsDatabaseGroupOfStopPlacesMembersSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersOrderBy>>;
+  where?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
+};
+
+/** columns and relationships of "stop_place_newest_version" */
+export type StopsDatabaseStopPlaceNewestVersionGroupOfStopPlacesMembersAggregateArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<StopsDatabaseGroupOfStopPlacesMembersSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersOrderBy>>;
+    where?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
+  };
 
 /** columns and relationships of "stop_place_newest_version" */
 export type StopsDatabaseStopPlaceNewestVersionStopPlaceAccessSpacesArgs = {
@@ -41324,6 +41363,8 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   description_value?: InputMaybe<StringComparisonExp>;
   from_date?: InputMaybe<TimestampComparisonExp>;
   funicular_submode?: InputMaybe<StringComparisonExp>;
+  group_of_stop_places_members?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
+  group_of_stop_places_members_aggregate?: InputMaybe<GroupOfStopPlacesMembersAggregateBoolExp>;
   id?: InputMaybe<BigintComparisonExp>;
   metro_submode?: InputMaybe<StringComparisonExp>;
   modification_enumeration?: InputMaybe<StringComparisonExp>;
@@ -41384,6 +41425,7 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   description_value?: InputMaybe<Scalars['String']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   funicular_submode?: InputMaybe<Scalars['String']['input']>;
+  group_of_stop_places_members?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersArrRelInsertInput>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   metro_submode?: InputMaybe<Scalars['String']['input']>;
   modification_enumeration?: InputMaybe<Scalars['String']['input']>;
@@ -41528,6 +41570,7 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   description_value?: InputMaybe<OrderBy>;
   from_date?: InputMaybe<OrderBy>;
   funicular_submode?: InputMaybe<OrderBy>;
+  group_of_stop_places_members_aggregate?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersAggregateOrderBy>;
   id?: InputMaybe<OrderBy>;
   metro_submode?: InputMaybe<OrderBy>;
   modification_enumeration?: InputMaybe<OrderBy>;
@@ -66482,6 +66525,31 @@ export type RouteTableRowFragment = {
   }>;
 };
 
+export type FindStopPlacesByQueryAndGroupQueryVariables = Exact<{
+  offset: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
+  where?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
+}>;
+
+export type FindStopPlacesByQueryAndGroupQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stops: Array<{
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
+      netex_id?: string | null;
+      name_lang?: string | null;
+      name_value?: string | null;
+      scheduled_stop_point?: {
+        __typename?: 'service_pattern_scheduled_stop_point';
+        scheduled_stop_point_id: UUID;
+        label: string;
+      } | null;
+    }>;
+  } | null;
+};
+
 export type LineWithRoutesUniqueFieldsFragment = {
   __typename?: 'route_line';
   primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -73223,6 +73291,106 @@ export const JourneyPatternStopFragmentDoc = gql`
     via_point_short_name_i18n
   }
 `;
+export const FindStopPlacesByQueryAndGroupDocument = gql`
+  query findStopPlacesByQueryAndGroup(
+    $offset: Int!
+    $limit: Int!
+    $where: stops_database_stop_place_newest_version_bool_exp
+  ) {
+    stops_database {
+      stops: stops_database_stop_place_newest_version(
+        where: $where
+        offset: $offset
+        limit: $limit
+        order_by: [{ name_value: asc }]
+      ) {
+        id
+        netex_id
+        name_lang
+        name_value
+        scheduled_stop_point: scheduled_stop_point_instance {
+          scheduled_stop_point_id
+          label
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useFindStopPlacesByQueryAndGroupQuery__
+ *
+ * To run a query within a React component, call `useFindStopPlacesByQueryAndGroupQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindStopPlacesByQueryAndGroupQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindStopPlacesByQueryAndGroupQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useFindStopPlacesByQueryAndGroupQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    FindStopPlacesByQueryAndGroupQuery,
+    FindStopPlacesByQueryAndGroupQueryVariables
+  > &
+    (
+      | {
+          variables: FindStopPlacesByQueryAndGroupQueryVariables;
+          skip?: boolean;
+        }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    FindStopPlacesByQueryAndGroupQuery,
+    FindStopPlacesByQueryAndGroupQueryVariables
+  >(FindStopPlacesByQueryAndGroupDocument, options);
+}
+export function useFindStopPlacesByQueryAndGroupLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    FindStopPlacesByQueryAndGroupQuery,
+    FindStopPlacesByQueryAndGroupQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    FindStopPlacesByQueryAndGroupQuery,
+    FindStopPlacesByQueryAndGroupQueryVariables
+  >(FindStopPlacesByQueryAndGroupDocument, options);
+}
+export function useFindStopPlacesByQueryAndGroupSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    FindStopPlacesByQueryAndGroupQuery,
+    FindStopPlacesByQueryAndGroupQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    FindStopPlacesByQueryAndGroupQuery,
+    FindStopPlacesByQueryAndGroupQueryVariables
+  >(FindStopPlacesByQueryAndGroupDocument, options);
+}
+export type FindStopPlacesByQueryAndGroupQueryHookResult = ReturnType<
+  typeof useFindStopPlacesByQueryAndGroupQuery
+>;
+export type FindStopPlacesByQueryAndGroupLazyQueryHookResult = ReturnType<
+  typeof useFindStopPlacesByQueryAndGroupLazyQuery
+>;
+export type FindStopPlacesByQueryAndGroupSuspenseQueryHookResult = ReturnType<
+  typeof useFindStopPlacesByQueryAndGroupSuspenseQuery
+>;
+export type FindStopPlacesByQueryAndGroupQueryResult = Apollo.QueryResult<
+  FindStopPlacesByQueryAndGroupQuery,
+  FindStopPlacesByQueryAndGroupQueryVariables
+>;
 export const ListChangingRoutesDocument = gql`
   query ListChangingRoutes($limit: Int) {
     route_route(

@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 import {
   SearchStopsQueryResult,
-  SearchStopsQueryVariables,
   StopTableRowFragment,
   StopTableRowStopPlaceFragment,
   StopsDatabaseStopPlaceNewestVersionBoolExp,
@@ -76,9 +75,9 @@ export type StopSearchRow = StopTableRowFragment & {
   stop_place: StopPlaceSearchRowDetails;
 };
 
-const buildSearchStopsGqlQueryVariables = (
+export function buildSearchStopsGqlQueryVariables(
   searchConditions: StopSearchConditions,
-): SearchStopsQueryVariables => {
+): StopsDatabaseStopPlaceNewestVersionBoolExp {
   const labelOrName = searchConditions.labelOrName ?? '';
 
   // By design, we only accept search by name when the input is at least 4 characters.
@@ -126,17 +125,13 @@ const buildSearchStopsGqlQueryVariables = (
     buildTiamatMunicipalityGqlFilter,
   );
 
-  const stopFilter = {
+  return {
     ...labelOrNameFilter,
     ...elyNumberFilter,
     ...addressFilter,
     ...municipalityFilter,
   };
-
-  return {
-    stopFilter,
-  };
-};
+}
 
 const mapResultRowToStopSearchRow = (
   stopPlace: StopTableRowStopPlaceFragment,
@@ -170,12 +165,12 @@ export const useStopSearchResults = (): {
   const parsedSearchQueryParameters = useStopSearchQueryParser();
   const { searchKey, searchBy } = parsedSearchQueryParameters.search;
 
-  const searchQueryVariables = buildSearchStopsGqlQueryVariables({
+  const stopFilter = buildSearchStopsGqlQueryVariables({
     ...parsedSearchQueryParameters.search,
     [searchBy]: searchKey,
   });
 
-  const result = useSearchStopsQuery(mapToVariables(searchQueryVariables));
+  const result = useSearchStopsQuery(mapToVariables({ stopFilter }));
 
   const stopSearchRows = mapQueryResultToStopSearchRows(result);
 
