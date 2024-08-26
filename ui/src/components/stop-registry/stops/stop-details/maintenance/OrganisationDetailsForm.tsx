@@ -3,7 +3,7 @@ import { t } from 'i18next';
 import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Row } from '../../../../../layoutComponents';
+import { Row, Visible } from '../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../uiComponents';
 import { submitFormByRef } from '../../../../../utils';
 import { FormRow, InputField, requiredString } from '../../../../forms/common';
@@ -81,9 +81,11 @@ export const OrganisationDetailsForm = ({
               testId={testIds.email}
             />
           </FormRow>
-          <p className="max-w-[400px]">
-            {t('stopDetails.maintenance.organisation.modalEditDisclaimer')}
-          </p>
+          <Visible visible={!!defaultValues.id}>
+            <p>
+              {t('stopDetails.maintenance.organisation.modalEditDisclaimer')}
+            </p>
+          </Visible>
         </div>
         <Row className="mt-8 justify-end space-x-5">
           <SimpleButton

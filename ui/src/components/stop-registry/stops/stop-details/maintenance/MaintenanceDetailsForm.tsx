@@ -5,6 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import {
   StopRegistryStopPlaceOrganisationRelationshipType as MaintainerType,
   StopPlaceOrganisationFieldsFragment,
+  StopRegistryStopPlaceOrganisationRelationshipType,
   useGetOrganisationsQuery,
 } from '../../../../../generated/graphql';
 import { MaintainerFormFields } from './MaintainerFormFields';
@@ -51,27 +52,39 @@ const MaintenanceDetailsFormComponent = (
     defaultValues,
     resolver: zodResolver(maintenanceDetailsFormSchema),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, setValue } = methods;
 
   const [isEditingOrganisation, setIsEditingOrganisation] = useState(false);
+  const [editedMaintainerType, setEditedMaintainerType] =
+    useState<StopRegistryStopPlaceOrganisationRelationshipType | null>(null);
   const [editedOrganisation, setEditedOrganisation] = useState<
     StopPlaceOrganisationFieldsFragment | undefined
   >(undefined);
+
   const onEditOrganisation = (
     org: StopPlaceOrganisationFieldsFragment | undefined,
+    relationshipType: StopRegistryStopPlaceOrganisationRelationshipType,
   ) => {
     setIsEditingOrganisation(true);
     setEditedOrganisation(org);
+    setEditedMaintainerType(relationshipType);
   };
+
   const onStopEditingOrganisation = () => {
     setIsEditingOrganisation(false);
     setEditedOrganisation(undefined);
+    setEditedMaintainerType(null);
   };
-  const onOrganisationUpdated =
-    (/* org: StopPlaceOrganisationFieldsFragment */) => {
-      onStopEditingOrganisation();
-      organisationsResult.refetch();
-    };
+
+  const onOrganisationUpdated = (org: StopPlaceOrganisationFieldsFragment) => {
+    const organisationId = org.id;
+    onStopEditingOrganisation();
+    // Select the newly created organisation as a maintainer (already selected if editing).
+    if (editedMaintainerType && organisationId) {
+      setValue(`maintainers.${editedMaintainerType}`, organisationId);
+    }
+    organisationsResult.refetch();
+  };
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

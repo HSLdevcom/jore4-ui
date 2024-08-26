@@ -50,10 +50,12 @@ export const OrganisationDetailsModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen && !!organisation} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <Row className="flex justify-between px-5 py-4">
         <Dialog.Title as="h4">
-          {t('stopDetails.maintenance.organisation.modalTitleEdit')}
+          {organisation?.id
+            ? t('stopDetails.maintenance.organisation.modalTitleEdit')
+            : t('stopDetails.maintenance.organisation.modalTitleCreate')}
         </Dialog.Title>
       </Row>
       <NewModalBody>
