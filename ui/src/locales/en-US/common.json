@@ -227,6 +227,15 @@
         "maintenance": "Maintenance",
         "owner": "Owner",
         "winterMaintenance": "Winter maintenance"
+      },
+      "organisation": {
+        "modalTitleEdit": "Edit organisation details",
+        "modalEditDisclaimer": "Editing contact information will be updated to all instances where this organisation is used.",
+        "name": "Organisation name",
+        "privateContactDetails": {
+          "phone": "Phone",
+          "email": "Email"
+        }
       }
     },
     "accessibilityLevelDescriptions": {

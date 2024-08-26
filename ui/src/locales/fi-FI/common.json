@@ -227,6 +227,15 @@
         "maintenance": "Kunnossapito",
         "owner": "Omistaja",
         "winterMaintenance": "Talvikunnossapito"
+      },
+      "organisation": {
+        "modalTitleEdit": "Muokkaa toimijan tietoja",
+        "modalEditDisclaimer": "Muokkaamasi toimijan yhteystiedot päivitetään kaikille samoja yhteystietoja käyttäviin kohteisiin.",
+        "name": "Toimijan nimi",
+        "privateContactDetails": {
+          "phone": "Puhelin",
+          "email": "Sähköposti"
+        }
       }
     },
     "accessibilityLevelDescriptions": {

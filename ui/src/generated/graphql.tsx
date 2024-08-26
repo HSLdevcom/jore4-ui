@@ -67637,6 +67637,24 @@ export type StopPlaceDetailsFragment = {
   } | null> | null;
 };
 
+export type UpsertOrganisationMutationVariables = Exact<{
+  objects?: InputMaybe<
+    | Array<InputMaybe<StopRegistryOrganisationInput>>
+    | InputMaybe<StopRegistryOrganisationInput>
+  >;
+}>;
+
+export type UpsertOrganisationMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateOrganisation?: Array<{
+      __typename?: 'stop_registry_Organisation';
+      id?: string | null;
+    } | null> | null;
+  } | null;
+};
+
 export type PatchScheduledStopPointTimingSettingsMutationVariables = Exact<{
   stopLabel: Scalars['String']['input'];
   journeyPatternId: Scalars['uuid']['input'];
@@ -74085,6 +74103,58 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQueryResult =
     GetHighestPriorityStopDetailsByLabelAndDateQuery,
     GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
   >;
+export const UpsertOrganisationDocument = gql`
+  mutation UpsertOrganisation($objects: [stop_registry_OrganisationInput]) {
+    stop_registry {
+      mutateOrganisation(Organisation: $objects) {
+        id
+      }
+    }
+  }
+`;
+export type UpsertOrganisationMutationFn = Apollo.MutationFunction<
+  UpsertOrganisationMutation,
+  UpsertOrganisationMutationVariables
+>;
+
+/**
+ * __useUpsertOrganisationMutation__
+ *
+ * To run a mutation, you first call `useUpsertOrganisationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertOrganisationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertOrganisationMutation, { data, loading, error }] = useUpsertOrganisationMutation({
+ *   variables: {
+ *      objects: // value for 'objects'
+ *   },
+ * });
+ */
+export function useUpsertOrganisationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpsertOrganisationMutation,
+    UpsertOrganisationMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpsertOrganisationMutation,
+    UpsertOrganisationMutationVariables
+  >(UpsertOrganisationDocument, options);
+}
+export type UpsertOrganisationMutationHookResult = ReturnType<
+  typeof useUpsertOrganisationMutation
+>;
+export type UpsertOrganisationMutationResult =
+  Apollo.MutationResult<UpsertOrganisationMutation>;
+export type UpsertOrganisationMutationOptions = Apollo.BaseMutationOptions<
+  UpsertOrganisationMutation,
+  UpsertOrganisationMutationVariables
+>;
 export const PatchScheduledStopPointTimingSettingsDocument = gql`
   mutation PatchScheduledStopPointTimingSettings(
     $stopLabel: String!
