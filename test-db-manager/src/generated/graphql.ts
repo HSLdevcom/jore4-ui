@@ -9593,6 +9593,7 @@ export type StopRegistryContact = {
   id?: Maybe<Scalars['String']['output']>;
   phone?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryContactInput = {
