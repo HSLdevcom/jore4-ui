@@ -17,6 +17,7 @@ import {
   BasicDetailsViewCard,
   LocationDetailsForm,
   LocationDetailsViewCard,
+  MaintenanceViewCard,
   MeasurementsForm,
   MeasurementsViewCard,
   ShelterViewCard,
@@ -246,6 +247,49 @@ describe('Stop details', () => {
     measurementsView
       .getStopAreaSurroundingsAccessible()
       .shouldHaveText('Esteellinen');
+  };
+
+  const verifyInitialMaintenanceDetails = () => {
+    const maintenanceView = stopDetailsPage.maintenance.viewCard;
+    const maintainerView = maintenanceView.maintainerViewCard;
+
+    maintenanceView.getContainer().shouldBeVisible();
+    maintenanceView.getContainer().scrollIntoView(); // Measurements section is too fat.
+
+    maintenanceView.getOwner().within(() => {
+      maintainerView.getName().shouldHaveText('JCD');
+      maintainerView.getPhone().shouldHaveText('+358501234567');
+      maintainerView.getEmail().shouldHaveText('jcd@example.com');
+      maintainerView.getNotSelectedPlaceholder().should('not.exist');
+    });
+
+    maintenanceView.getMaintenance().within(() => {
+      maintainerView.getName().shouldHaveText('ELY-keskus');
+      maintainerView.getPhone().shouldHaveText('+358501234567');
+      maintainerView.getEmail().shouldHaveText('ely-keskus@example.com');
+      maintainerView.getNotSelectedPlaceholder().should('not.exist');
+    });
+
+    maintenanceView.getWinterMaintenance().within(() => {
+      maintainerView.getName().shouldHaveText('ELY-keskus');
+      maintainerView.getPhone().shouldHaveText('+358501234567');
+      maintainerView.getEmail().shouldHaveText('ely-keskus@example.com');
+      maintainerView.getNotSelectedPlaceholder().should('not.exist');
+    });
+
+    maintenanceView.getInfoUpkeep().within(() => {
+      maintainerView.getNotSelectedPlaceholder().shouldBeVisible();
+      maintainerView.getEmail().should('not.exist');
+      maintainerView.getName().should('not.exist');
+      maintainerView.getPhone().should('not.exist');
+    });
+
+    maintenanceView.getCleaning().within(() => {
+      maintainerView.getName().shouldHaveText('Clear Channel');
+      maintainerView.getPhone().shouldHaveText('+358501223334');
+      maintainerView.getEmail().shouldHaveText('clear-channel@example.com');
+      maintainerView.getNotSelectedPlaceholder().should('not.exist');
+    });
   };
 
   it(
@@ -1154,6 +1198,21 @@ describe('Stop details', () => {
         },
       );
     });
+
+    describe('maintenance details', () => {
+      let view: MaintenanceViewCard;
+
+      beforeEach(() => {
+        view = stopDetailsPage.maintenance.viewCard;
+      });
+
+      it('should view maintainers', () => {
+        verifyInitialMaintenanceDetails();
+
+        stopDetailsPage.maintenance.getEditButton().click();
+        view.getContainer().should('not.exist');
+      });
+    });
   });
 
   describe('info spots', () => {
@@ -1210,5 +1269,6 @@ describe('Stop details', () => {
     stopDetailsPage.technicalFeaturesTabButton().click();
     verifyInitialShelters();
     verifyInitialMeasurements();
+    verifyInitialMaintenanceDetails();
   });
 });

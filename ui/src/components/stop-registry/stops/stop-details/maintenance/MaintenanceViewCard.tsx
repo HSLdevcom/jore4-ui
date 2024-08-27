@@ -25,27 +25,27 @@ export const MaintenanceViewCard = ({ stop }: Props): React.ReactElement => {
     <div data-testid={testIds.container}>
       <div className="grid grid-cols-3 gap-4 lg:grid-cols-5">
         <MaintainerViewCard
-          data-testid={testIds.owner}
+          testId={testIds.owner}
           maintainer={maintainers.owner}
           title={t('stopDetails.maintenance.maintainers.owner')}
         />
         <MaintainerViewCard
-          data-testid={testIds.maintenance}
+          testId={testIds.maintenance}
           maintainer={maintainers.maintenance}
           title={t('stopDetails.maintenance.maintainers.maintenance')}
         />
         <MaintainerViewCard
-          data-testid={testIds.winterMaintenance}
+          testId={testIds.winterMaintenance}
           maintainer={maintainers.winterMaintenance}
           title={t('stopDetails.maintenance.maintainers.winterMaintenance')}
         />
         <MaintainerViewCard
-          data-testid={testIds.infoUpkeep}
+          testId={testIds.infoUpkeep}
           maintainer={maintainers.infoUpkeep}
           title={t('stopDetails.maintenance.maintainers.infoUpkeep')}
         />
         <MaintainerViewCard
-          data-testid={testIds.cleaning}
+          testId={testIds.cleaning}
           maintainer={maintainers.cleaning}
           title={t('stopDetails.maintenance.maintainers.cleaning')}
         />
