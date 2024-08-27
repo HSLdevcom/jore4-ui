@@ -1,10 +1,11 @@
 import {
   BasicDetailsSection,
   LocationDetailsSection,
+  MaintenanceSection,
   MeasurementsSection,
+  SheltersSection,
   SignageDetailsSection,
 } from './stop-details';
-import { SheltersSection } from './stop-details/ShelterSection';
 
 export class StopDetailsPage {
   basicDetails = new BasicDetailsSection();
@@ -16,6 +17,8 @@ export class StopDetailsPage {
   shelters = new SheltersSection();
 
   measurements = new MeasurementsSection();
+
+  maintenance = new MaintenanceSection();
 
   visit(label: string) {
     cy.visit(`/stop-registry/stops/${label}`);

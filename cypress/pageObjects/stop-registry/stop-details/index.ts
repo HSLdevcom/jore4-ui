@@ -4,6 +4,8 @@ export * from './BasicDetailsViewCard';
 export * from './LocationDetailsForm';
 export * from './LocationDetailsSection';
 export * from './LocationDetailsViewCard';
+export * from './MaintenanceSection';
+export * from './MaintenanceViewCard';
 export * from './MeasurementsForm';
 export * from './MeasurementsSection';
 export * from './MeasurementsViewCard';
