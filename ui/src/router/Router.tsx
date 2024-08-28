@@ -201,7 +201,9 @@ export const Router: FC = () => {
           />
         ))}
       </Routes>
-      <MapModal />
+      <ProtectedRoute>
+        <MapModal />
+      </ProtectedRoute>
       <JoreLoader />
       <JoreErrorModal />
     </BrowserRouter>

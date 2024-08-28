@@ -83,11 +83,6 @@ export class Map {
           lng: params.lng,
         })}`,
       );
-      // Some operations might fail if performed too quickly after opening the map
-      // so we wait for these requests to succeed first
-      cy.wait('@gqlGetRouteDetailsByIds');
-      cy.wait('@gqlGetStopsByLocation');
-      cy.wait('@gqlListChangingRoutes');
       this.waitForLoadToComplete();
       return;
     }
