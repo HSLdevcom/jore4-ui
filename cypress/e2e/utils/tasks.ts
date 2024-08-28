@@ -113,8 +113,10 @@ export const insertStopPlaces = async ({
 
     // eslint-disable-next-line no-await-in-loop
     const stopPlaceId = await insertStopPlaceForScheduledStopPoint(
-      scheduledStopPoint.scheduled_stop_point_id,
-      stopPlace,
+      {
+        scheduledStopPointId: scheduledStopPoint.scheduled_stop_point_id,
+        stopPlace
+      },
     );
     stopPlaceIds.push(stopPlaceId);
   }
