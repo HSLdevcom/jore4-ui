@@ -74,7 +74,6 @@ describe('Edit route geometry', () => {
       searchResultsPage.getRoutesResultsButton().click();
 
       searchResultsPage.getShowRouteOnMapButton().click();
-      map.waitForLoadToComplete();
 
       map.zoomIn(3);
 

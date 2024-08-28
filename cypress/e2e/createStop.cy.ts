@@ -51,7 +51,7 @@ describe('Stop creation tests', () => {
     cy.mockLogin();
 
     mapModal.map.visit({
-      zoom: 13,
+      zoom: 16,
       lat: 60.164074274478054,
       lng: 24.93021804533524,
     });
@@ -68,8 +68,8 @@ describe('Stop creation tests', () => {
           priority: Priority.Standard,
         },
         clickRelativePoint: {
-          xPercentage: 43.5,
-          yPercentage: 53,
+          xPercentage: 40,
+          yPercentage: 55,
         },
       });
 
@@ -100,8 +100,8 @@ describe('Stop creation tests', () => {
           priority: Priority.Standard,
         },
         clickRelativePoint: {
-          xPercentage: 50,
-          yPercentage: 45,
+          xPercentage: 40,
+          yPercentage: 55,
         },
       });
 
@@ -111,7 +111,7 @@ describe('Stop creation tests', () => {
 
       // Change map position to created stop location
       mapModal.map.visit({
-        zoom: 13,
+        zoom: 16,
         lat: 60.1805636468358,
         lng: 24.918451016960763,
       });
@@ -136,8 +136,8 @@ describe('Stop creation tests', () => {
           priority: Priority.Standard,
         },
         clickRelativePoint: {
-          xPercentage: 43.5,
-          yPercentage: 53,
+          xPercentage: 40,
+          yPercentage: 55,
         },
       });
 
@@ -179,8 +179,8 @@ describe('Stop creation tests', () => {
           priority: Priority.Standard,
         },
         clickRelativePoint: {
-          xPercentage: 43.5,
-          yPercentage: 53,
+          xPercentage: 40,
+          yPercentage: 55,
         },
       });
 
@@ -207,7 +207,7 @@ describe('Stop creation tests', () => {
     { tags: [Tag.Map, Tag.Stops, Tag.StopRegistry], scrollBehavior: 'bottom' },
     () => {
       mapModal.mapFooter.addStop();
-      mapModal.map.clickRelativePoint(43.5, 53);
+      mapModal.map.clickRelativePoint(40, 55);
 
       mapModal.stopForm.fillForm({
         label: 'T0001',
