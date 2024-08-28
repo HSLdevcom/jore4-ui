@@ -19,7 +19,7 @@ const apiClient = axios.create({
   baseURL: '/api/mapmatching/api/route/v1',
 });
 
-const getBus = (coordinates: RouteBody) => apiClient.post('/bus/', coordinates);
+const getBus = (coordinates: RouteBody) => apiClient.post('/bus', coordinates);
 
 export interface BusRouteResponse {
   code: 'Ok';
