@@ -164,7 +164,7 @@ const insertStopArea = async (
     const returnValue = (await hasuraApi(
       mapToInsertStopAreaMutation(area),
     )) as InsertStopAreaResult;
-    if (returnValue.data == null) {
+    if (returnValue.data === null) {
       throw new Error('Null data returned from Tiamat');
     }
   } catch (error) {
