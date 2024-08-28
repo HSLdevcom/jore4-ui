@@ -2,17 +2,13 @@
 import {
   StopAreaInput,
   StopPlaceInput,
-  StopPlaceMaintenance,
   StopPlaceNetexRef,
   seedOrganisations,
-  seedOrganisationsByLabel,
   seedStopAreas,
   seedStopPlaces,
 } from './datasets';
 import {
   StopRegistryOrganisationInput,
-  StopRegistryStopPlaceOrganisationRef,
-  StopRegistryStopPlaceOrganisationRelationshipType,
   StopRegistryVersionLessEntityRefInput,
 } from './generated/graphql';
 import { insertStopPlaceForScheduledStopPoint } from './graphql-helpers';
@@ -27,7 +23,6 @@ import {
   InsertOrganisationResult,
   InsertStopAreaResult,
 } from './types';
-import { isNotNullish } from './utils';
 
 const insertOrganisation = async (
   organisation: StopRegistryOrganisationInput,
@@ -50,42 +45,6 @@ const insertOrganisation = async (
     );
     throw error;
   }
-};
-
-const mapStopPlaceMaintenanceToInput = (
-  maintenance: StopPlaceMaintenance | null,
-  organisationIdsByLabel: Map<string, string>,
-): Array<StopRegistryStopPlaceOrganisationRef> | undefined => {
-  if (!maintenance) {
-    return undefined;
-  }
-
-  const organisationRefs: Array<StopRegistryStopPlaceOrganisationRef> =
-    Object.entries(maintenance)
-      .map(([key, organisationLabel]) => {
-        if (!organisationLabel) {
-          return null;
-        }
-
-        const organisationName =
-          seedOrganisationsByLabel[organisationLabel]?.name;
-        const maintenanceOrganisationId =
-          organisationIdsByLabel.get(organisationName);
-        if (!maintenanceOrganisationId) {
-          throw new Error(
-            `Could not find organisation with label ${organisationLabel}`,
-          );
-        }
-
-        return {
-          organisationRef: maintenanceOrganisationId,
-          relationshipType:
-            key as StopRegistryStopPlaceOrganisationRelationshipType,
-        };
-      })
-      .filter(isNotNullish);
-
-  return organisationRefs;
 };
 
 const insertStopPlace = async (
@@ -116,18 +75,12 @@ const insertStopPlace = async (
   }
 
   try {
-    const stopPlaceForInsert = {
-      ...stopPlace,
-      organisations: mapStopPlaceMaintenanceToInput(
-        maintenance,
-        organisationIdsByLabel,
-      ),
-    };
-
-    const stopPlaceRef = await insertStopPlaceForScheduledStopPoint(
-      stopPointId,
-      stopPlaceForInsert,
-    );
+    const stopPlaceRef = await insertStopPlaceForScheduledStopPoint({
+      scheduledStopPointId: stopPointId,
+      stopPlace,
+      maintenance,
+      organisationIdsByLabel,
+    });
 
     if (stopPoint.stop_place_ref) {
       console.warn(
