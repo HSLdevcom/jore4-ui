@@ -94,7 +94,7 @@ export type StopPlaceNetexRef = {
 
 export type StopPlaceInput = {
   label: string;
-  maintenance: StopPlaceMaintenance | null; // Actual maintenance relations will be populated based on these.
+  maintenance?: StopPlaceMaintenance | null; // Actual maintenance relations will be populated based on these.
   stopPlace: Partial<StopRegistryStopPlace>;
 };
 
