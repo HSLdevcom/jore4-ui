@@ -545,6 +545,7 @@
     "tooBig": "Arvo on liian suuri",
     "timeRange": "Alkupäivämäärän pitää tulla ennen loppupäivämäärää.",
     "invalidTime": "04:30-28:30",
+    "invalidEmail": "Virheellinen sähköpostiosoite",
     "substituteDayOfWeek": "Valitse päivä",
     "lineTypes": "Valitse tyyppi"
   },

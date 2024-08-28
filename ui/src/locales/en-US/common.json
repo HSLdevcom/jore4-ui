@@ -545,6 +545,7 @@
     "tooBig": "Value is too big",
     "timeRange": "Start date has to be before end date.",
     "invalidTime": "04:30-28:30",
+    "invalidEmail": "Invalid email",
     "substituteDayOfWeek": "Select day",
     "lineTypes": "Select type"
   },
