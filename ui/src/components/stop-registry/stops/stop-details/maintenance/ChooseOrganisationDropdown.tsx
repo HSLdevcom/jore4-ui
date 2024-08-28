@@ -1,5 +1,6 @@
 import sortBy from 'lodash/sortBy';
 import { useTranslation } from 'react-i18next';
+import { AiFillPlusCircle } from 'react-icons/ai';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/graphql';
 import { FormInputProps, Listbox } from '../../../../../uiComponents';
 
@@ -46,10 +47,22 @@ export const ChooseOrganisationDropdown = ({
     ...sortedOrganisations.map((o) =>
       mapToOption(String(o.id ?? null), uiNameMapper(o) ?? ''),
     ),
-    mapToOption(
-      CREATE_NEW_ORGANISATION_OPTION,
-      t('stopDetails.maintenance.organisation.createNewOrganisation'),
-    ),
+    {
+      key: CREATE_NEW_ORGANISATION_OPTION,
+      value: CREATE_NEW_ORGANISATION_OPTION,
+      render: ({ active }: { active: boolean }) => {
+        return (
+          <div
+            className={`align-center flex cursor-default justify-between border border-brand px-4 ${active ? '!bg-brand !text-white' : 'bg-hsl-neutral-blue text-black'}`}
+          >
+            {t('stopDetails.maintenance.organisation.createNewOrganisation')}
+            <AiFillPlusCircle
+              className={`text-xl text-brand ${active ? 'text-white' : ''}`}
+            />
+          </div>
+        );
+      },
+    },
   ];
 
   return (
