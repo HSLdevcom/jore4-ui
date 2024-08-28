@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-var-requires */
+const headlessUiPlugin = require('@headlessui/tailwindcss');
 const defaultTheme = require('tailwindcss/defaultTheme');
 const plugin = require('tailwindcss/plugin');
 const theme = require('./theme.js');
@@ -100,6 +101,7 @@ module.exports = {
         });
       });
     }),
+    headlessUiPlugin,
   ],
   safelist: [
     {
