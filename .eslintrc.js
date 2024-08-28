@@ -52,6 +52,7 @@ module.exports = {
     'jore4-hasura',
   ],
   rules: {
+    eqeqeq: ['error', 'always'],
     curly: ['error', 'all'], // Enforce consistent brace style for all control statements https://eslint.org/docs/latest/rules/curly
     'arrow-body-style': 'off', // allow writing arrow functions like () => { return ... } instead of forcing those to be () => (...)
     'no-use-before-define': 'off', // note you must disable the base rule as it can report incorrect errors: https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md#how-to-use
