@@ -20,7 +20,7 @@ const organisationDetailsFormSchema = z.object({
   id: z.string().optional(),
   name: requiredString,
   privateContactDetails: z.object({
-    email: z.string().optional().nullable(),
+    email: z.string().email().optional().nullable(),
     phone: z.string().optional().nullable(),
   }),
 });

@@ -25,6 +25,8 @@ interface ErrorListProps {
   fieldPath: string;
 }
 
+const INVALID_EMAIL_MESSAGE = 'Invalid email';
+
 export const ValidationErrorList = <FormState extends FieldValues>({
   className = '',
   fieldPath,
@@ -54,6 +56,10 @@ export const ValidationErrorList = <FormState extends FieldValues>({
       case 'custom':
         return t(`formValidation.${message}`);
       case 'invalid_string':
+        if (message === INVALID_EMAIL_MESSAGE) {
+          return t(`formValidation.invalidEmail`);
+        }
+
         return t(`formValidation.${message}`);
       default:
         return `${type}: ${message}`;
