@@ -4,6 +4,7 @@ export enum Operation {
   LoadMap = 'loadMap',
   FetchInfraLinksWithStops = 'fetchInfraLinksWithStops',
   FetchStopAreaDetails = 'fetchStopAreaDetails',
+  FetchStopAreaPageDetails = 'fetchStopAreaPageDetails',
   FetchStopAreas = 'fetchStopAreas',
   FetchStops = 'fetchStops',
   FetchRoutes = 'fetchRoutes',
