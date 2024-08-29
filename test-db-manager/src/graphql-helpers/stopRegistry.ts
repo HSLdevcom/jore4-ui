@@ -31,9 +31,12 @@ import {
 } from '../types';
 import { isNotNullish } from '../utils';
 
+export type StopPlaceIdsByLabel = Map<string, string>;
+export type OrganisationIdsByName = Map<string, string>;
+
 const mapStopPlaceMaintenanceToInput = (
   maintenance: StopPlaceMaintenance | undefined | null,
-  organisationIdsByName: Map<string, string>,
+  organisationIdsByName: OrganisationIdsByName,
 ): Array<StopRegistryStopPlaceOrganisationRef> | undefined => {
   if (!maintenance) {
     return undefined;
@@ -78,7 +81,7 @@ export const insertStopPlaceForScheduledStopPoint = async ({
   scheduledStopPointId: UUID;
   stopPlace: StopPlaceInput['stopPlace'];
   maintenance?: StopPlaceInput['maintenance'];
-  organisationIdsByName?: Map<string, string>;
+  organisationIdsByName?: OrganisationIdsByName;
 }) => {
   const stopPlaceForInsert = {
     ...stopPlace,
@@ -137,7 +140,7 @@ const insertOrganisation = async (
 
 const insertStopPlace = async (
   { label, maintenance, stopPlace }: StopPlaceInput,
-  organisationIdsByName: Map<string, string>,
+  organisationIdsByName: OrganisationIdsByName,
 ): Promise<StopPlaceNetexRef> => {
   // Find related scheduled stop point.
   const stopPointResult = (await hasuraApi(
@@ -189,7 +192,7 @@ const insertStopPlace = async (
 
 const insertStopArea = async (
   stopArea: StopAreaInput,
-  stopPlaces: Map<string, string>,
+  stopPlaces: StopPlaceIdsByLabel,
 ) => {
   const area = {
     ...stopArea.stopArea,
@@ -221,7 +224,7 @@ const insertStopArea = async (
 export const insertOrganisations = async (
   organisations: Array<StopRegistryOrganisationInput>,
 ) => {
-  const collectedOrganisationIds: Map<string, string> = new Map();
+  const collectedOrganisationIds: OrganisationIdsByName = new Map();
 
   console.log('Inserting organisations...');
   // Need to run these sequentially. Will get transaction errors if trying to do concurrently.
@@ -244,9 +247,9 @@ export const insertOrganisations = async (
 
 export const insertStopPlaces = async (
   stopPlaces: Array<StopPlaceInput>,
-  organisationIds: Map<string, string>,
+  organisationIds: OrganisationIdsByName,
 ) => {
-  const collectedStopIds: Map<string, string> = new Map();
+  const collectedStopIds: StopPlaceIdsByLabel = new Map();
 
   console.log('Inserting stop places...');
   for (let index = 0; index < stopPlaces.length; index++) {
@@ -266,7 +269,7 @@ export const insertStopPlaces = async (
 
 export const insertStopAreas = async (
   stopAreas: Array<StopAreaInput>,
-  stopPlaceIds: Map<string, string>,
+  stopPlaceIds: StopPlaceIdsByLabel,
 ) => {
   console.log('Inserting stop areas...');
   for (let index = 0; index < stopAreas.length; index++) {
