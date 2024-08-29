@@ -39,7 +39,10 @@ const isStopPlace = <T extends StopPlaceType>(
  * Filters unwanted types from the result, and returns StopPlace objects with correct type.
  */
 export const getStopPlacesFromQueryResult = <T extends StopPlaceType>(
-  stopPlaceResult: Array<T | ParentStopPlaceType | null> | undefined | null,
+  stopPlaceResult:
+    | ReadonlyArray<T | ParentStopPlaceType | null>
+    | undefined
+    | null,
 ): Array<T> => {
   const stopPlaces = stopPlaceResult ?? [];
   return stopPlaces.filter(isStopPlace<T>);

@@ -66725,6 +66725,142 @@ export type GetScheduledStopPointWithTimingSettingsQuery = {
   }>;
 };
 
+export type GetStopAreaDetailsQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+export type GetStopAreaDetailsQuery = {
+  __typename?: 'query_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister';
+    groupOfStopPlaces?: Array<{
+      __typename?: 'stop_registry_GroupOfStopPlaces';
+      id?: string | null;
+      geometry?: {
+        __typename?: 'stop_registry_GeoJSON';
+        type?: StopRegistryGeoJsonType | null;
+        coordinates?: GeoJSON.Position | null;
+      } | null;
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      validBetween?: {
+        __typename?: 'stop_registry_ValidBetween';
+        fromDate?: luxon.DateTime | null;
+        toDate?: luxon.DateTime | null;
+      } | null;
+      members?: Array<
+        | { __typename?: 'stop_registry_ParentStopPlace' }
+        | {
+            __typename?: 'stop_registry_StopPlace';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
+            scheduled_stop_point?: {
+              __typename?: 'service_pattern_scheduled_stop_point';
+              scheduled_stop_point_id: UUID;
+              label: string;
+              validity_start?: luxon.DateTime | null;
+              validity_end?: luxon.DateTime | null;
+              timing_place_id?: UUID | null;
+              timing_place?: {
+                __typename?: 'timing_pattern_timing_place';
+                timing_place_id: UUID;
+                label: string;
+              } | null;
+            } | null;
+          }
+        | null
+      > | null;
+    } | null> | null;
+  } | null;
+};
+
+export type StopAreaDetailsFragment = {
+  __typename?: 'stop_registry_GroupOfStopPlaces';
+  id?: string | null;
+  geometry?: {
+    __typename?: 'stop_registry_GeoJSON';
+    type?: StopRegistryGeoJsonType | null;
+    coordinates?: GeoJSON.Position | null;
+  } | null;
+  description?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
+  name?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
+  validBetween?: {
+    __typename?: 'stop_registry_ValidBetween';
+    fromDate?: luxon.DateTime | null;
+    toDate?: luxon.DateTime | null;
+  } | null;
+  members?: Array<
+    | { __typename?: 'stop_registry_ParentStopPlace' }
+    | {
+        __typename?: 'stop_registry_StopPlace';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
+        scheduled_stop_point?: {
+          __typename?: 'service_pattern_scheduled_stop_point';
+          scheduled_stop_point_id: UUID;
+          label: string;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          timing_place_id?: UUID | null;
+          timing_place?: {
+            __typename?: 'timing_pattern_timing_place';
+            timing_place_id: UUID;
+            label: string;
+          } | null;
+        } | null;
+      }
+    | null
+  > | null;
+};
+
+export type StopAreaDetailsMembersFragment = {
+  __typename?: 'stop_registry_StopPlace';
+  id?: string | null;
+  name?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
+  scheduled_stop_point?: {
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    timing_place_id?: UUID | null;
+    timing_place?: {
+      __typename?: 'timing_pattern_timing_place';
+      timing_place_id: UUID;
+      label: string;
+    } | null;
+  } | null;
+};
+
 export type GetOrganisationsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetOrganisationsQuery = {
@@ -72448,6 +72584,57 @@ export const ScheduledStopPointWithTimingSettingsFragmentDoc = gql`
   }
   ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
 `;
+export const StopTableRowFragmentDoc = gql`
+  fragment stop_table_row on service_pattern_scheduled_stop_point {
+    scheduled_stop_point_id
+    label
+    validity_start
+    validity_end
+    timing_place_id
+    timing_place {
+      timing_place_id
+      label
+    }
+  }
+`;
+export const StopAreaDetailsMembersFragmentDoc = gql`
+  fragment StopAreaDetailsMembers on stop_registry_StopPlace {
+    id
+    name {
+      lang
+      value
+    }
+    scheduled_stop_point {
+      ...stop_table_row
+    }
+  }
+  ${StopTableRowFragmentDoc}
+`;
+export const StopAreaDetailsFragmentDoc = gql`
+  fragment StopAreaDetails on stop_registry_GroupOfStopPlaces {
+    id
+    geometry {
+      type
+      coordinates
+    }
+    description {
+      lang
+      value
+    }
+    name {
+      lang
+      value
+    }
+    validBetween {
+      fromDate
+      toDate
+    }
+    members {
+      ...StopAreaDetailsMembers
+    }
+  }
+  ${StopAreaDetailsMembersFragmentDoc}
+`;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
   fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
     external_link_id
@@ -72717,19 +72904,6 @@ export const RouteMetadataFragmentDoc = gql`
     validity_end
     direction
     variant
-  }
-`;
-export const StopTableRowFragmentDoc = gql`
-  fragment stop_table_row on service_pattern_scheduled_stop_point {
-    scheduled_stop_point_id
-    label
-    validity_start
-    validity_end
-    timing_place_id
-    timing_place {
-      timing_place_id
-      label
-    }
   }
 `;
 export const StopTableRowStopPlaceFragmentDoc = gql`
@@ -73637,6 +73811,86 @@ export type GetScheduledStopPointWithTimingSettingsQueryResult =
     GetScheduledStopPointWithTimingSettingsQuery,
     GetScheduledStopPointWithTimingSettingsQueryVariables
   >;
+export const GetStopAreaDetailsDocument = gql`
+  query getStopAreaDetails($id: String!) {
+    stop_registry {
+      groupOfStopPlaces(id: $id) {
+        ...StopAreaDetails
+      }
+    }
+  }
+  ${StopAreaDetailsFragmentDoc}
+`;
+
+/**
+ * __useGetStopAreaDetailsQuery__
+ *
+ * To run a query within a React component, call `useGetStopAreaDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopAreaDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopAreaDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetStopAreaDetailsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetStopAreaDetailsQuery,
+    GetStopAreaDetailsQueryVariables
+  > &
+    (
+      | { variables: GetStopAreaDetailsQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStopAreaDetailsQuery,
+    GetStopAreaDetailsQueryVariables
+  >(GetStopAreaDetailsDocument, options);
+}
+export function useGetStopAreaDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopAreaDetailsQuery,
+    GetStopAreaDetailsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopAreaDetailsQuery,
+    GetStopAreaDetailsQueryVariables
+  >(GetStopAreaDetailsDocument, options);
+}
+export function useGetStopAreaDetailsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopAreaDetailsQuery,
+    GetStopAreaDetailsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetStopAreaDetailsQuery,
+    GetStopAreaDetailsQueryVariables
+  >(GetStopAreaDetailsDocument, options);
+}
+export type GetStopAreaDetailsQueryHookResult = ReturnType<
+  typeof useGetStopAreaDetailsQuery
+>;
+export type GetStopAreaDetailsLazyQueryHookResult = ReturnType<
+  typeof useGetStopAreaDetailsLazyQuery
+>;
+export type GetStopAreaDetailsSuspenseQueryHookResult = ReturnType<
+  typeof useGetStopAreaDetailsSuspenseQuery
+>;
+export type GetStopAreaDetailsQueryResult = Apollo.QueryResult<
+  GetStopAreaDetailsQuery,
+  GetStopAreaDetailsQueryVariables
+>;
 export const GetOrganisationsDocument = gql`
   query GetOrganisations {
     stop_registry {
