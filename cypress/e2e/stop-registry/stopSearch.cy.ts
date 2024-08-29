@@ -2,9 +2,9 @@ import {
   GetInfrastructureLinksByExternalIdsResult,
   Priority,
   StopInsertInput,
+  StopPlaceInput,
   StopRegistryGeoJsonType,
   StopRegistryNameType,
-  StopRegistryStopPlace,
   buildStop,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
@@ -41,76 +41,85 @@ const timingPlaces = [
   buildTimingPlace('75f8e23d-4bcf-455a-9a14-262f71b4ea11', '1AURLA'),
 ];
 
-const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
+const stopPlaceData: Array<StopPlaceInput> = [
   {
-    name: { lang: 'fin', value: 'Puistokaari' },
-    alternativeNames: [
-      {
-        name: { lang: 'swe', value: 'Parkkurvan' },
-        nameType: StopRegistryNameType.Translation,
+    label: 'H1122',
+    stopPlace: {
+      name: { lang: 'fin', value: 'Puistokaari' },
+      alternativeNames: [
+        {
+          name: { lang: 'swe', value: 'Parkkurvan' },
+          nameType: StopRegistryNameType.Translation,
+        },
+        {
+          name: { lang: 'fin', value: 'Puistokaari (pitkä)' },
+          nameType: StopRegistryNameType.Alias,
+        },
+        {
+          name: { lang: 'swe', value: 'Parkkurvan (lång)' },
+          nameType: StopRegistryNameType.Alias,
+        },
+      ],
+      quays: [{ publicCode: 'H1122' }],
+      privateCode: { value: '123456', type: 'ELY' },
+      keyValues: [{ key: 'streetAddress', values: ['Puistokaari 1'] }],
+      geometry: {
+        coordinates: [24.86309, 60.15988], // Municipality = Helsinki
+        type: StopRegistryGeoJsonType.Point,
       },
-      {
-        name: { lang: 'fin', value: 'Puistokaari (pitkä)' },
-        nameType: StopRegistryNameType.Alias,
-      },
-      {
-        name: { lang: 'swe', value: 'Parkkurvan (lång)' },
-        nameType: StopRegistryNameType.Alias,
-      },
-    ],
-    quays: [{ publicCode: 'H1122' }],
-    privateCode: { value: '123456', type: 'ELY' },
-    keyValues: [{ key: 'streetAddress', values: ['Puistokaari 1'] }],
-    geometry: {
-      coordinates: [24.86309, 60.15988], // Municipality = Helsinki
-      type: StopRegistryGeoJsonType.Point,
     },
   },
   {
-    name: { lang: 'fin', value: 'Lapinrinne' },
-    alternativeNames: [
-      {
-        name: { lang: 'swe', value: 'Lappbrinken' },
-        nameType: StopRegistryNameType.Translation,
+    label: 'H1234',
+    stopPlace: {
+      name: { lang: 'fin', value: 'Lapinrinne' },
+      alternativeNames: [
+        {
+          name: { lang: 'swe', value: 'Lappbrinken' },
+          nameType: StopRegistryNameType.Translation,
+        },
+        {
+          name: { lang: 'fin', value: 'Lapinrinne (pitkä)' },
+          nameType: StopRegistryNameType.Alias,
+        },
+        {
+          name: { lang: 'swe', value: 'Lappbrinken (lång)' },
+          nameType: StopRegistryNameType.Alias,
+        },
+      ],
+      quays: [{ publicCode: 'H1234' }],
+      privateCode: { value: '123499', type: 'ELY' },
+      keyValues: [{ key: 'streetAddress', values: ['Lapinrinteentie 25'] }],
+      geometry: {
+        coordinates: [24.87639, 60.32894], // Municipality = Vantaa
+        type: StopRegistryGeoJsonType.Point,
       },
-      {
-        name: { lang: 'fin', value: 'Lapinrinne (pitkä)' },
-        nameType: StopRegistryNameType.Alias,
-      },
-      {
-        name: { lang: 'swe', value: 'Lappbrinken (lång)' },
-        nameType: StopRegistryNameType.Alias,
-      },
-    ],
-    quays: [{ publicCode: 'H1234' }],
-    privateCode: { value: '123499', type: 'ELY' },
-    keyValues: [{ key: 'streetAddress', values: ['Lapinrinteentie 25'] }],
-    geometry: {
-      coordinates: [24.87639, 60.32894], // Municipality = Vantaa
-      type: StopRegistryGeoJsonType.Point,
     },
   },
   {
-    name: { lang: 'fin', value: 'Tuusulanväylä' },
-    alternativeNames: [
-      {
-        name: { lang: 'swe', value: 'Tusbyleden' },
-        nameType: StopRegistryNameType.Translation,
+    label: 'H2233',
+    stopPlace: {
+      name: { lang: 'fin', value: 'Tuusulanväylä' },
+      alternativeNames: [
+        {
+          name: { lang: 'swe', value: 'Tusbyleden' },
+          nameType: StopRegistryNameType.Translation,
+        },
+        {
+          name: { lang: 'fin', value: 'Tuusulanväylä (pitkä)' },
+          nameType: StopRegistryNameType.Alias,
+        },
+        {
+          name: { lang: 'swe', value: 'Tusbyleden (lång)' },
+          nameType: StopRegistryNameType.Alias,
+        },
+      ],
+      quays: [{ publicCode: 'H2233' }],
+      keyValues: [{ key: 'streetAddress', values: ['Tuusulanväylä 10-16'] }],
+      geometry: {
+        coordinates: [24.99721, 60.32129], // Municipality = Vantaa
+        type: StopRegistryGeoJsonType.Point,
       },
-      {
-        name: { lang: 'fin', value: 'Tuusulanväylä (pitkä)' },
-        nameType: StopRegistryNameType.Alias,
-      },
-      {
-        name: { lang: 'swe', value: 'Tusbyleden (lång)' },
-        nameType: StopRegistryNameType.Alias,
-      },
-    ],
-    quays: [{ publicCode: 'H2233' }],
-    keyValues: [{ key: 'streetAddress', values: ['Tuusulanväylä 10-16'] }],
-    geometry: {
-      coordinates: [24.99721, 60.32129], // Municipality = Vantaa
-      type: StopRegistryGeoJsonType.Point,
     },
   },
 ];
@@ -192,8 +201,7 @@ describe('Stop search', () => {
     cy.task('resetDbs');
     insertToDbHelper(dbResources);
 
-    cy.task<string[]>('insertStopPlaces', {
-      scheduledStopPoints: dbResources.stops,
+    cy.task<string[]>('insertStopRegistryData', {
       stopPlaces: stopPlaceData,
     });
 

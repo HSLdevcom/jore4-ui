@@ -2,11 +2,12 @@ import {
   GetInfrastructureLinksByExternalIdsResult,
   Priority,
   StopInsertInput,
-  StopRegistryStopPlace,
+  StopPlaceInput,
   buildStop,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   mapToGetInfrastructureLinksByExternalIdsQuery,
+  seedOrganisations,
   stopPlaceH2003,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
@@ -52,9 +53,10 @@ const timingPlaces = [
   buildTimingPlace('0388c3fb-a08b-461c-8655-581f06e9c2f5', '1AURLA'),
 ];
 
-const stopPlaceData: Array<Partial<StopRegistryStopPlace>> = [
+const stopPlaceData: Array<StopPlaceInput> = [
   {
-    name: { lang: 'fin', value: 'Puistokaari' },
+    label: 'H1122',
+    stopPlace: { name: { lang: 'fin', value: 'Puistokaari' } },
   },
   stopPlaceH2003,
 ];
@@ -123,9 +125,9 @@ describe('Stop details', () => {
 
     insertToDbHelper(dbResources);
     toast = new Toast();
-    cy.task<string[]>('insertStopPlaces', {
-      scheduledStopPoints: dbResources.stops,
+    cy.task<string[]>('insertStopRegistryData', {
       stopPlaces: stopPlaceData,
+      organisations: seedOrganisations,
     });
 
     stopDetailsPage = new StopDetailsPage();

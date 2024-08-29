@@ -1,13 +1,24 @@
 import {
+  GetAllOrganisationIdsResult,
+  GetAllStopAreaIdsResult,
   GetAllStopPlaceIdsResult,
   GetInfrastructureLinksByExternalIdsResult,
-  StopInsertInput,
-  StopRegistryStopPlace,
+  OrganisationIdsByName,
+  StopAreaInput,
+  StopPlaceIdsByLabel,
+  StopPlaceInput,
+  StopRegistryOrganisationInput,
   e2eDatabaseConfig,
   getDbConnection,
   hasuraApi,
-  insertStopPlaceForScheduledStopPoint,
+  insertOrganisations as insertStopRegistryOrganisations,
+  insertStopAreas as insertStopRegistryStopAreas,
+  insertStopPlaces as insertStopRegistryStopPlaces,
+  mapToDeleteOrganisationMutation,
+  mapToDeleteStopAreaMutation,
   mapToDeleteStopPlaceMutation,
+  mapToGetAllOrganisationIds,
+  mapToGetAllStopAreaIds,
   mapToGetAllStopPlaceIds,
   mapToGetInfrastructureLinksByExternalIdsQuery,
   resetRoutesAndLinesDb,
@@ -89,39 +100,52 @@ export const getInfrastructureLinkIdsByExternalIds = (
     });
   });
 
-/**
- * Inserts stop place for each stop point.
- * The scheduled stop points and stop places are matched by index.
- */
-export const insertStopPlaces = async ({
-  scheduledStopPoints,
+const insertStopPlaces = async ({
   stopPlaces,
+  organisationIdsByName,
 }: {
-  scheduledStopPoints: Array<StopInsertInput>;
-  stopPlaces: Array<Partial<StopRegistryStopPlace>>;
-}): Promise<Array<string>> => {
-  if (scheduledStopPoints.length !== stopPlaces.length) {
-    throw new Error(
-      'insertStopPlaces should be called with same amount of scheduled stop points and stop places',
-    );
-  }
+  stopPlaces: Array<StopPlaceInput>;
+  organisationIdsByName: OrganisationIdsByName;
+}) => {
+  return insertStopRegistryStopPlaces(stopPlaces, organisationIdsByName);
+};
 
-  const stopPlaceIds: Array<string> = [];
-  for (let index = 0; index < scheduledStopPoints.length; index++) {
-    const scheduledStopPoint = scheduledStopPoints[index];
-    const stopPlace = stopPlaces[index];
+const insertStopAreas = async (
+  stopAreas: Array<StopAreaInput>,
+  stopPlaceIds: StopPlaceIdsByLabel,
+) => {
+  const stopAreaIds = await insertStopRegistryStopAreas(
+    stopAreas,
+    stopPlaceIds,
+  );
 
-    // eslint-disable-next-line no-await-in-loop
-    const stopPlaceId = await insertStopPlaceForScheduledStopPoint(
-      {
-        scheduledStopPointId: scheduledStopPoint.scheduled_stop_point_id,
-        stopPlace
-      },
-    );
-    stopPlaceIds.push(stopPlaceId);
-  }
+  return stopAreaIds;
+};
 
-  return stopPlaceIds;
+const insertOrganisations = async (
+  organisations: Array<StopRegistryOrganisationInput>,
+) => {
+  const organisationIds = await insertStopRegistryOrganisations(organisations);
+  return organisationIds;
+};
+
+export const insertStopRegistryData = async ({
+  organisations = [],
+  stopAreas = [],
+  stopPlaces = [],
+}: {
+  organisations?: Array<StopRegistryOrganisationInput>;
+  stopAreas?: Array<StopAreaInput>;
+  stopPlaces?: Array<StopPlaceInput>;
+}) => {
+  const organisationIdsByName = await insertOrganisations(organisations);
+  const stopPlaceIdsByLabel = await insertStopPlaces({
+    stopPlaces,
+    organisationIdsByName,
+  });
+  await insertStopAreas(stopAreas, stopPlaceIdsByLabel);
+
+  return { stopPlaceIdsByLabel, organisationIdsByName };
 };
 
 export const truncateTimetablesDatabase = () => {
@@ -136,13 +160,21 @@ export const getAllStopPlaceIds = () => {
   return hasuraAPI(mapToGetAllStopPlaceIds());
 };
 
-export const resetStopRegistryDb = async () => {
+export const getAllStopAreaIds = () => {
+  return hasuraAPI(mapToGetAllStopAreaIds());
+};
+
+export const getAllOrganisationIds = () => {
+  return hasuraAPI(mapToGetAllOrganisationIds());
+};
+
+const deleteStopPlaces = async () => {
   const stopPlaceIdsResult =
     (await getAllStopPlaceIds()) as GetAllStopPlaceIdsResult;
 
   const stopPlaceIds =
     stopPlaceIdsResult.data.stops_database.stops_database_stop_place.map(
-      (scheduledStopPoint) => scheduledStopPoint.netex_id,
+      (stopPlace) => stopPlace.netex_id,
     );
 
   return hasuraAPIMultiple(
@@ -150,6 +182,42 @@ export const resetStopRegistryDb = async () => {
       mapToDeleteStopPlaceMutation(stopPlaceId),
     ),
   );
+};
+
+const deleteStopAreas = async () => {
+  const stopAreaIdsResult =
+    (await getAllStopAreaIds()) as GetAllStopAreaIdsResult;
+
+  const stopAreaIds =
+    stopAreaIdsResult.data.stops_database.stops_database_group_of_stop_places.map(
+      (stopArea) => stopArea.netex_id,
+    );
+
+  return hasuraAPIMultiple(
+    stopAreaIds.map((stopAreaId) => mapToDeleteStopAreaMutation(stopAreaId)),
+  );
+};
+
+const deleteOrganisations = async () => {
+  const organisationIdsResult =
+    (await getAllOrganisationIds()) as GetAllOrganisationIdsResult;
+
+  const organisationIds =
+    organisationIdsResult.data.stops_database.stops_database_organisation.map(
+      (organisation) => organisation.netex_id,
+    );
+
+  return hasuraAPIMultiple(
+    organisationIds.map((organisationId) =>
+      mapToDeleteOrganisationMutation(organisationId),
+    ),
+  );
+};
+
+export const resetStopRegistryDb = async () => {
+  await deleteStopAreas();
+  await deleteStopPlaces();
+  await deleteOrganisations();
 };
 
 export const resetDbs = async () => {
