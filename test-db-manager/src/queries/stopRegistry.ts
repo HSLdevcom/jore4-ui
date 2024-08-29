@@ -25,6 +25,16 @@ const GQL_DELETE_STOP_PLACE = gql`
   }
 `;
 
+const GQL_GET_ALL_STOP_PLACE_IDS = gql`
+  query GetAllStopPlaceIds {
+    stops_database {
+      stops_database_stop_place {
+        netex_id
+      }
+    }
+  }
+`;
+
 const GQL_INSERT_STOP_AREA = gql`
   mutation InsertStopArea($stopArea: stop_registry_GroupOfStopPlacesInput!) {
     stop_registry {
@@ -35,10 +45,18 @@ const GQL_INSERT_STOP_AREA = gql`
   }
 `;
 
-const GQL_GET_ALL_STOP_PLACE_IDS = gql`
-  query GetAllStopPlaceIds {
+const GQL_DELETE_STOP_AREA = gql`
+  mutation DeleteStopArea($stopAreaId: String!) {
+    stop_registry {
+      deleteGroupOfStopPlaces(id: $stopAreaId)
+    }
+  }
+`;
+
+const GQL_GET_ALL_STOP_AREA_IDS = gql`
+  query GetAllStopAreaIds {
     stops_database {
-      stops_database_stop_place {
+      stops_database_group_of_stop_places {
         netex_id
       }
     }
@@ -53,6 +71,24 @@ const GQL_INSERT_ORGANISATION = gql`
       mutateOrganisation(Organisation: $organisation) {
         id
         name
+      }
+    }
+  }
+`;
+
+const GQL_DELETE_ORGANISATION = gql`
+  mutation DeleteOrganisation($organisationId: String!) {
+    stop_registry {
+      deleteOrganisation(organisationId: $organisationId)
+    }
+  }
+`;
+
+const GQL_GET_ALL_ORGANISATION_IDS = gql`
+  query GetAllOrganisationIds {
+    stops_database {
+      stops_database_organisation {
+        netex_id
       }
     }
   }
@@ -78,6 +114,12 @@ export const mapToDeleteStopPlaceMutation = (stopPlaceId: string) => {
   };
 };
 
+export const mapToGetAllStopPlaceIds = () => {
+  return {
+    query: getGqlString(GQL_GET_ALL_STOP_PLACE_IDS),
+  };
+};
+
 export const mapToInsertStopAreaMutation = (
   input: Partial<StopRegistryGroupOfStopPlacesInput>,
 ) => {
@@ -87,9 +129,16 @@ export const mapToInsertStopAreaMutation = (
   };
 };
 
-export const mapToGetAllStopPlaceIds = () => {
+export const mapToDeleteStopAreaMutation = (stopAreaId: string) => {
   return {
-    query: getGqlString(GQL_GET_ALL_STOP_PLACE_IDS),
+    query: getGqlString(GQL_DELETE_STOP_AREA),
+    variables: { stopAreaId },
+  };
+};
+
+export const mapToGetAllStopAreaIds = () => {
+  return {
+    query: getGqlString(GQL_GET_ALL_STOP_AREA_IDS),
   };
 };
 
@@ -99,5 +148,18 @@ export const mapToInsertOrganisationMutation = (
   return {
     query: getGqlString(GQL_INSERT_ORGANISATION),
     variables: { organisation: input },
+  };
+};
+
+export const mapToDeleteOrganisationMutation = (organisationId: string) => {
+  return {
+    query: getGqlString(GQL_DELETE_ORGANISATION),
+    variables: { organisationId },
+  };
+};
+
+export const mapToGetAllOrganisationIds = () => {
+  return {
+    query: getGqlString(GQL_GET_ALL_ORGANISATION_IDS),
   };
 };

@@ -1,15 +1,13 @@
 /* eslint-disable no-console */
 import {
-  StopAreaInput,
-  StopPlaceInput,
-  StopPlaceMaintenance,
+  OrganisationIdsByName,
+  StopPlaceIdsByLabel,
   StopPlaceNetexRef,
 } from '../datasets';
 import {
+  StopRegistryGroupOfStopPlacesInput,
   StopRegistryOrganisationInput,
-  StopRegistryStopPlaceOrganisationRef,
-  StopRegistryStopPlaceOrganisationRelationshipType,
-  StopRegistryVersionLessEntityRefInput,
+  StopRegistryStopPlace,
 } from '../generated/graphql';
 import { hasuraApi } from '../hasuraApi';
 import {
@@ -29,41 +27,6 @@ import {
   InsertStopPlaceResult,
   UpdateScheduledStopPointStopPlaceRefResult,
 } from '../types';
-import { isNotNullish } from '../utils';
-
-const mapStopPlaceMaintenanceToInput = (
-  maintenance: StopPlaceMaintenance | undefined | null,
-  organisationIdsByName: Map<string, string>,
-): Array<StopRegistryStopPlaceOrganisationRef> | undefined => {
-  if (!maintenance) {
-    return undefined;
-  }
-
-  const organisationRefs: Array<StopRegistryStopPlaceOrganisationRef> =
-    Object.entries(maintenance)
-      .map(([key, organisationName]) => {
-        if (!organisationName) {
-          return null;
-        }
-
-        const maintenanceOrganisationId =
-          organisationIdsByName.get(organisationName);
-        if (!maintenanceOrganisationId) {
-          throw new Error(
-            `Could not find organisation with label ${organisationName}`,
-          );
-        }
-
-        return {
-          organisationRef: maintenanceOrganisationId,
-          relationshipType:
-            key as StopRegistryStopPlaceOrganisationRelationshipType,
-        };
-      })
-      .filter(isNotNullish);
-
-  return organisationRefs;
-};
 
 /**
  * Inserts a new stop place to stop registry,
@@ -72,24 +35,12 @@ const mapStopPlaceMaintenanceToInput = (
 export const insertStopPlaceForScheduledStopPoint = async ({
   scheduledStopPointId,
   stopPlace,
-  maintenance,
-  organisationIdsByName = new Map(),
 }: {
   scheduledStopPointId: UUID;
-  stopPlace: StopPlaceInput['stopPlace'];
-  maintenance?: StopPlaceInput['maintenance'];
-  organisationIdsByName?: Map<string, string>;
+  stopPlace: Partial<StopRegistryStopPlace>;
 }) => {
-  const stopPlaceForInsert = {
-    ...stopPlace,
-    organisations: mapStopPlaceMaintenanceToInput(
-      maintenance,
-      organisationIdsByName,
-    ),
-  };
-
   const insertStopPlaceResult = (await hasuraApi(
-    mapToInsertStopPlaceMutation(stopPlaceForInsert),
+    mapToInsertStopPlaceMutation(stopPlace),
   )) as InsertStopPlaceResult;
 
   const stopPlaceRef = extractStopPlaceIdFromResponse(insertStopPlaceResult);
@@ -135,10 +86,13 @@ const insertOrganisation = async (
   }
 };
 
-const insertStopPlace = async (
-  { label, maintenance, stopPlace }: StopPlaceInput,
-  organisationIdsByName: Map<string, string>,
-): Promise<StopPlaceNetexRef> => {
+const insertStopPlace = async ({
+  label,
+  stopPlace,
+}: {
+  label: string;
+  stopPlace: Partial<StopRegistryStopPlace>;
+}): Promise<StopPlaceNetexRef> => {
   // Find related scheduled stop point.
   const stopPointResult = (await hasuraApi(
     mapToGetStopPointByLabelQuery(label),
@@ -166,8 +120,6 @@ const insertStopPlace = async (
     const stopPlaceRef = await insertStopPlaceForScheduledStopPoint({
       scheduledStopPointId: stopPointId,
       stopPlace,
-      maintenance,
-      organisationIdsByName,
     });
 
     if (stopPoint.stop_place_ref) {
@@ -188,22 +140,11 @@ const insertStopPlace = async (
 };
 
 const insertStopArea = async (
-  stopArea: StopAreaInput,
-  stopPlaces: Map<string, string>,
+  stopArea: Partial<StopRegistryGroupOfStopPlacesInput>,
 ) => {
-  const area = {
-    ...stopArea.stopArea,
-    members: stopArea.memberLabels.map(
-      (label) =>
-        ({
-          ref: stopPlaces.get(label),
-        }) as StopRegistryVersionLessEntityRefInput,
-    ),
-  };
-
   try {
     const returnValue = (await hasuraApi(
-      mapToInsertStopAreaMutation(area),
+      mapToInsertStopAreaMutation(stopArea),
     )) as InsertStopAreaResult;
     if (returnValue.data === null) {
       throw new Error('Null data returned from Tiamat');
@@ -211,7 +152,7 @@ const insertStopArea = async (
   } catch (error) {
     console.error(
       'An error occurred while inserting stop area!',
-      stopArea.stopArea.name?.value,
+      stopArea.name?.value,
       error,
     );
     throw error;
@@ -221,7 +162,7 @@ const insertStopArea = async (
 export const insertOrganisations = async (
   organisations: Array<StopRegistryOrganisationInput>,
 ) => {
-  const collectedOrganisationIds: Map<string, string> = new Map();
+  const collectedOrganisationIds: OrganisationIdsByName = new Map();
 
   console.log('Inserting organisations...');
   // Need to run these sequentially. Will get transaction errors if trying to do concurrently.
@@ -243,21 +184,21 @@ export const insertOrganisations = async (
 };
 
 export const insertStopPlaces = async (
-  stopPlaces: Array<StopPlaceInput>,
-  organisationIds: Map<string, string>,
+  stopPlaces: Array<{
+    label: string;
+    stopPlace: Partial<StopRegistryStopPlace>;
+  }>,
 ) => {
-  const collectedStopIds: Map<string, string> = new Map();
+  const collectedStopIds: StopPlaceIdsByLabel = new Map();
 
   console.log('Inserting stop places...');
   for (let index = 0; index < stopPlaces.length; index++) {
-    const stopPoint = stopPlaces[index];
-    console.log(
-      `Stop point ${stopPoint?.label}: stop place insert starting...`,
-    );
+    const { label, stopPlace } = stopPlaces[index];
+    console.log(`Stop point ${label}: stop place insert starting...`);
     // eslint-disable-next-line no-await-in-loop
-    const netexRef = await insertStopPlace(stopPoint, organisationIds);
+    const netexRef = await insertStopPlace({ label, stopPlace });
     collectedStopIds.set(netexRef.label, netexRef.netexId);
-    console.log(`Stop point ${stopPoint?.label}: stop place insert finished!`);
+    console.log(`Stop point ${label}: stop place insert finished!`);
   }
   console.log(`Inserted ${stopPlaces.length} stop places.`);
 
@@ -265,19 +206,18 @@ export const insertStopPlaces = async (
 };
 
 export const insertStopAreas = async (
-  stopAreas: Array<StopAreaInput>,
-  stopPlaceIds: Map<string, string>,
+  stopAreas: Array<Partial<StopRegistryGroupOfStopPlacesInput>>,
 ) => {
   console.log('Inserting stop areas...');
   for (let index = 0; index < stopAreas.length; index++) {
     const stopArea = stopAreas[index];
     console.log(
-      `Stop area ${stopArea?.stopArea.name?.value}: stop area insert starting...`,
+      `Stop area ${stopArea?.name?.value}: stop area insert starting...`,
     );
     // eslint-disable-next-line no-await-in-loop
-    await insertStopArea(stopArea, stopPlaceIds);
+    await insertStopArea(stopArea);
     console.log(
-      `Stop area ${stopArea?.stopArea.name?.value}: stop area insert finished!`,
+      `Stop area ${stopArea?.name?.value}: stop area insert finished!`,
     );
   }
   console.log(`Inserted ${stopAreas.length} stop areas.`);

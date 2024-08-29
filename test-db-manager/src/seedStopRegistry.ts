@@ -1,4 +1,10 @@
-import { seedOrganisations, seedStopAreas, seedStopPlaces } from './datasets';
+import {
+  seedOrganisations,
+  seedStopAreas,
+  seedStopPlaces,
+  setStopAreaRelations,
+  setStopPlaceRelations,
+} from './datasets';
 import {
   insertOrganisations,
   insertStopAreas,
@@ -7,11 +13,19 @@ import {
 
 const seedStopRegistry = async () => {
   const collectedOrganisationIds = await insertOrganisations(seedOrganisations);
-  const collectedStopIds = await insertStopPlaces(
-    seedStopPlaces,
-    collectedOrganisationIds,
+
+  const stopPlaceInputs = seedStopPlaces.map((sp) => {
+    return {
+      label: sp.label,
+      stopPlace: setStopPlaceRelations(sp, collectedOrganisationIds),
+    };
+  });
+  const collectedStopPlaceIds = await insertStopPlaces(stopPlaceInputs);
+
+  const stopAreaInputs = seedStopAreas.map((area) =>
+    setStopAreaRelations(area, collectedStopPlaceIds),
   );
-  await insertStopAreas(seedStopAreas, collectedStopIds);
+  await insertStopAreas(stopAreaInputs);
 };
 
 seedStopRegistry();
