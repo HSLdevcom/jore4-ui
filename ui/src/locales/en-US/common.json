@@ -125,6 +125,25 @@
       "failedToResolveScheduledStopPoint": "Failed to resolve Scheduled Stop Point! Reason"
     }
   },
+  "stopAreaDetails": {
+    "title": "Stop area",
+    "basicDetails": {
+      "title": "JORE stop area",
+      "name": "Stop area name",
+      "description": "Stop area description",
+      "parentStopPlace": "Parent stop place",
+      "areaSize": "Stop area size (m²)",
+      "validityPeriod": "Validity period",
+      "edit": "Edit"
+    },
+    "minimap": {
+      "showOnMap": "Show on map"
+    },
+    "memberStops": {
+      "title": "Stops",
+      "addStop": "Add a stop"
+    }
+  },
   "stopPlaceTypes": {
     "mainLine": "Main line",
     "interchange": "Interchange",

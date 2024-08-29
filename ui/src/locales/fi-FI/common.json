@@ -125,6 +125,25 @@
       "failedToResolveScheduledStopPoint": "Pysäkin tietojen selvitys epäonnistui! Syy"
     }
   },
+  "stopAreaDetails": {
+    "title": "Pysäkkialue",
+    "basicDetails": {
+      "title": "JORE:n pysäkkialue",
+      "name": "Pysäkkialueen tunnus",
+      "description": "Pysäkkialueen nimi",
+      "parentStopPlace": "Emoterminaali",
+      "areaSize": "Pysäkkialueen koko (m²)",
+      "validityPeriod": "Voimassaolo",
+      "edit": "Muokkaa"
+    },
+    "minimap": {
+      "showOnMap": "Näytä kartalla"
+    },
+    "memberStops": {
+      "title": "Pysäkit",
+      "addStop": "Lisää pysäkki"
+    }
+  },
   "stopPlaceTypes": {
     "mainLine": "Runkolinja",
     "interchange": "Vaihtopysäkki",
