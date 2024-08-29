@@ -3,8 +3,8 @@ import {
   StopRegistryOrganisationType,
 } from '../../generated/graphql';
 
-export const seedOrganisationsByLabel = {
-  jcd: {
+export const seedOrganisations: Array<StopRegistryOrganisationInput> = [
+  {
     name: 'JCD',
     organisationType: StopRegistryOrganisationType.Other,
     privateContactDetails: {
@@ -12,7 +12,7 @@ export const seedOrganisationsByLabel = {
       email: 'jcd@example.com',
     },
   },
-  clearChannel: {
+  {
     name: 'Clear Channel',
     organisationType: StopRegistryOrganisationType.Other,
     privateContactDetails: {
@@ -20,7 +20,7 @@ export const seedOrganisationsByLabel = {
       email: 'clear-channel@example.com',
     },
   },
-  ely: {
+  {
     name: 'ELY-keskus',
     organisationType: StopRegistryOrganisationType.Other,
     privateContactDetails: {
@@ -28,7 +28,4 @@ export const seedOrganisationsByLabel = {
       email: 'ely-keskus@example.com',
     },
   },
-};
-
-export const seedOrganisations: Array<StopRegistryOrganisationInput> =
-  Object.values(seedOrganisationsByLabel);
+];

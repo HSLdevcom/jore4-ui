@@ -22,18 +22,14 @@ import {
   StopRegistrySubmodeType,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
-import { seedOrganisationsByLabel } from './organisations';
 
-type SeedOrganisationLabels = keyof typeof seedOrganisationsByLabel;
-
-// Use the keys of organisation seed data for referencing.
-// Could use eg. name as well, but this provides some additional type safety.
+type OrganisationName = string;
 export type StopPlaceMaintenance = {
-  cleaning: SeedOrganisationLabels | null;
-  infoUpkeep: SeedOrganisationLabels | null;
-  maintenance: SeedOrganisationLabels | null;
-  owner: SeedOrganisationLabels | null;
-  winterMaintenance: SeedOrganisationLabels | null;
+  cleaning: OrganisationName | null;
+  infoUpkeep: OrganisationName | null;
+  maintenance: OrganisationName | null;
+  owner: OrganisationName | null;
+  winterMaintenance: OrganisationName | null;
 };
 
 export type StopPlaceSeedData = {
@@ -420,11 +416,11 @@ const H2003: StopPlaceSeedData = {
     replacesRailSign: false,
   },
   maintenance: {
-    cleaning: 'clearChannel',
+    cleaning: 'Clear Channel',
     infoUpkeep: null,
-    maintenance: 'ely',
-    owner: 'jcd',
-    winterMaintenance: 'ely',
+    maintenance: 'ELY-keskus',
+    owner: 'JCD',
+    winterMaintenance: 'ELY-keskus',
   },
 };
 const seedData: Array<StopPlaceSeedData> = [
