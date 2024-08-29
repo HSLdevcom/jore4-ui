@@ -67033,6 +67033,19 @@ export type DeleteStopPlaceMutation = {
   } | null;
 };
 
+export type GetAllStopPlaceIdsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAllStopPlaceIdsQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stops_database_stop_place: Array<{
+      __typename?: 'stops_database_stop_place';
+      netex_id?: string | null;
+    }>;
+  } | null;
+};
+
 export type InsertStopAreaMutationVariables = Exact<{
   stopArea: StopRegistryGroupOfStopPlacesInput;
 }>;
@@ -67048,14 +67061,26 @@ export type InsertStopAreaMutation = {
   } | null;
 };
 
-export type GetAllStopPlaceIdsQueryVariables = Exact<{ [key: string]: never }>;
+export type DeleteStopAreaMutationVariables = Exact<{
+  stopAreaId: Scalars['String']['input'];
+}>;
 
-export type GetAllStopPlaceIdsQuery = {
+export type DeleteStopAreaMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    deleteGroupOfStopPlaces?: boolean | null;
+  } | null;
+};
+
+export type GetAllStopAreaIdsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAllStopAreaIdsQuery = {
   __typename?: 'query_root';
   stops_database?: {
     __typename?: 'stops_database_stops_database_query';
-    stops_database_stop_place: Array<{
-      __typename?: 'stops_database_stop_place';
+    stops_database_group_of_stop_places: Array<{
+      __typename?: 'stops_database_group_of_stop_places';
       netex_id?: string | null;
     }>;
   } | null;
@@ -67076,5 +67101,32 @@ export type InsertOrganisationMutation = {
       id?: string | null;
       name?: string | null;
     } | null> | null;
+  } | null;
+};
+
+export type DeleteOrganisationMutationVariables = Exact<{
+  organisationId: Scalars['String']['input'];
+}>;
+
+export type DeleteOrganisationMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    deleteOrganisation?: boolean | null;
+  } | null;
+};
+
+export type GetAllOrganisationIdsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetAllOrganisationIdsQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stops_database_organisation: Array<{
+      __typename?: 'stops_database_organisation';
+      netex_id?: string | null;
+    }>;
   } | null;
 };
