@@ -1,4 +1,4 @@
-import { StopPlaceInput, StopPlaceMaintenance, seedOrganisationsByLabel } from '../datasets';
+import { StopPlaceInput, StopPlaceMaintenance } from '../datasets';
 import { StopRegistryStopPlaceOrganisationRef, StopRegistryStopPlaceOrganisationRelationshipType } from '../generated/graphql';
 import { hasuraApi } from '../hasuraApi';
 import {
@@ -14,7 +14,7 @@ import { isNotNullish } from '../utils';
 
 const mapStopPlaceMaintenanceToInput = (
   maintenance: StopPlaceMaintenance | undefined | null,
-  organisationIdsByLabel: Map<string, string>
+  organisationIdsByName: Map<string, string>
 ): Array<StopRegistryStopPlaceOrganisationRef> | undefined => {
   if (!maintenance) {
     return undefined;
@@ -22,17 +22,15 @@ const mapStopPlaceMaintenanceToInput = (
 
   const organisationRefs: Array<StopRegistryStopPlaceOrganisationRef> =
     Object.entries(maintenance)
-      .map(([key, organisationLabel]) => {
-        if (!organisationLabel) {
+      .map(([key, organisationName]) => {
+        if (!organisationName) {
           return null;
         }
 
-        const organisation = seedOrganisationsByLabel[organisationLabel]
-        const maintenanceOrganisationId =
-          organisationIdsByLabel.get(organisation?.name);
+        const maintenanceOrganisationId = organisationIdsByName.get(organisationName);
         if (!maintenanceOrganisationId) {
           throw new Error(
-            `Could not find organisation with label ${organisationLabel}`,
+            `Could not find organisation with label ${organisationName}`,
           );
         }
 
@@ -56,19 +54,19 @@ export const insertStopPlaceForScheduledStopPoint = async (
     scheduledStopPointId,
     stopPlace,
     maintenance,
-    organisationIdsByLabel = new Map()
+    organisationIdsByName = new Map()
   }: {
     scheduledStopPointId: UUID,
     stopPlace: StopPlaceInput['stopPlace'],
     maintenance?: StopPlaceInput['maintenance'],
-    organisationIdsByLabel?: Map<string, string>
+    organisationIdsByName?: Map<string, string>
   }
 ) => {
   const stopPlaceForInsert = {
     ...stopPlace,
     organisations: mapStopPlaceMaintenanceToInput(
       maintenance,
-      organisationIdsByLabel
+      organisationIdsByName
     ),
   };
 
