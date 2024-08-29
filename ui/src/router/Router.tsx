@@ -19,6 +19,7 @@ import {
   StopRegistryMainPage,
   StopSearchResultPage,
 } from '../components/stop-registry';
+import { StopAreaDetailsPage } from '../components/stop-registry/stop-areas/stop-area-details/StopAreaDetailsPage';
 import {
   SubstituteDaySettingsPage,
   TimetablesMainPage,
@@ -142,6 +143,11 @@ export const Router: FC = () => {
       _routerRoute: Path.stopDetails,
       protected: true,
       element: <StopDetailsPage />,
+    },
+    [Path.stopAreaDetails]: {
+      _routerRoute: Path.stopAreaDetails,
+      protected: true,
+      element: <StopAreaDetailsPage />,
     },
 
     // Timetables

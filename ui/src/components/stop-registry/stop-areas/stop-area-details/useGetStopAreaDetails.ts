@@ -1,0 +1,57 @@
+import { gql } from '@apollo/client';
+import { useGetStopAreaDetailsQuery } from '../../../../generated/graphql';
+
+const GQL_GET_STOP_AREA_DETAILS = gql`
+  query getStopAreaDetails($id: String!) {
+    stop_registry {
+      groupOfStopPlaces(id: $id) {
+        ...StopAreaDetails
+      }
+    }
+  }
+
+  fragment StopAreaDetails on stop_registry_GroupOfStopPlaces {
+    id
+
+    geometry {
+      type
+      coordinates
+    }
+
+    description {
+      lang
+      value
+    }
+
+    name {
+      lang
+      value
+    }
+
+    validBetween {
+      fromDate
+      toDate
+    }
+
+    members {
+      id
+
+      name {
+        lang
+        value
+      }
+
+      ... on stop_registry_StopPlace {
+        scheduled_stop_point {
+          ...stop_table_row
+        }
+      }
+    }
+  }
+`;
+
+export function useGetStopAreaDetails(id: string) {
+  const { data, ...rest } = useGetStopAreaDetailsQuery({ variables: { id } });
+  const area = data?.stop_registry?.groupOfStopPlaces?.at(0) ?? null;
+  return { ...rest, area };
+}

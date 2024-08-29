@@ -8,6 +8,8 @@ const testIds = {
 
 interface Props {
   className?: string;
+  containerClassName?: string;
+  inputClassName?: string;
   disabled?: boolean;
 }
 
@@ -15,7 +17,9 @@ interface Props {
  * Observation date input which handles its own state in query params.
  */
 export const ObservationDateControl = ({
-  className = '',
+  className,
+  containerClassName,
+  inputClassName,
   disabled = false,
 }: Props): React.ReactElement => {
   const { observationDate, setObservationDateToUrl } =
@@ -34,6 +38,8 @@ export const ObservationDateControl = ({
       value={observationDate}
       onChange={onDateChange}
       className={className}
+      containerClassName={containerClassName}
+      inputClassName={inputClassName}
       required
       disabled={disabled}
       testId={testIds.observationDateInput}
