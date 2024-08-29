@@ -141,7 +141,7 @@ export const useUrlQuery = () => {
     ({
       parameters,
       replace = false,
-      pathname = '',
+      pathname = undefined,
     }: {
       parameters: QueryParameter<QueryParameterTypes>[];
       replace?: boolean;
