@@ -49,7 +49,7 @@ const insertOrganisation = async (
 
 const insertStopPlace = async (
   { label, maintenance, stopPlace }: StopPlaceInput,
-  organisationIdsByLabel: Map<string, string>,
+  organisationIdsByName: Map<string, string>,
 ): Promise<StopPlaceNetexRef> => {
   // Find related scheduled stop point.
   const stopPointResult = (await hasuraApi(
@@ -79,7 +79,7 @@ const insertStopPlace = async (
       scheduledStopPointId: stopPointId,
       stopPlace,
       maintenance,
-      organisationIdsByLabel,
+      organisationIdsByName,
     });
 
     if (stopPoint.stop_place_ref) {
