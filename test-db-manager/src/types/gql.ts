@@ -64,6 +64,26 @@ export interface GetAllStopPlaceIdsResult {
   };
 }
 
+export interface GetAllStopAreaIdsResult {
+  data: {
+    stops_database: {
+      stops_database_group_of_stop_places: {
+        netex_id: string;
+      }[];
+    };
+  };
+}
+
+export interface GetAllOrganisationIdsResult {
+  data: {
+    stops_database: {
+      stops_database_organisation: {
+        netex_id: string;
+      }[];
+    };
+  };
+}
+
 export interface InsertOrganisationResult {
   data: {
     stop_registry: {

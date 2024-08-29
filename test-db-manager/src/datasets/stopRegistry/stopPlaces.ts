@@ -431,4 +431,4 @@ const seedData: Array<StopPlaceSeedData> = [
 
 export const seedStopPlaces: Array<StopPlaceInput> =
   seedData.map(mapToStopPlaceInput);
-export const stopPlaceH2003 = mapToStopPlaceInput(H2003).stopPlace;
+export const stopPlaceH2003 = mapToStopPlaceInput(H2003);
