@@ -141,7 +141,10 @@
     },
     "memberStops": {
       "title": "Stops",
-      "addStop": "Add a stop"
+      "addStop": "Add a stop",
+      "menuActions": {
+        "remove": "Remove stop from stop area"
+      }
     }
   },
   "stopPlaceTypes": {
@@ -321,7 +324,11 @@
     "byAddress": "By address",
     "byLabel": "By label",
     "municipality": "Municipality",
-    "municipalityPlaceholder": "Choose"
+    "municipalityPlaceholder": "Choose",
+    "stopRowActions": {
+      "openDetails": "Open stop details page",
+      "showOnMap": "Show stop on the map"
+    }
   },
   "timingPlaces": {
     "label": "New Hastus place",

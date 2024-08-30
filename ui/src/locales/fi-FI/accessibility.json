@@ -7,7 +7,8 @@
     "goToPage": "Mene sivulle",
     "paginationNavigation": "Sivutusnavigaatio",
     "expandSearch": "Avaa tarkennettu haku",
-    "closeSearch": "Sulje tarkennettu haku"
+    "closeSearch": "Sulje tarkennettu haku",
+    "actionMenu": "Toimintovalikko"
   },
   "lines": {
     "details": "Näytä tarkemmat tiedot linjalle {{label}}",
