@@ -1,4 +1,4 @@
-import React, { Ref } from 'react';
+import React, { ForwardRefRenderFunction } from 'react';
 
 interface Props {
   text: string;
@@ -8,13 +8,13 @@ interface Props {
   className?: string;
 }
 
-const SimpleDropdownMenuItemComponent = (
-  { text, onClick, disabled, testId, className }: Props,
-  externalRef: Ref<ExplicitAny>,
-) => {
+const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
+  HTMLButtonElement,
+  Props
+> = ({ text, onClick, disabled, testId, className }, ref) => {
   return (
     <button
-      ref={externalRef}
+      ref={ref}
       disabled={disabled}
       className={`${className} ${
         disabled ? 'bg-background text-dark-grey' : ''

@@ -5,7 +5,10 @@ import { StopAreaDetailsFragment } from '../../../../../generated/graphql';
 import { StopSearchRow } from '../../../../../hooks';
 import { notNullish } from '../../../../../utils';
 import { StopTableRow } from '../../../search';
+import { OpenDetailsPage } from '../../../search/StopTableRow/MenuItems/OpenDetailsPage';
+import { ShowOnMap } from '../../../search/StopTableRow/MenuItems/ShowOnMap';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
+import { RemoveMemberStop } from './MemberStopMenuItems/RemoveMemberStop';
 import { StopAreaComponentProps } from './StopAreaComponentProps';
 
 const testIds = {
@@ -65,10 +68,15 @@ export const StopAreaMemberStops: FC<StopAreaComponentProps> = ({
 
       <table className="mt-4 h-1 w-full border-x border-x-light-grey">
         <tbody>
-          {mapMembersToStopSearchFormat(area).map((scheduledStopPoint) => (
+          {mapMembersToStopSearchFormat(area).map((stop) => (
             <StopTableRow
-              key={scheduledStopPoint.scheduled_stop_point_id}
-              stop={scheduledStopPoint}
+              key={stop.scheduled_stop_point_id}
+              stop={stop}
+              menuItems={[
+                <OpenDetailsPage key="OpenDetailsPage" stop={stop} />,
+                <RemoveMemberStop key="RemoveMemberStop" stop={stop} />,
+                <ShowOnMap key="ShowOnMap" stop={stop} />,
+              ]}
             />
           ))}
         </tbody>
