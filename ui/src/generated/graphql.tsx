@@ -66770,6 +66770,7 @@ export type GetStopAreaDetailsQuery = {
               __typename?: 'service_pattern_scheduled_stop_point';
               scheduled_stop_point_id: UUID;
               label: string;
+              measured_location: GeoJSON.Point;
               validity_start?: luxon.DateTime | null;
               validity_end?: luxon.DateTime | null;
               timing_place_id?: UUID | null;
@@ -66823,6 +66824,7 @@ export type StopAreaDetailsFragment = {
           __typename?: 'service_pattern_scheduled_stop_point';
           scheduled_stop_point_id: UUID;
           label: string;
+          measured_location: GeoJSON.Point;
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           timing_place_id?: UUID | null;
@@ -70021,6 +70023,7 @@ export type StopTableRowFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
   scheduled_stop_point_id: UUID;
   label: string;
+  measured_location: GeoJSON.Point;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   timing_place_id?: UUID | null;
@@ -70048,6 +70051,7 @@ export type StopTableRowStopPlaceFragment = {
     __typename?: 'service_pattern_scheduled_stop_point';
     scheduled_stop_point_id: UUID;
     label: string;
+    measured_location: GeoJSON.Point;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     timing_place_id?: UUID | null;
@@ -70084,6 +70088,7 @@ export type SearchStopsQuery = {
         __typename?: 'service_pattern_scheduled_stop_point';
         scheduled_stop_point_id: UUID;
         label: string;
+        measured_location: GeoJSON.Point;
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         timing_place_id?: UUID | null;
@@ -72588,6 +72593,7 @@ export const StopTableRowFragmentDoc = gql`
   fragment stop_table_row on service_pattern_scheduled_stop_point {
     scheduled_stop_point_id
     label
+    measured_location
     validity_start
     validity_end
     timing_place_id
