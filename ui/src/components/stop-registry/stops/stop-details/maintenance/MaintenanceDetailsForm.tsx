@@ -26,7 +26,6 @@ const GQL_GET_ORGANISATIONS = gql`
 `;
 
 const testIds = {
-  streetAddress: 'MaintenanceDetailsForm::streetAddress',
   owner: 'MaintenanceDetailsForm::owner',
   maintenance: 'MaintenanceDetailsForm::maintenance',
   winterMaintenance: 'MaintenanceDetailsForm::winterMaintenance',
@@ -95,31 +94,31 @@ const MaintenanceDetailsFormComponent = (
         ref={ref}
       >
         <MaintainerFormFields
-          data-testid={testIds.owner}
+          testId={testIds.owner}
           maintainerType={MaintainerType.Owner}
           organisations={organisations}
           editOrganisation={onEditOrganisation}
         />
         <MaintainerFormFields
-          data-testid={testIds.maintenance}
+          testId={testIds.maintenance}
           maintainerType={MaintainerType.Maintenance}
           organisations={organisations}
           editOrganisation={onEditOrganisation}
         />
         <MaintainerFormFields
-          data-testid={testIds.winterMaintenance}
+          testId={testIds.winterMaintenance}
           maintainerType={MaintainerType.WinterMaintenance}
           organisations={organisations}
           editOrganisation={onEditOrganisation}
         />
         <MaintainerFormFields
-          data-testid={testIds.infoUpkeep}
+          testId={testIds.infoUpkeep}
           maintainerType={MaintainerType.InfoUpkeep}
           organisations={organisations}
           editOrganisation={onEditOrganisation}
         />
         <MaintainerFormFields
-          data-testid={testIds.cleaning}
+          testId={testIds.cleaning}
           maintainerType={MaintainerType.Cleaning}
           organisations={organisations}
           editOrganisation={onEditOrganisation}

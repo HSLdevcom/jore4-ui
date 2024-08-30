@@ -20,6 +20,7 @@ const testIds = {
 };
 
 interface Props {
+  testId: string;
   maintainerType: StopRegistryStopPlaceOrganisationRelationshipType;
   organisations: Array<StopPlaceOrganisationFieldsFragment>;
   editOrganisation: (
@@ -29,6 +30,7 @@ interface Props {
 }
 
 export const MaintainerFormFields = ({
+  testId,
   maintainerType,
   organisations,
   editOrganisation,
@@ -67,7 +69,7 @@ export const MaintainerFormFields = ({
   };
 
   return (
-    <div className="grid space-y-4">
+    <div data-testid={testId} className="grid space-y-4">
       <div className="lg:row-span-1 lg:row-start-1">
         <InputField<MaintenanceDetailsFormState>
           translationPrefix="stopDetails.maintenance"
