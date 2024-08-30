@@ -61,15 +61,20 @@ export const StopAreas = React.forwardRef((_props, ref) => {
   const { defaultErrorHandler, initializeStopArea } = useUpsertStopArea();
 
   const viewport = useAppSelector(selectMapViewport);
+  // Skip initial 0 radius fetch and wait for the map to get loaded,
+  // so that we have a proper viewport.
+  const skipFetchingAreas = viewport.radius <= 0;
   const stopAreasResult = useGetStopAreasByLocationQuery({
     variables: {
       measured_location_filter: buildWithinViewportGqlGeometryFilter(viewport),
     },
-    // Skip initial 0 radius fetch and wait for the map to get loaded,
-    // so that we have a proper viewport.
-    skip: viewport.radius <= 0,
+    skip: skipFetchingAreas,
   });
-  useMapDataLayerSimpleQueryLoader(Operation.FetchStopAreas, stopAreasResult);
+  useMapDataLayerSimpleQueryLoader(
+    Operation.FetchStopAreas,
+    stopAreasResult,
+    skipFetchingAreas,
+  );
 
   const { setLoadingState: setFetchStopAreaDetailsLoadingState } = useLoader(
     Operation.FetchStopAreaDetails,

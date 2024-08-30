@@ -72,18 +72,20 @@ export const Stops = React.forwardRef((_props, ref) => {
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
   const viewport = useAppSelector(selectMapViewport);
+  // Skip initial 0 radius fetch and wait for the map to get loaded,
+  // so that we have a proper viewport.
+  const skipFetching = stopAreaEditorIsActive || viewport.radius <= 0;
   const stopsResult = useGetStopsByLocationQuery({
     variables: {
       measured_location_filter: buildWithinViewportGqlFilter(viewport),
     },
-    // Skip initial 0 radius fetch and wait for the map to get loaded,
-    // so that we have a proper viewport.
-    skip: stopAreaEditorIsActive || viewport.radius <= 0,
+    skip: skipFetching,
   });
 
   const setFetchStopsLoadingState = useMapDataLayerSimpleQueryLoader(
     Operation.FetchStops,
     stopsResult,
+    skipFetching,
   );
 
   // When stops are loading, show previously loaded stops to avoid stops
