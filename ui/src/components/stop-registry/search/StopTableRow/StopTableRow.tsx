@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { StopSearchRow } from '../../../../hooks';
+import { ActionButtonsTd } from './ActionButtonsTd';
 import { LabelAndTimingPlaceTd } from './LabelAndTimingPlaceTd';
 import { NameTd } from './NameTd';
 import { ValidityPeriodTd } from './ValidityPeriodTd';
@@ -37,6 +38,11 @@ export const StopTableRow: FC<Props> = ({ className = '', stop }) => {
 
       <ValidityPeriodTd
         className={`w-auto px-8 py-3 ${yBorderClassNames} whitespace-nowrap border-l border-l-background`}
+        stop={stop}
+      />
+
+      <ActionButtonsTd
+        className={`w-auto px-8 py-3 ${yBorderClassNames}`}
         stop={stop}
       />
     </tr>

@@ -27,6 +27,7 @@ const GQL_STOP_TABLE_ROW = gql`
   fragment stop_table_row on service_pattern_scheduled_stop_point {
     scheduled_stop_point_id
     label
+    measured_location
     validity_start
     validity_end
     timing_place_id
