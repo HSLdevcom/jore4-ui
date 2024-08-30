@@ -1,5 +1,7 @@
 import { StopSearchRow } from '../../../hooks';
 import { StopTableRow } from './StopTableRow';
+import { OpenDetailsPage } from './StopTableRow/MenuItems/OpenDetailsPage';
+import { ShowOnMap } from './StopTableRow/MenuItems/ShowOnMap';
 
 interface Props {
   stops: Array<StopSearchRow>;
@@ -16,8 +18,15 @@ export const StopSearchResultList = ({ stops }: Props): React.ReactElement => {
       data-testid={testIds.table}
     >
       <tbody>
-        {stops?.map((item: StopSearchRow) => (
-          <StopTableRow key={item.scheduled_stop_point_id} stop={item} />
+        {stops?.map((stop: StopSearchRow) => (
+          <StopTableRow
+            key={stop.scheduled_stop_point_id}
+            menuItems={[
+              <ShowOnMap key="showOnMap" stop={stop} />,
+              <OpenDetailsPage key="openDetails" stop={stop} />,
+            ]}
+            stop={stop}
+          />
         ))}
       </tbody>
     </table>

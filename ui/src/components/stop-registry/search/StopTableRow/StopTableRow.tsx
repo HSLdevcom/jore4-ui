@@ -1,14 +1,16 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { StopSearchRow } from '../../../../hooks';
 import { ActionButtonsTd } from './ActionButtonsTd';
+import { ActionMenuTd } from './ActionMenuTd';
 import { LabelAndTimingPlaceTd } from './LabelAndTimingPlaceTd';
 import { NameTd } from './NameTd';
 import { ValidityPeriodTd } from './ValidityPeriodTd';
 
 interface Props {
-  className?: string;
-  stop: StopSearchRow;
+  readonly className?: string;
+  readonly menuItems: ReactNode;
+  readonly stop: StopSearchRow;
 }
 
 const testIds = {
@@ -17,7 +19,11 @@ const testIds = {
 
 const yBorderClassNames = 'border-y border-y-light-grey';
 
-export const StopTableRow: FC<Props> = ({ className = '', stop }) => {
+export const StopTableRow: FC<Props> = ({
+  className = '',
+  menuItems,
+  stop,
+}) => {
   return (
     <tr
       className={twMerge('text-hsl-dark-80', className)}
@@ -42,8 +48,13 @@ export const StopTableRow: FC<Props> = ({ className = '', stop }) => {
       />
 
       <ActionButtonsTd
-        className={`w-auto px-8 py-3 ${yBorderClassNames}`}
+        className={`w-auto py-3 ${yBorderClassNames}`}
         stop={stop}
+      />
+
+      <ActionMenuTd
+        className={`w-auto py-3 pl-3 pr-8 ${yBorderClassNames}`}
+        menuItems={menuItems}
       />
     </tr>
   );
