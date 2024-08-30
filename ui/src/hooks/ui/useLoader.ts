@@ -63,7 +63,8 @@ export function useMapDataLayerLoader(
 export function useMapDataLayerSimpleQueryLoader<T>(
   operation: Operation,
   { data, loading, previousData }: QueryResult<T>,
+  skipped = false,
 ) {
-  const initialLoadDone = !!(previousData ?? data);
-  return useMapDataLayerLoader(operation, initialLoadDone, loading);
+  const initialLoadDone = !!(previousData ?? data) || skipped;
+  return useMapDataLayerLoader(operation, initialLoadDone, loading && !skipped);
 }
