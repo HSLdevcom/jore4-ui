@@ -17,6 +17,7 @@ import {
   BasicDetailsViewCard,
   LocationDetailsForm,
   LocationDetailsViewCard,
+  MaintenanceDetailsForm,
   MaintenanceViewCard,
   MeasurementsForm,
   MeasurementsViewCard,
@@ -1200,17 +1201,101 @@ describe('Stop details', () => {
     });
 
     describe('maintenance details', () => {
+      let form: MaintenanceDetailsForm;
       let view: MaintenanceViewCard;
 
       beforeEach(() => {
+        form = stopDetailsPage.maintenance.form;
         view = stopDetailsPage.maintenance.viewCard;
       });
 
-      it('should view maintainers', () => {
+      it('should view and edit maintainers', () => {
         verifyInitialMaintenanceDetails();
 
         stopDetailsPage.maintenance.getEditButton().click();
         view.getContainer().should('not.exist');
+
+        // Verify correct initial values:
+        form.getOwner().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
+        });
+        form.getMaintenance().within(() => {
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('ELY-keskus');
+        });
+        form.getWinterMaintenance().within(() => {
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('ELY-keskus');
+        });
+        form.getInfoUpkeep().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('-');
+        });
+        form.getCleaning().within(() => {
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('Clear Channel');
+        });
+
+        // Change everything:
+        form.getOwner().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields
+            .getMaintainerDropdownOptions()
+            .contains('Clear Channel')
+            .click();
+        });
+        form.getMaintenance().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields.getMaintainerDropdownOptions().contains('JCD').click();
+        });
+        form.getWinterMaintenance().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields.getMaintainerDropdownOptions().contains('-').click();
+        });
+        form.getInfoUpkeep().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields.getMaintainerDropdownOptions().contains('JCD').click();
+        });
+        form.getCleaning().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields
+            .getMaintainerDropdownOptions()
+            .contains('ELY-keskus')
+            .click();
+        });
+
+        // Submit.
+        stopDetailsPage.maintenance.getSaveButton().click();
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        view.getContainer().shouldBeVisible();
+
+        // Verify changes visible.
+        const maintainerView = view.maintainerViewCard;
+        view.getOwner().within(() => {
+          maintainerView.getName().shouldHaveText('Clear Channel');
+          // Verify that details for new maintainer are shown.
+          maintainerView.getPhone().shouldHaveText('+358501223334');
+          maintainerView.getEmail().shouldHaveText('clear-channel@example.com');
+          maintainerView.getNotSelectedPlaceholder().should('not.exist');
+        });
+        view.getMaintenance().within(() => {
+          maintainerView.getName().shouldHaveText('JCD');
+        });
+        view.getWinterMaintenance().within(() => {
+          maintainerView.getNotSelectedPlaceholder().shouldBeVisible();
+        });
+        view.getInfoUpkeep().within(() => {
+          maintainerView.getName().shouldHaveText('JCD');
+          // Didn't have any maintainer previously, verify that details of new one shown now.
+          maintainerView.getPhone().shouldHaveText('+358501234567');
+          maintainerView.getEmail().shouldHaveText('jcd@example.com');
+          maintainerView.getNotSelectedPlaceholder().should('not.exist');
+        });
+        view.getCleaning().within(() => {
+          maintainerView.getName().shouldHaveText('ELY-keskus');
+        });
       });
     });
   });
