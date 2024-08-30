@@ -8,6 +8,10 @@ import { StopTableRow } from '../../../search';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import { StopAreaComponentProps } from './StopAreaComponentProps';
 
+const testIds = {
+  addStopButton: 'StopAreaDetailsPage::MemberStops::addStopButton',
+};
+
 function mapMembersToStopSearchFormat(
   area: StopAreaDetailsFragment,
 ): Array<StopSearchRow> {
@@ -50,7 +54,11 @@ export const StopAreaMemberStops: FC<StopAreaComponentProps> = ({
     <div className={className}>
       <div className="flex items-center justify-between">
         <h2>{t('stopAreaDetails.memberStops.title')}</h2>
-        <SlimSimpleButton disabled onClick={noop}>
+        <SlimSimpleButton
+          disabled
+          onClick={noop}
+          testId={testIds.addStopButton}
+        >
           {t('stopAreaDetails.memberStops.addStop')}
         </SlimSimpleButton>
       </div>
