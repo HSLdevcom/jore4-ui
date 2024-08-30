@@ -141,7 +141,10 @@
     },
     "memberStops": {
       "title": "Pysäkit",
-      "addStop": "Lisää pysäkki"
+      "addStop": "Lisää pysäkki",
+      "menuActions": {
+        "remove": "Poista pysäkki pysäkkialueelta"
+      }
     }
   },
   "stopPlaceTypes": {
@@ -321,7 +324,11 @@
     "byAddress": "Osoitteella",
     "byLabel": "Tunnuksella",
     "municipality": "Kunta",
-    "municipalityPlaceholder": "Valitse"
+    "municipalityPlaceholder": "Valitse",
+    "stopRowActions": {
+      "openDetails": "Näytä pysäkin tiedot",
+      "showOnMap": "Näytä pysäkki kartalla"
+    }
   },
   "timingPlaces": {
     "label": "Uusi Hastus-paikka",
