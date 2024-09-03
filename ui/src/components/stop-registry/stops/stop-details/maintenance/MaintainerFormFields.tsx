@@ -17,6 +17,8 @@ import { MaintenanceDetailsFormState } from './schema';
 const testIds = {
   maintainerDropdown: 'MaintainerFormFields::maintainerDropdown',
   editOrganisationButton: 'MaintainerFormFields::editOrganisationButton',
+  phone: 'MaintainerFormFields::phone',
+  email: 'MaintainerFormFields::email',
 };
 
 interface Props {
@@ -86,8 +88,12 @@ export const MaintainerFormFields = ({
           )}
         />
         <div className="text-sm">
-          <div>{selectedMaintainer?.privateContactDetails?.phone ?? ''}</div>
-          <div>{selectedMaintainer?.privateContactDetails?.email ?? ''}</div>
+          <div data-testid={testIds.phone}>
+            {selectedMaintainer?.privateContactDetails?.phone ?? ''}
+          </div>
+          <div data-testid={testIds.email}>
+            {selectedMaintainer?.privateContactDetails?.email ?? ''}
+          </div>
         </div>
       </div>
       <div className="self-end lg:row-span-1 lg:row-start-2">

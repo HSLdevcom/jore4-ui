@@ -1297,6 +1297,133 @@ describe('Stop details', () => {
           maintainerView.getName().shouldHaveText('ELY-keskus');
         });
       });
+
+      it('should edit maintainer organisation details', () => {
+        stopDetailsPage.maintenance.getEditButton().click();
+        view.getContainer().should('not.exist');
+
+        form.organisationDetailsModal.getModal().should('not.exist');
+        form.getMaintenance().within(() => {
+          form.fields.getEditOrganisationButton().click();
+        });
+        form.organisationDetailsModal.getModal().should('exist');
+        form.organisationDetailsModal
+          .getTitle()
+          .shouldHaveText('Muokkaa toimijan tietoja');
+
+        const organisationForm = form.organisationDetailsModal.form;
+        // Verify initial values.
+        organisationForm.getName().should('have.value', 'ELY-keskus');
+        organisationForm.getPhone().should('have.value', '+358501234567');
+        organisationForm
+          .getEmail()
+          .should('have.value', 'ely-keskus@example.com');
+        // Change everything and submit.
+        organisationForm.getName().clearAndType('Uusi Nimi');
+        organisationForm.getPhone().clearAndType('+358507777777');
+        organisationForm.getEmail().clearAndType('uusi@example.com');
+        organisationForm.getSaveButton().click();
+        form.organisationDetailsModal.getModal().should('not.exist');
+
+        // Verify changes visible to this maintainer.
+        form.getMaintenance().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('Uusi Nimi');
+          form.fields.getPhone().shouldHaveText('+358507777777');
+          form.fields.getEmail().shouldHaveText('uusi@example.com');
+        });
+        // Also updated to other maintainers with this same organisation.
+        form.getWinterMaintenance().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('Uusi Nimi');
+          form.fields.getPhone().shouldHaveText('+358507777777');
+          form.fields.getEmail().shouldHaveText('uusi@example.com');
+        });
+
+        // Cancel editing maintainers.
+        stopDetailsPage.maintenance.getCancelButton().click();
+        view.getContainer().shouldBeVisible();
+
+        // The edited organisation details should have still been persisted.
+        view.getMaintenance().within(() => {
+          view.maintainerViewCard.getName().shouldHaveText('Uusi Nimi');
+          view.maintainerViewCard.getPhone().shouldHaveText('+358507777777');
+          view.maintainerViewCard.getEmail().shouldHaveText('uusi@example.com');
+        });
+      });
+
+      it('should create new organisation and use it as maintainer', () => {
+        stopDetailsPage.maintenance.getEditButton().click();
+        view.getContainer().should('not.exist');
+
+        // Start creating new organisation.
+        form.getMaintenance().within(() => {
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('ELY-keskus');
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields
+            .getMaintainerDropdownOptions()
+            .contains('Lisää uusi toimija')
+            .click();
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('ELY-keskus');
+        });
+        form.organisationDetailsModal.getModal().should('exist');
+        form.organisationDetailsModal
+          .getTitle()
+          .shouldHaveText('Uusi ylläpitäjä');
+
+        // Fill organisation details and save.
+        const organisationForm = form.organisationDetailsModal.form;
+        organisationForm.getName().clearAndType('Uusi Toimija');
+        organisationForm.getPhone().clearAndType('+358507777777');
+        organisationForm.getEmail().clearAndType('uusi@example.com');
+        organisationForm.getSaveButton().click();
+        form.organisationDetailsModal.getModal().should('not.exist');
+
+        // The new organisation is automatically selected as maintainer for which it was created.
+        form.getMaintenance().within(() => {
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('Uusi Toimija');
+          form.fields.getPhone().shouldHaveText('+358507777777');
+          form.fields.getEmail().shouldHaveText('uusi@example.com');
+        });
+        // Other maintainers not affected though.
+        form.getOwner().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
+        });
+        form.getWinterMaintenance().within(() => {
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('ELY-keskus');
+        });
+        form.getInfoUpkeep().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('-');
+        });
+        form.getCleaning().within(() => {
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('Clear Channel');
+        });
+
+        // New maintainer would be visible for other maintainers too.
+        form.getInfoUpkeep().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields
+            .getMaintainerDropdownOptions()
+            .contains('Uusi Toimija')
+            .shouldBeVisible();
+          form.fields.getMaintainerDropdownButton().click();
+        });
+
+        // Persist maintainers and check view.
+        stopDetailsPage.maintenance.getSaveButton().click();
+        view.getContainer().shouldBeVisible();
+        view.getMaintenance().within(() => {
+          view.maintainerViewCard.getName().shouldHaveText('Uusi Toimija');
+        });
+      });
     });
   });
 

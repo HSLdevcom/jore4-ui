@@ -10,6 +10,10 @@ export class MaintenanceSection {
     return cy.getByTestId('MaintenanceSection::editButton');
   }
 
+  getCancelButton() {
+    return cy.getByTestId('MaintenanceSection::cancelButton');
+  }
+
   getSaveButton() {
     return cy.getByTestId('MaintenanceSection::saveButton');
   }
