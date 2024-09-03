@@ -9,6 +9,11 @@ import {
   OrganisationDetailsFormState,
 } from './OrganisationDetailsForm';
 
+const testIds = {
+  modal: 'OrganisationDetailsModal',
+  title: 'OrganisationDetailsModal::title',
+};
+
 interface Props {
   isOpen: boolean;
   organisation?: StopPlaceOrganisationFieldsFragment;
@@ -50,9 +55,9 @@ export const OrganisationDetailsModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} testId={testIds.modal}>
       <Row className="flex justify-between px-5 py-4">
-        <Dialog.Title as="h4">
+        <Dialog.Title as="h4" data-testid={testIds.title}>
           {organisation?.id
             ? t('stopDetails.maintenance.organisation.modalTitleEdit')
             : t('stopDetails.maintenance.organisation.modalTitleCreate')}

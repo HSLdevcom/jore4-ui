@@ -1,7 +1,10 @@
 import { MaintainerFormFields } from './MaintainerFormFields';
+import { OrganisationDetailsModal } from './OrganisationDetailsModal';
 
 export class MaintenanceDetailsForm {
   fields = new MaintainerFormFields();
+
+  organisationDetailsModal = new OrganisationDetailsModal();
 
   getOwner() {
     return cy.getByTestId('MaintenanceDetailsForm::owner');
