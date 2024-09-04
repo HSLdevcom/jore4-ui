@@ -3,7 +3,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   timingPlaces,
 } from '@hsl/jore4-test-db-manager';
-import { Tag } from '../enums';
+import { Tag } from '../../enums';
 import {
   ChangeValidityForm,
   MapModal,
@@ -11,9 +11,9 @@ import {
   StopDetailsPage,
   StopSearchBar,
   StopSearchResultsPage,
-} from '../pageObjects';
-import { FilterPanel } from '../pageObjects/FilterPanel';
-import { insertToDbHelper } from '../utils';
+} from '../../pageObjects';
+import { FilterPanel } from '../../pageObjects/FilterPanel';
+import { insertToDbHelper } from '../../utils';
 
 const testStopLabels = {
   testLabel1: 'T0001',
