@@ -21,6 +21,7 @@ import {
 } from './stopAreaFormSchema';
 
 const testIds = {
+  form: 'StopAreaFormComponent::form',
   label: 'StopAreaFormComponent::label',
   name: 'StopAreaFormComponent::name',
   latitude: 'StopAreaFormComponent::latitude',
@@ -63,7 +64,7 @@ interface Props {
   onSubmit: (changes: FormState) => void;
 }
 
-const StopFormComponent = (
+const StopAreaFormComponent = (
   { className = '', defaultValues, editedStopAreaId, onSubmit }: Props,
   ref: ExplicitAny,
 ): JSX.Element => {
@@ -79,6 +80,7 @@ const StopFormComponent = (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
+        data-testid={testIds.form}
         className={twMerge('space-y-6', className)}
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
@@ -155,4 +157,4 @@ const StopFormComponent = (
   );
 };
 
-export const StopAreaForm = React.forwardRef(StopFormComponent);
+export const StopAreaForm = React.forwardRef(StopAreaFormComponent);

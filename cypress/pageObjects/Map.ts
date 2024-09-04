@@ -27,6 +27,7 @@ export class Map {
     });
     this.waitForLoadToComplete();
     cy.wait('@gqlGetStopsByLocation');
+    cy.wait('@gqlGetStopAreasByLocation');
   }
 
   getNthMarker(markerNumber: number, options?: Partial<Cypress.Timeoutable>) {

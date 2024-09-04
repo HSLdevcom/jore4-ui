@@ -10,7 +10,8 @@ import {
 
 const testIds = {
   menu: 'MapFooterActionsDropdown::menu',
-  removeStop: 'MapFooterActionsDropdown::menu',
+  createNewTerminal: 'MapFooterActionsDropdown::createNewTerminal',
+  createNewStopArea: 'MapFooterActionsDropdown::createNewStopArea',
 };
 
 interface Props {
@@ -51,12 +52,12 @@ export const MapFooterActionsDropdown = ({
             <SimpleDropdownMenuItem
               onClick={noop}
               text={t('map.createNewTerminal') + ' TODO'} // eslint-disable-line prefer-template
-              testId={testIds.removeStop}
+              testId={testIds.createNewTerminal}
             />
             <SimpleDropdownMenuItem
               onClick={onCreateNewStopArea}
               text={t('map.createNewStopArea')}
-              testId={testIds.removeStop}
+              testId={testIds.createNewStopArea}
             />
           </SimpleDropdownMenuItems>
         </>
