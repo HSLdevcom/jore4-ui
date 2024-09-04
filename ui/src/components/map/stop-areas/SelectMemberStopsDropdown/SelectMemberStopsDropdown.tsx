@@ -12,6 +12,10 @@ import {
 import { SelectMemberStopsDropdownButton } from './SelectMemberStopsDropdownButton';
 import { useFindStopPlaceByQuery } from './useFindStopPlaceByQuery';
 
+const testIds = {
+  input: 'SelectMemberStopsDropdown::input',
+};
+
 function stopAreaFormMembersAreSame(
   a: StopAreaFormMember,
   b: StopAreaFormMember,
@@ -100,6 +104,7 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
           className="relative h-full w-full border border-grey bg-white px-2 py-3 ui-open:rounded-b-none ui-not-open:rounded-md"
           onChange={(e) => setQuery(e.target.value)}
           value={query}
+          data-testid={testIds.input}
         />
 
         <SelectMemberStopsDropdownButton selected={value} />

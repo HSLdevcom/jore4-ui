@@ -1,7 +1,10 @@
+import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
 import { Toast } from './Toast';
 
 export class MapFooter {
   toast = new Toast();
+
+  mapFooterActionsDropdown = new MapFooterActionsDropdown();
 
   getCreateRouteButton() {
     return cy.getByTestId('MapFooter::drawRouteButton');
