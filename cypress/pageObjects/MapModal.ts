@@ -5,6 +5,8 @@ import { MapFooter } from './MapFooter';
 import { RouteEditor } from './RouteEditor';
 import { RoutePropertiesForm } from './RoutePropertiesForm';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
+import { StopAreaForm } from './StopAreaForm';
+import { StopAreaPopup } from './StopAreaPopup';
 import { StopForm, StopFormInfo } from './StopForm';
 import { Toast } from './Toast';
 
@@ -16,6 +18,10 @@ export class MapModal {
   routePropertiesForm = new RoutePropertiesForm();
 
   stopForm = new StopForm();
+
+  stopAreaPopup = new StopAreaPopup();
+
+  stopAreaForm = new StopAreaForm();
 
   routeStopsOverlay = new RouteStopsOverlay();
 

@@ -9,6 +9,7 @@ import { getGeometryPoint, mapToValidityPeriod } from '../../../utils';
 
 const testIds = {
   label: 'StopAreaPopup::label',
+  validityPeriod: 'StopAreaPopup::validityPeriod',
   closeButton: 'StopAreaPopup::closeButton',
   deleteButton: 'StopAreaPopup::deleteButton',
   editButton: 'StopAreaPopup::editButton',
@@ -76,7 +77,7 @@ export const StopAreaPopup = ({
           </Column>
         </Row>
 
-        <Row className="text-sm">
+        <Row className="text-sm" testId={testIds.validityPeriod}>
           {mapToValidityPeriod(
             t,
             area.validBetween?.fromDate,

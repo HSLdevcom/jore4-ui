@@ -28,6 +28,7 @@ export class Map {
     });
     this.waitForLoadToComplete();
     expectGraphQLCallToSucceed('@gqlGetStopsByLocation');
+    expectGraphQLCallToSucceed('@gqlGetStopAreasByLocation');
   }
 
   getNthMarker(markerNumber: number, options?: Partial<Cypress.Timeoutable>) {
