@@ -8,13 +8,13 @@ import {
   buildStopsOnInfraLinks,
   getClonedBaseDbResources,
   testInfraLinkExternalIds,
-} from '../datasets/base';
-import { Tag } from '../enums';
-import { MapFooter, MapModal, Toast } from '../pageObjects';
-import { FilterPanel } from '../pageObjects/FilterPanel';
-import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
-import { UUID } from '../types';
-import { SupportedResources, insertToDbHelper } from '../utils';
+} from '../../datasets/base';
+import { Tag } from '../../enums';
+import { MapFooter, MapModal, Toast } from '../../pageObjects';
+import { FilterPanel } from '../../pageObjects/FilterPanel';
+import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
+import { UUID } from '../../types';
+import { SupportedResources, insertToDbHelper } from '../../utils';
 
 describe('Route creation', () => {
   let mapModal: MapModal;
