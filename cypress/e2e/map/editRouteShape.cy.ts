@@ -4,8 +4,8 @@ import {
   buildStopsOnInfraLinks,
   getClonedBaseDbResources,
   testInfraLinkExternalIds,
-} from '../datasets/base';
-import { Tag } from '../enums';
+} from '../../datasets/base';
+import { Tag } from '../../enums';
 import {
   Map,
   MapFooter,
@@ -13,10 +13,10 @@ import {
   RouteEditor,
   RoutesAndLinesPage,
   SearchResultsPage,
-} from '../pageObjects';
-import { RouteStopsOverlay } from '../pageObjects/RouteStopsOverlay';
-import { UUID } from '../types';
-import { SupportedResources, insertToDbHelper } from '../utils';
+} from '../../pageObjects';
+import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
+import { UUID } from '../../types';
+import { SupportedResources, insertToDbHelper } from '../../utils';
 
 describe('Edit route geometry', () => {
   let map: Map;
