@@ -35,6 +35,18 @@ const timingPlaces = [
   buildTimingPlace('763b275a-bd51-4310-93ff-0bd666c67849', '1ALKU'),
 ];
 
+export const stopCoordinatesByLabel = {
+  E2E001: [24.9390091244705, 60.16551299383615, 0],
+  E2E002: [24.937610671343663, 60.16648629862467, 0],
+  E2E003: [24.93286261070354, 60.165644561954316, 0],
+  E2E004: [24.932290135584754, 60.16486923767877, 0],
+  E2E005: [24.9314028056389, 60.163980768982995, 0],
+  E2E006: [24.93296734706376, 60.16543343120806, 0],
+  E2E007: [24.935714344053142, 60.16644692066976, 0],
+  E2E008: [24.937281651830318, 60.16645331474371, 0],
+  E2E009: [24.93877038021971, 60.1653765292378, 0],
+};
+
 export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
   // Stops along test route 901 Outbound
   {
@@ -48,7 +60,7 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
     timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: [24.9390091244705, 60.16551299383615, 0],
+      coordinates: stopCoordinatesByLabel.E2E001,
     },
   },
   {
@@ -61,7 +73,7 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
     scheduled_stop_point_id: 'a92c7c8f-352b-432d-a6f6-a91a894dbb83',
     measured_location: {
       type: 'Point',
-      coordinates: [24.937610671343663, 60.16648629862467, 0],
+      coordinates: stopCoordinatesByLabel.E2E002,
     },
   },
   {
@@ -75,7 +87,7 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: [24.93286261070354, 60.165644561954316, 0],
+      coordinates: stopCoordinatesByLabel.E2E003,
     },
   },
   {
@@ -88,7 +100,7 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
     scheduled_stop_point_id: '31d84532-43e4-47d2-b7fd-ba8184ae9e70',
     measured_location: {
       type: 'Point',
-      coordinates: [24.932290135584754, 60.16486923767877, 0],
+      coordinates: stopCoordinatesByLabel.E2E004,
     },
   },
   {
@@ -102,7 +114,7 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
     timing_place_id: timingPlaces[2].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: [24.9314028056389, 60.163980768982995, 0],
+      coordinates: stopCoordinatesByLabel.E2E005,
     },
   },
   // Stops along test route 901 Inbound
@@ -117,7 +129,7 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
     timing_place_id: timingPlaces[1].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: [24.93296734706376, 60.16543343120806, 0],
+      coordinates: stopCoordinatesByLabel.E2E006,
     },
   },
   {
@@ -130,7 +142,7 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
     scheduled_stop_point_id: '43dc3fd1-2cfe-40fe-9431-dd8d85c124f2',
     measured_location: {
       type: 'Point',
-      coordinates: [24.935714344053142, 60.16644692066976, 0],
+      coordinates: stopCoordinatesByLabel.E2E007,
     },
   },
   {
@@ -143,7 +155,7 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
     scheduled_stop_point_id: '8d60a644-fce6-460b-ad1c-30b5a39dee17',
     measured_location: {
       type: 'Point',
-      coordinates: [24.937281651830318, 60.16645331474371, 0],
+      coordinates: stopCoordinatesByLabel.E2E008,
     },
   },
   {
@@ -157,7 +169,7 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
     timing_place_id: timingPlaces[0].timing_place_id,
     measured_location: {
       type: 'Point',
-      coordinates: [24.93877038021971, 60.1653765292378, 0],
+      coordinates: stopCoordinatesByLabel.E2E009,
     },
   },
 ];
