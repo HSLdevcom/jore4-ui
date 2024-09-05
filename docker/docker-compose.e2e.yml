@@ -11,7 +11,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-tiamat-base
-    image: "hsldevcom/jore4-tiamat:main--20240826-11c0e8c023b4ab7d1ec7adf7e762b19b467fd44a"
+    image: "hsldevcom/jore4-tiamat:main--20240905-2c9cee0ddaddf70e4c1e61a4e0f86d7b77ea9a1c"
     container_name: "tiamat-e2e"
     environment:
       - TIAMAT_DB_URL=jdbc:postgresql://jore4-testdb-e2e:5432/stopdb?stringtype=unspecified
@@ -26,7 +26,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-timetablesapi-base
-    image: 'hsldevcom/jore4-timetables-api:main--20240806-224646a980735f1219a358b7971748c4b043199a'
+    image: 'hsldevcom/jore4-timetables-api:main--20240905-da293a99ddeff4776bc7c20d675832b0a407fe9f'
     container_name: "timetablesapi-e2e"
     environment:
       - SKIP_SET_VARIABLE_SECRET_OVERRIDE=true
@@ -43,7 +43,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-hasura-base
-    image: 'hsldevcom/jore4-hasura:hsl-main--20240902-dc87fea1d027857ff625e7b2d7f2967a3c6b6b4a'
+    image: 'hsldevcom/jore4-hasura:hsl-main--20240905-fa8fe4c6d87e30a620146ad7e9f979dc98dda1d4'
     container_name: "hasura-e2e"
     ports:
       - "127.0.0.1:3211:8080"
