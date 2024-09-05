@@ -10,7 +10,7 @@ services:
     # The :hsl-tag contains the desired version of hsl specific hasura.
     # Waiting for merging feature-branch to main in hasura-repo
     # Note: also update jore4-hasura-e2e in docker-compose.e2e when changing this.
-    image: 'hsldevcom/jore4-hasura:hsl-main--20240902-dc87fea1d027857ff625e7b2d7f2967a3c6b6b4a'
+    image: 'hsldevcom/jore4-hasura:hsl-main--20240905-fa8fe4c6d87e30a620146ad7e9f979dc98dda1d4'
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:
@@ -25,11 +25,11 @@ services:
 
   jore4-mapmatching:
     # pinning map-matching API to compatible version
-    image: "hsldevcom/jore4-map-matching:main--20240820-f3a4b33f20a3c3c409205b52c35e6a3cb909153e"
+    image: "hsldevcom/jore4-map-matching:main--20240905-b35697db3217e9d33792c1518d0741c9a2babcd7"
 
   jore4-hastus:
     # pinning hastus import-export-microservice version
-    image: "hsldevcom/jore4-hastus:main--20240822-69e017532c5619810a540089f6ec306523e5ebb0"
+    image: "hsldevcom/jore4-hastus:main--20240906-7d2024adb1008dec08768b54a5ad73a74bd3d7fe"
     environment:
       # use the same Hasura URL that the UI uses to enable routing requests to correct Hasura instances
       # when running e2e tests locally
@@ -40,9 +40,9 @@ services:
   jore4-tiamat:
     # Pin tiamat to a compatible version.
     # Note: also update jore4-tiamat-e2e in docker-compose.e2e when changing this.
-    image: "hsldevcom/jore4-tiamat:main--20240826-11c0e8c023b4ab7d1ec7adf7e762b19b467fd44a"
+    image: "hsldevcom/jore4-tiamat:main--20240905-2c9cee0ddaddf70e4c1e61a4e0f86d7b77ea9a1c"
 
   jore4-timetablesapi:
     # Pin timetables api to a compatible version.
     # Note: also update jore4-timetablesapi-e2e in docker-compose.e2e when changing this.
-    image: 'hsldevcom/jore4-timetables-api:main--20240806-224646a980735f1219a358b7971748c4b043199a'
+    image: 'hsldevcom/jore4-timetables-api:main--20240905-da293a99ddeff4776bc7c20d675832b0a407fe9f'
