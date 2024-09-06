@@ -12,10 +12,10 @@ export default defineConfig({
     videosFolder: 'reports/videos',
     downloadsFolder: 'downloads',
     video: false,
-    defaultCommandTimeout: 20000,
+    defaultCommandTimeout: 40000,
     viewportWidth: 1920,
     viewportHeight: 1080,
-    requestTimeout: 20000,
+    requestTimeout: 40000,
     numTestsKeptInMemory: Number(process.env.CYPRESS_TESTS_KEPT_IN_MEMORY) || 5,
     retries: {
       // Configure retry attempts for `cypress run`

@@ -129,7 +129,7 @@ Cypress.Commands.add('setupTests', () => {
       const hasuraEnvironment = getHasuraEnvironment();
 
       Cypress.log({
-        message: `Hasura environment for GraphQL, ${hasuraEnvironment}`,
+        message: `Hasura environment for GraphQL ${req.body.operationName}: ${hasuraEnvironment}`,
       });
       // eslint-disable-next-line no-param-reassign
       req.headers['X-Environment'] = hasuraEnvironment;

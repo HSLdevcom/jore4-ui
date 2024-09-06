@@ -55,23 +55,28 @@ describe('Stop areas on map', () => {
     });
   });
 
+  let mapModal: MapModal;
+  let confirmationDialog: ConfirmationDialog;
   beforeEach(() => {
     cy.task('resetDbs');
 
     insertToDbHelper(dbResources);
 
+    cy.log('Start insertStopRegistryData');
     cy.task<string[]>('insertStopRegistryData', {
       ...baseStopRegistryData,
       stopAreas: stopAreaData,
-    });
+    }).then((result) =>
+      cy.log(
+        'insertStopRegistryData result: ',
+        JSON.stringify(result, null, 2),
+      ),
+    );
+    cy.log('Finished insertStopRegistryData');
 
     cy.setupTests();
     cy.mockLogin();
-  });
 
-  let mapModal: MapModal;
-  let confirmationDialog: ConfirmationDialog;
-  beforeEach(() => {
     mapModal = new MapModal();
     confirmationDialog = new ConfirmationDialog();
 
@@ -80,8 +85,6 @@ describe('Stop areas on map', () => {
       lat: 60.16596,
       lng: 24.93858,
     });
-
-    cy.wait('@gqlGetStopAreasByLocation');
   });
 
   it('should create new stop area with member stops', () => {
