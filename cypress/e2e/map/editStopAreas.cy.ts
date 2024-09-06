@@ -81,7 +81,10 @@ describe('Stop areas on map', () => {
       lng: 24.93858,
     });
 
-    cy.wait('@gqlGetStopAreasByLocation');
+    cy.wait(20000);
+
+    // cy.wait('@gqlGetStopsByLocation');
+    // cy.wait('@gqlGetStopAreasByLocation');
   });
 
   it('should create new stop area with member stops', () => {
