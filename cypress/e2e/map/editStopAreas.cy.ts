@@ -55,6 +55,8 @@ describe('Stop areas on map', () => {
     });
   });
 
+  let mapModal: MapModal;
+  let confirmationDialog: ConfirmationDialog;
   beforeEach(() => {
     cy.task('resetDbs');
 
@@ -67,11 +69,7 @@ describe('Stop areas on map', () => {
 
     cy.setupTests();
     cy.mockLogin();
-  });
 
-  let mapModal: MapModal;
-  let confirmationDialog: ConfirmationDialog;
-  beforeEach(() => {
     mapModal = new MapModal();
     confirmationDialog = new ConfirmationDialog();
 
@@ -81,7 +79,6 @@ describe('Stop areas on map', () => {
       lng: 24.93858,
     });
 
-    cy.wait('@gqlGetStopAreasByLocation');
   });
 
   it('should create new stop area with member stops', () => {
