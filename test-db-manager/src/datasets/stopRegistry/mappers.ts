@@ -9,8 +9,9 @@ import { isNotNullish } from '../../utils';
 import { StopAreaInput } from './stopArea';
 import { StopPlaceInput, StopPlaceMaintenance } from './stopPlaces';
 
-export type StopPlaceIdsByLabel = Map<string, string>;
-export type OrganisationIdsByName = Map<string, string>;
+export type StopAreaIdsByName = Record<string, string>;
+export type StopPlaceIdsByLabel = Record<string, string>;
+export type OrganisationIdsByName = Record<string, string>;
 
 const mapStopPlaceMaintenanceToInput = (
   maintenance: StopPlaceMaintenance | undefined | null,
@@ -28,7 +29,7 @@ const mapStopPlaceMaintenanceToInput = (
         }
 
         const maintenanceOrganisationId =
-          organisationIdsByName.get(organisationName);
+          organisationIdsByName[organisationName];
         if (!maintenanceOrganisationId) {
           throw new Error(
             `Could not find organisation with name ${organisationName}`,
@@ -72,7 +73,7 @@ export const setStopAreaRelations = (
     members: input.memberLabels.map(
       (label) =>
         ({
-          ref: stopPlaceIdsByLabel.get(label),
+          ref: stopPlaceIdsByLabel[label],
         }) as StopRegistryVersionLessEntityRefInput,
     ),
   };

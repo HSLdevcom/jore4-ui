@@ -16,6 +16,7 @@ import { StopSearchBar } from '../../pageObjects/stop-registry/StopSearchBar';
 import { StopSearchResultsPage } from '../../pageObjects/stop-registry/StopSearchResultsPage';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
+import { InsertedStopRegistryIds } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
 // These form a straight line on Eerikinkatu in Helsinki.
@@ -201,7 +202,7 @@ describe('Stop search', () => {
     cy.task('resetDbs');
     insertToDbHelper(dbResources);
 
-    cy.task<string[]>('insertStopRegistryData', {
+    cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
       stopPlaces: stopPlaceData,
     });
 
