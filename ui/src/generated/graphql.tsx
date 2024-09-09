@@ -9206,6 +9206,8 @@ export type StopRegistryStopPlaceMutation = {
   moveQuaysToStop?: Maybe<StopRegistryStopPlaceInterface>;
   /** Mutate group of stop places */
   mutateGroupOfStopPlaces?: Maybe<StopRegistryGroupOfStopPlaces>;
+  /** Create new or update existing infoSpot */
+  mutateInfoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   /** Create new or update existing Organisation */
   mutateOrganisation?: Maybe<Array<Maybe<StopRegistryOrganisation>>>;
   /** Update existing Parent StopPlace */
@@ -9293,6 +9295,10 @@ export type StopRegistryStopPlaceMutationMutateGroupOfStopPlacesArgs = {
   GroupOfStopPlaces?: InputMaybe<StopRegistryGroupOfStopPlacesInput>;
 };
 
+export type StopRegistryStopPlaceMutationMutateInfoSpotsArgs = {
+  infoSpot?: InputMaybe<Array<InputMaybe<StopRegistryInfoSpots>>>;
+};
+
 export type StopRegistryStopPlaceMutationMutateOrganisationArgs = {
   Organisation?: InputMaybe<Array<InputMaybe<StopRegistryOrganisationInput>>>;
 };
@@ -9358,6 +9364,8 @@ export type StopRegistryStopPlaceRegister = {
   groupOfStopPlaces?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
   /** Group of tariff zones */
   groupOfTariffZones?: Maybe<Array<Maybe<StopRegistryGroupOfTariffZones>>>;
+  /** Info spots */
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   /** Find organisation */
   organisation?: Maybe<Array<Maybe<StopRegistryOrganisation>>>;
   /** Find parking */
@@ -9408,6 +9416,14 @@ export type StopRegistryStopPlaceRegisterGroupOfTariffZonesArgs = {
   query?: InputMaybe<Scalars['String']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
   tariffZoneId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StopRegistryStopPlaceRegisterInfoSpotsArgs = {
+  allVersions?: InputMaybe<Scalars['Boolean']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+  version?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type StopRegistryStopPlaceRegisterOrganisationArgs = {
@@ -10777,6 +10793,15 @@ export enum StopRegistryCycleStorageType {
   Railings = 'railings',
 }
 
+export enum StopRegistryDisplayType {
+  BatteryEInk = 'batteryEInk',
+  BatteryMultiRow = 'batteryMultiRow',
+  BatteryOneRow = 'batteryOneRow',
+  ChargeableEInk = 'chargeableEInk',
+  ElectricTft = 'electricTFT',
+  None = 'none',
+}
+
 export enum StopRegistryGender {
   Both = 'both',
   FemaleOnly = 'femaleOnly',
@@ -10789,6 +10814,53 @@ export enum StopRegistryGuidanceType {
   None = 'none',
   Other = 'other',
 }
+
+export type StopRegistryInfoSpot = {
+  __typename?: 'stop_registry_infoSpot';
+  backlight?: Maybe<Scalars['Boolean']['output']>;
+  description?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  displayType?: Maybe<StopRegistryDisplayType>;
+  floor?: Maybe<Scalars['String']['output']>;
+  geometry?: Maybe<StopRegistryGeoJson>;
+  id?: Maybe<Scalars['String']['output']>;
+  infoSpotLocations?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  infoSpotType?: Maybe<StopRegistryInfoSpotType>;
+  label?: Maybe<Scalars['String']['output']>;
+  maintenance?: Maybe<Scalars['String']['output']>;
+  poster?: Maybe<Array<Maybe<StopRegistryPoster>>>;
+  posterPlaceSize?: Maybe<StopRegistryPosterPlaceSize>;
+  purpose?: Maybe<Scalars['String']['output']>;
+  railInformation?: Maybe<Scalars['String']['output']>;
+  speechProperty?: Maybe<Scalars['Boolean']['output']>;
+  validBetween?: Maybe<StopRegistryValidBetween>;
+  version?: Maybe<Scalars['String']['output']>;
+  zoneLabel?: Maybe<Scalars['String']['output']>;
+};
+
+export enum StopRegistryInfoSpotType {
+  Dynamic = 'dynamic',
+  SoundBeacon = 'sound_beacon',
+  Static = 'static',
+}
+
+export type StopRegistryInfoSpots = {
+  backlight?: InputMaybe<Scalars['Boolean']['input']>;
+  description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  displayType?: InputMaybe<StopRegistryDisplayType>;
+  floor?: InputMaybe<Scalars['String']['input']>;
+  geometry?: InputMaybe<StopRegistryGeoJsonInput>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  infoSpotLocations?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  infoSpotType?: InputMaybe<StopRegistryInfoSpotType>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  maintenance?: InputMaybe<Scalars['String']['input']>;
+  poster?: InputMaybe<Array<InputMaybe<StopRegistryPosterInput>>>;
+  posterPlaceSize?: InputMaybe<StopRegistryPosterPlaceSize>;
+  purpose?: InputMaybe<Scalars['String']['input']>;
+  railInformation?: InputMaybe<Scalars['String']['input']>;
+  speechProperty?: InputMaybe<Scalars['Boolean']['input']>;
+  zoneLabel?: InputMaybe<Scalars['String']['input']>;
+};
 
 export enum StopRegistryMapType {
   None = 'none',
@@ -10821,6 +10893,25 @@ export enum StopRegistryPedestrianCrossingRampType {
   Rk4 = 'RK4',
   Rk4Lr = 'RK4_LR',
   Other = 'other',
+}
+
+export type StopRegistryPoster = {
+  __typename?: 'stop_registry_poster';
+  label?: Maybe<Scalars['String']['output']>;
+  lines?: Maybe<Scalars['String']['output']>;
+  posterSize?: Maybe<StopRegistryPosterPlaceSize>;
+};
+
+export type StopRegistryPosterInput = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  lines?: InputMaybe<Scalars['String']['input']>;
+  posterSize?: InputMaybe<StopRegistryPosterPlaceSize>;
+};
+
+export enum StopRegistryPosterPlaceSize {
+  A3 = 'a3',
+  A4 = 'a4',
+  Cm80x120 = 'cm80x120',
 }
 
 export enum StopRegistryShelterCondition {
