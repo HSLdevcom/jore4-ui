@@ -3,7 +3,10 @@ import {
   GetAllStopAreaIdsResult,
   GetAllStopPlaceIdsResult,
   GetInfrastructureLinksByExternalIdsResult,
+  OrganisationIdsByName,
+  StopAreaIdsByName,
   StopAreaInput,
+  StopPlaceIdsByLabel,
   StopPlaceInput,
   StopRegistryOrganisationInput,
   e2eDatabaseConfig,
@@ -100,6 +103,12 @@ export const getInfrastructureLinkIdsByExternalIds = (
     });
   });
 
+export type InsertedStopRegistryIds = {
+  stopAreaIdsByName: StopAreaIdsByName;
+  stopPlaceIdsByLabel: StopPlaceIdsByLabel;
+  organisationIdsByName: OrganisationIdsByName;
+};
+
 export const insertStopRegistryData = async ({
   organisations = [],
   stopAreas = [],
@@ -108,7 +117,7 @@ export const insertStopRegistryData = async ({
   organisations?: Array<StopRegistryOrganisationInput>;
   stopAreas?: Array<StopAreaInput>;
   stopPlaces?: Array<StopPlaceInput>;
-}) => {
+}): Promise<InsertedStopRegistryIds> => {
   const organisationIdsByName =
     await insertStopRegistryOrganisations(organisations);
 
@@ -124,9 +133,9 @@ export const insertStopRegistryData = async ({
   const stopAreaInputs = stopAreas.map((area) =>
     setStopAreaRelations(area, stopPlaceIdsByLabel),
   );
-  await insertStopRegistryStopAreas(stopAreaInputs);
+  const stopAreaIdsByName = await insertStopRegistryStopAreas(stopAreaInputs);
 
-  return { stopPlaceIdsByLabel, organisationIdsByName };
+  return { stopAreaIdsByName, stopPlaceIdsByLabel, organisationIdsByName };
 };
 
 export const truncateTimetablesDatabase = () => {
