@@ -64,7 +64,12 @@ export function useMapDataLayerSimpleQueryLoader<T>(
   operation: Operation,
   { data, loading, previousData }: QueryResult<T>,
   skipped = false,
+  waitingForInitialLoad = false,
 ) {
-  const initialLoadDone = !!(previousData ?? data) || skipped;
+  // If initial load hasn't been started yet for whatever reason,
+  // set loader active to avoid hiding it between operations.
+  const initialLoadDone = waitingForInitialLoad
+    ? false
+    : !!(previousData ?? data) || skipped;
   return useMapDataLayerLoader(operation, initialLoadDone, loading && !skipped);
 }

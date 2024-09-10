@@ -13,11 +13,11 @@ export default defineConfig({
     screenshotsFolder: 'reports/screenshots',
     videosFolder: 'reports/videos',
     downloadsFolder: 'downloads',
-    video: false,
-    defaultCommandTimeout: 20000,
+    video: true,
+    defaultCommandTimeout: 30000,
     viewportWidth: 1920,
     viewportHeight: 1080,
-    requestTimeout: 20000,
+    requestTimeout: 30000,
     numTestsKeptInMemory: Number(process.env.CYPRESS_TESTS_KEPT_IN_MEMORY) || 5,
     retries: {
       // Configure retry attempts for `cypress run`

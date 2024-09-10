@@ -84,15 +84,22 @@ export class Map {
           lng: params.lng,
         })}`,
       );
+      this.waitForLoadingToStart();
       this.waitForLoadToComplete();
       return;
     }
     cy.visit('/routes?mapOpen=true');
+    this.waitForLoadingToStart();
     this.waitForLoadToComplete();
   }
 
   getLoader() {
     return cy.getByTestId('MapLoader::loader');
+  }
+
+  waitForLoadingToStart() {
+    // TODO: add timeout
+    this.getLoader().should('be.visible');
   }
 
   waitForLoadToComplete() {

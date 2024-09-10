@@ -57,9 +57,10 @@ export const useMapStops = () => {
     selectEditedRouteData,
   );
 
-  const displayedRoutesResult = useGetRouteDetailsByIdsQuery(
-    mapToVariables({ route_ids: displayedRouteIds }),
-  );
+  const displayedRoutesResult = useGetRouteDetailsByIdsQuery({
+    ...mapToVariables({ route_ids: displayedRouteIds }),
+    skip: !displayedRouteIds.length,
+  });
 
   const displayedRoutes = useMemo(
     () => displayedRoutesResult.data?.route_route ?? [],
