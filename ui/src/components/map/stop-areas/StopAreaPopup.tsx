@@ -3,6 +3,7 @@ import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
 import { StopAreaByIdResult } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
+import { Path, routeDetails } from '../../../router/routeDetails';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import { getGeometryPoint, mapToValidityPeriod } from '../../../utils';
 
@@ -33,6 +34,7 @@ export const StopAreaPopup = ({
 
   const point = getGeometryPoint(area.geometry);
   const areaLabel = area.name?.value;
+  const areaDescription = area.description?.value ?? '';
 
   if (!point || !areaLabel) {
     return null;
@@ -51,8 +53,19 @@ export const StopAreaPopup = ({
         <Row>
           <Column className="w-full">
             <Row className="items-center">
-              <h3 data-testid={testIds.label}>
-                {t('stopArea.areaWithLabel', { areaLabel })}
+              <h3>
+                <a
+                  href={routeDetails[Path.stopAreaDetails].getLink(area.id)}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-testid={testIds.label}
+                  title={t('accessibility:stopAreas.showStopAreaDetails', {
+                    areaLabel,
+                  })}
+                >
+                  <span>{areaLabel}</span> <span>{areaDescription}</span>
+                  <i className="icon-open-in-new" aria-hidden />
+                </a>
               </h3>
               <CloseIconButton
                 className="ml-auto"

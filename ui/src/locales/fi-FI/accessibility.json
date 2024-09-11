@@ -39,6 +39,9 @@
     "timingPlace": "Hastus-paikka",
     "validityPeriod": "Voimassaolo"
   },
+  "stopAreas": {
+    "showStopAreaDetails": "Näytä pysäkkialueen {{ areaLabel }} tiedot"
+  },
   "timetables": {
     "icon": "Aikataulu",
     "changeValidityPeriod": "Muuta voimassaoloaikaa päivätyypille {{dayType}}",

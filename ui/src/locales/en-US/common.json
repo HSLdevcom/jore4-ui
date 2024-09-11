@@ -115,7 +115,6 @@
   },
   "stopArea": {
     "stopArea": "Stop area",
-    "areaWithLabel": "{{areaLabel}} Stop Area ",
     "delete": "Delete stop area",
     "name": "Name",
     "label": "Label",
