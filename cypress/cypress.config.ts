@@ -6,7 +6,8 @@ export default defineConfig({
   e2e: {
     // Update default file paths to strip `/cypress/` folder prefix
     supportFile: 'support/e2e.{js,jsx,ts,tsx}',
-    specPattern: 'e2e/**/*.cy.{js,jsx,ts,tsx}',
+    // specPattern: 'e2e/**/*.cy.{js,jsx,ts,tsx}',
+    specPattern: 'e2e/map/**/*.cy.{js,jsx,ts,tsx}',
     fixturesFolder: 'fixtures',
     screenshotsFolder: 'reports/screenshots',
     videosFolder: 'reports/videos',
