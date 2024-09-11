@@ -4,6 +4,7 @@ import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import MapGL, {
+  ErrorEvent,
   MapLayerMouseEvent,
   MapRef,
   NavigationControl,
@@ -137,8 +138,14 @@ export const Maplibre: FC<Props> = ({
   };
 
   const onLoad = () => {
+    console.log('at onLoad'); // eslint-disable-line no-console
     setLoadingState(LoadingState.NotLoading);
     onViewportChange(viewport);
+  };
+  const onError = (e: ErrorEvent) => {
+    console.log('at onError: ', e); // eslint-disable-line no-console
+    // eslint-disable-next-line no-alert
+    alert(`Map error: ${e.type}, ${e.error}, ${e.error.message}, ${e.error.cause}, ${e.error.stack} ${JSON.stringify(e.error)}`);
   };
 
   useEffect(() => {
@@ -165,6 +172,7 @@ export const Maplibre: FC<Props> = ({
       doubleClickZoom={false}
       ref={mapRef}
       onLoad={onLoad}
+      onError={onError}
       transformRequest={transformRequest}
       interactiveLayerIds={interactiveLayerIds}
       cursor="auto"
