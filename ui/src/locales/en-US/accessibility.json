@@ -36,6 +36,7 @@
   },
   "stops": {
     "showStopDetails": "Show details for stop {{ stopLabel }}",
+    "showStopAreaDetails": "Show details for stop area {{ areaLabel }}",
     "timingPlace": "Timing place",
     "validityPeriod": "Validity period"
   },

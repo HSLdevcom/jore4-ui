@@ -36,6 +36,7 @@
   },
   "stops": {
     "showStopDetails": "Näytä pysäkin {{ stopLabel }} tiedot",
+    "showStopAreaDetails": "Näytä pysäkkialueen {{ areaLabel }} tiedot",
     "timingPlace": "Hastus-paikka",
     "validityPeriod": "Voimassaolo"
   },
