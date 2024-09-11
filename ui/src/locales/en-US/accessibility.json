@@ -39,6 +39,9 @@
     "timingPlace": "Timing place",
     "validityPeriod": "Validity period"
   },
+  "stopAreas": {
+    "showStopAreaDetails": "Show details for stop area {{ areaLabel }}"
+  },
   "timetables": {
     "icon": "Timetable",
     "changeValidityPeriod": "Change the validity period for {{dayType}}",

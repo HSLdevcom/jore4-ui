@@ -115,7 +115,6 @@
   },
   "stopArea": {
     "stopArea": "Pysäkkialue",
-    "areaWithLabel": "{{areaLabel}} Pysäkkialue",
     "delete": "Poista pysäkkialue",
     "name": "Nimi",
     "label": "Tunnus",
