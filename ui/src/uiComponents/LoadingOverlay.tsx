@@ -11,7 +11,7 @@ const HIDE_LOADER_DELAY = 200;
 const MEDIUM_PRIO_LOADER_DELAY = 300;
 const LOW_PRIO_LOADER_DELAY = 500;
 
-type BaseProps = { testId?: string };
+type BaseProps = { testId?: string, activeLoaders?: [string, LoadingState][] };
 type IsLoadingProps = { isLoading: boolean; loadingState?: never };
 type LoadingStateProps = { isLoading?: never; loadingState: LoadingState };
 
@@ -91,6 +91,7 @@ function useIsVisible(
 export const LoadingOverlay: React.FC<Props> = ({
   isLoading,
   loadingState,
+  activeLoaders,
   testId = '',
 }) => {
   const visible = useIsVisible(loadingState, isLoading);
@@ -104,6 +105,11 @@ export const LoadingOverlay: React.FC<Props> = ({
       className="fixed left-1/2 top-1/2 z-50 flex h-32 -translate-x-1/2 -translate-y-1/2 cursor-wait rounded border border-light-grey bg-background px-20 shadow-lg"
       data-testid={testId}
     >
+      <div>
+        loaders:
+        {JSON.stringify(activeLoaders, null, 2)}
+      </div>
+      <div>loading state: {loadingState}</div>
       <PulseLoader
         color={theme.colors.brand}
         size={25}

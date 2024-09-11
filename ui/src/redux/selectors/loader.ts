@@ -18,6 +18,14 @@ export const selectIsMapOperationLoading = createSelector(
       .some(([, state]) => state !== LoadingState.NotLoading),
 );
 
+export const selectMapLoaders = createSelector(selectLoader, (loaders) =>
+  Object.entries(loaders)
+    .filter(([operation]) =>
+        mapOperations.includes(operation as Operation),
+      )
+      .filter(([, state]) => state !== LoadingState.NotLoading),
+);
+
 export const selectMapOperationLoadingState = createSelector(
   selectLoader,
   (loaders) => {
