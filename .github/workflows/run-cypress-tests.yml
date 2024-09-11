@@ -4,6 +4,10 @@ on:
   # this workflow is only called by others, won't be executed on itself
   # as it uses the pre-built docker image that is produced in the upstream job
   workflow_call:
+    secrets:
+      CYPRESS_RECORD_KEY:
+        description: 'Cypress record key'
+        required: true
 
 jobs:
   run_cypress_tests:
@@ -43,10 +47,16 @@ jobs:
       - name: Seed Tiamat DB
         run: scripts/seed-municipalities-and-fare-zones.sh 3010
 
-      - name: Run e2e tests from github action
-        env:
-          CYPRESS_TESTS_KEPT_IN_MEMORY: 0
-        timeout-minutes: 60
-        uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v1
-        with:
-          test-tags: ''
+      - name: Run all tests using the e2e docker bundle's cypress container
+        run: |
+          docker exec cypress \
+            bash -c "yarn ws:db build && yarn ws:tdi timetables-data-inserter:build && CYPRESS=true yarn ws:e2e cypress run --browser chrome --record --key ${{ secrets.CYPRESS_RECORD_KEY }}"
+        shell: bash
+
+      - name: Fail the job
+        # should fail the job if the tests fail
+        if: ${{ failure() }}
+        run: |
+          echo "E2E tests failed! See reports in the workflow's artifacts"
+          exit 1
+        shell: bash

@@ -4,6 +4,7 @@ import * as tasks from './e2e/utils/tasks';
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
   e2e: {
+    projectId: "kjgsei",
     // Update default file paths to strip `/cypress/` folder prefix
     supportFile: 'support/e2e.{js,jsx,ts,tsx}',
     // specPattern: 'e2e/**/*.cy.{js,jsx,ts,tsx}',

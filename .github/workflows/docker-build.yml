@@ -106,3 +106,5 @@ jobs:
       - build_ui_image
       - build_cypress_image
     uses: ./.github/workflows/run-cypress-tests.yml
+    secrets:
+      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
