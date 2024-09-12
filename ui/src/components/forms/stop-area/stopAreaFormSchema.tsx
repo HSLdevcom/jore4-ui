@@ -4,7 +4,7 @@ import {
   requiredNumber,
   requiredString,
   validityPeriodFormSchema,
-} from '../../forms/common';
+} from '../common';
 
 const nameSchema = z.object({
   value: requiredString,

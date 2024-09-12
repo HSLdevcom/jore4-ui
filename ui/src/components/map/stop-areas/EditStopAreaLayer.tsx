@@ -25,11 +25,13 @@ import {
   StopRegistryGeoJsonDefined,
   mapPointToStopRegistryGeoJSON,
 } from '../../../utils';
+import {
+  ConfirmStopAreaDeletionDialog,
+  StopAreaFormState,
+} from '../../forms/stop-area';
 import { EditStopAreaLayerRef } from '../refTypes';
-import { ConfirmStopAreaDeletionDialog } from './ConfirmStopAreaDeletionDialog';
 import { EditStopAreaModal } from './EditStopAreaModal';
 import { mapStopAreaDataToFormState } from './StopAreaForm';
-import { StopAreaFormState } from './stopAreaFormSchema';
 import { StopAreaPopup } from './StopAreaPopup';
 
 enum StopAreaEditorViews {

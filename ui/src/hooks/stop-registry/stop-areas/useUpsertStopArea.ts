@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopAreaFormState } from '../../../components/map/stop-areas/stopAreaFormSchema';
+import { StopAreaFormState } from '../../../components/forms/stop-area';
 import {
   StopRegistryGroupOfStopPlacesInput,
   useUpsertStopAreaMutation,
