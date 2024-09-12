@@ -10,10 +10,10 @@ import {
 import {
   StopWithDetails,
   useEditStopMeasurementDetails,
-  useToggle,
 } from '../../../../../hooks';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { ExpandableInfoContainer } from '../layout';
+import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { AccessibilityLevelInfo } from './AccessibilityLevelInfo';
 import { MeasurementsForm } from './MeasurementsForm';
 import { MeasurementsViewCard } from './MeasurementsViewCard';
@@ -78,23 +78,23 @@ const mapMeasurementsDataToFormState = (
 
 export const MeasurementsSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
+
   const { saveStopPlaceMeasurementDetails, defaultErrorHandler } =
     useEditStopMeasurementDetails();
-  const [isExpanded, toggleIsExpanded] = useToggle(true);
-  const [isEditMode, toggleEditMode] = useToggle(false);
 
-  const onCancel = () => {
-    toggleEditMode();
-  };
   const formRef = useRef<ExplicitAny>(null);
-  const onSave = () => submitFormByRef(formRef);
+  const infoContainerControls = useInfoContainerControls({
+    isExpandable: true,
+    isEditable: true,
+    onSave: () => submitFormByRef(formRef),
+  });
 
   const onSubmit = async (state: MeasurementsFormState) => {
     try {
       await saveStopPlaceMeasurementDetails({ state, stop });
 
       showSuccessToast(t('stops.editSuccess'));
-      toggleEditMode();
+      infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
@@ -103,9 +103,9 @@ export const MeasurementsSection = ({ stop }: Props): React.ReactElement => {
   const defaultValues = mapMeasurementsDataToFormState(stop);
 
   return (
-    <ExpandableInfoContainer
-      onToggle={toggleIsExpanded}
-      isExpanded={isExpanded}
+    <InfoContainer
+      colors={stopInfoContainerColors}
+      controls={infoContainerControls}
       title={
         <div className="flex items-start">
           <h4>{t('stopDetails.measurements.title')}</h4>
@@ -114,12 +114,8 @@ export const MeasurementsSection = ({ stop }: Props): React.ReactElement => {
         </div>
       }
       testIdPrefix={testIds.prefix}
-      isEditMode={isEditMode}
-      onCancel={onCancel}
-      onSave={onSave}
-      toggleEditMode={toggleEditMode}
     >
-      {isEditMode && !!defaultValues ? (
+      {infoContainerControls.isInEditMode && !!defaultValues ? (
         <MeasurementsForm
           defaultValues={defaultValues}
           ref={formRef}
@@ -128,6 +124,6 @@ export const MeasurementsSection = ({ stop }: Props): React.ReactElement => {
       ) : (
         <MeasurementsViewCard stop={stop} />
       )}
-    </ExpandableInfoContainer>
+    </InfoContainer>
   );
 };

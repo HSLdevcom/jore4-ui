@@ -19,7 +19,7 @@ export const EmptyListHeaderButtons = ({
   testIdPrefix = '',
 }: Props) => {
   return (
-    <>
+    <div className="flex gap-2">
       <SlimSimpleButton
         testId={testIds.addNewItemButton(testIdPrefix)}
         inverted
@@ -35,6 +35,6 @@ export const EmptyListHeaderButtons = ({
       >
         <FaChevronDown className="text-white" aria-hidden />
       </SlimSimpleButton>
-    </>
+    </div>
   );
 };

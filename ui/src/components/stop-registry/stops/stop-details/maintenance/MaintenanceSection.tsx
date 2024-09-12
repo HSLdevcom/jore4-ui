@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import {
   StopWithDetails,
   useEditStopMaintenanceDetails,
-  useToggle,
 } from '../../../../../hooks';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { ExpandableInfoContainer } from '../layout';
+import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { MaintenanceDetailsForm } from './MaintenanceDetailsForm';
 import { MaintenanceViewCard } from './MaintenanceViewCard';
 import { MaintenanceDetailsFormState } from './schema';
@@ -35,23 +35,23 @@ const mapMaintenanceDetailsToFormState = (
 
 export const MaintenanceSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  const [isExpanded, toggleIsExpanded] = useToggle(true);
-  const [isEditMode, toggleEditMode] = useToggle(false);
+
   const { saveStopMaintenanceDetails, defaultErrorHandler } =
     useEditStopMaintenanceDetails();
 
-  const onCancel = () => {
-    toggleEditMode();
-  };
   const formRef = useRef<ExplicitAny>(null);
-  const onSave = () => submitFormByRef(formRef);
+  const infoContainerControls = useInfoContainerControls({
+    isExpandable: true,
+    isEditable: true,
+    onSave: () => submitFormByRef(formRef),
+  });
 
   const onSubmit = async (state: MaintenanceDetailsFormState) => {
     try {
       await saveStopMaintenanceDetails({ state, stop });
 
       showSuccessToast(t('stops.editSuccess'));
-      toggleEditMode();
+      infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
@@ -60,17 +60,13 @@ export const MaintenanceSection = ({ stop }: Props): React.ReactElement => {
   const maintenanceFormDefaults = mapMaintenanceDetailsToFormState(stop);
 
   return (
-    <ExpandableInfoContainer
-      onToggle={toggleIsExpanded}
-      isExpanded={isExpanded}
+    <InfoContainer
+      colors={stopInfoContainerColors}
+      controls={infoContainerControls}
       title={t('stopDetails.maintenance.title')}
       testIdPrefix={testIds.prefix}
-      isEditMode={isEditMode}
-      onCancel={onCancel}
-      onSave={onSave}
-      toggleEditMode={toggleEditMode}
     >
-      {isEditMode ? (
+      {infoContainerControls.isInEditMode ? (
         <MaintenanceDetailsForm
           defaultValues={maintenanceFormDefaults}
           ref={formRef}
@@ -79,6 +75,6 @@ export const MaintenanceSection = ({ stop }: Props): React.ReactElement => {
       ) : (
         <MaintenanceViewCard stop={stop} />
       )}
-    </ExpandableInfoContainer>
+    </InfoContainer>
   );
 };
