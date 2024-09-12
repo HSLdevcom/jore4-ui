@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import {
   StopWithDetails,
   useEditStopSignageDetails,
-  useToggle,
 } from '../../../../../hooks';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { ExpandableInfoContainer } from '../layout';
+import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { SignageDetailsFormState } from './schema';
 import { SignageDetailsForm } from './SignageDetailsForm';
 import { SignageDetailsViewCard } from './SignageDetailsViewCard';
@@ -34,23 +34,23 @@ const mapSignageDetailsToFormState = (
 
 export const SignageDetailsSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
+
   const { saveStopPlaceSignageDetails, defaultErrorHandler } =
     useEditStopSignageDetails();
-  const [isExpanded, toggleIsExpanded] = useToggle(true);
-  const [isEditMode, toggleEditMode] = useToggle(false);
 
-  const onCancel = () => {
-    toggleEditMode();
-  };
   const formRef = useRef<ExplicitAny>(null);
-  const onSave = () => submitFormByRef(formRef);
+  const infoContainerControls = useInfoContainerControls({
+    isExpandable: true,
+    isEditable: true,
+    onSave: () => submitFormByRef(formRef),
+  });
 
   const onSubmit = async (state: SignageDetailsFormState) => {
     try {
       await saveStopPlaceSignageDetails({ state, stop });
 
       showSuccessToast(t('stops.editSuccess'));
-      toggleEditMode();
+      infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
@@ -59,17 +59,13 @@ export const SignageDetailsSection = ({ stop }: Props): React.ReactElement => {
   const defaultValues = mapSignageDetailsToFormState(stop);
 
   return (
-    <ExpandableInfoContainer
-      onToggle={toggleIsExpanded}
-      isExpanded={isExpanded}
+    <InfoContainer
+      colors={stopInfoContainerColors}
+      controls={infoContainerControls}
       title={t('stopDetails.signs.title')}
       testIdPrefix="SignageDetailsSection"
-      isEditMode={isEditMode}
-      onCancel={onCancel}
-      onSave={onSave}
-      toggleEditMode={toggleEditMode}
     >
-      {isEditMode && !!defaultValues ? (
+      {infoContainerControls.isInEditMode && !!defaultValues ? (
         <SignageDetailsForm
           defaultValues={defaultValues}
           ref={formRef}
@@ -79,6 +75,6 @@ export const SignageDetailsSection = ({ stop }: Props): React.ReactElement => {
       ) : (
         <SignageDetailsViewCard stop={stop} />
       )}
-    </ExpandableInfoContainer>
+    </InfoContainer>
   );
 };

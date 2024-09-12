@@ -1,12 +1,9 @@
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  StopWithDetails,
-  useEditStopBasicDetails,
-  useToggle,
-} from '../../../../../hooks';
+import { StopWithDetails, useEditStopBasicDetails } from '../../../../../hooks';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { ExpandableInfoContainer } from '../layout';
+import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { StopBasicDetailsFormState } from './basic-details-form/schema';
 import { StopBasicDetailsForm } from './basic-details-form/StopBasicDetailsForm';
 import { BasicDetailsViewCard } from './BasicDetailsViewCard';
@@ -40,24 +37,23 @@ interface Props {
 
 export const BasicDetailsSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
+
   const { saveStopPlaceDetails, defaultErrorHandler } =
     useEditStopBasicDetails();
-  const [isExpanded, toggleIsExpanded] = useToggle(true);
 
-  const [isEditMode, toggleEditMode] = useToggle(false);
-
-  const onCancel = () => {
-    toggleEditMode();
-  };
   const formRef = useRef<ExplicitAny>(null);
-  const onSave = () => submitFormByRef(formRef);
+  const infoContainerControls = useInfoContainerControls({
+    isEditable: true,
+    isExpandable: true,
+    onSave: () => submitFormByRef(formRef),
+  });
 
   const onSubmit = async (state: StopBasicDetailsFormState) => {
     try {
       await saveStopPlaceDetails({ state, stop });
 
       showSuccessToast(t('stops.editSuccess'));
-      toggleEditMode();
+      infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
@@ -66,17 +62,13 @@ export const BasicDetailsSection = ({ stop }: Props): React.ReactElement => {
   const defaultValues = mapStopBasicDetailsDataToFormState(stop);
 
   return (
-    <ExpandableInfoContainer
-      onToggle={toggleIsExpanded}
-      isExpanded={isExpanded}
+    <InfoContainer
+      colors={stopInfoContainerColors}
+      controls={infoContainerControls}
       title={t('stopDetails.basicDetails.title')}
       testIdPrefix="BasicDetailsSection"
-      isEditMode={isEditMode}
-      onCancel={onCancel}
-      onSave={onSave}
-      toggleEditMode={toggleEditMode}
     >
-      {isEditMode && !!defaultValues ? (
+      {infoContainerControls.isInEditMode && !!defaultValues ? (
         <StopBasicDetailsForm
           defaultValues={defaultValues}
           ref={formRef}
@@ -88,6 +80,6 @@ export const BasicDetailsSection = ({ stop }: Props): React.ReactElement => {
       ) : (
         <BasicDetailsViewCard stop={stop} />
       )}
-    </ExpandableInfoContainer>
+    </InfoContainer>
   );
 };

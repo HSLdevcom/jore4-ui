@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import {
   StopWithDetails,
   useEditStopLocationDetails,
-  useToggle,
 } from '../../../../../hooks';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { ExpandableInfoContainer } from '../layout';
+import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { LocationDetailsForm } from './LocationDetailsForm';
 import { LocationDetailsViewCard } from './LocationDetailsViewCard';
 import { LocationDetailsFormState } from './schema';
@@ -31,23 +31,23 @@ const mapLocationDetailsToFormState = (
 
 export const LocationDetailsSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  const [isExpanded, toggleIsExpanded] = useToggle(true);
+
   const { saveStopPlaceLocationDetails, defaultErrorHandler } =
     useEditStopLocationDetails();
-  const [isEditMode, toggleEditMode] = useToggle(false);
 
-  const onCancel = () => {
-    toggleEditMode();
-  };
   const formRef = useRef<ExplicitAny>(null);
-  const onSave = () => submitFormByRef(formRef);
+  const infoContainerControls = useInfoContainerControls({
+    isExpandable: true,
+    isEditable: true,
+    onSave: () => submitFormByRef(formRef),
+  });
 
   const onSubmit = async (state: LocationDetailsFormState) => {
     try {
       await saveStopPlaceLocationDetails({ state, stop });
 
       showSuccessToast(t('stops.editSuccess'));
-      toggleEditMode();
+      infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
@@ -56,17 +56,13 @@ export const LocationDetailsSection = ({ stop }: Props): React.ReactElement => {
   const defaultValues = mapLocationDetailsToFormState(stop);
 
   return (
-    <ExpandableInfoContainer
-      onToggle={toggleIsExpanded}
-      isExpanded={isExpanded}
+    <InfoContainer
+      colors={stopInfoContainerColors}
+      controls={infoContainerControls}
       title={t('stopDetails.location.title')}
       testIdPrefix="LocationDetailsSection"
-      isEditMode={isEditMode}
-      onCancel={onCancel}
-      onSave={onSave}
-      toggleEditMode={toggleEditMode}
     >
-      {isEditMode && !!defaultValues ? (
+      {infoContainerControls.isInEditMode && !!defaultValues ? (
         <LocationDetailsForm
           defaultValues={defaultValues}
           municipality={stop.stop_place?.municipality}
@@ -77,6 +73,6 @@ export const LocationDetailsSection = ({ stop }: Props): React.ReactElement => {
       ) : (
         <LocationDetailsViewCard stop={stop} />
       )}
-    </ExpandableInfoContainer>
+    </InfoContainer>
   );
 };
