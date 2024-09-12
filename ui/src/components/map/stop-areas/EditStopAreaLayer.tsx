@@ -152,7 +152,7 @@ export const EditStopAreaLayer = forwardRef<
   const doEditStopArea = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
-      await upsertStopArea({ stopArea: editedArea, state });
+      await upsertStopArea({ id: editedArea.id, state });
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error);

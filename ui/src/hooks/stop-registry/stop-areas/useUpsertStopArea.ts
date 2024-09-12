@@ -36,17 +36,17 @@ const initializeStopArea = (
 };
 
 const mapFormStateToInput = ({
-  stopArea,
+  id,
   state,
 }: {
-  stopArea: StopAreaByIdResult;
+  id: string | undefined | null;
   state: StopAreaFormState;
 }): StopRegistryGroupOfStopPlacesInput => {
   const validityStart = mapDateInputToValidityStart(state.validityStart);
   const members = state.memberStops.map((stopPlace) => ({ ref: stopPlace.id }));
 
   const input: StopRegistryGroupOfStopPlacesInput = {
-    id: stopArea.id,
+    id,
     name: {
       value: state.label,
       lang: 'fin',
@@ -77,13 +77,13 @@ export const useUpsertStopArea = () => {
    */
   const upsertStopArea = useCallback(
     async ({
-      stopArea,
+      id,
       state,
     }: {
-      stopArea: StopAreaByIdResult;
+      id: string | undefined | null;
       state: StopAreaFormState;
     }) => {
-      const input = mapFormStateToInput({ stopArea, state });
+      const input = mapFormStateToInput({ id, state });
       const result = await upsertStopAreaMutation({
         variables: { object: input },
       });
