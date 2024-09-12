@@ -60,6 +60,7 @@ export const StopDetailsPage = (): React.ReactElement => {
         </div>
       </div>
       <DetailTabSelector
+        className="mb-3"
         activeDetailTab={activeDetailTab}
         selectDetailTab={selectDetailTab}
       />
@@ -72,6 +73,7 @@ export const StopDetailsPage = (): React.ReactElement => {
           <>
             <Visible visible={activeDetailTab === detailTabs.basic.type}>
               <div
+                className="flex flex-col items-stretch gap-3"
                 id={detailTabs.basic.panelId}
                 data-testid={testIds.basicDetailsTabPanel}
                 aria-labelledby={detailTabs.basic.buttonId}
@@ -84,6 +86,7 @@ export const StopDetailsPage = (): React.ReactElement => {
             </Visible>
             <Visible visible={activeDetailTab === detailTabs.technical.type}>
               <div
+                className="flex flex-col items-stretch gap-3"
                 id={detailTabs.technical.panelId}
                 data-testid={testIds.technicalFeaturesTabPanel}
                 aria-labelledby={detailTabs.technical.buttonId}
@@ -96,6 +99,7 @@ export const StopDetailsPage = (): React.ReactElement => {
             </Visible>
             <Visible visible={activeDetailTab === detailTabs.info.type}>
               <div
+                className="flex flex-col items-stretch gap-3"
                 id={detailTabs.info.panelId}
                 data-testid={testIds.infoSpotsTabPanel}
                 aria-labelledby={detailTabs.info.buttonId}

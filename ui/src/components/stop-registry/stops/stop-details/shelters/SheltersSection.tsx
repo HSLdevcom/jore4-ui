@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import { StopWithDetails, useEditStopShelters } from '../../../../../hooks';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
-import { ExpandableInfoContainer } from '../layout';
+import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { EmptyListHeaderButtons } from '../layout/EmptyListHeaderButtons';
+import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { SheltersFormState, mapShelterDataToFormState } from './schema';
 import { SheltersForm } from './SheltersForm';
 import { SheltersViewList } from './SheltersViewList';
@@ -14,61 +15,80 @@ interface Props {
   stop: StopWithDetails;
 }
 
+function useShelters(
+  stop: StopWithDetails,
+): Array<ShelterEquipmentDetailsFragment> {
+  return compact(
+    stop.stop_place?.quays?.[0]?.placeEquipments?.shelterEquipment ?? [],
+  );
+}
+
+function useShelterFormDefaultValues(
+  shelters: ReadonlyArray<ShelterEquipmentDetailsFragment>,
+) {
+  const shelterFormDefaultValues = {
+    shelters: shelters.map(mapShelterDataToFormState),
+  };
+
+  if (!shelterFormDefaultValues.shelters.length) {
+    shelterFormDefaultValues.shelters.push(mapShelterDataToFormState({}));
+  }
+
+  return shelterFormDefaultValues;
+}
+
 export const SheltersSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
+
   const { saveStopPlaceShelters, defaultErrorHandler } = useEditStopShelters();
-  const [isExpanded, setIsExpanded] = useState(true);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const onCancel = () => {
-    setIsEditMode(false);
-  };
+
+  const shelters = useShelters(stop);
+  const [shelterCount, setShelterCount] = useState(shelters.length);
+
   const formRef = useRef<ExplicitAny>(null);
-  const onSave = () => submitFormByRef(formRef);
+  const infoContainerControls = useInfoContainerControls({
+    isExpandable: true,
+    isEditable: true,
+    expandedByDefault: shelterCount > 0,
+    onSave: () => submitFormByRef(formRef),
+  });
+  const { isInEditMode, setIsInEditMode, setIsExpanded } =
+    infoContainerControls;
+
+  useEffect(() => {
+    if (!isInEditMode) {
+      setShelterCount(shelters.length);
+    }
+  }, [isInEditMode, shelters]);
 
   const onSubmit = async (state: SheltersFormState) => {
     try {
       await saveStopPlaceShelters({ state, stop });
 
       showSuccessToast(t('stops.editSuccess'));
-      setIsEditMode(false);
+      infoContainerControls.setIsInEditMode(false);
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
   };
 
-  const shelters: Array<ShelterEquipmentDetailsFragment> = compact(
-    stop.stop_place?.quays?.[0]?.placeEquipments?.shelterEquipment ?? [],
-  );
-  const [shelterCount, setShelterCount] = useState(shelters.length);
-
-  const shelterFormDefaultValues = {
-    shelters: shelters.map(mapShelterDataToFormState),
-  };
-  if (!shelterFormDefaultValues.shelters.length) {
-    shelterFormDefaultValues.shelters.push(mapShelterDataToFormState({}));
-  }
-
-  const sectionTitle = shelterCount
-    ? t('stopDetails.shelters.title', { count: shelterCount })
-    : t('stopDetails.shelters.titleNoShelters');
-
-  const showAddNewShelterHeader = !isEditMode && !shelters.length;
-  useEffect(() => {
-    if (!isEditMode) {
-      setShelterCount(shelters.length);
-    }
-  }, [isEditMode, shelters]);
+  const shelterFormDefaultValues = useShelterFormDefaultValues(shelters);
 
   const editAndAddShelter = () => {
-    setIsEditMode(true);
+    setIsInEditMode(true);
     setIsExpanded(true);
     setShelterCount(shelterFormDefaultValues.shelters.length);
   };
 
+  const showAddNewShelterHeader = !isInEditMode && !shelters.length;
+  const sectionTitle = shelterCount
+    ? t('stopDetails.shelters.title', { count: shelterCount })
+    : t('stopDetails.shelters.titleNoShelters');
+
   return (
-    <ExpandableInfoContainer
-      onToggle={() => setIsExpanded(!isExpanded)}
-      isExpanded={showAddNewShelterHeader ? false : isExpanded}
+    <InfoContainer
+      colors={stopInfoContainerColors}
+      controls={infoContainerControls}
       headerButtons={
         showAddNewShelterHeader ? (
           <EmptyListHeaderButtons
@@ -76,16 +96,12 @@ export const SheltersSection = ({ stop }: Props): React.ReactElement => {
             onAddNewItem={editAndAddShelter}
             testIdPrefix="SheltersSection"
           />
-        ) : null
+        ) : undefined
       }
       title={sectionTitle}
       testIdPrefix="SheltersSection"
-      isEditMode={isEditMode}
-      onCancel={onCancel}
-      onSave={onSave}
-      toggleEditMode={() => setIsEditMode(!isEditMode)}
     >
-      {isEditMode ? (
+      {isInEditMode ? (
         <SheltersForm
           defaultValues={shelterFormDefaultValues}
           ref={formRef}
@@ -95,6 +111,6 @@ export const SheltersSection = ({ stop }: Props): React.ReactElement => {
       ) : (
         <SheltersViewList shelters={shelters} />
       )}
-    </ExpandableInfoContainer>
+    </InfoContainer>
   );
 };
