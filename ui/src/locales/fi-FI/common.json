@@ -120,6 +120,7 @@
     "label": "Tunnus",
     "memberStops": "Jäsenpysäkit",
     "sharedNameNotice": "Muista nimetä jäsenpysäkit pysäkkialueen nimellä.",
+    "editSuccess": "Pysäkkialue muokattu",
     "errors": {
       "failedToResolveScheduledStopPoint": "Pysäkin tietojen selvitys epäonnistui! Syy"
     }
