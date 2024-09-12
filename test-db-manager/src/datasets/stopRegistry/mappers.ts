@@ -1,16 +1,23 @@
 import {
   StopRegistryGroupOfStopPlacesInput,
+  StopRegistryInfoSpotInput,
   StopRegistryStopPlace,
   StopRegistryStopPlaceOrganisationRef,
   StopRegistryStopPlaceOrganisationRelationshipType,
   StopRegistryVersionLessEntityRefInput,
 } from '../../generated/graphql';
 import { isNotNullish } from '../../utils';
+import { InfoSpotInput } from './infoSpots';
 import { StopAreaInput } from './stopArea';
 import { StopPlaceInput, StopPlaceMaintenance } from './stopPlaces';
 
+export type StopDetails = {
+  netexId: string;
+  shelters: Array<string>;
+};
+
 export type StopAreaIdsByName = Record<string, string>;
-export type StopPlaceIdsByLabel = Record<string, string>;
+export type StopPlaceDetailsByLabel = Record<string, StopDetails>;
 export type OrganisationIdsByName = Record<string, string>;
 
 const mapStopPlaceMaintenanceToInput = (
@@ -66,17 +73,47 @@ export const setStopPlaceRelations = (
 
 export const setStopAreaRelations = (
   input: StopAreaInput,
-  stopPlaceIdsByLabel: StopPlaceIdsByLabel,
+  stopPlaceDetailsByLabel: StopPlaceDetailsByLabel,
 ): Partial<StopRegistryGroupOfStopPlacesInput> => {
   const area = {
     ...input.stopArea,
     members: input.memberLabels.map(
       (label) =>
         ({
-          ref: stopPlaceIdsByLabel[label],
+          ref: stopPlaceDetailsByLabel[label].netexId,
         }) as StopRegistryVersionLessEntityRefInput,
     ),
   };
 
   return area;
+};
+
+export const setInfoSpotRelations = (
+  input: InfoSpotInput,
+  stopPlaceDetailsByLabel: StopPlaceDetailsByLabel,
+): Partial<StopRegistryInfoSpotInput> => {
+  const infoSpot: Partial<StopRegistryInfoSpotInput> = {
+    ...input.infoSpot,
+    infoSpotLocations: [],
+  };
+
+  if (input.locatedOnStopLabel) {
+    infoSpot.infoSpotLocations?.push(
+      stopPlaceDetailsByLabel[input.locatedOnStopLabel].netexId,
+    );
+    if (
+      input.associatedShelter !== null &&
+      input.associatedShelter !== undefined
+    ) {
+      infoSpot.infoSpotLocations?.push(
+        stopPlaceDetailsByLabel[input.locatedOnStopLabel].shelters[
+          input.associatedShelter
+        ],
+      );
+    }
+  }
+  if (input.locatedInTerminal) {
+    infoSpot.infoSpotLocations?.push(input.locatedInTerminal);
+  }
+  return infoSpot;
 };
