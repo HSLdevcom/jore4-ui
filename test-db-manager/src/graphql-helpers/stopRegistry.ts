@@ -2,17 +2,19 @@
 import {
   OrganisationIdsByName,
   StopAreaIdsByName,
-  StopPlaceIdsByLabel,
+  StopPlaceDetailsByLabel,
   StopPlaceNetexRef,
 } from '../datasets';
 import {
   StopRegistryGroupOfStopPlacesInput,
+  StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
   StopRegistryStopPlace,
 } from '../generated/graphql';
 import { hasuraApi } from '../hasuraApi';
 import {
   extractStopPlaceIdFromResponse,
+  mapToInsertInfoSpotMutation,
   mapToInsertOrganisationMutation,
   mapToInsertStopAreaMutation,
   mapToInsertStopPlaceMutation,
@@ -23,6 +25,7 @@ import {
 } from '../queries/routesAndLines';
 import {
   GetStopPointByLabelResult,
+  InsertInfoSpotsResult,
   InsertOrganisationResult,
   InsertStopAreaResult,
   InsertStopPlaceResult,
@@ -46,6 +49,10 @@ export const insertStopPlaceForScheduledStopPoint = async ({
 
   const stopPlaceRef = extractStopPlaceIdFromResponse(insertStopPlaceResult);
 
+  const shelterRef =
+    insertStopPlaceResult.data.stop_registry.mutateStopPlace[0]?.quays[0]?.placeEquipments?.shelterEquipment?.map(
+      (shelter: { id: string }) => shelter.id,
+    );
   const updateResult = (await hasuraApi(
     mapToUpdateScheduledStopPointStopPlaceRefMutation({
       scheduledStopPointId,
@@ -61,7 +68,7 @@ export const insertStopPlaceForScheduledStopPoint = async ({
     );
   }
 
-  return stopPlaceRef;
+  return { netexId: stopPlaceRef, shelterRef };
 };
 
 const insertOrganisation = async (
@@ -125,10 +132,14 @@ const insertStopPlace = async ({
 
     if (stopPoint.stop_place_ref) {
       console.warn(
-        `Stop point ${label} (${stopPointId}) already has a stop place with id ${stopPoint.stop_place_ref}. Overwrote with ${stopPlaceRef}.`,
+        `Stop point ${label} (${stopPointId}) already has a stop place with id ${stopPoint.stop_place_ref}. Overwrote with ${stopPlaceRef.netexId}.`,
       );
     }
-    return { netexId: stopPlaceRef, label };
+    return {
+      netexId: stopPlaceRef.netexId,
+      shelterRef: stopPlaceRef.shelterRef,
+      label,
+    };
   } catch (error) {
     console.error(
       'An error occurred while inserting stop place!',
@@ -157,6 +168,24 @@ const insertStopArea = async (
     console.error(
       'An error occurred while inserting stop area!',
       stopArea.name?.value,
+      error,
+    );
+    throw error;
+  }
+};
+
+const insertInfoSpot = async (infoSpot: Partial<StopRegistryInfoSpotInput>) => {
+  try {
+    const returnValue = (await hasuraApi(
+      mapToInsertInfoSpotMutation(infoSpot),
+    )) as InsertInfoSpotsResult;
+    if (returnValue.data === null) {
+      throw new Error('Null data returned from Tiamat');
+    }
+  } catch (error) {
+    console.error(
+      'An error occurred while inserting info spot!',
+      infoSpot.label,
       error,
     );
     throw error;
@@ -193,7 +222,7 @@ export const insertStopPlaces = async (
     stopPlace: Partial<StopRegistryStopPlace>;
   }>,
 ) => {
-  const collectedStopIds: StopPlaceIdsByLabel = {};
+  const collectedStopIds: StopPlaceDetailsByLabel = {};
 
   console.log('Inserting stop places...');
   for (let index = 0; index < stopPlaces.length; index++) {
@@ -201,7 +230,10 @@ export const insertStopPlaces = async (
     console.log(`Stop point ${stopPlace.label}: stop place insert starting...`);
     // eslint-disable-next-line no-await-in-loop
     const netexRef = await insertStopPlace(stopPlace);
-    collectedStopIds[netexRef.label] = netexRef.netexId;
+    collectedStopIds[netexRef.label] = {
+      netexId: netexRef.netexId,
+      shelters: netexRef.shelterRef,
+    };
     console.log(`Stop point ${stopPlace.label}: stop place insert finished!`);
   }
   console.log(`Inserted ${stopPlaces.length} stop places.`);
@@ -236,4 +268,18 @@ export const insertStopAreas = async (
   console.log(`Inserted ${stopAreas.length} stop areas.`);
 
   return collectedAreaIds;
+};
+
+export const insertInfoSpots = async (
+  infoSpots: Array<Partial<StopRegistryInfoSpotInput>>,
+) => {
+  console.log('Inserting info spots...');
+  for (let index = 0; index < infoSpots.length; index++) {
+    const infoSpot = infoSpots[index];
+    console.log(`Info spot ${infoSpot.label}: insert starting...`);
+    // eslint-disable-next-line no-await-in-loop
+    await insertInfoSpot(infoSpot);
+    console.log(`Info spot ${infoSpot.label}: insert finished!`);
+  }
+  console.log(`Inserted ${infoSpots.length} info spots.`);
 };

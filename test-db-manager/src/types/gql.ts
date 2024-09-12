@@ -20,6 +20,13 @@ export interface InsertStopPlaceResult {
     stop_registry: {
       mutateStopPlace: {
         id: UUID;
+        quays: Array<{
+          placeEquipments: {
+            shelterEquipment: Array<{
+              id: string;
+            }>;
+          };
+        }>;
       }[];
     };
   };
@@ -48,6 +55,16 @@ export interface InsertStopAreaResult {
   data: {
     stop_registry: {
       mutateGroupOfStopPlaces: {
+        id: string;
+      };
+    };
+  };
+}
+
+export interface InsertInfoSpotsResult {
+  data: {
+    stop_registry: {
+      infoSpots: {
         id: string;
       };
     };

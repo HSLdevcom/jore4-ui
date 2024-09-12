@@ -86,6 +86,7 @@ const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput
 export type StopPlaceNetexRef = {
   label: string;
   netexId: string;
+  shelterRef: Array<string>;
 };
 
 export type StopPlaceInput = {
@@ -292,7 +293,58 @@ const route35Stops: Array<StopPlaceSeedData> = [
 // A long route that spans multiple cities and fare zones.
 // prettier-ignore
 const route530Stops: Array<StopPlaceSeedData> = [
-  { label: "V1562", locationLong: 24.85559,  locationLat: 60.26118,   nameFin: 'Myyrmäen asema',    nameSwe: 'Myrbacka station' },
+  { label: "V1562", locationLong: 24.85559,  locationLat: 60.26118,   nameFin: 'Myyrmäen asema',    nameSwe: 'Myrbacka station',
+    shelterEquipment: [
+      {
+        enclosed: true,
+        stepFree: false,
+        shelterType: StopRegistryShelterType.Steel,
+        shelterElectricity: StopRegistryShelterElectricity.Continuous,
+        shelterLighting: true,
+        shelterCondition: StopRegistryShelterCondition.Mediocre,
+        timetableCabinets: 1,
+        trashCan: true,
+        shelterHasDisplay: true,
+        bicycleParking: true,
+        leaningRail: true,
+        outsideBench: true,
+        shelterFasciaBoardTaping: true,
+        // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
+      },
+      {
+        enclosed: true,
+        stepFree: true,
+        shelterType: StopRegistryShelterType.Glass,
+        shelterElectricity: StopRegistryShelterElectricity.Continuous,
+        shelterLighting: true,
+        shelterCondition: StopRegistryShelterCondition.Good,
+        timetableCabinets: 1,
+        trashCan: true,
+        shelterHasDisplay: false,
+        bicycleParking: true,
+        leaningRail: true,
+        outsideBench: false,
+        shelterFasciaBoardTaping: true,
+        // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
+      },
+      {
+        enclosed: false,
+        stepFree: true,
+        shelterType: StopRegistryShelterType.Post,
+        shelterElectricity: StopRegistryShelterElectricity.Light,
+        shelterLighting: true,
+        shelterCondition: StopRegistryShelterCondition.Bad,
+        timetableCabinets: 1,
+        trashCan: false,
+        shelterHasDisplay: false,
+        bicycleParking: false,
+        leaningRail: false,
+        outsideBench: true,
+        shelterFasciaBoardTaping: false,
+        // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
+      },
+    ],
+   },
   { label: "V1598", locationLong: 24.85224,  locationLat: 60.25926,   nameFin: 'Iskostie',          nameSwe: 'Stenflisvägen' },
   { label: "V1502", locationLong: 24.842287, locationLat: 60.259445,  nameFin: 'Raappavuorentie',   nameSwe: 'Raappavuorentie' },
   { label: "V1310", locationLong: 24.83456,  locationLat: 60.25875,   nameFin: 'Lastutie',          nameSwe: 'Spånvägen' },
