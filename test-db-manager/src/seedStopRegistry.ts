@@ -1,4 +1,5 @@
 import {
+  seedInfoSpots,
   seedOrganisations,
   seedStopAreas,
   seedStopPlaces,
@@ -6,6 +7,7 @@ import {
   setStopPlaceRelations,
 } from './datasets';
 import {
+  insertInfoSpots,
   insertOrganisations,
   insertStopAreas,
   insertStopPlaces,
@@ -26,6 +28,8 @@ const seedStopRegistry = async () => {
     setStopAreaRelations(area, collectedStopPlaceIds),
   );
   await insertStopAreas(stopAreaInputs);
+
+  await insertInfoSpots(seedInfoSpots);
 };
 
 seedStopRegistry();

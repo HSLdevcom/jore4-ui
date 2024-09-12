@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import { getGqlString } from '../builders/mutations/utils';
 import {
   StopRegistryGroupOfStopPlacesInput,
+  StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
   StopRegistryStopPlace,
 } from '../generated/graphql';
@@ -94,6 +95,16 @@ const GQL_GET_ALL_ORGANISATION_IDS = gql`
   }
 `;
 
+const GQL_INSERT_INFO_SPOT = gql`
+  mutation InsertInfoSpot($infoSpot: stop_registry_InfoSpotInput!) {
+    stop_registry {
+      mutateInfoSpot(InfoSpot: $infoSpot) {
+        id
+      }
+    }
+  }
+`;
+
 export const mapToInsertStopPlaceMutation = (
   input: Partial<StopRegistryStopPlace>,
 ) => {
@@ -161,5 +172,14 @@ export const mapToDeleteOrganisationMutation = (organisationId: string) => {
 export const mapToGetAllOrganisationIds = () => {
   return {
     query: getGqlString(GQL_GET_ALL_ORGANISATION_IDS),
+  };
+};
+
+export const mapToInsertInfoSpotMutation = (
+  input: StopRegistryInfoSpotInput,
+) => {
+  return {
+    query: getGqlString(GQL_INSERT_INFO_SPOT),
+    variables: { infoSpot: input },
   };
 };

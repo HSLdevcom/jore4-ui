@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import {
+  InfoSpotInput,
   OrganisationIdsByName,
   StopAreaIdsByName,
   StopPlaceIdsByLabel,
@@ -13,6 +14,7 @@ import {
 import { hasuraApi } from '../hasuraApi';
 import {
   extractStopPlaceIdFromResponse,
+  mapToInsertInfoSpotMutation,
   mapToInsertOrganisationMutation,
   mapToInsertStopAreaMutation,
   mapToInsertStopPlaceMutation,
@@ -163,6 +165,24 @@ const insertStopArea = async (
   }
 };
 
+const insertInfoSpot = async (infoSpot: InfoSpotInput) => {
+  try {
+    const returnValue = (await hasuraApi(
+      mapToInsertInfoSpotMutation(infoSpot),
+    )) as InsertStopAreaResult;
+    if (returnValue.data === null) {
+      throw new Error('Null data returned from Tiamat');
+    }
+  } catch (error) {
+    console.error(
+      'An error occurred while inserting info spot!',
+      infoSpot.label,
+      error,
+    );
+    throw error;
+  }
+};
+
 export const insertOrganisations = async (
   organisations: Array<StopRegistryOrganisationInput>,
 ) => {
@@ -236,4 +256,18 @@ export const insertStopAreas = async (
   console.log(`Inserted ${stopAreas.length} stop areas.`);
 
   return collectedAreaIds;
+};
+
+export const insertInfoSpots = async (
+  infoSpots: Array<Partial<InfoSpotInput>>,
+) => {
+  console.log('Inserting info spots...');
+  for (let index = 0; index < infoSpots.length; index++) {
+    const infoSpot = infoSpots[index];
+    console.log(`Info spot ${infoSpot.label}: insert starting...`);
+    // eslint-disable-next-line no-await-in-loop
+    await insertInfoSpot(infoSpot);
+    console.log(`Info spot ${infoSpot.label}: insert finished!`);
+  }
+  console.log(`Inserted ${infoSpots.length} info spots.`);
 };
