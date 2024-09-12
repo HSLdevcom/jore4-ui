@@ -1,14 +1,11 @@
-import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { StopAreaDetailsFragment } from '../../../../../generated/graphql';
+import { theme } from '../../../../../generated/theme';
 import { mapToShortDate } from '../../../../../time';
-import {
-  DetailRow,
-  LabeledDetail,
-  SlimSimpleButton,
-} from '../../../stops/stop-details/layout';
+import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { StopAreaComponentProps } from './StopAreaComponentProps';
 
 const testIds = {
@@ -39,16 +36,19 @@ export const StopAreaDetails: FC<StopAreaComponentProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  return (
-    <div className={twMerge('flex w-4/6 flex-col items-stretch', className)}>
-      <div className="flex items-center justify-between rounded-t border bg-background px-4 py-2">
-        <h4>{t('stopAreaDetails.basicDetails.title')}</h4>
-        <SlimSimpleButton disabled onClick={noop} testId={testIds.editButton}>
-          {t('stopAreaDetails.basicDetails.edit')}
-        </SlimSimpleButton>
-      </div>
+  const infoContainerControls = useInfoContainerControls();
 
-      <DetailRow className="!mb-0 flex-grow flex-wrap rounded-b border border-t-0 px-4 py-2">
+  return (
+    <InfoContainer
+      className={twMerge('w-4/6', className)}
+      colors={{
+        backgroundColor: theme.colors.background.grey,
+        borderColor: theme.colors.lightGrey,
+      }}
+      controls={infoContainerControls}
+      title={t('stopAreaDetails.basicDetails.title')}
+    >
+      <DetailRow className="mb-0 flex-grow flex-wrap py-0">
         <LabeledDetail
           title={t('stopAreaDetails.basicDetails.name')}
           detail={area.name?.value}
@@ -75,6 +75,6 @@ export const StopAreaDetails: FC<StopAreaComponentProps> = ({
           testId={testIds.validityPeriod}
         />
       </DetailRow>
-    </div>
+    </InfoContainer>
   );
 };
