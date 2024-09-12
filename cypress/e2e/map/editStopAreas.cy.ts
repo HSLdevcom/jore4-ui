@@ -125,8 +125,7 @@ describe('Stop areas on map', () => {
     mapModal.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
-      // .shouldHaveText('P1234 Annankatu 20') // TODO: should show name instead of hardcoded text
-      .shouldHaveText('P1234 Pysäkkialue');
+      .shouldHaveText('P1234 Annankatu 20');
     mapModal.stopAreaPopup
       .getValidityPeriod()
       .shouldHaveText('23.1.2020 -  Voimassa toistaiseksi');
@@ -142,8 +141,7 @@ describe('Stop areas on map', () => {
     mapModal.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
-      // .shouldHaveText('X0003 Annankatu 15') // TODO: should show name instead of hardcoded text
-      .shouldHaveText('X0003 Pysäkkialue');
+      .shouldHaveText('X0003 Annankatu 15');
 
     mapModal.stopAreaPopup.getEditButton().click();
     mapModal.stopAreaForm.getForm().shouldBeVisible();
@@ -168,8 +166,7 @@ describe('Stop areas on map', () => {
     mapModal.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
-      // .shouldHaveText('P3333 Annankatu 15') // TODO: should show name instead of hardcoded text
-      .shouldHaveText('P3333 Pysäkkialue');
+      .shouldHaveText('P3333 Annankatu 15');
     mapModal.stopAreaPopup
       .getValidityPeriod()
       .shouldHaveText('1.1.2020 -  Voimassa toistaiseksi');
@@ -203,8 +200,7 @@ describe('Stop areas on map', () => {
     mapModal.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
-      // .shouldHaveText('X0003 Annankatu 15') // TODO: should show name instead of hardcoded text
-      .shouldHaveText('X0003 Pysäkkialue');
+      .shouldHaveText('X0003 Annankatu 15');
   });
 
   it('should delete a stop area', () => {
