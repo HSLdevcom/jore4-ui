@@ -1,42 +1,29 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { StopAreaDetailsFragment } from '../../../../../generated/graphql';
 import { theme } from '../../../../../generated/theme';
-import { mapToShortDate } from '../../../../../time';
+import { submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
-import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
-import { StopAreaComponentProps } from './StopAreaComponentProps';
+import { EditableStopAreaComponentProps } from './StopAreaComponentProps';
+import { StopAreaDetailsEdit } from './StopAreaDetailsEdit';
+import { StopAreaDetailsView } from './StopAreaDetailsView';
 
 const testIds = {
   prefix: 'StopAreaDetails',
-  editButton: 'StopAreaDetails::editButton',
-  name: 'StopAreaDetails::name',
-  description: 'StopAreaDetails::description',
-  parentStopPlace: 'StopAreaDetails::parentStopPlace',
-  areaSize: 'StopAreaDetails::areaSize',
-  validityPeriod: 'StopAreaDetails::validityPeriod',
 };
 
-function validityPeriod(area: StopAreaDetailsFragment) {
-  const from = mapToShortDate(area.validBetween?.fromDate);
-  const to = mapToShortDate(area.validBetween?.toDate);
-
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-  if (from || to) {
-    return `${from ?? ''}-${to ?? ''}`;
-  }
-
-  return null;
-}
-
-export const StopAreaDetails: FC<StopAreaComponentProps> = ({
+export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
   area,
   className = '',
+  refetch,
 }) => {
   const { t } = useTranslation();
 
-  const infoContainerControls = useInfoContainerControls();
+  const formRef = useRef<HTMLFormElement>(null);
+  const infoContainerControls = useInfoContainerControls({
+    isEditable: true,
+    onSave: () => submitFormByRef(formRef),
+  });
 
   return (
     <InfoContainer
@@ -47,34 +34,18 @@ export const StopAreaDetails: FC<StopAreaComponentProps> = ({
       }}
       controls={infoContainerControls}
       title={t('stopAreaDetails.basicDetails.title')}
+      testIdPrefix={testIds.prefix}
     >
-      <DetailRow className="mb-0 flex-grow flex-wrap py-0">
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.name')}
-          detail={area.name?.value}
-          testId={testIds.name}
+      {infoContainerControls.isInEditMode ? (
+        <StopAreaDetailsEdit
+          area={area}
+          onFinishEditing={() => infoContainerControls.setIsInEditMode(false)}
+          ref={formRef}
+          refetch={refetch}
         />
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.description')}
-          detail={area.description?.value}
-          testId={testIds.description}
-        />
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.parentTerminal')}
-          detail={null}
-          testId={testIds.parentStopPlace}
-        />
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.areaSize')}
-          detail={null}
-          testId={testIds.areaSize}
-        />
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.validityPeriod')}
-          detail={validityPeriod(area)}
-          testId={testIds.validityPeriod}
-        />
-      </DetailRow>
+      ) : (
+        <StopAreaDetailsView area={area} />
+      )}
     </InfoContainer>
   );
 };

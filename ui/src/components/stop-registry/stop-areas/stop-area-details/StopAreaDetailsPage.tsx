@@ -18,7 +18,7 @@ const testIds = {
 export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
   const { id } = useParams();
 
-  const { area, loading } = useGetStopAreaDetails(id ?? '');
+  const { area, loading, refetch } = useGetStopAreaDetails(id ?? '');
   const { setLoadingState } = useLoader(Operation.FetchStopAreaPageDetails, {
     initialState: area ? LoadingState.NotLoading : LoadingState.MediumPriority,
   });
@@ -42,7 +42,7 @@ export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
       <StopAreaTitleRow area={area} />
       <hr />
       <StopAreaVersioningRow area={area} />
-      <StopAreaDetailsAndMap area={area} />
+      <StopAreaDetailsAndMap area={area} refetch={refetch} />
       <StopAreaMemberStops area={area} />
     </Container>
   );
