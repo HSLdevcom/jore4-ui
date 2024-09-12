@@ -86,6 +86,7 @@ const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput
 export type StopPlaceNetexRef = {
   label: string;
   netexId: string;
+  shelterRef: Array<string>;
 };
 
 export type StopPlaceInput = {
@@ -370,6 +371,38 @@ const H2003: StopPlaceSeedData = {
       leaningRail: true,
       outsideBench: true,
       shelterFasciaBoardTaping: true,
+      // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
+    },
+    {
+      enclosed: true,
+      stepFree: true,
+      shelterType: StopRegistryShelterType.Glass,
+      shelterElectricity: StopRegistryShelterElectricity.Continuous,
+      shelterLighting: true,
+      shelterCondition: StopRegistryShelterCondition.Good,
+      timetableCabinets: 1,
+      trashCan: true,
+      shelterHasDisplay: false,
+      bicycleParking: true,
+      leaningRail: true,
+      outsideBench: false,
+      shelterFasciaBoardTaping: true,
+      // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
+    },
+    {
+      enclosed: false,
+      stepFree: true,
+      shelterType: StopRegistryShelterType.Post,
+      shelterElectricity: StopRegistryShelterElectricity.Light,
+      shelterLighting: true,
+      shelterCondition: StopRegistryShelterCondition.Bad,
+      timetableCabinets: 1,
+      trashCan: false,
+      shelterHasDisplay: false,
+      bicycleParking: false,
+      leaningRail: false,
+      outsideBench: true,
+      shelterFasciaBoardTaping: false,
       // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
     },
   ],

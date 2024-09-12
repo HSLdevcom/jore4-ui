@@ -6,7 +6,7 @@ import {
   OrganisationIdsByName,
   StopAreaIdsByName,
   StopAreaInput,
-  StopPlaceIdsByLabel,
+  StopPlaceDetailsByLabel,
   StopPlaceInput,
   StopRegistryOrganisationInput,
   e2eDatabaseConfig,
