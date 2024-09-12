@@ -13,12 +13,12 @@ import {
   InputField,
   ValidityPeriodForm,
 } from '../../forms/common';
-import { SelectMemberStopsDropdown } from './SelectMemberStopsDropdown';
+import { SelectMemberStopsDropdown } from '../../forms/stop-area';
 import {
   StopAreaFormState as FormState,
   stopAreaFormSchema,
   stopAreaMemberStopSchema,
-} from './stopAreaFormSchema';
+} from '../../forms/stop-area/stopAreaFormSchema';
 
 const testIds = {
   label: 'StopAreaFormComponent::label',
