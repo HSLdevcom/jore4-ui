@@ -9296,7 +9296,7 @@ export type StopRegistryStopPlaceMutationMutateGroupOfStopPlacesArgs = {
 };
 
 export type StopRegistryStopPlaceMutationMutateInfoSpotsArgs = {
-  infoSpot?: InputMaybe<Array<InputMaybe<StopRegistryInfoSpots>>>;
+  infoSpot?: InputMaybe<Array<InputMaybe<StopRegistryInfoSpotInput>>>;
 };
 
 export type StopRegistryStopPlaceMutationMutateOrganisationArgs = {
@@ -10837,13 +10837,7 @@ export type StopRegistryInfoSpot = {
   zoneLabel?: Maybe<Scalars['String']['output']>;
 };
 
-export enum StopRegistryInfoSpotType {
-  Dynamic = 'dynamic',
-  SoundBeacon = 'sound_beacon',
-  Static = 'static',
-}
-
-export type StopRegistryInfoSpots = {
+export type StopRegistryInfoSpotInput = {
   backlight?: InputMaybe<Scalars['Boolean']['input']>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   displayType?: InputMaybe<StopRegistryDisplayType>;
@@ -10861,6 +10855,12 @@ export type StopRegistryInfoSpots = {
   speechProperty?: InputMaybe<Scalars['Boolean']['input']>;
   zoneLabel?: InputMaybe<Scalars['String']['input']>;
 };
+
+export enum StopRegistryInfoSpotType {
+  Dynamic = 'dynamic',
+  SoundBeacon = 'sound_beacon',
+  Static = 'static',
+}
 
 export enum StopRegistryMapType {
   None = 'none',
