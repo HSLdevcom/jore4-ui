@@ -18,3 +18,6 @@ export type OptionalKeys<T, K extends keyof T> = Partial<Pick<T, K>> &
 export type NonNullableKeys<T, K extends keyof T> = {
   [P in K]: NonNullable<T[P]>;
 } & Omit<T, K>;
+
+export * from './StopSearchConditions';
+export * from './stopAreaByIdResult';

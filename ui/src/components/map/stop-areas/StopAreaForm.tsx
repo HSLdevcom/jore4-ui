@@ -3,9 +3,9 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { StopAreaByIdResult } from '../../../hooks';
 import { Column } from '../../../layoutComponents';
 import { mapToISODate } from '../../../time';
+import { StopAreaByIdResult } from '../../../types';
 import { StopRegistryGeoJsonDefined, mapLngLatToPoint } from '../../../utils';
 import {
   FormColumn,

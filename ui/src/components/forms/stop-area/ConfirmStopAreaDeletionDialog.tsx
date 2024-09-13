@@ -1,7 +1,7 @@
 import isString from 'lodash/isString';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopAreaByIdResult } from '../../../hooks';
+import { StopAreaByIdResult } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
 
 interface Props {

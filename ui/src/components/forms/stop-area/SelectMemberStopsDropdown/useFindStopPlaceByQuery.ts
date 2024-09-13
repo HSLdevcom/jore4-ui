@@ -4,8 +4,10 @@ import {
   StopsDatabaseStopPlaceNewestVersionBoolExp,
   useFindStopPlacesByQueryAndGroupQuery,
 } from '../../../../generated/graphql';
-import { buildSearchStopsGqlQueryVariables } from '../../../../hooks';
-import { AllOptionEnum } from '../../../../utils';
+import {
+  AllOptionEnum,
+  buildSearchStopsGqlQueryVariables,
+} from '../../../../utils';
 import { stopAreaMemberStopSchema } from '../stopAreaFormSchema';
 
 const LIMIT = 20;

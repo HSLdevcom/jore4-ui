@@ -11,7 +11,6 @@ import {
   useGetStopAreaById,
   useLoader,
   useMapDataLayerSimpleQueryLoader,
-  useUpsertStopArea,
 } from '../../../hooks';
 import {
   LoadingState,
@@ -34,6 +33,7 @@ import {
   filterCancellationError,
   makePromiseCleanupHelper,
 } from '../../../utils/makePromiseCleanupHelper';
+import { useUpsertStopArea } from '../../forms/stop-area';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { CreateStopAreaMarker } from './CreateStopAreaMarker';
 import { EditStopAreaLayer } from './EditStopAreaLayer';

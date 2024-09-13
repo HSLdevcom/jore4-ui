@@ -7,12 +7,10 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  StopAreaByIdResult,
   useAppAction,
   useAppSelector,
   useDeleteStopArea,
   useLoader,
-  useUpsertStopArea,
 } from '../../../hooks';
 import {
   Operation,
@@ -20,6 +18,7 @@ import {
   setEditedStopAreaDataAction,
   setIsMoveStopAreaModeEnabledAction,
 } from '../../../redux';
+import { StopAreaByIdResult } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
 import {
   StopRegistryGeoJsonDefined,
@@ -28,6 +27,7 @@ import {
 import {
   ConfirmStopAreaDeletionDialog,
   StopAreaFormState,
+  useUpsertStopArea,
 } from '../../forms/stop-area';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { EditStopAreaModal } from './EditStopAreaModal';

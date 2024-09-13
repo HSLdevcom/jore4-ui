@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { StopAreaByIdResult } from '../../hooks/stop-registry/stop-areas/useGetStopAreaById';
+import { StopAreaByIdResult } from '../../types';
 import { StoreType, mapToStoreType } from '../mappers';
 
 export type MapStopAreaEditor = {
