@@ -3,13 +3,6 @@ import { StopRegistryMunicipality } from '../../../types/enums';
 import { AllOptionEnum, getEnumValues } from '../../../utils';
 import { useUrlQuery } from '../../urlQuery';
 
-export type StopSearchConditions = {
-  elyNumber: string;
-  municipalities: string;
-  address?: string;
-  labelOrName?: string;
-};
-
 export enum StopSearchQueryParameterNames {
   ELYNumber = 'elyNumber',
   Address = 'address',

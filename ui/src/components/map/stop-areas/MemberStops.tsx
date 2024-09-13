@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { StopRegistryStopPlace } from '../../../generated/graphql';
-import { StopAreaByIdResult } from '../../../hooks';
+import { StopAreaByIdResult } from '../../../types';
 import { getPointPosition, notNullish } from '../../../utils';
 import { LinePaint, LineRenderLayer } from '../routes';
 import { MemberStop } from './MemberStop';

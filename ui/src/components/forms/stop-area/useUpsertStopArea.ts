@@ -1,18 +1,18 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopAreaFormState } from '../../../components/forms/stop-area';
 import {
   StopRegistryGroupOfStopPlacesInput,
   useUpsertStopAreaMutation,
 } from '../../../generated/graphql';
+import { StopAreaByIdResult } from '../../../types';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   mapPointToStopRegistryGeoJSON,
   showDangerToast,
 } from '../../../utils';
-import { StopAreaByIdResult } from './useGetStopAreaById';
+import { StopAreaFormState } from './stopAreaFormSchema';
 
 const GQL_UPSERT_STOP_AREA = gql`
   mutation UpsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {

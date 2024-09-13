@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
-import { StopAreaByIdResult } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
+import { StopAreaByIdResult } from '../../../types';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import { getGeometryPoint, mapToValidityPeriod } from '../../../utils';
 

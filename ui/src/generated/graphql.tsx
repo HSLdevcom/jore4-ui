@@ -66641,6 +66641,21 @@ export type FindStopPlacesByQueryAndGroupQuery = {
   } | null;
 };
 
+export type UpsertStopAreaMutationVariables = Exact<{
+  object?: InputMaybe<StopRegistryGroupOfStopPlacesInput>;
+}>;
+
+export type UpsertStopAreaMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateGroupOfStopPlaces?: {
+      __typename?: 'stop_registry_GroupOfStopPlaces';
+      id?: string | null;
+    } | null;
+  } | null;
+};
+
 export type LineWithRoutesUniqueFieldsFragment = {
   __typename?: 'route_line';
   primary_vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -70331,21 +70346,6 @@ export type GetStopAreaByIdQuery = {
   } | null;
 };
 
-export type UpsertStopAreaMutationVariables = Exact<{
-  object?: InputMaybe<StopRegistryGroupOfStopPlacesInput>;
-}>;
-
-export type UpsertStopAreaMutation = {
-  __typename?: 'mutation_root';
-  stop_registry?: {
-    __typename?: 'stop_registryStopPlaceMutation';
-    mutateGroupOfStopPlaces?: {
-      __typename?: 'stop_registry_GroupOfStopPlaces';
-      id?: string | null;
-    } | null;
-  } | null;
-};
-
 export type InsertStopPlaceMutationVariables = Exact<{
   object?: InputMaybe<StopRegistryStopPlaceInput>;
 }>;
@@ -73661,6 +73661,58 @@ export type FindStopPlacesByQueryAndGroupSuspenseQueryHookResult = ReturnType<
 export type FindStopPlacesByQueryAndGroupQueryResult = Apollo.QueryResult<
   FindStopPlacesByQueryAndGroupQuery,
   FindStopPlacesByQueryAndGroupQueryVariables
+>;
+export const UpsertStopAreaDocument = gql`
+  mutation UpsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
+    stop_registry {
+      mutateGroupOfStopPlaces(GroupOfStopPlaces: $object) {
+        id
+      }
+    }
+  }
+`;
+export type UpsertStopAreaMutationFn = Apollo.MutationFunction<
+  UpsertStopAreaMutation,
+  UpsertStopAreaMutationVariables
+>;
+
+/**
+ * __useUpsertStopAreaMutation__
+ *
+ * To run a mutation, you first call `useUpsertStopAreaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertStopAreaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertStopAreaMutation, { data, loading, error }] = useUpsertStopAreaMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useUpsertStopAreaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpsertStopAreaMutation,
+    UpsertStopAreaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpsertStopAreaMutation,
+    UpsertStopAreaMutationVariables
+  >(UpsertStopAreaDocument, options);
+}
+export type UpsertStopAreaMutationHookResult = ReturnType<
+  typeof useUpsertStopAreaMutation
+>;
+export type UpsertStopAreaMutationResult =
+  Apollo.MutationResult<UpsertStopAreaMutation>;
+export type UpsertStopAreaMutationOptions = Apollo.BaseMutationOptions<
+  UpsertStopAreaMutation,
+  UpsertStopAreaMutationVariables
 >;
 export const ListChangingRoutesDocument = gql`
   query ListChangingRoutes($limit: Int) {
@@ -77495,58 +77547,6 @@ export type GetStopAreaByIdSuspenseQueryHookResult = ReturnType<
 export type GetStopAreaByIdQueryResult = Apollo.QueryResult<
   GetStopAreaByIdQuery,
   GetStopAreaByIdQueryVariables
->;
-export const UpsertStopAreaDocument = gql`
-  mutation UpsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
-    stop_registry {
-      mutateGroupOfStopPlaces(GroupOfStopPlaces: $object) {
-        id
-      }
-    }
-  }
-`;
-export type UpsertStopAreaMutationFn = Apollo.MutationFunction<
-  UpsertStopAreaMutation,
-  UpsertStopAreaMutationVariables
->;
-
-/**
- * __useUpsertStopAreaMutation__
- *
- * To run a mutation, you first call `useUpsertStopAreaMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpsertStopAreaMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [upsertStopAreaMutation, { data, loading, error }] = useUpsertStopAreaMutation({
- *   variables: {
- *      object: // value for 'object'
- *   },
- * });
- */
-export function useUpsertStopAreaMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UpsertStopAreaMutation,
-    UpsertStopAreaMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    UpsertStopAreaMutation,
-    UpsertStopAreaMutationVariables
-  >(UpsertStopAreaDocument, options);
-}
-export type UpsertStopAreaMutationHookResult = ReturnType<
-  typeof useUpsertStopAreaMutation
->;
-export type UpsertStopAreaMutationResult =
-  Apollo.MutationResult<UpsertStopAreaMutation>;
-export type UpsertStopAreaMutationOptions = Apollo.BaseMutationOptions<
-  UpsertStopAreaMutation,
-  UpsertStopAreaMutationVariables
 >;
 export const InsertStopPlaceDocument = gql`
   mutation InsertStopPlace($object: stop_registry_StopPlaceInput) {

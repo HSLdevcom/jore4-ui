@@ -3,25 +3,13 @@ import {
   SearchStopsQueryResult,
   StopTableRowFragment,
   StopTableRowStopPlaceFragment,
-  StopsDatabaseStopPlaceNewestVersionBoolExp,
   useSearchStopsQuery,
 } from '../../../generated/graphql';
-import { StopRegistryMunicipality } from '../../../types/enums';
 import {
-  AllOptionEnum,
-  buildOptionalSearchConditionGqlFilter,
-  buildTiamatAddressLikeGqlFilter,
-  buildTiamatMunicipalityGqlFilter,
-  buildTiamatPrivateCodeLikeGqlFilter,
-  buildTiamatStopQuayPublicCodeLikeGqlFilter,
-  buildTiamatStopQuayPublicCodeOrNameLikeGqlFilter,
-  mapToSqlLikeValue,
+  buildSearchStopsGqlQueryVariables,
   mapToVariables,
 } from '../../../utils';
-import {
-  StopSearchConditions,
-  useStopSearchQueryParser,
-} from './useStopSearchQueryParser';
+import { useStopSearchQueryParser } from './useStopSearchQueryParser';
 
 const GQL_STOP_TABLE_ROW = gql`
   fragment stop_table_row on service_pattern_scheduled_stop_point {
@@ -75,64 +63,6 @@ type StopPlaceSearchRowDetails = {
 export type StopSearchRow = StopTableRowFragment & {
   stop_place: StopPlaceSearchRowDetails;
 };
-
-export function buildSearchStopsGqlQueryVariables(
-  searchConditions: StopSearchConditions,
-): StopsDatabaseStopPlaceNewestVersionBoolExp {
-  const labelOrName = searchConditions.labelOrName ?? '';
-
-  // By design, we only accept search by name when the input is at least 4 characters.
-  const labelOrNameFilterToUse =
-    labelOrName.length >= 4
-      ? buildTiamatStopQuayPublicCodeOrNameLikeGqlFilter
-      : buildTiamatStopQuayPublicCodeLikeGqlFilter;
-
-  const labelOrNameFilter = buildOptionalSearchConditionGqlFilter<
-    string,
-    StopsDatabaseStopPlaceNewestVersionBoolExp
-  >(mapToSqlLikeValue(labelOrName), labelOrNameFilterToUse);
-
-  const elyNumberFilter = buildOptionalSearchConditionGqlFilter<
-    string,
-    StopsDatabaseStopPlaceNewestVersionBoolExp
-  >(
-    mapToSqlLikeValue(searchConditions.elyNumber),
-    buildTiamatPrivateCodeLikeGqlFilter,
-  );
-
-  const addressFilter = buildOptionalSearchConditionGqlFilter<
-    string,
-    StopsDatabaseStopPlaceNewestVersionBoolExp
-  >(
-    mapToSqlLikeValue(searchConditions.address ?? ''),
-    buildTiamatAddressLikeGqlFilter,
-  );
-
-  const mapStringToMunicipalityEnums = (value: string) => {
-    return value
-      .split(',')
-      .filter((s) => s !== AllOptionEnum.All)
-      .map(
-        (v) =>
-          StopRegistryMunicipality[v as keyof typeof StopRegistryMunicipality],
-      );
-  };
-
-  const municipalityFilter = buildOptionalSearchConditionGqlFilter<
-    StopRegistryMunicipality[],
-    StopsDatabaseStopPlaceNewestVersionBoolExp
-  >(
-    mapStringToMunicipalityEnums(searchConditions.municipalities),
-    buildTiamatMunicipalityGqlFilter,
-  );
-
-  return {
-    ...labelOrNameFilter,
-    ...elyNumberFilter,
-    ...addressFilter,
-    ...municipalityFilter,
-  };
-}
 
 const mapResultRowToStopSearchRow = (
   stopPlace: StopTableRowStopPlaceFragment,

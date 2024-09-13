@@ -1,10 +1,7 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
-import {
-  StopAreaFormFieldsFragment,
-  StopAreaMemberFieldsFragment,
-  useGetStopAreaByIdLazyQuery,
-} from '../../../generated/graphql';
+import { useGetStopAreaByIdLazyQuery } from '../../../generated/graphql';
+import { StopAreaByIdResult } from '../../../types';
 import { getStopPlacesFromQueryResult } from '../../../utils';
 
 const GQL_GET_STOP_AREA_BY_ID = gql`
@@ -57,10 +54,6 @@ const GQL_GET_STOP_AREA_BY_ID = gql`
     }
   }
 `;
-
-export type StopAreaByIdResult = Omit<StopAreaFormFieldsFragment, 'members'> & {
-  members: Array<StopAreaMemberFieldsFragment> | undefined;
-};
 
 export const useGetStopAreaById = () => {
   const [getStopAreaByIdQuery] = useGetStopAreaByIdLazyQuery();
