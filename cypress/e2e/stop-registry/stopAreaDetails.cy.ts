@@ -102,8 +102,8 @@ describe('Stop area details', () => {
         memberStops
           .getRemoveStopMenuItem()
           .shouldBeVisible()
-          .shouldBeDisabled()
           .shouldHaveText('Poista pysäkki pysäkkialueelta');
+        memberStops.getActionMenu().click();
       });
     }
 

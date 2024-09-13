@@ -8,19 +8,25 @@ const testIds = {
   removeStopMenuItem: 'StopTableRow::ActionMenu::removeStopMenuItem',
 };
 
+type RemoveMemberStopProps = StopRowTdProps & {
+  readonly onRemove: (stopId: string) => void;
+};
+
 const RemoveMemberStopImpl: ForwardRefRenderFunction<
   HTMLButtonElement,
-  StopRowTdProps
-> = ({ className }, ref) => {
+  RemoveMemberStopProps
+> = ({ className, onRemove, stop }, ref) => {
   const { t } = useTranslation();
+
+  const id = stop.stop_place.netexId;
 
   return (
     <SimpleDropdownMenuItem
       ref={ref}
-      disabled
       className={className}
+      disabled={!id}
       text={t('stopAreaDetails.memberStops.menuActions.remove')}
-      onClick={noop}
+      onClick={id ? () => onRemove(id) : noop}
       testId={testIds.removeStopMenuItem}
     />
   );

@@ -1,5 +1,6 @@
 import { Combobox as HUICombobox, Transition } from '@headlessui/react';
 import { FC, useMemo, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { dropdownTransition } from '../../../../uiComponents';
 import { log } from '../../../../utils';
 import { StopAreaFormMember } from '../stopAreaFormSchema';
@@ -33,6 +34,7 @@ function compareMembersByLabel(
 }
 
 type SelectMemberStopsDropdownProps = {
+  readonly className?: string;
   readonly value: Array<StopAreaFormMember> | undefined;
   readonly editedStopAreaId: string | null | undefined;
   readonly onChange: (selected: Array<StopAreaFormMember>) => void;
@@ -40,6 +42,7 @@ type SelectMemberStopsDropdownProps = {
 };
 
 export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
+  className = '',
   value = [],
   editedStopAreaId,
   onChange,
@@ -94,7 +97,7 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
     <HUICombobox
       as="div"
       by={stopAreaFormMembersAreSame}
-      className="relative w-full"
+      className={twMerge('relative w-full', className)}
       multiple
       nullable={false}
       onChange={onChangeInternal}

@@ -70146,6 +70146,7 @@ export type StopTableRowFragment = {
 export type StopTableRowStopPlaceFragment = {
   __typename?: 'stops_database_stop_place_newest_version';
   id?: any | null;
+  netex_id?: string | null;
   name_value?: string | null;
   stop_place_alternative_names: Array<{
     __typename?: 'stops_database_stop_place_alternative_names';
@@ -70183,6 +70184,7 @@ export type SearchStopsQuery = {
     stops_database_stop_place_newest_version: Array<{
       __typename?: 'stops_database_stop_place_newest_version';
       id?: any | null;
+      netex_id?: string | null;
       name_value?: string | null;
       stop_place_alternative_names: Array<{
         __typename?: 'stops_database_stop_place_alternative_names';
@@ -73009,6 +73011,7 @@ export const RouteMetadataFragmentDoc = gql`
 export const StopTableRowStopPlaceFragmentDoc = gql`
   fragment stop_table_row_stop_place on stops_database_stop_place_newest_version {
     id
+    netex_id
     name_value
     stop_place_alternative_names {
       alternative_name {

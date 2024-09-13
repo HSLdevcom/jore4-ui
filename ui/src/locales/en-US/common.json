@@ -144,6 +144,14 @@
       "addStop": "Add a stop",
       "menuActions": {
         "remove": "Remove stop from stop area"
+      },
+      "actionButtons": {
+        "remove": "Remove stop from stop area",
+        "addBack": "Add back to stop area"
+      },
+      "confirmRemoval": {
+        "title": "Removing stop from the stop area",
+        "body": "The Stop will not be deleted, but it will no longer be associated with the stop area."
       }
     }
   },
@@ -838,6 +846,7 @@
   "selected": " {{ count }} selected",
   "yes": "Yes",
   "no": "No",
+  "remove": "Remove",
   "welcomePage": {
     "heading": "JORE4 | Aikataulujen testikäyttö alkaa",
     "subheading1": "Mitä?",
