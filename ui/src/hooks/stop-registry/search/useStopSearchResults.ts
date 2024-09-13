@@ -29,6 +29,7 @@ const GQL_STOP_TABLE_ROW = gql`
 const GQL_STOP_TABLE_ROW_STOP_PLACE = gql`
   fragment stop_table_row_stop_place on stops_database_stop_place_newest_version {
     id
+    netex_id
     name_value
     stop_place_alternative_names {
       alternative_name {
@@ -56,6 +57,7 @@ const GQL_SEARCH_STOPS = gql`
 `;
 
 type StopPlaceSearchRowDetails = {
+  netexId?: string | null;
   nameFin?: string | null;
   nameSwe?: string | null;
 };
@@ -70,6 +72,7 @@ const mapResultRowToStopSearchRow = (
   return {
     ...(stopPlace.scheduled_stop_point_instance as StopTableRowFragment),
     stop_place: {
+      netexId: stopPlace.netex_id,
       nameFin: stopPlace.name_value,
       nameSwe: stopPlace.stop_place_alternative_names.find(
         (alternativeName) =>

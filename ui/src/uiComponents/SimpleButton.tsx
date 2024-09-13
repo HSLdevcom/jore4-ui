@@ -22,10 +22,12 @@ interface CommonButtonProps {
 
 interface ButtonProps {
   onClick: () => void;
+  type?: 'button' | 'reset' | 'submit' | undefined;
   href?: never;
 }
 interface LinkButtonProps {
   onClick?: never;
+  type?: never;
   href: string;
 }
 
@@ -63,6 +65,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
     ariaSelected,
     role,
     ariaControls,
+    type = 'button',
   } = props;
 
   const colorClassNames = inverted
@@ -83,7 +86,8 @@ export const SimpleButton: React.FC<Props> = (props) => {
           id={id}
           data-selected={selected}
           className={twMerge(`${commonClassNames} ${className}`)}
-          type="button"
+          // eslint-disable-next-line react/button-has-type
+          type={type}
           onClick={(props as ButtonProps).onClick}
           disabled={disabled}
           data-testid={testId}

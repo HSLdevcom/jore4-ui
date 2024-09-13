@@ -43,7 +43,7 @@ export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
       <hr />
       <StopAreaVersioningRow area={area} />
       <StopAreaDetailsAndMap area={area} refetch={refetch} />
-      <StopAreaMemberStops area={area} />
+      <StopAreaMemberStops area={area} refetch={refetch} />
     </Container>
   );
 };

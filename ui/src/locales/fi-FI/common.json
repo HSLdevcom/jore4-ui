@@ -144,6 +144,14 @@
       "addStop": "Lisää pysäkki",
       "menuActions": {
         "remove": "Poista pysäkki pysäkkialueelta"
+      },
+      "actionButtons": {
+        "remove": "Poista pysäkki pysäkkialueelta",
+        "addBack": "Lisää takaisin pysäkkialueelle"
+      },
+      "confirmRemoval": {
+        "title": "Poistetaan pysäkki pysäkkialueen käytöstä",
+        "body": "Pysäkki jää edelleen jäljelle, se ei ole vain yhdistetty pysäkkialueeseen."
       }
     }
   },
@@ -838,6 +846,7 @@
   "selected": " {{ count }} valittu",
   "yes": "Kyllä",
   "no": "Ei",
+  "remove": "Poista",
   "welcomePage": {
     "heading": "JORE4 | Aikataulujen testikäyttö alkaa",
     "subheading1": "Mitä?",
