@@ -8,6 +8,7 @@ import {
 import { StopSearchRow } from '../../../../../hooks';
 import { getStopPlacesFromQueryResult, notNullish } from '../../../../../utils';
 import { StopTableRow } from '../../../search';
+import { LocatorActionButton } from '../../../search/StopTableRow/ActionButtons/LocatorActionButton';
 import { OpenDetailsPage } from '../../../search/StopTableRow/MenuItems/OpenDetailsPage';
 import { ShowOnMap } from '../../../search/StopTableRow/MenuItems/ShowOnMap';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
@@ -67,6 +68,7 @@ export const StopAreaMemberStops: FC<StopAreaComponentProps> = ({
             <StopTableRow
               key={stop.scheduled_stop_point_id}
               stop={stop}
+              actionButtons={<LocatorActionButton stop={stop} />}
               menuItems={[
                 <OpenDetailsPage key="OpenDetailsPage" stop={stop} />,
                 <RemoveMemberStop key="RemoveMemberStop" stop={stop} />,

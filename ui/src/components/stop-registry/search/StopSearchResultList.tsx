@@ -1,5 +1,6 @@
 import { StopSearchRow } from '../../../hooks';
 import { StopTableRow } from './StopTableRow';
+import { LocatorActionButton } from './StopTableRow/ActionButtons/LocatorActionButton';
 import { OpenDetailsPage } from './StopTableRow/MenuItems/OpenDetailsPage';
 import { ShowOnMap } from './StopTableRow/MenuItems/ShowOnMap';
 
@@ -21,6 +22,7 @@ export const StopSearchResultList = ({ stops }: Props): React.ReactElement => {
         {stops?.map((stop: StopSearchRow) => (
           <StopTableRow
             key={stop.scheduled_stop_point_id}
+            actionButtons={<LocatorActionButton stop={stop} />}
             menuItems={[
               <ShowOnMap key="showOnMap" stop={stop} />,
               <OpenDetailsPage key="openDetails" stop={stop} />,
