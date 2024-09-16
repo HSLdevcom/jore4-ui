@@ -42,7 +42,7 @@ export const StopTableRow: FC<Props> = ({
       />
 
       <NameTd
-        className={`w-full px-8 py-3 ${yBorderClassNames} align-top text-sm font-bold leading-6`}
+        className={`w-full px-8 py-3 ${yBorderClassNames} border-l border-l-background align-top text-sm font-bold leading-6`}
         stop={stop}
       />
 
