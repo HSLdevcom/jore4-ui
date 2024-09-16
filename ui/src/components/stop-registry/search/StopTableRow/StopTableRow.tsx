@@ -8,7 +8,9 @@ import { NameTd } from './NameTd';
 import { ValidityPeriodTd } from './ValidityPeriodTd';
 
 interface Props {
+  readonly actionButtons: ReactNode;
   readonly className?: string;
+  readonly inEditMode?: boolean;
   readonly menuItems: ReactNode;
   readonly stop: StopSearchRow;
 }
@@ -20,7 +22,9 @@ const testIds = {
 const yBorderClassNames = 'border-y border-y-light-grey';
 
 export const StopTableRow: FC<Props> = ({
+  actionButtons,
   className = '',
+  inEditMode,
   menuItems,
   stop,
 }) => {
@@ -48,12 +52,13 @@ export const StopTableRow: FC<Props> = ({
       />
 
       <ActionButtonsTd
+        actionButtons={actionButtons}
         className={`w-auto py-3 ${yBorderClassNames}`}
-        stop={stop}
       />
 
       <ActionMenuTd
-        className={`w-auto py-3 pl-3 pr-8 ${yBorderClassNames}`}
+        className={`w-auto py-3 pr-8 ${inEditMode ? '' : 'pl-3'} ${yBorderClassNames}`}
+        inEditMode={inEditMode}
         menuItems={menuItems}
       />
     </tr>
