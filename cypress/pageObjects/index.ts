@@ -22,6 +22,7 @@ export * from './RoutePropertiesForm';
 export * from './RouteStopsOverlayRow';
 export * from './RoutesAndLinesPage';
 export * from './SearchResultsPage';
+export * from './SelectMemberStopsDropdown';
 export * from './StopForm';
 export * from './SubstituteDaySettingsPage';
 export * from './TemplateRouteSelector';

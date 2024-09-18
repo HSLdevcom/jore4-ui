@@ -3,6 +3,10 @@ import { FC } from 'react';
 import { MdSearch } from 'react-icons/md';
 import { StopAreaFormMember } from '../stopAreaFormSchema';
 
+const testIds = {
+  button: 'SelectMemberStopsDropdownButton',
+};
+
 type SelectMemberStopsDropdownButtonProps = {
   readonly selected: ReadonlyArray<StopAreaFormMember>;
 };
@@ -11,7 +15,10 @@ export const SelectMemberStopsDropdownButton: FC<
   SelectMemberStopsDropdownButtonProps
 > = ({ selected }) => {
   return (
-    <HUICombobox.Button className="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none">
+    <HUICombobox.Button
+      data-testid={testIds.button}
+      className="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+    >
       <span className="hidden ui-not-open:block">
         {selected.map((stop, i) => (
           <span

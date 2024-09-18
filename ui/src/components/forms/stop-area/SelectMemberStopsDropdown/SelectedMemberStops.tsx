@@ -3,6 +3,10 @@ import { FC } from 'react';
 import { MdOutlineClear } from 'react-icons/md';
 import { StopAreaFormMember } from '../stopAreaFormSchema';
 
+const testIds = {
+  option: 'SelectedMemberStops::option',
+};
+
 type SelectedMemberStopsProps = {
   readonly selected: ReadonlyArray<StopAreaFormMember>;
 };
@@ -22,6 +26,7 @@ export const SelectedMemberStops: FC<SelectedMemberStopsProps> = ({
           value={stop}
           className="flex cursor-pointer flex-row items-center rounded-md bg-brand px-2 py-1 font-bold text-white ui-active:bg-brand-darker"
           title={`${stop.scheduled_stop_point.label}: ${stop.name.value}`}
+          data-testid={testIds.option}
         >
           {stop.scheduled_stop_point.label}
           <MdOutlineClear className="ml-1 text-xl" />

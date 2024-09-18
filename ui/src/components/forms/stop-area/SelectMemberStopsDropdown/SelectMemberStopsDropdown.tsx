@@ -12,6 +12,10 @@ import {
 import { SelectMemberStopsDropdownButton } from './SelectMemberStopsDropdownButton';
 import { useFindStopPlaceByQuery } from './useFindStopPlaceByQuery';
 
+const testIds = {
+  input: 'SelectMemberStopsDropdown::input',
+};
+
 function stopAreaFormMembersAreSame(
   a: StopAreaFormMember,
   b: StopAreaFormMember,
@@ -32,12 +36,14 @@ type SelectMemberStopsDropdownProps = {
   readonly value: Array<StopAreaFormMember> | undefined;
   readonly editedStopAreaId: string | null | undefined;
   readonly onChange: (selected: Array<StopAreaFormMember>) => void;
+  readonly testId?: string;
 };
 
 export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
   value = [],
   editedStopAreaId,
   onChange,
+  testId,
 }: SelectMemberStopsDropdownProps) => {
   const [query, setQuery] = useState('');
   const cleanQuery = query.trim();
@@ -94,12 +100,14 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
       onChange={onChangeInternal}
       value={value}
       ref={onCloseRef}
+      data-testid={testId}
     >
       <div className="relative w-full">
         <HUICombobox.Input
           className="relative h-full w-full border border-grey bg-white px-2 py-3 ui-open:rounded-b-none ui-not-open:rounded-md"
           onChange={(e) => setQuery(e.target.value)}
           value={query}
+          data-testid={testIds.input}
         />
 
         <SelectMemberStopsDropdownButton selected={value} />
