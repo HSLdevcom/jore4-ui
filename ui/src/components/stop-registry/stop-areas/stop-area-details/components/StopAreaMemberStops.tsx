@@ -1,9 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TFunction } from 'i18next';
 import React, {
+  Dispatch,
   FC,
   FormEventHandler,
   ReactNode,
+  SetStateAction,
   useMemo,
   useState,
 } from 'react';
@@ -20,11 +22,11 @@ import {
   stopAreaFormSchema,
   useUpsertStopArea,
 } from '../../../../forms/stop-area';
-import { StopAreaComponentProps } from './StopAreaComponentProps';
+import { StopAreaEditableBlock } from '../StopAreaEditableBlock';
+import { EditableStopAreaComponentProps } from './StopAreaComponentProps';
 import { mapStopAreaDataToFormState } from './StopAreaDetailsEdit';
 import { StopAreaMemberStopRows } from './StopAreaMemberStopRows';
-import { StopAreaMemberStopsEditHeader } from './StopAreaMemberStopsEditHeader';
-import { StopAreaMemberStopsViewHeader } from './StopAreaMemberStopsViewHeader';
+import { StopAreaMemberStopsHeader } from './StopAreaMemberStopsHeader';
 
 type RootComponentProps = {
   readonly children: ReactNode;
@@ -53,10 +55,10 @@ const RootComponent: FC<RootComponentProps> = ({
 function useMemberStopFormControls(
   areaId: string | null | undefined,
   defaultValues: Partial<FormState>,
+  onEditBlock: Dispatch<SetStateAction<StopAreaEditableBlock | null>>,
   refetch: () => Promise<unknown>,
   t: TFunction,
 ) {
-  const [inEditMode, setInEditMode] = useState(false);
   const [stopToRemove, setStopToRemove] = useState<string | null>(null);
 
   const { upsertStopArea, defaultErrorHandler } = useUpsertStopArea();
@@ -69,7 +71,7 @@ function useMemberStopFormControls(
       await refetch();
 
       showSuccessToast(t('stopArea.editSuccess'));
-      setInEditMode(false);
+      onEditBlock(null);
     } catch (err) {
       defaultErrorHandler(err as Error);
     }
@@ -107,9 +109,6 @@ function useMemberStopFormControls(
   });
 
   return {
-    inEditMode,
-    setInEditMode,
-
     stopToRemove,
     setStopToRemove,
 
@@ -120,22 +119,17 @@ function useMemberStopFormControls(
   };
 }
 
-type StopAreaMemberStopsProps = StopAreaComponentProps & {
-  readonly refetch: () => Promise<unknown>;
-};
-
-export const StopAreaMemberStops: FC<StopAreaMemberStopsProps> = ({
+export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
   area,
   className = '',
+  blockInEdit,
+  onEditBlock,
   refetch,
 }) => {
   const { t } = useTranslation();
 
   const defaultValues = useMemo(() => mapStopAreaDataToFormState(area), [area]);
   const {
-    inEditMode,
-    setInEditMode,
-
     stopToRemove,
     setStopToRemove,
 
@@ -143,7 +137,13 @@ export const StopAreaMemberStops: FC<StopAreaMemberStopsProps> = ({
     removeStop,
 
     methods,
-  } = useMemberStopFormControls(area.id, defaultValues, refetch, t);
+  } = useMemberStopFormControls(
+    area.id,
+    defaultValues,
+    onEditBlock,
+    refetch,
+    t,
+  );
   const { setValue, getValues, watch, reset } = methods;
 
   const onEditStops = () => {
@@ -151,8 +151,10 @@ export const StopAreaMemberStops: FC<StopAreaMemberStopsProps> = ({
     // We need to manually apply the new state, in case the area has
     // already been updated once during the session.
     reset(defaultValues);
-    setInEditMode(true);
+    onEditBlock(StopAreaEditableBlock.MEMBERS);
   };
+
+  const onCancelEdit = () => onEditBlock(null);
 
   const onRemoveWhenEditing = (id: string) => {
     setValue(
@@ -178,6 +180,8 @@ export const StopAreaMemberStops: FC<StopAreaMemberStopsProps> = ({
     );
   };
 
+  const inEditMode = blockInEdit === StopAreaEditableBlock.MEMBERS;
+
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
@@ -189,14 +193,12 @@ export const StopAreaMemberStops: FC<StopAreaMemberStopsProps> = ({
         <div className="flex items-center gap-4">
           <h2>{t('stopAreaDetails.memberStops.title')}</h2>
 
-          {inEditMode ? (
-            <StopAreaMemberStopsEditHeader
-              areaId={area.id}
-              setInEditMode={setInEditMode}
-            />
-          ) : (
-            <StopAreaMemberStopsViewHeader onEditStops={onEditStops} />
-          )}
+          <StopAreaMemberStopsHeader
+            areaId={area.id}
+            blockInEdit={blockInEdit}
+            onCancel={onCancelEdit}
+            onEditStops={onEditStops}
+          />
         </div>
 
         <StopAreaMemberStopRows

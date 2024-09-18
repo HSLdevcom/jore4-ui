@@ -1,9 +1,14 @@
-import { FC, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { theme } from '../../../../../generated/theme';
 import { submitFormByRef } from '../../../../../utils';
-import { InfoContainer, useInfoContainerControls } from '../../../../common';
+import {
+  InfoContainer,
+  InfoContainerControls,
+  useInfoContainerControls,
+} from '../../../../common';
+import { StopAreaEditableBlock } from '../StopAreaEditableBlock';
 import { EditableStopAreaComponentProps } from './StopAreaComponentProps';
 import { StopAreaDetailsEdit } from './StopAreaDetailsEdit';
 import { StopAreaDetailsView } from './StopAreaDetailsView';
@@ -15,15 +20,32 @@ const testIds = {
 export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
   area,
   className = '',
+  blockInEdit,
+  onEditBlock,
   refetch,
 }) => {
   const { t } = useTranslation();
 
   const formRef = useRef<HTMLFormElement>(null);
-  const infoContainerControls = useInfoContainerControls({
+  const rawInfoContainerControls = useInfoContainerControls({
     isEditable: true,
     onSave: () => submitFormByRef(formRef),
   });
+
+  useEffect(() => {
+    onEditBlock(
+      rawInfoContainerControls.isInEditMode
+        ? StopAreaEditableBlock.DETAILS
+        : null,
+    );
+  }, [rawInfoContainerControls.isInEditMode, onEditBlock]);
+
+  const infoContainerControls: InfoContainerControls = {
+    ...rawInfoContainerControls,
+    isEditable:
+      blockInEdit === StopAreaEditableBlock.DETAILS || blockInEdit === null,
+    isInEditMode: blockInEdit === StopAreaEditableBlock.DETAILS,
+  };
 
   return (
     <InfoContainer
