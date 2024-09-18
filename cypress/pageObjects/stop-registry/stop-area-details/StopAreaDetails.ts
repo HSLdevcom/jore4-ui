@@ -1,4 +1,8 @@
+import { StopAreaDetailsEdit } from './StopAreaDetailsEdit';
+
 export class StopAreaDetails {
+  edit = new StopAreaDetailsEdit();
+
   getEditButton = () => cy.getByTestId('StopAreaDetails::editButton');
 
   getName = () => cy.getByTestId('StopAreaDetails::name');
