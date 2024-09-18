@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useLoader } from '../../../../hooks';
 import { Container } from '../../../../layoutComponents';
@@ -9,6 +9,7 @@ import {
   StopAreaTitleRow,
   StopAreaVersioningRow,
 } from './components';
+import { StopAreaEditableBlock } from './StopAreaEditableBlock';
 import { useGetStopAreaDetails } from './useGetStopAreaDetails';
 
 const testIds = {
@@ -17,6 +18,10 @@ const testIds = {
 
 export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
   const { id } = useParams();
+
+  const [blockInEdit, setBlockInEdit] = useState<StopAreaEditableBlock | null>(
+    null,
+  );
 
   const { area, loading, refetch } = useGetStopAreaDetails(id ?? '');
   const { setLoadingState } = useLoader(Operation.FetchStopAreaPageDetails, {
@@ -42,8 +47,18 @@ export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
       <StopAreaTitleRow area={area} />
       <hr />
       <StopAreaVersioningRow area={area} />
-      <StopAreaDetailsAndMap area={area} refetch={refetch} />
-      <StopAreaMemberStops area={area} refetch={refetch} />
+      <StopAreaDetailsAndMap
+        area={area}
+        blockInEdit={blockInEdit}
+        onEditBlock={setBlockInEdit}
+        refetch={refetch}
+      />
+      <StopAreaMemberStops
+        area={area}
+        blockInEdit={blockInEdit}
+        onEditBlock={setBlockInEdit}
+        refetch={refetch}
+      />
     </Container>
   );
 };

@@ -22,7 +22,6 @@ import {
   stopAreaMemberStopSchema,
   useUpsertStopArea,
 } from '../../../../forms/stop-area';
-import { EditableStopAreaComponentProps } from './StopAreaComponentProps';
 
 const testIds = {
   label: 'StopAreaDetailsEdit::label',
@@ -55,7 +54,10 @@ export const mapStopAreaDataToFormState = (
   };
 };
 
-type StopAreaDetailsEditProps = EditableStopAreaComponentProps & {
+type StopAreaDetailsEditProps = {
+  readonly area: StopAreaDetailsFragment;
+  readonly className?: string;
+  readonly refetch: () => Promise<unknown>;
   readonly onFinishEditing: () => void;
 };
 

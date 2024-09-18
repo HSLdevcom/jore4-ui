@@ -1,7 +1,6 @@
 import noop from 'lodash/noop';
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopAreaDetailsFragment } from '../../../../../generated/graphql';
 import { ControlledElement } from '../../../../forms/common/ControlledElement';
 import { SelectMemberStopsDropdown } from '../../../../forms/stop-area';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
@@ -14,12 +13,12 @@ const testIds = {
 
 type StopAreaMemberStopsEditHeaderProps = {
   readonly areaId: string | null | undefined;
-  readonly setInEditMode: Dispatch<SetStateAction<boolean>>;
+  readonly onCancel: () => void;
 };
 
 export const StopAreaMemberStopsEditHeader: FC<
   StopAreaMemberStopsEditHeaderProps
-> = ({ areaId, setInEditMode }) => {
+> = ({ areaId, onCancel }) => {
   const { t } = useTranslation();
 
   return (
@@ -55,7 +54,7 @@ export const StopAreaMemberStopsEditHeader: FC<
           containerClassName="w-full"
           className="flex-grow"
           inverted
-          onClick={() => setInEditMode(false)}
+          onClick={onCancel}
           testId={testIds.cancelButton}
         >
           {t('cancel')}
