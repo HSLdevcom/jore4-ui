@@ -15,6 +15,7 @@ import { StopAreaDetailsView } from './StopAreaDetailsView';
 
 const testIds = {
   prefix: 'StopAreaDetails',
+  editPrefix: 'StopAreaDetailsEdit',
 };
 
 export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
@@ -56,7 +57,9 @@ export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
       }}
       controls={infoContainerControls}
       title={t('stopAreaDetails.basicDetails.title')}
-      testIdPrefix={testIds.prefix}
+      testIdPrefix={
+        infoContainerControls.isInEditMode ? testIds.editPrefix : testIds.prefix
+      }
     >
       {infoContainerControls.isInEditMode ? (
         <StopAreaDetailsEdit

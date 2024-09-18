@@ -7,8 +7,8 @@ import { IconButton, commonHoverStyle } from '../../../../../../uiComponents';
 import { StopAreaFormMember } from '../../../../../forms/stop-area';
 
 const testIds = {
-  removeButton: '',
-  addBackButton: '',
+  removeButton: 'StopTableRow::AreaEdit::remove',
+  addBackButton: 'StopTableRow::AreaEdit::addBack',
 };
 
 function stopSearchRowToStopAreaFormMember(

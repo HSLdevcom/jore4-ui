@@ -35,7 +35,7 @@ export const StopAreaMemberStopsEditHeader: FC<
           testId={testIds.selectMemberStops}
           fieldPath="memberStops"
           // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={({ value, onChange }) => (
+          inputElementRenderer={({ value, onChange, testId }) => (
             <SelectMemberStopsDropdown
               className="lg:w-1/2"
               editedStopAreaId={areaId}
@@ -44,6 +44,7 @@ export const StopAreaMemberStopsEditHeader: FC<
               // Cast to Any until the form-typings get fixed (huge rewrite)
               value={value as ExplicitAny}
               onChange={onChange}
+              testId={testId}
             />
           )}
         />

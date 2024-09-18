@@ -17,4 +17,14 @@ export class StopAreaMemberStops {
     cy.getByTestId('StopTableRow::ActionMenu::removeStopMenuItem');
 
   getAddStopButton = () => cy.getByTestId('MemberStops::addStopButton');
+
+  getCancelButton = () => cy.getByTestId('MemberStops::cancelButton');
+
+  getSaveButton = () => cy.getByTestId('MemberStops::saveButton');
+
+  getSelectMemberStops = () => cy.getByTestId('MemberStops::selectMemberStops');
+
+  getRemoveButton = () => cy.getByTestId('StopTableRow::AreaEdit::remove');
+
+  getAddBackButton = () => cy.getByTestId('StopTableRow::AreaEdit::addBack');
 }

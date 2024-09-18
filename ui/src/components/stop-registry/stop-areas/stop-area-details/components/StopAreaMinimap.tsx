@@ -47,6 +47,7 @@ function useShowOnMap() {
 
 const testIds = {
   openMapButton: 'StopAreaMinimap::openMapButton',
+  marker: 'StopAreaMinimap::marker',
 };
 
 export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
@@ -55,6 +56,8 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
 }) => {
   const { t } = useTranslation();
   const showOnMap = useShowOnMap();
+
+  const point = mapLngLatToPoint(area.geometry?.coordinates ?? []);
 
   return (
     <div
@@ -69,7 +72,13 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
       <div className="text-center text-2xl font-extrabold">
         <span>🚧 Tähän tulee oikea kartta 🚧</span>
         <br />
-        <span>{area.description?.value}</span>
+        <span
+          data-testid={testIds.marker}
+          data-longitude={point.longitude}
+          data-latitude={point.latitude}
+        >
+          {area.description?.value}
+        </span>
       </div>
 
       <SlimSimpleButton
