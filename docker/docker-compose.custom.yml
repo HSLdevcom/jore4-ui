@@ -40,7 +40,7 @@ services:
   jore4-tiamat:
     # Pin tiamat to a compatible version.
     # Note: also update jore4-tiamat-e2e in docker-compose.e2e when changing this.
-    image: "hsldevcom/jore4-tiamat:fix-info-spot-input-type--20240912-0c4a4acc8402ac74a9a4221e4255550aa53ca3e7"
+    image: "hsldevcom/jore4-tiamat:main--20240918-e524ab5e90e739981b3ed68a08007f39c2604411"
 
   jore4-timetablesapi:
     # Pin timetables api to a compatible version.
