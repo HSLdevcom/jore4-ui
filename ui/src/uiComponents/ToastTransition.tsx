@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import React, { FC, ReactNode } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
 
 interface Props {
   show: boolean;
@@ -9,6 +9,14 @@ interface Props {
 export const ToastTransition: FC<Props> = ({ show, children }) => {
   return (
     <Transition
+      // This needs to be a fragment, so that we can match the
+      // toast's animation status in e2e tests.
+      // We must wait for the toast to be fully visible, before we take a
+      // screenshot, or else that will be useless, because we can't see the
+      // actual text in it.
+      // Current matching is based on opacity getting set to 100 (=='1').
+      // See: cypress/pageObjects/Toast.ts
+      as={Fragment}
       appear
       show={show}
       enter="transition-all duration-150"
