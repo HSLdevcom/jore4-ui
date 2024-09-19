@@ -9941,6 +9941,7 @@ export type StopRegistryParentStopPlace = StopRegistryStopPlaceInterface & {
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
@@ -10418,6 +10419,7 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
@@ -10491,6 +10493,7 @@ export type StopRegistryStopPlaceInterface = {
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
@@ -16573,367 +16576,6 @@ export type StopsDatabaseCheckConstraintVarianceFields = {
   version?: Maybe<Scalars['Float']['output']>;
 };
 
-/** columns and relationships of "contact" */
-export type StopsDatabaseContact = {
-  __typename?: 'stops_database_contact';
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  contact_person?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  fax?: Maybe<Scalars['String']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  further_details?: Maybe<Scalars['String']['output']>;
-  id: Scalars['bigint']['output'];
-  netex_id?: Maybe<Scalars['String']['output']>;
-  phone?: Maybe<Scalars['String']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  version: Scalars['bigint']['output'];
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregated selection of "contact" */
-export type StopsDatabaseContactAggregate = {
-  __typename?: 'stops_database_contact_aggregate';
-  aggregate?: Maybe<StopsDatabaseContactAggregateFields>;
-  nodes: Array<StopsDatabaseContact>;
-};
-
-/** aggregate fields of "contact" */
-export type StopsDatabaseContactAggregateFields = {
-  __typename?: 'stops_database_contact_aggregate_fields';
-  avg?: Maybe<StopsDatabaseContactAvgFields>;
-  count: Scalars['Int']['output'];
-  max?: Maybe<StopsDatabaseContactMaxFields>;
-  min?: Maybe<StopsDatabaseContactMinFields>;
-  stddev?: Maybe<StopsDatabaseContactStddevFields>;
-  stddev_pop?: Maybe<StopsDatabaseContactStddevPopFields>;
-  stddev_samp?: Maybe<StopsDatabaseContactStddevSampFields>;
-  sum?: Maybe<StopsDatabaseContactSumFields>;
-  var_pop?: Maybe<StopsDatabaseContactVarPopFields>;
-  var_samp?: Maybe<StopsDatabaseContactVarSampFields>;
-  variance?: Maybe<StopsDatabaseContactVarianceFields>;
-};
-
-/** aggregate fields of "contact" */
-export type StopsDatabaseContactAggregateFieldsCountArgs = {
-  columns?: InputMaybe<Array<StopsDatabaseContactSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** aggregate avg on columns */
-export type StopsDatabaseContactAvgFields = {
-  __typename?: 'stops_database_contact_avg_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Boolean expression to filter rows from the table "contact". All fields are combined with a logical 'AND'. */
-export type StopsDatabaseContactBoolExp = {
-  _and?: InputMaybe<Array<StopsDatabaseContactBoolExp>>;
-  _not?: InputMaybe<StopsDatabaseContactBoolExp>;
-  _or?: InputMaybe<Array<StopsDatabaseContactBoolExp>>;
-  changed?: InputMaybe<TimestampComparisonExp>;
-  changed_by?: InputMaybe<StringComparisonExp>;
-  contact_person?: InputMaybe<StringComparisonExp>;
-  created?: InputMaybe<TimestampComparisonExp>;
-  email?: InputMaybe<StringComparisonExp>;
-  fax?: InputMaybe<StringComparisonExp>;
-  from_date?: InputMaybe<TimestampComparisonExp>;
-  further_details?: InputMaybe<StringComparisonExp>;
-  id?: InputMaybe<BigintComparisonExp>;
-  netex_id?: InputMaybe<StringComparisonExp>;
-  phone?: InputMaybe<StringComparisonExp>;
-  to_date?: InputMaybe<TimestampComparisonExp>;
-  url?: InputMaybe<StringComparisonExp>;
-  version?: InputMaybe<BigintComparisonExp>;
-  version_comment?: InputMaybe<StringComparisonExp>;
-};
-
-/** unique or primary key constraints on table "contact" */
-export enum StopsDatabaseContactConstraint {
-  /** unique or primary key constraint on columns "id" */
-  ContactPkey = 'contact_pkey',
-}
-
-/** input type for incrementing numeric columns in table "contact" */
-export type StopsDatabaseContactIncInput = {
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  version?: InputMaybe<Scalars['bigint']['input']>;
-};
-
-/** input type for inserting data into table "contact" */
-export type StopsDatabaseContactInsertInput = {
-  changed?: InputMaybe<Scalars['timestamp']['input']>;
-  changed_by?: InputMaybe<Scalars['String']['input']>;
-  contact_person?: InputMaybe<Scalars['String']['input']>;
-  created?: InputMaybe<Scalars['timestamp']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  fax?: InputMaybe<Scalars['String']['input']>;
-  from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  further_details?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  netex_id?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-  to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  version?: InputMaybe<Scalars['bigint']['input']>;
-  version_comment?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate max on columns */
-export type StopsDatabaseContactMaxFields = {
-  __typename?: 'stops_database_contact_max_fields';
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  contact_person?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  fax?: Maybe<Scalars['String']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  further_details?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  phone?: Maybe<Scalars['String']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregate min on columns */
-export type StopsDatabaseContactMinFields = {
-  __typename?: 'stops_database_contact_min_fields';
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  contact_person?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  fax?: Maybe<Scalars['String']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  further_details?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  phone?: Maybe<Scalars['String']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** response of any mutation on the table "contact" */
-export type StopsDatabaseContactMutationResponse = {
-  __typename?: 'stops_database_contact_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<StopsDatabaseContact>;
-};
-
-/** on_conflict condition type for table "contact" */
-export type StopsDatabaseContactOnConflict = {
-  constraint: StopsDatabaseContactConstraint;
-  update_columns?: Array<StopsDatabaseContactUpdateColumn>;
-  where?: InputMaybe<StopsDatabaseContactBoolExp>;
-};
-
-/** Ordering options when selecting data from "contact". */
-export type StopsDatabaseContactOrderBy = {
-  changed?: InputMaybe<OrderBy>;
-  changed_by?: InputMaybe<OrderBy>;
-  contact_person?: InputMaybe<OrderBy>;
-  created?: InputMaybe<OrderBy>;
-  email?: InputMaybe<OrderBy>;
-  fax?: InputMaybe<OrderBy>;
-  from_date?: InputMaybe<OrderBy>;
-  further_details?: InputMaybe<OrderBy>;
-  id?: InputMaybe<OrderBy>;
-  netex_id?: InputMaybe<OrderBy>;
-  phone?: InputMaybe<OrderBy>;
-  to_date?: InputMaybe<OrderBy>;
-  url?: InputMaybe<OrderBy>;
-  version?: InputMaybe<OrderBy>;
-  version_comment?: InputMaybe<OrderBy>;
-};
-
-/** primary key columns input for table: contact */
-export type StopsDatabaseContactPkColumnsInput = {
-  id: Scalars['bigint']['input'];
-};
-
-/** select columns of table "contact" */
-export enum StopsDatabaseContactSelectColumn {
-  /** column name */
-  Changed = 'changed',
-  /** column name */
-  ChangedBy = 'changed_by',
-  /** column name */
-  ContactPerson = 'contact_person',
-  /** column name */
-  Created = 'created',
-  /** column name */
-  Email = 'email',
-  /** column name */
-  Fax = 'fax',
-  /** column name */
-  FromDate = 'from_date',
-  /** column name */
-  FurtherDetails = 'further_details',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  NetexId = 'netex_id',
-  /** column name */
-  Phone = 'phone',
-  /** column name */
-  ToDate = 'to_date',
-  /** column name */
-  Url = 'url',
-  /** column name */
-  Version = 'version',
-  /** column name */
-  VersionComment = 'version_comment',
-}
-
-/** input type for updating data in table "contact" */
-export type StopsDatabaseContactSetInput = {
-  changed?: InputMaybe<Scalars['timestamp']['input']>;
-  changed_by?: InputMaybe<Scalars['String']['input']>;
-  contact_person?: InputMaybe<Scalars['String']['input']>;
-  created?: InputMaybe<Scalars['timestamp']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  fax?: InputMaybe<Scalars['String']['input']>;
-  from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  further_details?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  netex_id?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-  to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  version?: InputMaybe<Scalars['bigint']['input']>;
-  version_comment?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate stddev on columns */
-export type StopsDatabaseContactStddevFields = {
-  __typename?: 'stops_database_contact_stddev_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate stddev_pop on columns */
-export type StopsDatabaseContactStddevPopFields = {
-  __typename?: 'stops_database_contact_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate stddev_samp on columns */
-export type StopsDatabaseContactStddevSampFields = {
-  __typename?: 'stops_database_contact_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Streaming cursor of the table "contact" */
-export type StopsDatabaseContactStreamCursorInput = {
-  /** Stream column input with initial value */
-  initial_value: StopsDatabaseContactStreamCursorValueInput;
-  /** cursor ordering */
-  ordering?: InputMaybe<StopsDatabaseCursorOrdering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type StopsDatabaseContactStreamCursorValueInput = {
-  changed?: InputMaybe<Scalars['timestamp']['input']>;
-  changed_by?: InputMaybe<Scalars['String']['input']>;
-  contact_person?: InputMaybe<Scalars['String']['input']>;
-  created?: InputMaybe<Scalars['timestamp']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  fax?: InputMaybe<Scalars['String']['input']>;
-  from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  further_details?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  netex_id?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-  to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  version?: InputMaybe<Scalars['bigint']['input']>;
-  version_comment?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate sum on columns */
-export type StopsDatabaseContactSumFields = {
-  __typename?: 'stops_database_contact_sum_fields';
-  id?: Maybe<Scalars['bigint']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-};
-
-/** update columns of table "contact" */
-export enum StopsDatabaseContactUpdateColumn {
-  /** column name */
-  Changed = 'changed',
-  /** column name */
-  ChangedBy = 'changed_by',
-  /** column name */
-  ContactPerson = 'contact_person',
-  /** column name */
-  Created = 'created',
-  /** column name */
-  Email = 'email',
-  /** column name */
-  Fax = 'fax',
-  /** column name */
-  FromDate = 'from_date',
-  /** column name */
-  FurtherDetails = 'further_details',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  NetexId = 'netex_id',
-  /** column name */
-  Phone = 'phone',
-  /** column name */
-  ToDate = 'to_date',
-  /** column name */
-  Url = 'url',
-  /** column name */
-  Version = 'version',
-  /** column name */
-  VersionComment = 'version_comment',
-}
-
-export type StopsDatabaseContactUpdates = {
-  /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<StopsDatabaseContactIncInput>;
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<StopsDatabaseContactSetInput>;
-  /** filter the rows which have to be updated */
-  where: StopsDatabaseContactBoolExp;
-};
-
-/** aggregate var_pop on columns */
-export type StopsDatabaseContactVarPopFields = {
-  __typename?: 'stops_database_contact_var_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate var_samp on columns */
-export type StopsDatabaseContactVarSampFields = {
-  __typename?: 'stops_database_contact_var_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate variance on columns */
-export type StopsDatabaseContactVarianceFields = {
-  __typename?: 'stops_database_contact_variance_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
 /** ordering argument of a cursor */
 export enum StopsDatabaseCursorOrdering {
   /** ascending ordering of the cursor */
@@ -21908,8 +21550,6 @@ export type StopsDatabaseGroupOfStopPlacesMaxFields = {
 /** columns and relationships of "group_of_stop_places_members" */
 export type StopsDatabaseGroupOfStopPlacesMembers = {
   __typename?: 'stops_database_group_of_stop_places_members';
-  /** An object relationship */
-  group_of_stop_place: StopsDatabaseGroupOfStopPlaces;
   group_of_stop_places_id: Scalars['bigint']['output'];
   ref?: Maybe<Scalars['String']['output']>;
   /** An object relationship */
@@ -21984,7 +21624,6 @@ export type StopsDatabaseGroupOfStopPlacesMembersBoolExp = {
   _and?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersBoolExp>>;
   _not?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
   _or?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersBoolExp>>;
-  group_of_stop_place?: InputMaybe<StopsDatabaseGroupOfStopPlacesBoolExp>;
   group_of_stop_places_id?: InputMaybe<BigintComparisonExp>;
   ref?: InputMaybe<StringComparisonExp>;
   stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
@@ -21998,7 +21637,6 @@ export type StopsDatabaseGroupOfStopPlacesMembersIncInput = {
 
 /** input type for inserting data into table "group_of_stop_places_members" */
 export type StopsDatabaseGroupOfStopPlacesMembersInsertInput = {
-  group_of_stop_place?: InputMaybe<StopsDatabaseGroupOfStopPlacesObjRelInsertInput>;
   group_of_stop_places_id?: InputMaybe<Scalars['bigint']['input']>;
   ref?: InputMaybe<Scalars['String']['input']>;
   stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionObjRelInsertInput>;
@@ -22046,7 +21684,6 @@ export type StopsDatabaseGroupOfStopPlacesMembersMutationResponse = {
 
 /** Ordering options when selecting data from "group_of_stop_places_members". */
 export type StopsDatabaseGroupOfStopPlacesMembersOrderBy = {
-  group_of_stop_place?: InputMaybe<StopsDatabaseGroupOfStopPlacesOrderBy>;
   group_of_stop_places_id?: InputMaybe<OrderBy>;
   ref?: InputMaybe<OrderBy>;
   stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionOrderBy>;
@@ -22201,302 +21838,6 @@ export type StopsDatabaseGroupOfStopPlacesMutationResponse = {
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
   returning: Array<StopsDatabaseGroupOfStopPlaces>;
-};
-
-/** columns and relationships of "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersion = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version';
-  centroid?: Maybe<Scalars['geometry']['output']>;
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  description_lang?: Maybe<Scalars['String']['output']>;
-  description_value?: Maybe<Scalars['String']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  name_lang?: Maybe<Scalars['String']['output']>;
-  name_value?: Maybe<Scalars['String']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  private_code_type?: Maybe<Scalars['String']['output']>;
-  private_code_value?: Maybe<Scalars['String']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['bigint']['output']>;
-  short_name_lang?: Maybe<Scalars['String']['output']>;
-  short_name_value?: Maybe<Scalars['String']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregated selection of "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionAggregate = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_aggregate';
-  aggregate?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionAggregateFields>;
-  nodes: Array<StopsDatabaseGroupOfStopPlacesNewestVersion>;
-};
-
-/** aggregate fields of "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionAggregateFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_aggregate_fields';
-  avg?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionAvgFields>;
-  count: Scalars['Int']['output'];
-  max?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionMaxFields>;
-  min?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionMinFields>;
-  stddev?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionStddevFields>;
-  stddev_pop?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionStddevPopFields>;
-  stddev_samp?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionStddevSampFields>;
-  sum?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionSumFields>;
-  var_pop?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionVarPopFields>;
-  var_samp?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionVarSampFields>;
-  variance?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionVarianceFields>;
-};
-
-/** aggregate fields of "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionAggregateFieldsCountArgs =
-  {
-    columns?: InputMaybe<
-      Array<StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn>
-    >;
-    distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  };
-
-/** aggregate avg on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionAvgFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_avg_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Boolean expression to filter rows from the table "group_of_stop_places_newest_version". All fields are combined with a logical 'AND'. */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp = {
-  _and?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>>;
-  _not?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
-  _or?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>>;
-  centroid?: InputMaybe<GeometryComparisonExp>;
-  changed?: InputMaybe<TimestampComparisonExp>;
-  changed_by?: InputMaybe<StringComparisonExp>;
-  created?: InputMaybe<TimestampComparisonExp>;
-  description_lang?: InputMaybe<StringComparisonExp>;
-  description_value?: InputMaybe<StringComparisonExp>;
-  from_date?: InputMaybe<TimestampComparisonExp>;
-  id?: InputMaybe<BigintComparisonExp>;
-  name_lang?: InputMaybe<StringComparisonExp>;
-  name_value?: InputMaybe<StringComparisonExp>;
-  netex_id?: InputMaybe<StringComparisonExp>;
-  private_code_type?: InputMaybe<StringComparisonExp>;
-  private_code_value?: InputMaybe<StringComparisonExp>;
-  purpose_of_grouping_id?: InputMaybe<BigintComparisonExp>;
-  short_name_lang?: InputMaybe<StringComparisonExp>;
-  short_name_value?: InputMaybe<StringComparisonExp>;
-  to_date?: InputMaybe<TimestampComparisonExp>;
-  version?: InputMaybe<BigintComparisonExp>;
-  version_comment?: InputMaybe<StringComparisonExp>;
-};
-
-/** aggregate max on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionMaxFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_max_fields';
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  description_lang?: Maybe<Scalars['String']['output']>;
-  description_value?: Maybe<Scalars['String']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  name_lang?: Maybe<Scalars['String']['output']>;
-  name_value?: Maybe<Scalars['String']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  private_code_type?: Maybe<Scalars['String']['output']>;
-  private_code_value?: Maybe<Scalars['String']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['bigint']['output']>;
-  short_name_lang?: Maybe<Scalars['String']['output']>;
-  short_name_value?: Maybe<Scalars['String']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregate min on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionMinFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_min_fields';
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  description_lang?: Maybe<Scalars['String']['output']>;
-  description_value?: Maybe<Scalars['String']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  name_lang?: Maybe<Scalars['String']['output']>;
-  name_value?: Maybe<Scalars['String']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  private_code_type?: Maybe<Scalars['String']['output']>;
-  private_code_value?: Maybe<Scalars['String']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['bigint']['output']>;
-  short_name_lang?: Maybe<Scalars['String']['output']>;
-  short_name_value?: Maybe<Scalars['String']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** Ordering options when selecting data from "group_of_stop_places_newest_version". */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy = {
-  centroid?: InputMaybe<OrderBy>;
-  changed?: InputMaybe<OrderBy>;
-  changed_by?: InputMaybe<OrderBy>;
-  created?: InputMaybe<OrderBy>;
-  description_lang?: InputMaybe<OrderBy>;
-  description_value?: InputMaybe<OrderBy>;
-  from_date?: InputMaybe<OrderBy>;
-  id?: InputMaybe<OrderBy>;
-  name_lang?: InputMaybe<OrderBy>;
-  name_value?: InputMaybe<OrderBy>;
-  netex_id?: InputMaybe<OrderBy>;
-  private_code_type?: InputMaybe<OrderBy>;
-  private_code_value?: InputMaybe<OrderBy>;
-  purpose_of_grouping_id?: InputMaybe<OrderBy>;
-  short_name_lang?: InputMaybe<OrderBy>;
-  short_name_value?: InputMaybe<OrderBy>;
-  to_date?: InputMaybe<OrderBy>;
-  version?: InputMaybe<OrderBy>;
-  version_comment?: InputMaybe<OrderBy>;
-};
-
-/** select columns of table "group_of_stop_places_newest_version" */
-export enum StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn {
-  /** column name */
-  Centroid = 'centroid',
-  /** column name */
-  Changed = 'changed',
-  /** column name */
-  ChangedBy = 'changed_by',
-  /** column name */
-  Created = 'created',
-  /** column name */
-  DescriptionLang = 'description_lang',
-  /** column name */
-  DescriptionValue = 'description_value',
-  /** column name */
-  FromDate = 'from_date',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  NameLang = 'name_lang',
-  /** column name */
-  NameValue = 'name_value',
-  /** column name */
-  NetexId = 'netex_id',
-  /** column name */
-  PrivateCodeType = 'private_code_type',
-  /** column name */
-  PrivateCodeValue = 'private_code_value',
-  /** column name */
-  PurposeOfGroupingId = 'purpose_of_grouping_id',
-  /** column name */
-  ShortNameLang = 'short_name_lang',
-  /** column name */
-  ShortNameValue = 'short_name_value',
-  /** column name */
-  ToDate = 'to_date',
-  /** column name */
-  Version = 'version',
-  /** column name */
-  VersionComment = 'version_comment',
-}
-
-/** aggregate stddev on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionStddevFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_stddev_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate stddev_pop on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionStddevPopFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate stddev_samp on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionStddevSampFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Streaming cursor of the table "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionStreamCursorInput = {
-  /** Stream column input with initial value */
-  initial_value: StopsDatabaseGroupOfStopPlacesNewestVersionStreamCursorValueInput;
-  /** cursor ordering */
-  ordering?: InputMaybe<StopsDatabaseCursorOrdering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionStreamCursorValueInput =
-  {
-    centroid?: InputMaybe<Scalars['geometry']['input']>;
-    changed?: InputMaybe<Scalars['timestamp']['input']>;
-    changed_by?: InputMaybe<Scalars['String']['input']>;
-    created?: InputMaybe<Scalars['timestamp']['input']>;
-    description_lang?: InputMaybe<Scalars['String']['input']>;
-    description_value?: InputMaybe<Scalars['String']['input']>;
-    from_date?: InputMaybe<Scalars['timestamp']['input']>;
-    id?: InputMaybe<Scalars['bigint']['input']>;
-    name_lang?: InputMaybe<Scalars['String']['input']>;
-    name_value?: InputMaybe<Scalars['String']['input']>;
-    netex_id?: InputMaybe<Scalars['String']['input']>;
-    private_code_type?: InputMaybe<Scalars['String']['input']>;
-    private_code_value?: InputMaybe<Scalars['String']['input']>;
-    purpose_of_grouping_id?: InputMaybe<Scalars['bigint']['input']>;
-    short_name_lang?: InputMaybe<Scalars['String']['input']>;
-    short_name_value?: InputMaybe<Scalars['String']['input']>;
-    to_date?: InputMaybe<Scalars['timestamp']['input']>;
-    version?: InputMaybe<Scalars['bigint']['input']>;
-    version_comment?: InputMaybe<Scalars['String']['input']>;
-  };
-
-/** aggregate sum on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionSumFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_sum_fields';
-  id?: Maybe<Scalars['bigint']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['bigint']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-};
-
-/** aggregate var_pop on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionVarPopFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_var_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate var_samp on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionVarSampFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_var_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate variance on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionVarianceFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_variance_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** input type for inserting object relation for remote table "group_of_stop_places" */
-export type StopsDatabaseGroupOfStopPlacesObjRelInsertInput = {
-  data: StopsDatabaseGroupOfStopPlacesInsertInput;
-  /** upsert condition */
-  on_conflict?: InputMaybe<StopsDatabaseGroupOfStopPlacesOnConflict>;
 };
 
 /** on_conflict condition type for table "group_of_stop_places" */
@@ -23796,937 +23137,6 @@ export type StopsDatabaseGroupOfTariffZonesVarSampFields = {
 export type StopsDatabaseGroupOfTariffZonesVarianceFields = {
   __typename?: 'stops_database_group_of_tariff_zones_variance_fields';
   id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** columns and relationships of "hsl_accessibility_properties" */
-export type StopsDatabaseHslAccessibilityProperties = {
-  __typename?: 'stops_database_hsl_accessibility_properties';
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
-  accessibility_level: Scalars['String']['output'];
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Kaareva pysäkki */
-  curved_stop?: Maybe<Scalars['Boolean']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['numeric']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  /** Opasteraita */
-  guidance_stripe?: Maybe<Scalars['Boolean']['output']>;
-  /** Opaslaatat */
-  guidance_tiles?: Maybe<Scalars['Boolean']['output']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
-  guidance_type?: Maybe<Scalars['String']['output']>;
-  id: Scalars['bigint']['output'];
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['numeric']['output']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
-  map_type?: Maybe<Scalars['String']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  /** Suojatien luiskaus */
-  pedestrian_crossing_ramp_type?: Maybe<Scalars['String']['output']>;
-  /** Pysäkkialueen varoitusalue */
-  platform_edge_warning_area?: Maybe<Scalars['Boolean']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['numeric']['output']>;
-  /** Palvelualueen raidoitus */
-  service_area_stripes?: Maybe<Scalars['Boolean']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
-  shelter_type?: Maybe<Scalars['String']['output']>;
-  /** Esteetön yhteys jalkakäytävältä pysäkille */
-  sidewalk_accessible_connection?: Maybe<Scalars['Boolean']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin ympäristo: Esteellinen / Esteetön */
-  stop_area_surroundings_accessible?: Maybe<Scalars['Boolean']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
-  stop_type?: Maybe<Scalars['String']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  version: Scalars['bigint']['output'];
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregated selection of "hsl_accessibility_properties" */
-export type StopsDatabaseHslAccessibilityPropertiesAggregate = {
-  __typename?: 'stops_database_hsl_accessibility_properties_aggregate';
-  aggregate?: Maybe<StopsDatabaseHslAccessibilityPropertiesAggregateFields>;
-  nodes: Array<StopsDatabaseHslAccessibilityProperties>;
-};
-
-/** aggregate fields of "hsl_accessibility_properties" */
-export type StopsDatabaseHslAccessibilityPropertiesAggregateFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_aggregate_fields';
-  avg?: Maybe<StopsDatabaseHslAccessibilityPropertiesAvgFields>;
-  count: Scalars['Int']['output'];
-  max?: Maybe<StopsDatabaseHslAccessibilityPropertiesMaxFields>;
-  min?: Maybe<StopsDatabaseHslAccessibilityPropertiesMinFields>;
-  stddev?: Maybe<StopsDatabaseHslAccessibilityPropertiesStddevFields>;
-  stddev_pop?: Maybe<StopsDatabaseHslAccessibilityPropertiesStddevPopFields>;
-  stddev_samp?: Maybe<StopsDatabaseHslAccessibilityPropertiesStddevSampFields>;
-  sum?: Maybe<StopsDatabaseHslAccessibilityPropertiesSumFields>;
-  var_pop?: Maybe<StopsDatabaseHslAccessibilityPropertiesVarPopFields>;
-  var_samp?: Maybe<StopsDatabaseHslAccessibilityPropertiesVarSampFields>;
-  variance?: Maybe<StopsDatabaseHslAccessibilityPropertiesVarianceFields>;
-};
-
-/** aggregate fields of "hsl_accessibility_properties" */
-export type StopsDatabaseHslAccessibilityPropertiesAggregateFieldsCountArgs = {
-  columns?: InputMaybe<
-    Array<StopsDatabaseHslAccessibilityPropertiesSelectColumn>
-  >;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** aggregate avg on columns */
-export type StopsDatabaseHslAccessibilityPropertiesAvgFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_avg_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Boolean expression to filter rows from the table "hsl_accessibility_properties". All fields are combined with a logical 'AND'. */
-export type StopsDatabaseHslAccessibilityPropertiesBoolExp = {
-  _and?: InputMaybe<Array<StopsDatabaseHslAccessibilityPropertiesBoolExp>>;
-  _not?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesBoolExp>;
-  _or?: InputMaybe<Array<StopsDatabaseHslAccessibilityPropertiesBoolExp>>;
-  accessibility_level?: InputMaybe<StringComparisonExp>;
-  changed?: InputMaybe<TimestampComparisonExp>;
-  changed_by?: InputMaybe<StringComparisonExp>;
-  created?: InputMaybe<TimestampComparisonExp>;
-  curb_back_of_rail_distance?: InputMaybe<NumericComparisonExp>;
-  curb_drive_side_of_rail_distance?: InputMaybe<NumericComparisonExp>;
-  curved_stop?: InputMaybe<BooleanComparisonExp>;
-  end_ramp_slope?: InputMaybe<NumericComparisonExp>;
-  from_date?: InputMaybe<TimestampComparisonExp>;
-  guidance_stripe?: InputMaybe<BooleanComparisonExp>;
-  guidance_tiles?: InputMaybe<BooleanComparisonExp>;
-  guidance_type?: InputMaybe<StringComparisonExp>;
-  id?: InputMaybe<BigintComparisonExp>;
-  lower_cleat_height?: InputMaybe<NumericComparisonExp>;
-  map_type?: InputMaybe<StringComparisonExp>;
-  netex_id?: InputMaybe<StringComparisonExp>;
-  pedestrian_crossing_ramp_type?: InputMaybe<StringComparisonExp>;
-  platform_edge_warning_area?: InputMaybe<BooleanComparisonExp>;
-  service_area_length?: InputMaybe<NumericComparisonExp>;
-  service_area_stripes?: InputMaybe<BooleanComparisonExp>;
-  service_area_width?: InputMaybe<NumericComparisonExp>;
-  shelter_lane_distance?: InputMaybe<NumericComparisonExp>;
-  shelter_type?: InputMaybe<StringComparisonExp>;
-  sidewalk_accessible_connection?: InputMaybe<BooleanComparisonExp>;
-  stop_area_lengthwise_slope?: InputMaybe<NumericComparisonExp>;
-  stop_area_side_slope?: InputMaybe<NumericComparisonExp>;
-  stop_area_surroundings_accessible?: InputMaybe<BooleanComparisonExp>;
-  stop_elevation_from_rail_top?: InputMaybe<NumericComparisonExp>;
-  stop_elevation_from_sidewalk?: InputMaybe<NumericComparisonExp>;
-  stop_type?: InputMaybe<StringComparisonExp>;
-  structure_lane_distance?: InputMaybe<NumericComparisonExp>;
-  to_date?: InputMaybe<TimestampComparisonExp>;
-  version?: InputMaybe<BigintComparisonExp>;
-  version_comment?: InputMaybe<StringComparisonExp>;
-};
-
-/** unique or primary key constraints on table "hsl_accessibility_properties" */
-export enum StopsDatabaseHslAccessibilityPropertiesConstraint {
-  /** unique or primary key constraint on columns "netex_id", "version" */
-  HslAccessibilityPropertiesNetexIdVersionConstraint = 'hsl_accessibility_properties_netex_id_version_constraint',
-  /** unique or primary key constraint on columns "id" */
-  HslAccessibilityPropertiesPkey = 'hsl_accessibility_properties_pkey',
-}
-
-/** input type for incrementing numeric columns in table "hsl_accessibility_properties" */
-export type StopsDatabaseHslAccessibilityPropertiesIncInput = {
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: InputMaybe<Scalars['numeric']['input']>;
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: InputMaybe<Scalars['numeric']['input']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: InputMaybe<Scalars['numeric']['input']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: InputMaybe<Scalars['numeric']['input']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  version?: InputMaybe<Scalars['bigint']['input']>;
-};
-
-/** input type for inserting data into table "hsl_accessibility_properties" */
-export type StopsDatabaseHslAccessibilityPropertiesInsertInput = {
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
-  accessibility_level?: InputMaybe<Scalars['String']['input']>;
-  changed?: InputMaybe<Scalars['timestamp']['input']>;
-  changed_by?: InputMaybe<Scalars['String']['input']>;
-  created?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kaareva pysäkki */
-  curved_stop?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: InputMaybe<Scalars['numeric']['input']>;
-  from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Opasteraita */
-  guidance_stripe?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opaslaatat */
-  guidance_tiles?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
-  guidance_type?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
-  map_type?: InputMaybe<Scalars['String']['input']>;
-  netex_id?: InputMaybe<Scalars['String']['input']>;
-  /** Suojatien luiskaus */
-  pedestrian_crossing_ramp_type?: InputMaybe<Scalars['String']['input']>;
-  /** Pysäkkialueen varoitusalue */
-  platform_edge_warning_area?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: InputMaybe<Scalars['numeric']['input']>;
-  /** Palvelualueen raidoitus */
-  service_area_stripes?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
-  shelter_type?: InputMaybe<Scalars['String']['input']>;
-  /** Esteetön yhteys jalkakäytävältä pysäkille */
-  sidewalk_accessible_connection?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin ympäristo: Esteellinen / Esteetön */
-  stop_area_surroundings_accessible?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
-  stop_type?: InputMaybe<Scalars['String']['input']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  version?: InputMaybe<Scalars['bigint']['input']>;
-  version_comment?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate max on columns */
-export type StopsDatabaseHslAccessibilityPropertiesMaxFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_max_fields';
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
-  accessibility_level?: Maybe<Scalars['String']['output']>;
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['numeric']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
-  guidance_type?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['numeric']['output']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
-  map_type?: Maybe<Scalars['String']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  /** Suojatien luiskaus */
-  pedestrian_crossing_ramp_type?: Maybe<Scalars['String']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['numeric']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
-  shelter_type?: Maybe<Scalars['String']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
-  stop_type?: Maybe<Scalars['String']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregate min on columns */
-export type StopsDatabaseHslAccessibilityPropertiesMinFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_min_fields';
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
-  accessibility_level?: Maybe<Scalars['String']['output']>;
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['numeric']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
-  guidance_type?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['numeric']['output']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
-  map_type?: Maybe<Scalars['String']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  /** Suojatien luiskaus */
-  pedestrian_crossing_ramp_type?: Maybe<Scalars['String']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['numeric']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
-  shelter_type?: Maybe<Scalars['String']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
-  stop_type?: Maybe<Scalars['String']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** response of any mutation on the table "hsl_accessibility_properties" */
-export type StopsDatabaseHslAccessibilityPropertiesMutationResponse = {
-  __typename?: 'stops_database_hsl_accessibility_properties_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<StopsDatabaseHslAccessibilityProperties>;
-};
-
-/** on_conflict condition type for table "hsl_accessibility_properties" */
-export type StopsDatabaseHslAccessibilityPropertiesOnConflict = {
-  constraint: StopsDatabaseHslAccessibilityPropertiesConstraint;
-  update_columns?: Array<StopsDatabaseHslAccessibilityPropertiesUpdateColumn>;
-  where?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesBoolExp>;
-};
-
-/** Ordering options when selecting data from "hsl_accessibility_properties". */
-export type StopsDatabaseHslAccessibilityPropertiesOrderBy = {
-  accessibility_level?: InputMaybe<OrderBy>;
-  changed?: InputMaybe<OrderBy>;
-  changed_by?: InputMaybe<OrderBy>;
-  created?: InputMaybe<OrderBy>;
-  curb_back_of_rail_distance?: InputMaybe<OrderBy>;
-  curb_drive_side_of_rail_distance?: InputMaybe<OrderBy>;
-  curved_stop?: InputMaybe<OrderBy>;
-  end_ramp_slope?: InputMaybe<OrderBy>;
-  from_date?: InputMaybe<OrderBy>;
-  guidance_stripe?: InputMaybe<OrderBy>;
-  guidance_tiles?: InputMaybe<OrderBy>;
-  guidance_type?: InputMaybe<OrderBy>;
-  id?: InputMaybe<OrderBy>;
-  lower_cleat_height?: InputMaybe<OrderBy>;
-  map_type?: InputMaybe<OrderBy>;
-  netex_id?: InputMaybe<OrderBy>;
-  pedestrian_crossing_ramp_type?: InputMaybe<OrderBy>;
-  platform_edge_warning_area?: InputMaybe<OrderBy>;
-  service_area_length?: InputMaybe<OrderBy>;
-  service_area_stripes?: InputMaybe<OrderBy>;
-  service_area_width?: InputMaybe<OrderBy>;
-  shelter_lane_distance?: InputMaybe<OrderBy>;
-  shelter_type?: InputMaybe<OrderBy>;
-  sidewalk_accessible_connection?: InputMaybe<OrderBy>;
-  stop_area_lengthwise_slope?: InputMaybe<OrderBy>;
-  stop_area_side_slope?: InputMaybe<OrderBy>;
-  stop_area_surroundings_accessible?: InputMaybe<OrderBy>;
-  stop_elevation_from_rail_top?: InputMaybe<OrderBy>;
-  stop_elevation_from_sidewalk?: InputMaybe<OrderBy>;
-  stop_type?: InputMaybe<OrderBy>;
-  structure_lane_distance?: InputMaybe<OrderBy>;
-  to_date?: InputMaybe<OrderBy>;
-  version?: InputMaybe<OrderBy>;
-  version_comment?: InputMaybe<OrderBy>;
-};
-
-/** primary key columns input for table: hsl_accessibility_properties */
-export type StopsDatabaseHslAccessibilityPropertiesPkColumnsInput = {
-  id: Scalars['bigint']['input'];
-};
-
-/** select columns of table "hsl_accessibility_properties" */
-export enum StopsDatabaseHslAccessibilityPropertiesSelectColumn {
-  /** column name */
-  AccessibilityLevel = 'accessibility_level',
-  /** column name */
-  Changed = 'changed',
-  /** column name */
-  ChangedBy = 'changed_by',
-  /** column name */
-  Created = 'created',
-  /** column name */
-  CurbBackOfRailDistance = 'curb_back_of_rail_distance',
-  /** column name */
-  CurbDriveSideOfRailDistance = 'curb_drive_side_of_rail_distance',
-  /** column name */
-  CurvedStop = 'curved_stop',
-  /** column name */
-  EndRampSlope = 'end_ramp_slope',
-  /** column name */
-  FromDate = 'from_date',
-  /** column name */
-  GuidanceStripe = 'guidance_stripe',
-  /** column name */
-  GuidanceTiles = 'guidance_tiles',
-  /** column name */
-  GuidanceType = 'guidance_type',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  LowerCleatHeight = 'lower_cleat_height',
-  /** column name */
-  MapType = 'map_type',
-  /** column name */
-  NetexId = 'netex_id',
-  /** column name */
-  PedestrianCrossingRampType = 'pedestrian_crossing_ramp_type',
-  /** column name */
-  PlatformEdgeWarningArea = 'platform_edge_warning_area',
-  /** column name */
-  ServiceAreaLength = 'service_area_length',
-  /** column name */
-  ServiceAreaStripes = 'service_area_stripes',
-  /** column name */
-  ServiceAreaWidth = 'service_area_width',
-  /** column name */
-  ShelterLaneDistance = 'shelter_lane_distance',
-  /** column name */
-  ShelterType = 'shelter_type',
-  /** column name */
-  SidewalkAccessibleConnection = 'sidewalk_accessible_connection',
-  /** column name */
-  StopAreaLengthwiseSlope = 'stop_area_lengthwise_slope',
-  /** column name */
-  StopAreaSideSlope = 'stop_area_side_slope',
-  /** column name */
-  StopAreaSurroundingsAccessible = 'stop_area_surroundings_accessible',
-  /** column name */
-  StopElevationFromRailTop = 'stop_elevation_from_rail_top',
-  /** column name */
-  StopElevationFromSidewalk = 'stop_elevation_from_sidewalk',
-  /** column name */
-  StopType = 'stop_type',
-  /** column name */
-  StructureLaneDistance = 'structure_lane_distance',
-  /** column name */
-  ToDate = 'to_date',
-  /** column name */
-  Version = 'version',
-  /** column name */
-  VersionComment = 'version_comment',
-}
-
-/** input type for updating data in table "hsl_accessibility_properties" */
-export type StopsDatabaseHslAccessibilityPropertiesSetInput = {
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
-  accessibility_level?: InputMaybe<Scalars['String']['input']>;
-  changed?: InputMaybe<Scalars['timestamp']['input']>;
-  changed_by?: InputMaybe<Scalars['String']['input']>;
-  created?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kaareva pysäkki */
-  curved_stop?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: InputMaybe<Scalars['numeric']['input']>;
-  from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Opasteraita */
-  guidance_stripe?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opaslaatat */
-  guidance_tiles?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
-  guidance_type?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
-  map_type?: InputMaybe<Scalars['String']['input']>;
-  netex_id?: InputMaybe<Scalars['String']['input']>;
-  /** Suojatien luiskaus */
-  pedestrian_crossing_ramp_type?: InputMaybe<Scalars['String']['input']>;
-  /** Pysäkkialueen varoitusalue */
-  platform_edge_warning_area?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: InputMaybe<Scalars['numeric']['input']>;
-  /** Palvelualueen raidoitus */
-  service_area_stripes?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
-  shelter_type?: InputMaybe<Scalars['String']['input']>;
-  /** Esteetön yhteys jalkakäytävältä pysäkille */
-  sidewalk_accessible_connection?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin ympäristo: Esteellinen / Esteetön */
-  stop_area_surroundings_accessible?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
-  stop_type?: InputMaybe<Scalars['String']['input']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  version?: InputMaybe<Scalars['bigint']['input']>;
-  version_comment?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate stddev on columns */
-export type StopsDatabaseHslAccessibilityPropertiesStddevFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_stddev_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate stddev_pop on columns */
-export type StopsDatabaseHslAccessibilityPropertiesStddevPopFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_stddev_pop_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate stddev_samp on columns */
-export type StopsDatabaseHslAccessibilityPropertiesStddevSampFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_stddev_samp_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Streaming cursor of the table "hsl_accessibility_properties" */
-export type StopsDatabaseHslAccessibilityPropertiesStreamCursorInput = {
-  /** Stream column input with initial value */
-  initial_value: StopsDatabaseHslAccessibilityPropertiesStreamCursorValueInput;
-  /** cursor ordering */
-  ordering?: InputMaybe<StopsDatabaseCursorOrdering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type StopsDatabaseHslAccessibilityPropertiesStreamCursorValueInput = {
-  /** Esteettömyystaso: Täysin esteetön (fullyAccessible) / Vähäisiä esteitä (mostlyAccessible) / Osittain esteellinen (partiallyInaccessible) / Esteellinen (inaccessible) / Esteettömyystietoja puuttuu (unknown) */
-  accessibility_level?: InputMaybe<Scalars['String']['input']>;
-  changed?: InputMaybe<Scalars['timestamp']['input']>;
-  changed_by?: InputMaybe<Scalars['String']['input']>;
-  created?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kaareva pysäkki */
-  curved_stop?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: InputMaybe<Scalars['numeric']['input']>;
-  from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  /** Opasteraita */
-  guidance_stripe?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opaslaatat */
-  guidance_tiles?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Opasteiden tyyppi: Pisteopaste (braille) / Ei opastetta (none) / Muu opastus (other) */
-  guidance_type?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: InputMaybe<Scalars['numeric']['input']>;
-  /** Kartan tyyppi: Kohokartta (tactile) / Ei karttaa (none) / Muu kartta (other) */
-  map_type?: InputMaybe<Scalars['String']['input']>;
-  netex_id?: InputMaybe<Scalars['String']['input']>;
-  /** Suojatien luiskaus */
-  pedestrian_crossing_ramp_type?: InputMaybe<Scalars['String']['input']>;
-  /** Pysäkkialueen varoitusalue */
-  platform_edge_warning_area?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: InputMaybe<Scalars['numeric']['input']>;
-  /** Palvelualueen raidoitus */
-  service_area_stripes?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  /** Katoksen tyyppi: Leveä (wide) / Kapea (narrow) / Muu (other) */
-  shelter_type?: InputMaybe<Scalars['String']['input']>;
-  /** Esteetön yhteys jalkakäytävältä pysäkille */
-  sidewalk_accessible_connection?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin ympäristo: Esteellinen / Esteetön */
-  stop_area_surroundings_accessible?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: InputMaybe<Scalars['numeric']['input']>;
-  /** Pysäkin tyyppi: Syvennys (pullOut) / Uloke (busBulb) / Ajoradalla (inLane) / Muu (other) */
-  stop_type?: InputMaybe<Scalars['String']['input']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: InputMaybe<Scalars['numeric']['input']>;
-  to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  version?: InputMaybe<Scalars['bigint']['input']>;
-  version_comment?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate sum on columns */
-export type StopsDatabaseHslAccessibilityPropertiesSumFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_sum_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['numeric']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['numeric']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['numeric']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['numeric']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['numeric']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['numeric']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['numeric']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-};
-
-/** update columns of table "hsl_accessibility_properties" */
-export enum StopsDatabaseHslAccessibilityPropertiesUpdateColumn {
-  /** column name */
-  AccessibilityLevel = 'accessibility_level',
-  /** column name */
-  Changed = 'changed',
-  /** column name */
-  ChangedBy = 'changed_by',
-  /** column name */
-  Created = 'created',
-  /** column name */
-  CurbBackOfRailDistance = 'curb_back_of_rail_distance',
-  /** column name */
-  CurbDriveSideOfRailDistance = 'curb_drive_side_of_rail_distance',
-  /** column name */
-  CurvedStop = 'curved_stop',
-  /** column name */
-  EndRampSlope = 'end_ramp_slope',
-  /** column name */
-  FromDate = 'from_date',
-  /** column name */
-  GuidanceStripe = 'guidance_stripe',
-  /** column name */
-  GuidanceTiles = 'guidance_tiles',
-  /** column name */
-  GuidanceType = 'guidance_type',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  LowerCleatHeight = 'lower_cleat_height',
-  /** column name */
-  MapType = 'map_type',
-  /** column name */
-  NetexId = 'netex_id',
-  /** column name */
-  PedestrianCrossingRampType = 'pedestrian_crossing_ramp_type',
-  /** column name */
-  PlatformEdgeWarningArea = 'platform_edge_warning_area',
-  /** column name */
-  ServiceAreaLength = 'service_area_length',
-  /** column name */
-  ServiceAreaStripes = 'service_area_stripes',
-  /** column name */
-  ServiceAreaWidth = 'service_area_width',
-  /** column name */
-  ShelterLaneDistance = 'shelter_lane_distance',
-  /** column name */
-  ShelterType = 'shelter_type',
-  /** column name */
-  SidewalkAccessibleConnection = 'sidewalk_accessible_connection',
-  /** column name */
-  StopAreaLengthwiseSlope = 'stop_area_lengthwise_slope',
-  /** column name */
-  StopAreaSideSlope = 'stop_area_side_slope',
-  /** column name */
-  StopAreaSurroundingsAccessible = 'stop_area_surroundings_accessible',
-  /** column name */
-  StopElevationFromRailTop = 'stop_elevation_from_rail_top',
-  /** column name */
-  StopElevationFromSidewalk = 'stop_elevation_from_sidewalk',
-  /** column name */
-  StopType = 'stop_type',
-  /** column name */
-  StructureLaneDistance = 'structure_lane_distance',
-  /** column name */
-  ToDate = 'to_date',
-  /** column name */
-  Version = 'version',
-  /** column name */
-  VersionComment = 'version_comment',
-}
-
-export type StopsDatabaseHslAccessibilityPropertiesUpdates = {
-  /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesIncInput>;
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesSetInput>;
-  /** filter the rows which have to be updated */
-  where: StopsDatabaseHslAccessibilityPropertiesBoolExp;
-};
-
-/** aggregate var_pop on columns */
-export type StopsDatabaseHslAccessibilityPropertiesVarPopFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_var_pop_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate var_samp on columns */
-export type StopsDatabaseHslAccessibilityPropertiesVarSampFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_var_samp_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate variance on columns */
-export type StopsDatabaseHslAccessibilityPropertiesVarianceFields = {
-  __typename?: 'stops_database_hsl_accessibility_properties_variance_fields';
-  /** Reunakiven etäisyys kiskon selästä (cm) */
-  curb_back_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Reunakiven etäisyys kiskon ajoreunasta (cm) */
-  curb_drive_side_of_rail_distance?: Maybe<Scalars['Float']['output']>;
-  /** Päätyluiskan kaltevuus (%) */
-  end_ramp_slope?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  /** Alapienan korkeus (cm) */
-  lower_cleat_height?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen pituus (m) */
-  service_area_length?: Maybe<Scalars['Float']['output']>;
-  /** Palvelualueen leveys (m) */
-  service_area_width?: Maybe<Scalars['Float']['output']>;
-  /** Katoksen ja ajoradan välinen leveys (cm) */
-  shelter_lane_distance?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen pituuskaltevuus (%) */
-  stop_area_lengthwise_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkkialueen sivukaltevuus (%) */
-  stop_area_side_slope?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus kiskon ajopintaan nähden (cm) */
-  stop_elevation_from_rail_top?: Maybe<Scalars['Float']['output']>;
-  /** Pysäkin korotus jalkakäytävään nähden (cm) */
-  stop_elevation_from_sidewalk?: Maybe<Scalars['Float']['output']>;
-  /** Rakenteiden ja ajoradan välinen pienin leveys (cm) */
-  structure_lane_distance?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -41129,10 +39539,6 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
   funicular_submode?: Maybe<Scalars['String']['output']>;
-  /** An array relationship */
-  group_of_stop_places_members: Array<StopsDatabaseGroupOfStopPlacesMembers>;
-  /** An aggregate relationship */
-  group_of_stop_places_members_aggregate: StopsDatabaseGroupOfStopPlacesMembersAggregate;
   id?: Maybe<Scalars['bigint']['output']>;
   metro_submode?: Maybe<Scalars['String']['output']>;
   modification_enumeration?: Maybe<Scalars['String']['output']>;
@@ -41219,29 +39625,6 @@ export type StopsDatabaseStopPlaceNewestVersionTiamatStopPlaceArgs = {
   withoutLocationOnly?: InputMaybe<Scalars['Boolean']['input']>;
   withoutQuaysOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
-
-/** columns and relationships of "stop_place_newest_version" */
-export type StopsDatabaseStopPlaceNewestVersionGroupOfStopPlacesMembersArgs = {
-  distinct_on?: InputMaybe<
-    Array<StopsDatabaseGroupOfStopPlacesMembersSelectColumn>
-  >;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersOrderBy>>;
-  where?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
-};
-
-/** columns and relationships of "stop_place_newest_version" */
-export type StopsDatabaseStopPlaceNewestVersionGroupOfStopPlacesMembersAggregateArgs =
-  {
-    distinct_on?: InputMaybe<
-      Array<StopsDatabaseGroupOfStopPlacesMembersSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']['input']>;
-    offset?: InputMaybe<Scalars['Int']['input']>;
-    order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersOrderBy>>;
-    where?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
-  };
 
 /** columns and relationships of "stop_place_newest_version" */
 export type StopsDatabaseStopPlaceNewestVersionStopPlaceAccessSpacesArgs = {
@@ -41454,8 +39837,6 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   description_value?: InputMaybe<StringComparisonExp>;
   from_date?: InputMaybe<TimestampComparisonExp>;
   funicular_submode?: InputMaybe<StringComparisonExp>;
-  group_of_stop_places_members?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
-  group_of_stop_places_members_aggregate?: InputMaybe<GroupOfStopPlacesMembersAggregateBoolExp>;
   id?: InputMaybe<BigintComparisonExp>;
   metro_submode?: InputMaybe<StringComparisonExp>;
   modification_enumeration?: InputMaybe<StringComparisonExp>;
@@ -41516,7 +39897,6 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   description_value?: InputMaybe<Scalars['String']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   funicular_submode?: InputMaybe<Scalars['String']['input']>;
-  group_of_stop_places_members?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersArrRelInsertInput>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   metro_submode?: InputMaybe<Scalars['String']['input']>;
   modification_enumeration?: InputMaybe<Scalars['String']['input']>;
@@ -41661,7 +40041,6 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   description_value?: InputMaybe<OrderBy>;
   from_date?: InputMaybe<OrderBy>;
   funicular_submode?: InputMaybe<OrderBy>;
-  group_of_stop_places_members_aggregate?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersAggregateOrderBy>;
   id?: InputMaybe<OrderBy>;
   metro_submode?: InputMaybe<OrderBy>;
   modification_enumeration?: InputMaybe<OrderBy>;
@@ -43181,10 +41560,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontend = {
   stops_database_delete_check_constraint_key_values?: Maybe<StopsDatabaseCheckConstraintKeyValuesMutationResponse>;
   /** delete single row from the table: "check_constraint_key_values" */
   stops_database_delete_check_constraint_key_values_by_pk?: Maybe<StopsDatabaseCheckConstraintKeyValues>;
-  /** delete data from the table: "contact" */
-  stops_database_delete_contact?: Maybe<StopsDatabaseContactMutationResponse>;
-  /** delete single row from the table: "contact" */
-  stops_database_delete_contact_by_pk?: Maybe<StopsDatabaseContact>;
   /** delete data from the table: "destination_display_view" */
   stops_database_delete_destination_display_view?: Maybe<StopsDatabaseDestinationDisplayViewMutationResponse>;
   /** delete single row from the table: "destination_display_view" */
@@ -43249,10 +41624,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontend = {
   stops_database_delete_group_of_tariff_zones_members?: Maybe<StopsDatabaseGroupOfTariffZonesMembersMutationResponse>;
   /** delete single row from the table: "group_of_tariff_zones_members" */
   stops_database_delete_group_of_tariff_zones_members_by_pk?: Maybe<StopsDatabaseGroupOfTariffZonesMembers>;
-  /** delete data from the table: "hsl_accessibility_properties" */
-  stops_database_delete_hsl_accessibility_properties?: Maybe<StopsDatabaseHslAccessibilityPropertiesMutationResponse>;
-  /** delete single row from the table: "hsl_accessibility_properties" */
-  stops_database_delete_hsl_accessibility_properties_by_pk?: Maybe<StopsDatabaseHslAccessibilityProperties>;
   /** delete data from the table: "id_generator" */
   stops_database_delete_id_generator?: Maybe<StopsDatabaseIdGeneratorMutationResponse>;
   /** delete data from the table: "installed_equipment" */
@@ -43509,10 +41880,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontend = {
   stops_database_insert_check_constraint_key_values_one?: Maybe<StopsDatabaseCheckConstraintKeyValues>;
   /** insert a single row into the table: "check_constraint" */
   stops_database_insert_check_constraint_one?: Maybe<StopsDatabaseCheckConstraint>;
-  /** insert data into the table: "contact" */
-  stops_database_insert_contact?: Maybe<StopsDatabaseContactMutationResponse>;
-  /** insert a single row into the table: "contact" */
-  stops_database_insert_contact_one?: Maybe<StopsDatabaseContact>;
   /** insert data into the table: "destination_display_view" */
   stops_database_insert_destination_display_view?: Maybe<StopsDatabaseDestinationDisplayViewMutationResponse>;
   /** insert a single row into the table: "destination_display_view" */
@@ -43589,10 +41956,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontend = {
   stops_database_insert_group_of_tariff_zones_members_one?: Maybe<StopsDatabaseGroupOfTariffZonesMembers>;
   /** insert a single row into the table: "group_of_tariff_zones" */
   stops_database_insert_group_of_tariff_zones_one?: Maybe<StopsDatabaseGroupOfTariffZones>;
-  /** insert data into the table: "hsl_accessibility_properties" */
-  stops_database_insert_hsl_accessibility_properties?: Maybe<StopsDatabaseHslAccessibilityPropertiesMutationResponse>;
-  /** insert a single row into the table: "hsl_accessibility_properties" */
-  stops_database_insert_hsl_accessibility_properties_one?: Maybe<StopsDatabaseHslAccessibilityProperties>;
   /** insert data into the table: "id_generator" */
   stops_database_insert_id_generator?: Maybe<StopsDatabaseIdGeneratorMutationResponse>;
   /** insert a single row into the table: "id_generator" */
@@ -43953,14 +42316,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontend = {
   stops_database_update_check_constraint_many?: Maybe<
     Array<Maybe<StopsDatabaseCheckConstraintMutationResponse>>
   >;
-  /** update data of the table: "contact" */
-  stops_database_update_contact?: Maybe<StopsDatabaseContactMutationResponse>;
-  /** update single row of the table: "contact" */
-  stops_database_update_contact_by_pk?: Maybe<StopsDatabaseContact>;
-  /** update multiples rows of table: "contact" */
-  stops_database_update_contact_many?: Maybe<
-    Array<Maybe<StopsDatabaseContactMutationResponse>>
-  >;
   /** update data of the table: "destination_display_view" */
   stops_database_update_destination_display_view?: Maybe<StopsDatabaseDestinationDisplayViewMutationResponse>;
   /** update single row of the table: "destination_display_view" */
@@ -44100,14 +42455,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontend = {
   /** update multiples rows of table: "group_of_tariff_zones_members" */
   stops_database_update_group_of_tariff_zones_members_many?: Maybe<
     Array<Maybe<StopsDatabaseGroupOfTariffZonesMembersMutationResponse>>
-  >;
-  /** update data of the table: "hsl_accessibility_properties" */
-  stops_database_update_hsl_accessibility_properties?: Maybe<StopsDatabaseHslAccessibilityPropertiesMutationResponse>;
-  /** update single row of the table: "hsl_accessibility_properties" */
-  stops_database_update_hsl_accessibility_properties_by_pk?: Maybe<StopsDatabaseHslAccessibilityProperties>;
-  /** update multiples rows of table: "hsl_accessibility_properties" */
-  stops_database_update_hsl_accessibility_properties_many?: Maybe<
-    Array<Maybe<StopsDatabaseHslAccessibilityPropertiesMutationResponse>>
   >;
   /** update data of the table: "id_generator" */
   stops_database_update_id_generator?: Maybe<StopsDatabaseIdGeneratorMutationResponse>;
@@ -44679,16 +43026,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteCheckCo
     key_values_key: Scalars['String']['input'];
   };
 
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteContactArgs =
-  {
-    where: StopsDatabaseContactBoolExp;
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteContactByPkArgs =
-  {
-    id: Scalars['bigint']['input'];
-  };
-
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteDestinationDisplayViewArgs =
   {
     where: StopsDatabaseDestinationDisplayViewBoolExp;
@@ -44853,16 +43190,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteGroupOf
   {
     group_of_tariff_zones_id: Scalars['bigint']['input'];
     ref: Scalars['String']['input'];
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteHslAccessibilityPropertiesArgs =
-  {
-    where: StopsDatabaseHslAccessibilityPropertiesBoolExp;
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteHslAccessibilityPropertiesByPkArgs =
-  {
-    id: Scalars['bigint']['input'];
   };
 
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteIdGeneratorArgs =
@@ -45553,18 +43880,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertCheckCo
     on_conflict?: InputMaybe<StopsDatabaseCheckConstraintOnConflict>;
   };
 
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertContactArgs =
-  {
-    objects: Array<StopsDatabaseContactInsertInput>;
-    on_conflict?: InputMaybe<StopsDatabaseContactOnConflict>;
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertContactOneArgs =
-  {
-    object: StopsDatabaseContactInsertInput;
-    on_conflict?: InputMaybe<StopsDatabaseContactOnConflict>;
-  };
-
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertDestinationDisplayViewArgs =
   {
     objects: Array<StopsDatabaseDestinationDisplayViewInsertInput>;
@@ -45783,18 +44098,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertGroupOf
   {
     object: StopsDatabaseGroupOfTariffZonesInsertInput;
     on_conflict?: InputMaybe<StopsDatabaseGroupOfTariffZonesOnConflict>;
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertHslAccessibilityPropertiesArgs =
-  {
-    objects: Array<StopsDatabaseHslAccessibilityPropertiesInsertInput>;
-    on_conflict?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesOnConflict>;
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertHslAccessibilityPropertiesOneArgs =
-  {
-    object: StopsDatabaseHslAccessibilityPropertiesInsertInput;
-    on_conflict?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesOnConflict>;
   };
 
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertIdGeneratorArgs =
@@ -46766,25 +45069,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateCheckCo
     updates: Array<StopsDatabaseCheckConstraintUpdates>;
   };
 
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateContactArgs =
-  {
-    _inc?: InputMaybe<StopsDatabaseContactIncInput>;
-    _set?: InputMaybe<StopsDatabaseContactSetInput>;
-    where: StopsDatabaseContactBoolExp;
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateContactByPkArgs =
-  {
-    _inc?: InputMaybe<StopsDatabaseContactIncInput>;
-    _set?: InputMaybe<StopsDatabaseContactSetInput>;
-    pk_columns: StopsDatabaseContactPkColumnsInput;
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateContactManyArgs =
-  {
-    updates: Array<StopsDatabaseContactUpdates>;
-  };
-
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateDestinationDisplayViewArgs =
   {
     _inc?: InputMaybe<StopsDatabaseDestinationDisplayViewIncInput>;
@@ -47102,25 +45386,6 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateGroupOf
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateGroupOfTariffZonesMembersManyArgs =
   {
     updates: Array<StopsDatabaseGroupOfTariffZonesMembersUpdates>;
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateHslAccessibilityPropertiesArgs =
-  {
-    _inc?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesIncInput>;
-    _set?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesSetInput>;
-    where: StopsDatabaseHslAccessibilityPropertiesBoolExp;
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateHslAccessibilityPropertiesByPkArgs =
-  {
-    _inc?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesIncInput>;
-    _set?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesSetInput>;
-    pk_columns: StopsDatabaseHslAccessibilityPropertiesPkColumnsInput;
-  };
-
-export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateHslAccessibilityPropertiesManyArgs =
-  {
-    updates: Array<StopsDatabaseHslAccessibilityPropertiesUpdates>;
   };
 
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateIdGeneratorArgs =
@@ -48182,12 +46447,6 @@ export type StopsDatabaseStopsDatabaseQuery = {
   stops_database_check_constraint_key_values_aggregate: StopsDatabaseCheckConstraintKeyValuesAggregate;
   /** fetch data from the table: "check_constraint_key_values" using primary key columns */
   stops_database_check_constraint_key_values_by_pk?: Maybe<StopsDatabaseCheckConstraintKeyValues>;
-  /** fetch data from the table: "contact" */
-  stops_database_contact: Array<StopsDatabaseContact>;
-  /** fetch aggregated fields from the table: "contact" */
-  stops_database_contact_aggregate: StopsDatabaseContactAggregate;
-  /** fetch data from the table: "contact" using primary key columns */
-  stops_database_contact_by_pk?: Maybe<StopsDatabaseContact>;
   /** fetch data from the table: "destination_display_view" */
   stops_database_destination_display_view: Array<StopsDatabaseDestinationDisplayView>;
   /** fetch aggregated fields from the table: "destination_display_view" */
@@ -48276,10 +46535,6 @@ export type StopsDatabaseStopsDatabaseQuery = {
   stops_database_group_of_stop_places_members: Array<StopsDatabaseGroupOfStopPlacesMembers>;
   /** fetch aggregated fields from the table: "group_of_stop_places_members" */
   stops_database_group_of_stop_places_members_aggregate: StopsDatabaseGroupOfStopPlacesMembersAggregate;
-  /** fetch data from the table: "group_of_stop_places_newest_version" */
-  stops_database_group_of_stop_places_newest_version: Array<StopsDatabaseGroupOfStopPlacesNewestVersion>;
-  /** fetch aggregated fields from the table: "group_of_stop_places_newest_version" */
-  stops_database_group_of_stop_places_newest_version_aggregate: StopsDatabaseGroupOfStopPlacesNewestVersionAggregate;
   /** fetch data from the table: "group_of_tariff_zones" */
   stops_database_group_of_tariff_zones: Array<StopsDatabaseGroupOfTariffZones>;
   /** fetch aggregated fields from the table: "group_of_tariff_zones" */
@@ -48298,12 +46553,6 @@ export type StopsDatabaseStopsDatabaseQuery = {
   stops_database_group_of_tariff_zones_members_aggregate: StopsDatabaseGroupOfTariffZonesMembersAggregate;
   /** fetch data from the table: "group_of_tariff_zones_members" using primary key columns */
   stops_database_group_of_tariff_zones_members_by_pk?: Maybe<StopsDatabaseGroupOfTariffZonesMembers>;
-  /** fetch data from the table: "hsl_accessibility_properties" */
-  stops_database_hsl_accessibility_properties: Array<StopsDatabaseHslAccessibilityProperties>;
-  /** fetch aggregated fields from the table: "hsl_accessibility_properties" */
-  stops_database_hsl_accessibility_properties_aggregate: StopsDatabaseHslAccessibilityPropertiesAggregate;
-  /** fetch data from the table: "hsl_accessibility_properties" using primary key columns */
-  stops_database_hsl_accessibility_properties_by_pk?: Maybe<StopsDatabaseHslAccessibilityProperties>;
   /** fetch data from the table: "id_generator" */
   stops_database_id_generator: Array<StopsDatabaseIdGenerator>;
   /** fetch aggregated fields from the table: "id_generator" */
@@ -49031,26 +47280,6 @@ export type StopsDatabaseStopsDatabaseQueryStopsDatabaseCheckConstraintKeyValues
     key_values_key: Scalars['String']['input'];
   };
 
-export type StopsDatabaseStopsDatabaseQueryStopsDatabaseContactArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseContactSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseContactOrderBy>>;
-  where?: InputMaybe<StopsDatabaseContactBoolExp>;
-};
-
-export type StopsDatabaseStopsDatabaseQueryStopsDatabaseContactAggregateArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseContactSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseContactOrderBy>>;
-  where?: InputMaybe<StopsDatabaseContactBoolExp>;
-};
-
-export type StopsDatabaseStopsDatabaseQueryStopsDatabaseContactByPkArgs = {
-  id: Scalars['bigint']['input'];
-};
-
 export type StopsDatabaseStopsDatabaseQueryStopsDatabaseDestinationDisplayViewArgs =
   {
     distinct_on?: InputMaybe<
@@ -49451,32 +47680,6 @@ export type StopsDatabaseStopsDatabaseQueryStopsDatabaseGroupOfStopPlacesMembers
     where?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
   };
 
-export type StopsDatabaseStopsDatabaseQueryStopsDatabaseGroupOfStopPlacesNewestVersionArgs =
-  {
-    distinct_on?: InputMaybe<
-      Array<StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']['input']>;
-    offset?: InputMaybe<Scalars['Int']['input']>;
-    order_by?: InputMaybe<
-      Array<StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy>
-    >;
-    where?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
-  };
-
-export type StopsDatabaseStopsDatabaseQueryStopsDatabaseGroupOfStopPlacesNewestVersionAggregateArgs =
-  {
-    distinct_on?: InputMaybe<
-      Array<StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']['input']>;
-    offset?: InputMaybe<Scalars['Int']['input']>;
-    order_by?: InputMaybe<
-      Array<StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy>
-    >;
-    where?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
-  };
-
 export type StopsDatabaseStopsDatabaseQueryStopsDatabaseGroupOfTariffZonesArgs =
   {
     distinct_on?: InputMaybe<
@@ -49562,37 +47765,6 @@ export type StopsDatabaseStopsDatabaseQueryStopsDatabaseGroupOfTariffZonesMember
   {
     group_of_tariff_zones_id: Scalars['bigint']['input'];
     ref: Scalars['String']['input'];
-  };
-
-export type StopsDatabaseStopsDatabaseQueryStopsDatabaseHslAccessibilityPropertiesArgs =
-  {
-    distinct_on?: InputMaybe<
-      Array<StopsDatabaseHslAccessibilityPropertiesSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']['input']>;
-    offset?: InputMaybe<Scalars['Int']['input']>;
-    order_by?: InputMaybe<
-      Array<StopsDatabaseHslAccessibilityPropertiesOrderBy>
-    >;
-    where?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesBoolExp>;
-  };
-
-export type StopsDatabaseStopsDatabaseQueryStopsDatabaseHslAccessibilityPropertiesAggregateArgs =
-  {
-    distinct_on?: InputMaybe<
-      Array<StopsDatabaseHslAccessibilityPropertiesSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']['input']>;
-    offset?: InputMaybe<Scalars['Int']['input']>;
-    order_by?: InputMaybe<
-      Array<StopsDatabaseHslAccessibilityPropertiesOrderBy>
-    >;
-    where?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesBoolExp>;
-  };
-
-export type StopsDatabaseStopsDatabaseQueryStopsDatabaseHslAccessibilityPropertiesByPkArgs =
-  {
-    id: Scalars['bigint']['input'];
   };
 
 export type StopsDatabaseStopsDatabaseQueryStopsDatabaseIdGeneratorArgs = {
@@ -51154,14 +49326,6 @@ export type StopsDatabaseStopsDatabaseSubscription = {
   stops_database_check_constraint_key_values_stream: Array<StopsDatabaseCheckConstraintKeyValues>;
   /** fetch data from the table in a streaming manner: "check_constraint" */
   stops_database_check_constraint_stream: Array<StopsDatabaseCheckConstraint>;
-  /** fetch data from the table: "contact" */
-  stops_database_contact: Array<StopsDatabaseContact>;
-  /** fetch aggregated fields from the table: "contact" */
-  stops_database_contact_aggregate: StopsDatabaseContactAggregate;
-  /** fetch data from the table: "contact" using primary key columns */
-  stops_database_contact_by_pk?: Maybe<StopsDatabaseContact>;
-  /** fetch data from the table in a streaming manner: "contact" */
-  stops_database_contact_stream: Array<StopsDatabaseContact>;
   /** fetch data from the table: "destination_display_view" */
   stops_database_destination_display_view: Array<StopsDatabaseDestinationDisplayView>;
   /** fetch aggregated fields from the table: "destination_display_view" */
@@ -51282,12 +49446,6 @@ export type StopsDatabaseStopsDatabaseSubscription = {
   stops_database_group_of_stop_places_members_aggregate: StopsDatabaseGroupOfStopPlacesMembersAggregate;
   /** fetch data from the table in a streaming manner: "group_of_stop_places_members" */
   stops_database_group_of_stop_places_members_stream: Array<StopsDatabaseGroupOfStopPlacesMembers>;
-  /** fetch data from the table: "group_of_stop_places_newest_version" */
-  stops_database_group_of_stop_places_newest_version: Array<StopsDatabaseGroupOfStopPlacesNewestVersion>;
-  /** fetch aggregated fields from the table: "group_of_stop_places_newest_version" */
-  stops_database_group_of_stop_places_newest_version_aggregate: StopsDatabaseGroupOfStopPlacesNewestVersionAggregate;
-  /** fetch data from the table in a streaming manner: "group_of_stop_places_newest_version" */
-  stops_database_group_of_stop_places_newest_version_stream: Array<StopsDatabaseGroupOfStopPlacesNewestVersion>;
   /** fetch data from the table in a streaming manner: "group_of_stop_places" */
   stops_database_group_of_stop_places_stream: Array<StopsDatabaseGroupOfStopPlaces>;
   /** fetch data from the table: "group_of_tariff_zones" */
@@ -51314,14 +49472,6 @@ export type StopsDatabaseStopsDatabaseSubscription = {
   stops_database_group_of_tariff_zones_members_stream: Array<StopsDatabaseGroupOfTariffZonesMembers>;
   /** fetch data from the table in a streaming manner: "group_of_tariff_zones" */
   stops_database_group_of_tariff_zones_stream: Array<StopsDatabaseGroupOfTariffZones>;
-  /** fetch data from the table: "hsl_accessibility_properties" */
-  stops_database_hsl_accessibility_properties: Array<StopsDatabaseHslAccessibilityProperties>;
-  /** fetch aggregated fields from the table: "hsl_accessibility_properties" */
-  stops_database_hsl_accessibility_properties_aggregate: StopsDatabaseHslAccessibilityPropertiesAggregate;
-  /** fetch data from the table: "hsl_accessibility_properties" using primary key columns */
-  stops_database_hsl_accessibility_properties_by_pk?: Maybe<StopsDatabaseHslAccessibilityProperties>;
-  /** fetch data from the table in a streaming manner: "hsl_accessibility_properties" */
-  stops_database_hsl_accessibility_properties_stream: Array<StopsDatabaseHslAccessibilityProperties>;
   /** fetch data from the table: "id_generator" */
   stops_database_id_generator: Array<StopsDatabaseIdGenerator>;
   /** fetch aggregated fields from the table: "id_generator" */
@@ -52314,35 +50464,6 @@ export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseCheckConstraintSt
     where?: InputMaybe<StopsDatabaseCheckConstraintBoolExp>;
   };
 
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseContactArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseContactSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseContactOrderBy>>;
-  where?: InputMaybe<StopsDatabaseContactBoolExp>;
-};
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseContactAggregateArgs =
-  {
-    distinct_on?: InputMaybe<Array<StopsDatabaseContactSelectColumn>>;
-    limit?: InputMaybe<Scalars['Int']['input']>;
-    offset?: InputMaybe<Scalars['Int']['input']>;
-    order_by?: InputMaybe<Array<StopsDatabaseContactOrderBy>>;
-    where?: InputMaybe<StopsDatabaseContactBoolExp>;
-  };
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseContactByPkArgs =
-  {
-    id: Scalars['bigint']['input'];
-  };
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseContactStreamArgs =
-  {
-    batch_size: Scalars['Int']['input'];
-    cursor: Array<InputMaybe<StopsDatabaseContactStreamCursorInput>>;
-    where?: InputMaybe<StopsDatabaseContactBoolExp>;
-  };
-
 export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseDestinationDisplayViewArgs =
   {
     distinct_on?: InputMaybe<
@@ -52875,41 +50996,6 @@ export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseGroupOfStopPlaces
     where?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
   };
 
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseGroupOfStopPlacesNewestVersionArgs =
-  {
-    distinct_on?: InputMaybe<
-      Array<StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']['input']>;
-    offset?: InputMaybe<Scalars['Int']['input']>;
-    order_by?: InputMaybe<
-      Array<StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy>
-    >;
-    where?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
-  };
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseGroupOfStopPlacesNewestVersionAggregateArgs =
-  {
-    distinct_on?: InputMaybe<
-      Array<StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']['input']>;
-    offset?: InputMaybe<Scalars['Int']['input']>;
-    order_by?: InputMaybe<
-      Array<StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy>
-    >;
-    where?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
-  };
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseGroupOfStopPlacesNewestVersionStreamArgs =
-  {
-    batch_size: Scalars['Int']['input'];
-    cursor: Array<
-      InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionStreamCursorInput>
-    >;
-    where?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
-  };
-
 export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseGroupOfStopPlacesStreamArgs =
   {
     batch_size: Scalars['Int']['input'];
@@ -53027,46 +51113,6 @@ export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseGroupOfTariffZone
     batch_size: Scalars['Int']['input'];
     cursor: Array<InputMaybe<StopsDatabaseGroupOfTariffZonesStreamCursorInput>>;
     where?: InputMaybe<StopsDatabaseGroupOfTariffZonesBoolExp>;
-  };
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseHslAccessibilityPropertiesArgs =
-  {
-    distinct_on?: InputMaybe<
-      Array<StopsDatabaseHslAccessibilityPropertiesSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']['input']>;
-    offset?: InputMaybe<Scalars['Int']['input']>;
-    order_by?: InputMaybe<
-      Array<StopsDatabaseHslAccessibilityPropertiesOrderBy>
-    >;
-    where?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesBoolExp>;
-  };
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseHslAccessibilityPropertiesAggregateArgs =
-  {
-    distinct_on?: InputMaybe<
-      Array<StopsDatabaseHslAccessibilityPropertiesSelectColumn>
-    >;
-    limit?: InputMaybe<Scalars['Int']['input']>;
-    offset?: InputMaybe<Scalars['Int']['input']>;
-    order_by?: InputMaybe<
-      Array<StopsDatabaseHslAccessibilityPropertiesOrderBy>
-    >;
-    where?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesBoolExp>;
-  };
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseHslAccessibilityPropertiesByPkArgs =
-  {
-    id: Scalars['bigint']['input'];
-  };
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseHslAccessibilityPropertiesStreamArgs =
-  {
-    batch_size: Scalars['Int']['input'];
-    cursor: Array<
-      InputMaybe<StopsDatabaseHslAccessibilityPropertiesStreamCursorInput>
-    >;
-    where?: InputMaybe<StopsDatabaseHslAccessibilityPropertiesBoolExp>;
   };
 
 export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseIdGeneratorArgs =
