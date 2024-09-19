@@ -122,7 +122,10 @@ Cypress.Commands.add('setupTests', () => {
   // label all graphql calls that they can be expected in tests
   // e.g. GetAllLines query can be waited as cy.wait('@gqlGetAllLines')
   cy.intercept('POST', '/api/graphql/**', (req) => {
-    if (req.body && req.body.operationName) {
+    if (
+      typeof req.body === 'object' &&
+      typeof req.body?.operationName === 'string'
+    ) {
       // eslint-disable-next-line no-param-reassign
       req.alias = `gql${req.body.operationName}`;
 
@@ -133,8 +136,9 @@ Cypress.Commands.add('setupTests', () => {
       });
       // eslint-disable-next-line no-param-reassign
       req.headers['X-Environment'] = hasuraEnvironment;
-      req.continue();
     }
+
+    req.continue();
   });
 
   cy.intercept('POST', '/api/hastus/import', (req) => {
