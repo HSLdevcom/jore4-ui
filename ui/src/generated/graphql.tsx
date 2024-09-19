@@ -9941,6 +9941,7 @@ export type StopRegistryParentStopPlace = StopRegistryStopPlaceInterface & {
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
@@ -10418,6 +10419,7 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
@@ -10491,6 +10493,7 @@ export type StopRegistryStopPlaceInterface = {
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
