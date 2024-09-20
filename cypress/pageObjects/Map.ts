@@ -1,5 +1,6 @@
 import { Priority } from '@hsl/jore4-test-db-manager';
 import qs from 'qs';
+import { expectGraphQLCallToSucceed } from '../utils/assertions';
 import { StopPopUp } from './StopPopUp';
 
 export interface ClickPointNearMapMarker {
@@ -26,7 +27,7 @@ export class Map {
       }
     });
     this.waitForLoadToComplete();
-    cy.wait('@gqlGetStopsByLocation');
+    expectGraphQLCallToSucceed('@gqlGetStopsByLocation');
   }
 
   getNthMarker(markerNumber: number, options?: Partial<Cypress.Timeoutable>) {

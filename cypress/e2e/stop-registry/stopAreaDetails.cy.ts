@@ -17,6 +17,7 @@ import {
 } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
+import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
 
 function mapToShortDate(date: DateTime | null) {
@@ -263,9 +264,7 @@ describe('Stop area details', () => {
     });
 
     function waitForSaveToBeFinished() {
-      cy.wait('@gqlUpsertStopArea')
-        .its('response.statusCode')
-        .should('equal', 200);
+      expectGraphQLCallToSucceed('@gqlUpsertStopArea');
       toast.expectSuccessToast('Pysäkkialue muokattu');
       toast.getSuccessToast().should('not.exist');
     }

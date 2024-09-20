@@ -1,4 +1,5 @@
 import '@4tw/cypress-drag-drop';
+import { expectGraphQLCallToSucceed } from '../utils/assertions';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { Toast } from './Toast';
@@ -19,10 +20,7 @@ export class RouteEditor {
   toast = new Toast();
 
   gqlRouteShouldBeCreatedSuccessfully() {
-    return cy
-      .wait('@gqlInsertRouteOne')
-      .its('response.statusCode')
-      .should('equal', 200);
+    return expectGraphQLCallToSucceed('@gqlInsertRouteOne');
   }
 
   checkRouteSubmitSuccessToast() {

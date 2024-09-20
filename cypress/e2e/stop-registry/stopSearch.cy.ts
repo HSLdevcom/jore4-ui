@@ -16,6 +16,7 @@ import { StopSearchBar } from '../../pageObjects/stop-registry/StopSearchBar';
 import { StopSearchResultsPage } from '../../pageObjects/stop-registry/StopSearchResultsPage';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
+import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
@@ -227,7 +228,7 @@ describe('Stop search', () => {
           .getLabelRadioButton()
           .should('be.checked');
         stopSearchBar.getSearchInput().type(`H1234{enter}`);
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
@@ -240,7 +241,7 @@ describe('Stop search', () => {
       { tags: [Tag.StopRegistry, Tag.Smoke] },
       () => {
         stopSearchBar.getSearchInput().type(`H1*{enter}`);
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 2);
@@ -256,7 +257,7 @@ describe('Stop search', () => {
       { tags: Tag.StopRegistry },
       () => {
         stopSearchBar.getSearchInput().type(`*404*{enter}`);
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('not.exist');
@@ -273,7 +274,7 @@ describe('Stop search', () => {
         stopSearchBar.getElyInput().type(`123456`);
         stopSearchBar.getSearchButton().click();
 
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
@@ -289,7 +290,7 @@ describe('Stop search', () => {
         stopSearchBar.getElyInput().type(`1234*`);
         stopSearchBar.getSearchButton().click();
 
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 2);
@@ -306,7 +307,7 @@ describe('Stop search', () => {
         stopSearchBar.getElyInput().type(`not-an-ELY-number`);
         stopSearchBar.getSearchButton().click();
 
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('not.exist');
@@ -324,7 +325,7 @@ describe('Stop search', () => {
           .click();
         stopSearchBar.getSearchInput().type(`Tuusulanväylä 10-16{enter}`);
 
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
@@ -341,7 +342,7 @@ describe('Stop search', () => {
           .click();
         stopSearchBar.getSearchInput().type(`Tuusul*{enter}`);
 
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
@@ -358,7 +359,7 @@ describe('Stop search', () => {
           .click();
         stopSearchBar.getSearchInput().type(`no address 22{enter}`);
 
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('not.exist');
@@ -375,7 +376,7 @@ describe('Stop search', () => {
         stopSearchBar.searchCriteriaRadioButtons
           .getAddressRadioButton()
           .click();
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
@@ -388,7 +389,7 @@ describe('Stop search', () => {
       { tags: Tag.StopRegistry },
       () => {
         stopSearchBar.getSearchInput().type(`H2233{enter}`);
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
         stopSearchResultsPage.getResultRows().should('contain', 'H2233');
@@ -415,7 +416,7 @@ describe('Stop search', () => {
         stopSearchBar.openMunicipalityDropdown();
         stopSearchBar.isMunicipalitySelected('Kaikki');
         stopSearchBar.getSearchButton().click();
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 3);
       },
@@ -431,7 +432,7 @@ describe('Stop search', () => {
         stopSearchBar.toggleMunicipality('Kaikki');
         stopSearchBar.toggleMunicipality('Vantaa');
         stopSearchBar.getSearchButton().click();
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 2);
@@ -450,7 +451,7 @@ describe('Stop search', () => {
           .getLabelRadioButton()
           .should('be.checked');
         stopSearchBar.getSearchInput().type(`Lapinrinne{enter}`);
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
@@ -466,7 +467,7 @@ describe('Stop search', () => {
           .getLabelRadioButton()
           .should('be.checked');
         stopSearchBar.getSearchInput().type(`Lappbrinken{enter}`);
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
@@ -482,7 +483,7 @@ describe('Stop search', () => {
           .getLabelRadioButton()
           .should('be.checked');
         stopSearchBar.getSearchInput().type(`Lapinrinne (pitkä){enter}`);
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
@@ -497,7 +498,7 @@ describe('Stop search', () => {
           .getLabelRadioButton()
           .should('be.checked');
         stopSearchBar.getSearchInput().type(`Lappbrinken (lång){enter}`);
-        cy.wait('@gqlSearchStops');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);

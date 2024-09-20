@@ -30,6 +30,7 @@ import {
 } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
+import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
 
 // These infralink IDs exist in the 'infraLinks.sql' test data file.
@@ -779,7 +780,7 @@ describe('Stop details', () => {
           view.getFasciaBoardTaping().should('have.text', 'Ei');
 
           // "enclosed" is not visible anywhere in UI, check from request that it got sent.
-          cy.wait('@gqlUpdateStopPlace')
+          expectGraphQLCallToSucceed('@gqlUpdateStopPlace')
             .its(
               'request.body.variables.input.quays.0.placeEquipments.shelterEquipment.0.enclosed',
             )
