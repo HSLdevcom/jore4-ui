@@ -34,8 +34,6 @@ services:
       # use the same Hasura URL that the UI uses to enable routing requests to correct Hasura instances
       # when running e2e tests locally
       HASURA_URL: "http://host.docker.internal:3300/api/graphql/v1/graphql"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
   jore4-tiamat:
     # Pin tiamat to a compatible version.
