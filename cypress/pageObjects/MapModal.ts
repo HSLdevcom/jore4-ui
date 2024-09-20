@@ -1,3 +1,4 @@
+import { expectGraphQLCallToSucceed } from '../utils/assertions';
 import { EditRouteModal } from './EditRouteModal';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
@@ -51,10 +52,7 @@ export class MapModal {
   }
 
   gqlStopShouldBeCreatedSuccessfully() {
-    return cy
-      .wait('@gqlInsertStop')
-      .its('response.statusCode')
-      .should('equal', 200);
+    return expectGraphQLCallToSucceed('@gqlInsertStop');
   }
 
   getCloseButton() {

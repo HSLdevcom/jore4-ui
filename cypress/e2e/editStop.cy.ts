@@ -20,6 +20,7 @@ import {
 } from '../pageObjects';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
+import { expectGraphQLCallToSucceed } from '../utils/assertions';
 
 // Stops are created on these infralinks via insertToDbHelper or the map view.
 
@@ -129,7 +130,7 @@ describe('Stop editing tests', () => {
 
       confirmationDialog.getConfirmButton().click();
 
-      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
+      expectGraphQLCallToSucceed('@gqlEditStop');
 
       toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
@@ -162,7 +163,7 @@ describe('Stop editing tests', () => {
 
       confirmationDialog.getConfirmButton().click();
 
-      cy.wait('@gqlRemoveStop').its('response.statusCode').should('equal', 200);
+      expectGraphQLCallToSucceed('@gqlRemoveStop');
 
       toast.checkSuccessToastHasMessage('Pysäkki poistettu');
 
@@ -208,7 +209,7 @@ describe('Stop editing tests', () => {
 
       confirmationDialog.getConfirmButton().click();
 
-      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
+      expectGraphQLCallToSucceed('@gqlEditStop');
 
       toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
@@ -266,7 +267,7 @@ describe('Stop editing tests', () => {
 
       toast.checkSuccessToastHasMessage('Hastus-paikka luotu');
 
-      cy.wait('@gqlEditStop').its('response.statusCode').should('equal', 200);
+      expectGraphQLCallToSucceed('@gqlEditStop');
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -276,9 +277,7 @@ describe('Stop editing tests', () => {
       stopForm.getTimingPlaceDropdown().type(testTimingPlaceLabels.label1);
 
       // Wait for the search results before trying to find the result list item
-      cy.wait('@gqlGetTimingPlacesForCombobox')
-        .its('response.statusCode')
-        .should('equal', 200);
+      expectGraphQLCallToSucceed('@gqlGetTimingPlacesForCombobox');
 
       stopForm
         .getTimingPlaceDropdown()

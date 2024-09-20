@@ -14,6 +14,7 @@ import {
 } from '../pageObjects';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
+import { expectGraphQLCallToSucceed } from '../utils/assertions';
 
 describe('Route editing', () => {
   let editRoutePage: EditRoutePage;
@@ -136,9 +137,7 @@ describe('Route editing', () => {
       editRoutePage.getDeleteRouteButton().click();
 
       editRoutePage.confirmationDialog.getConfirmButton().click();
-      cy.wait('@gqlDeleteRoute')
-        .its('response.statusCode')
-        .should('equal', 200);
+      expectGraphQLCallToSucceed('@gqlDeleteRoute');
       toast.checkSuccessToastHasMessage('Reitti poistettu');
 
       routeRow

@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 import { Tag } from '../enums';
 import { RoutesAndLinesPage, SearchResultsPage } from '../pageObjects';
 import { insertToDbHelper } from '../utils';
+import { expectGraphQLCallToSucceed } from '../utils/assertions';
 
 const lines: LineInsertInput[] = [
   // Valid in 2022
@@ -133,7 +134,7 @@ describe('Verify that route and line search works', () => {
     { tags: [Tag.Lines, Tag.Smoke] },
     () => {
       routesAndLinesPage.searchContainer.getSearchInput().type(`9999{enter}`);
-      cy.wait('@gqlSearchLinesAndRoutes');
+      expectGraphQLCallToSucceed('@gqlSearchLinesAndRoutes');
 
       searchResultsPage
         .getSearchResultsContainer()
@@ -147,7 +148,7 @@ describe('Verify that route and line search works', () => {
 
   it('Searches for lines with an asterisk', { tags: Tag.Lines }, () => {
     routesAndLinesPage.searchContainer.getSearchInput().type('9*{enter}');
-    cy.wait('@gqlSearchLinesAndRoutes');
+    expectGraphQLCallToSucceed('@gqlSearchLinesAndRoutes');
 
     searchResultsPage
       .getSearchResultsContainer()
@@ -164,7 +165,7 @@ describe('Verify that route and line search works', () => {
 
   it('Searches for a route with an exact label', { tags: Tag.Routes }, () => {
     routesAndLinesPage.searchContainer.getSearchInput().type(`1999{enter}`);
-    cy.wait('@gqlSearchLinesAndRoutes');
+    expectGraphQLCallToSucceed('@gqlSearchLinesAndRoutes');
 
     searchResultsPage.getRoutesResultsButton().click();
     searchResultsPage
@@ -178,7 +179,7 @@ describe('Verify that route and line search works', () => {
 
   it('Searches for routes with an asterisk', { tags: Tag.Routes }, () => {
     routesAndLinesPage.searchContainer.getSearchInput().type('1*{enter}');
-    cy.wait('@gqlSearchLinesAndRoutes');
+    expectGraphQLCallToSucceed('@gqlSearchLinesAndRoutes');
 
     searchResultsPage.getRoutesResultsButton().click();
     searchResultsPage
@@ -198,7 +199,7 @@ describe('Verify that route and line search works', () => {
       routesAndLinesPage.searchContainer.getChevron().click();
       routesAndLinesPage.searchContainer.setObservationDate('2024-04-01');
       routesAndLinesPage.searchContainer.getSearchButton().click();
-      cy.wait('@gqlSearchLinesAndRoutes');
+      expectGraphQLCallToSucceed('@gqlSearchLinesAndRoutes');
 
       searchResultsPage.getLinesResultsButton().click();
       searchResultsPage

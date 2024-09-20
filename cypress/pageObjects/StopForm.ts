@@ -1,3 +1,4 @@
+import { expectGraphQLCallToSucceed } from '../utils/assertions';
 import { ChangeValidityForm } from './ChangeValidityForm';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 import { PriorityForm, PriorityFormInfo } from './PriorityForm';
@@ -41,9 +42,7 @@ export class StopForm {
     // type to form to make sure that desired timing place is visible
     this.getTimingPlaceDropdown().type(timingPlaceName);
     // Wait for the search results before trying to find the result list item
-    cy.wait('@gqlGetTimingPlacesForCombobox')
-      .its('response.statusCode')
-      .should('equal', 200);
+    expectGraphQLCallToSucceed('@gqlGetTimingPlacesForCombobox');
     this.getTimingPlaceDropdown()
       .find('[role="option"]')
       .contains(timingPlaceName)
