@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { HasuraEnvironment } from '@hsl/jore4-test-db-manager';
+import { mockMapTileServerReponses } from './mockMapTileServerReponses';
 
 const getHasuraEnvironment = () => {
   if (Cypress.env('CI') === undefined && Cypress.env('CYPRESS') === 'true') {
@@ -76,21 +77,7 @@ Cypress.Commands.add('setupTests', () => {
   // However the map tiles might come handy when running these tests locally.
   if (Cypress.env('DISABLE_MAP_TILES')) {
     Cypress.log({ message: 'Disabling map tile rendering' });
-    cy.intercept('https://api.digitransit.fi/**', {
-      statusCode: 200,
-      body: '[]',
-    }).as('blockDigitransit');
-    cy.intercept('https://digitransit-dev-cdn-origin.azureedge.net/**', {
-      statusCode: 200,
-      body: '[]',
-    }).as('blockDigitransit');
-    cy.intercept(
-      'https://hslstoragekarttatuotanto.z6.web.core.windows.net/**',
-      {
-        statusCode: 200,
-        body: '[]',
-      },
-    ).as('blockDigitransit3');
+    mockMapTileServerReponses();
   }
 
   Cypress.Commands.add(
