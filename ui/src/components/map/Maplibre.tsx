@@ -3,13 +3,16 @@ import { Units, point } from '@turf/helpers';
 import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import MapGL, {
+  ErrorEvent,
   MapLayerMouseEvent,
   MapRef,
   NavigationControl,
 } from 'react-map-gl/maplibre';
 import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
 import { LoadingState, Operation, setViewPortAction } from '../../redux';
+import { log, showWarningToast } from '../../utils';
 import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';
 
 interface Props {
@@ -53,6 +56,8 @@ export const Maplibre: FC<Props> = ({
   height = '100vh',
   children,
 }) => {
+  const { t } = useTranslation();
+
   const mapRef = useRef<MapRef>(null);
 
   const { mapPosition, setMapPosition } = useMapQueryParams();
@@ -141,6 +146,11 @@ export const Maplibre: FC<Props> = ({
     onViewportChange(viewport);
   };
 
+  const onError = ({ error }: ErrorEvent) => {
+    showWarningToast(t('map.error', { message: error.message }));
+    log.error('Map error:', error);
+  };
+
   useEffect(() => {
     // Cancel the debounced update if the map is going to be closed.
     return () => {
@@ -165,6 +175,7 @@ export const Maplibre: FC<Props> = ({
       doubleClickZoom={false}
       ref={mapRef}
       onLoad={onLoad}
+      onError={onError}
       transformRequest={transformRequest}
       interactiveLayerIds={interactiveLayerIds}
       cursor="auto"
