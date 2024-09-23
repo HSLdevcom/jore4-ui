@@ -368,7 +368,8 @@
     "showOnMap": "Show on map",
     "footerActionsTooltip": "Create new...",
     "createNewTerminal": "Create new terminal",
-    "createNewStopArea": "Create new stop area"
+    "createNewStopArea": "Create new stop area",
+    "error": "Map error: {{message}}"
   },
   "saveChangesModal": {
     "title": "Save changes",
