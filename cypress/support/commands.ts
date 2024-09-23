@@ -76,21 +76,13 @@ Cypress.Commands.add('setupTests', () => {
   // However the map tiles might come handy when running these tests locally.
   if (Cypress.env('DISABLE_MAP_TILES')) {
     Cypress.log({ message: 'Disabling map tile rendering' });
-    cy.intercept('https://api.digitransit.fi/**', {
-      statusCode: 200,
-      body: '[]',
-    }).as('blockDigitransit');
-    cy.intercept('https://digitransit-dev-cdn-origin.azureedge.net/**', {
-      statusCode: 200,
-      body: '[]',
-    }).as('blockDigitransit');
     cy.intercept(
-      'https://hslstoragekarttatuotanto.z6.web.core.windows.net/**',
+      'https://api.digitransit.fi/map/v2/hsl-vector-map/*/*/*.pbf*',
       {
-        statusCode: 200,
-        body: '[]',
+        statusCode: 404,
+        body: 'Request blocked in tests!',
       },
-    ).as('blockDigitransit3');
+    ).as('blockDigitransit');
   }
 
   Cypress.Commands.add(
