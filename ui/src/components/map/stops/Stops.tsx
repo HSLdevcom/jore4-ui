@@ -17,12 +17,14 @@ import {
 } from '../../../hooks';
 import {
   LoadingState,
+  MapEntityType,
   Operation,
   selectEditedStopData,
   selectIsCreateStopModeEnabled,
   selectIsMoveStopModeEnabled,
   selectMapViewport,
   selectSelectedStopId,
+  selectShowMapEntityTypes,
   selectStopAreaEditorIsActive,
   setEditedStopDataAction,
   setIsCreateStopModeEnabledAction,
@@ -58,6 +60,9 @@ export const Stops = React.forwardRef((_props, ref) => {
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
   const stopAreaEditorIsActive = useAppSelector(selectStopAreaEditorIsActive);
+  const { [MapEntityType.Stop]: showStops } = useAppSelector(
+    selectShowMapEntityTypes,
+  );
 
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setEditedStopData = useAppAction(setEditedStopDataAction);
@@ -74,7 +79,8 @@ export const Stops = React.forwardRef((_props, ref) => {
   const viewport = useAppSelector(selectMapViewport);
   // Skip initial 0 radius fetch and wait for the map to get loaded,
   // so that we have a proper viewport.
-  const skipFetching = stopAreaEditorIsActive || viewport.radius <= 0;
+  const skipFetching =
+    !showStops || stopAreaEditorIsActive || viewport.radius <= 0;
   const stopsResult = useGetStopsByLocationQuery({
     variables: {
       measured_location_filter: buildWithinViewportGqlFilter(viewport),

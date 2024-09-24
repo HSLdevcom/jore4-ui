@@ -603,7 +603,14 @@
     "highestPriorityCurrent": "Show situation on the selected date",
     "observationDate": "Observation date",
     "observationDateAdjusted": "Observation date adjusted",
-    "stopFiltersAdjusted": "Stop filters adjusted"
+    "stopFiltersAdjusted": "Stop filters adjusted",
+    "mapEntityType": {
+      "stop": "Stops",
+      "stopArea": "Stop areas",
+      "terminal": "Terminals",
+      "infoScreen": "Info screens",
+      "infoSpot": "Info posters"
+    }
   },
   "search": {
     "advancedSearchTitle": "Advanced search",

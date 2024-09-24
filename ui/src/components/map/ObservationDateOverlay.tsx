@@ -7,6 +7,10 @@ import { IconButton } from '../../uiComponents';
 import { ObservationDateControl } from '../common/ObservationDateControl';
 import { MapOverlay } from './MapOverlay';
 
+const testIds = {
+  toggleFiltersButton: 'ObservationDateOverlay::toggleFiltersButton',
+};
+
 interface Props {
   className?: string;
 }
@@ -31,6 +35,7 @@ export const ObservationDateOverlay = ({ className = '' }: Props) => {
                 <MdLayers className="aria-hidden text-2xl text-tweaked-brand" />
               }
               onClick={toggleShowFilters}
+              testId={testIds.toggleFiltersButton}
             />
           </Column>
         </Row>

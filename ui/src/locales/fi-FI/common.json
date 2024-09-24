@@ -603,7 +603,14 @@
     "highestPriorityCurrent": "Näytä tilanne valittuna päivänä",
     "observationDate": "Tarkasteluhetki",
     "observationDateAdjusted": "Tarkasteluhetkeä muutettu",
-    "stopFiltersAdjusted": "Pysäkkien suodattimia muutettu"
+    "stopFiltersAdjusted": "Pysäkkien suodattimia muutettu",
+    "mapEntityType": {
+      "stop": "Pysäkit",
+      "stopArea": "Pysäkkialueet",
+      "terminal": "Terminaalit",
+      "infoScreen": "Infonöytöt",
+      "infoSpot": "Infojulisteet"
+    }
   },
   "search": {
     "advancedSearchTitle": "Kohdenna haku",
