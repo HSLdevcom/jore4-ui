@@ -14,12 +14,14 @@ import {
 } from '../../../hooks';
 import {
   LoadingState,
+  MapEntityType,
   Operation,
   selectEditedStopAreaData,
   selectIsCreateStopAreaModeEnabled,
   selectIsMoveStopAreaModeEnabled,
   selectMapViewport,
   selectSelectedStopAreaId,
+  selectShowMapEntityTypes,
   setEditedStopAreaDataAction,
   setIsCreateStopAreaModeEnabledAction,
   setSelectedMapStopAreaIdAction,
@@ -54,6 +56,10 @@ export const StopAreas = React.forwardRef((_props, ref) => {
   const isMoveStopAreaModeEnabled = useAppSelector(
     selectIsMoveStopAreaModeEnabled,
   );
+  const { [MapEntityType.StopArea]: showStopAreas } = useAppSelector(
+    selectShowMapEntityTypes,
+  );
+
   const setIsCreateStopAreaModeEnabled = useAppAction(
     setIsCreateStopAreaModeEnabledAction,
   );
@@ -63,7 +69,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
   const viewport = useAppSelector(selectMapViewport);
   // Skip initial 0 radius fetch and wait for the map to get loaded,
   // so that we have a proper viewport.
-  const skipFetchingAreas = viewport.radius <= 0;
+  const skipFetchingAreas = !showStopAreas || viewport.radius <= 0;
   const stopAreasResult = useGetStopAreasByLocationQuery({
     variables: {
       measured_location_filter: buildWithinViewportGqlGeometryFilter(viewport),

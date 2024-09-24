@@ -75,6 +75,10 @@ export class Map {
     );
   }
 
+  getStopAreaById(id: string) {
+    return cy.getByTestId(`Map::StopArea::stopArea::${id}`);
+  }
+
   visit(params?: { zoom?: number; lat: number; lng: number }) {
     if (params) {
       cy.visit(

@@ -6,7 +6,7 @@ import { getGeometryPoint } from '../../../utils';
 import { StopAreaMarker } from '../markers';
 
 const testIds = {
-  stopArea: ({ id }: StopAreaMinimalShowOnMapFieldsFragment) =>
+  stopArea: ({ netex_id: id }: StopAreaMinimalShowOnMapFieldsFragment) =>
     `Map::StopArea::stopArea::${id}`,
 };
 

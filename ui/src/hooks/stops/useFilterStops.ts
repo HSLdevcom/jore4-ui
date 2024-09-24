@@ -5,7 +5,7 @@ import { ScheduledStopPointDefaultFieldsFragment } from '../../generated/graphql
 import {
   FilterType,
   selectMapFilter,
-  setShowStopFilterOverlayAction,
+  setShowMapEntityTypeFilterOverlayAction,
   setStopFilterAction,
 } from '../../redux';
 import { Priority } from '../../types/enums';
@@ -60,7 +60,7 @@ export const useFilterStops = () => {
 
   const { visibleRouteStopLabels } = useVisibleRouteStops();
 
-  const { stopFilters, showStopFilterOverlay } =
+  const { stopFilters, showMapEntityTypeFilterOverlay } =
     useAppSelector(selectMapFilter);
   const { observationDate } = useObservationDateQueryParam();
 
@@ -215,8 +215,10 @@ export const useFilterStops = () => {
   );
 
   const toggleShowFilters = useCallback(() => {
-    dispatch(setShowStopFilterOverlayAction(!showStopFilterOverlay));
-  }, [dispatch, showStopFilterOverlay]);
+    dispatch(
+      setShowMapEntityTypeFilterOverlayAction(!showMapEntityTypeFilterOverlay),
+    );
+  }, [dispatch, showMapEntityTypeFilterOverlay]);
 
   const mapPriorityToFilterType = (priority: Priority) => {
     switch (priority) {

@@ -1,5 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+export enum MapEntityType {
+  Stop = 'show-stops',
+  StopArea = 'show-stop-areas',
+  Terminal = 'show-terminals',
+  InfoScreen = 'show-info-screens',
+  InfoSpot = 'show-info-spots',
+}
+
 export enum FilterType {
   ShowFutureStops = 'show-future-stops',
   ShowCurrentStops = 'show-current-stops',
@@ -11,15 +19,22 @@ export enum FilterType {
   ShowAllBusStops = 'show-all-bus-stops',
 }
 
+export type ShownMapEntityTypes = {
+  [key in MapEntityType]: boolean;
+};
+
+export type ActiveStopFilters = {
+  [key in FilterType]: boolean;
+};
+
 export interface IState {
-  showStopFilterOverlay: boolean;
-  stopFilters: {
-    [key in FilterType]: boolean;
-  };
+  showMapEntityTypeFilterOverlay: boolean;
+  stopFilters: ActiveStopFilters;
+  showMapEntityType: ShownMapEntityTypes;
 }
 
 const initialState: IState = {
-  showStopFilterOverlay: false,
+  showMapEntityTypeFilterOverlay: false,
   stopFilters: {
     [FilterType.ShowFutureStops]: false,
     [FilterType.ShowCurrentStops]: true,
@@ -30,17 +45,24 @@ const initialState: IState = {
     [FilterType.ShowHighestPriorityCurrentStops]: true,
     [FilterType.ShowAllBusStops]: false,
   },
+  showMapEntityType: {
+    [MapEntityType.Stop]: true,
+    [MapEntityType.StopArea]: true,
+    [MapEntityType.Terminal]: false,
+    [MapEntityType.InfoSpot]: false,
+    [MapEntityType.InfoScreen]: false,
+  },
 };
 
 const slice = createSlice({
   name: 'mapFilter',
   initialState,
   reducers: {
-    setShowStopFilterOverlay: (
+    setShowMapEntityTypeFilterOverlay: (
       state: IState,
       action: PayloadAction<boolean>,
     ) => {
-      state.showStopFilterOverlay = action.payload;
+      state.showMapEntityTypeFilterOverlay = action.payload;
     },
     setStopFilter: (
       state: IState,
@@ -49,12 +71,25 @@ const slice = createSlice({
       const { filterType, isActive } = action.payload;
       state.stopFilters[filterType] = isActive;
     },
+    setShowMapEntityType: (
+      state: IState,
+      action: PayloadAction<{
+        readonly entityType: MapEntityType;
+        readonly shown: boolean;
+      }>,
+    ) => {
+      const {
+        payload: { entityType, shown },
+      } = action;
+      state.showMapEntityType[entityType] = shown;
+    },
   },
 });
 
 export const {
-  setShowStopFilterOverlay: setShowStopFilterOverlayAction,
+  setShowMapEntityTypeFilterOverlay: setShowMapEntityTypeFilterOverlayAction,
   setStopFilter: setStopFilterAction,
+  setShowMapEntityType: setShowMapEntityTypeAction,
 } = slice.actions;
 
 export const mapFilterReducer = slice.reducer;

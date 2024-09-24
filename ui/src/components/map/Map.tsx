@@ -24,6 +24,7 @@ import {
 import { FilterPanel, placeholderToggles } from '../../uiComponents';
 import { CustomOverlay } from './CustomOverlay';
 import { DrawRouteLayer } from './DrawRouteLayer';
+import { ItemTypeFiltersOverlay } from './filters/ItemTypeFiltersOverlay';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
@@ -43,7 +44,6 @@ import {
 import { ExistingRouteGeometryLayer } from './routes/ExistingRouteGeometryLayer';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopAreas } from './stop-areas';
-import { StopFilterOverlay } from './StopFilterOverlay';
 import { Stops } from './stops';
 
 interface Props {
@@ -65,7 +65,7 @@ export const MapComponent = (
 
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
-  const { showStopFilterOverlay } = useAppSelector(selectMapFilter);
+  const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
 
   const dispatch = useAppDispatch();
   const selectedRouteId = useAppSelector(selectSelectedRouteId);
@@ -216,7 +216,9 @@ export const MapComponent = (
       </CustomOverlay>
       <CustomOverlay position="bottom-right">
         <Column className="items-end p-2">
-          {showStopFilterOverlay && <StopFilterOverlay className="mb-2" />}
+          {showMapEntityTypeFilterOverlay && (
+            <ItemTypeFiltersOverlay className="mb-2" />
+          )}
           <ObservationDateOverlay />
         </Column>
       </CustomOverlay>
