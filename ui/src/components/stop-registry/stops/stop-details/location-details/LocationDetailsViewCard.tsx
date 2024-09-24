@@ -1,7 +1,8 @@
 import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../hooks';
-import { DetailRow, HorizontalSeparator, LabeledDetail } from '../layout';
+import { HorizontalSeparator } from '../../../../../layoutComponents';
+import { DetailRow, LabeledDetail } from '../layout';
 
 const testIds = {
   container: 'LocationDetailsViewCard::container',

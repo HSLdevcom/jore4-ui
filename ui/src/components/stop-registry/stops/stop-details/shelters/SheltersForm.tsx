@@ -2,8 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Visible } from '../../../../../layoutComponents';
-import { HorizontalSeparator, SlimSimpleButton } from '../layout';
+import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
+import { SlimSimpleButton } from '../layout';
 import {
   SheltersFormState,
   mapShelterDataToFormState,
