@@ -11,19 +11,19 @@ type InfoContainerControlOptions = {
   readonly onCancel: () => void;
 };
 
-const defaultOptions: InfoContainerControlOptions = {
+const defaultOptions: InfoContainerControlOptions = Object.freeze({
   isExpandable: false,
   isEditable: false,
   expandedByDefault: true,
   onSave: noop,
   onCancel: noop,
-};
+});
 
 function getAllOptions(
   options: Partial<InfoContainerControlOptions> | undefined,
 ): InfoContainerControlOptions {
   if (options) {
-    return merge(defaultOptions, options);
+    return merge({}, defaultOptions, options);
   }
 
   return defaultOptions;
