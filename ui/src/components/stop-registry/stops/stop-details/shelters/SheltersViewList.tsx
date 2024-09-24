@@ -1,6 +1,5 @@
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
-import { Visible } from '../../../../../layoutComponents';
-import { HorizontalSeparator } from '../layout';
+import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
 import { ShelterViewCard } from './ShelterViewCard';
 
 interface Props {

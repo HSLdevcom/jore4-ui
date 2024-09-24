@@ -4,7 +4,8 @@ import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
-import { DetailRow, HorizontalSeparator, LabeledDetail } from '../layout';
+import { HorizontalSeparator } from '../../../../../layoutComponents';
+import { DetailRow, LabeledDetail } from '../layout';
 import { MainLineWarning } from '../MainLineWarning';
 import { translateStopTypes } from '../utils';
 

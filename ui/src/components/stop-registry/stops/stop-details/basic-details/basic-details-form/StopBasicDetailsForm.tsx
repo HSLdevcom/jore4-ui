@@ -3,14 +3,16 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../../../../hooks/redux';
-import { Visible } from '../../../../../../layoutComponents';
+import {
+  HorizontalSeparator,
+  Visible,
+} from '../../../../../../layoutComponents';
 import {
   openTimingPlaceModalAction,
   selectIsTimingPlaceModalOpen,
 } from '../../../../../../redux';
 import { FormColumn } from '../../../../../forms/common';
 import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
-import { HorizontalSeparator } from '../../layout';
 import { StopBasicDetailsFormState, schema } from './schema';
 import { StopAbbreviationsFormRow } from './StopAbbreviationsFormRow';
 import { StopLabelAndNameFormRow } from './StopLabelAndNameFormRow';
