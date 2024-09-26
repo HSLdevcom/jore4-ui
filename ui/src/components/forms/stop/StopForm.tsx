@@ -1,12 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import {
+  FieldNamesMarkedBoolean,
+  FormProvider,
+  useForm,
+} from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import {
   ReusableComponentsVehicleModeEnum,
   ServicePatternScheduledStopPoint,
 } from '../../../generated/graphql';
+import { ScheduledStopPointSetInput } from '../../../graphql';
 import {
   CreateChanges,
   EditChanges,
@@ -91,14 +96,60 @@ export const mapStopDataToFormState = (
   return formState;
 };
 
+function mapFormStateToInput(state: FormState) {
+  return {
+    measured_location: mapPointToGeoJSON(state),
+    label: state.label,
+    priority: state.priority,
+    validity_start: mapDateInputToValidityStart(state.validityStart),
+    validity_end: mapDateInputToValidityEnd(
+      state.validityEnd,
+      state.indefinite,
+    ),
+    timing_place_id: state.timingPlaceId,
+  };
+}
+
+const isDirtyMap: {
+  readonly [key in keyof ScheduledStopPointSetInput]: ReadonlyArray<
+    keyof FormState
+  >;
+} = {
+  measured_location: ['latitude', 'longitude'],
+  label: ['label'],
+  priority: ['priority'],
+  validity_start: ['validityStart'],
+  validity_end: ['validityEnd', 'indefinite'],
+  timing_place_id: ['timingPlaceId'],
+};
+
+// Only pick changed fields, needed to keep Tiamat happy when updating fields,
+// not in Tiamat.
+function pickChangedFieldsForPatch(
+  input: ScheduledStopPointSetInput,
+  dirtyFields: Partial<Readonly<FieldNamesMarkedBoolean<FormState>>>,
+): ScheduledStopPointSetInput {
+  const dirty = Object.entries(input).filter(([key]) => {
+    const formKeys = isDirtyMap[key as keyof ScheduledStopPointSetInput];
+    if (formKeys) {
+      return formKeys.some((formKey) => dirtyFields[formKey]);
+    }
+
+    return true;
+  });
+
+  return Object.fromEntries(dirty);
+}
+
 interface Props {
   className?: string;
   defaultValues: Partial<FormState>;
+  stopPlaceRef?: string | null;
   onSubmit: (changes: CreateChanges | EditChanges) => void;
 }
 
 const StopFormComponent = (
-  { className = '', defaultValues, onSubmit }: Props,
+  { className = '', defaultValues, onSubmit, stopPlaceRef }: Props,
   ref: ExplicitAny,
 ): React.ReactElement => {
   const { t } = useTranslation();
@@ -108,44 +159,30 @@ const StopFormComponent = (
     defaultValues,
     resolver: zodResolver(schema),
   });
-  const { handleSubmit, setValue } = methods;
+  const {
+    formState: { dirtyFields },
+    handleSubmit,
+    setValue,
+  } = methods;
 
   const { prepareEdit, defaultErrorHandler } = useEditStop();
   const { prepareCreate } = useCreateStop();
   const { setIsLoading } = useLoader(Operation.SaveStop);
   const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 
-  const mapFormStateToInput = (state: FormState) => {
-    const input = {
-      measured_location: mapPointToGeoJSON(state),
-      label: state.label,
-      priority: state.priority,
-      validity_start: mapDateInputToValidityStart(state.validityStart),
-      validity_end: mapDateInputToValidityEnd(
-        state.validityEnd,
-        state.indefinite,
-      ),
-      timing_place_id: state.timingPlaceId,
-    };
-    return input;
-  };
-
   const onEdit = async (state: FormState) => {
     // in case of editing, the stopId is valid
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const stopId = state.stopId!;
-    const changes = await prepareEdit({
+    return prepareEdit({
       stopId,
-      patch: {
-        ...mapFormStateToInput(state),
-      },
+      stopPlaceRef,
+      patch: pickChangedFieldsForPatch(mapFormStateToInput(state), dirtyFields),
     });
-
-    return changes;
   };
 
   const onCreate = async (state: FormState) => {
-    const changes = await prepareCreate({
+    return prepareCreate({
       input: {
         ...mapFormStateToInput(state),
         vehicle_mode_on_scheduled_stop_point: {
@@ -158,7 +195,6 @@ const StopFormComponent = (
         },
       },
     });
-    return changes;
   };
 
   const onFormSubmit = async (state: FormState) => {

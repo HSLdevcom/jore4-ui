@@ -104,3 +104,14 @@ export class TimingPlaceRequiredError extends ExtendableError {
     Object.setPrototypeOf(this, TimingPlaceRequiredError.prototype);
   }
 }
+
+export class TiamatUpdateFailedError extends Error {
+  get causeMessage() {
+    const { cause } = this;
+    if (typeof cause === 'object' && cause !== null && 'message' in cause) {
+      return String(cause.message);
+    }
+
+    return '';
+  }
+}

@@ -62,7 +62,12 @@ export const PriorityForm = ({
 
   const selectedPriority = watch('priority');
   const setPriority = (value: Priority) =>
-    setValue('priority', value, { shouldValidate: true });
+    setValue('priority', value, {
+      shouldValidate: true,
+      // Enable these, just like normal react form hook onChange would.
+      shouldDirty: true, // Set dirty bit: value === defaultValue
+      shouldTouch: true, // Set field touched bit: true
+    });
 
   const displayedPriorities = defaultPriorities.filter(
     (priority) => !hiddenPriorities?.includes(priority.priority),
