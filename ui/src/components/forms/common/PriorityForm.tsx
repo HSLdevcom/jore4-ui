@@ -62,7 +62,11 @@ export const PriorityForm = ({
 
   const selectedPriority = watch('priority');
   const setPriority = (value: Priority) =>
-    setValue('priority', value, { shouldValidate: true });
+    setValue('priority', value, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
 
   const displayedPriorities = defaultPriorities.filter(
     (priority) => !hiddenPriorities?.includes(priority.priority),

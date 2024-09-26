@@ -32,11 +32,7 @@ import {
   setSelectedRouteIdAction,
   setSelectedStopIdAction,
 } from '../../../redux';
-import {
-  mapLngLatToGeoJSON,
-  removeFromApolloCache,
-  showSuccessToast,
-} from '../../../utils';
+import { mapLngLatToGeoJSON, showSuccessToast } from '../../../utils';
 import { mapStopDataToFormState } from '../../forms/stop/StopForm';
 import {
   ConflictResolverModal,
@@ -95,12 +91,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
     const { mapToInsertStopPlaceVariables, insertStopPlaceMutation } =
       useCreateStopPlace();
 
-    const {
-      prepareEdit,
-      mapEditChangesToVariables,
-      editStopMutation,
-      defaultErrorHandler,
-    } = useEditStop();
+    const { editStop, prepareEdit, defaultErrorHandler } = useEditStop();
     const {
       prepareDelete,
       mapDeleteChangesToVariables,
@@ -171,7 +162,9 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
     };
 
     const onMoveStop = async (event: MapLayerMouseEvent) => {
-      const stopId = editedStopData.scheduled_stop_point_id;
+      const { scheduled_stop_point_id: stopId, stop_place_ref: stopPlaceRef } =
+        editedStopData;
+
       if (stopId) {
         // if this is a stop existing on the backend, also prepare the changes to be confirmed
         const patch: ScheduledStopPointSetInput = {
@@ -181,6 +174,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
         try {
           const changes = await prepareEdit({
             stopId,
+            stopPlaceRef,
             patch,
           });
           setEditChanges(changes);
@@ -252,27 +246,19 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
     const doEditStop = async (changes: EditChanges) => {
       setIsLoadingSaveStop(true);
       try {
-        const variables = mapEditChangesToVariables(changes);
-
-        await editStopMutation({
-          variables,
-          update(cache) {
-            removeFromApolloCache(cache, {
-              infrastructure_link_id:
-                variables.stop_patch.located_on_infrastructure_link_id,
-              __typename: 'infrastructure_network_infrastructure_link',
-            });
-          },
-        });
+        await editStop(changes);
 
         showSuccessToast(t('stops.editSuccess'));
+
         updateObservationDateByValidityPeriodIfNeeded(changes.editedStop);
         updateStopPriorityFilterIfNeeded(changes.editedStop.priority);
+
         onFinishEditing();
+        dispatch(setIsMoveStopModeEnabledAction(false));
       } catch (err) {
+        setIsLoadingSaveStop(false);
         defaultErrorHandler(err as Error);
       }
-      dispatch(setIsMoveStopModeEnabledAction(false));
     };
 
     // we are removing stop that is already stored to backend
@@ -355,6 +341,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
         {displayedEditor === StopEditorViews.Modal && (
           <EditStopModal
             defaultValues={mapStopDataToFormState(editedStopData)}
+            stopPlaceRef={editedStopData.stop_place_ref}
             onCancel={onCloseEditors}
             onClose={onCloseEditors}
             onSubmit={onStopFormSubmit}

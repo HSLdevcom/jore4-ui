@@ -12,6 +12,7 @@ const testIds = {
 
 interface Props {
   defaultValues: Partial<FormState>;
+  stopPlaceRef?: string | null;
   onCancel: () => void;
   onClose: () => void;
   onSubmit: (changes: CreateChanges | EditChanges) => void;
@@ -19,6 +20,7 @@ interface Props {
 
 export const EditStopModal = ({
   defaultValues,
+  stopPlaceRef,
   onCancel,
   onClose,
   onSubmit,
@@ -44,6 +46,7 @@ export const EditStopModal = ({
         >
           <StopForm
             defaultValues={defaultValues}
+            stopPlaceRef={stopPlaceRef}
             onSubmit={onSubmit}
             ref={formRef}
           />

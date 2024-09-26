@@ -111,7 +111,8 @@
     "cannotEditTerminalStops": "Reitin alku- ja päätepysäkin muokkaaminen ei ole sallittua",
     "addToRoute": "Lisää reitille",
     "stopBreaksRoutes": "Lisättävä pysäkki ei ole yhteensopiva seuraavien reittien kanssa: ({{ routeLabels }})",
-    "timingPlaceRequired": "Pysäkkiä käytetään Hastus-paikkana seuraavilla reiteillä: {{ routeLabels }}. Aseta Hastus-paikka tai poista Hastus-paikka käytöstä reiteiltä."
+    "timingPlaceRequired": "Pysäkkiä käytetään Hastus-paikkana seuraavilla reiteillä: {{ routeLabels }}. Aseta Hastus-paikka tai poista Hastus-paikka käytöstä reiteiltä.",
+    "tiamatUpdateFailed": "Pysäkien tiedot on päivitty linjastoon, mutta niiden vienti pysäkkirekisteriin epäonnistui! Tallennusta on syytä yrittää uudelleen!: Syy: {{ errorMessage }}"
   },
   "stopArea": {
     "stopArea": "Pysäkkialue",
