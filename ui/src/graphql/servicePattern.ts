@@ -37,6 +37,7 @@ const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
     validity_start
     validity_end
     located_on_infrastructure_link_id
+    stop_place_ref
   }
 `;
 
@@ -124,39 +125,6 @@ const GET_STOPS_BY_LABELS = gql`
   }
 `;
 
-const EDIT_STOP = gql`
-  mutation EditStop(
-    $stop_id: uuid!
-    $stop_label: String!
-    $stop_patch: service_pattern_scheduled_stop_point_set_input!
-    $delete_from_journey_pattern_ids: [uuid!]!
-  ) {
-    # edit the stop itself
-    update_service_pattern_scheduled_stop_point(
-      where: { scheduled_stop_point_id: { _eq: $stop_id } }
-      _set: $stop_patch
-    ) {
-      returning {
-        ...scheduled_stop_point_all_fields
-      }
-    }
-
-    # delete the stop from the following journey patterns
-    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
-      where: {
-        _and: {
-          scheduled_stop_point_label: { _eq: $stop_label }
-          journey_pattern_id: { _in: $delete_from_journey_pattern_ids }
-        }
-      }
-    ) {
-      returning {
-        ...scheduled_stop_point_in_journey_pattern_all_fields
-      }
-    }
-  }
-`;
-
 const GET_STOP_WITH_ROUTE_GRAPH_DATA_BY_ID = gql`
   query GetStopWithRouteGraphDataById($stopId: uuid!) {
     service_pattern_scheduled_stop_point(
@@ -176,37 +144,6 @@ const GET_STOP_WITH_ROUTE_GRAPH_DATA_BY_ID = gql`
             }
           }
         }
-      }
-    }
-  }
-`;
-
-const GET_ROUTES_BROKEN_BY_STOP_CHANGE = gql`
-  query GetRoutesBrokenByStopChange(
-    $new_located_on_infrastructure_link_id: uuid!
-    $new_direction: String!
-    $new_label: String!
-    $new_validity_start: date
-    $new_validity_end: date
-    $new_priority: Int!
-    $new_measured_location: geography!
-    $replace_scheduled_stop_point_id: uuid
-  ) {
-    journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point(
-      args: {
-        replace_scheduled_stop_point_id: $replace_scheduled_stop_point_id
-        new_located_on_infrastructure_link_id: $new_located_on_infrastructure_link_id
-        new_direction: $new_direction
-        new_label: $new_label
-        new_validity_start: $new_validity_start
-        new_validity_end: $new_validity_end
-        new_priority: $new_priority
-        new_measured_location: $new_measured_location
-      }
-    ) {
-      journey_pattern_id
-      journey_pattern_route {
-        ...route_all_fields
       }
     }
   }
