@@ -67023,6 +67023,7 @@ export type VehicleJourneyByStopFragment = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
+        stop_place_ref?: string | null;
         timing_place?: {
           __typename?: 'timing_pattern_timing_place';
           label: string;
@@ -67073,6 +67074,7 @@ export type PassingTimeByStopFragment = {
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
+      stop_place_ref?: string | null;
       timing_place?: {
         __typename?: 'timing_pattern_timing_place';
         label: string;
@@ -67143,6 +67145,7 @@ export type GetRouteWithJourneyPatternQuery = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             timing_place_id: UUID;
@@ -67179,6 +67182,7 @@ export type RouteInfraLinkFieldsFragment = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
     other_label_instances: Array<{
       __typename?: 'service_pattern_scheduled_stop_point';
       priority: number;
@@ -67189,6 +67193,7 @@ export type RouteInfraLinkFieldsFragment = {
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
+      stop_place_ref?: string | null;
       timing_place?: {
         __typename?: 'timing_pattern_timing_place';
         timing_place_id: UUID;
@@ -67309,6 +67314,7 @@ export type GetStopsAlongInfrastructureLinksQuery = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -67364,6 +67370,7 @@ export type JourneyPatternWithStopsFragment = {
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
+      stop_place_ref?: string | null;
       timing_place?: {
         __typename?: 'timing_pattern_timing_place';
         timing_place_id: UUID;
@@ -67590,6 +67597,7 @@ export type RouteWithJourneyPatternStopsFragment = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
+        stop_place_ref?: string | null;
         timing_place?: {
           __typename?: 'timing_pattern_timing_place';
           timing_place_id: UUID;
@@ -67765,6 +67773,7 @@ export type GetLineDetailsWithRoutesByIdQuery = {
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
+            stop_place_ref?: string | null;
             scheduled_stop_point_in_journey_patterns: Array<{
               __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
               journey_pattern_id: UUID;
@@ -67792,6 +67801,7 @@ export type GetLineDetailsWithRoutesByIdQuery = {
               validity_start?: luxon.DateTime | null;
               validity_end?: luxon.DateTime | null;
               located_on_infrastructure_link_id: UUID;
+              stop_place_ref?: string | null;
               timing_place?: {
                 __typename?: 'timing_pattern_timing_place';
                 timing_place_id: UUID;
@@ -67876,6 +67886,7 @@ export type GetRoutesWithStopsQuery = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
             priority: number;
@@ -67886,6 +67897,7 @@ export type GetRoutesWithStopsQuery = {
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
+            stop_place_ref?: string | null;
             timing_place?: {
               __typename?: 'timing_pattern_timing_place';
               timing_place_id: UUID;
@@ -67946,6 +67958,7 @@ export type GetRoutesWithStopsQuery = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             timing_place_id: UUID;
@@ -68024,6 +68037,7 @@ export type GetRouteDetailsByIdQuery = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
             priority: number;
@@ -68034,6 +68048,7 @@ export type GetRouteDetailsByIdQuery = {
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
+            stop_place_ref?: string | null;
             timing_place?: {
               __typename?: 'timing_pattern_timing_place';
               timing_place_id: UUID;
@@ -68094,6 +68109,7 @@ export type GetRouteDetailsByIdQuery = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             timing_place_id: UUID;
@@ -68174,6 +68190,7 @@ export type GetRouteDetailsByIdsQuery = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
             priority: number;
@@ -68184,6 +68201,7 @@ export type GetRouteDetailsByIdsQuery = {
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
+            stop_place_ref?: string | null;
             timing_place?: {
               __typename?: 'timing_pattern_timing_place';
               timing_place_id: UUID;
@@ -68244,6 +68262,7 @@ export type GetRouteDetailsByIdsQuery = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             timing_place_id: UUID;
@@ -68335,6 +68354,7 @@ export type GetRouteDetailsByLabelsQuery = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             timing_place_id: UUID;
@@ -68563,6 +68583,7 @@ export type GetScheduledStopsOnRouteQuery = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
+        stop_place_ref?: string | null;
         timing_place?: {
           __typename?: 'timing_pattern_timing_place';
           timing_place_id: UUID;
@@ -68583,6 +68604,7 @@ export type ScheduledStopPointDefaultFieldsFragment = {
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   located_on_infrastructure_link_id: UUID;
+  stop_place_ref?: string | null;
   timing_place?: {
     __typename?: 'timing_pattern_timing_place';
     timing_place_id: UUID;
@@ -68603,6 +68625,7 @@ export type ScheduledStopPointAllFieldsFragment = {
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   located_on_infrastructure_link_id: UUID;
+  stop_place_ref?: string | null;
   vehicle_mode_on_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
     vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -68627,6 +68650,7 @@ export type StopWithJourneyPatternFieldsFragment = {
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   located_on_infrastructure_link_id: UUID;
+  stop_place_ref?: string | null;
   scheduled_stop_point_in_journey_patterns: Array<{
     __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
     journey_pattern_id: UUID;
@@ -68668,6 +68692,7 @@ export type RouteStopFieldsFragment = {
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   located_on_infrastructure_link_id: UUID;
+  stop_place_ref?: string | null;
   other_label_instances: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
     priority: number;
@@ -68678,6 +68703,7 @@ export type RouteStopFieldsFragment = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
     timing_place?: {
       __typename?: 'timing_pattern_timing_place';
       timing_place_id: UUID;
@@ -68746,6 +68772,7 @@ export type GetStopsByLocationQuery = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -68777,6 +68804,7 @@ export type GetStopsByValidityQuery = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -68810,6 +68838,7 @@ export type GetStopsByIdsQuery = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -68843,6 +68872,7 @@ export type GetStopsByLabelsQuery = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -68853,65 +68883,6 @@ export type GetStopsByLabelsQuery = {
       label: string;
     } | null;
   }>;
-};
-
-export type EditStopMutationVariables = Exact<{
-  stop_id: Scalars['uuid']['input'];
-  stop_label: Scalars['String']['input'];
-  stop_patch: ServicePatternScheduledStopPointSetInput;
-  delete_from_journey_pattern_ids:
-    | Array<Scalars['uuid']['input']>
-    | Scalars['uuid']['input'];
-}>;
-
-export type EditStopMutation = {
-  __typename?: 'mutation_root';
-  update_service_pattern_scheduled_stop_point?: {
-    __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
-    returning: Array<{
-      __typename?: 'service_pattern_scheduled_stop_point';
-      measured_location: GeoJSON.Point;
-      relative_distance_from_infrastructure_link_start: number;
-      closest_point_on_infrastructure_link?: GeoJSON.Point | null;
-      priority: number;
-      direction: InfrastructureNetworkDirectionEnum;
-      scheduled_stop_point_id: UUID;
-      label: string;
-      timing_place_id?: UUID | null;
-      validity_start?: luxon.DateTime | null;
-      validity_end?: luxon.DateTime | null;
-      located_on_infrastructure_link_id: UUID;
-      vehicle_mode_on_scheduled_stop_point: Array<{
-        __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-        vehicle_mode: ReusableComponentsVehicleModeEnum;
-      }>;
-      timing_place?: {
-        __typename?: 'timing_pattern_timing_place';
-        timing_place_id: UUID;
-        label: string;
-      } | null;
-    }>;
-  } | null;
-  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
-    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
-    returning: Array<{
-      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
-      journey_pattern_id: UUID;
-      scheduled_stop_point_label: string;
-      scheduled_stop_point_sequence: number;
-      is_used_as_timing_point: boolean;
-      is_regulated_timing_point: boolean;
-      is_loading_time_allowed: boolean;
-      is_via_point: boolean;
-      via_point_name_i18n?: LocalizedString | null;
-      via_point_short_name_i18n?: LocalizedString | null;
-      journey_pattern: {
-        __typename?: 'journey_pattern_journey_pattern';
-        journey_pattern_id: UUID;
-        on_route_id: UUID;
-      };
-    }>;
-  } | null;
 };
 
 export type GetStopWithRouteGraphDataByIdQueryVariables = Exact<{
@@ -68933,6 +68904,7 @@ export type GetStopWithRouteGraphDataByIdQuery = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
     scheduled_stop_point_in_journey_patterns: Array<{
       __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
       journey_pattern_id: UUID;
@@ -68985,43 +68957,6 @@ export type GetStopWithRouteGraphDataByIdQuery = {
   }>;
 };
 
-export type GetRoutesBrokenByStopChangeQueryVariables = Exact<{
-  new_located_on_infrastructure_link_id: Scalars['uuid']['input'];
-  new_direction: Scalars['String']['input'];
-  new_label: Scalars['String']['input'];
-  new_validity_start?: InputMaybe<Scalars['date']['input']>;
-  new_validity_end?: InputMaybe<Scalars['date']['input']>;
-  new_priority: Scalars['Int']['input'];
-  new_measured_location: Scalars['geography']['input'];
-  replace_scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
-}>;
-
-export type GetRoutesBrokenByStopChangeQuery = {
-  __typename?: 'query_root';
-  journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point: Array<{
-    __typename?: 'journey_pattern_journey_pattern';
-    journey_pattern_id: UUID;
-    journey_pattern_route?: {
-      __typename?: 'route_route';
-      route_shape?: GeoJSON.LineString | null;
-      name_i18n: LocalizedString;
-      description_i18n?: LocalizedString | null;
-      origin_name_i18n: LocalizedString;
-      origin_short_name_i18n: LocalizedString;
-      destination_name_i18n: LocalizedString;
-      destination_short_name_i18n: LocalizedString;
-      on_line_id: UUID;
-      label: string;
-      direction: RouteDirectionEnum;
-      variant?: number | null;
-      route_id: UUID;
-      validity_start?: luxon.DateTime | null;
-      validity_end?: luxon.DateTime | null;
-      priority: number;
-    } | null;
-  }>;
-};
-
 export type GetStopAreasByLocationQueryVariables = Exact<{
   measured_location_filter?: InputMaybe<GeometryComparisonExp>;
 }>;
@@ -69065,6 +69000,7 @@ export type GetScheduledStopPointByStopPlaceRefQuery = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -69098,6 +69034,7 @@ export type InfrastructureLinkWithStopsFragment = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
+    stop_place_ref?: string | null;
     other_label_instances: Array<{
       __typename?: 'service_pattern_scheduled_stop_point';
       priority: number;
@@ -69108,6 +69045,7 @@ export type InfrastructureLinkWithStopsFragment = {
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
+      stop_place_ref?: string | null;
       timing_place?: {
         __typename?: 'timing_pattern_timing_place';
         timing_place_id: UUID;
@@ -69211,6 +69149,7 @@ export type LineWithRoutesFragment = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
             priority: number;
@@ -69221,6 +69160,7 @@ export type LineWithRoutesFragment = {
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
+            stop_place_ref?: string | null;
             timing_place?: {
               __typename?: 'timing_pattern_timing_place';
               timing_place_id: UUID;
@@ -69281,6 +69221,7 @@ export type LineWithRoutesFragment = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             timing_place_id: UUID;
@@ -69444,6 +69385,7 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
+      stop_place_ref?: string | null;
       other_label_instances: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
         priority: number;
@@ -69454,6 +69396,7 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
+        stop_place_ref?: string | null;
         timing_place?: {
           __typename?: 'timing_pattern_timing_place';
           timing_place_id: UUID;
@@ -69639,6 +69582,7 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
+        stop_place_ref?: string | null;
         other_label_instances: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
           priority: number;
@@ -69649,6 +69593,7 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             timing_place_id: UUID;
@@ -69742,6 +69687,7 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
+        stop_place_ref?: string | null;
         other_label_instances: Array<{
           __typename?: 'service_pattern_scheduled_stop_point';
           priority: number;
@@ -69752,6 +69698,7 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             timing_place_id: UUID;
@@ -69812,6 +69759,7 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
+        stop_place_ref?: string | null;
         timing_place?: {
           __typename?: 'timing_pattern_timing_place';
           timing_place_id: UUID;
@@ -69853,6 +69801,7 @@ export type InfraLinkAlongRouteWithStopsFragment = {
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
       located_on_infrastructure_link_id: UUID;
+      stop_place_ref?: string | null;
       other_label_instances: Array<{
         __typename?: 'service_pattern_scheduled_stop_point';
         priority: number;
@@ -69863,6 +69812,7 @@ export type InfraLinkAlongRouteWithStopsFragment = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
+        stop_place_ref?: string | null;
         timing_place?: {
           __typename?: 'timing_pattern_timing_place';
           timing_place_id: UUID;
@@ -69961,6 +69911,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point';
             priority: number;
@@ -69971,6 +69922,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
             validity_start?: luxon.DateTime | null;
             validity_end?: luxon.DateTime | null;
             located_on_infrastructure_link_id: UUID;
+            stop_place_ref?: string | null;
             timing_place?: {
               __typename?: 'timing_pattern_timing_place';
               timing_place_id: UUID;
@@ -70031,6 +69983,7 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             timing_place_id: UUID;
@@ -71186,6 +71139,127 @@ export type UpdateScheduledStopPointStopPlaceRefMutation = {
   } | null;
 };
 
+export type GetRoutesBrokenByStopChangeQueryVariables = Exact<{
+  new_located_on_infrastructure_link_id: Scalars['uuid']['input'];
+  new_direction: Scalars['String']['input'];
+  new_label: Scalars['String']['input'];
+  new_validity_start?: InputMaybe<Scalars['date']['input']>;
+  new_validity_end?: InputMaybe<Scalars['date']['input']>;
+  new_priority: Scalars['Int']['input'];
+  new_measured_location: Scalars['geography']['input'];
+  replace_scheduled_stop_point_id?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+export type GetRoutesBrokenByStopChangeQuery = {
+  __typename?: 'query_root';
+  journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point: Array<{
+    __typename?: 'journey_pattern_journey_pattern';
+    journey_pattern_id: UUID;
+    journey_pattern_route?: {
+      __typename?: 'route_route';
+      route_shape?: GeoJSON.LineString | null;
+      name_i18n: LocalizedString;
+      description_i18n?: LocalizedString | null;
+      origin_name_i18n: LocalizedString;
+      origin_short_name_i18n: LocalizedString;
+      destination_name_i18n: LocalizedString;
+      destination_short_name_i18n: LocalizedString;
+      on_line_id: UUID;
+      label: string;
+      direction: RouteDirectionEnum;
+      variant?: number | null;
+      route_id: UUID;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      priority: number;
+    } | null;
+  }>;
+};
+
+export type EditStopMutationVariables = Exact<{
+  stop_id: Scalars['uuid']['input'];
+  stop_label: Scalars['String']['input'];
+  stop_patch: ServicePatternScheduledStopPointSetInput;
+  delete_from_journey_pattern_ids:
+    | Array<Scalars['uuid']['input']>
+    | Scalars['uuid']['input'];
+}>;
+
+export type EditStopMutation = {
+  __typename?: 'mutation_root';
+  update_service_pattern_scheduled_stop_point?: {
+    __typename?: 'service_pattern_scheduled_stop_point_mutation_response';
+    returning: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point';
+      measured_location: GeoJSON.Point;
+      relative_distance_from_infrastructure_link_start: number;
+      closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+      priority: number;
+      direction: InfrastructureNetworkDirectionEnum;
+      scheduled_stop_point_id: UUID;
+      label: string;
+      timing_place_id?: UUID | null;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+      located_on_infrastructure_link_id: UUID;
+      stop_place_ref?: string | null;
+      vehicle_mode_on_scheduled_stop_point: Array<{
+        __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+        vehicle_mode: ReusableComponentsVehicleModeEnum;
+      }>;
+      timing_place?: {
+        __typename?: 'timing_pattern_timing_place';
+        timing_place_id: UUID;
+        label: string;
+      } | null;
+    }>;
+  } | null;
+  delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern_mutation_response';
+    returning: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      scheduled_stop_point_label: string;
+      scheduled_stop_point_sequence: number;
+      is_used_as_timing_point: boolean;
+      is_regulated_timing_point: boolean;
+      is_loading_time_allowed: boolean;
+      is_via_point: boolean;
+      via_point_name_i18n?: LocalizedString | null;
+      via_point_short_name_i18n?: LocalizedString | null;
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern';
+        journey_pattern_id: UUID;
+        on_route_id: UUID;
+      };
+    }>;
+  } | null;
+};
+
+export type EditStopPlaceMutationVariables = Exact<{
+  patch?: InputMaybe<StopRegistryStopPlaceInput>;
+}>;
+
+export type EditStopPlaceMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateStopPlace?: Array<{
+      __typename?: 'stop_registry_StopPlace';
+      id?: string | null;
+      version?: string | null;
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        value?: string | null;
+      } | null;
+      geometry?: {
+        __typename?: 'stop_registry_GeoJSON';
+        coordinates?: GeoJSON.Position | null;
+      } | null;
+    } | null> | null;
+  } | null;
+};
+
 export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables =
   Exact<{
     label: Scalars['String']['input'];
@@ -72278,6 +72352,7 @@ export type VehicleJourneyWithServiceFragment = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         located_on_infrastructure_link_id: UUID;
+        stop_place_ref?: string | null;
         timing_place?: {
           __typename?: 'timing_pattern_timing_place';
           label: string;
@@ -72371,6 +72446,7 @@ export type VehicleScheduleFragment = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             label: string;
@@ -72480,6 +72556,7 @@ export type GetVehicleSchedulesForDateQuery = {
               validity_start?: luxon.DateTime | null;
               validity_end?: luxon.DateTime | null;
               located_on_infrastructure_link_id: UUID;
+              stop_place_ref?: string | null;
               timing_place?: {
                 __typename?: 'timing_pattern_timing_place';
                 label: string;
@@ -72759,6 +72836,7 @@ export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
     validity_start
     validity_end
     located_on_infrastructure_link_id
+    stop_place_ref
   }
 `;
 export const ScheduledStopPointAllFieldsFragmentDoc = gql`
@@ -76261,80 +76339,6 @@ export type GetStopsByLabelsQueryResult = Apollo.QueryResult<
   GetStopsByLabelsQuery,
   GetStopsByLabelsQueryVariables
 >;
-export const EditStopDocument = gql`
-  mutation EditStop(
-    $stop_id: uuid!
-    $stop_label: String!
-    $stop_patch: service_pattern_scheduled_stop_point_set_input!
-    $delete_from_journey_pattern_ids: [uuid!]!
-  ) {
-    update_service_pattern_scheduled_stop_point(
-      where: { scheduled_stop_point_id: { _eq: $stop_id } }
-      _set: $stop_patch
-    ) {
-      returning {
-        ...scheduled_stop_point_all_fields
-      }
-    }
-    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
-      where: {
-        _and: {
-          scheduled_stop_point_label: { _eq: $stop_label }
-          journey_pattern_id: { _in: $delete_from_journey_pattern_ids }
-        }
-      }
-    ) {
-      returning {
-        ...scheduled_stop_point_in_journey_pattern_all_fields
-      }
-    }
-  }
-  ${ScheduledStopPointAllFieldsFragmentDoc}
-  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
-`;
-export type EditStopMutationFn = Apollo.MutationFunction<
-  EditStopMutation,
-  EditStopMutationVariables
->;
-
-/**
- * __useEditStopMutation__
- *
- * To run a mutation, you first call `useEditStopMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditStopMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [editStopMutation, { data, loading, error }] = useEditStopMutation({
- *   variables: {
- *      stop_id: // value for 'stop_id'
- *      stop_label: // value for 'stop_label'
- *      stop_patch: // value for 'stop_patch'
- *      delete_from_journey_pattern_ids: // value for 'delete_from_journey_pattern_ids'
- *   },
- * });
- */
-export function useEditStopMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    EditStopMutation,
-    EditStopMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<EditStopMutation, EditStopMutationVariables>(
-    EditStopDocument,
-    options,
-  );
-}
-export type EditStopMutationHookResult = ReturnType<typeof useEditStopMutation>;
-export type EditStopMutationResult = Apollo.MutationResult<EditStopMutation>;
-export type EditStopMutationOptions = Apollo.BaseMutationOptions<
-  EditStopMutation,
-  EditStopMutationVariables
->;
 export const GetStopWithRouteGraphDataByIdDocument = gql`
   query GetStopWithRouteGraphDataById($stopId: uuid!) {
     service_pattern_scheduled_stop_point(
@@ -76433,114 +76437,6 @@ export type GetStopWithRouteGraphDataByIdSuspenseQueryHookResult = ReturnType<
 export type GetStopWithRouteGraphDataByIdQueryResult = Apollo.QueryResult<
   GetStopWithRouteGraphDataByIdQuery,
   GetStopWithRouteGraphDataByIdQueryVariables
->;
-export const GetRoutesBrokenByStopChangeDocument = gql`
-  query GetRoutesBrokenByStopChange(
-    $new_located_on_infrastructure_link_id: uuid!
-    $new_direction: String!
-    $new_label: String!
-    $new_validity_start: date
-    $new_validity_end: date
-    $new_priority: Int!
-    $new_measured_location: geography!
-    $replace_scheduled_stop_point_id: uuid
-  ) {
-    journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point(
-      args: {
-        replace_scheduled_stop_point_id: $replace_scheduled_stop_point_id
-        new_located_on_infrastructure_link_id: $new_located_on_infrastructure_link_id
-        new_direction: $new_direction
-        new_label: $new_label
-        new_validity_start: $new_validity_start
-        new_validity_end: $new_validity_end
-        new_priority: $new_priority
-        new_measured_location: $new_measured_location
-      }
-    ) {
-      journey_pattern_id
-      journey_pattern_route {
-        ...route_all_fields
-      }
-    }
-  }
-  ${RouteAllFieldsFragmentDoc}
-`;
-
-/**
- * __useGetRoutesBrokenByStopChangeQuery__
- *
- * To run a query within a React component, call `useGetRoutesBrokenByStopChangeQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRoutesBrokenByStopChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetRoutesBrokenByStopChangeQuery({
- *   variables: {
- *      new_located_on_infrastructure_link_id: // value for 'new_located_on_infrastructure_link_id'
- *      new_direction: // value for 'new_direction'
- *      new_label: // value for 'new_label'
- *      new_validity_start: // value for 'new_validity_start'
- *      new_validity_end: // value for 'new_validity_end'
- *      new_priority: // value for 'new_priority'
- *      new_measured_location: // value for 'new_measured_location'
- *      replace_scheduled_stop_point_id: // value for 'replace_scheduled_stop_point_id'
- *   },
- * });
- */
-export function useGetRoutesBrokenByStopChangeQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetRoutesBrokenByStopChangeQuery,
-    GetRoutesBrokenByStopChangeQueryVariables
-  > &
-    (
-      | { variables: GetRoutesBrokenByStopChangeQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    ),
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetRoutesBrokenByStopChangeQuery,
-    GetRoutesBrokenByStopChangeQueryVariables
-  >(GetRoutesBrokenByStopChangeDocument, options);
-}
-export function useGetRoutesBrokenByStopChangeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetRoutesBrokenByStopChangeQuery,
-    GetRoutesBrokenByStopChangeQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetRoutesBrokenByStopChangeQuery,
-    GetRoutesBrokenByStopChangeQueryVariables
-  >(GetRoutesBrokenByStopChangeDocument, options);
-}
-export function useGetRoutesBrokenByStopChangeSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRoutesBrokenByStopChangeQuery,
-    GetRoutesBrokenByStopChangeQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    GetRoutesBrokenByStopChangeQuery,
-    GetRoutesBrokenByStopChangeQueryVariables
-  >(GetRoutesBrokenByStopChangeDocument, options);
-}
-export type GetRoutesBrokenByStopChangeQueryHookResult = ReturnType<
-  typeof useGetRoutesBrokenByStopChangeQuery
->;
-export type GetRoutesBrokenByStopChangeLazyQueryHookResult = ReturnType<
-  typeof useGetRoutesBrokenByStopChangeLazyQuery
->;
-export type GetRoutesBrokenByStopChangeSuspenseQueryHookResult = ReturnType<
-  typeof useGetRoutesBrokenByStopChangeSuspenseQuery
->;
-export type GetRoutesBrokenByStopChangeQueryResult = Apollo.QueryResult<
-  GetRoutesBrokenByStopChangeQuery,
-  GetRoutesBrokenByStopChangeQueryVariables
 >;
 export const GetStopAreasByLocationDocument = gql`
   query GetStopAreasByLocation(
@@ -78032,6 +77928,247 @@ export type UpdateScheduledStopPointStopPlaceRefMutationOptions =
     UpdateScheduledStopPointStopPlaceRefMutation,
     UpdateScheduledStopPointStopPlaceRefMutationVariables
   >;
+export const GetRoutesBrokenByStopChangeDocument = gql`
+  query GetRoutesBrokenByStopChange(
+    $new_located_on_infrastructure_link_id: uuid!
+    $new_direction: String!
+    $new_label: String!
+    $new_validity_start: date
+    $new_validity_end: date
+    $new_priority: Int!
+    $new_measured_location: geography!
+    $replace_scheduled_stop_point_id: uuid
+  ) {
+    journey_pattern_check_infra_link_stop_refs_with_new_scheduled_stop_point(
+      args: {
+        replace_scheduled_stop_point_id: $replace_scheduled_stop_point_id
+        new_located_on_infrastructure_link_id: $new_located_on_infrastructure_link_id
+        new_direction: $new_direction
+        new_label: $new_label
+        new_validity_start: $new_validity_start
+        new_validity_end: $new_validity_end
+        new_priority: $new_priority
+        new_measured_location: $new_measured_location
+      }
+    ) {
+      journey_pattern_id
+      journey_pattern_route {
+        ...route_all_fields
+      }
+    }
+  }
+  ${RouteAllFieldsFragmentDoc}
+`;
+
+/**
+ * __useGetRoutesBrokenByStopChangeQuery__
+ *
+ * To run a query within a React component, call `useGetRoutesBrokenByStopChangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRoutesBrokenByStopChangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRoutesBrokenByStopChangeQuery({
+ *   variables: {
+ *      new_located_on_infrastructure_link_id: // value for 'new_located_on_infrastructure_link_id'
+ *      new_direction: // value for 'new_direction'
+ *      new_label: // value for 'new_label'
+ *      new_validity_start: // value for 'new_validity_start'
+ *      new_validity_end: // value for 'new_validity_end'
+ *      new_priority: // value for 'new_priority'
+ *      new_measured_location: // value for 'new_measured_location'
+ *      replace_scheduled_stop_point_id: // value for 'replace_scheduled_stop_point_id'
+ *   },
+ * });
+ */
+export function useGetRoutesBrokenByStopChangeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  > &
+    (
+      | { variables: GetRoutesBrokenByStopChangeQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >(GetRoutesBrokenByStopChangeDocument, options);
+}
+export function useGetRoutesBrokenByStopChangeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >(GetRoutesBrokenByStopChangeDocument, options);
+}
+export function useGetRoutesBrokenByStopChangeSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >(GetRoutesBrokenByStopChangeDocument, options);
+}
+export type GetRoutesBrokenByStopChangeQueryHookResult = ReturnType<
+  typeof useGetRoutesBrokenByStopChangeQuery
+>;
+export type GetRoutesBrokenByStopChangeLazyQueryHookResult = ReturnType<
+  typeof useGetRoutesBrokenByStopChangeLazyQuery
+>;
+export type GetRoutesBrokenByStopChangeSuspenseQueryHookResult = ReturnType<
+  typeof useGetRoutesBrokenByStopChangeSuspenseQuery
+>;
+export type GetRoutesBrokenByStopChangeQueryResult = Apollo.QueryResult<
+  GetRoutesBrokenByStopChangeQuery,
+  GetRoutesBrokenByStopChangeQueryVariables
+>;
+export const EditStopDocument = gql`
+  mutation EditStop(
+    $stop_id: uuid!
+    $stop_label: String!
+    $stop_patch: service_pattern_scheduled_stop_point_set_input!
+    $delete_from_journey_pattern_ids: [uuid!]!
+  ) {
+    update_service_pattern_scheduled_stop_point(
+      where: { scheduled_stop_point_id: { _eq: $stop_id } }
+      _set: $stop_patch
+    ) {
+      returning {
+        ...scheduled_stop_point_all_fields
+      }
+    }
+    delete_journey_pattern_scheduled_stop_point_in_journey_pattern(
+      where: {
+        _and: {
+          scheduled_stop_point_label: { _eq: $stop_label }
+          journey_pattern_id: { _in: $delete_from_journey_pattern_ids }
+        }
+      }
+    ) {
+      returning {
+        ...scheduled_stop_point_in_journey_pattern_all_fields
+      }
+    }
+  }
+  ${ScheduledStopPointAllFieldsFragmentDoc}
+  ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
+`;
+export type EditStopMutationFn = Apollo.MutationFunction<
+  EditStopMutation,
+  EditStopMutationVariables
+>;
+
+/**
+ * __useEditStopMutation__
+ *
+ * To run a mutation, you first call `useEditStopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditStopMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editStopMutation, { data, loading, error }] = useEditStopMutation({
+ *   variables: {
+ *      stop_id: // value for 'stop_id'
+ *      stop_label: // value for 'stop_label'
+ *      stop_patch: // value for 'stop_patch'
+ *      delete_from_journey_pattern_ids: // value for 'delete_from_journey_pattern_ids'
+ *   },
+ * });
+ */
+export function useEditStopMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditStopMutation,
+    EditStopMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<EditStopMutation, EditStopMutationVariables>(
+    EditStopDocument,
+    options,
+  );
+}
+export type EditStopMutationHookResult = ReturnType<typeof useEditStopMutation>;
+export type EditStopMutationResult = Apollo.MutationResult<EditStopMutation>;
+export type EditStopMutationOptions = Apollo.BaseMutationOptions<
+  EditStopMutation,
+  EditStopMutationVariables
+>;
+export const EditStopPlaceDocument = gql`
+  mutation EditStopPlace($patch: stop_registry_StopPlaceInput) {
+    stop_registry {
+      mutateStopPlace(StopPlace: $patch) {
+        id
+        version
+        name {
+          value
+        }
+        geometry {
+          coordinates
+        }
+      }
+    }
+  }
+`;
+export type EditStopPlaceMutationFn = Apollo.MutationFunction<
+  EditStopPlaceMutation,
+  EditStopPlaceMutationVariables
+>;
+
+/**
+ * __useEditStopPlaceMutation__
+ *
+ * To run a mutation, you first call `useEditStopPlaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditStopPlaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editStopPlaceMutation, { data, loading, error }] = useEditStopPlaceMutation({
+ *   variables: {
+ *      patch: // value for 'patch'
+ *   },
+ * });
+ */
+export function useEditStopPlaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditStopPlaceMutation,
+    EditStopPlaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    EditStopPlaceMutation,
+    EditStopPlaceMutationVariables
+  >(EditStopPlaceDocument, options);
+}
+export type EditStopPlaceMutationHookResult = ReturnType<
+  typeof useEditStopPlaceMutation
+>;
+export type EditStopPlaceMutationResult =
+  Apollo.MutationResult<EditStopPlaceMutation>;
+export type EditStopPlaceMutationOptions = Apollo.BaseMutationOptions<
+  EditStopPlaceMutation,
+  EditStopPlaceMutationVariables
+>;
 export const GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument = gql`
   query GetScheduledStopPointsInJourneyPatternsUsedAsTimingPoints(
     $label: String!

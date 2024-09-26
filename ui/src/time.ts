@@ -114,3 +114,7 @@ export const findEarliestTime = (times: DateTime[]) => {
 export const findLatestTime = (times: DateTime[]) => {
   return DateTime.fromMillis(Math.max(...times.map((item) => item.toMillis())));
 };
+
+export function toUtcDate(dateTime: DateTime): DateTime {
+  return DateTime.utc(dateTime.year, dateTime.month, dateTime.day);
+}

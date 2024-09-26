@@ -15,7 +15,10 @@ import {
   removeFromApolloCache,
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
-import { BrokenRouteCheckParams, useEditStop } from './useEditStop';
+import {
+  BrokenRouteCheckParams,
+  useGetRoutesBrokenByStopChange,
+} from './useEditStop';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 
 // the input does not need to contain all the fields
@@ -74,7 +77,7 @@ export const useCreateStop = () => {
     useUpdateScheduledStopPointStopPlaceRefMutation();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
   const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
-  const { getRoutesBrokenByStopChange } = useEditStop();
+  const getRoutesBrokenByStopChange = useGetRoutesBrokenByStopChange();
 
   const insertStopMutation = async (variables: InsertStopMutationVariables) => {
     return mutateFunction({
