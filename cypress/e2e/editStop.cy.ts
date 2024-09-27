@@ -1,14 +1,16 @@
+/* eslint-disable jest/valid-expect */
 import {
-  GetInfrastructureLinksByExternalIdsResult,
   Priority,
   ReusableComponentsVehicleModeEnum,
   StopInsertInput,
-  buildStop,
-  extractInfrastructureLinkIdsFromResponse,
-  mapToGetInfrastructureLinksByExternalIdsQuery,
-  timingPlaces,
 } from '@hsl/jore4-test-db-manager';
-import { DateTime } from 'luxon';
+import {
+  buildInfraLinksAlongRoute,
+  buildStopsOnInfraLinks,
+  getClonedBaseDbResources,
+  testInfraLinkExternalIds,
+} from '../datasets/base';
+import { getClonedBaseStopRegistryData } from '../datasets/stopRegistry';
 import { Tag } from '../enums';
 import {
   ConfirmationDialog,
@@ -20,66 +22,50 @@ import {
 } from '../pageObjects';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
-import { expectGraphQLCallToSucceed } from '../utils/assertions';
-
-// Stops are created on these infralinks via insertToDbHelper or the map view.
-
-const infrastructureLinkExternalIds = ['445156', '442424', '442325', '445132'];
+import {
+  expectDateTimeyValuesToBeSameHelsinkiDateOrNullish,
+  expectGraphQLCallToSucceed,
+} from '../utils/assertions';
+import { debug } from '../utils/templateStringHelpers';
+import { InsertedStopRegistryIds } from './utils';
 
 const testTimingPlaceLabels = {
   label1: 'Test created timing place label 1',
 };
 
-// This point exists on infraLink1
+// Centers the stops on the screen
 const testCoordinates1 = {
-  lng: 24.92492146851626,
-  lat: 60.1634759878872,
+  lng: 24.93458814980886,
+  lat: 60.16493319843619,
   el: 0,
 };
 
-const buildStopsOnInfrastrucureLinks = (
-  infrastructureLinkIds: UUID[],
-): StopInsertInput[] => [
-  {
-    ...buildStop({
-      label: 'Move stop test stop',
-      located_on_infrastructure_link_id: infrastructureLinkIds[0],
-    }),
-    validity_start: DateTime.fromISO('2022-03-20T22:00:00+00:00'),
-    scheduled_stop_point_id: '68684b40-c4db-4c72-b3b8-c3307dde7a72',
-    measured_location: {
-      type: 'Point',
-      coordinates: Object.values(testCoordinates1),
-    },
-  },
-];
-
 describe('Stop editing tests', () => {
-  let mapFilterPanel: FilterPanel;
-  let map: Map;
-  let confirmationDialog: ConfirmationDialog;
-  let stopForm: StopForm;
-  let toast: Toast;
+  const mapFilterPanel = new FilterPanel();
+  const map = new Map();
+  const confirmationDialog = new ConfirmationDialog();
+  const stopForm = new StopForm();
+  const toast = new Toast();
 
-  const baseDbResources = {
-    timingPlaces,
-  };
+  const baseDbResources = getClonedBaseDbResources();
+  const baseStopRegistryData = getClonedBaseStopRegistryData();
+
   let dbResources: SupportedResources;
   let stops: StopInsertInput[];
 
   before(() => {
-    cy.task<GetInfrastructureLinksByExternalIdsResult>(
-      'hasuraAPI',
-      mapToGetInfrastructureLinksByExternalIdsQuery(
-        infrastructureLinkExternalIds,
-      ),
-    ).then((res) => {
-      const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+    cy.task<UUID[]>(
+      'getInfrastructureLinkIdsByExternalIds',
+      testInfraLinkExternalIds,
+    ).then((infraLinkIds) => {
+      stops = buildStopsOnInfraLinks(infraLinkIds);
 
-      stops = buildStopsOnInfrastrucureLinks(infraLinkIds);
+      const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+
       dbResources = {
         ...baseDbResources,
         stops,
+        infraLinksAlongRoute,
       };
     });
   });
@@ -89,18 +75,18 @@ describe('Stop editing tests', () => {
 
     insertToDbHelper(dbResources);
 
-    mapFilterPanel = new FilterPanel();
-    map = new Map();
-    confirmationDialog = new ConfirmationDialog();
-    stopForm = new StopForm();
-    toast = new Toast();
-
-    cy.setupTests();
-    cy.mockLogin();
-    map.visit({
-      zoom: 14,
-      lat: testCoordinates1.lat,
-      lng: testCoordinates1.lng,
+    cy.task<InsertedStopRegistryIds>(
+      'insertStopRegistryData',
+      baseStopRegistryData,
+    ).then(() => {
+      cy.setupTests();
+      cy.mockLogin();
+      map.visit({
+        // Zoom in so that the stops are not shown on top of each other
+        zoom: 16,
+        lat: testCoordinates1.lat,
+        lng: testCoordinates1.lng,
+      });
     });
   });
 
@@ -110,8 +96,8 @@ describe('Stop editing tests', () => {
     () => {
       // Coordinates for the point where the stop is moved in the test.
       const endCoordinates = {
-        lng: 24.923290685436285,
-        lat: 60.16296354684172,
+        lng: 24.93892259957684,
+        lat: 60.1657872112159,
       };
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
@@ -120,17 +106,26 @@ describe('Stop editing tests', () => {
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .click();
+        .click({ force: true });
 
       map.stopPopUp.getMoveButton().click();
 
       // Point where the stop is moved on the map. Moving the stop here gives it the endCoordinates.
       // Map view zoom level should not be changed in the test since it would naturally affect this test location.
-      map.clickRelativePoint(48, 52);
+      map.clickRelativePoint(71, 35);
 
       confirmationDialog.getConfirmButton().click();
 
       expectGraphQLCallToSucceed('@gqlEditStop');
+      expectGraphQLCallToSucceed('@gqlEditStopPlace').then((intercepted) => {
+        const { body } = intercepted.response;
+        expect(body.data, debug`Body:\n${body}`).to.deep.nested.include({
+          'stop_registry.mutateStopPlace[0].geometry.coordinates': [
+            endCoordinates.lng,
+            endCoordinates.lat,
+          ],
+        });
+      });
 
       toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
@@ -157,7 +152,7 @@ describe('Stop editing tests', () => {
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .click();
+        .click({ force: true });
 
       map.stopPopUp.getDeleteButton().click();
 
@@ -184,12 +179,10 @@ describe('Stop editing tests', () => {
 
       const updatedStopInfo: StopFormInfo = {
         label: 'Add timing place stop label',
-        // seed timing places should always have label defined
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        timingPlace: timingPlaces[0].label!,
+        timingPlace: '1ALKU',
         latitude: String(testCoordinates2.lat),
         longitude: String(testCoordinates2.lng),
-        validityStartISODate: '2019-01-01',
+        validityStartISODate: '2024-01-01',
         validityEndISODate: '2029-12-31',
         priority: Priority.Draft,
       };
@@ -200,7 +193,7 @@ describe('Stop editing tests', () => {
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .click();
+        .click({ force: true });
 
       map.stopPopUp.getEditButton().click();
 
@@ -210,6 +203,35 @@ describe('Stop editing tests', () => {
       confirmationDialog.getConfirmButton().click();
 
       expectGraphQLCallToSucceed('@gqlEditStop');
+      expectGraphQLCallToSucceed('@gqlEditStopPlace').then((intercepted) => {
+        const { body } = intercepted.response;
+        const editedStopPlace = 'stop_registry.mutateStopPlace[0]';
+
+        expect(body.data, debug`Body:\n${body}`).to.deep.nested.include({
+          [`${editedStopPlace}.name.value`]: updatedStopInfo.label,
+          [`${editedStopPlace}.geometry.coordinates`]: [
+            testCoordinates2.lng,
+            testCoordinates2.lat,
+          ],
+        });
+
+        expect(body.data, debug`Body:\n${body}`)
+          .to.have.nested.property(`${editedStopPlace}.validBetween`)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .that.satisfies((validBetween: any) => {
+            expect(validBetween).to.have.property('fromDate');
+            expect(validBetween).to.have.property('toDate');
+            expectDateTimeyValuesToBeSameHelsinkiDateOrNullish(
+              validBetween.fromDate,
+              updatedStopInfo.validityStartISODate,
+            );
+            expectDateTimeyValuesToBeSameHelsinkiDateOrNullish(
+              validBetween.toDate,
+              updatedStopInfo.validityEndISODate,
+            );
+            return true;
+          });
+      });
 
       toast.checkSuccessToastHasMessage('Pysäkki muokattu');
 
@@ -250,7 +272,7 @@ describe('Stop editing tests', () => {
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .click();
+        .click({ force: true });
 
       map.stopPopUp.getEditButton().click();
 
