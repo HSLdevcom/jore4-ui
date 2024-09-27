@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { useCallback, useEffect, useState } from 'react';
 import { QueryParameterName } from '../../hooks';
 import { useDateQueryParam } from '../../hooks/urlQuery/useDateQueryParam';
 import { DateInput } from './DateInput';
@@ -30,19 +31,43 @@ export const DateControl = ({
     queryParamName,
     initialize,
   });
+
+  const [myNewDate, setMyNewDate] = useState<DateTime>(date);
+  const [debouncedValue, setDebouncedValue] = useState<DateTime>(date);
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  // Workaround for useDateQueryParam hook side effects
+  const doSet = useCallback(() => {
+    setDateToUrl(debouncedValue);
+  }, [debouncedValue]);
+  /* eslint-enable react-hooks/exhaustive-deps */
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(myNewDate);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [myNewDate]);
+
+  useEffect(() => {
+    doSet();
+  }, [doSet, debouncedValue]);
+
   const onDateChange = (newDate: DateTime) => {
     // Do not allow setting empty value to date
     if (!date.isValid) {
       return;
     }
-
-    setDateToUrl(newDate);
+    setMyNewDate(newDate);
   };
 
   return (
     <DateInput
       label={label}
-      value={date}
+      value={myNewDate}
       onChange={onDateChange}
       className={className}
       required

@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { useTimeRangeQueryParams } from '../../../../hooks';
+// eslint-disable-next-line import/no-cycle
 import {
+  OccasionalSubstituteOperatingPeriodsData,
   useCreateSubstituteOperatingPeriod,
   useDeleteSubstituteOperatingPeriod,
   useEditSubstituteOperatingPeriod,
-  useGetSubstituteOperatingPeriods,
 } from '../../../../hooks/substitute-operating-periods';
+import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import {
   showDangerToastWithError,
   showSuccessToast,
@@ -18,16 +20,13 @@ import {
 } from './OccasionalSubstitutePeriodForm';
 import { FormState } from './OccasionalSubstitutePeriodForm.types';
 
-export const OccasionalSubstitutePeriodSection = (): React.ReactElement => {
+export const OccasionalSubstitutePeriodSection = (props: {
+  occasionalSubstituteOperatingPeriodData: OccasionalSubstituteOperatingPeriodsData | null;
+}): React.ReactElement<OccasionalSubstituteOperatingPeriodsData> => {
+  const { occasionalSubstituteOperatingPeriodData } = props;
   const { t } = useTranslation();
-  const { startDate, endDate, updateTimeRangeIfNeeded } =
-    useTimeRangeQueryParams();
+  const { updateTimeRangeIfNeeded } = useTimeRangeQueryParams();
 
-  const {
-    occasionalSubstituteOperatingPeriods,
-    refetchOccasionalSubstituteOperatingPeriods,
-    isLoadingOccasionalSubstituteOperatingPeriods,
-  } = useGetSubstituteOperatingPeriods({ startDate, endDate });
   const { prepareAndExecute: prepareAndExecuteCreate } =
     useCreateSubstituteOperatingPeriod();
 
@@ -36,6 +35,23 @@ export const OccasionalSubstitutePeriodSection = (): React.ReactElement => {
 
   const { deleteSubstituteOperatingPeriod } =
     useDeleteSubstituteOperatingPeriod();
+
+  if (
+    !occasionalSubstituteOperatingPeriodData ||
+    occasionalSubstituteOperatingPeriodData.isLoadingOccasionalSubstituteOperatingPeriods
+  ) {
+    return (
+      <LoadingWrapper testId="loadingCommonSubstitutePeriods">
+        <></>
+      </LoadingWrapper>
+    );
+  }
+
+  const {
+    refetchOccasionalSubstituteOperatingPeriods,
+    occasionalSubstituteOperatingPeriods,
+    isLoadingOccasionalSubstituteOperatingPeriods,
+  } = occasionalSubstituteOperatingPeriodData;
 
   const onSubmit = async (form: FormState) => {
     try {
