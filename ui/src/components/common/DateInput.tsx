@@ -13,6 +13,12 @@ interface Props {
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 
+const parseDateString = (dateString: string): string => {
+  // Match last for digit of year input ( 10232024-09-09 -> 2024-09-09)
+  const parsed = dateString.match(/\d*((\d{4})-\d{1,2}-\d{1,2})/)?.at(1);
+  return parsed ?? dateString;
+};
+
 export const DateInput = ({
   value,
   label,
@@ -30,7 +36,9 @@ export const DateInput = ({
       <input
         type="date"
         value={value.toISODate()}
-        onChange={(e) => onChange(DateTime.fromISO(e.target.value))}
+        onChange={(e) =>
+          onChange(DateTime.fromISO(parseDateString(e.target.value)))
+        }
         onClick={onClick}
         id={dateInputId}
         className={className}

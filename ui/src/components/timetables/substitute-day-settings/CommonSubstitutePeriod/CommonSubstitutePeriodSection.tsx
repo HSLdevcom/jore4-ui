@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
+// eslint-disable-next-line import/no-cycle
 import {
+  CommonSubstituteOperatingPeriodsData,
   useCreateSubstituteOperatingPeriod,
   useDeleteSubstituteOperatingPeriod,
   useEditSubstituteOperatingPeriod,
-  useGetSubstituteOperatingPeriods,
 } from '../../../../hooks/substitute-operating-periods';
-import { useTimeRangeQueryParams } from '../../../../hooks/urlQuery';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { showDangerToastWithError, showSuccessToast } from '../../../../utils';
 import {
@@ -16,6 +16,7 @@ import { FormState } from './CommonSubstitutePeriodForm.types';
 
 interface Props {
   className?: string;
+  commonSubstituteOperatingPeriodData: CommonSubstituteOperatingPeriodsData | null;
 }
 
 const testIds = {
@@ -25,15 +26,9 @@ const testIds = {
 
 export const CommonSubstitutePeriodSection = ({
   className = '',
+  commonSubstituteOperatingPeriodData,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  const { startDate, endDate } = useTimeRangeQueryParams();
-
-  const {
-    commonSubstituteOperatingPeriods,
-    isLoadingCommonSubstituteOperatingPeriods,
-    refetchCommonSubstituteOperatingPeriods,
-  } = useGetSubstituteOperatingPeriods({ startDate, endDate });
 
   const { prepareAndExecute: prepareAndExecuteCreate } =
     useCreateSubstituteOperatingPeriod();
@@ -43,6 +38,21 @@ export const CommonSubstitutePeriodSection = ({
 
   const { deleteSubstituteOperatingPeriod } =
     useDeleteSubstituteOperatingPeriod();
+
+  if (!commonSubstituteOperatingPeriodData) {
+    return (
+      <LoadingWrapper testId="loadingCommonSubstitutePeriods">
+        <></>
+      </LoadingWrapper>
+    );
+  }
+  const { isLoadingCommonSubstituteOperatingPeriods } =
+    commonSubstituteOperatingPeriodData;
+
+  const {
+    refetchCommonSubstituteOperatingPeriods,
+    commonSubstituteOperatingPeriods,
+  } = commonSubstituteOperatingPeriodData;
 
   const onSubmit = async (form: FormState) => {
     // Filter out days that are not already in database or are not added in UI

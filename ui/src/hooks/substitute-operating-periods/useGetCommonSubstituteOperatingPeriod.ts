@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
+// eslint-disable-next-line import/no-cycle
+import { SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from '../../components/timetables';
 import {
   GetSubstituteOperatingPeriodsQuery,
   TimetablesServiceCalendarSubstituteOperatingPeriod,
@@ -10,6 +11,8 @@ import {
   buildIsPresetSubstituteOperatingPeriodFilter,
 } from '../../utils';
 
+/*
+// NOT IN USE ?
 const GQL_GET_SUBSTITUTE_OPERATING_PERIODS = gql`
   query GetSubstituteOperatingPeriods(
     $periodFilters: timetables_service_calendar_substitute_operating_period_bool_exp
@@ -32,15 +35,31 @@ const GQL_GET_SUBSTITUTE_OPERATING_PERIODS = gql`
       }
     }
   }
-`;
+`; */
 
-export const useGetSubstituteOperatingPeriods = ({
-  startDate,
+export type CommonSubstituteOperatingPeriodsData = {
+  isLoadingCommonSubstituteOperatingPeriods: boolean;
+  commonSubstituteOperatingPeriods: TimetablesServiceCalendarSubstituteOperatingPeriod[];
+  refetchCommonSubstituteOperatingPeriods: () => void;
+};
+
+export const useGetCommonSubstituteOperatingPeriods = ({
+  startDate: originalStartDate,
   endDate,
 }: {
   startDate: DateTime;
   endDate: DateTime;
 }) => {
+  let startDate = originalStartDate;
+
+  if (startDate && endDate) {
+    const timeDiff = endDate.diff(startDate);
+    if (timeDiff.as('year') > SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS) {
+      startDate = endDate.minus({
+        year: SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS,
+      });
+    }
+  }
   const mapSubstituteOperatingPeriodsResult = (
     result?: GetSubstituteOperatingPeriodsQuery,
   ) => {
@@ -54,46 +73,28 @@ export const useGetSubstituteOperatingPeriods = ({
     ),
   };
 
-  const occasionalPeriodFilter = {
-    ...periodDateRangeFilter,
-    ...buildIsPresetSubstituteOperatingPeriodFilter(false),
-  };
   const commonPeriodFilter = {
     ...periodDateRangeFilter,
     ...buildIsPresetSubstituteOperatingPeriodFilter(true),
   };
 
-  const {
-    data: occasionalSubstituteOperatingPeriodData,
-    refetch: refetchOccasionalSubstituteOperatingPeriods,
-    loading: isLoadingOccasionalSubstituteOperatingPeriods,
-  } = useGetSubstituteOperatingPeriodsQuery({
-    variables: { periodFilters: occasionalPeriodFilter },
-  });
-
-  const {
-    data: commonSubstituteOperatingPeriodData,
-    refetch: refetchCommonSubstituteOperatingPeriods,
-    loading: isLoadingCommonSubstituteOperatingPeriods,
-  } = useGetSubstituteOperatingPeriodsQuery({
+  const query = useGetSubstituteOperatingPeriodsQuery({
     variables: { periodFilters: commonPeriodFilter },
   });
 
-  const occasionalSubstituteOperatingPeriods =
-    mapSubstituteOperatingPeriodsResult(
-      occasionalSubstituteOperatingPeriodData,
-    );
+  const getCommonSubstituteOperatingPeriodData =
+    (): CommonSubstituteOperatingPeriodsData => {
+      const commonSubstituteOperatingPeriods =
+        mapSubstituteOperatingPeriodsResult(query.data);
 
-  const commonSubstituteOperatingPeriods = mapSubstituteOperatingPeriodsResult(
-    commonSubstituteOperatingPeriodData,
-  );
+      return {
+        isLoadingCommonSubstituteOperatingPeriods: query.loading,
+        refetchCommonSubstituteOperatingPeriods: query.refetch,
+        commonSubstituteOperatingPeriods,
+      };
+    };
 
   return {
-    refetchOccasionalSubstituteOperatingPeriods,
-    isLoadingOccasionalSubstituteOperatingPeriods,
-    isLoadingCommonSubstituteOperatingPeriods,
-    refetchCommonSubstituteOperatingPeriods,
-    occasionalSubstituteOperatingPeriods,
-    commonSubstituteOperatingPeriods,
+    getCommonSubstituteOperatingPeriodData,
   };
 };
