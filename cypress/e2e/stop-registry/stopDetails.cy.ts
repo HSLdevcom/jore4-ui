@@ -62,7 +62,15 @@ const stopPlaceData: Array<StopPlaceInput> = [
     label: 'H1122',
     stopPlace: { name: { lang: 'fin', value: 'Puistokaari' } },
   },
-  stopPlaceH2003,
+  {
+    ...stopPlaceH2003,
+    stopPlace: {
+      ...stopPlaceH2003.stopPlace,
+      // These tests faiĺ if the test StopPlace has a proper validity.
+      // Reset to Tiamat default/automatic values for now.
+      validBetween: null,
+    },
+  },
 ];
 
 const buildScheduledStopPoints = (
