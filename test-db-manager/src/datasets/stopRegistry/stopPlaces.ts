@@ -1,4 +1,6 @@
+import { DateTime } from 'luxon';
 import {
+  Maybe,
   StopRegistryAccessibilityLevel,
   StopRegistryAccessibilityLimitationsInput,
   StopRegistryCycleStorageEquipmentInput,
@@ -21,6 +23,7 @@ import {
   StopRegistryStopType,
   StopRegistrySubmodeType,
   StopRegistryTransportModeType,
+  StopRegistryValidBetween,
 } from '../../generated/graphql';
 
 type OrganisationName = string;
@@ -72,6 +75,7 @@ export type StopPlaceSeedData = {
     replacesRailSign: boolean;
   };
   maintenance?: StopPlaceMaintenance;
+  validBetween?: Maybe<StopRegistryValidBetween>;
 };
 
 const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput =
@@ -271,6 +275,14 @@ const mapToStopPlaceInput = (
               },
             }
           : undefined,
+
+      validBetween:
+        'validBetween' in seedStopPlace
+          ? seedStopPlace.validBetween
+          : {
+              fromDate: DateTime.fromISO('1990-01-01T00:00:00Z'),
+              toDate: DateTime.fromISO('2051-01-01T00:00:00Z'),
+            },
     },
   };
 };
