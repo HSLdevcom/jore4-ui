@@ -1,15 +1,17 @@
 import { gql } from '@apollo/client';
+import { useMemo } from 'react';
 import {
-  SearchStopsQueryResult,
+  SearchStopsQuery,
   StopTableRowFragment,
   StopTableRowStopPlaceFragment,
   useSearchStopsQuery,
-} from '../../../generated/graphql';
+} from '../../../../generated/graphql';
 import {
   buildSearchStopsGqlQueryVariables,
   mapToVariables,
-} from '../../../utils';
-import { useStopSearchQueryParser } from './useStopSearchQueryParser';
+} from '../../../../utils';
+import { StopSearchRow } from '../types';
+import { useStopSearchQueryParser } from '../useStopSearchQueryParser';
 
 const GQL_STOP_TABLE_ROW = gql`
   fragment stop_table_row on service_pattern_scheduled_stop_point {
@@ -56,16 +58,6 @@ const GQL_SEARCH_STOPS = gql`
   }
 `;
 
-type StopPlaceSearchRowDetails = {
-  netexId?: string | null;
-  nameFin?: string | null;
-  nameSwe?: string | null;
-};
-
-export type StopSearchRow = StopTableRowFragment & {
-  stop_place: StopPlaceSearchRowDetails;
-};
-
 const mapResultRowToStopSearchRow = (
   stopPlace: StopTableRowStopPlaceFragment,
 ) => {
@@ -84,18 +76,14 @@ const mapResultRowToStopSearchRow = (
 };
 
 const mapQueryResultToStopSearchRows = (
-  result: SearchStopsQueryResult,
+  data: SearchStopsQuery,
 ): StopSearchRow[] =>
-  result.data?.stops_database?.stops_database_stop_place_newest_version
+  data.stops_database?.stops_database_stop_place_newest_version
     // Filter out stops which do not have a matching stop in routes and lines
     .filter((stop) => !!stop.scheduled_stop_point_instance)
     .map(mapResultRowToStopSearchRow) ?? [];
 
-export const useStopSearchResults = (): {
-  loading: boolean;
-  resultCount: number;
-  stops: Array<StopSearchRow>;
-} => {
+export const useStopSearchResults = () => {
   const parsedSearchQueryParameters = useStopSearchQueryParser();
   const { searchKey, searchBy } = parsedSearchQueryParameters.search;
 
@@ -104,14 +92,18 @@ export const useStopSearchResults = (): {
     [searchBy]: searchKey,
   });
 
-  const result = useSearchStopsQuery(mapToVariables({ stopFilter }));
+  const { data, ...rest } = useSearchStopsQuery(mapToVariables({ stopFilter }));
 
-  const stopSearchRows = mapQueryResultToStopSearchRows(result);
+  const stopSearchRows = useMemo(() => {
+    if (!data) {
+      return [];
+    }
 
-  const { loading } = result;
+    return mapQueryResultToStopSearchRows(data);
+  }, [data]);
 
   return {
-    loading,
+    ...rest,
     resultCount: stopSearchRows.length,
     stops: stopSearchRows,
   };

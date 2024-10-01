@@ -8,7 +8,7 @@ export class StopSearchResultsPage {
   }
 
   getResultsTable() {
-    return cy.getByTestId('StopSearchResultList::table');
+    return cy.getByTestId('StopSearchByStopResultList::table');
   }
 
   getResultRows() {

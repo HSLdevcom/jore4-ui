@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete, MdUndo } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import { StopSearchRow } from '../../../../../../hooks';
 import { IconButton, commonHoverStyle } from '../../../../../../uiComponents';
 import { StopAreaFormMember } from '../../../../../forms/stop-area';
+import { StopSearchRow } from '../../../../search';
 
 const testIds = {
   removeButton: 'StopTableRow::AreaEdit::remove',
