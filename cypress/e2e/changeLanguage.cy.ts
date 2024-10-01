@@ -15,10 +15,12 @@ describe('Verify that language changing works', () => {
     // Language is FI by default
     navbar.getLanguageDropdown().should('have.text', 'FI');
     navbar.getMainPageLink().should('have.text', 'Etusivu');
+    cy.get('html').should('have.attr', 'lang', 'fi-FI');
 
     navbar.toggleLanguage();
 
     navbar.getLanguageDropdown().should('have.text', 'EN');
     navbar.getMainPageLink().should('have.text', 'Main page');
+    cy.get('html').should('have.attr', 'lang', 'en-US');
   });
 });
