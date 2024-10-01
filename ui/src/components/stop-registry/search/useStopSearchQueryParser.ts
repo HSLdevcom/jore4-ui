@@ -1,7 +1,7 @@
-import { SearchBy } from '../../../components/stop-registry/search/SearchCriteriaRadioButtons';
+import { useUrlQuery } from '../../../hooks/urlQuery';
 import { StopRegistryMunicipality } from '../../../types/enums';
 import { AllOptionEnum, getEnumValues } from '../../../utils';
-import { useUrlQuery } from '../../urlQuery';
+import { SearchBy } from './SearchCriteriaRadioButtons';
 
 export enum StopSearchQueryParameterNames {
   ELYNumber = 'elyNumber',

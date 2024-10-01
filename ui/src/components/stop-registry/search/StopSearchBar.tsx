@@ -1,11 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import {
-  StopSearchQueryParameterNames,
-  useStopSearch,
-  useToggle,
-} from '../../../hooks';
+import { useToggle } from '../../../hooks';
 import { mapMunicipalityToUiName } from '../../../i18n/uiNameMappings';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
@@ -14,6 +10,8 @@ import { ChevronToggle, SimpleButton } from '../../../uiComponents';
 import { SearchInput } from '../../common';
 import { EnumMultiSelectDropdown } from '../../forms/common/EnumMultiSelectDropdown';
 import { SearchCriteriaRadioButtons } from './SearchCriteriaRadioButtons';
+import { useStopSearch } from './useStopSearch';
+import { StopSearchQueryParameterNames } from './useStopSearchQueryParser';
 
 const testIds = {
   searchInput: 'StopSearchBar::searchInput',

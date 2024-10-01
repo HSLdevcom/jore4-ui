@@ -1,4 +1,4 @@
-import { StopSearchRow } from '../../../../hooks';
+import { StopSearchRow } from '../types';
 
 export type StopRowTdProps = {
   readonly className?: string;
