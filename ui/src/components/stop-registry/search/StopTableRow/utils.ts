@@ -1,5 +1,4 @@
 import {
-  StopSearchRow,
   useAppDispatch,
   useMapQueryParams,
   useObservationDateQueryParam,
@@ -11,6 +10,7 @@ import {
   setStopFilterAction,
 } from '../../../../redux';
 import { mapLngLatToPoint } from '../../../../utils';
+import { StopSearchRow } from '../types';
 
 export function useOpenStopOnMap() {
   const dispatch = useAppDispatch();

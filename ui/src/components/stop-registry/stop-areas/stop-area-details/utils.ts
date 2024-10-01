@@ -2,8 +2,8 @@ import {
   StopAreaDetailsFragment,
   StopAreaDetailsMembersFragment,
 } from '../../../../generated/graphql';
-import { StopSearchRow } from '../../../../hooks';
 import { getStopPlacesFromQueryResult, notNullish } from '../../../../utils';
+import { StopSearchRow } from '../../search';
 
 export function mapMemberToStopSearchFormat(
   member: StopAreaDetailsMembersFragment,

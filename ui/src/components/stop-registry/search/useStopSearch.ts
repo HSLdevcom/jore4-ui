@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
+import { mapObjectToQueryParameterObjects, useUrlQuery } from '../../../hooks';
 import { Path } from '../../../router/routeDetails';
-import { mapObjectToQueryParameterObjects, useUrlQuery } from '../../urlQuery';
 import { useStopSearchQueryParser } from './useStopSearchQueryParser';
 
 export const useStopSearch = () => {
