@@ -2,11 +2,11 @@ import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
 import { groupBy, pipe } from 'remeda';
 import { twMerge } from 'tailwind-merge';
-import { VehicleJourneyGroup } from '../../../../hooks';
-import { parseI18nField } from '../../../../i18n/utils';
-import { Column, Visible } from '../../../../layoutComponents';
+import { VehicleJourneyGroup } from '@/hooks/vehicle-service';
+import { parseI18nField } from '@/i18n/utils';
+import { Column, Visible } from '@/layoutComponents';
+import { TimetablePriority } from '@/types/enums';
 import { mapToShortDateTime } from '../../../../time';
-import { TimetablePriority } from '../../../../types/enums';
 import { VehicleJourneyGroupInfo } from '../../common/VehicleJourneyGroupInfo';
 import { VehicleServiceRow, VehicleServiceRowData } from './VehicleServiceRow';
 

@@ -1,14 +1,10 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
-import {
-  TimetablesView,
-  useAppDispatch,
-  useAppSelector,
-  useGetLineDetails,
-  useGetRoutesDisplayedInList,
-  useTimetableVersionsReturnToQueryParam,
-  useTimetablesViewState,
-} from '../../../hooks';
+import { useGetLineDetails } from '@/hooks/line-details';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { useGetRoutesDisplayedInList } from '@/hooks/routes';
+import { useTimetableVersionsReturnToQueryParam } from '@/hooks/ui';
+import { TimetablesView, useTimetablesViewState } from '@/hooks/vehicle-service';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import {
   closeChangeTimetableValidityModalAction,

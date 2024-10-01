@@ -7,6 +7,7 @@ export * from './search';
 export * from './stop-areas';
 export * from './stop-registry';
 export * from './stop-timing-settings';
+export * from './substitute-operating-periods';
 export * from './stops';
 export * from './timetables-import';
 export * from './timing-places';

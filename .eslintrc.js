@@ -32,7 +32,10 @@ module.exports = {
       version: 'detect',
     },
     'import/resolver': {
-      typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
+      typescript: {
+        // Ensure the resolver is pointing to the right `tsconfig.json`
+        project: './ui/tsconfig.json', // Adjust if needed, as per your folder structure
+      },
     },
   },
   plugins: [
@@ -112,8 +115,9 @@ module.exports = {
       'ignorePackages',
       // prevent importing .ts/.tsx files with file extension
       {
-        ts: 'never',
-        tsx: 'never',
+        'ts': 'never',
+        'tsx': 'never',
+        '': 'never',
       },
     ],
     'import/no-extraneous-dependencies': [

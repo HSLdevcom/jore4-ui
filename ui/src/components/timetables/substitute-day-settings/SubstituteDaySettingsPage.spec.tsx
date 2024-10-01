@@ -2,30 +2,24 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useDateQueryParam,
-  useTimeRangeQueryParams,
-} from '../../../hooks';
+import { SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from '@/components/timetables';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import {
   useCreateSubstituteOperatingPeriod,
   useDeleteSubstituteOperatingPeriod,
   useEditSubstituteOperatingPeriod,
   useGetCommonSubstituteOperatingPeriods,
   useGetOccasionalSubstituteOperatingPeriods,
-} from '../../../hooks/substitute-operating-periods';
-import { selectTimetable } from '../../../redux';
-import { SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from './common_substitute_day_defaults';
+} from '@/hooks/substitute-operating-periods';
+import { useDateQueryParam, useTimeRangeQueryParams } from '@/hooks/urlQuery';
+import { selectTimetable } from '@/redux';
 import { SubstituteDaySettingsPage } from './SubstituteDaySettingsPage';
 
 // Mock hooks
-jest.mock('../../../hooks');
-jest.mock('../../../hooks/substitute-operating-periods');
-jest.mock(
-  '../../../hooks/substitute-operating-periods/useGetCommonSubstituteOperatingPeriod',
-);
-jest.mock('../../../redux');
+jest.mock('@/hooks/substitute-operating-periods');
+jest.mock('@/hooks/urlQuery');
+jest.mock('@/hooks/redux');
+jest.mock('@/redux');
 
 // Fixed date for testing
 const fixedNow = DateTime.fromISO('2024-09-26T09:27:53.572+02:00');

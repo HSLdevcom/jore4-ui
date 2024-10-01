@@ -71212,6 +71212,32 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery = {
   }>;
 };
 
+export type GetSubstituteOperatingPeriodsQueryVariables = Exact<{
+  periodFilters?: InputMaybe<TimetablesServiceCalendarSubstituteOperatingPeriodBoolExp>;
+}>;
+
+export type GetSubstituteOperatingPeriodsQuery = {
+  __typename?: 'query_root';
+  timetables?: {
+    __typename?: 'timetables_timetables_query';
+    timetables_service_calendar_substitute_operating_period: Array<{
+      __typename?: 'timetables_service_calendar_substitute_operating_period';
+      period_name: string;
+      is_preset: boolean;
+      substitute_operating_period_id: UUID;
+      substitute_operating_day_by_line_types: Array<{
+        __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
+        begin_time?: luxon.Duration | null;
+        end_time?: luxon.Duration | null;
+        substitute_day_of_week?: number | null;
+        substitute_operating_day_by_line_type_id: UUID;
+        superseded_date: luxon.DateTime;
+        type_of_line: string;
+      }>;
+    }>;
+  } | null;
+};
+
 export type CreateSubstituteOperatingPeriodMutationVariables = Exact<{
   data:
     | Array<TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput>
@@ -71284,32 +71310,6 @@ export type EditSubstituteOperatingPeriodsMutation = {
       __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type_mutation_response';
       affected_rows: number;
     } | null;
-  } | null;
-};
-
-export type GetSubstituteOperatingPeriodsQueryVariables = Exact<{
-  periodFilters?: InputMaybe<TimetablesServiceCalendarSubstituteOperatingPeriodBoolExp>;
-}>;
-
-export type GetSubstituteOperatingPeriodsQuery = {
-  __typename?: 'query_root';
-  timetables?: {
-    __typename?: 'timetables_timetables_query';
-    timetables_service_calendar_substitute_operating_period: Array<{
-      __typename?: 'timetables_service_calendar_substitute_operating_period';
-      period_name: string;
-      is_preset: boolean;
-      substitute_operating_period_id: UUID;
-      substitute_operating_day_by_line_types: Array<{
-        __typename?: 'timetables_service_calendar_substitute_operating_day_by_line_type';
-        begin_time?: luxon.Duration | null;
-        end_time?: luxon.Duration | null;
-        substitute_day_of_week?: number | null;
-        substitute_operating_day_by_line_type_id: UUID;
-        superseded_date: luxon.DateTime;
-        type_of_line: string;
-      }>;
-    }>;
   } | null;
 };
 
@@ -78134,6 +78134,95 @@ export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryResult
     GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
     GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
   >;
+export const GetSubstituteOperatingPeriodsDocument = gql`
+  query GetSubstituteOperatingPeriods(
+    $periodFilters: timetables_service_calendar_substitute_operating_period_bool_exp
+  ) {
+    timetables {
+      timetables_service_calendar_substitute_operating_period(
+        where: $periodFilters
+      ) {
+        period_name
+        is_preset
+        substitute_operating_period_id
+        substitute_operating_day_by_line_types {
+          begin_time
+          end_time
+          substitute_day_of_week
+          substitute_operating_day_by_line_type_id
+          superseded_date
+          type_of_line
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetSubstituteOperatingPeriodsQuery__
+ *
+ * To run a query within a React component, call `useGetSubstituteOperatingPeriodsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSubstituteOperatingPeriodsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSubstituteOperatingPeriodsQuery({
+ *   variables: {
+ *      periodFilters: // value for 'periodFilters'
+ *   },
+ * });
+ */
+export function useGetSubstituteOperatingPeriodsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >(GetSubstituteOperatingPeriodsDocument, options);
+}
+export function useGetSubstituteOperatingPeriodsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >(GetSubstituteOperatingPeriodsDocument, options);
+}
+export function useGetSubstituteOperatingPeriodsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >(GetSubstituteOperatingPeriodsDocument, options);
+}
+export type GetSubstituteOperatingPeriodsQueryHookResult = ReturnType<
+  typeof useGetSubstituteOperatingPeriodsQuery
+>;
+export type GetSubstituteOperatingPeriodsLazyQueryHookResult = ReturnType<
+  typeof useGetSubstituteOperatingPeriodsLazyQuery
+>;
+export type GetSubstituteOperatingPeriodsSuspenseQueryHookResult = ReturnType<
+  typeof useGetSubstituteOperatingPeriodsSuspenseQuery
+>;
+export type GetSubstituteOperatingPeriodsQueryResult = Apollo.QueryResult<
+  GetSubstituteOperatingPeriodsQuery,
+  GetSubstituteOperatingPeriodsQueryVariables
+>;
 export const CreateSubstituteOperatingPeriodDocument = gql`
   mutation CreateSubstituteOperatingPeriod(
     $data: [timetables_service_calendar_substitute_operating_period_insert_input!]!
@@ -78333,95 +78422,6 @@ export type EditSubstituteOperatingPeriodsMutationOptions =
     EditSubstituteOperatingPeriodsMutation,
     EditSubstituteOperatingPeriodsMutationVariables
   >;
-export const GetSubstituteOperatingPeriodsDocument = gql`
-  query GetSubstituteOperatingPeriods(
-    $periodFilters: timetables_service_calendar_substitute_operating_period_bool_exp
-  ) {
-    timetables {
-      timetables_service_calendar_substitute_operating_period(
-        where: $periodFilters
-      ) {
-        period_name
-        is_preset
-        substitute_operating_period_id
-        substitute_operating_day_by_line_types {
-          begin_time
-          end_time
-          substitute_day_of_week
-          substitute_operating_day_by_line_type_id
-          superseded_date
-          type_of_line
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __useGetSubstituteOperatingPeriodsQuery__
- *
- * To run a query within a React component, call `useGetSubstituteOperatingPeriodsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetSubstituteOperatingPeriodsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetSubstituteOperatingPeriodsQuery({
- *   variables: {
- *      periodFilters: // value for 'periodFilters'
- *   },
- * });
- */
-export function useGetSubstituteOperatingPeriodsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetSubstituteOperatingPeriodsQuery,
-    GetSubstituteOperatingPeriodsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetSubstituteOperatingPeriodsQuery,
-    GetSubstituteOperatingPeriodsQueryVariables
-  >(GetSubstituteOperatingPeriodsDocument, options);
-}
-export function useGetSubstituteOperatingPeriodsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetSubstituteOperatingPeriodsQuery,
-    GetSubstituteOperatingPeriodsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetSubstituteOperatingPeriodsQuery,
-    GetSubstituteOperatingPeriodsQueryVariables
-  >(GetSubstituteOperatingPeriodsDocument, options);
-}
-export function useGetSubstituteOperatingPeriodsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetSubstituteOperatingPeriodsQuery,
-    GetSubstituteOperatingPeriodsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    GetSubstituteOperatingPeriodsQuery,
-    GetSubstituteOperatingPeriodsQueryVariables
-  >(GetSubstituteOperatingPeriodsDocument, options);
-}
-export type GetSubstituteOperatingPeriodsQueryHookResult = ReturnType<
-  typeof useGetSubstituteOperatingPeriodsQuery
->;
-export type GetSubstituteOperatingPeriodsLazyQueryHookResult = ReturnType<
-  typeof useGetSubstituteOperatingPeriodsLazyQuery
->;
-export type GetSubstituteOperatingPeriodsSuspenseQueryHookResult = ReturnType<
-  typeof useGetSubstituteOperatingPeriodsSuspenseQuery
->;
-export type GetSubstituteOperatingPeriodsQueryResult = Apollo.QueryResult<
-  GetSubstituteOperatingPeriodsQuery,
-  GetSubstituteOperatingPeriodsQueryVariables
->;
 export const GetToCombineTargetVehicleScheduleFrameIdDocument = gql`
   query GetToCombineTargetVehicleScheduleFrameId(
     $arg1: ToCombineTargetVehicleScheduleFrameIdInput!

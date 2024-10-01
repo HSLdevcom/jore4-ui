@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import { SimpleButton } from '@/uiComponents';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { SimpleButton } from '../../../uiComponents';
 import { SearchContainer } from '../../routes-and-lines/search/SearchContainer';
 
 const testIds = {

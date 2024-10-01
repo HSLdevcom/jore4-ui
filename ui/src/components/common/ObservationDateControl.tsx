@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { useObservationDateQueryParam } from '../../hooks';
+import { useObservationDateQueryParam } from '@/hooks/urlQuery';
 import { ObservationDateInput } from '../forms/common';
 
 const testIds = {

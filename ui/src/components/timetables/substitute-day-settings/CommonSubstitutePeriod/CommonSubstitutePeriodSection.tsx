@@ -1,18 +1,16 @@
 import { useTranslation } from 'react-i18next';
-// eslint-disable-next-line import/no-cycle
 import {
   CommonSubstituteOperatingPeriodsData,
-  useCreateSubstituteOperatingPeriod,
-  useDeleteSubstituteOperatingPeriod,
-  useEditSubstituteOperatingPeriod,
-} from '../../../../hooks/substitute-operating-periods';
-import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
-import { showDangerToastWithError, showSuccessToast } from '../../../../utils';
+  useCreateSubstituteOperatingPeriod, useDeleteSubstituteOperatingPeriod, useEditSubstituteOperatingPeriod,
+} from '@/hooks/substitute-operating-periods';
+import { LoadingWrapper } from '@/uiComponents';
+import { showDangerToastWithError, showSuccessToast } from '@/utils';
 import {
   CommonSubstitutePeriodForm,
   mapCommonSubstituteOperatingPeriodsToCommonDays,
 } from './CommonSubstitutePeriodForm';
 import { FormState } from './CommonSubstitutePeriodForm.types';
+
 
 interface Props {
   className?: string;

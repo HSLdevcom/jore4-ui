@@ -1,17 +1,16 @@
 import { useTranslation } from 'react-i18next';
-import { useTimeRangeQueryParams } from '../../../../hooks';
-// eslint-disable-next-line import/no-cycle
 import {
   OccasionalSubstituteOperatingPeriodsData,
   useCreateSubstituteOperatingPeriod,
   useDeleteSubstituteOperatingPeriod,
   useEditSubstituteOperatingPeriod,
-} from '../../../../hooks/substitute-operating-periods';
-import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
+} from '@/hooks/substitute-operating-periods';
+import { useTimeRangeQueryParams } from '@/hooks/urlQuery';
+import { LoadingWrapper } from '@/uiComponents';
 import {
   showDangerToastWithError,
   showSuccessToast,
-} from '../../../../utils/toastService';
+} from '@/utils';
 import {
   OccasionalSubstitutePeriodForm,
   findEarliestDate,

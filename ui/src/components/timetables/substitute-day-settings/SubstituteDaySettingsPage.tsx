@@ -2,25 +2,20 @@ import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import {
-  QueryParameterName,
-  useAppSelector,
-  useDateQueryParam,
-} from '../../../hooks';
-// eslint-disable-next-line import/no-cycle
+import { ObservationPeriodForm } from '@/components/forms/timetables/ObservationPeriodForm';
+import { CommonSubstitutePeriodSection , OccasionalSubstitutePeriodSection , SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from '@/components/timetables';
+import { useAppSelector } from '@/hooks/redux';
 import {
   useGetCommonSubstituteOperatingPeriods,
   useGetOccasionalSubstituteOperatingPeriods,
-} from '../../../hooks/substitute-operating-periods';
-import { Container, Row } from '../../../layoutComponents';
-import { selectTimetable } from '../../../redux';
-import { Path } from '../../../router/routeDetails';
-import { CloseIconButton, ConfirmationDialog } from '../../../uiComponents';
-import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
-import { ObservationPeriodForm } from '../../forms/timetables/ObservationPeriodForm';
-import { SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from './common_substitute_day_defaults';
-import { CommonSubstitutePeriodSection } from './CommonSubstitutePeriod';
-import { OccasionalSubstitutePeriodSection } from './OccasionalSubstitutePeriod';
+} from '@/hooks/substitute-operating-periods';
+import { QueryParameterName, useDateQueryParam } from '@/hooks/urlQuery';
+import { Container, Row } from '@/layoutComponents';
+import { selectTimetable } from '@/redux';
+import { Path } from '@/router/routeDetails';
+import { CloseIconButton } from '@/uiComponents/CloseIconButton';
+import { ConfirmationDialog } from '@/uiComponents/ConfirmationDialog';
+import { LoadingWrapper } from '@/uiComponents/LoadingWrapper';
 
 const testIds = {
   closeButton: 'SubstituteDaySettingsPage::closeButton',
@@ -36,6 +31,7 @@ export const SubstituteDaySettingsPage = (): React.ReactElement => {
       isCommonSubstitutePeriodFormDirty,
     },
   } = useAppSelector(selectTimetable);
+
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);

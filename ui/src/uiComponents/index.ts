@@ -15,6 +15,7 @@ export * from './ListboxButton';
 export * from './ListboxOptions';
 export * from './LoadingOverlay';
 export * from './LocatorButton';
+export * from './LoadingWrapper';
 export * from './MultiSelectListbox';
 export * from './Pagination';
 export * from './Popover';

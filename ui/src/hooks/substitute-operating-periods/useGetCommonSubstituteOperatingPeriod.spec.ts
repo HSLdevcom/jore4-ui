@@ -1,15 +1,13 @@
 import { renderHook } from '@testing-library/react';
 import { DateTime, Duration } from 'luxon';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 as uuidv4 } from 'uuid';
-import { SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from '../../components/timetables';
+import { SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from '@/components/timetables';
 import {
-  ReusableComponentsVehicleSubmodeEnum,
-  useGetSubstituteOperatingPeriodsQuery,
-} from '../../generated/graphql';
+  ReusableComponentsVehicleSubmodeEnum, useGetSubstituteOperatingPeriodsQuery,
+} from '@/generated/graphql';
 import { useGetCommonSubstituteOperatingPeriods } from './useGetCommonSubstituteOperatingPeriod';
 
-jest.mock('../../generated/graphql');
+jest.mock('@/generated/graphql');
 
 const fixedNow = DateTime.fromISO('2024-09-26T09:27:53.572+02:00');
 
