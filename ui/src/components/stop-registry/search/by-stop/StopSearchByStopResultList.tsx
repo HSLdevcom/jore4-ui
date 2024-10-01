@@ -1,18 +1,20 @@
-import { StopSearchRow } from '../../../hooks';
-import { StopTableRow } from './StopTableRow';
-import { LocatorActionButton } from './StopTableRow/ActionButtons/LocatorActionButton';
-import { OpenDetailsPage } from './StopTableRow/MenuItems/OpenDetailsPage';
-import { ShowOnMap } from './StopTableRow/MenuItems/ShowOnMap';
+import { StopTableRow } from '../StopTableRow';
+import { LocatorActionButton } from '../StopTableRow/ActionButtons/LocatorActionButton';
+import { OpenDetailsPage } from '../StopTableRow/MenuItems/OpenDetailsPage';
+import { ShowOnMap } from '../StopTableRow/MenuItems/ShowOnMap';
+import { StopSearchRow } from '../types';
 
 interface Props {
   stops: Array<StopSearchRow>;
 }
 
 const testIds = {
-  table: 'StopSearchResultList::table',
+  table: 'StopSearchByStopResultList::table',
 };
 
-export const StopSearchResultList = ({ stops }: Props): React.ReactElement => {
+export const StopSearchByStopResultList = ({
+  stops,
+}: Props): React.ReactElement => {
   return (
     <table
       className="h-1 w-full border-x border-x-light-grey"
