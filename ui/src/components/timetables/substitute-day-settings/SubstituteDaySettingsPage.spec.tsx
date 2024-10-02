@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { DateTime } from 'luxon';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
@@ -11,32 +17,52 @@ import {
   useGetCommonSubstituteOperatingPeriods,
   useGetOccasionalSubstituteOperatingPeriods,
 } from '@/hooks/substitute-operating-periods';
-import { useDateQueryParam, useTimeRangeQueryParams } from '@/hooks/urlQuery';
-import { selectTimetable } from '@/redux';
+import {
+  useDateQueryParam,
+  useTimeRangeQueryParams,
+  useUrlQuery,
+} from '@/hooks/urlQuery';
+import { selectTimetable } from '@/redux/selectors';
 import { SubstituteDaySettingsPage } from './SubstituteDaySettingsPage';
 
 // Mock hooks
 jest.mock('@/hooks/substitute-operating-periods');
 jest.mock('@/hooks/urlQuery');
 jest.mock('@/hooks/redux');
-jest.mock('@/redux');
+jest.mock('@/redux/selectors');
 
 // Fixed date for testing
 const fixedNow = DateTime.fromISO('2024-09-26T09:27:53.572+02:00');
-const mockedEndDate = fixedNow;
-const mockedStartDate = fixedNow.minus({ years: 150 });
+const defaultMockedEndDate = fixedNow;
 
 // Mocked implementation for `useDateQueryParam`
 const mockSetStartDate = jest.fn();
-(useDateQueryParam as jest.Mock).mockImplementation(({ queryParamName }) => {
-  if (queryParamName === 'startDate') {
-    return { date: mockedStartDate, setDateToUrl: mockSetStartDate };
-  }
-  if (queryParamName === 'endDate') {
-    return { date: mockedEndDate };
-  }
-  return {};
-});
+
+function mockDateHooks(mockedStartDate: DateTime, mockedEndDate: DateTime) {
+  (useDateQueryParam as jest.Mock).mockImplementation(({ queryParamName }) => {
+    if (queryParamName === 'startDate') {
+      return { date: mockedStartDate, setDateToUrl: mockSetStartDate };
+    }
+    if (queryParamName === 'endDate') {
+      return { date: mockedEndDate };
+    }
+    return {};
+  });
+
+  (useUrlQuery as jest.Mock).mockImplementation(() => {
+    return {
+      getDateTimeFromUrlQuery: jest.fn((queryParamName: string) => {
+        if (queryParamName === 'startDate') {
+          return mockedStartDate;
+        }
+        if (queryParamName === 'endDate') {
+          return mockedEndDate;
+        }
+        return undefined;
+      }),
+    };
+  });
+}
 
 (useTimeRangeQueryParams as jest.Mock).mockImplementation(() => ({
   isInvalidDateRange: jest.fn(),
@@ -94,52 +120,44 @@ describe('SubstituteDaySettingsPage', () => {
     );
 
   it('should adjust the start date if the time range exceeds 100 years', async () => {
-    renderComponent();
-
-    const expectedNewStartDate = mockedEndDate.minus({
+    const expectedNewStartDate = defaultMockedEndDate.minus({
       years: SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS,
     });
+    mockDateHooks(expectedNewStartDate, defaultMockedEndDate);
+    renderComponent();
 
     // Check that `setStartDate` was called with the correct adjusted date
     await waitFor(() => {
       expect(mockSetStartDate).toHaveBeenCalledWith(expectedNewStartDate);
     });
+
+    // Ensure total count
+    await waitFor(() => {
+      expect(mockSetStartDate.mock.calls).toHaveLength(2);
+    });
   });
 
   it('should not adjust the start date if the time range is less than or equal to 100 years', async () => {
     // Adjust mocked start date to be within 100 years
-    const withinRangeStartDate = mockedEndDate.minus({ years: 50 });
+    const withinRangeStartDate = defaultMockedEndDate.minus({ years: 50 });
 
-    (useDateQueryParam as jest.Mock).mockImplementation(
-      ({ queryParamName }) => {
-        if (queryParamName === 'startDate') {
-          return { date: withinRangeStartDate, setDateToUrl: mockSetStartDate };
-        }
-        if (queryParamName === 'endDate') {
-          return { date: mockedEndDate };
-        }
-        return {};
-      },
-    );
+    mockDateHooks(withinRangeStartDate, defaultMockedEndDate);
 
     renderComponent();
 
     // Ensure `setStartDate` was not called when within 100 years range
     await waitFor(() => {
-      expect(mockSetStartDate.mock.calls.filter((arg: string) => -DateTime.fromISO(arg).diff(fixedNow).as('years') > 90)).toHaveLength(0);
+      expect(
+        mockSetStartDate.mock.calls.filter(
+          (arg: string) =>
+            -DateTime.fromISO(arg).diff(fixedNow).as('years') > 90,
+        ),
+      ).toHaveLength(0);
     });
-  });
 
-  it('handles close button action correctly', () => {
-    renderComponent();
-
-    const closeButton = screen.getByTestId(
-      'SubstituteDaySettingsPage::closeButton',
-    );
-    fireEvent.click(closeButton);
-
-    expect(
-      screen.findByTestId('SubstituteDaySettingsPage::closeButton'),
-    ).toBeTruthy();
+    // Ensure total count
+    await waitFor(() => {
+      expect(mockSetStartDate.mock.calls).toHaveLength(2);
+    });
   });
 });

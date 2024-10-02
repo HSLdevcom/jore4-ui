@@ -115,8 +115,8 @@ module.exports = {
       'ignorePackages',
       // prevent importing .ts/.tsx files with file extension
       {
-        'ts': 'never',
-        'tsx': 'never',
+        ts: 'never',
+        tsx: 'never',
         '': 'never',
       },
     ],

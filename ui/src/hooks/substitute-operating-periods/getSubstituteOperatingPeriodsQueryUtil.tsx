@@ -1,13 +1,11 @@
 import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
-import {
-  SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS,
-} from '@/components/timetables/substitute-day-settings/common_substitute_day_defaults';
+import { SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from '@/components/timetables/substitute-day-settings/common_substitute_day_defaults';
 import {
   GetSubstituteOperatingPeriodsQuery,
   TimetablesServiceCalendarSubstituteOperatingPeriod,
 } from '@/generated/graphql';
-import { buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods } from '@/utils';
+import { buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods } from '@/utils/gql';
 
 export const GQL_GET_SUBSTITUTE_OPERATING_PERIODS = gql`
   query GetSubstituteOperatingPeriods(
@@ -32,13 +30,18 @@ export const GQL_GET_SUBSTITUTE_OPERATING_PERIODS = gql`
     }
   }
 `;
-export const getSubstituteOperatingPeriodsFilterAndMapper = (originalStartDate: DateTime, endDate: DateTime) => {
+export const getSubstituteOperatingPeriodsFilterAndMapper = (
+  originalStartDate: DateTime,
+  endDate: DateTime,
+) => {
   function getStartDateOrMindValue() {
     let startDate = originalStartDate;
 
     if (startDate && endDate) {
       const timeDiff = endDate.diff(startDate);
-      if (timeDiff.as('year') > SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS) {
+      if (
+        timeDiff.as('year') > SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS
+      ) {
         startDate = endDate.minus({
           year: SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS,
         });

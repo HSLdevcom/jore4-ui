@@ -1,21 +1,18 @@
-import { DateTime } from 'luxon';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ObservationPeriodForm } from '@/components/forms/timetables/ObservationPeriodForm';
-import { CommonSubstitutePeriodSection , OccasionalSubstitutePeriodSection , SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from '@/components/timetables';
+import { CommonSubstitutePeriodSection } from '@/components/timetables/substitute-day-settings/CommonSubstitutePeriod';
+import { OccasionalSubstitutePeriodSection } from '@/components/timetables/substitute-day-settings/OccasionalSubstitutePeriod';
 import { useAppSelector } from '@/hooks/redux';
-import {
-  useGetCommonSubstituteOperatingPeriods,
-  useGetOccasionalSubstituteOperatingPeriods,
-} from '@/hooks/substitute-operating-periods';
-import { QueryParameterName, useDateQueryParam } from '@/hooks/urlQuery';
-import { Container, Row } from '@/layoutComponents';
-import { selectTimetable } from '@/redux';
+import { useValidateAndReplaceSubstitutePeriodStartDate } from '@/hooks/substitute-operating-periods/useValidateAndReplaceSubstitutePeriodStartDate';
+import { Container } from '@/layoutComponents/Container';
+import { Row } from '@/layoutComponents/Row';
 import { Path } from '@/router/routeDetails';
 import { CloseIconButton } from '@/uiComponents/CloseIconButton';
 import { ConfirmationDialog } from '@/uiComponents/ConfirmationDialog';
 import { LoadingWrapper } from '@/uiComponents/LoadingWrapper';
+import { selectTimetable } from '../../../redux';
 
 const testIds = {
   closeButton: 'SubstituteDaySettingsPage::closeButton',
@@ -34,51 +31,14 @@ export const SubstituteDaySettingsPage = (): React.ReactElement => {
 
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const { date: startDate, setDateToUrl: setStartDate } = useDateQueryParam({
-    queryParamName: QueryParameterName.StartDate,
-    initialize: false,
-  });
-  const { date: endDate } = useDateQueryParam({
-    queryParamName: QueryParameterName.EndDate,
-    initialize: false,
-  });
-
-  const { getOccasionalSubstituteOperatingPeriodData } =
-    useGetOccasionalSubstituteOperatingPeriods({ startDate, endDate });
-
-  const occasionalSubstituteOperatingPeriodData = useMemo(() => {
-    return getOccasionalSubstituteOperatingPeriodData();
-  }, [getOccasionalSubstituteOperatingPeriodData]);
-
-  const { getCommonSubstituteOperatingPeriodData } =
-    useGetCommonSubstituteOperatingPeriods({ startDate, endDate });
-
-  const commonSubstituteOperatingPeriodData = useMemo(() => {
-    return getCommonSubstituteOperatingPeriodData();
-  }, [getCommonSubstituteOperatingPeriodData]);
-
-  // Workaround for useDateQueryParam hook side effects
-  const doSetStartupDate = useCallback((newDate: DateTime) => {
-    setStartDate(newDate);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { isLoading: validatorIsLoading } =
+    useValidateAndReplaceSubstitutePeriodStartDate();
 
   useEffect(() => {
-    if (!startDate || !endDate) {
-      return;
-    }
-    setIsLoading(true);
-    const timeDiff = endDate.diff(startDate);
-    if (timeDiff.as('year') > SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS) {
-      const newStartDate = endDate.minus({
-        year: SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS,
-      });
-      doSetStartupDate(newStartDate);
-    }
-    setIsLoading(false);
-  }, [doSetStartupDate, startDate, endDate]);
+    setIsLoading(validatorIsLoading);
+  }, [validatorIsLoading]);
 
   const handleClose = () => {
     if (
@@ -100,11 +60,7 @@ export const SubstituteDaySettingsPage = (): React.ReactElement => {
       <LoadingWrapper
         className="flex justify-center"
         loadingText={t('search.searching')}
-        loading={
-          isLoading &&
-          !!commonSubstituteOperatingPeriodData &&
-          !!occasionalSubstituteOperatingPeriodData
-        }
+        loading={isLoading}
         testId={testIds.loadingSubstituteDays}
       >
         <Row className="justify-between py-8">
@@ -121,20 +77,11 @@ export const SubstituteDaySettingsPage = (): React.ReactElement => {
           <ObservationPeriodForm />
         </div>
         <div className="divide-y">
-          <CommonSubstitutePeriodSection
-            commonSubstituteOperatingPeriodData={
-              commonSubstituteOperatingPeriodData
-            }
-            className="my-8"
-          />
+          <CommonSubstitutePeriodSection className="my-8" />
         </div>
         <hr />
         <div className="divide-y">
-          <OccasionalSubstitutePeriodSection
-            occasionalSubstituteOperatingPeriodData={
-              occasionalSubstituteOperatingPeriodData
-            }
-          />
+          <OccasionalSubstitutePeriodSection />
         </div>
         <hr />
         <ConfirmationDialog

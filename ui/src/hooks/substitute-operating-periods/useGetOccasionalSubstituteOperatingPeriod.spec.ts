@@ -1,14 +1,17 @@
 import { renderHook } from '@testing-library/react';
 import { DateTime, Duration } from 'luxon';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 as uuidv4 } from 'uuid';
 import { SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from '@/components/timetables';
 import {
   ReusableComponentsVehicleSubmodeEnum,
   useGetSubstituteOperatingPeriodsQuery,
 } from '@/generated/graphql';
+import { useDateQueryParam, useUrlQuery } from '@/hooks/urlQuery';
 import { useGetOccasionalSubstituteOperatingPeriods } from './useGetOccasionalSubstituteOperatingPeriod';
 
+jest.mock('@/hooks/urlQuery/useUrlQuery');
+jest.mock('@/hooks/urlQuery/useDateQueryParam');
+jest.mock('react-router-dom');
 jest.mock('@/generated/graphql');
 
 const fixedNow = DateTime.fromISO('2024-09-26T09:27:53.572+02:00');
@@ -51,15 +54,31 @@ describe('useGetSubstituteOperatingPeriods', () => {
     const endDate = fixedNow;
     const originalStartDate = endDate.minus({ years: 150 });
 
-    const { result } = renderHook(() =>
-      useGetOccasionalSubstituteOperatingPeriods({
-        startDate: originalStartDate,
-        endDate,
+    (useUrlQuery as jest.Mock).mockReturnValue({
+      getDateTimeFromUrlQuery: jest.fn(() => {
+        return originalStartDate;
       }),
+    });
+    (useDateQueryParam as jest.Mock).mockImplementation(
+      ({ queryParamName }) => {
+        const data =
+          queryParamName === 'startDate'
+            ? {
+                date: originalStartDate,
+              }
+            : {
+                date: fixedNow,
+              };
+
+        return data;
+      },
     );
 
-    const { getOccasionalSubstituteOperatingPeriodData } = result.current;
-    const data = getOccasionalSubstituteOperatingPeriodData();
+    const { result } = renderHook(() =>
+      useGetOccasionalSubstituteOperatingPeriods(),
+    );
+
+    const { occasionalSubstituteOperatingPeriodData: data } = result.current;
 
     const expectedStartDate = endDate.minus({
       years: SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS,
@@ -94,15 +113,26 @@ describe('useGetSubstituteOperatingPeriods', () => {
     const endDate = fixedNow;
     const originalStartDate = endDate.minus({ years: 90 });
 
-    const { result } = renderHook(() =>
-      useGetOccasionalSubstituteOperatingPeriods({
-        startDate: originalStartDate,
-        endDate,
-      }),
+    (useDateQueryParam as jest.Mock).mockImplementation(
+      ({ queryParamName }) => {
+        const data =
+          queryParamName === 'startDate'
+            ? {
+                date: originalStartDate,
+              }
+            : {
+                date: fixedNow,
+              };
+
+        return data;
+      },
     );
 
-    const { getOccasionalSubstituteOperatingPeriodData } = result.current;
-    const data = getOccasionalSubstituteOperatingPeriodData();
+    const { result } = renderHook(() =>
+      useGetOccasionalSubstituteOperatingPeriods(),
+    );
+
+    const { occasionalSubstituteOperatingPeriodData: data } = result.current;
 
     // Assert that the start date is not modified
     expect(data.occasionalSubstituteOperatingPeriods).toEqual(

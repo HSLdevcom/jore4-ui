@@ -22,3 +22,4 @@ export * from './substituteOperatingPeriod';
 export * from './toastService';
 export * from './url';
 export * from './validity';
+export * from './date-control-validator';

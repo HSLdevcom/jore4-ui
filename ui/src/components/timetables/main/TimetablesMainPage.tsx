@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { SimpleButton } from '@/uiComponents';
+import { SimpleButton } from '@/uiComponents/SimpleButton';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { SearchContainer } from '../../routes-and-lines/search/SearchContainer';

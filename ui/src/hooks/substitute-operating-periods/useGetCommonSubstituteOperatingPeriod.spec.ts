@@ -3,10 +3,14 @@ import { DateTime, Duration } from 'luxon';
 import { v4 as uuidv4 } from 'uuid';
 import { SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from '@/components/timetables';
 import {
-  ReusableComponentsVehicleSubmodeEnum, useGetSubstituteOperatingPeriodsQuery,
+  ReusableComponentsVehicleSubmodeEnum,
+  useGetSubstituteOperatingPeriodsQuery,
 } from '@/generated/graphql';
+import { useDateQueryParam } from '@/hooks/urlQuery';
 import { useGetCommonSubstituteOperatingPeriods } from './useGetCommonSubstituteOperatingPeriod';
 
+jest.mock('@/hooks/urlQuery/useUrlQuery');
+jest.mock('@/hooks/urlQuery/useDateQueryParam');
 jest.mock('@/generated/graphql');
 
 const fixedNow = DateTime.fromISO('2024-09-26T09:27:53.572+02:00');
@@ -49,15 +53,26 @@ describe('useGetCommonOperatingPeriods', () => {
     const endDate = fixedNow;
     const originalStartDate = endDate.minus({ years: 150 });
 
-    const { result } = renderHook(() =>
-      useGetCommonSubstituteOperatingPeriods({
-        startDate: originalStartDate,
-        endDate,
-      }),
+    (useDateQueryParam as jest.Mock).mockImplementation(
+      ({ queryParamName }) => {
+        const data =
+          queryParamName === 'startDate'
+            ? {
+                date: originalStartDate,
+              }
+            : {
+                date: fixedNow,
+              };
+
+        return data;
+      },
     );
 
-    const { getCommonSubstituteOperatingPeriodData } = result.current;
-    const data = getCommonSubstituteOperatingPeriodData();
+    const { result } = renderHook(() =>
+      useGetCommonSubstituteOperatingPeriods(),
+    );
+
+    const { commonSubstituteOperatingPeriodData: data } = result.current;
 
     const expectedStartDate = endDate.minus({
       years: SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS,
@@ -92,15 +107,26 @@ describe('useGetCommonOperatingPeriods', () => {
     const endDate = fixedNow;
     const originalStartDate = endDate.minus({ years: 90 });
 
-    const { result } = renderHook(() =>
-      useGetCommonSubstituteOperatingPeriods({
-        startDate: originalStartDate,
-        endDate,
-      }),
+    (useDateQueryParam as jest.Mock).mockImplementation(
+      ({ queryParamName }) => {
+        const data =
+          queryParamName === 'startDate'
+            ? {
+                date: originalStartDate,
+              }
+            : {
+                date: fixedNow,
+              };
+
+        return data;
+      },
     );
 
-    const { getCommonSubstituteOperatingPeriodData } = result.current;
-    const data = getCommonSubstituteOperatingPeriodData();
+    const { result } = renderHook(() =>
+      useGetCommonSubstituteOperatingPeriods(),
+    );
+
+    const data = result.current.commonSubstituteOperatingPeriodData;
 
     // Assert that the start date is not modified
     expect(data.commonSubstituteOperatingPeriods).toEqual(

@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
+import { Row } from '@/layoutComponents/Row';
+import { Visible } from '@/layoutComponents/Visible';
+import { selectTimetable } from '@/redux/selectors';
 import {
   QueryParameterName,
   useAppSelector,
   useTimeRangeQueryParams,
 } from '../../../hooks';
-import { Visible } from '../../../layoutComponents';
-import { Row } from '../../../layoutComponents/Row';
-import { selectTimetable } from '../../../redux';
 import { DateControl } from '../../common';
 import { ValidationError } from '../common';
 

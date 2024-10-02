@@ -1,20 +1,23 @@
 import { useTranslation } from 'react-i18next';
 import {
-  CommonSubstituteOperatingPeriodsData,
-  useCreateSubstituteOperatingPeriod, useDeleteSubstituteOperatingPeriod, useEditSubstituteOperatingPeriod,
+  useCreateSubstituteOperatingPeriod,
+  useDeleteSubstituteOperatingPeriod,
+  useEditSubstituteOperatingPeriod,
+  useGetCommonSubstituteOperatingPeriods,
 } from '@/hooks/substitute-operating-periods';
-import { LoadingWrapper } from '@/uiComponents';
-import { showDangerToastWithError, showSuccessToast } from '@/utils';
+import { LoadingWrapper } from '@/uiComponents/LoadingWrapper';
+import {
+  showDangerToastWithError,
+  showSuccessToast,
+} from '@/utils/toastService';
 import {
   CommonSubstitutePeriodForm,
   mapCommonSubstituteOperatingPeriodsToCommonDays,
 } from './CommonSubstitutePeriodForm';
 import { FormState } from './CommonSubstitutePeriodForm.types';
 
-
 interface Props {
   className?: string;
-  commonSubstituteOperatingPeriodData: CommonSubstituteOperatingPeriodsData | null;
 }
 
 const testIds = {
@@ -24,7 +27,6 @@ const testIds = {
 
 export const CommonSubstitutePeriodSection = ({
   className = '',
-  commonSubstituteOperatingPeriodData,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
 
@@ -36,6 +38,9 @@ export const CommonSubstitutePeriodSection = ({
 
   const { deleteSubstituteOperatingPeriod } =
     useDeleteSubstituteOperatingPeriod();
+
+  const { commonSubstituteOperatingPeriodData } =
+    useGetCommonSubstituteOperatingPeriods();
 
   if (!commonSubstituteOperatingPeriodData) {
     return (

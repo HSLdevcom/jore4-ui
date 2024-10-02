@@ -4,7 +4,10 @@ import { useGetLineDetails } from '@/hooks/line-details';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useGetRoutesDisplayedInList } from '@/hooks/routes';
 import { useTimetableVersionsReturnToQueryParam } from '@/hooks/ui';
-import { TimetablesView, useTimetablesViewState } from '@/hooks/vehicle-service';
+import {
+  TimetablesView,
+  useTimetablesViewState,
+} from '@/hooks/vehicle-service';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import {
   closeChangeTimetableValidityModalAction,

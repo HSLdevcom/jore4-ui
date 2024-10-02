@@ -18,14 +18,14 @@ interface Props {
  * The query parameter name is required as parameter
  */
 export const DateControl = ({
-                              label,
-                              className = '',
-                              disabled = false,
-                              testId,
-                              dateInputId,
-                              queryParamName,
-                              initialize,
-                            }: Props): React.ReactElement => {
+  label,
+  className = '',
+  disabled = false,
+  testId,
+  dateInputId,
+  queryParamName,
+  initialize,
+}: Props): React.ReactElement => {
   const { date, setDateToUrl } = useDateQueryParam({
     queryParamName,
     initialize,
@@ -39,7 +39,6 @@ export const DateControl = ({
     if (setDateToUrl) {
       setDateToUrl(debouncedValue);
     }
-
   }, [debouncedValue, setDateToUrl]);
 
   useEffect(() => {
@@ -56,11 +55,17 @@ export const DateControl = ({
     doSet();
   }, [doSet, debouncedValue]);
 
+  useEffect(() => {
+    setMyNewDate(date);
+  }, [date]);
+
   const onDateChange = (newDate: DateTime) => {
     // Do not allow setting empty value to date
+
     if (!date.isValid) {
       return;
     }
+
     setMyNewDate(newDate);
   };
 

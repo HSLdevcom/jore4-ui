@@ -1,13 +1,12 @@
 import { DateTime } from 'luxon';
+import { useMemo } from 'react';
 import {
   TimetablesServiceCalendarSubstituteOperatingPeriod,
   useGetSubstituteOperatingPeriodsQuery,
 } from '@/generated/graphql';
-import {
-  getSubstituteOperatingPeriodsFilterAndMapper,
-} from '@/hooks/substitute-operating-periods/getSubstituteOperatingPeriodsQueryUtil';
-import { buildIsPresetSubstituteOperatingPeriodFilter } from '@/utils';
-
+import { getSubstituteOperatingPeriodsFilterAndMapper } from '@/hooks/substitute-operating-periods/getSubstituteOperatingPeriodsQueryUtil';
+import { QueryParameterName, useDateQueryParam } from '@/hooks/urlQuery';
+import { buildIsPresetSubstituteOperatingPeriodFilter } from '@/utils/gql';
 
 export type OccasionalSubstituteOperatingPeriodsData = {
   isLoadingOccasionalSubstituteOperatingPeriods: boolean;
@@ -15,14 +14,15 @@ export type OccasionalSubstituteOperatingPeriodsData = {
   refetchOccasionalSubstituteOperatingPeriods: () => void;
 };
 
-export const useGetOccasionalSubstituteOperatingPeriods = ({
+const usePrepareGetOccasionalSubstituteOperatingPeriods = ({
   startDate: originalStartDate,
   endDate,
 }: {
   startDate: DateTime;
   endDate: DateTime;
 }) => {
-  const { mapSubstituteOperatingPeriodsResult, periodDateRangeFilter } = getSubstituteOperatingPeriodsFilterAndMapper(originalStartDate, endDate);
+  const { mapSubstituteOperatingPeriodsResult, periodDateRangeFilter } =
+    getSubstituteOperatingPeriodsFilterAndMapper(originalStartDate, endDate);
 
   const occasionalPeriodFilter = {
     ...periodDateRangeFilter,
@@ -48,4 +48,28 @@ export const useGetOccasionalSubstituteOperatingPeriods = ({
   return {
     getOccasionalSubstituteOperatingPeriodData,
   };
+};
+
+export const useGetOccasionalSubstituteOperatingPeriods = () => {
+  const { date: startDate } = useDateQueryParam({
+    queryParamName: QueryParameterName.StartDate,
+    initialize: false,
+  });
+
+  const { date: endDate } = useDateQueryParam({
+    queryParamName: QueryParameterName.EndDate,
+    initialize: false,
+  });
+
+  const { getOccasionalSubstituteOperatingPeriodData: data } =
+    usePrepareGetOccasionalSubstituteOperatingPeriods({
+      startDate,
+      endDate,
+    });
+
+  const occasionalSubstituteOperatingPeriodData = useMemo(() => {
+    return data();
+  }, [data]);
+
+  return { occasionalSubstituteOperatingPeriodData };
 };

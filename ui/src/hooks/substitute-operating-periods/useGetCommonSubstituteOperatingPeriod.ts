@@ -1,13 +1,12 @@
 import { DateTime } from 'luxon';
+import { useMemo } from 'react';
 import {
   TimetablesServiceCalendarSubstituteOperatingPeriod,
   useGetSubstituteOperatingPeriodsQuery,
 } from '@/generated/graphql';
-import {
-  getSubstituteOperatingPeriodsFilterAndMapper,
-} from '@/hooks/substitute-operating-periods/getSubstituteOperatingPeriodsQueryUtil';
-import { buildIsPresetSubstituteOperatingPeriodFilter } from '@/utils';
-
+import { getSubstituteOperatingPeriodsFilterAndMapper } from '@/hooks/substitute-operating-periods/getSubstituteOperatingPeriodsQueryUtil';
+import { QueryParameterName, useDateQueryParam } from '@/hooks/urlQuery';
+import { buildIsPresetSubstituteOperatingPeriodFilter } from '@/utils/gql';
 
 export type CommonSubstituteOperatingPeriodsData = {
   isLoadingCommonSubstituteOperatingPeriods: boolean;
@@ -15,15 +14,15 @@ export type CommonSubstituteOperatingPeriodsData = {
   refetchCommonSubstituteOperatingPeriods: () => void;
 };
 
-
-export const useGetCommonSubstituteOperatingPeriods = ({
+const usePrepareGetCommonSubstituteOperatingPeriods = ({
   startDate: originalStartDate,
   endDate,
 }: {
   startDate: DateTime;
   endDate: DateTime;
 }) => {
-  const { mapSubstituteOperatingPeriodsResult, periodDateRangeFilter } = getSubstituteOperatingPeriodsFilterAndMapper(originalStartDate, endDate);
+  const { mapSubstituteOperatingPeriodsResult, periodDateRangeFilter } =
+    getSubstituteOperatingPeriodsFilterAndMapper(originalStartDate, endDate);
 
   const commonPeriodFilter = {
     ...periodDateRangeFilter,
@@ -49,4 +48,28 @@ export const useGetCommonSubstituteOperatingPeriods = ({
   return {
     getCommonSubstituteOperatingPeriodData,
   };
+};
+
+export const useGetCommonSubstituteOperatingPeriods = () => {
+  const { date: startDate } = useDateQueryParam({
+    queryParamName: QueryParameterName.StartDate,
+    initialize: false,
+  });
+
+  const { date: endDate } = useDateQueryParam({
+    queryParamName: QueryParameterName.EndDate,
+    initialize: false,
+  });
+
+  const { getCommonSubstituteOperatingPeriodData: data } =
+    usePrepareGetCommonSubstituteOperatingPeriods({
+      startDate,
+      endDate,
+    });
+
+  const commonSubstituteOperatingPeriodData = useMemo(() => {
+    return data();
+  }, [data]);
+
+  return { commonSubstituteOperatingPeriodData };
 };
