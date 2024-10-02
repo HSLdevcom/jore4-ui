@@ -64,18 +64,18 @@ export const useUrlQuery = () => {
     (queryString: string, replace: boolean, pathname?: string) => {
       replace
         ? navigate(
-            {
-              search: `?${queryString}`,
-              pathname,
-            },
-            {
-              replace: true,
-            },
-          )
-        : navigate({
+          {
             search: `?${queryString}`,
             pathname,
-          });
+          },
+          {
+            replace: true,
+          },
+        )
+        : navigate({
+          search: `?${queryString}`,
+          pathname,
+        });
     },
     [navigate],
   );
@@ -86,11 +86,11 @@ export const useUrlQuery = () => {
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setToUrlQuery = ({
-    paramName,
-    value,
-    replace = false,
-  }: {
+  const setToUrlQuery = useCallback(({
+                                       paramName,
+                                       value,
+                                       replace = false,
+                                     }: {
     paramName: string;
     value: string;
     replace?: boolean;
@@ -102,7 +102,7 @@ export const useUrlQuery = () => {
     const queryString = qs.stringify(updatedUrlQuery);
 
     setQueryString(queryString, replace);
-  };
+  }, [queryParams, setQueryString]);
 
   /** Sets boolean parameter to URL query
    * replace flag can be given to replace the earlier url query instead
@@ -110,12 +110,12 @@ export const useUrlQuery = () => {
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setBooleanToUrlQuery = (
+  const setBooleanToUrlQuery = useCallback((
     { paramName, value }: QueryParameter<boolean>,
     { replace }: ParameterWriteOptions = {},
   ) => {
     setToUrlQuery({ paramName, value: value.toString(), replace });
-  };
+  }, [setToUrlQuery]);
 
   /** Sets DateTime parameter to URL query as ISO Date
    * replace flag can be given to replace the earlier url query instead
@@ -123,12 +123,12 @@ export const useUrlQuery = () => {
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setDateTimeToUrlQuery = (
+  const setDateTimeToUrlQuery = useCallback((
     { paramName, value }: QueryParameter<DateTime>,
     { replace }: ParameterWriteOptions = {},
   ) => {
     setToUrlQuery({ paramName, value: value.toISODate(), replace });
-  };
+  }, [setToUrlQuery]);
 
   /** Sets multiple parameters to URL query
    * Converts booleans, DateTimes and numbers in to string format
@@ -139,10 +139,10 @@ export const useUrlQuery = () => {
    */
   const setMultipleParametersToUrlQuery = useCallback(
     ({
-      parameters,
-      replace = false,
-      pathname = undefined,
-    }: {
+       parameters,
+       replace = false,
+       pathname = undefined,
+     }: {
       parameters: QueryParameter<QueryParameterTypes>[];
       replace?: boolean;
       debounced?: boolean;
@@ -181,12 +181,12 @@ export const useUrlQuery = () => {
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setArrayToUrlQuery = <T>(
+  const setArrayToUrlQuery = useCallback(<T>(
     { paramName, value }: QueryParameter<T[]>,
     { replace }: ParameterWriteOptions = {},
   ) => {
     setToUrlQuery({ paramName, value: value.join(','), replace });
-  };
+  },[setToUrlQuery]);
 
   /** Returns a query parameter in array type */
   const getArrayFromUrlQuery = (paramName: string): string[] | undefined => {
@@ -261,9 +261,9 @@ export const useUrlQuery = () => {
    * url which was replaced, but rather the one before it.
    */
   const deleteFromUrlQuery = ({
-    paramName,
-    replace = false,
-  }: {
+                                paramName,
+                                replace = false,
+                              }: {
     paramName: string;
     replace?: boolean;
   }) => {
@@ -283,9 +283,9 @@ export const useUrlQuery = () => {
    * url which was replaced, but rather the one before it.
    */
   const deleteMultipleFromUrlQuery = ({
-    paramNames,
-    replace = false,
-  }: {
+                                        paramNames,
+                                        replace = false,
+                                      }: {
     paramNames: string[];
     replace?: boolean;
   }) => {

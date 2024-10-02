@@ -15,10 +15,10 @@ interface Props {
  * these could maybe be combined at least from some parts.
  */
 export const useDateQueryParam = ({
-  initialize = true,
-  queryParamName,
-  initialDate,
-}: Props) => {
+                                    initialize = true,
+                                    queryParamName,
+                                    initialDate,
+                                  }: Props) => {
   const { getDateTimeFromUrlQuery, setDateTimeToUrlQuery, queryParams } =
     useUrlQuery();
 
@@ -31,12 +31,12 @@ export const useDateQueryParam = ({
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setDateToUrl = (date: DateTime, replace = false) => {
+  const setDateToUrl = useCallback((date: DateTime, replace = false) => {
     setDateTimeToUrlQuery(
       { paramName: queryParamName, value: date },
       { replace },
     );
-  };
+  }, [queryParamName, setDateTimeToUrlQuery]);
 
   // Memoize the actual value to prevent unnecessary updates
   const date = useMemo(() => {

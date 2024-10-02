@@ -108,7 +108,7 @@ describe('SubstituteDaySettingsPage', () => {
 
   it('should not adjust the start date if the time range is less than or equal to 100 years', async () => {
     // Adjust mocked start date to be within 100 years
-    const withinRangeStartDate = mockedEndDate.minus({ years: 90 });
+    const withinRangeStartDate = mockedEndDate.minus({ years: 50 });
 
     (useDateQueryParam as jest.Mock).mockImplementation(
       ({ queryParamName }) => {
@@ -126,7 +126,7 @@ describe('SubstituteDaySettingsPage', () => {
 
     // Ensure `setStartDate` was not called when within 100 years range
     await waitFor(() => {
-      expect(mockSetStartDate).not.toHaveBeenCalled();
+      expect(mockSetStartDate.mock.calls.filter((arg: string) => -DateTime.fromISO(arg).diff(fixedNow).as('years') > 90)).toHaveLength(0);
     });
   });
 

@@ -18,14 +18,14 @@ interface Props {
  * The query parameter name is required as parameter
  */
 export const DateControl = ({
-  label,
-  className = '',
-  disabled = false,
-  testId,
-  dateInputId,
-  queryParamName,
-  initialize,
-}: Props): React.ReactElement => {
+                              label,
+                              className = '',
+                              disabled = false,
+                              testId,
+                              dateInputId,
+                              queryParamName,
+                              initialize,
+                            }: Props): React.ReactElement => {
   const { date, setDateToUrl } = useDateQueryParam({
     queryParamName,
     initialize,
@@ -36,9 +36,11 @@ export const DateControl = ({
 
   // Workaround for useDateQueryParam hook side effects
   const doSet = useCallback(() => {
-    setDateToUrl(debouncedValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue]);
+    if (setDateToUrl) {
+      setDateToUrl(debouncedValue);
+    }
+
+  }, [debouncedValue, setDateToUrl]);
 
   useEffect(() => {
     const handler = setTimeout(() => {
