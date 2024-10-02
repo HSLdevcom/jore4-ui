@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Container, Row } from '../../../layoutComponents';
 import { CloseIconButton } from '../../../uiComponents';
+import { StopsByLineSearchResults } from './by-line';
 import { StopSearchByStopResults } from './by-stop';
+import { SearchBy } from './SearchCriteriaRadioButtons';
 import { StopSearchBar } from './StopSearchBar';
 import { useStopSearch } from './useStopSearch';
 
@@ -14,7 +16,6 @@ export const StopSearchResultPage = (): React.ReactElement => {
   const { t } = useTranslation();
 
   const { handleClose, searchConditions } = useStopSearch();
-  console.log({ searchConditions });
 
   return (
     <Container testId={testIds.container}>
@@ -30,7 +31,12 @@ export const StopSearchResultPage = (): React.ReactElement => {
         />
       </Row>
       <StopSearchBar />
-      <StopSearchByStopResults />
+
+      {searchConditions.searchBy === SearchBy.Line ? (
+        <StopsByLineSearchResults />
+      ) : (
+        <StopSearchByStopResults />
+      )}
     </Container>
   );
 };

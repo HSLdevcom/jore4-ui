@@ -364,8 +364,14 @@
     "elyNumber": "ELY number",
     "byAddress": "By address",
     "byLabel": "By label",
+    "byLine": "By line label",
     "municipality": "Municipality",
     "municipalityPlaceholder": "Choose",
+    "lines": "Lines",
+    "showAllLines": "Show all ({{count}})",
+    "showLessLines": "Show less",
+    "failedToFetchStops": "Failed to fetch stops! Reason: {{reason}}",
+    "tryToRefetch": "Try to refech stops",
     "stopRowActions": {
       "openDetails": "Open stop details page",
       "showOnMap": "Show stop on the map"
@@ -579,8 +585,16 @@
     "ferry_service": "Ferry service"
   },
   "directionEnum": {
-    "outbound": "1 - Outbound",
-    "inbound": "2 - Inbound"
+    "symbol": {
+      "outbound": "1",
+      "inbound": "2"
+    },
+    "label": {
+      "outbound": "Outbound",
+      "inbound": "Inbound"
+    },
+    "outbound": "$t(directionEnum.symbol.outbound) - $t(directionEnum.label.outbound)",
+    "inbound": "$t(directionEnum.symbol.inbound) - $t(directionEnum.label.inbound)"
   },
   "timetableDayEnum": {
     "noTraffic": "No traffic",
