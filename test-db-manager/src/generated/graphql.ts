@@ -8244,6 +8244,7 @@ export type ServicePatternScheduledStopPoint = {
   located_on_infrastructure_link_id: Scalars['uuid']['output'];
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location: Scalars['geography_point']['output'];
+  newest_stop_place?: Maybe<StopsDatabaseStopPlaceNewestVersion>;
   /** An array relationship */
   other_label_instances: Array<ServicePatternScheduledStopPoint>;
   /** An aggregate relationship */
