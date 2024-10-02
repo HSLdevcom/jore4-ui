@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
-import { QueryParameterName } from '../../hooks';
-import { useDateQueryParam } from '../../hooks/urlQuery/useDateQueryParam';
+import { QueryParameterName, useDateQueryParam } from '@/hooks/urlQuery';
 import { DateInput } from './DateInput';
 
 interface Props {
@@ -35,12 +34,11 @@ export const DateControl = ({
   const [myNewDate, setMyNewDate] = useState<DateTime>(date);
   const [debouncedValue, setDebouncedValue] = useState<DateTime>(date);
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   // Workaround for useDateQueryParam hook side effects
   const doSet = useCallback(() => {
     setDateToUrl(debouncedValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue]);
-  /* eslint-enable react-hooks/exhaustive-deps */
 
   useEffect(() => {
     const handler = setTimeout(() => {

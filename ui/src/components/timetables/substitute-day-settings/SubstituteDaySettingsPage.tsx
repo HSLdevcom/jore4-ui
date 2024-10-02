@@ -59,12 +59,11 @@ export const SubstituteDaySettingsPage = (): React.ReactElement => {
     return getCommonSubstituteOperatingPeriodData();
   }, [getCommonSubstituteOperatingPeriodData]);
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   // Workaround for useDateQueryParam hook side effects
   const doSetStartupDate = useCallback((newDate: DateTime) => {
     setStartDate(newDate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
 
   useEffect(() => {
     if (!startDate || !endDate) {
