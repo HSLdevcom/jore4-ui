@@ -4,7 +4,10 @@ import {
   TimetablesServiceCalendarSubstituteOperatingPeriod,
   useGetSubstituteOperatingPeriodsQuery,
 } from '@/generated/graphql';
-import { getSubstituteOperatingPeriodsFilterAndMapper } from '@/hooks/substitute-operating-periods/getSubstituteOperatingPeriodsQueryUtil';
+import {
+  getSubstituteOperatingPeriodsFilterAndMapper,
+  validateAndReplaceStartDate,
+} from '@/hooks/substitute-operating-periods/getSubstituteOperatingPeriodsQueryUtil';
 import { QueryParameterName, useDateQueryParam } from '@/hooks/urlQuery';
 import { buildIsPresetSubstituteOperatingPeriodFilter } from '@/utils/gql';
 
@@ -51,7 +54,7 @@ const usePrepareGetOccasionalSubstituteOperatingPeriods = ({
 };
 
 export const useGetOccasionalSubstituteOperatingPeriods = () => {
-  const { date: startDate } = useDateQueryParam({
+  const { date: originalStartDate } = useDateQueryParam({
     queryParamName: QueryParameterName.StartDate,
     initialize: false,
   });
@@ -60,7 +63,7 @@ export const useGetOccasionalSubstituteOperatingPeriods = () => {
     queryParamName: QueryParameterName.EndDate,
     initialize: false,
   });
-
+  const startDate = validateAndReplaceStartDate(originalStartDate, endDate);
   const { getOccasionalSubstituteOperatingPeriodData: data } =
     usePrepareGetOccasionalSubstituteOperatingPeriods({
       startDate,

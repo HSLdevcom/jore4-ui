@@ -1,10 +1,13 @@
 import { gql } from '@apollo/client';
 import { DateTime } from 'luxon';
-import { SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS } from '@/components/timetables/substitute-day-settings/common_substitute_day_defaults';
 import {
   GetSubstituteOperatingPeriodsQuery,
   TimetablesServiceCalendarSubstituteOperatingPeriod,
 } from '@/generated/graphql';
+import {
+  DateControlValidator,
+  DateValidatorSource,
+} from '@/utils/date-control-validator';
 import { buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods } from '@/utils/gql';
 
 export const GQL_GET_SUBSTITUTE_OPERATING_PERIODS = gql`
@@ -34,29 +37,19 @@ export const getSubstituteOperatingPeriodsFilterAndMapper = (
   originalStartDate: DateTime,
   endDate: DateTime,
 ) => {
-  function getStartDateOrMindValue() {
-    let startDate = originalStartDate;
+  const { replacedDate } = DateControlValidator.validatorFor(
+    DateValidatorSource.SubstitutePeriodStartDay,
+  ).validate({ startDate: originalStartDate, endDate });
 
-    if (startDate && endDate) {
-      const timeDiff = endDate.diff(startDate);
-      if (
-        timeDiff.as('year') > SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS
-      ) {
-        startDate = endDate.minus({
-          year: SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS,
-        });
-      }
-    }
-    return startDate;
-  }
+  const startDate = replacedDate ?? endDate;
 
-  const startDate = getStartDateOrMindValue();
   const mapSubstituteOperatingPeriodsResult = (
     result?: GetSubstituteOperatingPeriodsQuery,
   ) => {
     return result?.timetables
       ?.timetables_service_calendar_substitute_operating_period as TimetablesServiceCalendarSubstituteOperatingPeriod[];
   };
+
   const periodDateRangeFilter = {
     ...buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods(
       startDate,
@@ -64,4 +57,15 @@ export const getSubstituteOperatingPeriodsFilterAndMapper = (
     ),
   };
   return { mapSubstituteOperatingPeriodsResult, periodDateRangeFilter };
+};
+
+export const validateAndReplaceStartDate = (
+  startDate: DateTime,
+  endDate: DateTime,
+) => {
+  const { replacedDate } = DateControlValidator.validatorFor(
+    DateValidatorSource.SubstitutePeriodStartDay,
+  ).validate({ startDate, endDate });
+
+  return replacedDate ?? startDate;
 };

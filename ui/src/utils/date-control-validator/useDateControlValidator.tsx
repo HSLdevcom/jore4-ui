@@ -1,10 +1,6 @@
 import { DateTime } from 'luxon';
 import { useEffect, useState } from 'react';
-import {
-  QueryParameterName,
-  useDateQueryParam,
-  useUrlQuery,
-} from '@/hooks/urlQuery';
+import { useUrlQuery } from '@/hooks/urlQuery';
 import {
   DateControlValidator,
   DateControlValidatorType,
@@ -20,11 +16,6 @@ export const useDateControlValidator = (
   const [dateParamValues, setDateParamValues] = useState(
     new Map<string, DateTime | undefined>(),
   );
-
-  useDateQueryParam({
-    queryParamName: QueryParameterName.StartDate,
-    initialize: false,
-  });
 
   useEffect(() => {
     const newParamValues = dateParamValues;

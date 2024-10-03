@@ -1,10 +1,4 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
@@ -133,7 +127,7 @@ describe('SubstituteDaySettingsPage', () => {
 
     // Ensure total count
     await waitFor(() => {
-      expect(mockSetStartDate.mock.calls).toHaveLength(2);
+      expect(mockSetStartDate.mock.calls).toHaveLength(1);
     });
   });
 
@@ -157,7 +151,7 @@ describe('SubstituteDaySettingsPage', () => {
 
     // Ensure total count
     await waitFor(() => {
-      expect(mockSetStartDate.mock.calls).toHaveLength(2);
+      expect(mockSetStartDate.mock.calls).toHaveLength(1);
     });
   });
 });

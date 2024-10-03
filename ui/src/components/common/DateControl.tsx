@@ -1,6 +1,10 @@
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
 import { QueryParameterName, useDateQueryParam } from '@/hooks/urlQuery';
+import {
+  DateControlValidatorType,
+  DateValidatorProps,
+} from '@/utils/date-control-validator';
 import { DateInput } from './DateInput';
 
 interface Props {
@@ -11,6 +15,8 @@ interface Props {
   dateInputId: string;
   queryParamName: QueryParameterName;
   initialize?: boolean;
+  validator?: DateControlValidatorType;
+  validatorProps?: DateValidatorProps;
 }
 
 /**
@@ -25,6 +31,8 @@ export const DateControl = ({
   dateInputId,
   queryParamName,
   initialize,
+  validator,
+  validatorProps,
 }: Props): React.ReactElement => {
   const { date, setDateToUrl } = useDateQueryParam({
     queryParamName,
@@ -43,29 +51,30 @@ export const DateControl = ({
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedValue(myNewDate);
-    }, 1000);
+      if (validator && validatorProps) {
+        const { valid, replacedDate } = validator.validate(validatorProps);
+        if (!valid && replacedDate) {
+          setMyNewDate(replacedDate);
+          setDebouncedValue(replacedDate);
+        }
+      } else {
+        setDebouncedValue(myNewDate);
+      }
+    }, 2000);
 
     return () => {
       clearTimeout(handler);
     };
-  }, [myNewDate]);
+  }, [myNewDate, validator, validatorProps]);
 
   useEffect(() => {
     doSet();
   }, [doSet, debouncedValue]);
 
-  useEffect(() => {
-    setMyNewDate(date);
-  }, [date]);
-
   const onDateChange = (newDate: DateTime) => {
-    // Do not allow setting empty value to date
-
     if (!date.isValid) {
       return;
     }
-
     setMyNewDate(newDate);
   };
 
