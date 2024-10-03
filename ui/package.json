@@ -75,7 +75,7 @@
     "@types/react-dom": "^18.3.0",
     "@types/react-router": "^5.1.20",
     "@types/redux-logger": "^3.0.13k",
-    "@types/uuid": "^10.0.0",
+    "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.20",
     "bufferutil": "^4.0.8",
     "cross-fetch": "^4.0.0",
@@ -87,6 +87,7 @@
     "postcss": "^8.4.45",
     "tailwindcss": "^3.4.10",
     "tsconfig-paths-jest": "^0.0.1",
-    "utf-8-validate": "6.0.3"
+    "utf-8-validate": "6.0.3",
+    "uuid": "^9.0.1"
   }
 }
