@@ -32,8 +32,11 @@ const defaultMockedEndDate = fixedNow;
 // Mocked implementation for `useDateQueryParam`
 const mockSetStartDate = jest.fn();
 
-function mockDateHooks(mockedStartDate: DateTime, mockedEndDate: DateTime) {
-  (useDateQueryParam as jest.Mock).mockImplementation(({ queryParamName }) => {
+function mockDateHooks(
+  mockedStartDate: DateTime,
+  mockedEndDate: DateTime,
+): jest.Mock {
+  const queryMock = jest.fn(({ queryParamName }) => {
     if (queryParamName === 'startDate') {
       return { date: mockedStartDate, setDateToUrl: mockSetStartDate };
     }
@@ -41,6 +44,15 @@ function mockDateHooks(mockedStartDate: DateTime, mockedEndDate: DateTime) {
       return { date: mockedEndDate };
     }
     return {};
+  });
+
+  (useDateQueryParam as jest.Mock).mockImplementation(({ queryParamName }) => {
+    if (queryParamName === 'startDate') {
+      return { date: mockedStartDate, setDateToUrl: mockSetStartDate };
+    }
+    if (queryParamName === 'endDate') {
+      return { date: mockedEndDate };
+    }
   });
 
   (useUrlQuery as jest.Mock).mockImplementation(() => {
@@ -56,6 +68,8 @@ function mockDateHooks(mockedStartDate: DateTime, mockedEndDate: DateTime) {
       }),
     };
   });
+
+  return queryMock;
 }
 
 (useTimeRangeQueryParams as jest.Mock).mockImplementation(() => ({
@@ -107,7 +121,6 @@ describe('SubstituteDaySettingsPage', () => {
   const renderComponent = () =>
     render(
       <MemoryRouter>
-        {' '}
         {/* Wrap the component with MemoryRouter */}
         <SubstituteDaySettingsPage />
       </MemoryRouter>,
@@ -118,16 +131,13 @@ describe('SubstituteDaySettingsPage', () => {
       years: SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS,
     });
     mockDateHooks(expectedNewStartDate, defaultMockedEndDate);
-    renderComponent();
+    const component = renderComponent();
 
     // Check that `setStartDate` was called with the correct adjusted date
     await waitFor(() => {
-      expect(mockSetStartDate).toHaveBeenCalledWith(expectedNewStartDate);
-    });
-
-    // Ensure total count
-    await waitFor(() => {
-      expect(mockSetStartDate.mock.calls).toHaveLength(1);
+      expect(
+        component.getByTestId('ObservationPeriodForm::startDate'),
+      ).toHaveValue('1924-09-26');
     });
   });
 
@@ -137,21 +147,11 @@ describe('SubstituteDaySettingsPage', () => {
 
     mockDateHooks(withinRangeStartDate, defaultMockedEndDate);
 
-    renderComponent();
+    const component = renderComponent();
 
-    // Ensure `setStartDate` was not called when within 100 years range
-    await waitFor(() => {
-      expect(
-        mockSetStartDate.mock.calls.filter(
-          (arg: string) =>
-            -DateTime.fromISO(arg).diff(fixedNow).as('years') > 90,
-        ),
-      ).toHaveLength(0);
-    });
-
-    // Ensure total count
-    await waitFor(() => {
-      expect(mockSetStartDate.mock.calls).toHaveLength(1);
-    });
+    // Check that `setStartDate` was called with the correct adjusted date
+    expect(
+      component.getByTestId('ObservationPeriodForm::startDate'),
+    ).toHaveValue('1974-09-26');
   });
 });

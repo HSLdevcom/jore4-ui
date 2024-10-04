@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { LOGIN_URL } from '@/api/user';
 import { useAppSelector } from '@/hooks/redux';
-import { selectUser } from '@/redux';
-import { SimpleButton } from '@/uiComponents';
+import { selectUser } from '@/redux/selectors';
+import { SimpleButton } from '@/uiComponents/SimpleButton';
 
 const testIds = {
   main: 'Main',

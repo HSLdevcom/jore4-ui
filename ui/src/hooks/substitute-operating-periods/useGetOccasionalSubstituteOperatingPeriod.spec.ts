@@ -49,7 +49,7 @@ const mockedSubstituteOperatingPeriods = [
   refetch: jest.fn(),
 });
 
-describe('useGetSubstituteOperatingPeriods', () => {
+describe('useOccasionalGetSubstituteOperatingPeriods', () => {
   it('should replace start date if the time range exceeds 100 years', () => {
     const endDate = fixedNow;
     const originalStartDate = endDate.minus({ years: 150 });

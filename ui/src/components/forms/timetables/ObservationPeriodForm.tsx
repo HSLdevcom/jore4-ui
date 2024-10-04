@@ -49,8 +49,6 @@ export const ObservationPeriodForm = (): React.ReactElement => {
     },
   } = useAppSelector(selectTimetable);
 
-  // const { isReady: validatorIsReady } =
-  //   useValidateAndReplaceSubstitutePeriodStartDate();
   const [isLoading, setIsLoading] = useState(true);
   const { date: startDate } = useDateQueryParam({
     queryParamName: QueryParameterName.StartDate,

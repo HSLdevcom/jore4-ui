@@ -10,9 +10,8 @@ export const SubstituteDayStartDateValidator = (): DateControlValidatorType => {
     if (!props) {
       throw Error('Empty properties to SubstituteDayStartDateValidator');
     }
-    const { startDate, endDate } = props;
-
-    const timeDiff = endDate.diff(startDate);
+    const { startDate, endDate, newValue } = props;
+    const timeDiff = endDate.diff(newValue ?? startDate);
 
     if (timeDiff.as('year') > SUBSTITUTE_PERIODS_OBSERVATION_PERIOD_MAX_YEARS) {
       const newStartDate = endDate.minus({

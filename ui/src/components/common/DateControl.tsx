@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { QueryParameterName, useDateQueryParam } from '@/hooks/urlQuery';
 import {
   DateControlValidatorType,
@@ -40,42 +40,40 @@ export const DateControl = ({
   });
 
   const [myNewDate, setMyNewDate] = useState<DateTime>(date);
-  const [debouncedValue, setDebouncedValue] = useState<DateTime>(date);
 
-  // Workaround for useDateQueryParam hook side effects
-  const doSet = useCallback(() => {
-    if (setDateToUrl) {
-      setDateToUrl(debouncedValue);
+  const doSet = useCallback((newDate: DateTime) => {
+    if (newDate) {
+      setMyNewDate(newDate);
+      setDateToUrl(newDate);
     }
-  }, [debouncedValue, setDateToUrl]);
+    // Workaround for useDateQueryParam hook side effects
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  useEffect(() => {
+  const onDateChange = (newDate: DateTime) => {
+    if (date.isValid) {
+      setMyNewDate(newDate);
+    }
+
     const handler = setTimeout(() => {
       if (validator && validatorProps) {
-        const { valid, replacedDate } = validator.validate(validatorProps);
+        const { valid, replacedDate } = validator.validate({
+          ...validatorProps,
+          newValue: newDate,
+        });
         if (!valid && replacedDate) {
-          setMyNewDate(replacedDate);
-          setDebouncedValue(replacedDate);
+          doSet(replacedDate);
+        } else {
+          doSet(newDate);
         }
       } else {
-        setDebouncedValue(myNewDate);
+        doSet(newDate);
       }
     }, 2000);
 
     return () => {
       clearTimeout(handler);
     };
-  }, [myNewDate, validator, validatorProps]);
-
-  useEffect(() => {
-    doSet();
-  }, [doSet, debouncedValue]);
-
-  const onDateChange = (newDate: DateTime) => {
-    if (!date.isValid) {
-      return;
-    }
-    setMyNewDate(newDate);
   };
 
   return (

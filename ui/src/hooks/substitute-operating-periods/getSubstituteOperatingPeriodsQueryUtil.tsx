@@ -41,7 +41,7 @@ export const getSubstituteOperatingPeriodsFilterAndMapper = (
     DateValidatorSource.SubstitutePeriodStartDay,
   ).validate({ startDate: originalStartDate, endDate });
 
-  const startDate = replacedDate ?? endDate;
+  const startDate = replacedDate ?? originalStartDate;
 
   const mapSubstituteOperatingPeriodsResult = (
     result?: GetSubstituteOperatingPeriodsQuery,

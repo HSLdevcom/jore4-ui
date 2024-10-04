@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 export type SubstituteDayStartDateValidatorProps = {
   startDate: DateTime;
   endDate: DateTime;
+  newValue?: DateTime;
 };
 
 export type DateValidatorProps = SubstituteDayStartDateValidatorProps | null;
