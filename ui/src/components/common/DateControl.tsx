@@ -15,7 +15,7 @@ interface Props {
   dateInputId: string;
   queryParamName: QueryParameterName;
   initialize?: boolean;
-  handleChange: (newDate: DateTime) => void;
+  handleChange?: (newDate: DateTime) => void;
   validator?: DateControlValidatorType;
   validatorProps?: DateValidatorProps;
 }
@@ -36,7 +36,7 @@ export const DateControl = ({
   validator,
   validatorProps,
 }: Props): React.ReactElement => {
-  const { date } = useDateQueryParam({
+  const { date, setDateToUrl } = useDateQueryParam({
     queryParamName,
     initialize,
   });
@@ -47,7 +47,11 @@ export const DateControl = ({
   const doSet = useCallback((newDate: DateTime) => {
     if (newDate) {
       setMyNewDate(newDate);
-      handleChange(newDate);
+      if (handleChange) {
+        handleChange(newDate);
+      } else {
+        setDateToUrl(newDate);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
