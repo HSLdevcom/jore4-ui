@@ -53,6 +53,7 @@ function mockDateHooks(
     if (queryParamName === 'endDate') {
       return { date: mockedEndDate };
     }
+    return null;
   });
 
   (useUrlQuery as jest.Mock).mockImplementation(() => {

@@ -15,6 +15,7 @@ interface Props {
   dateInputId: string;
   queryParamName: QueryParameterName;
   initialize?: boolean;
+  handleChange: (newDate: DateTime) => void;
   validator?: DateControlValidatorType;
   validatorProps?: DateValidatorProps;
 }
@@ -31,28 +32,33 @@ export const DateControl = ({
   dateInputId,
   queryParamName,
   initialize,
+  handleChange,
   validator,
   validatorProps,
 }: Props): React.ReactElement => {
-  const { date, setDateToUrl } = useDateQueryParam({
+  const { date } = useDateQueryParam({
     queryParamName,
     initialize,
   });
 
   const [myNewDate, setMyNewDate] = useState<DateTime>(date);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   const doSet = useCallback((newDate: DateTime) => {
     if (newDate) {
       setMyNewDate(newDate);
-      setDateToUrl(newDate);
+      handleChange(newDate);
     }
-    // Workaround for useDateQueryParam hook side effects
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onDateChange = (newDate: DateTime) => {
+  const handleChangeDate = (newDate: DateTime) => {
     if (date.isValid) {
       setMyNewDate(newDate);
+    }
+
+    if (timeoutId) {
+      clearTimeout(timeoutId);
     }
 
     const handler = setTimeout(() => {
@@ -71,9 +77,11 @@ export const DateControl = ({
       }
     }, 2000);
 
-    return () => {
-      clearTimeout(handler);
-    };
+    setTimeoutId(handler);
+  };
+
+  const onDateChange = (newDate: DateTime) => {
+    handleChangeDate(newDate);
   };
 
   return (
