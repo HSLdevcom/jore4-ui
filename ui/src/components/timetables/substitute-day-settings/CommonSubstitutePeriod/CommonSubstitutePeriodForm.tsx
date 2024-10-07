@@ -18,6 +18,7 @@ import {
   submitFormByRef,
 } from '../../../../utils';
 import { commonSubstituteDayData } from '../common_substitute_day_data';
+import { DateRange } from '../DateRange';
 import {
   CommonDayType,
   FormState,
@@ -117,18 +118,18 @@ interface Props {
   className?: string;
   commonDays?: CommonDayType[];
   onSubmit: (state: FormState) => void;
+  dateRange: DateRange;
 }
 
 export const CommonSubstitutePeriodForm = ({
   className,
   commonDays,
   onSubmit,
+  dateRange: { startDate, endDate },
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
   const dispatch = useAppDispatch();
-
-  const { startDate, endDate } = useTimeRangeQueryParams();
 
   const [isResetting, setIsResetting] = useState<boolean>(false);
 

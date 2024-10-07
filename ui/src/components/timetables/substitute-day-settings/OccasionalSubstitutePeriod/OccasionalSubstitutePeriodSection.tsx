@@ -1,15 +1,16 @@
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useTimeRangeQueryParams } from '../../../../hooks';
 import {
   useCreateSubstituteOperatingPeriod,
   useDeleteSubstituteOperatingPeriod,
   useEditSubstituteOperatingPeriod,
-  useGetSubstituteOperatingPeriods,
+  useGetOccasionalSubstituteOperatingPeriods,
 } from '../../../../hooks/substitute-operating-periods';
 import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../../utils/toastService';
+import { DateRange } from '../DateRange';
 import {
   OccasionalSubstitutePeriodForm,
   findEarliestDate,
@@ -18,16 +19,18 @@ import {
 } from './OccasionalSubstitutePeriodForm';
 import { FormState } from './OccasionalSubstitutePeriodForm.types';
 
-export const OccasionalSubstitutePeriodSection = (): React.ReactElement => {
-  const { t } = useTranslation();
-  const { startDate, endDate, updateTimeRangeIfNeeded } =
-    useTimeRangeQueryParams();
+type Props = {
+  readonly dateRange: DateRange;
+  readonly setDateRange: Dispatch<SetStateAction<DateRange>>;
+};
 
-  const {
-    occasionalSubstituteOperatingPeriods,
-    refetchOccasionalSubstituteOperatingPeriods,
-    isLoadingOccasionalSubstituteOperatingPeriods,
-  } = useGetSubstituteOperatingPeriods({ startDate, endDate });
+export const OccasionalSubstitutePeriodSection: FC<Props> = ({
+  dateRange,
+  setDateRange,
+}) => {
+  const { t } = useTranslation();
+  const { occasionalSubstituteOperatingPeriods, refetch, loading } =
+    useGetOccasionalSubstituteOperatingPeriods(dateRange);
   const { prepareAndExecute: prepareAndExecuteCreate } =
     useCreateSubstituteOperatingPeriod();
 
@@ -43,9 +46,12 @@ export const OccasionalSubstitutePeriodSection = (): React.ReactElement => {
       await prepareAndExecuteEdit({ form });
       await prepareAndExecuteCreate({ form });
 
-      updateTimeRangeIfNeeded(findEarliestDate(form), findLatestDate(form));
+      setDateRange({
+        startDate: findEarliestDate(form),
+        endDate: findLatestDate(form),
+      });
 
-      refetchOccasionalSubstituteOperatingPeriods();
+      await refetch();
 
       showSuccessToast(t('timetables.settings.saveSuccess'));
     } catch (err) {
@@ -58,7 +64,7 @@ export const OccasionalSubstitutePeriodSection = (): React.ReactElement => {
       <h2>{t('timetables.settings.occasionalSubstituteDays')}</h2>
       <OccasionalSubstitutePeriodForm
         onSubmit={onSubmit}
-        loading={isLoadingOccasionalSubstituteOperatingPeriods}
+        loading={loading}
         values={mapOccasionalSubstituteOperatingPeriodsToFormState(
           occasionalSubstituteOperatingPeriods,
         )}

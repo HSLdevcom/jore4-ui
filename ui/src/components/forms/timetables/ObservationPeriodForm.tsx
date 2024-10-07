@@ -1,15 +1,18 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import noop from 'lodash/noop';
+import { DateTime, Duration } from 'luxon';
+import { Dispatch, FC, SetStateAction } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
-import {
-  QueryParameterName,
-  useAppSelector,
-  useTimeRangeQueryParams,
-} from '../../../hooks';
+import { z } from 'zod';
+import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { Row } from '../../../layoutComponents/Row';
 import { selectTimetable } from '../../../redux';
-import { DateControl } from '../../common';
-import { ValidationError } from '../common';
+import { SimpleButton } from '../../../uiComponents';
+import { DateRange } from '../../timetables/substitute-day-settings/DateRange';
+import { InputField, requiredDate } from '../common';
 
 const testIds = {
   startDate: 'ObservationPeriodForm::startDate',
@@ -33,9 +36,63 @@ const WarningText = ({
   );
 };
 
-export const ObservationPeriodForm = (): React.ReactElement => {
+const DATE_ORDER = 'timeRange';
+const RANGE_TOO_LONG = 'timeRangeTooLong';
+const MAX_RANGE = Duration.fromObject({ years: 100 });
+
+function checkMaxDateRange(
+  maxLength: Duration,
+  startDate: string,
+  endDate: string,
+) {
+  const actualDuration = DateTime.fromISO(endDate).diff(
+    DateTime.fromISO(startDate),
+  );
+
+  return maxLength.toMillis() >= actualDuration.toMillis();
+}
+
+const observationPeriodSchema = z
+  .object({
+    startDate: requiredDate,
+    endDate: requiredDate,
+  })
+  .superRefine((state, context) => {
+    if (state.endDate < state.startDate) {
+      context.addIssue({
+        code: 'custom',
+        path: ['endDate'],
+        message: DATE_ORDER,
+      });
+    } else if (!checkMaxDateRange(MAX_RANGE, state.startDate, state.endDate)) {
+      context.addIssue({
+        code: 'custom',
+        path: ['endDate'],
+        message: RANGE_TOO_LONG,
+      });
+    }
+  });
+
+type ObservationPeriodSchema = z.infer<typeof observationPeriodSchema>;
+
+function toDefaultValues(dateRange: DateRange) {
+  return {
+    startDate: dateRange.startDate.toISODate(),
+    endDate: dateRange.endDate.toISODate(),
+  };
+}
+
+type ObservationPeriodFormProps = {
+  readonly dateRange: DateRange;
+  readonly setDateRange: Dispatch<SetStateAction<DateRange>>;
+};
+
+export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
+  dateRange,
+  setDateRange,
+}) => {
   const { t } = useTranslation();
-  const { isInvalidDateRange } = useTimeRangeQueryParams();
+
   const {
     settings: {
       isOccasionalSubstitutePeriodFormDirty,
@@ -43,47 +100,54 @@ export const ObservationPeriodForm = (): React.ReactElement => {
     },
   } = useAppSelector(selectTimetable);
 
+  const form = useForm<ObservationPeriodSchema>({
+    defaultValues: toDefaultValues(dateRange),
+    resolver: zodResolver(observationPeriodSchema),
+  });
+
+  const onSubmit = form.handleSubmit((formValues) => {
+    setDateRange({
+      startDate: DateTime.fromISO(formValues.startDate),
+      endDate: DateTime.fromISO(formValues.endDate),
+    });
+  });
+
+  const formDisabled =
+    isOccasionalSubstitutePeriodFormDirty || isCommonSubstitutePeriodFormDirty;
+
   return (
-    <div>
-      <div className="flex space-x-8">
-        <DateControl
-          label={t('timetables.observationPeriodForm.startDate')}
-          dateInputId="startDate"
-          testId={testIds.startDate}
-          queryParamName={QueryParameterName.StartDate}
-          disabled={
-            isOccasionalSubstitutePeriodFormDirty ||
-            isCommonSubstitutePeriodFormDirty
-          }
-        />
-        <DateControl
-          label={t('timetables.observationPeriodForm.endDate')}
-          dateInputId="endDate"
-          testId={testIds.endDate}
-          queryParamName={QueryParameterName.EndDate}
-          disabled={
-            isOccasionalSubstitutePeriodFormDirty ||
-            isCommonSubstitutePeriodFormDirty
-          }
-        />
-      </div>
-      <div className="h-12 pt-2">
-        <Visible visible={isInvalidDateRange}>
-          <ValidationError errorMessage={t('formValidation.timeRange')} />
-        </Visible>
-        <Visible
-          visible={
-            isOccasionalSubstitutePeriodFormDirty ||
-            isCommonSubstitutePeriodFormDirty
-          }
-        >
-          <WarningText
-            warningMessage={t(
-              'timetables.observationPeriodForm.warningMessage',
-            )}
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <FormProvider {...form}>
+      <form onSubmit={onSubmit}>
+        <div className="flex space-x-8">
+          <InputField<ObservationPeriodSchema>
+            type="date"
+            translationPrefix="timetables.observationPeriodForm"
+            fieldPath="startDate"
+            testId={testIds.startDate}
+            disabled={formDisabled}
           />
-        </Visible>
-      </div>
-    </div>
+          <InputField<ObservationPeriodSchema>
+            type="date"
+            translationPrefix="timetables.observationPeriodForm"
+            fieldPath="endDate"
+            testId={testIds.endDate}
+            disabled={formDisabled}
+          />
+          <SimpleButton type="submit" onClick={noop} disabled={formDisabled}>
+            Suodata
+          </SimpleButton>
+        </div>
+        <div className="h-12 pt-2">
+          <Visible visible={formDisabled}>
+            <WarningText
+              warningMessage={t(
+                'timetables.observationPeriodForm.warningMessage',
+              )}
+            />
+          </Visible>
+        </div>
+      </form>
+    </FormProvider>
   );
 };
