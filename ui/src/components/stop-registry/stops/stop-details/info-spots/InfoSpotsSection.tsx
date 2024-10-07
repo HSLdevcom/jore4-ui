@@ -1,17 +1,18 @@
-import { Position } from 'geojson';
 import compact from 'lodash/compact';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../hooks';
+import { mapLngLatToPoint } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { InfoSpotsViewList } from './InfoSpotsViewList';
 
-interface Props {
-  stop: StopWithDetails;
-}
+type Props = {
+  readonly stop: StopWithDetails;
+};
 
-export const InfoSpotsSection = ({ stop }: Props): JSX.Element => {
+export const InfoSpotsSection: FC<Props> = ({ stop }) => {
   const { t } = useTranslation();
 
   const infoContainerControls = useInfoContainerControls({
@@ -23,9 +24,7 @@ export const InfoSpotsSection = ({ stop }: Props): JSX.Element => {
     stop.stop_place?.infoSpots ?? [],
   );
 
-  const location: Position = compact(
-    stop.stop_place?.geometry?.coordinates ?? [],
-  );
+  const location = mapLngLatToPoint(stop.measured_location.coordinates);
 
   const stopName = stop.label;
 

@@ -335,24 +335,28 @@
       "posterPlaceSize": "Koko",
       "posterPlaceType": "Julistepaikan tyyppi",
       "displayType": "Näytön tyyppi",
-      "speechProperty": "Speech Property",
+      "speechProperty": "Puheominaisuus",
       "purpose": "Käyttötarkoitus",
       "railInformation": "Raidetieto",
       "zoneLabel": "Vyöhyketunnus",
-      "static": "Staattinen",
       "stops": "Pysäkit",
       "terminals": "Terminaalit",
-      "dynamic": "Dynaaminen",
-      "sound_beacon": "Äänimajakka",
-      "electricTFT": "Sähkönäyttö TFT",
-      "batteryOneRow": "Patteri, yksi rivi",
-      "batteryMultiRow": "Patteri, monirivi",
-      "batteryEInk": "Patteri, E-muste",
-      "chargeableEInk": "Ladattava, E-muste",
-      "none": "Ei näyttöä",
       "posterLabel": "Painotuote",
       "posterSize": "Tuotteen koko",
-      "posterLines": "Linjat"
+      "posterLines": "Linjat",
+      "type": {
+        "dynamic": "Dynaaminen",
+        "static": "Staattinen",
+        "soundBeacon": "Äänimajakka"
+      },
+      "displayTypes": {
+        "electricTFT": "Sähkönäyttö TFT",
+        "batteryOneRow": "Patteri, yksi rivi",
+        "batteryMultiRow": "Patteri, monirivi",
+        "batteryEInk": "Patteri, E-muste",
+        "chargeableEInk": "Ladattava, E-muste",
+        "none": "Ei näyttöä"
+      }
     }
   },
   "stopRegistrySearch": {

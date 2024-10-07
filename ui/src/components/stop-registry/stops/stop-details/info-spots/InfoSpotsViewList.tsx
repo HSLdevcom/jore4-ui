@@ -1,19 +1,20 @@
-import { Position } from 'geojson';
+import { FC } from 'react';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
 import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
+import { Point } from '../../../../../types';
 import { InfoSpotsViewCard } from './InfoSpotsViewCard';
 
-interface Props {
+type Props = {
   infoSpots: Array<InfoSpotDetailsFragment>;
-  location: Position;
+  location: Point;
   stopName: string;
-}
+};
 
-export const InfoSpotsViewList = ({
+export const InfoSpotsViewList: FC<Props> = ({
   infoSpots,
   location,
   stopName,
-}: Props): JSX.Element => {
+}) => {
   return (
     <div>
       {infoSpots.map((infoSpot, idx) => (

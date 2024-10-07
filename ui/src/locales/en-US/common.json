@@ -339,20 +339,24 @@
       "purpose": "Purpose",
       "railInformation": "Rail Information",
       "zoneLabel": "Zone Label",
-      "static": "Static",
       "stops": "Stops",
       "terminals": "Terminals",
-      "dynamic": "Dynamic",
-      "sound_beacon": "Sound beacon",
-      "electricTFT": "Electric TFT",
-      "batteryOneRow": "Battery, one row",
-      "batteryMultiRow": "Battery, multirow",
-      "batteryEInk": "Battery, E-ink",
-      "chargeableEInk": "Chargeable, E-ink",
-      "none": "None",
       "posterLabel": "Label",
       "posterSize": "Size",
-      "posterLines": "Lines"
+      "posterLines": "Lines",
+      "type": {
+        "static": "Static",
+        "dynamic": "Dynamic",
+        "soundBeacon": "Sound beacon"
+      },
+      "displayTypes": {
+        "electricTFT": "Electric TFT",
+        "batteryOneRow": "Battery, one row",
+        "batteryMultiRow": "Battery, multirow",
+        "batteryEInk": "Battery, E-ink",
+        "chargeableEInk": "Chargeable, E-ink",
+        "none": "None"
+      }
     }
   },
   "stopRegistrySearch": {

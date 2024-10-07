@@ -70510,6 +70510,33 @@ export type UpdateStopPlaceMutation = {
           } | null;
         } | null;
       } | null> | null;
+      infoSpots?: Array<{
+        __typename?: 'stop_registry_infoSpot';
+        id?: string | null;
+        backlight?: boolean | null;
+        displayType?: StopRegistryDisplayType | null;
+        floor?: string | null;
+        label?: string | null;
+        posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+        infoSpotLocations?: Array<string | null> | null;
+        infoSpotType?: StopRegistryInfoSpotType | null;
+        purpose?: string | null;
+        railInformation?: string | null;
+        speechProperty?: boolean | null;
+        zoneLabel?: string | null;
+        maintenance?: string | null;
+        description?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
+        poster?: Array<{
+          __typename?: 'stop_registry_poster';
+          label?: string | null;
+          posterSize?: StopRegistryPosterPlaceSize | null;
+          lines?: string | null;
+        } | null> | null;
+      } | null> | null;
     } | null> | null;
   } | null;
 };
@@ -70732,6 +70759,33 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
               } | null;
             } | null;
           } | null> | null;
+          infoSpots?: Array<{
+            __typename?: 'stop_registry_infoSpot';
+            id?: string | null;
+            backlight?: boolean | null;
+            displayType?: StopRegistryDisplayType | null;
+            floor?: string | null;
+            label?: string | null;
+            posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+            infoSpotLocations?: Array<string | null> | null;
+            infoSpotType?: StopRegistryInfoSpotType | null;
+            purpose?: string | null;
+            railInformation?: string | null;
+            speechProperty?: boolean | null;
+            zoneLabel?: string | null;
+            maintenance?: string | null;
+            description?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
+            poster?: Array<{
+              __typename?: 'stop_registry_poster';
+              label?: string | null;
+              posterSize?: StopRegistryPosterPlaceSize | null;
+              lines?: string | null;
+            } | null> | null;
+          } | null> | null;
         }
       | null
     > | null;
@@ -70741,42 +70795,6 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
       label: string;
     } | null;
   }>;
-};
-
-export type GetInfoSpotsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetInfoSpotsQuery = {
-  __typename?: 'query_root';
-  stop_registry?: {
-    __typename?: 'stop_registryStopPlaceRegister';
-    infoSpots?: Array<{
-      __typename?: 'stop_registry_infoSpot';
-      id?: string | null;
-      backlight?: boolean | null;
-      displayType?: StopRegistryDisplayType | null;
-      floor?: string | null;
-      label?: string | null;
-      posterPlaceSize?: StopRegistryPosterPlaceSize | null;
-      infoSpotLocations?: Array<string | null> | null;
-      infoSpotType?: StopRegistryInfoSpotType | null;
-      purpose?: string | null;
-      railInformation?: string | null;
-      speechProperty?: boolean | null;
-      zoneLabel?: string | null;
-      maintenance?: string | null;
-      description?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        lang?: string | null;
-        value?: string | null;
-      } | null;
-      poster?: Array<{
-        __typename?: 'stop_registry_poster';
-        label?: string | null;
-        posterSize?: StopRegistryPosterPlaceSize | null;
-        lines?: string | null;
-      } | null> | null;
-    } | null> | null;
-  } | null;
 };
 
 export type ShelterEquipmentDetailsFragment = {
@@ -71076,6 +71094,33 @@ export type StopPlaceDetailsFragment = {
         phone?: string | null;
       } | null;
     } | null;
+  } | null> | null;
+  infoSpots?: Array<{
+    __typename?: 'stop_registry_infoSpot';
+    id?: string | null;
+    backlight?: boolean | null;
+    displayType?: StopRegistryDisplayType | null;
+    floor?: string | null;
+    label?: string | null;
+    posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+    infoSpotLocations?: Array<string | null> | null;
+    infoSpotType?: StopRegistryInfoSpotType | null;
+    purpose?: string | null;
+    railInformation?: string | null;
+    speechProperty?: boolean | null;
+    zoneLabel?: string | null;
+    maintenance?: string | null;
+    description?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      lang?: string | null;
+      value?: string | null;
+    } | null;
+    poster?: Array<{
+      __typename?: 'stop_registry_poster';
+      label?: string | null;
+      posterSize?: StopRegistryPosterPlaceSize | null;
+      lines?: string | null;
+    } | null> | null;
   } | null> | null;
 };
 
@@ -73330,6 +73375,32 @@ export const StopPlaceOrganisationFieldsFragmentDoc = gql`
     }
   }
 `;
+export const InfoSpotDetailsFragmentDoc = gql`
+  fragment info_spot_details on stop_registry_infoSpot {
+    id
+    backlight
+    description {
+      lang
+      value
+    }
+    displayType
+    floor
+    label
+    posterPlaceSize
+    infoSpotLocations
+    infoSpotType
+    purpose
+    railInformation
+    speechProperty
+    zoneLabel
+    maintenance
+    poster {
+      label
+      posterSize
+      lines
+    }
+  }
+`;
 export const StopPlaceDetailsFragmentDoc = gql`
   fragment stop_place_details on stop_registry_StopPlace {
     id
@@ -73412,38 +73483,16 @@ export const StopPlaceDetailsFragmentDoc = gql`
         ...stop_place_organisation_fields
       }
     }
+    infoSpots {
+      ...info_spot_details
+    }
   }
   ${TopographicPlaceDetailsFragmentDoc}
   ${FareZoneDetailsFragmentDoc}
   ${QuayDetailsFragmentDoc}
   ${HslAccessibilityPropertiesDetailsFragmentDoc}
   ${StopPlaceOrganisationFieldsFragmentDoc}
-`;
-export const InfoSpotDetailsFragmentDoc = gql`
-  fragment info_spot_details on stop_registry_infoSpot {
-    id
-    backlight
-    description {
-      lang
-      value
-    }
-    displayType
-    floor
-    label
-    posterPlaceSize
-    infoSpotLocations
-    infoSpotType
-    purpose
-    railInformation
-    speechProperty
-    zoneLabel
-    maintenance
-    poster {
-      label
-      posterSize
-      lines
-    }
-  }
+  ${InfoSpotDetailsFragmentDoc}
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
   fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {
@@ -77762,81 +77811,6 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQueryResult =
     GetHighestPriorityStopDetailsByLabelAndDateQuery,
     GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
   >;
-export const GetInfoSpotsDocument = gql`
-  query GetInfoSpots {
-    stop_registry {
-      infoSpots {
-        ...info_spot_details
-      }
-    }
-  }
-  ${InfoSpotDetailsFragmentDoc}
-`;
-
-/**
- * __useGetInfoSpotsQuery__
- *
- * To run a query within a React component, call `useGetInfoSpotsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetInfoSpotsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetInfoSpotsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetInfoSpotsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetInfoSpotsQuery,
-    GetInfoSpotsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetInfoSpotsQuery, GetInfoSpotsQueryVariables>(
-    GetInfoSpotsDocument,
-    options,
-  );
-}
-export function useGetInfoSpotsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetInfoSpotsQuery,
-    GetInfoSpotsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetInfoSpotsQuery, GetInfoSpotsQueryVariables>(
-    GetInfoSpotsDocument,
-    options,
-  );
-}
-export function useGetInfoSpotsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetInfoSpotsQuery,
-    GetInfoSpotsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<GetInfoSpotsQuery, GetInfoSpotsQueryVariables>(
-    GetInfoSpotsDocument,
-    options,
-  );
-}
-export type GetInfoSpotsQueryHookResult = ReturnType<
-  typeof useGetInfoSpotsQuery
->;
-export type GetInfoSpotsLazyQueryHookResult = ReturnType<
-  typeof useGetInfoSpotsLazyQuery
->;
-export type GetInfoSpotsSuspenseQueryHookResult = ReturnType<
-  typeof useGetInfoSpotsSuspenseQuery
->;
-export type GetInfoSpotsQueryResult = Apollo.QueryResult<
-  GetInfoSpotsQuery,
-  GetInfoSpotsQueryVariables
->;
 export const UpsertOrganisationDocument = gql`
   mutation UpsertOrganisation($objects: [stop_registry_OrganisationInput]) {
     stop_registry {
