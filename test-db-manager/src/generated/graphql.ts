@@ -67220,6 +67220,36 @@ export type DeleteStopAreaMutation = {
   } | null;
 };
 
+export type InsertTerminalMutationVariables = Exact<{
+  terminal?: InputMaybe<StopRegistryCreateMultiModalStopPlaceInput>;
+}>;
+
+export type InsertTerminalMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    createMultiModalStopPlace?: {
+      __typename?: 'stop_registry_ParentStopPlace';
+      id?: string | null;
+    } | null;
+  } | null;
+};
+
+export type UpdateTerminalMutationVariables = Exact<{
+  terminal?: InputMaybe<StopRegistryParentStopPlaceInput>;
+}>;
+
+export type UpdateTerminalMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateParentStopPlace?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace';
+      id?: string | null;
+    } | null> | null;
+  } | null;
+};
+
 export type GetAllStopAreaIdsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetAllStopAreaIdsQuery = {

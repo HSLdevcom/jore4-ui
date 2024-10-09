@@ -4,11 +4,14 @@ import {
   StopAreaIdsByName,
   StopPlaceDetailsByLabel,
   StopPlaceNetexRef,
+  TerminalIdsByName,
 } from '../datasets';
 import {
+  StopRegistryCreateMultiModalStopPlaceInput,
   StopRegistryGroupOfStopPlacesInput,
   StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
+  StopRegistryParentStopPlaceInput,
   StopRegistryStopPlace,
 } from '../generated/graphql';
 import { hasuraApi } from '../hasuraApi';
@@ -18,6 +21,8 @@ import {
   mapToInsertOrganisationMutation,
   mapToInsertStopAreaMutation,
   mapToInsertStopPlaceMutation,
+  mapToInsertTerminalMutation,
+  mapToUpdateTerminalMutation,
 } from '../queries';
 import {
   mapToGetStopPointByLabelQuery,
@@ -29,6 +34,7 @@ import {
   InsertOrganisationResult,
   InsertStopAreaResult,
   InsertStopPlaceResult,
+  InsertTerminalResult,
   UpdateScheduledStopPointStopPlaceRefResult,
 } from '../types';
 
@@ -181,6 +187,45 @@ const insertStopArea = async (
   }
 };
 
+const insertTerminal = async (
+  terminal: Partial<StopRegistryCreateMultiModalStopPlaceInput>,
+): Promise<string> => {
+  try {
+    const res = (await hasuraApi(
+      mapToInsertTerminalMutation(terminal),
+    )) as InsertTerminalResult;
+    const data = getTiamatResponseBody(res);
+
+    return data.stop_registry.createMultiModalStopPlace.id;
+  } catch (error) {
+    console.error(
+      'An error occurred while inserting terminal!',
+      terminal.name?.value,
+      error,
+    );
+    throw error;
+  }
+};
+
+const updateTerminal = async (
+  id: string,
+  terminal: Partial<StopRegistryParentStopPlaceInput>,
+) => {
+  try {
+    const res = await hasuraApi(
+      mapToUpdateTerminalMutation({ id, ...terminal }),
+    );
+    getTiamatResponseBody(res);
+  } catch (error) {
+    console.error(
+      'An error occurred while updating terminal!',
+      terminal.name?.value,
+      error,
+    );
+    throw error;
+  }
+};
+
 const insertInfoSpot = async (infoSpot: Partial<StopRegistryInfoSpotInput>) => {
   try {
     const res = (await hasuraApi(
@@ -274,6 +319,47 @@ export const insertStopAreas = async (
   console.log(`Inserted ${stopAreas.length} stop areas.`);
 
   return collectedAreaIds;
+};
+
+export const insertTerminals = async (
+  terminalCreateInputs: Array<
+    Partial<StopRegistryCreateMultiModalStopPlaceInput>
+  >,
+  terminalUpdateInputs: Array<Partial<StopRegistryParentStopPlaceInput>>,
+): Promise<TerminalIdsByName> => {
+  const collectedTerminalIds: TerminalIdsByName = {};
+
+  console.log('Inserting terminals...');
+  for (let index = 0; index < terminalCreateInputs.length; index++) {
+    const terminalCreateInput = terminalCreateInputs[index];
+    const terminalUpdateInput = terminalUpdateInputs[index];
+    console.log(
+      `Terminal ${terminalCreateInput?.name?.value}: terminal insert starting...`,
+    );
+    // eslint-disable-next-line no-await-in-loop
+    const id = await insertTerminal(terminalCreateInput);
+    console.log(
+      `Terminal ${terminalCreateInput?.name?.value}: terminal inserted with id: ${id}`,
+    );
+    if (terminalCreateInput.name?.value && id) {
+      collectedTerminalIds[terminalCreateInput.name.value] = id;
+    }
+
+    // Update rest of the fields that can not be set with the Create mutation.
+    console.log(
+      `Terminal ${terminalCreateInput?.name?.value}: updating with additional details...`,
+    );
+    // eslint-disable-next-line no-await-in-loop
+    await updateTerminal(id, terminalUpdateInput);
+
+    console.log(
+      `Terminal ${terminalCreateInput?.name?.value}: terminal insert finished!`,
+    );
+  }
+
+  console.log(`Inserted ${terminalCreateInputs.length} terminals.`);
+
+  return collectedTerminalIds;
 };
 
 export const insertInfoSpots = async (

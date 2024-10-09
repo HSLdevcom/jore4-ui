@@ -1,8 +1,10 @@
 import {
+  buildTerminalCreateInput,
   seedInfoSpots,
   seedOrganisations,
   seedStopAreas,
   seedStopPlaces,
+  seedTerminals,
   setInfoSpotRelations,
   setStopAreaRelations,
   setStopPlaceRelations,
@@ -12,6 +14,7 @@ import {
   insertOrganisations,
   insertStopAreas,
   insertStopPlaces,
+  insertTerminals,
 } from './graphql-helpers';
 
 const seedStopRegistry = async () => {
@@ -29,6 +32,14 @@ const seedStopRegistry = async () => {
     setStopAreaRelations(area, collectedStopPlaceIds),
   );
   await insertStopAreas(stopAreaInputs);
+
+  const terminalCreateInputs = seedTerminals.map((terminal) =>
+    buildTerminalCreateInput(terminal, collectedStopPlaceIds),
+  );
+  const terminalUpdateInputs = seedTerminals.map(
+    (terminal) => terminal.terminal,
+  );
+  await insertTerminals(terminalCreateInputs, terminalUpdateInputs);
 
   const infoSpotInputs = seedInfoSpots.map((infoSpot) =>
     setInfoSpotRelations(infoSpot, collectedStopPlaceIds),

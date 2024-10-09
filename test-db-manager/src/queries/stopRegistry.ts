@@ -1,9 +1,11 @@
 import gql from 'graphql-tag';
 import { getGqlString } from '../builders/mutations/utils';
 import {
+  StopRegistryCreateMultiModalStopPlaceInput,
   StopRegistryGroupOfStopPlacesInput,
   StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
+  StopRegistryParentStopPlaceInput,
   StopRegistryStopPlace,
 } from '../generated/graphql';
 import { InsertStopPlaceResult } from '../types';
@@ -57,6 +59,28 @@ const GQL_DELETE_STOP_AREA = gql`
   mutation DeleteStopArea($stopAreaId: String!) {
     stop_registry {
       deleteGroupOfStopPlaces(id: $stopAreaId)
+    }
+  }
+`;
+
+const GQL_INSERT_TERMINAL = gql`
+  mutation InsertTerminal(
+    $terminal: stop_registry_createMultiModalStopPlaceInput
+  ) {
+    stop_registry {
+      createMultiModalStopPlace(input: $terminal) {
+        id
+      }
+    }
+  }
+`;
+
+const GQL_UPDATE_TERMINAL = gql`
+  mutation UpdateTerminal($terminal: stop_registry_ParentStopPlaceInput) {
+    stop_registry {
+      mutateParentStopPlace(ParentStopPlace: $terminal) {
+        id
+      }
     }
   }
 `;
@@ -151,6 +175,24 @@ export const mapToDeleteStopAreaMutation = (stopAreaId: string) => {
   return {
     query: getGqlString(GQL_DELETE_STOP_AREA),
     variables: { stopAreaId },
+  };
+};
+
+export const mapToInsertTerminalMutation = (
+  input: Partial<StopRegistryCreateMultiModalStopPlaceInput>,
+) => {
+  return {
+    query: getGqlString(GQL_INSERT_TERMINAL),
+    variables: { terminal: input },
+  };
+};
+
+export const mapToUpdateTerminalMutation = (
+  input: Partial<StopRegistryParentStopPlaceInput>,
+) => {
+  return {
+    query: getGqlString(GQL_UPDATE_TERMINAL),
+    variables: { terminal: input },
   };
 };
 
