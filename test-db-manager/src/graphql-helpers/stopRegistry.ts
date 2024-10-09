@@ -32,6 +32,19 @@ import {
   UpdateScheduledStopPointStopPlaceRefResult,
 } from '../types';
 
+const getTiamatResponseBody = (res: ExplicitAny) => {
+  const { data, errors } = res;
+  if (errors) {
+    throw new Error(
+      `Tiamat error occurred: ${JSON.stringify(errors, null, 2)}`,
+    );
+  }
+  if (!data) {
+    throw new Error('Null data returned from Tiamat');
+  }
+  return data;
+};
+
 /**
  * Inserts a new stop place to stop registry,
  * and updates its id to the scheduled stop point.
@@ -75,15 +88,12 @@ const insertOrganisation = async (
   organisation: StopRegistryOrganisationInput,
 ) => {
   try {
-    const returnValue = (await hasuraApi(
+    const res = (await hasuraApi(
       mapToInsertOrganisationMutation(organisation),
     )) as InsertOrganisationResult;
+    const data = getTiamatResponseBody(res);
 
-    if (returnValue.data === null) {
-      throw new Error('Null data returned from Tiamat');
-    }
-
-    return returnValue.data.stop_registry.mutateOrganisation[0];
+    return data.stop_registry.mutateOrganisation[0];
   } catch (error) {
     console.error(
       'An error occurred while inserting organisation!',
@@ -155,13 +165,10 @@ const insertStopArea = async (
   stopArea: Partial<StopRegistryGroupOfStopPlacesInput>,
 ): Promise<string> => {
   try {
-    const { data } = (await hasuraApi(
+    const res = (await hasuraApi(
       mapToInsertStopAreaMutation(stopArea),
     )) as InsertStopAreaResult;
-
-    if (data === null) {
-      throw new Error('Null data returned from Tiamat');
-    }
+    const data = getTiamatResponseBody(res);
 
     return data.stop_registry.mutateGroupOfStopPlaces.id;
   } catch (error) {
@@ -176,12 +183,11 @@ const insertStopArea = async (
 
 const insertInfoSpot = async (infoSpot: Partial<StopRegistryInfoSpotInput>) => {
   try {
-    const returnValue = (await hasuraApi(
+    const res = (await hasuraApi(
       mapToInsertInfoSpotMutation(infoSpot),
     )) as InsertInfoSpotsResult;
-    if (returnValue.data === null) {
-      throw new Error('Null data returned from Tiamat');
-    }
+    const data = getTiamatResponseBody(res);
+    return data;
   } catch (error) {
     console.error(
       'An error occurred while inserting info spot!',
