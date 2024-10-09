@@ -1,200 +1,37 @@
 import {
-  GetInfrastructureLinksByExternalIdsResult,
-  Priority,
-  StopInsertInput,
-  StopPlaceInput,
-  StopRegistryGeoJsonType,
-  StopRegistryNameType,
-  buildStop,
-  buildTimingPlace,
-  extractInfrastructureLinkIdsFromResponse,
-  mapToGetInfrastructureLinksByExternalIdsQuery,
-} from '@hsl/jore4-test-db-manager';
-import { DateTime } from 'luxon';
+  buildInfraLinksAlongRoute,
+  buildStopsOnInfraLinks,
+  getClonedBaseDbResources,
+  testInfraLinkExternalIds,
+} from '../../datasets/base';
+import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
-import { StopSearchBar } from '../../pageObjects/stop-registry/StopSearchBar';
-import { StopSearchResultsPage } from '../../pageObjects/stop-registry/StopSearchResultsPage';
+import { StopSearchBar, StopSearchResultsPage } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
 
-// These infralink IDs exist in the 'infraLinks.sql' test data file.
-// These form a straight line on Eerikinkatu in Helsinki.
-// Coordinates are partial since they are needed only for the stop creation.
-
-const testInfraLinks = [
-  {
-    externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
-  },
-  {
-    externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
-  },
-  {
-    externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
-  },
-];
-
-const timingPlaces = [
-  buildTimingPlace('057ebb3f-61bc-46f1-9018-f65257d11efb', '1AACKT'),
-  buildTimingPlace('75f8e23d-4bcf-455a-9a14-262f71b4ea11', '1AURLA'),
-];
-
-const stopPlaceData: Array<StopPlaceInput> = [
-  {
-    label: 'H1122',
-    stopPlace: {
-      name: { lang: 'fin', value: 'Puistokaari' },
-      alternativeNames: [
-        {
-          name: { lang: 'swe', value: 'Parkkurvan' },
-          nameType: StopRegistryNameType.Translation,
-        },
-        {
-          name: { lang: 'fin', value: 'Puistokaari (pitkä)' },
-          nameType: StopRegistryNameType.Alias,
-        },
-        {
-          name: { lang: 'swe', value: 'Parkkurvan (lång)' },
-          nameType: StopRegistryNameType.Alias,
-        },
-      ],
-      quays: [{ publicCode: 'H1122' }],
-      privateCode: { value: '123456', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Puistokaari 1'] }],
-      geometry: {
-        coordinates: [24.86309, 60.15988], // Municipality = Helsinki
-        type: StopRegistryGeoJsonType.Point,
-      },
-    },
-  },
-  {
-    label: 'H1234',
-    stopPlace: {
-      name: { lang: 'fin', value: 'Lapinrinne' },
-      alternativeNames: [
-        {
-          name: { lang: 'swe', value: 'Lappbrinken' },
-          nameType: StopRegistryNameType.Translation,
-        },
-        {
-          name: { lang: 'fin', value: 'Lapinrinne (pitkä)' },
-          nameType: StopRegistryNameType.Alias,
-        },
-        {
-          name: { lang: 'swe', value: 'Lappbrinken (lång)' },
-          nameType: StopRegistryNameType.Alias,
-        },
-      ],
-      quays: [{ publicCode: 'H1234' }],
-      privateCode: { value: '123499', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Lapinrinteentie 25'] }],
-      geometry: {
-        coordinates: [24.87639, 60.32894], // Municipality = Vantaa
-        type: StopRegistryGeoJsonType.Point,
-      },
-    },
-  },
-  {
-    label: 'H2233',
-    stopPlace: {
-      name: { lang: 'fin', value: 'Tuusulanväylä' },
-      alternativeNames: [
-        {
-          name: { lang: 'swe', value: 'Tusbyleden' },
-          nameType: StopRegistryNameType.Translation,
-        },
-        {
-          name: { lang: 'fin', value: 'Tuusulanväylä (pitkä)' },
-          nameType: StopRegistryNameType.Alias,
-        },
-        {
-          name: { lang: 'swe', value: 'Tusbyleden (lång)' },
-          nameType: StopRegistryNameType.Alias,
-        },
-      ],
-      quays: [{ publicCode: 'H2233' }],
-      keyValues: [{ key: 'streetAddress', values: ['Tuusulanväylä 10-16'] }],
-      geometry: {
-        coordinates: [24.99721, 60.32129], // Municipality = Vantaa
-        type: StopRegistryGeoJsonType.Point,
-      },
-    },
-  },
-];
-
-const buildScheduledStopPoints = (
-  infrastructureLinkIds: UUID[],
-): StopInsertInput[] => [
-  {
-    ...buildStop({
-      label: 'H1122',
-      located_on_infrastructure_link_id: infrastructureLinkIds[0],
-    }),
-    validity_start: DateTime.fromISO('2020-03-20'),
-    scheduled_stop_point_id: '772a788b-75ab-4bf1-94af-f76182886344',
-    timing_place_id: timingPlaces[0].timing_place_id,
-    priority: Priority.Draft,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[0].coordinates,
-    },
-  },
-  {
-    ...buildStop({
-      label: 'H1234',
-      located_on_infrastructure_link_id: infrastructureLinkIds[1],
-    }),
-    validity_start: DateTime.fromISO('2020-04-20'),
-    validity_end: DateTime.fromISO('2050-05-31'),
-    scheduled_stop_point_id: '92048575-488c-4811-8b8f-de40ee90d9b1',
-    timing_place_id: timingPlaces[1].timing_place_id,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[1].coordinates,
-    },
-  },
-  {
-    ...buildStop({
-      label: 'H2233',
-      located_on_infrastructure_link_id: infrastructureLinkIds[1],
-    }),
-    validity_start: DateTime.fromISO('2020-02-20'),
-    validity_end: DateTime.fromISO('2050-05-31'),
-    scheduled_stop_point_id: '8e7a7175-6bd5-42f1-bdc7-ad0e531beede',
-    timing_place_id: null,
-    measured_location: {
-      type: 'Point',
-      coordinates: testInfraLinks[2].coordinates,
-    },
-  },
-];
+const baseDbResources = getClonedBaseDbResources();
 
 describe('Stop search', () => {
   let stopSearchBar: StopSearchBar;
   let stopSearchResultsPage: StopSearchResultsPage;
-  const baseDbResources = {
-    timingPlaces,
-  };
-  let dbResources: SupportedResources &
-    Required<Pick<SupportedResources, 'stops'>>;
+  let dbResources: SupportedResources;
 
   before(() => {
-    cy.task<GetInfrastructureLinksByExternalIdsResult>(
-      'hasuraAPI',
-      mapToGetInfrastructureLinksByExternalIdsQuery(
-        testInfraLinks.map((infralink) => infralink.externalId),
-      ),
-    ).then((res) => {
-      const infraLinkIds = extractInfrastructureLinkIdsFromResponse(res);
+    cy.task<UUID[]>(
+      'getInfrastructureLinkIdsByExternalIds',
+      testInfraLinkExternalIds,
+    ).then((infraLinkIds) => {
+      const stops = buildStopsOnInfraLinks(infraLinkIds);
 
-      const stops = buildScheduledStopPoints(infraLinkIds);
+      const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+
       dbResources = {
         ...baseDbResources,
         stops,
+        infraLinksAlongRoute,
       };
     });
   });
@@ -203,9 +40,10 @@ describe('Stop search', () => {
     cy.task('resetDbs');
     insertToDbHelper(dbResources);
 
-    cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
-      stopPlaces: stopPlaceData,
-    });
+    cy.task<InsertedStopRegistryIds>(
+      'insertStopRegistryData',
+      getClonedBaseStopRegistryData(),
+    );
 
     stopSearchBar = new StopSearchBar();
     stopSearchResultsPage = new StopSearchResultsPage();
@@ -227,12 +65,12 @@ describe('Stop search', () => {
         stopSearchBar.searchCriteriaRadioButtons
           .getLabelRadioButton()
           .should('be.checked');
-        stopSearchBar.getSearchInput().type(`H1234{enter}`);
+        stopSearchBar.getSearchInput().type(`E2E001{enter}`);
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
       },
     );
 
@@ -240,15 +78,22 @@ describe('Stop search', () => {
       'should be able to search with an asterisk',
       { tags: [Tag.StopRegistry, Tag.Smoke] },
       () => {
-        stopSearchBar.getSearchInput().type(`H1*{enter}`);
+        stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 2);
+        stopSearchResultsPage.getResultRows().should('have.length', 9);
 
         // Ordered by label.
-        stopSearchResultsPage.getResultRows().eq(0).should('contain', 'H1122');
-        stopSearchResultsPage.getResultRows().eq(1).should('contain', 'H1234');
+        stopSearchResultsPage.getResultRows().eq(0).should('contain', 'E2E001');
+        stopSearchResultsPage.getResultRows().eq(1).should('contain', 'E2E002');
+        stopSearchResultsPage.getResultRows().eq(2).should('contain', 'E2E003');
+        stopSearchResultsPage.getResultRows().eq(3).should('contain', 'E2E004');
+        stopSearchResultsPage.getResultRows().eq(4).should('contain', 'E2E005');
+        stopSearchResultsPage.getResultRows().eq(5).should('contain', 'E2E006');
+        stopSearchResultsPage.getResultRows().eq(6).should('contain', 'E2E007');
+        stopSearchResultsPage.getResultRows().eq(7).should('contain', 'E2E008');
+        stopSearchResultsPage.getResultRows().eq(8).should('contain', 'E2E009');
       },
     );
 
@@ -271,14 +116,14 @@ describe('Stop search', () => {
       { tags: Tag.StopRegistry },
       () => {
         stopSearchBar.getExpandToggle().click();
-        stopSearchBar.getElyInput().type(`123456`);
+        stopSearchBar.getElyInput().type(`E2E001`);
         stopSearchBar.getSearchButton().click();
 
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H1122');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
       },
     );
 
@@ -287,15 +132,22 @@ describe('Stop search', () => {
       { tags: Tag.StopRegistry },
       () => {
         stopSearchBar.getExpandToggle().click();
-        stopSearchBar.getElyInput().type(`1234*`);
+        stopSearchBar.getElyInput().type('E2E00*');
         stopSearchBar.getSearchButton().click();
 
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 2);
-        stopSearchResultsPage.getResultRows().should('contain', 'H1122');
-        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
+        stopSearchResultsPage.getResultRows().should('have.length', 9);
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E002');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E003');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E005');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E006');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E007');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E008');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
       },
     );
 
@@ -323,13 +175,14 @@ describe('Stop search', () => {
         stopSearchBar.searchCriteriaRadioButtons
           .getAddressRadioButton()
           .click();
-        stopSearchBar.getSearchInput().type(`Tuusulanväylä 10-16{enter}`);
+        stopSearchBar.getSearchInput().type(`Annankatu 15{enter}`);
 
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+        stopSearchResultsPage.getResultRows().should('have.length', 2);
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
       },
     );
 
@@ -340,13 +193,16 @@ describe('Stop search', () => {
         stopSearchBar.searchCriteriaRadioButtons
           .getAddressRadioButton()
           .click();
-        stopSearchBar.getSearchInput().type(`Tuusul*{enter}`);
+        stopSearchBar.getSearchInput().type(`Annankatu*{enter}`);
 
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+        stopSearchResultsPage.getResultRows().should('have.length', 4);
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E002');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E008');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
       },
     );
 
@@ -372,7 +228,7 @@ describe('Stop search', () => {
       'Should trigger search when the search criteria is changed and the search input field contains text',
       { tags: Tag.StopRegistry },
       () => {
-        stopSearchBar.getSearchInput().type(`Puistokaari 1`);
+        stopSearchBar.getSearchInput().type(`Albertinkatu 38`);
         stopSearchBar.searchCriteriaRadioButtons
           .getAddressRadioButton()
           .click();
@@ -380,7 +236,7 @@ describe('Stop search', () => {
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H1122');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
       },
     );
 
@@ -388,11 +244,11 @@ describe('Stop search', () => {
       'Should not trigger a search when the search criteria is changed if the search input field is empty',
       { tags: Tag.StopRegistry },
       () => {
-        stopSearchBar.getSearchInput().type(`H2233{enter}`);
+        stopSearchBar.getSearchInput().type(`E2E004{enter}`);
         expectGraphQLCallToSucceed('@gqlSearchStops');
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
 
         stopSearchBar.getSearchInput().clear();
         stopSearchBar.searchCriteriaRadioButtons
@@ -401,7 +257,7 @@ describe('Stop search', () => {
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
       },
     );
   });
@@ -418,7 +274,7 @@ describe('Stop search', () => {
         stopSearchBar.getSearchButton().click();
         expectGraphQLCallToSucceed('@gqlSearchStops');
         stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 3);
+        stopSearchResultsPage.getResultRows().should('have.length', 10);
       },
     );
 
@@ -430,14 +286,13 @@ describe('Stop search', () => {
         stopSearchBar.openMunicipalityDropdown();
         stopSearchBar.isMunicipalitySelected('Kaikki');
         stopSearchBar.toggleMunicipality('Kaikki');
-        stopSearchBar.toggleMunicipality('Vantaa');
+        stopSearchBar.toggleMunicipality('Espoo');
         stopSearchBar.getSearchButton().click();
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 2);
-        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
-        stopSearchResultsPage.getResultRows().should('contain', 'H2233');
+        stopSearchResultsPage.getResultRows().should('have.length', 1);
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E010');
       },
     );
   });
@@ -450,12 +305,12 @@ describe('Stop search', () => {
         stopSearchBar.searchCriteriaRadioButtons
           .getLabelRadioButton()
           .should('be.checked');
-        stopSearchBar.getSearchInput().type(`Lapinrinne{enter}`);
+        stopSearchBar.getSearchInput().type(`Albertinkatu 38{enter}`);
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
       },
     );
 
@@ -466,12 +321,12 @@ describe('Stop search', () => {
         stopSearchBar.searchCriteriaRadioButtons
           .getLabelRadioButton()
           .should('be.checked');
-        stopSearchBar.getSearchInput().type(`Lappbrinken{enter}`);
+        stopSearchBar.getSearchInput().type(`Albertsgatan 38{enter}`);
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
       },
     );
 
@@ -482,12 +337,12 @@ describe('Stop search', () => {
         stopSearchBar.searchCriteriaRadioButtons
           .getLabelRadioButton()
           .should('be.checked');
-        stopSearchBar.getSearchInput().type(`Lapinrinne (pitkä){enter}`);
+        stopSearchBar.getSearchInput().type(`Albertinkatu 38 (pitkä){enter}`);
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
       },
     );
     it(
@@ -497,12 +352,12 @@ describe('Stop search', () => {
         stopSearchBar.searchCriteriaRadioButtons
           .getLabelRadioButton()
           .should('be.checked');
-        stopSearchBar.getSearchInput().type(`Lappbrinken (lång){enter}`);
+        stopSearchBar.getSearchInput().type(`Albertsgatan 38 (lång){enter}`);
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
         stopSearchResultsPage.getResultRows().should('have.length', 1);
-        stopSearchResultsPage.getResultRows().should('contain', 'H1234');
+        stopSearchResultsPage.getResultRows().should('contain', 'E2E004');
       },
     );
   });

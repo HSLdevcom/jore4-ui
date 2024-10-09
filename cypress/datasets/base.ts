@@ -13,7 +13,7 @@ import {
   buildStopInJourneyPattern,
   buildTimingPlace,
 } from '@hsl/jore4-test-db-manager';
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeepWith from 'lodash/cloneDeepWith';
 import { DateTime } from 'luxon';
 import { UUID } from '../types';
 
@@ -45,6 +45,7 @@ export const stopCoordinatesByLabel = {
   E2E007: [24.935714344053142, 60.16644692066976, 0],
   E2E008: [24.937281651830318, 60.16645331474371, 0],
   E2E009: [24.93877038021971, 60.1653765292378, 0],
+  E2E010: [24.706945, 60.157696, 0],
 };
 
 export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
@@ -172,17 +173,85 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
       coordinates: stopCoordinatesByLabel.E2E009,
     },
   },
+  {
+    ...buildStop({
+      label: 'E2E010',
+      located_on_infrastructure_link_id: testInfraLinkIds[0],
+    }),
+    validity_start: DateTime.fromISO('2020-03-20'),
+    direction: InfrastructureNetworkDirectionEnum.Backward,
+    scheduled_stop_point_id: '75afcec1-68a3-4411-bad2-f4f235c37215',
+    timing_place_id: timingPlaces[0].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: stopCoordinatesByLabel.E2E010,
+    },
+  },
 ];
 
 const lines: LineInsertInput[] = [
+  // Proper line with stops
   {
     ...buildLine({ label: '901' }),
     line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
   },
+
+  // Raw lines
+  // Valid in 2022
+  {
+    ...buildLine({ label: '1666' }),
+    line_id: '5dfa82f1-b3f7-4e26-b31d-0d7bd78da0be',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
+    validity_start: DateTime.fromISO('2022-01-02'),
+    validity_end: DateTime.fromISO('2022-12-24'),
+  },
+  // Valid in 2023
+  {
+    ...buildLine({ label: '2666' }),
+    line_id: '61e4d95e-34e5-11ed-a261-0242ac120002',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
+    validity_start: DateTime.fromISO('2023-01-02'),
+    validity_end: DateTime.fromISO('2023-12-24'),
+  },
+  // Valid in 2024
+  {
+    ...buildLine({ label: '1777' }),
+    line_id: '47c5fe92-e630-430b-a2da-2c6739acbb2b',
+    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
+    validity_start: DateTime.fromISO('2024-01-02'),
+    validity_end: DateTime.fromISO('2024-12-24'),
+  },
+  // Valid between 2000 and 2054
+  {
+    ...buildLine({ label: '9999' }),
+    line_id: '7f5aa870-891a-433e-bd9b-f864162a2adf',
+    validity_start: DateTime.fromISO('2000-01-02'),
+    validity_end: DateTime.fromISO('2054-12-24'),
+  },
+  {
+    ...buildLine({ label: '9888' }),
+    line_id: 'a627dfbf-8db6-4519-b968-56b4a4988d91',
+    validity_start: DateTime.fromISO('2000-01-02'),
+    validity_end: DateTime.fromISO('2054-12-24'),
+  },
+  {
+    ...buildLine({ label: '8888' }),
+    line_id: '69141b10-98cb-4319-9fe9-95cddbd46987',
+    validity_start: DateTime.fromISO('2000-01-02'),
+    validity_end: DateTime.fromISO('2054-12-24'),
+  },
+  // Always valid.
+  {
+    ...buildLine({ label: '8889' }),
+    line_id: '429413b0-a3b7-4b12-a3a1-5c26268066c1',
+    validity_start: null,
+    validity_end: null,
+  },
 ];
 
 export const routes: RouteInsertInput[] = [
+  // Proper routes with stops
   {
     ...buildRoute({ label: '901' }),
     route_id: '994a7d79-4991-423b-9c1a-0ca621a6d9ed',
@@ -198,6 +267,47 @@ export const routes: RouteInsertInput[] = [
     on_line_id: lines[0].line_id,
     validity_start: DateTime.fromISO('2022-08-11'),
     validity_end: DateTime.fromISO('2032-08-11'),
+  },
+
+  // Raw routes
+  // Valid in 2022
+  {
+    ...buildRoute({ label: '1111' }),
+    route_id: '48490721-3346-493a-80c8-3edd07c2d5d6',
+    on_line_id: lines[1].line_id,
+    validity_start: lines[1].validity_start,
+    validity_end: lines[1].validity_end,
+  },
+  // Valid in 2023
+  {
+    ...buildRoute({ label: '1222' }),
+    route_id: 'd82ebf21-5adb-419c-b057-c6e3b0f7480c',
+    on_line_id: lines[2].line_id,
+    validity_start: lines[2].validity_start,
+    validity_end: lines[2].validity_end,
+  },
+  // Valid in 2024
+  {
+    ...buildRoute({ label: '2333' }),
+    route_id: 'fa6196fa-ce61-4808-84bf-f4fc60bf1162',
+    on_line_id: lines[3].line_id,
+    validity_start: lines[3].validity_start,
+    validity_end: lines[3].validity_end,
+  },
+  // The rest are valid between 2000 and 2054
+  {
+    ...buildRoute({ label: '1999' }),
+    route_id: 'eec15aaf-3cf3-4fc8-86a1-7849ea4d88e0',
+    on_line_id: lines[4].line_id,
+    validity_start: lines[4].validity_start,
+    validity_end: lines[4].validity_end,
+  },
+  {
+    ...buildRoute({ label: '1888' }),
+    route_id: '88f2bb05-8438-41ab-ba26-27983250a78e',
+    on_line_id: lines[4].line_id,
+    validity_start: lines[4].validity_start,
+    validity_end: lines[4].validity_end,
   },
 ];
 
@@ -378,4 +488,11 @@ const baseDbResources = {
  * Returns a clone of baseDbResources so that the caller can
  * modify the data freely without side effects
  */
-export const getClonedBaseDbResources = () => cloneDeep(baseDbResources);
+export const getClonedBaseDbResources = () =>
+  cloneDeepWith(baseDbResources, (value) => {
+    if (value instanceof DateTime) {
+      return value;
+    }
+
+    return undefined;
+  });
