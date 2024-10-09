@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import {
   StopRegistryAccessibilityLevel,
   StopRegistryAccessibilityLimitationsInput,
@@ -44,6 +45,8 @@ export type StopPlaceSeedData = {
   abbreviationSwe5Char?: string;
   locationFin?: string;
   locationSwe?: string;
+  validityStart?: DateTime;
+  validityEnd?: DateTime | null;
   transportMode?: StopRegistryTransportModeType;
   publicCode?: string;
   elyNumber?: string;
@@ -149,6 +152,12 @@ const mapToStopPlaceInput = (
       description: {
         lang: 'fin',
         value: seedStopPlace.locationFin,
+      },
+      validBetween: {
+        fromDate:
+          seedStopPlace.validityStart ??
+          DateTime.fromISO('2020-01-01T00:00:00.001'),
+        toDate: seedStopPlace.validityEnd ?? null,
       },
       weighting: seedStopPlace.stopType?.interchange
         ? StopRegistryInterchangeWeightingType.RecommendedInterchange
