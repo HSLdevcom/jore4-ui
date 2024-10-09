@@ -61,6 +61,16 @@ export interface InsertStopAreaResult {
   };
 }
 
+export interface InsertTerminalResult {
+  data: {
+    stop_registry: {
+      createMultiModalStopPlace: {
+        id: string;
+      };
+    };
+  };
+}
+
 export interface InsertInfoSpotsResult {
   data: {
     stop_registry: {

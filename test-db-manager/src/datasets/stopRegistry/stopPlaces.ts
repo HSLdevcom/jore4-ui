@@ -77,7 +77,7 @@ export type StopPlaceSeedData = {
   maintenance?: StopPlaceMaintenance;
 };
 
-const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput =
+export const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput =
   {
     audibleSignalsAvailable: StopRegistryLimitationStatusType.Unknown,
     escalatorFreeAccess: StopRegistryLimitationStatusType.Unknown,

@@ -1,6 +1,8 @@
 import {
+  StopRegistryCreateMultiModalStopPlaceInput,
   StopRegistryGroupOfStopPlacesInput,
   StopRegistryInfoSpotInput,
+  StopRegistryParentStopPlaceInput,
   StopRegistryStopPlace,
   StopRegistryStopPlaceOrganisationRef,
   StopRegistryStopPlaceOrganisationRelationshipType,
@@ -10,6 +12,7 @@ import { isNotNullish } from '../../utils';
 import { InfoSpotInput } from './infoSpots';
 import { StopAreaInput } from './stopArea';
 import { StopPlaceInput, StopPlaceMaintenance } from './stopPlaces';
+import { TerminalInput } from './terminals';
 
 export type StopDetails = {
   netexId: string;
@@ -18,6 +21,7 @@ export type StopDetails = {
 
 export type StopAreaIdsByName = Record<string, string>;
 export type StopPlaceDetailsByLabel = Record<string, StopDetails>;
+export type TerminalIdsByName = Record<string, string>;
 export type OrganisationIdsByName = Record<string, string>;
 
 const mapStopPlaceMaintenanceToInput = (
@@ -86,6 +90,33 @@ export const setStopAreaRelations = (
   };
 
   return area;
+};
+
+export const buildTerminalCreateInput = (
+  input: TerminalInput,
+  stopPlaceDetailsByLabel: StopPlaceDetailsByLabel,
+): Partial<StopRegistryCreateMultiModalStopPlaceInput> => {
+  const terminal = {
+    name: input.terminal.name,
+    description: input.terminal.description,
+    validBetween: input.terminal.validBetween,
+    geometry: input.terminal.geometry,
+    stopPlaceIds: input.memberLabels.map(
+      (label) => stopPlaceDetailsByLabel[label].netexId,
+    ),
+  };
+
+  return terminal;
+};
+
+export const buildTerminalUpdateInput = (
+  id: string,
+  input: TerminalInput,
+): Partial<StopRegistryParentStopPlaceInput> => {
+  return {
+    id,
+    ...input,
+  };
 };
 
 export const setInfoSpotRelations = (
