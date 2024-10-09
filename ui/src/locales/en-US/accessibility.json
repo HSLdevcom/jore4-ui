@@ -1,6 +1,6 @@
 {
   "common": {
-    "showOnMap": "Show {{routeLabel}} on the map",
+    "showOnMap": "Show {{label}} on the map",
     "nextPage": "Next page",
     "prevPage": "Previous page",
     "currentPage": "Current page",
