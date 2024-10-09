@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import noop from 'lodash/noop';
 import { DateTime, Duration } from 'luxon';
-import { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction, useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
@@ -111,41 +111,63 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
       endDate: DateTime.fromISO(formValues.endDate),
     });
   });
-
   const formDisabled =
     isOccasionalSubstitutePeriodFormDirty || isCommonSubstitutePeriodFormDirty;
+
+  const handleKeyDown = useCallback(
+    (event: { key: string }) => {
+      if (event.key === 'Enter') {
+        if (!formDisabled) {
+          onSubmit();
+        }
+      }
+    },
+    [formDisabled, onSubmit],
+  );
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...form}>
       <form onSubmit={onSubmit}>
-        <div className="flex space-x-8">
-          <InputField<ObservationPeriodSchema>
-            type="date"
-            translationPrefix="timetables.observationPeriodForm"
-            fieldPath="startDate"
-            testId={testIds.startDate}
-            disabled={formDisabled}
-          />
-          <InputField<ObservationPeriodSchema>
-            type="date"
-            translationPrefix="timetables.observationPeriodForm"
-            fieldPath="endDate"
-            testId={testIds.endDate}
-            disabled={formDisabled}
-          />
-          <SimpleButton type="submit" onClick={noop} disabled={formDisabled}>
-            Suodata
-          </SimpleButton>
-        </div>
-        <div className="h-12 pt-2">
-          <Visible visible={formDisabled}>
-            <WarningText
-              warningMessage={t(
-                'timetables.observationPeriodForm.warningMessage',
-              )}
-            />
-          </Visible>
+        <div className="grid grid-flow-row">
+          <div className="row grid w-full grid-flow-col grid-cols-3 self-center">
+            <div className="col col-span-3 flex items-start space-x-8">
+              <InputField<ObservationPeriodSchema>
+                type="date"
+                translationPrefix="timetables.observationPeriodForm"
+                fieldPath="startDate"
+                testId={testIds.startDate}
+                disabled={formDisabled}
+                onKeyDown={handleKeyDown}
+              />
+              <InputField<ObservationPeriodSchema>
+                type="date"
+                translationPrefix="timetables.observationPeriodForm"
+                fieldPath="endDate"
+                testId={testIds.endDate}
+                disabled={formDisabled}
+                onKeyDown={handleKeyDown}
+              />
+              <div className="flex self-end pb-2">
+                <SimpleButton
+                  type="submit"
+                  onClick={noop}
+                  disabled={formDisabled}
+                >
+                  Suodata
+                </SimpleButton>
+              </div>
+            </div>
+          </div>
+          <div className="row col-span-4 w-full items-start self-start text-left">
+            <Visible visible={formDisabled}>
+              <WarningText
+                warningMessage={t(
+                  'timetables.observationPeriodForm.warningMessage',
+                )}
+              />
+            </Visible>
+          </div>
         </div>
       </form>
     </FormProvider>
