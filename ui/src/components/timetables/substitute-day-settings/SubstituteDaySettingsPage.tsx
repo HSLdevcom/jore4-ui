@@ -50,7 +50,7 @@ export const SubstituteDaySettingsPage = (): React.ReactElement => {
         { paramName: QueryParameterName.EndDate, value: dateRange.endDate },
       ],
     });
-  }, [dateRange]);
+  }, [dateRange, setMultipleParametersToUrlQuery]);
 
   const {
     settings: {

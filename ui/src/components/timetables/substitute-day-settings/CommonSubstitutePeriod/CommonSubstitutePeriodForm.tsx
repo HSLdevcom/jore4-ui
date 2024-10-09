@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TimetablesServiceCalendarSubstituteOperatingPeriod } from '../../../../generated/graphql';
-import { useAppDispatch, useTimeRangeQueryParams } from '../../../../hooks';
+import { useAppDispatch } from '../../../../hooks';
 import { Row } from '../../../../layoutComponents';
 import { setIsCommonSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
 import { mapToISODate, padToTwoDigits } from '../../../../time';
