@@ -78,7 +78,7 @@ const infoSpots: Array<InfoSpotInput> = [
       floor: '1',
       label: 'JP1234569',
       maintenance: 'Huoltotietojen tekstit tähän...',
-      purpose: 'Äänimajakka',
+      purpose: 'Infopaikan käyttötarkoitus',
       railInformation: '9',
       zoneLabel: 'C',
       displayType: null, // Only set if posterPlaceType = Dynamic
