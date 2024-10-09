@@ -1,8 +1,12 @@
-import { DateTime } from 'luxon';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../hooks';
+import {
+  QueryParameterName,
+  useAppSelector,
+  useDateQueryParam,
+  useUrlQuery,
+} from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { selectTimetable } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
@@ -20,10 +24,33 @@ const testIds = {
 export const SubstituteDaySettingsPage = (): React.ReactElement => {
   const { t } = useTranslation();
 
-  const [dateRange, setDateRange] = useState<DateRange>({
-    startDate: DateTime.now(),
-    endDate: DateTime.now().plus({ years: 1 }),
+  const { date: startDate } = useDateQueryParam({
+    queryParamName: QueryParameterName.StartDate,
+    initialize: true,
   });
+  const { date: endDate } = useDateQueryParam({
+    queryParamName: QueryParameterName.EndDate,
+    initialize: true,
+  });
+
+  const [dateRange, setDateRange] = useState<DateRange>({
+    startDate,
+    endDate,
+  });
+
+  const { setMultipleParametersToUrlQuery } = useUrlQuery();
+  useEffect(() => {
+    setMultipleParametersToUrlQuery({
+      replace: true,
+      parameters: [
+        {
+          paramName: QueryParameterName.StartDate,
+          value: dateRange.startDate,
+        },
+        { paramName: QueryParameterName.EndDate, value: dateRange.endDate },
+      ],
+    });
+  }, [dateRange]);
 
   const {
     settings: {
