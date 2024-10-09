@@ -1,115 +1,11 @@
-import {
-  LineInsertInput,
-  RouteInsertInput,
-  RouteTypeOfLineEnum,
-  buildLine,
-  buildRoute,
-} from '@hsl/jore4-test-db-manager';
-import { DateTime } from 'luxon';
+import pick from 'lodash/pick';
+import { getClonedBaseDbResources } from '../datasets/base';
 import { Tag } from '../enums';
 import { RoutesAndLinesPage, SearchResultsPage } from '../pageObjects';
 import { insertToDbHelper } from '../utils';
 import { expectGraphQLCallToSucceed } from '../utils/assertions';
 
-const lines: LineInsertInput[] = [
-  // Valid in 2022
-  {
-    ...buildLine({ label: '1666' }),
-    line_id: '5dfa82f1-b3f7-4e26-b31d-0d7bd78da0be',
-    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-    validity_start: DateTime.fromISO('2022-01-02'),
-    validity_end: DateTime.fromISO('2022-12-24'),
-  },
-  // Valid in 2023
-  {
-    ...buildLine({ label: '2666' }),
-    line_id: '61e4d95e-34e5-11ed-a261-0242ac120002',
-    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-    validity_start: DateTime.fromISO('2023-01-02'),
-    validity_end: DateTime.fromISO('2023-12-24'),
-  },
-  // Valid in 2024
-  {
-    ...buildLine({ label: '1777' }),
-    line_id: '47c5fe92-e630-430b-a2da-2c6739acbb2b',
-    type_of_line: RouteTypeOfLineEnum.StoppingBusService,
-    validity_start: DateTime.fromISO('2024-01-02'),
-    validity_end: DateTime.fromISO('2024-12-24'),
-  },
-  // Valid between 2000 and 2054
-  {
-    ...buildLine({ label: '9999' }),
-    line_id: '7f5aa870-891a-433e-bd9b-f864162a2adf',
-    validity_start: DateTime.fromISO('2000-01-02'),
-    validity_end: DateTime.fromISO('2054-12-24'),
-  },
-  {
-    ...buildLine({ label: '9888' }),
-    line_id: 'a627dfbf-8db6-4519-b968-56b4a4988d91',
-    validity_start: DateTime.fromISO('2000-01-02'),
-    validity_end: DateTime.fromISO('2054-12-24'),
-  },
-  {
-    ...buildLine({ label: '8888' }),
-    line_id: '69141b10-98cb-4319-9fe9-95cddbd46987',
-    validity_start: DateTime.fromISO('2000-01-02'),
-    validity_end: DateTime.fromISO('2054-12-24'),
-  },
-  // Always valid.
-  {
-    ...buildLine({ label: '8889' }),
-    line_id: '429413b0-a3b7-4b12-a3a1-5c26268066c1',
-    validity_start: null,
-    validity_end: null,
-  },
-];
-
-const routes: RouteInsertInput[] = [
-  // Valid in 2022
-  {
-    ...buildRoute({ label: '1111' }),
-    route_id: '48490721-3346-493a-80c8-3edd07c2d5d6',
-    on_line_id: lines[0].line_id,
-    validity_start: lines[0].validity_start,
-    validity_end: lines[0].validity_end,
-  },
-  // Valid in 2023
-  {
-    ...buildRoute({ label: '1222' }),
-    route_id: 'd82ebf21-5adb-419c-b057-c6e3b0f7480c',
-    on_line_id: lines[1].line_id,
-    validity_start: lines[1].validity_start,
-    validity_end: lines[1].validity_end,
-  },
-  // Valid in 2024
-  {
-    ...buildRoute({ label: '2333' }),
-    route_id: 'fa6196fa-ce61-4808-84bf-f4fc60bf1162',
-    on_line_id: lines[2].line_id,
-    validity_start: lines[2].validity_start,
-    validity_end: lines[2].validity_end,
-  },
-  // The rest are valid between 2000 and 2054
-  {
-    ...buildRoute({ label: '1999' }),
-    route_id: 'eec15aaf-3cf3-4fc8-86a1-7849ea4d88e0',
-    on_line_id: lines[3].line_id,
-    validity_start: lines[3].validity_start,
-    validity_end: lines[3].validity_end,
-  },
-  {
-    ...buildRoute({ label: '1888' }),
-    route_id: '88f2bb05-8438-41ab-ba26-27983250a78e',
-    on_line_id: lines[3].line_id,
-    validity_start: lines[3].validity_start,
-    validity_end: lines[3].validity_end,
-  },
-];
-
-const dbResources = {
-  lines,
-  routes,
-};
+const dbResources = pick(getClonedBaseDbResources(), 'lines', 'routes');
 
 describe('Verify that route and line search works', () => {
   let searchResultsPage: SearchResultsPage;
@@ -152,11 +48,12 @@ describe('Verify that route and line search works', () => {
 
     searchResultsPage
       .getSearchResultsContainer()
-      .should('contain', '2 hakutulosta');
+      .should('contain', '3 hakutulosta');
     searchResultsPage
       .getLinesSearchResultTable()
       .should('contain', '9999')
-      .and('contain', '9888');
+      .and('contain', '9888')
+      .and('contain', '901');
     searchResultsPage
       .getLinesSearchResultTable()
       .should('not.contain', '8888')
