@@ -3,6 +3,7 @@ import {
   GetAllStopAreaIdsResult,
   GetAllStopPlaceIdsResult,
   GetInfrastructureLinksByExternalIdsResult,
+  InfoSpotInput,
   OrganisationIdsByName,
   StopAreaIdsByName,
   StopAreaInput,
@@ -12,6 +13,7 @@ import {
   e2eDatabaseConfig,
   getDbConnection,
   hasuraApi,
+  insertInfoSpots as insertStopRegistryInfoSpots,
   insertOrganisations as insertStopRegistryOrganisations,
   insertStopAreas as insertStopRegistryStopAreas,
   insertStopPlaces as insertStopRegistryStopPlaces,
@@ -23,6 +25,7 @@ import {
   mapToGetAllStopPlaceIds,
   mapToGetInfrastructureLinksByExternalIdsQuery,
   resetRoutesAndLinesDb,
+  setInfoSpotRelations,
   setStopAreaRelations,
   setStopPlaceRelations,
   timetablesDatabaseConfig,
@@ -113,10 +116,12 @@ export const insertStopRegistryData = async ({
   organisations = [],
   stopAreas = [],
   stopPlaces = [],
+  infoSpots = [],
 }: {
   organisations?: Array<StopRegistryOrganisationInput>;
   stopAreas?: Array<StopAreaInput>;
   stopPlaces?: Array<StopPlaceInput>;
+  infoSpots?: Array<InfoSpotInput>;
 }): Promise<InsertedStopRegistryIds> => {
   const organisationIdsByName =
     await insertStopRegistryOrganisations(organisations);
@@ -129,6 +134,11 @@ export const insertStopRegistryData = async ({
   });
   const stopPlaceDetailsByLabel =
     await insertStopRegistryStopPlaces(stopPlaceInputs);
+
+  const infoSpotInputs = infoSpots.map((spot) =>
+    setInfoSpotRelations(spot, stopPlaceDetailsByLabel),
+  );
+  await insertStopRegistryInfoSpots(infoSpotInputs);
 
   const stopAreaInputs = stopAreas.map((area) =>
     setStopAreaRelations(area, stopPlaceDetailsByLabel),
@@ -208,6 +218,7 @@ export const resetStopRegistryDb = async () => {
   await deleteStopAreas();
   await deleteStopPlaces();
   await deleteOrganisations();
+  // TODO: Add deletion of info spots
 };
 
 export const resetDbs = async () => {
