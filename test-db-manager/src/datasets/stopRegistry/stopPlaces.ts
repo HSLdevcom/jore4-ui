@@ -484,3 +484,4 @@ const seedData: Array<StopPlaceSeedData> = [
 export const seedStopPlaces: Array<StopPlaceInput> =
   seedData.map(mapToStopPlaceInput);
 export const stopPlaceH2003 = mapToStopPlaceInput(H2003);
+export const stopPlaceV1562 = mapToStopPlaceInput(route530Stops[0]);
