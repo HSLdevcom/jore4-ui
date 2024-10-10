@@ -77729,7 +77729,7 @@ export const GetHighestPriorityStopDetailsByLabelAndDateDocument = gql`
       limit: 1
     ) {
       ...scheduled_stop_point_detail_fields
-      stop_place {
+      stop_place(onlyMonomodalStopPlaces: true) {
         ...stop_place_details
       }
     }
