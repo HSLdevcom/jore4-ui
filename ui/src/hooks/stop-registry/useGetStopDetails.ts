@@ -63,7 +63,7 @@ const GQL_GET_HIGHEST_PRIORITY_STOP_DETAILS_BY_LABEL_AND_DATE = gql`
       limit: 1
     ) {
       ...scheduled_stop_point_detail_fields
-      stop_place {
+      stop_place(onlyMonomodalStopPlaces: true) {
         ...stop_place_details
       }
     }
