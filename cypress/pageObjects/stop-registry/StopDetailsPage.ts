@@ -1,5 +1,6 @@
 import {
   BasicDetailsSection,
+  InfoSpotsSection,
   LocationDetailsSection,
   MaintenanceSection,
   MeasurementsSection,
@@ -9,6 +10,8 @@ import {
 
 export class StopDetailsPage {
   basicDetails = new BasicDetailsSection();
+
+  infoSpots = new InfoSpotsSection();
 
   locationDetails = new LocationDetailsSection();
 
