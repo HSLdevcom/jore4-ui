@@ -614,6 +614,7 @@
     "tooSmall": "Value is too small",
     "tooBig": "Value is too big",
     "timeRange": "Start date has to be before end date.",
+    "timeRangeTooLong": "Too long time range",
     "invalidTime": "04:30-28:30",
     "invalidEmail": "Invalid email",
     "substituteDayOfWeek": "Select day",

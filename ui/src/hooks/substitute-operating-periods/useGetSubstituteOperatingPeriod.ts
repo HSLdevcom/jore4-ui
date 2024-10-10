@@ -34,19 +34,49 @@ const GQL_GET_SUBSTITUTE_OPERATING_PERIODS = gql`
   }
 `;
 
-export const useGetSubstituteOperatingPeriods = ({
+const mapSubstituteOperatingPeriodsResult = (
+  result?: GetSubstituteOperatingPeriodsQuery,
+) => {
+  return result?.timetables
+    ?.timetables_service_calendar_substitute_operating_period as TimetablesServiceCalendarSubstituteOperatingPeriod[];
+};
+
+export const useGetCommonSubstituteOperatingPeriods = ({
   startDate,
   endDate,
 }: {
   startDate: DateTime;
   endDate: DateTime;
 }) => {
-  const mapSubstituteOperatingPeriodsResult = (
-    result?: GetSubstituteOperatingPeriodsQuery,
-  ) => {
-    return result?.timetables
-      ?.timetables_service_calendar_substitute_operating_period as TimetablesServiceCalendarSubstituteOperatingPeriod[];
+  const periodDateRangeFilter = {
+    ...buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods(
+      startDate,
+      endDate,
+    ),
   };
+
+  const commonPeriodFilter = {
+    ...periodDateRangeFilter,
+    ...buildIsPresetSubstituteOperatingPeriodFilter(true),
+  };
+
+  const { data, ...rest } = useGetSubstituteOperatingPeriodsQuery({
+    variables: { periodFilters: commonPeriodFilter },
+  });
+
+  const commonSubstituteOperatingPeriods =
+    mapSubstituteOperatingPeriodsResult(data);
+
+  return { ...rest, commonSubstituteOperatingPeriods };
+};
+
+export const useGetOccasionalSubstituteOperatingPeriods = ({
+  startDate,
+  endDate,
+}: {
+  startDate: DateTime;
+  endDate: DateTime;
+}) => {
   const periodDateRangeFilter = {
     ...buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods(
       startDate,
@@ -58,42 +88,13 @@ export const useGetSubstituteOperatingPeriods = ({
     ...periodDateRangeFilter,
     ...buildIsPresetSubstituteOperatingPeriodFilter(false),
   };
-  const commonPeriodFilter = {
-    ...periodDateRangeFilter,
-    ...buildIsPresetSubstituteOperatingPeriodFilter(true),
-  };
 
-  const {
-    data: occasionalSubstituteOperatingPeriodData,
-    refetch: refetchOccasionalSubstituteOperatingPeriods,
-    loading: isLoadingOccasionalSubstituteOperatingPeriods,
-  } = useGetSubstituteOperatingPeriodsQuery({
+  const { data, ...rest } = useGetSubstituteOperatingPeriodsQuery({
     variables: { periodFilters: occasionalPeriodFilter },
   });
 
-  const {
-    data: commonSubstituteOperatingPeriodData,
-    refetch: refetchCommonSubstituteOperatingPeriods,
-    loading: isLoadingCommonSubstituteOperatingPeriods,
-  } = useGetSubstituteOperatingPeriodsQuery({
-    variables: { periodFilters: commonPeriodFilter },
-  });
-
   const occasionalSubstituteOperatingPeriods =
-    mapSubstituteOperatingPeriodsResult(
-      occasionalSubstituteOperatingPeriodData,
-    );
+    mapSubstituteOperatingPeriodsResult(data);
 
-  const commonSubstituteOperatingPeriods = mapSubstituteOperatingPeriodsResult(
-    commonSubstituteOperatingPeriodData,
-  );
-
-  return {
-    refetchOccasionalSubstituteOperatingPeriods,
-    isLoadingOccasionalSubstituteOperatingPeriods,
-    isLoadingCommonSubstituteOperatingPeriods,
-    refetchCommonSubstituteOperatingPeriods,
-    occasionalSubstituteOperatingPeriods,
-    commonSubstituteOperatingPeriods,
-  };
+  return { ...rest, occasionalSubstituteOperatingPeriods };
 };

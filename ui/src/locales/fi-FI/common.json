@@ -614,6 +614,7 @@
     "tooSmall": "Arvo on liian pieni",
     "tooBig": "Arvo on liian suuri",
     "timeRange": "Alkupäivämäärän pitää tulla ennen loppupäivämäärää.",
+    "timeRangeTooLong": "Päivämäärä väli on liian pitkä!",
     "invalidTime": "04:30-28:30",
     "invalidEmail": "Virheellinen sähköpostiosoite",
     "substituteDayOfWeek": "Valitse päivä",
