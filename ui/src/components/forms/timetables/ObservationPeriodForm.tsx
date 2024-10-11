@@ -17,6 +17,8 @@ import { InputField, requiredDate } from '../common';
 const testIds = {
   startDate: 'ObservationPeriodForm::startDate',
   endDate: 'ObservationPeriodForm::endDate',
+  filterButton: 'ObservationPeriodForm::filterButton',
+  warningMessage: 'ObservationPeriodForm::warningMessage',
 };
 
 interface WarningTextProps {
@@ -31,7 +33,9 @@ const WarningText = ({
   return (
     <Row className={`${className} items-center`}>
       <MdWarning className="mr-2 inline text-lg text-grey" />
-      <span className="text-grey">{warningMessage}</span>
+      <span className="text-grey" data-testid={testIds.warningMessage}>
+        {warningMessage}
+      </span>
     </Row>
   );
 };
@@ -152,6 +156,7 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
                 <SimpleButton
                   type="submit"
                   onClick={noop}
+                  testId={testIds.filterButton}
                   disabled={formDisabled}
                 >
                   Suodata
