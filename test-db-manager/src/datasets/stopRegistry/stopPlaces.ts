@@ -23,6 +23,7 @@ import {
   StopRegistrySubmodeType,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
+import { getKeyValue } from './utils';
 
 type OrganisationName = string;
 export type StopPlaceMaintenance = {
@@ -206,42 +207,12 @@ const mapToStopPlaceInput = (
             }
           : null,
       keyValues: [
-        seedStopPlace.streetAddress
-          ? {
-              key: 'streetAddress',
-              values: [seedStopPlace.streetAddress],
-            }
-          : null,
-        seedStopPlace.postalCode
-          ? {
-              key: 'postalCode',
-              values: [seedStopPlace.postalCode],
-            }
-          : null,
-        seedStopPlace.functionalArea
-          ? {
-              key: 'functionalArea',
-              values: [seedStopPlace.functionalArea],
-            }
-          : null,
-        seedStopPlace.stopState
-          ? {
-              key: 'stopState',
-              values: [seedStopPlace.stopState],
-            }
-          : null,
-        seedStopPlace.stopType
-          ? {
-              key: 'mainLine',
-              values: [seedStopPlace.stopType.mainLine.toString()],
-            }
-          : null,
-        seedStopPlace.stopType
-          ? {
-              key: 'virtual',
-              values: [seedStopPlace.stopType.virtual.toString()],
-            }
-          : null,
+        getKeyValue('streetAddress', seedStopPlace.streetAddress),
+        getKeyValue('postalCode', seedStopPlace.postalCode),
+        getKeyValue('functionalArea', seedStopPlace.functionalArea),
+        getKeyValue('stopState', seedStopPlace.stopState),
+        getKeyValue('virtual', seedStopPlace.stopType?.virtual),
+        getKeyValue('mainLine', seedStopPlace.stopType?.mainLine),
       ],
 
       // Equipment properties:
