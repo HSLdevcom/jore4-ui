@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../hooks';
+import {
+  QueryParameterName,
+  useAppSelector,
+  useDateQueryParam,
+  useUrlQuery,
+} from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { selectTimetable } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
@@ -9,6 +14,7 @@ import { ConfirmationDialog } from '../../../uiComponents';
 import { CloseIconButton } from '../../../uiComponents/CloseIconButton';
 import { ObservationPeriodForm } from '../../forms/timetables/ObservationPeriodForm';
 import { CommonSubstitutePeriodSection } from './CommonSubstitutePeriod/CommonSubstitutePeriodSection';
+import { DateRange } from './DateRange';
 import { OccasionalSubstitutePeriodSection } from './OccasionalSubstitutePeriod';
 
 const testIds = {
@@ -17,6 +23,34 @@ const testIds = {
 
 export const SubstituteDaySettingsPage = (): React.ReactElement => {
   const { t } = useTranslation();
+
+  const { date: startDate } = useDateQueryParam({
+    queryParamName: QueryParameterName.StartDate,
+    initialize: true,
+  });
+  const { date: endDate } = useDateQueryParam({
+    queryParamName: QueryParameterName.EndDate,
+    initialize: true,
+  });
+
+  const [dateRange, setDateRange] = useState<DateRange>({
+    startDate,
+    endDate,
+  });
+
+  const { setMultipleParametersToUrlQuery } = useUrlQuery();
+  useEffect(() => {
+    setMultipleParametersToUrlQuery({
+      replace: true,
+      parameters: [
+        {
+          paramName: QueryParameterName.StartDate,
+          value: dateRange.startDate,
+        },
+        { paramName: QueryParameterName.EndDate, value: dateRange.endDate },
+      ],
+    });
+  }, [dateRange, setMultipleParametersToUrlQuery]);
 
   const {
     settings: {
@@ -55,14 +89,20 @@ export const SubstituteDaySettingsPage = (): React.ReactElement => {
       </Row>
       <div className="space-y-4 rounded-md bg-hsl-neutral-blue px-8 pb-4 pt-10">
         <h4>{t('timetables.filter')}</h4>
-        <ObservationPeriodForm />
+        <ObservationPeriodForm
+          dateRange={dateRange}
+          setDateRange={setDateRange}
+        />
       </div>
       <div className="divide-y">
-        <CommonSubstitutePeriodSection className="my-8" />
+        <CommonSubstitutePeriodSection className="my-8" dateRange={dateRange} />
       </div>
       <hr />
       <div className="divide-y">
-        <OccasionalSubstitutePeriodSection />
+        <OccasionalSubstitutePeriodSection
+          dateRange={dateRange}
+          setDateRange={setDateRange}
+        />
       </div>
       <hr />
       <ConfirmationDialog

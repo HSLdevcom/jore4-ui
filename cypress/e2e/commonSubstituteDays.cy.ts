@@ -78,6 +78,8 @@ describe('Common substitute operating periods', () => {
         '2023-12-31',
       );
 
+      cy.getByTestId('ObservationPeriodForm::filterButton').click();
+
       // Add a common substitute day
       substituteDaySettingsPage.commonSubstitutePeriodForm.editCommonSubstitutePeriod(
         {
@@ -191,6 +193,8 @@ describe('Common substitute operating periods', () => {
         '2023-12-31',
       );
 
+      cy.getByTestId('ObservationPeriodForm::filterButton').click();
+
       substituteDaySettingsPage.commonSubstitutePeriodForm.removeCommonSubstitutePeriod(
         'Tapaninpäivä 2023',
       );
@@ -285,6 +289,8 @@ describe('Common substitute operating periods', () => {
         '2023-12-31',
       );
 
+      cy.getByTestId('ObservationPeriodForm::filterButton').click();
+
       // Add a common substitute day
       substituteDaySettingsPage.commonSubstitutePeriodForm.editCommonSubstitutePeriod(
         {
@@ -349,6 +355,9 @@ describe('Common substitute operating periods', () => {
         '2023-01-01',
         '2023-12-31',
       );
+
+      cy.getByTestId('ObservationPeriodForm::filterButton').click();
+
       substituteDaySettingsPage.commonSubstitutePeriodForm.removeCommonSubstitutePeriod(
         'Tapaninpäivä 2023',
       );
@@ -431,6 +440,8 @@ describe('Common substitute operating periods', () => {
           '2023-01-01',
           '2023-12-31',
         );
+
+        cy.getByTestId('ObservationPeriodForm::filterButton').click();
 
         // Try to add a common substitute day
         substituteDaySettingsPage.commonSubstitutePeriodForm.editCommonSubstitutePeriod(

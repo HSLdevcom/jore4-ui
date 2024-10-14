@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TimetablesServiceCalendarSubstituteOperatingPeriod } from '../../../../generated/graphql';
-import { useAppDispatch, useTimeRangeQueryParams } from '../../../../hooks';
+import { useAppDispatch } from '../../../../hooks';
 import { Row } from '../../../../layoutComponents';
 import { setIsCommonSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
 import { mapToISODate, padToTwoDigits } from '../../../../time';
@@ -18,6 +18,7 @@ import {
   submitFormByRef,
 } from '../../../../utils';
 import { commonSubstituteDayData } from '../common_substitute_day_data';
+import { DateRange } from '../DateRange';
 import {
   CommonDayType,
   FormState,
@@ -117,18 +118,18 @@ interface Props {
   className?: string;
   commonDays?: CommonDayType[];
   onSubmit: (state: FormState) => void;
+  dateRange: DateRange;
 }
 
 export const CommonSubstitutePeriodForm = ({
   className,
   commonDays,
   onSubmit,
+  dateRange: { startDate, endDate },
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
   const dispatch = useAppDispatch();
-
-  const { startDate, endDate } = useTimeRangeQueryParams();
 
   const [isResetting, setIsResetting] = useState<boolean>(false);
 

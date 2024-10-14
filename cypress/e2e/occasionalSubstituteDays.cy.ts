@@ -81,6 +81,11 @@ describe('Occasional substitute operating periods', () => {
       substituteDaySettingsPage.occasionalSubstitutePeriodForm
         .getAddOccasionalSubstitutePeriodButton()
         .click();
+
+      cy.getByTestId('ObservationPeriodForm::warningMessage').shouldHaveText(
+        'Tallenna tai hylkää lomakkeen muutokset',
+      );
+
       substituteDaySettingsPage.occasionalSubstitutePeriodForm.fillNthOccasionalSubstitutePeriodForm(
         {
           nth: 0,
@@ -99,7 +104,6 @@ describe('Occasional substitute operating periods', () => {
         .getSaveButton()
         .click();
       toast.checkSuccessToastHasMessage('Tallennus onnistui');
-      toast.checkWarningToastHasMessage('Suodatusjaksoa muutettu');
 
       // Navigate to route's timetable
       navbar.getTimetablesLink().click();
@@ -168,6 +172,8 @@ describe('Occasional substitute operating periods', () => {
       substituteDaySettingsPage.commonSubstitutePeriodForm
         .getSaveButton()
         .shouldBeVisible();
+
+      cy.getByTestId('ObservationPeriodForm::filterButton').click();
 
       substituteDaySettingsPage.occasionalSubstitutePeriodForm.deleteNthOccasionalSubstituteDay(
         0,

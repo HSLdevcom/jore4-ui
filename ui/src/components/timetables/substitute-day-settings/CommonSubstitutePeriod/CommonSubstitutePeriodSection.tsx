@@ -3,11 +3,11 @@ import {
   useCreateSubstituteOperatingPeriod,
   useDeleteSubstituteOperatingPeriod,
   useEditSubstituteOperatingPeriod,
-  useGetSubstituteOperatingPeriods,
+  useGetCommonSubstituteOperatingPeriods,
 } from '../../../../hooks/substitute-operating-periods';
-import { useTimeRangeQueryParams } from '../../../../hooks/urlQuery';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { showDangerToastWithError, showSuccessToast } from '../../../../utils';
+import { DateRange } from '../DateRange';
 import {
   CommonSubstitutePeriodForm,
   mapCommonSubstituteOperatingPeriodsToCommonDays,
@@ -16,6 +16,7 @@ import { FormState } from './CommonSubstitutePeriodForm.types';
 
 interface Props {
   className?: string;
+  dateRange: DateRange;
 }
 
 const testIds = {
@@ -25,15 +26,12 @@ const testIds = {
 
 export const CommonSubstitutePeriodSection = ({
   className = '',
+  dateRange,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  const { startDate, endDate } = useTimeRangeQueryParams();
 
-  const {
-    commonSubstituteOperatingPeriods,
-    isLoadingCommonSubstituteOperatingPeriods,
-    refetchCommonSubstituteOperatingPeriods,
-  } = useGetSubstituteOperatingPeriods({ startDate, endDate });
+  const { commonSubstituteOperatingPeriods, refetch, loading } =
+    useGetCommonSubstituteOperatingPeriods(dateRange);
 
   const { prepareAndExecute: prepareAndExecuteCreate } =
     useCreateSubstituteOperatingPeriod();
@@ -61,7 +59,7 @@ export const CommonSubstitutePeriodSection = ({
       await deleteSubstituteOperatingPeriod({ periods });
       await prepareAndExecuteEdit({ form: { periods } });
       await prepareAndExecuteCreate({ form: { periods } });
-      refetchCommonSubstituteOperatingPeriods();
+      await refetch();
 
       showSuccessToast(t('timetables.settings.saveSuccess'));
     } catch (err) {
@@ -73,11 +71,12 @@ export const CommonSubstitutePeriodSection = ({
     <div className={className}>
       <h2>{t('timetables.settings.commonSubstituteDays')}</h2>
       <LoadingWrapper
-        loading={isLoadingCommonSubstituteOperatingPeriods}
+        loading={loading}
         testId={testIds.loadingCommonSubstitutePeriods}
         className="flex justify-center"
       >
         <CommonSubstitutePeriodForm
+          dateRange={dateRange}
           className="my-8"
           commonDays={mapCommonSubstituteOperatingPeriodsToCommonDays(
             commonSubstituteOperatingPeriods,
