@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useFilterStops, useMapQueryParams } from '../../hooks';
-import { FilterType, resetMapState } from '../../redux';
+import { useAppDispatch, useMapQueryParams } from '../../hooks';
+import { FilterType, resetMapState, setStopFilterAction } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
 
 type OpenDefaultMapButtonProps = {
@@ -15,8 +15,6 @@ export const OpenDefaultMapButton = ({
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapQueryParams();
-  const { toggleFunction } = useFilterStops();
-  const toggleShowAllStops = toggleFunction(FilterType.ShowAllBusStops);
 
   const onOpenMapModal = () => {
     dispatch(resetMapState());
@@ -24,7 +22,12 @@ export const OpenDefaultMapButton = ({
      * By default only stops that belong to displayed route are shown on map.
      * Now that no routes are shown on map, show all stops by default.
      */
-    toggleShowAllStops(true);
+    dispatch(
+      setStopFilterAction({
+        filterType: FilterType.ShowAllBusStops,
+        isActive: true,
+      }),
+    );
 
     addMapOpenQueryParameter();
   };

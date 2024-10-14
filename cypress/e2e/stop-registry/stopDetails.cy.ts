@@ -7,14 +7,17 @@ import {
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   mapToGetInfrastructureLinksByExternalIdsQuery,
+  seedInfoSpots,
   seedOrganisations,
   stopPlaceH2003,
+  stopPlaceV1562,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
 import {
   BasicDetailsForm,
   BasicDetailsViewCard,
+  InfoSpotViewCard,
   LocationDetailsForm,
   LocationDetailsViewCard,
   MaintenanceDetailsForm,
@@ -63,6 +66,7 @@ const stopPlaceData: Array<StopPlaceInput> = [
     stopPlace: { name: { lang: 'fin', value: 'Puistokaari' } },
   },
   stopPlaceH2003,
+  stopPlaceV1562,
 ];
 
 const buildScheduledStopPoints = (
@@ -94,6 +98,20 @@ const buildScheduledStopPoints = (
     measured_location: {
       type: 'Point',
       coordinates: testInfraLinks[2].coordinates,
+    },
+  },
+  {
+    ...buildStop({
+      label: 'V1562',
+      located_on_infrastructure_link_id: infrastructureLinkIds[1],
+    }),
+    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_end: DateTime.fromISO('2050-05-31'),
+    scheduled_stop_point_id: '603c8ea9-63f2-469b-9790-790e368a3c7e',
+    timing_place_id: timingPlaces[1].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: testInfraLinks[1].coordinates,
     },
   },
 ];
@@ -132,6 +150,7 @@ describe('Stop details', () => {
     cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
       stopPlaces: stopPlaceData,
       organisations: seedOrganisations,
+      infoSpots: seedInfoSpots,
     });
 
     stopDetailsPage = new StopDetailsPage();
@@ -1429,17 +1448,100 @@ describe('Stop details', () => {
     });
   });
 
-  describe('info spots', () => {
-    it('should view info spots', { tags: [Tag.StopRegistry] }, () => {
-      stopDetailsPage.visit('H2003');
+  describe('info spot details', () => {
+    let infoSpotView: InfoSpotViewCard;
+
+    beforeEach(() => {
+      infoSpotView = stopDetailsPage.infoSpots.viewCard;
+
+      stopDetailsPage.visit('V1562');
       stopDetailsPage.page().shouldBeVisible();
-      stopDetailsPage.label().shouldHaveText('H2003');
+      stopDetailsPage.label().shouldHaveText('V1562');
 
       stopDetailsPage.infoSpotsTabButton().click();
+    });
 
+    it('should view info spot details', { tags: [Tag.StopRegistry] }, () => {
       stopDetailsPage.infoSpotsTabPanel().should('be.visible');
       stopDetailsPage.technicalFeaturesTabPanel().should('not.exist');
       stopDetailsPage.basicDetailsTabPanel().should('not.exist');
+
+      infoSpotView.getContainers().shouldBeVisible();
+
+      infoSpotView.getNthContainer(0).within(() => {
+        infoSpotView
+          .getDescription()
+          .shouldHaveText('Ensimmäinen kerros, portaiden vieressä');
+        infoSpotView.getLabel().shouldHaveText('JP1234568');
+        infoSpotView.getInfoSpotType().shouldHaveText('Staattinen');
+        infoSpotView.getPurpose().shouldHaveText('Tiedotteet');
+        infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+        infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+        infoSpotView.getBacklight().shouldHaveText('Kyllä');
+        infoSpotView.getPosterPlaceSize().shouldHaveText('80x120cm');
+        infoSpotView
+          .getMaintenance()
+          .shouldHaveText('Huoltotietojen tekstit tähän...');
+        infoSpotView.getPosterSize().shouldHaveText('a4');
+        infoSpotView.getPosterLabel().shouldHaveText('PT1234');
+        infoSpotView.getPosterLines().shouldHaveText('1, 6, 17');
+        infoSpotView.getFloor().shouldHaveText('1');
+        infoSpotView.getRailInformation().shouldHaveText('7');
+        infoSpotView.getStops().shouldHaveText('V1562');
+        infoSpotView.getTerminals().shouldHaveText('-');
+        infoSpotView.getZoneLabel().shouldHaveText('A');
+
+        infoSpotView.getDisplayType().should('not.exist');
+        infoSpotView.getSpeechProperty().should('not.exist');
+      });
+
+      infoSpotView.getNthContainer(1).within(() => {
+        infoSpotView
+          .getDescription()
+          .shouldHaveText('Ensimmäinen kerros, portaiden takana');
+        infoSpotView.getLabel().shouldHaveText('JP1234567');
+        infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
+        infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö');
+        infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+        infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+        infoSpotView.getDisplayType().shouldHaveText('Patteri, monirivi');
+        infoSpotView.getSpeechProperty().shouldHaveText('Kyllä');
+        infoSpotView.getFloor().shouldHaveText('1');
+        infoSpotView.getRailInformation().shouldHaveText('8');
+        infoSpotView.getStops().shouldHaveText('V1562');
+        infoSpotView.getTerminals().shouldHaveText('-');
+        infoSpotView.getZoneLabel().shouldHaveText('B');
+
+        infoSpotView.getBacklight().should('not.exist');
+        infoSpotView.getPosterPlaceSize().should('not.exist');
+        infoSpotView.getMaintenance().should('not.exist');
+        infoSpotView.getPosterSize().should('not.exist');
+        infoSpotView.getPosterLabel().should('not.exist');
+        infoSpotView.getPosterLines().should('not.exist');
+      });
+
+      infoSpotView.getNthContainer(2).within(() => {
+        infoSpotView.getDescription().shouldHaveText('Tolpassa');
+        infoSpotView.getLabel().shouldHaveText('JP1234569');
+        infoSpotView.getInfoSpotType().shouldHaveText('Äänimajakka');
+        infoSpotView.getPurpose().shouldHaveText('Infopaikan käyttötarkoitus');
+        infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+        infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+        infoSpotView.getFloor().shouldHaveText('1');
+        infoSpotView.getRailInformation().shouldHaveText('9');
+        infoSpotView.getStops().shouldHaveText('V1562');
+        infoSpotView.getTerminals().shouldHaveText('-');
+        infoSpotView.getZoneLabel().shouldHaveText('C');
+
+        infoSpotView.getBacklight().should('not.exist');
+        infoSpotView.getPosterPlaceSize().should('not.exist');
+        infoSpotView.getMaintenance().should('not.exist');
+        infoSpotView.getPosterSize().should('not.exist');
+        infoSpotView.getPosterLabel().should('not.exist');
+        infoSpotView.getPosterLines().should('not.exist');
+        infoSpotView.getDisplayType().should('not.exist');
+        infoSpotView.getSpeechProperty().should('not.exist');
+      });
     });
   });
 

@@ -70510,6 +70510,33 @@ export type UpdateStopPlaceMutation = {
           } | null;
         } | null;
       } | null> | null;
+      infoSpots?: Array<{
+        __typename?: 'stop_registry_infoSpot';
+        id?: string | null;
+        backlight?: boolean | null;
+        displayType?: StopRegistryDisplayType | null;
+        floor?: string | null;
+        label?: string | null;
+        posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+        infoSpotLocations?: Array<string | null> | null;
+        infoSpotType?: StopRegistryInfoSpotType | null;
+        purpose?: string | null;
+        railInformation?: string | null;
+        speechProperty?: boolean | null;
+        zoneLabel?: string | null;
+        maintenance?: string | null;
+        description?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
+        poster?: Array<{
+          __typename?: 'stop_registry_poster';
+          label?: string | null;
+          posterSize?: StopRegistryPosterPlaceSize | null;
+          lines?: string | null;
+        } | null> | null;
+      } | null> | null;
     } | null> | null;
   } | null;
 };
@@ -70731,6 +70758,33 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
                 phone?: string | null;
               } | null;
             } | null;
+          } | null> | null;
+          infoSpots?: Array<{
+            __typename?: 'stop_registry_infoSpot';
+            id?: string | null;
+            backlight?: boolean | null;
+            displayType?: StopRegistryDisplayType | null;
+            floor?: string | null;
+            label?: string | null;
+            posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+            infoSpotLocations?: Array<string | null> | null;
+            infoSpotType?: StopRegistryInfoSpotType | null;
+            purpose?: string | null;
+            railInformation?: string | null;
+            speechProperty?: boolean | null;
+            zoneLabel?: string | null;
+            maintenance?: string | null;
+            description?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
+            poster?: Array<{
+              __typename?: 'stop_registry_poster';
+              label?: string | null;
+              posterSize?: StopRegistryPosterPlaceSize | null;
+              lines?: string | null;
+            } | null> | null;
           } | null> | null;
         }
       | null
@@ -71040,6 +71094,61 @@ export type StopPlaceDetailsFragment = {
         phone?: string | null;
       } | null;
     } | null;
+  } | null> | null;
+  infoSpots?: Array<{
+    __typename?: 'stop_registry_infoSpot';
+    id?: string | null;
+    backlight?: boolean | null;
+    displayType?: StopRegistryDisplayType | null;
+    floor?: string | null;
+    label?: string | null;
+    posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+    infoSpotLocations?: Array<string | null> | null;
+    infoSpotType?: StopRegistryInfoSpotType | null;
+    purpose?: string | null;
+    railInformation?: string | null;
+    speechProperty?: boolean | null;
+    zoneLabel?: string | null;
+    maintenance?: string | null;
+    description?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      lang?: string | null;
+      value?: string | null;
+    } | null;
+    poster?: Array<{
+      __typename?: 'stop_registry_poster';
+      label?: string | null;
+      posterSize?: StopRegistryPosterPlaceSize | null;
+      lines?: string | null;
+    } | null> | null;
+  } | null> | null;
+};
+
+export type InfoSpotDetailsFragment = {
+  __typename?: 'stop_registry_infoSpot';
+  id?: string | null;
+  backlight?: boolean | null;
+  displayType?: StopRegistryDisplayType | null;
+  floor?: string | null;
+  label?: string | null;
+  posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+  infoSpotLocations?: Array<string | null> | null;
+  infoSpotType?: StopRegistryInfoSpotType | null;
+  purpose?: string | null;
+  railInformation?: string | null;
+  speechProperty?: boolean | null;
+  zoneLabel?: string | null;
+  maintenance?: string | null;
+  description?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
+  poster?: Array<{
+    __typename?: 'stop_registry_poster';
+    label?: string | null;
+    posterSize?: StopRegistryPosterPlaceSize | null;
+    lines?: string | null;
   } | null> | null;
 };
 
@@ -73266,6 +73375,32 @@ export const StopPlaceOrganisationFieldsFragmentDoc = gql`
     }
   }
 `;
+export const InfoSpotDetailsFragmentDoc = gql`
+  fragment info_spot_details on stop_registry_infoSpot {
+    id
+    backlight
+    description {
+      lang
+      value
+    }
+    displayType
+    floor
+    label
+    posterPlaceSize
+    infoSpotLocations
+    infoSpotType
+    purpose
+    railInformation
+    speechProperty
+    zoneLabel
+    maintenance
+    poster {
+      label
+      posterSize
+      lines
+    }
+  }
+`;
 export const StopPlaceDetailsFragmentDoc = gql`
   fragment stop_place_details on stop_registry_StopPlace {
     id
@@ -73348,12 +73483,16 @@ export const StopPlaceDetailsFragmentDoc = gql`
         ...stop_place_organisation_fields
       }
     }
+    infoSpots {
+      ...info_spot_details
+    }
   }
   ${TopographicPlaceDetailsFragmentDoc}
   ${FareZoneDetailsFragmentDoc}
   ${QuayDetailsFragmentDoc}
   ${HslAccessibilityPropertiesDetailsFragmentDoc}
   ${StopPlaceOrganisationFieldsFragmentDoc}
+  ${InfoSpotDetailsFragmentDoc}
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
   fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {

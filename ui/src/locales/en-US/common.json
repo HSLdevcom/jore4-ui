@@ -325,6 +325,38 @@
       "addShelter": "Add shelter",
       "deleteShelter": "Delete shelter",
       "cancelDeleteShelter": "Cancel deletion"
+    },
+    "infoSpots": {
+      "backlight": "Backlight",
+      "description": "Description",
+      "floor": "Floor",
+      "label": "Label",
+      "maintenance": "Maintenance",
+      "posterPlaceSize": "Poster Place Size",
+      "posterPlaceType": "Poster Place Type",
+      "displayType": "Display Type",
+      "speechProperty": "Speech Property",
+      "purpose": "Purpose",
+      "railInformation": "Rail Information",
+      "zoneLabel": "Zone Label",
+      "stops": "Stops",
+      "terminals": "Terminals",
+      "posterLabel": "Label",
+      "posterSize": "Size",
+      "posterLines": "Lines",
+      "type": {
+        "static": "Static",
+        "dynamic": "Dynamic",
+        "soundBeacon": "Sound beacon"
+      },
+      "displayTypes": {
+        "electricTFT": "Electric TFT",
+        "batteryOneRow": "Battery, one row",
+        "batteryMultiRow": "Battery, multirow",
+        "batteryEInk": "Battery, E-ink",
+        "chargeableEInk": "Chargeable, E-ink",
+        "none": "None"
+      }
     }
   },
   "stopRegistrySearch": {

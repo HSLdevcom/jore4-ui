@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import {
+  InfoSpotDetailsFragment,
   ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
   useGetHighestPriorityStopDetailsByLabelAndDateQuery,
@@ -256,10 +257,41 @@ const GQL_STOP_PLACE_DETAILS = gql`
         ...stop_place_organisation_fields
       }
     }
+    infoSpots {
+      ...info_spot_details
+    }
+  }
+`;
+
+const GQL_INFO_SPOT_DETAILS = gql`
+  fragment info_spot_details on stop_registry_infoSpot {
+    id
+    backlight
+    description {
+      lang
+      value
+    }
+    displayType
+    floor
+    label
+    posterPlaceSize
+    infoSpotLocations
+    infoSpotType
+    purpose
+    railInformation
+    speechProperty
+    zoneLabel
+    maintenance
+    poster {
+      label
+      posterSize
+      lines
+    }
   }
 `;
 
 export type StopPlace = StopPlaceDetailsFragment;
+export type StopPlaceInfoSpots = InfoSpotDetailsFragment;
 export type EnrichedStopPlace = StopPlace & StopPlaceEnrichmentProperties;
 
 const getEnrichedStopPlace = (
