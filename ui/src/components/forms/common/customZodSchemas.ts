@@ -90,3 +90,11 @@ export const nullablePositiveNumber = z
     }
     return Number.isNaN(value) ? null : value;
   });
+
+// Function for nullable arrays of any type
+export const nullableArray = <T>(schema: z.ZodType<T>) => {
+  return z.union([
+    z.array(schema), // An array of type T
+    z.null(), // Explicitly handle null
+  ]);
+};
