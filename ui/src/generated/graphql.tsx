@@ -70721,6 +70721,46 @@ export type UpdateStopPlaceMutation = {
   } | null;
 };
 
+export type UpdateInfoSpotMutationVariables = Exact<{
+  input:
+    | Array<InputMaybe<StopRegistryInfoSpotInput>>
+    | InputMaybe<StopRegistryInfoSpotInput>;
+}>;
+
+export type UpdateInfoSpotMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateInfoSpots?: Array<{
+      __typename?: 'stop_registry_infoSpot';
+      id?: string | null;
+      backlight?: boolean | null;
+      displayType?: StopRegistryDisplayType | null;
+      floor?: string | null;
+      label?: string | null;
+      posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+      infoSpotLocations?: Array<string | null> | null;
+      infoSpotType?: StopRegistryInfoSpotType | null;
+      purpose?: string | null;
+      railInformation?: string | null;
+      speechProperty?: boolean | null;
+      zoneLabel?: string | null;
+      maintenance?: string | null;
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      poster?: Array<{
+        __typename?: 'stop_registry_poster';
+        label?: string | null;
+        posterSize?: StopRegistryPosterPlaceSize | null;
+        lines?: string | null;
+      } | null> | null;
+    } | null> | null;
+  } | null;
+};
+
 export type ScheduledStopPointDetailFieldsFragment = {
   __typename?: 'service_pattern_scheduled_stop_point';
   priority: number;
@@ -78308,6 +78348,59 @@ export type UpdateStopPlaceMutationResult =
 export type UpdateStopPlaceMutationOptions = Apollo.BaseMutationOptions<
   UpdateStopPlaceMutation,
   UpdateStopPlaceMutationVariables
+>;
+export const UpdateInfoSpotDocument = gql`
+  mutation UpdateInfoSpot($input: [stop_registry_infoSpotInput]!) {
+    stop_registry {
+      mutateInfoSpots(infoSpot: $input) {
+        ...info_spot_details
+      }
+    }
+  }
+  ${InfoSpotDetailsFragmentDoc}
+`;
+export type UpdateInfoSpotMutationFn = Apollo.MutationFunction<
+  UpdateInfoSpotMutation,
+  UpdateInfoSpotMutationVariables
+>;
+
+/**
+ * __useUpdateInfoSpotMutation__
+ *
+ * To run a mutation, you first call `useUpdateInfoSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateInfoSpotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateInfoSpotMutation, { data, loading, error }] = useUpdateInfoSpotMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateInfoSpotMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateInfoSpotMutation,
+    UpdateInfoSpotMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateInfoSpotMutation,
+    UpdateInfoSpotMutationVariables
+  >(UpdateInfoSpotDocument, options);
+}
+export type UpdateInfoSpotMutationHookResult = ReturnType<
+  typeof useUpdateInfoSpotMutation
+>;
+export type UpdateInfoSpotMutationResult =
+  Apollo.MutationResult<UpdateInfoSpotMutation>;
+export type UpdateInfoSpotMutationOptions = Apollo.BaseMutationOptions<
+  UpdateInfoSpotMutation,
+  UpdateInfoSpotMutationVariables
 >;
 export const GetHighestPriorityStopDetailsByLabelAndDateDocument = gql`
   query GetHighestPriorityStopDetailsByLabelAndDate(
