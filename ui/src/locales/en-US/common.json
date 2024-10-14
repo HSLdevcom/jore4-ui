@@ -256,9 +256,9 @@
       "title": "Maintenance",
       "maintainers": {
         "cleaning": "Cleaning",
-        "infoUpkeep": "Info upkeep",
-        "maintenance": "Maintenance",
-        "owner": "Owner",
+        "infoUpkeep": "Info upkeep (static)",
+        "maintenance": "Stop area maintenance",
+        "owner": "Shelter owner",
         "winterMaintenance": "Winter maintenance"
       },
       "organisation": {

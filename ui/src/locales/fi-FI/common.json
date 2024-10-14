@@ -256,9 +256,9 @@
       "title": "Ylläpito",
       "maintainers": {
         "cleaning": "Siivous",
-        "infoUpkeep": "Infohoito",
-        "maintenance": "Kunnossapito",
-        "owner": "Omistaja",
+        "infoUpkeep": "Infohoito (staattinen)",
+        "maintenance": "Pysäkkialueen kunnossapito",
+        "owner": "Katoksen omistaja",
         "winterMaintenance": "Talvikunnossapito"
       },
       "organisation": {
