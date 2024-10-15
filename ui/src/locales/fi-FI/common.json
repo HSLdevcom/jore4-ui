@@ -327,6 +327,8 @@
       "cancelDeleteShelter": "Peruuta poisto"
     },
     "infoSpots": {
+      "title": "Infopaikat",
+      "titleNoInfoSpots": "Ei infopaikkoja",
       "backlight": "Taustavalo",
       "description": "Kuvaus",
       "floor": "Kerros",
@@ -344,6 +346,7 @@
       "posterLabel": "Painotuote",
       "posterSize": "Tuotteen koko",
       "posterLines": "Linjat",
+      "shelterTypeSubtitle": "Katos {{index}} | {{shelterType}}",
       "type": {
         "dynamic": "Dynaaminen",
         "static": "Staattinen",
