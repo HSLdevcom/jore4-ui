@@ -1,7 +1,6 @@
 import {
   GetAllOrganisationIdsResult,
   GetAllStopAreaIdsResult,
-  GetAllStopPlaceIdsResult,
   GetInfrastructureLinksByExternalIdsResult,
   InfoSpotInput,
   OrganisationIdsByName,
@@ -19,7 +18,6 @@ import {
   insertStopPlaces as insertStopRegistryStopPlaces,
   mapToDeleteOrganisationMutation,
   mapToDeleteStopAreaMutation,
-  mapToDeleteStopPlaceMutation,
   mapToGetAllOrganisationIds,
   mapToGetAllStopAreaIds,
   mapToGetAllStopPlaceIds,
@@ -28,6 +26,7 @@ import {
   setInfoSpotRelations,
   setStopAreaRelations,
   setStopPlaceRelations,
+  stopsDatabaseConfig,
   timetablesDatabaseConfig,
 } from '@hsl/jore4-test-db-manager';
 import {
@@ -38,6 +37,7 @@ import * as fs from 'fs';
 
 const jore4db = getDbConnection(e2eDatabaseConfig);
 const timetablesDb = getDbConnection(timetablesDatabaseConfig);
+const stopsDb = getDbConnection(stopsDatabaseConfig);
 
 export const checkDbConnection = () => {
   // Example about direct access to db
@@ -168,20 +168,12 @@ export const getAllOrganisationIds = () => {
   return hasuraAPI(mapToGetAllOrganisationIds());
 };
 
-const deleteStopPlaces = async () => {
-  const stopPlaceIdsResult =
-    (await getAllStopPlaceIds()) as GetAllStopPlaceIdsResult;
-
-  const stopPlaceIds =
-    stopPlaceIdsResult.data.stops_database.stops_database_stop_place.map(
-      (stopPlace) => stopPlace.netex_id,
-    );
-
-  return hasuraAPIMultiple(
-    stopPlaceIds.map((stopPlaceId) =>
-      mapToDeleteStopPlaceMutation(stopPlaceId),
-    ),
+const deleteStopPlacesAndTerminals = async () => {
+  const truncateQuery = fs.readFileSync(
+    'fixtures/truncateStopPlaces.sql',
+    'utf8',
   );
+  return stopsDb.raw(truncateQuery);
 };
 
 const deleteStopAreas = async () => {
@@ -216,7 +208,7 @@ const deleteOrganisations = async () => {
 
 export const resetStopRegistryDb = async () => {
   await deleteStopAreas();
-  await deleteStopPlaces();
+  await deleteStopPlacesAndTerminals();
   await deleteOrganisations();
   // TODO: Add deletion of info spots
 };
