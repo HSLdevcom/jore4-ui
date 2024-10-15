@@ -1473,31 +1473,6 @@ describe('Stop details', () => {
       infoSpotView.getNthContainer(0).within(() => {
         infoSpotView
           .getDescription()
-          .shouldHaveText('Ensimmäinen kerros, portaiden takana');
-        infoSpotView.getLabel().shouldHaveText('JP1234567');
-        infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
-        infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö');
-        infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-        infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
-        infoSpotView.getDisplayType().shouldHaveText('Patteri, monirivi');
-        infoSpotView.getSpeechProperty().shouldHaveText('Kyllä');
-        infoSpotView.getFloor().shouldHaveText('1');
-        infoSpotView.getRailInformation().shouldHaveText('8');
-        infoSpotView.getStops().shouldHaveText('V1562');
-        infoSpotView.getTerminals().shouldHaveText('-');
-        infoSpotView.getZoneLabel().shouldHaveText('B');
-
-        infoSpotView.getBacklight().should('not.exist');
-        infoSpotView.getPosterPlaceSize().should('not.exist');
-        infoSpotView.getMaintenance().should('not.exist');
-        infoSpotView.getPosterSize().should('not.exist');
-        infoSpotView.getPosterLabel().should('not.exist');
-        infoSpotView.getPosterLines().should('not.exist');
-      });
-
-      infoSpotView.getNthContainer(1).within(() => {
-        infoSpotView
-          .getDescription()
           .shouldHaveText('Ensimmäinen kerros, portaiden vieressä');
         infoSpotView.getLabel().shouldHaveText('JP1234568');
         infoSpotView.getInfoSpotType().shouldHaveText('Staattinen');
@@ -1520,6 +1495,31 @@ describe('Stop details', () => {
 
         infoSpotView.getDisplayType().should('not.exist');
         infoSpotView.getSpeechProperty().should('not.exist');
+      });
+
+      infoSpotView.getNthContainer(1).within(() => {
+        infoSpotView
+          .getDescription()
+          .shouldHaveText('Ensimmäinen kerros, portaiden takana');
+        infoSpotView.getLabel().shouldHaveText('JP1234567');
+        infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
+        infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö');
+        infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+        infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+        infoSpotView.getDisplayType().shouldHaveText('Patteri, monirivi');
+        infoSpotView.getSpeechProperty().shouldHaveText('Kyllä');
+        infoSpotView.getFloor().shouldHaveText('1');
+        infoSpotView.getRailInformation().shouldHaveText('8');
+        infoSpotView.getStops().shouldHaveText('V1562');
+        infoSpotView.getTerminals().shouldHaveText('-');
+        infoSpotView.getZoneLabel().shouldHaveText('B');
+
+        infoSpotView.getBacklight().should('not.exist');
+        infoSpotView.getPosterPlaceSize().should('not.exist');
+        infoSpotView.getMaintenance().should('not.exist');
+        infoSpotView.getPosterSize().should('not.exist');
+        infoSpotView.getPosterLabel().should('not.exist');
+        infoSpotView.getPosterLines().should('not.exist');
       });
 
       infoSpotView.getNthContainer(2).within(() => {
