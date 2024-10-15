@@ -5,7 +5,7 @@ import { Point } from '../../../../../types';
 import { InfoSpotsViewCard } from './InfoSpotsViewCard';
 
 type Props = {
-  infoSpots: Array<InfoSpotDetailsFragment>;
+  infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
   location: Point;
   stopName: string;
 };

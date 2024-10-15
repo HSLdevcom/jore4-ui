@@ -65,6 +65,8 @@ type InfoContainerProps = {
    * See also headerButtons.
    */
   readonly title: ReactNode;
+  readonly subTitle?: string;
+  readonly subTitleShelterType?: string | null;
 };
 
 const testIds = {
@@ -83,6 +85,8 @@ export const InfoContainer: FC<InfoContainerProps> = ({
   headerButtons: HeaderButtons = DefaultHeaderButtons,
   testIdPrefix = '',
   title,
+  subTitle,
+  subTitleShelterType,
 }) => {
   const { t } = useTranslation();
 
