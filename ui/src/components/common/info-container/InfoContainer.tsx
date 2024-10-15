@@ -65,6 +65,8 @@ type InfoContainerProps = {
    * See also headerButtons.
    */
   readonly title: ReactNode;
+  readonly subTitle?: string;
+  readonly subTitleShelterType?: string | null;
 };
 
 const testIds = {
@@ -83,6 +85,8 @@ export const InfoContainer: FC<InfoContainerProps> = ({
   headerButtons: HeaderButtons = DefaultHeaderButtons,
   testIdPrefix = '',
   title,
+  subTitle,
+  subTitleShelterType,
 }) => {
   const { t } = useTranslation();
 
@@ -107,7 +111,18 @@ export const InfoContainer: FC<InfoContainerProps> = ({
         )}
       >
         <span data-testid={testIds.title(testIdPrefix)}>
-          {isValidElement(title) ? title : <h4>{title}</h4>}
+          {isValidElement(title) ? (
+            title
+          ) : (
+            <h4>
+              {`${title ?? ''}`}{' '}
+              {subTitle ? (
+                <span className="font-normal">
+                  {`${subTitle} ${subTitleShelterType ?? ''}`}
+                </span>
+              ) : null}
+            </h4>
+          )}
         </span>
 
         {typeof HeaderButtons === 'function' ? (

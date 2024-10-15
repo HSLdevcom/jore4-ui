@@ -48,7 +48,7 @@ export const InfoSpotsViewCard: FC<Props> = ({
             testId={testIds.purpose}
           />
           <LabeledDetail
-            title={t('stopDetails.infoSpots.posterPlaceType')}
+            title={t('stopDetails.infoSpots.infoSpotType')}
             detail={trInfoSpotType(t, infoSpot.infoSpotType)}
             testId={testIds.infoSpotType}
           />
