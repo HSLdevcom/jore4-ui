@@ -9,6 +9,9 @@ import {
   StopPlaceDetailsByLabel,
   StopPlaceInput,
   StopRegistryOrganisationInput,
+  TerminalIdsByName,
+  TerminalInput,
+  buildTerminalCreateInput,
   e2eDatabaseConfig,
   getDbConnection,
   hasuraApi,
@@ -16,6 +19,7 @@ import {
   insertOrganisations as insertStopRegistryOrganisations,
   insertStopAreas as insertStopRegistryStopAreas,
   insertStopPlaces as insertStopRegistryStopPlaces,
+  insertTerminals,
   mapToDeleteOrganisationMutation,
   mapToDeleteStopAreaMutation,
   mapToGetAllOrganisationIds,
@@ -107,6 +111,7 @@ export const getInfrastructureLinkIdsByExternalIds = (
   });
 
 export type InsertedStopRegistryIds = {
+  terminalsByName: TerminalIdsByName;
   stopAreaIdsByName: StopAreaIdsByName;
   stopPlaceDetailsByLabel: StopPlaceDetailsByLabel;
   organisationIdsByName: OrganisationIdsByName;
@@ -114,11 +119,13 @@ export type InsertedStopRegistryIds = {
 
 export const insertStopRegistryData = async ({
   organisations = [],
+  terminals = [],
   stopAreas = [],
   stopPlaces = [],
   infoSpots = [],
 }: {
   organisations?: Array<StopRegistryOrganisationInput>;
+  terminals?: Array<TerminalInput>;
   stopAreas?: Array<StopAreaInput>;
   stopPlaces?: Array<StopPlaceInput>;
   infoSpots?: Array<InfoSpotInput>;
@@ -145,7 +152,21 @@ export const insertStopRegistryData = async ({
   );
   const stopAreaIdsByName = await insertStopRegistryStopAreas(stopAreaInputs);
 
-  return { stopAreaIdsByName, stopPlaceDetailsByLabel, organisationIdsByName };
+  const terminalCreateInputs = terminals.map((terminal) =>
+    buildTerminalCreateInput(terminal, stopPlaceDetailsByLabel),
+  );
+  const terminalUpdateInputs = terminals.map((terminal) => terminal.terminal);
+  const terminalsByName = await insertTerminals(
+    terminalCreateInputs,
+    terminalUpdateInputs,
+  );
+
+  return {
+    terminalsByName,
+    stopAreaIdsByName,
+    stopPlaceDetailsByLabel,
+    organisationIdsByName,
+  };
 };
 
 export const truncateTimetablesDatabase = () => {
