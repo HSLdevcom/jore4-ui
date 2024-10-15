@@ -13,7 +13,7 @@ import {
   DetailTabType,
   detailTabs,
 } from './DetailTabSelector';
-import { InfoSpotsSection } from './info-spots';
+import { SheltersInfoSpotsSection } from './info-spots/SheltersInfoSpots';
 import { LocationDetailsSection } from './location-details/LocationDetailsSection';
 import { MaintenanceSection } from './maintenance';
 import { MeasurementsSection } from './measurements';
@@ -106,7 +106,7 @@ export const StopDetailsPage = (): React.ReactElement => {
                 aria-labelledby={detailTabs.info.buttonId}
                 role="tabpanel"
               >
-                <InfoSpotsSection stop={stopDetails} />
+                <SheltersInfoSpotsSection stop={stopDetails} />
               </div>
             </Visible>
           </>
