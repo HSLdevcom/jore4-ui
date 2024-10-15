@@ -327,6 +327,8 @@
       "cancelDeleteShelter": "Cancel deletion"
     },
     "infoSpots": {
+      "title": "Info spots",
+      "titleNoInfoSpots": "No info spots",
       "backlight": "Backlight",
       "description": "Description",
       "floor": "Floor",
@@ -344,6 +346,7 @@
       "posterLabel": "Label",
       "posterSize": "Size",
       "posterLines": "Lines",
+      "shelterTypeSubtitle": "Shelter {{index}} | {{shelterType}}",
       "type": {
         "static": "Static",
         "dynamic": "Dynamic",
