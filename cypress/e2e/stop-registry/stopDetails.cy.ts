@@ -9,6 +9,7 @@ import {
   mapToGetInfrastructureLinksByExternalIdsQuery,
   seedInfoSpots,
   seedOrganisations,
+  seedTerminals,
   stopPlaceH2003,
   stopPlaceV1562,
 } from '@hsl/jore4-test-db-manager';
@@ -148,6 +149,7 @@ describe('Stop details', () => {
     insertToDbHelper(dbResources);
     toast = new Toast();
     cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
+      terminals: seedTerminals,
       stopPlaces: stopPlaceData,
       organisations: seedOrganisations,
       infoSpots: seedInfoSpots,
