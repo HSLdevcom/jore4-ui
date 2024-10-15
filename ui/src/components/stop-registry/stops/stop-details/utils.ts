@@ -85,7 +85,7 @@ const trInfoSpotTypeMap: Readonly<
   [StopRegistryInfoSpotType.Static]: (t) =>
     t('stopDetails.infoSpots.type.static'),
   [StopRegistryInfoSpotType.SoundBeacon]: (t) =>
-    t('stopDetails.infoSpots.type.soundBeacon'),
+    t('stopDetails.infoSpots.type.sound_beacon'),
 };
 
 export const trInfoSpotType = (
