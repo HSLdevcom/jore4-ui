@@ -335,7 +335,7 @@
       "label": "Infopaikan tunnus",
       "maintenance": "Huoltotiedot",
       "posterPlaceSize": "Koko",
-      "posterPlaceType": "Julistepaikan tyyppi",
+      "infoSpotType": "Julistepaikan tyyppi",
       "displayType": "Näytön tyyppi",
       "speechProperty": "Puheominaisuus",
       "purpose": "Käyttötarkoitus",
@@ -347,18 +347,25 @@
       "posterSize": "Tuotteen koko",
       "posterLines": "Linjat",
       "shelterTypeSubtitle": "Katos {{index}} | {{shelterType}}",
+      "addInfoSpot": "Lisää infopaikka",
       "type": {
         "dynamic": "Dynaaminen",
         "static": "Staattinen",
-        "soundBeacon": "Äänimajakka"
+        "sound_beacon": "Äänimajakka"
       },
       "displayTypes": {
+        "electricTft": "Sähkönäyttö TFT",
         "electricTFT": "Sähkönäyttö TFT",
         "batteryOneRow": "Patteri, yksi rivi",
         "batteryMultiRow": "Patteri, monirivi",
         "batteryEInk": "Patteri, E-muste",
         "chargeableEInk": "Ladattava, E-muste",
         "none": "Ei näyttöä"
+      },
+      "posterPlaceSizes": {
+        "a4": "A4",
+        "a3": "A3",
+        "cm80x120": "80x120cm"
       }
     }
   },
