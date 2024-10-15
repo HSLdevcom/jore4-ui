@@ -53,3 +53,11 @@ export const timetablesDatabaseConfig: DatabaseConnectionInfo = {
   password: process.env.POSTGRES_PASSWORD ?? 'adminpassword',
   database: 'timetablesdb',
 };
+
+export const stopsDatabaseConfig: DatabaseConnectionInfo = {
+  host: getTestDbHost(),
+  port: getTestDbPort(),
+  user: process.env.POSTGRES_USER ?? 'dbadmin',
+  password: process.env.POSTGRES_PASSWORD ?? 'adminpassword',
+  database: 'stopdb',
+};
