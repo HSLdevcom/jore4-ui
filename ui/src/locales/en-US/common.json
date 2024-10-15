@@ -335,7 +335,7 @@
       "label": "Label",
       "maintenance": "Maintenance",
       "posterPlaceSize": "Poster Place Size",
-      "posterPlaceType": "Poster Place Type",
+      "infoSpotType": "Poster Place Type",
       "displayType": "Display Type",
       "speechProperty": "Speech Property",
       "purpose": "Purpose",
@@ -347,10 +347,11 @@
       "posterSize": "Size",
       "posterLines": "Lines",
       "shelterTypeSubtitle": "Shelter {{index}} | {{shelterType}}",
+      "addInfoSpot": "Add info spot",
       "type": {
         "static": "Static",
         "dynamic": "Dynamic",
-        "soundBeacon": "Sound beacon"
+        "sound_beacon": "Sound beacon"
       },
       "displayTypes": {
         "electricTFT": "Electric TFT",
@@ -359,6 +360,11 @@
         "batteryEInk": "Battery, E-ink",
         "chargeableEInk": "Chargeable, E-ink",
         "none": "None"
+      },
+      "posterPlaceSizes": {
+        "a4": "A4",
+        "a3": "A3",
+        "cm80x120": "80x120cm"
       }
     }
   },

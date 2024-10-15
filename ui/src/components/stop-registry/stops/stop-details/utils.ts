@@ -61,7 +61,7 @@ const trInfoSpotDisplayTypeMap: Readonly<
   [StopRegistryDisplayType.ChargeableEInk]: (t) =>
     t('stopDetails.infoSpots.displayTypes.chargeableEInk'),
   [StopRegistryDisplayType.ElectricTft]: (t) =>
-    t('stopDetails.infoSpots.displayTypes.electricTft'),
+    t('stopDetails.infoSpots.displayTypes.electricTFT'),
   [StopRegistryDisplayType.None]: (t) =>
     t('stopDetails.infoSpots.displayTypes.none'),
 };
@@ -85,7 +85,7 @@ const trInfoSpotTypeMap: Readonly<
   [StopRegistryInfoSpotType.Static]: (t) =>
     t('stopDetails.infoSpots.type.static'),
   [StopRegistryInfoSpotType.SoundBeacon]: (t) =>
-    t('stopDetails.infoSpots.type.soundBeacon'),
+    t('stopDetails.infoSpots.type.sound_beacon'),
 };
 
 export const trInfoSpotType = (
