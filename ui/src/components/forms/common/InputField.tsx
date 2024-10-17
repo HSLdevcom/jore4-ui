@@ -15,6 +15,7 @@ interface CommonInputProps<FormState extends FieldValues> {
   inputClassName?: string;
   fieldPath: Path<FormState>;
   translationPrefix: TranslationKey;
+  customTitlePath?: TranslationKey;
   testId: string;
 }
 
@@ -35,6 +36,7 @@ export const InputField = <FormState extends FieldValues>({
   inputClassName = '',
   fieldPath,
   translationPrefix,
+  customTitlePath,
   testId,
   type,
   inputElementRenderer,
@@ -53,7 +55,11 @@ export const InputField = <FormState extends FieldValues>({
 
   return (
     <Column className={className}>
-      <InputLabel fieldPath={fieldPath} translationPrefix={translationPrefix} />
+      <InputLabel
+        fieldPath={fieldPath}
+        translationPrefix={translationPrefix}
+        customTitlePath={customTitlePath}
+      />
       {isControlledElement ? (
         <ControlledElement
           inputElementRenderer={inputElementRenderer}
