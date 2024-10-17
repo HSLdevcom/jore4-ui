@@ -327,13 +327,15 @@
       "cancelDeleteShelter": "Cancel deletion"
     },
     "infoSpots": {
+      "title": "Info spots ({{count}})",
+      "titleNoInfoSpots": "No info spots",
       "backlight": "Backlight",
       "description": "Description",
       "floor": "Floor",
       "label": "Label",
       "maintenance": "Maintenance",
       "posterPlaceSize": "Poster Place Size",
-      "posterPlaceType": "Poster Place Type",
+      "infoSpotType": "Poster Place Type",
       "displayType": "Display Type",
       "speechProperty": "Speech Property",
       "purpose": "Purpose",
@@ -347,7 +349,7 @@
       "type": {
         "static": "Static",
         "dynamic": "Dynamic",
-        "soundBeacon": "Sound beacon"
+        "sound_beacon": "Sound beacon"
       },
       "displayTypes": {
         "electricTFT": "Electric TFT",
@@ -356,7 +358,15 @@
         "batteryEInk": "Battery, E-ink",
         "chargeableEInk": "Chargeable, E-ink",
         "none": "None"
-      }
+      },
+      "posterPlaceSizes": {
+        "a4": "A4",
+        "a3": "A3",
+        "cm80x120": "80x120cm"
+      },
+      "addInfoSpot": "Add info spot",
+      "deleteInfoSpot": "Delete info spot",
+      "cancelDeleteInfoSpot": "Cancel deletion"
     }
   },
   "stopRegistrySearch": {
