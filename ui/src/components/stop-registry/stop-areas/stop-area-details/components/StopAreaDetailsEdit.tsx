@@ -78,7 +78,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
       showSuccessToast(t('stopArea.editSuccess'));
       onFinishEditing();
     } catch (err) {
-      defaultErrorHandler(err as Error);
+      defaultErrorHandler(err as Error, state);
     }
     setIsLoading(false);
   };

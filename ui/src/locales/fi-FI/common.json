@@ -154,6 +154,10 @@
         "title": "Poistetaan pysäkki pysäkkialueen käytöstä",
         "body": "Pysäkki jää edelleen jäljelle, se ei ole vain yhdistetty pysäkkialueeseen."
       }
+    },
+    "errors": {
+      "groupOfStopPlacesUniqueName": "Pysäkkialueella tulee olla uniikki tunnus, mutta tunnus {{label}} on jo jonkin toisen alueen käytössä!",
+      "groupOfStopPlacesUniqueDescription": "Pysäkkialueella tulee olla uniikki nimi, mutta nimi {{name}} on jo jonkin toisen alueen käytössä!"
     }
   },
   "stopPlaceTypes": {
