@@ -17,14 +17,14 @@ export const DirectionDropdown = ({
   const { t } = useTranslation();
 
   return (
-    <EnumDropdown
+    <EnumDropdown<RouteDirection>
       testId={testId}
       value={value}
       onChange={onChange}
       onBlur={onBlur}
       enumType={RouteDirection}
       placeholder={t('routes.chooseDirection')}
-      uiNameMapper={mapDirectionToUiName}
+      uiNameMapper={(direction) => mapDirectionToUiName(t, direction)}
     />
   );
 };

@@ -1,9 +1,11 @@
-import { TFunction } from 'i18next';
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { RouteDirectionEnum } from '../../../../generated/graphql';
 import { useShowRoutesOnModal } from '../../../../hooks';
+import {
+  mapDirectionToLabel,
+  mapDirectionToSymbol,
+} from '../../../../i18n/uiNameMappings';
 import { Row } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { LocatorButton } from '../../../../uiComponents';
@@ -17,32 +19,6 @@ const testIds = {
   validity: 'StopSearchByLine::route::validity',
   locatorButton: 'StopSearchByLine::route::locatorButton',
 };
-
-function getDirectionSymbol(t: TFunction, direction: RouteDirectionEnum) {
-  switch (direction) {
-    case RouteDirectionEnum.Inbound:
-      return t(`directionEnum.symbol.inbound`);
-
-    case RouteDirectionEnum.Outbound:
-      return t(`directionEnum.symbol.outbound`);
-
-    default:
-      return '?';
-  }
-}
-
-function getDirectionLabel(t: TFunction, direction: RouteDirectionEnum) {
-  switch (direction) {
-    case RouteDirectionEnum.Inbound:
-      return t(`directionEnum.label.inbound`);
-
-    case RouteDirectionEnum.Outbound:
-      return t(`directionEnum.label.outbound`);
-
-    default:
-      return String(direction);
-  }
-}
 
 type RouteInfoRowProps = {
   readonly className?: string;
@@ -68,9 +44,9 @@ export const RouteInfoRow: FC<RouteInfoRowProps> = ({ className, route }) => {
           <p
             className="ml-4 h-6 w-6 bg-brand text-center font-bold text-white"
             data-testid={testIds.direction}
-            title={getDirectionLabel(t, route.direction)}
+            title={mapDirectionToLabel(t, route.direction)}
           >
-            {getDirectionSymbol(t, route.direction)}
+            {mapDirectionToSymbol(t, route.direction)}
           </p>
         </Row>
 

@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next';
 import {
   HslRouteTransportTargetEnum,
   ReusableComponentsVehicleModeEnum,
@@ -22,7 +23,6 @@ import {
   SubstituteDayOfWeek,
   TimetablePriority,
 } from '../types/enums';
-import { RouteDirection } from '../types/RouteDirection';
 import {
   JoreStopRegistryTransportModeType,
   StopPlaceSignType,
@@ -154,15 +154,56 @@ export const mapLineTypeToUiName = (
   key: RouteTypeOfLineEnum | AllOptionEnum.All,
 ) => i18n.t(key === AllOptionEnum.All ? 'all' : `lineTypeEnum.${key}`);
 
-export const mapDirectionToUiName = (key: RouteDirection) =>
-  i18n.t(`directionEnum.${key}`);
+export function mapDirectionToUiName(
+  t: TFunction,
+  direction: RouteDirectionEnum,
+) {
+  switch (direction) {
+    case RouteDirectionEnum.Inbound:
+      return t(`directionEnum.inbound`);
+
+    case RouteDirectionEnum.Outbound:
+      return t(`directionEnum.outbound`);
+
+    default:
+      return `? - ${direction}`;
+  }
+}
+
+export function mapDirectionToSymbol(
+  t: TFunction,
+  direction: RouteDirectionEnum,
+) {
+  switch (direction) {
+    case RouteDirectionEnum.Inbound:
+      return t(`directionEnum.symbol.inbound`);
+
+    case RouteDirectionEnum.Outbound:
+      return t(`directionEnum.symbol.outbound`);
+
+    default:
+      return '?';
+  }
+}
+
+export function mapDirectionToLabel(
+  t: TFunction,
+  direction: RouteDirectionEnum,
+) {
+  switch (direction) {
+    case RouteDirectionEnum.Inbound:
+      return t(`directionEnum.label.inbound`);
+
+    case RouteDirectionEnum.Outbound:
+      return t(`directionEnum.label.outbound`);
+
+    default:
+      return String(direction);
+  }
+}
 
 export const mapTransportTargetToUiName = (key: HslRouteTransportTargetEnum) =>
   i18n.t(`transportTargetEnum.${key}`);
-
-export const mapDirectionToShortUiName = (
-  direction?: RouteDirection | RouteDirectionEnum,
-) => (direction === RouteDirectionEnum.Outbound ? '1' : '2');
 
 export const mapSubstituteDayOfWeekToUiName = (key: SubstituteDayOfWeek) => {
   const uiStrings: Record<SubstituteDayOfWeek, string> = {
