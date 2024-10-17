@@ -8,7 +8,7 @@ import {
   useObservationDateQueryParam,
   useRouteInfo,
 } from '../../hooks';
-import { mapDirectionToShortUiName } from '../../i18n/uiNameMappings';
+import { mapDirectionToSymbol } from '../../i18n/uiNameMappings';
 import { Row, Visible } from '../../layoutComponents';
 import {
   selectHasChangesInProgress,
@@ -100,7 +100,7 @@ export const RouteStopsOverlay = ({
       </MapOverlayHeader>
       <div className="flex items-start border-b px-3 py-2">
         <div className="ml-1 mt-1 flex h-6 w-6 items-center justify-center rounded-sm bg-brand font-bold text-white">
-          {mapDirectionToShortUiName(routeMetadata.direction)}
+          {mapDirectionToSymbol(t, routeMetadata.direction)}
         </div>
         <div
           data-testid={testIds.routeStopListHeader(

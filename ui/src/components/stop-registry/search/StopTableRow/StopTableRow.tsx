@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { StopSearchRow } from '../../../../hooks';
+import { StopSearchRow } from '../types';
 import { ActionButtonsTd } from './ActionButtonsTd';
 import { ActionMenuTd } from './ActionMenuTd';
 import { LabelAndTimingPlaceTd } from './LabelAndTimingPlaceTd';

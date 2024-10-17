@@ -8247,6 +8247,7 @@ export type ServicePatternScheduledStopPoint = {
   located_on_infrastructure_link_id: Scalars['uuid']['output'];
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location: Scalars['geography_point']['output'];
+  newest_stop_place?: Maybe<StopsDatabaseStopPlaceNewestVersion>;
   /** An array relationship */
   other_label_instances: Array<ServicePatternScheduledStopPoint>;
   /** An aggregate relationship */
@@ -66834,6 +66835,191 @@ export type GetScheduledStopPointWithTimingSettingsQuery = {
   }>;
 };
 
+export type FindLinesByStopSearchQueryVariables = Exact<{
+  query: Scalars['String']['input'];
+  validOn: Scalars['date']['input'];
+}>;
+
+export type FindLinesByStopSearchQuery = {
+  __typename?: 'query_root';
+  route_line: Array<{
+    __typename?: 'route_line';
+    line_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    line_routes: Array<{
+      __typename?: 'route_route';
+      route_id: UUID;
+      label: string;
+      name_i18n: LocalizedString;
+      direction: RouteDirectionEnum;
+      route_shape?: GeoJSON.LineString | null;
+      priority: number;
+      validity_start?: luxon.DateTime | null;
+      validity_end?: luxon.DateTime | null;
+    }>;
+  }>;
+};
+
+export type FindStopByLineInfoFragment = {
+  __typename?: 'route_line';
+  line_id: UUID;
+  label: string;
+  name_i18n: LocalizedString;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  line_routes: Array<{
+    __typename?: 'route_route';
+    route_id: UUID;
+    label: string;
+    name_i18n: LocalizedString;
+    direction: RouteDirectionEnum;
+    route_shape?: GeoJSON.LineString | null;
+    priority: number;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+  }>;
+};
+
+export type FindStopByLineRouteInfoFragment = {
+  __typename?: 'route_route';
+  route_id: UUID;
+  label: string;
+  name_i18n: LocalizedString;
+  direction: RouteDirectionEnum;
+  route_shape?: GeoJSON.LineString | null;
+  priority: number;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+};
+
+export type GetStopsByRouteIdQueryVariables = Exact<{
+  routeId: Scalars['uuid']['input'];
+}>;
+
+export type GetStopsByRouteIdQuery = {
+  __typename?: 'query_root';
+  stopPoints: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    timing_place_id?: UUID | null;
+    stopPlace?: {
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
+      netex_id?: string | null;
+      name_lang?: string | null;
+      name_value?: string | null;
+      description_lang?: string | null;
+      description_value?: string | null;
+      stop_place_alternative_names: Array<{
+        __typename?: 'stops_database_stop_place_alternative_names';
+        alternative_name: {
+          __typename?: 'stops_database_alternative_name';
+          name_lang?: string | null;
+          name_value?: string | null;
+          name_type?: string | null;
+        };
+      }>;
+    } | null;
+    timing_place?: {
+      __typename?: 'timing_pattern_timing_place';
+      timing_place_id: UUID;
+      label: string;
+    } | null;
+  }>;
+};
+
+export type StopTableRowFragment = {
+  __typename?: 'service_pattern_scheduled_stop_point';
+  scheduled_stop_point_id: UUID;
+  label: string;
+  measured_location: GeoJSON.Point;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  timing_place_id?: UUID | null;
+  timing_place?: {
+    __typename?: 'timing_pattern_timing_place';
+    timing_place_id: UUID;
+    label: string;
+  } | null;
+};
+
+export type StopTableRowStopPlaceFragment = {
+  __typename?: 'stops_database_stop_place_newest_version';
+  id?: any | null;
+  netex_id?: string | null;
+  name_value?: string | null;
+  stop_place_alternative_names: Array<{
+    __typename?: 'stops_database_stop_place_alternative_names';
+    alternative_name: {
+      __typename?: 'stops_database_alternative_name';
+      name_lang?: string | null;
+      name_type?: string | null;
+      name_value?: string | null;
+    };
+  }>;
+  scheduled_stop_point_instance?: {
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    label: string;
+    measured_location: GeoJSON.Point;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    timing_place_id?: UUID | null;
+    timing_place?: {
+      __typename?: 'timing_pattern_timing_place';
+      timing_place_id: UUID;
+      label: string;
+    } | null;
+  } | null;
+};
+
+export type SearchStopsQueryVariables = Exact<{
+  stopFilter?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
+}>;
+
+export type SearchStopsQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stops_database_stop_place_newest_version: Array<{
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
+      netex_id?: string | null;
+      name_value?: string | null;
+      stop_place_alternative_names: Array<{
+        __typename?: 'stops_database_stop_place_alternative_names';
+        alternative_name: {
+          __typename?: 'stops_database_alternative_name';
+          name_lang?: string | null;
+          name_type?: string | null;
+          name_value?: string | null;
+        };
+      }>;
+      scheduled_stop_point_instance?: {
+        __typename?: 'service_pattern_scheduled_stop_point';
+        scheduled_stop_point_id: UUID;
+        label: string;
+        measured_location: GeoJSON.Point;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
+        timing_place_id?: UUID | null;
+        timing_place?: {
+          __typename?: 'timing_pattern_timing_place';
+          timing_place_id: UUID;
+          label: string;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
 export type GetStopAreaDetailsQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
@@ -70081,91 +70267,6 @@ export type SearchLinesAndRoutesQuery = {
   }>;
 };
 
-export type StopTableRowFragment = {
-  __typename?: 'service_pattern_scheduled_stop_point';
-  scheduled_stop_point_id: UUID;
-  label: string;
-  measured_location: GeoJSON.Point;
-  validity_start?: luxon.DateTime | null;
-  validity_end?: luxon.DateTime | null;
-  timing_place_id?: UUID | null;
-  timing_place?: {
-    __typename?: 'timing_pattern_timing_place';
-    timing_place_id: UUID;
-    label: string;
-  } | null;
-};
-
-export type StopTableRowStopPlaceFragment = {
-  __typename?: 'stops_database_stop_place_newest_version';
-  id?: any | null;
-  netex_id?: string | null;
-  name_value?: string | null;
-  stop_place_alternative_names: Array<{
-    __typename?: 'stops_database_stop_place_alternative_names';
-    alternative_name: {
-      __typename?: 'stops_database_alternative_name';
-      name_lang?: string | null;
-      name_type?: string | null;
-      name_value?: string | null;
-    };
-  }>;
-  scheduled_stop_point_instance?: {
-    __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
-    measured_location: GeoJSON.Point;
-    validity_start?: luxon.DateTime | null;
-    validity_end?: luxon.DateTime | null;
-    timing_place_id?: UUID | null;
-    timing_place?: {
-      __typename?: 'timing_pattern_timing_place';
-      timing_place_id: UUID;
-      label: string;
-    } | null;
-  } | null;
-};
-
-export type SearchStopsQueryVariables = Exact<{
-  stopFilter?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
-}>;
-
-export type SearchStopsQuery = {
-  __typename?: 'query_root';
-  stops_database?: {
-    __typename?: 'stops_database_stops_database_query';
-    stops_database_stop_place_newest_version: Array<{
-      __typename?: 'stops_database_stop_place_newest_version';
-      id?: any | null;
-      netex_id?: string | null;
-      name_value?: string | null;
-      stop_place_alternative_names: Array<{
-        __typename?: 'stops_database_stop_place_alternative_names';
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name';
-          name_lang?: string | null;
-          name_type?: string | null;
-          name_value?: string | null;
-        };
-      }>;
-      scheduled_stop_point_instance?: {
-        __typename?: 'service_pattern_scheduled_stop_point';
-        scheduled_stop_point_id: UUID;
-        label: string;
-        measured_location: GeoJSON.Point;
-        validity_start?: luxon.DateTime | null;
-        validity_end?: luxon.DateTime | null;
-        timing_place_id?: UUID | null;
-        timing_place?: {
-          __typename?: 'timing_pattern_timing_place';
-          timing_place_id: UUID;
-          label: string;
-        } | null;
-      } | null;
-    }>;
-  } | null;
-};
-
 export type DeleteStopAreaMutationVariables = Exact<{
   stop_area_id: Scalars['String']['input'];
 }>;
@@ -72871,6 +72972,41 @@ export const ScheduledStopPointWithTimingSettingsFragmentDoc = gql`
   }
   ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}
 `;
+export const FindStopByLineRouteInfoFragmentDoc = gql`
+  fragment FindStopByLineRouteInfo on route_route {
+    route_id
+    label
+    name_i18n
+    direction
+    route_shape
+    priority
+    validity_start
+    validity_end
+  }
+`;
+export const FindStopByLineInfoFragmentDoc = gql`
+  fragment FindStopByLineInfo on route_line {
+    line_id
+    label
+    name_i18n
+    validity_start
+    validity_end
+    line_routes(
+      where: {
+        validity_start: { _lte: $validOn }
+        _or: [
+          { validity_end: { _gte: $validOn } }
+          { validity_end: { _is_null: true } }
+        ]
+      }
+      order_by: [{ direction: desc }, { priority: desc }]
+      distinct_on: [direction, priority]
+    ) {
+      ...FindStopByLineRouteInfo
+    }
+  }
+  ${FindStopByLineRouteInfoFragmentDoc}
+`;
 export const StopTableRowFragmentDoc = gql`
   fragment stop_table_row on service_pattern_scheduled_stop_point {
     scheduled_stop_point_id
@@ -72884,6 +73020,24 @@ export const StopTableRowFragmentDoc = gql`
       label
     }
   }
+`;
+export const StopTableRowStopPlaceFragmentDoc = gql`
+  fragment stop_table_row_stop_place on stops_database_stop_place_newest_version {
+    id
+    netex_id
+    name_value
+    stop_place_alternative_names {
+      alternative_name {
+        name_lang
+        name_type
+        name_value
+      }
+    }
+    scheduled_stop_point_instance {
+      ...stop_table_row
+    }
+  }
+  ${StopTableRowFragmentDoc}
 `;
 export const StopAreaDetailsMembersFragmentDoc = gql`
   fragment StopAreaDetailsMembers on stop_registry_StopPlace {
@@ -73194,24 +73348,6 @@ export const RouteMetadataFragmentDoc = gql`
     direction
     variant
   }
-`;
-export const StopTableRowStopPlaceFragmentDoc = gql`
-  fragment stop_table_row_stop_place on stops_database_stop_place_newest_version {
-    id
-    netex_id
-    name_value
-    stop_place_alternative_names {
-      alternative_name {
-        name_lang
-        name_type
-        name_value
-      }
-    }
-    scheduled_stop_point_instance {
-      ...stop_table_row
-    }
-  }
-  ${StopTableRowFragmentDoc}
 `;
 export const StopAreaMemberFieldsFragmentDoc = gql`
   fragment stop_area_member_fields on stop_registry_StopPlace {
@@ -74183,6 +74319,272 @@ export type GetScheduledStopPointWithTimingSettingsQueryResult =
     GetScheduledStopPointWithTimingSettingsQuery,
     GetScheduledStopPointWithTimingSettingsQueryVariables
   >;
+export const FindLinesByStopSearchDocument = gql`
+  query findLinesByStopSearch($query: String!, $validOn: date!) {
+    route_line(
+      where: {
+        label: { _ilike: $query }
+        validity_start: { _lte: $validOn }
+        _or: [
+          { validity_end: { _gte: $validOn } }
+          { validity_end: { _is_null: true } }
+        ]
+      }
+      order_by: [{ label: asc }, { priority: desc }]
+      distinct_on: [label, priority]
+    ) {
+      ...FindStopByLineInfo
+    }
+  }
+  ${FindStopByLineInfoFragmentDoc}
+`;
+
+/**
+ * __useFindLinesByStopSearchQuery__
+ *
+ * To run a query within a React component, call `useFindLinesByStopSearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindLinesByStopSearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindLinesByStopSearchQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *      validOn: // value for 'validOn'
+ *   },
+ * });
+ */
+export function useFindLinesByStopSearchQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    FindLinesByStopSearchQuery,
+    FindLinesByStopSearchQueryVariables
+  > &
+    (
+      | { variables: FindLinesByStopSearchQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    FindLinesByStopSearchQuery,
+    FindLinesByStopSearchQueryVariables
+  >(FindLinesByStopSearchDocument, options);
+}
+export function useFindLinesByStopSearchLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    FindLinesByStopSearchQuery,
+    FindLinesByStopSearchQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    FindLinesByStopSearchQuery,
+    FindLinesByStopSearchQueryVariables
+  >(FindLinesByStopSearchDocument, options);
+}
+export function useFindLinesByStopSearchSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    FindLinesByStopSearchQuery,
+    FindLinesByStopSearchQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    FindLinesByStopSearchQuery,
+    FindLinesByStopSearchQueryVariables
+  >(FindLinesByStopSearchDocument, options);
+}
+export type FindLinesByStopSearchQueryHookResult = ReturnType<
+  typeof useFindLinesByStopSearchQuery
+>;
+export type FindLinesByStopSearchLazyQueryHookResult = ReturnType<
+  typeof useFindLinesByStopSearchLazyQuery
+>;
+export type FindLinesByStopSearchSuspenseQueryHookResult = ReturnType<
+  typeof useFindLinesByStopSearchSuspenseQuery
+>;
+export type FindLinesByStopSearchQueryResult = Apollo.QueryResult<
+  FindLinesByStopSearchQuery,
+  FindLinesByStopSearchQueryVariables
+>;
+export const GetStopsByRouteIdDocument = gql`
+  query getStopsByRouteId($routeId: uuid!) {
+    stopPoints: service_pattern_scheduled_stop_point(
+      where: {
+        scheduled_stop_point_in_journey_patterns: {
+          journey_pattern: { on_route_id: { _eq: $routeId } }
+        }
+      }
+      order_by: [{ label: asc }]
+    ) {
+      ...stop_table_row
+      stopPlace: newest_stop_place {
+        id
+        netex_id
+        name_lang
+        name_value
+        stop_place_alternative_names {
+          alternative_name {
+            name_lang
+            name_value
+            name_type
+          }
+        }
+        description_lang
+        description_value
+      }
+    }
+  }
+  ${StopTableRowFragmentDoc}
+`;
+
+/**
+ * __useGetStopsByRouteIdQuery__
+ *
+ * To run a query within a React component, call `useGetStopsByRouteIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsByRouteIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopsByRouteIdQuery({
+ *   variables: {
+ *      routeId: // value for 'routeId'
+ *   },
+ * });
+ */
+export function useGetStopsByRouteIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetStopsByRouteIdQuery,
+    GetStopsByRouteIdQueryVariables
+  > &
+    (
+      | { variables: GetStopsByRouteIdQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStopsByRouteIdQuery,
+    GetStopsByRouteIdQueryVariables
+  >(GetStopsByRouteIdDocument, options);
+}
+export function useGetStopsByRouteIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopsByRouteIdQuery,
+    GetStopsByRouteIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopsByRouteIdQuery,
+    GetStopsByRouteIdQueryVariables
+  >(GetStopsByRouteIdDocument, options);
+}
+export function useGetStopsByRouteIdSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopsByRouteIdQuery,
+    GetStopsByRouteIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetStopsByRouteIdQuery,
+    GetStopsByRouteIdQueryVariables
+  >(GetStopsByRouteIdDocument, options);
+}
+export type GetStopsByRouteIdQueryHookResult = ReturnType<
+  typeof useGetStopsByRouteIdQuery
+>;
+export type GetStopsByRouteIdLazyQueryHookResult = ReturnType<
+  typeof useGetStopsByRouteIdLazyQuery
+>;
+export type GetStopsByRouteIdSuspenseQueryHookResult = ReturnType<
+  typeof useGetStopsByRouteIdSuspenseQuery
+>;
+export type GetStopsByRouteIdQueryResult = Apollo.QueryResult<
+  GetStopsByRouteIdQuery,
+  GetStopsByRouteIdQueryVariables
+>;
+export const SearchStopsDocument = gql`
+  query SearchStops(
+    $stopFilter: stops_database_stop_place_newest_version_bool_exp
+  ) {
+    stops_database {
+      stops_database_stop_place_newest_version(where: $stopFilter) {
+        ...stop_table_row_stop_place
+      }
+    }
+  }
+  ${StopTableRowStopPlaceFragmentDoc}
+`;
+
+/**
+ * __useSearchStopsQuery__
+ *
+ * To run a query within a React component, call `useSearchStopsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchStopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchStopsQuery({
+ *   variables: {
+ *      stopFilter: // value for 'stopFilter'
+ *   },
+ * });
+ */
+export function useSearchStopsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    SearchStopsQuery,
+    SearchStopsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<SearchStopsQuery, SearchStopsQueryVariables>(
+    SearchStopsDocument,
+    options,
+  );
+}
+export function useSearchStopsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SearchStopsQuery,
+    SearchStopsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<SearchStopsQuery, SearchStopsQueryVariables>(
+    SearchStopsDocument,
+    options,
+  );
+}
+export function useSearchStopsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    SearchStopsQuery,
+    SearchStopsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<SearchStopsQuery, SearchStopsQueryVariables>(
+    SearchStopsDocument,
+    options,
+  );
+}
+export type SearchStopsQueryHookResult = ReturnType<typeof useSearchStopsQuery>;
+export type SearchStopsLazyQueryHookResult = ReturnType<
+  typeof useSearchStopsLazyQuery
+>;
+export type SearchStopsSuspenseQueryHookResult = ReturnType<
+  typeof useSearchStopsSuspenseQuery
+>;
+export type SearchStopsQueryResult = Apollo.QueryResult<
+  SearchStopsQuery,
+  SearchStopsQueryVariables
+>;
 export const GetStopAreaDetailsDocument = gql`
   query getStopAreaDetails($id: String!) {
     stop_registry {
@@ -77382,82 +77784,6 @@ export type SearchLinesAndRoutesSuspenseQueryHookResult = ReturnType<
 export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<
   SearchLinesAndRoutesQuery,
   SearchLinesAndRoutesQueryVariables
->;
-export const SearchStopsDocument = gql`
-  query SearchStops(
-    $stopFilter: stops_database_stop_place_newest_version_bool_exp
-  ) {
-    stops_database {
-      stops_database_stop_place_newest_version(where: $stopFilter) {
-        ...stop_table_row_stop_place
-      }
-    }
-  }
-  ${StopTableRowStopPlaceFragmentDoc}
-`;
-
-/**
- * __useSearchStopsQuery__
- *
- * To run a query within a React component, call `useSearchStopsQuery` and pass it any options that fit your needs.
- * When your component renders, `useSearchStopsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useSearchStopsQuery({
- *   variables: {
- *      stopFilter: // value for 'stopFilter'
- *   },
- * });
- */
-export function useSearchStopsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    SearchStopsQuery,
-    SearchStopsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<SearchStopsQuery, SearchStopsQueryVariables>(
-    SearchStopsDocument,
-    options,
-  );
-}
-export function useSearchStopsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    SearchStopsQuery,
-    SearchStopsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<SearchStopsQuery, SearchStopsQueryVariables>(
-    SearchStopsDocument,
-    options,
-  );
-}
-export function useSearchStopsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    SearchStopsQuery,
-    SearchStopsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<SearchStopsQuery, SearchStopsQueryVariables>(
-    SearchStopsDocument,
-    options,
-  );
-}
-export type SearchStopsQueryHookResult = ReturnType<typeof useSearchStopsQuery>;
-export type SearchStopsLazyQueryHookResult = ReturnType<
-  typeof useSearchStopsLazyQuery
->;
-export type SearchStopsSuspenseQueryHookResult = ReturnType<
-  typeof useSearchStopsSuspenseQuery
->;
-export type SearchStopsQueryResult = Apollo.QueryResult<
-  SearchStopsQuery,
-  SearchStopsQueryVariables
 >;
 export const DeleteStopAreaDocument = gql`
   mutation DeleteStopArea($stop_area_id: String!) {

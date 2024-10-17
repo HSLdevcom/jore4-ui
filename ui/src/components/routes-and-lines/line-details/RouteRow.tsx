@@ -7,7 +7,7 @@ import {
   RouteDirectionEnum,
 } from '../../../generated/graphql';
 import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
-import { mapDirectionToShortUiName } from '../../../i18n/uiNameMappings';
+import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
 import { parseI18nField } from '../../../i18n/utils';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import {
@@ -69,7 +69,7 @@ export const RouteRow: FC<PropsWithChildren<Props>> = ({
     showRouteOnMap(route);
   };
   const { label } = route;
-  const directionNumber = mapDirectionToShortUiName(route.direction);
+  const directionNumber = mapDirectionToSymbol(t, route.direction);
 
   // alertStyle left border is different colour than what we want the bottom border to be
   // and to achieve the correct visual design for the borders, we need to add it with pseudo classes

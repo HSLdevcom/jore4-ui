@@ -1,4 +1,3 @@
-export * from './search';
 export * from './stop-areas';
 export * from './useCalculateStopAccessibilityLevel';
 export * from './useCreateStopPlace';

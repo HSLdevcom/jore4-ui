@@ -195,6 +195,7 @@ const lines: LineInsertInput[] = [
     ...buildLine({ label: '901' }),
     line_id: '08d1fa6b-440c-421e-ad4d-0778d65afe60',
     type_of_line: RouteTypeOfLineEnum.StoppingBusService,
+    validity_start: DateTime.fromISO('2022-01-01'),
   },
 
   // Raw lines
@@ -488,7 +489,7 @@ const baseDbResources = {
  * Returns a clone of baseDbResources so that the caller can
  * modify the data freely without side effects
  */
-export const getClonedBaseDbResources = () =>
+export const getClonedBaseDbResources = (): typeof baseDbResources =>
   cloneDeepWith(baseDbResources, (value) => {
     if (value instanceof DateTime) {
       return value;

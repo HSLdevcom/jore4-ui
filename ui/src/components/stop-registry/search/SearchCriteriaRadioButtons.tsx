@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 export enum SearchBy {
   LabelOrName = 'labelOrName',
   Address = 'address',
+  Line = 'line',
 }
 
 export const SearchCriteriaRadioButtons = ({
@@ -22,6 +23,10 @@ export const SearchCriteriaRadioButtons = ({
     {
       name: SearchBy.Address,
       label: t('stopRegistrySearch.byAddress'),
+    },
+    {
+      name: SearchBy.Line,
+      label: t('stopRegistrySearch.byLine'),
     },
   ];
 
