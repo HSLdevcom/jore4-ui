@@ -1,6 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { RouteDirectionEnum } from '../../../generated/graphql';
-import { mapDirectionToShortUiName } from '../../../i18n/uiNameMappings';
+import {
+  mapDirectionToSymbol,
+  mapDirectionToUiName,
+} from '../../../i18n/uiNameMappings';
 
 const testIds = {
   container: 'DirectionBadge',
@@ -17,7 +20,7 @@ type Props = {
 export const DirectionBadge = ({ direction, className = '' }: Props) => {
   const { t } = useTranslation();
 
-  const directionText = t(`directionEnum.${direction}`);
+  const directionText = mapDirectionToUiName(t, direction);
   return (
     <span
       title={directionText}
@@ -29,7 +32,7 @@ export const DirectionBadge = ({ direction, className = '' }: Props) => {
         aria-label={directionText}
         data-testid={testIds.directionBadge(direction)}
       >
-        {mapDirectionToShortUiName(direction)}
+        {mapDirectionToSymbol(t, direction)}
       </span>
     </span>
   );
