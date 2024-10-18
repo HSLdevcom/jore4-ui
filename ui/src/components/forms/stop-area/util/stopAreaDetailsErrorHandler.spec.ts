@@ -55,17 +55,15 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
       (key, details) => `${key} ${JSON.stringify(details)}`,
     );
 
-    const { result } = renderHook(() => useStopAreaDetailsApolloErrorHandler());
+    const tryHandle = renderHook(() => useStopAreaDetailsApolloErrorHandler())
+      .result.current;
 
     const details: StopAreaFormState = {
       ...mockStateDefaults,
       label: 'Testlabel1',
       name: 'Testname1',
     }; // Mock details data
-    const handled = result.current.tryHandle(
-      errorWithKnownCode as ApolloError,
-      details,
-    );
+    const handled = tryHandle(errorWithKnownCode as ApolloError, details);
 
     expect(handled).toBe(true);
     expect(tMock).toHaveBeenCalledWith(
@@ -89,9 +87,10 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
 
     tMock.mockImplementation((key) => key);
 
-    const { result } = renderHook(() => useStopAreaDetailsApolloErrorHandler());
+    const tryHandle = renderHook(() => useStopAreaDetailsApolloErrorHandler())
+      .result.current;
 
-    const handled = result.current.tryHandle(errorWithKnownCode as ApolloError);
+    const handled = tryHandle(errorWithKnownCode as ApolloError);
 
     expect(handled).toBe(true);
     expect(tMock).toHaveBeenCalledWith(
@@ -114,9 +113,10 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
 
     tMock.mockImplementation((key) => key);
 
-    const { result } = renderHook(() => useStopAreaDetailsApolloErrorHandler());
+    const tryHandle = renderHook(() => useStopAreaDetailsApolloErrorHandler())
+      .result.current;
 
-    const handled = result.current.tryHandle(unknownError as ApolloError);
+    const handled = tryHandle(unknownError as ApolloError);
 
     expect(handled).toBe(false);
     expect(tMock).not.toHaveBeenCalled();
@@ -133,11 +133,10 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
 
     tMock.mockImplementation((key) => key);
 
-    const { result } = renderHook(() => useStopAreaDetailsApolloErrorHandler());
+    const tryHandle = renderHook(() => useStopAreaDetailsApolloErrorHandler())
+      .result.current;
 
-    const handled = result.current.tryHandle(
-      errorWithNoExtensions as ApolloError,
-    );
+    const handled = tryHandle(errorWithNoExtensions as ApolloError);
 
     expect(handled).toBe(false);
     expect(tMock).not.toHaveBeenCalled();

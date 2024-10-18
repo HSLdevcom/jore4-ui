@@ -1,46 +1,47 @@
 import { ApolloError } from '@apollo/client';
+import get from 'lodash/get';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TranslationKey } from '../../../../i18n';
 import { showDangerToast } from '../../../../utils';
 import { StopAreaFormState } from '../stopAreaFormSchema';
 
-const ERRORS: Readonly<Map<string, string>> = new Map([
-  [
-    'GROUP_OF_STOP_PLACES_UNIQUE_NAME',
+const ERRORS: Readonly<Record<string, TranslationKey>> = {
+  GROUP_OF_STOP_PLACES_UNIQUE_NAME:
     'stopAreaDetails.errors.groupOfStopPlacesUniqueName',
-  ],
-  [
-    'GROUP_OF_STOP_PLACES_UNIQUE_DESCRIPTION',
-    'stopAreaDetails.errors.groupOfStopPlacesUniqueDescription',
-  ],
-]);
-type ExtensionsType = { errorCode: string };
 
-export function useStopAreaDetailsApolloErrorHandler() {
+  GROUP_OF_STOP_PLACES_UNIQUE_DESCRIPTION:
+    'stopAreaDetails.errors.groupOfStopPlacesUniqueDescription',
+};
+
+function mapApolloErrorToTranslationKey(
+  error: ApolloError,
+): TranslationKey | null {
+  const errorCode: unknown = get(error, ['cause', 'extensions', 'errorCode']);
+  if (typeof errorCode === 'string' && errorCode in ERRORS) {
+    return ERRORS[errorCode];
+  }
+
+  return null;
+}
+
+export function useStopAreaDetailsApolloErrorHandler(): (
+  error: ApolloError,
+  details?: StopAreaFormState,
+) => boolean {
   const { t } = useTranslation();
 
-  const tryHandle = useCallback(
+  return useCallback(
     (error: ApolloError, details?: StopAreaFormState): boolean => {
-      const errorNames = Array.from(ERRORS.keys());
-      const knownError: string | undefined = errorNames.find((key) => {
-        const extensions: ExtensionsType | undefined = error.cause
-          ?.extensions as ExtensionsType;
-        return extensions?.errorCode === key;
-      });
-      if (knownError) {
-        const knownErrorKey = ERRORS.get(knownError);
-        if (knownErrorKey) {
-          if (details) {
-            showDangerToast(`${t(knownErrorKey, details)}`);
-            return true;
-          }
-          showDangerToast(`${t(knownErrorKey)}`);
-          return true;
-        }
+      const translationKey = mapApolloErrorToTranslationKey(error);
+      if (translationKey) {
+        details
+          ? showDangerToast(t(translationKey, details))
+          : showDangerToast(t(translationKey));
+        return true;
       }
       return false;
     },
     [t],
   );
-  return { tryHandle };
 }
