@@ -1,3 +1,4 @@
+export * from './areEqual';
 export * from './components';
 export * from './download';
 export * from './enum';
