@@ -1,21 +1,36 @@
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { Link, To, useLocation } from 'react-router-dom';
 import { Container, Row } from '../../../layoutComponents';
-import { CloseIconButton } from '../../../uiComponents';
+import { resetSelectedRowsAction } from '../../../redux';
+import { Path } from '../../../router/routeDetails';
 import { StopsByLineSearchResults } from './by-line';
 import { StopSearchByStopResults } from './by-stop';
-import { SearchBy } from './SearchCriteriaRadioButtons';
 import { StopSearchBar } from './StopSearchBar';
-import { useStopSearch } from './useStopSearch';
+import { SearchBy, StopSearchFilters } from './types';
+import { useStopSearchUrlState } from './utils';
 
 const testIds = {
   container: 'StopSearchResultsPage::Container',
   closeButton: 'StopSearchResultsPage::closeButton',
 };
 
+function useCloseLink(): To {
+  const { search } = useLocation();
+  return { pathname: Path.stopRegistry, search };
+}
+
 export const StopSearchResultPage = (): React.ReactElement => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  const { handleClose, searchConditions } = useStopSearch();
+  const closeLink = useCloseLink();
+  const [urlState, setUrlState] = useStopSearchUrlState();
+
+  const onSubmitFilters = (filters: StopSearchFilters) => {
+    dispatch(resetSelectedRowsAction());
+    setUrlState((p) => ({ ...p, ...filters }));
+  };
 
   return (
     <Container testId={testIds.container}>
@@ -23,19 +38,21 @@ export const StopSearchResultPage = (): React.ReactElement => {
         <h2>{`${t('search.searchResultsTitle')} | ${t(
           'stopRegistrySearch.searchResultsTitle',
         )}`}</h2>
-        <CloseIconButton
-          label={t('close')}
+        <Link
           className="ml-auto text-base font-bold text-brand"
-          onClick={handleClose}
-          testId={testIds.closeButton}
-        />
+          to={closeLink}
+          data-testid={testIds.closeButton}
+        >
+          {t('close')}
+          <i className="icon-close-large ml-4 text-lg" />
+        </Link>
       </Row>
-      <StopSearchBar />
+      <StopSearchBar initialFilters={urlState} onSubmit={onSubmitFilters} />
 
-      {searchConditions.searchBy === SearchBy.Line ? (
-        <StopsByLineSearchResults />
+      {urlState.searchBy === SearchBy.Line ? (
+        <StopsByLineSearchResults filters={urlState} />
       ) : (
-        <StopSearchByStopResults />
+        <StopSearchByStopResults filters={urlState} />
       )}
     </Container>
   );
