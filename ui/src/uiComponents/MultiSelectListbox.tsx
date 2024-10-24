@@ -106,11 +106,9 @@ export const MultiSelectListbox = ({
           <ListboxButton
             arrowButtonClassNames={arrowButtonClassNames}
             buttonClassNames={buttonClassNames}
-            open={open}
             hasError={hasError}
             testId={`${testId}::ListboxButton`}
             buttonContent={buttonContent}
-            disabled={disabled}
           />
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>
