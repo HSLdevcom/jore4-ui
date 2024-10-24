@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { z } from 'zod';
 import { NullOptionEnum } from '../../../utils/enum';
 
@@ -90,3 +91,5 @@ export const nullablePositiveNumber = z
     }
     return Number.isNaN(value) ? null : value;
   });
+
+export const instanceOfDateTime = z.custom<DateTime>(DateTime.isDateTime);
