@@ -1,46 +1,43 @@
 import { Listbox as HUIListbox } from '@headlessui/react';
-import { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 const buttonErrorStyles =
   '!border-hsl-red !bg-hsl-red !bg-opacity-5 !border-2 text-hsl-red';
 
 const arrowErrorStyles = 'text-hsl-red';
+
 interface Props {
-  open: boolean;
   hasError: boolean;
   testId?: string;
   buttonContent: ReactNode;
   buttonClassNames?: string;
   arrowButtonClassNames?: string;
-  disabled?: boolean;
 }
-export const ListboxButton = ({
-  open,
+export const ListboxButton: FC<Props> = ({
   hasError,
   testId,
   buttonContent,
   buttonClassNames,
   arrowButtonClassNames,
-  disabled,
-}: Props): React.ReactElement => {
+}) => {
   return (
     <HUIListbox.Button
       className={twMerge(
-        `${hasError ? buttonErrorStyles : ''} ${
-          disabled ? 'input-disabled' : ''
-        } flex w-full items-center rounded-md border border-grey bg-white px-2 py-3 text-left ${buttonClassNames}`,
+        'flex w-full items-center rounded-md border border-grey bg-white px-2 py-3 text-left',
+        'ui-disabled:input-disabled',
+        hasError ? buttonErrorStyles : '',
+        buttonClassNames,
       )}
       data-testid={testId}
     >
       {buttonContent}
       <i
         className={twMerge(
-          `${
-            hasError ? arrowErrorStyles : ''
-          } icon-arrow ml-auto text-tweaked-brand transition duration-150 ease-in-out ${
-            open ? '-rotate-180' : 'rotate-0'
-          } ${arrowButtonClassNames}`,
+          'icon-arrow ml-auto text-tweaked-brand',
+          '-rotate-180 transition duration-150 ease-in-out ui-not-open:rotate-0',
+          hasError ? arrowErrorStyles : '',
+          arrowButtonClassNames,
         )}
         style={{ fontSize: 10 }}
       />
