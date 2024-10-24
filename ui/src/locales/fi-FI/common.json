@@ -361,11 +361,9 @@
   },
   "stopRegistrySearch": {
     "searchResultsTitle": "Pysäkit",
-    "elyNumber": "ELY-numero",
     "byAddress": "Osoitteella",
     "byLabel": "Tunnuksella",
     "byLine": "Linjan tunnuksella",
-    "municipality": "Kunta",
     "municipalityPlaceholder": "Valitse",
     "lines": "Linjat",
     "showAllLines": "Näytä kaikki ({{count}})",

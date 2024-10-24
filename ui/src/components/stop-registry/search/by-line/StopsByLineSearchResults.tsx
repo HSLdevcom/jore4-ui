@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
+import { StopSearchFilters } from '../types';
 import { ActiveLineHeader } from './ActiveLineHeader';
 import { LineRoutesListing } from './LineRoutesListing';
 import { LineSelector } from './LineSelector';
@@ -10,10 +11,14 @@ const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopByLinesSearchResults',
 };
 
-export const StopsByLineSearchResults: FC = () => {
+type StopsByLineSearchResultsProps = { readonly filters: StopSearchFilters };
+
+export const StopsByLineSearchResults: FC<StopsByLineSearchResultsProps> = ({
+  filters,
+}) => {
   const { t } = useTranslation();
 
-  const { lines, loading } = useFindLinesByStopSearch();
+  const { lines, loading } = useFindLinesByStopSearch(filters);
 
   const [activeLineId, setActiveLineId] = useState<UUID | null>(
     lines.at(0)?.line_id ?? null,

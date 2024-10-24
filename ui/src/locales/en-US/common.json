@@ -361,11 +361,9 @@
   },
   "stopRegistrySearch": {
     "searchResultsTitle": "Stops",
-    "elyNumber": "ELY number",
     "byAddress": "By address",
     "byLabel": "By label",
     "byLine": "By line label",
-    "municipality": "Municipality",
     "municipalityPlaceholder": "Choose",
     "lines": "Lines",
     "showAllLines": "Show all ({{count}})",
