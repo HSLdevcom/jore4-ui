@@ -21,6 +21,7 @@ export * from './usePagination';
 export * from './useRequiredParams';
 export * from './useShowRoutesOnModal';
 export * from './useToggle';
+export * from './useTypedUrlState';
 export * from './vehicle-schedule-frame';
 export * from './vehicle-service';
 export * from './via';

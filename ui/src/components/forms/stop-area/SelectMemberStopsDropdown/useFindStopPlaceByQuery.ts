@@ -4,10 +4,7 @@ import {
   StopsDatabaseStopPlaceNewestVersionBoolExp,
   useFindStopPlacesByQueryAndGroupQuery,
 } from '../../../../generated/graphql';
-import {
-  AllOptionEnum,
-  buildSearchStopsGqlQueryVariables,
-} from '../../../../utils';
+import { buildSearchStopByLabelOrNameFilter } from '../../../../utils';
 import { stopAreaMemberStopSchema } from '../stopAreaFormSchema';
 
 const LIMIT = 20;
@@ -44,12 +41,7 @@ function buildMemberStopGqlFilter(
   query: string,
   editedStopAreaId: string | null | undefined,
 ): StopsDatabaseStopPlaceNewestVersionBoolExp {
-  const baseWhere = buildSearchStopsGqlQueryVariables({
-    elyNumber: '',
-    municipalities: AllOptionEnum.All,
-    // Automatic wild card as this is an "autocomplete" component.
-    labelOrName: `${query}%`,
-  });
+  const baseWhere = buildSearchStopByLabelOrNameFilter(`${query}%`);
 
   const notInGroup: StopsDatabaseStopPlaceNewestVersionBoolExp = {
     _not: { group_of_stop_places_members: {} },

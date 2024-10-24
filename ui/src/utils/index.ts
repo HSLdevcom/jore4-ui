@@ -1,3 +1,4 @@
+export * from './areEqual';
 export * from './components';
 export * from './download';
 export * from './enum';
@@ -10,6 +11,7 @@ export * from './journeyPattern';
 export * from './localizedString';
 export * from './logger';
 export * from './misc';
+export * from './numberEnumHelpers';
 export * from './object';
 export * from './route';
 export * from './routeShape';
