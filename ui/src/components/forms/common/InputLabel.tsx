@@ -7,12 +7,14 @@ interface Props<FormState extends FieldValues> {
   className?: string;
   fieldPath: Path<FormState>;
   translationPrefix: TranslationKey;
+  customTitlePath?: string;
 }
 
 export const InputLabel = <FormState extends FieldValues>({
   className = '',
   fieldPath,
   translationPrefix,
+  customTitlePath
 }: Props<FormState>): React.ReactElement => {
   const { t } = useTranslation();
   const {
@@ -23,11 +25,17 @@ export const InputLabel = <FormState extends FieldValues>({
 
   return (
     <label className={className} htmlFor={`${translationPrefix}.${fieldPath}`}>
-      {/* Regex removes dot and series of numbers eg. ".10"
-          This is needed for translation to work with fields that are
-          created with React Hook Form useFieldArray */}
-      {t(`${translationPrefix}.${fieldPath.replace(/\.\d+/, '')}`)}
-      {hasError && <span className="ml-1 text-hsl-red">*</span>}
+      {customTitlePath ? (
+        t(customTitlePath)
+      ) : (
+        <>
+          {/* Regex removes dot and series of numbers eg. ".10"
+              This is needed for translation to work with fields that are
+              created with React Hook Form useFieldArray */}
+          {t(`${translationPrefix}.${fieldPath.replace(/\.\d+/, '')}`)}
+          {hasError && <span className="ml-1 text-hsl-red">*</span>}
+        </>
+      )}
     </label>
   );
 };

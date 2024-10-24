@@ -5,9 +5,12 @@ import {
   RouteDirectionEnum,
   RouteTypeOfLineEnum,
   StopRegistryAccessibilityLevel,
+  StopRegistryDisplayType,
   StopRegistryGuidanceType,
+  StopRegistryInfoSpotType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
+  StopRegistryPosterPlaceSize,
   StopRegistryShelterCondition,
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
@@ -144,6 +147,33 @@ export const mapStopRegistryShelterTypeEnumToUiName = (
     key === NullOptionEnum.Null
       ? 'unknown'
       : `stopRegistryShelterTypeEnum.${key}`,
+  );
+
+export const mapStopRegistryInfoSpotTypeEnumToUiName = (
+  key: StopRegistryInfoSpotType | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null
+      ? 'unknown'
+      : `stopDetails.infoSpots.type.${key}`,
+  );
+
+export const mapStopRegistryDisplayTypeEnumToUiName = (
+  key: StopRegistryDisplayType | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null
+      ? 'unknown'
+      : `stopDetails.infoSpots.displayTypes.${key}`,
+  );
+
+export const mapStopRegistryPosterPlaceSizeEnumToUiName = (
+  key: StopRegistryPosterPlaceSize | NullOptionEnum,
+) =>
+  i18n.t(
+    key === NullOptionEnum.Null
+      ? 'unknown'
+      : `stopDetails.infoSpots.posterPlaceSizes.${key}`,
   );
 
 export const mapStopAccessibilityLevelToUiName = (
