@@ -6,29 +6,19 @@ import {
   buildTiamatAddressLikeGqlFilter,
   buildTiamatMunicipalityGqlFilter,
   buildTiamatPrivateCodeLikeGqlFilter,
-  buildTiamatStopQuayPublicCodeLikeGqlFilter,
-  buildTiamatStopQuayPublicCodeOrNameLikeGqlFilter,
 } from '../gql';
 import {
   buildOptionalSearchConditionGqlFilter,
   mapToSqlLikeValue,
 } from '../search';
+import { buildSearchStopByLabelOrNameFilter } from './buildSearchStopByLabelOrNameFilter';
 
 export function buildSearchStopsGqlQueryVariables(
   searchConditions: StopSearchConditions,
 ): StopsDatabaseStopPlaceNewestVersionBoolExp {
-  const labelOrName = searchConditions.labelOrName ?? '';
-
-  // By design, we only accept search by name when the input is at least 4 characters.
-  const labelOrNameFilterToUse =
-    labelOrName.length >= 4
-      ? buildTiamatStopQuayPublicCodeOrNameLikeGqlFilter
-      : buildTiamatStopQuayPublicCodeLikeGqlFilter;
-
-  const labelOrNameFilter = buildOptionalSearchConditionGqlFilter<
-    string,
-    StopsDatabaseStopPlaceNewestVersionBoolExp
-  >(mapToSqlLikeValue(labelOrName), labelOrNameFilterToUse);
+  const labelOrNameFilter = buildSearchStopByLabelOrNameFilter(
+    searchConditions.labelOrName ?? '',
+  );
 
   const elyNumberFilter = buildOptionalSearchConditionGqlFilter<
     string,
