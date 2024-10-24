@@ -375,6 +375,19 @@
     "stopRowActions": {
       "openDetails": "Näytä pysäkin tiedot",
       "showOnMap": "Näytä pysäkki kartalla"
+    },
+
+    "searchFor": {
+      "stops": "Pysäkit",
+      "stopAreas": "Pysäkkialueet",
+      "terminals": "Terminaalit"
+    },
+
+    "fieldLabels": {
+      "query": "Haku",
+      "searchFor": "Hakukohde",
+      "elyNumber": "ELY-numero",
+      "municipalities": "Kunta"
     }
   },
   "timingPlaces": {
