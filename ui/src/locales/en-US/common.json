@@ -375,6 +375,19 @@
     "stopRowActions": {
       "openDetails": "Open stop details page",
       "showOnMap": "Show stop on the map"
+    },
+
+    "searchFor": {
+      "stops": "Stops",
+      "stopAreas": "Stop areas",
+      "terminals": "Terminals"
+    },
+
+    "fieldLabels": {
+      "query": "Search",
+      "searchFor": "Search for",
+      "elyNumber": "ELY number",
+      "municipalities": "Municipality"
     }
   },
   "timingPlaces": {
