@@ -5,6 +5,7 @@ import { Visible } from '../../../../layoutComponents';
 import { Pagination } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { sortAlphabetically } from '../../../../utils';
+import { StopSearchFilters } from '../types';
 import { StopSearchByStopResultList } from './StopSearchByStopResultList';
 import { useStopSearchResults } from './useStopSearchResults';
 
@@ -14,10 +15,14 @@ const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopSearchResults',
 };
 
-export const StopSearchByStopResults: FC = () => {
+type StopSearchByStopResultsProps = { readonly filters: StopSearchFilters };
+
+export const StopSearchByStopResults: FC<StopSearchByStopResultsProps> = ({
+  filters,
+}) => {
   const { t } = useTranslation();
 
-  const { stops, loading, resultCount } = useStopSearchResults();
+  const { stops, loading, resultCount } = useStopSearchResults(filters);
 
   const { getPaginatedData } = usePagination();
   const sortedStopsByLabel = sortAlphabetically(stops, 'label');

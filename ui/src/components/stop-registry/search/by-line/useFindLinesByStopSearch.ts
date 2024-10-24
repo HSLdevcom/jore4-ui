@@ -6,8 +6,7 @@ import {
   FindStopByLineRouteInfoFragment,
   useFindLinesByStopSearchQuery,
 } from '../../../../generated/graphql';
-import { useObservationDateQueryParam } from '../../../../hooks';
-import { useStopSearchQueryParser } from '../useStopSearchQueryParser';
+import { StopSearchFilters } from '../types';
 
 export type FindStopByLineInfo = FindStopByLineInfoFragment;
 export type FindStopByLineRouteInfo = FindStopByLineRouteInfoFragment;
@@ -91,16 +90,14 @@ function useNumericSortingCollator() {
   );
 }
 
-export function useFindLinesByStopSearch() {
+export function useFindLinesByStopSearch(filters: StopSearchFilters) {
   const labelSortCollator = useNumericSortingCollator();
-  const { observationDate } = useObservationDateQueryParam();
-
-  const {
-    search: { searchKey },
-  } = useStopSearchQueryParser();
 
   const { data, ...rest } = useFindLinesByStopSearchQuery({
-    variables: { query: searchKeyToQuery(searchKey), validOn: observationDate },
+    variables: {
+      query: searchKeyToQuery(filters.query),
+      validOn: filters.observationDate,
+    },
   });
 
   const lines: ReadonlyArray<FindStopByLineInfo> = useMemo(() => {

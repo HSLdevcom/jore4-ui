@@ -6,12 +6,9 @@ import {
   StopTableRowStopPlaceFragment,
   useSearchStopsQuery,
 } from '../../../../generated/graphql';
-import {
-  buildSearchStopsGqlQueryVariables,
-  mapToVariables,
-} from '../../../../utils';
-import { StopSearchRow } from '../types';
-import { useStopSearchQueryParser } from '../useStopSearchQueryParser';
+import { mapToVariables } from '../../../../utils';
+import { StopSearchFilters, StopSearchRow } from '../types';
+import { buildSearchStopsGqlQueryVariables } from './filtersToQueryVariables';
 
 const GQL_STOP_TABLE_ROW = gql`
   fragment stop_table_row on service_pattern_scheduled_stop_point {
@@ -83,14 +80,8 @@ const mapQueryResultToStopSearchRows = (
     .filter((stop) => !!stop.scheduled_stop_point_instance)
     .map(mapResultRowToStopSearchRow) ?? [];
 
-export const useStopSearchResults = () => {
-  const parsedSearchQueryParameters = useStopSearchQueryParser();
-  const { searchKey, searchBy } = parsedSearchQueryParameters.search;
-
-  const stopFilter = buildSearchStopsGqlQueryVariables({
-    ...parsedSearchQueryParameters.search,
-    [searchBy]: searchKey,
-  });
+export const useStopSearchResults = (filters: StopSearchFilters) => {
+  const stopFilter = buildSearchStopsGqlQueryVariables(filters);
 
   const { data, ...rest } = useSearchStopsQuery(mapToVariables({ stopFilter }));
 
