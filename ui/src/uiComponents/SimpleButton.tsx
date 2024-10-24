@@ -21,7 +21,7 @@ interface CommonButtonProps {
 }
 
 interface ButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   type?: 'button' | 'reset' | 'submit' | undefined;
   href?: never;
 }
@@ -49,25 +49,25 @@ const getHoverStyles = (inverted = false, disabled = false) => {
     : `${hoverStyle} hover:bg-opacity-50`;
 };
 
-export const SimpleButton: React.FC<Props> = (props) => {
-  const {
-    id,
-    className = '',
-    inverted,
-    selected,
-    disabled,
-    testId,
-    children,
-    containerClassName = '',
-    invertedClassName = '',
-    tooltip,
-    disabledTooltip,
-    ariaSelected,
-    role,
-    ariaControls,
-    type = 'button',
-  } = props;
-
+export const SimpleButton: React.FC<Props> = ({
+  id,
+  className = '',
+  inverted,
+  selected,
+  disabled,
+  testId,
+  children,
+  containerClassName = '',
+  invertedClassName = '',
+  tooltip,
+  disabledTooltip,
+  ariaSelected,
+  role,
+  ariaControls,
+  type = 'button',
+  onClick,
+  href,
+}) => {
   const colorClassNames = inverted
     ? `text-brand bg-white border border-grey active:border-brand ${invertedClassName}`
     : `text-white bg-brand border border-brand active:bg-opacity-50`;
@@ -79,29 +79,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
     disabled,
   )} ${disabledClassNames}`;
 
-  if ((props as ButtonProps).onClick) {
-    return (
-      <span className={`inline-flex ${containerClassName}`}>
-        <button
-          id={id}
-          data-selected={selected}
-          className={twMerge(`${commonClassNames} ${className}`)}
-          // eslint-disable-next-line react/button-has-type
-          type={type}
-          onClick={(props as ButtonProps).onClick}
-          disabled={disabled}
-          data-testid={testId}
-          title={disabled ? disabledTooltip : tooltip}
-          aria-selected={ariaSelected}
-          role={role}
-          aria-controls={ariaControls}
-        >
-          {children}
-        </button>
-      </span>
-    );
-  }
-  if ((props as LinkButtonProps).href) {
+  if (href) {
     // Try to take accessibility of disabled link buttons into account as stated
     // in Bootstrap's documentation:
     // https://getbootstrap.com/docs/5.1/components/buttons/#link-functionality-caveat
@@ -115,7 +93,7 @@ export const SimpleButton: React.FC<Props> = (props) => {
           )}
           type="button"
           // @ts-expect-error we want to pass undefined as href for disabled buttons
-          to={disabled ? undefined : (props as LinkButtonProps).href}
+          to={disabled ? undefined : href}
           aria-disabled={disabled}
           tabIndex={disabled ? -1 : undefined}
           data-testid={testId}
@@ -126,6 +104,34 @@ export const SimpleButton: React.FC<Props> = (props) => {
       </span>
     );
   }
+
+  if (
+    (type === 'button' && onClick !== undefined) ||
+    type === 'submit' ||
+    type === 'reset'
+  ) {
+    return (
+      <span className={`inline-flex ${containerClassName}`}>
+        <button
+          id={id}
+          data-selected={selected}
+          className={twMerge(`${commonClassNames} ${className}`)}
+          // eslint-disable-next-line react/button-has-type
+          type={type}
+          onClick={onClick}
+          disabled={disabled}
+          data-testid={testId}
+          title={disabled ? disabledTooltip : tooltip}
+          aria-selected={ariaSelected}
+          role={role}
+          aria-controls={ariaControls}
+        >
+          {children}
+        </button>
+      </span>
+    );
+  }
+
   // eslint-disable-next-line no-console
   console.error('"onClick" or "href" prop is required');
   return null;
