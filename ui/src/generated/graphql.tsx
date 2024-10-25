@@ -67059,6 +67059,46 @@ export type FindStopAreaInfoFragment = {
   centroid?: GeoJSON.Geometry | null;
 };
 
+export type GetStopsByStopAreaIdQueryVariables = Exact<{
+  stopAreaId: Scalars['bigint']['input'];
+}>;
+
+export type GetStopsByStopAreaIdQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stops_database_stop_place_newest_version: Array<{
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
+      netex_id?: string | null;
+      name_value?: string | null;
+      stop_place_alternative_names: Array<{
+        __typename?: 'stops_database_stop_place_alternative_names';
+        alternative_name: {
+          __typename?: 'stops_database_alternative_name';
+          name_lang?: string | null;
+          name_type?: string | null;
+          name_value?: string | null;
+        };
+      }>;
+      scheduled_stop_point_instance?: {
+        __typename?: 'service_pattern_scheduled_stop_point';
+        scheduled_stop_point_id: UUID;
+        label: string;
+        measured_location: GeoJSON.Point;
+        validity_start?: luxon.DateTime | null;
+        validity_end?: luxon.DateTime | null;
+        timing_place_id?: UUID | null;
+        timing_place?: {
+          __typename?: 'timing_pattern_timing_place';
+          timing_place_id: UUID;
+          label: string;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
 export type GetStopAreaDetailsQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
@@ -74743,6 +74783,92 @@ export type FindStopAreasSuspenseQueryHookResult = ReturnType<
 export type FindStopAreasQueryResult = Apollo.QueryResult<
   FindStopAreasQuery,
   FindStopAreasQueryVariables
+>;
+export const GetStopsByStopAreaIdDocument = gql`
+  query getStopsByStopAreaId($stopAreaId: bigint!) {
+    stops_database {
+      stops_database_stop_place_newest_version(
+        where: {
+          group_of_stop_places_members: {
+            group_of_stop_places_id: { _eq: $stopAreaId }
+          }
+        }
+      ) {
+        ...stop_table_row_stop_place
+      }
+    }
+  }
+  ${StopTableRowStopPlaceFragmentDoc}
+`;
+
+/**
+ * __useGetStopsByStopAreaIdQuery__
+ *
+ * To run a query within a React component, call `useGetStopsByStopAreaIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsByStopAreaIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopsByStopAreaIdQuery({
+ *   variables: {
+ *      stopAreaId: // value for 'stopAreaId'
+ *   },
+ * });
+ */
+export function useGetStopsByStopAreaIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetStopsByStopAreaIdQuery,
+    GetStopsByStopAreaIdQueryVariables
+  > &
+    (
+      | { variables: GetStopsByStopAreaIdQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetStopsByStopAreaIdQuery,
+    GetStopsByStopAreaIdQueryVariables
+  >(GetStopsByStopAreaIdDocument, options);
+}
+export function useGetStopsByStopAreaIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopsByStopAreaIdQuery,
+    GetStopsByStopAreaIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopsByStopAreaIdQuery,
+    GetStopsByStopAreaIdQueryVariables
+  >(GetStopsByStopAreaIdDocument, options);
+}
+export function useGetStopsByStopAreaIdSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopsByStopAreaIdQuery,
+    GetStopsByStopAreaIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetStopsByStopAreaIdQuery,
+    GetStopsByStopAreaIdQueryVariables
+  >(GetStopsByStopAreaIdDocument, options);
+}
+export type GetStopsByStopAreaIdQueryHookResult = ReturnType<
+  typeof useGetStopsByStopAreaIdQuery
+>;
+export type GetStopsByStopAreaIdLazyQueryHookResult = ReturnType<
+  typeof useGetStopsByStopAreaIdLazyQuery
+>;
+export type GetStopsByStopAreaIdSuspenseQueryHookResult = ReturnType<
+  typeof useGetStopsByStopAreaIdSuspenseQuery
+>;
+export type GetStopsByStopAreaIdQueryResult = Apollo.QueryResult<
+  GetStopsByStopAreaIdQuery,
+  GetStopsByStopAreaIdQueryVariables
 >;
 export const GetStopAreaDetailsDocument = gql`
   query getStopAreaDetails($id: String!) {
