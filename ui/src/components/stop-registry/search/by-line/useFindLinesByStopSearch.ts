@@ -6,6 +6,7 @@ import {
   FindStopByLineRouteInfoFragment,
   useFindLinesByStopSearchQuery,
 } from '../../../../generated/graphql';
+import { mapToSqlLikeValue } from '../../../../utils';
 import { StopSearchFilters } from '../types';
 
 export type FindStopByLineInfo = FindStopByLineInfoFragment;
@@ -71,10 +72,6 @@ const GQL_FIND_LINES_BY_STOP_SEARCH_QUERY = gql`
   }
 `;
 
-function searchKeyToQuery(searchKey: string): string {
-  return searchKey.replace(/\*/g, '%');
-}
-
 /**
  * Allows sorting the labels so that letters come before numbers.
  * 3Y -> Line 3 variant Y
@@ -95,7 +92,7 @@ export function useFindLinesByStopSearch(filters: StopSearchFilters) {
 
   const { data, ...rest } = useFindLinesByStopSearchQuery({
     variables: {
-      query: searchKeyToQuery(filters.query),
+      query: mapToSqlLikeValue(filters.query),
       validOn: filters.observationDate,
     },
     skip: filters.query.trim() === '',
