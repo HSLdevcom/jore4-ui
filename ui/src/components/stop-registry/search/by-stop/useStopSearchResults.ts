@@ -1,16 +1,8 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
-import {
-  SearchStopsQuery,
-  StopTableRowFragment,
-  StopTableRowStopPlaceFragment,
-  useSearchStopsQuery,
-} from '../../../../generated/graphql';
-import {
-  StopSearchFilters,
-  StopSearchRow,
-  hasMeaningfulFilters,
-} from '../types';
+import { useSearchStopsQuery } from '../../../../generated/graphql';
+import { StopSearchFilters, hasMeaningfulFilters } from '../types';
+import { mapQueryResultToStopSearchRows } from '../utils';
 import { buildSearchStopsGqlQueryVariables } from './filtersToQueryVariables';
 
 const GQL_STOP_TABLE_ROW = gql`
@@ -57,31 +49,6 @@ const GQL_SEARCH_STOPS = gql`
     }
   }
 `;
-
-const mapResultRowToStopSearchRow = (
-  stopPlace: StopTableRowStopPlaceFragment,
-) => {
-  return {
-    ...(stopPlace.scheduled_stop_point_instance as StopTableRowFragment),
-    stop_place: {
-      netexId: stopPlace.netex_id,
-      nameFin: stopPlace.name_value,
-      nameSwe: stopPlace.stop_place_alternative_names.find(
-        (alternativeName) =>
-          alternativeName.alternative_name.name_lang === 'swe' &&
-          alternativeName.alternative_name.name_type === 'TRANSLATION',
-      )?.alternative_name.name_value,
-    },
-  };
-};
-
-const mapQueryResultToStopSearchRows = (
-  data: SearchStopsQuery,
-): StopSearchRow[] =>
-  data.stops_database?.stops_database_stop_place_newest_version
-    // Filter out stops which do not have a matching stop in routes and lines
-    .filter((stop) => !!stop.scheduled_stop_point_instance)
-    .map(mapResultRowToStopSearchRow) ?? [];
 
 export const useStopSearchResults = (filters: StopSearchFilters) => {
   const stopFilter = buildSearchStopsGqlQueryVariables(filters);
