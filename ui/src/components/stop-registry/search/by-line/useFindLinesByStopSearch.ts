@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   FindStopByLineInfoFragment,
   FindStopByLineRouteInfoFragment,
@@ -8,6 +7,7 @@ import {
 } from '../../../../generated/graphql';
 import { mapToSqlLikeValue } from '../../../../utils';
 import { StopSearchFilters } from '../types';
+import { useNumericSortingCollator } from '../utils';
 
 export type FindStopByLineInfo = FindStopByLineInfoFragment;
 export type FindStopByLineRouteInfo = FindStopByLineRouteInfoFragment;
@@ -71,21 +71,6 @@ const GQL_FIND_LINES_BY_STOP_SEARCH_QUERY = gql`
     validity_end
   }
 `;
-
-/**
- * Allows sorting the labels so that letters come before numbers.
- * 3Y -> Line 3 variant Y
- * 30 → Line 30 > 3
- * 200 → Line 200 > 3 & 30
- */
-function useNumericSortingCollator() {
-  const { i18n } = useTranslation();
-
-  return useMemo(
-    () => new Intl.Collator(i18n.language, { numeric: true }),
-    [i18n.language],
-  );
-}
 
 export function useFindLinesByStopSearch(filters: StopSearchFilters) {
   const labelSortCollator = useNumericSortingCollator();
