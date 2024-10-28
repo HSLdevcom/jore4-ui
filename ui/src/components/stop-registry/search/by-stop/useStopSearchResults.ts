@@ -6,8 +6,11 @@ import {
   StopTableRowStopPlaceFragment,
   useSearchStopsQuery,
 } from '../../../../generated/graphql';
-import { mapToVariables } from '../../../../utils';
-import { StopSearchFilters, StopSearchRow } from '../types';
+import {
+  StopSearchFilters,
+  StopSearchRow,
+  hasMeaningfulFilters,
+} from '../types';
 import { buildSearchStopsGqlQueryVariables } from './filtersToQueryVariables';
 
 const GQL_STOP_TABLE_ROW = gql`
@@ -83,7 +86,11 @@ const mapQueryResultToStopSearchRows = (
 export const useStopSearchResults = (filters: StopSearchFilters) => {
   const stopFilter = buildSearchStopsGqlQueryVariables(filters);
 
-  const { data, ...rest } = useSearchStopsQuery(mapToVariables({ stopFilter }));
+  const skip = !hasMeaningfulFilters(filters);
+  const { data, ...rest } = useSearchStopsQuery({
+    variables: { stopFilter },
+    skip,
+  });
 
   const stopSearchRows = useMemo(() => {
     if (!data) {

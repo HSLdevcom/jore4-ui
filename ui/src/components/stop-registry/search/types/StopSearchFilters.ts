@@ -1,7 +1,8 @@
+import pick from 'lodash/pick';
 import { DateTime } from 'luxon';
 import { z } from 'zod';
 import { StopRegistryMunicipality } from '../../../../types/enums';
-import { AllOptionEnum } from '../../../../utils';
+import { AllOptionEnum, areEqual } from '../../../../utils';
 import { instanceOfDateTime, requiredString } from '../../../forms/common';
 import { SearchBy } from './SearchBy';
 import { SearchFor } from './SearchFor';
@@ -30,3 +31,18 @@ export const defaultFilters: StopSearchFilters = {
   elyNumber: '',
   municipalities: [AllOptionEnum.All],
 };
+
+export function pickMeaningfulFilters(filters: StopSearchFilters) {
+  return pick(
+    filters,
+    'query',
+    'observationDate',
+    'elyNumber',
+    'municipalities',
+  );
+}
+
+export const emptyMeaningfulFilters = pickMeaningfulFilters(defaultFilters);
+export function hasMeaningfulFilters(filters: StopSearchFilters) {
+  return !areEqual(emptyMeaningfulFilters, pickMeaningfulFilters(filters));
+}
