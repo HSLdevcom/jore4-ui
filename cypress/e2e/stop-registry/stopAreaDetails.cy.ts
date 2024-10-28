@@ -1,3 +1,7 @@
+import {
+  StopAreaInput,
+  StopRegistryGeoJsonType,
+} from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
@@ -16,7 +20,10 @@ import {
 } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
-import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import {
+  expectGraphQLCallToReturnError,
+  expectGraphQLCallToSucceed,
+} from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
 
 function mapToShortDate(date: DateTime | null) {
@@ -49,6 +56,24 @@ describe('Stop area details', () => {
   const baseStopRegistryData = getClonedBaseStopRegistryData();
 
   const testStopArea = { ...stopAreaX0003 };
+  const stopAreaData: Array<StopAreaInput> = [
+    testStopArea,
+    {
+      memberLabels: ['E2E002', 'E2E008'],
+      stopArea: {
+        name: { lang: 'fin', value: 'X0004' },
+        description: { lang: 'fin', value: 'Annankatu 16' },
+        validBetween: {
+          fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
+          toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
+        },
+        geometry: {
+          coordinates: [24.838928, 60.165434],
+          type: StopRegistryGeoJsonType.Point,
+        },
+      },
+    },
+  ];
 
   const testAreaExpectedBasicDetails: ExpectedBasicDetails = {
     name: testStopArea.stopArea.name.value,
@@ -82,11 +107,10 @@ describe('Stop area details', () => {
     cy.task('resetDbs');
 
     insertToDbHelper(dbResources);
-
-    cy.task<InsertedStopRegistryIds>(
-      'insertStopRegistryData',
-      baseStopRegistryData,
-    ).then((data) => {
+    cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
+      ...baseStopRegistryData,
+      stopAreas: stopAreaData,
+    }).then((data) => {
       const id = data.stopAreaIdsByName.X0003;
 
       cy.setupTests();
@@ -323,6 +347,42 @@ describe('Stop area details', () => {
 
       // And the basic details should still match newBasicDetails
       assertBasicDetails(newBasicDetails);
+    });
+
+    it('should handle unique name exception', () => {
+      const existingLabel =
+        stopAreaData?.at(1)?.stopArea?.name?.value ?? 'noop';
+      const newBasicDetails: ExpectedBasicDetails = {
+        ...testAreaExpectedBasicDetails,
+        name: existingLabel,
+      };
+
+      assertBasicDetails(testAreaExpectedBasicDetails);
+      stopAreaDetailsPage.details.getEditButton().click();
+      inputBasicDetails(newBasicDetails);
+      stopAreaDetailsPage.details.edit.getSaveButton().click();
+      toast.checkDangerToastHasMessage(
+        'Pysäkkialueella tulee olla uniikki tunnus, mutta tunnus X0004 on jo jonkin toisen alueen käytössä!',
+      );
+      expectGraphQLCallToReturnError('@gqlUpsertStopArea');
+    });
+
+    it('should handle unique description exception', () => {
+      const existingDescription =
+        stopAreaData?.at(1)?.stopArea?.description?.value ?? 'noop';
+      const newBasicDetails: ExpectedBasicDetails = {
+        ...testAreaExpectedBasicDetails,
+        description: existingDescription,
+      };
+
+      assertBasicDetails(testAreaExpectedBasicDetails);
+      stopAreaDetailsPage.details.getEditButton().click();
+      inputBasicDetails(newBasicDetails);
+      stopAreaDetailsPage.details.edit.getSaveButton().click();
+      toast.checkDangerToastHasMessage(
+        'Pysäkkialueella tulee olla uniikki nimi, mutta nimi Annankatu 16 on jo jonkin toisen alueen käytössä!',
+      );
+      expectGraphQLCallToReturnError('@gqlUpsertStopArea');
     });
   });
 });
