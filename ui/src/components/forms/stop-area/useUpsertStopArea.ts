@@ -69,8 +69,7 @@ const mapFormStateToInput = ({
 
 export const useUpsertStopArea = () => {
   const { t } = useTranslation();
-  const { tryHandle: tryHandleApolloError } =
-    useStopAreaDetailsApolloErrorHandler();
+  const tryHandleApolloError = useStopAreaDetailsApolloErrorHandler();
   const [upsertStopAreaMutation] = useUpsertStopAreaMutation();
 
   /**
