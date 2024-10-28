@@ -1,5 +1,6 @@
 export * from './ChangeValidityForm';
 export * from './customZodSchemas';
+export * from './DateInputField';
 export * from './DateRange';
 export * from './EnumDropdown';
 export * from './FormColumn';
