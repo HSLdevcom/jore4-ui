@@ -95,6 +95,7 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
     expect(handled).toBe(true);
     expect(tMock).toHaveBeenCalledWith(
       'stopAreaDetails.errors.groupOfStopPlacesUniqueDescription',
+      undefined,
     );
     expect(showDangerToast).toHaveBeenCalledWith(
       'stopAreaDetails.errors.groupOfStopPlacesUniqueDescription',
