@@ -98,6 +98,7 @@ export function useFindLinesByStopSearch(filters: StopSearchFilters) {
       query: searchKeyToQuery(filters.query),
       validOn: filters.observationDate,
     },
+    skip: filters.query.trim() === '',
   });
 
   const lines: ReadonlyArray<FindStopByLineInfo> = useMemo(() => {
