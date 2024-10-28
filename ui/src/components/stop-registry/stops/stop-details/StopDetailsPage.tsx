@@ -32,7 +32,7 @@ const testIds = {
 };
 
 export const StopDetailsPage = (): React.ReactElement => {
-  const { stopDetails, isLoading } = useGetStopDetails();
+  const { stopDetails, loading } = useGetStopDetails();
   const { t } = useTranslation();
   const [activeDetailTab, selectDetailTab] = useState(
     DetailTabType.BasicDetailsTab,
@@ -67,7 +67,7 @@ export const StopDetailsPage = (): React.ReactElement => {
       />
       <LoadingWrapper
         className="flex justify-center p-20"
-        loading={isLoading}
+        loading={loading}
         testId={testIds.loadingStopDetails}
       >
         {stopDetails && (

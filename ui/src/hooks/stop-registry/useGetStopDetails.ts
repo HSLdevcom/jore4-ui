@@ -1,5 +1,8 @@
 import { gql } from '@apollo/client';
+import compact from 'lodash/compact';
+import { useMemo } from 'react';
 import {
+  GetHighestPriorityStopDetailsByLabelAndDateQuery,
   InfoSpotDetailsFragment,
   ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
@@ -294,6 +297,18 @@ export type StopPlace = StopPlaceDetailsFragment;
 export type StopPlaceInfoSpots = InfoSpotDetailsFragment;
 export type EnrichedStopPlace = StopPlace & StopPlaceEnrichmentProperties;
 
+function sortInfoSpots(
+  infoStops: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,
+): Array<StopPlaceInfoSpots> | null {
+  if (!infoStops) {
+    return null;
+  }
+
+  return compact(infoStops).sort((a, b) =>
+    (a.label ?? '').localeCompare(b.label ?? ''),
+  );
+}
+
 const getEnrichedStopPlace = (
   stopPlace: StopPlace | null,
 ): EnrichedStopPlace | null => {
@@ -304,6 +319,7 @@ const getEnrichedStopPlace = (
   return {
     ...stopPlace,
     ...getStopPlaceDetailsForEnrichment(stopPlace),
+    infoSpots: sortInfoSpots(stopPlace.infoSpots),
   };
 };
 
@@ -313,11 +329,9 @@ export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
 };
 
 const getStopDetails = (
-  result: ReturnType<
-    typeof useGetHighestPriorityStopDetailsByLabelAndDateQuery
-  >,
+  data: GetHighestPriorityStopDetailsByLabelAndDateQuery | undefined,
 ): StopWithDetails | null => {
-  const stopPoint = result.data?.service_pattern_scheduled_stop_point[0];
+  const stopPoint = data?.service_pattern_scheduled_stop_point[0];
   if (!stopPoint) {
     return null;
   }
@@ -331,19 +345,17 @@ const getStopDetails = (
   };
 };
 
-export const useGetStopDetails = (): {
-  stopDetails: StopWithDetails | null;
-  isLoading: boolean;
-} => {
+export const useGetStopDetails = () => {
   const { label } = useRequiredParams<{ label: string }>();
   const { observationDate } = useObservationDateQueryParam();
 
-  const result = useGetHighestPriorityStopDetailsByLabelAndDateQuery({
-    variables: { label, observationDate },
-  });
+  const { data, ...rest } = useGetHighestPriorityStopDetailsByLabelAndDateQuery(
+    {
+      variables: { label, observationDate },
+    },
+  );
 
-  return {
-    stopDetails: getStopDetails(result),
-    isLoading: result.loading,
-  };
+  const stopDetails = useMemo(() => getStopDetails(data), [data]);
+
+  return { ...rest, stopDetails };
 };
