@@ -35,9 +35,7 @@ export function useStopAreaDetailsApolloErrorHandler(): (
     (error: ApolloError, details?: StopAreaFormState): boolean => {
       const translationKey = mapApolloErrorToTranslationKey(error);
       if (translationKey) {
-        details
-          ? showDangerToast(t(translationKey, details))
-          : showDangerToast(t(translationKey));
+        showDangerToast(t(translationKey, details));
         return true;
       }
       return false;
