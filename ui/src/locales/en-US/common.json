@@ -370,6 +370,9 @@
     "showLessLines": "Show less",
     "failedToFetchStops": "Failed to fetch stops! Reason: {{reason}}",
     "tryToRefetch": "Try to refetch stops",
+    "stopAreaLabel": "Stop area {{name}} | {{description}}",
+    "showStopAreaOnMap": "Show stop area on the map",
+
     "stopRowActions": {
       "openDetails": "Open stop details page",
       "showOnMap": "Show stop on the map"

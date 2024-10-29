@@ -370,6 +370,9 @@
     "showLessLines": "Näytä vähemmän",
     "failedToFetchStops": "Pysäkkien noutaminen epäonnistui! Syy: {{reason}}",
     "tryToRefetch": "Yritä noutaa pysäkit uudelleen",
+    "stopAreaLabel": "Pysäkkialue {{name}} | {{description}}",
+    "showStopAreaOnMap": "Näytä pysäkkialue kartalla",
+
     "stopRowActions": {
       "openDetails": "Näytä pysäkin tiedot",
       "showOnMap": "Näytä pysäkki kartalla"
