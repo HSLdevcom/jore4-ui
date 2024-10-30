@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { SlimSimpleButton } from '../../stops/stop-details/layout';
 
 const testIds = {
-  reason: 'StopSearchByLine::route::failedToLoadReason',
-  refetch: 'StopSearchByLine::route::refetchStopsButton',
+  reason: 'StopSearch::GroupedStops::failedToLoadReason',
+  refetch: 'StopSearch::GroupedStops::refetchStopsButton',
 };
 
 type LoadingStopsErrorRowProps = {

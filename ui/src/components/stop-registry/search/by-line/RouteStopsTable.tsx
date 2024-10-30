@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { Visible } from '../../../../layoutComponents';
+import { LoadingStopsErrorRow, LoadingStopsRow } from '../components';
 import { StopTableRow } from '../StopTableRow';
 import { LocatorActionButton } from '../StopTableRow/ActionButtons/LocatorActionButton';
 import { OpenDetailsPage } from '../StopTableRow/MenuItems/OpenDetailsPage';
 import { ShowOnMap } from '../StopTableRow/MenuItems/ShowOnMap';
-import { LoadingStopsErrorRow } from './LoadingStopsErrorRow';
-import { LoadingStopsRow } from './LoadingStopsRow';
 import { RouteInfoRow } from './RouteInfoRow';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 import { useGetStopResultsByRouteId } from './useGetStopResultsByRouteId';
