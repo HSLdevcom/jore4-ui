@@ -360,7 +360,6 @@
     }
   },
   "stopRegistrySearch": {
-    "searchResultsTitle": "Pysäkit",
     "byAddress": "Osoitteella",
     "byLabel": "Tunnuksella",
     "byLine": "Linjan tunnuksella",

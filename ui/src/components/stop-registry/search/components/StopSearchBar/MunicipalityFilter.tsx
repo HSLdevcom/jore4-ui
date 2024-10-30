@@ -2,14 +2,14 @@ import { Listbox as HUIListbox, Transition } from '@headlessui/react';
 import { TFunction } from 'i18next';
 import without from 'lodash/without';
 import React, { FC, ReactNode } from 'react';
-import { useController } from 'react-hook-form';
+import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Column } from '../../../../../layoutComponents';
 import { StopRegistryMunicipality } from '../../../../../types/enums';
 import { ListboxButton, dropdownTransition } from '../../../../../uiComponents';
 import { AllOptionEnum, numberEnumEntries } from '../../../../../utils';
 import { InputLabel, ValidationErrorList } from '../../../../forms/common';
-import { StopSearchFilters } from '../../types';
+import { SearchFor, StopSearchFilters } from '../../types';
 import { handleAllMunicipalities } from '../../utils';
 
 const testIds = {
@@ -45,6 +45,9 @@ export const MunicipalityFilter: FC<MunicipalityFilterProps> = ({
     name: 'municipalities',
   });
 
+  const disabled =
+    useFormContext<StopSearchFilters>().watch('searchFor') !== SearchFor.Stops;
+
   const augmentedOnChange = (
     selected: Array<StopRegistryMunicipality | AllOptionEnum.All>,
   ) => {
@@ -64,6 +67,7 @@ export const MunicipalityFilter: FC<MunicipalityFilterProps> = ({
       <HUIListbox
         as="div"
         className="relative"
+        disabled={disabled}
         multiple
         onChange={augmentedOnChange}
         value={value}

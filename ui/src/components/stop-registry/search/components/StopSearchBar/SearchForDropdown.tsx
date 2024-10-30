@@ -1,32 +1,25 @@
 import { Listbox as HUIListbox, Transition } from '@headlessui/react';
-import { TFunction } from 'i18next';
-import React, { FC, ReactNode } from 'react';
-import { useController } from 'react-hook-form';
+import pick from 'lodash/pick';
+import React, { FC } from 'react';
+import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { ListboxButton, dropdownTransition } from '../../../../../uiComponents';
 import { InputLabel } from '../../../../forms/common';
-import { SearchFor, StopSearchFilters } from '../../types';
+import { SearchFor, StopSearchFilters, defaultFilters } from '../../types';
+import { trSearchFor } from '../../utils';
 
-const disabled: ReadonlyArray<SearchFor> = [
-  SearchFor.StopAreas,
-  SearchFor.Terminals,
-];
+const disabled: ReadonlyArray<SearchFor> = [SearchFor.Terminals];
 
-function trSearchFor(t: TFunction, searchFor: SearchFor): ReactNode {
-  switch (searchFor) {
-    case SearchFor.Stops:
-      return t('stopRegistrySearch.searchFor.stops');
+function useResetAndSetSearchFor() {
+  const { getValues, reset } = useFormContext<StopSearchFilters>();
 
-    case SearchFor.StopAreas:
-      return t('stopRegistrySearch.searchFor.stopAreas');
-
-    case SearchFor.Terminals:
-      return t('stopRegistrySearch.searchFor.terminals');
-
-    default:
-      return null;
-  }
+  return (searchFor: SearchFor) =>
+    reset({
+      ...defaultFilters,
+      ...pick(getValues(), 'query', 'observationDate'),
+      searchFor,
+    });
 }
 
 type SearchForDropdownProps = { readonly className?: string };
@@ -35,8 +28,11 @@ export const SearchForDropdown: FC<SearchForDropdownProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
+  const onChange = useResetAndSetSearchFor();
+
   const {
-    field: { onChange, value, ...controls },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    field: { onChange: _unusedOnChange, value, ...controls },
   } = useController<StopSearchFilters, 'searchFor'>({
     name: 'searchFor',
   });
