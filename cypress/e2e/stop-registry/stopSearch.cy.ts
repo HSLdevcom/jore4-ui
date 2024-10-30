@@ -11,6 +11,7 @@ import {
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
+  StopGroupSelector,
   StopSearchBar,
   StopSearchByLine,
   StopSearchResultsPage,
@@ -26,6 +27,8 @@ describe('Stop search', () => {
   const stopSearchBar = new StopSearchBar();
   const stopSearchResultsPage = new StopSearchResultsPage();
   const stopSearchByLine = new StopSearchByLine();
+  const stopGroupSelector = new StopGroupSelector();
+
   let dbResources: SupportedResources;
 
   before(() => {
@@ -442,25 +445,16 @@ describe('Stop search', () => {
       });
     }
 
-    function shouldHaveLines(lines: ReadonlyArray<string>) {
-      const shouldHaveLength = stopSearchByLine
-        .getLineSelectors()
-        .should('have.length', lines.length);
-
-      lines.reduce(
-        (should, line) => should.and('contain', line),
-        shouldHaveLength,
-      );
-    }
-
     function assertShowsAllResultsByDefault() {
       stopSearchBar.getSearchInput().clearAndType(`LE*{enter}`);
       expectGraphQLCallToSucceed('@gqlfindLinesByStopSearch');
 
       // Should contain and show all LE -lines
-      shouldHaveLines(range(SHOW_ALL_BY_DEFAULT_MAX).map((i) => `LE${i}`));
-      stopSearchByLine.getShowAllLinesButton().should('not.exist');
-      stopSearchByLine.getShowLessLinesButton().should('not.exist');
+      stopGroupSelector.shouldHaveGroups(
+        range(SHOW_ALL_BY_DEFAULT_MAX).map((i) => `LE${i}`),
+      );
+      stopGroupSelector.getShowAllGroupsButton().should('not.exist');
+      stopGroupSelector.getShowLessGroupsButton().should('not.exist');
     }
 
     function assertShowAllAndShowLessWork(
@@ -473,26 +467,27 @@ describe('Stop search', () => {
       // the list of shown labels.
       cy.viewport(1000, 1080);
       // prettier-ignore
-      shouldHaveLines(['L20', 'L21', 'L22', 'L23', 'L24', 'L25', 'L26', 'L27', 'L28', 'L29']);
+      stopGroupSelector
+        .shouldHaveGroups(['L20', 'L21', 'L22', 'L23', 'L24', 'L25', 'L26', 'L27', 'L28', 'L29']);
 
       cy.viewport(500, 1080);
       // prettier-ignore
       const minimalResult = ['L20', 'L21', 'L22', 'L23', 'L24'];
-      shouldHaveLines(minimalResult);
+      stopGroupSelector.shouldHaveGroups(minimalResult);
 
-      stopSearchByLine.getShowLessLinesButton().should('not.exist');
-      stopSearchByLine
-        .getShowAllLinesButton()
+      stopGroupSelector.getShowLessGroupsButton().should('not.exist');
+      stopGroupSelector
+        .getShowAllGroupsButton()
         .should('contain', `Näytä kaikki (${SHOW_ALL_BY_DEFAULT_MAX * 2})`)
         .click();
-      stopSearchByLine.getShowLessLinesButton().shouldBeVisible();
-      stopSearchByLine.getShowAllLinesButton().should('not.exist');
-      shouldHaveLines(allExtraLines);
+      stopGroupSelector.getShowLessGroupsButton().shouldBeVisible();
+      stopGroupSelector.getShowAllGroupsButton().should('not.exist');
+      stopGroupSelector.shouldHaveGroups(allExtraLines);
 
-      stopSearchByLine.getShowLessLinesButton().click();
+      stopGroupSelector.getShowLessGroupsButton().click();
 
-      shouldHaveLines(minimalResult);
-      stopSearchByLine.getShowAllLinesButton().shouldBeVisible();
+      stopGroupSelector.shouldHaveGroups(minimalResult);
+      stopGroupSelector.getShowAllGroupsButton().shouldBeVisible();
     }
 
     it('should have a working asterisk search and line selector', () => {

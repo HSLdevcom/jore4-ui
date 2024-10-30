@@ -1,14 +1,11 @@
 import noop from 'lodash/noop';
 import { RefObject, useEffect, useState } from 'react';
-import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 
 type VisibilityMap = Readonly<Record<UUID, boolean>>;
 
 // Maps lines to { [lineId]: true } object.
-function getAllShownMap(
-  lines: ReadonlyArray<FindStopByLineInfo>,
-): VisibilityMap {
-  const entries = lines.map((line) => [line.line_id, true]);
+function getAllShownMap<ID>(groups: ReadonlyArray<ID>): VisibilityMap {
+  const entries = groups.map((id) => [id, true]);
   return Object.fromEntries(entries);
 }
 
@@ -18,21 +15,21 @@ function getAllShownMap(
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
  *
  * @param allShown if true, the visibility map is disabled/not needed.
- * @param lines list of all lines that are expected to be in the list.
- * @param lineListRef ref to list container.
+ * @param groups list of all lines that are expected to be in the list.
+ * @param groupListRef ref to list container.
  */
-export function useVisibilityMap(
+export function useVisibilityMap<ID>(
   allShown: boolean,
-  lines: ReadonlyArray<FindStopByLineInfo>,
-  lineListRef: RefObject<HTMLDivElement>,
+  groups: ReadonlyArray<ID>,
+  groupListRef: RefObject<HTMLDivElement>,
 ) {
   const [visibilityMap, setVisibilityMap] = useState<VisibilityMap>(() =>
-    getAllShownMap(lines),
+    getAllShownMap(groups),
   );
 
   useEffect(() => {
     // Reset to default state
-    setVisibilityMap(getAllShownMap(lines));
+    setVisibilityMap(getAllShownMap(groups));
 
     if (allShown) {
       return noop;
@@ -42,7 +39,7 @@ export function useVisibilityMap(
       (entries) => {
         const update = Object.fromEntries(
           entries.map((it) => [
-            (it.target as HTMLElement).dataset.lineId ?? '',
+            (it.target as HTMLElement).dataset.groupId ?? '',
             it.isIntersecting,
           ]),
         );
@@ -50,25 +47,23 @@ export function useVisibilityMap(
         setVisibilityMap((p) => ({ ...p, ...update }));
       },
       {
-        root: lineListRef.current, // Check the lines against the container
+        root: groupListRef.current, // Check the lines against the container
         threshold: 1, // 1 = if even 1 pixel overflows, mark the line as intersecting
       },
     );
 
-    const lineIds = lines.map((line) => line.line_id);
-
     // Observe each line = child
-    Array.from(lineListRef.current?.children ?? []).forEach((child) => {
+    Array.from(groupListRef.current?.children ?? []).forEach((child) => {
       if (
         child instanceof HTMLElement &&
-        lineIds.includes(child.dataset.lineId ?? '')
+        groups.includes(child.dataset.groupId as ID)
       ) {
         observer.observe(child);
       }
     });
 
     return () => observer.disconnect(); // Stop observing on cleanup
-  }, [allShown, lines, lineListRef]);
+  }, [allShown, groups, groupListRef]);
 
   return visibilityMap;
 }
