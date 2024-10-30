@@ -25,7 +25,7 @@ export const ListboxButton: FC<Props> = ({
     <HUIListbox.Button
       className={twMerge(
         'flex w-full items-center rounded-md border border-grey bg-white px-2 py-3 text-left',
-        'ui-disabled:input-disabled',
+        'ui-disabled:bg-background ui-disabled:text-dark-grey',
         hasError ? buttonErrorStyles : '',
         buttonClassNames,
       )}
