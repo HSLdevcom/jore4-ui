@@ -3,7 +3,7 @@ import PulseLoader from 'react-spinners/PulseLoader';
 import { theme } from '../../../../generated/theme';
 
 const testIds = {
-  loader: 'StopSearchByLine::route::loader',
+  loader: 'StopSearch::GroupedStops::loader',
 };
 
 export const LoadingStopsRow: FC = () => {
