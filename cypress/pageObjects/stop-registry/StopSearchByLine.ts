@@ -1,16 +1,4 @@
 export class StopSearchByLine {
-  getLineSelectors() {
-    return cy.get('[data-line-id][data-visible="true"]');
-  }
-
-  getShowAllLinesButton() {
-    return cy.getByTestId('StopSearchByLine::line::showAllButton');
-  }
-
-  getShowLessLinesButton() {
-    return cy.getByTestId('StopSearchByLine::line::showLessButton');
-  }
-
   getActiveLineName() {
     return cy.getByTestId('StopSearchByLine::line::name');
   }
