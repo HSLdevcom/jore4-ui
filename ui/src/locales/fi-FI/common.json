@@ -366,6 +366,7 @@
     "byLine": "Linjan tunnuksella",
     "municipalityPlaceholder": "Valitse",
     "lines": "Linjat",
+    "stopAreas": "Pysäkkialueet",
     "showAllLines": "Näytä kaikki ({{count}})",
     "showLessLines": "Näytä vähemmän",
     "failedToFetchStops": "Pysäkkien noutaminen epäonnistui! Syy: {{reason}}",

@@ -366,6 +366,7 @@
     "byLine": "By line label",
     "municipalityPlaceholder": "Choose",
     "lines": "Lines",
+    "stopAreas": "Stop areas",
     "showAllLines": "Show all ({{count}})",
     "showLessLines": "Show less",
     "failedToFetchStops": "Failed to fetch stops! Reason: {{reason}}",
