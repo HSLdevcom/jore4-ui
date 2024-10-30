@@ -6,7 +6,7 @@ import { resetSelectedRowsAction } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { StopsByLineSearchResults } from './by-line';
 import { StopSearchByStopResults } from './by-stop';
-import { StopSearchBar } from './StopSearchBar';
+import { StopSearchBar } from './components';
 import { SearchBy, StopSearchFilters } from './types';
 import { useStopSearchUrlState } from './utils';
 
