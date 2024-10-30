@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { SearchBy, StopSearchFilters } from '../types';
+import { SearchBy, SearchFor, StopSearchFilters } from '../../types';
 
 function useOptions() {
   const { t } = useTranslation();
@@ -33,7 +33,8 @@ type SearchCriteriaRadioButtonsProps = {
 export const SearchCriteriaRadioButtons: FC<
   SearchCriteriaRadioButtonsProps
 > = ({ className }) => {
-  const { register } = useFormContext<StopSearchFilters>();
+  const { register, watch } = useFormContext<StopSearchFilters>();
+  const disabled = watch('searchFor') !== SearchFor.Stops;
 
   const searchByOptions = useOptions();
 
@@ -51,6 +52,7 @@ export const SearchCriteriaRadioButtons: FC<
             id={option.name}
             data-testid={`SearchCriteriaRadioButtons::${option.name}`}
             value={option.name}
+            disabled={disabled}
             {...register('searchBy')}
           />
           {option.label}

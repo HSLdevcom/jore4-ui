@@ -4,14 +4,13 @@ import without from 'lodash/without';
 import React, { FC, ReactNode } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { i18n } from '../../../../i18n';
-import { Column } from '../../../../layoutComponents';
-import { StopRegistryMunicipality } from '../../../../types/enums';
-import { ListboxButton, dropdownTransition } from '../../../../uiComponents';
-import { AllOptionEnum, numberEnumEntries } from '../../../../utils';
-import { InputLabel, ValidationErrorList } from '../../../forms/common';
-import { StopSearchFilters } from '../types';
-import { handleAllMunicipalities } from '../utils';
+import { Column } from '../../../../../layoutComponents';
+import { StopRegistryMunicipality } from '../../../../../types/enums';
+import { ListboxButton, dropdownTransition } from '../../../../../uiComponents';
+import { AllOptionEnum, numberEnumEntries } from '../../../../../utils';
+import { InputLabel, ValidationErrorList } from '../../../../forms/common';
+import { StopSearchFilters } from '../../types';
+import { handleAllMunicipalities } from '../../utils';
 
 const testIds = {
   municipalitiesDropdown: 'StopSearchBar::municipalitiesDropdown',
@@ -98,7 +97,7 @@ export const MunicipalityFilter: FC<MunicipalityFilterProps> = ({
                 className="group flex border-b border-grey px-2 py-2 text-left ui-selected:bg-dark-grey ui-selected:text-white ui-active:bg-dark-grey ui-active:text-white"
                 value={AllOptionEnum.All}
               >
-                {i18n.t('all')}
+                {t('all')}
               </HUIListbox.Option>
 
               {numberEnumEntries(StopRegistryMunicipality).map(

@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useToggle } from '../../../../hooks';
-import { Column, Row, Visible } from '../../../../layoutComponents';
-import { ChevronToggle, SimpleButton } from '../../../../uiComponents';
-import { DateInputField, InputField } from '../../../forms/common';
-import { StopSearchFilters } from '../types';
+import { useToggle } from '../../../../../hooks';
+import { Column, Row, Visible } from '../../../../../layoutComponents';
+import { ChevronToggle, SimpleButton } from '../../../../../uiComponents';
+import { DateInputField, InputField } from '../../../../forms/common';
+import { SearchFor, StopSearchFilters } from '../../types';
 import { MunicipalityFilter } from './MunicipalityFilter';
 import { SearchCriteriaRadioButtons } from './SearchCriteriaRadioButtons';
 import { SearchForDropdown } from './SearchForDropdown';
@@ -46,6 +46,8 @@ export const StopSearchBar: FC<StopSearchBarProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchBy]);
+
+  const notForStops = methods.watch('searchFor') !== SearchFor.Stops;
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -96,6 +98,7 @@ export const StopSearchBar: FC<StopSearchBarProps> = ({
               <InputField<StopSearchFilters>
                 className="w-1/6"
                 inputClassName="flex-grow"
+                disabled={notForStops}
                 fieldPath="elyNumber"
                 translationPrefix="stopRegistrySearch.fieldLabels"
                 testId={testIds.elyInput}
