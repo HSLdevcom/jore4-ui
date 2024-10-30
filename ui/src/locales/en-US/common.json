@@ -360,7 +360,6 @@
     }
   },
   "stopRegistrySearch": {
-    "searchResultsTitle": "Stops",
     "byAddress": "By address",
     "byLabel": "By label",
     "byLine": "By line label",
