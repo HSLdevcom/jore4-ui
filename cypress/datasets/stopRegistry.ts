@@ -5,6 +5,7 @@ import {
   StopRegistryNameType,
 } from '@hsl/jore4-test-db-manager';
 import cloneDeep from 'lodash/cloneDeep';
+import { DateTime } from 'luxon';
 import { stopCoordinatesByLabel } from './base';
 
 const coordinatesToStopRegistryGeoJSON = (
@@ -134,9 +135,41 @@ const stopPlaceData: Array<StopPlaceInput> = [
   },
 ];
 
+export const stopAreaX0003 = {
+  memberLabels: ['E2E001', 'E2E009'],
+  stopArea: {
+    name: { lang: 'fin', value: 'X0003' },
+    description: { lang: 'fin', value: 'Annankatu 15' },
+    validBetween: {
+      fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
+      toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
+    },
+    geometry: {
+      coordinates: [24.938927, 60.165433],
+      type: StopRegistryGeoJsonType.Point,
+    },
+  },
+};
+
+export const stopAreaX0004 = {
+  memberLabels: ['E2E003', 'E2E006'],
+  stopArea: {
+    name: { lang: 'fin', value: 'X0004' },
+    description: { lang: 'fin', value: 'Kalevankatu 32' },
+    validBetween: {
+      fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
+      toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
+    },
+    geometry: {
+      coordinates: [24.932914978884, 60.165538996581],
+      type: StopRegistryGeoJsonType.Point,
+    },
+  },
+};
+
 const baseStopRegistryData = {
   organisations: [],
-  stopAreas: [],
+  stopAreas: [stopAreaX0003, stopAreaX0004],
   stopPlaces: stopPlaceData,
 };
 

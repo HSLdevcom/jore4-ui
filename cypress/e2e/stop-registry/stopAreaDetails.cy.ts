@@ -1,7 +1,3 @@
-import {
-  StopAreaInput,
-  StopRegistryGeoJsonType,
-} from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
@@ -9,7 +5,10 @@ import {
   getClonedBaseDbResources,
   testInfraLinkExternalIds,
 } from '../../datasets/base';
-import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
+import {
+  getClonedBaseStopRegistryData,
+  stopAreaX0003,
+} from '../../datasets/stopRegistry';
 import {
   SelectMemberStopsDropdown,
   StopAreaDetailsPage,
@@ -49,23 +48,7 @@ describe('Stop area details', () => {
   const baseDbResources = getClonedBaseDbResources();
   const baseStopRegistryData = getClonedBaseStopRegistryData();
 
-  const testStopArea = {
-    memberLabels: ['E2E001', 'E2E009'],
-    stopArea: {
-      name: { lang: 'fin', value: 'X0003' },
-      description: { lang: 'fin', value: 'Annankatu 15' },
-      validBetween: {
-        fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
-        toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
-      },
-      geometry: {
-        coordinates: [24.938927, 60.165433],
-        type: StopRegistryGeoJsonType.Point,
-      },
-    },
-  };
-
-  const stopAreaData: Array<StopAreaInput> = [testStopArea];
+  const testStopArea = { ...stopAreaX0003 };
 
   const testAreaExpectedBasicDetails: ExpectedBasicDetails = {
     name: testStopArea.stopArea.name.value,
@@ -100,10 +83,10 @@ describe('Stop area details', () => {
 
     insertToDbHelper(dbResources);
 
-    cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
-      ...baseStopRegistryData,
-      stopAreas: stopAreaData,
-    }).then((data) => {
+    cy.task<InsertedStopRegistryIds>(
+      'insertStopRegistryData',
+      baseStopRegistryData,
+    ).then((data) => {
       const id = data.stopAreaIdsByName.X0003;
 
       cy.setupTests();
