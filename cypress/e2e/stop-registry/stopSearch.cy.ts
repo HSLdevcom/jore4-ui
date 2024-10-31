@@ -11,6 +11,7 @@ import {
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
+  SearchForStopAreas,
   StopGroupSelector,
   StopSearchBar,
   StopSearchByLine,
@@ -28,6 +29,7 @@ describe('Stop search', () => {
   const stopSearchResultsPage = new StopSearchResultsPage();
   const stopSearchByLine = new StopSearchByLine();
   const stopGroupSelector = new StopGroupSelector();
+  const searchForStopAreas = new SearchForStopAreas();
 
   let dbResources: SupportedResources;
 
@@ -593,6 +595,50 @@ describe('Stop search', () => {
 
       assertOutboundRouteIsValid();
       assertInboundRouteIsValid();
+    });
+  });
+
+  describe('for stop areas', () => {
+    it('should find all by *', () => {
+      stopSearchBar.searchForDropdown.openSearchForDropdown();
+      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+
+      stopSearchBar.getSearchInput().clearAndType(`*{enter}`);
+      expectGraphQLCallToSucceed('@gqlfindStopAreas');
+
+      stopGroupSelector.shouldHaveGroups(['X0003', 'X0004']);
+    });
+
+    it('should find X0004', () => {
+      stopSearchBar.searchForDropdown.openSearchForDropdown();
+      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+
+      stopSearchBar.getSearchInput().clearAndType(`X0004{enter}`);
+      expectGraphQLCallToSucceed('@gqlfindStopAreas');
+
+      stopGroupSelector.shouldHaveGroups(['X0004']);
+
+      searchForStopAreas
+        .getStopAreaLabel()
+        .shouldHaveText('Pysäkkialue X0004 | Kalevankatu 32');
+
+      searchForStopAreas.getLocatorButton().shouldBeVisible();
+
+      stopSearchResultsPage
+        .getRowByLabel('E2E003')
+        .shouldBeVisible()
+        .and('contain', 'E2E003')
+        .and('contain', '1AURLA')
+        .and('contain', 'Kalevankatu 32')
+        .and('contain', '20.3.2020-');
+
+      stopSearchResultsPage
+        .getRowByLabel('E2E006')
+        .shouldBeVisible()
+        .and('contain', 'E2E006')
+        .and('contain', '1AURLA')
+        .and('contain', 'Kalevankatu 32')
+        .and('contain', '20.3.2020-');
     });
   });
 });

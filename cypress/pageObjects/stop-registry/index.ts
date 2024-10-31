@@ -1,3 +1,4 @@
+export * from './SearchForStopAreas';
 export * from './StopAreaDetailsPage';
 export * from './stop-details';
 export * from './StopDetailsPage';

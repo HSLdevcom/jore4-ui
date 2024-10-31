@@ -9,6 +9,10 @@ import { InputLabel } from '../../../../forms/common';
 import { SearchFor, StopSearchFilters, defaultFilters } from '../../types';
 import { trSearchFor } from '../../utils';
 
+const testIds = {
+  searchForDropdown: 'StopSearchBar::SearchForDropdown',
+};
+
 const disabled: ReadonlyArray<SearchFor> = [SearchFor.Terminals];
 
 function useResetAndSetSearchFor() {
@@ -43,6 +47,7 @@ export const SearchForDropdown: FC<SearchForDropdownProps> = ({
       className={twMerge('relative', className)}
       onChange={onChange}
       value={value}
+      data-testid={testIds.searchForDropdown}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...controls}
     >
@@ -52,11 +57,16 @@ export const SearchForDropdown: FC<SearchForDropdownProps> = ({
         translationPrefix="stopRegistrySearch.fieldLabels"
       />
 
-      <ListboxButton hasError={false} buttonContent={trSearchFor(t, value)} />
+      <ListboxButton
+        hasError={false}
+        buttonContent={trSearchFor(t, value)}
+        testId={`${testIds.searchForDropdown}::ListboxButton`}
+      />
 
       <HUIListbox.Options>
         {({ open }) => (
           <Transition
+            data-testid={`${testIds.searchForDropdown}::ListboxOptions`}
             className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
             show={open}
             // eslint-disable-next-line react/jsx-props-no-spreading
