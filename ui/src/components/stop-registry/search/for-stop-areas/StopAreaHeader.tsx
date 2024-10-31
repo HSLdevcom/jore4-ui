@@ -9,6 +9,11 @@ import { mapLngLatToPoint } from '../../../../utils';
 import { useShowStopAreaOnMap } from '../../utils';
 import { FindStopAreaInfo } from './useFindStopAreas';
 
+const testIds = {
+  stopAreaLabel: 'StopAreaSearch::label',
+  locatorButton: 'StopAreaSearch::locatorButton',
+};
+
 function centroidToPoint(centroid: Geometry | null | undefined): Point | null {
   if (centroid?.type === 'Point') {
     return mapLngLatToPoint(centroid.coordinates);
@@ -38,7 +43,7 @@ export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
         className,
       )}
     >
-      <h3>
+      <h3 data-testid={testIds.stopAreaLabel}>
         {t('stopRegistrySearch.stopAreaLabel', {
           name: stopArea.name_value,
           description: stopArea.description_value,
@@ -52,6 +57,7 @@ export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
           point ? () => showOnMap(stopArea.netex_id ?? undefined, point) : noop
         }
         tooltipText={t('stopRegistrySearch.showStopAreaOnMap')}
+        testId={testIds.locatorButton}
       />
     </div>
   );
