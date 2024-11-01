@@ -1,4 +1,5 @@
 import { t } from 'i18next';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import {
   StopRegistryShelterCondition,
@@ -32,16 +33,19 @@ const testIds = {
   outsideBench: 'ShelterFormFields::outsideBench',
   shelterFasciaBoardTaping: 'ShelterFormFields::shelterFasciaBoardTaping',
   deleteShelter: 'ShelterFormFields::deleteShelter',
+  copyShelter: 'SheltersFormFields::copyShelter',
 };
 
 interface Props {
   index: number;
   onRemove: (index: number) => void;
+  onCopy: (shelter: number) => void;
 }
 
 export const ShelterFormFields = ({
   index,
   onRemove,
+  onCopy,
 }: Props): React.ReactElement => {
   const { register, watch } = useFormContext<SheltersFormState>();
   const toBeDeleted = watch(`shelters.${index}.toBeDeleted`);
@@ -226,17 +230,25 @@ export const ShelterFormFields = ({
         hidden
         {...register(`shelters.${index}.toBeDeleted`)}
       />
-      <SlimSimpleButton
-        testId={testIds.deleteShelter}
-        onClick={() => onRemove(index)}
-        inverted
-      >
-        {t(
-          toBeDeleted
-            ? 'stopDetails.shelters.cancelDeleteShelter'
-            : 'stopDetails.shelters.deleteShelter',
-        )}
-      </SlimSimpleButton>
+      <div className="grid auto-cols-max grid-flow-col items-center gap-4">
+        <SlimSimpleButton
+          testId={testIds.deleteShelter}
+          onClick={() => onRemove(index)}
+          inverted
+        >
+          {t(
+            toBeDeleted
+              ? 'stopDetails.shelters.cancelDeleteShelter'
+              : 'stopDetails.shelters.deleteShelter',
+          )}
+        </SlimSimpleButton>
+        <SlimSimpleButton
+          testId={testIds.copyShelter}
+          onClick={() => onCopy(index)}
+        >
+          {t('stopDetails.shelters.copyShelter')}
+        </SlimSimpleButton>
+      </div>
     </Column>
   );
 };
