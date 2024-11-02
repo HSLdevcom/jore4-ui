@@ -51,17 +51,22 @@ export const useSheltersFormUtils = (props: UtilProps) => {
     updateShelterCount();
   }, [append, updateShelterCount]);
 
-  const copyToNewShelter = (shelterIndex: number) => {
-    const newShelter = {
-      ...shelters?.at(shelterIndex),
-      id: null,
-    } as ShelterEquipmentDetailsFragment;
-
-    if (newShelter) {
-      append(mapShelterDataToFormState(newShelter));
+  const copyToNewShelter = useCallback(
+    (shelterIndex: number) => {
       updateShelterCount();
-    }
-  };
+      const currentShelters = getValues('shelters'); // Get the latest state
+      const newShelter = {
+        ...currentShelters?.at(shelterIndex),
+        id: null,
+      } as ShelterEquipmentDetailsFragment;
+
+      if (newShelter) {
+        append(mapShelterDataToFormState(newShelter));
+        updateShelterCount();
+      }
+    },
+    [append, getValues, updateShelterCount],
+  );
 
   const onRemoveShelter = useCallback(
     (idx: number) => {
