@@ -351,7 +351,10 @@ describe('Stop area details', () => {
 
     it('should handle unique name exception', () => {
       const existingLabel =
-        stopAreaData?.at(1)?.stopArea?.name?.value ?? 'noop';
+        stopAreaData?.find(
+          (d) => d.stopArea?.name?.value !== testStopArea.stopArea.name.value,
+        )?.stopArea?.name?.value ?? 'noop';
+
       const newBasicDetails: ExpectedBasicDetails = {
         ...testAreaExpectedBasicDetails,
         name: existingLabel,
@@ -361,7 +364,7 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.details.getEditButton().click();
       inputBasicDetails(newBasicDetails);
       stopAreaDetailsPage.details.edit.getSaveButton().click();
-      toast.checkDangerToastHasMessage(
+      toast.expectDangerToast(
         'Pysäkkialueella tulee olla uniikki tunnus, mutta tunnus X0004 on jo jonkin toisen alueen käytössä!',
       );
       expectGraphQLCallToReturnError('@gqlUpsertStopArea');
@@ -369,7 +372,11 @@ describe('Stop area details', () => {
 
     it('should handle unique description exception', () => {
       const existingDescription =
-        stopAreaData?.at(1)?.stopArea?.description?.value ?? 'noop';
+        stopAreaData?.find(
+          (d) =>
+            d.stopArea?.description?.value !==
+            testStopArea.stopArea.description.value,
+        )?.stopArea?.description?.value ?? 'noop';
       const newBasicDetails: ExpectedBasicDetails = {
         ...testAreaExpectedBasicDetails,
         description: existingDescription,
@@ -379,7 +386,7 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.details.getEditButton().click();
       inputBasicDetails(newBasicDetails);
       stopAreaDetailsPage.details.edit.getSaveButton().click();
-      toast.checkDangerToastHasMessage(
+      toast.expectDangerToast(
         'Pysäkkialueella tulee olla uniikki nimi, mutta nimi Annankatu 16 on jo jonkin toisen alueen käytössä!',
       );
       expectGraphQLCallToReturnError('@gqlUpsertStopArea');
