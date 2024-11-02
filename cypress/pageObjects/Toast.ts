@@ -1,18 +1,33 @@
+export enum ToastType {
+  PRIMARY = 'primary-toast',
+  SUCCESS = 'success-toast',
+  WARNING = 'warning-toast',
+  DANGER = 'danger-toast',
+}
+
 export class Toast {
+  getToastByType(toastType: ToastType) {
+    return cy.getByTestId(toastType);
+  }
+
   getPrimaryToast() {
-    return cy.getByTestId('primary-toast');
+    return this.getToastByType(ToastType.PRIMARY);
   }
 
   getSuccessToast() {
-    return cy.getByTestId('success-toast');
+    return this.getToastByType(ToastType.SUCCESS);
   }
 
   getDangerToast() {
-    return cy.getByTestId('danger-toast');
+    return this.getToastByType(ToastType.DANGER);
   }
 
   getWarningToast() {
-    return cy.getByTestId('warning-toast');
+    return this.getToastByType(ToastType.WARNING);
+  }
+
+  checkToastHasMessage(message: string, toastType: ToastType) {
+    this.getToastByType(toastType).contains(message);
   }
 
   checkDangerToastHasMessage(message: string) {
@@ -27,7 +42,7 @@ export class Toast {
     this.getWarningToast().contains(message);
   }
 
-  expectSuccessToast(message?: string) {
+  expectToast(toastType: ToastType, message?: string) {
     // Find any toast
     cy.get('[data-testElementType="toast"]')
       // And wait it to become fully visible
@@ -35,11 +50,27 @@ export class Toast {
       // Then assert it is of a right type.
       .then((toast) => {
         // eslint-disable-next-line jest/valid-expect
-        expect(toast).have.attr('data-testid', 'success-toast');
+        expect(toast).have.attr('data-testid', toastType);
       });
 
     if (message) {
-      this.checkSuccessToastHasMessage(message);
+      this.checkToastHasMessage(message, toastType);
     }
+  }
+
+  expectPrimaryToast(message?: string) {
+    this.expectToast(ToastType.PRIMARY, message);
+  }
+
+  expectSuccessToast(message?: string) {
+    this.expectToast(ToastType.SUCCESS, message);
+  }
+
+  expectDangerToast(message?: string) {
+    this.expectToast(ToastType.DANGER, message);
+  }
+
+  expectWarningToast(message?: string) {
+    this.expectToast(ToastType.WARNING, message);
   }
 }
