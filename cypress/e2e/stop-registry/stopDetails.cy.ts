@@ -984,6 +984,31 @@ describe('Stop details', () => {
         },
       );
 
+      it('should be able to copy shelter', { tags: [Tag.StopRegistry] }, () => {
+        // Ensure view
+        stopDetailsPage.shelters.getEditButton().click();
+        view.getContainers().should('not.exist');
+
+        // Ensure default test shelter
+        form.getShelters().should('have.length', 1);
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (1)');
+
+        // Add more shelters.
+        form.getCopyNewShelterButton().click();
+        form.getShelters().should('have.length', 2);
+
+        stopDetailsPage.shelters.getSaveButton().click();
+
+        // Check new shelter is saved with same values
+        stopDetailsPage.shelters.getTitle().shouldHaveText('Pysäkkikatos (2)');
+        view.getNthContainer(0).within(() => {
+          view.getTimetableCabinets().should('have.text', '1');
+        });
+        view.getNthContainer(1).within(() => {
+          view.getTimetableCabinets().should('have.text', '1');
+        });
+      });
+
       it(
         'should be able to delete all shelters',
         { tags: [Tag.StopRegistry] },
