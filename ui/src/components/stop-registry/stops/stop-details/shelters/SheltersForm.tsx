@@ -1,7 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
-import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
+import React, { useCallback } from 'react';
+import {
+  FormProvider,
+  UseFormReturn,
+  useFieldArray,
+  useForm,
+} from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
 import { SlimSimpleButton } from '../layout';
 import {
@@ -16,6 +22,85 @@ const testIds = {
   addShelter: 'SheltersForm::addShelter',
 };
 
+type UtilProps = {
+  methods: UseFormReturn<SheltersFormState>;
+  onShelterCountChanged: (newShelterCount: number) => void;
+};
+export const useSheltersFormUtils = (props: UtilProps) => {
+  const { methods, onShelterCountChanged } = props;
+  const { control, setValue, getValues, handleSubmit } = methods;
+
+  const {
+    append,
+    fields: shelters,
+    remove,
+  } = useFieldArray({
+    control,
+    name: 'shelters',
+  });
+
+  const updateShelterCount = useCallback(() => {
+    const shelterCount = getValues('shelters').filter(
+      (s) => !s.toBeDeleted,
+    ).length;
+    onShelterCountChanged(shelterCount);
+  }, [getValues, onShelterCountChanged]);
+
+  const addNewShelter = useCallback(() => {
+    append(mapShelterDataToFormState({}));
+    updateShelterCount();
+  }, [append, updateShelterCount]);
+
+  const copyToNewShelter = useCallback(
+    (shelterIndex: number) => {
+      const currentShelters = getValues('shelters'); // Get the latest state
+      const shelterToCopy = currentShelters?.at(shelterIndex);
+      const newShelter = shelterToCopy ? { ...shelterToCopy, id: null } : null;
+
+      if (newShelter) {
+        append(
+          mapShelterDataToFormState(
+            newShelter as ShelterEquipmentDetailsFragment,
+          ),
+        );
+        updateShelterCount();
+      }
+    },
+    [append, getValues, updateShelterCount],
+  );
+
+  const onRemoveShelter = useCallback(
+    (idx: number) => {
+      const shelter = shelters[idx];
+      // A newly added, non persisted shelter is deleted immediately.
+      // A persisted one is only marked as to be deleted later when saving.
+      if (!shelter.shelterId) {
+        remove(idx);
+      } else {
+        const newToBeDeleted = !getValues(`shelters.${idx}.toBeDeleted`);
+        setValue(`shelters.${idx}.toBeDeleted`, newToBeDeleted, {
+          shouldDirty: true,
+          shouldTouch: true,
+        });
+      }
+
+      updateShelterCount();
+    },
+    [getValues, remove, setValue, shelters, updateShelterCount],
+  );
+
+  const isLast = (idx: number) => idx === shelters.length - 1;
+
+  return {
+    shelters,
+    addNewShelter,
+    copyToNewShelter,
+    onRemoveShelter,
+    isLast,
+    handleSubmit,
+  };
+};
+
 interface Props {
   className?: string;
   defaultValues: SheltersFormState;
@@ -28,47 +113,20 @@ const SheltersFormComponent = (
   ref: ExplicitAny,
 ): React.ReactElement => {
   const { t } = useTranslation();
-  const methods = useForm<SheltersFormState>({
+
+  const methods: UseFormReturn<SheltersFormState> = useForm<SheltersFormState>({
     defaultValues,
     resolver: zodResolver(sheltersFormSchema),
   });
-  const { control, setValue, getValues, handleSubmit } = methods;
-  const updateShelterCount = () => {
-    const shelterCount = getValues('shelters').filter(
-      (s) => !s.toBeDeleted,
-    ).length;
-    onShelterCountChanged(shelterCount);
-  };
 
   const {
-    append,
-    fields: shelters,
-    remove,
-  } = useFieldArray({
-    control,
-    name: 'shelters',
-  });
-  const addNewShelter = () => {
-    append(mapShelterDataToFormState({}));
-    updateShelterCount();
-  };
-  const onRemoveShelter = (idx: number) => {
-    const shelter = shelters[idx];
-    // A newly added, non persisted shelter is deleted immediately.
-    // A persisted one is only marked as to be deleted later when saving.
-    if (!shelter.shelterId) {
-      remove(idx);
-    } else {
-      const newToBeDeleted = !getValues(`shelters.${idx}.toBeDeleted`);
-      setValue(`shelters.${idx}.toBeDeleted`, newToBeDeleted, {
-        shouldDirty: true,
-        shouldTouch: true,
-      });
-    }
-
-    updateShelterCount();
-  };
-  const isLast = (idx: number) => idx === shelters.length - 1;
+    shelters,
+    addNewShelter,
+    copyToNewShelter,
+    onRemoveShelter,
+    isLast,
+    handleSubmit,
+  } = useSheltersFormUtils({ methods, onShelterCountChanged });
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -80,13 +138,21 @@ const SheltersFormComponent = (
       >
         {shelters.map((shelter, idx) => (
           <div key={shelter.id} data-testid={testIds.shelter}>
-            <ShelterFormFields index={idx} onRemove={onRemoveShelter} />
+            <ShelterFormFields
+              index={idx}
+              onRemove={onRemoveShelter}
+              onCopy={copyToNewShelter}
+            />
             <Visible visible={!isLast(idx)}>
               <HorizontalSeparator className="my-4" />
             </Visible>
           </div>
         ))}
-        <SlimSimpleButton testId={testIds.addShelter} onClick={addNewShelter}>
+        <SlimSimpleButton
+          testId={testIds.addShelter}
+          onClick={addNewShelter}
+          className="flex-shrink-0"
+        >
           {t('stopDetails.shelters.addShelter')}
         </SlimSimpleButton>
       </form>
