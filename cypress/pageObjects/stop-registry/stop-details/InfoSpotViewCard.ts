@@ -1,5 +1,5 @@
 export class InfoSpotViewCard {
-  getContainers = () => cy.getByTestId('InfoSpotsViewCard::container');
+  getContainers = () => cy.getByTestId('InfoSpotsSection::container');
 
   getNthContainer = (index: number) => this.getContainers().eq(index);
 

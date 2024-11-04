@@ -2,6 +2,7 @@ export * from './BasicDetailsForm';
 export * from './BasicDetailsSection';
 export * from './BasicDetailsViewCard';
 export * from './InfoSpotSection';
+export * from './InfoSpotsForm';
 export * from './InfoSpotViewCard';
 export * from './LocationDetailsForm';
 export * from './LocationDetailsSection';
