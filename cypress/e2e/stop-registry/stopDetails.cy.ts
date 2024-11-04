@@ -19,6 +19,7 @@ import {
   BasicDetailsForm,
   BasicDetailsViewCard,
   InfoSpotViewCard,
+  InfoSpotsForm,
   LocationDetailsForm,
   LocationDetailsViewCard,
   MaintenanceDetailsForm,
@@ -313,6 +314,84 @@ describe('Stop details', () => {
       maintainerView.getPhone().shouldHaveText('+358501223334');
       maintainerView.getEmail().shouldHaveText('clear-channel@example.com');
       maintainerView.getNotSelectedPlaceholder().should('not.exist');
+    });
+  };
+
+  const verifyInitialInfoSpots = () => {
+    const infoSpotView = stopDetailsPage.infoSpots.viewCard;
+    infoSpotView.getNthContainer(0).within(() => {
+      infoSpotView
+        .getDescription()
+        .shouldHaveText('Ensimmäinen kerros, portaiden vieressä');
+      infoSpotView.getLabel().shouldHaveText('JP1234568');
+      infoSpotView.getInfoSpotType().shouldHaveText('Staattinen');
+      infoSpotView.getPurpose().shouldHaveText('Tiedotteet');
+      infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+      infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+      infoSpotView.getBacklight().shouldHaveText('Kyllä');
+      infoSpotView.getPosterPlaceSize().shouldHaveText('80x120cm');
+      infoSpotView
+        .getMaintenance()
+        .shouldHaveText('Huoltotietojen tekstit tähän...');
+      infoSpotView.getPosterSize().shouldHaveText('a4');
+      infoSpotView.getPosterLabel().shouldHaveText('PT1234');
+      infoSpotView.getPosterLines().shouldHaveText('1, 6, 17');
+      infoSpotView.getFloor().shouldHaveText('1');
+      infoSpotView.getRailInformation().shouldHaveText('7');
+      infoSpotView.getStops().shouldHaveText('V1562');
+      infoSpotView.getTerminals().shouldHaveText('-');
+      infoSpotView.getZoneLabel().shouldHaveText('A');
+
+      infoSpotView.getDisplayType().should('not.exist');
+      infoSpotView.getSpeechProperty().should('not.exist');
+    });
+
+    infoSpotView.getNthContainer(1).within(() => {
+      infoSpotView
+        .getDescription()
+        .shouldHaveText('Ensimmäinen kerros, portaiden takana');
+      infoSpotView.getLabel().shouldHaveText('JP1234567');
+      infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
+      infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö');
+      infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+      infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+      infoSpotView.getDisplayType().shouldHaveText('Patteri, monirivi');
+      infoSpotView.getSpeechProperty().shouldHaveText('Kyllä');
+      infoSpotView.getFloor().shouldHaveText('1');
+      infoSpotView.getRailInformation().shouldHaveText('8');
+      infoSpotView.getStops().shouldHaveText('V1562');
+      infoSpotView.getTerminals().shouldHaveText('-');
+      infoSpotView.getZoneLabel().shouldHaveText('B');
+
+      infoSpotView.getBacklight().should('not.exist');
+      infoSpotView.getPosterPlaceSize().should('not.exist');
+      infoSpotView.getMaintenance().should('not.exist');
+      infoSpotView.getPosterSize().should('not.exist');
+      infoSpotView.getPosterLabel().should('not.exist');
+      infoSpotView.getPosterLines().should('not.exist');
+    });
+
+    infoSpotView.getNthContainer(2).within(() => {
+      infoSpotView.getDescription().shouldHaveText('Tolpassa');
+      infoSpotView.getLabel().shouldHaveText('JP1234569');
+      infoSpotView.getInfoSpotType().shouldHaveText('Äänimajakka');
+      infoSpotView.getPurpose().shouldHaveText('Infopaikan käyttötarkoitus');
+      infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+      infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+      infoSpotView.getFloor().shouldHaveText('1');
+      infoSpotView.getRailInformation().shouldHaveText('9');
+      infoSpotView.getStops().shouldHaveText('V1562');
+      infoSpotView.getTerminals().shouldHaveText('-');
+      infoSpotView.getZoneLabel().shouldHaveText('C');
+
+      infoSpotView.getBacklight().should('not.exist');
+      infoSpotView.getPosterPlaceSize().should('not.exist');
+      infoSpotView.getMaintenance().should('not.exist');
+      infoSpotView.getPosterSize().should('not.exist');
+      infoSpotView.getPosterLabel().should('not.exist');
+      infoSpotView.getPosterLines().should('not.exist');
+      infoSpotView.getDisplayType().should('not.exist');
+      infoSpotView.getSpeechProperty().should('not.exist');
     });
   };
 
@@ -1451,100 +1530,367 @@ describe('Stop details', () => {
   });
 
   describe('info spot details', () => {
+    let infoSpotForm: InfoSpotsForm;
     let infoSpotView: InfoSpotViewCard;
 
     beforeEach(() => {
       infoSpotView = stopDetailsPage.infoSpots.viewCard;
+      infoSpotForm = stopDetailsPage.infoSpots.form;
 
       stopDetailsPage.visit('V1562');
       stopDetailsPage.page().shouldBeVisible();
       stopDetailsPage.label().shouldHaveText('V1562');
 
       stopDetailsPage.infoSpotsTabButton().click();
-    });
 
-    it('should view info spot details', { tags: [Tag.StopRegistry] }, () => {
       stopDetailsPage.infoSpotsTabPanel().should('be.visible');
       stopDetailsPage.technicalFeaturesTabPanel().should('not.exist');
       stopDetailsPage.basicDetailsTabPanel().should('not.exist');
 
       infoSpotView.getContainers().shouldBeVisible();
-
-      infoSpotView.getNthContainer(0).within(() => {
-        infoSpotView
-          .getDescription()
-          .shouldHaveText('Ensimmäinen kerros, portaiden vieressä');
-        infoSpotView.getLabel().shouldHaveText('JP1234568');
-        infoSpotView.getInfoSpotType().shouldHaveText('Staattinen');
-        infoSpotView.getPurpose().shouldHaveText('Tiedotteet');
-        infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-        infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
-        infoSpotView.getBacklight().shouldHaveText('Kyllä');
-        infoSpotView.getPosterPlaceSize().shouldHaveText('80x120cm');
-        infoSpotView
-          .getMaintenance()
-          .shouldHaveText('Huoltotietojen tekstit tähän...');
-        infoSpotView.getPosterSize().shouldHaveText('a4');
-        infoSpotView.getPosterLabel().shouldHaveText('PT1234');
-        infoSpotView.getPosterLines().shouldHaveText('1, 6, 17');
-        infoSpotView.getFloor().shouldHaveText('1');
-        infoSpotView.getRailInformation().shouldHaveText('7');
-        infoSpotView.getStops().shouldHaveText('V1562');
-        infoSpotView.getTerminals().shouldHaveText('-');
-        infoSpotView.getZoneLabel().shouldHaveText('A');
-
-        infoSpotView.getDisplayType().should('not.exist');
-        infoSpotView.getSpeechProperty().should('not.exist');
-      });
-
-      infoSpotView.getNthContainer(1).within(() => {
-        infoSpotView
-          .getDescription()
-          .shouldHaveText('Ensimmäinen kerros, portaiden takana');
-        infoSpotView.getLabel().shouldHaveText('JP1234567');
-        infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
-        infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö');
-        infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-        infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
-        infoSpotView.getDisplayType().shouldHaveText('Patteri, monirivi');
-        infoSpotView.getSpeechProperty().shouldHaveText('Kyllä');
-        infoSpotView.getFloor().shouldHaveText('1');
-        infoSpotView.getRailInformation().shouldHaveText('8');
-        infoSpotView.getStops().shouldHaveText('V1562');
-        infoSpotView.getTerminals().shouldHaveText('-');
-        infoSpotView.getZoneLabel().shouldHaveText('B');
-
-        infoSpotView.getBacklight().should('not.exist');
-        infoSpotView.getPosterPlaceSize().should('not.exist');
-        infoSpotView.getMaintenance().should('not.exist');
-        infoSpotView.getPosterSize().should('not.exist');
-        infoSpotView.getPosterLabel().should('not.exist');
-        infoSpotView.getPosterLines().should('not.exist');
-      });
-
-      infoSpotView.getNthContainer(2).within(() => {
-        infoSpotView.getDescription().shouldHaveText('Tolpassa');
-        infoSpotView.getLabel().shouldHaveText('JP1234569');
-        infoSpotView.getInfoSpotType().shouldHaveText('Äänimajakka');
-        infoSpotView.getPurpose().shouldHaveText('Infopaikan käyttötarkoitus');
-        infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-        infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
-        infoSpotView.getFloor().shouldHaveText('1');
-        infoSpotView.getRailInformation().shouldHaveText('9');
-        infoSpotView.getStops().shouldHaveText('V1562');
-        infoSpotView.getTerminals().shouldHaveText('-');
-        infoSpotView.getZoneLabel().shouldHaveText('C');
-
-        infoSpotView.getBacklight().should('not.exist');
-        infoSpotView.getPosterPlaceSize().should('not.exist');
-        infoSpotView.getMaintenance().should('not.exist');
-        infoSpotView.getPosterSize().should('not.exist');
-        infoSpotView.getPosterLabel().should('not.exist');
-        infoSpotView.getPosterLines().should('not.exist');
-        infoSpotView.getDisplayType().should('not.exist');
-        infoSpotView.getSpeechProperty().should('not.exist');
-      });
     });
+
+    it(
+      'should view and edit info spot details',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        verifyInitialInfoSpots();
+
+        const infoSpot = infoSpotForm.infoSpots;
+
+        // Edit first info spot
+        infoSpotView.getNthContainer(0).within(() => {
+          stopDetailsPage.infoSpots.getEditButton().click();
+          infoSpotView.getContainers().should('not.exist');
+
+          infoSpot
+            .getDescription()
+            .should('have.value', 'Ensimmäinen kerros, portaiden vieressä');
+          infoSpot.getLabel().should('have.value', 'JP1234568');
+          infoSpot.getInfoSpotTypeButton().should('have.text', 'Staattinen');
+          infoSpot.getPurpose().should('have.value', 'Tiedotteet');
+          infoSpot.getBacklightButton().should('have.text', 'Kyllä');
+          infoSpot.getPosterPlaceSizeButton().should('have.text', '80x120cm');
+          infoSpot
+            .getMaintenance()
+            .should('have.value', 'Huoltotietojen tekstit tähän...');
+          infoSpot.getPosterSizeButton().should('have.text', 'A4');
+          infoSpot.getPosterLabel().should('have.value', 'PT1234');
+          infoSpot.getPosterLines().should('have.value', '1, 6, 17');
+          infoSpot.getFloor().should('have.value', '1');
+          infoSpot.getRailInformation().should('have.value', '7');
+          infoSpot.getZoneLabel().should('have.value', 'A');
+
+          infoSpot.getDisplayTypeButton().should('not.exist');
+          infoSpot.getSpeechPropertyButton().should('not.exist');
+
+          // Change everything
+          infoSpot.getLabel().clearAndType('IP98765432');
+          infoSpot.getPurpose().clearAndType('Uusi tarkoitus');
+          infoSpot.getInfoSpotTypeButton().shouldHaveText('Staattinen');
+          infoSpot.getPosterPlaceSizeButton().click();
+          infoSpot.getPosterPlaceSizeOptions().contains('A4').click();
+          infoSpot.getBacklightButton().click();
+          infoSpot.getBacklightOptions().contains('Ei').click();
+          infoSpot.getMaintenance().clearAndType('Uudet huoltotiedot');
+          infoSpot.getDescription().clearAndType('Infopaikan uusi kuvaus');
+          infoSpot.getPosterLabel().clearAndType('PT1235');
+          infoSpot.getPosterSizeButton().click();
+          infoSpot.getPosterSizeOptions().contains('A3').click();
+          infoSpot.getPosterLines().clearAndType('2, 7, 18');
+          infoSpot.getZoneLabel().clearAndType('B');
+          infoSpot.getRailInformation().clearAndType('8');
+          infoSpot.getFloor().clearAndType('2');
+        });
+
+        // Submit.
+        stopDetailsPage.infoSpots.getSaveButton().click();
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        infoSpotView.getContainers().shouldBeVisible();
+
+        infoSpotView.getNthContainer(0).within(() => {
+          infoSpotView
+            .getDescription()
+            .shouldHaveText('Infopaikan uusi kuvaus');
+          infoSpotView.getLabel().shouldHaveText('IP98765432');
+          infoSpotView.getInfoSpotType().shouldHaveText('Staattinen');
+          infoSpotView.getPurpose().shouldHaveText('Uusi tarkoitus');
+          infoSpotView.getBacklight().shouldHaveText('Ei');
+          infoSpotView.getPosterPlaceSize().shouldHaveText('a4');
+          infoSpotView.getMaintenance().shouldHaveText('Uudet huoltotiedot');
+          infoSpotView.getPosterSize().shouldHaveText('a3');
+          infoSpotView.getPosterLabel().shouldHaveText('PT1235');
+          infoSpotView.getPosterLines().shouldHaveText('2, 7, 18');
+          infoSpotView.getFloor().shouldHaveText('2');
+          infoSpotView.getRailInformation().shouldHaveText('8');
+          infoSpotView.getZoneLabel().shouldHaveText('B');
+
+          infoSpotView.getDisplayType().should('not.exist');
+          infoSpotView.getSpeechProperty().should('not.exist');
+        });
+
+        // Edit second info spot
+        infoSpotView.getNthContainer(1).within(() => {
+          stopDetailsPage.infoSpots.getEditButton().click();
+          infoSpotView.getContainers().should('not.exist');
+
+          infoSpot
+            .getDescription()
+            .should('have.value', 'Ensimmäinen kerros, portaiden takana');
+          infoSpot.getLabel().should('have.value', 'JP1234567');
+          infoSpot.getInfoSpotTypeButton().should('have.text', 'Dynaaminen');
+          infoSpot.getPurpose().should('have.value', 'Dynaaminen näyttö');
+          infoSpot
+            .getDisplayTypeButton()
+            .should('have.text', 'Patteri, monirivi');
+          infoSpot.getSpeechPropertyButton().should('have.text', 'Kyllä');
+          infoSpot.getFloor().should('have.value', '1');
+          infoSpot.getRailInformation().should('have.value', '8');
+          infoSpot.getZoneLabel().should('have.value', 'B');
+
+          infoSpot.getBacklightButton().should('not.exist');
+          infoSpot.getPosterPlaceSizeButton().should('not.exist');
+          infoSpot.getMaintenance().should('not.exist');
+          infoSpot.getPosterSizeButton().should('not.exist');
+          infoSpot.getPosterLabel().should('not.exist');
+          infoSpot.getPosterLines().should('not.exist');
+
+          // Change everything
+          infoSpot.getLabel().clearAndType('IP2345678');
+          infoSpot.getPurpose().clearAndType('Dynaaminen näyttö uusi');
+          infoSpot.getInfoSpotTypeButton().should('have.text', 'Dynaaminen');
+          infoSpot.getDisplayTypeButton().click();
+          infoSpot
+            .getDisplayTypeOptions()
+            .contains('Patteri, yksi rivi')
+            .click();
+          infoSpot.getSpeechPropertyButton().click();
+          infoSpot.getSpeechPropertyOptions().contains('Ei').click();
+          infoSpot.getDescription().clearAndType('Dynaaminen kuvaus');
+          infoSpot.getZoneLabel().clearAndType('C');
+          infoSpot.getRailInformation().clearAndType('9');
+          infoSpot.getFloor().clearAndType('2');
+        });
+
+        // Submit.
+        stopDetailsPage.infoSpots.getSaveButton().click();
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        infoSpotView.getContainers().shouldBeVisible();
+
+        infoSpotView.getNthContainer(1).within(() => {
+          infoSpotView.getDescription().shouldHaveText('Dynaaminen kuvaus');
+          infoSpotView.getLabel().shouldHaveText('IP2345678');
+          infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
+          infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö uusi');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getDisplayType().shouldHaveText('Patteri, yksi rivi');
+          infoSpotView.getSpeechProperty().shouldHaveText('Ei');
+          infoSpotView.getFloor().shouldHaveText('2');
+          infoSpotView.getRailInformation().shouldHaveText('9');
+          infoSpotView.getStops().shouldHaveText('V1562');
+          infoSpotView.getTerminals().shouldHaveText('-');
+          infoSpotView.getZoneLabel().shouldHaveText('C');
+
+          infoSpotView.getBacklight().should('not.exist');
+          infoSpotView.getPosterPlaceSize().should('not.exist');
+          infoSpotView.getMaintenance().should('not.exist');
+          infoSpotView.getPosterSize().should('not.exist');
+          infoSpotView.getPosterLabel().should('not.exist');
+          infoSpotView.getPosterLines().should('not.exist');
+        });
+
+        // Change info spot type
+        infoSpotView.getNthContainer(1).within(() => {
+          stopDetailsPage.infoSpots.getEditButton().click();
+          infoSpotView.getContainers().should('not.exist');
+
+          infoSpot.getDescription().should('have.value', 'Dynaaminen kuvaus');
+          infoSpot.getLabel().should('have.value', 'IP2345678');
+          infoSpot.getInfoSpotTypeButton().should('have.text', 'Dynaaminen');
+          infoSpot.getPurpose().should('have.value', 'Dynaaminen näyttö uusi');
+          infoSpot
+            .getDisplayTypeButton()
+            .should('have.text', 'Patteri, yksi rivi');
+          infoSpot.getSpeechPropertyButton().should('have.text', 'Ei');
+          infoSpot.getFloor().should('have.value', '2');
+          infoSpot.getRailInformation().should('have.value', '9');
+          infoSpot.getZoneLabel().should('have.value', 'C');
+
+          infoSpot.getBacklightButton().should('not.exist');
+          infoSpot.getPosterPlaceSizeButton().should('not.exist');
+          infoSpot.getMaintenance().should('not.exist');
+          infoSpot.getPosterSizeButton().should('not.exist');
+          infoSpot.getPosterLabel().should('not.exist');
+          infoSpot.getPosterLines().should('not.exist');
+
+          // Change everything
+          infoSpot.getLabel().clearAndType('IP231');
+          infoSpot.getPurpose().clearAndType('Majakka');
+          infoSpot.getInfoSpotTypeButton().click();
+          infoSpot.getInfoSpotTypeOptions().contains('Äänimajakka').click();
+          infoSpot.getDescription().clearAndType('Majakan kuvaus');
+          infoSpot.getZoneLabel().clearAndType('D');
+          infoSpot.getRailInformation().clearAndType('8');
+          infoSpot.getFloor().clearAndType('3');
+        });
+
+        // Submit.
+        stopDetailsPage.infoSpots.getSaveButton().click();
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        infoSpotView.getContainers().shouldBeVisible();
+
+        infoSpotView.getNthContainer(1).within(() => {
+          infoSpotView.getDescription().shouldHaveText('Majakan kuvaus');
+          infoSpotView.getLabel().shouldHaveText('IP231');
+          infoSpotView.getInfoSpotType().shouldHaveText('Äänimajakka');
+          infoSpotView.getPurpose().shouldHaveText('Majakka');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getFloor().shouldHaveText('3');
+          infoSpotView.getRailInformation().shouldHaveText('8');
+          infoSpotView.getStops().shouldHaveText('V1562');
+          infoSpotView.getTerminals().shouldHaveText('-');
+          infoSpotView.getZoneLabel().shouldHaveText('D');
+
+          infoSpotView.getBacklight().should('not.exist');
+          infoSpotView.getPosterPlaceSize().should('not.exist');
+          infoSpotView.getMaintenance().should('not.exist');
+          infoSpotView.getPosterSize().should('not.exist');
+          infoSpotView.getPosterLabel().should('not.exist');
+          infoSpotView.getPosterLines().should('not.exist');
+          infoSpotView.getDisplayType().should('not.exist');
+          infoSpotView.getSpeechProperty().should('not.exist');
+        });
+
+        // Edit third info spot
+        infoSpotView.getNthContainer(2).within(() => {
+          stopDetailsPage.infoSpots.getEditButton().click();
+          infoSpotView.getContainers().should('not.exist');
+
+          infoSpot.getDescription().should('have.value', 'Tolpassa');
+          infoSpot.getLabel().should('have.value', 'JP1234569');
+          infoSpot.getInfoSpotTypeButton().should('have.text', 'Äänimajakka');
+          infoSpot
+            .getPurpose()
+            .should('have.value', 'Infopaikan käyttötarkoitus');
+          infoSpot.getFloor().should('have.value', '1');
+          infoSpot.getRailInformation().should('have.value', '9');
+          infoSpot.getZoneLabel().should('have.value', 'C');
+
+          infoSpot.getBacklightButton().should('not.exist');
+          infoSpot.getPosterPlaceSizeButton().should('not.exist');
+          infoSpot.getMaintenance().should('not.exist');
+          infoSpot.getPosterSizeButton().should('not.exist');
+          infoSpot.getPosterLabel().should('not.exist');
+          infoSpot.getPosterLines().should('not.exist');
+          infoSpot.getDisplayTypeButton().should('not.exist');
+          infoSpot.getSpeechPropertyButton().should('not.exist');
+
+          // Change everything
+          infoSpot.getLabel().clearAndType('IP987654');
+          infoSpot.getPurpose().clearAndType('Äänimajakan tarkoitus');
+          infoSpot.getDescription().clearAndType('Äänimajakan kuvaus');
+          infoSpot.getInfoSpotTypeButton().should('have.text', 'Äänimajakka');
+          infoSpot.getZoneLabel().clearAndType('D');
+          infoSpot.getRailInformation().clearAndType('8');
+          infoSpot.getFloor().clearAndType('2');
+        });
+
+        // Submit.
+        stopDetailsPage.infoSpots.getSaveButton().click();
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        infoSpotView.getContainers().shouldBeVisible();
+
+        infoSpotView.getNthContainer(2).within(() => {
+          infoSpotView.getDescription().shouldHaveText('Äänimajakan kuvaus');
+          infoSpotView.getLabel().shouldHaveText('IP987654');
+          infoSpotView.getInfoSpotType().shouldHaveText('Äänimajakka');
+          infoSpotView.getPurpose().shouldHaveText('Äänimajakan tarkoitus');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getFloor().shouldHaveText('2');
+          infoSpotView.getRailInformation().shouldHaveText('8');
+          infoSpotView.getStops().shouldHaveText('V1562');
+          infoSpotView.getTerminals().shouldHaveText('-');
+          infoSpotView.getZoneLabel().shouldHaveText('D');
+
+          infoSpotView.getBacklight().should('not.exist');
+          infoSpotView.getPosterPlaceSize().should('not.exist');
+          infoSpotView.getMaintenance().should('not.exist');
+          infoSpotView.getPosterSize().should('not.exist');
+          infoSpotView.getPosterLabel().should('not.exist');
+          infoSpotView.getPosterLines().should('not.exist');
+          infoSpotView.getDisplayType().should('not.exist');
+          infoSpotView.getSpeechProperty().should('not.exist');
+        });
+
+        // Change info spot type
+        infoSpotView.getNthContainer(2).within(() => {
+          stopDetailsPage.infoSpots.getEditButton().click();
+          infoSpotView.getContainers().should('not.exist');
+
+          infoSpot.getDescription().should('have.value', 'Äänimajakan kuvaus');
+          infoSpot.getLabel().should('have.value', 'IP987654');
+          infoSpot.getInfoSpotTypeButton().should('have.text', 'Äänimajakka');
+          infoSpot.getPurpose().should('have.value', 'Äänimajakan tarkoitus');
+          infoSpot.getFloor().should('have.value', '2');
+          infoSpot.getRailInformation().should('have.value', '8');
+          infoSpot.getZoneLabel().should('have.value', 'D');
+
+          infoSpot.getBacklightButton().should('not.exist');
+          infoSpot.getPosterPlaceSizeButton().should('not.exist');
+          infoSpot.getMaintenance().should('not.exist');
+          infoSpot.getPosterSizeButton().should('not.exist');
+          infoSpot.getPosterLabel().should('not.exist');
+          infoSpot.getPosterLines().should('not.exist');
+          infoSpot.getDisplayTypeButton().should('not.exist');
+          infoSpot.getSpeechPropertyButton().should('not.exist');
+
+          // Change everything
+          infoSpot.getLabel().clearAndType('IP123');
+          infoSpot.getPurpose().clearAndType('Dynaaminen tarkoitus');
+          infoSpot.getInfoSpotTypeButton().click();
+          infoSpot.getInfoSpotTypeOptions().contains('Dynaaminen').click();
+          infoSpot.getDisplayTypeButton().click();
+          infoSpot.getDisplayTypeOptions().contains('Patteri, E-muste').click();
+          infoSpot.getSpeechPropertyButton().click();
+          infoSpot.getSpeechPropertyOptions().contains('Kyllä').click();
+          infoSpot.getDescription().clearAndType('Dynaamisen kuvaus');
+          infoSpot.getZoneLabel().clearAndType('A');
+          infoSpot.getRailInformation().clearAndType('1');
+          infoSpot.getFloor().clearAndType('3');
+        });
+
+        // Submit.
+        stopDetailsPage.infoSpots.getSaveButton().click();
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        infoSpotView.getContainers().shouldBeVisible();
+
+        infoSpotView.getNthContainer(2).within(() => {
+          infoSpotView.getDescription().shouldHaveText('Dynaamisen kuvaus');
+          infoSpotView.getLabel().shouldHaveText('IP123');
+          infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
+          infoSpotView.getPurpose().shouldHaveText('Dynaaminen tarkoitus');
+          infoSpotView.getDisplayType().shouldHaveText('Patteri, E-muste');
+          infoSpotView.getSpeechProperty().shouldHaveText('Kyllä');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getFloor().shouldHaveText('3');
+          infoSpotView.getRailInformation().shouldHaveText('1');
+          infoSpotView.getStops().shouldHaveText('V1562');
+          infoSpotView.getTerminals().shouldHaveText('-');
+          infoSpotView.getZoneLabel().shouldHaveText('A');
+
+          infoSpotView.getBacklight().should('not.exist');
+          infoSpotView.getPosterPlaceSize().should('not.exist');
+          infoSpotView.getMaintenance().should('not.exist');
+          infoSpotView.getPosterSize().should('not.exist');
+          infoSpotView.getPosterLabel().should('not.exist');
+          infoSpotView.getPosterLines().should('not.exist');
+        });
+      },
+    );
   });
 
   // A regression test to ensure that our mutations don't eg. reset any fields they are not supposed to.
