@@ -23,6 +23,10 @@ import {
 } from './info-spots-form/schema';
 import { InfoSpotsViewList } from './InfoSpotsViewList';
 
+const testIds = {
+  container: 'InfoSpotsSection::container',
+};
+
 type Props = {
   readonly stop: StopWithDetails;
   readonly infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
@@ -115,40 +119,42 @@ export const InfoSpotsSection: FC<Props> = ({
   const showAddNewInfoSpotHeader = !isInEditMode && !infoSpots.length;
 
   return (
-    <InfoContainer
-      colors={stopInfoContainerColors}
-      controls={infoContainerControls}
-      headerButtons={
-        showAddNewInfoSpotHeader ? (
-          <EmptyListHeaderButtons
-            addNewItemText={t('stopDetails.infoSpots.addInfoSpot')}
-            onAddNewItem={editAndAddInfoSpot}
-            testIdPrefix="InfoSpotsSection"
+    <div data-testid={testIds.container}>
+      <InfoContainer
+        colors={stopInfoContainerColors}
+        controls={infoContainerControls}
+        headerButtons={
+          showAddNewInfoSpotHeader ? (
+            <EmptyListHeaderButtons
+              addNewItemText={t('stopDetails.infoSpots.addInfoSpot')}
+              onAddNewItem={editAndAddInfoSpot}
+              testIdPrefix="InfoSpotsSection"
+            />
+          ) : undefined
+        }
+        title={
+          <InfoSpotTitle
+            infoSpotCount={infoSpotCount}
+            shelter={shelter}
+            shelterIndex={shelterIndex}
           />
-        ) : undefined
-      }
-      title={
-        <InfoSpotTitle
-          infoSpotCount={infoSpotCount}
-          shelter={shelter}
-          shelterIndex={shelterIndex}
-        />
-      }
-      testIdPrefix="InfoSpotsSection"
-    >
-      {infoContainerControls.isInEditMode ? (
-        <InfoSpotsForm
-          defaultValues={infoSpotsFormDefaultValues}
-          ref={formRef}
-          onSubmit={onSubmit}
-        />
-      ) : (
-        <InfoSpotsViewList
-          infoSpots={infoSpots}
-          location={location}
-          stopName={stopName}
-        />
-      )}
-    </InfoContainer>
+        }
+        testIdPrefix="InfoSpotsSection"
+      >
+        {infoContainerControls.isInEditMode ? (
+          <InfoSpotsForm
+            defaultValues={infoSpotsFormDefaultValues}
+            ref={formRef}
+            onSubmit={onSubmit}
+          />
+        ) : (
+          <InfoSpotsViewList
+            infoSpots={infoSpots}
+            location={location}
+            stopName={stopName}
+          />
+        )}
+      </InfoContainer>
+    </div>
   );
 };
