@@ -75,7 +75,9 @@ const prepareEditForTiamatDb = ({ state }: EditTiamatParams) => {
 
 export const useEditStopInfoSpots = () => {
   const { t } = useTranslation();
-  const [updateInfoSpotMutation] = useUpdateInfoSpotMutation();
+  const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
+    refetchQueries: ['GetHighestPriorityStopDetailsByLabelAndDate'],
+  });
 
   const saveStopPlaceInfoSpots = async (params: {
     state: InfoSpotsFormState;

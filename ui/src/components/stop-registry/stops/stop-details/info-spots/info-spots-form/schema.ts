@@ -36,6 +36,7 @@ const infoSpotSchema = z.object({
     })
     .array()
     .nullable(),
+  toBeDeleted: z.boolean(),
 });
 
 export const InfoSpotsFormSchema = z.object({
@@ -72,5 +73,6 @@ export const mapInfoSpotDataToFormState = (
         posterSize: p?.posterSize ?? null,
         lines: p?.lines ?? null,
       })) ?? [],
+    toBeDeleted: false,
   };
 };

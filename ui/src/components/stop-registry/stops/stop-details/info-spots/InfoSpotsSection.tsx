@@ -32,14 +32,15 @@ type Props = {
 
 export const useInfoSpotFormDefaultValues = (
   infoSpots: ReadonlyArray<InfoSpotDetailsFragment>,
+  infoSpotLocations: (string | null)[],
 ) => {
   return useMemo(() => {
     if (infoSpots.length) {
       return { infoSpots: infoSpots.map(mapInfoSpotDataToFormState) };
     }
 
-    return { infoSpots: [mapInfoSpotDataToFormState({})] };
-  }, [infoSpots]);
+    return { infoSpots: [mapInfoSpotDataToFormState({ infoSpotLocations })] };
+  }, [infoSpots, infoSpotLocations]);
 };
 
 const InfoSpotTitle: FC<{
@@ -81,7 +82,11 @@ export const InfoSpotsSection: FC<Props> = ({
 
   const location = mapLngLatToPoint(stop.measured_location.coordinates);
 
-  const stopName = stop.label;
+  const infoSpotLocations = [stop.stop_place_ref ?? null, shelter.id ?? null];
+  const infoSpotsFormDefaultValues = useInfoSpotFormDefaultValues(
+    infoSpots,
+    infoSpotLocations,
+  );
 
   const formRef = useRef<HTMLFormElement | null>(null);
   const infoContainerControls = useInfoContainerControls({
@@ -91,6 +96,8 @@ export const InfoSpotsSection: FC<Props> = ({
   });
   const { isInEditMode, setIsInEditMode, setIsExpanded } =
     infoContainerControls;
+
+  const infoSpotCount = infoSpots.length + (isInEditMode ? 1 : 0);
 
   const onSubmit = async (state: InfoSpotsFormState) => {
     try {
@@ -103,23 +110,17 @@ export const InfoSpotsSection: FC<Props> = ({
     }
   };
 
-  const infoSpotsFormDefaultValues = useInfoSpotFormDefaultValues(infoSpots);
-
   const editAndAddInfoSpot = () => {
     setIsInEditMode(true);
     setIsExpanded(true);
   };
-
-  const infoSpotCount = infoSpots.length + (isInEditMode ? 1 : 0);
-
-  const showAddNewInfoSpotHeader = !isInEditMode && !infoSpots.length;
 
   return (
     <InfoContainer
       colors={stopInfoContainerColors}
       controls={infoContainerControls}
       headerButtons={
-        showAddNewInfoSpotHeader ? (
+        !isInEditMode && !infoSpots.length ? (
           <EmptyListHeaderButtons
             addNewItemText={t('stopDetails.infoSpots.addInfoSpot')}
             onAddNewItem={editAndAddInfoSpot}
@@ -140,13 +141,14 @@ export const InfoSpotsSection: FC<Props> = ({
         <InfoSpotsForm
           defaultValues={infoSpotsFormDefaultValues}
           ref={formRef}
+          infoSpotLocations={infoSpotLocations}
           onSubmit={onSubmit}
         />
       ) : (
         <InfoSpotsViewList
           infoSpots={infoSpots}
           location={location}
-          stopName={stopName}
+          stopName={stop.label}
         />
       )}
     </InfoContainer>

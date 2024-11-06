@@ -17,6 +17,7 @@ import {
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
+import { SlimSimpleButton } from '../../layout';
 import { InfoSpotsFormState } from './schema';
 
 const testIds = {
@@ -39,14 +40,18 @@ const testIds = {
   posterSize: 'InfoSpotPosterFormFields::posterSize',
   posterLabel: 'InfoSpotPosterFormFields::posterLabel',
   posterLines: 'InfoSpotPosterFormFields::posterLines',
+  deleteInfoSpot: 'InfoSpotFormFields::deleteInfoSpot',
 };
 
 type Props = {
   readonly index: number;
+  readonly onRemove: (index: number) => void;
 };
 
-export const InfoSpotFormFields: FC<Props> = ({ index }) => {
-  const { watch } = useFormContext<InfoSpotsFormState>();
+export const InfoSpotFormFields: FC<Props> = ({ index, onRemove }) => {
+  const { register, watch } = useFormContext<InfoSpotsFormState>();
+  const toBeDeleted = watch(`infoSpots.${index}.toBeDeleted`);
+
   const infoSpotType = watch(`infoSpots.${index}.infoSpotType`);
   const posters = watch(`infoSpots.${index}.poster`);
 
@@ -58,12 +63,14 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
           translationPrefix="stopDetails"
           fieldPath={`infoSpots.${index}.label`}
           testId={testIds.label}
+          disabled={toBeDeleted}
         />
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"
           fieldPath={`infoSpots.${index}.purpose`}
           testId={testIds.purpose}
+          disabled={toBeDeleted}
         />
         <InputField<InfoSpotsFormState>
           translationPrefix="stopDetails"
@@ -77,6 +84,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
               uiNameMapper={mapStopRegistryInfoSpotTypeEnumToUiName}
               buttonClassName="min-w-36"
               includeNullOption
+              disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
@@ -109,6 +117,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
               <NullableBooleanDropdown
                 placeholder={t('unknown')}
                 buttonClassName="min-w-32"
+                disabled={toBeDeleted}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
@@ -134,6 +143,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
                 uiNameMapper={mapStopRegistryDisplayTypeEnumToUiName}
                 buttonClassName="min-w-36"
                 includeNullOption
+                disabled={toBeDeleted}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
@@ -148,6 +158,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
               <NullableBooleanDropdown
                 placeholder={t('unknown')}
                 buttonClassName="min-w-32"
+                disabled={toBeDeleted}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />
@@ -162,6 +173,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
           fieldPath={`infoSpots.${index}.description.value`}
           testId={testIds.description}
           customTitlePath="stopDetails.infoSpots.description"
+          disabled={toBeDeleted}
         />
       </Row>
       <Visible visible={infoSpotType === 'static'}>
@@ -182,6 +194,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
                     uiNameMapper={mapStopRegistryPosterPlaceSizeEnumToUiName}
                     buttonClassName="min-w-36"
                     includeNullOption
+                    disabled={toBeDeleted}
                     // eslint-disable-next-line react/jsx-props-no-spreading
                     {...props}
                   />
@@ -200,6 +213,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
                 fieldPath={`infoSpots.${index}.poster.${posterIndex}.lines`}
                 customTitlePath="stopDetails.infoSpots.posterLines"
                 testId={testIds.posterLines}
+                disabled={toBeDeleted}
               />
             </React.Fragment>
           ))}
@@ -211,6 +225,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
           translationPrefix="stopDetails"
           fieldPath={`infoSpots.${index}.zoneLabel`}
           testId={testIds.zoneLabel}
+          disabled={toBeDeleted}
         />
         <InputField<InfoSpotsFormState>
           type="text"
@@ -218,6 +233,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
           fieldPath={`infoSpots.${index}.railInformation`}
           inputClassName="w-20"
           testId={testIds.railInformation}
+          disabled={toBeDeleted}
         />
         <InputField<InfoSpotsFormState>
           type="text"
@@ -225,8 +241,25 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
           fieldPath={`infoSpots.${index}.floor`}
           inputClassName="w-20"
           testId={testIds.floor}
+          disabled={toBeDeleted}
         />
       </Row>
+      <input
+        type="checkbox"
+        hidden
+        {...register(`infoSpots.${index}.toBeDeleted`)}
+      />
+      <SlimSimpleButton
+        testId={testIds.deleteInfoSpot}
+        onClick={() => onRemove(index)}
+        inverted
+      >
+        {t(
+          toBeDeleted
+            ? 'stopDetails.infoSpots.cancelDeleteInfoSpot'
+            : 'stopDetails.infoSpots.deleteInfoSpot',
+        )}
+      </SlimSimpleButton>
     </Column>
   );
 };
