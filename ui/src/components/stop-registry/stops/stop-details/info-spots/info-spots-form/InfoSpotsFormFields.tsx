@@ -82,24 +82,24 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
             />
           )}
         />
-        <InputField<InfoSpotsFormState>
-          translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${index}.posterPlaceSize`}
-          testId={testIds.posterPlaceSize}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
-            <EnumDropdown<StopRegistryPosterPlaceSize>
-              enumType={StopRegistryPosterPlaceSize}
-              placeholder={t('unknown')}
-              uiNameMapper={mapStopRegistryPosterPlaceSizeEnumToUiName}
-              buttonClassName="min-w-36"
-              includeNullOption
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
-          )}
-        />
         <Visible visible={infoSpotType === 'static'}>
+          <InputField<InfoSpotsFormState>
+            translationPrefix="stopDetails"
+            fieldPath={`infoSpots.${index}.posterPlaceSize`}
+            testId={testIds.posterPlaceSize}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <EnumDropdown<StopRegistryPosterPlaceSize>
+                enumType={StopRegistryPosterPlaceSize}
+                placeholder={t('unknown')}
+                uiNameMapper={mapStopRegistryPosterPlaceSizeEnumToUiName}
+                buttonClassName="min-w-36"
+                includeNullOption
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+              />
+            )}
+          />
           <InputField<InfoSpotsFormState>
             translationPrefix="stopDetails"
             fieldPath={`infoSpots.${index}.backlight`}
@@ -166,15 +166,9 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
       </Row>
       <Visible visible={infoSpotType === 'static'}>
         <Row>
-          {posters?.map((poster, posterIndex) => (
-            <React.Fragment key={poster.label}>
-              <InputField<InfoSpotsFormState>
-                type="text"
-                translationPrefix="stopDetails"
-                fieldPath={`infoSpots.${index}.poster.${posterIndex}.label`}
-                customTitlePath="stopDetails.infoSpots.posterLabel"
-                testId={testIds.posterLabel}
-              />
+          {posters?.map((_, posterIndex) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <React.Fragment key={`poster-${posterIndex}`}>
               <InputField<InfoSpotsFormState>
                 translationPrefix="stopDetails"
                 fieldPath={`infoSpots.${index}.poster.${posterIndex}.posterSize`}
@@ -192,6 +186,13 @@ export const InfoSpotFormFields: FC<Props> = ({ index }) => {
                     {...props}
                   />
                 )}
+              />
+              <InputField<InfoSpotsFormState>
+                type="text"
+                translationPrefix="stopDetails"
+                fieldPath={`infoSpots.${index}.poster.${posterIndex}.label`}
+                customTitlePath="stopDetails.infoSpots.posterLabel"
+                testId={testIds.posterLabel}
               />
               <InputField<InfoSpotsFormState>
                 type="text"
