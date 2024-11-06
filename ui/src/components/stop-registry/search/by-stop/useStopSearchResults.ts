@@ -1,7 +1,11 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { useSearchStopsQuery } from '../../../../generated/graphql';
-import { StopSearchFilters, hasMeaningfulFilters } from '../types';
+import {
+  StopSearchFilters,
+  StopSearchRow,
+  hasMeaningfulFilters,
+} from '../types';
 import { mapQueryResultToStopSearchRows } from '../utils';
 import { buildSearchStopsGqlQueryVariables } from './filtersToQueryVariables';
 
@@ -59,7 +63,7 @@ export const useStopSearchResults = (filters: StopSearchFilters) => {
     skip,
   });
 
-  const stopSearchRows = useMemo(() => {
+  const stopSearchRows: ReadonlyArray<StopSearchRow> = useMemo(() => {
     if (!data) {
       return [];
     }

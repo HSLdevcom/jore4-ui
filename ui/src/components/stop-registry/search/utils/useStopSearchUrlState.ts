@@ -1,5 +1,8 @@
 import identity from 'lodash/identity';
+import omit from 'lodash/omit';
+import pick from 'lodash/pick';
 import { DateTime } from 'luxon';
+import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 import {
   UrlStateDeserializers,
   UrlStateSerializers,
@@ -7,8 +10,14 @@ import {
   toEnum,
   useTypedUrlState,
 } from '../../../../hooks';
+import { PagingInfo, defaultPagingInfo } from '../../../../types';
 import { StopRegistryMunicipality } from '../../../../types/enums';
-import { AllOptionEnum, numberEnumEntries } from '../../../../utils';
+import {
+  AllOptionEnum,
+  areEqual,
+  memoizeOne,
+  numberEnumEntries,
+} from '../../../../utils';
 import {
   SearchBy,
   SearchFor,
@@ -20,11 +29,17 @@ import {
   knownMunicipalities,
 } from './handleAllMunicipalities';
 
-type StopSearchUrlState = StopSearchFilters;
+type StopSearchUrlFlatState = StopSearchFilters & PagingInfo;
+
+type StopSearchUrlState = {
+  readonly filters: StopSearchFilters;
+  readonly pagingInfo: PagingInfo;
+};
 
 const SEPRATOR = ',';
 
-const serializers: UrlStateSerializers<StopSearchUrlState> = {
+const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
+  // Filters
   query: identity,
   elyNumber: identity,
   searchBy: identity,
@@ -39,6 +54,10 @@ const serializers: UrlStateSerializers<StopSearchUrlState> = {
             StopRegistryMunicipality[enumValue],
       )
       .join(SEPRATOR),
+
+  // Paging
+  page: String,
+  pageSize: String,
 };
 
 const lowerCaseMunicipalities: ReadonlyArray<
@@ -75,25 +94,100 @@ function parseMunicipalities(
   return handleAllMunicipalities(parsed);
 }
 
-const deserializers: UrlStateDeserializers<StopSearchUrlState> = {
+const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
+  // Filters
   query: identity,
   elyNumber: identity,
   searchBy: toEnum(Object.values(SearchBy)),
   searchFor: toEnum(Object.values(SearchFor)),
   observationDate: (value) => DateTime.fromISO(value),
   municipalities: parseMunicipalities,
+
+  // Paging
+  page: Number,
+  pageSize: Number,
 };
 
-const defaultValues: StopSearchUrlState = defaultFilters;
+const defaultValues: StopSearchUrlFlatState = {
+  // Filters
+  ...defaultFilters,
+
+  // Paging
+  ...defaultPagingInfo,
+};
+
+function pickFilters(flatState: StopSearchUrlFlatState) {
+  return omit(flatState, ['page', 'pageSize']);
+}
+
+function pickPagingInfo(flatState: StopSearchUrlFlatState) {
+  return pick(flatState, ['page', 'pageSize']);
+}
+
+type MemoizedPickers = {
+  readonly pickFilters: typeof pickFilters;
+  readonly pickPagingInfo: typeof pickPagingInfo;
+};
+
+function useReconstitutedState(
+  flatState: StopSearchUrlFlatState,
+): StopSearchUrlState {
+  const memoizedPickersRef = useRef<null | MemoizedPickers>(null);
+
+  if (memoizedPickersRef.current === null) {
+    memoizedPickersRef.current = {
+      pickFilters: memoizeOne(pickFilters, areEqual),
+      pickPagingInfo: memoizeOne(pickPagingInfo),
+    };
+  }
+
+  const memoizedPickers = memoizedPickersRef.current;
+
+  return {
+    filters: memoizedPickers.pickFilters(flatState),
+    pagingInfo: memoizedPickers.pickPagingInfo(flatState),
+  };
+}
+
+function useSetter<T extends Readonly<Record<string, unknown>>>(
+  setFlatState: Dispatch<SetStateAction<StopSearchUrlFlatState>>,
+  pickFields: (flatState: StopSearchUrlFlatState) => T,
+): Dispatch<SetStateAction<T>> {
+  return useCallback(
+    (nextState) => {
+      if (typeof nextState === 'function') {
+        setFlatState((p) => ({ ...p, ...nextState(pickFields(p)) }));
+      } else {
+        setFlatState((p) => ({ ...p, ...nextState }));
+      }
+    },
+    [setFlatState, pickFields],
+  );
+}
 
 export function useStopSearchUrlState() {
-  return useTypedUrlState<StopSearchUrlState>(
+  const [flatState, setFlatState] = useTypedUrlState<StopSearchUrlFlatState>(
     serializers,
     deserializers,
     defaultValues,
   );
+
+  const state: StopSearchUrlState = useReconstitutedState(flatState);
+
+  const setFilters = useSetter(setFlatState, pickFilters);
+  const setPagingInfo = useSetter(setFlatState, pickPagingInfo);
+
+  return {
+    state,
+    setFilters,
+    setPagingInfo,
+    setFlatState,
+  };
 }
 
 export function stopSearchUrlStateToSearch(state: StopSearchUrlState): string {
-  return serializeState(serializers, defaultValues, state).toString();
+  return serializeState(serializers, defaultValues, {
+    ...state.filters,
+    ...state.pagingInfo,
+  }).toString();
 }

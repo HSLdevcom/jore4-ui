@@ -1,31 +1,50 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../layoutComponents';
-import { CompatPagination, usePagination } from '../../../../uiComponents';
+import { PagingInfo } from '../../../../types';
+import { Pagination } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
-import { sortAlphabetically } from '../../../../utils';
-import { StopSearchFilters } from '../types';
+import { StopSearchFilters, StopSearchRow } from '../types';
 import { StopSearchByStopResultList } from './StopSearchByStopResultList';
 import { useStopSearchResults } from './useStopSearchResults';
-
-const itemsPerPage = 10;
 
 const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopSearchResults',
 };
 
-type StopSearchByStopResultsProps = { readonly filters: StopSearchFilters };
+// TODO: Replace with proper backend pagination once backend sorting is also in place.
+function useSortedAndPaginatedStops(
+  stops: ReadonlyArray<StopSearchRow>,
+  { page, pageSize }: PagingInfo,
+): ReadonlyArray<StopSearchRow> {
+  const sorted = useMemo(
+    () => stops.toSorted((a, b) => a.label.localeCompare(b.label)),
+    [stops],
+  );
+
+  return useMemo(() => {
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return sorted.slice(startIndex, endIndex);
+  }, [page, pageSize, sorted]);
+}
+
+type StopSearchByStopResultsProps = {
+  readonly filters: StopSearchFilters;
+  readonly pagingInfo: PagingInfo;
+  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
+};
 
 export const StopSearchByStopResults: FC<StopSearchByStopResultsProps> = ({
   filters,
+  pagingInfo,
+  setPagingInfo,
 }) => {
   const { t } = useTranslation();
 
   const { stops, loading, resultCount } = useStopSearchResults(filters);
 
-  const { getPaginatedData } = usePagination();
-  const sortedStopsByLabel = sortAlphabetically(stops, 'label');
-  const displayedStops = getPaginatedData(sortedStopsByLabel, itemsPerPage);
+  const displayedStops = useSortedAndPaginatedStops(stops, pagingInfo);
 
   return (
     <LoadingWrapper
@@ -39,9 +58,10 @@ export const StopSearchByStopResults: FC<StopSearchByStopResultsProps> = ({
       <StopSearchByStopResultList stops={displayedStops} />
       <Visible visible={!!resultCount}>
         <div className="grid grid-cols-4">
-          <CompatPagination
+          <Pagination
             className="col-span-2 col-start-2 pt-4"
-            itemsPerPage={itemsPerPage}
+            pagingInfo={pagingInfo}
+            setPagingInfo={setPagingInfo}
             totalItemsCount={resultCount}
           />
         </div>
