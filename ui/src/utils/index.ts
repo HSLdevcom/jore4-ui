@@ -10,6 +10,7 @@ export * from './graphql';
 export * from './journeyPattern';
 export * from './localizedString';
 export * from './logger';
+export * from './memoizeOne';
 export * from './misc';
 export * from './numberEnumHelpers';
 export * from './object';
