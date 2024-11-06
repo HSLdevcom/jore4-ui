@@ -6,7 +6,11 @@ import { Path } from '../../../router/routeDetails';
 import { defaultPagingInfo } from '../../../types';
 import { SimpleButton } from '../../../uiComponents';
 import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
-import { StopSearchBar, StopSearchFilters } from '../search';
+import {
+  StopSearchBar,
+  StopSearchFilters,
+  defaultSortingInfo,
+} from '../search';
 import {
   stopSearchUrlStateToSearch,
   useStopSearchUrlState,
@@ -31,6 +35,7 @@ export const StopRegistryMainPage: FC = () => {
         search: stopSearchUrlStateToSearch({
           filters: nextFilters,
           pagingInfo: defaultPagingInfo,
+          sortingInfo: defaultSortingInfo,
         }),
       },
       { replace: true },
