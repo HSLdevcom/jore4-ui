@@ -1,4 +1,3 @@
-import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import without from 'lodash/without';
 import xor from 'lodash/xor';
@@ -12,7 +11,7 @@ import {
   useState,
 } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { log } from '../utils';
+import { areEqual, log } from '../utils';
 
 type UrlStateSerializer<T> = (value: T) => string;
 type UrlStateDeserializer<T> = (value: string) => T;
@@ -87,7 +86,7 @@ function serializeInternalState<StateT extends object>(
     keyof StateT
   >;
   const serializedParams = serializableKeys
-    .filter((knownKey) => !isEqual(defaultValues[knownKey], state[knownKey]))
+    .filter((knownKey) => !areEqual(defaultValues[knownKey], state[knownKey]))
     .map((knownKey) => [
       knownKey as string,
       serializers[knownKey](state[knownKey] as ExplicitAny),
@@ -313,11 +312,11 @@ export function useTypedUrlState<StateT extends object>(
           [INTERNAL_PARAMS]: prevState[INTERNAL_PARAMS],
         };
 
-        const nextSearchString = serializeInternalState(
+        const nextSearchString = `?${serializeInternalState(
           serializers,
           defaultValues,
           nextInternalState,
-        ).toString();
+        ).toString()}`;
 
         expectedSearchRef.current = nextSearchString;
         navigate(
