@@ -17,7 +17,6 @@ export * from './useCallbackOnKeyEscape';
 export * from './useDebouncedString';
 export * from './useGetJourneyPatternIdsByRouteLabel';
 export * from './useGetTimetableVersions';
-export * from './usePagination';
 export * from './useRequiredParams';
 export * from './useShowRoutesOnModal';
 export * from './useToggle';

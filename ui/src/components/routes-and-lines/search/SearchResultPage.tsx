@@ -1,10 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { useSearch, useSearchResults } from '../../../hooks';
 import { useBasePath } from '../../../hooks/useBasePath';
-import { usePagination } from '../../../hooks/usePagination';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
-import { CloseIconButton, Pagination } from '../../../uiComponents';
+import {
+  CloseIconButton,
+  CompatPagination,
+  usePagination,
+} from '../../../uiComponents';
 import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
 import { RouteLineTableRowVariant } from '../../common/RouteLineTableRow';
 import { ResultList } from '../../common/search/ResultList';
@@ -78,7 +81,7 @@ export const SearchResultPage = (): React.ReactElement => {
         />
         <Visible visible={!!resultCount}>
           <div className="grid grid-cols-4">
-            <Pagination
+            <CompatPagination
               className="col-span-2 col-start-2 pt-4"
               itemsPerPage={itemsPerPage}
               totalItemsCount={resultCount}
