@@ -5,6 +5,7 @@ import {
   InfoSpotsFormState,
 } from '../../components/stop-registry/stops/stop-details/info-spots/info-spots-form/schema';
 import {
+  GetHighestPriorityStopDetailsByLabelAndDateDocument,
   StopRegistryDisplayType,
   StopRegistryInfoSpotType,
   StopRegistryPosterInput,
@@ -75,12 +76,34 @@ const prepareEditForTiamatDb = ({ state }: EditTiamatParams) => {
 
 export const useEditStopInfoSpots = () => {
   const { t } = useTranslation();
-  const [updateInfoSpotMutation] = useUpdateInfoSpotMutation();
+  const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
+    refetchQueries: [GetHighestPriorityStopDetailsByLabelAndDateDocument],
+  });
+
+  const clearLocationsForDeletedInfoSpots = (infoSpots: InfoSpotState[]) => {
+    const hasDeletedSpots = infoSpots.some((spot) => spot.toBeDeleted);
+
+    if (hasDeletedSpots) {
+      return infoSpots.map((spot) => ({
+        ...spot,
+        infoSpotLocations: spot.toBeDeleted ? [] : spot.infoSpotLocations,
+      }));
+    }
+
+    return infoSpots;
+  };
 
   const saveStopPlaceInfoSpots = async (params: {
     state: InfoSpotsFormState;
   }) => {
-    const changesToTiamatDb = prepareEditForTiamatDb(params);
+    const updatedParams = {
+      state: {
+        ...params.state,
+        infoSpots: clearLocationsForDeletedInfoSpots(params.state.infoSpots),
+      },
+    };
+
+    const changesToTiamatDb = prepareEditForTiamatDb(updatedParams);
     await updateInfoSpotMutation({
       variables: changesToTiamatDb,
     });

@@ -32,14 +32,23 @@ type Props = {
 
 export const useInfoSpotFormDefaultValues = (
   infoSpots: ReadonlyArray<InfoSpotDetailsFragment>,
+  stop: Readonly<StopWithDetails>,
+  shelter: Readonly<ShelterEquipmentDetailsFragment>,
 ) => {
-  return useMemo(() => {
+  const infoSpotLocations = useMemo(
+    () => [stop.stop_place_ref ?? null, shelter.id ?? null],
+    [stop.stop_place_ref, shelter.id],
+  );
+
+  const infoSpotsFormDefaultValues = useMemo(() => {
     if (infoSpots.length) {
       return { infoSpots: infoSpots.map(mapInfoSpotDataToFormState) };
     }
 
-    return { infoSpots: [mapInfoSpotDataToFormState({})] };
-  }, [infoSpots]);
+    return { infoSpots: [mapInfoSpotDataToFormState({ infoSpotLocations })] };
+  }, [infoSpots, infoSpotLocations]);
+
+  return { infoSpotsFormDefaultValues, infoSpotLocations };
 };
 
 const InfoSpotTitle: FC<{
@@ -81,7 +90,8 @@ export const InfoSpotsSection: FC<Props> = ({
 
   const location = mapLngLatToPoint(stop.measured_location.coordinates);
 
-  const stopName = stop.label;
+  const { infoSpotsFormDefaultValues, infoSpotLocations } =
+    useInfoSpotFormDefaultValues(infoSpots, stop, shelter);
 
   const formRef = useRef<HTMLFormElement | null>(null);
   const infoContainerControls = useInfoContainerControls({
@@ -91,6 +101,8 @@ export const InfoSpotsSection: FC<Props> = ({
   });
   const { isInEditMode, setIsInEditMode, setIsExpanded } =
     infoContainerControls;
+
+  const infoSpotCount = infoSpots.length + (isInEditMode ? 1 : 0);
 
   const onSubmit = async (state: InfoSpotsFormState) => {
     try {
@@ -103,23 +115,17 @@ export const InfoSpotsSection: FC<Props> = ({
     }
   };
 
-  const infoSpotsFormDefaultValues = useInfoSpotFormDefaultValues(infoSpots);
-
   const editAndAddInfoSpot = () => {
     setIsInEditMode(true);
     setIsExpanded(true);
   };
-
-  const infoSpotCount = infoSpots.length + (isInEditMode ? 1 : 0);
-
-  const showAddNewInfoSpotHeader = !isInEditMode && !infoSpots.length;
 
   return (
     <InfoContainer
       colors={stopInfoContainerColors}
       controls={infoContainerControls}
       headerButtons={
-        showAddNewInfoSpotHeader ? (
+        !isInEditMode && !infoSpots.length ? (
           <EmptyListHeaderButtons
             addNewItemText={t('stopDetails.infoSpots.addInfoSpot')}
             onAddNewItem={editAndAddInfoSpot}
@@ -140,13 +146,14 @@ export const InfoSpotsSection: FC<Props> = ({
         <InfoSpotsForm
           defaultValues={infoSpotsFormDefaultValues}
           ref={formRef}
+          infoSpotLocations={infoSpotLocations}
           onSubmit={onSubmit}
         />
       ) : (
         <InfoSpotsViewList
           infoSpots={infoSpots}
           location={location}
-          stopName={stopName}
+          stopName={stop.label}
         />
       )}
     </InfoContainer>
