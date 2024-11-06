@@ -1,17 +1,17 @@
 import { screen } from '@testing-library/react';
-import { useUrlQuery } from '../hooks';
-import { render } from '../utils/test-utils';
-import { Pagination } from './Pagination';
+import { useUrlQuery } from '../../hooks';
+import { render } from '../../utils/test-utils';
+import { CompatPagination } from './CompatPagination';
 
-jest.mock('../hooks/urlQuery/useUrlQuery', () => ({
+jest.mock('../../hooks/urlQuery/useUrlQuery', () => ({
   useUrlQuery: jest.fn().mockReturnValue({}),
 }));
 const urlQueryMock = useUrlQuery as jest.Mock;
 
-describe(`<${Pagination.name}>`, () => {
+describe('Pagination - CompatPagination', () => {
   test('should render all 5 page numbers', async () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: {} });
-    render(<Pagination itemsPerPage={2} totalItemsCount={10} />);
+    render(<CompatPagination itemsPerPage={2} totalItemsCount={10} />);
 
     expect(screen.queryByText('01')).toBeVisible();
     expect(screen.queryByText('02')).toBeVisible();
@@ -23,7 +23,7 @@ describe(`<${Pagination.name}>`, () => {
 
   test('prev button should be disabled on first page', async () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: { page: 1 } });
-    render(<Pagination itemsPerPage={2} totalItemsCount={10} />);
+    render(<CompatPagination itemsPerPage={2} totalItemsCount={10} />);
 
     const prevButton = await screen.findByTestId('prevPageButtonIcon');
     const nextButton = await screen.findByTestId('nextPageButtonIcon');
@@ -34,7 +34,7 @@ describe(`<${Pagination.name}>`, () => {
 
   test('next button should be disabled on last page', async () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: { page: 5 } });
-    render(<Pagination itemsPerPage={2} totalItemsCount={10} />);
+    render(<CompatPagination itemsPerPage={2} totalItemsCount={10} />);
 
     const prevButton = await screen.findByTestId('prevPageButtonIcon');
     const nextButton = await screen.findByTestId('nextPageButtonIcon');
@@ -45,7 +45,7 @@ describe(`<${Pagination.name}>`, () => {
 
   test('prev and next button should be disabled if only one page', async () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: { page: 1 } });
-    render(<Pagination itemsPerPage={10} totalItemsCount={10} />);
+    render(<CompatPagination itemsPerPage={10} totalItemsCount={10} />);
 
     const prevButton = await screen.findByTestId('prevPageButtonIcon');
     const nextButton = await screen.findByTestId('nextPageButtonIcon');
@@ -56,7 +56,7 @@ describe(`<${Pagination.name}>`, () => {
 
   test('current page should be SPAN element', async () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: { page: 1 } });
-    render(<Pagination itemsPerPage={2} totalItemsCount={10} />);
+    render(<CompatPagination itemsPerPage={2} totalItemsCount={10} />);
 
     const oneButton = await screen.findByText('01');
     const twoButton = await screen.findByText('02');
@@ -74,7 +74,7 @@ describe(`<${Pagination.name}>`, () => {
   test('should render dots next to first page button', async () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: { page: 8 } });
     render(
-      <Pagination
+      <CompatPagination
         amountOfNeighbours={1}
         itemsPerPage={2}
         totalItemsCount={20}
@@ -109,7 +109,7 @@ describe(`<${Pagination.name}>`, () => {
   test('should render dots next to last page button', async () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: { page: 3 } });
     render(
-      <Pagination
+      <CompatPagination
         amountOfNeighbours={1}
         itemsPerPage={2}
         totalItemsCount={20}
@@ -144,7 +144,7 @@ describe(`<${Pagination.name}>`, () => {
   test('should render dots next to first page and last page buttons', async () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: { page: 5 } });
     render(
-      <Pagination
+      <CompatPagination
         amountOfNeighbours={1}
         itemsPerPage={2}
         totalItemsCount={20}

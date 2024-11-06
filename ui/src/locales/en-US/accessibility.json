@@ -3,7 +3,7 @@
     "showOnMap": "Show {{label}} on the map",
     "nextPage": "Next page",
     "prevPage": "Previous page",
-    "currentPage": "Current page",
+    "currentPage": "Current page {{pageNumber}}",
     "goToPage": "Go to page",
     "paginationNavigation": "Pagination Navigation",
     "expandSearch": "Open advanced search",

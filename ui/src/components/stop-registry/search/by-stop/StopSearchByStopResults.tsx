@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { usePagination } from '../../../../hooks';
 import { Visible } from '../../../../layoutComponents';
-import { Pagination } from '../../../../uiComponents';
+import { CompatPagination, usePagination } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { sortAlphabetically } from '../../../../utils';
 import { StopSearchFilters } from '../types';
@@ -40,7 +39,7 @@ export const StopSearchByStopResults: FC<StopSearchByStopResultsProps> = ({
       <StopSearchByStopResultList stops={displayedStops} />
       <Visible visible={!!resultCount}>
         <div className="grid grid-cols-4">
-          <Pagination
+          <CompatPagination
             className="col-span-2 col-start-2 pt-4"
             itemsPerPage={itemsPerPage}
             totalItemsCount={resultCount}

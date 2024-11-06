@@ -3,7 +3,7 @@
     "showOnMap": "Näytä kartalla {{label}}",
     "nextPage": "Seuraava sivu",
     "prevPage": "Edellinen sivu",
-    "currentPage": "Nykyinen sivu",
+    "currentPage": "Nykyinen sivu {{pageNumber}}",
     "goToPage": "Mene sivulle",
     "paginationNavigation": "Sivutusnavigaatio",
     "expandSearch": "Avaa tarkennettu haku",
