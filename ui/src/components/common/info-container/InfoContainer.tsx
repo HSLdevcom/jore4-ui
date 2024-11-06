@@ -69,6 +69,7 @@ type InfoContainerProps = {
 
 const testIds = {
   title: (prefix: string) => `${prefix}::title`,
+  container: (prefix: string) => `${prefix}::container`,
   content: (prefix: string) => `${prefix}::content`,
   cancelButton: (prefix: string) => `${prefix}::cancelButton`,
   saveButton: (prefix: string) => `${prefix}::saveButton`,
@@ -99,6 +100,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
         '--backgroundColor': backgroundColor,
         '--borderColor': borderColor,
       }}
+      data-testid={testIds.container(testIdPrefix)}
     >
       <div
         className={twJoin(
