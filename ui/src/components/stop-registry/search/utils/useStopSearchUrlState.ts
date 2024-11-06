@@ -10,7 +10,7 @@ import {
   toEnum,
   useTypedUrlState,
 } from '../../../../hooks';
-import { PagingInfo, defaultPagingInfo } from '../../../../types';
+import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
 import { StopRegistryMunicipality } from '../../../../types/enums';
 import {
   AllOptionEnum,
@@ -21,19 +21,23 @@ import {
 import {
   SearchBy,
   SearchFor,
+  SortStopsBy,
+  SortingInfo,
   StopSearchFilters,
   defaultFilters,
+  defaultSortingInfo,
 } from '../types';
 import {
   handleAllMunicipalities,
   knownMunicipalities,
 } from './handleAllMunicipalities';
 
-type StopSearchUrlFlatState = StopSearchFilters & PagingInfo;
+type StopSearchUrlFlatState = StopSearchFilters & PagingInfo & SortingInfo;
 
 type StopSearchUrlState = {
   readonly filters: StopSearchFilters;
   readonly pagingInfo: PagingInfo;
+  readonly sortingInfo: SortingInfo;
 };
 
 const SEPRATOR = ',';
@@ -58,6 +62,10 @@ const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
   // Paging
   page: String,
   pageSize: String,
+
+  // Sorting
+  sortBy: identity,
+  sortOrder: identity,
 };
 
 const lowerCaseMunicipalities: ReadonlyArray<
@@ -106,6 +114,10 @@ const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
   // Paging
   page: Number,
   pageSize: Number,
+
+  // Sorting
+  sortBy: toEnum(Object.values(SortStopsBy)),
+  sortOrder: toEnum(Object.values(SortOrder)),
 };
 
 const defaultValues: StopSearchUrlFlatState = {
@@ -114,19 +126,27 @@ const defaultValues: StopSearchUrlFlatState = {
 
   // Paging
   ...defaultPagingInfo,
+
+  // Sorting
+  ...defaultSortingInfo,
 };
 
 function pickFilters(flatState: StopSearchUrlFlatState) {
-  return omit(flatState, ['page', 'pageSize']);
+  return omit(flatState, ['page', 'pageSize', 'sortBy', 'sortOrder']);
 }
 
 function pickPagingInfo(flatState: StopSearchUrlFlatState) {
   return pick(flatState, ['page', 'pageSize']);
 }
 
+function pickSortingInfo(flatState: StopSearchUrlFlatState) {
+  return pick(flatState, ['sortBy', 'sortOrder']);
+}
+
 type MemoizedPickers = {
   readonly pickFilters: typeof pickFilters;
   readonly pickPagingInfo: typeof pickPagingInfo;
+  readonly pickSortingInfo: typeof pickSortingInfo;
 };
 
 function useReconstitutedState(
@@ -138,6 +158,7 @@ function useReconstitutedState(
     memoizedPickersRef.current = {
       pickFilters: memoizeOne(pickFilters, areEqual),
       pickPagingInfo: memoizeOne(pickPagingInfo),
+      pickSortingInfo: memoizeOne(pickSortingInfo),
     };
   }
 
@@ -146,6 +167,7 @@ function useReconstitutedState(
   return {
     filters: memoizedPickers.pickFilters(flatState),
     pagingInfo: memoizedPickers.pickPagingInfo(flatState),
+    sortingInfo: memoizedPickers.pickSortingInfo(flatState),
   };
 }
 
@@ -176,11 +198,13 @@ export function useStopSearchUrlState() {
 
   const setFilters = useSetter(setFlatState, pickFilters);
   const setPagingInfo = useSetter(setFlatState, pickPagingInfo);
+  const setSortingInfo = useSetter(setFlatState, pickSortingInfo);
 
   return {
     state,
     setFilters,
     setPagingInfo,
+    setSortingInfo,
     setFlatState,
   };
 }
@@ -189,5 +213,6 @@ export function stopSearchUrlStateToSearch(state: StopSearchUrlState): string {
   return serializeState(serializers, defaultValues, {
     ...state.filters,
     ...state.pagingInfo,
+    ...state.sortingInfo,
   }).toString();
 }

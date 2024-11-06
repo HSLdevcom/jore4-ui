@@ -10,7 +10,12 @@ import { StopsByLineSearchResults } from './by-line';
 import { StopSearchByStopResults } from './by-stop';
 import { StopSearchBar } from './components';
 import { StopAreaSearchResults } from './for-stop-areas/StopAreaSearchResults';
-import { SearchBy, SearchFor, StopSearchFilters } from './types';
+import {
+  SearchBy,
+  SearchFor,
+  StopSearchFilters,
+  defaultSortingInfo,
+} from './types';
 import { trSearchFor, useStopSearchUrlState } from './utils';
 
 const testIds = {
@@ -60,7 +65,11 @@ export const StopSearchResultPage = (): React.ReactElement => {
 
   const onSubmitFilters = (nextFilters: StopSearchFilters) => {
     dispatch(resetSelectedRowsAction());
-    setFlatState({ ...nextFilters, ...defaultPagingInfo });
+    setFlatState({
+      ...nextFilters,
+      ...defaultPagingInfo,
+      ...defaultSortingInfo,
+    });
   };
 
   return (
