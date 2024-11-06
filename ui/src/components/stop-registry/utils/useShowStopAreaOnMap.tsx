@@ -13,7 +13,11 @@ import { Point } from '../../../types';
 
 export function useShowStopAreaOnMap() {
   const dispatch = useAppDispatch();
-  const { observationDate } = useObservationDateQueryParam();
+
+  // Get existing observationDate or default, but don't touch the URL
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
   const { openMapWithParameters } = useMapQueryParams();
 
   return (id: string | undefined, point: Point) => {

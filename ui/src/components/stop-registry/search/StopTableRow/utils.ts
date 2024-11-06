@@ -14,7 +14,11 @@ import { StopSearchRow } from '../types';
 
 export function useOpenStopOnMap() {
   const dispatch = useAppDispatch();
-  const { observationDate } = useObservationDateQueryParam();
+
+  // Get existing observationDate or default, but don't touch the URL
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
   const { openMapWithParameters } = useMapQueryParams();
 
   return (stop: StopSearchRow) => {
