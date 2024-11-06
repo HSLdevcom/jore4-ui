@@ -5,6 +5,7 @@ import { Link, To, useLocation } from 'react-router-dom';
 import { Container, Row } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
+import { PagingInfo, defaultPagingInfo } from '../../../types';
 import { StopsByLineSearchResults } from './by-line';
 import { StopSearchByStopResults } from './by-stop';
 import { StopSearchBar } from './components';
@@ -22,7 +23,13 @@ function useCloseLink(): To {
   return { pathname: Path.stopRegistry, search };
 }
 
-const Results: FC<{ readonly filters: StopSearchFilters }> = ({ filters }) => {
+type ResultsProps = {
+  readonly filters: StopSearchFilters;
+  readonly pagingInfo: PagingInfo;
+  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
+};
+
+const Results: FC<ResultsProps> = ({ filters, pagingInfo, setPagingInfo }) => {
   if (filters.searchBy === SearchBy.Line) {
     return <StopsByLineSearchResults filters={filters} />;
   }
@@ -31,7 +38,13 @@ const Results: FC<{ readonly filters: StopSearchFilters }> = ({ filters }) => {
     return <StopAreaSearchResults filters={filters} />;
   }
 
-  return <StopSearchByStopResults filters={filters} />;
+  return (
+    <StopSearchByStopResults
+      filters={filters}
+      pagingInfo={pagingInfo}
+      setPagingInfo={setPagingInfo}
+    />
+  );
 };
 
 export const StopSearchResultPage = (): React.ReactElement => {
@@ -39,17 +52,21 @@ export const StopSearchResultPage = (): React.ReactElement => {
   const dispatch = useDispatch();
 
   const closeLink = useCloseLink();
-  const [urlState, setUrlState] = useStopSearchUrlState();
+  const {
+    state: { filters, pagingInfo },
+    setPagingInfo,
+    setFlatState,
+  } = useStopSearchUrlState();
 
-  const onSubmitFilters = (filters: StopSearchFilters) => {
+  const onSubmitFilters = (nextFilters: StopSearchFilters) => {
     dispatch(resetSelectedRowsAction());
-    setUrlState((p) => ({ ...p, ...filters }));
+    setFlatState({ ...nextFilters, ...defaultPagingInfo });
   };
 
   return (
     <Container testId={testIds.container}>
       <Row>
-        <h2>{`${t('search.searchResultsTitle')} | ${trSearchFor(t, urlState.searchFor)}`}</h2>
+        <h2>{`${t('search.searchResultsTitle')} | ${trSearchFor(t, filters.searchFor)}`}</h2>
         <Link
           className="ml-auto text-base font-bold text-brand"
           to={closeLink}
@@ -59,9 +76,13 @@ export const StopSearchResultPage = (): React.ReactElement => {
           <i className="icon-close-large ml-4 text-lg" />
         </Link>
       </Row>
-      <StopSearchBar initialFilters={urlState} onSubmit={onSubmitFilters} />
+      <StopSearchBar initialFilters={filters} onSubmit={onSubmitFilters} />
 
-      <Results filters={urlState} />
+      <Results
+        filters={filters}
+        pagingInfo={pagingInfo}
+        setPagingInfo={setPagingInfo}
+      />
     </Container>
   );
 };
