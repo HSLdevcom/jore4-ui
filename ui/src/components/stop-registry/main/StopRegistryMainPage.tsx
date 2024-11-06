@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
+import { defaultPagingInfo } from '../../../types';
 import { SimpleButton } from '../../../uiComponents';
 import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import { StopSearchBar, StopSearchFilters } from '../search';
@@ -18,14 +19,19 @@ const testIds = {
 export const StopRegistryMainPage: FC = () => {
   const { t } = useTranslation();
 
-  const [urlState] = useStopSearchUrlState();
+  const {
+    state: { filters },
+  } = useStopSearchUrlState();
 
   const navigate = useNavigate();
-  const onSubmit = (filters: StopSearchFilters) => {
+  const onSubmit = (nextFilters: StopSearchFilters) => {
     navigate(
       {
         pathname: Path.stopSearch,
-        search: stopSearchUrlStateToSearch(filters),
+        search: stopSearchUrlStateToSearch({
+          filters: nextFilters,
+          pagingInfo: defaultPagingInfo,
+        }),
       },
       { replace: true },
     );
@@ -47,7 +53,7 @@ export const StopRegistryMainPage: FC = () => {
           {t('stops.createStop')}
         </SimpleButton>
       </Row>
-      <StopSearchBar initialFilters={urlState} onSubmit={onSubmit} />
+      <StopSearchBar initialFilters={filters} onSubmit={onSubmit} />
     </Container>
   );
 };
