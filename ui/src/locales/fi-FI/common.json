@@ -353,6 +353,8 @@
       "posterLines": "Linjat",
       "shelterTypeSubtitle": "Katos {{index}} | {{shelterType}}",
       "addInfoSpot": "Lisää infopaikka",
+      "deleteInfoSpot": "Poista infopaikka",
+      "cancelDeleteInfoSpot": "Peruuta poisto",
       "type": {
         "dynamic": "Dynaaminen",
         "static": "Staattinen",

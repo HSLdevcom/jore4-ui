@@ -353,6 +353,8 @@
       "posterLines": "Lines",
       "shelterTypeSubtitle": "Shelter {{index}} | {{shelterType}}",
       "addInfoSpot": "Add info spot",
+      "deleteInfoSpot": "Delete info spot",
+      "cancelDeleteInfoSpot": "Cancel deletion",
       "type": {
         "static": "Static",
         "dynamic": "Dynamic",
