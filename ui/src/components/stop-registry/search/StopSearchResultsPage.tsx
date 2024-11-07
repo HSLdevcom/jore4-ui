@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Link, To, useLocation } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { StopAreaSearchResults } from './for-stop-areas/StopAreaSearchResults';
 import {
   SearchBy,
   SearchFor,
+  SortingInfo,
   StopSearchFilters,
   defaultSortingInfo,
 } from './types';
@@ -32,9 +33,17 @@ type ResultsProps = {
   readonly filters: StopSearchFilters;
   readonly pagingInfo: PagingInfo;
   readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
+  readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
+  readonly sortingInfo: SortingInfo;
 };
 
-const Results: FC<ResultsProps> = ({ filters, pagingInfo, setPagingInfo }) => {
+const Results: FC<ResultsProps> = ({
+  filters,
+  pagingInfo,
+  setPagingInfo,
+  setSortingInfo,
+  sortingInfo,
+}) => {
   if (filters.searchBy === SearchBy.Line) {
     return <StopsByLineSearchResults filters={filters} />;
   }
@@ -48,6 +57,8 @@ const Results: FC<ResultsProps> = ({ filters, pagingInfo, setPagingInfo }) => {
       filters={filters}
       pagingInfo={pagingInfo}
       setPagingInfo={setPagingInfo}
+      setSortingInfo={setSortingInfo}
+      sortingInfo={sortingInfo}
     />
   );
 };
@@ -58,9 +69,10 @@ export const StopSearchResultPage = (): React.ReactElement => {
 
   const closeLink = useCloseLink();
   const {
-    state: { filters, pagingInfo },
-    setPagingInfo,
+    state: { filters, pagingInfo, sortingInfo },
     setFlatState,
+    setPagingInfo,
+    setSortingInfo,
   } = useStopSearchUrlState();
 
   const onSubmitFilters = (nextFilters: StopSearchFilters) => {
@@ -91,6 +103,8 @@ export const StopSearchResultPage = (): React.ReactElement => {
         filters={filters}
         pagingInfo={pagingInfo}
         setPagingInfo={setPagingInfo}
+        setSortingInfo={setSortingInfo}
+        sortingInfo={sortingInfo}
       />
     </Container>
   );
