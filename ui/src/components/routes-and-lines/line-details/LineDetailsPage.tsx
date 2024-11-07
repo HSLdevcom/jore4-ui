@@ -23,6 +23,7 @@ import { ViaModal } from '../via/ViaModal';
 import { ActionsRow } from './ActionsRow';
 import { AdditionalInformation } from './AdditionalInformation';
 import { CreateRouteBox } from './CreateRouteBox';
+import { LineNotValidForDayBox } from './LineNotValidForDayBox';
 import { LineRouteList } from './LineRouteList';
 import { LineTitle } from './LineTitle';
 import { MapPreview } from './MapPreview';
@@ -77,24 +78,29 @@ export const LineDetailsPage = (): React.ReactElement => {
         </Row>
       </PageHeader>
       <ActionsRow className="!pb-0 !pt-4" />
-      {line && (
-        <Container className="pt-10">
-          <Row>
-            <AdditionalInformation className="w-2/3" line={line} />
-            <MapPreview className="w-1/3" />
-          </Row>
-          <Row>
-            <Column className="w-full">
-              <h1 className="mt-8">{t('lines.routes')}</h1>
-              {line.line_routes?.length > 0 ? (
-                <LineRouteList routes={displayedRoutes} />
-              ) : (
-                <CreateRouteBox onCreateRoute={onCreateRoute} />
-              )}
-            </Column>
-          </Row>
-        </Container>
-      )}
+      <Container className="pt-10">
+        {line ? (
+          <>
+            <Row>
+              <AdditionalInformation className="w-2/3" line={line} />
+              <MapPreview className="w-1/3" />
+            </Row>
+            <Row>
+              <Column className="w-full">
+                <h1 className="mt-8">{t('lines.routes')}</h1>
+                {line.line_routes?.length > 0 ? (
+                  <LineRouteList routes={displayedRoutes} />
+                ) : (
+                  <CreateRouteBox onCreateRoute={onCreateRoute} />
+                )}
+              </Column>
+            </Row>
+          </>
+        ) : (
+          <LineNotValidForDayBox />
+        )}
+      </Container>
+
       <Visible visible={isViaModalOpen}>
         <ViaModal />
       </Visible>
