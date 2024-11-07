@@ -387,6 +387,8 @@
     "stopAreaLabel": "Pysäkkialue {{name}} | {{description}}",
     "showStopAreaOnMap": "Näytä pysäkkialue kartalla",
     "sortOrder": "Järjestys:",
+    "resultCount": "{{count}} hakutulos",
+    "resultCount_other": "{{count}} hakutulosta",
 
     "stopRowActions": {
       "openDetails": "Näytä pysäkin tiedot",
