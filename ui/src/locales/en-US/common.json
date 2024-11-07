@@ -388,6 +388,7 @@
     "tryToRefetch": "Try to refetch stops",
     "stopAreaLabel": "Stop area {{name}} | {{description}}",
     "showStopAreaOnMap": "Show stop area on the map",
+    "sortOrder": "Sort by:",
 
     "stopRowActions": {
       "openDetails": "Open stop details page",
@@ -405,6 +406,14 @@
       "searchFor": "Search for",
       "elyNumber": "ELY number",
       "municipalities": "Municipality"
+    },
+
+    "sortBy": {
+      "label": "Label",
+      "name": "Name",
+      "address": "Address",
+      "sequenceNumber": "Sequence number",
+      "byStopArea": "By stop"
     }
   },
   "timingPlaces": {
