@@ -386,6 +386,7 @@
     "tryToRefetch": "Yritä noutaa pysäkit uudelleen",
     "stopAreaLabel": "Pysäkkialue {{name}} | {{description}}",
     "showStopAreaOnMap": "Näytä pysäkkialue kartalla",
+    "sortOrder": "Järjestys:",
 
     "stopRowActions": {
       "openDetails": "Näytä pysäkin tiedot",
@@ -403,6 +404,14 @@
       "searchFor": "Hakukohde",
       "elyNumber": "ELY-numero",
       "municipalities": "Kunta"
+    },
+
+    "sortBy": {
+      "label": "Tunnus",
+      "name": "Nimi",
+      "address": "Osoite",
+      "sequenceNumber": "Järjestysnumero",
+      "byStopArea": "Pysäkkialueen mukaan"
     }
   },
   "timingPlaces": {
