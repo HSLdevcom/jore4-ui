@@ -7,7 +7,7 @@ import { mapQueryResultToStopSearchRows } from '../utils';
 const GQL_GET_STOPS_BY_STOP_AREA_ID = gql`
   query getStopsByStopAreaId($stopAreaId: bigint!) {
     stops_database {
-      stops_database_stop_place_newest_version(
+      stops: stops_database_stop_place_newest_version(
         where: {
           group_of_stop_places_members: {
             group_of_stop_places_id: { _eq: $stopAreaId }
@@ -26,11 +26,11 @@ export const useGetStopResultByStopAreaId = (stopAreaId: number | bigint) => {
   });
 
   const stopSearchRows: ReadonlyArray<StopSearchRow> = useMemo(() => {
-    if (!data) {
+    if (!data?.stops_database?.stops) {
       return [];
     }
 
-    return mapQueryResultToStopSearchRows(data);
+    return mapQueryResultToStopSearchRows(data.stops_database.stops);
   }, [data]);
 
   return {
