@@ -389,6 +389,8 @@
     "stopAreaLabel": "Stop area {{name}} | {{description}}",
     "showStopAreaOnMap": "Show stop area on the map",
     "sortOrder": "Sort by:",
+    "resultCount": "{{count}} search result",
+    "resultCount_other": "{{count}} search results",
 
     "stopRowActions": {
       "openDetails": "Open stop details page",
