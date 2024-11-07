@@ -67002,13 +67002,16 @@ export type StopTableRowStopPlaceFragment = {
 
 export type SearchStopsQueryVariables = Exact<{
   stopFilter?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
+  orderBy: StopsDatabaseStopPlaceNewestVersionOrderBy;
+  offset: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
 }>;
 
 export type SearchStopsQuery = {
   __typename?: 'query_root';
   stops_database?: {
     __typename?: 'stops_database_stops_database_query';
-    stops_database_stop_place_newest_version: Array<{
+    stops: Array<{
       __typename?: 'stops_database_stop_place_newest_version';
       id?: any | null;
       netex_id?: string | null;
@@ -67037,6 +67040,13 @@ export type SearchStopsQuery = {
         } | null;
       } | null;
     }>;
+    resultCount: {
+      __typename?: 'stops_database_stop_place_newest_version_aggregate';
+      aggregate?: {
+        __typename?: 'stops_database_stop_place_newest_version_aggregate_fields';
+        count: number;
+      } | null;
+    };
   } | null;
 };
 
@@ -67087,7 +67097,7 @@ export type GetStopsByStopAreaIdQuery = {
   __typename?: 'query_root';
   stops_database?: {
     __typename?: 'stops_database_stops_database_query';
-    stops_database_stop_place_newest_version: Array<{
+    stops: Array<{
       __typename?: 'stops_database_stop_place_newest_version';
       id?: any | null;
       netex_id?: string | null;
@@ -74665,10 +74675,25 @@ export type GetStopsByRouteIdQueryResult = Apollo.QueryResult<
 export const SearchStopsDocument = gql`
   query SearchStops(
     $stopFilter: stops_database_stop_place_newest_version_bool_exp
+    $orderBy: stops_database_stop_place_newest_version_order_by!
+    $offset: Int!
+    $limit: Int!
   ) {
     stops_database {
-      stops_database_stop_place_newest_version(where: $stopFilter) {
+      stops: stops_database_stop_place_newest_version(
+        where: $stopFilter
+        order_by: [$orderBy]
+        offset: $offset
+        limit: $limit
+      ) {
         ...stop_table_row_stop_place
+      }
+      resultCount: stops_database_stop_place_newest_version_aggregate(
+        where: $stopFilter
+      ) {
+        aggregate {
+          count
+        }
       }
     }
   }
@@ -74688,14 +74713,21 @@ export const SearchStopsDocument = gql`
  * const { data, loading, error } = useSearchStopsQuery({
  *   variables: {
  *      stopFilter: // value for 'stopFilter'
+ *      orderBy: // value for 'orderBy'
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
 export function useSearchStopsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     SearchStopsQuery,
     SearchStopsQueryVariables
-  >,
+  > &
+    (
+      | { variables: SearchStopsQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<SearchStopsQuery, SearchStopsQueryVariables>(
@@ -74847,7 +74879,7 @@ export type FindStopAreasQueryResult = Apollo.QueryResult<
 export const GetStopsByStopAreaIdDocument = gql`
   query getStopsByStopAreaId($stopAreaId: bigint!) {
     stops_database {
-      stops_database_stop_place_newest_version(
+      stops: stops_database_stop_place_newest_version(
         where: {
           group_of_stop_places_members: {
             group_of_stop_places_id: { _eq: $stopAreaId }

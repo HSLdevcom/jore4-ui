@@ -1,5 +1,4 @@
 import {
-  SearchStopsQuery,
   StopTableRowFragment,
   StopTableRowStopPlaceFragment,
 } from '../../../../generated/graphql';
@@ -23,9 +22,9 @@ const mapResultRowToStopSearchRow = (
 };
 
 export const mapQueryResultToStopSearchRows = (
-  data: SearchStopsQuery,
+  stops: ReadonlyArray<StopTableRowStopPlaceFragment>,
 ): StopSearchRow[] =>
-  data.stops_database?.stops_database_stop_place_newest_version
+  stops
     // Filter out stops which do not have a matching stop in routes and lines
     .filter((stop) => !!stop.scheduled_stop_point_instance)
-    .map(mapResultRowToStopSearchRow) ?? [];
+    .map(mapResultRowToStopSearchRow);

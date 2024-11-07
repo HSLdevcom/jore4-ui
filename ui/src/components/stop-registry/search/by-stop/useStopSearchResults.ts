@@ -1,7 +1,14 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
-import { useSearchStopsQuery } from '../../../../generated/graphql';
 import {
+  OrderBy,
+  StopsDatabaseStopPlaceNewestVersionOrderBy,
+  useSearchStopsQuery,
+} from '../../../../generated/graphql';
+import { PagingInfo, SortOrder } from '../../../../types';
+import {
+  SortStopsBy,
+  SortingInfo,
   StopSearchFilters,
   StopSearchRow,
   hasMeaningfulFilters,
@@ -45,35 +52,105 @@ const GQL_STOP_TABLE_ROW_STOP_PLACE = gql`
 const GQL_SEARCH_STOPS = gql`
   query SearchStops(
     $stopFilter: stops_database_stop_place_newest_version_bool_exp
+    $orderBy: stops_database_stop_place_newest_version_order_by!
+    $offset: Int!
+    $limit: Int!
   ) {
     stops_database {
-      stops_database_stop_place_newest_version(where: $stopFilter) {
+      stops: stops_database_stop_place_newest_version(
+        where: $stopFilter
+        order_by: [$orderBy]
+        offset: $offset
+        limit: $limit
+      ) {
         ...stop_table_row_stop_place
+      }
+
+      resultCount: stops_database_stop_place_newest_version_aggregate(
+        where: $stopFilter
+      ) {
+        aggregate {
+          count
+        }
       }
     }
   }
 `;
 
-export const useStopSearchResults = (filters: StopSearchFilters) => {
+function sortOrderToOrderBy(sortOrder: SortOrder) {
+  if (sortOrder === SortOrder.ASCENDING) {
+    return OrderBy.Asc;
+  }
+
+  return OrderBy.Desc;
+}
+
+function getOrderBy({
+  sortBy,
+  sortOrder,
+}: SortingInfo): StopsDatabaseStopPlaceNewestVersionOrderBy {
+  const direction = sortOrderToOrderBy(sortOrder);
+
+  switch (sortBy) {
+    case SortStopsBy.DEFAULT:
+    case SortStopsBy.LABEL:
+      return { quay_public_code: direction };
+
+    case SortStopsBy.ADDRESS:
+      return { street_address: direction };
+
+    case SortStopsBy.NAME:
+      return { name_value: direction };
+
+    default:
+      return { id: direction };
+  }
+}
+
+type LimitAndOffset = {
+  readonly limit: number;
+  readonly offset: number;
+};
+
+function pagingInfoToLimitAndOffset({
+  page,
+  pageSize,
+}: PagingInfo): LimitAndOffset {
+  return {
+    limit: pageSize,
+    offset: (page - 1) * pageSize,
+  };
+}
+
+export const useStopSearchResults = (
+  filters: StopSearchFilters,
+  sortingInfo: SortingInfo,
+  pagingInfo: PagingInfo,
+) => {
   const stopFilter = buildSearchStopsGqlQueryVariables(filters);
+  const orderBy = getOrderBy(sortingInfo);
 
   const skip = !hasMeaningfulFilters(filters);
   const { data, ...rest } = useSearchStopsQuery({
-    variables: { stopFilter },
+    variables: {
+      stopFilter,
+      orderBy,
+      ...pagingInfoToLimitAndOffset(pagingInfo),
+    },
     skip,
   });
 
   const stopSearchRows: ReadonlyArray<StopSearchRow> = useMemo(() => {
-    if (!data) {
+    if (!data?.stops_database?.stops) {
       return [];
     }
 
-    return mapQueryResultToStopSearchRows(data);
+    return mapQueryResultToStopSearchRows(data.stops_database.stops);
   }, [data]);
 
   return {
     ...rest,
-    resultCount: stopSearchRows.length,
+    resultCount: data?.stops_database?.resultCount.aggregate?.count ?? 0,
     stops: stopSearchRows,
   };
 };
