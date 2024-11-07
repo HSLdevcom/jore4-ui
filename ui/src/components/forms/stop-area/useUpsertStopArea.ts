@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { ApolloError, gql } from '@apollo/client';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,6 +13,7 @@ import {
   showDangerToast,
 } from '../../../utils';
 import { StopAreaFormState } from './stopAreaFormSchema';
+import { useStopAreaDetailsApolloErrorHandler } from './util/stopAreaDetailsErrorHandler';
 
 const GQL_UPSERT_STOP_AREA = gql`
   mutation UpsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
@@ -68,6 +69,7 @@ const mapFormStateToInput = ({
 
 export const useUpsertStopArea = () => {
   const { t } = useTranslation();
+  const tryHandleApolloError = useStopAreaDetailsApolloErrorHandler();
   const [upsertStopAreaMutation] = useUpsertStopAreaMutation();
 
   /**
@@ -94,7 +96,13 @@ export const useUpsertStopArea = () => {
   );
 
   const defaultErrorHandler = useCallback(
-    (error: unknown) => {
+    (error: unknown, details?: StopAreaFormState) => {
+      if (error instanceof ApolloError) {
+        const isKnowError = tryHandleApolloError(error, details);
+        if (isKnowError) {
+          return;
+        }
+      }
       if (error instanceof Error) {
         showDangerToast(
           `${t('errors.saveFailed')}, ${error}, ${error.message}`,
@@ -103,7 +111,7 @@ export const useUpsertStopArea = () => {
         showDangerToast(`${t('errors.saveFailed')}, ${error}`);
       }
     },
-    [t],
+    [t, tryHandleApolloError],
   );
 
   return {

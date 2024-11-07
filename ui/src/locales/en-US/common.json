@@ -154,6 +154,10 @@
         "title": "Removing stop from the stop area",
         "body": "The Stop will not be deleted, but it will no longer be associated with the stop area."
       }
+    },
+    "errors": {
+      "groupOfStopPlacesUniqueName": "Stop area should have unique label but {{label}} is already in use!",
+      "groupOfStopPlacesUniqueDescription": "Stop area should have unique name but {{name}} is already in use!"
     }
   },
   "stopPlaceTypes": {
