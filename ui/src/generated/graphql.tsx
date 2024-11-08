@@ -10901,9 +10901,11 @@ export enum StopRegistryPedestrianCrossingRampType {
 
 export type StopRegistryPoster = {
   __typename?: 'stop_registry_poster';
+  id?: Maybe<Scalars['String']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   lines?: Maybe<Scalars['String']['output']>;
   posterSize?: Maybe<StopRegistryPosterPlaceSize>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryPosterInput = {
@@ -41151,6 +41153,7 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
+  quay_public_code?: Maybe<Scalars['String']['output']>;
   rail_submode?: Maybe<Scalars['String']['output']>;
   scheduled_stop_point_instance?: Maybe<ServicePatternScheduledStopPoint>;
   short_name_lang?: Maybe<Scalars['String']['output']>;
@@ -41184,6 +41187,7 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   /** An aggregate relationship */
   stop_place_tariff_zones_aggregate: StopsDatabaseStopPlaceTariffZonesAggregate;
   stop_place_type?: Maybe<Scalars['String']['output']>;
+  street_address?: Maybe<Scalars['String']['output']>;
   telecabin_submode?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
@@ -41474,6 +41478,7 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   private_code_type?: InputMaybe<StringComparisonExp>;
   private_code_value?: InputMaybe<StringComparisonExp>;
   public_code?: InputMaybe<StringComparisonExp>;
+  quay_public_code?: InputMaybe<StringComparisonExp>;
   rail_submode?: InputMaybe<StringComparisonExp>;
   short_name_lang?: InputMaybe<StringComparisonExp>;
   short_name_value?: InputMaybe<StringComparisonExp>;
@@ -41492,6 +41497,7 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   stop_place_tariff_zones?: InputMaybe<StopsDatabaseStopPlaceTariffZonesBoolExp>;
   stop_place_tariff_zones_aggregate?: InputMaybe<StopPlaceTariffZonesAggregateBoolExp>;
   stop_place_type?: InputMaybe<StringComparisonExp>;
+  street_address?: InputMaybe<StringComparisonExp>;
   telecabin_submode?: InputMaybe<StringComparisonExp>;
   to_date?: InputMaybe<TimestampComparisonExp>;
   topographic_place_id?: InputMaybe<BigintComparisonExp>;
@@ -41535,6 +41541,7 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   private_code_type?: InputMaybe<Scalars['String']['input']>;
   private_code_value?: InputMaybe<Scalars['String']['input']>;
   public_code?: InputMaybe<Scalars['String']['input']>;
+  quay_public_code?: InputMaybe<Scalars['String']['input']>;
   rail_submode?: InputMaybe<Scalars['String']['input']>;
   short_name_lang?: InputMaybe<Scalars['String']['input']>;
   short_name_value?: InputMaybe<Scalars['String']['input']>;
@@ -41546,6 +41553,7 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   stop_place_quays?: InputMaybe<StopsDatabaseStopPlaceQuaysArrRelInsertInput>;
   stop_place_tariff_zones?: InputMaybe<StopsDatabaseStopPlaceTariffZonesArrRelInsertInput>;
   stop_place_type?: InputMaybe<Scalars['String']['input']>;
+  street_address?: InputMaybe<Scalars['String']['input']>;
   telecabin_submode?: InputMaybe<Scalars['String']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
   topographic_place_id?: InputMaybe<Scalars['bigint']['input']>;
@@ -41585,10 +41593,12 @@ export type StopsDatabaseStopPlaceNewestVersionMaxFields = {
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
+  quay_public_code?: Maybe<Scalars['String']['output']>;
   rail_submode?: Maybe<Scalars['String']['output']>;
   short_name_lang?: Maybe<Scalars['String']['output']>;
   short_name_value?: Maybe<Scalars['String']['output']>;
   stop_place_type?: Maybe<Scalars['String']['output']>;
+  street_address?: Maybe<Scalars['String']['output']>;
   telecabin_submode?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
@@ -41628,10 +41638,12 @@ export type StopsDatabaseStopPlaceNewestVersionMinFields = {
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
+  quay_public_code?: Maybe<Scalars['String']['output']>;
   rail_submode?: Maybe<Scalars['String']['output']>;
   short_name_lang?: Maybe<Scalars['String']['output']>;
   short_name_value?: Maybe<Scalars['String']['output']>;
   stop_place_type?: Maybe<Scalars['String']['output']>;
+  street_address?: Maybe<Scalars['String']['output']>;
   telecabin_submode?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
@@ -41680,6 +41692,7 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   private_code_type?: InputMaybe<OrderBy>;
   private_code_value?: InputMaybe<OrderBy>;
   public_code?: InputMaybe<OrderBy>;
+  quay_public_code?: InputMaybe<OrderBy>;
   rail_submode?: InputMaybe<OrderBy>;
   short_name_lang?: InputMaybe<OrderBy>;
   short_name_value?: InputMaybe<OrderBy>;
@@ -41691,6 +41704,7 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   stop_place_quays_aggregate?: InputMaybe<StopsDatabaseStopPlaceQuaysAggregateOrderBy>;
   stop_place_tariff_zones_aggregate?: InputMaybe<StopsDatabaseStopPlaceTariffZonesAggregateOrderBy>;
   stop_place_type?: InputMaybe<OrderBy>;
+  street_address?: InputMaybe<OrderBy>;
   telecabin_submode?: InputMaybe<OrderBy>;
   to_date?: InputMaybe<OrderBy>;
   topographic_place_id?: InputMaybe<OrderBy>;
@@ -41763,6 +41777,8 @@ export enum StopsDatabaseStopPlaceNewestVersionSelectColumn {
   /** column name */
   PublicCode = 'public_code',
   /** column name */
+  QuayPublicCode = 'quay_public_code',
+  /** column name */
   RailSubmode = 'rail_submode',
   /** column name */
   ShortNameLang = 'short_name_lang',
@@ -41770,6 +41786,8 @@ export enum StopsDatabaseStopPlaceNewestVersionSelectColumn {
   ShortNameValue = 'short_name_value',
   /** column name */
   StopPlaceType = 'stop_place_type',
+  /** column name */
+  StreetAddress = 'street_address',
   /** column name */
   TelecabinSubmode = 'telecabin_submode',
   /** column name */
@@ -41865,10 +41883,12 @@ export type StopsDatabaseStopPlaceNewestVersionStreamCursorValueInput = {
   private_code_type?: InputMaybe<Scalars['String']['input']>;
   private_code_value?: InputMaybe<Scalars['String']['input']>;
   public_code?: InputMaybe<Scalars['String']['input']>;
+  quay_public_code?: InputMaybe<Scalars['String']['input']>;
   rail_submode?: InputMaybe<Scalars['String']['input']>;
   short_name_lang?: InputMaybe<Scalars['String']['input']>;
   short_name_value?: InputMaybe<Scalars['String']['input']>;
   stop_place_type?: InputMaybe<Scalars['String']['input']>;
+  street_address?: InputMaybe<Scalars['String']['input']>;
   telecabin_submode?: InputMaybe<Scalars['String']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
   topographic_place_id?: InputMaybe<Scalars['bigint']['input']>;
