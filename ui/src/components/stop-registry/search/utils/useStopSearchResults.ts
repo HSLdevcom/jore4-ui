@@ -2,19 +2,13 @@ import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 import {
   OrderBy,
+  StopsDatabaseStopPlaceNewestVersionBoolExp,
   StopsDatabaseStopPlaceNewestVersionOrderBy,
   useSearchStopsQuery,
 } from '../../../../generated/graphql';
 import { PagingInfo, SortOrder } from '../../../../types';
-import {
-  SortStopsBy,
-  SortingInfo,
-  StopSearchFilters,
-  StopSearchRow,
-  hasMeaningfulFilters,
-} from '../types';
-import { mapQueryResultToStopSearchRows } from '../utils';
-import { buildSearchStopsGqlQueryVariables } from './filtersToQueryVariables';
+import { SortStopsBy, SortingInfo, StopSearchRow } from '../types';
+import { mapQueryResultToStopSearchRows } from './resultMappers';
 
 const GQL_STOP_TABLE_ROW = gql`
   fragment stop_table_row on service_pattern_scheduled_stop_point {
@@ -51,14 +45,14 @@ const GQL_STOP_TABLE_ROW_STOP_PLACE = gql`
 
 const GQL_SEARCH_STOPS = gql`
   query SearchStops(
-    $stopFilter: stops_database_stop_place_newest_version_bool_exp
+    $where: stops_database_stop_place_newest_version_bool_exp
     $orderBy: stops_database_stop_place_newest_version_order_by!
     $offset: Int!
     $limit: Int!
   ) {
     stops_database {
       stops: stops_database_stop_place_newest_version(
-        where: $stopFilter
+        where: $where
         order_by: [$orderBy]
         offset: $offset
         limit: $limit
@@ -67,7 +61,7 @@ const GQL_SEARCH_STOPS = gql`
       }
 
       resultCount: stops_database_stop_place_newest_version_aggregate(
-        where: $stopFilter
+        where: $where
       ) {
         aggregate {
           count
@@ -122,19 +116,23 @@ function pagingInfoToLimitAndOffset({
   };
 }
 
-export const useStopSearchResults = (
-  filters: StopSearchFilters,
-  sortingInfo: SortingInfo,
-  pagingInfo: PagingInfo,
-) => {
-  const stopFilter = buildSearchStopsGqlQueryVariables(filters);
-  const orderBy = getOrderBy(sortingInfo);
+type UseStopSearchResultsParams = {
+  readonly pagingInfo: PagingInfo;
+  readonly skip: boolean;
+  readonly sortingInfo: SortingInfo;
+  readonly where: StopsDatabaseStopPlaceNewestVersionBoolExp;
+};
 
-  const skip = !hasMeaningfulFilters(filters);
+export const useStopSearchResults = ({
+  pagingInfo,
+  skip,
+  sortingInfo,
+  where,
+}: UseStopSearchResultsParams) => {
   const { data, ...rest } = useSearchStopsQuery({
     variables: {
-      stopFilter,
-      orderBy,
+      where,
+      orderBy: getOrderBy(sortingInfo),
       ...pagingInfoToLimitAndOffset(pagingInfo),
     },
     skip,
