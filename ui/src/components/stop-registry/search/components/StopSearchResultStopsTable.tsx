@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { StopTableRow } from '../StopTableRow';
 import { LocatorActionButton } from '../StopTableRow/ActionButtons/LocatorActionButton';
 import { OpenDetailsPage } from '../StopTableRow/MenuItems/OpenDetailsPage';
@@ -9,16 +10,17 @@ const testIds = {
   table: 'StopSearchByStopResultList::table',
 };
 
-type StopSearchByStopResultListProps = {
+type StopSearchResultStopsTableProps = {
+  readonly className?: string;
   readonly stops: ReadonlyArray<StopSearchRow>;
 };
 
-export const StopSearchByStopResultList: FC<
-  StopSearchByStopResultListProps
-> = ({ stops }) => {
+export const StopSearchResultStopsTable: FC<
+  StopSearchResultStopsTableProps
+> = ({ className, stops }) => {
   return (
     <table
-      className="h-1 w-full border-x border-x-light-grey"
+      className={twMerge('h-1 w-full border-x border-x-light-grey', className)}
       data-testid={testIds.table}
     >
       <tbody>

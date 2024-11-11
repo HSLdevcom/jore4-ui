@@ -1,13 +1,16 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../layoutComponents';
 import { PagingInfo } from '../../../../types';
 import { Pagination } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
+import {
+  LoadingStopsErrorRow,
+  StopSearchResultStopsTable,
+} from '../components';
 import { SortingInfo, StopSearchFilters } from '../types';
 import { CountAndSortingRow } from './CountAndSortingRow';
-import { StopSearchByStopResultList } from './StopSearchByStopResultList';
-import { useStopSearchResults } from './useStopSearchResults';
+import { useStopSearchByStopResults } from './useStopSearchByStopResults';
 
 const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopSearchResults',
@@ -30,11 +33,8 @@ export const StopSearchByStopResults: FC<StopSearchByStopResultsProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { stops, loading, resultCount } = useStopSearchResults(
-    filters,
-    sortingInfo,
-    pagingInfo,
-  );
+  const { stops, loading, resultCount, error, refetch } =
+    useStopSearchByStopResults(filters, sortingInfo, pagingInfo);
 
   return (
     <LoadingWrapper
@@ -49,7 +49,12 @@ export const StopSearchByStopResults: FC<StopSearchByStopResultsProps> = ({
         setSortingInfo={setSortingInfo}
         sortingInfo={sortingInfo}
       />
-      <StopSearchByStopResultList stops={stops} />
+      {error ? (
+        <LoadingStopsErrorRow error={error} refetch={refetch} />
+      ) : (
+        <StopSearchResultStopsTable stops={stops} />
+      )}
+
       <Visible visible={!!resultCount}>
         <div className="grid grid-cols-4">
           <Pagination
