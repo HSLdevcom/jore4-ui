@@ -11,7 +11,9 @@ import {
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
+  Pagination,
   SearchForStopAreas,
+  SortByButton,
   StopGroupSelector,
   StopSearchBar,
   StopSearchByLine,
@@ -30,6 +32,8 @@ describe('Stop search', () => {
   const stopSearchByLine = new StopSearchByLine();
   const stopGroupSelector = new StopGroupSelector();
   const searchForStopAreas = new SearchForStopAreas();
+  const sortByButton = new SortByButton();
+  const pagination = new Pagination();
 
   let dbResources: SupportedResources;
 
@@ -60,15 +64,21 @@ describe('Stop search', () => {
     );
   });
 
-  beforeEach(() => {
+  function setupTestsAndNavigateToPage(qs: Record<string, unknown>) {
     cy.setupTests();
     cy.mockLogin();
 
-    cy.visit('/stop-registry');
+    cy.visit({ url: '/stop-registry', qs });
     stopSearchBar.getSearchInput().clear();
-  });
+  }
+
+  function init() {
+    setupTestsAndNavigateToPage({});
+  }
 
   describe('by label', () => {
+    beforeEach(init);
+
     it(
       'should be able to search with an exact stop label',
       { tags: Tag.StopRegistry },
@@ -122,6 +132,8 @@ describe('Stop search', () => {
   });
 
   describe('by ELY number', () => {
+    beforeEach(init);
+
     it(
       'should be able to search with an exact ELY number',
       { tags: Tag.StopRegistry },
@@ -179,6 +191,8 @@ describe('Stop search', () => {
   });
 
   describe('by address', () => {
+    beforeEach(init);
+
     it(
       'should be able to search with an exact address',
       { tags: Tag.StopRegistry },
@@ -235,6 +249,8 @@ describe('Stop search', () => {
   });
 
   describe('Search criteria', () => {
+    beforeEach(init);
+
     it(
       'Should trigger search when the search criteria is changed and the search input field contains text',
       { tags: Tag.StopRegistry },
@@ -274,6 +290,8 @@ describe('Stop search', () => {
   });
 
   describe('by municipality', () => {
+    beforeEach(init);
+
     it(
       'Should search by all municipalities by default',
       { tags: Tag.StopRegistry },
@@ -309,6 +327,8 @@ describe('Stop search', () => {
   });
 
   describe('by name variants', () => {
+    beforeEach(init);
+
     it(
       'should be able to search with an exact name',
       { tags: Tag.StopRegistry },
@@ -375,6 +395,8 @@ describe('Stop search', () => {
   });
 
   describe('by line label', () => {
+    beforeEach(init);
+
     const SHOW_ALL_BY_DEFAULT_MAX = 20;
 
     function getUuid(index: number) {
@@ -514,7 +536,7 @@ describe('Stop search', () => {
     >;
 
     function assertRouteInfo(id: string, info: RouteInfoForAssert) {
-      stopSearchByLine.getRouteContainer(id).within(() => {
+      stopSearchByLine.getRouteInfoContainer(id).within(() => {
         stopSearchByLine.getRouteLabel().shouldHaveText(info.label);
 
         stopSearchByLine
@@ -599,6 +621,8 @@ describe('Stop search', () => {
   });
 
   describe('for stop areas', () => {
+    beforeEach(init);
+
     it('should find all by *', () => {
       stopSearchBar.searchForDropdown.openSearchForDropdown();
       stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
@@ -639,6 +663,117 @@ describe('Stop search', () => {
         .and('contain', '1AURLA')
         .and('contain', 'Kalevankatu 32')
         .and('contain', '20.3.2020-');
+    });
+  });
+
+  describe('Sorting & paging', () => {
+    beforeEach(() => {
+      setupTestsAndNavigateToPage({ pageSize: 5 });
+    });
+
+    function assertResultOrder(expectedOrder: ReadonlyArray<string>) {
+      expectedOrder.forEach((label, index) => {
+        stopSearchResultsPage
+          .getResultRows()
+          .eq(index)
+          .should('contain', label);
+      });
+    }
+
+    it('should sort on basic stop search', () => {
+      stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      // Label ascending
+      sortByButton.assertSorting('label', 'asc');
+      assertResultOrder(['E2E001', 'E2E002', 'E2E003', 'E2E004', 'E2E005']);
+
+      // Label descending
+      sortByButton.getButton('label').click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      sortByButton.assertSorting('label', 'desc');
+      assertResultOrder(['E2E009', 'E2E008', 'E2E007', 'E2E006', 'E2E005']);
+
+      // Name descending
+      sortByButton.getButton('name').click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      sortByButton.assertSorting('name', 'desc');
+      assertResultOrder(['E2E005', 'E2E003', 'E2E006', 'E2E007', 'E2E002']);
+
+      // Name ascending
+      sortByButton.getButton('name').click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      sortByButton.assertSorting('name', 'asc');
+      assertResultOrder(['E2E004', 'E2E001', 'E2E009', 'E2E002', 'E2E008']);
+
+      // Address ascending
+      sortByButton.getButton('address').click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      sortByButton.assertSorting('address', 'asc');
+      assertResultOrder(['E2E004', 'E2E001', 'E2E009', 'E2E002', 'E2E008']);
+
+      // Address descending
+      sortByButton.getButton('address').click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      sortByButton.assertSorting('address', 'desc');
+      assertResultOrder(['E2E005', 'E2E003', 'E2E006', 'E2E007', 'E2E002']);
+    });
+
+    it('should page on basic stop search', () => {
+      stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      // Label ascending
+      sortByButton.assertSorting('label', 'asc');
+      assertResultOrder(['E2E001', 'E2E002', 'E2E003', 'E2E004', 'E2E005']);
+
+      pagination.getNextPageButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      sortByButton.assertSorting('label', 'asc');
+      assertResultOrder(['E2E006', 'E2E007', 'E2E008', 'E2E009']);
+    });
+
+    it('should sort on stop search by line', () => {
+      stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+      stopSearchBar.getSearchInput().type(`*{enter}`);
+
+      sortByButton.assertSorting('sequenceNumber', 'groupOnly');
+      stopSearchByLine
+        .getRouteContainer('994a7d79-4991-423b-9c1a-0ca621a6d9ed')
+        .within(() => {
+          assertResultOrder(['E2E001', 'E2E002', 'E2E003', 'E2E004', 'E2E005']);
+        });
+
+      // Label ascending
+      sortByButton.getButton('label').click();
+      sortByButton.assertSorting('label', 'asc');
+      assertResultOrder(['E2E001', 'E2E002', 'E2E003', 'E2E004', 'E2E005']);
+
+      // Label descending
+      sortByButton.getButton('label').click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      sortByButton.assertSorting('label', 'desc');
+      assertResultOrder(['E2E009', 'E2E008', 'E2E007', 'E2E006', 'E2E005']);
+    });
+
+    it('should sort on search for stop areas', () => {
+      stopSearchBar.searchForDropdown.openSearchForDropdown();
+      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+      stopSearchBar.getSearchInput().type(`*{enter}`);
+
+      sortByButton.assertSorting('byStopArea', 'groupOnly');
+      assertResultOrder(['E2E001', 'E2E009']);
+
+      // Label ascending
+      sortByButton.getButton('label').click();
+      sortByButton.assertSorting('label', 'asc');
+      assertResultOrder(['E2E001', 'E2E003', 'E2E006', 'E2E009']);
+
+      // Label descending
+      sortByButton.getButton('label').click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      sortByButton.assertSorting('label', 'desc');
+      assertResultOrder(['E2E009', 'E2E006', 'E2E003', 'E2E001']);
     });
   });
 });

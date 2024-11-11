@@ -18,6 +18,7 @@ export * from './MapModal';
 export * from './MapObservationDateFiltersOverlay';
 export * from './Navbar';
 export * from './ObservationPeriodForm';
+export * from './Pagination';
 export * from './PreviewTimetablesPage';
 export * from './RouteEditor';
 export * from './RoutePropertiesForm';

@@ -46,8 +46,8 @@ describe('Pagination', () => {
       />,
     );
 
-    expect(screen.getByTestId('prevPageButtonIcon')).toBeDisabled();
-    expect(screen.getByTestId('nextPageButtonIcon')).toBeEnabled();
+    expect(screen.getByTestId('Pagination::page::previous')).toBeDisabled();
+    expect(screen.getByTestId('Pagination::page::next')).toBeEnabled();
   });
 
   test('next button should be disabled on last page', () => {
@@ -59,8 +59,8 @@ describe('Pagination', () => {
       />,
     );
 
-    expect(screen.getByTestId('prevPageButtonIcon')).toBeEnabled();
-    expect(screen.getByTestId('nextPageButtonIcon')).toBeDisabled();
+    expect(screen.getByTestId('Pagination::page::previous')).toBeEnabled();
+    expect(screen.getByTestId('Pagination::page::next')).toBeDisabled();
   });
 
   test('prev and next button should be disabled if only one page', () => {
@@ -72,8 +72,8 @@ describe('Pagination', () => {
       />,
     );
 
-    expect(screen.getByTestId('prevPageButtonIcon')).toBeDisabled();
-    expect(screen.getByTestId('nextPageButtonIcon')).toBeDisabled();
+    expect(screen.getByTestId('Pagination::page::previous')).toBeDisabled();
+    expect(screen.getByTestId('Pagination::page::next')).toBeDisabled();
   });
 
   test('current page should be SPAN element', () => {
@@ -190,7 +190,7 @@ describe('Pagination', () => {
     );
 
     // Go to next (2)
-    act(() => screen.getByTestId('nextPageButtonIcon').click());
+    act(() => screen.getByTestId('Pagination::page::next').click());
     expect(screen.getByRole('listitem', { current: 'page' })).toHaveTextContent(
       '02',
     );
@@ -202,7 +202,7 @@ describe('Pagination', () => {
     );
 
     // Go to previous (9)
-    act(() => screen.getByTestId('prevPageButtonIcon').click());
+    act(() => screen.getByTestId('Pagination::page::previous').click());
     expect(screen.getByRole('listitem', { current: 'page' })).toHaveTextContent(
       '09',
     );

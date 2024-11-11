@@ -8,6 +8,10 @@ export class StopSearchByLine {
   }
 
   getRouteContainer(id: string) {
+    return cy.getByTestId(`StopSearchByLine::route::${id}`);
+  }
+
+  getRouteInfoContainer(id: string) {
     return cy.getByTestId(`StopSearchByLine::route::infoContainer::${id}`);
   }
 
