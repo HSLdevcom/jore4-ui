@@ -1,46 +1,38 @@
-import { FC, useEffect, useState } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PagingInfo } from '../../../../types';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
-import { StopSearchFilters } from '../types';
-import { StopAreaSelector } from './StopAreaSelector';
-import { StopAreaStopsTable } from './StopAreaStopsTable';
+import { SortStopsBy, SortingInfo, StopSearchFilters } from '../types';
+import { StopAreaNongroupedStopsResults } from './StopAreaNongroupedStopsResults';
+import { StopAreaSearchGroupedStopsResults } from './StopAreaSearchGroupedStopsResults';
 import { useFindStopAreas } from './useFindStopAreas';
 
 const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopAreaSearchResults',
 };
 
-type StopAreaSearchResultsProps = { readonly filters: StopSearchFilters };
+type StopAreaSearchResultsProps = {
+  readonly filters: StopSearchFilters;
+  readonly pagingInfo: PagingInfo;
+  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
+  readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
+  readonly sortingInfo: SortingInfo;
+};
 
 export const StopAreaSearchResults: FC<StopAreaSearchResultsProps> = ({
   filters,
+  pagingInfo,
+  setPagingInfo,
+  setSortingInfo,
+  sortingInfo,
 }) => {
   const { t } = useTranslation();
 
   const { stopAreas, loading } = useFindStopAreas(filters);
 
-  const [activeAreaId, setActiveAreaId] = useState<string | null>(
-    stopAreas.at(0)?.id.toString(10) ?? null,
-  );
-
-  const areaToShow = stopAreas.find(
-    (area) => area.id.toString(10) === activeAreaId,
-  );
-
-  // If stop area list changes, check to see if the selected area is still within
-  // the results, if not, then select the 1st area from the results as active,
-  // or null in case there are no results.
-  useEffect(() => {
-    if (
-      areaToShow &&
-      stopAreas.some((area) => area.id.toString(10) === areaToShow.id)
-    ) {
-      return;
-    }
-
-    setActiveAreaId(stopAreas.at(0)?.id.toString(10) ?? null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stopAreas]);
+  const { sortBy } = sortingInfo;
+  const groupByArea =
+    sortBy === SortStopsBy.BY_STOP_AREA || sortBy === SortStopsBy.DEFAULT;
 
   return (
     <LoadingWrapper
@@ -49,13 +41,22 @@ export const StopAreaSearchResults: FC<StopAreaSearchResultsProps> = ({
       loading={loading}
       testId={testIds.loadingSearchResults}
     >
-      <StopAreaSelector
-        activeStopId={activeAreaId}
-        className="mb-6"
-        stopAreas={stopAreas}
-        setActiveStopId={setActiveAreaId}
-      />
-      {areaToShow && <StopAreaStopsTable stopArea={areaToShow} />}
+      {groupByArea ? (
+        <StopAreaSearchGroupedStopsResults
+          setPagingInfo={setPagingInfo}
+          setSortingInfo={setSortingInfo}
+          sortingInfo={sortingInfo}
+          stopAreas={stopAreas}
+        />
+      ) : (
+        <StopAreaNongroupedStopsResults
+          stopAreas={stopAreas}
+          sortingInfo={sortingInfo}
+          setSortingInfo={setSortingInfo}
+          pagingInfo={pagingInfo}
+          setPagingInfo={setPagingInfo}
+        />
+      )}
     </LoadingWrapper>
   );
 };
