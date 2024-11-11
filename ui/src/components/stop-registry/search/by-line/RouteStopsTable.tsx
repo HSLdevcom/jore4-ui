@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Visible } from '../../../../layoutComponents';
-import { LoadingStopsErrorRow, LoadingStopsRow } from '../components';
-import { StopTableRow } from '../StopTableRow';
-import { LocatorActionButton } from '../StopTableRow/ActionButtons/LocatorActionButton';
-import { OpenDetailsPage } from '../StopTableRow/MenuItems/OpenDetailsPage';
-import { ShowOnMap } from '../StopTableRow/MenuItems/ShowOnMap';
+import {
+  LoadingStopsErrorRow,
+  LoadingStopsRow,
+  StopSearchResultStopsTable,
+} from '../components';
 import { RouteInfoRow } from './RouteInfoRow';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 import { useGetStopResultsByRouteId } from './useGetStopResultsByRouteId';
@@ -41,21 +41,7 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
       </Visible>
 
       <Visible visible={!lineTransitionInProgress && stops.length > 0}>
-        <table className="border-x border-t border-x-light-grey border-t-light-grey">
-          <tbody>
-            {stops.map((stop) => (
-              <StopTableRow
-                key={stop.scheduled_stop_point_id}
-                actionButtons={<LocatorActionButton stop={stop} />}
-                menuItems={[
-                  <ShowOnMap key="showOnMap" stop={stop} />,
-                  <OpenDetailsPage key="openDetails" stop={stop} />,
-                ]}
-                stop={stop}
-              />
-            ))}
-          </tbody>
-        </table>
+        <StopSearchResultStopsTable stops={stops} />
       </Visible>
     </div>
   );

@@ -1,45 +1,38 @@
-import { FC, useEffect, useState } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PagingInfo } from '../../../../types';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
-import { StopSearchFilters } from '../types';
-import { ActiveLineHeader } from './ActiveLineHeader';
-import { LineRoutesListing } from './LineRoutesListing';
-import { LineSelector } from './LineSelector';
+import { SortStopsBy, SortingInfo, StopSearchFilters } from '../types';
+import { StopsByLineNongroupedStopsResults } from './StopsByLineNongroupedStopsResults';
+import { StopsByLineSearchGroupedStopsResults } from './StopsByLineSearchGroupedStopsResults';
 import { useFindLinesByStopSearch } from './useFindLinesByStopSearch';
 
 const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopByLinesSearchResults',
 };
 
-type StopsByLineSearchResultsProps = { readonly filters: StopSearchFilters };
+type StopsByLineSearchResultsProps = {
+  readonly filters: StopSearchFilters;
+  readonly pagingInfo: PagingInfo;
+  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
+  readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
+  readonly sortingInfo: SortingInfo;
+};
 
 export const StopsByLineSearchResults: FC<StopsByLineSearchResultsProps> = ({
   filters,
+  pagingInfo,
+  setPagingInfo,
+  setSortingInfo,
+  sortingInfo,
 }) => {
   const { t } = useTranslation();
 
   const { lines, loading } = useFindLinesByStopSearch(filters);
 
-  const [activeLineId, setActiveLineId] = useState<UUID | null>(
-    lines.at(0)?.line_id ?? null,
-  );
-
-  const lineToShow = lines.find((line) => line.line_id === activeLineId);
-
-  // If lines list changes, check to see if the selected line is still within
-  // the results, if not, then select the 1st line from the results as active,
-  // or null in case there are no results.
-  useEffect(() => {
-    if (
-      lineToShow &&
-      lines.some((line) => line.line_id === lineToShow.line_id)
-    ) {
-      return;
-    }
-
-    setActiveLineId(lines.at(0)?.line_id ?? null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lines]);
+  const { sortBy } = sortingInfo;
+  const groupByLine =
+    sortBy === SortStopsBy.SEQUENCE_NUMBER || sortBy === SortStopsBy.DEFAULT;
 
   return (
     <LoadingWrapper
@@ -48,14 +41,22 @@ export const StopsByLineSearchResults: FC<StopsByLineSearchResultsProps> = ({
       loading={loading}
       testId={testIds.loadingSearchResults}
     >
-      <LineSelector
-        activeLineId={activeLineId}
-        className="mb-6"
-        lines={lines}
-        setActiveLineId={setActiveLineId}
-      />
-      {lineToShow && <ActiveLineHeader line={lineToShow} />}
-      {lineToShow && <LineRoutesListing line={lineToShow} />}
+      {groupByLine ? (
+        <StopsByLineSearchGroupedStopsResults
+          lines={lines}
+          setPagingInfo={setPagingInfo}
+          setSortingInfo={setSortingInfo}
+          sortingInfo={sortingInfo}
+        />
+      ) : (
+        <StopsByLineNongroupedStopsResults
+          lines={lines}
+          pagingInfo={pagingInfo}
+          setPagingInfo={setPagingInfo}
+          setSortingInfo={setSortingInfo}
+          sortingInfo={sortingInfo}
+        />
+      )}
     </LoadingWrapper>
   );
 };
