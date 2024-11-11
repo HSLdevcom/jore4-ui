@@ -38,7 +38,7 @@ export const LoadingWrapper: FC<Props> = ({
             size={size}
             speedMultiplier={speedMultiplier}
           />
-          {loadingText && <span>{loadingText}</span>}
+          {loadingText && <span className="mt-4">{loadingText}</span>}
         </div>
       </div>
     );
