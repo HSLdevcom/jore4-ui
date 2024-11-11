@@ -66955,6 +66955,19 @@ export type GetStopsByRouteIdQuery = {
   }>;
 };
 
+export type ResolveStopPlaceNetextIdsByLineIdsQueryVariables = Exact<{
+  routeIds: Array<Scalars['uuid']['input']> | Scalars['uuid']['input'];
+}>;
+
+export type ResolveStopPlaceNetextIdsByLineIdsQuery = {
+  __typename?: 'query_root';
+  stopPoints: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    stop_place_ref?: string | null;
+  }>;
+};
+
 export type FindStopAreasQueryVariables = Exact<{
   query: Scalars['String']['input'];
   validOn: Scalars['timestamp']['input'];
@@ -74671,6 +74684,93 @@ export type GetStopsByRouteIdSuspenseQueryHookResult = ReturnType<
 export type GetStopsByRouteIdQueryResult = Apollo.QueryResult<
   GetStopsByRouteIdQuery,
   GetStopsByRouteIdQueryVariables
+>;
+export const ResolveStopPlaceNetextIdsByLineIdsDocument = gql`
+  query ResolveStopPlaceNetextIdsByLineIds($routeIds: [uuid!]!) {
+    stopPoints: service_pattern_scheduled_stop_point(
+      where: {
+        scheduled_stop_point_in_journey_patterns: {
+          journey_pattern: { on_route_id: { _in: $routeIds } }
+        }
+        stop_place_ref: { _is_null: false }
+      }
+    ) {
+      scheduled_stop_point_id
+      stop_place_ref
+    }
+  }
+`;
+
+/**
+ * __useResolveStopPlaceNetextIdsByLineIdsQuery__
+ *
+ * To run a query within a React component, call `useResolveStopPlaceNetextIdsByLineIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveStopPlaceNetextIdsByLineIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveStopPlaceNetextIdsByLineIdsQuery({
+ *   variables: {
+ *      routeIds: // value for 'routeIds'
+ *   },
+ * });
+ */
+export function useResolveStopPlaceNetextIdsByLineIdsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ResolveStopPlaceNetextIdsByLineIdsQuery,
+    ResolveStopPlaceNetextIdsByLineIdsQueryVariables
+  > &
+    (
+      | {
+          variables: ResolveStopPlaceNetextIdsByLineIdsQueryVariables;
+          skip?: boolean;
+        }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ResolveStopPlaceNetextIdsByLineIdsQuery,
+    ResolveStopPlaceNetextIdsByLineIdsQueryVariables
+  >(ResolveStopPlaceNetextIdsByLineIdsDocument, options);
+}
+export function useResolveStopPlaceNetextIdsByLineIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ResolveStopPlaceNetextIdsByLineIdsQuery,
+    ResolveStopPlaceNetextIdsByLineIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ResolveStopPlaceNetextIdsByLineIdsQuery,
+    ResolveStopPlaceNetextIdsByLineIdsQueryVariables
+  >(ResolveStopPlaceNetextIdsByLineIdsDocument, options);
+}
+export function useResolveStopPlaceNetextIdsByLineIdsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveStopPlaceNetextIdsByLineIdsQuery,
+    ResolveStopPlaceNetextIdsByLineIdsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    ResolveStopPlaceNetextIdsByLineIdsQuery,
+    ResolveStopPlaceNetextIdsByLineIdsQueryVariables
+  >(ResolveStopPlaceNetextIdsByLineIdsDocument, options);
+}
+export type ResolveStopPlaceNetextIdsByLineIdsQueryHookResult = ReturnType<
+  typeof useResolveStopPlaceNetextIdsByLineIdsQuery
+>;
+export type ResolveStopPlaceNetextIdsByLineIdsLazyQueryHookResult = ReturnType<
+  typeof useResolveStopPlaceNetextIdsByLineIdsLazyQuery
+>;
+export type ResolveStopPlaceNetextIdsByLineIdsSuspenseQueryHookResult =
+  ReturnType<typeof useResolveStopPlaceNetextIdsByLineIdsSuspenseQuery>;
+export type ResolveStopPlaceNetextIdsByLineIdsQueryResult = Apollo.QueryResult<
+  ResolveStopPlaceNetextIdsByLineIdsQuery,
+  ResolveStopPlaceNetextIdsByLineIdsQueryVariables
 >;
 export const FindStopAreasDocument = gql`
   query findStopAreas($query: String!, $validOn: timestamp!) {

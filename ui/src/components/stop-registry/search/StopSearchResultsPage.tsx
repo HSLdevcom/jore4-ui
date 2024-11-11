@@ -45,7 +45,15 @@ const Results: FC<ResultsProps> = ({
   sortingInfo,
 }) => {
   if (filters.searchBy === SearchBy.Line) {
-    return <StopsByLineSearchResults filters={filters} />;
+    return (
+      <StopsByLineSearchResults
+        filters={filters}
+        pagingInfo={pagingInfo}
+        setPagingInfo={setPagingInfo}
+        setSortingInfo={setSortingInfo}
+        sortingInfo={sortingInfo}
+      />
+    );
   }
 
   if (filters.searchFor === SearchFor.StopAreas) {
