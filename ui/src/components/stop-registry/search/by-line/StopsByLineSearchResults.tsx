@@ -1,8 +1,7 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PagingInfo } from '../../../../types';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
-import { SortStopsBy, SortingInfo, StopSearchFilters } from '../types';
+import { SortStopsBy, StopSearchResultsProps } from '../types';
 import { StopsByLineNongroupedStopsResults } from './StopsByLineNongroupedStopsResults';
 import { StopsByLineSearchGroupedStopsResults } from './StopsByLineSearchGroupedStopsResults';
 import { useFindLinesByStopSearch } from './useFindLinesByStopSearch';
@@ -11,15 +10,7 @@ const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopByLinesSearchResults',
 };
 
-type StopsByLineSearchResultsProps = {
-  readonly filters: StopSearchFilters;
-  readonly pagingInfo: PagingInfo;
-  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
-  readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
-  readonly sortingInfo: SortingInfo;
-};
-
-export const StopsByLineSearchResults: FC<StopsByLineSearchResultsProps> = ({
+export const StopsByLineSearchResults: FC<StopSearchResultsProps> = ({
   filters,
   pagingInfo,
   setPagingInfo,

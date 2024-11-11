@@ -1,11 +1,11 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Link, To, useLocation } from 'react-router-dom';
 import { Container, Row } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
-import { PagingInfo, defaultPagingInfo } from '../../../types';
+import { defaultPagingInfo } from '../../../types';
 import { StopsByLineSearchResults } from './by-line';
 import { StopSearchByStopResults } from './by-stop';
 import { StopSearchBar } from './components';
@@ -13,8 +13,8 @@ import { StopAreaSearchResults } from './for-stop-areas/StopAreaSearchResults';
 import {
   SearchBy,
   SearchFor,
-  SortingInfo,
   StopSearchFilters,
+  StopSearchResultsProps,
   defaultSortingInfo,
 } from './types';
 import { trSearchFor, useStopSearchUrlState } from './utils';
@@ -29,15 +29,7 @@ function useCloseLink(): To {
   return { pathname: Path.stopRegistry, search };
 }
 
-type ResultsProps = {
-  readonly filters: StopSearchFilters;
-  readonly pagingInfo: PagingInfo;
-  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
-  readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
-  readonly sortingInfo: SortingInfo;
-};
-
-const Results: FC<ResultsProps> = ({
+const Results: FC<StopSearchResultsProps> = ({
   filters,
   pagingInfo,
   setPagingInfo,
