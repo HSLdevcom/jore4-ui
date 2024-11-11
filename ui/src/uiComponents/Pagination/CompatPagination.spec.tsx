@@ -25,8 +25,8 @@ describe('Pagination - CompatPagination', () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: { page: 1 } });
     render(<CompatPagination itemsPerPage={2} totalItemsCount={10} />);
 
-    const prevButton = await screen.findByTestId('prevPageButtonIcon');
-    const nextButton = await screen.findByTestId('nextPageButtonIcon');
+    const prevButton = await screen.findByTestId('Pagination::page::previous');
+    const nextButton = await screen.findByTestId('Pagination::page::next');
 
     expect(prevButton).toBeDisabled();
     expect(nextButton).toBeEnabled();
@@ -36,8 +36,8 @@ describe('Pagination - CompatPagination', () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: { page: 5 } });
     render(<CompatPagination itemsPerPage={2} totalItemsCount={10} />);
 
-    const prevButton = await screen.findByTestId('prevPageButtonIcon');
-    const nextButton = await screen.findByTestId('nextPageButtonIcon');
+    const prevButton = await screen.findByTestId('Pagination::page::previous');
+    const nextButton = await screen.findByTestId('Pagination::page::next');
 
     expect(prevButton).toBeEnabled();
     expect(nextButton).toBeDisabled();
@@ -47,8 +47,8 @@ describe('Pagination - CompatPagination', () => {
     urlQueryMock.mockReturnValueOnce({ queryParams: { page: 1 } });
     render(<CompatPagination itemsPerPage={10} totalItemsCount={10} />);
 
-    const prevButton = await screen.findByTestId('prevPageButtonIcon');
-    const nextButton = await screen.findByTestId('nextPageButtonIcon');
+    const prevButton = await screen.findByTestId('Pagination::page::previous');
+    const nextButton = await screen.findByTestId('Pagination::page::next');
 
     expect(prevButton).toBeDisabled();
     expect(nextButton).toBeDisabled();

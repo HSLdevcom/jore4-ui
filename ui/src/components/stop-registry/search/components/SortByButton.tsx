@@ -7,6 +7,10 @@ import { Visible } from '../../../../layoutComponents';
 import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
 import { SortStopsBy, SortingInfo } from '../types';
 
+const testIds = {
+  button: (value: SortStopsBy) => `SortByButton::${value}`,
+};
+
 function trSortStopsBy(t: TFunction, value: SortStopsBy): ReactNode {
   switch (value) {
     case SortStopsBy.ADDRESS:
@@ -105,6 +109,10 @@ export const SortByButton: FC<SortByButtonProps> = ({
       )}
       type="button"
       onClick={onClick}
+      data-testid={testIds.button(sortBy)}
+      data-element-type="SortByButton"
+      data-is-active={isActive}
+      data-sort-direction={groupOnly ? 'groupOnly' : sortOrder}
     >
       <span>{trSortStopsBy(t, sortBy)}</span>
 

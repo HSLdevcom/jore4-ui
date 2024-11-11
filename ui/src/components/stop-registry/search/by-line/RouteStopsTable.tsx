@@ -9,6 +9,10 @@ import { RouteInfoRow } from './RouteInfoRow';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 import { useGetStopResultsByRouteId } from './useGetStopResultsByRouteId';
 
+const testIds = {
+  container: (id: UUID) => `StopSearchByLine::route::${id}`,
+};
+
 type RouteStopsTableProps = {
   readonly className?: string;
   // Enable asynchronous rendering of the result tables on the background.
@@ -27,7 +31,7 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
   );
 
   return (
-    <div className={className}>
+    <div className={className} data-testid={testIds.container(route.route_id)}>
       <RouteInfoRow route={route} />
 
       <Visible

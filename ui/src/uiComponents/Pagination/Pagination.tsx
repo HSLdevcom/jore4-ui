@@ -7,6 +7,12 @@ import { PagingInfo } from '../../types';
 import { IconButton } from '../IconButton';
 import { getDisplayedPageNumberList, getRenderedPageNumber } from './utils';
 
+const testId = {
+  previousPageButton: 'Pagination::page::previous',
+  pageButton: (pageNumber: number) => `Pagination::page::${pageNumber}`,
+  nextPageButton: 'Pagination::page::next',
+};
+
 const DEFAULT_AMOUNT_OF_NEIGHBOURS = 2;
 
 const currentPageClassName =
@@ -40,6 +46,7 @@ const PageButton: FC<PageButtonProps> = ({
       <button
         type="button"
         aria-label={`${t('accessibility:common.goToPage')} ${pageNumber}`}
+        data-testid={testId.pageButton(pageNumber)}
       >
         {getRenderedPageNumber(pageNumber)}
       </button>
@@ -119,7 +126,7 @@ export const Pagination: FC<PaginationProps> = ({
         disabled={onFirstPage}
         tooltip={ariaLabelPrevious}
         onClick={() => setPage(currentPage - 1)}
-        testId="prevPageButtonIcon"
+        testId={testId.previousPageButton}
         className="w-32"
         icon={
           <FaChevronLeft
@@ -190,7 +197,7 @@ export const Pagination: FC<PaginationProps> = ({
         disabled={onLastPage}
         tooltip={ariaLabelNext}
         onClick={() => setPage(currentPage + 1)}
-        testId="nextPageButtonIcon"
+        testId={testId.nextPageButton}
         className="w-32"
         icon={
           <FaChevronRight
