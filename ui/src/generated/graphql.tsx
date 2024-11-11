@@ -74787,6 +74787,7 @@ export const GetStopsByStopAreaIdDocument = gql`
             group_of_stop_places_id: { _eq: $stopAreaId }
           }
         }
+        order_by: [{ quay_public_code: asc }]
       ) {
         ...stop_table_row_stop_place
       }

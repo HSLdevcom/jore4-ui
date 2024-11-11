@@ -49,7 +49,15 @@ const Results: FC<ResultsProps> = ({
   }
 
   if (filters.searchFor === SearchFor.StopAreas) {
-    return <StopAreaSearchResults filters={filters} />;
+    return (
+      <StopAreaSearchResults
+        filters={filters}
+        pagingInfo={pagingInfo}
+        setPagingInfo={setPagingInfo}
+        setSortingInfo={setSortingInfo}
+        sortingInfo={sortingInfo}
+      />
+    );
   }
 
   return (
