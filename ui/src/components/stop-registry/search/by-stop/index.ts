@@ -1,3 +1,2 @@
-export * from './useStopSearchResults';
-export * from './StopSearchByStopResultList';
+export * from './useStopSearchByStopResults';
 export * from './StopSearchByStopResults';
