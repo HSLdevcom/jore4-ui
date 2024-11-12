@@ -55,4 +55,7 @@ export class InfoSpotFormFields {
 
   getPosterLines = () =>
     cy.getByTestId('InfoSpotPosterFormFields::posterLines');
+
+  getDeleteInfoSpotButton = () =>
+    cy.getByTestId('InfoSpotFormFields::deleteInfoSpot');
 }

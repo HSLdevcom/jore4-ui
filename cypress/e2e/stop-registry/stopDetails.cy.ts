@@ -1916,6 +1916,109 @@ describe('Stop details', () => {
         });
       },
     );
+
+    it(
+      'should be able to add and delete info spots',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        infoSpotView.getNthContainer(0).within(() => {
+          stopDetailsPage.infoSpots.getEditButton().click();
+          infoSpotView.getContainers().should('not.exist');
+
+          // Add more infoSpots.
+          infoSpotForm.getInfoSpots().should('have.length', 1);
+          infoSpotForm.getAddNewInfoSpotButton().click();
+          infoSpotForm.getInfoSpots().should('have.length', 2);
+
+          const infoSpot = infoSpotForm.infoSpots;
+          infoSpotForm.getNthInfoSpot(0).within(() => {
+            infoSpot
+              .getDeleteInfoSpotButton()
+              .shouldHaveText('Poista infopaikka');
+            infoSpot.getDeleteInfoSpotButton().click();
+            infoSpot.getDeleteInfoSpotButton().shouldHaveText('Peruuta poisto');
+            infoSpot.getDeleteInfoSpotButton().click();
+            infoSpot
+              .getDeleteInfoSpotButton()
+              .shouldHaveText('Poista infopaikka');
+            infoSpot.getDeleteInfoSpotButton().click();
+            infoSpot.getDeleteInfoSpotButton().shouldHaveText('Peruuta poisto');
+          });
+
+          infoSpotForm.getNthInfoSpot(1).within(() => {
+            infoSpot
+              .getDeleteInfoSpotButton()
+              .shouldHaveText('Poista infopaikka');
+            infoSpot.getDeleteInfoSpotButton().click();
+          });
+        });
+
+        // Submit.
+        stopDetailsPage.infoSpots.getSaveButton().click();
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        infoSpotView.getContainers().shouldBeVisible();
+
+        infoSpotView.getNthContainer(0).within(() => {
+          stopDetailsPage.infoSpots.getTitle().contains('Ei infopaikkoja');
+        });
+
+        infoSpotView.getNthContainer(0).within(() => {
+          stopDetailsPage.infoSpots.getAddNewButton().click();
+          infoSpotView.getContainers().should('not.exist');
+
+          infoSpotForm.getInfoSpots().should('have.length', 1);
+
+          const infoSpot = infoSpotForm.infoSpots;
+          infoSpotForm.getNthInfoSpot(0).within(() => {
+            infoSpot.getLabel().clearAndType('IP123');
+            infoSpot.getPurpose().clearAndType('Dynaaminen tarkoitus');
+            infoSpot.getInfoSpotTypeButton().click();
+            infoSpot.getInfoSpotTypeOptions().contains('Dynaaminen').click();
+            infoSpot.getDisplayTypeButton().click();
+            infoSpot
+              .getDisplayTypeOptions()
+              .contains('Patteri, E-muste')
+              .click();
+            infoSpot.getSpeechPropertyButton().click();
+            infoSpot.getSpeechPropertyOptions().contains('Kyllä').click();
+            infoSpot.getDescription().clearAndType('Dynaamisen kuvaus');
+            infoSpot.getZoneLabel().clearAndType('A');
+            infoSpot.getRailInformation().clearAndType('1');
+            infoSpot.getFloor().clearAndType('3');
+          });
+        });
+
+        // Submit.
+        stopDetailsPage.infoSpots.getSaveButton().click();
+        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        infoSpotView.getContainers().shouldBeVisible();
+
+        infoSpotView.getNthContainer(0).within(() => {
+          stopDetailsPage.infoSpots.getTitle().contains('Infopaikat');
+
+          infoSpotView.getDescription().shouldHaveText('Dynaamisen kuvaus');
+          infoSpotView.getLabel().shouldHaveText('IP123');
+          infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
+          infoSpotView.getPurpose().shouldHaveText('Dynaaminen tarkoitus');
+          infoSpotView.getDisplayType().shouldHaveText('Patteri, E-muste');
+          infoSpotView.getSpeechProperty().shouldHaveText('Kyllä');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getFloor().shouldHaveText('3');
+          infoSpotView.getRailInformation().shouldHaveText('1');
+          infoSpotView.getStops().shouldHaveText('V1562');
+          infoSpotView.getTerminals().shouldHaveText('-');
+          infoSpotView.getZoneLabel().shouldHaveText('A');
+
+          infoSpotView.getBacklight().should('not.exist');
+          infoSpotView.getPosterPlaceSize().should('not.exist');
+          infoSpotView.getMaintenance().should('not.exist');
+          infoSpotView.getPosterSize().should('not.exist');
+          infoSpotView.getPosterLabel().should('not.exist');
+          infoSpotView.getPosterLines().should('not.exist');
+        });
+      },
+    );
   });
 
   // A regression test to ensure that our mutations don't eg. reset any fields they are not supposed to.

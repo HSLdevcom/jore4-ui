@@ -10,4 +10,8 @@ export class InfoSpotsForm {
   getNthInfoSpot(index: number) {
     return this.getInfoSpots().eq(index);
   }
+
+  getAddNewInfoSpotButton() {
+    return cy.getByTestId('InfoSpotsForm::addInfoSpot');
+  }
 }
