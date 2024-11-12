@@ -1,4 +1,5 @@
 import { Priority, RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
+import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
@@ -148,6 +149,156 @@ describe('Route editing', () => {
         .getRouteHeaderRow('901', RouteDirectionEnum.Inbound)
         .should('exist');
     });
+  });
+
+  describe('Should show error messages', () => {
+    before(() => {
+      cy.task<UUID[]>(
+        'getInfrastructureLinkIdsByExternalIds',
+        testInfraLinkExternalIds,
+      ).then((infraLinkIds) => {
+        const stops = buildStopsOnInfraLinks(infraLinkIds);
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+
+        const modifiedDbResources = {
+          ...baseDbResources,
+        };
+
+        modifiedDbResources.lines[0].validity_end =
+          DateTime.fromISO('2032-12-31');
+
+        dbResources = {
+          ...modifiedDbResources,
+          stops,
+          infraLinksAlongRoute,
+        };
+      });
+    });
+
+    beforeEach(() => {
+      cy.task('resetDbs');
+      insertToDbHelper(dbResources);
+
+      editRoutePage = new EditRoutePage();
+      lineDetailsPage = new LineDetailsPage();
+      lineRouteListItem = new LineRouteListItem();
+      toast = new Toast();
+
+      cy.setupTests();
+      cy.mockLogin();
+    });
+
+    function fillTestValuesToForm() {
+      // Edit the route's information
+      editRoutePage.routePropertiesForm.fillRouteProperties({
+        finnishName: 'Edited route name',
+        label: '901E',
+        variant: '8',
+        direction: RouteDirectionEnum.Outbound,
+        origin: {
+          finnishName: 'Edited origin FIN',
+          finnishShortName: 'Edited origin FIN shortName',
+          swedishName: 'Edited origin SWE',
+          swedishShortName: 'Edited origin SWE shortName',
+        },
+        destination: {
+          finnishName: 'Edited destination FIN',
+          finnishShortName: 'Edited destination FIN shortName',
+          swedishName: 'Edited destination SWE',
+          swedishShortName: 'Edited destination SWE shortName',
+        },
+      });
+    }
+
+    function visitPage() {
+      const { routeRow } = lineRouteListItem;
+      const line = baseDbResources.lines.find(
+        (l) => l.line_id === '08d1fa6b-440c-421e-ad4d-0778d65afe60',
+      );
+      const row = baseDbResources.routes.find(
+        (r) => r.route_id === '994a7d79-4991-423b-9c1a-0ca621a6d9ed',
+      );
+      if (!line?.line_id || !row?.label) {
+        throw new Error(
+          'Test configuration error. Line id or route label missing',
+        );
+      }
+      lineDetailsPage.visit(line?.line_id);
+      routeRow
+        .getEditRouteButton(row?.label, RouteDirectionEnum.Outbound)
+        .click();
+      return { line, row };
+    }
+
+    function setValidityPeriodToForm(
+      routeValidityStart: string,
+      routeValidityEnd: string | undefined,
+    ) {
+      editRoutePage.changeValidityForm.validityPeriodForm.setStartDate(
+        routeValidityStart,
+      );
+      if (routeValidityEnd) {
+        editRoutePage.changeValidityForm.validityPeriodForm.setEndDate(
+          routeValidityEnd,
+        );
+      }
+    }
+
+    it('should validate start after end', { tags: Tag.Routes }, () => {
+      const { line } = visitPage();
+      fillTestValuesToForm();
+
+      const endTime = line.validity_end?.minus({ months: 1 });
+      if (!endTime) {
+        throw new Error('Test configuration error. No end time for line');
+      }
+
+      const routeValidityEnd = endTime.toISODate();
+
+      const routeValidityStart = endTime?.plus({ days: 1 })?.toISODate();
+
+      if (!routeValidityStart || !routeValidityEnd) {
+        throw new Error(
+          'Test configuration error. No validity period for line',
+        );
+      }
+
+      setValidityPeriodToForm(routeValidityStart, routeValidityEnd);
+
+      editRoutePage.getSaveRouteButton().click();
+      toast.expectDangerToast(
+        'Reitin voimassaoloaijan alku ei voi olla ennen loppua',
+      );
+    });
+
+    it(
+      'should validate route validity outside line validity',
+      { tags: Tag.Routes },
+      () => {
+        const { line } = visitPage();
+
+        fillTestValuesToForm();
+
+        const routeValidityStart = line.validity_start
+          ?.minus({ days: 1 })
+          ?.toISODate();
+
+        const routeValidityEnd = line.validity_end?.toISODate();
+
+        if (!routeValidityStart || !routeValidityEnd) {
+          throw new Error(
+            'Test configuration error. No validity period for line',
+          );
+        }
+        setValidityPeriodToForm(routeValidityStart, routeValidityEnd);
+
+        editRoutePage.getSaveRouteButton().click();
+
+        toast.expectDangerToast(
+          'Reitin voimassaoloaika ei voi alkaa ennen linjan voimassaoloajan alkamista.',
+        );
+      },
+    );
   });
 
   describe('draft route', () => {
