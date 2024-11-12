@@ -54,6 +54,18 @@ export const useValidateRoute = () => {
     }
   };
 
+  const checkIsRouteValidityStartIsBeforeEnd = (
+    route: ValidityPeriodParams,
+  ) => {
+    if (
+      route.validity_start &&
+      route.validity_end &&
+      route.validity_start > route.validity_end
+    ) {
+      throw new Error(t('routes.validityStartIsAfterEnd'));
+    }
+  };
+
   const validateMetadata = async (routeMetadata: RouteFormState) => {
     // Check route's validity period is inside line's validity period
 
@@ -77,6 +89,10 @@ export const useValidateRoute = () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       line!,
     );
+    checkIsRouteValidityStartIsBeforeEnd({
+      validity_start: routeValidityStart,
+      validity_end: routeValidityEnd,
+    });
   };
 
   return {
@@ -84,5 +100,6 @@ export const useValidateRoute = () => {
     validateJourneyPattern,
     validateMetadata,
     checkIsRouteValidityInsideLineValidity,
+    checkIsRouteValidityStartIsBeforeEnd,
   };
 };
