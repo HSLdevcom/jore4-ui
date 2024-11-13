@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../generated/graphql';
 import {
+  LineFetchError,
   useAppDispatch,
   useAppSelector,
   useGetLineDetails,
@@ -23,7 +24,8 @@ import { ViaModal } from '../via/ViaModal';
 import { ActionsRow } from './ActionsRow';
 import { AdditionalInformation } from './AdditionalInformation';
 import { CreateRouteBox } from './CreateRouteBox';
-import { LineNotValidForDayBox } from './LineNotValidForDayBox';
+import { LineDetailsEmptyMapPlaceholder } from './LineDetailsEmptyMapPlaceholder';
+import { LineMissingBox } from './LineMissingBox';
 import { LineRouteList } from './LineRouteList';
 import { LineTitle } from './LineTitle';
 import { MapPreview } from './MapPreview';
@@ -34,7 +36,7 @@ export const LineDetailsPage = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const { addMapOpenQueryParameter } = useMapQueryParams();
 
-  const { line } = useGetLineDetails();
+  const { line, lineError } = useGetLineDetails();
 
   const { displayedRouteLabels } = useGetRoutesDisplayedInList(line);
 
@@ -97,7 +99,16 @@ export const LineDetailsPage = (): React.ReactElement => {
             </Row>
           </>
         ) : (
-          <LineNotValidForDayBox />
+          <div className="grid grid-cols-4 gap-2">
+            <div className="col col-span-3">
+              <LineMissingBox
+                error={lineError ?? LineFetchError.LINE_MISSING_DEFAULT}
+              />
+            </div>
+            <div className="col col-span-1">
+              <LineDetailsEmptyMapPlaceholder />
+            </div>
+          </div>
         )}
       </Container>
 
