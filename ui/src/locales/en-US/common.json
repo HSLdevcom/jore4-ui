@@ -88,7 +88,8 @@
     "noDrafts": "No drafts",
     "showDraftDetails": "Show draft details",
     "routesOutsideValidity": "The following routes' validity period exceed the line's new validity period",
-    "lineNotValidForDay": "The line is not valid on the selected day."
+    "lineNotValidForDay": "The line is not valid on the selected day.",
+    "lineMissingDefault": "Unknown error in line information."
   },
   "stops": {
     "stop": "Stop",
