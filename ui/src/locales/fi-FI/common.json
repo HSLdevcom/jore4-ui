@@ -526,11 +526,17 @@
   },
   "priority": {
     "label": "Prioriteetti",
+    "labelAndPriority": "Prioriteetti: {{priority}}",
     "standard": "Perusversio",
     "temporary": "Väliaikainen",
     "draft": "Luonnos",
     "substitute": "Korvauspäivä",
-    "special": "Erityispäivä"
+    "special": "Erityispäivä",
+    "alreadyEnded": "Ei enää voimassa",
+    "aboutToEndToday": "Voimassaolo loppuu tänään",
+    "aboutToEndTomorrow": "Voimassaolo loppuu huomenna",
+    "aboutToEnd": "Voimassaolo loppuu {{count}} päivän kuluttua",
+    "aboutToEnd_other": "Voimassaolo loppuu {{count}} päivän kuluttua"
   },
   "validityPeriod": {
     "validityStart": "Alkaa",
