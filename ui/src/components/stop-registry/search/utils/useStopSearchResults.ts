@@ -18,6 +18,7 @@ const GQL_STOP_TABLE_ROW = gql`
     validity_start
     validity_end
     timing_place_id
+    priority
     timing_place {
       timing_place_id
       label
