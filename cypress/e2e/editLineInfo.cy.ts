@@ -82,13 +82,11 @@ describe('Line editing', () => {
 
       const beforeValidityPeriod = '2021-01-31';
       observationDateControl.setObservationDate(beforeValidityPeriod);
-      cy.getByTestId('LineNotValidForDayBox::notValidText').should(
-        'be.visible',
-      );
+      cy.getByTestId('LineMissingBox::notValidText').should('be.visible');
 
       const withinValidityPeriod = '2022-01-01';
       observationDateControl.setObservationDate(withinValidityPeriod);
-      cy.getByTestId('LineNotValidForDayBox::notValidText').should('not.exist');
+      cy.getByTestId('LineMissingBox::notValidText').should('not.exist');
     },
   );
 });
