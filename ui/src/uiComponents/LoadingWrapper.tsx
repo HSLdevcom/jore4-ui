@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, Suspense } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { theme } from '../generated/theme';
 
@@ -13,35 +13,42 @@ interface Props {
   children: ReactNode;
 }
 
-/**
- * This loading wrapper will render a React spinner if the loading parameter is true,
- * but it will render the children if the loading parameter is false. So you can wrap the
- * elements that need to be hidden during the loading with this, hence the name.
- * There is also an optional loading text below the spinner.
- */
-export const LoadingWrapper: FC<Props> = ({
+const Loader: FC<Omit<Props, 'children' | 'loading'>> = ({
   testId,
-  children,
   loadingText,
   className,
-  loading = true,
   size = 25,
   color = theme.colors.brand,
   speedMultiplier = 0.7,
+}) => (
+  <div data-testid={testId} className={className}>
+    <div className="inline-flex flex-col items-center">
+      <PulseLoader
+        color={color}
+        size={size}
+        speedMultiplier={speedMultiplier}
+      />
+      {loadingText && <span className="mt-4">{loadingText}</span>}
+    </div>
+  </div>
+);
+
+/**
+ * This loading wrapper will render a React spinner if the loading parameter is true,
+ * or if a React Suspense is triggered from some child component.
+ * Otherwise, renders the children. So you can wrap the elements that need to be
+ * hidden during the loading with this, hence the name.
+ * There is also an optional loading text below the spinner.
+ */
+export const LoadingWrapper: FC<Props> = ({
+  children,
+  loading = true,
+  ...loaderProps
 }) => {
-  if (loading) {
-    return (
-      <div data-testid={testId} className={className}>
-        <div className="inline-flex flex-col items-center">
-          <PulseLoader
-            color={color}
-            size={size}
-            speedMultiplier={speedMultiplier}
-          />
-          {loadingText && <span className="mt-4">{loadingText}</span>}
-        </div>
-      </div>
-    );
-  }
-  return <>{children}</>;
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  const loader = <Loader {...loaderProps} />;
+
+  return (
+    <Suspense fallback={loader}>{loading ? loader : <>{children}</>}</Suspense>
+  );
 };
