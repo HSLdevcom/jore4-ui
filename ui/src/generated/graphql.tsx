@@ -66855,6 +66855,23 @@ export type GetScheduledStopPointWithTimingSettingsQuery = {
   }>;
 };
 
+export type DoesStopHaveNextValidAlternativeQueryVariables = Exact<{
+  label: Scalars['String']['input'];
+  validAfter?: InputMaybe<Scalars['date']['input']>;
+  validPriorities: Array<Scalars['Int']['input']> | Scalars['Int']['input'];
+}>;
+
+export type DoesStopHaveNextValidAlternativeQuery = {
+  __typename?: 'query_root';
+  stopPoint: {
+    __typename?: 'service_pattern_scheduled_stop_point_aggregate';
+    aggregate?: {
+      __typename?: 'service_pattern_scheduled_stop_point_aggregate_fields';
+      count: number;
+    } | null;
+  };
+};
+
 export type FindLinesByStopSearchQueryVariables = Exact<{
   query: Scalars['String']['input'];
   validOn: Scalars['date']['input'];
@@ -66929,6 +66946,7 @@ export type GetStopsByRouteIdQuery = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     timing_place_id?: UUID | null;
+    priority: number;
     stopPlace?: {
       __typename?: 'stops_database_stop_place_newest_version';
       id?: any | null;
@@ -67037,6 +67055,7 @@ export type GetStopsByStopAreaIdQuery = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         timing_place_id?: UUID | null;
+        priority: number;
         timing_place?: {
           __typename?: 'timing_pattern_timing_place';
           timing_place_id: UUID;
@@ -67055,6 +67074,7 @@ export type StopTableRowFragment = {
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
   timing_place_id?: UUID | null;
+  priority: number;
   timing_place?: {
     __typename?: 'timing_pattern_timing_place';
     timing_place_id: UUID;
@@ -67084,6 +67104,7 @@ export type StopTableRowStopPlaceFragment = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     timing_place_id?: UUID | null;
+    priority: number;
     timing_place?: {
       __typename?: 'timing_pattern_timing_place';
       timing_place_id: UUID;
@@ -67125,6 +67146,7 @@ export type SearchStopsQuery = {
         validity_start?: luxon.DateTime | null;
         validity_end?: luxon.DateTime | null;
         timing_place_id?: UUID | null;
+        priority: number;
         timing_place?: {
           __typename?: 'timing_pattern_timing_place';
           timing_place_id: UUID;
@@ -67191,6 +67213,7 @@ export type GetStopAreaDetailsQuery = {
               validity_start?: luxon.DateTime | null;
               validity_end?: luxon.DateTime | null;
               timing_place_id?: UUID | null;
+              priority: number;
               timing_place?: {
                 __typename?: 'timing_pattern_timing_place';
                 timing_place_id: UUID;
@@ -67245,6 +67268,7 @@ export type StopAreaDetailsFragment = {
           validity_start?: luxon.DateTime | null;
           validity_end?: luxon.DateTime | null;
           timing_place_id?: UUID | null;
+          priority: number;
           timing_place?: {
             __typename?: 'timing_pattern_timing_place';
             timing_place_id: UUID;
@@ -67272,6 +67296,7 @@ export type StopAreaDetailsMembersFragment = {
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
     timing_place_id?: UUID | null;
+    priority: number;
     timing_place?: {
       __typename?: 'timing_pattern_timing_place';
       timing_place_id: UUID;
@@ -73191,6 +73216,7 @@ export const StopTableRowFragmentDoc = gql`
     validity_start
     validity_end
     timing_place_id
+    priority
     timing_place {
       timing_place_id
       label
@@ -74495,6 +74521,106 @@ export type GetScheduledStopPointWithTimingSettingsQueryResult =
     GetScheduledStopPointWithTimingSettingsQuery,
     GetScheduledStopPointWithTimingSettingsQueryVariables
   >;
+export const DoesStopHaveNextValidAlternativeDocument = gql`
+  query DoesStopHaveNextValidAlternative(
+    $label: String!
+    $validAfter: date
+    $validPriorities: [Int!]!
+  ) {
+    stopPoint: service_pattern_scheduled_stop_point_aggregate(
+      where: {
+        _and: [
+          { label: { _eq: $label } }
+          { priority: { _in: $validPriorities } }
+          {
+            _or: [
+              { validity_end: { _is_null: true } }
+              { validity_end: { _gt: $validAfter } }
+            ]
+          }
+        ]
+      }
+    ) {
+      aggregate {
+        count
+      }
+    }
+  }
+`;
+
+/**
+ * __useDoesStopHaveNextValidAlternativeQuery__
+ *
+ * To run a query within a React component, call `useDoesStopHaveNextValidAlternativeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDoesStopHaveNextValidAlternativeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDoesStopHaveNextValidAlternativeQuery({
+ *   variables: {
+ *      label: // value for 'label'
+ *      validAfter: // value for 'validAfter'
+ *      validPriorities: // value for 'validPriorities'
+ *   },
+ * });
+ */
+export function useDoesStopHaveNextValidAlternativeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    DoesStopHaveNextValidAlternativeQuery,
+    DoesStopHaveNextValidAlternativeQueryVariables
+  > &
+    (
+      | {
+          variables: DoesStopHaveNextValidAlternativeQueryVariables;
+          skip?: boolean;
+        }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    DoesStopHaveNextValidAlternativeQuery,
+    DoesStopHaveNextValidAlternativeQueryVariables
+  >(DoesStopHaveNextValidAlternativeDocument, options);
+}
+export function useDoesStopHaveNextValidAlternativeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    DoesStopHaveNextValidAlternativeQuery,
+    DoesStopHaveNextValidAlternativeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    DoesStopHaveNextValidAlternativeQuery,
+    DoesStopHaveNextValidAlternativeQueryVariables
+  >(DoesStopHaveNextValidAlternativeDocument, options);
+}
+export function useDoesStopHaveNextValidAlternativeSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    DoesStopHaveNextValidAlternativeQuery,
+    DoesStopHaveNextValidAlternativeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    DoesStopHaveNextValidAlternativeQuery,
+    DoesStopHaveNextValidAlternativeQueryVariables
+  >(DoesStopHaveNextValidAlternativeDocument, options);
+}
+export type DoesStopHaveNextValidAlternativeQueryHookResult = ReturnType<
+  typeof useDoesStopHaveNextValidAlternativeQuery
+>;
+export type DoesStopHaveNextValidAlternativeLazyQueryHookResult = ReturnType<
+  typeof useDoesStopHaveNextValidAlternativeLazyQuery
+>;
+export type DoesStopHaveNextValidAlternativeSuspenseQueryHookResult =
+  ReturnType<typeof useDoesStopHaveNextValidAlternativeSuspenseQuery>;
+export type DoesStopHaveNextValidAlternativeQueryResult = Apollo.QueryResult<
+  DoesStopHaveNextValidAlternativeQuery,
+  DoesStopHaveNextValidAlternativeQueryVariables
+>;
 export const FindLinesByStopSearchDocument = gql`
   query findLinesByStopSearch($query: String!, $validOn: date!) {
     route_line(

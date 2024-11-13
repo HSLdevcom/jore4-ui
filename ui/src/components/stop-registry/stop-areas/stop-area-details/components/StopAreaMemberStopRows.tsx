@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { StopAreaDetailsFragment } from '../../../../../generated/graphql';
+import { Priority } from '../../../../../types/enums';
 import { StopAreaFormMember } from '../../../../forms/stop-area';
 import { StopSearchRow, StopTableRow } from '../../../search';
 import { LocatorActionButton } from '../../../search/StopTableRow/ActionButtons/LocatorActionButton';
@@ -57,6 +58,9 @@ function stopAreaFormMemberToStopSearchRow(
       type: 'Point',
       coordinates: [0, 0],
     },
+
+    // Assume default priority
+    priority: Priority.Standard,
   };
 }
 

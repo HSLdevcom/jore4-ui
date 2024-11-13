@@ -5,6 +5,7 @@ import { ActionButtonsTd } from './ActionButtonsTd';
 import { ActionMenuTd } from './ActionMenuTd';
 import { LabelAndTimingPlaceTd } from './LabelAndTimingPlaceTd';
 import { NameTd } from './NameTd';
+import { PriorityTd } from './PriorityTd';
 import { ValidityPeriodTd } from './ValidityPeriodTd';
 
 interface Props {
@@ -34,10 +35,10 @@ export const StopTableRow: FC<Props> = ({
       data-testid={testIds.row(stop.label)}
     >
       {/* TODO: select column */}
-      {/* TODO: alert style column */}
+      <PriorityTd className={`w-auto ${yBorderClassNames}`} stop={stop} />
 
       <LabelAndTimingPlaceTd
-        className={`w-auto px-8 py-3 pr-20 ${yBorderClassNames}`}
+        className={`w-auto px-4 py-3 pr-20 ${yBorderClassNames}`}
         stop={stop}
       />
 
