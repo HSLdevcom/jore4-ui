@@ -523,11 +523,17 @@
   },
   "priority": {
     "label": "Priority",
+    "labelAndPriority": "Priority: {{priority}}",
     "standard": "Standard",
     "temporary": "Temporary",
     "draft": "Draft",
     "substitute": "Substitute",
-    "special": "Special"
+    "special": "Special",
+    "alreadyEnded": "No longer valid",
+    "aboutToEndToday": "No longer valid after today",
+    "aboutToEndTomorrow": "No longer valid after tomorrow",
+    "aboutToEnd": "No longer valid after {{count}} day",
+    "aboutToEnd_other": "No longer valid after {{count}} days"
   },
   "validityPeriod": {
     "validityStart": "Starts",
