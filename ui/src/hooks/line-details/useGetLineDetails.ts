@@ -163,6 +163,11 @@ const buildLineDetailsGqlFilters = (
   };
 };
 
+export enum LineFetchError {
+  'LINE_MISSING_DEFAULT' = 'lines.lineMissingDefault',
+  'LINE_NOT_VALID_FOR_DAY' = 'lines.lineNotValidForDay',
+}
+
 /** Gets the line details depending on query parameters. */
 export const useGetLineDetails = () => {
   const { id } = useRequiredParams<{ id: string }>();
@@ -177,6 +182,7 @@ export const useGetLineDetails = () => {
     useGetHighestPriorityLineDetailsWithRoutesLazyQuery();
 
   const [line, setLine] = useState<LineWithRoutesUniqueFieldsFragment>();
+  const [lineError, setLineError] = useState<LineFetchError | null>(null);
 
   const lineDetailsResult = useGetLineDetailsByIdQuery({
     variables: { line_id: id },
@@ -197,6 +203,8 @@ export const useGetLineDetails = () => {
 
         if (initialDate?.isValid) {
           setObservationDateToUrl(initialDate, true);
+        } else {
+          setLineError(LineFetchError.LINE_NOT_VALID_FOR_DAY);
         }
       }
     }
@@ -217,7 +225,9 @@ export const useGetLineDetails = () => {
       });
 
       const lineByDate = lineByDateResult.data?.route_line?.[0] ?? undefined;
-
+      if (lineDetails && !lineByDate) {
+        setLineError(LineFetchError.LINE_NOT_VALID_FOR_DAY);
+      }
       const filteredLine = lineByDate
         ? filterLineDetailsByDate(lineByDate)
         : undefined;
@@ -231,10 +241,15 @@ export const useGetLineDetails = () => {
   }, [initializeObservationDate]);
 
   useEffect(() => {
-    fetchLineDetails();
-  }, [fetchLineDetails]);
+    fetchLineDetails().then(() => {
+      if (line) {
+        setLineError(null);
+      }
+    });
+  }, [fetchLineDetails, line]);
 
   return {
     line,
+    lineError,
   };
 };
