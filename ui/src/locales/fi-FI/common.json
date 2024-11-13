@@ -88,7 +88,8 @@
     "noDrafts": "Ei luonnoksia",
     "showDraftDetails": "Näytä luonnoksen tiedot",
     "routesOutsideValidity": "Seuraavien reittien voimassaolo ylittää linjan uuden voimassaoloajan",
-    "lineNotValidForDay": "Linja ei ole voimassa valittuna päivänä."
+    "lineNotValidForDay": "Linja ei ole voimassa valittuna päivänä.",
+    "lineMissingDefault": "Tuntematon virhe linjan tiedoissa."
   },
   "stops": {
     "stop": "Pysäkki",
