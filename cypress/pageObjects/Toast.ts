@@ -44,7 +44,7 @@ export class Toast {
 
   expectToast(toastType: ToastType, message?: string) {
     // Find any toast
-    cy.get('[data-testElementType="toast"]')
+    cy.get('[data-test-element-type="toast"]')
       // And wait it to become fully visible
       .should('have.css', 'opacity', '1')
       // Then assert it is of a right type.
