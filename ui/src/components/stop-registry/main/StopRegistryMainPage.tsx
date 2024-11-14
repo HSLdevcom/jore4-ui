@@ -24,7 +24,7 @@ export const StopRegistryMainPage: FC = () => {
   const { t } = useTranslation();
 
   const {
-    state: { filters },
+    state: { filters, pagingInfo },
   } = useStopSearchUrlState();
 
   const navigate = useNavigate();
@@ -34,7 +34,10 @@ export const StopRegistryMainPage: FC = () => {
         pathname: Path.stopSearch,
         search: stopSearchUrlStateToSearch({
           filters: nextFilters,
-          pagingInfo: defaultPagingInfo,
+          pagingInfo: {
+            ...defaultPagingInfo,
+            pageSize: pagingInfo.pageSize,
+          },
           sortingInfo: defaultSortingInfo,
         }),
       },
