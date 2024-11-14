@@ -57,7 +57,7 @@ const ToastImpl: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   return (
     <div
       className={`rounded-md bg-white ${className}`}
-      data-testElementType="toast"
+      data-test-element-type="toast"
       data-testid={testId}
       ref={ref}
     >
