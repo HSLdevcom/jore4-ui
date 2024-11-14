@@ -153,6 +153,10 @@
       "confirmRemoval": {
         "title": "Removing stop from the stop area",
         "body": "The Stop will not be deleted, but it will no longer be associated with the stop area."
+      },
+      "statusTag": {
+        "added": "Added",
+        "removed": "Removed"
       }
     },
     "errors": {
