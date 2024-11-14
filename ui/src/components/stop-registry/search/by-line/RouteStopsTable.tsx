@@ -1,13 +1,19 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../layoutComponents';
-import { LoadingStopsErrorRow, LoadingStopsRow } from '../components';
-import { StopTableRow } from '../StopTableRow';
-import { LocatorActionButton } from '../StopTableRow/ActionButtons/LocatorActionButton';
-import { OpenDetailsPage } from '../StopTableRow/MenuItems/OpenDetailsPage';
-import { ShowOnMap } from '../StopTableRow/MenuItems/ShowOnMap';
+import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
+import {
+  LoadingStopsErrorRow,
+  StopSearchResultStopsTable,
+} from '../components';
 import { RouteInfoRow } from './RouteInfoRow';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 import { useGetStopResultsByRouteId } from './useGetStopResultsByRouteId';
+
+const testIds = {
+  loader: 'StopSearch::GroupedStops::loader',
+  container: (id: UUID) => `StopSearchByLine::route::${id}`,
+};
 
 type RouteStopsTableProps = {
   readonly className?: string;
@@ -22,41 +28,30 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
   lineTransitionInProgress,
   route,
 }) => {
+  const { t } = useTranslation();
+
   const { error, loading, refetch, stops } = useGetStopResultsByRouteId(
     route.route_id,
   );
 
   return (
-    <div className={className}>
+    <div className={className} data-testid={testIds.container(route.route_id)}>
       <RouteInfoRow route={route} />
-
-      <Visible
-        visible={lineTransitionInProgress || (loading && stops.length === 0)}
-      >
-        <LoadingStopsRow />
-      </Visible>
 
       <Visible visible={!!error}>
         <LoadingStopsErrorRow error={error} refetch={refetch} />
       </Visible>
 
-      <Visible visible={!lineTransitionInProgress && stops.length > 0}>
-        <table className="border-x border-t border-x-light-grey border-t-light-grey">
-          <tbody>
-            {stops.map((stop) => (
-              <StopTableRow
-                key={stop.scheduled_stop_point_id}
-                actionButtons={<LocatorActionButton stop={stop} />}
-                menuItems={[
-                  <ShowOnMap key="showOnMap" stop={stop} />,
-                  <OpenDetailsPage key="openDetails" stop={stop} />,
-                ]}
-                stop={stop}
-              />
-            ))}
-          </tbody>
-        </table>
-      </Visible>
+      <LoadingWrapper
+        testId={testIds.loader}
+        className="flex justify-center border border-light-grey p-8"
+        loadingText={t('search.searching')}
+        loading={lineTransitionInProgress || (loading && stops.length === 0)}
+      >
+        <Visible visible={!lineTransitionInProgress && stops.length > 0}>
+          <StopSearchResultStopsTable stops={stops} />
+        </Visible>
+      </LoadingWrapper>
     </div>
   );
 };
