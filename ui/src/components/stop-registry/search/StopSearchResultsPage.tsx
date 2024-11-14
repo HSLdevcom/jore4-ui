@@ -87,8 +87,9 @@ export const StopSearchResultPage = (): React.ReactElement => {
     dispatch(resetSelectedRowsAction());
     setFlatState({
       ...nextFilters,
-      ...defaultPagingInfo,
       ...defaultSortingInfo,
+      ...defaultPagingInfo,
+      pageSize: pagingInfo.pageSize,
     });
   };
 
