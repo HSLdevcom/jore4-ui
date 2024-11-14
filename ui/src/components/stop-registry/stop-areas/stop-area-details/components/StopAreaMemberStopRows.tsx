@@ -62,11 +62,11 @@ function stopAreaFormMemberToStopSearchRow(
 
 function getStatusText(t: TFunction, row: StopAreaMemberRow): string {
   if (row.added) {
-    return 'Lisätty';
+    return t('stopAreaDetails.memberStops.statusTag.added');
   }
 
   if (!row.selected) {
-    return 'Poistettu';
+    return t('stopAreaDetails.memberStops.statusTag.removed');
   }
 
   return '';

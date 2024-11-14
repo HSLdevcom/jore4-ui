@@ -153,6 +153,10 @@
       "confirmRemoval": {
         "title": "Poistetaan pysäkki pysäkkialueen käytöstä",
         "body": "Pysäkki jää edelleen jäljelle, se ei ole vain yhdistetty pysäkkialueeseen."
+      },
+      "statusTag": {
+        "added": "Lisätty",
+        "removed": "poistettu"
       }
     },
     "errors": {
