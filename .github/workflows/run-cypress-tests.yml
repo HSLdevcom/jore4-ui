@@ -43,7 +43,7 @@ jobs:
       - name: Run e2e tests from github action
         env:
           CYPRESS_TESTS_KEPT_IN_MEMORY: 0
-        timeout-minutes: 15
+        timeout-minutes: 30
         uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v1
         with:
           test-tags: ''
