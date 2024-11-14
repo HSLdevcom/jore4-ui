@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../layoutComponents';
+import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import {
   LoadingStopsErrorRow,
-  LoadingStopsRow,
   StopSearchResultStopsTable,
 } from '../components';
 import { RouteInfoRow } from './RouteInfoRow';
@@ -11,6 +12,7 @@ import { useGetStopResultsByRouteId } from './useGetStopResultsByRouteId';
 
 const testIds = {
   container: (id: UUID) => `StopSearchByLine::route::${id}`,
+  loader: 'StopSearch::GroupedStops::loader',
 };
 
 type RouteStopsTableProps = {
@@ -26,6 +28,8 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
   lineTransitionInProgress,
   route,
 }) => {
+  const { t } = useTranslation();
+
   const { error, loading, refetch, stops } = useGetStopResultsByRouteId(
     route.route_id,
   );
@@ -34,19 +38,20 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
     <div className={className} data-testid={testIds.container(route.route_id)}>
       <RouteInfoRow route={route} />
 
-      <Visible
-        visible={lineTransitionInProgress || (loading && stops.length === 0)}
-      >
-        <LoadingStopsRow />
-      </Visible>
-
       <Visible visible={!!error}>
         <LoadingStopsErrorRow error={error} refetch={refetch} />
       </Visible>
 
-      <Visible visible={!lineTransitionInProgress && stops.length > 0}>
-        <StopSearchResultStopsTable stops={stops} />
-      </Visible>
+      <LoadingWrapper
+        testId={testIds.loader}
+        className="flex justify-center border border-light-grey p-8"
+        loadingText={t('search.searching')}
+        loading={lineTransitionInProgress || (loading && stops.length === 0)}
+      >
+        <Visible visible={!lineTransitionInProgress && stops.length > 0}>
+          <StopSearchResultStopsTable stops={stops} />
+        </Visible>
+      </LoadingWrapper>
     </div>
   );
 };
