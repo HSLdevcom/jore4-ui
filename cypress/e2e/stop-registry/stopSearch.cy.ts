@@ -1,11 +1,20 @@
 /* eslint-disable jest/valid-expect */
-import { RouteTypeOfLineEnum, buildLine } from '@hsl/jore4-test-db-manager';
+import {
+  InfrastructureNetworkDirectionEnum,
+  Priority,
+  RouteTypeOfLineEnum,
+  StopPlaceInput,
+  StopRegistryGeoJsonType,
+  buildLine,
+  buildStop,
+} from '@hsl/jore4-test-db-manager';
 import range from 'lodash/range';
 import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
   getClonedBaseDbResources,
+  stopCoordinatesByLabel,
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
@@ -26,6 +35,17 @@ import { InsertedStopRegistryIds } from '../utils';
 
 const baseDbResources = getClonedBaseDbResources();
 
+function getUuid(index: number) {
+  if (!Number.isInteger(index)) {
+    throw new Error(`Index must be an integer! But was: ${index}`);
+  }
+
+  const base = '10000000-0000-4000-9000-000000000000';
+  const indexStr = index.toString(10);
+
+  return base.substring(0, base.length - indexStr.length) + indexStr;
+}
+
 describe('Stop search', () => {
   const stopSearchBar = new StopSearchBar();
   const stopSearchResultsPage = new StopSearchResultsPage();
@@ -36,12 +56,14 @@ describe('Stop search', () => {
   const pagination = new Pagination();
 
   let dbResources: SupportedResources;
+  let testInfraLinkIds: ReadonlyArray<UUID>;
 
   before(() => {
     cy.task<UUID[]>(
       'getInfrastructureLinkIdsByExternalIds',
       testInfraLinkExternalIds,
     ).then((infraLinkIds) => {
+      testInfraLinkIds = infraLinkIds;
       const stops = buildStopsOnInfraLinks(infraLinkIds);
 
       const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
@@ -398,17 +420,6 @@ describe('Stop search', () => {
     beforeEach(init);
 
     const SHOW_ALL_BY_DEFAULT_MAX = 20;
-
-    function getUuid(index: number) {
-      if (!Number.isInteger(index)) {
-        throw new Error(`Index must be an integer! But was: ${index}`);
-      }
-
-      const base = '10000000-0000-4000-9000-000000000000';
-      const indexStr = index.toString(10);
-
-      return base.substring(0, base.length - indexStr.length) + indexStr;
-    }
 
     // Create extra lines so that showAll/hideExta functionality can be tested.
     // Search: LE* should fit in show all by default range
@@ -774,6 +785,209 @@ describe('Stop search', () => {
       expectGraphQLCallToSucceed('@gqlSearchStops');
       sortByButton.assertSorting('label', 'desc');
       assertResultOrder(['E2E009', 'E2E006', 'E2E003', 'E2E001']);
+    });
+  });
+
+  describe('Priority visualization', () => {
+    const today = DateTime.now().startOf('day');
+    const startDate = today.minus({ years: 1 });
+
+    beforeEach(() => {
+      const extraPrioStops = [
+        {
+          // All good
+          ...buildStop({
+            label: 'P0001',
+            located_on_infrastructure_link_id: testInfraLinkIds[0],
+          }),
+
+          priority: Priority.Standard,
+          validity_start: startDate,
+          validity_end: null,
+
+          direction: InfrastructureNetworkDirectionEnum.Forward,
+          scheduled_stop_point_id: getUuid(1),
+          measured_location: {
+            type: 'Point',
+            coordinates: stopCoordinatesByLabel.E2E001,
+          },
+        },
+        {
+          // All good, Draft
+          ...buildStop({
+            label: 'P0002',
+            located_on_infrastructure_link_id: testInfraLinkIds[1],
+          }),
+
+          priority: Priority.Draft,
+          validity_start: startDate,
+          validity_end: null,
+
+          direction: InfrastructureNetworkDirectionEnum.Forward,
+          scheduled_stop_point_id: getUuid(2),
+          measured_location: {
+            type: 'Point',
+            coordinates: stopCoordinatesByLabel.E2E002,
+          },
+        },
+        {
+          // About to end in 10 days, no next
+          ...buildStop({
+            label: 'P0003',
+            located_on_infrastructure_link_id: testInfraLinkIds[3],
+          }),
+
+          priority: Priority.Standard,
+          validity_start: startDate,
+          validity_end: today.plus({ days: 10 }),
+
+          direction: InfrastructureNetworkDirectionEnum.Backward,
+          scheduled_stop_point_id: getUuid(3),
+          measured_location: {
+            type: 'Point',
+            coordinates: stopCoordinatesByLabel.E2E003,
+          },
+        },
+        {
+          // About to end tomorrow, no next
+          ...buildStop({
+            label: 'P0004',
+            located_on_infrastructure_link_id: testInfraLinkIds[4],
+          }),
+
+          priority: Priority.Standard,
+          validity_start: startDate,
+          validity_end: today.plus({ days: 1 }),
+
+          direction: InfrastructureNetworkDirectionEnum.Backward,
+          scheduled_stop_point_id: getUuid(4),
+          measured_location: {
+            type: 'Point',
+            coordinates: stopCoordinatesByLabel.E2E004,
+          },
+        },
+        {
+          // About to end today, no next
+          ...buildStop({
+            label: 'P0005',
+            located_on_infrastructure_link_id: testInfraLinkIds[5],
+          }),
+
+          priority: Priority.Standard,
+          validity_start: startDate,
+          validity_end: today,
+
+          direction: InfrastructureNetworkDirectionEnum.Backward,
+          scheduled_stop_point_id: getUuid(5),
+          measured_location: {
+            type: 'Point',
+            coordinates: stopCoordinatesByLabel.E2E005,
+          },
+        },
+        {
+          // Standard base version for temp
+          ...buildStop({
+            label: 'P0006',
+            located_on_infrastructure_link_id: testInfraLinkIds[6],
+          }),
+
+          priority: Priority.Standard,
+          validity_start: startDate,
+
+          direction: InfrastructureNetworkDirectionEnum.Backward,
+          scheduled_stop_point_id: getUuid(6),
+          measured_location: {
+            type: 'Point',
+            coordinates: stopCoordinatesByLabel.E2E006,
+          },
+        },
+        {
+          // Temp about to end today, base version still valid
+          ...buildStop({
+            label: 'P0006',
+            located_on_infrastructure_link_id: testInfraLinkIds[6],
+          }),
+
+          priority: Priority.Temporary,
+          validity_start: startDate.plus({ days: 1 }),
+          validity_end: today,
+
+          direction: InfrastructureNetworkDirectionEnum.Backward,
+          scheduled_stop_point_id: getUuid(7),
+          measured_location: {
+            type: 'Point',
+            coordinates: stopCoordinatesByLabel.E2E006,
+          },
+        },
+        {
+          // Temp about to end today, no base version
+          ...buildStop({
+            label: 'P0007',
+            located_on_infrastructure_link_id: testInfraLinkIds[7],
+          }),
+
+          priority: Priority.Temporary,
+          validity_start: startDate,
+          validity_end: today,
+
+          direction: InfrastructureNetworkDirectionEnum.Backward,
+          scheduled_stop_point_id: getUuid(8),
+          measured_location: {
+            type: 'Point',
+            coordinates: stopCoordinatesByLabel.E2E007,
+          },
+        },
+      ];
+
+      const stopPlaces: ReadonlyArray<StopPlaceInput> = extraPrioStops.map(
+        (stopPoint) => ({
+          label: stopPoint.label,
+          stopPlace: {
+            name: { lang: 'fin', value: stopPoint.label },
+            quays: [{ publicCode: stopPoint.label }],
+            privateCode: { value: stopPoint.label, type: 'ELY' },
+            geometry: {
+              coordinates: stopPoint.measured_location.coordinates.slice(0, 2),
+              type: StopRegistryGeoJsonType.Point,
+            },
+          },
+        }),
+      );
+
+      insertToDbHelper({ stops: extraPrioStops });
+
+      cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
+        stopPlaces,
+      });
+
+      init();
+    });
+
+    it('should visualise priorities correctly', () => {
+      stopSearchBar.getSearchInput().type(`P*{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      const results: ReadonlyArray<readonly [string, string, string]> = [
+        [getUuid(1), 'P0001', 'Prioriteetti: Perusversio'],
+        [getUuid(2), 'P0002', 'Prioriteetti: Luonnos'],
+        [getUuid(3), 'P0003', 'Voimassaolo loppuu 10 päivän kuluttua'],
+        [getUuid(4), 'P0004', 'Voimassaolo loppuu huomenna'],
+        [getUuid(5), 'P0005', 'Voimassaolo loppuu tänään'],
+        [getUuid(6), 'P0006', 'Prioriteetti: Perusversio'],
+        [getUuid(7), 'P0006', 'Prioriteetti: Väliaikainen'],
+        [getUuid(8), 'P0007', 'Voimassaolo loppuu tänään'],
+      ];
+
+      results.forEach(([scheduledStopPointId, label, priorityText]) =>
+        stopSearchResultsPage
+          .getRowByScheduledStopPointId(scheduledStopPointId)
+          .should('contain.text', label)
+          .within(() =>
+            stopSearchResultsPage
+              .getRowPriority()
+              .should('have.attr', 'title', priorityText),
+          ),
+      );
     });
   });
 });
