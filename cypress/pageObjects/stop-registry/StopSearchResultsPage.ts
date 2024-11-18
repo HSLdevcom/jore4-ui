@@ -19,6 +19,14 @@ export class StopSearchResultsPage {
     return cy.getByTestId(`StopTableRow::row::${label}`);
   }
 
+  getRowByNetexId(netexId: string) {
+    return cy.get(`[data-netext-id='${netexId}']`);
+  }
+
+  getRowByScheduledStopPointId(scheduledStopPointId: string) {
+    return cy.get(`[data-scheduled-stop-point-id='${scheduledStopPointId}'`);
+  }
+
   getRowLinkByLabel(label: string) {
     return this.getRowByLabel(label).findByTestId('StopTableRow::link');
   }
