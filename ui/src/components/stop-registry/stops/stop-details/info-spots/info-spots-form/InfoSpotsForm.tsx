@@ -56,6 +56,21 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
       }),
     );
   };
+
+  const addNewPoster = (infoSpotIndex: number) => {
+    const newPoster = {
+      posterSize: null,
+      label: '',
+      lines: '',
+      toBeDeletedPoster: false,
+    };
+
+    setValue(`infoSpots.${infoSpotIndex}.poster`, [
+      ...(getValues(`infoSpots.${infoSpotIndex}.poster`) ?? []),
+      newPoster,
+    ]);
+  };
+
   const onRemoveInfoSpot = (idx: number) => {
     const infoSpot = infoSpots[idx];
     if (!infoSpot.infoSpotId) {
@@ -82,7 +97,11 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
       >
         {infoSpots.map((infoSpot, idx) => (
           <div key={infoSpot.id} data-testid={testIds.infoSpot}>
-            <InfoSpotFormFields index={idx} onRemove={onRemoveInfoSpot} />
+            <InfoSpotFormFields
+              infoSpotIndex={idx}
+              onRemove={onRemoveInfoSpot}
+              addPoster={addNewPoster}
+            />
             <Visible visible={!isLast(idx)}>
               <HorizontalSeparator className="my-4" />
             </Visible>

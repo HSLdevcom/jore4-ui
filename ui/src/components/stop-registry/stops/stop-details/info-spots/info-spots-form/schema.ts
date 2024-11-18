@@ -33,6 +33,7 @@ const infoSpotSchema = z.object({
       label: z.string().nullable(),
       posterSize: createNullableEnum<StopRegistryPosterPlaceSize>(),
       lines: z.string().nullable(),
+      toBeDeletedPoster: z.boolean(),
     })
     .array()
     .nullable(),
@@ -72,6 +73,7 @@ export const mapInfoSpotDataToFormState = (
         label: p?.label ?? null,
         posterSize: p?.posterSize ?? null,
         lines: p?.lines ?? null,
+        toBeDeletedPoster: false,
       })) ?? [],
     toBeDeleted: false,
   };
