@@ -64,7 +64,6 @@ const GQL_FIND_LINES_BY_STOP_SEARCH_QUERY = gql`
     name_i18n
 
     direction
-    route_shape
 
     priority
     validity_start

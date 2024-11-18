@@ -66875,7 +66875,6 @@ export type FindLinesByStopSearchQuery = {
       label: string;
       name_i18n: LocalizedString;
       direction: RouteDirectionEnum;
-      route_shape?: GeoJSON.LineString | null;
       priority: number;
       validity_start?: luxon.DateTime | null;
       validity_end?: luxon.DateTime | null;
@@ -66896,7 +66895,6 @@ export type FindStopByLineInfoFragment = {
     label: string;
     name_i18n: LocalizedString;
     direction: RouteDirectionEnum;
-    route_shape?: GeoJSON.LineString | null;
     priority: number;
     validity_start?: luxon.DateTime | null;
     validity_end?: luxon.DateTime | null;
@@ -66909,7 +66907,6 @@ export type FindStopByLineRouteInfoFragment = {
   label: string;
   name_i18n: LocalizedString;
   direction: RouteDirectionEnum;
-  route_shape?: GeoJSON.LineString | null;
   priority: number;
   validity_start?: luxon.DateTime | null;
   validity_end?: luxon.DateTime | null;
@@ -73140,7 +73137,6 @@ export const FindStopByLineRouteInfoFragmentDoc = gql`
     label
     name_i18n
     direction
-    route_shape
     priority
     validity_start
     validity_end
