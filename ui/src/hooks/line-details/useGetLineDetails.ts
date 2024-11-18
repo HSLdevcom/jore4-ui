@@ -233,6 +233,8 @@ export const useGetLineDetails = () => {
         : undefined;
 
       setLine(filteredLine);
+
+      return filteredLine;
     }
   }, [getHighestPriorityLineDetails, lineDetailsResult, observationDate]);
 
@@ -241,12 +243,12 @@ export const useGetLineDetails = () => {
   }, [initializeObservationDate]);
 
   useEffect(() => {
-    fetchLineDetails().then(() => {
-      if (line) {
+    fetchLineDetails().then((filteredLine) => {
+      if (filteredLine) {
         setLineError(null);
       }
     });
-  }, [fetchLineDetails, line]);
+  }, [fetchLineDetails]);
 
   return {
     line,
