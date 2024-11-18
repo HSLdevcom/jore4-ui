@@ -1,10 +1,15 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
-import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
+import {
+  HorizontalSeparator,
+  Row,
+  Visible,
+} from '../../../../../layoutComponents';
 import { DetailRow, LabeledDetail } from '../layout';
 
 const testIds = {
+  posterContainer: 'InfoSpotPosterDetails::container',
   posterSize: 'InfoSpotPosterDetails::posterSize',
   posterLabel: 'InfoSpotPosterDetails::posterLabel',
   posterLines: 'InfoSpotPosterDetails::posterLines',
@@ -23,8 +28,19 @@ export const InfoSpotPosterDetails: FC<Props> = ({
     return null;
   }
 
+  if (!poster?.length) {
+    return (
+      <>
+        <Row className="my-5 font-bold">
+          {t('stopDetails.infoSpots.noPosters')}
+        </Row>
+        <HorizontalSeparator className="-mx-5" />
+      </>
+    );
+  }
+
   return poster?.map((item, index) => (
-    <div key={item?.label}>
+    <div key={item?.label} data-testid={testIds.posterContainer}>
       <DetailRow className="pl-5">
         <LabeledDetail
           title={t('stopDetails.infoSpots.posterSize')}

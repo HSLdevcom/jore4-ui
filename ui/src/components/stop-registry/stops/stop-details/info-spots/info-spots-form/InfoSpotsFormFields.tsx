@@ -18,6 +18,7 @@ import {
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
 import { SlimSimpleButton } from '../../layout';
+import { PosterFormFields } from './InfoSpotsFormPosters';
 import { InfoSpotsFormState } from './schema';
 
 const testIds = {
@@ -41,19 +42,41 @@ const testIds = {
   posterLabel: 'InfoSpotPosterFormFields::posterLabel',
   posterLines: 'InfoSpotPosterFormFields::posterLines',
   deleteInfoSpot: 'InfoSpotFormFields::deleteInfoSpot',
+  addInfoSpotPoster: 'InfoSpotFormFields::addInfoSpotPoster',
 };
 
 type Props = {
-  readonly index: number;
+  readonly infoSpotIndex: number;
   readonly onRemove: (index: number) => void;
+  readonly addPoster: (index: number) => void;
 };
 
-export const InfoSpotFormFields: FC<Props> = ({ index, onRemove }) => {
-  const { register, watch } = useFormContext<InfoSpotsFormState>();
-  const toBeDeleted = watch(`infoSpots.${index}.toBeDeleted`);
+export const InfoSpotFormFields: FC<Props> = ({
+  infoSpotIndex,
+  onRemove,
+  addPoster,
+}) => {
+  const { register, watch, getValues, setValue } =
+    useFormContext<InfoSpotsFormState>();
+  const toBeDeleted = watch(`infoSpots.${infoSpotIndex}.toBeDeleted`);
 
-  const infoSpotType = watch(`infoSpots.${index}.infoSpotType`);
-  const posters = watch(`infoSpots.${index}.poster`);
+  const infoSpotType = watch(`infoSpots.${infoSpotIndex}.infoSpotType`);
+  const posters = watch(`infoSpots.${infoSpotIndex}.poster`);
+
+  const onRemovePoster = (idx: number, posterIndex: number) => {
+    const newToBeDeleted = !getValues(
+      `infoSpots.${idx}.poster.${posterIndex}.toBeDeletedPoster`,
+    );
+    setValue(
+      `infoSpots.${idx}.poster.${posterIndex}.toBeDeletedPoster`,
+      newToBeDeleted,
+      {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true, // Add this to trigger revalidation
+      },
+    );
+  };
 
   return (
     <Column className="space-y-4">
@@ -61,20 +84,20 @@ export const InfoSpotFormFields: FC<Props> = ({ index, onRemove }) => {
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${index}.label`}
+          fieldPath={`infoSpots.${infoSpotIndex}.label`}
           testId={testIds.label}
           disabled={toBeDeleted}
         />
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${index}.purpose`}
+          fieldPath={`infoSpots.${infoSpotIndex}.purpose`}
           testId={testIds.purpose}
           disabled={toBeDeleted}
         />
         <InputField<InfoSpotsFormState>
           translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${index}.infoSpotType`}
+          fieldPath={`infoSpots.${infoSpotIndex}.infoSpotType`}
           testId={testIds.infoSpotType}
           // eslint-disable-next-line react/no-unstable-nested-components
           inputElementRenderer={(props) => (
@@ -93,7 +116,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index, onRemove }) => {
         <Visible visible={infoSpotType === 'static'}>
           <InputField<InfoSpotsFormState>
             translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${index}.posterPlaceSize`}
+            fieldPath={`infoSpots.${infoSpotIndex}.posterPlaceSize`}
             testId={testIds.posterPlaceSize}
             // eslint-disable-next-line react/no-unstable-nested-components
             inputElementRenderer={(props) => (
@@ -110,7 +133,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index, onRemove }) => {
           />
           <InputField<InfoSpotsFormState>
             translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${index}.backlight`}
+            fieldPath={`infoSpots.${infoSpotIndex}.backlight`}
             testId={testIds.backlight}
             // eslint-disable-next-line react/no-unstable-nested-components
             inputElementRenderer={(props) => (
@@ -126,14 +149,14 @@ export const InfoSpotFormFields: FC<Props> = ({ index, onRemove }) => {
           <InputField<InfoSpotsFormState>
             type="text"
             translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${index}.maintenance`}
+            fieldPath={`infoSpots.${infoSpotIndex}.maintenance`}
             testId={testIds.maintenance}
           />
         </Visible>
         <Visible visible={infoSpotType === 'dynamic'}>
           <InputField<InfoSpotsFormState>
             translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${index}.displayType`}
+            fieldPath={`infoSpots.${infoSpotIndex}.displayType`}
             testId={testIds.displayType}
             // eslint-disable-next-line react/no-unstable-nested-components
             inputElementRenderer={(props) => (
@@ -151,7 +174,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index, onRemove }) => {
           />
           <InputField<InfoSpotsFormState>
             translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${index}.speechProperty`}
+            fieldPath={`infoSpots.${infoSpotIndex}.speechProperty`}
             testId={testIds.speechProperty}
             // eslint-disable-next-line react/no-unstable-nested-components
             inputElementRenderer={(props) => (
@@ -166,71 +189,49 @@ export const InfoSpotFormFields: FC<Props> = ({ index, onRemove }) => {
           />
         </Visible>
       </Row>
-      <Row className="!-my-5 -mx-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
+      <Row className="-mx-5 !-mt-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${index}.description.value`}
+          fieldPath={`infoSpots.${infoSpotIndex}.description.value`}
           testId={testIds.description}
           customTitlePath="stopDetails.infoSpots.description"
           disabled={toBeDeleted}
         />
       </Row>
       <Visible visible={infoSpotType === 'static'}>
-        <Row>
-          {posters?.map((_, posterIndex) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <React.Fragment key={`poster-${posterIndex}`}>
-              <InputField<InfoSpotsFormState>
-                translationPrefix="stopDetails"
-                fieldPath={`infoSpots.${index}.poster.${posterIndex}.posterSize`}
-                customTitlePath="stopDetails.infoSpots.posterSize"
-                testId={testIds.posterSize}
-                // eslint-disable-next-line react/no-unstable-nested-components
-                inputElementRenderer={(props) => (
-                  <EnumDropdown<StopRegistryPosterPlaceSize>
-                    enumType={StopRegistryPosterPlaceSize}
-                    placeholder={t('unknown')}
-                    uiNameMapper={mapStopRegistryPosterPlaceSizeEnumToUiName}
-                    buttonClassName="min-w-36"
-                    includeNullOption
-                    disabled={toBeDeleted}
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    {...props}
-                  />
-                )}
-              />
-              <InputField<InfoSpotsFormState>
-                type="text"
-                translationPrefix="stopDetails"
-                fieldPath={`infoSpots.${index}.poster.${posterIndex}.label`}
-                customTitlePath="stopDetails.infoSpots.posterLabel"
-                testId={testIds.posterLabel}
-              />
-              <InputField<InfoSpotsFormState>
-                type="text"
-                translationPrefix="stopDetails"
-                fieldPath={`infoSpots.${index}.poster.${posterIndex}.lines`}
-                customTitlePath="stopDetails.infoSpots.posterLines"
-                testId={testIds.posterLines}
-                disabled={toBeDeleted}
-              />
-            </React.Fragment>
-          ))}
-        </Row>
+        {posters?.length ? (
+          [...posters].map((_, posterIndex) => (
+            <PosterFormFields
+              // eslint-disable-next-line react/no-array-index-key
+              key={`poster-${posterIndex}`}
+              infoSpotIndex={infoSpotIndex}
+              posterIndex={posterIndex}
+              onRemovePoster={onRemovePoster}
+            />
+          ))
+        ) : (
+          <Row>{t('stopDetails.infoSpots.noPosters')}</Row>
+        )}
+        <SlimSimpleButton
+          testId={testIds.addInfoSpotPoster}
+          onClick={() => addPoster(infoSpotIndex)}
+        >
+          {t('stopDetails.infoSpots.addInfoSpotPoster')}
+        </SlimSimpleButton>
       </Visible>
       <Row className="-mx-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${index}.zoneLabel`}
+          fieldPath={`infoSpots.${infoSpotIndex}.zoneLabel`}
           testId={testIds.zoneLabel}
           disabled={toBeDeleted}
         />
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${index}.railInformation`}
+          fieldPath={`infoSpots.${infoSpotIndex}.railInformation`}
           inputClassName="w-20"
           testId={testIds.railInformation}
           disabled={toBeDeleted}
@@ -238,7 +239,7 @@ export const InfoSpotFormFields: FC<Props> = ({ index, onRemove }) => {
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${index}.floor`}
+          fieldPath={`infoSpots.${infoSpotIndex}.floor`}
           inputClassName="w-20"
           testId={testIds.floor}
           disabled={toBeDeleted}
@@ -247,11 +248,11 @@ export const InfoSpotFormFields: FC<Props> = ({ index, onRemove }) => {
       <input
         type="checkbox"
         hidden
-        {...register(`infoSpots.${index}.toBeDeleted`)}
+        {...register(`infoSpots.${infoSpotIndex}.toBeDeleted`)}
       />
       <SlimSimpleButton
         testId={testIds.deleteInfoSpot}
-        onClick={() => onRemove(index)}
+        onClick={() => onRemove(infoSpotIndex)}
         inverted
       >
         {t(

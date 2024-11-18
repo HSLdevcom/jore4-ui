@@ -28,6 +28,20 @@ const GQL_UPDATE_INFO_SPOTS = gql`
   }
 `;
 
+const mapPosterInput = (
+  poster: InfoSpotState['poster'],
+): Array<StopRegistryPosterInput> | null => {
+  if (!poster?.length) {
+    return null;
+  }
+
+  return poster.map(({ label, posterSize, lines }) => ({
+    label,
+    posterSize,
+    lines,
+  })) as Array<StopRegistryPosterInput>;
+};
+
 const mapInfoSpotFormToInput = (infoSpot: InfoSpotState) => {
   return {
     id: infoSpot.infoSpotId,
@@ -53,10 +67,7 @@ const mapInfoSpotFormToInput = (infoSpot: InfoSpotState) => {
     speechProperty: infoSpot.speechProperty,
     zoneLabel: infoSpot.zoneLabel,
     maintenance: infoSpot.maintenance,
-    poster:
-      infoSpot.poster && infoSpot.poster.length > 0
-        ? (infoSpot.poster as Array<StopRegistryPosterInput>)
-        : null,
+    poster: mapPosterInput(infoSpot.poster),
   };
 };
 
@@ -93,13 +104,22 @@ export const useEditStopInfoSpots = () => {
     return infoSpots;
   };
 
+  const clearDeletedPosters = (infoSpots: InfoSpotState[]) => {
+    return infoSpots.map((spot) => ({
+      ...spot,
+      poster: spot.poster?.filter((poster) => !poster.toBeDeletedPoster) ?? [],
+    }));
+  };
+
   const saveStopPlaceInfoSpots = async (params: {
     state: InfoSpotsFormState;
   }) => {
     const updatedParams = {
       state: {
         ...params.state,
-        infoSpots: clearLocationsForDeletedInfoSpots(params.state.infoSpots),
+        infoSpots: clearDeletedPosters(
+          clearLocationsForDeletedInfoSpots(params.state.infoSpots),
+        ),
       },
     };
 
