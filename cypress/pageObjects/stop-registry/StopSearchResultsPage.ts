@@ -30,4 +30,8 @@ export class StopSearchResultsPage {
   getRowLinkByLabel(label: string) {
     return this.getRowByLabel(label).findByTestId('StopTableRow::link');
   }
+
+  getRowPriority() {
+    return cy.getByTestId('StopTableRow::priority');
+  }
 }
