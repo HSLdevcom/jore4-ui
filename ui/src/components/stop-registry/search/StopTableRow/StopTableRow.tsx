@@ -33,6 +33,8 @@ export const StopTableRow: FC<Props> = ({
     <tr
       className={twMerge('text-hsl-dark-80', className)}
       data-testid={testIds.row(stop.label)}
+      data-netext-id={stop.stop_place.netexId ?? ''}
+      data-scheduled-stop-point-id={stop.scheduled_stop_point_id}
     >
       {/* TODO: select column */}
       <PriorityTd className={`w-auto ${yBorderClassNames}`} stop={stop} />
