@@ -236,6 +236,8 @@ export const useGetLineDetails = () => {
 
       return filteredLine;
     }
+
+    return null;
   }, [getHighestPriorityLineDetails, lineDetailsResult, observationDate]);
 
   useEffect(() => {
