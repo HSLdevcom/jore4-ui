@@ -153,7 +153,7 @@ describe('Timetable passing times', () => {
 
       passingTimesByStopTable
         .getAllPassingTimeArrivalTimes()
-        .should('have.length', 0);
+        .should('have.length', 60);
 
       vehicleScheduleDetailsPage.getArrivalTimesSwitch().click();
 
