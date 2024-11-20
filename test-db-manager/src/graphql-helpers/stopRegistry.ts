@@ -143,7 +143,24 @@ const insertStopPlace = async ({
   try {
     const stopPlaceRef = await insertStopPlaceForScheduledStopPoint({
       scheduledStopPointId: stopPointId,
-      stopPlace,
+      stopPlace: {
+        ...stopPlace,
+        keyValues: [
+          ...(stopPlace.keyValues ?? []),
+          {
+            key: 'priority',
+            values: [stopPoint.priority.toString(10)],
+          },
+          {
+            key: 'validityStart',
+            values: [stopPoint.validity_start],
+          },
+          {
+            key: 'validityEnd',
+            values: [stopPoint.validity_end],
+          },
+        ],
+      },
     });
 
     if (stopPoint.stop_place_ref) {

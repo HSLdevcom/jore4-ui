@@ -67174,6 +67174,9 @@ export type GetStopPointByLabelQuery = {
     scheduled_stop_point_id: UUID;
     label: string;
     stop_place_ref?: string | null;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+    priority: number;
   }>;
 };
 
