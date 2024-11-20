@@ -69275,6 +69275,29 @@ export type GetStopWithRouteGraphDataByIdQuery = {
         } | null;
       };
     }>;
+    stop_place?: Array<
+      | {
+          __typename?: 'stop_registry_ParentStopPlace';
+          id?: string | null;
+          version?: string | null;
+          keyValues?: Array<{
+            __typename?: 'stop_registry_KeyValues';
+            key?: string | null;
+            values?: Array<string | null> | null;
+          } | null> | null;
+        }
+      | {
+          __typename?: 'stop_registry_StopPlace';
+          id?: string | null;
+          version?: string | null;
+          keyValues?: Array<{
+            __typename?: 'stop_registry_KeyValues';
+            key?: string | null;
+            values?: Array<string | null> | null;
+          } | null> | null;
+        }
+      | null
+    > | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -71650,6 +71673,11 @@ export type EditStopPlaceMutation = {
         __typename?: 'stop_registry_GeoJSON';
         coordinates?: GeoJSON.Position | null;
       } | null;
+      keyValues?: Array<{
+        __typename?: 'stop_registry_KeyValues';
+        key?: string | null;
+        values?: Array<string | null> | null;
+      } | null> | null;
     } | null> | null;
   } | null;
 };
@@ -77500,6 +77528,14 @@ export const GetStopWithRouteGraphDataByIdDocument = gql`
           }
         }
       }
+      stop_place {
+        id
+        version
+        keyValues {
+          key
+          values
+        }
+      }
     }
   }
   ${ScheduledStopPointAllFieldsFragmentDoc}
@@ -79239,6 +79275,10 @@ export const EditStopPlaceDocument = gql`
         }
         geometry {
           coordinates
+        }
+        keyValues {
+          key
+          values
         }
       }
     }

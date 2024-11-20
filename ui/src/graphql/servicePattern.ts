@@ -131,18 +131,31 @@ const GET_STOP_WITH_ROUTE_GRAPH_DATA_BY_ID = gql`
       where: { scheduled_stop_point_id: { _eq: $stopId } }
     ) {
       ...scheduled_stop_point_all_fields
+
       scheduled_stop_point_in_journey_patterns {
         ...scheduled_stop_point_in_journey_pattern_all_fields
+
         journey_pattern {
           journey_pattern_id
+
           journey_pattern_route {
             ...route_default_fields
+
             infrastructure_links_along_route {
               route_id
               infrastructure_link_id
               infrastructure_link_sequence
             }
           }
+        }
+      }
+
+      stop_place {
+        id
+        version
+        keyValues {
+          key
+          values
         }
       }
     }

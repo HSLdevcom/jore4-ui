@@ -206,6 +206,15 @@ export const useEditStopBasicDetails = () => {
         { key: 'stopState', values: [state.stopState.toString()] },
         { key: 'mainLine', values: [state.stopTypes.mainLine.toString()] },
         { key: 'virtual', values: [state.stopTypes.virtual.toString()] },
+        { key: 'priority', values: [stop.priority.toString(10)] },
+        {
+          key: 'validityStart',
+          values: stop.validity_start ? [stop.validity_start.toISODate()] : [],
+        },
+        {
+          key: 'validityEnd',
+          values: stop.validity_end ? [stop.validity_end.toISODate()] : [],
+        },
       ]),
       description: { lang: 'fin', value: state.locationFin },
       quays: [
