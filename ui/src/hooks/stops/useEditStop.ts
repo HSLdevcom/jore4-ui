@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import compact from 'lodash/compact';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +13,7 @@ import {
   ScheduledStopPointAllFieldsFragment,
   ServicePatternScheduledStopPoint,
   StopRegistryGeoJsonType,
+  StopRegistryStopPlace,
   StopRegistryStopPlaceInput,
   useEditStopMutation,
   useEditStopPlaceMutation,
@@ -34,6 +36,7 @@ import {
   TiamatUpdateFailedError,
   TimingPlaceRequiredError,
   defaultTo,
+  patchKeyValues,
   removeFromApolloCache,
   showDangerToast,
 } from '../../utils';
@@ -119,6 +122,11 @@ const GQL_EDIT_STOP_PLACE = gql`
         geometry {
           coordinates
         }
+
+        keyValues {
+          key
+          values
+        }
       }
     }
   }
@@ -171,6 +179,7 @@ function mapEditChangesToVariables(
 function stopPointPatchToStopPlacePatch(
   stopPlaceRef: string | null | undefined,
   patch: ScheduledStopPointSetInput,
+  stopPlace: Pick<StopRegistryStopPlace, 'keyValues'> | null,
 ): StopRegistryStopPlaceInput | null {
   if (!stopPlaceRef) {
     return null;
@@ -196,7 +205,32 @@ function stopPointPatchToStopPlacePatch(
         }
       : undefined,
 
-    // No validity into Tiamat
+    keyValues:
+      (patch.priority ?? patch.validity_start ?? patch.validity_end)
+        ? patchKeyValues(
+            stopPlace,
+            compact([
+              patch.priority
+                ? {
+                    key: 'priority',
+                    values: [patch.priority.toString(10)],
+                  }
+                : undefined,
+              patch.validity_start
+                ? {
+                    key: 'validityStart',
+                    values: [patch.validity_start.toISODate()],
+                  }
+                : undefined,
+              patch.validity_end
+                ? {
+                    key: 'validityEnd',
+                    values: [patch.validity_end.toISODate()],
+                  }
+                : undefined,
+            ]),
+          )
+        : undefined,
   };
 
   // If there are no actual changes -> null
@@ -449,6 +483,10 @@ function usePrepareEdit() {
       stopPlacePatch: stopPointPatchToStopPlacePatch(
         stopPlaceRef,
         mergedChanges.patch,
+        stopWithRouteGraphData.stop_place?.find(
+          (stopPlace) =>
+            stopPlace && stopPlaceRef && stopPlace.id === stopPlaceRef,
+        ) ?? null,
       ),
       // the final state of the stop that will be after patching
       editedStop: merge({}, stopWithRouteGraphData, mergedChanges.patch),
