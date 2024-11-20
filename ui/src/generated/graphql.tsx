@@ -41150,6 +41150,7 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   parent_stop_place?: Maybe<Scalars['Boolean']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
+  priority?: Maybe<Scalars['String']['output']>;
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
@@ -41193,6 +41194,8 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
   tram_submode?: Maybe<Scalars['String']['output']>;
   transport_mode?: Maybe<Scalars['String']['output']>;
+  validity_end?: Maybe<Scalars['String']['output']>;
+  validity_start?: Maybe<Scalars['String']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
   water_submode?: Maybe<Scalars['String']['output']>;
@@ -41475,6 +41478,7 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   parent_stop_place?: InputMaybe<BooleanComparisonExp>;
   place_equipments_id?: InputMaybe<BigintComparisonExp>;
   polygon_id?: InputMaybe<BigintComparisonExp>;
+  priority?: InputMaybe<StringComparisonExp>;
   private_code_type?: InputMaybe<StringComparisonExp>;
   private_code_value?: InputMaybe<StringComparisonExp>;
   public_code?: InputMaybe<StringComparisonExp>;
@@ -41503,6 +41507,8 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   topographic_place_id?: InputMaybe<BigintComparisonExp>;
   tram_submode?: InputMaybe<StringComparisonExp>;
   transport_mode?: InputMaybe<StringComparisonExp>;
+  validity_end?: InputMaybe<StringComparisonExp>;
+  validity_start?: InputMaybe<StringComparisonExp>;
   version?: InputMaybe<BigintComparisonExp>;
   version_comment?: InputMaybe<StringComparisonExp>;
   water_submode?: InputMaybe<StringComparisonExp>;
@@ -41538,6 +41544,7 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   parent_stop_place?: InputMaybe<Scalars['Boolean']['input']>;
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
+  priority?: InputMaybe<Scalars['String']['input']>;
   private_code_type?: InputMaybe<Scalars['String']['input']>;
   private_code_value?: InputMaybe<Scalars['String']['input']>;
   public_code?: InputMaybe<Scalars['String']['input']>;
@@ -41559,6 +41566,8 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   topographic_place_id?: InputMaybe<Scalars['bigint']['input']>;
   tram_submode?: InputMaybe<Scalars['String']['input']>;
   transport_mode?: InputMaybe<Scalars['String']['input']>;
+  validity_end?: InputMaybe<Scalars['String']['input']>;
+  validity_start?: InputMaybe<Scalars['String']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   version_comment?: InputMaybe<Scalars['String']['input']>;
   water_submode?: InputMaybe<Scalars['String']['input']>;
@@ -41590,6 +41599,7 @@ export type StopsDatabaseStopPlaceNewestVersionMaxFields = {
   parent_site_ref_version?: Maybe<Scalars['String']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
+  priority?: Maybe<Scalars['String']['output']>;
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
@@ -41604,6 +41614,8 @@ export type StopsDatabaseStopPlaceNewestVersionMaxFields = {
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
   tram_submode?: Maybe<Scalars['String']['output']>;
   transport_mode?: Maybe<Scalars['String']['output']>;
+  validity_end?: Maybe<Scalars['String']['output']>;
+  validity_start?: Maybe<Scalars['String']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
   water_submode?: Maybe<Scalars['String']['output']>;
@@ -41635,6 +41647,7 @@ export type StopsDatabaseStopPlaceNewestVersionMinFields = {
   parent_site_ref_version?: Maybe<Scalars['String']['output']>;
   place_equipments_id?: Maybe<Scalars['bigint']['output']>;
   polygon_id?: Maybe<Scalars['bigint']['output']>;
+  priority?: Maybe<Scalars['String']['output']>;
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
@@ -41649,6 +41662,8 @@ export type StopsDatabaseStopPlaceNewestVersionMinFields = {
   topographic_place_id?: Maybe<Scalars['bigint']['output']>;
   tram_submode?: Maybe<Scalars['String']['output']>;
   transport_mode?: Maybe<Scalars['String']['output']>;
+  validity_end?: Maybe<Scalars['String']['output']>;
+  validity_start?: Maybe<Scalars['String']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
   water_submode?: Maybe<Scalars['String']['output']>;
@@ -41689,6 +41704,7 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   parent_stop_place?: InputMaybe<OrderBy>;
   place_equipments_id?: InputMaybe<OrderBy>;
   polygon_id?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
   private_code_type?: InputMaybe<OrderBy>;
   private_code_value?: InputMaybe<OrderBy>;
   public_code?: InputMaybe<OrderBy>;
@@ -41710,6 +41726,8 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   topographic_place_id?: InputMaybe<OrderBy>;
   tram_submode?: InputMaybe<OrderBy>;
   transport_mode?: InputMaybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
   version?: InputMaybe<OrderBy>;
   version_comment?: InputMaybe<OrderBy>;
   water_submode?: InputMaybe<OrderBy>;
@@ -41771,6 +41789,8 @@ export enum StopsDatabaseStopPlaceNewestVersionSelectColumn {
   /** column name */
   PolygonId = 'polygon_id',
   /** column name */
+  Priority = 'priority',
+  /** column name */
   PrivateCodeType = 'private_code_type',
   /** column name */
   PrivateCodeValue = 'private_code_value',
@@ -41798,6 +41818,10 @@ export enum StopsDatabaseStopPlaceNewestVersionSelectColumn {
   TramSubmode = 'tram_submode',
   /** column name */
   TransportMode = 'transport_mode',
+  /** column name */
+  ValidityEnd = 'validity_end',
+  /** column name */
+  ValidityStart = 'validity_start',
   /** column name */
   Version = 'version',
   /** column name */
@@ -41880,6 +41904,7 @@ export type StopsDatabaseStopPlaceNewestVersionStreamCursorValueInput = {
   parent_stop_place?: InputMaybe<Scalars['Boolean']['input']>;
   place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
   polygon_id?: InputMaybe<Scalars['bigint']['input']>;
+  priority?: InputMaybe<Scalars['String']['input']>;
   private_code_type?: InputMaybe<Scalars['String']['input']>;
   private_code_value?: InputMaybe<Scalars['String']['input']>;
   public_code?: InputMaybe<Scalars['String']['input']>;
@@ -41894,6 +41919,8 @@ export type StopsDatabaseStopPlaceNewestVersionStreamCursorValueInput = {
   topographic_place_id?: InputMaybe<Scalars['bigint']['input']>;
   tram_submode?: InputMaybe<Scalars['String']['input']>;
   transport_mode?: InputMaybe<Scalars['String']['input']>;
+  validity_end?: InputMaybe<Scalars['String']['input']>;
+  validity_start?: InputMaybe<Scalars['String']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   version_comment?: InputMaybe<Scalars['String']['input']>;
   water_submode?: InputMaybe<Scalars['String']['input']>;
