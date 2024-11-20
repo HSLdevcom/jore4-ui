@@ -213,6 +213,9 @@ const mapToStopPlaceInput = (
         getKeyValue('stopState', seedStopPlace.stopState),
         getKeyValue('virtual', seedStopPlace.stopType?.virtual),
         getKeyValue('mainLine', seedStopPlace.stopType?.mainLine),
+        { key: 'priority', values: ['10'] },
+        { key: 'validityStart', values: ['1990-01-01'] },
+        { key: 'validityEnd', values: ['2051-01-01'] },
       ],
 
       // Equipment properties:
