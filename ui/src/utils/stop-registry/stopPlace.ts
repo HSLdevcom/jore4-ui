@@ -137,29 +137,34 @@ const findKeyValue = (
  * otherwise adds the key values pair to initialKeyValues
  */
 export const setKeyValue = (
-  initialKeyValues: (StopRegistryKeyValues | null)[] | undefined,
+  initialKeyValues: ReadonlyArray<StopRegistryKeyValues | null> | undefined,
   key: string,
   values: Maybe<string>[],
 ): (StopRegistryKeyValues | null)[] => {
-  const keyValues = cloneDeep(initialKeyValues) ?? [];
-  const existingKey = keyValues.find(
+  const newItem = { key, values };
+
+  const keyValues = initialKeyValues ?? [];
+  const existingKeyIndex = keyValues.findIndex(
     (keyValuePair) => keyValuePair?.key === key,
   );
-  if (existingKey) {
-    existingKey.values = values;
-  } else {
-    keyValues.push({ key, values });
+
+  if (existingKeyIndex >= 0) {
+    // Node 18 that we are still using for running unit tests,
+    // does not support toSpliced → make copy with slice, then splice
+    return keyValues.slice().splice(existingKeyIndex, 1, newItem);
   }
-  return keyValues;
+
+  return keyValues.concat(newItem);
 };
 
 export const setMultipleKeyValues = (
-  initialKeyValues: (StopRegistryKeyValues | null)[] | undefined,
-  updates: { key: string; values: string[] }[],
+  initialKeyValues: ReadonlyArray<StopRegistryKeyValues | null> | undefined,
+  updates: ReadonlyArray<{ key: string; values: string[] }>,
 ) => {
-  return updates.reduce((acc, { key, values }) => {
-    return setKeyValue(acc, key, values);
-  }, initialKeyValues);
+  return updates.reduce(
+    (acc, { key, values }) => setKeyValue(acc, key, values),
+    initialKeyValues?.slice() ?? [],
+  );
 };
 
 // TODO: This typename omit can be avoided completely by using
@@ -175,7 +180,7 @@ const omitTypename = <T extends { __typename?: string } | null>(
 
 export const patchKeyValues = (
   stopPlace: Pick<StopRegistryStopPlace, 'keyValues'> | null,
-  updates: { key: string; values: string[] }[],
+  updates: ReadonlyArray<{ key: string; values: string[] }>,
 ) => {
   const initialKeyValues =
     stopPlace?.keyValues?.map((keyValue) => omitTypename(keyValue)) ?? [];
