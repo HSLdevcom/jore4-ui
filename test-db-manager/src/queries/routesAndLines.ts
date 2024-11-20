@@ -7,6 +7,9 @@ const GQL_GET_STOP_POINT_BY_LABEL = gql`
       scheduled_stop_point_id
       label
       stop_place_ref
+      validity_start
+      validity_end
+      priority
     }
   }
 `;

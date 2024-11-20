@@ -38,6 +38,9 @@ export interface GetStopPointByLabelResult {
       scheduled_stop_point_id: UUID;
       label: string;
       stop_place_ref: string | null;
+      priority: number;
+      validity_start: string | null;
+      validity_end: string | null;
     }>;
   };
 }
