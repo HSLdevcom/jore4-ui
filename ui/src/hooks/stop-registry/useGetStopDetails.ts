@@ -6,6 +6,7 @@ import {
   InfoSpotDetailsFragment,
   ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
+  StopRegistryPosterInput,
   useGetHighestPriorityStopDetailsByLabelAndDateQuery,
 } from '../../generated/graphql';
 import {
@@ -298,13 +299,25 @@ export type StopPlaceInfoSpots = InfoSpotDetailsFragment;
 export type EnrichedStopPlace = StopPlace & StopPlaceEnrichmentProperties;
 
 function sortInfoSpots(
-  infoStops: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,
+  infoSpots: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,
 ): Array<StopPlaceInfoSpots> | null {
-  if (!infoStops) {
+  if (!infoSpots) {
     return null;
   }
 
-  return compact(infoStops).sort((a, b) =>
+  return compact(infoSpots).sort((a, b) =>
+    (a.label ?? '').localeCompare(b.label ?? ''),
+  );
+}
+
+function sortPosters(
+  posters: ReadonlyArray<StopRegistryPosterInput | null> | undefined | null,
+): Array<StopRegistryPosterInput> | null {
+  if (!posters) {
+    return null;
+  }
+
+  return compact(posters).sort((a, b) =>
     (a.label ?? '').localeCompare(b.label ?? ''),
   );
 }
@@ -319,7 +332,10 @@ const getEnrichedStopPlace = (
   return {
     ...stopPlace,
     ...getStopPlaceDetailsForEnrichment(stopPlace),
-    infoSpots: sortInfoSpots(stopPlace.infoSpots),
+    infoSpots: sortInfoSpots(stopPlace.infoSpots)?.map((spot) => ({
+      ...spot,
+      poster: spot.poster ? sortPosters(spot.poster) : null,
+    })),
   };
 };
 
