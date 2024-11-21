@@ -44,6 +44,12 @@ export class InfoSpotFormFields {
 
   getZoneLabel = () => cy.getByTestId('InfoSpotFormFields::zoneLabel');
 
+  getPosterContainers = () =>
+    cy.getByTestId('InfoSpotPosterFormFields::container');
+
+  getNthPosterContainer = (index: number) =>
+    this.getPosterContainers().eq(index);
+
   getPosterSizeButton = () =>
     cy.getByTestId('InfoSpotPosterFormFields::posterSize::ListboxButton');
 
@@ -55,6 +61,12 @@ export class InfoSpotFormFields {
 
   getPosterLines = () =>
     cy.getByTestId('InfoSpotPosterFormFields::posterLines');
+
+  getAddPosterButton = () =>
+    cy.getByTestId('InfoSpotFormFields::addInfoSpotPoster');
+
+  getDeletePosterButton = () =>
+    cy.getByTestId('InfoSpotFormFields::deleteInfoSpotPoster');
 
   getDeleteInfoSpotButton = () =>
     cy.getByTestId('InfoSpotFormFields::deleteInfoSpot');
