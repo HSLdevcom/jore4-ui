@@ -40,6 +40,19 @@ function buildSearchStopsMunicipalityFilter({
   );
 }
 
+function buildSearchStopsObservationDateFilter({
+  observationDate,
+}: StopSearchFilters): StopsDatabaseStopPlaceNewestVersionBoolExp {
+  const dateString = observationDate.toISODate();
+  return {
+    validity_start: { _gte: dateString },
+    _or: [
+      { validity_end: { _lte: dateString } },
+      { validity_end: { _is_null: true } },
+    ],
+  };
+}
+
 export function buildSearchStopsGqlQueryVariables(
   filters: StopSearchFilters,
 ): StopsDatabaseStopPlaceNewestVersionBoolExp {
@@ -52,9 +65,14 @@ export function buildSearchStopsGqlQueryVariables(
 
   const municipalityFilter = buildSearchStopsMunicipalityFilter(filters);
 
+  const observationDateFilter = buildSearchStopsObservationDateFilter(filters);
+
   return {
-    ...queryFilter,
-    ...elyNumberFilter,
-    ...municipalityFilter,
+    _and: [
+      queryFilter,
+      elyNumberFilter,
+      municipalityFilter,
+      observationDateFilter,
+    ],
   };
 }
