@@ -342,8 +342,8 @@ export function useTypedUrlState<StateT extends object>(
  */
 export function toEnum<T extends string | number>(
   knownValues: ReadonlyArray<T>,
-): (value: string) => T {
-  return (value: string) => {
+): (value: T extends string ? string : number) => T {
+  return (value) => {
     if (knownValues.includes(value as ExplicitAny)) {
       return value as unknown as T;
     }
