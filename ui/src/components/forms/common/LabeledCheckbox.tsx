@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ForwardRefRenderFunction, forwardRef } from 'react';
 import {
   LabeledContainer,
   labeledContainerInputStyles,
@@ -6,6 +6,7 @@ import {
 
 interface Props {
   label: string;
+  onBlur?: React.FocusEventHandler<HTMLButtonElement> | undefined;
   onClick: () => void;
   className?: string;
   tooltip?: string;
@@ -17,20 +18,25 @@ interface Props {
   hasError?: boolean;
 }
 
-export const LabeledCheckbox = ({
-  label,
-  onClick,
-  className = '',
-  tooltip,
-  id,
-  testId,
-  selected,
-  disabled,
-  disabledTooltip,
-  hasError,
-}: Props): React.ReactElement => {
+const LabeledCheckboxImpl: ForwardRefRenderFunction<HTMLInputElement, Props> = (
+  {
+    label,
+    onBlur,
+    onClick,
+    className = '',
+    tooltip,
+    id,
+    testId,
+    selected,
+    disabled,
+    disabledTooltip,
+    hasError,
+  },
+  ref,
+) => {
   return (
     <LabeledContainer
+      onBlur={onBlur}
       onClick={onClick}
       label={label}
       role="checkbox"
@@ -55,7 +61,10 @@ export const LabeledCheckbox = ({
         checked={selected}
         disabled={disabled}
         aria-hidden="true"
+        ref={ref}
       />
     </LabeledContainer>
   );
 };
+
+export const LabeledCheckbox = forwardRef(LabeledCheckboxImpl);
