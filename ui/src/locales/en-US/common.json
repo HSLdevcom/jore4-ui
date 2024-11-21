@@ -417,7 +417,8 @@
       "query": "Search",
       "searchFor": "Search for",
       "elyNumber": "ELY number",
-      "municipalities": "Municipality"
+      "municipalities": "Municipality",
+      "priorities": "Priorities"
     },
 
     "sortBy": {

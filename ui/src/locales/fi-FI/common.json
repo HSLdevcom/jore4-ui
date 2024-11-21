@@ -417,7 +417,8 @@
       "query": "Haku",
       "searchFor": "Hakukohde",
       "elyNumber": "ELY-numero",
-      "municipalities": "Kunta"
+      "municipalities": "Kunta",
+      "priorities": "Prioriteetti"
     },
 
     "sortBy": {
