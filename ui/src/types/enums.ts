@@ -1,4 +1,6 @@
 // Represents the values of hsl_municipality in LegacyHslMunicipalityCode table.
+import { numberEnumValues } from '../utils/numberEnumHelpers';
+
 export enum LegacyHslMunicipality {
   LegacyNotUsed = 'legacy_not_used',
   Helsinki = 'helsinki',
@@ -17,6 +19,8 @@ export enum Priority {
   Temporary = 20, // overrides Standard, used for temporary adjustments
   Draft = 30, // overrides Temporary and Standard, not visible to external systems
 }
+export const knownPriorityValues: ReadonlyArray<Priority> =
+  numberEnumValues(Priority);
 
 export enum TimetablePriority {
   Standard = 10, // used for "normal" in-use entities

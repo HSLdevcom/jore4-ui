@@ -1,5 +1,9 @@
+import isEmpty from 'lodash/isEmpty';
 import { StopsDatabaseStopPlaceNewestVersionBoolExp } from '../../../../generated/graphql';
-import { StopRegistryMunicipality } from '../../../../types/enums';
+import {
+  StopRegistryMunicipality,
+  knownPriorityValues,
+} from '../../../../types/enums';
 import {
   AllOptionEnum,
   buildOptionalSearchConditionGqlFilter,
@@ -45,11 +49,26 @@ function buildSearchStopsObservationDateFilter({
 }: StopSearchFilters): StopsDatabaseStopPlaceNewestVersionBoolExp {
   const dateString = observationDate.toISODate();
   return {
-    validity_start: { _gte: dateString },
+    validity_start: { _lte: dateString },
     _or: [
-      { validity_end: { _lte: dateString } },
+      { validity_end: { _gte: dateString } },
       { validity_end: { _is_null: true } },
     ],
+  };
+}
+
+function buildSearchStopsPriorityFilter({
+  priorities,
+}: StopSearchFilters): StopsDatabaseStopPlaceNewestVersionBoolExp {
+  const allSelected =
+    knownPriorityValues.length === priorities.length &&
+    knownPriorityValues.every((prio) => priorities.includes(prio));
+  if (allSelected) {
+    return {};
+  }
+
+  return {
+    priority: { _in: priorities.map(String) },
   };
 }
 
@@ -67,12 +86,15 @@ export function buildSearchStopsGqlQueryVariables(
 
   const observationDateFilter = buildSearchStopsObservationDateFilter(filters);
 
+  const priorityFilter = buildSearchStopsPriorityFilter(filters);
+
   return {
     _and: [
       queryFilter,
       elyNumberFilter,
       municipalityFilter,
       observationDateFilter,
-    ],
+      priorityFilter,
+    ].filter((filter) => !isEmpty(filter)),
   };
 }
