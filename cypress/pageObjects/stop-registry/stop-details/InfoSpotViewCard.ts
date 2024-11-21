@@ -1,7 +1,13 @@
 export class InfoSpotViewCard {
-  getContainers = () => cy.getByTestId('InfoSpotsSection::container');
+  getSectionContainers = () => cy.getByTestId('InfoSpotsSection::container');
 
-  getNthContainer = (index: number) => this.getContainers().eq(index);
+  getNthSectionContainer = (index: number) =>
+    this.getSectionContainers().eq(index);
+
+  getViewCardContainers = () => cy.getByTestId('InfoSpotsViewCard::container');
+
+  getNthViewCardContainer = (index: number) =>
+    this.getViewCardContainers().eq(index);
 
   getDescription = () => cy.getByTestId('InfoSpotsViewCard::description');
 
@@ -26,6 +32,12 @@ export class InfoSpotViewCard {
     cy.getByTestId('InfoSpotDetailsStatic::posterPlaceSize');
 
   getMaintenance = () => cy.getByTestId('InfoSpotDetailsStatic::maintenance');
+
+  getPosterContainers = () =>
+    cy.getByTestId('InfoSpotPosterDetails::container');
+
+  getNthPosterContainer = (index: number) =>
+    this.getPosterContainers().eq(index);
 
   getPosterSize = () => cy.getByTestId('InfoSpotPosterDetails::posterSize');
 
