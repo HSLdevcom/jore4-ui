@@ -1,7 +1,7 @@
 import pick from 'lodash/pick';
 import { DateTime } from 'luxon';
 import { z } from 'zod';
-import { StopRegistryMunicipality } from '../../../../types/enums';
+import { Priority, StopRegistryMunicipality } from '../../../../types/enums';
 import { AllOptionEnum, areEqual } from '../../../../utils';
 import { instanceOfDateTime, requiredString } from '../../../forms/common';
 import { SearchBy } from './SearchBy';
@@ -19,6 +19,7 @@ export const stopSearchFiltersSchema = z.object({
       z.nativeEnum(AllOptionEnum),
     ]),
   ),
+  priorities: z.array(z.nativeEnum(Priority)).min(1),
 });
 
 export type StopSearchFilters = z.infer<typeof stopSearchFiltersSchema>;
@@ -30,6 +31,7 @@ export const defaultFilters: StopSearchFilters = {
   observationDate: DateTime.now().startOf('day'),
   elyNumber: '',
   municipalities: [AllOptionEnum.All],
+  priorities: [Priority.Standard, Priority.Temporary],
 };
 
 export function pickMeaningfulFilters(filters: StopSearchFilters) {
@@ -39,6 +41,7 @@ export function pickMeaningfulFilters(filters: StopSearchFilters) {
     'observationDate',
     'elyNumber',
     'municipalities',
+    'priority',
   );
 }
 

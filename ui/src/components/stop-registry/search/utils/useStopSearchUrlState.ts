@@ -11,7 +11,10 @@ import {
   useTypedUrlState,
 } from '../../../../hooks';
 import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
-import { StopRegistryMunicipality } from '../../../../types/enums';
+import {
+  StopRegistryMunicipality,
+  knownPriorityValues,
+} from '../../../../types/enums';
 import {
   AllOptionEnum,
   areEqual,
@@ -58,6 +61,7 @@ const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
             StopRegistryMunicipality[enumValue],
       )
       .join(SEPRATOR),
+  priorities: (priorities) => priorities.map(String).join(SEPRATOR),
 
   // Paging
   page: String,
@@ -102,6 +106,8 @@ function parseMunicipalities(
   return handleAllMunicipalities(parsed);
 }
 
+const toPriority = toEnum(knownPriorityValues);
+
 const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
   // Filters
   query: identity,
@@ -110,6 +116,7 @@ const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
   searchFor: toEnum(Object.values(SearchFor)),
   observationDate: (value) => DateTime.fromISO(value),
   municipalities: parseMunicipalities,
+  priorities: (value) => value.split(SEPRATOR).map(Number).map(toPriority),
 
   // Paging
   page: Number,
