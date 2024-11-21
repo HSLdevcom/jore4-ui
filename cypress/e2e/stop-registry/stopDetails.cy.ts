@@ -319,7 +319,7 @@ describe('Stop details', () => {
 
   const verifyInitialInfoSpots = () => {
     const infoSpotView = stopDetailsPage.infoSpots.viewCard;
-    infoSpotView.getNthContainer(0).within(() => {
+    infoSpotView.getNthSectionContainer(0).within(() => {
       infoSpotView
         .getDescription()
         .shouldHaveText('Ensimmäinen kerros, portaiden vieressä');
@@ -346,7 +346,7 @@ describe('Stop details', () => {
       infoSpotView.getSpeechProperty().should('not.exist');
     });
 
-    infoSpotView.getNthContainer(1).within(() => {
+    infoSpotView.getNthSectionContainer(1).within(() => {
       infoSpotView
         .getDescription()
         .shouldHaveText('Ensimmäinen kerros, portaiden takana');
@@ -371,7 +371,7 @@ describe('Stop details', () => {
       infoSpotView.getPosterLines().should('not.exist');
     });
 
-    infoSpotView.getNthContainer(2).within(() => {
+    infoSpotView.getNthSectionContainer(2).within(() => {
       infoSpotView.getDescription().shouldHaveText('Tolpassa');
       infoSpotView.getLabel().shouldHaveText('JP1234569');
       infoSpotView.getInfoSpotType().shouldHaveText('Äänimajakka');
@@ -493,7 +493,7 @@ describe('Stop details', () => {
 
         stopDetailsPage.basicDetails.getSaveButton().click();
 
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        toast.expectSuccessToast('Pysäkki muokattu');
 
         bdView.getLabel().shouldHaveText('H2003');
         bdView.getPublicCode().shouldHaveText('10004');
@@ -546,7 +546,7 @@ describe('Stop details', () => {
 
         stopDetailsPage.basicDetails.getSaveButton().click();
 
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        toast.expectSuccessToast('Pysäkki muokattu');
 
         // Tiamat data model has some arrays that stores multiple types
         // of data, so all these checks are here to make sure that
@@ -623,11 +623,11 @@ describe('Stop details', () => {
             description: 'Test description',
           });
 
-          toast.checkSuccessToastHasMessage('Hastus-paikka luotu');
+          toast.expectSuccessToast('Hastus-paikka luotu');
 
           stopDetailsPage.basicDetails.getSaveButton().click();
 
-          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+          toast.expectSuccessToast('Pysäkki muokattu');
 
           bdView.getLabel().shouldHaveText('H2003');
           bdView.getTimingPlaceId().shouldHaveText('1TEST');
@@ -687,7 +687,7 @@ describe('Stop details', () => {
         .clearAndType('7');
 
       stopDetailsPage.locationDetails.getSaveButton().click();
-      toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+      toast.expectSuccessToast('Pysäkki muokattu');
       locationView.getContainer().shouldBeVisible();
 
       locationView.getStreetAddress().shouldHaveText('Marskintie 42');
@@ -739,7 +739,7 @@ describe('Stop details', () => {
           .clearAndType('Uusi teksti');
 
         stopDetailsPage.signageDetails.getSaveButton().click();
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        toast.expectSuccessToast('Pysäkki muokattu');
         signView.getContainer().shouldBeVisible();
 
         signView.getContainer().shouldBeVisible();
@@ -862,7 +862,7 @@ describe('Stop details', () => {
 
           // Submit.
           stopDetailsPage.shelters.getSaveButton().click();
-          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+          toast.expectSuccessToast('Pysäkki muokattu');
           view.getContainers().shouldBeVisible();
 
           // Verify changes visible in view card:
@@ -921,7 +921,7 @@ describe('Stop details', () => {
 
           // Submit.
           stopDetailsPage.shelters.getSaveButton().click();
-          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+          toast.expectSuccessToast('Pysäkki muokattu');
 
           view.getContainers().shouldBeVisible();
           view.getContainers().should('have.length', 3);
@@ -971,7 +971,7 @@ describe('Stop details', () => {
             .shouldHaveText('Pysäkkikatos (2)'); // 2 instead of 3 since one of those will be deleted.
 
           stopDetailsPage.shelters.getSaveButton().click();
-          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+          toast.expectSuccessToast('Pysäkki muokattu');
 
           view.getContainers().shouldBeVisible();
           view.getContainers().should('have.length', 2);
@@ -1024,7 +1024,7 @@ describe('Stop details', () => {
           });
 
           stopDetailsPage.shelters.getSaveButton().click();
-          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+          toast.expectSuccessToast('Pysäkki muokattu');
 
           view.getContainers().should('not.exist');
           stopDetailsPage.shelters
@@ -1049,7 +1049,7 @@ describe('Stop details', () => {
             .getTitle()
             .should('have.text', 'Ei pysäkkikatosta');
           stopDetailsPage.shelters.getSaveButton().click();
-          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+          toast.expectSuccessToast('Pysäkki muokattu');
 
           view.getContainers().should('not.exist');
           stopDetailsPage.shelters
@@ -1176,7 +1176,7 @@ describe('Stop details', () => {
 
           // Submit.
           stopDetailsPage.measurements.getSaveButton().click();
-          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+          toast.expectSuccessToast('Pysäkki muokattu');
           view.getContainer().shouldBeVisible();
 
           // Verify changes visible in view card:
@@ -1287,7 +1287,7 @@ describe('Stop details', () => {
 
           // Submit.
           stopDetailsPage.measurements.getSaveButton().click();
-          toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+          toast.expectSuccessToast('Pysäkki muokattu');
           view.getContainer().shouldBeVisible();
 
           // Verify changes visible in view card:
@@ -1395,7 +1395,7 @@ describe('Stop details', () => {
 
         // Submit.
         stopDetailsPage.maintenance.getSaveButton().click();
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+        toast.expectSuccessToast('Pysäkki muokattu');
         view.getContainer().shouldBeVisible();
 
         // Verify changes visible.
@@ -1572,7 +1572,7 @@ describe('Stop details', () => {
       stopDetailsPage.technicalFeaturesTabPanel().should('not.exist');
       stopDetailsPage.basicDetailsTabPanel().should('not.exist');
 
-      infoSpotView.getContainers().shouldBeVisible();
+      infoSpotView.getSectionContainers().shouldBeVisible();
     });
 
     it(
@@ -1584,9 +1584,9 @@ describe('Stop details', () => {
         const infoSpot = infoSpotForm.infoSpots;
 
         // Edit first info spot
-        infoSpotView.getNthContainer(0).within(() => {
+        infoSpotView.getNthSectionContainer(0).within(() => {
           stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotView.getContainers().should('not.exist');
+          infoSpotView.getSectionContainers().should('not.exist');
 
           infoSpot
             .getDescription()
@@ -1630,10 +1630,10 @@ describe('Stop details', () => {
 
         // Submit.
         stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
-        infoSpotView.getContainers().shouldBeVisible();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        infoSpotView.getSectionContainers().shouldBeVisible();
 
-        infoSpotView.getNthContainer(0).within(() => {
+        infoSpotView.getNthSectionContainer(0).within(() => {
           infoSpotView
             .getDescription()
             .shouldHaveText('Infopaikan uusi kuvaus');
@@ -1655,9 +1655,9 @@ describe('Stop details', () => {
         });
 
         // Edit second info spot
-        infoSpotView.getNthContainer(1).within(() => {
+        infoSpotView.getNthSectionContainer(1).within(() => {
           stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotView.getContainers().should('not.exist');
+          infoSpotView.getSectionContainers().should('not.exist');
 
           infoSpot
             .getDescription()
@@ -1699,10 +1699,10 @@ describe('Stop details', () => {
 
         // Submit.
         stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
-        infoSpotView.getContainers().shouldBeVisible();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        infoSpotView.getSectionContainers().shouldBeVisible();
 
-        infoSpotView.getNthContainer(1).within(() => {
+        infoSpotView.getNthSectionContainer(1).within(() => {
           infoSpotView.getDescription().shouldHaveText('Dynaaminen kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP2345678');
           infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
@@ -1726,9 +1726,9 @@ describe('Stop details', () => {
         });
 
         // Change info spot type
-        infoSpotView.getNthContainer(1).within(() => {
+        infoSpotView.getNthSectionContainer(1).within(() => {
           stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotView.getContainers().should('not.exist');
+          infoSpotView.getSectionContainers().should('not.exist');
 
           infoSpot.getDescription().should('have.value', 'Dynaaminen kuvaus');
           infoSpot.getLabel().should('have.value', 'IP2345678');
@@ -1762,10 +1762,10 @@ describe('Stop details', () => {
 
         // Submit.
         stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
-        infoSpotView.getContainers().shouldBeVisible();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        infoSpotView.getSectionContainers().shouldBeVisible();
 
-        infoSpotView.getNthContainer(1).within(() => {
+        infoSpotView.getNthSectionContainer(1).within(() => {
           infoSpotView.getDescription().shouldHaveText('Majakan kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP231');
           infoSpotView.getInfoSpotType().shouldHaveText('Äänimajakka');
@@ -1788,10 +1788,83 @@ describe('Stop details', () => {
           infoSpotView.getSpeechProperty().should('not.exist');
         });
 
-        // Edit third info spot
-        infoSpotView.getNthContainer(2).within(() => {
+        // Change info spot type
+        infoSpotView.getNthSectionContainer(1).within(() => {
           stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotView.getContainers().should('not.exist');
+          infoSpotView.getSectionContainers().should('not.exist');
+
+          infoSpot.getDescription().should('have.value', 'Majakan kuvaus');
+          infoSpot.getLabel().should('have.value', 'IP231');
+          infoSpot.getInfoSpotTypeButton().should('have.text', 'Äänimajakka');
+          infoSpot.getPurpose().should('have.value', 'Majakka');
+          infoSpot.getFloor().should('have.value', '3');
+          infoSpot.getRailInformation().should('have.value', '8');
+          infoSpot.getZoneLabel().should('have.value', 'D');
+
+          infoSpot.getBacklightButton().should('not.exist');
+          infoSpot.getPosterPlaceSizeButton().should('not.exist');
+          infoSpot.getMaintenance().should('not.exist');
+          infoSpot.getPosterSizeButton().should('not.exist');
+          infoSpot.getPosterLabel().should('not.exist');
+          infoSpot.getPosterLines().should('not.exist');
+          infoSpot.getDisplayTypeButton().should('not.exist');
+          infoSpot.getSpeechPropertyButton().should('not.exist');
+
+          // Change everything
+          infoSpot.getLabel().clearAndType('IP124');
+          infoSpot.getPurpose().clearAndType('Staattisen tarkoitus');
+          infoSpot.getInfoSpotTypeButton().click();
+          infoSpot.getInfoSpotTypeOptions().contains('Staattinen').click();
+          infoSpot.getPosterPlaceSizeButton().click();
+          infoSpot.getPosterPlaceSizeOptions().contains('A3').click();
+          infoSpot.getBacklightButton().click();
+          infoSpot.getBacklightOptions().contains('Kyllä').click();
+          infoSpot.getMaintenance().clearAndType('Staattisen huoltotiedot');
+          infoSpot.getDescription().clearAndType('Staattisen kuvaus');
+          infoSpot.getAddPosterButton().click();
+          infoSpot.getPosterLabel().clearAndType('PT1236');
+          infoSpot.getPosterSizeButton().click();
+          infoSpot.getPosterSizeOptions().contains('A3').click();
+          infoSpot.getPosterLines().clearAndType('2, 7, 1');
+          infoSpot.getZoneLabel().clearAndType('A');
+          infoSpot.getRailInformation().clearAndType('7');
+          infoSpot.getFloor().clearAndType('2');
+        });
+
+        // Submit.
+        stopDetailsPage.infoSpots.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        infoSpotView.getSectionContainers().shouldBeVisible();
+
+        infoSpotView.getNthSectionContainer(1).within(() => {
+          infoSpotView.getDescription().shouldHaveText('Staattisen kuvaus');
+          infoSpotView.getLabel().shouldHaveText('IP124');
+          infoSpotView.getInfoSpotType().shouldHaveText('Staattinen');
+          infoSpotView.getBacklight().shouldHaveText('Kyllä');
+          infoSpotView.getPosterPlaceSize().shouldHaveText('a3');
+          infoSpotView
+            .getMaintenance()
+            .shouldHaveText('Staattisen huoltotiedot');
+          infoSpotView.getPosterSize().shouldHaveText('a3');
+          infoSpotView.getPosterLabel().shouldHaveText('PT1236');
+          infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
+          infoSpotView.getPurpose().shouldHaveText('Staattisen tarkoitus');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getFloor().shouldHaveText('2');
+          infoSpotView.getRailInformation().shouldHaveText('7');
+          infoSpotView.getStops().shouldHaveText('V1562');
+          infoSpotView.getTerminals().shouldHaveText('-');
+          infoSpotView.getZoneLabel().shouldHaveText('A');
+
+          infoSpotView.getDisplayType().should('not.exist');
+          infoSpotView.getSpeechProperty().should('not.exist');
+        });
+
+        // Edit third info spot
+        infoSpotView.getNthSectionContainer(2).within(() => {
+          stopDetailsPage.infoSpots.getEditButton().click();
+          infoSpotView.getSectionContainers().should('not.exist');
 
           infoSpot.getDescription().should('have.value', 'Tolpassa');
           infoSpot.getLabel().should('have.value', 'JP1234569');
@@ -1824,10 +1897,10 @@ describe('Stop details', () => {
 
         // Submit.
         stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
-        infoSpotView.getContainers().shouldBeVisible();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        infoSpotView.getSectionContainers().shouldBeVisible();
 
-        infoSpotView.getNthContainer(2).within(() => {
+        infoSpotView.getNthSectionContainer(2).within(() => {
           infoSpotView.getDescription().shouldHaveText('Äänimajakan kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP987654');
           infoSpotView.getInfoSpotType().shouldHaveText('Äänimajakka');
@@ -1851,9 +1924,9 @@ describe('Stop details', () => {
         });
 
         // Change info spot type
-        infoSpotView.getNthContainer(2).within(() => {
+        infoSpotView.getNthSectionContainer(2).within(() => {
           stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotView.getContainers().should('not.exist');
+          infoSpotView.getSectionContainers().should('not.exist');
 
           infoSpot.getDescription().should('have.value', 'Äänimajakan kuvaus');
           infoSpot.getLabel().should('have.value', 'IP987654');
@@ -1889,10 +1962,10 @@ describe('Stop details', () => {
 
         // Submit.
         stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
-        infoSpotView.getContainers().shouldBeVisible();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        infoSpotView.getSectionContainers().shouldBeVisible();
 
-        infoSpotView.getNthContainer(2).within(() => {
+        infoSpotView.getNthSectionContainer(2).within(() => {
           infoSpotView.getDescription().shouldHaveText('Dynaamisen kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP123');
           infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
@@ -1921,9 +1994,9 @@ describe('Stop details', () => {
       'should be able to add and delete info spots',
       { tags: [Tag.StopRegistry] },
       () => {
-        infoSpotView.getNthContainer(0).within(() => {
+        infoSpotView.getNthSectionContainer(0).within(() => {
           stopDetailsPage.infoSpots.getEditButton().click();
-          infoSpotView.getContainers().should('not.exist');
+          infoSpotView.getSectionContainers().should('not.exist');
 
           // Add more infoSpots.
           infoSpotForm.getInfoSpots().should('have.length', 1);
@@ -1955,16 +2028,16 @@ describe('Stop details', () => {
 
         // Submit.
         stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
-        infoSpotView.getContainers().shouldBeVisible();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        infoSpotView.getSectionContainers().shouldBeVisible();
 
-        infoSpotView.getNthContainer(0).within(() => {
+        infoSpotView.getNthSectionContainer(0).within(() => {
           stopDetailsPage.infoSpots.getTitle().contains('Ei infopaikkoja');
         });
 
-        infoSpotView.getNthContainer(0).within(() => {
+        infoSpotView.getNthSectionContainer(0).within(() => {
           stopDetailsPage.infoSpots.getAddNewButton().click();
-          infoSpotView.getContainers().should('not.exist');
+          infoSpotView.getSectionContainers().should('not.exist');
 
           infoSpotForm.getInfoSpots().should('have.length', 1);
 
@@ -1986,16 +2059,51 @@ describe('Stop details', () => {
             infoSpot.getRailInformation().clearAndType('1');
             infoSpot.getFloor().clearAndType('3');
           });
+
+          infoSpotForm.getAddNewInfoSpotButton().click();
+          infoSpotForm.getInfoSpots().should('have.length', 2);
+
+          infoSpotForm.getNthInfoSpot(1).within(() => {
+            infoSpot.getLabel().clearAndType('IP125');
+            infoSpot.getPurpose().clearAndType('Staattisen tarkoitus');
+            infoSpot.getInfoSpotTypeButton().click();
+            infoSpot.getInfoSpotTypeOptions().contains('Staattinen').click();
+            infoSpot.getPosterPlaceSizeButton().click();
+            infoSpot.getPosterPlaceSizeOptions().contains('A3').click();
+            infoSpot.getBacklightButton().click();
+            infoSpot.getBacklightOptions().contains('Kyllä').click();
+            infoSpot.getMaintenance().clearAndType('Staattisen huoltotiedot');
+            infoSpot.getDescription().clearAndType('Staattisen kuvaus');
+            infoSpot.getAddPosterButton().click();
+            infoSpot.getNthPosterContainer(0).within(() => {
+              infoSpot.getPosterLabel().clearAndType('PT1236');
+              infoSpot.getPosterSizeButton().click();
+              infoSpot.getPosterSizeOptions().contains('A3').click();
+              infoSpot.getPosterLines().clearAndType('2, 7, 1');
+            });
+            infoSpot.getAddPosterButton().click();
+            infoSpot.getNthPosterContainer(1).within(() => {
+              infoSpot.getPosterLabel().clearAndType('PT1237');
+              infoSpot.getPosterSizeButton().click();
+              infoSpot.getPosterSizeOptions().contains('A4').click();
+              infoSpot.getPosterLines().clearAndType('2');
+            });
+            infoSpot.getZoneLabel().clearAndType('A');
+            infoSpot.getRailInformation().clearAndType('7');
+            infoSpot.getFloor().clearAndType('2');
+
+            infoSpotView.getDisplayType().should('not.exist');
+            infoSpotView.getSpeechProperty().should('not.exist');
+          });
         });
 
         // Submit.
         stopDetailsPage.infoSpots.getSaveButton().click();
-        toast.checkSuccessToastHasMessage('Pysäkki muokattu');
-        infoSpotView.getContainers().shouldBeVisible();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        infoSpotView.getSectionContainers().shouldBeVisible();
+        stopDetailsPage.infoSpots.getTitle().contains('Infopaikat');
 
-        infoSpotView.getNthContainer(0).within(() => {
-          stopDetailsPage.infoSpots.getTitle().contains('Infopaikat');
-
+        infoSpotView.getNthViewCardContainer(0).within(() => {
           infoSpotView.getDescription().shouldHaveText('Dynaamisen kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP123');
           infoSpotView.getInfoSpotType().shouldHaveText('Dynaaminen');
@@ -2017,6 +2125,120 @@ describe('Stop details', () => {
           infoSpotView.getPosterLabel().should('not.exist');
           infoSpotView.getPosterLines().should('not.exist');
         });
+
+        infoSpotView.getNthViewCardContainer(1).within(() => {
+          infoSpotView.getDescription().shouldHaveText('Staattisen kuvaus');
+          infoSpotView.getLabel().shouldHaveText('IP125');
+          infoSpotView.getInfoSpotType().shouldHaveText('Staattinen');
+          infoSpotView.getBacklight().shouldHaveText('Kyllä');
+          infoSpotView.getPosterPlaceSize().shouldHaveText('a3');
+          infoSpotView
+            .getMaintenance()
+            .shouldHaveText('Staattisen huoltotiedot');
+          infoSpotView.getNthPosterContainer(1).within(() => {
+            infoSpotView.getPosterSize().shouldHaveText('a4');
+            infoSpotView.getPosterLabel().shouldHaveText('PT1237');
+            infoSpotView.getPosterLines().shouldHaveText('2');
+          });
+          infoSpotView.getNthPosterContainer(0).within(() => {
+            infoSpotView.getPosterSize().shouldHaveText('a3');
+            infoSpotView.getPosterLabel().shouldHaveText('PT1236');
+            infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
+          });
+          infoSpotView.getPurpose().shouldHaveText('Staattisen tarkoitus');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getFloor().shouldHaveText('2');
+          infoSpotView.getRailInformation().shouldHaveText('7');
+          infoSpotView.getStops().shouldHaveText('V1562');
+          infoSpotView.getTerminals().shouldHaveText('-');
+          infoSpotView.getZoneLabel().shouldHaveText('A');
+
+          infoSpotView.getDisplayType().should('not.exist');
+          infoSpotView.getSpeechProperty().should('not.exist');
+        });
+
+        // Delete poster
+        infoSpotView.getNthSectionContainer(0).within(() => {
+          stopDetailsPage.infoSpots.getEditButton().click();
+          infoSpotView.getSectionContainers().should('not.exist');
+
+          const infoSpot = infoSpotForm.infoSpots;
+          infoSpotForm.getNthInfoSpot(1).within(() => {
+            infoSpot.getLabel().should('have.value', 'IP125');
+            infoSpot.getPurpose().should('have.value', 'Staattisen tarkoitus');
+            infoSpot.getInfoSpotTypeButton().should('have.text', 'Staattinen');
+            infoSpot.getPosterPlaceSizeButton().should('have.text', 'A3');
+            infoSpot.getBacklightButton().should('have.text', 'Kyllä');
+            infoSpot
+              .getMaintenance()
+              .should('have.value', 'Staattisen huoltotiedot');
+            infoSpot.getDescription().should('have.value', 'Staattisen kuvaus');
+            infoSpot.getNthPosterContainer(0).within(() => {
+              infoSpot.getPosterLabel().should('have.value', 'PT1236');
+              infoSpot.getPosterSizeButton().should('have.text', 'A3');
+              infoSpot.getPosterLines().should('have.value', '2, 7, 1');
+            });
+            infoSpot.getNthPosterContainer(1).within(() => {
+              infoSpot.getPosterLabel().should('have.value', 'PT1237');
+              infoSpot.getPosterSizeButton().should('have.text', 'A4');
+              infoSpot.getPosterLines().should('have.value', '2');
+            });
+            infoSpot.getZoneLabel().should('have.value', 'A');
+            infoSpot.getRailInformation().should('have.value', '7');
+            infoSpot.getFloor().should('have.value', '2');
+
+            infoSpot.getDisplayTypeButton().should('not.exist');
+            infoSpot.getSpeechPropertyButton().should('not.exist');
+
+            // Delete poster
+            infoSpot.getNthPosterContainer(1).within(() => {
+              infoSpot
+                .getDeletePosterButton()
+                .shouldHaveText('Poista julistetuote');
+              infoSpot.getDeletePosterButton().click();
+              infoSpot.getDeletePosterButton().shouldHaveText('Peruuta poisto');
+              infoSpot.getDeletePosterButton().click();
+              infoSpot
+                .getDeletePosterButton()
+                .shouldHaveText('Poista julistetuote');
+              infoSpot.getDeletePosterButton().click();
+              infoSpot.getDeletePosterButton().shouldHaveText('Peruuta poisto');
+            });
+          });
+        });
+
+        // Submit.
+        stopDetailsPage.infoSpots.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        infoSpotView.getSectionContainers().shouldBeVisible();
+
+        infoSpotView.getNthViewCardContainer(1).within(() => {
+          infoSpotView.getDescription().shouldHaveText('Staattisen kuvaus');
+          infoSpotView.getLabel().shouldHaveText('IP125');
+          infoSpotView.getInfoSpotType().shouldHaveText('Staattinen');
+          infoSpotView.getBacklight().shouldHaveText('Kyllä');
+          infoSpotView.getPosterPlaceSize().shouldHaveText('a3');
+          infoSpotView
+            .getMaintenance()
+            .shouldHaveText('Staattisen huoltotiedot');
+          infoSpotView.getNthPosterContainer(0).within(() => {
+            infoSpotView.getPosterSize().shouldHaveText('a3');
+            infoSpotView.getPosterLabel().shouldHaveText('PT1236');
+            infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
+          });
+          infoSpotView.getPurpose().shouldHaveText('Staattisen tarkoitus');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getFloor().shouldHaveText('2');
+          infoSpotView.getRailInformation().shouldHaveText('7');
+          infoSpotView.getStops().shouldHaveText('V1562');
+          infoSpotView.getTerminals().shouldHaveText('-');
+          infoSpotView.getZoneLabel().shouldHaveText('A');
+
+          infoSpotView.getDisplayType().should('not.exist');
+          infoSpotView.getSpeechProperty().should('not.exist');
+        });
       },
     );
   });
@@ -2033,24 +2255,24 @@ describe('Stop details', () => {
     // Submit each section, without any actual changes.
     stopDetailsPage.basicDetails.getEditButton().click();
     stopDetailsPage.basicDetails.getSaveButton().click();
-    toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+    toast.expectSuccessToast('Pysäkki muokattu');
 
     stopDetailsPage.locationDetails.getEditButton().click();
     stopDetailsPage.locationDetails.getSaveButton().click();
-    toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+    toast.expectSuccessToast('Pysäkki muokattu');
 
     stopDetailsPage.signageDetails.getEditButton().click();
     stopDetailsPage.signageDetails.getSaveButton().click();
-    toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+    toast.expectSuccessToast('Pysäkki muokattu');
 
     stopDetailsPage.technicalFeaturesTabButton().click();
     stopDetailsPage.shelters.getEditButton().click();
     stopDetailsPage.shelters.getSaveButton().click();
-    toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+    toast.expectSuccessToast('Pysäkki muokattu');
 
     stopDetailsPage.measurements.getEditButton().click();
     stopDetailsPage.measurements.getSaveButton().click();
-    toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+    toast.expectSuccessToast('Pysäkki muokattu');
 
     // The stop should have same data as when we started.
     stopDetailsPage.basicDetailsTabButton().click();
