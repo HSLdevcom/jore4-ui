@@ -7,6 +7,7 @@ import { ChevronToggle, SimpleButton } from '../../../../../uiComponents';
 import { DateInputField, InputField } from '../../../../forms/common';
 import { SearchFor, StopSearchFilters } from '../../types';
 import { MunicipalityFilter } from './MunicipalityFilter';
+import { PriorityFilter } from './PriorityFilter';
 import { SearchCriteriaRadioButtons } from './SearchCriteriaRadioButtons';
 import { SearchForDropdown } from './SearchForDropdown';
 
@@ -106,7 +107,9 @@ export const StopSearchBar: FC<StopSearchBarProps> = ({
               />
 
               <MunicipalityFilter className="w-1/6" />
+            </Row>
 
+            <Row className="items-stretch space-x-4">
               <DateInputField<StopSearchFilters>
                 className="w-1/6"
                 inputClassName="flex-grow"
@@ -114,6 +117,8 @@ export const StopSearchBar: FC<StopSearchBarProps> = ({
                 testId={testIds.observationDateInput}
                 translationPrefix="filters"
               />
+
+              <PriorityFilter />
             </Row>
           </div>
 
