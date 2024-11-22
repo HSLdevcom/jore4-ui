@@ -1,3 +1,4 @@
+import { Priority } from '@hsl/jore4-test-db-manager';
 import { SearchCriteriaRadioButtons } from './SearchCriteriaRadioButtons';
 import { SearchForDropdown } from './SearchForDropdown';
 
@@ -47,5 +48,22 @@ export class StopSearchBar {
       .contains(municipality)
       .get('input')
       .should('be.checked');
+  }
+
+  getPriorityCheckbox(priority: Priority) {
+    return cy.getByTestId(`StopSearchBar::priority::${Priority[priority]}`);
+  }
+
+  togglePriority(priority: Priority) {
+    return this.getPriorityCheckbox(priority).click();
+  }
+
+  setIncludePriority(priority: Priority, include: boolean) {
+    this.getPriorityCheckbox(priority).then((checkBox) => {
+      const checked = !!checkBox.prop('checked');
+      if (checked !== include) {
+        this.togglePriority(priority);
+      }
+    });
   }
 }
