@@ -10,7 +10,7 @@ services:
     # The :hsl-tag contains the desired version of hsl specific hasura.
     # Waiting for merging feature-branch to main in hasura-repo
     # Note: also update jore4-hasura-e2e in docker-compose.e2e when changing this.
-    image: 'hsldevcom/jore4-hasura:hsl-main--20241008-e91e277228ad732c3f4aff883edc0d6214b8b7dd'
+    image: 'hsldevcom/jore4-hasura:hsl-main--20241122-957ddc21f4041a4e7da91e2b2c91266ce5cd95c0'
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:

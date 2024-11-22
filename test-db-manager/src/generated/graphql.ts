@@ -24924,6 +24924,331 @@ export type StopsDatabaseIdGeneratorVarianceFields = {
   id_value?: Maybe<Scalars['Float']['output']>;
 };
 
+/** columns and relationships of "info_spot_poster" */
+export type StopsDatabaseInfoSpotPoster = {
+  __typename?: 'stops_database_info_spot_poster';
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changed_by?: Maybe<Scalars['String']['output']>;
+  created?: Maybe<Scalars['timestamp']['output']>;
+  from_date?: Maybe<Scalars['timestamp']['output']>;
+  id: Scalars['bigint']['output'];
+  label?: Maybe<Scalars['String']['output']>;
+  lines?: Maybe<Scalars['String']['output']>;
+  netex_id?: Maybe<Scalars['String']['output']>;
+  poster_size?: Maybe<Scalars['String']['output']>;
+  to_date?: Maybe<Scalars['timestamp']['output']>;
+  version: Scalars['bigint']['output'];
+  version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregated selection of "info_spot_poster" */
+export type StopsDatabaseInfoSpotPosterAggregate = {
+  __typename?: 'stops_database_info_spot_poster_aggregate';
+  aggregate?: Maybe<StopsDatabaseInfoSpotPosterAggregateFields>;
+  nodes: Array<StopsDatabaseInfoSpotPoster>;
+};
+
+/** aggregate fields of "info_spot_poster" */
+export type StopsDatabaseInfoSpotPosterAggregateFields = {
+  __typename?: 'stops_database_info_spot_poster_aggregate_fields';
+  avg?: Maybe<StopsDatabaseInfoSpotPosterAvgFields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<StopsDatabaseInfoSpotPosterMaxFields>;
+  min?: Maybe<StopsDatabaseInfoSpotPosterMinFields>;
+  stddev?: Maybe<StopsDatabaseInfoSpotPosterStddevFields>;
+  stddev_pop?: Maybe<StopsDatabaseInfoSpotPosterStddevPopFields>;
+  stddev_samp?: Maybe<StopsDatabaseInfoSpotPosterStddevSampFields>;
+  sum?: Maybe<StopsDatabaseInfoSpotPosterSumFields>;
+  var_pop?: Maybe<StopsDatabaseInfoSpotPosterVarPopFields>;
+  var_samp?: Maybe<StopsDatabaseInfoSpotPosterVarSampFields>;
+  variance?: Maybe<StopsDatabaseInfoSpotPosterVarianceFields>;
+};
+
+/** aggregate fields of "info_spot_poster" */
+export type StopsDatabaseInfoSpotPosterAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<StopsDatabaseInfoSpotPosterSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type StopsDatabaseInfoSpotPosterAvgFields = {
+  __typename?: 'stops_database_info_spot_poster_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "info_spot_poster". All fields are combined with a logical 'AND'. */
+export type StopsDatabaseInfoSpotPosterBoolExp = {
+  _and?: InputMaybe<Array<StopsDatabaseInfoSpotPosterBoolExp>>;
+  _not?: InputMaybe<StopsDatabaseInfoSpotPosterBoolExp>;
+  _or?: InputMaybe<Array<StopsDatabaseInfoSpotPosterBoolExp>>;
+  changed?: InputMaybe<TimestampComparisonExp>;
+  changed_by?: InputMaybe<StringComparisonExp>;
+  created?: InputMaybe<TimestampComparisonExp>;
+  from_date?: InputMaybe<TimestampComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  label?: InputMaybe<StringComparisonExp>;
+  lines?: InputMaybe<StringComparisonExp>;
+  netex_id?: InputMaybe<StringComparisonExp>;
+  poster_size?: InputMaybe<StringComparisonExp>;
+  to_date?: InputMaybe<TimestampComparisonExp>;
+  version?: InputMaybe<BigintComparisonExp>;
+  version_comment?: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "info_spot_poster" */
+export enum StopsDatabaseInfoSpotPosterConstraint {
+  /** unique or primary key constraint on columns "id" */
+  InfoSpotPosterPkey = 'info_spot_poster_pkey',
+}
+
+/** input type for incrementing numeric columns in table "info_spot_poster" */
+export type StopsDatabaseInfoSpotPosterIncInput = {
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  version?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** input type for inserting data into table "info_spot_poster" */
+export type StopsDatabaseInfoSpotPosterInsertInput = {
+  changed?: InputMaybe<Scalars['timestamp']['input']>;
+  changed_by?: InputMaybe<Scalars['String']['input']>;
+  created?: InputMaybe<Scalars['timestamp']['input']>;
+  from_date?: InputMaybe<Scalars['timestamp']['input']>;
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  lines?: InputMaybe<Scalars['String']['input']>;
+  netex_id?: InputMaybe<Scalars['String']['input']>;
+  poster_size?: InputMaybe<Scalars['String']['input']>;
+  to_date?: InputMaybe<Scalars['timestamp']['input']>;
+  version?: InputMaybe<Scalars['bigint']['input']>;
+  version_comment?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type StopsDatabaseInfoSpotPosterMaxFields = {
+  __typename?: 'stops_database_info_spot_poster_max_fields';
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changed_by?: Maybe<Scalars['String']['output']>;
+  created?: Maybe<Scalars['timestamp']['output']>;
+  from_date?: Maybe<Scalars['timestamp']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  label?: Maybe<Scalars['String']['output']>;
+  lines?: Maybe<Scalars['String']['output']>;
+  netex_id?: Maybe<Scalars['String']['output']>;
+  poster_size?: Maybe<Scalars['String']['output']>;
+  to_date?: Maybe<Scalars['timestamp']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+  version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type StopsDatabaseInfoSpotPosterMinFields = {
+  __typename?: 'stops_database_info_spot_poster_min_fields';
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changed_by?: Maybe<Scalars['String']['output']>;
+  created?: Maybe<Scalars['timestamp']['output']>;
+  from_date?: Maybe<Scalars['timestamp']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  label?: Maybe<Scalars['String']['output']>;
+  lines?: Maybe<Scalars['String']['output']>;
+  netex_id?: Maybe<Scalars['String']['output']>;
+  poster_size?: Maybe<Scalars['String']['output']>;
+  to_date?: Maybe<Scalars['timestamp']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+  version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "info_spot_poster" */
+export type StopsDatabaseInfoSpotPosterMutationResponse = {
+  __typename?: 'stops_database_info_spot_poster_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<StopsDatabaseInfoSpotPoster>;
+};
+
+/** on_conflict condition type for table "info_spot_poster" */
+export type StopsDatabaseInfoSpotPosterOnConflict = {
+  constraint: StopsDatabaseInfoSpotPosterConstraint;
+  update_columns?: Array<StopsDatabaseInfoSpotPosterUpdateColumn>;
+  where?: InputMaybe<StopsDatabaseInfoSpotPosterBoolExp>;
+};
+
+/** Ordering options when selecting data from "info_spot_poster". */
+export type StopsDatabaseInfoSpotPosterOrderBy = {
+  changed?: InputMaybe<OrderBy>;
+  changed_by?: InputMaybe<OrderBy>;
+  created?: InputMaybe<OrderBy>;
+  from_date?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  label?: InputMaybe<OrderBy>;
+  lines?: InputMaybe<OrderBy>;
+  netex_id?: InputMaybe<OrderBy>;
+  poster_size?: InputMaybe<OrderBy>;
+  to_date?: InputMaybe<OrderBy>;
+  version?: InputMaybe<OrderBy>;
+  version_comment?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: info_spot_poster */
+export type StopsDatabaseInfoSpotPosterPkColumnsInput = {
+  id: Scalars['bigint']['input'];
+};
+
+/** select columns of table "info_spot_poster" */
+export enum StopsDatabaseInfoSpotPosterSelectColumn {
+  /** column name */
+  Changed = 'changed',
+  /** column name */
+  ChangedBy = 'changed_by',
+  /** column name */
+  Created = 'created',
+  /** column name */
+  FromDate = 'from_date',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  Lines = 'lines',
+  /** column name */
+  NetexId = 'netex_id',
+  /** column name */
+  PosterSize = 'poster_size',
+  /** column name */
+  ToDate = 'to_date',
+  /** column name */
+  Version = 'version',
+  /** column name */
+  VersionComment = 'version_comment',
+}
+
+/** input type for updating data in table "info_spot_poster" */
+export type StopsDatabaseInfoSpotPosterSetInput = {
+  changed?: InputMaybe<Scalars['timestamp']['input']>;
+  changed_by?: InputMaybe<Scalars['String']['input']>;
+  created?: InputMaybe<Scalars['timestamp']['input']>;
+  from_date?: InputMaybe<Scalars['timestamp']['input']>;
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  lines?: InputMaybe<Scalars['String']['input']>;
+  netex_id?: InputMaybe<Scalars['String']['input']>;
+  poster_size?: InputMaybe<Scalars['String']['input']>;
+  to_date?: InputMaybe<Scalars['timestamp']['input']>;
+  version?: InputMaybe<Scalars['bigint']['input']>;
+  version_comment?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type StopsDatabaseInfoSpotPosterStddevFields = {
+  __typename?: 'stops_database_info_spot_poster_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type StopsDatabaseInfoSpotPosterStddevPopFields = {
+  __typename?: 'stops_database_info_spot_poster_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type StopsDatabaseInfoSpotPosterStddevSampFields = {
+  __typename?: 'stops_database_info_spot_poster_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "info_spot_poster" */
+export type StopsDatabaseInfoSpotPosterStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: StopsDatabaseInfoSpotPosterStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<StopsDatabaseCursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type StopsDatabaseInfoSpotPosterStreamCursorValueInput = {
+  changed?: InputMaybe<Scalars['timestamp']['input']>;
+  changed_by?: InputMaybe<Scalars['String']['input']>;
+  created?: InputMaybe<Scalars['timestamp']['input']>;
+  from_date?: InputMaybe<Scalars['timestamp']['input']>;
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  lines?: InputMaybe<Scalars['String']['input']>;
+  netex_id?: InputMaybe<Scalars['String']['input']>;
+  poster_size?: InputMaybe<Scalars['String']['input']>;
+  to_date?: InputMaybe<Scalars['timestamp']['input']>;
+  version?: InputMaybe<Scalars['bigint']['input']>;
+  version_comment?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate sum on columns */
+export type StopsDatabaseInfoSpotPosterSumFields = {
+  __typename?: 'stops_database_info_spot_poster_sum_fields';
+  id?: Maybe<Scalars['bigint']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** update columns of table "info_spot_poster" */
+export enum StopsDatabaseInfoSpotPosterUpdateColumn {
+  /** column name */
+  Changed = 'changed',
+  /** column name */
+  ChangedBy = 'changed_by',
+  /** column name */
+  Created = 'created',
+  /** column name */
+  FromDate = 'from_date',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  Lines = 'lines',
+  /** column name */
+  NetexId = 'netex_id',
+  /** column name */
+  PosterSize = 'poster_size',
+  /** column name */
+  ToDate = 'to_date',
+  /** column name */
+  Version = 'version',
+  /** column name */
+  VersionComment = 'version_comment',
+}
+
+export type StopsDatabaseInfoSpotPosterUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<StopsDatabaseInfoSpotPosterIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<StopsDatabaseInfoSpotPosterSetInput>;
+  /** filter the rows which have to be updated */
+  where: StopsDatabaseInfoSpotPosterBoolExp;
+};
+
+/** aggregate var_pop on columns */
+export type StopsDatabaseInfoSpotPosterVarPopFields = {
+  __typename?: 'stops_database_info_spot_poster_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type StopsDatabaseInfoSpotPosterVarSampFields = {
+  __typename?: 'stops_database_info_spot_poster_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type StopsDatabaseInfoSpotPosterVarianceFields = {
+  __typename?: 'stops_database_info_spot_poster_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
 /** columns and relationships of "installed_equipment" */
 export type StopsDatabaseInstalledEquipment = {
   __typename?: 'stops_database_installed_equipment';
@@ -43303,6 +43628,10 @@ export type StopsDatabaseStopsDatabaseMutationFrontend = {
   stops_database_delete_hsl_accessibility_properties_by_pk?: Maybe<StopsDatabaseHslAccessibilityProperties>;
   /** delete data from the table: "id_generator" */
   stops_database_delete_id_generator?: Maybe<StopsDatabaseIdGeneratorMutationResponse>;
+  /** delete data from the table: "info_spot_poster" */
+  stops_database_delete_info_spot_poster?: Maybe<StopsDatabaseInfoSpotPosterMutationResponse>;
+  /** delete single row from the table: "info_spot_poster" */
+  stops_database_delete_info_spot_poster_by_pk?: Maybe<StopsDatabaseInfoSpotPoster>;
   /** delete data from the table: "installed_equipment" */
   stops_database_delete_installed_equipment?: Maybe<StopsDatabaseInstalledEquipmentMutationResponse>;
   /** delete data from the table: "installed_equipment_version_structure" */
@@ -43645,6 +43974,10 @@ export type StopsDatabaseStopsDatabaseMutationFrontend = {
   stops_database_insert_id_generator?: Maybe<StopsDatabaseIdGeneratorMutationResponse>;
   /** insert a single row into the table: "id_generator" */
   stops_database_insert_id_generator_one?: Maybe<StopsDatabaseIdGenerator>;
+  /** insert data into the table: "info_spot_poster" */
+  stops_database_insert_info_spot_poster?: Maybe<StopsDatabaseInfoSpotPosterMutationResponse>;
+  /** insert a single row into the table: "info_spot_poster" */
+  stops_database_insert_info_spot_poster_one?: Maybe<StopsDatabaseInfoSpotPoster>;
   /** insert data into the table: "installed_equipment" */
   stops_database_insert_installed_equipment?: Maybe<StopsDatabaseInstalledEquipmentMutationResponse>;
   /** insert a single row into the table: "installed_equipment" */
@@ -44162,6 +44495,14 @@ export type StopsDatabaseStopsDatabaseMutationFrontend = {
   /** update multiples rows of table: "id_generator" */
   stops_database_update_id_generator_many?: Maybe<
     Array<Maybe<StopsDatabaseIdGeneratorMutationResponse>>
+  >;
+  /** update data of the table: "info_spot_poster" */
+  stops_database_update_info_spot_poster?: Maybe<StopsDatabaseInfoSpotPosterMutationResponse>;
+  /** update single row of the table: "info_spot_poster" */
+  stops_database_update_info_spot_poster_by_pk?: Maybe<StopsDatabaseInfoSpotPoster>;
+  /** update multiples rows of table: "info_spot_poster" */
+  stops_database_update_info_spot_poster_many?: Maybe<
+    Array<Maybe<StopsDatabaseInfoSpotPosterMutationResponse>>
   >;
   /** update data of the table: "installed_equipment" */
   stops_database_update_installed_equipment?: Maybe<StopsDatabaseInstalledEquipmentMutationResponse>;
@@ -44916,6 +45257,16 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteHslAcce
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteIdGeneratorArgs =
   {
     where: StopsDatabaseIdGeneratorBoolExp;
+  };
+
+export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteInfoSpotPosterArgs =
+  {
+    where: StopsDatabaseInfoSpotPosterBoolExp;
+  };
+
+export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteInfoSpotPosterByPkArgs =
+  {
+    id: Scalars['bigint']['input'];
   };
 
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseDeleteInstalledEquipmentArgs =
@@ -45855,6 +46206,18 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertIdGener
   {
     object: StopsDatabaseIdGeneratorInsertInput;
     on_conflict?: InputMaybe<StopsDatabaseIdGeneratorOnConflict>;
+  };
+
+export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertInfoSpotPosterArgs =
+  {
+    objects: Array<StopsDatabaseInfoSpotPosterInsertInput>;
+    on_conflict?: InputMaybe<StopsDatabaseInfoSpotPosterOnConflict>;
+  };
+
+export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertInfoSpotPosterOneArgs =
+  {
+    object: StopsDatabaseInfoSpotPosterInsertInput;
+    on_conflict?: InputMaybe<StopsDatabaseInfoSpotPosterOnConflict>;
   };
 
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseInsertInstalledEquipmentArgs =
@@ -47183,6 +47546,25 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateIdGener
     updates: Array<StopsDatabaseIdGeneratorUpdates>;
   };
 
+export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateInfoSpotPosterArgs =
+  {
+    _inc?: InputMaybe<StopsDatabaseInfoSpotPosterIncInput>;
+    _set?: InputMaybe<StopsDatabaseInfoSpotPosterSetInput>;
+    where: StopsDatabaseInfoSpotPosterBoolExp;
+  };
+
+export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateInfoSpotPosterByPkArgs =
+  {
+    _inc?: InputMaybe<StopsDatabaseInfoSpotPosterIncInput>;
+    _set?: InputMaybe<StopsDatabaseInfoSpotPosterSetInput>;
+    pk_columns: StopsDatabaseInfoSpotPosterPkColumnsInput;
+  };
+
+export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateInfoSpotPosterManyArgs =
+  {
+    updates: Array<StopsDatabaseInfoSpotPosterUpdates>;
+  };
+
 export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateInstalledEquipmentArgs =
   {
     _inc?: InputMaybe<StopsDatabaseInstalledEquipmentIncInput>;
@@ -48356,6 +48738,12 @@ export type StopsDatabaseStopsDatabaseQuery = {
   stops_database_id_generator: Array<StopsDatabaseIdGenerator>;
   /** fetch aggregated fields from the table: "id_generator" */
   stops_database_id_generator_aggregate: StopsDatabaseIdGeneratorAggregate;
+  /** fetch data from the table: "info_spot_poster" */
+  stops_database_info_spot_poster: Array<StopsDatabaseInfoSpotPoster>;
+  /** fetch aggregated fields from the table: "info_spot_poster" */
+  stops_database_info_spot_poster_aggregate: StopsDatabaseInfoSpotPosterAggregate;
+  /** fetch data from the table: "info_spot_poster" using primary key columns */
+  stops_database_info_spot_poster_by_pk?: Maybe<StopsDatabaseInfoSpotPoster>;
   /** fetch data from the table: "installed_equipment" */
   stops_database_installed_equipment: Array<StopsDatabaseInstalledEquipment>;
   /** fetch aggregated fields from the table: "installed_equipment" */
@@ -49658,6 +50046,28 @@ export type StopsDatabaseStopsDatabaseQueryStopsDatabaseIdGeneratorAggregateArgs
     offset?: InputMaybe<Scalars['Int']['input']>;
     order_by?: InputMaybe<Array<StopsDatabaseIdGeneratorOrderBy>>;
     where?: InputMaybe<StopsDatabaseIdGeneratorBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseQueryStopsDatabaseInfoSpotPosterArgs = {
+  distinct_on?: InputMaybe<Array<StopsDatabaseInfoSpotPosterSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseInfoSpotPosterOrderBy>>;
+  where?: InputMaybe<StopsDatabaseInfoSpotPosterBoolExp>;
+};
+
+export type StopsDatabaseStopsDatabaseQueryStopsDatabaseInfoSpotPosterAggregateArgs =
+  {
+    distinct_on?: InputMaybe<Array<StopsDatabaseInfoSpotPosterSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabaseInfoSpotPosterOrderBy>>;
+    where?: InputMaybe<StopsDatabaseInfoSpotPosterBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseQueryStopsDatabaseInfoSpotPosterByPkArgs =
+  {
+    id: Scalars['bigint']['input'];
   };
 
 export type StopsDatabaseStopsDatabaseQueryStopsDatabaseInstalledEquipmentArgs =
@@ -51376,6 +51786,14 @@ export type StopsDatabaseStopsDatabaseSubscription = {
   stops_database_id_generator_aggregate: StopsDatabaseIdGeneratorAggregate;
   /** fetch data from the table in a streaming manner: "id_generator" */
   stops_database_id_generator_stream: Array<StopsDatabaseIdGenerator>;
+  /** fetch data from the table: "info_spot_poster" */
+  stops_database_info_spot_poster: Array<StopsDatabaseInfoSpotPoster>;
+  /** fetch aggregated fields from the table: "info_spot_poster" */
+  stops_database_info_spot_poster_aggregate: StopsDatabaseInfoSpotPosterAggregate;
+  /** fetch data from the table: "info_spot_poster" using primary key columns */
+  stops_database_info_spot_poster_by_pk?: Maybe<StopsDatabaseInfoSpotPoster>;
+  /** fetch data from the table in a streaming manner: "info_spot_poster" */
+  stops_database_info_spot_poster_stream: Array<StopsDatabaseInfoSpotPoster>;
   /** fetch data from the table: "installed_equipment" */
   stops_database_installed_equipment: Array<StopsDatabaseInstalledEquipment>;
   /** fetch aggregated fields from the table: "installed_equipment" */
@@ -53140,6 +53558,36 @@ export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseIdGeneratorStream
     batch_size: Scalars['Int']['input'];
     cursor: Array<InputMaybe<StopsDatabaseIdGeneratorStreamCursorInput>>;
     where?: InputMaybe<StopsDatabaseIdGeneratorBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseInfoSpotPosterArgs =
+  {
+    distinct_on?: InputMaybe<Array<StopsDatabaseInfoSpotPosterSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabaseInfoSpotPosterOrderBy>>;
+    where?: InputMaybe<StopsDatabaseInfoSpotPosterBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseInfoSpotPosterAggregateArgs =
+  {
+    distinct_on?: InputMaybe<Array<StopsDatabaseInfoSpotPosterSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabaseInfoSpotPosterOrderBy>>;
+    where?: InputMaybe<StopsDatabaseInfoSpotPosterBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseInfoSpotPosterByPkArgs =
+  {
+    id: Scalars['bigint']['input'];
+  };
+
+export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseInfoSpotPosterStreamArgs =
+  {
+    batch_size: Scalars['Int']['input'];
+    cursor: Array<InputMaybe<StopsDatabaseInfoSpotPosterStreamCursorInput>>;
+    where?: InputMaybe<StopsDatabaseInfoSpotPosterBoolExp>;
   };
 
 export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseInstalledEquipmentArgs =
