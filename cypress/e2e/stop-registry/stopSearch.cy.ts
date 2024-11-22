@@ -86,16 +86,23 @@ describe('Stop search', () => {
     );
   });
 
-  function setupTestsAndNavigateToPage(qs: Record<string, unknown>) {
+  function setupTestsAndNavigateToPage(
+    qs: Record<string, unknown>,
+    startOnResultPage: boolean = false,
+  ) {
     cy.setupTests();
     cy.mockLogin();
 
-    cy.visit({ url: '/stop-registry', qs });
+    if (startOnResultPage) {
+      cy.visit({ url: '/stop-registry/search', qs });
+    } else {
+      cy.visit({ url: '/stop-registry', qs });
+    }
     stopSearchBar.getSearchInput().clear();
   }
 
   function init() {
-    setupTestsAndNavigateToPage({});
+    setupTestsAndNavigateToPage({}, false);
   }
 
   describe('by label', () => {
@@ -960,34 +967,69 @@ describe('Stop search', () => {
         stopPlaces,
       });
 
-      init();
+      setupTestsAndNavigateToPage({}, true);
     });
 
     it('should visualise priorities correctly', () => {
-      stopSearchBar.getSearchInput().type(`P*{enter}`);
-      expectGraphQLCallToSucceed('@gqlSearchStops');
-
-      const results: ReadonlyArray<readonly [string, string, string]> = [
-        [getUuid(1), 'P0001', 'Prioriteetti: Perusversio'],
-        [getUuid(2), 'P0002', 'Prioriteetti: Luonnos'],
-        [getUuid(3), 'P0003', 'Voimassaolo loppuu 10 päivän kuluttua'],
-        [getUuid(4), 'P0004', 'Voimassaolo loppuu huomenna'],
-        [getUuid(5), 'P0005', 'Voimassaolo loppuu tänään'],
-        [getUuid(6), 'P0006', 'Prioriteetti: Perusversio'],
-        [getUuid(7), 'P0006', 'Prioriteetti: Väliaikainen'],
-        [getUuid(8), 'P0007', 'Voimassaolo loppuu tänään'],
+      // prettier-ignore
+      const results: ReadonlyArray<
+        readonly [string, string, string, Priority]
+      > = [
+        [getUuid(1), 'P0001', 'Prioriteetti: Perusversio', Priority.Standard],
+        [getUuid(2), 'P0002', 'Prioriteetti: Luonnos', Priority.Draft],
+        [getUuid(3), 'P0003', 'Voimassaolo loppuu 10 päivän kuluttua', Priority.Standard],
+        [getUuid(4), 'P0004', 'Voimassaolo loppuu huomenna', Priority.Standard],
+        [getUuid(5), 'P0005', 'Voimassaolo loppuu tänään', Priority.Standard],
+        [getUuid(6), 'P0006', 'Prioriteetti: Perusversio', Priority.Standard],
+        [getUuid(7), 'P0006', 'Prioriteetti: Väliaikainen', Priority.Temporary],
+        [getUuid(8), 'P0007', 'Voimassaolo loppuu tänään', Priority.Temporary],
       ];
 
-      results.forEach(([scheduledStopPointId, label, priorityText]) =>
-        stopSearchResultsPage
-          .getRowByScheduledStopPointId(scheduledStopPointId)
-          .should('contain.text', label)
-          .within(() =>
-            stopSearchResultsPage
-              .getRowPriority()
-              .should('have.attr', 'title', priorityText),
-          ),
-      );
+      const allPriorities: ReadonlyArray<Priority> = [
+        Priority.Standard,
+        Priority.Temporary,
+        Priority.Draft,
+      ];
+
+      const prioritySets: ReadonlyArray<ReadonlyArray<Priority>> = [
+        [Priority.Standard],
+        [Priority.Temporary],
+        [Priority.Draft],
+        allPriorities,
+      ];
+
+      stopSearchBar.getExpandToggle().click();
+
+      prioritySets.forEach((prioritySet) => {
+        allPriorities.forEach((priority) => {
+          stopSearchBar.setIncludePriority(
+            priority,
+            prioritySet.includes(priority),
+          );
+        });
+
+        stopSearchBar.getSearchInput().clearAndType('P*{enter}');
+        expectGraphQLCallToSucceed('@gqlSearchStops');
+
+        results.forEach(
+          ([scheduledStopPointId, label, priorityText, priority]) => {
+            if (prioritySet.includes(priority)) {
+              stopSearchResultsPage
+                .getRowByScheduledStopPointId(scheduledStopPointId)
+                .should('contain.text', label)
+                .within(() =>
+                  stopSearchResultsPage
+                    .getRowPriority()
+                    .should('have.attr', 'title', priorityText),
+                );
+            } else {
+              stopSearchResultsPage
+                .getRowByScheduledStopPointId(scheduledStopPointId)
+                .should('not.exist');
+            }
+          },
+        );
+      });
     });
   });
 });
