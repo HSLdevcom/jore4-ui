@@ -67777,6 +67777,22 @@ export type StopAreaDetailsMembersFragment = {
   } | null;
 };
 
+export type FindExistingPosterNamesQueryVariables = Exact<{
+  query: Scalars['String']['input'];
+}>;
+
+export type FindExistingPosterNamesQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stops_database_info_spot_poster: Array<{
+      __typename?: 'stops_database_info_spot_poster';
+      id: any;
+      label?: string | null;
+    }>;
+  } | null;
+};
+
 export type GetOrganisationsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetOrganisationsQuery = {
@@ -75767,6 +75783,91 @@ export type GetStopAreaDetailsSuspenseQueryHookResult = ReturnType<
 export type GetStopAreaDetailsQueryResult = Apollo.QueryResult<
   GetStopAreaDetailsQuery,
   GetStopAreaDetailsQueryVariables
+>;
+export const FindExistingPosterNamesDocument = gql`
+  query findExistingPosterNames($query: String!) {
+    stops_database {
+      stops_database_info_spot_poster(
+        where: { label: { _ilike: $query } }
+        limit: 20
+        order_by: [{ label: asc }]
+        distinct_on: [label]
+      ) {
+        id
+        label
+      }
+    }
+  }
+`;
+
+/**
+ * __useFindExistingPosterNamesQuery__
+ *
+ * To run a query within a React component, call `useFindExistingPosterNamesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindExistingPosterNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindExistingPosterNamesQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *   },
+ * });
+ */
+export function useFindExistingPosterNamesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    FindExistingPosterNamesQuery,
+    FindExistingPosterNamesQueryVariables
+  > &
+    (
+      | { variables: FindExistingPosterNamesQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    FindExistingPosterNamesQuery,
+    FindExistingPosterNamesQueryVariables
+  >(FindExistingPosterNamesDocument, options);
+}
+export function useFindExistingPosterNamesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    FindExistingPosterNamesQuery,
+    FindExistingPosterNamesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    FindExistingPosterNamesQuery,
+    FindExistingPosterNamesQueryVariables
+  >(FindExistingPosterNamesDocument, options);
+}
+export function useFindExistingPosterNamesSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    FindExistingPosterNamesQuery,
+    FindExistingPosterNamesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    FindExistingPosterNamesQuery,
+    FindExistingPosterNamesQueryVariables
+  >(FindExistingPosterNamesDocument, options);
+}
+export type FindExistingPosterNamesQueryHookResult = ReturnType<
+  typeof useFindExistingPosterNamesQuery
+>;
+export type FindExistingPosterNamesLazyQueryHookResult = ReturnType<
+  typeof useFindExistingPosterNamesLazyQuery
+>;
+export type FindExistingPosterNamesSuspenseQueryHookResult = ReturnType<
+  typeof useFindExistingPosterNamesSuspenseQuery
+>;
+export type FindExistingPosterNamesQueryResult = Apollo.QueryResult<
+  FindExistingPosterNamesQuery,
+  FindExistingPosterNamesQueryVariables
 >;
 export const GetOrganisationsDocument = gql`
   query GetOrganisations {

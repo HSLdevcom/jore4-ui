@@ -1,12 +1,32 @@
+import { gql } from '@apollo/client';
 import { t } from 'i18next';
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { StopRegistryPosterPlaceSize } from '../../../../../../generated/graphql';
+import {
+  StopRegistryPosterPlaceSize,
+  useFindExistingPosterNamesQuery,
+} from '../../../../../../generated/graphql';
 import { mapStopRegistryPosterPlaceSizeEnumToUiName } from '../../../../../../i18n/uiNameMappings';
 import { Row } from '../../../../../../layoutComponents';
 import { EnumDropdown, InputField } from '../../../../../forms/common';
 import { SlimSimpleButton } from '../../layout';
 import { InfoSpotsFormState } from './schema';
+
+const GQL_GET_POSTER_LABELS = gql`
+  query findExistingPosterNames($query: String!) {
+    stops_database {
+      stops_database_info_spot_poster(
+        where: { label: { _ilike: $query } }
+        limit: 20
+        order_by: [{ label: asc }]
+        distinct_on: [label]
+      ) {
+        id
+        label
+      }
+    }
+  }
+`;
 
 const testIds = {
   posterContainer: 'InfoSpotPosterFormFields::container',
@@ -22,6 +42,26 @@ type Props = {
   readonly onRemovePoster: (index: number, posterIndex: number) => void;
 };
 
+const usePosterNames = () => {
+  const { data } = useFindExistingPosterNamesQuery({
+    variables: {
+      query: '%',
+    },
+  });
+
+  return useMemo(
+    () =>
+      (data?.stops_database?.stops_database_info_spot_poster ?? []).map(
+        ({ label }) => (
+          <option key={label} value={label ?? ''}>
+            {label}
+          </option>
+        ),
+      ),
+    [data],
+  );
+};
+
 export const PosterFormFields: FC<Props> = ({
   infoSpotIndex,
   posterIndex,
@@ -31,6 +71,8 @@ export const PosterFormFields: FC<Props> = ({
   const toBeDeletedPoster = watch(
     `infoSpots.${infoSpotIndex}.poster.${posterIndex}.toBeDeletedPoster`,
   );
+
+  const posterOptions = usePosterNames();
 
   return (
     <div data-testid={testIds.posterContainer}>
@@ -61,7 +103,9 @@ export const PosterFormFields: FC<Props> = ({
           customTitlePath="stopDetails.infoSpots.posterLabel"
           testId={testIds.posterLabel}
           disabled={toBeDeletedPoster}
+          list="posternames-data-list"
         />
+        <datalist id="posternames-data-list">{posterOptions}</datalist>
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"
