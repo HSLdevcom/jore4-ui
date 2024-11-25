@@ -6,6 +6,7 @@ import { mapStopRegistryPosterPlaceSizeEnumToUiName } from '../../../../../../i1
 import { Row } from '../../../../../../layoutComponents';
 import { EnumDropdown, InputField } from '../../../../../forms/common';
 import { SlimSimpleButton } from '../../layout';
+import { usePosterNames } from './InfoSpotsPosterNames';
 import { InfoSpotsFormState } from './schema';
 
 const testIds = {
@@ -31,6 +32,8 @@ export const PosterFormFields: FC<Props> = ({
   const toBeDeletedPoster = watch(
     `infoSpots.${infoSpotIndex}.poster.${posterIndex}.toBeDeletedPoster`,
   );
+
+  const posterOptions = usePosterNames();
 
   return (
     <div data-testid={testIds.posterContainer}>
@@ -61,7 +64,15 @@ export const PosterFormFields: FC<Props> = ({
           customTitlePath="stopDetails.infoSpots.posterLabel"
           testId={testIds.posterLabel}
           disabled={toBeDeletedPoster}
+          list="posternames-data-list"
         />
+        <datalist id="posternames-data-list">
+          {posterOptions.map(({ label }) => (
+            <option key={label} value={label ?? ''}>
+              {label}
+            </option>
+          ))}
+        </datalist>
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"

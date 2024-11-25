@@ -189,7 +189,7 @@ export const InfoSpotFormFields: FC<Props> = ({
           />
         </Visible>
       </Row>
-      <Row className="!-m-5 -mx-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
+      <Row className="-mx-5 !-mt-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"
