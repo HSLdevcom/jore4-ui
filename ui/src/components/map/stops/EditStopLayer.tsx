@@ -223,6 +223,9 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
         const tiamatVariables = mapToInsertStopPlaceVariables({
           label: changes.stopToCreate.label,
           coordinates: changes.stopToCreate.measured_location.coordinates,
+          validityStart: changes.stopToCreate.validity_start,
+          validityEnd: changes.stopToCreate.validity_end,
+          priority: changes.stopToCreate.priority,
         });
         const stopPlaceResult = await insertStopPlaceMutation(tiamatVariables);
 

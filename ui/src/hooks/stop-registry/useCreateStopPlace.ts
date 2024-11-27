@@ -1,11 +1,19 @@
 import { gql } from '@apollo/client';
 import { Position } from 'geojson';
-import { useInsertStopPlaceMutation } from '../../generated/graphql';
+import { DateTime } from 'luxon';
+import {
+  InsertStopPlaceMutationVariables,
+  useInsertStopPlaceMutation,
+} from '../../generated/graphql';
+import { Priority } from '../../types/enums';
 import { mapPointToStopRegistryGeoJSON } from '../../utils';
 
 export interface InsertStopPlaceInput {
-  label: string;
-  coordinates: Position;
+  readonly label: string;
+  readonly coordinates: Position;
+  readonly validityStart: DateTime | null | undefined;
+  readonly validityEnd: DateTime | null | undefined;
+  readonly priority: Priority;
 }
 
 const GQL_INSERT_STOP_PLACE = gql`
@@ -16,6 +24,10 @@ const GQL_INSERT_STOP_PLACE = gql`
         id
         quays {
           publicCode
+        }
+        keyValues {
+          key
+          values
         }
       }
     }
@@ -28,7 +40,12 @@ export const useCreateStopPlace = () => {
   const mapToInsertStopPlaceVariables = ({
     label,
     coordinates,
-  }: InsertStopPlaceInput) => ({
+    validityStart,
+    validityEnd,
+    priority,
+  }: InsertStopPlaceInput): {
+    variables: InsertStopPlaceMutationVariables;
+  } => ({
     variables: {
       object: {
         // TODO: change the name to the actual name after we add the inputs for it.
@@ -39,6 +56,17 @@ export const useCreateStopPlace = () => {
           longitude: coordinates[0],
           latitude: coordinates[1],
         }),
+        keyValues: [
+          {
+            key: 'validityStart',
+            values: validityStart ? [validityStart.toISODate()] : [],
+          },
+          {
+            key: 'validityEnd',
+            values: validityEnd ? [validityEnd.toISODate()] : [],
+          },
+          { key: 'priority', values: [priority.toString(10)] },
+        ],
       },
     },
   });
