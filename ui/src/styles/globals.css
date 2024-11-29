@@ -64,3 +64,6 @@ h4 {
 .border-l-dashed {
   border-left-style: dashed;
 }
+.maplibregl-ctrl-bottom-right {
+  z-index: 1;
+}
