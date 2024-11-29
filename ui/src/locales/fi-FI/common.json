@@ -961,11 +961,11 @@
   "no": "Ei",
   "remove": "Poista",
   "welcomePage": {
-    "heading": "JORE4 | Aikataulujen testikäyttö alkaa",
-    "subheading1": "Mitä?",
-    "paragraph1": "JORE4 tulee korvaamaan nykyisen JOREn kokonaisuudessaan. Mutta ei aivan vielä! Aiempi versio kattoi reitit ja linjat, uusi versio sisältää myös aikataulut. Kaikkea ei ole hiottu loppuun, myös tarkoituksella. Haluamme palautteesi siitä, mihin on tärkeintä kiinnittää voimavarat seuraavaksi. Palautetta keräämme esim. haastatteluin, sitä voi lähettää myös suoraan Slackissa.",
+    "heading": "JORE4 | Pysäkkirekisterin testikäyttö käynnissä",
+    "subheading1": "Pysäkit ja infopaikat",
+    "paragraph1": "JORE4:n toteutus on edennyt pysäkkirekisteriin. Edellisessä vaiheessa toteutettiin Reitit ja Linjat sekä Aikataulut. Nyt voit jo hakea pysäkkejä ja pysäkkialueita muutamalla hakukriteerillä, päivittää pysäkkien ominaisuuksia ja hallita infopaikkoja. Testiversio hyödyntää oikeiden pysäkkien tietoja, mutta siellä voi testata ja päivittää asioita vaikuttamatta tuotantoon. Haluamme palautteesi siitä, mihin on tärkeintä kiinnittää voimavarat seuraavaksi. Palautetta keräämme esim. haastatteluin, sitä voi lähettää myös suoraan Teamsissa tai Slackissa JORE4:n kanavilla.",
     "subheading2": "Kehitystyö jatkuu",
-    "paragraph2": "Saamamme palautteen perusteella listaamme oleellisimmat kehityskohteet. Kehitystyön edetessä lisäämme uutta toiminnallisuutta. Seuraavaksi työ jatkuu mm. pysäkkirekisteriin ja matkustajainfoon liittyvien ominaisuuksien parissa.",
+    "paragraph2": "Saamamme palautteen perusteella listaamme oleellisimmat kehityskohteet. Kehitystyön edetessä lisäämme uutta toiminnallisuutta. Seuraavaksi työ jatkuu mm. terminaaleihin.",
     "login": "Siirry kirjautumiseen"
   },
   "dayOfWeek": {
