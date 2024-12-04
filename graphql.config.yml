@@ -1,0 +1,15 @@
+projects:
+  ui:
+    schema: 'ui/graphql.schema.json'
+    documents:
+      - 'ui/src/**/*.graphql'
+      - 'ui/src/**/*.ts'
+      - 'ui/src/**/*.tsx'
+    ignore: 'ui/src/generated/*'
+
+  tdb:
+    schema: 'ui/graphql.schema.json'
+    documents:
+      - 'test-db-manager/**/*.graphql'
+      - 'test-db-manager/**/*.ts'
+    ignore: 'ui/generated/*'
