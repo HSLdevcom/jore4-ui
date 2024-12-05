@@ -23,3 +23,4 @@ tsconfig.tsbuildinfo
 
 dump.sql
 jore4dump.pgdump
+/.idea/

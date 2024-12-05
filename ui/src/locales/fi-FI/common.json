@@ -115,7 +115,16 @@
     "addToRoute": "Lisää reitille",
     "stopBreaksRoutes": "Lisättävä pysäkki ei ole yhteensopiva seuraavien reittien kanssa: ({{ routeLabels }})",
     "timingPlaceRequired": "Pysäkkiä käytetään Hastus-paikkana seuraavilla reiteillä: {{ routeLabels }}. Aseta Hastus-paikka tai poista Hastus-paikka käytöstä reiteiltä.",
-    "tiamatUpdateFailed": "Pysäkkien tiedot on päivitty linjastoon, mutta niiden vienti pysäkkirekisteriin epäonnistui! Tallennusta on syytä yrittää uudelleen!: Syy: {{ errorMessage }}"
+    "tiamatUpdateFailed": "Pysäkkien tiedot on päivitty linjastoon, mutta niiden vienti pysäkkirekisteriin epäonnistui! Tallennusta on syytä yrittää uudelleen!: Syy: {{ errorMessage }}",
+    "version": {
+      "edit": "Muokkaa versiota",
+      "versionName": "Version nimi",
+      "versionDescription": "Muutoksen peruste",
+      "saved": "Versio tallennettu",
+      "errors": {
+        "default": "Virhe version tallennuksessa"
+      }
+    }
   },
   "stopArea": {
     "stopArea": "Pysäkkialue",
