@@ -67176,6 +67176,152 @@ export type FindStopPlacesByQueryAndGroupQuery = {
   } | null;
 };
 
+export type ResolveMemberStopNamesQueryVariables = Exact<{
+  stopAreaId: Scalars['String']['input'];
+}>;
+
+export type ResolveMemberStopNamesQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stops: Array<{
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
+      nameLang?: string | null;
+      nameValue?: string | null;
+      alternativeNamesJoinTable: Array<{
+        __typename?: 'stops_database_stop_place_alternative_names';
+        alternative_names_id: any;
+        alternative_name: {
+          __typename?: 'stops_database_alternative_name';
+          id: any;
+          type?: string | null;
+          lang?: string | null;
+          value?: string | null;
+        };
+      }>;
+    }>;
+  } | null;
+};
+
+export type ResolveStopAreaNamesQueryVariables = Exact<{
+  stopAreaId: Scalars['String']['input'];
+}>;
+
+export type ResolveStopAreaNamesQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stopArea: Array<{
+      __typename?: 'stops_database_group_of_stop_places_newest_version';
+      id?: any | null;
+      nameLang?: string | null;
+      nameValue?: string | null;
+      alternativeNamesJoinTable: Array<{
+        __typename?: 'stops_database_group_of_stop_places_alternative_names';
+        alternative_names_id: any;
+        alternative_name: {
+          __typename?: 'stops_database_alternative_name';
+          id: any;
+          type?: string | null;
+          lang?: string | null;
+          value?: string | null;
+        };
+      }>;
+    }>;
+  } | null;
+};
+
+export type ResolveStopAreaAndMemberStopNamesQueryVariables = Exact<{
+  stopAreaId: Scalars['String']['input'];
+  memberStopIds: Array<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
+
+export type ResolveStopAreaAndMemberStopNamesQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    stopArea: Array<{
+      __typename?: 'stops_database_group_of_stop_places_newest_version';
+      id?: any | null;
+      nameLang?: string | null;
+      nameValue?: string | null;
+      alternativeNamesJoinTable: Array<{
+        __typename?: 'stops_database_group_of_stop_places_alternative_names';
+        alternative_names_id: any;
+        alternative_name: {
+          __typename?: 'stops_database_alternative_name';
+          id: any;
+          type?: string | null;
+          lang?: string | null;
+          value?: string | null;
+        };
+      }>;
+    }>;
+    stops: Array<{
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
+      nameLang?: string | null;
+      nameValue?: string | null;
+      alternativeNamesJoinTable: Array<{
+        __typename?: 'stops_database_stop_place_alternative_names';
+        alternative_names_id: any;
+        alternative_name: {
+          __typename?: 'stops_database_alternative_name';
+          id: any;
+          type?: string | null;
+          lang?: string | null;
+          value?: string | null;
+        };
+      }>;
+    }>;
+  } | null;
+};
+
+export type StopAreaNameInfoFragment = {
+  __typename?: 'stops_database_group_of_stop_places_newest_version';
+  id?: any | null;
+  nameLang?: string | null;
+  nameValue?: string | null;
+  alternativeNamesJoinTable: Array<{
+    __typename?: 'stops_database_group_of_stop_places_alternative_names';
+    alternative_names_id: any;
+    alternative_name: {
+      __typename?: 'stops_database_alternative_name';
+      id: any;
+      type?: string | null;
+      lang?: string | null;
+      value?: string | null;
+    };
+  }>;
+};
+
+export type StopPlaceNameInfoFragment = {
+  __typename?: 'stops_database_stop_place_newest_version';
+  id?: any | null;
+  nameLang?: string | null;
+  nameValue?: string | null;
+  alternativeNamesJoinTable: Array<{
+    __typename?: 'stops_database_stop_place_alternative_names';
+    alternative_names_id: any;
+    alternative_name: {
+      __typename?: 'stops_database_alternative_name';
+      id: any;
+      type?: string | null;
+      lang?: string | null;
+      value?: string | null;
+    };
+  }>;
+};
+
+export type AlternativeNameInfoFragment = {
+  __typename?: 'stops_database_alternative_name';
+  id: any;
+  type?: string | null;
+  lang?: string | null;
+  value?: string | null;
+};
+
 export type UpsertStopAreaMutationVariables = Exact<{
   object?: InputMaybe<StopRegistryGroupOfStopPlacesInput>;
 }>;
@@ -73635,6 +73781,42 @@ export const RouteTableRowFragmentDoc = gql`
   }
   ${RouteMapParamsFragmentDoc}
 `;
+export const AlternativeNameInfoFragmentDoc = gql`
+  fragment AlternativeNameInfo on stops_database_alternative_name {
+    id
+    type: name_type
+    lang: name_lang
+    value: name_value
+  }
+`;
+export const StopAreaNameInfoFragmentDoc = gql`
+  fragment StopAreaNameInfo on stops_database_group_of_stop_places_newest_version {
+    id
+    nameLang: description_lang
+    nameValue: description_value
+    alternativeNamesJoinTable: group_of_stop_places_alternative_names {
+      alternative_names_id
+      alternative_name {
+        ...AlternativeNameInfo
+      }
+    }
+  }
+  ${AlternativeNameInfoFragmentDoc}
+`;
+export const StopPlaceNameInfoFragmentDoc = gql`
+  fragment StopPlaceNameInfo on stops_database_stop_place_newest_version {
+    id
+    nameLang: name_lang
+    nameValue: name_value
+    alternativeNamesJoinTable: stop_place_alternative_names {
+      alternative_names_id
+      alternative_name {
+        ...AlternativeNameInfo
+      }
+    }
+  }
+  ${AlternativeNameInfoFragmentDoc}
+`;
 export const LineDefaultFieldsFragmentDoc = gql`
   fragment line_default_fields on route_line {
     line_id
@@ -74778,6 +74960,268 @@ export type FindStopPlacesByQueryAndGroupSuspenseQueryHookResult = ReturnType<
 export type FindStopPlacesByQueryAndGroupQueryResult = Apollo.QueryResult<
   FindStopPlacesByQueryAndGroupQuery,
   FindStopPlacesByQueryAndGroupQueryVariables
+>;
+export const ResolveMemberStopNamesDocument = gql`
+  query ResolveMemberStopNames($stopAreaId: String!) {
+    stops_database {
+      stops: stops_database_stop_place_newest_version(
+        where: {
+          group_of_stop_places_members: {
+            group_of_stop_place: { netex_id: { _eq: $stopAreaId } }
+          }
+        }
+      ) {
+        ...StopPlaceNameInfo
+      }
+    }
+  }
+  ${StopPlaceNameInfoFragmentDoc}
+`;
+
+/**
+ * __useResolveMemberStopNamesQuery__
+ *
+ * To run a query within a React component, call `useResolveMemberStopNamesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveMemberStopNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveMemberStopNamesQuery({
+ *   variables: {
+ *      stopAreaId: // value for 'stopAreaId'
+ *   },
+ * });
+ */
+export function useResolveMemberStopNamesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ResolveMemberStopNamesQuery,
+    ResolveMemberStopNamesQueryVariables
+  > &
+    (
+      | { variables: ResolveMemberStopNamesQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ResolveMemberStopNamesQuery,
+    ResolveMemberStopNamesQueryVariables
+  >(ResolveMemberStopNamesDocument, options);
+}
+export function useResolveMemberStopNamesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ResolveMemberStopNamesQuery,
+    ResolveMemberStopNamesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ResolveMemberStopNamesQuery,
+    ResolveMemberStopNamesQueryVariables
+  >(ResolveMemberStopNamesDocument, options);
+}
+export function useResolveMemberStopNamesSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveMemberStopNamesQuery,
+    ResolveMemberStopNamesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    ResolveMemberStopNamesQuery,
+    ResolveMemberStopNamesQueryVariables
+  >(ResolveMemberStopNamesDocument, options);
+}
+export type ResolveMemberStopNamesQueryHookResult = ReturnType<
+  typeof useResolveMemberStopNamesQuery
+>;
+export type ResolveMemberStopNamesLazyQueryHookResult = ReturnType<
+  typeof useResolveMemberStopNamesLazyQuery
+>;
+export type ResolveMemberStopNamesSuspenseQueryHookResult = ReturnType<
+  typeof useResolveMemberStopNamesSuspenseQuery
+>;
+export type ResolveMemberStopNamesQueryResult = Apollo.QueryResult<
+  ResolveMemberStopNamesQuery,
+  ResolveMemberStopNamesQueryVariables
+>;
+export const ResolveStopAreaNamesDocument = gql`
+  query ResolveStopAreaNames($stopAreaId: String!) {
+    stops_database {
+      stopArea: stops_database_group_of_stop_places_newest_version(
+        where: { netex_id: { _eq: $stopAreaId } }
+      ) {
+        ...StopAreaNameInfo
+      }
+    }
+  }
+  ${StopAreaNameInfoFragmentDoc}
+`;
+
+/**
+ * __useResolveStopAreaNamesQuery__
+ *
+ * To run a query within a React component, call `useResolveStopAreaNamesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveStopAreaNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveStopAreaNamesQuery({
+ *   variables: {
+ *      stopAreaId: // value for 'stopAreaId'
+ *   },
+ * });
+ */
+export function useResolveStopAreaNamesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ResolveStopAreaNamesQuery,
+    ResolveStopAreaNamesQueryVariables
+  > &
+    (
+      | { variables: ResolveStopAreaNamesQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ResolveStopAreaNamesQuery,
+    ResolveStopAreaNamesQueryVariables
+  >(ResolveStopAreaNamesDocument, options);
+}
+export function useResolveStopAreaNamesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ResolveStopAreaNamesQuery,
+    ResolveStopAreaNamesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ResolveStopAreaNamesQuery,
+    ResolveStopAreaNamesQueryVariables
+  >(ResolveStopAreaNamesDocument, options);
+}
+export function useResolveStopAreaNamesSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveStopAreaNamesQuery,
+    ResolveStopAreaNamesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    ResolveStopAreaNamesQuery,
+    ResolveStopAreaNamesQueryVariables
+  >(ResolveStopAreaNamesDocument, options);
+}
+export type ResolveStopAreaNamesQueryHookResult = ReturnType<
+  typeof useResolveStopAreaNamesQuery
+>;
+export type ResolveStopAreaNamesLazyQueryHookResult = ReturnType<
+  typeof useResolveStopAreaNamesLazyQuery
+>;
+export type ResolveStopAreaNamesSuspenseQueryHookResult = ReturnType<
+  typeof useResolveStopAreaNamesSuspenseQuery
+>;
+export type ResolveStopAreaNamesQueryResult = Apollo.QueryResult<
+  ResolveStopAreaNamesQuery,
+  ResolveStopAreaNamesQueryVariables
+>;
+export const ResolveStopAreaAndMemberStopNamesDocument = gql`
+  query ResolveStopAreaAndMemberStopNames(
+    $stopAreaId: String!
+    $memberStopIds: [String!]!
+  ) {
+    stops_database {
+      stopArea: stops_database_group_of_stop_places_newest_version(
+        where: { netex_id: { _eq: $stopAreaId } }
+      ) {
+        ...StopAreaNameInfo
+      }
+      stops: stops_database_stop_place_newest_version(
+        where: { netex_id: { _in: $memberStopIds } }
+      ) {
+        ...StopPlaceNameInfo
+      }
+    }
+  }
+  ${StopAreaNameInfoFragmentDoc}
+  ${StopPlaceNameInfoFragmentDoc}
+`;
+
+/**
+ * __useResolveStopAreaAndMemberStopNamesQuery__
+ *
+ * To run a query within a React component, call `useResolveStopAreaAndMemberStopNamesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveStopAreaAndMemberStopNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveStopAreaAndMemberStopNamesQuery({
+ *   variables: {
+ *      stopAreaId: // value for 'stopAreaId'
+ *      memberStopIds: // value for 'memberStopIds'
+ *   },
+ * });
+ */
+export function useResolveStopAreaAndMemberStopNamesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ResolveStopAreaAndMemberStopNamesQuery,
+    ResolveStopAreaAndMemberStopNamesQueryVariables
+  > &
+    (
+      | {
+          variables: ResolveStopAreaAndMemberStopNamesQueryVariables;
+          skip?: boolean;
+        }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ResolveStopAreaAndMemberStopNamesQuery,
+    ResolveStopAreaAndMemberStopNamesQueryVariables
+  >(ResolveStopAreaAndMemberStopNamesDocument, options);
+}
+export function useResolveStopAreaAndMemberStopNamesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ResolveStopAreaAndMemberStopNamesQuery,
+    ResolveStopAreaAndMemberStopNamesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ResolveStopAreaAndMemberStopNamesQuery,
+    ResolveStopAreaAndMemberStopNamesQueryVariables
+  >(ResolveStopAreaAndMemberStopNamesDocument, options);
+}
+export function useResolveStopAreaAndMemberStopNamesSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveStopAreaAndMemberStopNamesQuery,
+    ResolveStopAreaAndMemberStopNamesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    ResolveStopAreaAndMemberStopNamesQuery,
+    ResolveStopAreaAndMemberStopNamesQueryVariables
+  >(ResolveStopAreaAndMemberStopNamesDocument, options);
+}
+export type ResolveStopAreaAndMemberStopNamesQueryHookResult = ReturnType<
+  typeof useResolveStopAreaAndMemberStopNamesQuery
+>;
+export type ResolveStopAreaAndMemberStopNamesLazyQueryHookResult = ReturnType<
+  typeof useResolveStopAreaAndMemberStopNamesLazyQuery
+>;
+export type ResolveStopAreaAndMemberStopNamesSuspenseQueryHookResult =
+  ReturnType<typeof useResolveStopAreaAndMemberStopNamesSuspenseQuery>;
+export type ResolveStopAreaAndMemberStopNamesQueryResult = Apollo.QueryResult<
+  ResolveStopAreaAndMemberStopNamesQuery,
+  ResolveStopAreaAndMemberStopNamesQueryVariables
 >;
 export const UpsertStopAreaDocument = gql`
   mutation UpsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
