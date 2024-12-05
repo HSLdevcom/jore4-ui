@@ -9741,6 +9741,7 @@ export enum StopRegistryGeoJsonType {
 
 export type StopRegistryGroupOfStopPlaces = {
   __typename?: 'stop_registry_GroupOfStopPlaces';
+  alternativeNames?: Maybe<Array<Maybe<StopRegistryAlternativeName>>>;
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
   geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']['output']>;
@@ -22216,6 +22217,10 @@ export type StopsDatabaseGroupOfStopPlacesNewestVersion = {
   description_lang?: Maybe<Scalars['String']['output']>;
   description_value?: Maybe<Scalars['String']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
+  /** An array relationship */
+  group_of_stop_places_alternative_names: Array<StopsDatabaseGroupOfStopPlacesAlternativeNames>;
+  /** An aggregate relationship */
+  group_of_stop_places_alternative_names_aggregate: StopsDatabaseGroupOfStopPlacesAlternativeNamesAggregate;
   id?: Maybe<Scalars['bigint']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
@@ -22229,6 +22234,34 @@ export type StopsDatabaseGroupOfStopPlacesNewestVersion = {
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
 };
+
+/** columns and relationships of "group_of_stop_places_newest_version" */
+export type StopsDatabaseGroupOfStopPlacesNewestVersionGroupOfStopPlacesAlternativeNamesArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<StopsDatabaseGroupOfStopPlacesAlternativeNamesSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<
+      Array<StopsDatabaseGroupOfStopPlacesAlternativeNamesOrderBy>
+    >;
+    where?: InputMaybe<StopsDatabaseGroupOfStopPlacesAlternativeNamesBoolExp>;
+  };
+
+/** columns and relationships of "group_of_stop_places_newest_version" */
+export type StopsDatabaseGroupOfStopPlacesNewestVersionGroupOfStopPlacesAlternativeNamesAggregateArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<StopsDatabaseGroupOfStopPlacesAlternativeNamesSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<
+      Array<StopsDatabaseGroupOfStopPlacesAlternativeNamesOrderBy>
+    >;
+    where?: InputMaybe<StopsDatabaseGroupOfStopPlacesAlternativeNamesBoolExp>;
+  };
 
 /** aggregated selection of "group_of_stop_places_newest_version" */
 export type StopsDatabaseGroupOfStopPlacesNewestVersionAggregate = {
@@ -22282,6 +22315,8 @@ export type StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp = {
   description_lang?: InputMaybe<StringComparisonExp>;
   description_value?: InputMaybe<StringComparisonExp>;
   from_date?: InputMaybe<TimestampComparisonExp>;
+  group_of_stop_places_alternative_names?: InputMaybe<StopsDatabaseGroupOfStopPlacesAlternativeNamesBoolExp>;
+  group_of_stop_places_alternative_names_aggregate?: InputMaybe<GroupOfStopPlacesAlternativeNamesAggregateBoolExp>;
   id?: InputMaybe<BigintComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
@@ -22351,6 +22386,7 @@ export type StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy = {
   description_lang?: InputMaybe<OrderBy>;
   description_value?: InputMaybe<OrderBy>;
   from_date?: InputMaybe<OrderBy>;
+  group_of_stop_places_alternative_names_aggregate?: InputMaybe<StopsDatabaseGroupOfStopPlacesAlternativeNamesAggregateOrderBy>;
   id?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
