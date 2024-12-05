@@ -10,7 +10,7 @@ services:
     # The :hsl-tag contains the desired version of hsl specific hasura.
     # Waiting for merging feature-branch to main in hasura-repo
     # Note: also update jore4-hasura-e2e in docker-compose.e2e when changing this.
-    image: 'hsldevcom/jore4-hasura:hsl-main--20241122-957ddc21f4041a4e7da91e2b2c91266ce5cd95c0'
+    image: 'hsldevcom/jore4-hasura:hsl-main--20241205-bd645544977038b7df3df090c2ef181cafa20b65'
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:
@@ -38,7 +38,7 @@ services:
   jore4-tiamat:
     # Pin tiamat to a compatible version.
     # Note: also update jore4-tiamat-e2e in docker-compose.e2e when changing this.
-    image: "hsldevcom/jore4-tiamat:main--20241120-bdf12920ddaa2075e068bb5a9bc6163d7e5c658d"
+    image: "hsldevcom/jore4-tiamat:main--20241211-74da77de6ad488c67e3c95769845cf7b89c3f20c"
 
   jore4-timetablesapi:
     # Pin timetables api to a compatible version.
