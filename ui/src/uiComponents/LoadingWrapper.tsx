@@ -3,16 +3,17 @@ import { FC, ReactNode, Suspense } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { theme } from '../generated/theme';
 
-interface Props {
-  testId: string;
-  loadingText?: string;
-  className?: string;
-  loading?: boolean;
-  size?: number;
-  color?: string;
-  speedMultiplier?: number;
-  children: ReactNode;
-}
+type Props = {
+  readonly testId: string;
+  readonly loadingText?: ReactNode;
+  readonly className?: string;
+  readonly loading?: boolean;
+  readonly size?: number;
+  readonly color?: string;
+  readonly speedMultiplier?: number;
+  readonly children: ReactNode;
+  readonly orientation?: 'column' | 'row';
+};
 
 const Loader: FC<Omit<Props, 'children' | 'loading'>> = ({
   testId,
@@ -21,15 +22,22 @@ const Loader: FC<Omit<Props, 'children' | 'loading'>> = ({
   size = 25,
   color = theme.colors.brand,
   speedMultiplier = 0.7,
+  orientation = 'column',
 }) => (
   <div data-testid={testId} className={className}>
-    <div className="inline-flex flex-col items-center">
+    <div
+      className={`inline-flex ${orientation === 'column' ? 'flex-col' : ''} items-center`}
+    >
       <PulseLoader
         color={color}
         size={size}
         speedMultiplier={speedMultiplier}
       />
-      {loadingText && <span className="mt-4">{loadingText}</span>}
+      {loadingText && (
+        <span className={orientation === 'column' ? 'mt-4' : 'ml-4'}>
+          {loadingText}
+        </span>
+      )}
     </div>
   </div>
 );
