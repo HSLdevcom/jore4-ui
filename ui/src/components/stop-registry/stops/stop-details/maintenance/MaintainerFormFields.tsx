@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
@@ -19,27 +19,32 @@ const testIds = {
   editOrganisationButton: 'MaintainerFormFields::editOrganisationButton',
   phone: 'MaintainerFormFields::phone',
   email: 'MaintainerFormFields::email',
+  message: 'MaintainerFormFields::message',
 };
 
-interface Props {
-  testId: string;
-  maintainerType: StopRegistryStopPlaceOrganisationRelationshipType;
-  organisations: Array<StopPlaceOrganisationFieldsFragment>;
-  editOrganisation: (
+type Props = {
+  readonly testId: string;
+  readonly maintainerType: StopRegistryStopPlaceOrganisationRelationshipType;
+  readonly organisations: Array<StopPlaceOrganisationFieldsFragment>;
+  readonly editOrganisation: (
     org: StopPlaceOrganisationFieldsFragment | undefined,
     relationshipType: StopRegistryStopPlaceOrganisationRelationshipType,
   ) => void;
-}
+};
 
-export const MaintainerFormFields = ({
+export const MaintainerFormFields: FC<Props> = ({
   testId,
   maintainerType,
   organisations,
   editOrganisation,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
-  const { setValue, resetField, watch } =
-    useFormContext<MaintenanceDetailsFormState>();
+  const {
+    setValue,
+    resetField,
+    watch,
+    formState: { dirtyFields },
+  } = useFormContext<MaintenanceDetailsFormState>();
   const selectedMaintainerId = watch(`maintainers.${maintainerType}`);
   const selectedMaintainer = organisations.find(
     (o) => o?.id === selectedMaintainerId,
@@ -94,6 +99,12 @@ export const MaintainerFormFields = ({
           <div data-testid={testIds.email}>
             {selectedMaintainer?.privateContactDetails?.email ?? ''}
           </div>
+          {maintainerType === 'maintenance' &&
+            dirtyFields.maintainers?.maintenance && (
+              <div className="my-2 text-gray-600" data-testid={testIds.message}>
+                {t('stopDetails.maintenance.maintenanceMessage')}
+              </div>
+            )}
         </div>
       </div>
       <div className="self-end lg:row-span-1 lg:row-start-2">

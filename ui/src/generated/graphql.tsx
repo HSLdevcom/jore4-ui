@@ -67672,6 +67672,11 @@ export type GetStopAreaDetailsQuery = {
         | {
             __typename?: 'stop_registry_StopPlace';
             id?: string | null;
+            organisations?: Array<{
+              __typename?: 'stop_registry_StopPlaceOrganisationRef';
+              organisationRef: string;
+              relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+            } | null> | null;
             name?: {
               __typename?: 'stop_registry_EmbeddableMultilingualString';
               lang?: string | null;
@@ -67696,7 +67701,50 @@ export type GetStopAreaDetailsQuery = {
         | null
       > | null;
     } | null> | null;
+    stopPlace?: Array<
+      | { __typename?: 'stop_registry_ParentStopPlace' }
+      | {
+          __typename?: 'stop_registry_StopPlace';
+          groups?: Array<{
+            __typename?: 'stop_registry_GroupOfStopPlaces';
+            members?: Array<
+              | { __typename?: 'stop_registry_ParentStopPlace' }
+              | {
+                  __typename?: 'stop_registry_StopPlace';
+                  id?: string | null;
+                  organisations?: Array<{
+                    __typename?: 'stop_registry_StopPlaceOrganisationRef';
+                    organisationRef: string;
+                    relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+                  } | null> | null;
+                }
+              | null
+            > | null;
+          } | null> | null;
+        }
+      | null
+    > | null;
   } | null;
+};
+
+export type StopAreaGroupMembersFragment = {
+  __typename?: 'stop_registry_StopPlace';
+  groups?: Array<{
+    __typename?: 'stop_registry_GroupOfStopPlaces';
+    members?: Array<
+      | { __typename?: 'stop_registry_ParentStopPlace' }
+      | {
+          __typename?: 'stop_registry_StopPlace';
+          id?: string | null;
+          organisations?: Array<{
+            __typename?: 'stop_registry_StopPlaceOrganisationRef';
+            organisationRef: string;
+            relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+          } | null> | null;
+        }
+      | null
+    > | null;
+  } | null> | null;
 };
 
 export type StopAreaDetailsFragment = {
@@ -67727,6 +67775,11 @@ export type StopAreaDetailsFragment = {
     | {
         __typename?: 'stop_registry_StopPlace';
         id?: string | null;
+        organisations?: Array<{
+          __typename?: 'stop_registry_StopPlaceOrganisationRef';
+          organisationRef: string;
+          relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+        } | null> | null;
         name?: {
           __typename?: 'stop_registry_EmbeddableMultilingualString';
           lang?: string | null;
@@ -67755,6 +67808,11 @@ export type StopAreaDetailsFragment = {
 export type StopAreaDetailsMembersFragment = {
   __typename?: 'stop_registry_StopPlace';
   id?: string | null;
+  organisations?: Array<{
+    __typename?: 'stop_registry_StopPlaceOrganisationRef';
+    organisationRef: string;
+    relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+  } | null> | null;
   name?: {
     __typename?: 'stop_registry_EmbeddableMultilingualString';
     lang?: string | null;
@@ -73761,6 +73819,21 @@ export const StopTableRowStopPlaceFragmentDoc = gql`
   }
   ${StopTableRowFragmentDoc}
 `;
+export const StopAreaGroupMembersFragmentDoc = gql`
+  fragment StopAreaGroupMembers on stop_registry_StopPlace {
+    groups {
+      members {
+        ... on stop_registry_StopPlace {
+          id
+          organisations {
+            organisationRef
+            relationshipType
+          }
+        }
+      }
+    }
+  }
+`;
 export const StopAreaDetailsMembersFragmentDoc = gql`
   fragment StopAreaDetailsMembers on stop_registry_StopPlace {
     id
@@ -73770,6 +73843,13 @@ export const StopAreaDetailsMembersFragmentDoc = gql`
     }
     scheduled_stop_point {
       ...stop_table_row
+    }
+    ... on stop_registry_StopPlace {
+      id
+      organisations {
+        organisationRef
+        relationshipType
+      }
     }
   }
   ${StopTableRowFragmentDoc}
@@ -75715,9 +75795,13 @@ export const GetStopAreaDetailsDocument = gql`
       groupOfStopPlaces(id: $id) {
         ...StopAreaDetails
       }
+      stopPlace(id: $id) {
+        ...StopAreaGroupMembers
+      }
     }
   }
   ${StopAreaDetailsFragmentDoc}
+  ${StopAreaGroupMembersFragmentDoc}
 `;
 
 /**

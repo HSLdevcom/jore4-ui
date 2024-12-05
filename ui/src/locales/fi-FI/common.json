@@ -282,7 +282,8 @@
           "phone": "Puhelin",
           "email": "Sähköposti"
         }
-      }
+      },
+      "maintenanceMessage": "Tieto päivittyy myös muille pysäkkialueen pysäkeille."
     },
     "accessibilityLevelDescriptions": {
       "modalTriggerTitle": "Esteettömyys",
