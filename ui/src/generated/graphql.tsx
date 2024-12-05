@@ -67672,6 +67672,77 @@ export type GetStopAreaDetailsQuery = {
         | {
             __typename?: 'stop_registry_StopPlace';
             id?: string | null;
+            organisations?: Array<{
+              __typename?: 'stop_registry_StopPlaceOrganisationRef';
+              organisationRef: string;
+              relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+            } | null> | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
+            scheduled_stop_point?: {
+              __typename?: 'service_pattern_scheduled_stop_point';
+              scheduled_stop_point_id: UUID;
+              label: string;
+              measured_location: GeoJSON.Point;
+              validity_start?: luxon.DateTime | null;
+              validity_end?: luxon.DateTime | null;
+              timing_place_id?: UUID | null;
+              priority: number;
+              timing_place?: {
+                __typename?: 'timing_pattern_timing_place';
+                timing_place_id: UUID;
+                label: string;
+              } | null;
+            } | null;
+          }
+        | null
+      > | null;
+    } | null> | null;
+  } | null;
+};
+
+export type GetAllStopAreasQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAllStopAreasQuery = {
+  __typename?: 'query_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister';
+    groupOfStopPlaces?: Array<{
+      __typename?: 'stop_registry_GroupOfStopPlaces';
+      id?: string | null;
+      geometry?: {
+        __typename?: 'stop_registry_GeoJSON';
+        type?: StopRegistryGeoJsonType | null;
+        coordinates?: GeoJSON.Position | null;
+      } | null;
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      validBetween?: {
+        __typename?: 'stop_registry_ValidBetween';
+        fromDate?: luxon.DateTime | null;
+        toDate?: luxon.DateTime | null;
+      } | null;
+      members?: Array<
+        | { __typename?: 'stop_registry_ParentStopPlace' }
+        | {
+            __typename?: 'stop_registry_StopPlace';
+            id?: string | null;
+            organisations?: Array<{
+              __typename?: 'stop_registry_StopPlaceOrganisationRef';
+              organisationRef: string;
+              relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+            } | null> | null;
             name?: {
               __typename?: 'stop_registry_EmbeddableMultilingualString';
               lang?: string | null;
@@ -67727,6 +67798,11 @@ export type StopAreaDetailsFragment = {
     | {
         __typename?: 'stop_registry_StopPlace';
         id?: string | null;
+        organisations?: Array<{
+          __typename?: 'stop_registry_StopPlaceOrganisationRef';
+          organisationRef: string;
+          relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+        } | null> | null;
         name?: {
           __typename?: 'stop_registry_EmbeddableMultilingualString';
           lang?: string | null;
@@ -67755,6 +67831,11 @@ export type StopAreaDetailsFragment = {
 export type StopAreaDetailsMembersFragment = {
   __typename?: 'stop_registry_StopPlace';
   id?: string | null;
+  organisations?: Array<{
+    __typename?: 'stop_registry_StopPlaceOrganisationRef';
+    organisationRef: string;
+    relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+  } | null> | null;
   name?: {
     __typename?: 'stop_registry_EmbeddableMultilingualString';
     lang?: string | null;
@@ -73771,6 +73852,13 @@ export const StopAreaDetailsMembersFragmentDoc = gql`
     scheduled_stop_point {
       ...stop_table_row
     }
+    ... on stop_registry_StopPlace {
+      id
+      organisations {
+        organisationRef
+        relationshipType
+      }
+    }
   }
   ${StopTableRowFragmentDoc}
 `;
@@ -75788,6 +75876,81 @@ export type GetStopAreaDetailsSuspenseQueryHookResult = ReturnType<
 export type GetStopAreaDetailsQueryResult = Apollo.QueryResult<
   GetStopAreaDetailsQuery,
   GetStopAreaDetailsQueryVariables
+>;
+export const GetAllStopAreasDocument = gql`
+  query getAllStopAreas {
+    stop_registry {
+      groupOfStopPlaces {
+        ...StopAreaDetails
+      }
+    }
+  }
+  ${StopAreaDetailsFragmentDoc}
+`;
+
+/**
+ * __useGetAllStopAreasQuery__
+ *
+ * To run a query within a React component, call `useGetAllStopAreasQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllStopAreasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllStopAreasQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllStopAreasQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAllStopAreasQuery,
+    GetAllStopAreasQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllStopAreasQuery, GetAllStopAreasQueryVariables>(
+    GetAllStopAreasDocument,
+    options,
+  );
+}
+export function useGetAllStopAreasLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllStopAreasQuery,
+    GetAllStopAreasQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetAllStopAreasQuery,
+    GetAllStopAreasQueryVariables
+  >(GetAllStopAreasDocument, options);
+}
+export function useGetAllStopAreasSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetAllStopAreasQuery,
+    GetAllStopAreasQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetAllStopAreasQuery,
+    GetAllStopAreasQueryVariables
+  >(GetAllStopAreasDocument, options);
+}
+export type GetAllStopAreasQueryHookResult = ReturnType<
+  typeof useGetAllStopAreasQuery
+>;
+export type GetAllStopAreasLazyQueryHookResult = ReturnType<
+  typeof useGetAllStopAreasLazyQuery
+>;
+export type GetAllStopAreasSuspenseQueryHookResult = ReturnType<
+  typeof useGetAllStopAreasSuspenseQuery
+>;
+export type GetAllStopAreasQueryResult = Apollo.QueryResult<
+  GetAllStopAreasQuery,
+  GetAllStopAreasQueryVariables
 >;
 export const FindExistingPosterNamesDocument = gql`
   query findExistingPosterNames {

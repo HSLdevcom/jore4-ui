@@ -282,7 +282,8 @@
           "phone": "Phone",
           "email": "Email"
         }
-      }
+      },
+      "maintenanceMessage": "Tieto päivittyy myös muille pysäkkialueen pysäkeille."
     },
     "accessibilityLevelDescriptions": {
       "modalTriggerTitle": "Accessibility",

@@ -37,7 +37,7 @@ export const MaintenanceSection = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const { saveStopMaintenanceDetails, defaultErrorHandler } =
-    useEditStopMaintenanceDetails();
+    useEditStopMaintenanceDetails(stop);
 
   const formRef = useRef<ExplicitAny>(null);
   const infoContainerControls = useInfoContainerControls({
