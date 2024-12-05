@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
+import { Provider } from 'react-redux';
 import { useGetStopDetails, useRequiredParams } from '../../../../hooks';
 import { Container, Visible } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
@@ -8,6 +9,7 @@ import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { ObservationDateControl } from '../../../common/ObservationDateControl';
 import { FormRow } from '../../../forms/common';
 import { BasicDetailsSection } from './basic-details/BasicDetailsSection';
+import { CalendarButton } from './CalendarButton';
 import {
   DetailTabSelector,
   DetailTabType,
@@ -19,6 +21,11 @@ import { MaintenanceSection } from './maintenance';
 import { MeasurementsSection } from './measurements';
 import { SheltersSection } from './shelters';
 import { SignageDetailsSection } from './signage-details/SignageDetailsSection';
+import { CreateStopVersionModal } from './stop-version/CreateStopVersionModal';
+import {
+  createStopVersionStopStore,
+  setValues,
+} from './stop-version/createStopVersionState';
 import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
 import { StopTitleRow } from './StopTitleRow';
 
@@ -38,6 +45,13 @@ export const StopDetailsPage = (): React.ReactElement => {
     DetailTabType.BasicDetailsTab,
   );
   const { label } = useRequiredParams<{ label: string }>();
+
+  // TODO: Use appDispatch or simple useState?
+  const stopVersionModalStore = createStopVersionStopStore;
+  const createStopVersionModalDispatch = stopVersionModalStore.dispatch;
+  const openCreateStopVersionModal = () => {
+    createStopVersionModalDispatch(setValues({ modalOpen: true }));
+  };
 
   return (
     <Container testId={testIds.page}>
@@ -59,6 +73,12 @@ export const StopDetailsPage = (): React.ReactElement => {
           <span className="mx-1">-</span>
           {mapToShortDate(stopDetails?.validity_end)}
         </div>
+        <Provider store={stopVersionModalStore}>
+          <CalendarButton
+            name="createStopVersion"
+            onClick={openCreateStopVersionModal}
+          />
+        </Provider>
       </div>
       <DetailTabSelector
         className="mb-3"
@@ -124,6 +144,9 @@ export const StopDetailsPage = (): React.ReactElement => {
           </div>
         )}
       </LoadingWrapper>
+      <Provider store={stopVersionModalStore}>
+        <CreateStopVersionModal originalStop={stopDetails} />
+      </Provider>
     </Container>
   );
 };

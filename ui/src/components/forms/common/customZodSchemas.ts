@@ -66,6 +66,7 @@ export const createNullableEnum = <T>() => {
 };
 
 export const requiredDate = requiredString.regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/);
+export const optionaldDate = requiredString.regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/).optional();
 
 /**
  *  Regex for validating time/interval-field
@@ -93,3 +94,8 @@ export const nullablePositiveNumber = z
   });
 
 export const instanceOfDateTime = z.custom<DateTime>(DateTime.isDateTime);
+
+export function getStringEnumValues<T extends Record<string, string>>(enumObj: T): readonly [string, ...string[] ]{
+  const values = Object.values(enumObj)
+  return [values[0], ...values.slice(1)];
+}
