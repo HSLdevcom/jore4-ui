@@ -13,6 +13,7 @@ import {
   DetailTabType,
   detailTabs,
 } from './DetailTabSelector';
+import { ExtraActions } from './ExtraActions';
 import { SheltersInfoSpotsSection } from './info-spots/SheltersInfoSpots';
 import { LocationDetailsSection } from './location-details/LocationDetailsSection';
 import { MaintenanceSection } from './maintenance';

@@ -1,21 +1,24 @@
 import { Menu } from '@headlessui/react';
 import React, { ReactNode } from 'react';
 import { MdMoreVert } from 'react-icons/md';
+import { twMerge } from 'tailwind-merge';
 import {
   AlignDirection,
   SimpleDropdownMenuItems,
 } from './SimpleDropdownMenuItems';
 
-interface Props {
-  children: ReactNode;
-  testId?: string;
+type Props = {
+  readonly children: ReactNode;
+  readonly className?: string;
+  readonly testId?: string;
   /** Set value to align menu items to right or left. Default: no alignment */
-  alignItems?: AlignDirection;
-  tooltip: string;
-  disabled?: boolean;
-}
+  readonly alignItems?: AlignDirection;
+  readonly tooltip: string;
+  readonly disabled?: boolean;
+};
 
 export const SimpleDropdownMenu = ({
+  className,
   children,
   testId,
   alignItems = AlignDirection.NoAlign,
@@ -23,7 +26,7 @@ export const SimpleDropdownMenu = ({
   disabled,
 }: Props): React.ReactElement => {
   return (
-    <Menu as="div" className="relative">
+    <Menu as="div" className={twMerge('relative', className)}>
       {({ open }) => (
         <>
           <Menu.Button

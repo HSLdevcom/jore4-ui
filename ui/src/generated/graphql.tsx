@@ -67849,6 +67849,21 @@ export type GetOrganisationsQuery = {
   } | null;
 };
 
+export type CreateStopPlaceVersionMutationVariables = Exact<{
+  object?: InputMaybe<StopRegistryStopPlaceInput>;
+}>;
+
+export type CreateStopPlaceVersionMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    mutateStopPlace?: Array<{
+      __typename?: 'stop_registry_StopPlace';
+      id?: string | null;
+    } | null> | null;
+  } | null;
+};
+
 export type VehicleJourneyByStopFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   journey_pattern_ref_id: UUID;
@@ -75977,6 +75992,58 @@ export type GetOrganisationsSuspenseQueryHookResult = ReturnType<
 export type GetOrganisationsQueryResult = Apollo.QueryResult<
   GetOrganisationsQuery,
   GetOrganisationsQueryVariables
+>;
+export const CreateStopPlaceVersionDocument = gql`
+  mutation CreateStopPlaceVersion($object: stop_registry_StopPlaceInput) {
+    stop_registry {
+      mutateStopPlace(StopPlace: $object) {
+        id
+      }
+    }
+  }
+`;
+export type CreateStopPlaceVersionMutationFn = Apollo.MutationFunction<
+  CreateStopPlaceVersionMutation,
+  CreateStopPlaceVersionMutationVariables
+>;
+
+/**
+ * __useCreateStopPlaceVersionMutation__
+ *
+ * To run a mutation, you first call `useCreateStopPlaceVersionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStopPlaceVersionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStopPlaceVersionMutation, { data, loading, error }] = useCreateStopPlaceVersionMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useCreateStopPlaceVersionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateStopPlaceVersionMutation,
+    CreateStopPlaceVersionMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateStopPlaceVersionMutation,
+    CreateStopPlaceVersionMutationVariables
+  >(CreateStopPlaceVersionDocument, options);
+}
+export type CreateStopPlaceVersionMutationHookResult = ReturnType<
+  typeof useCreateStopPlaceVersionMutation
+>;
+export type CreateStopPlaceVersionMutationResult =
+  Apollo.MutationResult<CreateStopPlaceVersionMutation>;
+export type CreateStopPlaceVersionMutationOptions = Apollo.BaseMutationOptions<
+  CreateStopPlaceVersionMutation,
+  CreateStopPlaceVersionMutationVariables
 >;
 export const GetRouteWithJourneyPatternDocument = gql`
   query GetRouteWithJourneyPattern($routeId: uuid!) {

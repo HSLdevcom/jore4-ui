@@ -383,6 +383,31 @@
         "a3": "A3",
         "cm80x120": "80x120cm"
       }
+    },
+    "actions": {
+      "extra": {
+        "copy": "Kopioi uudeksi versioksi"
+      }
+    },
+    "version": {
+      "title": {
+        "edit": "Muokkaa versiota",
+        "copy": "Kopioidaan uudeksi versioksi",
+        "copySubTitle": "Uuden version tiedot"
+      },
+      "fields": {
+        "versionName": "Version nimi",
+        "versionDescription": "Muutoksen peruste"
+      },
+      "copy": "Version nimi",
+      "saved": "Versio tallennettu",
+      "success": {
+        "edit": "Versio tallennettu",
+        "copy": "Uusi versio luotu\nAvataan uusi versio"
+      },
+      "errors": {
+        "default": "Virhe version tallennuksessa"
+      }
     }
   },
   "stopRegistrySearch": {
