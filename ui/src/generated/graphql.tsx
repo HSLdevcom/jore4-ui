@@ -69776,6 +69776,25 @@ export type GetStopsByLocationQuery = {
     validity_end?: luxon.DateTime | null;
     located_on_infrastructure_link_id: UUID;
     stop_place_ref?: string | null;
+    stop_place?: Array<
+      | {
+          __typename?: 'stop_registry_ParentStopPlace';
+          id?: string | null;
+          groups?: Array<{
+            __typename?: 'stop_registry_GroupOfStopPlaces';
+            id?: string | null;
+          } | null> | null;
+        }
+      | {
+          __typename?: 'stop_registry_StopPlace';
+          id?: string | null;
+          groups?: Array<{
+            __typename?: 'stop_registry_GroupOfStopPlaces';
+            id?: string | null;
+          } | null> | null;
+        }
+      | null
+    > | null;
     vehicle_mode_on_scheduled_stop_point: Array<{
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
       vehicle_mode: ReusableComponentsVehicleModeEnum;
@@ -71483,6 +71502,10 @@ export type UpdateStopPlaceMutation = {
           lines?: string | null;
         } | null> | null;
       } | null> | null;
+      groups?: Array<{
+        __typename?: 'stop_registry_GroupOfStopPlaces';
+        id?: string | null;
+      } | null> | null;
     } | null> | null;
   } | null;
 };
@@ -71771,6 +71794,10 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
               posterSize?: StopRegistryPosterPlaceSize | null;
               lines?: string | null;
             } | null> | null;
+          } | null> | null;
+          groups?: Array<{
+            __typename?: 'stop_registry_GroupOfStopPlaces';
+            id?: string | null;
           } | null> | null;
         }
       | null
@@ -72107,6 +72134,10 @@ export type StopPlaceDetailsFragment = {
       posterSize?: StopRegistryPosterPlaceSize | null;
       lines?: string | null;
     } | null> | null;
+  } | null> | null;
+  groups?: Array<{
+    __typename?: 'stop_registry_GroupOfStopPlaces';
+    id?: string | null;
   } | null> | null;
 };
 
@@ -74561,6 +74592,9 @@ export const StopPlaceDetailsFragmentDoc = gql`
     }
     infoSpots {
       ...info_spot_details
+    }
+    groups {
+      id
     }
   }
   ${TopographicPlaceDetailsFragmentDoc}
@@ -78264,6 +78298,12 @@ export const GetStopsByLocationDocument = gql`
       where: { measured_location: $measured_location_filter }
     ) {
       ...scheduled_stop_point_all_fields
+      stop_place {
+        id
+        groups {
+          id
+        }
+      }
     }
   }
   ${ScheduledStopPointAllFieldsFragmentDoc}

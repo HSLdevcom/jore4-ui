@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import React, { ForwardRefRenderFunction } from 'react';
+import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../../../../hooks/redux';
 import {
@@ -13,6 +13,10 @@ import {
 } from '../../../../../../redux';
 import { FormColumn } from '../../../../../forms/common';
 import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
+import {
+  NameConsistencyChecker,
+  TypedName,
+} from '../../../../../forms/stop-area';
 import { StopBasicDetailsFormState, schema } from './schema';
 import { StopAbbreviationsFormRow } from './StopAbbreviationsFormRow';
 import { StopLabelAndNameFormRow } from './StopLabelAndNameFormRow';
@@ -20,17 +24,55 @@ import { StopLongNameAndLocationFormRow } from './StopLongNameAndLocationFormRow
 import { StopOtherDetailsFormRow } from './StopOtherDetailsFormRow';
 import { StopTypesFormRow } from './StopTypesFormRow';
 
-interface Props {
-  className?: string;
-  defaultValues: Partial<StopBasicDetailsFormState>;
-  onSubmit: (state: StopBasicDetailsFormState) => void;
-  hasMainLineSign: boolean;
+function getOverriddenNames(
+  methods: UseFormReturn<StopBasicDetailsFormState>,
+): ReadonlyArray<TypedName> {
+  const [nameFin, nameSwe, nameLongFin, nameLongSwe] = methods.watch([
+    'nameFin',
+    'nameSwe',
+    'nameLongFin',
+    'nameLongSwe',
+  ]);
+
+  return [
+    {
+      lang: 'fin',
+      type: 'TRANSLATION',
+      value: nameFin,
+    },
+    {
+      lang: 'fin',
+      type: 'ALIAS',
+      value: nameLongFin,
+    },
+    {
+      lang: 'swe',
+      type: 'TRANSLATION',
+      value: nameSwe,
+    },
+    {
+      lang: 'swe',
+      type: 'ALIAS',
+      value: nameLongSwe,
+    },
+  ];
 }
 
-const StopBasicDetailsFormComponent = (
-  { className = '', defaultValues, onSubmit, hasMainLineSign }: Props,
-  ref: ExplicitAny,
-): React.ReactElement => {
+type Props = {
+  readonly className?: string;
+  readonly defaultValues: Partial<StopBasicDetailsFormState>;
+  readonly onSubmit: (state: StopBasicDetailsFormState) => void;
+  readonly hasMainLineSign: boolean;
+  readonly stopAreaId: string | null | undefined;
+};
+
+const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
+  HTMLFormElement,
+  Props
+> = (
+  { className = '', defaultValues, onSubmit, hasMainLineSign, stopAreaId },
+  ref,
+) => {
   const dispatch = useDispatch();
   const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 
@@ -57,6 +99,12 @@ const StopBasicDetailsFormComponent = (
           <HorizontalSeparator />
           <StopLongNameAndLocationFormRow />
           <StopAbbreviationsFormRow />
+          {stopAreaId && (
+            <NameConsistencyChecker.StopNameForm
+              stopAreaId={stopAreaId}
+              stopNames={getOverriddenNames(methods)}
+            />
+          )}
           <HorizontalSeparator />
           <StopTypesFormRow hasMainLineSign={hasMainLineSign} />
           <StopOtherDetailsFormRow

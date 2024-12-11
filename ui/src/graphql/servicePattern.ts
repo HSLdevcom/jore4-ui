@@ -96,6 +96,13 @@ const QUERY_GET_STOPS_BY_LOCATION = gql`
       where: { measured_location: $measured_location_filter }
     ) {
       ...scheduled_stop_point_all_fields
+
+      stop_place {
+        id
+        groups {
+          id
+        }
+      }
     }
   }
 `;
