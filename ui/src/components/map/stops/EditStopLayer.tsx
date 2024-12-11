@@ -343,6 +343,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
         )}
         {displayedEditor === StopEditorViews.Modal && (
           <EditStopModal
+            stopAreaId={editedStopData.stop_place?.at(0)?.groups?.at(0)?.id}
             defaultValues={mapStopDataToFormState(editedStopData)}
             stopPlaceRef={editedStopData.stop_place_ref}
             onCancel={onCloseEditors}

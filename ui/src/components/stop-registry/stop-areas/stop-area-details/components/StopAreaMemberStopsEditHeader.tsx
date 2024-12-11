@@ -1,8 +1,13 @@
 import noop from 'lodash/noop';
-import { FC } from 'react';
+import React, { FC } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { ControlledElement } from '../../../../forms/common/ControlledElement';
-import { SelectMemberStopsDropdown } from '../../../../forms/stop-area';
+import {
+  NameConsistencyChecker,
+  SelectMemberStopsDropdown,
+  StopAreaFormState,
+} from '../../../../forms/stop-area';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 
 const testIds = {
@@ -10,6 +15,12 @@ const testIds = {
   cancelButton: 'MemberStops::cancelButton',
   selectMemberStops: 'MemberStops::selectMemberStops',
 };
+
+function useMemberStopIds(): ReadonlyArray<string> {
+  const { watch } = useFormContext<StopAreaFormState>();
+  const memberStops = watch('memberStops');
+  return memberStops.map((it) => it.id);
+}
 
 type StopAreaMemberStopsEditHeaderProps = {
   readonly areaId: string | null | undefined;
@@ -20,15 +31,18 @@ export const StopAreaMemberStopsEditHeader: FC<
   StopAreaMemberStopsEditHeaderProps
 > = ({ areaId, onCancel }) => {
   const { t } = useTranslation();
+  const memberStopIds = useMemberStopIds();
 
   return (
     <>
       <div className="flex flex-grow flex-wrap-reverse items-center gap-x-4 gap-y-1 md:justify-center lg:flex-nowrap">
         <div className="hidden flex-grow lg:block" />
 
-        <p className="text-hsl-red lg:flex-shrink-0">
-          {t('stopArea.sharedNameNotice')}
-        </p>
+        <NameConsistencyChecker.MembersOnlyForm
+          className="lg:flex-shrink-0"
+          memberStopIds={memberStopIds}
+          stopAreaId={areaId}
+        />
 
         <ControlledElement
           id="memberStops"

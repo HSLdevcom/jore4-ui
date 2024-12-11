@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../../../../hooks/redux';
 import {
@@ -13,6 +13,10 @@ import {
 } from '../../../../../../redux';
 import { FormColumn } from '../../../../../forms/common';
 import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
+import {
+  NameConsistencyChecker,
+  TypedName,
+} from '../../../../../forms/stop-area';
 import { StopBasicDetailsFormState, schema } from './schema';
 import { StopAbbreviationsFormRow } from './StopAbbreviationsFormRow';
 import { StopLabelAndNameFormRow } from './StopLabelAndNameFormRow';
@@ -20,15 +24,56 @@ import { StopLongNameAndLocationFormRow } from './StopLongNameAndLocationFormRow
 import { StopOtherDetailsFormRow } from './StopOtherDetailsFormRow';
 import { StopTypesFormRow } from './StopTypesFormRow';
 
+function getOverriddenNames(
+  methods: UseFormReturn<StopBasicDetailsFormState>,
+): ReadonlyArray<TypedName> {
+  const [nameFin, nameSwe, nameLongFin, nameLongSwe] = methods.watch([
+    'nameFin',
+    'nameSwe',
+    'nameLongFin',
+    'nameLongSwe',
+  ]);
+
+  return [
+    {
+      lang: 'fin',
+      type: 'TRANSLATION',
+      value: nameFin,
+    },
+    {
+      lang: 'fin',
+      type: 'ALIAS',
+      value: nameLongFin,
+    },
+    {
+      lang: 'swe',
+      type: 'TRANSLATION',
+      value: nameSwe,
+    },
+    {
+      lang: 'swe',
+      type: 'ALIAS',
+      value: nameLongSwe,
+    },
+  ];
+}
+
 interface Props {
   className?: string;
   defaultValues: Partial<StopBasicDetailsFormState>;
   onSubmit: (state: StopBasicDetailsFormState) => void;
   hasMainLineSign: boolean;
+  stopAreaId: string | null | undefined;
 }
 
 const StopBasicDetailsFormComponent = (
-  { className = '', defaultValues, onSubmit, hasMainLineSign }: Props,
+  {
+    className = '',
+    defaultValues,
+    onSubmit,
+    hasMainLineSign,
+    stopAreaId,
+  }: Props,
   ref: ExplicitAny,
 ): React.ReactElement => {
   const dispatch = useDispatch();
@@ -57,6 +102,12 @@ const StopBasicDetailsFormComponent = (
           <HorizontalSeparator />
           <StopLongNameAndLocationFormRow />
           <StopAbbreviationsFormRow />
+          {stopAreaId && (
+            <NameConsistencyChecker.StopNameForm
+              stopAreaId={stopAreaId}
+              stopNames={getOverriddenNames(methods)}
+            />
+          )}
           <HorizontalSeparator />
           <StopTypesFormRow hasMainLineSign={hasMainLineSign} />
           <StopOtherDetailsFormRow
