@@ -1374,8 +1374,12 @@ describe('Stop details', () => {
             .click();
         });
         form.getMaintenance().within(() => {
+          form.fields.getMaintenanceMessage().should('not.exist');
           form.fields.getMaintainerDropdownButton().click();
           form.fields.getMaintainerDropdownOptions().contains('JCD').click();
+          form.fields
+            .getMaintenanceMessage()
+            .contains('Tieto päivittyy myös muille pysäkkialueen pysäkeille.');
         });
         form.getWinterMaintenance().within(() => {
           form.fields.getMaintainerDropdownButton().click();

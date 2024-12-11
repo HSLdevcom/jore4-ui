@@ -22,4 +22,8 @@ export class MaintainerFormFields {
   getEmail() {
     return cy.getByTestId('MaintainerFormFields::email');
   }
+
+  getMaintenanceMessage() {
+    return cy.getByTestId('MaintainerFormFields::message');
+  }
 }
