@@ -264,6 +264,9 @@ const GQL_STOP_PLACE_DETAILS = gql`
     infoSpots {
       ...info_spot_details
     }
+    groups {
+      id
+    }
   }
 `;
 

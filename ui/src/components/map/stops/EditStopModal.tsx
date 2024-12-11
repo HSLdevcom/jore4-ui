@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CreateChanges, EditChanges } from '../../../hooks';
 import { submitFormByRef } from '../../../utils';
@@ -10,21 +10,23 @@ const testIds = {
   modal: 'EditStopModal',
 };
 
-interface Props {
-  defaultValues: Partial<FormState>;
-  stopPlaceRef?: string | null;
-  onCancel: () => void;
-  onClose: () => void;
-  onSubmit: (changes: CreateChanges | EditChanges) => void;
-}
+type Props = {
+  readonly defaultValues: Partial<FormState>;
+  readonly stopAreaId: string | null | undefined;
+  readonly stopPlaceRef?: string | null;
+  readonly onCancel: () => void;
+  readonly onClose: () => void;
+  readonly onSubmit: (changes: CreateChanges | EditChanges) => void;
+};
 
-export const EditStopModal = ({
+export const EditStopModal: FC<Props> = ({
   defaultValues,
+  stopAreaId,
   stopPlaceRef,
   onCancel,
   onClose,
   onSubmit,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
   const onSave = () => submitFormByRef(formRef);
@@ -46,6 +48,7 @@ export const EditStopModal = ({
         >
           <StopForm
             defaultValues={defaultValues}
+            stopAreaId={stopAreaId}
             stopPlaceRef={stopPlaceRef}
             onSubmit={onSubmit}
             ref={formRef}

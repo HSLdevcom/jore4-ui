@@ -70,6 +70,7 @@ export const BasicDetailsSection = ({ stop }: Props): React.ReactElement => {
     >
       {infoContainerControls.isInEditMode && !!defaultValues ? (
         <StopBasicDetailsForm
+          stopAreaId={stop.stop_place?.groups?.at(0)?.id}
           defaultValues={defaultValues}
           ref={formRef}
           onSubmit={onSubmit}

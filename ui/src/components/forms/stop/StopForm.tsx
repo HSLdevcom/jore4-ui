@@ -1,8 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { ForwardRefRenderFunction } from 'react';
 import {
   FieldNamesMarkedBoolean,
   FormProvider,
+  UseFormReturn,
   useForm,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -48,6 +49,7 @@ import {
   FormState as ChangeValidityFormState,
   schema as changeValidityFormSchema,
 } from '../common/ChangeValidityForm';
+import { NameConsistencyChecker, TypedName } from '../stop-area';
 import { ChooseTimingPlaceDropdown } from './ChooseTimingPlaceDropdown';
 import { TimingPlaceModal } from './TimingPlaceModal';
 
@@ -141,17 +143,28 @@ function pickChangedFieldsForPatch(
   return Object.fromEntries(dirty);
 }
 
-interface Props {
-  className?: string;
-  defaultValues: Partial<FormState>;
-  stopPlaceRef?: string | null;
-  onSubmit: (changes: CreateChanges | EditChanges) => void;
+function getOverriddenNames(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  methods: UseFormReturn<FormState>,
+): ReadonlyArray<TypedName> {
+  // No name fields to fetch yet on the form.
+  // TODO: https://dev.azure.com/hslfi/JORE%204.0/_workitems/edit/47661
+  // const [name] = methods.watch(['name', ...]);
+  return [];
 }
 
-const StopFormComponent = (
-  { className = '', defaultValues, onSubmit, stopPlaceRef }: Props,
-  ref: ExplicitAny,
-): React.ReactElement => {
+type Props = {
+  readonly className?: string;
+  readonly defaultValues: Partial<FormState>;
+  readonly stopAreaId: string | null | undefined;
+  readonly stopPlaceRef?: string | null;
+  readonly onSubmit: (changes: CreateChanges | EditChanges) => void;
+};
+
+const StopFormComponent: ForwardRefRenderFunction<HTMLFormElement, Props> = (
+  { className = '', defaultValues, onSubmit, stopAreaId, stopPlaceRef },
+  ref,
+) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -234,6 +247,12 @@ const StopFormComponent = (
                 fieldPath="label"
                 testId={testIds.label}
               />
+              {stopAreaId && (
+                <NameConsistencyChecker.StopNameForm
+                  stopAreaId={stopAreaId}
+                  stopNames={getOverriddenNames(methods)}
+                />
+              )}
             </Column>
             <Column className="space-y-4">
               <h5 className="mb-2">{t('map.location')}</h5>

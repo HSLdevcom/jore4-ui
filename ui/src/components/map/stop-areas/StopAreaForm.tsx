@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import React, { ForwardRefRenderFunction } from 'react';
+import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { Column } from '../../../layoutComponents';
@@ -13,7 +13,11 @@ import {
   InputField,
   ValidityPeriodForm,
 } from '../../forms/common';
-import { SelectMemberStopsDropdown } from '../../forms/stop-area';
+import {
+  NameConsistencyChecker,
+  SelectMemberStopsDropdown,
+  TypedName,
+} from '../../forms/stop-area';
 import {
   StopAreaFormState as FormState,
   stopAreaFormSchema,
@@ -57,17 +61,41 @@ export const mapStopAreaDataToFormState = (
   return formState;
 };
 
-interface Props {
-  className?: string;
-  defaultValues: Partial<FormState>;
-  editedStopAreaId: string | null | undefined;
-  onSubmit: (changes: FormState) => void;
+function getOverriddenNames(
+  methods: UseFormReturn<FormState>,
+): ReadonlyArray<TypedName> {
+  const [name] = methods.watch(['name']);
+  return [
+    {
+      type: 'TRANSLATION',
+      lang: 'fin',
+      value: name,
+    },
+    // No short name or translations in this form.
+  ];
 }
 
-const StopAreaFormComponent = (
+function getMemberStopIds(
+  methods: UseFormReturn<FormState>,
+): ReadonlyArray<string> {
+  const memberStops = methods.watch('memberStops');
+  return memberStops.map((it) => it.id);
+}
+
+type Props = {
+  readonly className?: string;
+  readonly defaultValues: Partial<FormState>;
+  readonly editedStopAreaId: string | null | undefined;
+  readonly onSubmit: (changes: FormState) => void;
+};
+
+const StopAreaFormComponent: ForwardRefRenderFunction<
+  HTMLFormElement,
+  Props
+> = (
   { className = '', defaultValues, editedStopAreaId, onSubmit }: Props,
-  ref: ExplicitAny,
-): JSX.Element => {
+  ref,
+) => {
   const { t } = useTranslation();
 
   const methods = useForm<FormState>({
@@ -75,6 +103,9 @@ const StopAreaFormComponent = (
     resolver: zodResolver(stopAreaFormSchema),
   });
   const { handleSubmit } = methods;
+
+  const memberStopIds = getMemberStopIds(methods);
+  const overriddenNames = getOverriddenNames(methods);
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -145,7 +176,11 @@ const StopAreaFormComponent = (
           </FormRow>
           <FormRow mdColumns={2}>
             <Column className="col-start-2">
-              <p className="text-hsl-red">{t('stopArea.sharedNameNotice')}</p>
+              <NameConsistencyChecker.NameAndMembersForm
+                memberStopIds={memberStopIds}
+                stopAreaId={editedStopAreaId}
+                stopAreaNameOverrides={overriddenNames}
+              />
             </Column>
           </FormRow>
           <FormRow>
