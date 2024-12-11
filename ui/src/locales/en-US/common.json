@@ -124,6 +124,8 @@
     "label": "Label",
     "memberStops": "Member stops",
     "sharedNameNotice": "Remember that member stops need to share name with the area.",
+    "checkingNames": "Checking names for consistency",
+    "checkingNamesFailed": "Failed to check the consistency of names <RefetchButton>Try again</RefetchButton>",
     "editSuccess": "Stop area edited",
     "errors": {
       "failedToResolveScheduledStopPoint": "Failed to resolve Scheduled Stop Point! Reason"
