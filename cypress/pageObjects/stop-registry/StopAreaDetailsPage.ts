@@ -1,4 +1,5 @@
 import {
+  NameConsistencyChecker,
   StopAreaDetails,
   StopAreaMemberStops,
   StopAreaMinimap,
@@ -16,6 +17,8 @@ export class StopAreaDetailsPage {
   titleRow = new StopAreaTitleRow();
 
   versioningRow = new StopAreaVersioningRow();
+
+  nameConsistencyChecker = new NameConsistencyChecker();
 
   visit(netexId: string) {
     cy.visit(`/stop-registry/stop-areas/${netexId}`);
