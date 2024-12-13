@@ -7,7 +7,10 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
-import { ScheduledStopPointSetInput, StopWithLocation } from '../../../graphql';
+import {
+  PartialScheduledStopPointSetInput,
+  StopWithLocation,
+} from '../../../graphql';
 import {
   CreateChanges,
   DeleteChanges,
@@ -167,7 +170,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
 
       if (stopId) {
         // if this is a stop existing on the backend, also prepare the changes to be confirmed
-        const patch: ScheduledStopPointSetInput = {
+        const patch: PartialScheduledStopPointSetInput = {
           measured_location: mapLngLatToGeoJSON(event.lngLat.toArray()),
         };
         setIsLoadingBrokenRoutes(true);

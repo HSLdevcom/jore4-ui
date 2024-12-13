@@ -23,6 +23,11 @@ export type ScheduledStopPointSetInput = NonNullableKeys<
   | 'priority'
 >;
 
+// Copy of ScheduledStopPointSetInput that can be used for update scenarios,
+// when it is not necessary to always update the non-nullable fields.
+export type PartialScheduledStopPointSetInput =
+  Partial<ScheduledStopPointSetInput>;
+
 const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
   fragment scheduled_stop_point_default_fields on service_pattern_scheduled_stop_point {
     priority
