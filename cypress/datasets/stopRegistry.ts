@@ -1,5 +1,8 @@
 import {
+  Maybe,
   StopPlaceInput,
+  StopRegistryAlternativeName,
+  StopRegistryEmbeddableMultilingualString,
   StopRegistryGeoJson,
   StopRegistryGeoJsonType,
   StopRegistryNameType,
@@ -17,6 +20,26 @@ const coordinatesToStopRegistryGeoJSON = (
   };
 };
 
+export const Annankatu20Name: StopRegistryEmbeddableMultilingualString = {
+  lang: 'fin',
+  value: 'Annankatu 20',
+};
+
+export const Annankatu20ShortName: StopRegistryEmbeddableMultilingualString = {
+  lang: 'fin',
+  value: 'Annankatu 20',
+};
+
+// prettier-ignore
+export const Annankatu20AltNames: Array<Maybe<StopRegistryAlternativeName>> = [
+  { nameType: StopRegistryNameType.Label,       name: { lang: 'fin', value: 'Akt20' }, },
+  { nameType: StopRegistryNameType.Label,       name: { lang: 'swe', value: 'Agt20' }, },
+  { nameType: StopRegistryNameType.Translation, name: { lang: 'swe', value: 'Annasgatan 20' }, },
+  { nameType: StopRegistryNameType.Other,       name: { lang: 'fin', value: 'Plats Annasgatan 20' } },
+  { nameType: StopRegistryNameType.Alias,       name: { lang: 'fin', value: 'Annankatu 20 pitkänimi' } },
+  { nameType: StopRegistryNameType.Alias,       name: { lang: 'swe', value: 'Annasgatan 20 långnamn' } },
+];
+
 // Stop registry stopPlace data for each scheduled stop point in the base dataset.
 const stopPlaceData: Array<StopPlaceInput> = [
   {
@@ -32,7 +55,9 @@ const stopPlaceData: Array<StopPlaceInput> = [
   {
     label: 'E2E002',
     stopPlace: {
-      name: { lang: 'fin', value: 'Annankatu 20' },
+      name: Annankatu20Name,
+      shortName: Annankatu20ShortName,
+      alternativeNames: Annankatu20AltNames,
       quays: [{ publicCode: 'E2E002' }],
       privateCode: { value: 'E2E002', type: 'ELY' },
       keyValues: [{ key: 'streetAddress', values: ['Annankatu 20'] }],
@@ -106,7 +131,8 @@ const stopPlaceData: Array<StopPlaceInput> = [
   {
     label: 'E2E008',
     stopPlace: {
-      name: { lang: 'fin', value: 'Annankatu 20' },
+      name: Annankatu20Name,
+      alternativeNames: Annankatu20AltNames,
       quays: [{ publicCode: 'E2E008' }],
       privateCode: { value: 'E2E008', type: 'ELY' },
       keyValues: [{ key: 'streetAddress', values: ['Annankatu 20'] }],
