@@ -21,7 +21,7 @@ import {
   useGetStopWithRouteGraphDataByIdLazyQuery,
 } from '../../generated/graphql';
 import {
-  ScheduledStopPointSetInput,
+  PartialScheduledStopPointSetInput,
   mapGetRoutesBrokenByStopChangeResult,
   mapStopResultToStop,
 } from '../../graphql';
@@ -135,13 +135,13 @@ const GQL_EDIT_STOP_PLACE = gql`
 interface EditParams {
   stopId: UUID;
   stopPlaceRef?: string | null;
-  patch: ScheduledStopPointSetInput;
+  patch: PartialScheduledStopPointSetInput;
 }
 
 export interface EditChanges {
   stopId: UUID;
   stopLabel: string;
-  patch: ScheduledStopPointSetInput;
+  patch: PartialScheduledStopPointSetInput;
   stopPlacePatch: StopRegistryStopPlaceInput | null;
   editedStop: ScheduledStopPointAllFieldsFragment;
   deleteStopFromRoutes: RouteUniqueFieldsFragment[];
@@ -152,7 +152,7 @@ export interface EditChanges {
 export interface BrokenRouteCheckParams {
   newLink: InfrastructureNetworkInfrastructureLink;
   newDirection: InfrastructureNetworkDirectionEnum;
-  newStop: ScheduledStopPointSetInput;
+  newStop: PartialScheduledStopPointSetInput;
   label: string;
   priority: number;
   stopId: UUID | null;
@@ -178,7 +178,7 @@ function mapEditChangesToVariables(
 
 function stopPointPatchToStopPlacePatch(
   stopPlaceRef: string | null | undefined,
-  patch: ScheduledStopPointSetInput,
+  patch: PartialScheduledStopPointSetInput,
   stopPlace: Pick<StopRegistryStopPlace, 'keyValues'> | null,
 ): StopRegistryStopPlaceInput | null {
   if (!stopPlaceRef) {
@@ -298,7 +298,7 @@ function useGetConflictingStops() {
   return async (
     stopId: string,
     label: string,
-    patch: ScheduledStopPointSetInput,
+    patch: PartialScheduledStopPointSetInput,
     stopWithRouteGraphData: ServicePatternScheduledStopPoint,
   ) => {
     const hasEditedValidity =
@@ -340,7 +340,7 @@ function useOnStopLocationChanged() {
 
   return async (
     oldStop: ScheduledStopPointAllFieldsFragment,
-    newStop: ScheduledStopPointSetInput,
+    newStop: PartialScheduledStopPointSetInput,
     stopId: UUID,
   ): Promise<OnStopLocationChangedResult> => {
     // if we modified the location of the stop, have to also fetch the new infra link and direction
@@ -377,7 +377,7 @@ function useGetLocationChanges() {
 
   return async (
     stopId: string,
-    patch: ScheduledStopPointSetInput,
+    patch: PartialScheduledStopPointSetInput,
     stopWithRouteGraphData: ServicePatternScheduledStopPoint,
   ): Promise<Partial<OnStopLocationChangedResult>> => {
     const newLocation = patch.measured_location;
@@ -399,7 +399,7 @@ function useValidateTimingPlaceChanges() {
 
   return async (
     stopLabel: string,
-    patch: ScheduledStopPointSetInput,
+    patch: PartialScheduledStopPointSetInput,
     stopWithRouteGraphData: ServicePatternScheduledStopPoint,
   ) => {
     if (patch.timing_place_id === undefined) {

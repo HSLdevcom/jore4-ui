@@ -14,7 +14,10 @@ import {
   useGetStopWithRouteGraphDataByIdLazyQuery,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
-import { ScheduledStopPointSetInput, mapStopResultToStop } from '../../graphql';
+import {
+  PartialScheduledStopPointSetInput,
+  mapStopResultToStop,
+} from '../../graphql';
 import {
   InternalError,
   TimingPlaceRequiredError,
@@ -37,7 +40,7 @@ interface EditRoutesAndLinesParams {
 interface EditRoutesAndLinesChanges {
   stopId: UUID;
   stopLabel: string;
-  patch: ScheduledStopPointSetInput;
+  patch: PartialScheduledStopPointSetInput;
   editedStop: ServicePatternScheduledStopPoint;
   deleteStopFromRoutes: RouteUniqueFieldsFragment[];
   deleteStopFromJourneyPatternIds?: UUID[];

@@ -11,7 +11,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   ServicePatternScheduledStopPoint,
 } from '../../../generated/graphql';
-import { ScheduledStopPointSetInput } from '../../../graphql';
+import { PartialScheduledStopPointSetInput } from '../../../graphql';
 import {
   CreateChanges,
   EditChanges,
@@ -111,7 +111,7 @@ function mapFormStateToInput(state: FormState) {
 }
 
 const isDirtyMap: {
-  readonly [key in keyof ScheduledStopPointSetInput]: ReadonlyArray<
+  readonly [key in keyof PartialScheduledStopPointSetInput]: ReadonlyArray<
     keyof FormState
   >;
 } = {
@@ -126,11 +126,11 @@ const isDirtyMap: {
 // Only pick changed fields, needed to keep Tiamat happy when updating fields,
 // not in Tiamat.
 function pickChangedFieldsForPatch(
-  input: ScheduledStopPointSetInput,
+  input: PartialScheduledStopPointSetInput,
   dirtyFields: Partial<Readonly<FieldNamesMarkedBoolean<FormState>>>,
-): ScheduledStopPointSetInput {
+): PartialScheduledStopPointSetInput {
   const dirty = Object.entries(input).filter(([key]) => {
-    const formKeys = isDirtyMap[key as keyof ScheduledStopPointSetInput];
+    const formKeys = isDirtyMap[key as keyof PartialScheduledStopPointSetInput];
     if (formKeys) {
       return formKeys.some((formKey) => dirtyFields[formKey]);
     }
