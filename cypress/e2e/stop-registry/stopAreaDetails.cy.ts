@@ -10,12 +10,16 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import {
+  Annankatu20AltNames,
+  Annankatu20Name,
   getClonedBaseStopRegistryData,
   stopAreaX0003,
 } from '../../datasets/stopRegistry';
 import {
+  BasicDetailsForm,
   SelectMemberStopsDropdown,
   StopAreaDetailsPage,
+  StopDetailsPage,
   Toast,
 } from '../../pageObjects';
 import { UUID } from '../../types';
@@ -51,6 +55,7 @@ describe('Stop area details', () => {
   const selectMemberStopsDropdown = new SelectMemberStopsDropdown();
 
   let dbResources: SupportedResources;
+  let dbIds: InsertedStopRegistryIds;
 
   const baseDbResources = getClonedBaseDbResources();
   const baseStopRegistryData = getClonedBaseStopRegistryData();
@@ -62,7 +67,8 @@ describe('Stop area details', () => {
       memberLabels: ['E2E002', 'E2E008'],
       stopArea: {
         name: { lang: 'fin', value: 'X0004' },
-        description: { lang: 'fin', value: 'Annankatu 16' },
+        description: Annankatu20Name,
+        alternativeNames: Annankatu20AltNames,
         validBetween: {
           fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
           toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
@@ -111,6 +117,7 @@ describe('Stop area details', () => {
       ...baseStopRegistryData,
       stopAreas: stopAreaData,
     }).then((data) => {
+      dbIds = data;
       const id = data.stopAreaIdsByName.X0003;
 
       cy.setupTests();
@@ -387,9 +394,58 @@ describe('Stop area details', () => {
       inputBasicDetails(newBasicDetails);
       stopAreaDetailsPage.details.edit.getSaveButton().click();
       toast.expectDangerToast(
-        'Pysäkkialueella tulee olla uniikki nimi, mutta nimi Annankatu 16 on jo jonkin toisen alueen käytössä!',
+        'Pysäkkialueella tulee olla uniikki nimi, mutta nimi Annankatu 20 on jo jonkin toisen alueen käytössä!',
       );
       expectGraphQLCallToReturnError('@gqlUpsertStopArea');
+    });
+
+    it('should warn about inconsistent names', () => {
+      stopAreaDetailsPage.visit(dbIds.stopAreaIdsByName.X0004);
+
+      // When editing Basic details
+      stopAreaDetailsPage.details.getEditButton().click();
+      // Can't test properly as we are missing most of the name fields.
+      /*
+      stopAreaDetailsPage.nameConsistencyChecker.assertIsConsistent();
+      stopAreaDetailsPage.details.edit.getName().clearAndType('New name');
+       */
+      stopAreaDetailsPage.nameConsistencyChecker.assertIsInconsistent();
+      stopAreaDetailsPage.details.edit.getCancelButton().click();
+
+      // When editing Member stops
+      stopAreaDetailsPage.memberStops.getAddStopButton().click();
+      stopAreaDetailsPage.memberStops.getSelectMemberStops().within(() => {
+        selectMemberStopsDropdown.dropdownButton().click();
+        selectMemberStopsDropdown.getInput().clearAndType('E2E004');
+        selectMemberStopsDropdown.getMemberOptions().should('have.length', 1);
+        selectMemberStopsDropdown
+          .getMemberOptions()
+          .eq(0)
+          .should('contain.text', 'E2E004')
+          .click();
+      });
+      stopAreaDetailsPage.nameConsistencyChecker.assertIsInconsistent();
+      stopAreaDetailsPage.memberStops.getCancelButton().click();
+
+      // When editing member stop's names
+      const stopDetailsPage = new StopDetailsPage();
+      const bdForm = new BasicDetailsForm();
+      stopDetailsPage.visit('E2E002');
+      stopDetailsPage.page().shouldBeVisible();
+      stopDetailsPage.basicDetails.getEditButton().click();
+      [
+        () => bdForm.getNameFinInput(),
+        () => bdForm.getNameSweInput(),
+        () => bdForm.getNameLongFinInput(),
+        () => bdForm.getNameLongSweInput(),
+      ].forEach((getInput) => {
+        stopAreaDetailsPage.nameConsistencyChecker.assertIsConsistent();
+        const inputField = getInput();
+        inputField.type('A');
+        stopAreaDetailsPage.nameConsistencyChecker.assertIsInconsistent();
+        inputField.type('{backspace}');
+        stopAreaDetailsPage.nameConsistencyChecker.assertIsConsistent();
+      });
     });
   });
 });
