@@ -134,7 +134,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -329,7 +329,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -736,7 +736,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand  "
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
