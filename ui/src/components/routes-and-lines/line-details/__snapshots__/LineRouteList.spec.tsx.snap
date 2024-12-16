@@ -463,7 +463,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-3 mx-auto flex items-center rounded-full"
+                class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r2:"
@@ -471,7 +471,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 type="button"
               >
                 <svg
-                  class="aria-hidden text-3xl"
+                  class="aria-hidden text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -567,7 +567,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-3 mx-auto flex items-center rounded-full"
+                class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r3:"
@@ -575,7 +575,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 type="button"
               >
                 <svg
-                  class="aria-hidden text-3xl"
+                  class="aria-hidden text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -870,7 +870,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-3 mx-auto flex items-center rounded-full"
+                class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r2:"
@@ -878,7 +878,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 type="button"
               >
                 <svg
-                  class="aria-hidden text-3xl"
+                  class="aria-hidden text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -974,7 +974,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-3 mx-auto flex items-center rounded-full"
+                class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r4:"
@@ -982,7 +982,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 type="button"
               >
                 <svg
-                  class="aria-hidden text-3xl"
+                  class="aria-hidden text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -1078,7 +1078,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               <button
                 aria-expanded="false"
                 aria-haspopup="menu"
-                class="mx-3 mx-auto flex items-center rounded-full"
+                class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
                 id="headlessui-menu-button-:r5:"
@@ -1086,7 +1086,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 type="button"
               >
                 <svg
-                  class="aria-hidden text-3xl"
+                  class="aria-hidden text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
