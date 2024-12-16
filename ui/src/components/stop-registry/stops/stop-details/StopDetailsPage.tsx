@@ -20,7 +20,7 @@ import { MeasurementsSection } from './measurements';
 import { SheltersSection } from './shelters';
 import { SignageDetailsSection } from './signage-details/SignageDetailsSection';
 import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
-import { StopTitleRow } from './StopTitleRow';
+import { StopTitleRow } from './title-row/StopTitleRow';
 
 const testIds = {
   page: 'StopDetailsPage::page',
