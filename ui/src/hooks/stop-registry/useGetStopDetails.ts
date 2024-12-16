@@ -33,6 +33,9 @@ const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
     located_on_infrastructure_link_id
     stop_place_ref
     measured_location
+    vehicle_mode_on_scheduled_stop_point {
+      vehicle_mode
+    }
   }
 `;
 
@@ -186,6 +189,14 @@ const GQL_STOP_PLACE_DETAILS = gql`
       lang
       value
     }
+    description {
+      lang
+      value
+    }
+    shortName {
+      lang
+      value
+    }
     alternativeNames {
       name {
         lang
@@ -198,16 +209,13 @@ const GQL_STOP_PLACE_DETAILS = gql`
       values
     }
     transportMode
+    stopPlaceType
     weighting
     submode
     publicCode
     privateCode {
       value
       type
-    }
-    description {
-      lang
-      value
     }
     geometry {
       coordinates
@@ -263,6 +271,12 @@ const GQL_STOP_PLACE_DETAILS = gql`
     }
     infoSpots {
       ...info_spot_details
+    }
+    adjacentSites {
+      ref
+    }
+    tariffZones {
+      id
     }
   }
 `;
