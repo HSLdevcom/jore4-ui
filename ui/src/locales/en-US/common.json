@@ -388,6 +388,24 @@
       "extra": {
         "copy": "Make a new copy"
       }
+    },
+    "version": {
+      "title": {
+        "edit": "Edit version",
+        "copy": "Copy a new version",
+        "copySubTitle": "New version details"
+      },
+      "fields": {
+        "versionName": "Version name",
+        "versionDescription": "Reason for change"
+      },
+      "success": {
+        "edit": "Version saved",
+        "copy": "New version created\nOpening up new version"
+      },
+      "errors": {
+        "default": "Error while saving"
+      }
     }
   },
   "stopRegistrySearch": {

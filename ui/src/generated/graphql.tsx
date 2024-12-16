@@ -67849,6 +67849,18 @@ export type GetOrganisationsQuery = {
   } | null;
 };
 
+export type DeleteStopPlaceMutationVariables = Exact<{
+  stopPlaceId: Scalars['String']['input'];
+}>;
+
+export type DeleteStopPlaceMutation = {
+  __typename?: 'mutation_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation';
+    deleteStopPlace?: boolean | null;
+  } | null;
+};
+
 export type VehicleJourneyByStopFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   journey_pattern_ref_id: UUID;
@@ -76041,6 +76053,56 @@ export type GetOrganisationsSuspenseQueryHookResult = ReturnType<
 export type GetOrganisationsQueryResult = Apollo.QueryResult<
   GetOrganisationsQuery,
   GetOrganisationsQueryVariables
+>;
+export const DeleteStopPlaceDocument = gql`
+  mutation DeleteStopPlace($stopPlaceId: String!) {
+    stop_registry {
+      deleteStopPlace(stopPlaceId: $stopPlaceId)
+    }
+  }
+`;
+export type DeleteStopPlaceMutationFn = Apollo.MutationFunction<
+  DeleteStopPlaceMutation,
+  DeleteStopPlaceMutationVariables
+>;
+
+/**
+ * __useDeleteStopPlaceMutation__
+ *
+ * To run a mutation, you first call `useDeleteStopPlaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteStopPlaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteStopPlaceMutation, { data, loading, error }] = useDeleteStopPlaceMutation({
+ *   variables: {
+ *      stopPlaceId: // value for 'stopPlaceId'
+ *   },
+ * });
+ */
+export function useDeleteStopPlaceMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteStopPlaceMutation,
+    DeleteStopPlaceMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteStopPlaceMutation,
+    DeleteStopPlaceMutationVariables
+  >(DeleteStopPlaceDocument, options);
+}
+export type DeleteStopPlaceMutationHookResult = ReturnType<
+  typeof useDeleteStopPlaceMutation
+>;
+export type DeleteStopPlaceMutationResult =
+  Apollo.MutationResult<DeleteStopPlaceMutation>;
+export type DeleteStopPlaceMutationOptions = Apollo.BaseMutationOptions<
+  DeleteStopPlaceMutation,
+  DeleteStopPlaceMutationVariables
 >;
 export const GetRouteWithJourneyPatternDocument = gql`
   query GetRouteWithJourneyPattern($routeId: uuid!) {
