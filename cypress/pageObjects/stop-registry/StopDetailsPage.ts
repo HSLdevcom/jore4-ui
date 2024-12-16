@@ -66,4 +66,8 @@ export class StopDetailsPage {
   infoSpotsTabPanel() {
     return cy.getByTestId('StopDetailsPage::infoSpotsTabPanel');
   }
+
+  copyToNewVersionButton() {
+    return cy.getByTestId('calendar-button-createStopVersion');
+  }
 }
