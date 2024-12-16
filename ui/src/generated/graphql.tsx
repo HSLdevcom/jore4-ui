@@ -71301,10 +71301,21 @@ export type UpdateStopPlaceMutation = {
       __typename?: 'stop_registry_StopPlace';
       id?: string | null;
       transportMode?: StopRegistryTransportModeType | null;
+      stopPlaceType?: StopRegistryStopPlaceType | null;
       weighting?: StopRegistryInterchangeWeightingType | null;
       submode?: StopRegistrySubmodeType | null;
       publicCode?: string | null;
       name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      shortName?: {
         __typename?: 'stop_registry_EmbeddableMultilingualString';
         lang?: string | null;
         value?: string | null;
@@ -71327,11 +71338,6 @@ export type UpdateStopPlaceMutation = {
         __typename?: 'stop_registry_PrivateCode';
         value?: string | null;
         type?: string | null;
-      } | null;
-      description?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        lang?: string | null;
-        value?: string | null;
       } | null;
       geometry?: {
         __typename?: 'stop_registry_GeoJSON';
@@ -71506,6 +71512,14 @@ export type UpdateStopPlaceMutation = {
         __typename?: 'stop_registry_GroupOfStopPlaces';
         id?: string | null;
       } | null> | null;
+      adjacentSites?: Array<{
+        __typename?: 'stop_registry_VersionLessEntityRef';
+        ref?: string | null;
+      } | null> | null;
+      tariffZones?: Array<{
+        __typename?: 'stop_registry_TariffZone';
+        id?: string | null;
+      } | null> | null;
     } | null> | null;
   } | null;
 };
@@ -71567,6 +71581,10 @@ export type ScheduledStopPointDetailFieldsFragment = {
     timing_place_id: UUID;
     label: string;
   } | null;
+  vehicle_mode_on_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+    vehicle_mode: ReusableComponentsVehicleModeEnum;
+  }>;
 };
 
 export type GetHighestPriorityStopDetailsByLabelAndDateQueryVariables = Exact<{
@@ -71594,10 +71612,21 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
           __typename?: 'stop_registry_StopPlace';
           id?: string | null;
           transportMode?: StopRegistryTransportModeType | null;
+          stopPlaceType?: StopRegistryStopPlaceType | null;
           weighting?: StopRegistryInterchangeWeightingType | null;
           submode?: StopRegistrySubmodeType | null;
           publicCode?: string | null;
           name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          description?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          shortName?: {
             __typename?: 'stop_registry_EmbeddableMultilingualString';
             lang?: string | null;
             value?: string | null;
@@ -71620,11 +71649,6 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
             __typename?: 'stop_registry_PrivateCode';
             value?: string | null;
             type?: string | null;
-          } | null;
-          description?: {
-            __typename?: 'stop_registry_EmbeddableMultilingualString';
-            lang?: string | null;
-            value?: string | null;
           } | null;
           geometry?: {
             __typename?: 'stop_registry_GeoJSON';
@@ -71799,6 +71823,14 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
             __typename?: 'stop_registry_GroupOfStopPlaces';
             id?: string | null;
           } | null> | null;
+          adjacentSites?: Array<{
+            __typename?: 'stop_registry_VersionLessEntityRef';
+            ref?: string | null;
+          } | null> | null;
+          tariffZones?: Array<{
+            __typename?: 'stop_registry_TariffZone';
+            id?: string | null;
+          } | null> | null;
         }
       | null
     > | null;
@@ -71807,6 +71839,10 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
       timing_place_id: UUID;
       label: string;
     } | null;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
   }>;
 };
 
@@ -71934,10 +71970,21 @@ export type StopPlaceDetailsFragment = {
   __typename?: 'stop_registry_StopPlace';
   id?: string | null;
   transportMode?: StopRegistryTransportModeType | null;
+  stopPlaceType?: StopRegistryStopPlaceType | null;
   weighting?: StopRegistryInterchangeWeightingType | null;
   submode?: StopRegistrySubmodeType | null;
   publicCode?: string | null;
   name?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
+  description?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
+  shortName?: {
     __typename?: 'stop_registry_EmbeddableMultilingualString';
     lang?: string | null;
     value?: string | null;
@@ -71960,11 +72007,6 @@ export type StopPlaceDetailsFragment = {
     __typename?: 'stop_registry_PrivateCode';
     value?: string | null;
     type?: string | null;
-  } | null;
-  description?: {
-    __typename?: 'stop_registry_EmbeddableMultilingualString';
-    lang?: string | null;
-    value?: string | null;
   } | null;
   geometry?: {
     __typename?: 'stop_registry_GeoJSON';
@@ -72137,6 +72179,14 @@ export type StopPlaceDetailsFragment = {
   } | null> | null;
   groups?: Array<{
     __typename?: 'stop_registry_GroupOfStopPlaces';
+    id?: string | null;
+  } | null> | null;
+  adjacentSites?: Array<{
+    __typename?: 'stop_registry_VersionLessEntityRef';
+    ref?: string | null;
+  } | null> | null;
+  tariffZones?: Array<{
+    __typename?: 'stop_registry_TariffZone';
     id?: string | null;
   } | null> | null;
 };
@@ -74380,6 +74430,9 @@ export const ScheduledStopPointDetailFieldsFragmentDoc = gql`
     located_on_infrastructure_link_id
     stop_place_ref
     measured_location
+    vehicle_mode_on_scheduled_stop_point {
+      vehicle_mode
+    }
   }
 `;
 export const TopographicPlaceDetailsFragmentDoc = gql`
@@ -74515,6 +74568,14 @@ export const StopPlaceDetailsFragmentDoc = gql`
       lang
       value
     }
+    description {
+      lang
+      value
+    }
+    shortName {
+      lang
+      value
+    }
     alternativeNames {
       name {
         lang
@@ -74527,16 +74588,13 @@ export const StopPlaceDetailsFragmentDoc = gql`
       values
     }
     transportMode
+    stopPlaceType
     weighting
     submode
     publicCode
     privateCode {
       value
       type
-    }
-    description {
-      lang
-      value
     }
     geometry {
       coordinates
@@ -74594,6 +74652,12 @@ export const StopPlaceDetailsFragmentDoc = gql`
       ...info_spot_details
     }
     groups {
+      id
+    }
+    adjacentSites {
+      ref
+    }
+    tariffZones {
       id
     }
   }
