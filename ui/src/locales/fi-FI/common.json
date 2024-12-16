@@ -385,6 +385,11 @@
         "a3": "A3",
         "cm80x120": "80x120cm"
       }
+    },
+    "actions": {
+      "extra": {
+        "copy": "Kopioi uudeksi versioksi"
+      }
     }
   },
   "stopRegistrySearch": {

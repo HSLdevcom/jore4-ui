@@ -1,16 +1,20 @@
-import { StopWithDetails } from '../../../../hooks';
-
-interface Props {
-  stopDetails: StopWithDetails | null | undefined;
-  label: string;
-}
+import { FC } from 'react';
+import { StopWithDetails } from '../../../../../hooks';
+import { EditValidityButton } from './EditValidityButton';
+import { ExtraActions } from './ExtraActions';
+import { OpenOnMapButton } from './OpenOnMapButton';
 
 const testIds = {
   label: 'StopTitleRow::label',
   names: 'StopTitleRow::names',
 };
 
-export const StopTitleRow: React.FC<Props> = ({ stopDetails, label }) => {
+type StopTitleRowProps = {
+  readonly stopDetails: StopWithDetails | null;
+  readonly label: string;
+};
+
+export const StopTitleRow: FC<StopTitleRowProps> = ({ stopDetails, label }) => {
   return (
     <div className="flex items-center">
       <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
@@ -32,6 +36,12 @@ export const StopTitleRow: React.FC<Props> = ({ stopDetails, label }) => {
           }
         </span>
       </div>
+
+      <div className="flex-grow" />
+
+      <EditValidityButton stop={stopDetails} />
+      <OpenOnMapButton className="ml-2" label={label} stop={stopDetails} />
+      <ExtraActions className="ml-2" stop={stopDetails} />
     </div>
   );
 };
