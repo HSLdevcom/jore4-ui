@@ -1,38 +1,46 @@
 import { Menu } from '@headlessui/react';
 import React, { ReactNode } from 'react';
 import { MdMoreVert } from 'react-icons/md';
+import { twMerge } from 'tailwind-merge';
 import {
   AlignDirection,
   SimpleDropdownMenuItems,
 } from './SimpleDropdownMenuItems';
 
-interface Props {
-  children: ReactNode;
-  testId?: string;
+type Props = {
   /** Set value to align menu items to right or left. Default: no alignment */
-  alignItems?: AlignDirection;
-  tooltip: string;
-  disabled?: boolean;
-}
+  readonly alignItems?: AlignDirection;
+  readonly buttonClassName?: string;
+  readonly className?: string;
+  readonly disabled?: boolean;
+  readonly children: ReactNode;
+  readonly testId?: string;
+  readonly tooltip: string;
+};
 
 export const SimpleDropdownMenu = ({
-  children,
-  testId,
   alignItems = AlignDirection.NoAlign,
-  tooltip,
+  buttonClassName,
+  className,
+  children,
   disabled,
+  testId,
+  tooltip,
 }: Props): React.ReactElement => {
   return (
-    <Menu as="div" className="relative">
+    <Menu as="div" className={twMerge('relative', className)}>
       {({ open }) => (
         <>
           <Menu.Button
-            className="mx-3 mx-auto flex items-center rounded-full"
+            className={twMerge(
+              'mx-auto flex items-center rounded-full',
+              buttonClassName,
+            )}
             data-testid={testId}
             disabled={disabled}
             title={tooltip}
           >
-            <MdMoreVert className="aria-hidden text-3xl" />
+            <MdMoreVert className="aria-hidden text-3xl text-brand" />
           </Menu.Button>
           <SimpleDropdownMenuItems isOpen={open} alignItems={alignItems}>
             {children}
