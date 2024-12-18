@@ -1,18 +1,23 @@
 import { ApolloError } from '@apollo/client';
+import { ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 import { Toast, ToastTransition, ToastType } from '../uiComponents';
 import { getApolloErrorMessage } from './apolloErrors';
 
-interface ToastOptions {
-  message: string;
-  type?: ToastType;
-}
+type ToastOptions = {
+  readonly className?: string;
+  readonly message: ReactNode;
+  readonly type?: ToastType;
+};
 
-export const showToast = (options: ToastOptions) => {
-  const { message, type = 'primary' } = options;
+export const showToast = ({
+  className,
+  message,
+  type = 'primary',
+}: ToastOptions) => {
   toast.custom((t) => (
     <ToastTransition show={t.visible}>
-      <Toast type={type} message={message} />
+      <Toast className={className} message={message} type={type} />
     </ToastTransition>
   ));
 };
