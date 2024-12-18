@@ -390,6 +390,27 @@
       "extra": {
         "copy": "Make a new copy"
       }
+    },
+    "version": {
+      "title": {
+        "edit": "Edit version",
+        "copy": "Copy a new version",
+        "copySubTitle": "New version details"
+      },
+      "fields": {
+        "versionName": "Version name",
+        "versionDescription": "Reason for change"
+      },
+      "success": {
+        "edit": "Version saved",
+        "copy": "New version created\nOpening up new version"
+      },
+      "errors": {
+        "copy": "Failed to save copy:\n{{reason}}",
+        "stopPlaceInsertFailed": "Failed to create entry in StopRegistry! Reason:\n{{reason}}",
+        "stopPointInsertFailedStopPlaceReverted": "Failed to create a scheduled stop point in the lines and routers database! Reason:\n{{reason}}",
+        "stopPointInsertFailedStopPlaceNotReverted": "Failed to create a scheduled stop point in the lines and routers database, and the previusly created entry in StopRegistry could be deleted. Jore databases contains errors. Reason:\n{{reason}}"
+      }
     }
   },
   "stopRegistrySearch": {
