@@ -1,40 +1,100 @@
-import { DateTime } from 'luxon';
 import {
   StopRegistryGeoJsonType,
   StopRegistryGroupOfStopPlacesInput,
+  StopRegistryInterchangeWeightingType,
+  StopRegistryNameType,
+  StopRegistrySubmodeType,
 } from '../../generated/graphql';
+import { StopPlaceMaintenance } from './stopPlaces';
+import { getKeyValue } from './utils';
 
 export type StopAreaSeedData = {
+  nameFin?: string;
+  nameSwe?: string;
+  nameFinLong?: string;
+  nameSweLong?: string;
+  abbreviationFin?: string;
+  abbreviationSwe?: string;
+  abbreviationFin5Char?: string;
+  abbreviationSwe5Char?: string;
   label: string;
   name: string;
+  organisations?: StopPlaceMaintenance;
   locationLat: number;
   locationLong: number;
-  validityStart: DateTime;
-  validityEnd?: DateTime;
-  members: Array<string>;
+  validityStart: string; // Really a datetime, but keyValues can only take strings.
+  validityEnd?: string; // Really a datetime, but keyValues can only take strings.
+  stopType?: {
+    mainLine: boolean;
+    interchange: boolean;
+    railReplacement: boolean;
+    virtual: boolean;
+  };
+  signs?: {
+    signType: string /* see StopPlaceSignType */;
+    note?: string;
+    numberOfFrames: number;
+    lineSignage: boolean;
+    mainLineSign: boolean;
+    replacesRailSign: boolean;
+  };
 };
 
 export type StopAreaInput = {
-  memberLabels: Array<string>;
-  stopArea: Partial<StopRegistryGroupOfStopPlacesInput>;
+  StopArea: Partial<StopRegistryGroupOfStopPlacesInput>;
 };
 
 const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
   return {
-    memberLabels: seedStopArea.members,
-    stopArea: {
+    StopArea: {
+      alternativeNames: [
+        seedStopArea.abbreviationFin5Char
+          ? {
+              name: { lang: 'fin', value: seedStopArea.abbreviationFin5Char },
+              nameType: StopRegistryNameType.Label,
+            }
+          : null,
+        seedStopArea.abbreviationSwe5Char
+          ? {
+              name: { lang: 'swe', value: seedStopArea.abbreviationSwe5Char },
+              nameType: StopRegistryNameType.Label,
+            }
+          : null,
+        seedStopArea.nameFinLong
+          ? {
+              name: { lang: 'fin', value: seedStopArea.nameFinLong },
+              nameType: StopRegistryNameType.Alias,
+            }
+          : null,
+        seedStopArea.nameSweLong
+          ? {
+              name: { lang: 'swe', value: seedStopArea.nameSweLong },
+              nameType: StopRegistryNameType.Alias,
+            }
+          : null,
+        seedStopArea.abbreviationFin
+          ? {
+              name: { lang: 'fin', value: seedStopArea.abbreviationFin },
+              nameType: StopRegistryNameType.Other,
+            }
+          : null,
+        seedStopArea.abbreviationSwe
+          ? {
+              name: { lang: 'swe', value: seedStopArea.abbreviationSwe },
+              nameType: StopRegistryNameType.Other,
+            }
+          : null,
+        {
+          name: { lang: 'swe', value: seedStopArea.nameSwe },
+          nameType: StopRegistryNameType.Translation,
+        },
+      ],
+      privateCode: { type: 'HSL', value: seedStopArea.label },
       name: {
         lang: 'fin',
         value: seedStopArea.label,
       },
-      description: {
-        lang: 'fin',
-        value: seedStopArea.name,
-      },
-      validBetween: {
-        fromDate: seedStopArea.validityStart,
-        toDate: seedStopArea.validityEnd ?? null,
-      },
+      organisations: seedStopArea.organisations ?? null,
       geometry:
         seedStopArea.locationLat && seedStopArea.locationLong
           ? {
@@ -45,12 +105,22 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
               type: StopRegistryGeoJsonType.Point,
             }
           : null,
+      keyValues: [
+        getKeyValue('validityStart', seedStopArea.validityStart),
+        getKeyValue('validityEnd', seedStopArea.validityEnd),
+      ],
+      weighting: seedStopArea.stopType?.interchange
+        ? StopRegistryInterchangeWeightingType.RecommendedInterchange
+        : undefined,
+      submode: seedStopArea.stopType?.railReplacement
+        ? StopRegistrySubmodeType.RailReplacementBus
+        : undefined,
     },
   };
 };
 
-const basicStart = DateTime.fromISO('2020-01-01T00:00:00.001');
-const basicEnd = DateTime.fromISO('2050-01-01T00:00:00.001');
+const basicStart = '2020-01-01';
+const basicEnd = '2050-01-01';
 
 const route35StopAreas: Array<StopAreaSeedData> = [
   {
@@ -60,7 +130,6 @@ const route35StopAreas: Array<StopAreaSeedData> = [
     locationLong: 24.879646,
     validityStart: basicStart,
     validityEnd: basicEnd,
-    members: ['H1398', 'H1416'],
   },
   {
     label: 'X1301',
@@ -69,7 +138,6 @@ const route35StopAreas: Array<StopAreaSeedData> = [
     locationLong: 24.883556,
     validityStart: basicStart,
     validityEnd: basicEnd,
-    members: ['H1451', 'H1452'],
   },
   {
     label: 'X1302',
@@ -78,18 +146,31 @@ const route35StopAreas: Array<StopAreaSeedData> = [
     locationLong: 24.883959,
     validityStart: basicStart,
     validityEnd: basicEnd,
-    members: ['H1456', 'H1458'],
   },
 ];
 
 const finnooSeedData: StopAreaSeedData = {
+  nameFin: 'Finnoo',
+  nameSwe: 'Finno',
+  nameFinLong: 'Finnoo',
+  nameSweLong: 'Finno',
+  abbreviationFin: 'Finnoo',
+  abbreviationSwe: 'Finno',
+  abbreviationFin5Char: 'Finnoo',
+  abbreviationSwe5Char: 'Finno',
   label: 'X1234',
   name: 'Finnoo',
   validityStart: basicStart,
   validityEnd: basicEnd,
   locationLong: 24.708,
   locationLat: 60.156,
-  members: ['E4464', 'E4461'],
+  organisations: {
+    cleaning: 'Clear Channel',
+    infoUpkeep: null,
+    maintenance: 'ELY-keskus',
+    owner: 'JCD',
+    winterMaintenance: 'ELY-keskus',
+  },
 };
 
 const seedData: Array<StopAreaSeedData> = [...route35StopAreas, finnooSeedData];
