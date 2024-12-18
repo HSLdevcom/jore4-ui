@@ -3,11 +3,11 @@ import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { Visible } from '../../../../../layoutComponents';
+import { StopGroupOption } from './StopGroupOption';
 import { StopGroupSelectorItem } from './StopGroupSelectorItem';
 import { useVisibilityMap } from './useVisibilityMap';
 
 const testIds = {
-  groupSelector: (id: UUID) => `StopGroupSelector::group::${id}`,
   showAll: `StopGroupSelector::showAllButton`,
   showLess: `StopGroupSelector::showLessButton`,
 };
@@ -22,7 +22,6 @@ type StopGroupSelectorProps<ID> = {
 
 const SHOW_ALL_BY_DEFAULT_MAX = 20;
 const MAX_PADDING = 5;
-const NO_BREAK_SPACE = '\xa0';
 
 export const StopGroupSelector = <ID extends string>({
   className,
@@ -41,13 +40,18 @@ export const StopGroupSelector = <ID extends string>({
   const groupIds = useMemo(() => groups.map((group) => group.id), [groups]);
   const visibilityMap = useVisibilityMap(showAll, groupIds, groupListRef);
 
-  const someGroupIsHidden = Object.values(visibilityMap).some(
-    (visible) => !visible,
+  const someGroupIsHidden = useMemo(
+    () => Object.values(visibilityMap).some((visible) => !visible),
+    [visibilityMap],
   );
 
-  const longestLabel = Math.min(
-    Math.max(...groups.map((group) => group.label.length)),
-    MAX_PADDING,
+  const longestLabel = useMemo(
+    () =>
+      Math.min(
+        Math.max(...groups.map((group) => group.label.length)),
+        MAX_PADDING,
+      ),
+    [groups],
   );
 
   return (
@@ -65,28 +69,15 @@ export const StopGroupSelector = <ID extends string>({
         )}
         ref={groupListRef}
       >
-        {groups.map(({ id, label, title }) => (
-          <RadioGroup.Option
-            className={twJoin(
-              'cursor-pointer rounded border px-2 py-1 text-center font-bold text-dark-grey',
-              'ui-checked:border-brand ui-checked:bg-brand ui-checked:text-white',
-              'hover:border-black hover:bg-background-hsl-blue hover:text-black',
-              'font-mono', // Helps to align the items into a grid
-              showAll || visibilityMap[id] ? '' : 'invisible',
-            )}
-            data-group-id={id}
-            data-visible={visibilityMap[id]}
-            data-testid={testIds.groupSelector(id)}
-            id={`select-group-${id}`}
-            key={id}
-            title={title}
-            value={id}
-          >
-            {label.padEnd(
-              showAll && !showAllByDefault ? longestLabel : 0,
-              NO_BREAK_SPACE,
-            )}
-          </RadioGroup.Option>
+        {groups.map((group) => (
+          <StopGroupOption
+            key={group.id}
+            group={group}
+            longestLabel={longestLabel}
+            showAll={showAll}
+            showAllByDefault={showAllByDefault}
+            visible={visibilityMap[group.id]}
+          />
         ))}
 
         {/* Hide button is nested in here to render the button as a last element in the list. */}
