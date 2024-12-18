@@ -7,7 +7,6 @@ import {
   StopRegistryGeoJsonType,
   StopRegistryGuidanceType,
   StopRegistryHslAccessibilityProperties,
-  StopRegistryInterchangeWeightingType,
   StopRegistryLimitationStatusType,
   StopRegistryMapType,
   StopRegistryNameType,
@@ -20,7 +19,6 @@ import {
   StopRegistrySignContentType,
   StopRegistryStopPlace,
   StopRegistryStopType,
-  StopRegistrySubmodeType,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
 import { getKeyValue } from './utils';
@@ -105,69 +103,19 @@ const mapToStopPlaceInput = (
     label: seedStopPlace.label,
     maintenance: seedStopPlace.maintenance ?? null,
     stopPlace: {
-      name: { lang: 'fin', value: seedStopPlace.nameFin },
-      alternativeNames: [
-        {
-          name: { lang: 'swe', value: seedStopPlace.nameSwe },
-          nameType: StopRegistryNameType.Translation,
-        },
-        seedStopPlace.abbreviationFin5Char
-          ? {
-              name: { lang: 'fin', value: seedStopPlace.abbreviationFin5Char },
-              nameType: StopRegistryNameType.Label,
-            }
-          : null,
-        seedStopPlace.abbreviationSwe5Char
-          ? {
-              name: { lang: 'swe', value: seedStopPlace.abbreviationSwe5Char },
-              nameType: StopRegistryNameType.Label,
-            }
-          : null,
-        seedStopPlace.nameFinLong
-          ? {
-              name: { lang: 'fin', value: seedStopPlace.nameFinLong },
-              nameType: StopRegistryNameType.Alias,
-            }
-          : null,
-        seedStopPlace.nameSweLong
-          ? {
-              name: { lang: 'swe', value: seedStopPlace.nameSweLong },
-              nameType: StopRegistryNameType.Alias,
-            }
-          : null,
-        {
-          name: { lang: 'swe', value: seedStopPlace.locationSwe },
-          nameType: StopRegistryNameType.Other,
-        },
-      ],
-      transportMode:
-        seedStopPlace.transportMode ?? StopRegistryTransportModeType.Bus,
-      publicCode: seedStopPlace.publicCode,
-      privateCode: seedStopPlace.elyNumber
-        ? {
-            value: seedStopPlace.elyNumber,
-            type: 'ELY',
-          }
-        : null,
-      description: {
-        lang: 'fin',
-        value: seedStopPlace.locationFin,
-      },
-      validBetween: {
-        fromDate:
-          seedStopPlace.validityStart ??
-          DateTime.fromISO('2020-01-01T00:00:00.001'),
-        toDate: null,
-      },
-      weighting: seedStopPlace.stopType?.interchange
-        ? StopRegistryInterchangeWeightingType.RecommendedInterchange
-        : undefined,
-      submode: seedStopPlace.stopType?.railReplacement
-        ? StopRegistrySubmodeType.RailReplacementBus
-        : undefined,
       quays: [
         {
-          publicCode: seedStopPlace.label,
+          publicCode: seedStopPlace.publicCode,
+          privateCode: seedStopPlace.elyNumber
+            ? {
+                value: seedStopPlace.elyNumber,
+                type: 'ELY',
+              }
+            : null,
+          description: {
+            lang: 'fin',
+            value: seedStopPlace.locationFin,
+          },
           alternativeNames: [
             seedStopPlace.abbreviationFin
               ? {
@@ -183,73 +131,73 @@ const mapToStopPlaceInput = (
               : null,
           ],
 
+          // Location properties:
+          // Note: Tiamat sets topographicPlace and fareZone automatically based on coordinates. They can not be changed otherwise.
+          geometry:
+            seedStopPlace.locationLat && seedStopPlace.locationLong
+              ? {
+                  coordinates: [
+                    seedStopPlace.locationLong,
+                    seedStopPlace.locationLat,
+                  ],
+                  type: StopRegistryGeoJsonType.Point,
+                }
+              : null,
+
           // Equipment properties:
           placeEquipments: {
+            generalSign: seedStopPlace.signs && [
+              {
+                privateCode: {
+                  type: 'HSL',
+                  value: seedStopPlace.signs.signType,
+                },
+                signContentType: StopRegistrySignContentType.TransportMode,
+                numberOfFrames: seedStopPlace.signs.numberOfFrames,
+                lineSignage: seedStopPlace.signs.lineSignage,
+                mainLineSign: seedStopPlace.signs.mainLineSign,
+                replacesRailSign: seedStopPlace.signs.replacesRailSign,
+                ...(seedStopPlace.signs.note
+                  ? {
+                      note: {
+                        lang: 'fin',
+                        value: seedStopPlace.signs.note,
+                      },
+                    }
+                  : {}),
+              },
+            ],
             shelterEquipment:
               seedStopPlace.shelterEquipment && seedStopPlace.shelterEquipment,
             cycleStorageEquipment: seedStopPlace.cycleStorageEquipment && [
               seedStopPlace.cycleStorageEquipment,
             ],
           },
-        },
-      ],
 
-      // Location properties:
-      // Note: Tiamat sets topographicPlace and fareZone automatically based on coordinates. They can not be changed otherwise.
-      geometry:
-        seedStopPlace.locationLat && seedStopPlace.locationLong
-          ? {
-              coordinates: [
-                seedStopPlace.locationLong,
-                seedStopPlace.locationLat,
-              ],
-              type: StopRegistryGeoJsonType.Point,
-            }
-          : null,
-      keyValues: [
-        getKeyValue('streetAddress', seedStopPlace.streetAddress),
-        getKeyValue('postalCode', seedStopPlace.postalCode),
-        getKeyValue('functionalArea', seedStopPlace.functionalArea),
-        getKeyValue('stopState', seedStopPlace.stopState),
-        getKeyValue('virtual', seedStopPlace.stopType?.virtual),
-        getKeyValue('mainLine', seedStopPlace.stopType?.mainLine),
-      ],
-
-      // Equipment properties:
-      placeEquipments: {
-        generalSign: seedStopPlace.signs && [
-          {
-            privateCode: { type: 'HSL', value: seedStopPlace.signs.signType },
-            signContentType: StopRegistrySignContentType.TransportMode,
-            numberOfFrames: seedStopPlace.signs.numberOfFrames,
-            lineSignage: seedStopPlace.signs.lineSignage,
-            mainLineSign: seedStopPlace.signs.mainLineSign,
-            replacesRailSign: seedStopPlace.signs.replacesRailSign,
-            ...(seedStopPlace.signs.note
+          // Accessibility properties:
+          accessibilityAssessment:
+            (seedStopPlace.accessibilityProperties ??
+            seedStopPlace.accessibilityLimitations)
               ? {
-                  note: {
-                    lang: 'fin',
-                    value: seedStopPlace.signs.note,
+                  hslAccessibilityProperties:
+                    seedStopPlace.accessibilityProperties ?? null,
+                  limitations: seedStopPlace.accessibilityLimitations && {
+                    ...defaultAccessibilityLimitations,
+                    ...seedStopPlace.accessibilityLimitations,
                   },
                 }
-              : {}),
-          },
-        ],
-      },
+              : undefined,
 
-      // Accessibility properties:
-      accessibilityAssessment:
-        (seedStopPlace.accessibilityProperties ??
-        seedStopPlace.accessibilityLimitations)
-          ? {
-              hslAccessibilityProperties:
-                seedStopPlace.accessibilityProperties ?? null,
-              limitations: seedStopPlace.accessibilityLimitations && {
-                ...defaultAccessibilityLimitations,
-                ...seedStopPlace.accessibilityLimitations,
-              },
-            }
-          : undefined,
+          keyValues: [
+            getKeyValue('streetAddress', seedStopPlace.streetAddress),
+            getKeyValue('postalCode', seedStopPlace.postalCode),
+            getKeyValue('functionalArea', seedStopPlace.functionalArea),
+            getKeyValue('stopState', seedStopPlace.stopState),
+            getKeyValue('virtual', seedStopPlace.stopType?.virtual),
+            getKeyValue('mainLine', seedStopPlace.stopType?.mainLine),
+          ],
+        },
+      ],
     },
   };
 };
