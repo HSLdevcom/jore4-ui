@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import {
   StopRegistryAccessibilityLevel,
   StopRegistryAccessibilityLimitationsInput,
@@ -7,7 +6,6 @@ import {
   StopRegistryGeoJsonType,
   StopRegistryGuidanceType,
   StopRegistryHslAccessibilityProperties,
-  StopRegistryInterchangeWeightingType,
   StopRegistryLimitationStatusType,
   StopRegistryMapType,
   StopRegistryNameType,
@@ -20,7 +18,6 @@ import {
   StopRegistrySignContentType,
   StopRegistryStopPlace,
   StopRegistryStopType,
-  StopRegistrySubmodeType,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
 import { getKeyValue } from './utils';
@@ -34,19 +31,12 @@ export type StopPlaceMaintenance = {
   winterMaintenance: OrganisationName | null;
 };
 
-export type StopPlaceSeedData = {
+export type StopPlaceQuaySeedData = {
   label: string;
-  nameFin: string;
-  nameSwe: string;
-  nameFinLong?: string;
-  nameSweLong?: string;
-  abbreviationFin?: string;
-  abbreviationSwe?: string;
-  abbreviationFin5Char?: string;
-  abbreviationSwe5Char?: string;
   locationFin?: string;
   locationSwe?: string;
-  validityStart?: DateTime;
+  validityStart?: string; // Really a datetime, but keyValues can only take strings.
+  validityEnd?: string; // Really a datetime, but keyValues can only take strings.
   transportMode?: StopRegistryTransportModeType;
   publicCode?: string;
   elyNumber?: string;
@@ -62,6 +52,7 @@ export type StopPlaceSeedData = {
   streetAddress?: string;
   postalCode?: string;
   functionalArea?: string; // Really more of a number, but keyValues can only take strings.
+  priority?: string; // Really more of a number, but keyValues can only take strings.
   shelterEquipment?: Array<StopRegistryShelterEquipmentInput>;
   cycleStorageEquipment?: StopRegistryCycleStorageEquipmentInput;
   accessibilityProperties?: Partial<StopRegistryHslAccessibilityProperties>;
@@ -74,7 +65,6 @@ export type StopPlaceSeedData = {
     mainLineSign: boolean;
     replacesRailSign: boolean;
   };
-  maintenance?: StopPlaceMaintenance;
 };
 
 export const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput =
@@ -99,180 +89,116 @@ export type StopPlaceInput = {
 };
 
 const mapToStopPlaceInput = (
-  seedStopPlace: StopPlaceSeedData,
+  seedStopPlace: StopPlaceQuaySeedData,
 ): StopPlaceInput => {
   return {
     label: seedStopPlace.label,
-    maintenance: seedStopPlace.maintenance ?? null,
     stopPlace: {
-      name: { lang: 'fin', value: seedStopPlace.nameFin },
-      alternativeNames: [
-        {
-          name: { lang: 'swe', value: seedStopPlace.nameSwe },
-          nameType: StopRegistryNameType.Translation,
-        },
-        seedStopPlace.abbreviationFin5Char
-          ? {
-              name: { lang: 'fin', value: seedStopPlace.abbreviationFin5Char },
-              nameType: StopRegistryNameType.Label,
-            }
-          : null,
-        seedStopPlace.abbreviationSwe5Char
-          ? {
-              name: { lang: 'swe', value: seedStopPlace.abbreviationSwe5Char },
-              nameType: StopRegistryNameType.Label,
-            }
-          : null,
-        seedStopPlace.nameFinLong
-          ? {
-              name: { lang: 'fin', value: seedStopPlace.nameFinLong },
-              nameType: StopRegistryNameType.Alias,
-            }
-          : null,
-        seedStopPlace.nameSweLong
-          ? {
-              name: { lang: 'swe', value: seedStopPlace.nameSweLong },
-              nameType: StopRegistryNameType.Alias,
-            }
-          : null,
-        {
-          name: { lang: 'swe', value: seedStopPlace.locationSwe },
-          nameType: StopRegistryNameType.Other,
-        },
-      ],
-      transportMode:
-        seedStopPlace.transportMode ?? StopRegistryTransportModeType.Bus,
-      publicCode: seedStopPlace.publicCode,
-      privateCode: seedStopPlace.elyNumber
-        ? {
-            value: seedStopPlace.elyNumber,
-            type: 'ELY',
-          }
-        : null,
-      description: {
-        lang: 'fin',
-        value: seedStopPlace.locationFin,
-      },
-      validBetween: {
-        fromDate:
-          seedStopPlace.validityStart ??
-          DateTime.fromISO('2020-01-01T00:00:00.001'),
-        toDate: null,
-      },
-      weighting: seedStopPlace.stopType?.interchange
-        ? StopRegistryInterchangeWeightingType.RecommendedInterchange
-        : undefined,
-      submode: seedStopPlace.stopType?.railReplacement
-        ? StopRegistrySubmodeType.RailReplacementBus
-        : undefined,
       quays: [
         {
           publicCode: seedStopPlace.label,
+          // TODO type error
+          privateCode: { type: 'HSL', value: seedStopPlace.publicCode },
+          description: {
+            lang: 'fin',
+            value: seedStopPlace.locationFin,
+          },
           alternativeNames: [
-            seedStopPlace.abbreviationFin
+            seedStopPlace.locationSwe
               ? {
-                  name: { lang: 'fin', value: seedStopPlace.abbreviationFin },
-                  nameType: StopRegistryNameType.Alias,
-                }
-              : null,
-            seedStopPlace.abbreviationSwe
-              ? {
-                  name: { lang: 'swe', value: seedStopPlace.abbreviationSwe },
-                  nameType: StopRegistryNameType.Alias,
+                  name: { lang: 'swe', value: seedStopPlace.locationSwe },
+                  nameType: StopRegistryNameType.Other,
                 }
               : null,
           ],
 
+          // Location properties:
+          // Note: Tiamat sets topographicPlace and fareZone automatically based on coordinates. They can not be changed otherwise.
+          geometry:
+            seedStopPlace.locationLat && seedStopPlace.locationLong
+              ? {
+                  coordinates: [
+                    seedStopPlace.locationLong,
+                    seedStopPlace.locationLat,
+                  ],
+                  type: StopRegistryGeoJsonType.Point,
+                }
+              : null,
+
           // Equipment properties:
           placeEquipments: {
+            generalSign: seedStopPlace.signs && [
+              {
+                signContentType: StopRegistrySignContentType.TransportMode,
+                numberOfFrames: seedStopPlace.signs.numberOfFrames,
+                lineSignage: seedStopPlace.signs.lineSignage,
+                mainLineSign: seedStopPlace.signs.mainLineSign,
+                replacesRailSign: seedStopPlace.signs.replacesRailSign,
+                ...(seedStopPlace.signs.note
+                  ? {
+                      note: {
+                        lang: 'fin',
+                        value: seedStopPlace.signs.note,
+                      },
+                    }
+                  : {}),
+              },
+            ],
             shelterEquipment:
               seedStopPlace.shelterEquipment && seedStopPlace.shelterEquipment,
             cycleStorageEquipment: seedStopPlace.cycleStorageEquipment && [
               seedStopPlace.cycleStorageEquipment,
             ],
           },
-        },
-      ],
 
-      // Location properties:
-      // Note: Tiamat sets topographicPlace and fareZone automatically based on coordinates. They can not be changed otherwise.
-      geometry:
-        seedStopPlace.locationLat && seedStopPlace.locationLong
-          ? {
-              coordinates: [
-                seedStopPlace.locationLong,
-                seedStopPlace.locationLat,
-              ],
-              type: StopRegistryGeoJsonType.Point,
-            }
-          : null,
-      keyValues: [
-        getKeyValue('streetAddress', seedStopPlace.streetAddress),
-        getKeyValue('postalCode', seedStopPlace.postalCode),
-        getKeyValue('functionalArea', seedStopPlace.functionalArea),
-        getKeyValue('stopState', seedStopPlace.stopState),
-        getKeyValue('virtual', seedStopPlace.stopType?.virtual),
-        getKeyValue('mainLine', seedStopPlace.stopType?.mainLine),
-      ],
-
-      // Equipment properties:
-      placeEquipments: {
-        generalSign: seedStopPlace.signs && [
-          {
-            privateCode: { type: 'HSL', value: seedStopPlace.signs.signType },
-            signContentType: StopRegistrySignContentType.TransportMode,
-            numberOfFrames: seedStopPlace.signs.numberOfFrames,
-            lineSignage: seedStopPlace.signs.lineSignage,
-            mainLineSign: seedStopPlace.signs.mainLineSign,
-            replacesRailSign: seedStopPlace.signs.replacesRailSign,
-            ...(seedStopPlace.signs.note
+          // Accessibility properties:
+          accessibilityAssessment:
+            (seedStopPlace.accessibilityProperties ??
+            seedStopPlace.accessibilityLimitations)
               ? {
-                  note: {
-                    lang: 'fin',
-                    value: seedStopPlace.signs.note,
+                  hslAccessibilityProperties:
+                    seedStopPlace.accessibilityProperties ?? null,
+                  limitations: seedStopPlace.accessibilityLimitations && {
+                    ...defaultAccessibilityLimitations,
+                    ...seedStopPlace.accessibilityLimitations,
                   },
                 }
-              : {}),
-          },
-        ],
-      },
+              : undefined,
 
-      // Accessibility properties:
-      accessibilityAssessment:
-        (seedStopPlace.accessibilityProperties ??
-        seedStopPlace.accessibilityLimitations)
-          ? {
-              hslAccessibilityProperties:
-                seedStopPlace.accessibilityProperties ?? null,
-              limitations: seedStopPlace.accessibilityLimitations && {
-                ...defaultAccessibilityLimitations,
-                ...seedStopPlace.accessibilityLimitations,
-              },
-            }
-          : undefined,
+          keyValues: [
+            getKeyValue('ELYCode', seedStopPlace.elyNumber),
+            getKeyValue('streetAddress', seedStopPlace.streetAddress),
+            getKeyValue('postalCode', seedStopPlace.postalCode),
+            getKeyValue('functionalArea', seedStopPlace.functionalArea),
+            getKeyValue('priority', seedStopPlace.priority),
+            getKeyValue('validityStart', seedStopPlace.validityStart),
+            getKeyValue('validityEnd', seedStopPlace.validityEnd),
+          ],
+        },
+      ],
     },
   };
 };
 // Gets unnecessarily long and ugly with "prettier" so disabling it for these arrays.
 // prettier-ignore
-const route35Stops: Array<StopPlaceSeedData> = [
-  { label: 'H1376', locationLong: 24.885561, locationLat: 60.198389, nameFin: 'Rakuunantie 8',       nameSwe: 'Dragonvägen 8' },
-  { label: 'H1377', locationLong: 24.87594,  locationLat: 60.205858, nameFin: 'Munkkivuoren kirkko', nameSwe: 'Munkshöjdens kyrka' },
-  { label: 'H1398', locationLong: 24.88078,  locationLat: 60.20663,  nameFin: 'Munkkivuori',         nameSwe: 'Munkshöjden' }, // Lapinmäentie
-  { label: 'H1416', locationLong: 24.879,    locationLat: 60.2055,   nameFin: 'Munkkivuori',         nameSwe: 'Munkshöjden' }, // Raumantie
-  { label: 'H1451', locationLong: 24.883581, locationLat: 60.205589, nameFin: 'Luuvaniementie',      nameSwe: 'Lognäsvägen' }, // Opposite of H1452
-  { label: 'H1452', locationLong: 24.883556, locationLat: 60.205493, nameFin: 'Luuvaniementie',      nameSwe: 'Lognäsvägen' }, // Opposite of H1451
-  { label: 'H1453', locationLong: 24.884656, locationLat: 60.204225, nameFin: 'Niemenmäenkuja',      nameSwe: 'Näshöjdsgränden' },
-  { label: 'H1454', locationLong: 24.884535, locationLat: 60.203123, nameFin: 'Niemenmäki',          nameSwe: 'Näshöjden' },
-  { label: 'H1455', locationLong: 24.88356,  locationLat: 60.203794, nameFin: 'Niemenmäentie',       nameSwe: 'Näshöjdsvägen' },
-  { label: 'H1456', locationLong: 24.884701, locationLat: 60.200373, nameFin: 'Rakuunantie',         nameSwe: 'Dragonvägen' }, // Rakuunantie 16
-  { label: 'H1458', locationLong: 24.883186, locationLat: 60.200773, nameFin: 'Rakuunantie',         nameSwe: 'Dragonvägen' }, // Huopalahdentie
+const route35Stops: Array<StopPlaceQuaySeedData> = [
+  { label: 'H1376', locationLong: 24.885561, locationLat: 60.198389, locationSwe: 'Dragonvägen 8' },
+  { label: 'H1377', locationLong: 24.87594,  locationLat: 60.205858, locationSwe: 'Munkshöjdens kyrka' },
+  { label: 'H1398', locationLong: 24.88078,  locationLat: 60.20663,  locationSwe: 'Munkshöjden' }, // Lapinmäentie
+  { label: 'H1416', locationLong: 24.879,    locationLat: 60.2055,   locationSwe: 'Munkshöjden' }, // Raumantie
+  { label: 'H1451', locationLong: 24.883581, locationLat: 60.205589, locationSwe: 'Lognäsvägen' }, // Opposite of H1452
+  { label: 'H1452', locationLong: 24.883556, locationLat: 60.205493, locationSwe: 'Lognäsvägen' }, // Opposite of H1451
+  { label: 'H1453', locationLong: 24.884656, locationLat: 60.204225, locationSwe: 'Näshöjdsgränden' },
+  { label: 'H1454', locationLong: 24.884535, locationLat: 60.203123, locationSwe: 'Näshöjden' },
+  { label: 'H1455', locationLong: 24.88356,  locationLat: 60.203794, locationSwe: 'Näshöjdsvägen' },
+  { label: 'H1456', locationLong: 24.884701, locationLat: 60.200373, locationSwe: 'Dragonvägen' }, // Rakuunantie 16
+  { label: 'H1458', locationLong: 24.883186, locationLat: 60.200773, locationSwe: 'Dragonvägen' }, // Huopalahdentie
 ];
 
 // A long route that spans multiple cities and fare zones.
 // prettier-ignore
-const route530Stops: Array<StopPlaceSeedData> = [
-  { label: "V1562", locationLong: 24.85559,  locationLat: 60.26118,   nameFin: 'Myyrmäen asema',    nameSwe: 'Myrbacka station',
+const route530Stops: Array<StopPlaceQuaySeedData> = [
+  { label: "V1562", locationLong: 24.85559,  locationLat: 60.26118, locationSwe: 'Myrbacka station',
     shelterEquipment: [
       {
         enclosed: true,
@@ -324,53 +250,45 @@ const route530Stops: Array<StopPlaceSeedData> = [
       },
     ],
    },
-  { label: "V1598", locationLong: 24.85224,  locationLat: 60.25926,   nameFin: 'Iskostie',          nameSwe: 'Stenflisvägen' },
-  { label: "V1502", locationLong: 24.842287, locationLat: 60.259445,  nameFin: 'Raappavuorentie',   nameSwe: 'Raappavuorentie' },
-  { label: "V1310", locationLong: 24.83456,  locationLat: 60.25875,   nameFin: 'Lastutie',          nameSwe: 'Spånvägen' },
-  { label: "V1308", locationLong: 24.82877,  locationLat: 60.25622,   nameFin: 'Vapaalanpolku',     nameSwe: 'Friherrsstigen' },
-  { label: "V1201", locationLong: 24.81982,  locationLat: 60.25397,   nameFin: 'Köysikuja',         nameSwe: 'Repgränden' },
-  { label: "V1203", locationLong: 24.81418,  locationLat: 60.25461,   nameFin: 'Koivuvaarankuja',   nameSwe: 'Björkbergagränden' },
-  { label: "V1205", locationLong: 24.80591,  locationLat: 60.25572,   nameFin: 'Mantelikuja',       nameSwe: 'Mandelgränden' },
-  { label: "V1291", locationLong: 24.79965,  locationLat: 60.25508,   nameFin: 'Terhotie',          nameSwe: 'Ollonvägen' },
-  { label: "V1009", locationLong: 24.7786,   locationLat: 60.25467,   nameFin: 'Linnaistentie',     nameSwe: 'Linnaisvägen' },
-  { label: "E1438", locationLong: 24.772509, locationLat: 60.253188,  nameFin: 'Jupperinympyrä',    nameSwe: 'Jupperrondellen' },
-  { label: "E1434", locationLong: 24.76301,  locationLat: 60.25041,   nameFin: 'Huvilamäki',        nameSwe: 'Villabacken' },
-  { label: "E1423", locationLong: 24.74724,  locationLat: 60.24338,   nameFin: 'Kuttulammentie',    nameSwe: 'Kututräskvägen' },
-  { label: "E1430", locationLong: 24.738327, locationLat: 60.240036,  nameFin: 'Lähderannanristi',  nameSwe: 'Källstrandskorset' },
-  { label: "E1539", locationLong: 24.722068, locationLat: 60.23536,   nameFin: 'Vilniemi',          nameSwe: 'Villnäs' },
-  { label: "E1534", locationLong: 24.716022, locationLat: 60.231825,  nameFin: 'Auroran koulu',     nameSwe: 'Auroran koulu' },
-  { label: "E1530", locationLong: 24.709818, locationLat: 60.228014,  nameFin: 'Kolkeranta',        nameSwe: 'Klappstranden' },
-  { label: "E1524", locationLong: 24.705575, locationLat: 60.224182,  nameFin: 'Petas',             nameSwe: 'Petas' },
-  { label: "E6301", locationLong: 24.687416, locationLat: 60.223379,  nameFin: 'Jorvi',             nameSwe: 'Jorv' },
-  { label: "E6312", locationLong: 24.669556, locationLat: 60.221276,  nameFin: 'Fallåker',          nameSwe: 'Fallåker' },
-  { label: "E6309", locationLong: 24.661122, locationLat: 60.218001,  nameFin: 'Ikea Espoo',        nameSwe: 'Ikea Esbo' },
-  { label: "E6032", locationLong: 24.65783,  locationLat: 60.21543,   nameFin: 'Lommila',           nameSwe: 'Gloms' },
-  { label: "E6002", locationLong: 24.65328,  locationLat: 60.2131,    nameFin: 'Lehtimäki',         nameSwe: 'Lövkulla' },
-  { label: "E6020", locationLong: 24.66041,  locationLat: 60.20801,   nameFin: 'Kaivomestarinkatu', nameSwe: 'Brunnsmästargatan' },
-  { label: "E6008", locationLong: 24.658466, locationLat: 60.206091,  nameFin: 'Espoon asema',      nameSwe: 'Esbo station' },
-  { label: "E6170", locationLong: 24.65257,  locationLat: 60.2023,    nameFin: 'Samaria',           nameSwe: 'Samaria' },
-  { label: "E6016", locationLong: 24.6548,   locationLat: 60.19896,   nameFin: 'Kiltakallio',       nameSwe: 'Gillesberget' },
-  { label: "E6172", locationLong: 24.663459, locationLat: 60.195213,  nameFin: 'Lugnet',            nameSwe: 'Lugnet' },
-  { label: "E4328", locationLong: 24.67732,  locationLat: 60.17993,   nameFin: 'Kukkumäki',         nameSwe: 'Kuckubacka' },
-  { label: "E4329", locationLong: 24.689947, locationLat: 60.172966,  nameFin: 'Puolarmetsänkatu',  nameSwe: 'Bolarskogsgatan' },
-  { label: "E4905", locationLong: 24.702882, locationLat: 60.164212,  nameFin: 'Niittyrinne',       nameSwe: 'Ängsbrinken' },
-  { label: "E4464", locationLong: 24.706945, locationLat: 60.157696,  nameFin: 'Finnoonkartano',    nameSwe: 'Finnogården' },
-  { label: "E4461", locationLong: 24.709598, locationLat: 60.154934,  nameFin: 'Finnoo (M)',        nameSwe: 'Finno (M)' },
-  { label: "E3142", locationLong: 24.72747,  locationLat: 60.15706,   nameFin: 'Kalaonni',          nameSwe: 'Fiskelyckan' },
+  { label: "V1598", locationLong: 24.85224,  locationLat: 60.25926,   locationSwe: 'Stenflisvägen' },
+  { label: "V1502", locationLong: 24.842287, locationLat: 60.259445,  locationSwe: 'Raappavuorentie' },
+  { label: "V1310", locationLong: 24.83456,  locationLat: 60.25875,   locationSwe: 'Spånvägen' },
+  { label: "V1308", locationLong: 24.82877,  locationLat: 60.25622,   locationSwe: 'Friherrsstigen' },
+  { label: "V1201", locationLong: 24.81982,  locationLat: 60.25397,   locationSwe: 'Repgränden' },
+  { label: "V1203", locationLong: 24.81418,  locationLat: 60.25461,   locationSwe: 'Björkbergagränden' },
+  { label: "V1205", locationLong: 24.80591,  locationLat: 60.25572,   locationSwe: 'Mandelgränden' },
+  { label: "V1291", locationLong: 24.79965,  locationLat: 60.25508,   locationSwe: 'Ollonvägen' },
+  { label: "V1009", locationLong: 24.7786,   locationLat: 60.25467,   locationSwe: 'Linnaisvägen' },
+  { label: "E1438", locationLong: 24.772509, locationLat: 60.253188,  locationSwe: 'Jupperrondellen' },
+  { label: "E1434", locationLong: 24.76301,  locationLat: 60.25041,   locationSwe: 'Villabacken' },
+  { label: "E1423", locationLong: 24.74724,  locationLat: 60.24338,   locationSwe: 'Kututräskvägen' },
+  { label: "E1430", locationLong: 24.738327, locationLat: 60.240036,  locationSwe: 'Källstrandskorset' },
+  { label: "E1539", locationLong: 24.722068, locationLat: 60.23536,   locationSwe: 'Villnäs' },
+  { label: "E1534", locationLong: 24.716022, locationLat: 60.231825,  locationSwe: 'Auroran koulu' },
+  { label: "E1530", locationLong: 24.709818, locationLat: 60.228014,  locationSwe: 'Klappstranden' },
+  { label: "E1524", locationLong: 24.705575, locationLat: 60.224182,  locationSwe: 'Petas' },
+  { label: "E6301", locationLong: 24.687416, locationLat: 60.223379,  locationSwe: 'Jorv' },
+  { label: "E6312", locationLong: 24.669556, locationLat: 60.221276,  locationSwe: 'Fallåker' },
+  { label: "E6309", locationLong: 24.661122, locationLat: 60.218001,  locationSwe: 'Ikea Esbo' },
+  { label: "E6032", locationLong: 24.65783,  locationLat: 60.21543,   locationSwe: 'Gloms' },
+  { label: "E6002", locationLong: 24.65328,  locationLat: 60.2131,    locationSwe: 'Lövkulla' },
+  { label: "E6020", locationLong: 24.66041,  locationLat: 60.20801,   locationSwe: 'Brunnsmästargatan' },
+  { label: "E6008", locationLong: 24.658466, locationLat: 60.206091,  locationSwe: 'Esbo station' },
+  { label: "E6170", locationLong: 24.65257,  locationLat: 60.2023,    locationSwe: 'Samaria' },
+  { label: "E6016", locationLong: 24.6548,   locationLat: 60.19896,   locationSwe: 'Gillesberget' },
+  { label: "E6172", locationLong: 24.663459, locationLat: 60.195213,  locationSwe: 'Lugnet' },
+  { label: "E4328", locationLong: 24.67732,  locationLat: 60.17993,   locationSwe: 'Kuckubacka' },
+  { label: "E4329", locationLong: 24.689947, locationLat: 60.172966,  locationSwe: 'Bolarskogsgatan' },
+  { label: "E4905", locationLong: 24.702882, locationLat: 60.164212,  locationSwe: 'Ängsbrinken' },
+  { label: "E4464", locationLong: 24.706945, locationLat: 60.157696,  locationSwe: 'Finnogården' },
+  { label: "E4461", locationLong: 24.709598, locationLat: 60.154934,  locationSwe: 'Finno (M)' },
+  { label: "E3142", locationLong: 24.72747,  locationLat: 60.15706,   locationSwe: 'Fiskelyckan' },
 ];
 
-const H2003: StopPlaceSeedData = {
+const H2003: StopPlaceQuaySeedData = {
   label: 'H2003',
   publicCode: '10003',
   elyNumber: '1234567',
-  nameFin: 'Pohjoisesplanadi',
-  nameSwe: 'Norraesplanaden',
-  nameFinLong: 'Pohjoisesplanadi (pitkä)',
-  nameSweLong: 'Norraesplanaden (lång)',
-  abbreviationFin5Char: 'P.Esp',
-  abbreviationSwe5Char: 'N.Esp',
-  abbreviationFin: 'Pohj.esplanadi',
-  abbreviationSwe: 'N.esplanaden',
   locationFin: 'Pohjoisesplanadi (sij.)',
   locationSwe: 'Norraesplanaden (plats)',
   stopState: 'OutOfOperation',
@@ -446,15 +364,8 @@ const H2003: StopPlaceSeedData = {
     mainLineSign: false,
     replacesRailSign: false,
   },
-  maintenance: {
-    cleaning: 'Clear Channel',
-    infoUpkeep: null,
-    maintenance: 'ELY-keskus',
-    owner: 'JCD',
-    winterMaintenance: 'ELY-keskus',
-  },
 };
-const seedData: Array<StopPlaceSeedData> = [
+const seedData: Array<StopPlaceQuaySeedData> = [
   ...route35Stops,
   ...route530Stops,
   H2003,
