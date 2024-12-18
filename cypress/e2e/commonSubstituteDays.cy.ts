@@ -73,6 +73,14 @@ describe('Common substitute operating periods', () => {
       const { searchContainer } = timetablesMainPage;
       cy.visit('/timetables/settings');
 
+      // Make sure the page is clear
+      substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
+        '2023-02-02',
+        '2023-02-02',
+      );
+
+      cy.getByTestId('ObservationPeriodForm::filterButton').click();
+
       substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
         '2023-01-01',
         '2023-12-31',
@@ -92,6 +100,7 @@ describe('Common substitute operating periods', () => {
         .getSaveButton()
         .click();
       toast.checkSuccessToastHasMessage('Tallennus onnistui');
+      toast.getSuccessToast().should('not.exist');
 
       // Navigate to the vehicleSchedule page
       substituteDaySettingsPage.commonSubstitutePeriodForm
@@ -187,6 +196,14 @@ describe('Common substitute operating periods', () => {
       // Navigate back to timetable settings to remove the added common substitute day
       navBar.getTimetablesLink().click();
       timetablesMainPage.openSettings();
+
+      // Make sure the page is clear
+      substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
+        '2023-02-02',
+        '2023-02-02',
+      );
+
+      cy.getByTestId('ObservationPeriodForm::filterButton').click();
 
       substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
         '2023-01-01',
@@ -284,6 +301,14 @@ describe('Common substitute operating periods', () => {
       const { searchContainer } = timetablesMainPage;
       cy.visit('/timetables/settings');
 
+      // Make sure the page is clear
+      substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
+        '2023-02-02',
+        '2023-02-02',
+      );
+
+      cy.getByTestId('ObservationPeriodForm::filterButton').click();
+
       substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
         '2023-01-01',
         '2023-12-31',
@@ -349,6 +374,14 @@ describe('Common substitute operating periods', () => {
       // Navigate back to timetable settings
       navBar.getTimetablesLink().click();
       timetablesMainPage.openSettings();
+
+      // Make sure the page is clear
+      substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
+        '2023-02-02',
+        '2023-02-02',
+      );
+
+      cy.getByTestId('ObservationPeriodForm::filterButton').click();
 
       // Remove the boxing day substitute day setting
       substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
@@ -436,6 +469,15 @@ describe('Common substitute operating periods', () => {
           .click();
 
         toast.checkSuccessToastHasMessage('Tallennus onnistui');
+
+        // Make sure the page is clear
+        substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
+          '2023-02-02',
+          '2023-02-02',
+        );
+
+        cy.getByTestId('ObservationPeriodForm::filterButton').click();
+
         substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
           '2023-01-01',
           '2023-12-31',
