@@ -3,7 +3,7 @@ ARG NODE_VERSION='18.19.0'
 ARG YARN_VERSION='1.22.19'
 # Latest stable Chrome version is passed as a --build-arg in docker-build.yml workflow
 
-FROM cypress/factory:3.0.0
+FROM cypress/factory:5.1.1
 WORKDIR /e2e
 
 # for dependent modules, copy and build them
