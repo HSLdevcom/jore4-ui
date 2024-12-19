@@ -1,13 +1,14 @@
-import { ForwardRefRenderFunction, forwardRef } from 'react';
+import { ForwardRefRenderFunction, ReactNode, forwardRef } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { Row } from '../layoutComponents';
 
 export type ToastType = 'primary' | 'success' | 'danger' | 'warning';
 
-interface Props {
-  message: string;
-  type?: ToastType;
-  className?: string;
-}
+type ToastProps = {
+  readonly className?: string;
+  readonly message: ReactNode;
+  readonly type?: ToastType;
+};
 
 const propsByType: Record<
   ToastType,
@@ -49,14 +50,15 @@ const propsByType: Record<
   },
 };
 
-const ToastImpl: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { message, type = 'primary', className = '' },
+const ToastImpl: ForwardRefRenderFunction<HTMLDivElement, ToastProps> = (
+  { message, type = 'primary', className },
   ref,
 ) => {
   const { icon, textColor, bg, border, testId } = propsByType[type];
+
   return (
     <div
-      className={`rounded-md bg-white ${className}`}
+      className={twMerge(`rounded-md bg-white`, className)}
       data-test-element-type="toast"
       data-testid={testId}
       ref={ref}

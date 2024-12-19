@@ -33,6 +33,7 @@ import {
   StopDetailsPage,
   Toast,
 } from '../../pageObjects';
+import { CreateStopVersionFormWrapper } from '../../pageObjects/stop-registry/stop-details/CreateStopVersionFormWrapper';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
@@ -2284,5 +2285,31 @@ describe('Stop details', () => {
     verifyInitialShelters();
     verifyInitialMeasurements();
     verifyInitialMaintenanceDetails();
+  });
+
+  describe('Stop version', () => {
+    function initForm() {
+      return new CreateStopVersionFormWrapper();
+    }
+
+    it('should be able to copy stop to new version', () => {
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.page().shouldBeVisible();
+      stopDetailsPage.copyToNewVersionButton().shouldBeVisible();
+      stopDetailsPage.copyToNewVersionButton().click();
+
+      const formWrapper = initForm();
+      formWrapper.getFormContent().shouldBeVisible();
+      formWrapper.fillForm({
+        versionName: 'testVersion',
+        versionDescription: 'testNotImplementedVersionDescription',
+        priority: Priority.Standard,
+        startDate: DateTime.now().minus({ day: 1 }).toISODate(),
+        endDate: DateTime.now().plus({ day: 1 }).toISODate(),
+      });
+      formWrapper.getSubmitButton().click()
+
+      toast.expectSuccessToast('Versio tallennettu');
+    });
   });
 });
