@@ -123,6 +123,12 @@ function start_dependencies {
   fi
 
   start_docker_images $DOCKER_TESTDB_IMAGE $DOCKER_IMAGES $additional_images
+  # Use port 3010 for tiamat and 3110 for tiamat-e2e
+  ./scripts/seed-municipalities-and-fare-zones.sh 3010 &
+  if [ "$INCLUDE_E2E" = true ]; then
+    ./scripts/seed-municipalities-and-fare-zones.sh 3110 &
+  fi
+  wait
 
   check_images
 }
@@ -223,6 +229,8 @@ function setup_environment {
 
   if [ "$INCLUDE_E2E" = true ]; then
     seed_infra_links testdb-e2e
+    # Use port 3110 for tiamat-e2e
+    ./scripts/seed-municipalities-and-fare-zones.sh 3110
   fi
 
   if [[ $1 = "test" ]]; then
@@ -237,6 +245,9 @@ function setup_environment {
     # Add a row to sql dump disabling triggers
     docker exec -i testdb sed -i '1s;^;SET session_replication_role = replica\;\n;' dump.sql
     docker exec -i testdb sh -c 'psql postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e < dump.sql'
+
+    # Use port 3010 for tiamat
+    ./scripts/seed-municipalities-and-fare-zones.sh 3010
 
     cd ./test-db-manager
     yarn build
