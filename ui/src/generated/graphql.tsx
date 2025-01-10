@@ -68007,6 +68007,50 @@ export type DeleteStopPlaceMutation = {
   } | null;
 };
 
+export type ResolveStopSheltersQueryVariables = Exact<{
+  netexId: Scalars['String']['input'];
+}>;
+
+export type ResolveStopSheltersQuery = {
+  __typename?: 'query_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister';
+    stopPlace?: Array<
+      | { __typename?: 'stop_registry_ParentStopPlace'; id?: string | null }
+      | {
+          __typename?: 'stop_registry_StopPlace';
+          id?: string | null;
+          quays?: Array<{
+            __typename?: 'stop_registry_Quay';
+            id?: string | null;
+            placeEquipments?: {
+              __typename?: 'stop_registry_PlaceEquipments';
+              id?: string | null;
+              shelterEquipment?: Array<{
+                __typename?: 'stop_registry_ShelterEquipment';
+                id?: string | null;
+                enclosed?: boolean | null;
+                stepFree?: boolean | null;
+                shelterType?: StopRegistryShelterType | null;
+                shelterElectricity?: StopRegistryShelterElectricity | null;
+                shelterLighting?: boolean | null;
+                shelterCondition?: StopRegistryShelterCondition | null;
+                timetableCabinets?: number | null;
+                trashCan?: boolean | null;
+                shelterHasDisplay?: boolean | null;
+                bicycleParking?: boolean | null;
+                leaningRail?: boolean | null;
+                outsideBench?: boolean | null;
+                shelterFasciaBoardTaping?: boolean | null;
+              } | null> | null;
+            } | null;
+          } | null> | null;
+        }
+      | null
+    > | null;
+  } | null;
+};
+
 export type VehicleJourneyByStopFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   journey_pattern_ref_id: UUID;
@@ -76581,6 +76625,97 @@ export type DeleteStopPlaceMutationResult =
 export type DeleteStopPlaceMutationOptions = Apollo.BaseMutationOptions<
   DeleteStopPlaceMutation,
   DeleteStopPlaceMutationVariables
+>;
+export const ResolveStopSheltersDocument = gql`
+  query ResolveStopShelters($netexId: String!) {
+    stop_registry {
+      stopPlace(id: $netexId) {
+        id
+        ... on stop_registry_StopPlace {
+          quays {
+            id
+            placeEquipments {
+              id
+              shelterEquipment {
+                ...shelter_equipment_details
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  ${ShelterEquipmentDetailsFragmentDoc}
+`;
+
+/**
+ * __useResolveStopSheltersQuery__
+ *
+ * To run a query within a React component, call `useResolveStopSheltersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveStopSheltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveStopSheltersQuery({
+ *   variables: {
+ *      netexId: // value for 'netexId'
+ *   },
+ * });
+ */
+export function useResolveStopSheltersQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ResolveStopSheltersQuery,
+    ResolveStopSheltersQueryVariables
+  > &
+    (
+      | { variables: ResolveStopSheltersQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ResolveStopSheltersQuery,
+    ResolveStopSheltersQueryVariables
+  >(ResolveStopSheltersDocument, options);
+}
+export function useResolveStopSheltersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ResolveStopSheltersQuery,
+    ResolveStopSheltersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ResolveStopSheltersQuery,
+    ResolveStopSheltersQueryVariables
+  >(ResolveStopSheltersDocument, options);
+}
+export function useResolveStopSheltersSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveStopSheltersQuery,
+    ResolveStopSheltersQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    ResolveStopSheltersQuery,
+    ResolveStopSheltersQueryVariables
+  >(ResolveStopSheltersDocument, options);
+}
+export type ResolveStopSheltersQueryHookResult = ReturnType<
+  typeof useResolveStopSheltersQuery
+>;
+export type ResolveStopSheltersLazyQueryHookResult = ReturnType<
+  typeof useResolveStopSheltersLazyQuery
+>;
+export type ResolveStopSheltersSuspenseQueryHookResult = ReturnType<
+  typeof useResolveStopSheltersSuspenseQuery
+>;
+export type ResolveStopSheltersQueryResult = Apollo.QueryResult<
+  ResolveStopSheltersQuery,
+  ResolveStopSheltersQueryVariables
 >;
 export const GetRouteWithJourneyPatternDocument = gql`
   query GetRouteWithJourneyPattern($routeId: uuid!) {
