@@ -10,8 +10,8 @@ import {
 import { CopyStopModal } from '../stop-version';
 
 const testIds = {
-  actionMenu: 'StopDetailsPage::extraActions::menu',
-  copy: 'StopDetailsPage::extraActions::copy',
+  actionMenu: 'StopTitleRow::extraActions::menu',
+  copy: 'StopTitleRow::extraActions::copy',
 };
 
 type ExtraActionsProps = {

@@ -1,6 +1,7 @@
 export * from './BasicDetailsForm';
 export * from './BasicDetailsSection';
 export * from './BasicDetailsViewCard';
+export * from './CreateCopyModal';
 export * from './InfoSpotSection';
 export * from './InfoSpotsForm';
 export * from './InfoSpotViewCard';
@@ -20,3 +21,4 @@ export * from './ShelterViewCard';
 export * from './SignageDetailsForm';
 export * from './SignageDetailsSection';
 export * from './SignageDetailsViewCard';
+export * from './TitleRow';

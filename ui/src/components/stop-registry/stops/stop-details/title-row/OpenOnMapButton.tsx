@@ -5,6 +5,10 @@ import { StopWithDetails } from '../../../../../hooks';
 import { LocatorButton } from '../../../../../uiComponents';
 import { useOpenStopOnMap } from '../../../search/StopTableRow/utils';
 
+const testIds = {
+  button: 'StopTitleRow::openOnMapButton',
+};
+
 type OpenOnMapButtonProps = {
   readonly className?: string;
   readonly label: string;
@@ -30,6 +34,7 @@ export const OpenOnMapButton: FC<OpenOnMapButtonProps> = ({
       className={twMerge('h-11 w-11', className)}
       disabled={!stop}
       onClick={onClick}
+      testId={testIds.button}
       tooltipText={t('accessibility:common.showOnMap', { label })}
     />
   );

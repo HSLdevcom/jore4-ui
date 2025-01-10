@@ -1,11 +1,13 @@
 import {
   BasicDetailsSection,
+  CreateCopyModal,
   InfoSpotsSection,
   LocationDetailsSection,
   MaintenanceSection,
   MeasurementsSection,
   SheltersSection,
   SignageDetailsSection,
+  TitleRow,
 } from './stop-details';
 
 export class StopDetailsPage {
@@ -23,20 +25,16 @@ export class StopDetailsPage {
 
   maintenance = new MaintenanceSection();
 
+  titleRow = new TitleRow();
+
+  copyModal = new CreateCopyModal();
+
   visit(label: string) {
     cy.visit(`/stop-registry/stops/${label}`);
   }
 
   page() {
     return cy.getByTestId('StopDetailsPage::page');
-  }
-
-  label() {
-    return cy.getByTestId('StopTitleRow::label');
-  }
-
-  names() {
-    return cy.getByTestId('StopTitleRow::names');
   }
 
   validityPeriod() {
@@ -65,5 +63,9 @@ export class StopDetailsPage {
 
   infoSpotsTabPanel() {
     return cy.getByTestId('StopDetailsPage::infoSpotsTabPanel');
+  }
+
+  loadingStopDetails() {
+    return cy.getByTestId('StopDetailsPage::loadingStopDetails');
   }
 }

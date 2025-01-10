@@ -5,7 +5,7 @@ import { StopWithDetails } from '../../../../../hooks';
 const DISABLE_UNTIL_IMPLEMENTED = true;
 
 const testIds = {
-  button: 'StopDetailsPage::editValidityButton',
+  button: 'StopTitleRow::editValidityButton',
 };
 
 type EditValidityButtonProps = {
