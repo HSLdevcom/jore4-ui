@@ -390,6 +390,28 @@
       "extra": {
         "copy": "Kopioi uudeksi versioksi"
       }
+    },
+    "version": {
+      "copyBoilerPlate": "Pysäkin kaikki ominaisuudet kopioidaan mukana. Voit muokata uuden version ominaisuuksia kopioinnin jälkeen.",
+      "title": {
+        "edit": "Muokkaa versiota",
+        "copy": "Kopioidaan uudeksi versioksi",
+        "copySubTitle": "Uuden version tiedot"
+      },
+      "fields": {
+        "versionName": "Version nimi",
+        "versionDescription": "Muutoksen peruste"
+      },
+      "success": {
+        "edit": "Versio tallennettu",
+        "copy": "Uusi versio luotu\nAvataan uusi versio"
+      },
+      "errors": {
+        "copy": "Kopion tallennus epäonnistui:\n{{reason}}",
+        "stopPlaceInsertFailed": "Pysäkkirekisteritietueen luonti epäonnistui! Syy:\n{{reason}}",
+        "stopPointInsertFailedStopPlaceReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui! Syy:\n{{reason}}",
+        "stopPointInsertFailedStopPlaceNotReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui eikä aiemmin luotua pysäkkirekisteritietuetta saatu poistettua. Jore tietokannoissa on nyt virheitä. Syy:\n{{reason}}"
+      }
     }
   },
   "stopRegistrySearch": {
