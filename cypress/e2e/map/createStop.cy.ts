@@ -227,7 +227,7 @@ describe('Stop creation tests', () => {
 
       // NOTE: After adding the name inputs to stop creation flow, this will fail and
       // needs to be updated to the correct names
-      stopDetailsPage.names().shouldHaveText('T0001|-');
+      stopDetailsPage.titleRow.names().shouldHaveText('T0001|-');
     },
   );
 });

@@ -9,7 +9,6 @@ import {
   mapToGetInfrastructureLinksByExternalIdsQuery,
   seedInfoSpots,
   seedOrganisations,
-  seedTerminals,
   stopPlaceH2003,
   stopPlaceV1562,
 } from '@hsl/jore4-test-db-manager';
@@ -150,7 +149,9 @@ describe('Stop details', () => {
     insertToDbHelper(dbResources);
     toast = new Toast();
     cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
-      terminals: seedTerminals,
+      // Inserting the terminals here causes it's child stop H0003,
+      // to generate extra versions of it's quay, which breaks info spots.
+      // terminals: seedTerminals,
       stopPlaces: stopPlaceData,
       organisations: seedOrganisations,
       infoSpots: seedInfoSpots,
@@ -317,33 +318,47 @@ describe('Stop details', () => {
     });
   };
 
+  const verifyInfoSpotJP1234568 = (expectedLocation: {
+    readonly lat: string;
+    readonly lon: string;
+    readonly stops: string;
+  }) => {
+    const infoSpotView = stopDetailsPage.infoSpots.viewCard;
+
+    infoSpotView
+      .getDescription()
+      .shouldHaveText('Ensimmäinen kerros, portaiden vieressä');
+    infoSpotView.getLabel().shouldHaveText('JP1234568');
+    infoSpotView.getInfoSpotType().shouldHaveText('Staattinen');
+    infoSpotView.getPurpose().shouldHaveText('Tiedotteet');
+    infoSpotView.getLatitude().shouldHaveText(expectedLocation.lat);
+    infoSpotView.getLongitude().shouldHaveText(expectedLocation.lon);
+    infoSpotView.getBacklight().shouldHaveText('Kyllä');
+    infoSpotView.getPosterPlaceSize().shouldHaveText('80x120cm');
+    infoSpotView
+      .getMaintenance()
+      .shouldHaveText('Huoltotietojen tekstit tähän...');
+    infoSpotView.getPosterSize().shouldHaveText('a4');
+    infoSpotView.getPosterLabel().shouldHaveText('PT1234');
+    infoSpotView.getPosterLines().shouldHaveText('1, 6, 17');
+    infoSpotView.getFloor().shouldHaveText('1');
+    infoSpotView.getRailInformation().shouldHaveText('7');
+    infoSpotView.getStops().shouldHaveText(expectedLocation.stops);
+    infoSpotView.getTerminals().shouldHaveText('-');
+    infoSpotView.getZoneLabel().shouldHaveText('A');
+
+    infoSpotView.getDisplayType().should('not.exist');
+    infoSpotView.getSpeechProperty().should('not.exist');
+  };
+
   const verifyInitialInfoSpots = () => {
     const infoSpotView = stopDetailsPage.infoSpots.viewCard;
     infoSpotView.getNthSectionContainer(0).within(() => {
-      infoSpotView
-        .getDescription()
-        .shouldHaveText('Ensimmäinen kerros, portaiden vieressä');
-      infoSpotView.getLabel().shouldHaveText('JP1234568');
-      infoSpotView.getInfoSpotType().shouldHaveText('Staattinen');
-      infoSpotView.getPurpose().shouldHaveText('Tiedotteet');
-      infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-      infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
-      infoSpotView.getBacklight().shouldHaveText('Kyllä');
-      infoSpotView.getPosterPlaceSize().shouldHaveText('80x120cm');
-      infoSpotView
-        .getMaintenance()
-        .shouldHaveText('Huoltotietojen tekstit tähän...');
-      infoSpotView.getPosterSize().shouldHaveText('a4');
-      infoSpotView.getPosterLabel().shouldHaveText('PT1234');
-      infoSpotView.getPosterLines().shouldHaveText('1, 6, 17');
-      infoSpotView.getFloor().shouldHaveText('1');
-      infoSpotView.getRailInformation().shouldHaveText('7');
-      infoSpotView.getStops().shouldHaveText('V1562');
-      infoSpotView.getTerminals().shouldHaveText('-');
-      infoSpotView.getZoneLabel().shouldHaveText('A');
-
-      infoSpotView.getDisplayType().should('not.exist');
-      infoSpotView.getSpeechProperty().should('not.exist');
+      verifyInfoSpotJP1234568({
+        lat: '60.16490775039894',
+        lon: '24.92904198486008',
+        stops: 'V1562',
+      });
     });
 
     infoSpotView.getNthSectionContainer(1).within(() => {
@@ -402,8 +417,8 @@ describe('Stop details', () => {
       stopDetailsPage.visit('H2003');
       stopDetailsPage.page().shouldBeVisible();
 
-      stopDetailsPage.label().shouldHaveText('H2003');
-      stopDetailsPage
+      stopDetailsPage.titleRow.label().shouldHaveText('H2003');
+      stopDetailsPage.titleRow
         .names()
         .shouldHaveText('Pohjoisesplanadi|Norraesplanaden');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
@@ -759,7 +774,7 @@ describe('Stop details', () => {
     beforeEach(() => {
       stopDetailsPage.visit('H2003');
       stopDetailsPage.page().shouldBeVisible();
-      stopDetailsPage.label().shouldHaveText('H2003');
+      stopDetailsPage.titleRow.label().shouldHaveText('H2003');
 
       stopDetailsPage.technicalFeaturesTabButton().click();
     });
@@ -1564,7 +1579,7 @@ describe('Stop details', () => {
 
       stopDetailsPage.visit('V1562');
       stopDetailsPage.page().shouldBeVisible();
-      stopDetailsPage.label().shouldHaveText('V1562');
+      stopDetailsPage.titleRow.label().shouldHaveText('V1562');
 
       stopDetailsPage.infoSpotsTabButton().click();
 
@@ -2241,6 +2256,69 @@ describe('Stop details', () => {
         });
       },
     );
+  });
+
+  describe('version and copies', () => {
+    it('should create a copy', () => {
+      stopDetailsPage.visit('H2003');
+
+      stopDetailsPage.titleRow.actionsMenuButton().click();
+      stopDetailsPage.titleRow
+        .actionsMenuCopyButton()
+        .should('not.be.disabled')
+        .click();
+
+      const { copyModal } = stopDetailsPage;
+      copyModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          copyModal
+            .names()
+            .should('contain.text', 'H2003')
+            .and('contain.text', 'Pohjoisesplanadi')
+            .and('contain.text', 'Norraesplanaden');
+
+          copyModal
+            .validity()
+            .should('contain.text', 'Perusversio')
+            .and('contain.text', '20.3.2020-31.5.2050');
+
+          const { form } = copyModal;
+          form.versionName().clearAndType('Uusi versio');
+          form.versionDescription().shouldBeDisabled();
+          form.priority.setPriority(Priority.Temporary);
+          form.validity.fillForm({ validityStartISODate: '2050-06-01' });
+          form.submitButton().click();
+        });
+
+      toast.expectSuccessToast('Uusi versio luotu Avataan uusi versio');
+      copyModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+
+      stopDetailsPage.validityPeriod().shouldHaveText('1.6.2050-');
+
+      verifyInitialBasicDetails();
+      verifyInitialLocationDetails();
+      verifyInitialSignageDetails();
+
+      stopDetailsPage.technicalFeaturesTabButton().click();
+      verifyInitialShelters();
+      verifyInitialMeasurements();
+      verifyInitialMaintenanceDetails();
+
+      stopDetailsPage.infoSpotsTabButton().click();
+
+      stopDetailsPage.infoSpots.viewCard
+        .getNthSectionContainer(0)
+        .within(() => {
+          verifyInfoSpotJP1234568({
+            lat: '60.166003223527824',
+            lon: '24.932072417514647',
+            stops: 'H2003',
+          });
+        });
+    });
   });
 
   // A regression test to ensure that our mutations don't eg. reset any fields they are not supposed to.
