@@ -75,6 +75,11 @@ function check_pinned_image {
 
   PREFIX="${2:-main-}"
 
+  local dockerHubImageList
+  local dockerHubTag
+  local dockerHubImage
+  local localImage
+
   # Find latest image with "hsl-main-" tag prefix from docker hub
   dockerHubImageList=$(curl --silent --get -H \"Accept: application/json\" https://hub.docker.com/v2/repositories/hsldevcom/jore4-${1}/tags/\?page_size=100\&page=1\&ordering=last_updated)
   dockerHubTag="$(echo ${dockerHubImageList} | ${DOCKER_JQ} --arg PREFIX $PREFIX --raw-output 'first(.results[] | select(.name | startswith($PREFIX))).name')"
@@ -116,7 +121,7 @@ function start_dependencies {
   echo "Downloading latest version of E2E docker-compose package..."
   curl https://raw.githubusercontent.com/HSLdevcom/jore4-tools/main/docker/download-docker-bundle.sh | bash
 
-  additional_images=""
+  local additional_images=""
   if [ "$INCLUDE_E2E" = true ]; then
     additional_images=$DOCKER_E2E_IMAGES
   fi
@@ -218,7 +223,7 @@ function setup_environment {
     import_dump $DUMP_STOPS_FILENAME stopdb
   fi
 
-  additional_images=""
+  local additional_images=""
   if [ "$INCLUDE_E2E" = true ]; then
     additional_images=$DOCKER_E2E_IMAGES
   fi
@@ -234,7 +239,7 @@ function setup_environment {
   if [[ $1 = "test" ]]; then
     # Existing tests are made using old data and the data is not compatible with stop registry dump
     seed_infra_links testdb
-    old_dump=jore4e2e-test-20240104-data-only-8a28ef5f-20240104.pgdump
+    local old_dump=jore4e2e-test-20240104-data-only-8a28ef5f-20240104.pgdump
     if [ ! -f $old_dump ]; then
       download_dump $old_dump
     fi
