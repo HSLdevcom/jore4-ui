@@ -194,7 +194,7 @@ function setup_environment {
 
   read -p "Warning: all the current data in the database will be overwritten! Are you sure (y/n)? " REPLY
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      exit 1
+    exit 1
   fi
 
   if ! command -v gh; then
@@ -203,7 +203,7 @@ function setup_environment {
   fi
 
   if [ ! -f ui/.env.local ]; then
-      download_digitransit_key
+    download_digitransit_key
   fi
 
   # initialize package folder
