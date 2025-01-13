@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 compose_folder="../docker/"
 compose_file_prefix="docker-compose."
