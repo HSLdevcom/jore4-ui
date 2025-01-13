@@ -10,7 +10,7 @@ Next.js was still chosen over `create-react-app` as project template as it offer
 First, make sure you have the following apps installed:
 
 - [ ] [yarn](https://yarnpkg.com/)
-- [ ] [GithHub Shell](https://cli.github.com/), to authenticate to GitHub
+- [ ] [GithHub CLI](https://cli.github.com/), to authenticate to GitHub
   - On Mac, Homebrew command: `brew install gh`
 - [ ] [PostgreSQL](https://www.postgresql.org/download/), to get required commands
   - On Mac, Homebrew command: `brew install postgresql@15`
@@ -71,7 +71,7 @@ yarn ws:db build
 > _NOTE_: Running `yarn ws:ui dev` runs only the UI project, without compiling test-db-manger on every change.
 
 Open [http://localhost:3300](http://localhost:3300) with your browser to see the result.
-In order to actually do something with the UI, see instructions below for starting up docker environment for providing rest of the dependencies.
+In order to actually do something with the UI, see instructions below for starting up Docker environment for providing rest of the dependencies.
 
 ## Tests & QA
 
@@ -109,7 +109,7 @@ Tests can be run with `yarn test`.
 We also have integration tests for ui side that are run with `jest`.
 We have those because sometimes there is need to do e.g. complex graphql queries on UI side, and those are impossible to test without running tests against real hasura instance.
 
-- In order to run integration tests, you need to have hasura instance running. That is the case if you have docker-compose environment running.
+- In order to run integration tests, you need to have hasura instance running. That is the case if you have Docker Compose environment running.
 - To run tests: `yarn test:integration`
 
 ### Cypress (e2e) tests
@@ -161,21 +161,21 @@ Plugins:
 
 ## Setting up dependencies for local development
 
-Run `./scripts/start-dependencies.sh` to set up microservices required for local development in docker-compose.
-Script uses Jore4 project's shared docker-compose file defined in [`jore4-tools`](https://github.com/HSLdevcom/jore4-tools) repository.
+Run `./scripts/start-dependencies.sh` to set up microservices required for local development using Docker Compose.
+Script uses JORE4 project's shared Docker Compose bundle defined in [`jore4-docker-compose-bundle`](https://github.com/HSLdevcom/jore4-docker-compose-bundle) repository.
 
 Edit `start-dependencies.sh` script if you want to start only certain subset of our microservices.
 
-For overriding settings defined in base docker-compose file just edit
+For overriding settings defined in the base Docker Compose file just edit
 `docker/docker-compose.custom.yml` and run `./scripts/start-dependencies.sh` again.
 
 If you wish to persist the data in the database, start dependencies with `./scripts/start-dependencies.sh --volume`
-By default the script starts e2e dependencies as well.
-If you don't need them. you can start the dependencies with `./scripts/start-dependencies.sh --skip-e2e`
+By default, the script starts e2e dependencies as well.
+If you don't need them, you can start the dependencies with `./scripts/start-dependencies.sh --skip-e2e`
 
 Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
 
-If docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
+If Docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
 
 You can also start the dependencies and run all seeds by running `./scripts/setup-dependencies-and-seed.sh`.
 This will also download a dump from Azure and you will need to log in when prompted.
@@ -209,6 +209,7 @@ To update used dumps (`./test-db-manager/src/dumps/infraLinks/infraLinks.sql` du
 ## Docker reference
 
 **Docker image doesn't expect any environment variables from outside.**
+
 The Docker image expects that the backend calls are routed under the same baseurl as it references them via a relative path.
 
 ### Testing locally
@@ -273,7 +274,7 @@ If the imported SVG in Fontello does not look like the icon from Figma (e.g. out
 
 ## Map tiles
 
-The background map tiles are loaded from [Digitransit](https://digitransit.fi/) and need an API key to download. The key is defined in the project secrets and will be downloaded to `.env.local` environment variables file when running the `./scripts/setup-dependencies-and-seed.sh` script. In docker environment the key will be loaded as a part of reading the secrets and stored in an environment variable.
+The background map tiles are loaded from [Digitransit](https://digitransit.fi/) and need an API key to download. The key is defined in the project secrets and will be downloaded to `.env.local` environment variables file when running the `./scripts/setup-dependencies-and-seed.sh` script. In Docker environment the key will be loaded as a part of reading the secrets and stored in an environment variable.
 
 ## Coding style
 
@@ -454,7 +455,7 @@ yarn install
 ### Docker prune
 
 Running a little low on memory, or the local setup doesn't work for a mystical reason?
-Try pruning your docker registry:
+Try pruning your Docker registry:
 
 ```sh
 docker system prune --all --volumes

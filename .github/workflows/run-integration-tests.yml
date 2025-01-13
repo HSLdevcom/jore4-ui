@@ -5,7 +5,7 @@ on:
 
 jobs:
   run_integration_tests:
-    name: Run ui's integration tests against docker-compose environment
+    name: Run ui's integration tests against Docker Compose environment
     runs-on: ubuntu-24.04
 
     steps:
@@ -26,7 +26,7 @@ jobs:
         uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
 
       - name: start e2e env
-        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@setup-e2e-environment-v7
+        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@setup-e2e-environment-v8
 
       - name: Build test db manager module
         run: yarn ws:db build
