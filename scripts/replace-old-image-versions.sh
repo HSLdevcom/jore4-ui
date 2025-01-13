@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 compose_folder="../docker/"
 compose_file_prefix="docker-compose."
