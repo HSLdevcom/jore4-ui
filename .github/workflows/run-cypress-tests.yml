@@ -1,8 +1,8 @@
 name: Run cypress tests
 
 on:
-  # this workflow is only called by others, won't be executed on itself
-  # as it uses the pre-built docker image that is produced in the upstream job
+  # This workflow is only called by others, won't be executed on itself
+  # as it uses the pre-built Docker image that is produced in the upstream job.
   workflow_call:
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
         uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
 
       - name: Start e2e env
-        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@setup-e2e-environment-v7
+        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@setup-e2e-environment-v8
         with:
           ui_version: '${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }}'
           cypress_version: '${{ env.CYPRESS_IMAGE_NAME }}:${{ env.COMMIT_ID }}'
@@ -40,7 +40,7 @@ jobs:
       - name: Seed Tiamat DB
         run: scripts/seed-municipalities-and-fare-zones.sh 3010
 
-      - name: Run e2e tests from github action
+      - name: Run e2e tests from GitHub action
         env:
           CYPRESS_TESTS_KEPT_IN_MEMORY: 0
         timeout-minutes: 30
