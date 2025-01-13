@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd $(dirname "$0")/..
+cd "$(dirname "$0")"/..
 
 if [ -z "$1" ]; then
     echo "Usage: $0 version_number"

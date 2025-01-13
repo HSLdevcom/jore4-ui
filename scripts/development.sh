@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 
-cd $(dirname "$0")/..
+cd "$(dirname "$0")"/..
 
 DUMP_ROUTES_FILENAME="routes-12-2024.pgdump"
 DUMP_TIMETABLES_FILENAME="timetables-12-2024.pgdump"
@@ -218,7 +218,7 @@ function setup_environment {
     import_dump $DUMP_ROUTES_FILENAME jore4e2e
     import_dump $DUMP_TIMETABLES_FILENAME timetablesdb
     import_dump $DUMP_STOPS_FILENAME stopdb
-  fi  
+  fi
 
   additional_images=""
   if [ "$INCLUDE_E2E" = true ]; then
@@ -338,4 +338,3 @@ help)
   usage
   ;;
 esac
-
