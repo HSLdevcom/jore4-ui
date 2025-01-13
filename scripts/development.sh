@@ -19,19 +19,17 @@ USE_VOLUME=false
 
 LOGGED_IN=false
 
-for param in $@
-do
-  if [ "$param" = "--volume" ]
-  then
+for param in $@; do
+  if [ "$param" = "--volume" ]; then
     USE_VOLUME=true
   fi
-  if [ "$param" = "--skip-e2e" ]
-  then
+  if [ "$param" = "--skip-e2e" ]; then
     INCLUDE_E2E=false
   fi
 done
 
 DOCKER_COMPOSE_CMD="docker compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml"
+
 if [ "$USE_VOLUME" = true ]; then
   # start the testdb with mounted volume
   DOCKER_COMPOSE_CMD="$DOCKER_COMPOSE_CMD -f ./docker/docker-compose.testdb-volume.yml"
@@ -153,8 +151,7 @@ function download_dump {
   login
 
   # Check dump file
-  if [ ! -f $1 ]
-  then
+  if [ ! -f $1 ]; then
     echo "Downloading dump file as $DUMP_FILENAME"
     az storage blob download \
       --account-name "jore4storage" \

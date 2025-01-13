@@ -10,14 +10,12 @@ cd "$(dirname "$0")"/..
 HASURA_PASSWORD=$(cat ./docker/secret-hasura-hasura-admin-secret)
 FORCE=false
 PORT=3201
-for param in $@
-do
-  if [ "$param" = "--e2e" ]
-  then
+
+for param in $@; do
+  if [ "$param" = "--e2e" ]; then
     PORT=3211
   fi
-  if [ "$param" = "--force" ]
-  then
+  if [ "$param" = "--force" ]; then
     FORCE=true
   fi
 done
