@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd $(dirname "$0")/..
+cd "$(dirname "$0")"/.. || exit 1
 
 DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e
 

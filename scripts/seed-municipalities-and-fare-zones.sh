@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-cd $(dirname "$0")/..
+cd "$(dirname "$0")"/.. || exit 1
 
 echo "Uploading municipality and fare zones to localhost:$1"
 
