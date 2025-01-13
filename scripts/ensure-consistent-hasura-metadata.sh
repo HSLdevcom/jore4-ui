@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-cd $(dirname "$0")/..
+cd "$(dirname "$0")"/.. || exit 1
 
 HASURA_PASSWORD=$(cat ./docker/secret-hasura-hasura-admin-secret)
 FORCE=false

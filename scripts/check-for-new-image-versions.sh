@@ -1,7 +1,7 @@
 #!/bin/bash -e
 # Verify that the images used for services in docker-compose.custom.yml and docker-compose.e2e.yml use the newest version
 
-cd $(dirname "$0")/..
+cd "$(dirname "$0")"/.. || exit 1
 
 # Find image versions defined in docker-compose files, eg. hsldevcom/jore4-hasura:hsl-main
 CUSTOM_DOCKER_IMAGES=($(grep -E "image: ('|\")" docker/docker-compose.custom.yml | sed -r "s/^[[:space:]]*image:[[:space:]]*['\"](.*)--.*['\"]/\1/"))
