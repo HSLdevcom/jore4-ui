@@ -1,5 +1,7 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 # Verify that the images used for services in docker-compose.custom.yml and docker-compose.e2e.yml use the same version
+
+set -euo pipefail
 
 # Find image versions defined in docker-compose.e2e.yml, eg. hsldevcom/jore4-hasura:hsl-main
 DOCKER_IMAGES_TO_CHECK=($(grep -E "image: ('|\")" docker/docker-compose.e2e.yml | sed -r "s/^[[:space:]]*image:[[:space:]]*['\"](.*)--.*['\"]/\1/"))

@@ -1,5 +1,7 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 # Verify that the images used for services in docker-compose.custom.yml and docker-compose.e2e.yml use the newest version
+
+set -euo pipefail
 
 cd "$(dirname "$0")"/.. || exit 1
 
