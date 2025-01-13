@@ -19,7 +19,7 @@ USE_VOLUME=false
 
 LOGGED_IN=false
 
-for param in $@; do
+for param in "$@"; do
   if [ "$param" = "--volume" ]; then
     USE_VOLUME=true
   fi
@@ -52,7 +52,7 @@ function wait_for_database {
   SUCCESS=false
   while ! $SUCCESS; do
     echo "$1: Checking if schema $2 and table $3 exist..."
-    if [[ $(docker exec $1 psql $ROUTES_DB_CONNECTION_STRING -AXqtc "SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = '$2' AND tablename = '$3');" 2> /dev/null) = "t" ]]; then
+    if [[ $(docker exec "$1" psql $ROUTES_DB_CONNECTION_STRING -AXqtc "SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = '$2' AND tablename = '$3');" 2> /dev/null) = "t" ]]; then
         SUCCESS=true
     fi
     sleep 2
@@ -62,8 +62,8 @@ function wait_for_database {
 function seed_infra_links {
   echo "$1: Seeding infrastructure links..."
 
-  wait_for_database $1 infrastructure_network infrastructure_link
-  docker exec -i $1 psql $ROUTES_DB_CONNECTION_STRING < test-db-manager/src/dumps/infraLinks/infraLinks.sql;
+  wait_for_database "$1" infrastructure_network infrastructure_link
+  docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < test-db-manager/src/dumps/infraLinks/infraLinks.sql;
 }
 
 function check_pinned_image {
@@ -81,8 +81,8 @@ function check_pinned_image {
   local localImage
 
   # Find latest image with "hsl-main-" tag prefix from docker hub
-  dockerHubImageList=$(curl --silent --get -H \"Accept: application/json\" https://hub.docker.com/v2/repositories/hsldevcom/jore4-${1}/tags/\?page_size=100\&page=1\&ordering=last_updated)
-  dockerHubTag="$(echo ${dockerHubImageList} | ${DOCKER_JQ} --arg PREFIX $PREFIX --raw-output 'first(.results[] | select(.name | startswith($PREFIX))).name')"
+  dockerHubImageList=$(curl --silent --get -H \"Accept: application/json\" https://hub.docker.com/v2/repositories/hsldevcom/jore4-"$1"/tags/\?page_size=100\&page=1\&ordering=last_updated)
+  dockerHubTag="$(echo "$dockerHubImageList" | ${DOCKER_JQ} --arg PREFIX "$PREFIX" --raw-output 'first(.results[] | select(.name | startswith($PREFIX))).name')"
   dockerHubImage="hsldevcom/jore4-${1}:${dockerHubTag}"
   echo "Docker hub image: ${dockerHubImage}"
 
@@ -102,7 +102,7 @@ function check_pinned_image {
 function start_docker_images {
   echo "Running docker compose command: $DOCKER_COMPOSE_CMD"
 
-  $DOCKER_COMPOSE_CMD up -d $@
+  $DOCKER_COMPOSE_CMD up -d "$@"
 }
 
 function stop_dependencies {
@@ -156,7 +156,7 @@ function download_dump {
   login
 
   # Check dump file
-  if [ ! -f $1 ]; then
+  if [ ! -f "$1" ]; then
     echo "Downloading dump file as $DUMP_FILENAME"
     az storage blob download \
       --account-name "jore4storage" \
@@ -178,11 +178,11 @@ function import_dump {
   echo "Importing JORE4 dump to $2 database"
 
   # Download dump if it is missing
-  if [ ! -f $1 ]; then
-    download_dump $1
+  if [ ! -f "$1" ]; then
+    download_dump "$1"
   fi
 
-  docker exec -i testdb pg_restore -U dbadmin --dbname=$2 --format=c < $1
+  docker exec -i testdb pg_restore -U dbadmin --dbname="$2" --format=c < "$1"
 }
 
 function download_digitransit_key {
