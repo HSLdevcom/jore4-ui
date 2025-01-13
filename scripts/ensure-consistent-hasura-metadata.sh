@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # A script for checking that Hasura metadata is in a consistent state,
 # and if necessary to reload it to (hopefully) fix it.
