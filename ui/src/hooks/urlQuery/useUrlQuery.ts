@@ -62,20 +62,7 @@ export const useUrlQuery = () => {
 
   const setQueryString = useCallback(
     (queryString: string, replace: boolean, pathname?: string) => {
-      replace
-        ? navigate(
-            {
-              search: `?${queryString}`,
-              pathname,
-            },
-            {
-              replace: true,
-            },
-          )
-        : navigate({
-            search: `?${queryString}`,
-            pathname,
-          });
+      navigate({ search: `?${queryString}`, pathname }, { replace });
     },
     [navigate],
   );

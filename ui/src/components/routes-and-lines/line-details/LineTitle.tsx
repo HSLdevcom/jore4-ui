@@ -48,9 +48,11 @@ export const LineTitle: React.FC<Props> = ({
 
   const onRouteToggleClick = (label: string) => {
     // If "multiple route select" is disabled, only one route can be selected at once
-    allowSelectingMultipleRoutes
-      ? toggleDisplayedRoute(label)
-      : setDisplayedRoutesToUrl([label]);
+    if (allowSelectingMultipleRoutes) {
+      toggleDisplayedRoute(label);
+    } else {
+      setDisplayedRoutesToUrl([label]);
+    }
   };
 
   const lineRoutes = uniqBy(line.line_routes, (route) => route.label);

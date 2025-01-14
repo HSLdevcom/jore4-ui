@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { RouteTypeOfLineEnum } from '../../../generated/graphql';
 import { mapLineTypeToUiName } from '../../../i18n/uiNameMappings';
 import { FormInputProps } from '../../../uiComponents';
-import { EnumDropdown } from '../common/EnumDropdown';
+import { EnumDropdown } from '../common';
 
 interface Props extends FormInputProps {
   id?: string;
@@ -19,13 +19,13 @@ export const LineTypeDropdown = ({
   const { t } = useTranslation();
 
   return (
-    <EnumDropdown<RouteTypeOfLineEnum>
+    <EnumDropdown
       id={id}
       testId={testId}
       enumType={RouteTypeOfLineEnum}
       placeholder={t('lines.chooseTypeOfLine')}
       uiNameMapper={mapLineTypeToUiName}
-      includeAllOption={includeAllOption}
+      includeAllOption={!!includeAllOption}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />

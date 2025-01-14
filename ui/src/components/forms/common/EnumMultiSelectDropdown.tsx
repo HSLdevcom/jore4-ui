@@ -9,8 +9,7 @@ import { EnumDropdownProps } from './EnumDropdown';
 const testIds = {
   enumDropdown: 'EnumDropdown',
 };
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const EnumMultiSelectDropdown = <TEnum extends Object>({
+export const EnumMultiSelectDropdown = <TEnum extends string>({
   id,
   testId,
   enumType,

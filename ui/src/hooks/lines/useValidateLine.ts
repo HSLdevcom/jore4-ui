@@ -36,7 +36,7 @@ export const useValidateLine = () => {
           validity_start: input.validity_start!,
           validity_end: input.validity_end,
         });
-      } catch (error) {
+      } catch {
         conflictingRoutes.push(route.label);
       }
     });

@@ -9,26 +9,48 @@ const testIds = {
 // at least without using 'as' in many places (which in itself isn't type safe). Therefore,
 // this was implemented by processing the Enum values as strings.
 
-export interface EnumDropdownProps<TEnum> extends FormInputProps {
-  id?: string;
-  testId?: string;
-  className?: string;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  enumType: Object;
-  uiNameMapper: (key: TEnum) => string;
-  placeholder: string;
-  buttonClassName?: string;
-  includeAllOption?: boolean;
-  includeNullOption?: boolean;
-  nullOptionText?: string;
-}
+type EnumDropdownBaseProps<TEnum extends string> = FormInputProps & {
+  readonly id?: string;
+  readonly testId?: string;
+  readonly className?: string;
+  readonly buttonClassName?: string;
+  readonly placeholder: string;
+  readonly enumType: Readonly<Record<string, TEnum>>;
+};
+
+type EnumDropdownWithNullOptionProps = {
+  readonly includeNullOption: true;
+  readonly nullOptionText?: string;
+};
+
+type EnumDropdownWithoutNullOptionProps = {
+  readonly includeNullOption?: never | false;
+  readonly nullOptionText?: never;
+};
+
+type EnumDropdownWithPotentialAllOptionProps<TEnum extends string> = {
+  readonly includeAllOption: boolean;
+  readonly uiNameMapper: (key: TEnum | AllOptionEnum.All) => string;
+};
+
+type EnumDropdownWithoutAllOptionProps<TEnum extends string> = {
+  readonly includeAllOption?: never;
+  readonly uiNameMapper: (key: TEnum) => string;
+};
+
+export type EnumDropdownProps<TEnum extends string> =
+  EnumDropdownBaseProps<TEnum> &
+    (EnumDropdownWithNullOptionProps | EnumDropdownWithoutNullOptionProps) &
+    (
+      | EnumDropdownWithPotentialAllOptionProps<TEnum>
+      | EnumDropdownWithoutAllOptionProps<TEnum>
+    );
 
 /**
  * Creates dropdown from enum values. This dropdown can be enrichted with 'All' option by giving
  * it the includeAllOption flag as true.
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const EnumDropdown = <TEnum extends Object>({
+export const EnumDropdown = <TEnum extends string>({
   id,
   testId,
   enumType,

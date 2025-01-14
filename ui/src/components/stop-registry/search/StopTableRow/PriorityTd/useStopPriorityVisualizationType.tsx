@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql, skipToken } from '@apollo/client';
 import { DateTime } from 'luxon';
 import { useDoesStopHaveNextValidAlternativeSuspenseQuery } from '../../../../../generated/graphql';
 import { Priority } from '../../../../../types/enums';
@@ -45,20 +45,21 @@ export function useStopPriorityVisualizationType({
     validityEnd.diff(DateTime.now().startOf('day'), 'days').get('days') <
       ABOUT_TO_END_THRESHOLD;
 
-  const { data } = useDoesStopHaveNextValidAlternativeSuspenseQuery({
-    variables: {
-      label,
-      validAfter: validityEnd ?? DateTime.now().startOf('day'),
-      validPriorities: [Priority.Standard, Priority.Temporary],
-    },
-    // Currently the GrahpQL generator does not generate hooks compatible with
-    // the new skipToken API.
-    skip: !isDraft && !isEnding,
-  });
+  const { data } = useDoesStopHaveNextValidAlternativeSuspenseQuery(
+    isDraft || isEnding
+      ? {
+          variables: {
+            label,
+            validAfter: validityEnd ?? DateTime.now().startOf('day'),
+            validPriorities: [Priority.Standard, Priority.Temporary],
+          },
+        }
+      : skipToken,
+  );
 
   // Data comes from a suspense query. The count always exists when we get here.
   // Typings are just imperfect.
-  if (!isDraft && isEnding && !data.stopPoint.aggregate?.count) {
+  if (!isDraft && isEnding && !data?.stopPoint.aggregate?.count) {
     return PriorityVisualizationType.ABOUT_TO_END;
   }
 

@@ -83,7 +83,7 @@ export const useStagingAndTargetFramesForCombine = (
           .filter((frames) => frames.stagingFrame && frames.targetFrame);
 
         setStagingAndTargetFramesForCombine(stagingAndTargetFrames);
-      } catch (error) {
+      } catch {
         setStagingAndTargetFramesForCombine([]);
       }
     },
