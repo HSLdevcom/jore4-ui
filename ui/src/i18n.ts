@@ -10,7 +10,7 @@ const locales = ['fi-FI', 'en-US'];
 const resources: Resource = {};
 locales.forEach((locale) => {
   modules.forEach((module) => {
-    // eslint-disable-next-line import/no-dynamic-require, global-require, @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports,global-require,import/no-dynamic-require
     const tr = require(`./locales/${locale}/${module}.json`);
     if (!resources[locale]) {
       resources[locale] = {};

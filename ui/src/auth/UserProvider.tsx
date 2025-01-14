@@ -10,7 +10,7 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
     try {
       const response = await Api.user.getUserInfo();
       dispatch(loginSuccessAction(response.data));
-    } catch (error) {
+    } catch {
       dispatch(loginFailedAction());
     }
   }, [dispatch]);

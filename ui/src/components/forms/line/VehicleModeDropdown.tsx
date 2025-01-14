@@ -22,13 +22,13 @@ export const VehicleModeDropdown = ({
   const { t } = useTranslation();
 
   return (
-    <EnumDropdown<ReusableComponentsVehicleModeEnum>
+    <EnumDropdown
       id={id}
       testId={testId}
       enumType={ReusableComponentsVehicleModeEnum}
       placeholder={t('lines.chooseVehicleMode')}
       uiNameMapper={mapVehicleModeToUiName}
-      includeAllOption={includeAllOption}
+      includeAllOption={!!includeAllOption}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
