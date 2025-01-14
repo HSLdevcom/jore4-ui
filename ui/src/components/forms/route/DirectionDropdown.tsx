@@ -17,7 +17,7 @@ export const DirectionDropdown = ({
   const { t } = useTranslation();
 
   return (
-    <EnumDropdown<RouteDirection>
+    <EnumDropdown
       testId={testId}
       value={value}
       onChange={onChange}

@@ -17,7 +17,7 @@ export const LineTypeMultiSelectDropdown = ({
   const { t } = useTranslation();
 
   return (
-    <EnumMultiSelectDropdown<RouteTypeOfLineEnum>
+    <EnumMultiSelectDropdown
       id={id}
       testId={testId}
       enumType={RouteTypeOfLineEnum}

@@ -75035,12 +75035,17 @@ export function useFindStopPlacesByQueryAndGroupLazyQuery(
   >(FindStopPlacesByQueryAndGroupDocument, options);
 }
 export function useFindStopPlacesByQueryAndGroupSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    FindStopPlacesByQueryAndGroupQuery,
-    FindStopPlacesByQueryAndGroupQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        FindStopPlacesByQueryAndGroupQuery,
+        FindStopPlacesByQueryAndGroupQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     FindStopPlacesByQueryAndGroupQuery,
     FindStopPlacesByQueryAndGroupQueryVariables
@@ -75121,12 +75126,17 @@ export function useResolveMemberStopNamesLazyQuery(
   >(ResolveMemberStopNamesDocument, options);
 }
 export function useResolveMemberStopNamesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    ResolveMemberStopNamesQuery,
-    ResolveMemberStopNamesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        ResolveMemberStopNamesQuery,
+        ResolveMemberStopNamesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ResolveMemberStopNamesQuery,
     ResolveMemberStopNamesQueryVariables
@@ -75203,12 +75213,17 @@ export function useResolveStopAreaNamesLazyQuery(
   >(ResolveStopAreaNamesDocument, options);
 }
 export function useResolveStopAreaNamesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    ResolveStopAreaNamesQuery,
-    ResolveStopAreaNamesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        ResolveStopAreaNamesQuery,
+        ResolveStopAreaNamesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ResolveStopAreaNamesQuery,
     ResolveStopAreaNamesQueryVariables
@@ -75298,12 +75313,17 @@ export function useResolveStopAreaAndMemberStopNamesLazyQuery(
   >(ResolveStopAreaAndMemberStopNamesDocument, options);
 }
 export function useResolveStopAreaAndMemberStopNamesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    ResolveStopAreaAndMemberStopNamesQuery,
-    ResolveStopAreaAndMemberStopNamesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        ResolveStopAreaAndMemberStopNamesQuery,
+        ResolveStopAreaAndMemberStopNamesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ResolveStopAreaAndMemberStopNamesQuery,
     ResolveStopAreaAndMemberStopNamesQueryVariables
@@ -75426,12 +75446,17 @@ export function useListChangingRoutesLazyQuery(
   >(ListChangingRoutesDocument, options);
 }
 export function useListChangingRoutesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    ListChangingRoutesQuery,
-    ListChangingRoutesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        ListChangingRoutesQuery,
+        ListChangingRoutesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ListChangingRoutesQuery,
     ListChangingRoutesQueryVariables
@@ -75503,12 +75528,17 @@ export function useListOwnLinesLazyQuery(
   );
 }
 export function useListOwnLinesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    ListOwnLinesQuery,
-    ListOwnLinesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        ListOwnLinesQuery,
+        ListOwnLinesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
     ListOwnLinesDocument,
     options,
@@ -75596,12 +75626,17 @@ export function useGetScheduledStopPointWithTimingSettingsLazyQuery(
   >(GetScheduledStopPointWithTimingSettingsDocument, options);
 }
 export function useGetScheduledStopPointWithTimingSettingsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetScheduledStopPointWithTimingSettingsQuery,
-    GetScheduledStopPointWithTimingSettingsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetScheduledStopPointWithTimingSettingsQuery,
+        GetScheduledStopPointWithTimingSettingsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetScheduledStopPointWithTimingSettingsQuery,
     GetScheduledStopPointWithTimingSettingsQueryVariables
@@ -75696,12 +75731,17 @@ export function useDoesStopHaveNextValidAlternativeLazyQuery(
   >(DoesStopHaveNextValidAlternativeDocument, options);
 }
 export function useDoesStopHaveNextValidAlternativeSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    DoesStopHaveNextValidAlternativeQuery,
-    DoesStopHaveNextValidAlternativeQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        DoesStopHaveNextValidAlternativeQuery,
+        DoesStopHaveNextValidAlternativeQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     DoesStopHaveNextValidAlternativeQuery,
     DoesStopHaveNextValidAlternativeQueryVariables
@@ -75785,12 +75825,17 @@ export function useFindLinesByStopSearchLazyQuery(
   >(FindLinesByStopSearchDocument, options);
 }
 export function useFindLinesByStopSearchSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    FindLinesByStopSearchQuery,
-    FindLinesByStopSearchQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        FindLinesByStopSearchQuery,
+        FindLinesByStopSearchQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     FindLinesByStopSearchQuery,
     FindLinesByStopSearchQueryVariables
@@ -75885,12 +75930,17 @@ export function useGetStopsByRouteIdLazyQuery(
   >(GetStopsByRouteIdDocument, options);
 }
 export function useGetStopsByRouteIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopsByRouteIdQuery,
-    GetStopsByRouteIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopsByRouteIdQuery,
+        GetStopsByRouteIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByRouteIdQuery,
     GetStopsByRouteIdQueryVariables
@@ -75973,12 +76023,17 @@ export function useResolveStopPlaceNetextIdsByLineIdsLazyQuery(
   >(ResolveStopPlaceNetextIdsByLineIdsDocument, options);
 }
 export function useResolveStopPlaceNetextIdsByLineIdsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    ResolveStopPlaceNetextIdsByLineIdsQuery,
-    ResolveStopPlaceNetextIdsByLineIdsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        ResolveStopPlaceNetextIdsByLineIdsQuery,
+        ResolveStopPlaceNetextIdsByLineIdsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ResolveStopPlaceNetextIdsByLineIdsQuery,
     ResolveStopPlaceNetextIdsByLineIdsQueryVariables
@@ -76078,12 +76133,17 @@ export function useFindStopAreasLazyQuery(
   );
 }
 export function useFindStopAreasSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    FindStopAreasQuery,
-    FindStopAreasQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        FindStopAreasQuery,
+        FindStopAreasQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     FindStopAreasQuery,
     FindStopAreasQueryVariables
@@ -76165,12 +76225,17 @@ export function useGetStopsByStopAreaIdLazyQuery(
   >(GetStopsByStopAreaIdDocument, options);
 }
 export function useGetStopsByStopAreaIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopsByStopAreaIdQuery,
-    GetStopsByStopAreaIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopsByStopAreaIdQuery,
+        GetStopsByStopAreaIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByStopAreaIdQuery,
     GetStopsByStopAreaIdQueryVariables
@@ -76265,12 +76330,17 @@ export function useSearchStopsLazyQuery(
   );
 }
 export function useSearchStopsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    SearchStopsQuery,
-    SearchStopsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        SearchStopsQuery,
+        SearchStopsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<SearchStopsQuery, SearchStopsQueryVariables>(
     SearchStopsDocument,
     options,
@@ -76343,12 +76413,17 @@ export function useGetStopAreaDetailsLazyQuery(
   >(GetStopAreaDetailsDocument, options);
 }
 export function useGetStopAreaDetailsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopAreaDetailsQuery,
-    GetStopAreaDetailsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopAreaDetailsQuery,
+        GetStopAreaDetailsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopAreaDetailsQuery,
     GetStopAreaDetailsQueryVariables
@@ -76421,12 +76496,17 @@ export function useFindExistingPosterNamesLazyQuery(
   >(FindExistingPosterNamesDocument, options);
 }
 export function useFindExistingPosterNamesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    FindExistingPosterNamesQuery,
-    FindExistingPosterNamesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        FindExistingPosterNamesQuery,
+        FindExistingPosterNamesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     FindExistingPosterNamesQuery,
     FindExistingPosterNamesQueryVariables
@@ -76496,12 +76576,17 @@ export function useGetOrganisationsLazyQuery(
   >(GetOrganisationsDocument, options);
 }
 export function useGetOrganisationsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetOrganisationsQuery,
-    GetOrganisationsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetOrganisationsQuery,
+        GetOrganisationsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetOrganisationsQuery,
     GetOrganisationsQueryVariables
@@ -76574,12 +76659,17 @@ export function useGetRouteWithJourneyPatternLazyQuery(
   >(GetRouteWithJourneyPatternDocument, options);
 }
 export function useGetRouteWithJourneyPatternSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRouteWithJourneyPatternQuery,
-    GetRouteWithJourneyPatternQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRouteWithJourneyPatternQuery,
+        GetRouteWithJourneyPatternQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteWithJourneyPatternQuery,
     GetRouteWithJourneyPatternQueryVariables
@@ -76650,12 +76740,17 @@ export function useQueryClosestLinkLazyQuery(
   >(QueryClosestLinkDocument, options);
 }
 export function useQueryClosestLinkSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    QueryClosestLinkQuery,
-    QueryClosestLinkQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        QueryClosestLinkQuery,
+        QueryClosestLinkQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     QueryClosestLinkQuery,
     QueryClosestLinkQueryVariables
@@ -76735,12 +76830,17 @@ export function useQueryPointDirectionOnLinkLazyQuery(
   >(QueryPointDirectionOnLinkDocument, options);
 }
 export function useQueryPointDirectionOnLinkSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    QueryPointDirectionOnLinkQuery,
-    QueryPointDirectionOnLinkQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        QueryPointDirectionOnLinkQuery,
+        QueryPointDirectionOnLinkQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     QueryPointDirectionOnLinkQuery,
     QueryPointDirectionOnLinkQueryVariables
@@ -76813,12 +76913,17 @@ export function useGetStopsAlongInfrastructureLinksLazyQuery(
   >(GetStopsAlongInfrastructureLinksDocument, options);
 }
 export function useGetStopsAlongInfrastructureLinksSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopsAlongInfrastructureLinksQuery,
-    GetStopsAlongInfrastructureLinksQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopsAlongInfrastructureLinksQuery,
+        GetStopsAlongInfrastructureLinksQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsAlongInfrastructureLinksQuery,
     GetStopsAlongInfrastructureLinksQueryVariables
@@ -77043,12 +77148,17 @@ export function useGetScheduledStopPointWithViaInfoLazyQuery(
   >(GetScheduledStopPointWithViaInfoDocument, options);
 }
 export function useGetScheduledStopPointWithViaInfoSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetScheduledStopPointWithViaInfoQuery,
-    GetScheduledStopPointWithViaInfoQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetScheduledStopPointWithViaInfoQuery,
+        GetScheduledStopPointWithViaInfoQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetScheduledStopPointWithViaInfoQuery,
     GetScheduledStopPointWithViaInfoQueryVariables
@@ -77120,12 +77230,17 @@ export function useGetLineDetailsByIdLazyQuery(
   >(GetLineDetailsByIdDocument, options);
 }
 export function useGetLineDetailsByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetLineDetailsByIdQuery,
-    GetLineDetailsByIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetLineDetailsByIdQuery,
+        GetLineDetailsByIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLineDetailsByIdQuery,
     GetLineDetailsByIdQueryVariables
@@ -77199,12 +77314,17 @@ export function useGetLineValidityPeriodByIdLazyQuery(
   >(GetLineValidityPeriodByIdDocument, options);
 }
 export function useGetLineValidityPeriodByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetLineValidityPeriodByIdQuery,
-    GetLineValidityPeriodByIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetLineValidityPeriodByIdQuery,
+        GetLineValidityPeriodByIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLineValidityPeriodByIdQuery,
     GetLineValidityPeriodByIdQueryVariables
@@ -77273,12 +77393,17 @@ export function useGetLinesByValidityLazyQuery(
   >(GetLinesByValidityDocument, options);
 }
 export function useGetLinesByValiditySuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetLinesByValidityQuery,
-    GetLinesByValidityQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetLinesByValidityQuery,
+        GetLinesByValidityQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLinesByValidityQuery,
     GetLinesByValidityQueryVariables
@@ -77383,12 +77508,17 @@ export function useGetLineDetailsWithRoutesByIdLazyQuery(
   >(GetLineDetailsWithRoutesByIdDocument, options);
 }
 export function useGetLineDetailsWithRoutesByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetLineDetailsWithRoutesByIdQuery,
-    GetLineDetailsWithRoutesByIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetLineDetailsWithRoutesByIdQuery,
+        GetLineDetailsWithRoutesByIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLineDetailsWithRoutesByIdQuery,
     GetLineDetailsWithRoutesByIdQueryVariables
@@ -77457,12 +77587,17 @@ export function useGetRoutesWithStopsLazyQuery(
   >(GetRoutesWithStopsDocument, options);
 }
 export function useGetRoutesWithStopsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRoutesWithStopsQuery,
-    GetRoutesWithStopsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRoutesWithStopsQuery,
+        GetRoutesWithStopsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRoutesWithStopsQuery,
     GetRoutesWithStopsQueryVariables
@@ -77535,12 +77670,17 @@ export function useGetRouteDetailsByIdLazyQuery(
   >(GetRouteDetailsByIdDocument, options);
 }
 export function useGetRouteDetailsByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRouteDetailsByIdQuery,
-    GetRouteDetailsByIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRouteDetailsByIdQuery,
+        GetRouteDetailsByIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteDetailsByIdQuery,
     GetRouteDetailsByIdQueryVariables
@@ -77609,12 +77749,17 @@ export function useGetRouteDetailsByIdsLazyQuery(
   >(GetRouteDetailsByIdsDocument, options);
 }
 export function useGetRouteDetailsByIdsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRouteDetailsByIdsQuery,
-    GetRouteDetailsByIdsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRouteDetailsByIdsQuery,
+        GetRouteDetailsByIdsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteDetailsByIdsQuery,
     GetRouteDetailsByIdsQueryVariables
@@ -77691,12 +77836,17 @@ export function useGetRouteRenderInfoByIdLazyQuery(
   >(GetRouteRenderInfoByIdDocument, options);
 }
 export function useGetRouteRenderInfoByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRouteRenderInfoByIdQuery,
-    GetRouteRenderInfoByIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRouteRenderInfoByIdQuery,
+        GetRouteRenderInfoByIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteRenderInfoByIdQuery,
     GetRouteRenderInfoByIdQueryVariables
@@ -77780,12 +77930,17 @@ export function useGetRouteDetailsByLabelsLazyQuery(
   >(GetRouteDetailsByLabelsDocument, options);
 }
 export function useGetRouteDetailsByLabelsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRouteDetailsByLabelsQuery,
-    GetRouteDetailsByLabelsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRouteDetailsByLabelsQuery,
+        GetRouteDetailsByLabelsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteDetailsByLabelsQuery,
     GetRouteDetailsByLabelsQueryVariables
@@ -77854,12 +78009,17 @@ export function useGetRoutesWithInfrastructureLinksLazyQuery(
   >(GetRoutesWithInfrastructureLinksDocument, options);
 }
 export function useGetRoutesWithInfrastructureLinksSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRoutesWithInfrastructureLinksQuery,
-    GetRoutesWithInfrastructureLinksQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRoutesWithInfrastructureLinksQuery,
+        GetRoutesWithInfrastructureLinksQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRoutesWithInfrastructureLinksQuery,
     GetRoutesWithInfrastructureLinksQueryVariables
@@ -77927,12 +78087,17 @@ export function useGetRoutesByValidityLazyQuery(
   >(GetRoutesByValidityDocument, options);
 }
 export function useGetRoutesByValiditySuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRoutesByValidityQuery,
-    GetRoutesByValidityQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRoutesByValidityQuery,
+        GetRoutesByValidityQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRoutesByValidityQuery,
     GetRoutesByValidityQueryVariables
@@ -78276,12 +78441,17 @@ export function useGetScheduledStopsOnRouteLazyQuery(
   >(GetScheduledStopsOnRouteDocument, options);
 }
 export function useGetScheduledStopsOnRouteSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetScheduledStopsOnRouteQuery,
-    GetScheduledStopsOnRouteQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetScheduledStopsOnRouteQuery,
+        GetScheduledStopsOnRouteQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetScheduledStopsOnRouteQuery,
     GetScheduledStopsOnRouteQueryVariables
@@ -78414,12 +78584,17 @@ export function useGetStopsByLocationLazyQuery(
   >(GetStopsByLocationDocument, options);
 }
 export function useGetStopsByLocationSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopsByLocationQuery,
-    GetStopsByLocationQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopsByLocationQuery,
+        GetStopsByLocationQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByLocationQuery,
     GetStopsByLocationQueryVariables
@@ -78490,12 +78665,17 @@ export function useGetStopsByValidityLazyQuery(
   >(GetStopsByValidityDocument, options);
 }
 export function useGetStopsByValiditySuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopsByValidityQuery,
-    GetStopsByValidityQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopsByValidityQuery,
+        GetStopsByValidityQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByValidityQuery,
     GetStopsByValidityQueryVariables
@@ -78566,12 +78746,17 @@ export function useGetStopsByIdsLazyQuery(
   );
 }
 export function useGetStopsByIdsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopsByIdsQuery,
-    GetStopsByIdsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopsByIdsQuery,
+        GetStopsByIdsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByIdsQuery,
     GetStopsByIdsQueryVariables
@@ -78642,12 +78827,17 @@ export function useGetStopsByLabelsLazyQuery(
   >(GetStopsByLabelsDocument, options);
 }
 export function useGetStopsByLabelsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopsByLabelsQuery,
-    GetStopsByLabelsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopsByLabelsQuery,
+        GetStopsByLabelsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByLabelsQuery,
     GetStopsByLabelsQueryVariables
@@ -78749,12 +78939,17 @@ export function useGetStopWithRouteGraphDataByIdLazyQuery(
   >(GetStopWithRouteGraphDataByIdDocument, options);
 }
 export function useGetStopWithRouteGraphDataByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopWithRouteGraphDataByIdQuery,
-    GetStopWithRouteGraphDataByIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopWithRouteGraphDataByIdQuery,
+        GetStopWithRouteGraphDataByIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopWithRouteGraphDataByIdQuery,
     GetStopWithRouteGraphDataByIdQueryVariables
@@ -78832,12 +79027,17 @@ export function useGetStopAreasByLocationLazyQuery(
   >(GetStopAreasByLocationDocument, options);
 }
 export function useGetStopAreasByLocationSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopAreasByLocationQuery,
-    GetStopAreasByLocationQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopAreasByLocationQuery,
+        GetStopAreasByLocationQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopAreasByLocationQuery,
     GetStopAreasByLocationQueryVariables
@@ -78916,12 +79116,17 @@ export function useGetScheduledStopPointByStopPlaceRefLazyQuery(
   >(GetScheduledStopPointByStopPlaceRefDocument, options);
 }
 export function useGetScheduledStopPointByStopPlaceRefSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetScheduledStopPointByStopPlaceRefQuery,
-    GetScheduledStopPointByStopPlaceRefQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetScheduledStopPointByStopPlaceRefQuery,
+        GetScheduledStopPointByStopPlaceRefQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetScheduledStopPointByStopPlaceRefQuery,
     GetScheduledStopPointByStopPlaceRefQueryVariables
@@ -78995,12 +79200,17 @@ export function useGetHighestPriorityLineDetailsWithRoutesLazyQuery(
   >(GetHighestPriorityLineDetailsWithRoutesDocument, options);
 }
 export function useGetHighestPriorityLineDetailsWithRoutesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetHighestPriorityLineDetailsWithRoutesQuery,
-    GetHighestPriorityLineDetailsWithRoutesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetHighestPriorityLineDetailsWithRoutesQuery,
+        GetHighestPriorityLineDetailsWithRoutesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetHighestPriorityLineDetailsWithRoutesQuery,
     GetHighestPriorityLineDetailsWithRoutesQueryVariables
@@ -79236,12 +79446,17 @@ export function useGetLinksWithStopsByExternalLinkIdsLazyQuery(
   >(GetLinksWithStopsByExternalLinkIdsDocument, options);
 }
 export function useGetLinksWithStopsByExternalLinkIdsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetLinksWithStopsByExternalLinkIdsQuery,
-    GetLinksWithStopsByExternalLinkIdsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetLinksWithStopsByExternalLinkIdsQuery,
+        GetLinksWithStopsByExternalLinkIdsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLinksWithStopsByExternalLinkIdsQuery,
     GetLinksWithStopsByExternalLinkIdsQueryVariables
@@ -79316,12 +79531,17 @@ export function useGetLineRoutesByLabelLazyQuery(
   >(GetLineRoutesByLabelDocument, options);
 }
 export function useGetLineRoutesByLabelSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetLineRoutesByLabelQuery,
-    GetLineRoutesByLabelQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetLineRoutesByLabelQuery,
+        GetLineRoutesByLabelQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLineRoutesByLabelQuery,
     GetLineRoutesByLabelQueryVariables
@@ -79390,12 +79610,17 @@ export function useGetRouteByFiltersLazyQuery(
   >(GetRouteByFiltersDocument, options);
 }
 export function useGetRouteByFiltersSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRouteByFiltersQuery,
-    GetRouteByFiltersQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRouteByFiltersQuery,
+        GetRouteByFiltersQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteByFiltersQuery,
     GetRouteByFiltersQueryVariables
@@ -79471,12 +79696,17 @@ export function useGetRouteWithInfrastructureLinksWithStopsLazyQuery(
   >(GetRouteWithInfrastructureLinksWithStopsDocument, options);
 }
 export function useGetRouteWithInfrastructureLinksWithStopsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRouteWithInfrastructureLinksWithStopsQuery,
-    GetRouteWithInfrastructureLinksWithStopsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRouteWithInfrastructureLinksWithStopsQuery,
+        GetRouteWithInfrastructureLinksWithStopsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteWithInfrastructureLinksWithStopsQuery,
     GetRouteWithInfrastructureLinksWithStopsQueryVariables
@@ -79555,12 +79785,17 @@ export function useSearchLinesAndRoutesLazyQuery(
   >(SearchLinesAndRoutesDocument, options);
 }
 export function useSearchLinesAndRoutesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    SearchLinesAndRoutesQuery,
-    SearchLinesAndRoutesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        SearchLinesAndRoutesQuery,
+        SearchLinesAndRoutesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     SearchLinesAndRoutesQuery,
     SearchLinesAndRoutesQueryVariables
@@ -79685,12 +79920,17 @@ export function useGetStopAreaByIdLazyQuery(
   >(GetStopAreaByIdDocument, options);
 }
 export function useGetStopAreaByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStopAreaByIdQuery,
-    GetStopAreaByIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopAreaByIdQuery,
+        GetStopAreaByIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopAreaByIdQuery,
     GetStopAreaByIdQueryVariables
@@ -79964,12 +80204,17 @@ export function useGetHighestPriorityStopDetailsByLabelAndDateLazyQuery(
   >(GetHighestPriorityStopDetailsByLabelAndDateDocument, options);
 }
 export function useGetHighestPriorityStopDetailsByLabelAndDateSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetHighestPriorityStopDetailsByLabelAndDateQuery,
-    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetHighestPriorityStopDetailsByLabelAndDateQuery,
+        GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetHighestPriorityStopDetailsByLabelAndDateQuery,
     GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
@@ -80328,12 +80573,17 @@ export function useGetRoutesBrokenByStopChangeLazyQuery(
   >(GetRoutesBrokenByStopChangeDocument, options);
 }
 export function useGetRoutesBrokenByStopChangeSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRoutesBrokenByStopChangeQuery,
-    GetRoutesBrokenByStopChangeQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRoutesBrokenByStopChangeQuery,
+        GetRoutesBrokenByStopChangeQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRoutesBrokenByStopChangeQuery,
     GetRoutesBrokenByStopChangeQueryVariables
@@ -80563,12 +80813,17 @@ export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazy
   >(GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument, options);
 }
 export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
-    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+        GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
     GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
@@ -80855,12 +81110,17 @@ export function useGetSubstituteOperatingPeriodsLazyQuery(
   >(GetSubstituteOperatingPeriodsDocument, options);
 }
 export function useGetSubstituteOperatingPeriodsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetSubstituteOperatingPeriodsQuery,
-    GetSubstituteOperatingPeriodsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetSubstituteOperatingPeriodsQuery,
+        GetSubstituteOperatingPeriodsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetSubstituteOperatingPeriodsQuery,
     GetSubstituteOperatingPeriodsQueryVariables
@@ -80937,12 +81197,17 @@ export function useGetToCombineTargetVehicleScheduleFrameIdLazyQuery(
   >(GetToCombineTargetVehicleScheduleFrameIdDocument, options);
 }
 export function useGetToCombineTargetVehicleScheduleFrameIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetToCombineTargetVehicleScheduleFrameIdQuery,
-    GetToCombineTargetVehicleScheduleFrameIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetToCombineTargetVehicleScheduleFrameIdQuery,
+        GetToCombineTargetVehicleScheduleFrameIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetToCombineTargetVehicleScheduleFrameIdQuery,
     GetToCombineTargetVehicleScheduleFrameIdQueryVariables
@@ -81017,12 +81282,17 @@ export function useGetToReplaceVehicleScheduleFramesLazyQuery(
   >(GetToReplaceVehicleScheduleFramesDocument, options);
 }
 export function useGetToReplaceVehicleScheduleFramesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetToReplaceVehicleScheduleFramesQuery,
-    GetToReplaceVehicleScheduleFramesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetToReplaceVehicleScheduleFramesQuery,
+        GetToReplaceVehicleScheduleFramesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetToReplaceVehicleScheduleFramesQuery,
     GetToReplaceVehicleScheduleFramesQueryVariables
@@ -81121,12 +81391,17 @@ export function useGetVehicleScheduleFrameWithJourneyInfoLazyQuery(
   >(GetVehicleScheduleFrameWithJourneyInfoDocument, options);
 }
 export function useGetVehicleScheduleFrameWithJourneyInfoSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetVehicleScheduleFrameWithJourneyInfoQuery,
-    GetVehicleScheduleFrameWithJourneyInfoQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetVehicleScheduleFrameWithJourneyInfoQuery,
+        GetVehicleScheduleFrameWithJourneyInfoQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetVehicleScheduleFrameWithJourneyInfoQuery,
     GetVehicleScheduleFrameWithJourneyInfoQueryVariables
@@ -81227,12 +81502,17 @@ export function useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery(
   >(GetVehicleScheduleFrameWithRouteAndLineInfoDocument, options);
 }
 export function useGetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
-    GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
+        GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
     GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
@@ -81304,12 +81584,17 @@ export function useGetStagingVehicleScheduleFramesLazyQuery(
   >(GetStagingVehicleScheduleFramesDocument, options);
 }
 export function useGetStagingVehicleScheduleFramesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetStagingVehicleScheduleFramesQuery,
-    GetStagingVehicleScheduleFramesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStagingVehicleScheduleFramesQuery,
+        GetStagingVehicleScheduleFramesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStagingVehicleScheduleFramesQuery,
     GetStagingVehicleScheduleFramesQueryVariables
@@ -81676,12 +81961,17 @@ export function useGetTimingPlacesByLabelLazyQuery(
   >(GetTimingPlacesByLabelDocument, options);
 }
 export function useGetTimingPlacesByLabelSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetTimingPlacesByLabelQuery,
-    GetTimingPlacesByLabelQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetTimingPlacesByLabelQuery,
+        GetTimingPlacesByLabelQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetTimingPlacesByLabelQuery,
     GetTimingPlacesByLabelQueryVariables
@@ -81765,12 +82055,17 @@ export function useGetLinesForComboboxLazyQuery(
   >(GetLinesForComboboxDocument, options);
 }
 export function useGetLinesForComboboxSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetLinesForComboboxQuery,
-    GetLinesForComboboxQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetLinesForComboboxQuery,
+        GetLinesForComboboxQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLinesForComboboxQuery,
     GetLinesForComboboxQueryVariables
@@ -81843,12 +82138,17 @@ export function useGetSelectedLineDetailsByIdLazyQuery(
   >(GetSelectedLineDetailsByIdDocument, options);
 }
 export function useGetSelectedLineDetailsByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetSelectedLineDetailsByIdQuery,
-    GetSelectedLineDetailsByIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetSelectedLineDetailsByIdQuery,
+        GetSelectedLineDetailsByIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetSelectedLineDetailsByIdQuery,
     GetSelectedLineDetailsByIdQueryVariables
@@ -81942,12 +82242,17 @@ export function useGetRouteDetailsByLabelWildcardLazyQuery(
   >(GetRouteDetailsByLabelWildcardDocument, options);
 }
 export function useGetRouteDetailsByLabelWildcardSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRouteDetailsByLabelWildcardQuery,
-    GetRouteDetailsByLabelWildcardQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRouteDetailsByLabelWildcardQuery,
+        GetRouteDetailsByLabelWildcardQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteDetailsByLabelWildcardQuery,
     GetRouteDetailsByLabelWildcardQueryVariables
@@ -82020,12 +82325,17 @@ export function useGetSelectedRouteDetailsByIdLazyQuery(
   >(GetSelectedRouteDetailsByIdDocument, options);
 }
 export function useGetSelectedRouteDetailsByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetSelectedRouteDetailsByIdQuery,
-    GetSelectedRouteDetailsByIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetSelectedRouteDetailsByIdQuery,
+        GetSelectedRouteDetailsByIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetSelectedRouteDetailsByIdQuery,
     GetSelectedRouteDetailsByIdQueryVariables
@@ -82102,12 +82412,17 @@ export function useGetTimingPlacesForComboboxLazyQuery(
   >(GetTimingPlacesForComboboxDocument, options);
 }
 export function useGetTimingPlacesForComboboxSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetTimingPlacesForComboboxQuery,
-    GetTimingPlacesForComboboxQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetTimingPlacesForComboboxQuery,
+        GetTimingPlacesForComboboxQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetTimingPlacesForComboboxQuery,
     GetTimingPlacesForComboboxQueryVariables
@@ -82183,12 +82498,17 @@ export function useGetSelectedTimingPlaceDetailsByIdLazyQuery(
   >(GetSelectedTimingPlaceDetailsByIdDocument, options);
 }
 export function useGetSelectedTimingPlaceDetailsByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetSelectedTimingPlaceDetailsByIdQuery,
-    GetSelectedTimingPlaceDetailsByIdQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetSelectedTimingPlaceDetailsByIdQuery,
+        GetSelectedTimingPlaceDetailsByIdQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetSelectedTimingPlaceDetailsByIdQuery,
     GetSelectedTimingPlaceDetailsByIdQueryVariables
@@ -82256,12 +82576,17 @@ export function useGetRouteInfoForTimetableVersionsLazyQuery(
   >(GetRouteInfoForTimetableVersionsDocument, options);
 }
 export function useGetRouteInfoForTimetableVersionsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetRouteInfoForTimetableVersionsQuery,
-    GetRouteInfoForTimetableVersionsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetRouteInfoForTimetableVersionsQuery,
+        GetRouteInfoForTimetableVersionsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteInfoForTimetableVersionsQuery,
     GetRouteInfoForTimetableVersionsQueryVariables
@@ -82346,12 +82671,17 @@ export function useGetTimetableVersionsByJourneyPatternIdsLazyQuery(
   >(GetTimetableVersionsByJourneyPatternIdsDocument, options);
 }
 export function useGetTimetableVersionsByJourneyPatternIdsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetTimetableVersionsByJourneyPatternIdsQuery,
-    GetTimetableVersionsByJourneyPatternIdsQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetTimetableVersionsByJourneyPatternIdsQuery,
+        GetTimetableVersionsByJourneyPatternIdsQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetTimetableVersionsByJourneyPatternIdsQuery,
     GetTimetableVersionsByJourneyPatternIdsQueryVariables
@@ -82503,12 +82833,17 @@ export function useGetVehicleScheduleFrameSchedulesLazyQuery(
   >(GetVehicleScheduleFrameSchedulesDocument, options);
 }
 export function useGetVehicleScheduleFrameSchedulesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetVehicleScheduleFrameSchedulesQuery,
-    GetVehicleScheduleFrameSchedulesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetVehicleScheduleFrameSchedulesQuery,
+        GetVehicleScheduleFrameSchedulesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetVehicleScheduleFrameSchedulesQuery,
     GetVehicleScheduleFrameSchedulesQueryVariables
@@ -82589,12 +82924,17 @@ export function useGetVehicleScheduleFrameWithRoutesLazyQuery(
   >(GetVehicleScheduleFrameWithRoutesDocument, options);
 }
 export function useGetVehicleScheduleFrameWithRoutesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetVehicleScheduleFrameWithRoutesQuery,
-    GetVehicleScheduleFrameWithRoutesQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetVehicleScheduleFrameWithRoutesQuery,
+        GetVehicleScheduleFrameWithRoutesQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetVehicleScheduleFrameWithRoutesQuery,
     GetVehicleScheduleFrameWithRoutesQueryVariables
@@ -82751,12 +83091,17 @@ export function useGetVehicleSchedulesForDateLazyQuery(
   >(GetVehicleSchedulesForDateDocument, options);
 }
 export function useGetVehicleSchedulesForDateSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetVehicleSchedulesForDateQuery,
-    GetVehicleSchedulesForDateQueryVariables
-  >,
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetVehicleSchedulesForDateQuery,
+        GetVehicleSchedulesForDateQueryVariables
+      >,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetVehicleSchedulesForDateQuery,
     GetVehicleSchedulesForDateQueryVariables

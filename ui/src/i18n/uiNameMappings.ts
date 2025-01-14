@@ -235,7 +235,13 @@ export function mapDirectionToLabel(
 export const mapTransportTargetToUiName = (key: HslRouteTransportTargetEnum) =>
   i18n.t(`transportTargetEnum.${key}`);
 
-export const mapSubstituteDayOfWeekToUiName = (key: SubstituteDayOfWeek) => {
+export const mapSubstituteDayOfWeekToUiName = (
+  key: SubstituteDayOfWeek | AllOptionEnum,
+) => {
+  if (key === AllOptionEnum.All) {
+    return i18n.t('all');
+  }
+
   const uiStrings: Record<SubstituteDayOfWeek, string> = {
     [SubstituteDayOfWeek.NoTraffic]: i18n.t('timetableDayEnum.noTraffic'),
     [SubstituteDayOfWeek.Monday]: i18n.t('timetableDayEnum.monday'),
@@ -246,6 +252,7 @@ export const mapSubstituteDayOfWeekToUiName = (key: SubstituteDayOfWeek) => {
     [SubstituteDayOfWeek.Saturday]: i18n.t('timetableDayEnum.saturday'),
     [SubstituteDayOfWeek.Sunday]: i18n.t('timetableDayEnum.sunday'),
   };
+
   return uiStrings[key];
 };
 

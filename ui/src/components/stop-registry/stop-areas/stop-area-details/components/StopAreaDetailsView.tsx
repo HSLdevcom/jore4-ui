@@ -18,7 +18,6 @@ function validityPeriod(area: StopAreaDetailsFragment) {
   const from = mapToShortDate(area.validBetween?.fromDate);
   const to = mapToShortDate(area.validBetween?.toDate);
 
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   if (from || to) {
     return `${from ?? ''}-${to ?? ''}`;
   }
