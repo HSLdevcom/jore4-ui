@@ -49,7 +49,7 @@ export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
       try {
         setLoading(true);
         await getUserInfo();
-      } catch (error) {
+      } catch {
         showDangerToast(t('errors.unauthorized'));
       } finally {
         setLoading(false);

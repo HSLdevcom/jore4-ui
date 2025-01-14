@@ -101,7 +101,7 @@ export const InfoSpotFormFields: FC<Props> = ({
           testId={testIds.infoSpotType}
           // eslint-disable-next-line react/no-unstable-nested-components
           inputElementRenderer={(props) => (
-            <EnumDropdown<StopRegistryInfoSpotType>
+            <EnumDropdown
               enumType={StopRegistryInfoSpotType}
               placeholder={t('unknown')}
               uiNameMapper={mapStopRegistryInfoSpotTypeEnumToUiName}

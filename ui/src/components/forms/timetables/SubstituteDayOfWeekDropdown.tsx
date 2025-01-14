@@ -18,13 +18,13 @@ export const SubstituteDayOfWeekDropdown = ({
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   return (
-    <EnumDropdown<SubstituteDayOfWeek>
+    <EnumDropdown
       id={id}
       testId={testId}
       enumType={SubstituteDayOfWeek}
       placeholder={t('timetables.chooseSubstituteDay')}
       uiNameMapper={mapSubstituteDayOfWeekToUiName}
-      includeAllOption={includeAllOption}
+      includeAllOption={!!includeAllOption}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />

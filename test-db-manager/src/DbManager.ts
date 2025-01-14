@@ -4,7 +4,7 @@ import { DatabaseConnectionInfo } from './config';
 
 export const getDbConnection = (knexConfig: DatabaseConnectionInfo): Knex => {
   // TODO: not sure how to properly import knex without getting type errors
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+  // eslint-disable-next-line @typescript-eslint/no-require-imports,global-require
   const db = require('knex')({ client: 'pg', connection: knexConfig });
   return db;
 };
