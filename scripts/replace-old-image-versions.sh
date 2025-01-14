@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# Allow running from any working directory.
+cd "$(dirname "$0")"
+
 compose_folder="../docker/"
 compose_file_prefix="docker-compose."
 compose_custom_file="${compose_folder}${compose_file_prefix}custom.yml"
