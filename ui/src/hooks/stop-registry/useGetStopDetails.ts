@@ -171,6 +171,9 @@ const GQL_QUAY_DETAILS = gql`
         }
       }
     }
+    scheduled_stop_point {
+      ...scheduled_stop_point_detail_fields
+    }
   }
 `;
 
@@ -233,72 +236,6 @@ const GQL_STOP_PLACE_ORGANISATION_FIELDS = gql`
       id
       email
       phone
-    }
-  }
-`;
-
-const GQL_STOP_PLACE_DETAILS = gql`
-  fragment stop_place_details on stop_registry_StopPlace {
-    id
-    name {
-      lang
-      value
-    }
-    description {
-      lang
-      value
-    }
-    alternativeNames {
-      name {
-        lang
-        value
-      }
-      nameType
-    }
-    keyValues {
-      key
-      values
-    }
-    transportMode
-    stopPlaceType
-    weighting
-    submode
-    publicCode
-    privateCode {
-      value
-      type
-    }
-    geometry {
-      coordinates
-      type
-    }
-    topographicPlace {
-      ...topographic_place_details
-    }
-    fareZones {
-      ...fare_zone_details
-    }
-    quays {
-      ...quay_details
-    }
-    organisations {
-      relationshipType
-      organisationRef
-      organisation {
-        ...stop_place_organisation_fields
-      }
-    }
-    infoSpots {
-      ...info_spot_details
-    }
-    groups {
-      id
-    }
-    adjacentSites {
-      ref
-    }
-    tariffZones {
-      id
     }
   }
 `;
@@ -370,10 +307,6 @@ const getEnrichedStopPlace = (
   return {
     ...stopPlace,
     ...getStopPlaceDetailsForEnrichment(stopPlace),
-    infoSpots: sortInfoSpots(stopPlace.infoSpots)?.map((spot) => ({
-      ...spot,
-      poster: spot.poster ? sortPosters(spot.poster) : null,
-    })),
   };
 };
 

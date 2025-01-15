@@ -1,63 +1,106 @@
 import { gql } from '@apollo/client';
+import { useMemo } from 'react';
 import {
-  StopAreaDetailsFragment,
-  useGetStopAreaDetailsQuery,
+  GetStopPlaceDetailsQuery,
+  useGetStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
+import {
+  EnrichedStopPlace,
+  StopPlace,
+  useRequiredParams,
+} from '../../../../hooks';
+import {
+  getStopPlaceDetailsForEnrichment,
+  getStopPlacesFromQueryResult,
+} from '../../../../utils';
 
 const GQL_GET_STOP_AREA_DETAILS = gql`
-  query getStopAreaDetails($id: String!) {
+  query getStopPlaceDetails($id: String!) {
     stop_registry {
-      groupOfStopPlaces(id: $id) {
-        ...StopAreaDetails
+      stopPlace(id: $id, onlyMonomodalStopPlaces: true) {
+        ...stop_place_details
       }
     }
   }
 
-  fragment StopAreaDetails on stop_registry_GroupOfStopPlaces {
+  fragment stop_place_details on stop_registry_StopPlace {
     id
+
+    alternativeNames {
+      name {
+        lang
+        value
+      }
+      nameType
+    }
+
+    privateCode {
+      value
+      type
+    }
+
+    name {
+      lang
+      value
+    }
+
+    organisations {
+      relationshipType
+      organisationRef
+      organisation {
+        ...stop_place_organisation_fields
+      }
+    }
 
     geometry {
       type
       coordinates
     }
 
-    description {
-      lang
-      value
+    keyValues {
+      key
+      values
     }
 
-    name {
-      lang
-      value
-    }
+    weighting
+    submode
 
-    validBetween {
-      fromDate
-      toDate
-    }
-
-    members {
-      ...StopAreaDetailsMembers
-    }
-  }
-
-  fragment StopAreaDetailsMembers on stop_registry_StopPlace {
-    id
-
-    name {
-      lang
-      value
-    }
-
-    scheduled_stop_point {
-      ...stop_table_row
+    quays {
+      ...quay_details
     }
   }
 `;
 
-export function useGetStopAreaDetails(id: string) {
-  const { data, ...rest } = useGetStopAreaDetailsQuery({ variables: { id } });
-  const area: StopAreaDetailsFragment | null =
-    data?.stop_registry?.groupOfStopPlaces?.at(0) ?? null;
-  return { ...rest, area };
+function getEnrichedStopPlace(
+  stopPlace: StopPlace | null,
+): EnrichedStopPlace | null {
+  if (!stopPlace) {
+    return null;
+  }
+
+  return {
+    ...stopPlace,
+    ...getStopPlaceDetailsForEnrichment(stopPlace),
+  };
+}
+
+function getStopPlaceDetails(
+  data: GetStopPlaceDetailsQuery | undefined,
+): EnrichedStopPlace | null {
+  const [stopPlace] = getStopPlacesFromQueryResult<StopPlace>(
+    data?.stop_registry?.stopPlace,
+  );
+  return getEnrichedStopPlace(stopPlace);
+}
+
+export function useGetStopPlaceDetails() {
+  const { id } = useRequiredParams<{ id: string }>();
+
+  const { data, ...rest } = useGetStopPlaceDetailsQuery({
+    variables: { id },
+  });
+
+  const stopPlaceDetails = useMemo(() => getStopPlaceDetails(data), [data]);
+
+  return { ...rest, stopPlaceDetails };
 }
