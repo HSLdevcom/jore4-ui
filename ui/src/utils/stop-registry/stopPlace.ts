@@ -15,6 +15,7 @@ import {
   StopRegistrySubmodeType,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
+import { mapLngLatToPoint } from '../gis';
 import { StopPlaceState } from '../../types/stop-registry';
 
 type StopPlaceType = Pick<StopRegistryStopPlace, '__typename'>;
@@ -53,7 +54,6 @@ export const getStopPlacesFromQueryResult = <T extends StopPlaceType>(
 export const defaultAccessibilityLevel = StopRegistryAccessibilityLevel.Unknown;
 
 export type StopPlaceEnrichmentProperties = {
-  nameFin: string | undefined;
   nameSwe: string | undefined;
   nameLongFin: string | undefined;
   nameLongSwe: string | undefined;
@@ -61,18 +61,14 @@ export type StopPlaceEnrichmentProperties = {
   abbreviationSwe: string | undefined;
   abbreviation5CharFin: string | undefined;
   abbreviation5CharSwe: string | undefined;
-  elyNumber: string | undefined;
-  locationFin: string | undefined;
-  locationSwe: string | undefined;
-  municipality: string | undefined;
-  fareZone: string | undefined;
-  stopState: StopPlaceState | undefined;
-  accessibilityLevel: StopRegistryAccessibilityLevel;
+  name: string | undefined;
+  locationLat: number | undefined;
+  locationLong: number | undefined;
+  validityStart: string | undefined;
+  validityEnd?: string | undefined;
   stopType: {
-    mainLine: boolean;
     interchange: boolean;
     railReplacement: boolean;
-    virtual: boolean;
   };
 };
 
@@ -254,6 +250,14 @@ export const getQuayDetailsForEnrichment = <T extends StopRegistryQuay>(
   };
 };
 
+const findCoordinate = (
+  stopPlace: StopRegistryStopPlace,
+  coordinate: 'latitude' | 'longitude',
+): number | undefined => {
+  const coordinates = stopPlace.geometry?.coordinates ?? undefined;
+  return coordinates ? mapLngLatToPoint(coordinates)[coordinate] : undefined;
+};
+
 export const getStopPlaceDetailsForEnrichment = <
   T extends StopRegistryStopPlace,
 >(
@@ -261,7 +265,6 @@ export const getStopPlaceDetailsForEnrichment = <
 ): StopPlaceEnrichmentProperties => {
   /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
   return {
-    nameFin: stopPlace.name?.value || undefined,
     nameSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Translation)
         ?.value || undefined,
@@ -289,25 +292,17 @@ export const getStopPlaceDetailsForEnrichment = <
     abbreviation5CharSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Label)
         ?.value || undefined,
-    elyNumber: stopPlace.privateCode?.value || undefined,
-    locationFin: stopPlace.description?.value || undefined,
-    locationSwe:
-      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
-        ?.value || undefined,
-    municipality: stopPlace.topographicPlace?.name?.value || undefined,
-    fareZone: stopPlace.fareZones?.[0]?.name?.value || undefined,
-    stopState: findKeyValue(stopPlace, 'stopState') as StopPlaceState,
-    accessibilityLevel:
-      stopPlace.accessibilityAssessment?.hslAccessibilityProperties
-        ?.accessibilityLevel ?? defaultAccessibilityLevel,
+    name: stopPlace.name?.value || undefined,
+    locationLat: findCoordinate(stopPlace, 'latitude'),
+    locationLong: findCoordinate(stopPlace, 'longitude'),
+    validityStart: findKeyValue(stopPlace, 'validityStart') || undefined,
+    validityEnd: findKeyValue(stopPlace, 'validityEnd') || undefined,
     stopType: {
-      mainLine: findKeyValue(stopPlace, 'mainLine') === 'true',
       interchange:
         stopPlace.weighting ===
         StopRegistryInterchangeWeightingType.RecommendedInterchange,
       railReplacement:
         stopPlace.submode === StopRegistrySubmodeType.RailReplacementBus,
-      virtual: findKeyValue(stopPlace, 'virtual') === 'true',
     },
   };
   /* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
