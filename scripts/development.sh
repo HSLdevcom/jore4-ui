@@ -206,7 +206,7 @@ function start_dependencies {
 }
 
 function download_dump {
-  echo "Downloading JORE4 dump from Azure"
+  echo "Downloading database dump for JORE4 network & routes from Azure Blob Storage..."
 
   # Here is a breakdown of the dump name used below:
   # - "jore4e2e"        ~ The name of the database to which the data dump applies
@@ -331,31 +331,47 @@ function usage {
   Usage $0 <command>
 
   start:deps
-    Start dependencies but do not insert data to database
+    Start dependencies but do not insert data to database.
+
+    You can change which version of the Docker Compose bundle is loaded by
+    passing a commit reference to the jore4-docker-compose-bundle repository via
+    the BUNDLE_REF environment variable. By default, the latest version is
+    downloaded.
 
   stop:deps
-    Stop all dependencies
+    Stop all Docker container dependencies.
 
   setup:env
-    Start dependencies and seed databases with dump data
+    Start dependencies and seed databases with dump data.
+
+    You can change which version of the Docker Compose bundle is loaded by
+    passing a commit reference to the jore4-docker-compose-bundle repository via
+    the BUNDLE_REF environment variable. By default, the latest version is
+    downloaded.
 
   setup:test
-    Start dependencies and seed databases with test data
+    Start dependencies and seed databases with test data.
+
+    You can change which version of the Docker Compose bundle is loaded by
+    passing a commit reference to the jore4-docker-compose-bundle repository via
+    the BUNDLE_REF environment variable. By default, the latest version is
+    downloaded.
 
   dump:download
-    Downloads JORE4 dump from Azure.
+    Downloads JORE4 database dump for road infrastructure network and bus routes
+    from Azure Blob Storage.
 
   dump:import file database
-    Imports JORE4 dump to running instance of jore4-testdb
+    Imports database dump from the given file to the specified database.
 
   digitransit:fetch
-    Download JORE4 digitransit map API key
+    Download Digitransit map API key for JORE4 account.
 
   check:images
-    Check if the used images are newest
+    Check if the Docker images used are the latest.
 
   help
-    Show this usage information
+    Show this usage information.
   "
 }
 
