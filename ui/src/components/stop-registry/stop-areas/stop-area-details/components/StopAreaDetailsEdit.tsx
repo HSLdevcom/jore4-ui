@@ -3,8 +3,7 @@ import React, { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { StopAreaDetailsFragment } from '../../../../../generated/graphql';
-import { useLoader } from '../../../../../hooks';
+import { EnrichedStopPlace, useLoader } from '../../../../../hooks';
 import { Column } from '../../../../../layoutComponents';
 import { Operation } from '../../../../../redux';
 import { mapToISODate } from '../../../../../time';
@@ -21,7 +20,6 @@ import {
   StopAreaFormState,
   TypedName,
   stopAreaFormSchema,
-  stopAreaMemberStopSchema,
   useUpsertStopArea,
 } from '../../../../forms/stop-area';
 
@@ -33,26 +31,20 @@ const testIds = {
 };
 
 export const mapStopAreaDataToFormState = (
-  area: StopAreaDetailsFragment,
+  area: EnrichedStopPlace,
 ): Partial<FormState> => {
   const { latitude, longitude } = mapLngLatToPoint(
     area.geometry?.coordinates ?? [],
   );
 
-  const mappedMembers = area.members
-    ?.map((rawMember) => stopAreaMemberStopSchema.safeParse(rawMember))
-    .filter((parseResult) => parseResult.success)
-    .map((parseResult) => parseResult.data);
-
   return {
     label: area.name?.value ?? undefined,
-    name: area.description?.value ?? undefined,
+    name: area.name ?? undefined,
     latitude,
     longitude,
-    memberStops: mappedMembers ?? [],
-    validityStart: mapToISODate(area.validBetween?.fromDate),
-    validityEnd: mapToISODate(area.validBetween?.toDate),
-    indefinite: !area.validBetween?.toDate,
+    validityStart: mapToISODate(area.validityStart),
+    validityEnd: mapToISODate(area.validityEnd),
+    indefinite: !area.validityEnd,
   };
 };
 
@@ -71,7 +63,7 @@ function getOverriddenNames(
 }
 
 type StopAreaDetailsEditProps = {
-  readonly area: StopAreaDetailsFragment;
+  readonly area: EnrichedStopPlace;
   readonly className?: string;
   readonly refetch: () => Promise<unknown>;
   readonly onFinishEditing: () => void;

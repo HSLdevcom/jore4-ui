@@ -1,13 +1,16 @@
 import compact from 'lodash/compact';
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { PageTitle } from '../../../../common';
 import { ObservationDateControl } from '../../../../common/ObservationDateControl';
+import { StopTypeLabel } from '../../../stops/stop-details/StopTypeLabel';
 import { StopAreaComponentProps } from './StopAreaComponentProps';
 
 const testIds = {
-  description: 'StopAreaTitleRow::description',
+  privateCode: 'StopAreaTitleRow::privateCode',
   name: 'StopAreaTitleRow::name',
+  weighting: 'StopAreaTitleRow::weighting',
 };
 
 export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
@@ -19,17 +22,30 @@ export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
     <PageTitle.H1
       className="mr-2"
       testId={testIds.name}
-      titleText={compact([area.name?.value, area.description?.value]).join(' ')}
+      titleText={compact([area.name, area.description?.value]).join(' ')}
     >
-      {area.name?.value ?? ''}
+      {area.name ?? ''}
     </PageTitle.H1>
 
-    <div className="text-xl" data-testid={testIds.description}>
-      {area.description?.value ?? null}
+      <div className="text-xl" data-testid={testIds.privateCode}>
+        {area.privateCode?.value ?? null}
+      </div>
+
+      <div className="pl-5" data-testid={testIds.weighting}>
+        <StopTypeLabel
+          hasType={!!area?.weighting}
+          text={t('stopPlaceTypes.interchange')}
+        />
+
+        <StopTypeLabel
+          hasType={!!area?.submode}
+          text={t('stopPlaceTypes.railReplacement')}
+        />
+      </div>
+
+      <div className="flex-grow" />
+
+      <ObservationDateControl containerClassName="w-1/6" />
     </div>
-
-    <div className="flex-grow" />
-
-    <ObservationDateControl containerClassName="w-1/6" />
-  </div>
-);
+  );
+};
