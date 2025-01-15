@@ -3,7 +3,7 @@ import groupBy from 'lodash/groupBy';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { StopAreaDetailsFragment } from '../../../../../generated/graphql';
+import { StopPlaceWithDetails } from '../../../../../hooks';
 import { Priority } from '../../../../../types/enums';
 import { StopAreaFormMember } from '../../../../forms/stop-area';
 import { StopSearchRow, StopTableRow } from '../../../search';
@@ -16,7 +16,7 @@ import { RemoveMemberStop } from './MemberStopMenuItems/RemoveMemberStop';
 import { StopAreaComponentProps } from './StopAreaComponentProps';
 
 type StopAreaMemberRow = {
-  readonly stop: StopSearchRow;
+  readonly quay: StopSearchRow;
   readonly selected: boolean;
   readonly added: boolean;
 };
@@ -81,8 +81,8 @@ function tagRowWithStatusText(
 ): StopAreaMemberRow {
   return {
     ...row,
-    stop: {
-      ...row.stop,
+    quay: {
+      ...row.quay,
       timing_place: {
         __typename: 'timing_pattern_timing_place',
         timing_place_id: '',
@@ -94,15 +94,15 @@ function tagRowWithStatusText(
 
 function mapRows(
   t: TFunction,
-  area: StopAreaDetailsFragment,
+  area: StopPlaceWithDetails,
   inEditMode: boolean,
   inEditSelectedStops: ReadonlyArray<StopAreaFormMember>,
 ): Array<StopAreaMemberRow> {
   const existingAreaMembers = mapMembersToStopSearchFormat(area);
 
   if (!inEditMode) {
-    return existingAreaMembers.map((stop) => ({
-      stop,
+    return existingAreaMembers.map((quay) => ({
+      quay,
       selected: true,
       added: false,
     }));
@@ -120,12 +120,12 @@ function mapRows(
     .map(stopAreaFormMemberToStopSearchRow);
 
   return [
-    ...selected.map((stop) => ({ stop, selected: true, added: false })),
-    ...removed.map((stop) => ({ stop, selected: false, added: false })),
-    ...added.map((stop) => ({ stop, selected: true, added: true })),
+    ...selected.map((quay) => ({ quay, selected: true, added: false })),
+    ...removed.map((quay) => ({ quay, selected: false, added: false })),
+    ...added.map((quay) => ({ quay, selected: true, added: true })),
   ]
     .map((row) => tagRowWithStatusText(t, row))
-    .sort((a, b) => a.stop.label.localeCompare(b.stop.label));
+    .sort((a, b) => a.quay.label.localeCompare(b.quay.label));
 }
 
 function getRowBgClassName(added: boolean, selected: boolean) {
@@ -166,32 +166,32 @@ export const StopAreaMemberStopRows: FC<StopAreaMemberStopRowsProps> = ({
     >
       <tbody>
         {mapRows(t, area, inEditMode, inEditSelectedStops).map(
-          ({ stop, selected, added }) => (
+          ({ quay, selected, added }) => (
             <StopTableRow
               className={getRowBgClassName(added, selected)}
-              key={stop.scheduled_stop_point_id}
+              key={quay.scheduled_stop_point_id}
               inEditMode={inEditMode}
-              stop={stop}
+              stop={quay}
               actionButtons={
                 inEditMode ? (
                   <EditModeActionButton
                     onAddBack={onAddBack}
                     onRemove={onRemove}
                     selected={selected}
-                    stop={stop}
+                    stop={quay}
                   />
                 ) : (
-                  <LocatorActionButton stop={stop} />
+                  <LocatorActionButton stop={quay} />
                 )
               }
               menuItems={[
-                <OpenDetailsPage key="OpenDetailsPage" stop={stop} />,
+                <OpenDetailsPage key="OpenDetailsPage" stop={quay} />,
                 <RemoveMemberStop
                   key="RemoveMemberStop"
-                  stop={stop}
+                  stop={quay}
                   onRemove={onRemove}
                 />,
-                <ShowOnMap key="ShowOnMap" stop={stop} />,
+                <ShowOnMap key="ShowOnMap" stop={quay} />,
               ]}
             />
           ),

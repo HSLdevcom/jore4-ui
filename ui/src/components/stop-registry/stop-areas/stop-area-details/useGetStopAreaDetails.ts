@@ -4,53 +4,61 @@ import {
   useGetStopAreaDetailsQuery,
 } from '../../../../generated/graphql';
 
+/* Turha file? */ 
+
 const GQL_GET_STOP_AREA_DETAILS = gql`
   query getStopAreaDetails($id: String!) {
     stop_registry {
-      groupOfStopPlaces(id: $id) {
+      stopPlace(id: $id) {
         ...StopAreaDetails
       }
     }
   }
 
-  fragment StopAreaDetails on stop_registry_GroupOfStopPlaces {
+  fragment StopAreaDetails on stop_registry_StopPlace {
     id
+
+    alternativeNames {
+      name {
+        lang
+        value
+      }
+      nameType
+    }
+
+    privateCode {
+      value
+      type
+    }
+
+    name {
+      lang
+      value
+    }
+
+    organisations {
+      relationshipType
+      organisationRef
+      organisation {
+        ...stop_place_organisation_fields
+      }
+    }
 
     geometry {
       type
       coordinates
     }
 
-    description {
-      lang
-      value
+    keyValues {
+      key
+      values
     }
 
-    name {
-      lang
-      value
-    }
+    weighting
+    submode
 
-    validBetween {
-      fromDate
-      toDate
-    }
-
-    members {
-      ...StopAreaDetailsMembers
-    }
-  }
-
-  fragment StopAreaDetailsMembers on stop_registry_StopPlace {
-    id
-
-    name {
-      lang
-      value
-    }
-
-    scheduled_stop_point {
-      ...stop_table_row
+    quays {
+      ...quay_details
     }
   }
 `;
@@ -58,6 +66,6 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
 export function useGetStopAreaDetails(id: string) {
   const { data, ...rest } = useGetStopAreaDetailsQuery({ variables: { id } });
   const area: StopAreaDetailsFragment | null =
-    data?.stop_registry?.groupOfStopPlaces?.at(0) ?? null;
+    data?.stop_registry?.stopPlace?.at(0) ?? null;
   return { ...rest, area };
 }

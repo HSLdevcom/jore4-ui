@@ -20,7 +20,7 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
   const { t } = useTranslation();
   const showOnMap = useShowStopAreaOnMap();
 
-  const point = mapLngLatToPoint(area.geometry?.coordinates ?? []);
+  const point = mapLngLatToPoint(area.stop_place?.geometry?.coordinates ?? []);
 
   return (
     <div
@@ -37,17 +37,17 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
         <br />
         <span
           data-testid={testIds.marker}
-          data-longitude={point.longitude}
-          data-latitude={point.latitude}
+          data-longitude={area.stop_place?.locationLong}
+          data-latitude={area.stop_place?.locationLat}
         >
-          {area.description?.value}
+          {area.stop_place?.name}
         </span>
       </div>
 
       <SlimSimpleButton
         className="absolute right-2 top-2"
         inverted
-        onClick={() => showOnMap(area.id ?? undefined, point)}
+        onClick={() => showOnMap(area.stop_place?.id ?? undefined, point)}
         testId={testIds.openMapButton}
       >
         {t('stopAreaDetails.minimap.showOnMap')}

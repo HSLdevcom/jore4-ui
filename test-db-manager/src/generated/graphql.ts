@@ -10301,6 +10301,7 @@ export type StopRegistryQuay = {
   polygon?: Maybe<StopRegistryGeoJson>;
   privateCode?: Maybe<StopRegistryPrivateCode>;
   publicCode?: Maybe<Scalars['String']['output']>;
+  scheduled_stop_point?: Maybe<ServicePatternScheduledStopPoint>;
   shortName?: Maybe<StopRegistryEmbeddableMultilingualString>;
   validBetween?: Maybe<StopRegistryValidBetween>;
   version?: Maybe<Scalars['String']['output']>;

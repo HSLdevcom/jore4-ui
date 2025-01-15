@@ -3,8 +3,7 @@ import React, { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { StopAreaDetailsFragment } from '../../../../../generated/graphql';
-import { useLoader } from '../../../../../hooks';
+import { StopPlaceWithDetails, useLoader } from '../../../../../hooks';
 import { Column } from '../../../../../layoutComponents';
 import { Operation } from '../../../../../redux';
 import { mapToISODate } from '../../../../../time';
@@ -21,7 +20,6 @@ import {
   StopAreaFormState,
   TypedName,
   stopAreaFormSchema,
-  stopAreaMemberStopSchema,
   useUpsertStopArea,
 } from '../../../../forms/stop-area';
 
@@ -33,26 +31,20 @@ const testIds = {
 };
 
 export const mapStopAreaDataToFormState = (
-  area: StopAreaDetailsFragment,
+  area: StopPlaceWithDetails,
 ): Partial<FormState> => {
   const { latitude, longitude } = mapLngLatToPoint(
-    area.geometry?.coordinates ?? [],
+    area.stop_place?.geometry?.coordinates ?? [],
   );
 
-  const mappedMembers = area.members
-    ?.map((rawMember) => stopAreaMemberStopSchema.safeParse(rawMember))
-    .filter((parseResult) => parseResult.success)
-    .map((parseResult) => parseResult.data);
-
   return {
-    label: area.name?.value ?? undefined,
-    name: area.description?.value ?? undefined,
+    label: area.stop_place?.name?.value ?? undefined,
+    name: area.stop_place?.name ?? undefined,
     latitude,
     longitude,
-    memberStops: mappedMembers ?? [],
-    validityStart: mapToISODate(area.validBetween?.fromDate),
-    validityEnd: mapToISODate(area.validBetween?.toDate),
-    indefinite: !area.validBetween?.toDate,
+    validityStart: mapToISODate(area.stop_place?.validityStart),
+    validityEnd: mapToISODate(area.stop_place?.validityEnd),
+    indefinite: !area.stop_place?.validityEnd,
   };
 };
 
@@ -71,7 +63,7 @@ function getOverriddenNames(
 }
 
 type StopAreaDetailsEditProps = {
-  readonly area: StopAreaDetailsFragment;
+  readonly area: StopPlaceWithDetails;
   readonly className?: string;
   readonly refetch: () => Promise<unknown>;
   readonly onFinishEditing: () => void;
@@ -88,7 +80,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   const onSubmit = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
-      await upsertStopArea({ id: area.id, state });
+      await upsertStopArea({ id: area.stop_place?.id, state });
       await refetch();
 
       showSuccessToast(t('stopArea.editSuccess'));
@@ -160,7 +152,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
           </FormRow>
 
           <NameConsistencyChecker.NameOnlyForm
-            stopAreaId={area.id as string}
+            stopAreaId={area.stop_place?.id as string}
             stopAreaNameOverrides={overriddenNames}
           />
         </FormColumn>
