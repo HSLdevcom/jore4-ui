@@ -9,7 +9,8 @@ import {
   PriorityForm,
   ValidityPeriodForm,
 } from '../../../../forms/common';
-import { StopVersionFormState } from './types';
+import { ExistingStopValidityRange, StopVersionFormState } from './types';
+import { ValidityRangeIsValidVirtualField } from './ValidityRangeIsValidVirtualField';
 
 const testIds = {
   form: 'StopVersionForm::form',
@@ -21,12 +22,14 @@ const testIds = {
 
 type StopVersionFormProps = {
   readonly className?: string;
+  readonly existingValidityRanges?: ReadonlyArray<ExistingStopValidityRange>;
   readonly onCancel: () => void;
   readonly onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
 export const StopVersionForm: FC<StopVersionFormProps> = ({
   className,
+  existingValidityRanges,
   onCancel,
   onSubmit,
 }) => {
@@ -63,6 +66,12 @@ export const StopVersionForm: FC<StopVersionFormProps> = ({
       <FormRow>
         <ValidityPeriodForm />
       </FormRow>
+
+      {existingValidityRanges && (
+        <ValidityRangeIsValidVirtualField
+          existingValidityRanges={existingValidityRanges}
+        />
+      )}
 
       <Row className="justify-end space-x-4">
         <SimpleButton inverted onClick={onCancel} testId={testIds.cancelButton}>
