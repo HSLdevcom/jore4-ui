@@ -68051,6 +68051,22 @@ export type ResolveStopSheltersQuery = {
   } | null;
 };
 
+export type ResolveExistingStopValidityRangesQueryVariables = Exact<{
+  stopPlaceId: Scalars['String']['input'];
+  today?: InputMaybe<Scalars['date']['input']>;
+}>;
+
+export type ResolveExistingStopValidityRangesQuery = {
+  __typename?: 'query_root';
+  stopPoints: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point';
+    scheduled_stop_point_id: UUID;
+    priority: number;
+    validity_start?: luxon.DateTime | null;
+    validity_end?: luxon.DateTime | null;
+  }>;
+};
+
 export type VehicleJourneyByStopFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   journey_pattern_ref_id: UUID;
@@ -76806,6 +76822,103 @@ export type ResolveStopSheltersSuspenseQueryHookResult = ReturnType<
 export type ResolveStopSheltersQueryResult = Apollo.QueryResult<
   ResolveStopSheltersQuery,
   ResolveStopSheltersQueryVariables
+>;
+export const ResolveExistingStopValidityRangesDocument = gql`
+  query ResolveExistingStopValidityRanges($stopPlaceId: String!, $today: date) {
+    stopPoints: service_pattern_scheduled_stop_point(
+      where: {
+        stop_place_ref: { _eq: $stopPlaceId }
+        _or: [
+          { validity_end: { _is_null: true } }
+          { validity_end: { _gte: $today } }
+        ]
+      }
+      order_by: [{ validity_start: asc }]
+    ) {
+      scheduled_stop_point_id
+      priority
+      validity_start
+      validity_end
+    }
+  }
+`;
+
+/**
+ * __useResolveExistingStopValidityRangesQuery__
+ *
+ * To run a query within a React component, call `useResolveExistingStopValidityRangesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveExistingStopValidityRangesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveExistingStopValidityRangesQuery({
+ *   variables: {
+ *      stopPlaceId: // value for 'stopPlaceId'
+ *      today: // value for 'today'
+ *   },
+ * });
+ */
+export function useResolveExistingStopValidityRangesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ResolveExistingStopValidityRangesQuery,
+    ResolveExistingStopValidityRangesQueryVariables
+  > &
+    (
+      | {
+          variables: ResolveExistingStopValidityRangesQueryVariables;
+          skip?: boolean;
+        }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ResolveExistingStopValidityRangesQuery,
+    ResolveExistingStopValidityRangesQueryVariables
+  >(ResolveExistingStopValidityRangesDocument, options);
+}
+export function useResolveExistingStopValidityRangesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ResolveExistingStopValidityRangesQuery,
+    ResolveExistingStopValidityRangesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ResolveExistingStopValidityRangesQuery,
+    ResolveExistingStopValidityRangesQueryVariables
+  >(ResolveExistingStopValidityRangesDocument, options);
+}
+export function useResolveExistingStopValidityRangesSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        ResolveExistingStopValidityRangesQuery,
+        ResolveExistingStopValidityRangesQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    ResolveExistingStopValidityRangesQuery,
+    ResolveExistingStopValidityRangesQueryVariables
+  >(ResolveExistingStopValidityRangesDocument, options);
+}
+export type ResolveExistingStopValidityRangesQueryHookResult = ReturnType<
+  typeof useResolveExistingStopValidityRangesQuery
+>;
+export type ResolveExistingStopValidityRangesLazyQueryHookResult = ReturnType<
+  typeof useResolveExistingStopValidityRangesLazyQuery
+>;
+export type ResolveExistingStopValidityRangesSuspenseQueryHookResult =
+  ReturnType<typeof useResolveExistingStopValidityRangesSuspenseQuery>;
+export type ResolveExistingStopValidityRangesQueryResult = Apollo.QueryResult<
+  ResolveExistingStopValidityRangesQuery,
+  ResolveExistingStopValidityRangesQueryVariables
 >;
 export const GetRouteWithJourneyPatternDocument = gql`
   query GetRouteWithJourneyPattern($routeId: uuid!) {

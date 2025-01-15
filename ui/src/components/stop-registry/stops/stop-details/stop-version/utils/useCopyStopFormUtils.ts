@@ -101,6 +101,7 @@ export const useCopyStopFormUtils = (
   const methods = useForm<StopVersionFormState>({
     defaultValues,
     resolver: zodResolver(stopVersionSchema),
+    mode: 'all',
   });
 
   const handleError = useErrorHandler();
