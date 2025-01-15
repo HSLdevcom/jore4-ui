@@ -2,11 +2,12 @@ import { FC } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { StopWithDetails } from '../../../../../hooks';
 import { StopVersionForm } from './StopVersionForm';
-import { CreateStopVersionResult } from './types';
+import { CreateStopVersionResult, ExistingStopValidityRange } from './types';
 import { useCopyStopFormUtils } from './utils';
 
 type CopyStopFormProps = {
   readonly className?: string;
+  readonly existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>;
   readonly onCancel: () => void;
   readonly onCopyCreated: (result: CreateStopVersionResult) => void;
   readonly originalStop: StopWithDetails;
@@ -14,6 +15,7 @@ type CopyStopFormProps = {
 
 export const CopyStopForm: FC<CopyStopFormProps> = ({
   className,
+  existingValidityRanges,
   onCancel,
   onCopyCreated,
   originalStop,
@@ -28,6 +30,7 @@ export const CopyStopForm: FC<CopyStopFormProps> = ({
     <FormProvider {...methods}>
       <StopVersionForm
         className={className}
+        existingValidityRanges={existingValidityRanges}
         onCancel={onCancel}
         onSubmit={methods.handleSubmit(onFormSubmit)}
       />

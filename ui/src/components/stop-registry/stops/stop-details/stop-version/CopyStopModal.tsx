@@ -10,6 +10,7 @@ import { ModalBody } from '../../../../map/modal';
 import { CopyStopBoilerPlate } from './CopyStopBoilerPlate';
 import { CopyStopForm } from './CopyStopForm';
 import { CreateStopVersionResult } from './types';
+import { useResolveExistingStopValidityRanges } from './utils';
 
 const testIds = {
   modal: 'CopyStopModal::modal',
@@ -31,6 +32,12 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
 
   const { setObservationDateToUrl } = useObservationDateQueryParam();
 
+  const { ranges, loading: loadingExistingValidityRanges } =
+    useResolveExistingStopValidityRanges({
+      stopPlaceId: originalStop?.stop_place_ref,
+      skip: !isOpen,
+    });
+
   const onCopyCreated = (result: CreateStopVersionResult) => {
     onClose();
     if (result.stopPointInput.validity_start) {
@@ -44,7 +51,10 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
         onClose={onClose}
         heading={t('stopDetails.version.title.copy')}
       />
-      <LoadingWrapper testId={testIds.loading} loading={!originalStop}>
+      <LoadingWrapper
+        testId={testIds.loading}
+        loading={!originalStop || loadingExistingValidityRanges}
+      >
         {originalStop && (
           <ModalBody>
             <CopyStopBoilerPlate originalStop={originalStop} />
@@ -53,6 +63,7 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
             </h4>
             <CopyStopForm
               className="mt-4"
+              existingValidityRanges={ranges}
               originalStop={originalStop}
               onCancel={onClose}
               onCopyCreated={onCopyCreated}

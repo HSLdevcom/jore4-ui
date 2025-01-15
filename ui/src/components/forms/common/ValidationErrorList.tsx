@@ -1,36 +1,53 @@
 import get from 'lodash/get';
-import { FieldError, FieldValues, useFormContext } from 'react-hook-form';
+import { FC, ReactElement } from 'react';
+import {
+  FieldError,
+  FieldPath,
+  FieldValues,
+  useFormContext,
+} from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { Column, Row } from '../../../layoutComponents';
 import { REQUIRED_FIELD_ERROR_MESSAGE } from './customZodSchemas';
 
-interface ErrorProps {
-  className?: string;
-  errorMessage: string;
-}
+const testIds = {
+  errorMessage: (fieldPath: string) => `ValidationError::message::${fieldPath}`,
+};
 
-export const ValidationError = ({
+type ErrorProps = {
+  readonly className?: string;
+  readonly errorMessage: string;
+  readonly fieldPath: string;
+};
+
+export const ValidationError: FC<ErrorProps> = ({
   className = '',
   errorMessage,
-}: ErrorProps): React.ReactElement => (
+  fieldPath,
+}) => (
   <Row className={`${className} items-center`}>
     <MdWarning className="mr-2 inline text-lg text-hsl-red" />
-    <span className="text-hsl-red">{errorMessage}</span>
+    <span
+      className="text-hsl-red"
+      data-testid={testIds.errorMessage(fieldPath)}
+    >
+      {errorMessage}
+    </span>
   </Row>
 );
 
-interface ErrorListProps {
-  className?: string;
-  fieldPath: string;
-}
+type ErrorListProps<FormState extends FieldValues> = {
+  readonly className?: string;
+  readonly fieldPath: FieldPath<FormState>;
+};
 
 const INVALID_EMAIL_MESSAGE = 'Invalid email';
 
 export const ValidationErrorList = <FormState extends FieldValues>({
   className = '',
   fieldPath,
-}: ErrorListProps): React.ReactElement | null => {
+}: ErrorListProps<FormState>): ReactElement | null => {
   const { t } = useTranslation();
   const {
     formState: { errors },
@@ -54,7 +71,9 @@ export const ValidationErrorList = <FormState extends FieldValues>({
       case 'too_big':
         return t('formValidation.tooBig');
       case 'custom':
-        return t(`formValidation.${message}`);
+        // Try and see of the `message` is a translation key.
+        // Else assume it is a pre translated string and return it as is.
+        return t(`formValidation.${message}`, { defaultValue: message });
       case 'invalid_string':
         if (message === INVALID_EMAIL_MESSAGE) {
           return t(`formValidation.invalidEmail`);
@@ -72,7 +91,10 @@ export const ValidationErrorList = <FormState extends FieldValues>({
 
   return (
     <Column className={className}>
-      <ValidationError errorMessage={mapErrorToMessage(fieldError)} />
+      <ValidationError
+        errorMessage={mapErrorToMessage(fieldError)}
+        fieldPath={fieldPath}
+      />
     </Column>
   );
 };
