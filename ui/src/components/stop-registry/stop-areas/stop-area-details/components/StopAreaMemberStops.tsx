@@ -138,7 +138,7 @@ export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
 
     methods,
   } = useMemberStopFormControls(
-    area.id,
+    area.stop_place?.id,
     defaultValues,
     onEditBlock,
     refetch,
@@ -194,7 +194,7 @@ export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
           <h2>{t('stopAreaDetails.memberStops.title')}</h2>
 
           <StopAreaMemberStopsHeader
-            areaId={area.id}
+            areaId={area.stop_place?.id}
             blockInEdit={blockInEdit}
             onCancel={onCancelEdit}
             onEditStops={onEditStops}

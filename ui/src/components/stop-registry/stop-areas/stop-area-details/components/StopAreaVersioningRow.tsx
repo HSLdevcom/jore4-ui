@@ -23,9 +23,9 @@ export const StopAreaVersioningRow: FC<StopAreaComponentProps> = ({
         title={t('accessibility:stops.validityPeriod')}
         data-testid={testIds.validityPeriod}
       >
-        {mapToShortDate(area.validBetween?.fromDate)}
+        {mapToShortDate(area.stop_place?.validityStart)}
         <span className="mx-1">-</span>
-        {mapToShortDate(area.validBetween?.toDate)}
+        {mapToShortDate(area.stop_place?.validityEnd)}
       </div>
     </div>
   );

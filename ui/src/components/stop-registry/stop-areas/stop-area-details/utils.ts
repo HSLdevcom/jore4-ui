@@ -1,33 +1,31 @@
 import {
-  StopAreaDetailsFragment,
-  StopAreaDetailsMembersFragment,
+  QuayDetailsFragment,
 } from '../../../../generated/graphql';
-import { getStopPlacesFromQueryResult, notNullish } from '../../../../utils';
+import { StopPlaceWithDetails } from '../../../../hooks';
+import { notNullish } from '../../../../utils';
 import { StopSearchRow } from '../../search';
 
 export function mapMemberToStopSearchFormat(
-  member: StopAreaDetailsMembersFragment,
+  quay: QuayDetailsFragment | null,
 ): StopSearchRow | null {
-  if (!member.scheduled_stop_point) {
+  if (!quay?.scheduled_stop_point) {
     return null;
   }
 
   return {
-    ...member.scheduled_stop_point,
+    ...quay?.scheduled_stop_point,
     quay: {
-      netexId: member.id,
-      nameFin: member.name?.value,
+      netexId: quay?.id,
+      nameFin: quay?.description?.value,
       nameSwe: null,
     },
   };
 }
 
 export function mapMembersToStopSearchFormat(
-  area: StopAreaDetailsFragment,
+  area: StopPlaceWithDetails,
 ): Array<StopSearchRow> {
-  return getStopPlacesFromQueryResult<StopAreaDetailsMembersFragment>(
-    area.members,
-  )
+  return (area.stop_place?.quays ?? [])
     .map(mapMemberToStopSearchFormat)
     .filter(notNullish);
 }

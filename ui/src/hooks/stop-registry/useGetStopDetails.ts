@@ -1,13 +1,16 @@
 import { gql } from '@apollo/client';
+import { get } from 'lodash';
 import compact from 'lodash/compact';
 import { useMemo } from 'react';
 import {
   GetHighestPriorityStopDetailsByLabelAndDateQuery,
+  GetStopPlaceDetailsQuery,
   InfoSpotDetailsFragment,
   ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
   StopRegistryPosterInput,
   useGetHighestPriorityStopDetailsByLabelAndDateQuery,
+  useGetStopPlaceDetailsQuery,
 } from '../../generated/graphql';
 import {
   StopPlaceEnrichmentProperties,
@@ -71,6 +74,16 @@ const GQL_GET_HIGHEST_PRIORITY_STOP_DETAILS_BY_LABEL_AND_DATE = gql`
     ) {
       ...scheduled_stop_point_detail_fields
       stop_place(onlyMonomodalStopPlaces: true) {
+        ...stop_place_details
+      }
+    }
+  }
+`;
+
+const GQL_GET_STOP_PLACE_DETAILS = gql`
+  query getStopPlaceDetails($id: String!) {
+    stop_registry {
+      stopPlace(id: $id) {
         ...stop_place_details
       }
     }
@@ -185,18 +198,7 @@ const GQL_STOP_PLACE_ORGANISATION_FIELDS = gql`
 const GQL_STOP_PLACE_DETAILS = gql`
   fragment stop_place_details on stop_registry_StopPlace {
     id
-    name {
-      lang
-      value
-    }
-    description {
-      lang
-      value
-    }
-    shortName {
-      lang
-      value
-    }
+
     alternativeNames {
       name {
         lang
@@ -204,64 +206,17 @@ const GQL_STOP_PLACE_DETAILS = gql`
       }
       nameType
     }
-    keyValues {
-      key
-      values
-    }
-    transportMode
-    stopPlaceType
-    weighting
-    submode
-    publicCode
+
     privateCode {
       value
       type
     }
-    geometry {
-      coordinates
-      type
+
+    name {
+      lang
+      value
     }
-    topographicPlace {
-      ...topographic_place_details
-    }
-    fareZones {
-      ...fare_zone_details
-    }
-    placeEquipments {
-      generalSign {
-        privateCode {
-          value
-          type
-        }
-        signContentType
-        numberOfFrames
-        lineSignage
-        mainLineSign
-        replacesRailSign
-        note {
-          lang
-          value
-        }
-      }
-    }
-    quays {
-      ...quay_details
-    }
-    accessibilityAssessment {
-      id
-      hslAccessibilityProperties {
-        ...hsl_accessibility_properties_details
-      }
-      limitations {
-        id
-        version
-        audibleSignalsAvailable
-        escalatorFreeAccess
-        liftFreeAccess
-        stepFreeAccess
-        wheelchairAccess
-      }
-    }
+
     organisations {
       relationshipType
       organisationRef
@@ -269,17 +224,22 @@ const GQL_STOP_PLACE_DETAILS = gql`
         ...stop_place_organisation_fields
       }
     }
-    infoSpots {
-      ...info_spot_details
+
+    geometry {
+      type
+      coordinates
     }
-    groups {
-      id
+
+    keyValues {
+      key
+      values
     }
-    adjacentSites {
-      ref
-    }
-    tariffZones {
-      id
+
+    weighting
+    submode
+
+    quays {
+      ...quay_details
     }
   }
 `;
@@ -349,15 +309,15 @@ const getEnrichedStopPlace = (
   return {
     ...stopPlace,
     ...getStopPlaceDetailsForEnrichment(stopPlace),
-    infoSpots: sortInfoSpots(stopPlace.infoSpots)?.map((spot) => ({
-      ...spot,
-      poster: spot.poster ? sortPosters(spot.poster) : null,
-    })),
   };
 };
 
 /** Gets the stop details, including the stop place, depending on query parameters. */
 export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
+  stop_place: EnrichedStopPlace | null;
+};
+
+export type StopPlaceWithDetails = {
   stop_place: EnrichedStopPlace | null;
 };
 
@@ -391,4 +351,29 @@ export const useGetStopDetails = () => {
   const stopDetails = useMemo(() => getStopDetails(data), [data]);
 
   return { ...rest, stopDetails };
+};
+
+const getStopPlaceDetails = (
+  data: GetStopPlaceDetailsQuery | undefined,
+): StopPlaceWithDetails | null => {
+
+  const [stopPlace] = getStopPlacesFromQueryResult<StopPlace>(
+    data?.stop_registry?.stopPlace,
+  );
+
+  return {
+    stop_place: getEnrichedStopPlace(stopPlace),
+  };
+};
+
+export const useGetStopPlaceDetails = () => {
+  const { id } = useRequiredParams<{ id: string }>();
+
+  const { data, ...rest } = useGetStopPlaceDetailsQuery({
+    variables: { id },
+  });
+
+  const stopPlaceDetails = useMemo(() => getStopPlaceDetails(data), [data]);
+
+  return { ...rest, stopPlaceDetails };
 };
