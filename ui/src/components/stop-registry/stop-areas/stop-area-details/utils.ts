@@ -1,33 +1,27 @@
-import {
-  StopAreaDetailsFragment,
-  StopAreaDetailsMembersFragment,
-} from '../../../../generated/graphql';
-import { getStopPlacesFromQueryResult, notNullish } from '../../../../utils';
+import { QuayDetailsFragment } from '../../../../generated/graphql';
+import { EnrichedStopPlace } from '../../../../hooks';
+import { notNullish } from '../../../../utils';
 import { StopSearchRow } from '../../search';
 
 export function mapMemberToStopSearchFormat(
-  member: StopAreaDetailsMembersFragment,
+  quay: QuayDetailsFragment | null,
 ): StopSearchRow | null {
-  if (!member.scheduled_stop_point) {
+  if (!quay?.scheduled_stop_point) {
     return null;
   }
 
   return {
-    ...member.scheduled_stop_point,
+    ...quay?.scheduled_stop_point,
     quay: {
-      netexId: member.id,
-      nameFin: member.name?.value,
+      netexId: quay?.id,
+      nameFin: quay?.description?.value,
       nameSwe: null,
     },
   };
 }
 
 export function mapMembersToStopSearchFormat(
-  area: StopAreaDetailsFragment,
+  area: EnrichedStopPlace,
 ): Array<StopSearchRow> {
-  return getStopPlacesFromQueryResult<StopAreaDetailsMembersFragment>(
-    area.members,
-  )
-    .map(mapMemberToStopSearchFormat)
-    .filter(notNullish);
+  return (area.quays ?? []).map(mapMemberToStopSearchFormat).filter(notNullish);
 }

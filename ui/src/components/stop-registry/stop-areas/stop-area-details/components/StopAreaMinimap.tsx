@@ -37,10 +37,10 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
         <br />
         <span
           data-testid={testIds.marker}
-          data-longitude={point.longitude}
-          data-latitude={point.latitude}
+          data-longitude={area.locationLong}
+          data-latitude={area.locationLat}
         >
-          {area.description?.value}
+          {area.name}
         </span>
       </div>
 
