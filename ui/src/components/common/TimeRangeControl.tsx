@@ -30,7 +30,10 @@ export const TimeRangeControl = ({ className }: { className?: string }) => {
         />
       </Row>
       {isInvalidDateRange && (
-        <ValidationError errorMessage={t('formValidation.timeRange')} />
+        <ValidationError
+          fieldPath="timeRange"
+          errorMessage={t('formValidation.timeRange')}
+        />
       )}
     </div>
   );
