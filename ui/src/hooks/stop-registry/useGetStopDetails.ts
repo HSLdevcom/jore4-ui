@@ -4,13 +4,16 @@ import { useMemo } from 'react';
 import {
   GetHighestPriorityStopDetailsByLabelAndDateQuery,
   InfoSpotDetailsFragment,
+  QuayDetailsFragment,
   ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
   StopRegistryPosterInput,
   useGetHighestPriorityStopDetailsByLabelAndDateQuery,
 } from '../../generated/graphql';
 import {
+  QuayEnrichmentProperties,
   StopPlaceEnrichmentProperties,
+  getQuayDetailsForEnrichment,
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
 } from '../../utils';
@@ -100,12 +103,43 @@ const GQL_QUAY_DETAILS = gql`
   fragment quay_details on stop_registry_Quay {
     id
     publicCode
+    privateCode {
+      type
+      value
+    }
+    description {
+      lang
+      value
+    }
     alternativeNames {
       name {
         lang
         value
       }
       nameType
+    }
+    geometry {
+      coordinates
+      type
+    }
+    accessibilityAssessment {
+      id
+      hslAccessibilityProperties {
+        ...hsl_accessibility_properties_details
+      }
+      limitations {
+        id
+        version
+        audibleSignalsAvailable
+        escalatorFreeAccess
+        liftFreeAccess
+        stepFreeAccess
+        wheelchairAccess
+      }
+    }
+    keyValues {
+      key
+      values
     }
     placeEquipments {
       id
@@ -114,6 +148,24 @@ const GQL_QUAY_DETAILS = gql`
       }
       cycleStorageEquipment {
         cycleStorageType
+      }
+      generalSign {
+        privateCode {
+          value
+          type
+        }
+        content {
+          value
+        }
+        signContentType
+        numberOfFrames
+        lineSignage
+        mainLineSign
+        replacesRailSign
+        note {
+          lang
+          value
+        }
       }
     }
   }
@@ -193,10 +245,6 @@ const GQL_STOP_PLACE_DETAILS = gql`
       lang
       value
     }
-    shortName {
-      lang
-      value
-    }
     alternativeNames {
       name {
         lang
@@ -227,40 +275,8 @@ const GQL_STOP_PLACE_DETAILS = gql`
     fareZones {
       ...fare_zone_details
     }
-    placeEquipments {
-      generalSign {
-        privateCode {
-          value
-          type
-        }
-        signContentType
-        numberOfFrames
-        lineSignage
-        mainLineSign
-        replacesRailSign
-        note {
-          lang
-          value
-        }
-      }
-    }
     quays {
       ...quay_details
-    }
-    accessibilityAssessment {
-      id
-      hslAccessibilityProperties {
-        ...hsl_accessibility_properties_details
-      }
-      limitations {
-        id
-        version
-        audibleSignalsAvailable
-        escalatorFreeAccess
-        liftFreeAccess
-        stepFreeAccess
-        wheelchairAccess
-      }
     }
     organisations {
       relationshipType
@@ -314,6 +330,8 @@ const GQL_INFO_SPOT_DETAILS = gql`
 export type StopPlace = StopPlaceDetailsFragment;
 export type StopPlaceInfoSpots = InfoSpotDetailsFragment;
 export type EnrichedStopPlace = StopPlace & StopPlaceEnrichmentProperties;
+export type Quay = QuayDetailsFragment;
+export type EnrichedQuay = Quay & QuayEnrichmentProperties;
 
 function sortInfoSpots(
   infoSpots: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,
@@ -356,9 +374,22 @@ const getEnrichedStopPlace = (
   };
 };
 
+const getEnrichedQuay = (
+  quay: Quay | null | undefined,
+): EnrichedQuay | null => {
+  if (!quay) {
+    return null;
+  }
+  return {
+    ...quay,
+    ...getQuayDetailsForEnrichment(quay),
+  };
+};
+
 /** Gets the stop details, including the stop place, depending on query parameters. */
 export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
   stop_place: EnrichedStopPlace | null;
+  quay: EnrichedQuay | null;
 };
 
 const getStopDetails = (
@@ -372,9 +403,16 @@ const getStopDetails = (
   const [stopPlace] = getStopPlacesFromQueryResult<StopPlace>(
     stopPoint.stop_place,
   );
+
+  const found = stopPlace.quays?.find(
+    (it) => it?.publicCode === stopPoint.label,
+  );
   return {
     ...stopPoint,
     stop_place: getEnrichedStopPlace(stopPlace),
+    quay: getEnrichedQuay(found),
+    //      stopPlace.quays?.find((it) => it?.id === stopPoint.stop_place_ref),
+    //    ),
   };
 };
 

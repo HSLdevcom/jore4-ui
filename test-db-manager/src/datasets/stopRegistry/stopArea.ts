@@ -1,8 +1,8 @@
 import {
   StopRegistryGeoJsonType,
-  StopRegistryGroupOfStopPlacesInput,
   StopRegistryInterchangeWeightingType,
   StopRegistryNameType,
+  StopRegistryStopPlaceInput,
   StopRegistrySubmodeType,
 } from '../../generated/graphql';
 import { StopPlaceMaintenance } from './stopPlaces';
@@ -41,7 +41,8 @@ export type StopAreaSeedData = {
 };
 
 export type StopAreaInput = {
-  StopArea: Partial<StopRegistryGroupOfStopPlacesInput>;
+  StopArea: Partial<StopRegistryStopPlaceInput>;
+  organisations: StopPlaceMaintenance | null;
 };
 
 const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
@@ -94,7 +95,6 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
         lang: 'fin',
         value: seedStopArea.label,
       },
-      organisations: seedStopArea.organisations ?? null,
       geometry:
         seedStopArea.locationLat && seedStopArea.locationLong
           ? {
@@ -116,6 +116,7 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
         ? StopRegistrySubmodeType.RailReplacementBus
         : undefined,
     },
+    organisations: seedStopArea.organisations ?? null,
   };
 };
 

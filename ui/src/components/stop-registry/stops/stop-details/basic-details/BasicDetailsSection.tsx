@@ -14,8 +14,8 @@ const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
     publicCode: stop.stop_place?.publicCode,
     nameFin: stop.stop_place?.nameFin,
     nameSwe: stop.stop_place?.nameSwe,
-    locationFin: stop.stop_place?.locationFin,
-    locationSwe: stop.stop_place?.locationSwe,
+    locationFin: stop.quay?.locationFin,
+    locationSwe: stop.quay?.locationSwe,
     nameLongFin: stop.stop_place?.nameLongFin,
     nameLongSwe: stop.stop_place?.nameLongSwe,
     abbreviationFin: stop.stop_place?.abbreviationFin,
@@ -23,10 +23,10 @@ const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
     abbreviation5CharFin: stop.stop_place?.abbreviation5CharFin,
     abbreviation5CharSwe: stop.stop_place?.abbreviation5CharSwe,
     transportMode: stop.stop_place?.transportMode,
-    elyNumber: stop.stop_place?.elyNumber,
+    elyNumber: stop.quay?.elyNumber,
     timingPlaceId: stop.timing_place_id,
-    stopState: stop.stop_place?.stopState,
-    stopTypes: stop.stop_place?.stopType,
+    stopState: stop.quay?.stopState,
+    // stopTypes: stop.quay?.stopType,
   };
 
   return formState;
@@ -75,7 +75,8 @@ export const BasicDetailsSection = ({ stop }: Props): React.ReactElement => {
           ref={formRef}
           onSubmit={onSubmit}
           hasMainLineSign={
-            !!stop.stop_place?.placeEquipments?.generalSign?.[0]?.mainLineSign
+            !!stop.stop_place?.quays?.[0]?.placeEquipments?.generalSign?.[0]
+              ?.mainLineSign
           }
         />
       ) : (
