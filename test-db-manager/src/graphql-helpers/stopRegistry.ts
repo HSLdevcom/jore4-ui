@@ -1,25 +1,22 @@
 /* eslint-disable no-console */
 import {
   OrganisationIdsByName,
-  StopAreaIdsByName,
   StopPlaceDetailsByLabel,
   StopPlaceNetexRef,
   TerminalIdsByName,
 } from '../datasets';
 import {
   StopRegistryCreateMultiModalStopPlaceInput,
-  StopRegistryGroupOfStopPlacesInput,
   StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
   StopRegistryParentStopPlaceInput,
-  StopRegistryStopPlace,
+  StopRegistryStopPlaceInput,
 } from '../generated/graphql';
 import { hasuraApi } from '../hasuraApi';
 import {
   extractStopPlaceIdFromResponse,
   mapToInsertInfoSpotMutation,
   mapToInsertOrganisationMutation,
-  mapToInsertStopAreaMutation,
   mapToInsertStopPlaceMutation,
   mapToInsertTerminalMutation,
   mapToUpdateTerminalMutation,
@@ -32,7 +29,6 @@ import {
   GetStopPointByLabelResult,
   InsertInfoSpotsResult,
   InsertOrganisationResult,
-  InsertStopAreaResult,
   InsertStopPlaceResult,
   InsertTerminalResult,
   UpdateScheduledStopPointStopPlaceRefResult,
@@ -60,7 +56,7 @@ export const insertStopPlaceForScheduledStopPoint = async ({
   stopPlace,
 }: {
   scheduledStopPointId: UUID;
-  stopPlace: Partial<StopRegistryStopPlace>;
+  stopPlace: Partial<StopRegistryStopPlaceInput>;
 }) => {
   const insertStopPlaceResult = (await hasuraApi(
     mapToInsertStopPlaceMutation(stopPlace),
@@ -111,12 +107,12 @@ const insertOrganisation = async (
 };
 
 const insertStopPlace = async ({
-  label,
   stopPlace,
 }: {
-  label: string;
-  stopPlace: Partial<StopRegistryStopPlace>;
+  stopPlace: Partial<StopRegistryStopPlaceInput>;
 }): Promise<StopPlaceNetexRef> => {
+  const label = stopPlace.quays?.at(0)?.publicCode ?? 'error';
+
   // Find related scheduled stop point.
   const stopPointResult = (await hasuraApi(
     mapToGetStopPointByLabelQuery(label),
@@ -178,26 +174,6 @@ const insertStopPlace = async ({
       'An error occurred while inserting stop place!',
       label,
       stopPlace,
-      error,
-    );
-    throw error;
-  }
-};
-
-const insertStopArea = async (
-  stopArea: Partial<StopRegistryGroupOfStopPlacesInput>,
-): Promise<string> => {
-  try {
-    const res = (await hasuraApi(
-      mapToInsertStopAreaMutation(stopArea),
-    )) as InsertStopAreaResult;
-    const data = getTiamatResponseBody(res);
-
-    return data.stop_registry.mutateGroupOfStopPlaces.id;
-  } catch (error) {
-    console.error(
-      'An error occurred while inserting stop area!',
-      stopArea.name?.value,
       error,
     );
     throw error;
@@ -285,57 +261,29 @@ export const insertOrganisations = async (
 };
 
 export const insertStopPlaces = async (
-  stopPlaces: Array<{
-    label: string;
-    stopPlace: Partial<StopRegistryStopPlace>;
-  }>,
+  stopPlaces: Array<Partial<StopRegistryStopPlaceInput>>,
 ) => {
   const collectedStopIds: StopPlaceDetailsByLabel = {};
 
   console.log('Inserting stop places...');
   for (let index = 0; index < stopPlaces.length; index++) {
     const stopPlace = stopPlaces[index];
-    console.log(`Stop point ${stopPlace.label}: stop place insert starting...`);
+    console.log(
+      `Stop point ${stopPlace.publicCode}: stop place insert starting...`,
+    );
     // eslint-disable-next-line no-await-in-loop
-    const netexRef = await insertStopPlace(stopPlace);
+    const netexRef = await insertStopPlace({ stopPlace });
     collectedStopIds[netexRef.label] = {
       netexId: netexRef.netexId,
       shelters: netexRef.shelterRef,
     };
-    console.log(`Stop point ${stopPlace.label}: stop place insert finished!`);
+    console.log(
+      `Stop point ${stopPlace.publicCode}: stop place insert finished!`,
+    );
   }
   console.log(`Inserted ${stopPlaces.length} stop places.`);
 
   return collectedStopIds;
-};
-
-export const insertStopAreas = async (
-  stopAreas: Array<Partial<StopRegistryGroupOfStopPlacesInput>>,
-): Promise<StopAreaIdsByName> => {
-  const collectedAreaIds: StopAreaIdsByName = {};
-
-  console.log('Inserting stop areas...');
-  for (let index = 0; index < stopAreas.length; index++) {
-    const stopArea = stopAreas[index];
-    console.log(
-      `Stop area ${stopArea?.name?.value}: stop area insert starting...`,
-    );
-    // eslint-disable-next-line no-await-in-loop
-    const id = await insertStopArea(stopArea);
-    console.log(
-      `Stop area ${stopArea?.name?.value}: stop area inserted with id: ${id}`,
-    );
-    if (stopArea.name?.value && id) {
-      collectedAreaIds[stopArea.name.value] = id;
-    }
-    console.log(
-      `Stop area ${stopArea?.name?.value}: stop area insert finished!`,
-    );
-  }
-
-  console.log(`Inserted ${stopAreas.length} stop areas.`);
-
-  return collectedAreaIds;
 };
 
 export const insertTerminals = async (
