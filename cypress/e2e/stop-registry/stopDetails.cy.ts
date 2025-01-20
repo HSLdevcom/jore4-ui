@@ -609,6 +609,8 @@ describe('Stop details', () => {
           .click();
 
         stopDetailsPage.basicDetails.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
+
         bdView.getTransportMode().shouldHaveText('Raitiovaunu');
         bdView.getStopState().shouldHaveText('Käytössä');
         bdView.getTimingPlaceId().shouldHaveText('1AACKT');
