@@ -113,14 +113,14 @@ describe('Timetable replacement and combination', () => {
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
         importTimetablesPage.clickPreviewButton();
         previewTimetablesPage.priorityForm.setAsStandard();
         previewTimetablesPage.getSaveButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           'Aikataulujen tuonti onnistui!',
         );
 
@@ -226,7 +226,7 @@ describe('Timetable replacement and combination', () => {
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
@@ -240,7 +240,7 @@ describe('Timetable replacement and combination', () => {
           .getSaveButton()
           .click();
 
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           'Aikataulujen tuonti onnistui!',
         );
       },
@@ -305,7 +305,7 @@ describe('Timetable replacement and combination', () => {
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
@@ -316,7 +316,7 @@ describe('Timetable replacement and combination', () => {
           .check();
 
         previewTimetablesPage.getSaveButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           'Aikataulujen tuonti onnistui!',
         );
 
@@ -507,7 +507,7 @@ describe('Timetable replacement and combination', () => {
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
@@ -520,7 +520,7 @@ describe('Timetable replacement and combination', () => {
           .getSaveButton()
           .click();
 
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           'Aikataulujen tuonti onnistui!',
         );
       },
@@ -572,7 +572,7 @@ describe('Timetable replacement and combination', () => {
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
@@ -661,7 +661,7 @@ describe('Timetable replacement and combination', () => {
         timetablesMainPage.getImportButton().click();
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 

@@ -6,43 +6,11 @@ export enum ToastType {
 }
 
 export class Toast {
-  getToastByType(toastType: ToastType) {
-    return cy.getByTestId(toastType);
-  }
-
-  getPrimaryToast() {
-    return this.getToastByType(ToastType.PRIMARY);
-  }
-
-  getSuccessToast() {
-    return this.getToastByType(ToastType.SUCCESS);
-  }
-
-  getDangerToast() {
-    return this.getToastByType(ToastType.DANGER);
-  }
-
-  getWarningToast() {
-    return this.getToastByType(ToastType.WARNING);
-  }
-
-  checkToastHasMessage(message: string, toastType: ToastType) {
-    this.getToastByType(toastType).contains(message);
-  }
-
-  checkDangerToastHasMessage(message: string) {
-    this.getDangerToast().contains(message);
-  }
-
-  checkSuccessToastHasMessage(message: string) {
-    this.getSuccessToast().contains(message);
-  }
-
-  checkWarningToastHasMessage(message: string) {
-    this.getWarningToast().contains(message);
-  }
-
-  expectToast(toastType: ToastType, message?: string) {
+  expectToast(
+    toastType: ToastType,
+    message: string = '',
+    dismiss: boolean = true,
+  ) {
     // Find any toast
     cy.get('[data-test-element-type="toast"]')
       // And wait it to become fully visible
@@ -51,26 +19,53 @@ export class Toast {
       .then((toast) => {
         // eslint-disable-next-line jest/valid-expect
         expect(toast).have.attr('data-testid', toastType);
+
+        if (message) {
+          // eslint-disable-next-line jest/valid-expect
+          expect(toast).to.contain(message);
+        }
+
+        if (dismiss) {
+          toast.find('[data-testid="Toast::closeButton"]').trigger('click');
+        }
       });
-
-    if (message) {
-      this.checkToastHasMessage(message, toastType);
-    }
   }
 
-  expectPrimaryToast(message?: string) {
-    this.expectToast(ToastType.PRIMARY, message);
+  expectMultipleToasts(
+    messages: ReadonlyArray<{
+      readonly type: ToastType;
+      readonly message: string;
+    }>,
+  ) {
+    messages.forEach(({ type, message }) => {
+      cy.get(`[data-test-element-type="toast"][data-testid=${type}]`)
+        // And wait it to become fully visible
+        .should('have.css', 'opacity', '1')
+        // Then assert it is of a right type.
+        .should((toast) => {
+          // eslint-disable-next-line jest/valid-expect
+          expect(toast).to.contain(message);
+          return toast;
+        })
+        .then((toast) =>
+          toast.find('[data-testid="Toast::closeButton"]').trigger('click'),
+        );
+    });
   }
 
-  expectSuccessToast(message?: string) {
-    this.expectToast(ToastType.SUCCESS, message);
+  expectPrimaryToast(message?: string, dismiss?: boolean) {
+    this.expectToast(ToastType.PRIMARY, message, dismiss);
   }
 
-  expectDangerToast(message?: string) {
-    this.expectToast(ToastType.DANGER, message);
+  expectSuccessToast(message?: string, dismiss?: boolean) {
+    this.expectToast(ToastType.SUCCESS, message, dismiss);
   }
 
-  expectWarningToast(message?: string) {
-    this.expectToast(ToastType.WARNING, message);
+  expectDangerToast(message?: string, dismiss?: boolean) {
+    this.expectToast(ToastType.DANGER, message, dismiss);
+  }
+
+  expectWarningToast(message?: string, dismiss?: boolean) {
+    this.expectToast(ToastType.WARNING, message, dismiss);
   }
 }

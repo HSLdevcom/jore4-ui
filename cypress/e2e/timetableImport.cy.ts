@@ -99,7 +99,7 @@ describe('Timetable import', () => {
       timetablesMainPage.getImportButton().click();
       importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
       importTimetablesPage.getUploadButton().click();
-      importTimetablesPage.toast.checkSuccessToastHasMessage(
+      importTimetablesPage.toast.expectSuccessToast(
         `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
       );
       // Files uploaded -> nothing left to upload.
@@ -215,7 +215,7 @@ describe('Timetable import', () => {
         });
 
       previewTimetablesPage.getSaveButton().click();
-      importTimetablesPage.toast.checkSuccessToastHasMessage(
+      importTimetablesPage.toast.expectSuccessToast(
         'Aikataulujen tuonti onnistui!',
       );
 
@@ -435,10 +435,10 @@ describe('Timetable import', () => {
         ]);
         importTimetablesPage.getUploadButton().click();
 
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME_2} lataus onnistui`,
         );
 
@@ -490,7 +490,7 @@ describe('Timetable import', () => {
           });
 
         previewTimetablesPage.getSaveButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           'Aikataulujen tuonti onnistui!',
         );
       },
@@ -516,7 +516,7 @@ describe('Timetable import', () => {
         importTimetablesPage.selectFilesToImport([IMPORT_FILENAME]);
         importTimetablesPage.getUploadButton().click();
 
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
@@ -538,7 +538,7 @@ describe('Timetable import', () => {
           });
 
         previewTimetablesPage.getSaveButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           'Aikataulujen tuonti onnistui!',
         );
 
@@ -624,7 +624,7 @@ describe('Timetable import', () => {
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
 
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
@@ -646,7 +646,7 @@ describe('Timetable import', () => {
           });
 
         previewTimetablesPage.getSaveButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           'Aikataulujen tuonti onnistui!',
         );
 
@@ -738,7 +738,7 @@ describe('Timetable import', () => {
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
 
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
@@ -791,7 +791,7 @@ describe('Timetable import', () => {
           });
 
         previewTimetablesPage.getSaveButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           'Aikataulujen tuonti onnistui!',
         );
 
@@ -873,7 +873,7 @@ describe('Timetable import', () => {
         ]);
         importTimetablesPage.getUploadButton().click();
 
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
 
@@ -907,12 +907,12 @@ describe('Timetable import', () => {
         importTimetablesPage.selectFileToImport(IMPORT_FILENAME);
         importTimetablesPage.getUploadButton().click();
 
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           `Tiedoston ${IMPORT_FILENAME} lataus onnistui`,
         );
         importTimetablesPage.getAbortButton().click();
         importTimetablesPage.confirmationDialog.getConfirmButton().click();
-        importTimetablesPage.toast.checkSuccessToastHasMessage(
+        importTimetablesPage.toast.expectSuccessToast(
           'Aikataulujen tuonti keskeytetty',
         );
 

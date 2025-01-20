@@ -103,7 +103,7 @@ describe('Occasional substitute operating periods', () => {
       substituteDaySettingsPage.occasionalSubstitutePeriodForm
         .getSaveButton()
         .click();
-      toast.checkSuccessToastHasMessage('Tallennus onnistui');
+      toast.expectSuccessToast('Tallennus onnistui');
 
       // Navigate to route's timetable
       navbar.getTimetablesLink().click();
@@ -259,7 +259,7 @@ describe('Occasional substitute operating periods', () => {
       substituteDaySettingsPage.occasionalSubstitutePeriodForm
         .getSaveButton()
         .click();
-      toast.checkSuccessToastHasMessage('Tallennus onnistui');
+      toast.expectSuccessToast('Tallennus onnistui');
 
       // Navigate to route's timetable
       navbar.getTimetablesLink().click();
@@ -341,7 +341,7 @@ describe('Occasional substitute operating periods', () => {
       substituteDaySettingsPage.occasionalSubstitutePeriodForm
         .getSaveButton()
         .click();
-      toast.checkSuccessToastHasMessage('Tallennus onnistui');
+      toast.expectSuccessToast('Tallennus onnistui');
 
       // Navigate to route's timetable
       navbar.getTimetablesLink().click();

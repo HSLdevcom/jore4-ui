@@ -112,7 +112,7 @@ describe('Timetable validity period', () => {
         routeTimetablesSection.getLoader().shouldBeVisible();
         routeTimetablesSection.getLoader().should('not.exist');
 
-        vehicleScheduleDetailsPage.toast.checkSuccessToastHasMessage(
+        vehicleScheduleDetailsPage.toast.expectSuccessToast(
           'Aikataulun voimassaolo tallennettu',
         );
 
@@ -220,7 +220,7 @@ describe('Timetable validity period', () => {
         routeTimetablesSection.getLoader().shouldBeVisible();
         routeTimetablesSection.getLoader().should('not.exist');
 
-        vehicleScheduleDetailsPage.toast.checkSuccessToastHasMessage(
+        vehicleScheduleDetailsPage.toast.expectSuccessToast(
           'Aikataulun voimassaolo tallennettu',
         );
 
@@ -329,7 +329,7 @@ describe('Timetable validity period', () => {
           .getSaveButton()
           .click();
 
-        vehicleScheduleDetailsPage.toast.checkDangerToastHasMessage(
+        vehicleScheduleDetailsPage.toast.expectDangerToast(
           'Tallennus epäonnistui: GraphQL errors: conflicting schedules detected',
         );
       },

@@ -99,8 +99,7 @@ describe('Common substitute operating periods', () => {
       substituteDaySettingsPage.commonSubstitutePeriodForm
         .getSaveButton()
         .click();
-      toast.checkSuccessToastHasMessage('Tallennus onnistui');
-      toast.getSuccessToast().should('not.exist');
+      toast.expectSuccessToast('Tallennus onnistui');
 
       // Navigate to the vehicleSchedule page
       substituteDaySettingsPage.commonSubstitutePeriodForm
@@ -216,7 +215,7 @@ describe('Common substitute operating periods', () => {
         'Tapaninpäivä 2023',
       );
 
-      toast.checkSuccessToastHasMessage('Tallennus onnistui');
+      toast.expectSuccessToast('Tallennus onnistui');
 
       // And navigate again to the vehicle schedules
       substituteDaySettingsPage.commonSubstitutePeriodForm
@@ -327,7 +326,7 @@ describe('Common substitute operating periods', () => {
       substituteDaySettingsPage.commonSubstitutePeriodForm
         .getSaveButton()
         .click();
-      toast.checkSuccessToastHasMessage('Tallennus onnistui');
+      toast.expectSuccessToast('Tallennus onnistui');
 
       // Navigate to the vehicleSchedule page
       substituteDaySettingsPage.commonSubstitutePeriodForm
@@ -468,7 +467,7 @@ describe('Common substitute operating periods', () => {
           .getSaveButton()
           .click();
 
-        toast.checkSuccessToastHasMessage('Tallennus onnistui');
+        toast.expectSuccessToast('Tallennus onnistui');
 
         // Make sure the page is clear
         substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
@@ -497,7 +496,7 @@ describe('Common substitute operating periods', () => {
         substituteDaySettingsPage.commonSubstitutePeriodForm
           .getSaveButton()
           .click();
-        substituteDaySettingsPage.toast.checkDangerToastHasMessage(
+        substituteDaySettingsPage.toast.expectDangerToast(
           'Tallennus epäonnistui: GraphQL errors: Exclusion violation. conflicting key ' +
             'value violates exclusion constraint "substitute_operating_day_by_line_type_no_timespan_overlap"',
         );

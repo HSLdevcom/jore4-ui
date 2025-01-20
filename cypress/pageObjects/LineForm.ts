@@ -59,6 +59,6 @@ export class LineForm {
   }
 
   checkLineSubmitSuccess() {
-    this.toast.checkSuccessToastHasMessage('Linja tallennettu');
+    this.toast.expectSuccessToast('Linja tallennettu');
   }
 }

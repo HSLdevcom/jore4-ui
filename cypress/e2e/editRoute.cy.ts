@@ -139,7 +139,7 @@ describe('Route editing', () => {
 
       editRoutePage.confirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlDeleteRoute');
-      toast.checkSuccessToastHasMessage('Reitti poistettu');
+      toast.expectSuccessToast('Reitti poistettu');
 
       routeRow
         .getRouteHeaderRow('901', RouteDirectionEnum.Outbound)

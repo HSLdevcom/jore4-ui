@@ -150,7 +150,7 @@ describe('Hastus export', () => {
           .getRouteLineTableRowCheckbox('901')
           .check();
         routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        routesAndLinesPage.toast.checkDangerToastHasMessage(
+        routesAndLinesPage.toast.expectDangerToast(
           'Seuraavia reittejä ei voida viedä: 901 (outbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
         );
       },
@@ -190,7 +190,7 @@ describe('Hastus export', () => {
           .getRouteLineTableRowCheckbox('901')
           .check();
         routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        routesAndLinesPage.toast.checkDangerToastHasMessage(
+        routesAndLinesPage.toast.expectDangerToast(
           'Seuraavia reittejä ei voida viedä: 901 (outbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
         );
       },
@@ -247,7 +247,7 @@ describe('Hastus export', () => {
           .getRouteLineTableRowCheckbox('901')
           .check();
         routesAndLinesPage.exportToolBar.getExportSelectedButton().click();
-        routesAndLinesPage.toast.checkDangerToastHasMessage(
+        routesAndLinesPage.toast.expectDangerToast(
           'Seuraavia reittejä ei voida viedä: 901 (outbound). Ensimmäisen ja viimeisen pysäkin täytyy olla asetettuna käyttämään Hastus-paikkaa.',
         );
       },
