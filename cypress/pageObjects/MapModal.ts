@@ -54,7 +54,7 @@ export class MapModal {
   };
 
   checkStopSubmitSuccessToast() {
-    this.toast.checkSuccessToastHasMessage('Pysäkki luotu');
+    this.toast.expectSuccessToast('Pysäkki luotu');
   }
 
   gqlStopShouldBeCreatedSuccessfully() {

@@ -2294,7 +2294,7 @@ describe('Stop details', () => {
           form.submitButton().click();
         });
 
-      toast.expectSuccessToast('Uusi versio luotu Avataan uusi versio');
+      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
       copyModal.modal().should('not.exist');
       stopDetailsPage.loadingStopDetails().should('not.exist');
 

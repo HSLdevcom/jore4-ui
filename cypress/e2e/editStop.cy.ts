@@ -19,6 +19,7 @@ import {
   StopForm,
   StopFormInfo,
   Toast,
+  ToastType,
 } from '../pageObjects';
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
@@ -127,7 +128,7 @@ describe('Stop editing tests', () => {
         });
       });
 
-      toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+      toast.expectSuccessToast('Pysäkki muokattu');
 
       map.waitForLoadToComplete();
 
@@ -160,7 +161,7 @@ describe('Stop editing tests', () => {
 
       expectGraphQLCallToSucceed('@gqlRemoveStop');
 
-      toast.checkSuccessToastHasMessage('Pysäkki poistettu');
+      toast.expectSuccessToast('Pysäkki poistettu');
 
       map
         .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
@@ -216,7 +217,10 @@ describe('Stop editing tests', () => {
         });
       });
 
-      toast.checkSuccessToastHasMessage('Pysäkki muokattu');
+      toast.expectMultipleToasts([
+        { type: ToastType.SUCCESS, message: 'Pysäkki muokattu' },
+        { type: ToastType.WARNING, message: 'Pysäkkien suodattimia muutettu' },
+      ]);
 
       map
         .getStopByStopLabelAndPriority(
@@ -270,7 +274,7 @@ describe('Stop editing tests', () => {
 
       confirmationDialog.getConfirmButton().click();
 
-      toast.checkSuccessToastHasMessage('Hastus-paikka luotu');
+      toast.expectSuccessToast('Hastus-paikka luotu');
 
       expectGraphQLCallToSucceed('@gqlEditStop');
 
@@ -311,7 +315,7 @@ describe('Stop editing tests', () => {
     stopForm.save();
     confirmationDialog.getConfirmButton().click();
 
-    toast.checkDangerToastHasMessage(
+    toast.expectDangerToast(
       'Tallennus epäonnistui, ApolloError: range lower bound must be less than or equal to range upper bound, range lower bound must be less than or equal to range upper bound',
     );
     expectGraphQLCallToReturnError('@gqlEditStop');

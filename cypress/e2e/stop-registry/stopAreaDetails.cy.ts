@@ -280,7 +280,6 @@ describe('Stop area details', () => {
     function waitForSaveToBeFinished() {
       expectGraphQLCallToSucceed('@gqlUpsertStopArea');
       toast.expectSuccessToast('Pysäkkialue muokattu');
-      toast.getSuccessToast().should('not.exist');
     }
 
     function inputBasicDetails(inputs: ExpectedBasicDetails) {

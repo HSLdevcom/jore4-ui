@@ -157,7 +157,7 @@ describe('Line details page: stops on route', () => {
         });
       });
 
-      toast.checkSuccessToastHasMessage('Reitti tallennettu');
+      toast.expectSuccessToast('Reitti tallennettu');
 
       lineRouteList.getNthLineRouteListItem(0).within(() => {
         // Verify that E2E003 is now part of the route
@@ -179,10 +179,7 @@ describe('Line details page: stops on route', () => {
         });
       });
 
-      // TODO: Until we can close toast messages, we have to check that both of them
-      // contains success message, because they are both visible at the same time.
-      toast.getSuccessToast().eq(0).shouldHaveText('Reitti tallennettu');
-      toast.getSuccessToast().eq(1).shouldHaveText('Reitti tallennettu');
+      toast.expectSuccessToast('Reitti tallennettu');
 
       lineRouteList.getNthLineRouteListItem(0).within(() => {
         // Verify that E2E004 is no longer part of route
@@ -241,9 +238,7 @@ describe('Line details page: stops on route', () => {
         });
       });
 
-      toast.checkDangerToastHasMessage(
-        'Reitillä on oltava ainakin kaksi pysäkkiä.',
-      );
+      toast.expectDangerToast('Reitillä on oltava ainakin kaksi pysäkkiä.');
     },
   );
 
@@ -279,7 +274,7 @@ describe('Line details page: stops on route', () => {
 
       viaForm.getSaveButton().click();
 
-      toast.checkSuccessToastHasMessage('Via-tieto asetettu');
+      toast.expectSuccessToast('Via-tieto asetettu');
 
       // Check that via-icon exists and all info is saved
       lineRouteListItem.getNthRouteStopListItem(2).within(() => {
@@ -294,7 +289,7 @@ describe('Line details page: stops on route', () => {
       viaForm.getViaSwedishShortNameInput().should('have.value', 'Kort namn');
 
       viaForm.getRemoveButton().click();
-      toast.checkSuccessToastHasMessage('Via-tieto poistettu');
+      toast.expectSuccessToast('Via-tieto poistettu');
 
       // Check that via-icon no longer exists and the create via button is visible
       lineRouteListItem.getNthRouteStopListItem(2).within(() => {
@@ -354,7 +349,7 @@ describe('Line details page: stops on route', () => {
       timingSettingsForm.getIsLoadingTimeAllowedCheckbox().check();
 
       timingSettingsForm.getSavebutton().click();
-      toast.checkSuccessToastHasMessage('Aika-asetusten tallennus onnistui');
+      toast.expectSuccessToast('Aika-asetusten tallennus onnistui');
 
       lineRouteList.getNthLineRouteListItem(0).within(() => {
         lineRouteListItem.getNthRouteStopListItem(2).within(() => {

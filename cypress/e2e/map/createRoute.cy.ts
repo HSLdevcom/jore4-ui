@@ -125,7 +125,7 @@ describe('Route creation', () => {
       mapModal.map.getLoader().should('not.exist');
 
       mapFooter.save();
-      toast.checkSuccessToastHasMessage('Reitti tallennettu');
+      toast.expectSuccessToast('Reitti tallennettu');
 
       // Check from routeStopsOverlay that everything is correct
       routeStopsOverlay
@@ -207,7 +207,7 @@ describe('Route creation', () => {
       });
 
       mapFooter.save();
-      toast.checkSuccessToastHasMessage('Reitti tallennettu');
+      toast.expectSuccessToast('Reitti tallennettu');
 
       routeStopsOverlay
         .getHeader()
@@ -282,7 +282,7 @@ describe('Route creation', () => {
       });
 
       mapFooter.save();
-      toast.checkDangerToastHasMessage(
+      toast.expectDangerToast(
         'Tallennus epäonnistui: Reitillä on oltava ainakin kaksi pysäkkiä.',
       );
     },
@@ -339,7 +339,7 @@ describe('Route creation', () => {
       mapModal.map.getLoader().should('not.exist');
 
       mapFooter.save();
-      toast.checkSuccessToastHasMessage('Reitti tallennettu');
+      toast.expectSuccessToast('Reitti tallennettu');
     },
   );
 

@@ -24,6 +24,6 @@ export class RouteEditor {
   }
 
   checkRouteSubmitSuccessToast() {
-    this.toast.checkSuccessToastHasMessage('Reitti tallennettu');
+    this.toast.expectSuccessToast('Reitti tallennettu');
   }
 }

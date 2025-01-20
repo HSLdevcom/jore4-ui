@@ -218,7 +218,7 @@ describe('Timetable version details panel', () => {
     changeTimetablesValidityForm.setValidityEndDate('2024-03-31');
     changeTimetablesValidityForm.getSaveButton().click();
 
-    toast.getSuccessToast().should('be.visible');
+    toast.expectSuccessToast('Aikataulun voimassaolo tallennettu');
 
     // Check that the panel heading's validity changed
     timetableVersionDetailsPanel
