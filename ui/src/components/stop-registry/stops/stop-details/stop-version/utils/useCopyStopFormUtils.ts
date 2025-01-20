@@ -19,6 +19,23 @@ import {
 } from '../types';
 import { useCopyStop } from './useCopyStop';
 
+function useDefaultValues(originalStop: StopWithDetails): StopVersionFormState {
+  return useMemo(() => {
+    const validityStart = originalStop.validity_end
+      ?.plus({ days: 1 })
+      .startOf('day');
+
+    return {
+      indefinite: originalStop.validity_end === null,
+      validityStart: validityStart?.toISODate() ?? '',
+      validityEnd: '',
+      priority: originalStop.priority,
+      versionDescription: '',
+      versionName: '',
+    };
+  }, [originalStop]);
+}
+
 function extractMessageFromError(error: unknown) {
   if (error instanceof ApolloError) {
     return getApolloErrorMessage(error);
@@ -79,17 +96,7 @@ export const useCopyStopFormUtils = (
   const { setIsLoading } = useLoader(Operation.SaveStop);
   const copyStop = useCopyStop();
 
-  const defaultValues: StopVersionFormState = useMemo(
-    () => ({
-      indefinite: originalStop.validity_end === null,
-      validityStart: originalStop.validity_start?.toISODate() ?? '',
-      validityEnd: originalStop.validity_end?.toISODate(),
-      priority: originalStop.priority,
-      versionDescription: '',
-      versionName: '',
-    }),
-    [originalStop],
-  );
+  const defaultValues = useDefaultValues(originalStop);
 
   const methods = useForm<StopVersionFormState>({
     defaultValues,
