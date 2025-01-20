@@ -1,12 +1,18 @@
-import { ForwardRefRenderFunction, ReactNode, forwardRef } from 'react';
-import { twMerge } from 'tailwind-merge';
+import React, { ForwardRefRenderFunction, ReactNode, forwardRef } from 'react';
+import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import { twJoin, twMerge } from 'tailwind-merge';
 import { Row } from '../layoutComponents';
+import { IconButton } from './IconButton';
+
+const testIds = { closeButton: 'Toast::closeButton' };
 
 export type ToastType = 'primary' | 'success' | 'danger' | 'warning';
 
 type ToastProps = {
   readonly className?: string;
   readonly message: ReactNode;
+  readonly toastId: string;
   readonly type?: ToastType;
 };
 
@@ -51,9 +57,11 @@ const propsByType: Record<
 };
 
 const ToastImpl: ForwardRefRenderFunction<HTMLDivElement, ToastProps> = (
-  { message, type = 'primary', className },
+  { message, type = 'primary', toastId, className },
   ref,
 ) => {
+  const { t } = useTranslation();
+
   const { icon, textColor, bg, border, testId } = propsByType[type];
 
   return (
@@ -64,7 +72,18 @@ const ToastImpl: ForwardRefRenderFunction<HTMLDivElement, ToastProps> = (
       ref={ref}
     >
       <div className={`${bg} ${border} rounded-md border`}>
-        <Row className="my-6 ml-16 mr-16 items-center">
+        <Row>
+          <IconButton
+            tooltip={t('close')}
+            icon={
+              <i className={twJoin(`icon-close-large text-lg`, textColor)} />
+            }
+            className="-mb-2 ml-auto px-4 pt-2"
+            onClick={() => toast.dismiss(toastId)}
+            testId={testIds.closeButton}
+          />
+        </Row>
+        <Row className="mx-16 mb-6 items-center">
           <i className={icon} />
           <p className={`${textColor} ml-2 text-sm`}>{message}</p>
         </Row>
