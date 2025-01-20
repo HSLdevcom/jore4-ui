@@ -83,6 +83,7 @@ describe('Stop areas on map', () => {
     });
 
     expectGraphQLCallToSucceed('@gqlGetStopAreasByLocation');
+    mapModal.map.waitForLoadToComplete();
   });
 
   it('should create new stop area with member stops', () => {
