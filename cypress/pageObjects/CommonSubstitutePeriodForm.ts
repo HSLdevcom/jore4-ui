@@ -23,10 +23,10 @@ export class CommonSubstitutePeriodForm {
           .click();
         cy.get('[role="option"]').contains(values.substituteDay).click();
 
-        if (values.lineTypes) {
+        if (values.lineTypes?.length) {
           this.commonSubstitutePeriodItem.getLineTypeDropdown().click();
 
-          cy.wrap(values.lineTypes).each((lineType: string) => {
+          values.lineTypes.forEach((lineType: string) => {
             this.commonSubstitutePeriodItem
               .getLineTypesList()
               .find('[role="option"]')
