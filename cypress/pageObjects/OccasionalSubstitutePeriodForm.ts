@@ -78,7 +78,7 @@ export class OccasionalSubstitutePeriodForm {
     this.getOccasionalSubstitutePeriodFormLineTypesDropdown().click();
     cy.get('[role="option"]').contains('Kaikki').click();
 
-    cy.wrap(lineTypes).each((lineType: string) => {
+    lineTypes.forEach((lineType: string) => {
       cy.get('[role="option"]').contains(lineType).click();
     });
 
