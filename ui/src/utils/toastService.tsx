@@ -17,7 +17,12 @@ export const showToast = ({
 }: ToastOptions) => {
   toast.custom((t) => (
     <ToastTransition show={t.visible}>
-      <Toast className={className} message={message} type={type} />
+      <Toast
+        className={className}
+        message={message}
+        toastId={t.id}
+        type={type}
+      />
     </ToastTransition>
   ));
 };
