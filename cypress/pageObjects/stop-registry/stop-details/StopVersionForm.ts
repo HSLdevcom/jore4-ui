@@ -18,6 +18,12 @@ export class StopVersionForm {
     return cy.getByTestId('StopVersionForm::versionDescription');
   }
 
+  validityError() {
+    return cy.getByTestId(
+      'ValidationError::message::validityRangeIsValidVirtualField',
+    );
+  }
+
   submitButton() {
     return cy.getByTestId('StopVersionForm::submitButton');
   }

@@ -32,6 +32,7 @@ import {
   StopDetailsPage,
   Toast,
 } from '../../pageObjects';
+import { StopVersionForm } from '../../pageObjects/stop-registry/stop-details/StopVersionForm';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
@@ -2261,6 +2262,73 @@ describe('Stop details', () => {
   });
 
   describe('version and copies', () => {
+    type ValidityPeriodValidationTestData = {
+      readonly startDate: string;
+      readonly endDate: string | undefined;
+      readonly indefinite: boolean;
+      readonly expectedError: string | null;
+    };
+
+    const validityPeriodValidationTests: ReadonlyArray<ValidityPeriodValidationTestData> =
+      [
+        {
+          startDate: DateTime.now().minus({ day: 1 }).toISODate(),
+          endDate: undefined,
+          indefinite: true,
+          expectedError: 'Voimassaolo ei voi alkaa menneisyydestä',
+        },
+        {
+          startDate: '2050-06-02',
+          endDate: '2050-06-01',
+          indefinite: false,
+          expectedError: 'Alkupäivämäärän pitää tulla ennen loppupäivämäärää.',
+        },
+        {
+          startDate: '2050-06-01',
+          endDate: undefined,
+          indefinite: false,
+          expectedError:
+            'Päättymispäivämäärän pitää olla syötetty tai pysäkin tulee olla voimassa toistaiseksi',
+        },
+        {
+          startDate: '2050-05-31',
+          endDate: undefined,
+          indefinite: true,
+          expectedError:
+            'Pysäkistä on olemassa jo toinen versio aikavälillä 20.3.2020-31.5.2050',
+        },
+        {
+          startDate: '2050-06-01',
+          endDate: undefined,
+          indefinite: true,
+          expectedError: null,
+        },
+      ];
+
+    function testValidityPeriodValidation(form: StopVersionForm) {
+      validityPeriodValidationTests.forEach(
+        ({ startDate, endDate, indefinite, expectedError }) => {
+          form.validity.setStartDate(startDate);
+
+          // I wish this was easier 🤦🏻‍♂️
+          // Make sure end date field is visible
+          form.validity.setAsIndefinite(false);
+          // Make sure it is empty
+          form.validity.getEndDateInput().clear();
+          // Do magic, also touches indefinite field
+          form.validity.setEndDate(endDate);
+          // Set indefinite field to proper test value
+          form.validity.setAsIndefinite(indefinite);
+
+          if (expectedError) {
+            form.validityError().shouldHaveText(expectedError);
+          } else {
+            form.validityError().should('not.exist');
+          }
+        },
+      );
+    }
+
     it('should create a copy', () => {
       stopDetailsPage.visit('H2003');
 
@@ -2287,6 +2355,9 @@ describe('Stop details', () => {
             .and('contain.text', '20.3.2020-31.5.2050');
 
           const { form } = copyModal;
+
+          testValidityPeriodValidation(form);
+
           form.versionName().clearAndType('Uusi versio');
           form.versionDescription().shouldBeDisabled();
           form.priority.setPriority(Priority.Temporary);
