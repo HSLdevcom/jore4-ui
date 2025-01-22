@@ -9,7 +9,6 @@ import { StopPlaceMaintenance } from './stopPlaces';
 import { getKeyValue } from './utils';
 
 export type StopAreaSeedData = {
-  nameFin?: string;
   nameSwe?: string;
   nameFinLong?: string;
   nameSweLong?: string;
@@ -25,18 +24,8 @@ export type StopAreaSeedData = {
   validityStart: string; // Really a datetime, but keyValues can only take strings.
   validityEnd?: string; // Really a datetime, but keyValues can only take strings.
   stopType?: {
-    mainLine: boolean;
     interchange: boolean;
     railReplacement: boolean;
-    virtual: boolean;
-  };
-  signs?: {
-    signType: string /* see StopPlaceSignType */;
-    note?: string;
-    numberOfFrames: number;
-    lineSignage: boolean;
-    mainLineSign: boolean;
-    replacesRailSign: boolean;
   };
 };
 
@@ -93,7 +82,7 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
       privateCode: { type: 'HSL', value: seedStopArea.label },
       name: {
         lang: 'fin',
-        value: seedStopArea.label,
+        value: seedStopArea.name,
       },
       geometry:
         seedStopArea.locationLat && seedStopArea.locationLong
@@ -151,7 +140,6 @@ const route35StopAreas: Array<StopAreaSeedData> = [
 ];
 
 const finnooSeedData: StopAreaSeedData = {
-  nameFin: 'Finnoo',
   nameSwe: 'Finno',
   nameFinLong: 'Finnoo',
   nameSweLong: 'Finno',
