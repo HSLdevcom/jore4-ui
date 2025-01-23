@@ -13,37 +13,11 @@ jobs:
       CYPRESS_IMAGE_NAME: hsldevcom/jore4-cypress
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
       - name: Extract metadata to env variables
         uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
 
-      - name: Start e2e env
-        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@setup-e2e-environment-v8
+      - name: Setup environment and run e2e tests from GitHub action
+        uses: HSLdevcom/jore4-tools/github-actions/run-ci@main
         with:
           ui_version: '${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }}'
           cypress_version: '${{ env.CYPRESS_IMAGE_NAME }}:${{ env.COMMIT_ID }}'
-
-      - name: Set up PostgreSQL client
-        run: |
-          sudo apt-get -yqq install postgresql-client
-
-      - name: Seed db with infrastructure links
-        env:
-          DUMP_PATH: ./test-db-manager/src/dumps/infraLinks/infraLinks.sql
-        run: |
-          psql postgresql://dbadmin:adminpassword@localhost:6432/jore4e2e < ${{ env.DUMP_PATH }}
-
-      - name: Seed Tiamat DB
-        run: scripts/seed-municipalities-and-fare-zones.sh 3010
-
-      - name: Run e2e tests from GitHub action
-        env:
-          CYPRESS_TESTS_KEPT_IN_MEMORY: 0
-        timeout-minutes: 30
-        uses: HSLdevcom/jore4-tools/github-actions/run-cypress-tests@run-cypress-tests-v3-wip
-        with:
-          test-tags: ''
