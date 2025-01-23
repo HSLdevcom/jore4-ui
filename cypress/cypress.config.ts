@@ -1,5 +1,6 @@
 import { defineConfig } from 'cypress';
 import * as tasks from './e2e/utils/tasks';
+import { onLaunchBrowser } from './support/setHeadlessScreenSize';
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
@@ -31,6 +32,7 @@ export default defineConfig({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setupNodeEvents(on, config) {
       on('task', tasks);
+      on('before:browser:launch', onLaunchBrowser);
     },
     env: process.env,
   },
