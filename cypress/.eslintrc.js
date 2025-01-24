@@ -14,6 +14,7 @@ module.exports = {
         // cypress runs tests with mocha instead of jest, so jest-specific rules make no sense.
         // TODO: rather disable whole 'plugin:jest/recommended' at once (but how?)
         'jest/expect-expect': 'off',
+        'jest/valid-describe-callback': 'off',
         'cypress/no-pause': 'error',
       },
     },

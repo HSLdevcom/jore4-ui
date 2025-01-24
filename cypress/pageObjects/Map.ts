@@ -64,9 +64,11 @@ export class Map {
   }
 
   clickRelativePoint(xPercentage: number, yPercentage: number) {
-    const x = (Cypress.config('viewportWidth') / 100) * xPercentage;
-    const y = (Cypress.config('viewportHeight') / 100) * yPercentage;
-    cy.getByTestId('mapModal').click(x, y);
+    cy.window().then((window) => {
+      const x = (window.innerWidth / 100) * xPercentage;
+      const y = (window.innerHeight / 100) * yPercentage;
+      cy.getByTestId('mapModal').click(x, y);
+    });
   }
 
   getStopByStopLabelAndPriority(testStopLabel: string, priority: Priority) {

@@ -28,7 +28,7 @@ import {
   expectGraphQLCallToSucceed,
 } from '../utils/assertions';
 import { debug } from '../utils/templateStringHelpers';
-import { InsertedStopRegistryIds } from './utils';
+import { InsertedStopRegistryIds, mapViewport } from './utils';
 
 const testTimingPlaceLabels = {
   label1: 'Test created timing place label 1',
@@ -93,7 +93,7 @@ describe('Stop editing tests', () => {
 
   it(
     'Should move a stop on the map',
-    { tags: Tag.Stops, scrollBehavior: 'bottom' },
+    { tags: Tag.Stops, scrollBehavior: 'bottom', ...mapViewport },
     () => {
       // Coordinates for the point where the stop is moved in the test.
       const endCoordinates = {

@@ -14,6 +14,7 @@ import {
 } from '../../pageObjects';
 import { FilterPanel } from '../../pageObjects/FilterPanel';
 import { insertToDbHelper } from '../../utils';
+import { mapViewport } from '../utils';
 
 const testStopLabels = {
   testLabel1: 'T0001',
@@ -26,7 +27,7 @@ const dbResources = {
   timingPlaces,
 };
 
-describe('Stop creation tests', () => {
+describe('Stop creation tests', mapViewport, () => {
   let mapModal: MapModal;
   let mapFilterPanel: FilterPanel;
   let changeValidityForm: ChangeValidityForm;
