@@ -15,8 +15,9 @@ import { FilterPanel } from '../../pageObjects/FilterPanel';
 import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
+import { mapViewport } from '../utils';
 
-describe('Route creation', () => {
+describe('Route creation', mapViewport, () => {
   let mapModal: MapModal;
   let routeStopsOverlay: RouteStopsOverlay;
   let mapFooter: MapFooter;

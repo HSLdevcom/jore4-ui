@@ -17,8 +17,9 @@ import {
 import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
+import { mapViewport } from '../utils';
 
-describe('Edit route geometry', () => {
+describe('Edit route geometry', mapViewport, () => {
   let map: Map;
   let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;

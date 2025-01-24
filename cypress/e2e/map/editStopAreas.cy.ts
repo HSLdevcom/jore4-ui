@@ -14,8 +14,9 @@ import { ConfirmationDialog, MapModal } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import { mapViewport } from '../utils';
 
-describe('Stop areas on map', () => {
+describe('Stop areas on map', mapViewport, () => {
   let dbResources: SupportedResources;
 
   const baseDbResources = getClonedBaseDbResources();
