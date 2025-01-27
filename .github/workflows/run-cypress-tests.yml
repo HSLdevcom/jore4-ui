@@ -21,3 +21,4 @@ jobs:
         with:
           ui_version: '${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }}'
           cypress_version: '${{ env.CYPRESS_IMAGE_NAME }}:${{ env.COMMIT_ID }}'
+          test-tags: ''
