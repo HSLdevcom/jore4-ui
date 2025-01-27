@@ -2,17 +2,16 @@ import {
   buildTerminalCreateInput,
   seedInfoSpots,
   seedOrganisations,
+  seedQuays,
   seedStopAreas,
-  seedStopPlaces,
   seedTerminals,
   setInfoSpotRelations,
-  setStopAreaRelations,
-  setStopPlaceRelations,
+  setStopPlaceOrganisations,
 } from './datasets';
+import { StopRegistryStopPlaceInput } from './generated/graphql';
 import {
   insertInfoSpots,
   insertOrganisations,
-  insertStopAreas,
   insertStopPlaces,
   insertTerminals,
 } from './graphql-helpers';
@@ -20,18 +19,28 @@ import {
 const seedStopRegistry = async () => {
   const collectedOrganisationIds = await insertOrganisations(seedOrganisations);
 
-  const stopPlaceInputs = seedStopPlaces.map((sp) => {
-    return {
-      label: sp.label,
-      stopPlace: setStopPlaceRelations(sp, collectedOrganisationIds),
-    };
-  });
-  const collectedStopPlaceIds = await insertStopPlaces(stopPlaceInputs);
-
-  const stopAreaInputs = seedStopAreas.map((area) =>
-    setStopAreaRelations(area, collectedStopPlaceIds),
+  const stopPlacesWithOrganisations = seedStopAreas.map((sa) =>
+    setStopPlaceOrganisations(sa, collectedOrganisationIds),
   );
-  await insertStopAreas(stopAreaInputs);
+
+  const stopPlaceInputs: Array<Partial<StopRegistryStopPlaceInput>> =
+    seedQuays.map((quay) => {
+      if (quay.stopArea) {
+        return {
+          ...stopPlacesWithOrganisations.find(
+            (sp) => sp.privateCode?.value === quay.stopArea,
+          ),
+          quays: [quay.quay],
+        };
+      }
+      return {
+        name: { value: quay.quay.publicCode },
+        publicCode: quay.quay.publicCode,
+        quays: [quay.quay],
+      };
+    });
+
+  const collectedStopPlaceIds = await insertStopPlaces(stopPlaceInputs);
 
   const terminalCreateInputs = seedTerminals.map((terminal) =>
     buildTerminalCreateInput(terminal, collectedStopPlaceIds),
