@@ -71387,11 +71387,6 @@ export type UpdateStopPlaceMutation = {
         lang?: string | null;
         value?: string | null;
       } | null;
-      shortName?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        lang?: string | null;
-        value?: string | null;
-      } | null;
       alternativeNames?: Array<{
         __typename?: 'stop_registry_AlternativeName';
         nameType: StopRegistryNameType;
@@ -71434,31 +71429,20 @@ export type UpdateStopPlaceMutation = {
           lang?: string | null;
         } | null;
       } | null> | null;
-      placeEquipments?: {
-        __typename?: 'stop_registry_PlaceEquipments';
-        generalSign?: Array<{
-          __typename?: 'stop_registry_GeneralSign';
-          signContentType?: StopRegistrySignContentType | null;
-          numberOfFrames?: number | null;
-          lineSignage?: boolean | null;
-          mainLineSign?: boolean | null;
-          replacesRailSign?: boolean | null;
-          privateCode?: {
-            __typename?: 'stop_registry_PrivateCode';
-            value?: string | null;
-            type?: string | null;
-          } | null;
-          note?: {
-            __typename?: 'stop_registry_EmbeddableMultilingualString';
-            lang?: string | null;
-            value?: string | null;
-          } | null;
-        } | null> | null;
-      } | null;
       quays?: Array<{
         __typename?: 'stop_registry_Quay';
         id?: string | null;
         publicCode?: string | null;
+        privateCode?: {
+          __typename?: 'stop_registry_PrivateCode';
+          type?: string | null;
+          value?: string | null;
+        } | null;
+        description?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
         alternativeNames?: Array<{
           __typename?: 'stop_registry_AlternativeName';
           nameType: StopRegistryNameType;
@@ -71467,6 +71451,59 @@ export type UpdateStopPlaceMutation = {
             lang?: string | null;
             value?: string | null;
           };
+        } | null> | null;
+        geometry?: {
+          __typename?: 'stop_registry_GeoJSON';
+          coordinates?: GeoJSON.Position | null;
+          type?: StopRegistryGeoJsonType | null;
+        } | null;
+        accessibilityAssessment?: {
+          __typename?: 'stop_registry_AccessibilityAssessment';
+          id?: string | null;
+          hslAccessibilityProperties?: {
+            __typename?: 'stop_registry_HslAccessibilityProperties';
+            id?: string | null;
+            stopAreaSideSlope?: number | null;
+            stopAreaLengthwiseSlope?: number | null;
+            endRampSlope?: number | null;
+            shelterLaneDistance?: number | null;
+            curbBackOfRailDistance?: number | null;
+            curbDriveSideOfRailDistance?: number | null;
+            structureLaneDistance?: number | null;
+            stopElevationFromRailTop?: number | null;
+            stopElevationFromSidewalk?: number | null;
+            lowerCleatHeight?: number | null;
+            serviceAreaWidth?: number | null;
+            serviceAreaLength?: number | null;
+            platformEdgeWarningArea?: boolean | null;
+            guidanceTiles?: boolean | null;
+            guidanceStripe?: boolean | null;
+            serviceAreaStripes?: boolean | null;
+            sidewalkAccessibleConnection?: boolean | null;
+            stopAreaSurroundingsAccessible?: boolean | null;
+            curvedStop?: boolean | null;
+            stopType?: StopRegistryStopType | null;
+            shelterType?: StopRegistryShelterWidthType | null;
+            guidanceType?: StopRegistryGuidanceType | null;
+            mapType?: StopRegistryMapType | null;
+            pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+            accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+          } | null;
+          limitations?: {
+            __typename?: 'stop_registry_AccessibilityLimitations';
+            id?: string | null;
+            version?: string | null;
+            audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+            escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+            liftFreeAccess?: StopRegistryLimitationStatusType | null;
+            stepFreeAccess?: StopRegistryLimitationStatusType | null;
+            wheelchairAccess?: StopRegistryLimitationStatusType | null;
+          } | null;
+        } | null;
+        keyValues?: Array<{
+          __typename?: 'stop_registry_KeyValues';
+          key?: string | null;
+          values?: Array<string | null> | null;
         } | null> | null;
         placeEquipments?: {
           __typename?: 'stop_registry_PlaceEquipments';
@@ -71492,51 +71529,30 @@ export type UpdateStopPlaceMutation = {
             __typename?: 'stop_registry_CycleStorageEquipment';
             cycleStorageType?: StopRegistryCycleStorageType | null;
           } | null> | null;
+          generalSign?: Array<{
+            __typename?: 'stop_registry_GeneralSign';
+            signContentType?: StopRegistrySignContentType | null;
+            numberOfFrames?: number | null;
+            lineSignage?: boolean | null;
+            mainLineSign?: boolean | null;
+            replacesRailSign?: boolean | null;
+            privateCode?: {
+              __typename?: 'stop_registry_PrivateCode';
+              value?: string | null;
+              type?: string | null;
+            } | null;
+            content?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+            } | null;
+            note?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
+          } | null> | null;
         } | null;
       } | null> | null;
-      accessibilityAssessment?: {
-        __typename?: 'stop_registry_AccessibilityAssessment';
-        id?: string | null;
-        hslAccessibilityProperties?: {
-          __typename?: 'stop_registry_HslAccessibilityProperties';
-          id?: string | null;
-          stopAreaSideSlope?: number | null;
-          stopAreaLengthwiseSlope?: number | null;
-          endRampSlope?: number | null;
-          shelterLaneDistance?: number | null;
-          curbBackOfRailDistance?: number | null;
-          curbDriveSideOfRailDistance?: number | null;
-          structureLaneDistance?: number | null;
-          stopElevationFromRailTop?: number | null;
-          stopElevationFromSidewalk?: number | null;
-          lowerCleatHeight?: number | null;
-          serviceAreaWidth?: number | null;
-          serviceAreaLength?: number | null;
-          platformEdgeWarningArea?: boolean | null;
-          guidanceTiles?: boolean | null;
-          guidanceStripe?: boolean | null;
-          serviceAreaStripes?: boolean | null;
-          sidewalkAccessibleConnection?: boolean | null;
-          stopAreaSurroundingsAccessible?: boolean | null;
-          curvedStop?: boolean | null;
-          stopType?: StopRegistryStopType | null;
-          shelterType?: StopRegistryShelterWidthType | null;
-          guidanceType?: StopRegistryGuidanceType | null;
-          mapType?: StopRegistryMapType | null;
-          pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
-          accessibilityLevel?: StopRegistryAccessibilityLevel | null;
-        } | null;
-        limitations?: {
-          __typename?: 'stop_registry_AccessibilityLimitations';
-          id?: string | null;
-          version?: string | null;
-          audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
-          escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
-          liftFreeAccess?: StopRegistryLimitationStatusType | null;
-          stepFreeAccess?: StopRegistryLimitationStatusType | null;
-          wheelchairAccess?: StopRegistryLimitationStatusType | null;
-        } | null;
-      } | null;
       organisations?: Array<{
         __typename?: 'stop_registry_StopPlaceOrganisationRef';
         relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
@@ -71698,11 +71714,6 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
             lang?: string | null;
             value?: string | null;
           } | null;
-          shortName?: {
-            __typename?: 'stop_registry_EmbeddableMultilingualString';
-            lang?: string | null;
-            value?: string | null;
-          } | null;
           alternativeNames?: Array<{
             __typename?: 'stop_registry_AlternativeName';
             nameType: StopRegistryNameType;
@@ -71745,31 +71756,20 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
               lang?: string | null;
             } | null;
           } | null> | null;
-          placeEquipments?: {
-            __typename?: 'stop_registry_PlaceEquipments';
-            generalSign?: Array<{
-              __typename?: 'stop_registry_GeneralSign';
-              signContentType?: StopRegistrySignContentType | null;
-              numberOfFrames?: number | null;
-              lineSignage?: boolean | null;
-              mainLineSign?: boolean | null;
-              replacesRailSign?: boolean | null;
-              privateCode?: {
-                __typename?: 'stop_registry_PrivateCode';
-                value?: string | null;
-                type?: string | null;
-              } | null;
-              note?: {
-                __typename?: 'stop_registry_EmbeddableMultilingualString';
-                lang?: string | null;
-                value?: string | null;
-              } | null;
-            } | null> | null;
-          } | null;
           quays?: Array<{
             __typename?: 'stop_registry_Quay';
             id?: string | null;
             publicCode?: string | null;
+            privateCode?: {
+              __typename?: 'stop_registry_PrivateCode';
+              type?: string | null;
+              value?: string | null;
+            } | null;
+            description?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
             alternativeNames?: Array<{
               __typename?: 'stop_registry_AlternativeName';
               nameType: StopRegistryNameType;
@@ -71778,6 +71778,59 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
                 lang?: string | null;
                 value?: string | null;
               };
+            } | null> | null;
+            geometry?: {
+              __typename?: 'stop_registry_GeoJSON';
+              coordinates?: GeoJSON.Position | null;
+              type?: StopRegistryGeoJsonType | null;
+            } | null;
+            accessibilityAssessment?: {
+              __typename?: 'stop_registry_AccessibilityAssessment';
+              id?: string | null;
+              hslAccessibilityProperties?: {
+                __typename?: 'stop_registry_HslAccessibilityProperties';
+                id?: string | null;
+                stopAreaSideSlope?: number | null;
+                stopAreaLengthwiseSlope?: number | null;
+                endRampSlope?: number | null;
+                shelterLaneDistance?: number | null;
+                curbBackOfRailDistance?: number | null;
+                curbDriveSideOfRailDistance?: number | null;
+                structureLaneDistance?: number | null;
+                stopElevationFromRailTop?: number | null;
+                stopElevationFromSidewalk?: number | null;
+                lowerCleatHeight?: number | null;
+                serviceAreaWidth?: number | null;
+                serviceAreaLength?: number | null;
+                platformEdgeWarningArea?: boolean | null;
+                guidanceTiles?: boolean | null;
+                guidanceStripe?: boolean | null;
+                serviceAreaStripes?: boolean | null;
+                sidewalkAccessibleConnection?: boolean | null;
+                stopAreaSurroundingsAccessible?: boolean | null;
+                curvedStop?: boolean | null;
+                stopType?: StopRegistryStopType | null;
+                shelterType?: StopRegistryShelterWidthType | null;
+                guidanceType?: StopRegistryGuidanceType | null;
+                mapType?: StopRegistryMapType | null;
+                pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+                accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+              } | null;
+              limitations?: {
+                __typename?: 'stop_registry_AccessibilityLimitations';
+                id?: string | null;
+                version?: string | null;
+                audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+                escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+                liftFreeAccess?: StopRegistryLimitationStatusType | null;
+                stepFreeAccess?: StopRegistryLimitationStatusType | null;
+                wheelchairAccess?: StopRegistryLimitationStatusType | null;
+              } | null;
+            } | null;
+            keyValues?: Array<{
+              __typename?: 'stop_registry_KeyValues';
+              key?: string | null;
+              values?: Array<string | null> | null;
             } | null> | null;
             placeEquipments?: {
               __typename?: 'stop_registry_PlaceEquipments';
@@ -71803,51 +71856,30 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
                 __typename?: 'stop_registry_CycleStorageEquipment';
                 cycleStorageType?: StopRegistryCycleStorageType | null;
               } | null> | null;
+              generalSign?: Array<{
+                __typename?: 'stop_registry_GeneralSign';
+                signContentType?: StopRegistrySignContentType | null;
+                numberOfFrames?: number | null;
+                lineSignage?: boolean | null;
+                mainLineSign?: boolean | null;
+                replacesRailSign?: boolean | null;
+                privateCode?: {
+                  __typename?: 'stop_registry_PrivateCode';
+                  value?: string | null;
+                  type?: string | null;
+                } | null;
+                content?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString';
+                  value?: string | null;
+                } | null;
+                note?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString';
+                  lang?: string | null;
+                  value?: string | null;
+                } | null;
+              } | null> | null;
             } | null;
           } | null> | null;
-          accessibilityAssessment?: {
-            __typename?: 'stop_registry_AccessibilityAssessment';
-            id?: string | null;
-            hslAccessibilityProperties?: {
-              __typename?: 'stop_registry_HslAccessibilityProperties';
-              id?: string | null;
-              stopAreaSideSlope?: number | null;
-              stopAreaLengthwiseSlope?: number | null;
-              endRampSlope?: number | null;
-              shelterLaneDistance?: number | null;
-              curbBackOfRailDistance?: number | null;
-              curbDriveSideOfRailDistance?: number | null;
-              structureLaneDistance?: number | null;
-              stopElevationFromRailTop?: number | null;
-              stopElevationFromSidewalk?: number | null;
-              lowerCleatHeight?: number | null;
-              serviceAreaWidth?: number | null;
-              serviceAreaLength?: number | null;
-              platformEdgeWarningArea?: boolean | null;
-              guidanceTiles?: boolean | null;
-              guidanceStripe?: boolean | null;
-              serviceAreaStripes?: boolean | null;
-              sidewalkAccessibleConnection?: boolean | null;
-              stopAreaSurroundingsAccessible?: boolean | null;
-              curvedStop?: boolean | null;
-              stopType?: StopRegistryStopType | null;
-              shelterType?: StopRegistryShelterWidthType | null;
-              guidanceType?: StopRegistryGuidanceType | null;
-              mapType?: StopRegistryMapType | null;
-              pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
-              accessibilityLevel?: StopRegistryAccessibilityLevel | null;
-            } | null;
-            limitations?: {
-              __typename?: 'stop_registry_AccessibilityLimitations';
-              id?: string | null;
-              version?: string | null;
-              audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
-              escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
-              liftFreeAccess?: StopRegistryLimitationStatusType | null;
-              stepFreeAccess?: StopRegistryLimitationStatusType | null;
-              wheelchairAccess?: StopRegistryLimitationStatusType | null;
-            } | null;
-          } | null;
           organisations?: Array<{
             __typename?: 'stop_registry_StopPlaceOrganisationRef';
             relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
@@ -71940,6 +71972,16 @@ export type QuayDetailsFragment = {
   __typename?: 'stop_registry_Quay';
   id?: string | null;
   publicCode?: string | null;
+  privateCode?: {
+    __typename?: 'stop_registry_PrivateCode';
+    type?: string | null;
+    value?: string | null;
+  } | null;
+  description?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
   alternativeNames?: Array<{
     __typename?: 'stop_registry_AlternativeName';
     nameType: StopRegistryNameType;
@@ -71948,6 +71990,59 @@ export type QuayDetailsFragment = {
       lang?: string | null;
       value?: string | null;
     };
+  } | null> | null;
+  geometry?: {
+    __typename?: 'stop_registry_GeoJSON';
+    coordinates?: GeoJSON.Position | null;
+    type?: StopRegistryGeoJsonType | null;
+  } | null;
+  accessibilityAssessment?: {
+    __typename?: 'stop_registry_AccessibilityAssessment';
+    id?: string | null;
+    hslAccessibilityProperties?: {
+      __typename?: 'stop_registry_HslAccessibilityProperties';
+      id?: string | null;
+      stopAreaSideSlope?: number | null;
+      stopAreaLengthwiseSlope?: number | null;
+      endRampSlope?: number | null;
+      shelterLaneDistance?: number | null;
+      curbBackOfRailDistance?: number | null;
+      curbDriveSideOfRailDistance?: number | null;
+      structureLaneDistance?: number | null;
+      stopElevationFromRailTop?: number | null;
+      stopElevationFromSidewalk?: number | null;
+      lowerCleatHeight?: number | null;
+      serviceAreaWidth?: number | null;
+      serviceAreaLength?: number | null;
+      platformEdgeWarningArea?: boolean | null;
+      guidanceTiles?: boolean | null;
+      guidanceStripe?: boolean | null;
+      serviceAreaStripes?: boolean | null;
+      sidewalkAccessibleConnection?: boolean | null;
+      stopAreaSurroundingsAccessible?: boolean | null;
+      curvedStop?: boolean | null;
+      stopType?: StopRegistryStopType | null;
+      shelterType?: StopRegistryShelterWidthType | null;
+      guidanceType?: StopRegistryGuidanceType | null;
+      mapType?: StopRegistryMapType | null;
+      pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+      accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+    } | null;
+    limitations?: {
+      __typename?: 'stop_registry_AccessibilityLimitations';
+      id?: string | null;
+      version?: string | null;
+      audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+      escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+      liftFreeAccess?: StopRegistryLimitationStatusType | null;
+      stepFreeAccess?: StopRegistryLimitationStatusType | null;
+      wheelchairAccess?: StopRegistryLimitationStatusType | null;
+    } | null;
+  } | null;
+  keyValues?: Array<{
+    __typename?: 'stop_registry_KeyValues';
+    key?: string | null;
+    values?: Array<string | null> | null;
   } | null> | null;
   placeEquipments?: {
     __typename?: 'stop_registry_PlaceEquipments';
@@ -71972,6 +72067,28 @@ export type QuayDetailsFragment = {
     cycleStorageEquipment?: Array<{
       __typename?: 'stop_registry_CycleStorageEquipment';
       cycleStorageType?: StopRegistryCycleStorageType | null;
+    } | null> | null;
+    generalSign?: Array<{
+      __typename?: 'stop_registry_GeneralSign';
+      signContentType?: StopRegistrySignContentType | null;
+      numberOfFrames?: number | null;
+      lineSignage?: boolean | null;
+      mainLineSign?: boolean | null;
+      replacesRailSign?: boolean | null;
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode';
+        value?: string | null;
+        type?: string | null;
+      } | null;
+      content?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        value?: string | null;
+      } | null;
+      note?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
     } | null> | null;
   } | null;
 };
@@ -72056,11 +72173,6 @@ export type StopPlaceDetailsFragment = {
     lang?: string | null;
     value?: string | null;
   } | null;
-  shortName?: {
-    __typename?: 'stop_registry_EmbeddableMultilingualString';
-    lang?: string | null;
-    value?: string | null;
-  } | null;
   alternativeNames?: Array<{
     __typename?: 'stop_registry_AlternativeName';
     nameType: StopRegistryNameType;
@@ -72103,31 +72215,20 @@ export type StopPlaceDetailsFragment = {
       lang?: string | null;
     } | null;
   } | null> | null;
-  placeEquipments?: {
-    __typename?: 'stop_registry_PlaceEquipments';
-    generalSign?: Array<{
-      __typename?: 'stop_registry_GeneralSign';
-      signContentType?: StopRegistrySignContentType | null;
-      numberOfFrames?: number | null;
-      lineSignage?: boolean | null;
-      mainLineSign?: boolean | null;
-      replacesRailSign?: boolean | null;
-      privateCode?: {
-        __typename?: 'stop_registry_PrivateCode';
-        value?: string | null;
-        type?: string | null;
-      } | null;
-      note?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        lang?: string | null;
-        value?: string | null;
-      } | null;
-    } | null> | null;
-  } | null;
   quays?: Array<{
     __typename?: 'stop_registry_Quay';
     id?: string | null;
     publicCode?: string | null;
+    privateCode?: {
+      __typename?: 'stop_registry_PrivateCode';
+      type?: string | null;
+      value?: string | null;
+    } | null;
+    description?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      lang?: string | null;
+      value?: string | null;
+    } | null;
     alternativeNames?: Array<{
       __typename?: 'stop_registry_AlternativeName';
       nameType: StopRegistryNameType;
@@ -72136,6 +72237,59 @@ export type StopPlaceDetailsFragment = {
         lang?: string | null;
         value?: string | null;
       };
+    } | null> | null;
+    geometry?: {
+      __typename?: 'stop_registry_GeoJSON';
+      coordinates?: GeoJSON.Position | null;
+      type?: StopRegistryGeoJsonType | null;
+    } | null;
+    accessibilityAssessment?: {
+      __typename?: 'stop_registry_AccessibilityAssessment';
+      id?: string | null;
+      hslAccessibilityProperties?: {
+        __typename?: 'stop_registry_HslAccessibilityProperties';
+        id?: string | null;
+        stopAreaSideSlope?: number | null;
+        stopAreaLengthwiseSlope?: number | null;
+        endRampSlope?: number | null;
+        shelterLaneDistance?: number | null;
+        curbBackOfRailDistance?: number | null;
+        curbDriveSideOfRailDistance?: number | null;
+        structureLaneDistance?: number | null;
+        stopElevationFromRailTop?: number | null;
+        stopElevationFromSidewalk?: number | null;
+        lowerCleatHeight?: number | null;
+        serviceAreaWidth?: number | null;
+        serviceAreaLength?: number | null;
+        platformEdgeWarningArea?: boolean | null;
+        guidanceTiles?: boolean | null;
+        guidanceStripe?: boolean | null;
+        serviceAreaStripes?: boolean | null;
+        sidewalkAccessibleConnection?: boolean | null;
+        stopAreaSurroundingsAccessible?: boolean | null;
+        curvedStop?: boolean | null;
+        stopType?: StopRegistryStopType | null;
+        shelterType?: StopRegistryShelterWidthType | null;
+        guidanceType?: StopRegistryGuidanceType | null;
+        mapType?: StopRegistryMapType | null;
+        pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+        accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+      } | null;
+      limitations?: {
+        __typename?: 'stop_registry_AccessibilityLimitations';
+        id?: string | null;
+        version?: string | null;
+        audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+        escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+        liftFreeAccess?: StopRegistryLimitationStatusType | null;
+        stepFreeAccess?: StopRegistryLimitationStatusType | null;
+        wheelchairAccess?: StopRegistryLimitationStatusType | null;
+      } | null;
+    } | null;
+    keyValues?: Array<{
+      __typename?: 'stop_registry_KeyValues';
+      key?: string | null;
+      values?: Array<string | null> | null;
     } | null> | null;
     placeEquipments?: {
       __typename?: 'stop_registry_PlaceEquipments';
@@ -72161,51 +72315,30 @@ export type StopPlaceDetailsFragment = {
         __typename?: 'stop_registry_CycleStorageEquipment';
         cycleStorageType?: StopRegistryCycleStorageType | null;
       } | null> | null;
+      generalSign?: Array<{
+        __typename?: 'stop_registry_GeneralSign';
+        signContentType?: StopRegistrySignContentType | null;
+        numberOfFrames?: number | null;
+        lineSignage?: boolean | null;
+        mainLineSign?: boolean | null;
+        replacesRailSign?: boolean | null;
+        privateCode?: {
+          __typename?: 'stop_registry_PrivateCode';
+          value?: string | null;
+          type?: string | null;
+        } | null;
+        content?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+        } | null;
+        note?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
+      } | null> | null;
     } | null;
   } | null> | null;
-  accessibilityAssessment?: {
-    __typename?: 'stop_registry_AccessibilityAssessment';
-    id?: string | null;
-    hslAccessibilityProperties?: {
-      __typename?: 'stop_registry_HslAccessibilityProperties';
-      id?: string | null;
-      stopAreaSideSlope?: number | null;
-      stopAreaLengthwiseSlope?: number | null;
-      endRampSlope?: number | null;
-      shelterLaneDistance?: number | null;
-      curbBackOfRailDistance?: number | null;
-      curbDriveSideOfRailDistance?: number | null;
-      structureLaneDistance?: number | null;
-      stopElevationFromRailTop?: number | null;
-      stopElevationFromSidewalk?: number | null;
-      lowerCleatHeight?: number | null;
-      serviceAreaWidth?: number | null;
-      serviceAreaLength?: number | null;
-      platformEdgeWarningArea?: boolean | null;
-      guidanceTiles?: boolean | null;
-      guidanceStripe?: boolean | null;
-      serviceAreaStripes?: boolean | null;
-      sidewalkAccessibleConnection?: boolean | null;
-      stopAreaSurroundingsAccessible?: boolean | null;
-      curvedStop?: boolean | null;
-      stopType?: StopRegistryStopType | null;
-      shelterType?: StopRegistryShelterWidthType | null;
-      guidanceType?: StopRegistryGuidanceType | null;
-      mapType?: StopRegistryMapType | null;
-      pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
-      accessibilityLevel?: StopRegistryAccessibilityLevel | null;
-    } | null;
-    limitations?: {
-      __typename?: 'stop_registry_AccessibilityLimitations';
-      id?: string | null;
-      version?: string | null;
-      audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
-      escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
-      liftFreeAccess?: StopRegistryLimitationStatusType | null;
-      stepFreeAccess?: StopRegistryLimitationStatusType | null;
-      wheelchairAccess?: StopRegistryLimitationStatusType | null;
-    } | null;
-  } | null;
   organisations?: Array<{
     __typename?: 'stop_registry_StopPlaceOrganisationRef';
     relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
@@ -74525,47 +74658,6 @@ export const FareZoneDetailsFragmentDoc = gql`
     }
   }
 `;
-export const ShelterEquipmentDetailsFragmentDoc = gql`
-  fragment shelter_equipment_details on stop_registry_ShelterEquipment {
-    id
-    enclosed
-    stepFree
-    shelterType
-    shelterElectricity
-    shelterLighting
-    shelterCondition
-    timetableCabinets
-    trashCan
-    shelterHasDisplay
-    bicycleParking
-    leaningRail
-    outsideBench
-    shelterFasciaBoardTaping
-  }
-`;
-export const QuayDetailsFragmentDoc = gql`
-  fragment quay_details on stop_registry_Quay {
-    id
-    publicCode
-    alternativeNames {
-      name {
-        lang
-        value
-      }
-      nameType
-    }
-    placeEquipments {
-      id
-      shelterEquipment {
-        ...shelter_equipment_details
-      }
-      cycleStorageEquipment {
-        cycleStorageType
-      }
-    }
-  }
-  ${ShelterEquipmentDetailsFragmentDoc}
-`;
 export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
   fragment hsl_accessibility_properties_details on stop_registry_HslAccessibilityProperties {
     id
@@ -74595,6 +74687,97 @@ export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
     pedestrianCrossingRampType
     accessibilityLevel
   }
+`;
+export const ShelterEquipmentDetailsFragmentDoc = gql`
+  fragment shelter_equipment_details on stop_registry_ShelterEquipment {
+    id
+    enclosed
+    stepFree
+    shelterType
+    shelterElectricity
+    shelterLighting
+    shelterCondition
+    timetableCabinets
+    trashCan
+    shelterHasDisplay
+    bicycleParking
+    leaningRail
+    outsideBench
+    shelterFasciaBoardTaping
+  }
+`;
+export const QuayDetailsFragmentDoc = gql`
+  fragment quay_details on stop_registry_Quay {
+    id
+    publicCode
+    privateCode {
+      type
+      value
+    }
+    description {
+      lang
+      value
+    }
+    alternativeNames {
+      name {
+        lang
+        value
+      }
+      nameType
+    }
+    geometry {
+      coordinates
+      type
+    }
+    accessibilityAssessment {
+      id
+      hslAccessibilityProperties {
+        ...hsl_accessibility_properties_details
+      }
+      limitations {
+        id
+        version
+        audibleSignalsAvailable
+        escalatorFreeAccess
+        liftFreeAccess
+        stepFreeAccess
+        wheelchairAccess
+      }
+    }
+    keyValues {
+      key
+      values
+    }
+    placeEquipments {
+      id
+      shelterEquipment {
+        ...shelter_equipment_details
+      }
+      cycleStorageEquipment {
+        cycleStorageType
+      }
+      generalSign {
+        privateCode {
+          value
+          type
+        }
+        content {
+          value
+        }
+        signContentType
+        numberOfFrames
+        lineSignage
+        mainLineSign
+        replacesRailSign
+        note {
+          lang
+          value
+        }
+      }
+    }
+  }
+  ${HslAccessibilityPropertiesDetailsFragmentDoc}
+  ${ShelterEquipmentDetailsFragmentDoc}
 `;
 export const StopPlaceOrganisationFieldsFragmentDoc = gql`
   fragment stop_place_organisation_fields on stop_registry_Organisation {
@@ -74644,10 +74827,6 @@ export const StopPlaceDetailsFragmentDoc = gql`
       lang
       value
     }
-    shortName {
-      lang
-      value
-    }
     alternativeNames {
       name {
         lang
@@ -74678,40 +74857,8 @@ export const StopPlaceDetailsFragmentDoc = gql`
     fareZones {
       ...fare_zone_details
     }
-    placeEquipments {
-      generalSign {
-        privateCode {
-          value
-          type
-        }
-        signContentType
-        numberOfFrames
-        lineSignage
-        mainLineSign
-        replacesRailSign
-        note {
-          lang
-          value
-        }
-      }
-    }
     quays {
       ...quay_details
-    }
-    accessibilityAssessment {
-      id
-      hslAccessibilityProperties {
-        ...hsl_accessibility_properties_details
-      }
-      limitations {
-        id
-        version
-        audibleSignalsAvailable
-        escalatorFreeAccess
-        liftFreeAccess
-        stepFreeAccess
-        wheelchairAccess
-      }
     }
     organisations {
       relationshipType
@@ -74736,7 +74883,6 @@ export const StopPlaceDetailsFragmentDoc = gql`
   ${TopographicPlaceDetailsFragmentDoc}
   ${FareZoneDetailsFragmentDoc}
   ${QuayDetailsFragmentDoc}
-  ${HslAccessibilityPropertiesDetailsFragmentDoc}
   ${StopPlaceOrganisationFieldsFragmentDoc}
   ${InfoSpotDetailsFragmentDoc}
 `;
