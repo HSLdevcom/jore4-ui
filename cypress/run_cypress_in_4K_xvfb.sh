@@ -20,7 +20,7 @@ else
 fi
 
 if [[ -n $TEST_TAGS ]]; then
-  runArgs+=(--env grepTags=\'"${TEST_TAGS}"\')
+  runArgs+=(--env "grepTags=${TEST_TAGS}")
 fi
 
 # Start a "virtual" X11 framebuffer server with a 4K resolution.
