@@ -71334,6 +71334,7 @@ export type InsertStopPlaceMutation = {
       id?: string | null;
       quays?: Array<{
         __typename?: 'stop_registry_Quay';
+        id?: string | null;
         publicCode?: string | null;
       } | null> | null;
       keyValues?: Array<{
@@ -80158,6 +80159,7 @@ export const InsertStopPlaceDocument = gql`
         publicCode
         id
         quays {
+          id
           publicCode
         }
         keyValues {
