@@ -236,7 +236,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
           variables: {
             scheduled_stop_point_id: scheduledStopPointId,
             stop_place_ref:
-              stopPlaceResult?.data?.stop_registry?.mutateStopPlace?.[0]?.id,
+              stopPlaceResult?.data?.stop_registry?.mutateStopPlace?.at(0)?.quays?.at(0)?.id,
           },
         });
 

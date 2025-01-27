@@ -21,6 +21,7 @@ export interface InsertStopPlaceResult {
       mutateStopPlace: {
         id: UUID;
         quays: Array<{
+          id: string;
           placeEquipments: {
             shelterEquipment: Array<{
               id: string;

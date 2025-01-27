@@ -23,6 +23,7 @@ const GQL_INSERT_STOP_PLACE = gql`
         publicCode
         id
         quays {
+          id
           publicCode
         }
         keyValues {
