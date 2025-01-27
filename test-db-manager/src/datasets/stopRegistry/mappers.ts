@@ -1,17 +1,15 @@
 import {
   StopRegistryCreateMultiModalStopPlaceInput,
-  StopRegistryGroupOfStopPlacesInput,
   StopRegistryInfoSpotInput,
   StopRegistryParentStopPlaceInput,
-  StopRegistryStopPlace,
+  StopRegistryStopPlaceInput,
   StopRegistryStopPlaceOrganisationRef,
   StopRegistryStopPlaceOrganisationRelationshipType,
-  StopRegistryVersionLessEntityRefInput,
 } from '../../generated/graphql';
 import { isNotNullish } from '../../utils';
 import { InfoSpotInput } from './infoSpots';
 import { StopAreaInput } from './stopArea';
-import { StopPlaceInput, StopPlaceMaintenance } from './stopPlaces';
+import { QuayInput, StopPlaceMaintenance } from './stopPlaces';
 import { TerminalInput } from './terminals';
 
 export type StopDetails = {
@@ -58,38 +56,28 @@ const mapStopPlaceMaintenanceToInput = (
   return organisationRefs;
 };
 
-export const setStopPlaceRelations = (
-  input: StopPlaceInput,
+export const setStopPlaceQuays = (
+  input: StopAreaInput,
+  quays: Array<QuayInput>,
+): StopAreaInput => {
+  return input;
+};
+
+export const setStopPlaceOrganisations = (
+  input: StopAreaInput,
   organisationIdsByName: OrganisationIdsByName,
-): Partial<StopRegistryStopPlace> => {
+): Partial<StopRegistryStopPlaceInput> => {
   const stopPlaceOrganisations = mapStopPlaceMaintenanceToInput(
-    input.maintenance,
+    input.organisations,
     organisationIdsByName,
   );
 
-  const stopPlace = {
-    ...input.stopPlace,
+  const stopArea = {
+    ...input.StopArea,
     organisations: stopPlaceOrganisations,
   };
 
-  return stopPlace;
-};
-
-export const setStopAreaRelations = (
-  input: StopAreaInput,
-  stopPlaceDetailsByLabel: StopPlaceDetailsByLabel,
-): Partial<StopRegistryGroupOfStopPlacesInput> => {
-  const area = {
-    ...input.stopArea,
-    members: input.memberLabels.map(
-      (label) =>
-        ({
-          ref: stopPlaceDetailsByLabel[label].netexId,
-        }) as StopRegistryVersionLessEntityRefInput,
-    ),
-  };
-
-  return area;
+  return stopArea;
 };
 
 export const buildTerminalCreateInput = (
