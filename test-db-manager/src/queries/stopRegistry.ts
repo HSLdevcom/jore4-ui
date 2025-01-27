@@ -6,7 +6,7 @@ import {
   StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
   StopRegistryParentStopPlaceInput,
-  StopRegistryStopPlace,
+  StopRegistryStopPlaceInput,
 } from '../generated/graphql';
 import { InsertStopPlaceResult } from '../types';
 
@@ -137,7 +137,7 @@ const GQL_INSERT_INFO_SPOT = gql`
 `;
 
 export const mapToInsertStopPlaceMutation = (
-  input: Partial<StopRegistryStopPlace>,
+  input: Partial<StopRegistryStopPlaceInput>,
 ) => {
   return {
     query: getGqlString(GQL_INSERT_STOP_PLACE),
