@@ -16,6 +16,7 @@ const GQL_INSERT_STOP_PLACE = gql`
       mutateStopPlace(StopPlace: $stopPlace) {
         id
         quays {
+          id
           placeEquipments {
             shelterEquipment {
               id
@@ -147,7 +148,7 @@ export const mapToInsertStopPlaceMutation = (
 
 export const extractStopPlaceIdFromResponse = (
   res: InsertStopPlaceResult,
-): string => res.data.stop_registry.mutateStopPlace[0].id;
+): string => res.data.stop_registry.mutateStopPlace[0].quays[0].id;
 
 export const mapToDeleteStopPlaceMutation = (stopPlaceId: string) => {
   return {
