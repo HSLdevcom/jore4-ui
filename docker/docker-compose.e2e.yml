@@ -43,7 +43,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-hasura-base
-    image: 'hsldevcom/jore4-hasura:hsl-feature-48598-Link_scheduled_stop_point_to_quay_--20250128-65b7248be640f5d1419f2de66b62c2e596523921'
+    image: 'hsldevcom/jore4-hasura:hsl-feature-48598-Link_scheduled_stop_point_to_quay_--20250128-78075f4bee7dc951f4f6cb90eb9954e9babc3723'
     container_name: "hasura-e2e"
     ports:
       - "127.0.0.1:3211:8080"
