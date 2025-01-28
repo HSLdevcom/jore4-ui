@@ -400,7 +400,8 @@
       },
       "fields": {
         "versionName": "Version name",
-        "versionDescription": "Reason for change"
+        "versionDescription": "Reason for change",
+        "versionDescriptionNotImplementedYetTitle": "This field has not yet been implemented in this Jore test version!"
       },
       "success": {
         "edit": "Version saved",

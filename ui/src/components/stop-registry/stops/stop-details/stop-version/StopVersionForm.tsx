@@ -56,6 +56,9 @@ export const StopVersionForm: FC<StopVersionFormProps> = ({
           fieldPath="versionDescription"
           testId={testIds.versionDescription}
           disabled
+          title={t(
+            'stopDetails.version.fields.versionDescriptionNotImplementedYetTitle',
+          )}
         />
       </FormRow>
 
