@@ -26,7 +26,7 @@ const GQL_GET_STOPS_BY_ROUTE_ID_QUERY = gql`
         name_lang
         name_value
 
-        stop_place_alternative_names {
+        stop_place_alternative_names: quay_alternative_names {
           alternative_name {
             name_lang
             name_value

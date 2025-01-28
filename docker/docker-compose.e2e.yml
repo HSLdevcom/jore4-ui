@@ -11,7 +11,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-tiamat-base
-    image: "hsldevcom/jore4-tiamat:main--20250210-d1ec37d13530558e8a22aa51d7091614863a7ada"
+    image: "hsldevcom/jore4-tiamat:main--20250211-ad2425b7262fd0da169a9e6c4594ea090713b5cd"
     container_name: "tiamat-e2e"
     environment:
       - TIAMAT_DB_URL=jdbc:postgresql://jore4-testdb-e2e:5432/stopdb?stringtype=unspecified
@@ -43,7 +43,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-hasura-base
-    image: 'hsldevcom/jore4-hasura:hsl-main--20250213-923dac0225f1151e55f688bf7614d0891cc0492f'
+    image: 'hsldevcom/jore4-hasura:hsl-feature-48598-Link_scheduled_stop_point_to_quay_--20250213-2947673ba807f1177716fc1d181a69ad6699175b'
     container_name: "hasura-e2e"
     ports:
       - "127.0.0.1:3211:8080"
