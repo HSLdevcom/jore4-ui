@@ -19,7 +19,9 @@ import {
 } from '../types';
 import { useCopyStop } from './useCopyStop';
 
-function useDefaultValues(originalStop: StopWithDetails): StopVersionFormState {
+function useDefaultValues(
+  originalStop: StopWithDetails,
+): Omit<StopVersionFormState, 'priority'> {
   return useMemo(() => {
     const validityStart = originalStop.validity_end
       ?.plus({ days: 1 })
@@ -29,7 +31,6 @@ function useDefaultValues(originalStop: StopWithDetails): StopVersionFormState {
       indefinite: originalStop.validity_end === null,
       validityStart: validityStart?.toISODate() ?? '',
       validityEnd: '',
-      priority: originalStop.priority,
       versionDescription: '',
       versionName: '',
     };
