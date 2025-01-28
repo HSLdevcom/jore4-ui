@@ -400,7 +400,8 @@
       },
       "fields": {
         "versionName": "Version nimi",
-        "versionDescription": "Muutoksen peruste"
+        "versionDescription": "Muutoksen peruste",
+        "versionDescriptionNotImplementedYetTitle": "Kenttää ei ole vielä toteutettu tässä Joren testi versiossa!"
       },
       "success": {
         "edit": "Versio tallennettu",
