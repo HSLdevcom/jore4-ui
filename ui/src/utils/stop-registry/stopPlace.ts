@@ -9,6 +9,7 @@ import {
   StopRegistryKeyValues,
   StopRegistryNameType,
   StopRegistryParentStopPlace,
+  StopRegistryQuay,
   StopRegistryStopPlace,
   StopRegistryStopPlaceInput,
   StopRegistrySubmodeType,
@@ -78,6 +79,23 @@ export type StopPlaceEnrichmentProperties = {
   };
 };
 
+export type QuayEnrichmentProperties = {
+  elyNumber: string | undefined;
+  locationFin: string | undefined;
+  locationSwe: string | undefined;
+  streetAddress: string | undefined;
+  postalCode: string | undefined;
+  functionalArea: number | undefined;
+  stopState: StopPlaceState | undefined;
+  accessibilityLevel: StopRegistryAccessibilityLevel;
+  stopType: {
+    mainLine: boolean;
+    //    interchange: boolean;
+    //    railReplacement: boolean;
+    virtual: boolean;
+  };
+};
+
 const findAlternativeName = (
   stopPlace: Pick<StopRegistryStopPlace, 'alternativeNames'>,
   lang: string,
@@ -124,10 +142,10 @@ export const setMultipleAlternativeNames = (
 };
 
 const findKeyValue = (
-  stopPlace: StopRegistryStopPlace,
+  element: StopRegistryStopPlace | StopRegistryQuay,
   key: string,
 ): string | undefined => {
-  const keyValue = stopPlace.keyValues?.find((kv) => kv?.key === key);
+  const keyValue = element.keyValues?.find((kv) => kv?.key === key);
   // Note: the "values" could be an array with many values.
   return keyValue?.values?.[0] ?? undefined;
 };
@@ -207,15 +225,40 @@ export const patchAlternativeNames = (
 };
 
 const findKeyValueParsed = <T = string>(
-  stopPlace: StopRegistryStopPlace,
+  element: StopRegistryStopPlace | StopRegistryQuay,
   key: string,
   parser: (arg0: string) => T,
 ): T | undefined => {
-  const keyValue = findKeyValue(stopPlace, key);
+  const keyValue = findKeyValue(element, key);
   if (keyValue === undefined) {
     return keyValue;
   }
   return parser(keyValue);
+};
+
+export const getQuayDetailsForEnrichment = <T extends StopRegistryQuay>(
+  quay: T,
+): QuayEnrichmentProperties => {
+  /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+  return {
+    elyNumber: quay.privateCode?.value || undefined,
+    locationFin: quay.description?.value || undefined,
+    locationSwe:
+      findAlternativeName(quay, 'swe', StopRegistryNameType.Other)?.value ||
+      undefined,
+    streetAddress: findKeyValue(quay, 'streetAddress'),
+    postalCode: findKeyValue(quay, 'postalCode'),
+    functionalArea: findKeyValueParsed(quay, 'functionalArea', parseFloat),
+    stopState: findKeyValue(quay, 'stopState') as StopPlaceState,
+    accessibilityLevel:
+      quay.accessibilityAssessment?.hslAccessibilityProperties
+        ?.accessibilityLevel ?? defaultAccessibilityLevel,
+    stopType: {
+      mainLine: findKeyValue(quay, 'mainLine') === 'true',
+      virtual: findKeyValue(quay, 'virtual') === 'true',
+    },
+  };
+  /* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
 };
 
 export const getStopPlaceDetailsForEnrichment = <

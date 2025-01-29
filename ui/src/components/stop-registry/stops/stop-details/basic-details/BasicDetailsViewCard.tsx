@@ -80,12 +80,12 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
         <div className="h-9 w-[0px] border-r border-black" />
         <LabeledDetail
           title={t('stopDetails.basicDetails.locationFin')}
-          detail={stop.stop_place?.locationFin}
+          detail={stop.quay?.locationFin}
           testId={testIds.locationFin}
         />
         <LabeledDetail
           title={t('stopDetails.basicDetails.locationSwe')}
-          detail={stop.stop_place?.locationSwe}
+          detail={stop.quay?.locationSwe}
           testId={testIds.locationSwe}
         />
       </DetailRow>
@@ -133,7 +133,7 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
           <MainLineWarning
             isMainLineStop={!!stop.stop_place?.stopType.mainLine}
             hasMainLineSign={
-              !!stop.stop_place?.placeEquipments?.generalSign?.[0]?.mainLineSign
+              !!stop.quay?.placeEquipments?.generalSign?.[0]?.mainLineSign
             }
           />
         </div>
@@ -144,7 +144,7 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
         />
         <LabeledDetail
           title={t('stopDetails.basicDetails.elyNumber')}
-          detail={stop.stop_place?.elyNumber}
+          detail={stop.quay?.elyNumber}
           testId={testIds.elyNumber}
         />
       </DetailRow>

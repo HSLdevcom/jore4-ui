@@ -24,7 +24,7 @@ interface Props {
 export const SignageDetailsViewCard = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
 
-  const generalSign = stop.stop_place?.placeEquipments?.generalSign?.[0];
+  const generalSign = stop.quay?.placeEquipments?.generalSign?.[0];
 
   const signType =
     generalSign?.privateCode?.value &&
@@ -67,7 +67,7 @@ export const SignageDetailsViewCard = ({ stop }: Props): React.ReactElement => {
           <MainLineWarning
             isMainLineStop={!!stop.stop_place?.stopType.mainLine}
             hasMainLineSign={
-              !!stop.stop_place?.placeEquipments?.generalSign?.[0]?.mainLineSign
+              !!stop.quay?.placeEquipments?.generalSign?.[0]?.mainLineSign
             }
           />
         </div>
