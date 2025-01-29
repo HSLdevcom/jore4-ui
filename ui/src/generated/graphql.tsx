@@ -8247,7 +8247,8 @@ export type ServicePatternScheduledStopPoint = {
   located_on_infrastructure_link_id: Scalars['uuid']['output'];
   /** The measured location describes the physical location of the stop. For some stops this describes the location of the pole-mounted flag. A PostGIS PointZ geography in EPSG:4326. */
   measured_location: Scalars['geography_point']['output'];
-  newest_stop_place?: Maybe<StopsDatabaseStopPlaceNewestVersion>;
+  newest_quay?: Maybe<StopsDatabaseQuayNewestVersion>;
+  newest_stop_place?: Maybe<StopsDatabaseQuayNewestVersion>;
   /** An array relationship */
   other_label_instances: Array<ServicePatternScheduledStopPoint>;
   /** An aggregate relationship */
@@ -8331,6 +8332,7 @@ export type ServicePatternScheduledStopPointStopPlaceArgs = {
   countryReference?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   countyReference?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   hasParking?: InputMaybe<Scalars['Boolean']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
   importedId?: InputMaybe<Scalars['String']['input']>;
   key?: InputMaybe<Scalars['String']['input']>;
   municipalityReference?: InputMaybe<
@@ -8339,7 +8341,6 @@ export type ServicePatternScheduledStopPointStopPlaceArgs = {
   onlyMonomodalStopPlaces?: InputMaybe<Scalars['Boolean']['input']>;
   page?: InputMaybe<Scalars['Int']['input']>;
   pointInTime?: InputMaybe<Scalars['stop_registry_DateTime']['input']>;
-  query?: InputMaybe<Scalars['String']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
   stopPlaceType?: InputMaybe<Array<InputMaybe<StopRegistryStopPlaceType>>>;
   tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -36101,6 +36102,675 @@ export type StopsDatabasePersistablePolygonVarianceFields = {
   id?: Maybe<Scalars['Float']['output']>;
 };
 
+/** columns and relationships of "place_equipment" */
+export type StopsDatabasePlaceEquipment = {
+  __typename?: 'stops_database_place_equipment';
+  air_conditioned?: Maybe<Scalars['Boolean']['output']>;
+  bicycle_parking?: Maybe<Scalars['Boolean']['output']>;
+  brand_graphic?: Maybe<Scalars['String']['output']>;
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changed_by?: Maybe<Scalars['String']['output']>;
+  class_of_use_ref?: Maybe<Scalars['bytea']['output']>;
+  content_lang?: Maybe<Scalars['String']['output']>;
+  content_value?: Maybe<Scalars['String']['output']>;
+  created?: Maybe<Scalars['timestamp']['output']>;
+  cycle_storage_type?: Maybe<Scalars['Int']['output']>;
+  dtype?: Maybe<Scalars['String']['output']>;
+  enclosed?: Maybe<Scalars['Boolean']['output']>;
+  from_date?: Maybe<Scalars['timestamp']['output']>;
+  gender?: Maybe<Scalars['Int']['output']>;
+  heated?: Maybe<Scalars['Boolean']['output']>;
+  height?: Maybe<Scalars['numeric']['output']>;
+  height_from_floor?: Maybe<Scalars['numeric']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  leaning_rail?: Maybe<Scalars['Boolean']['output']>;
+  length?: Maybe<Scalars['numeric']['output']>;
+  line_signage?: Maybe<Scalars['Boolean']['output']>;
+  machine_readable?: Maybe<Scalars['Boolean']['output']>;
+  main_line_sign?: Maybe<Scalars['Boolean']['output']>;
+  netex_id?: Maybe<Scalars['String']['output']>;
+  note_lang?: Maybe<Scalars['String']['output']>;
+  note_value?: Maybe<Scalars['String']['output']>;
+  number_of_frames?: Maybe<Scalars['Int']['output']>;
+  number_of_machines?: Maybe<Scalars['numeric']['output']>;
+  number_of_spaces?: Maybe<Scalars['numeric']['output']>;
+  number_of_toilets?: Maybe<Scalars['numeric']['output']>;
+  out_of_service?: Maybe<Scalars['Boolean']['output']>;
+  outside_bench?: Maybe<Scalars['Boolean']['output']>;
+  place_equipment_id?: Maybe<Scalars['bigint']['output']>;
+  private_code_type?: Maybe<Scalars['String']['output']>;
+  private_code_value?: Maybe<Scalars['String']['output']>;
+  replaces_rail_sign?: Maybe<Scalars['Boolean']['output']>;
+  seats?: Maybe<Scalars['numeric']['output']>;
+  shelter_condition?: Maybe<Scalars['String']['output']>;
+  shelter_electricity?: Maybe<Scalars['String']['output']>;
+  shelter_fascia_board_taping?: Maybe<Scalars['Boolean']['output']>;
+  shelter_has_display?: Maybe<Scalars['Boolean']['output']>;
+  shelter_lighting?: Maybe<Scalars['Boolean']['output']>;
+  shelter_type?: Maybe<Scalars['String']['output']>;
+  sign_content_type?: Maybe<Scalars['String']['output']>;
+  sign_graphic?: Maybe<Scalars['String']['output']>;
+  smoking_allowed?: Maybe<Scalars['Boolean']['output']>;
+  step_free?: Maybe<Scalars['Boolean']['output']>;
+  ticket_machines?: Maybe<Scalars['Boolean']['output']>;
+  ticket_office?: Maybe<Scalars['Boolean']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Int']['output']>;
+  to_date?: Maybe<Scalars['timestamp']['output']>;
+  trash_can?: Maybe<Scalars['Boolean']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+  version_comment?: Maybe<Scalars['String']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['numeric']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['numeric']['output']>;
+  width?: Maybe<Scalars['numeric']['output']>;
+  women_only?: Maybe<Scalars['Boolean']['output']>;
+};
+
+/** aggregated selection of "place_equipment" */
+export type StopsDatabasePlaceEquipmentAggregate = {
+  __typename?: 'stops_database_place_equipment_aggregate';
+  aggregate?: Maybe<StopsDatabasePlaceEquipmentAggregateFields>;
+  nodes: Array<StopsDatabasePlaceEquipment>;
+};
+
+/** aggregate fields of "place_equipment" */
+export type StopsDatabasePlaceEquipmentAggregateFields = {
+  __typename?: 'stops_database_place_equipment_aggregate_fields';
+  avg?: Maybe<StopsDatabasePlaceEquipmentAvgFields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<StopsDatabasePlaceEquipmentMaxFields>;
+  min?: Maybe<StopsDatabasePlaceEquipmentMinFields>;
+  stddev?: Maybe<StopsDatabasePlaceEquipmentStddevFields>;
+  stddev_pop?: Maybe<StopsDatabasePlaceEquipmentStddevPopFields>;
+  stddev_samp?: Maybe<StopsDatabasePlaceEquipmentStddevSampFields>;
+  sum?: Maybe<StopsDatabasePlaceEquipmentSumFields>;
+  var_pop?: Maybe<StopsDatabasePlaceEquipmentVarPopFields>;
+  var_samp?: Maybe<StopsDatabasePlaceEquipmentVarSampFields>;
+  variance?: Maybe<StopsDatabasePlaceEquipmentVarianceFields>;
+};
+
+/** aggregate fields of "place_equipment" */
+export type StopsDatabasePlaceEquipmentAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<StopsDatabasePlaceEquipmentSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type StopsDatabasePlaceEquipmentAvgFields = {
+  __typename?: 'stops_database_place_equipment_avg_fields';
+  cycle_storage_type?: Maybe<Scalars['Float']['output']>;
+  gender?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  height_from_floor?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  length?: Maybe<Scalars['Float']['output']>;
+  number_of_frames?: Maybe<Scalars['Float']['output']>;
+  number_of_machines?: Maybe<Scalars['Float']['output']>;
+  number_of_spaces?: Maybe<Scalars['Float']['output']>;
+  number_of_toilets?: Maybe<Scalars['Float']['output']>;
+  place_equipment_id?: Maybe<Scalars['Float']['output']>;
+  seats?: Maybe<Scalars['Float']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "place_equipment". All fields are combined with a logical 'AND'. */
+export type StopsDatabasePlaceEquipmentBoolExp = {
+  _and?: InputMaybe<Array<StopsDatabasePlaceEquipmentBoolExp>>;
+  _not?: InputMaybe<StopsDatabasePlaceEquipmentBoolExp>;
+  _or?: InputMaybe<Array<StopsDatabasePlaceEquipmentBoolExp>>;
+  air_conditioned?: InputMaybe<BooleanComparisonExp>;
+  bicycle_parking?: InputMaybe<BooleanComparisonExp>;
+  brand_graphic?: InputMaybe<StringComparisonExp>;
+  changed?: InputMaybe<TimestampComparisonExp>;
+  changed_by?: InputMaybe<StringComparisonExp>;
+  class_of_use_ref?: InputMaybe<ByteaComparisonExp>;
+  content_lang?: InputMaybe<StringComparisonExp>;
+  content_value?: InputMaybe<StringComparisonExp>;
+  created?: InputMaybe<TimestampComparisonExp>;
+  cycle_storage_type?: InputMaybe<IntComparisonExp>;
+  dtype?: InputMaybe<StringComparisonExp>;
+  enclosed?: InputMaybe<BooleanComparisonExp>;
+  from_date?: InputMaybe<TimestampComparisonExp>;
+  gender?: InputMaybe<IntComparisonExp>;
+  heated?: InputMaybe<BooleanComparisonExp>;
+  height?: InputMaybe<NumericComparisonExp>;
+  height_from_floor?: InputMaybe<NumericComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  leaning_rail?: InputMaybe<BooleanComparisonExp>;
+  length?: InputMaybe<NumericComparisonExp>;
+  line_signage?: InputMaybe<BooleanComparisonExp>;
+  machine_readable?: InputMaybe<BooleanComparisonExp>;
+  main_line_sign?: InputMaybe<BooleanComparisonExp>;
+  netex_id?: InputMaybe<StringComparisonExp>;
+  note_lang?: InputMaybe<StringComparisonExp>;
+  note_value?: InputMaybe<StringComparisonExp>;
+  number_of_frames?: InputMaybe<IntComparisonExp>;
+  number_of_machines?: InputMaybe<NumericComparisonExp>;
+  number_of_spaces?: InputMaybe<NumericComparisonExp>;
+  number_of_toilets?: InputMaybe<NumericComparisonExp>;
+  out_of_service?: InputMaybe<BooleanComparisonExp>;
+  outside_bench?: InputMaybe<BooleanComparisonExp>;
+  place_equipment_id?: InputMaybe<BigintComparisonExp>;
+  private_code_type?: InputMaybe<StringComparisonExp>;
+  private_code_value?: InputMaybe<StringComparisonExp>;
+  replaces_rail_sign?: InputMaybe<BooleanComparisonExp>;
+  seats?: InputMaybe<NumericComparisonExp>;
+  shelter_condition?: InputMaybe<StringComparisonExp>;
+  shelter_electricity?: InputMaybe<StringComparisonExp>;
+  shelter_fascia_board_taping?: InputMaybe<BooleanComparisonExp>;
+  shelter_has_display?: InputMaybe<BooleanComparisonExp>;
+  shelter_lighting?: InputMaybe<BooleanComparisonExp>;
+  shelter_type?: InputMaybe<StringComparisonExp>;
+  sign_content_type?: InputMaybe<StringComparisonExp>;
+  sign_graphic?: InputMaybe<StringComparisonExp>;
+  smoking_allowed?: InputMaybe<BooleanComparisonExp>;
+  step_free?: InputMaybe<BooleanComparisonExp>;
+  ticket_machines?: InputMaybe<BooleanComparisonExp>;
+  ticket_office?: InputMaybe<BooleanComparisonExp>;
+  timetable_cabinets?: InputMaybe<IntComparisonExp>;
+  to_date?: InputMaybe<TimestampComparisonExp>;
+  trash_can?: InputMaybe<BooleanComparisonExp>;
+  version?: InputMaybe<BigintComparisonExp>;
+  version_comment?: InputMaybe<StringComparisonExp>;
+  wheelchair_area_length?: InputMaybe<NumericComparisonExp>;
+  wheelchair_area_width?: InputMaybe<NumericComparisonExp>;
+  width?: InputMaybe<NumericComparisonExp>;
+  women_only?: InputMaybe<BooleanComparisonExp>;
+};
+
+/** aggregate max on columns */
+export type StopsDatabasePlaceEquipmentMaxFields = {
+  __typename?: 'stops_database_place_equipment_max_fields';
+  brand_graphic?: Maybe<Scalars['String']['output']>;
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changed_by?: Maybe<Scalars['String']['output']>;
+  content_lang?: Maybe<Scalars['String']['output']>;
+  content_value?: Maybe<Scalars['String']['output']>;
+  created?: Maybe<Scalars['timestamp']['output']>;
+  cycle_storage_type?: Maybe<Scalars['Int']['output']>;
+  dtype?: Maybe<Scalars['String']['output']>;
+  from_date?: Maybe<Scalars['timestamp']['output']>;
+  gender?: Maybe<Scalars['Int']['output']>;
+  height?: Maybe<Scalars['numeric']['output']>;
+  height_from_floor?: Maybe<Scalars['numeric']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  length?: Maybe<Scalars['numeric']['output']>;
+  netex_id?: Maybe<Scalars['String']['output']>;
+  note_lang?: Maybe<Scalars['String']['output']>;
+  note_value?: Maybe<Scalars['String']['output']>;
+  number_of_frames?: Maybe<Scalars['Int']['output']>;
+  number_of_machines?: Maybe<Scalars['numeric']['output']>;
+  number_of_spaces?: Maybe<Scalars['numeric']['output']>;
+  number_of_toilets?: Maybe<Scalars['numeric']['output']>;
+  place_equipment_id?: Maybe<Scalars['bigint']['output']>;
+  private_code_type?: Maybe<Scalars['String']['output']>;
+  private_code_value?: Maybe<Scalars['String']['output']>;
+  seats?: Maybe<Scalars['numeric']['output']>;
+  shelter_condition?: Maybe<Scalars['String']['output']>;
+  shelter_electricity?: Maybe<Scalars['String']['output']>;
+  shelter_type?: Maybe<Scalars['String']['output']>;
+  sign_content_type?: Maybe<Scalars['String']['output']>;
+  sign_graphic?: Maybe<Scalars['String']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Int']['output']>;
+  to_date?: Maybe<Scalars['timestamp']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+  version_comment?: Maybe<Scalars['String']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['numeric']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['numeric']['output']>;
+  width?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** aggregate min on columns */
+export type StopsDatabasePlaceEquipmentMinFields = {
+  __typename?: 'stops_database_place_equipment_min_fields';
+  brand_graphic?: Maybe<Scalars['String']['output']>;
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changed_by?: Maybe<Scalars['String']['output']>;
+  content_lang?: Maybe<Scalars['String']['output']>;
+  content_value?: Maybe<Scalars['String']['output']>;
+  created?: Maybe<Scalars['timestamp']['output']>;
+  cycle_storage_type?: Maybe<Scalars['Int']['output']>;
+  dtype?: Maybe<Scalars['String']['output']>;
+  from_date?: Maybe<Scalars['timestamp']['output']>;
+  gender?: Maybe<Scalars['Int']['output']>;
+  height?: Maybe<Scalars['numeric']['output']>;
+  height_from_floor?: Maybe<Scalars['numeric']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  length?: Maybe<Scalars['numeric']['output']>;
+  netex_id?: Maybe<Scalars['String']['output']>;
+  note_lang?: Maybe<Scalars['String']['output']>;
+  note_value?: Maybe<Scalars['String']['output']>;
+  number_of_frames?: Maybe<Scalars['Int']['output']>;
+  number_of_machines?: Maybe<Scalars['numeric']['output']>;
+  number_of_spaces?: Maybe<Scalars['numeric']['output']>;
+  number_of_toilets?: Maybe<Scalars['numeric']['output']>;
+  place_equipment_id?: Maybe<Scalars['bigint']['output']>;
+  private_code_type?: Maybe<Scalars['String']['output']>;
+  private_code_value?: Maybe<Scalars['String']['output']>;
+  seats?: Maybe<Scalars['numeric']['output']>;
+  shelter_condition?: Maybe<Scalars['String']['output']>;
+  shelter_electricity?: Maybe<Scalars['String']['output']>;
+  shelter_type?: Maybe<Scalars['String']['output']>;
+  sign_content_type?: Maybe<Scalars['String']['output']>;
+  sign_graphic?: Maybe<Scalars['String']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Int']['output']>;
+  to_date?: Maybe<Scalars['timestamp']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+  version_comment?: Maybe<Scalars['String']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['numeric']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['numeric']['output']>;
+  width?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** Ordering options when selecting data from "place_equipment". */
+export type StopsDatabasePlaceEquipmentOrderBy = {
+  air_conditioned?: InputMaybe<OrderBy>;
+  bicycle_parking?: InputMaybe<OrderBy>;
+  brand_graphic?: InputMaybe<OrderBy>;
+  changed?: InputMaybe<OrderBy>;
+  changed_by?: InputMaybe<OrderBy>;
+  class_of_use_ref?: InputMaybe<OrderBy>;
+  content_lang?: InputMaybe<OrderBy>;
+  content_value?: InputMaybe<OrderBy>;
+  created?: InputMaybe<OrderBy>;
+  cycle_storage_type?: InputMaybe<OrderBy>;
+  dtype?: InputMaybe<OrderBy>;
+  enclosed?: InputMaybe<OrderBy>;
+  from_date?: InputMaybe<OrderBy>;
+  gender?: InputMaybe<OrderBy>;
+  heated?: InputMaybe<OrderBy>;
+  height?: InputMaybe<OrderBy>;
+  height_from_floor?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  leaning_rail?: InputMaybe<OrderBy>;
+  length?: InputMaybe<OrderBy>;
+  line_signage?: InputMaybe<OrderBy>;
+  machine_readable?: InputMaybe<OrderBy>;
+  main_line_sign?: InputMaybe<OrderBy>;
+  netex_id?: InputMaybe<OrderBy>;
+  note_lang?: InputMaybe<OrderBy>;
+  note_value?: InputMaybe<OrderBy>;
+  number_of_frames?: InputMaybe<OrderBy>;
+  number_of_machines?: InputMaybe<OrderBy>;
+  number_of_spaces?: InputMaybe<OrderBy>;
+  number_of_toilets?: InputMaybe<OrderBy>;
+  out_of_service?: InputMaybe<OrderBy>;
+  outside_bench?: InputMaybe<OrderBy>;
+  place_equipment_id?: InputMaybe<OrderBy>;
+  private_code_type?: InputMaybe<OrderBy>;
+  private_code_value?: InputMaybe<OrderBy>;
+  replaces_rail_sign?: InputMaybe<OrderBy>;
+  seats?: InputMaybe<OrderBy>;
+  shelter_condition?: InputMaybe<OrderBy>;
+  shelter_electricity?: InputMaybe<OrderBy>;
+  shelter_fascia_board_taping?: InputMaybe<OrderBy>;
+  shelter_has_display?: InputMaybe<OrderBy>;
+  shelter_lighting?: InputMaybe<OrderBy>;
+  shelter_type?: InputMaybe<OrderBy>;
+  sign_content_type?: InputMaybe<OrderBy>;
+  sign_graphic?: InputMaybe<OrderBy>;
+  smoking_allowed?: InputMaybe<OrderBy>;
+  step_free?: InputMaybe<OrderBy>;
+  ticket_machines?: InputMaybe<OrderBy>;
+  ticket_office?: InputMaybe<OrderBy>;
+  timetable_cabinets?: InputMaybe<OrderBy>;
+  to_date?: InputMaybe<OrderBy>;
+  trash_can?: InputMaybe<OrderBy>;
+  version?: InputMaybe<OrderBy>;
+  version_comment?: InputMaybe<OrderBy>;
+  wheelchair_area_length?: InputMaybe<OrderBy>;
+  wheelchair_area_width?: InputMaybe<OrderBy>;
+  width?: InputMaybe<OrderBy>;
+  women_only?: InputMaybe<OrderBy>;
+};
+
+/** select columns of table "place_equipment" */
+export enum StopsDatabasePlaceEquipmentSelectColumn {
+  /** column name */
+  AirConditioned = 'air_conditioned',
+  /** column name */
+  BicycleParking = 'bicycle_parking',
+  /** column name */
+  BrandGraphic = 'brand_graphic',
+  /** column name */
+  Changed = 'changed',
+  /** column name */
+  ChangedBy = 'changed_by',
+  /** column name */
+  ClassOfUseRef = 'class_of_use_ref',
+  /** column name */
+  ContentLang = 'content_lang',
+  /** column name */
+  ContentValue = 'content_value',
+  /** column name */
+  Created = 'created',
+  /** column name */
+  CycleStorageType = 'cycle_storage_type',
+  /** column name */
+  Dtype = 'dtype',
+  /** column name */
+  Enclosed = 'enclosed',
+  /** column name */
+  FromDate = 'from_date',
+  /** column name */
+  Gender = 'gender',
+  /** column name */
+  Heated = 'heated',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  HeightFromFloor = 'height_from_floor',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LeaningRail = 'leaning_rail',
+  /** column name */
+  Length = 'length',
+  /** column name */
+  LineSignage = 'line_signage',
+  /** column name */
+  MachineReadable = 'machine_readable',
+  /** column name */
+  MainLineSign = 'main_line_sign',
+  /** column name */
+  NetexId = 'netex_id',
+  /** column name */
+  NoteLang = 'note_lang',
+  /** column name */
+  NoteValue = 'note_value',
+  /** column name */
+  NumberOfFrames = 'number_of_frames',
+  /** column name */
+  NumberOfMachines = 'number_of_machines',
+  /** column name */
+  NumberOfSpaces = 'number_of_spaces',
+  /** column name */
+  NumberOfToilets = 'number_of_toilets',
+  /** column name */
+  OutOfService = 'out_of_service',
+  /** column name */
+  OutsideBench = 'outside_bench',
+  /** column name */
+  PlaceEquipmentId = 'place_equipment_id',
+  /** column name */
+  PrivateCodeType = 'private_code_type',
+  /** column name */
+  PrivateCodeValue = 'private_code_value',
+  /** column name */
+  ReplacesRailSign = 'replaces_rail_sign',
+  /** column name */
+  Seats = 'seats',
+  /** column name */
+  ShelterCondition = 'shelter_condition',
+  /** column name */
+  ShelterElectricity = 'shelter_electricity',
+  /** column name */
+  ShelterFasciaBoardTaping = 'shelter_fascia_board_taping',
+  /** column name */
+  ShelterHasDisplay = 'shelter_has_display',
+  /** column name */
+  ShelterLighting = 'shelter_lighting',
+  /** column name */
+  ShelterType = 'shelter_type',
+  /** column name */
+  SignContentType = 'sign_content_type',
+  /** column name */
+  SignGraphic = 'sign_graphic',
+  /** column name */
+  SmokingAllowed = 'smoking_allowed',
+  /** column name */
+  StepFree = 'step_free',
+  /** column name */
+  TicketMachines = 'ticket_machines',
+  /** column name */
+  TicketOffice = 'ticket_office',
+  /** column name */
+  TimetableCabinets = 'timetable_cabinets',
+  /** column name */
+  ToDate = 'to_date',
+  /** column name */
+  TrashCan = 'trash_can',
+  /** column name */
+  Version = 'version',
+  /** column name */
+  VersionComment = 'version_comment',
+  /** column name */
+  WheelchairAreaLength = 'wheelchair_area_length',
+  /** column name */
+  WheelchairAreaWidth = 'wheelchair_area_width',
+  /** column name */
+  Width = 'width',
+  /** column name */
+  WomenOnly = 'women_only',
+}
+
+/** aggregate stddev on columns */
+export type StopsDatabasePlaceEquipmentStddevFields = {
+  __typename?: 'stops_database_place_equipment_stddev_fields';
+  cycle_storage_type?: Maybe<Scalars['Float']['output']>;
+  gender?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  height_from_floor?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  length?: Maybe<Scalars['Float']['output']>;
+  number_of_frames?: Maybe<Scalars['Float']['output']>;
+  number_of_machines?: Maybe<Scalars['Float']['output']>;
+  number_of_spaces?: Maybe<Scalars['Float']['output']>;
+  number_of_toilets?: Maybe<Scalars['Float']['output']>;
+  place_equipment_id?: Maybe<Scalars['Float']['output']>;
+  seats?: Maybe<Scalars['Float']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type StopsDatabasePlaceEquipmentStddevPopFields = {
+  __typename?: 'stops_database_place_equipment_stddev_pop_fields';
+  cycle_storage_type?: Maybe<Scalars['Float']['output']>;
+  gender?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  height_from_floor?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  length?: Maybe<Scalars['Float']['output']>;
+  number_of_frames?: Maybe<Scalars['Float']['output']>;
+  number_of_machines?: Maybe<Scalars['Float']['output']>;
+  number_of_spaces?: Maybe<Scalars['Float']['output']>;
+  number_of_toilets?: Maybe<Scalars['Float']['output']>;
+  place_equipment_id?: Maybe<Scalars['Float']['output']>;
+  seats?: Maybe<Scalars['Float']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type StopsDatabasePlaceEquipmentStddevSampFields = {
+  __typename?: 'stops_database_place_equipment_stddev_samp_fields';
+  cycle_storage_type?: Maybe<Scalars['Float']['output']>;
+  gender?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  height_from_floor?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  length?: Maybe<Scalars['Float']['output']>;
+  number_of_frames?: Maybe<Scalars['Float']['output']>;
+  number_of_machines?: Maybe<Scalars['Float']['output']>;
+  number_of_spaces?: Maybe<Scalars['Float']['output']>;
+  number_of_toilets?: Maybe<Scalars['Float']['output']>;
+  place_equipment_id?: Maybe<Scalars['Float']['output']>;
+  seats?: Maybe<Scalars['Float']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "place_equipment" */
+export type StopsDatabasePlaceEquipmentStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: StopsDatabasePlaceEquipmentStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<StopsDatabaseCursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type StopsDatabasePlaceEquipmentStreamCursorValueInput = {
+  air_conditioned?: InputMaybe<Scalars['Boolean']['input']>;
+  bicycle_parking?: InputMaybe<Scalars['Boolean']['input']>;
+  brand_graphic?: InputMaybe<Scalars['String']['input']>;
+  changed?: InputMaybe<Scalars['timestamp']['input']>;
+  changed_by?: InputMaybe<Scalars['String']['input']>;
+  class_of_use_ref?: InputMaybe<Scalars['bytea']['input']>;
+  content_lang?: InputMaybe<Scalars['String']['input']>;
+  content_value?: InputMaybe<Scalars['String']['input']>;
+  created?: InputMaybe<Scalars['timestamp']['input']>;
+  cycle_storage_type?: InputMaybe<Scalars['Int']['input']>;
+  dtype?: InputMaybe<Scalars['String']['input']>;
+  enclosed?: InputMaybe<Scalars['Boolean']['input']>;
+  from_date?: InputMaybe<Scalars['timestamp']['input']>;
+  gender?: InputMaybe<Scalars['Int']['input']>;
+  heated?: InputMaybe<Scalars['Boolean']['input']>;
+  height?: InputMaybe<Scalars['numeric']['input']>;
+  height_from_floor?: InputMaybe<Scalars['numeric']['input']>;
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  leaning_rail?: InputMaybe<Scalars['Boolean']['input']>;
+  length?: InputMaybe<Scalars['numeric']['input']>;
+  line_signage?: InputMaybe<Scalars['Boolean']['input']>;
+  machine_readable?: InputMaybe<Scalars['Boolean']['input']>;
+  main_line_sign?: InputMaybe<Scalars['Boolean']['input']>;
+  netex_id?: InputMaybe<Scalars['String']['input']>;
+  note_lang?: InputMaybe<Scalars['String']['input']>;
+  note_value?: InputMaybe<Scalars['String']['input']>;
+  number_of_frames?: InputMaybe<Scalars['Int']['input']>;
+  number_of_machines?: InputMaybe<Scalars['numeric']['input']>;
+  number_of_spaces?: InputMaybe<Scalars['numeric']['input']>;
+  number_of_toilets?: InputMaybe<Scalars['numeric']['input']>;
+  out_of_service?: InputMaybe<Scalars['Boolean']['input']>;
+  outside_bench?: InputMaybe<Scalars['Boolean']['input']>;
+  place_equipment_id?: InputMaybe<Scalars['bigint']['input']>;
+  private_code_type?: InputMaybe<Scalars['String']['input']>;
+  private_code_value?: InputMaybe<Scalars['String']['input']>;
+  replaces_rail_sign?: InputMaybe<Scalars['Boolean']['input']>;
+  seats?: InputMaybe<Scalars['numeric']['input']>;
+  shelter_condition?: InputMaybe<Scalars['String']['input']>;
+  shelter_electricity?: InputMaybe<Scalars['String']['input']>;
+  shelter_fascia_board_taping?: InputMaybe<Scalars['Boolean']['input']>;
+  shelter_has_display?: InputMaybe<Scalars['Boolean']['input']>;
+  shelter_lighting?: InputMaybe<Scalars['Boolean']['input']>;
+  shelter_type?: InputMaybe<Scalars['String']['input']>;
+  sign_content_type?: InputMaybe<Scalars['String']['input']>;
+  sign_graphic?: InputMaybe<Scalars['String']['input']>;
+  smoking_allowed?: InputMaybe<Scalars['Boolean']['input']>;
+  step_free?: InputMaybe<Scalars['Boolean']['input']>;
+  ticket_machines?: InputMaybe<Scalars['Boolean']['input']>;
+  ticket_office?: InputMaybe<Scalars['Boolean']['input']>;
+  timetable_cabinets?: InputMaybe<Scalars['Int']['input']>;
+  to_date?: InputMaybe<Scalars['timestamp']['input']>;
+  trash_can?: InputMaybe<Scalars['Boolean']['input']>;
+  version?: InputMaybe<Scalars['bigint']['input']>;
+  version_comment?: InputMaybe<Scalars['String']['input']>;
+  wheelchair_area_length?: InputMaybe<Scalars['numeric']['input']>;
+  wheelchair_area_width?: InputMaybe<Scalars['numeric']['input']>;
+  width?: InputMaybe<Scalars['numeric']['input']>;
+  women_only?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate sum on columns */
+export type StopsDatabasePlaceEquipmentSumFields = {
+  __typename?: 'stops_database_place_equipment_sum_fields';
+  cycle_storage_type?: Maybe<Scalars['Int']['output']>;
+  gender?: Maybe<Scalars['Int']['output']>;
+  height?: Maybe<Scalars['numeric']['output']>;
+  height_from_floor?: Maybe<Scalars['numeric']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  length?: Maybe<Scalars['numeric']['output']>;
+  number_of_frames?: Maybe<Scalars['Int']['output']>;
+  number_of_machines?: Maybe<Scalars['numeric']['output']>;
+  number_of_spaces?: Maybe<Scalars['numeric']['output']>;
+  number_of_toilets?: Maybe<Scalars['numeric']['output']>;
+  place_equipment_id?: Maybe<Scalars['bigint']['output']>;
+  seats?: Maybe<Scalars['numeric']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Int']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['numeric']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['numeric']['output']>;
+  width?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** aggregate var_pop on columns */
+export type StopsDatabasePlaceEquipmentVarPopFields = {
+  __typename?: 'stops_database_place_equipment_var_pop_fields';
+  cycle_storage_type?: Maybe<Scalars['Float']['output']>;
+  gender?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  height_from_floor?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  length?: Maybe<Scalars['Float']['output']>;
+  number_of_frames?: Maybe<Scalars['Float']['output']>;
+  number_of_machines?: Maybe<Scalars['Float']['output']>;
+  number_of_spaces?: Maybe<Scalars['Float']['output']>;
+  number_of_toilets?: Maybe<Scalars['Float']['output']>;
+  place_equipment_id?: Maybe<Scalars['Float']['output']>;
+  seats?: Maybe<Scalars['Float']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type StopsDatabasePlaceEquipmentVarSampFields = {
+  __typename?: 'stops_database_place_equipment_var_samp_fields';
+  cycle_storage_type?: Maybe<Scalars['Float']['output']>;
+  gender?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  height_from_floor?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  length?: Maybe<Scalars['Float']['output']>;
+  number_of_frames?: Maybe<Scalars['Float']['output']>;
+  number_of_machines?: Maybe<Scalars['Float']['output']>;
+  number_of_spaces?: Maybe<Scalars['Float']['output']>;
+  number_of_toilets?: Maybe<Scalars['Float']['output']>;
+  place_equipment_id?: Maybe<Scalars['Float']['output']>;
+  seats?: Maybe<Scalars['Float']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type StopsDatabasePlaceEquipmentVarianceFields = {
+  __typename?: 'stops_database_place_equipment_variance_fields';
+  cycle_storage_type?: Maybe<Scalars['Float']['output']>;
+  gender?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  height_from_floor?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  length?: Maybe<Scalars['Float']['output']>;
+  number_of_frames?: Maybe<Scalars['Float']['output']>;
+  number_of_machines?: Maybe<Scalars['Float']['output']>;
+  number_of_spaces?: Maybe<Scalars['Float']['output']>;
+  number_of_toilets?: Maybe<Scalars['Float']['output']>;
+  place_equipment_id?: Maybe<Scalars['Float']['output']>;
+  seats?: Maybe<Scalars['Float']['output']>;
+  timetable_cabinets?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
+  wheelchair_area_width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
 /** columns and relationships of "purpose_of_grouping" */
 export type StopsDatabasePurposeOfGrouping = {
   __typename?: 'stops_database_purpose_of_grouping';
@@ -38398,6 +39068,576 @@ export type StopsDatabaseQuayMutationResponse = {
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
   returning: Array<StopsDatabaseQuay>;
+};
+
+/** columns and relationships of "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersion = {
+  __typename?: 'stops_database_quay_newest_version';
+  accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
+  all_areas_wheelchair_accessible?: Maybe<Scalars['Boolean']['output']>;
+  centroid?: Maybe<Scalars['geometry']['output']>;
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changed_by?: Maybe<Scalars['String']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Int']['output']>;
+  created?: Maybe<Scalars['timestamp']['output']>;
+  description_lang?: Maybe<Scalars['String']['output']>;
+  description_value?: Maybe<Scalars['String']['output']>;
+  ely_code?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  equipment?: Maybe<StopsDatabasePlaceEquipment>;
+  from_date?: Maybe<Scalars['timestamp']['output']>;
+  functional_area?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  label_lang?: Maybe<Scalars['String']['output']>;
+  label_value?: Maybe<Scalars['String']['output']>;
+  level_ref?: Maybe<Scalars['String']['output']>;
+  level_ref_version?: Maybe<Scalars['String']['output']>;
+  location_swe?: Maybe<Scalars['String']['output']>;
+  name_lang?: Maybe<Scalars['String']['output']>;
+  name_value?: Maybe<Scalars['String']['output']>;
+  netex_id?: Maybe<Scalars['String']['output']>;
+  place_equipments_id?: Maybe<Scalars['bigint']['output']>;
+  polygon_id?: Maybe<Scalars['bigint']['output']>;
+  postal_code?: Maybe<Scalars['String']['output']>;
+  priority?: Maybe<Scalars['String']['output']>;
+  private_code_type?: Maybe<Scalars['String']['output']>;
+  private_code_value?: Maybe<Scalars['String']['output']>;
+  public_code?: Maybe<Scalars['String']['output']>;
+  /** An array relationship */
+  quay_alternative_names: Array<StopsDatabaseQuayAlternativeNames>;
+  /** An aggregate relationship */
+  quay_alternative_names_aggregate: StopsDatabaseQuayAlternativeNamesAggregate;
+  /** An array relationship */
+  quay_key_values: Array<StopsDatabaseQuayKeyValues>;
+  /** An aggregate relationship */
+  quay_key_values_aggregate: StopsDatabaseQuayKeyValuesAggregate;
+  scheduled_stop_point_instance?: Maybe<ServicePatternScheduledStopPoint>;
+  short_name_lang?: Maybe<Scalars['String']['output']>;
+  short_name_value?: Maybe<Scalars['String']['output']>;
+  site_ref?: Maybe<Scalars['String']['output']>;
+  site_ref_version?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  stop_place?: Maybe<StopsDatabaseStopPlace>;
+  stop_place_id?: Maybe<Scalars['bigint']['output']>;
+  stop_place_version?: Maybe<Scalars['bigint']['output']>;
+  street_address?: Maybe<Scalars['String']['output']>;
+  to_date?: Maybe<Scalars['timestamp']['output']>;
+  validity_end?: Maybe<Scalars['String']['output']>;
+  validity_start?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+  version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+/** columns and relationships of "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersionQuayAlternativeNamesArgs = {
+  distinct_on?: InputMaybe<
+    Array<StopsDatabaseQuayAlternativeNamesSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseQuayAlternativeNamesOrderBy>>;
+  where?: InputMaybe<StopsDatabaseQuayAlternativeNamesBoolExp>;
+};
+
+/** columns and relationships of "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersionQuayAlternativeNamesAggregateArgs = {
+  distinct_on?: InputMaybe<
+    Array<StopsDatabaseQuayAlternativeNamesSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseQuayAlternativeNamesOrderBy>>;
+  where?: InputMaybe<StopsDatabaseQuayAlternativeNamesBoolExp>;
+};
+
+/** columns and relationships of "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersionQuayKeyValuesArgs = {
+  distinct_on?: InputMaybe<Array<StopsDatabaseQuayKeyValuesSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseQuayKeyValuesOrderBy>>;
+  where?: InputMaybe<StopsDatabaseQuayKeyValuesBoolExp>;
+};
+
+/** columns and relationships of "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersionQuayKeyValuesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<StopsDatabaseQuayKeyValuesSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseQuayKeyValuesOrderBy>>;
+  where?: InputMaybe<StopsDatabaseQuayKeyValuesBoolExp>;
+};
+
+/** aggregated selection of "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersionAggregate = {
+  __typename?: 'stops_database_quay_newest_version_aggregate';
+  aggregate?: Maybe<StopsDatabaseQuayNewestVersionAggregateFields>;
+  nodes: Array<StopsDatabaseQuayNewestVersion>;
+};
+
+/** aggregate fields of "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersionAggregateFields = {
+  __typename?: 'stops_database_quay_newest_version_aggregate_fields';
+  avg?: Maybe<StopsDatabaseQuayNewestVersionAvgFields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<StopsDatabaseQuayNewestVersionMaxFields>;
+  min?: Maybe<StopsDatabaseQuayNewestVersionMinFields>;
+  stddev?: Maybe<StopsDatabaseQuayNewestVersionStddevFields>;
+  stddev_pop?: Maybe<StopsDatabaseQuayNewestVersionStddevPopFields>;
+  stddev_samp?: Maybe<StopsDatabaseQuayNewestVersionStddevSampFields>;
+  sum?: Maybe<StopsDatabaseQuayNewestVersionSumFields>;
+  var_pop?: Maybe<StopsDatabaseQuayNewestVersionVarPopFields>;
+  var_samp?: Maybe<StopsDatabaseQuayNewestVersionVarSampFields>;
+  variance?: Maybe<StopsDatabaseQuayNewestVersionVarianceFields>;
+};
+
+/** aggregate fields of "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersionAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<StopsDatabaseQuayNewestVersionSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type StopsDatabaseQuayNewestVersionAvgFields = {
+  __typename?: 'stops_database_quay_newest_version_avg_fields';
+  accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  place_equipments_id?: Maybe<Scalars['Float']['output']>;
+  polygon_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_version?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "quay_newest_version". All fields are combined with a logical 'AND'. */
+export type StopsDatabaseQuayNewestVersionBoolExp = {
+  _and?: InputMaybe<Array<StopsDatabaseQuayNewestVersionBoolExp>>;
+  _not?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
+  _or?: InputMaybe<Array<StopsDatabaseQuayNewestVersionBoolExp>>;
+  accessibility_assessment_id?: InputMaybe<BigintComparisonExp>;
+  all_areas_wheelchair_accessible?: InputMaybe<BooleanComparisonExp>;
+  centroid?: InputMaybe<GeometryComparisonExp>;
+  changed?: InputMaybe<TimestampComparisonExp>;
+  changed_by?: InputMaybe<StringComparisonExp>;
+  compass_bearing?: InputMaybe<FloatComparisonExp>;
+  covered?: InputMaybe<IntComparisonExp>;
+  created?: InputMaybe<TimestampComparisonExp>;
+  description_lang?: InputMaybe<StringComparisonExp>;
+  description_value?: InputMaybe<StringComparisonExp>;
+  ely_code?: InputMaybe<StringComparisonExp>;
+  equipment?: InputMaybe<StopsDatabasePlaceEquipmentBoolExp>;
+  from_date?: InputMaybe<TimestampComparisonExp>;
+  functional_area?: InputMaybe<StringComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  label_lang?: InputMaybe<StringComparisonExp>;
+  label_value?: InputMaybe<StringComparisonExp>;
+  level_ref?: InputMaybe<StringComparisonExp>;
+  level_ref_version?: InputMaybe<StringComparisonExp>;
+  location_swe?: InputMaybe<StringComparisonExp>;
+  name_lang?: InputMaybe<StringComparisonExp>;
+  name_value?: InputMaybe<StringComparisonExp>;
+  netex_id?: InputMaybe<StringComparisonExp>;
+  place_equipments_id?: InputMaybe<BigintComparisonExp>;
+  polygon_id?: InputMaybe<BigintComparisonExp>;
+  postal_code?: InputMaybe<StringComparisonExp>;
+  priority?: InputMaybe<StringComparisonExp>;
+  private_code_type?: InputMaybe<StringComparisonExp>;
+  private_code_value?: InputMaybe<StringComparisonExp>;
+  public_code?: InputMaybe<StringComparisonExp>;
+  quay_alternative_names?: InputMaybe<StopsDatabaseQuayAlternativeNamesBoolExp>;
+  quay_alternative_names_aggregate?: InputMaybe<QuayAlternativeNamesAggregateBoolExp>;
+  quay_key_values?: InputMaybe<StopsDatabaseQuayKeyValuesBoolExp>;
+  quay_key_values_aggregate?: InputMaybe<QuayKeyValuesAggregateBoolExp>;
+  short_name_lang?: InputMaybe<StringComparisonExp>;
+  short_name_value?: InputMaybe<StringComparisonExp>;
+  site_ref?: InputMaybe<StringComparisonExp>;
+  site_ref_version?: InputMaybe<StringComparisonExp>;
+  stop_place?: InputMaybe<StopsDatabaseStopPlaceBoolExp>;
+  stop_place_id?: InputMaybe<BigintComparisonExp>;
+  stop_place_version?: InputMaybe<BigintComparisonExp>;
+  street_address?: InputMaybe<StringComparisonExp>;
+  to_date?: InputMaybe<TimestampComparisonExp>;
+  validity_end?: InputMaybe<StringComparisonExp>;
+  validity_start?: InputMaybe<StringComparisonExp>;
+  version?: InputMaybe<BigintComparisonExp>;
+  version_comment?: InputMaybe<StringComparisonExp>;
+};
+
+/** aggregate max on columns */
+export type StopsDatabaseQuayNewestVersionMaxFields = {
+  __typename?: 'stops_database_quay_newest_version_max_fields';
+  accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changed_by?: Maybe<Scalars['String']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Int']['output']>;
+  created?: Maybe<Scalars['timestamp']['output']>;
+  description_lang?: Maybe<Scalars['String']['output']>;
+  description_value?: Maybe<Scalars['String']['output']>;
+  ely_code?: Maybe<Scalars['String']['output']>;
+  from_date?: Maybe<Scalars['timestamp']['output']>;
+  functional_area?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  label_lang?: Maybe<Scalars['String']['output']>;
+  label_value?: Maybe<Scalars['String']['output']>;
+  level_ref?: Maybe<Scalars['String']['output']>;
+  level_ref_version?: Maybe<Scalars['String']['output']>;
+  location_swe?: Maybe<Scalars['String']['output']>;
+  name_lang?: Maybe<Scalars['String']['output']>;
+  name_value?: Maybe<Scalars['String']['output']>;
+  netex_id?: Maybe<Scalars['String']['output']>;
+  place_equipments_id?: Maybe<Scalars['bigint']['output']>;
+  polygon_id?: Maybe<Scalars['bigint']['output']>;
+  postal_code?: Maybe<Scalars['String']['output']>;
+  priority?: Maybe<Scalars['String']['output']>;
+  private_code_type?: Maybe<Scalars['String']['output']>;
+  private_code_value?: Maybe<Scalars['String']['output']>;
+  public_code?: Maybe<Scalars['String']['output']>;
+  short_name_lang?: Maybe<Scalars['String']['output']>;
+  short_name_value?: Maybe<Scalars['String']['output']>;
+  site_ref?: Maybe<Scalars['String']['output']>;
+  site_ref_version?: Maybe<Scalars['String']['output']>;
+  stop_place_id?: Maybe<Scalars['bigint']['output']>;
+  stop_place_version?: Maybe<Scalars['bigint']['output']>;
+  street_address?: Maybe<Scalars['String']['output']>;
+  to_date?: Maybe<Scalars['timestamp']['output']>;
+  validity_end?: Maybe<Scalars['String']['output']>;
+  validity_start?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+  version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type StopsDatabaseQuayNewestVersionMinFields = {
+  __typename?: 'stops_database_quay_newest_version_min_fields';
+  accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
+  changed?: Maybe<Scalars['timestamp']['output']>;
+  changed_by?: Maybe<Scalars['String']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Int']['output']>;
+  created?: Maybe<Scalars['timestamp']['output']>;
+  description_lang?: Maybe<Scalars['String']['output']>;
+  description_value?: Maybe<Scalars['String']['output']>;
+  ely_code?: Maybe<Scalars['String']['output']>;
+  from_date?: Maybe<Scalars['timestamp']['output']>;
+  functional_area?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  label_lang?: Maybe<Scalars['String']['output']>;
+  label_value?: Maybe<Scalars['String']['output']>;
+  level_ref?: Maybe<Scalars['String']['output']>;
+  level_ref_version?: Maybe<Scalars['String']['output']>;
+  location_swe?: Maybe<Scalars['String']['output']>;
+  name_lang?: Maybe<Scalars['String']['output']>;
+  name_value?: Maybe<Scalars['String']['output']>;
+  netex_id?: Maybe<Scalars['String']['output']>;
+  place_equipments_id?: Maybe<Scalars['bigint']['output']>;
+  polygon_id?: Maybe<Scalars['bigint']['output']>;
+  postal_code?: Maybe<Scalars['String']['output']>;
+  priority?: Maybe<Scalars['String']['output']>;
+  private_code_type?: Maybe<Scalars['String']['output']>;
+  private_code_value?: Maybe<Scalars['String']['output']>;
+  public_code?: Maybe<Scalars['String']['output']>;
+  short_name_lang?: Maybe<Scalars['String']['output']>;
+  short_name_value?: Maybe<Scalars['String']['output']>;
+  site_ref?: Maybe<Scalars['String']['output']>;
+  site_ref_version?: Maybe<Scalars['String']['output']>;
+  stop_place_id?: Maybe<Scalars['bigint']['output']>;
+  stop_place_version?: Maybe<Scalars['bigint']['output']>;
+  street_address?: Maybe<Scalars['String']['output']>;
+  to_date?: Maybe<Scalars['timestamp']['output']>;
+  validity_end?: Maybe<Scalars['String']['output']>;
+  validity_start?: Maybe<Scalars['String']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+  version_comment?: Maybe<Scalars['String']['output']>;
+};
+
+/** Ordering options when selecting data from "quay_newest_version". */
+export type StopsDatabaseQuayNewestVersionOrderBy = {
+  accessibility_assessment_id?: InputMaybe<OrderBy>;
+  all_areas_wheelchair_accessible?: InputMaybe<OrderBy>;
+  centroid?: InputMaybe<OrderBy>;
+  changed?: InputMaybe<OrderBy>;
+  changed_by?: InputMaybe<OrderBy>;
+  compass_bearing?: InputMaybe<OrderBy>;
+  covered?: InputMaybe<OrderBy>;
+  created?: InputMaybe<OrderBy>;
+  description_lang?: InputMaybe<OrderBy>;
+  description_value?: InputMaybe<OrderBy>;
+  ely_code?: InputMaybe<OrderBy>;
+  equipment?: InputMaybe<StopsDatabasePlaceEquipmentOrderBy>;
+  from_date?: InputMaybe<OrderBy>;
+  functional_area?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  label_lang?: InputMaybe<OrderBy>;
+  label_value?: InputMaybe<OrderBy>;
+  level_ref?: InputMaybe<OrderBy>;
+  level_ref_version?: InputMaybe<OrderBy>;
+  location_swe?: InputMaybe<OrderBy>;
+  name_lang?: InputMaybe<OrderBy>;
+  name_value?: InputMaybe<OrderBy>;
+  netex_id?: InputMaybe<OrderBy>;
+  place_equipments_id?: InputMaybe<OrderBy>;
+  polygon_id?: InputMaybe<OrderBy>;
+  postal_code?: InputMaybe<OrderBy>;
+  priority?: InputMaybe<OrderBy>;
+  private_code_type?: InputMaybe<OrderBy>;
+  private_code_value?: InputMaybe<OrderBy>;
+  public_code?: InputMaybe<OrderBy>;
+  quay_alternative_names_aggregate?: InputMaybe<StopsDatabaseQuayAlternativeNamesAggregateOrderBy>;
+  quay_key_values_aggregate?: InputMaybe<StopsDatabaseQuayKeyValuesAggregateOrderBy>;
+  short_name_lang?: InputMaybe<OrderBy>;
+  short_name_value?: InputMaybe<OrderBy>;
+  site_ref?: InputMaybe<OrderBy>;
+  site_ref_version?: InputMaybe<OrderBy>;
+  stop_place?: InputMaybe<StopsDatabaseStopPlaceOrderBy>;
+  stop_place_id?: InputMaybe<OrderBy>;
+  stop_place_version?: InputMaybe<OrderBy>;
+  street_address?: InputMaybe<OrderBy>;
+  to_date?: InputMaybe<OrderBy>;
+  validity_end?: InputMaybe<OrderBy>;
+  validity_start?: InputMaybe<OrderBy>;
+  version?: InputMaybe<OrderBy>;
+  version_comment?: InputMaybe<OrderBy>;
+};
+
+/** select columns of table "quay_newest_version" */
+export enum StopsDatabaseQuayNewestVersionSelectColumn {
+  /** column name */
+  AccessibilityAssessmentId = 'accessibility_assessment_id',
+  /** column name */
+  AllAreasWheelchairAccessible = 'all_areas_wheelchair_accessible',
+  /** column name */
+  Centroid = 'centroid',
+  /** column name */
+  Changed = 'changed',
+  /** column name */
+  ChangedBy = 'changed_by',
+  /** column name */
+  CompassBearing = 'compass_bearing',
+  /** column name */
+  Covered = 'covered',
+  /** column name */
+  Created = 'created',
+  /** column name */
+  DescriptionLang = 'description_lang',
+  /** column name */
+  DescriptionValue = 'description_value',
+  /** column name */
+  ElyCode = 'ely_code',
+  /** column name */
+  FromDate = 'from_date',
+  /** column name */
+  FunctionalArea = 'functional_area',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LabelLang = 'label_lang',
+  /** column name */
+  LabelValue = 'label_value',
+  /** column name */
+  LevelRef = 'level_ref',
+  /** column name */
+  LevelRefVersion = 'level_ref_version',
+  /** column name */
+  LocationSwe = 'location_swe',
+  /** column name */
+  NameLang = 'name_lang',
+  /** column name */
+  NameValue = 'name_value',
+  /** column name */
+  NetexId = 'netex_id',
+  /** column name */
+  PlaceEquipmentsId = 'place_equipments_id',
+  /** column name */
+  PolygonId = 'polygon_id',
+  /** column name */
+  PostalCode = 'postal_code',
+  /** column name */
+  Priority = 'priority',
+  /** column name */
+  PrivateCodeType = 'private_code_type',
+  /** column name */
+  PrivateCodeValue = 'private_code_value',
+  /** column name */
+  PublicCode = 'public_code',
+  /** column name */
+  ShortNameLang = 'short_name_lang',
+  /** column name */
+  ShortNameValue = 'short_name_value',
+  /** column name */
+  SiteRef = 'site_ref',
+  /** column name */
+  SiteRefVersion = 'site_ref_version',
+  /** column name */
+  StopPlaceId = 'stop_place_id',
+  /** column name */
+  StopPlaceVersion = 'stop_place_version',
+  /** column name */
+  StreetAddress = 'street_address',
+  /** column name */
+  ToDate = 'to_date',
+  /** column name */
+  ValidityEnd = 'validity_end',
+  /** column name */
+  ValidityStart = 'validity_start',
+  /** column name */
+  Version = 'version',
+  /** column name */
+  VersionComment = 'version_comment',
+}
+
+/** aggregate stddev on columns */
+export type StopsDatabaseQuayNewestVersionStddevFields = {
+  __typename?: 'stops_database_quay_newest_version_stddev_fields';
+  accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  place_equipments_id?: Maybe<Scalars['Float']['output']>;
+  polygon_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_version?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type StopsDatabaseQuayNewestVersionStddevPopFields = {
+  __typename?: 'stops_database_quay_newest_version_stddev_pop_fields';
+  accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  place_equipments_id?: Maybe<Scalars['Float']['output']>;
+  polygon_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_version?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type StopsDatabaseQuayNewestVersionStddevSampFields = {
+  __typename?: 'stops_database_quay_newest_version_stddev_samp_fields';
+  accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  place_equipments_id?: Maybe<Scalars['Float']['output']>;
+  polygon_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_version?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "quay_newest_version" */
+export type StopsDatabaseQuayNewestVersionStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: StopsDatabaseQuayNewestVersionStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<StopsDatabaseCursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type StopsDatabaseQuayNewestVersionStreamCursorValueInput = {
+  accessibility_assessment_id?: InputMaybe<Scalars['bigint']['input']>;
+  all_areas_wheelchair_accessible?: InputMaybe<Scalars['Boolean']['input']>;
+  centroid?: InputMaybe<Scalars['geometry']['input']>;
+  changed?: InputMaybe<Scalars['timestamp']['input']>;
+  changed_by?: InputMaybe<Scalars['String']['input']>;
+  compass_bearing?: InputMaybe<Scalars['Float']['input']>;
+  covered?: InputMaybe<Scalars['Int']['input']>;
+  created?: InputMaybe<Scalars['timestamp']['input']>;
+  description_lang?: InputMaybe<Scalars['String']['input']>;
+  description_value?: InputMaybe<Scalars['String']['input']>;
+  ely_code?: InputMaybe<Scalars['String']['input']>;
+  from_date?: InputMaybe<Scalars['timestamp']['input']>;
+  functional_area?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  label_lang?: InputMaybe<Scalars['String']['input']>;
+  label_value?: InputMaybe<Scalars['String']['input']>;
+  level_ref?: InputMaybe<Scalars['String']['input']>;
+  level_ref_version?: InputMaybe<Scalars['String']['input']>;
+  location_swe?: InputMaybe<Scalars['String']['input']>;
+  name_lang?: InputMaybe<Scalars['String']['input']>;
+  name_value?: InputMaybe<Scalars['String']['input']>;
+  netex_id?: InputMaybe<Scalars['String']['input']>;
+  place_equipments_id?: InputMaybe<Scalars['bigint']['input']>;
+  polygon_id?: InputMaybe<Scalars['bigint']['input']>;
+  postal_code?: InputMaybe<Scalars['String']['input']>;
+  priority?: InputMaybe<Scalars['String']['input']>;
+  private_code_type?: InputMaybe<Scalars['String']['input']>;
+  private_code_value?: InputMaybe<Scalars['String']['input']>;
+  public_code?: InputMaybe<Scalars['String']['input']>;
+  short_name_lang?: InputMaybe<Scalars['String']['input']>;
+  short_name_value?: InputMaybe<Scalars['String']['input']>;
+  site_ref?: InputMaybe<Scalars['String']['input']>;
+  site_ref_version?: InputMaybe<Scalars['String']['input']>;
+  stop_place_id?: InputMaybe<Scalars['bigint']['input']>;
+  stop_place_version?: InputMaybe<Scalars['bigint']['input']>;
+  street_address?: InputMaybe<Scalars['String']['input']>;
+  to_date?: InputMaybe<Scalars['timestamp']['input']>;
+  validity_end?: InputMaybe<Scalars['String']['input']>;
+  validity_start?: InputMaybe<Scalars['String']['input']>;
+  version?: InputMaybe<Scalars['bigint']['input']>;
+  version_comment?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate sum on columns */
+export type StopsDatabaseQuayNewestVersionSumFields = {
+  __typename?: 'stops_database_quay_newest_version_sum_fields';
+  accessibility_assessment_id?: Maybe<Scalars['bigint']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  place_equipments_id?: Maybe<Scalars['bigint']['output']>;
+  polygon_id?: Maybe<Scalars['bigint']['output']>;
+  stop_place_id?: Maybe<Scalars['bigint']['output']>;
+  stop_place_version?: Maybe<Scalars['bigint']['output']>;
+  version?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate var_pop on columns */
+export type StopsDatabaseQuayNewestVersionVarPopFields = {
+  __typename?: 'stops_database_quay_newest_version_var_pop_fields';
+  accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  place_equipments_id?: Maybe<Scalars['Float']['output']>;
+  polygon_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_version?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type StopsDatabaseQuayNewestVersionVarSampFields = {
+  __typename?: 'stops_database_quay_newest_version_var_samp_fields';
+  accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  place_equipments_id?: Maybe<Scalars['Float']['output']>;
+  polygon_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_version?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type StopsDatabaseQuayNewestVersionVarianceFields = {
+  __typename?: 'stops_database_quay_newest_version_variance_fields';
+  accessibility_assessment_id?: Maybe<Scalars['Float']['output']>;
+  compass_bearing?: Maybe<Scalars['Float']['output']>;
+  covered?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  place_equipments_id?: Maybe<Scalars['Float']['output']>;
+  polygon_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_id?: Maybe<Scalars['Float']['output']>;
+  stop_place_version?: Maybe<Scalars['Float']['output']>;
+  version?: Maybe<Scalars['Float']['output']>;
 };
 
 /** input type for inserting object relation for remote table "quay" */
@@ -48951,6 +50191,10 @@ export type StopsDatabaseStopsDatabaseQuery = {
   stops_database_persistable_polygon_aggregate: StopsDatabasePersistablePolygonAggregate;
   /** fetch data from the table: "persistable_polygon" using primary key columns */
   stops_database_persistable_polygon_by_pk?: Maybe<StopsDatabasePersistablePolygon>;
+  /** fetch data from the table: "place_equipment" */
+  stops_database_place_equipment: Array<StopsDatabasePlaceEquipment>;
+  /** fetch aggregated fields from the table: "place_equipment" */
+  stops_database_place_equipment_aggregate: StopsDatabasePlaceEquipmentAggregate;
   /** fetch data from the table: "purpose_of_grouping" */
   stops_database_purpose_of_grouping: Array<StopsDatabasePurposeOfGrouping>;
   /** fetch aggregated fields from the table: "purpose_of_grouping" */
@@ -48991,6 +50235,10 @@ export type StopsDatabaseStopsDatabaseQuery = {
   stops_database_quay_key_values_aggregate: StopsDatabaseQuayKeyValuesAggregate;
   /** fetch data from the table: "quay_key_values" using primary key columns */
   stops_database_quay_key_values_by_pk?: Maybe<StopsDatabaseQuayKeyValues>;
+  /** fetch data from the table: "quay_newest_version" */
+  stops_database_quay_newest_version: Array<StopsDatabaseQuayNewestVersion>;
+  /** fetch aggregated fields from the table: "quay_newest_version" */
+  stops_database_quay_newest_version_aggregate: StopsDatabaseQuayNewestVersionAggregate;
   /** fetch data from the table: "schema_version" */
   stops_database_schema_version: Array<StopsDatabaseSchemaVersion>;
   /** fetch aggregated fields from the table: "schema_version" */
@@ -50891,6 +52139,23 @@ export type StopsDatabaseStopsDatabaseQueryStopsDatabasePersistablePolygonByPkAr
     id: Scalars['bigint']['input'];
   };
 
+export type StopsDatabaseStopsDatabaseQueryStopsDatabasePlaceEquipmentArgs = {
+  distinct_on?: InputMaybe<Array<StopsDatabasePlaceEquipmentSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabasePlaceEquipmentOrderBy>>;
+  where?: InputMaybe<StopsDatabasePlaceEquipmentBoolExp>;
+};
+
+export type StopsDatabaseStopsDatabaseQueryStopsDatabasePlaceEquipmentAggregateArgs =
+  {
+    distinct_on?: InputMaybe<Array<StopsDatabasePlaceEquipmentSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabasePlaceEquipmentOrderBy>>;
+    where?: InputMaybe<StopsDatabasePlaceEquipmentBoolExp>;
+  };
+
 export type StopsDatabaseStopsDatabaseQueryStopsDatabasePurposeOfGroupingArgs =
   {
     distinct_on?: InputMaybe<Array<StopsDatabasePurposeOfGroupingSelectColumn>>;
@@ -51075,6 +52340,24 @@ export type StopsDatabaseStopsDatabaseQueryStopsDatabaseQuayKeyValuesByPkArgs =
   {
     key_values_key: Scalars['String']['input'];
     quay_id: Scalars['bigint']['input'];
+  };
+
+export type StopsDatabaseStopsDatabaseQueryStopsDatabaseQuayNewestVersionArgs =
+  {
+    distinct_on?: InputMaybe<Array<StopsDatabaseQuayNewestVersionSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabaseQuayNewestVersionOrderBy>>;
+    where?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseQueryStopsDatabaseQuayNewestVersionAggregateArgs =
+  {
+    distinct_on?: InputMaybe<Array<StopsDatabaseQuayNewestVersionSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabaseQuayNewestVersionOrderBy>>;
+    where?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
   };
 
 export type StopsDatabaseStopsDatabaseQueryStopsDatabaseSchemaVersionArgs = {
@@ -52067,6 +53350,12 @@ export type StopsDatabaseStopsDatabaseSubscription = {
   stops_database_persistable_polygon_by_pk?: Maybe<StopsDatabasePersistablePolygon>;
   /** fetch data from the table in a streaming manner: "persistable_polygon" */
   stops_database_persistable_polygon_stream: Array<StopsDatabasePersistablePolygon>;
+  /** fetch data from the table: "place_equipment" */
+  stops_database_place_equipment: Array<StopsDatabasePlaceEquipment>;
+  /** fetch aggregated fields from the table: "place_equipment" */
+  stops_database_place_equipment_aggregate: StopsDatabasePlaceEquipmentAggregate;
+  /** fetch data from the table in a streaming manner: "place_equipment" */
+  stops_database_place_equipment_stream: Array<StopsDatabasePlaceEquipment>;
   /** fetch data from the table: "purpose_of_grouping" */
   stops_database_purpose_of_grouping: Array<StopsDatabasePurposeOfGrouping>;
   /** fetch aggregated fields from the table: "purpose_of_grouping" */
@@ -52121,6 +53410,12 @@ export type StopsDatabaseStopsDatabaseSubscription = {
   stops_database_quay_key_values_by_pk?: Maybe<StopsDatabaseQuayKeyValues>;
   /** fetch data from the table in a streaming manner: "quay_key_values" */
   stops_database_quay_key_values_stream: Array<StopsDatabaseQuayKeyValues>;
+  /** fetch data from the table: "quay_newest_version" */
+  stops_database_quay_newest_version: Array<StopsDatabaseQuayNewestVersion>;
+  /** fetch aggregated fields from the table: "quay_newest_version" */
+  stops_database_quay_newest_version_aggregate: StopsDatabaseQuayNewestVersionAggregate;
+  /** fetch data from the table in a streaming manner: "quay_newest_version" */
+  stops_database_quay_newest_version_stream: Array<StopsDatabaseQuayNewestVersion>;
   /** fetch data from the table in a streaming manner: "quay" */
   stops_database_quay_stream: Array<StopsDatabaseQuay>;
   /** fetch data from the table: "schema_version" */
@@ -54694,6 +55989,31 @@ export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabasePersistablePolygo
     where?: InputMaybe<StopsDatabasePersistablePolygonBoolExp>;
   };
 
+export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabasePlaceEquipmentArgs =
+  {
+    distinct_on?: InputMaybe<Array<StopsDatabasePlaceEquipmentSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabasePlaceEquipmentOrderBy>>;
+    where?: InputMaybe<StopsDatabasePlaceEquipmentBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabasePlaceEquipmentAggregateArgs =
+  {
+    distinct_on?: InputMaybe<Array<StopsDatabasePlaceEquipmentSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabasePlaceEquipmentOrderBy>>;
+    where?: InputMaybe<StopsDatabasePlaceEquipmentBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabasePlaceEquipmentStreamArgs =
+  {
+    batch_size: Scalars['Int']['input'];
+    cursor: Array<InputMaybe<StopsDatabasePlaceEquipmentStreamCursorInput>>;
+    where?: InputMaybe<StopsDatabasePlaceEquipmentBoolExp>;
+  };
+
 export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabasePurposeOfGroupingArgs =
   {
     distinct_on?: InputMaybe<Array<StopsDatabasePurposeOfGroupingSelectColumn>>;
@@ -54939,6 +56259,31 @@ export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseQuayKeyValuesStre
     batch_size: Scalars['Int']['input'];
     cursor: Array<InputMaybe<StopsDatabaseQuayKeyValuesStreamCursorInput>>;
     where?: InputMaybe<StopsDatabaseQuayKeyValuesBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseQuayNewestVersionArgs =
+  {
+    distinct_on?: InputMaybe<Array<StopsDatabaseQuayNewestVersionSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabaseQuayNewestVersionOrderBy>>;
+    where?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseQuayNewestVersionAggregateArgs =
+  {
+    distinct_on?: InputMaybe<Array<StopsDatabaseQuayNewestVersionSelectColumn>>;
+    limit?: InputMaybe<Scalars['Int']['input']>;
+    offset?: InputMaybe<Scalars['Int']['input']>;
+    order_by?: InputMaybe<Array<StopsDatabaseQuayNewestVersionOrderBy>>;
+    where?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
+  };
+
+export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseQuayNewestVersionStreamArgs =
+  {
+    batch_size: Scalars['Int']['input'];
+    cursor: Array<InputMaybe<StopsDatabaseQuayNewestVersionStreamCursorInput>>;
+    where?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
   };
 
 export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseQuayStreamArgs =
@@ -67601,23 +68946,24 @@ export type GetStopsByRouteIdQuery = {
     validity_end?: luxon.DateTime | null;
     timing_place_id?: UUID | null;
     priority: number;
-    stopPlace?: {
-      __typename?: 'stops_database_stop_place_newest_version';
+    quay?: {
+      __typename?: 'stops_database_quay_newest_version';
       id?: any | null;
       netex_id?: string | null;
-      name_lang?: string | null;
-      name_value?: string | null;
-      description_lang?: string | null;
-      description_value?: string | null;
-      stop_place_alternative_names: Array<{
-        __typename?: 'stops_database_stop_place_alternative_names';
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name';
-          name_lang?: string | null;
-          name_value?: string | null;
-          name_type?: string | null;
-        };
-      }>;
+      stop_place?: {
+        __typename?: 'stops_database_stop_place';
+        name_lang?: string | null;
+        name_value?: string | null;
+        stop_place_alternative_names: Array<{
+          __typename?: 'stops_database_stop_place_alternative_names';
+          alternative_name: {
+            __typename?: 'stops_database_alternative_name';
+            name_lang?: string | null;
+            name_type?: string | null;
+            name_value?: string | null;
+          };
+        }>;
+      } | null;
     } | null;
     timing_place?: {
       __typename?: 'timing_pattern_timing_place';
@@ -67642,18 +68988,18 @@ export type ResolveStopPlaceNetextIdsByLineIdsQuery = {
 
 export type FindStopAreasQueryVariables = Exact<{
   query: Scalars['String']['input'];
-  validOn: Scalars['timestamp']['input'];
+  validOn: Scalars['String']['input'];
 }>;
 
 export type FindStopAreasQuery = {
   __typename?: 'query_root';
   stops_database?: {
     __typename?: 'stops_database_stops_database_query';
-    stops_database_group_of_stop_places: Array<{
-      __typename?: 'stops_database_group_of_stop_places';
-      id: any;
+    stopAreas: Array<{
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
       netex_id?: string | null;
-      version: any;
+      version?: any | null;
       from_date?: any | null;
       to_date?: any | null;
       name_lang?: string | null;
@@ -67666,10 +69012,10 @@ export type FindStopAreasQuery = {
 };
 
 export type FindStopAreaInfoFragment = {
-  __typename?: 'stops_database_group_of_stop_places';
-  id: any;
+  __typename?: 'stops_database_stop_place_newest_version';
+  id?: any | null;
   netex_id?: string | null;
-  version: any;
+  version?: any | null;
   from_date?: any | null;
   to_date?: any | null;
   name_lang?: string | null;
@@ -67687,20 +69033,10 @@ export type GetStopsByStopAreaIdQuery = {
   __typename?: 'query_root';
   stops_database?: {
     __typename?: 'stops_database_stops_database_query';
-    stops: Array<{
-      __typename?: 'stops_database_stop_place_newest_version';
+    quays: Array<{
+      __typename?: 'stops_database_quay_newest_version';
       id?: any | null;
       netex_id?: string | null;
-      name_value?: string | null;
-      stop_place_alternative_names: Array<{
-        __typename?: 'stops_database_stop_place_alternative_names';
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name';
-          name_lang?: string | null;
-          name_type?: string | null;
-          name_value?: string | null;
-        };
-      }>;
       scheduled_stop_point_instance?: {
         __typename?: 'service_pattern_scheduled_stop_point';
         scheduled_stop_point_id: UUID;
@@ -67715,6 +69051,20 @@ export type GetStopsByStopAreaIdQuery = {
           timing_place_id: UUID;
           label: string;
         } | null;
+      } | null;
+      stop_place?: {
+        __typename?: 'stops_database_stop_place';
+        name_lang?: string | null;
+        name_value?: string | null;
+        stop_place_alternative_names: Array<{
+          __typename?: 'stops_database_stop_place_alternative_names';
+          alternative_name: {
+            __typename?: 'stops_database_alternative_name';
+            name_lang?: string | null;
+            name_type?: string | null;
+            name_value?: string | null;
+          };
+        }>;
       } | null;
     }>;
   } | null;
@@ -67736,20 +69086,30 @@ export type StopTableRowFragment = {
   } | null;
 };
 
-export type StopTableRowStopPlaceFragment = {
-  __typename?: 'stops_database_stop_place_newest_version';
+export type StopTableRowQuayBaseDetailsFragment = {
+  __typename?: 'stops_database_quay_newest_version';
   id?: any | null;
   netex_id?: string | null;
-  name_value?: string | null;
-  stop_place_alternative_names: Array<{
-    __typename?: 'stops_database_stop_place_alternative_names';
-    alternative_name: {
-      __typename?: 'stops_database_alternative_name';
-      name_lang?: string | null;
-      name_type?: string | null;
-      name_value?: string | null;
-    };
-  }>;
+  stop_place?: {
+    __typename?: 'stops_database_stop_place';
+    name_lang?: string | null;
+    name_value?: string | null;
+    stop_place_alternative_names: Array<{
+      __typename?: 'stops_database_stop_place_alternative_names';
+      alternative_name: {
+        __typename?: 'stops_database_alternative_name';
+        name_lang?: string | null;
+        name_type?: string | null;
+        name_value?: string | null;
+      };
+    }>;
+  } | null;
+};
+
+export type StopTableRowQuayFragment = {
+  __typename?: 'stops_database_quay_newest_version';
+  id?: any | null;
+  netex_id?: string | null;
   scheduled_stop_point_instance?: {
     __typename?: 'service_pattern_scheduled_stop_point';
     scheduled_stop_point_id: UUID;
@@ -67765,11 +69125,25 @@ export type StopTableRowStopPlaceFragment = {
       label: string;
     } | null;
   } | null;
+  stop_place?: {
+    __typename?: 'stops_database_stop_place';
+    name_lang?: string | null;
+    name_value?: string | null;
+    stop_place_alternative_names: Array<{
+      __typename?: 'stops_database_stop_place_alternative_names';
+      alternative_name: {
+        __typename?: 'stops_database_alternative_name';
+        name_lang?: string | null;
+        name_type?: string | null;
+        name_value?: string | null;
+      };
+    }>;
+  } | null;
 };
 
 export type SearchStopsQueryVariables = Exact<{
-  where?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
-  orderBy: StopsDatabaseStopPlaceNewestVersionOrderBy;
+  where?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
+  orderBy: StopsDatabaseQuayNewestVersionOrderBy;
   offset: Scalars['Int']['input'];
   limit: Scalars['Int']['input'];
 }>;
@@ -67779,19 +69153,9 @@ export type SearchStopsQuery = {
   stops_database?: {
     __typename?: 'stops_database_stops_database_query';
     stops: Array<{
-      __typename?: 'stops_database_stop_place_newest_version';
+      __typename?: 'stops_database_quay_newest_version';
       id?: any | null;
       netex_id?: string | null;
-      name_value?: string | null;
-      stop_place_alternative_names: Array<{
-        __typename?: 'stops_database_stop_place_alternative_names';
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name';
-          name_lang?: string | null;
-          name_type?: string | null;
-          name_value?: string | null;
-        };
-      }>;
       scheduled_stop_point_instance?: {
         __typename?: 'service_pattern_scheduled_stop_point';
         scheduled_stop_point_id: UUID;
@@ -67807,11 +69171,25 @@ export type SearchStopsQuery = {
           label: string;
         } | null;
       } | null;
+      stop_place?: {
+        __typename?: 'stops_database_stop_place';
+        name_lang?: string | null;
+        name_value?: string | null;
+        stop_place_alternative_names: Array<{
+          __typename?: 'stops_database_stop_place_alternative_names';
+          alternative_name: {
+            __typename?: 'stops_database_alternative_name';
+            name_lang?: string | null;
+            name_type?: string | null;
+            name_value?: string | null;
+          };
+        }>;
+      } | null;
     }>;
     resultCount: {
-      __typename?: 'stops_database_stop_place_newest_version_aggregate';
+      __typename?: 'stops_database_quay_newest_version_aggregate';
       aggregate?: {
-        __typename?: 'stops_database_stop_place_newest_version_aggregate_fields';
+        __typename?: 'stops_database_quay_newest_version_aggregate_fields';
         count: number;
       } | null;
     };
@@ -71372,6 +72750,11 @@ export type UpdateStopPlaceMutation = {
         lang?: string | null;
         value?: string | null;
       } | null;
+      shortName?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
       alternativeNames?: Array<{
         __typename?: 'stop_registry_AlternativeName';
         nameType: StopRegistryNameType;
@@ -71414,20 +72797,31 @@ export type UpdateStopPlaceMutation = {
           lang?: string | null;
         } | null;
       } | null> | null;
+      placeEquipments?: {
+        __typename?: 'stop_registry_PlaceEquipments';
+        generalSign?: Array<{
+          __typename?: 'stop_registry_GeneralSign';
+          signContentType?: StopRegistrySignContentType | null;
+          numberOfFrames?: number | null;
+          lineSignage?: boolean | null;
+          mainLineSign?: boolean | null;
+          replacesRailSign?: boolean | null;
+          privateCode?: {
+            __typename?: 'stop_registry_PrivateCode';
+            value?: string | null;
+            type?: string | null;
+          } | null;
+          note?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+        } | null> | null;
+      } | null;
       quays?: Array<{
         __typename?: 'stop_registry_Quay';
         id?: string | null;
         publicCode?: string | null;
-        privateCode?: {
-          __typename?: 'stop_registry_PrivateCode';
-          type?: string | null;
-          value?: string | null;
-        } | null;
-        description?: {
-          __typename?: 'stop_registry_EmbeddableMultilingualString';
-          lang?: string | null;
-          value?: string | null;
-        } | null;
         alternativeNames?: Array<{
           __typename?: 'stop_registry_AlternativeName';
           nameType: StopRegistryNameType;
@@ -71436,59 +72830,6 @@ export type UpdateStopPlaceMutation = {
             lang?: string | null;
             value?: string | null;
           };
-        } | null> | null;
-        geometry?: {
-          __typename?: 'stop_registry_GeoJSON';
-          coordinates?: GeoJSON.Position | null;
-          type?: StopRegistryGeoJsonType | null;
-        } | null;
-        accessibilityAssessment?: {
-          __typename?: 'stop_registry_AccessibilityAssessment';
-          id?: string | null;
-          hslAccessibilityProperties?: {
-            __typename?: 'stop_registry_HslAccessibilityProperties';
-            id?: string | null;
-            stopAreaSideSlope?: number | null;
-            stopAreaLengthwiseSlope?: number | null;
-            endRampSlope?: number | null;
-            shelterLaneDistance?: number | null;
-            curbBackOfRailDistance?: number | null;
-            curbDriveSideOfRailDistance?: number | null;
-            structureLaneDistance?: number | null;
-            stopElevationFromRailTop?: number | null;
-            stopElevationFromSidewalk?: number | null;
-            lowerCleatHeight?: number | null;
-            serviceAreaWidth?: number | null;
-            serviceAreaLength?: number | null;
-            platformEdgeWarningArea?: boolean | null;
-            guidanceTiles?: boolean | null;
-            guidanceStripe?: boolean | null;
-            serviceAreaStripes?: boolean | null;
-            sidewalkAccessibleConnection?: boolean | null;
-            stopAreaSurroundingsAccessible?: boolean | null;
-            curvedStop?: boolean | null;
-            stopType?: StopRegistryStopType | null;
-            shelterType?: StopRegistryShelterWidthType | null;
-            guidanceType?: StopRegistryGuidanceType | null;
-            mapType?: StopRegistryMapType | null;
-            pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
-            accessibilityLevel?: StopRegistryAccessibilityLevel | null;
-          } | null;
-          limitations?: {
-            __typename?: 'stop_registry_AccessibilityLimitations';
-            id?: string | null;
-            version?: string | null;
-            audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
-            escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
-            liftFreeAccess?: StopRegistryLimitationStatusType | null;
-            stepFreeAccess?: StopRegistryLimitationStatusType | null;
-            wheelchairAccess?: StopRegistryLimitationStatusType | null;
-          } | null;
-        } | null;
-        keyValues?: Array<{
-          __typename?: 'stop_registry_KeyValues';
-          key?: string | null;
-          values?: Array<string | null> | null;
         } | null> | null;
         placeEquipments?: {
           __typename?: 'stop_registry_PlaceEquipments';
@@ -71514,30 +72855,51 @@ export type UpdateStopPlaceMutation = {
             __typename?: 'stop_registry_CycleStorageEquipment';
             cycleStorageType?: StopRegistryCycleStorageType | null;
           } | null> | null;
-          generalSign?: Array<{
-            __typename?: 'stop_registry_GeneralSign';
-            signContentType?: StopRegistrySignContentType | null;
-            numberOfFrames?: number | null;
-            lineSignage?: boolean | null;
-            mainLineSign?: boolean | null;
-            replacesRailSign?: boolean | null;
-            privateCode?: {
-              __typename?: 'stop_registry_PrivateCode';
-              value?: string | null;
-              type?: string | null;
-            } | null;
-            content?: {
-              __typename?: 'stop_registry_EmbeddableMultilingualString';
-              value?: string | null;
-            } | null;
-            note?: {
-              __typename?: 'stop_registry_EmbeddableMultilingualString';
-              lang?: string | null;
-              value?: string | null;
-            } | null;
-          } | null> | null;
         } | null;
       } | null> | null;
+      accessibilityAssessment?: {
+        __typename?: 'stop_registry_AccessibilityAssessment';
+        id?: string | null;
+        hslAccessibilityProperties?: {
+          __typename?: 'stop_registry_HslAccessibilityProperties';
+          id?: string | null;
+          stopAreaSideSlope?: number | null;
+          stopAreaLengthwiseSlope?: number | null;
+          endRampSlope?: number | null;
+          shelterLaneDistance?: number | null;
+          curbBackOfRailDistance?: number | null;
+          curbDriveSideOfRailDistance?: number | null;
+          structureLaneDistance?: number | null;
+          stopElevationFromRailTop?: number | null;
+          stopElevationFromSidewalk?: number | null;
+          lowerCleatHeight?: number | null;
+          serviceAreaWidth?: number | null;
+          serviceAreaLength?: number | null;
+          platformEdgeWarningArea?: boolean | null;
+          guidanceTiles?: boolean | null;
+          guidanceStripe?: boolean | null;
+          serviceAreaStripes?: boolean | null;
+          sidewalkAccessibleConnection?: boolean | null;
+          stopAreaSurroundingsAccessible?: boolean | null;
+          curvedStop?: boolean | null;
+          stopType?: StopRegistryStopType | null;
+          shelterType?: StopRegistryShelterWidthType | null;
+          guidanceType?: StopRegistryGuidanceType | null;
+          mapType?: StopRegistryMapType | null;
+          pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+          accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+        } | null;
+        limitations?: {
+          __typename?: 'stop_registry_AccessibilityLimitations';
+          id?: string | null;
+          version?: string | null;
+          audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+          escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+          liftFreeAccess?: StopRegistryLimitationStatusType | null;
+          stepFreeAccess?: StopRegistryLimitationStatusType | null;
+          wheelchairAccess?: StopRegistryLimitationStatusType | null;
+        } | null;
+      } | null;
       organisations?: Array<{
         __typename?: 'stop_registry_StopPlaceOrganisationRef';
         relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
@@ -71699,6 +73061,11 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
             lang?: string | null;
             value?: string | null;
           } | null;
+          shortName?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
           alternativeNames?: Array<{
             __typename?: 'stop_registry_AlternativeName';
             nameType: StopRegistryNameType;
@@ -71741,20 +73108,31 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
               lang?: string | null;
             } | null;
           } | null> | null;
+          placeEquipments?: {
+            __typename?: 'stop_registry_PlaceEquipments';
+            generalSign?: Array<{
+              __typename?: 'stop_registry_GeneralSign';
+              signContentType?: StopRegistrySignContentType | null;
+              numberOfFrames?: number | null;
+              lineSignage?: boolean | null;
+              mainLineSign?: boolean | null;
+              replacesRailSign?: boolean | null;
+              privateCode?: {
+                __typename?: 'stop_registry_PrivateCode';
+                value?: string | null;
+                type?: string | null;
+              } | null;
+              note?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString';
+                lang?: string | null;
+                value?: string | null;
+              } | null;
+            } | null> | null;
+          } | null;
           quays?: Array<{
             __typename?: 'stop_registry_Quay';
             id?: string | null;
             publicCode?: string | null;
-            privateCode?: {
-              __typename?: 'stop_registry_PrivateCode';
-              type?: string | null;
-              value?: string | null;
-            } | null;
-            description?: {
-              __typename?: 'stop_registry_EmbeddableMultilingualString';
-              lang?: string | null;
-              value?: string | null;
-            } | null;
             alternativeNames?: Array<{
               __typename?: 'stop_registry_AlternativeName';
               nameType: StopRegistryNameType;
@@ -71763,59 +73141,6 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
                 lang?: string | null;
                 value?: string | null;
               };
-            } | null> | null;
-            geometry?: {
-              __typename?: 'stop_registry_GeoJSON';
-              coordinates?: GeoJSON.Position | null;
-              type?: StopRegistryGeoJsonType | null;
-            } | null;
-            accessibilityAssessment?: {
-              __typename?: 'stop_registry_AccessibilityAssessment';
-              id?: string | null;
-              hslAccessibilityProperties?: {
-                __typename?: 'stop_registry_HslAccessibilityProperties';
-                id?: string | null;
-                stopAreaSideSlope?: number | null;
-                stopAreaLengthwiseSlope?: number | null;
-                endRampSlope?: number | null;
-                shelterLaneDistance?: number | null;
-                curbBackOfRailDistance?: number | null;
-                curbDriveSideOfRailDistance?: number | null;
-                structureLaneDistance?: number | null;
-                stopElevationFromRailTop?: number | null;
-                stopElevationFromSidewalk?: number | null;
-                lowerCleatHeight?: number | null;
-                serviceAreaWidth?: number | null;
-                serviceAreaLength?: number | null;
-                platformEdgeWarningArea?: boolean | null;
-                guidanceTiles?: boolean | null;
-                guidanceStripe?: boolean | null;
-                serviceAreaStripes?: boolean | null;
-                sidewalkAccessibleConnection?: boolean | null;
-                stopAreaSurroundingsAccessible?: boolean | null;
-                curvedStop?: boolean | null;
-                stopType?: StopRegistryStopType | null;
-                shelterType?: StopRegistryShelterWidthType | null;
-                guidanceType?: StopRegistryGuidanceType | null;
-                mapType?: StopRegistryMapType | null;
-                pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
-                accessibilityLevel?: StopRegistryAccessibilityLevel | null;
-              } | null;
-              limitations?: {
-                __typename?: 'stop_registry_AccessibilityLimitations';
-                id?: string | null;
-                version?: string | null;
-                audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
-                escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
-                liftFreeAccess?: StopRegistryLimitationStatusType | null;
-                stepFreeAccess?: StopRegistryLimitationStatusType | null;
-                wheelchairAccess?: StopRegistryLimitationStatusType | null;
-              } | null;
-            } | null;
-            keyValues?: Array<{
-              __typename?: 'stop_registry_KeyValues';
-              key?: string | null;
-              values?: Array<string | null> | null;
             } | null> | null;
             placeEquipments?: {
               __typename?: 'stop_registry_PlaceEquipments';
@@ -71841,30 +73166,51 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
                 __typename?: 'stop_registry_CycleStorageEquipment';
                 cycleStorageType?: StopRegistryCycleStorageType | null;
               } | null> | null;
-              generalSign?: Array<{
-                __typename?: 'stop_registry_GeneralSign';
-                signContentType?: StopRegistrySignContentType | null;
-                numberOfFrames?: number | null;
-                lineSignage?: boolean | null;
-                mainLineSign?: boolean | null;
-                replacesRailSign?: boolean | null;
-                privateCode?: {
-                  __typename?: 'stop_registry_PrivateCode';
-                  value?: string | null;
-                  type?: string | null;
-                } | null;
-                content?: {
-                  __typename?: 'stop_registry_EmbeddableMultilingualString';
-                  value?: string | null;
-                } | null;
-                note?: {
-                  __typename?: 'stop_registry_EmbeddableMultilingualString';
-                  lang?: string | null;
-                  value?: string | null;
-                } | null;
-              } | null> | null;
             } | null;
           } | null> | null;
+          accessibilityAssessment?: {
+            __typename?: 'stop_registry_AccessibilityAssessment';
+            id?: string | null;
+            hslAccessibilityProperties?: {
+              __typename?: 'stop_registry_HslAccessibilityProperties';
+              id?: string | null;
+              stopAreaSideSlope?: number | null;
+              stopAreaLengthwiseSlope?: number | null;
+              endRampSlope?: number | null;
+              shelterLaneDistance?: number | null;
+              curbBackOfRailDistance?: number | null;
+              curbDriveSideOfRailDistance?: number | null;
+              structureLaneDistance?: number | null;
+              stopElevationFromRailTop?: number | null;
+              stopElevationFromSidewalk?: number | null;
+              lowerCleatHeight?: number | null;
+              serviceAreaWidth?: number | null;
+              serviceAreaLength?: number | null;
+              platformEdgeWarningArea?: boolean | null;
+              guidanceTiles?: boolean | null;
+              guidanceStripe?: boolean | null;
+              serviceAreaStripes?: boolean | null;
+              sidewalkAccessibleConnection?: boolean | null;
+              stopAreaSurroundingsAccessible?: boolean | null;
+              curvedStop?: boolean | null;
+              stopType?: StopRegistryStopType | null;
+              shelterType?: StopRegistryShelterWidthType | null;
+              guidanceType?: StopRegistryGuidanceType | null;
+              mapType?: StopRegistryMapType | null;
+              pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+              accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+            } | null;
+            limitations?: {
+              __typename?: 'stop_registry_AccessibilityLimitations';
+              id?: string | null;
+              version?: string | null;
+              audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+              escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+              liftFreeAccess?: StopRegistryLimitationStatusType | null;
+              stepFreeAccess?: StopRegistryLimitationStatusType | null;
+              wheelchairAccess?: StopRegistryLimitationStatusType | null;
+            } | null;
+          } | null;
           organisations?: Array<{
             __typename?: 'stop_registry_StopPlaceOrganisationRef';
             relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
@@ -71957,16 +73303,6 @@ export type QuayDetailsFragment = {
   __typename?: 'stop_registry_Quay';
   id?: string | null;
   publicCode?: string | null;
-  privateCode?: {
-    __typename?: 'stop_registry_PrivateCode';
-    type?: string | null;
-    value?: string | null;
-  } | null;
-  description?: {
-    __typename?: 'stop_registry_EmbeddableMultilingualString';
-    lang?: string | null;
-    value?: string | null;
-  } | null;
   alternativeNames?: Array<{
     __typename?: 'stop_registry_AlternativeName';
     nameType: StopRegistryNameType;
@@ -71975,59 +73311,6 @@ export type QuayDetailsFragment = {
       lang?: string | null;
       value?: string | null;
     };
-  } | null> | null;
-  geometry?: {
-    __typename?: 'stop_registry_GeoJSON';
-    coordinates?: GeoJSON.Position | null;
-    type?: StopRegistryGeoJsonType | null;
-  } | null;
-  accessibilityAssessment?: {
-    __typename?: 'stop_registry_AccessibilityAssessment';
-    id?: string | null;
-    hslAccessibilityProperties?: {
-      __typename?: 'stop_registry_HslAccessibilityProperties';
-      id?: string | null;
-      stopAreaSideSlope?: number | null;
-      stopAreaLengthwiseSlope?: number | null;
-      endRampSlope?: number | null;
-      shelterLaneDistance?: number | null;
-      curbBackOfRailDistance?: number | null;
-      curbDriveSideOfRailDistance?: number | null;
-      structureLaneDistance?: number | null;
-      stopElevationFromRailTop?: number | null;
-      stopElevationFromSidewalk?: number | null;
-      lowerCleatHeight?: number | null;
-      serviceAreaWidth?: number | null;
-      serviceAreaLength?: number | null;
-      platformEdgeWarningArea?: boolean | null;
-      guidanceTiles?: boolean | null;
-      guidanceStripe?: boolean | null;
-      serviceAreaStripes?: boolean | null;
-      sidewalkAccessibleConnection?: boolean | null;
-      stopAreaSurroundingsAccessible?: boolean | null;
-      curvedStop?: boolean | null;
-      stopType?: StopRegistryStopType | null;
-      shelterType?: StopRegistryShelterWidthType | null;
-      guidanceType?: StopRegistryGuidanceType | null;
-      mapType?: StopRegistryMapType | null;
-      pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
-      accessibilityLevel?: StopRegistryAccessibilityLevel | null;
-    } | null;
-    limitations?: {
-      __typename?: 'stop_registry_AccessibilityLimitations';
-      id?: string | null;
-      version?: string | null;
-      audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
-      escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
-      liftFreeAccess?: StopRegistryLimitationStatusType | null;
-      stepFreeAccess?: StopRegistryLimitationStatusType | null;
-      wheelchairAccess?: StopRegistryLimitationStatusType | null;
-    } | null;
-  } | null;
-  keyValues?: Array<{
-    __typename?: 'stop_registry_KeyValues';
-    key?: string | null;
-    values?: Array<string | null> | null;
   } | null> | null;
   placeEquipments?: {
     __typename?: 'stop_registry_PlaceEquipments';
@@ -72052,28 +73335,6 @@ export type QuayDetailsFragment = {
     cycleStorageEquipment?: Array<{
       __typename?: 'stop_registry_CycleStorageEquipment';
       cycleStorageType?: StopRegistryCycleStorageType | null;
-    } | null> | null;
-    generalSign?: Array<{
-      __typename?: 'stop_registry_GeneralSign';
-      signContentType?: StopRegistrySignContentType | null;
-      numberOfFrames?: number | null;
-      lineSignage?: boolean | null;
-      mainLineSign?: boolean | null;
-      replacesRailSign?: boolean | null;
-      privateCode?: {
-        __typename?: 'stop_registry_PrivateCode';
-        value?: string | null;
-        type?: string | null;
-      } | null;
-      content?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        value?: string | null;
-      } | null;
-      note?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        lang?: string | null;
-        value?: string | null;
-      } | null;
     } | null> | null;
   } | null;
 };
@@ -72158,6 +73419,11 @@ export type StopPlaceDetailsFragment = {
     lang?: string | null;
     value?: string | null;
   } | null;
+  shortName?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
   alternativeNames?: Array<{
     __typename?: 'stop_registry_AlternativeName';
     nameType: StopRegistryNameType;
@@ -72200,20 +73466,31 @@ export type StopPlaceDetailsFragment = {
       lang?: string | null;
     } | null;
   } | null> | null;
+  placeEquipments?: {
+    __typename?: 'stop_registry_PlaceEquipments';
+    generalSign?: Array<{
+      __typename?: 'stop_registry_GeneralSign';
+      signContentType?: StopRegistrySignContentType | null;
+      numberOfFrames?: number | null;
+      lineSignage?: boolean | null;
+      mainLineSign?: boolean | null;
+      replacesRailSign?: boolean | null;
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode';
+        value?: string | null;
+        type?: string | null;
+      } | null;
+      note?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
   quays?: Array<{
     __typename?: 'stop_registry_Quay';
     id?: string | null;
     publicCode?: string | null;
-    privateCode?: {
-      __typename?: 'stop_registry_PrivateCode';
-      type?: string | null;
-      value?: string | null;
-    } | null;
-    description?: {
-      __typename?: 'stop_registry_EmbeddableMultilingualString';
-      lang?: string | null;
-      value?: string | null;
-    } | null;
     alternativeNames?: Array<{
       __typename?: 'stop_registry_AlternativeName';
       nameType: StopRegistryNameType;
@@ -72222,59 +73499,6 @@ export type StopPlaceDetailsFragment = {
         lang?: string | null;
         value?: string | null;
       };
-    } | null> | null;
-    geometry?: {
-      __typename?: 'stop_registry_GeoJSON';
-      coordinates?: GeoJSON.Position | null;
-      type?: StopRegistryGeoJsonType | null;
-    } | null;
-    accessibilityAssessment?: {
-      __typename?: 'stop_registry_AccessibilityAssessment';
-      id?: string | null;
-      hslAccessibilityProperties?: {
-        __typename?: 'stop_registry_HslAccessibilityProperties';
-        id?: string | null;
-        stopAreaSideSlope?: number | null;
-        stopAreaLengthwiseSlope?: number | null;
-        endRampSlope?: number | null;
-        shelterLaneDistance?: number | null;
-        curbBackOfRailDistance?: number | null;
-        curbDriveSideOfRailDistance?: number | null;
-        structureLaneDistance?: number | null;
-        stopElevationFromRailTop?: number | null;
-        stopElevationFromSidewalk?: number | null;
-        lowerCleatHeight?: number | null;
-        serviceAreaWidth?: number | null;
-        serviceAreaLength?: number | null;
-        platformEdgeWarningArea?: boolean | null;
-        guidanceTiles?: boolean | null;
-        guidanceStripe?: boolean | null;
-        serviceAreaStripes?: boolean | null;
-        sidewalkAccessibleConnection?: boolean | null;
-        stopAreaSurroundingsAccessible?: boolean | null;
-        curvedStop?: boolean | null;
-        stopType?: StopRegistryStopType | null;
-        shelterType?: StopRegistryShelterWidthType | null;
-        guidanceType?: StopRegistryGuidanceType | null;
-        mapType?: StopRegistryMapType | null;
-        pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
-        accessibilityLevel?: StopRegistryAccessibilityLevel | null;
-      } | null;
-      limitations?: {
-        __typename?: 'stop_registry_AccessibilityLimitations';
-        id?: string | null;
-        version?: string | null;
-        audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
-        escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
-        liftFreeAccess?: StopRegistryLimitationStatusType | null;
-        stepFreeAccess?: StopRegistryLimitationStatusType | null;
-        wheelchairAccess?: StopRegistryLimitationStatusType | null;
-      } | null;
-    } | null;
-    keyValues?: Array<{
-      __typename?: 'stop_registry_KeyValues';
-      key?: string | null;
-      values?: Array<string | null> | null;
     } | null> | null;
     placeEquipments?: {
       __typename?: 'stop_registry_PlaceEquipments';
@@ -72300,30 +73524,51 @@ export type StopPlaceDetailsFragment = {
         __typename?: 'stop_registry_CycleStorageEquipment';
         cycleStorageType?: StopRegistryCycleStorageType | null;
       } | null> | null;
-      generalSign?: Array<{
-        __typename?: 'stop_registry_GeneralSign';
-        signContentType?: StopRegistrySignContentType | null;
-        numberOfFrames?: number | null;
-        lineSignage?: boolean | null;
-        mainLineSign?: boolean | null;
-        replacesRailSign?: boolean | null;
-        privateCode?: {
-          __typename?: 'stop_registry_PrivateCode';
-          value?: string | null;
-          type?: string | null;
-        } | null;
-        content?: {
-          __typename?: 'stop_registry_EmbeddableMultilingualString';
-          value?: string | null;
-        } | null;
-        note?: {
-          __typename?: 'stop_registry_EmbeddableMultilingualString';
-          lang?: string | null;
-          value?: string | null;
-        } | null;
-      } | null> | null;
     } | null;
   } | null> | null;
+  accessibilityAssessment?: {
+    __typename?: 'stop_registry_AccessibilityAssessment';
+    id?: string | null;
+    hslAccessibilityProperties?: {
+      __typename?: 'stop_registry_HslAccessibilityProperties';
+      id?: string | null;
+      stopAreaSideSlope?: number | null;
+      stopAreaLengthwiseSlope?: number | null;
+      endRampSlope?: number | null;
+      shelterLaneDistance?: number | null;
+      curbBackOfRailDistance?: number | null;
+      curbDriveSideOfRailDistance?: number | null;
+      structureLaneDistance?: number | null;
+      stopElevationFromRailTop?: number | null;
+      stopElevationFromSidewalk?: number | null;
+      lowerCleatHeight?: number | null;
+      serviceAreaWidth?: number | null;
+      serviceAreaLength?: number | null;
+      platformEdgeWarningArea?: boolean | null;
+      guidanceTiles?: boolean | null;
+      guidanceStripe?: boolean | null;
+      serviceAreaStripes?: boolean | null;
+      sidewalkAccessibleConnection?: boolean | null;
+      stopAreaSurroundingsAccessible?: boolean | null;
+      curvedStop?: boolean | null;
+      stopType?: StopRegistryStopType | null;
+      shelterType?: StopRegistryShelterWidthType | null;
+      guidanceType?: StopRegistryGuidanceType | null;
+      mapType?: StopRegistryMapType | null;
+      pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+      accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+    } | null;
+    limitations?: {
+      __typename?: 'stop_registry_AccessibilityLimitations';
+      id?: string | null;
+      version?: string | null;
+      audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+      escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+      liftFreeAccess?: StopRegistryLimitationStatusType | null;
+      stepFreeAccess?: StopRegistryLimitationStatusType | null;
+      wheelchairAccess?: StopRegistryLimitationStatusType | null;
+    } | null;
+  } | null;
   organisations?: Array<{
     __typename?: 'stop_registry_StopPlaceOrganisationRef';
     relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
@@ -74204,7 +75449,7 @@ export const FindStopByLineInfoFragmentDoc = gql`
   ${FindStopByLineRouteInfoFragmentDoc}
 `;
 export const FindStopAreaInfoFragmentDoc = gql`
-  fragment FindStopAreaInfo on stops_database_group_of_stop_places {
+  fragment FindStopAreaInfo on stops_database_stop_place_newest_version {
     id
     netex_id
     version
@@ -74215,6 +75460,23 @@ export const FindStopAreaInfoFragmentDoc = gql`
     description_lang
     description_value
     centroid
+  }
+`;
+export const StopTableRowQuayBaseDetailsFragmentDoc = gql`
+  fragment stop_table_row_quay_base_details on stops_database_quay_newest_version {
+    id
+    netex_id
+    stop_place {
+      name_lang
+      name_value
+      stop_place_alternative_names {
+        alternative_name {
+          name_lang
+          name_type
+          name_value
+        }
+      }
+    }
   }
 `;
 export const StopTableRowFragmentDoc = gql`
@@ -74232,22 +75494,14 @@ export const StopTableRowFragmentDoc = gql`
     }
   }
 `;
-export const StopTableRowStopPlaceFragmentDoc = gql`
-  fragment stop_table_row_stop_place on stops_database_stop_place_newest_version {
-    id
-    netex_id
-    name_value
-    stop_place_alternative_names {
-      alternative_name {
-        name_lang
-        name_type
-        name_value
-      }
-    }
+export const StopTableRowQuayFragmentDoc = gql`
+  fragment stop_table_row_quay on stops_database_quay_newest_version {
+    ...stop_table_row_quay_base_details
     scheduled_stop_point_instance {
       ...stop_table_row
     }
   }
+  ${StopTableRowQuayBaseDetailsFragmentDoc}
   ${StopTableRowFragmentDoc}
 `;
 export const StopAreaDetailsMembersFragmentDoc = gql`
@@ -74643,6 +75897,47 @@ export const FareZoneDetailsFragmentDoc = gql`
     }
   }
 `;
+export const ShelterEquipmentDetailsFragmentDoc = gql`
+  fragment shelter_equipment_details on stop_registry_ShelterEquipment {
+    id
+    enclosed
+    stepFree
+    shelterType
+    shelterElectricity
+    shelterLighting
+    shelterCondition
+    timetableCabinets
+    trashCan
+    shelterHasDisplay
+    bicycleParking
+    leaningRail
+    outsideBench
+    shelterFasciaBoardTaping
+  }
+`;
+export const QuayDetailsFragmentDoc = gql`
+  fragment quay_details on stop_registry_Quay {
+    id
+    publicCode
+    alternativeNames {
+      name {
+        lang
+        value
+      }
+      nameType
+    }
+    placeEquipments {
+      id
+      shelterEquipment {
+        ...shelter_equipment_details
+      }
+      cycleStorageEquipment {
+        cycleStorageType
+      }
+    }
+  }
+  ${ShelterEquipmentDetailsFragmentDoc}
+`;
 export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
   fragment hsl_accessibility_properties_details on stop_registry_HslAccessibilityProperties {
     id
@@ -74672,97 +75967,6 @@ export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
     pedestrianCrossingRampType
     accessibilityLevel
   }
-`;
-export const ShelterEquipmentDetailsFragmentDoc = gql`
-  fragment shelter_equipment_details on stop_registry_ShelterEquipment {
-    id
-    enclosed
-    stepFree
-    shelterType
-    shelterElectricity
-    shelterLighting
-    shelterCondition
-    timetableCabinets
-    trashCan
-    shelterHasDisplay
-    bicycleParking
-    leaningRail
-    outsideBench
-    shelterFasciaBoardTaping
-  }
-`;
-export const QuayDetailsFragmentDoc = gql`
-  fragment quay_details on stop_registry_Quay {
-    id
-    publicCode
-    privateCode {
-      type
-      value
-    }
-    description {
-      lang
-      value
-    }
-    alternativeNames {
-      name {
-        lang
-        value
-      }
-      nameType
-    }
-    geometry {
-      coordinates
-      type
-    }
-    accessibilityAssessment {
-      id
-      hslAccessibilityProperties {
-        ...hsl_accessibility_properties_details
-      }
-      limitations {
-        id
-        version
-        audibleSignalsAvailable
-        escalatorFreeAccess
-        liftFreeAccess
-        stepFreeAccess
-        wheelchairAccess
-      }
-    }
-    keyValues {
-      key
-      values
-    }
-    placeEquipments {
-      id
-      shelterEquipment {
-        ...shelter_equipment_details
-      }
-      cycleStorageEquipment {
-        cycleStorageType
-      }
-      generalSign {
-        privateCode {
-          value
-          type
-        }
-        content {
-          value
-        }
-        signContentType
-        numberOfFrames
-        lineSignage
-        mainLineSign
-        replacesRailSign
-        note {
-          lang
-          value
-        }
-      }
-    }
-  }
-  ${HslAccessibilityPropertiesDetailsFragmentDoc}
-  ${ShelterEquipmentDetailsFragmentDoc}
 `;
 export const StopPlaceOrganisationFieldsFragmentDoc = gql`
   fragment stop_place_organisation_fields on stop_registry_Organisation {
@@ -74812,6 +76016,10 @@ export const StopPlaceDetailsFragmentDoc = gql`
       lang
       value
     }
+    shortName {
+      lang
+      value
+    }
     alternativeNames {
       name {
         lang
@@ -74842,8 +76050,40 @@ export const StopPlaceDetailsFragmentDoc = gql`
     fareZones {
       ...fare_zone_details
     }
+    placeEquipments {
+      generalSign {
+        privateCode {
+          value
+          type
+        }
+        signContentType
+        numberOfFrames
+        lineSignage
+        mainLineSign
+        replacesRailSign
+        note {
+          lang
+          value
+        }
+      }
+    }
     quays {
       ...quay_details
+    }
+    accessibilityAssessment {
+      id
+      hslAccessibilityProperties {
+        ...hsl_accessibility_properties_details
+      }
+      limitations {
+        id
+        version
+        audibleSignalsAvailable
+        escalatorFreeAccess
+        liftFreeAccess
+        stepFreeAccess
+        wheelchairAccess
+      }
     }
     organisations {
       relationshipType
@@ -74868,6 +76108,7 @@ export const StopPlaceDetailsFragmentDoc = gql`
   ${TopographicPlaceDetailsFragmentDoc}
   ${FareZoneDetailsFragmentDoc}
   ${QuayDetailsFragmentDoc}
+  ${HslAccessibilityPropertiesDetailsFragmentDoc}
   ${StopPlaceOrganisationFieldsFragmentDoc}
   ${InfoSpotDetailsFragmentDoc}
 `;
@@ -76068,24 +77309,13 @@ export const GetStopsByRouteIdDocument = gql`
       order_by: [{ label: asc }]
     ) {
       ...stop_table_row
-      stopPlace: newest_stop_place {
-        id
-        netex_id
-        name_lang
-        name_value
-        stop_place_alternative_names {
-          alternative_name {
-            name_lang
-            name_value
-            name_type
-          }
-        }
-        description_lang
-        description_value
+      quay: newest_quay {
+        ...stop_table_row_quay_base_details
       }
     }
   }
   ${StopTableRowFragmentDoc}
+  ${StopTableRowQuayBaseDetailsFragmentDoc}
 `;
 
 /**
@@ -76255,9 +77485,9 @@ export type ResolveStopPlaceNetextIdsByLineIdsQueryResult = Apollo.QueryResult<
   ResolveStopPlaceNetextIdsByLineIdsQueryVariables
 >;
 export const FindStopAreasDocument = gql`
-  query findStopAreas($query: String!, $validOn: timestamp!) {
+  query findStopAreas($query: String!, $validOn: String!) {
     stops_database {
-      stops_database_group_of_stop_places(
+      stopAreas: stops_database_stop_place_newest_version(
         where: {
           _and: [
             {
@@ -76266,17 +77496,17 @@ export const FindStopAreasDocument = gql`
                 { name_value: { _ilike: $query } }
                 { short_name_value: { _ilike: $query } }
                 {
-                  group_of_stop_places_alternative_names: {
+                  stop_place_alternative_names: {
                     alternative_name: { name_value: { _ilike: $query } }
                   }
                 }
               ]
             }
-            { from_date: { _lte: $validOn } }
+            { validity_start: { _lte: $validOn } }
             {
               _or: [
-                { to_date: { _gte: $validOn } }
-                { to_date: { _is_null: true } }
+                { validity_end: { _gte: $validOn } }
+                { validity_end: { _is_null: true } }
               ]
             }
           ]
@@ -76368,19 +77598,15 @@ export type FindStopAreasQueryResult = Apollo.QueryResult<
 export const GetStopsByStopAreaIdDocument = gql`
   query getStopsByStopAreaId($stopAreaId: bigint!) {
     stops_database {
-      stops: stops_database_stop_place_newest_version(
-        where: {
-          group_of_stop_places_members: {
-            group_of_stop_places_id: { _eq: $stopAreaId }
-          }
-        }
-        order_by: [{ quay_public_code: asc }]
+      quays: stops_database_quay_newest_version(
+        where: { stop_place_id: { _eq: $stopAreaId } }
+        order_by: [{ public_code: asc }]
       ) {
-        ...stop_table_row_stop_place
+        ...stop_table_row_quay
       }
     }
   }
-  ${StopTableRowStopPlaceFragmentDoc}
+  ${StopTableRowQuayFragmentDoc}
 `;
 
 /**
@@ -76459,30 +77685,28 @@ export type GetStopsByStopAreaIdQueryResult = Apollo.QueryResult<
 >;
 export const SearchStopsDocument = gql`
   query SearchStops(
-    $where: stops_database_stop_place_newest_version_bool_exp
-    $orderBy: stops_database_stop_place_newest_version_order_by!
+    $where: stops_database_quay_newest_version_bool_exp
+    $orderBy: stops_database_quay_newest_version_order_by!
     $offset: Int!
     $limit: Int!
   ) {
     stops_database {
-      stops: stops_database_stop_place_newest_version(
+      stops: stops_database_quay_newest_version(
         where: $where
         order_by: [$orderBy]
         offset: $offset
         limit: $limit
       ) {
-        ...stop_table_row_stop_place
+        ...stop_table_row_quay
       }
-      resultCount: stops_database_stop_place_newest_version_aggregate(
-        where: $where
-      ) {
+      resultCount: stops_database_quay_newest_version_aggregate(where: $where) {
         aggregate {
           count
         }
       }
     }
   }
-  ${StopTableRowStopPlaceFragmentDoc}
+  ${StopTableRowQuayFragmentDoc}
 `;
 
 /**

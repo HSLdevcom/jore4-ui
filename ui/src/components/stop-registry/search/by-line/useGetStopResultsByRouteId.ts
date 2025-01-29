@@ -19,23 +19,8 @@ const GQL_GET_STOPS_BY_ROUTE_ID_QUERY = gql`
     ) {
       ...stop_table_row
 
-      stopPlace: newest_stop_place {
-        id
-        netex_id
-
-        name_lang
-        name_value
-
-        stop_place_alternative_names {
-          alternative_name {
-            name_lang
-            name_value
-            name_type
-          }
-        }
-
-        description_lang
-        description_value
+      quay: newest_quay {
+        ...stop_table_row_quay_base_details
       }
     }
   }
@@ -43,10 +28,10 @@ const GQL_GET_STOPS_BY_ROUTE_ID_QUERY = gql`
 
 type RawStopPoint = GetStopsByRouteIdQuery['stopPoints'][number];
 
-function mapStopPlace(rawStopPoint: RawStopPoint): StopPlaceSearchRowDetails {
-  const rawStopPlace = rawStopPoint.stopPlace;
+function mapQuay(rawStopPoint: RawStopPoint): StopPlaceSearchRowDetails {
+  const rawQuay = rawStopPoint.quay;
 
-  if (!rawStopPlace) {
+  if (!rawQuay) {
     return {
       netexId: null,
       nameFin: null,
@@ -55,9 +40,9 @@ function mapStopPlace(rawStopPoint: RawStopPoint): StopPlaceSearchRowDetails {
   }
 
   return {
-    netexId: rawStopPlace.netex_id,
-    nameFin: rawStopPlace.name_value,
-    nameSwe: rawStopPlace.stop_place_alternative_names.find(
+    netexId: rawQuay.netex_id,
+    nameFin: rawQuay.stop_place?.name_value,
+    nameSwe: rawQuay.stop_place?.stop_place_alternative_names.find(
       (alternativeName) =>
         alternativeName.alternative_name.name_lang === 'swe' &&
         alternativeName.alternative_name.name_type === 'TRANSLATION',
@@ -68,10 +53,10 @@ function mapStopPlace(rawStopPoint: RawStopPoint): StopPlaceSearchRowDetails {
 function mapDataToStopResults(
   data: GetStopsByRouteIdQuery,
 ): Array<StopSearchRow> {
-  return data.stopPoints.map((rawStopPoint) => {
+  return data.stopPoints.map((rawQuay) => {
     return {
-      ...omit(rawStopPoint, ['stopPlace']),
-      quay: mapStopPlace(rawStopPoint),
+      ...omit(rawQuay, ['quay']),
+      quay: mapQuay(rawQuay),
     };
   });
 }
