@@ -9,7 +9,7 @@ const mapResultRowToStopSearchRow = (
 ) => {
   return {
     ...(stopPlace.scheduled_stop_point_instance as StopTableRowFragment),
-    stop_place: {
+    quay: {
       netexId: stopPlace.netex_id,
       nameFin: stopPlace.name_value,
       nameSwe: stopPlace.stop_place_alternative_names.find(

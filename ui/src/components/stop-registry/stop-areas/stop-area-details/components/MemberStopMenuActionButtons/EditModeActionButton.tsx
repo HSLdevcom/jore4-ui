@@ -15,10 +15,10 @@ function stopSearchRowToStopAreaFormMember(
   stop: StopSearchRow,
 ): StopAreaFormMember {
   return {
-    id: stop.stop_place.netexId as string,
+    id: stop.quay.netexId as string,
     name: {
       lang: 'fin',
-      value: stop.stop_place.nameFin as string,
+      value: stop.quay.nameFin as string,
     },
     scheduled_stop_point: {
       label: stop.label,
@@ -54,7 +54,7 @@ export const EditModeActionButton: FC<EditModeActionButtonProps> = ({
       <IconButton
         className={allClasses}
         tooltip={t('stopAreaDetails.memberStops.actionButtons.remove')}
-        onClick={() => onRemove(stop.stop_place.netexId as string)}
+        onClick={() => onRemove(stop.quay.netexId as string)}
         icon={<MdDelete className="text-2xl" aria-hidden />}
         testId={testIds.removeButton}
       />
