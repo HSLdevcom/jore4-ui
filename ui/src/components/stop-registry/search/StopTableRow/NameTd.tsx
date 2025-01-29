@@ -5,8 +5,8 @@ import { StopRowTdProps } from './StopRowTdProps';
 export const NameTd: FC<StopRowTdProps> = ({ className, stop }) => (
   <td className={className}>
     <div>
-      <Row>{stop.stop_place?.nameFin}</Row>
-      <Row>{stop.stop_place?.nameSwe}</Row>
+      <Row>{stop.quay?.nameFin}</Row>
+      <Row>{stop.quay?.nameSwe}</Row>
     </div>
   </td>
 );

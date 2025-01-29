@@ -71,7 +71,7 @@ function mapDataToStopResults(
   return data.stopPoints.map((rawStopPoint) => {
     return {
       ...omit(rawStopPoint, ['stopPlace']),
-      stop_place: mapStopPlace(rawStopPoint),
+      quay: mapStopPlace(rawStopPoint),
     };
   });
 }

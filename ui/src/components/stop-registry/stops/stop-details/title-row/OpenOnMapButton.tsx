@@ -25,7 +25,7 @@ export const OpenOnMapButton: FC<OpenOnMapButtonProps> = ({
   const openStopOnMap = useOpenStopOnMap();
   const onClick = () => {
     if (stop && stop.stop_place !== null) {
-      openStopOnMap({ ...stop, stop_place: stop.stop_place });
+      openStopOnMap({ ...stop, quay: stop.stop_place });
     }
   };
 

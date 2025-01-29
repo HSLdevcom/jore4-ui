@@ -18,7 +18,7 @@ const RemoveMemberStopImpl: ForwardRefRenderFunction<
 > = ({ className, onRemove, stop }, ref) => {
   const { t } = useTranslation();
 
-  const id = stop.stop_place.netexId;
+  const id = stop.quay.netexId;
 
   return (
     <SimpleDropdownMenuItem
