@@ -1,23 +1,37 @@
 import isEmpty from 'lodash/isEmpty';
-import { StopsDatabaseStopPlaceNewestVersionBoolExp } from '../../../../generated/graphql';
-import {
-  StopRegistryMunicipality,
-  knownPriorityValues,
-} from '../../../../types/enums';
+import { StopsDatabaseQuayNewestVersionBoolExp } from '../../../../generated/graphql';
+import { knownPriorityValues } from '../../../../types/enums';
 import {
   AllOptionEnum,
   buildOptionalSearchConditionGqlFilter,
-  buildSearchStopByLabelOrNameFilter,
-  buildTiamatAddressLikeGqlFilter,
-  buildTiamatMunicipalityGqlFilter,
-  buildTiamatPrivateCodeLikeGqlFilter,
   mapToSqlLikeValue,
 } from '../../../../utils';
+import { buildSearchStopByLabelOrNameFilter } from '../../utils/buildSearchStopByLabelOrNameFilter';
 import { SearchBy, StopSearchFilters } from '../types';
+
+enum TiamatKeyValueKeys {
+  Address = 'streetAddress',
+}
+
+function buildKeyValueLikeFilter(
+  key: TiamatKeyValueKeys,
+  value: string,
+): StopsDatabaseQuayNewestVersionBoolExp {
+  return {
+    quay_key_values: {
+      key_values_key: { _eq: key },
+      value: { value_items: { items: { _ilike: value } } },
+    },
+  };
+}
+
+function buildAddressLikeFilter(value: string) {
+  return buildKeyValueLikeFilter(TiamatKeyValueKeys.Address, value);
+}
 
 function buildSearchStopsQueryFilter(
   filters: StopSearchFilters,
-): StopsDatabaseStopPlaceNewestVersionBoolExp {
+): StopsDatabaseQuayNewestVersionBoolExp {
   if (filters.searchBy === SearchBy.LabelOrName) {
     return buildSearchStopByLabelOrNameFilter(filters.query);
   }
@@ -25,28 +39,38 @@ function buildSearchStopsQueryFilter(
   if (filters.searchBy === SearchBy.Address) {
     return buildOptionalSearchConditionGqlFilter<
       string,
-      StopsDatabaseStopPlaceNewestVersionBoolExp
-    >(mapToSqlLikeValue(filters.query), buildTiamatAddressLikeGqlFilter);
+      StopsDatabaseQuayNewestVersionBoolExp
+    >(mapToSqlLikeValue(filters.query), buildAddressLikeFilter);
   }
 
   return {};
 }
 
+// No other type of private code is used in the application
+const ELY_NUMBER_TYPE = 'ELY';
+
+function buildPrivateCodeLikeFilter(
+  value: string,
+): StopsDatabaseQuayNewestVersionBoolExp {
+  return {
+    private_code_type: { _eq: ELY_NUMBER_TYPE },
+    private_code_value: { _ilike: value },
+  };
+}
+
 function buildSearchStopsMunicipalityFilter({
   municipalities,
-}: StopSearchFilters): StopsDatabaseStopPlaceNewestVersionBoolExp {
+}: StopSearchFilters): StopsDatabaseQuayNewestVersionBoolExp {
   if (municipalities.includes(AllOptionEnum.All)) {
     return {};
   }
 
-  return buildTiamatMunicipalityGqlFilter(
-    municipalities as Array<StopRegistryMunicipality>,
-  );
+  return { stop_place: { topographic_place_id: { _in: municipalities } } };
 }
 
 function buildSearchStopsObservationDateFilter({
   observationDate,
-}: StopSearchFilters): StopsDatabaseStopPlaceNewestVersionBoolExp {
+}: StopSearchFilters): StopsDatabaseQuayNewestVersionBoolExp {
   const dateString = observationDate.toISODate();
   return {
     validity_start: { _lte: dateString },
@@ -59,7 +83,7 @@ function buildSearchStopsObservationDateFilter({
 
 function buildSearchStopsPriorityFilter({
   priorities,
-}: StopSearchFilters): StopsDatabaseStopPlaceNewestVersionBoolExp {
+}: StopSearchFilters): StopsDatabaseQuayNewestVersionBoolExp {
   const allSelected =
     knownPriorityValues.length === priorities.length &&
     knownPriorityValues.every((prio) => priorities.includes(prio));
@@ -74,13 +98,13 @@ function buildSearchStopsPriorityFilter({
 
 export function buildSearchStopsGqlQueryVariables(
   filters: StopSearchFilters,
-): StopsDatabaseStopPlaceNewestVersionBoolExp {
+): StopsDatabaseQuayNewestVersionBoolExp {
   const queryFilter = buildSearchStopsQueryFilter(filters);
 
   const elyNumberFilter = buildOptionalSearchConditionGqlFilter<
     string,
-    StopsDatabaseStopPlaceNewestVersionBoolExp
-  >(mapToSqlLikeValue(filters.elyNumber), buildTiamatPrivateCodeLikeGqlFilter);
+    StopsDatabaseQuayNewestVersionBoolExp
+  >(mapToSqlLikeValue(filters.elyNumber), buildPrivateCodeLikeFilter);
 
   const municipalityFilter = buildSearchStopsMunicipalityFilter(filters);
 

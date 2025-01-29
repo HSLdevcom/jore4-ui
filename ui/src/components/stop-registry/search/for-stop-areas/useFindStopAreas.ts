@@ -11,9 +11,9 @@ import { useNumericSortingCollator } from '../utils';
 export type FindStopAreaInfo = FindStopAreaInfoFragment;
 
 const GQL_FIND_STOP_AREAS = gql`
-  query findStopAreas($query: String!, $validOn: timestamp!) {
+  query findStopAreas($query: String!, $validOn: String!) {
     stops_database {
-      stops_database_group_of_stop_places(
+      stopAreas: stops_database_stop_place_newest_version(
         where: {
           _and: [
             {
@@ -22,17 +22,17 @@ const GQL_FIND_STOP_AREAS = gql`
                 { name_value: { _ilike: $query } }
                 { short_name_value: { _ilike: $query } }
                 {
-                  group_of_stop_places_alternative_names: {
+                  stop_place_alternative_names: {
                     alternative_name: { name_value: { _ilike: $query } }
                   }
                 }
               ]
             }
-            { from_date: { _lte: $validOn } }
+            { validity_start: { _lte: $validOn } }
             {
               _or: [
-                { to_date: { _gte: $validOn } }
-                { to_date: { _is_null: true } }
+                { validity_end: { _gte: $validOn } }
+                { validity_end: { _is_null: true } }
               ]
             }
           ]
@@ -44,7 +44,7 @@ const GQL_FIND_STOP_AREAS = gql`
     }
   }
 
-  fragment FindStopAreaInfo on stops_database_group_of_stop_places {
+  fragment FindStopAreaInfo on stops_database_stop_place_newest_version {
     id
     netex_id
     version
@@ -68,15 +68,13 @@ export function useFindStopAreas(filters: StopSearchFilters) {
   const { data, ...rest } = useFindStopAreasQuery({
     variables: {
       query: mapToSqlLikeValue(filters.query),
-      validOn: filters.observationDate,
+      validOn: filters.observationDate.toString(),
     },
   });
 
   const stopAreas: ReadonlyArray<FindStopAreaInfo> = useMemo(
     () =>
-      (
-        data?.stops_database?.stops_database_group_of_stop_places ?? []
-      ).toSorted((a, b) =>
+      (data?.stops_database?.stopAreas ?? []).toSorted((a, b) =>
         labelSortCollator.compare(a.name_value ?? '', b.name_value ?? ''),
       ),
     [data, labelSortCollator],
