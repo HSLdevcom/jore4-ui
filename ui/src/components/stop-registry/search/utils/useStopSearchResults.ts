@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 import {
   OrderBy,
-  StopsDatabaseStopPlaceNewestVersionBoolExp,
-  StopsDatabaseStopPlaceNewestVersionOrderBy,
+  StopsDatabaseQuayNewestVersionBoolExp,
+  StopsDatabaseQuayNewestVersionOrderBy,
   useSearchStopsQuery,
 } from '../../../../generated/graphql';
 import { PagingInfo, SortOrder } from '../../../../types';
@@ -26,18 +26,29 @@ const GQL_STOP_TABLE_ROW = gql`
   }
 `;
 
-const GQL_STOP_TABLE_ROW_STOP_PLACE = gql`
-  fragment stop_table_row_stop_place on stops_database_stop_place_newest_version {
+const GQL_STOP_TABLE_ROW_QUAY_BASE_DETAILS = gql`
+  fragment stop_table_row_quay_base_details on stops_database_quay_newest_version {
     id
     netex_id
-    name_value
-    stop_place_alternative_names {
-      alternative_name {
-        name_lang
-        name_type
-        name_value
+
+    stop_place {
+      name_lang
+      name_value
+
+      stop_place_alternative_names {
+        alternative_name {
+          name_lang
+          name_type
+          name_value
+        }
       }
     }
+  }
+`;
+
+const GQL_STOP_TABLE_ROW_QUAY = gql`
+  fragment stop_table_row_quay on stops_database_quay_newest_version {
+    ...stop_table_row_quay_base_details
     scheduled_stop_point_instance {
       ...stop_table_row
     }
@@ -46,24 +57,22 @@ const GQL_STOP_TABLE_ROW_STOP_PLACE = gql`
 
 const GQL_SEARCH_STOPS = gql`
   query SearchStops(
-    $where: stops_database_stop_place_newest_version_bool_exp
-    $orderBy: stops_database_stop_place_newest_version_order_by!
+    $where: stops_database_quay_newest_version_bool_exp
+    $orderBy: stops_database_quay_newest_version_order_by!
     $offset: Int!
     $limit: Int!
   ) {
     stops_database {
-      stops: stops_database_stop_place_newest_version(
+      stops: stops_database_quay_newest_version(
         where: $where
         order_by: [$orderBy]
         offset: $offset
         limit: $limit
       ) {
-        ...stop_table_row_stop_place
+        ...stop_table_row_quay
       }
 
-      resultCount: stops_database_stop_place_newest_version_aggregate(
-        where: $where
-      ) {
+      resultCount: stops_database_quay_newest_version_aggregate(where: $where) {
         aggregate {
           count
         }
@@ -83,13 +92,13 @@ function sortOrderToOrderBy(sortOrder: SortOrder) {
 function getOrderBy({
   sortBy,
   sortOrder,
-}: SortingInfo): StopsDatabaseStopPlaceNewestVersionOrderBy {
+}: SortingInfo): StopsDatabaseQuayNewestVersionOrderBy {
   const direction = sortOrderToOrderBy(sortOrder);
 
   switch (sortBy) {
     case SortStopsBy.DEFAULT:
     case SortStopsBy.LABEL:
-      return { quay_public_code: direction };
+      return { public_code: direction };
 
     case SortStopsBy.ADDRESS:
       return { street_address: direction };
@@ -121,7 +130,7 @@ type UseStopSearchResultsParams = {
   readonly pagingInfo: PagingInfo;
   readonly skip: boolean;
   readonly sortingInfo: SortingInfo;
-  readonly where: StopsDatabaseStopPlaceNewestVersionBoolExp;
+  readonly where: StopsDatabaseQuayNewestVersionBoolExp;
 };
 
 export const useStopSearchResults = ({
