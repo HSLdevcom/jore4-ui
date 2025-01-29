@@ -10,6 +10,7 @@ import {
   StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
   StopRegistryParentStopPlaceInput,
+  StopRegistryQuayInput,
   StopRegistryStopPlaceInput,
 } from '../generated/graphql';
 import { hasuraApi } from '../hasuraApi';
@@ -137,25 +138,37 @@ const insertStopPlace = async ({
   }
 
   try {
+    // TODO: Scheduled Stop Point should be per Quay (new Timat stop), not per Stop Place (new Tiamat Stop Area)
     const stopPlaceRef = await insertStopPlaceForScheduledStopPoint({
       scheduledStopPointId: stopPointId,
       stopPlace: {
         ...stopPlace,
-        keyValues: [
-          ...(stopPlace.keyValues ?? []),
-          {
-            key: 'priority',
-            values: [stopPoint.priority.toString(10)],
-          },
-          {
-            key: 'validityStart',
-            values: [stopPoint.validity_start],
-          },
-          {
-            key: 'validityEnd',
-            values: [stopPoint.validity_end],
-          },
-        ],
+        quays: !stopPlace.quays
+          ? []
+          : stopPlace.quays.map((quay): StopRegistryQuayInput | null => {
+              if (!quay) {
+                return null;
+              }
+
+              return {
+                ...quay,
+                keyValues: [
+                  ...(quay.keyValues ?? []),
+                  {
+                    key: 'priority',
+                    values: [stopPoint.priority.toString(10)],
+                  },
+                  {
+                    key: 'validityStart',
+                    values: [stopPoint.validity_start],
+                  },
+                  {
+                    key: 'validityEnd',
+                    values: [stopPoint.validity_end],
+                  },
+                ],
+              };
+            }),
       },
     });
 
