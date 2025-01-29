@@ -68971,23 +68971,24 @@ export type GetStopsByRouteIdQuery = {
     validity_end?: luxon.DateTime | null;
     timing_place_id?: UUID | null;
     priority: number;
-    stopPlace?: {
+    quay?: {
       __typename?: 'stops_database_quay_newest_version';
       id?: any | null;
       netex_id?: string | null;
-      name_lang?: string | null;
-      name_value?: string | null;
-      description_lang?: string | null;
-      description_value?: string | null;
-      stop_place_alternative_names: Array<{
-        __typename?: 'stops_database_quay_alternative_names';
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name';
-          name_lang?: string | null;
-          name_value?: string | null;
-          name_type?: string | null;
-        };
-      }>;
+      stop_place?: {
+        __typename?: 'stops_database_stop_place';
+        name_lang?: string | null;
+        name_value?: string | null;
+        stop_place_alternative_names: Array<{
+          __typename?: 'stops_database_stop_place_alternative_names';
+          alternative_name: {
+            __typename?: 'stops_database_alternative_name';
+            name_lang?: string | null;
+            name_type?: string | null;
+            name_value?: string | null;
+          };
+        }>;
+      } | null;
     } | null;
     timing_place?: {
       __typename?: 'timing_pattern_timing_place';
@@ -69012,18 +69013,18 @@ export type ResolveStopPlaceNetextIdsByLineIdsQuery = {
 
 export type FindStopAreasQueryVariables = Exact<{
   query: Scalars['String']['input'];
-  validOn: Scalars['timestamp']['input'];
+  validOn: Scalars['String']['input'];
 }>;
 
 export type FindStopAreasQuery = {
   __typename?: 'query_root';
   stops_database?: {
     __typename?: 'stops_database_stops_database_query';
-    stops_database_group_of_stop_places: Array<{
-      __typename?: 'stops_database_group_of_stop_places';
-      id: any;
+    stopAreas: Array<{
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
       netex_id?: string | null;
-      version: any;
+      version?: any | null;
       from_date?: any | null;
       to_date?: any | null;
       name_lang?: string | null;
@@ -69036,10 +69037,10 @@ export type FindStopAreasQuery = {
 };
 
 export type FindStopAreaInfoFragment = {
-  __typename?: 'stops_database_group_of_stop_places';
-  id: any;
+  __typename?: 'stops_database_stop_place_newest_version';
+  id?: any | null;
   netex_id?: string | null;
-  version: any;
+  version?: any | null;
   from_date?: any | null;
   to_date?: any | null;
   name_lang?: string | null;
@@ -69057,20 +69058,10 @@ export type GetStopsByStopAreaIdQuery = {
   __typename?: 'query_root';
   stops_database?: {
     __typename?: 'stops_database_stops_database_query';
-    stops: Array<{
-      __typename?: 'stops_database_stop_place_newest_version';
+    quays: Array<{
+      __typename?: 'stops_database_quay_newest_version';
       id?: any | null;
       netex_id?: string | null;
-      name_value?: string | null;
-      stop_place_alternative_names: Array<{
-        __typename?: 'stops_database_stop_place_alternative_names';
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name';
-          name_lang?: string | null;
-          name_type?: string | null;
-          name_value?: string | null;
-        };
-      }>;
       scheduled_stop_point_instance?: {
         __typename?: 'service_pattern_scheduled_stop_point';
         scheduled_stop_point_id: UUID;
@@ -69085,6 +69076,20 @@ export type GetStopsByStopAreaIdQuery = {
           timing_place_id: UUID;
           label: string;
         } | null;
+      } | null;
+      stop_place?: {
+        __typename?: 'stops_database_stop_place';
+        name_lang?: string | null;
+        name_value?: string | null;
+        stop_place_alternative_names: Array<{
+          __typename?: 'stops_database_stop_place_alternative_names';
+          alternative_name: {
+            __typename?: 'stops_database_alternative_name';
+            name_lang?: string | null;
+            name_type?: string | null;
+            name_value?: string | null;
+          };
+        }>;
       } | null;
     }>;
   } | null;
@@ -69106,20 +69111,30 @@ export type StopTableRowFragment = {
   } | null;
 };
 
-export type StopTableRowStopPlaceFragment = {
-  __typename?: 'stops_database_stop_place_newest_version';
+export type StopTableRowQuayBaseDetailsFragment = {
+  __typename?: 'stops_database_quay_newest_version';
   id?: any | null;
   netex_id?: string | null;
-  name_value?: string | null;
-  stop_place_alternative_names: Array<{
-    __typename?: 'stops_database_stop_place_alternative_names';
-    alternative_name: {
-      __typename?: 'stops_database_alternative_name';
-      name_lang?: string | null;
-      name_type?: string | null;
-      name_value?: string | null;
-    };
-  }>;
+  stop_place?: {
+    __typename?: 'stops_database_stop_place';
+    name_lang?: string | null;
+    name_value?: string | null;
+    stop_place_alternative_names: Array<{
+      __typename?: 'stops_database_stop_place_alternative_names';
+      alternative_name: {
+        __typename?: 'stops_database_alternative_name';
+        name_lang?: string | null;
+        name_type?: string | null;
+        name_value?: string | null;
+      };
+    }>;
+  } | null;
+};
+
+export type StopTableRowQuayFragment = {
+  __typename?: 'stops_database_quay_newest_version';
+  id?: any | null;
+  netex_id?: string | null;
   scheduled_stop_point_instance?: {
     __typename?: 'service_pattern_scheduled_stop_point';
     scheduled_stop_point_id: UUID;
@@ -69135,11 +69150,25 @@ export type StopTableRowStopPlaceFragment = {
       label: string;
     } | null;
   } | null;
+  stop_place?: {
+    __typename?: 'stops_database_stop_place';
+    name_lang?: string | null;
+    name_value?: string | null;
+    stop_place_alternative_names: Array<{
+      __typename?: 'stops_database_stop_place_alternative_names';
+      alternative_name: {
+        __typename?: 'stops_database_alternative_name';
+        name_lang?: string | null;
+        name_type?: string | null;
+        name_value?: string | null;
+      };
+    }>;
+  } | null;
 };
 
 export type SearchStopsQueryVariables = Exact<{
-  where?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
-  orderBy: StopsDatabaseStopPlaceNewestVersionOrderBy;
+  where?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
+  orderBy: StopsDatabaseQuayNewestVersionOrderBy;
   offset: Scalars['Int']['input'];
   limit: Scalars['Int']['input'];
 }>;
@@ -69149,19 +69178,9 @@ export type SearchStopsQuery = {
   stops_database?: {
     __typename?: 'stops_database_stops_database_query';
     stops: Array<{
-      __typename?: 'stops_database_stop_place_newest_version';
+      __typename?: 'stops_database_quay_newest_version';
       id?: any | null;
       netex_id?: string | null;
-      name_value?: string | null;
-      stop_place_alternative_names: Array<{
-        __typename?: 'stops_database_stop_place_alternative_names';
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name';
-          name_lang?: string | null;
-          name_type?: string | null;
-          name_value?: string | null;
-        };
-      }>;
       scheduled_stop_point_instance?: {
         __typename?: 'service_pattern_scheduled_stop_point';
         scheduled_stop_point_id: UUID;
@@ -69177,11 +69196,25 @@ export type SearchStopsQuery = {
           label: string;
         } | null;
       } | null;
+      stop_place?: {
+        __typename?: 'stops_database_stop_place';
+        name_lang?: string | null;
+        name_value?: string | null;
+        stop_place_alternative_names: Array<{
+          __typename?: 'stops_database_stop_place_alternative_names';
+          alternative_name: {
+            __typename?: 'stops_database_alternative_name';
+            name_lang?: string | null;
+            name_type?: string | null;
+            name_value?: string | null;
+          };
+        }>;
+      } | null;
     }>;
     resultCount: {
-      __typename?: 'stops_database_stop_place_newest_version_aggregate';
+      __typename?: 'stops_database_quay_newest_version_aggregate';
       aggregate?: {
-        __typename?: 'stops_database_stop_place_newest_version_aggregate_fields';
+        __typename?: 'stops_database_quay_newest_version_aggregate_fields';
         count: number;
       } | null;
     };
@@ -75457,7 +75490,7 @@ export const FindStopByLineInfoFragmentDoc = gql`
   ${FindStopByLineRouteInfoFragmentDoc}
 `;
 export const FindStopAreaInfoFragmentDoc = gql`
-  fragment FindStopAreaInfo on stops_database_group_of_stop_places {
+  fragment FindStopAreaInfo on stops_database_stop_place_newest_version {
     id
     netex_id
     version
@@ -75468,6 +75501,23 @@ export const FindStopAreaInfoFragmentDoc = gql`
     description_lang
     description_value
     centroid
+  }
+`;
+export const StopTableRowQuayBaseDetailsFragmentDoc = gql`
+  fragment stop_table_row_quay_base_details on stops_database_quay_newest_version {
+    id
+    netex_id
+    stop_place {
+      name_lang
+      name_value
+      stop_place_alternative_names {
+        alternative_name {
+          name_lang
+          name_type
+          name_value
+        }
+      }
+    }
   }
 `;
 export const StopTableRowFragmentDoc = gql`
@@ -75485,22 +75535,14 @@ export const StopTableRowFragmentDoc = gql`
     }
   }
 `;
-export const StopTableRowStopPlaceFragmentDoc = gql`
-  fragment stop_table_row_stop_place on stops_database_stop_place_newest_version {
-    id
-    netex_id
-    name_value
-    stop_place_alternative_names {
-      alternative_name {
-        name_lang
-        name_type
-        name_value
-      }
-    }
+export const StopTableRowQuayFragmentDoc = gql`
+  fragment stop_table_row_quay on stops_database_quay_newest_version {
+    ...stop_table_row_quay_base_details
     scheduled_stop_point_instance {
       ...stop_table_row
     }
   }
+  ${StopTableRowQuayBaseDetailsFragmentDoc}
   ${StopTableRowFragmentDoc}
 `;
 export const StopAreaDetailsMembersFragmentDoc = gql`
@@ -77308,24 +77350,13 @@ export const GetStopsByRouteIdDocument = gql`
       order_by: [{ label: asc }]
     ) {
       ...stop_table_row
-      stopPlace: newest_stop_place {
-        id
-        netex_id
-        name_lang
-        name_value
-        stop_place_alternative_names: quay_alternative_names {
-          alternative_name {
-            name_lang
-            name_value
-            name_type
-          }
-        }
-        description_lang
-        description_value
+      quay: newest_quay {
+        ...stop_table_row_quay_base_details
       }
     }
   }
   ${StopTableRowFragmentDoc}
+  ${StopTableRowQuayBaseDetailsFragmentDoc}
 `;
 
 /**
@@ -77495,9 +77526,9 @@ export type ResolveStopPlaceNetextIdsByLineIdsQueryResult = Apollo.QueryResult<
   ResolveStopPlaceNetextIdsByLineIdsQueryVariables
 >;
 export const FindStopAreasDocument = gql`
-  query findStopAreas($query: String!, $validOn: timestamp!) {
+  query findStopAreas($query: String!, $validOn: String!) {
     stops_database {
-      stops_database_group_of_stop_places(
+      stopAreas: stops_database_stop_place_newest_version(
         where: {
           _and: [
             {
@@ -77506,17 +77537,17 @@ export const FindStopAreasDocument = gql`
                 { name_value: { _ilike: $query } }
                 { short_name_value: { _ilike: $query } }
                 {
-                  group_of_stop_places_alternative_names: {
+                  stop_place_alternative_names: {
                     alternative_name: { name_value: { _ilike: $query } }
                   }
                 }
               ]
             }
-            { from_date: { _lte: $validOn } }
+            { validity_start: { _lte: $validOn } }
             {
               _or: [
-                { to_date: { _gte: $validOn } }
-                { to_date: { _is_null: true } }
+                { validity_end: { _gte: $validOn } }
+                { validity_end: { _is_null: true } }
               ]
             }
           ]
@@ -77608,19 +77639,15 @@ export type FindStopAreasQueryResult = Apollo.QueryResult<
 export const GetStopsByStopAreaIdDocument = gql`
   query getStopsByStopAreaId($stopAreaId: bigint!) {
     stops_database {
-      stops: stops_database_stop_place_newest_version(
-        where: {
-          group_of_stop_places_members: {
-            group_of_stop_places_id: { _eq: $stopAreaId }
-          }
-        }
-        order_by: [{ quay_public_code: asc }]
+      quays: stops_database_quay_newest_version(
+        where: { stop_place_id: { _eq: $stopAreaId } }
+        order_by: [{ public_code: asc }]
       ) {
-        ...stop_table_row_stop_place
+        ...stop_table_row_quay
       }
     }
   }
-  ${StopTableRowStopPlaceFragmentDoc}
+  ${StopTableRowQuayFragmentDoc}
 `;
 
 /**
@@ -77699,30 +77726,28 @@ export type GetStopsByStopAreaIdQueryResult = Apollo.QueryResult<
 >;
 export const SearchStopsDocument = gql`
   query SearchStops(
-    $where: stops_database_stop_place_newest_version_bool_exp
-    $orderBy: stops_database_stop_place_newest_version_order_by!
+    $where: stops_database_quay_newest_version_bool_exp
+    $orderBy: stops_database_quay_newest_version_order_by!
     $offset: Int!
     $limit: Int!
   ) {
     stops_database {
-      stops: stops_database_stop_place_newest_version(
+      stops: stops_database_quay_newest_version(
         where: $where
         order_by: [$orderBy]
         offset: $offset
         limit: $limit
       ) {
-        ...stop_table_row_stop_place
+        ...stop_table_row_quay
       }
-      resultCount: stops_database_stop_place_newest_version_aggregate(
-        where: $where
-      ) {
+      resultCount: stops_database_quay_newest_version_aggregate(where: $where) {
         aggregate {
           count
         }
       }
     }
   }
-  ${StopTableRowStopPlaceFragmentDoc}
+  ${StopTableRowQuayFragmentDoc}
 `;
 
 /**

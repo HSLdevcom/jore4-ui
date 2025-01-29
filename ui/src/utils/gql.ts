@@ -218,37 +218,6 @@ export const buildTiamatStopQuayPublicCodeLikeGqlFilter = (
   },
 });
 
-// No other type of private code is used in the application
-const ELY_NUMBER_TYPE = 'ELY';
-
-export const buildTiamatPrivateCodeLikeGqlFilter = (value: string) => ({
-  private_code_type: { _ilike: ELY_NUMBER_TYPE },
-  private_code_value: { _ilike: value },
-});
-
-enum TiamatKeyValueKeys {
-  Address = 'streetAddress',
-}
-
-export const buildTiamatKeyValueLikeGqlFilter = (
-  key: TiamatKeyValueKeys,
-  value: string,
-) => ({
-  stop_place_key_values: {
-    key_values_key: { _ilike: key },
-    value: { value_items: { items: { _ilike: value } } },
-  },
-});
-
-export const buildTiamatAddressLikeGqlFilter = (value: string) =>
-  buildTiamatKeyValueLikeGqlFilter(TiamatKeyValueKeys.Address, value);
-
-export const buildTiamatMunicipalityGqlFilter = (
-  value: StopRegistryMunicipality[],
-) => {
-  return value.length ? { topographic_place_id: { _in: value } } : {};
-};
-
 enum LANG {
   SWE = 'swe',
   FIN = 'fin',
