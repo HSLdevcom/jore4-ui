@@ -26,9 +26,7 @@ function groupBySelectionStatus(
   selectedIds: ReadonlyArray<string>,
 ): Record<'selected' | 'removed', Array<StopSearchRow>> {
   const grouped = groupBy(existingAreaMembers, (it) =>
-    selectedIds.includes(it.stop_place.netexId as string)
-      ? 'selected'
-      : 'removed',
+    selectedIds.includes(it.quay.netexId as string) ? 'selected' : 'removed',
   );
   return {
     selected: grouped.selected ?? [],
@@ -44,7 +42,7 @@ function stopAreaFormMemberToStopSearchRow(
   member: StopAreaFormMember,
 ): StopSearchRow {
   return {
-    stop_place: {
+    quay: {
       netexId: member.id,
       nameFin: member.name.value,
       nameSwe: '',
@@ -116,7 +114,7 @@ function mapRows(
     selectedIds,
   );
 
-  const existingIds = existingAreaMembers.map((it) => it.stop_place.netexId);
+  const existingIds = existingAreaMembers.map((it) => it.quay.netexId);
   const added = inEditSelectedStops
     .filter((it) => !existingIds.includes(it.id))
     .map(stopAreaFormMemberToStopSearchRow);
