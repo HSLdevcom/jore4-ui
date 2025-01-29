@@ -14,7 +14,7 @@ export function mapMemberToStopSearchFormat(
 
   return {
     ...member.scheduled_stop_point,
-    stop_place: {
+    quay: {
       netexId: member.id,
       nameFin: member.name?.value,
       nameSwe: null,
