@@ -12,6 +12,10 @@ cd "$(dirname "$0")"/..
 # variable.
 DOCKER_COMPOSE_BUNDLE_REF=${BUNDLE_REF:-main}
 
+# Define a Docker Compose project name to distinguish the Docker environment of
+# this project from others.
+export COMPOSE_PROJECT_NAME=jore4-ui
+
 DUMP_ROUTES_FILENAME="routes-12-2024.pgdump"
 DUMP_TIMETABLES_FILENAME="timetables-12-2024.pgdump"
 DUMP_STOPS_FILENAME="stopdb-12-2024.pgdump"
@@ -183,7 +187,7 @@ function start_docker_containers {
 }
 
 function stop_dependencies {
-  docker compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.custom.yml -f ./docker/docker-compose.e2e.yml down --volumes
+  docker compose --project-name "$COMPOSE_PROJECT_NAME" down --volumes
 }
 
 function start_dependencies {
@@ -338,7 +342,7 @@ function usage {
     the BUNDLE_REF environment variable. By default, the latest version is
     downloaded.
 
-  stop:deps
+  stop
     Stop all Docker container dependencies.
 
   setup:env
@@ -380,7 +384,7 @@ start:deps)
   start_dependencies
   ;;
 
-stop:deps)
+stop)
   stop_dependencies
   ;;
 
