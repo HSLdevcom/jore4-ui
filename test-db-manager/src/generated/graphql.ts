@@ -69037,6 +69037,7 @@ export type InsertStopPlaceMutation = {
       quays?: Array<{
         __typename?: 'stop_registry_Quay';
         id?: string | null;
+        publicCode?: string | null;
         placeEquipments?: {
           __typename?: 'stop_registry_PlaceEquipments';
           shelterEquipment?: Array<{

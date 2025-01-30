@@ -80,6 +80,12 @@ export const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitatio
 export type StopPlaceNetexRef = {
   label: string;
   netexId: string;
+  quayRef: Array<QuayNetexRef>;
+};
+
+export type QuayNetexRef = {
+  label: string;
+  netexId: string;
   shelterRef: Array<string>;
 };
 
