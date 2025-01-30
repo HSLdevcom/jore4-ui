@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { StopWithDetails } from '../../../../../hooks';
+import { PageTitle } from '../../../../common';
 import { EditValidityButton } from './EditValidityButton';
 import { ExtraActions } from './ExtraActions';
 import { OpenOnMapButton } from './OpenOnMapButton';
@@ -18,9 +19,9 @@ export const StopTitleRow: FC<StopTitleRowProps> = ({ stopDetails, label }) => {
   return (
     <div className="flex items-center">
       <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
-      <h2 className="mr-2 font-bold" data-testid={testIds.label}>
+      <PageTitle.H1 className="mr-2" testId={testIds.label}>
         {label}
-      </h2>
+      </PageTitle.H1>
       <div className="text-xl" data-testid={testIds.names}>
         <span>
           {

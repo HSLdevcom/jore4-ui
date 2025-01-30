@@ -11,6 +11,7 @@ import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { Priority } from '../../../types/enums';
 import { showSuccessToast } from '../../../utils';
+import { PageTitle } from '../../common';
 import { FormState, LineForm } from '../../forms/line/LineForm';
 import {
   ConflictResolverModal,
@@ -58,6 +59,7 @@ export const CreateNewLinePage = (): React.ReactElement => {
       />
     );
   }
+
   return (
     <Container>
       <ConflictResolverModal
@@ -66,7 +68,7 @@ export const CreateNewLinePage = (): React.ReactElement => {
       />
       <Row>
         <i className="icon-bus-alt text-6xl text-tweaked-brand" />
-        <h1>{t('lines.createNew')}</h1>
+        <PageTitle.H1>{t('lines.createNew')}</PageTitle.H1>
       </Row>
       <LineForm onSubmit={onSubmit} defaultValues={defaultValues} />
     </Container>

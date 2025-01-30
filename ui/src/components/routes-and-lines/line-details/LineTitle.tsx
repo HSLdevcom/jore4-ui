@@ -7,6 +7,7 @@ import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
 import { useGetRoutesDisplayedInList } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { IconButton, SimpleSmallButton } from '../../../uiComponents';
+import { PageTitle } from '../../common';
 import { LineValidityPeriod } from './LineValidityPeriod';
 
 const testIds = {
@@ -59,9 +60,9 @@ export const LineTitle: React.FC<Props> = ({
   return (
     <Column>
       <Row className={`items-center ${className}`}>
-        <h1 className="mr-4" data-testid={testIds.heading}>
+        <PageTitle.H1 className="mr-4" data-testid={testIds.heading}>
           {t('lines.line', { label: line.label })}
-        </h1>
+        </PageTitle.H1>
         <span className="space-x-2">
           {lineRoutes?.length > 0 &&
             lineRoutes.map((item) => (

@@ -6,6 +6,7 @@ import { Container, Row } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { defaultPagingInfo } from '../../../types';
+import { PageTitle } from '../../common';
 import { StopsByLineSearchResults } from './by-line';
 import { StopSearchByStopResults } from './by-stop';
 import { StopSearchBar } from './components';
@@ -96,7 +97,9 @@ export const StopSearchResultPage = (): React.ReactElement => {
   return (
     <Container testId={testIds.container}>
       <Row>
-        <h2>{`${t('search.searchResultsTitle')} | ${trSearchFor(t, filters.searchFor)}`}</h2>
+        <PageTitle.H1>
+          {`${t('search.searchResultsTitle')} | ${trSearchFor(t, filters.searchFor)}`}
+        </PageTitle.H1>
         <Link
           className="ml-auto text-base font-bold text-brand"
           to={closeLink}

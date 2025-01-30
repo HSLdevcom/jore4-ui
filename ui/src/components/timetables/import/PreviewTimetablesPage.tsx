@@ -21,6 +21,7 @@ import { selectIsJoreOperationLoading } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { AccordionButton, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { PageTitle } from '../../common';
 import { CombineSameContractWarning } from './CombineSameContractWarning';
 import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
 import { ImportContentsView } from './contents-view';
@@ -109,7 +110,7 @@ export const PreviewTimetablesPage = (): React.ReactElement => {
 
   return (
     <Container>
-      <h1>{t('timetablesPreview.preview')}</h1>
+      <PageTitle.H1>{t('timetablesPreview.preview')}</PageTitle.H1>
       <div className="overflow-none mt-9 rounded border border-grey">
         <Row className="justify-between rounded-t-sm border-brand bg-brand pl-16 pr-8 text-white">
           <h2 className="py-2" data-testid={testIds.previewTitle}>

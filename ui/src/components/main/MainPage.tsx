@@ -4,6 +4,7 @@ import { LOGIN_URL } from '../../api/user';
 import { useAppSelector } from '../../hooks';
 import { selectUser } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
+import { PageTitle } from '../common';
 
 const testIds = {
   main: 'Main',
@@ -19,9 +20,9 @@ export const MainPage: React.FC = () => {
       className="min-h-screen bg-brand bg-opacity-50 p-20"
     >
       <div className="mx-auto w-4/5 rounded-lg bg-white p-10 leading-8 shadow-2xl">
-        <h1 className="mb-10 text-center text-4xl">
+        <PageTitle.H1 className="mb-10 text-center text-4xl">
           {t('welcomePage.heading')}
-        </h1>
+        </PageTitle.H1>
         <div className="mb-6 space-y-6 text-xl">
           <h3>{t('welcomePage.subheading1')}</h3>
           <p>{t('welcomePage.paragraph1')}</p>

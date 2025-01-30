@@ -6,6 +6,7 @@ import {
 import { useGetLineDraftDetails } from '../../../hooks/line-drafts/useGetLineDraftDetails';
 import { Column, Container, Row } from '../../../layoutComponents';
 import { CloseIconButton } from '../../../uiComponents';
+import { PageTitle } from '../../common';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { LineRouteList } from '../line-details/LineRouteList';
 
@@ -23,7 +24,7 @@ export const LineDraftsPage = (): React.ReactElement => {
   return (
     <Container>
       <Row>
-        <h2>{`${t('lines.draftsTitle')} | ${t('lines.line', { label })}`}</h2>
+        <PageTitle.H1>{`${t('lines.draftsTitle')} | ${t('lines.line', { label })}`}</PageTitle.H1>
         <CloseIconButton
           label={t('close')}
           className="ml-auto text-base font-bold text-brand"

@@ -18,7 +18,7 @@ import {
 } from '../../../redux';
 import { TimetablePriority } from '../../../types/enums';
 import { CloseIconButton } from '../../../uiComponents';
-import { TimeRangeControl } from '../../common';
+import { PageTitle, TimeRangeControl } from '../../common';
 import { FormColumn, FormRow } from '../../forms/common';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import { DeleteTimetableModal } from './DeleteTimetableModal';
@@ -97,10 +97,9 @@ export const TimetableVersionsPage = (): React.ReactElement => {
   return (
     <Container>
       <FormRow mdColumns={2}>
-        <h1 className="text-2xl">
-          {`${t('timetables.versionsTitle')} |
-          ${t('lines.line', { label })}`}
-        </h1>
+        <PageTitle.H1>
+          {`${t('timetables.versionsTitle')} | ${t('lines.line', { label })}`}
+        </PageTitle.H1>
         <FormColumn className="items-end">
           <CloseIconButton
             label={t('close')}
