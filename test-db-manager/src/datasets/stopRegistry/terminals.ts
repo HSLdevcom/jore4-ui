@@ -49,12 +49,14 @@ const mapToTerminalInput = (seedTerminal: TerminalSeedData): TerminalInput => {
         lang: 'fin',
         value: seedTerminal.description,
       },
+      /*
       validBetween: {
         fromDate:
           seedTerminal.validityStart ??
-          DateTime.fromISO('2020-01-01T00:00:00.001'),
+          DateTime.fromISO('2026-01-01T00:00:00.001'),
         toDate: null,
       },
+      */
       geometry: {
         coordinates: [seedTerminal.locationLong, seedTerminal.locationLat],
         type: StopRegistryGeoJsonType.Point,
@@ -94,7 +96,7 @@ const northEsplanadi = {
   label: 'T1',
   locationLat: 60.167836,
   locationLong: 24.94905,
-  members: ['H2003'],
+  members: ['X1234'],
   streetAddress: 'Mannerheimintie 22-24',
   postalCode: '00100',
   departurePlatforms: '7',
