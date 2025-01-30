@@ -330,7 +330,7 @@ function check_images {
   check_pinned_image tiamat
 }
 
-function usage {
+function print_usage {
   echo "
   Usage $0 <command>
 
@@ -413,10 +413,10 @@ check:images)
   ;;
 
 help)
-  usage
+  print_usage
   ;;
 
 *)
-  usage
+  print_usage
   ;;
 esac
