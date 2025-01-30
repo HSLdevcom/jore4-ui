@@ -332,7 +332,7 @@ check_images() {
 
 print_usage() {
   echo "
-  Usage $0 <command>
+  Usage: $(basename "$0") <command>
 
   start:deps
     Start dependencies but do not insert data to database.
@@ -379,6 +379,11 @@ print_usage() {
   "
 }
 
+if [[ $# -eq 0 ]]; then
+  print_usage
+  exit 1
+fi
+
 case $1 in
 start:deps)
   start_dependencies
@@ -417,6 +422,9 @@ help)
   ;;
 
 *)
+  echo ""
+  echo "Unknown command: '${1}'"
   print_usage
+  exit 1
   ;;
 esac
