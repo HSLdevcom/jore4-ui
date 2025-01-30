@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import { useLoader } from '../../../../hooks';
+import { Navigate } from 'react-router-dom';
+import { useGetStopPlaceDetails, useLoader } from '../../../../hooks';
 import { Container } from '../../../../layoutComponents';
 import { LoadingState, Operation } from '../../../../redux';
 import {
@@ -10,22 +10,20 @@ import {
   StopAreaVersioningRow,
 } from './components';
 import { StopAreaEditableBlock } from './StopAreaEditableBlock';
-import { useGetStopAreaDetails } from './useGetStopAreaDetails';
 
 const testIds = {
   page: 'StopAreaDetailsPage::page',
 };
 
 export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
-  const { id } = useParams();
 
   const [blockInEdit, setBlockInEdit] = useState<StopAreaEditableBlock | null>(
     null,
   );
 
-  const { area, loading, refetch } = useGetStopAreaDetails(id ?? '');
+  const { stopPlaceDetails, loading, refetch } = useGetStopPlaceDetails();
   const { setLoadingState } = useLoader(Operation.FetchStopAreaPageDetails, {
-    initialState: area ? LoadingState.NotLoading : LoadingState.MediumPriority,
+    initialState: stopPlaceDetails ? LoadingState.NotLoading : LoadingState.MediumPriority,
   });
 
   useEffect(() => {
@@ -34,27 +32,29 @@ export const StopAreaDetailsPage: FC<Record<string, never>> = () => {
     }
   }, [loading, setLoadingState]);
 
-  if (loading && !area) {
+  if (loading && (!stopPlaceDetails || !stopPlaceDetails?.stop_place)) {
     return null;
   }
 
-  if (!area) {
+  if (!stopPlaceDetails) {
     return <Navigate to="/404" replace />;
   }
 
+  
+
   return (
     <Container className="space-y-4" testId={testIds.page}>
-      <StopAreaTitleRow area={area} />
+      <StopAreaTitleRow area={stopPlaceDetails} />
       <hr />
-      <StopAreaVersioningRow area={area} />
+      <StopAreaVersioningRow area={stopPlaceDetails} />
       <StopAreaDetailsAndMap
-        area={area}
+        area={stopPlaceDetails}
         blockInEdit={blockInEdit}
         onEditBlock={setBlockInEdit}
         refetch={refetch}
       />
       <StopAreaMemberStops
-        area={area}
+        area={stopPlaceDetails}
         blockInEdit={blockInEdit}
         onEditBlock={setBlockInEdit}
         refetch={refetch}
