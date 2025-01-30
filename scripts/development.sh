@@ -176,8 +176,8 @@ download_docker_compose_bundle() {
   echo "$commit_sha" > ./docker/RELEASE_VERSION.txt
 }
 
-function start_docker_images {
-  echo "Running docker compose command: $DOCKER_COMPOSE_CMD"
+function start_docker_containers {
+  echo "Running Docker Compose command: $DOCKER_COMPOSE_CMD"
 
   $DOCKER_COMPOSE_CMD up -d "$@"
 }
@@ -194,7 +194,7 @@ function start_dependencies {
     additional_images=$DOCKER_E2E_IMAGES
   fi
 
-  start_docker_images $DOCKER_TESTDB_IMAGE $DOCKER_IMAGES $additional_images
+  start_docker_containers $DOCKER_TESTDB_IMAGE $DOCKER_IMAGES $additional_images
   # Use port 3010 for tiamat and 3110 for tiamat-e2e
   ./scripts/seed-municipalities-and-fare-zones.sh 3010 &
   if [ "$INCLUDE_E2E" = true ]; then
@@ -273,7 +273,7 @@ function setup_environment {
 
   download_docker_compose_bundle
 
-  start_docker_images $DOCKER_TESTDB_IMAGE
+  start_docker_containers $DOCKER_TESTDB_IMAGE
 
   if [[ -z ${1+x} || $1 != "test" ]]; then
     wait_for_database testdb topology topology
@@ -287,7 +287,7 @@ function setup_environment {
     additional_images=$DOCKER_E2E_IMAGES
   fi
 
-  start_docker_images $DOCKER_IMAGES $additional_images
+  start_docker_containers $DOCKER_IMAGES $additional_images
 
   if [ "$INCLUDE_E2E" = true ]; then
     seed_infra_links testdb-e2e
