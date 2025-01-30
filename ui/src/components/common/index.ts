@@ -1,6 +1,7 @@
 export * from './DateControl';
 export * from './DateInput';
 export * from './LineTableRow';
+export * from './PageTitle';
 export * from './RedirectWithQuery';
 export * from './RouteLineTableRow';
 export * from './RouteTableRow';

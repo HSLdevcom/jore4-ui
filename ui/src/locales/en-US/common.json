@@ -469,6 +469,7 @@
     "saveSuccess": "Hastus place created"
   },
   "navigation": {
+    "pageTitle": "{{title}} - Jore4 Test version",
     "logout": "Log out",
     "user": "User"
   },

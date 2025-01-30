@@ -469,6 +469,7 @@
     "saveSuccess": "Hastus-paikka luotu"
   },
   "navigation": {
+    "pageTitle": "{{title}} - Jore4 Testiversio",
     "logout": "Kirjaudu ulos",
     "user": "Käyttäjä"
   },
