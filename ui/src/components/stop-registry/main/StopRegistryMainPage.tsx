@@ -5,6 +5,7 @@ import { Container, Row } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
 import { defaultPagingInfo } from '../../../types';
 import { SimpleButton } from '../../../uiComponents';
+import { PageTitle } from '../../common';
 import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import {
   StopSearchBar,
@@ -48,7 +49,7 @@ export const StopRegistryMainPage: FC = () => {
   return (
     <Container>
       <Row className="justify-between">
-        <h1>{t('stops.stops')}</h1>
+        <PageTitle.H1>{t('stops.stops')}</PageTitle.H1>
         <OpenDefaultMapButton containerClassName="ml-auto" />
         <SimpleButton
           // TODO: actual implementation for this button.

@@ -3,6 +3,7 @@ import React, { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { getUserInfo } from '../api/user';
+import { PageTitle } from '../components/common';
 import { MainPage } from '../components/main/MainPage';
 import { MapModal } from '../components/map';
 import { JoreLoader } from '../components/map/JoreLoader';
@@ -36,7 +37,12 @@ import { showDangerToast } from '../utils';
 import { Path } from './routeDetails';
 
 const FallbackRoute: FC = () => {
-  return React.createElement('p', null, `404, page not found`);
+  return (
+    <div className="flex flex-col items-center">
+      <PageTitle.H1>404</PageTitle.H1>
+      <p>page not found</p>
+    </div>
+  );
 };
 
 export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {

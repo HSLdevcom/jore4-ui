@@ -9,6 +9,7 @@ import {
   usePagination,
 } from '../../../uiComponents';
 import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
+import { PageTitle } from '../../common';
 import { RouteLineTableRowVariant } from '../../common/RouteLineTableRow';
 import { ResultList } from '../../common/search/ResultList';
 import { ExportToolbar } from './ExportToolbar';
@@ -54,9 +55,9 @@ export const SearchResultPage = (): React.ReactElement => {
   return (
     <Container testId={testIds.container}>
       <Row>
-        <h2>{`${t('search.searchResultsTitle')} | ${
-          displayInformation.title
-        }`}</h2>
+        <PageTitle.H1>
+          {`${t('search.searchResultsTitle')} | ${displayInformation.title}`}
+        </PageTitle.H1>
         <CloseIconButton
           label={t('close')}
           className="ml-auto text-base font-bold text-brand"

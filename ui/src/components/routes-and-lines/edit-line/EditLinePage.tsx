@@ -15,6 +15,7 @@ import {
   mapToVariables,
   showSuccessToast,
 } from '../../../utils';
+import { PageTitle } from '../../common';
 import { FormState, LineForm } from '../../forms/line/LineForm';
 import {
   ConflictResolverModal,
@@ -75,6 +76,8 @@ export const EditLinePage = (): React.ReactElement => {
     );
   }
 
+  const pageTitleText = t('lines.line', { label: line?.label });
+
   return (
     <div>
       <ConflictResolverModal
@@ -82,10 +85,10 @@ export const EditLinePage = (): React.ReactElement => {
         conflicts={conflicts.map(mapLineToCommonConflictItem)}
       />
       <PageHeader>
-        <h1>
+        <PageTitle.H1 titleText={pageTitleText}>
           <i className="icon-bus-alt text-tweaked-brand" />
-          {t('lines.line', { label: line?.label })}
-        </h1>
+          {pageTitleText}
+        </PageTitle.H1>
       </PageHeader>
       <Container>
         {line && (

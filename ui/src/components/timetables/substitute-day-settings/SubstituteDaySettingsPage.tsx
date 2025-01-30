@@ -12,6 +12,7 @@ import { selectTimetable } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
 import { ConfirmationDialog } from '../../../uiComponents';
 import { CloseIconButton } from '../../../uiComponents/CloseIconButton';
+import { PageTitle } from '../../common';
 import { ObservationPeriodForm } from '../../forms/timetables/ObservationPeriodForm';
 import { CommonSubstitutePeriodSection } from './CommonSubstitutePeriod/CommonSubstitutePeriodSection';
 import { DateRange } from './DateRange';
@@ -79,7 +80,7 @@ export const SubstituteDaySettingsPage = (): React.ReactElement => {
   return (
     <Container>
       <Row className="justify-between py-8">
-        <h1>{t('timetables.daySettings')}</h1>
+        <PageTitle.H1>{t('timetables.daySettings')}</PageTitle.H1>
         <CloseIconButton
           testId={testIds.closeButton}
           label={t('close')}

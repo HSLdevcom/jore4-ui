@@ -19,6 +19,7 @@ import {
   SimpleButton,
 } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
+import { PageTitle } from '../../common';
 import { FormRow } from '../../forms/common';
 import { ConfirmTimetablesImportModal } from './ConfirmTimetablesImportModal';
 import { FileImportDragAndDrop } from './FileImportDragAndDrop';
@@ -111,7 +112,7 @@ export const ImportTimetablesPage = (): React.ReactElement => {
   return (
     <Container>
       <Row>
-        <h1>{t('import.importTimetablesFromHastus')}</h1>
+        <PageTitle.H1>{t('import.importTimetablesFromHastus')}</PageTitle.H1>
         <CloseIconButton
           testId={testIds.closeButton}
           label={t('close')}

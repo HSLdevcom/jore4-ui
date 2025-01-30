@@ -24,6 +24,7 @@ import {
   showSuccessToast,
   submitFormByRef,
 } from '../../../utils';
+import { PageTitle } from '../../common';
 import { RedirectWithQuery } from '../../common/RedirectWithQuery';
 import { RouteDraftStopsConfirmationDialog } from '../../forms/route/RouteDraftStopsConfirmationDialog';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
@@ -155,13 +156,17 @@ export const EditRoutePage = (): React.ReactElement => {
     );
   }
 
+  const pageTitleText = t('lines.line', {
+    label: route?.route_line?.label ?? '',
+  });
+
   return (
     <div>
       <PageHeader>
-        <h1>
+        <PageTitle.H1 titleText={pageTitleText}>
           <i className="icon-bus-alt text-tweaked-brand" />
-          {t('lines.line', { label: route?.route_line?.label ?? '' })}
-        </h1>
+          {pageTitleText}
+        </PageTitle.H1>
       </PageHeader>
       <Container>
         <Row className="mt-10">
