@@ -17,6 +17,7 @@ const GQL_INSERT_STOP_PLACE = gql`
         id
         quays {
           id
+          publicCode
           placeEquipments {
             shelterEquipment {
               id
@@ -146,9 +147,12 @@ export const mapToInsertStopPlaceMutation = (
   };
 };
 
-export const extractStopPlaceIdFromResponse = (
+export const extractQuayIdsFromResponse = (
   res: InsertStopPlaceResult,
-): string => res.data.stop_registry.mutateStopPlace[0].quays[0].id;
+): Array<{ label: string; netexId: string }> =>
+  res.data.stop_registry.mutateStopPlace[0].quays.map((quay) => {
+    return { label: quay.publicCode, netexId: quay.id };
+  });
 
 export const mapToDeleteStopPlaceMutation = (stopPlaceId: string) => {
   return {
