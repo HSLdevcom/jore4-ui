@@ -52,7 +52,7 @@ if [ "$INCLUDE_E2E" = true ]; then
   DOCKER_COMPOSE_CMD="$DOCKER_COMPOSE_CMD -f ./docker/docker-compose.e2e.yml"
 fi
 
-function login {
+login() {
   if [ $LOGGED_IN != true ]; then
     echo "Log in to Azure"
     az login
@@ -60,7 +60,7 @@ function login {
   fi
 }
 
-function wait_for_database {
+wait_for_database() {
   SUCCESS=false
   while ! $SUCCESS; do
     echo "$1: Checking if schema $2 and table $3 exist..."
@@ -71,14 +71,14 @@ function wait_for_database {
   done
 }
 
-function seed_infra_links {
+seed_infra_links() {
   echo "$1: Seeding infrastructure links..."
 
   wait_for_database "$1" infrastructure_network infrastructure_link
   docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < test-db-manager/src/dumps/infraLinks/infraLinks.sql;
 }
 
-function check_pinned_image {
+check_pinned_image() {
   DOCKER_JQ="docker run --rm -i imega/jq"
   DOCKER_YQ="docker run --rm -i mikefarah/yq"
   GREEN='\033[1;32m'
@@ -180,17 +180,17 @@ download_docker_compose_bundle() {
   echo "$commit_sha" > ./docker/RELEASE_VERSION.txt
 }
 
-function start_docker_containers {
+start_docker_containers() {
   echo "Running Docker Compose command: $DOCKER_COMPOSE_CMD"
 
   $DOCKER_COMPOSE_CMD up -d "$@"
 }
 
-function stop_dependencies {
+stop_dependencies() {
   docker compose --project-name "$COMPOSE_PROJECT_NAME" down --volumes
 }
 
-function start_dependencies {
+start_dependencies() {
   download_docker_compose_bundle
 
   local additional_images=""
@@ -209,7 +209,7 @@ function start_dependencies {
   check_images
 }
 
-function download_dump {
+download_dump() {
   echo "Downloading database dump for JORE4 network & routes from Azure Blob Storage..."
 
   # Here is a breakdown of the dump name used below:
@@ -239,7 +239,7 @@ function download_dump {
   fi
 }
 
-function import_dump {
+import_dump() {
   if [[ -z ${1+x} || -z ${2+x} ]]; then
     echo "File and target database need to be defined!"
     echo "usage:"
@@ -257,14 +257,14 @@ function import_dump {
   docker exec -i testdb pg_restore -U dbadmin --dbname="$2" --format=c < "$1"
 }
 
-function download_digitransit_key {
+download_digitransit_key() {
   login
 
   echo "Downloading secret value to ui/.env.local"
   { echo -n "NEXT_PUBLIC_DIGITRANSIT_API_KEY=" && az keyvault secret show --name "hsl-jore4-digitransit-api-key" --vault-name "hsl-jore4-dev-vault" --query "value"; } > ui/.env.local
 }
 
-function setup_environment {
+setup_environment() {
 
   read -p "Warning: all the current data in the database will be overwritten! Are you sure (y/n)? " REPLY
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -325,12 +325,12 @@ function setup_environment {
   echo "All done! Happy coding! :)"
 }
 
-function check_images {
+check_images() {
   check_pinned_image hasura hsl-main-
   check_pinned_image tiamat
 }
 
-function print_usage {
+print_usage() {
   echo "
   Usage $0 <command>
 
