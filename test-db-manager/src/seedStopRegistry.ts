@@ -40,10 +40,11 @@ const seedStopRegistry = async () => {
       };
     });
 
-  const collectedStopPlaceIds = await insertStopPlaces(stopPlaceInputs);
+  const { collectedStopIds, collectedQuayDetails } =
+    await insertStopPlaces(stopPlaceInputs);
 
   const terminalCreateInputs = seedTerminals.map((terminal) =>
-    buildTerminalCreateInput(terminal, collectedStopPlaceIds),
+    buildTerminalCreateInput(terminal, collectedStopIds),
   );
   const terminalUpdateInputs = seedTerminals.map(
     (terminal) => terminal.terminal,
@@ -51,7 +52,7 @@ const seedStopRegistry = async () => {
   await insertTerminals(terminalCreateInputs, terminalUpdateInputs);
 
   const infoSpotInputs = seedInfoSpots.map((infoSpot) =>
-    setInfoSpotRelations(infoSpot, collectedStopPlaceIds),
+    setInfoSpotRelations(infoSpot, collectedQuayDetails),
   );
 
   await insertInfoSpots(infoSpotInputs);

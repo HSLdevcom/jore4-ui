@@ -9,16 +9,16 @@ import {
 import { isNotNullish } from '../../utils';
 import { InfoSpotInput } from './infoSpots';
 import { StopAreaInput } from './stopArea';
-import { QuayInput, StopPlaceMaintenance } from './stopPlaces';
+import { StopPlaceMaintenance } from './stopPlaces';
 import { TerminalInput } from './terminals';
 
-export type StopDetails = {
+export type QuayDetails = {
   netexId: string;
   shelters: Array<string>;
 };
 
-export type StopAreaIdsByName = Record<string, string>;
-export type StopPlaceDetailsByLabel = Record<string, StopDetails>;
+export type StopPlaceIdsByName = Record<string, string>;
+export type QuayDetailsByLabel = Record<string, QuayDetails>;
 export type TerminalIdsByName = Record<string, string>;
 export type OrganisationIdsByName = Record<string, string>;
 
@@ -56,13 +56,6 @@ const mapStopPlaceMaintenanceToInput = (
   return organisationRefs;
 };
 
-export const setStopPlaceQuays = (
-  input: StopAreaInput,
-  quays: Array<QuayInput>,
-): StopAreaInput => {
-  return input;
-};
-
 export const setStopPlaceOrganisations = (
   input: StopAreaInput,
   organisationIdsByName: OrganisationIdsByName,
@@ -82,16 +75,14 @@ export const setStopPlaceOrganisations = (
 
 export const buildTerminalCreateInput = (
   input: TerminalInput,
-  stopPlaceDetailsByLabel: StopPlaceDetailsByLabel,
+  stopPlaceIdsByName: StopPlaceIdsByName,
 ): Partial<StopRegistryCreateMultiModalStopPlaceInput> => {
   const terminal = {
     name: input.terminal.name,
     description: input.terminal.description,
     validBetween: input.terminal.validBetween,
     geometry: input.terminal.geometry,
-    stopPlaceIds: input.memberLabels.map(
-      (label) => stopPlaceDetailsByLabel[label].netexId,
-    ),
+    stopPlaceIds: input.memberLabels.map((label) => stopPlaceIdsByName[label]),
   };
 
   return terminal;
@@ -109,7 +100,7 @@ export const buildTerminalUpdateInput = (
 
 export const setInfoSpotRelations = (
   input: InfoSpotInput,
-  stopPlaceDetailsByLabel: StopPlaceDetailsByLabel,
+  quayDetailsByLabel: QuayDetailsByLabel,
 ): Partial<StopRegistryInfoSpotInput> => {
   const infoSpot: Partial<StopRegistryInfoSpotInput> = {
     ...input.infoSpot,
@@ -118,14 +109,14 @@ export const setInfoSpotRelations = (
 
   if (input.locatedOnStopLabel) {
     infoSpot.infoSpotLocations?.push(
-      stopPlaceDetailsByLabel[input.locatedOnStopLabel].netexId,
+      quayDetailsByLabel[input.locatedOnStopLabel].netexId,
     );
     if (
       input.associatedShelter !== null &&
       input.associatedShelter !== undefined
     ) {
       infoSpot.infoSpotLocations?.push(
-        stopPlaceDetailsByLabel[input.locatedOnStopLabel].shelters[
+        quayDetailsByLabel[input.locatedOnStopLabel].shelters[
           input.associatedShelter
         ],
       );

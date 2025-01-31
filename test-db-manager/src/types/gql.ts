@@ -22,6 +22,7 @@ export interface InsertStopPlaceResult {
         id: UUID;
         quays: Array<{
           id: string;
+          publicCode: string;
           placeEquipments: {
             shelterEquipment: Array<{
               id: string;
