@@ -18,7 +18,7 @@
   "dependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
-    "@rollup/plugin-typescript": "^11.1.6",
+    "@rollup/plugin-typescript": "^12.1.2",
     "cross-fetch": "^4.1.0",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",
@@ -26,14 +26,14 @@
     "lodash": "^4.17.21",
     "luxon": "^3.5.0",
     "pg": "^8.13.1",
-    "rollup": "^4.30.1",
+    "rollup": "^4.32.1",
     "rollup-plugin-dts": "^6.1.1",
     "ts-node": "^10.9.2",
-    "uuid": "^9.0.1"
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
-    "@types/geojson": "^7946.0.15",
+    "@types/geojson": "^7946.0.16",
     "@types/luxon": "^3.4.2",
-    "@types/pg": "^8.11.10"
+    "@types/pg": "^8.11.11"
   }
 }
