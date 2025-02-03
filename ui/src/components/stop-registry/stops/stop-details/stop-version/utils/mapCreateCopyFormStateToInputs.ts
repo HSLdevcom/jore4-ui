@@ -13,10 +13,10 @@ import {
   mapDateInputToValidityStart,
   patchKeyValues,
 } from '../../../../../../utils';
+import { mapStopPlaceToInput } from '../../../../stop-areas/stop-area-details/mapStopPlaceToInput';
+import { mapCompactOrNull, mapInfoSpotToInput } from '../../../../utils';
 import { FailedToResolveExistingShelter } from '../errors';
 import { InfoSpotInputHelper, StopVersionFormState } from '../types';
-import { mapCompactOrNull } from './mapCompactOrNull';
-import { mapInfoSpotToInput, mapOriginalToInput } from './mapOriginalToInput';
 
 type CreateCopyInputs = {
   readonly stopPlaceInput: StopRegistryStopPlaceInput;
@@ -64,7 +64,7 @@ function mapStopPlaceInput(
   originalStop: StopWithDetails,
 ): StopRegistryStopPlaceInput {
   return {
-    ...mapOriginalToInput(originalStop),
+    ...mapStopPlaceToInput(originalStop),
     id: null,
     keyValues: getKeyValues(state, originalStop),
     versionComment: state.versionName,
