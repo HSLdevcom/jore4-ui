@@ -1,6 +1,9 @@
 import { gql, skipToken } from '@apollo/client';
 import { DateTime } from 'luxon';
-import { useDoesStopHaveNextValidAlternativeSuspenseQuery } from '../../../../../generated/graphql';
+import {
+  DoesStopHaveNextValidAlternativeQueryVariables,
+  useDoesStopHaveNextValidAlternativeSuspenseQuery,
+} from '../../../../../generated/graphql';
 import { Priority } from '../../../../../types/enums';
 import { StopSearchRow } from '../../types';
 import { PriorityVisualizationType } from './PriorityVisualizationType';
@@ -10,7 +13,7 @@ const ABOUT_TO_END_THRESHOLD = 20;
 const GQL_DOES_STOP_HAVE_NEXT_VALID_ALTERNATIVE = gql`
   query DoesStopHaveNextValidAlternative(
     $label: String!
-    $validAfter: date
+    $validAfter: date!
     $validPriorities: [Int!]!
   ) {
     stopPoint: service_pattern_scheduled_stop_point_aggregate(

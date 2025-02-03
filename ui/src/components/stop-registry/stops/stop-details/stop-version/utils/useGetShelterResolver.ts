@@ -12,7 +12,7 @@ import { hasDuplicateShelters } from './hasDuplicateShelters';
 const GQL_RESOLVE_STOP_SHELTERS = gql`
   query ResolveStopShelters($netexId: String!) {
     stop_registry {
-      stopPlace(id: $netexId) {
+      stopPlace(query: $netexId) {
         id
 
         ... on stop_registry_StopPlace {

@@ -8,7 +8,9 @@ import {
 } from '../../../../../../generated/graphql';
 import { ScheduledStopPointSetInput } from '../../../../../../graphql';
 import { StopWithDetails } from '../../../../../../hooks';
+import { notNullish } from '../../../../../../utils';
 import {
+  FailedToResolveExistingQuays,
   FailedToResolveNewShelters,
   StopPlaceInsertFailed,
   StopPlaceRevertFailed,
@@ -18,33 +20,105 @@ import {
   InfoSpotInputHelper,
   StopVersionFormState,
 } from '../types';
+import { StopRegistryQuayCopyInput } from '../types/StopRegistryQuayCopyInput';
 import { mapCreateCopyFormStateToInputs } from './mapCreateCopyFormStateToInputs';
 import { useDeleteStopPlace } from './useDeleteStopPlace';
 import { useGetShelterResolver } from './useGetShelterResolver';
+import {
+  ExistingQuayInput,
+  useResolveExistingQuays,
+} from './useResolveExistingQuays';
 import { wrapErrors } from './wrapErrors';
 
+function getStopPlaceId(originalStop: StopWithDetails): string {
+  const id = originalStop.stop_place?.id;
+
+  if (!id) {
+    throw new Error(
+      "StopPlace or it's netextId missing from the stop that is being copied!",
+    );
+  }
+
+  return id;
+}
+
+type StopPlaceUpdateData = {
+  readonly existingQuays: ReadonlyArray<ExistingQuayInput>;
+  readonly stopPlaceInput: StopRegistryStopPlaceInput;
+};
+
+function useGetStopPlaceUpdateInput() {
+  const resolveExistingQuays = useResolveExistingQuays();
+
+  return useCallback(
+    async (
+      originalStop: StopWithDetails,
+      quayCopy: StopRegistryQuayCopyInput,
+    ): Promise<StopPlaceUpdateData> => {
+      const existingQuays = await wrapErrors(
+        resolveExistingQuays(getStopPlaceId(originalStop)),
+        FailedToResolveExistingQuays,
+        'Failed to resolve existing quays!',
+      );
+
+      return {
+        existingQuays,
+        stopPlaceInput: {
+          id: getStopPlaceId(originalStop),
+          quays: existingQuays.concat(quayCopy),
+        },
+      };
+    },
+    [resolveExistingQuays],
+  );
+}
+
 function useInsertStopPlace() {
+  const getStopPlaceUpdateInput = useGetStopPlaceUpdateInput();
   const [insertStopPlaceMutation] = useInsertStopPlaceMutation();
 
   return useCallback(
-    async (stopPlaceInput: StopRegistryStopPlaceInput): Promise<string> => {
+    async (
+      originalStop: StopWithDetails,
+      quayCopy: StopRegistryQuayCopyInput,
+    ): Promise<{ readonly stopPlaceId: string; readonly quayId: string }> => {
+      const { existingQuays, stopPlaceInput } = await getStopPlaceUpdateInput(
+        originalStop,
+        quayCopy,
+      );
+
       const response = await wrapErrors(
         insertStopPlaceMutation({ variables: { object: stopPlaceInput } }),
         StopPlaceInsertFailed,
         'Failed to insert new StopPlace!',
       );
 
-      const id = response.data?.stop_registry?.mutateStopPlace?.at(0)?.id;
+      const stopPlaceId =
+        response.data?.stop_registry?.mutateStopPlace?.at(0)?.id;
 
-      if (!id) {
+      const quayId = response.data?.stop_registry?.mutateStopPlace
+        ?.at(0)
+        ?.quays?.filter(notNullish)
+        ?.find(
+          (quay) =>
+            !existingQuays.some((existingQuay) => existingQuay.id === quay.id),
+        )?.id;
+
+      if (!stopPlaceId) {
         throw new StopPlaceInsertFailed(
           `StopPlace insert seems to have failed. No ID returned. Response: ${JSON.stringify(response, null, 0)}`,
         );
       }
 
-      return id;
+      if (!quayId) {
+        throw new StopPlaceInsertFailed(
+          `StopPlace insert seems to have failed. Could not find new Quay ID. Response: ${JSON.stringify(response, null, 0)} | ExistingQuays: ${JSON.stringify(existingQuays, null, 0)}`,
+        );
+      }
+
+      return { stopPlaceId, quayId };
     },
-    [insertStopPlaceMutation],
+    [getStopPlaceUpdateInput, insertStopPlaceMutation],
   );
 }
 
@@ -82,12 +156,13 @@ function useInsertStopPoint() {
     async (
       stopPointInput: ScheduledStopPointSetInput,
       stopPlaceId: string,
+      quayId: string,
     ): Promise<UUID> => {
       try {
         const response = await wrapErrors(
           insertStopMutation({
             variables: {
-              object: { ...stopPointInput, stop_place_ref: stopPlaceId },
+              object: { ...stopPointInput, stop_place_ref: quayId },
             },
           }),
           StopPlaceInsertFailed,
@@ -121,13 +196,13 @@ function useInsertInfoSpots() {
   return useCallback(
     async (
       infoSpots: ReadonlyArray<InfoSpotInputHelper> | null,
-      stopPlaceId: string,
+      quayId: string,
     ): Promise<boolean> => {
       if (infoSpots === null) {
         return false;
       }
 
-      const shelterResolver = await getShelterResolver(stopPlaceId);
+      const shelterResolver = await getShelterResolver(quayId);
       const resolveByIndex = shelterResolver.shouldResolveByIndex();
 
       const withLocations = infoSpots.map(
@@ -147,7 +222,7 @@ function useInsertInfoSpots() {
 
           return {
             ...infoSpotInput,
-            infoSpotLocations: [stopPlaceId, shelterId],
+            infoSpotLocations: [quayId, shelterId],
           };
         },
       );
@@ -170,14 +245,21 @@ export function useCopyStop() {
       state: StopVersionFormState,
       originalStop: StopWithDetails,
     ): Promise<CreateStopVersionResult> => {
-      const { stopPlaceInput, stopPointInput, infoSpotInputs } =
+      const { quayInput, stopPointInput, infoSpotInputs } =
         mapCreateCopyFormStateToInputs(state, originalStop);
 
-      const stopPlaceId = await insertStopPlace(stopPlaceInput);
-      const stopPointId = await insertStopPoint(stopPointInput, stopPlaceId);
-      await insertInfoSpots(infoSpotInputs, stopPlaceId);
+      const { stopPlaceId, quayId } = await insertStopPlace(
+        originalStop,
+        quayInput,
+      );
+      const stopPointId = await insertStopPoint(
+        stopPointInput,
+        stopPlaceId,
+        quayId,
+      );
+      await insertInfoSpots(infoSpotInputs, quayId);
 
-      return { stopPlaceId, stopPlaceInput, stopPointId, stopPointInput };
+      return { stopPlaceId, quayId, stopPointId, stopPointInput };
     },
     [insertStopPlace, insertStopPoint, insertInfoSpots],
   );

@@ -409,6 +409,7 @@
       },
       "errors": {
         "copy": "Failed to save copy:\n{{reason}}",
+        "failedToResolveExistingQuays": "Failed to resolve the other stops belonging to the same Stop Area! Reason:\n{{reason}}",
         "stopPlaceInsertFailed": "Failed to create entry in StopRegistry! Reason:\n{{reason}}",
         "stopPointInsertFailedStopPlaceReverted": "Failed to create a scheduled stop point in the lines and routers database! Reason:\n{{reason}}",
         "stopPointInsertFailedStopPlaceNotReverted": "Failed to create a scheduled stop point in the lines and routers database, and the previusly created entry in StopRegistry could be deleted. Jore databases contains errors. Reason:\n{{reason}}"

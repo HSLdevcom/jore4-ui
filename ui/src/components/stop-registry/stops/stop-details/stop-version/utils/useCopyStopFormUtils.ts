@@ -8,6 +8,7 @@ import { Operation } from '../../../../../../redux';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
 import {
+  FailedToResolveExistingQuays,
   StopPlaceInsertFailed,
   StopPlaceRevertFailed,
   StopPointInsertFailed,
@@ -49,20 +50,34 @@ function extractMessageFromError(error: unknown) {
   return JSON.stringify(error, null, 0);
 }
 
+function extractNestedOrTopLevelMessage(error: unknown) {
+  if (error instanceof Error && error.cause) {
+    return extractMessageFromError(error.cause);
+  }
+
+  return extractMessageFromError(error);
+}
+
 function useErrorHandler() {
   const { t } = useTranslation();
 
   const resolveErrorMessage = (error: unknown) => {
+    if (error instanceof FailedToResolveExistingQuays) {
+      return t('stopDetails.version.errors.failedToResolveExistingQuays', {
+        reason: extractNestedOrTopLevelMessage(error),
+      });
+    }
+
     if (error instanceof StopPlaceInsertFailed) {
       return t('stopDetails.version.errors.stopPlaceInsertFailed', {
-        reason: extractMessageFromError(error.cause),
+        reason: extractNestedOrTopLevelMessage(error),
       });
     }
 
     if (error instanceof StopPointInsertFailed) {
       return t(
         'stopDetails.version.errors.stopPointInsertFailedStopPlaceReverted',
-        { reason: extractMessageFromError(error.cause) },
+        { reason: extractNestedOrTopLevelMessage(error) },
       );
     }
 

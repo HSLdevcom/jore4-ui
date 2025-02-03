@@ -409,6 +409,7 @@
       },
       "errors": {
         "copy": "Kopion tallennus epäonnistui:\n{{reason}}",
+        "failedToResolveExistingQuays": "Pysäkin pysäkkialueen muiden pysäkkien selvitys epäinnistui! Syy:\n{{reason}}",
         "stopPlaceInsertFailed": "Pysäkkirekisteritietueen luonti epäonnistui! Syy:\n{{reason}}",
         "stopPointInsertFailedStopPlaceReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui! Syy:\n{{reason}}",
         "stopPointInsertFailedStopPlaceNotReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui eikä aiemmin luotua pysäkkirekisteritietuetta saatu poistettua. Jore tietokannoissa on nyt virheitä. Syy:\n{{reason}}"
