@@ -8,7 +8,9 @@ import {
 } from '../../../../../../generated/graphql';
 import { ScheduledStopPointSetInput } from '../../../../../../graphql';
 import { StopWithDetails } from '../../../../../../hooks';
+import { notNullish } from '../../../../../../utils';
 import {
+  FailedToResolveExistingQuays,
   FailedToResolveNewShelters,
   StopPlaceInsertFailed,
   StopPlaceRevertFailed,
@@ -18,49 +20,131 @@ import {
   InfoSpotInputHelper,
   StopVersionFormState,
 } from '../types';
+import { StopRegistryQuayCopyInput } from '../types/StopRegistryQuayCopyInput';
 import { mapCreateCopyFormStateToInputs } from './mapCreateCopyFormStateToInputs';
-import { useDeleteStopPlace } from './useDeleteStopPlace';
 import { useGetShelterResolver } from './useGetShelterResolver';
+import {
+  ExistingQuayInput,
+  useResolveExistingQuays,
+} from './useResolveExistingQuays';
 import { wrapErrors } from './wrapErrors';
 
+function getStopPlaceId(originalStop: StopWithDetails): string {
+  const id = originalStop.stop_place?.id;
+
+  if (!id) {
+    throw new Error(
+      "StopPlace or it's netextId missing from the stop that is being copied!",
+    );
+  }
+
+  return id;
+}
+
+type StopPlaceUpdateData = {
+  readonly existingQuays: ReadonlyArray<ExistingQuayInput>;
+  readonly stopPlaceInput: StopRegistryStopPlaceInput;
+};
+
+function useGetStopPlaceUpdateInput() {
+  const resolveExistingQuays = useResolveExistingQuays();
+
+  return useCallback(
+    async (
+      originalStop: StopWithDetails,
+      quayCopy: StopRegistryQuayCopyInput,
+    ): Promise<StopPlaceUpdateData> => {
+      const existingQuays = await wrapErrors(
+        resolveExistingQuays(getStopPlaceId(originalStop)),
+        FailedToResolveExistingQuays,
+        'Failed to resolve existing quays!',
+      );
+
+      return {
+        existingQuays,
+        stopPlaceInput: {
+          id: getStopPlaceId(originalStop),
+          quays: existingQuays.concat(quayCopy),
+        },
+      };
+    },
+    [resolveExistingQuays],
+  );
+}
+
+type InsertStopPlaceResult = {
+  readonly stopPlaceId: string;
+  readonly quayId: string;
+  readonly existingQuays: ReadonlyArray<ExistingQuayInput>;
+};
+
 function useInsertStopPlace() {
+  const getStopPlaceUpdateInput = useGetStopPlaceUpdateInput();
   const [insertStopPlaceMutation] = useInsertStopPlaceMutation();
 
   return useCallback(
-    async (stopPlaceInput: StopRegistryStopPlaceInput): Promise<string> => {
+    async (
+      originalStop: StopWithDetails,
+      quayCopy: StopRegistryQuayCopyInput,
+    ): Promise<InsertStopPlaceResult> => {
+      const { existingQuays, stopPlaceInput } = await getStopPlaceUpdateInput(
+        originalStop,
+        quayCopy,
+      );
+
       const response = await wrapErrors(
         insertStopPlaceMutation({ variables: { object: stopPlaceInput } }),
         StopPlaceInsertFailed,
         'Failed to insert new StopPlace!',
       );
 
-      const id = response.data?.stop_registry?.mutateStopPlace?.at(0)?.id;
+      const stopPlaceId =
+        response.data?.stop_registry?.mutateStopPlace?.at(0)?.id;
 
-      if (!id) {
+      const quayId = response.data?.stop_registry?.mutateStopPlace
+        ?.at(0)
+        ?.quays?.filter(notNullish)
+        ?.find(
+          (quay) =>
+            !existingQuays.some((existingQuay) => existingQuay.id === quay.id),
+        )?.id;
+
+      if (!stopPlaceId) {
         throw new StopPlaceInsertFailed(
           `StopPlace insert seems to have failed. No ID returned. Response: ${JSON.stringify(response, null, 0)}`,
         );
       }
 
-      return id;
+      if (!quayId) {
+        throw new StopPlaceInsertFailed(
+          `StopPlace insert seems to have failed. Could not find new Quay ID. Response: ${JSON.stringify(response, null, 0)} | ExistingQuays: ${JSON.stringify(existingQuays, null, 0)}`,
+        );
+      }
+
+      return { stopPlaceId, quayId, existingQuays };
     },
-    [insertStopPlaceMutation],
+    [getStopPlaceUpdateInput, insertStopPlaceMutation],
   );
 }
 
 function useRevertStopPlaceInsert() {
-  const deleteStopPlace = useDeleteStopPlace();
+  const [insertStopPlaceMutation] = useInsertStopPlaceMutation();
 
   return useCallback(
-    async (stopPlaceId: string, cause: unknown): Promise<true> => {
+    async (
+      stopPlaceId: string,
+      previousQuays: ReadonlyArray<ExistingQuayInput>,
+      cause: unknown,
+    ): Promise<true> => {
       try {
-        const deleted = await deleteStopPlace(stopPlaceId);
-
-        if (!deleted) {
-          throw new Error(
-            'Expected Tiamat to return true on delete, but response was false!',
-          );
-        }
+        await insertStopPlaceMutation({
+          variables: {
+            object: {
+              id: stopPlaceId,
+              quays: [...previousQuays],
+            },
+          },
+        });
 
         return true;
       } catch (stopPlaceReverFailedCause) {
@@ -70,7 +154,7 @@ function useRevertStopPlaceInsert() {
         );
       }
     },
-    [deleteStopPlace],
+    [insertStopPlaceMutation],
   );
 }
 
@@ -82,12 +166,14 @@ function useInsertStopPoint() {
     async (
       stopPointInput: ScheduledStopPointSetInput,
       stopPlaceId: string,
+      quayId: string,
+      previousQuays: ReadonlyArray<ExistingQuayInput>,
     ): Promise<UUID> => {
       try {
         const response = await wrapErrors(
           insertStopMutation({
             variables: {
-              object: { ...stopPointInput, stop_place_ref: stopPlaceId },
+              object: { ...stopPointInput, stop_place_ref: quayId },
             },
           }),
           StopPlaceInsertFailed,
@@ -106,7 +192,11 @@ function useInsertStopPoint() {
 
         return stopPointId;
       } catch (stopPointInsertFailedCause) {
-        await revertStopPlaceInsert(stopPlaceId, stopPointInsertFailedCause);
+        await revertStopPlaceInsert(
+          stopPlaceId,
+          previousQuays,
+          stopPointInsertFailedCause,
+        );
         throw stopPointInsertFailedCause;
       }
     },
@@ -121,13 +211,13 @@ function useInsertInfoSpots() {
   return useCallback(
     async (
       infoSpots: ReadonlyArray<InfoSpotInputHelper> | null,
-      stopPlaceId: string,
+      quayId: string,
     ): Promise<boolean> => {
       if (infoSpots === null) {
         return false;
       }
 
-      const shelterResolver = await getShelterResolver(stopPlaceId);
+      const shelterResolver = await getShelterResolver(quayId);
       const resolveByIndex = shelterResolver.shouldResolveByIndex();
 
       const withLocations = infoSpots.map(
@@ -147,7 +237,7 @@ function useInsertInfoSpots() {
 
           return {
             ...infoSpotInput,
-            infoSpotLocations: [stopPlaceId, shelterId],
+            infoSpotLocations: [quayId, shelterId],
           };
         },
       );
@@ -170,14 +260,22 @@ export function useCopyStop() {
       state: StopVersionFormState,
       originalStop: StopWithDetails,
     ): Promise<CreateStopVersionResult> => {
-      const { stopPlaceInput, stopPointInput, infoSpotInputs } =
+      const { quayInput, stopPointInput, infoSpotInputs } =
         mapCreateCopyFormStateToInputs(state, originalStop);
 
-      const stopPlaceId = await insertStopPlace(stopPlaceInput);
-      const stopPointId = await insertStopPoint(stopPointInput, stopPlaceId);
-      await insertInfoSpots(infoSpotInputs, stopPlaceId);
+      const { stopPlaceId, quayId, existingQuays } = await insertStopPlace(
+        originalStop,
+        quayInput,
+      );
+      const stopPointId = await insertStopPoint(
+        stopPointInput,
+        stopPlaceId,
+        quayId,
+        existingQuays,
+      );
+      await insertInfoSpots(infoSpotInputs, quayId);
 
-      return { stopPlaceId, stopPlaceInput, stopPointId, stopPointInput };
+      return { stopPlaceId, quayId, stopPointId, stopPointInput };
     },
     [insertStopPlace, insertStopPoint, insertInfoSpots],
   );

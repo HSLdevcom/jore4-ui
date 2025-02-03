@@ -4,22 +4,26 @@ import { DateTime } from 'luxon';
 import {
   ServicePatternScheduledStopPointInsertInput,
   StopRegistryKeyValues,
-  StopRegistryStopPlaceInput,
+  StopRegistryQuayInput,
 } from '../../../../../../generated/graphql';
 import { ScheduledStopPointSetInput } from '../../../../../../graphql';
-import { StopWithDetails } from '../../../../../../hooks';
+import { EnrichedQuay, StopWithDetails } from '../../../../../../hooks';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   patchKeyValues,
 } from '../../../../../../utils';
-import { mapStopPlaceToInput } from '../../../../stop-areas/stop-area-details/mapStopPlaceToInput';
-import { mapCompactOrNull, mapInfoSpotToInput } from '../../../../utils';
+import {
+  mapCompactOrNull,
+  mapInfoSpotToInput,
+  mapQuayToInput,
+} from '../../../../utils';
 import { FailedToResolveExistingShelter } from '../errors';
 import { InfoSpotInputHelper, StopVersionFormState } from '../types';
+import { StopRegistryQuayCopyInput } from '../types/StopRegistryQuayCopyInput';
 
 type CreateCopyInputs = {
-  readonly stopPlaceInput: StopRegistryStopPlaceInput;
+  readonly quayInput: StopRegistryQuayCopyInput;
   readonly stopPointInput: ScheduledStopPointSetInput;
   readonly infoSpotInputs: ReadonlyArray<InfoSpotInputHelper> | null;
 };
@@ -40,12 +44,28 @@ function getValidity(state: StopVersionFormState): ValidityInput {
   return { validityStart, validityEnd };
 }
 
+function getQuayFromStopWithDetails({ quay }: StopWithDetails): EnrichedQuay {
+  if (!quay) {
+    throw new Error('Quay is missing from the stop that is being copied!');
+  }
+
+  return quay;
+}
+
+function getQuayNetextId({ stop_place_ref: id }: StopWithDetails): string {
+  if (!id) {
+    throw new Error('Quay ref is missing from the stop that is being copied!');
+  }
+
+  return id;
+}
+
 function getKeyValues(
   state: StopVersionFormState,
   originalStop: StopWithDetails,
 ): Array<StopRegistryKeyValues | null> {
   return patchKeyValues(
-    originalStop.stop_place,
+    getQuayFromStopWithDetails(originalStop),
     compact([
       { key: 'validityStart', values: [state.validityStart] },
       !state.indefinite
@@ -55,24 +75,27 @@ function getKeyValues(
           }
         : undefined,
       { key: 'priority', values: [state.priority.toString(10)] },
+      // Make Tiamat see this copy as a unique Quay, and not a duplicate.
+      {
+        key: 'imported-id',
+        values: [
+          `${getQuayNetextId(originalStop)}-${state.validityStart}-${state.priority}`,
+        ],
+      },
     ]),
   );
 }
 
-function mapStopPlaceInput(
+function mapQuayAndFormToInput(
   state: StopVersionFormState,
   originalStop: StopWithDetails,
-): StopRegistryStopPlaceInput {
+): StopRegistryQuayInput {
   return {
-    ...mapStopPlaceToInput(originalStop),
+    ...mapQuayToInput(getQuayFromStopWithDetails(originalStop)),
     id: null,
     keyValues: getKeyValues(state, originalStop),
     versionComment: state.versionName,
     // versionDescription: state.versionDescription, // Not implemented
-    validBetween: {
-      fromDate: DateTime.now(),
-      toDate: null,
-    },
   };
 }
 
@@ -107,10 +130,9 @@ function mapStopPointInput(
 export function mapInfoSpotsToInputs(
   originalStop: StopWithDetails,
 ): ReadonlyArray<InfoSpotInputHelper> | null {
-  return mapCompactOrNull(originalStop.stop_place?.infoSpots, (infoSpot) => {
-    const shelters =
-      originalStop.stop_place?.quays?.at(0)?.placeEquipments?.shelterEquipment;
+  const shelters = originalStop.quay?.placeEquipments?.shelterEquipment;
 
+  return mapCompactOrNull(originalStop.quay?.infoSpots, (infoSpot) => {
     const originalShelter =
       shelters?.find(
         (shelter) =>
@@ -139,9 +161,9 @@ export function mapCreateCopyFormStateToInputs(
   state: StopVersionFormState,
   originalStop: StopWithDetails,
 ): CreateCopyInputs {
-  const stopPlaceInput = mapStopPlaceInput(state, originalStop);
+  const quayInput = mapQuayAndFormToInput(state, originalStop);
   const stopPointInput = mapStopPointInput(state, originalStop);
   const infoSpotInputs = mapInfoSpotsToInputs(originalStop);
 
-  return { stopPlaceInput, stopPointInput, infoSpotInputs };
+  return { quayInput, stopPointInput, infoSpotInputs };
 }

@@ -68884,7 +68884,7 @@ export type GetScheduledStopPointWithTimingSettingsQuery = {
 
 export type DoesStopHaveNextValidAlternativeQueryVariables = Exact<{
   label: Scalars['String']['input'];
-  validAfter?: InputMaybe<Scalars['date']['input']>;
+  validAfter: Scalars['date']['input'];
   validPriorities: Array<Scalars['Int']['input']> | Scalars['Int']['input'];
 }>;
 
@@ -69812,6 +69812,24 @@ export type ResolveStopSheltersQuery = {
         }
       | null
     > | null;
+  } | null;
+};
+
+export type ResolveExistingQuaysQueryVariables = Exact<{
+  stopPlaceId: Scalars['String']['input'];
+}>;
+
+export type ResolveExistingQuaysQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    quays: Array<{
+      __typename?: 'stops_database_quay_newest_version';
+      id?: any | null;
+      netex_id?: string | null;
+      description_lang?: string | null;
+      description_value?: string | null;
+    }>;
   } | null;
 };
 
@@ -77414,7 +77432,7 @@ export type GetScheduledStopPointWithTimingSettingsQueryResult =
 export const DoesStopHaveNextValidAlternativeDocument = gql`
   query DoesStopHaveNextValidAlternative(
     $label: String!
-    $validAfter: date
+    $validAfter: date!
     $validPriorities: [Int!]!
   ) {
     stopPoint: service_pattern_scheduled_stop_point_aggregate(
@@ -78398,7 +78416,7 @@ export type DeleteStopPlaceMutationOptions = Apollo.BaseMutationOptions<
 export const ResolveStopSheltersDocument = gql`
   query ResolveStopShelters($netexId: String!) {
     stop_registry {
-      stopPlace(id: $netexId) {
+      stopPlace(query: $netexId) {
         id
         ... on stop_registry_StopPlace {
           quays {
@@ -78490,6 +78508,95 @@ export type ResolveStopSheltersSuspenseQueryHookResult = ReturnType<
 export type ResolveStopSheltersQueryResult = Apollo.QueryResult<
   ResolveStopSheltersQuery,
   ResolveStopSheltersQueryVariables
+>;
+export const ResolveExistingQuaysDocument = gql`
+  query ResolveExistingQuays($stopPlaceId: String!) {
+    stops_database {
+      quays: stops_database_quay_newest_version(
+        where: { stop_place: { netex_id: { _eq: $stopPlaceId } } }
+      ) {
+        id
+        netex_id
+        description_lang
+        description_value
+      }
+    }
+  }
+`;
+
+/**
+ * __useResolveExistingQuaysQuery__
+ *
+ * To run a query within a React component, call `useResolveExistingQuaysQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveExistingQuaysQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveExistingQuaysQuery({
+ *   variables: {
+ *      stopPlaceId: // value for 'stopPlaceId'
+ *   },
+ * });
+ */
+export function useResolveExistingQuaysQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ResolveExistingQuaysQuery,
+    ResolveExistingQuaysQueryVariables
+  > &
+    (
+      | { variables: ResolveExistingQuaysQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ResolveExistingQuaysQuery,
+    ResolveExistingQuaysQueryVariables
+  >(ResolveExistingQuaysDocument, options);
+}
+export function useResolveExistingQuaysLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ResolveExistingQuaysQuery,
+    ResolveExistingQuaysQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ResolveExistingQuaysQuery,
+    ResolveExistingQuaysQueryVariables
+  >(ResolveExistingQuaysDocument, options);
+}
+export function useResolveExistingQuaysSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        ResolveExistingQuaysQuery,
+        ResolveExistingQuaysQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    ResolveExistingQuaysQuery,
+    ResolveExistingQuaysQueryVariables
+  >(ResolveExistingQuaysDocument, options);
+}
+export type ResolveExistingQuaysQueryHookResult = ReturnType<
+  typeof useResolveExistingQuaysQuery
+>;
+export type ResolveExistingQuaysLazyQueryHookResult = ReturnType<
+  typeof useResolveExistingQuaysLazyQuery
+>;
+export type ResolveExistingQuaysSuspenseQueryHookResult = ReturnType<
+  typeof useResolveExistingQuaysSuspenseQuery
+>;
+export type ResolveExistingQuaysQueryResult = Apollo.QueryResult<
+  ResolveExistingQuaysQuery,
+  ResolveExistingQuaysQueryVariables
 >;
 export const ResolveExistingStopValidityRangesDocument = gql`
   query ResolveExistingStopValidityRanges($stopPlaceId: String!, $today: date) {
