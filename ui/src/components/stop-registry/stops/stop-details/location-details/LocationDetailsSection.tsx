@@ -19,13 +19,13 @@ const mapLocationDetailsToFormState = (
   stop: StopWithDetails,
 ): Partial<LocationDetailsFormState> => {
   return {
-    streetAddress: stop.stop_place?.streetAddress,
-    postalCode: stop.stop_place?.postalCode,
+    streetAddress: stop.quay?.streetAddress,
+    postalCode: stop.quay?.postalCode,
     // Note: the location exists in stop_place as well, but stops db (measured_location) is the master data for it.
     latitude: stop.measured_location.coordinates[1],
     longitude: stop.measured_location.coordinates[0],
     altitude: stop.measured_location.coordinates[2],
-    functionalArea: stop.stop_place?.functionalArea,
+    functionalArea: stop.quay?.functionalArea,
   };
 };
 

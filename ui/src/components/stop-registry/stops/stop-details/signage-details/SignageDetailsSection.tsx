@@ -19,7 +19,7 @@ interface Props {
 const mapSignageDetailsToFormState = (
   stop: StopWithDetails,
 ): Partial<SignageDetailsFormState> => {
-  const generalSign = stop.stop_place?.placeEquipments?.generalSign?.[0];
+  const generalSign = stop.quay?.placeEquipments?.generalSign?.[0];
   const signType = generalSign?.privateCode?.value;
 
   return {
