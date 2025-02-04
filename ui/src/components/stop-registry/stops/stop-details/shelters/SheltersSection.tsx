@@ -18,9 +18,7 @@ interface Props {
 function useShelters(
   stop: StopWithDetails,
 ): Array<ShelterEquipmentDetailsFragment> {
-  return compact(
-    stop.stop_place?.quays?.[0]?.placeEquipments?.shelterEquipment ?? [],
-  );
+  return compact(stop.quay?.placeEquipments?.shelterEquipment ?? []);
 }
 
 function useShelterFormDefaultValues(
