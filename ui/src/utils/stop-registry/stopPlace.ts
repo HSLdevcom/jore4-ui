@@ -9,6 +9,7 @@ import {
   StopRegistryKeyValues,
   StopRegistryNameType,
   StopRegistryParentStopPlace,
+  StopRegistryQuay,
   StopRegistryStopPlace,
   StopRegistryStopPlaceInput,
   StopRegistrySubmodeType,
@@ -63,11 +64,8 @@ export type StopPlaceEnrichmentProperties = {
   elyNumber: string | undefined;
   locationFin: string | undefined;
   locationSwe: string | undefined;
-  streetAddress: string | undefined;
-  postalCode: string | undefined;
   municipality: string | undefined;
   fareZone: string | undefined;
-  functionalArea: number | undefined;
   stopState: StopPlaceState | undefined;
   accessibilityLevel: StopRegistryAccessibilityLevel;
   stopType: {
@@ -75,6 +73,21 @@ export type StopPlaceEnrichmentProperties = {
     interchange: boolean;
     railReplacement: boolean;
     virtual: boolean;
+  };
+};
+
+export type QuayEnrichmentProperties = {
+  readonly elyNumber: string | null;
+  readonly locationFin: string | null;
+  readonly locationSwe: string | null;
+  readonly streetAddress: string | null;
+  readonly postalCode: string | null;
+  readonly functionalArea: number | null;
+  readonly stopState: StopPlaceState | null;
+  readonly accessibilityLevel: StopRegistryAccessibilityLevel;
+  readonly stopType: {
+    readonly mainLine: boolean;
+    readonly virtual: boolean;
   };
 };
 
@@ -124,12 +137,12 @@ export const setMultipleAlternativeNames = (
 };
 
 const findKeyValue = (
-  stopPlace: StopRegistryStopPlace,
+  element: StopRegistryStopPlace | StopRegistryQuay,
   key: string,
-): string | undefined => {
-  const keyValue = stopPlace.keyValues?.find((kv) => kv?.key === key);
+): string | null => {
+  const keyValue = element.keyValues?.find((kv) => kv?.key === key);
   // Note: the "values" could be an array with many values.
-  return keyValue?.values?.[0] ?? undefined;
+  return keyValue?.values?.[0] ?? null;
 };
 
 /**
@@ -207,15 +220,38 @@ export const patchAlternativeNames = (
 };
 
 const findKeyValueParsed = <T = string>(
-  stopPlace: StopRegistryStopPlace,
+  element: StopRegistryStopPlace | StopRegistryQuay,
   key: string,
   parser: (arg0: string) => T,
-): T | undefined => {
-  const keyValue = findKeyValue(stopPlace, key);
-  if (keyValue === undefined) {
+): T | null => {
+  const keyValue = findKeyValue(element, key);
+  if (keyValue === null) {
     return keyValue;
   }
   return parser(keyValue);
+};
+
+export const getQuayDetailsForEnrichment = <T extends StopRegistryQuay>(
+  quay: T,
+): QuayEnrichmentProperties => {
+  return {
+    elyNumber: quay.privateCode?.value ?? null,
+    locationFin: quay.description?.value ?? null,
+    locationSwe:
+      findAlternativeName(quay, 'swe', StopRegistryNameType.Other)?.value ??
+      null,
+    streetAddress: findKeyValue(quay, 'streetAddress'),
+    postalCode: findKeyValue(quay, 'postalCode'),
+    functionalArea: findKeyValueParsed(quay, 'functionalArea', parseFloat),
+    stopState: findKeyValue(quay, 'stopState') as StopPlaceState,
+    accessibilityLevel:
+      quay.accessibilityAssessment?.hslAccessibilityProperties
+        ?.accessibilityLevel ?? defaultAccessibilityLevel,
+    stopType: {
+      mainLine: findKeyValue(quay, 'mainLine') === 'true',
+      virtual: findKeyValue(quay, 'virtual') === 'true',
+    },
+  };
 };
 
 export const getStopPlaceDetailsForEnrichment = <
@@ -258,11 +294,8 @@ export const getStopPlaceDetailsForEnrichment = <
     locationSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
         ?.value || undefined,
-    streetAddress: findKeyValue(stopPlace, 'streetAddress'),
-    postalCode: findKeyValue(stopPlace, 'postalCode'),
     municipality: stopPlace.topographicPlace?.name?.value || undefined,
     fareZone: stopPlace.fareZones?.[0]?.name?.value || undefined,
-    functionalArea: findKeyValueParsed(stopPlace, 'functionalArea', parseFloat),
     stopState: findKeyValue(stopPlace, 'stopState') as StopPlaceState,
     accessibilityLevel:
       stopPlace.accessibilityAssessment?.hslAccessibilityProperties
