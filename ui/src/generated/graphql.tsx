@@ -10297,6 +10297,8 @@ export type StopRegistryQuay = {
   geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** Info spots */
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
@@ -10307,6 +10309,15 @@ export type StopRegistryQuay = {
   shortName?: Maybe<StopRegistryEmbeddableMultilingualString>;
   validBetween?: Maybe<StopRegistryValidBetween>;
   version?: Maybe<Scalars['String']['output']>;
+  versionComment?: Maybe<Scalars['String']['output']>;
+};
+
+export type StopRegistryQuayInfoSpotsArgs = {
+  allVersions?: InputMaybe<Scalars['Boolean']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+  version?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type StopRegistryQuayInput = {
@@ -10329,6 +10340,7 @@ export type StopRegistryQuayInput = {
   privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
   publicCode?: InputMaybe<Scalars['String']['input']>;
   shortName?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  versionComment?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StopRegistrySanitaryEquipment = {
@@ -72766,11 +72778,6 @@ export type UpdateStopPlaceMutation = {
         lang?: string | null;
         value?: string | null;
       } | null;
-      shortName?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        lang?: string | null;
-        value?: string | null;
-      } | null;
       alternativeNames?: Array<{
         __typename?: 'stop_registry_AlternativeName';
         nameType: StopRegistryNameType;
@@ -72813,31 +72820,20 @@ export type UpdateStopPlaceMutation = {
           lang?: string | null;
         } | null;
       } | null> | null;
-      placeEquipments?: {
-        __typename?: 'stop_registry_PlaceEquipments';
-        generalSign?: Array<{
-          __typename?: 'stop_registry_GeneralSign';
-          signContentType?: StopRegistrySignContentType | null;
-          numberOfFrames?: number | null;
-          lineSignage?: boolean | null;
-          mainLineSign?: boolean | null;
-          replacesRailSign?: boolean | null;
-          privateCode?: {
-            __typename?: 'stop_registry_PrivateCode';
-            value?: string | null;
-            type?: string | null;
-          } | null;
-          note?: {
-            __typename?: 'stop_registry_EmbeddableMultilingualString';
-            lang?: string | null;
-            value?: string | null;
-          } | null;
-        } | null> | null;
-      } | null;
       quays?: Array<{
         __typename?: 'stop_registry_Quay';
         id?: string | null;
         publicCode?: string | null;
+        privateCode?: {
+          __typename?: 'stop_registry_PrivateCode';
+          type?: string | null;
+          value?: string | null;
+        } | null;
+        description?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
         alternativeNames?: Array<{
           __typename?: 'stop_registry_AlternativeName';
           nameType: StopRegistryNameType;
@@ -72846,6 +72842,86 @@ export type UpdateStopPlaceMutation = {
             lang?: string | null;
             value?: string | null;
           };
+        } | null> | null;
+        geometry?: {
+          __typename?: 'stop_registry_GeoJSON';
+          coordinates?: GeoJSON.Position | null;
+          type?: StopRegistryGeoJsonType | null;
+        } | null;
+        accessibilityAssessment?: {
+          __typename?: 'stop_registry_AccessibilityAssessment';
+          id?: string | null;
+          hslAccessibilityProperties?: {
+            __typename?: 'stop_registry_HslAccessibilityProperties';
+            id?: string | null;
+            stopAreaSideSlope?: number | null;
+            stopAreaLengthwiseSlope?: number | null;
+            endRampSlope?: number | null;
+            shelterLaneDistance?: number | null;
+            curbBackOfRailDistance?: number | null;
+            curbDriveSideOfRailDistance?: number | null;
+            structureLaneDistance?: number | null;
+            stopElevationFromRailTop?: number | null;
+            stopElevationFromSidewalk?: number | null;
+            lowerCleatHeight?: number | null;
+            serviceAreaWidth?: number | null;
+            serviceAreaLength?: number | null;
+            platformEdgeWarningArea?: boolean | null;
+            guidanceTiles?: boolean | null;
+            guidanceStripe?: boolean | null;
+            serviceAreaStripes?: boolean | null;
+            sidewalkAccessibleConnection?: boolean | null;
+            stopAreaSurroundingsAccessible?: boolean | null;
+            curvedStop?: boolean | null;
+            stopType?: StopRegistryStopType | null;
+            shelterType?: StopRegistryShelterWidthType | null;
+            guidanceType?: StopRegistryGuidanceType | null;
+            mapType?: StopRegistryMapType | null;
+            pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+            accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+          } | null;
+          limitations?: {
+            __typename?: 'stop_registry_AccessibilityLimitations';
+            id?: string | null;
+            version?: string | null;
+            audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+            escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+            liftFreeAccess?: StopRegistryLimitationStatusType | null;
+            stepFreeAccess?: StopRegistryLimitationStatusType | null;
+            wheelchairAccess?: StopRegistryLimitationStatusType | null;
+          } | null;
+        } | null;
+        keyValues?: Array<{
+          __typename?: 'stop_registry_KeyValues';
+          key?: string | null;
+          values?: Array<string | null> | null;
+        } | null> | null;
+        infoSpots?: Array<{
+          __typename?: 'stop_registry_infoSpot';
+          id?: string | null;
+          backlight?: boolean | null;
+          displayType?: StopRegistryDisplayType | null;
+          floor?: string | null;
+          label?: string | null;
+          posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+          infoSpotLocations?: Array<string | null> | null;
+          infoSpotType?: StopRegistryInfoSpotType | null;
+          purpose?: string | null;
+          railInformation?: string | null;
+          speechProperty?: boolean | null;
+          zoneLabel?: string | null;
+          maintenance?: string | null;
+          description?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          poster?: Array<{
+            __typename?: 'stop_registry_poster';
+            label?: string | null;
+            posterSize?: StopRegistryPosterPlaceSize | null;
+            lines?: string | null;
+          } | null> | null;
         } | null> | null;
         placeEquipments?: {
           __typename?: 'stop_registry_PlaceEquipments';
@@ -72871,51 +72947,30 @@ export type UpdateStopPlaceMutation = {
             __typename?: 'stop_registry_CycleStorageEquipment';
             cycleStorageType?: StopRegistryCycleStorageType | null;
           } | null> | null;
+          generalSign?: Array<{
+            __typename?: 'stop_registry_GeneralSign';
+            signContentType?: StopRegistrySignContentType | null;
+            numberOfFrames?: number | null;
+            lineSignage?: boolean | null;
+            mainLineSign?: boolean | null;
+            replacesRailSign?: boolean | null;
+            privateCode?: {
+              __typename?: 'stop_registry_PrivateCode';
+              value?: string | null;
+              type?: string | null;
+            } | null;
+            content?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+            } | null;
+            note?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
+          } | null> | null;
         } | null;
       } | null> | null;
-      accessibilityAssessment?: {
-        __typename?: 'stop_registry_AccessibilityAssessment';
-        id?: string | null;
-        hslAccessibilityProperties?: {
-          __typename?: 'stop_registry_HslAccessibilityProperties';
-          id?: string | null;
-          stopAreaSideSlope?: number | null;
-          stopAreaLengthwiseSlope?: number | null;
-          endRampSlope?: number | null;
-          shelterLaneDistance?: number | null;
-          curbBackOfRailDistance?: number | null;
-          curbDriveSideOfRailDistance?: number | null;
-          structureLaneDistance?: number | null;
-          stopElevationFromRailTop?: number | null;
-          stopElevationFromSidewalk?: number | null;
-          lowerCleatHeight?: number | null;
-          serviceAreaWidth?: number | null;
-          serviceAreaLength?: number | null;
-          platformEdgeWarningArea?: boolean | null;
-          guidanceTiles?: boolean | null;
-          guidanceStripe?: boolean | null;
-          serviceAreaStripes?: boolean | null;
-          sidewalkAccessibleConnection?: boolean | null;
-          stopAreaSurroundingsAccessible?: boolean | null;
-          curvedStop?: boolean | null;
-          stopType?: StopRegistryStopType | null;
-          shelterType?: StopRegistryShelterWidthType | null;
-          guidanceType?: StopRegistryGuidanceType | null;
-          mapType?: StopRegistryMapType | null;
-          pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
-          accessibilityLevel?: StopRegistryAccessibilityLevel | null;
-        } | null;
-        limitations?: {
-          __typename?: 'stop_registry_AccessibilityLimitations';
-          id?: string | null;
-          version?: string | null;
-          audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
-          escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
-          liftFreeAccess?: StopRegistryLimitationStatusType | null;
-          stepFreeAccess?: StopRegistryLimitationStatusType | null;
-          wheelchairAccess?: StopRegistryLimitationStatusType | null;
-        } | null;
-      } | null;
       organisations?: Array<{
         __typename?: 'stop_registry_StopPlaceOrganisationRef';
         relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
@@ -73077,11 +73132,6 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
             lang?: string | null;
             value?: string | null;
           } | null;
-          shortName?: {
-            __typename?: 'stop_registry_EmbeddableMultilingualString';
-            lang?: string | null;
-            value?: string | null;
-          } | null;
           alternativeNames?: Array<{
             __typename?: 'stop_registry_AlternativeName';
             nameType: StopRegistryNameType;
@@ -73124,31 +73174,20 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
               lang?: string | null;
             } | null;
           } | null> | null;
-          placeEquipments?: {
-            __typename?: 'stop_registry_PlaceEquipments';
-            generalSign?: Array<{
-              __typename?: 'stop_registry_GeneralSign';
-              signContentType?: StopRegistrySignContentType | null;
-              numberOfFrames?: number | null;
-              lineSignage?: boolean | null;
-              mainLineSign?: boolean | null;
-              replacesRailSign?: boolean | null;
-              privateCode?: {
-                __typename?: 'stop_registry_PrivateCode';
-                value?: string | null;
-                type?: string | null;
-              } | null;
-              note?: {
-                __typename?: 'stop_registry_EmbeddableMultilingualString';
-                lang?: string | null;
-                value?: string | null;
-              } | null;
-            } | null> | null;
-          } | null;
           quays?: Array<{
             __typename?: 'stop_registry_Quay';
             id?: string | null;
             publicCode?: string | null;
+            privateCode?: {
+              __typename?: 'stop_registry_PrivateCode';
+              type?: string | null;
+              value?: string | null;
+            } | null;
+            description?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
             alternativeNames?: Array<{
               __typename?: 'stop_registry_AlternativeName';
               nameType: StopRegistryNameType;
@@ -73157,6 +73196,86 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
                 lang?: string | null;
                 value?: string | null;
               };
+            } | null> | null;
+            geometry?: {
+              __typename?: 'stop_registry_GeoJSON';
+              coordinates?: GeoJSON.Position | null;
+              type?: StopRegistryGeoJsonType | null;
+            } | null;
+            accessibilityAssessment?: {
+              __typename?: 'stop_registry_AccessibilityAssessment';
+              id?: string | null;
+              hslAccessibilityProperties?: {
+                __typename?: 'stop_registry_HslAccessibilityProperties';
+                id?: string | null;
+                stopAreaSideSlope?: number | null;
+                stopAreaLengthwiseSlope?: number | null;
+                endRampSlope?: number | null;
+                shelterLaneDistance?: number | null;
+                curbBackOfRailDistance?: number | null;
+                curbDriveSideOfRailDistance?: number | null;
+                structureLaneDistance?: number | null;
+                stopElevationFromRailTop?: number | null;
+                stopElevationFromSidewalk?: number | null;
+                lowerCleatHeight?: number | null;
+                serviceAreaWidth?: number | null;
+                serviceAreaLength?: number | null;
+                platformEdgeWarningArea?: boolean | null;
+                guidanceTiles?: boolean | null;
+                guidanceStripe?: boolean | null;
+                serviceAreaStripes?: boolean | null;
+                sidewalkAccessibleConnection?: boolean | null;
+                stopAreaSurroundingsAccessible?: boolean | null;
+                curvedStop?: boolean | null;
+                stopType?: StopRegistryStopType | null;
+                shelterType?: StopRegistryShelterWidthType | null;
+                guidanceType?: StopRegistryGuidanceType | null;
+                mapType?: StopRegistryMapType | null;
+                pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+                accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+              } | null;
+              limitations?: {
+                __typename?: 'stop_registry_AccessibilityLimitations';
+                id?: string | null;
+                version?: string | null;
+                audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+                escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+                liftFreeAccess?: StopRegistryLimitationStatusType | null;
+                stepFreeAccess?: StopRegistryLimitationStatusType | null;
+                wheelchairAccess?: StopRegistryLimitationStatusType | null;
+              } | null;
+            } | null;
+            keyValues?: Array<{
+              __typename?: 'stop_registry_KeyValues';
+              key?: string | null;
+              values?: Array<string | null> | null;
+            } | null> | null;
+            infoSpots?: Array<{
+              __typename?: 'stop_registry_infoSpot';
+              id?: string | null;
+              backlight?: boolean | null;
+              displayType?: StopRegistryDisplayType | null;
+              floor?: string | null;
+              label?: string | null;
+              posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+              infoSpotLocations?: Array<string | null> | null;
+              infoSpotType?: StopRegistryInfoSpotType | null;
+              purpose?: string | null;
+              railInformation?: string | null;
+              speechProperty?: boolean | null;
+              zoneLabel?: string | null;
+              maintenance?: string | null;
+              description?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString';
+                lang?: string | null;
+                value?: string | null;
+              } | null;
+              poster?: Array<{
+                __typename?: 'stop_registry_poster';
+                label?: string | null;
+                posterSize?: StopRegistryPosterPlaceSize | null;
+                lines?: string | null;
+              } | null> | null;
             } | null> | null;
             placeEquipments?: {
               __typename?: 'stop_registry_PlaceEquipments';
@@ -73182,51 +73301,30 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
                 __typename?: 'stop_registry_CycleStorageEquipment';
                 cycleStorageType?: StopRegistryCycleStorageType | null;
               } | null> | null;
+              generalSign?: Array<{
+                __typename?: 'stop_registry_GeneralSign';
+                signContentType?: StopRegistrySignContentType | null;
+                numberOfFrames?: number | null;
+                lineSignage?: boolean | null;
+                mainLineSign?: boolean | null;
+                replacesRailSign?: boolean | null;
+                privateCode?: {
+                  __typename?: 'stop_registry_PrivateCode';
+                  value?: string | null;
+                  type?: string | null;
+                } | null;
+                content?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString';
+                  value?: string | null;
+                } | null;
+                note?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString';
+                  lang?: string | null;
+                  value?: string | null;
+                } | null;
+              } | null> | null;
             } | null;
           } | null> | null;
-          accessibilityAssessment?: {
-            __typename?: 'stop_registry_AccessibilityAssessment';
-            id?: string | null;
-            hslAccessibilityProperties?: {
-              __typename?: 'stop_registry_HslAccessibilityProperties';
-              id?: string | null;
-              stopAreaSideSlope?: number | null;
-              stopAreaLengthwiseSlope?: number | null;
-              endRampSlope?: number | null;
-              shelterLaneDistance?: number | null;
-              curbBackOfRailDistance?: number | null;
-              curbDriveSideOfRailDistance?: number | null;
-              structureLaneDistance?: number | null;
-              stopElevationFromRailTop?: number | null;
-              stopElevationFromSidewalk?: number | null;
-              lowerCleatHeight?: number | null;
-              serviceAreaWidth?: number | null;
-              serviceAreaLength?: number | null;
-              platformEdgeWarningArea?: boolean | null;
-              guidanceTiles?: boolean | null;
-              guidanceStripe?: boolean | null;
-              serviceAreaStripes?: boolean | null;
-              sidewalkAccessibleConnection?: boolean | null;
-              stopAreaSurroundingsAccessible?: boolean | null;
-              curvedStop?: boolean | null;
-              stopType?: StopRegistryStopType | null;
-              shelterType?: StopRegistryShelterWidthType | null;
-              guidanceType?: StopRegistryGuidanceType | null;
-              mapType?: StopRegistryMapType | null;
-              pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
-              accessibilityLevel?: StopRegistryAccessibilityLevel | null;
-            } | null;
-            limitations?: {
-              __typename?: 'stop_registry_AccessibilityLimitations';
-              id?: string | null;
-              version?: string | null;
-              audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
-              escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
-              liftFreeAccess?: StopRegistryLimitationStatusType | null;
-              stepFreeAccess?: StopRegistryLimitationStatusType | null;
-              wheelchairAccess?: StopRegistryLimitationStatusType | null;
-            } | null;
-          } | null;
           organisations?: Array<{
             __typename?: 'stop_registry_StopPlaceOrganisationRef';
             relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
@@ -73319,6 +73417,16 @@ export type QuayDetailsFragment = {
   __typename?: 'stop_registry_Quay';
   id?: string | null;
   publicCode?: string | null;
+  privateCode?: {
+    __typename?: 'stop_registry_PrivateCode';
+    type?: string | null;
+    value?: string | null;
+  } | null;
+  description?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString';
+    lang?: string | null;
+    value?: string | null;
+  } | null;
   alternativeNames?: Array<{
     __typename?: 'stop_registry_AlternativeName';
     nameType: StopRegistryNameType;
@@ -73327,6 +73435,86 @@ export type QuayDetailsFragment = {
       lang?: string | null;
       value?: string | null;
     };
+  } | null> | null;
+  geometry?: {
+    __typename?: 'stop_registry_GeoJSON';
+    coordinates?: GeoJSON.Position | null;
+    type?: StopRegistryGeoJsonType | null;
+  } | null;
+  accessibilityAssessment?: {
+    __typename?: 'stop_registry_AccessibilityAssessment';
+    id?: string | null;
+    hslAccessibilityProperties?: {
+      __typename?: 'stop_registry_HslAccessibilityProperties';
+      id?: string | null;
+      stopAreaSideSlope?: number | null;
+      stopAreaLengthwiseSlope?: number | null;
+      endRampSlope?: number | null;
+      shelterLaneDistance?: number | null;
+      curbBackOfRailDistance?: number | null;
+      curbDriveSideOfRailDistance?: number | null;
+      structureLaneDistance?: number | null;
+      stopElevationFromRailTop?: number | null;
+      stopElevationFromSidewalk?: number | null;
+      lowerCleatHeight?: number | null;
+      serviceAreaWidth?: number | null;
+      serviceAreaLength?: number | null;
+      platformEdgeWarningArea?: boolean | null;
+      guidanceTiles?: boolean | null;
+      guidanceStripe?: boolean | null;
+      serviceAreaStripes?: boolean | null;
+      sidewalkAccessibleConnection?: boolean | null;
+      stopAreaSurroundingsAccessible?: boolean | null;
+      curvedStop?: boolean | null;
+      stopType?: StopRegistryStopType | null;
+      shelterType?: StopRegistryShelterWidthType | null;
+      guidanceType?: StopRegistryGuidanceType | null;
+      mapType?: StopRegistryMapType | null;
+      pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+      accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+    } | null;
+    limitations?: {
+      __typename?: 'stop_registry_AccessibilityLimitations';
+      id?: string | null;
+      version?: string | null;
+      audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+      escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+      liftFreeAccess?: StopRegistryLimitationStatusType | null;
+      stepFreeAccess?: StopRegistryLimitationStatusType | null;
+      wheelchairAccess?: StopRegistryLimitationStatusType | null;
+    } | null;
+  } | null;
+  keyValues?: Array<{
+    __typename?: 'stop_registry_KeyValues';
+    key?: string | null;
+    values?: Array<string | null> | null;
+  } | null> | null;
+  infoSpots?: Array<{
+    __typename?: 'stop_registry_infoSpot';
+    id?: string | null;
+    backlight?: boolean | null;
+    displayType?: StopRegistryDisplayType | null;
+    floor?: string | null;
+    label?: string | null;
+    posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+    infoSpotLocations?: Array<string | null> | null;
+    infoSpotType?: StopRegistryInfoSpotType | null;
+    purpose?: string | null;
+    railInformation?: string | null;
+    speechProperty?: boolean | null;
+    zoneLabel?: string | null;
+    maintenance?: string | null;
+    description?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      lang?: string | null;
+      value?: string | null;
+    } | null;
+    poster?: Array<{
+      __typename?: 'stop_registry_poster';
+      label?: string | null;
+      posterSize?: StopRegistryPosterPlaceSize | null;
+      lines?: string | null;
+    } | null> | null;
   } | null> | null;
   placeEquipments?: {
     __typename?: 'stop_registry_PlaceEquipments';
@@ -73351,6 +73539,28 @@ export type QuayDetailsFragment = {
     cycleStorageEquipment?: Array<{
       __typename?: 'stop_registry_CycleStorageEquipment';
       cycleStorageType?: StopRegistryCycleStorageType | null;
+    } | null> | null;
+    generalSign?: Array<{
+      __typename?: 'stop_registry_GeneralSign';
+      signContentType?: StopRegistrySignContentType | null;
+      numberOfFrames?: number | null;
+      lineSignage?: boolean | null;
+      mainLineSign?: boolean | null;
+      replacesRailSign?: boolean | null;
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode';
+        value?: string | null;
+        type?: string | null;
+      } | null;
+      content?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        value?: string | null;
+      } | null;
+      note?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
     } | null> | null;
   } | null;
 };
@@ -73435,11 +73645,6 @@ export type StopPlaceDetailsFragment = {
     lang?: string | null;
     value?: string | null;
   } | null;
-  shortName?: {
-    __typename?: 'stop_registry_EmbeddableMultilingualString';
-    lang?: string | null;
-    value?: string | null;
-  } | null;
   alternativeNames?: Array<{
     __typename?: 'stop_registry_AlternativeName';
     nameType: StopRegistryNameType;
@@ -73482,31 +73687,20 @@ export type StopPlaceDetailsFragment = {
       lang?: string | null;
     } | null;
   } | null> | null;
-  placeEquipments?: {
-    __typename?: 'stop_registry_PlaceEquipments';
-    generalSign?: Array<{
-      __typename?: 'stop_registry_GeneralSign';
-      signContentType?: StopRegistrySignContentType | null;
-      numberOfFrames?: number | null;
-      lineSignage?: boolean | null;
-      mainLineSign?: boolean | null;
-      replacesRailSign?: boolean | null;
-      privateCode?: {
-        __typename?: 'stop_registry_PrivateCode';
-        value?: string | null;
-        type?: string | null;
-      } | null;
-      note?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        lang?: string | null;
-        value?: string | null;
-      } | null;
-    } | null> | null;
-  } | null;
   quays?: Array<{
     __typename?: 'stop_registry_Quay';
     id?: string | null;
     publicCode?: string | null;
+    privateCode?: {
+      __typename?: 'stop_registry_PrivateCode';
+      type?: string | null;
+      value?: string | null;
+    } | null;
+    description?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      lang?: string | null;
+      value?: string | null;
+    } | null;
     alternativeNames?: Array<{
       __typename?: 'stop_registry_AlternativeName';
       nameType: StopRegistryNameType;
@@ -73515,6 +73709,86 @@ export type StopPlaceDetailsFragment = {
         lang?: string | null;
         value?: string | null;
       };
+    } | null> | null;
+    geometry?: {
+      __typename?: 'stop_registry_GeoJSON';
+      coordinates?: GeoJSON.Position | null;
+      type?: StopRegistryGeoJsonType | null;
+    } | null;
+    accessibilityAssessment?: {
+      __typename?: 'stop_registry_AccessibilityAssessment';
+      id?: string | null;
+      hslAccessibilityProperties?: {
+        __typename?: 'stop_registry_HslAccessibilityProperties';
+        id?: string | null;
+        stopAreaSideSlope?: number | null;
+        stopAreaLengthwiseSlope?: number | null;
+        endRampSlope?: number | null;
+        shelterLaneDistance?: number | null;
+        curbBackOfRailDistance?: number | null;
+        curbDriveSideOfRailDistance?: number | null;
+        structureLaneDistance?: number | null;
+        stopElevationFromRailTop?: number | null;
+        stopElevationFromSidewalk?: number | null;
+        lowerCleatHeight?: number | null;
+        serviceAreaWidth?: number | null;
+        serviceAreaLength?: number | null;
+        platformEdgeWarningArea?: boolean | null;
+        guidanceTiles?: boolean | null;
+        guidanceStripe?: boolean | null;
+        serviceAreaStripes?: boolean | null;
+        sidewalkAccessibleConnection?: boolean | null;
+        stopAreaSurroundingsAccessible?: boolean | null;
+        curvedStop?: boolean | null;
+        stopType?: StopRegistryStopType | null;
+        shelterType?: StopRegistryShelterWidthType | null;
+        guidanceType?: StopRegistryGuidanceType | null;
+        mapType?: StopRegistryMapType | null;
+        pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+        accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+      } | null;
+      limitations?: {
+        __typename?: 'stop_registry_AccessibilityLimitations';
+        id?: string | null;
+        version?: string | null;
+        audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+        escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+        liftFreeAccess?: StopRegistryLimitationStatusType | null;
+        stepFreeAccess?: StopRegistryLimitationStatusType | null;
+        wheelchairAccess?: StopRegistryLimitationStatusType | null;
+      } | null;
+    } | null;
+    keyValues?: Array<{
+      __typename?: 'stop_registry_KeyValues';
+      key?: string | null;
+      values?: Array<string | null> | null;
+    } | null> | null;
+    infoSpots?: Array<{
+      __typename?: 'stop_registry_infoSpot';
+      id?: string | null;
+      backlight?: boolean | null;
+      displayType?: StopRegistryDisplayType | null;
+      floor?: string | null;
+      label?: string | null;
+      posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+      infoSpotLocations?: Array<string | null> | null;
+      infoSpotType?: StopRegistryInfoSpotType | null;
+      purpose?: string | null;
+      railInformation?: string | null;
+      speechProperty?: boolean | null;
+      zoneLabel?: string | null;
+      maintenance?: string | null;
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      poster?: Array<{
+        __typename?: 'stop_registry_poster';
+        label?: string | null;
+        posterSize?: StopRegistryPosterPlaceSize | null;
+        lines?: string | null;
+      } | null> | null;
     } | null> | null;
     placeEquipments?: {
       __typename?: 'stop_registry_PlaceEquipments';
@@ -73540,51 +73814,30 @@ export type StopPlaceDetailsFragment = {
         __typename?: 'stop_registry_CycleStorageEquipment';
         cycleStorageType?: StopRegistryCycleStorageType | null;
       } | null> | null;
+      generalSign?: Array<{
+        __typename?: 'stop_registry_GeneralSign';
+        signContentType?: StopRegistrySignContentType | null;
+        numberOfFrames?: number | null;
+        lineSignage?: boolean | null;
+        mainLineSign?: boolean | null;
+        replacesRailSign?: boolean | null;
+        privateCode?: {
+          __typename?: 'stop_registry_PrivateCode';
+          value?: string | null;
+          type?: string | null;
+        } | null;
+        content?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+        } | null;
+        note?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
+      } | null> | null;
     } | null;
   } | null> | null;
-  accessibilityAssessment?: {
-    __typename?: 'stop_registry_AccessibilityAssessment';
-    id?: string | null;
-    hslAccessibilityProperties?: {
-      __typename?: 'stop_registry_HslAccessibilityProperties';
-      id?: string | null;
-      stopAreaSideSlope?: number | null;
-      stopAreaLengthwiseSlope?: number | null;
-      endRampSlope?: number | null;
-      shelterLaneDistance?: number | null;
-      curbBackOfRailDistance?: number | null;
-      curbDriveSideOfRailDistance?: number | null;
-      structureLaneDistance?: number | null;
-      stopElevationFromRailTop?: number | null;
-      stopElevationFromSidewalk?: number | null;
-      lowerCleatHeight?: number | null;
-      serviceAreaWidth?: number | null;
-      serviceAreaLength?: number | null;
-      platformEdgeWarningArea?: boolean | null;
-      guidanceTiles?: boolean | null;
-      guidanceStripe?: boolean | null;
-      serviceAreaStripes?: boolean | null;
-      sidewalkAccessibleConnection?: boolean | null;
-      stopAreaSurroundingsAccessible?: boolean | null;
-      curvedStop?: boolean | null;
-      stopType?: StopRegistryStopType | null;
-      shelterType?: StopRegistryShelterWidthType | null;
-      guidanceType?: StopRegistryGuidanceType | null;
-      mapType?: StopRegistryMapType | null;
-      pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
-      accessibilityLevel?: StopRegistryAccessibilityLevel | null;
-    } | null;
-    limitations?: {
-      __typename?: 'stop_registry_AccessibilityLimitations';
-      id?: string | null;
-      version?: string | null;
-      audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
-      escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
-      liftFreeAccess?: StopRegistryLimitationStatusType | null;
-      stepFreeAccess?: StopRegistryLimitationStatusType | null;
-      wheelchairAccess?: StopRegistryLimitationStatusType | null;
-    } | null;
-  } | null;
   organisations?: Array<{
     __typename?: 'stop_registry_StopPlaceOrganisationRef';
     relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
@@ -75913,47 +76166,6 @@ export const FareZoneDetailsFragmentDoc = gql`
     }
   }
 `;
-export const ShelterEquipmentDetailsFragmentDoc = gql`
-  fragment shelter_equipment_details on stop_registry_ShelterEquipment {
-    id
-    enclosed
-    stepFree
-    shelterType
-    shelterElectricity
-    shelterLighting
-    shelterCondition
-    timetableCabinets
-    trashCan
-    shelterHasDisplay
-    bicycleParking
-    leaningRail
-    outsideBench
-    shelterFasciaBoardTaping
-  }
-`;
-export const QuayDetailsFragmentDoc = gql`
-  fragment quay_details on stop_registry_Quay {
-    id
-    publicCode
-    alternativeNames {
-      name {
-        lang
-        value
-      }
-      nameType
-    }
-    placeEquipments {
-      id
-      shelterEquipment {
-        ...shelter_equipment_details
-      }
-      cycleStorageEquipment {
-        cycleStorageType
-      }
-    }
-  }
-  ${ShelterEquipmentDetailsFragmentDoc}
-`;
 export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
   fragment hsl_accessibility_properties_details on stop_registry_HslAccessibilityProperties {
     id
@@ -75984,17 +76196,6 @@ export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
     accessibilityLevel
   }
 `;
-export const StopPlaceOrganisationFieldsFragmentDoc = gql`
-  fragment stop_place_organisation_fields on stop_registry_Organisation {
-    id
-    name
-    privateContactDetails {
-      id
-      email
-      phone
-    }
-  }
-`;
 export const InfoSpotDetailsFragmentDoc = gql`
   fragment info_spot_details on stop_registry_infoSpot {
     id
@@ -76021,6 +76222,112 @@ export const InfoSpotDetailsFragmentDoc = gql`
     }
   }
 `;
+export const ShelterEquipmentDetailsFragmentDoc = gql`
+  fragment shelter_equipment_details on stop_registry_ShelterEquipment {
+    id
+    enclosed
+    stepFree
+    shelterType
+    shelterElectricity
+    shelterLighting
+    shelterCondition
+    timetableCabinets
+    trashCan
+    shelterHasDisplay
+    bicycleParking
+    leaningRail
+    outsideBench
+    shelterFasciaBoardTaping
+  }
+`;
+export const QuayDetailsFragmentDoc = gql`
+  fragment quay_details on stop_registry_Quay {
+    id
+    publicCode
+    privateCode {
+      type
+      value
+    }
+    description {
+      lang
+      value
+    }
+    alternativeNames {
+      name {
+        lang
+        value
+      }
+      nameType
+    }
+    geometry {
+      coordinates
+      type
+    }
+    accessibilityAssessment {
+      id
+      hslAccessibilityProperties {
+        ...hsl_accessibility_properties_details
+      }
+      limitations {
+        id
+        version
+        audibleSignalsAvailable
+        escalatorFreeAccess
+        liftFreeAccess
+        stepFreeAccess
+        wheelchairAccess
+      }
+    }
+    keyValues {
+      key
+      values
+    }
+    infoSpots {
+      ...info_spot_details
+    }
+    placeEquipments {
+      id
+      shelterEquipment {
+        ...shelter_equipment_details
+      }
+      cycleStorageEquipment {
+        cycleStorageType
+      }
+      generalSign {
+        privateCode {
+          value
+          type
+        }
+        content {
+          value
+        }
+        signContentType
+        numberOfFrames
+        lineSignage
+        mainLineSign
+        replacesRailSign
+        note {
+          lang
+          value
+        }
+      }
+    }
+  }
+  ${HslAccessibilityPropertiesDetailsFragmentDoc}
+  ${InfoSpotDetailsFragmentDoc}
+  ${ShelterEquipmentDetailsFragmentDoc}
+`;
+export const StopPlaceOrganisationFieldsFragmentDoc = gql`
+  fragment stop_place_organisation_fields on stop_registry_Organisation {
+    id
+    name
+    privateContactDetails {
+      id
+      email
+      phone
+    }
+  }
+`;
 export const StopPlaceDetailsFragmentDoc = gql`
   fragment stop_place_details on stop_registry_StopPlace {
     id
@@ -76029,10 +76336,6 @@ export const StopPlaceDetailsFragmentDoc = gql`
       value
     }
     description {
-      lang
-      value
-    }
-    shortName {
       lang
       value
     }
@@ -76066,40 +76369,8 @@ export const StopPlaceDetailsFragmentDoc = gql`
     fareZones {
       ...fare_zone_details
     }
-    placeEquipments {
-      generalSign {
-        privateCode {
-          value
-          type
-        }
-        signContentType
-        numberOfFrames
-        lineSignage
-        mainLineSign
-        replacesRailSign
-        note {
-          lang
-          value
-        }
-      }
-    }
     quays {
       ...quay_details
-    }
-    accessibilityAssessment {
-      id
-      hslAccessibilityProperties {
-        ...hsl_accessibility_properties_details
-      }
-      limitations {
-        id
-        version
-        audibleSignalsAvailable
-        escalatorFreeAccess
-        liftFreeAccess
-        stepFreeAccess
-        wheelchairAccess
-      }
     }
     organisations {
       relationshipType
@@ -76124,7 +76395,6 @@ export const StopPlaceDetailsFragmentDoc = gql`
   ${TopographicPlaceDetailsFragmentDoc}
   ${FareZoneDetailsFragmentDoc}
   ${QuayDetailsFragmentDoc}
-  ${HslAccessibilityPropertiesDetailsFragmentDoc}
   ${StopPlaceOrganisationFieldsFragmentDoc}
   ${InfoSpotDetailsFragmentDoc}
 `;
@@ -76495,17 +76765,12 @@ export function useFindStopPlacesByQueryAndGroupLazyQuery(
   >(FindStopPlacesByQueryAndGroupDocument, options);
 }
 export function useFindStopPlacesByQueryAndGroupSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        FindStopPlacesByQueryAndGroupQuery,
-        FindStopPlacesByQueryAndGroupQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    FindStopPlacesByQueryAndGroupQuery,
+    FindStopPlacesByQueryAndGroupQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     FindStopPlacesByQueryAndGroupQuery,
     FindStopPlacesByQueryAndGroupQueryVariables
@@ -76586,17 +76851,12 @@ export function useResolveMemberStopNamesLazyQuery(
   >(ResolveMemberStopNamesDocument, options);
 }
 export function useResolveMemberStopNamesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ResolveMemberStopNamesQuery,
-        ResolveMemberStopNamesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveMemberStopNamesQuery,
+    ResolveMemberStopNamesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ResolveMemberStopNamesQuery,
     ResolveMemberStopNamesQueryVariables
@@ -76673,17 +76933,12 @@ export function useResolveStopAreaNamesLazyQuery(
   >(ResolveStopAreaNamesDocument, options);
 }
 export function useResolveStopAreaNamesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ResolveStopAreaNamesQuery,
-        ResolveStopAreaNamesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveStopAreaNamesQuery,
+    ResolveStopAreaNamesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ResolveStopAreaNamesQuery,
     ResolveStopAreaNamesQueryVariables
@@ -76773,17 +77028,12 @@ export function useResolveStopAreaAndMemberStopNamesLazyQuery(
   >(ResolveStopAreaAndMemberStopNamesDocument, options);
 }
 export function useResolveStopAreaAndMemberStopNamesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ResolveStopAreaAndMemberStopNamesQuery,
-        ResolveStopAreaAndMemberStopNamesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveStopAreaAndMemberStopNamesQuery,
+    ResolveStopAreaAndMemberStopNamesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ResolveStopAreaAndMemberStopNamesQuery,
     ResolveStopAreaAndMemberStopNamesQueryVariables
@@ -76906,17 +77156,12 @@ export function useListChangingRoutesLazyQuery(
   >(ListChangingRoutesDocument, options);
 }
 export function useListChangingRoutesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ListChangingRoutesQuery,
-        ListChangingRoutesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ListChangingRoutesQuery,
+    ListChangingRoutesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ListChangingRoutesQuery,
     ListChangingRoutesQueryVariables
@@ -76988,17 +77233,12 @@ export function useListOwnLinesLazyQuery(
   );
 }
 export function useListOwnLinesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ListOwnLinesQuery,
-        ListOwnLinesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ListOwnLinesQuery,
+    ListOwnLinesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<ListOwnLinesQuery, ListOwnLinesQueryVariables>(
     ListOwnLinesDocument,
     options,
@@ -77086,17 +77326,12 @@ export function useGetScheduledStopPointWithTimingSettingsLazyQuery(
   >(GetScheduledStopPointWithTimingSettingsDocument, options);
 }
 export function useGetScheduledStopPointWithTimingSettingsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetScheduledStopPointWithTimingSettingsQuery,
-        GetScheduledStopPointWithTimingSettingsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetScheduledStopPointWithTimingSettingsQuery,
+    GetScheduledStopPointWithTimingSettingsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetScheduledStopPointWithTimingSettingsQuery,
     GetScheduledStopPointWithTimingSettingsQueryVariables
@@ -77191,17 +77426,12 @@ export function useDoesStopHaveNextValidAlternativeLazyQuery(
   >(DoesStopHaveNextValidAlternativeDocument, options);
 }
 export function useDoesStopHaveNextValidAlternativeSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        DoesStopHaveNextValidAlternativeQuery,
-        DoesStopHaveNextValidAlternativeQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    DoesStopHaveNextValidAlternativeQuery,
+    DoesStopHaveNextValidAlternativeQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     DoesStopHaveNextValidAlternativeQuery,
     DoesStopHaveNextValidAlternativeQueryVariables
@@ -77285,17 +77515,12 @@ export function useFindLinesByStopSearchLazyQuery(
   >(FindLinesByStopSearchDocument, options);
 }
 export function useFindLinesByStopSearchSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        FindLinesByStopSearchQuery,
-        FindLinesByStopSearchQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    FindLinesByStopSearchQuery,
+    FindLinesByStopSearchQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     FindLinesByStopSearchQuery,
     FindLinesByStopSearchQueryVariables
@@ -77379,17 +77604,12 @@ export function useGetStopsByRouteIdLazyQuery(
   >(GetStopsByRouteIdDocument, options);
 }
 export function useGetStopsByRouteIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopsByRouteIdQuery,
-        GetStopsByRouteIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopsByRouteIdQuery,
+    GetStopsByRouteIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByRouteIdQuery,
     GetStopsByRouteIdQueryVariables
@@ -77472,17 +77692,12 @@ export function useResolveStopPlaceNetextIdsByLineIdsLazyQuery(
   >(ResolveStopPlaceNetextIdsByLineIdsDocument, options);
 }
 export function useResolveStopPlaceNetextIdsByLineIdsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ResolveStopPlaceNetextIdsByLineIdsQuery,
-        ResolveStopPlaceNetextIdsByLineIdsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveStopPlaceNetextIdsByLineIdsQuery,
+    ResolveStopPlaceNetextIdsByLineIdsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ResolveStopPlaceNetextIdsByLineIdsQuery,
     ResolveStopPlaceNetextIdsByLineIdsQueryVariables
@@ -77582,17 +77797,12 @@ export function useFindStopAreasLazyQuery(
   );
 }
 export function useFindStopAreasSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        FindStopAreasQuery,
-        FindStopAreasQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    FindStopAreasQuery,
+    FindStopAreasQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     FindStopAreasQuery,
     FindStopAreasQueryVariables
@@ -77670,17 +77880,12 @@ export function useGetStopsByStopAreaIdLazyQuery(
   >(GetStopsByStopAreaIdDocument, options);
 }
 export function useGetStopsByStopAreaIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopsByStopAreaIdQuery,
-        GetStopsByStopAreaIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopsByStopAreaIdQuery,
+    GetStopsByStopAreaIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByStopAreaIdQuery,
     GetStopsByStopAreaIdQueryVariables
@@ -77773,17 +77978,12 @@ export function useSearchStopsLazyQuery(
   );
 }
 export function useSearchStopsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        SearchStopsQuery,
-        SearchStopsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    SearchStopsQuery,
+    SearchStopsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<SearchStopsQuery, SearchStopsQueryVariables>(
     SearchStopsDocument,
     options,
@@ -77856,17 +78056,12 @@ export function useGetStopAreaDetailsLazyQuery(
   >(GetStopAreaDetailsDocument, options);
 }
 export function useGetStopAreaDetailsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopAreaDetailsQuery,
-        GetStopAreaDetailsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopAreaDetailsQuery,
+    GetStopAreaDetailsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopAreaDetailsQuery,
     GetStopAreaDetailsQueryVariables
@@ -77939,17 +78134,12 @@ export function useFindExistingPosterNamesLazyQuery(
   >(FindExistingPosterNamesDocument, options);
 }
 export function useFindExistingPosterNamesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        FindExistingPosterNamesQuery,
-        FindExistingPosterNamesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    FindExistingPosterNamesQuery,
+    FindExistingPosterNamesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     FindExistingPosterNamesQuery,
     FindExistingPosterNamesQueryVariables
@@ -78019,17 +78209,12 @@ export function useGetOrganisationsLazyQuery(
   >(GetOrganisationsDocument, options);
 }
 export function useGetOrganisationsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetOrganisationsQuery,
-        GetOrganisationsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetOrganisationsQuery,
+    GetOrganisationsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetOrganisationsQuery,
     GetOrganisationsQueryVariables
@@ -78165,17 +78350,12 @@ export function useResolveStopSheltersLazyQuery(
   >(ResolveStopSheltersDocument, options);
 }
 export function useResolveStopSheltersSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ResolveStopSheltersQuery,
-        ResolveStopSheltersQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveStopSheltersQuery,
+    ResolveStopSheltersQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ResolveStopSheltersQuery,
     ResolveStopSheltersQueryVariables
@@ -78263,17 +78443,12 @@ export function useResolveExistingStopValidityRangesLazyQuery(
   >(ResolveExistingStopValidityRangesDocument, options);
 }
 export function useResolveExistingStopValidityRangesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ResolveExistingStopValidityRangesQuery,
-        ResolveExistingStopValidityRangesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ResolveExistingStopValidityRangesQuery,
+    ResolveExistingStopValidityRangesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     ResolveExistingStopValidityRangesQuery,
     ResolveExistingStopValidityRangesQueryVariables
@@ -78345,17 +78520,12 @@ export function useGetRouteWithJourneyPatternLazyQuery(
   >(GetRouteWithJourneyPatternDocument, options);
 }
 export function useGetRouteWithJourneyPatternSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRouteWithJourneyPatternQuery,
-        GetRouteWithJourneyPatternQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRouteWithJourneyPatternQuery,
+    GetRouteWithJourneyPatternQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteWithJourneyPatternQuery,
     GetRouteWithJourneyPatternQueryVariables
@@ -78426,17 +78596,12 @@ export function useQueryClosestLinkLazyQuery(
   >(QueryClosestLinkDocument, options);
 }
 export function useQueryClosestLinkSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        QueryClosestLinkQuery,
-        QueryClosestLinkQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    QueryClosestLinkQuery,
+    QueryClosestLinkQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     QueryClosestLinkQuery,
     QueryClosestLinkQueryVariables
@@ -78516,17 +78681,12 @@ export function useQueryPointDirectionOnLinkLazyQuery(
   >(QueryPointDirectionOnLinkDocument, options);
 }
 export function useQueryPointDirectionOnLinkSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        QueryPointDirectionOnLinkQuery,
-        QueryPointDirectionOnLinkQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    QueryPointDirectionOnLinkQuery,
+    QueryPointDirectionOnLinkQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     QueryPointDirectionOnLinkQuery,
     QueryPointDirectionOnLinkQueryVariables
@@ -78599,17 +78759,12 @@ export function useGetStopsAlongInfrastructureLinksLazyQuery(
   >(GetStopsAlongInfrastructureLinksDocument, options);
 }
 export function useGetStopsAlongInfrastructureLinksSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopsAlongInfrastructureLinksQuery,
-        GetStopsAlongInfrastructureLinksQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopsAlongInfrastructureLinksQuery,
+    GetStopsAlongInfrastructureLinksQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsAlongInfrastructureLinksQuery,
     GetStopsAlongInfrastructureLinksQueryVariables
@@ -78834,17 +78989,12 @@ export function useGetScheduledStopPointWithViaInfoLazyQuery(
   >(GetScheduledStopPointWithViaInfoDocument, options);
 }
 export function useGetScheduledStopPointWithViaInfoSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetScheduledStopPointWithViaInfoQuery,
-        GetScheduledStopPointWithViaInfoQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetScheduledStopPointWithViaInfoQuery,
+    GetScheduledStopPointWithViaInfoQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetScheduledStopPointWithViaInfoQuery,
     GetScheduledStopPointWithViaInfoQueryVariables
@@ -78916,17 +79066,12 @@ export function useGetLineDetailsByIdLazyQuery(
   >(GetLineDetailsByIdDocument, options);
 }
 export function useGetLineDetailsByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetLineDetailsByIdQuery,
-        GetLineDetailsByIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetLineDetailsByIdQuery,
+    GetLineDetailsByIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLineDetailsByIdQuery,
     GetLineDetailsByIdQueryVariables
@@ -79000,17 +79145,12 @@ export function useGetLineValidityPeriodByIdLazyQuery(
   >(GetLineValidityPeriodByIdDocument, options);
 }
 export function useGetLineValidityPeriodByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetLineValidityPeriodByIdQuery,
-        GetLineValidityPeriodByIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetLineValidityPeriodByIdQuery,
+    GetLineValidityPeriodByIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLineValidityPeriodByIdQuery,
     GetLineValidityPeriodByIdQueryVariables
@@ -79079,17 +79219,12 @@ export function useGetLinesByValidityLazyQuery(
   >(GetLinesByValidityDocument, options);
 }
 export function useGetLinesByValiditySuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetLinesByValidityQuery,
-        GetLinesByValidityQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetLinesByValidityQuery,
+    GetLinesByValidityQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLinesByValidityQuery,
     GetLinesByValidityQueryVariables
@@ -79194,17 +79329,12 @@ export function useGetLineDetailsWithRoutesByIdLazyQuery(
   >(GetLineDetailsWithRoutesByIdDocument, options);
 }
 export function useGetLineDetailsWithRoutesByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetLineDetailsWithRoutesByIdQuery,
-        GetLineDetailsWithRoutesByIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetLineDetailsWithRoutesByIdQuery,
+    GetLineDetailsWithRoutesByIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLineDetailsWithRoutesByIdQuery,
     GetLineDetailsWithRoutesByIdQueryVariables
@@ -79273,17 +79403,12 @@ export function useGetRoutesWithStopsLazyQuery(
   >(GetRoutesWithStopsDocument, options);
 }
 export function useGetRoutesWithStopsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRoutesWithStopsQuery,
-        GetRoutesWithStopsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRoutesWithStopsQuery,
+    GetRoutesWithStopsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRoutesWithStopsQuery,
     GetRoutesWithStopsQueryVariables
@@ -79356,17 +79481,12 @@ export function useGetRouteDetailsByIdLazyQuery(
   >(GetRouteDetailsByIdDocument, options);
 }
 export function useGetRouteDetailsByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRouteDetailsByIdQuery,
-        GetRouteDetailsByIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRouteDetailsByIdQuery,
+    GetRouteDetailsByIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteDetailsByIdQuery,
     GetRouteDetailsByIdQueryVariables
@@ -79435,17 +79555,12 @@ export function useGetRouteDetailsByIdsLazyQuery(
   >(GetRouteDetailsByIdsDocument, options);
 }
 export function useGetRouteDetailsByIdsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRouteDetailsByIdsQuery,
-        GetRouteDetailsByIdsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRouteDetailsByIdsQuery,
+    GetRouteDetailsByIdsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteDetailsByIdsQuery,
     GetRouteDetailsByIdsQueryVariables
@@ -79522,17 +79637,12 @@ export function useGetRouteRenderInfoByIdLazyQuery(
   >(GetRouteRenderInfoByIdDocument, options);
 }
 export function useGetRouteRenderInfoByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRouteRenderInfoByIdQuery,
-        GetRouteRenderInfoByIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRouteRenderInfoByIdQuery,
+    GetRouteRenderInfoByIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteRenderInfoByIdQuery,
     GetRouteRenderInfoByIdQueryVariables
@@ -79616,17 +79726,12 @@ export function useGetRouteDetailsByLabelsLazyQuery(
   >(GetRouteDetailsByLabelsDocument, options);
 }
 export function useGetRouteDetailsByLabelsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRouteDetailsByLabelsQuery,
-        GetRouteDetailsByLabelsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRouteDetailsByLabelsQuery,
+    GetRouteDetailsByLabelsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteDetailsByLabelsQuery,
     GetRouteDetailsByLabelsQueryVariables
@@ -79695,17 +79800,12 @@ export function useGetRoutesWithInfrastructureLinksLazyQuery(
   >(GetRoutesWithInfrastructureLinksDocument, options);
 }
 export function useGetRoutesWithInfrastructureLinksSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRoutesWithInfrastructureLinksQuery,
-        GetRoutesWithInfrastructureLinksQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRoutesWithInfrastructureLinksQuery,
+    GetRoutesWithInfrastructureLinksQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRoutesWithInfrastructureLinksQuery,
     GetRoutesWithInfrastructureLinksQueryVariables
@@ -79773,17 +79873,12 @@ export function useGetRoutesByValidityLazyQuery(
   >(GetRoutesByValidityDocument, options);
 }
 export function useGetRoutesByValiditySuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRoutesByValidityQuery,
-        GetRoutesByValidityQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRoutesByValidityQuery,
+    GetRoutesByValidityQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRoutesByValidityQuery,
     GetRoutesByValidityQueryVariables
@@ -80127,17 +80222,12 @@ export function useGetScheduledStopsOnRouteLazyQuery(
   >(GetScheduledStopsOnRouteDocument, options);
 }
 export function useGetScheduledStopsOnRouteSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetScheduledStopsOnRouteQuery,
-        GetScheduledStopsOnRouteQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetScheduledStopsOnRouteQuery,
+    GetScheduledStopsOnRouteQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetScheduledStopsOnRouteQuery,
     GetScheduledStopsOnRouteQueryVariables
@@ -80270,17 +80360,12 @@ export function useGetStopsByLocationLazyQuery(
   >(GetStopsByLocationDocument, options);
 }
 export function useGetStopsByLocationSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopsByLocationQuery,
-        GetStopsByLocationQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopsByLocationQuery,
+    GetStopsByLocationQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByLocationQuery,
     GetStopsByLocationQueryVariables
@@ -80351,17 +80436,12 @@ export function useGetStopsByValidityLazyQuery(
   >(GetStopsByValidityDocument, options);
 }
 export function useGetStopsByValiditySuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopsByValidityQuery,
-        GetStopsByValidityQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopsByValidityQuery,
+    GetStopsByValidityQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByValidityQuery,
     GetStopsByValidityQueryVariables
@@ -80432,17 +80512,12 @@ export function useGetStopsByIdsLazyQuery(
   );
 }
 export function useGetStopsByIdsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopsByIdsQuery,
-        GetStopsByIdsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopsByIdsQuery,
+    GetStopsByIdsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByIdsQuery,
     GetStopsByIdsQueryVariables
@@ -80513,17 +80588,12 @@ export function useGetStopsByLabelsLazyQuery(
   >(GetStopsByLabelsDocument, options);
 }
 export function useGetStopsByLabelsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopsByLabelsQuery,
-        GetStopsByLabelsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopsByLabelsQuery,
+    GetStopsByLabelsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopsByLabelsQuery,
     GetStopsByLabelsQueryVariables
@@ -80625,17 +80695,12 @@ export function useGetStopWithRouteGraphDataByIdLazyQuery(
   >(GetStopWithRouteGraphDataByIdDocument, options);
 }
 export function useGetStopWithRouteGraphDataByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopWithRouteGraphDataByIdQuery,
-        GetStopWithRouteGraphDataByIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopWithRouteGraphDataByIdQuery,
+    GetStopWithRouteGraphDataByIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopWithRouteGraphDataByIdQuery,
     GetStopWithRouteGraphDataByIdQueryVariables
@@ -80713,17 +80778,12 @@ export function useGetStopAreasByLocationLazyQuery(
   >(GetStopAreasByLocationDocument, options);
 }
 export function useGetStopAreasByLocationSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopAreasByLocationQuery,
-        GetStopAreasByLocationQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopAreasByLocationQuery,
+    GetStopAreasByLocationQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopAreasByLocationQuery,
     GetStopAreasByLocationQueryVariables
@@ -80802,17 +80862,12 @@ export function useGetScheduledStopPointByStopPlaceRefLazyQuery(
   >(GetScheduledStopPointByStopPlaceRefDocument, options);
 }
 export function useGetScheduledStopPointByStopPlaceRefSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetScheduledStopPointByStopPlaceRefQuery,
-        GetScheduledStopPointByStopPlaceRefQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetScheduledStopPointByStopPlaceRefQuery,
+    GetScheduledStopPointByStopPlaceRefQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetScheduledStopPointByStopPlaceRefQuery,
     GetScheduledStopPointByStopPlaceRefQueryVariables
@@ -80886,17 +80941,12 @@ export function useGetHighestPriorityLineDetailsWithRoutesLazyQuery(
   >(GetHighestPriorityLineDetailsWithRoutesDocument, options);
 }
 export function useGetHighestPriorityLineDetailsWithRoutesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetHighestPriorityLineDetailsWithRoutesQuery,
-        GetHighestPriorityLineDetailsWithRoutesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetHighestPriorityLineDetailsWithRoutesQuery,
+    GetHighestPriorityLineDetailsWithRoutesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetHighestPriorityLineDetailsWithRoutesQuery,
     GetHighestPriorityLineDetailsWithRoutesQueryVariables
@@ -81132,17 +81182,12 @@ export function useGetLinksWithStopsByExternalLinkIdsLazyQuery(
   >(GetLinksWithStopsByExternalLinkIdsDocument, options);
 }
 export function useGetLinksWithStopsByExternalLinkIdsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetLinksWithStopsByExternalLinkIdsQuery,
-        GetLinksWithStopsByExternalLinkIdsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetLinksWithStopsByExternalLinkIdsQuery,
+    GetLinksWithStopsByExternalLinkIdsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLinksWithStopsByExternalLinkIdsQuery,
     GetLinksWithStopsByExternalLinkIdsQueryVariables
@@ -81217,17 +81262,12 @@ export function useGetLineRoutesByLabelLazyQuery(
   >(GetLineRoutesByLabelDocument, options);
 }
 export function useGetLineRoutesByLabelSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetLineRoutesByLabelQuery,
-        GetLineRoutesByLabelQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetLineRoutesByLabelQuery,
+    GetLineRoutesByLabelQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLineRoutesByLabelQuery,
     GetLineRoutesByLabelQueryVariables
@@ -81296,17 +81336,12 @@ export function useGetRouteByFiltersLazyQuery(
   >(GetRouteByFiltersDocument, options);
 }
 export function useGetRouteByFiltersSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRouteByFiltersQuery,
-        GetRouteByFiltersQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRouteByFiltersQuery,
+    GetRouteByFiltersQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteByFiltersQuery,
     GetRouteByFiltersQueryVariables
@@ -81382,17 +81417,12 @@ export function useGetRouteWithInfrastructureLinksWithStopsLazyQuery(
   >(GetRouteWithInfrastructureLinksWithStopsDocument, options);
 }
 export function useGetRouteWithInfrastructureLinksWithStopsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRouteWithInfrastructureLinksWithStopsQuery,
-        GetRouteWithInfrastructureLinksWithStopsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRouteWithInfrastructureLinksWithStopsQuery,
+    GetRouteWithInfrastructureLinksWithStopsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteWithInfrastructureLinksWithStopsQuery,
     GetRouteWithInfrastructureLinksWithStopsQueryVariables
@@ -81471,17 +81501,12 @@ export function useSearchLinesAndRoutesLazyQuery(
   >(SearchLinesAndRoutesDocument, options);
 }
 export function useSearchLinesAndRoutesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        SearchLinesAndRoutesQuery,
-        SearchLinesAndRoutesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    SearchLinesAndRoutesQuery,
+    SearchLinesAndRoutesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     SearchLinesAndRoutesQuery,
     SearchLinesAndRoutesQueryVariables
@@ -81606,17 +81631,12 @@ export function useGetStopAreaByIdLazyQuery(
   >(GetStopAreaByIdDocument, options);
 }
 export function useGetStopAreaByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopAreaByIdQuery,
-        GetStopAreaByIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStopAreaByIdQuery,
+    GetStopAreaByIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStopAreaByIdQuery,
     GetStopAreaByIdQueryVariables
@@ -81891,17 +81911,12 @@ export function useGetHighestPriorityStopDetailsByLabelAndDateLazyQuery(
   >(GetHighestPriorityStopDetailsByLabelAndDateDocument, options);
 }
 export function useGetHighestPriorityStopDetailsByLabelAndDateSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetHighestPriorityStopDetailsByLabelAndDateQuery,
-        GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetHighestPriorityStopDetailsByLabelAndDateQuery,
+    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetHighestPriorityStopDetailsByLabelAndDateQuery,
     GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
@@ -82260,17 +82275,12 @@ export function useGetRoutesBrokenByStopChangeLazyQuery(
   >(GetRoutesBrokenByStopChangeDocument, options);
 }
 export function useGetRoutesBrokenByStopChangeSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRoutesBrokenByStopChangeQuery,
-        GetRoutesBrokenByStopChangeQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRoutesBrokenByStopChangeQuery,
+    GetRoutesBrokenByStopChangeQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRoutesBrokenByStopChangeQuery,
     GetRoutesBrokenByStopChangeQueryVariables
@@ -82500,17 +82510,12 @@ export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazy
   >(GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument, options);
 }
 export function useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
-        GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
+    GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQuery,
     GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables
@@ -82797,17 +82802,12 @@ export function useGetSubstituteOperatingPeriodsLazyQuery(
   >(GetSubstituteOperatingPeriodsDocument, options);
 }
 export function useGetSubstituteOperatingPeriodsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetSubstituteOperatingPeriodsQuery,
-        GetSubstituteOperatingPeriodsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetSubstituteOperatingPeriodsQuery,
+    GetSubstituteOperatingPeriodsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetSubstituteOperatingPeriodsQuery,
     GetSubstituteOperatingPeriodsQueryVariables
@@ -82884,17 +82884,12 @@ export function useGetToCombineTargetVehicleScheduleFrameIdLazyQuery(
   >(GetToCombineTargetVehicleScheduleFrameIdDocument, options);
 }
 export function useGetToCombineTargetVehicleScheduleFrameIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetToCombineTargetVehicleScheduleFrameIdQuery,
-        GetToCombineTargetVehicleScheduleFrameIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetToCombineTargetVehicleScheduleFrameIdQuery,
+    GetToCombineTargetVehicleScheduleFrameIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetToCombineTargetVehicleScheduleFrameIdQuery,
     GetToCombineTargetVehicleScheduleFrameIdQueryVariables
@@ -82969,17 +82964,12 @@ export function useGetToReplaceVehicleScheduleFramesLazyQuery(
   >(GetToReplaceVehicleScheduleFramesDocument, options);
 }
 export function useGetToReplaceVehicleScheduleFramesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetToReplaceVehicleScheduleFramesQuery,
-        GetToReplaceVehicleScheduleFramesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetToReplaceVehicleScheduleFramesQuery,
+    GetToReplaceVehicleScheduleFramesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetToReplaceVehicleScheduleFramesQuery,
     GetToReplaceVehicleScheduleFramesQueryVariables
@@ -83078,17 +83068,12 @@ export function useGetVehicleScheduleFrameWithJourneyInfoLazyQuery(
   >(GetVehicleScheduleFrameWithJourneyInfoDocument, options);
 }
 export function useGetVehicleScheduleFrameWithJourneyInfoSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetVehicleScheduleFrameWithJourneyInfoQuery,
-        GetVehicleScheduleFrameWithJourneyInfoQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetVehicleScheduleFrameWithJourneyInfoQuery,
+    GetVehicleScheduleFrameWithJourneyInfoQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetVehicleScheduleFrameWithJourneyInfoQuery,
     GetVehicleScheduleFrameWithJourneyInfoQueryVariables
@@ -83189,17 +83174,12 @@ export function useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery(
   >(GetVehicleScheduleFrameWithRouteAndLineInfoDocument, options);
 }
 export function useGetVehicleScheduleFrameWithRouteAndLineInfoSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
-        GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
+    GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
     GetVehicleScheduleFrameWithRouteAndLineInfoQueryVariables
@@ -83271,17 +83251,12 @@ export function useGetStagingVehicleScheduleFramesLazyQuery(
   >(GetStagingVehicleScheduleFramesDocument, options);
 }
 export function useGetStagingVehicleScheduleFramesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStagingVehicleScheduleFramesQuery,
-        GetStagingVehicleScheduleFramesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetStagingVehicleScheduleFramesQuery,
+    GetStagingVehicleScheduleFramesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetStagingVehicleScheduleFramesQuery,
     GetStagingVehicleScheduleFramesQueryVariables
@@ -83648,17 +83623,12 @@ export function useGetTimingPlacesByLabelLazyQuery(
   >(GetTimingPlacesByLabelDocument, options);
 }
 export function useGetTimingPlacesByLabelSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetTimingPlacesByLabelQuery,
-        GetTimingPlacesByLabelQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetTimingPlacesByLabelQuery,
+    GetTimingPlacesByLabelQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetTimingPlacesByLabelQuery,
     GetTimingPlacesByLabelQueryVariables
@@ -83742,17 +83712,12 @@ export function useGetLinesForComboboxLazyQuery(
   >(GetLinesForComboboxDocument, options);
 }
 export function useGetLinesForComboboxSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetLinesForComboboxQuery,
-        GetLinesForComboboxQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetLinesForComboboxQuery,
+    GetLinesForComboboxQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetLinesForComboboxQuery,
     GetLinesForComboboxQueryVariables
@@ -83825,17 +83790,12 @@ export function useGetSelectedLineDetailsByIdLazyQuery(
   >(GetSelectedLineDetailsByIdDocument, options);
 }
 export function useGetSelectedLineDetailsByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetSelectedLineDetailsByIdQuery,
-        GetSelectedLineDetailsByIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetSelectedLineDetailsByIdQuery,
+    GetSelectedLineDetailsByIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetSelectedLineDetailsByIdQuery,
     GetSelectedLineDetailsByIdQueryVariables
@@ -83929,17 +83889,12 @@ export function useGetRouteDetailsByLabelWildcardLazyQuery(
   >(GetRouteDetailsByLabelWildcardDocument, options);
 }
 export function useGetRouteDetailsByLabelWildcardSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRouteDetailsByLabelWildcardQuery,
-        GetRouteDetailsByLabelWildcardQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRouteDetailsByLabelWildcardQuery,
+    GetRouteDetailsByLabelWildcardQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteDetailsByLabelWildcardQuery,
     GetRouteDetailsByLabelWildcardQueryVariables
@@ -84012,17 +83967,12 @@ export function useGetSelectedRouteDetailsByIdLazyQuery(
   >(GetSelectedRouteDetailsByIdDocument, options);
 }
 export function useGetSelectedRouteDetailsByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetSelectedRouteDetailsByIdQuery,
-        GetSelectedRouteDetailsByIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetSelectedRouteDetailsByIdQuery,
+    GetSelectedRouteDetailsByIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetSelectedRouteDetailsByIdQuery,
     GetSelectedRouteDetailsByIdQueryVariables
@@ -84099,17 +84049,12 @@ export function useGetTimingPlacesForComboboxLazyQuery(
   >(GetTimingPlacesForComboboxDocument, options);
 }
 export function useGetTimingPlacesForComboboxSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetTimingPlacesForComboboxQuery,
-        GetTimingPlacesForComboboxQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetTimingPlacesForComboboxQuery,
+    GetTimingPlacesForComboboxQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetTimingPlacesForComboboxQuery,
     GetTimingPlacesForComboboxQueryVariables
@@ -84185,17 +84130,12 @@ export function useGetSelectedTimingPlaceDetailsByIdLazyQuery(
   >(GetSelectedTimingPlaceDetailsByIdDocument, options);
 }
 export function useGetSelectedTimingPlaceDetailsByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetSelectedTimingPlaceDetailsByIdQuery,
-        GetSelectedTimingPlaceDetailsByIdQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetSelectedTimingPlaceDetailsByIdQuery,
+    GetSelectedTimingPlaceDetailsByIdQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetSelectedTimingPlaceDetailsByIdQuery,
     GetSelectedTimingPlaceDetailsByIdQueryVariables
@@ -84263,17 +84203,12 @@ export function useGetRouteInfoForTimetableVersionsLazyQuery(
   >(GetRouteInfoForTimetableVersionsDocument, options);
 }
 export function useGetRouteInfoForTimetableVersionsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetRouteInfoForTimetableVersionsQuery,
-        GetRouteInfoForTimetableVersionsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetRouteInfoForTimetableVersionsQuery,
+    GetRouteInfoForTimetableVersionsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetRouteInfoForTimetableVersionsQuery,
     GetRouteInfoForTimetableVersionsQueryVariables
@@ -84358,17 +84293,12 @@ export function useGetTimetableVersionsByJourneyPatternIdsLazyQuery(
   >(GetTimetableVersionsByJourneyPatternIdsDocument, options);
 }
 export function useGetTimetableVersionsByJourneyPatternIdsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetTimetableVersionsByJourneyPatternIdsQuery,
-        GetTimetableVersionsByJourneyPatternIdsQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetTimetableVersionsByJourneyPatternIdsQuery,
+    GetTimetableVersionsByJourneyPatternIdsQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetTimetableVersionsByJourneyPatternIdsQuery,
     GetTimetableVersionsByJourneyPatternIdsQueryVariables
@@ -84520,17 +84450,12 @@ export function useGetVehicleScheduleFrameSchedulesLazyQuery(
   >(GetVehicleScheduleFrameSchedulesDocument, options);
 }
 export function useGetVehicleScheduleFrameSchedulesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetVehicleScheduleFrameSchedulesQuery,
-        GetVehicleScheduleFrameSchedulesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetVehicleScheduleFrameSchedulesQuery,
+    GetVehicleScheduleFrameSchedulesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetVehicleScheduleFrameSchedulesQuery,
     GetVehicleScheduleFrameSchedulesQueryVariables
@@ -84611,17 +84536,12 @@ export function useGetVehicleScheduleFrameWithRoutesLazyQuery(
   >(GetVehicleScheduleFrameWithRoutesDocument, options);
 }
 export function useGetVehicleScheduleFrameWithRoutesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetVehicleScheduleFrameWithRoutesQuery,
-        GetVehicleScheduleFrameWithRoutesQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetVehicleScheduleFrameWithRoutesQuery,
+    GetVehicleScheduleFrameWithRoutesQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetVehicleScheduleFrameWithRoutesQuery,
     GetVehicleScheduleFrameWithRoutesQueryVariables
@@ -84778,17 +84698,12 @@ export function useGetVehicleSchedulesForDateLazyQuery(
   >(GetVehicleSchedulesForDateDocument, options);
 }
 export function useGetVehicleSchedulesForDateSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetVehicleSchedulesForDateQuery,
-        GetVehicleSchedulesForDateQueryVariables
-      >,
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetVehicleSchedulesForDateQuery,
+    GetVehicleSchedulesForDateQueryVariables
+  >,
 ) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetVehicleSchedulesForDateQuery,
     GetVehicleSchedulesForDateQueryVariables

@@ -42,12 +42,12 @@ export const LocationDetailsViewCard = ({
       <DetailRow>
         <LabeledDetail
           title={t('stopDetails.location.streetAddress')}
-          detail={stop.stop_place?.streetAddress}
+          detail={stop.quay?.streetAddress}
           testId={testIds.streetAddress}
         />
         <LabeledDetail
           title={t('stopDetails.location.postalCode')}
-          detail={stop.stop_place?.postalCode}
+          detail={stop.quay?.postalCode}
           testId={testIds.postalCode}
         />
         <LabeledDetail
@@ -102,7 +102,9 @@ export const LocationDetailsViewCard = ({
         />
         <LabeledDetail
           title={t('stopDetails.location.quay')}
-          detail={null /* TODO */}
+          detail={
+            null /* TODO:  stop.quay?.placeEquipments?.generalSign?.content?.value */
+          }
           testId={testIds.quay}
         />
         <LabeledDetail

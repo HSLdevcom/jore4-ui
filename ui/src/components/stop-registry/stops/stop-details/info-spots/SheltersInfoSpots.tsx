@@ -20,10 +20,10 @@ const useSheltersInfoSpots = (
 ): ReadonlyArray<ShelterAndSpots> => {
   return useMemo(() => {
     const infoSpots: Array<InfoSpotDetailsFragment> = compact(
-      stop.stop_place?.infoSpots ?? [],
+      stop.quay?.infoSpots ?? [],
     );
     const shelters: Array<ShelterEquipmentDetailsFragment> = compact(
-      stop.stop_place?.quays?.[0]?.placeEquipments?.shelterEquipment ?? [],
+      stop.quay?.placeEquipments?.shelterEquipment ?? [],
     );
 
     return shelters.map((shelter) => {
