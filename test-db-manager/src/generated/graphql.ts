@@ -10294,6 +10294,8 @@ export type StopRegistryQuay = {
   geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** Info spots */
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
@@ -10304,6 +10306,15 @@ export type StopRegistryQuay = {
   shortName?: Maybe<StopRegistryEmbeddableMultilingualString>;
   validBetween?: Maybe<StopRegistryValidBetween>;
   version?: Maybe<Scalars['String']['output']>;
+  versionComment?: Maybe<Scalars['String']['output']>;
+};
+
+export type StopRegistryQuayInfoSpotsArgs = {
+  allVersions?: InputMaybe<Scalars['Boolean']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+  version?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type StopRegistryQuayInput = {
@@ -10326,6 +10337,7 @@ export type StopRegistryQuayInput = {
   privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
   publicCode?: InputMaybe<Scalars['String']['input']>;
   shortName?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  versionComment?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StopRegistrySanitaryEquipment = {
