@@ -11,8 +11,8 @@ import { BasicDetailsViewCard } from './BasicDetailsViewCard';
 const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
   const formState: Partial<StopBasicDetailsFormState> = {
     label: stop.label ?? '',
-    publicCode: stop.stop_place?.publicCode,
-    nameFin: stop.stop_place?.nameFin,
+    publicCode: stop.quay?.publicCode,
+    nameFin: stop.stop_place?.name,
     nameSwe: stop.stop_place?.nameSwe,
     locationFin: stop.quay?.locationFin ?? undefined,
     locationSwe: stop.quay?.locationSwe ?? undefined,
@@ -69,7 +69,7 @@ export const BasicDetailsSection = ({ stop }: Props): React.ReactElement => {
     >
       {infoContainerControls.isInEditMode && !!defaultValues ? (
         <StopBasicDetailsForm
-          stopAreaId={stop.stop_place?.groups?.at(0)?.id}
+          stopAreaId={stop.stop_place?.id}
           defaultValues={defaultValues}
           ref={formRef}
           onSubmit={onSubmit}

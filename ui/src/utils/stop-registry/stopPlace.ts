@@ -15,8 +15,8 @@ import {
   StopRegistrySubmodeType,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
-import { mapLngLatToPoint } from '../gis';
 import { StopPlaceState } from '../../types/stop-registry';
+import { mapLngLatToPoint } from '../gis';
 
 type StopPlaceType = Pick<StopRegistryStopPlace, '__typename'>;
 type ParentStopPlaceType = Pick<StopRegistryParentStopPlace, '__typename'>;
@@ -62,6 +62,8 @@ export type StopPlaceEnrichmentProperties = {
   abbreviation5CharFin: string | undefined;
   abbreviation5CharSwe: string | undefined;
   name: string | undefined;
+  municipality: string | undefined;
+  fareZone: string | undefined;
   locationLat: number | undefined;
   locationLong: number | undefined;
   validityStart: string | undefined;
@@ -132,8 +134,12 @@ export const setMultipleAlternativeNames = (
   }, initialAlternativeNames);
 };
 
+type ElementWithKeyValues = {
+  readonly keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+};
+
 const findKeyValue = (
-  element: StopRegistryStopPlace | StopRegistryQuay,
+  element: ElementWithKeyValues,
   key: string,
 ): string | null => {
   const keyValue = element.keyValues?.find((kv) => kv?.key === key);
@@ -216,7 +222,7 @@ export const patchAlternativeNames = (
 };
 
 const findKeyValueParsed = <T = string>(
-  element: StopRegistryStopPlace | StopRegistryQuay,
+  element: ElementWithKeyValues,
   key: string,
   parser: (arg0: string) => T,
 ): T | null => {
@@ -227,7 +233,14 @@ const findKeyValueParsed = <T = string>(
   return parser(keyValue);
 };
 
-export const getQuayDetailsForEnrichment = <T extends StopRegistryQuay>(
+type StopRegistryQuayWithoutStopPoint = Omit<
+  StopRegistryQuay,
+  'scheduled_stop_point'
+>;
+
+export const getQuayDetailsForEnrichment = <
+  T extends StopRegistryQuayWithoutStopPoint,
+>(
   quay: T,
 ): QuayEnrichmentProperties => {
   return {
@@ -250,8 +263,12 @@ export const getQuayDetailsForEnrichment = <T extends StopRegistryQuay>(
   };
 };
 
+type StopRegistryStopPlaceWithQuays = Omit<StopRegistryStopPlace, 'quays'> & {
+  readonly quays?: Maybe<Array<Maybe<StopRegistryQuayWithoutStopPoint>>>;
+};
+
 const findCoordinate = (
-  stopPlace: StopRegistryStopPlace,
+  stopPlace: StopRegistryStopPlaceWithQuays,
   coordinate: 'latitude' | 'longitude',
 ): number | undefined => {
   const coordinates = stopPlace.geometry?.coordinates ?? undefined;
@@ -259,7 +276,7 @@ const findCoordinate = (
 };
 
 export const getStopPlaceDetailsForEnrichment = <
-  T extends StopRegistryStopPlace,
+  T extends StopRegistryStopPlaceWithQuays,
 >(
   stopPlace: T,
 ): StopPlaceEnrichmentProperties => {
@@ -292,6 +309,8 @@ export const getStopPlaceDetailsForEnrichment = <
     abbreviation5CharSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Label)
         ?.value || undefined,
+    municipality: stopPlace.topographicPlace?.name?.value || undefined,
+    fareZone: stopPlace.fareZones?.[0]?.name?.value || undefined,
     name: stopPlace.name?.value || undefined,
     locationLat: findCoordinate(stopPlace, 'latitude'),
     locationLong: findCoordinate(stopPlace, 'longitude'),
@@ -314,7 +333,7 @@ export const getStopPlaceDetailsForEnrichment = <
  * These can still be overridden in the mutation if needed.
  */
 export const getRequiredStopPlaceMutationProperties = <
-  T extends StopRegistryStopPlace & StopPlaceEnrichmentProperties,
+  T extends StopRegistryStopPlaceWithQuays & StopPlaceEnrichmentProperties,
 >(
   stopPlace: T | null,
 ): Partial<StopRegistryStopPlaceInput> => {

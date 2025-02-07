@@ -35,12 +35,11 @@ const testIds = {
 
 export const BasicDetailsViewCard = ({ stop }: Props) => {
   const stopState =
-    stop.stop_place?.stopState &&
-    mapStopPlaceStateToUiName(stop.stop_place?.stopState);
+    stop.quay?.stopState && mapStopPlaceStateToUiName(stop.quay.stopState);
 
   const transportMode =
     stop.stop_place?.transportMode &&
-    mapStopRegistryTransportModeTypeToUiName(stop.stop_place?.transportMode);
+    mapStopRegistryTransportModeTypeToUiName(stop.stop_place.transportMode);
   return (
     <div>
       <DetailRow>
@@ -51,12 +50,12 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
         />
         <LabeledDetail
           title={t('stopDetails.basicDetails.publicCode')}
-          detail={stop.stop_place?.publicCode}
+          detail={stop.quay?.publicCode}
           testId={testIds.publicCode}
         />
         <LabeledDetail
           title={t('stopDetails.basicDetails.nameFin')}
-          detail={stop.stop_place?.nameFin}
+          detail={stop.stop_place?.name}
           testId={testIds.nameFin}
         />
         <LabeledDetail
@@ -127,11 +126,11 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
         <div className="flex items-center gap-4">
           <LabeledDetail
             title={t('stopDetails.basicDetails.stopType')}
-            detail={stop.stop_place && translateStopTypes(stop.stop_place)}
+            detail={translateStopTypes(stop.stop_place, stop.quay)}
             testId={testIds.stopType}
           />
           <MainLineWarning
-            isMainLineStop={!!stop.stop_place?.stopType.mainLine}
+            isMainLineStop={!!stop.quay?.stopType.mainLine}
             hasMainLineSign={
               !!stop.quay?.placeEquipments?.generalSign?.[0]?.mainLineSign
             }

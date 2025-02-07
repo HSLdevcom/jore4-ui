@@ -24,7 +24,7 @@ export const useEditStopSignageDetails = () => {
   }: EditTiamatParams) => {
     const stopPlaceId = stop.stop_place?.id;
 
-    const initialPlaceEquipments = stop.stop_place?.placeEquipments ?? {};
+    const initialPlaceEquipments = stop.quay?.placeEquipments ?? {};
     const initialGeneralSign = initialPlaceEquipments?.generalSign?.[0] ?? {};
 
     const input = {

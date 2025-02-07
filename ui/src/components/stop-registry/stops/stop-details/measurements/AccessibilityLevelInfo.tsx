@@ -16,7 +16,7 @@ export const AccessibilityLevelInfo: React.FC<Props> = ({ stop }) => {
   const { t } = useTranslation();
   const [isModalOpen, toggleIsModalOpen] = useToggle();
   const accessibilityLevel =
-    stop.stop_place?.accessibilityLevel ?? defaultAccessibilityLevel;
+    stop.quay?.accessibilityLevel ?? defaultAccessibilityLevel;
 
   return (
     <div
