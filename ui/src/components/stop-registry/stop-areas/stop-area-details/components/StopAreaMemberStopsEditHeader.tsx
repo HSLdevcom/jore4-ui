@@ -18,7 +18,7 @@ const testIds = {
 
 function useMemberStopIds(): ReadonlyArray<string> {
   const { watch } = useFormContext<StopAreaFormState>();
-  const memberStops = watch('memberStops');
+  const memberStops = watch('quays');
   return memberStops.map((it) => it.id);
 }
 
@@ -47,7 +47,7 @@ export const StopAreaMemberStopsEditHeader: FC<
         <ControlledElement
           id="memberStops"
           testId={testIds.selectMemberStops}
-          fieldPath="memberStops"
+          fieldPath="quays"
           // eslint-disable-next-line react/no-unstable-nested-components
           inputElementRenderer={({ value, onChange, testId }) => (
             <SelectMemberStopsDropdown

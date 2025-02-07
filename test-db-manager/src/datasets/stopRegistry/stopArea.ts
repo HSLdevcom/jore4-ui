@@ -1,9 +1,7 @@
 import {
   StopRegistryGeoJsonType,
-  StopRegistryInterchangeWeightingType,
   StopRegistryNameType,
   StopRegistryStopPlaceInput,
-  StopRegistrySubmodeType,
 } from '../../generated/graphql';
 import { StopPlaceMaintenance } from './stopPlaces';
 import { getKeyValue } from './utils';
@@ -23,10 +21,6 @@ export type StopAreaSeedData = {
   locationLong: number;
   validityStart: string; // Really a datetime, but keyValues can only take strings.
   validityEnd?: string; // Really a datetime, but keyValues can only take strings.
-  stopType?: {
-    interchange: boolean;
-    railReplacement: boolean;
-  };
 };
 
 export type StopAreaInput = {
@@ -98,12 +92,6 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
         getKeyValue('validityStart', seedStopArea.validityStart),
         getKeyValue('validityEnd', seedStopArea.validityEnd),
       ],
-      weighting: seedStopArea.stopType?.interchange
-        ? StopRegistryInterchangeWeightingType.RecommendedInterchange
-        : undefined,
-      submode: seedStopArea.stopType?.railReplacement
-        ? StopRegistrySubmodeType.RailReplacementBus
-        : undefined,
     },
     organisations: seedStopArea.organisations ?? null,
   };

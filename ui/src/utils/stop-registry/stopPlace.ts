@@ -5,14 +5,12 @@ import {
   StopRegistryAccessibilityLevel,
   StopRegistryAlternativeName,
   StopRegistryEmbeddableMultilingualString,
-  StopRegistryInterchangeWeightingType,
   StopRegistryKeyValues,
   StopRegistryNameType,
   StopRegistryParentStopPlace,
   StopRegistryQuay,
   StopRegistryStopPlace,
   StopRegistryStopPlaceInput,
-  StopRegistrySubmodeType,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
 import { StopPlaceState } from '../../types/stop-registry';
@@ -68,10 +66,6 @@ export type StopPlaceEnrichmentProperties = {
   locationLong: number | undefined;
   validityStart: string | undefined;
   validityEnd?: string | undefined;
-  stopType: {
-    interchange: boolean;
-    railReplacement: boolean;
-  };
 };
 
 export type QuayEnrichmentProperties = {
@@ -316,13 +310,6 @@ export const getStopPlaceDetailsForEnrichment = <
     locationLong: findCoordinate(stopPlace, 'longitude'),
     validityStart: findKeyValue(stopPlace, 'validityStart') || undefined,
     validityEnd: findKeyValue(stopPlace, 'validityEnd') || undefined,
-    stopType: {
-      interchange:
-        stopPlace.weighting ===
-        StopRegistryInterchangeWeightingType.RecommendedInterchange,
-      railReplacement:
-        stopPlace.submode === StopRegistrySubmodeType.RailReplacementBus,
-    },
   };
   /* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
 };
