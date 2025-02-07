@@ -135,8 +135,8 @@
     "title": "Pysäkkialue",
     "basicDetails": {
       "title": "JORE:n pysäkkialue",
-      "name": "Pysäkkialueen tunnus",
-      "description": "Pysäkkialueen nimi",
+      "name": "Pysäkkialueen nimi",
+      "privateCode": "Pysäkkialueen tunnus",
       "parentTerminal": "Emoterminaali",
       "areaSize": "Pysäkkialueen koko (m²)",
       "validityPeriod": "Voimassaolo",
