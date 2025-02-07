@@ -11,7 +11,7 @@ import React, {
 } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useLoader } from '../../../../../hooks';
+import { EnrichedStopPlace, useLoader } from '../../../../../hooks';
 import { Operation } from '../../../../../redux';
 import { ConfirmationDialog } from '../../../../../uiComponents';
 import { showSuccessToast } from '../../../../../utils';
@@ -53,7 +53,7 @@ const RootComponent: FC<RootComponentProps> = ({
 };
 
 function useMemberStopFormControls(
-  areaId: string | null | undefined,
+  area: EnrichedStopPlace,
   defaultValues: Partial<FormState>,
   onEditBlock: Dispatch<SetStateAction<StopAreaEditableBlock | null>>,
   refetch: () => Promise<unknown>,
@@ -67,7 +67,7 @@ function useMemberStopFormControls(
   const onSubmit = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
-      await upsertStopArea({ id: areaId, state });
+      await upsertStopArea({ stop: area, state });
       await refetch();
 
       showSuccessToast(t('stopArea.editSuccess'));
@@ -87,10 +87,10 @@ function useMemberStopFormControls(
       const state = stopAreaFormSchema.parse(defaultValues);
 
       await upsertStopArea({
-        id: areaId,
+        stop: area,
         state: {
           ...state,
-          memberStops: state.memberStops.filter((stop) => stop.id !== id),
+          quays: state.quays.filter((stop) => stop.id !== id),
         },
       });
       await refetch();
@@ -138,7 +138,7 @@ export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
 
     methods,
   } = useMemberStopFormControls(
-    area.id,
+    area,
     defaultValues,
     onEditBlock,
     refetch,
@@ -158,8 +158,8 @@ export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
 
   const onRemoveWhenEditing = (id: string) => {
     setValue(
-      'memberStops',
-      getValues('memberStops').filter((it) => it.id !== id),
+      'quays',
+      getValues('quays').filter((it) => it.id !== id),
     );
   };
 
@@ -169,8 +169,8 @@ export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
 
   const onAddBack = (member: StopAreaFormMember) => {
     setValue(
-      'memberStops',
-      getValues('memberStops')
+      'quays',
+      getValues('quays')
         .concat(member)
         .sort((a, b) =>
           a.scheduled_stop_point.label.localeCompare(
@@ -204,7 +204,7 @@ export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
         <StopAreaMemberStopRows
           area={area}
           inEditMode={inEditMode}
-          inEditSelectedStops={watch('memberStops')}
+          inEditSelectedStops={watch('quays')}
           onRemove={inEditMode ? onRemoveWhenEditing : onRemoveWhenNotEditing}
           onAddBack={onAddBack}
         />

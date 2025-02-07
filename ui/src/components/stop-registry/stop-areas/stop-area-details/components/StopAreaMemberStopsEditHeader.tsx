@@ -18,7 +18,8 @@ const testIds = {
 
 function useMemberStopIds(): ReadonlyArray<string> {
   const { watch } = useFormContext<StopAreaFormState>();
-  const memberStops = watch('memberStops');
+  console.log(watch());
+  const memberStops = watch('quays');
   return memberStops.map((it) => it.id);
 }
 
