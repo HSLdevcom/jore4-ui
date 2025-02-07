@@ -29,7 +29,7 @@ const mockStateDefaults = {
   indefinite: false,
   latitude: 0,
   longitude: 0,
-  memberStops: [],
+  quays: [],
   validityStart: '',
 };
 
@@ -60,8 +60,9 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
 
     const details: StopAreaFormState = {
       ...mockStateDefaults,
-      label: 'Testlabel1',
+      privateCode: 'Testlabel1',
       name: 'Testname1',
+      nameSwe: 'TestnameSwe1',
     }; // Mock details data
     const handled = tryHandle(errorWithKnownCode as ApolloError, details);
 

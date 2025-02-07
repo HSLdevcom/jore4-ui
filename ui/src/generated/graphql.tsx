@@ -2724,7 +2724,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
 
 /** unique or primary key constraints on table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternConstraint {
-  /** unique or primary key constraint on columns "journey_pattern_id", "scheduled_stop_point_sequence" */
+  /** unique or primary key constraint on columns "scheduled_stop_point_sequence", "journey_pattern_id" */
   ScheduledStopPointInJourneyPatternPkey = 'scheduled_stop_point_in_journey_pattern_pkey',
 }
 
@@ -5734,7 +5734,7 @@ export type RouteDirectionBoolExp = {
   directionByTheOppositeOfDirection?: InputMaybe<RouteDirectionBoolExp>;
   directions?: InputMaybe<RouteDirectionBoolExp>;
   directions_aggregate?: InputMaybe<RouteDirectionAggregateBoolExp>;
-  the_opposite_of_direction?: InputMaybe<TimetablesRouteDirectionEnumComparisonExp>;
+  the_opposite_of_direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.direction" */
@@ -5761,6 +5761,15 @@ export enum RouteDirectionEnum {
   /** eastbound */
   Westbound = 'westbound',
 }
+
+/** Boolean expression to compare columns of type "route_direction_enum". All fields are combined with logical 'AND'. */
+export type RouteDirectionEnumComparisonExp = {
+  _eq?: InputMaybe<RouteDirectionEnum>;
+  _in?: InputMaybe<Array<RouteDirectionEnum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _neq?: InputMaybe<RouteDirectionEnum>;
+  _nin?: InputMaybe<Array<RouteDirectionEnum>>;
+};
 
 /** input type for inserting data into table "route.direction" */
 export type RouteDirectionInsertInput = {
@@ -6002,7 +6011,7 @@ export type RouteInfrastructureLinkAlongRouteBoolExp = {
 
 /** unique or primary key constraints on table "route.infrastructure_link_along_route" */
 export enum RouteInfrastructureLinkAlongRouteConstraint {
-  /** unique or primary key constraint on columns "route_id", "infrastructure_link_sequence" */
+  /** unique or primary key constraint on columns "infrastructure_link_sequence", "route_id" */
   InfrastructureLinkAlongRoutePkey = 'infrastructure_link_along_route_pkey',
 }
 
@@ -7064,7 +7073,7 @@ export type RouteRouteBoolExp = {
   description_i18n?: InputMaybe<JsonbComparisonExp>;
   destination_name_i18n?: InputMaybe<JsonbComparisonExp>;
   destination_short_name_i18n?: InputMaybe<JsonbComparisonExp>;
-  direction?: InputMaybe<TimetablesRouteDirectionEnumComparisonExp>;
+  direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
   infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   infrastructure_links_along_route_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateBoolExp>;
   label?: InputMaybe<StringComparisonExp>;
@@ -7919,7 +7928,7 @@ export type ServicePatternDistanceBetweenStopsCalculationBoolExp = {
 
 /** unique or primary key constraints on table "service_pattern.distance_between_stops_calculation" */
 export enum ServicePatternDistanceBetweenStopsCalculationConstraint {
-  /** unique or primary key constraint on columns "observation_date", "stop_interval_sequence", "route_priority", "journey_pattern_id" */
+  /** unique or primary key constraint on columns "observation_date", "stop_interval_sequence", "journey_pattern_id", "route_priority" */
   DistanceBetweenStopsCalculationPkey = 'distance_between_stops_calculation_pkey',
 }
 
@@ -9623,12 +9632,10 @@ export type StopRegistryCycleStorageEquipment = {
   cycleStorageType?: Maybe<StopRegistryCycleStorageType>;
   id?: Maybe<Scalars['String']['output']>;
   numberOfSpaces?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
-  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryCycleStorageEquipmentInput = {
   cycleStorageType?: InputMaybe<StopRegistryCycleStorageType>;
-  id?: InputMaybe<Scalars['String']['input']>;
   numberOfSpaces?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
 };
 
@@ -9690,12 +9697,10 @@ export type StopRegistryGeneralSign = {
   privateCode?: Maybe<StopRegistryPrivateCode>;
   replacesRailSign?: Maybe<Scalars['Boolean']['output']>;
   signContentType?: Maybe<StopRegistrySignContentType>;
-  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryGeneralSignInput = {
   content?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
-  id?: InputMaybe<Scalars['String']['input']>;
   lineSignage?: InputMaybe<Scalars['Boolean']['input']>;
   mainLineSign?: InputMaybe<Scalars['Boolean']['input']>;
   note?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
@@ -10344,12 +10349,10 @@ export type StopRegistrySanitaryEquipment = {
   gender?: Maybe<StopRegistryGender>;
   id?: Maybe<Scalars['String']['output']>;
   numberOfToilets?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
-  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistrySanitaryEquipmentInput = {
   gender?: InputMaybe<StopRegistryGender>;
-  id?: InputMaybe<Scalars['String']['input']>;
   numberOfToilets?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
 };
 
@@ -10388,14 +10391,12 @@ export type StopRegistryShelterEquipment = {
   timetableCabinets?: Maybe<Scalars['Int']['output']>;
   /** Katoksessa roska-astia */
   trashCan?: Maybe<Scalars['Boolean']['output']>;
-  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryShelterEquipmentInput = {
   /** Pyöräpysäköinti */
   bicycleParking?: InputMaybe<Scalars['Boolean']['input']>;
   enclosed?: InputMaybe<Scalars['Boolean']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
   /** Nojailutanko */
   leaningRail?: InputMaybe<Scalars['Boolean']['input']>;
   /** Ulkopenkki */
@@ -10627,11 +10628,9 @@ export type StopRegistryTicketingEquipment = {
   numberOfMachines?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
   ticketMachines?: Maybe<Scalars['Boolean']['output']>;
   ticketOffice?: Maybe<Scalars['Boolean']['output']>;
-  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryTicketingEquipmentInput = {
-  id?: InputMaybe<Scalars['String']['input']>;
   numberOfMachines?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
   ticketMachines?: InputMaybe<Scalars['Boolean']['input']>;
   ticketOffice?: InputMaybe<Scalars['Boolean']['input']>;
@@ -10761,12 +10760,10 @@ export type StopRegistryWaitingRoomEquipment = {
   id?: Maybe<Scalars['String']['output']>;
   seats?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
   stepFree?: Maybe<Scalars['Boolean']['output']>;
-  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryWaitingRoomEquipmentInput = {
   heated?: InputMaybe<Scalars['Boolean']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
   seats?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
   stepFree?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -12126,7 +12123,7 @@ export type StopsDatabaseAccessSpaceKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "access_space_key_values" */
 export enum StopsDatabaseAccessSpaceKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "access_space_id" */
+  /** unique or primary key constraint on columns "access_space_id", "key_values_key" */
   AccessSpaceKeyValuesPkey = 'access_space_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkKcsgl47aba68824kjdceo60ql = 'uk_kcsgl47aba68824kjdceo60ql',
@@ -15388,7 +15385,7 @@ export type StopsDatabaseBoardingPositionKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "boarding_position_key_values" */
 export enum StopsDatabaseBoardingPositionKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "boarding_position_id" */
+  /** unique or primary key constraint on columns "boarding_position_id", "key_values_key" */
   BoardingPositionKeyValuesPkey = 'boarding_position_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkJilhh4jbyloqka3r1xpv88lpb = 'uk_jilhh4jbyloqka3r1xpv88lpb',
@@ -16203,7 +16200,7 @@ export type StopsDatabaseCheckConstraintKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "check_constraint_key_values" */
 export enum StopsDatabaseCheckConstraintKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "check_constraint_id" */
+  /** unique or primary key constraint on columns "check_constraint_id", "key_values_key" */
   CheckConstraintKeyValuesPkey = 'check_constraint_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkGsegfx5ipotsd45aqbmq7kux0 = 'uk_gsegfx5ipotsd45aqbmq7kux0',
@@ -18541,7 +18538,7 @@ export type StopsDatabaseEquipmentPositionKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "equipment_position_key_values" */
 export enum StopsDatabaseEquipmentPositionKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "equipment_position_id" */
+  /** unique or primary key constraint on columns "equipment_position_id", "key_values_key" */
   EquipmentPositionKeyValuesPkey = 'equipment_position_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkHw9nq847b38qyxa25ide9ltyy = 'uk_hw9nq847b38qyxa25ide9ltyy',
@@ -23065,7 +23062,7 @@ export type StopsDatabaseGroupOfTariffZonesKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "group_of_tariff_zones_key_values" */
 export enum StopsDatabaseGroupOfTariffZonesKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "group_of_tariff_zones_id" */
+  /** unique or primary key constraint on columns "group_of_tariff_zones_id", "key_values_key" */
   GroupOfTariffZonesKeyValuesPkey = 'group_of_tariff_zones_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkPfy12mpgyt1qevehecnwh5vq2 = 'uk_pfy12mpgyt1qevehecnwh5vq2',
@@ -23396,7 +23393,7 @@ export type StopsDatabaseGroupOfTariffZonesMembersBoolExp = {
 
 /** unique or primary key constraints on table "group_of_tariff_zones_members" */
 export enum StopsDatabaseGroupOfTariffZonesMembersConstraint {
-  /** unique or primary key constraint on columns "ref", "group_of_tariff_zones_id" */
+  /** unique or primary key constraint on columns "group_of_tariff_zones_id", "ref" */
   GroupOfTariffZonesMembersPkey = 'group_of_tariff_zones_members_pkey',
 }
 
@@ -24842,7 +24839,7 @@ export type StopsDatabaseIdGeneratorBoolExp = {
 
 /** unique or primary key constraints on table "id_generator" */
 export enum StopsDatabaseIdGeneratorConstraint {
-  /** unique or primary key constraint on columns "table_name", "id_value" */
+  /** unique or primary key constraint on columns "id_value", "table_name" */
   IdConstraint = 'id_constraint',
 }
 
@@ -27123,7 +27120,7 @@ export type StopsDatabaseLevelKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "level_key_values" */
 export enum StopsDatabaseLevelKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "level_id" */
+  /** unique or primary key constraint on columns "level_id", "key_values_key" */
   LevelKeyValuesPkey = 'level_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   Uk_4eghmku46yje2lg3f1u6p949e = 'uk_4eghmku46yje2lg3f1u6p949e',
@@ -28194,7 +28191,7 @@ export type StopsDatabaseOrganisationKeyValuesBoolExp = {
 export enum StopsDatabaseOrganisationKeyValuesConstraint {
   /** unique or primary key constraint on columns "key_values_id" */
   OrganisationKeyValuesKeyValuesIdKey = 'organisation_key_values_key_values_id_key',
-  /** unique or primary key constraint on columns "key_values_key", "organisation_id" */
+  /** unique or primary key constraint on columns "organisation_id", "key_values_key" */
   OrganisationKeyValuesPkey = 'organisation_key_values_pkey',
 }
 
@@ -30505,7 +30502,7 @@ export type StopsDatabaseParkingAreaKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "parking_area_key_values" */
 export enum StopsDatabaseParkingAreaKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "parking_area_id" */
+  /** unique or primary key constraint on columns "parking_area_id", "key_values_key" */
   ParkingAreaKeyValuesPkey = 'parking_area_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkRxv53i59u1pf70kxtdchlxird = 'uk_rxv53i59u1pf70kxtdchlxird',
@@ -32063,7 +32060,7 @@ export type StopsDatabaseParkingKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "parking_key_values" */
 export enum StopsDatabaseParkingKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "parking_id" */
+  /** unique or primary key constraint on columns "parking_id", "key_values_key" */
   ParkingKeyValuesPkey = 'parking_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkIteh0to4gqim61p74lq2ugc2k = 'uk_iteh0to4gqim61p74lq2ugc2k',
@@ -34703,7 +34700,7 @@ export type StopsDatabasePathJunctionKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "path_junction_key_values" */
 export enum StopsDatabasePathJunctionKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "path_junction_id" */
+  /** unique or primary key constraint on columns "path_junction_id", "key_values_key" */
   PathJunctionKeyValuesPkey = 'path_junction_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   Uk_8au15celles62v9ug5bvq2t4x = 'uk_8au15celles62v9ug5bvq2t4x',
@@ -35484,7 +35481,7 @@ export type StopsDatabasePathLinkKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "path_link_key_values" */
 export enum StopsDatabasePathLinkKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "path_link_id" */
+  /** unique or primary key constraint on columns "path_link_id", "key_values_key" */
   PathLinkKeyValuesPkey = 'path_link_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkKn4m9f3l3gdgyg7mdus6qd1r1 = 'uk_kn4m9f3l3gdgyg7mdus6qd1r1',
@@ -38787,7 +38784,7 @@ export type StopsDatabaseQuayKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "quay_key_values" */
 export enum StopsDatabaseQuayKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "quay_id" */
+  /** unique or primary key constraint on columns "quay_id", "key_values_key" */
   QuayKeyValuesPkey = 'quay_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkPlgcx1aoolr4vngts8ifkrse6 = 'uk_plgcx1aoolr4vngts8ifkrse6',
@@ -41746,7 +41743,7 @@ export type StopsDatabaseStopPlaceChildrenBoolExp = {
 
 /** unique or primary key constraints on table "stop_place_children" */
 export enum StopsDatabaseStopPlaceChildrenConstraint {
-  /** unique or primary key constraint on columns "children_id", "stop_place_id" */
+  /** unique or primary key constraint on columns "stop_place_id", "children_id" */
   StopPlaceChildrenPkey = 'stop_place_children_pkey',
   /** unique or primary key constraint on columns "children_id" */
   UkKj0a7ruk5k2bub2028nbkqwtw = 'uk_kj0a7ruk5k2bub2028nbkqwtw',
@@ -42416,7 +42413,7 @@ export type StopsDatabaseStopPlaceKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "stop_place_key_values" */
 export enum StopsDatabaseStopPlaceKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "stop_place_id" */
+  /** unique or primary key constraint on columns "stop_place_id", "key_values_key" */
   StopPlaceKeyValuesPkey = 'stop_place_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   Uk_54aj7c8yuc5751x4c7qly6e5t = 'uk_54aj7c8yuc5751x4c7qly6e5t',
@@ -43719,7 +43716,7 @@ export type StopsDatabaseStopPlaceOrganisationsBoolExp = {
 
 /** unique or primary key constraints on table "stop_place_organisations" */
 export enum StopsDatabaseStopPlaceOrganisationsConstraint {
-  /** unique or primary key constraint on columns "relationship_type", "stop_place_id", "organisation_ref" */
+  /** unique or primary key constraint on columns "organisation_ref", "stop_place_id", "relationship_type" */
   StopPlaceOrganisationsPkey = 'stop_place_organisations_pkey',
 }
 
@@ -43964,7 +43961,7 @@ export type StopsDatabaseStopPlaceQuaysBoolExp = {
 
 /** unique or primary key constraints on table "stop_place_quays" */
 export enum StopsDatabaseStopPlaceQuaysConstraint {
-  /** unique or primary key constraint on columns "quays_id", "stop_place_id" */
+  /** unique or primary key constraint on columns "stop_place_id", "quays_id" */
   StopPlaceQuaysPkey = 'stop_place_quays_pkey',
   /** unique or primary key constraint on columns "quays_id" */
   UkF684i92mysvn6hqigs0j3m2nr = 'uk_f684i92mysvn6hqigs0j3m2nr',
@@ -57369,7 +57366,7 @@ export type StopsDatabaseTariffZoneKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "tariff_zone_key_values" */
 export enum StopsDatabaseTariffZoneKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "tariff_zone_id" */
+  /** unique or primary key constraint on columns "tariff_zone_id", "key_values_key" */
   TariffZoneKeyValuesPkey = 'tariff_zone_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkN3n61qrmgry87uoc7sho0nphm = 'uk_n3n61qrmgry87uoc7sho0nphm',
@@ -58152,7 +58149,7 @@ export type StopsDatabaseTopographicPlaceKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "topographic_place_key_values" */
 export enum StopsDatabaseTopographicPlaceKeyValuesConstraint {
-  /** unique or primary key constraint on columns "key_values_key", "topographic_place_id" */
+  /** unique or primary key constraint on columns "topographic_place_id", "key_values_key" */
   TopographicPlaceKeyValuesPkey = 'topographic_place_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkTq5dgj811w1k4w86m4x66iwso = 'uk_tq5dgj811w1k4w86m4x66iwso',
@@ -60236,7 +60233,7 @@ export type TimetablesJourneyPatternJourneyPatternRefBoolExp = {
   journey_pattern_id?: InputMaybe<UuidComparisonExp>;
   journey_pattern_ref_id?: InputMaybe<UuidComparisonExp>;
   observation_timestamp?: InputMaybe<TimestamptzComparisonExp>;
-  route_direction?: InputMaybe<TimetablesRouteDirectionEnumComparisonExp>;
+  route_direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
   route_label?: InputMaybe<StringComparisonExp>;
   route_validity_end?: InputMaybe<DateComparisonExp>;
   route_validity_start?: InputMaybe<DateComparisonExp>;
@@ -61253,7 +61250,7 @@ export type TimetablesRouteDirectionBoolExp = {
   _not?: InputMaybe<TimetablesRouteDirectionBoolExp>;
   _or?: InputMaybe<Array<TimetablesRouteDirectionBoolExp>>;
   direction?: InputMaybe<StringComparisonExp>;
-  the_opposite_of_direction?: InputMaybe<TimetablesRouteDirectionEnumComparisonExp>;
+  the_opposite_of_direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.direction" */
@@ -61280,15 +61277,6 @@ export enum TimetablesRouteDirectionEnum {
   /** eastbound */
   Westbound = 'westbound',
 }
-
-/** Boolean expression to compare columns of type "timetables_route_direction_enum". All fields are combined with logical 'AND'. */
-export type TimetablesRouteDirectionEnumComparisonExp = {
-  _eq?: InputMaybe<TimetablesRouteDirectionEnum>;
-  _in?: InputMaybe<Array<TimetablesRouteDirectionEnum>>;
-  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
-  _neq?: InputMaybe<TimetablesRouteDirectionEnum>;
-  _nin?: InputMaybe<Array<TimetablesRouteDirectionEnum>>;
-};
 
 /** input type for inserting data into table "route.direction" */
 export type TimetablesRouteDirectionInsertInput = {
@@ -62991,7 +62979,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp
 export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefConstraint {
   /** unique or primary key constraint on columns "scheduled_stop_point_in_journey_pattern_ref_id" */
   ScheduledStopPointInJourneyPatternRefPkey = 'scheduled_stop_point_in_journey_pattern_ref_pkey',
-  /** unique or primary key constraint on columns "journey_pattern_ref_id", "scheduled_stop_point_sequence" */
+  /** unique or primary key constraint on columns "scheduled_stop_point_sequence", "journey_pattern_ref_id" */
   ServicePatternScheduledStopPointInJourneyPatternRefIdx = 'service_pattern_scheduled_stop_point_in_journey_pattern_ref_idx',
 }
 
@@ -67148,7 +67136,7 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceBoolExp = {
 
 /** unique or primary key constraints on table "vehicle_service.journey_patterns_in_vehicle_service" */
 export enum TimetablesVehicleServiceJourneyPatternsInVehicleServiceConstraint {
-  /** unique or primary key constraint on columns "vehicle_service_id", "journey_pattern_id" */
+  /** unique or primary key constraint on columns "journey_pattern_id", "vehicle_service_id" */
   JourneyPatternsInVehicleServicePkey = 'journey_patterns_in_vehicle_service_pkey',
 }
 
@@ -68693,17 +68681,254 @@ export type AlternativeNameInfoFragment = {
 };
 
 export type UpsertStopAreaMutationVariables = Exact<{
-  object?: InputMaybe<StopRegistryGroupOfStopPlacesInput>;
+  input: StopRegistryStopPlaceInput;
 }>;
 
 export type UpsertStopAreaMutation = {
   __typename?: 'mutation_root';
   stop_registry?: {
     __typename?: 'stop_registryStopPlaceMutation';
-    mutateGroupOfStopPlaces?: {
-      __typename?: 'stop_registry_GroupOfStopPlaces';
+    mutateStopPlace?: Array<{
+      __typename?: 'stop_registry_StopPlace';
       id?: string | null;
-    } | null;
+      transportMode?: StopRegistryTransportModeType | null;
+      alternativeNames?: Array<{
+        __typename?: 'stop_registry_AlternativeName';
+        nameType: StopRegistryNameType;
+        name: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        };
+      } | null> | null;
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode';
+        value?: string | null;
+        type?: string | null;
+      } | null;
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      organisations?: Array<{
+        __typename?: 'stop_registry_StopPlaceOrganisationRef';
+        relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+        organisationRef: string;
+        organisation?: {
+          __typename?: 'stop_registry_Organisation';
+          id?: string | null;
+          name?: string | null;
+          privateContactDetails?: {
+            __typename?: 'stop_registry_Contact';
+            id?: string | null;
+            email?: string | null;
+            phone?: string | null;
+          } | null;
+        } | null;
+      } | null> | null;
+      geometry?: {
+        __typename?: 'stop_registry_GeoJSON';
+        type?: StopRegistryGeoJsonType | null;
+        coordinates?: GeoJSON.Position | null;
+      } | null;
+      keyValues?: Array<{
+        __typename?: 'stop_registry_KeyValues';
+        key?: string | null;
+        values?: Array<string | null> | null;
+      } | null> | null;
+      quays?: Array<{
+        __typename?: 'stop_registry_Quay';
+        id?: string | null;
+        publicCode?: string | null;
+        privateCode?: {
+          __typename?: 'stop_registry_PrivateCode';
+          type?: string | null;
+          value?: string | null;
+        } | null;
+        description?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
+        alternativeNames?: Array<{
+          __typename?: 'stop_registry_AlternativeName';
+          nameType: StopRegistryNameType;
+          name: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          };
+        } | null> | null;
+        geometry?: {
+          __typename?: 'stop_registry_GeoJSON';
+          coordinates?: GeoJSON.Position | null;
+          type?: StopRegistryGeoJsonType | null;
+        } | null;
+        accessibilityAssessment?: {
+          __typename?: 'stop_registry_AccessibilityAssessment';
+          id?: string | null;
+          hslAccessibilityProperties?: {
+            __typename?: 'stop_registry_HslAccessibilityProperties';
+            id?: string | null;
+            stopAreaSideSlope?: number | null;
+            stopAreaLengthwiseSlope?: number | null;
+            endRampSlope?: number | null;
+            shelterLaneDistance?: number | null;
+            curbBackOfRailDistance?: number | null;
+            curbDriveSideOfRailDistance?: number | null;
+            structureLaneDistance?: number | null;
+            stopElevationFromRailTop?: number | null;
+            stopElevationFromSidewalk?: number | null;
+            lowerCleatHeight?: number | null;
+            serviceAreaWidth?: number | null;
+            serviceAreaLength?: number | null;
+            platformEdgeWarningArea?: boolean | null;
+            guidanceTiles?: boolean | null;
+            guidanceStripe?: boolean | null;
+            serviceAreaStripes?: boolean | null;
+            sidewalkAccessibleConnection?: boolean | null;
+            stopAreaSurroundingsAccessible?: boolean | null;
+            curvedStop?: boolean | null;
+            stopType?: StopRegistryStopType | null;
+            shelterType?: StopRegistryShelterWidthType | null;
+            guidanceType?: StopRegistryGuidanceType | null;
+            mapType?: StopRegistryMapType | null;
+            pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+            accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+          } | null;
+          limitations?: {
+            __typename?: 'stop_registry_AccessibilityLimitations';
+            id?: string | null;
+            version?: string | null;
+            audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+            escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+            liftFreeAccess?: StopRegistryLimitationStatusType | null;
+            stepFreeAccess?: StopRegistryLimitationStatusType | null;
+            wheelchairAccess?: StopRegistryLimitationStatusType | null;
+          } | null;
+        } | null;
+        keyValues?: Array<{
+          __typename?: 'stop_registry_KeyValues';
+          key?: string | null;
+          values?: Array<string | null> | null;
+        } | null> | null;
+        infoSpots?: Array<{
+          __typename?: 'stop_registry_infoSpot';
+          id?: string | null;
+          backlight?: boolean | null;
+          displayType?: StopRegistryDisplayType | null;
+          floor?: string | null;
+          label?: string | null;
+          posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+          infoSpotLocations?: Array<string | null> | null;
+          infoSpotType?: StopRegistryInfoSpotType | null;
+          purpose?: string | null;
+          railInformation?: string | null;
+          speechProperty?: boolean | null;
+          zoneLabel?: string | null;
+          maintenance?: string | null;
+          description?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          poster?: Array<{
+            __typename?: 'stop_registry_poster';
+            label?: string | null;
+            posterSize?: StopRegistryPosterPlaceSize | null;
+            lines?: string | null;
+          } | null> | null;
+        } | null> | null;
+        placeEquipments?: {
+          __typename?: 'stop_registry_PlaceEquipments';
+          id?: string | null;
+          shelterEquipment?: Array<{
+            __typename?: 'stop_registry_ShelterEquipment';
+            id?: string | null;
+            enclosed?: boolean | null;
+            stepFree?: boolean | null;
+            shelterType?: StopRegistryShelterType | null;
+            shelterElectricity?: StopRegistryShelterElectricity | null;
+            shelterLighting?: boolean | null;
+            shelterCondition?: StopRegistryShelterCondition | null;
+            timetableCabinets?: number | null;
+            trashCan?: boolean | null;
+            shelterHasDisplay?: boolean | null;
+            bicycleParking?: boolean | null;
+            leaningRail?: boolean | null;
+            outsideBench?: boolean | null;
+            shelterFasciaBoardTaping?: boolean | null;
+          } | null> | null;
+          cycleStorageEquipment?: Array<{
+            __typename?: 'stop_registry_CycleStorageEquipment';
+            cycleStorageType?: StopRegistryCycleStorageType | null;
+          } | null> | null;
+          generalSign?: Array<{
+            __typename?: 'stop_registry_GeneralSign';
+            signContentType?: StopRegistrySignContentType | null;
+            numberOfFrames?: number | null;
+            lineSignage?: boolean | null;
+            mainLineSign?: boolean | null;
+            replacesRailSign?: boolean | null;
+            privateCode?: {
+              __typename?: 'stop_registry_PrivateCode';
+              value?: string | null;
+              type?: string | null;
+            } | null;
+            content?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+            } | null;
+            note?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
+          } | null> | null;
+        } | null;
+        scheduled_stop_point?: {
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          timing_place_id?: UUID | null;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
+          measured_location: GeoJSON.Point;
+          timing_place?: {
+            __typename?: 'timing_pattern_timing_place';
+            timing_place_id: UUID;
+            label: string;
+          } | null;
+          vehicle_mode_on_scheduled_stop_point: Array<{
+            __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+            vehicle_mode: ReusableComponentsVehicleModeEnum;
+          }>;
+        } | null;
+      } | null> | null;
+      topographicPlace?: {
+        __typename?: 'stop_registry_TopographicPlace';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+          lang?: string | null;
+        } | null;
+      } | null;
+      fareZones?: Array<{
+        __typename?: 'stop_registry_FareZone';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+          lang?: string | null;
+        } | null;
+      } | null> | null;
+    } | null> | null;
   } | null;
 };
 
@@ -69234,8 +69459,6 @@ export type GetStopPlaceDetailsQuery = {
       | {
           __typename?: 'stop_registry_StopPlace';
           id?: string | null;
-          weighting?: StopRegistryInterchangeWeightingType | null;
-          submode?: StopRegistrySubmodeType | null;
           transportMode?: StopRegistryTransportModeType | null;
           alternativeNames?: Array<{
             __typename?: 'stop_registry_AlternativeName';
@@ -69482,8 +69705,6 @@ export type GetStopPlaceDetailsQuery = {
 export type StopPlaceDetailsFragment = {
   __typename?: 'stop_registry_StopPlace';
   id?: string | null;
-  weighting?: StopRegistryInterchangeWeightingType | null;
-  submode?: StopRegistrySubmodeType | null;
   transportMode?: StopRegistryTransportModeType | null;
   alternativeNames?: Array<{
     __typename?: 'stop_registry_AlternativeName';
@@ -73137,8 +73358,6 @@ export type UpdateStopPlaceMutation = {
     mutateStopPlace?: Array<{
       __typename?: 'stop_registry_StopPlace';
       id?: string | null;
-      weighting?: StopRegistryInterchangeWeightingType | null;
-      submode?: StopRegistrySubmodeType | null;
       transportMode?: StopRegistryTransportModeType | null;
       alternativeNames?: Array<{
         __typename?: 'stop_registry_AlternativeName';
@@ -73467,8 +73686,6 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
       | {
           __typename?: 'stop_registry_StopPlace';
           id?: string | null;
-          weighting?: StopRegistryInterchangeWeightingType | null;
-          submode?: StopRegistrySubmodeType | null;
           transportMode?: StopRegistryTransportModeType | null;
           alternativeNames?: Array<{
             __typename?: 'stop_registry_AlternativeName';
@@ -76091,8 +76308,6 @@ export const StopPlaceDetailsFragmentDoc = gql`
       key
       values
     }
-    weighting
-    submode
     quays {
       ...quay_details
     }
@@ -77099,13 +77314,14 @@ export type ResolveStopAreaAndMemberStopNamesQueryResult = Apollo.QueryResult<
   ResolveStopAreaAndMemberStopNamesQueryVariables
 >;
 export const UpsertStopAreaDocument = gql`
-  mutation UpsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
+  mutation UpsertStopArea($input: stop_registry_StopPlaceInput!) {
     stop_registry {
-      mutateGroupOfStopPlaces(GroupOfStopPlaces: $object) {
-        id
+      mutateStopPlace(StopPlace: $input) {
+        ...stop_place_details
       }
     }
   }
+  ${StopPlaceDetailsFragmentDoc}
 `;
 export type UpsertStopAreaMutationFn = Apollo.MutationFunction<
   UpsertStopAreaMutation,
@@ -77125,7 +77341,7 @@ export type UpsertStopAreaMutationFn = Apollo.MutationFunction<
  * @example
  * const [upsertStopAreaMutation, { data, loading, error }] = useUpsertStopAreaMutation({
  *   variables: {
- *      object: // value for 'object'
+ *      input: // value for 'input'
  *   },
  * });
  */
