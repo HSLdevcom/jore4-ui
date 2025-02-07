@@ -33,7 +33,7 @@ export const useEditStopMeasurementDetails = () => {
   }: EditTiamatParams) => {
     const stopPlaceId = stop.stop_place?.id;
 
-    const limitations = stop.stop_place?.accessibilityAssessment?.limitations;
+    const limitations = stop.quay?.accessibilityAssessment?.limitations;
     const accessibilityLevel = calculateStopAccessibilityLevel({
       accessibilityAssessment: {
         hslAccessibilityProperties: state,
@@ -45,7 +45,7 @@ export const useEditStopMeasurementDetails = () => {
       ...getRequiredStopPlaceMutationProperties(stop.stop_place),
       id: stopPlaceId,
       accessibilityAssessment: {
-        id: stop.stop_place?.accessibilityAssessment?.id,
+        id: stop.quay?.accessibilityAssessment?.id,
         // Limitations are required when submitting accessibility assessment
         limitations: {
           id: limitations?.id ?? null,
@@ -66,8 +66,8 @@ export const useEditStopMeasurementDetails = () => {
             StopRegistryLimitationStatusType.Unknown,
         },
         hslAccessibilityProperties: {
-          id: stop.stop_place?.accessibilityAssessment
-            ?.hslAccessibilityProperties?.id,
+          id: stop.quay?.accessibilityAssessment?.hslAccessibilityProperties
+            ?.id,
           stopAreaSideSlope: state.stopAreaSideSlope ?? null,
           stopAreaLengthwiseSlope: state.stopAreaLengthwiseSlope ?? null,
           endRampSlope: state.endRampSlope ?? null,

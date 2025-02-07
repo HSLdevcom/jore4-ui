@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 import {
   GetStopPlaceDetailsQuery,
+  StopPlaceDetailsFragment,
   useGetStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
 import {
@@ -68,11 +69,19 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
     quays {
       ...quay_details
     }
+
+    transportMode
+    topographicPlace {
+      ...topographic_place_details
+    }
+    fareZones {
+      ...fare_zone_details
+    }
   }
 `;
 
 function getEnrichedStopPlace(
-  stopPlace: StopPlace | null,
+  stopPlace: StopPlaceDetailsFragment | null | undefined,
 ): EnrichedStopPlace | null {
   if (!stopPlace) {
     return null;
@@ -87,10 +96,10 @@ function getEnrichedStopPlace(
 function getStopPlaceDetails(
   data: GetStopPlaceDetailsQuery | undefined,
 ): EnrichedStopPlace | null {
-  const [stopPlace] = getStopPlacesFromQueryResult<StopPlace>(
+  const stopPlaces = getStopPlacesFromQueryResult<StopPlaceDetailsFragment>(
     data?.stop_registry?.stopPlace,
   );
-  return getEnrichedStopPlace(stopPlace);
+  return getEnrichedStopPlace(stopPlaces.at(0));
 }
 
 export function useGetStopPlaceDetails() {

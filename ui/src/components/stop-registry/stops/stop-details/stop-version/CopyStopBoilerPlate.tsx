@@ -23,7 +23,7 @@ export const CopyStopBoilerPlate: FC<CopyStopBoilerPlateProps> = ({
       <p>{t('stopDetails.version.copyBoilerPlate')}</p>
       <p className="mt-1 font-bold" data-testid={testIds.names}>
         <span>{originalStop.label}</span>{' '}
-        <span>{originalStop.stop_place?.nameFin ?? '-'}</span>
+        <span>{originalStop.stop_place?.name ?? '-'}</span>
         <span className="mx-2">|</span>
         <span>{originalStop.stop_place?.nameSwe ?? '-'}</span>
       </p>

@@ -65,7 +65,7 @@ export const SignageDetailsViewCard = ({ stop }: Props): React.ReactElement => {
             testId={testIds.mainLineSign}
           />
           <MainLineWarning
-            isMainLineStop={!!stop.stop_place?.stopType.mainLine}
+            isMainLineStop={!!stop.quay?.stopType.mainLine}
             hasMainLineSign={
               !!stop.quay?.placeEquipments?.generalSign?.[0]?.mainLineSign
             }
