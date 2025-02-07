@@ -24,8 +24,9 @@ import {
 } from '../../../../forms/stop-area';
 
 const testIds = {
-  label: 'StopAreaDetailsEdit::label',
+  privateCode: 'StopAreaDetailsEdit::privateCode',
   name: 'StopAreaDetailsEdit::name',
+  nameSwe: 'StopAreaDetailsEdit::nameSwe',
   latitude: 'StopAreaDetailsEdit::latitude',
   longitude: 'StopAreaDetailsEdit::longitude',
 };
@@ -33,18 +34,30 @@ const testIds = {
 export const mapStopAreaDataToFormState = (
   area: EnrichedStopPlace,
 ): Partial<FormState> => {
+  // Added random coordinates for testing purposes, page breaks with empty array
   const { latitude, longitude } = mapLngLatToPoint(
-    area.geometry?.coordinates ?? [],
+    area.geometry?.coordinates ?? [60.17, 24.94],
   );
 
   return {
-    label: area.name?.value ?? undefined,
+    privateCode: area.privateCode?.value ?? undefined,
     name: area.name ?? undefined,
+    nameSwe: area.nameSwe ?? undefined,
     latitude,
     longitude,
     validityStart: mapToISODate(area.validityStart),
     validityEnd: mapToISODate(area.validityEnd),
     indefinite: !area.validityEnd,
+    quays: (area.quays ?? []).map((quay) => ({
+      id: quay?.id ?? '',
+      name: {
+        value: quay?.description?.value ?? '',
+        lang: quay?.description?.lang ?? '',
+      },
+      scheduled_stop_point: {
+        label: quay?.scheduled_stop_point?.label ?? '',
+      },
+    })),
   };
 };
 
@@ -80,7 +93,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   const onSubmit = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
-      await upsertStopArea({ id: area.id, state });
+      await upsertStopArea({ stop: area, state });
       await refetch();
 
       showSuccessToast(t('stopArea.editSuccess'));
@@ -113,17 +126,25 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
             <Column>
               <InputField<FormState>
                 type="text"
-                translationPrefix="stopArea"
-                fieldPath="label"
-                testId={testIds.label}
+                translationPrefix="stopAreaDetails.basicDetails"
+                fieldPath="privateCode"
+                testId={testIds.privateCode}
               />
             </Column>
             <Column>
               <InputField<FormState>
                 type="text"
-                translationPrefix="stopArea"
+                translationPrefix="stopAreaDetails.basicDetails"
                 fieldPath="name"
                 testId={testIds.name}
+              />
+            </Column>
+            <Column>
+              <InputField<FormState>
+                type="text"
+                translationPrefix="stopDetails.basicDetails"
+                fieldPath="nameSwe"
+                testId={testIds.nameSwe}
               />
             </Column>
             <Column>

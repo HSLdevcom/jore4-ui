@@ -68693,17 +68693,254 @@ export type AlternativeNameInfoFragment = {
 };
 
 export type UpsertStopAreaMutationVariables = Exact<{
-  object?: InputMaybe<StopRegistryGroupOfStopPlacesInput>;
+  input: StopRegistryStopPlaceInput;
 }>;
 
 export type UpsertStopAreaMutation = {
   __typename?: 'mutation_root';
   stop_registry?: {
     __typename?: 'stop_registryStopPlaceMutation';
-    mutateGroupOfStopPlaces?: {
-      __typename?: 'stop_registry_GroupOfStopPlaces';
+    mutateStopPlace?: Array<{
+      __typename?: 'stop_registry_StopPlace';
       id?: string | null;
-    } | null;
+      transportMode?: StopRegistryTransportModeType | null;
+      alternativeNames?: Array<{
+        __typename?: 'stop_registry_AlternativeName';
+        nameType: StopRegistryNameType;
+        name: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        };
+      } | null> | null;
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode';
+        value?: string | null;
+        type?: string | null;
+      } | null;
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      organisations?: Array<{
+        __typename?: 'stop_registry_StopPlaceOrganisationRef';
+        relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
+        organisationRef: string;
+        organisation?: {
+          __typename?: 'stop_registry_Organisation';
+          id?: string | null;
+          name?: string | null;
+          privateContactDetails?: {
+            __typename?: 'stop_registry_Contact';
+            id?: string | null;
+            email?: string | null;
+            phone?: string | null;
+          } | null;
+        } | null;
+      } | null> | null;
+      geometry?: {
+        __typename?: 'stop_registry_GeoJSON';
+        type?: StopRegistryGeoJsonType | null;
+        coordinates?: GeoJSON.Position | null;
+      } | null;
+      keyValues?: Array<{
+        __typename?: 'stop_registry_KeyValues';
+        key?: string | null;
+        values?: Array<string | null> | null;
+      } | null> | null;
+      quays?: Array<{
+        __typename?: 'stop_registry_Quay';
+        id?: string | null;
+        publicCode?: string | null;
+        privateCode?: {
+          __typename?: 'stop_registry_PrivateCode';
+          type?: string | null;
+          value?: string | null;
+        } | null;
+        description?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
+        alternativeNames?: Array<{
+          __typename?: 'stop_registry_AlternativeName';
+          nameType: StopRegistryNameType;
+          name: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          };
+        } | null> | null;
+        geometry?: {
+          __typename?: 'stop_registry_GeoJSON';
+          coordinates?: GeoJSON.Position | null;
+          type?: StopRegistryGeoJsonType | null;
+        } | null;
+        accessibilityAssessment?: {
+          __typename?: 'stop_registry_AccessibilityAssessment';
+          id?: string | null;
+          hslAccessibilityProperties?: {
+            __typename?: 'stop_registry_HslAccessibilityProperties';
+            id?: string | null;
+            stopAreaSideSlope?: number | null;
+            stopAreaLengthwiseSlope?: number | null;
+            endRampSlope?: number | null;
+            shelterLaneDistance?: number | null;
+            curbBackOfRailDistance?: number | null;
+            curbDriveSideOfRailDistance?: number | null;
+            structureLaneDistance?: number | null;
+            stopElevationFromRailTop?: number | null;
+            stopElevationFromSidewalk?: number | null;
+            lowerCleatHeight?: number | null;
+            serviceAreaWidth?: number | null;
+            serviceAreaLength?: number | null;
+            platformEdgeWarningArea?: boolean | null;
+            guidanceTiles?: boolean | null;
+            guidanceStripe?: boolean | null;
+            serviceAreaStripes?: boolean | null;
+            sidewalkAccessibleConnection?: boolean | null;
+            stopAreaSurroundingsAccessible?: boolean | null;
+            curvedStop?: boolean | null;
+            stopType?: StopRegistryStopType | null;
+            shelterType?: StopRegistryShelterWidthType | null;
+            guidanceType?: StopRegistryGuidanceType | null;
+            mapType?: StopRegistryMapType | null;
+            pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+            accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+          } | null;
+          limitations?: {
+            __typename?: 'stop_registry_AccessibilityLimitations';
+            id?: string | null;
+            version?: string | null;
+            audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+            escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+            liftFreeAccess?: StopRegistryLimitationStatusType | null;
+            stepFreeAccess?: StopRegistryLimitationStatusType | null;
+            wheelchairAccess?: StopRegistryLimitationStatusType | null;
+          } | null;
+        } | null;
+        keyValues?: Array<{
+          __typename?: 'stop_registry_KeyValues';
+          key?: string | null;
+          values?: Array<string | null> | null;
+        } | null> | null;
+        infoSpots?: Array<{
+          __typename?: 'stop_registry_infoSpot';
+          id?: string | null;
+          backlight?: boolean | null;
+          displayType?: StopRegistryDisplayType | null;
+          floor?: string | null;
+          label?: string | null;
+          posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+          infoSpotLocations?: Array<string | null> | null;
+          infoSpotType?: StopRegistryInfoSpotType | null;
+          purpose?: string | null;
+          railInformation?: string | null;
+          speechProperty?: boolean | null;
+          zoneLabel?: string | null;
+          maintenance?: string | null;
+          description?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          poster?: Array<{
+            __typename?: 'stop_registry_poster';
+            label?: string | null;
+            posterSize?: StopRegistryPosterPlaceSize | null;
+            lines?: string | null;
+          } | null> | null;
+        } | null> | null;
+        placeEquipments?: {
+          __typename?: 'stop_registry_PlaceEquipments';
+          id?: string | null;
+          shelterEquipment?: Array<{
+            __typename?: 'stop_registry_ShelterEquipment';
+            id?: string | null;
+            enclosed?: boolean | null;
+            stepFree?: boolean | null;
+            shelterType?: StopRegistryShelterType | null;
+            shelterElectricity?: StopRegistryShelterElectricity | null;
+            shelterLighting?: boolean | null;
+            shelterCondition?: StopRegistryShelterCondition | null;
+            timetableCabinets?: number | null;
+            trashCan?: boolean | null;
+            shelterHasDisplay?: boolean | null;
+            bicycleParking?: boolean | null;
+            leaningRail?: boolean | null;
+            outsideBench?: boolean | null;
+            shelterFasciaBoardTaping?: boolean | null;
+          } | null> | null;
+          cycleStorageEquipment?: Array<{
+            __typename?: 'stop_registry_CycleStorageEquipment';
+            cycleStorageType?: StopRegistryCycleStorageType | null;
+          } | null> | null;
+          generalSign?: Array<{
+            __typename?: 'stop_registry_GeneralSign';
+            signContentType?: StopRegistrySignContentType | null;
+            numberOfFrames?: number | null;
+            lineSignage?: boolean | null;
+            mainLineSign?: boolean | null;
+            replacesRailSign?: boolean | null;
+            privateCode?: {
+              __typename?: 'stop_registry_PrivateCode';
+              value?: string | null;
+              type?: string | null;
+            } | null;
+            content?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+            } | null;
+            note?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
+          } | null> | null;
+        } | null;
+        scheduled_stop_point?: {
+          __typename?: 'service_pattern_scheduled_stop_point';
+          priority: number;
+          direction: InfrastructureNetworkDirectionEnum;
+          scheduled_stop_point_id: UUID;
+          label: string;
+          timing_place_id?: UUID | null;
+          validity_start?: luxon.DateTime | null;
+          validity_end?: luxon.DateTime | null;
+          located_on_infrastructure_link_id: UUID;
+          stop_place_ref?: string | null;
+          measured_location: GeoJSON.Point;
+          timing_place?: {
+            __typename?: 'timing_pattern_timing_place';
+            timing_place_id: UUID;
+            label: string;
+          } | null;
+          vehicle_mode_on_scheduled_stop_point: Array<{
+            __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+            vehicle_mode: ReusableComponentsVehicleModeEnum;
+          }>;
+        } | null;
+      } | null> | null;
+      topographicPlace?: {
+        __typename?: 'stop_registry_TopographicPlace';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+          lang?: string | null;
+        } | null;
+      } | null;
+      fareZones?: Array<{
+        __typename?: 'stop_registry_FareZone';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+          lang?: string | null;
+        } | null;
+      } | null> | null;
+    } | null> | null;
   } | null;
 };
 
@@ -69234,8 +69471,6 @@ export type GetStopPlaceDetailsQuery = {
       | {
           __typename?: 'stop_registry_StopPlace';
           id?: string | null;
-          weighting?: StopRegistryInterchangeWeightingType | null;
-          submode?: StopRegistrySubmodeType | null;
           transportMode?: StopRegistryTransportModeType | null;
           alternativeNames?: Array<{
             __typename?: 'stop_registry_AlternativeName';
@@ -69482,8 +69717,6 @@ export type GetStopPlaceDetailsQuery = {
 export type StopPlaceDetailsFragment = {
   __typename?: 'stop_registry_StopPlace';
   id?: string | null;
-  weighting?: StopRegistryInterchangeWeightingType | null;
-  submode?: StopRegistrySubmodeType | null;
   transportMode?: StopRegistryTransportModeType | null;
   alternativeNames?: Array<{
     __typename?: 'stop_registry_AlternativeName';
@@ -73137,8 +73370,6 @@ export type UpdateStopPlaceMutation = {
     mutateStopPlace?: Array<{
       __typename?: 'stop_registry_StopPlace';
       id?: string | null;
-      weighting?: StopRegistryInterchangeWeightingType | null;
-      submode?: StopRegistrySubmodeType | null;
       transportMode?: StopRegistryTransportModeType | null;
       alternativeNames?: Array<{
         __typename?: 'stop_registry_AlternativeName';
@@ -73467,8 +73698,6 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
       | {
           __typename?: 'stop_registry_StopPlace';
           id?: string | null;
-          weighting?: StopRegistryInterchangeWeightingType | null;
-          submode?: StopRegistrySubmodeType | null;
           transportMode?: StopRegistryTransportModeType | null;
           alternativeNames?: Array<{
             __typename?: 'stop_registry_AlternativeName';
@@ -76091,8 +76320,6 @@ export const StopPlaceDetailsFragmentDoc = gql`
       key
       values
     }
-    weighting
-    submode
     quays {
       ...quay_details
     }
@@ -77099,13 +77326,14 @@ export type ResolveStopAreaAndMemberStopNamesQueryResult = Apollo.QueryResult<
   ResolveStopAreaAndMemberStopNamesQueryVariables
 >;
 export const UpsertStopAreaDocument = gql`
-  mutation UpsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
+  mutation UpsertStopArea($input: stop_registry_StopPlaceInput!) {
     stop_registry {
-      mutateGroupOfStopPlaces(GroupOfStopPlaces: $object) {
-        id
+      mutateStopPlace(StopPlace: $input) {
+        ...stop_place_details
       }
     }
   }
+  ${StopPlaceDetailsFragmentDoc}
 `;
 export type UpsertStopAreaMutationFn = Apollo.MutationFunction<
   UpsertStopAreaMutation,
@@ -77125,7 +77353,7 @@ export type UpsertStopAreaMutationFn = Apollo.MutationFunction<
  * @example
  * const [upsertStopAreaMutation, { data, loading, error }] = useUpsertStopAreaMutation({
  *   variables: {
- *      object: // value for 'object'
+ *      input: // value for 'input'
  *   },
  * });
  */
