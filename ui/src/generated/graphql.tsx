@@ -69221,11 +69221,11 @@ export type SearchStopsQuery = {
   } | null;
 };
 
-export type GetStopAreaDetailsQueryVariables = Exact<{
+export type GetStopPlaceDetailsQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
-export type GetStopAreaDetailsQuery = {
+export type GetStopPlaceDetailsQuery = {
   __typename?: 'query_root';
   stop_registry?: {
     __typename?: 'stop_registryStopPlaceRegister';
@@ -69236,6 +69236,7 @@ export type GetStopAreaDetailsQuery = {
           id?: string | null;
           weighting?: StopRegistryInterchangeWeightingType | null;
           submode?: StopRegistrySubmodeType | null;
+          transportMode?: StopRegistryTransportModeType | null;
           alternativeNames?: Array<{
             __typename?: 'stop_registry_AlternativeName';
             nameType: StopRegistryNameType;
@@ -69285,6 +69286,16 @@ export type GetStopAreaDetailsQuery = {
             __typename?: 'stop_registry_Quay';
             id?: string | null;
             publicCode?: string | null;
+            privateCode?: {
+              __typename?: 'stop_registry_PrivateCode';
+              type?: string | null;
+              value?: string | null;
+            } | null;
+            description?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
             alternativeNames?: Array<{
               __typename?: 'stop_registry_AlternativeName';
               nameType: StopRegistryNameType;
@@ -69293,6 +69304,86 @@ export type GetStopAreaDetailsQuery = {
                 lang?: string | null;
                 value?: string | null;
               };
+            } | null> | null;
+            geometry?: {
+              __typename?: 'stop_registry_GeoJSON';
+              coordinates?: GeoJSON.Position | null;
+              type?: StopRegistryGeoJsonType | null;
+            } | null;
+            accessibilityAssessment?: {
+              __typename?: 'stop_registry_AccessibilityAssessment';
+              id?: string | null;
+              hslAccessibilityProperties?: {
+                __typename?: 'stop_registry_HslAccessibilityProperties';
+                id?: string | null;
+                stopAreaSideSlope?: number | null;
+                stopAreaLengthwiseSlope?: number | null;
+                endRampSlope?: number | null;
+                shelterLaneDistance?: number | null;
+                curbBackOfRailDistance?: number | null;
+                curbDriveSideOfRailDistance?: number | null;
+                structureLaneDistance?: number | null;
+                stopElevationFromRailTop?: number | null;
+                stopElevationFromSidewalk?: number | null;
+                lowerCleatHeight?: number | null;
+                serviceAreaWidth?: number | null;
+                serviceAreaLength?: number | null;
+                platformEdgeWarningArea?: boolean | null;
+                guidanceTiles?: boolean | null;
+                guidanceStripe?: boolean | null;
+                serviceAreaStripes?: boolean | null;
+                sidewalkAccessibleConnection?: boolean | null;
+                stopAreaSurroundingsAccessible?: boolean | null;
+                curvedStop?: boolean | null;
+                stopType?: StopRegistryStopType | null;
+                shelterType?: StopRegistryShelterWidthType | null;
+                guidanceType?: StopRegistryGuidanceType | null;
+                mapType?: StopRegistryMapType | null;
+                pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+                accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+              } | null;
+              limitations?: {
+                __typename?: 'stop_registry_AccessibilityLimitations';
+                id?: string | null;
+                version?: string | null;
+                audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+                escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+                liftFreeAccess?: StopRegistryLimitationStatusType | null;
+                stepFreeAccess?: StopRegistryLimitationStatusType | null;
+                wheelchairAccess?: StopRegistryLimitationStatusType | null;
+              } | null;
+            } | null;
+            keyValues?: Array<{
+              __typename?: 'stop_registry_KeyValues';
+              key?: string | null;
+              values?: Array<string | null> | null;
+            } | null> | null;
+            infoSpots?: Array<{
+              __typename?: 'stop_registry_infoSpot';
+              id?: string | null;
+              backlight?: boolean | null;
+              displayType?: StopRegistryDisplayType | null;
+              floor?: string | null;
+              label?: string | null;
+              posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+              infoSpotLocations?: Array<string | null> | null;
+              infoSpotType?: StopRegistryInfoSpotType | null;
+              purpose?: string | null;
+              railInformation?: string | null;
+              speechProperty?: boolean | null;
+              zoneLabel?: string | null;
+              maintenance?: string | null;
+              description?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString';
+                lang?: string | null;
+                value?: string | null;
+              } | null;
+              poster?: Array<{
+                __typename?: 'stop_registry_poster';
+                label?: string | null;
+                posterSize?: StopRegistryPosterPlaceSize | null;
+                lines?: string | null;
+              } | null> | null;
             } | null> | null;
             placeEquipments?: {
               __typename?: 'stop_registry_PlaceEquipments';
@@ -69318,6 +69409,28 @@ export type GetStopAreaDetailsQuery = {
                 __typename?: 'stop_registry_CycleStorageEquipment';
                 cycleStorageType?: StopRegistryCycleStorageType | null;
               } | null> | null;
+              generalSign?: Array<{
+                __typename?: 'stop_registry_GeneralSign';
+                signContentType?: StopRegistrySignContentType | null;
+                numberOfFrames?: number | null;
+                lineSignage?: boolean | null;
+                mainLineSign?: boolean | null;
+                replacesRailSign?: boolean | null;
+                privateCode?: {
+                  __typename?: 'stop_registry_PrivateCode';
+                  value?: string | null;
+                  type?: string | null;
+                } | null;
+                content?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString';
+                  value?: string | null;
+                } | null;
+                note?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString';
+                  lang?: string | null;
+                  value?: string | null;
+                } | null;
+              } | null> | null;
             } | null;
             scheduled_stop_point?: {
               __typename?: 'service_pattern_scheduled_stop_point';
@@ -69342,17 +69455,36 @@ export type GetStopAreaDetailsQuery = {
               }>;
             } | null;
           } | null> | null;
+          topographicPlace?: {
+            __typename?: 'stop_registry_TopographicPlace';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+              lang?: string | null;
+            } | null;
+          } | null;
+          fareZones?: Array<{
+            __typename?: 'stop_registry_FareZone';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+              lang?: string | null;
+            } | null;
+          } | null> | null;
         }
       | null
     > | null;
   } | null;
 };
 
-export type StopAreaDetailsFragment = {
+export type StopPlaceDetailsFragment = {
   __typename?: 'stop_registry_StopPlace';
   id?: string | null;
   weighting?: StopRegistryInterchangeWeightingType | null;
   submode?: StopRegistrySubmodeType | null;
+  transportMode?: StopRegistryTransportModeType | null;
   alternativeNames?: Array<{
     __typename?: 'stop_registry_AlternativeName';
     nameType: StopRegistryNameType;
@@ -69402,6 +69534,16 @@ export type StopAreaDetailsFragment = {
     __typename?: 'stop_registry_Quay';
     id?: string | null;
     publicCode?: string | null;
+    privateCode?: {
+      __typename?: 'stop_registry_PrivateCode';
+      type?: string | null;
+      value?: string | null;
+    } | null;
+    description?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      lang?: string | null;
+      value?: string | null;
+    } | null;
     alternativeNames?: Array<{
       __typename?: 'stop_registry_AlternativeName';
       nameType: StopRegistryNameType;
@@ -69410,6 +69552,86 @@ export type StopAreaDetailsFragment = {
         lang?: string | null;
         value?: string | null;
       };
+    } | null> | null;
+    geometry?: {
+      __typename?: 'stop_registry_GeoJSON';
+      coordinates?: GeoJSON.Position | null;
+      type?: StopRegistryGeoJsonType | null;
+    } | null;
+    accessibilityAssessment?: {
+      __typename?: 'stop_registry_AccessibilityAssessment';
+      id?: string | null;
+      hslAccessibilityProperties?: {
+        __typename?: 'stop_registry_HslAccessibilityProperties';
+        id?: string | null;
+        stopAreaSideSlope?: number | null;
+        stopAreaLengthwiseSlope?: number | null;
+        endRampSlope?: number | null;
+        shelterLaneDistance?: number | null;
+        curbBackOfRailDistance?: number | null;
+        curbDriveSideOfRailDistance?: number | null;
+        structureLaneDistance?: number | null;
+        stopElevationFromRailTop?: number | null;
+        stopElevationFromSidewalk?: number | null;
+        lowerCleatHeight?: number | null;
+        serviceAreaWidth?: number | null;
+        serviceAreaLength?: number | null;
+        platformEdgeWarningArea?: boolean | null;
+        guidanceTiles?: boolean | null;
+        guidanceStripe?: boolean | null;
+        serviceAreaStripes?: boolean | null;
+        sidewalkAccessibleConnection?: boolean | null;
+        stopAreaSurroundingsAccessible?: boolean | null;
+        curvedStop?: boolean | null;
+        stopType?: StopRegistryStopType | null;
+        shelterType?: StopRegistryShelterWidthType | null;
+        guidanceType?: StopRegistryGuidanceType | null;
+        mapType?: StopRegistryMapType | null;
+        pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+        accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+      } | null;
+      limitations?: {
+        __typename?: 'stop_registry_AccessibilityLimitations';
+        id?: string | null;
+        version?: string | null;
+        audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+        escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+        liftFreeAccess?: StopRegistryLimitationStatusType | null;
+        stepFreeAccess?: StopRegistryLimitationStatusType | null;
+        wheelchairAccess?: StopRegistryLimitationStatusType | null;
+      } | null;
+    } | null;
+    keyValues?: Array<{
+      __typename?: 'stop_registry_KeyValues';
+      key?: string | null;
+      values?: Array<string | null> | null;
+    } | null> | null;
+    infoSpots?: Array<{
+      __typename?: 'stop_registry_infoSpot';
+      id?: string | null;
+      backlight?: boolean | null;
+      displayType?: StopRegistryDisplayType | null;
+      floor?: string | null;
+      label?: string | null;
+      posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+      infoSpotLocations?: Array<string | null> | null;
+      infoSpotType?: StopRegistryInfoSpotType | null;
+      purpose?: string | null;
+      railInformation?: string | null;
+      speechProperty?: boolean | null;
+      zoneLabel?: string | null;
+      maintenance?: string | null;
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+      poster?: Array<{
+        __typename?: 'stop_registry_poster';
+        label?: string | null;
+        posterSize?: StopRegistryPosterPlaceSize | null;
+        lines?: string | null;
+      } | null> | null;
     } | null> | null;
     placeEquipments?: {
       __typename?: 'stop_registry_PlaceEquipments';
@@ -69435,6 +69657,28 @@ export type StopAreaDetailsFragment = {
         __typename?: 'stop_registry_CycleStorageEquipment';
         cycleStorageType?: StopRegistryCycleStorageType | null;
       } | null> | null;
+      generalSign?: Array<{
+        __typename?: 'stop_registry_GeneralSign';
+        signContentType?: StopRegistrySignContentType | null;
+        numberOfFrames?: number | null;
+        lineSignage?: boolean | null;
+        mainLineSign?: boolean | null;
+        replacesRailSign?: boolean | null;
+        privateCode?: {
+          __typename?: 'stop_registry_PrivateCode';
+          value?: string | null;
+          type?: string | null;
+        } | null;
+        content?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+        } | null;
+        note?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
+      } | null> | null;
     } | null;
     scheduled_stop_point?: {
       __typename?: 'service_pattern_scheduled_stop_point';
@@ -69457,6 +69701,24 @@ export type StopAreaDetailsFragment = {
         __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
         vehicle_mode: ReusableComponentsVehicleModeEnum;
       }>;
+    } | null;
+  } | null> | null;
+  topographicPlace?: {
+    __typename?: 'stop_registry_TopographicPlace';
+    id?: string | null;
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      value?: string | null;
+      lang?: string | null;
+    } | null;
+  } | null;
+  fareZones?: Array<{
+    __typename?: 'stop_registry_FareZone';
+    id?: string | null;
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString';
+      value?: string | null;
+      lang?: string | null;
     } | null;
   } | null> | null;
 };
@@ -72877,6 +73139,7 @@ export type UpdateStopPlaceMutation = {
       id?: string | null;
       weighting?: StopRegistryInterchangeWeightingType | null;
       submode?: StopRegistrySubmodeType | null;
+      transportMode?: StopRegistryTransportModeType | null;
       alternativeNames?: Array<{
         __typename?: 'stop_registry_AlternativeName';
         nameType: StopRegistryNameType;
@@ -72926,6 +73189,16 @@ export type UpdateStopPlaceMutation = {
         __typename?: 'stop_registry_Quay';
         id?: string | null;
         publicCode?: string | null;
+        privateCode?: {
+          __typename?: 'stop_registry_PrivateCode';
+          type?: string | null;
+          value?: string | null;
+        } | null;
+        description?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          lang?: string | null;
+          value?: string | null;
+        } | null;
         alternativeNames?: Array<{
           __typename?: 'stop_registry_AlternativeName';
           nameType: StopRegistryNameType;
@@ -72939,6 +73212,128 @@ export type UpdateStopPlaceMutation = {
           __typename?: 'stop_registry_GeoJSON';
           coordinates?: GeoJSON.Position | null;
           type?: StopRegistryGeoJsonType | null;
+        } | null;
+        accessibilityAssessment?: {
+          __typename?: 'stop_registry_AccessibilityAssessment';
+          id?: string | null;
+          hslAccessibilityProperties?: {
+            __typename?: 'stop_registry_HslAccessibilityProperties';
+            id?: string | null;
+            stopAreaSideSlope?: number | null;
+            stopAreaLengthwiseSlope?: number | null;
+            endRampSlope?: number | null;
+            shelterLaneDistance?: number | null;
+            curbBackOfRailDistance?: number | null;
+            curbDriveSideOfRailDistance?: number | null;
+            structureLaneDistance?: number | null;
+            stopElevationFromRailTop?: number | null;
+            stopElevationFromSidewalk?: number | null;
+            lowerCleatHeight?: number | null;
+            serviceAreaWidth?: number | null;
+            serviceAreaLength?: number | null;
+            platformEdgeWarningArea?: boolean | null;
+            guidanceTiles?: boolean | null;
+            guidanceStripe?: boolean | null;
+            serviceAreaStripes?: boolean | null;
+            sidewalkAccessibleConnection?: boolean | null;
+            stopAreaSurroundingsAccessible?: boolean | null;
+            curvedStop?: boolean | null;
+            stopType?: StopRegistryStopType | null;
+            shelterType?: StopRegistryShelterWidthType | null;
+            guidanceType?: StopRegistryGuidanceType | null;
+            mapType?: StopRegistryMapType | null;
+            pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+            accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+          } | null;
+          limitations?: {
+            __typename?: 'stop_registry_AccessibilityLimitations';
+            id?: string | null;
+            version?: string | null;
+            audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+            escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+            liftFreeAccess?: StopRegistryLimitationStatusType | null;
+            stepFreeAccess?: StopRegistryLimitationStatusType | null;
+            wheelchairAccess?: StopRegistryLimitationStatusType | null;
+          } | null;
+        } | null;
+        keyValues?: Array<{
+          __typename?: 'stop_registry_KeyValues';
+          key?: string | null;
+          values?: Array<string | null> | null;
+        } | null> | null;
+        infoSpots?: Array<{
+          __typename?: 'stop_registry_infoSpot';
+          id?: string | null;
+          backlight?: boolean | null;
+          displayType?: StopRegistryDisplayType | null;
+          floor?: string | null;
+          label?: string | null;
+          posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+          infoSpotLocations?: Array<string | null> | null;
+          infoSpotType?: StopRegistryInfoSpotType | null;
+          purpose?: string | null;
+          railInformation?: string | null;
+          speechProperty?: boolean | null;
+          zoneLabel?: string | null;
+          maintenance?: string | null;
+          description?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          poster?: Array<{
+            __typename?: 'stop_registry_poster';
+            label?: string | null;
+            posterSize?: StopRegistryPosterPlaceSize | null;
+            lines?: string | null;
+          } | null> | null;
+        } | null> | null;
+        placeEquipments?: {
+          __typename?: 'stop_registry_PlaceEquipments';
+          id?: string | null;
+          shelterEquipment?: Array<{
+            __typename?: 'stop_registry_ShelterEquipment';
+            id?: string | null;
+            enclosed?: boolean | null;
+            stepFree?: boolean | null;
+            shelterType?: StopRegistryShelterType | null;
+            shelterElectricity?: StopRegistryShelterElectricity | null;
+            shelterLighting?: boolean | null;
+            shelterCondition?: StopRegistryShelterCondition | null;
+            timetableCabinets?: number | null;
+            trashCan?: boolean | null;
+            shelterHasDisplay?: boolean | null;
+            bicycleParking?: boolean | null;
+            leaningRail?: boolean | null;
+            outsideBench?: boolean | null;
+            shelterFasciaBoardTaping?: boolean | null;
+          } | null> | null;
+          cycleStorageEquipment?: Array<{
+            __typename?: 'stop_registry_CycleStorageEquipment';
+            cycleStorageType?: StopRegistryCycleStorageType | null;
+          } | null> | null;
+          generalSign?: Array<{
+            __typename?: 'stop_registry_GeneralSign';
+            signContentType?: StopRegistrySignContentType | null;
+            numberOfFrames?: number | null;
+            lineSignage?: boolean | null;
+            mainLineSign?: boolean | null;
+            replacesRailSign?: boolean | null;
+            privateCode?: {
+              __typename?: 'stop_registry_PrivateCode';
+              value?: string | null;
+              type?: string | null;
+            } | null;
+            content?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+            } | null;
+            note?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
+          } | null> | null;
         } | null;
         scheduled_stop_point?: {
           __typename?: 'service_pattern_scheduled_stop_point';
@@ -72961,6 +73356,24 @@ export type UpdateStopPlaceMutation = {
             __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
             vehicle_mode: ReusableComponentsVehicleModeEnum;
           }>;
+        } | null;
+      } | null> | null;
+      topographicPlace?: {
+        __typename?: 'stop_registry_TopographicPlace';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+          lang?: string | null;
+        } | null;
+      } | null;
+      fareZones?: Array<{
+        __typename?: 'stop_registry_FareZone';
+        id?: string | null;
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString';
+          value?: string | null;
+          lang?: string | null;
         } | null;
       } | null> | null;
     } | null> | null;
@@ -73056,6 +73469,7 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
           id?: string | null;
           weighting?: StopRegistryInterchangeWeightingType | null;
           submode?: StopRegistrySubmodeType | null;
+          transportMode?: StopRegistryTransportModeType | null;
           alternativeNames?: Array<{
             __typename?: 'stop_registry_AlternativeName';
             nameType: StopRegistryNameType;
@@ -73105,6 +73519,16 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
             __typename?: 'stop_registry_Quay';
             id?: string | null;
             publicCode?: string | null;
+            privateCode?: {
+              __typename?: 'stop_registry_PrivateCode';
+              type?: string | null;
+              value?: string | null;
+            } | null;
+            description?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            } | null;
             alternativeNames?: Array<{
               __typename?: 'stop_registry_AlternativeName';
               nameType: StopRegistryNameType;
@@ -73119,116 +73543,80 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
               coordinates?: GeoJSON.Position | null;
               type?: StopRegistryGeoJsonType | null;
             } | null;
-            scheduled_stop_point?: {
-              __typename?: 'service_pattern_scheduled_stop_point';
-              priority: number;
-              direction: InfrastructureNetworkDirectionEnum;
-              scheduled_stop_point_id: UUID;
-              label: string;
-              timing_place_id?: UUID | null;
-              validity_start?: luxon.DateTime | null;
-              validity_end?: luxon.DateTime | null;
-              located_on_infrastructure_link_id: UUID;
-              stop_place_ref?: string | null;
-              measured_location: GeoJSON.Point;
-              timing_place?: {
-                __typename?: 'timing_pattern_timing_place';
-                timing_place_id: UUID;
-                label: string;
-              } | null;
-              vehicle_mode_on_scheduled_stop_point: Array<{
-                __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-                vehicle_mode: ReusableComponentsVehicleModeEnum;
-              }>;
-            } | null;
-          } | null> | null;
-        }
-      | null
-    > | null;
-    timing_place?: {
-      __typename?: 'timing_pattern_timing_place';
-      timing_place_id: UUID;
-      label: string;
-    } | null;
-    vehicle_mode_on_scheduled_stop_point: Array<{
-      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-      vehicle_mode: ReusableComponentsVehicleModeEnum;
-    }>;
-  }>;
-};
-
-export type GetStopPlaceDetailsQueryVariables = Exact<{
-  id: Scalars['String']['input'];
-}>;
-
-export type GetStopPlaceDetailsQuery = {
-  __typename?: 'query_root';
-  stop_registry?: {
-    __typename?: 'stop_registryStopPlaceRegister';
-    stopPlace?: Array<
-      | { __typename?: 'stop_registry_ParentStopPlace' }
-      | {
-          __typename?: 'stop_registry_StopPlace';
-          id?: string | null;
-          weighting?: StopRegistryInterchangeWeightingType | null;
-          submode?: StopRegistrySubmodeType | null;
-          alternativeNames?: Array<{
-            __typename?: 'stop_registry_AlternativeName';
-            nameType: StopRegistryNameType;
-            name: {
-              __typename?: 'stop_registry_EmbeddableMultilingualString';
-              lang?: string | null;
-              value?: string | null;
-            };
-          } | null> | null;
-          privateCode?: {
-            __typename?: 'stop_registry_PrivateCode';
-            value?: string | null;
-            type?: string | null;
-          } | null;
-          name?: {
-            __typename?: 'stop_registry_EmbeddableMultilingualString';
-            lang?: string | null;
-            value?: string | null;
-          } | null;
-          organisations?: Array<{
-            __typename?: 'stop_registry_StopPlaceOrganisationRef';
-            relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
-            organisationRef: string;
-            organisation?: {
-              __typename?: 'stop_registry_Organisation';
+            accessibilityAssessment?: {
+              __typename?: 'stop_registry_AccessibilityAssessment';
               id?: string | null;
-              name?: string | null;
-              privateContactDetails?: {
-                __typename?: 'stop_registry_Contact';
+              hslAccessibilityProperties?: {
+                __typename?: 'stop_registry_HslAccessibilityProperties';
                 id?: string | null;
-                email?: string | null;
-                phone?: string | null;
+                stopAreaSideSlope?: number | null;
+                stopAreaLengthwiseSlope?: number | null;
+                endRampSlope?: number | null;
+                shelterLaneDistance?: number | null;
+                curbBackOfRailDistance?: number | null;
+                curbDriveSideOfRailDistance?: number | null;
+                structureLaneDistance?: number | null;
+                stopElevationFromRailTop?: number | null;
+                stopElevationFromSidewalk?: number | null;
+                lowerCleatHeight?: number | null;
+                serviceAreaWidth?: number | null;
+                serviceAreaLength?: number | null;
+                platformEdgeWarningArea?: boolean | null;
+                guidanceTiles?: boolean | null;
+                guidanceStripe?: boolean | null;
+                serviceAreaStripes?: boolean | null;
+                sidewalkAccessibleConnection?: boolean | null;
+                stopAreaSurroundingsAccessible?: boolean | null;
+                curvedStop?: boolean | null;
+                stopType?: StopRegistryStopType | null;
+                shelterType?: StopRegistryShelterWidthType | null;
+                guidanceType?: StopRegistryGuidanceType | null;
+                mapType?: StopRegistryMapType | null;
+                pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+                accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+              } | null;
+              limitations?: {
+                __typename?: 'stop_registry_AccessibilityLimitations';
+                id?: string | null;
+                version?: string | null;
+                audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+                escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+                liftFreeAccess?: StopRegistryLimitationStatusType | null;
+                stepFreeAccess?: StopRegistryLimitationStatusType | null;
+                wheelchairAccess?: StopRegistryLimitationStatusType | null;
               } | null;
             } | null;
-          } | null> | null;
-          geometry?: {
-            __typename?: 'stop_registry_GeoJSON';
-            type?: StopRegistryGeoJsonType | null;
-            coordinates?: GeoJSON.Position | null;
-          } | null;
-          keyValues?: Array<{
-            __typename?: 'stop_registry_KeyValues';
-            key?: string | null;
-            values?: Array<string | null> | null;
-          } | null> | null;
-          quays?: Array<{
-            __typename?: 'stop_registry_Quay';
-            id?: string | null;
-            publicCode?: string | null;
-            alternativeNames?: Array<{
-              __typename?: 'stop_registry_AlternativeName';
-              nameType: StopRegistryNameType;
-              name: {
+            keyValues?: Array<{
+              __typename?: 'stop_registry_KeyValues';
+              key?: string | null;
+              values?: Array<string | null> | null;
+            } | null> | null;
+            infoSpots?: Array<{
+              __typename?: 'stop_registry_infoSpot';
+              id?: string | null;
+              backlight?: boolean | null;
+              displayType?: StopRegistryDisplayType | null;
+              floor?: string | null;
+              label?: string | null;
+              posterPlaceSize?: StopRegistryPosterPlaceSize | null;
+              infoSpotLocations?: Array<string | null> | null;
+              infoSpotType?: StopRegistryInfoSpotType | null;
+              purpose?: string | null;
+              railInformation?: string | null;
+              speechProperty?: boolean | null;
+              zoneLabel?: string | null;
+              maintenance?: string | null;
+              description?: {
                 __typename?: 'stop_registry_EmbeddableMultilingualString';
                 lang?: string | null;
                 value?: string | null;
-              };
+              } | null;
+              poster?: Array<{
+                __typename?: 'stop_registry_poster';
+                label?: string | null;
+                posterSize?: StopRegistryPosterPlaceSize | null;
+                lines?: string | null;
+              } | null> | null;
             } | null> | null;
             placeEquipments?: {
               __typename?: 'stop_registry_PlaceEquipments';
@@ -73254,6 +73642,28 @@ export type GetStopPlaceDetailsQuery = {
                 __typename?: 'stop_registry_CycleStorageEquipment';
                 cycleStorageType?: StopRegistryCycleStorageType | null;
               } | null> | null;
+              generalSign?: Array<{
+                __typename?: 'stop_registry_GeneralSign';
+                signContentType?: StopRegistrySignContentType | null;
+                numberOfFrames?: number | null;
+                lineSignage?: boolean | null;
+                mainLineSign?: boolean | null;
+                replacesRailSign?: boolean | null;
+                privateCode?: {
+                  __typename?: 'stop_registry_PrivateCode';
+                  value?: string | null;
+                  type?: string | null;
+                } | null;
+                content?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString';
+                  value?: string | null;
+                } | null;
+                note?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString';
+                  lang?: string | null;
+                  value?: string | null;
+                } | null;
+              } | null> | null;
             } | null;
             scheduled_stop_point?: {
               __typename?: 'service_pattern_scheduled_stop_point';
@@ -73278,10 +73688,37 @@ export type GetStopPlaceDetailsQuery = {
               }>;
             } | null;
           } | null> | null;
+          topographicPlace?: {
+            __typename?: 'stop_registry_TopographicPlace';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+              lang?: string | null;
+            } | null;
+          } | null;
+          fareZones?: Array<{
+            __typename?: 'stop_registry_FareZone';
+            id?: string | null;
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              value?: string | null;
+              lang?: string | null;
+            } | null;
+          } | null> | null;
         }
       | null
     > | null;
-  } | null;
+    timing_place?: {
+      __typename?: 'timing_pattern_timing_place';
+      timing_place_id: UUID;
+      label: string;
+    } | null;
+    vehicle_mode_on_scheduled_stop_point: Array<{
+      __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+      vehicle_mode: ReusableComponentsVehicleModeEnum;
+    }>;
+  }>;
 };
 
 export type ShelterEquipmentDetailsFragment = {
@@ -73429,6 +73866,28 @@ export type QuayDetailsFragment = {
       __typename?: 'stop_registry_CycleStorageEquipment';
       cycleStorageType?: StopRegistryCycleStorageType | null;
     } | null> | null;
+    generalSign?: Array<{
+      __typename?: 'stop_registry_GeneralSign';
+      signContentType?: StopRegistrySignContentType | null;
+      numberOfFrames?: number | null;
+      lineSignage?: boolean | null;
+      mainLineSign?: boolean | null;
+      replacesRailSign?: boolean | null;
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode';
+        value?: string | null;
+        type?: string | null;
+      } | null;
+      content?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        value?: string | null;
+      } | null;
+      note?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString';
+        lang?: string | null;
+        value?: string | null;
+      } | null;
+    } | null> | null;
   } | null;
   scheduled_stop_point?: {
     __typename?: 'service_pattern_scheduled_stop_point';
@@ -73514,99 +73973,6 @@ export type StopPlaceOrganisationFieldsFragment = {
     email?: string | null;
     phone?: string | null;
   } | null;
-};
-
-export type StopPlaceDetailsFragment = {
-  __typename?: 'stop_registry_StopPlace';
-  id?: string | null;
-  weighting?: StopRegistryInterchangeWeightingType | null;
-  submode?: StopRegistrySubmodeType | null;
-  alternativeNames?: Array<{
-    __typename?: 'stop_registry_AlternativeName';
-    nameType: StopRegistryNameType;
-    name: {
-      __typename?: 'stop_registry_EmbeddableMultilingualString';
-      lang?: string | null;
-      value?: string | null;
-    };
-  } | null> | null;
-  privateCode?: {
-    __typename?: 'stop_registry_PrivateCode';
-    value?: string | null;
-    type?: string | null;
-  } | null;
-  name?: {
-    __typename?: 'stop_registry_EmbeddableMultilingualString';
-    lang?: string | null;
-    value?: string | null;
-  } | null;
-  organisations?: Array<{
-    __typename?: 'stop_registry_StopPlaceOrganisationRef';
-    relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null;
-    organisationRef: string;
-    organisation?: {
-      __typename?: 'stop_registry_Organisation';
-      id?: string | null;
-      name?: string | null;
-      privateContactDetails?: {
-        __typename?: 'stop_registry_Contact';
-        id?: string | null;
-        email?: string | null;
-        phone?: string | null;
-      } | null;
-    } | null;
-  } | null> | null;
-  geometry?: {
-    __typename?: 'stop_registry_GeoJSON';
-    type?: StopRegistryGeoJsonType | null;
-    coordinates?: GeoJSON.Position | null;
-  } | null;
-  keyValues?: Array<{
-    __typename?: 'stop_registry_KeyValues';
-    key?: string | null;
-    values?: Array<string | null> | null;
-  } | null> | null;
-  quays?: Array<{
-    __typename?: 'stop_registry_Quay';
-    id?: string | null;
-    publicCode?: string | null;
-    alternativeNames?: Array<{
-      __typename?: 'stop_registry_AlternativeName';
-      nameType: StopRegistryNameType;
-      name: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        lang?: string | null;
-        value?: string | null;
-      };
-    } | null> | null;
-    geometry?: {
-      __typename?: 'stop_registry_GeoJSON';
-      coordinates?: GeoJSON.Position | null;
-      type?: StopRegistryGeoJsonType | null;
-    } | null;
-    scheduled_stop_point?: {
-      __typename?: 'service_pattern_scheduled_stop_point';
-      priority: number;
-      direction: InfrastructureNetworkDirectionEnum;
-      scheduled_stop_point_id: UUID;
-      label: string;
-      timing_place_id?: UUID | null;
-      validity_start?: luxon.DateTime | null;
-      validity_end?: luxon.DateTime | null;
-      located_on_infrastructure_link_id: UUID;
-      stop_place_ref?: string | null;
-      measured_location: GeoJSON.Point;
-      timing_place?: {
-        __typename?: 'timing_pattern_timing_place';
-        timing_place_id: UUID;
-        label: string;
-      } | null;
-      vehicle_mode_on_scheduled_stop_point: Array<{
-        __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-        vehicle_mode: ReusableComponentsVehicleModeEnum;
-      }>;
-    } | null;
-  } | null> | null;
 };
 
 export type InfoSpotDetailsFragment = {
@@ -75498,6 +75864,62 @@ export const StopPlaceOrganisationFieldsFragmentDoc = gql`
     }
   }
 `;
+export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
+  fragment hsl_accessibility_properties_details on stop_registry_HslAccessibilityProperties {
+    id
+    stopAreaSideSlope
+    stopAreaLengthwiseSlope
+    endRampSlope
+    shelterLaneDistance
+    curbBackOfRailDistance
+    curbDriveSideOfRailDistance
+    structureLaneDistance
+    stopElevationFromRailTop
+    stopElevationFromSidewalk
+    lowerCleatHeight
+    serviceAreaWidth
+    serviceAreaLength
+    platformEdgeWarningArea
+    guidanceTiles
+    guidanceStripe
+    serviceAreaStripes
+    sidewalkAccessibleConnection
+    stopAreaSurroundingsAccessible
+    curvedStop
+    stopType
+    shelterType
+    guidanceType
+    mapType
+    pedestrianCrossingRampType
+    accessibilityLevel
+  }
+`;
+export const InfoSpotDetailsFragmentDoc = gql`
+  fragment info_spot_details on stop_registry_infoSpot {
+    id
+    backlight
+    description {
+      lang
+      value
+    }
+    displayType
+    floor
+    label
+    posterPlaceSize
+    infoSpotLocations
+    infoSpotType
+    purpose
+    railInformation
+    speechProperty
+    zoneLabel
+    maintenance
+    poster {
+      label
+      posterSize
+      lines
+    }
+  }
+`;
 export const ShelterEquipmentDetailsFragmentDoc = gql`
   fragment shelter_equipment_details on stop_registry_ShelterEquipment {
     id
@@ -75541,12 +75963,46 @@ export const QuayDetailsFragmentDoc = gql`
   fragment quay_details on stop_registry_Quay {
     id
     publicCode
+    privateCode {
+      type
+      value
+    }
+    description {
+      lang
+      value
+    }
     alternativeNames {
       name {
         lang
         value
       }
       nameType
+    }
+    geometry {
+      coordinates
+      type
+    }
+    accessibilityAssessment {
+      id
+      hslAccessibilityProperties {
+        ...hsl_accessibility_properties_details
+      }
+      limitations {
+        id
+        version
+        audibleSignalsAvailable
+        escalatorFreeAccess
+        liftFreeAccess
+        stepFreeAccess
+        wheelchairAccess
+      }
+    }
+    keyValues {
+      key
+      values
+    }
+    infoSpots {
+      ...info_spot_details
     }
     placeEquipments {
       id
@@ -75556,16 +76012,54 @@ export const QuayDetailsFragmentDoc = gql`
       cycleStorageEquipment {
         cycleStorageType
       }
+      generalSign {
+        privateCode {
+          value
+          type
+        }
+        content {
+          value
+        }
+        signContentType
+        numberOfFrames
+        lineSignage
+        mainLineSign
+        replacesRailSign
+        note {
+          lang
+          value
+        }
+      }
     }
     scheduled_stop_point {
       ...scheduled_stop_point_detail_fields
     }
   }
+  ${HslAccessibilityPropertiesDetailsFragmentDoc}
+  ${InfoSpotDetailsFragmentDoc}
   ${ShelterEquipmentDetailsFragmentDoc}
   ${ScheduledStopPointDetailFieldsFragmentDoc}
 `;
-export const StopAreaDetailsFragmentDoc = gql`
-  fragment StopAreaDetails on stop_registry_StopPlace {
+export const TopographicPlaceDetailsFragmentDoc = gql`
+  fragment topographic_place_details on stop_registry_TopographicPlace {
+    id
+    name {
+      value
+      lang
+    }
+  }
+`;
+export const FareZoneDetailsFragmentDoc = gql`
+  fragment fare_zone_details on stop_registry_FareZone {
+    id
+    name {
+      value
+      lang
+    }
+  }
+`;
+export const StopPlaceDetailsFragmentDoc = gql`
+  fragment stop_place_details on stop_registry_StopPlace {
     id
     alternativeNames {
       name {
@@ -75602,9 +76096,18 @@ export const StopAreaDetailsFragmentDoc = gql`
     quays {
       ...quay_details
     }
+    transportMode
+    topographicPlace {
+      ...topographic_place_details
+    }
+    fareZones {
+      ...fare_zone_details
+    }
   }
   ${StopPlaceOrganisationFieldsFragmentDoc}
   ${QuayDetailsFragmentDoc}
+  ${TopographicPlaceDetailsFragmentDoc}
+  ${FareZoneDetailsFragmentDoc}
 `;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
   fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
@@ -75921,122 +76424,6 @@ export const StopAreaFormFieldsFragmentDoc = gql`
     }
   }
   ${StopAreaMemberFieldsFragmentDoc}
-`;
-export const TopographicPlaceDetailsFragmentDoc = gql`
-  fragment topographic_place_details on stop_registry_TopographicPlace {
-    id
-    name {
-      value
-      lang
-    }
-  }
-`;
-export const FareZoneDetailsFragmentDoc = gql`
-  fragment fare_zone_details on stop_registry_FareZone {
-    id
-    name {
-      value
-      lang
-    }
-  }
-`;
-export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
-  fragment hsl_accessibility_properties_details on stop_registry_HslAccessibilityProperties {
-    id
-    stopAreaSideSlope
-    stopAreaLengthwiseSlope
-    endRampSlope
-    shelterLaneDistance
-    curbBackOfRailDistance
-    curbDriveSideOfRailDistance
-    structureLaneDistance
-    stopElevationFromRailTop
-    stopElevationFromSidewalk
-    lowerCleatHeight
-    serviceAreaWidth
-    serviceAreaLength
-    platformEdgeWarningArea
-    guidanceTiles
-    guidanceStripe
-    serviceAreaStripes
-    sidewalkAccessibleConnection
-    stopAreaSurroundingsAccessible
-    curvedStop
-    stopType
-    shelterType
-    guidanceType
-    mapType
-    pedestrianCrossingRampType
-    accessibilityLevel
-  }
-`;
-export const StopPlaceDetailsFragmentDoc = gql`
-  fragment stop_place_details on stop_registry_StopPlace {
-    id
-    alternativeNames {
-      name {
-        lang
-        value
-      }
-      nameType
-    }
-    privateCode {
-      value
-      type
-    }
-    name {
-      lang
-      value
-    }
-    organisations {
-      relationshipType
-      organisationRef
-      organisation {
-        ...stop_place_organisation_fields
-      }
-    }
-    geometry {
-      type
-      coordinates
-    }
-    keyValues {
-      key
-      values
-    }
-    weighting
-    submode
-    quays {
-      ...quay_details
-    }
-  }
-  ${StopPlaceOrganisationFieldsFragmentDoc}
-  ${QuayDetailsFragmentDoc}
-`;
-export const InfoSpotDetailsFragmentDoc = gql`
-  fragment info_spot_details on stop_registry_infoSpot {
-    id
-    backlight
-    description {
-      lang
-      value
-    }
-    displayType
-    floor
-    label
-    posterPlaceSize
-    infoSpotLocations
-    infoSpotType
-    purpose
-    railInformation
-    speechProperty
-    zoneLabel
-    maintenance
-    poster {
-      label
-      posterSize
-      lines
-    }
-  }
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
   fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {
@@ -77710,67 +78097,67 @@ export type SearchStopsQueryResult = Apollo.QueryResult<
   SearchStopsQuery,
   SearchStopsQueryVariables
 >;
-export const GetStopAreaDetailsDocument = gql`
-  query getStopAreaDetails($id: String!) {
+export const GetStopPlaceDetailsDocument = gql`
+  query getStopPlaceDetails($id: String!) {
     stop_registry {
-      stopPlace(id: $id) {
-        ...StopAreaDetails
+      stopPlace(id: $id, onlyMonomodalStopPlaces: true) {
+        ...stop_place_details
       }
     }
   }
-  ${StopAreaDetailsFragmentDoc}
+  ${StopPlaceDetailsFragmentDoc}
 `;
 
 /**
- * __useGetStopAreaDetailsQuery__
+ * __useGetStopPlaceDetailsQuery__
  *
- * To run a query within a React component, call `useGetStopAreaDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopAreaDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetStopPlaceDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopPlaceDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetStopAreaDetailsQuery({
+ * const { data, loading, error } = useGetStopPlaceDetailsQuery({
  *   variables: {
  *      id: // value for 'id'
  *   },
  * });
  */
-export function useGetStopAreaDetailsQuery(
+export function useGetStopPlaceDetailsQuery(
   baseOptions: Apollo.QueryHookOptions<
-    GetStopAreaDetailsQuery,
-    GetStopAreaDetailsQueryVariables
+    GetStopPlaceDetailsQuery,
+    GetStopPlaceDetailsQueryVariables
   > &
     (
-      | { variables: GetStopAreaDetailsQueryVariables; skip?: boolean }
+      | { variables: GetStopPlaceDetailsQueryVariables; skip?: boolean }
       | { skip: boolean }
     ),
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<
-    GetStopAreaDetailsQuery,
-    GetStopAreaDetailsQueryVariables
-  >(GetStopAreaDetailsDocument, options);
+    GetStopPlaceDetailsQuery,
+    GetStopPlaceDetailsQueryVariables
+  >(GetStopPlaceDetailsDocument, options);
 }
-export function useGetStopAreaDetailsLazyQuery(
+export function useGetStopPlaceDetailsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetStopAreaDetailsQuery,
-    GetStopAreaDetailsQueryVariables
+    GetStopPlaceDetailsQuery,
+    GetStopPlaceDetailsQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<
-    GetStopAreaDetailsQuery,
-    GetStopAreaDetailsQueryVariables
-  >(GetStopAreaDetailsDocument, options);
+    GetStopPlaceDetailsQuery,
+    GetStopPlaceDetailsQueryVariables
+  >(GetStopPlaceDetailsDocument, options);
 }
-export function useGetStopAreaDetailsSuspenseQuery(
+export function useGetStopPlaceDetailsSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken
     | Apollo.SuspenseQueryHookOptions<
-        GetStopAreaDetailsQuery,
-        GetStopAreaDetailsQueryVariables
+        GetStopPlaceDetailsQuery,
+        GetStopPlaceDetailsQueryVariables
       >,
 ) {
   const options =
@@ -77778,22 +78165,22 @@ export function useGetStopAreaDetailsSuspenseQuery(
       ? baseOptions
       : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
-    GetStopAreaDetailsQuery,
-    GetStopAreaDetailsQueryVariables
-  >(GetStopAreaDetailsDocument, options);
+    GetStopPlaceDetailsQuery,
+    GetStopPlaceDetailsQueryVariables
+  >(GetStopPlaceDetailsDocument, options);
 }
-export type GetStopAreaDetailsQueryHookResult = ReturnType<
-  typeof useGetStopAreaDetailsQuery
+export type GetStopPlaceDetailsQueryHookResult = ReturnType<
+  typeof useGetStopPlaceDetailsQuery
 >;
-export type GetStopAreaDetailsLazyQueryHookResult = ReturnType<
-  typeof useGetStopAreaDetailsLazyQuery
+export type GetStopPlaceDetailsLazyQueryHookResult = ReturnType<
+  typeof useGetStopPlaceDetailsLazyQuery
 >;
-export type GetStopAreaDetailsSuspenseQueryHookResult = ReturnType<
-  typeof useGetStopAreaDetailsSuspenseQuery
+export type GetStopPlaceDetailsSuspenseQueryHookResult = ReturnType<
+  typeof useGetStopPlaceDetailsSuspenseQuery
 >;
-export type GetStopAreaDetailsQueryResult = Apollo.QueryResult<
-  GetStopAreaDetailsQuery,
-  GetStopAreaDetailsQueryVariables
+export type GetStopPlaceDetailsQueryResult = Apollo.QueryResult<
+  GetStopPlaceDetailsQuery,
+  GetStopPlaceDetailsQueryVariables
 >;
 export const FindExistingPosterNamesDocument = gql`
   query findExistingPosterNames {
@@ -81830,91 +82217,6 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQueryResult =
     GetHighestPriorityStopDetailsByLabelAndDateQuery,
     GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
   >;
-export const GetStopPlaceDetailsDocument = gql`
-  query getStopPlaceDetails($id: String!) {
-    stop_registry {
-      stopPlace(id: $id, onlyMonomodalStopPlaces: true) {
-        ...stop_place_details
-      }
-    }
-  }
-  ${StopPlaceDetailsFragmentDoc}
-`;
-
-/**
- * __useGetStopPlaceDetailsQuery__
- *
- * To run a query within a React component, call `useGetStopPlaceDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopPlaceDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetStopPlaceDetailsQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetStopPlaceDetailsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetStopPlaceDetailsQuery,
-    GetStopPlaceDetailsQueryVariables
-  > &
-    (
-      | { variables: GetStopPlaceDetailsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    ),
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetStopPlaceDetailsQuery,
-    GetStopPlaceDetailsQueryVariables
-  >(GetStopPlaceDetailsDocument, options);
-}
-export function useGetStopPlaceDetailsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetStopPlaceDetailsQuery,
-    GetStopPlaceDetailsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetStopPlaceDetailsQuery,
-    GetStopPlaceDetailsQueryVariables
-  >(GetStopPlaceDetailsDocument, options);
-}
-export function useGetStopPlaceDetailsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopPlaceDetailsQuery,
-        GetStopPlaceDetailsQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    GetStopPlaceDetailsQuery,
-    GetStopPlaceDetailsQueryVariables
-  >(GetStopPlaceDetailsDocument, options);
-}
-export type GetStopPlaceDetailsQueryHookResult = ReturnType<
-  typeof useGetStopPlaceDetailsQuery
->;
-export type GetStopPlaceDetailsLazyQueryHookResult = ReturnType<
-  typeof useGetStopPlaceDetailsLazyQuery
->;
-export type GetStopPlaceDetailsSuspenseQueryHookResult = ReturnType<
-  typeof useGetStopPlaceDetailsSuspenseQuery
->;
-export type GetStopPlaceDetailsQueryResult = Apollo.QueryResult<
-  GetStopPlaceDetailsQuery,
-  GetStopPlaceDetailsQueryVariables
->;
 export const UpsertOrganisationDocument = gql`
   mutation UpsertOrganisation($objects: [stop_registry_OrganisationInput]) {
     stop_registry {

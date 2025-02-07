@@ -34,8 +34,7 @@ export const LocationDetailsViewCard = ({
   const { t } = useTranslation();
 
   const functionalArea =
-    isNumber(stop.stop_place?.functionalArea) &&
-    `${stop.stop_place?.functionalArea} m`;
+    isNumber(stop.quay?.functionalArea) && `${stop.quay.functionalArea} m`;
 
   return (
     <div data-testid={testIds.container}>

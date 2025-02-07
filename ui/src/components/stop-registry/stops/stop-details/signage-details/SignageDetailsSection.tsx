@@ -70,7 +70,7 @@ export const SignageDetailsSection = ({ stop }: Props): React.ReactElement => {
           defaultValues={defaultValues}
           ref={formRef}
           onSubmit={onSubmit}
-          isMainLineStop={!!stop.stop_place?.stopType.mainLine}
+          isMainLineStop={!!stop.quay?.stopType.mainLine}
         />
       ) : (
         <SignageDetailsViewCard stop={stop} />

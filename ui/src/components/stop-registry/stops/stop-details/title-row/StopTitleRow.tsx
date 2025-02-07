@@ -31,7 +31,7 @@ export const StopTitleRow: FC<StopTitleRowProps> = ({ stopDetails, label }) => {
         <span>
           {
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            stopDetails?.stop_place?.nameFin || '-'
+            stopDetails?.stop_place?.name || '-'
           }
         </span>
         <span className="mx-2">|</span>
