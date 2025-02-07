@@ -24,9 +24,12 @@ export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
       <PageTitle.H1 className="mr-2" testId={testIds.name}>
         {area.name ?? ''}
       </PageTitle.H1>
-
-      <div className="text-xl" data-testid={testIds.privateCode}>
+      <h2 className="mr-2 font-bold" data-testid={testIds.privateCode}>
         {area.privateCode?.value ?? null}
+      </h2>
+
+      <div className="text-xl" data-testid={testIds.name}>
+        {area.name ?? null}
       </div>
 
       <div className="pl-5" data-testid={testIds.weighting}>

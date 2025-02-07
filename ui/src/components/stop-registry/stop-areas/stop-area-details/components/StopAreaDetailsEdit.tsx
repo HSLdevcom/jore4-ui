@@ -24,8 +24,9 @@ import {
 } from '../../../../forms/stop-area';
 
 const testIds = {
-  label: 'StopAreaDetailsEdit::label',
+  privateCode: 'StopAreaDetailsEdit::privateCode',
   name: 'StopAreaDetailsEdit::name',
+  nameSwe: 'StopAreaDetailsEdit::nameSwe',
   latitude: 'StopAreaDetailsEdit::latitude',
   longitude: 'StopAreaDetailsEdit::longitude',
 };
@@ -38,13 +39,19 @@ export const mapStopAreaDataToFormState = (
   );
 
   return {
-    label: area.name?.value ?? undefined,
+    privateCode: area.privateCode?.value ?? undefined,
     name: area.name ?? undefined,
+    nameSwe: area.nameSwe ?? undefined,
     latitude,
     longitude,
     validityStart: mapToISODate(area.validityStart),
     validityEnd: mapToISODate(area.validityEnd),
     indefinite: !area.validityEnd,
+    quays: area.quays ?? [],
+    stopTypes: {
+      railReplacement: false,
+      interchange: false
+    }
   };
 };
 
@@ -80,7 +87,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   const onSubmit = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
-      await upsertStopArea({ id: area.id, state });
+      await upsertStopArea({ stop: area, state });
       await refetch();
 
       showSuccessToast(t('stopArea.editSuccess'));
@@ -105,7 +112,10 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
     <FormProvider {...methods}>
       <form
         className={twMerge('space-y-6', className)}
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(
+          onSubmit,
+          (errors) => console.log('Form validation errors:', errors)
+        )}
         ref={ref}
       >
         <FormColumn>
@@ -113,17 +123,25 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
             <Column>
               <InputField<FormState>
                 type="text"
-                translationPrefix="stopArea"
-                fieldPath="label"
-                testId={testIds.label}
+                translationPrefix="stopAreaDetails.basicDetails"
+                fieldPath="privateCode"
+                testId={testIds.privateCode}
               />
             </Column>
             <Column>
               <InputField<FormState>
                 type="text"
-                translationPrefix="stopArea"
+                translationPrefix="stopAreaDetails.basicDetails"
                 fieldPath="name"
                 testId={testIds.name}
+              />
+            </Column>
+            <Column>
+              <InputField<FormState>
+                type="text"
+                translationPrefix="stopDetails.basicDetails"
+                fieldPath="nameSwe"
+                testId={testIds.nameSwe}
               />
             </Column>
             <Column>

@@ -23,11 +23,22 @@ export const stopAreaMemberStopSchema = z.object({
 
 export const stopAreaFormSchema = z
   .object({
-    label: requiredString,
+    nameLongFin: z.string().optional(),
+    nameLongSwe: z.string().optional(),
+    abbreviationFin: z.string().optional(),
+    abbreviationSwe: z.string().optional(),
+    abbreviation5CharFin: z.string().optional(),
+    abbreviation5CharSwe: z.string().optional(),
+    nameSwe: requiredString,
+    privateCode: requiredString,
     name: requiredString,
     latitude: requiredNumber.min(-180).max(180),
     longitude: requiredNumber.min(-180).max(180),
-    memberStops: z.array(stopAreaMemberStopSchema),
+    stopTypes: z.object({
+      railReplacement: z.boolean(),
+      interchange: z.boolean(),
+    }),
+    quays: z.array(stopAreaMemberStopSchema),
   })
   .merge(validityPeriodFormSchema);
 

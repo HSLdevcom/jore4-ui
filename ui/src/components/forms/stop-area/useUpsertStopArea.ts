@@ -2,7 +2,10 @@ import { ApolloError, gql } from '@apollo/client';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  StopRegistryGroupOfStopPlacesInput,
+  StopRegistryInterchangeWeightingType,
+  StopRegistryNameType,
+  StopRegistryStopPlaceInput,
+  StopRegistrySubmodeType,
   useUpsertStopAreaMutation,
 } from '../../../generated/graphql';
 import { StopAreaByIdResult } from '../../../types';
@@ -10,16 +13,18 @@ import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   mapPointToStopRegistryGeoJSON,
+  patchAlternativeNames,
   showDangerToast,
 } from '../../../utils';
 import { StopAreaFormState } from './stopAreaFormSchema';
 import { useStopAreaDetailsApolloErrorHandler } from './util/stopAreaDetailsErrorHandler';
+import { EnrichedStopPlace } from '../../../hooks';
 
 const GQL_UPSERT_STOP_AREA = gql`
-  mutation UpsertStopArea($object: stop_registry_GroupOfStopPlacesInput) {
+  mutation UpsertStopArea($input: stop_registry_StopPlaceInput!) {
     stop_registry {
-      mutateGroupOfStopPlaces(GroupOfStopPlaces: $object) {
-        id
+      mutateStopPlace(StopPlace: $input) {
+        ...stop_place_details
       }
     }
   }
@@ -37,22 +42,55 @@ const initializeStopArea = (
 };
 
 const mapFormStateToInput = ({
-  id,
+  stop,
   state,
 }: {
-  id: string | undefined | null;
+  stop: EnrichedStopPlace;
   state: StopAreaFormState;
-}): StopRegistryGroupOfStopPlacesInput => {
+}): StopRegistryStopPlaceInput => {
+  const id = stop.id;
   const validityStart = mapDateInputToValidityStart(state.validityStart);
-  const members = state.memberStops.map((stopPlace) => ({ ref: stopPlace.id }));
+  const members = state.quays.map((quay) => ({ id: quay.id }));
 
-  const input: StopRegistryGroupOfStopPlacesInput = {
+  const input: StopRegistryStopPlaceInput = {
     id,
-    name: {
-      value: state.label,
-      lang: 'fin',
+    alternativeNames: patchAlternativeNames(stop, [
+      {
+        name: { lang: 'swe', value: state.nameSwe },
+        nameType: StopRegistryNameType.Translation,
+      },
+      {
+        name: { lang: 'swe', value: state.nameSwe },
+        nameType: StopRegistryNameType.Other,
+      },
+      {
+        name: { lang: 'fin', value: state.abbreviation5CharFin },
+        nameType: StopRegistryNameType.Label,
+      },
+      {
+        name: { lang: 'swe', value: state.abbreviation5CharSwe },
+        nameType: StopRegistryNameType.Label,
+      },
+      {
+        name: { lang: 'fin', value: state.nameLongFin },
+        nameType: StopRegistryNameType.Alias,
+      },
+      {
+        name: { lang: 'swe', value: state.nameLongSwe },
+        nameType: StopRegistryNameType.Alias,
+      },
+    ]),
+    weighting: state.stopTypes.interchange
+      ? StopRegistryInterchangeWeightingType.RecommendedInterchange
+      : StopRegistryInterchangeWeightingType.NoInterchange,
+    submode: state.stopTypes.railReplacement
+      ? StopRegistrySubmodeType.RailReplacementBus
+      : null,
+    privateCode: {
+      value: state.privateCode,
+      type: 'HSL',
     },
-    description: {
+    name: {
       value: state.name,
       lang: 'fin',
     },
@@ -62,7 +100,7 @@ const mapFormStateToInput = ({
       toDate: mapDateInputToValidityEnd(state.validityEnd, state.indefinite),
     },
     // Tiamat doesn't accept an empty members array...
-    members: members?.length ? members : null,
+    quays: members?.length ? members : null,
   };
   return input;
 };
@@ -79,18 +117,18 @@ export const useUpsertStopArea = () => {
    */
   const upsertStopArea = useCallback(
     async ({
-      id,
+      stop,
       state,
     }: {
-      id: string | undefined | null;
+      stop: EnrichedStopPlace;
       state: StopAreaFormState;
     }) => {
-      const input = mapFormStateToInput({ id, state });
+      const input = mapFormStateToInput({ stop, state });
       const result = await upsertStopAreaMutation({
-        variables: { object: input },
+        variables: { input: input },
       });
 
-      return result.data?.stop_registry?.mutateGroupOfStopPlaces;
+      return result.data?.stop_registry?.mutateStopPlace;
     },
     [upsertStopAreaMutation],
   );
