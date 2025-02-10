@@ -1,0 +1,20 @@
+{
+  "name": "Jore 4",
+  "short_name": "Jore 4",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#7EBBE4",
+  "theme_color": "#007AC9",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
