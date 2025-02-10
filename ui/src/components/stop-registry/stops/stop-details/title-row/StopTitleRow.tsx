@@ -1,3 +1,4 @@
+import compact from 'lodash/compact';
 import { FC } from 'react';
 import { StopWithDetails } from '../../../../../hooks';
 import { PageTitle } from '../../../../common';
@@ -19,7 +20,11 @@ export const StopTitleRow: FC<StopTitleRowProps> = ({ stopDetails, label }) => {
   return (
     <div className="flex items-center">
       <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
-      <PageTitle.H1 className="mr-2" testId={testIds.label}>
+      <PageTitle.H1
+        className="mr-2"
+        testId={testIds.label}
+        titleText={compact([label, stopDetails?.stop_place?.nameFin]).join(' ')}
+      >
         {label}
       </PageTitle.H1>
       <div className="text-xl" data-testid={testIds.names}>
