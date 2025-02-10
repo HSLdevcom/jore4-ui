@@ -1,3 +1,4 @@
+import compact from 'lodash/compact';
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { PageTitle } from '../../../../common';
@@ -15,7 +16,11 @@ export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
 }) => (
   <div className={twMerge('flex items-center', className)}>
     <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
-    <PageTitle.H1 className="mr-2" testId={testIds.name}>
+    <PageTitle.H1
+      className="mr-2"
+      testId={testIds.name}
+      titleText={compact([area.name?.value, area.description?.value]).join(' ')}
+    >
       {area.name?.value ?? ''}
     </PageTitle.H1>
 
