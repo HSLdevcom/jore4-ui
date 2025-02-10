@@ -9631,10 +9631,12 @@ export type StopRegistryCycleStorageEquipment = {
   cycleStorageType?: Maybe<StopRegistryCycleStorageType>;
   id?: Maybe<Scalars['String']['output']>;
   numberOfSpaces?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryCycleStorageEquipmentInput = {
   cycleStorageType?: InputMaybe<StopRegistryCycleStorageType>;
+  id?: InputMaybe<Scalars['String']['input']>;
   numberOfSpaces?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
 };
 
@@ -9696,10 +9698,12 @@ export type StopRegistryGeneralSign = {
   privateCode?: Maybe<StopRegistryPrivateCode>;
   replacesRailSign?: Maybe<Scalars['Boolean']['output']>;
   signContentType?: Maybe<StopRegistrySignContentType>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryGeneralSignInput = {
   content?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  id?: InputMaybe<Scalars['String']['input']>;
   lineSignage?: InputMaybe<Scalars['Boolean']['input']>;
   mainLineSign?: InputMaybe<Scalars['Boolean']['input']>;
   note?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
@@ -10296,6 +10300,8 @@ export type StopRegistryQuay = {
   geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** Info spots */
+  infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
@@ -10306,6 +10312,15 @@ export type StopRegistryQuay = {
   shortName?: Maybe<StopRegistryEmbeddableMultilingualString>;
   validBetween?: Maybe<StopRegistryValidBetween>;
   version?: Maybe<Scalars['String']['output']>;
+  versionComment?: Maybe<Scalars['String']['output']>;
+};
+
+export type StopRegistryQuayInfoSpotsArgs = {
+  allVersions?: InputMaybe<Scalars['Boolean']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+  version?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type StopRegistryQuayInput = {
@@ -10328,6 +10343,7 @@ export type StopRegistryQuayInput = {
   privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
   publicCode?: InputMaybe<Scalars['String']['input']>;
   shortName?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  versionComment?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StopRegistrySanitaryEquipment = {
@@ -10335,10 +10351,12 @@ export type StopRegistrySanitaryEquipment = {
   gender?: Maybe<StopRegistryGender>;
   id?: Maybe<Scalars['String']['output']>;
   numberOfToilets?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistrySanitaryEquipmentInput = {
   gender?: InputMaybe<StopRegistryGender>;
+  id?: InputMaybe<Scalars['String']['input']>;
   numberOfToilets?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
 };
 
@@ -10377,12 +10395,14 @@ export type StopRegistryShelterEquipment = {
   timetableCabinets?: Maybe<Scalars['Int']['output']>;
   /** Katoksessa roska-astia */
   trashCan?: Maybe<Scalars['Boolean']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryShelterEquipmentInput = {
   /** Pyöräpysäköinti */
   bicycleParking?: InputMaybe<Scalars['Boolean']['input']>;
   enclosed?: InputMaybe<Scalars['Boolean']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
   /** Nojailutanko */
   leaningRail?: InputMaybe<Scalars['Boolean']['input']>;
   /** Ulkopenkki */
@@ -10614,9 +10634,11 @@ export type StopRegistryTicketingEquipment = {
   numberOfMachines?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
   ticketMachines?: Maybe<Scalars['Boolean']['output']>;
   ticketOffice?: Maybe<Scalars['Boolean']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryTicketingEquipmentInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
   numberOfMachines?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
   ticketMachines?: InputMaybe<Scalars['Boolean']['input']>;
   ticketOffice?: InputMaybe<Scalars['Boolean']['input']>;
@@ -10746,10 +10768,12 @@ export type StopRegistryWaitingRoomEquipment = {
   id?: Maybe<Scalars['String']['output']>;
   seats?: Maybe<Scalars['stop_registry_BigInteger']['output']>;
   stepFree?: Maybe<Scalars['Boolean']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type StopRegistryWaitingRoomEquipmentInput = {
   heated?: InputMaybe<Scalars['Boolean']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
   seats?: InputMaybe<Scalars['stop_registry_BigInteger']['input']>;
   stepFree?: InputMaybe<Scalars['Boolean']['input']>;
 };
