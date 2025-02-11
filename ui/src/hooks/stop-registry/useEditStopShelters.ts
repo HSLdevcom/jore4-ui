@@ -8,6 +8,7 @@ import {
   StopRegistryShelterCondition,
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
+  StopRegistryStopPlaceInput,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
 import {
@@ -57,55 +58,53 @@ const mapShelterFormToInput = (shelter: ShelterState) => {
   };
 };
 
+function mapStopEditChangesToTiamatDbInput({
+  state,
+  stop,
+}: EditTiamatParams): StopRegistryStopPlaceInput {
+  const stopPlaceId = stop.stop_place?.id;
+  const quay = stop.stop_place?.quays?.[0];
+  const stopPlaceQuayId = quay?.id;
+
+  const sheltersInput = state.shelters
+    .filter((s) => !s.toBeDeleted)
+    .map(mapShelterFormToInput);
+  const hasBicycleParking = sheltersInput.some((s) => s.bicycleParking);
+
+  return {
+    ...getRequiredStopPlaceMutationProperties(stop.stop_place),
+    id: stopPlaceId,
+    quays: [
+      {
+        id: stopPlaceQuayId,
+        placeEquipments: {
+          shelterEquipment: sheltersInput.length ? sheltersInput : [null],
+          cycleStorageEquipment: hasBicycleParking
+            ? [
+                {
+                  // Use "Other" since we don't know the specific type
+                  cycleStorageType: StopRegistryCycleStorageType.Other,
+                },
+              ]
+            : [null],
+        },
+      },
+    ],
+  };
+}
+
+function prepareEditForTiamatDb({ state, stop }: EditTiamatParams) {
+  return {
+    input: mapStopEditChangesToTiamatDbInput({
+      state,
+      stop,
+    }),
+  };
+}
+
 export const useEditStopShelters = () => {
   const { t } = useTranslation();
   const [updateStopPlaceMutation] = useUpdateStopPlaceMutation();
-
-  const mapStopEditChangesToTiamatDbInput = ({
-    state,
-    stop,
-  }: EditTiamatParams) => {
-    const stopPlaceId = stop.stop_place?.id;
-    const quay = stop.stop_place?.quays?.[0];
-    const stopPlaceQuayId = quay?.id;
-
-    const sheltersInput = state.shelters
-      .filter((s) => !s.toBeDeleted)
-      .map(mapShelterFormToInput);
-    const hasBicycleParking = sheltersInput.some((s) => s.bicycleParking);
-
-    const input = {
-      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
-      id: stopPlaceId,
-      quays: [
-        {
-          id: stopPlaceQuayId,
-          placeEquipments: {
-            shelterEquipment: sheltersInput.length ? sheltersInput : null,
-            cycleStorageEquipment: hasBicycleParking
-              ? [
-                  {
-                    // Use "Other" since we don't know the specific type
-                    cycleStorageType: StopRegistryCycleStorageType.Other,
-                  },
-                ]
-              : null,
-          },
-        },
-      ],
-    };
-
-    return input;
-  };
-
-  const prepareEditForTiamatDb = ({ state, stop }: EditTiamatParams) => {
-    return {
-      input: mapStopEditChangesToTiamatDbInput({
-        state,
-        stop,
-      }),
-    };
-  };
 
   const updateTiamatStopPlace = async (editParams: EditTiamatParams) => {
     const changesToTiamatDb = prepareEditForTiamatDb(editParams);
