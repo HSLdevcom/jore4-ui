@@ -749,8 +749,8 @@
       "stop": "Pysäkit",
       "stopArea": "Pysäkkialueet",
       "terminal": "Terminaalit",
-      "infoScreen": "Infonöytöt",
-      "infoSpot": "Infojulisteet"
+      "infoScreen": "Infonäytöt",
+      "infoSpot": "Infopaikat"
     }
   },
   "search": {

@@ -4,7 +4,6 @@ export enum MapEntityType {
   Stop = 'show-stops',
   StopArea = 'show-stop-areas',
   Terminal = 'show-terminals',
-  InfoScreen = 'show-info-screens',
   InfoSpot = 'show-info-spots',
 }
 
@@ -50,7 +49,6 @@ const initialState: IState = {
     [MapEntityType.StopArea]: true,
     [MapEntityType.Terminal]: false,
     [MapEntityType.InfoSpot]: false,
-    [MapEntityType.InfoScreen]: false,
   },
 };
 
