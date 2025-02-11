@@ -7,6 +7,7 @@ import {
   Visible,
 } from '../../../../../layoutComponents';
 import { DetailRow, LabeledDetail } from '../layout';
+import { formatDimension } from '../utils';
 
 const testIds = {
   posterContainer: 'InfoSpotPosterDetails::container',
@@ -44,7 +45,7 @@ export const InfoSpotPosterDetails: FC<Props> = ({
       <DetailRow className="pl-5">
         <LabeledDetail
           title={t('stopDetails.infoSpots.posterSize')}
-          detail={item?.posterSize}
+          detail={formatDimension(item?.posterSize)}
           testId={testIds.posterSize}
         />
         <LabeledDetail
