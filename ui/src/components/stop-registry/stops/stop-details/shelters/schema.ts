@@ -24,6 +24,7 @@ const shelterSchema = z.object({
   leaningRail: nullableBoolean,
   outsideBench: nullableBoolean,
   shelterFasciaBoardTaping: nullableBoolean,
+  shelterNetexId: z.string().nullable(),
   toBeDeleted: z.boolean(),
 });
 
@@ -50,6 +51,7 @@ export const mapShelterDataToFormState = (
     leaningRail: shelter.leaningRail ?? null,
     outsideBench: shelter.outsideBench ?? null,
     shelterFasciaBoardTaping: shelter.shelterFasciaBoardTaping ?? null,
+    shelterNetexId: shelter.id ?? null,
     toBeDeleted: false,
   };
 };

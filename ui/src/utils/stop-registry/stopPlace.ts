@@ -5,14 +5,12 @@ import {
   StopRegistryAccessibilityLevel,
   StopRegistryAlternativeName,
   StopRegistryEmbeddableMultilingualString,
-  StopRegistryInterchangeWeightingType,
   StopRegistryKeyValues,
   StopRegistryNameType,
   StopRegistryParentStopPlace,
   StopRegistryQuay,
   StopRegistryStopPlace,
   StopRegistryStopPlaceInput,
-  StopRegistrySubmodeType,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
 import { StopPlaceState } from '../../types/stop-registry';
@@ -68,10 +66,6 @@ export type StopPlaceEnrichmentProperties = {
   locationLong: number | undefined;
   validityStart: string | undefined;
   validityEnd?: string | undefined;
-  stopType: {
-    interchange: boolean;
-    railReplacement: boolean;
-  };
 };
 
 export type QuayEnrichmentProperties = {
@@ -86,6 +80,8 @@ export type QuayEnrichmentProperties = {
   readonly stopType: {
     readonly mainLine: boolean;
     readonly virtual: boolean;
+    readonly interchange: boolean;
+    readonly railReplacement: boolean;
   };
 };
 
@@ -194,7 +190,10 @@ const omitTypename = <T extends { __typename?: string } | null>(
 };
 
 export const patchKeyValues = (
-  stopPlace: Pick<StopRegistryStopPlace, 'keyValues'> | null,
+  stopPlace:
+    | Pick<StopRegistryStopPlace, 'keyValues'>
+    | Pick<StopRegistryQuay, 'keyValues'>
+    | null,
   updates: ReadonlyArray<{ key: string; values: string[] }>,
 ) => {
   const initialKeyValues =
@@ -244,7 +243,7 @@ export const getQuayDetailsForEnrichment = <
   quay: T,
 ): QuayEnrichmentProperties => {
   return {
-    elyNumber: quay.privateCode?.value ?? null,
+    elyNumber: findKeyValue(quay, 'elyNumber'),
     locationFin: quay.description?.value ?? null,
     locationSwe:
       findAlternativeName(quay, 'swe', StopRegistryNameType.Other)?.value ??
@@ -259,6 +258,8 @@ export const getQuayDetailsForEnrichment = <
     stopType: {
       mainLine: findKeyValue(quay, 'mainLine') === 'true',
       virtual: findKeyValue(quay, 'virtual') === 'true',
+      interchange: findKeyValue(quay, 'interchange') === 'true',
+      railReplacement: findKeyValue(quay, 'railReplacement') === 'true',
     },
   };
 };
@@ -316,13 +317,6 @@ export const getStopPlaceDetailsForEnrichment = <
     locationLong: findCoordinate(stopPlace, 'longitude'),
     validityStart: findKeyValue(stopPlace, 'validityStart') || undefined,
     validityEnd: findKeyValue(stopPlace, 'validityEnd') || undefined,
-    stopType: {
-      interchange:
-        stopPlace.weighting ===
-        StopRegistryInterchangeWeightingType.RecommendedInterchange,
-      railReplacement:
-        stopPlace.submode === StopRegistrySubmodeType.RailReplacementBus,
-    },
   };
   /* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
 };
