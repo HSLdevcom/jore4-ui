@@ -5,16 +5,14 @@ import {
   StopRegistryLimitationStatusType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
+  StopRegistryQuayInput,
   StopRegistryShelterWidthType,
   StopRegistryStopType,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
-import {
-  getRequiredStopPlaceMutationProperties,
-  showDangerToast,
-} from '../../utils';
+import { showDangerToast } from '../../utils';
 import { useCalculateStopAccessibilityLevel } from './useCalculateStopAccessibilityLevel';
-import { StopWithDetails } from './useGetStopDetails';
+import { getQuayIdsFromStopExcept, StopWithDetails } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: MeasurementsFormState;
@@ -32,8 +30,12 @@ export const useEditStopMeasurementDetails = () => {
     stop,
   }: EditTiamatParams) => {
     const stopPlaceId = stop.stop_place?.id;
+    const stopPlaceQuayId = stop.stop_place_ref;
 
-    const limitations = stop.quay?.accessibilityAssessment?.limitations;
+    const accessibilityAssessment = stop.quay?.accessibilityAssessment;
+    const limitations = accessibilityAssessment?.limitations;
+    const otherQuays = getQuayIdsFromStopExcept(stop, stopPlaceQuayId);
+
     const accessibilityLevel = calculateStopAccessibilityLevel({
       accessibilityAssessment: {
         hslAccessibilityProperties: state,
@@ -41,76 +43,79 @@ export const useEditStopMeasurementDetails = () => {
       quays: stop.stop_place?.quays,
     });
 
-    const input = {
-      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
+    return {
       id: stopPlaceId,
-      accessibilityAssessment: {
-        id: stop.quay?.accessibilityAssessment?.id,
-        // Limitations are required when submitting accessibility assessment
-        limitations: {
-          id: limitations?.id ?? null,
-          audibleSignalsAvailable:
-            limitations?.audibleSignalsAvailable ??
-            StopRegistryLimitationStatusType.Unknown,
-          escalatorFreeAccess:
-            limitations?.escalatorFreeAccess ??
-            StopRegistryLimitationStatusType.Unknown,
-          liftFreeAccess:
-            limitations?.liftFreeAccess ??
-            StopRegistryLimitationStatusType.Unknown,
-          stepFreeAccess:
-            limitations?.stepFreeAccess ??
-            StopRegistryLimitationStatusType.Unknown,
-          wheelchairAccess:
-            limitations?.wheelchairAccess ??
-            StopRegistryLimitationStatusType.Unknown,
+      quays: [
+        ...otherQuays,
+        {
+          id: stopPlaceQuayId,
+          accessibilityAssessment: {
+            id: accessibilityAssessment?.id,
+            // Limitations are required when submitting accessibility assessment
+            limitations: {
+              id: limitations?.id ?? null,
+              audibleSignalsAvailable:
+                limitations?.audibleSignalsAvailable ??
+                StopRegistryLimitationStatusType.Unknown,
+              escalatorFreeAccess:
+                limitations?.escalatorFreeAccess ??
+                StopRegistryLimitationStatusType.Unknown,
+              liftFreeAccess:
+                limitations?.liftFreeAccess ??
+                StopRegistryLimitationStatusType.Unknown,
+              stepFreeAccess:
+                limitations?.stepFreeAccess ??
+                StopRegistryLimitationStatusType.Unknown,
+              wheelchairAccess:
+                limitations?.wheelchairAccess ??
+                StopRegistryLimitationStatusType.Unknown,
+            },
+            hslAccessibilityProperties: {
+              id: accessibilityAssessment?.hslAccessibilityProperties?.id,
+              stopAreaSideSlope: state.stopAreaSideSlope ?? null,
+              stopAreaLengthwiseSlope: state.stopAreaLengthwiseSlope ?? null,
+              endRampSlope: state.endRampSlope ?? null,
+              shelterLaneDistance: state.shelterLaneDistance ?? null,
+              curbBackOfRailDistance: state.curbBackOfRailDistance ?? null,
+              curbDriveSideOfRailDistance:
+                state.curbDriveSideOfRailDistance ?? null,
+              structureLaneDistance: state.structureLaneDistance ?? null,
+              stopElevationFromRailTop: state.stopElevationFromRailTop ?? null,
+              stopElevationFromSidewalk:
+                state.stopElevationFromSidewalk ?? null,
+              lowerCleatHeight: state.lowerCleatHeight ?? null,
+              serviceAreaWidth: state.serviceAreaWidth ?? null,
+              serviceAreaLength: state.serviceAreaLength ?? null,
+              platformEdgeWarningArea: state.platformEdgeWarningArea ?? null,
+              guidanceTiles: state.guidanceTiles ?? null,
+              guidanceStripe: state.guidanceStripe ?? null,
+              serviceAreaStripes: state.serviceAreaStripes ?? null,
+              sidewalkAccessibleConnection:
+                state.sidewalkAccessibleConnection ?? null,
+              stopAreaSurroundingsAccessible:
+                state.stopAreaSurroundingsAccessible ?? null,
+              curvedStop: state.curvedStop ?? null,
+              stopType: state.stopType
+                ? (state.stopType as StopRegistryStopType)
+                : null,
+              shelterType: state.shelterType
+                ? (state.shelterType as StopRegistryShelterWidthType)
+                : null,
+              guidanceType: state.guidanceType
+                ? (state.guidanceType as StopRegistryGuidanceType)
+                : null,
+              mapType: state.mapType
+                ? (state.mapType as StopRegistryMapType)
+                : null,
+              pedestrianCrossingRampType: state.pedestrianCrossingRampType
+                ? (state.pedestrianCrossingRampType as StopRegistryPedestrianCrossingRampType)
+                : null,
+              accessibilityLevel,
+            },
+          },
         },
-        hslAccessibilityProperties: {
-          id: stop.quay?.accessibilityAssessment?.hslAccessibilityProperties
-            ?.id,
-          stopAreaSideSlope: state.stopAreaSideSlope ?? null,
-          stopAreaLengthwiseSlope: state.stopAreaLengthwiseSlope ?? null,
-          endRampSlope: state.endRampSlope ?? null,
-          shelterLaneDistance: state.shelterLaneDistance ?? null,
-          curbBackOfRailDistance: state.curbBackOfRailDistance ?? null,
-          curbDriveSideOfRailDistance:
-            state.curbDriveSideOfRailDistance ?? null,
-          structureLaneDistance: state.structureLaneDistance ?? null,
-          stopElevationFromRailTop: state.stopElevationFromRailTop ?? null,
-          stopElevationFromSidewalk: state.stopElevationFromSidewalk ?? null,
-          lowerCleatHeight: state.lowerCleatHeight ?? null,
-          serviceAreaWidth: state.serviceAreaWidth ?? null,
-          serviceAreaLength: state.serviceAreaLength ?? null,
-          platformEdgeWarningArea: state.platformEdgeWarningArea ?? null,
-          guidanceTiles: state.guidanceTiles ?? null,
-          guidanceStripe: state.guidanceStripe ?? null,
-          serviceAreaStripes: state.serviceAreaStripes ?? null,
-          sidewalkAccessibleConnection:
-            state.sidewalkAccessibleConnection ?? null,
-          stopAreaSurroundingsAccessible:
-            state.stopAreaSurroundingsAccessible ?? null,
-          curvedStop: state.curvedStop ?? null,
-          stopType: state.stopType
-            ? (state.stopType as StopRegistryStopType)
-            : null,
-          shelterType: state.shelterType
-            ? (state.shelterType as StopRegistryShelterWidthType)
-            : null,
-          guidanceType: state.guidanceType
-            ? (state.guidanceType as StopRegistryGuidanceType)
-            : null,
-          mapType: state.mapType
-            ? (state.mapType as StopRegistryMapType)
-            : null,
-          pedestrianCrossingRampType: state.pedestrianCrossingRampType
-            ? (state.pedestrianCrossingRampType as StopRegistryPedestrianCrossingRampType)
-            : null,
-          accessibilityLevel,
-        },
-      },
+      ],
     };
-
-    return input;
   };
 
   const prepareEditForTiamatDb = ({ state, stop }: EditTiamatParams) => {

@@ -8,6 +8,7 @@ import {
   ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
   StopRegistryPosterInput,
+  StopRegistryQuayInput,
   useGetHighestPriorityStopDetailsByLabelAndDateQuery,
 } from '../../generated/graphql';
 import {
@@ -364,3 +365,14 @@ export const useGetStopDetails = () => {
 
   return { ...rest, stopDetails };
 };
+
+export const getQuayIdsFromStopExcept = (
+  stop: StopWithDetails | null,
+  quayId: string | null | undefined,
+): Array<StopRegistryQuayInput> =>
+  stop?.stop_place?.quays
+    ?.map((quay) => quay?.id)
+    .filter((id) => id !== quayId)
+    .map((id) => {
+      return { id };
+    }) ?? [];

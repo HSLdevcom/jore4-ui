@@ -2,12 +2,12 @@ import isString from 'lodash/isString';
 import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 import { SignageDetailsFormState } from '../../components/stop-registry/stops/stop-details/signage-details/schema';
-import { useUpdateStopPlaceMutation } from '../../generated/graphql';
 import {
-  getRequiredStopPlaceMutationProperties,
-  showDangerToast,
-} from '../../utils';
-import { StopWithDetails } from './useGetStopDetails';
+  StopRegistryQuayInput,
+  useUpdateStopPlaceMutation,
+} from '../../generated/graphql';
+import { showDangerToast } from '../../utils';
+import { getQuayIdsFromStopExcept, StopWithDetails } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: SignageDetailsFormState;
@@ -23,40 +23,45 @@ export const useEditStopSignageDetails = () => {
     stop,
   }: EditTiamatParams) => {
     const stopPlaceId = stop.stop_place?.id;
+    const stopPlaceQuayId = stop.stop_place_ref;
 
-    const initialPlaceEquipments = stop.quay?.placeEquipments ?? {};
-    const initialGeneralSign = initialPlaceEquipments?.generalSign?.[0] ?? {};
+    const otherQuays = getQuayIdsFromStopExcept(stop, stopPlaceQuayId);
 
-    const input = {
-      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
+    const initialGeneralSign =
+      stop.quay?.placeEquipments?.generalSign?.[0] ?? {};
+
+    return {
       id: stopPlaceId,
-      placeEquipments: {
-        ...omit(initialPlaceEquipments, '__typename'),
-        // Note, assuming here that there is always 0-1 general signs
-        // (if more, they would be deleted?).
-        generalSign: [
-          {
-            ...omit(initialGeneralSign, '__typename'),
-            privateCode: state.signType && {
-              type: 'HSL',
-              value: state.signType,
-            },
-            numberOfFrames: state.numberOfFrames,
-            lineSignage: state.lineSignage,
-            replacesRailSign: state.replacesRailSign,
-            mainLineSign: state.mainLineSign,
-            note: isString(state.signageInstructionExceptions)
-              ? {
-                  lang: 'fin',
-                  value: state.signageInstructionExceptions,
-                }
-              : undefined,
+      quays: [
+        ...otherQuays,
+        {
+          id: stopPlaceQuayId,
+          placeEquipments: {
+            // Note, assuming here that there is always 0-1 general signs
+            // (if more, they would be deleted?).
+            generalSign: [
+              {
+                ...omit(initialGeneralSign, '__typename'),
+                privateCode: state.signType && {
+                  type: 'HSL',
+                  value: state.signType,
+                },
+                numberOfFrames: state.numberOfFrames,
+                lineSignage: state.lineSignage,
+                replacesRailSign: state.replacesRailSign,
+                mainLineSign: state.mainLineSign,
+                note: isString(state.signageInstructionExceptions)
+                  ? {
+                      lang: 'fin',
+                      value: state.signageInstructionExceptions,
+                    }
+                  : undefined,
+              },
+            ],
           },
-        ],
-      },
+        },
+      ],
     };
-
-    return input;
   };
 
   const prepareEditForTiamatDb = ({ state, stop }: EditTiamatParams) => {

@@ -15,7 +15,7 @@ interface Props {
 
 const testIds = {
   label: 'BasicDetailsSection::label',
-  publicCode: 'BasicDetailsSection::publicCode',
+  privateCode: 'BasicDetailsSection::privateCode',
   nameFin: 'BasicDetailsSection::nameFin',
   nameSwe: 'BasicDetailsSection::nameSwe',
   nameLongFin: 'BasicDetailsSection::nameLongFin',
@@ -35,11 +35,12 @@ const testIds = {
 
 export const BasicDetailsViewCard = ({ stop }: Props) => {
   const stopState =
-    stop.quay?.stopState && mapStopPlaceStateToUiName(stop.quay.stopState);
+    stop.quay?.stopState && mapStopPlaceStateToUiName(stop.quay?.stopState);
 
   const transportMode =
     stop.stop_place?.transportMode &&
-    mapStopRegistryTransportModeTypeToUiName(stop.stop_place.transportMode);
+    mapStopRegistryTransportModeTypeToUiName(stop.stop_place?.transportMode);
+
   return (
     <div>
       <DetailRow>
@@ -49,9 +50,9 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
           testId={testIds.label}
         />
         <LabeledDetail
-          title={t('stopDetails.basicDetails.publicCode')}
-          detail={stop.quay?.publicCode}
-          testId={testIds.publicCode}
+          title={t('stopDetails.basicDetails.privateCode')}
+          detail={stop.quay?.privateCode?.value}
+          testId={testIds.privateCode}
         />
         <LabeledDetail
           title={t('stopDetails.basicDetails.nameFin')}
@@ -126,7 +127,7 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
         <div className="flex items-center gap-4">
           <LabeledDetail
             title={t('stopDetails.basicDetails.stopType')}
-            detail={translateStopTypes(stop.stop_place, stop.quay)}
+            detail={stop.quay && translateStopTypes(stop.quay)}
             testId={testIds.stopType}
           />
           <MainLineWarning
