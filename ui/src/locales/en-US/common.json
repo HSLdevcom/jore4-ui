@@ -186,7 +186,7 @@
     "basicDetails": {
       "title": "Basic details",
       "label": "Label",
-      "publicCode": "Public code",
+      "privateCode": "Public code",
       "nameFin": "Name (Finnish)",
       "nameSwe": "Name (Swedish)",
       "nameLongFin": "Long name (Finnish)",

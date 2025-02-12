@@ -4,7 +4,7 @@ import { StopPlaceState } from '../../../../../../types/stop-registry';
 import { requiredString } from '../../../../../forms/common';
 
 export const schema = z.object({
-  publicCode: z.string().optional().nullable(),
+  privateCode: requiredString,
   nameFin: requiredString,
   nameSwe: requiredString,
   label: requiredString,

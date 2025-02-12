@@ -186,7 +186,7 @@
     "basicDetails": {
       "title": "Perustiedot",
       "label": "Lyhyttunnus",
-      "publicCode": "Tunnus",
+      "privateCode": "Tunnus",
       "nameFin": "Nimi (suomi)",
       "nameSwe": "Nimi (ruotsi)",
       "nameLongFin": "Pitkänimi (suomi)",

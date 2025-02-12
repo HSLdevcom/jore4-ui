@@ -13,10 +13,6 @@ import {
 } from '../../../../../../redux';
 import { FormColumn } from '../../../../../forms/common';
 import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
-import {
-  NameConsistencyChecker,
-  TypedName,
-} from '../../../../../forms/stop-area';
 import { StopBasicDetailsFormState, schema } from './schema';
 import { StopAbbreviationsFormRow } from './StopAbbreviationsFormRow';
 import { StopLabelAndNameFormRow } from './StopLabelAndNameFormRow';
@@ -24,55 +20,17 @@ import { StopLongNameAndLocationFormRow } from './StopLongNameAndLocationFormRow
 import { StopOtherDetailsFormRow } from './StopOtherDetailsFormRow';
 import { StopTypesFormRow } from './StopTypesFormRow';
 
-function getOverriddenNames(
-  methods: UseFormReturn<StopBasicDetailsFormState>,
-): ReadonlyArray<TypedName> {
-  const [nameFin, nameSwe, nameLongFin, nameLongSwe] = methods.watch([
-    'nameFin',
-    'nameSwe',
-    'nameLongFin',
-    'nameLongSwe',
-  ]);
-
-  return [
-    {
-      lang: 'fin',
-      type: 'TRANSLATION',
-      value: nameFin,
-    },
-    {
-      lang: 'fin',
-      type: 'ALIAS',
-      value: nameLongFin,
-    },
-    {
-      lang: 'swe',
-      type: 'TRANSLATION',
-      value: nameSwe,
-    },
-    {
-      lang: 'swe',
-      type: 'ALIAS',
-      value: nameLongSwe,
-    },
-  ];
-}
-
 type Props = {
   readonly className?: string;
   readonly defaultValues: Partial<StopBasicDetailsFormState>;
   readonly onSubmit: (state: StopBasicDetailsFormState) => void;
   readonly hasMainLineSign: boolean;
-  readonly stopAreaId: string | null | undefined;
 };
 
 const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   Props
-> = (
-  { className = '', defaultValues, onSubmit, hasMainLineSign, stopAreaId },
-  ref,
-) => {
+> = ({ className = '', defaultValues, onSubmit, hasMainLineSign }, ref) => {
   const dispatch = useDispatch();
   const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 
@@ -99,12 +57,6 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
           <HorizontalSeparator />
           <StopLongNameAndLocationFormRow />
           <StopAbbreviationsFormRow />
-          {stopAreaId && (
-            <NameConsistencyChecker.StopNameForm
-              stopAreaId={stopAreaId}
-              stopNames={getOverriddenNames(methods)}
-            />
-          )}
           <HorizontalSeparator />
           <StopTypesFormRow hasMainLineSign={hasMainLineSign} />
           <StopOtherDetailsFormRow
