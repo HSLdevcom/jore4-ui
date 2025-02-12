@@ -4,12 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { LocationDetailsFormState } from '../../components/stop-registry/stops/stop-details/location-details/schema';
 import { useUpdateStopPlaceMutation } from '../../generated/graphql';
 import {
-  getRequiredStopPlaceMutationProperties,
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
   showDangerToast,
 } from '../../utils';
-import { StopWithDetails } from './useGetStopDetails';
+import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: LocationDetailsFormState;
@@ -24,28 +23,36 @@ export const useEditStopLocationDetails = () => {
     state,
     stop,
   }: EditTiamatParams) => {
+    const stopPlaceQuayId = stop.stop_place_ref;
+    const otherQuays = getQuayIdsFromStopExcept(stop, stopPlaceQuayId);
+
     const input = {
-      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
       id: stop.stop_place?.id,
-      keyValues: patchKeyValues(
-        stop?.stop_place,
-        compact([
-          state.streetAddress && {
-            key: 'streetAddress',
-            values: [state.streetAddress.toString()],
-          },
-          state.postalCode && {
-            key: 'postalCode',
-            values: [state.postalCode.toString()],
-          },
-          isNumber(state.functionalArea) && {
-            key: 'functionalArea',
-            values: [state.functionalArea.toString()],
-          },
-        ]),
-      ),
-      // Note: this can't be modified (at the moment at least), but currently this is the only place where it is synced to timetables DB.
-      geometry: mapPointToStopRegistryGeoJSON(state),
+      quays: [
+        ...otherQuays,
+        {
+          id: stopPlaceQuayId,
+          // Note: this can't be modified (at the moment at least), but currently this is the only place where it is synced to timetables DB.
+          geometry: mapPointToStopRegistryGeoJSON(state),
+          keyValues: patchKeyValues(
+            stop.quay,
+            compact([
+              state.streetAddress && {
+                key: 'streetAddress',
+                values: [state.streetAddress.toString()],
+              },
+              state.postalCode && {
+                key: 'postalCode',
+                values: [state.postalCode.toString()],
+              },
+              isNumber(state.functionalArea) && {
+                key: 'functionalArea',
+                values: [state.functionalArea.toString()],
+              },
+            ]),
+          ),
+        },
+      ],
     };
 
     return input;

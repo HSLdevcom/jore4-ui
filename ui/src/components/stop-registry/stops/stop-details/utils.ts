@@ -4,21 +4,19 @@ import {
   StopRegistryDisplayType,
   StopRegistryInfoSpotType,
 } from '../../../../generated/graphql';
-import { EnrichedQuay, EnrichedStopPlace } from '../../../../hooks';
+import { EnrichedQuay } from '../../../../hooks';
 import { i18n } from '../../../../i18n';
 
 /**
  * Returns a translated string that includes all stop types of a given stop place.
  */
 export const translateStopTypes = (
-  stopPlace: Pick<EnrichedStopPlace, 'stopType'> | null | undefined,
   quay?: Pick<EnrichedQuay, 'stopType'> | null | undefined,
 ) => {
   const result = compact([
     quay?.stopType.mainLine && i18n.t('stopPlaceTypes.mainLine'),
-    stopPlace?.stopType.interchange && i18n.t('stopPlaceTypes.interchange'),
-    stopPlace?.stopType.railReplacement &&
-      i18n.t('stopPlaceTypes.railReplacement'),
+    quay?.stopType.interchange && i18n.t('stopPlaceTypes.interchange'),
+    quay?.stopType.railReplacement && i18n.t('stopPlaceTypes.railReplacement'),
     quay?.stopType.virtual && i18n.t('stopPlaceTypes.virtual'),
   ])
     // Uncapitalize each translation.
