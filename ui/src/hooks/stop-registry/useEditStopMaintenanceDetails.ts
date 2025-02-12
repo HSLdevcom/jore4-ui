@@ -5,11 +5,7 @@ import {
   StopRegistryStopPlaceOrganisationRelationshipType,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
-import {
-  getRequiredStopPlaceMutationProperties,
-  notNullish,
-  showDangerToast,
-} from '../../utils';
+import { notNullish, showDangerToast } from '../../utils';
 import { StopWithDetails } from './useGetStopDetails';
 
 interface EditTiamatParams {
@@ -43,7 +39,6 @@ export const useEditStopMaintenanceDetails = () => {
         .filter(notNullish);
 
     const input = {
-      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
       id: stopPlaceId,
       organisations: selectedOrganisations,
     };

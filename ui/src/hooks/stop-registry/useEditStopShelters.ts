@@ -5,17 +5,15 @@ import {
 } from '../../components/stop-registry/stops/stop-details/shelters/schema';
 import {
   StopRegistryCycleStorageType,
+  StopRegistryQuayInput,
   StopRegistryShelterCondition,
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
   StopRegistryStopPlaceInput,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
-import {
-  getRequiredStopPlaceMutationProperties,
-  showDangerToast,
-} from '../../utils';
-import { StopWithDetails } from './useGetStopDetails';
+import { showDangerToast } from '../../utils';
+import { getQuayIdsFromStopExcept, StopWithDetails } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: SheltersFormState;
@@ -33,6 +31,7 @@ const mapShelterFormToInput = (shelter: ShelterState) => {
   );
 
   return {
+    id: shelter.shelterNetexId,
     enclosed,
     // Leaving stepFree unset because it looks like it isn't used for anything important in Tiamat.
     // Could maybe deduce from accessibility properties, but that would mean we would need to
@@ -63,8 +62,8 @@ function mapStopEditChangesToTiamatDbInput({
   stop,
 }: EditTiamatParams): StopRegistryStopPlaceInput {
   const stopPlaceId = stop.stop_place?.id;
-  const quay = stop.stop_place?.quays?.[0];
-  const stopPlaceQuayId = quay?.id;
+  const stopPlaceQuayId = stop.stop_place_ref;
+  const otherQuays = getQuayIdsFromStopExcept(stop, stopPlaceQuayId);
 
   const sheltersInput = state.shelters
     .filter((s) => !s.toBeDeleted)
@@ -72,9 +71,9 @@ function mapStopEditChangesToTiamatDbInput({
   const hasBicycleParking = sheltersInput.some((s) => s.bicycleParking);
 
   return {
-    ...getRequiredStopPlaceMutationProperties(stop.stop_place),
     id: stopPlaceId,
     quays: [
+      ...otherQuays,
       {
         id: stopPlaceQuayId,
         placeEquipments: {

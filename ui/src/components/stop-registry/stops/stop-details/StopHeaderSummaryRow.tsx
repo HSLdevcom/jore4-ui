@@ -42,11 +42,11 @@ export const StopHeaderSummaryRow: React.FC<Props> = ({
             text={t('stopPlaceTypes.mainLine')}
           />
           <StopTypeLabel
-            hasType={!!stopDetails?.stop_place?.stopType.interchange}
+            hasType={!!stopDetails?.quay?.stopType.interchange}
             text={t('stopPlaceTypes.interchange')}
           />
           <StopTypeLabel
-            hasType={!!stopDetails?.stop_place?.stopType.railReplacement}
+            hasType={!!stopDetails?.quay?.stopType.railReplacement}
             text={t('stopPlaceTypes.railReplacement')}
           />
           <StopTypeLabel
