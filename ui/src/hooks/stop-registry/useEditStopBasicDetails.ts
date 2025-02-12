@@ -7,9 +7,9 @@ import {
   EditStopMutationVariables,
   RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
-  StopRegistryInterchangeWeightingType,
   StopRegistryNameType,
-  StopRegistrySubmodeType,
+  StopRegistryQuayInput,
+  StopRegistryStopPlaceInput,
   useEditStopMutation,
   useGetStopWithRouteGraphDataByIdLazyQuery,
   useUpdateStopPlaceMutation,
@@ -22,7 +22,6 @@ import {
   InternalError,
   TimingPlaceRequiredError,
   defaultTo,
-  getRequiredStopPlaceMutationProperties,
   patchAlternativeNames,
   patchKeyValues,
   showDangerToast,
@@ -159,16 +158,18 @@ export const useEditStopBasicDetails = () => {
   const mapStopEditChangesToTiamatDbInput = ({
     state,
     stop,
-  }: EditTiamatParams) => {
+  }: EditTiamatParams): StopRegistryStopPlaceInput => {
     const stopPlaceId = stop.stop_place?.id;
-    const stopPlaceQuayId =
-      stop.stop_place?.quays && stop.stop_place?.quays[0]?.id;
+    const stopPlaceQuayId = stop.stop_place_ref;
 
-    const input = {
-      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
+    const existingQuays =
+      stop.stop_place?.quays
+        ?.filter((quay) => quay?.id !== stopPlaceQuayId)
+        .map((quay) => quay as StopRegistryQuayInput) ?? [];
+
+    return {
       id: stopPlaceId,
-      publicCode: state.publicCode,
-      privateCode: { value: state.elyNumber, type: 'ELY' },
+      privateCode: { value: state.privateCode, type: 'HSL' },
       name: {
         lang: 'fin',
         value: state.nameFin,
@@ -179,16 +180,20 @@ export const useEditStopBasicDetails = () => {
           nameType: StopRegistryNameType.Translation,
         },
         {
-          name: { lang: 'swe', value: state.locationSwe },
-          nameType: StopRegistryNameType.Other,
-        },
-        {
           name: { lang: 'fin', value: state.abbreviation5CharFin },
           nameType: StopRegistryNameType.Label,
         },
         {
           name: { lang: 'swe', value: state.abbreviation5CharSwe },
           nameType: StopRegistryNameType.Label,
+        },
+        {
+          name: { lang: 'fin', value: state.abbreviationFin },
+          nameType: StopRegistryNameType.Other,
+        },
+        {
+          name: { lang: 'swe', value: state.abbreviationSwe },
+          nameType: StopRegistryNameType.Other,
         },
         {
           name: { lang: 'fin', value: state.nameLongFin },
@@ -199,17 +204,7 @@ export const useEditStopBasicDetails = () => {
           nameType: StopRegistryNameType.Alias,
         },
       ]),
-      weighting: state.stopTypes.interchange
-        ? StopRegistryInterchangeWeightingType.RecommendedInterchange
-        : StopRegistryInterchangeWeightingType.NoInterchange,
-      submode: state.stopTypes.railReplacement
-        ? StopRegistrySubmodeType.RailReplacementBus
-        : null,
       keyValues: patchKeyValues(stop.stop_place, [
-        { key: 'stopState', values: [state.stopState.toString()] },
-        { key: 'mainLine', values: [state.stopTypes.mainLine.toString()] },
-        { key: 'virtual', values: [state.stopTypes.virtual.toString()] },
-        { key: 'priority', values: [stop.priority.toString(10)] },
         {
           key: 'validityStart',
           values: stop.validity_start ? [stop.validity_start.toISODate()] : [],
@@ -219,27 +214,60 @@ export const useEditStopBasicDetails = () => {
           values: stop.validity_end ? [stop.validity_end.toISODate()] : [],
         },
       ]),
-      description: { lang: 'fin', value: state.locationFin },
       quays: [
+        ...existingQuays,
         {
           publicCode: state.label,
           id: stopPlaceQuayId,
+          description: { value: state.locationFin, lang: 'fin' },
           alternativeNames: patchAlternativeNames(stop.stop_place, [
             {
-              name: { lang: 'fin', value: state.abbreviationFin },
+              name: { lang: 'fin', value: state.locationFin },
               nameType: StopRegistryNameType.Alias,
             },
             {
-              name: { lang: 'swe', value: state.abbreviationSwe },
-              nameType: StopRegistryNameType.Alias,
+              name: { lang: 'swe', value: state.locationSwe },
+              nameType: StopRegistryNameType.Other,
+            },
+          ]),
+          keyValues: patchKeyValues(stop.quay, [
+            {
+              key: 'interchange',
+              values: state.stopTypes.interchange
+                ? [state.stopTypes.interchange?.toString()]
+                : [],
+            },
+            {
+              key: 'railReplacement',
+              values: state.stopTypes.railReplacement
+                ? [state.stopTypes.railReplacement?.toString()]
+                : [],
+            },
+            {
+              key: 'mainLine',
+              values: state.stopTypes.mainLine
+                ? [state.stopTypes.mainLine?.toString()]
+                : [],
+            },
+            {
+              key: 'virtual',
+              values: state.stopTypes.virtual
+                ? [state.stopTypes.virtual?.toString()]
+                : [],
+            },
+            {
+              key: 'elyNumber',
+              values: state.elyNumber ? [state.elyNumber] : [],
+            },
+            {
+              key: 'stopState',
+              values: state.stopState ? [state.stopState] : [],
             },
           ]),
         },
       ],
       transportMode: state.transportMode,
     };
-
-    return input;
   };
 
   const prepareEditForTiamatDb = ({ state, stop }: EditTiamatParams) => {

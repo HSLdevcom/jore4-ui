@@ -27,7 +27,7 @@ export const StopLabelAndNameFormRow = () => {
         <InputField<StopBasicDetailsFormState>
           type="text"
           translationPrefix="stopDetails.basicDetails"
-          fieldPath="publicCode"
+          fieldPath="privateCode"
           testId={testIds.publicCode}
         />
       </Column>

@@ -2,9 +2,11 @@ import compact from 'lodash/compact';
 import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
 import { LocationDetailsFormState } from '../../components/stop-registry/stops/stop-details/location-details/schema';
-import { useUpdateStopPlaceMutation } from '../../generated/graphql';
 import {
-  getRequiredStopPlaceMutationProperties,
+  StopRegistryQuayInput,
+  useUpdateStopPlaceMutation,
+} from '../../generated/graphql';
+import {
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
   showDangerToast,
@@ -24,28 +26,39 @@ export const useEditStopLocationDetails = () => {
     state,
     stop,
   }: EditTiamatParams) => {
+    const stopPlaceQuayId = stop.stop_place_ref;
+    const existingQuays =
+      stop.stop_place?.quays
+        ?.filter((quay) => quay?.id !== stopPlaceQuayId)
+        .map((quay) => quay as StopRegistryQuayInput) ?? [];
+
     const input = {
-      ...getRequiredStopPlaceMutationProperties(stop.stop_place),
       id: stop.stop_place?.id,
-      keyValues: patchKeyValues(
-        stop?.stop_place,
-        compact([
-          state.streetAddress && {
-            key: 'streetAddress',
-            values: [state.streetAddress.toString()],
-          },
-          state.postalCode && {
-            key: 'postalCode',
-            values: [state.postalCode.toString()],
-          },
-          isNumber(state.functionalArea) && {
-            key: 'functionalArea',
-            values: [state.functionalArea.toString()],
-          },
-        ]),
-      ),
-      // Note: this can't be modified (at the moment at least), but currently this is the only place where it is synced to timetables DB.
-      geometry: mapPointToStopRegistryGeoJSON(state),
+      quays: [
+        ...existingQuays,
+        {
+          id: stopPlaceQuayId,
+          // Note: this can't be modified (at the moment at least), but currently this is the only place where it is synced to timetables DB.
+          geometry: mapPointToStopRegistryGeoJSON(state),
+          keyValues: patchKeyValues(
+            stop.quay,
+            compact([
+              state.streetAddress && {
+                key: 'streetAddress',
+                values: [state.streetAddress.toString()],
+              },
+              state.postalCode && {
+                key: 'postalCode',
+                values: [state.postalCode.toString()],
+              },
+              isNumber(state.functionalArea) && {
+                key: 'functionalArea',
+                values: [state.functionalArea.toString()],
+              },
+            ]),
+          ),
+        },
+      ],
     };
 
     return input;
