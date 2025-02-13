@@ -2721,7 +2721,7 @@ export type JourneyPatternScheduledStopPointInJourneyPatternBoolExp = {
 
 /** unique or primary key constraints on table "journey_pattern.scheduled_stop_point_in_journey_pattern" */
 export enum JourneyPatternScheduledStopPointInJourneyPatternConstraint {
-  /** unique or primary key constraint on columns "scheduled_stop_point_sequence", "journey_pattern_id" */
+  /** unique or primary key constraint on columns "journey_pattern_id", "scheduled_stop_point_sequence" */
   ScheduledStopPointInJourneyPatternPkey = 'scheduled_stop_point_in_journey_pattern_pkey',
 }
 
@@ -5731,7 +5731,7 @@ export type RouteDirectionBoolExp = {
   directionByTheOppositeOfDirection?: InputMaybe<RouteDirectionBoolExp>;
   directions?: InputMaybe<RouteDirectionBoolExp>;
   directions_aggregate?: InputMaybe<RouteDirectionAggregateBoolExp>;
-  the_opposite_of_direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
+  the_opposite_of_direction?: InputMaybe<TimetablesRouteDirectionEnumComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.direction" */
@@ -5758,15 +5758,6 @@ export enum RouteDirectionEnum {
   /** eastbound */
   Westbound = 'westbound',
 }
-
-/** Boolean expression to compare columns of type "route_direction_enum". All fields are combined with logical 'AND'. */
-export type RouteDirectionEnumComparisonExp = {
-  _eq?: InputMaybe<RouteDirectionEnum>;
-  _in?: InputMaybe<Array<RouteDirectionEnum>>;
-  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
-  _neq?: InputMaybe<RouteDirectionEnum>;
-  _nin?: InputMaybe<Array<RouteDirectionEnum>>;
-};
 
 /** input type for inserting data into table "route.direction" */
 export type RouteDirectionInsertInput = {
@@ -6008,7 +5999,7 @@ export type RouteInfrastructureLinkAlongRouteBoolExp = {
 
 /** unique or primary key constraints on table "route.infrastructure_link_along_route" */
 export enum RouteInfrastructureLinkAlongRouteConstraint {
-  /** unique or primary key constraint on columns "infrastructure_link_sequence", "route_id" */
+  /** unique or primary key constraint on columns "route_id", "infrastructure_link_sequence" */
   InfrastructureLinkAlongRoutePkey = 'infrastructure_link_along_route_pkey',
 }
 
@@ -7070,7 +7061,7 @@ export type RouteRouteBoolExp = {
   description_i18n?: InputMaybe<JsonbComparisonExp>;
   destination_name_i18n?: InputMaybe<JsonbComparisonExp>;
   destination_short_name_i18n?: InputMaybe<JsonbComparisonExp>;
-  direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
+  direction?: InputMaybe<TimetablesRouteDirectionEnumComparisonExp>;
   infrastructure_links_along_route?: InputMaybe<RouteInfrastructureLinkAlongRouteBoolExp>;
   infrastructure_links_along_route_aggregate?: InputMaybe<RouteInfrastructureLinkAlongRouteAggregateBoolExp>;
   label?: InputMaybe<StringComparisonExp>;
@@ -7925,7 +7916,7 @@ export type ServicePatternDistanceBetweenStopsCalculationBoolExp = {
 
 /** unique or primary key constraints on table "service_pattern.distance_between_stops_calculation" */
 export enum ServicePatternDistanceBetweenStopsCalculationConstraint {
-  /** unique or primary key constraint on columns "observation_date", "stop_interval_sequence", "journey_pattern_id", "route_priority" */
+  /** unique or primary key constraint on columns "observation_date", "stop_interval_sequence", "route_priority", "journey_pattern_id" */
   DistanceBetweenStopsCalculationPkey = 'distance_between_stops_calculation_pkey',
 }
 
@@ -10306,6 +10297,7 @@ export type StopRegistryQuay = {
   polygon?: Maybe<StopRegistryGeoJson>;
   privateCode?: Maybe<StopRegistryPrivateCode>;
   publicCode?: Maybe<Scalars['String']['output']>;
+  scheduled_stop_point?: Maybe<ServicePatternScheduledStopPoint>;
   shortName?: Maybe<StopRegistryEmbeddableMultilingualString>;
   validBetween?: Maybe<StopRegistryValidBetween>;
   version?: Maybe<Scalars['String']['output']>;
@@ -12130,7 +12122,7 @@ export type StopsDatabaseAccessSpaceKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "access_space_key_values" */
 export enum StopsDatabaseAccessSpaceKeyValuesConstraint {
-  /** unique or primary key constraint on columns "access_space_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "access_space_id" */
   AccessSpaceKeyValuesPkey = 'access_space_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkKcsgl47aba68824kjdceo60ql = 'uk_kcsgl47aba68824kjdceo60ql',
@@ -15392,7 +15384,7 @@ export type StopsDatabaseBoardingPositionKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "boarding_position_key_values" */
 export enum StopsDatabaseBoardingPositionKeyValuesConstraint {
-  /** unique or primary key constraint on columns "boarding_position_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "boarding_position_id" */
   BoardingPositionKeyValuesPkey = 'boarding_position_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkJilhh4jbyloqka3r1xpv88lpb = 'uk_jilhh4jbyloqka3r1xpv88lpb',
@@ -16207,7 +16199,7 @@ export type StopsDatabaseCheckConstraintKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "check_constraint_key_values" */
 export enum StopsDatabaseCheckConstraintKeyValuesConstraint {
-  /** unique or primary key constraint on columns "check_constraint_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "check_constraint_id" */
   CheckConstraintKeyValuesPkey = 'check_constraint_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkGsegfx5ipotsd45aqbmq7kux0 = 'uk_gsegfx5ipotsd45aqbmq7kux0',
@@ -18545,7 +18537,7 @@ export type StopsDatabaseEquipmentPositionKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "equipment_position_key_values" */
 export enum StopsDatabaseEquipmentPositionKeyValuesConstraint {
-  /** unique or primary key constraint on columns "equipment_position_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "equipment_position_id" */
   EquipmentPositionKeyValuesPkey = 'equipment_position_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkHw9nq847b38qyxa25ide9ltyy = 'uk_hw9nq847b38qyxa25ide9ltyy',
@@ -23069,7 +23061,7 @@ export type StopsDatabaseGroupOfTariffZonesKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "group_of_tariff_zones_key_values" */
 export enum StopsDatabaseGroupOfTariffZonesKeyValuesConstraint {
-  /** unique or primary key constraint on columns "group_of_tariff_zones_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "group_of_tariff_zones_id" */
   GroupOfTariffZonesKeyValuesPkey = 'group_of_tariff_zones_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkPfy12mpgyt1qevehecnwh5vq2 = 'uk_pfy12mpgyt1qevehecnwh5vq2',
@@ -23400,7 +23392,7 @@ export type StopsDatabaseGroupOfTariffZonesMembersBoolExp = {
 
 /** unique or primary key constraints on table "group_of_tariff_zones_members" */
 export enum StopsDatabaseGroupOfTariffZonesMembersConstraint {
-  /** unique or primary key constraint on columns "group_of_tariff_zones_id", "ref" */
+  /** unique or primary key constraint on columns "ref", "group_of_tariff_zones_id" */
   GroupOfTariffZonesMembersPkey = 'group_of_tariff_zones_members_pkey',
 }
 
@@ -24846,7 +24838,7 @@ export type StopsDatabaseIdGeneratorBoolExp = {
 
 /** unique or primary key constraints on table "id_generator" */
 export enum StopsDatabaseIdGeneratorConstraint {
-  /** unique or primary key constraint on columns "id_value", "table_name" */
+  /** unique or primary key constraint on columns "table_name", "id_value" */
   IdConstraint = 'id_constraint',
 }
 
@@ -27127,7 +27119,7 @@ export type StopsDatabaseLevelKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "level_key_values" */
 export enum StopsDatabaseLevelKeyValuesConstraint {
-  /** unique or primary key constraint on columns "level_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "level_id" */
   LevelKeyValuesPkey = 'level_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   Uk_4eghmku46yje2lg3f1u6p949e = 'uk_4eghmku46yje2lg3f1u6p949e',
@@ -28198,7 +28190,7 @@ export type StopsDatabaseOrganisationKeyValuesBoolExp = {
 export enum StopsDatabaseOrganisationKeyValuesConstraint {
   /** unique or primary key constraint on columns "key_values_id" */
   OrganisationKeyValuesKeyValuesIdKey = 'organisation_key_values_key_values_id_key',
-  /** unique or primary key constraint on columns "organisation_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "organisation_id" */
   OrganisationKeyValuesPkey = 'organisation_key_values_pkey',
 }
 
@@ -30509,7 +30501,7 @@ export type StopsDatabaseParkingAreaKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "parking_area_key_values" */
 export enum StopsDatabaseParkingAreaKeyValuesConstraint {
-  /** unique or primary key constraint on columns "parking_area_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "parking_area_id" */
   ParkingAreaKeyValuesPkey = 'parking_area_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkRxv53i59u1pf70kxtdchlxird = 'uk_rxv53i59u1pf70kxtdchlxird',
@@ -32067,7 +32059,7 @@ export type StopsDatabaseParkingKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "parking_key_values" */
 export enum StopsDatabaseParkingKeyValuesConstraint {
-  /** unique or primary key constraint on columns "parking_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "parking_id" */
   ParkingKeyValuesPkey = 'parking_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkIteh0to4gqim61p74lq2ugc2k = 'uk_iteh0to4gqim61p74lq2ugc2k',
@@ -34707,7 +34699,7 @@ export type StopsDatabasePathJunctionKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "path_junction_key_values" */
 export enum StopsDatabasePathJunctionKeyValuesConstraint {
-  /** unique or primary key constraint on columns "path_junction_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "path_junction_id" */
   PathJunctionKeyValuesPkey = 'path_junction_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   Uk_8au15celles62v9ug5bvq2t4x = 'uk_8au15celles62v9ug5bvq2t4x',
@@ -35488,7 +35480,7 @@ export type StopsDatabasePathLinkKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "path_link_key_values" */
 export enum StopsDatabasePathLinkKeyValuesConstraint {
-  /** unique or primary key constraint on columns "path_link_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "path_link_id" */
   PathLinkKeyValuesPkey = 'path_link_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkKn4m9f3l3gdgyg7mdus6qd1r1 = 'uk_kn4m9f3l3gdgyg7mdus6qd1r1',
@@ -38122,7 +38114,7 @@ export type StopsDatabaseQuayKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "quay_key_values" */
 export enum StopsDatabaseQuayKeyValuesConstraint {
-  /** unique or primary key constraint on columns "quay_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "quay_id" */
   QuayKeyValuesPkey = 'quay_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkPlgcx1aoolr4vngts8ifkrse6 = 'uk_plgcx1aoolr4vngts8ifkrse6',
@@ -40511,7 +40503,7 @@ export type StopsDatabaseStopPlaceChildrenBoolExp = {
 
 /** unique or primary key constraints on table "stop_place_children" */
 export enum StopsDatabaseStopPlaceChildrenConstraint {
-  /** unique or primary key constraint on columns "stop_place_id", "children_id" */
+  /** unique or primary key constraint on columns "children_id", "stop_place_id" */
   StopPlaceChildrenPkey = 'stop_place_children_pkey',
   /** unique or primary key constraint on columns "children_id" */
   UkKj0a7ruk5k2bub2028nbkqwtw = 'uk_kj0a7ruk5k2bub2028nbkqwtw',
@@ -41181,7 +41173,7 @@ export type StopsDatabaseStopPlaceKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "stop_place_key_values" */
 export enum StopsDatabaseStopPlaceKeyValuesConstraint {
-  /** unique or primary key constraint on columns "stop_place_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "stop_place_id" */
   StopPlaceKeyValuesPkey = 'stop_place_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   Uk_54aj7c8yuc5751x4c7qly6e5t = 'uk_54aj7c8yuc5751x4c7qly6e5t',
@@ -42484,7 +42476,7 @@ export type StopsDatabaseStopPlaceOrganisationsBoolExp = {
 
 /** unique or primary key constraints on table "stop_place_organisations" */
 export enum StopsDatabaseStopPlaceOrganisationsConstraint {
-  /** unique or primary key constraint on columns "organisation_ref", "stop_place_id", "relationship_type" */
+  /** unique or primary key constraint on columns "relationship_type", "stop_place_id", "organisation_ref" */
   StopPlaceOrganisationsPkey = 'stop_place_organisations_pkey',
 }
 
@@ -42729,7 +42721,7 @@ export type StopsDatabaseStopPlaceQuaysBoolExp = {
 
 /** unique or primary key constraints on table "stop_place_quays" */
 export enum StopsDatabaseStopPlaceQuaysConstraint {
-  /** unique or primary key constraint on columns "stop_place_id", "quays_id" */
+  /** unique or primary key constraint on columns "quays_id", "stop_place_id" */
   StopPlaceQuaysPkey = 'stop_place_quays_pkey',
   /** unique or primary key constraint on columns "quays_id" */
   UkF684i92mysvn6hqigs0j3m2nr = 'uk_f684i92mysvn6hqigs0j3m2nr',
@@ -56029,7 +56021,7 @@ export type StopsDatabaseTariffZoneKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "tariff_zone_key_values" */
 export enum StopsDatabaseTariffZoneKeyValuesConstraint {
-  /** unique or primary key constraint on columns "tariff_zone_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "tariff_zone_id" */
   TariffZoneKeyValuesPkey = 'tariff_zone_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkN3n61qrmgry87uoc7sho0nphm = 'uk_n3n61qrmgry87uoc7sho0nphm',
@@ -56812,7 +56804,7 @@ export type StopsDatabaseTopographicPlaceKeyValuesBoolExp = {
 
 /** unique or primary key constraints on table "topographic_place_key_values" */
 export enum StopsDatabaseTopographicPlaceKeyValuesConstraint {
-  /** unique or primary key constraint on columns "topographic_place_id", "key_values_key" */
+  /** unique or primary key constraint on columns "key_values_key", "topographic_place_id" */
   TopographicPlaceKeyValuesPkey = 'topographic_place_key_values_pkey',
   /** unique or primary key constraint on columns "key_values_id" */
   UkTq5dgj811w1k4w86m4x66iwso = 'uk_tq5dgj811w1k4w86m4x66iwso',
@@ -58896,7 +58888,7 @@ export type TimetablesJourneyPatternJourneyPatternRefBoolExp = {
   journey_pattern_id?: InputMaybe<UuidComparisonExp>;
   journey_pattern_ref_id?: InputMaybe<UuidComparisonExp>;
   observation_timestamp?: InputMaybe<TimestamptzComparisonExp>;
-  route_direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
+  route_direction?: InputMaybe<TimetablesRouteDirectionEnumComparisonExp>;
   route_label?: InputMaybe<StringComparisonExp>;
   route_validity_end?: InputMaybe<DateComparisonExp>;
   route_validity_start?: InputMaybe<DateComparisonExp>;
@@ -59913,7 +59905,7 @@ export type TimetablesRouteDirectionBoolExp = {
   _not?: InputMaybe<TimetablesRouteDirectionBoolExp>;
   _or?: InputMaybe<Array<TimetablesRouteDirectionBoolExp>>;
   direction?: InputMaybe<StringComparisonExp>;
-  the_opposite_of_direction?: InputMaybe<RouteDirectionEnumComparisonExp>;
+  the_opposite_of_direction?: InputMaybe<TimetablesRouteDirectionEnumComparisonExp>;
 };
 
 /** unique or primary key constraints on table "route.direction" */
@@ -59940,6 +59932,15 @@ export enum TimetablesRouteDirectionEnum {
   /** eastbound */
   Westbound = 'westbound',
 }
+
+/** Boolean expression to compare columns of type "timetables_route_direction_enum". All fields are combined with logical 'AND'. */
+export type TimetablesRouteDirectionEnumComparisonExp = {
+  _eq?: InputMaybe<TimetablesRouteDirectionEnum>;
+  _in?: InputMaybe<Array<TimetablesRouteDirectionEnum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _neq?: InputMaybe<TimetablesRouteDirectionEnum>;
+  _nin?: InputMaybe<Array<TimetablesRouteDirectionEnum>>;
+};
 
 /** input type for inserting data into table "route.direction" */
 export type TimetablesRouteDirectionInsertInput = {
@@ -61642,7 +61643,7 @@ export type TimetablesServicePatternScheduledStopPointInJourneyPatternRefBoolExp
 export enum TimetablesServicePatternScheduledStopPointInJourneyPatternRefConstraint {
   /** unique or primary key constraint on columns "scheduled_stop_point_in_journey_pattern_ref_id" */
   ScheduledStopPointInJourneyPatternRefPkey = 'scheduled_stop_point_in_journey_pattern_ref_pkey',
-  /** unique or primary key constraint on columns "scheduled_stop_point_sequence", "journey_pattern_ref_id" */
+  /** unique or primary key constraint on columns "journey_pattern_ref_id", "scheduled_stop_point_sequence" */
   ServicePatternScheduledStopPointInJourneyPatternRefIdx = 'service_pattern_scheduled_stop_point_in_journey_pattern_ref_idx',
 }
 
@@ -65799,7 +65800,7 @@ export type TimetablesVehicleServiceJourneyPatternsInVehicleServiceBoolExp = {
 
 /** unique or primary key constraints on table "vehicle_service.journey_patterns_in_vehicle_service" */
 export enum TimetablesVehicleServiceJourneyPatternsInVehicleServiceConstraint {
-  /** unique or primary key constraint on columns "journey_pattern_id", "vehicle_service_id" */
+  /** unique or primary key constraint on columns "vehicle_service_id", "journey_pattern_id" */
   JourneyPatternsInVehicleServicePkey = 'journey_patterns_in_vehicle_service_pkey',
 }
 
