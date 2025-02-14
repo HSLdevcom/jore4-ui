@@ -136,7 +136,7 @@
     "basicDetails": {
       "title": "JORE stop area",
       "name": "Stop area name",
-      "description": "Stop area description",
+      "privateCode": "Stop area label",
       "parentTerminal": "Parent terminal",
       "areaSize": "Stop area size (m²)",
       "validityPeriod": "Validity period",

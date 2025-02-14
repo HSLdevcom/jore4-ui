@@ -7,6 +7,7 @@ import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { StopAreaComponentProps } from './StopAreaComponentProps';
 
 const testIds = {
+  privateCode: 'StopAreaDetails::privateCode',
   name: 'StopAreaDetails::name',
   nameFin: 'StopAreaDetails::nameFin',
   nameSwe: 'StopAreaDetails::nameSwe',
@@ -35,6 +36,11 @@ export const StopAreaDetailsView: FC<StopAreaComponentProps> = ({
 
   return (
     <DetailRow className={twMerge('mb-0 flex-grow flex-wrap py-0', className)}>
+      <LabeledDetail
+        title={t('stopAreaDetails.basicDetails.privateCode')}
+        detail={area.privateCode?.value}
+        testId={testIds.privateCode}
+      />
       <LabeledDetail
         title={t('stopAreaDetails.basicDetails.name')}
         detail={area.name}

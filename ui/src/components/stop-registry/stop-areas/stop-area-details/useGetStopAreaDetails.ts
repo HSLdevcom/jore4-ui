@@ -5,11 +5,7 @@ import {
   StopPlaceDetailsFragment,
   useGetStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
-import {
-  EnrichedStopPlace,
-  StopPlace,
-  useRequiredParams,
-} from '../../../../hooks';
+import { EnrichedStopPlace, useRequiredParams } from '../../../../hooks';
 import {
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
@@ -62,9 +58,6 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
       key
       values
     }
-
-    weighting
-    submode
 
     quays {
       ...quay_details
