@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
+import maxBy from 'lodash/maxBy';
 import { useMemo } from 'react';
 import {
   GetHighestPriorityStopDetailsByLabelAndDateQuery,
@@ -14,9 +15,11 @@ import {
 import {
   QuayEnrichmentProperties,
   StopPlaceEnrichmentProperties,
+  findKeyValue,
   getQuayDetailsForEnrichment,
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
+  notNullish,
 } from '../../utils';
 import { useObservationDateQueryParam } from '../urlQuery';
 import { useRequiredParams } from '../useRequiredParams';
@@ -329,8 +332,41 @@ export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
   quay: EnrichedQuay | null;
 };
 
+function validOn(observationDateTs: number) {
+  return (quay: Quay) => {
+    const validityStart = quay.scheduled_stop_point?.validity_start;
+    const validityEnd = quay.scheduled_stop_point?.validity_end;
+
+    if (!validityStart || validityStart.valueOf() > observationDateTs) {
+      return false;
+    }
+
+    if (validityEnd && validityEnd.valueOf() < observationDateTs) {
+      return false;
+    }
+
+    return true;
+  };
+}
+
+function getCorrectQuay(
+  quays: ReadonlyArray<Quay | null | undefined> | null | undefined,
+  requestedPublicCode: string,
+  observationDateTs: number,
+): Quay | null {
+  const validQuays = quays
+    ?.filter(notNullish)
+    .filter((it) => it.publicCode === requestedPublicCode)
+    .filter(validOn(observationDateTs));
+
+  return (
+    maxBy(validQuays, (quay) => Number(findKeyValue(quay, 'priority'))) ?? null
+  );
+}
+
 const getStopDetails = (
   data: GetHighestPriorityStopDetailsByLabelAndDateQuery | undefined,
+  observationDateTs: number,
 ): StopWithDetails | null => {
   const stopPoint = data?.service_pattern_scheduled_stop_point[0];
   if (!stopPoint) {
@@ -341,13 +377,16 @@ const getStopDetails = (
     stopPoint.stop_place,
   );
 
-  const found = stopPlace.quays?.find(
-    (it) => it?.publicCode === stopPoint.label,
+  const selectedQuay = getCorrectQuay(
+    stopPlace.quays,
+    stopPoint.label,
+    observationDateTs,
   );
+
   return {
     ...stopPoint,
     stop_place: getEnrichedStopPlace(stopPlace),
-    quay: getEnrichedQuay(found),
+    quay: getEnrichedQuay(selectedQuay),
   };
 };
 
@@ -361,7 +400,11 @@ export const useGetStopDetails = () => {
     },
   );
 
-  const stopDetails = useMemo(() => getStopDetails(data), [data]);
+  const observationDateTs = observationDate.valueOf();
+  const stopDetails = useMemo(
+    () => getStopDetails(data, observationDateTs),
+    [data, observationDateTs],
+  );
 
   return { ...rest, stopDetails };
 };
