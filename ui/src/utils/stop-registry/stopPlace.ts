@@ -134,7 +134,7 @@ type ElementWithKeyValues = {
   readonly keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
 };
 
-const findKeyValue = (
+export const findKeyValue = (
   element: ElementWithKeyValues,
   key: string,
 ): string | null => {
