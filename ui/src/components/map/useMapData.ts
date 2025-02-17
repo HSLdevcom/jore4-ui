@@ -1,159 +1,90 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { gql } from '@apollo/client';
+import flatten from 'lodash/flatten';
 import { useCallback, useEffect, useState } from 'react';
 import {
-  GeographyComparisonExp,
-  GeometryComparisonExp,
-  GetQuayStopsByLocationQueryResult,
-  GetStopPlaceStopAreasByLocationQueryResult,
-  InputMaybe,
-  useGetQuayStopsByLocationLazyQuery,
-  useGetStopPlaceStopAreasByLocationLazyQuery,
+  GetStopPlacesByBoundingBoxesQueryResult,
+  QuayDetailsFragment,
+  ScheduledStopPointAllFieldsFragment,
+  StopPlaceDetailsFragment,
+  useGetStopPlacesByBoundingBoxesLazyQuery,
 } from '../../generated/graphql';
-
-interface QuaysByStopAreasIds {
-  _in: bigint[]; // TypeScript does not support `bigint!` in GraphQL, so use `bigint[]`
-}
-
-interface Location {
-  id: number;
-  centroid: {
-    type: 'Point';
-    crs: {
-      type: 'name';
-      properties: {
-        name: string;
-      };
-    };
-    coordinates: number[];
-  };
-}
-
-export type MapItem = {
-  id: number;
-  netexid_id: string;
-  centroid?: Location;
-};
+import { StopPlaceBoundingBox } from '../../graphql/stopPlaceBoundingBox';
+import { Viewport } from '../../redux/types';
 
 export type MapData = {
-  stopAreas: MapItem[];
-  stops: MapItem[];
+  stopPlaces: StopPlaceDetailsFragment[];
+  stopPoints: ScheduledStopPointAllFieldsFragment[];
+  quays: QuayDetailsFragment[];
   refetch: () => void;
   loading: boolean;
-  previousData?: MapData
+  previousData?: MapData;
 };
 
-// TODO: Move to stopAreas.
-const GQL_QUERY_GET_STOP_PLACE_STOP_AREAS_BY_LOCATION = gql`
-  query GetStopPlaceStopAreasByLocation(
-    $measured_location_filter: geometry_comparison_exp
-  ) {
-    stops_database {
-      stops_database_stop_place_newest_version(
-        where: {
-          centroid: $measured_location_filter
-          netex_id: { _is_null: false }
-        }
-      ) {
-        id
-        netex_id
-        centroid
-      }
-    }
-  }
-  fragment stop_place_stop_area_minimal on stops_database_group_of_stop_places {
-    id
-    netex_id
-    centroid
-  }
-`;
+const initialMapData = {
+  loading: false,
+  quays: [],
+  refetch: () => {
+    // Noop
+  },
+  stopPlaces: [],
+  stopPoints: [],
+};
 
-// TODO: Move to servicePattern/quays.
-const QUERY_GET_QUAY_STOPS_BY_STOP_AREA_IDS = gql`
-  query GetQuayStopsByLocation(
-    $measured_location_filter: geometry_comparison_exp
-    $stop_area_ids: [bigint!]
-  ) {
-    stops_database {
-      stops_database_quay_newest_version(
-        where: { stop_place_id: { _in: $stop_area_ids } }
-      ) {
-        id
-        stop_place_id
-        netex_id
-      }
-    }
-  }
-`;
-
-export const useMapData = (geometryComparison: GeographyComparisonExp): MapData => {
+export const useMapData = (viewPort: Viewport): MapData => {
   const [ready, setReady] = useState(false);
-  const [getPlaceStopAreasByLocationQuery] =
-    useGetStopPlaceStopAreasByLocationLazyQuery();
 
-  const [getQuayStopsByLocationLazyQuery] =
-    useGetQuayStopsByLocationLazyQuery();
+  const [getStopPlacesByBBoxes] = useGetStopPlacesByBoundingBoxesLazyQuery();
 
-  const [stopAreasResult, setStopAreaResults] =
-    useState<GetStopPlaceStopAreasByLocationQueryResult | null>(null);
+  const [stopPlaceBbResults, setStopPlaceBbResults] =
+    useState<GetStopPlacesByBoundingBoxesQueryResult | null>(null);
 
-  const [stopsResult, setStopsResult] =
-    useState<GetQuayStopsByLocationQueryResult | null>(null);
-
-  const [mapData, setMapData] = useState<Partial<MapData> | null>();
+  const [mapData, setMapData] = useState<MapData>(initialMapData);
 
   useEffect(() => {
-    if (geometryComparison) {
-      getPlaceStopAreasByLocationQuery({
-        variables: { measured_location_filter: geometryComparison as InputMaybe<GeometryComparisonExp> },
-      }).then((result) => setStopAreaResults(result));
-    }
-  }, [geometryComparison, getPlaceStopAreasByLocationQuery]);
-
-  useEffect(() => {
-    if (!stopAreasResult?.loading && !ready) {
-      const stopAreas = (stopAreasResult?.data?.stops_database
-        ?.stops_database_stop_place_newest_version ?? []) as MapItem[];
-      setMapData({ ...mapData, stopAreas });
-    }
-  }, [mapData, ready, stopAreasResult]);
-
-  useEffect(() => {
-    if (
-      !ready &&
-      mapData &&
-      mapData.stopAreas &&
-      mapData.stopAreas.length > 0
-    ) {
-      getQuayStopsByLocationLazyQuery({
+    if (viewPort) {
+      setReady(false);
+      getStopPlacesByBBoxes({
         variables: {
-          measured_location_filter: geometryComparison as InputMaybe<GeometryComparisonExp> ,
-          stop_area_ids: mapData.stopAreas.map((sa) => sa.id) ?? [],
+          latMax: viewPort.latitude + viewPort.radius,
+          lonMax: viewPort.longitude + viewPort.radius,
+          latMin: viewPort.latitude - viewPort.radius,
+          lonMin: viewPort.longitude - viewPort.radius,
         },
-      }).then((q) => {
-        setStopsResult(q);
-      });
+      }).then((result) => setStopPlaceBbResults(result));
     }
-  }, [geometryComparison, getQuayStopsByLocationLazyQuery, mapData, ready]);
+  }, [
+    getStopPlacesByBBoxes,
+    viewPort.radius,
+    viewPort.longitude,
+    viewPort.latitude,
+    viewPort,
+  ]);
 
   useEffect(() => {
-    if (!ready && stopsResult && !stopsResult.loading) {
-      const stops = (stopsResult?.data?.stops_database
-        ?.stops_database_quay_newest_version ?? []) as MapItem[];
-      setMapData({ ...mapData, stops });
+    if (!stopPlaceBbResults?.loading && !ready) {
+      const boundingBoxes =
+        stopPlaceBbResults?.data?.stop_registry?.stopPlace?.map(
+          (bb) => bb as StopPlaceBoundingBox,
+        );
+
+      const stopPoints = boundingBoxes?.map((bb) => bb.stopPoint) ?? [];
+
+      const quays = flatten(boundingBoxes?.map((bb) => bb.quays));
+
+      const stopPlaces = boundingBoxes?.map((bb) => bb as StopPlaceDetailsFragment) ?? [];
+
+      setMapData({ ...mapData, stopPoints, quays, stopPlaces });
       setReady(true);
     }
-  }, [mapData, ready, stopsResult]);
+  }, [mapData, ready, stopPlaceBbResults]);
 
   const refetch = useCallback(() => {
-    setMapData({...mapData, previousData: mapData as MapData})
     setReady(false);
-    stopAreasResult?.refetch();
-  }, [mapData, stopAreasResult]);
+    setMapData({ ...mapData, previousData: mapData as MapData });
+    stopPlaceBbResults?.refetch();
+  }, [mapData, stopPlaceBbResults]);
 
   return {
-    stopAreas: mapData?.stopAreas ?? [],
-    stops: mapData?.stops ?? [],
+    ...mapData,
     refetch,
     loading: !ready,
   };
