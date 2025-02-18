@@ -36,6 +36,7 @@ const seedStopRegistry = async () => {
       return {
         name: { value: quay.quay.publicCode },
         privateCode: { value: quay.quay.publicCode ?? 'missingName' },
+        geometry: quay.quay.geometry,
         quays: [quay.quay],
       };
     });
