@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Marker } from 'react-map-gl/maplibre';
-import { StopRegistryStopPlace } from '../../../generated/graphql';
+import { QuayDetailsFragment } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
 import {
   useAppAction,
@@ -15,12 +15,12 @@ import { getGeometryPoint, showDangerToastWithError } from '../../../utils';
 import { Circle } from '../markers';
 
 const testIds = {
-  memberStop: ({ id }: StopRegistryStopPlace) =>
+  memberStop: ({ id }: QuayDetailsFragment) =>
     `Map::StopArea::memberStop::${id}`,
 };
 
 type MemberStopProps = {
-  stop: StopRegistryStopPlace;
+  readonly stop: QuayDetailsFragment;
 };
 
 export const MemberStop = ({ stop }: MemberStopProps) => {

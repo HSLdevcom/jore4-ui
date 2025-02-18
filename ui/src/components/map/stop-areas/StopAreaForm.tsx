@@ -3,10 +3,10 @@ import React, { ForwardRefRenderFunction } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { EnrichedStopPlace } from '../../../hooks';
 import { Column } from '../../../layoutComponents';
 import { mapToISODate } from '../../../time';
-import { StopAreaByIdResult } from '../../../types';
-import { StopRegistryGeoJsonDefined, mapLngLatToPoint } from '../../../utils';
+import { mapLngLatToPoint } from '../../../utils';
 import {
   FormColumn,
   FormRow,
@@ -26,36 +26,47 @@ import {
 
 const testIds = {
   form: 'StopAreaFormComponent::form',
-  label: 'StopAreaFormComponent::label',
+  privateCode: 'StopAreaFormComponent::privateCode',
   name: 'StopAreaFormComponent::name',
   latitude: 'StopAreaFormComponent::latitude',
   longitude: 'StopAreaFormComponent::longitude',
-  memberStops: 'StopAreaFormComponent::memberStops',
+  quays: 'StopAreaFormComponent::quays',
 };
 
-export const mapStopAreaDataToFormState = (
-  stopArea: StopAreaByIdResult & {
-    geometry: StopRegistryGeoJsonDefined;
-  },
-) => {
+export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
   const { latitude, longitude } = mapLngLatToPoint(
-    stopArea?.geometry?.coordinates,
+    stopArea?.geometry?.coordinates ?? [],
   );
 
-  const mappedMembers = stopArea.members
-    ?.map((rawMember) => stopAreaMemberStopSchema.safeParse(rawMember))
+  const quays = stopArea.quays
+    ?.map((quay) =>
+      stopAreaMemberStopSchema.safeParse({
+        ...quay,
+        name: {
+          value: stopArea.name,
+          lang: 'fin',
+        },
+      }),
+    )
     .filter((parseResult) => parseResult.success)
     .map((parseResult) => parseResult.data);
 
   const formState: Partial<FormState> = {
-    label: stopArea.name?.value ?? undefined,
-    name: stopArea.description?.value ?? undefined,
+    privateCode: stopArea.privateCode?.value ?? undefined,
+    name: stopArea.name,
+    nameSwe: stopArea.nameSwe ?? stopArea.name,
+    nameLongFin: stopArea.nameLongFin,
+    nameLongSwe: stopArea.nameLongSwe,
+    abbreviationFin: stopArea.abbreviationFin,
+    abbreviationSwe: stopArea.abbreviationSwe,
+    abbreviation5CharFin: stopArea.abbreviation5CharFin,
+    abbreviation5CharSwe: stopArea.abbreviation5CharSwe,
     latitude,
     longitude,
-    memberStops: mappedMembers ?? [],
-    validityStart: mapToISODate(stopArea.validBetween?.fromDate),
-    validityEnd: mapToISODate(stopArea.validBetween?.toDate),
-    indefinite: !stopArea.validBetween?.toDate,
+    quays: quays ?? [],
+    validityStart: mapToISODate(stopArea.validityStart),
+    validityEnd: mapToISODate(stopArea.validityEnd),
+    indefinite: !stopArea.validityEnd,
   };
 
   return formState;
@@ -78,8 +89,8 @@ function getOverriddenNames(
 function getMemberStopIds(
   methods: UseFormReturn<FormState>,
 ): ReadonlyArray<string> {
-  const memberStops = methods.watch('memberStops');
-  return memberStops.map((it) => it.id);
+  const quays = methods.watch('quays');
+  return quays.map((it) => it.id);
 }
 
 type Props = {
@@ -123,8 +134,8 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
               <InputField<FormState>
                 type="text"
                 translationPrefix="stopArea"
-                fieldPath="label"
-                testId={testIds.label}
+                fieldPath="privateCode"
+                testId={testIds.privateCode}
               />
             </Column>
             <Column>
@@ -157,12 +168,13 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
             </Column>
             <Column className="col-span-2">
               <InputField<FormState>
-                fieldPath="memberStops"
+                fieldPath="quays"
                 translationPrefix="stopArea"
-                testId={testIds.memberStops}
+                testId={testIds.quays}
                 // eslint-disable-next-line react/no-unstable-nested-components
                 inputElementRenderer={({ value, onChange }) => (
                   <SelectMemberStopsDropdown
+                    disabled
                     editedStopAreaId={editedStopAreaId}
                     // The form related component typings have been effed up.
                     // Everything is typed as a string.

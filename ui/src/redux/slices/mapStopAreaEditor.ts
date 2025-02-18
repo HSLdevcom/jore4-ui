@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { StopAreaByIdResult } from '../../types';
+import { EnrichedStopPlace } from '../../hooks';
 import { StoreType, mapToStoreType } from '../mappers';
 
 export type MapStopAreaEditor = {
   readonly selectedStopAreaId?: string;
-  readonly editedStopAreaData?: StopAreaByIdResult;
+  readonly editedStopAreaData?: EnrichedStopPlace;
   readonly isCreateStopAreaModeEnabled: boolean;
   readonly isMoveStopAreaModeEnabled: boolean;
 };
@@ -31,11 +31,11 @@ const slice = createSlice({
     setEditedStopAreaData: {
       reducer: (
         state,
-        action: PayloadAction<StoreType<StopAreaByIdResult> | undefined>,
+        action: PayloadAction<StoreType<EnrichedStopPlace> | undefined>,
       ) => {
-        state.editedStopAreaData = action.payload;
+        state.editedStopAreaData = action.payload ?? undefined;
       },
-      prepare: (stopArea: StopAreaByIdResult | undefined) => ({
+      prepare: (stopArea: EnrichedStopPlace | undefined | null) => ({
         payload: stopArea ? mapToStoreType(stopArea) : undefined,
       }),
     },

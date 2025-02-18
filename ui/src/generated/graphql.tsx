@@ -69990,18 +69990,6 @@ export type GetOrganisationsQuery = {
   } | null;
 };
 
-export type DeleteStopPlaceMutationVariables = Exact<{
-  stopPlaceId: Scalars['String']['input'];
-}>;
-
-export type DeleteStopPlaceMutation = {
-  __typename?: 'mutation_root';
-  stop_registry?: {
-    __typename?: 'stop_registryStopPlaceMutation';
-    deleteStopPlace?: boolean | null;
-  } | null;
-};
-
 export type ResolveStopSheltersQueryVariables = Exact<{
   netexId: Scalars['String']['input'];
 }>;
@@ -72096,8 +72084,8 @@ export type GetStopAreasByLocationQuery = {
   stops_database?: {
     __typename?: 'stops_database_stops_database_query';
     areas: Array<{
-      __typename?: 'stops_database_group_of_stop_places';
-      id: any;
+      __typename?: 'stops_database_stop_place_newest_version';
+      id?: any | null;
       netex_id?: string | null;
       centroid?: GeoJSON.Geometry | null;
     }>;
@@ -72105,8 +72093,8 @@ export type GetStopAreasByLocationQuery = {
 };
 
 export type StopAreaMinimalShowOnMapFieldsFragment = {
-  __typename?: 'stops_database_group_of_stop_places';
-  id: any;
+  __typename?: 'stops_database_stop_place_newest_version';
+  id?: any | null;
   netex_id?: string | null;
   centroid?: GeoJSON.Geometry | null;
 };
@@ -73212,140 +73200,14 @@ export type SearchLinesAndRoutesQuery = {
 };
 
 export type DeleteStopAreaMutationVariables = Exact<{
-  stop_area_id: Scalars['String']['input'];
+  stopPlaceId: Scalars['String']['input'];
 }>;
 
 export type DeleteStopAreaMutation = {
   __typename?: 'mutation_root';
   stop_registry?: {
     __typename?: 'stop_registryStopPlaceMutation';
-    deleteGroupOfStopPlaces?: boolean | null;
-  } | null;
-};
-
-export type StopAreaMemberFieldsFragment = {
-  __typename?: 'stop_registry_StopPlace';
-  id?: string | null;
-  name?: {
-    __typename?: 'stop_registry_EmbeddableMultilingualString';
-    value?: string | null;
-    lang?: string | null;
-  } | null;
-  geometry?: {
-    __typename?: 'stop_registry_GeoJSON';
-    coordinates?: GeoJSON.Position | null;
-    type?: StopRegistryGeoJsonType | null;
-  } | null;
-  scheduled_stop_point?: {
-    __typename?: 'service_pattern_scheduled_stop_point';
-    scheduled_stop_point_id: UUID;
-    label: string;
-  } | null;
-};
-
-export type StopAreaFormFieldsFragment = {
-  __typename?: 'stop_registry_GroupOfStopPlaces';
-  id?: string | null;
-  name?: {
-    __typename?: 'stop_registry_EmbeddableMultilingualString';
-    lang?: string | null;
-    value?: string | null;
-  } | null;
-  description?: {
-    __typename?: 'stop_registry_EmbeddableMultilingualString';
-    lang?: string | null;
-    value?: string | null;
-  } | null;
-  geometry?: {
-    __typename?: 'stop_registry_GeoJSON';
-    coordinates?: GeoJSON.Position | null;
-    type?: StopRegistryGeoJsonType | null;
-  } | null;
-  validBetween?: {
-    __typename?: 'stop_registry_ValidBetween';
-    fromDate?: luxon.DateTime | null;
-    toDate?: luxon.DateTime | null;
-  } | null;
-  members?: Array<
-    | { __typename?: 'stop_registry_ParentStopPlace' }
-    | {
-        __typename?: 'stop_registry_StopPlace';
-        id?: string | null;
-        name?: {
-          __typename?: 'stop_registry_EmbeddableMultilingualString';
-          value?: string | null;
-          lang?: string | null;
-        } | null;
-        geometry?: {
-          __typename?: 'stop_registry_GeoJSON';
-          coordinates?: GeoJSON.Position | null;
-          type?: StopRegistryGeoJsonType | null;
-        } | null;
-        scheduled_stop_point?: {
-          __typename?: 'service_pattern_scheduled_stop_point';
-          scheduled_stop_point_id: UUID;
-          label: string;
-        } | null;
-      }
-    | null
-  > | null;
-};
-
-export type GetStopAreaByIdQueryVariables = Exact<{
-  stopAreaId: Scalars['String']['input'];
-}>;
-
-export type GetStopAreaByIdQuery = {
-  __typename?: 'query_root';
-  stop_registry?: {
-    __typename?: 'stop_registryStopPlaceRegister';
-    groupOfStopPlaces?: Array<{
-      __typename?: 'stop_registry_GroupOfStopPlaces';
-      id?: string | null;
-      name?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        lang?: string | null;
-        value?: string | null;
-      } | null;
-      description?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString';
-        lang?: string | null;
-        value?: string | null;
-      } | null;
-      geometry?: {
-        __typename?: 'stop_registry_GeoJSON';
-        coordinates?: GeoJSON.Position | null;
-        type?: StopRegistryGeoJsonType | null;
-      } | null;
-      validBetween?: {
-        __typename?: 'stop_registry_ValidBetween';
-        fromDate?: luxon.DateTime | null;
-        toDate?: luxon.DateTime | null;
-      } | null;
-      members?: Array<
-        | { __typename?: 'stop_registry_ParentStopPlace' }
-        | {
-            __typename?: 'stop_registry_StopPlace';
-            id?: string | null;
-            name?: {
-              __typename?: 'stop_registry_EmbeddableMultilingualString';
-              value?: string | null;
-              lang?: string | null;
-            } | null;
-            geometry?: {
-              __typename?: 'stop_registry_GeoJSON';
-              coordinates?: GeoJSON.Position | null;
-              type?: StopRegistryGeoJsonType | null;
-            } | null;
-            scheduled_stop_point?: {
-              __typename?: 'service_pattern_scheduled_stop_point';
-              scheduled_stop_point_id: UUID;
-              label: string;
-            } | null;
-          }
-        | null
-      > | null;
-    } | null> | null;
+    deleteStopPlace?: boolean | null;
   } | null;
 };
 
@@ -76472,7 +76334,7 @@ export const RouteWithInfrastructureLinksFragmentDoc = gql`
   ${LineAllFieldsFragmentDoc}
 `;
 export const StopAreaMinimalShowOnMapFieldsFragmentDoc = gql`
-  fragment stop_area_minimal_show_on_map_fields on stops_database_group_of_stop_places {
+  fragment stop_area_minimal_show_on_map_fields on stops_database_stop_place_newest_version {
     id
     netex_id
     centroid
@@ -76622,50 +76484,6 @@ export const RouteMetadataFragmentDoc = gql`
     direction
     variant
   }
-`;
-export const StopAreaMemberFieldsFragmentDoc = gql`
-  fragment stop_area_member_fields on stop_registry_StopPlace {
-    id
-    name {
-      value
-      lang
-    }
-    geometry {
-      coordinates
-      type
-    }
-    scheduled_stop_point {
-      scheduled_stop_point_id
-      label
-    }
-  }
-`;
-export const StopAreaFormFieldsFragmentDoc = gql`
-  fragment stop_area_form_fields on stop_registry_GroupOfStopPlaces {
-    id
-    name {
-      lang
-      value
-    }
-    description {
-      lang
-      value
-    }
-    geometry {
-      coordinates
-      type
-    }
-    validBetween {
-      fromDate
-      toDate
-    }
-    members {
-      ... on stop_registry_StopPlace {
-        ...stop_area_member_fields
-      }
-    }
-  }
-  ${StopAreaMemberFieldsFragmentDoc}
 `;
 export const VehicleJourneyWithPatternAndRouteFragmentFragmentDoc = gql`
   fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {
@@ -78587,56 +78405,6 @@ export type GetOrganisationsSuspenseQueryHookResult = ReturnType<
 export type GetOrganisationsQueryResult = Apollo.QueryResult<
   GetOrganisationsQuery,
   GetOrganisationsQueryVariables
->;
-export const DeleteStopPlaceDocument = gql`
-  mutation DeleteStopPlace($stopPlaceId: String!) {
-    stop_registry {
-      deleteStopPlace(stopPlaceId: $stopPlaceId)
-    }
-  }
-`;
-export type DeleteStopPlaceMutationFn = Apollo.MutationFunction<
-  DeleteStopPlaceMutation,
-  DeleteStopPlaceMutationVariables
->;
-
-/**
- * __useDeleteStopPlaceMutation__
- *
- * To run a mutation, you first call `useDeleteStopPlaceMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteStopPlaceMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteStopPlaceMutation, { data, loading, error }] = useDeleteStopPlaceMutation({
- *   variables: {
- *      stopPlaceId: // value for 'stopPlaceId'
- *   },
- * });
- */
-export function useDeleteStopPlaceMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    DeleteStopPlaceMutation,
-    DeleteStopPlaceMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    DeleteStopPlaceMutation,
-    DeleteStopPlaceMutationVariables
-  >(DeleteStopPlaceDocument, options);
-}
-export type DeleteStopPlaceMutationHookResult = ReturnType<
-  typeof useDeleteStopPlaceMutation
->;
-export type DeleteStopPlaceMutationResult =
-  Apollo.MutationResult<DeleteStopPlaceMutation>;
-export type DeleteStopPlaceMutationOptions = Apollo.BaseMutationOptions<
-  DeleteStopPlaceMutation,
-  DeleteStopPlaceMutationVariables
 >;
 export const ResolveStopSheltersDocument = gql`
   query ResolveStopShelters($netexId: String!) {
@@ -81288,10 +81056,11 @@ export const GetStopAreasByLocationDocument = gql`
     $measured_location_filter: geometry_comparison_exp
   ) {
     stops_database {
-      areas: stops_database_group_of_stop_places(
+      areas: stops_database_stop_place_newest_version(
         where: {
           centroid: $measured_location_filter
           netex_id: { _is_null: false }
+          parent_stop_place: { _eq: false }
         }
       ) {
         ...stop_area_minimal_show_on_map_fields
@@ -82130,9 +81899,9 @@ export type SearchLinesAndRoutesQueryResult = Apollo.QueryResult<
   SearchLinesAndRoutesQueryVariables
 >;
 export const DeleteStopAreaDocument = gql`
-  mutation DeleteStopArea($stop_area_id: String!) {
+  mutation DeleteStopArea($stopPlaceId: String!) {
     stop_registry {
-      deleteGroupOfStopPlaces(id: $stop_area_id)
+      deleteStopPlace(stopPlaceId: $stopPlaceId)
     }
   }
 `;
@@ -82154,7 +81923,7 @@ export type DeleteStopAreaMutationFn = Apollo.MutationFunction<
  * @example
  * const [deleteStopAreaMutation, { data, loading, error }] = useDeleteStopAreaMutation({
  *   variables: {
- *      stop_area_id: // value for 'stop_area_id'
+ *      stopPlaceId: // value for 'stopPlaceId'
  *   },
  * });
  */
@@ -82178,91 +81947,6 @@ export type DeleteStopAreaMutationResult =
 export type DeleteStopAreaMutationOptions = Apollo.BaseMutationOptions<
   DeleteStopAreaMutation,
   DeleteStopAreaMutationVariables
->;
-export const GetStopAreaByIdDocument = gql`
-  query GetStopAreaById($stopAreaId: String!) {
-    stop_registry {
-      groupOfStopPlaces(id: $stopAreaId) {
-        ...stop_area_form_fields
-      }
-    }
-  }
-  ${StopAreaFormFieldsFragmentDoc}
-`;
-
-/**
- * __useGetStopAreaByIdQuery__
- *
- * To run a query within a React component, call `useGetStopAreaByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopAreaByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetStopAreaByIdQuery({
- *   variables: {
- *      stopAreaId: // value for 'stopAreaId'
- *   },
- * });
- */
-export function useGetStopAreaByIdQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetStopAreaByIdQuery,
-    GetStopAreaByIdQueryVariables
-  > &
-    (
-      | { variables: GetStopAreaByIdQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    ),
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetStopAreaByIdQuery, GetStopAreaByIdQueryVariables>(
-    GetStopAreaByIdDocument,
-    options,
-  );
-}
-export function useGetStopAreaByIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetStopAreaByIdQuery,
-    GetStopAreaByIdQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetStopAreaByIdQuery,
-    GetStopAreaByIdQueryVariables
-  >(GetStopAreaByIdDocument, options);
-}
-export function useGetStopAreaByIdSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetStopAreaByIdQuery,
-        GetStopAreaByIdQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    GetStopAreaByIdQuery,
-    GetStopAreaByIdQueryVariables
-  >(GetStopAreaByIdDocument, options);
-}
-export type GetStopAreaByIdQueryHookResult = ReturnType<
-  typeof useGetStopAreaByIdQuery
->;
-export type GetStopAreaByIdLazyQueryHookResult = ReturnType<
-  typeof useGetStopAreaByIdLazyQuery
->;
-export type GetStopAreaByIdSuspenseQueryHookResult = ReturnType<
-  typeof useGetStopAreaByIdSuspenseQuery
->;
-export type GetStopAreaByIdQueryResult = Apollo.QueryResult<
-  GetStopAreaByIdQuery,
-  GetStopAreaByIdQueryVariables
 >;
 export const InsertStopPlaceDocument = gql`
   mutation InsertStopPlace($object: stop_registry_StopPlaceInput) {

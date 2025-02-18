@@ -35,6 +35,7 @@ function compareMembersByLabel(
 
 type SelectMemberStopsDropdownProps = {
   readonly className?: string;
+  readonly disabled?: boolean;
   readonly value: Array<StopAreaFormMember> | undefined;
   readonly editedStopAreaId: string | null | undefined;
   readonly onChange: (selected: Array<StopAreaFormMember>) => void;
@@ -43,6 +44,7 @@ type SelectMemberStopsDropdownProps = {
 
 export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
   className = '',
+  disabled,
   value = [],
   editedStopAreaId,
   onChange,
@@ -98,6 +100,7 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
       as="div"
       by={stopAreaFormMembersAreSame}
       className={twMerge('relative w-full', className)}
+      disabled={disabled}
       multiple
       nullable={false}
       onChange={onChangeInternal}
