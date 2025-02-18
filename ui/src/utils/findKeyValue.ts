@@ -20,7 +20,7 @@ export function findKeyValueParsed<T = string>(
 ): T | null {
   const keyValue = findKeyValue(element, key);
   if (keyValue === null) {
-    return keyValue;
+    return null;
   }
   return parser(keyValue);
 }

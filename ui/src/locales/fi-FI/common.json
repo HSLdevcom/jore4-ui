@@ -121,8 +121,8 @@
     "stopArea": "Pysäkkialue",
     "delete": "Poista pysäkkialue",
     "name": "Nimi",
-    "label": "Tunnus",
-    "memberStops": "Jäsenpysäkit",
+    "privateCode": "Tunnus",
+    "quays": "Jäsenpysäkit",
     "sharedNameNotice": "Muista nimetä jäsenpysäkit pysäkkialueen nimellä.",
     "checkingNames": "Tarkastetaan nimien yhtenäisyyttä",
     "checkingNamesFailed": "Nimien tarkastus epäonnistui <RefetchButton>Yritä uudelleen</RefetchButton>",
@@ -552,8 +552,9 @@
   },
   "confirmStopAreaDeletionDialog": {
     "title": "Pysäkkialue poistetaan",
-    "description1": "Alueeseen on yhdistetty {{ stopCount }} pysäkkiä. Niitä ei poisteta.",
-    "description2": "Poistetaanko pysäkkialue?",
+    "bodyCanBeDeleted": "Pysäkkialueeseen ei liity yhtään jäsenpysäkkiä, joten sen voi poistaa turvallisesti.",
+    "bodyCanNotBeDeleted": "Pysäkkialueeseen liitty vielä pysäkkejä, eikä sitä voi siksi poistaa. Poista ensin alueeseen liittyvät pysäkit kokonaan tai siirrä ne johonkin toiseen pysäkkialueeseen.",
+    "memberStops": "Jäsenpysäkit:",
     "confirmText": "Poista"
   },
   "confirmEditStopAreaDialog": {
