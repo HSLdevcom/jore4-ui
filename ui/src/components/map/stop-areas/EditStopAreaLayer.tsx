@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  EnrichedStopPlace,
   useAppAction,
   useAppSelector,
   useDeleteStopArea,
@@ -41,7 +42,7 @@ enum StopAreaEditorViews {
 }
 
 type EditStopAreaLayerProps = {
-  editedArea: StopAreaByIdResult;
+  editedArea: EnrichedStopPlace;
   onEditingFinished?: () => void;
   onPopupClose: () => void;
 };
@@ -152,7 +153,7 @@ export const EditStopAreaLayer = forwardRef<
   const doEditStopArea = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
-      await upsertStopArea({ id: editedArea.id, state });
+      await upsertStopArea({ stop: editedArea, state });
       onFinishEditing();
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -220,11 +221,7 @@ export const EditStopAreaLayer = forwardRef<
       {displayedEditor === StopAreaEditorViews.Modal && (
         <EditStopAreaModal
           editedStopAreaId={editedArea.id}
-          defaultValues={mapStopAreaDataToFormState(
-            editedArea as StopAreaByIdResult & {
-              geometry: StopRegistryGeoJsonDefined;
-            },
-          )}
+          defaultValues={mapStopAreaDataToFormState(editedArea)}
           onCancel={onCloseEditors}
           onClose={onCloseEditors}
           onSubmit={onEditStopArea}
@@ -242,7 +239,7 @@ export const EditStopAreaLayer = forwardRef<
         onConfirm={onConfirmMoveStopArea}
         title={t('confirmEditStopAreaDialog.title')}
         description={t('confirmEditStopAreaDialog.description', {
-          stopAreaLabel: editedArea.name?.value ?? '',
+          stopAreaLabel: editedArea.privateCode?.value ?? '',
         })}
         confirmText={t('confirmEditStopAreaDialog.confirmText')}
         cancelText={t('cancel')}
@@ -253,7 +250,7 @@ export const EditStopAreaLayer = forwardRef<
         onConfirm={onConfirmEditStopArea}
         title={t('confirmEditStopAreaDialog.title')}
         description={t('confirmEditStopAreaDialog.description', {
-          stopAreaLabel: editedArea.name?.value ?? '',
+          stopAreaLabel: editedArea.privateCode?.value ?? '',
         })}
         confirmText={t('confirmEditStopAreaDialog.confirmText')}
         cancelText={t('cancel')}

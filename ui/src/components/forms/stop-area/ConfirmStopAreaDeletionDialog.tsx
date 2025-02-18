@@ -1,7 +1,7 @@
 import isString from 'lodash/isString';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StopAreaByIdResult } from '../../../types';
+import { EnrichedStopPlace } from '../../../hooks';
 import { ConfirmationDialog } from '../../../uiComponents';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   onConfirm: () => void;
   onCancel: () => void;
   className?: string;
-  stopArea: StopAreaByIdResult;
+  stopArea: EnrichedStopPlace;
 }
 
 export const ConfirmStopAreaDeletionDialog: React.FC<Props> = ({
@@ -22,8 +22,8 @@ export const ConfirmStopAreaDeletionDialog: React.FC<Props> = ({
   const { t } = useTranslation();
 
   // TODO: stop labels should be bolded like in designs. This requires some rework on ConfirmationDialog.
-  const memberStopLabels: string[] = (stopArea.members ?? [])
-    .map((sp) => sp.scheduled_stop_point?.label)
+  const memberStopLabels: string[] = (stopArea.quays ?? [])
+    .map((sp) => sp?.publicCode)
     .filter(isString)
     .sort();
 

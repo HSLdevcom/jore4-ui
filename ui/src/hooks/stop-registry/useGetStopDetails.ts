@@ -273,7 +273,8 @@ const GQL_INFO_SPOT_DETAILS = gql`
 
 export type StopPlace = StopPlaceDetailsFragment;
 export type StopPlaceInfoSpots = InfoSpotDetailsFragment;
-export type EnrichedStopPlace = StopPlace & StopPlaceEnrichmentProperties;
+export type EnrichedStopPlace = Omit<StopPlace, 'name'> &
+  StopPlaceEnrichmentProperties;
 export type Quay = QuayDetailsFragment;
 export type EnrichedQuay = Quay & QuayEnrichmentProperties;
 

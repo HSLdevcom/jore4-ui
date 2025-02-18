@@ -1,11 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
+import { EnrichedStopPlace } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
-import { StopAreaByIdResult } from '../../../types';
+import { parseDate } from '../../../time';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
-import { getGeometryPoint, mapToValidityPeriod } from '../../../utils';
+import {
+  findKeyValueParsed,
+  getGeometryPoint,
+  mapToValidityPeriod,
+} from '../../../utils';
 
 const testIds = {
   label: 'StopAreaPopup::label',
@@ -17,7 +22,7 @@ const testIds = {
 };
 
 type StopAreaPopupProps = {
-  area: StopAreaByIdResult;
+  area: EnrichedStopPlace;
   onDelete: () => void;
   onEdit: () => void;
   onMove: () => void;
@@ -34,8 +39,8 @@ export const StopAreaPopup = ({
   const { t } = useTranslation();
 
   const point = getGeometryPoint(area.geometry);
-  const areaLabel = area.name?.value;
-  const areaDescription = area.description?.value ?? '';
+  const areaLabel = area.privateCode?.value;
+  const areaName = area.name ?? '';
 
   if (!point || !areaLabel) {
     return null;
@@ -64,7 +69,7 @@ export const StopAreaPopup = ({
                     areaLabel,
                   })}
                 >
-                  <span>{areaLabel}</span> <span>{areaDescription}</span>
+                  <span>{areaLabel}</span> <span>{areaName}</span>
                   <i className="icon-open-in-new" aria-hidden />
                 </a>
               </h3>
@@ -80,8 +85,8 @@ export const StopAreaPopup = ({
         <Row className="text-sm" testId={testIds.validityPeriod}>
           {mapToValidityPeriod(
             t,
-            area.validBetween?.fromDate,
-            area.validBetween?.toDate,
+            findKeyValueParsed(area, 'validityStart', parseDate),
+            findKeyValueParsed(area, 'validityEnd', parseDate),
           )}
         </Row>
 

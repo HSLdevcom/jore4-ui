@@ -8,7 +8,6 @@ import {
 import {
   useAppAction,
   useAppSelector,
-  useGetStopAreaById,
   useLoader,
   useMapDataLayerSimpleQueryLoader,
 } from '../../../hooks';
@@ -36,6 +35,7 @@ import {
   makePromiseCleanupHelper,
 } from '../../../utils/makePromiseCleanupHelper';
 import { useUpsertStopArea } from '../../forms/stop-area';
+import { useGetStopPlaceDetailsLazy } from '../../stop-registry/stop-areas/stop-area-details/useGetStopAreaDetails';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { CreateStopAreaMarker } from './CreateStopAreaMarker';
 import { EditStopAreaLayer } from './EditStopAreaLayer';
@@ -85,15 +85,15 @@ export const StopAreas = React.forwardRef((_props, ref) => {
   const { setLoadingState: setFetchStopAreaDetailsLoadingState } = useLoader(
     Operation.FetchStopAreaDetails,
   );
-  const { getStopAreaById } = useGetStopAreaById();
+  const getStopPlaceDetails = useGetStopPlaceDetailsLazy();
 
   useEffect(() => {
     setFetchStopAreaDetailsLoadingState(LoadingState.MediumPriority);
 
     const cleanupHelper = makePromiseCleanupHelper();
     const basePromise = selectedStopAreaId
-      ? getStopAreaById(selectedStopAreaId)
-      : Promise.resolve(undefined);
+      ? getStopPlaceDetails(selectedStopAreaId)
+      : Promise.resolve(null);
 
     basePromise
       .then(cleanupHelper.blockOnCleanup)
@@ -109,7 +109,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
     return cleanupHelper.cleanup;
   }, [
     selectedStopAreaId,
-    getStopAreaById,
+    getStopPlaceDetails,
     dispatch,
     setFetchStopAreaDetailsLoadingState,
     defaultErrorHandler,

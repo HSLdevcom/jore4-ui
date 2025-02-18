@@ -1,8 +1,7 @@
 import {
   StopAreaFormFieldsFragment,
-  StopAreaMemberFieldsFragment,
+  StopAreaStopFieldsFragment,
 } from '../generated/graphql';
 
-export type StopAreaByIdResult = Omit<StopAreaFormFieldsFragment, 'members'> & {
-  members: Array<StopAreaMemberFieldsFragment> | undefined;
-};
+export type StopAreaByIdResult = StopAreaFormFieldsFragment;
+export type StopAreaStopFields = StopAreaStopFieldsFragment;

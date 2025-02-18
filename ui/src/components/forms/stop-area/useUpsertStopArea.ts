@@ -1,4 +1,5 @@
 import { ApolloError, gql } from '@apollo/client';
+import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,6 +14,7 @@ import {
   mapDateInputToValidityStart,
   mapPointToStopRegistryGeoJSON,
   patchAlternativeNames,
+  patchKeyValues,
   showDangerToast,
 } from '../../../utils';
 import { StopAreaFormState } from './stopAreaFormSchema';
@@ -30,12 +32,11 @@ const GQL_UPSERT_STOP_AREA = gql`
 
 const initializeStopArea = (
   stopAreaLocation: GeoJSON.Point,
-): StopAreaByIdResult => {
+): EnrichedStopPlace => {
   return {
     geometry: {
       coordinates: stopAreaLocation.coordinates,
     },
-    members: [],
   };
 };
 
@@ -47,10 +48,9 @@ const mapFormStateToInput = ({
   state: StopAreaFormState;
 }): StopRegistryStopPlaceInput => {
   const { id } = stop;
-  const validityStart = mapDateInputToValidityStart(state.validityStart);
   const members = state.quays.map((quay) => ({ id: quay.id }));
 
-  const input: StopRegistryStopPlaceInput = {
+  return {
     id,
     alternativeNames: patchAlternativeNames(stop, [
       {
@@ -91,14 +91,25 @@ const mapFormStateToInput = ({
       lang: 'fin',
     },
     geometry: mapPointToStopRegistryGeoJSON(state),
-    validBetween: validityStart && {
-      fromDate: validityStart,
-      toDate: mapDateInputToValidityEnd(state.validityEnd, state.indefinite),
-    },
+    validBetween: null,
+    keyValues: patchKeyValues(
+      stop,
+      compact([
+        {
+          key: 'validityStart',
+          values: [state.validityStart],
+        },
+        state.validityEnd
+          ? {
+              key: 'validityEnd',
+              values: [state.validityEnd],
+            }
+          : undefined,
+      ]),
+    ),
     // Tiamat doesn't accept an empty members array...
     quays: members?.length ? members : [null],
   };
-  return input;
 };
 
 export const useUpsertStopArea = () => {
