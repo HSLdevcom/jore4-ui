@@ -1,11 +1,8 @@
 import React, { useImperativeHandle, useRef } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
-import {
-  ServicePatternScheduledStopPoint,
-  useGetStopsByLocationQuery,
-} from '../../../generated/graphql';
 import { StopWithLocation } from '../../../graphql';
 import {
+  StopWithVehicleMode,
   useAppAction,
   useAppSelector,
   useCreateStop,
@@ -31,17 +28,14 @@ import {
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
-import {
-  buildWithinViewportGqlFilter,
-  mapLngLatToGeoJSON,
-  mapLngLatToPoint,
-} from '../../../utils';
+import { mapLngLatToGeoJSON, mapLngLatToPoint } from '../../../utils';
 import {
   addLineFromStopToInfraLink,
   createGeometryLineBetweenPoints,
   removeLineFromStopToInfraLink,
 } from '../../../utils/map';
 import { EditStoplayerRef } from '../refTypes';
+import { useMapData } from '../useMapData';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
@@ -77,16 +71,13 @@ export const Stops = React.forwardRef((_props, ref) => {
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
   const viewport = useAppSelector(selectMapViewport);
+
+  const mapData = useMapData(viewport);
   // Skip initial 0 radius fetch and wait for the map to get loaded,
   // so that we have a proper viewport.
   const skipFetching =
     !showStops || stopAreaEditorIsActive || viewport.radius <= 0;
-  const stopsResult = useGetStopsByLocationQuery({
-    variables: {
-      measured_location_filter: buildWithinViewportGqlFilter(viewport),
-    },
-    skip: skipFetching,
-  });
+  const stopsResult = mapData;
 
   const setFetchStopsLoadingState = useMapDataLayerSimpleQueryLoader(
     Operation.FetchStops,
@@ -96,11 +87,10 @@ export const Stops = React.forwardRef((_props, ref) => {
 
   // When stops are loading, show previously loaded stops to avoid stops
   // disappearing and flickering on every map move / zoom
-  const unfilteredStops = (
-    stopsResult.loading
-      ? stopsResult.previousData?.service_pattern_scheduled_stop_point
-      : stopsResult.data?.service_pattern_scheduled_stop_point
-  ) as ServicePatternScheduledStopPoint[];
+  const unfilteredStops = stopsResult.loading
+    ? stopsResult.previousData?.stopPoints
+    : stopsResult.stopPoints;
+
   const stops = filter(unfilteredStops ?? []);
 
   // can be used for triggering the edit for both existing and draft stops
@@ -161,9 +151,9 @@ export const Stops = React.forwardRef((_props, ref) => {
             selected={item.scheduled_stop_point_id === selectedStopId}
             longitude={point.longitude}
             latitude={point.latitude}
-            onClick={() => onEditStop(item)}
+            onClick={() => onEditStop(item as StopWithLocation)}
             isHighlighted={getStopHighlighted(item.scheduled_stop_point_id)}
-            vehicleMode={getStopVehicleMode(item)}
+            vehicleMode={getStopVehicleMode(item as StopWithVehicleMode)}
           />
         );
       })}

@@ -1,6 +1,6 @@
-import { QueryResult } from '@apollo/client';
 import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { MapData } from '../../components/map/useMapData';
 import {
   LoadingState,
   Operation,
@@ -60,11 +60,15 @@ export function useMapDataLayerLoader(
   return setLoadingState;
 }
 
-export function useMapDataLayerSimpleQueryLoader<T>(
+export function useMapDataLayerSimpleQueryLoader(
   operation: Operation,
-  { data, loading, previousData }: QueryResult<T>,
+  mapData: MapData,
   skipped = false,
 ) {
-  const initialLoadDone = !!(previousData ?? data) || skipped;
-  return useMapDataLayerLoader(operation, initialLoadDone, loading && !skipped);
+  const initialLoadDone = !!(mapData.previousData ?? mapData) || skipped;
+  return useMapDataLayerLoader(
+    operation,
+    initialLoadDone,
+    mapData.loading && !skipped,
+  );
 }
