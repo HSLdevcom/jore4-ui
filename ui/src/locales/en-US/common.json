@@ -121,8 +121,8 @@
     "stopArea": "Stop area",
     "delete": "Delete stop area",
     "name": "Name",
-    "label": "Label",
-    "memberStops": "Member stops",
+    "privateCode": "Label",
+    "quays": "Member stops",
     "sharedNameNotice": "Remember that member stops need to share name with the area.",
     "checkingNames": "Checking names for consistency",
     "checkingNamesFailed": "Failed to check the consistency of names <RefetchButton>Try again</RefetchButton>",
@@ -552,8 +552,9 @@
   },
   "confirmStopAreaDeletionDialog": {
     "title": "Remove stop area",
-    "description1": "Stop area has {{ stopCount }} member stops. They will not be removed.",
-    "description2": "Remove stop area?",
+    "bodyCanBeDeleted": "Stop area has no member stops and can be deleted.",
+    "bodyCanNotBeDeleted": "Stop area still has some member stops and thus can not be deleted. You must first remove the the associated stops completely or move them to another Stop Area.",
+    "memberStops": "Member stops:",
     "confirmText": "Remove"
   },
   "confirmEditStopAreaDialog": {

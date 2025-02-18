@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import { StopRegistryStopPlace } from '../../../generated/graphql';
-import { StopAreaByIdResult } from '../../../types';
+import { EnrichedStopPlace } from '../../../hooks';
 import { getPointPosition, notNullish } from '../../../utils';
 import { LinePaint, LineRenderLayer } from '../routes';
 import { MemberStop } from './MemberStop';
@@ -11,11 +10,11 @@ const memberLinePaint: Partial<LinePaint> = {
 };
 
 function useMemberLines(
-  area: StopAreaByIdResult,
+  area: EnrichedStopPlace,
 ): GeoJSON.MultiLineString | null {
   return useMemo(() => {
     const areaPosition = getPointPosition(area.geometry);
-    const nonNullStops = area.members?.filter(notNullish);
+    const nonNullStops = area.quays?.filter(notNullish);
 
     if (!areaPosition || !nonNullStops) {
       return null;
@@ -32,12 +31,12 @@ function useMemberLines(
   }, [area]);
 }
 
-function useMemberStops(area: StopAreaByIdResult) {
-  return useMemo(() => area.members?.filter(notNullish), [area]);
+function useMemberStops(area: EnrichedStopPlace) {
+  return useMemo(() => area.quays?.filter(notNullish), [area]);
 }
 
 type MemberStopsProps = {
-  area: StopAreaByIdResult;
+  area: EnrichedStopPlace;
 };
 
 export const MemberStops = ({ area }: MemberStopsProps) => {
@@ -46,9 +45,7 @@ export const MemberStops = ({ area }: MemberStopsProps) => {
 
   return (
     <>
-      {memberStops?.map((stop) => (
-        <MemberStop key={stop.id} stop={stop as StopRegistryStopPlace} />
-      ))}
+      {memberStops?.map((stop) => <MemberStop key={stop.id} stop={stop} />)}
 
       {memberLines ? (
         <LineRenderLayer

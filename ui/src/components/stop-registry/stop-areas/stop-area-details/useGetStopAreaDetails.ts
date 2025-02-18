@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   GetStopPlaceDetailsQuery,
   StopPlaceDetailsFragment,
+  useGetStopPlaceDetailsLazyQuery,
   useGetStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
 import { EnrichedStopPlace, useRequiredParams } from '../../../../hooks';
@@ -86,7 +87,7 @@ function getEnrichedStopPlace(
   };
 }
 
-function getStopPlaceDetails(
+function getEnrichedStopPlaceDetailsFromQueryResult(
   data: GetStopPlaceDetailsQuery | undefined,
 ): EnrichedStopPlace | null {
   const stopPlaces = getStopPlacesFromQueryResult<StopPlaceDetailsFragment>(
@@ -102,7 +103,22 @@ export function useGetStopPlaceDetails() {
     variables: { id },
   });
 
-  const stopPlaceDetails = useMemo(() => getStopPlaceDetails(data), [data]);
+  const stopPlaceDetails = useMemo(
+    () => getEnrichedStopPlaceDetailsFromQueryResult(data),
+    [data],
+  );
 
   return { ...rest, stopPlaceDetails };
+}
+
+export function useGetStopPlaceDetailsLazy() {
+  const [getStopPlaceDetails] = useGetStopPlaceDetailsLazyQuery();
+
+  return useCallback(
+    async (id: string) => {
+      const { data } = await getStopPlaceDetails({ variables: { id } });
+      return getEnrichedStopPlaceDetailsFromQueryResult(data);
+    },
+    [getStopPlaceDetails],
+  );
 }
