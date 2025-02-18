@@ -53,20 +53,20 @@ export const getStopPlacesFromQueryResult = <T extends StopPlaceType>(
 export const defaultAccessibilityLevel = StopRegistryAccessibilityLevel.Unknown;
 
 export type StopPlaceEnrichmentProperties = {
-  nameSwe: string | undefined;
-  nameLongFin: string | undefined;
-  nameLongSwe: string | undefined;
-  abbreviationFin: string | undefined;
-  abbreviationSwe: string | undefined;
-  abbreviation5CharFin: string | undefined;
-  abbreviation5CharSwe: string | undefined;
-  name: string | undefined;
-  municipality: string | undefined;
-  fareZone: string | undefined;
-  locationLat: number | undefined;
-  locationLong: number | undefined;
-  validityStart: string | undefined;
-  validityEnd?: string | undefined;
+  readonly nameSwe?: string | undefined;
+  readonly nameLongFin?: string | undefined;
+  readonly nameLongSwe?: string | undefined;
+  readonly abbreviationFin?: string | undefined;
+  readonly abbreviationSwe?: string | undefined;
+  readonly abbreviation5CharFin?: string | undefined;
+  readonly abbreviation5CharSwe?: string | undefined;
+  readonly name?: string | undefined;
+  readonly municipality?: string | undefined;
+  readonly fareZone?: string | undefined;
+  readonly locationLat?: number | undefined;
+  readonly locationLong?: number | undefined;
+  readonly validityStart?: string | undefined;
+  readonly validityEnd?: string | undefined;
 };
 
 export type QuayEnrichmentProperties = {
@@ -252,11 +252,16 @@ const findCoordinate = (
   return coordinates ? mapLngLatToPoint(coordinates)[coordinate] : undefined;
 };
 
+// Mark all keys as required, but allow undefined as value.
+type ObjectWithAllKeyosOfStopPlaceEnrichmentProperties = {
+  [K in keyof Required<StopPlaceEnrichmentProperties>]: StopPlaceEnrichmentProperties[K];
+};
+
 export const getStopPlaceDetailsForEnrichment = <
   T extends StopRegistryStopPlaceWithQuays,
 >(
   stopPlace: T,
-): StopPlaceEnrichmentProperties => {
+): ObjectWithAllKeyosOfStopPlaceEnrichmentProperties => {
   /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
   return {
     nameSwe:
