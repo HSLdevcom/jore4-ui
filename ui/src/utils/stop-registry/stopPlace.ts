@@ -14,6 +14,7 @@ import {
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
 import { StopPlaceState } from '../../types/stop-registry';
+import { findKeyValue, findKeyValueParsed } from '../findKeyValue';
 import { mapLngLatToPoint } from '../gis';
 
 type StopPlaceType = Pick<StopRegistryStopPlace, '__typename'>;
@@ -130,19 +131,6 @@ export const setMultipleAlternativeNames = (
   }, initialAlternativeNames);
 };
 
-type ElementWithKeyValues = {
-  readonly keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
-};
-
-export const findKeyValue = (
-  element: ElementWithKeyValues,
-  key: string,
-): string | null => {
-  const keyValue = element.keyValues?.find((kv) => kv?.key === key);
-  // Note: the "values" could be an array with many values.
-  return keyValue?.values?.[0] ?? null;
-};
-
 /**
  * Changes the value of given key in initialKeyValues if the key is found,
  * otherwise adds the key values pair to initialKeyValues
@@ -218,18 +206,6 @@ export const patchAlternativeNames = (
   );
 
   return setMultipleAlternativeNames(initialAlternativeNames, updates);
-};
-
-const findKeyValueParsed = <T = string>(
-  element: ElementWithKeyValues,
-  key: string,
-  parser: (arg0: string) => T,
-): T | null => {
-  const keyValue = findKeyValue(element, key);
-  if (keyValue === null) {
-    return keyValue;
-  }
-  return parser(keyValue);
 };
 
 type StopRegistryQuayWithoutStopPoint = Omit<
