@@ -45,8 +45,8 @@ export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
     >
       <h3 data-testid={testIds.stopAreaLabel}>
         {t('stopRegistrySearch.stopAreaLabel', {
+          privateCode: stopArea.private_code,
           name: stopArea.name_value,
-          description: stopArea.description_value,
         })}
       </h3>
 
