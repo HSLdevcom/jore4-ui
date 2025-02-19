@@ -8,7 +8,7 @@ import {
   patchKeyValues,
   showDangerToast,
 } from '../../utils';
-import { getQuayIdsFromStopExcept } from './useGetStopDetails';
+import { StopWithDetails, getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: LocationDetailsFormState;
