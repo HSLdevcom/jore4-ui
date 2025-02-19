@@ -427,7 +427,7 @@
     "showLessLines": "Show less",
     "failedToFetchStops": "Failed to fetch stops! Reason: {{reason}}",
     "tryToRefetch": "Try to refetch stops",
-    "stopAreaLabel": "Stop area {{name}} | {{description}}",
+    "stopAreaLabel": "Stop area {{privateCode}} | {{name}}",
     "showStopAreaOnMap": "Show stop area on the map",
     "sortOrder": "Sort by:",
     "resultCount": "{{count}} search result",
