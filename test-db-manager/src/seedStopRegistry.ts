@@ -7,8 +7,12 @@ import {
   seedTerminals,
   setInfoSpotRelations,
   setStopPlaceOrganisations,
+  stopNames,
 } from './datasets';
-import { StopRegistryStopPlaceInput } from './generated/graphql';
+import {
+  StopRegistryNameType,
+  StopRegistryStopPlaceInput,
+} from './generated/graphql';
 import {
   insertInfoSpots,
   insertOrganisations,
@@ -34,8 +38,21 @@ const seedStopRegistry = async () => {
         };
       }
       return {
-        name: { value: quay.quay.publicCode },
+        name: {
+          value: stopNames[quay.quay.publicCode ?? '']?.name ?? '',
+          lang: 'fin',
+        },
+        alternativeNames: [
+          {
+            nameType: StopRegistryNameType.Translation,
+            name: {
+              value: stopNames[quay.quay.publicCode ?? '']?.nameSwe ?? '',
+              lang: 'swe',
+            },
+          },
+        ],
         privateCode: { value: quay.quay.publicCode ?? 'missingName' },
+        geometry: quay.quay.geometry,
         quays: [quay.quay],
       };
     });
