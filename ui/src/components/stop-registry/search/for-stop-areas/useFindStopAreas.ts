@@ -55,8 +55,7 @@ const GQL_FIND_STOP_AREAS = gql`
     name_lang
     name_value
 
-    description_lang
-    description_value
+    private_code: private_code_value
 
     centroid
   }

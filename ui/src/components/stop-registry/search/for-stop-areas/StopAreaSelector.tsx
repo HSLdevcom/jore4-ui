@@ -24,8 +24,8 @@ export const StopAreaSelector: FC<StopAreaSelectorProps> = ({
         ({
           id,
           netex_id: netextId,
-          name_value: label,
-          description_value: title,
+          private_code: label,
+          name_value: title,
         }) => ({
           id: id.toString(10),
           label: label ?? netextId ?? id.toString(10),

@@ -69266,9 +69266,8 @@ export type FindStopAreasQuery = {
       to_date?: any | null;
       name_lang?: string | null;
       name_value?: string | null;
-      description_lang?: string | null;
-      description_value?: string | null;
       centroid?: GeoJSON.Geometry | null;
+      private_code?: string | null;
     }>;
   } | null;
 };
@@ -69282,9 +69281,8 @@ export type FindStopAreaInfoFragment = {
   to_date?: any | null;
   name_lang?: string | null;
   name_value?: string | null;
-  description_lang?: string | null;
-  description_value?: string | null;
   centroid?: GeoJSON.Geometry | null;
+  private_code?: string | null;
 };
 
 export type GetStopsByStopAreaIdQueryVariables = Exact<{
@@ -76053,8 +76051,7 @@ export const FindStopAreaInfoFragmentDoc = gql`
     to_date
     name_lang
     name_value
-    description_lang
-    description_value
+    private_code: private_code_value
     centroid
   }
 `;

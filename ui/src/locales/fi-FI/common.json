@@ -427,7 +427,7 @@
     "showLessLines": "Näytä vähemmän",
     "failedToFetchStops": "Pysäkkien noutaminen epäonnistui! Syy: {{reason}}",
     "tryToRefetch": "Yritä noutaa pysäkit uudelleen",
-    "stopAreaLabel": "Pysäkkialue {{name}} | {{description}}",
+    "stopAreaLabel": "Pysäkkialue {{privateCode}} | {{name}}",
     "showStopAreaOnMap": "Näytä pysäkkialue kartalla",
     "sortOrder": "Järjestys:",
     "resultCount": "{{count}} hakutulos",
