@@ -81,7 +81,10 @@ export function mapStopPlaceToInput(
       'transportMode',
       'weighting',
     ]),
-    name: omitTypeName(stopPlace.name),
+    name: {
+      lang: 'fin',
+      value: stopPlace.name,
+    },
     description: null, // omitTypeName(stopPlace.description),
     shortName: null, // omitTypeName(stopPlace.shortName),
     alternativeNames: mapAlternativeNames(stopPlace.alternativeNames),

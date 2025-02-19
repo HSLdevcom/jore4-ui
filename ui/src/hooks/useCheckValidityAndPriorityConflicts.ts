@@ -4,6 +4,7 @@ import {
   RouteLineBoolExp,
   RouteRouteBoolExp,
   ServicePatternScheduledStopPointBoolExp,
+  TimetablesRouteDirectionEnum,
   useGetLinesByValidityLazyQuery,
   useGetRoutesByValidityLazyQuery,
   useGetStopsByValidityLazyQuery,
@@ -223,7 +224,13 @@ export const useCheckValidityAndPriorityConflicts = () => {
     // Allow routes with different direction to exists with same validity period.
     // That way both directions of same route can exist.
     const directionFilter: RouteRouteBoolExp = {
-      direction: { _eq: params.direction },
+      // Hasura generates 2 versions of the RouteDirection enum.
+      // Both are identical, but TS does not consider identical enums compatible.
+      // Which enum gets chosen for this field has changed in Hasura between
+      // versions 2.33 & 2.44. Cast to correct type.
+      direction: {
+        _eq: params.direction as unknown as TimetablesRouteDirectionEnum,
+      },
     };
 
     // Allow routes with different variant to exists with same validity period.
