@@ -1,8 +1,10 @@
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
+import { StopDetails } from '../../components/map/useMapData';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteWithJourneyPatternStopsFragment,
+  ScheduledStopPointAllFieldsFragment,
   ServicePatternScheduledStopPoint,
   useGetRouteDetailsByIdsQuery,
 } from '../../generated/graphql';
@@ -19,6 +21,7 @@ import { filterHighestPriorityCurrentStops, mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
 import { useGetRoutesDisplayedInMap } from '../routes';
 import { useObservationDateQueryParam } from '../urlQuery';
+import { FilterableStop } from './useFilterStops';
 
 export type StopWithVehicleMode = RequiredKeys<
   Partial<ServicePatternScheduledStopPoint>,
@@ -37,7 +40,12 @@ const extractHighestPriorityStopsFromRoute = <
     ) ?? [];
 
   return filterHighestPriorityCurrentStops(
-    routeStopPoints,
+    routeStopPoints.map(
+      (stop) =>
+        new FilterableStop<ScheduledStopPointAllFieldsFragment>(
+          stop as ScheduledStopPointAllFieldsFragment,
+        ),
+    ),
     observationDate,
     // If the route is a draft, we want to select draft versions of stops if there are any
     route.priority === Priority.Draft,
@@ -84,7 +92,7 @@ export const useMapStops = () => {
 
   const getStopVehicleMode = useCallback(
     (
-      stop: StopWithVehicleMode,
+      stop: FilterableStop<StopDetails>,
     ): ReusableComponentsVehicleModeEnum | undefined => {
       const stopsLabelsOnRoutes = [
         ...editedRouteStopLabels,

@@ -71913,7 +71913,7 @@ export type GetStopPlacesByBoundingBoxesQuery = {
           weighting?: StopRegistryInterchangeWeightingType | null;
           submode?: StopRegistrySubmodeType | null;
           transportMode?: StopRegistryTransportModeType | null;
-          stopPoint?: {
+          scheduled_stop_point?: {
             __typename?: 'service_pattern_scheduled_stop_point';
             measured_location: GeoJSON.Point;
             relative_distance_from_infrastructure_link_start: number;
@@ -81428,10 +81428,10 @@ export const GetStopPlacesByBoundingBoxesDocument = gql`
       ) {
         ...stop_place_details
         ... on stop_registry_StopPlace {
-          stopPoint: scheduled_stop_point {
+          scheduled_stop_point {
             ...scheduled_stop_point_all_fields
           }
-          quays: quays {
+          quays {
             ...quay_details
           }
         }

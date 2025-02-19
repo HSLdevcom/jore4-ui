@@ -5,11 +5,10 @@ import {
   StopPlaceDetailsFragment,
 } from '../generated/graphql';
 
-export interface StopPlaceBoundingBox {
+export type StopPlaceBoundingBox = Readonly<StopPlaceDetailsFragment & {
   stopPoint: ScheduledStopPointAllFieldsFragment;
   quays: QuayDetailsFragment[];
-  stopPlace: StopPlaceDetailsFragment;
-}
+}>
 
 
 export const QUERY_STOP_PLACE_BOUNDING_BOXES = gql`
@@ -28,10 +27,10 @@ export const QUERY_STOP_PLACE_BOUNDING_BOXES = gql`
       ) {
         ...stop_place_details
         ... on stop_registry_StopPlace {
-          stopPoint: scheduled_stop_point {
+          scheduled_stop_point {
             ...scheduled_stop_point_all_fields
           }
-          quays: quays {
+          quays {
             ...quay_details
           }
         }

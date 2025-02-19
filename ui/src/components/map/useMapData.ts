@@ -5,59 +5,49 @@ import {
   QuayDetailsFragment,
   ScheduledStopPointAllFieldsFragment,
   StopPlaceDetailsFragment,
-  useGetStopPlacesByBoundingBoxesLazyQuery,
+  useGetStopPlacesByBoundingBoxesQuery,
 } from '../../generated/graphql';
 import { StopPlaceBoundingBox } from '../../graphql/stopPlaceBoundingBox';
 import { Viewport } from '../../redux/types';
 
-export type MapData = {
-  stopPlaces: StopPlaceDetailsFragment[];
-  stopPoints: ScheduledStopPointAllFieldsFragment[];
-  quays: QuayDetailsFragment[];
-  refetch: () => void;
-  loading: boolean;
-  previousData?: MapData;
-};
+export type StopDetails = Readonly<
+  QuayDetailsFragment & {
+    readonly stopPlace: StopPlaceDetailsFragment;
+    readonly stopPoint: ScheduledStopPointAllFieldsFragment;
+  }
+>;
+
+export type MapData = Readonly<{
+  readonly stops: ReadonlyArray<StopDetails>;
+  readonly refetch: () => void;
+  readonly loading: boolean;
+  readonly previousData?: MapData;
+}>;
 
 const initialMapData = {
   loading: false,
-  quays: [],
   refetch: () => {
     // Noop
   },
-  stopPlaces: [],
-  stopPoints: [],
+  stops: [],
 };
 
 export const useMapData = (viewPort: Viewport): MapData => {
   const [ready, setReady] = useState(false);
 
-  const [getStopPlacesByBBoxes] = useGetStopPlacesByBoundingBoxesLazyQuery();
-
-  const [stopPlaceBbResults, setStopPlaceBbResults] =
-    useState<GetStopPlacesByBoundingBoxesQueryResult | null>(null);
-
-  const [mapData, setMapData] = useState<MapData>(initialMapData);
-
-  useEffect(() => {
-    if (viewPort) {
-      setReady(false);
-      getStopPlacesByBBoxes({
+  const [stopPlaceBbResults] =
+    useState<GetStopPlacesByBoundingBoxesQueryResult | null>(
+      useGetStopPlacesByBoundingBoxesQuery({
         variables: {
           latMax: viewPort.latitude + viewPort.radius,
           lonMax: viewPort.longitude + viewPort.radius,
           latMin: viewPort.latitude - viewPort.radius,
           lonMin: viewPort.longitude - viewPort.radius,
         },
-      }).then((result) => setStopPlaceBbResults(result));
-    }
-  }, [
-    getStopPlacesByBBoxes,
-    viewPort.radius,
-    viewPort.longitude,
-    viewPort.latitude,
-    viewPort,
-  ]);
+      }),
+    );
+
+  const [mapData, setMapData] = useState<MapData>(initialMapData);
 
   useEffect(() => {
     if (!stopPlaceBbResults?.loading && !ready) {
@@ -65,14 +55,25 @@ export const useMapData = (viewPort: Viewport): MapData => {
         stopPlaceBbResults?.data?.stop_registry?.stopPlace?.map(
           (bb) => bb as StopPlaceBoundingBox,
         );
+      const stops: ReadonlyArray<StopDetails> = flatten(
+        boundingBoxes?.map((stopPlace) =>
+          stopPlace.quays.map(
+            (quay) =>
+              ({
+                ...quay,
+                stopPoint:
+                  quay?.scheduled_stop_point as ScheduledStopPointAllFieldsFragment,
+                stopPlace,
+              }) as StopDetails,
+          ),
+        ),
+      );
 
-      const stopPoints = boundingBoxes?.map((bb) => bb.stopPoint) ?? [];
+      setMapData((prevState) => ({
+        ...prevState,
+        stops,
+      }));
 
-      const quays = flatten(boundingBoxes?.map((bb) => bb.quays));
-
-      const stopPlaces = boundingBoxes?.map((bb) => bb as StopPlaceDetailsFragment) ?? [];
-
-      setMapData({ ...mapData, stopPoints, quays, stopPlaces });
       setReady(true);
     }
   }, [mapData, ready, stopPlaceBbResults]);

@@ -3,10 +3,9 @@ import maxBy from 'lodash/maxBy';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 import { groupBy } from 'remeda';
-import {
-  ScheduledStopPointAllFieldsFragment,
-  ScheduledStopPointDefaultFieldsFragment,
-} from '../generated/graphql';
+import { StopDetails } from '../components/map/useMapData';
+import { ScheduledStopPointAllFieldsFragment } from '../generated/graphql';
+import { FilterableStop } from '../hooks';
 import { Priority } from '../types/enums';
 import { isCurrentEntity } from './validity';
 
@@ -61,7 +60,9 @@ export const addOrRemoveStopLabelsFromIncludedStops = (
     : stops.filter((label) => !stopsToActOn.includes(label));
 
 export const hasPriority = <
-  TStop extends ScheduledStopPointDefaultFieldsFragment,
+  TStop extends FilterableStop<
+    StopDetails | ScheduledStopPointAllFieldsFragment
+  >,
 >(
   priority: Priority,
   stop: TStop,
@@ -77,7 +78,9 @@ export const hasPriority = <
  * because same stop can be along the route geometry multiple times (e.g. loop in the geometry)
  */
 export const filterHighestPriorityCurrentStops = <
-  TStop extends ScheduledStopPointDefaultFieldsFragment,
+  TStop extends FilterableStop<
+    StopDetails | ScheduledStopPointAllFieldsFragment
+  >,
 >(
   stops: TStop[],
   observationDate: DateTime,
@@ -89,7 +92,6 @@ export const filterHighestPriorityCurrentStops = <
       isCurrentEntity(observationDate, stop) &&
       (allowDrafts || !hasPriority(Priority.Draft, stop)),
   );
-
   // Group stops by label
   const stopsGroupedByLabel = groupBy(currentStops, (stop) => stop.label);
 
@@ -98,11 +100,9 @@ export const filterHighestPriorityCurrentStops = <
     (sameLabelStopInstances) =>
       // Non empty array always contains an element
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      maxBy(sameLabelStopInstances, 'priority')!.scheduled_stop_point_id,
+      maxBy(sameLabelStopInstances, 'stopPoint.priority')!,
   );
 
   // Filter out any stop instances that are not highest priority at selected observation date
-  return stops.filter((stop) =>
-    highestPriotityStopIds.includes(stop.scheduled_stop_point_id),
-  );
+  return stops.filter((stop) => highestPriotityStopIds.includes(stop));
 };

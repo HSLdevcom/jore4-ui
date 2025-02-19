@@ -2,7 +2,7 @@ import React, { useImperativeHandle, useRef } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { StopWithLocation } from '../../../graphql';
 import {
-  StopWithVehicleMode,
+  FilterableStop,
   useAppAction,
   useAppSelector,
   useCreateStop,
@@ -35,7 +35,7 @@ import {
   removeLineFromStopToInfraLink,
 } from '../../../utils/map';
 import { EditStoplayerRef } from '../refTypes';
-import { useMapData } from '../useMapData';
+import { StopDetails, useMapData } from '../useMapData';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
@@ -87,9 +87,9 @@ export const Stops = React.forwardRef((_props, ref) => {
 
   // When stops are loading, show previously loaded stops to avoid stops
   // disappearing and flickering on every map move / zoom
-  const unfilteredStops = stopsResult.loading
-    ? stopsResult.previousData?.stopPoints
-    : stopsResult.stopPoints;
+  const unfilteredStops = (
+    stopsResult.loading ? stopsResult.previousData?.stops : stopsResult.stops
+  )?.map((s) => new FilterableStop<StopDetails>(s));
 
   const stops = filter(unfilteredStops ?? []);
 
@@ -142,7 +142,7 @@ export const Stops = React.forwardRef((_props, ref) => {
   return (
     <>
       {/* Display existing stops */}
-      {stops?.map((item) => {
+      {stops?.map((item: FilterableStop<StopDetails>) => {
         const point = mapLngLatToPoint(item.measured_location.coordinates);
         return (
           <Stop
@@ -151,9 +151,9 @@ export const Stops = React.forwardRef((_props, ref) => {
             selected={item.scheduled_stop_point_id === selectedStopId}
             longitude={point.longitude}
             latitude={point.latitude}
-            onClick={() => onEditStop(item as StopWithLocation)}
+            onClick={() => onEditStop(item.asStopWithLocation())}
             isHighlighted={getStopHighlighted(item.scheduled_stop_point_id)}
-            vehicleMode={getStopVehicleMode(item as StopWithVehicleMode)}
+            vehicleMode={getStopVehicleMode(item)}
           />
         );
       })}
