@@ -1,22 +1,24 @@
+import { FC, ReactNode } from 'react';
 import { DialogWithButtons } from './DialogWithButtons';
 
-interface Props {
-  isOpen: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
-  title: string;
-  description: string;
-  confirmText: string;
-  cancelText: string;
-  className?: string;
-  widthClassName?: string;
-}
-
 const testIds = {
+  cancelButton: 'ConfirmationDialog::cancelButton',
   confirmButton: 'ConfirmationDialog::confirmButton',
 };
 
-export const ConfirmationDialog = ({
+type ConfirmationDialogProps = {
+  readonly isOpen: boolean;
+  readonly onConfirm: () => void;
+  readonly onCancel: () => void;
+  readonly title: ReactNode;
+  readonly description: ReactNode;
+  readonly confirmText: ReactNode;
+  readonly cancelText: ReactNode;
+  readonly className?: string;
+  readonly widthClassName?: string;
+};
+
+export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
   isOpen,
   onConfirm,
   onCancel,
@@ -26,14 +28,19 @@ export const ConfirmationDialog = ({
   cancelText,
   className = '',
   widthClassName = '',
-}: Props): React.ReactElement => {
+}) => {
   return (
     <DialogWithButtons
       isOpen={isOpen}
       title={title}
       description={description}
       buttons={[
-        { text: cancelText, onClick: onCancel, inverted: true },
+        {
+          text: cancelText,
+          onClick: onCancel,
+          inverted: true,
+          testId: testIds.cancelButton,
+        },
         {
           text: confirmText,
           onClick: onConfirm,
