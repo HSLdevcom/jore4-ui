@@ -181,17 +181,17 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
 // Gets unnecessarily long and ugly with "prettier" so disabling it for these arrays.
 // prettier-ignore
 const route35Stops: Array<StopPlaceQuaySeedData> = [
-  { publicCode: 'H1376', privateCode: "111110", locationLong: 24.885561, locationLat: 60.198389, locationSwe: 'Dragonvägen 8' },
-  { publicCode: 'H1377', privateCode: "111111", locationLong: 24.87594,  locationLat: 60.205858, locationSwe: 'Munkshöjdens kyrka' },
-  { publicCode: 'H1398', privateCode: "111112", locationLong: 24.88078,  locationLat: 60.20663,  locationSwe: 'Munkshöjden' }, // Lapinmäentie
-  { publicCode: 'H1416', privateCode: "111113", locationLong: 24.879,    locationLat: 60.2055,   locationSwe: 'Munkshöjden' }, // Raumantie
-  { publicCode: 'H1451', privateCode: "111114", locationLong: 24.883581, locationLat: 60.205589, locationSwe: 'Lognäsvägen' }, // Opposite of H1452
-  { publicCode: 'H1452', privateCode: "111115", locationLong: 24.883556, locationLat: 60.205493, locationSwe: 'Lognäsvägen' }, // Opposite of H1451
-  { publicCode: 'H1453', privateCode: "111116", locationLong: 24.884656, locationLat: 60.204225, locationSwe: 'Näshöjdsgränden' },
-  { publicCode: 'H1454', privateCode: "111117", locationLong: 24.884535, locationLat: 60.203123, locationSwe: 'Näshöjden' },
-  { publicCode: 'H1455', privateCode: "111118", locationLong: 24.88356,  locationLat: 60.203794, locationSwe: 'Näshöjdsvägen' },
-  { publicCode: 'H1456', privateCode: "111119", locationLong: 24.884701, locationLat: 60.200373, locationSwe: 'Dragonvägen' }, // Rakuunantie 16
-  { publicCode: 'H1458', privateCode: "111120", locationLong: 24.883186, locationLat: 60.200773, locationSwe: 'Dragonvägen' }, // Huopalahdentie
+  { publicCode: 'H1376', privateCode: "111110", locationLong: 24.885561, locationLat: 60.198389, locationFin: 'Raakunantie 8', locationSwe: 'Dragonvägen 8' },
+  { publicCode: 'H1377', privateCode: "111111", locationLong: 24.87594,  locationLat: 60.205858, locationFin: 'Munkkivuoren kirkko',locationSwe: 'Munkshöjdens kyrka' },
+  { publicCode: 'H1398', privateCode: "111112", locationLong: 24.88078,  locationLat: 60.20663,  locationFin: 'Lapinmäentie 1',locationSwe: 'Labbackavägen 1' }, // Lapinmäentie
+  { publicCode: 'H1416', privateCode: "111113", locationLong: 24.879,    locationLat: 60.2055,   locationFin: 'Raumantie 1',locationSwe: 'Raumovägen 1' }, // Raumantie
+  { publicCode: 'H1451', privateCode: "111114", locationLong: 24.883581, locationLat: 60.205589, locationFin: 'Niemenmäentie 9',locationSwe: 'Näshöjdasvägen 9' }, // Opposite of H1452
+  { publicCode: 'H1452', privateCode: "111115", locationLong: 24.883556, locationLat: 60.205493, locationFin: 'Niemenmäentie 8',locationSwe: 'Näshöjdasvägen 8' }, // Opposite of H1451
+  { publicCode: 'H1453', privateCode: "111116", locationLong: 24.884656, locationLat: 60.204225, locationFin: 'Niemenmäenkuja 1',locationSwe: 'Näshöjdsgränden 1' },
+  { publicCode: 'H1454', privateCode: "111117", locationLong: 24.884535, locationLat: 60.203123, locationFin: 'Luuvaniementie 5',locationSwe: 'Lognasvägen 5' },
+  { publicCode: 'H1455', privateCode: "111118", locationLong: 24.88356,  locationLat: 60.203794, locationFin: 'Luuvaniementie 3',locationSwe: 'Lognasvägen 3' },
+  { publicCode: 'H1456', privateCode: "111119", locationLong: 24.884701, locationLat: 60.200373, locationFin: 'Rakuunantie 16',locationSwe: 'Dragonvägen' }, // Rakuunantie 16
+  { publicCode: 'H1458', privateCode: "111120", locationLong: 24.883186, locationLat: 60.200773, locationFin: 'Huopalahdentie 15',locationSwe: 'Hoplaksvägen 15' }, // Huopalahdentie
 ];
 
 // A long route that spans multiple cities and fare zones.
