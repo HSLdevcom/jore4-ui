@@ -1,5 +1,6 @@
 import { Dialog } from '@headlessui/react';
-import React from 'react';
+import { FC, ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { CloseIconButton } from './CloseIconButton';
 import { SimpleButton } from './SimpleButton';
 
@@ -8,45 +9,61 @@ const testIds = {
   textContent: 'DialogWithButtons::textContent',
 };
 
-export interface DialogButton {
-  onClick: () => void;
-  text: string;
-  inverted?: boolean;
-  testId?: string;
+export type DialogButton = {
+  readonly onClick: () => void;
+  readonly text: ReactNode;
+  readonly inverted?: boolean;
+  readonly testId?: string;
+};
+
+function getDialogButtonKey(button: DialogButton, index: number) {
+  if (button.testId) {
+    return button.testId;
+  }
+
+  if (typeof button.text === 'string') {
+    return button.text;
+  }
+
+  return `${button.text}-${button.inverted}-${button.onClick}-${index}`;
 }
 
-interface Props {
-  isOpen: boolean;
-  title: string;
-  description: string;
-  buttons: DialogButton[];
-  onCancel: () => void;
-  className?: string;
+type DialogWithButtonsProps = {
+  readonly isOpen: boolean;
+  readonly title: ReactNode;
+  readonly description: ReactNode;
+  readonly buttons: ReadonlyArray<DialogButton>;
+  readonly onCancel: () => void;
+  readonly className?: string;
   // This should be a Tailwind max-width class: https://tailwindcss.com/docs/max-width
-  widthClassName?: string;
-}
+  readonly widthClassName?: string;
+};
 
-export const DialogWithButtons: React.FC<Props> = ({
+export const DialogWithButtons: FC<DialogWithButtonsProps> = ({
   isOpen,
   title,
   description,
   buttons,
   onCancel,
   className = '',
-  widthClassName = '',
+  widthClassName = 'max-w-sm',
 }) => {
   return (
     <Dialog
       as="div"
       open={isOpen}
       onClose={onCancel}
-      className={`fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50 ${className}`}
+      className={twMerge(
+        'fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50',
+        className,
+      )}
     >
       <div className="flex h-full items-center justify-center">
         <div
-          className={`w-full rounded-md bg-white p-5 shadow-md ${
-            widthClassName || 'max-w-sm'
-          }`}
+          className={twMerge(
+            'w-full rounded-md bg-white p-5 shadow-md',
+            widthClassName,
+          )}
         >
           <Dialog.Title className="flex" as="h3">
             {title}
@@ -63,9 +80,9 @@ export const DialogWithButtons: React.FC<Props> = ({
             {description}
           </Dialog.Description>
           <div className="flex justify-end space-x-5">
-            {buttons.map((button) => (
+            {buttons.map((button, i) => (
               <SimpleButton
-                key={button.text}
+                key={getDialogButtonKey(button, i)}
                 testId={button.testId}
                 inverted={button.inverted}
                 onClick={button.onClick}
