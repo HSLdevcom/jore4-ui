@@ -1,14 +1,7 @@
-import { GeoJSON } from 'geojson';
 import partial from 'lodash/partial';
-import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopDetails } from '../../components/map/useMapData';
-import {
-  ReusableComponentsVehicleModeEnum,
-  ScheduledStopPointAllFieldsFragment,
-} from '../../generated/graphql';
-import { StopWithLocation } from '../../graphql';
 import {
   FilterType,
   selectMapFilter,
@@ -27,83 +20,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../redux';
 import { useObservationDateQueryParam } from '../urlQuery';
 import { useVisibleRouteStops } from './useVisibleRouteStops';
-
-export type FilterableStopType =
-  | ScheduledStopPointAllFieldsFragment
-  | StopDetails;
-
-// TODO: Strip ScheduledStopPointAllFieldsFragment and use quay values
-export class FilterableStop<T extends FilterableStopType> {
-  stop: T;
-
-  validity_start: DateTime | undefined;
-
-  validity_end: DateTime | undefined;
-
-  priority: number;
-
-  label: string;
-
-  measured_location: GeoJSON.Point;
-
-  scheduled_stop_point_id: string;
-
-  vehicle_mode_on_scheduled_stop_point: Array<{
-    vehicle_mode: ReusableComponentsVehicleModeEnum;
-  }>;
-
-  closest_point_on_infrastructure_link: GeoJSON.Point | undefined;
-
-  constructor(entity: ScheduledStopPointAllFieldsFragment | StopDetails) {
-    this.stop = entity as T;
-
-    if (FilterableStop.isScheduledStopPointAllFieldsFragment(entity)) {
-      this.asStopWithLocation = () => {
-        return this.stop as StopWithLocation;
-      };
-
-      this.validity_start = entity.validity_start ?? undefined;
-      this.validity_end = entity.validity_end ?? undefined;
-      this.priority = entity.priority ?? -1;
-      this.label = entity.label ?? '';
-      this.measured_location = entity.measured_location;
-      this.scheduled_stop_point_id = entity.scheduled_stop_point_id;
-      this.vehicle_mode_on_scheduled_stop_point =
-        entity.vehicle_mode_on_scheduled_stop_point;
-      this.closest_point_on_infrastructure_link =
-        entity.closest_point_on_infrastructure_link ?? undefined;
-    } else {
-      this.asStopWithLocation = () => {
-        return entity.stopPoint as StopWithLocation;
-      };
-
-      this.validity_start =
-        entity?.scheduled_stop_point?.validity_start ?? undefined;
-      this.validity_end =
-        entity?.scheduled_stop_point?.validity_end ?? undefined;
-
-      this.priority = entity?.stopPoint?.priority ?? -1;
-      this.label = entity?.stopPoint?.label ?? '';
-
-      this.measured_location = entity.stopPoint.measured_location;
-
-      this.scheduled_stop_point_id = entity?.stopPoint.scheduled_stop_point_id;
-
-      this.vehicle_mode_on_scheduled_stop_point =
-        entity?.stopPoint?.vehicle_mode_on_scheduled_stop_point;
-
-      this.closest_point_on_infrastructure_link =
-        entity.stopPoint.closest_point_on_infrastructure_link ?? undefined;
-    }
-  }
-
-  asStopWithLocation: () => StopWithLocation;
-
-  private static isScheduledStopPointAllFieldsFragment = (
-    entity: ScheduledStopPointAllFieldsFragment | StopDetails,
-  ): entity is ScheduledStopPointAllFieldsFragment =>
-    'validity_start' in entity;
-}
+import { FilterableStop, FilterableStopType } from './utils';
 
 type StopFilterFunction<T extends FilterableStopType> = <
   TStop extends FilterableStop<T>,

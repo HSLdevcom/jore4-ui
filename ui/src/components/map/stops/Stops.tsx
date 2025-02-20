@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useRef } from 'react';
+import React, { useCallback, useImperativeHandle, useRef } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { StopWithLocation } from '../../../graphql';
 import {
@@ -68,11 +68,29 @@ export const Stops = React.forwardRef((_props, ref) => {
 
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
-  const { getStopVehicleMode, getStopHighlighted } = useMapStops();
-
   const viewport = useAppSelector(selectMapViewport);
 
-  const mapData = useMapData(viewport);
+  const getBounds = useCallback(() => {
+    if (map) {
+      const bounds = map.getBounds(); // Get the visible map bounds
+      return {
+        latMax: bounds.getNorthEast().lat,
+        latMin: bounds.getSouthWest().lat,
+        lonMax: bounds.getNorthEast().lng,
+        lonMin: bounds.getSouthWest().lng,
+      };
+    }
+    return {
+      latMax: -1,
+      latMin: -1,
+      lonMax: -1,
+      lonMin: -1,
+    };
+  }, [map]);
+
+  const mapData = useMapData(getBounds());
+
+  const { getStopVehicleMode, getStopHighlighted } = useMapStops(mapData);
   // Skip initial 0 radius fetch and wait for the map to get loaded,
   // so that we have a proper viewport.
   const skipFetching =
@@ -131,7 +149,7 @@ export const Stops = React.forwardRef((_props, ref) => {
     setEditedStopData(undefined);
     // the newly created stop should become a regular stop from a draft
     // also, the recently edited stop's data is refetched
-    await stopsResult.refetch();
+    stopsResult.refetch(getBounds());
     setIsLoadingSaveStop(false);
   };
 

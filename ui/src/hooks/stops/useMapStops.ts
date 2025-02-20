@@ -1,11 +1,9 @@
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
-import { StopDetails } from '../../components/map/useMapData';
+import { MapData, StopDetails } from '../../components/map/useMapData';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteWithJourneyPatternStopsFragment,
-  ScheduledStopPointAllFieldsFragment,
-  ServicePatternScheduledStopPoint,
   useGetRouteDetailsByIdsQuery,
 } from '../../generated/graphql';
 import { getRouteStopLabels } from '../../graphql';
@@ -15,44 +13,44 @@ import {
   selectMapRouteEditor,
   selectSelectedStopId,
 } from '../../redux';
-import { RequiredKeys } from '../../types';
 import { Priority } from '../../types/enums';
 import { filterHighestPriorityCurrentStops, mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
 import { useGetRoutesDisplayedInMap } from '../routes';
 import { useObservationDateQueryParam } from '../urlQuery';
-import { FilterableStop } from './useFilterStops';
-
-export type StopWithVehicleMode = RequiredKeys<
-  Partial<ServicePatternScheduledStopPoint>,
-  'vehicle_mode_on_scheduled_stop_point'
->;
+import { FilterableStop } from './utils';
 
 const extractHighestPriorityStopsFromRoute = <
   TRoute extends RouteWithJourneyPatternStopsFragment,
 >(
   route: TRoute,
   observationDate: DateTime,
+  mapData: MapData,
 ) => {
+  // TODO: Check if using route stop points is needed
   const routeStopPoints =
-    route.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns.flatMap(
-      (journeyPatternStop) => journeyPatternStop.scheduled_stop_points,
-    ) ?? [];
+    route.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns
+      .flatMap((journeyPatternStop) => journeyPatternStop.scheduled_stop_points)
+      .flatMap((rsp) => {
+        return mapData.stops.filter((s) => {
+          if (
+            s.stopPoint.scheduled_stop_point_id === rsp.scheduled_stop_point_id
+          ) {
+            return s;
+          }
+          return rsp;
+        });
+      }) ?? [];
 
   return filterHighestPriorityCurrentStops(
-    routeStopPoints.map(
-      (stop) =>
-        new FilterableStop<ScheduledStopPointAllFieldsFragment>(
-          stop as ScheduledStopPointAllFieldsFragment,
-        ),
-    ),
+    routeStopPoints.map((stop) => new FilterableStop<StopDetails>(stop)),
     observationDate,
     // If the route is a draft, we want to select draft versions of stops if there are any
     route.priority === Priority.Draft,
   );
 };
 
-export const useMapStops = () => {
+export const useMapStops = (mapData: MapData) => {
   const { selectedRouteId } = useAppSelector(selectMapRouteEditor);
   const { observationDate } = useObservationDateQueryParam();
   const { displayedRouteIds } = useGetRoutesDisplayedInMap();
@@ -79,7 +77,11 @@ export const useMapStops = () => {
   );
 
   const selectedRouteActiveStops = selectedRoute
-    ? extractHighestPriorityStopsFromRoute(selectedRoute, observationDate)
+    ? extractHighestPriorityStopsFromRoute(
+        selectedRoute,
+        observationDate,
+        mapData,
+      )
     : [];
 
   const selectedRouteActiveStopIds = selectedRouteActiveStops.map(

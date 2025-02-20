@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { groupBy } from 'remeda';
 import { StopDetails } from '../components/map/useMapData';
 import { ScheduledStopPointAllFieldsFragment } from '../generated/graphql';
-import { FilterableStop } from '../hooks';
+import { FilterableStop } from '../hooks/stops/utils';
 import { Priority } from '../types/enums';
 import { isCurrentEntity } from './validity';
 
@@ -59,11 +59,7 @@ export const addOrRemoveStopLabelsFromIncludedStops = (
     ? uniq([...stops, ...stopsToActOn])
     : stops.filter((label) => !stopsToActOn.includes(label));
 
-export const hasPriority = <
-  TStop extends FilterableStop<
-    StopDetails | ScheduledStopPointAllFieldsFragment
-  >,
->(
+export const hasPriority = <TStop extends FilterableStop<StopDetails>>(
   priority: Priority,
   stop: TStop,
 ) => stop.priority === priority;
@@ -78,9 +74,7 @@ export const hasPriority = <
  * because same stop can be along the route geometry multiple times (e.g. loop in the geometry)
  */
 export const filterHighestPriorityCurrentStops = <
-  TStop extends FilterableStop<
-    StopDetails | ScheduledStopPointAllFieldsFragment
-  >,
+  TStop extends FilterableStop<StopDetails>,
 >(
   stops: TStop[],
   observationDate: DateTime,

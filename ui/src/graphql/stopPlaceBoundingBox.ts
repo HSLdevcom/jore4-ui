@@ -6,8 +6,8 @@ import {
 } from '../generated/graphql';
 
 export type StopPlaceBoundingBox = Readonly<StopPlaceDetailsFragment & {
-  stopPoint: ScheduledStopPointAllFieldsFragment;
-  quays: QuayDetailsFragment[];
+  readonly scheduled_stop_point: ScheduledStopPointAllFieldsFragment;
+  readonly quays: QuayDetailsFragment[];
 }>
 
 
