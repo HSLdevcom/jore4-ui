@@ -27,11 +27,11 @@ export const QUERY_STOP_PLACE_BOUNDING_BOXES = gql`
       ) {
         ...stop_place_details
         ... on stop_registry_StopPlace {
-          scheduled_stop_point {
-            ...scheduled_stop_point_all_fields
-          }
           quays {
             ...quay_details
+            scheduled_stop_point {
+              ...scheduled_stop_point_all_fields # FIXME villep: Always null in stop point. Stop place has stop points. Check test data and hasura config
+            }
           }
         }
       }

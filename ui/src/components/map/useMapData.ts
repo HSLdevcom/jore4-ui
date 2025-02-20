@@ -52,7 +52,7 @@ const getMapData = (
           ({
             ...quay,
             stopPoint:
-              stopPlace.scheduled_stop_point as ScheduledStopPointAllFieldsFragment,
+              quay?.scheduled_stop_point as ScheduledStopPointAllFieldsFragment,
             stopPlace,
           }) as StopDetails,
       ),
@@ -102,6 +102,7 @@ export const useMapData = (viewport: StopBounds): MapData => {
     });
   }, [refetch, getStopPlacesByBoundingBoxes, bounds]);
 
+  console.log("md", mapData)
   return {
     ...mapData,
     refetch,

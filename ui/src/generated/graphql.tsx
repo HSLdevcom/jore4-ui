@@ -71913,34 +71913,34 @@ export type GetStopPlacesByBoundingBoxesQuery = {
           weighting?: StopRegistryInterchangeWeightingType | null;
           submode?: StopRegistrySubmodeType | null;
           transportMode?: StopRegistryTransportModeType | null;
-          scheduled_stop_point?: {
-            __typename?: 'service_pattern_scheduled_stop_point';
-            measured_location: GeoJSON.Point;
-            relative_distance_from_infrastructure_link_start: number;
-            closest_point_on_infrastructure_link?: GeoJSON.Point | null;
-            priority: number;
-            direction: InfrastructureNetworkDirectionEnum;
-            scheduled_stop_point_id: UUID;
-            label: string;
-            timing_place_id?: UUID | null;
-            validity_start?: luxon.DateTime | null;
-            validity_end?: luxon.DateTime | null;
-            located_on_infrastructure_link_id: UUID;
-            stop_place_ref?: string | null;
-            vehicle_mode_on_scheduled_stop_point: Array<{
-              __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-              vehicle_mode: ReusableComponentsVehicleModeEnum;
-            }>;
-            timing_place?: {
-              __typename?: 'timing_pattern_timing_place';
-              timing_place_id: UUID;
-              label: string;
-            } | null;
-          } | null;
           quays?: Array<{
             __typename?: 'stop_registry_Quay';
             id?: string | null;
             publicCode?: string | null;
+            scheduled_stop_point?: {
+              __typename?: 'service_pattern_scheduled_stop_point';
+              measured_location: GeoJSON.Point;
+              relative_distance_from_infrastructure_link_start: number;
+              closest_point_on_infrastructure_link?: GeoJSON.Point | null;
+              priority: number;
+              direction: InfrastructureNetworkDirectionEnum;
+              scheduled_stop_point_id: UUID;
+              label: string;
+              timing_place_id?: UUID | null;
+              validity_start?: luxon.DateTime | null;
+              validity_end?: luxon.DateTime | null;
+              located_on_infrastructure_link_id: UUID;
+              stop_place_ref?: string | null;
+              vehicle_mode_on_scheduled_stop_point: Array<{
+                __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
+                vehicle_mode: ReusableComponentsVehicleModeEnum;
+              }>;
+              timing_place?: {
+                __typename?: 'timing_pattern_timing_place';
+                label: string;
+                timing_place_id: UUID;
+              } | null;
+            } | null;
             privateCode?: {
               __typename?: 'stop_registry_PrivateCode';
               type?: string | null;
@@ -72086,28 +72086,6 @@ export type GetStopPlacesByBoundingBoxesQuery = {
                   value?: string | null;
                 } | null;
               } | null> | null;
-            } | null;
-            scheduled_stop_point?: {
-              __typename?: 'service_pattern_scheduled_stop_point';
-              priority: number;
-              direction: InfrastructureNetworkDirectionEnum;
-              scheduled_stop_point_id: UUID;
-              label: string;
-              timing_place_id?: UUID | null;
-              validity_start?: luxon.DateTime | null;
-              validity_end?: luxon.DateTime | null;
-              located_on_infrastructure_link_id: UUID;
-              stop_place_ref?: string | null;
-              measured_location: GeoJSON.Point;
-              timing_place?: {
-                __typename?: 'timing_pattern_timing_place';
-                label: string;
-                timing_place_id: UUID;
-              } | null;
-              vehicle_mode_on_scheduled_stop_point: Array<{
-                __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point';
-                vehicle_mode: ReusableComponentsVehicleModeEnum;
-              }>;
             } | null;
           } | null> | null;
           alternativeNames?: Array<{
@@ -81428,19 +81406,19 @@ export const GetStopPlacesByBoundingBoxesDocument = gql`
       ) {
         ...stop_place_details
         ... on stop_registry_StopPlace {
-          scheduled_stop_point {
-            ...scheduled_stop_point_all_fields
-          }
           quays {
             ...quay_details
+            scheduled_stop_point {
+              ...scheduled_stop_point_all_fields
+            }
           }
         }
       }
     }
   }
   ${StopPlaceDetailsFragmentDoc}
-  ${ScheduledStopPointAllFieldsFragmentDoc}
   ${QuayDetailsFragmentDoc}
+  ${ScheduledStopPointAllFieldsFragmentDoc}
 `;
 
 /**
