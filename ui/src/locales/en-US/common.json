@@ -166,8 +166,8 @@
       }
     },
     "errors": {
-      "groupOfStopPlacesUniqueName": "Stop area should have unique label but {{label}} is already in use!",
-      "groupOfStopPlacesUniqueDescription": "Stop area should have unique name but {{name}} is already in use!"
+      "stopPlacesUniqueName": "Stop area should have unique name but {{name}} is already in use!",
+      "stopPlacesUniquePrivateCode": "Stop area should have unique private code but {{privateCode}} is already in use!"
     }
   },
   "stopPlaceTypes": {

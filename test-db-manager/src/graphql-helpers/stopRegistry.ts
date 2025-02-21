@@ -230,19 +230,12 @@ const insertStopPlace = async ({
       stopPlace: {
         ...stopPlace,
         keyValues: [
-          ...(stopPlace.keyValues ?? []),
-          {
-            key: 'priority',
-            values: ['10'],
-          },
-          {
-            key: 'validityStart',
-            values: ['2000-01-01'],
-          },
-          {
-            key: 'validityEnd',
-            values: ['2052-01-01'],
-          },
+          ...(stopPlace.keyValues ?? [
+            {
+              key: 'priority',
+              values: ['10'],
+            },
+          ]),
         ],
       },
     });

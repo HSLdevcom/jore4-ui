@@ -7,11 +7,10 @@ import { showDangerToast } from '../../../../utils';
 import { StopAreaFormState } from '../stopAreaFormSchema';
 
 const ERRORS: Readonly<Record<string, TranslationKey>> = {
-  GROUP_OF_STOP_PLACES_UNIQUE_NAME:
-    'stopAreaDetails.errors.groupOfStopPlacesUniqueName',
+  STOP_PLACE_UNIQUE_NAME: 'stopAreaDetails.errors.stopPlacesUniqueName',
 
-  GROUP_OF_STOP_PLACES_UNIQUE_DESCRIPTION:
-    'stopAreaDetails.errors.groupOfStopPlacesUniqueDescription',
+  STOP_PLACE_UNIQUE_PRIVATE_CODE:
+    'stopAreaDetails.errors.stopPlacesUniquePrivateCode',
 };
 
 function mapApolloErrorToTranslationKey(
