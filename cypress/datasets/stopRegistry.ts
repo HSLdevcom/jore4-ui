@@ -34,6 +34,16 @@ export const Annankatu20AltNames: Array<Maybe<StopRegistryAlternativeName>> = [
   { nameType: StopRegistryNameType.Alias,       name: { lang: 'swe', value: 'Annasgatan 20 långnamn' } },
 ];
 
+// prettier-ignore
+export const Annankatu15AltNames: Array<Maybe<StopRegistryAlternativeName>> = [
+  { nameType: StopRegistryNameType.Label,       name: { lang: 'fin', value: 'Akt15' }, },
+  { nameType: StopRegistryNameType.Label,       name: { lang: 'swe', value: 'Agt15' }, },
+  { nameType: StopRegistryNameType.Translation, name: { lang: 'swe', value: 'Annasgatan 15' }, },
+  { nameType: StopRegistryNameType.Other,       name: { lang: 'fin', value: 'Annankatu 15' } },
+  { nameType: StopRegistryNameType.Alias,       name: { lang: 'fin', value: 'Annankatu 15 pitkänimi' } },
+  { nameType: StopRegistryNameType.Alias,       name: { lang: 'swe', value: 'Annasgatan 15 långnamn' } },
+];
+
 export const Annankatu20Location: Array<Maybe<StopRegistryAlternativeName>> = [
   {
     nameType: StopRegistryNameType.Other,
@@ -47,6 +57,7 @@ const stopPlaceData: Array<StopAreaInput> = [
     StopArea: {
       privateCode: { type: 'HSL', value: 'X0003' },
       name: { lang: 'fin', value: 'Annankatu 15' },
+      alternativeNames: Annankatu15AltNames,
       keyValues: [
         { key: 'validityStart', values: ['2020-01-01'] },
         { key: 'validityEnd', values: ['2050-01-01'] },
@@ -58,6 +69,7 @@ const stopPlaceData: Array<StopAreaInput> = [
       quays: [
         {
           publicCode: 'E2E001',
+          description: { lang: 'fin', value: 'Annankatu 15' },
           keyValues: [
             { key: 'streetAddress', values: ['Annankatu 15'] },
             { key: 'elyNumber', values: ['E2E001'] },
@@ -68,6 +80,7 @@ const stopPlaceData: Array<StopAreaInput> = [
         },
         {
           publicCode: 'E2E009',
+          description: { lang: 'fin', value: 'Annankatu 15' },
           keyValues: [
             { key: 'streetAddress', values: ['Annankatu 15'] },
             { key: 'elyNumber', values: ['E2E009'] },

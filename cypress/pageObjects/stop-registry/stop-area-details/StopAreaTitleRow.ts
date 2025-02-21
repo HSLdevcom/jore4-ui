@@ -1,5 +1,5 @@
 export class StopAreaTitleRow {
-  getDescription = () => cy.getByTestId('StopAreaTitleRow::description');
+  getPrivateCode = () => cy.getByTestId('StopAreaTitleRow::privateCode');
 
   getName = () => cy.getByTestId('StopAreaTitleRow::name');
 }
