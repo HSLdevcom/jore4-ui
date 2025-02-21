@@ -35,9 +35,8 @@ const testIds = {
 export const mapStopAreaDataToFormState = (
   area: EnrichedStopPlace,
 ): Partial<FormState> => {
-  // Added random coordinates for testing purposes, page breaks with empty array
   const { latitude, longitude } = mapLngLatToPoint(
-    area.geometry?.coordinates ?? [60.17, 24.94],
+    area.geometry?.coordinates ?? [],
   );
 
   return {
