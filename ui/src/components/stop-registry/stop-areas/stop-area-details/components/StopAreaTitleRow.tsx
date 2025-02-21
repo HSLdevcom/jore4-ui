@@ -20,7 +20,7 @@ export const StopAreaTitleRow: FC<StopAreaComponentProps> = ({
       <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
       <PageTitle.H1
         className="mr-2"
-        testId={testIds.name}
+        testId={testIds.privateCode}
         titleText={compact([area.privateCode?.value, area.name]).join(' ')}
       >
         {area.privateCode?.value ?? ''}

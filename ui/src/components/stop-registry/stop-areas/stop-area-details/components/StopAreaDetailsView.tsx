@@ -9,7 +9,6 @@ import { StopAreaComponentProps } from '../types';
 const testIds = {
   privateCode: 'StopAreaDetails::privateCode',
   name: 'StopAreaDetails::name',
-  nameFin: 'StopAreaDetails::nameFin',
   nameSwe: 'StopAreaDetails::nameSwe',
   description: 'StopAreaDetails::description',
   parentStopPlace: 'StopAreaDetails::parentStopPlace',

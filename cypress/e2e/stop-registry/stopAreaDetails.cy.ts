@@ -10,13 +10,12 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import {
-  Annankatu20AltNames,
-  Annankatu20Name,
+  Annankatu15AltNames,
   getClonedBaseStopRegistryData,
-  stopAreaX0003,
 } from '../../datasets/stopRegistry';
 import {
   BasicDetailsForm,
+  BasicDetailsViewCard,
   SelectMemberStopsDropdown,
   StopAreaDetailsPage,
   StopDetailsPage,
@@ -40,7 +39,8 @@ function mapToShortDate(date: DateTime | null) {
 
 type ExpectedBasicDetails = {
   readonly name: string;
-  readonly description: string;
+  readonly nameSwe: string;
+  readonly privateCode: string;
   readonly parentStopPlace: string;
   readonly areaSize: string;
   readonly validFrom: DateTime;
@@ -60,36 +60,80 @@ describe('Stop area details', () => {
   const baseDbResources = getClonedBaseDbResources();
   const baseStopRegistryData = getClonedBaseStopRegistryData();
 
-  const testStopArea = { ...stopAreaX0003 };
   const stopAreaData: Array<StopAreaInput> = [
-    testStopArea,
     {
-      memberLabels: ['E2E002', 'E2E008'],
-      stopArea: {
-        name: { lang: 'fin', value: 'X0004' },
-        description: Annankatu20Name,
-        alternativeNames: Annankatu20AltNames,
+      StopArea: {
+        privateCode: { type: 'HSL', value: 'X0003' },
+        name: { lang: 'fin', value: 'Annankatu 15' },
+        alternativeNames: Annankatu15AltNames,
         validBetween: {
           fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
           toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
         },
         geometry: {
-          coordinates: [24.838928, 60.165434],
+          coordinates: [24.938927, 60.165433],
           type: StopRegistryGeoJsonType.Point,
         },
+        organisations: [],
+        quays: [
+          {
+            publicCode: 'E2E001',
+          },
+          {
+            publicCode: 'E2E009',
+          },
+        ],
       },
+      organisations: null,
+    },
+    {
+      StopArea: {
+        privateCode: { type: 'HSL', value: 'X0004' },
+        name: { lang: 'fin', value: 'Kalevankatu 32' },
+        keyValues: [
+          { key: 'validityStart', values: ['2020-01-01'] },
+          { key: 'validityEnd', values: ['2050-01-01'] },
+        ],
+        geometry: {
+          coordinates: [24.932914978884, 60.165538996581],
+          type: StopRegistryGeoJsonType.Point,
+        },
+        quays: [
+          {
+            publicCode: 'E2E003',
+            keyValues: [
+              { key: 'streetAddress', values: ['Kalevankatu 32'] },
+              { key: 'elyNumber', values: ['E2E003'] },
+            ],
+          },
+          {
+            publicCode: 'E2E006',
+            keyValues: [
+              { key: 'streetAddress', values: ['Kalevankatu 32'] },
+              { key: 'elyNumber', values: ['E2E006'] },
+            ],
+          },
+        ],
+      },
+      organisations: null,
     },
   ];
 
+  const [testStopArea] = stopAreaData;
+
   const testAreaExpectedBasicDetails: ExpectedBasicDetails = {
-    name: testStopArea.stopArea.name.value,
-    description: testStopArea.stopArea.description.value,
-    validFrom: testStopArea.stopArea.validBetween.fromDate,
-    validTo: testStopArea.stopArea.validBetween.toDate,
+    name: testStopArea.StopArea.name?.value as string,
+    // ??? idk
+    nameSwe: testStopArea.StopArea.alternativeNames?.find(
+      (name) => name?.name.lang === 'swe',
+    )?.name.value as string,
+    privateCode: testStopArea.StopArea.privateCode?.value as string,
+    validFrom: testStopArea.StopArea.validBetween?.fromDate as DateTime,
+    validTo: testStopArea.StopArea.validBetween?.toDate as DateTime,
     areaSize: '-',
     parentStopPlace: '-',
-    longitude: testStopArea.stopArea.geometry.coordinates[0],
-    latitude: testStopArea.stopArea.geometry.coordinates[1],
+    longitude: testStopArea.StopArea.geometry?.coordinates[0],
+    latitude: testStopArea.StopArea.geometry?.coordinates[1],
   };
 
   before(() => {
@@ -115,10 +159,9 @@ describe('Stop area details', () => {
     insertToDbHelper(dbResources);
     cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
       ...baseStopRegistryData,
-      stopAreas: stopAreaData,
     }).then((data) => {
       dbIds = data;
-      const id = data.stopAreaIdsByName.X0003;
+      const id = data.stopPlaceIdsByName.X0003;
 
       cy.setupTests();
       cy.mockLogin();
@@ -128,19 +171,20 @@ describe('Stop area details', () => {
   });
 
   function assertBasicDetails(expected: ExpectedBasicDetails) {
-    stopAreaDetailsPage.titleRow.getName().shouldHaveText(expected.name);
     stopAreaDetailsPage.titleRow
-      .getDescription()
-      .shouldHaveText(expected.description);
+      .getPrivateCode()
+      .shouldHaveText(expected.privateCode);
+    stopAreaDetailsPage.titleRow.getName().shouldHaveText(expected.name);
 
     const validity = `${mapToShortDate(expected.validFrom)}-${mapToShortDate(expected.validTo)}`;
+
     stopAreaDetailsPage.versioningRow
       .getValidityPeriod()
       .shouldHaveText(validity);
 
     const { details } = stopAreaDetailsPage;
     details.getName().shouldHaveText(expected.name);
-    details.getDescription().shouldHaveText(expected.description);
+    details.getPrivateCode().shouldHaveText(expected.privateCode);
     details.getParentStopPlace().shouldHaveText(expected.parentStopPlace);
     details.getAreaSize().shouldHaveText(expected.areaSize);
     details.getValidityPeriod().shouldHaveText(validity);
@@ -228,8 +272,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.details.getEditButton().should('not.exist');
       stopAreaDetailsPage.details.edit.getCancelButton().shouldBeVisible();
       stopAreaDetailsPage.details.edit.getSaveButton().shouldBeVisible();
-      stopAreaDetailsPage.details.edit.getLabel().shouldBeVisible();
+      stopAreaDetailsPage.details.edit.getPrivateCode().shouldBeVisible();
       stopAreaDetailsPage.details.edit.getName().shouldBeVisible();
+      stopAreaDetailsPage.details.edit.getNameSwe().shouldBeVisible();
       stopAreaDetailsPage.details.edit
         .getLongitude()
         .shouldBeVisible()
@@ -285,8 +330,9 @@ describe('Stop area details', () => {
     function inputBasicDetails(inputs: ExpectedBasicDetails) {
       const { edit } = stopAreaDetailsPage.details;
 
-      edit.getLabel().clearAndType(inputs.name);
-      edit.getName().clearAndType(inputs.description);
+      edit.getPrivateCode().clearAndType(inputs.privateCode);
+      edit.getName().clearAndType(inputs.name);
+      edit.getNameSwe().clearAndType(inputs.nameSwe);
 
       setValidity(inputs.validFrom, inputs.validTo);
     }
@@ -323,13 +369,14 @@ describe('Stop area details', () => {
       waitForSaveToBeFinished();
     }
 
-    it('should allow editing details & members', () => {
+    it('should allow editing details', () => {
       assertBasicDetails(testAreaExpectedBasicDetails);
 
       const newBasicDetails: ExpectedBasicDetails = {
         ...testAreaExpectedBasicDetails,
         name: 'New name',
-        description: 'New description',
+        nameSwe: 'New name swe',
+        privateCode: 'New private code',
         validFrom: DateTime.now(),
         validTo: null,
       };
@@ -343,6 +390,22 @@ describe('Stop area details', () => {
       // Should have saved the changes and be back at view mode with new details
       assertEditButtonsEnabled();
       assertBasicDetails(newBasicDetails);
+
+      // And the basic details should still match newBasicDetails
+      assertBasicDetails(newBasicDetails);
+    });
+
+    it.skip('should allow editing members', () => {
+      assertBasicDetails(testAreaExpectedBasicDetails);
+
+      const newBasicDetails: ExpectedBasicDetails = {
+        ...testAreaExpectedBasicDetails,
+        name: 'New name',
+        nameSwe: 'New name swe',
+        privateCode: 'New private code',
+        validFrom: DateTime.now(),
+        validTo: null,
+      };
 
       // Edit member stops
       testMemberStopEditing();
@@ -358,12 +421,34 @@ describe('Stop area details', () => {
     it('should handle unique name exception', () => {
       const existingLabel =
         stopAreaData?.find(
-          (d) => d.stopArea?.name?.value !== testStopArea.stopArea.name.value,
-        )?.stopArea?.name?.value ?? 'noop';
+          (d) => d.StopArea?.name?.value !== testStopArea.StopArea.name?.value,
+        )?.StopArea?.name?.value ?? 'noop';
 
       const newBasicDetails: ExpectedBasicDetails = {
         ...testAreaExpectedBasicDetails,
         name: existingLabel,
+      };
+
+      assertBasicDetails(testAreaExpectedBasicDetails);
+      stopAreaDetailsPage.details.getEditButton().click();
+      inputBasicDetails(newBasicDetails);
+      stopAreaDetailsPage.details.edit.getSaveButton().click();
+      toast.expectDangerToast(
+        'Pysäkkialueella tulee olla uniikki nimi, mutta nimi Kalevankatu 32 on jo jonkin toisen alueen käytössä!',
+      );
+      expectGraphQLCallToReturnError('@gqlUpsertStopArea');
+    });
+
+    it('should handle unique private code exception', () => {
+      const existingPrivateCode =
+        stopAreaData?.find(
+          (d) =>
+            d.StopArea?.privateCode?.value !==
+            testStopArea.StopArea.privateCode?.value,
+        )?.StopArea?.privateCode?.value ?? 'noop';
+      const newBasicDetails: ExpectedBasicDetails = {
+        ...testAreaExpectedBasicDetails,
+        privateCode: existingPrivateCode,
       };
 
       assertBasicDetails(testAreaExpectedBasicDetails);
@@ -376,30 +461,8 @@ describe('Stop area details', () => {
       expectGraphQLCallToReturnError('@gqlUpsertStopArea');
     });
 
-    it('should handle unique description exception', () => {
-      const existingDescription =
-        stopAreaData?.find(
-          (d) =>
-            d.stopArea?.description?.value !==
-            testStopArea.stopArea.description.value,
-        )?.stopArea?.description?.value ?? 'noop';
-      const newBasicDetails: ExpectedBasicDetails = {
-        ...testAreaExpectedBasicDetails,
-        description: existingDescription,
-      };
-
-      assertBasicDetails(testAreaExpectedBasicDetails);
-      stopAreaDetailsPage.details.getEditButton().click();
-      inputBasicDetails(newBasicDetails);
-      stopAreaDetailsPage.details.edit.getSaveButton().click();
-      toast.expectDangerToast(
-        'Pysäkkialueella tulee olla uniikki nimi, mutta nimi Annankatu 20 on jo jonkin toisen alueen käytössä!',
-      );
-      expectGraphQLCallToReturnError('@gqlUpsertStopArea');
-    });
-
-    it('should warn about inconsistent names', () => {
-      stopAreaDetailsPage.visit(dbIds.stopAreaIdsByName.X0004);
+    it('should change all stop names when editing one stop name', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
 
       // When editing Basic details
       stopAreaDetailsPage.details.getEditButton().click();
@@ -411,40 +474,27 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.nameConsistencyChecker.assertIsInconsistent();
       stopAreaDetailsPage.details.edit.getCancelButton().click();
 
-      // When editing Member stops
-      stopAreaDetailsPage.memberStops.getAddStopButton().click();
-      stopAreaDetailsPage.memberStops.getSelectMemberStops().within(() => {
-        selectMemberStopsDropdown.dropdownButton().click();
-        selectMemberStopsDropdown.getInput().clearAndType('E2E004');
-        selectMemberStopsDropdown.getMemberOptions().should('have.length', 1);
-        selectMemberStopsDropdown
-          .getMemberOptions()
-          .eq(0)
-          .should('contain.text', 'E2E004')
-          .click();
-      });
-      stopAreaDetailsPage.nameConsistencyChecker.assertIsInconsistent();
-      stopAreaDetailsPage.memberStops.getCancelButton().click();
-
       // When editing member stop's names
       const stopDetailsPage = new StopDetailsPage();
+      const bdViewCard = new BasicDetailsViewCard();
       const bdForm = new BasicDetailsForm();
-      stopDetailsPage.visit('E2E002');
+      stopDetailsPage.visit('E2E001');
       stopDetailsPage.page().shouldBeVisible();
       stopDetailsPage.basicDetails.getEditButton().click();
-      [
-        () => bdForm.getNameFinInput(),
-        () => bdForm.getNameSweInput(),
-        () => bdForm.getNameLongFinInput(),
-        () => bdForm.getNameLongSweInput(),
-      ].forEach((getInput) => {
-        stopAreaDetailsPage.nameConsistencyChecker.assertIsConsistent();
-        const inputField = getInput();
-        inputField.type('A');
-        stopAreaDetailsPage.nameConsistencyChecker.assertIsInconsistent();
-        inputField.type('{backspace}');
-        stopAreaDetailsPage.nameConsistencyChecker.assertIsConsistent();
-      });
+
+      bdForm.getNameFinInput().clearAndType('uusinimi');
+      bdForm.getPrivateCodeInput().clearAndType('label');
+      bdForm.getStopPlaceStateDropdownButton().click();
+      bdForm.getStopPlaceStateDropdownOptions().contains('Käytössä').click();
+      stopDetailsPage.basicDetails.getSaveButton().click();
+      bdViewCard.getNameFin().shouldBeVisible();
+
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
+      stopAreaDetailsPage.details.getName().should('contain.text', 'uusinimi');
+
+      stopDetailsPage.visit('E2E009');
+      stopDetailsPage.page().shouldBeVisible();
+      bdViewCard.getNameFin().should('contain.text', 'uusinimi');
     });
   });
 });

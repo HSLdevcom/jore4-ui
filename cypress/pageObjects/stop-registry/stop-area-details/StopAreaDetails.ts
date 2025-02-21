@@ -7,7 +7,7 @@ export class StopAreaDetails {
 
   getName = () => cy.getByTestId('StopAreaDetails::name');
 
-  getDescription = () => cy.getByTestId('StopAreaDetails::description');
+  getPrivateCode = () => cy.getByTestId('StopAreaDetails::privateCode');
 
   getParentStopPlace = () => cy.getByTestId('StopAreaDetails::parentStopPlace');
 

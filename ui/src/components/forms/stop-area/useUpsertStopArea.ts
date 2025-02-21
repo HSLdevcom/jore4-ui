@@ -45,7 +45,6 @@ const mapFormStateToInput = ({
   state: StopAreaFormState;
 }): StopRegistryStopPlaceInput => {
   const { id } = stop;
-  const members = state.quays.map((quay) => ({ id: quay.id }));
 
   return {
     id,
@@ -103,9 +102,7 @@ const mapFormStateToInput = ({
             }
           : undefined,
       ]),
-    ),
-    // Tiamat doesn't accept an empty members array...
-    quays: members?.length ? members : [null],
+    ).filter((kv) => (kv?.key !== 'validityEnd' ? true : !state.indefinite)),
   };
 };
 
@@ -128,6 +125,7 @@ export const useUpsertStopArea = () => {
       state: StopAreaFormState;
     }) => {
       const input = mapFormStateToInput({ stop, state });
+
       const result = await upsertStopAreaMutation({
         variables: { input },
       });
