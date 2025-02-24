@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { EnrichedStopPlace } from '../../../../../hooks';
 import { mapToShortDate } from '../../../../../time';
+import { EnrichedStopPlace } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { StopAreaComponentProps } from './StopAreaComponentProps';
 

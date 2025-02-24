@@ -11,8 +11,9 @@ import React, {
 } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { EnrichedStopPlace, useLoader } from '../../../../../hooks';
+import { useLoader } from '../../../../../hooks';
 import { Operation } from '../../../../../redux';
+import { EnrichedStopPlace } from '../../../../../types';
 import { ConfirmationDialog } from '../../../../../uiComponents';
 import { showSuccessToast } from '../../../../../utils';
 import {

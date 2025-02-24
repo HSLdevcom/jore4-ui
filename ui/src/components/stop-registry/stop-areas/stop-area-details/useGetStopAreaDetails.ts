@@ -6,7 +6,8 @@ import {
   useGetStopPlaceDetailsLazyQuery,
   useGetStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
-import { EnrichedStopPlace, useRequiredParams } from '../../../../hooks';
+import { useRequiredParams } from '../../../../hooks';
+import { EnrichedStopPlace } from '../../../../types';
 import {
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,

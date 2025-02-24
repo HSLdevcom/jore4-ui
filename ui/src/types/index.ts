@@ -1,3 +1,4 @@
+export * from './EnrichedStopRegistryTypes';
 export * from './FilterableStopInfo';
 export * from './GeoHelpers';
 export * from './KeyHelpers';

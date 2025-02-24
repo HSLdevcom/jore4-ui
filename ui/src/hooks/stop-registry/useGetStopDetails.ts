@@ -5,16 +5,19 @@ import { useMemo } from 'react';
 import {
   GetHighestPriorityStopDetailsByLabelAndDateQuery,
   InfoSpotDetailsFragment,
-  QuayDetailsFragment,
   ScheduledStopPointDetailFieldsFragment,
-  StopPlaceDetailsFragment,
   StopRegistryPosterInput,
   StopRegistryQuayInput,
   useGetHighestPriorityStopDetailsByLabelAndDateQuery,
 } from '../../generated/graphql';
 import {
-  QuayEnrichmentProperties,
-  StopPlaceEnrichmentProperties,
+  EnrichedQuay,
+  EnrichedStopPlace,
+  Quay,
+  StopPlace,
+  StopPlaceInfoSpots,
+} from '../../types';
+import {
   findKeyValue,
   getQuayDetailsForEnrichment,
   getStopPlaceDetailsForEnrichment,
@@ -270,13 +273,6 @@ const GQL_INFO_SPOT_DETAILS = gql`
     }
   }
 `;
-
-export type StopPlace = StopPlaceDetailsFragment;
-export type StopPlaceInfoSpots = InfoSpotDetailsFragment;
-export type EnrichedStopPlace = Omit<StopPlace, 'name'> &
-  StopPlaceEnrichmentProperties;
-export type Quay = QuayDetailsFragment;
-export type EnrichedQuay = Quay & QuayEnrichmentProperties;
 
 function sortInfoSpots(
   infoSpots: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,

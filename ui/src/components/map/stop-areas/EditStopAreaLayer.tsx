@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  EnrichedStopPlace,
   useAppAction,
   useAppSelector,
   useDeleteStopArea,
@@ -19,6 +18,7 @@ import {
   setEditedStopAreaDataAction,
   setIsMoveStopAreaModeEnabledAction,
 } from '../../../redux';
+import { EnrichedStopPlace } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
 import { mapPointToStopRegistryGeoJSON } from '../../../utils';
 import {

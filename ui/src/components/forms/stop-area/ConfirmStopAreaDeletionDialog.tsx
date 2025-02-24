@@ -2,8 +2,8 @@ import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { EnrichedStopPlace } from '../../../hooks';
 import { Path, routeDetails } from '../../../router/routeDetails';
+import { EnrichedStopPlace } from '../../../types';
 import { DialogWithButtons } from '../../../uiComponents';
 
 const testIds = {

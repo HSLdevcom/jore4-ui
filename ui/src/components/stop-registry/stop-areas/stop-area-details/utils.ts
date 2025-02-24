@@ -1,5 +1,5 @@
 import { QuayDetailsFragment } from '../../../../generated/graphql';
-import { EnrichedStopPlace } from '../../../../hooks';
+import { EnrichedStopPlace } from '../../../../types';
 import { notNullish } from '../../../../utils';
 import { StopSearchRow } from '../../search';
 

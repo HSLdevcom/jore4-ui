@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { EnrichedStopPlace } from '../../../../../hooks';
+import { EnrichedStopPlace } from '../../../../../types';
 import { StopAreaEditableBlock } from '../StopAreaEditableBlock';
 
 export type StopAreaComponentProps = {
