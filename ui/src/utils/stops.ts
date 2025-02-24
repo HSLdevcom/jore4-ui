@@ -3,10 +3,8 @@ import maxBy from 'lodash/maxBy';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 import { groupBy } from 'remeda';
-import {
-  ScheduledStopPointAllFieldsFragment,
-  ScheduledStopPointDefaultFieldsFragment,
-} from '../generated/graphql';
+import { ScheduledStopPointAllFieldsFragment } from '../generated/graphql';
+import { FilterableStopInfo } from '../types';
 import { Priority } from '../types/enums';
 import { isCurrentEntity } from './validity';
 
@@ -60,11 +58,9 @@ export const addOrRemoveStopLabelsFromIncludedStops = (
     ? uniq([...stops, ...stopsToActOn])
     : stops.filter((label) => !stopsToActOn.includes(label));
 
-export const hasPriority = <
-  TStop extends ScheduledStopPointDefaultFieldsFragment,
->(
+export const hasPriority = (
   priority: Priority,
-  stop: TStop,
+  stop: { readonly priority: Priority },
 ) => stop.priority === priority;
 
 /**
@@ -77,9 +73,9 @@ export const hasPriority = <
  * because same stop can be along the route geometry multiple times (e.g. loop in the geometry)
  */
 export const filterHighestPriorityCurrentStops = <
-  TStop extends ScheduledStopPointDefaultFieldsFragment,
+  TStop extends FilterableStopInfo,
 >(
-  stops: TStop[],
+  stops: ReadonlyArray<TStop>,
   observationDate: DateTime,
   allowDrafts = false,
 ) => {
@@ -93,16 +89,11 @@ export const filterHighestPriorityCurrentStops = <
   // Group stops by label
   const stopsGroupedByLabel = groupBy(currentStops, (stop) => stop.label);
 
-  // Store highest priority stop instance id to array for each stop label
-  const highestPriotityStopIds = Object.values(stopsGroupedByLabel).map(
+  // Map out the highest priority stop instance from each group
+  return Object.values(stopsGroupedByLabel).map(
     (sameLabelStopInstances) =>
       // Non empty array always contains an element
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      maxBy(sameLabelStopInstances, 'priority')!.scheduled_stop_point_id,
-  );
-
-  // Filter out any stop instances that are not highest priority at selected observation date
-  return stops.filter((stop) =>
-    highestPriotityStopIds.includes(stop.scheduled_stop_point_id),
+      maxBy(sameLabelStopInstances, 'priority')!,
   );
 };

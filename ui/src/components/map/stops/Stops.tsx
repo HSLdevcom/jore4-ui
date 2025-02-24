@@ -10,7 +10,6 @@ import {
   useAppSelector,
   useCreateStop,
   useEditStop,
-  useFilterStops,
   useLoader,
   useMapDataLayerSimpleQueryLoader,
   useMapStops,
@@ -45,6 +44,7 @@ import { EditStoplayerRef } from '../refTypes';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
+import { useFilterStops } from './useFilterStops';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
@@ -52,7 +52,7 @@ const testIds = {
 };
 
 export const Stops = React.forwardRef((_props, ref) => {
-  const { filter } = useFilterStops();
+  const filter = useFilterStops();
   const { current: map } = useMap();
 
   const selectedStopId = useAppSelector(selectSelectedStopId);

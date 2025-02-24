@@ -1,15 +1,12 @@
 import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Layer, MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import {
   useAppDispatch,
   useAppSelector,
-  useFilterStops,
   useGetRoutesDisplayedInMap,
 } from '../../hooks';
 import { Column, Visible } from '../../layoutComponents';
 import {
-  FilterType,
   Mode,
   selectHasDraftRouteGeometry,
   selectIsCreateStopAreaModeEnabled,
@@ -21,10 +18,10 @@ import {
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
-import { FilterPanel, placeholderToggles } from '../../uiComponents';
 import { CustomOverlay } from './CustomOverlay';
 import { DrawRouteLayer } from './DrawRouteLayer';
 import { ItemTypeFiltersOverlay } from './filters/ItemTypeFiltersOverlay';
+import { MapFilterPanel } from './MapFilterPanel';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
@@ -56,8 +53,6 @@ export const MapComponent = (
   { className = '', width = '100vw', height = '100vh' }: Props,
   externalRef: Ref<RouteEditorRef>,
 ): React.ReactElement => {
-  const { t } = useTranslation();
-
   const routeEditorRef = useRef<RouteEditorRef>(null);
   const editorLayerRef = useRef<EditorLayerRef>(null);
   const stopsRef = useRef<StopsRef>(null);
@@ -76,7 +71,6 @@ export const MapComponent = (
 
   const [showInfraLinks, setShowInfraLinks] = useState(false);
   const [showRoute, setShowRoute] = useState(true);
-  const { toggleFunction, isFilterActive } = useFilterStops();
 
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
@@ -180,34 +174,12 @@ export const MapComponent = (
       <StopAreas ref={stopAreasRef} />
       <CustomOverlay position="top-left">
         <Column className="items-start overflow-hidden p-2">
-          <FilterPanel
-            routes={[
-              {
-                iconClassName: 'icon-bus',
-                active: showRoute,
-                onToggle: setShowRoute,
-                disabled: !routeDisplayed,
-                testId: 'FilterPanel::toggleShowBusRoutes',
-                tooltip: t('vehicleModeEnum.bus'),
-              },
-              // We want to show placeholder toggles of unimplemented features for visual purposes
-              ...placeholderToggles,
-            ]}
-            stops={[
-              {
-                iconClassName: 'icon-bus',
-                active: isFilterActive(FilterType.ShowAllBusStops),
-                onToggle: toggleFunction(FilterType.ShowAllBusStops),
-                testId: 'FilterPanel::toggleShowAllBusStops',
-                tooltip: t('vehicleModeEnum.bus'),
-              },
-              ...placeholderToggles,
-            ]}
-            infraLinks={{
-              active: showInfraLinks,
-              onToggle: setShowInfraLinks,
-              testId: 'FilterPanel::toggleShowInfraLinks',
-            }}
+          <MapFilterPanel
+            routeDisplayed={routeDisplayed}
+            showInfraLinks={showInfraLinks}
+            showRoute={showRoute}
+            setShowInfraLinks={setShowInfraLinks}
+            setShowRoute={setShowRoute}
           />
           {(!!selectedRouteId || hasDraftRouteGeometry) && (
             <RouteStopsOverlay className="mt-2 max-h-[60vh] overflow-hidden" />

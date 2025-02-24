@@ -1,8 +1,13 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
-import { useAppSelector, useFilterStops } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Column, Row } from '../../layoutComponents';
-import { selectHasChangesInProgress } from '../../redux';
+import {
+  selectHasChangesInProgress,
+  selectMapFilter,
+  setShowMapEntityTypeFilterOverlayAction,
+} from '../../redux';
 import { IconButton } from '../../uiComponents';
 import { ObservationDateControl } from '../common/ObservationDateControl';
 import { MapOverlay } from './MapOverlay';
@@ -11,14 +16,18 @@ const testIds = {
   toggleFiltersButton: 'ObservationDateOverlay::toggleFiltersButton',
 };
 
-interface Props {
-  className?: string;
-}
+type ObservationDateOverlayProps = {
+  readonly className?: string;
+};
 
-export const ObservationDateOverlay = ({ className = '' }: Props) => {
+export const ObservationDateOverlay: FC<ObservationDateOverlayProps> = ({
+  className = '',
+}) => {
   const { t } = useTranslation();
-  const { toggleShowFilters } = useFilterStops();
+
+  const dispatch = useAppDispatch();
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
+  const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
 
   return (
     <MapOverlay className={`${className} rounded`}>
@@ -34,7 +43,13 @@ export const ObservationDateOverlay = ({ className = '' }: Props) => {
               icon={
                 <MdLayers className="aria-hidden text-2xl text-tweaked-brand" />
               }
-              onClick={toggleShowFilters}
+              onClick={() =>
+                dispatch(
+                  setShowMapEntityTypeFilterOverlayAction(
+                    !showMapEntityTypeFilterOverlay,
+                  ),
+                )
+              }
               testId={testIds.toggleFiltersButton}
             />
           </Column>
