@@ -4,10 +4,9 @@ import {
   GetInfrastructureLinksByExternalIdsResult,
   InfoSpotInput,
   OrganisationIdsByName,
-  StopAreaIdsByName,
+  QuayDetailsByLabel,
   StopAreaInput,
-  StopPlaceDetailsByLabel,
-  StopPlaceInput,
+  StopPlaceIdsByName,
   StopRegistryOrganisationInput,
   TerminalIdsByName,
   TerminalInput,
@@ -17,7 +16,6 @@ import {
   hasuraApi,
   insertInfoSpots as insertStopRegistryInfoSpots,
   insertOrganisations as insertStopRegistryOrganisations,
-  insertStopAreas as insertStopRegistryStopAreas,
   insertStopPlaces as insertStopRegistryStopPlaces,
   insertTerminals,
   mapToDeleteOrganisationMutation,
@@ -28,8 +26,7 @@ import {
   mapToGetInfrastructureLinksByExternalIdsQuery,
   resetRoutesAndLinesDb,
   setInfoSpotRelations,
-  setStopAreaRelations,
-  setStopPlaceRelations,
+  setStopPlaceOrganisations,
   stopsDatabaseConfig,
   timetablesDatabaseConfig,
 } from '@hsl/jore4-test-db-manager';
@@ -112,8 +109,8 @@ export const getInfrastructureLinkIdsByExternalIds = (
 
 export type InsertedStopRegistryIds = {
   terminalsByName: TerminalIdsByName;
-  stopAreaIdsByName: StopAreaIdsByName;
-  stopPlaceDetailsByLabel: StopPlaceDetailsByLabel;
+  stopPlaceIdsByName: StopPlaceIdsByName;
+  quayDetailsByLabel: QuayDetailsByLabel;
   organisationIdsByName: OrganisationIdsByName;
 };
 
@@ -121,39 +118,29 @@ export const insertStopRegistryData = async ({
   organisations = [],
   terminals = [],
   stopAreas = [],
-  stopPlaces = [],
   infoSpots = [],
 }: {
   organisations?: Array<StopRegistryOrganisationInput>;
   terminals?: Array<TerminalInput>;
   stopAreas?: Array<StopAreaInput>;
-  stopPlaces?: Array<StopPlaceInput>;
   infoSpots?: Array<InfoSpotInput>;
 }): Promise<InsertedStopRegistryIds> => {
   const organisationIdsByName =
     await insertStopRegistryOrganisations(organisations);
 
-  const stopPlaceInputs = stopPlaces.map((sp) => {
-    return {
-      label: sp.label,
-      stopPlace: setStopPlaceRelations(sp, organisationIdsByName),
-    };
-  });
-  const stopPlaceDetailsByLabel =
+  const stopPlaceInputs = stopAreas.map((sp) =>
+    setStopPlaceOrganisations(sp, organisationIdsByName),
+  );
+  const { collectedStopIds, collectedQuayDetails } =
     await insertStopRegistryStopPlaces(stopPlaceInputs);
 
   const infoSpotInputs = infoSpots.map((spot) =>
-    setInfoSpotRelations(spot, stopPlaceDetailsByLabel),
+    setInfoSpotRelations(spot, collectedQuayDetails),
   );
   await insertStopRegistryInfoSpots(infoSpotInputs);
 
-  const stopAreaInputs = stopAreas.map((area) =>
-    setStopAreaRelations(area, stopPlaceDetailsByLabel),
-  );
-  const stopAreaIdsByName = await insertStopRegistryStopAreas(stopAreaInputs);
-
   const terminalCreateInputs = terminals.map((terminal) =>
-    buildTerminalCreateInput(terminal, stopPlaceDetailsByLabel),
+    buildTerminalCreateInput(terminal, collectedStopIds),
   );
   const terminalUpdateInputs = terminals.map((terminal) => terminal.terminal);
   const terminalsByName = await insertTerminals(
@@ -163,8 +150,8 @@ export const insertStopRegistryData = async ({
 
   return {
     terminalsByName,
-    stopAreaIdsByName,
-    stopPlaceDetailsByLabel,
+    stopPlaceIdsByName: collectedStopIds,
+    quayDetailsByLabel: collectedQuayDetails,
     organisationIdsByName,
   };
 };

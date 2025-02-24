@@ -1,19 +1,18 @@
 import {
   Maybe,
-  StopPlaceInput,
+  StopAreaInput,
   StopRegistryAlternativeName,
   StopRegistryEmbeddableMultilingualString,
-  StopRegistryGeoJson,
+  StopRegistryGeoJsonInput,
   StopRegistryGeoJsonType,
   StopRegistryNameType,
 } from '@hsl/jore4-test-db-manager';
 import cloneDeep from 'lodash/cloneDeep';
-import { DateTime } from 'luxon';
 import { stopCoordinatesByLabel } from './base';
 
 const coordinatesToStopRegistryGeoJSON = (
   coordinates: number[],
-): StopRegistryGeoJson => {
+): StopRegistryGeoJsonInput => {
   return {
     coordinates: coordinates.slice(0, 2),
     type: StopRegistryGeoJsonType.Point,
@@ -25,58 +24,124 @@ export const Annankatu20Name: StopRegistryEmbeddableMultilingualString = {
   value: 'Annankatu 20',
 };
 
-export const Annankatu20ShortName: StopRegistryEmbeddableMultilingualString = {
-  lang: 'fin',
-  value: 'Annankatu 20',
-};
-
 // prettier-ignore
 export const Annankatu20AltNames: Array<Maybe<StopRegistryAlternativeName>> = [
   { nameType: StopRegistryNameType.Label,       name: { lang: 'fin', value: 'Akt20' }, },
   { nameType: StopRegistryNameType.Label,       name: { lang: 'swe', value: 'Agt20' }, },
   { nameType: StopRegistryNameType.Translation, name: { lang: 'swe', value: 'Annasgatan 20' }, },
-  { nameType: StopRegistryNameType.Other,       name: { lang: 'fin', value: 'Plats Annasgatan 20' } },
+  { nameType: StopRegistryNameType.Other,       name: { lang: 'fin', value: 'Annankatu 20' } },
   { nameType: StopRegistryNameType.Alias,       name: { lang: 'fin', value: 'Annankatu 20 pitkänimi' } },
   { nameType: StopRegistryNameType.Alias,       name: { lang: 'swe', value: 'Annasgatan 20 långnamn' } },
 ];
 
-// Stop registry stopPlace data for each scheduled stop point in the base dataset.
-const stopPlaceData: Array<StopPlaceInput> = [
+export const Annankatu20Location: Array<Maybe<StopRegistryAlternativeName>> = [
   {
-    label: 'E2E001',
-    stopPlace: {
+    nameType: StopRegistryNameType.Other,
+    name: { lang: 'swe', value: 'Plats Annasgatan 20' },
+  },
+];
+
+// Stop registry stopPlace data for each scheduled stop point in the base dataset.
+const stopPlaceData: Array<StopAreaInput> = [
+  {
+    StopArea: {
+      privateCode: { type: 'HSL', value: 'X0003' },
       name: { lang: 'fin', value: 'Annankatu 15' },
-      quays: [{ publicCode: 'E2E001' }],
-      privateCode: { value: 'E2E001', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Annankatu 15'] }],
-      geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E001),
+      keyValues: [
+        { key: 'validityStart', values: ['2020-01-01'] },
+        { key: 'validityEnd', values: ['2050-01-01'] },
+      ],
+      geometry: {
+        coordinates: [24.938927, 60.165433],
+        type: StopRegistryGeoJsonType.Point,
+      },
+      quays: [
+        {
+          publicCode: 'E2E001',
+          keyValues: [
+            { key: 'streetAddress', values: ['Annankatu 15'] },
+            { key: 'elyNumber', values: ['E2E001'] },
+          ],
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E001,
+          ),
+        },
+        {
+          publicCode: 'E2E009',
+          keyValues: [
+            { key: 'streetAddress', values: ['Annankatu 15'] },
+            { key: 'elyNumber', values: ['E2E009'] },
+          ],
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E009,
+          ),
+        },
+      ],
     },
+    organisations: null,
   },
   {
-    label: 'E2E002',
-    stopPlace: {
+    StopArea: {
+      privateCode: { type: 'HSL', value: 'X0004' },
+      name: { lang: 'fin', value: 'Kalevankatu 32' },
+      keyValues: [
+        { key: 'validityStart', values: ['2020-01-01'] },
+        { key: 'validityEnd', values: ['2050-01-01'] },
+      ],
+      geometry: {
+        coordinates: [24.932914978884, 60.165538996581],
+        type: StopRegistryGeoJsonType.Point,
+      },
+      quays: [
+        {
+          publicCode: 'E2E003',
+          keyValues: [
+            { key: 'streetAddress', values: ['Kalevankatu 32'] },
+            { key: 'elyNumber', values: ['E2E003'] },
+          ],
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E003,
+          ),
+        },
+        {
+          publicCode: 'E2E006',
+          keyValues: [
+            { key: 'streetAddress', values: ['Kalevankatu 32'] },
+            { key: 'elyNumber', values: ['E2E006'] },
+          ],
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E006,
+          ),
+        },
+      ],
+    },
+    organisations: null,
+  },
+  {
+    StopArea: {
+      privateCode: { type: 'HSL', value: 'E2E002' },
       name: Annankatu20Name,
-      shortName: Annankatu20ShortName,
       alternativeNames: Annankatu20AltNames,
-      quays: [{ publicCode: 'E2E002' }],
-      privateCode: { value: 'E2E002', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Annankatu 20'] }],
+      quays: [
+        {
+          publicCode: 'E2E002',
+          alternativeNames: Annankatu20Location,
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E002,
+          ),
+          keyValues: [
+            { key: 'streetAddress', values: ['Annankatu 20'] },
+            { key: 'elyNumber', values: ['E2E002'] },
+          ],
+        },
+      ],
       geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E002),
     },
+    organisations: null,
   },
   {
-    label: 'E2E003',
-    stopPlace: {
-      name: { lang: 'fin', value: 'Kalevankatu 32' },
-      quays: [{ publicCode: 'E2E003' }],
-      privateCode: { value: 'E2E003', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Kalevankatu 32'] }],
-      geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E003),
-    },
-  },
-  {
-    label: 'E2E004',
-    stopPlace: {
+    StopArea: {
+      privateCode: { type: 'HSL', value: 'E2E004' },
       name: { lang: 'fin', value: 'Albertinkatu 38' },
       alternativeNames: [
         {
@@ -89,113 +154,111 @@ const stopPlaceData: Array<StopPlaceInput> = [
         },
         {
           nameType: StopRegistryNameType.Alias,
-          name: { lang: 'swe', value: 'Albertinkatu 38 (pitkä)' },
+          name: { lang: 'fin', value: 'Albertinkatu 38 (pitkä)' },
         },
       ],
-      quays: [{ publicCode: 'E2E004' }],
-      privateCode: { value: 'E2E004', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Albertinkatu 38'] }],
+      quays: [
+        {
+          publicCode: 'E2E004',
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E004,
+          ),
+          keyValues: [
+            { key: 'streetAddress', values: ['Albertinkatu 38'] },
+            { key: 'elyNumber', values: ['E2E004'] },
+          ],
+        },
+      ],
       geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E004),
     },
+    organisations: null,
   },
   {
-    label: 'E2E005',
-    stopPlace: {
+    StopArea: {
+      privateCode: { type: 'HSL', value: 'E2E005' },
       name: { lang: 'fin', value: 'Lönnrotinkatu 32' },
-      quays: [{ publicCode: 'E2E005' }],
-      privateCode: { value: 'E2E005', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Lönnrotinkatu 32'] }],
+      quays: [
+        {
+          publicCode: 'E2E005',
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E005,
+          ),
+          keyValues: [
+            { key: 'streetAddress', values: ['Lönnrotinkatu 32'] },
+            { key: 'elyNumber', values: ['E2E005'] },
+          ],
+        },
+      ],
       geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E005),
     },
+    organisations: null,
   },
   {
-    label: 'E2E006',
-    stopPlace: {
-      name: { lang: 'fin', value: 'Kalevankatu 32' },
-      quays: [{ publicCode: 'E2E006' }],
-      privateCode: { value: 'E2E006', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Kalevankatu 32'] }],
-      geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E006),
-    },
-  },
-  {
-    label: 'E2E007',
-    stopPlace: {
+    StopArea: {
+      privateCode: { type: 'HSL', value: 'E2E007' },
       name: { lang: 'fin', value: 'Kalevankatu 18' },
-      quays: [{ publicCode: 'E2E007' }],
-      privateCode: { value: 'E2E007', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Kalevankatu 18'] }],
+      quays: [
+        {
+          publicCode: 'E2E007',
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E005,
+          ),
+          keyValues: [
+            { key: 'streetAddress', values: ['Kalevankatu 18'] },
+            { key: 'elyNumber', values: ['E2E007'] },
+          ],
+        },
+      ],
       geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E007),
     },
+    organisations: null,
   },
   {
-    label: 'E2E008',
-    stopPlace: {
+    StopArea: {
+      privateCode: { type: 'HSL', value: 'E2E008' },
       name: Annankatu20Name,
       alternativeNames: Annankatu20AltNames,
-      quays: [{ publicCode: 'E2E008' }],
-      privateCode: { value: 'E2E008', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Annankatu 20'] }],
+      quays: [
+        {
+          publicCode: 'E2E008',
+          alternativeNames: Annankatu20Location,
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E005,
+          ),
+          keyValues: [
+            { key: 'streetAddress', values: ['Annankatu 20'] },
+            { key: 'elyNumber', values: ['E2E008'] },
+          ],
+        },
+      ],
       geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E008),
     },
+    organisations: null,
   },
   {
-    label: 'E2E009',
-    stopPlace: {
-      name: { lang: 'fin', value: 'Annankatu 15' },
-      quays: [{ publicCode: 'E2E009' }],
-      privateCode: { value: 'E2E009', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Annankatu 15'] }],
-      geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E009),
-    },
-  },
-  {
-    label: 'E2E010',
-    stopPlace: {
+    StopArea: {
+      privateCode: { type: 'HSL', value: 'E2E010' },
       name: { lang: 'fin', value: 'Finnoonkartano' },
-      quays: [{ publicCode: 'E2E010' }],
-      privateCode: { value: 'E2E010', type: 'ELY' },
-      keyValues: [{ key: 'streetAddress', values: ['Finnoonkartano'] }],
+      quays: [
+        {
+          publicCode: 'E2E010',
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E005,
+          ),
+          keyValues: [
+            { key: 'streetAddress', values: ['Finnoonkartano'] },
+            { key: 'elyNumber', values: ['E2E010'] },
+          ],
+        },
+      ],
       geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E010),
     },
+    organisations: null,
   },
 ];
 
-export const stopAreaX0003 = {
-  memberLabels: ['E2E001', 'E2E009'],
-  stopArea: {
-    name: { lang: 'fin', value: 'X0003' },
-    description: { lang: 'fin', value: 'Annankatu 15' },
-    validBetween: {
-      fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
-      toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
-    },
-    geometry: {
-      coordinates: [24.938927, 60.165433],
-      type: StopRegistryGeoJsonType.Point,
-    },
-  },
-};
-
-export const stopAreaX0004 = {
-  memberLabels: ['E2E003', 'E2E006'],
-  stopArea: {
-    name: { lang: 'fin', value: 'X0004' },
-    description: { lang: 'fin', value: 'Kalevankatu 32' },
-    validBetween: {
-      fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
-      toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
-    },
-    geometry: {
-      coordinates: [24.932914978884, 60.165538996581],
-      type: StopRegistryGeoJsonType.Point,
-    },
-  },
-};
-
 const baseStopRegistryData = {
   organisations: [],
-  stopAreas: [stopAreaX0003, stopAreaX0004],
   stopPlaces: stopPlaceData,
 };
 
