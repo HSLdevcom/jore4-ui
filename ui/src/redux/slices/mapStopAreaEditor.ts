@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { EnrichedStopPlace } from '../../hooks';
+import { EnrichedStopPlace } from '../../types';
 import { StoreType, mapToStoreType } from '../mappers';
 
 export type MapStopAreaEditor = {
