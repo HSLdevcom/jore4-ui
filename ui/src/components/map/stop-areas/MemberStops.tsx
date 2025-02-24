@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { EnrichedStopPlace } from '../../../hooks';
+import { EnrichedStopPlace } from '../../../types';
 import { getPointPosition, notNullish } from '../../../utils';
 import { LinePaint, LineRenderLayer } from '../routes';
 import { MemberStop } from './MemberStop';

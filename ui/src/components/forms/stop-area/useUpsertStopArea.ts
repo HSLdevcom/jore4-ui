@@ -7,7 +7,7 @@ import {
   StopRegistryStopPlaceInput,
   useUpsertStopAreaMutation,
 } from '../../../generated/graphql';
-import { EnrichedStopPlace } from '../../../hooks';
+import { EnrichedStopPlace } from '../../../types';
 import {
   mapPointToStopRegistryGeoJSON,
   patchAlternativeNames,

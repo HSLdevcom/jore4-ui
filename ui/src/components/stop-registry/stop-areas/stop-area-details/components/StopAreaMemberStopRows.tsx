@@ -3,7 +3,7 @@ import groupBy from 'lodash/groupBy';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { EnrichedStopPlace } from '../../../../../hooks';
+import { EnrichedStopPlace } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { StopAreaFormMember } from '../../../../forms/stop-area';
 import { StopSearchRow, StopTableRow } from '../../../search';

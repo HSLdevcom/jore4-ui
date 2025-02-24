@@ -3,9 +3,9 @@ import React, { ForwardRefRenderFunction } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { EnrichedStopPlace } from '../../../hooks';
 import { Column } from '../../../layoutComponents';
 import { mapToISODate } from '../../../time';
+import { EnrichedStopPlace } from '../../../types';
 import { mapLngLatToPoint } from '../../../utils';
 import {
   FormColumn,
