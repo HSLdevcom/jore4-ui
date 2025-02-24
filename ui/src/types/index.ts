@@ -1,3 +1,4 @@
+export * from './FilterableStopInfo';
 export * from './GeoHelpers';
 export * from './KeyHelpers';
 export * from './PagingInfo';

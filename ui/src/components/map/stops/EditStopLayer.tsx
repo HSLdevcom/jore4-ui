@@ -22,7 +22,6 @@ import {
   useCreateStopPlace,
   useDeleteStop,
   useEditStop,
-  useFilterStops,
   useLoader,
   useObservationDateQueryParam,
 } from '../../../hooks';
@@ -46,6 +45,7 @@ import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
 import { EditStopConfirmationDialog } from './EditStopConfirmationDialog';
 import { EditStopModal } from './EditStopModal';
 import { StopPopup } from './StopPopup';
+import { useUpdateStopPriorityFilterIfNeeded } from './useUpdateStopPriorityFilterIfNeeded';
 
 enum StopEditorViews {
   None,
@@ -74,7 +74,8 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
     const { t } = useTranslation();
     const { updateObservationDateByValidityPeriodIfNeeded } =
       useObservationDateQueryParam();
-    const { updateStopPriorityFilterIfNeeded } = useFilterStops();
+    const updateStopPriorityFilterIfNeeded =
+      useUpdateStopPriorityFilterIfNeeded();
 
     const setSelectedStopId = useAppAction(setSelectedStopIdAction);
     const setEditedStopData = useAppAction(setEditedStopDataAction);
@@ -236,7 +237,9 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
           variables: {
             scheduled_stop_point_id: scheduledStopPointId,
             stop_place_ref:
-              stopPlaceResult?.data?.stop_registry?.mutateStopPlace?.at(0)?.quays?.at(0)?.id,
+              stopPlaceResult?.data?.stop_registry?.mutateStopPlace
+                ?.at(0)
+                ?.quays?.at(0)?.id,
           },
         });
 
