@@ -5,7 +5,6 @@ import {
 } from '../../components/stop-registry/stops/stop-details/shelters/schema';
 import {
   StopRegistryCycleStorageType,
-  StopRegistryQuayInput,
   StopRegistryShelterCondition,
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
@@ -13,7 +12,7 @@ import {
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
 import { showDangerToast } from '../../utils';
-import { getQuayIdsFromStopExcept, StopWithDetails } from './useGetStopDetails';
+import { StopWithDetails, getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: SheltersFormState;

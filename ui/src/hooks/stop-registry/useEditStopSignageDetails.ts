@@ -2,12 +2,9 @@ import isString from 'lodash/isString';
 import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 import { SignageDetailsFormState } from '../../components/stop-registry/stops/stop-details/signage-details/schema';
-import {
-  StopRegistryQuayInput,
-  useUpdateStopPlaceMutation,
-} from '../../generated/graphql';
+import { useUpdateStopPlaceMutation } from '../../generated/graphql';
 import { showDangerToast } from '../../utils';
-import { getQuayIdsFromStopExcept, StopWithDetails } from './useGetStopDetails';
+import { StopWithDetails, getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: SignageDetailsFormState;

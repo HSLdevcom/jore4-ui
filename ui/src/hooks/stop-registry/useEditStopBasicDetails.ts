@@ -8,7 +8,6 @@ import {
   RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
   StopRegistryNameType,
-  StopRegistryQuayInput,
   StopRegistryStopPlaceInput,
   useEditStopMutation,
   useGetStopWithRouteGraphDataByIdLazyQuery,
@@ -27,7 +26,7 @@ import {
   showDangerToast,
 } from '../../utils';
 import { useValidateTimingSettings } from '../stops/useValidateTimingSettings';
-import { getQuayIdsFromStopExcept, StopWithDetails } from './useGetStopDetails';
+import { StopWithDetails, getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 interface EditRoutesAndLinesParams {
   stopId: UUID;

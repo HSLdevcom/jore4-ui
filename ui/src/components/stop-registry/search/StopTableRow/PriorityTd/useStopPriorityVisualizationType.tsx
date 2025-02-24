@@ -1,9 +1,6 @@
 import { gql, skipToken } from '@apollo/client';
 import { DateTime } from 'luxon';
-import {
-  DoesStopHaveNextValidAlternativeQueryVariables,
-  useDoesStopHaveNextValidAlternativeSuspenseQuery,
-} from '../../../../../generated/graphql';
+import { useDoesStopHaveNextValidAlternativeSuspenseQuery } from '../../../../../generated/graphql';
 import { Priority } from '../../../../../types/enums';
 import { StopSearchRow } from '../../types';
 import { PriorityVisualizationType } from './PriorityVisualizationType';
