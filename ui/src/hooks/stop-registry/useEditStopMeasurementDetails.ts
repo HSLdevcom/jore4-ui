@@ -5,14 +5,13 @@ import {
   StopRegistryLimitationStatusType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
-  StopRegistryQuayInput,
   StopRegistryShelterWidthType,
   StopRegistryStopType,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
 import { showDangerToast } from '../../utils';
 import { useCalculateStopAccessibilityLevel } from './useCalculateStopAccessibilityLevel';
-import { getQuayIdsFromStopExcept, StopWithDetails } from './useGetStopDetails';
+import { StopWithDetails, getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: MeasurementsFormState;
