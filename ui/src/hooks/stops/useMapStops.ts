@@ -3,7 +3,6 @@ import { useCallback, useMemo } from 'react';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteWithJourneyPatternStopsFragment,
-  ServicePatternScheduledStopPoint,
   useGetRouteDetailsByIdsQuery,
 } from '../../generated/graphql';
 import { getRouteStopLabels } from '../../graphql';
@@ -13,17 +12,13 @@ import {
   selectMapRouteEditor,
   selectSelectedStopId,
 } from '../../redux';
-import { RequiredKeys } from '../../types';
 import { Priority } from '../../types/enums';
 import { filterHighestPriorityCurrentStops, mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
 import { useGetRoutesDisplayedInMap } from '../routes';
 import { useObservationDateQueryParam } from '../urlQuery';
 
-export type StopWithVehicleMode = RequiredKeys<
-  Partial<ServicePatternScheduledStopPoint>,
-  'vehicle_mode_on_scheduled_stop_point'
->;
+type LabelledStop = { readonly label: string };
 
 const extractHighestPriorityStopsFromRoute = <
   TRoute extends RouteWithJourneyPatternStopsFragment,
@@ -83,17 +78,21 @@ export const useMapStops = () => {
   );
 
   const getStopVehicleMode = useCallback(
-    (
-      stop: StopWithVehicleMode,
-    ): ReusableComponentsVehicleModeEnum | undefined => {
+    (stop: LabelledStop): ReusableComponentsVehicleModeEnum | undefined => {
       const stopsLabelsOnRoutes = [
         ...editedRouteStopLabels,
-        ...(displayedRoutes?.flatMap((route) => getRouteStopLabels(route)) ??
-          []),
+        ...(displayedRoutes.flatMap(getRouteStopLabels) ?? []),
       ];
 
-      return stop.label && stopsLabelsOnRoutes?.includes(stop.label)
-        ? stop.vehicle_mode_on_scheduled_stop_point[0].vehicle_mode
+      // Note added during change: Fetch stops from StopDB instead of Lines DB
+      // Currently the vehicleMode is always Bus as we do not have other
+      // modes implemented yet. Also, this value should be based on type of
+      // the line we are inspecting, not on the type of the stop itself.
+      // A train cannot stop at a bus stop after all.
+
+      return stop.label && stopsLabelsOnRoutes.includes(stop.label)
+        ? // TODO: Determinate type based on the active route
+          ReusableComponentsVehicleModeEnum.Bus
         : undefined;
     },
     [displayedRoutes, editedRouteStopLabels],
