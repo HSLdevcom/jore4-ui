@@ -88,25 +88,6 @@ const REMOVE_STOP = gql`
   }
 `;
 
-const QUERY_GET_STOPS_BY_LOCATION = gql`
-  query GetStopsByLocation(
-    $measured_location_filter: geography_comparison_exp
-  ) {
-    service_pattern_scheduled_stop_point(
-      where: { measured_location: $measured_location_filter }
-    ) {
-      ...scheduled_stop_point_all_fields
-
-      stop_place {
-        id
-        groups {
-          id
-        }
-      }
-    }
-  }
-`;
-
 const GET_STOPS_BY_VALIDITY = gql`
   query GetStopsByValidity(
     $filter: service_pattern_scheduled_stop_point_bool_exp

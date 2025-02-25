@@ -3,7 +3,7 @@ import { StopWithLocation } from '../../graphql';
 import { StoreType, mapToStoreType } from '../mappers/storeType';
 
 export interface MapStopEditorState {
-  selectedStopId?: UUID;
+  selectedStopId?: string;
   editedStopData?: StopWithLocation;
   isCreateStopModeEnabled: boolean;
   isMoveStopModeEnabled: boolean;
@@ -22,7 +22,7 @@ const slice = createSlice({
   name: 'mapStopEditor',
   initialState,
   reducers: {
-    setSelectedStopId: (state, action: PayloadAction<UUID | undefined>) => {
+    setSelectedStopId: (state, action: PayloadAction<string | undefined>) => {
       state.selectedStopId = action.payload;
     },
     setIsCreateStopModeEnabled: (state, action: PayloadAction<boolean>) => {
