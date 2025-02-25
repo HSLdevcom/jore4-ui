@@ -70,11 +70,11 @@ export const useMapStops = () => {
     : [];
 
   const selectedRouteActiveStopIds = selectedRouteActiveStops.map(
-    (stop) => stop.scheduled_stop_point_id,
+    (stop) => stop.stop_place_ref,
   );
 
   const editedRouteStopIds = editedRouteIncludedStops.map(
-    (stop) => stop.scheduled_stop_point_id,
+    (stop) => stop.stop_place_ref,
   );
 
   const getStopVehicleMode = useCallback(

@@ -1,9 +1,5 @@
 import React, { useImperativeHandle, useRef } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
-import {
-  ServicePatternScheduledStopPoint,
-  useGetStopsByLocationQuery,
-} from '../../../generated/graphql';
 import { StopWithLocation } from '../../../graphql';
 import {
   useAppAction,
@@ -11,7 +7,6 @@ import {
   useCreateStop,
   useEditStop,
   useLoader,
-  useMapDataLayerSimpleQueryLoader,
   useMapStops,
 } from '../../../hooks';
 import {
@@ -30,11 +25,7 @@ import {
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
-import {
-  buildWithinViewportGqlFilter,
-  mapLngLatToGeoJSON,
-  mapLngLatToPoint,
-} from '../../../utils';
+import { mapLngLatToGeoJSON, mapLngLatToPoint } from '../../../utils';
 import {
   addLineFromStopToInfraLink,
   createGeometryLineBetweenPoints,
@@ -45,6 +36,8 @@ import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 import { useFilterStops } from './useFilterStops';
+import { MapStop, useGetMapStops } from './useGetMapStops';
+import { useGetStopPointForMapStop } from './useGetStopPointForMapStop';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
@@ -75,33 +68,22 @@ export const Stops = React.forwardRef((_props, ref) => {
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
+  const getStopPointForMapStop = useGetStopPointForMapStop();
 
   const viewport = useAppSelector(selectMapViewport);
   // Skip initial 0 radius fetch and wait for the map to get loaded,
   // so that we have a proper viewport.
   const skipFetching =
     !showStops || stopAreaEditorIsActive || viewport.radius <= 0;
-  const stopsResult = useGetStopsByLocationQuery({
-    variables: {
-      measured_location_filter: buildWithinViewportGqlFilter(viewport),
-    },
-    skip: skipFetching,
-  });
-
-  const setFetchStopsLoadingState = useMapDataLayerSimpleQueryLoader(
-    Operation.FetchStops,
-    stopsResult,
+  const {
+    stops: unfilteredStops,
+    setFetchStopsLoadingState,
+    refetch: refetchStops,
+  } = useGetMapStops({
+    viewport,
     skipFetching,
-  );
-
-  // When stops are loading, show previously loaded stops to avoid stops
-  // disappearing and flickering on every map move / zoom
-  const unfilteredStops = (
-    stopsResult.loading
-      ? stopsResult.previousData?.service_pattern_scheduled_stop_point
-      : stopsResult.data?.service_pattern_scheduled_stop_point
-  ) as ServicePatternScheduledStopPoint[];
-  const stops = filter(unfilteredStops ?? []);
+  });
+  const stops = filter(unfilteredStops);
 
   // can be used for triggering the edit for both existing and draft stops
   const onEditStop = (stop: StopWithLocation) => {
@@ -113,7 +95,7 @@ export const Stops = React.forwardRef((_props, ref) => {
       addLineFromStopToInfraLink(map?.getMap(), nearestRoad);
     }
 
-    setSelectedStopId(stop.scheduled_stop_point_id ?? undefined);
+    setSelectedStopId(stop.stop_place_ref ?? undefined);
     setEditedStopData(stop);
   };
 
@@ -137,11 +119,23 @@ export const Stops = React.forwardRef((_props, ref) => {
     },
   }));
 
+  const onClickStop = async (stop: MapStop) => {
+    try {
+      setFetchStopsLoadingState(LoadingState.MediumPriority);
+      const stopPoint = await getStopPointForMapStop(stop.netex_id);
+      if (stopPoint) {
+        onEditStop(stopPoint);
+      }
+    } finally {
+      setFetchStopsLoadingState(LoadingState.NotLoading);
+    }
+  };
+
   const onEditingFinished = async () => {
     setEditedStopData(undefined);
     // the newly created stop should become a regular stop from a draft
     // also, the recently edited stop's data is refetched
-    await stopsResult.refetch();
+    await refetchStops();
     setIsLoadingSaveStop(false);
   };
 
@@ -153,16 +147,16 @@ export const Stops = React.forwardRef((_props, ref) => {
     <>
       {/* Display existing stops */}
       {stops?.map((item) => {
-        const point = mapLngLatToPoint(item.measured_location.coordinates);
+        const point = mapLngLatToPoint(item.location.coordinates);
         return (
           <Stop
             testId={testIds.stopMarker(item.label, item.priority)}
-            key={item.scheduled_stop_point_id}
-            selected={item.scheduled_stop_point_id === selectedStopId}
+            key={item.netex_id}
+            selected={item.netex_id === selectedStopId}
             longitude={point.longitude}
             latitude={point.latitude}
-            onClick={() => onEditStop(item)}
-            isHighlighted={getStopHighlighted(item.scheduled_stop_point_id)}
+            onClick={() => onClickStop(item)}
+            isHighlighted={getStopHighlighted(item.netex_id)}
             vehicleMode={getStopVehicleMode(item)}
           />
         );
