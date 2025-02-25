@@ -1,3 +1,4 @@
+import groupBy from 'lodash/groupBy';
 import {
   buildTerminalCreateInput,
   seedInfoSpots,
@@ -27,16 +28,25 @@ const seedStopRegistry = async () => {
     setStopPlaceOrganisations(sa, collectedOrganisationIds),
   );
 
-  const stopPlaceInputs: Array<Partial<StopRegistryStopPlaceInput>> =
-    seedQuays.map((quay) => {
-      if (quay.stopArea) {
-        return {
-          ...stopPlacesWithOrganisations.find(
-            (sp) => sp.privateCode?.value === quay.stopArea,
-          ),
-          quays: [quay.quay],
-        };
-      }
+  const stopAreas = groupBy(
+    seedQuays.filter((sq) => !!sq.stopArea),
+    (quay) => quay.stopArea,
+  );
+
+  const stopPlaceInputsWithStopAreas: Array<
+    Partial<StopRegistryStopPlaceInput>
+  > = Object.entries(stopAreas).map(([privateCode, quays]) => {
+    return {
+      ...stopPlacesWithOrganisations.find(
+        (sp) => sp.privateCode?.value === privateCode,
+      ),
+      quays: quays.map((quay) => quay.quay),
+    };
+  });
+
+  const stopPlaceInputs: Array<Partial<StopRegistryStopPlaceInput>> = seedQuays
+    .filter((quay) => !quay.stopArea)
+    .map((quay) => {
       return {
         name: {
           value: stopNames[quay.quay.publicCode ?? '']?.name ?? '',
@@ -57,8 +67,10 @@ const seedStopRegistry = async () => {
       };
     });
 
-  const { collectedStopIds, collectedQuayDetails } =
-    await insertStopPlaces(stopPlaceInputs);
+  const { collectedStopIds, collectedQuayDetails } = await insertStopPlaces([
+    ...stopPlaceInputs,
+    ...stopPlaceInputsWithStopAreas,
+  ]);
 
   const terminalCreateInputs = seedTerminals.map((terminal) =>
     buildTerminalCreateInput(terminal, collectedStopIds),
