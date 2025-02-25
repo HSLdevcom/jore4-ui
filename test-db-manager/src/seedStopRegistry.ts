@@ -1,4 +1,5 @@
 import {
+  QuayInput,
   buildTerminalCreateInput,
   seedInfoSpots,
   seedOrganisations,
@@ -27,16 +28,32 @@ const seedStopRegistry = async () => {
     setStopPlaceOrganisations(sa, collectedOrganisationIds),
   );
 
-  const stopPlaceInputs: Array<Partial<StopRegistryStopPlaceInput>> =
-    seedQuays.map((quay) => {
+  const stopAreas: Record<string, Array<QuayInput>> = {};
+  seedQuays
+    .filter((sq) => !!sq.stopArea)
+    .forEach((quay) => {
       if (quay.stopArea) {
-        return {
-          ...stopPlacesWithOrganisations.find(
-            (sp) => sp.privateCode?.value === quay.stopArea,
-          ),
-          quays: [quay.quay],
-        };
+        if (!Object.hasOwn(stopAreas, quay.stopArea)) {
+          stopAreas[quay.stopArea] = new Array<QuayInput>();
+        }
+        stopAreas[quay.stopArea].push(quay);
       }
+    });
+
+  const stopPlaceInputsWithStopAreas: Array<
+    Partial<StopRegistryStopPlaceInput>
+  > = Object.entries(stopAreas).map((stopArea) => {
+    return {
+      ...stopPlacesWithOrganisations.find(
+        (sp) => sp.privateCode?.value === stopArea[0],
+      ),
+      quays: stopArea[1].map((quay) => quay.quay),
+    };
+  });
+
+  const stopPlaceInputs: Array<Partial<StopRegistryStopPlaceInput>> = seedQuays
+    .filter((quay) => !quay.stopArea)
+    .map((quay) => {
       return {
         name: {
           value: stopNames[quay.quay.publicCode ?? '']?.name ?? '',
@@ -57,8 +74,10 @@ const seedStopRegistry = async () => {
       };
     });
 
-  const { collectedStopIds, collectedQuayDetails } =
-    await insertStopPlaces(stopPlaceInputs);
+  const { collectedStopIds, collectedQuayDetails } = await insertStopPlaces([
+    ...stopPlaceInputs,
+    ...stopPlaceInputsWithStopAreas,
+  ]);
 
   const terminalCreateInputs = seedTerminals.map((terminal) =>
     buildTerminalCreateInput(terminal, collectedStopIds),
