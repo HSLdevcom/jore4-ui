@@ -2,16 +2,14 @@ import { useTranslation } from 'react-i18next';
 import { Marker } from 'react-map-gl/maplibre';
 import { QuayDetailsFragment } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
-import {
-  useAppAction,
-  useResolveScheduledStopPointByStopPlaceRef,
-} from '../../../hooks';
+import { useAppAction } from '../../../hooks';
 import {
   setEditedStopDataAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import { getGeometryPoint, showDangerToastWithError } from '../../../utils';
+import { useGetStopPointForQuay } from '../../hooks';
 import { Circle } from '../markers';
 
 const testIds = {
@@ -26,8 +24,7 @@ type MemberStopProps = {
 export const MemberStop = ({ stop }: MemberStopProps) => {
   const { t } = useTranslation();
 
-  const resolveScheduledStopPoint =
-    useResolveScheduledStopPointByStopPlaceRef();
+  const getStopPointForQuay = useGetStopPointForQuay();
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setEditedStopData = useAppAction(setEditedStopDataAction);
@@ -38,10 +35,10 @@ export const MemberStop = ({ stop }: MemberStopProps) => {
     }
 
     try {
-      const scheduledStopPoint = await resolveScheduledStopPoint(stop.id);
+      const stopPoint = await getStopPointForQuay(stop.id);
       setSelectedMapStopAreaId(undefined);
       setSelectedStopId(stop.id);
-      setEditedStopData(scheduledStopPoint);
+      setEditedStopData(stopPoint);
     } catch (e) {
       showDangerToastWithError(
         t('stopArea.errors.failedToResolveScheduledStopPoint'),
