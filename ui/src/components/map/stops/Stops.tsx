@@ -31,13 +31,13 @@ import {
   createGeometryLineBetweenPoints,
   removeLineFromStopToInfraLink,
 } from '../../../utils/map';
+import { useGetStopPointForQuay } from '../../hooks';
 import { EditStoplayerRef } from '../refTypes';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 import { useFilterStops } from './useFilterStops';
 import { MapStop, useGetMapStops } from './useGetMapStops';
-import { useGetStopPointForMapStop } from './useGetStopPointForMapStop';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
@@ -68,7 +68,7 @@ export const Stops = React.forwardRef((_props, ref) => {
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
-  const getStopPointForMapStop = useGetStopPointForMapStop();
+  const getStopPointForMapStop = useGetStopPointForQuay();
 
   const viewport = useAppSelector(selectMapViewport);
   // Skip initial 0 radius fetch and wait for the map to get loaded,
@@ -120,15 +120,7 @@ export const Stops = React.forwardRef((_props, ref) => {
   }));
 
   const onClickStop = async (stop: MapStop) => {
-    try {
-      setFetchStopsLoadingState(LoadingState.MediumPriority);
-      const stopPoint = await getStopPointForMapStop(stop.netex_id);
-      if (stopPoint) {
-        onEditStop(stopPoint);
-      }
-    } finally {
-      setFetchStopsLoadingState(LoadingState.NotLoading);
-    }
+    onEditStop(await getStopPointForMapStop(stop.netex_id));
   };
 
   const onEditingFinished = async () => {

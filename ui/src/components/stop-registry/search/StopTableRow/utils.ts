@@ -6,10 +6,12 @@ import {
 import {
   FilterType,
   resetMapState,
+  setEditedStopDataAction,
   setSelectedStopIdAction,
   setStopFilterAction,
 } from '../../../../redux';
 import { mapLngLatToPoint } from '../../../../utils';
+import { useGetStopPointForQuay } from '../../../hooks';
 import { StopSearchRow } from '../types';
 
 export function useOpenStopOnMap() {
@@ -20,10 +22,20 @@ export function useOpenStopOnMap() {
     initialize: false,
   });
   const { openMapWithParameters } = useMapQueryParams();
+  const getStopPointForQuay = useGetStopPointForQuay();
 
   return (stop: StopSearchRow) => {
-    dispatch(resetMapState()).then(() => {
-      dispatch(setSelectedStopIdAction(stop.quay.netexId ?? undefined));
+    Promise.all([
+      stop.quay.netexId
+        ? getStopPointForQuay(stop.quay.netexId)
+        : Promise.resolve(null),
+      dispatch(resetMapState()),
+    ]).then(([stopPoint]) => {
+      if (stopPoint?.stop_place_ref) {
+        dispatch(setSelectedStopIdAction(stopPoint.stop_place_ref));
+        dispatch(setEditedStopDataAction(stopPoint));
+      }
+
       dispatch(
         setStopFilterAction({
           filterType: FilterType.ShowAllBusStops,
