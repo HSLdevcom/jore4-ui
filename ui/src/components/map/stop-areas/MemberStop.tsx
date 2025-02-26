@@ -40,7 +40,7 @@ export const MemberStop = ({ stop }: MemberStopProps) => {
     try {
       const scheduledStopPoint = await resolveScheduledStopPoint(stop.id);
       setSelectedMapStopAreaId(undefined);
-      setSelectedStopId(scheduledStopPoint.scheduled_stop_point_id);
+      setSelectedStopId(stop.id);
       setEditedStopData(scheduledStopPoint);
     } catch (e) {
       showDangerToastWithError(

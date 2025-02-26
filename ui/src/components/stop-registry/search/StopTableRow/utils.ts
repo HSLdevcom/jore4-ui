@@ -23,9 +23,7 @@ export function useOpenStopOnMap() {
 
   return (stop: StopSearchRow) => {
     dispatch(resetMapState()).then(() => {
-      dispatch(
-        setSelectedStopIdAction(stop.scheduled_stop_point_id ?? undefined),
-      );
+      dispatch(setSelectedStopIdAction(stop.quay.netexId ?? undefined));
       dispatch(
         setStopFilterAction({
           filterType: FilterType.ShowAllBusStops,
