@@ -2,19 +2,18 @@ import {
   useAppDispatch,
   useMapQueryParams,
   useObservationDateQueryParam,
-} from '../../../../hooks';
+} from '../../../hooks';
 import {
   FilterType,
   resetMapState,
   setEditedStopDataAction,
   setSelectedStopIdAction,
   setStopFilterAction,
-} from '../../../../redux';
-import { mapLngLatToPoint } from '../../../../utils';
-import { useGetStopPointForQuay } from '../../../hooks';
-import { StopSearchRow } from '../types';
+} from '../../../redux';
+import { useGetStopPointForQuay } from '../../hooks';
+import { LocatableStop } from '../types';
 
-export function useOpenStopOnMap() {
+export function useShowStopOnMap() {
   const dispatch = useAppDispatch();
 
   // Get existing observationDate or default, but don't touch the URL
@@ -24,11 +23,9 @@ export function useOpenStopOnMap() {
   const { openMapWithParameters } = useMapQueryParams();
   const getStopPointForQuay = useGetStopPointForQuay();
 
-  return (stop: StopSearchRow) => {
+  return ({ netextId, location }: LocatableStop) => {
     Promise.all([
-      stop.quay.netexId
-        ? getStopPointForQuay(stop.quay.netexId)
-        : Promise.resolve(null),
+      netextId ? getStopPointForQuay(netextId) : Promise.resolve(null),
       dispatch(resetMapState()),
     ]).then(([stopPoint]) => {
       if (stopPoint?.stop_place_ref) {
@@ -43,11 +40,10 @@ export function useOpenStopOnMap() {
         }),
       );
 
-      const point = mapLngLatToPoint(stop.measured_location.coordinates);
       openMapWithParameters({
         viewPortParams: {
-          latitude: point.latitude,
-          longitude: point.longitude,
+          latitude: location.latitude,
+          longitude: location.longitude,
           zoom: 15,
         },
         observationDate,

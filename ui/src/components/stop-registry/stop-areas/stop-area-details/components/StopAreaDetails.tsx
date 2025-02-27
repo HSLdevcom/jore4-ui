@@ -9,7 +9,7 @@ import {
   useInfoContainerControls,
 } from '../../../../common';
 import { StopAreaEditableBlock } from '../StopAreaEditableBlock';
-import { EditableStopAreaComponentProps } from './StopAreaComponentProps';
+import { EditableStopAreaComponentProps } from '../types';
 import { StopAreaDetailsEdit } from './StopAreaDetailsEdit';
 import { StopAreaDetailsView } from './StopAreaDetailsView';
 

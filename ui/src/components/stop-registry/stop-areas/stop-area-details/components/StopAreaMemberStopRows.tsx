@@ -6,20 +6,10 @@ import { twMerge } from 'tailwind-merge';
 import { EnrichedStopPlace } from '../../../../../types';
 import { Priority } from '../../../../../types/enums';
 import { StopAreaFormMember } from '../../../../forms/stop-area';
-import { StopSearchRow, StopTableRow } from '../../../search';
-import { LocatorActionButton } from '../../../search/StopTableRow/ActionButtons/LocatorActionButton';
-import { OpenDetailsPage } from '../../../search/StopTableRow/MenuItems/OpenDetailsPage';
-import { ShowOnMap } from '../../../search/StopTableRow/MenuItems/ShowOnMap';
+import { StopSearchRow } from '../../../search';
+import { StopAreaComponentProps, StopAreaMemberRow } from '../types';
 import { mapMembersToStopSearchFormat } from '../utils';
-import { EditModeActionButton } from './MemberStopMenuActionButtons/EditModeActionButton';
-import { RemoveMemberStop } from './MemberStopMenuItems/RemoveMemberStop';
-import { StopAreaComponentProps } from './StopAreaComponentProps';
-
-type StopAreaMemberRow = {
-  readonly quay: StopSearchRow;
-  readonly selected: boolean;
-  readonly added: boolean;
-};
+import { StopAreaMemberStopRow } from './StopAreaMemberStopRow';
 
 function groupBySelectionStatus(
   existingAreaMembers: ReadonlyArray<StopSearchRow>,
@@ -128,18 +118,6 @@ function mapRows(
     .sort((a, b) => a.quay.label.localeCompare(b.quay.label));
 }
 
-function getRowBgClassName(added: boolean, selected: boolean) {
-  if (added) {
-    return 'bg-background-hsl-green-10';
-  }
-
-  if (!selected) {
-    return 'bg-background text-grey';
-  }
-
-  return '';
-}
-
 type StopAreaMemberStopRowsProps = StopAreaComponentProps & {
   readonly onRemove: (stopId: string) => void;
   readonly onAddBack: (member: StopAreaFormMember) => void;
@@ -165,37 +143,15 @@ export const StopAreaMemberStopRows: FC<StopAreaMemberStopRowsProps> = ({
       )}
     >
       <tbody>
-        {mapRows(t, area, inEditMode, inEditSelectedStops).map(
-          ({ quay, selected, added }) => (
-            <StopTableRow
-              className={getRowBgClassName(added, selected)}
-              key={quay.scheduled_stop_point_id}
-              inEditMode={inEditMode}
-              stop={quay}
-              actionButtons={
-                inEditMode ? (
-                  <EditModeActionButton
-                    onAddBack={onAddBack}
-                    onRemove={onRemove}
-                    selected={selected}
-                    stop={quay}
-                  />
-                ) : (
-                  <LocatorActionButton stop={quay} />
-                )
-              }
-              menuItems={[
-                <OpenDetailsPage key="OpenDetailsPage" stop={quay} />,
-                <RemoveMemberStop
-                  key="RemoveMemberStop"
-                  stop={quay}
-                  onRemove={onRemove}
-                />,
-                <ShowOnMap key="ShowOnMap" stop={quay} />,
-              ]}
-            />
-          ),
-        )}
+        {mapRows(t, area, inEditMode, inEditSelectedStops).map((member) => (
+          <StopAreaMemberStopRow
+            inEditMode={inEditMode}
+            key={member.quay.scheduled_stop_point_id}
+            member={member}
+            onAddBack={onAddBack}
+            onRemove={onRemove}
+          />
+        ))}
       </tbody>
     </table>
   );

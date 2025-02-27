@@ -24,7 +24,7 @@ import {
   useUpsertStopArea,
 } from '../../../../forms/stop-area';
 import { StopAreaEditableBlock } from '../StopAreaEditableBlock';
-import { EditableStopAreaComponentProps } from './StopAreaComponentProps';
+import { EditableStopAreaComponentProps } from '../types';
 import { mapStopAreaDataToFormState } from './StopAreaDetailsEdit';
 import { StopAreaMemberStopRows } from './StopAreaMemberStopRows';
 import { StopAreaMemberStopsHeader } from './StopAreaMemberStopsHeader';

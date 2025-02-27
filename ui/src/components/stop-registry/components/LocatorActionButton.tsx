@@ -1,16 +1,16 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LocatorButton } from '../../../../../uiComponents';
-import { StopRowTdProps } from '../StopRowTdProps';
-import { useOpenStopOnMap } from '../utils';
+import { LocatorButton } from '../../../uiComponents';
+import { LocatableStopProps } from '../types';
+import { useShowStopOnMap } from '../utils/useShowStopOnMap';
 
-export const LocatorActionButton: FC<StopRowTdProps> = ({
+export const LocatorActionButton: FC<LocatableStopProps> = ({
   className,
   stop,
 }) => {
   const { t } = useTranslation();
 
-  const openStopOnMap = useOpenStopOnMap();
+  const openStopOnMap = useShowStopOnMap();
 
   return (
     <LocatorButton
