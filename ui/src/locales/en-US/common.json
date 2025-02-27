@@ -439,6 +439,11 @@
       "showOnMap": "Show stop on the map"
     },
 
+    "stopAreaRowActions": {
+      "openDetails": "Open stop area details page",
+      "showOnMap": "Show stop area on the map"
+    },
+
     "searchFor": {
       "stops": "Stops",
       "stopAreas": "Stop areas",
