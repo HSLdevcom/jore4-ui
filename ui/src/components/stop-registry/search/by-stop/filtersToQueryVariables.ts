@@ -46,15 +46,11 @@ function buildSearchStopsQueryFilter(
   return {};
 }
 
-// No other type of private code is used in the application
-const ELY_NUMBER_TYPE = 'ELY';
-
-function buildPrivateCodeLikeFilter(
+function buildElyNumberFilter(
   value: string,
 ): StopsDatabaseQuayNewestVersionBoolExp {
   return {
-    private_code_type: { _eq: ELY_NUMBER_TYPE },
-    private_code_value: { _ilike: value },
+    ely_code: { _ilike: value },
   };
 }
 
@@ -104,7 +100,7 @@ export function buildSearchStopsGqlQueryVariables(
   const elyNumberFilter = buildOptionalSearchConditionGqlFilter<
     string,
     StopsDatabaseQuayNewestVersionBoolExp
-  >(mapToSqlLikeValue(filters.elyNumber), buildPrivateCodeLikeFilter);
+  >(mapToSqlLikeValue(filters.elyNumber), buildElyNumberFilter);
 
   const municipalityFilter = buildSearchStopsMunicipalityFilter(filters);
 

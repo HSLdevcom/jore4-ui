@@ -3,7 +3,7 @@ import {
   InfrastructureNetworkDirectionEnum,
   Priority,
   RouteTypeOfLineEnum,
-  StopPlaceInput,
+  StopAreaInput,
   StopRegistryGeoJsonType,
   buildLine,
   buildStop,
@@ -162,6 +162,8 @@ describe('Stop search', () => {
 
   describe('by ELY number', () => {
     beforeEach(init);
+
+    // not ok
 
     it(
       'should be able to search with an exact ELY number',
@@ -648,7 +650,16 @@ describe('Stop search', () => {
       stopSearchBar.getSearchInput().clearAndType(`*{enter}`);
       expectGraphQLCallToSucceed('@gqlfindStopAreas');
 
-      stopGroupSelector.shouldHaveGroups(['X0003', 'X0004']);
+      stopGroupSelector.shouldHaveGroups([
+        'X0003',
+        'X0004',
+        'E2E002',
+        'E2E004',
+        'E2E005',
+        'E2E007',
+        'E2E008',
+        'E2E010',
+      ]);
     });
 
     it('should find X0004', () => {
@@ -946,18 +957,25 @@ describe('Stop search', () => {
         },
       ];
 
-      const stopPlaces: ReadonlyArray<StopPlaceInput> = extraPrioStops.map(
+      const stopPlaces: ReadonlyArray<StopAreaInput> = extraPrioStops.map(
         (stopPoint) => ({
-          label: stopPoint.label,
-          stopPlace: {
+          StopArea: {
             name: { lang: 'fin', value: stopPoint.label },
-            quays: [{ publicCode: stopPoint.label }],
-            privateCode: { value: stopPoint.label, type: 'ELY' },
-            geometry: {
-              coordinates: stopPoint.measured_location.coordinates.slice(0, 2),
-              type: StopRegistryGeoJsonType.Point,
-            },
+            quays: [
+              {
+                publicCode: stopPoint.label,
+                privateCode: { value: stopPoint.label, type: 'HSL' },
+                geometry: {
+                  coordinates: stopPoint.measured_location.coordinates.slice(
+                    0,
+                    2,
+                  ),
+                  type: StopRegistryGeoJsonType.Point,
+                },
+              },
+            ],
           },
+          organisations: null,
         }),
       );
 
