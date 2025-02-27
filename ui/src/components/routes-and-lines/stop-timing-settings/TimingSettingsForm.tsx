@@ -108,7 +108,7 @@ export const TimingSettingsForm = ({
                 {...props}
               />
             )}
-            className="flex-1"
+            className="w-[400px] max-w-full flex-1"
           />
           <SimpleButton
             containerClassName="self-end ml-6"
