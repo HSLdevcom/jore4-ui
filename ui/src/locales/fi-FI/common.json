@@ -439,6 +439,11 @@
       "showOnMap": "Näytä pysäkki kartalla"
     },
 
+    "stopAreaRowActions": {
+      "openDetails": "Näytä pysäkkialueen tiedot",
+      "showOnMap": "Näytä pysäkkialue kartalla"
+    },
+
     "searchFor": {
       "stops": "Pysäkit",
       "stopAreas": "Pysäkkialueet",
