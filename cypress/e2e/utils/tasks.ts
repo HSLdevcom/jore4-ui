@@ -117,18 +117,18 @@ export type InsertedStopRegistryIds = {
 export const insertStopRegistryData = async ({
   organisations = [],
   terminals = [],
-  stopAreas = [],
+  stopPlaces = [],
   infoSpots = [],
 }: {
   organisations?: Array<StopRegistryOrganisationInput>;
   terminals?: Array<TerminalInput>;
-  stopAreas?: Array<StopAreaInput>;
+  stopPlaces?: Array<StopAreaInput>;
   infoSpots?: Array<InfoSpotInput>;
 }): Promise<InsertedStopRegistryIds> => {
   const organisationIdsByName =
     await insertStopRegistryOrganisations(organisations);
 
-  const stopPlaceInputs = stopAreas.map((sp) =>
+  const stopPlaceInputs = stopPlaces.map((sp) =>
     setStopPlaceOrganisations(sp, organisationIdsByName),
   );
   const { collectedStopIds, collectedQuayDetails } =
