@@ -1,13 +1,37 @@
 import React, { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { mapLngLatToPoint } from '../../../../utils';
+import {
+  LocatorActionButton,
+  OpenDetailsPage,
+  ShowOnMap,
+} from '../../components';
+import { LocatableStop } from '../../types';
 import { StopTableRow } from '../StopTableRow';
-import { LocatorActionButton } from '../StopTableRow/ActionButtons/LocatorActionButton';
-import { OpenDetailsPage } from '../StopTableRow/MenuItems/OpenDetailsPage';
-import { ShowOnMap } from '../StopTableRow/MenuItems/ShowOnMap';
 import { StopSearchRow } from '../types';
 
 const testIds = {
   table: 'StopSearchByStopResultList::table',
+};
+
+type StopSearchResultRowProps = { readonly stop: StopSearchRow };
+const StopSearchResultRow: FC<StopSearchResultRowProps> = ({ stop }) => {
+  const locatableStop: LocatableStop = {
+    label: stop.label,
+    netextId: stop.quay.netexId ?? null,
+    location: mapLngLatToPoint(stop.measured_location.coordinates),
+  };
+
+  return (
+    <StopTableRow
+      actionButtons={<LocatorActionButton stop={locatableStop} />}
+      menuItems={[
+        <ShowOnMap key="showOnMap" stop={locatableStop} />,
+        <OpenDetailsPage key="openDetails" stop={locatableStop} />,
+      ]}
+      stop={stop}
+    />
+  );
 };
 
 type StopSearchResultStopsTableProps = {
@@ -25,15 +49,7 @@ export const StopSearchResultStopsTable: FC<
     >
       <tbody>
         {stops?.map((stop: StopSearchRow) => (
-          <StopTableRow
-            key={stop.scheduled_stop_point_id}
-            actionButtons={<LocatorActionButton stop={stop} />}
-            menuItems={[
-              <ShowOnMap key="showOnMap" stop={stop} />,
-              <OpenDetailsPage key="openDetails" stop={stop} />,
-            ]}
-            stop={stop}
-          />
+          <StopSearchResultRow key={stop.scheduled_stop_point_id} stop={stop} />
         ))}
       </tbody>
     </table>

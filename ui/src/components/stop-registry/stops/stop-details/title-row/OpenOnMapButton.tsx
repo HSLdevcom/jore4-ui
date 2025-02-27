@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { StopWithDetails } from '../../../../../hooks';
 import { LocatorButton } from '../../../../../uiComponents';
-import { useOpenStopOnMap } from '../../../search/StopTableRow/utils';
+import { mapLngLatToPoint } from '../../../../../utils';
+import { useShowStopOnMap } from '../../../utils/useShowStopOnMap';
 
 const testIds = {
   button: 'StopTitleRow::openOnMapButton',
@@ -22,10 +23,14 @@ export const OpenOnMapButton: FC<OpenOnMapButtonProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const openStopOnMap = useOpenStopOnMap();
+  const openStopOnMap = useShowStopOnMap();
   const onClick = () => {
     if (stop && stop.stop_place !== null) {
-      openStopOnMap({ ...stop, quay: stop.stop_place });
+      openStopOnMap({
+        label: stop.label,
+        netextId: stop.stop_place_ref ?? null,
+        location: mapLngLatToPoint(stop.measured_location.coordinates),
+      });
     }
   };
 

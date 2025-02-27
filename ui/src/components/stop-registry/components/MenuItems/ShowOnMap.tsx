@@ -1,8 +1,8 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SimpleDropdownMenuItem } from '../../../../../uiComponents';
-import { StopRowTdProps } from '../StopRowTdProps';
-import { useOpenStopOnMap } from '../utils';
+import { SimpleDropdownMenuItem } from '../../../../uiComponents';
+import { LocatableStopProps } from '../../types';
+import { useShowStopOnMap } from '../../utils/useShowStopOnMap';
 
 const testIds = {
   showOnMap: 'StopTableRow::ActionMenu::ShowOnMap',
@@ -10,10 +10,10 @@ const testIds = {
 
 const ShowOnMapImpl: ForwardRefRenderFunction<
   HTMLButtonElement,
-  StopRowTdProps
+  LocatableStopProps
 > = ({ className, stop }, ref) => {
   const { t } = useTranslation();
-  const openStopOnMap = useOpenStopOnMap();
+  const openStopOnMap = useShowStopOnMap();
 
   return (
     <SimpleDropdownMenuItem

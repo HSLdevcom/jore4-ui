@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { EditableStopAreaComponentProps } from './StopAreaComponentProps';
+import { EditableStopAreaComponentProps } from '../types';
 import { StopAreaDetails } from './StopAreaDetails';
 import { StopAreaMinimap } from './StopAreaMinimap';
 
