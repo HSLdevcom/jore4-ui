@@ -70291,6 +70291,104 @@ export type ResolveExistingStopValidityRangesQuery = {
   }>;
 };
 
+export type GetStopPlaceNameQueryVariables = Exact<{
+  stopPlaceNetexId: Scalars['String']['input'];
+}>;
+
+export type GetStopPlaceNameQuery = {
+  __typename?: 'query_root';
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister';
+    stopPlace?: Array<
+      | {
+          __typename?: 'stop_registry_ParentStopPlace';
+          id?: string | null;
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          alternativeNames?: Array<{
+            __typename?: 'stop_registry_AlternativeName';
+            nameType: StopRegistryNameType;
+            name: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            };
+          } | null> | null;
+        }
+      | {
+          __typename?: 'stop_registry_StopPlace';
+          id?: string | null;
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString';
+            lang?: string | null;
+            value?: string | null;
+          } | null;
+          alternativeNames?: Array<{
+            __typename?: 'stop_registry_AlternativeName';
+            nameType: StopRegistryNameType;
+            name: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString';
+              lang?: string | null;
+              value?: string | null;
+            };
+          } | null> | null;
+        }
+      | null
+    > | null;
+  } | null;
+};
+
+export type GetQuayVersionsQueryVariables = Exact<{
+  publicCode: Scalars['String']['input'];
+}>;
+
+export type GetQuayVersionsQuery = {
+  __typename?: 'query_root';
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query';
+    quays: Array<{
+      __typename?: 'stops_database_quay_newest_version';
+      id?: any | null;
+      netex_id?: string | null;
+      validity_start?: string | null;
+      validity_end?: string | null;
+      priority?: string | null;
+      centroid?: GeoJSON.Geometry | null;
+      created?: any | null;
+      changed?: any | null;
+      changed_by?: string | null;
+      version_comment?: string | null;
+      stop_place?: {
+        __typename?: 'stops_database_stop_place';
+        id: any;
+        netex_id?: string | null;
+      } | null;
+    }>;
+  } | null;
+};
+
+export type StopVersionInfoFragment = {
+  __typename?: 'stops_database_quay_newest_version';
+  id?: any | null;
+  netex_id?: string | null;
+  validity_start?: string | null;
+  validity_end?: string | null;
+  priority?: string | null;
+  centroid?: GeoJSON.Geometry | null;
+  created?: any | null;
+  changed?: any | null;
+  changed_by?: string | null;
+  version_comment?: string | null;
+  stop_place?: {
+    __typename?: 'stops_database_stop_place';
+    id: any;
+    netex_id?: string | null;
+  } | null;
+};
+
 export type VehicleJourneyByStopFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey';
   journey_pattern_ref_id: UUID;
@@ -76507,6 +76605,24 @@ export const StopPlaceDetailsFragmentDoc = gql`
   ${TopographicPlaceDetailsFragmentDoc}
   ${FareZoneDetailsFragmentDoc}
 `;
+export const StopVersionInfoFragmentDoc = gql`
+  fragment StopVersionInfo on stops_database_quay_newest_version {
+    id
+    netex_id
+    stop_place {
+      id
+      netex_id
+    }
+    validity_start
+    validity_end
+    priority
+    centroid
+    created
+    changed
+    changed_by
+    version_comment
+  }
+`;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
   fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
     external_link_id
@@ -79142,6 +79258,189 @@ export type ResolveExistingStopValidityRangesSuspenseQueryHookResult =
 export type ResolveExistingStopValidityRangesQueryResult = Apollo.QueryResult<
   ResolveExistingStopValidityRangesQuery,
   ResolveExistingStopValidityRangesQueryVariables
+>;
+export const GetStopPlaceNameDocument = gql`
+  query GetStopPlaceName($stopPlaceNetexId: String!) {
+    stop_registry {
+      stopPlace(id: $stopPlaceNetexId, onlyMonomodalStopPlaces: true) {
+        id
+        name {
+          lang
+          value
+        }
+        alternativeNames {
+          nameType
+          name {
+            lang
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetStopPlaceNameQuery__
+ *
+ * To run a query within a React component, call `useGetStopPlaceNameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopPlaceNameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopPlaceNameQuery({
+ *   variables: {
+ *      stopPlaceNetexId: // value for 'stopPlaceNetexId'
+ *   },
+ * });
+ */
+export function useGetStopPlaceNameQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetStopPlaceNameQuery,
+    GetStopPlaceNameQueryVariables
+  > &
+    (
+      | { variables: GetStopPlaceNameQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetStopPlaceNameQuery, GetStopPlaceNameQueryVariables>(
+    GetStopPlaceNameDocument,
+    options,
+  );
+}
+export function useGetStopPlaceNameLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopPlaceNameQuery,
+    GetStopPlaceNameQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetStopPlaceNameQuery,
+    GetStopPlaceNameQueryVariables
+  >(GetStopPlaceNameDocument, options);
+}
+export function useGetStopPlaceNameSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetStopPlaceNameQuery,
+        GetStopPlaceNameQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetStopPlaceNameQuery,
+    GetStopPlaceNameQueryVariables
+  >(GetStopPlaceNameDocument, options);
+}
+export type GetStopPlaceNameQueryHookResult = ReturnType<
+  typeof useGetStopPlaceNameQuery
+>;
+export type GetStopPlaceNameLazyQueryHookResult = ReturnType<
+  typeof useGetStopPlaceNameLazyQuery
+>;
+export type GetStopPlaceNameSuspenseQueryHookResult = ReturnType<
+  typeof useGetStopPlaceNameSuspenseQuery
+>;
+export type GetStopPlaceNameQueryResult = Apollo.QueryResult<
+  GetStopPlaceNameQuery,
+  GetStopPlaceNameQueryVariables
+>;
+export const GetQuayVersionsDocument = gql`
+  query GetQuayVersions($publicCode: String!) {
+    stops_database {
+      quays: stops_database_quay_newest_version(
+        where: { public_code: { _eq: $publicCode } }
+        order_by: [{ validity_start: asc }, { priority: asc }]
+      ) {
+        ...StopVersionInfo
+      }
+    }
+  }
+  ${StopVersionInfoFragmentDoc}
+`;
+
+/**
+ * __useGetQuayVersionsQuery__
+ *
+ * To run a query within a React component, call `useGetQuayVersionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetQuayVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetQuayVersionsQuery({
+ *   variables: {
+ *      publicCode: // value for 'publicCode'
+ *   },
+ * });
+ */
+export function useGetQuayVersionsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetQuayVersionsQuery,
+    GetQuayVersionsQueryVariables
+  > &
+    (
+      | { variables: GetQuayVersionsQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetQuayVersionsQuery, GetQuayVersionsQueryVariables>(
+    GetQuayVersionsDocument,
+    options,
+  );
+}
+export function useGetQuayVersionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetQuayVersionsQuery,
+    GetQuayVersionsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetQuayVersionsQuery,
+    GetQuayVersionsQueryVariables
+  >(GetQuayVersionsDocument, options);
+}
+export function useGetQuayVersionsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetQuayVersionsQuery,
+        GetQuayVersionsQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetQuayVersionsQuery,
+    GetQuayVersionsQueryVariables
+  >(GetQuayVersionsDocument, options);
+}
+export type GetQuayVersionsQueryHookResult = ReturnType<
+  typeof useGetQuayVersionsQuery
+>;
+export type GetQuayVersionsLazyQueryHookResult = ReturnType<
+  typeof useGetQuayVersionsLazyQuery
+>;
+export type GetQuayVersionsSuspenseQueryHookResult = ReturnType<
+  typeof useGetQuayVersionsSuspenseQuery
+>;
+export type GetQuayVersionsQueryResult = Apollo.QueryResult<
+  GetQuayVersionsQuery,
+  GetQuayVersionsQueryVariables
 >;
 export const GetRouteWithJourneyPatternDocument = gql`
   query GetRouteWithJourneyPattern($routeId: uuid!) {
