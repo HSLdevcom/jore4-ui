@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { PageTitle } from '../../../../common';
 import { ObservationDateControl } from '../../../../common/ObservationDateControl';
-import { StopAreaComponentProps } from './StopAreaComponentProps';
+import { StopAreaComponentProps } from '../types';
 
 const testIds = {
   privateCode: 'StopAreaTitleRow::privateCode',

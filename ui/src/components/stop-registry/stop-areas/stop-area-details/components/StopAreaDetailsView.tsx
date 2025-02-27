@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { mapToShortDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
-import { StopAreaComponentProps } from './StopAreaComponentProps';
+import { StopAreaComponentProps } from '../types';
 
 const testIds = {
   privateCode: 'StopAreaDetails::privateCode',

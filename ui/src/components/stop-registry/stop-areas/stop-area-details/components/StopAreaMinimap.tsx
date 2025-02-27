@@ -6,7 +6,7 @@ import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import { useShowStopAreaOnMap } from '../../../utils';
 // Don't forget to remove the image from the repo!
 import placeholderBg from '../PlaceholderMapFragment.png';
-import { StopAreaComponentProps } from './StopAreaComponentProps';
+import { StopAreaComponentProps } from '../types';
 
 const testIds = {
   openMapButton: 'StopAreaMinimap::openMapButton',

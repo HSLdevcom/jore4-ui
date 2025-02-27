@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { mapToShortDate } from '../../../../../time';
-import { StopAreaComponentProps } from './StopAreaComponentProps';
+import { StopAreaComponentProps } from '../types';
 
 const testIds = {
   validityPeriod: 'StopAreaVersioningRow::validityPeriod',
