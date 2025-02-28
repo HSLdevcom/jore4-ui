@@ -58,14 +58,14 @@ const GQL_STOP_TABLE_ROW_QUAY = gql`
 const GQL_SEARCH_STOPS = gql`
   query SearchStops(
     $where: stops_database_quay_newest_version_bool_exp
-    $orderBy: stops_database_quay_newest_version_order_by!
+    $orderBy: [stops_database_quay_newest_version_order_by!]!
     $offset: Int!
     $limit: Int!
   ) {
     stops_database {
       stops: stops_database_quay_newest_version(
         where: $where
-        order_by: [$orderBy]
+        order_by: $orderBy
         offset: $offset
         limit: $limit
       ) {
@@ -92,19 +92,22 @@ function sortOrderToOrderBy(sortOrder: SortOrder) {
 function getOrderBy({
   sortBy,
   sortOrder,
-}: SortingInfo): StopsDatabaseQuayNewestVersionOrderBy {
+}: SortingInfo): Array<StopsDatabaseQuayNewestVersionOrderBy> {
   const direction = sortOrderToOrderBy(sortOrder);
+  const byPublicCode: StopsDatabaseQuayNewestVersionOrderBy = {
+    public_code: direction,
+  };
 
   switch (sortBy) {
     case SortStopsBy.DEFAULT:
     case SortStopsBy.LABEL:
-      return { public_code: direction };
+      return [byPublicCode];
 
     case SortStopsBy.ADDRESS:
-      return { street_address: direction };
+      return [{ street_address: direction }, byPublicCode];
 
     case SortStopsBy.NAME:
-      return { stop_place: { name_value: direction } };
+      return [{ stop_place: { name_value: direction } }, byPublicCode];
 
     default:
       return { id: direction };
