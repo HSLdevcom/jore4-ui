@@ -104,7 +104,7 @@ function getOrderBy({
       return { street_address: direction };
 
     case SortStopsBy.NAME:
-      return { name_value: direction };
+      return { stop_place: { name_value: direction } };
 
     default:
       return { id: direction };

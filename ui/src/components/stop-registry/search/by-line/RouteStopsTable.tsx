@@ -6,6 +6,7 @@ import {
   LoadingStopsErrorRow,
   StopSearchResultStopsTable,
 } from '../components';
+import { SortingInfo } from '../types';
 import { RouteInfoRow } from './RouteInfoRow';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 import { useGetStopResultsByRouteId } from './useGetStopResultsByRouteId';
@@ -21,17 +22,20 @@ type RouteStopsTableProps = {
   // Aka, do not lock up the ui.
   readonly lineTransitionInProgress: boolean;
   readonly route: FindStopByLineRouteInfo;
+  readonly sortingInfo: SortingInfo;
 };
 
 export const RouteStopsTable: FC<RouteStopsTableProps> = ({
   className,
   lineTransitionInProgress,
   route,
+  sortingInfo,
 }) => {
   const { t } = useTranslation();
 
   const { error, loading, refetch, stops } = useGetStopResultsByRouteId(
     route.route_id,
+    sortingInfo.sortOrder,
   );
 
   return (
