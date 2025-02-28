@@ -9,24 +9,10 @@ import {
 import { buildSearchStopByLabelOrNameFilter } from '../../utils/buildSearchStopByLabelOrNameFilter';
 import { SearchBy, StopSearchFilters } from '../types';
 
-enum TiamatKeyValueKeys {
-  Address = 'streetAddress',
-}
-
-function buildKeyValueLikeFilter(
-  key: TiamatKeyValueKeys,
+function buildAddressLikeFilter(
   value: string,
 ): StopsDatabaseQuayNewestVersionBoolExp {
-  return {
-    quay_key_values: {
-      key_values_key: { _eq: key },
-      value: { value_items: { items: { _ilike: value } } },
-    },
-  };
-}
-
-function buildAddressLikeFilter(value: string) {
-  return buildKeyValueLikeFilter(TiamatKeyValueKeys.Address, value);
+  return { street_address: { _ilike: value } };
 }
 
 function buildSearchStopsQueryFilter(

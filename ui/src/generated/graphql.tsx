@@ -69280,12 +69280,57 @@ export type GetStopsByRouteIdQuery = {
         }>;
       } | null;
     } | null;
+    journeyPatterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+      journey_pattern_id: UUID;
+      sequence: number;
+    }>;
     timing_place?: {
       __typename?: 'timing_pattern_timing_place';
       timing_place_id: UUID;
       label: string;
     } | null;
   }>;
+};
+
+export type GetStopByRouteIdSearchResultFragment = {
+  __typename?: 'service_pattern_scheduled_stop_point';
+  scheduled_stop_point_id: UUID;
+  label: string;
+  measured_location: GeoJSON.Point;
+  validity_start?: luxon.DateTime | null;
+  validity_end?: luxon.DateTime | null;
+  timing_place_id?: UUID | null;
+  priority: number;
+  quay?: {
+    __typename?: 'stops_database_quay_newest_version';
+    id?: any | null;
+    netex_id?: string | null;
+    stop_place?: {
+      __typename?: 'stops_database_stop_place';
+      name_lang?: string | null;
+      name_value?: string | null;
+      stop_place_alternative_names: Array<{
+        __typename?: 'stops_database_stop_place_alternative_names';
+        alternative_name: {
+          __typename?: 'stops_database_alternative_name';
+          name_lang?: string | null;
+          name_type?: string | null;
+          name_value?: string | null;
+        };
+      }>;
+    } | null;
+  } | null;
+  journeyPatterns: Array<{
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern';
+    journey_pattern_id: UUID;
+    sequence: number;
+  }>;
+  timing_place?: {
+    __typename?: 'timing_pattern_timing_place';
+    timing_place_id: UUID;
+    label: string;
+  } | null;
 };
 
 export type ResolveStopPlaceNetextIdsByLineIdsQueryVariables = Exact<{
@@ -69315,8 +69360,6 @@ export type FindStopAreasQuery = {
       id?: any | null;
       netex_id?: string | null;
       version?: any | null;
-      from_date?: any | null;
-      to_date?: any | null;
       name_lang?: string | null;
       name_value?: string | null;
       centroid?: GeoJSON.Geometry | null;
@@ -69330,8 +69373,6 @@ export type FindStopAreaInfoFragment = {
   id?: any | null;
   netex_id?: string | null;
   version?: any | null;
-  from_date?: any | null;
-  to_date?: any | null;
   name_lang?: string | null;
   name_value?: string | null;
   centroid?: GeoJSON.Geometry | null;
@@ -75874,17 +75915,19 @@ export const FindStopByLineInfoFragmentDoc = gql`
   }
   ${FindStopByLineRouteInfoFragmentDoc}
 `;
-export const FindStopAreaInfoFragmentDoc = gql`
-  fragment FindStopAreaInfo on stops_database_stop_place_newest_version {
-    id
-    netex_id
-    version
-    from_date
-    to_date
-    name_lang
-    name_value
-    private_code: private_code_value
-    centroid
+export const StopTableRowFragmentDoc = gql`
+  fragment stop_table_row on service_pattern_scheduled_stop_point {
+    scheduled_stop_point_id
+    label
+    measured_location
+    validity_start
+    validity_end
+    timing_place_id
+    priority
+    timing_place {
+      timing_place_id
+      label
+    }
   }
 `;
 export const StopTableRowQuayBaseDetailsFragmentDoc = gql`
@@ -75904,19 +75947,31 @@ export const StopTableRowQuayBaseDetailsFragmentDoc = gql`
     }
   }
 `;
-export const StopTableRowFragmentDoc = gql`
-  fragment stop_table_row on service_pattern_scheduled_stop_point {
-    scheduled_stop_point_id
-    label
-    measured_location
-    validity_start
-    validity_end
-    timing_place_id
-    priority
-    timing_place {
-      timing_place_id
-      label
+export const GetStopByRouteIdSearchResultFragmentDoc = gql`
+  fragment GetStopByRouteIdSearchResult on service_pattern_scheduled_stop_point {
+    ...stop_table_row
+    quay: newest_quay {
+      ...stop_table_row_quay_base_details
     }
+    journeyPatterns: scheduled_stop_point_in_journey_patterns(
+      where: { journey_pattern: { on_route_id: { _eq: $routeId } } }
+    ) {
+      journey_pattern_id
+      sequence: scheduled_stop_point_sequence
+    }
+  }
+  ${StopTableRowFragmentDoc}
+  ${StopTableRowQuayBaseDetailsFragmentDoc}
+`;
+export const FindStopAreaInfoFragmentDoc = gql`
+  fragment FindStopAreaInfo on stops_database_stop_place_newest_version {
+    id
+    netex_id
+    version
+    name_lang
+    name_value
+    private_code: private_code_value
+    centroid
   }
 `;
 export const StopTableRowQuayFragmentDoc = gql`
@@ -77819,16 +77874,11 @@ export const GetStopsByRouteIdDocument = gql`
           journey_pattern: { on_route_id: { _eq: $routeId } }
         }
       }
-      order_by: [{ label: asc }]
     ) {
-      ...stop_table_row
-      quay: newest_quay {
-        ...stop_table_row_quay_base_details
-      }
+      ...GetStopByRouteIdSearchResult
     }
   }
-  ${StopTableRowFragmentDoc}
-  ${StopTableRowQuayBaseDetailsFragmentDoc}
+  ${GetStopByRouteIdSearchResultFragmentDoc}
 `;
 
 /**
@@ -78005,9 +78055,8 @@ export const FindStopAreasDocument = gql`
           _and: [
             {
               _or: [
-                { description_value: { _ilike: $query } }
+                { private_code_value: { _ilike: $query } }
                 { name_value: { _ilike: $query } }
-                { short_name_value: { _ilike: $query } }
                 {
                   stop_place_alternative_names: {
                     alternative_name: { name_value: { _ilike: $query } }

@@ -1,4 +1,4 @@
-import { StopsDatabaseStopPlaceNewestVersionBoolExp } from '../../../../generated/graphql';
+import { StopsDatabaseQuayNewestVersionBoolExp } from '../../../../generated/graphql';
 import { PagingInfo } from '../../../../types';
 import { SortingInfo } from '../types';
 import { useStopSearchResults } from '../utils/useStopSearchResults';
@@ -6,13 +6,9 @@ import { FindStopAreaInfo } from './useFindStopAreas';
 
 function stopAreasToStopSearchWhere(
   stopAreas: ReadonlyArray<FindStopAreaInfo>,
-): StopsDatabaseStopPlaceNewestVersionBoolExp {
+): StopsDatabaseQuayNewestVersionBoolExp {
   return {
-    group_of_stop_places_members: {
-      group_of_stop_places_id: {
-        _in: stopAreas.map((area) => area.id),
-      },
-    },
+    stop_place_id: { _in: stopAreas.map((area) => area.id) },
   };
 }
 

@@ -2,9 +2,11 @@ import { gql } from '@apollo/client';
 import omit from 'lodash/omit';
 import { useMemo } from 'react';
 import {
+  GetStopByRouteIdSearchResultFragment,
   GetStopsByRouteIdQuery,
   useGetStopsByRouteIdQuery,
 } from '../../../../generated/graphql';
+import { SortOrder } from '../../../../types';
 import { StopPlaceSearchRowDetails, StopSearchRow } from '../types';
 
 const GQL_GET_STOPS_BY_ROUTE_ID_QUERY = gql`
@@ -15,13 +17,23 @@ const GQL_GET_STOPS_BY_ROUTE_ID_QUERY = gql`
           journey_pattern: { on_route_id: { _eq: $routeId } }
         }
       }
-      order_by: [{ label: asc }]
     ) {
-      ...stop_table_row
+      ...GetStopByRouteIdSearchResult
+    }
+  }
 
-      quay: newest_quay {
-        ...stop_table_row_quay_base_details
-      }
+  fragment GetStopByRouteIdSearchResult on service_pattern_scheduled_stop_point {
+    ...stop_table_row
+
+    quay: newest_quay {
+      ...stop_table_row_quay_base_details
+    }
+
+    journeyPatterns: scheduled_stop_point_in_journey_patterns(
+      where: { journey_pattern: { on_route_id: { _eq: $routeId } } }
+    ) {
+      journey_pattern_id
+      sequence: scheduled_stop_point_sequence
     }
   }
 `;
@@ -50,29 +62,47 @@ function mapQuay(rawStopPoint: RawStopPoint): StopPlaceSearchRowDetails {
   };
 }
 
-function mapDataToStopResults(
-  data: GetStopsByRouteIdQuery,
-): Array<StopSearchRow> {
-  return data.stopPoints.map((rawQuay) => {
-    return {
-      ...omit(rawQuay, ['quay']),
-      quay: mapQuay(rawQuay),
-    };
-  });
+function mapRawStopPointToStopResults(
+  stopPoint: GetStopByRouteIdSearchResultFragment,
+): StopSearchRow {
+  return {
+    ...omit(stopPoint, ['quay']),
+    quay: mapQuay(stopPoint),
+  };
 }
 
-export function useGetStopResultsByRouteId(routeId: UUID) {
+function compareSequenceNumbers(
+  a: GetStopByRouteIdSearchResultFragment,
+  b: GetStopByRouteIdSearchResultFragment,
+): number {
+  const aSequenceNumber = a.journeyPatterns?.at(0)?.sequence ?? -1;
+  const bSequenceNumber = b.journeyPatterns?.at(0)?.sequence ?? -1;
+
+  return aSequenceNumber - bSequenceNumber;
+}
+
+export function useGetStopResultsByRouteId(
+  routeId: UUID,
+  sortOrder: SortOrder,
+) {
   const { data, ...rest } = useGetStopsByRouteIdQuery({
     variables: { routeId },
   });
 
-  const stops = useMemo(() => {
-    if (!data) {
+  const stopPoints = data?.stopPoints;
+  const stops: ReadonlyArray<StopSearchRow> = useMemo(() => {
+    if (!stopPoints) {
       return [];
     }
 
-    return mapDataToStopResults(data);
-  }, [data]);
+    return stopPoints
+      .toSorted(
+        sortOrder === SortOrder.ASCENDING
+          ? (a, b) => compareSequenceNumbers(a, b)
+          : (a, b) => -compareSequenceNumbers(a, b),
+      )
+      .map(mapRawStopPointToStopResults);
+  }, [stopPoints, sortOrder]);
 
   return { ...rest, stops };
 }

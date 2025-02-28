@@ -29,8 +29,8 @@ export function useGetStopSearchByLinesResult(
   sortingInfo: SortingInfo,
 ) {
   const routeIds = lines
-    .map((line) => line.line_routes.map((route) => route.route_id))
-    .flat(1);
+    .flatMap((line) => line.line_routes)
+    .map((route) => route.route_id);
 
   const {
     loading: resolveStopPlaceIdsLoading,
@@ -41,11 +41,11 @@ export function useGetStopSearchByLinesResult(
     variables: { routeIds },
   });
 
-  const rawStopPlaceIds =
+  const rawQuayIds =
     resolveStopPlaceIdsData?.stopPoints.map(
-      (stopPlace) => stopPlace.stop_place_ref,
+      (stopPoints) => stopPoints.stop_place_ref,
     ) ?? [];
-  const stopPlaceIds = uniq(compact(rawStopPlaceIds));
+  const quayIds = uniq(compact(rawQuayIds));
 
   const {
     stops,
@@ -54,8 +54,8 @@ export function useGetStopSearchByLinesResult(
     error: resultsError,
     refetch: stopsRefetch,
   } = useStopSearchResults({
-    where: { netex_id: { _in: stopPlaceIds } },
-    skip: stopPlaceIds.length === 0,
+    where: { netex_id: { _in: quayIds } },
+    skip: quayIds.length === 0,
     pagingInfo,
     sortingInfo,
   });

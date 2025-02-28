@@ -18,9 +18,8 @@ const GQL_FIND_STOP_AREAS = gql`
           _and: [
             {
               _or: [
-                { description_value: { _ilike: $query } }
+                { private_code_value: { _ilike: $query } }
                 { name_value: { _ilike: $query } }
-                { short_name_value: { _ilike: $query } }
                 {
                   stop_place_alternative_names: {
                     alternative_name: { name_value: { _ilike: $query } }
@@ -49,9 +48,6 @@ const GQL_FIND_STOP_AREAS = gql`
     netex_id
     version
 
-    from_date
-    to_date
-
     name_lang
     name_value
 
@@ -71,13 +67,16 @@ export function useFindStopAreas(filters: StopSearchFilters) {
     },
   });
 
-  const stopAreas: ReadonlyArray<FindStopAreaInfo> = useMemo(
-    () =>
-      (data?.stops_database?.stopAreas ?? []).toSorted((a, b) =>
-        labelSortCollator.compare(a.name_value ?? '', b.name_value ?? ''),
-      ),
-    [data, labelSortCollator],
-  );
+  const rawStopAreas = data?.stops_database?.stopAreas;
+  const stopAreas: ReadonlyArray<FindStopAreaInfo> = useMemo(() => {
+    if (!rawStopAreas) {
+      return [];
+    }
+
+    return rawStopAreas.toSorted((a, b) =>
+      labelSortCollator.compare(a.private_code ?? '', b.private_code ?? ''),
+    );
+  }, [rawStopAreas, labelSortCollator]);
 
   return { ...rest, stopAreas };
 }

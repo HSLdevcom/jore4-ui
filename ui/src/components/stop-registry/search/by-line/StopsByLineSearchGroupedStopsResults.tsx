@@ -58,7 +58,7 @@ export const StopsByLineSearchGroupedStopsResults: FC<
       {lineToShow && (
         <>
           <ActiveLineHeader line={lineToShow} />
-          <LineRoutesListing line={lineToShow} />
+          <LineRoutesListing line={lineToShow} sortingInfo={sortingInfo} />
         </>
       )}
     </>
