@@ -69497,7 +69497,9 @@ export type StopTableRowQuayFragment = {
 
 export type SearchStopsQueryVariables = Exact<{
   where?: InputMaybe<StopsDatabaseQuayNewestVersionBoolExp>;
-  orderBy: StopsDatabaseQuayNewestVersionOrderBy;
+  orderBy:
+    | Array<StopsDatabaseQuayNewestVersionOrderBy>
+    | StopsDatabaseQuayNewestVersionOrderBy;
   offset: Scalars['Int']['input'];
   limit: Scalars['Int']['input'];
 }>;
@@ -78248,14 +78250,14 @@ export type GetStopsByStopAreaIdQueryResult = Apollo.QueryResult<
 export const SearchStopsDocument = gql`
   query SearchStops(
     $where: stops_database_quay_newest_version_bool_exp
-    $orderBy: stops_database_quay_newest_version_order_by!
+    $orderBy: [stops_database_quay_newest_version_order_by!]!
     $offset: Int!
     $limit: Int!
   ) {
     stops_database {
       stops: stops_database_quay_newest_version(
         where: $where
-        order_by: [$orderBy]
+        order_by: $orderBy
         offset: $offset
         limit: $limit
       ) {

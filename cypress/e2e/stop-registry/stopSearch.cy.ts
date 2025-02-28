@@ -727,7 +727,7 @@ describe('Stop search', () => {
       sortByButton.getButton('name').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
       sortByButton.assertSorting('name', 'desc');
-      assertResultOrder(['E2E005', 'E2E003', 'E2E006', 'E2E007', 'E2E002']);
+      assertResultOrder(['E2E005', 'E2E006', 'E2E003', 'E2E007', 'E2E008']);
 
       // Name ascending
       sortByButton.getButton('name').click();
@@ -745,7 +745,7 @@ describe('Stop search', () => {
       sortByButton.getButton('address').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
       sortByButton.assertSorting('address', 'desc');
-      assertResultOrder(['E2E005', 'E2E003', 'E2E006', 'E2E007', 'E2E002']);
+      assertResultOrder(['E2E005', 'E2E006', 'E2E003', 'E2E007', 'E2E008']);
     });
 
     it('should page on basic stop search', () => {
