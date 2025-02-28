@@ -788,7 +788,9 @@ describe('Stop search', () => {
     it('should sort on search for stop areas', () => {
       stopSearchBar.searchForDropdown.openSearchForDropdown();
       stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
-      stopSearchBar.getSearchInput().type(`*{enter}`);
+      stopSearchBar.getSearchInput().type(`X*{enter}`);
+      stopGroupSelector.getGroupSelectors().contains('X0003').click();
+      searchForStopAreas.getStopAreaLabel();
 
       sortByButton.assertSorting('byStopArea', 'groupOnly');
       assertResultOrder(['E2E001', 'E2E009']);
