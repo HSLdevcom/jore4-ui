@@ -167,7 +167,7 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
           : undefined,
 
       keyValues: [
-        getKeyValue('ELYCode', seedStopPlace.elyNumber),
+        getKeyValue('elyNumber', seedStopPlace.elyNumber),
         getKeyValue('streetAddress', seedStopPlace.streetAddress),
         getKeyValue('postalCode', seedStopPlace.postalCode),
         getKeyValue('functionalArea', seedStopPlace.functionalArea),
