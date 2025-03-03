@@ -36,8 +36,7 @@ describe('Stop area details', () => {
   const baseStopRegistryData = getClonedBaseStopRegistryData();
 
   const testStopArea = {
-    memberLabels: ['E2E001', 'E2E009'],
-    stopArea: {
+    StopArea: {
       name: { lang: 'fin', value: 'X0003' },
       description: { lang: 'fin', value: 'Annankatu 15' },
       validBetween: {
@@ -49,6 +48,7 @@ describe('Stop area details', () => {
         type: StopRegistryGeoJsonType.Point,
       },
     },
+    organisations: null,
   };
 
   const stopAreaData: Array<StopAreaInput> = [testStopArea];
@@ -79,15 +79,15 @@ describe('Stop area details', () => {
       ...baseStopRegistryData,
       stopAreas: stopAreaData,
     }).then((data) => {
-      stopAreaId = data.stopAreaIdsByName.X0003;
+      stopAreaId = data.stopPlaceIdsByName.X0003;
 
       cy.setupTests();
       cy.mockLogin();
 
       map.visit({
         zoom: 14,
-        lat: testStopArea.stopArea.geometry.coordinates[1],
-        lng: testStopArea.stopArea.geometry.coordinates[0],
+        lat: testStopArea.StopArea.geometry.coordinates[1],
+        lng: testStopArea.StopArea.geometry.coordinates[0],
       });
     });
   });

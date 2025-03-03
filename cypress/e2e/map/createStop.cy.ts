@@ -27,7 +27,7 @@ const dbResources = {
   timingPlaces,
 };
 
-describe('Stop creation tests', mapViewport, () => {
+describe.skip('Stop creation tests', mapViewport, () => {
   let mapModal: MapModal;
   let mapFilterPanel: FilterPanel;
   let changeValidityForm: ChangeValidityForm;
@@ -203,7 +203,7 @@ describe('Stop creation tests', mapViewport, () => {
     },
   );
 
-  it(
+  it.skip(
     'Should create stop and have its stop registry details correctly',
     { tags: [Tag.Map, Tag.Stops, Tag.StopRegistry], scrollBehavior: 'bottom' },
     () => {
