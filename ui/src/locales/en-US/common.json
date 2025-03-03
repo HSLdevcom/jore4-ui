@@ -121,6 +121,7 @@
     "stopArea": "Stop area",
     "delete": "Delete stop area",
     "name": "Name",
+    "nameSwe": "Name (swedish)",
     "privateCode": "Label",
     "quays": "Member stops",
     "sharedNameNotice": "Remember that member stops need to share name with the area.",
