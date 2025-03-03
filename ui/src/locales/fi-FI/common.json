@@ -121,6 +121,7 @@
     "stopArea": "Pysäkkialue",
     "delete": "Poista pysäkkialue",
     "name": "Nimi",
+    "nameSwe": "Nimi (ruotsi)",
     "privateCode": "Tunnus",
     "quays": "Jäsenpysäkit",
     "sharedNameNotice": "Muista nimetä jäsenpysäkit pysäkkialueen nimellä.",
