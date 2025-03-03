@@ -27,7 +27,7 @@ export class Map {
       }
     });
     this.waitForLoadToComplete();
-    expectGraphQLCallToSucceed('@gqlGetStopsByLocation');
+    expectGraphQLCallToSucceed('@gqlGetMapStops');
     expectGraphQLCallToSucceed('@gqlGetStopAreasByLocation');
   }
 

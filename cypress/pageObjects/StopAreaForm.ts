@@ -10,12 +10,16 @@ export class StopAreaForm {
     return cy.getByTestId('StopAreaFormComponent::form');
   }
 
-  getLabel() {
-    return cy.getByTestId('StopAreaFormComponent::label');
+  getPrivateCode() {
+    return cy.getByTestId('StopAreaFormComponent::privateCode');
   }
 
   getName() {
     return cy.getByTestId('StopAreaFormComponent::name');
+  }
+
+  getNameSwe() {
+    return cy.getByTestId('StopAreaFormComponent::nameSwe');
   }
 
   getLatitude() {

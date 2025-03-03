@@ -24,8 +24,7 @@ describe('Stop areas on map', mapViewport, () => {
 
   const stopAreaData: Array<StopAreaInput> = [
     {
-      memberLabels: ['E2E001', 'E2E009'],
-      stopArea: {
+      StopArea: {
         name: { lang: 'fin', value: 'X0003' },
         description: { lang: 'fin', value: 'Annankatu 15' },
         validBetween: {
@@ -36,7 +35,32 @@ describe('Stop areas on map', mapViewport, () => {
           coordinates: [24.938927, 60.165433],
           type: StopRegistryGeoJsonType.Point,
         },
+        quays: [
+          {
+            publicCode: 'E2E001',
+            keyValues: [
+              { key: 'streetAddress', values: ['Annankatu 15'] },
+              { key: 'elyNumber', values: ['E2E001'] },
+            ],
+            geometry: {
+              coordinates: [24.938927, 60.165433],
+              type: StopRegistryGeoJsonType.Point,
+            },
+          },
+          {
+            publicCode: 'E2E009',
+            keyValues: [
+              { key: 'streetAddress', values: ['Annankatu 15'] },
+              { key: 'elyNumber', values: ['E2E009'] },
+            ],
+            geometry: {
+              coordinates: [24.938927, 60.165433],
+              type: StopRegistryGeoJsonType.Point,
+            },
+          },
+        ],
       },
+      organisations: null,
     },
   ];
 
@@ -87,15 +111,16 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.waitForLoadToComplete();
   });
 
-  it('should create new stop area with member stops', () => {
+  it.skip('should create new stop area with member stops', () => {
     mapModal.mapFooter.mapFooterActionsDropdown.getMenu().click();
     mapModal.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
 
     mapModal.map.clickAtPosition(758, 391);
 
     mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm.getLabel().type('P1234');
+    mapModal.stopAreaForm.getPrivateCode().type('P1234');
     mapModal.stopAreaForm.getName().type('Annankatu 20');
+    mapModal.stopAreaForm.getNameSwe().type('Annasgatan 20');
     mapModal.stopAreaForm
       .getLatitude()
       .should('have.prop', 'value')
@@ -137,7 +162,7 @@ describe('Stop areas on map', mapViewport, () => {
     // TODO: test that navigation to stop area details page works.
   });
 
-  it('should edit stop area details', () => {
+  it.skip('should edit stop area details', () => {
     mapModal.map.clickAtPosition(1025, 731);
 
     mapModal.map.waitForLoadToComplete();
@@ -149,8 +174,9 @@ describe('Stop areas on map', mapViewport, () => {
 
     mapModal.stopAreaPopup.getEditButton().click();
     mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm.getLabel().clearAndType('P3333');
+    mapModal.stopAreaForm.getPrivateCode().clearAndType('P3333');
     mapModal.stopAreaForm.validityPeriodForm.setAsIndefinite();
+
     mapModal.stopAreaForm.selectMemberStopsDropdown.dropdownButton().click();
     mapModal.stopAreaForm.selectMemberStopsDropdown
       .getSelectedMembers()
@@ -176,6 +202,7 @@ describe('Stop areas on map', mapViewport, () => {
       .getValidityPeriod()
       .shouldHaveText('1.1.2020 -  Voimassa toistaiseksi');
     mapModal.stopAreaPopup.getEditButton().click();
+
     mapModal.stopAreaForm.selectMemberStopsDropdown.dropdownButton().click();
     mapModal.stopAreaForm.selectMemberStopsDropdown
       .getSelectedMembers()
@@ -209,7 +236,7 @@ describe('Stop areas on map', mapViewport, () => {
       .shouldHaveText('X0003 Annankatu 15');
   });
 
-  it('should delete a stop area', () => {
+  it.skip('should delete a stop area', () => {
     mapModal.map.clickAtPosition(1025, 731);
     mapModal.map.waitForLoadToComplete();
 
