@@ -28,6 +28,7 @@ const testIds = {
   form: 'StopAreaFormComponent::form',
   privateCode: 'StopAreaFormComponent::privateCode',
   name: 'StopAreaFormComponent::name',
+  nameSwe: 'StopAreaFormComponent::nameSwe',
   latitude: 'StopAreaFormComponent::latitude',
   longitude: 'StopAreaFormComponent::longitude',
   quays: 'StopAreaFormComponent::quays',
@@ -144,6 +145,14 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
                 translationPrefix="stopArea"
                 fieldPath="name"
                 testId={testIds.name}
+              />
+            </Column>
+            <Column>
+              <InputField<FormState>
+                type="text"
+                translationPrefix="stopArea"
+                fieldPath="nameSwe"
+                testId={testIds.nameSwe}
               />
             </Column>
           </FormRow>
