@@ -388,6 +388,7 @@
       }
     },
     "actions": {
+      "showVersions": "Versions",
       "extra": {
         "copy": "Make a new copy"
       }

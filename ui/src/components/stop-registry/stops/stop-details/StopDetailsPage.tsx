@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { useGetStopDetails, useRequiredParams } from '../../../../hooks';
-import { Container, Visible } from '../../../../layoutComponents';
+import { Container, Row, Visible } from '../../../../layoutComponents';
+import { Path, routeDetails } from '../../../../router/routeDetails';
 import { mapToShortDate } from '../../../../time';
+import { SimpleButton } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { ObservationDateControl } from '../../../common/ObservationDateControl';
-import { FormRow } from '../../../forms/common';
 import { BasicDetailsSection } from './basic-details/BasicDetailsSection';
 import {
   DetailTabSelector,
@@ -24,6 +25,7 @@ import { StopTitleRow } from './title-row/StopTitleRow';
 
 const testIds = {
   page: 'StopDetailsPage::page',
+  versionsLink: 'StopDetailsPage::versionsLink',
   validityPeriod: 'StopDetailsPage::validityPeriod',
   basicDetailsTabPanel: 'StopDetailsPage::basicDetailsTabPanel',
   technicalFeaturesTabPanel: 'StopDetailsPage::technicalFeaturesTabPanel',
@@ -43,10 +45,16 @@ export const StopDetailsPage = (): React.ReactElement => {
     <Container testId={testIds.page}>
       <StopTitleRow stopDetails={stopDetails} label={label} />
       <StopHeaderSummaryRow className="my-2" stopDetails={stopDetails} />
-      <FormRow mdColumns={6}>
+      <Row className="items-end justify-end gap-4">
         {/* TODO: Stop/Announcement/Breakroom/Lines tabs */}
         <ObservationDateControl className="col-start-6" />
-      </FormRow>
+        <SimpleButton
+          inverted
+          href={routeDetails[Path.stopVersions].getLink(label)}
+        >
+          {t('stopDetails.actions.showVersions')}
+        </SimpleButton>
+      </Row>
       <hr className="my-4" />
       <div className="my-4 flex items-center">
         <h2 className="">{t('stopDetails.stopDetails')}</h2>

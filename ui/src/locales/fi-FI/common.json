@@ -388,6 +388,7 @@
       }
     },
     "actions": {
+      "showVersions": "Versiot",
       "extra": {
         "copy": "Kopioi uudeksi versioksi"
       }
