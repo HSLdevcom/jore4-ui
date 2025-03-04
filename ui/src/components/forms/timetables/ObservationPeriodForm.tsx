@@ -10,8 +10,8 @@ import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { Row } from '../../../layoutComponents/Row';
 import { selectTimetable } from '../../../redux';
+import { DateRange } from '../../../types';
 import { SimpleButton } from '../../../uiComponents';
-import { DateRange } from '../../timetables/substitute-day-settings/DateRange';
 import { InputField, requiredDate } from '../common';
 
 const testIds = {

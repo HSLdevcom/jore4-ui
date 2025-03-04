@@ -10,6 +10,7 @@ import { useAppDispatch } from '../../../../hooks';
 import { Row } from '../../../../layoutComponents';
 import { setIsCommonSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
 import { mapToISODate, padToTwoDigits } from '../../../../time';
+import { DateRange } from '../../../../types';
 import { ConfirmationDialog, SimpleButton } from '../../../../uiComponents';
 import {
   mapDateTimeToFormState,
@@ -18,7 +19,6 @@ import {
   submitFormByRef,
 } from '../../../../utils';
 import { commonSubstituteDayData } from '../common_substitute_day_data';
-import { DateRange } from '../DateRange';
 import {
   CommonDayType,
   FormState,

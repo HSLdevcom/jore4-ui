@@ -5,9 +5,9 @@ import {
   useEditSubstituteOperatingPeriod,
   useGetCommonSubstituteOperatingPeriods,
 } from '../../../../hooks/substitute-operating-periods';
+import { DateRange } from '../../../../types';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { showDangerToastWithError, showSuccessToast } from '../../../../utils';
-import { DateRange } from '../DateRange';
 import {
   CommonSubstitutePeriodForm,
   mapCommonSubstituteOperatingPeriodsToCommonDays,
