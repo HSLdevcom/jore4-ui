@@ -1,17 +1,17 @@
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { IconButton } from './IconButton';
+import { FC } from 'react';
+import { ExpandButton } from './ExpandButton';
 
-type Props = {
-  className?: string;
-  isToggled: boolean;
-  testId?: string;
-  onClick: () => void;
-  controls: string;
-  openTooltip: string;
-  closeTooltip: string;
+type ChevronToggleProps = {
+  readonly className?: string;
+  readonly isToggled: boolean;
+  readonly testId?: string;
+  readonly onClick: () => void;
+  readonly controls: string;
+  readonly openTooltip: string;
+  readonly closeTooltip: string;
 };
 
-export const ChevronToggle = ({
+export const ChevronToggle: FC<ChevronToggleProps> = ({
   className,
   isToggled,
   onClick,
@@ -19,25 +19,16 @@ export const ChevronToggle = ({
   controls,
   openTooltip,
   closeTooltip,
-}: Props): React.ReactElement => {
-  const iconClassName = 'text-3xl text-tweaked-brand';
+}) => {
   return (
-    <IconButton
+    <ExpandButton
+      ariaControls={controls}
       className={className}
-      tooltip={isToggled ? closeTooltip : openTooltip}
+      expanded={isToggled}
+      expandedText=""
       onClick={onClick}
-      icon={
-        isToggled ? (
-          <FaChevronUp className={iconClassName} aria-hidden />
-        ) : (
-          <FaChevronDown className={iconClassName} aria-hidden />
-        )
-      }
-      ariaAttributes={{
-        ariaExpanded: isToggled,
-        ariaControls: controls,
-      }}
       testId={testId}
+      title={isToggled ? closeTooltip : openTooltip}
     />
   );
 };
