@@ -1025,5 +1025,37 @@
       "topic": "Väliaikainen versio vaihtuu",
       "description": "Voimassaolo päättyy 20 päivän sisällä."
     }
+  },
+  "stopVersion": {
+    "title": "Versiot | Pysäkki {{publicCode}}",
+    "titleWithName": "Versiot | Pysäkki {{publicCode}} {{name}}",
+    "loading": "Ladataan versiotietoja",
+    "goBack": "Palaa",
+    "scheduled": {
+      "title": "Kalenteroidut",
+      "show": "Näytä kalenteroidut",
+      "hide": "Piilota kalenteroidut",
+      "noVersions": "Valitulla aikavälillä ei ole yhtään kalenteroitua pysäkkiversiota."
+    },
+    "drafts": {
+      "title": "Luonnokset",
+      "show": "Näytä luonnokset",
+      "hide": "Piilota luonnokset",
+      "noVersions": "Pysäkiin ei liity yhtään luonnosta."
+    },
+    "header": {
+      "status": "Status",
+      "validity_start": "Alkaa",
+      "validity_end": "Loppuu",
+      "version_comment": "Version nimi",
+      "changed": "Muokattu",
+      "changed_by": "Muokkaaja"
+    },
+    "status": {
+      "active": "Voimassa",
+      "standard": "$t(priority.standard)",
+      "temporary": "$t(priority.temporary)",
+      "draft": "$t(priority.draft)"
+    }
   }
 }

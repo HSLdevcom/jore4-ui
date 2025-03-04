@@ -1025,5 +1025,37 @@
       "topic": "Temporary version will change",
       "description": "Validity will end within 20 days."
     }
+  },
+  "stopVersion": {
+    "title": "Versions | Stop {{publicCode}}",
+    "titleWithName": "Versions | Stop {{publicCode}} {{name}}",
+    "loading": "Loading version information",
+    "goBack": "Go back",
+    "scheduled": {
+      "title": "Scheduled",
+      "show": "Show scheduled",
+      "hide": "Hide scheduled",
+      "noVersions": "No scheduled versions in the selected time range."
+    },
+    "drafts": {
+      "title": "Drafts",
+      "show": "Show drafts",
+      "hide": "Hide drafts",
+      "noVersions": "The stop has no draft verisons."
+    },
+    "header": {
+      "status": "Status",
+      "validity_start": "Valid from",
+      "validity_end": "Valid to",
+      "version_comment": "Version name",
+      "changed": "Changed",
+      "changed_by": "Changed by"
+    },
+    "status": {
+      "active": "Active",
+      "standard": "$t(priority.standard)",
+      "temporary": "$t(priority.temporary)",
+      "draft": "$t(priority.draft)"
+    }
   }
 }
