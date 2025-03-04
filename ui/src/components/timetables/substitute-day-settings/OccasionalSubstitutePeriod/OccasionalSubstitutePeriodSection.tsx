@@ -6,11 +6,11 @@ import {
   useEditSubstituteOperatingPeriod,
   useGetOccasionalSubstituteOperatingPeriods,
 } from '../../../../hooks/substitute-operating-periods';
+import { DateRange } from '../../../../types';
 import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../../utils/toastService';
-import { DateRange } from '../DateRange';
 import {
   OccasionalSubstitutePeriodForm,
   findEarliestDate,
