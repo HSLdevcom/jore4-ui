@@ -21,7 +21,7 @@ export enum Path {
   // Stop registry
   stopSearch = '/stop-registry/search',
   stopDetails = '/stop-registry/stops/:label',
-  // stopVersions = '/stop-registry/stops/:label/versions',
+  stopVersions = '/stop-registry/stops/:label/versions',
   // stopChangeHistory = '/stop-registry/stops/:label/history',
   // terminalDetails = '/stop-registry/terminals/:id',
   stopAreaDetails = '/stop-registry/stop-areas/:id',
@@ -119,6 +119,10 @@ export const routeDetails: Record<Path, RouteDetail> = {
   },
   [Path.stopDetails]: {
     getLink: (label: string) => Path.stopDetails.replace(':label', label),
+    includeInNav: false,
+  },
+  [Path.stopVersions]: {
+    getLink: (label: string) => Path.stopVersions.replace(':label', label),
     includeInNav: false,
   },
   [Path.stopAreaDetails]: {
