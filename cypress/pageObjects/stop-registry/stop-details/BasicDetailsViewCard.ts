@@ -5,7 +5,7 @@ export class BasicDetailsViewCard {
 
   getLabel = () => cy.getByTestId('BasicDetailsSection::label');
 
-  getPublicCode = () => cy.getByTestId('BasicDetailsSection::publicCode');
+  getPrivateCode = () => cy.getByTestId('BasicDetailsSection::privateCode');
 
   getNameFin = () => cy.getByTestId('BasicDetailsSection::nameFin');
 
