@@ -131,6 +131,10 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
         generalSign: seedStopPlace.signs && [
           {
             signContentType: StopRegistrySignContentType.TransportMode,
+            privateCode: {
+              type: 'HSL',
+              value: seedStopPlace.signs.signType,
+            },
             numberOfFrames: seedStopPlace.signs.numberOfFrames,
             lineSignage: seedStopPlace.signs.lineSignage,
             mainLineSign: seedStopPlace.signs.mainLineSign,
@@ -153,24 +157,26 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
       },
 
       // Accessibility properties:
-      accessibilityAssessment:
-        (seedStopPlace.accessibilityProperties ??
-        seedStopPlace.accessibilityLimitations)
-          ? {
-              hslAccessibilityProperties:
-                seedStopPlace.accessibilityProperties ?? null,
-              limitations: seedStopPlace.accessibilityLimitations && {
-                ...defaultAccessibilityLimitations,
-                ...seedStopPlace.accessibilityLimitations,
-              },
-            }
-          : undefined,
+      accessibilityAssessment: (seedStopPlace.accessibilityProperties ??
+        seedStopPlace.accessibilityLimitations) && {
+        hslAccessibilityProperties:
+          seedStopPlace.accessibilityProperties ?? null,
+        limitations: seedStopPlace.accessibilityLimitations && {
+          ...defaultAccessibilityLimitations,
+          ...seedStopPlace.accessibilityLimitations,
+        },
+      },
 
       keyValues: [
         getKeyValue('elyNumber', seedStopPlace.elyNumber),
         getKeyValue('streetAddress', seedStopPlace.streetAddress),
         getKeyValue('postalCode', seedStopPlace.postalCode),
         getKeyValue('functionalArea', seedStopPlace.functionalArea),
+        getKeyValue('stopState', seedStopPlace.stopState),
+        getKeyValue('mainLine', seedStopPlace.stopType?.mainLine),
+        getKeyValue('interchange', seedStopPlace.stopType?.interchange),
+        getKeyValue('railReplacement', seedStopPlace.stopType?.railReplacement),
+        getKeyValue('virtual', seedStopPlace.stopType?.virtual),
         getKeyValue('priority', seedStopPlace.priority),
         getKeyValue('validityStart', seedStopPlace.validityStart),
         getKeyValue('validityEnd', seedStopPlace.validityEnd),
@@ -181,8 +187,8 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
 // Gets unnecessarily long and ugly with "prettier" so disabling it for these arrays.
 // prettier-ignore
 const route35Stops: Array<StopPlaceQuaySeedData> = [
-  { publicCode: 'H1376', privateCode: "111110", locationLong: 24.885561, locationLat: 60.198389, locationFin: 'Raakunantie 8', locationSwe: 'Dragonvägen 8' },
-  { publicCode: 'H1377', privateCode: "111111", locationLong: 24.87594,  locationLat: 60.205858, locationFin: 'Munkkivuoren kirkko',locationSwe: 'Munkshöjdens kyrka' },
+  { publicCode: 'H1376', privateCode: "111110", locationLong: 24.885561, locationLat: 60.198389, locationFin: 'Raakunantie 8', locationSwe: 'Dragonvägen 8', stopArea: 'X1302' },
+  { publicCode: 'H1377', privateCode: "111111", locationLong: 24.87594,  locationLat: 60.205858, locationFin: 'Munkkivuoren kirkko',locationSwe: 'Munkshöjdens kyrka', stopArea: 'X1302' },
   { publicCode: 'H1398', privateCode: "111112", locationLong: 24.88078,  locationLat: 60.20663,  locationFin: 'Lapinmäentie 1',locationSwe: 'Labbackavägen 1' }, // Lapinmäentie
   { publicCode: 'H1416', privateCode: "111113", locationLong: 24.879,    locationLat: 60.2055,   locationFin: 'Raumantie 1',locationSwe: 'Raumovägen 1' }, // Raumantie
   { publicCode: 'H1451', privateCode: "111114", locationLong: 24.883581, locationLat: 60.205589, locationFin: 'Niemenmäentie 9',locationSwe: 'Näshöjdasvägen 9' }, // Opposite of H1452

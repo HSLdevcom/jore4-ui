@@ -2,6 +2,7 @@ import {
   StopRegistryGeoJsonType,
   StopRegistryNameType,
   StopRegistryStopPlaceInput,
+  StopRegistryTransportModeType,
 } from '../../generated/graphql';
 import { StopPlaceMaintenance } from './stopPlaces';
 import { getKeyValue } from './utils';
@@ -31,6 +32,7 @@ export type StopAreaInput = {
 const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
   return {
     StopArea: {
+      transportMode: StopRegistryTransportModeType.Bus,
       alternativeNames: [
         seedStopArea.abbreviationFin5Char
           ? {

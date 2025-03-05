@@ -13,6 +13,7 @@ import {
 import {
   StopRegistryNameType,
   StopRegistryStopPlaceInput,
+  StopRegistryTransportModeType,
 } from './generated/graphql';
 import {
   insertInfoSpots,
@@ -61,6 +62,7 @@ const seedStopRegistry = async () => {
             },
           },
         ],
+        transportMode: StopRegistryTransportModeType.Bus,
         privateCode: { value: quay.quay.publicCode ?? 'missingName' },
         geometry: quay.quay.geometry,
         quays: [quay.quay],
