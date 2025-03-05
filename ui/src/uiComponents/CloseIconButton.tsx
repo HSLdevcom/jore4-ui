@@ -1,25 +1,28 @@
-interface Props {
-  onClick: () => void;
-  className?: string;
-  label?: string;
-  testId: string;
-}
+import { FC, ReactNode } from 'react';
+import { twJoin } from 'tailwind-merge';
+import { TextAndIconButton } from './TextAndIconButton';
 
-export const CloseIconButton = ({
-  onClick,
-  className = '',
+type CloseIconButtonProps = {
+  readonly className?: string;
+  readonly label?: ReactNode;
+  readonly onClick: () => void;
+  readonly testId: string;
+};
+
+export const CloseIconButton: FC<CloseIconButtonProps> = ({
+  className,
   label,
+  onClick,
   testId,
-}: Props): React.ReactElement => {
+}) => {
   return (
-    <button
-      className={className}
-      type="button"
-      onClick={onClick}
+    <TextAndIconButton
+      className={twJoin('gap-4', className)}
       data-testid={testId}
-    >
-      {label}
-      <i className="icon-close-large ml-4 text-lg" />
-    </button>
+      icon={<i className="icon-close-large text-lg" />}
+      onClick={onClick}
+      text={label}
+      type="button"
+    />
   );
 };
