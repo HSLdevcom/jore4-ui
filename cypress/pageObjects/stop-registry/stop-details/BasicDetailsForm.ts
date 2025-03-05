@@ -5,7 +5,8 @@ export class BasicDetailsForm {
 
   getLabelInput = () => cy.getByTestId('StopBasicDetailsForm::label');
 
-  getPublicCodeInput = () => cy.getByTestId('StopBasicDetailsForm::publicCode');
+  getPrivateCodeInput = () =>
+    cy.getByTestId('StopBasicDetailsForm::privateCode');
 
   getNameFinInput = () => cy.getByTestId('StopBasicDetailsForm::nameFin');
 
