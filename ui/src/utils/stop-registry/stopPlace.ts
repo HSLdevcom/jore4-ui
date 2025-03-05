@@ -190,6 +190,7 @@ export const getQuayDetailsForEnrichment = <
 ): QuayEnrichmentProperties => {
   return {
     elyNumber: findKeyValue(quay, 'elyNumber'),
+    privateCode: quay.privateCode?.value ?? null,
     locationFin: quay.description?.value ?? null,
     locationSwe:
       findAlternativeName(quay, 'swe', StopRegistryNameType.Other)?.value ??
