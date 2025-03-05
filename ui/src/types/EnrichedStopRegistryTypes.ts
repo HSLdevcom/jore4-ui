@@ -25,6 +25,7 @@ export type StopPlaceEnrichmentProperties = {
 
 export type QuayEnrichmentProperties = {
   readonly elyNumber: string | null;
+  readonly privateCode: string | null;
   readonly locationFin: string | null;
   readonly locationSwe: string | null;
   readonly streetAddress: string | null;

@@ -165,7 +165,6 @@ export const useEditStopBasicDetails = () => {
 
     return {
       id: stopPlaceId,
-      privateCode: { value: state.privateCode, type: 'HSL' },
       name: {
         lang: 'fin',
         value: state.nameFin,
@@ -214,6 +213,7 @@ export const useEditStopBasicDetails = () => {
         ...otherQuays,
         {
           publicCode: state.label,
+          privateCode: { value: state.privateCode, type: 'HSL' },
           id: stopPlaceQuayId,
           description: { value: state.locationFin, lang: 'fin' },
           alternativeNames: patchAlternativeNames(stop.stop_place, [
