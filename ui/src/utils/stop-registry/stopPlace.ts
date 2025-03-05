@@ -9,11 +9,13 @@ import {
   StopRegistryNameType,
   StopRegistryParentStopPlace,
   StopRegistryQuay,
+  StopRegistryQuayInput,
   StopRegistryStopPlace,
   StopRegistryStopPlaceInput,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
 import {
+  EnrichedQuay,
   QuayEnrichmentProperties,
   StopPlaceEnrichmentProperties,
 } from '../../types';
@@ -245,17 +247,11 @@ export const getStopPlaceDetailsForEnrichment = <
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Alias)
         ?.value || undefined,
     abbreviationFin:
-      findAlternativeName(
-        stopPlace.quays?.[0] ?? {},
-        'fin',
-        StopRegistryNameType.Alias,
-      )?.value || undefined,
+      findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Other)
+        ?.value || undefined,
     abbreviationSwe:
-      findAlternativeName(
-        stopPlace.quays?.[0] ?? {},
-        'swe',
-        StopRegistryNameType.Alias,
-      )?.value || undefined,
+      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
+        ?.value || undefined,
     abbreviation5CharFin:
       findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Label)
         ?.value || undefined,
