@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, To } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
 interface CommonButtonProps {
@@ -24,11 +24,14 @@ interface ButtonProps {
   onClick?: () => void;
   type?: 'button' | 'reset' | 'submit' | undefined;
   href?: never;
+  state?: never;
 }
+
 interface LinkButtonProps {
   onClick?: never;
   type?: never;
-  href: string;
+  href: To;
+  state?: unknown;
 }
 
 type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
@@ -67,6 +70,7 @@ export const SimpleButton: React.FC<Props> = ({
   type = 'button',
   onClick,
   href,
+  state,
 }) => {
   const colorClassNames = inverted
     ? `text-brand bg-white border border-grey active:border-brand ${invertedClassName}`
@@ -94,6 +98,7 @@ export const SimpleButton: React.FC<Props> = ({
           type="button"
           // @ts-expect-error we want to pass undefined as href for disabled buttons
           to={disabled ? undefined : href}
+          state={state}
           aria-disabled={disabled}
           tabIndex={disabled ? -1 : undefined}
           data-testid={testId}
