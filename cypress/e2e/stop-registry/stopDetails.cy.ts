@@ -1,16 +1,18 @@
 import {
   GetInfrastructureLinksByExternalIdsResult,
   Priority,
+  StopAreaInput,
   StopInsertInput,
-  StopPlaceInput,
+  StopRegistryNameType,
+  StopRegistryTransportModeType,
   buildStop,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
   mapToGetInfrastructureLinksByExternalIdsQuery,
+  quayH2003,
+  quayV1562,
   seedInfoSpots,
   seedOrganisations,
-  stopPlaceH2003,
-  stopPlaceV1562,
 } from '@hsl/jore4-test-db-manager';
 import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
@@ -62,13 +64,71 @@ const timingPlaces = [
   buildTimingPlace('0388c3fb-a08b-461c-8655-581f06e9c2f5', '1AURLA'),
 ];
 
-const stopPlaceData: Array<StopPlaceInput> = [
+const stopAreaInput: Array<StopAreaInput> = [
   {
-    label: 'H1122',
-    stopPlace: { name: { lang: 'fin', value: 'Puistokaari' } },
+    StopArea: {
+      name: { lang: 'fin', value: 'Puistokaari' },
+      quays: [
+        {
+          publicCode: 'H1122',
+        },
+      ],
+    },
+    organisations: null,
   },
-  stopPlaceH2003,
-  stopPlaceV1562,
+  {
+    StopArea: {
+      name: { lang: 'fin', value: 'Pohjoisesplanadi' },
+      transportMode: StopRegistryTransportModeType.Bus,
+      alternativeNames: [
+        {
+          name: { lang: 'swe', value: 'Norraesplanaden' },
+          nameType: StopRegistryNameType.Translation,
+        },
+        {
+          name: { lang: 'fin', value: 'P.Esp' },
+          nameType: StopRegistryNameType.Label,
+        },
+        {
+          name: { lang: 'swe', value: 'N.Esp' },
+          nameType: StopRegistryNameType.Label,
+        },
+        {
+          name: { lang: 'fin', value: 'Pohjoisesplanadi (pitkä)' },
+          nameType: StopRegistryNameType.Alias,
+        },
+        {
+          name: { lang: 'swe', value: 'Norraesplanaden (lång)' },
+          nameType: StopRegistryNameType.Alias,
+        },
+        {
+          name: { lang: 'fin', value: 'Pohj.esplanadi' },
+          nameType: StopRegistryNameType.Other,
+        },
+        {
+          name: { lang: 'swe', value: 'N.esplanaden' },
+          nameType: StopRegistryNameType.Other,
+        },
+      ],
+      geometry: quayH2003.quay.geometry,
+      quays: [quayH2003.quay],
+    },
+    organisations: {
+      cleaning: 'Clear Channel',
+      infoUpkeep: null,
+      maintenance: 'ELY-keskus',
+      owner: 'JCD',
+      winterMaintenance: 'ELY-keskus',
+    },
+  },
+  {
+    StopArea: {
+      name: { lang: 'fin', value: 'V1562' },
+      geometry: quayV1562.quay.geometry,
+      quays: [quayV1562.quay],
+    },
+    organisations: null,
+  },
 ];
 
 const buildScheduledStopPoints = (
@@ -153,7 +213,7 @@ describe('Stop details', () => {
       // Inserting the terminals here causes it's child stop H0003,
       // to generate extra versions of it's quay, which breaks info spots.
       // terminals: seedTerminals,
-      stopPlaces: stopPlaceData,
+      stopAreas: stopAreaInput,
       organisations: seedOrganisations,
       infoSpots: seedInfoSpots,
     });
@@ -169,7 +229,7 @@ describe('Stop details', () => {
 
     bdView.getContent().shouldBeVisible();
     bdView.getLabel().shouldHaveText('H2003');
-    bdView.getPublicCode().shouldHaveText('10003');
+    bdView.getPrivateCode().shouldHaveText('10003');
     bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
     bdView.getNameSwe().shouldHaveText('Norraesplanaden');
     bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
@@ -448,7 +508,7 @@ describe('Stop details', () => {
 
         bdView.getContent().shouldBeVisible();
         bdView.getLabel().shouldHaveText('H2003');
-        bdView.getPublicCode().shouldHaveText('10003');
+        bdView.getPrivateCode().shouldHaveText('10003');
         bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
         bdView.getNameSwe().shouldHaveText('Norraesplanaden');
 
@@ -469,7 +529,7 @@ describe('Stop details', () => {
 
         // Verify correct initial values.
         bdForm.getLabelInput().should('have.value', 'H2003');
-        bdForm.getPublicCodeInput().should('have.value', '10003');
+        bdForm.getPrivateCodeInput().should('have.value', '10003');
         bdForm.getNameFinInput().should('have.value', 'Pohjoisesplanadi');
         bdForm.getNameSweInput().should('have.value', 'Norraesplanaden');
         bdForm
@@ -490,7 +550,7 @@ describe('Stop details', () => {
         bdForm.getAbbreviation5CharSweInput().should('have.value', 'N.Esp');
         bdForm.getElyNumberInput().should('have.value', '1234567');
 
-        bdForm.getPublicCodeInput().clearAndType('10004');
+        bdForm.getPrivateCodeInput().clearAndType('10004');
         bdForm.getNameFinInput().clearAndType('NewPohjoisesplanadi');
         bdForm.getNameSweInput().clearAndType('NewNorraesplanaden');
 
@@ -512,7 +572,7 @@ describe('Stop details', () => {
         toast.expectSuccessToast('Pysäkki muokattu');
 
         bdView.getLabel().shouldHaveText('H2003');
-        bdView.getPublicCode().shouldHaveText('10004');
+        bdView.getPrivateCode().shouldHaveText('10004');
         bdView.getNameFin().shouldHaveText('NewPohjoisesplanadi');
         bdView.getNameSwe().shouldHaveText('NewNorraesplanaden');
         bdView.getNameLongFin().shouldHaveText('NewPohjoisesplanadi (pitkä)');
@@ -568,7 +628,7 @@ describe('Stop details', () => {
         // of data, so all these checks are here to make sure that
         // the saves do not change other fields.
         bdView.getLabel().shouldHaveText('H2003');
-        bdView.getPublicCode().shouldHaveText('10003');
+        bdView.getPrivateCode().shouldHaveText('10003');
         bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
         bdView.getNameSwe().shouldHaveText('Norraesplanaden');
         bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
