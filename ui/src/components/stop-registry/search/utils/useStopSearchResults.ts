@@ -110,7 +110,7 @@ function getOrderBy({
       return [{ stop_place: { name_value: direction } }, byPublicCode];
 
     default:
-      return { id: direction };
+      return [{ id: direction }];
   }
 }
 
