@@ -4,7 +4,7 @@ import { StopBasicDetailsFormState } from './schema';
 
 const testIds = {
   label: 'StopBasicDetailsForm::label',
-  publicCode: 'StopBasicDetailsForm::publicCode',
+  privateCode: 'StopBasicDetailsForm::privateCode',
   nameFin: 'StopBasicDetailsForm::nameFin',
   nameSwe: 'StopBasicDetailsForm::nameSwe',
 };
@@ -28,7 +28,7 @@ export const StopLabelAndNameFormRow = () => {
           type="text"
           translationPrefix="stopDetails.basicDetails"
           fieldPath="privateCode"
-          testId={testIds.publicCode}
+          testId={testIds.privateCode}
         />
       </Column>
       <Column>

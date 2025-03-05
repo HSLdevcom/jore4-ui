@@ -51,7 +51,7 @@ export const BasicDetailsViewCard = ({ stop }: Props) => {
         />
         <LabeledDetail
           title={t('stopDetails.basicDetails.privateCode')}
-          detail={stop.quay?.privateCode?.value}
+          detail={stop.quay?.privateCode}
           testId={testIds.privateCode}
         />
         <LabeledDetail

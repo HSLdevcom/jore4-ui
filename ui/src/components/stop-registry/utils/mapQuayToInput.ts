@@ -3,19 +3,20 @@ import {
   Maybe,
   StopRegistryBoardingPosition,
   StopRegistryBoardingPositionInput,
-  StopRegistryQuay,
   StopRegistryQuayInput,
 } from '../../../generated/graphql';
+import { EnrichedQuay } from '../../../types';
 import {
   mapAccessibilityAssessmentToInput,
   mapAlternativeNames,
   mapCompactOrNull,
   mapGeoJsonToInput,
   mapPlaceEquipmentsToInput,
-  mapPrivateCodeToInput,
   omitTypeName,
 } from './copyEntityUtilities';
 
+// Boarding positions are not currently used
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function mapBoardingPositionsToInput(
   positions:
     | ReadonlyArray<Maybe<StopRegistryBoardingPosition>>
@@ -29,20 +30,17 @@ function mapBoardingPositionsToInput(
 }
 
 export function mapQuayToInput(
-  quay: Omit<StopRegistryQuay, 'scheduled_stop_point'>,
+  quay: Omit<EnrichedQuay, 'scheduled_stop_point'>,
 ): StopRegistryQuayInput {
   return {
     ...pick(quay, ['compassBearing', 'keyValues', 'publicCode']),
-    name: omitTypeName(quay.name),
     description: omitTypeName(quay.description),
-    shortName: omitTypeName(quay.shortName),
     alternativeNames: mapAlternativeNames(quay.alternativeNames),
     accessibilityAssessment: mapAccessibilityAssessmentToInput(
       quay.accessibilityAssessment,
     ),
-    boardingPositions: mapBoardingPositionsToInput(quay.boardingPositions),
     geometry: mapGeoJsonToInput(quay.geometry),
     placeEquipments: mapPlaceEquipmentsToInput(quay.placeEquipments),
-    privateCode: mapPrivateCodeToInput(quay.privateCode),
+    privateCode: { value: quay.privateCode ?? '', type: 'HSL' },
   };
 }
