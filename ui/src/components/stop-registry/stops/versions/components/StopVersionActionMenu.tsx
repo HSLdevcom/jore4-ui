@@ -5,7 +5,7 @@ import {
   SimpleDropdownMenu,
 } from '../../../../../uiComponents';
 import { OpenDetailsPage, ShowOnMap } from '../../../components';
-import { LocatableStop } from '../../../types';
+import { ActionMenuStop } from '../types/ActionMenuStop';
 
 const testIds = {
   actionMenu: 'StopVersion::actionMenu',
@@ -13,12 +13,12 @@ const testIds = {
 
 type StopVersionActionMenuProps = {
   readonly className?: string;
-  readonly locatableStop: LocatableStop;
+  readonly stop: ActionMenuStop;
 };
 
 export const StopVersionActionMenu: FC<StopVersionActionMenuProps> = ({
   className,
-  locatableStop,
+  stop,
 }) => {
   const { t } = useTranslation();
 
@@ -30,8 +30,8 @@ export const StopVersionActionMenu: FC<StopVersionActionMenuProps> = ({
       alignItems={AlignDirection.LeftBottom}
       testId={testIds.actionMenu}
     >
-      <ShowOnMap stop={locatableStop} />
-      <OpenDetailsPage stop={locatableStop} />
+      <ShowOnMap stop={stop} observeOnStopValidityStartDate />
+      <OpenDetailsPage stop={stop} observationDate={stop.startDate} />
     </SimpleDropdownMenu>
   );
 };
