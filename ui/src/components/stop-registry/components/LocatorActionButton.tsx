@@ -1,13 +1,12 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LocatorButton } from '../../../uiComponents';
-import { LocatableStopProps } from '../types';
+import { LocatableStopWithObserveOnValidityStartProps } from '../types';
 import { useShowStopOnMap } from '../utils/useShowStopOnMap';
 
-export const LocatorActionButton: FC<LocatableStopProps> = ({
-  className,
-  stop,
-}) => {
+export const LocatorActionButton: FC<
+  LocatableStopWithObserveOnValidityStartProps
+> = ({ className, observeOnStopValidityStartDate = false, stop }) => {
   const { t } = useTranslation();
 
   const openStopOnMap = useShowStopOnMap();
@@ -15,7 +14,7 @@ export const LocatorActionButton: FC<LocatableStopProps> = ({
   return (
     <LocatorButton
       className={className}
-      onClick={() => openStopOnMap(stop)}
+      onClick={() => openStopOnMap(stop, observeOnStopValidityStartDate)}
       tooltipText={t('accessibility:common.showOnMap', {
         label: stop.label,
       })}
