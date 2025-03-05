@@ -1,35 +1,38 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC, ReactNode } from 'react';
+import { Link, To } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
-interface CommonButtonProps {
-  id?: string;
-  className?: string;
-  testId?: string;
-  inverted?: boolean;
-  selected?: boolean;
-  disabled?: boolean;
-  children?: ReactNode;
-  containerClassName?: string;
-  invertedClassName?: string;
-  tooltip?: string;
-  disabledTooltip?: string;
-  ariaSelected?: boolean;
-  role?: string;
-  ariaControls?: string;
-}
+type CommonButtonProps = {
+  readonly id?: string;
+  readonly className?: string;
+  readonly testId?: string;
+  readonly inverted?: boolean;
+  readonly selected?: boolean;
+  readonly disabled?: boolean;
+  readonly children?: ReactNode;
+  readonly containerClassName?: string;
+  readonly invertedClassName?: string;
+  readonly tooltip?: string;
+  readonly disabledTooltip?: string;
+  readonly ariaSelected?: boolean;
+  readonly role?: string;
+  readonly ariaControls?: string;
+};
 
-interface ButtonProps {
-  onClick?: () => void;
-  type?: 'button' | 'reset' | 'submit' | undefined;
-  href?: never;
-}
-interface LinkButtonProps {
-  onClick?: never;
-  type?: never;
-  href: string;
-}
+type ButtonProps = {
+  readonly onClick?: () => void;
+  readonly type?: 'button' | 'reset' | 'submit' | undefined;
+  readonly href?: never;
+  readonly state?: never;
+};
+
+type LinkButtonProps = {
+  readonly onClick?: never;
+  readonly type?: never;
+  readonly href: To;
+  readonly state?: unknown;
+};
 
 type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
 
@@ -49,7 +52,7 @@ const getHoverStyles = (inverted = false, disabled = false) => {
     : `${hoverStyle} hover:bg-opacity-50`;
 };
 
-export const SimpleButton: React.FC<Props> = ({
+export const SimpleButton: FC<Props> = ({
   id,
   className = '',
   inverted,
@@ -67,6 +70,7 @@ export const SimpleButton: React.FC<Props> = ({
   type = 'button',
   onClick,
   href,
+  state,
 }) => {
   const colorClassNames = inverted
     ? `text-brand bg-white border border-grey active:border-brand ${invertedClassName}`
@@ -94,6 +98,7 @@ export const SimpleButton: React.FC<Props> = ({
           type="button"
           // @ts-expect-error we want to pass undefined as href for disabled buttons
           to={disabled ? undefined : href}
+          state={state}
           aria-disabled={disabled}
           tabIndex={disabled ? -1 : undefined}
           data-testid={testId}

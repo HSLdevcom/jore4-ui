@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
-import { useGetStopDetails, useRequiredParams } from '../../../../hooks';
+import {
+  makeBackNavigationIsSafeState,
+  useGetStopDetails,
+  useRequiredParams,
+} from '../../../../hooks';
 import { Container, Row, Visible } from '../../../../layoutComponents';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { mapToShortDate } from '../../../../time';
@@ -50,7 +54,8 @@ export const StopDetailsPage = (): React.ReactElement => {
         <ObservationDateControl className="col-start-6" />
         <SimpleButton
           inverted
-          href={routeDetails[Path.stopVersions].getLink(label)}
+          href={{ pathname: routeDetails[Path.stopVersions].getLink(label) }}
+          state={makeBackNavigationIsSafeState()}
         >
           {t('stopDetails.actions.showVersions')}
         </SimpleButton>
