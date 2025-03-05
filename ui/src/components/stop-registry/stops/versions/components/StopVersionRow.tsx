@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { mapToShortDate, mapToShortDateTime } from '../../../../../time';
 import { LocatorActionButton } from '../../../components';
-import { LocatableStop } from '../../../types';
 import { StopVersion, StopVersionStatus } from '../types';
+import { ActionMenuStop } from '../types/ActionMenuStop';
 import { trStatus } from '../utils';
 import { StopVersionActionMenu } from './StropVersionActionMenu';
 
@@ -40,10 +40,11 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const locatableStop: LocatableStop = {
+  const stopForActions: ActionMenuStop = {
     label: publicCode,
     netextId: stopVersion.netex_id,
     location: stopVersion.location,
+    startDate: stopVersion.validity_start,
   };
 
   return (
@@ -79,11 +80,14 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
       <td>{stopVersion.changed_by}</td>
 
       <td className="!px-2">
-        <LocatorActionButton stop={locatableStop} />
+        <LocatorActionButton
+          observeOnStopValidityStartDate
+          stop={stopForActions}
+        />
       </td>
 
       <td className="!p-0">
-        <StopVersionActionMenu className="p-2" locatableStop={locatableStop} />
+        <StopVersionActionMenu className="p-2" stop={stopForActions} />
       </td>
     </tr>
   );

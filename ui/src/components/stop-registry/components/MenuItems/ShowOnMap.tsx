@@ -1,7 +1,7 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SimpleDropdownMenuItem } from '../../../../uiComponents';
-import { LocatableStopProps } from '../../types';
+import { LocatableStopWithObserveOnValidityStartProps } from '../../types';
 import { useShowStopOnMap } from '../../utils/useShowStopOnMap';
 
 const testIds = {
@@ -10,8 +10,8 @@ const testIds = {
 
 const ShowOnMapImpl: ForwardRefRenderFunction<
   HTMLButtonElement,
-  LocatableStopProps
-> = ({ className, stop }, ref) => {
+  LocatableStopWithObserveOnValidityStartProps
+> = ({ className, observeOnStopValidityStartDate = false, stop }, ref) => {
   const { t } = useTranslation();
   const openStopOnMap = useShowStopOnMap();
 
@@ -20,7 +20,7 @@ const ShowOnMapImpl: ForwardRefRenderFunction<
       ref={ref}
       className={className}
       text={t('stopRegistrySearch.stopRowActions.showOnMap')}
-      onClick={() => openStopOnMap(stop)}
+      onClick={() => openStopOnMap(stop, observeOnStopValidityStartDate)}
       testId={testIds.showOnMap}
     />
   );

@@ -23,7 +23,10 @@ export function useShowStopOnMap() {
   const { openMapWithParameters } = useMapQueryParams();
   const getStopPointForQuay = useGetStopPointForQuay();
 
-  return ({ netextId, location }: LocatableStop) => {
+  return (
+    { netextId, location }: LocatableStop,
+    observeOnStopValidityStartDate: boolean = false,
+  ) => {
     Promise.all([
       netextId ? getStopPointForQuay(netextId) : Promise.resolve(null),
       dispatch(resetMapState()),
@@ -40,13 +43,18 @@ export function useShowStopOnMap() {
         }),
       );
 
+      const observeOn =
+        (observeOnStopValidityStartDate
+          ? stopPoint?.validity_start
+          : observationDate) ?? observationDate;
+
       openMapWithParameters({
         viewPortParams: {
           latitude: location.latitude,
           longitude: location.longitude,
           zoom: 15,
         },
-        observationDate,
+        observationDate: observeOn,
         displayedRouteParams: {},
       });
     });
