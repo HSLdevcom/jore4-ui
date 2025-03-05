@@ -4,6 +4,7 @@ import { FC, useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapToShortDate } from '../../../../../time';
+import { Priority } from '../../../../../types/enums';
 import { ValidationErrorList } from '../../../../forms/common';
 import { ExistingStopValidityRange, StopVersionFormState } from './types';
 
@@ -26,24 +27,36 @@ function doISODateRangesOverlap(
   return !(aIsBeforeB || aIsAfterB);
 }
 
+type FormInfo = {
+  readonly dateRange: ISODateRange;
+  readonly priority: Priority;
+};
+
 function getOverlappingValidityRange(
   existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>,
-  formRange: ISODateRange,
+  formInfo: FormInfo,
 ): ExistingStopValidityRange | null {
   return (
-    existingValidityRanges.find((dbRange) =>
-      doISODateRangesOverlap(formRange, {
+    existingValidityRanges.find((dbRange) => {
+      // Higher priority items can exist simultanioulsy with lover prio ones.
+      // They override the lower prio for the specified time period.
+      if (formInfo.priority > dbRange.priority) {
+        return false;
+      }
+
+      return doISODateRangesOverlap(formInfo.dateRange, {
         // start should newer be null, but DB field is nullable so ¯\_(ツ)_/¯
         start: dbRange.validity_start?.toISODate() ?? '0000-00-00',
         // Replace indefinite with "max" value to simplify comparisons.
         end: dbRange.validity_end?.toISODate() ?? '9999-99-99',
-      }),
-    ) ?? null
+      });
+    }) ?? null
   );
 }
 
 function resolveErrorMessage(
   t: TFunction,
+  priority: Priority,
   validityStart: string,
   validityEnd: string | undefined,
   indefinite: boolean,
@@ -68,9 +81,12 @@ function resolveErrorMessage(
   }
 
   const overlappingRange = getOverlappingValidityRange(existingValidityRanges, {
-    start: validityStart,
-    // Replace indefinite with "max" value to simplify comparisons.
-    end: indefinite ? maxDateish : (validityEnd ?? maxDateish),
+    priority,
+    dateRange: {
+      start: validityStart,
+      // Replace indefinite with "max" value to simplify comparisons.
+      end: indefinite ? maxDateish : (validityEnd ?? maxDateish),
+    },
   });
 
   if (overlappingRange) {
@@ -91,7 +107,8 @@ function useValidateValidityPeriod(
   const { clearErrors, setError, watch } =
     useFormContext<StopVersionFormState>();
 
-  const [validityStart, validityEnd, indefinite] = watch([
+  const [priority, validityStart, validityEnd, indefinite] = watch([
+    'priority',
     'validityStart',
     'validityEnd',
     'indefinite',
@@ -101,12 +118,20 @@ function useValidateValidityPeriod(
     () =>
       resolveErrorMessage(
         t,
+        priority,
         validityStart,
         validityEnd,
         indefinite,
         existingValidityRanges,
       ),
-    [t, validityStart, validityEnd, indefinite, existingValidityRanges],
+    [
+      t,
+      priority,
+      validityStart,
+      validityEnd,
+      indefinite,
+      existingValidityRanges,
+    ],
   );
 
   useEffect(() => {
