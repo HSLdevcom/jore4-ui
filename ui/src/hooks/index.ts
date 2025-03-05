@@ -17,6 +17,7 @@ export * from './useDebouncedString';
 export * from './useGetJourneyPatternIdsByRouteLabel';
 export * from './useGetTimetableVersions';
 export * from './useRequiredParams';
+export * from './useSafeBackNavigation';
 export * from './useShowRoutesOnModal';
 export * from './useToggle';
 export * from './useTypedUrlState';
