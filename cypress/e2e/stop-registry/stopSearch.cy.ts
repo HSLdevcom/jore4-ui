@@ -23,6 +23,7 @@ import {
   Pagination,
   SearchForStopAreas,
   SortByButton,
+  StopAreaDetailsPage,
   StopGroupSelector,
   StopSearchBar,
   StopSearchByLine,
@@ -662,7 +663,7 @@ describe('Stop search', () => {
       ]);
     });
 
-    it('should find X0004', () => {
+    it('should find and navigate to X0004', () => {
       stopSearchBar.searchForDropdown.openSearchForDropdown();
       stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
 
@@ -692,6 +693,37 @@ describe('Stop search', () => {
         .and('contain', '1AURLA')
         .and('contain', 'Kalevankatu 32')
         .and('contain', '20.3.2020-');
+
+      searchForStopAreas
+        .getStopAreaLink()
+        .click();
+
+      const stopAreaDetailsPage = new StopAreaDetailsPage();
+      // TODO: Refactor to check privateCode after area details tests are ready
+      stopAreaDetailsPage.details.getName().should('contain', 'Kalevankatu 32');
+
+      cy.go('back');
+
+      searchForStopAreas
+        .getActionMenu()
+        .click();
+
+      searchForStopAreas
+        .getActionMenuShowDetails()
+        .click();
+
+      stopAreaDetailsPage.details.getName().should('contain', 'Kalevankatu 32');
+
+      cy.go('back');
+
+      searchForStopAreas
+        .getActionMenu()
+        .click();
+
+      searchForStopAreas
+        .getActionMenuShowOnMap()
+        .shouldBeVisible();
+
     });
   });
 
