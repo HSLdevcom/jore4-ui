@@ -64,7 +64,7 @@ function useGetStopPlaceUpdateInput() {
         existingQuays,
         stopPlaceInput: {
           id: getStopPlaceId(originalStop),
-          quays: existingQuays.concat(quayCopy),
+          quays: [...existingQuays, quayCopy],
         },
       };
     },

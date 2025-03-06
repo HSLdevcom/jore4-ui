@@ -13,20 +13,12 @@ const GQL_RESOLVE_EXISTING_QUAYS = gql`
       ) {
         id
         netex_id
-        description_lang
-        description_value
       }
     }
   }
 `;
 
-// We need to allways pass the same description in.
-// Leaving it empty in the input, will result in Timat setting
-// the field to null otherwise.
-export type ExistingQuayInput = Pick<
-  StopRegistryQuayInput,
-  'id' | 'description'
->;
+export type ExistingQuayInput = Pick<StopRegistryQuayInput, 'id'>;
 
 export function useResolveExistingQuays() {
   const [resolveExistingQuaysLazyQuery] = useResolveExistingQuaysLazyQuery();
@@ -44,13 +36,7 @@ export function useResolveExistingQuays() {
           );
         }
 
-        return {
-          id: rawQuay.netex_id,
-          description: {
-            lang: rawQuay.description_lang,
-            value: rawQuay.description_value,
-          },
-        };
+        return { id: rawQuay.netex_id };
       });
     },
     [resolveExistingQuaysLazyQuery],
