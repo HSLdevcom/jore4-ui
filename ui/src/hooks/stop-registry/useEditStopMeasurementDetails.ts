@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { MeasurementsFormState } from '../../components/stop-registry/stops/stop-details/measurements/schema';
+import { extractRelevantAccessibilityAssessment } from '../../components/stop-registry/stops/stop-details/utils';
 import {
   StopRegistryGuidanceType,
   StopRegistryLimitationStatusType,
@@ -31,7 +32,8 @@ export const useEditStopMeasurementDetails = () => {
     const stopPlaceId = stop.stop_place?.id;
     const stopPlaceQuayId = stop.stop_place_ref;
 
-    const accessibilityAssessment = stop.quay?.accessibilityAssessment;
+    const accessibilityAssessment =
+      extractRelevantAccessibilityAssessment(stop);
     const limitations = accessibilityAssessment?.limitations;
     const otherQuays = getQuayIdsFromStopExcept(stop, stopPlaceQuayId);
 
@@ -39,7 +41,7 @@ export const useEditStopMeasurementDetails = () => {
       accessibilityAssessment: {
         hslAccessibilityProperties: state,
       },
-      quays: stop.stop_place?.quays,
+      quays: [stop.quay],
     });
 
     return {

@@ -8,7 +8,10 @@ import {
   mapStopRegistryStopTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { DetailRow, LabeledDetail } from '../layout';
-import { optionalBooleanToUiText } from '../utils';
+import {
+  extractRelevantAccessibilityAssessment,
+  optionalBooleanToUiText,
+} from '../utils';
 
 const testIds = {
   container: 'MeasurementsViewCard::container',
@@ -50,7 +53,7 @@ export const MeasurementsViewCard = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const accessibilityProps =
-    stop.quay?.accessibilityAssessment?.hslAccessibilityProperties;
+    extractRelevantAccessibilityAssessment(stop)?.hslAccessibilityProperties;
 
   const stopType =
     accessibilityProps?.stopType &&
