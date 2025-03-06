@@ -1,11 +1,13 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import {
+  AccessibilityAssessmentDetailsFragment,
   StopRegistryDisplayType,
   StopRegistryInfoSpotType,
 } from '../../../../generated/graphql';
 import { i18n } from '../../../../i18n';
 import { EnrichedQuay } from '../../../../types';
+import { StopWithDetails } from '../../../../hooks';
 
 /**
  * Returns a translated string that includes all stop types of a given stop place.
@@ -111,4 +113,14 @@ export const formatDimension = (dimension: string | undefined | null) => {
 
   // Return the reformatted string
   return `${extractedDimension}cm`;
+};
+
+export const extractRelevantAccessibilityAssessment = (
+  stop: StopWithDetails,
+): AccessibilityAssessmentDetailsFragment | null => {
+  return (
+    stop?.quay?.accessibilityAssessment ??
+    stop?.stop_place?.accessibilityAssessment ??
+    null
+  );
 };
