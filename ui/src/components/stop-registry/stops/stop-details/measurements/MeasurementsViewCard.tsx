@@ -50,7 +50,8 @@ export const MeasurementsViewCard = ({ stop }: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   const accessibilityProps =
-    stop.quay?.accessibilityAssessment?.hslAccessibilityProperties;
+    stop.quay?.accessibilityAssessment?.hslAccessibilityProperties ??
+    stop.stop_place?.accessibilityAssessment?.hslAccessibilityProperties;
 
   const stopType =
     accessibilityProps?.stopType &&
