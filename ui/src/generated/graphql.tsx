@@ -70142,8 +70142,6 @@ export type ResolveExistingQuaysQuery = {
       __typename?: 'stops_database_quay_newest_version';
       id?: any | null;
       netex_id?: string | null;
-      description_lang?: string | null;
-      description_value?: string | null;
     }>;
   } | null;
 };
@@ -78700,8 +78698,6 @@ export const ResolveExistingQuaysDocument = gql`
       ) {
         id
         netex_id
-        description_lang
-        description_value
       }
     }
   }
