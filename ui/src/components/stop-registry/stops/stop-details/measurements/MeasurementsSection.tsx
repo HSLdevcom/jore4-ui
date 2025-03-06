@@ -32,7 +32,10 @@ const mapMeasurementsDataToFormState = (
   stop: StopWithDetails,
 ): Partial<MeasurementsFormState> => {
   const accessibilityProps =
-    stop.quay?.accessibilityAssessment?.hslAccessibilityProperties ?? {};
+    stop.quay?.accessibilityAssessment?.hslAccessibilityProperties ??
+    stop.stop_place?.accessibilityAssessment?.hslAccessibilityProperties ??
+    {};
+
   return {
     stopAreaSideSlope: accessibilityProps.stopAreaSideSlope ?? null,
     stopAreaLengthwiseSlope: accessibilityProps.stopAreaLengthwiseSlope ?? null,

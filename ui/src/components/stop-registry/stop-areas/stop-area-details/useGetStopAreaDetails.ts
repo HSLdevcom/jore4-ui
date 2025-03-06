@@ -65,6 +65,10 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
       ...quay_details
     }
 
+    accessibilityAssessment {
+      ...accessibility_assessment_details
+    }
+
     transportMode
     topographicPlace {
       ...topographic_place_details
