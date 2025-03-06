@@ -68922,6 +68922,49 @@ export type UpsertStopAreaMutation = {
           }>;
         } | null;
       } | null> | null;
+      accessibilityAssessment?: {
+        __typename?: 'stop_registry_AccessibilityAssessment';
+        id?: string | null;
+        hslAccessibilityProperties?: {
+          __typename?: 'stop_registry_HslAccessibilityProperties';
+          id?: string | null;
+          stopAreaSideSlope?: number | null;
+          stopAreaLengthwiseSlope?: number | null;
+          endRampSlope?: number | null;
+          shelterLaneDistance?: number | null;
+          curbBackOfRailDistance?: number | null;
+          curbDriveSideOfRailDistance?: number | null;
+          structureLaneDistance?: number | null;
+          stopElevationFromRailTop?: number | null;
+          stopElevationFromSidewalk?: number | null;
+          lowerCleatHeight?: number | null;
+          serviceAreaWidth?: number | null;
+          serviceAreaLength?: number | null;
+          platformEdgeWarningArea?: boolean | null;
+          guidanceTiles?: boolean | null;
+          guidanceStripe?: boolean | null;
+          serviceAreaStripes?: boolean | null;
+          sidewalkAccessibleConnection?: boolean | null;
+          stopAreaSurroundingsAccessible?: boolean | null;
+          curvedStop?: boolean | null;
+          stopType?: StopRegistryStopType | null;
+          shelterType?: StopRegistryShelterWidthType | null;
+          guidanceType?: StopRegistryGuidanceType | null;
+          mapType?: StopRegistryMapType | null;
+          pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+          accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+        } | null;
+        limitations?: {
+          __typename?: 'stop_registry_AccessibilityLimitations';
+          id?: string | null;
+          version?: string | null;
+          audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+          escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+          liftFreeAccess?: StopRegistryLimitationStatusType | null;
+          stepFreeAccess?: StopRegistryLimitationStatusType | null;
+          wheelchairAccess?: StopRegistryLimitationStatusType | null;
+        } | null;
+      } | null;
       topographicPlace?: {
         __typename?: 'stop_registry_TopographicPlace';
         id?: string | null;
@@ -69784,6 +69827,49 @@ export type GetStopPlaceDetailsQuery = {
               }>;
             } | null;
           } | null> | null;
+          accessibilityAssessment?: {
+            __typename?: 'stop_registry_AccessibilityAssessment';
+            id?: string | null;
+            hslAccessibilityProperties?: {
+              __typename?: 'stop_registry_HslAccessibilityProperties';
+              id?: string | null;
+              stopAreaSideSlope?: number | null;
+              stopAreaLengthwiseSlope?: number | null;
+              endRampSlope?: number | null;
+              shelterLaneDistance?: number | null;
+              curbBackOfRailDistance?: number | null;
+              curbDriveSideOfRailDistance?: number | null;
+              structureLaneDistance?: number | null;
+              stopElevationFromRailTop?: number | null;
+              stopElevationFromSidewalk?: number | null;
+              lowerCleatHeight?: number | null;
+              serviceAreaWidth?: number | null;
+              serviceAreaLength?: number | null;
+              platformEdgeWarningArea?: boolean | null;
+              guidanceTiles?: boolean | null;
+              guidanceStripe?: boolean | null;
+              serviceAreaStripes?: boolean | null;
+              sidewalkAccessibleConnection?: boolean | null;
+              stopAreaSurroundingsAccessible?: boolean | null;
+              curvedStop?: boolean | null;
+              stopType?: StopRegistryStopType | null;
+              shelterType?: StopRegistryShelterWidthType | null;
+              guidanceType?: StopRegistryGuidanceType | null;
+              mapType?: StopRegistryMapType | null;
+              pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+              accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+            } | null;
+            limitations?: {
+              __typename?: 'stop_registry_AccessibilityLimitations';
+              id?: string | null;
+              version?: string | null;
+              audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+              escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+              liftFreeAccess?: StopRegistryLimitationStatusType | null;
+              stepFreeAccess?: StopRegistryLimitationStatusType | null;
+              wheelchairAccess?: StopRegistryLimitationStatusType | null;
+            } | null;
+          } | null;
           topographicPlace?: {
             __typename?: 'stop_registry_TopographicPlace';
             id?: string | null;
@@ -70030,6 +70116,49 @@ export type StopPlaceDetailsFragment = {
       }>;
     } | null;
   } | null> | null;
+  accessibilityAssessment?: {
+    __typename?: 'stop_registry_AccessibilityAssessment';
+    id?: string | null;
+    hslAccessibilityProperties?: {
+      __typename?: 'stop_registry_HslAccessibilityProperties';
+      id?: string | null;
+      stopAreaSideSlope?: number | null;
+      stopAreaLengthwiseSlope?: number | null;
+      endRampSlope?: number | null;
+      shelterLaneDistance?: number | null;
+      curbBackOfRailDistance?: number | null;
+      curbDriveSideOfRailDistance?: number | null;
+      structureLaneDistance?: number | null;
+      stopElevationFromRailTop?: number | null;
+      stopElevationFromSidewalk?: number | null;
+      lowerCleatHeight?: number | null;
+      serviceAreaWidth?: number | null;
+      serviceAreaLength?: number | null;
+      platformEdgeWarningArea?: boolean | null;
+      guidanceTiles?: boolean | null;
+      guidanceStripe?: boolean | null;
+      serviceAreaStripes?: boolean | null;
+      sidewalkAccessibleConnection?: boolean | null;
+      stopAreaSurroundingsAccessible?: boolean | null;
+      curvedStop?: boolean | null;
+      stopType?: StopRegistryStopType | null;
+      shelterType?: StopRegistryShelterWidthType | null;
+      guidanceType?: StopRegistryGuidanceType | null;
+      mapType?: StopRegistryMapType | null;
+      pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+      accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+    } | null;
+    limitations?: {
+      __typename?: 'stop_registry_AccessibilityLimitations';
+      id?: string | null;
+      version?: string | null;
+      audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+      escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+      liftFreeAccess?: StopRegistryLimitationStatusType | null;
+      stepFreeAccess?: StopRegistryLimitationStatusType | null;
+      wheelchairAccess?: StopRegistryLimitationStatusType | null;
+    } | null;
+  } | null;
   topographicPlace?: {
     __typename?: 'stop_registry_TopographicPlace';
     id?: string | null;
@@ -73478,6 +73607,49 @@ export type UpdateStopPlaceMutation = {
           }>;
         } | null;
       } | null> | null;
+      accessibilityAssessment?: {
+        __typename?: 'stop_registry_AccessibilityAssessment';
+        id?: string | null;
+        hslAccessibilityProperties?: {
+          __typename?: 'stop_registry_HslAccessibilityProperties';
+          id?: string | null;
+          stopAreaSideSlope?: number | null;
+          stopAreaLengthwiseSlope?: number | null;
+          endRampSlope?: number | null;
+          shelterLaneDistance?: number | null;
+          curbBackOfRailDistance?: number | null;
+          curbDriveSideOfRailDistance?: number | null;
+          structureLaneDistance?: number | null;
+          stopElevationFromRailTop?: number | null;
+          stopElevationFromSidewalk?: number | null;
+          lowerCleatHeight?: number | null;
+          serviceAreaWidth?: number | null;
+          serviceAreaLength?: number | null;
+          platformEdgeWarningArea?: boolean | null;
+          guidanceTiles?: boolean | null;
+          guidanceStripe?: boolean | null;
+          serviceAreaStripes?: boolean | null;
+          sidewalkAccessibleConnection?: boolean | null;
+          stopAreaSurroundingsAccessible?: boolean | null;
+          curvedStop?: boolean | null;
+          stopType?: StopRegistryStopType | null;
+          shelterType?: StopRegistryShelterWidthType | null;
+          guidanceType?: StopRegistryGuidanceType | null;
+          mapType?: StopRegistryMapType | null;
+          pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+          accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+        } | null;
+        limitations?: {
+          __typename?: 'stop_registry_AccessibilityLimitations';
+          id?: string | null;
+          version?: string | null;
+          audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+          escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+          liftFreeAccess?: StopRegistryLimitationStatusType | null;
+          stepFreeAccess?: StopRegistryLimitationStatusType | null;
+          wheelchairAccess?: StopRegistryLimitationStatusType | null;
+        } | null;
+      } | null;
       topographicPlace?: {
         __typename?: 'stop_registry_TopographicPlace';
         id?: string | null;
@@ -73806,6 +73978,49 @@ export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
               }>;
             } | null;
           } | null> | null;
+          accessibilityAssessment?: {
+            __typename?: 'stop_registry_AccessibilityAssessment';
+            id?: string | null;
+            hslAccessibilityProperties?: {
+              __typename?: 'stop_registry_HslAccessibilityProperties';
+              id?: string | null;
+              stopAreaSideSlope?: number | null;
+              stopAreaLengthwiseSlope?: number | null;
+              endRampSlope?: number | null;
+              shelterLaneDistance?: number | null;
+              curbBackOfRailDistance?: number | null;
+              curbDriveSideOfRailDistance?: number | null;
+              structureLaneDistance?: number | null;
+              stopElevationFromRailTop?: number | null;
+              stopElevationFromSidewalk?: number | null;
+              lowerCleatHeight?: number | null;
+              serviceAreaWidth?: number | null;
+              serviceAreaLength?: number | null;
+              platformEdgeWarningArea?: boolean | null;
+              guidanceTiles?: boolean | null;
+              guidanceStripe?: boolean | null;
+              serviceAreaStripes?: boolean | null;
+              sidewalkAccessibleConnection?: boolean | null;
+              stopAreaSurroundingsAccessible?: boolean | null;
+              curvedStop?: boolean | null;
+              stopType?: StopRegistryStopType | null;
+              shelterType?: StopRegistryShelterWidthType | null;
+              guidanceType?: StopRegistryGuidanceType | null;
+              mapType?: StopRegistryMapType | null;
+              pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+              accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+            } | null;
+            limitations?: {
+              __typename?: 'stop_registry_AccessibilityLimitations';
+              id?: string | null;
+              version?: string | null;
+              audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+              escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+              liftFreeAccess?: StopRegistryLimitationStatusType | null;
+              stepFreeAccess?: StopRegistryLimitationStatusType | null;
+              wheelchairAccess?: StopRegistryLimitationStatusType | null;
+            } | null;
+          } | null;
           topographicPlace?: {
             __typename?: 'stop_registry_TopographicPlace';
             id?: string | null;
@@ -73855,6 +74070,50 @@ export type ShelterEquipmentDetailsFragment = {
   leaningRail?: boolean | null;
   outsideBench?: boolean | null;
   shelterFasciaBoardTaping?: boolean | null;
+};
+
+export type AccessibilityAssessmentDetailsFragment = {
+  __typename?: 'stop_registry_AccessibilityAssessment';
+  id?: string | null;
+  hslAccessibilityProperties?: {
+    __typename?: 'stop_registry_HslAccessibilityProperties';
+    id?: string | null;
+    stopAreaSideSlope?: number | null;
+    stopAreaLengthwiseSlope?: number | null;
+    endRampSlope?: number | null;
+    shelterLaneDistance?: number | null;
+    curbBackOfRailDistance?: number | null;
+    curbDriveSideOfRailDistance?: number | null;
+    structureLaneDistance?: number | null;
+    stopElevationFromRailTop?: number | null;
+    stopElevationFromSidewalk?: number | null;
+    lowerCleatHeight?: number | null;
+    serviceAreaWidth?: number | null;
+    serviceAreaLength?: number | null;
+    platformEdgeWarningArea?: boolean | null;
+    guidanceTiles?: boolean | null;
+    guidanceStripe?: boolean | null;
+    serviceAreaStripes?: boolean | null;
+    sidewalkAccessibleConnection?: boolean | null;
+    stopAreaSurroundingsAccessible?: boolean | null;
+    curvedStop?: boolean | null;
+    stopType?: StopRegistryStopType | null;
+    shelterType?: StopRegistryShelterWidthType | null;
+    guidanceType?: StopRegistryGuidanceType | null;
+    mapType?: StopRegistryMapType | null;
+    pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null;
+    accessibilityLevel?: StopRegistryAccessibilityLevel | null;
+  } | null;
+  limitations?: {
+    __typename?: 'stop_registry_AccessibilityLimitations';
+    id?: string | null;
+    version?: string | null;
+    audibleSignalsAvailable?: StopRegistryLimitationStatusType | null;
+    escalatorFreeAccess?: StopRegistryLimitationStatusType | null;
+    liftFreeAccess?: StopRegistryLimitationStatusType | null;
+    stepFreeAccess?: StopRegistryLimitationStatusType | null;
+    wheelchairAccess?: StopRegistryLimitationStatusType | null;
+  } | null;
 };
 
 export type QuayDetailsFragment = {
@@ -76025,6 +76284,24 @@ export const HslAccessibilityPropertiesDetailsFragmentDoc = gql`
     accessibilityLevel
   }
 `;
+export const AccessibilityAssessmentDetailsFragmentDoc = gql`
+  fragment accessibility_assessment_details on stop_registry_AccessibilityAssessment {
+    id
+    hslAccessibilityProperties {
+      ...hsl_accessibility_properties_details
+    }
+    limitations {
+      id
+      version
+      audibleSignalsAvailable
+      escalatorFreeAccess
+      liftFreeAccess
+      stepFreeAccess
+      wheelchairAccess
+    }
+  }
+  ${HslAccessibilityPropertiesDetailsFragmentDoc}
+`;
 export const InfoSpotDetailsFragmentDoc = gql`
   fragment info_spot_details on stop_registry_infoSpot {
     id
@@ -76114,19 +76391,7 @@ export const QuayDetailsFragmentDoc = gql`
       type
     }
     accessibilityAssessment {
-      id
-      hslAccessibilityProperties {
-        ...hsl_accessibility_properties_details
-      }
-      limitations {
-        id
-        version
-        audibleSignalsAvailable
-        escalatorFreeAccess
-        liftFreeAccess
-        stepFreeAccess
-        wheelchairAccess
-      }
+      ...accessibility_assessment_details
     }
     keyValues {
       key
@@ -76166,7 +76431,7 @@ export const QuayDetailsFragmentDoc = gql`
       ...scheduled_stop_point_detail_fields
     }
   }
-  ${HslAccessibilityPropertiesDetailsFragmentDoc}
+  ${AccessibilityAssessmentDetailsFragmentDoc}
   ${InfoSpotDetailsFragmentDoc}
   ${ShelterEquipmentDetailsFragmentDoc}
   ${ScheduledStopPointDetailFieldsFragmentDoc}
@@ -76225,6 +76490,9 @@ export const StopPlaceDetailsFragmentDoc = gql`
     quays {
       ...quay_details
     }
+    accessibilityAssessment {
+      ...accessibility_assessment_details
+    }
     transportMode
     topographicPlace {
       ...topographic_place_details
@@ -76235,6 +76503,7 @@ export const StopPlaceDetailsFragmentDoc = gql`
   }
   ${StopPlaceOrganisationFieldsFragmentDoc}
   ${QuayDetailsFragmentDoc}
+  ${AccessibilityAssessmentDetailsFragmentDoc}
   ${TopographicPlaceDetailsFragmentDoc}
   ${FareZoneDetailsFragmentDoc}
 `;

@@ -1,6 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
 import {
+  AccessibilityAssessmentDetailsFragment,
   Maybe,
   StopRegistryAccessibilityLevel,
   StopRegistryAlternativeName,
@@ -189,6 +190,10 @@ export const getQuayDetailsForEnrichment = <
   T extends StopRegistryQuayWithoutStopPoint,
 >(
   quay: T,
+  accessibilityAssessment:
+    | AccessibilityAssessmentDetailsFragment
+    | null
+    | undefined,
 ): QuayEnrichmentProperties => {
   return {
     elyNumber: findKeyValue(quay, 'elyNumber'),
@@ -203,7 +208,9 @@ export const getQuayDetailsForEnrichment = <
     stopState: findKeyValue(quay, 'stopState') as StopPlaceState,
     accessibilityLevel:
       quay.accessibilityAssessment?.hslAccessibilityProperties
-        ?.accessibilityLevel ?? defaultAccessibilityLevel,
+        ?.accessibilityLevel ??
+      accessibilityAssessment?.hslAccessibilityProperties?.accessibilityLevel ??
+      defaultAccessibilityLevel,
     stopType: {
       mainLine: findKeyValue(quay, 'mainLine') === 'true',
       virtual: findKeyValue(quay, 'virtual') === 'true',

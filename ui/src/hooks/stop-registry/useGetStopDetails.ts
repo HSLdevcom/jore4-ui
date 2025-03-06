@@ -3,6 +3,7 @@ import compact from 'lodash/compact';
 import maxBy from 'lodash/maxBy';
 import { useMemo } from 'react';
 import {
+  AccessibilityAssessmentDetailsFragment,
   GetHighestPriorityStopDetailsByLabelAndDateQuery,
   InfoSpotDetailsFragment,
   ScheduledStopPointDetailFieldsFragment,
@@ -106,6 +107,24 @@ const GQL_SHELTER_EQUIPMENT_DETAILS = gql`
   }
 `;
 
+const GQL_HSL_ACCESSIBILITY_ASSESSMENT_DETAILS = gql`
+  fragment accessibility_assessment_details on stop_registry_AccessibilityAssessment {
+    id
+    hslAccessibilityProperties {
+      ...hsl_accessibility_properties_details
+    }
+    limitations {
+      id
+      version
+      audibleSignalsAvailable
+      escalatorFreeAccess
+      liftFreeAccess
+      stepFreeAccess
+      wheelchairAccess
+    }
+  }
+`;
+
 const GQL_QUAY_DETAILS = gql`
   fragment quay_details on stop_registry_Quay {
     id
@@ -130,19 +149,7 @@ const GQL_QUAY_DETAILS = gql`
       type
     }
     accessibilityAssessment {
-      id
-      hslAccessibilityProperties {
-        ...hsl_accessibility_properties_details
-      }
-      limitations {
-        id
-        version
-        audibleSignalsAvailable
-        escalatorFreeAccess
-        liftFreeAccess
-        stepFreeAccess
-        wheelchairAccess
-      }
+      ...accessibility_assessment_details
     }
     keyValues {
       key
@@ -313,13 +320,17 @@ const getEnrichedStopPlace = (
 
 const getEnrichedQuay = (
   quay: Quay | null | undefined,
+  accessibilityAssessment:
+    | AccessibilityAssessmentDetailsFragment
+    | null
+    | undefined,
 ): EnrichedQuay | null => {
   if (!quay) {
     return null;
   }
   return {
     ...quay,
-    ...getQuayDetailsForEnrichment(quay),
+    ...getQuayDetailsForEnrichment(quay, accessibilityAssessment),
   };
 };
 
@@ -383,7 +394,7 @@ const getStopDetails = (
   return {
     ...stopPoint,
     stop_place: getEnrichedStopPlace(stopPlace),
-    quay: getEnrichedQuay(selectedQuay),
+    quay: getEnrichedQuay(selectedQuay, stopPlace?.accessibilityAssessment),
   };
 };
 

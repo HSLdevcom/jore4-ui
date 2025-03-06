@@ -14,6 +14,7 @@ import {
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
+import { extractRelevantAccessibilityAssessment } from '../utils';
 import { AccessibilityLevelInfo } from './AccessibilityLevelInfo';
 import { MeasurementsForm } from './MeasurementsForm';
 import { MeasurementsViewCard } from './MeasurementsViewCard';
@@ -32,7 +33,9 @@ const mapMeasurementsDataToFormState = (
   stop: StopWithDetails,
 ): Partial<MeasurementsFormState> => {
   const accessibilityProps =
-    stop.quay?.accessibilityAssessment?.hslAccessibilityProperties ?? {};
+    extractRelevantAccessibilityAssessment(stop)?.hslAccessibilityProperties ??
+    {};
+
   return {
     stopAreaSideSlope: accessibilityProps.stopAreaSideSlope ?? null,
     stopAreaLengthwiseSlope: accessibilityProps.stopAreaLengthwiseSlope ?? null,
