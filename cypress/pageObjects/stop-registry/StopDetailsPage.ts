@@ -1,3 +1,4 @@
+import { ObservationDateControl } from '../ObservationDateControl';
 import {
   BasicDetailsSection,
   CreateCopyModal,
@@ -28,6 +29,8 @@ export class StopDetailsPage {
   titleRow = new TitleRow();
 
   copyModal = new CreateCopyModal();
+
+  observationDateControl = new ObservationDateControl();
 
   visit(label: string) {
     cy.visit(`/stop-registry/stops/${label}`);
