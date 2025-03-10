@@ -10,13 +10,11 @@ import {
   StopRegistryNameType,
   StopRegistryParentStopPlace,
   StopRegistryQuay,
-  StopRegistryQuayInput,
   StopRegistryStopPlace,
   StopRegistryStopPlaceInput,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
 import {
-  EnrichedQuay,
   QuayEnrichmentProperties,
   StopPlaceEnrichmentProperties,
 } from '../../types';
