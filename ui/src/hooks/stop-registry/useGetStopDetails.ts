@@ -1,12 +1,9 @@
 import { gql } from '@apollo/client';
-import compact from 'lodash/compact';
 import maxBy from 'lodash/maxBy';
 import { useMemo } from 'react';
 import {
   AccessibilityAssessmentDetailsFragment,
   GetHighestPriorityStopDetailsByLabelAndDateQuery,
-  InfoSpotDetailsFragment,
-  StopRegistryPosterInput,
   StopRegistryQuayInput,
   useGetHighestPriorityStopDetailsByLabelAndDateQuery,
 } from '../../generated/graphql';
@@ -15,7 +12,6 @@ import {
   EnrichedStopPlace,
   Quay,
   StopPlace,
-  StopPlaceInfoSpots,
   StopWithDetails,
 } from '../../types';
 import {
@@ -280,30 +276,6 @@ const GQL_INFO_SPOT_DETAILS = gql`
     }
   }
 `;
-
-function sortInfoSpots(
-  infoSpots: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,
-): Array<StopPlaceInfoSpots> | null {
-  if (!infoSpots) {
-    return null;
-  }
-
-  return compact(infoSpots).sort((a, b) =>
-    (a.label ?? '').localeCompare(b.label ?? ''),
-  );
-}
-
-function sortPosters(
-  posters: ReadonlyArray<StopRegistryPosterInput | null> | undefined | null,
-): Array<StopRegistryPosterInput> | null {
-  if (!posters) {
-    return null;
-  }
-
-  return compact(posters).sort((a, b) =>
-    (a.label ?? '').localeCompare(b.label ?? ''),
-  );
-}
 
 const getEnrichedStopPlace = (
   stopPlace: StopPlace | null,
