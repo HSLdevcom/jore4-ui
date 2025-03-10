@@ -1,7 +1,7 @@
 import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
-import { StopWithDetails } from '../../../../../hooks';
 import { HorizontalSeparator } from '../../../../../layoutComponents';
+import { StopWithDetails } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../layout';
 
 const testIds = {

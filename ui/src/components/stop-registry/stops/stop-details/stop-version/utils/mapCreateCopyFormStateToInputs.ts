@@ -7,8 +7,7 @@ import {
   StopRegistryQuayInput,
 } from '../../../../../../generated/graphql';
 import { ScheduledStopPointSetInput } from '../../../../../../graphql';
-import { StopWithDetails } from '../../../../../../hooks';
-import { EnrichedQuay } from '../../../../../../types';
+import { EnrichedQuay, StopWithDetails } from '../../../../../../types';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,

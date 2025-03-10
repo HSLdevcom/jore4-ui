@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
-import { StopWithDetails } from '../../../../../hooks';
+import { StopWithDetails } from '../../../../../types';
 import {
   AlignDirection,
   SimpleDropdownMenu,

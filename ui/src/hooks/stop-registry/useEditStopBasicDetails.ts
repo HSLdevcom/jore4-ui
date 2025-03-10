@@ -17,6 +17,7 @@ import {
   PartialScheduledStopPointSetInput,
   mapStopResultToStop,
 } from '../../graphql';
+import { StopWithDetails } from '../../types';
 import {
   InternalError,
   TimingPlaceRequiredError,
@@ -26,7 +27,7 @@ import {
   showDangerToast,
 } from '../../utils';
 import { useValidateTimingSettings } from '../stops/useValidateTimingSettings';
-import { StopWithDetails, getQuayIdsFromStopExcept } from './useGetStopDetails';
+import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 interface EditRoutesAndLinesParams {
   stopId: UUID;

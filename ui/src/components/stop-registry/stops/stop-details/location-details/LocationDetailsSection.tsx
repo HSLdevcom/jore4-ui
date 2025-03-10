@@ -1,9 +1,7 @@
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  StopWithDetails,
-  useEditStopLocationDetails,
-} from '../../../../../hooks';
+import { useEditStopLocationDetails } from '../../../../../hooks';
+import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';

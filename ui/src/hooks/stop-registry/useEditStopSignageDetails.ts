@@ -3,8 +3,9 @@ import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 import { SignageDetailsFormState } from '../../components/stop-registry/stops/stop-details/signage-details/schema';
 import { useUpdateStopPlaceMutation } from '../../generated/graphql';
+import { StopWithDetails } from '../../types';
 import { showDangerToast } from '../../utils';
-import { StopWithDetails, getQuayIdsFromStopExcept } from './useGetStopDetails';
+import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: SignageDetailsFormState;

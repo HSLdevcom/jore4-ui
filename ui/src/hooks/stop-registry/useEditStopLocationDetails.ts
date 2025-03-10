@@ -3,12 +3,13 @@ import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
 import { LocationDetailsFormState } from '../../components/stop-registry/stops/stop-details/location-details/schema';
 import { useUpdateStopPlaceMutation } from '../../generated/graphql';
+import { StopWithDetails } from '../../types';
 import {
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
   showDangerToast,
 } from '../../utils';
-import { StopWithDetails, getQuayIdsFromStopExcept } from './useGetStopDetails';
+import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: LocationDetailsFormState;

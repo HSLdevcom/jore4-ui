@@ -11,8 +11,9 @@ import {
   StopRegistryStopPlaceInput,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
+import { StopWithDetails } from '../../types';
 import { showDangerToast } from '../../utils';
-import { StopWithDetails, getQuayIdsFromStopExcept } from './useGetStopDetails';
+import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: SheltersFormState;

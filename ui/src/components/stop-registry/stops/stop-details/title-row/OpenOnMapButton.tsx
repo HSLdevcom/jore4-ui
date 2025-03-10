@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { StopWithDetails } from '../../../../../hooks';
+import { StopWithDetails } from '../../../../../types';
 import { LocatorButton } from '../../../../../uiComponents';
 import { mapLngLatToPoint } from '../../../../../utils';
 import { useShowStopOnMap } from '../../../utils/useShowStopOnMap';

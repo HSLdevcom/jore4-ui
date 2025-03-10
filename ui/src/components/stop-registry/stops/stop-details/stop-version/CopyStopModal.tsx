@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  StopWithDetails,
-  useObservationDateQueryParam,
-} from '../../../../../hooks';
+import { useObservationDateQueryParam } from '../../../../../hooks';
+import { StopWithDetails } from '../../../../../types';
 import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
 import { ModalBody } from '../../../../map/modal';

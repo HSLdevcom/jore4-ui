@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { FormProvider } from 'react-hook-form';
-import { StopWithDetails } from '../../../../../hooks';
+import { StopWithDetails } from '../../../../../types';
 import { StopVersionForm } from './StopVersionForm';
 import { CreateStopVersionResult, ExistingStopValidityRange } from './types';
 import { useCopyStopFormUtils } from './utils';

@@ -5,8 +5,8 @@ import {
   StopRegistryStopPlaceOrganisationRelationshipType,
   useUpdateStopPlaceMutation,
 } from '../../generated/graphql';
+import { StopWithDetails } from '../../types';
 import { notNullish, showDangerToast } from '../../utils';
-import { StopWithDetails } from './useGetStopDetails';
 
 interface EditTiamatParams {
   state: MaintenanceDetailsFormState;

@@ -6,7 +6,6 @@ import {
   AccessibilityAssessmentDetailsFragment,
   GetHighestPriorityStopDetailsByLabelAndDateQuery,
   InfoSpotDetailsFragment,
-  ScheduledStopPointDetailFieldsFragment,
   StopRegistryPosterInput,
   StopRegistryQuayInput,
   useGetHighestPriorityStopDetailsByLabelAndDateQuery,
@@ -17,6 +16,7 @@ import {
   Quay,
   StopPlace,
   StopPlaceInfoSpots,
+  StopWithDetails,
 } from '../../types';
 import {
   findKeyValue,
@@ -332,12 +332,6 @@ const getEnrichedQuay = (
     ...quay,
     ...getQuayDetailsForEnrichment(quay, accessibilityAssessment),
   };
-};
-
-/** Gets the stop details, including the stop place, depending on query parameters. */
-export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
-  stop_place: EnrichedStopPlace | null;
-  quay: EnrichedQuay | null;
 };
 
 function validOn(observationDateTs: number) {
