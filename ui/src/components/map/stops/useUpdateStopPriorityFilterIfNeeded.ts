@@ -1,6 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { FilterType, selectMapFilter, setStopFilterAction } from '../../../redux';
+import {
+  FilterType,
+  selectMapFilter,
+  setStopFilterAction,
+} from '../../../redux';
 import { Priority } from '../../../types/enums';
 import { showWarningToast } from '../../../utils';
 
@@ -46,5 +50,5 @@ export function useUpdateStopPriorityFilterIfNeeded() {
       );
       showWarningToast(t('filters.stopFiltersAdjusted'));
     }
-  }
+  };
 }
