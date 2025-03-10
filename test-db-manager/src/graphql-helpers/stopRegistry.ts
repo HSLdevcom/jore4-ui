@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import compact from 'lodash/compact';
 import {
   OrganisationIdsByName,
   QuayDetailsByLabel,
@@ -10,13 +11,14 @@ import {
 import {
   StopRegistryCreateMultiModalStopPlaceInput,
   StopRegistryInfoSpotInput,
+  StopRegistryKeyValuesInput,
   StopRegistryOrganisationInput,
   StopRegistryParentStopPlaceInput,
+  StopRegistryQuayInput,
   StopRegistryStopPlaceInput,
 } from '../generated/graphql';
 import { hasuraApi } from '../hasuraApi';
 import {
-  extractQuayIdsFromResponse,
   mapToInsertInfoSpotMutation,
   mapToInsertOrganisationMutation,
   mapToInsertStopPlaceMutation,
@@ -49,6 +51,36 @@ const getTiamatResponseBody = (res: ExplicitAny) => {
   return data;
 };
 
+function getStopPlaceAndQuayRefsFromInsertResult(
+  label: string,
+  insertStopPlaceResult: InsertStopPlaceResult,
+): StopPlaceNetexRef {
+  const insertedStopPlace =
+    insertStopPlaceResult.data?.stop_registry?.mutateStopPlace?.at(0);
+
+  if (!insertedStopPlace) {
+    throw new Error(
+      `No StopPlace found in the Tiamat response! Response: ${JSON.stringify(insertStopPlaceResult, null, 2)}`,
+    );
+  }
+
+  const quayRef: Array<QuayNetexRef> = insertedStopPlace.quays.map((quay) => {
+    return {
+      label: quay.publicCode,
+      netexId: quay.id,
+      shelterRef: quay?.placeEquipments?.shelterEquipment?.map(
+        (shelter: { id: string }) => shelter.id,
+      ),
+    };
+  });
+
+  return {
+    label,
+    netexId: insertedStopPlace.id,
+    quayRef,
+  };
+}
+
 /**
  * Inserts a new stop place to stop registry,
  * and updates its id to the scheduled stop point.
@@ -64,26 +96,15 @@ export const insertStopPlaceForScheduledStopPoint = async ({
     mapToInsertStopPlaceMutation(stopPlace),
   )) as InsertStopPlaceResult;
 
-  const stopPlaceRefs: { label: string; netexId: string }[] =
-    extractQuayIdsFromResponse(insertStopPlaceResult);
-
-  const quayRef: Array<QuayNetexRef> =
-    insertStopPlaceResult.data.stop_registry.mutateStopPlace[0]?.quays.map(
-      (quay) => {
-        return {
-          label: quay.publicCode,
-          netexId: quay.id,
-          shelterRef: quay?.placeEquipments?.shelterEquipment?.map(
-            (shelter: { id: string }) => shelter.id,
-          ),
-        };
-      },
-    );
+  const stopPlaceNetexRef = getStopPlaceAndQuayRefsFromInsertResult(
+    stopPlace.privateCode?.value ?? 'error',
+    insertStopPlaceResult,
+  );
 
   // eslint-disable-next-line no-restricted-syntax
-  for (const sp of stopPlaceRefs) {
-    const scheduledStopPointId = scheduledStopPoints[sp.label] ?? 'null';
-    const stopPlaceRef = sp.netexId;
+  for (const quay of stopPlaceNetexRef.quayRef) {
+    const scheduledStopPointId = scheduledStopPoints[quay.label] ?? 'null';
+    const stopPlaceRef = quay.netexId;
 
     // eslint-disable-next-line no-await-in-loop
     const updateResult = (await hasuraApi(
@@ -104,11 +125,7 @@ export const insertStopPlaceForScheduledStopPoint = async ({
     }
   }
 
-  return {
-    label: stopPlace.privateCode?.value ?? 'error',
-    netexId: insertStopPlaceResult.data.stop_registry.mutateStopPlace[0]?.id,
-    quayRef,
-  };
+  return stopPlaceNetexRef;
 };
 
 const insertOrganisation = async (
@@ -140,14 +157,18 @@ type StopPointType = {
   validity_end: string | null;
 };
 
-const insertStopPlace = async ({
-  stopPlace,
-}: {
-  stopPlace: Partial<StopRegistryStopPlaceInput>;
-}): Promise<StopPlaceNetexRef> => {
+type LabelAndStopPoint = {
+  readonly label: string;
+  readonly stopPoint: StopPointType;
+};
+type StopPointsByLabel = Record<string, StopPointType>;
+
+async function resolveStopPointRefs(
+  stopPlace: Partial<StopRegistryStopPlaceInput>,
+): Promise<StopPointsByLabel> {
   const stopPointRefPromises = stopPlace.quays
     ?.filter((quay) => quay !== null)
-    .map(async (quay): Promise<{ label: string; stopPoint: StopPointType }> => {
+    .map(async (quay): Promise<LabelAndStopPoint> => {
       const label = quay.publicCode ?? 'error';
       // Find related scheduled stop points.
       const stopPointResult = (await hasuraApi(
@@ -171,11 +192,7 @@ const insertStopPlace = async ({
           `Found multiple stop points for label ${label}, using the first one...`,
         );
       }
-      const returnvalue: { label: string; stopPoint: StopPointType } = {
-        label,
-        stopPoint,
-      };
-      return returnvalue;
+      return { label, stopPoint };
     })
     .filter((a) => !!a);
 
@@ -184,62 +201,131 @@ const insertStopPlace = async ({
       `Unable to for create stop points for ${stopPlace.publicCode}`,
     );
   }
-  const stopPointTuples: Array<{ label: string; stopPoint: StopPointType }> =
-    await Promise.all(stopPointRefPromises);
+  const stopPointTuples = await Promise.all(stopPointRefPromises);
 
-  const stopPointRefs: Record<string, StopPointType> = Object.fromEntries(
+  return Object.fromEntries(
     stopPointTuples.map((spr) => [spr.label, spr.stopPoint]),
   );
+}
+
+type StopPointLabelToId = Record<string, string>;
+function getStopPointLabelToIdMapping(
+  stopPointRefs: StopPointsByLabel,
+): StopPointLabelToId {
+  return Object.fromEntries(
+    Object.entries(stopPointRefs).map((spr) => [
+      spr[0],
+      spr[1].scheduled_stop_point_id,
+    ]),
+  );
+}
+
+function getKeyValuesFromStopPoint(
+  stopPointRefs: StopPointsByLabel,
+  publicCode: string,
+): Array<StopRegistryKeyValuesInput> {
+  const ref = stopPointRefs[publicCode];
+  if (!ref) {
+    throw new Error(`Stop point not found for publicCode(${publicCode})`);
+  }
+
+  return [
+    {
+      key: 'priority',
+      values: [ref.priority.toString(10)],
+    },
+    {
+      key: 'validityStart',
+      values: [ref.validity_start],
+    },
+    {
+      key: 'validityEnd',
+      values: [ref.validity_end],
+    },
+  ];
+}
+
+function patchQuayIfNeeded(
+  stopPointRefs: StopPointsByLabel,
+  stopPointsRequired: boolean,
+  quay: StopRegistryQuayInput,
+): StopRegistryQuayInput {
+  if (!stopPointsRequired) {
+    return quay;
+  }
+
+  return {
+    ...quay,
+    keyValues: [
+      ...compact(quay.keyValues),
+      ...getKeyValuesFromStopPoint(stopPointRefs, quay.publicCode ?? ''),
+    ],
+  };
+}
+
+function assembleStopPlace(
+  stopPlace: Partial<StopRegistryStopPlaceInput>,
+  patchedQuays: Array<StopRegistryQuayInput>,
+): StopRegistryStopPlaceInput {
+  return {
+    ...stopPlace,
+    quays: patchedQuays,
+    keyValues: [
+      ...(stopPlace.keyValues ?? []),
+      {
+        key: 'priority',
+        values: ['10'],
+      },
+    ],
+  };
+}
+
+async function insertStopPlaceAndUpdateStopPointIfNeededTo(
+  stopPlace: StopRegistryStopPlaceInput,
+  stopPointsRequired: boolean,
+  scheduledStopPoints: StopPointLabelToId,
+): Promise<StopPlaceNetexRef> {
+  if (stopPointsRequired) {
+    return insertStopPlaceForScheduledStopPoint({
+      stopPlace,
+      scheduledStopPoints,
+    });
+  }
+
+  const insertStopPlaceResult = (await hasuraApi(
+    mapToInsertStopPlaceMutation(stopPlace),
+  )) as InsertStopPlaceResult;
+  return getStopPlaceAndQuayRefsFromInsertResult(
+    stopPlace.privateCode?.value ?? 'error',
+    insertStopPlaceResult,
+  );
+}
+
+const insertStopPlace = async ({
+  stopPlace,
+  stopPointsRequired,
+}: {
+  stopPlace: Partial<StopRegistryStopPlaceInput>;
+  stopPointsRequired: boolean;
+}): Promise<StopPlaceNetexRef> => {
+  const stopPointRefs = stopPointsRequired
+    ? await resolveStopPointRefs(stopPlace)
+    : {};
+  const stopPointLabelToIdMapping = getStopPointLabelToIdMapping(stopPointRefs);
+
+  const patchQuay = (quay: StopRegistryQuayInput) =>
+    patchQuayIfNeeded(stopPointRefs, stopPointsRequired, quay);
 
   try {
     // TODO: Scheduled Stop Point should be per Quay (new Timat stop), not per Stop Place (new Tiamat Stop Area)
-    // eslint-disable-next-line no-param-reassign
-    stopPlace.quays = stopPlace.quays
-      ?.filter((quay) => quay !== null)
-      .map((quay) => {
-        const ref = stopPointRefs[quay?.publicCode ?? 'error'];
-        if (!ref) {
-          throw new Error('lol');
-        }
-        return {
-          ...quay,
-          keyValues: [
-            ...(quay.keyValues ?? []),
-            {
-              key: 'priority',
-              values: [ref.priority.toString(10)],
-            },
-            {
-              key: 'validityStart',
-              values: [ref.validity_start],
-            },
-            {
-              key: 'validityEnd',
-              values: [ref.validity_end],
-            },
-          ],
-        };
-      });
-    const stopPlaceRef = await insertStopPlaceForScheduledStopPoint({
-      scheduledStopPoints: Object.fromEntries(
-        Object.entries(stopPointRefs).map((spr) => [
-          spr[0],
-          spr[1].scheduled_stop_point_id,
-        ]),
-      ),
-      stopPlace: {
-        ...stopPlace,
-        keyValues: [
-          ...(stopPlace.keyValues ?? [
-            {
-              key: 'priority',
-              values: ['10'],
-            },
-          ]),
-        ],
-      },
-    });
-    return stopPlaceRef;
+    const patchedQuays = compact(stopPlace.quays).map(patchQuay);
+    const stopPlaceInput = assembleStopPlace(stopPlace, patchedQuays);
+
+    return await insertStopPlaceAndUpdateStopPointIfNeededTo(
+      stopPlaceInput,
+      stopPointsRequired,
+      stopPointLabelToIdMapping,
+    );
   } catch (error) {
     console.error(
       'An error occurred while inserting stop place!',
@@ -333,6 +419,7 @@ export const insertOrganisations = async (
 
 export const insertStopPlaces = async (
   stopPlaces: Array<Partial<StopRegistryStopPlaceInput>>,
+  stopPointsRequired: boolean,
 ) => {
   const collectedStopIds: StopPlaceIdsByName = {};
   const collectedQuayDetails: QuayDetailsByLabel = {};
@@ -344,7 +431,7 @@ export const insertStopPlaces = async (
       `Stop place ${stopPlace.privateCode?.value}: stop place insert starting...`,
     );
     // eslint-disable-next-line no-await-in-loop
-    const netexRef = await insertStopPlace({ stopPlace });
+    const netexRef = await insertStopPlace({ stopPlace, stopPointsRequired });
     collectedStopIds[netexRef.label] = netexRef.netexId;
     netexRef.quayRef.forEach((quay) => {
       collectedQuayDetails[quay.label] = {

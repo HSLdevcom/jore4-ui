@@ -69,10 +69,10 @@ const seedStopRegistry = async () => {
       };
     });
 
-  const { collectedStopIds, collectedQuayDetails } = await insertStopPlaces([
-    ...stopPlaceInputs,
-    ...stopPlaceInputsWithStopAreas,
-  ]);
+  const { collectedStopIds, collectedQuayDetails } = await insertStopPlaces(
+    [...stopPlaceInputs, ...stopPlaceInputsWithStopAreas],
+    true,
+  );
 
   const terminalCreateInputs = seedTerminals.map((terminal) =>
     buildTerminalCreateInput(terminal, collectedStopIds),

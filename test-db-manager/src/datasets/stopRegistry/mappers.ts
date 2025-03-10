@@ -65,12 +65,10 @@ export const setStopPlaceOrganisations = (
     organisationIdsByName,
   );
 
-  const stopArea = {
+  return {
     ...input.StopArea,
     organisations: stopPlaceOrganisations,
   };
-
-  return stopArea;
 };
 
 export const buildTerminalCreateInput = (
