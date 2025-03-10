@@ -10,4 +10,8 @@ export class StopPopUp {
   getDeleteButton() {
     return cy.getByTestId('StopPopUp::deleteButton');
   }
+
+  getLabel() {
+    return cy.getByTestId('StopPopUp::label');
+  }
 }

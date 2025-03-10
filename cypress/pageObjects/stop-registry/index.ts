@@ -2,6 +2,7 @@ export * from './SearchForStopAreas';
 export * from './SortByButton';
 export * from './StopAreaDetailsPage';
 export * from './stop-details';
+export * from './stop-versions';
 export * from './StopDetailsPage';
 export * from './StopGroupSelector';
 export * from './StopSearchBar';
