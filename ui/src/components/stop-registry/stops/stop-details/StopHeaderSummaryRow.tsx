@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { StopRegistryAccessibilityLevel } from '../../../../generated/graphql';
-import { StopWithDetails } from '../../../../hooks';
 import { mapStopPlaceStateToUiName } from '../../../../i18n/uiNameMappings';
 import { Visible } from '../../../../layoutComponents';
+import { StopWithDetails } from '../../../../types';
 import { StopPlaceState } from '../../../../types/stop-registry';
 import { StopTypeLabel } from './StopTypeLabel';
 

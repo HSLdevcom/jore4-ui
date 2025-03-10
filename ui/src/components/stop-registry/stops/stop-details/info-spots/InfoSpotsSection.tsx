@@ -4,9 +4,9 @@ import {
   InfoSpotDetailsFragment,
   ShelterEquipmentDetailsFragment,
 } from '../../../../../generated/graphql';
-import { StopWithDetails } from '../../../../../hooks';
 import { useEditStopInfoSpots } from '../../../../../hooks/stop-registry/useEditStopInfoSpots';
 import { mapStopRegistryShelterTypeEnumToUiName } from '../../../../../i18n/uiNameMappings';
+import { StopWithDetails } from '../../../../../types';
 import {
   NullOptionEnum,
   mapLngLatToPoint,

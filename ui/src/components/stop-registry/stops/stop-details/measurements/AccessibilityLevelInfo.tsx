@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { StopWithDetails, useToggle } from '../../../../../hooks';
+import { useToggle } from '../../../../../hooks';
 import { mapStopAccessibilityLevelToUiName } from '../../../../../i18n/uiNameMappings';
+import { StopWithDetails } from '../../../../../types';
 import { defaultAccessibilityLevel } from '../../../../../utils';
 import { AccessibilityLevelDescriptionsDialog } from './AccessibilityLevelDescriptionsDialog';
 

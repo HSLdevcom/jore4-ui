@@ -7,10 +7,8 @@ import {
   StopRegistryShelterWidthType,
   StopRegistryStopType,
 } from '../../../../../generated/graphql';
-import {
-  StopWithDetails,
-  useEditStopMeasurementDetails,
-} from '../../../../../hooks';
+import { useEditStopMeasurementDetails } from '../../../../../hooks';
+import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';

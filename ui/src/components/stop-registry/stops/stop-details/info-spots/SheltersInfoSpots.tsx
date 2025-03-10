@@ -4,7 +4,7 @@ import {
   InfoSpotDetailsFragment,
   ShelterEquipmentDetailsFragment,
 } from '../../../../../generated/graphql';
-import { StopWithDetails } from '../../../../../hooks';
+import { StopWithDetails } from '../../../../../types';
 import { InfoSpotsSection } from './InfoSpotsSection';
 
 type Props = {

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { StopWithDetails } from '../../../../../hooks';
 import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings';
+import { StopWithDetails } from '../../../../../types';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
 import { DetailRow, LabeledDetail } from '../layout';
 import { MainLineWarning } from '../MainLineWarning';

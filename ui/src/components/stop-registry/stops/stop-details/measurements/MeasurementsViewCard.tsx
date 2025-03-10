@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { StopWithDetails } from '../../../../../hooks';
 import {
   mapStopRegistryGuidanceTypeToUiName,
   mapStopRegistryMapTypeToUiName,
@@ -7,6 +6,7 @@ import {
   mapStopRegistryShelterWidthTypeToUiName,
   mapStopRegistryStopTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
+import { StopWithDetails } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../layout';
 import {
   extractRelevantAccessibilityAssessment,

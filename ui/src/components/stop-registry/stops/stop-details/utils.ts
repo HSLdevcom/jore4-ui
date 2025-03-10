@@ -6,8 +6,7 @@ import {
   StopRegistryInfoSpotType,
 } from '../../../../generated/graphql';
 import { i18n } from '../../../../i18n';
-import { EnrichedQuay } from '../../../../types';
-import { StopWithDetails } from '../../../../hooks';
+import { EnrichedQuay, StopWithDetails } from '../../../../types';
 
 /**
  * Returns a translated string that includes all stop types of a given stop place.

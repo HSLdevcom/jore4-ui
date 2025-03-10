@@ -1,6 +1,6 @@
 import compact from 'lodash/compact';
 import { FC } from 'react';
-import { StopWithDetails } from '../../../../../hooks';
+import { StopWithDetails } from '../../../../../types';
 import { PageTitle } from '../../../../common';
 import { EditValidityButton } from './EditValidityButton';
 import { ExtraActions } from './ExtraActions';

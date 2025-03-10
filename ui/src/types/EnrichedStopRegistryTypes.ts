@@ -1,6 +1,7 @@
 import {
   InfoSpotDetailsFragment,
   QuayDetailsFragment,
+  ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
   StopRegistryAccessibilityLevel,
 } from '../generated/graphql';
@@ -47,3 +48,9 @@ export type EnrichedStopPlace = Omit<StopPlace, 'name'> &
   StopPlaceEnrichmentProperties;
 export type Quay = QuayDetailsFragment;
 export type EnrichedQuay = Quay & QuayEnrichmentProperties;
+
+/** Gets the stop details, including the stop place, depending on query parameters. */
+export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
+  stop_place: EnrichedStopPlace | null;
+  quay: EnrichedQuay | null;
+};

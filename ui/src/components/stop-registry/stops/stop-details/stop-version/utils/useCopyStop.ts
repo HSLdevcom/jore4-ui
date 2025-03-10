@@ -7,7 +7,7 @@ import {
   useUpdateInfoSpotMutation,
 } from '../../../../../../generated/graphql';
 import { ScheduledStopPointSetInput } from '../../../../../../graphql';
-import { StopWithDetails } from '../../../../../../hooks';
+import { StopWithDetails } from '../../../../../../types';
 import { notNullish } from '../../../../../../utils';
 import {
   FailedToResolveExistingQuays,

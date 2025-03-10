@@ -12,7 +12,7 @@ import {
   StopRegistryVersionLessEntityRef,
   StopRegistryVersionLessEntityRefInput,
 } from '../../../../generated/graphql';
-import { StopWithDetails } from '../../../../hooks';
+import { StopWithDetails } from '../../../../types';
 import {
   // mapAccessibilityAssessmentToInput,
   mapAlternativeNames,

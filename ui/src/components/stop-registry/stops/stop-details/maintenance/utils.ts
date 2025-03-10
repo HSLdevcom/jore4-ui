@@ -2,7 +2,7 @@ import {
   StopRegistryStopPlaceOrganisationRelationshipType as StopOrganisationType,
   StopPlaceOrganisationFieldsFragment,
 } from '../../../../../generated/graphql';
-import { StopWithDetails } from '../../../../../hooks';
+import { StopWithDetails } from '../../../../../types';
 
 export type StopOrganisations = NonNullable<
   StopWithDetails['stop_place']

@@ -1,10 +1,10 @@
 import { t } from 'i18next';
-import { StopWithDetails } from '../../../../../hooks';
 import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { HorizontalSeparator } from '../../../../../layoutComponents';
+import { StopWithDetails } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../layout';
 import { MainLineWarning } from '../MainLineWarning';
 import { translateStopTypes } from '../utils';

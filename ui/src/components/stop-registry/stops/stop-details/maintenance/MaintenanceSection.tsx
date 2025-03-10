@@ -1,10 +1,8 @@
 import mapValues from 'lodash/mapValues';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  StopWithDetails,
-  useEditStopMaintenanceDetails,
-} from '../../../../../hooks';
+import { useEditStopMaintenanceDetails } from '../../../../../hooks';
+import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
