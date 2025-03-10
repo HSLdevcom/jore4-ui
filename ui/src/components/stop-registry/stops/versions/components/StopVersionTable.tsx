@@ -14,6 +14,7 @@ type StopVersionTableProps = {
   readonly setSortingInfo: Dispatch<
     SetStateAction<StopVersionTableSortingInfo>
   >;
+  readonly testId: string;
 };
 
 export const StopVersionTable: FC<StopVersionTableProps> = ({
@@ -23,9 +24,13 @@ export const StopVersionTable: FC<StopVersionTableProps> = ({
   stopVersions,
   sortingInfo,
   setSortingInfo,
+  testId,
 }) => {
   return (
-    <table className={twMerge('border-light-grey', className)}>
+    <table
+      className={twMerge('border-light-grey', className)}
+      data-testid={testId}
+    >
       <StopVersionTableHeader
         className="border-b"
         sortingInfo={sortingInfo}

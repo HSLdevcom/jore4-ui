@@ -12,6 +12,7 @@ const HeaderId = `${ID}-Header`;
 
 const testIds = {
   showHideButton: 'DraftVersionsContainer::showHideButton',
+  versionTable: 'DraftVersionsContainer::versionTable',
 };
 
 function useControls() {
@@ -76,6 +77,7 @@ export const DraftVersionsContainer: FC<DraftVersionsContainerProps> = ({
           stopVersions={sortedStopVersions}
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
+          testId={testIds.versionTable}
         />
       </div>
     </div>

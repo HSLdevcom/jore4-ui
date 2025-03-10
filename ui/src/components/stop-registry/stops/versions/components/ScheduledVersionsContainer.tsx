@@ -14,6 +14,7 @@ const HeaderId = `${ID}-Header`;
 
 const testIds = {
   showHideButton: 'ScheduledVersionsContainer::showHideButton',
+  versionTable: 'ScheduledVersionsContainer::versionTable',
 };
 
 function useFilterVersionsByDateRange(
@@ -120,6 +121,7 @@ export const ScheduledVersionsContainer: FC<
           stopVersions={filteredStopVersions}
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
+          testId={testIds.versionTable}
         />
       </div>
     </div>
