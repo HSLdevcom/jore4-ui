@@ -6,6 +6,12 @@ import { SortOrder } from '../../../../../types';
 import { ExpandButton } from '../../../../../uiComponents';
 import { StopVersionTableColumn, StopVersionTableSortingInfo } from '../types';
 
+const testIds = {
+  column: (type: StopVersionTableColumn) =>
+    `StopVersionTableHeaderSortableCell::${type.toLowerCase()}`,
+  sortButton: 'StopVersionTableHeaderSortableCell::sortButton',
+};
+
 function getAriaSortValue(
   active: boolean,
   ascending: boolean,
@@ -72,7 +78,11 @@ export const StopVersionTableHeaderSortableCell: FC<
   };
 
   return (
-    <td aria-sort={getAriaSortValue(active, ascending)} className={tdClassName}>
+    <td
+      aria-sort={getAriaSortValue(active, ascending)}
+      className={tdClassName}
+      data-testid={testIds.column(columnType)}
+    >
       <ExpandButton
         forSorting
         className={twJoin(active ? 'underline' : '', className)}
@@ -80,6 +90,7 @@ export const StopVersionTableHeaderSortableCell: FC<
         expanded={!ascending}
         expandedText={trColumnName(t, columnType)}
         onClick={onClick}
+        testId={testIds.sortButton}
       />
     </td>
   );

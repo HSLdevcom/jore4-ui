@@ -12,7 +12,9 @@ import { useGetStopVersionPageInfo } from './queries/useGetStopVersionPageInfo';
 const testIds = {
   container: 'StopVersionsPage::Container',
   loadingWrapper: 'StopVersionsPage::LoadingWrapper',
+  title: 'StopVersionsPage::title',
   returnButton: 'StopVersionsPage::returnButton',
+  names: 'StopVersionsPage::names',
 };
 
 export const StopVersionsPage: FC = () => {
@@ -31,7 +33,7 @@ export const StopVersionsPage: FC = () => {
   return (
     <Container testId={testIds.container}>
       <Row className="items-end justify-between">
-        <PageTitle.H1 titleText={titleText}>
+        <PageTitle.H1 titleText={titleText} testId={testIds.title}>
           {t('stopVersion.title', { publicCode })}
         </PageTitle.H1>
 
@@ -48,7 +50,7 @@ export const StopVersionsPage: FC = () => {
       </Row>
       <Row>
         {stopPlaceName && (
-          <h2>
+          <h2 data-testid={testIds.names}>
             <span>{stopPlaceName.name}</span>
             {' - '}
             <span>{stopPlaceName.nameSwe}</span>

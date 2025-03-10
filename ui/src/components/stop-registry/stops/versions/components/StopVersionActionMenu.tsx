@@ -8,7 +8,7 @@ import { OpenDetailsPage, ShowOnMap } from '../../../components';
 import { ActionMenuStop } from '../types/ActionMenuStop';
 
 const testIds = {
-  actionMenu: 'StopVersion::actionMenu',
+  actionMenu: 'StopVersionRow::actionMenu',
 };
 
 type StopVersionActionMenuProps = {

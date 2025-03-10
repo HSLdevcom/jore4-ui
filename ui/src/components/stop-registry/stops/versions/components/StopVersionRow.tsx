@@ -8,6 +8,15 @@ import { ActionMenuStop } from '../types/ActionMenuStop';
 import { trStatus } from '../utils';
 import { StopVersionActionMenu } from './StopVersionActionMenu';
 
+const testIds = {
+  status: 'StopVersionRow::status',
+  validityStart: 'StopVersionRow::validityStart',
+  validityEnd: 'StopVersionRow::validityEnd',
+  versionComment: 'StopVersionRow::versionComment',
+  changed: 'StopVersionRow::changed',
+  changedBy: 'StopVersionRow::changedBy',
+};
+
 function statusToCellClasses(status: StopVersionStatus): string {
   switch (status) {
     case StopVersionStatus.ACTIVE:
@@ -53,31 +62,40 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
         'text-nowrap border-b *:border-x *:px-4 *:py-2',
         className,
       )}
+      data-test-element-type="StopVersionRow"
     >
       <td
         className={twJoin(
           'text-center',
           statusToCellClasses(stopVersion.status),
         )}
+        data-testid={testIds.status}
       >
         {trStatus(t, stopVersion.status)}
       </td>
 
-      <td className="!border-r-0 text-right">
+      <td
+        className="!border-r-0 text-right"
+        data-testid={testIds.validityStart}
+      >
         {mapToShortDate(stopVersion.validity_start)}
       </td>
 
       <td className="!border-x-0 !p-0">-</td>
 
-      <td className="!border-l-0 text-right">
+      <td className="!border-l-0 text-right" data-testid={testIds.validityEnd}>
         {mapToShortDate(stopVersion.validity_end)}
       </td>
 
-      <td className="text-pretty">{stopVersion.version_comment}</td>
+      <td className="text-pretty" data-testid={testIds.versionComment}>
+        {stopVersion.version_comment}
+      </td>
 
-      <td className="text-right">{mapToShortDateTime(stopVersion.changed)}</td>
+      <td className="text-right" data-testid={testIds.changed}>
+        {mapToShortDateTime(stopVersion.changed)}
+      </td>
 
-      <td>{stopVersion.changed_by}</td>
+      <td data-testid={testIds.changedBy}>{stopVersion.changed_by}</td>
 
       <td className="!px-2">
         <LocatorActionButton
