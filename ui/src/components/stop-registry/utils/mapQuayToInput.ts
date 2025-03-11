@@ -34,7 +34,7 @@ function mapBoardingPositionsToInput(
 function isEnrichedQuay(
   quay: StopRegistryQuay | EnrichedQuay,
 ): quay is EnrichedQuay {
-  return !!quay.privateCode?.value;
+  return (quay as StopRegistryQuay).privateCode?.value === undefined;
 }
 
 function getQuayPrivateCode(

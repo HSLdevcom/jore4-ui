@@ -229,17 +229,15 @@ const stopPlaceData: Array<StopAreaInput> = [
   {
     StopArea: {
       privateCode: { type: 'HSL', value: 'E2E008' },
-      name: Annankatu20Name,
-      alternativeNames: Annankatu20AltNames,
+      name: { lang: 'fin', value: 'Kuttulammentie' },
       quays: [
         {
           publicCode: 'E2E008',
-          alternativeNames: Annankatu20Location,
           geometry: coordinatesToStopRegistryGeoJSON(
             stopCoordinatesByLabel.E2E005,
           ),
           keyValues: [
-            { key: 'streetAddress', values: ['Annankatu 20'] },
+            { key: 'streetAddress', values: ['Kuttulammentie 15'] },
             { key: 'elyNumber', values: ['E2E008'] },
           ],
         },
