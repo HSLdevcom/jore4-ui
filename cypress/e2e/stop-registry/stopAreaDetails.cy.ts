@@ -67,8 +67,8 @@ describe('Stop area details', () => {
         name: { lang: 'fin', value: 'Annankatu 15' },
         alternativeNames: Annankatu15AltNames,
         validBetween: {
-          fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
-          toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
+          fromDate: DateTime.fromISO('2000-01-01'),
+          toDate: DateTime.fromISO('2052-01-01'),
         },
         geometry: {
           coordinates: [24.938927, 60.165433],
@@ -91,8 +91,8 @@ describe('Stop area details', () => {
         privateCode: { type: 'HSL', value: 'X0004' },
         name: { lang: 'fin', value: 'Kalevankatu 32' },
         keyValues: [
-          { key: 'validityStart', values: ['2020-01-01'] },
-          { key: 'validityEnd', values: ['2050-01-01'] },
+          { key: 'validityStart', values: ['2000-01-01'] },
+          { key: 'validityEnd', values: ['2052-01-01'] },
         ],
         geometry: {
           coordinates: [24.932914978884, 60.165538996581],

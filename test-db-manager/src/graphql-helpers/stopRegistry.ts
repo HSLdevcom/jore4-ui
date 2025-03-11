@@ -37,6 +37,7 @@ import {
   InsertTerminalResult,
   UpdateScheduledStopPointStopPlaceRefResult,
 } from '../types';
+import { uniqBy } from 'lodash';
 
 const getTiamatResponseBody = (res: ExplicitAny) => {
   const { data, errors } = res;
@@ -270,13 +271,24 @@ function assembleStopPlace(
   return {
     ...stopPlace,
     quays: patchedQuays,
-    keyValues: [
-      ...(stopPlace.keyValues ?? []),
-      {
-        key: 'priority',
-        values: ['10'],
-      },
-    ],
+    keyValues: uniqBy(
+      [
+        {
+          key: 'priority',
+          values: ['10'],
+        },
+        {
+          key: 'validityStart',
+          values: ['2000-01-01'],
+        },
+        {
+          key: 'validityEnd',
+          values: ['2052-01-01'],
+        },
+        ...(Array.isArray(stopPlace.keyValues) ? stopPlace.keyValues : []),
+      ],
+      'key',
+    ),
   };
 }
 

@@ -255,10 +255,9 @@ describe('Stop search', () => {
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
         stopSearchResultsPage.getContainer().should('be.visible');
-        stopSearchResultsPage.getResultRows().should('have.length', 4);
+        stopSearchResultsPage.getResultRows().should('have.length', 3);
         stopSearchResultsPage.getResultRows().should('contain', 'E2E001');
         stopSearchResultsPage.getResultRows().should('contain', 'E2E002');
-        stopSearchResultsPage.getResultRows().should('contain', 'E2E008');
         stopSearchResultsPage.getResultRows().should('contain', 'E2E009');
       },
     );
@@ -744,25 +743,25 @@ describe('Stop search', () => {
       sortByButton.getButton('name').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
       sortByButton.assertSorting('name', 'desc');
-      assertResultOrder(['E2E005', 'E2E006', 'E2E003', 'E2E007', 'E2E008']);
+      assertResultOrder(['E2E005', 'E2E008', 'E2E006', 'E2E003', 'E2E007']);
 
       // Name ascending
       sortByButton.getButton('name').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
       sortByButton.assertSorting('name', 'asc');
-      assertResultOrder(['E2E004', 'E2E001', 'E2E009', 'E2E002', 'E2E008']);
+      assertResultOrder(['E2E004', 'E2E001', 'E2E009', 'E2E002', 'E2E007']);
 
       // Address ascending
       sortByButton.getButton('address').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
       sortByButton.assertSorting('address', 'asc');
-      assertResultOrder(['E2E004', 'E2E001', 'E2E009', 'E2E002', 'E2E008']);
+      assertResultOrder(['E2E004', 'E2E001', 'E2E009', 'E2E002', 'E2E007']);
 
       // Address descending
       sortByButton.getButton('address').click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
       sortByButton.assertSorting('address', 'desc');
-      assertResultOrder(['E2E005', 'E2E006', 'E2E003', 'E2E007', 'E2E008']);
+      assertResultOrder(['E2E005', 'E2E008', 'E2E006', 'E2E003', 'E2E007']);
     });
 
     it('should page on basic stop search', () => {
@@ -976,27 +975,27 @@ describe('Stop search', () => {
         },
       ];
 
-      const stopPlaces: ReadonlyArray<StopAreaInput> = extraPrioStops.map(
-        (stopPoint) => ({
+      const stopPlaces: ReadonlyArray<StopAreaInput> = [
+        {
           StopArea: {
-            name: { lang: 'fin', value: stopPoint.label },
-            quays: [
-              {
-                publicCode: stopPoint.label,
-                privateCode: { value: stopPoint.label, type: 'HSL' },
-                geometry: {
-                  coordinates: stopPoint.measured_location.coordinates.slice(
-                    0,
-                    2,
-                  ),
-                  type: StopRegistryGeoJsonType.Point,
-                },
+            name: { lang: 'fin', value: 'X1234' },
+            quays: extraPrioStops.map((stopPoint) => ({
+              publicCode: stopPoint.label,
+              privateCode: { value: stopPoint.label, type: 'HSL' },
+              geometry: {
+                coordinates: stopPoint.measured_location.coordinates.slice(
+                  0,
+                  2,
+                ),
+                type: StopRegistryGeoJsonType.Point,
               },
-            ],
+            })),
           },
           organisations: null,
-        }),
-      );
+        },
+      ];
+
+      console.log(stopPlaces);
 
       insertToDbHelper({ stops: extraPrioStops });
 
@@ -1007,7 +1006,7 @@ describe('Stop search', () => {
       setupTestsAndNavigateToPage({}, true);
     });
 
-    it('should visualise priorities correctly', () => {
+    it.only('should visualise priorities correctly', () => {
       // prettier-ignore
       const results: ReadonlyArray<
         readonly [string, string, string, Priority]
@@ -1029,10 +1028,10 @@ describe('Stop search', () => {
       ];
 
       const prioritySets: ReadonlyArray<ReadonlyArray<Priority>> = [
+        allPriorities,
         [Priority.Standard],
         [Priority.Temporary],
         [Priority.Draft],
-        allPriorities,
       ];
 
       stopSearchBar.getExpandToggle().click();

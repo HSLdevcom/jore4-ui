@@ -1,10 +1,8 @@
 import {
   Priority,
   ReusableComponentsVehicleModeEnum,
-  StopAreaInput,
   StopRegistryGeoJsonType,
 } from '@hsl/jore4-test-db-manager';
-import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
@@ -37,21 +35,12 @@ describe('Stop area details', () => {
 
   const testStopArea = {
     StopArea: {
-      name: { lang: 'fin', value: 'X0003' },
-      description: { lang: 'fin', value: 'Annankatu 15' },
-      validBetween: {
-        fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
-        toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
-      },
       geometry: {
         coordinates: [24.938927, 60.165433],
         type: StopRegistryGeoJsonType.Point,
       },
     },
-    organisations: null,
   };
-
-  const stopAreaData: Array<StopAreaInput> = [testStopArea];
 
   before(() => {
     cy.task<UUID[]>(
@@ -74,10 +63,8 @@ describe('Stop area details', () => {
     cy.task('resetDbs');
 
     insertToDbHelper(dbResources);
-
     cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
       ...baseStopRegistryData,
-      stopAreas: stopAreaData,
     }).then((data) => {
       stopAreaId = data.stopPlaceIdsByName.X0003;
 
