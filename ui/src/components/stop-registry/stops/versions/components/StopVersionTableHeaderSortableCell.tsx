@@ -1,10 +1,21 @@
 import { TFunction } from 'i18next';
-import { Dispatch, FC, SetStateAction } from 'react';
+import { AriaAttributes, Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { SortOrder } from '../../../../../types';
 import { ExpandButton } from '../../../../../uiComponents';
 import { StopVersionTableColumn, StopVersionTableSortingInfo } from '../types';
+
+function getAriaSortValue(
+  active: boolean,
+  ascending: boolean,
+): AriaAttributes['aria-sort'] {
+  if (active) {
+    return ascending ? 'ascending' : 'descending';
+  }
+
+  return undefined;
+}
 
 function trColumnName(t: TFunction, columnType: StopVersionTableColumn) {
   switch (columnType) {
@@ -61,11 +72,11 @@ export const StopVersionTableHeaderSortableCell: FC<
   };
 
   return (
-    <td className={tdClassName}>
+    <td aria-sort={getAriaSortValue(active, ascending)} className={tdClassName}>
       <ExpandButton
+        forSorting
         className={twJoin(active ? 'underline' : '', className)}
         iconClassName="text-base"
-        ariaControls="a"
         expanded={!ascending}
         expandedText={trColumnName(t, columnType)}
         onClick={onClick}
