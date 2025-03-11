@@ -11,17 +11,21 @@ import { trStatus } from './trStatus';
 
 type Comparator = (versionA: StopVersion, versionB: StopVersion) => number;
 
-function compareDates(dateA: DateTime | null, dateB: DateTime | null): number {
+function compareDates(
+  dateA: DateTime | null,
+  dateB: DateTime | null,
+  nullsLast: boolean = false,
+): number {
   if (dateA === null && dateB === null) {
     return 0;
   }
 
   if (dateA === null) {
-    return -1;
+    return nullsLast ? 1 : -1;
   }
 
   if (dateB === null) {
-    return 1;
+    return nullsLast ? -1 : 1;
   }
 
   return dateA.valueOf() - dateB.valueOf();
@@ -44,7 +48,7 @@ function useComparator(orderBy: StopVersionTableColumn): Comparator {
       return (a, b) => compareDates(a.validity_start, b.validity_start);
 
     case 'VALIDITY_END':
-      return (a, b) => compareDates(a.validity_end, b.validity_end);
+      return (a, b) => compareDates(a.validity_end, b.validity_end, true);
 
     case 'VERSION_COMMENT':
       return (a, b) => collator.compare(a.version_comment, b.version_comment);
