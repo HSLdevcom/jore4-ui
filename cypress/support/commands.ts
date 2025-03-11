@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { HasuraEnvironment } from '@hsl/jore4-test-db-manager';
+import type { DateTime } from 'luxon';
 import { mockMapTileServerReponses } from './mockMapTileServerReponses';
 
 const getHasuraEnvironment = () => {
@@ -47,6 +48,38 @@ Cypress.Commands.add(
     return cy.wrap(subject).find(`[data-testid="${selector}"]`);
   },
 );
+
+Cypress.Commands.add('clearAndType', { prevSubject: true }, (subject, text) => {
+  cy.wrap(subject).clear();
+  cy.wrap(subject).type(text);
+  return cy.wrap(subject);
+});
+
+Cypress.Commands.add(
+  'inputDateValue',
+  { prevSubject: true },
+  (subject, date: DateTime<true>) => {
+    cy.wrap(subject).clear();
+    cy.wrap(subject).type(date.toISODate());
+    return cy.wrap(subject);
+  },
+);
+
+Cypress.Commands.add(
+  'shouldHaveText',
+  { prevSubject: true },
+  (subject, expectedText) => {
+    cy.wrap(subject).should('have.text', expectedText);
+  },
+);
+
+Cypress.Commands.add('shouldBeVisible', { prevSubject: true }, (subject) => {
+  cy.wrap(subject).should('be.visible');
+});
+
+Cypress.Commands.add('shouldBeDisabled', { prevSubject: true }, (subject) => {
+  cy.wrap(subject).should('be.disabled');
+});
 
 Cypress.Commands.add('mockLogin', () => {
   cy.fixture('users/e2e.json').then((userInfo) => {
@@ -79,32 +112,6 @@ Cypress.Commands.add('setupTests', () => {
     Cypress.log({ message: 'Disabling map tile rendering' });
     mockMapTileServerReponses();
   }
-
-  Cypress.Commands.add(
-    'clearAndType',
-    { prevSubject: true },
-    (subject, text) => {
-      cy.wrap(subject).clear();
-      cy.wrap(subject).type(text);
-      return cy.wrap(subject);
-    },
-  );
-
-  Cypress.Commands.add(
-    'shouldHaveText',
-    { prevSubject: true },
-    (subject, expectedText) => {
-      cy.wrap(subject).should('have.text', expectedText);
-    },
-  );
-
-  Cypress.Commands.add('shouldBeVisible', { prevSubject: true }, (subject) => {
-    cy.wrap(subject).should('be.visible');
-  });
-
-  Cypress.Commands.add('shouldBeDisabled', { prevSubject: true }, (subject) => {
-    cy.wrap(subject).should('be.disabled');
-  });
 
   // label all graphql calls that they can be expected in tests
   // e.g. GetAllLines query can be waited as cy.wait('@gqlGetAllLines')

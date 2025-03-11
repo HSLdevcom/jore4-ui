@@ -5,6 +5,8 @@
 /// <reference types="@types/luxon" />
 
 declare namespace Cypress {
+  import type { DateTime } from 'luxon';
+
   interface Chainable {
     /**
      * Custom command to select DOM element by data-testid attribute.
@@ -24,6 +26,11 @@ declare namespace Cypress {
      * Custom command to clear an input field and type the value
      */
     clearAndType(value: string): Chainable<JQuery<HtmlElement>>;
+
+    /**
+     * Custom command to clear an input field and type the date
+     */
+    inputDateValue(value: DateTime): Chainable<JQuery<HtmlElement>>;
 
     /**
      * Custom command to check if element has text
