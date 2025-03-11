@@ -5,11 +5,15 @@ import { TextAndIconButton } from './TextAndIconButton';
 
 type AllowedButtonProps = Omit<
   React.JSX.IntrinsicElements['button'],
-  'aria-controls' | 'aria-expanded' | 'children' | 'onClick' | 'type'
+  | 'aria-controls'
+  | 'aria-expanded'
+  | 'aria-pressed'
+  | 'children'
+  | 'onClick'
+  | 'type'
 >;
 
 type CustomExpandButtonProps = {
-  readonly ariaControls: string;
   readonly className?: string;
   readonly iconClassName?: string;
   readonly expanded: boolean;
@@ -19,9 +23,22 @@ type CustomExpandButtonProps = {
   readonly testId?: string;
 };
 
-type ExpandButtonProps = AllowedButtonProps & CustomExpandButtonProps;
+type ForAccordionProps = {
+  readonly forSorting?: false;
+  readonly ariaControls: string;
+};
+
+type ForSortingProps = {
+  readonly forSorting: true;
+  readonly ariaControls?: never;
+};
+
+type ExpandButtonProps = AllowedButtonProps &
+  CustomExpandButtonProps &
+  (ForAccordionProps | ForSortingProps);
 
 export const ExpandButton: FC<ExpandButtonProps> = ({
+  forSorting = false,
   ariaControls,
   className,
   iconClassName,
@@ -48,8 +65,13 @@ export const ExpandButton: FC<ExpandButtonProps> = ({
       type="button"
       testId={testId}
       onClick={onClick}
-      aria-expanded={expanded}
-      aria-controls={ariaControls}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...(forSorting
+        ? { 'aria-pressed': expanded }
+        : {
+            'aria-expanded': expanded,
+            'aria-controls': ariaControls,
+          })}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...buttonProps}
     />
