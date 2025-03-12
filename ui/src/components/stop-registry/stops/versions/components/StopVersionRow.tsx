@@ -54,6 +54,7 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
     netextId: stopVersion.netex_id,
     location: stopVersion.location,
     startDate: stopVersion.validity_start,
+    priority: stopVersion.priority,
   };
 
   return (

@@ -31,7 +31,11 @@ export const StopVersionActionMenu: FC<StopVersionActionMenuProps> = ({
       testId={testIds.actionMenu}
     >
       <ShowOnMap stop={stop} observeOnStopValidityStartDate />
-      <OpenDetailsPage stop={stop} observationDate={stop.startDate} />
+      <OpenDetailsPage
+        stop={stop}
+        observationDate={stop.startDate}
+        priority={stop.priority}
+      />
     </SimpleDropdownMenu>
   );
 };
