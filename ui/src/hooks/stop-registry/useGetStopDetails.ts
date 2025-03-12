@@ -283,11 +283,7 @@ const GQL_INFO_SPOT_DETAILS = gql`
 
 function sortInfoSpots(
   infoSpots: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,
-): Array<StopPlaceInfoSpots> | null {
-  if (!infoSpots) {
-    return null;
-  }
-
+): Array<StopPlaceInfoSpots> {
   return compact(infoSpots).sort((a, b) =>
     (a.label ?? '').localeCompare(b.label ?? ''),
   );
@@ -295,11 +291,7 @@ function sortInfoSpots(
 
 function sortPosters(
   posters: ReadonlyArray<StopRegistryPosterInput | null> | undefined | null,
-): Array<StopRegistryPosterInput> | null {
-  if (!posters) {
-    return null;
-  }
-
+): Array<StopRegistryPosterInput> {
   return compact(posters).sort((a, b) =>
     (a.label ?? '').localeCompare(b.label ?? ''),
   );
@@ -366,6 +358,20 @@ function getCorrectQuay(
   );
 }
 
+function sortQuayInfoSpots(quay: Quay | null): Quay | null {
+  if (!quay) {
+    return null;
+  }
+
+  return {
+    ...quay,
+    infoSpots: sortInfoSpots(quay.infoSpots).map((infoSpot) => ({
+      ...infoSpot,
+      poster: sortPosters(infoSpot.poster),
+    })),
+  };
+}
+
 const getStopDetails = (
   data: GetHighestPriorityStopDetailsByLabelAndDateQuery | undefined,
   observationDateTs: number,
@@ -385,10 +391,15 @@ const getStopDetails = (
     observationDateTs,
   );
 
+  const selectedQuayWithSortedInfoSpots = sortQuayInfoSpots(selectedQuay);
+
   return {
     ...stopPoint,
     stop_place: getEnrichedStopPlace(stopPlace),
-    quay: getEnrichedQuay(selectedQuay, stopPlace?.accessibilityAssessment),
+    quay: getEnrichedQuay(
+      selectedQuayWithSortedInfoSpots,
+      stopPlace?.accessibilityAssessment,
+    ),
   };
 };
 
