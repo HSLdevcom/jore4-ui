@@ -71,4 +71,10 @@ export class StopDetailsPage {
   loadingStopDetails() {
     return cy.getByTestId('StopDetailsPage::loadingStopDetails');
   }
+
+  returnToDateBasedVersionSelection() {
+    return cy.getByTestId(
+      'StopDetailsVersion::returnToDateBasedVersionSelection',
+    );
+  }
 }

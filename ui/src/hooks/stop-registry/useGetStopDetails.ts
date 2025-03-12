@@ -1,14 +1,16 @@
 import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
 import maxBy from 'lodash/maxBy';
+import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
   AccessibilityAssessmentDetailsFragment,
-  GetHighestPriorityStopDetailsByLabelAndDateQuery,
+  GetStopDetailsQuery,
   InfoSpotDetailsFragment,
+  ServicePatternScheduledStopPointBoolExp,
   StopRegistryPosterInput,
   StopRegistryQuayInput,
-  useGetHighestPriorityStopDetailsByLabelAndDateQuery,
+  useGetStopDetailsQuery,
 } from '../../generated/graphql';
 import {
   EnrichedQuay,
@@ -25,7 +27,7 @@ import {
   getStopPlacesFromQueryResult,
   notNullish,
 } from '../../utils';
-import { useObservationDateQueryParam } from '../urlQuery';
+import { useObservationDateQueryParam, useUrlQuery } from '../urlQuery';
 import { useRequiredParams } from '../useRequiredParams';
 
 const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
@@ -50,33 +52,10 @@ const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
   }
 `;
 
-const GQL_GET_HIGHEST_PRIORITY_STOP_DETAILS_BY_LABEL_AND_DATE = gql`
-  query GetHighestPriorityStopDetailsByLabelAndDate(
-    $label: String!
-    $observationDate: date!
-  ) {
+const GQL_GET_STOP_DETAILS = gql`
+  query GetStopDetails($where: service_pattern_scheduled_stop_point_bool_exp) {
     service_pattern_scheduled_stop_point(
-      where: {
-        _and: [
-          { label: { _eq: $label } }
-          {
-            _and: [
-              {
-                _or: [
-                  { validity_start: { _lte: $observationDate } }
-                  { validity_start: { _is_null: true } }
-                ]
-              }
-              {
-                _or: [
-                  { validity_end: { _gte: $observationDate } }
-                  { validity_end: { _is_null: true } }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+      where: $where
       order_by: { priority: desc }
       limit: 1
     ) {
@@ -347,11 +326,20 @@ function getCorrectQuay(
   quays: ReadonlyArray<Quay | null | undefined> | null | undefined,
   requestedPublicCode: string,
   observationDateTs: number,
+  priority: number,
 ): Quay | null {
   const validQuays = quays
     ?.filter(notNullish)
     .filter((it) => it.publicCode === requestedPublicCode)
     .filter(validOn(observationDateTs));
+
+  if (Number.isFinite(priority)) {
+    return (
+      validQuays?.find(
+        (quay) => findKeyValue(quay, 'priority') === String(priority),
+      ) ?? null
+    );
+  }
 
   return (
     maxBy(validQuays, (quay) => Number(findKeyValue(quay, 'priority'))) ?? null
@@ -373,8 +361,9 @@ function sortQuayInfoSpots(quay: Quay | null): Quay | null {
 }
 
 const getStopDetails = (
-  data: GetHighestPriorityStopDetailsByLabelAndDateQuery | undefined,
+  data: GetStopDetailsQuery | undefined,
   observationDateTs: number,
+  priority: number,
 ): StopWithDetails | null => {
   const stopPoint = data?.service_pattern_scheduled_stop_point[0];
   if (!stopPoint) {
@@ -389,6 +378,7 @@ const getStopDetails = (
     stopPlace.quays,
     stopPoint.label,
     observationDateTs,
+    priority,
   );
 
   const selectedQuayWithSortedInfoSpots = sortQuayInfoSpots(selectedQuay);
@@ -403,20 +393,54 @@ const getStopDetails = (
   };
 };
 
+function getWhereCondition(
+  label: string,
+  observationDate: DateTime,
+  priority: number,
+): ServicePatternScheduledStopPointBoolExp {
+  const labelCondition: ServicePatternScheduledStopPointBoolExp = {
+    label: { _eq: label },
+  };
+  const observationDateCondition: ServicePatternScheduledStopPointBoolExp = {
+    _and: [
+      { validity_start: { _lte: observationDate } },
+      {
+        _or: [
+          { validity_end: { _gte: observationDate } },
+          { validity_end: { _is_null: true } },
+        ],
+      },
+    ],
+  };
+
+  if (Number.isFinite(priority)) {
+    return {
+      _and: [
+        labelCondition,
+        observationDateCondition,
+        { priority: { _eq: priority } },
+      ],
+    };
+  }
+
+  return {
+    _and: [labelCondition, observationDateCondition],
+  };
+}
+
 export const useGetStopDetails = () => {
   const { label } = useRequiredParams<{ label: string }>();
   const { observationDate } = useObservationDateQueryParam();
+  const { queryParams } = useUrlQuery();
+  const priority = Number(queryParams.priority);
 
-  const { data, ...rest } = useGetHighestPriorityStopDetailsByLabelAndDateQuery(
-    {
-      variables: { label, observationDate },
-    },
-  );
+  const where = getWhereCondition(label, observationDate, priority);
+  const { data, ...rest } = useGetStopDetailsQuery({ variables: { where } });
 
   const observationDateTs = observationDate.valueOf();
   const stopDetails = useMemo(
-    () => getStopDetails(data, observationDateTs),
-    [data, observationDateTs],
+    () => getStopDetails(data, observationDateTs, priority),
+    [data, observationDateTs, priority],
   );
 
   return { ...rest, stopDetails };

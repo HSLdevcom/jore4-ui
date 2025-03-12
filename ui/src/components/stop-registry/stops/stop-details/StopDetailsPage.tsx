@@ -1,17 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
-import {
-  makeBackNavigationIsSafeState,
-  useGetStopDetails,
-  useRequiredParams,
-} from '../../../../hooks';
-import { Container, Row, Visible } from '../../../../layoutComponents';
-import { Path, routeDetails } from '../../../../router/routeDetails';
+import { useGetStopDetails, useRequiredParams } from '../../../../hooks';
+import { Container, Visible } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
-import { SimpleButton } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
-import { ObservationDateControl } from '../../../common/ObservationDateControl';
 import { BasicDetailsSection } from './basic-details/BasicDetailsSection';
 import {
   DetailTabSelector,
@@ -24,6 +17,7 @@ import { MaintenanceSection } from './maintenance';
 import { MeasurementsSection } from './measurements';
 import { SheltersSection } from './shelters';
 import { SignageDetailsSection } from './signage-details/SignageDetailsSection';
+import { StopDetailsVersion } from './StopDetailsVersion';
 import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
 import { StopTitleRow } from './title-row/StopTitleRow';
 
@@ -49,17 +43,8 @@ export const StopDetailsPage = (): React.ReactElement => {
     <Container testId={testIds.page}>
       <StopTitleRow stopDetails={stopDetails} label={label} />
       <StopHeaderSummaryRow className="my-2" stopDetails={stopDetails} />
-      <Row className="items-end justify-end gap-4">
-        {/* TODO: Stop/Announcement/Breakroom/Lines tabs */}
-        <ObservationDateControl className="col-start-6" />
-        <SimpleButton
-          inverted
-          href={{ pathname: routeDetails[Path.stopVersions].getLink(label) }}
-          state={makeBackNavigationIsSafeState()}
-        >
-          {t('stopDetails.actions.showVersions')}
-        </SimpleButton>
-      </Row>
+      {/* TODO: Stop/Announcement/Breakroom/Lines tabs */}
+      <StopDetailsVersion label={label} />
       <hr className="my-4" />
       <div className="my-4 flex items-center">
         <h2 className="">{t('stopDetails.stopDetails')}</h2>

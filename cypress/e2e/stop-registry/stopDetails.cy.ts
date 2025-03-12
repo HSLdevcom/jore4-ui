@@ -2452,6 +2452,69 @@ describe('Stop details', () => {
           });
         });
     });
+
+    it('should allow opening a specified priority version', () => {
+      // Create Temp Version
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.titleRow.actionsMenuButton().click();
+      stopDetailsPage.titleRow
+        .actionsMenuCopyButton()
+        .should('not.be.disabled')
+        .click();
+
+      const { copyModal } = stopDetailsPage;
+      const { form } = copyModal;
+
+      copyModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          form.versionName().clearAndType('Temp version');
+          form.priority.setPriority(Priority.Temporary);
+          form.validity.fillForm({ validityStartISODate: '2020-03-20' });
+          form.submitButton().click();
+        });
+
+      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      copyModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-');
+
+      // Create Draft Version
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.titleRow.actionsMenuButton().click();
+      stopDetailsPage.titleRow.actionsMenuCopyButton().click();
+
+      copyModal.modal().within(() => {
+        form.versionName().clearAndType('Draft version');
+        form.priority.setPriority(Priority.Draft);
+        form.validity.fillForm({
+          validityStartISODate: '2020-03-20',
+          validityEndISODate: '2020-04-01',
+        });
+        form.submitButton().click();
+      });
+
+      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      copyModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-1.4.2020');
+
+      // Reopen Temp version
+      cy.visit(
+        `/stop-registry/stops/H2003?observationDate=2020-03-20&priority=20`,
+      );
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-');
+
+      // Return to showing the Draft version
+      stopDetailsPage
+        .returnToDateBasedVersionSelection()
+        .shouldBeVisible()
+        .click();
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-1.4.2020');
+    });
   });
 
   // A regression test to ensure that our mutations don't eg. reset any fields they are not supposed to.
