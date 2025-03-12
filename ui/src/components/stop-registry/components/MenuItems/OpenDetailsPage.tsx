@@ -3,6 +3,7 @@ import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Path, routeDetails } from '../../../../router/routeDetails';
+import { Priority } from '../../../../types/enums';
 import { SimpleDropdownMenuItem } from '../../../../uiComponents';
 import { LocatableStopWithObservationDateProps } from '../../types';
 
@@ -10,16 +11,20 @@ const testIds = {
   showStopDetails: 'StopTableRow::ActionMenu::ShowStopDetails',
 };
 
+type OpenDetailsPageProps = LocatableStopWithObservationDateProps & {
+  readonly priority?: Priority;
+};
+
 const OpenDetailsPageImpl: ForwardRefRenderFunction<
   HTMLButtonElement,
-  LocatableStopWithObservationDateProps
-> = ({ className, observationDate, stop }, ref) => {
+  OpenDetailsPageProps
+> = ({ className, observationDate, priority, stop }, ref) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const pathname = routeDetails[Path.stopDetails].getLink(stop.label);
   const search = qs.stringify(
-    { observationDate: observationDate?.toISODate() },
+    { observationDate: observationDate?.toISODate(), priority },
     { addQueryPrefix: true },
   );
 

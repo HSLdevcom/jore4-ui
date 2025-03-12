@@ -588,6 +588,10 @@ describe('Stop Versions Page', () => {
       stopDetailsPage.loadingStopDetails().should('not.exist');
 
       stopDetailsPage.titleRow.label().shouldHaveText('E2E001');
+      stopDetailsPage
+        .returnToDateBasedVersionSelection()
+        .shouldBeVisible()
+        .click();
       stopDetailsPage.observationDateControl
         .getObservationDateInput()
         .should('have.attr', 'value', '2020-03-20');
