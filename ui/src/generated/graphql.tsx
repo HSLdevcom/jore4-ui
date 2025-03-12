@@ -73833,12 +73833,11 @@ export type ScheduledStopPointDetailFieldsFragment = {
   }>;
 };
 
-export type GetHighestPriorityStopDetailsByLabelAndDateQueryVariables = Exact<{
-  label: Scalars['String']['input'];
-  observationDate: Scalars['date']['input'];
+export type GetStopDetailsQueryVariables = Exact<{
+  where?: InputMaybe<ServicePatternScheduledStopPointBoolExp>;
 }>;
 
-export type GetHighestPriorityStopDetailsByLabelAndDateQuery = {
+export type GetStopDetailsQuery = {
   __typename?: 'query_root';
   service_pattern_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_scheduled_stop_point';
@@ -82692,33 +82691,10 @@ export type UpdateInfoSpotMutationOptions = Apollo.BaseMutationOptions<
   UpdateInfoSpotMutation,
   UpdateInfoSpotMutationVariables
 >;
-export const GetHighestPriorityStopDetailsByLabelAndDateDocument = gql`
-  query GetHighestPriorityStopDetailsByLabelAndDate(
-    $label: String!
-    $observationDate: date!
-  ) {
+export const GetStopDetailsDocument = gql`
+  query GetStopDetails($where: service_pattern_scheduled_stop_point_bool_exp) {
     service_pattern_scheduled_stop_point(
-      where: {
-        _and: [
-          { label: { _eq: $label } }
-          {
-            _and: [
-              {
-                _or: [
-                  { validity_start: { _lte: $observationDate } }
-                  { validity_start: { _is_null: true } }
-                ]
-              }
-              {
-                _or: [
-                  { validity_end: { _gte: $observationDate } }
-                  { validity_end: { _is_null: true } }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+      where: $where
       order_by: { priority: desc }
       limit: 1
     ) {
@@ -82733,59 +82709,51 @@ export const GetHighestPriorityStopDetailsByLabelAndDateDocument = gql`
 `;
 
 /**
- * __useGetHighestPriorityStopDetailsByLabelAndDateQuery__
+ * __useGetStopDetailsQuery__
  *
- * To run a query within a React component, call `useGetHighestPriorityStopDetailsByLabelAndDateQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetHighestPriorityStopDetailsByLabelAndDateQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetStopDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetHighestPriorityStopDetailsByLabelAndDateQuery({
+ * const { data, loading, error } = useGetStopDetailsQuery({
  *   variables: {
- *      label: // value for 'label'
- *      observationDate: // value for 'observationDate'
+ *      where: // value for 'where'
  *   },
  * });
  */
-export function useGetHighestPriorityStopDetailsByLabelAndDateQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetHighestPriorityStopDetailsByLabelAndDateQuery,
-    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
-  > &
-    (
-      | {
-          variables: GetHighestPriorityStopDetailsByLabelAndDateQueryVariables;
-          skip?: boolean;
-        }
-      | { skip: boolean }
-    ),
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetHighestPriorityStopDetailsByLabelAndDateQuery,
-    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
-  >(GetHighestPriorityStopDetailsByLabelAndDateDocument, options);
-}
-export function useGetHighestPriorityStopDetailsByLabelAndDateLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetHighestPriorityStopDetailsByLabelAndDateQuery,
-    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+export function useGetStopDetailsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetStopDetailsQuery,
+    GetStopDetailsQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetHighestPriorityStopDetailsByLabelAndDateQuery,
-    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
-  >(GetHighestPriorityStopDetailsByLabelAndDateDocument, options);
+  return Apollo.useQuery<GetStopDetailsQuery, GetStopDetailsQueryVariables>(
+    GetStopDetailsDocument,
+    options,
+  );
 }
-export function useGetHighestPriorityStopDetailsByLabelAndDateSuspenseQuery(
+export function useGetStopDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetStopDetailsQuery,
+    GetStopDetailsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetStopDetailsQuery, GetStopDetailsQueryVariables>(
+    GetStopDetailsDocument,
+    options,
+  );
+}
+export function useGetStopDetailsSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken
     | Apollo.SuspenseQueryHookOptions<
-        GetHighestPriorityStopDetailsByLabelAndDateQuery,
-        GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
+        GetStopDetailsQuery,
+        GetStopDetailsQueryVariables
       >,
 ) {
   const options =
@@ -82793,23 +82761,23 @@ export function useGetHighestPriorityStopDetailsByLabelAndDateSuspenseQuery(
       ? baseOptions
       : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
-    GetHighestPriorityStopDetailsByLabelAndDateQuery,
-    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
-  >(GetHighestPriorityStopDetailsByLabelAndDateDocument, options);
+    GetStopDetailsQuery,
+    GetStopDetailsQueryVariables
+  >(GetStopDetailsDocument, options);
 }
-export type GetHighestPriorityStopDetailsByLabelAndDateQueryHookResult =
-  ReturnType<typeof useGetHighestPriorityStopDetailsByLabelAndDateQuery>;
-export type GetHighestPriorityStopDetailsByLabelAndDateLazyQueryHookResult =
-  ReturnType<typeof useGetHighestPriorityStopDetailsByLabelAndDateLazyQuery>;
-export type GetHighestPriorityStopDetailsByLabelAndDateSuspenseQueryHookResult =
-  ReturnType<
-    typeof useGetHighestPriorityStopDetailsByLabelAndDateSuspenseQuery
-  >;
-export type GetHighestPriorityStopDetailsByLabelAndDateQueryResult =
-  Apollo.QueryResult<
-    GetHighestPriorityStopDetailsByLabelAndDateQuery,
-    GetHighestPriorityStopDetailsByLabelAndDateQueryVariables
-  >;
+export type GetStopDetailsQueryHookResult = ReturnType<
+  typeof useGetStopDetailsQuery
+>;
+export type GetStopDetailsLazyQueryHookResult = ReturnType<
+  typeof useGetStopDetailsLazyQuery
+>;
+export type GetStopDetailsSuspenseQueryHookResult = ReturnType<
+  typeof useGetStopDetailsSuspenseQuery
+>;
+export type GetStopDetailsQueryResult = Apollo.QueryResult<
+  GetStopDetailsQuery,
+  GetStopDetailsQueryVariables
+>;
 export const UpsertOrganisationDocument = gql`
   mutation UpsertOrganisation($objects: [stop_registry_OrganisationInput]) {
     stop_registry {

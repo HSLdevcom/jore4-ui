@@ -179,6 +179,10 @@
   "stopDetails": {
     "stopDetails": "Pysäkkitiedot",
     "notValidOnObservationDate": "Pysäkki ei ole voimassa valittuna päivänä.",
+    "selectedVersion": {
+      "showingSelected": "Näytetään valittu versio",
+      "showByDate": "Palaa tarkasteluhetkeen"
+    },
     "detailTabs": {
       "basic": "Perustiedot",
       "technical": "Tekniset ominaisuudet",

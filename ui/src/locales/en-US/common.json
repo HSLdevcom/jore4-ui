@@ -179,6 +179,10 @@
   "stopDetails": {
     "stopDetails": "Stop details",
     "notValidOnObservationDate": "Stop is not valid on chosen date.",
+    "selectedVersion": {
+      "showingSelected": "Showing selected version",
+      "showByDate": "Return to observation date"
+    },
     "detailTabs": {
       "basic": "Basic information",
       "technical": "Technical features",

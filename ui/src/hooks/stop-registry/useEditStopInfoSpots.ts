@@ -5,7 +5,7 @@ import {
   InfoSpotsFormState,
 } from '../../components/stop-registry/stops/stop-details/info-spots/info-spots-form/schema';
 import {
-  GetHighestPriorityStopDetailsByLabelAndDateDocument,
+  GetStopDetailsDocument,
   StopRegistryDisplayType,
   StopRegistryInfoSpotType,
   StopRegistryPosterInput,
@@ -88,7 +88,7 @@ const prepareEditForTiamatDb = ({ state }: EditTiamatParams) => {
 export const useEditStopInfoSpots = () => {
   const { t } = useTranslation();
   const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
-    refetchQueries: [GetHighestPriorityStopDetailsByLabelAndDateDocument],
+    refetchQueries: [GetStopDetailsDocument],
   });
 
   const clearLocationsForDeletedInfoSpots = (infoSpots: InfoSpotState[]) => {
