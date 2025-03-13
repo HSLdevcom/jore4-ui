@@ -29,6 +29,13 @@ export const schema = z.object({
   elyNumber: z.string(),
   timingPlaceId: z.string().uuid().nullable(),
   stopState: z.nativeEnum(StopPlaceState),
+  // Added here for future use, not yet in MVP
+  areaName: z.string().optional(),
+  areaNameSwe: z.string().optional(),
+  areaNameLongFin: z.string().optional(),
+  areaNameLongSwe: z.string().optional(),
+  areaAbbreviationFin: z.string().optional(),
+  areaAbbreviationSwe: z.string().optional(),
 });
 
 export type StopBasicDetailsFormState = z.infer<typeof schema>;
