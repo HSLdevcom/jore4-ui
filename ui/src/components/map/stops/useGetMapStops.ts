@@ -19,7 +19,7 @@ const GQL_GET_MAP_STOPS = gql`
       stops: stops_database_quay_newest_version(where: $where) {
         id
         netex_id
-        label: private_code_value
+        label: public_code
         validity_start
         validity_end
         priority
