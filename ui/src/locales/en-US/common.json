@@ -205,7 +205,21 @@
       "transportMode": "Transport type",
       "stopType": "Stop type",
       "stopState": "Stop state",
-      "elyNumber": "ELY number"
+      "elyNumber": "ELY number",
+      "stopInformation": "Stop-specific information"
+    },
+
+    "basicAreaDetails": {
+      "areaName": "Name (Finnish)",
+      "areaNameSwe": "Name (Swedish)",
+      "areaNameLongFin": "Long name (Finnish)",
+      "areaNameLongSwe": "Long name (Swedish)",
+      "areaAbbreviationFin": "Abbreviation (Finnish)",
+      "areaAbbreviationSwe": "Abbreviation (Swedish)",
+      "areaPrivateCode": "Stop area",
+      "areaMemberStops": "Member stops ({{count}})",
+      "areaNoMemberStops": "No member stops",
+      "areaPrivateCodeForm": "Stop area {{privateCode}}"
     },
     "mainLineWarning": "The stop's main line setting and related signage setting do not match.",
     "location": {

@@ -28,6 +28,13 @@ const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
     timingPlaceId: stop.timing_place_id,
     stopState: stop.quay?.stopState ?? undefined,
     stopTypes: stop.quay?.stopType,
+    // Added here for future use, not yet in MVP
+    areaName: stop.stop_place?.name,
+    areaNameSwe: stop.stop_place?.nameSwe,
+    areaNameLongFin: stop.stop_place?.nameLongFin,
+    areaNameLongSwe: stop.stop_place?.nameLongSwe,
+    areaAbbreviationFin: stop.stop_place?.abbreviationFin,
+    areaAbbreviationSwe: stop.stop_place?.abbreviationSwe,
   };
 
   return formState;

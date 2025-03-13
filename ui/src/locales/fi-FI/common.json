@@ -205,7 +205,20 @@
       "transportMode": "Joukkoliikennetyyppi",
       "stopType": "Pysäkkityyppi",
       "stopState": "Pysäkin tila",
-      "elyNumber": "ELY-numero"
+      "elyNumber": "ELY-numero",
+      "stopInformation": "Pysäkkikohtaiset tiedot"
+    },
+    "basicAreaDetails": {
+      "areaName": "Nimi (suomi)",
+      "areaNameSwe": "Nimi (ruotsi)",
+      "areaNameLongFin": "Pitkänimi (suomi)",
+      "areaNameLongSwe": "Pitkänimi (ruotsi)",
+      "areaAbbreviationFin": "Lyhenne (suomi)",
+      "areaAbbreviationSwe": "Lyhenne (ruotsi)",
+      "areaPrivateCode": "Pysäkkialue",
+      "areaPrivateCodeForm": "Pysäkkialue {{privateCode}}",
+      "areaMemberStops": "Jäsenpysäkit ({{count}})",
+      "areaNoMemberStops": "Ei jäsenpysäkkejä"
     },
     "mainLineWarning": "Pysäkin runkolinja-asetus ja kilvityksen asetukset eivät täsmää",
     "location": {
