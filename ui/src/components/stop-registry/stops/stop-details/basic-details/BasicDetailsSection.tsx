@@ -78,6 +78,7 @@ export const BasicDetailsSection = ({ stop }: Props): React.ReactElement => {
             stop.quay?.placeEquipments?.generalSign?.at(0)?.mainLineSign ??
             false
           }
+          stop={stop}
         />
       ) : (
         <BasicDetailsViewCard stop={stop} />
