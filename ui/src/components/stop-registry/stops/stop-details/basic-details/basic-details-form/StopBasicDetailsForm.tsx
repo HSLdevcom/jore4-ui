@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { ForwardRefRenderFunction } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useGetStopDetails } from '../../../../../../hooks';
 import { useAppSelector } from '../../../../../../hooks/redux';
 import {
   HorizontalSeparator,
@@ -13,6 +14,7 @@ import {
 } from '../../../../../../redux';
 import { FormColumn } from '../../../../../forms/common';
 import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
+import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
 import { StopBasicDetailsFormState, schema } from './schema';
 import { StopAbbreviationsFormRow } from './StopAbbreviationsFormRow';
 import { StopLabelAndNameFormRow } from './StopLabelAndNameFormRow';
@@ -31,6 +33,7 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   Props
 > = ({ className = '', defaultValues, onSubmit, hasMainLineSign }, ref) => {
+  const { stopDetails } = useGetStopDetails();
   const dispatch = useDispatch();
   const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 
@@ -53,6 +56,7 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <FormColumn>
+          {stopDetails && <StopAreaDetailsSection stop={stopDetails} />}
           <StopLabelAndNameFormRow />
           <HorizontalSeparator />
           <StopLongNameAndLocationFormRow />
