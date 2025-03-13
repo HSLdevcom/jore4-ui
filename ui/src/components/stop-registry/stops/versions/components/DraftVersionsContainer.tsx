@@ -1,10 +1,11 @@
+import { Transition } from '@headlessui/react';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../../../../layoutComponents';
 import { SortOrder } from '../../../../../types';
 import { ExpandButton } from '../../../../../uiComponents';
 import { StopVersion, StopVersionTableSortingInfo } from '../types';
-import { getAccordionClassNames, useSortedStopVersions } from '../utils';
+import { accordionClassNames, useSortedStopVersions } from '../utils';
 import { StopVersionTable } from './StopVersionTable';
 
 const ID = 'DraftVersionsContainer';
@@ -64,12 +65,15 @@ export const DraftVersionsContainer: FC<DraftVersionsContainerProps> = ({
         />
       </Row>
 
-      <div
-        className={getAccordionClassNames(expanded)}
+      <Transition
+        className="mt-2"
         id={ID}
         role="region"
+        show={expanded}
         aria-hidden={!expanded}
         aria-labelledby={HeaderId}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...accordionClassNames}
       >
         <StopVersionTable
           publicCode={publicCode}
@@ -79,7 +83,7 @@ export const DraftVersionsContainer: FC<DraftVersionsContainerProps> = ({
           setSortingInfo={setSortingInfo}
           testId={testIds.versionTable}
         />
-      </div>
+      </Transition>
     </div>
   );
 };

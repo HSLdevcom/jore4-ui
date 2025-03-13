@@ -1,3 +1,4 @@
+import { Transition } from '@headlessui/react';
 import { DateTime } from 'luxon';
 import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -5,7 +6,7 @@ import { Column } from '../../../../../layoutComponents';
 import { DateRange, SortOrder } from '../../../../../types';
 import { ExpandButton } from '../../../../../uiComponents';
 import { StopVersion, StopVersionTableSortingInfo } from '../types';
-import { getAccordionClassNames, useSortedStopVersions } from '../utils';
+import { accordionClassNames, useSortedStopVersions } from '../utils';
 import { DateRangeInputs } from './DateRangeInputs';
 import { StopVersionTable } from './StopVersionTable';
 
@@ -108,12 +109,15 @@ export const ScheduledVersionsContainer: FC<
         />
       </Column>
 
-      <div
-        className={getAccordionClassNames(expanded)}
+      <Transition
+        className="mt-2"
         id={ID}
         role="region"
+        show={expanded}
         aria-hidden={!expanded}
         aria-labelledby={HeaderId}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...accordionClassNames}
       >
         <StopVersionTable
           publicCode={publicCode}
@@ -123,7 +127,7 @@ export const ScheduledVersionsContainer: FC<
           setSortingInfo={setSortingInfo}
           testId={testIds.versionTable}
         />
-      </div>
+      </Transition>
     </div>
   );
 };
