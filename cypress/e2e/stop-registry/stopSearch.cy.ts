@@ -989,13 +989,28 @@ describe('Stop search', () => {
                 ),
                 type: StopRegistryGeoJsonType.Point,
               },
+              keyValues: [
+                { key: 'priority', values: [stopPoint.priority.toString()] },
+                {
+                  key: 'validityStart',
+                  values: [stopPoint.validity_start.toISODate()],
+                },
+                {
+                  key: 'validityEnd',
+                  values: [stopPoint.validity_end?.toISODate() ?? null],
+                },
+                {
+                  key: 'imported-id',
+                  values: [
+                    `${stopPoint.label}-${stopPoint.validity_start}-${stopPoint.priority}`,
+                  ],
+                },
+              ],
             })),
           },
           organisations: null,
         },
       ];
-
-      console.log(stopPlaces);
 
       insertToDbHelper({ stops: extraPrioStops });
 
@@ -1006,7 +1021,7 @@ describe('Stop search', () => {
       setupTestsAndNavigateToPage({}, true);
     });
 
-    it.only('should visualise priorities correctly', () => {
+    it('should visualise priorities correctly', () => {
       // prettier-ignore
       const results: ReadonlyArray<
         readonly [string, string, string, Priority]
