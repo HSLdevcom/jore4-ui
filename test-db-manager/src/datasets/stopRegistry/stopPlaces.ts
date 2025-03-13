@@ -86,6 +86,7 @@ export type StopPlaceNetexRef = {
 export type QuayNetexRef = {
   label: string;
   netexId: string;
+  tag: string;
   shelterRef: Array<string>;
 };
 

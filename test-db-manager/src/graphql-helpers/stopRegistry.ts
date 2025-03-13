@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import compact from 'lodash/compact';
+import uniqBy from 'lodash/uniqBy';
 import {
   OrganisationIdsByName,
   QuayDetailsByLabel,
@@ -9,6 +10,7 @@ import {
   TerminalIdsByName,
 } from '../datasets';
 import {
+  InputMaybe,
   StopRegistryCreateMultiModalStopPlaceInput,
   StopRegistryInfoSpotInput,
   StopRegistryKeyValuesInput,
@@ -19,16 +21,14 @@ import {
 } from '../generated/graphql';
 import { hasuraApi } from '../hasuraApi';
 import {
+  mapToGetStopPointByLabelQuery,
   mapToInsertInfoSpotMutation,
   mapToInsertOrganisationMutation,
   mapToInsertStopPlaceMutation,
   mapToInsertTerminalMutation,
+  mapToUpdateScheduledStopPointStopPlaceRefMutation,
   mapToUpdateTerminalMutation,
 } from '../queries';
-import {
-  mapToGetStopPointByLabelQuery,
-  mapToUpdateScheduledStopPointStopPlaceRefMutation,
-} from '../queries/routesAndLines';
 import {
   GetStopPointByLabelResult,
   InsertInfoSpotsResult,
@@ -37,7 +37,8 @@ import {
   InsertTerminalResult,
   UpdateScheduledStopPointStopPlaceRefResult,
 } from '../types';
-import { uniqBy } from 'lodash';
+
+const testQuayIdentityTag = 'TestQuayIdentityTag';
 
 const getTiamatResponseBody = (res: ExplicitAny) => {
   const { data, errors } = res;
@@ -51,6 +52,32 @@ const getTiamatResponseBody = (res: ExplicitAny) => {
   }
   return data;
 };
+
+function findKeyValue(
+  keyValues: ReadonlyArray<StopRegistryKeyValuesInput | null | undefined>,
+  key: string,
+): string | null {
+  const keyValue = keyValues.find((it) => it?.key === key);
+  if (!keyValue) {
+    throw new Error(
+      `Expected to find keyValue for key(${key}) but none was found! keyValues: ${JSON.stringify(keyValues, null, 2)}`,
+    );
+  }
+
+  return keyValue.values?.at(0) ?? null;
+}
+
+function findQuayTag(quay: StopRegistryQuayInput): string {
+  const tag = findKeyValue(quay.keyValues ?? [], testQuayIdentityTag);
+
+  if (tag === null) {
+    throw new Error(
+      `Quay was expected to be tagged with Test datat tracking ID, but the tag was null! Quay: ${JSON.stringify(quay, null, 2)}`,
+    );
+  }
+
+  return tag;
+}
 
 function getStopPlaceAndQuayRefsFromInsertResult(
   label: string,
@@ -69,6 +96,7 @@ function getStopPlaceAndQuayRefsFromInsertResult(
     return {
       label: quay.publicCode,
       netexId: quay.id,
+      tag: findQuayTag(quay),
       shelterRef: quay?.placeEquipments?.shelterEquipment?.map(
         (shelter: { id: string }) => shelter.id,
       ),
@@ -104,7 +132,7 @@ export const insertStopPlaceForScheduledStopPoint = async ({
 
   // eslint-disable-next-line no-restricted-syntax
   for (const quay of stopPlaceNetexRef.quayRef) {
-    const scheduledStopPointId = scheduledStopPoints[quay.label] ?? 'null';
+    const scheduledStopPointId = scheduledStopPoints[quay.tag] ?? 'null';
     const stopPlaceRef = quay.netexId;
 
     // eslint-disable-next-line no-await-in-loop
@@ -119,8 +147,10 @@ export const insertStopPlaceForScheduledStopPoint = async ({
       !updateResult?.data?.update_service_pattern_scheduled_stop_point_by_pk
     ) {
       throw new Error(
-        `Failed to update scheduled stop point after inserting stop place! scheduledStopPointId: ${scheduledStopPointId}, stopPlaceRef: ${stopPlaceRef}, response: ${JSON.stringify(
+        `Failed to update scheduled stop point after inserting stop place! scheduledStopPointId: ${scheduledStopPointId}, stopPlaceRef: ${stopPlaceRef}, quayRef: ${quay}, response: ${JSON.stringify(
           updateResult,
+          null,
+          2,
         )}`,
       );
     }
@@ -158,42 +188,87 @@ type StopPointType = {
   validity_end: string | null;
 };
 
-type LabelAndStopPoint = {
-  readonly label: string;
+function getQuayHash(quay: StopRegistryQuayInput): string {
+  const keyValues = quay.keyValues ?? [];
+
+  try {
+    const validityStart = findKeyValue(keyValues, 'validityStart');
+    const validityEnd = findKeyValue(keyValues, 'validityEnd');
+    const priority = findKeyValue(keyValues, 'priority');
+
+    return `${quay.publicCode}-${validityStart}-${validityEnd}-${priority}`;
+  } catch (cause) {
+    throw new Error(
+      `Multiple StopPoints were found for quay(${JSON.stringify(quay, null, 0)}), but the quay does not contain all needed fields (validityStart, validityEnd, priority) to match it with the StopPoints!`,
+      { cause },
+    );
+  }
+}
+
+function getStopPointHash(stopPoint: StopPointType): string {
+  return `${stopPoint.label}-${stopPoint.validity_start}-${stopPoint.validity_end}-${stopPoint.priority}`;
+}
+
+type QuayRefAndStopPoint = {
+  readonly tag: string;
   readonly stopPoint: StopPointType;
 };
-type StopPointsByLabel = Record<string, StopPointType>;
+
+function resolveStopPointForQuay(
+  quay: StopRegistryQuayInput,
+  stopPointCandidates: ReadonlyArray<StopPointType>,
+): QuayRefAndStopPoint {
+  const { publicCode } = quay;
+  const tag = findQuayTag(quay);
+
+  if (!publicCode) {
+    throw new Error(
+      `Quay must have a publicCode, so that it may be linked with a StopPoint! Quay: ${JSON.stringify(quay, null, 2)}`,
+    );
+  }
+
+  if (stopPointCandidates.length === 0) {
+    throw new Error(
+      `No StopPoints were found where label=publicCode(${publicCode})!`,
+    );
+  }
+
+  if (stopPointCandidates.length === 1) {
+    return { tag, stopPoint: stopPointCandidates[0] };
+  }
+
+  const quayHash = getQuayHash(quay);
+  const stopPoint = stopPointCandidates.find(
+    (candidate) => getStopPointHash(candidate) === quayHash,
+  );
+
+  if (!stopPoint) {
+    throw new Error(
+      `No StopPoint found matching the Quay's hash(${quayHash})! Data: ${JSON.stringify({ quay, stopPointCandidates }, null, 2)}`,
+    );
+  }
+
+  return { tag, stopPoint };
+}
+
+type StopPointsByQuayTag = Readonly<Record<string, StopPointType>>;
 
 async function resolveStopPointRefs(
   stopPlace: Partial<StopRegistryStopPlaceInput>,
-): Promise<StopPointsByLabel> {
+): Promise<StopPointsByQuayTag> {
   const stopPointRefPromises = stopPlace.quays
     ?.filter((quay) => quay !== null)
-    .map(async (quay): Promise<LabelAndStopPoint> => {
+    .map(async (quay): Promise<QuayRefAndStopPoint> => {
       const label = quay.publicCode ?? 'error';
       // Find related scheduled stop points.
       const stopPointResult = (await hasuraApi(
         mapToGetStopPointByLabelQuery(label),
       )) as GetStopPointByLabelResult;
 
-      const stopPoints =
-        stopPointResult?.data?.service_pattern_scheduled_stop_point;
-      const stopPoint: StopPointType = stopPoints && stopPoints[0];
-      const stopPointId = stopPoint?.scheduled_stop_point_id;
+      const stopPointCandidates =
+        stopPointResult?.data?.service_pattern_scheduled_stop_point ?? [];
 
-      if (!stopPointId) {
-        throw new Error(
-          `Could not find scheduled stop point with label ${label}. Did you forget to import route DB dump?`,
-        );
-      }
-      if (stopPoints.length > 1) {
-        // It is possible that there are multiple stop points for one label, with different priorities and/or validity times.
-        // With current dump this does not happen, but if things change, we might need some more logic here...
-        console.warn(
-          `Found multiple stop points for label ${label}, using the first one...`,
-        );
-      }
-      return { label, stopPoint };
+      return resolveStopPointForQuay(quay, stopPointCandidates);
     })
     .filter((a) => !!a);
 
@@ -205,14 +280,14 @@ async function resolveStopPointRefs(
   const stopPointTuples = await Promise.all(stopPointRefPromises);
 
   return Object.fromEntries(
-    stopPointTuples.map((spr) => [spr.label, spr.stopPoint]),
+    stopPointTuples.map((spr) => [spr.tag, spr.stopPoint]),
   );
 }
 
-type StopPointLabelToId = Record<string, string>;
+type QuayTagToStopPointId = Readonly<Record<string, UUID>>;
 function getStopPointLabelToIdMapping(
-  stopPointRefs: StopPointsByLabel,
-): StopPointLabelToId {
+  stopPointRefs: StopPointsByQuayTag,
+): QuayTagToStopPointId {
   return Object.fromEntries(
     Object.entries(stopPointRefs).map((spr) => [
       spr[0],
@@ -222,12 +297,12 @@ function getStopPointLabelToIdMapping(
 }
 
 function getKeyValuesFromStopPoint(
-  stopPointRefs: StopPointsByLabel,
-  publicCode: string,
+  stopPointRefs: StopPointsByQuayTag,
+  quayTag: string,
 ): Array<StopRegistryKeyValuesInput> {
-  const ref = stopPointRefs[publicCode];
+  const ref = stopPointRefs[quayTag];
   if (!ref) {
-    throw new Error(`Stop point not found for publicCode(${publicCode})`);
+    throw new Error(`Stop point not found for quayTag(${quayTag})`);
   }
 
   return [
@@ -247,7 +322,7 @@ function getKeyValuesFromStopPoint(
 }
 
 function patchQuayIfNeeded(
-  stopPointRefs: StopPointsByLabel,
+  stopPointRefs: StopPointsByQuayTag,
   stopPointsRequired: boolean,
   quay: StopRegistryQuayInput,
 ): StopRegistryQuayInput {
@@ -259,9 +334,17 @@ function patchQuayIfNeeded(
     ...quay,
     keyValues: [
       ...compact(quay.keyValues),
-      ...getKeyValuesFromStopPoint(stopPointRefs, quay.publicCode ?? ''),
+      ...getKeyValuesFromStopPoint(stopPointRefs, findQuayTag(quay)),
     ],
   };
+}
+
+function combineKeyValues(
+  ...keyValueLists: ReadonlyArray<
+    ReadonlyArray<InputMaybe<StopRegistryKeyValuesInput>> | null | undefined
+  >
+): Array<StopRegistryKeyValuesInput> {
+  return uniqBy(keyValueLists.map(compact).flat(1), 'key');
 }
 
 function assembleStopPlace(
@@ -271,7 +354,7 @@ function assembleStopPlace(
   return {
     ...stopPlace,
     quays: patchedQuays,
-    keyValues: uniqBy(
+    keyValues: combineKeyValues(
       [
         {
           key: 'priority',
@@ -285,9 +368,8 @@ function assembleStopPlace(
           key: 'validityEnd',
           values: ['2052-01-01'],
         },
-        ...(Array.isArray(stopPlace.keyValues) ? stopPlace.keyValues : []),
       ],
-      'key',
+      stopPlace.keyValues,
     ),
   };
 }
@@ -295,7 +377,7 @@ function assembleStopPlace(
 async function insertStopPlaceAndUpdateStopPointIfNeededTo(
   stopPlace: StopRegistryStopPlaceInput,
   stopPointsRequired: boolean,
-  scheduledStopPoints: StopPointLabelToId,
+  scheduledStopPoints: QuayTagToStopPointId,
 ): Promise<StopPlaceNetexRef> {
   if (stopPointsRequired) {
     return insertStopPlaceForScheduledStopPoint({
@@ -313,6 +395,27 @@ async function insertStopPlaceAndUpdateStopPointIfNeededTo(
   );
 }
 
+function tagQuays(
+  stopPlace: Partial<StopRegistryStopPlaceInput>,
+): Partial<StopRegistryStopPlaceInput> {
+  if (stopPlace.quays?.length) {
+    return {
+      ...stopPlace,
+      quays: compact(stopPlace.quays).map((quay) => ({
+        ...quay,
+        keyValues: combineKeyValues(quay.keyValues, [
+          {
+            key: testQuayIdentityTag,
+            values: [Math.random().toString(10).substring(2)],
+          },
+        ]),
+      })),
+    };
+  }
+
+  return stopPlace;
+}
+
 const insertStopPlace = async ({
   stopPlace,
   stopPointsRequired,
@@ -320,8 +423,10 @@ const insertStopPlace = async ({
   stopPlace: Partial<StopRegistryStopPlaceInput>;
   stopPointsRequired: boolean;
 }): Promise<StopPlaceNetexRef> => {
+  const taggedStopPlace = tagQuays(stopPlace);
+
   const stopPointRefs = stopPointsRequired
-    ? await resolveStopPointRefs(stopPlace)
+    ? await resolveStopPointRefs(taggedStopPlace)
     : {};
   const stopPointLabelToIdMapping = getStopPointLabelToIdMapping(stopPointRefs);
 
@@ -330,8 +435,8 @@ const insertStopPlace = async ({
 
   try {
     // TODO: Scheduled Stop Point should be per Quay (new Timat stop), not per Stop Place (new Tiamat Stop Area)
-    const patchedQuays = compact(stopPlace.quays).map(patchQuay);
-    const stopPlaceInput = assembleStopPlace(stopPlace, patchedQuays);
+    const patchedQuays = compact(taggedStopPlace.quays).map(patchQuay);
+    const stopPlaceInput = assembleStopPlace(taggedStopPlace, patchedQuays);
 
     return await insertStopPlaceAndUpdateStopPointIfNeededTo(
       stopPlaceInput,
@@ -341,8 +446,8 @@ const insertStopPlace = async ({
   } catch (error) {
     console.error(
       'An error occurred while inserting stop place!',
-      stopPlace.privateCode,
-      stopPlace,
+      taggedStopPlace.privateCode,
+      taggedStopPlace,
       error,
     );
     throw error;

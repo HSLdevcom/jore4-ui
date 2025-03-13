@@ -18,6 +18,10 @@ const GQL_INSERT_STOP_PLACE = gql`
         quays {
           id
           publicCode
+          keyValues {
+            key
+            values
+          }
           placeEquipments {
             shelterEquipment {
               id
