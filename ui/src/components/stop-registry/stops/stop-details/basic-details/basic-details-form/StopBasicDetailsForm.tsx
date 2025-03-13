@@ -11,8 +11,10 @@ import {
   openTimingPlaceModalAction,
   selectIsTimingPlaceModalOpen,
 } from '../../../../../../redux';
+import { StopWithDetails } from '../../../../../../types';
 import { FormColumn } from '../../../../../forms/common';
 import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
+import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
 import { StopBasicDetailsFormState, schema } from './schema';
 import { StopAbbreviationsFormRow } from './StopAbbreviationsFormRow';
 import { StopLabelAndNameFormRow } from './StopLabelAndNameFormRow';
@@ -25,12 +27,16 @@ type Props = {
   readonly defaultValues: Partial<StopBasicDetailsFormState>;
   readonly onSubmit: (state: StopBasicDetailsFormState) => void;
   readonly hasMainLineSign: boolean;
+  readonly stop: StopWithDetails;
 };
 
 const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   Props
-> = ({ className = '', defaultValues, onSubmit, hasMainLineSign }, ref) => {
+> = (
+  { className = '', defaultValues, onSubmit, hasMainLineSign, stop },
+  ref,
+) => {
   const dispatch = useDispatch();
   const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 
@@ -53,6 +59,7 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <FormColumn>
+          {stop && <StopAreaDetailsSection stop={stop} />}
           <StopLabelAndNameFormRow />
           <HorizontalSeparator />
           <StopLongNameAndLocationFormRow />
