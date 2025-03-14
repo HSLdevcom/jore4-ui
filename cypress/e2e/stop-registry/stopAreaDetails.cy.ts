@@ -394,6 +394,7 @@ describe('Stop area details', () => {
       assertBasicDetails(newBasicDetails);
     });
 
+    // eslint-disable-next-line jest/no-disabled-tests
     it.skip('should allow editing members', () => {
       assertBasicDetails(testAreaExpectedBasicDetails);
 

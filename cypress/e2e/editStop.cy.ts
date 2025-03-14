@@ -91,6 +91,7 @@ describe('Stop editing tests', () => {
     });
   });
 
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip(
     'Should move a stop on the map',
     { tags: Tag.Stops, scrollBehavior: 'bottom', ...mapViewport },
@@ -143,6 +144,7 @@ describe('Stop editing tests', () => {
     },
   );
 
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip(
     'Should delete a stop',
     { tags: Tag.Stops, scrollBehavior: 'bottom' },
@@ -169,6 +171,7 @@ describe('Stop editing tests', () => {
     },
   );
 
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip(
     'Should edit stop info',
     { tags: Tag.Stops, scrollBehavior: 'bottom' },

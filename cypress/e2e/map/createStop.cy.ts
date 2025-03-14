@@ -203,6 +203,7 @@ describe.skip('Stop creation tests', mapViewport, () => {
     },
   );
 
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip(
     'Should create stop and have its stop registry details correctly',
     { tags: [Tag.Map, Tag.Stops, Tag.StopRegistry], scrollBehavior: 'bottom' },

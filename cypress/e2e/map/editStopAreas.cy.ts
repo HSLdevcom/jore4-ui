@@ -111,6 +111,7 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.waitForLoadToComplete();
   });
 
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should create new stop area with member stops', () => {
     mapModal.mapFooter.mapFooterActionsDropdown.getMenu().click();
     mapModal.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
@@ -162,6 +163,7 @@ describe('Stop areas on map', mapViewport, () => {
     // TODO: test that navigation to stop area details page works.
   });
 
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should edit stop area details', () => {
     mapModal.map.clickAtPosition(1025, 731);
 
@@ -236,6 +238,7 @@ describe('Stop areas on map', mapViewport, () => {
       .shouldHaveText('X0003 Annankatu 15');
   });
 
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should delete a stop area', () => {
     mapModal.map.clickAtPosition(1025, 731);
     mapModal.map.waitForLoadToComplete();
