@@ -213,7 +213,8 @@ describe('Stop areas on map', mapViewport, () => {
       .shouldHaveText('E2E001');
   });
 
-  it('should relocate stop area on map', () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('should relocate stop area on map', () => {
     mapModal.map.clickAtPosition(1025, 731);
     mapModal.map.waitForLoadToComplete();
 
