@@ -109,6 +109,7 @@ export const MapFooter: React.FC<Props> = ({
       <SimpleButton
         onClick={onAddStops}
         disabled={
+          true || // TODO: Fix stop creation
           drawingMode !== undefined ||
           creatingNewRoute ||
           isCreateStopAreaModeEnabled ||
@@ -116,6 +117,7 @@ export const MapFooter: React.FC<Props> = ({
         }
         inverted={!isCreateStopModeEnabled}
         testId={testIds.addStopButton}
+        disabledTooltip={t('dataModelRefactor.disabled')}
       >
         {t('map.addStop')}
       </SimpleButton>
