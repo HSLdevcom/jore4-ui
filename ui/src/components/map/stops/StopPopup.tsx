@@ -96,6 +96,9 @@ export const StopPopup = ({
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
+            // TODO: Fix Stop creation/editing/deletion
+            disabled
+            disabledTooltip={t('dataModelRefactor.disabled')}
           >
             <MdDelete aria-label={t('map.deleteRoute')} className="text-xl" />
           </SimpleButton>
@@ -103,6 +106,9 @@ export const StopPopup = ({
             containerClassName="ml-auto"
             onClick={onMove}
             testId={testIds.moveButton}
+            // TODO: Fix Stop creation/editing/deletion
+            disabled
+            disabledTooltip={t('dataModelRefactor.disabled')}
           >
             {t('move')}
           </SimpleButton>
@@ -110,6 +116,9 @@ export const StopPopup = ({
             containerClassName="ml-2"
             onClick={onEdit}
             testId={testIds.editButton}
+            // TODO: Fix Stop creation/editing/deletion
+            disabled
+            disabledTooltip={t('dataModelRefactor.disabled')}
           >
             {t('edit')}
           </SimpleButton>
