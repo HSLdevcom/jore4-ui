@@ -41,7 +41,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           >
             <svg
               aria-hidden="true"
-              class="text-3xl text-tweaked-brand text-brand text-[50px] pointer-events-none inline text-center"
+              class="text-brand text-[50px] pointer-events-none inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -283,7 +283,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="text-3xl text-tweaked-brand text-white text-[50px] pointer-events-none inline text-center"
+                class="text-white text-[50px] pointer-events-none inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -348,7 +348,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="text-3xl text-tweaked-brand text-brand text-[50px] pointer-events-none inline text-center"
+                      class="text-brand text-[50px] pointer-events-none inline text-center"
                       fill="currentColor"
                       height="1em"
                       stroke="currentColor"
@@ -411,7 +411,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="text-3xl text-tweaked-brand text-brand text-[50px] pointer-events-none inline text-center"
+                      class="text-brand text-[50px] pointer-events-none inline text-center"
                       fill="currentColor"
                       height="1em"
                       stroke="currentColor"
@@ -473,7 +473,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="text-3xl text-tweaked-brand text-white text-[50px] pointer-events-none inline text-center"
+                class="text-white text-[50px] pointer-events-none inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -538,7 +538,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="text-3xl text-tweaked-brand text-brand text-[50px] pointer-events-none inline text-center"
+                      class="text-brand text-[50px] pointer-events-none inline text-center"
                       fill="currentColor"
                       height="1em"
                       stroke="currentColor"

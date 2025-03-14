@@ -1067,5 +1067,8 @@
       "temporary": "$t(priority.temporary)",
       "draft": "$t(priority.draft)"
     }
+  },
+  "dataModelRefactor": {
+    "disabled": "Tämä toiminto on väliaikaisesti poistettu käytöstä vastikäisten tietomallimuutosten, sekä yleisemminkin pysäkkirekisterin kehityksen, johdosta. Toiminnon uusi toteutus on työn alla ja palautunee käyttöön pikapuolin."
   }
 }

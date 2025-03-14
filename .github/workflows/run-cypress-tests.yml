@@ -21,4 +21,6 @@ jobs:
         with:
           ui_version: '${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }}'
           cypress_version: '${{ env.CYPRESS_IMAGE_NAME }}:${{ env.COMMIT_ID }}'
+          tiamat_version: 'hsldevcom/jore4-tiamat:stop-place-name-check--20250304-5bf44544646bfda168727ba5647fd36abdb3d2f7'
+          hasura_version: 'hsldevcom/jore4-hasura:hsl-feature-48598-Link_scheduled_stop_point_to_quay_--20250213-2947673ba807f1177716fc1d181a69ad6699175b'
           test-tags: ''

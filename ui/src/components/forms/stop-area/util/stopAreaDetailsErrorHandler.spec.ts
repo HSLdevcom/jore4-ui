@@ -42,7 +42,7 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
   });
 
   test('should handle known error with details', () => {
-    const knownErrorCode = 'GROUP_OF_STOP_PLACES_UNIQUE_NAME';
+    const knownErrorCode = 'STOP_PLACE_UNIQUE_NAME';
     const extensions = { errorCode: knownErrorCode };
     const errorWithKnownCode: TestError = {
       graphQLErrors: [],
@@ -68,16 +68,16 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
 
     expect(handled).toBe(true);
     expect(tMock).toHaveBeenCalledWith(
-      'stopAreaDetails.errors.groupOfStopPlacesUniqueName',
+      'stopAreaDetails.errors.stopPlacesUniqueName',
       details,
     );
     expect(showDangerToast).toHaveBeenCalledWith(
-      'stopAreaDetails.errors.groupOfStopPlacesUniqueName {"indefinite":false,"latitude":0,"longitude":0,"memberStops":[],"validityStart":"","label":"Testlabel1","name":"Testname1"}',
+      'stopAreaDetails.errors.stopPlacesUniqueName {"indefinite":false,"latitude":0,"longitude":0,"quays":[],"validityStart":"","privateCode":"Testlabel1","name":"Testname1","nameSwe":"TestnameSwe1"}',
     );
   });
 
   test('should handle known error without details', () => {
-    const knownErrorCode = 'GROUP_OF_STOP_PLACES_UNIQUE_DESCRIPTION';
+    const knownErrorCode = 'STOP_PLACE_UNIQUE_PRIVATE_CODE';
     const extensions = { errorCode: knownErrorCode };
     const errorWithKnownCode: TestError = {
       graphQLErrors: [],
@@ -95,11 +95,11 @@ describe('useStopAreaDetailsApolloErrorHandler', () => {
 
     expect(handled).toBe(true);
     expect(tMock).toHaveBeenCalledWith(
-      'stopAreaDetails.errors.groupOfStopPlacesUniqueDescription',
+      'stopAreaDetails.errors.stopPlacesUniquePrivateCode',
       undefined,
     );
     expect(showDangerToast).toHaveBeenCalledWith(
-      'stopAreaDetails.errors.groupOfStopPlacesUniqueDescription',
+      'stopAreaDetails.errors.stopPlacesUniquePrivateCode',
     );
   });
 

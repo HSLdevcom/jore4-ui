@@ -252,7 +252,8 @@ describe('Stop editing tests', () => {
     },
   );
 
-  it(
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip(
     'Should create a new timing place',
     { tags: Tag.Stops, scrollBehavior: 'bottom' },
     () => {
@@ -298,7 +299,8 @@ describe('Stop editing tests', () => {
     },
   );
 
-  it('should not update StopPlace if StopPoint save fails', () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('should not update StopPlace if StopPoint save fails', () => {
     mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
     map.waitForLoadToComplete();
