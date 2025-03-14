@@ -6,12 +6,13 @@ interface Props {
   disabled?: boolean;
   testId: string;
   className?: string;
+  title?: string;
 }
 
 const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
   HTMLButtonElement,
   Props
-> = ({ text, onClick, disabled, testId, className }, ref) => {
+> = ({ text, onClick, disabled, testId, className, title }, ref) => {
   return (
     <button
       ref={ref}
@@ -22,6 +23,7 @@ const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
       type="button"
       onClick={onClick}
       data-testid={testId}
+      title={title}
     >
       {text}
     </button>

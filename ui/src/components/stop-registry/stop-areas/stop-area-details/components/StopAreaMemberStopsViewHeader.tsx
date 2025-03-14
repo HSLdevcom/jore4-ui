@@ -23,6 +23,9 @@ export const StopAreaMemberStopsViewHeader: FC<
         type="button"
         onClick={onEditStops}
         testId={testIds.addStopButton}
+        // TODO: Fix Stop Area creation/editing/deletion
+        disabled
+        disabledTooltip={t('dataModelRefactor.disabled')}
       >
         {t('stopAreaDetails.memberStops.addStop')}
       </SlimSimpleButton>

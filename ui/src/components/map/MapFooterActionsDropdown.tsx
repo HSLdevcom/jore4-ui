@@ -58,6 +58,9 @@ export const MapFooterActionsDropdown = ({
               onClick={onCreateNewStopArea}
               text={t('map.createNewStopArea')}
               testId={testIds.createNewStopArea}
+              // TODO: Fix Stop Area creation/editing/deletion
+              disabled
+              title={t('dataModelRefactor.disabled')}
             />
           </SimpleDropdownMenuItems>
         </>
