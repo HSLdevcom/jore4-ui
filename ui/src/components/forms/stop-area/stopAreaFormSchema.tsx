@@ -27,8 +27,6 @@ export const stopAreaFormSchema = z
     nameLongSwe: z.string().optional(),
     abbreviationFin: z.string().optional(),
     abbreviationSwe: z.string().optional(),
-    abbreviation5CharFin: z.string().optional(),
-    abbreviation5CharSwe: z.string().optional(),
     nameSwe: requiredString,
     privateCode: requiredString,
     name: requiredString,

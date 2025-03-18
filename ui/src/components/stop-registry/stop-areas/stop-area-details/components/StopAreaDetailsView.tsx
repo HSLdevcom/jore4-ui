@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { twMerge } from 'tailwind-merge';
 import { mapToShortDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
@@ -10,8 +9,11 @@ const testIds = {
   privateCode: 'StopAreaDetails::privateCode',
   name: 'StopAreaDetails::name',
   nameSwe: 'StopAreaDetails::nameSwe',
-  description: 'StopAreaDetails::description',
-  parentStopPlace: 'StopAreaDetails::parentStopPlace',
+  nameLongFin: 'StopAreaDetails::nameLongFin',
+  nameLongSwe: 'StopAreaDetails::nameLongSwe',
+  abbreviationFin: 'StopAreaDetails::abbreviationFin',
+  abbreviationSwe: 'StopAreaDetails::abbreviationSwe',
+  parentTerminal: 'StopAreaDetails::parentTerminal',
   areaSize: 'StopAreaDetails::areaSize',
   validityPeriod: 'StopAreaDetails::validityPeriod',
 };
@@ -34,37 +36,61 @@ export const StopAreaDetailsView: FC<StopAreaComponentProps> = ({
   const { t } = useTranslation();
 
   return (
-    <DetailRow className={twMerge('mb-0 flex-grow flex-wrap py-0', className)}>
-      <LabeledDetail
-        title={t('stopAreaDetails.basicDetails.privateCode')}
-        detail={area.privateCode?.value}
-        testId={testIds.privateCode}
-      />
-      <LabeledDetail
-        title={t('stopAreaDetails.basicDetails.name')}
-        detail={area.name}
-        testId={testIds.name}
-      />
-      <LabeledDetail
-        title={t('stopDetails.basicDetails.nameSwe')}
-        detail={area.nameSwe}
-        testId={testIds.nameSwe}
-      />
-      <LabeledDetail
-        title={t('stopAreaDetails.basicDetails.parentTerminal')}
-        detail={null}
-        testId={testIds.parentStopPlace}
-      />
-      <LabeledDetail
-        title={t('stopAreaDetails.basicDetails.areaSize')}
-        detail={null}
-        testId={testIds.areaSize}
-      />
-      <LabeledDetail
-        title={t('stopAreaDetails.basicDetails.validityPeriod')}
-        detail={validityPeriod(area)}
-        testId={testIds.validityPeriod}
-      />
-    </DetailRow>
+    <>
+      <DetailRow className={className}>
+        <LabeledDetail
+          title={t('stopAreaDetails.basicDetails.privateCode')}
+          detail={area.privateCode?.value}
+          testId={testIds.privateCode}
+        />
+        <LabeledDetail
+          title={t('stopAreaDetails.basicDetails.name')}
+          detail={area.name}
+          testId={testIds.name}
+        />
+        <LabeledDetail
+          title={t('stopAreaDetails.basicDetails.nameSwe')}
+          detail={area.nameSwe}
+          testId={testIds.nameSwe}
+        />
+        <LabeledDetail
+          title={t('stopAreaDetails.basicDetails.parentTerminal')}
+          detail={null}
+          testId={testIds.parentTerminal}
+        />
+        <LabeledDetail
+          title={t('stopAreaDetails.basicDetails.validityPeriod')}
+          detail={validityPeriod(area)}
+          testId={testIds.validityPeriod}
+        />
+      </DetailRow>
+      <DetailRow className={className}>
+        <LabeledDetail
+          title={t('stopAreaDetails.basicDetails.nameLongFin')}
+          detail={area.nameLongFin}
+          testId={testIds.nameLongFin}
+        />
+        <LabeledDetail
+          title={t('stopAreaDetails.basicDetails.nameLongSwe')}
+          detail={area.nameLongSwe}
+          testId={testIds.nameLongSwe}
+        />
+        <LabeledDetail
+          title={t('stopDetails.basicDetails.abbreviationFin')}
+          detail={area.abbreviationFin}
+          testId={testIds.abbreviationFin}
+        />
+        <LabeledDetail
+          title={t('stopAreaDetails.basicDetails.abbreviationSwe')}
+          detail={area.abbreviationSwe}
+          testId={testIds.abbreviationSwe}
+        />
+        <LabeledDetail
+          title={t('stopAreaDetails.basicDetails.areaSize')}
+          detail={null}
+          testId={testIds.areaSize}
+        />
+      </DetailRow>
+    </>
   );
 };

@@ -137,6 +137,11 @@
     "basicDetails": {
       "title": "JORE:n pysäkkialue",
       "name": "Pysäkkialueen nimi",
+      "nameSwe": "Pysäkkialueen nimi (ruotsi)",
+      "nameLongFin": "Pitkänimi (suomi)",
+      "nameLongSwe": "Pitkänimi (ruotsi)",
+      "abbreviationFin": "Lyhenne (suomi)",
+      "abbreviationSwe": "Lyhenne (ruotsi)",
       "privateCode": "Pysäkkialueen tunnus",
       "parentTerminal": "Emoterminaali",
       "areaSize": "Pysäkkialueen koko (m²)",
