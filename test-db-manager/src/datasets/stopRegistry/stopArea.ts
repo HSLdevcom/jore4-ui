@@ -13,8 +13,6 @@ export type StopAreaSeedData = {
   nameSweLong?: string;
   abbreviationFin?: string;
   abbreviationSwe?: string;
-  abbreviationFin5Char?: string;
-  abbreviationSwe5Char?: string;
   label: string;
   name: string;
   organisations?: StopPlaceMaintenance;
@@ -34,18 +32,6 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
     StopArea: {
       transportMode: StopRegistryTransportModeType.Bus,
       alternativeNames: [
-        seedStopArea.abbreviationFin5Char
-          ? {
-              name: { lang: 'fin', value: seedStopArea.abbreviationFin5Char },
-              nameType: StopRegistryNameType.Label,
-            }
-          : null,
-        seedStopArea.abbreviationSwe5Char
-          ? {
-              name: { lang: 'swe', value: seedStopArea.abbreviationSwe5Char },
-              nameType: StopRegistryNameType.Label,
-            }
-          : null,
         seedStopArea.nameFinLong
           ? {
               name: { lang: 'fin', value: seedStopArea.nameFinLong },
@@ -135,8 +121,6 @@ const finnooSeedData: StopAreaSeedData = {
   nameSweLong: 'Finno',
   abbreviationFin: 'Finnoo',
   abbreviationSwe: 'Finno',
-  abbreviationFin5Char: 'Finnoo',
-  abbreviationSwe5Char: 'Finno',
   label: 'X1234',
   name: 'Finnoo',
   validityStart: basicStart,

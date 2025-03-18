@@ -28,6 +28,10 @@ const testIds = {
   privateCode: 'StopAreaDetailsEdit::privateCode',
   name: 'StopAreaDetailsEdit::name',
   nameSwe: 'StopAreaDetailsEdit::nameSwe',
+  nameLongFin: 'StopAreaDetailsEdit::nameLongFin',
+  nameLongSwe: 'StopAreaDetailsEdit::nameLongSwe',
+  abbreviationFin: 'StopAreaDetailsEdit::abbreviationFin',
+  abbreviationSwe: 'StopAreaDetailsEdit::abbreviationSwe',
   latitude: 'StopAreaDetailsEdit::latitude',
   longitude: 'StopAreaDetailsEdit::longitude',
 };
@@ -43,6 +47,10 @@ export const mapStopAreaDataToFormState = (
     privateCode: area.privateCode?.value ?? undefined,
     name: area.name ?? undefined,
     nameSwe: area.nameSwe ?? undefined,
+    nameLongFin: area.nameLongFin ?? undefined,
+    nameLongSwe: area.nameLongSwe ?? undefined,
+    abbreviationFin: area.abbreviationFin ?? undefined,
+    abbreviationSwe: area.abbreviationSwe ?? undefined,
     latitude,
     longitude,
     validityStart: mapToISODate(area.validityStart),
@@ -142,9 +150,43 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
             <Column>
               <InputField<FormState>
                 type="text"
-                translationPrefix="stopDetails.basicDetails"
+                translationPrefix="stopAreaDetails.basicDetails"
                 fieldPath="nameSwe"
                 testId={testIds.nameSwe}
+              />
+            </Column>
+          </FormRow>
+          <FormRow lgColumns={4} mdColumns={2}>
+            <Column>
+              <InputField<FormState>
+                type="text"
+                translationPrefix="stopDetails.basicDetails"
+                fieldPath="nameLongFin"
+                testId={testIds.nameLongFin}
+              />
+            </Column>
+            <Column>
+              <InputField<FormState>
+                type="text"
+                translationPrefix="stopDetails.basicDetails"
+                fieldPath="nameLongSwe"
+                testId={testIds.nameLongSwe}
+              />
+            </Column>
+            <Column>
+              <InputField<FormState>
+                type="text"
+                translationPrefix="stopDetails.basicDetails"
+                fieldPath="abbreviationFin"
+                testId={testIds.abbreviationFin}
+              />
+            </Column>
+            <Column>
+              <InputField<FormState>
+                type="text"
+                translationPrefix="stopDetails.basicDetails"
+                fieldPath="abbreviationSwe"
+                testId={testIds.abbreviationSwe}
               />
             </Column>
             <Column>
