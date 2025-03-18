@@ -7,9 +7,19 @@ export class StopAreaDetails {
 
   getName = () => cy.getByTestId('StopAreaDetails::name');
 
+  getNameSwe = () => cy.getByTestId('StopAreaDetails::nameSwe');
+
+  getNameLongFin = () => cy.getByTestId('StopAreaDetails::nameLongFin');
+
+  getNameLongSwe = () => cy.getByTestId('StopAreaDetails::nameLongSwe');
+
+  getAbbreviationFin = () => cy.getByTestId('StopAreaDetails::abbreviationFin');
+
+  getAbbreviationSwe = () => cy.getByTestId('StopAreaDetails::abbreviationSwe');
+
   getPrivateCode = () => cy.getByTestId('StopAreaDetails::privateCode');
 
-  getParentStopPlace = () => cy.getByTestId('StopAreaDetails::parentStopPlace');
+  getParentTerminal = () => cy.getByTestId('StopAreaDetails::parentTerminal');
 
   getAreaSize = () => cy.getByTestId('StopAreaDetails::areaSize');
 
