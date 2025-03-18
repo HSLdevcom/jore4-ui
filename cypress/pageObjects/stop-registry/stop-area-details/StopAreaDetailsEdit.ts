@@ -9,6 +9,16 @@ export class StopAreaDetailsEdit {
 
   getNameSwe = () => cy.getByTestId('StopAreaDetailsEdit::nameSwe');
 
+  getNameLongFin = () => cy.getByTestId('StopAreaDetailsEdit::nameLongFin');
+
+  getNameLongSwe = () => cy.getByTestId('StopAreaDetailsEdit::nameLongSwe');
+
+  getAbbreviationFin = () =>
+    cy.getByTestId('StopAreaDetailsEdit::abbreviationFin');
+
+  getAbbreviationSwe = () =>
+    cy.getByTestId('StopAreaDetailsEdit::abbreviationSwe');
+
   getLatitude = () => cy.getByTestId('StopAreaDetailsEdit::latitude');
 
   getLongitude = () => cy.getByTestId('StopAreaDetailsEdit::longitude');
