@@ -3,6 +3,30 @@ import { CreateTimingPlaceForm } from '../../CreateTimingPlaceForm';
 export class BasicDetailsForm {
   createTimingPlaceForm = new CreateTimingPlaceForm();
 
+  getAreaLink = () => cy.getByTestId('StopBasicDetailsForm::areaLink');
+
+  getAreaPrivateCode = () =>
+    cy.getByTestId('StopBasicDetailsForm::areaPrivateCode');
+
+  getAreaQuays = () => cy.getByTestId('StopBasicDetailsForm::areaQuays');
+
+  getAreaNameInput = () => cy.getByTestId('StopBasicDetailsForm::areaName');
+
+  getAreaNameSweInput = () =>
+    cy.getByTestId('StopBasicDetailsForm::areaNameSwe');
+
+  getAreaNameLongInput = () =>
+    cy.getByTestId('StopBasicDetailsForm::areaNameLong');
+
+  getAreaNameLongSweInput = () =>
+    cy.getByTestId('StopBasicDetailsForm::areaNameLongSwe');
+
+  getAreaAbbreviationNameInput = () =>
+    cy.getByTestId('StopBasicDetailsForm::areaAbbreviationName');
+
+  getAreaAbbreviationNameSweInput = () =>
+    cy.getByTestId('StopBasicDetailsForm::areaAbbreviationNameSwe');
+
   getLabelInput = () => cy.getByTestId('StopBasicDetailsForm::label');
 
   getPrivateCodeInput = () =>

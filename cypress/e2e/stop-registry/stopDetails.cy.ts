@@ -31,6 +31,7 @@ import {
   SheltersForm,
   SignageDetailsForm,
   SignageDetailsViewCard,
+  StopAreaDetailsPage,
   StopDetailsPage,
   Toast,
 } from '../../pageObjects';
@@ -78,6 +79,7 @@ const stopAreaInput: Array<StopAreaInput> = [
   },
   {
     StopArea: {
+      privateCode: { type: 'HSL', value: 'H2003' },
       name: { lang: 'fin', value: 'Pohjoisesplanadi' },
       transportMode: StopRegistryTransportModeType.Bus,
       alternativeNames: [
@@ -498,6 +500,61 @@ describe('Stop details', () => {
       bdView = stopDetailsPage.basicDetails.viewCard;
       bdForm = stopDetailsPage.basicDetails.form;
     });
+
+    it(
+      'should view stop area basic details text fields',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        const stopAreaDetailsPage = new StopAreaDetailsPage();
+
+        stopDetailsPage.visit('H2003');
+        stopDetailsPage.page().shouldBeVisible();
+
+        bdView.getContent().shouldBeVisible();
+
+        bdView.getAreaLink().click();
+        stopAreaDetailsPage.details.getPrivateCode().shouldHaveText('H2003');
+        cy.go('back');
+
+        bdView.getAreaPrivateCode().shouldHaveText('H2003');
+        bdView.getAreaQuays().shouldHaveText('H2003');
+        bdView.getAreaName().shouldHaveText('Pohjoisesplanadi');
+        bdView.getAreaNameSwe().shouldHaveText('Norraesplanaden');
+        bdView.getAreaNameLong().shouldHaveText('Pohjoisesplanadi (pitkä)');
+        bdView.getAreaNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
+        bdView.getAreaAbbreviationName().shouldHaveText('Pohj.esplanadi');
+        bdView.getAreaAbbreviationNameSwe().shouldHaveText('N.esplanaden');
+
+        stopDetailsPage.basicDetails.getEditButton().click();
+
+        // Verify correct values in readonly fields.
+        bdForm.getAreaLink().click();
+        stopAreaDetailsPage.details.getPrivateCode().shouldHaveText('H2003');
+        cy.go('back');
+        stopDetailsPage.basicDetails.getEditButton().click();
+        bdForm.getAreaPrivateCode().shouldHaveText('Pysäkkialue H2003');
+        bdForm.getAreaQuays().shouldHaveText('H2003');
+        bdForm.getAreaNameInput().should('have.value', 'Pohjoisesplanadi');
+        bdForm.getAreaNameSweInput().should('have.value', 'Norraesplanaden');
+        bdForm
+          .getAreaNameLongInput()
+          .should('have.value', 'Pohjoisesplanadi (pitkä)');
+        bdForm
+          .getAreaNameLongSweInput()
+          .should('have.value', 'Norraesplanaden (lång)');
+        bdForm
+          .getAreaAbbreviationNameInput()
+          .should('have.value', 'Pohj.esplanadi');
+        bdForm
+          .getAreaAbbreviationNameSweInput()
+          .should('have.value', 'N.esplanaden');
+
+        // Should be able to save without changing anything.
+        stopDetailsPage.basicDetails.getSaveButton().click();
+
+        toast.expectSuccessToast('Pysäkki muokattu');
+      },
+    );
 
     it(
       'should view and edit basic details text fields',
