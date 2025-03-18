@@ -5,6 +5,28 @@ export class BasicDetailsViewCard {
 
   getLabel = () => cy.getByTestId('BasicDetailsSection::label');
 
+  getAreaLink = () => cy.getByTestId('BasicDetailsSection::areaLink');
+
+  getAreaPrivateCode = () =>
+    cy.getByTestId('BasicDetailsSection::areaPrivateCode');
+
+  getAreaQuays = () => cy.getByTestId('BasicDetailsSection::areaQuays');
+
+  getAreaName = () => cy.getByTestId('BasicDetailsSection::areaName');
+
+  getAreaNameSwe = () => cy.getByTestId('BasicDetailsSection::areaNameSwe');
+
+  getAreaNameLong = () => cy.getByTestId('BasicDetailsSection::areaNameLong');
+
+  getAreaNameLongSwe = () =>
+    cy.getByTestId('BasicDetailsSection::areaNameLongSwe');
+
+  getAreaAbbreviationName = () =>
+    cy.getByTestId('BasicDetailsSection::areaAbbreviationName');
+
+  getAreaAbbreviationNameSwe = () =>
+    cy.getByTestId('BasicDetailsSection::areaAbbreviationNameSwe');
+
   getPrivateCode = () => cy.getByTestId('BasicDetailsSection::privateCode');
 
   getNameFin = () => cy.getByTestId('BasicDetailsSection::nameFin');
