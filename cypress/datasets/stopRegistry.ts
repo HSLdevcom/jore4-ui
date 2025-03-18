@@ -26,20 +26,18 @@ export const Annankatu20Name: StopRegistryEmbeddableMultilingualString = {
 
 // prettier-ignore
 export const Annankatu20AltNames: Array<Maybe<StopRegistryAlternativeName>> = [
-  { nameType: StopRegistryNameType.Label,       name: { lang: 'fin', value: 'Akt20' }, },
-  { nameType: StopRegistryNameType.Label,       name: { lang: 'swe', value: 'Agt20' }, },
   { nameType: StopRegistryNameType.Translation, name: { lang: 'swe', value: 'Annasgatan 20' }, },
   { nameType: StopRegistryNameType.Other,       name: { lang: 'fin', value: 'Annankatu 20' } },
+  { nameType: StopRegistryNameType.Other,       name: { lang: 'swe', value: 'Annasgatan 20' } },
   { nameType: StopRegistryNameType.Alias,       name: { lang: 'fin', value: 'Annankatu 20 pitkänimi' } },
   { nameType: StopRegistryNameType.Alias,       name: { lang: 'swe', value: 'Annasgatan 20 långnamn' } },
 ];
 
 // prettier-ignore
 export const Annankatu15AltNames: Array<Maybe<StopRegistryAlternativeName>> = [
-  { nameType: StopRegistryNameType.Label,       name: { lang: 'fin', value: 'Akt15' }, },
-  { nameType: StopRegistryNameType.Label,       name: { lang: 'swe', value: 'Agt15' }, },
   { nameType: StopRegistryNameType.Translation, name: { lang: 'swe', value: 'Annasgatan 15' }, },
   { nameType: StopRegistryNameType.Other,       name: { lang: 'fin', value: 'Annankatu 15' } },
+  { nameType: StopRegistryNameType.Other,       name: { lang: 'swe', value: 'Annasgatan 15' } },
   { nameType: StopRegistryNameType.Alias,       name: { lang: 'fin', value: 'Annankatu 15 pitkänimi' } },
   { nameType: StopRegistryNameType.Alias,       name: { lang: 'swe', value: 'Annasgatan 15 långnamn' } },
 ];
