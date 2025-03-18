@@ -137,6 +137,11 @@
     "basicDetails": {
       "title": "JORE stop area",
       "name": "Stop area name",
+      "nameSwe": "Stop area name (swedish)",
+      "nameLongFin": "Long name (Finnish)",
+      "nameLongSwe": "Long name (Swedish)",
+      "abbreviationFin": "Abbreviation (Finnish)",
+      "abbreviationSwe": "Abbreviation (Swedish)",
       "privateCode": "Stop area label",
       "parentTerminal": "Parent terminal",
       "areaSize": "Stop area size (m²)",

@@ -60,8 +60,6 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
     nameLongSwe: stopArea.nameLongSwe,
     abbreviationFin: stopArea.abbreviationFin,
     abbreviationSwe: stopArea.abbreviationSwe,
-    abbreviation5CharFin: stopArea.abbreviation5CharFin,
-    abbreviation5CharSwe: stopArea.abbreviation5CharSwe,
     latitude,
     longitude,
     quays: quays ?? [],
