@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Row } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
 import { defaultPagingInfo } from '../../../types';
-import { SimpleButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
 import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import {
@@ -16,10 +15,6 @@ import {
   stopSearchUrlStateToSearch,
   useStopSearchUrlState,
 } from '../search/utils';
-
-const testIds = {
-  createStopButton: 'StopRegistryMainPage::createStopButton',
-};
 
 export const StopRegistryMainPage: FC = () => {
   const { t } = useTranslation();
@@ -51,16 +46,6 @@ export const StopRegistryMainPage: FC = () => {
       <Row className="justify-between">
         <PageTitle.H1>{t('stops.stops')}</PageTitle.H1>
         <OpenDefaultMapButton containerClassName="ml-auto" />
-        <SimpleButton
-          // TODO: actual implementation for this button.
-          id="create-stop-button"
-          testId={testIds.createStopButton}
-          href="/"
-          disabled
-          containerClassName="ml-3"
-        >
-          {t('stops.createStop')}
-        </SimpleButton>
       </Row>
       <StopSearchBar initialFilters={filters} onSubmit={onSubmit} />
     </Container>
