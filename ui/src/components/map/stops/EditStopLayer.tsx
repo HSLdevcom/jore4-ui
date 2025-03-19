@@ -35,7 +35,7 @@ import {
   setSelectedStopIdAction,
 } from '../../../redux';
 import { mapLngLatToGeoJSON, showSuccessToast } from '../../../utils';
-import { mapStopDataToFormState } from '../../forms/stop/StopForm';
+import { mapStopDataToFormState } from '../../forms/stop';
 import {
   ConflictResolverModal,
   mapStopToCommonConflictItem,

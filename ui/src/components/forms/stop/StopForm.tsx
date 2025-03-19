@@ -7,11 +7,7 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
-import {
-  ReusableComponentsVehicleModeEnum,
-  ServicePatternScheduledStopPoint,
-} from '../../../generated/graphql';
+import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { PartialScheduledStopPointSetInput } from '../../../graphql';
 import {
   CreateChanges,
@@ -28,40 +24,18 @@ import {
   openTimingPlaceModalAction,
   selectIsTimingPlaceModalOpen,
 } from '../../../redux';
-import { mapToISODate } from '../../../time';
-import { RequiredKeys } from '../../../types';
 import { SimpleButton } from '../../../uiComponents';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
-  mapLngLatToPoint,
   mapPointToGeoJSON,
 } from '../../../utils';
-import {
-  FormColumn,
-  FormRow,
-  InputField,
-  requiredNumber,
-  requiredString,
-} from '../common';
-import {
-  ChangeValidityForm,
-  FormState as ChangeValidityFormState,
-  schema as changeValidityFormSchema,
-} from '../common/ChangeValidityForm';
+import { ChangeValidityForm, FormColumn, FormRow, InputField } from '../common';
 import { NameConsistencyChecker, TypedName } from '../stop-area';
 import { ChooseTimingPlaceDropdown } from './ChooseTimingPlaceDropdown';
+import { FindStopArea } from './FindStopArea';
 import { TimingPlaceModal } from './TimingPlaceModal';
-
-const schema = z
-  .object({
-    stopId: z.string().uuid().optional(), // for stops that are edited
-    label: requiredString,
-    latitude: requiredNumber.min(-180).max(180),
-    longitude: requiredNumber.min(-180).max(180),
-    timingPlaceId: z.string().uuid().nullable(),
-  })
-  .merge(changeValidityFormSchema);
+import { StopFormState as FormState, stopFormSchema } from './types';
 
 const testIds = {
   label: 'StopFormComponent::label',
@@ -69,33 +43,6 @@ const testIds = {
   longitude: 'StopFormComponent::longitude',
   timingPlaceDropdown: 'StopFormComponent::timingPlaceDropdown',
   addTimingPlaceButton: 'StopFormComponent::addTimingPlaceButton',
-};
-
-export type FormState = z.infer<typeof schema> & ChangeValidityFormState;
-
-export const mapStopDataToFormState = (
-  stop: RequiredKeys<
-    Partial<ServicePatternScheduledStopPoint>,
-    'measured_location'
-  >,
-) => {
-  const { latitude, longitude } = mapLngLatToPoint(
-    stop.measured_location.coordinates,
-  );
-
-  const formState: Partial<FormState> = {
-    stopId: stop.scheduled_stop_point_id,
-    label: stop.label ?? '',
-    latitude,
-    longitude,
-    priority: stop.priority,
-    validityStart: mapToISODate(stop.validity_start),
-    validityEnd: mapToISODate(stop.validity_end),
-    indefinite: !stop.validity_end,
-    timingPlaceId: stop.timing_place_id,
-  };
-
-  return formState;
 };
 
 function mapFormStateToInput(state: FormState) {
@@ -170,7 +117,7 @@ const StopFormComponent: ForwardRefRenderFunction<HTMLFormElement, Props> = (
 
   const methods = useForm<FormState>({
     defaultValues,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(stopFormSchema),
   });
   const {
     formState: { dirtyFields },
@@ -238,6 +185,8 @@ const StopFormComponent: ForwardRefRenderFunction<HTMLFormElement, Props> = (
       >
         <h3 className="pb-6">{t('stops.stop')}</h3>
         <FormColumn>
+          <FindStopArea />
+
           <FormRow mdColumns={2}>
             <Column>
               <h5 className="mb-2">{t('stops.nameAddress')}</h5>
