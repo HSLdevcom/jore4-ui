@@ -121,7 +121,7 @@ const route35StopAreas: Array<StopAreaSeedData> = [
   },
   {
     label: 'X1302',
-    name: 'Rakuunantie',
+    name: 'Rakuunantie 8',
     locationLat: 60.20054,
     locationLong: 24.883959,
     validityStart: basicStart,

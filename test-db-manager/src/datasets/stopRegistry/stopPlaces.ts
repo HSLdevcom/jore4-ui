@@ -287,12 +287,11 @@ const route530Stops: Array<StopPlaceQuaySeedData> = [
   { publicCode: "E4329", privateCode: '999938', locationLong: 24.689947, locationLat: 60.172966,  locationSwe: 'Bolarskogsgatan' },
   { publicCode: "E4905", privateCode: '999939', locationLong: 24.702882, locationLat: 60.164212,  locationSwe: 'Ängsbrinken' },
   { publicCode: "E4464", privateCode: '999940', locationLong: 24.706945, locationLat: 60.157696,  locationSwe: 'Finnogården' },
-  { publicCode: "E4461", privateCode: '999941', locationLong: 24.709598, locationLat: 60.154934,  locationSwe: 'Finno (M)' },
+  { publicCode: "E4461", privateCode: '999941', locationLong: 24.709598, locationLat: 60.154934,  locationSwe: 'Finno (M)', stopArea: 'X1234' },
   { publicCode: "E3142", privateCode: '999942', locationLong: 24.72747,  locationLat: 60.15706,   locationSwe: 'Fiskelyckan' },
 ];
 
 const H2003: StopPlaceQuaySeedData = {
-  stopArea: 'X1234',
   publicCode: 'H2003',
   privateCode: '10003',
   elyNumber: '1234567',
@@ -372,6 +371,7 @@ const H2003: StopPlaceQuaySeedData = {
     replacesRailSign: false,
   },
 };
+
 const seedData: Array<StopPlaceQuaySeedData> = [
   ...route35Stops,
   ...route530Stops,

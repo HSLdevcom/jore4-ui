@@ -29,14 +29,14 @@ const seedStopRegistry = async () => {
     setStopPlaceOrganisations(sa, collectedOrganisationIds),
   );
 
-  const stopAreas = groupBy(
+  const quaysByDeclaredStopArea = groupBy(
     seedQuays.filter((sq) => !!sq.stopArea),
     (quay) => quay.stopArea,
   );
 
   const stopPlaceInputsWithStopAreas: Array<
     Partial<StopRegistryStopPlaceInput>
-  > = Object.entries(stopAreas).map(([privateCode, quays]) => {
+  > = Object.entries(quaysByDeclaredStopArea).map(([privateCode, quays]) => {
     return {
       ...stopPlacesWithOrganisations.find(
         (sp) => sp.privateCode?.value === privateCode,
@@ -45,27 +45,30 @@ const seedStopRegistry = async () => {
     };
   });
 
-  const stopPlaceInputs: Array<Partial<StopRegistryStopPlaceInput>> = seedQuays
-    .filter((quay) => !quay.stopArea)
-    .map((quay) => {
+  const quaysByName = groupBy(
+    seedQuays.filter((quay) => !quay.stopArea),
+    (quay) => stopNames[quay.quay.publicCode ?? '']?.name ?? '',
+  );
+
+  const stopPlaceInputs: Array<Partial<StopRegistryStopPlaceInput>> =
+    Object.entries(quaysByName).map(([name, quays]) => {
+      const firstQuay = quays[0].quay;
+      const publicCode = firstQuay.publicCode ?? '';
       return {
-        name: {
-          value: stopNames[quay.quay.publicCode ?? '']?.name ?? '',
-          lang: 'fin',
-        },
+        name: { value: name, lang: 'fin' },
         alternativeNames: [
           {
             nameType: StopRegistryNameType.Translation,
             name: {
-              value: stopNames[quay.quay.publicCode ?? '']?.nameSwe ?? '',
+              value: stopNames[publicCode]?.nameSwe ?? '',
               lang: 'swe',
             },
           },
         ],
         transportMode: StopRegistryTransportModeType.Bus,
-        privateCode: { value: quay.quay.publicCode ?? 'missingName' },
-        geometry: quay.quay.geometry,
-        quays: [quay.quay],
+        privateCode: { value: publicCode },
+        geometry: firstQuay.geometry,
+        quays: quays.map((it) => it.quay),
       };
     });
 
