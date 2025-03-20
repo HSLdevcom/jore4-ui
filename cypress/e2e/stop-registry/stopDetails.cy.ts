@@ -1552,6 +1552,77 @@ describe('Stop details', () => {
         });
       });
 
+      it('should clear maintainers', () => {
+        verifyInitialMaintenanceDetails();
+
+        stopDetailsPage.maintenance.getEditButton().click();
+        view.getContainer().should('not.exist');
+
+        // Verify correct initial values:
+        form.getOwner().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
+        });
+        form.getMaintenance().within(() => {
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('ELY-keskus');
+        });
+        form.getWinterMaintenance().within(() => {
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('ELY-keskus');
+        });
+        form.getInfoUpkeep().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('-');
+        });
+        form.getCleaning().within(() => {
+          form.fields
+            .getMaintainerDropdownButton()
+            .shouldHaveText('Clear Channel');
+        });
+
+        // Change everything:
+        form.getOwner().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields.getMaintainerDropdownOptions().contains('-').click();
+        });
+        form.getMaintenance().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields.getMaintainerDropdownOptions().contains('-').click();
+        });
+        form.getWinterMaintenance().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields.getMaintainerDropdownOptions().contains('-').click();
+        });
+        form.getCleaning().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields.getMaintainerDropdownOptions().contains('-').click();
+        });
+
+        // Submit.
+        stopDetailsPage.maintenance.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
+        view.getContainer().shouldBeVisible();
+
+        // Verify changes visible.
+        const maintainerView = view.maintainerViewCard;
+        view.getOwner().within(() => {
+          maintainerView.getNotSelectedPlaceholder().shouldBeVisible();
+        });
+        view.getMaintenance().within(() => {
+          maintainerView.getNotSelectedPlaceholder().shouldBeVisible();
+        });
+        view.getWinterMaintenance().within(() => {
+          maintainerView.getNotSelectedPlaceholder().shouldBeVisible();
+        });
+        view.getInfoUpkeep().within(() => {
+          maintainerView.getNotSelectedPlaceholder().shouldBeVisible();
+        });
+        view.getCleaning().within(() => {
+          maintainerView.getNotSelectedPlaceholder().shouldBeVisible();
+        });
+      });
+
       it('should edit maintainer organisation details', () => {
         stopDetailsPage.maintenance.getEditButton().click();
         view.getContainer().should('not.exist');

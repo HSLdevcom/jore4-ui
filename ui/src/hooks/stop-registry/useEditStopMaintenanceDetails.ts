@@ -40,7 +40,8 @@ export const useEditStopMaintenanceDetails = () => {
 
     const input = {
       id: stopPlaceId,
-      organisations: selectedOrganisations,
+      organisations:
+        selectedOrganisations.length > 0 ? selectedOrganisations : [null],
     };
 
     return input;
