@@ -28,7 +28,9 @@ export const EditStopAreaModal = ({
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
   const onSave = () => submitFormByRef(formRef);
-  const heading = t('map.createNewStopArea');
+  const heading = defaultValues.privateCode
+    ? t('map.editStopArea', { stopArea: defaultValues.privateCode })
+    : t('map.createNewStopArea');
 
   return (
     <CustomOverlay position="top-right">
