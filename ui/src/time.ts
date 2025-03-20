@@ -23,7 +23,12 @@ export function isDateLike(input?: unknown): input is DateLike {
   return DateTime.isDateTime(input) || isString(input);
 }
 
-export const parseDate = (date?: DateLike | null) => {
+export function parseDate(date: DateLike): DateTime;
+export function parseDate(date: null | undefined): undefined;
+export function parseDate(
+  date: DateLike | null | undefined,
+): DateTime | undefined;
+export function parseDate(date?: DateLike | null) {
   // if null/undefined, return undefined
   if (!date) {
     return undefined;
@@ -42,7 +47,7 @@ export const parseDate = (date?: DateLike | null) => {
   }
 
   throw new Error(`Invalid date input: ${date}`);
-};
+}
 
 // date formats known by luxon: https://moment.github.io/luxon/#/formatting?id=presets
 export const formatDate = (

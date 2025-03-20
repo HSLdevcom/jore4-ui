@@ -15,6 +15,7 @@ export * from './memoizeOne';
 export * from './misc';
 export * from './numberEnumHelpers';
 export * from './object';
+export * from './requireValue';
 export * from './route';
 export * from './routeShape';
 export * from './search';

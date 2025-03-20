@@ -109,7 +109,6 @@ export const MapFooter: React.FC<Props> = ({
       <SimpleButton
         onClick={onAddStops}
         disabled={
-          true || // TODO: Fix stop creation
           drawingMode !== undefined ||
           creatingNewRoute ||
           isCreateStopAreaModeEnabled ||

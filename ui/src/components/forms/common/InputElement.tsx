@@ -1,30 +1,48 @@
 import get from 'lodash/get';
-import { HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
+import React, {
+  HTMLInputTypeAttribute,
+  InputHTMLAttributes,
+  ReactElement,
+  TextareaHTMLAttributes,
+} from 'react';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
+import { twMerge } from 'tailwind-merge';
 
-export interface InputElementDefaultProps extends InputHTMLAttributes<Element> {
-  className?: string;
-  id: string;
-  testId: string;
+export interface InputElementDefaultProps
+  extends InputHTMLAttributes<HTMLInputElement> {
+  readonly id: string;
+  readonly testId: string;
 }
 
-interface Props<FormState extends FieldValues>
-  extends InputElementDefaultProps {
-  fieldPath: Path<FormState>;
-  type: HTMLInputTypeAttribute;
-}
+type HTMLInputProps = Readonly<InputHTMLAttributes<HTMLInputElement>> & {
+  readonly type: HTMLInputTypeAttribute;
+};
+type HTMLTextAreaProps = Readonly<
+  TextareaHTMLAttributes<HTMLTextAreaElement>
+> & {
+  readonly type: 'textarea';
+};
+
+type BaseProps<FormState extends FieldValues> = {
+  readonly id: string;
+  readonly testId: string;
+  readonly fieldPath: Path<FormState>;
+};
+
+type InputElementProps<FormState extends FieldValues> =
+  | (BaseProps<FormState> & HTMLInputProps)
+  | (BaseProps<FormState> & HTMLTextAreaProps);
 
 export const inputErrorStyles =
   'border-hsl-red bg-hsl-red bg-opacity-5 border-2';
 
 export const InputElement = <FormState extends FieldValues>({
-  className = '',
-  id,
+  className,
   fieldPath,
   testId,
   type,
-  ...inputHTMLAttributes
-}: Props<FormState>): React.ReactElement => {
+  ...elementProps
+}: InputElementProps<FormState>): ReactElement => {
   const {
     register,
     formState: { errors },
@@ -32,14 +50,28 @@ export const InputElement = <FormState extends FieldValues>({
 
   const hasError = !!get(errors, fieldPath);
 
+  const actualClassNames = twMerge(className, hasError ? inputErrorStyles : '');
+
+  if (type === 'textarea') {
+    const textAreaProps = elementProps as HTMLTextAreaProps;
+    return (
+      <textarea
+        {...textAreaProps}
+        {...register(fieldPath)}
+        className={actualClassNames}
+        data-testid={testId}
+      />
+    );
+  }
+
+  const inputProps = elementProps as HTMLInputProps;
   return (
     <input
-      className={`${className} ${hasError ? inputErrorStyles : ''}`}
-      id={id}
+      {...inputProps}
+      {...register(fieldPath, { valueAsNumber: type === 'number' })}
+      className={actualClassNames}
       data-testid={testId}
       type={type}
-      {...register(fieldPath, { valueAsNumber: type === 'number' })}
-      {...inputHTMLAttributes}
     />
   );
 };

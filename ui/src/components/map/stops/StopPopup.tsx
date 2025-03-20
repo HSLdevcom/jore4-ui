@@ -1,15 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
-import { StopWithLocation } from '../../../graphql';
 import { Column, Row, Visible } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
+import { parseDate } from '../../../time';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
-import { mapLngLatToPoint, mapToValidityPeriod } from '../../../utils';
+import { mapToValidityPeriod } from '../../../utils';
+import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
 import { PriorityBadge } from '../PriorityBadge';
 
 interface Props {
-  stop: Required<StopWithLocation>;
+  stop: StopInfoForEditingOnMap;
   onEdit: () => void;
   onMove: () => void;
   onClose: () => void;
@@ -32,15 +33,28 @@ export const StopPopup = ({
   onDelete,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  // eslint-disable-next-line camelcase
-  const { label: stopLabel, priority, validity_start, validity_end } = stop;
-  const location = mapLngLatToPoint(stop.measured_location.coordinates);
+  const {
+    formState: {
+      label: stopLabel,
+      priority,
+      validityStart: validityStartStr,
+      validityEnd: validityEndStr,
+      latitude,
+      longitude,
+    },
+    timingPlaceInfo,
+  } = stop;
+  const { label: timingPlaceLabel } = timingPlaceInfo ?? {};
+
+  const validityStart = parseDate(validityStartStr);
+  const validityEnd = parseDate(validityEndStr);
+
   return (
     <Popup
       className="mt-5 min-w-80"
       anchor="top"
-      longitude={location.longitude}
-      latitude={location.latitude}
+      longitude={longitude}
+      latitude={latitude}
       closeOnClick={false}
       closeButton={false}
     >
@@ -50,7 +64,7 @@ export const StopPopup = ({
             <Row className="items-center">
               <h3>
                 <a
-                  href={routeDetails[Path.stopDetails].getLink(stop.label)}
+                  href={routeDetails[Path.stopDetails].getLink(stopLabel)}
                   target="_blank"
                   rel="noreferrer"
                   data-testid={testIds.label}
@@ -62,12 +76,12 @@ export const StopPopup = ({
                   <i className="icon-open-in-new" aria-hidden />
                 </a>
               </h3>
-              <Visible visible={!!stop.timing_place?.label}>
+              <Visible visible={!!timingPlaceLabel}>
                 <span
                   className="text-sm text-hsl-dark-80"
                   title={t('accessibility:stops.timingPlace')}
                 >
-                  {stop.timing_place?.label}
+                  {timingPlaceLabel}
                 </span>
               </Visible>
               <CloseIconButton
@@ -82,12 +96,10 @@ export const StopPopup = ({
           <Row className="items-center gap-1.5 text-sm">
             <PriorityBadge
               priority={priority}
-              // eslint-disable-next-line camelcase
-              validityStart={validity_start}
-              // eslint-disable-next-line camelcase
-              validityEnd={validity_end}
+              validityStart={validityStart}
+              validityEnd={validityEnd}
             />
-            {mapToValidityPeriod(t, validity_start, validity_end)}
+            {mapToValidityPeriod(t, validityStart, validityEnd)}
           </Row>
         </Row>
         <Row className="mt-16">
@@ -96,9 +108,6 @@ export const StopPopup = ({
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
-            // TODO: Fix Stop creation/editing/deletion
-            disabled
-            disabledTooltip={t('dataModelRefactor.disabled')}
           >
             <MdDelete aria-label={t('map.deleteRoute')} className="text-xl" />
           </SimpleButton>
@@ -106,9 +115,6 @@ export const StopPopup = ({
             containerClassName="ml-auto"
             onClick={onMove}
             testId={testIds.moveButton}
-            // TODO: Fix Stop creation/editing/deletion
-            disabled
-            disabledTooltip={t('dataModelRefactor.disabled')}
           >
             {t('move')}
           </SimpleButton>
@@ -116,9 +122,6 @@ export const StopPopup = ({
             containerClassName="ml-2"
             onClick={onEdit}
             testId={testIds.editButton}
-            // TODO: Fix Stop creation/editing/deletion
-            disabled
-            disabledTooltip={t('dataModelRefactor.disabled')}
           >
             {t('edit')}
           </SimpleButton>

@@ -38890,6 +38890,8 @@ export type StopsDatabaseQuayNewestVersion = {
   /** An object relationship */
   stop_place?: Maybe<StopsDatabaseStopPlace>;
   stop_place_id?: Maybe<Scalars['bigint']['output']>;
+  /** An object relationship */
+  stop_place_newest_version?: Maybe<StopsDatabaseStopPlaceNewestVersion>;
   stop_place_version?: Maybe<Scalars['bigint']['output']>;
   street_address?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
@@ -39028,6 +39030,7 @@ export type StopsDatabaseQuayNewestVersionBoolExp = {
   site_ref_version?: InputMaybe<StringComparisonExp>;
   stop_place?: InputMaybe<StopsDatabaseStopPlaceBoolExp>;
   stop_place_id?: InputMaybe<BigintComparisonExp>;
+  stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
   stop_place_version?: InputMaybe<BigintComparisonExp>;
   street_address?: InputMaybe<StringComparisonExp>;
   to_date?: InputMaybe<TimestampComparisonExp>;
@@ -39165,6 +39168,7 @@ export type StopsDatabaseQuayNewestVersionOrderBy = {
   site_ref_version?: InputMaybe<OrderBy>;
   stop_place?: InputMaybe<StopsDatabaseStopPlaceOrderBy>;
   stop_place_id?: InputMaybe<OrderBy>;
+  stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionOrderBy>;
   stop_place_version?: InputMaybe<OrderBy>;
   street_address?: InputMaybe<OrderBy>;
   to_date?: InputMaybe<OrderBy>;

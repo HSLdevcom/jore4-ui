@@ -79,8 +79,11 @@ const CustomOverlayComponent = ({
   const ctrlElement = ctrl.getElement();
   const map = ctrl.getMap();
 
+  // Prevent assigning "map" as a prop/attr on raw HTML elements
+  const newChildProps = typeof children.type === 'string' ? {} : { map };
+
   return map && ctrlElement
-    ? createPortal(cloneElement(children, { map }), ctrlElement)
+    ? createPortal(cloneElement(children, newChildProps), ctrlElement)
     : null;
 };
 

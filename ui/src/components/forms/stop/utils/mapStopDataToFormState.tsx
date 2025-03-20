@@ -12,6 +12,7 @@ export function mapStopDataToFormState(
 ): Partial<StopFormState> {
   const { latitude, longitude } = mapLngLatToPoint(
     stop.measured_location.coordinates,
+    8,
   );
 
   return {

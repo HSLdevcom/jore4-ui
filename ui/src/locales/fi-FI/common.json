@@ -93,15 +93,15 @@
     "lineMissingDefault": "Tuntematon virhe linjan tiedoissa."
   },
   "stops": {
-    "stop": "Pysäkki",
     "stops": "Pysäkit",
     "stopWithLabel": "Pysäkki {{ stopLabel }}",
     "createStop": "Luo uusi pysäkki",
-    "label": "Lyhyttunnus",
+    "label": "Pysäkin tunnus",
     "timingPlaceId": "Hastus-paikka",
     "chooseTimingPlace": "Ei Hastus-paikkaa valittuna",
     "noTimingPlace": "Ei Hastus-paikkaa",
-    "createTimingPlace": "Luo uusi",
+    "createTimingPlace": "Luo Hastus",
+    "versionInfoTitle": "Versions voimassaolo",
     "nameAddress": "Nimi ja osoite",
     "saveSuccess": "Pysäkki luotu",
     "editSuccess": "Pysäkki muokattu",
@@ -489,6 +489,16 @@
       "sequenceNumber": "Järjestysnumero",
       "byStopArea": "Pysäkkialueen mukaan"
     }
+  },
+  "stopRegistryNamedEntity": {
+    "nameFin": "Nimi (suomi)",
+    "nameSwe": "Nimi (ruotsi)",
+    "locationFin": "Sijainti (suomi)",
+    "locationSwe": "Sijainti (ruotsi)",
+    "nameLongFin": "Pitkänimi (suomi)",
+    "nameLongSwe": "Pitkänimi (ruotsi)",
+    "abbreviationFin": "Lyhenne (suomi)",
+    "abbreviationSwe": "Lyhenne (ruotsi)"
   },
   "timingPlaces": {
     "label": "Uusi Hastus-paikka",

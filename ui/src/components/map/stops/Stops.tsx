@@ -1,10 +1,11 @@
-import React, { useImperativeHandle, useRef } from 'react';
+import React, { useImperativeHandle, useRef, useState } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { StopWithLocation } from '../../../graphql';
 import {
   useAppAction,
   useAppSelector,
-  useCreateStop,
+  useCreateDraftStop,
+  useDefaultErrorHandler,
   useEditStop,
   useLoader,
   useMapStops,
@@ -96,11 +97,19 @@ export const Stops = React.forwardRef((_props, ref) => {
     }
 
     setSelectedStopId(stop.stop_place_ref ?? undefined);
-    setEditedStopData(stop);
+    setEditedStopData(
+      stop.stop_place_ref
+        ? { type: 'id' }
+        : {
+            type: 'draft',
+            longitude: stop.measured_location.coordinates[0],
+            latitude: stop.measured_location.coordinates[1],
+          },
+    );
   };
 
-  const { createDraftStop } = useCreateStop();
-  const { defaultErrorHandler } = useEditStop();
+  const createDraftStop = useCreateDraftStop();
+  const defaultErrorHandler = useDefaultErrorHandler();
   useImperativeHandle(ref, () => ({
     onCreateStop: async (e: MapLayerMouseEvent) => {
       setFetchStopsLoadingState(LoadingState.HighPriority);
@@ -157,6 +166,7 @@ export const Stops = React.forwardRef((_props, ref) => {
       {editedStopData && (
         <EditStopLayer
           ref={editStopLayerRef}
+          selectedStopId={selectedStopId}
           editedStopData={editedStopData}
           onEditingFinished={onEditingFinished}
           onPopupClose={() => removeLineFromStopToInfraLink(map?.getMap())}

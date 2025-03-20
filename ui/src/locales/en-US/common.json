@@ -93,7 +93,6 @@
     "lineMissingDefault": "Unknown error in line information."
   },
   "stops": {
-    "stop": "Stop",
     "stops": "Stops",
     "stopWithLabel": "Stop {{ stopLabel }}",
     "createStop": "Create new stop",

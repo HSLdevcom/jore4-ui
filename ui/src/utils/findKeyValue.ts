@@ -1,7 +1,13 @@
-import { Maybe, StopRegistryKeyValues } from '../generated/graphql';
+import {
+  Maybe,
+  StopRegistryKeyValues,
+  StopRegistryKeyValuesInput,
+} from '../generated/graphql';
 
 type ElementWithKeyValues = {
-  readonly keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+  readonly keyValues?: Maybe<
+    Array<Maybe<StopRegistryKeyValues | StopRegistryKeyValuesInput>>
+  >;
 };
 
 export function findKeyValue(

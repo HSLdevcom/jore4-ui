@@ -7,10 +7,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
-import {
-  PartialScheduledStopPointSetInput,
-  StopWithLocation,
-} from '../../../graphql';
+import { StopRegistryGeoJsonType } from '../../../generated/graphql';
 import {
   CreateChanges,
   DeleteChanges,
@@ -19,13 +16,16 @@ import {
   useAppAction,
   useAppSelector,
   useCreateStop,
-  useCreateStopPlace,
+  useDefaultErrorHandler,
   useDeleteStop,
   useEditStop,
   useLoader,
+  useMapDataLayerLoader,
   useObservationDateQueryParam,
+  usePrepareEdit,
 } from '../../../hooks';
 import {
+  EditedMapStopData,
   Operation,
   closeTimingPlaceModalAction,
   selectIsMoveStopModeEnabled,
@@ -35,7 +35,10 @@ import {
   setSelectedStopIdAction,
 } from '../../../redux';
 import { mapLngLatToGeoJSON, showSuccessToast } from '../../../utils';
-import { mapStopDataToFormState } from '../../forms/stop';
+import {
+  StopInfoForEditingOnMap,
+  useGetStopInfoForEditingOnMap,
+} from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
 import {
   ConflictResolverModal,
   mapStopToCommonConflictItem,
@@ -54,18 +57,29 @@ enum StopEditorViews {
 }
 
 interface Props {
-  editedStopData: StopWithLocation;
+  editedStopData: EditedMapStopData;
+  selectedStopId?: string;
   onEditingFinished?: () => void;
   onPopupClose?: () => void;
 }
 
 export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
-  ({ editedStopData, onEditingFinished, onPopupClose }, ref) => {
+  (
+    { editedStopData, onEditingFinished, onPopupClose, selectedStopId },
+    ref,
+  ) => {
     const [createChanges, setCreateChanges] = useState<CreateChanges>();
     const [editChanges, setEditChanges] = useState<EditChanges>();
     const [deleteChanges, setDeleteChanges] = useState<DeleteChanges>();
     const [displayedEditor, setDisplayedEditor] = useState<StopEditorViews>(
       StopEditorViews.None,
+    );
+
+    const { stopInfo, loading } = useGetStopInfoForEditingOnMap(selectedStopId);
+    useMapDataLayerLoader(
+      Operation.FetchStopInfo,
+      !!stopInfo || !selectedStopId,
+      loading,
     );
 
     const dispatch = useDispatch();
@@ -86,28 +100,25 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
       Operation.SaveStop,
     );
 
-    const {
-      mapCreateChangesToVariables,
-      insertStopMutation,
+    const createStop = useCreateStop();
 
-      updateScheduledStopPointStopPlaceRefMutation,
-    } = useCreateStop();
-    const { mapToInsertStopPlaceVariables, insertStopPlaceMutation } =
-      useCreateStopPlace();
-
-    const { editStop, prepareEdit, defaultErrorHandler } = useEditStop();
+    const editStop = useEditStop();
+    const defaultErrorHandler = useDefaultErrorHandler();
+    const prepareEdit = usePrepareEdit();
     const {
       prepareDelete,
-      mapDeleteChangesToVariables,
       removeStop,
       defaultErrorHandler: deleteErrorHandler,
     } = useDeleteStop();
 
     // computed values for the edited stop
-    const isDraftStop = !editedStopData.scheduled_stop_point_id;
+    const isDraftStop = editedStopData.type === 'draft';
     const defaultDisplayedEditor = isDraftStop
       ? StopEditorViews.Modal
       : StopEditorViews.Popup;
+
+    const defaultValues =
+      editedStopData.type === 'draft' ? editedStopData : stopInfo?.formState;
 
     // when a stop is first edited, immediately show the proper editor view
     useEffect(() => {
@@ -136,11 +147,19 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
       }
     };
 
-    const onPrepareDelete = async (stopId: UUID) => {
+    const onPrepareDelete = async ({
+      formState: {
+        stopId,
+        quayId,
+        stopArea: { netextId },
+      },
+    }: StopInfoForEditingOnMap) => {
       // we are removing stop that is already stored to backend
       try {
         const changes = await prepareDelete({
-          stopId,
+          stopPointId: stopId,
+          quayId,
+          stopPlaceId: netextId,
         });
 
         setDeleteChanges(changes);
@@ -149,51 +168,63 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
       }
     };
 
-    const onRemoveDraftStop = async () => {
-      onFinishEditing();
-    };
-
-    const onRemoveStop = async (stopId?: UUID) => {
-      if (stopId) {
+    const onRemoveStop = async () => {
+      if (stopInfo) {
         setIsLoadingBrokenRoutes(true);
         // we are removing stop that is already stored to backend
-        await onPrepareDelete(stopId);
+        await onPrepareDelete(stopInfo);
         setIsLoadingBrokenRoutes(false);
       } else {
         // we are removing a draft stop
-        await onRemoveDraftStop();
+        onFinishEditing();
       }
     };
 
     const onMoveStop = async (event: MapLayerMouseEvent) => {
-      const { scheduled_stop_point_id: stopId, stop_place_ref: stopPlaceRef } =
-        editedStopData;
+      if (editedStopData.type === 'draft') {
+        // for draft stops, just update the edited stop data
+        setEditedStopData({
+          type: 'draft',
+          latitude: event.lngLat.lat,
+          longitude: event.lngLat.lng,
+        });
+      } else {
+        if (!stopInfo) {
+          // Should never happen
+          throw new Error("Cannot move stop if it isn't loaded in yet!");
+        }
 
-      if (stopId) {
-        // if this is a stop existing on the backend, also prepare the changes to be confirmed
-        const patch: PartialScheduledStopPointSetInput = {
-          measured_location: mapLngLatToGeoJSON(event.lngLat.toArray()),
-        };
+        const {
+          formState: { label, stopId, quayId, stopArea },
+        } = stopInfo;
+        const stopPlaceId = stopArea?.netextId;
+
         setIsLoadingBrokenRoutes(true);
         try {
           const changes = await prepareEdit({
+            stopLabel: label,
             stopId,
-            stopPlaceRef,
-            patch,
+            stopPointPatch: {
+              measured_location: mapLngLatToGeoJSON(event.lngLat.toArray()),
+            },
+            stopPlaceId,
+            quayId,
+            quayPatch: {
+              geometry: {
+                type: StopRegistryGeoJsonType.Point,
+                coordinates: event.lngLat.toArray(),
+              },
+            },
           });
           setEditChanges(changes);
         } catch (err) {
           defaultErrorHandler(err as Error);
         }
         setIsLoadingBrokenRoutes(false);
-      } else {
-        // for draft stops, just update the edited stop data
-        setEditedStopData({
-          ...editedStopData,
-          measured_location: mapLngLatToGeoJSON(event.lngLat.toArray()),
-        });
       }
     };
+
+    const onEditStop = () => setDisplayedEditor(StopEditorViews.Modal);
 
     const onCancelEdit = () => {
       dispatch(setIsMoveStopModeEnabledAction(false));
@@ -210,45 +241,16 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
     const doCreateStop = async (changes: CreateChanges) => {
       setIsLoadingSaveStop(true);
       try {
-        const variables = mapCreateChangesToVariables(changes);
-        const stopResult = await insertStopMutation(variables);
-
-        const scheduledStopPointId =
-          stopResult.data?.insert_service_pattern_scheduled_stop_point_one
-            ?.scheduled_stop_point_id;
-
-        if (!scheduledStopPointId) {
-          // if for some reason the insert fails but does not throw an error
-          // we can't continue with this creation process. This should not happen,
-          // but needed for non-null-assertion for the updateMutation
-          return;
-        }
-
-        const tiamatVariables = mapToInsertStopPlaceVariables({
-          label: changes.stopToCreate.label,
-          coordinates: changes.stopToCreate.measured_location.coordinates,
-          validityStart: changes.stopToCreate.validity_start,
-          validityEnd: changes.stopToCreate.validity_end,
-          priority: changes.stopToCreate.priority,
-        });
-        const stopPlaceResult = await insertStopPlaceMutation(tiamatVariables);
-
-        updateScheduledStopPointStopPlaceRefMutation({
-          variables: {
-            scheduled_stop_point_id: scheduledStopPointId,
-            stop_place_ref:
-              stopPlaceResult?.data?.stop_registry?.mutateStopPlace
-                ?.at(0)
-                ?.quays?.at(0)?.id,
-          },
-        });
+        await createStop(changes);
 
         showSuccessToast(t('stops.saveSuccess'));
-        updateObservationDateByValidityPeriodIfNeeded(changes.stopToCreate);
-        updateStopPriorityFilterIfNeeded(changes.stopToCreate.priority);
+        updateObservationDateByValidityPeriodIfNeeded(changes.stopPoint);
+        updateStopPriorityFilterIfNeeded(changes.stopPoint.priority);
         onFinishEditing();
       } catch (err) {
         defaultErrorHandler(err as Error);
+      } finally {
+        setIsLoadingSaveStop(false);
       }
     };
 
@@ -265,16 +267,16 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
         onFinishEditing();
         dispatch(setIsMoveStopModeEnabledAction(false));
       } catch (err) {
-        setIsLoadingSaveStop(false);
         defaultErrorHandler(err as Error);
+      } finally {
+        setIsLoadingSaveStop(false);
       }
     };
 
     // we are removing stop that is already stored to backend
     const doDeleteStop = async (changes: DeleteChanges) => {
       try {
-        const variables = mapDeleteChangesToVariables(changes);
-        await removeStop(variables);
+        await removeStop(changes);
 
         showSuccessToast(t('stops.removeSuccess'));
         onFinishEditing();
@@ -332,26 +334,19 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
     const currentConflicts = getCurrentConflicts();
     return (
       <>
-        {displayedEditor === StopEditorViews.Popup && (
+        {displayedEditor === StopEditorViews.Popup && stopInfo && (
           <StopPopup
-            // If displaying popup, editedStopData contains all fields needed by the popup.
-            // StopWithLocation type has many fields (e.g. label) optional, so need to cast here.
-            stop={editedStopData as Required<StopWithLocation>}
-            onEdit={() => {
-              setDisplayedEditor(StopEditorViews.Modal);
-            }}
+            stop={stopInfo}
+            onEdit={onEditStop}
             onMove={onStartMoveStop}
-            onDelete={() =>
-              onRemoveStop(editedStopData.scheduled_stop_point_id)
-            }
+            onDelete={onRemoveStop}
             onClose={onCloseEditors}
           />
         )}
-        {displayedEditor === StopEditorViews.Modal && (
+        {displayedEditor === StopEditorViews.Modal && defaultValues && (
           <EditStopModal
-            stopAreaId={editedStopData.stop_place?.at(0)?.groups?.at(0)?.id}
-            defaultValues={mapStopDataToFormState(editedStopData)}
-            stopPlaceRef={editedStopData.stop_place_ref}
+            defaultValues={defaultValues}
+            editing={!!selectedStopId}
             onCancel={onCloseEditors}
             onClose={onCloseEditors}
             onSubmit={onStopFormSubmit}
