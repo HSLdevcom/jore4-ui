@@ -13,8 +13,6 @@ export type StopPlaceEnrichmentProperties = {
   readonly nameLongSwe?: string | undefined;
   readonly abbreviationFin?: string | undefined;
   readonly abbreviationSwe?: string | undefined;
-  readonly abbreviation5CharFin?: string | undefined;
-  readonly abbreviation5CharSwe?: string | undefined;
   readonly name?: string | undefined;
   readonly municipality?: string | undefined;
   readonly fareZone?: string | undefined;

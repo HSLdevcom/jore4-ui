@@ -30,12 +30,6 @@ export class BasicDetailsForm {
   getAbbreviationSweInput = () =>
     cy.getByTestId('StopBasicDetailsForm::abbreviationSwe');
 
-  getAbbreviation5CharFinInput = () =>
-    cy.getByTestId('StopBasicDetailsForm::abbreviation5CharFin');
-
-  getAbbreviation5CharSweInput = () =>
-    cy.getByTestId('StopBasicDetailsForm::abbreviation5CharSwe');
-
   getMainLineCheckbox = () => cy.getByTestId('StopBasicDetailsForm::mainLine');
 
   getInterchangeCheckbox = () =>

@@ -205,8 +205,6 @@
       "locationSwe": "Sijainti (ruotsi)",
       "abbreviationFin": "Lyhenne (suomi)",
       "abbreviationSwe": "Lyhenne (ruotsi)",
-      "abbreviation5CharFin": "Lyhenne 5 merkkiä (suomi)",
-      "abbreviation5CharSwe": "Lyhenne 5 merkkiä (ruotsi)",
       "transportMode": "Joukkoliikennetyyppi",
       "stopType": "Pysäkkityyppi",
       "stopState": "Pysäkin tila",

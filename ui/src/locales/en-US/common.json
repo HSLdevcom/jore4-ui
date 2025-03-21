@@ -205,8 +205,6 @@
       "locationSwe": "Location (Swedishi)",
       "abbreviationFin": "Abbreviation (Finnish)",
       "abbreviationSwe": "Abbreviation (Swedish)",
-      "abbreviation5CharFin": "Abbreviation 5 characters (Finnish)",
-      "abbreviation5CharSwe": "Abbreviation 5 characters (Swedish)",
       "transportMode": "Transport type",
       "stopType": "Stop type",
       "stopState": "Stop state",

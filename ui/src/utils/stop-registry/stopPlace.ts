@@ -257,12 +257,6 @@ export const getStopPlaceDetailsForEnrichment = <
     abbreviationSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
         ?.value || undefined,
-    abbreviation5CharFin:
-      findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Label)
-        ?.value || undefined,
-    abbreviation5CharSwe:
-      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Label)
-        ?.value || undefined,
     municipality: stopPlace.topographicPlace?.name?.value || undefined,
     fareZone: stopPlace.fareZones?.[0]?.name?.value || undefined,
     name: stopPlace.name?.value || undefined,
