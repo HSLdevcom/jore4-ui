@@ -14,7 +14,6 @@ import {
   getClonedBaseStopRegistryData,
 } from '../../datasets/stopRegistry';
 import {
-  BasicDetailsForm,
   BasicDetailsViewCard,
   SelectMemberStopsDropdown,
   StopAreaDetailsPage,
@@ -492,40 +491,23 @@ describe('Stop area details', () => {
       expectGraphQLCallToReturnError('@gqlUpsertStopArea');
     });
 
-    it('should change all stop names when editing one stop name', () => {
+    it('should change name in all stop pages when editing stop area name', () => {
       stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
 
-      // When editing Basic details
       stopAreaDetailsPage.details.getEditButton().click();
-      // Can't test properly as we are missing most of the name fields.
-      /*
-      stopAreaDetailsPage.nameConsistencyChecker.assertIsConsistent();
-      stopAreaDetailsPage.details.edit.getName().clearAndType('New name');
-       */
-      stopAreaDetailsPage.nameConsistencyChecker.assertIsInconsistent();
-      stopAreaDetailsPage.details.edit.getCancelButton().click();
+      stopAreaDetailsPage.details.edit.getName().clearAndType('uusinimi');
+      stopAreaDetailsPage.details.edit.getSaveButton().click();
 
-      // When editing member stop's names
       const stopDetailsPage = new StopDetailsPage();
       const bdViewCard = new BasicDetailsViewCard();
-      const bdForm = new BasicDetailsForm();
+
       stopDetailsPage.visit('E2E001');
       stopDetailsPage.page().shouldBeVisible();
-      stopDetailsPage.basicDetails.getEditButton().click();
-
-      bdForm.getNameFinInput().clearAndType('uusinimi');
-      bdForm.getPrivateCodeInput().clearAndType('label');
-      bdForm.getStopPlaceStateDropdownButton().click();
-      bdForm.getStopPlaceStateDropdownOptions().contains('Käytössä').click();
-      stopDetailsPage.basicDetails.getSaveButton().click();
-      bdViewCard.getNameFin().shouldBeVisible();
-
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
-      stopAreaDetailsPage.details.getName().should('contain.text', 'uusinimi');
+      bdViewCard.getAreaName().shouldHaveText('uusinimi');
 
       stopDetailsPage.visit('E2E009');
       stopDetailsPage.page().shouldBeVisible();
-      bdViewCard.getNameFin().should('contain.text', 'uusinimi');
+      bdViewCard.getAreaName().should('contain.text', 'uusinimi');
     });
   });
 });
