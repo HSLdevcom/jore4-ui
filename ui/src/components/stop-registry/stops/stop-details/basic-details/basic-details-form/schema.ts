@@ -14,8 +14,6 @@ export const schema = z.object({
   nameLongSwe: z.string().optional(),
   abbreviationFin: z.string().optional(),
   abbreviationSwe: z.string().optional(),
-  abbreviation5CharFin: z.string().optional(),
-  abbreviation5CharSwe: z.string().optional(),
   stopTypes: z.object({
     mainLine: z.boolean(),
     virtual: z.boolean(),

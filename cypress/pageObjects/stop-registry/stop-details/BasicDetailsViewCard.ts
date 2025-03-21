@@ -47,12 +47,6 @@ export class BasicDetailsViewCard {
   getAbbreviationSwe = () =>
     cy.getByTestId('BasicDetailsSection::abbreviationSwe');
 
-  getAbbreviation5CharFin = () =>
-    cy.getByTestId('BasicDetailsSection::abbreviation5CharFin');
-
-  getAbbreviation5CharSwe = () =>
-    cy.getByTestId('BasicDetailsSection::abbreviation5CharSwe');
-
   getTransportMode = () => cy.getByTestId('BasicDetailsSection::transportMode');
 
   getTimingPlaceId = () => cy.getByTestId('BasicDetailsSection::timingPlaceId');

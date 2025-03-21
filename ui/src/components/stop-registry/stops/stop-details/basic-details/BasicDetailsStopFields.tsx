@@ -24,8 +24,6 @@ const testIds = {
   locationSwe: 'BasicDetailsSection::locationSwe',
   abbreviationFin: 'BasicDetailsSection::abbreviationFin',
   abbreviationSwe: 'BasicDetailsSection::abbreviationSwe',
-  abbreviation5CharFin: 'BasicDetailsSection::abbreviation5CharFin',
-  abbreviation5CharSwe: 'BasicDetailsSection::abbreviation5CharSwe',
   transportMode: 'BasicDetailsSection::transportMode',
   timingPlaceId: 'BasicDetailsSection::timingPlaceId',
   stopType: 'BasicDetailsSection::stopType',
@@ -101,17 +99,6 @@ export const StopDetailsSection = ({ stop }: Props) => {
           title={t('stopDetails.basicDetails.abbreviationSwe')}
           detail={stop.stop_place?.abbreviationSwe}
           testId={testIds.abbreviationSwe}
-        />
-        <div className="h-9 w-[0px] border-r border-black" />
-        <LabeledDetail
-          title={t('stopDetails.basicDetails.abbreviation5CharFin')}
-          detail={stop.stop_place?.abbreviation5CharFin}
-          testId={testIds.abbreviation5CharFin}
-        />
-        <LabeledDetail
-          title={t('stopDetails.basicDetails.abbreviation5CharSwe')}
-          detail={stop.stop_place?.abbreviation5CharSwe}
-          testId={testIds.abbreviation5CharSwe}
         />
       </DetailRow>
       <HorizontalSeparator />

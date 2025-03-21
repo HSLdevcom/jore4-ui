@@ -240,8 +240,6 @@ describe('Stop details', () => {
     bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
     bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
     bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
-    bdView.getAbbreviation5CharFin().shouldHaveText('P.Esp');
-    bdView.getAbbreviation5CharSwe().shouldHaveText('N.Esp');
     bdView.getElyNumber().shouldHaveText('1234567');
 
     bdView.getTimingPlaceId().shouldHaveText('1AURLA');
@@ -567,8 +565,6 @@ describe('Stop details', () => {
         bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
         bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
         bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
-        bdView.getAbbreviation5CharFin().shouldHaveText('P.Esp');
-        bdView.getAbbreviation5CharSwe().shouldHaveText('N.Esp');
         bdView.getElyNumber().shouldHaveText('1234567');
 
         stopDetailsPage.basicDetails.getEditButton().click();
@@ -595,8 +591,6 @@ describe('Stop details', () => {
           .should('have.value', 'Norraesplanaden (plats)');
         bdForm.getAbbreviationFinInput().should('have.value', 'Pohj.esplanadi');
         bdForm.getAbbreviationSweInput().should('have.value', 'N.esplanaden');
-        bdForm.getAbbreviation5CharFinInput().should('have.value', 'P.Esp');
-        bdForm.getAbbreviation5CharSweInput().should('have.value', 'N.Esp');
         bdForm.getElyNumberInput().should('have.value', '1234567');
 
         bdForm.getPrivateCodeInput().clearAndType('10004');
@@ -611,8 +605,6 @@ describe('Stop details', () => {
         bdForm.getLocationSweInput().clearAndType('NewNorraesplanaden (plats)');
         bdForm.getAbbreviationFinInput().clearAndType('NewPohj.esplanadi');
         bdForm.getAbbreviationSweInput().clearAndType('NewN.esplanaden');
-        bdForm.getAbbreviation5CharFinInput().clearAndType('NewP.Esp');
-        bdForm.getAbbreviation5CharSweInput().clearAndType('NewN.Esp');
 
         bdForm.getElyNumberInput().clearAndType('1234568');
 
@@ -630,8 +622,6 @@ describe('Stop details', () => {
         bdView.getLocationSwe().shouldHaveText('NewNorraesplanaden (plats)');
         bdView.getAbbreviationFin().shouldHaveText('NewPohj.esplanadi');
         bdView.getAbbreviationSwe().shouldHaveText('NewN.esplanaden');
-        bdView.getAbbreviation5CharFin().shouldHaveText('NewP.Esp');
-        bdView.getAbbreviation5CharSwe().shouldHaveText('NewN.Esp');
         bdView.getElyNumber().shouldHaveText('1234568');
       },
     );
@@ -686,8 +676,6 @@ describe('Stop details', () => {
         bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
         bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
         bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
-        bdView.getAbbreviation5CharFin().shouldHaveText('P.Esp');
-        bdView.getAbbreviation5CharSwe().shouldHaveText('N.Esp');
         bdView.getTransportMode().shouldHaveText('Bussi');
         bdView.getTimingPlaceId().shouldHaveText('1AURLA');
         bdView

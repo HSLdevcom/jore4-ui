@@ -21,8 +21,6 @@ const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
     nameLongSwe: stop.stop_place?.nameLongSwe,
     abbreviationFin: stop.stop_place?.abbreviationFin,
     abbreviationSwe: stop.stop_place?.abbreviationSwe,
-    abbreviation5CharFin: stop.stop_place?.abbreviation5CharFin,
-    abbreviation5CharSwe: stop.stop_place?.abbreviation5CharSwe,
     transportMode: stop.stop_place?.transportMode,
     elyNumber: stop.quay?.elyNumber ?? undefined,
     timingPlaceId: stop.timing_place_id,

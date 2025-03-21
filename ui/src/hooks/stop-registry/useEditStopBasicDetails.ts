@@ -176,14 +176,6 @@ export const useEditStopBasicDetails = () => {
           nameType: StopRegistryNameType.Translation,
         },
         {
-          name: { lang: 'fin', value: state.abbreviation5CharFin },
-          nameType: StopRegistryNameType.Label,
-        },
-        {
-          name: { lang: 'swe', value: state.abbreviation5CharSwe },
-          nameType: StopRegistryNameType.Label,
-        },
-        {
           name: { lang: 'fin', value: state.abbreviationFin },
           nameType: StopRegistryNameType.Other,
         },
