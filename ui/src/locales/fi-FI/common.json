@@ -520,6 +520,7 @@
     "footerActionsTooltip": "Luo uusi...",
     "createNewTerminal": "Luo uusi terminaali",
     "createNewStopArea": "Luo uusi pysäkkialue",
+    "editStopArea": "Pysäkkialue {{stopArea}}",
     "error": "Karttavirhe: {{message}}"
   },
   "saveChangesModal": {
