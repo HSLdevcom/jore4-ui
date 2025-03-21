@@ -3,7 +3,6 @@ import {
   mapStopPlaceStateToUiName,
   mapStopRegistryTransportModeTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
-import { HorizontalSeparator } from '../../../../../layoutComponents';
 import { StopWithDetails } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../layout';
 import { MainLineWarning } from '../MainLineWarning';
@@ -55,30 +54,6 @@ export const StopDetailsSection = ({ stop }: Props) => {
           testId={testIds.privateCode}
         />
         <LabeledDetail
-          title={t('stopDetails.basicDetails.nameFin')}
-          detail={stop.stop_place?.name}
-          testId={testIds.nameFin}
-        />
-        <LabeledDetail
-          title={t('stopDetails.basicDetails.nameSwe')}
-          detail={stop.stop_place?.nameSwe}
-          testId={testIds.nameSwe}
-        />
-      </DetailRow>
-      <HorizontalSeparator />
-      <DetailRow>
-        <LabeledDetail
-          title={t('stopDetails.basicDetails.nameLongFin')}
-          detail={stop.stop_place?.nameLongFin}
-          testId={testIds.nameLongFin}
-        />
-        <LabeledDetail
-          title={t('stopDetails.basicDetails.nameLongSwe')}
-          detail={stop.stop_place?.nameLongSwe}
-          testId={testIds.nameLongSwe}
-        />
-        <div className="h-9 w-[0px] border-r border-black" />
-        <LabeledDetail
           title={t('stopDetails.basicDetails.locationFin')}
           detail={stop.quay?.locationFin}
           testId={testIds.locationFin}
@@ -88,25 +63,22 @@ export const StopDetailsSection = ({ stop }: Props) => {
           detail={stop.quay?.locationSwe}
           testId={testIds.locationSwe}
         />
-      </DetailRow>
-      <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.basicDetails.abbreviationFin')}
-          detail={stop.stop_place?.abbreviationFin}
-          testId={testIds.abbreviationFin}
-        />
-        <LabeledDetail
-          title={t('stopDetails.basicDetails.abbreviationSwe')}
-          detail={stop.stop_place?.abbreviationSwe}
-          testId={testIds.abbreviationSwe}
+          title={t('stopDetails.basicDetails.stopState')}
+          detail={stopState}
+          testId={testIds.stopState}
         />
       </DetailRow>
-      <HorizontalSeparator />
       <DetailRow>
         <LabeledDetail
           title={t('stopDetails.basicDetails.transportMode')}
           detail={transportMode}
           testId={testIds.transportMode}
+        />
+        <LabeledDetail
+          title={t('stopDetails.basicDetails.elyNumber')}
+          detail={stop.quay?.elyNumber}
+          testId={testIds.elyNumber}
         />
         <LabeledDetail
           title={t('stops.timingPlaceId')}
@@ -126,16 +98,6 @@ export const StopDetailsSection = ({ stop }: Props) => {
             }
           />
         </div>
-        <LabeledDetail
-          title={t('stopDetails.basicDetails.stopState')}
-          detail={stopState}
-          testId={testIds.stopState}
-        />
-        <LabeledDetail
-          title={t('stopDetails.basicDetails.elyNumber')}
-          detail={stop.quay?.elyNumber}
-          testId={testIds.elyNumber}
-        />
       </DetailRow>
     </>
   );

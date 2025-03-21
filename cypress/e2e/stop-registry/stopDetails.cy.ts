@@ -88,14 +88,6 @@ const stopAreaInput: Array<StopAreaInput> = [
           nameType: StopRegistryNameType.Translation,
         },
         {
-          name: { lang: 'fin', value: 'P.Esp' },
-          nameType: StopRegistryNameType.Label,
-        },
-        {
-          name: { lang: 'swe', value: 'N.Esp' },
-          nameType: StopRegistryNameType.Label,
-        },
-        {
           name: { lang: 'fin', value: 'Pohjoisesplanadi (pitkä)' },
           nameType: StopRegistryNameType.Alias,
         },
@@ -232,14 +224,8 @@ describe('Stop details', () => {
     bdView.getContent().shouldBeVisible();
     bdView.getLabel().shouldHaveText('H2003');
     bdView.getPrivateCode().shouldHaveText('10003');
-    bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
-    bdView.getNameSwe().shouldHaveText('Norraesplanaden');
-    bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
-    bdView.getNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
     bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
     bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
-    bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
-    bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
     bdView.getElyNumber().shouldHaveText('1234567');
 
     bdView.getTimingPlaceId().shouldHaveText('1AURLA');
@@ -556,15 +542,8 @@ describe('Stop details', () => {
         bdView.getContent().shouldBeVisible();
         bdView.getLabel().shouldHaveText('H2003');
         bdView.getPrivateCode().shouldHaveText('10003');
-        bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
-        bdView.getNameSwe().shouldHaveText('Norraesplanaden');
-
-        bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
-        bdView.getNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
         bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
         bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
-        bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
-        bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
         bdView.getElyNumber().shouldHaveText('1234567');
 
         stopDetailsPage.basicDetails.getEditButton().click();
@@ -575,36 +554,17 @@ describe('Stop details', () => {
         // Verify correct initial values.
         bdForm.getLabelInput().should('have.value', 'H2003');
         bdForm.getPrivateCodeInput().should('have.value', '10003');
-        bdForm.getNameFinInput().should('have.value', 'Pohjoisesplanadi');
-        bdForm.getNameSweInput().should('have.value', 'Norraesplanaden');
-        bdForm
-          .getNameLongFinInput()
-          .should('have.value', 'Pohjoisesplanadi (pitkä)');
-        bdForm
-          .getNameLongSweInput()
-          .should('have.value', 'Norraesplanaden (lång)');
         bdForm
           .getLocationFinInput()
           .should('have.value', 'Pohjoisesplanadi (sij.)');
         bdForm
           .getLocationSweInput()
           .should('have.value', 'Norraesplanaden (plats)');
-        bdForm.getAbbreviationFinInput().should('have.value', 'Pohj.esplanadi');
-        bdForm.getAbbreviationSweInput().should('have.value', 'N.esplanaden');
         bdForm.getElyNumberInput().should('have.value', '1234567');
 
         bdForm.getPrivateCodeInput().clearAndType('10004');
-        bdForm.getNameFinInput().clearAndType('NewPohjoisesplanadi');
-        bdForm.getNameSweInput().clearAndType('NewNorraesplanaden');
-
-        bdForm
-          .getNameLongFinInput()
-          .clearAndType('NewPohjoisesplanadi (pitkä)');
-        bdForm.getNameLongSweInput().clearAndType('NewNorraesplanaden (lång)');
         bdForm.getLocationFinInput().clearAndType('NewPohjoisesplanadi (sij.)');
         bdForm.getLocationSweInput().clearAndType('NewNorraesplanaden (plats)');
-        bdForm.getAbbreviationFinInput().clearAndType('NewPohj.esplanadi');
-        bdForm.getAbbreviationSweInput().clearAndType('NewN.esplanaden');
 
         bdForm.getElyNumberInput().clearAndType('1234568');
 
@@ -614,14 +574,8 @@ describe('Stop details', () => {
 
         bdView.getLabel().shouldHaveText('H2003');
         bdView.getPrivateCode().shouldHaveText('10004');
-        bdView.getNameFin().shouldHaveText('NewPohjoisesplanadi');
-        bdView.getNameSwe().shouldHaveText('NewNorraesplanaden');
-        bdView.getNameLongFin().shouldHaveText('NewPohjoisesplanadi (pitkä)');
-        bdView.getNameLongSwe().shouldHaveText('NewNorraesplanaden (lång)');
         bdView.getLocationFin().shouldHaveText('NewPohjoisesplanadi (sij.)');
         bdView.getLocationSwe().shouldHaveText('NewNorraesplanaden (plats)');
-        bdView.getAbbreviationFin().shouldHaveText('NewPohj.esplanadi');
-        bdView.getAbbreviationSwe().shouldHaveText('NewN.esplanaden');
         bdView.getElyNumber().shouldHaveText('1234568');
       },
     );
@@ -668,14 +622,8 @@ describe('Stop details', () => {
         // the saves do not change other fields.
         bdView.getLabel().shouldHaveText('H2003');
         bdView.getPrivateCode().shouldHaveText('10003');
-        bdView.getNameFin().shouldHaveText('Pohjoisesplanadi');
-        bdView.getNameSwe().shouldHaveText('Norraesplanaden');
-        bdView.getNameLongFin().shouldHaveText('Pohjoisesplanadi (pitkä)');
-        bdView.getNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
         bdView.getLocationFin().shouldHaveText('Pohjoisesplanadi (sij.)');
         bdView.getLocationSwe().shouldHaveText('Norraesplanaden (plats)');
-        bdView.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
-        bdView.getAbbreviationSwe().shouldHaveText('N.esplanaden');
         bdView.getTransportMode().shouldHaveText('Bussi');
         bdView.getTimingPlaceId().shouldHaveText('1AURLA');
         bdView
