@@ -65,6 +65,7 @@ type InfoContainerProps = {
    * See also headerButtons.
    */
   readonly title: ReactNode;
+  readonly addNewButton?: ReactNode;
 };
 
 const testIds = {
@@ -82,6 +83,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
   colors: { backgroundColor, borderColor },
   controls,
   headerButtons: HeaderButtons = DefaultHeaderButtons,
+  addNewButton,
   testIdPrefix = '',
   title,
 }) => {
@@ -134,6 +136,8 @@ export const InfoContainer: FC<InfoContainerProps> = ({
 
         {isEditable && isInEditMode && (
           <div className="flex items-center justify-end space-x-2 rounded-b-lg border-t border-[--borderColor] bg-[--backgroundColor] px-4 py-2">
+            {addNewButton && <div className="mr-auto">{addNewButton}</div>}
+
             <SimpleButton
               inverted
               onClick={controls.onCancel}
