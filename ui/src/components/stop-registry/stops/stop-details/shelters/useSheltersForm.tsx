@@ -1,12 +1,13 @@
 import { useCallback } from 'react';
 import { UseFormReturn, useFieldArray } from 'react-hook-form';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
-import { mapShelterDataToFormState, SheltersFormState } from './schema';
+import { SheltersFormState, mapShelterDataToFormState } from './schema';
 
 type UtilProps = {
-  methods: UseFormReturn<SheltersFormState>;
-  onShelterCountChanged: (newShelterCount: number) => void;
+  readonly methods: UseFormReturn<SheltersFormState>;
+  readonly onShelterCountChanged: (newShelterCount: number) => void;
 };
+
 export const useSheltersFormUtils = (props: UtilProps) => {
   const { methods, onShelterCountChanged } = props;
   const { control, setValue, getValues, handleSubmit } = methods;
