@@ -245,6 +245,7 @@ export const ShelterFormFields = ({
         <SlimSimpleButton
           testId={testIds.copyShelter}
           onClick={() => onCopy(index)}
+          inverted
         >
           {t('stopDetails.shelters.copyShelter')}
         </SlimSimpleButton>

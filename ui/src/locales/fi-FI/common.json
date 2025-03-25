@@ -357,7 +357,8 @@
       "outsideBench": "Ulkopenkki",
       "shelterFasciaBoardTaping": "Pysäkkikatoksen otsalaudan teippaus",
       "addShelter": "Lisää katos",
-      "copyShelter": "Kopioi",
+      "addNewShelter": "Lisää uusi katos",
+      "copyShelter": "Kopioi katos",
       "deleteShelter": "Poista katos",
       "cancelDeleteShelter": "Peruuta poisto"
     },

@@ -1,9 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
-import { SlimSimpleButton } from '../layout';
 import { SheltersFormState, sheltersFormSchema } from './schema';
 import { ShelterFormFields } from './ShelterFormFields';
 import { useSheltersFormUtils } from './useSheltersForm';
@@ -13,18 +11,29 @@ const testIds = {
   addShelter: 'SheltersForm::addShelter',
 };
 
-interface Props {
-  className?: string;
-  defaultValues: SheltersFormState;
-  onSubmit: (state: SheltersFormState) => void;
-  onShelterCountChanged: (newShelterCount: number) => void;
-}
+type Props = {
+  readonly className?: string;
+  readonly defaultValues: SheltersFormState;
+  readonly formRef: React.RefObject<HTMLFormElement>;
+  readonly onSubmit: (state: SheltersFormState) => void;
+  readonly onShelterCountChanged: (newShelterCount: number) => void;
+};
+
+export type SheltersFormRef = {
+  readonly addNewShelter: () => void;
+};
 
 const SheltersFormComponent = (
-  { className = '', defaultValues, onSubmit, onShelterCountChanged }: Props,
-  ref: ExplicitAny,
+  {
+    className = '',
+    defaultValues,
+    formRef,
+    onSubmit,
+    onShelterCountChanged,
+  }: Props,
+  ref: React.Ref<SheltersFormRef>,
 ): React.ReactElement => {
-  const { t } = useTranslation();
+  const formElementRef = useRef<HTMLFormElement>(null);
 
   const methods: UseFormReturn<SheltersFormState> = useForm<SheltersFormState>({
     defaultValues,
@@ -40,13 +49,24 @@ const SheltersFormComponent = (
     handleSubmit,
   } = useSheltersFormUtils({ methods, onShelterCountChanged });
 
+  useImperativeHandle(ref, () => ({
+    addNewShelter,
+    submit: () => {
+      if (formElementRef.current) {
+        formElementRef.current.dispatchEvent(
+          new Event('submit', { cancelable: true, bubbles: true }),
+        );
+      }
+    },
+  }));
+
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
         className={`space-y-4 ${className}`}
         onSubmit={handleSubmit(onSubmit)}
-        ref={ref}
+        ref={formRef}
       >
         {shelters.map((shelter, idx) => (
           <div key={shelter.id} data-testid={testIds.shelter}>
@@ -60,16 +80,11 @@ const SheltersFormComponent = (
             </Visible>
           </div>
         ))}
-        <SlimSimpleButton
-          testId={testIds.addShelter}
-          onClick={addNewShelter}
-          className="flex-shrink-0"
-        >
-          {t('stopDetails.shelters.addShelter')}
-        </SlimSimpleButton>
       </form>
     </FormProvider>
   );
 };
 
-export const SheltersForm = React.forwardRef(SheltersFormComponent);
+export const SheltersForm = React.forwardRef<SheltersFormRef, Props>(
+  SheltersFormComponent,
+);

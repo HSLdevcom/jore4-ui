@@ -1,27 +1,25 @@
 import compact from 'lodash/compact';
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import { useEditStopShelters } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
+import { AddNewButton } from '../../../../../uiComponents/AddNewButton';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { EmptyListHeaderButtons } from '../layout/EmptyListHeaderButtons';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
-import {
-  SheltersFormState,
-  mapShelterDataToFormState,
-  sheltersFormSchema,
-} from './schema';
-import { SheltersForm } from './SheltersForm';
+import { SheltersFormState, mapShelterDataToFormState } from './schema';
+import { SheltersForm, SheltersFormRef } from './SheltersForm';
 import { SheltersViewList } from './SheltersViewList';
-import { useSheltersFormUtils } from './useSheltersForm';
-import { useForm, UseFormReturn } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-interface Props {
-  stop: StopWithDetails;
-}
+const testIds = {
+  addShelter: 'SheltersSection::addShelter',
+};
+
+type Props = {
+  readonly stop: StopWithDetails;
+};
 
 function useShelters(
   stop: StopWithDetails,
@@ -43,7 +41,7 @@ function useShelterFormDefaultValues(
   return shelterFormDefaultValues;
 }
 
-export const SheltersSection = ({ stop }: Props): React.ReactElement => {
+export const SheltersSection: FC<Props> = ({ stop }) => {
   const { t } = useTranslation();
 
   const { saveStopPlaceShelters, defaultErrorHandler } = useEditStopShelters();
@@ -51,7 +49,9 @@ export const SheltersSection = ({ stop }: Props): React.ReactElement => {
   const shelters = useShelters(stop);
   const [shelterCount, setShelterCount] = useState(shelters.length);
 
-  const formRef = useRef<ExplicitAny>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const sheltersFormRef = useRef<SheltersFormRef>(null);
+
   const infoContainerControls = useInfoContainerControls({
     isExpandable: true,
     isEditable: true,
@@ -86,17 +86,11 @@ export const SheltersSection = ({ stop }: Props): React.ReactElement => {
     setShelterCount(shelterFormDefaultValues.shelters.length);
   };
 
-  const methods: UseFormReturn<SheltersFormState> = useForm<SheltersFormState>({
-    defaultValues: shelterFormDefaultValues,
-    resolver: zodResolver(sheltersFormSchema),
-  });
-
-  const onShelterCountChanged = setShelterCount;
-
-  const { addNewShelter } = useSheltersFormUtils({
-    methods,
-    onShelterCountChanged,
-  });
+  const handleAddNewShelter = () => {
+    if (sheltersFormRef.current) {
+      sheltersFormRef.current.addNewShelter();
+    }
+  };
 
   const showAddNewShelterHeader = !isInEditMode && !shelters.length;
   const sectionTitle = shelterCount
@@ -116,13 +110,23 @@ export const SheltersSection = ({ stop }: Props): React.ReactElement => {
           />
         ) : undefined
       }
+      addNewButton={
+        isInEditMode ? (
+          <AddNewButton
+            onClick={handleAddNewShelter}
+            label={t('stopDetails.shelters.addNewShelter')}
+            testId={testIds.addShelter}
+          />
+        ) : undefined
+      }
       title={sectionTitle}
       testIdPrefix="SheltersSection"
     >
       {isInEditMode ? (
         <SheltersForm
           defaultValues={shelterFormDefaultValues}
-          ref={formRef}
+          formRef={formRef}
+          ref={sheltersFormRef}
           onShelterCountChanged={setShelterCount}
           onSubmit={onSubmit}
         />
