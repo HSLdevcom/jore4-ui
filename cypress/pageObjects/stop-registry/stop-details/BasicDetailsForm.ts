@@ -8,27 +8,11 @@ export class BasicDetailsForm {
   getPrivateCodeInput = () =>
     cy.getByTestId('StopBasicDetailsForm::privateCode');
 
-  getNameFinInput = () => cy.getByTestId('StopBasicDetailsForm::nameFin');
-
-  getNameSweInput = () => cy.getByTestId('StopBasicDetailsForm::nameSwe');
-
-  getNameLongFinInput = () =>
-    cy.getByTestId('StopBasicDetailsForm::nameLongFin');
-
-  getNameLongSweInput = () =>
-    cy.getByTestId('StopBasicDetailsForm::nameLongSwe');
-
   getLocationFinInput = () =>
     cy.getByTestId('StopBasicDetailsForm::locationFin');
 
   getLocationSweInput = () =>
     cy.getByTestId('StopBasicDetailsForm::locationSwe');
-
-  getAbbreviationFinInput = () =>
-    cy.getByTestId('StopBasicDetailsForm::abbreviationFin');
-
-  getAbbreviationSweInput = () =>
-    cy.getByTestId('StopBasicDetailsForm::abbreviationSwe');
 
   getMainLineCheckbox = () => cy.getByTestId('StopBasicDetailsForm::mainLine');
 
