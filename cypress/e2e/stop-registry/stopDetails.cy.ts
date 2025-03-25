@@ -967,8 +967,8 @@ describe('Stop details', () => {
           stopDetailsPage.shelters
             .getTitle()
             .shouldHaveText('Pysäkkikatos (1)');
-          form.getAddNewShelterButton().click();
-          form.getAddNewShelterButton().click();
+          stopDetailsPage.shelters.getAddNewShelterButton().click();
+          stopDetailsPage.shelters.getAddNewShelterButton().click();
           form.getShelters().should('have.length', 3);
           stopDetailsPage.shelters
             .getTitle()

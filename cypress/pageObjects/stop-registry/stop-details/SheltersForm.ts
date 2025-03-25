@@ -11,10 +11,6 @@ export class SheltersForm {
     return this.getShelters().eq(index);
   }
 
-  getAddNewShelterButton() {
-    return cy.getByTestId('SheltersForm::addShelter');
-  }
-
   getCopyNewShelterButton() {
     return cy.getByTestId('SheltersFormFields::copyShelter');
   }
