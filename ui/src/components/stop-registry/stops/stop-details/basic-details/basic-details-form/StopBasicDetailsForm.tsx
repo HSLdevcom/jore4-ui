@@ -16,9 +16,7 @@ import { FormColumn } from '../../../../../forms/common';
 import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
 import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
 import { StopBasicDetailsFormState, schema } from './schema';
-import { StopAbbreviationsFormRow } from './StopAbbreviationsFormRow';
-import { StopLabelAndNameFormRow } from './StopLabelAndNameFormRow';
-import { StopLongNameAndLocationFormRow } from './StopLongNameAndLocationFormRow';
+import { StopLabelAndLocationFormRow } from './StopLabelAndLocationFormRow';
 import { StopOtherDetailsFormRow } from './StopOtherDetailsFormRow';
 import { StopTypesFormRow } from './StopTypesFormRow';
 
@@ -60,15 +58,12 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <FormColumn>
           {stop && <StopAreaDetailsSection stop={stop} />}
-          <StopLabelAndNameFormRow />
+          <StopLabelAndLocationFormRow />
           <HorizontalSeparator />
-          <StopLongNameAndLocationFormRow />
-          <StopAbbreviationsFormRow />
-          <HorizontalSeparator />
-          <StopTypesFormRow hasMainLineSign={hasMainLineSign} />
           <StopOtherDetailsFormRow
             onClickOpenTimingSettingsModal={openTimingPlaceModal}
           />
+          <StopTypesFormRow hasMainLineSign={hasMainLineSign} />
         </FormColumn>
       </form>
       <Visible visible={isTimingPlaceModalOpen}>

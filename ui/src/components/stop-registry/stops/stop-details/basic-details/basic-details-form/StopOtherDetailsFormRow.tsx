@@ -1,14 +1,8 @@
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import {
-  mapStopPlaceStateToUiName,
-  mapStopRegistryTransportModeTypeToUiName,
-} from '../../../../../../i18n/uiNameMappings';
+import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../../i18n/uiNameMappings';
 import { Column, Row } from '../../../../../../layoutComponents';
-import {
-  JoreStopRegistryTransportModeType,
-  StopPlaceState,
-} from '../../../../../../types/stop-registry';
+import { JoreStopRegistryTransportModeType } from '../../../../../../types/stop-registry';
 import { SimpleButton } from '../../../../../../uiComponents';
 import { EnumDropdown, FormRow, InputField } from '../../../../../forms/common';
 import { ChooseTimingPlaceDropdown } from '../../../../../forms/stop/ChooseTimingPlaceDropdown';
@@ -19,7 +13,6 @@ const testIds = {
   addTimingPlaceButton: 'StopBasicDetailsForm::addTimingPlaceButton',
   elyNumber: 'StopBasicDetailsForm::elyNumber',
   transportMode: 'StopBasicDetailsForm::transportMode',
-  stopPlaceState: 'StopBasicDetailsForm::stopPlaceState',
 };
 interface Props {
   onClickOpenTimingSettingsModal: () => void;
@@ -33,7 +26,7 @@ export const StopOtherDetailsFormRow = ({
   const isRailReplacement = watch('stopTypes.railReplacement');
 
   return (
-    <FormRow mdColumns={5}>
+    <FormRow mdColumns={4}>
       <Column>
         {/* Currently we can only have one transportMode, so use dropdown for it.
                Later we need checkboxes here for the transportModes */}
@@ -52,6 +45,14 @@ export const StopOtherDetailsFormRow = ({
               {...props}
             />
           )}
+        />
+      </Column>
+      <Column>
+        <InputField<StopBasicDetailsFormState>
+          type="text"
+          translationPrefix="stopDetails.basicDetails"
+          fieldPath="elyNumber"
+          testId={testIds.elyNumber}
         />
       </Column>
       <Column className="col-span-2">
@@ -73,37 +74,11 @@ export const StopOtherDetailsFormRow = ({
             containerClassName="self-end ml-6"
             onClick={onClickOpenTimingSettingsModal}
             testId={testIds.addTimingPlaceButton}
+            inverted
           >
             {t('stops.createTimingPlace')}
           </SimpleButton>
         </Row>
-      </Column>
-      <Column>
-        {/* TODO: Currently we can only have one transportMode, so we use dropdown for it.
-               Later we need custom icon checkbox inputs here for the transportModes */}
-        <InputField<StopBasicDetailsFormState>
-          translationPrefix="stopDetails.basicDetails"
-          fieldPath="stopState"
-          testId={testIds.stopPlaceState}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
-            <EnumDropdown<StopPlaceState>
-              enumType={StopPlaceState}
-              placeholder={t('stopDetails.basicDetails.stopState')}
-              uiNameMapper={mapStopPlaceStateToUiName}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
-          )}
-        />
-      </Column>
-      <Column>
-        <InputField<StopBasicDetailsFormState>
-          type="text"
-          translationPrefix="stopDetails.basicDetails"
-          fieldPath="elyNumber"
-          testId={testIds.elyNumber}
-        />
       </Column>
     </FormRow>
   );
