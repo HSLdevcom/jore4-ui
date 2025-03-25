@@ -8,7 +8,7 @@ import {
   StopRegistryShelterType,
 } from '../../../../../generated/graphql';
 import { mapShelterDataToFormState } from './schema';
-import { useSheltersFormUtils } from './SheltersForm';
+import { useSheltersFormUtils } from './useSheltersForm';
 
 jest.mock('react-hook-form', () => {
   const actual = jest.requireActual('react-hook-form');
