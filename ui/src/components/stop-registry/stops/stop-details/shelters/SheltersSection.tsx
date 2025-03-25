@@ -8,9 +8,16 @@ import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { EmptyListHeaderButtons } from '../layout/EmptyListHeaderButtons';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
-import { SheltersFormState, mapShelterDataToFormState } from './schema';
+import {
+  SheltersFormState,
+  mapShelterDataToFormState,
+  sheltersFormSchema,
+} from './schema';
 import { SheltersForm } from './SheltersForm';
 import { SheltersViewList } from './SheltersViewList';
+import { useSheltersFormUtils } from './useSheltersForm';
+import { useForm, UseFormReturn } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 interface Props {
   stop: StopWithDetails;
@@ -78,6 +85,18 @@ export const SheltersSection = ({ stop }: Props): React.ReactElement => {
     setIsExpanded(true);
     setShelterCount(shelterFormDefaultValues.shelters.length);
   };
+
+  const methods: UseFormReturn<SheltersFormState> = useForm<SheltersFormState>({
+    defaultValues: shelterFormDefaultValues,
+    resolver: zodResolver(sheltersFormSchema),
+  });
+
+  const onShelterCountChanged = setShelterCount;
+
+  const { addNewShelter } = useSheltersFormUtils({
+    methods,
+    onShelterCountChanged,
+  });
 
   const showAddNewShelterHeader = !isInEditMode && !shelters.length;
   const sectionTitle = shelterCount
