@@ -37,6 +37,7 @@ const mapShelterFormToInput = (shelter: ShelterState) => {
     // Could maybe deduce from accessibility properties, but that would mean we would need to
     // update shelters whenever those change = added complexity = not worth.
     stepFree: null,
+    shelterNumber: shelter.shelterNumber,
     shelterType: shelter.shelterType
       ? (shelter.shelterType as StopRegistryShelterType)
       : null,

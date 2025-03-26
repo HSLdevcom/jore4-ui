@@ -10,6 +10,7 @@ import { optionalBooleanToUiText } from '../utils';
 
 const testIds = {
   container: 'ShelterViewCard::container',
+  shelterNumber: 'ShelterViewCard::shelterNumber',
   shelterType: 'ShelterViewCard::shelterType',
   shelterElectricity: 'ShelterViewCard::shelterElectricity',
   shelterLighting: 'ShelterViewCard::shelterLighting',
@@ -42,6 +43,11 @@ export const ShelterViewCard = ({ shelter }: Props) => {
   return (
     <div data-testid={testIds.container}>
       <DetailRow>
+        <LabeledDetail
+          title={t('stopDetails.shelters.shelterNumber')}
+          detail={shelter.shelterNumber}
+          testId={testIds.shelterNumber}
+        />
         <LabeledDetail
           title={t('stopDetails.shelters.shelterType')}
           detail={shelterType}

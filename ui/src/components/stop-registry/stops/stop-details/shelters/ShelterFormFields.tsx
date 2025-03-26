@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import {
   StopRegistryShelterCondition,
@@ -21,6 +21,7 @@ import { SlimSimpleButton } from '../layout';
 import { SheltersFormState } from './schema';
 
 const testIds = {
+  shelterNumber: 'ShelterFormFields::shelterNumber',
   shelterType: 'ShelterFormFields::shelterType',
   shelterElectricity: 'ShelterFormFields::shelterElectricity',
   shelterLighting: 'ShelterFormFields::shelterLighting',
@@ -47,12 +48,36 @@ export const ShelterFormFields = ({
   onRemove,
   onCopy,
 }: Props): React.ReactElement => {
-  const { register, watch } = useFormContext<SheltersFormState>();
+  const { register, watch, setValue } = useFormContext<SheltersFormState>();
   const toBeDeleted = watch(`shelters.${index}.toBeDeleted`);
+  const allShelters = watch('shelters');
+  const currentShelterNumber = watch(`shelters.${index}.shelterNumber`);
+
+  // Suggest a shelter number based on previous numbers
+  useEffect(() => {
+    if (currentShelterNumber === null) {
+      const nextNumber =
+        allShelters.reduce(
+          (max, s) => Math.max(max, s.shelterNumber as number),
+          0,
+        ) + 1;
+
+      setValue(`shelters.${index}.shelterNumber`, nextNumber);
+    }
+  }, [allShelters, index, currentShelterNumber, setValue]);
 
   return (
     <Column className="space-y-4">
       <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
+        <InputField<SheltersFormState>
+          type="number"
+          translationPrefix="stopDetails"
+          min={0}
+          fieldPath={`shelters.${index}.shelterNumber`}
+          inputClassName="w-20"
+          testId={testIds.shelterNumber}
+          disabled={toBeDeleted}
+        />
         <InputField<SheltersFormState>
           translationPrefix="stopDetails"
           fieldPath={`shelters.${index}.shelterType`}
