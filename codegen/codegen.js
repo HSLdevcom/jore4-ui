@@ -23,6 +23,7 @@ const defaultConfig = {
   namingConvention: {
     transformUnderscore: true,
   },
+  printFieldsOnNewLines: true,
 };
 
 const luxonImportPlugin = {
@@ -75,7 +76,4 @@ module.exports = {
   },
   // if dealing with a typescript plugin or schema loader, transpile it to javascript first
   require: ['ts-node/register/transpile-only'],
-  hooks: {
-    afterAllFileWrite: 'prettier --write ../ui/src/generated/graphql.tsx',
-  },
 };

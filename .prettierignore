@@ -6,7 +6,6 @@ ui/out
 ui/graphql.schema.json
 
 ui/src/generated/*
-!ui/src/generated/graphql.tsx
 
 # external docker dependencies
 docker
@@ -17,6 +16,7 @@ docker
 test-db-manager/dist
 test-db-manager/ts-dist
 test-db-manager/.rollup.cache
+test-db-manager/src/generated/graphql.ts
 
 # jore4-hasura submodule
 jore4-hasura
