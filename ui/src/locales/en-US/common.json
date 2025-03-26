@@ -346,6 +346,7 @@
     "shelters": {
       "title": "Shelter ({{count}})",
       "titleNoShelters": "No shelters",
+      "shelterNumber": "Shelter number",
       "shelterType": "Type",
       "shelterElectricity": "Electricity",
       "shelterLighting": "Lighting",
