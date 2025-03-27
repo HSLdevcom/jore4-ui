@@ -22,7 +22,7 @@ import {
 } from '../types';
 import { StopRegistryQuayCopyInput } from '../types/StopRegistryQuayCopyInput';
 import { mapCreateCopyFormStateToInputs } from './mapCreateCopyFormStateToInputs';
-import { useGetShelterResolver } from './useGetShelterResolver';
+import { useGetShelters } from './useGetShelterResolver';
 import {
   ExistingQuayInput,
   useResolveExistingQuays,
@@ -206,7 +206,7 @@ function useInsertStopPoint() {
 
 function useInsertInfoSpots() {
   const [updateInfoSpotMutation] = useUpdateInfoSpotMutation();
-  const getShelterResolver = useGetShelterResolver();
+  const getShelters = useGetShelters();
 
   return useCallback(
     async (
@@ -217,36 +217,34 @@ function useInsertInfoSpots() {
         return false;
       }
 
-      const shelterResolver = await getShelterResolver(quayId);
-      const resolveByIndex = shelterResolver.shouldResolveByIndex();
+      const shelters = await getShelters(quayId);
 
       const withLocations = infoSpots.map(
         (input): StopRegistryInfoSpotInput => {
-          const { originalShelter, originalShelterIndex, infoSpotInput } =
-            input;
+          const { originalShelter, infoSpotInput } = input;
+          const { shelterNumber } = originalShelter;
 
-          const shelterId = resolveByIndex
-            ? shelterResolver.getIdForIndex(originalShelterIndex)
-            : shelterResolver.getIdForShelter(originalShelter);
+          const matchingShelter = shelters.find(
+            (shelter) => shelter.shelterNumber === shelterNumber,
+          );
 
-          if (!shelterId) {
+          if (!matchingShelter?.id) {
             throw new FailedToResolveNewShelters(
-              `Failed to resolve new shelter ID for: ${JSON.stringify(input)}`,
+              `No shelter found with number ${shelterNumber}`,
             );
           }
 
           return {
             ...infoSpotInput,
-            infoSpotLocations: [quayId, shelterId],
+            infoSpotLocations: [quayId, matchingShelter.id],
           };
         },
       );
 
       await updateInfoSpotMutation({ variables: { input: withLocations } });
-
       return true;
     },
-    [getShelterResolver, updateInfoSpotMutation],
+    [getShelters, updateInfoSpotMutation],
   );
 }
 
