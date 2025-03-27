@@ -7,7 +7,6 @@ import {
   useResolveStopSheltersLazyQuery,
 } from '../../../../../../generated/graphql';
 import { FailedToResolveNewShelters } from '../errors';
-import { hasDuplicateShelters } from './hasDuplicateShelters';
 
 const GQL_RESOLVE_STOP_SHELTERS = gql`
   query ResolveStopShelters($netexId: String!) {
@@ -32,50 +31,6 @@ const GQL_RESOLVE_STOP_SHELTERS = gql`
   }
 `;
 
-function compareShelters(
-  original: StopRegistryShelterEquipment,
-  saved: StopRegistryShelterEquipment,
-): boolean {
-  const originalRecord = original as Readonly<Record<string, unknown>>;
-  const savedRecord = saved as Readonly<Record<string, unknown>>;
-
-  return Object.entries(originalRecord).every(([key, originalValue]) => {
-    // Skip ID
-    if (key === 'id') {
-      return true;
-    }
-
-    const savedValue = savedRecord[key];
-    // Treat undefined as === to null
-    return (originalValue ?? null) === (savedValue ?? null);
-  });
-}
-
-class ShelterResolver {
-  public shelters: ReadonlyArray<StopRegistryShelterEquipment>;
-
-  constructor(shelters: ReadonlyArray<StopRegistryShelterEquipment>) {
-    this.shelters = shelters;
-  }
-
-  getIdForShelter(
-    originalShelter: StopRegistryShelterEquipment,
-  ): string | null {
-    return (
-      this.shelters.find((saved) => compareShelters(originalShelter, saved))
-        ?.id ?? null
-    );
-  }
-
-  getIdForIndex(index: number): string | null {
-    return this.shelters.at(index)?.id ?? null;
-  }
-
-  shouldResolveByIndex() {
-    return hasDuplicateShelters(this.shelters);
-  }
-}
-
 function getSheltersFromResult(
   data: ResolveStopSheltersQuery | undefined,
 ): Array<StopRegistryShelterEquipment> {
@@ -93,16 +48,14 @@ function getSheltersFromResult(
   return [];
 }
 
-export function useGetShelterResolver() {
+export function useGetShelters() {
   const [resolveStopShelters] = useResolveStopSheltersLazyQuery();
 
   return useCallback(
     async (netexId: string) => {
       try {
         const result = await resolveStopShelters({ variables: { netexId } });
-        const shelters = getSheltersFromResult(result.data);
-
-        return new ShelterResolver(shelters);
+        return getSheltersFromResult(result.data);
       } catch (cause) {
         throw new FailedToResolveNewShelters(
           "Failed to resolve new stop's shelters!",
