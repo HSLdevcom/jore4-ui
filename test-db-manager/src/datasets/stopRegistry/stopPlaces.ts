@@ -209,6 +209,7 @@ const route530Stops: Array<StopPlaceQuaySeedData> = [
       {
         enclosed: true,
         stepFree: false,
+        shelterNumber: 1,
         shelterType: StopRegistryShelterType.Steel,
         shelterElectricity: StopRegistryShelterElectricity.Continuous,
         shelterLighting: true,
@@ -225,6 +226,7 @@ const route530Stops: Array<StopPlaceQuaySeedData> = [
       {
         enclosed: true,
         stepFree: true,
+        shelterNumber: 2,
         shelterType: StopRegistryShelterType.Glass,
         shelterElectricity: StopRegistryShelterElectricity.Continuous,
         shelterLighting: true,
@@ -241,6 +243,7 @@ const route530Stops: Array<StopPlaceQuaySeedData> = [
       {
         enclosed: false,
         stepFree: true,
+        shelterNumber: 3,
         shelterType: StopRegistryShelterType.Post,
         shelterElectricity: StopRegistryShelterElectricity.Light,
         shelterLighting: true,
@@ -314,6 +317,7 @@ const H2003: StopPlaceQuaySeedData = {
     {
       enclosed: true,
       stepFree: false,
+      shelterNumber: 1,
       shelterType: StopRegistryShelterType.Steel,
       shelterElectricity: StopRegistryShelterElectricity.Continuous,
       shelterLighting: true,
