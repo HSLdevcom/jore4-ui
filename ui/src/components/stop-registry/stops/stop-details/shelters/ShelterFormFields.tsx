@@ -32,6 +32,7 @@ const testIds = {
   leaningRail: 'ShelterFormFields::leaningRail',
   outsideBench: 'ShelterFormFields::outsideBench',
   shelterFasciaBoardTaping: 'ShelterFormFields::shelterFasciaBoardTaping',
+  shelterExternalId: 'ShelterFormFields::shelterExternalId',
   deleteShelter: 'ShelterFormFields::deleteShelter',
   copyShelter: 'SheltersFormFields::copyShelter',
 };
@@ -53,6 +54,14 @@ export const ShelterFormFields = ({
   return (
     <Column className="space-y-4">
       <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
+        <InputField<SheltersFormState>
+          type="string"
+          translationPrefix="stopDetails"
+          fieldPath={`shelters.${index}.shelterExternalId`}
+          inputClassName="w-20"
+          testId={testIds.shelterExternalId}
+          disabled={toBeDeleted}
+        />
         <InputField<SheltersFormState>
           translationPrefix="stopDetails"
           fieldPath={`shelters.${index}.shelterType`}

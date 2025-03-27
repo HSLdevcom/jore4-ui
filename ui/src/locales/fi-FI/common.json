@@ -360,7 +360,8 @@
       "addNewShelter": "Lisää uusi katos",
       "copyShelter": "Kopioi katos",
       "deleteShelter": "Poista katos",
-      "cancelDeleteShelter": "Peruuta poisto"
+      "cancelDeleteShelter": "Peruuta poisto",
+      "shelterExternalId": "Varustenumero"
     },
     "infoSpots": {
       "title": "Infopaikat",
