@@ -219,7 +219,7 @@ const route530Stops: Array<StopPlaceQuaySeedData> = [
         bicycleParking: true,
         leaningRail: true,
         outsideBench: true,
-        shelterFasciaBoardTaping: true,
+        shelterFasciaBoardTaping: true
         // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
       },
       {
@@ -325,6 +325,7 @@ const H2003: StopPlaceQuaySeedData = {
       leaningRail: true,
       outsideBench: true,
       shelterFasciaBoardTaping: true,
+      shelterExternalId: '12345',
       // There also exists `seats` field here, but we currently don't have plans for that in the UI so leaving it out.
     },
   ],

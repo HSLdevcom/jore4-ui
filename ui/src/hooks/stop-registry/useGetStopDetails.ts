@@ -83,6 +83,7 @@ const GQL_SHELTER_EQUIPMENT_DETAILS = gql`
     leaningRail
     outsideBench
     shelterFasciaBoardTaping
+    shelterExternalId
   }
 `;
 
