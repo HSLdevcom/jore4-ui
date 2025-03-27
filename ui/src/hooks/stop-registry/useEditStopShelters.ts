@@ -54,6 +54,7 @@ const mapShelterFormToInput = (shelter: ShelterState) => {
     leaningRail: shelter.leaningRail,
     outsideBench: shelter.outsideBench,
     shelterFasciaBoardTaping: shelter.shelterFasciaBoardTaping,
+    shelterExternalId: shelter.shelterExternalId,
   };
 };
 

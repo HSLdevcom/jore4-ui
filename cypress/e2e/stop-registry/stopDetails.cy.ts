@@ -270,6 +270,7 @@ describe('Stop details', () => {
   const verifyInitialShelters = () => {
     const shelterView = stopDetailsPage.shelters.viewCard;
 
+    shelterView.getShelterExternalId().shouldHaveText('12345');
     shelterView.getContainers().shouldBeVisible();
     shelterView.getContainers().should('have.length', 1);
     shelterView.getShelterType().shouldHaveText('Teräskatos');
@@ -856,6 +857,7 @@ describe('Stop details', () => {
           form.getNthShelter(0).within(() => {
             const shelter = form.shelters;
             // Verify correct initial values:
+            shelter.getShelterExternalIdInput().should('have.value', '12345');
             shelter
               .getShelterTypeDropdownButton()
               .should('have.text', 'Teräskatos');
@@ -885,6 +887,7 @@ describe('Stop details', () => {
               .should('have.text', 'Kyllä');
 
             // Change everything:
+            shelter.getShelterExternalIdInput().clearAndType('98765');
             shelter.getShelterTypeDropdownButton().click();
             shelter
               .getShelterTypeDropdownOptions()
@@ -929,6 +932,7 @@ describe('Stop details', () => {
           view.getContainers().shouldBeVisible();
 
           // Verify changes visible in view card:
+          view.getShelterExternalId().should('have.text', '98765');
           view.getContainers().should('have.length', 1);
           view.getShelterType().should('have.text', 'Puukatos');
           view.getElectricity().should('have.text', 'Valosähkö');
