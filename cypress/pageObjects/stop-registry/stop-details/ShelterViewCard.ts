@@ -3,6 +3,8 @@ export class ShelterViewCard {
 
   getNthContainer = (index: number) => this.getContainers().eq(index);
 
+  getShelterNumber = () => cy.getByTestId('ShelterViewCard::shelterNumber');
+
   getShelterType = () => cy.getByTestId('ShelterViewCard::shelterType');
 
   getElectricity = () => cy.getByTestId('ShelterViewCard::shelterElectricity');
