@@ -273,6 +273,7 @@ describe('Stop details', () => {
     shelterView.getContainers().shouldBeVisible();
     shelterView.getContainers().should('have.length', 1);
     shelterView.getShelterExternalId().shouldHaveText('12345');
+    shelterView.getShelterNumber().shouldHaveText('1');
     shelterView.getShelterType().shouldHaveText('Teräskatos');
     shelterView.getElectricity().shouldHaveText('Jatkuva sähkö');
     shelterView.getLighting().shouldHaveText('Kyllä');
@@ -858,6 +859,7 @@ describe('Stop details', () => {
             const shelter = form.shelters;
             // Verify correct initial values:
             shelter.getShelterExternalIdInput().should('have.value', '12345');
+            shelter.getShelterNumberInput().should('have.value', '1');
             shelter
               .getShelterTypeDropdownButton()
               .should('have.text', 'Teräskatos');
@@ -888,6 +890,7 @@ describe('Stop details', () => {
 
             // Change everything:
             shelter.getShelterExternalIdInput().clearAndType('98765');
+            shelter.getShelterNumberInput().clearAndType('2');
             shelter.getShelterTypeDropdownButton().click();
             shelter
               .getShelterTypeDropdownOptions()
@@ -934,6 +937,7 @@ describe('Stop details', () => {
           // Verify changes visible in view card:
           view.getShelterExternalId().should('have.text', '98765');
           view.getContainers().should('have.length', 1);
+          view.getShelterNumber().should('have.text', '2');
           view.getShelterType().should('have.text', 'Puukatos');
           view.getElectricity().should('have.text', 'Valosähkö');
           view.getLighting().should('have.text', 'Ei');
@@ -952,6 +956,89 @@ describe('Stop details', () => {
               'request.body.variables.input.quays.0.placeEquipments.shelterEquipment.0.enclosed',
             )
             .should('equal', false);
+        },
+      );
+
+      it(
+        'should be able to keep shelter numbers in order',
+        { tags: [Tag.StopRegistry] },
+        () => {
+          stopDetailsPage.shelters
+            .getTitle()
+            .shouldHaveText('Pysäkkikatos (1)');
+
+          stopDetailsPage.shelters.getEditButton().click();
+          view.getContainers().should('not.exist');
+
+          // Add more shelters.
+          form.getShelters().should('have.length', 1);
+          stopDetailsPage.shelters
+            .getTitle()
+            .shouldHaveText('Pysäkkikatos (1)');
+          stopDetailsPage.shelters.getAddNewShelterButton().click();
+          stopDetailsPage.shelters.getAddNewShelterButton().click();
+          form.getShelters().should('have.length', 3);
+          stopDetailsPage.shelters
+            .getTitle()
+            .shouldHaveText('Pysäkkikatos (3)');
+
+          // Submit.
+          stopDetailsPage.shelters.getSaveButton().click();
+          toast.expectSuccessToast('Pysäkki muokattu');
+
+          view.getContainers().shouldBeVisible();
+          view.getContainers().should('have.length', 3);
+          stopDetailsPage.shelters
+            .getTitle()
+            .shouldHaveText('Pysäkkikatos (3)');
+
+          // Delete the 2nd.
+          stopDetailsPage.shelters.getEditButton().click();
+          form.getShelters().should('have.length', 3);
+          form.getNthShelter(1).within(() => {
+            const shelter = form.shelters;
+            shelter.getDeleteShelterButton().click();
+          });
+
+          form.getShelters().should('have.length', 3);
+          stopDetailsPage.shelters
+            .getTitle()
+            .shouldHaveText('Pysäkkikatos (2)'); // 2 instead of 3 since one of those will be deleted.
+
+          stopDetailsPage.shelters.getSaveButton().click();
+          toast.expectSuccessToast('Pysäkki muokattu');
+
+          stopDetailsPage.shelters.getEditButton().click();
+          view.getContainers().should('not.exist');
+
+          // Add more shelters.
+          form.getShelters().should('have.length', 2);
+          stopDetailsPage.shelters
+            .getTitle()
+            .shouldHaveText('Pysäkkikatos (2)');
+          stopDetailsPage.shelters.getAddNewShelterButton().click();
+          stopDetailsPage.shelters.getAddNewShelterButton().click();
+          form.getShelters().should('have.length', 4);
+          stopDetailsPage.shelters
+            .getTitle()
+            .shouldHaveText('Pysäkkikatos (4)');
+          stopDetailsPage.shelters.getSaveButton().click();
+          toast.expectSuccessToast('Pysäkki muokattu');
+
+          view.getContainers().shouldBeVisible();
+          view.getContainers().should('have.length', 4);
+          view.getNthContainer(0).within(() => {
+            view.getShelterNumber().should('have.text', '1');
+          });
+          view.getNthContainer(1).within(() => {
+            view.getShelterNumber().should('have.text', '3');
+          });
+          view.getNthContainer(2).within(() => {
+            view.getShelterNumber().should('have.text', '4');
+          });
+          view.getNthContainer(3).within(() => {
+            view.getShelterNumber().should('have.text', '5');
+          });
         },
       );
 
@@ -1004,6 +1091,7 @@ describe('Stop details', () => {
             shelter.getDeleteShelterButton().click();
             // Not actually deleted yet, just marked as to be deleted.
             shelter.getShelterExternalIdInput().shouldBeDisabled();
+            shelter.getShelterNumberInput().shouldBeDisabled();
             shelter.getShelterTypeDropdownButton().shouldBeDisabled();
             shelter.getShelterElectricityDropdownButton().shouldBeDisabled();
             shelter.getShelterLightingDropdownButton().shouldBeDisabled();
