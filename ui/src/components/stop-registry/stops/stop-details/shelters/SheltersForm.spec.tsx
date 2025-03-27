@@ -34,6 +34,7 @@ const testShelter: ShelterEquipmentDetailsFragment = {
   leaningRail: false,
   outsideBench: false,
   shelterFasciaBoardTaping: false,
+  shelterExternalId: '12345',
 };
 const testShelters = [testShelter];
 

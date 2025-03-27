@@ -26,4 +26,7 @@ export class ShelterViewCard {
 
   getFasciaBoardTaping = () =>
     cy.getByTestId('ShelterViewCard::shelterFasciaBoardTaping');
+
+  getShelterExternalId = () =>
+    cy.getByTestId('ShelterViewCard::shelterExternalId');
 }

@@ -361,7 +361,8 @@
       "addNewShelter": "Add new shelter",
       "copyShelter": "Copy shelter",
       "deleteShelter": "Delete shelter",
-      "cancelDeleteShelter": "Cancel deletion"
+      "cancelDeleteShelter": "Cancel deletion",
+      "shelterExternalId": "Equipment number"
     },
     "infoSpots": {
       "title": "Info spots",

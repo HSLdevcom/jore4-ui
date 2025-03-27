@@ -21,6 +21,7 @@ const testIds = {
   leaningRail: 'ShelterViewCard::leaningRail',
   outsideBench: 'ShelterViewCard::outsideBench',
   shelterFasciaBoardTaping: 'ShelterViewCard::shelterFasciaBoardTaping',
+  shelterExternalId: 'ShelterViewCard::shelterExternalId',
 };
 interface Props {
   shelter: ShelterEquipmentDetailsFragment;
@@ -42,6 +43,11 @@ export const ShelterViewCard = ({ shelter }: Props) => {
   return (
     <div data-testid={testIds.container}>
       <DetailRow>
+        <LabeledDetail
+          title={t('stopDetails.shelters.shelterExternalId')}
+          detail={shelter.shelterExternalId}
+          testId={testIds.shelterExternalId}
+        />
         <LabeledDetail
           title={t('stopDetails.shelters.shelterType')}
           detail={shelterType}

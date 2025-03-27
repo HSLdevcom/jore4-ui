@@ -66,6 +66,9 @@ export class ShelterFormFields {
       'ShelterFormFields::shelterFasciaBoardTaping::ListboxOptions',
     );
 
+  getShelterExternalIdInput = () =>
+    cy.getByTestId('ShelterFormFields::shelterExternalId');
+
   getDeleteShelterButton = () =>
     cy.getByTestId('ShelterFormFields::deleteShelter');
 }
