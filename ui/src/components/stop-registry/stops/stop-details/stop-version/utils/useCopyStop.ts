@@ -218,32 +218,30 @@ function useInsertInfoSpots() {
       }
 
       const shelterResolver = await getShelterResolver(quayId);
-      const resolveByIndex = shelterResolver.shouldResolveByIndex();
 
       const withLocations = infoSpots.map(
         (input): StopRegistryInfoSpotInput => {
-          const { originalShelter, originalShelterIndex, infoSpotInput } =
-            input;
+          const { originalShelter, infoSpotInput } = input;
+          const { shelterNumber } = originalShelter;
 
-          const shelterId = resolveByIndex
-            ? shelterResolver.getIdForIndex(originalShelterIndex)
-            : shelterResolver.getIdForShelter(originalShelter);
+          const matchingShelter = shelterResolver.shelters.find(
+            (shelter) => shelter.shelterNumber === shelterNumber,
+          );
 
-          if (!shelterId) {
+          if (!matchingShelter?.id) {
             throw new FailedToResolveNewShelters(
-              `Failed to resolve new shelter ID for: ${JSON.stringify(input)}`,
+              `No shelter found with number ${shelterNumber}`,
             );
           }
 
           return {
             ...infoSpotInput,
-            infoSpotLocations: [quayId, shelterId],
+            infoSpotLocations: [quayId, matchingShelter.id],
           };
         },
       );
 
       await updateInfoSpotMutation({ variables: { input: withLocations } });
-
       return true;
     },
     [getShelterResolver, updateInfoSpotMutation],
