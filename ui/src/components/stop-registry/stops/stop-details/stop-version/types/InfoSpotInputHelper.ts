@@ -5,6 +5,5 @@ import {
 
 export type InfoSpotInputHelper = {
   readonly originalShelter: StopRegistryShelterEquipmentInput;
-  readonly originalShelterIndex: number;
   readonly infoSpotInput: StopRegistryInfoSpotInput;
 };

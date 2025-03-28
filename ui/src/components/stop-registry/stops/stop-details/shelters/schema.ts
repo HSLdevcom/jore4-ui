@@ -13,6 +13,7 @@ import {
 
 const shelterSchema = z.object({
   shelterId: z.string().nullable(),
+  shelterNumber: nullablePositiveNumber,
   shelterType: createNullableEnum<StopRegistryShelterType>(),
   shelterElectricity: createNullableEnum<StopRegistryShelterElectricity>(),
   shelterLighting: nullableBoolean,
@@ -41,6 +42,7 @@ export const mapShelterDataToFormState = (
 ): ShelterState => {
   return {
     shelterId: shelter.id ?? null,
+    shelterNumber: shelter.shelterNumber ?? null,
     shelterType: shelter.shelterType ?? null,
     shelterElectricity: shelter.shelterElectricity ?? null,
     shelterLighting: shelter.shelterLighting ?? null,

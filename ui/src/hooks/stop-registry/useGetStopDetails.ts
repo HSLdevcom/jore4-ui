@@ -72,6 +72,7 @@ const GQL_SHELTER_EQUIPMENT_DETAILS = gql`
     id
     enclosed
     stepFree
+    shelterNumber
     shelterType
     shelterElectricity
     shelterLighting

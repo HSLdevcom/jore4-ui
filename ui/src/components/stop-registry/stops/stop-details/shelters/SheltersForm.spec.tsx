@@ -23,6 +23,7 @@ const testShelter: ShelterEquipmentDetailsFragment = {
   id: 'testId',
   enclosed: false,
   stepFree: false,
+  shelterNumber: 1,
   shelterType: StopRegistryShelterType.Concrete,
   shelterElectricity: StopRegistryShelterElectricity.Continuous,
   shelterLighting: false,

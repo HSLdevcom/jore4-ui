@@ -1,4 +1,7 @@
 export class ShelterFormFields {
+  getShelterNumberInput = () =>
+    cy.getByTestId('ShelterFormFields::shelterNumber');
+
   getShelterTypeDropdownButton = () =>
     cy.getByTestId('ShelterFormFields::shelterType::ListboxButton');
 

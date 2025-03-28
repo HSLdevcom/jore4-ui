@@ -67186,6 +67186,7 @@ export type UpsertStopAreaMutation = {
             id?: string | null,
             enclosed?: boolean | null,
             stepFree?: boolean | null,
+            shelterNumber?: number | null,
             shelterType?: StopRegistryShelterType | null,
             shelterElectricity?: StopRegistryShelterElectricity | null,
             shelterLighting?: boolean | null,
@@ -68103,6 +68104,7 @@ export type GetStopPlaceDetailsQuery = {
             id?: string | null,
             enclosed?: boolean | null,
             stepFree?: boolean | null,
+            shelterNumber?: number | null,
             shelterType?: StopRegistryShelterType | null,
             shelterElectricity?: StopRegistryShelterElectricity | null,
             shelterLighting?: boolean | null,
@@ -68391,6 +68393,7 @@ export type StopPlaceDetailsFragment = {
         id?: string | null,
         enclosed?: boolean | null,
         stepFree?: boolean | null,
+        shelterNumber?: number | null,
         shelterType?: StopRegistryShelterType | null,
         shelterElectricity?: StopRegistryShelterElectricity | null,
         shelterLighting?: boolean | null,
@@ -68579,6 +68582,7 @@ export type ResolveStopSheltersQuery = {
             id?: string | null,
             enclosed?: boolean | null,
             stepFree?: boolean | null,
+            shelterNumber?: number | null,
             shelterType?: StopRegistryShelterType | null,
             shelterElectricity?: StopRegistryShelterElectricity | null,
             shelterLighting?: boolean | null,
@@ -72002,6 +72006,7 @@ export type UpdateStopPlaceMutation = {
             id?: string | null,
             enclosed?: boolean | null,
             stepFree?: boolean | null,
+            shelterNumber?: number | null,
             shelterType?: StopRegistryShelterType | null,
             shelterElectricity?: StopRegistryShelterElectricity | null,
             shelterLighting?: boolean | null,
@@ -72373,6 +72378,7 @@ export type GetStopDetailsQuery = {
             id?: string | null,
             enclosed?: boolean | null,
             stepFree?: boolean | null,
+            shelterNumber?: number | null,
             shelterType?: StopRegistryShelterType | null,
             shelterElectricity?: StopRegistryShelterElectricity | null,
             shelterLighting?: boolean | null,
@@ -72515,6 +72521,7 @@ export type ShelterEquipmentDetailsFragment = {
   id?: string | null,
   enclosed?: boolean | null,
   stepFree?: boolean | null,
+  shelterNumber?: number | null,
   shelterType?: StopRegistryShelterType | null,
   shelterElectricity?: StopRegistryShelterElectricity | null,
   shelterLighting?: boolean | null,
@@ -72684,6 +72691,7 @@ export type QuayDetailsFragment = {
       id?: string | null,
       enclosed?: boolean | null,
       stepFree?: boolean | null,
+      shelterNumber?: number | null,
       shelterType?: StopRegistryShelterType | null,
       shelterElectricity?: StopRegistryShelterElectricity | null,
       shelterLighting?: boolean | null,
@@ -74792,6 +74800,7 @@ export const ShelterEquipmentDetailsFragmentDoc = gql`
   id
   enclosed
   stepFree
+  shelterNumber
   shelterType
   shelterElectricity
   shelterLighting
