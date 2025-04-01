@@ -368,6 +368,7 @@
     "infoSpots": {
       "title": "Info spots",
       "titleNoInfoSpots": "No info spots",
+      "infoSpot": "Info spot",
       "backlight": "Backlight",
       "description": "Description",
       "floor": "Floor",
@@ -387,6 +388,7 @@
       "posterLines": "Additional information",
       "shelterTypeSubtitle": "Shelter {{index}} | {{shelterType}}",
       "addInfoSpot": "Add info spot",
+      "addNewInfoSpot": "Add new info spot",
       "deleteInfoSpot": "Delete info spot",
       "cancelDeleteInfoSpot": "Cancel deletion",
       "addInfoSpotPoster": "Add poster",
