@@ -4,12 +4,14 @@ import { useFormContext } from 'react-hook-form';
 import { StopRegistryPosterPlaceSize } from '../../../../../../generated/graphql';
 import { mapStopRegistryPosterPlaceSizeEnumToUiName } from '../../../../../../i18n/uiNameMappings';
 import { Row } from '../../../../../../layoutComponents';
+import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
 import { EnumDropdown, InputField } from '../../../../../forms/common';
 import { SlimSimpleButton } from '../../layout';
 import { usePosterNames } from './InfoSpotsPosterNames';
 import { InfoSpotsFormState } from './schema';
 
 const testIds = {
+  addInfoSpotPoster: 'InfoSpotFormFields::addInfoSpotPoster',
   posterContainer: 'InfoSpotPosterFormFields::container',
   posterSize: 'InfoSpotPosterFormFields::posterSize',
   posterLabel: 'InfoSpotPosterFormFields::posterLabel',
@@ -20,12 +22,14 @@ const testIds = {
 type Props = {
   readonly infoSpotIndex: number;
   readonly posterIndex: number;
+  readonly addPoster: (index: number) => void;
   readonly onRemovePoster: (index: number, posterIndex: number) => void;
 };
 
-export const PosterFormFields: FC<Props> = ({
+export const InfoSpotsFormPosters: FC<Props> = ({
   infoSpotIndex,
   posterIndex,
+  addPoster,
   onRemovePoster,
 }) => {
   const { watch } = useFormContext<InfoSpotsFormState>();
@@ -33,11 +37,17 @@ export const PosterFormFields: FC<Props> = ({
     `infoSpots.${infoSpotIndex}.poster.${posterIndex}.toBeDeletedPoster`,
   );
 
+  const posters = watch(`infoSpots.${infoSpotIndex}.poster`) ?? [];
+  const isLastPoster = posterIndex === posters.length - 1;
+
   const posterOptions = usePosterNames();
 
   return (
-    <div data-testid={testIds.posterContainer}>
-      <Row className="flex-wrap items-end gap-4 px-5 lg:flex-nowrap">
+    <>
+      <Row
+        className="my-5 flex-wrap items-end gap-4 px-10 lg:flex-nowrap"
+        testId={testIds.posterContainer}
+      >
         <InputField<InfoSpotsFormState>
           translationPrefix="stopDetails"
           fieldPath={`infoSpots.${infoSpotIndex}.poster.${posterIndex}.posterSize`}
@@ -82,7 +92,7 @@ export const PosterFormFields: FC<Props> = ({
           disabled={toBeDeletedPoster}
         />
       </Row>
-      <Row className="mt-5 px-5">
+      <Row className="mb-5 px-10">
         <SlimSimpleButton
           testId={testIds.deleteInfoSpotPoster}
           onClick={() => onRemovePoster(infoSpotIndex, posterIndex)}
@@ -94,7 +104,15 @@ export const PosterFormFields: FC<Props> = ({
               : 'stopDetails.infoSpots.deleteInfoSpotPoster',
           )}
         </SlimSimpleButton>
+        {isLastPoster && (
+          <AddNewButton
+            testId={testIds.addInfoSpotPoster}
+            label={t('stopDetails.infoSpots.addInfoSpotPoster')}
+            onClick={() => addPoster(infoSpotIndex)}
+            className="ml-auto"
+          />
+        )}
       </Row>
-    </div>
+    </>
   );
 };
