@@ -1,13 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { ForwardRefRenderFunction } from 'react';
+import React, {
+  ForwardRefRenderFunction,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { twMerge } from 'tailwind-merge';
-import {
-  HorizontalSeparator,
-  Visible,
-} from '../../../../../../layoutComponents';
-import { SlimSimpleButton } from '../../layout';
+import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { InfoSpotFormFields } from './InfoSpotsFormFields';
 import {
   InfoSpotsFormSchema,
@@ -24,15 +22,31 @@ const testIds = {
 type Props = {
   readonly className?: string;
   readonly defaultValues: InfoSpotsFormState;
+  readonly infoSpotsData: ReadonlyArray<InfoSpotDetailsFragment>;
+  readonly formRef: React.RefObject<HTMLFormElement>;
   readonly onSubmit: (state: InfoSpotsFormState) => void;
   readonly infoSpotLocations: (string | null)[];
 };
 
+export type InfoSpotsFormRef = {
+  readonly addNewInfoSpot: () => void;
+};
+
 const InfoSpotsFormComponent: ForwardRefRenderFunction<
-  HTMLFormElement,
+  InfoSpotsFormRef,
   Props
-> = ({ className, defaultValues, infoSpotLocations, onSubmit }, ref) => {
-  const { t } = useTranslation();
+> = (
+  {
+    className,
+    defaultValues,
+    infoSpotsData,
+    infoSpotLocations,
+    onSubmit,
+    formRef,
+  },
+  ref,
+) => {
+  const formElementRef = useRef<HTMLFormElement | null>(null);
 
   const methods = useForm<InfoSpotsFormState>({
     defaultValues,
@@ -56,6 +70,15 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
       }),
     );
   };
+
+  useImperativeHandle(ref, () => ({
+    addNewInfoSpot,
+    submit: () => {
+      formElementRef.current?.dispatchEvent(
+        new Event('submit', { cancelable: true, bubbles: true }),
+      );
+    },
+  }));
 
   const addNewPoster = (infoSpotIndex: number) => {
     const newPoster = {
@@ -85,34 +108,33 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     });
   };
 
-  const isLast = (idx: number) => idx === infoSpots.length - 1;
-
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
-        className={twMerge('space-y-4', className)}
+        className={className}
         onSubmit={handleSubmit(onSubmit)}
-        ref={ref}
+        ref={formRef}
       >
         {infoSpots.map((infoSpot, idx) => (
-          <div key={infoSpot.id} data-testid={testIds.infoSpot}>
+          <div
+            key={infoSpot.id}
+            data-testid={testIds.infoSpot}
+            className="mt-0"
+          >
             <InfoSpotFormFields
               infoSpotIndex={idx}
+              infoSpotsData={infoSpotsData}
               onRemove={onRemoveInfoSpot}
               addPoster={addNewPoster}
             />
-            <Visible visible={!isLast(idx)}>
-              <HorizontalSeparator className="my-4" />
-            </Visible>
           </div>
         ))}
-        <SlimSimpleButton testId={testIds.addInfoSpot} onClick={addNewInfoSpot}>
-          {t('stopDetails.infoSpots.addInfoSpot')}
-        </SlimSimpleButton>
       </form>
     </FormProvider>
   );
 };
 
-export const InfoSpotsForm = React.forwardRef(InfoSpotsFormComponent);
+export const InfoSpotsForm = React.forwardRef<InfoSpotsFormRef, Props>(
+  InfoSpotsFormComponent,
+);
