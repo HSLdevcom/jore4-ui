@@ -1,17 +1,9 @@
 import { t } from 'i18next';
 import React, { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
-import {
-  StopRegistryDisplayType,
-  StopRegistryInfoSpotType,
-  StopRegistryPosterPlaceSize,
-} from '../../../../../../generated/graphql';
-import {
-  mapStopRegistryDisplayTypeEnumToUiName,
-  mapStopRegistryInfoSpotTypeEnumToUiName,
-  mapStopRegistryPosterPlaceSizeEnumToUiName,
-} from '../../../../../../i18n/uiNameMappings';
-import { Column, Row, Visible } from '../../../../../../layoutComponents';
+import { StopRegistryPosterPlaceSize } from '../../../../../../generated/graphql';
+import { mapStopRegistryPosterPlaceSizeEnumToUiName } from '../../../../../../i18n/uiNameMappings';
+import { Column, Row } from '../../../../../../layoutComponents';
 import {
   EnumDropdown,
   InputField,
@@ -59,8 +51,6 @@ export const InfoSpotFormFields: FC<Props> = ({
   const { register, watch, getValues, setValue } =
     useFormContext<InfoSpotsFormState>();
   const toBeDeleted = watch(`infoSpots.${infoSpotIndex}.toBeDeleted`);
-
-  const infoSpotType = watch(`infoSpots.${infoSpotIndex}.infoSpotType`);
   const posters = watch(`infoSpots.${infoSpotIndex}.poster`);
 
   const onRemovePoster = (idx: number, posterIndex: number) => {
@@ -97,97 +87,42 @@ export const InfoSpotFormFields: FC<Props> = ({
         />
         <InputField<InfoSpotsFormState>
           translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${infoSpotIndex}.infoSpotType`}
-          testId={testIds.infoSpotType}
+          fieldPath={`infoSpots.${infoSpotIndex}.posterPlaceSize`}
+          testId={testIds.posterPlaceSize}
           // eslint-disable-next-line react/no-unstable-nested-components
           inputElementRenderer={(props) => (
-            <EnumDropdown
-              enumType={StopRegistryInfoSpotType}
+            <EnumDropdown<StopRegistryPosterPlaceSize>
+              enumType={StopRegistryPosterPlaceSize}
               placeholder={t('unknown')}
-              uiNameMapper={mapStopRegistryInfoSpotTypeEnumToUiName}
+              uiNameMapper={mapStopRegistryPosterPlaceSizeEnumToUiName}
               buttonClassName="min-w-36"
               includeNullOption
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...props}
+            />
+          )}
+        />
+        <InputField<InfoSpotsFormState>
+          translationPrefix="stopDetails"
+          fieldPath={`infoSpots.${infoSpotIndex}.backlight`}
+          testId={testIds.backlight}
+          // eslint-disable-next-line react/no-unstable-nested-components
+          inputElementRenderer={(props) => (
+            <NullableBooleanDropdown
+              placeholder={t('unknown')}
+              buttonClassName="min-w-32"
               disabled={toBeDeleted}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
           )}
         />
-        <Visible visible={infoSpotType === 'static'}>
-          <InputField<InfoSpotsFormState>
-            translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.posterPlaceSize`}
-            testId={testIds.posterPlaceSize}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            inputElementRenderer={(props) => (
-              <EnumDropdown<StopRegistryPosterPlaceSize>
-                enumType={StopRegistryPosterPlaceSize}
-                placeholder={t('unknown')}
-                uiNameMapper={mapStopRegistryPosterPlaceSizeEnumToUiName}
-                buttonClassName="min-w-36"
-                includeNullOption
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
-            )}
-          />
-          <InputField<InfoSpotsFormState>
-            translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.backlight`}
-            testId={testIds.backlight}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            inputElementRenderer={(props) => (
-              <NullableBooleanDropdown
-                placeholder={t('unknown')}
-                buttonClassName="min-w-32"
-                disabled={toBeDeleted}
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
-            )}
-          />
-          <InputField<InfoSpotsFormState>
-            type="text"
-            translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.maintenance`}
-            testId={testIds.maintenance}
-          />
-        </Visible>
-        <Visible visible={infoSpotType === 'dynamic'}>
-          <InputField<InfoSpotsFormState>
-            translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.displayType`}
-            testId={testIds.displayType}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            inputElementRenderer={(props) => (
-              <EnumDropdown<StopRegistryDisplayType>
-                enumType={StopRegistryDisplayType}
-                placeholder={t('unknown')}
-                uiNameMapper={mapStopRegistryDisplayTypeEnumToUiName}
-                buttonClassName="min-w-36"
-                includeNullOption
-                disabled={toBeDeleted}
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
-            )}
-          />
-          <InputField<InfoSpotsFormState>
-            translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.speechProperty`}
-            testId={testIds.speechProperty}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            inputElementRenderer={(props) => (
-              <NullableBooleanDropdown
-                placeholder={t('unknown')}
-                buttonClassName="min-w-32"
-                disabled={toBeDeleted}
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
-            )}
-          />
-        </Visible>
+        <InputField<InfoSpotsFormState>
+          type="text"
+          translationPrefix="stopDetails"
+          fieldPath={`infoSpots.${infoSpotIndex}.maintenance`}
+          testId={testIds.maintenance}
+        />
       </Row>
       <Row className="-mx-5 !-mt-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
         <InputField<InfoSpotsFormState>
@@ -199,27 +134,27 @@ export const InfoSpotFormFields: FC<Props> = ({
           disabled={toBeDeleted}
         />
       </Row>
-      <Visible visible={infoSpotType === 'static'}>
-        {posters?.length ? (
-          posters.map((_, posterIndex) => (
-            <PosterFormFields
-              // eslint-disable-next-line react/no-array-index-key
-              key={`poster-${posterIndex}`}
-              infoSpotIndex={infoSpotIndex}
-              posterIndex={posterIndex}
-              onRemovePoster={onRemovePoster}
-            />
-          ))
-        ) : (
-          <Row>{t('stopDetails.infoSpots.noPosters')}</Row>
-        )}
-        <SlimSimpleButton
-          testId={testIds.addInfoSpotPoster}
-          onClick={() => addPoster(infoSpotIndex)}
-        >
-          {t('stopDetails.infoSpots.addInfoSpotPoster')}
-        </SlimSimpleButton>
-      </Visible>
+
+      {posters?.length ? (
+        posters.map((_, posterIndex) => (
+          <PosterFormFields
+            // eslint-disable-next-line react/no-array-index-key
+            key={`poster-${posterIndex}`}
+            infoSpotIndex={infoSpotIndex}
+            posterIndex={posterIndex}
+            onRemovePoster={onRemovePoster}
+          />
+        ))
+      ) : (
+        <Row>{t('stopDetails.infoSpots.noPosters')}</Row>
+      )}
+      <SlimSimpleButton
+        testId={testIds.addInfoSpotPoster}
+        onClick={() => addPoster(infoSpotIndex)}
+      >
+        {t('stopDetails.infoSpots.addInfoSpotPoster')}
+      </SlimSimpleButton>
+
       <Row className="-mx-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
         <InputField<InfoSpotsFormState>
           type="text"
