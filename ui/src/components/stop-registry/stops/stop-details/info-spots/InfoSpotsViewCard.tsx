@@ -32,8 +32,7 @@ export const InfoSpotsViewCard: FC<Props> = ({
 
   return (
     <div data-testid={testIds.container}>
-      {/* Has negative margin to stretch grey bg to previous div */}
-      <div className="-mx-5 bg-background px-5">
+      <div className="bg-background p-5">
         <DetailRow>
           <LabeledDetail
             title={t('stopDetails.infoSpots.label')}
@@ -57,6 +56,7 @@ export const InfoSpotsViewCard: FC<Props> = ({
             testId={testIds.longitude}
           />
         </DetailRow>
+        <InfoSpotZoneDetails infoSpot={infoSpot} stopName={stopName} />
         <DetailRow>
           <LabeledDetail
             title={t('stopDetails.infoSpots.description')}
@@ -66,7 +66,6 @@ export const InfoSpotsViewCard: FC<Props> = ({
         </DetailRow>
       </div>
       <InfoSpotPosterDetails infoSpot={infoSpot} />
-      <InfoSpotZoneDetails infoSpot={infoSpot} stopName={stopName} />
     </div>
   );
 };
