@@ -38,13 +38,13 @@ const useSheltersInfoSpots = (
 export const SheltersInfoSpotsSection: FC<Props> = ({ stop }) => {
   const items = useSheltersInfoSpots(stop);
 
-  return items.map(([shelter, shelterInfoSpots], shelterIndex) => (
+  return items.map(([shelter, shelterInfoSpots]) => (
     <InfoSpotsSection
       key={shelter.id}
       infoSpots={shelterInfoSpots}
       shelter={shelter}
       stop={stop}
-      shelterIndex={shelterIndex}
+      shelterNumber={shelter.shelterNumber ?? null}
     />
   ));
 };
