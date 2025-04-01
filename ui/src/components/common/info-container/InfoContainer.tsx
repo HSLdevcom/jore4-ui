@@ -23,6 +23,7 @@ declare module 'react' {
 
 type InfoContainerProps = {
   readonly className?: string;
+  readonly bodyClassName?: string;
   /**
    * Actual content that can be hidden or shown in the container.
    */
@@ -86,6 +87,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
   addNewButton,
   testIdPrefix = '',
   title,
+  bodyClassName,
 }) => {
   const { t } = useTranslation();
 
@@ -130,7 +132,10 @@ export const InfoContainer: FC<InfoContainerProps> = ({
         leaveFrom="max-h-screen"
         leaveTo="max-h-0"
       >
-        <div data-testid={testIds.content(testIdPrefix)} className="p-5">
+        <div
+          data-testid={testIds.content(testIdPrefix)}
+          className={twMerge('p-5', bodyClassName)}
+        >
           {children}
         </div>
 
