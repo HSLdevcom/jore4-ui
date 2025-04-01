@@ -3,9 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
 import { Point } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../layout';
-import { trInfoSpotType } from '../utils';
-import { InfoSpotDetailsDynamic } from './InfoSpotDetailsDynamic';
-import { InfoSpotDetailsStatic } from './InfoSpotDetailsStatic';
+import { InfoSpotDetails } from './InfoSpotDetails';
 import { InfoSpotPosterDetails } from './InfoSpotPosterDetails';
 import { InfoSpotZoneDetails } from './InfoSpotZoneDetails';
 
@@ -47,13 +45,7 @@ export const InfoSpotsViewCard: FC<Props> = ({
             detail={infoSpot.purpose}
             testId={testIds.purpose}
           />
-          <LabeledDetail
-            title={t('stopDetails.infoSpots.infoSpotType')}
-            detail={trInfoSpotType(t, infoSpot.infoSpotType)}
-            testId={testIds.infoSpotType}
-          />
-          <InfoSpotDetailsStatic infoSpot={infoSpot} />
-          <InfoSpotDetailsDynamic infoSpot={infoSpot} />
+          <InfoSpotDetails infoSpot={infoSpot} />
           <LabeledDetail
             title={t('stopDetails.location.latitude')}
             detail={location.latitude}
