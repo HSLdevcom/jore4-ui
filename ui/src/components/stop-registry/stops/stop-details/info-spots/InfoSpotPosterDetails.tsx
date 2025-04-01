@@ -20,14 +20,8 @@ type Props = {
   readonly infoSpot: InfoSpotDetailsFragment;
 };
 
-export const InfoSpotPosterDetails: FC<Props> = ({
-  infoSpot: { poster, infoSpotType },
-}) => {
+export const InfoSpotPosterDetails: FC<Props> = ({ infoSpot: { poster } }) => {
   const { t } = useTranslation();
-
-  if (infoSpotType !== 'static') {
-    return null;
-  }
 
   if (!poster?.length) {
     return (
