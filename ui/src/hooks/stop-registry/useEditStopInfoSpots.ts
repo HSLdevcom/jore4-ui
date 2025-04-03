@@ -66,7 +66,6 @@ const mapInfoSpotFormToInput = (infoSpot: InfoSpotState) => {
     railInformation: infoSpot.railInformation,
     speechProperty: infoSpot.speechProperty,
     zoneLabel: infoSpot.zoneLabel,
-    maintenance: infoSpot.maintenance,
     poster: mapPosterInput(infoSpot.poster),
   };
 };
