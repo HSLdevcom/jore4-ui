@@ -7,7 +7,6 @@ import { formatDimension, optionalBooleanToUiText } from '../utils';
 const testIds = {
   backlight: 'InfoSpotDetails::backlight',
   posterPlaceSize: 'InfoSpotDetails::posterPlaceSize',
-  maintenance: 'InfoSpotDetails::maintenance',
 };
 
 type Props = {
@@ -28,11 +27,6 @@ export const InfoSpotDetails: FC<Props> = ({ infoSpot }) => {
         title={t('stopDetails.infoSpots.backlight')}
         detail={optionalBooleanToUiText(infoSpot.backlight)}
         testId={testIds.backlight}
-      />
-      <LabeledDetail
-        title={t('stopDetails.infoSpots.maintenance')}
-        detail={infoSpot.maintenance}
-        testId={testIds.maintenance}
       />
     </>
   );
