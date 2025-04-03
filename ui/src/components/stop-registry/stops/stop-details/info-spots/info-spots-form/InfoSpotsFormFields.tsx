@@ -21,15 +21,11 @@ import { InfoSpotsFormState } from './schema';
 const testIds = {
   description: 'InfoSpotFormFields::description',
   label: 'InfoSpotFormFields::label',
-  infoSpotType: 'InfoSpotFormFields::infoSpotType',
   purpose: 'InfoSpotFormFields::purpose',
   latitude: 'InfoSpotFormFields::latitude',
   longitude: 'InfoSpotFormFields::longitude',
   backlight: 'InfoSpotFormFields::backlight',
   posterPlaceSize: 'InfoSpotFormFields::posterPlaceSize',
-  maintenance: 'InfoSpotFormFields::maintenance',
-  displayType: 'InfoSpotFormFields::displayType',
-  speechProperty: 'InfoSpotFormFields::speechProperty',
   floor: 'InfoSpotFormFields::floor',
   railInformation: 'InfoSpotFormFields::railInformation',
   stops: 'InfoSpotFormFields::stops',
@@ -159,12 +155,6 @@ export const InfoSpotFormFields: FC<Props> = ({
             inputClassName="w-20"
             testId={testIds.floor}
             disabled={toBeDeleted}
-          />
-          <InputField<InfoSpotsFormState>
-            type="text"
-            translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.maintenance`}
-            testId={testIds.maintenance}
           />
         </Row>
         <FormRow
