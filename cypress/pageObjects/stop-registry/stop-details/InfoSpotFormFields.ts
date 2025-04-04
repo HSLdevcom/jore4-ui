@@ -23,8 +23,6 @@ export class InfoSpotFormFields {
   getPosterPlaceSizeOptions = () =>
     cy.getByTestId('InfoSpotFormFields::posterPlaceSize::ListboxOptions');
 
-  getMaintenance = () => cy.getByTestId('InfoSpotFormFields::maintenance');
-
   getDisplayTypeButton = () =>
     cy.getByTestId('InfoSpotFormFields::displayType::ListboxButton');
 
@@ -70,4 +68,6 @@ export class InfoSpotFormFields {
 
   getDeleteInfoSpotButton = () =>
     cy.getByTestId('InfoSpotFormFields::deleteInfoSpot');
+
+  getNoPostersLabel = () => cy.getByTestId('InfoSpotFormFields::noPosters');
 }

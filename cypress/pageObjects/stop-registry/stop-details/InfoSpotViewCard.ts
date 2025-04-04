@@ -26,12 +26,9 @@ export class InfoSpotViewCard {
   getSpeechProperty = () =>
     cy.getByTestId('InfoSpotDetailsDynamic::speechProperty');
 
-  getBacklight = () => cy.getByTestId('InfoSpotDetailsStatic::backlight');
+  getBacklight = () => cy.getByTestId('InfoSpotDetails::backlight');
 
-  getPosterPlaceSize = () =>
-    cy.getByTestId('InfoSpotDetailsStatic::posterPlaceSize');
-
-  getMaintenance = () => cy.getByTestId('InfoSpotDetailsStatic::maintenance');
+  getPosterPlaceSize = () => cy.getByTestId('InfoSpotDetails::posterPlaceSize');
 
   getPosterContainers = () =>
     cy.getByTestId('InfoSpotPosterDetails::container');
@@ -44,6 +41,8 @@ export class InfoSpotViewCard {
   getPosterLabel = () => cy.getByTestId('InfoSpotPosterDetails::posterLabel');
 
   getPosterLines = () => cy.getByTestId('InfoSpotPosterDetails::posterLines');
+
+  getNoPosters = () => cy.getByTestId('InfoSpotPosterDetails::noPosters');
 
   getFloor = () => cy.getByTestId('InfoSpotZoneDetails::floor');
 

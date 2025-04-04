@@ -253,7 +253,6 @@ const GQL_INFO_SPOT_DETAILS = gql`
     railInformation
     speechProperty
     zoneLabel
-    maintenance
     poster {
       label
       posterSize

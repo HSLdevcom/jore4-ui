@@ -7,6 +7,7 @@ import {
 import { useEditStopInfoSpots } from '../../../../../hooks/stop-registry/useEditStopInfoSpots';
 import { mapStopRegistryShelterTypeEnumToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
+import { AddNewButton } from '../../../../../uiComponents/AddNewButton';
 import {
   NullOptionEnum,
   mapLngLatToPoint,
@@ -16,18 +17,25 @@ import {
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { EmptyListHeaderButtons } from '../layout/EmptyListHeaderButtons';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
-import { InfoSpotsForm } from './info-spots-form/InfoSpotsForm';
+import {
+  InfoSpotsForm,
+  InfoSpotsFormRef,
+} from './info-spots-form/InfoSpotsForm';
 import {
   InfoSpotsFormState,
   mapInfoSpotDataToFormState,
 } from './info-spots-form/schema';
 import { InfoSpotsViewList } from './InfoSpotsViewList';
 
+const testIds = {
+  addInfoSpot: 'InfoSpotsSection::addInfoSpot',
+};
+
 type Props = {
   readonly stop: StopWithDetails;
   readonly infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
   readonly shelter: ShelterEquipmentDetailsFragment;
-  readonly shelterIndex: number;
+  readonly shelterNumber?: number;
 };
 
 export const useInfoSpotFormDefaultValues = (
@@ -54,8 +62,8 @@ export const useInfoSpotFormDefaultValues = (
 const InfoSpotTitle: FC<{
   readonly infoSpotCount: number;
   readonly shelter: ShelterEquipmentDetailsFragment;
-  readonly shelterIndex: number;
-}> = ({ infoSpotCount, shelter, shelterIndex }) => {
+  readonly shelterNumber?: number;
+}> = ({ infoSpotCount, shelter, shelterNumber }) => {
   const { t } = useTranslation();
   return (
     <h4>
@@ -67,7 +75,7 @@ const InfoSpotTitle: FC<{
       </span>
       <span className="font-normal">
         {t('stopDetails.infoSpots.shelterTypeSubtitle', {
-          index: shelterIndex + 1,
+          index: shelterNumber,
           shelterType: mapStopRegistryShelterTypeEnumToUiName(
             shelter.shelterType ?? NullOptionEnum.Null,
           ),
@@ -81,7 +89,7 @@ export const InfoSpotsSection: FC<Props> = ({
   stop,
   infoSpots,
   shelter,
-  shelterIndex,
+  shelterNumber,
 }) => {
   const { t } = useTranslation();
 
@@ -93,7 +101,9 @@ export const InfoSpotsSection: FC<Props> = ({
   const { infoSpotsFormDefaultValues, infoSpotLocations } =
     useInfoSpotFormDefaultValues(infoSpots, stop, shelter);
 
-  const formRef = useRef<HTMLFormElement | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const infoSpotsFormRef = useRef<InfoSpotsFormRef>(null);
+
   const infoContainerControls = useInfoContainerControls({
     isExpandable: true,
     isEditable: true,
@@ -120,9 +130,16 @@ export const InfoSpotsSection: FC<Props> = ({
     setIsExpanded(true);
   };
 
+  const handleAddNewInfoSpot = () => {
+    if (infoSpotsFormRef.current) {
+      infoSpotsFormRef.current.addNewInfoSpot();
+    }
+  };
+
   return (
     <InfoContainer
       colors={stopInfoContainerColors}
+      customPadding="p-0"
       controls={infoContainerControls}
       headerButtons={
         !isInEditMode && !infoSpots.length ? (
@@ -133,11 +150,20 @@ export const InfoSpotsSection: FC<Props> = ({
           />
         ) : undefined
       }
+      addNewButton={
+        isInEditMode ? (
+          <AddNewButton
+            onClick={handleAddNewInfoSpot}
+            label={t('stopDetails.infoSpots.addInfoSpot')}
+            testId={testIds.addInfoSpot}
+          />
+        ) : undefined
+      }
       title={
         <InfoSpotTitle
           infoSpotCount={infoSpotCount}
           shelter={shelter}
-          shelterIndex={shelterIndex}
+          shelterNumber={shelterNumber}
         />
       }
       testIdPrefix="InfoSpotsSection"
@@ -145,7 +171,9 @@ export const InfoSpotsSection: FC<Props> = ({
       {infoContainerControls.isInEditMode ? (
         <InfoSpotsForm
           defaultValues={infoSpotsFormDefaultValues}
-          ref={formRef}
+          infoSpotsData={infoSpots}
+          formRef={formRef}
+          ref={infoSpotsFormRef}
           infoSpotLocations={infoSpotLocations}
           onSubmit={onSubmit}
         />

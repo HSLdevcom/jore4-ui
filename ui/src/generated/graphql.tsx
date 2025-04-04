@@ -67165,7 +67165,6 @@ export type UpsertStopAreaMutation = {
           railInformation?: string | null,
           speechProperty?: boolean | null,
           zoneLabel?: string | null,
-          maintenance?: string | null,
           description?: {
             __typename?: 'stop_registry_EmbeddableMultilingualString',
             lang?: string | null,
@@ -68083,7 +68082,6 @@ export type GetStopPlaceDetailsQuery = {
           railInformation?: string | null,
           speechProperty?: boolean | null,
           zoneLabel?: string | null,
-          maintenance?: string | null,
           description?: {
             __typename?: 'stop_registry_EmbeddableMultilingualString',
             lang?: string | null,
@@ -68372,7 +68370,6 @@ export type StopPlaceDetailsFragment = {
       railInformation?: string | null,
       speechProperty?: boolean | null,
       zoneLabel?: string | null,
-      maintenance?: string | null,
       description?: {
         __typename?: 'stop_registry_EmbeddableMultilingualString',
         lang?: string | null,
@@ -71985,7 +71982,6 @@ export type UpdateStopPlaceMutation = {
           railInformation?: string | null,
           speechProperty?: boolean | null,
           zoneLabel?: string | null,
-          maintenance?: string | null,
           description?: {
             __typename?: 'stop_registry_EmbeddableMultilingualString',
             lang?: string | null,
@@ -72158,7 +72154,6 @@ export type UpdateInfoSpotMutation = {
       railInformation?: string | null,
       speechProperty?: boolean | null,
       zoneLabel?: string | null,
-      maintenance?: string | null,
       description?: {
         __typename?: 'stop_registry_EmbeddableMultilingualString',
         lang?: string | null,
@@ -72357,7 +72352,6 @@ export type GetStopDetailsQuery = {
           railInformation?: string | null,
           speechProperty?: boolean | null,
           zoneLabel?: string | null,
-          maintenance?: string | null,
           description?: {
             __typename?: 'stop_registry_EmbeddableMultilingualString',
             lang?: string | null,
@@ -72670,7 +72664,6 @@ export type QuayDetailsFragment = {
     railInformation?: string | null,
     speechProperty?: boolean | null,
     zoneLabel?: string | null,
-    maintenance?: string | null,
     description?: {
       __typename?: 'stop_registry_EmbeddableMultilingualString',
       lang?: string | null,
@@ -72832,7 +72825,6 @@ export type InfoSpotDetailsFragment = {
   railInformation?: string | null,
   speechProperty?: boolean | null,
   zoneLabel?: string | null,
-  maintenance?: string | null,
   description?: {
     __typename?: 'stop_registry_EmbeddableMultilingualString',
     lang?: string | null,
@@ -74787,7 +74779,6 @@ export const InfoSpotDetailsFragmentDoc = gql`
   railInformation
   speechProperty
   zoneLabel
-  maintenance
   poster {
     label
     posterSize

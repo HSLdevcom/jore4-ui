@@ -21,4 +21,8 @@ export class InfoSpotsSection {
   getSaveButton() {
     return cy.getByTestId('InfoSpotsSection::saveButton');
   }
+
+  getAddNewInfoSpotButton() {
+    return cy.getByTestId('InfoSpotsSection::addInfoSpot');
+  }
 }

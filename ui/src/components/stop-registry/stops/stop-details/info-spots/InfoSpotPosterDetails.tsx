@@ -14,35 +14,30 @@ const testIds = {
   posterSize: 'InfoSpotPosterDetails::posterSize',
   posterLabel: 'InfoSpotPosterDetails::posterLabel',
   posterLines: 'InfoSpotPosterDetails::posterLines',
+  noPosters: 'InfoSpotPosterDetails::noPosters',
 };
 
 type Props = {
   readonly infoSpot: InfoSpotDetailsFragment;
 };
 
-export const InfoSpotPosterDetails: FC<Props> = ({
-  infoSpot: { poster, infoSpotType },
-}) => {
+export const InfoSpotPosterDetails: FC<Props> = ({ infoSpot: { poster } }) => {
   const { t } = useTranslation();
-
-  if (infoSpotType !== 'static') {
-    return null;
-  }
 
   if (!poster?.length) {
     return (
       <>
-        <Row className="my-5 font-bold">
+        <Row className="px-10 py-5" testId={testIds.noPosters}>
+          <i className="icon-alert mr-2.5 text-hsl-red" aria-hidden />
           {t('stopDetails.infoSpots.noPosters')}
         </Row>
-        <HorizontalSeparator className="-mx-5" />
       </>
     );
   }
 
   return poster?.map((item, index) => (
     <div key={item?.label} data-testid={testIds.posterContainer}>
-      <DetailRow className="pl-5">
+      <DetailRow className="px-10 py-5">
         <LabeledDetail
           title={t('stopDetails.infoSpots.posterSize')}
           detail={formatDimension(item?.posterSize)}
@@ -59,10 +54,8 @@ export const InfoSpotPosterDetails: FC<Props> = ({
           testId={testIds.posterLines}
         />
       </DetailRow>
-      <Visible visible>
-        <HorizontalSeparator
-          className={index !== poster.length - 1 ? 'ml-5' : '-mx-5'}
-        />
+      <Visible visible={index === poster.length - 1}>
+        <HorizontalSeparator className="m-0 border-[--borderColor]" />
       </Visible>
     </div>
   ));

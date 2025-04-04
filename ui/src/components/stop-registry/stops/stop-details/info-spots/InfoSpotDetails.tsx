@@ -5,21 +5,17 @@ import { LabeledDetail } from '../layout';
 import { formatDimension, optionalBooleanToUiText } from '../utils';
 
 const testIds = {
-  backlight: 'InfoSpotDetailsStatic::backlight',
-  posterPlaceSize: 'InfoSpotDetailsStatic::posterPlaceSize',
-  maintenance: 'InfoSpotDetailsStatic::maintenance',
+  backlight: 'InfoSpotDetails::backlight',
+  posterPlaceSize: 'InfoSpotDetails::posterPlaceSize',
 };
 
 type Props = {
   readonly infoSpot: InfoSpotDetailsFragment;
 };
 
-export const InfoSpotDetailsStatic: FC<Props> = ({ infoSpot }) => {
+export const InfoSpotDetails: FC<Props> = ({ infoSpot }) => {
   const { t } = useTranslation();
 
-  if (infoSpot.infoSpotType !== 'static') {
-    return null;
-  }
   return (
     <>
       <LabeledDetail
@@ -31,11 +27,6 @@ export const InfoSpotDetailsStatic: FC<Props> = ({ infoSpot }) => {
         title={t('stopDetails.infoSpots.backlight')}
         detail={optionalBooleanToUiText(infoSpot.backlight)}
         testId={testIds.backlight}
-      />
-      <LabeledDetail
-        title={t('stopDetails.infoSpots.maintenance')}
-        detail={infoSpot.maintenance}
-        testId={testIds.maintenance}
       />
     </>
   );

@@ -27,7 +27,6 @@ const infoSpotSchema = z.object({
   railInformation: z.string().nullable(),
   speechProperty: nullableBoolean,
   zoneLabel: z.string().nullable(),
-  maintenance: z.string().nullable(),
   poster: z
     .object({
       label: z.string().nullable(),
@@ -67,7 +66,6 @@ export const mapInfoSpotDataToFormState = (
     railInformation: infoSpot.railInformation ?? null,
     speechProperty: infoSpot.speechProperty ?? null,
     zoneLabel: infoSpot.zoneLabel ?? null,
-    maintenance: infoSpot.maintenance ?? null,
     poster:
       infoSpot.poster?.map((p) => ({
         label: p?.label ?? null,

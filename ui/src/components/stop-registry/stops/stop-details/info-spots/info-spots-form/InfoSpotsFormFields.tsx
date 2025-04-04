@@ -2,18 +2,15 @@ import { t } from 'i18next';
 import React, { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import {
-  StopRegistryDisplayType,
-  StopRegistryInfoSpotType,
+  InfoSpotDetailsFragment,
   StopRegistryPosterPlaceSize,
 } from '../../../../../../generated/graphql';
-import {
-  mapStopRegistryDisplayTypeEnumToUiName,
-  mapStopRegistryInfoSpotTypeEnumToUiName,
-  mapStopRegistryPosterPlaceSizeEnumToUiName,
-} from '../../../../../../i18n/uiNameMappings';
-import { Column, Row, Visible } from '../../../../../../layoutComponents';
+import { mapStopRegistryPosterPlaceSizeEnumToUiName } from '../../../../../../i18n/uiNameMappings';
+import { Column, Row } from '../../../../../../layoutComponents';
+import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
 import {
   EnumDropdown,
+  FormRow,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
@@ -24,15 +21,11 @@ import { InfoSpotsFormState } from './schema';
 const testIds = {
   description: 'InfoSpotFormFields::description',
   label: 'InfoSpotFormFields::label',
-  infoSpotType: 'InfoSpotFormFields::infoSpotType',
   purpose: 'InfoSpotFormFields::purpose',
   latitude: 'InfoSpotFormFields::latitude',
   longitude: 'InfoSpotFormFields::longitude',
   backlight: 'InfoSpotFormFields::backlight',
   posterPlaceSize: 'InfoSpotFormFields::posterPlaceSize',
-  maintenance: 'InfoSpotFormFields::maintenance',
-  displayType: 'InfoSpotFormFields::displayType',
-  speechProperty: 'InfoSpotFormFields::speechProperty',
   floor: 'InfoSpotFormFields::floor',
   railInformation: 'InfoSpotFormFields::railInformation',
   stops: 'InfoSpotFormFields::stops',
@@ -43,24 +36,25 @@ const testIds = {
   posterLines: 'InfoSpotPosterFormFields::posterLines',
   deleteInfoSpot: 'InfoSpotFormFields::deleteInfoSpot',
   addInfoSpotPoster: 'InfoSpotFormFields::addInfoSpotPoster',
+  noPosters: 'InfoSpotFormFields::noPosters',
 };
 
 type Props = {
   readonly infoSpotIndex: number;
+  readonly infoSpotsData: ReadonlyArray<InfoSpotDetailsFragment>;
   readonly onRemove: (index: number) => void;
   readonly addPoster: (index: number) => void;
 };
 
 export const InfoSpotFormFields: FC<Props> = ({
   infoSpotIndex,
+  infoSpotsData,
   onRemove,
   addPoster,
 }) => {
   const { register, watch, getValues, setValue } =
     useFormContext<InfoSpotsFormState>();
   const toBeDeleted = watch(`infoSpots.${infoSpotIndex}.toBeDeleted`);
-
-  const infoSpotType = watch(`infoSpots.${infoSpotIndex}.infoSpotType`);
   const posters = watch(`infoSpots.${infoSpotIndex}.poster`);
 
   const onRemovePoster = (idx: number, posterIndex: number) => {
@@ -80,40 +74,27 @@ export const InfoSpotFormFields: FC<Props> = ({
 
   return (
     <Column className="space-y-4">
-      <Row className="-mx-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
-        <InputField<InfoSpotsFormState>
-          type="text"
-          translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${infoSpotIndex}.label`}
-          testId={testIds.label}
-          disabled={toBeDeleted}
-        />
-        <InputField<InfoSpotsFormState>
-          type="text"
-          translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${infoSpotIndex}.purpose`}
-          testId={testIds.purpose}
-          disabled={toBeDeleted}
-        />
-        <InputField<InfoSpotsFormState>
-          translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${infoSpotIndex}.infoSpotType`}
-          testId={testIds.infoSpotType}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
-            <EnumDropdown
-              enumType={StopRegistryInfoSpotType}
-              placeholder={t('unknown')}
-              uiNameMapper={mapStopRegistryInfoSpotTypeEnumToUiName}
-              buttonClassName="min-w-36"
-              includeNullOption
-              disabled={toBeDeleted}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
-          )}
-        />
-        <Visible visible={infoSpotType === 'static'}>
+      <div className="bg-background p-5">
+        <span className="mb-2.5 block text-xl">
+          <i className="icon-passenger-info mr-2.5 text-brand" aria-hidden />
+          {t('stopDetails.infoSpots.infoSpot')}{' '}
+          {infoSpotsData[infoSpotIndex]?.label ?? ''}
+        </span>
+        <Row className="flex-wrap items-end gap-4 py-2.5 lg:flex-nowrap">
+          <InputField<InfoSpotsFormState>
+            type="text"
+            translationPrefix="stopDetails"
+            fieldPath={`infoSpots.${infoSpotIndex}.label`}
+            testId={testIds.label}
+            disabled={toBeDeleted}
+          />
+          <InputField<InfoSpotsFormState>
+            type="text"
+            translationPrefix="stopDetails"
+            fieldPath={`infoSpots.${infoSpotIndex}.purpose`}
+            testId={testIds.purpose}
+            disabled={toBeDeleted}
+          />
           <InputField<InfoSpotsFormState>
             translationPrefix="stopDetails"
             fieldPath={`infoSpots.${infoSpotIndex}.posterPlaceSize`}
@@ -146,121 +127,89 @@ export const InfoSpotFormFields: FC<Props> = ({
               />
             )}
           />
+        </Row>
+        <Row className="flex-wrap items-end gap-4 py-2.5 lg:flex-nowrap">
           <InputField<InfoSpotsFormState>
             type="text"
             translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.maintenance`}
-            testId={testIds.maintenance}
-          />
-        </Visible>
-        <Visible visible={infoSpotType === 'dynamic'}>
-          <InputField<InfoSpotsFormState>
-            translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.displayType`}
-            testId={testIds.displayType}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            inputElementRenderer={(props) => (
-              <EnumDropdown<StopRegistryDisplayType>
-                enumType={StopRegistryDisplayType}
-                placeholder={t('unknown')}
-                uiNameMapper={mapStopRegistryDisplayTypeEnumToUiName}
-                buttonClassName="min-w-36"
-                includeNullOption
-                disabled={toBeDeleted}
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
-            )}
+            fieldPath={`infoSpots.${infoSpotIndex}.zoneLabel`}
+            testId={testIds.zoneLabel}
+            disabled={toBeDeleted}
           />
           <InputField<InfoSpotsFormState>
+            type="text"
             translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.speechProperty`}
-            testId={testIds.speechProperty}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            inputElementRenderer={(props) => (
-              <NullableBooleanDropdown
-                placeholder={t('unknown')}
-                buttonClassName="min-w-32"
-                disabled={toBeDeleted}
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
-            )}
+            fieldPath={`infoSpots.${infoSpotIndex}.railInformation`}
+            inputClassName="w-20"
+            testId={testIds.railInformation}
+            disabled={toBeDeleted}
           />
-        </Visible>
-      </Row>
-      <Row className="-mx-5 !-mt-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
-        <InputField<InfoSpotsFormState>
-          type="text"
-          translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${infoSpotIndex}.description.value`}
-          testId={testIds.description}
-          customTitlePath="stopDetails.infoSpots.description"
-          disabled={toBeDeleted}
-        />
-      </Row>
-      <Visible visible={infoSpotType === 'static'}>
-        {posters?.length ? (
-          posters.map((_, posterIndex) => (
-            <PosterFormFields
-              // eslint-disable-next-line react/no-array-index-key
-              key={`poster-${posterIndex}`}
-              infoSpotIndex={infoSpotIndex}
-              posterIndex={posterIndex}
-              onRemovePoster={onRemovePoster}
-            />
-          ))
-        ) : (
-          <Row>{t('stopDetails.infoSpots.noPosters')}</Row>
-        )}
-        <SlimSimpleButton
-          testId={testIds.addInfoSpotPoster}
-          onClick={() => addPoster(infoSpotIndex)}
+          <InputField<InfoSpotsFormState>
+            type="text"
+            translationPrefix="stopDetails"
+            fieldPath={`infoSpots.${infoSpotIndex}.floor`}
+            inputClassName="w-20"
+            testId={testIds.floor}
+            disabled={toBeDeleted}
+          />
+        </Row>
+        <FormRow
+          mdColumns={1}
+          className="flex-wrap items-end gap-4 bg-background py-2.5 lg:flex-nowrap"
         >
-          {t('stopDetails.infoSpots.addInfoSpotPoster')}
-        </SlimSimpleButton>
-      </Visible>
-      <Row className="-mx-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
-        <InputField<InfoSpotsFormState>
-          type="text"
-          translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${infoSpotIndex}.zoneLabel`}
-          testId={testIds.zoneLabel}
-          disabled={toBeDeleted}
-        />
-        <InputField<InfoSpotsFormState>
-          type="text"
-          translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${infoSpotIndex}.railInformation`}
-          inputClassName="w-20"
-          testId={testIds.railInformation}
-          disabled={toBeDeleted}
-        />
-        <InputField<InfoSpotsFormState>
-          type="text"
-          translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${infoSpotIndex}.floor`}
-          inputClassName="w-20"
-          testId={testIds.floor}
-          disabled={toBeDeleted}
-        />
-      </Row>
+          <InputField<InfoSpotsFormState>
+            type="text"
+            translationPrefix="stopDetails"
+            fieldPath={`infoSpots.${infoSpotIndex}.description.value`}
+            testId={testIds.description}
+            customTitlePath="stopDetails.infoSpots.description"
+            disabled={toBeDeleted}
+          />
+
+          <SlimSimpleButton
+            testId={testIds.deleteInfoSpot}
+            onClick={() => onRemove(infoSpotIndex)}
+            inverted
+          >
+            {t(
+              toBeDeleted
+                ? 'stopDetails.infoSpots.cancelDeleteInfoSpot'
+                : 'stopDetails.infoSpots.deleteInfoSpot',
+            )}
+          </SlimSimpleButton>
+        </FormRow>
+      </div>
+      {posters?.length ? (
+        posters.map((_, posterIndex) => (
+          <PosterFormFields
+            // eslint-disable-next-line react/no-array-index-key
+            key={`poster-${posterIndex}`}
+            infoSpotIndex={infoSpotIndex}
+            posterIndex={posterIndex}
+            addPoster={addPoster}
+            onRemovePoster={onRemovePoster}
+          />
+        ))
+      ) : (
+        <Row className="!mt-0 items-center p-5">
+          <span data-testid={testIds.noPosters}>
+            <i className="icon-alert mr-2.5 text-hsl-red" aria-hidden />
+            {t('stopDetails.infoSpots.noPosters')}
+          </span>
+          <AddNewButton
+            testId={testIds.addInfoSpotPoster}
+            label={t('stopDetails.infoSpots.addInfoSpotPoster')}
+            onClick={() => addPoster(infoSpotIndex)}
+            className="ml-auto"
+          />
+        </Row>
+      )}
+
       <input
         type="checkbox"
         hidden
         {...register(`infoSpots.${infoSpotIndex}.toBeDeleted`)}
       />
-      <SlimSimpleButton
-        testId={testIds.deleteInfoSpot}
-        onClick={() => onRemove(infoSpotIndex)}
-        inverted
-      >
-        {t(
-          toBeDeleted
-            ? 'stopDetails.infoSpots.cancelDeleteInfoSpot'
-            : 'stopDetails.infoSpots.deleteInfoSpot',
-        )}
-      </SlimSimpleButton>
     </Column>
   );
 };
