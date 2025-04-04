@@ -80,7 +80,10 @@ export const InfoSpotFormFields: FC<Props> = ({
     <Column className="space-y-4">
       <div className="bg-background p-5">
         <span className="mb-2.5 block text-xl">
-          <i className="icon-poster mr-2.5 text-hsl-red" aria-hidden />
+          <i
+            className="icon-passenger-info mr-2.5 text-brand"
+            role="presentation"
+          />
           {t('stopDetails.infoSpots.infoSpot')}{' '}
           {infoSpotsData[infoSpotIndex]?.label ?? ''}
         </span>
@@ -203,7 +206,7 @@ export const InfoSpotFormFields: FC<Props> = ({
       ) : (
         <Row className="!mt-0 items-center p-5">
           <span data-testid={testIds.noPosters}>
-            <i className="icon-alert mr-2.5 text-hsl-red" aria-hidden />
+            <i className="icon-alert mr-2.5 text-hsl-red" role="presentation" />
             {t('stopDetails.infoSpots.noPosters')}
           </span>
           <AddNewButton
