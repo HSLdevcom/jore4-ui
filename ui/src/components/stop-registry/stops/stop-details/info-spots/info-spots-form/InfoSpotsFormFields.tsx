@@ -80,7 +80,7 @@ export const InfoSpotFormFields: FC<Props> = ({
     <Column className="space-y-4">
       <div className="bg-background p-5">
         <span className="mb-2.5 block text-xl">
-          <i className="icon-poster mr-2.5 text-hsl-red" aria-hidden />
+          <i className="icon-passenger-info mr-2.5 text-brand" aria-hidden />
           {t('stopDetails.infoSpots.infoSpot')}{' '}
           {infoSpotsData[infoSpotIndex]?.label ?? ''}
         </span>
