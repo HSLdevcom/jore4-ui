@@ -15,7 +15,7 @@ import {
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
 import { SlimSimpleButton } from '../../layout';
-import { PosterFormFields } from './InfoSpotsFormPosters';
+import { InfoSpotsFormPosters } from './InfoSpotsFormPosters';
 import { InfoSpotsFormState } from './schema';
 
 const testIds = {
@@ -77,12 +77,16 @@ export const InfoSpotFormFields: FC<Props> = ({
   };
 
   return (
-    <Column className="space-y-4">
+    <Column>
       <div className="bg-background p-5">
         <span className="mb-2.5 block text-xl">
-          <i className="icon-poster mr-2.5 text-hsl-red" aria-hidden />
-          {t('stopDetails.infoSpots.infoSpot')}{' '}
-          {infoSpotsData[infoSpotIndex]?.label ?? ''}
+          <i
+            className="icon-passenger-info mr-2.5 text-brand"
+            role="presentation"
+          />
+          {t('stopDetails.infoSpots.infoSpot', {
+            infoSpot: infoSpotsData[infoSpotIndex]?.label,
+          })}
         </span>
         <Row className="flex-wrap items-end gap-4 py-2.5 lg:flex-nowrap">
           <InputField<InfoSpotsFormState>
@@ -181,17 +185,15 @@ export const InfoSpotFormFields: FC<Props> = ({
             onClick={() => onRemove(infoSpotIndex)}
             inverted
           >
-            {t(
-              toBeDeleted
-                ? 'stopDetails.infoSpots.cancelDeleteInfoSpot'
-                : 'stopDetails.infoSpots.deleteInfoSpot',
-            )}
+            {toBeDeleted
+              ? t('stopDetails.infoSpots.cancelDeleteInfoSpot')
+              : t('stopDetails.infoSpots.deleteInfoSpot')}
           </SlimSimpleButton>
         </FormRow>
       </div>
       {posters?.length ? (
         posters.map((_, posterIndex) => (
-          <PosterFormFields
+          <InfoSpotsFormPosters
             // eslint-disable-next-line react/no-array-index-key
             key={`poster-${posterIndex}`}
             infoSpotIndex={infoSpotIndex}
@@ -201,9 +203,9 @@ export const InfoSpotFormFields: FC<Props> = ({
           />
         ))
       ) : (
-        <Row className="!mt-0 items-center p-5">
+        <Row className="items-center p-5">
           <span data-testid={testIds.noPosters}>
-            <i className="icon-alert mr-2.5 text-hsl-red" aria-hidden />
+            <i className="icon-alert mr-2.5 text-hsl-red" role="presentation" />
             {t('stopDetails.infoSpots.noPosters')}
           </span>
           <AddNewButton
