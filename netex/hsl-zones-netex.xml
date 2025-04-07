@@ -28,6 +28,7 @@ https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu
                 <FareZone id="HSL:FareZone:20" version="1">
                     <Name lang="fin">A</Name>
                     <PrivateCode>A</PrivateCode>
+                    <ScopingMethod>implicitSpatialProjection</ScopingMethod>
                     <gml:Polygon gml:id="GEN-PolygonType-100">
                         <gml:exterior>
                             <gml:LinearRing>
@@ -39,6 +40,7 @@ https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu
                 <FareZone id="HSL:FareZone:21" version="1">
                     <Name lang="fin">B</Name>
                     <PrivateCode>B</PrivateCode>
+                    <ScopingMethod>implicitSpatialProjection</ScopingMethod>
                     <gml:Polygon gml:id="GEN-PolygonType-101">
                         <gml:exterior>
                             <gml:LinearRing>
@@ -50,6 +52,7 @@ https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu
                 <FareZone id="HSL:FareZone:22" version="1">
                     <Name lang="fin">C</Name>
                     <PrivateCode>C</PrivateCode>
+                    <ScopingMethod>implicitSpatialProjection</ScopingMethod>
                     <gml:Polygon gml:id="GEN-PolygonType-102">
                         <gml:exterior>
                             <gml:LinearRing>
@@ -61,6 +64,7 @@ https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu
                 <FareZone id="HSL:FareZone:23" version="1">
                     <Name lang="fin">D</Name>
                     <PrivateCode>D</PrivateCode>
+                    <ScopingMethod>implicitSpatialProjection</ScopingMethod>
                     <gml:Polygon gml:id="GEN-PolygonType-103">
                         <gml:exterior>
                             <gml:LinearRing>
