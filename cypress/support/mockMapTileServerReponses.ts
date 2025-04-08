@@ -872,18 +872,18 @@ const openMapTilesIndexResponse = {
   description:
     'A tileset showcasing all layers in OpenMapTiles. https://openmaptiles.org',
   version: '3.14.0',
-  tiles: ['https://api.digitransit.fi/map/v2/hsl-vector-map/{z}/{x}/{y}.pbf'],
+  tiles: ['https://api.digitransit.fi/map/v3/hsl-vector-map/{z}/{x}/{y}.pbf'],
 };
 
 export function mockMapTileServerReponses() {
   // Provide a local copy of the actual data included in the index.json file.
-  cy.intercept('https://api.digitransit.fi/map/v2/hsl-vector-map/index.json*', {
+  cy.intercept('https://api.digitransit.fi/map/v3/hsl-vector-map/index.json*', {
     statusCode: 200,
     body: JSON.stringify(openMapTilesIndexResponse, null, 0),
   }).as('block-map-tiles-index.json');
 
   // Block actual tile loading with 404 response
-  cy.intercept('https://api.digitransit.fi/map/v2/hsl-vector-map/*/*/*.pbf', {
+  cy.intercept('https://api.digitransit.fi/map/v3/hsl-vector-map/*/*/*.pbf', {
     statusCode: 404,
     body: 'Request blocked in tests!',
   }).as('block-map-tiles-tile.pbf');
