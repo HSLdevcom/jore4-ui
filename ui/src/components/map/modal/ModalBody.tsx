@@ -1,10 +1,11 @@
 import { FC, ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-interface Props {
-  className?: string;
-  children: ReactNode;
-}
+type ModalBodyProps = {
+  readonly className?: string;
+  readonly children: ReactNode;
+};
 
-export const ModalBody: FC<Props> = ({ className = '', children }) => {
-  return <div className={`mx-12 my-8 ${className}`}>{children}</div>;
+export const ModalBody: FC<ModalBodyProps> = ({ className = '', children }) => {
+  return <div className={twMerge(`mx-12 my-8`, className)}>{children}</div>;
 };

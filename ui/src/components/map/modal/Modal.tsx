@@ -1,5 +1,6 @@
-import { FC, PropsWithChildren, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { useCallbackOnKeyEscape } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
@@ -10,23 +11,25 @@ const testIds = {
   saveButton: 'Modal::saveButton',
 };
 
-const HeaderFooterContainer: FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <div className="border border-light-grey bg-background px-14 py-7">
-      {children}
-    </div>
-  );
+type ModalFooterProps = {
+  readonly className?: string;
+  readonly onCancel: () => void;
+  readonly onSave: () => void;
 };
 
-interface FooterProps {
-  onCancel: () => void;
-  onSave: () => void;
-}
-
-const ModalFooter = ({ onCancel, onSave }: FooterProps): React.ReactElement => {
+const ModalFooter: FC<ModalFooterProps> = ({
+  className,
+  onCancel,
+  onSave,
+}: ModalFooterProps) => {
   const { t } = useTranslation();
   return (
-    <HeaderFooterContainer>
+    <div
+      className={twMerge(
+        'border border-light-grey bg-background px-14 py-7',
+        className,
+      )}
+    >
       <Row className="space-x-4">
         <SimpleButton containerClassName="ml-auto" onClick={onCancel} inverted>
           {t('cancel')}
@@ -35,20 +38,28 @@ const ModalFooter = ({ onCancel, onSave }: FooterProps): React.ReactElement => {
           {t('save')}
         </SimpleButton>
       </Row>
-    </HeaderFooterContainer>
+    </div>
   );
 };
 
-interface Props {
-  testId?: string;
-  heading: string;
-  onClose: () => void;
-  onCancel: () => void;
-  onSave: () => void;
-  children: ReactNode;
-}
+type ModalProps = {
+  readonly className?: string;
+  readonly headerClassName?: string;
+  readonly bodyClassName?: string;
+  readonly footerClassName?: string;
+  readonly testId?: string;
+  readonly heading: ReactNode;
+  readonly onClose: () => void;
+  readonly onCancel: () => void;
+  readonly onSave: () => void;
+  readonly children: ReactNode;
+};
 
-export const Modal: FC<Props> = ({
+export const Modal: FC<ModalProps> = ({
+  className,
+  headerClassName,
+  bodyClassName,
+  footerClassName,
   testId,
   heading,
   onClose,
@@ -59,10 +70,23 @@ export const Modal: FC<Props> = ({
   useCallbackOnKeyEscape(onClose);
 
   return (
-    <div data-testid={testId} className="overflow-auto bg-white">
-      <ModalHeader onClose={onClose} heading={heading} />
-      <ModalBody>{children}</ModalBody>
-      <ModalFooter onCancel={onCancel} onSave={onSave} />
+    <div
+      data-testid={testId}
+      className={twMerge('overflow-hidden bg-white', className)}
+    >
+      <ModalHeader
+        className={headerClassName}
+        onClose={onClose}
+        heading={heading}
+      />
+      <ModalBody className={twMerge('overflow-auto', bodyClassName)}>
+        {children}
+      </ModalBody>
+      <ModalFooter
+        className={footerClassName}
+        onCancel={onCancel}
+        onSave={onSave}
+      />
     </div>
   );
 };
