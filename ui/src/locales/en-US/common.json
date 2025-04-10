@@ -493,6 +493,16 @@
       "byStopArea": "By stop"
     }
   },
+  "stopRegistryNamedEntity": {
+    "nameFin": "Name (Finnish)",
+    "nameSwe": "Name (Swedish)",
+    "locationFin": "Location (Finnish)",
+    "locationSwe": "Location (Swedish)",
+    "nameLongFin": "Long name (Finnish)",
+    "nameLongSwe": "Long name (Swedish)",
+    "abbreviationFin": "Abbreviation (Finnish)",
+    "abbreviationSwe": "Abbreviation (Swedish)"
+  },
   "timingPlaces": {
     "label": "New Hastus place",
     "description": {
