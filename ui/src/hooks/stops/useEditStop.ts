@@ -1,9 +1,10 @@
 import { gql } from '@apollo/client';
-import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { wrapErrors } from '../../components/stop-registry/stops/stop-details/stop-version/utils/wrapErrors';
 import {
   EditStopMutationVariables,
   InfrastructureNetworkDirectionEnum,
@@ -12,8 +13,8 @@ import {
   RouteUniqueFieldsFragment,
   ScheduledStopPointAllFieldsFragment,
   ServicePatternScheduledStopPoint,
-  StopRegistryGeoJsonType,
-  StopRegistryStopPlace,
+  StopRegistryQuay,
+  StopRegistryQuayInput,
   StopRegistryStopPlaceInput,
   useEditStopMutation,
   useEditStopPlaceMutation,
@@ -33,10 +34,10 @@ import {
   IncompatibleWithExistingRoutesError,
   InternalError,
   LinkNotResolvedError,
+  StopPointUpdateFailed,
   TiamatUpdateFailedError,
   TimingPlaceRequiredError,
   defaultTo,
-  patchKeyValues,
   removeFromApolloCache,
   showDangerToast,
 } from '../../utils';
@@ -132,31 +133,34 @@ const GQL_EDIT_STOP_PLACE = gql`
   }
 `;
 
-interface EditParams {
-  stopId: UUID;
-  stopPlaceRef?: string | null;
-  patch: PartialScheduledStopPointSetInput;
-}
+type EditParams = {
+  readonly stopLabel: string;
+  readonly stopId: UUID;
+  readonly stopPointPatch: PartialScheduledStopPointSetInput;
+  readonly stopPlaceId: string;
+  readonly quayId: string;
+  readonly quayPatch: StopRegistryQuayInput;
+};
 
-export interface EditChanges {
-  stopId: UUID;
-  stopLabel: string;
-  patch: PartialScheduledStopPointSetInput;
-  stopPlacePatch: StopRegistryStopPlaceInput | null;
-  editedStop: ScheduledStopPointAllFieldsFragment;
-  deleteStopFromRoutes: RouteUniqueFieldsFragment[];
-  deleteStopFromJourneyPatternIds?: UUID[];
-  conflicts?: ScheduledStopPointAllFieldsFragment[];
-}
+export type EditChanges = {
+  readonly stopId: UUID;
+  readonly stopLabel: string;
+  readonly stopPointPatch: PartialScheduledStopPointSetInput | null;
+  readonly stopPlacePatch: StopRegistryStopPlaceInput | null;
+  readonly editedStop: ScheduledStopPointAllFieldsFragment;
+  readonly deleteStopFromRoutes: RouteUniqueFieldsFragment[];
+  readonly deleteStopFromJourneyPatternIds?: UUID[];
+  readonly conflicts?: ScheduledStopPointAllFieldsFragment[];
+};
 
-export interface BrokenRouteCheckParams {
-  newLink: InfrastructureNetworkInfrastructureLink;
-  newDirection: InfrastructureNetworkDirectionEnum;
-  newStop: PartialScheduledStopPointSetInput;
-  label: string;
-  priority: number;
-  stopId: UUID | null;
-}
+export type BrokenRouteCheckParams = {
+  readonly newLink: InfrastructureNetworkInfrastructureLink;
+  readonly newDirection: InfrastructureNetworkDirectionEnum;
+  readonly newStop: PartialScheduledStopPointSetInput;
+  readonly label: string;
+  readonly priority: number;
+  readonly stopId: UUID | null;
+};
 
 export const isEditChanges = (
   input: Record<string, ExplicitAny>,
@@ -170,79 +174,34 @@ function mapEditChangesToVariables(
   return {
     stop_id: changes.stopId,
     stop_label: changes.stopLabel,
-    stop_patch: changes.patch,
+    stop_patch: changes.stopPointPatch ?? {},
     delete_from_journey_pattern_ids:
       changes.deleteStopFromJourneyPatternIds ?? [],
   };
 }
 
-function stopPointPatchToStopPlacePatch(
-  stopPlaceRef: string | null | undefined,
-  patch: PartialScheduledStopPointSetInput,
-  stopPlace: Pick<StopRegistryStopPlace, 'keyValues'> | null,
+function quayPatchToStopPlacePatch(
+  stopPlaceId: string | null | undefined,
+  quayId: string | null | undefined,
+  quayPatch: Pick<StopRegistryQuay, 'keyValues'> | null,
 ): StopRegistryStopPlaceInput | null {
-  if (!stopPlaceRef) {
+  if (!stopPlaceId || !quayId) {
     return null;
   }
 
-  const stopPlacePatch: StopRegistryStopPlaceInput = {
-    id: stopPlaceRef,
-
-    name: patch.label
-      ? {
-          lang: 'fin',
-          value: patch.label,
-        }
-      : undefined,
-
-    geometry: patch.measured_location
-      ? {
-          type: StopRegistryGeoJsonType.Point,
-          // Including the possible 3rd number in the coordinates throws Timat off
-          // causing it to try and parse this as List<List<List<Double>>> instead
-          // of the actual List<Double>.
-          coordinates: patch.measured_location.coordinates.slice(0, 2),
-        }
-      : undefined,
-
-    keyValues:
-      (patch.priority ?? patch.validity_start ?? patch.validity_end)
-        ? patchKeyValues(
-            stopPlace,
-            compact([
-              patch.priority
-                ? {
-                    key: 'priority',
-                    values: [patch.priority.toString(10)],
-                  }
-                : undefined,
-              patch.validity_start
-                ? {
-                    key: 'validityStart',
-                    values: [patch.validity_start.toISODate()],
-                  }
-                : undefined,
-              patch.validity_end
-                ? {
-                    key: 'validityEnd',
-                    values: [patch.validity_end.toISODate()],
-                  }
-                : undefined,
-            ]),
-          )
-        : undefined,
-  };
+  const quayPatchWithId = { ...quayPatch, id: quayId };
 
   // If there are no actual changes -> null
-  const changedFields = Object.entries(stopPlacePatch)
+  const changedFields = Object.entries(quayPatchWithId)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     .filter(([_, value]) => value)
     .map(([key]) => key);
+
   if (isEqual(changedFields, ['id'])) {
     return null;
   }
 
-  return stopPlacePatch;
+  return { id: stopPlaceId, quays: [quayPatchWithId] };
 }
 
 type GetRoutesBrokenByStopChangeResult = {
@@ -292,6 +251,18 @@ export function useGetRoutesBrokenByStopChange() {
   };
 }
 
+function hasStopPointFieldChanged(
+  patch: PartialScheduledStopPointSetInput,
+  existing: ServicePatternScheduledStopPoint,
+  field: 'priority' | 'validity_start' | 'validity_end',
+) {
+  if (field in patch) {
+    return patch[field] !== existing[field];
+  }
+
+  return false;
+}
+
 function useGetConflictingStops() {
   const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
 
@@ -299,13 +270,12 @@ function useGetConflictingStops() {
     stopId: string,
     label: string,
     patch: PartialScheduledStopPointSetInput,
-    stopWithRouteGraphData: ServicePatternScheduledStopPoint,
+    existing: ServicePatternScheduledStopPoint,
   ) => {
     const hasEditedValidity =
-      patch.label !== stopWithRouteGraphData.label ||
-      patch.priority !== stopWithRouteGraphData?.priority ||
-      patch.validity_start !== stopWithRouteGraphData?.validity_start ||
-      patch.validity_end !== stopWithRouteGraphData?.validity_end;
+      hasStopPointFieldChanged(patch, existing, 'priority') ||
+      hasStopPointFieldChanged(patch, existing, 'validity_start') ||
+      hasStopPointFieldChanged(patch, existing, 'validity_end');
 
     if (!hasEditedValidity) {
       return [];
@@ -314,15 +284,11 @@ function useGetConflictingStops() {
     return getConflictingStops(
       {
         label,
-        priority: defaultTo(patch.priority, stopWithRouteGraphData.priority),
+        priority: defaultTo(patch.priority, existing.priority),
         validityStart:
-          defaultTo(
-            patch.validity_start,
-            stopWithRouteGraphData.validity_start,
-          ) ?? undefined,
+          defaultTo(patch.validity_start, existing.validity_start) ?? undefined,
         validityEnd:
-          defaultTo(patch.validity_end, stopWithRouteGraphData.validity_end) ??
-          undefined,
+          defaultTo(patch.validity_end, existing.validity_end) ?? undefined,
       },
       stopId,
     );
@@ -331,7 +297,7 @@ function useGetConflictingStops() {
 
 type OnStopLocationChangedResult = Pick<
   EditChanges,
-  'patch' | 'deleteStopFromJourneyPatternIds' | 'deleteStopFromRoutes'
+  'stopPointPatch' | 'deleteStopFromJourneyPatternIds' | 'deleteStopFromRoutes'
 >;
 
 function useOnStopLocationChanged() {
@@ -362,7 +328,7 @@ function useOnStopLocationChanged() {
     });
 
     return {
-      patch: {
+      stopPointPatch: {
         located_on_infrastructure_link_id: closestLink.infrastructure_link_id,
         direction,
       },
@@ -425,7 +391,7 @@ function useValidateTimingPlaceChanges() {
 
 // prepare variables for mutation and validate if it's even allowed
 // try to produce a changeset that can be displayed on an explanatory UI
-function usePrepareEdit() {
+export function usePrepareEdit() {
   const [getStopWithRouteGraphData] =
     useGetStopWithRouteGraphDataByIdLazyQuery();
 
@@ -434,9 +400,12 @@ function usePrepareEdit() {
   const validateTimingPlaceChanges = useValidateTimingPlaceChanges();
 
   return async ({
+    stopLabel,
     stopId,
-    stopPlaceRef,
-    patch,
+    stopPointPatch,
+    stopPlaceId,
+    quayId,
+    quayPatch,
   }: EditParams): Promise<EditChanges> => {
     const stopWithRoutesResult = await getStopWithRouteGraphData({
       variables: { stopId },
@@ -448,8 +417,6 @@ function usePrepareEdit() {
       throw new InternalError(`Could not find stop with id ${stopId}`);
     }
 
-    const stopLabel = defaultTo(patch.label, stopWithRouteGraphData.label);
-
     // changes that will always be applied
     const defaultChanges: Omit<
       EditChanges,
@@ -457,18 +424,29 @@ function usePrepareEdit() {
     > = {
       stopId,
       stopLabel,
-      patch,
+      stopPointPatch,
       deleteStopFromRoutes: [],
       deleteStopFromJourneyPatternIds: [],
     };
 
     // Perform async tasks in parallel to speed things up.
     const [conflicts, locationChanges] = await Promise.all([
-      getConflictingStops(stopId, stopLabel, patch, stopWithRouteGraphData),
+      getConflictingStops(
+        stopId,
+        stopLabel,
+        stopPointPatch,
+        stopWithRouteGraphData,
+      ),
+
       // changes that are applied if the stop's location is changed
-      getLocationChanges(stopId, patch, stopWithRouteGraphData),
+      getLocationChanges(stopId, stopPointPatch, stopWithRouteGraphData),
+
       // validate stop's timing settings in journey patterns if stop's timing place has been changed
-      validateTimingPlaceChanges(stopLabel, patch, stopWithRouteGraphData),
+      validateTimingPlaceChanges(
+        stopLabel,
+        stopPointPatch,
+        stopWithRouteGraphData,
+      ),
     ]);
 
     const mergedChanges = merge(
@@ -480,23 +458,23 @@ function usePrepareEdit() {
 
     return {
       ...mergedChanges,
-      stopPlacePatch: stopPointPatchToStopPlacePatch(
-        stopPlaceRef,
-        mergedChanges.patch,
-        stopWithRouteGraphData.stop_place?.find(
-          (stopPlace) =>
-            stopPlace && stopPlaceRef && stopPlace.id === stopPlaceRef,
-        ) ?? null,
-      ),
+      stopPointPatch: isEmpty(mergedChanges.stopPointPatch)
+        ? null
+        : mergedChanges.stopPointPatch,
+      stopPlacePatch: quayPatchToStopPlacePatch(stopPlaceId, quayId, quayPatch),
       // the final state of the stop that will be after patching
-      editedStop: merge({}, stopWithRouteGraphData, mergedChanges.patch),
+      editedStop: merge(
+        {},
+        stopWithRouteGraphData,
+        mergedChanges.stopPointPatch,
+      ),
     };
   };
 }
 
 // default handler that can be used to show error messages as toast
 // in case an exception is thrown
-function useDefaultErrorHandler() {
+export function useDefaultErrorHandler() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -531,8 +509,14 @@ function useDefaultErrorHandler() {
     }
 
     if (err instanceof TiamatUpdateFailedError) {
-      showDangerToast(
+      return showDangerToast(
         t('stops.tiamatUpdateFailed', { errorMessage: err.causeMessage }),
+      );
+    }
+
+    if (err instanceof StopPointUpdateFailed) {
+      return showDangerToast(
+        t('stops.stopPointUpdateFailed', { errorMessage: err.causeMessage }),
       );
     }
 
@@ -545,45 +529,45 @@ export const useEditStop = () => {
   const [editStopMutation] = useEditStopMutation();
   const [editStopPlaceMutation] = useEditStopPlaceMutation();
 
-  const prepareEdit = usePrepareEdit();
-  const defaultErrorHandler = useDefaultErrorHandler();
+  return async (changes: EditChanges) => {
+    let updateStopPointResult: Awaited<
+      ReturnType<typeof editStopMutation>
+    > | null = null;
+    let updateStopPlaceResult: Awaited<
+      ReturnType<typeof editStopPlaceMutation>
+    > | null = null;
 
-  const editStop = async (changes: EditChanges) => {
-    const variables = mapEditChangesToVariables(changes);
-    const editStopResult = await editStopMutation({
-      variables,
-      update(cache) {
-        removeFromApolloCache(cache, {
-          infrastructure_link_id:
-            variables.stop_patch.located_on_infrastructure_link_id,
-          __typename: 'infrastructure_network_infrastructure_link',
-        });
-      },
-    });
-
-    // If not associated with a stop place
-    if (!changes.stopPlacePatch) {
-      return { editStopResult, editStopPlaceResult: null };
-    }
-
-    // Try to also update the details into the associated stop place in Tiamat
-    try {
-      const editStopPlaceResult = await editStopPlaceMutation({
-        variables: { patch: changes.stopPlacePatch },
-      });
-
-      return { editStopResult, editStopPlaceResult };
-    } catch (e) {
-      throw new TiamatUpdateFailedError(
+    if (changes.stopPlacePatch) {
+      updateStopPlaceResult = await wrapErrors(
+        editStopPlaceMutation({
+          variables: { patch: changes.stopPlacePatch },
+        }),
+        TiamatUpdateFailedError,
         'Failed to update Stop Place in Tiamat!',
-        { cause: e },
       );
     }
-  };
 
-  return {
-    editStop,
-    prepareEdit,
-    defaultErrorHandler,
+    if (
+      changes.stopPointPatch ||
+      changes.deleteStopFromJourneyPatternIds?.length
+    ) {
+      const variables = mapEditChangesToVariables(changes);
+      updateStopPointResult = await wrapErrors(
+        editStopMutation({
+          variables,
+          update(cache) {
+            removeFromApolloCache(cache, {
+              infrastructure_link_id:
+                variables.stop_patch.located_on_infrastructure_link_id,
+              __typename: 'infrastructure_network_infrastructure_link',
+            });
+          },
+        }),
+        StopPointUpdateFailed,
+        'Failed to update Scheduled Stop Point in Lines & routes DB!',
+      );
+    }
+
+    return { updateStopPointResult, updateStopPlaceResult };
   };
 };

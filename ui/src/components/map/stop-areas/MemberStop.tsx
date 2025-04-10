@@ -4,12 +4,10 @@ import { QuayDetailsFragment } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
 import { useAppAction } from '../../../hooks';
 import {
-  setEditedStopDataAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import { getGeometryPoint, showDangerToastWithError } from '../../../utils';
-import { useGetStopPointForQuay } from '../../hooks';
 import { Circle } from '../markers';
 
 const testIds = {
@@ -24,10 +22,8 @@ type MemberStopProps = {
 export const MemberStop = ({ stop }: MemberStopProps) => {
   const { t } = useTranslation();
 
-  const getStopPointForQuay = useGetStopPointForQuay();
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
-  const setEditedStopData = useAppAction(setEditedStopDataAction);
 
   const onClick = async () => {
     if (!stop.id) {
@@ -35,10 +31,8 @@ export const MemberStop = ({ stop }: MemberStopProps) => {
     }
 
     try {
-      const stopPoint = await getStopPointForQuay(stop.id);
       setSelectedMapStopAreaId(undefined);
       setSelectedStopId(stop.id);
-      setEditedStopData(stopPoint);
     } catch (e) {
       showDangerToastWithError(
         t('stopArea.errors.failedToResolveScheduledStopPoint'),

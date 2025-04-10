@@ -124,6 +124,7 @@ export const drawLineToClosestRoad = (
     coords,
     SEARCH_RADIUS_IN_PIXELS,
   );
+
   if (features && features.length > 0) {
     // convert cursor location from pixel coordinates to lat/lng
     const cursorLocation = point(map.unproject(coords).toArray());

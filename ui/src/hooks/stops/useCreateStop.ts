@@ -1,16 +1,16 @@
 import { gql } from '@apollo/client';
-import flow from 'lodash/flow';
+import { Point } from 'geojson';
 import {
-  InsertStopPointMutationVariables,
   ScheduledStopPointDefaultFieldsFragment,
   ServicePatternScheduledStopPointInsertInput,
+  StopRegistryQuayInput,
+  useInsertQuayIntoStopPlaceMutation,
   useInsertStopPointMutation,
-  useUpdateScheduledStopPointStopPlaceRefMutation,
 } from '../../generated/graphql';
-import { StopWithLocation } from '../../graphql';
 import { OptionalKeys } from '../../types';
 import {
   IncompatibleWithExistingRoutesError,
+  findKeyValue,
   getRouteLabelVariantText,
   removeFromApolloCache,
 } from '../../utils';
@@ -22,18 +22,23 @@ import {
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 
 // the input does not need to contain all the fields
-export type CreateInput = OptionalKeys<
+export type CreateStopPointInput = OptionalKeys<
   ServicePatternScheduledStopPointInsertInput,
   'direction' | 'located_on_infrastructure_link_id'
 >;
 
-interface CreateParams {
-  input: CreateInput;
-}
-export interface CreateChanges {
-  stopToCreate: ServicePatternScheduledStopPointInsertInput;
-  conflicts?: ScheduledStopPointDefaultFieldsFragment[];
-}
+type CreateParams = {
+  readonly stopPoint: CreateStopPointInput;
+  readonly stopPlaceId: string;
+  readonly quay: StopRegistryQuayInput;
+};
+
+export type CreateChanges = {
+  readonly conflicts?: ReadonlyArray<ScheduledStopPointDefaultFieldsFragment>;
+  readonly stopPoint: ServicePatternScheduledStopPointInsertInput;
+  readonly stopPlaceId: string;
+  readonly quay: StopRegistryQuayInput;
+};
 
 const GQL_INSERT_STOP_POINT = gql`
   mutation InsertStopPoint(
@@ -50,74 +55,18 @@ const GQL_INSERT_STOP_POINT = gql`
       label
       validity_start
       validity_end
-    }
-  }
-`;
-
-// This update is needed in the creation process, where we first create
-// the scheduled stop point, then we create the stop place and
-// lastly we update the scheduled stop point stop place ref
-// This all is probably going to change if we get some transaction service
-const GQL_UPDATE_SCHEDULED_STOP_POINT_STOP_PLACE_REF = gql`
-  mutation updateScheduledStopPointStopPlaceRef(
-    $scheduled_stop_point_id: uuid!
-    $stop_place_ref: String
-  ) {
-    update_service_pattern_scheduled_stop_point_by_pk(
-      pk_columns: { scheduled_stop_point_id: $scheduled_stop_point_id }
-      _set: { stop_place_ref: $stop_place_ref }
-    ) {
-      scheduled_stop_point_id
       stop_place_ref
     }
   }
 `;
 
-export const useCreateStop = () => {
-  const [mutateFunction] = useInsertStopPointMutation();
-  const [updateScheduledStopPointStopPlaceRefMutation] =
-    useUpdateScheduledStopPointStopPlaceRefMutation();
-  const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
-  const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
+function useCheckForBrokenRoutes() {
   const getRoutesBrokenByStopChange = useGetRoutesBrokenByStopChange();
-
-  const insertStopMutation = async (
-    variables: InsertStopPointMutationVariables,
-  ) => {
-    return mutateFunction({
-      variables,
-      update(cache) {
-        removeFromApolloCache(cache, {
-          infrastructure_link_id:
-            variables.stopPoint.located_on_infrastructure_link_id,
-          __typename: 'infrastructure_network_infrastructure_link',
-        });
-      },
-    });
-  };
-
-  // pre-fills and pre-validates a few fields for the draft stop
-  // throws exceptions in case or error
-  const createDraftStop = async (stopLocation: GeoJSON.Point) => {
-    const draftStop: StopWithLocation = {
-      measured_location: stopLocation,
-    };
-
-    const { closestLink, direction } = await getStopLinkAndDirection({
-      stopLocation,
-    });
-    draftStop.located_on_infrastructure_link_id =
-      closestLink.infrastructure_link_id;
-    draftStop.direction = direction;
-    draftStop.timing_place_id = null;
-
-    return draftStop;
-  };
 
   // if added stop conflicts with existing routes, warn user.
   // for example, if a stop with same label has already been added to a route,
   // but new stop is not located on that route's geometry, the stop cannot be added
-  const checkForBrokenRoutes = async (params: BrokenRouteCheckParams) => {
+  return async (params: BrokenRouteCheckParams) => {
     const { brokenRoutes } = await getRoutesBrokenByStopChange(params);
 
     if (brokenRoutes?.length) {
@@ -126,65 +75,119 @@ export const useCreateStop = () => {
       );
     }
   };
+}
+
+export function usePrepareCreate() {
+  const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
+  const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
+
+  const checkForBrokenRoutes = useCheckForBrokenRoutes();
 
   // prepare variables for mutation and validate if it's even allowed
   // try to produce a changeset that can be displayed on an explanatory UI
-  const prepareCreate = async ({ input }: CreateParams) => {
-    const conflicts = await getConflictingStops({
-      // these form values always exist
-      label: input.label,
-      priority: input.priority,
-      validityStart: input.validity_start ?? undefined,
-      validityEnd: input.validity_end ?? undefined,
-    });
-    // we need to fetch the infra link and direction for the stop
-    const { closestLink, direction } = await getStopLinkAndDirection({
-      stopLocation: input.measured_location,
-    });
+  return async ({
+    stopPoint,
+    stopPlaceId,
+    quay,
+  }: CreateParams): Promise<CreateChanges> => {
+    const [conflicts, { closestLink, direction }] = await Promise.all([
+      getConflictingStops({
+        // these form values always exist
+        label: stopPoint.label,
+        priority: stopPoint.priority,
+        validityStart: stopPoint.validity_start ?? undefined,
+        validityEnd: stopPoint.validity_end ?? undefined,
+      }),
+
+      // we need to fetch the infra link and direction for the stop
+      getStopLinkAndDirection({ stopLocation: stopPoint.measured_location }),
+    ]);
 
     // check if any routes are broken if this stops is added
     await checkForBrokenRoutes({
       newLink: closestLink,
       newDirection: direction,
-      newStop: input,
-      label: input.label,
-      priority: input.priority,
+      newStop: stopPoint,
+      label: stopPoint.label,
+      priority: stopPoint.priority,
       stopId: null,
     });
 
-    const stopToCreate: ServicePatternScheduledStopPointInsertInput = {
-      ...input,
+    const stopPintWithInfraInfo: ServicePatternScheduledStopPointInsertInput = {
+      ...stopPoint,
       located_on_infrastructure_link_id: closestLink.infrastructure_link_id,
       direction,
     };
 
-    const changes: CreateChanges = {
-      stopToCreate,
+    return {
+      stopPoint: stopPintWithInfraInfo,
       conflicts,
+      stopPlaceId,
+      quay,
     };
-
-    return changes;
   };
+}
 
-  const mapCreateChangesToVariables = (changes: CreateChanges) => {
-    const variables: InsertStopPointMutationVariables = {
-      stopPoint: changes.stopToCreate,
-    };
-    return variables;
+export function useCheckIsLocationValidForStop() {
+  const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
+
+  // Checks if the given location is on and on the right side of a road.
+  return async (stopLocation: Point): Promise<true> => {
+    await getStopLinkAndDirection({ stopLocation });
+    return true;
   };
+}
 
-  const prepareAndExecute = flow(
-    prepareCreate,
-    mapCreateChangesToVariables,
-    insertStopMutation,
-  );
+export function useCreateStop() {
+  const [insertStopPointMutation] = useInsertStopPointMutation();
+  const [insertQuayIntoStopPlaceMutation] =
+    useInsertQuayIntoStopPlaceMutation();
 
-  return {
-    createDraftStop,
-    prepareCreate,
-    mapCreateChangesToVariables,
-    insertStopMutation,
-    updateScheduledStopPointStopPlaceRefMutation,
-    prepareAndExecute,
+  return async ({ stopPlaceId, quay, stopPoint }: CreateChanges) => {
+    const insertQuayResult = await insertQuayIntoStopPlaceMutation({
+      variables: { stopPlaceId, quayInput: quay },
+    });
+
+    const quayId = insertQuayResult.data?.stop_registry?.mutateStopPlace
+      ?.at(0)
+      ?.quays?.find(
+        (it) =>
+          it &&
+          findKeyValue(it, 'imported-id') === findKeyValue(quay, 'imported-id'),
+      )?.id;
+
+    // This should never be true
+    if (!quayId) {
+      throw new Error(
+        'StopPlace mutation did not fail, but the to be inserted Quay was not found from the response!',
+      );
+    }
+
+    const insertedStopPointResult = await insertStopPointMutation({
+      variables: {
+        stopPoint: {
+          ...stopPoint,
+          stop_place_ref: quayId,
+        },
+      },
+      update(cache) {
+        removeFromApolloCache(cache, {
+          infrastructure_link_id: stopPoint.located_on_infrastructure_link_id,
+          __typename: 'infrastructure_network_infrastructure_link',
+        });
+      },
+    });
+
+    const stopPointId =
+      insertedStopPointResult.data?.stopPoint?.scheduled_stop_point_id;
+
+    // This should never be true
+    if (!stopPointId) {
+      throw new Error(
+        'StopPoint insert did not fail, but the to be inserted StopPoint was not found from the response!',
+      );
+    }
+
+    return { quayId, stopPointId };
   };
-};
+}

@@ -25,7 +25,7 @@ export const DeleteStopConfirmationDialog: React.FC<Props> = ({
   // TODO improve the confirmation dialog when Design has iterated on how this should look like
   const buildDescription = (changes: DeleteChanges) => {
     const deletedStopText = t('confirmDeleteStopDialog.description', {
-      stopLabel: changes.deletedStop.label,
+      stopLabel: changes.deletedStopPoint.label,
     });
     const confirmationTextParts: string[] = [deletedStopText];
 

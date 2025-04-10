@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { StopWithDetails } from '../../../../../types';
 import { LocatorButton } from '../../../../../uiComponents';
-import { mapLngLatToPoint } from '../../../../../utils';
+import { getGeometryPoint } from '../../../../../utils';
 import { useShowStopOnMap } from '../../../utils/useShowStopOnMap';
 
 const testIds = {
@@ -25,12 +25,16 @@ export const OpenOnMapButton: FC<OpenOnMapButtonProps> = ({
 
   const openStopOnMap = useShowStopOnMap();
   const onClick = () => {
-    if (stop && stop.stop_place !== null) {
-      openStopOnMap({
-        label: stop.label,
-        netextId: stop.stop_place_ref ?? null,
-        location: mapLngLatToPoint(stop.measured_location.coordinates),
-      });
+    if (stop?.quay) {
+      const location = getGeometryPoint(stop.quay.geometry);
+
+      if (stop.quay.id && location) {
+        openStopOnMap({
+          label: stop.label,
+          netextId: stop.quay.id,
+          location,
+        });
+      }
     }
   };
 
