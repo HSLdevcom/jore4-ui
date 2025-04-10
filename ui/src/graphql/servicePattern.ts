@@ -142,15 +142,6 @@ const GET_STOP_WITH_ROUTE_GRAPH_DATA_BY_ID = gql`
           }
         }
       }
-
-      stop_place {
-        id
-        version
-        keyValues {
-          key
-          values
-        }
-      }
     }
   }
 `;

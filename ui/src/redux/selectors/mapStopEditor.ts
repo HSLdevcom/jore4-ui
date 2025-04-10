@@ -13,9 +13,9 @@ export const selectSelectedStopId = createSelector(
   (mapStopEditor) => mapStopEditor.selectedStopId,
 );
 
-export const selectEditedStopData = createSelector(
+export const selectDraftLocation = createSelector(
   selectMapStopEditor,
-  (mapStopEditor) => mapStopEditor.editedStopData,
+  (mapStopEditor) => mapStopEditor.draftLocation,
 );
 
 export const selectIsCreateStopModeEnabled = createSelector(

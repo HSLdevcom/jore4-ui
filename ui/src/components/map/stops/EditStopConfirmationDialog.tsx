@@ -22,7 +22,7 @@ interface Props {
  * Example output: "65x, 65y (5 versions), 65z (3 versions)"
  */
 export const buildRouteLabelListString = (
-  routes: RouteUniqueFieldsFragment[],
+  routes: ReadonlyArray<RouteUniqueFieldsFragment>,
   t: TFunction,
 ) => {
   const labelsCounted = countBy(routes, 'label');
