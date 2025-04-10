@@ -2,9 +2,9 @@ import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CreateChanges, EditChanges } from '../../../hooks';
 import { submitFormByRef } from '../../../utils';
-import { FormState, StopForm } from '../../forms/stop/StopForm';
+import { StopFormState as FormState, StopForm } from '../../forms/stop';
 import { CustomOverlay } from '../CustomOverlay';
-import { Modal } from '../modal/Modal';
+import { Modal } from '../modal';
 
 const testIds = {
   modal: 'EditStopModal',
@@ -12,8 +12,7 @@ const testIds = {
 
 type Props = {
   readonly defaultValues: Partial<FormState>;
-  readonly stopAreaId: string | null | undefined;
-  readonly stopPlaceRef?: string | null;
+  readonly editing: boolean;
   readonly onCancel: () => void;
   readonly onClose: () => void;
   readonly onSubmit: (changes: CreateChanges | EditChanges) => void;
@@ -21,25 +20,34 @@ type Props = {
 
 export const EditStopModal: FC<Props> = ({
   defaultValues,
-  stopAreaId,
-  stopPlaceRef,
+  editing,
   onCancel,
   onClose,
   onSubmit,
 }) => {
   const { t } = useTranslation();
+
   const formRef = useRef<ExplicitAny>(null);
   const onSave = () => submitFormByRef(formRef);
+
   const buildHeading = () => {
     const { label } = defaultValues;
     return label
       ? t('stops.stopWithLabel', { stopLabel: label })
       : t('stops.createStop');
   };
+
   return (
     <CustomOverlay position="top-right">
-      <div className="flex max-h-full px-5 py-5">
+      {/* max-height: Viewport height - 240px of other elements
+       *       width: 450px (content) + 1.25rem of padding on each side
+       */}
+      <div className="flex max-h-[calc(100vh-240px)] w-[calc(450px+(2*1.25rem))] p-5">
         <Modal
+          className="flex max-h-full flex-grow flex-col"
+          headerClassName="*:text-xl px-4 py-4 items-center"
+          bodyClassName="mx-0 my-0"
+          footerClassName="px-4 py-2"
           testId={testIds.modal}
           onSave={onSave}
           onCancel={onCancel}
@@ -48,8 +56,7 @@ export const EditStopModal: FC<Props> = ({
         >
           <StopForm
             defaultValues={defaultValues}
-            stopAreaId={stopAreaId}
-            stopPlaceRef={stopPlaceRef}
+            editing={editing}
             onSubmit={onSubmit}
             ref={formRef}
           />
