@@ -54,7 +54,7 @@
     "prettier-plugin-tailwindcss": "^0.6.10",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.3"
   },
   "resolutions": {
     "eslint-plugin-react-hooks": "5.1.0"
