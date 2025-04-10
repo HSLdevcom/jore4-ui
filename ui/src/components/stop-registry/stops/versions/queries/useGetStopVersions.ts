@@ -7,7 +7,11 @@ import {
 } from '../../../../../generated/graphql';
 import { parseDate } from '../../../../../time';
 import { Priority } from '../../../../../types/enums';
-import { getGeometryPoint, numberEnumValues } from '../../../../../utils';
+import {
+  getGeometryPoint,
+  numberEnumValues,
+  requireValue,
+} from '../../../../../utils';
 import { StopVersion, StopVersionStatus } from '../types';
 
 const GQL_GET_QUAY_VERSIONS = gql`
@@ -62,18 +66,6 @@ function mapPriorityToStopVersionStatus(priority: Priority): StopVersionStatus {
     default:
       return StopVersionStatus.STANDARD;
   }
-}
-
-function requireValue<T>(
-  nullable: T | undefined | null,
-): Exclude<T, undefined | null> {
-  if (nullable === undefined || nullable === null) {
-    throw new Error(
-      `Expected non nullable value but it was: ${String(nullable)}`,
-    );
-  }
-
-  return nullable as Exclude<T, undefined | null>;
 }
 
 function mapQuayToStopVersionInfoItem(
