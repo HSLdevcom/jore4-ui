@@ -19,4 +19,14 @@ export const mapDateInputToValidityStart = (isoDate: string) =>
 export const mapDateInputToValidityEnd = (
   isoDate?: string,
   isIndefinite = false,
-) => (isIndefinite ? null : parseDate(isoDate)?.endOf('day'));
+) => {
+  if (isIndefinite) {
+    return null;
+  }
+
+  if (!isoDate) {
+    throw new Error('End date must either be indefinite or set!');
+  }
+
+  return parseDate(isoDate).endOf('day');
+};
