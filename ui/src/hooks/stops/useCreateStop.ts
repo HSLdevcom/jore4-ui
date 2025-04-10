@@ -1,10 +1,10 @@
 import { gql } from '@apollo/client';
 import flow from 'lodash/flow';
 import {
-  InsertStopMutationVariables,
+  InsertStopPointMutationVariables,
   ScheduledStopPointDefaultFieldsFragment,
   ServicePatternScheduledStopPointInsertInput,
-  useInsertStopMutation,
+  useInsertStopPointMutation,
   useUpdateScheduledStopPointStopPlaceRefMutation,
 } from '../../generated/graphql';
 import { StopWithLocation } from '../../graphql';
@@ -35,11 +35,13 @@ export interface CreateChanges {
   conflicts?: ScheduledStopPointDefaultFieldsFragment[];
 }
 
-const GQL_INSERT_STOP = gql`
-  mutation InsertStop(
-    $object: service_pattern_scheduled_stop_point_insert_input!
+const GQL_INSERT_STOP_POINT = gql`
+  mutation InsertStopPoint(
+    $stopPoint: service_pattern_scheduled_stop_point_insert_input!
   ) {
-    insert_service_pattern_scheduled_stop_point_one(object: $object) {
+    stopPoint: insert_service_pattern_scheduled_stop_point_one(
+      object: $stopPoint
+    ) {
       scheduled_stop_point_id
       located_on_infrastructure_link_id
       direction
@@ -72,20 +74,22 @@ const GQL_UPDATE_SCHEDULED_STOP_POINT_STOP_PLACE_REF = gql`
 `;
 
 export const useCreateStop = () => {
-  const [mutateFunction] = useInsertStopMutation();
+  const [mutateFunction] = useInsertStopPointMutation();
   const [updateScheduledStopPointStopPlaceRefMutation] =
     useUpdateScheduledStopPointStopPlaceRefMutation();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
   const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
   const getRoutesBrokenByStopChange = useGetRoutesBrokenByStopChange();
 
-  const insertStopMutation = async (variables: InsertStopMutationVariables) => {
+  const insertStopMutation = async (
+    variables: InsertStopPointMutationVariables,
+  ) => {
     return mutateFunction({
       variables,
       update(cache) {
         removeFromApolloCache(cache, {
           infrastructure_link_id:
-            variables.object.located_on_infrastructure_link_id,
+            variables.stopPoint.located_on_infrastructure_link_id,
           __typename: 'infrastructure_network_infrastructure_link',
         });
       },
@@ -163,8 +167,8 @@ export const useCreateStop = () => {
   };
 
   const mapCreateChangesToVariables = (changes: CreateChanges) => {
-    const variables: InsertStopMutationVariables = {
-      object: changes.stopToCreate,
+    const variables: InsertStopPointMutationVariables = {
+      stopPoint: changes.stopToCreate,
     };
     return variables;
   };
