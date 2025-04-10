@@ -38890,6 +38890,9 @@ export type StopsDatabaseQuayNewestVersion = {
   /** An object relationship */
   stop_place?: Maybe<StopsDatabaseStopPlace>;
   stop_place_id?: Maybe<Scalars['bigint']['output']>;
+  stop_place_netex_id?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  stop_place_newest_version?: Maybe<StopsDatabaseStopPlaceNewestVersion>;
   stop_place_version?: Maybe<Scalars['bigint']['output']>;
   street_address?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
@@ -39028,6 +39031,8 @@ export type StopsDatabaseQuayNewestVersionBoolExp = {
   site_ref_version?: InputMaybe<StringComparisonExp>;
   stop_place?: InputMaybe<StopsDatabaseStopPlaceBoolExp>;
   stop_place_id?: InputMaybe<BigintComparisonExp>;
+  stop_place_netex_id?: InputMaybe<StringComparisonExp>;
+  stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
   stop_place_version?: InputMaybe<BigintComparisonExp>;
   street_address?: InputMaybe<StringComparisonExp>;
   to_date?: InputMaybe<TimestampComparisonExp>;
@@ -39072,6 +39077,7 @@ export type StopsDatabaseQuayNewestVersionMaxFields = {
   site_ref?: Maybe<Scalars['String']['output']>;
   site_ref_version?: Maybe<Scalars['String']['output']>;
   stop_place_id?: Maybe<Scalars['bigint']['output']>;
+  stop_place_netex_id?: Maybe<Scalars['String']['output']>;
   stop_place_version?: Maybe<Scalars['bigint']['output']>;
   street_address?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
@@ -39116,6 +39122,7 @@ export type StopsDatabaseQuayNewestVersionMinFields = {
   site_ref?: Maybe<Scalars['String']['output']>;
   site_ref_version?: Maybe<Scalars['String']['output']>;
   stop_place_id?: Maybe<Scalars['bigint']['output']>;
+  stop_place_netex_id?: Maybe<Scalars['String']['output']>;
   stop_place_version?: Maybe<Scalars['bigint']['output']>;
   street_address?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
@@ -39165,6 +39172,8 @@ export type StopsDatabaseQuayNewestVersionOrderBy = {
   site_ref_version?: InputMaybe<OrderBy>;
   stop_place?: InputMaybe<StopsDatabaseStopPlaceOrderBy>;
   stop_place_id?: InputMaybe<OrderBy>;
+  stop_place_netex_id?: InputMaybe<OrderBy>;
+  stop_place_newest_version?: InputMaybe<StopsDatabaseStopPlaceNewestVersionOrderBy>;
   stop_place_version?: InputMaybe<OrderBy>;
   street_address?: InputMaybe<OrderBy>;
   to_date?: InputMaybe<OrderBy>;
@@ -39244,6 +39253,8 @@ export enum StopsDatabaseQuayNewestVersionSelectColumn {
   SiteRefVersion = 'site_ref_version',
   /** column name */
   StopPlaceId = 'stop_place_id',
+  /** column name */
+  StopPlaceNetexId = 'stop_place_netex_id',
   /** column name */
   StopPlaceVersion = 'stop_place_version',
   /** column name */
@@ -39346,6 +39357,7 @@ export type StopsDatabaseQuayNewestVersionStreamCursorValueInput = {
   site_ref?: InputMaybe<Scalars['String']['input']>;
   site_ref_version?: InputMaybe<Scalars['String']['input']>;
   stop_place_id?: InputMaybe<Scalars['bigint']['input']>;
+  stop_place_netex_id?: InputMaybe<Scalars['String']['input']>;
   stop_place_version?: InputMaybe<Scalars['bigint']['input']>;
   street_address?: InputMaybe<Scalars['String']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
@@ -42529,7 +42541,6 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
-  quay_public_code?: Maybe<Scalars['String']['output']>;
   rail_submode?: Maybe<Scalars['String']['output']>;
   scheduled_stop_point_instance?: Maybe<ServicePatternScheduledStopPoint>;
   short_name_lang?: Maybe<Scalars['String']['output']>;
@@ -42844,7 +42855,6 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   private_code_type?: InputMaybe<StringComparisonExp>;
   private_code_value?: InputMaybe<StringComparisonExp>;
   public_code?: InputMaybe<StringComparisonExp>;
-  quay_public_code?: InputMaybe<StringComparisonExp>;
   rail_submode?: InputMaybe<StringComparisonExp>;
   short_name_lang?: InputMaybe<StringComparisonExp>;
   short_name_value?: InputMaybe<StringComparisonExp>;
@@ -42910,7 +42920,6 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   private_code_type?: InputMaybe<Scalars['String']['input']>;
   private_code_value?: InputMaybe<Scalars['String']['input']>;
   public_code?: InputMaybe<Scalars['String']['input']>;
-  quay_public_code?: InputMaybe<Scalars['String']['input']>;
   rail_submode?: InputMaybe<Scalars['String']['input']>;
   short_name_lang?: InputMaybe<Scalars['String']['input']>;
   short_name_value?: InputMaybe<Scalars['String']['input']>;
@@ -42965,7 +42974,6 @@ export type StopsDatabaseStopPlaceNewestVersionMaxFields = {
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
-  quay_public_code?: Maybe<Scalars['String']['output']>;
   rail_submode?: Maybe<Scalars['String']['output']>;
   short_name_lang?: Maybe<Scalars['String']['output']>;
   short_name_value?: Maybe<Scalars['String']['output']>;
@@ -43013,7 +43021,6 @@ export type StopsDatabaseStopPlaceNewestVersionMinFields = {
   private_code_type?: Maybe<Scalars['String']['output']>;
   private_code_value?: Maybe<Scalars['String']['output']>;
   public_code?: Maybe<Scalars['String']['output']>;
-  quay_public_code?: Maybe<Scalars['String']['output']>;
   rail_submode?: Maybe<Scalars['String']['output']>;
   short_name_lang?: Maybe<Scalars['String']['output']>;
   short_name_value?: Maybe<Scalars['String']['output']>;
@@ -43070,7 +43077,6 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   private_code_type?: InputMaybe<OrderBy>;
   private_code_value?: InputMaybe<OrderBy>;
   public_code?: InputMaybe<OrderBy>;
-  quay_public_code?: InputMaybe<OrderBy>;
   rail_submode?: InputMaybe<OrderBy>;
   short_name_lang?: InputMaybe<OrderBy>;
   short_name_value?: InputMaybe<OrderBy>;
@@ -43158,8 +43164,6 @@ export enum StopsDatabaseStopPlaceNewestVersionSelectColumn {
   PrivateCodeValue = 'private_code_value',
   /** column name */
   PublicCode = 'public_code',
-  /** column name */
-  QuayPublicCode = 'quay_public_code',
   /** column name */
   RailSubmode = 'rail_submode',
   /** column name */
@@ -43270,7 +43274,6 @@ export type StopsDatabaseStopPlaceNewestVersionStreamCursorValueInput = {
   private_code_type?: InputMaybe<Scalars['String']['input']>;
   private_code_value?: InputMaybe<Scalars['String']['input']>;
   public_code?: InputMaybe<Scalars['String']['input']>;
-  quay_public_code?: InputMaybe<Scalars['String']['input']>;
   rail_submode?: InputMaybe<Scalars['String']['input']>;
   short_name_lang?: InputMaybe<Scalars['String']['input']>;
   short_name_value?: InputMaybe<Scalars['String']['input']>;
