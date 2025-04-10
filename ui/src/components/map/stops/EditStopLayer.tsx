@@ -214,8 +214,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, Props>(
         const stopResult = await insertStopMutation(variables);
 
         const scheduledStopPointId =
-          stopResult.data?.insert_service_pattern_scheduled_stop_point_one
-            ?.scheduled_stop_point_id;
+          stopResult.data?.stopPoint?.scheduled_stop_point_id;
 
         if (!scheduledStopPointId) {
           // if for some reason the insert fails but does not throw an error
