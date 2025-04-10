@@ -96,18 +96,11 @@ describe('Route creation', mapViewport, () => {
           swedishName: 'Test destination SWE',
           swedishShortName: 'Test destination SWE shortName',
         },
+        priority: Priority.Standard,
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: '2025-12-01',
       });
 
-      mapModal.routePropertiesForm.changeValidityForm.setPriority(
-        Priority.Standard,
-      );
-
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
-        '2022-01-01',
-      );
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
-        '2025-12-01',
-      );
       mapModal.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001,
@@ -172,17 +165,11 @@ describe('Route creation', mapViewport, () => {
           swedishName: 'Test destination SWE',
           swedishShortName: 'Test destination SWE shortName',
         },
+        priority: Priority.Standard,
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: '2025-12-01',
       });
 
-      mapModal.routePropertiesForm.changeValidityForm.setPriority(
-        Priority.Standard,
-      );
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
-        '2022-01-01',
-      );
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
-        '2025-12-01',
-      );
       mapModal.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001 - E2E004
@@ -249,18 +236,11 @@ describe('Route creation', mapViewport, () => {
           swedishName: 'Test destination SWE',
           swedishShortName: 'Test destination SWE shortName',
         },
+        priority: Priority.Standard,
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: '2025-12-01',
       });
 
-      mapModal.routePropertiesForm.changeValidityForm.setPriority(
-        Priority.Standard,
-      );
-
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
-        '2022-01-01',
-      );
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
-        '2025-12-01',
-      );
       mapModal.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001 and E2E002
@@ -316,17 +296,11 @@ describe('Route creation', mapViewport, () => {
           swedishName: 'Test destination SWE',
           swedishShortName: 'Test destination SWE shortName',
         },
+        priority: Priority.Standard,
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: undefined, // == indefinite
       });
 
-      mapModal.routePropertiesForm.changeValidityForm.setPriority(
-        Priority.Standard,
-      );
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
-        '2022-01-01',
-      );
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm
-        .getIndefiniteCheckbox()
-        .click();
       mapModal.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001
@@ -371,6 +345,9 @@ describe('Route creation', mapViewport, () => {
           swedishName: 'Test destination SWE',
           swedishShortName: 'Test destination SWE shortName',
         },
+        priority: Priority.Standard,
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: '2025-12-01',
       });
 
       // Use standard route 901 from dataset as template
@@ -379,16 +356,6 @@ describe('Route creation', mapViewport, () => {
         priority: Priority.Standard,
         label: '901',
       });
-
-      mapModal.routePropertiesForm.changeValidityForm.setPriority(
-        Priority.Standard,
-      );
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
-        '2022-01-01',
-      );
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
-        '2025-12-01',
-      );
 
       mapModal.editRouteModal.save();
 
