@@ -1,58 +1,66 @@
 import {
   Priority,
   ReusableComponentsVehicleModeEnum,
+  StopAreaInput,
   timingPlaces,
 } from '@hsl/jore4-test-db-manager';
 import { Tag } from '../../enums';
 import {
   ChangeValidityForm,
+  FilterPanel,
   MapModal,
   Navbar,
   StopDetailsPage,
   StopSearchBar,
   StopSearchResultsPage,
 } from '../../pageObjects';
-import { FilterPanel } from '../../pageObjects/FilterPanel';
 import { insertToDbHelper } from '../../utils';
-import { mapViewport } from '../utils';
+import { InsertedStopRegistryIds, mapViewport } from '../utils';
 
 const testStopLabels = {
   testLabel1: 'T0001',
-  manualCoordinatesLabel: 'TManual',
-  endDateLabel: 'TEndDate',
-  timingPlaceLabel: 'Timing place stop label',
+  stopAreaPrivateCode: '123456',
+  stopAreaName: 'Test area',
+  manualCoordinatesLabel: 'T0002',
+  endDateLabel: 'T0003',
+  timingPlaceLabel: 'T0004',
 };
 
-const dbResources = {
-  timingPlaces,
-};
+const dbResources = { timingPlaces };
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Stop creation tests', mapViewport, () => {
-  let mapModal: MapModal;
-  let mapFilterPanel: FilterPanel;
-  let changeValidityForm: ChangeValidityForm;
-  let navbar: Navbar;
-  let stopSearchBar: StopSearchBar;
-  let stopSearchResultsPage: StopSearchResultsPage;
-  let stopDetailsPage: StopDetailsPage;
+const stopAreaInput: Array<StopAreaInput> = [
+  {
+    StopArea: {
+      name: { lang: 'fin', value: testStopLabels.stopAreaName },
+      privateCode: { type: 'HSL', value: testStopLabels.stopAreaPrivateCode },
+    },
+    organisations: null,
+  },
+];
 
+const mapModal = new MapModal();
+const mapFilterPanel = new FilterPanel();
+const changeValidityForm = new ChangeValidityForm();
+const navbar = new Navbar();
+const stopSearchBar = new StopSearchBar();
+const stopSearchResultsPage = new StopSearchResultsPage();
+const stopDetailsPage = new StopDetailsPage();
+
+describe('Stop creation tests', mapViewport, () => {
   beforeEach(() => {
     cy.task('resetDbs');
     insertToDbHelper(dbResources);
 
-    mapModal = new MapModal();
-    mapFilterPanel = new FilterPanel();
-    changeValidityForm = new ChangeValidityForm();
-    navbar = new Navbar();
-    stopSearchBar = new StopSearchBar();
-    stopSearchResultsPage = new StopSearchResultsPage();
-    stopDetailsPage = new StopDetailsPage();
+    cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
+      stopPlaces: stopAreaInput,
+      stopPointsRequired: false,
+    });
 
     cy.setupTests();
     cy.mockLogin();
 
     mapModal.map.visit({
+      path: '/stops',
       zoom: 16,
       lat: 60.164074274478054,
       lng: 24.93021804533524,
@@ -66,6 +74,7 @@ describe.skip('Stop creation tests', mapViewport, () => {
       mapModal.createStopAtLocation({
         stopFormInfo: {
           label: testStopLabels.testLabel1,
+          stopPlace: testStopLabels.stopAreaPrivateCode,
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
         },
@@ -95,6 +104,7 @@ describe.skip('Stop creation tests', mapViewport, () => {
       mapModal.createStopAtLocation({
         stopFormInfo: {
           label: testStopLabels.manualCoordinatesLabel,
+          stopPlace: testStopLabels.stopAreaPrivateCode,
           // Actual coordinates will be on Topeliuksenkatu
           latitude: '60.18072918584129',
           longitude: '24.92131574451069',
@@ -133,6 +143,7 @@ describe.skip('Stop creation tests', mapViewport, () => {
       mapModal.createStopAtLocation({
         stopFormInfo: {
           label: testStopLabels.endDateLabel,
+          stopPlace: testStopLabels.stopAreaPrivateCode,
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2040-12-31',
           priority: Priority.Standard,
@@ -173,6 +184,7 @@ describe.skip('Stop creation tests', mapViewport, () => {
       mapModal.createStopAtLocation({
         stopFormInfo: {
           label: testStopLabels.timingPlaceLabel,
+          stopPlace: testStopLabels.stopAreaPrivateCode,
           // seed timing places should always have label defined
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           timingPlace: timingPlaces[0].label!,
@@ -204,16 +216,16 @@ describe.skip('Stop creation tests', mapViewport, () => {
     },
   );
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip(
+  it(
     'Should create stop and have its stop registry details correctly',
     { tags: [Tag.Map, Tag.Stops, Tag.StopRegistry], scrollBehavior: 'bottom' },
     () => {
       mapModal.mapFooter.addStop();
       mapModal.map.clickRelativePoint(40, 55);
 
-      mapModal.stopForm.fillForm({
+      mapModal.stopForm.fillFormForNewStop({
         label: 'T0001',
+        stopPlace: testStopLabels.stopAreaPrivateCode,
         validityStartISODate: '2022-01-01',
         priority: Priority.Standard,
       });
@@ -230,7 +242,9 @@ describe.skip('Stop creation tests', mapViewport, () => {
 
       // NOTE: After adding the name inputs to stop creation flow, this will fail and
       // needs to be updated to the correct names
-      stopDetailsPage.titleRow.names().shouldHaveText('T0001|-');
+      stopDetailsPage.titleRow
+        .names()
+        .shouldHaveText(`${testStopLabels.stopAreaName}|-`);
     },
   );
 });

@@ -30,7 +30,7 @@ export const StopVersionActionMenu: FC<StopVersionActionMenuProps> = ({
       alignItems={AlignDirection.LeftBottom}
       testId={testIds.actionMenu}
     >
-      <ShowOnMap stop={stop} observeOnStopValidityStartDate />
+      <ShowOnMap stop={stop} observationDate={stop.startDate} />
       <OpenDetailsPage
         stop={stop}
         observationDate={stop.startDate}

@@ -93,15 +93,15 @@
     "lineMissingDefault": "Tuntematon virhe linjan tiedoissa."
   },
   "stops": {
-    "stop": "Pysäkki",
     "stops": "Pysäkit",
     "stopWithLabel": "Pysäkki {{ stopLabel }}",
     "createStop": "Luo uusi pysäkki",
-    "label": "Lyhyttunnus",
+    "label": "Pysäkin tunnus",
     "timingPlaceId": "Hastus-paikka",
     "chooseTimingPlace": "Ei Hastus-paikkaa valittuna",
     "noTimingPlace": "Ei Hastus-paikkaa",
-    "createTimingPlace": "Luo uusi",
+    "createTimingPlace": "Luo Hastus",
+    "versionInfoTitle": "Version voimassaolo",
     "nameAddress": "Nimi ja osoite",
     "saveSuccess": "Pysäkki luotu",
     "editSuccess": "Pysäkki muokattu",
@@ -115,7 +115,8 @@
     "addToRoute": "Lisää reitille",
     "stopBreaksRoutes": "Lisättävä pysäkki ei ole yhteensopiva seuraavien reittien kanssa: ({{ routeLabels }})",
     "timingPlaceRequired": "Pysäkkiä käytetään Hastus-paikkana seuraavilla reiteillä: {{ routeLabels }}. Aseta Hastus-paikka tai poista Hastus-paikka käytöstä reiteiltä.",
-    "tiamatUpdateFailed": "Pysäkkien tiedot on päivitty linjastoon, mutta niiden vienti pysäkkirekisteriin epäonnistui! Tallennusta on syytä yrittää uudelleen!: Syy: {{ errorMessage }}"
+    "tiamatUpdateFailed": "Pysäkkien päivitys pysäkkirekisteriin epäonnistui! Muutoksia ei ole myöskään viety linjastoon. Syy: {{ errorMessage }}",
+    "stopPointUpdateFailed": "Pysäkkien tiedot on päivitty pysäkkirekisteriin, mutta niiden vienti linjastoon epäonnistui! Tallennusta on syytä yrittää uudelleen! Syy: {{ errorMessage }}"
   },
   "stopArea": {
     "stopArea": "Pysäkkialue",

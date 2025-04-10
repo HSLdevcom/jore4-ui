@@ -353,7 +353,7 @@ function assembleStopPlace(
 ): StopRegistryStopPlaceInput {
   return {
     ...stopPlace,
-    quays: patchedQuays,
+    quays: patchedQuays.length ? patchedQuays : [null],
     keyValues: combineKeyValues(
       [
         {
