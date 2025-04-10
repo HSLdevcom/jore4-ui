@@ -105,7 +105,7 @@ export class TimingPlaceRequiredError extends ExtendableError {
   }
 }
 
-export class TiamatUpdateFailedError extends Error {
+class GetCauseMessageError extends Error {
   get causeMessage() {
     const { cause } = this;
     if (typeof cause === 'object' && cause !== null && 'message' in cause) {
@@ -115,3 +115,7 @@ export class TiamatUpdateFailedError extends Error {
     return '';
   }
 }
+
+export class TiamatUpdateFailedError extends GetCauseMessageError {}
+
+export class StopPointUpdateFailed extends GetCauseMessageError {}

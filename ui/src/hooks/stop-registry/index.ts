@@ -1,6 +1,5 @@
 export * from './stop-areas';
 export * from './useCalculateStopAccessibilityLevel';
-export * from './useCreateStopPlace';
 export * from './useEditStopBasicDetails';
 export * from './useEditStopLocationDetails';
 export * from './useEditStopMeasurementDetails';

@@ -1,11 +1,10 @@
 import React, { useImperativeHandle, useRef } from 'react';
-import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
-import { StopWithLocation } from '../../../graphql';
+import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import {
   useAppAction,
   useAppSelector,
-  useCreateStop,
-  useEditStop,
+  useCheckIsLocationValidForStop,
+  useDefaultErrorHandler,
   useLoader,
   useMapStops,
 } from '../../../hooks';
@@ -13,31 +12,25 @@ import {
   LoadingState,
   MapEntityType,
   Operation,
-  selectEditedStopData,
+  selectDraftLocation,
   selectIsCreateStopModeEnabled,
   selectIsMoveStopModeEnabled,
   selectMapViewport,
   selectSelectedStopId,
   selectShowMapEntityTypes,
   selectStopAreaEditorIsActive,
-  setEditedStopDataAction,
+  setDraftLocationAction,
   setIsCreateStopModeEnabledAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
 import { mapLngLatToGeoJSON, mapLngLatToPoint } from '../../../utils';
-import {
-  addLineFromStopToInfraLink,
-  createGeometryLineBetweenPoints,
-  removeLineFromStopToInfraLink,
-} from '../../../utils/map';
-import { useGetStopPointForQuay } from '../../hooks';
 import { EditStoplayerRef } from '../refTypes';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 import { useFilterStops } from './useFilterStops';
-import { MapStop, useGetMapStops } from './useGetMapStops';
+import { useGetMapStops } from './useGetMapStops';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
@@ -46,10 +39,9 @@ const testIds = {
 
 export const Stops = React.forwardRef((_props, ref) => {
   const filter = useFilterStops();
-  const { current: map } = useMap();
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
-  const editedStopData = useAppSelector(selectEditedStopData);
+  const draftLocation = useAppSelector(selectDraftLocation);
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
   const stopAreaEditorIsActive = useAppSelector(selectStopAreaEditorIsActive);
@@ -58,7 +50,7 @@ export const Stops = React.forwardRef((_props, ref) => {
   );
 
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
-  const setEditedStopData = useAppAction(setEditedStopDataAction);
+  const setDraftStopLocation = useAppAction(setDraftLocationAction);
   const setIsCreateStopModeEnabled = useAppAction(
     setIsCreateStopModeEnabledAction,
   );
@@ -68,7 +60,6 @@ export const Stops = React.forwardRef((_props, ref) => {
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
-  const getStopPointForMapStop = useGetStopPointForQuay();
 
   const viewport = useAppSelector(selectMapViewport);
   // Skip initial 0 radius fetch and wait for the map to get loaded,
@@ -85,29 +76,18 @@ export const Stops = React.forwardRef((_props, ref) => {
   });
   const stops = filter(unfilteredStops);
 
-  // can be used for triggering the edit for both existing and draft stops
-  const onEditStop = (stop: StopWithLocation) => {
-    if (stop.closest_point_on_infrastructure_link) {
-      const nearestRoad = createGeometryLineBetweenPoints(
-        stop.measured_location.coordinates,
-        stop.closest_point_on_infrastructure_link.coordinates,
-      );
-      addLineFromStopToInfraLink(map?.getMap(), nearestRoad);
-    }
-
-    setSelectedStopId(stop.stop_place_ref ?? undefined);
-    setEditedStopData(stop);
-  };
-
-  const { createDraftStop } = useCreateStop();
-  const { defaultErrorHandler } = useEditStop();
+  const checkIsLocationValidForStop = useCheckIsLocationValidForStop();
+  const defaultErrorHandler = useDefaultErrorHandler();
   useImperativeHandle(ref, () => ({
     onCreateStop: async (e: MapLayerMouseEvent) => {
       setFetchStopsLoadingState(LoadingState.HighPriority);
       try {
         const stopLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
-        const draftStop = await createDraftStop(stopLocation);
-        onEditStop(draftStop);
+        await checkIsLocationValidForStop(stopLocation);
+        setDraftStopLocation({
+          latitude: e.lngLat.lat,
+          longitude: e.lngLat.lng,
+        });
         setIsCreateStopModeEnabled(false);
       } catch (err) {
         defaultErrorHandler(err as Error);
@@ -119,14 +99,15 @@ export const Stops = React.forwardRef((_props, ref) => {
     },
   }));
 
-  const onClickStop = async (stop: MapStop) => {
-    onEditStop(await getStopPointForMapStop(stop.netex_id));
+  const onPopupClose = () => {
+    setSelectedStopId(undefined);
+    setDraftStopLocation(undefined);
   };
 
   const onEditingFinished = async () => {
-    setEditedStopData(undefined);
     // the newly created stop should become a regular stop from a draft
     // also, the recently edited stop's data is refetched
+    setDraftStopLocation(undefined);
     await refetchStops();
     setIsLoadingSaveStop(false);
   };
@@ -147,19 +128,20 @@ export const Stops = React.forwardRef((_props, ref) => {
             selected={item.netex_id === selectedStopId}
             longitude={point.longitude}
             latitude={point.latitude}
-            onClick={() => onClickStop(item)}
+            onClick={() => setSelectedStopId(item.netex_id)}
             isHighlighted={getStopHighlighted(item.netex_id)}
             vehicleMode={getStopVehicleMode(item)}
           />
         );
       })}
       {/* Display edited stop + its editor components */}
-      {editedStopData && (
+      {(selectedStopId ?? draftLocation) && (
         <EditStopLayer
           ref={editStopLayerRef}
-          editedStopData={editedStopData}
+          selectedStopId={selectedStopId ?? null}
+          draftLocation={draftLocation ?? null}
           onEditingFinished={onEditingFinished}
-          onPopupClose={() => removeLineFromStopToInfraLink(map?.getMap())}
+          onPopupClose={onPopupClose}
         />
       )}
       {/* Display hovering bus stop while in create mode */}
