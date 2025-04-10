@@ -10,13 +10,23 @@ a:focus {
   outline-offset: 0.2em;
 }
 
+:root {
+  --input-height: 44px;
+}
+
 input,
 textarea {
-  height: 44px;
   padding: 12px 10px 12px 10px;
   border: 1px solid #888888;
   border-radius: 5px;
   background-color: white;
+}
+
+input {
+  height: var(--input-height);
+}
+textarea {
+  min-height: var(--input-height);
 }
 
 input:disabled,
@@ -30,7 +40,8 @@ textarea:disabled {
   color: #666666;
 }
 
-label {
+label,
+legend {
   font-weight: 700;
   font-size: 14px;
   margin-bottom: 4px;
