@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -27,15 +28,19 @@ const testIds = {
   indefiniteCheckbox: 'ValidityPeriodForm::indefiniteCheckbox',
 };
 
-interface Props {
-  className?: string;
-}
+type ValidityPeriodFormProps = {
+  readonly className?: string;
+  readonly dateInputRowClassName?: string;
+};
 
 /**
  * Component for selecting validity period for an entity (e.g. line, route, stop).
  * Can be merged with other forms.
  */
-export const ValidityPeriodForm = ({ className = '' }: Props): JSX.Element => {
+export const ValidityPeriodForm: FC<ValidityPeriodFormProps> = ({
+  className,
+  dateInputRowClassName,
+}) => {
   const { t } = useTranslation();
   const { register, watch } = useFormContext<ValidityPeriodFormState>();
 
@@ -44,7 +49,7 @@ export const ValidityPeriodForm = ({ className = '' }: Props): JSX.Element => {
   return (
     <div className={className}>
       <FormColumn>
-        <FormRow mdColumns={2}>
+        <FormRow className={dateInputRowClassName} mdColumns={2}>
           <InputField<ValidityPeriodFormState>
             type="date"
             translationPrefix="validityPeriod"
