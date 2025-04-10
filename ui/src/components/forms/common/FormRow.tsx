@@ -1,4 +1,5 @@
 import React, { FC, ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   className?: string;
@@ -25,7 +26,10 @@ export const FormRow: FC<Props> = ({
 
   return (
     <div
-      className={`${className} ${baseClassName} ${lgClassName} ${mdClassName} ${smClassName}`}
+      className={twMerge(
+        `${baseClassName} ${lgClassName} ${mdClassName} ${smClassName}`,
+        className,
+      )}
       data-testid={testId}
     >
       {children}
