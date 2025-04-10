@@ -1,6 +1,6 @@
 import { defineConfig } from 'cypress';
 import * as tasks from './e2e/utils/tasks';
-import { onLaunchBrowser } from './support/setHeadlessScreenSize';
+import { onLaunchBrowser } from './support/launchBrowser';
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({

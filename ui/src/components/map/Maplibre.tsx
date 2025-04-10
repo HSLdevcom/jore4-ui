@@ -172,6 +172,7 @@ export const Maplibre: FC<Props> = ({
       onClick={onClick}
       mapStyle={style as ExplicitAny}
       onMove={(event) => onViewportChange(event.viewState)}
+      onMoveEnd={(event) => onViewportChange(event.viewState)}
       doubleClickZoom={false}
       ref={mapRef}
       onLoad={onLoad}

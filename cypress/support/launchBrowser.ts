@@ -15,7 +15,7 @@
  * @param browser
  * @param launchOptions
  */
-function launchHeadlessBrowserWithScreenSize(
+function setHeadlessBrowserScreenSizeLaunchOptions(
   width: number,
   height: number,
   browser: Cypress.Browser,
@@ -56,7 +56,7 @@ function launchHeadlessBrowserWithScreenSize(
   return launchOptions;
 }
 
-export function onLaunchBrowser(
+function applyScreenSizeOptions(
   browser: Cypress.Browser,
   launchOptions: Cypress.BeforeBrowserLaunchOptions,
 ): Cypress.BeforeBrowserLaunchOptions {
@@ -67,7 +67,7 @@ export function onLaunchBrowser(
   );
 
   if (!browser.isHeadless) {
-    console.log('Not headless - Launching with default options!');
+    console.log('Not headless - Launching with default screen size options!');
     return launchOptions;
   }
 
@@ -80,7 +80,7 @@ export function onLaunchBrowser(
     console.log(
       'Headless - Found proper width and height - Launching with custom size!',
     );
-    return launchHeadlessBrowserWithScreenSize(
+    return setHeadlessBrowserScreenSizeLaunchOptions(
       width,
       height,
       browser,
@@ -94,8 +94,44 @@ export function onLaunchBrowser(
     );
   }
 
-  console.log('Headless - Launching with default options!');
+  console.log('Headless - Launching with default screen size options!');
   return launchOptions;
+}
+
+// Set the browser into reduced motion mode.
+// Prevents flakyness in map tests by disabling map panning/zooming animations.
+function applyReducedMotionOptions(
+  browser: Cypress.Browser,
+  launchOptions: Cypress.BeforeBrowserLaunchOptions,
+): Cypress.BeforeBrowserLaunchOptions {
+  if (browser.name === 'chrome') {
+    return {
+      ...launchOptions,
+      args: launchOptions.args.concat('--force-prefers-reduced-motion'),
+    };
+  }
+
+  if (browser.name === 'firefox') {
+    return {
+      ...launchOptions,
+      preferences: {
+        ...launchOptions.preferences,
+        'ui.prefersReducedMotion': 1,
+      },
+    };
+  }
+
+  return launchOptions;
+}
+
+export function onLaunchBrowser(
+  browser: Cypress.Browser,
+  launchOptions: Cypress.BeforeBrowserLaunchOptions,
+): Cypress.BeforeBrowserLaunchOptions {
+  const withScreenSize = applyScreenSizeOptions(browser, launchOptions);
+  const withReducedMotion = applyReducedMotionOptions(browser, withScreenSize);
+
+  return withReducedMotion;
 }
 
 export function registerBrowserLaunchHook() {
