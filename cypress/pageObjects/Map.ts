@@ -81,10 +81,10 @@ export class Map {
     return cy.getByTestId(`Map::StopArea::stopArea::${id}`);
   }
 
-  visit(params?: { zoom?: number; lat: number; lng: number }) {
+  visit(params?: { zoom?: number; lat: number; lng: number; path?: string }) {
     if (params) {
       cy.visit(
-        `/routes?${qs.stringify({
+        `${params.path ?? '/routes'}?${qs.stringify({
           z: params.zoom ?? 13, // 13 is default zoom level
           mapOpen: true,
           lat: params.lat,
