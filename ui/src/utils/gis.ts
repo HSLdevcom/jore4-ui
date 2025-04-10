@@ -40,16 +40,22 @@ export const mapPointToStopRegistryGeoJSON = ({
   };
 };
 
-export const mapLngLatToPoint = (lngLat: ReadonlyArray<number>): Point => {
+export const mapLngLatToPoint = (
+  lngLat: ReadonlyArray<number>,
+  maxPrecision?: number,
+): Point => {
   if (lngLat.length < 2 || lngLat.length > 3) {
     throw new Error(
       `Expected lngLat to be like [number, number] or [number, number, number] but got ${lngLat}`,
     );
   }
+
+  const [lon, lat, ele = 0] = lngLat;
+
   return {
-    longitude: lngLat[0],
-    latitude: lngLat[1],
-    elevation: lngLat[2] ?? 0,
+    longitude: maxPrecision ? Number(lon.toPrecision(maxPrecision)) : lon,
+    latitude: maxPrecision ? Number(lat.toPrecision(maxPrecision)) : lat,
+    elevation: maxPrecision ? Number(ele.toPrecision(maxPrecision)) : ele,
   };
 };
 
@@ -91,6 +97,12 @@ export function isValidGeoJSONPoint(
   );
 }
 
+export function getGeometryPoint(geometry: undefined): null;
+export function getGeometryPoint(geometry: null): null;
+export function getGeometryPoint(geometry: GeoJSON.Point): Point;
+export function getGeometryPoint(
+  geometry: GeoJSON.Geometry | StopRegistryGeoJson | null | undefined,
+): Point | null;
 export function getGeometryPoint(
   geometry: GeoJSON.Geometry | StopRegistryGeoJson | null | undefined,
 ): Point | null {
