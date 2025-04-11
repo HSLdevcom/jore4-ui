@@ -102,6 +102,8 @@ export const FileImportDragAndDrop = ({ fileList, setFileList }: Props) => {
             classNames.outerCircle,
           )}
         >
+          {/* TODO: Needs proper support accessibility. */}
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label
             htmlFor="file-upload-input"
             className="absolute left-6 top-6 flex h-60 w-60 cursor-pointer items-center justify-center rounded-full bg-white p-5 text-center"
