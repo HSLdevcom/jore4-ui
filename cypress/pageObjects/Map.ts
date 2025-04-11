@@ -110,24 +110,34 @@ export class Map {
     return cy.getByTestId('mapModal');
   }
 
-  // Route editor handle needs to exists in start coordinate
+  // Route editor handle needs to exist in start coordinate
   moveRouteEditorHandle = (coordinates: {
     start: { x: number; y: number };
     destination: { x: number; y: number };
   }) => {
     // Focus canvas before triggering mouse events
     // Cypress mousedown event doesn't focus map when triggering
-    cy.get('*[class^="maplibregl-canvas"]').last().focus();
+    cy.get('canvas.maplibregl-canvas').focus();
     this.getMapModal().trigger('mousedown', {
-      which: 1,
+      button: 1,
+      buttons: 1,
       x: coordinates.start.x,
       y: coordinates.start.y,
+      eventConstructor: 'MouseEvent',
     });
     this.getMapModal().trigger('mousemove', {
-      which: 1,
+      button: 1,
+      buttons: 1,
       x: coordinates.destination.x,
       y: coordinates.destination.y,
+      eventConstructor: 'MouseEvent',
     });
-    this.getMapModal().trigger('mouseup');
+    this.getMapModal().trigger('mouseup', {
+      button: 1,
+      buttons: 1,
+      x: coordinates.destination.x,
+      y: coordinates.destination.y,
+      eventConstructor: 'MouseEvent',
+    });
   };
 }
