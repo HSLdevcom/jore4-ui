@@ -1,6 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies,@typescript-eslint/no-require-imports */
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-var-requires */
 
 // custom dev server for being able to proxy websocket traffic from
 // relative url to local dev server
@@ -107,7 +106,7 @@ app
     });
 
     // Default catch-all handler to allow Next.js to handle all other routes
-    server.all('*', (req, res) => nextRequestHandler(req, res));
+    server.all('/{*splat}', (req, res) => nextRequestHandler(req, res));
 
     const httpServer = server.listen(port, (err) => {
       if (err) {

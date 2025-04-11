@@ -6,9 +6,7 @@ let graphqlClient: ReturnType<typeof createGraphqlClient> | null = null;
 
 export const ApolloProvider: FC<PropsWithChildren> = ({ children }) => {
   // Initialize client only once, so we get only one cache instance.
-  if (!graphqlClient) {
-    graphqlClient = createGraphqlClient();
-  }
+  graphqlClient ??= createGraphqlClient();
 
   return <Provider client={graphqlClient}>{children}</Provider>;
 };
