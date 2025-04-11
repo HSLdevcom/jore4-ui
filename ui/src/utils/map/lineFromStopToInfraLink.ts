@@ -3,18 +3,24 @@ import { point } from '@turf/helpers';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import pointToLineDistance from '@turf/point-to-line-distance';
 import { Feature, LineString, Point } from 'geojson';
-import { MapInstance } from 'react-map-gl';
-import { Coords } from '../../types';
+import minBy from 'lodash/minBy';
+import {
+  GeoJSONSource,
+  MapGeoJSONFeature,
+  Point as MapLibrePoint,
+} from 'maplibre-gl';
+import { MapInstance } from 'react-map-gl/maplibre';
+import { notNullish } from '../misc';
 import {
   Geometry,
   createGeometryLineBetweenPoints,
   removeLayer,
 } from './mapUtils';
 
-interface FeatureAndDistance {
-  feature: Feature<LineString>;
-  distance: number;
-}
+type LineAndDistance = {
+  readonly line: LineString;
+  readonly distance: number;
+};
 
 const INFRA_CONNECTION_NAME = 'infraConnection';
 
@@ -23,12 +29,12 @@ const ROAD_LAYER_ID = 'digiroad_r_links';
 
 const SEARCH_RADIUS_IN_PIXELS = 100;
 
-const findFeaturesForLayerWithRadius = (
+function findFeaturesForLayerWithRadius(
   map: MapInstance,
   layerId: string,
-  coords: Coords,
+  coords: MapLibrePoint,
   radius: number,
-) => {
+) {
   if (map.getLayer(layerId)) {
     return map.queryRenderedFeatures(
       [
@@ -38,56 +44,83 @@ const findFeaturesForLayerWithRadius = (
       { layers: [layerId] },
     );
   }
+
   return [];
-};
+}
 
 // Turn any possible MultiLineStrings in the feature into LineStrings
-const getLineStringFromFeature = (feature: Feature<Geometry>) => {
-  const flattened = flatten(feature);
-  if (flattened.features.length > 0) {
-    return flattened.features;
+function getLineStringFromFeature({ geometry }: MapGeoJSONFeature) {
+  if (geometry.type === 'LineString') {
+    return [geometry];
   }
-  return [feature.geometry];
-};
 
-const distanceToNearestPointOnFeature = (
-  cursorLocation: Feature<Point>,
-  feature: Feature<LineString>,
-) => {
-  return getLineStringFromFeature(feature)
-    .map((line) =>
-      pointToLineDistance(cursorLocation, line, {
+  if (geometry.type === 'MultiLineString') {
+    const flattened = flatten(geometry);
+    return flattened.features.map((feature) => feature.geometry);
+  }
+
+  return [];
+}
+
+function distanceToNearestPointOnLineFeature(
+  cursorLocation: Point,
+  feature: MapGeoJSONFeature,
+): LineAndDistance | null {
+  const pairs = getLineStringFromFeature(feature).map(
+    (line): LineAndDistance => ({
+      line,
+      distance: pointToLineDistance(cursorLocation, line, {
         units: 'meters',
       }),
-    )
-    .reduce((previousValue, currentValue) =>
-      Math.min(previousValue, currentValue),
-    );
-};
+    }),
+  );
 
-export const removeLineFromStopToInfraLink = (map: MapInstance | undefined) => {
+  return minBy(pairs, (pair) => pair.distance) ?? null;
+}
+
+function findNearestPointOnLineFeatures(
+  cursorLocation: Point,
+  features: ReadonlyArray<MapGeoJSONFeature>,
+): Point | null {
+  const lineDistancePairs = features
+    .map((feature) =>
+      distanceToNearestPointOnLineFeature(cursorLocation, feature),
+    )
+    .filter(notNullish);
+
+  const nearestLine = minBy(lineDistancePairs, (it) => it.distance);
+
+  if (!nearestLine) {
+    return null;
+  }
+
+  // find the nearest point on the nearest network connection
+  return nearestPointOnLine(nearestLine.line, cursorLocation).geometry;
+}
+
+export function removeLineFromStopToInfraLink(map: MapInstance | undefined) {
   if (map) {
     removeLayer(map, INFRA_CONNECTION_NAME);
   }
-};
+}
 
-export const addLineFromStopToInfraLink = (
+export function addLineFromStopToInfraLink(
   map: MapInstance | undefined,
   geometry: Geometry,
-) => {
+) {
   if (!map) {
     return;
   }
 
   const source = map.getSource(INFRA_CONNECTION_NAME);
-  const sourceData = { type: 'Feature', properties: {}, geometry };
+  const sourceData: Feature = { type: 'Feature', properties: {}, geometry };
 
   if (!source) {
     map.addSource(INFRA_CONNECTION_NAME, {
       type: 'geojson',
       data: sourceData,
     });
-  } else {
+  } else if (source instanceof GeoJSONSource) {
     source.setData(sourceData);
   }
 
@@ -108,47 +141,40 @@ export const addLineFromStopToInfraLink = (
       },
     });
   }
-};
+}
 
-export const drawLineToClosestRoad = (
+export function drawLineToClosestRoad(
   map: MapInstance | undefined,
-  coords: Coords,
-) => {
+  coords: MapLibrePoint,
+) {
   if (!map) {
     return;
   }
 
-  const features: Feature<LineString>[] = findFeaturesForLayerWithRadius(
-    map,
-    ROAD_LAYER_ID,
-    coords,
-    SEARCH_RADIUS_IN_PIXELS,
+  const features: ReadonlyArray<MapGeoJSONFeature> =
+    findFeaturesForLayerWithRadius(
+      map,
+      ROAD_LAYER_ID,
+      coords,
+      SEARCH_RADIUS_IN_PIXELS,
+    );
+
+  // convert cursor location from pixel coordinates to lat/lng
+  const cursorLocation = point(map.unproject(coords).toArray()).geometry;
+  const nearestPointOnFeatures = findNearestPointOnLineFeatures(
+    cursorLocation,
+    features,
   );
 
-  if (features && features.length > 0) {
-    // convert cursor location from pixel coordinates to lat/lng
-    const cursorLocation = point(map.unproject(coords).toArray());
-
-    // pair each network connection with the distance from the coordinates
-    const linesWithDistance: FeatureAndDistance[] = features.map((line) => ({
-      feature: line,
-      distance: distanceToNearestPointOnFeature(cursorLocation, line),
-    }));
-
-    // find the nearest network connection
-    const nearestLine = linesWithDistance.reduce((prev, next) =>
-      prev.distance < next.distance ? prev : next,
-    ).feature;
-
-    // find the nearest point on the nearest network connection
-    const nearestPoint = nearestPointOnLine(nearestLine, cursorLocation);
-
+  if (nearestPointOnFeatures) {
     const lineToNetworkConnection = createGeometryLineBetweenPoints(
-      nearestPoint.geometry.coordinates,
-      cursorLocation.geometry.coordinates,
+      nearestPointOnFeatures.coordinates,
+      cursorLocation.coordinates,
     );
     addLineFromStopToInfraLink(map, lineToNetworkConnection);
-  } else {
+  }
+
+  if (!features.length) {
     removeLineFromStopToInfraLink(map);
   }
-};
+}

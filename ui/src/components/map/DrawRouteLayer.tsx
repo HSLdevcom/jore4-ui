@@ -1,5 +1,4 @@
 import isEmpty from 'lodash/isEmpty';
-import { Map } from 'maplibre-gl';
 import React, {
   Ref,
   useCallback,
@@ -7,8 +6,7 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { MapRef } from 'react-map-gl/dist/esm/mapbox/create-ref';
-import { useMap } from 'react-map-gl/maplibre';
+import { MapRef, useMap } from 'react-map-gl/maplibre';
 import { useGetRouteDetailsByIdQuery } from '../../generated/graphql';
 import { mapRouteToInfraLinksAlongRoute } from '../../graphql';
 import {
@@ -35,10 +33,7 @@ interface Props {
   editorLayerRef: Ref<EditorLayerRef>;
 }
 
-const setCursor = (
-  map: MapRef<Map> | undefined,
-  drawingMode: Mode | undefined,
-) => {
+const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
   if (!map) {
     return;
   }
