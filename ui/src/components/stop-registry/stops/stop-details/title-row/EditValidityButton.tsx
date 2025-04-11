@@ -18,6 +18,8 @@ export const EditValidityButton: FC<EditValidityButtonProps> = ({
   stop,
 }) => {
   return (
+    // TODO: Add proper accessibility when adding actual implementation.
+    // eslint-disable-next-line jsx-a11y/control-has-associated-label
     <button
       className={twMerge(
         'h-11 w-11',
