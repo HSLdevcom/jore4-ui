@@ -7,7 +7,7 @@ import { RoutePropertiesForm } from './RoutePropertiesForm';
 import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopAreaForm } from './StopAreaForm';
 import { StopAreaPopup } from './StopAreaPopup';
-import { StopForm, StopFormInfo } from './StopForm';
+import { NewStopFormInfo, StopForm } from './StopForm';
 import { Toast } from './Toast';
 
 export class MapModal {
@@ -38,7 +38,7 @@ export class MapModal {
     stopFormInfo,
     clickRelativePoint,
   }: {
-    stopFormInfo: StopFormInfo;
+    stopFormInfo: NewStopFormInfo;
     clickRelativePoint: { xPercentage: number; yPercentage: number };
   }) => {
     this.mapFooter.addStop();
@@ -48,7 +48,7 @@ export class MapModal {
       clickRelativePoint.yPercentage,
     );
 
-    this.stopForm.fillForm(stopFormInfo);
+    this.stopForm.fillFormForNewStop(stopFormInfo);
 
     this.stopForm.save();
   };
@@ -58,7 +58,8 @@ export class MapModal {
   }
 
   gqlStopShouldBeCreatedSuccessfully() {
-    return expectGraphQLCallToSucceed('@gqlInsertStop');
+    expectGraphQLCallToSucceed('@gqlInsertStopPoint');
+    expectGraphQLCallToSucceed('@gqlInsertQuayIntoStopPlace');
   }
 
   getCloseButton() {

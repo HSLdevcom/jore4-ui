@@ -93,15 +93,22 @@
     "lineMissingDefault": "Unknown error in line information."
   },
   "stops": {
-    "stop": "Stop",
     "stops": "Stops",
     "stopWithLabel": "Stop {{ stopLabel }}",
     "createStop": "Create new stop",
     "label": "Label",
+    "stopArea": {
+      "label": "Search for Stop Area",
+      "search": "Search",
+      "searching": "Searching...",
+      "help": "Search by writing the name or label of some Stop Area",
+      "showDetails": "Language versions and abbreviations"
+    },
     "timingPlaceId": "Hastus place",
     "chooseTimingPlace": "Hastus place not selected",
     "noTimingPlace": "No Hastus place",
     "createTimingPlace": "Create new",
+    "versionInfoTitle": "Version's validity",
     "nameAddress": "Name and address",
     "saveSuccess": "Stop created",
     "editSuccess": "Stop edited",
@@ -115,7 +122,9 @@
     "addToRoute": "Add to route",
     "stopBreaksRoutes": "The stop to be added is not compatible with the following routes: ({{ routeLabels }})",
     "timingPlaceRequired": "The stop is used as timing place on the following routes: {{ routeLabels }}. Attach timing place or stop using as timing point on the routes.",
-    "tiamatUpdateFailed": "The stop's details have been saved into the routes and lines database, but saving them into the Stop Registry failed! You ought to retry the saving!: Reason: {{ errorMessage }}"
+    "tiamatUpdateFailed": "Saving the changes into the Stop Registry failed! Routes and lines database has not been updated. Reason: {{ errorMessage }}",
+    "stopPointUpdateFailed": "The stop's details have been saved into the Stop Registry, but saving them into the routes and lines database failed! You ought to retry the saving! Reason: {{ errorMessage }}",
+    "missingIds": "The Stop Registry and the Lines and Routes database are out of sync. This stop cannot currently be edited."
   },
   "stopArea": {
     "stopArea": "Stop area",

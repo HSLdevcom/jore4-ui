@@ -100,7 +100,7 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
 
       <td className="!px-2">
         <LocatorActionButton
-          observeOnStopValidityStartDate
+          observationDate={stopVersion.validity_start}
           stop={stopForActions}
         />
       </td>

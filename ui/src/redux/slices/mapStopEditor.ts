@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { StopWithLocation } from '../../graphql';
-import { StoreType, mapToStoreType } from '../mappers/storeType';
+import { Point } from '../../types';
+import { StoreType } from '../mappers/storeType';
 
 export interface MapStopEditorState {
   selectedStopId?: string;
-  editedStopData?: StopWithLocation;
+  draftLocation?: Point;
   isCreateStopModeEnabled: boolean;
   isMoveStopModeEnabled: boolean;
 }
@@ -13,7 +13,7 @@ type IState = StoreType<MapStopEditorState>;
 
 const initialState: IState = {
   selectedStopId: undefined,
-  editedStopData: undefined,
+  draftLocation: undefined,
   isCreateStopModeEnabled: false,
   isMoveStopModeEnabled: false,
 };
@@ -35,16 +35,11 @@ const slice = createSlice({
       state.isMoveStopModeEnabled = false;
       state.isCreateStopModeEnabled = false;
     },
-    setEditedStopData: {
-      reducer: (
-        state,
-        action: PayloadAction<StoreType<StopWithLocation> | undefined>,
-      ) => {
-        state.editedStopData = action.payload;
-      },
-      prepare: (stop: StopWithLocation | undefined) => ({
-        payload: stop ? mapToStoreType(stop) : undefined,
-      }),
+    setDraftLocation: (
+      state,
+      action: PayloadAction<StoreType<Point> | undefined>,
+    ) => {
+      state.draftLocation = action.payload;
     },
     reset: () => {
       return initialState;
@@ -57,7 +52,7 @@ export const {
   setIsCreateStopModeEnabled: setIsCreateStopModeEnabledAction,
   setIsMoveStopModeEnabled: setIsMoveStopModeEnabledAction,
   resetEnabledModes: resetEnabledModesAction,
-  setEditedStopData: setEditedStopDataAction,
+  setDraftLocation: setDraftLocationAction,
   reset: resetMapStopEditorStateAction,
 } = slice.actions;
 

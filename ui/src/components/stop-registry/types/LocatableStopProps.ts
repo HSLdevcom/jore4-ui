@@ -9,8 +9,3 @@ export type LocatableStopProps = {
 export type LocatableStopWithObservationDateProps = LocatableStopProps & {
   readonly observationDate?: DateTime;
 };
-
-export type LocatableStopWithObserveOnValidityStartProps =
-  LocatableStopProps & {
-    readonly observeOnStopValidityStartDate?: boolean;
-  };

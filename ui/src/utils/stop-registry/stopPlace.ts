@@ -149,10 +149,9 @@ const omitTypename = <T extends { __typename?: string } | null>(
 };
 
 export const patchKeyValues = (
-  stopPlace:
-    | Pick<StopRegistryStopPlace, 'keyValues'>
-    | Pick<StopRegistryQuay, 'keyValues'>
-    | null,
+  stopPlace: {
+    readonly keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+  } | null,
   updates: ReadonlyArray<{ key: string; values: string[] }>,
 ) => {
   const initialKeyValues =
