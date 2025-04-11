@@ -30,6 +30,7 @@ export const DuplicateJourneysSection = ({
             <th>{t('timetablesPreview.tableHeaders.departureTime')}</th>
             <th>{t('timetablesPreview.tableHeaders.dayType')}</th>
             <th>{t('timetablesPreview.tableHeaders.validityStarts')}</th>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <th className="!px-2"> </th>
             <th className="!pl-0">
               {t('timetablesPreview.tableHeaders.validityEnds')}
