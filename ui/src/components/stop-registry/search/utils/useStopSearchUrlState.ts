@@ -161,13 +161,11 @@ function useReconstitutedState(
 ): StopSearchUrlState {
   const memoizedPickersRef = useRef<null | MemoizedPickers>(null);
 
-  if (memoizedPickersRef.current === null) {
-    memoizedPickersRef.current = {
-      pickFilters: memoizeOne(pickFilters, areEqual),
-      pickPagingInfo: memoizeOne(pickPagingInfo),
-      pickSortingInfo: memoizeOne(pickSortingInfo),
-    };
-  }
+  memoizedPickersRef.current ??= {
+    pickFilters: memoizeOne(pickFilters, areEqual),
+    pickPagingInfo: memoizeOne(pickPagingInfo),
+    pickSortingInfo: memoizeOne(pickSortingInfo),
+  };
 
   const memoizedPickers = memoizedPickersRef.current;
 
