@@ -1,8 +1,8 @@
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import noop from 'lodash/noop';
+import type { Map as MapBoxMap } from 'mapbox-gl';
 import { Ref, forwardRef, useImperativeHandle } from 'react';
-import type { ControlPosition } from 'react-map-gl';
-import { useControl } from 'react-map-gl/maplibre';
+import { ControlPosition, IControl, useControl } from 'react-map-gl/maplibre';
 import { styles } from './routes/editorStyles';
 
 type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & {
@@ -12,13 +12,23 @@ type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & {
   onModeChange: () => void;
 };
 
+type MapLibreMap = Parameters<IControl['onAdd']>[0];
+
+declare class MapLibreMapboxDraw extends MapboxDraw implements IControl {
+  onAdd(map: MapBoxMap | MapLibreMap): HTMLElement;
+
+  onRemove(map: MapBoxMap | MapLibreMap): ExplicitAny;
+
+  getDefaultPosition: () => ControlPosition;
+}
+
 const DrawControlComponent = (
   props: DrawControlProps,
   ref: Ref<MapboxDraw> | undefined,
 ) => {
   const { onCreate, onModeChange, onUpdate, position } = props;
-  const drawRef = useControl<MapboxDraw>(
-    () => new MapboxDraw({ styles, ...props }),
+  const drawRef = useControl<MapLibreMapboxDraw>(
+    () => new MapboxDraw({ styles, ...props }) as MapLibreMapboxDraw,
     ({ map }) => {
       map.on('draw.create', onCreate);
       map.on('draw.update', onUpdate);

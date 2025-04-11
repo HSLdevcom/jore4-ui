@@ -124,6 +124,17 @@ We have those because sometimes there is need to do e.g. complex graphql queries
 Failed tests that have been run headlessly can be investigated visually by looking at videos and screenshots at `./cypress/reports`. Videos are disabled by default, and can be enabled in `cypress.config.ts` by setting the value of the `video` property to `true`.
 Anyway, debugging is generally easier when Cypress is opened with browser as then you can poke around with browsers devtools.
 
+#### E2E Map tests
+
+Some of the element on the map are rendered on a `<canvas>` element, instead of being separate HTML elements,
+with their own DOM node handles. Thus, these elements cannot be interacted trough normal Cypress DOM APIs.
+Clicking & dragging these elements requires the use raw pixel coordinates which can be difficult to obtain.
+To help creating and maintaining these sorts of tests, there exists a utility component in the UI code base,
+which can be used to visualize the cursor location / mouse events with their respective coordinates.
+
+By default, the `<CypressCoordinatesHelper>` component is disabled. To enable the helper one needs to change
+the value of `enableCypressCoordinateHelper` variable to `true` in the file `ui/src/pages/index.tsx`.
+
 ### Separate database in local e2e tests
 
 - Running e2e tests using a separate database requires additional instances of the `hasura`, `timetablesapi` and `testdb` containers. These are started by default by the `start-dependencies.sh` script.

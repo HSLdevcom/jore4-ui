@@ -1,6 +1,5 @@
-import { Map } from 'maplibre-gl';
 import { useCallback } from 'react';
-import { MapRef } from 'react-map-gl/dist/esm/mapbox/create-ref';
+import { MapRef } from 'react-map-gl/maplibre';
 import {
   LineStringFeature,
   extractJourneyPatternCandidateStops,
@@ -24,7 +23,7 @@ import { useRouteMetadata } from './useRouteMetadata';
 const SNAPPING_LINE_LAYER_ID = 'snapping-line';
 
 export const useRouteGeometryUpdater = (
-  map: MapRef<Map> | undefined,
+  map: MapRef | undefined,
   removeSnappingLine: () => void,
 ) => {
   const dispatch = useAppDispatch();
