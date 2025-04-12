@@ -18,4 +18,8 @@ module.exports = {
   },
   output: 'export',
   productionBrowserSourceMaps: true,
+
+  // We only have the 1 dynamic / route.
+  // No need to shows a Next.js navigation menu.
+  devIndicators: false,
 };

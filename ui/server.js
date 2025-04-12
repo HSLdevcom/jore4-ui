@@ -81,9 +81,6 @@ const app = next({
   dev: true,
 });
 
-const nextRequestHandler = app.getRequestHandler();
-const nextUpgradeHandler = app.getUpgradeHandler();
-
 let server;
 app
   .prepare()
@@ -106,6 +103,7 @@ app
     });
 
     // Default catch-all handler to allow Next.js to handle all other routes
+    const nextRequestHandler = app.getRequestHandler();
     server.all('/{*splat}', (req, res) => nextRequestHandler(req, res));
 
     const httpServer = server.listen(port, (err) => {
@@ -115,6 +113,7 @@ app
       console.log(`> Ready on port ${port}`);
     });
 
+    const nextUpgradeHandler = app.getUpgradeHandler();
     httpServer.on('upgrade', (req, proxy, head) => {
       // eslint-disable-next-line no-restricted-syntax
       for (const [path, hpm] of Object.entries(wsProxies)) {
