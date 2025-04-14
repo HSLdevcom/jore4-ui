@@ -9,6 +9,14 @@ import { stopModalStopAreaFormSchema } from './StopModalStopAreaFormSchema';
 
 export const MISSING_ID = 'MISSING_ID';
 
+const publicCodeSchema = z.object({
+  value: requiredString,
+  municipality: z.string().nullable(),
+  expectedPrefix: z.string().nullable(),
+});
+
+export type StopPublicCodeState = z.infer<typeof publicCodeSchema>;
+
 const keyValueSchema = z.object({
   key: requiredString,
   values: z.array(z.string().nullable()),
@@ -19,7 +27,7 @@ export const stopFormSchema = z
     stopId: z.string().uuid().optional(), // for stops that are edited
     quayId: z.string().optional(), // for stops that are edited
     stopArea: stopModalStopAreaFormSchema.nullable(),
-    label: requiredString,
+    publicCode: publicCodeSchema.required(),
     latitude: requiredNumber.min(-180).max(180),
     longitude: requiredNumber.min(-180).max(180),
     locationFin: z.string().nullable().optional(),

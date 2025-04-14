@@ -212,7 +212,7 @@ describe('Stop editing tests', () => {
 
       map.stopPopUp.getEditButton().click();
 
-      stopForm.getLabelInput().should('have.value', stops[0].label);
+      stopForm.getPublicCodeInput().should('have.value', stops[0].label);
       stopForm
         .getTimingPlaceDropdown()
         .should('contain', updatedStopInfo.timingPlace);

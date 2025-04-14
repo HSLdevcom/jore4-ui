@@ -35,7 +35,7 @@ export const StopPopup = ({
   const { t } = useTranslation();
   const {
     formState: {
-      label: stopLabel,
+      publicCode: { value: stopLabel },
       priority,
       validityStart: validityStartStr,
       validityEnd: validityEndStr,

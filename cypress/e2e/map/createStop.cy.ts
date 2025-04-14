@@ -73,7 +73,7 @@ describe('Stop creation tests', mapViewport, () => {
     () => {
       mapModal.createStopAtLocation({
         stopFormInfo: {
-          label: testStopLabels.testLabel1,
+          publicCode: testStopLabels.testLabel1,
           stopPlace: testStopLabels.stopAreaPrivateCode,
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
@@ -103,7 +103,7 @@ describe('Stop creation tests', mapViewport, () => {
       // Create stop
       mapModal.createStopAtLocation({
         stopFormInfo: {
-          label: testStopLabels.manualCoordinatesLabel,
+          publicCode: testStopLabels.manualCoordinatesLabel,
           stopPlace: testStopLabels.stopAreaPrivateCode,
           // Actual coordinates will be on Topeliuksenkatu
           latitude: '60.18072918584129',
@@ -142,7 +142,7 @@ describe('Stop creation tests', mapViewport, () => {
     () => {
       mapModal.createStopAtLocation({
         stopFormInfo: {
-          label: testStopLabels.endDateLabel,
+          publicCode: testStopLabels.endDateLabel,
           stopPlace: testStopLabels.stopAreaPrivateCode,
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2040-12-31',
@@ -183,7 +183,7 @@ describe('Stop creation tests', mapViewport, () => {
     () => {
       mapModal.createStopAtLocation({
         stopFormInfo: {
-          label: testStopLabels.timingPlaceLabel,
+          publicCode: testStopLabels.timingPlaceLabel,
           stopPlace: testStopLabels.stopAreaPrivateCode,
           // seed timing places should always have label defined
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -224,7 +224,7 @@ describe('Stop creation tests', mapViewport, () => {
       mapModal.map.clickRelativePoint(40, 55);
 
       mapModal.stopForm.fillFormForNewStop({
-        label: 'T0001',
+        publicCode: 'T0001',
         stopPlace: testStopLabels.stopAreaPrivateCode,
         validityStartISODate: '2022-01-01',
         priority: Priority.Standard,
@@ -245,6 +245,51 @@ describe('Stop creation tests', mapViewport, () => {
       stopDetailsPage.titleRow
         .names()
         .shouldHaveText(`${testStopLabels.stopAreaName}|-`);
+    },
+  );
+
+  it(
+    'should automatically recommend proper Public Code',
+    { tags: [Tag.Map, Tag.Stops, Tag.StopRegistry], scrollBehavior: 'bottom' },
+    () => {
+      const { stopForm: form } = mapModal;
+
+      // Add 1st stop
+      mapModal.mapFooter.addStop();
+      mapModal.map.clickRelativePoint(40, 55);
+
+      form.getPublicCodePrefixMissmatchWarning().should('not.exist');
+
+      form.fillFormForNewStop({
+        publicCode: 'H1234',
+        stopPlace: testStopLabels.stopAreaPrivateCode,
+        validityStartISODate: '2022-01-01',
+        priority: Priority.Standard,
+      });
+      form.save();
+      mapModal.checkStopSubmitSuccessToast();
+
+      // Add another stop close to the 1st one
+      mapModal.mapFooter.addStop();
+      mapModal.map.clickRelativePoint(42, 57);
+
+      form.getPublicCodeCandidate('H1235').should('exist');
+      form.getPublicCodeCandidate('H0001').should('exist');
+      form.fillFormForNewStop({
+        publicCode: 'E1235',
+        stopPlace: testStopLabels.stopAreaPrivateCode,
+        validityStartISODate: '2022-01-01',
+        priority: Priority.Standard,
+      });
+      form
+        .getPublicCodePrefixMissmatchWarning()
+        .shouldHaveText(
+          'Pysäkki sijaitsee kunnan ”Helsinki” rajojen sisällä, joten sen tunnuksen pitäisi alkaa etuliitteellä H.',
+        );
+      form.getPublicCodeInput().clearAndType('H1235');
+      form.getPublicCodePrefixMissmatchWarning().should('not.exist');
+      form.save();
+      mapModal.checkStopSubmitSuccessToast();
     },
   );
 });

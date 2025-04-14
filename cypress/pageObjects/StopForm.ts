@@ -17,7 +17,7 @@ export interface BaseStopFormInfo
 }
 
 export interface NewStopFormInfo extends BaseStopFormInfo {
-  label: string;
+  publicCode: string;
   stopPlace: string;
 }
 
@@ -28,8 +28,18 @@ export class StopForm {
 
   priorityForm = new PriorityForm();
 
-  getLabelInput() {
-    return cy.getByTestId('StopFormComponent::label');
+  getPublicCodeInput() {
+    return cy.getByTestId('StopFormComponent::publicCode');
+  }
+
+  getPublicCodeCandidate(code: string) {
+    return cy.getByTestId(`StopFormComponent::publicCode::candidate::${code}`);
+  }
+
+  getPublicCodePrefixMissmatchWarning() {
+    return cy.getByTestId(
+      'ValidationError::message::PublicCodePrefixMissmatchWarning',
+    );
   }
 
   getStopAreaInput() {
@@ -108,7 +118,7 @@ export class StopForm {
   }
 
   fillFormForNewStop(values: NewStopFormInfo) {
-    this.getLabelInput().clear().type(values.label);
+    this.getPublicCodeInput().clearAndType(values.publicCode);
 
     this.getStopAreaInput().clearAndType(values.stopPlace);
     this.getStopAreaResult(values.stopPlace).click();

@@ -86,7 +86,12 @@ export function useEditStopUtils(
     }
 
     const {
-      formState: { label, stopId, quayId, stopArea },
+      formState: {
+        publicCode: { value: label },
+        stopId,
+        quayId,
+        stopArea,
+      },
     } = stopInfo;
     const stopPlaceId = stopArea?.netextId;
 

@@ -1,13 +1,10 @@
 import React, { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { FormColumn, InputField } from '../../common';
-import { StopFormState as FormState } from '../types';
+import { FormColumn } from '../../common';
 import { FindStopArea } from './FindStopArea';
+import { PublicCode } from './PublicCode';
+import { PublicCodePrefixMissmatchWarning } from './PublicCodePrefixMissmatchWarning';
 import { StopAreaInfoSection } from './StopAreaInfoSection';
-
-const testIds = {
-  label: 'StopFormComponent::label',
-};
 
 type PublicCodeAndAreaProps = {
   readonly className?: string;
@@ -21,17 +18,12 @@ export const PublicCodeAndArea: FC<PublicCodeAndAreaProps> = ({
   return (
     <FormColumn className={twMerge('bg-background', className)}>
       <div className="flex gap-4">
-        <InputField<FormState>
-          className="min-w-0"
-          type="text"
-          translationPrefix="stops"
-          fieldPath="label"
-          testId={testIds.label}
-          disabled={editing}
-        />
+        <PublicCode className="min-w-0" editing={editing} />
 
-        <FindStopArea disabled={editing} className="w-full" />
+        <FindStopArea className="w-full" disabled={editing} />
       </div>
+
+      <PublicCodePrefixMissmatchWarning />
 
       <StopAreaInfoSection />
     </FormColumn>

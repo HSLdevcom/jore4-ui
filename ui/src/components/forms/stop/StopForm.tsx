@@ -55,7 +55,7 @@ function mapFormStateToStopPointSetInput(
 ): StopFormStateStopPointMappedSetInput {
   return {
     measured_location: mapPointToGeoJSON(state),
-    label: state.label,
+    label: state.publicCode.value,
     priority: state.priority,
     validity_start: mapDateInputToValidityStart(state.validityStart),
     validity_end: mapDateInputToValidityEnd(
@@ -88,7 +88,9 @@ function mapFormStateToQuayKeyValues(
   return compact([
     {
       key: 'imported-id',
-      values: [`${state.label}-${state.validityStart}-${state.priority}`],
+      values: [
+        `${state.publicCode.value}-${state.validityStart}-${state.priority}`,
+      ],
     },
     { key: 'priority', values: [state.priority.toString(10)] },
     { key: 'validityStart', values: [state.validityStart] },
@@ -104,7 +106,7 @@ function mapFormStateToQuayKeyValues(
 function mapFormStateToQuayInput(state: StopFormState): StopRegistryQuayInput {
   return {
     geometry: mapPointToStopRegistryGeoJSON(state),
-    publicCode: state.label,
+    publicCode: state.publicCode.value,
     description: {
       lang: 'fin',
       value: state.locationFin,
@@ -124,7 +126,6 @@ const isDirtyMap: {
     keyof StopFormState
   >;
 } = {
-  label: ['label'],
   measured_location: ['latitude', 'longitude'],
   priority: ['priority'],
   validity_start: ['validityStart'],
@@ -142,6 +143,11 @@ function pickChangedFieldsForPatch(
     const formKeys = isDirtyMap[key as keyof PartialScheduledStopPointSetInput];
     if (formKeys) {
       return formKeys.some((formKey) => dirtyFields[formKey]);
+    }
+
+    // Label/PublicCode cannot be updated
+    if (key === 'label') {
+      return false;
     }
 
     return true;
@@ -274,7 +280,7 @@ const StopFormComponent: ForwardRefRenderFunction<HTMLFormElement, Props> = (
     }
 
     return prepareEdit({
-      stopLabel: state.label,
+      stopLabel: state.publicCode.value,
       stopId: state.stopId,
       stopPointPatch: pickChangedFieldsForPatch(
         mapFormStateToStopPointSetInput(state),

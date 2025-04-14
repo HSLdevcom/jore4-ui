@@ -67368,6 +67368,35 @@ export type FindStopAreasByNamesQuery = {
   } | null
 };
 
+export type GetExistingQuayPublicCodesQueryVariables = Exact<{
+  newStopLocation: Scalars['geometry']['input'];
+  distanceToNearbyStops: Scalars['Float']['input'];
+}>;
+
+
+export type GetExistingQuayPublicCodesQuery = {
+  __typename?: 'query_root',
+  stopsDatabase?: {
+    __typename?: 'stops_database_stops_database_query',
+    municipality: Array<{
+      __typename?: 'stops_database_topographic_place',
+      id: any,
+      name?: string | null
+    }>,
+    usedPublicCodes: Array<{
+      __typename?: 'stops_database_quay',
+      id: any,
+      publicCode?: string | null
+    }>,
+    nearbyStops: Array<{
+      __typename?: 'stops_database_quay',
+      id: any,
+      centroid?: GeoJSON.Geometry | null,
+      publicCode?: string | null
+    }>
+  } | null
+};
+
 export type GetStopInfoForEditingOnMapQueryVariables = Exact<{
   quayNetexId: Scalars['String']['input'];
 }>;
@@ -75897,6 +75926,69 @@ export type FindStopAreasByNamesQueryHookResult = ReturnType<typeof useFindStopA
 export type FindStopAreasByNamesLazyQueryHookResult = ReturnType<typeof useFindStopAreasByNamesLazyQuery>;
 export type FindStopAreasByNamesSuspenseQueryHookResult = ReturnType<typeof useFindStopAreasByNamesSuspenseQuery>;
 export type FindStopAreasByNamesQueryResult = Apollo.QueryResult<FindStopAreasByNamesQuery, FindStopAreasByNamesQueryVariables>;
+export const GetExistingQuayPublicCodesDocument = gql`
+    query GetExistingQuayPublicCodes($newStopLocation: geometry!, $distanceToNearbyStops: Float!) {
+  stopsDatabase: stops_database {
+    municipality: stops_database_topographic_place(
+      where: {topographic_place_type: {_eq: "MUNICIPALITY"}, persistable_polygon: {polygon: {_st_contains: $newStopLocation}}}
+      limit: 1
+    ) {
+      id
+      name: name_value
+    }
+    usedPublicCodes: stops_database_quay(
+      distinct_on: [public_code]
+      order_by: [{public_code: asc}]
+    ) {
+      id
+      publicCode: public_code
+    }
+    nearbyStops: stops_database_quay(
+      where: {centroid: {_st_d_within: {distance: $distanceToNearbyStops, from: $newStopLocation}}}
+      distinct_on: [public_code]
+      order_by: [{public_code: asc}]
+    ) {
+      id
+      publicCode: public_code
+      centroid
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetExistingQuayPublicCodesQuery__
+ *
+ * To run a query within a React component, call `useGetExistingQuayPublicCodesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetExistingQuayPublicCodesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetExistingQuayPublicCodesQuery({
+ *   variables: {
+ *      newStopLocation: // value for 'newStopLocation'
+ *      distanceToNearbyStops: // value for 'distanceToNearbyStops'
+ *   },
+ * });
+ */
+export function useGetExistingQuayPublicCodesQuery(baseOptions: Apollo.QueryHookOptions<GetExistingQuayPublicCodesQuery, GetExistingQuayPublicCodesQueryVariables> & ({ variables: GetExistingQuayPublicCodesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetExistingQuayPublicCodesQuery, GetExistingQuayPublicCodesQueryVariables>(GetExistingQuayPublicCodesDocument, options);
+      }
+export function useGetExistingQuayPublicCodesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetExistingQuayPublicCodesQuery, GetExistingQuayPublicCodesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetExistingQuayPublicCodesQuery, GetExistingQuayPublicCodesQueryVariables>(GetExistingQuayPublicCodesDocument, options);
+        }
+export function useGetExistingQuayPublicCodesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetExistingQuayPublicCodesQuery, GetExistingQuayPublicCodesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetExistingQuayPublicCodesQuery, GetExistingQuayPublicCodesQueryVariables>(GetExistingQuayPublicCodesDocument, options);
+        }
+export type GetExistingQuayPublicCodesQueryHookResult = ReturnType<typeof useGetExistingQuayPublicCodesQuery>;
+export type GetExistingQuayPublicCodesLazyQueryHookResult = ReturnType<typeof useGetExistingQuayPublicCodesLazyQuery>;
+export type GetExistingQuayPublicCodesSuspenseQueryHookResult = ReturnType<typeof useGetExistingQuayPublicCodesSuspenseQuery>;
+export type GetExistingQuayPublicCodesQueryResult = Apollo.QueryResult<GetExistingQuayPublicCodesQuery, GetExistingQuayPublicCodesQueryVariables>;
 export const GetStopInfoForEditingOnMapDocument = gql`
     query GetStopInfoForEditingOnMap($quayNetexId: String!) {
   stops_database {

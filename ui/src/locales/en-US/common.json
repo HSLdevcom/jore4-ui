@@ -96,7 +96,9 @@
     "stops": "Stops",
     "stopWithLabel": "Stop {{ stopLabel }}",
     "createStop": "Create new stop",
-    "label": "Label",
+    "publicCode": "Stop label",
+    "loadingUsedPublicCodes": "Loading labels …",
+    "stopPublicCodePrefixMissmatch": "The stop is located within the borders of ”{{municipality}}” municipality, thus it's label should start with prefix of {{expectedPrefix}}.",
     "stopArea": {
       "label": "Search for Stop Area",
       "search": "Search",

@@ -78,7 +78,7 @@ const GQL_GET_STOP_INFO_FOR_EDITING_ON_MAP = gql`
 
 type ExistingStopFormState = RequiredNonNullableKeys<
   StopFormState,
-  | 'label'
+  | 'publicCode'
   | 'quayId'
   | 'stopId'
   | 'stopArea'
@@ -125,7 +125,11 @@ function parseResult(
     rawQuay.stopPoint.closestPointOnInfraLink ?? null;
 
   const formState: ExistingStopFormState = {
-    label: requireValue(rawQuay.label),
+    publicCode: {
+      value: requireValue(rawQuay.label),
+      municipality: null,
+      expectedPrefix: null,
+    },
     quayId: requireValue(rawQuay.netextId),
     stopId: requireValue(rawQuay.stopPoint.id),
     stopArea: requireValue(parseStopFormStopAreaInfo(rawQuay.stopPlace)),

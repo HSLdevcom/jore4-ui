@@ -31,7 +31,7 @@ export const EditStopModal: FC<Props> = ({
   const onSave = () => submitFormByRef(formRef);
 
   const buildHeading = () => {
-    const { label } = defaultValues;
+    const { publicCode: { value: label } = {} } = defaultValues;
     return label
       ? t('stops.stopWithLabel', { stopLabel: label })
       : t('stops.createStop');

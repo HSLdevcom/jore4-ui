@@ -96,7 +96,9 @@
     "stops": "Pysäkit",
     "stopWithLabel": "Pysäkki {{ stopLabel }}",
     "createStop": "Luo uusi pysäkki",
-    "label": "Pysäkin tunnus",
+    "publicCode": "Pysäkin tunnus",
+    "loadingUsedPublicCodes": "Ladataan tunnuksia …",
+    "stopPublicCodePrefixMissmatch": "Pysäkki sijaitsee kunnan ”{{municipality}}” rajojen sisällä, joten sen tunnuksen pitäisi alkaa etuliitteellä {{expectedPrefix}}.",
     "stopArea": {
       "label": "Hae pysäkkialue",
       "search": "Hae",
