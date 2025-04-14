@@ -359,12 +359,17 @@ print_usage() {
     the BUNDLE_REF environment variable. By default, the latest version is
     downloaded.
 
-  dump:download
-    Downloads JORE4 database dump for road infrastructure network and bus routes
-    from Azure Blob Storage.
+  dump:download [<azure_blob_filepath>]
+    Downloads a JORE4 database dump from Azure Blob Storage. A full file path
+    may be given as a parameter. The file path is used to refer to a file inside
+    the 'jore4-dump' container under the 'jore4storage' storage account in the
+    'hsl-jore4-common' resource group.
 
-  dump:import file database
-    Imports database dump from the given file to the specified database.
+  dump:import <azure_blob_filepath> <database_name>
+    Imports a database dump from the given file to the specified database.
+    The dump file must be given as a Azure Blob storage reference where a full
+    file path needs to be given within the 'jore4-dump' container under the
+    'jore4storage' storage account in the 'hsl-jore4-common' resource group.
 
   digitransit:fetch
     Download Digitransit map API key for JORE4 account.
