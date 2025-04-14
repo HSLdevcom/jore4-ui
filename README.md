@@ -194,7 +194,7 @@ Internally the script calls `start-dependencies.sh` and forwards any arguments (
 
 ## Loading single dump into development database
 
-The jore3-importer microservice imports data from JORE3 and transforms it into the JORE4 data model. Currently, existing database dumps of the transformed data can be found from Azure Blob container at `hsl-jore4-common / jore4storage / jore4-dump`.
+The jore3-importer microservice imports data from JORE3 and transforms it into the JORE4 data model. Currently, existing database dumps of the transformed data can be found from Azure Blob container at `rg-jore4-dev-001 / stjore4dev001 / jore4-dump`.
 
 To download a single dump file to your local workspace and import it into your local development database instance, run `./scripts/development.sh dump:import <azure_blob_filepath> <database_name>` and follow the instructions. _Warning!_ This will empty the target database and overwrite all the data in it!
 
@@ -204,7 +204,7 @@ If you just want to download a single dump file to your local workspace (but not
 
 To update database dump files (with the `.pgdump` extension), do the following:
 
-- Check the latest suitable dump files from the `jore4-dump` container under the `jore4storage` storage account in the `hsl-jore4-common` resource group. Make sure that the `docker-compose.custom.yml` file does not specify `jore4-hasura` and `jore4-tiamat` microservices with versions older than the versions the dump files were created with. If needed, restart dependencies and generate new GraphQL schema for new Hasura version and make necessary changes to achieve ui - hasura compatibility.
+- Check the latest suitable dump files from the `jore4-dump` container under the `stjore4dev001` storage account in the `rg-jore4-dev-001` resource group. As of 2025-05, dump files are organised into directories in Azure Blob storage. They should be accompanied by a README file that states which microservice versions the dumps were created with. Make sure that the `docker-compose.custom.yml` file does not specify `jore4-hasura` and `jore4-tiamat` microservices with versions older than the versions the dump files were created with. If needed, restart dependencies and generate new GraphQL schema for new Hasura version and make necessary changes to achieve ui - hasura compatibility.
 - Update the dump filenames in the `./scripts/development.sh` file. Remove the existing `.pgdump` files from your project directory. Then stop the dependencies, and run `./scripts/setup-dependencies-and-seed.sh`.
 - If everything goes right, after running the script and following the instructions you should now have your databases seeded with the new dumps.
 
