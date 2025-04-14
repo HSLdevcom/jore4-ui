@@ -89,7 +89,7 @@ export const InfoSpotsFormPosters: FC<Props> = ({
           disabled={toBeDeletedPoster}
         />
       </Row>
-      <Row className="mt-5 px-5">
+      <Row className="px-10 pb-5">
         <SlimSimpleButton
           testId={testIds.deleteInfoSpotPoster}
           onClick={() => onRemovePoster(infoSpotIndex, posterIndex)}
