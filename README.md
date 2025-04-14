@@ -186,34 +186,45 @@ If you don't need them, you can start the dependencies with `./scripts/start-dep
 
 Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
 
-If Docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
+If the Docker Compose setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
 
 You can also start the dependencies and run all seeds by running `./scripts/setup-dependencies-and-seed.sh`.
-This will also download a dump from Azure and you will need to log in when prompted.
+This will also download a database dump for each database from Azure and you will need to log in when prompted.
 Internally the script calls `start-dependencies.sh` and forwards any arguments (eg. `--volume` and `--skip-e2e`) to it.
 
-## Loading dump into development database
+## Loading single dump into development database
 
-The jore3-importer microservice imports data from JORE3 and converts it to be compatible with the JORE4 datamodel. Existing dumps of this converted data can be found from Azure in `hsl-jore4-common / jore4storage / jore4-dump`
+The jore3-importer microservice imports data from JORE3 and transforms it into the JORE4 data model. Currently, existing database dumps of the transformed data can be found from Azure Blob container at `hsl-jore4-common / jore4storage / jore4-dump`.
 
-To download a dump to your local workspace, run `./scripts/development.sh dump:download` and follow the instructions.
+To download a single dump file to your local workspace and import it into your local development database instance, run `./scripts/development.sh dump:import <azure_blob_filepath> <database_name>` and follow the instructions. _Warning!_ This will empty the target database and overwrite all the data in it!
 
-To load this dump to your local development database instance, run `./scripts/development.sh dump:import` and follow the instructions. _Warning!_ This will empty your current database and overwrite all the data in it!
+If you just want to download a single dump file to your local workspace (but not import it into the database), run `./scripts/development.sh dump:download <azure_blob_filepath>` and follow the instructions.
 
-## Updating dump seed data
+## Updating dump files to initialise databases with data
 
-To update used dumps (`./test-db-manager/src/dumps/infraLinks/infraLinks.sql` dump and `./scripts/development.sh` default pgdump file), do the following:
+To update database dump files (with the `.pgdump` extension), do the following:
 
-- Check the latest suitable dump file in Azure `jore4-dump` container. The last part of the dump's name indicates the jore4-hasura -repository commit with which the dump is compatible with. Pin that hasura version in ui `docker-compose.custom.yml`. Restart dependencies and generate new GraphQL schema for new Hasura version and make necessary changes to achieve ui - hasura compatibility.
-- Update default dump (`.pgdump` file) name in `./scripts/development.sh` and remove existing `jore4dump.pgdump` file from project directory. Then run stop dependencies and run `./scripts/setup-dependencies-and-seed.sh`.
-- If everything goes right, after running the script and following the instructions you should now have database seeded with the new dump.
-- Next, you should update used infrastructure link seed. To do this, have a look at contents of `./test-db-manager/src/dumps/infraLinks/infraLinks.sql` file. It contains data of infrastructure links. In the beginning of `dump.sql` (about row 30) there should be a copy command which seeds infrastructure links to db. The command starts with
+- Check the latest suitable dump files from the `jore4-dump` container under the `jore4storage` storage account in the `hsl-jore4-common` resource group. Make sure that the `docker-compose.custom.yml` file does not specify `jore4-hasura` and `jore4-tiamat` microservices with versions older than the versions the dump files were created with. If needed, restart dependencies and generate new GraphQL schema for new Hasura version and make necessary changes to achieve ui - hasura compatibility.
+- Update the dump filenames in the `./scripts/development.sh` file. Remove the existing `.pgdump` files from your project directory. Then stop the dependencies, and run `./scripts/setup-dependencies-and-seed.sh`.
+- If everything goes right, after running the script and following the instructions you should now have your databases seeded with the new dumps.
 
-`COPY infrastructure_network.infrastructure_link (infrastructure_link_id, direction, shape, estimated_length_in_metres, external_link_id, external_link_source) FROM stdin;`.
+## Regenerating infraLinks.sql
 
-- Copy the command and the data rows immediately after it (about 150 000 rows total) and replace the same command in `infraLinks.sql` to update infrastructure seed data. Make sure you only copy infrastructure link data!
+After updating dump file for the network & routes database, you may consider updating the seed data for infrastructure links which is located at `./test-db-manager/src/dumps/infraLinks/infraLinks.sql`.
 
-### Fixing timetables seed data
+To do that:
+
+- First, dump the infrastructure link data in SQL format by running the following command:
+  ```sh
+  pg_restore -a -n infrastructure_network -t infrastructure_link -f infra_links_data.sql <network_pgdump_file>
+  ```
+- From the generated file (`infra_links_data.sql`), find the section starting with:
+  ```sql
+  COPY infrastructure_network.infrastructure_link (infrastructure_link_id, direction, shape, estimated_length_in_metres, external_link_id, external_link_source) FROM stdin;
+  ```
+- Copy the command and the immediately following rows of data (over 150 000 rows in total) and replace the same command in the `infraLinks.sql` file to update infrastructure seed data. Make sure you only copy infrastructure link data!
+
+### Fixing timetables seed data (NEEDS UPDATE)
 
 - After that you will need to fix some foreign key references to keep timetables seed functional. In `./test-db-manager/src/seedTimetables.ts` there are journey pattern ids (UUID), that you will need to replace to keep references from timetables to routes and lines timetables functional. To do this, search for the routes mentioned in the `seedTimetables.ts` comments from `dump.sql`. Make sure validity period and direction match to the one mentioned in the `seedTimetables.ts` file. Then take the found route's id and search for the route's journey pattern in the same file. Take the journey pattern id and replace the old journey pattern id in the `seedTimetables.ts` file with the new one. This step can also be done without using the dump file, e.g. using an SQL client or even the UI, as long as the db is seeded with the new dump.
 
