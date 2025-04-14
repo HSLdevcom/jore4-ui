@@ -16,9 +16,9 @@ DOCKER_COMPOSE_BUNDLE_REF=${BUNDLE_REF:-main}
 # this project from others.
 export COMPOSE_PROJECT_NAME=jore4-ui
 
-DUMP_ROUTES_FILENAME="routes-12-2024.pgdump"
-DUMP_TIMETABLES_FILENAME="timetables-12-2024.pgdump"
-DUMP_STOPS_FILENAME="stopdb-12-2024.pgdump"
+DUMP_ROUTES_FILENAME="2025-04-03_test/2025-04-03-jore4-local-jore4e2e.pgdump"
+DUMP_TIMETABLES_FILENAME="2025-04-03_test/2025-04-03-jore4-local-timetablesdb-nodata.pgdump"
+DUMP_STOPS_FILENAME="2025-04-03_test/2025-04-03-jore4-local-stopdb.pgdump"
 
 DOCKER_TESTDB_IMAGE="jore4-testdb"
 DOCKER_IMAGES="jore4-auth jore4-hasura jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-hastus jore4-tiamat jore4-timetablesapi"
@@ -212,58 +212,64 @@ start_dependencies() {
 }
 
 download_dump() {
-  echo "Downloading database dump for JORE4 network & routes from Azure Blob Storage..."
+  local az_blob_filepath
 
-  # Here is a breakdown of the dump name used below:
-  # - "jore4e2e"        ~ The name of the database to which the data dump applies
-  # - "test-20240104"   ~ The data originates from the Jore3 test database (not production) and specifically the snapshot taken on 4.1.2024.
-  # - "data-only"       ~ The dump contains only data. It does not contain DDL, i.e. table and other schema element definitions.
-  # - "8a28ef5f"        ~ The dump is based on the database migrations of the jore4-hasura image version starting with this hash.
-  # - "20240104" (2nd)  ~ The day when the jore3-importer was run
-  if [ -z ${1+x} ]; then
-    read -p "Dump file name (default: jore4e2e-test-20240104-data-only-8a28ef5f-20240104.pgdump): " DUMP_FILENAME
-    DUMP_FILENAME="${DUMP_FILENAME:-jore4e2e-test-20240104-data-only-8a28ef5f-20240104.pgdump}"
+  if [ -z "$1" ]; then
+    read -p "Dump file name: " az_blob_filepath
   else
-    DUMP_FILENAME=$1
+    az_blob_filepath="$1"
   fi
 
   login
 
-  # Check dump file
-  if [ ! -f "$1" ]; then
-    echo "Downloading dump file as $DUMP_FILENAME"
+  # Download the dump file, if it does not already exist.
+  if [ ! -f "$az_blob_filepath" ]; then
+    echo "Downloading dump file: $az_blob_filepath"
+
     az storage blob download \
-      --account-name "jore4storage" \
+      --subscription "HSLAZ-CORP-DEV-JORE4" \
+      --account-name "stjore4dev001" \
       --container-name "jore4-dump" \
-      --name "$DUMP_FILENAME" \
-      --file "$DUMP_FILENAME" \
+      --name "$az_blob_filepath" \
+      --file "$(basename "$az_blob_filepath")" \
       --auth-mode login
   fi
 }
 
 import_dump() {
-  if [[ -z ${1+x} || -z ${2+x} ]]; then
-    echo "File and target database need to be defined!"
+  local az_blob_filepath="$1"
+  local target_database="$2"
+
+  if [[ -z ${az_blob_filepath} || -z ${target_database} ]]; then
+    echo "Azure Blob container filepath and target database need to be defined!"
     echo "usage:"
-    echo "       development.sh dump:import file database"
+    echo "   development.sh dump:import <azure_blob_filepath> <database_name>"
     exit
   fi
 
-  echo "Importing JORE4 dump to $2 database"
+  # Extract the filename from the full path, which may include directory names.
+  local az_blob_filename
+  az_blob_filename=$(basename "$az_blob_filepath")
 
   # Download dump if it is missing
-  if [ ! -f "$1" ]; then
-    download_dump "$1"
+  if [ ! -f "$az_blob_filename" ]; then
+    download_dump "$az_blob_filepath"
   fi
 
-  docker exec -i testdb pg_restore -U dbadmin --dbname="$2" --format=c < "$1"
+  echo "Importing database dump from the file '$az_blob_filename' to the '${target_database}' database..."
+
+  docker exec -i testdb bash -c "
+    set -eux
+    dropdb --username=dbadmin --force $target_database
+    pg_restore --username=dbadmin --dbname=postgres --format=custom --create
+  " < "$az_blob_filename"
 }
 
 download_digitransit_key() {
   login
 
   echo "Downloading secret value to ui/.env.local"
-  { echo -n "NEXT_PUBLIC_DIGITRANSIT_API_KEY=" && az keyvault secret show --name "hsl-jore4-digitransit-api-key" --vault-name "hsl-jore4-dev-vault" --query "value"; } > ui/.env.local
+  { echo -n "NEXT_PUBLIC_DIGITRANSIT_API_KEY=" && az keyvault secret show --name "hsl-jore4-digitransit-api-key" --vault-name "kv-jore4-dev-001" --query "value"; } > ui/.env.local
 }
 
 setup_environment() {
@@ -366,14 +372,14 @@ print_usage() {
   dump:download [<azure_blob_filepath>]
     Downloads a JORE4 database dump from Azure Blob Storage. A full file path
     may be given as a parameter. The file path is used to refer to a file inside
-    the 'jore4-dump' container under the 'jore4storage' storage account in the
-    'hsl-jore4-common' resource group.
+    the 'jore4-dump' container under the 'stjore4dev001' storage account in the
+    'rg-jore4-dev-001' resource group.
 
   dump:import <azure_blob_filepath> <database_name>
     Imports a database dump from the given file to the specified database.
     The dump file must be given as a Azure Blob storage reference where a full
     file path needs to be given within the 'jore4-dump' container under the
-    'jore4storage' storage account in the 'hsl-jore4-common' resource group.
+    'stjore4dev001' storage account in the 'rg-jore4-dev-001' resource group.
 
   digitransit:fetch
     Download Digitransit map API key for JORE4 account.
