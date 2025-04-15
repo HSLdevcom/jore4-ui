@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_ui_image:
+  publish_docker_image_to_docker_hub:
     name: Build & Push UI docker image to dockerhub
     runs-on: ubuntu-24.04
 
@@ -116,6 +116,6 @@ jobs:
 
   run_cypress_tests:
     needs:
-      - build_ui_image
+      - publish_docker_image_to_docker_hub
       - build_cypress_image
     uses: ./.github/workflows/run-cypress-tests.yml
