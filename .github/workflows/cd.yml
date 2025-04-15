@@ -50,6 +50,21 @@ jobs:
           docker push $IMAGE_NAME:builder
           docker push $IMAGE_NAME:latest
 
+  publish_ui_docker_image_to_acr:
+    name: Publish UI Docker image to ACR
+    permissions:
+      id-token: write
+      contents: read
+    uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@shared-build-and-publish-docker-image-v1
+    with:
+      docker_image_name: jore4-ui
+      build_args: |
+        NEXT_PUBLIC_GIT_HASH=${{ github.sha }}
+    secrets:
+      azure_client_id: ${{ secrets.AZURE_CLIENT_ID }}
+      azure_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
+      azure_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
   build_cypress_image:
     name: Build & Push cypress docker image to dockerhub
     runs-on: ubuntu-24.04
@@ -100,6 +115,50 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           docker push $CYPRESS_IMAGE_NAME:latest
+
+  set_variables:
+    name: Set Variables
+    runs-on: ubuntu-24.04
+    outputs:
+      chrome_version: ${{ steps.chrome_version.outputs.CHROME_VERSION }}
+    steps:
+      - name: Get latest stable Chrome version
+        id: chrome_version
+        run: |
+          # The cypress/factory Docker image requires CHROME_VERSION to be set and the image downloads Chrome from deb
+          # repository provided by Chrome project:
+          # https://github.com/cypress-io/cypress-docker-images/blob/master/factory/installScripts/chrome/default.sh
+          # The default.sh is called from
+          # https://github.com/cypress-io/cypress-docker-images/blob/master/factory/installScripts/chrome/install-chrome-version.js
+          #
+          # A deb repository contains Packages file that lists all packages with current versions available in the package
+          # repository, i.e. the Packages file can be used to find out the current Chrome version
+          echo "CHROME_VERSION=$(
+            curl -s https://dl.google.com/linux/chrome/deb/dists/stable/main/binary-amd64/Packages \
+            | awk '
+                /^Package: google-chrome-stable/{stable_pkg=1}
+                stable_pkg && /^$/{stable_pkg=0}
+                stable_pkg && /^Version:/{print $2}
+              ' \
+          )" >> $GITHUB_OUTPUT
+
+  publish_cypress_docker_image_to_acr:
+    name: Publish Cypress Docker image to ACR
+    needs:
+      - set_variables
+    permissions:
+      id-token: write
+      contents: read
+    uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@shared-build-and-publish-docker-image-v1
+    with:
+      docker_image_name: jore4-cypress
+      file: Dockerfile.cypress
+      build_args: |
+        CHROME_VERSION=${{ needs.set_variables.outputs.chrome_version }}
+    secrets:
+      azure_client_id: ${{ secrets.AZURE_CLIENT_ID }}
+      azure_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
+      azure_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
   run_cypress_tests:
     needs:
