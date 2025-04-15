@@ -7,10 +7,14 @@ import { theme } from '../generated/theme';
 import { ApolloProvider } from '../graphql';
 import { ReduxProvider } from '../redux';
 import { Router } from '../router/Router';
+import { CypressCoordinatesHelper } from '../uiComponents/CypressCoordinatesHelper';
 import { Toaster } from '../uiComponents/Toaster';
+
+const enableCypressCoordinateHelper = false;
 
 const Index = () => {
   const { t, i18n } = useTranslation();
+
   return (
     <HelmetProvider>
       <div>
@@ -46,6 +50,8 @@ const Index = () => {
         <footer className="mt-6 flex justify-center">
           <p>{t('version', { version: process.env.NEXT_PUBLIC_GIT_HASH })}</p>
         </footer>
+
+        {enableCypressCoordinateHelper && <CypressCoordinatesHelper />}
       </div>
     </HelmetProvider>
   );
