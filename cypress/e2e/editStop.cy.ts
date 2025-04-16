@@ -117,6 +117,7 @@ describe('Stop editing tests', () => {
       expectGraphQLCallToSucceed('@gqlEditStopPlace');
 
       toast.expectSuccessToast('Pysäkki muokattu');
+      map.stopPopUp.getCloseButton().click();
 
       map.waitForLoadToComplete();
 
@@ -200,6 +201,7 @@ describe('Stop editing tests', () => {
         { type: ToastType.SUCCESS, message: 'Pysäkki muokattu' },
         { type: ToastType.WARNING, message: 'Pysäkkien suodattimia muutettu' },
       ]);
+      map.stopPopUp.getCloseButton().click();
 
       map
         .getStopByStopLabelAndPriority(

@@ -115,10 +115,14 @@ export const Stops = React.forwardRef((_props, ref) => {
     setDraftStopLocation(undefined);
   };
 
-  const onEditingFinished = async () => {
+  const onEditingFinished = async (netextId: string | null) => {
     // the newly created stop should become a regular stop from a draft
     // also, the recently edited stop's data is refetched
     setDraftStopLocation(undefined);
+    if (netextId) {
+      setSelectedStopId(netextId);
+      setDisplayedEditor(StopEditorViews.Popup);
+    }
     await refetchStops();
     setIsLoadingSaveStop(false);
   };

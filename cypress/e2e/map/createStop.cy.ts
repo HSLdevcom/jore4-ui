@@ -155,8 +155,8 @@ describe('Stop creation tests', mapViewport, () => {
       });
 
       mapModal.gqlStopShouldBeCreatedSuccessfully();
-
       mapModal.checkStopSubmitSuccessToast();
+      mapModal.map.stopPopUp.getCloseButton().click();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -199,8 +199,8 @@ describe('Stop creation tests', mapViewport, () => {
       });
 
       mapModal.gqlStopShouldBeCreatedSuccessfully();
-
       mapModal.checkStopSubmitSuccessToast();
+      mapModal.map.stopPopUp.getCloseButton().click();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -268,6 +268,7 @@ describe('Stop creation tests', mapViewport, () => {
       });
       form.save();
       mapModal.checkStopSubmitSuccessToast();
+      mapModal.map.stopPopUp.getCloseButton().click();
 
       // Add another stop close to the 1st one
       mapModal.mapFooter.addStop();

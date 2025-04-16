@@ -44,7 +44,7 @@ import { useEditStopUtils } from './useEditStopUtils';
 type EditStopLayerProps = {
   readonly displayedEditor: StopEditorViews;
   readonly draftLocation: Point | null;
-  readonly onEditingFinished: () => void;
+  readonly onEditingFinished: (netexId: string | null) => void;
   readonly onPopupClose: () => void;
   readonly selectedStopId: string | null;
   readonly setDisplayedEditor: Dispatch<SetStateAction<StopEditorViews>>;
@@ -93,9 +93,9 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       onPopupClose();
     };
 
-    const onFinishEditing = () => {
+    const onFinishEditing = (netextId: string | null) => {
       onCloseEditors();
-      onEditingFinished();
+      onEditingFinished(netextId);
     };
 
     const { createChanges, onCreateStop, onCancelCreate } =

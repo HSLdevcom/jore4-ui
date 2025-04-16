@@ -25,7 +25,7 @@ type UseDeleteStopUtilsReturn =
 
 export function useDeleteStopUtils(
   stopInfo: StopInfoForEditingOnMap | null,
-  onFinishEditing: () => void,
+  onFinishEditing: (netextId: string | null) => void,
 ): UseDeleteStopUtilsReturn {
   const { t } = useTranslation();
 
@@ -84,9 +84,10 @@ export function useDeleteStopUtils(
   const onConfirmDelete = async () => {
     try {
       await removeStop(deleteChanges);
+      setDeleteChanges(null);
 
       showSuccessToast(t('stops.removeSuccess'));
-      onFinishEditing();
+      onFinishEditing(null);
     } catch (err) {
       deleteErrorHandler(err as Error);
     }

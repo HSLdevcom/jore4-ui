@@ -151,6 +151,7 @@ export type EditChanges = {
   readonly deleteStopFromRoutes: RouteUniqueFieldsFragment[];
   readonly deleteStopFromJourneyPatternIds?: UUID[];
   readonly conflicts?: ScheduledStopPointAllFieldsFragment[];
+  readonly quayId: string;
 };
 
 export type BrokenRouteCheckParams = {
@@ -427,6 +428,7 @@ export function usePrepareEdit() {
       stopPointPatch,
       deleteStopFromRoutes: [],
       deleteStopFromJourneyPatternIds: [],
+      quayId,
     };
 
     // Perform async tasks in parallel to speed things up.
