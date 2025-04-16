@@ -4,29 +4,22 @@ export interface PriorityFormInfo {
   priority?: Priority;
 }
 
+function getPriorityButton(testId: string) {
+  cy.getByTestId(testId).should('exist').scrollIntoView();
+  return cy.getByTestId(testId).should('be.visible').and('be.enabled');
+}
+
 export class PriorityForm {
   setAsStandard() {
-    return cy
-      .getByTestId('PriorityForm::standardPriorityButton')
-      .should('be.visible')
-      .and('be.enabled')
-      .click();
+    return getPriorityButton('PriorityForm::standardPriorityButton').click();
   }
 
   setAsDraft() {
-    return cy
-      .getByTestId('PriorityForm::draftPriorityButton')
-      .should('be.visible')
-      .and('be.enabled')
-      .click();
+    return getPriorityButton('PriorityForm::draftPriorityButton').click();
   }
 
   setAsTemporary() {
-    return cy
-      .getByTestId('PriorityForm::temporaryPriorityButton')
-      .should('be.visible')
-      .and('be.enabled')
-      .click();
+    return getPriorityButton('PriorityForm::temporaryPriorityButton').click();
   }
 
   setPriority = (priority: Priority) => {
