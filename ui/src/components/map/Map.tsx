@@ -195,7 +195,12 @@ export const MapComponent = (
         </Column>
       </CustomOverlay>
       <EditRouteMetadataLayer />
-      {showInfraLinks && <InfraLinksVectorLayer />}
+      <InfraLinksVectorLayer
+        enableInfraLinkLayer={
+          showInfraLinks || isCreateStopModeEnabled || isMoveStopModeEnabled
+        }
+        showInfraLinks={showInfraLinks}
+      />
       {/**
        * Empty layer for dynamically ordering route layers
        * https://github.com/visgl/react-map-gl/issues/939#issuecomment-625290200
