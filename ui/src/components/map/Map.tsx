@@ -8,6 +8,7 @@ import {
 import { Column, Visible } from '../../layoutComponents';
 import {
   Mode,
+  selectHasDraftLocation,
   selectHasDraftRouteGeometry,
   selectIsCreateStopAreaModeEnabled,
   selectIsCreateStopModeEnabled,
@@ -60,6 +61,7 @@ export const MapComponent = (
 
   const { drawingMode } = useAppSelector(selectMapRouteEditor);
   const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
+  const hasDraftStopLocation = useAppSelector(selectHasDraftLocation);
   const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
 
   const dispatch = useAppDispatch();
@@ -197,7 +199,10 @@ export const MapComponent = (
       <EditRouteMetadataLayer />
       <InfraLinksVectorLayer
         enableInfraLinkLayer={
-          showInfraLinks || isCreateStopModeEnabled || isMoveStopModeEnabled
+          showInfraLinks ||
+          isCreateStopModeEnabled ||
+          isMoveStopModeEnabled ||
+          hasDraftStopLocation
         }
         showInfraLinks={showInfraLinks}
       />

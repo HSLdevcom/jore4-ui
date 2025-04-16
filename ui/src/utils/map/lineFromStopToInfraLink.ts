@@ -10,6 +10,7 @@ import {
   Point as MapLibrePoint,
 } from 'maplibre-gl';
 import { MapInstance } from 'react-map-gl/maplibre';
+import { Point as JorePoint } from '../../types';
 import { notNullish } from '../misc';
 import {
   Geometry,
@@ -141,6 +142,33 @@ export function addLineFromStopToInfraLink(
       },
     });
   }
+}
+
+export function findNearestPointOnARoad(
+  map: MapInstance | undefined,
+  to: JorePoint,
+): Point | null {
+  if (!map) {
+    return null;
+  }
+
+  const toCoordinates: [number, number] = [to.longitude, to.latitude];
+
+  const features: ReadonlyArray<MapGeoJSONFeature> =
+    findFeaturesForLayerWithRadius(
+      map,
+      ROAD_LAYER_ID,
+      map.project(toCoordinates),
+      SEARCH_RADIUS_IN_PIXELS,
+    );
+
+  return findNearestPointOnLineFeatures(
+    {
+      type: 'Point',
+      coordinates: toCoordinates,
+    },
+    features,
+  );
 }
 
 export function drawLineToClosestRoad(
