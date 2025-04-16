@@ -128,7 +128,8 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
 
     return (
       <>
-        {stopInfo && <LineToClosestInfraLink stop={stopInfo} />}
+        <LineToClosestInfraLink draftLocation={draftLocation} stop={stopInfo} />
+
         {draftLocation && (
           <Stop
             onClick={noop}
