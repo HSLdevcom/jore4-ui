@@ -1,9 +1,10 @@
 import noop from 'lodash/noop';
 import React, {
+  Dispatch,
+  SetStateAction,
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useState,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
@@ -41,18 +42,26 @@ import { useDeleteStopUtils } from './useDeleteStopUtils';
 import { useEditStopUtils } from './useEditStopUtils';
 
 type EditStopLayerProps = {
+  readonly displayedEditor: StopEditorViews;
   readonly draftLocation: Point | null;
-  readonly selectedStopId: string | null;
   readonly onEditingFinished: () => void;
   readonly onPopupClose: () => void;
+  readonly selectedStopId: string | null;
+  readonly setDisplayedEditor: Dispatch<SetStateAction<StopEditorViews>>;
 };
 
 export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
-  ({ draftLocation, onEditingFinished, onPopupClose, selectedStopId }, ref) => {
-    const [displayedEditor, setDisplayedEditor] = useState<StopEditorViews>(
-      StopEditorViews.None,
-    );
-
+  (
+    {
+      displayedEditor,
+      draftLocation,
+      onEditingFinished,
+      onPopupClose,
+      selectedStopId,
+      setDisplayedEditor,
+    },
+    ref,
+  ) => {
     const { stopInfo, loading } = useGetStopInfoForEditingOnMap(selectedStopId);
     useMapDataLayerLoader(
       Operation.FetchStopInfo,
@@ -76,7 +85,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       if (!isMoveStopModeEnabled) {
         setDisplayedEditor(defaultDisplayedEditor);
       }
-    }, [defaultDisplayedEditor, isMoveStopModeEnabled]);
+    }, [defaultDisplayedEditor, isMoveStopModeEnabled, setDisplayedEditor]);
 
     const onCloseEditors = () => {
       setDisplayedEditor(StopEditorViews.None);

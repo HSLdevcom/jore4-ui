@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useRef } from 'react';
+import React, { useImperativeHandle, useRef, useState } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import {
   useAppAction,
@@ -29,8 +29,9 @@ import { EditStoplayerRef } from '../refTypes';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
+import { StopEditorViews } from './StopEditorViews';
 import { useFilterStops } from './useFilterStops';
-import { useGetMapStops } from './useGetMapStops';
+import { MapStop, useGetMapStops } from './useGetMapStops';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
@@ -38,6 +39,10 @@ const testIds = {
 };
 
 export const Stops = React.forwardRef((_props, ref) => {
+  const [displayedEditor, setDisplayedEditor] = useState<StopEditorViews>(
+    StopEditorViews.None,
+  );
+
   const filter = useFilterStops();
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
@@ -99,6 +104,12 @@ export const Stops = React.forwardRef((_props, ref) => {
     },
   }));
 
+  const onClickStop = (stop: MapStop) => {
+    if (displayedEditor !== StopEditorViews.Modal) {
+      setSelectedStopId(stop.netex_id);
+    }
+  };
+
   const onPopupClose = () => {
     setSelectedStopId(undefined);
     setDraftStopLocation(undefined);
@@ -128,7 +139,7 @@ export const Stops = React.forwardRef((_props, ref) => {
             selected={item.netex_id === selectedStopId}
             longitude={point.longitude}
             latitude={point.latitude}
-            onClick={() => setSelectedStopId(item.netex_id)}
+            onClick={() => onClickStop(item)}
             isHighlighted={getStopHighlighted(item.netex_id)}
             vehicleMode={getStopVehicleMode(item)}
           />
@@ -142,6 +153,8 @@ export const Stops = React.forwardRef((_props, ref) => {
           draftLocation={draftLocation ?? null}
           onEditingFinished={onEditingFinished}
           onPopupClose={onPopupClose}
+          displayedEditor={displayedEditor}
+          setDisplayedEditor={setDisplayedEditor}
         />
       )}
       {/* Display hovering bus stop while in create mode */}
