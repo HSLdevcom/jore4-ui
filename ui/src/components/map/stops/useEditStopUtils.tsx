@@ -40,7 +40,7 @@ type UseEditStopUtilsReturn = EditUtilsEditActive | EditUtilsEditInactive;
 export function useEditStopUtils(
   stopInfo: StopInfoForEditingOnMap | null,
   setDisplayedEditor: Dispatch<SetStateAction<StopEditorViews>>,
-  onFinishEditing: () => void,
+  onFinishEditing: (netextId: string) => void,
 ): UseEditStopUtilsReturn {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -137,13 +137,14 @@ export function useEditStopUtils(
     setIsLoadingSaveStop(true);
     try {
       await editStop(editChanges);
+      setEditChanges(null);
 
       showSuccessToast(t('stops.editSuccess'));
 
       updateObservationDateByValidityPeriodIfNeeded(editChanges.editedStop);
       updateStopPriorityFilterIfNeeded(editChanges.editedStop.priority);
 
-      onFinishEditing();
+      onFinishEditing(editChanges.quayId);
       dispatch(setIsMoveStopModeEnabledAction(false));
     } catch (err) {
       defaultErrorHandler(err as Error);

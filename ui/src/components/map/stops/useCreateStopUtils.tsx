@@ -11,7 +11,9 @@ import { Operation } from '../../../redux';
 import { showSuccessToast } from '../../../utils';
 import { useUpdateStopPriorityFilterIfNeeded } from './useUpdateStopPriorityFilterIfNeeded';
 
-export function useCreateStopUtils(onFinishEditing: () => void) {
+export function useCreateStopUtils(
+  onFinishEditing: (netextId: string) => void,
+) {
   const { t } = useTranslation();
 
   const [createChanges, setCreateChanges] = useState<CreateChanges | null>(
@@ -37,12 +39,13 @@ export function useCreateStopUtils(onFinishEditing: () => void) {
   const doCreateStop = async (changes: CreateChanges) => {
     setIsLoadingSaveStop(true);
     try {
-      await createStop(changes);
+      const { quayId } = await createStop(changes);
+      setCreateChanges(null);
 
       showSuccessToast(t('stops.saveSuccess'));
       updateObservationDateByValidityPeriodIfNeeded(changes.stopPoint);
       updateStopPriorityFilterIfNeeded(changes.stopPoint.priority);
-      onFinishEditing();
+      onFinishEditing(quayId);
     } catch (err) {
       defaultErrorHandler(err as Error);
     } finally {
