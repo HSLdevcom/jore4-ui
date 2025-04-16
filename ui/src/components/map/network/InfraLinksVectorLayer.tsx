@@ -4,7 +4,19 @@ import { theme } from '../../../generated/theme';
 
 const { colors } = theme;
 
-export const InfraLinksVectorLayer: React.FC = () => {
+type InfraLinksVectorLayerProps = {
+  readonly enableInfraLinkLayer: boolean;
+  readonly showInfraLinks: boolean;
+};
+
+export const InfraLinksVectorLayer: React.FC<InfraLinksVectorLayerProps> = ({
+  enableInfraLinkLayer,
+  showInfraLinks,
+}) => {
+  if (!enableInfraLinkLayer) {
+    return null;
+  }
+
   return (
     <Source
       type="vector"
@@ -23,7 +35,7 @@ export const InfraLinksVectorLayer: React.FC = () => {
           paint: {
             'line-color': colors.tweakedBrand,
             'line-width': 5,
-            'line-opacity': 0.6,
+            'line-opacity': showInfraLinks ? 0.6 : 0,
           },
         }}
       />
