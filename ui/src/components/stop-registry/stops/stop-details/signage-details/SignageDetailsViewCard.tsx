@@ -29,7 +29,8 @@ export const SignageDetailsViewCard = ({ stop }: Props): React.ReactElement => {
   const signType =
     generalSign?.privateCode?.value &&
     mapStopPlaceSignTypeToUiName(
-      generalSign?.privateCode?.value as StopPlaceSignType,
+      t,
+      generalSign.privateCode.value as StopPlaceSignType,
     );
 
   return (
@@ -55,13 +56,13 @@ export const SignageDetailsViewCard = ({ stop }: Props): React.ReactElement => {
       <DetailRow>
         <LabeledDetail
           title={t('stopDetails.signs.lineSignage')}
-          detail={optionalBooleanToUiText(generalSign?.lineSignage)}
+          detail={optionalBooleanToUiText(t, generalSign?.lineSignage)}
           testId={testIds.lineSignage}
         />
         <div className="flex items-center gap-4">
           <LabeledDetail
             title={t('stopDetails.signs.mainLineSign')}
-            detail={optionalBooleanToUiText(generalSign?.mainLineSign)}
+            detail={optionalBooleanToUiText(t, generalSign?.mainLineSign)}
             testId={testIds.mainLineSign}
           />
           <MainLineWarning
@@ -73,7 +74,7 @@ export const SignageDetailsViewCard = ({ stop }: Props): React.ReactElement => {
         </div>
         <LabeledDetail
           title={t('stopDetails.signs.replacesRailSign')}
-          detail={optionalBooleanToUiText(generalSign?.replacesRailSign)}
+          detail={optionalBooleanToUiText(t, generalSign?.replacesRailSign)}
           testId={testIds.replacesRailSign}
         />
       </DetailRow>

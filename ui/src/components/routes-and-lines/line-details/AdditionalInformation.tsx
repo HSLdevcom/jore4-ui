@@ -50,7 +50,7 @@ export const AdditionalInformation: React.FC<Props> = ({
         <FieldValue
           className="w-1/2"
           fieldName={t('lines.primaryVehicleMode')}
-          value={mapVehicleModeToUiName(line.primary_vehicle_mode)}
+          value={mapVehicleModeToUiName(t, line.primary_vehicle_mode)}
           testId={testIds.primaryVehicleMode}
         />
       </Row>
@@ -64,13 +64,13 @@ export const AdditionalInformation: React.FC<Props> = ({
         <FieldValue
           className="w-1/4"
           fieldName={t('lines.typeOfLine')}
-          value={mapLineTypeToUiName(line.type_of_line)}
+          value={mapLineTypeToUiName(t, line.type_of_line)}
           testId={testIds.typeOfLine}
         />
         <FieldValue
           className="w-1/2"
           fieldName={t('lines.transportTarget')}
-          value={mapTransportTargetToUiName(line.transport_target)}
+          value={mapTransportTargetToUiName(t, line.transport_target)}
           testId={testIds.transportTarget}
         />
       </Row>

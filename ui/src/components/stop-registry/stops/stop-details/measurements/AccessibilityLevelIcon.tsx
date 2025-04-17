@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { StopRegistryAccessibilityLevel } from '../../../../../generated/graphql';
 import { mapStopAccessibilityLevelToUiName } from '../../../../../i18n/uiNameMappings';
 
@@ -18,8 +19,10 @@ const iconFiles: Record<AccessibilityLevelWithIcon, string> = {
 };
 
 export const AccessibilityLevelIcon = ({ level }: Props) => {
+  const { t } = useTranslation();
+
   const iconFile = iconFiles[level];
-  const title = mapStopAccessibilityLevelToUiName(level);
+  const title = mapStopAccessibilityLevelToUiName(t, level);
 
   return (
     <i

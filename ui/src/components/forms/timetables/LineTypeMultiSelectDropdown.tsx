@@ -17,12 +17,12 @@ export const LineTypeMultiSelectDropdown = ({
   const { t } = useTranslation();
 
   return (
-    <EnumMultiSelectDropdown
+    <EnumMultiSelectDropdown<RouteTypeOfLineEnum>
       id={id}
       testId={testId}
       enumType={RouteTypeOfLineEnum}
       placeholder={t('lines.chooseTypeOfLine')}
-      uiNameMapper={mapLineTypeToUiName}
+      uiNameMapper={(value) => mapLineTypeToUiName(t, value)}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />

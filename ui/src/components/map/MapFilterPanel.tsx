@@ -1,5 +1,4 @@
 import React, { Dispatch, FC, SetStateAction } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { FilterType, selectMapFilter, setStopFilterAction } from '../../redux';
 import { FilterPanel, placeholderToggles } from '../../uiComponents';
@@ -19,8 +18,6 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
   setShowInfraLinks,
   setShowRoute,
 }) => {
-  const { t } = useTranslation();
-
   const dispatch = useAppDispatch();
   const { stopFilters } = useAppSelector(selectMapFilter);
 
@@ -33,7 +30,7 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
           onToggle: setShowRoute,
           disabled: !routeDisplayed,
           testId: 'FilterPanel::toggleShowBusRoutes',
-          tooltip: t('vehicleModeEnum.bus'),
+          tooltip: (t) => t('vehicleModeEnum.bus'),
         },
         // We want to show placeholder toggles of unimplemented features for visual purposes
         ...placeholderToggles,
@@ -50,7 +47,7 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
               }),
             ),
           testId: 'FilterPanel::toggleShowAllBusStops',
-          tooltip: t('vehicleModeEnum.bus'),
+          tooltip: (t) => t('vehicleModeEnum.bus'),
         },
         ...placeholderToggles,
       ]}

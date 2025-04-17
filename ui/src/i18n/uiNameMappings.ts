@@ -5,9 +5,7 @@ import {
   RouteDirectionEnum,
   RouteTypeOfLineEnum,
   StopRegistryAccessibilityLevel,
-  StopRegistryDisplayType,
   StopRegistryGuidanceType,
-  StopRegistryInfoSpotType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
   StopRegistryPosterPlaceSize,
@@ -18,11 +16,9 @@ import {
   StopRegistryStopType,
   StopRegistryTransportModeType,
 } from '../generated/graphql';
-import { i18n } from '../i18n';
 import {
   DayOfWeek,
   Priority,
-  StopRegistryMunicipality,
   SubstituteDayOfWeek,
   TimetablePriority,
 } from '../types/enums';
@@ -33,231 +29,358 @@ import {
 } from '../types/stop-registry';
 import { AllOptionEnum, NullOptionEnum } from '../utils';
 
-export const mapPriorityToUiName = (key: Priority) => {
-  const uiStrings: Record<Priority, string> = {
-    [Priority.Standard]: i18n.t('priority.standard'),
-    [Priority.Temporary]: i18n.t('priority.temporary'),
-    [Priority.Draft]: i18n.t('priority.draft'),
-  };
-  return uiStrings[key];
-};
-
-export const mapTimetablePriorityToUiName = (key: TimetablePriority) => {
-  const uiStrings: Record<TimetablePriority, string> = {
-    [TimetablePriority.Standard]: i18n.t('priority.standard'),
-    [TimetablePriority.Temporary]: i18n.t('priority.temporary'),
-    [TimetablePriority.Draft]: i18n.t('priority.draft'),
-    [TimetablePriority.SubstituteByLineType]: i18n.t('priority.substitute'),
-    [TimetablePriority.Special]: i18n.t('priority.special'),
-    [TimetablePriority.Staging]: '', // NOTE: staging priorities are not intented to be shown in UI
-  };
-  return uiStrings[key];
-};
-
-export const mapDayOfWeekToUiName = (key: DayOfWeek) => {
-  const uiStrings: Record<DayOfWeek, string> = {
-    [DayOfWeek.Monday]: i18n.t('dayOfWeek.monday'),
-    [DayOfWeek.Tuesday]: i18n.t('dayOfWeek.tuesday'),
-    [DayOfWeek.Wednesday]: i18n.t('dayOfWeek.wednesday'),
-    [DayOfWeek.Thursday]: i18n.t('dayOfWeek.thursday'),
-    [DayOfWeek.Friday]: i18n.t('dayOfWeek.friday'),
-    [DayOfWeek.Saturday]: i18n.t('dayOfWeek.saturday'),
-    [DayOfWeek.Sunday]: i18n.t('dayOfWeek.sunday'),
-  };
-  return uiStrings[key];
-};
-
-export const mapVehicleModeToUiName = (
-  key: ReusableComponentsVehicleModeEnum | AllOptionEnum.All,
-) => i18n.t(key === AllOptionEnum.All ? 'all' : `vehicleModeEnum.${key}`);
-
-export const mapStopRegistryTransportModeTypeToUiName = (
-  key: StopRegistryTransportModeType | JoreStopRegistryTransportModeType,
-) => i18n.t(`stopRegistryTransportModeTypeEnum.${key}`);
-
-export const mapStopPlaceStateToUiName = (key: StopPlaceState) =>
-  i18n.t(`stopPlaceStateEnum.${key}`);
-
-export const mapStopPlaceSignTypeToUiName = (key: StopPlaceSignType) =>
-  i18n.t(`stopPlaceSignTypeEnum.${key}`);
-
-export const mapStopRegistryStopTypeToUiName = (
-  key: StopRegistryStopType | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null ? 'unknown' : `stopRegistryStopTypeEnum.${key}`,
-  );
-
-export const mapStopRegistryShelterWidthTypeToUiName = (
-  key: StopRegistryShelterWidthType | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null
-      ? 'unknown'
-      : `stopRegistryShelterWidthTypeEnum.${key}`,
-  );
-
-export const mapStopRegistryPedestrianCrossingRampTypeToUiName = (
-  key: StopRegistryPedestrianCrossingRampType | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null
-      ? 'unknown'
-      : `stopRegistryPedestrianCrossingRampTypeEnum.${key}`,
-  );
-
-export const mapStopRegistryGuidanceTypeToUiName = (
-  key: StopRegistryGuidanceType | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null
-      ? 'unknown'
-      : `stopRegistryGuidanceTypeEnum.${key}`,
-  );
-
-export const mapStopRegistryMapTypeToUiName = (
-  key: StopRegistryMapType | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null ? 'unknown' : `stopRegistryMapTypeEnum.${key}`,
-  );
-
-export const mapStopRegistryShelterConditionEnumToUiName = (
-  key: StopRegistryShelterCondition | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null
-      ? 'unknown'
-      : `stopRegistryShelterConditionEnum.${key}`,
-  );
-
-export const mapStopRegistryShelterElectricityEnumToUiName = (
-  key: StopRegistryShelterElectricity | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null
-      ? 'unknown'
-      : `stopRegistryShelterElectricityEnum.${key}`,
-  );
-
-export const mapStopRegistryShelterTypeEnumToUiName = (
-  key: StopRegistryShelterType | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null
-      ? 'unknown'
-      : `stopRegistryShelterTypeEnum.${key}`,
-  );
-
-export const mapStopRegistryInfoSpotTypeEnumToUiName = (
-  key: StopRegistryInfoSpotType | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null
-      ? 'unknown'
-      : `stopDetails.infoSpots.type.${key}`,
-  );
-
-export const mapStopRegistryDisplayTypeEnumToUiName = (
-  key: StopRegistryDisplayType | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null
-      ? 'unknown'
-      : `stopDetails.infoSpots.displayTypes.${key}`,
-  );
-
-export const mapStopRegistryPosterPlaceSizeEnumToUiName = (
-  key: StopRegistryPosterPlaceSize | NullOptionEnum,
-) =>
-  i18n.t(
-    key === NullOptionEnum.Null
-      ? 'unknown'
-      : `stopDetails.infoSpots.posterPlaceSizes.${key}`,
-  );
-
-export const mapStopAccessibilityLevelToUiName = (
-  key: StopRegistryAccessibilityLevel,
-) => i18n.t(`stopAccessibilityLevelEnum.${key}`);
-
-export const mapLineTypeToUiName = (
-  key: RouteTypeOfLineEnum | AllOptionEnum.All,
-) => i18n.t(key === AllOptionEnum.All ? 'all' : `lineTypeEnum.${key}`);
-
-export function mapDirectionToUiName(
-  t: TFunction,
-  direction: RouteDirectionEnum,
-) {
-  switch (direction) {
-    case RouteDirectionEnum.Inbound:
-      return t(`directionEnum.inbound`);
-
-    case RouteDirectionEnum.Outbound:
-      return t(`directionEnum.outbound`);
-
-    default:
-      return `? - ${direction}`;
+class UnknownTranslationRequestedError extends Error {
+  constructor(value: unknown) {
+    super(
+      `Requested translation for value (${value}), but no mapper or defaultValue was found for it!`,
+    );
   }
 }
 
-export function mapDirectionToSymbol(
-  t: TFunction,
-  direction: RouteDirectionEnum,
-) {
-  switch (direction) {
-    case RouteDirectionEnum.Inbound:
-      return t(`directionEnum.symbol.inbound`);
+function genTranslationMapper<
+  MappedValue extends string | number | symbol,
+  InputValue extends string | number | symbol = MappedValue,
+>(
+  mapping: Readonly<Record<MappedValue, (t: TFunction) => string>>,
+): (t: TFunction, value: InputValue) => string;
 
-    case RouteDirectionEnum.Outbound:
-      return t(`directionEnum.symbol.outbound`);
+function genTranslationMapper<
+  MappedValue extends string | number | symbol,
+  InputValue extends string | number | symbol = MappedValue,
+  DefaultOutputValue = string,
+>(
+  mapping: Readonly<Record<MappedValue, (t: TFunction) => string>>,
+  defaultValue: (t: TFunction, value: InputValue) => DefaultOutputValue,
+): (t: TFunction, value: InputValue) => string | DefaultOutputValue;
 
-    default:
-      return '?';
-  }
-}
+function genTranslationMapper<
+  MappedValue extends string | number | symbol,
+  InputValue extends string | number | symbol = MappedValue,
+  DefaultOutputValue = string,
+>(
+  mapping: Readonly<Record<MappedValue, (t: TFunction) => string>>,
+  defaultValue?: (t: TFunction, value: InputValue) => DefaultOutputValue,
+): (t: TFunction, value: InputValue) => string | DefaultOutputValue {
+  return (t: TFunction, value: InputValue): string | DefaultOutputValue => {
+    if (value in mapping) {
+      return mapping[value as unknown as MappedValue](t);
+    }
 
-export function mapDirectionToLabel(
-  t: TFunction,
-  direction: RouteDirectionEnum,
-) {
-  switch (direction) {
-    case RouteDirectionEnum.Inbound:
-      return t(`directionEnum.label.inbound`);
+    if (defaultValue) {
+      return defaultValue(t, value);
+    }
 
-    case RouteDirectionEnum.Outbound:
-      return t(`directionEnum.label.outbound`);
-
-    default:
-      return String(direction);
-  }
-}
-
-export const mapTransportTargetToUiName = (key: HslRouteTransportTargetEnum) =>
-  i18n.t(`transportTargetEnum.${key}`);
-
-export const mapSubstituteDayOfWeekToUiName = (
-  key: SubstituteDayOfWeek | AllOptionEnum,
-) => {
-  if (key === AllOptionEnum.All) {
-    return i18n.t('all');
-  }
-
-  const uiStrings: Record<SubstituteDayOfWeek, string> = {
-    [SubstituteDayOfWeek.NoTraffic]: i18n.t('timetableDayEnum.noTraffic'),
-    [SubstituteDayOfWeek.Monday]: i18n.t('timetableDayEnum.monday'),
-    [SubstituteDayOfWeek.Tuesday]: i18n.t('timetableDayEnum.tuesday'),
-    [SubstituteDayOfWeek.Wednesday]: i18n.t('timetableDayEnum.wednesday'),
-    [SubstituteDayOfWeek.Thursday]: i18n.t('timetableDayEnum.thursday'),
-    [SubstituteDayOfWeek.Friday]: i18n.t('timetableDayEnum.friday'),
-    [SubstituteDayOfWeek.Saturday]: i18n.t('timetableDayEnum.saturday'),
-    [SubstituteDayOfWeek.Sunday]: i18n.t('timetableDayEnum.sunday'),
+    throw new UnknownTranslationRequestedError(value);
   };
+}
 
-  return uiStrings[key];
-};
+export const mapPriorityToUiName = genTranslationMapper<Priority>({
+  [Priority.Standard]: (t) => t('priority.standard'),
+  [Priority.Temporary]: (t) => t('priority.temporary'),
+  [Priority.Draft]: (t) => t('priority.draft'),
+});
 
-export const mapMunicipalityToUiName = (
-  key: StopRegistryMunicipality | AllOptionEnum,
-) => {
-  return key === AllOptionEnum.All ? i18n.t('all') : key.toString();
-};
+export const mapTimetablePriorityToUiName =
+  genTranslationMapper<TimetablePriority>({
+    [TimetablePriority.Standard]: (t) => t('priority.standard'),
+    [TimetablePriority.Temporary]: (t) => t('priority.temporary'),
+    [TimetablePriority.Draft]: (t) => t('priority.draft'),
+    [TimetablePriority.SubstituteByLineType]: (t) => t('priority.substitute'),
+    [TimetablePriority.Special]: (t) => t('priority.special'),
+    [TimetablePriority.Staging]: () => '', // NOTE: staging priorities are not intented to be shown in UI
+  });
+
+export const mapDayOfWeekToUiName = genTranslationMapper<DayOfWeek>({
+  [DayOfWeek.Monday]: (t) => t('dayOfWeek.monday'),
+  [DayOfWeek.Tuesday]: (t) => t('dayOfWeek.tuesday'),
+  [DayOfWeek.Wednesday]: (t) => t('dayOfWeek.wednesday'),
+  [DayOfWeek.Thursday]: (t) => t('dayOfWeek.thursday'),
+  [DayOfWeek.Friday]: (t) => t('dayOfWeek.friday'),
+  [DayOfWeek.Saturday]: (t) => t('dayOfWeek.saturday'),
+  [DayOfWeek.Sunday]: (t) => t('dayOfWeek.sunday'),
+});
+
+export const mapVehicleModeToUiName = genTranslationMapper<
+  ReusableComponentsVehicleModeEnum | AllOptionEnum.All
+>({
+  [AllOptionEnum.All]: (t) => t('all'),
+  [ReusableComponentsVehicleModeEnum.Bus]: (t) => t('vehicleModeEnum.bus'),
+  [ReusableComponentsVehicleModeEnum.Ferry]: (t) => t('vehicleModeEnum.ferry'),
+  [ReusableComponentsVehicleModeEnum.Metro]: (t) => t('vehicleModeEnum.metro'),
+  [ReusableComponentsVehicleModeEnum.Train]: (t) => t('vehicleModeEnum.train'),
+  [ReusableComponentsVehicleModeEnum.Tram]: (t) => t('vehicleModeEnum.tram'),
+});
+
+export const mapStopRegistryTransportModeTypeToUiName = genTranslationMapper<
+  JoreStopRegistryTransportModeType,
+  JoreStopRegistryTransportModeType | StopRegistryTransportModeType
+>({
+  [JoreStopRegistryTransportModeType.Bus]: (t) =>
+    t('stopRegistryTransportModeTypeEnum.bus'),
+  [JoreStopRegistryTransportModeType.Metro]: (t) =>
+    t('stopRegistryTransportModeTypeEnum.metro'),
+  [JoreStopRegistryTransportModeType.Rail]: (t) =>
+    t('stopRegistryTransportModeTypeEnum.rail'),
+  [JoreStopRegistryTransportModeType.Tram]: (t) =>
+    t('stopRegistryTransportModeTypeEnum.tram'),
+  [JoreStopRegistryTransportModeType.Water]: (t) =>
+    t('stopRegistryTransportModeTypeEnum.water'),
+});
+
+export const mapStopPlaceStateToUiName = genTranslationMapper<StopPlaceState>({
+  [StopPlaceState.InOperation]: (t) => t('stopPlaceStateEnum.InOperation'),
+  [StopPlaceState.OutOfOperation]: (t) =>
+    t('stopPlaceStateEnum.OutOfOperation'),
+  [StopPlaceState.PermanentlyOutOfOperation]: (t) =>
+    t('stopPlaceStateEnum.PermanentlyOutOfOperation'),
+  [StopPlaceState.Removed]: (t) => t('stopPlaceStateEnum.Removed'),
+});
+
+export const mapStopPlaceSignTypeToUiName =
+  genTranslationMapper<StopPlaceSignType>({
+    [StopPlaceSignType.None]: (t) => t('stopPlaceSignTypeEnum.None'),
+    [StopPlaceSignType.StopSign]: (t) => t('stopPlaceSignTypeEnum.StopSign'),
+    [StopPlaceSignType.CanopyFrame]: (t) =>
+      t('stopPlaceSignTypeEnum.CanopyFrame'),
+    [StopPlaceSignType.PoleSign]: (t) => t('stopPlaceSignTypeEnum.PoleSign'),
+    [StopPlaceSignType.JokerSign]: (t) => t('stopPlaceSignTypeEnum.JokerSign'),
+  });
+
+export const mapStopRegistryStopTypeToUiName = genTranslationMapper<
+  StopRegistryStopType | NullOptionEnum
+>({
+  [NullOptionEnum.Null]: (t) => t('unknown'),
+  [StopRegistryStopType.BusBulb]: (t) => t('stopRegistryStopTypeEnum.busBulb'),
+  [StopRegistryStopType.InLane]: (t) => t('stopRegistryStopTypeEnum.inLane'),
+  [StopRegistryStopType.Other]: (t) => t('stopRegistryStopTypeEnum.other'),
+  [StopRegistryStopType.PullOut]: (t) => t('stopRegistryStopTypeEnum.pullOut'),
+});
+
+export const mapStopRegistryShelterWidthTypeToUiName = genTranslationMapper<
+  StopRegistryShelterWidthType | NullOptionEnum
+>({
+  [NullOptionEnum.Null]: (t) => t('unknown'),
+  [StopRegistryShelterWidthType.Narrow]: (t) =>
+    t('stopRegistryShelterWidthTypeEnum.narrow'),
+  [StopRegistryShelterWidthType.Other]: (t) =>
+    t('stopRegistryShelterWidthTypeEnum.other'),
+  [StopRegistryShelterWidthType.Wide]: (t) =>
+    t('stopRegistryShelterWidthTypeEnum.wide'),
+});
+
+export const mapStopRegistryPedestrianCrossingRampTypeToUiName =
+  genTranslationMapper<StopRegistryPedestrianCrossingRampType | NullOptionEnum>(
+    {
+      [NullOptionEnum.Null]: (t) => t('unknown'),
+      [StopRegistryPedestrianCrossingRampType.Lr]: (t) =>
+        t('stopRegistryPedestrianCrossingRampTypeEnum.LR'),
+      [StopRegistryPedestrianCrossingRampType.Rk4]: (t) =>
+        t('stopRegistryPedestrianCrossingRampTypeEnum.RK4'),
+      [StopRegistryPedestrianCrossingRampType.Rk4Lr]: (t) =>
+        t('stopRegistryPedestrianCrossingRampTypeEnum.RK4_LR'),
+      [StopRegistryPedestrianCrossingRampType.Other]: (t) =>
+        t('stopRegistryPedestrianCrossingRampTypeEnum.other'),
+    },
+  );
+
+export const mapStopRegistryGuidanceTypeToUiName = genTranslationMapper<
+  StopRegistryGuidanceType | NullOptionEnum
+>({
+  [NullOptionEnum.Null]: (t) => t('unknown'),
+  [StopRegistryGuidanceType.Braille]: (t) =>
+    t('stopRegistryGuidanceTypeEnum.braille'),
+  [StopRegistryGuidanceType.None]: (t) =>
+    t('stopRegistryGuidanceTypeEnum.none'),
+  [StopRegistryGuidanceType.Other]: (t) =>
+    t('stopRegistryGuidanceTypeEnum.other'),
+});
+
+export const mapStopRegistryMapTypeToUiName = genTranslationMapper<
+  StopRegistryMapType | NullOptionEnum
+>({
+  [NullOptionEnum.Null]: (t) => t('unknown'),
+  [StopRegistryMapType.None]: (t) => t('stopRegistryMapTypeEnum.none'),
+  [StopRegistryMapType.Other]: (t) => t('stopRegistryMapTypeEnum.other'),
+  [StopRegistryMapType.Tactile]: (t) => t('stopRegistryMapTypeEnum.tactile'),
+});
+
+export const mapStopRegistryShelterConditionEnumToUiName = genTranslationMapper<
+  StopRegistryShelterCondition | NullOptionEnum
+>({
+  [NullOptionEnum.Null]: (t) => t('unknown'),
+  [StopRegistryShelterCondition.Bad]: (t) =>
+    t('stopRegistryShelterConditionEnum.bad'),
+  [StopRegistryShelterCondition.Good]: (t) =>
+    t('stopRegistryShelterConditionEnum.good'),
+  [StopRegistryShelterCondition.Mediocre]: (t) =>
+    t('stopRegistryShelterConditionEnum.mediocre'),
+});
+
+export const mapStopRegistryShelterElectricityEnumToUiName =
+  genTranslationMapper<StopRegistryShelterElectricity | NullOptionEnum>({
+    [NullOptionEnum.Null]: (t) => t('unknown'),
+    [StopRegistryShelterElectricity.Continuous]: (t) =>
+      t('stopRegistryShelterElectricityEnum.continuous'),
+    [StopRegistryShelterElectricity.ContinuousPlanned]: (t) =>
+      t('stopRegistryShelterElectricityEnum.continuousPlanned'),
+    [StopRegistryShelterElectricity.ContinuousUnderConstruction]: (t) =>
+      t('stopRegistryShelterElectricityEnum.continuousUnderConstruction'),
+    [StopRegistryShelterElectricity.Light]: (t) =>
+      t('stopRegistryShelterElectricityEnum.light'),
+    [StopRegistryShelterElectricity.None]: (t) =>
+      t('stopRegistryShelterElectricityEnum.none'),
+    [StopRegistryShelterElectricity.TemporarilyOff]: (t) =>
+      t('stopRegistryShelterElectricityEnum.temporarilyOff'),
+  });
+
+export const mapStopRegistryShelterTypeEnumToUiName = genTranslationMapper<
+  StopRegistryShelterType | NullOptionEnum
+>({
+  [NullOptionEnum.Null]: (t) => t('unknown'),
+  [StopRegistryShelterType.Concrete]: (t) =>
+    t('stopRegistryShelterTypeEnum.concrete'),
+  [StopRegistryShelterType.Glass]: (t) =>
+    t('stopRegistryShelterTypeEnum.glass'),
+  [StopRegistryShelterType.Post]: (t) => t('stopRegistryShelterTypeEnum.post'),
+  [StopRegistryShelterType.Steel]: (t) =>
+    t('stopRegistryShelterTypeEnum.steel'),
+  [StopRegistryShelterType.Urban]: (t) =>
+    t('stopRegistryShelterTypeEnum.urban'),
+  [StopRegistryShelterType.Virtual]: (t) =>
+    t('stopRegistryShelterTypeEnum.virtual'),
+  [StopRegistryShelterType.Wooden]: (t) =>
+    t('stopRegistryShelterTypeEnum.wooden'),
+});
+
+export const mapStopRegistryPosterPlaceSizeEnumToUiName = genTranslationMapper<
+  StopRegistryPosterPlaceSize | NullOptionEnum
+>({
+  [NullOptionEnum.Null]: (t) => t('unknown'),
+  [StopRegistryPosterPlaceSize.A3]: (t) =>
+    t('stopDetails.infoSpots.posterPlaceSizes.a3'),
+  [StopRegistryPosterPlaceSize.A4]: (t) =>
+    t('stopDetails.infoSpots.posterPlaceSizes.a4'),
+  [StopRegistryPosterPlaceSize.Cm80x120]: (t) =>
+    t('stopDetails.infoSpots.posterPlaceSizes.cm80x120'),
+});
+
+export const mapStopAccessibilityLevelToUiName =
+  genTranslationMapper<StopRegistryAccessibilityLevel>({
+    [StopRegistryAccessibilityLevel.FullyAccessible]: (t) =>
+      t('stopAccessibilityLevelEnum.fullyAccessible'),
+    [StopRegistryAccessibilityLevel.Inaccessible]: (t) =>
+      t('stopAccessibilityLevelEnum.inaccessible'),
+    [StopRegistryAccessibilityLevel.MostlyAccessible]: (t) =>
+      t('stopAccessibilityLevelEnum.mostlyAccessible'),
+    [StopRegistryAccessibilityLevel.PartiallyInaccessible]: (t) =>
+      t('stopAccessibilityLevelEnum.partiallyInaccessible'),
+    [StopRegistryAccessibilityLevel.Unknown]: (t) =>
+      t('stopAccessibilityLevelEnum.unknown'),
+  });
+
+export const mapLineTypeToUiName = genTranslationMapper<
+  RouteTypeOfLineEnum | AllOptionEnum
+>({
+  [AllOptionEnum.All]: (t) => t('all'),
+  [RouteTypeOfLineEnum.CityTramService]: (t) =>
+    t('lineTypeEnum.city_tram_service'),
+  [RouteTypeOfLineEnum.DemandAndResponseBusService]: (t) =>
+    t('lineTypeEnum.demand_and_response_bus_service'),
+  [RouteTypeOfLineEnum.ExpressBusService]: (t) =>
+    t('lineTypeEnum.express_bus_service'),
+  [RouteTypeOfLineEnum.FerryService]: (t) => t('lineTypeEnum.ferry_service'),
+  [RouteTypeOfLineEnum.MetroService]: (t) => t('lineTypeEnum.metro_service'),
+  [RouteTypeOfLineEnum.RegionalBusService]: (t) =>
+    t('lineTypeEnum.regional_bus_service'),
+  [RouteTypeOfLineEnum.RegionalRailService]: (t) =>
+    t('lineTypeEnum.regional_rail_service'),
+  [RouteTypeOfLineEnum.RegionalTramService]: (t) =>
+    t('lineTypeEnum.regional_tram_service'),
+  [RouteTypeOfLineEnum.SpecialNeedsBus]: (t) =>
+    t('lineTypeEnum.special_needs_bus'),
+  [RouteTypeOfLineEnum.StoppingBusService]: (t) =>
+    t('lineTypeEnum.stopping_bus_service'),
+  [RouteTypeOfLineEnum.SuburbanRailway]: (t) =>
+    t('lineTypeEnum.suburban_railway'),
+});
+
+export const mapDirectionToUiName = genTranslationMapper<
+  RouteDirectionEnum.Inbound | RouteDirectionEnum.Outbound,
+  RouteDirectionEnum
+>(
+  {
+    [RouteDirectionEnum.Inbound]: (t) => t('directionEnum.inbound'),
+    [RouteDirectionEnum.Outbound]: (t) => t('directionEnum.outbound'),
+  },
+  (_, direction) => `? - ${direction}`,
+);
+
+export const mapDirectionToSymbol = genTranslationMapper<
+  RouteDirectionEnum.Inbound | RouteDirectionEnum.Outbound,
+  RouteDirectionEnum
+>(
+  {
+    [RouteDirectionEnum.Inbound]: (t) => t('directionEnum.symbol.inbound'),
+    [RouteDirectionEnum.Outbound]: (t) => t('directionEnum.symbol.outbound'),
+  },
+  () => '?',
+);
+
+export const mapDirectionToLabel = genTranslationMapper<
+  RouteDirectionEnum.Inbound | RouteDirectionEnum.Outbound,
+  RouteDirectionEnum
+>(
+  {
+    [RouteDirectionEnum.Inbound]: (t) => t('directionEnum.label.inbound'),
+    [RouteDirectionEnum.Outbound]: (t) => t('directionEnum.label.outbound'),
+  },
+  (_, direction) => String(direction),
+);
+
+export const mapTransportTargetToUiName =
+  genTranslationMapper<HslRouteTransportTargetEnum>({
+    [HslRouteTransportTargetEnum.EspooAndKauniainenInternalTraffic]: (t) =>
+      t('transportTargetEnum.espoo_and_kauniainen_internal_traffic'),
+    [HslRouteTransportTargetEnum.EspooRegionalTraffic]: (t) =>
+      t('transportTargetEnum.espoo_regional_traffic'),
+    [HslRouteTransportTargetEnum.HelsinkiInternalTraffic]: (t) =>
+      t('transportTargetEnum.helsinki_internal_traffic'),
+    [HslRouteTransportTargetEnum.KeravaInternalTraffic]: (t) =>
+      t('transportTargetEnum.kerava_internal_traffic'),
+    [HslRouteTransportTargetEnum.KeravaRegionalTraffic]: (t) =>
+      t('transportTargetEnum.kerava_regional_traffic'),
+    [HslRouteTransportTargetEnum.KirkkonummiInternalTraffic]: (t) =>
+      t('transportTargetEnum.kirkkonummi_internal_traffic'),
+    [HslRouteTransportTargetEnum.KirkkonummiRegionalTraffic]: (t) =>
+      t('transportTargetEnum.kirkkonummi_regional_traffic'),
+    [HslRouteTransportTargetEnum.SipooInternalTraffic]: (t) =>
+      t('transportTargetEnum.sipoo_internal_traffic'),
+    [HslRouteTransportTargetEnum.SiuntioInternalTraffic]: (t) =>
+      t('transportTargetEnum.siuntio_internal_traffic'),
+    [HslRouteTransportTargetEnum.SiuntioRegionalTraffic]: (t) =>
+      t('transportTargetEnum.siuntio_regional_traffic'),
+    [HslRouteTransportTargetEnum.TransverseRegional]: (t) =>
+      t('transportTargetEnum.transverse_regional'),
+    [HslRouteTransportTargetEnum.TuusulaInternalTraffic]: (t) =>
+      t('transportTargetEnum.tuusula_internal_traffic'),
+    [HslRouteTransportTargetEnum.TuusulaRegionalTraffic]: (t) =>
+      t('transportTargetEnum.tuusula_regional_traffic'),
+    [HslRouteTransportTargetEnum.VantaaInternalTraffic]: (t) =>
+      t('transportTargetEnum.vantaa_internal_traffic'),
+    [HslRouteTransportTargetEnum.VantaaRegionalTraffic]: (t) =>
+      t('transportTargetEnum.vantaa_regional_traffic'),
+  });
+
+export const mapSubstituteDayOfWeekToUiName = genTranslationMapper<
+  SubstituteDayOfWeek | AllOptionEnum
+>({
+  [AllOptionEnum.All]: (t) => t('all'),
+  [SubstituteDayOfWeek.NoTraffic]: (t) => t('timetableDayEnum.noTraffic'),
+  [SubstituteDayOfWeek.Monday]: (t) => t('timetableDayEnum.monday'),
+  [SubstituteDayOfWeek.Tuesday]: (t) => t('timetableDayEnum.tuesday'),
+  [SubstituteDayOfWeek.Wednesday]: (t) => t('timetableDayEnum.wednesday'),
+  [SubstituteDayOfWeek.Thursday]: (t) => t('timetableDayEnum.thursday'),
+  [SubstituteDayOfWeek.Friday]: (t) => t('timetableDayEnum.friday'),
+  [SubstituteDayOfWeek.Saturday]: (t) => t('timetableDayEnum.saturday'),
+  [SubstituteDayOfWeek.Sunday]: (t) => t('timetableDayEnum.sunday'),
+});

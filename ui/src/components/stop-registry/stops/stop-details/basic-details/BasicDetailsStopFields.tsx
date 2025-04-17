@@ -34,11 +34,11 @@ export const StopDetailsSection = ({ stop }: Props) => {
   const { t } = useTranslation();
 
   const stopState =
-    stop.quay?.stopState && mapStopPlaceStateToUiName(stop.quay?.stopState);
+    stop.quay?.stopState && mapStopPlaceStateToUiName(t, stop.quay.stopState);
 
   const transportMode =
     stop.stop_place?.transportMode &&
-    mapStopRegistryTransportModeTypeToUiName(stop.stop_place?.transportMode);
+    mapStopRegistryTransportModeTypeToUiName(t, stop.stop_place.transportMode);
 
   return (
     <>
@@ -88,7 +88,7 @@ export const StopDetailsSection = ({ stop }: Props) => {
         <div className="flex items-center gap-4">
           <LabeledDetail
             title={t('stopDetails.basicDetails.stopType')}
-            detail={stop.quay && translateStopTypes(stop.quay)}
+            detail={stop.quay && translateStopTypes(t, stop.quay)}
             testId={testIds.stopType}
           />
           <MainLineWarning

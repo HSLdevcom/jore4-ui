@@ -77,6 +77,7 @@ const InfoSpotTitle: FC<{
         {t('stopDetails.infoSpots.shelterTypeSubtitle', {
           index: shelterNumber,
           shelterType: mapStopRegistryShelterTypeEnumToUiName(
+            t,
             shelter.shelterType ?? NullOptionEnum.Null,
           ),
         })}

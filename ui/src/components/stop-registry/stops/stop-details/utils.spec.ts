@@ -1,3 +1,4 @@
+import { i18n } from '../../../../i18n';
 import { optionalBooleanToUiText, translateStopTypes } from './utils';
 
 describe('Stop registry utils', () => {
@@ -11,7 +12,7 @@ describe('Stop registry utils', () => {
           virtual: false,
         },
       };
-      const result = translateStopTypes(stopPlace);
+      const result = translateStopTypes(i18n.t, stopPlace);
       expect(result).toBe('Raideliikennettä korvaava');
     });
 
@@ -24,7 +25,7 @@ describe('Stop registry utils', () => {
           virtual: true,
         },
       };
-      const result = translateStopTypes(stopPlace);
+      const result = translateStopTypes(i18n.t, stopPlace);
       expect(result).toBe(
         'Runkolinja, vaihtopysäkki, raideliikennettä korvaava, virtuaalipysäkki',
       );
@@ -39,29 +40,29 @@ describe('Stop registry utils', () => {
           virtual: false,
         },
       };
-      const result = translateStopTypes(stopPlace);
+      const result = translateStopTypes(i18n.t, stopPlace);
       expect(result).toBe('');
     });
   });
 
   describe('optionalBooleanToUiText', () => {
     it('should translate true', () => {
-      const result = optionalBooleanToUiText(true);
+      const result = optionalBooleanToUiText(i18n.t, true);
       expect(result).toBe('Kyllä');
     });
 
     it('should translate false', () => {
-      const result = optionalBooleanToUiText(false);
+      const result = optionalBooleanToUiText(i18n.t, false);
       expect(result).toBe('Ei');
     });
 
     it('should not translate undefined', () => {
-      const result = optionalBooleanToUiText(undefined);
+      const result = optionalBooleanToUiText(i18n.t, undefined);
       expect(result).toBe(undefined);
     });
 
     it('should not translate null', () => {
-      const result = optionalBooleanToUiText(null);
+      const result = optionalBooleanToUiText(i18n.t, null);
       expect(result).toBe(undefined);
     });
   });

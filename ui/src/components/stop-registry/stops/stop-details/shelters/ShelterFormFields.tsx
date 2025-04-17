@@ -96,7 +96,9 @@ export const ShelterFormFields = ({
             <EnumDropdown<StopRegistryShelterType>
               enumType={StopRegistryShelterType}
               placeholder={t('unknown')}
-              uiNameMapper={mapStopRegistryShelterTypeEnumToUiName}
+              uiNameMapper={(value) =>
+                mapStopRegistryShelterTypeEnumToUiName(t, value)
+              }
               buttonClassName="min-w-36"
               includeNullOption
               disabled={toBeDeleted}
@@ -114,7 +116,9 @@ export const ShelterFormFields = ({
             <EnumDropdown<StopRegistryShelterElectricity>
               enumType={StopRegistryShelterElectricity}
               placeholder={t('unknown')}
-              uiNameMapper={mapStopRegistryShelterElectricityEnumToUiName}
+              uiNameMapper={(value) =>
+                mapStopRegistryShelterElectricityEnumToUiName(t, value)
+              }
               buttonClassName="min-w-44"
               includeNullOption
               disabled={toBeDeleted}
@@ -147,7 +151,9 @@ export const ShelterFormFields = ({
             <EnumDropdown<StopRegistryShelterCondition>
               enumType={StopRegistryShelterCondition}
               placeholder={t('unknown')}
-              uiNameMapper={mapStopRegistryShelterConditionEnumToUiName}
+              uiNameMapper={(value) =>
+                mapStopRegistryShelterConditionEnumToUiName(t, value)
+              }
               includeNullOption
               disabled={toBeDeleted}
               buttonClassName="min-w-32"

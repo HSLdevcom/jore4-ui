@@ -39,7 +39,9 @@ export const StopOtherDetailsFormRow = ({
             <EnumDropdown<JoreStopRegistryTransportModeType>
               enumType={JoreStopRegistryTransportModeType}
               placeholder={t('stopDetails.basicDetails.transportMode')}
-              uiNameMapper={mapStopRegistryTransportModeTypeToUiName}
+              uiNameMapper={(value) =>
+                mapStopRegistryTransportModeTypeToUiName(t, value)
+              }
               disabled={isRailReplacement}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}

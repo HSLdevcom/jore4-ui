@@ -17,7 +17,7 @@ export const PriorityBadge = ({
 }) => {
   const { t } = useTranslation();
 
-  const title = `${mapPriorityToUiName(priority)}: ${mapToValidityPeriod(
+  const title = `${mapPriorityToUiName(t, priority)}: ${mapToValidityPeriod(
     t,
     validityStart,
     validityEnd,

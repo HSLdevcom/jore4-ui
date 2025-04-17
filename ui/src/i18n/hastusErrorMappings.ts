@@ -1,38 +1,39 @@
+import { TFunction } from 'i18next';
 import { HastusApiErrorType } from '../api/hastus';
-import { i18n } from '../i18n';
 
 export const mapHastusErrorTypeToErrorMessage = (
+  t: TFunction,
   errorType: HastusApiErrorType,
 ): string => {
   switch (errorType) {
     case HastusApiErrorType.CannotFindJourneyPatternRefByRouteLabelAndDirectionError:
-      return i18n.t(
+      return t(
         'hastusApiErrors.cannotFindJourneyPatternRefByRouteLabelAndDirectionError',
       );
     case HastusApiErrorType.CannotFindJourneyPatternRefByStopPointLabelsError:
-      return i18n.t(
+      return t(
         'hastusApiErrors.cannotFindJourneyPatternRefByStopPointLabelsError',
       );
     case HastusApiErrorType.CannotFindJourneyPatternRefByTimingPlaceLabelsError:
-      return i18n.t(
+      return t(
         'hastusApiErrors.cannotFindJourneyPatternRefByTimingPlaceLabelsError',
       );
     case HastusApiErrorType.ErrorWhileProcessingHastusDataError:
-      return i18n.t('hastusApiErrors.errorWhileProcessingHastusDataError');
+      return t('hastusApiErrors.errorWhileProcessingHastusDataError');
     case HastusApiErrorType.FirstStopNotTimingPointError:
-      return i18n.t('hastusApiErrors.firstStopNotTimingPointError');
+      return t('hastusApiErrors.firstStopNotTimingPointError');
     case HastusApiErrorType.GraphQLAuthenticationFailedError:
-      return i18n.t('hastusApiErrors.graphQLAuthenticationFailedError');
+      return t('hastusApiErrors.graphQLAuthenticationFailedError');
     case HastusApiErrorType.IllegalArgumentError:
-      return i18n.t('hastusApiErrors.illegalArgumentError');
+      return t('hastusApiErrors.illegalArgumentError');
     case HastusApiErrorType.InvalidHastusDataError:
-      return i18n.t('hastusApiErrors.invalidHastusDataError');
+      return t('hastusApiErrors.invalidHastusDataError');
     case HastusApiErrorType.LastStopNotTimingPointError:
-      return i18n.t('hastusApiErrors.lastStopNotTimingPointError');
+      return t('hastusApiErrors.lastStopNotTimingPointError');
     case HastusApiErrorType.TooFewStopPointsError:
-      return i18n.t('hastusApiErrors.tooFewStopPointsError');
+      return t('hastusApiErrors.tooFewStopPointsError');
     case HastusApiErrorType.UnknownError:
     default:
-      return i18n.t('hastusApiErrors.unknownError');
+      return t('hastusApiErrors.unknownError');
   }
 };

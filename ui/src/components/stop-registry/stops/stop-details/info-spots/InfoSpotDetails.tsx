@@ -25,7 +25,7 @@ export const InfoSpotDetails: FC<Props> = ({ infoSpot }) => {
       />
       <LabeledDetail
         title={t('stopDetails.infoSpots.backlight')}
-        detail={optionalBooleanToUiText(infoSpot.backlight)}
+        detail={optionalBooleanToUiText(t, infoSpot.backlight)}
         testId={testIds.backlight}
       />
     </>

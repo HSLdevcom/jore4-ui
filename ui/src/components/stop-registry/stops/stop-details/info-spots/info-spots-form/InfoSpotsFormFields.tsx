@@ -108,7 +108,9 @@ export const InfoSpotFormFields: FC<Props> = ({
               <EnumDropdown<StopRegistryPosterPlaceSize>
                 enumType={StopRegistryPosterPlaceSize}
                 placeholder={t('unknown')}
-                uiNameMapper={mapStopRegistryPosterPlaceSizeEnumToUiName}
+                uiNameMapper={(value) =>
+                  mapStopRegistryPosterPlaceSizeEnumToUiName(t, value)
+                }
                 buttonClassName="min-w-36"
                 includeNullOption
                 // eslint-disable-next-line react/jsx-props-no-spreading
