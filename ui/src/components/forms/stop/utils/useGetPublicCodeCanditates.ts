@@ -26,10 +26,7 @@ const GQL_GET_EXISTING_PUBLIC_CODES = gql`
         name: name_value
       }
 
-      usedPublicCodes: stops_database_quay(
-        distinct_on: [public_code]
-        order_by: [{ public_code: asc }]
-      ) {
+      usedPublicCodes: stops_database_quay(distinct_on: [public_code]) {
         id
         publicCode: public_code
       }
@@ -44,7 +41,6 @@ const GQL_GET_EXISTING_PUBLIC_CODES = gql`
           }
         }
         distinct_on: [public_code]
-        order_by: [{ public_code: asc }]
       ) {
         id
         publicCode: public_code

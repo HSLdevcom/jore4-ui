@@ -75936,17 +75936,13 @@ export const GetExistingQuayPublicCodesDocument = gql`
       id
       name: name_value
     }
-    usedPublicCodes: stops_database_quay(
-      distinct_on: [public_code]
-      order_by: [{public_code: asc}]
-    ) {
+    usedPublicCodes: stops_database_quay(distinct_on: [public_code]) {
       id
       publicCode: public_code
     }
     nearbyStops: stops_database_quay(
       where: {centroid: {_st_d_within: {distance: $distanceToNearbyStops, from: $newStopLocation}}}
       distinct_on: [public_code]
-      order_by: [{public_code: asc}]
     ) {
       id
       publicCode: public_code
