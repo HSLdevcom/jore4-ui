@@ -3,6 +3,7 @@ import debounce from 'lodash/debounce';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { MdOutlineSearch } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { ValidationErrorList } from '../../common';
 import { StopFormState, StopModalStopAreaFormSchema } from '../types';
@@ -92,7 +93,7 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
           className="flex h-[--input-height] w-[--input-height] items-center justify-center rounded-br-[5px] rounded-tr-[5px] bg-tweaked-brand text-xl"
           title={t('stops.stopArea.search')}
         >
-          🔍
+          <MdOutlineSearch color="white" />
         </Combobox.Button>
       </div>
       <ValidationErrorList<StopFormState> fieldPath="stopArea" />
