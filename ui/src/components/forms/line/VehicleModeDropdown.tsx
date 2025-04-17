@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { mapVehicleModeToUiName } from '../../../i18n/uiNameMappings';
 import { FormInputProps } from '../../../uiComponents';
+import { AllOptionEnum } from '../../../utils';
 import { EnumDropdown } from '../common/EnumDropdown';
 
 interface Props extends FormInputProps {
@@ -22,12 +23,12 @@ export const VehicleModeDropdown = ({
   const { t } = useTranslation();
 
   return (
-    <EnumDropdown
+    <EnumDropdown<ReusableComponentsVehicleModeEnum | AllOptionEnum.All>
       id={id}
       testId={testId}
       enumType={ReusableComponentsVehicleModeEnum}
       placeholder={t('lines.chooseVehicleMode')}
-      uiNameMapper={mapVehicleModeToUiName}
+      uiNameMapper={(value) => mapVehicleModeToUiName(t, value)}
       includeAllOption={!!includeAllOption}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}

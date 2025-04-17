@@ -86,7 +86,9 @@ const MeasurementsFormComponent = (
                 <EnumDropdown<StopRegistryStopType>
                   enumType={StopRegistryStopType}
                   placeholder={t('unknown')}
-                  uiNameMapper={mapStopRegistryStopTypeToUiName}
+                  uiNameMapper={(value) =>
+                    mapStopRegistryStopTypeToUiName(t, value)
+                  }
                   includeNullOption
                   // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
@@ -116,7 +118,9 @@ const MeasurementsFormComponent = (
                 <EnumDropdown<StopRegistryShelterWidthType>
                   enumType={StopRegistryShelterWidthType}
                   placeholder={t('unknown')}
-                  uiNameMapper={mapStopRegistryShelterWidthTypeToUiName}
+                  uiNameMapper={(value) =>
+                    mapStopRegistryShelterWidthTypeToUiName(t, value)
+                  }
                   includeNullOption
                   // eslint-disable-next-line react/jsx-props-no-spreading
                   {...props}
@@ -262,7 +266,9 @@ const MeasurementsFormComponent = (
                 <EnumDropdown<StopRegistryGuidanceType>
                   enumType={StopRegistryGuidanceType}
                   placeholder={t('unknown')}
-                  uiNameMapper={mapStopRegistryGuidanceTypeToUiName}
+                  uiNameMapper={(value) =>
+                    mapStopRegistryGuidanceTypeToUiName(t, value)
+                  }
                   includeNullOption
                   buttonClassName="min-w-32"
                   // eslint-disable-next-line react/jsx-props-no-spreading
@@ -293,7 +299,9 @@ const MeasurementsFormComponent = (
                 <EnumDropdown<StopRegistryMapType>
                   enumType={StopRegistryMapType}
                   placeholder={t('unknown')}
-                  uiNameMapper={mapStopRegistryMapTypeToUiName}
+                  uiNameMapper={(value) =>
+                    mapStopRegistryMapTypeToUiName(t, value)
+                  }
                   includeNullOption
                   buttonClassName="min-w-32"
                   // eslint-disable-next-line react/jsx-props-no-spreading
@@ -347,8 +355,8 @@ const MeasurementsFormComponent = (
                 <EnumDropdown<StopRegistryPedestrianCrossingRampType>
                   enumType={StopRegistryPedestrianCrossingRampType}
                   placeholder={t('unknown')}
-                  uiNameMapper={
-                    mapStopRegistryPedestrianCrossingRampTypeToUiName
+                  uiNameMapper={(value) =>
+                    mapStopRegistryPedestrianCrossingRampTypeToUiName(t, value)
                   }
                   includeNullOption
                   // eslint-disable-next-line react/jsx-props-no-spreading

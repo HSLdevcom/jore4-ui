@@ -66,7 +66,7 @@ export const StopLabelAndLocationFormRow = () => {
               <EnumDropdown<StopPlaceState>
                 enumType={StopPlaceState}
                 placeholder={t('stopDetails.basicDetails.stopState')}
-                uiNameMapper={mapStopPlaceStateToUiName}
+                uiNameMapper={(value) => mapStopPlaceStateToUiName(t, value)}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
               />

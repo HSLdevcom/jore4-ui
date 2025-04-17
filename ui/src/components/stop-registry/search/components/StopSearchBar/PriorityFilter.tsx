@@ -1,6 +1,7 @@
 import without from 'lodash/without';
 import React, { FC } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { mapPriorityToUiName } from '../../../../../i18n/uiNameMappings';
 import { Column, Row } from '../../../../../layoutComponents';
 import { Priority, knownPriorityValues } from '../../../../../types/enums';
@@ -17,6 +18,8 @@ type PriorityFilterProps = {
 };
 
 export const PriorityFilter: FC<PriorityFilterProps> = ({ className }) => {
+  const { t } = useTranslation();
+
   const {
     field: { onChange, value, disabled, onBlur, ref },
   } = useController<StopSearchFilters, 'priorities'>({
@@ -44,7 +47,7 @@ export const PriorityFilter: FC<PriorityFilterProps> = ({ className }) => {
         {knownPriorityValues.map((priority) => (
           <LabeledCheckbox
             key={priority}
-            label={mapPriorityToUiName(priority)}
+            label={mapPriorityToUiName(t, priority)}
             onBlur={onBlur}
             onClick={togglePriority(priority)}
             disabled={!!disabled || notForStops}

@@ -5,6 +5,8 @@ import { RenderOptions, render } from '@testing-library/react';
 import React, { FC, PropsWithChildren } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ReduxProvider } from '../../redux';
+// Make sure I18Next is initialized
+import '../../i18n';
 
 const AllTheProviders: FC<PropsWithChildren> = ({ children }) => {
   // Add "providers" or "wrappers" that are needed in all DOM render tests here

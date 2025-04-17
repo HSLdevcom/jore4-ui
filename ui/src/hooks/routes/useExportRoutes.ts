@@ -83,6 +83,7 @@ export const useExportRoutes = () => {
       });
 
       const filename = `${routeLabels[0]}_${mapPriorityToUiName(
+        t,
         priorities[0],
       )}_${observationDate.toISODate()}.csv`;
 
@@ -98,6 +99,7 @@ export const useExportRoutes = () => {
           errorModalTitle: t('export.hastusErrorTitle'),
           errorDetails: {
             details: mapHastusErrorTypeToErrorMessage(
+              t,
               extractErrorType(errorResponseBody),
             ),
             additionalDetails: errorResponseBody?.reason ?? '',

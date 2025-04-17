@@ -91,6 +91,7 @@ export const ImportTimetablesPage = (): React.ReactElement => {
             return {
               errorTitle: t('import.fileUploadFailed', { filename }),
               details: mapHastusErrorTypeToErrorMessage(
+                t,
                 extractErrorType(getImportErrorBody(failure.error)),
               ),
               additionalDetails: failure.error.response?.data?.reason ?? '',

@@ -29,7 +29,7 @@ export const InfoSpotDetailsDynamic: FC<Props> = ({ infoSpot }) => {
       />
       <LabeledDetail
         title={t('stopDetails.infoSpots.speechProperty')}
-        detail={optionalBooleanToUiText(infoSpot.speechProperty)}
+        detail={optionalBooleanToUiText(t, infoSpot.speechProperty)}
         testId={testIds.speechProperty}
       />
     </>

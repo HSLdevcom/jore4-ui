@@ -33,13 +33,16 @@ export const ShelterViewCard = ({ shelter }: Props) => {
 
   const shelterType =
     shelter.shelterType &&
-    mapStopRegistryShelterTypeEnumToUiName(shelter.shelterType);
+    mapStopRegistryShelterTypeEnumToUiName(t, shelter.shelterType);
   const shelterCondition =
     shelter.shelterCondition &&
-    mapStopRegistryShelterConditionEnumToUiName(shelter.shelterCondition);
+    mapStopRegistryShelterConditionEnumToUiName(t, shelter.shelterCondition);
   const shelterElectricity =
     shelter.shelterElectricity &&
-    mapStopRegistryShelterElectricityEnumToUiName(shelter.shelterElectricity);
+    mapStopRegistryShelterElectricityEnumToUiName(
+      t,
+      shelter.shelterElectricity,
+    );
 
   return (
     <div data-testid={testIds.container}>
@@ -66,7 +69,7 @@ export const ShelterViewCard = ({ shelter }: Props) => {
         />
         <LabeledDetail
           title={t('stopDetails.shelters.shelterLighting')}
-          detail={optionalBooleanToUiText(shelter.shelterLighting)}
+          detail={optionalBooleanToUiText(t, shelter.shelterLighting)}
           testId={testIds.shelterLighting}
         />
         <LabeledDetail
@@ -83,32 +86,32 @@ export const ShelterViewCard = ({ shelter }: Props) => {
       <DetailRow>
         <LabeledDetail
           title={t('stopDetails.shelters.trashCan')}
-          detail={optionalBooleanToUiText(shelter.trashCan)}
+          detail={optionalBooleanToUiText(t, shelter.trashCan)}
           testId={testIds.trashCan}
         />
         <LabeledDetail
           title={t('stopDetails.shelters.shelterHasDisplay')}
-          detail={optionalBooleanToUiText(shelter.shelterHasDisplay)}
+          detail={optionalBooleanToUiText(t, shelter.shelterHasDisplay)}
           testId={testIds.shelterHasDisplay}
         />
         <LabeledDetail
           title={t('stopDetails.shelters.bicycleParking')}
-          detail={optionalBooleanToUiText(shelter.bicycleParking)}
+          detail={optionalBooleanToUiText(t, shelter.bicycleParking)}
           testId={testIds.bicycleParking}
         />
         <LabeledDetail
           title={t('stopDetails.shelters.leaningRail')}
-          detail={optionalBooleanToUiText(shelter.leaningRail)}
+          detail={optionalBooleanToUiText(t, shelter.leaningRail)}
           testId={testIds.leaningRail}
         />
         <LabeledDetail
           title={t('stopDetails.shelters.outsideBench')}
-          detail={optionalBooleanToUiText(shelter.outsideBench)}
+          detail={optionalBooleanToUiText(t, shelter.outsideBench)}
           testId={testIds.outsideBench}
         />
         <LabeledDetail
           title={t('stopDetails.shelters.shelterFasciaBoardTaping')}
-          detail={optionalBooleanToUiText(shelter.shelterFasciaBoardTaping)}
+          detail={optionalBooleanToUiText(t, shelter.shelterFasciaBoardTaping)}
           testId={testIds.shelterFasciaBoardTaping}
         />
       </DetailRow>
