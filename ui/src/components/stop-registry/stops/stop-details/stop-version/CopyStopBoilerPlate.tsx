@@ -29,7 +29,7 @@ export const CopyStopBoilerPlate: FC<CopyStopBoilerPlateProps> = ({
       </p>
       <p className="mt-1" data-testid={testIds.validity}>
         <span className="font-bold">
-          {mapPriorityToUiName(originalStop.priority)}
+          {mapPriorityToUiName(t, originalStop.priority)}
         </span>
         <span className="mx-2">|</span>
         <span>

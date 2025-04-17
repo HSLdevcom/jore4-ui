@@ -96,11 +96,14 @@ export const TimetableVersionTableRow = ({
 
   const statusText = data.inEffect
     ? t('timetables.inEffect')
-    : mapTimetablePriorityToUiName(data.vehicleScheduleFrame.priority);
+    : mapTimetablePriorityToUiName(t, data.vehicleScheduleFrame.priority);
 
   const substituteDayOperatingText = data.substituteDay?.substituteDayOfWeek
     ? t('timetables.operatedLike', {
-        dayOfWeek: mapDayOfWeekToUiName(data.substituteDay.substituteDayOfWeek),
+        dayOfWeek: mapDayOfWeekToUiName(
+          t,
+          data.substituteDay.substituteDayOfWeek,
+        ),
       })
     : t('timetables.noService');
 

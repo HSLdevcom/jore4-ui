@@ -55,7 +55,7 @@ export const StopHeaderSummaryRow: React.FC<Props> = ({
           />
           {stopState && stopState !== StopPlaceState.InOperation && (
             <div className="rounded-md bg-dark-grey px-4 py-1 text-center text-sm uppercase leading-normal text-white">
-              {mapStopPlaceStateToUiName(stopState)}
+              {mapStopPlaceStateToUiName(t, stopState)}
             </div>
           )}
         </div>

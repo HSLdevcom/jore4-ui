@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { LineDefaultFieldsFragment } from '../../../generated/graphql';
 import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
 import { Row } from '../../../layoutComponents';
@@ -19,6 +20,8 @@ export const LineValidityPeriod: React.FC<Props> = ({
   className = '',
   line,
 }) => {
+  const { t } = useTranslation();
+
   const buildValidityPeriod = (
     validityStart?: DateLike | null,
     validityEnd?: DateLike | null,
@@ -35,7 +38,7 @@ export const LineValidityPeriod: React.FC<Props> = ({
       {line.priority !== Priority.Standard && (
         <>
           <span className="font-bold" data-testid={testIds.priority}>
-            {mapPriorityToUiName(line.priority)}
+            {mapPriorityToUiName(t, line.priority)}
           </span>
           <span className="mx-1">|</span>
         </>

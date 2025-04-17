@@ -85,7 +85,7 @@ const ConflictItemRow = ({
       className="[&>td]:border [&>td]:border-light-grey [&>td]:p-5"
       key={item.id}
     >
-      <td>{mapPriorityToUiName(item.priority)}</td>
+      <td>{mapPriorityToUiName(t, item.priority)}</td>
       <td>
         {mapToShortDate(item.validityStart) ?? t('saveChangesModal.indefinite')}
       </td>

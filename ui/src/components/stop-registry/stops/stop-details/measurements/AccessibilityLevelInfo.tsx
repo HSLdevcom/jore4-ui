@@ -29,7 +29,7 @@ export const AccessibilityLevelInfo: React.FC<Props> = ({ stop }) => {
         onClick={toggleIsModalOpen}
       >
         <span data-testid={testIds.accessibilityLevel}>
-          {mapStopAccessibilityLevelToUiName(accessibilityLevel)}
+          {mapStopAccessibilityLevelToUiName(t, accessibilityLevel)}
         </span>
         <i className="icon-info text-xl text-brand" />
       </button>

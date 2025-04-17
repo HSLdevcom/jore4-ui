@@ -59,7 +59,9 @@ const SignageDetailsFormComponent = (
                   <EnumDropdown<StopPlaceSignType>
                     enumType={StopPlaceSignType}
                     placeholder={t('stopDetails.signs.signType')}
-                    uiNameMapper={mapStopPlaceSignTypeToUiName}
+                    uiNameMapper={(value) =>
+                      mapStopPlaceSignTypeToUiName(t, value)
+                    }
                     // eslint-disable-next-line react/jsx-props-no-spreading
                     {...props}
                   />

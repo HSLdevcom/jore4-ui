@@ -10,6 +10,7 @@ import { StopWithDetails } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../layout';
 import {
   extractRelevantAccessibilityAssessment,
+  optionalBooleanToCustomUiText,
   optionalBooleanToUiText,
 } from '../utils';
 
@@ -57,21 +58,22 @@ export const MeasurementsViewCard = ({ stop }: Props): React.ReactElement => {
 
   const stopType =
     accessibilityProps?.stopType &&
-    mapStopRegistryStopTypeToUiName(accessibilityProps.stopType);
+    mapStopRegistryStopTypeToUiName(t, accessibilityProps.stopType);
   const shelterType =
     accessibilityProps?.shelterType &&
-    mapStopRegistryShelterWidthTypeToUiName(accessibilityProps.shelterType);
+    mapStopRegistryShelterWidthTypeToUiName(t, accessibilityProps.shelterType);
   const pedestrianCrossingRampType =
     accessibilityProps?.pedestrianCrossingRampType &&
     mapStopRegistryPedestrianCrossingRampTypeToUiName(
+      t,
       accessibilityProps.pedestrianCrossingRampType,
     );
   const guidanceType =
     accessibilityProps?.guidanceType &&
-    mapStopRegistryGuidanceTypeToUiName(accessibilityProps.guidanceType);
+    mapStopRegistryGuidanceTypeToUiName(t, accessibilityProps.guidanceType);
   const mapType =
     accessibilityProps?.mapType &&
-    mapStopRegistryMapTypeToUiName(accessibilityProps.mapType);
+    mapStopRegistryMapTypeToUiName(t, accessibilityProps.mapType);
 
   return (
     <div data-testid={testIds.container}>
@@ -83,7 +85,7 @@ export const MeasurementsViewCard = ({ stop }: Props): React.ReactElement => {
         />
         <LabeledDetail
           title={t('stopDetails.measurements.curvedStop')}
-          detail={optionalBooleanToUiText(accessibilityProps?.curvedStop)}
+          detail={optionalBooleanToUiText(t, accessibilityProps?.curvedStop)}
           testId={testIds.curvedStop}
         />
         <LabeledDetail
@@ -138,6 +140,7 @@ export const MeasurementsViewCard = ({ stop }: Props): React.ReactElement => {
         <LabeledDetail
           title={t('stopDetails.measurements.platformEdgeWarningArea')}
           detail={optionalBooleanToUiText(
+            t,
             accessibilityProps?.platformEdgeWarningArea,
           )}
           testId={testIds.platformEdgeWarningArea}
@@ -145,18 +148,23 @@ export const MeasurementsViewCard = ({ stop }: Props): React.ReactElement => {
         <LabeledDetail
           title={t('stopDetails.measurements.sidewalkAccessibleConnection')}
           detail={optionalBooleanToUiText(
+            t,
             accessibilityProps?.sidewalkAccessibleConnection,
           )}
           testId={testIds.sidewalkAccessibleConnection}
         />
         <LabeledDetail
           title={t('stopDetails.measurements.guidanceStripe')}
-          detail={optionalBooleanToUiText(accessibilityProps?.guidanceStripe)}
+          detail={optionalBooleanToUiText(
+            t,
+            accessibilityProps?.guidanceStripe,
+          )}
           testId={testIds.guidanceStripe}
         />
         <LabeledDetail
           title={t('stopDetails.measurements.serviceAreaStripes')}
           detail={optionalBooleanToUiText(
+            t,
             accessibilityProps?.serviceAreaStripes,
           )}
           testId={testIds.serviceAreaStripes}
@@ -168,7 +176,7 @@ export const MeasurementsViewCard = ({ stop }: Props): React.ReactElement => {
         />
         <LabeledDetail
           title={t('stopDetails.measurements.guidanceTiles')}
-          detail={optionalBooleanToUiText(accessibilityProps?.guidanceTiles)}
+          detail={optionalBooleanToUiText(t, accessibilityProps?.guidanceTiles)}
           testId={testIds.guidanceTiles}
         />
         <LabeledDetail
@@ -205,12 +213,10 @@ export const MeasurementsViewCard = ({ stop }: Props): React.ReactElement => {
         />
         <LabeledDetail
           title={t('stopDetails.measurements.stopAreaSurroundingsAccessible')}
-          detail={optionalBooleanToUiText(
+          detail={optionalBooleanToCustomUiText(
             accessibilityProps?.stopAreaSurroundingsAccessible,
-            {
-              true: t('stopDetails.measurements.accessible'),
-              false: t('stopDetails.measurements.inaccessible'),
-            },
+            t('stopDetails.measurements.accessible'),
+            t('stopDetails.measurements.inaccessible'),
           )}
           testId={testIds.stopAreaSurroundingsAccessible}
         />

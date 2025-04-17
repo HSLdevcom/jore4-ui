@@ -5,20 +5,24 @@ import {
   StopRegistryDisplayType,
   StopRegistryInfoSpotType,
 } from '../../../../generated/graphql';
-import { i18n } from '../../../../i18n';
 import { EnrichedQuay, StopWithDetails } from '../../../../types';
 
 /**
  * Returns a translated string that includes all stop types of a given stop place.
  */
 export const translateStopTypes = (
+  t: TFunction,
   quay?: Pick<EnrichedQuay, 'stopType'> | null | undefined,
 ) => {
+  if (!quay) {
+    return '';
+  }
+
   const result = compact([
-    quay?.stopType.mainLine && i18n.t('stopPlaceTypes.mainLine'),
-    quay?.stopType.interchange && i18n.t('stopPlaceTypes.interchange'),
-    quay?.stopType.railReplacement && i18n.t('stopPlaceTypes.railReplacement'),
-    quay?.stopType.virtual && i18n.t('stopPlaceTypes.virtual'),
+    quay.stopType.mainLine && t('stopPlaceTypes.mainLine'),
+    quay.stopType.interchange && t('stopPlaceTypes.interchange'),
+    quay.stopType.railReplacement && t('stopPlaceTypes.railReplacement'),
+    quay.stopType.virtual && t('stopPlaceTypes.virtual'),
   ])
     // Uncapitalize each translation.
     .map((stopType) => stopType.charAt(0).toLowerCase() + stopType.slice(1))
@@ -34,18 +38,38 @@ export const translateStopTypes = (
  * Missing values are NOT translated.
  */
 export const optionalBooleanToUiText = (
+  t: TFunction,
   value: boolean | undefined | null,
-  translations: { true: string; false: string } = {
-    true: i18n.t('yes'),
-    false: i18n.t('no'),
-  },
 ) => {
   if (value) {
-    return translations.true;
+    return t('yes');
   }
+
   if (value === false) {
-    return translations.false;
+    return t('no');
   }
+
+  return undefined;
+};
+
+/**
+ * Maps a boolean to a custom text values.
+ *
+ * Missing values are NOT translated.
+ */
+export const optionalBooleanToCustomUiText = (
+  value: boolean | undefined | null,
+  ifTrue: string,
+  ifFalse: string,
+) => {
+  if (value) {
+    return ifTrue;
+  }
+
+  if (value === false) {
+    return ifFalse;
+  }
+
   return undefined;
 };
 
