@@ -239,6 +239,7 @@ export const EditStopAreaLayer = forwardRef<
         })}
         confirmText={t('confirmEditStopAreaDialog.confirmText')}
         cancelText={t('cancel')}
+        widthClassName="w-235"
       />
       <ConfirmationDialog
         isOpen={isConfirmEditDialogOpen}
@@ -250,6 +251,7 @@ export const EditStopAreaLayer = forwardRef<
         })}
         confirmText={t('confirmEditStopAreaDialog.confirmText')}
         cancelText={t('cancel')}
+        widthClassName="w-235"
       />
     </>
   );
