@@ -140,7 +140,8 @@
     "checkingNamesFailed": "Failed to check the consistency of names <RefetchButton>Try again</RefetchButton>",
     "editSuccess": "Stop area edited",
     "errors": {
-      "failedToResolveScheduledStopPoint": "Failed to resolve Scheduled Stop Point! Reason"
+      "failedToResolveScheduledStopPoint": "Failed to resolve Scheduled Stop Point! Reason",
+      "expandToSeeErrors": "Expand Language versions and abbreviations to see errors"
     }
   },
   "stopAreaDetails": {
@@ -547,6 +548,7 @@
     "footerActionsTooltip": "Create new...",
     "createNewTerminal": "Create new terminal",
     "createNewStopArea": "Create new stop area",
+    "stopAreaNameWarning": "Name changes to the stop area will also be updated to the stops in the area",
     "editStopArea": "Stop area {{stopArea}}",
     "error": "Map error: {{message}}"
   },

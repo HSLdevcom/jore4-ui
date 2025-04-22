@@ -140,7 +140,8 @@
     "checkingNamesFailed": "Nimien tarkastus epäonnistui <RefetchButton>Yritä uudelleen</RefetchButton>",
     "editSuccess": "Pysäkkialue muokattu",
     "errors": {
-      "failedToResolveScheduledStopPoint": "Pysäkin tietojen selvitys epäonnistui! Syy"
+      "failedToResolveScheduledStopPoint": "Pysäkin tietojen selvitys epäonnistui! Syy",
+      "expandToSeeErrors": "Avaa Kieliversiot ja lyhenteet nähdäksesi virheet"
     }
   },
   "stopAreaDetails": {
@@ -546,6 +547,7 @@
     "footerActionsTooltip": "Luo uusi...",
     "createNewTerminal": "Luo uusi terminaali",
     "createNewStopArea": "Luo uusi pysäkkialue",
+    "stopAreaNameWarning": "Pysäkkialueen nimimuutokset päivitetään myös alueen pysäkkeihin",
     "editStopArea": "Pysäkkialue {{stopArea}}",
     "error": "Karttavirhe: {{message}}"
   },
