@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import { FaChevronDown } from 'react-icons/fa';
+import { FaChevronUp } from 'react-icons/fa';
 import { twMerge } from 'tailwind-merge';
 import { TextAndIconButton } from './TextAndIconButton';
 
@@ -53,7 +53,7 @@ export const ExpandButton: FC<ExpandButtonProps> = ({
     <TextAndIconButton
       className={className}
       icon={
-        <FaChevronDown
+        <FaChevronUp
           className={twMerge(
             'text-3xl text-tweaked-brand transition-transform',
             expanded ? null : '-scale-y-100',
