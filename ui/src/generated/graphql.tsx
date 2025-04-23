@@ -70861,6 +70861,7 @@ export type GetStopAreasByLocationQuery = {
       __typename?: 'stops_database_stop_place_newest_version',
       id?: any | null,
       netex_id?: string | null,
+      private_code_value?: string | null,
       centroid?: GeoJSON.Geometry | null
     }>
   } | null
@@ -70870,6 +70871,7 @@ export type StopAreaMinimalShowOnMapFieldsFragment = {
   __typename?: 'stops_database_stop_place_newest_version',
   id?: any | null,
   netex_id?: string | null,
+  private_code_value?: string | null,
   centroid?: GeoJSON.Geometry | null
 };
 
@@ -75230,6 +75232,7 @@ export const StopAreaMinimalShowOnMapFieldsFragmentDoc = gql`
     fragment stop_area_minimal_show_on_map_fields on stops_database_stop_place_newest_version {
   id
   netex_id
+  private_code_value
   centroid
 }
     `;
