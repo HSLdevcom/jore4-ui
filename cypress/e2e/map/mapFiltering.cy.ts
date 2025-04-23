@@ -27,7 +27,6 @@ describe('Stop area details', () => {
   const observationDateFilters = new MapObservationDateFiltersOverlay();
   const mapItemFilters = new MapItemTypeFiltersOverlay();
 
-  let stopAreaId: string;
   let dbResources: SupportedResources;
 
   const baseDbResources = getClonedBaseDbResources();
@@ -65,9 +64,7 @@ describe('Stop area details', () => {
     insertToDbHelper(dbResources);
     cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
       ...baseStopRegistryData,
-    }).then((data) => {
-      stopAreaId = data.stopPlaceIdsByName.X0003;
-
+    }).then(() => {
       cy.setupTests();
       cy.mockLogin();
 
@@ -148,12 +145,12 @@ describe('Stop area details', () => {
       map.waitForLoadToComplete();
 
       // Make sure stop area is visible
-      map.getStopAreaById(stopAreaId).shouldBeVisible();
+      map.getStopAreaById('X0003').shouldBeVisible();
 
       // Set stop areas to be hidden
       observationDateFilters.getToggleShowFiltersButton().click();
       mapItemFilters.setFilters({ [KnownMapItemTypeFilters.StopArea]: false });
-      map.getStopAreaById(stopAreaId).should('not.exist');
+      map.getStopAreaById('X0003').should('not.exist');
     });
   });
 });
