@@ -120,13 +120,17 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
             value={area}
             data-testid={testIds.result(area.privateCode)}
           >
-            <span className="flex-shrink-0 font-bold">{area.privateCode}</span>
-            <span className="mx-2 flex-grow">
-              {area.nameFin ?? area.nameSwe}
-            </span>
-            <span className="flex-shrink-0 font-bold">
-              {`${formatIsoDateString(area.validityStart)} - ${formatIsoDateString(area.validityEnd)}`}
-            </span>
+            <div className="flex items-start">
+              <span className="flex-shrink-0 self-start font-bold">
+                {area.privateCode}
+              </span>
+              <div className="mx-2 flex flex-grow flex-col">
+                <span>{area.nameFin ?? area.nameSwe}</span>
+                <span className="font-bold">
+                  {`${formatIsoDateString(area.validityStart)} - ${formatIsoDateString(area.validityEnd)}`}
+                </span>
+              </div>
+            </div>
           </Combobox.Option>
         ))}
 
