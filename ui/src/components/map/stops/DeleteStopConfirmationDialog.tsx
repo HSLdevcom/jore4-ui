@@ -54,6 +54,7 @@ export const DeleteStopConfirmationDialog: React.FC<Props> = ({
       description={buildDescription(deleteChanges)}
       confirmText={t('confirmDeleteStopDialog.confirmText')}
       cancelText={t('cancel')}
+      widthClassName="w-235"
     />
   );
 };

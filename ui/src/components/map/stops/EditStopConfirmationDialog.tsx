@@ -82,6 +82,7 @@ export const EditStopConfirmationDialog: React.FC<Props> = ({
       description={buildDescription(editChanges)}
       confirmText={t('confirmEditStopDialog.confirmText')}
       cancelText={t('cancel')}
+      widthClassName="w-235"
     />
   );
 };

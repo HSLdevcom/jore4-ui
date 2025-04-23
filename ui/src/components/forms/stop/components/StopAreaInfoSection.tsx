@@ -67,6 +67,7 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
         expandedText={t('stops.stopArea.showDetails')}
         onClick={() => setExpanded((p) => !p)}
         testId={testIds.showHideButton}
+        iconClassName="text-base"
       />
 
       <Transition
