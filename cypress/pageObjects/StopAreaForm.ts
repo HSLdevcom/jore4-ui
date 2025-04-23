@@ -1,10 +1,7 @@
-import { SelectMemberStopsDropdown } from './SelectMemberStopsDropdown';
 import { ValidityPeriodForm } from './ValidityPeriodForm';
 
 export class StopAreaForm {
   validityPeriodForm = new ValidityPeriodForm();
-
-  selectMemberStopsDropdown = new SelectMemberStopsDropdown();
 
   getForm() {
     return cy.getByTestId('StopAreaFormComponent::form');
@@ -18,8 +15,28 @@ export class StopAreaForm {
     return cy.getByTestId('StopAreaFormComponent::name');
   }
 
+  getShowHideButton() {
+    return cy.getByTestId('StopAreaFormComponent::showHideButton');
+  }
+
   getNameSwe() {
     return cy.getByTestId('StopAreaFormComponent::nameSwe');
+  }
+
+  getNameLongFin() {
+    return cy.getByTestId('StopAreaFormComponent::nameLongFin');
+  }
+
+  getNameLongSwe() {
+    return cy.getByTestId('StopAreaFormComponent::nameLongSwe');
+  }
+
+  getAbbreviationFin() {
+    return cy.getByTestId('StopAreaFormComponent::abbreviationFin');
+  }
+
+  getAbbreviationSwe() {
+    return cy.getByTestId('StopAreaFormComponent::abbreviationSwe');
   }
 
   getLatitude() {
