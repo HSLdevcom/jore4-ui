@@ -169,6 +169,18 @@ const GQL_QUAY_DETAILS = gql`
     scheduled_stop_point {
       ...scheduled_stop_point_detail_fields
     }
+    externalLinks {
+      ...external_links_details
+    }
+  }
+`;
+
+const GQL_EXTERNAL_LINKS_DETAILS = gql`
+  fragment external_links_details on stop_registry_externalLink {
+    quayId
+    orderNum
+    name
+    location
   }
 `;
 
