@@ -67304,7 +67304,14 @@ export type UpsertStopAreaMutation = {
             __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
             vehicle_mode: ReusableComponentsVehicleModeEnum
           }>
-        } | null
+        } | null,
+        externalLinks?: Array<{
+          __typename?: 'stop_registry_externalLink',
+          quayId?: number | null,
+          orderNum?: number | null,
+          name?: string | null,
+          location?: string | null
+        } | null> | null
       } | null> | null,
       accessibilityAssessment?: {
         __typename?: 'stop_registry_AccessibilityAssessment',
@@ -68348,7 +68355,14 @@ export type GetStopPlaceDetailsQuery = {
             __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
             vehicle_mode: ReusableComponentsVehicleModeEnum
           }>
-        } | null
+        } | null,
+        externalLinks?: Array<{
+          __typename?: 'stop_registry_externalLink',
+          quayId?: number | null,
+          orderNum?: number | null,
+          name?: string | null,
+          location?: string | null
+        } | null> | null
       } | null> | null,
       accessibilityAssessment?: {
         __typename?: 'stop_registry_AccessibilityAssessment',
@@ -68636,7 +68650,14 @@ export type StopPlaceDetailsFragment = {
         __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
         vehicle_mode: ReusableComponentsVehicleModeEnum
       }>
-    } | null
+    } | null,
+    externalLinks?: Array<{
+      __typename?: 'stop_registry_externalLink',
+      quayId?: number | null,
+      orderNum?: number | null,
+      name?: string | null,
+      location?: string | null
+    } | null> | null
   } | null> | null,
   accessibilityAssessment?: {
     __typename?: 'stop_registry_AccessibilityAssessment',
@@ -72427,7 +72448,14 @@ export type UpdateStopPlaceMutation = {
             __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
             vehicle_mode: ReusableComponentsVehicleModeEnum
           }>
-        } | null
+        } | null,
+        externalLinks?: Array<{
+          __typename?: 'stop_registry_externalLink',
+          quayId?: number | null,
+          orderNum?: number | null,
+          name?: string | null,
+          location?: string | null
+        } | null> | null
       } | null> | null,
       accessibilityAssessment?: {
         __typename?: 'stop_registry_AccessibilityAssessment',
@@ -72797,7 +72825,14 @@ export type GetStopDetailsQuery = {
             __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
             vehicle_mode: ReusableComponentsVehicleModeEnum
           }>
-        } | null
+        } | null,
+        externalLinks?: Array<{
+          __typename?: 'stop_registry_externalLink',
+          quayId?: number | null,
+          orderNum?: number | null,
+          name?: string | null,
+          location?: string | null
+        } | null> | null
       } | null> | null,
       accessibilityAssessment?: {
         __typename?: 'stop_registry_AccessibilityAssessment',
@@ -73109,7 +73144,22 @@ export type QuayDetailsFragment = {
       __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
       vehicle_mode: ReusableComponentsVehicleModeEnum
     }>
-  } | null
+  } | null,
+  externalLinks?: Array<{
+    __typename?: 'stop_registry_externalLink',
+    quayId?: number | null,
+    orderNum?: number | null,
+    name?: string | null,
+    location?: string | null
+  } | null> | null
+};
+
+export type ExternalLinksDetailsFragment = {
+  __typename?: 'stop_registry_externalLink',
+  quayId?: number | null,
+  orderNum?: number | null,
+  name?: string | null,
+  location?: string | null
 };
 
 export type TopographicPlaceDetailsFragment = {
@@ -75200,6 +75250,14 @@ export const ScheduledStopPointDetailFieldsFragmentDoc = gql`
   }
 }
     `;
+export const ExternalLinksDetailsFragmentDoc = gql`
+    fragment external_links_details on stop_registry_externalLink {
+  quayId
+  orderNum
+  name
+  location
+}
+    `;
 export const QuayDetailsFragmentDoc = gql`
     fragment quay_details on stop_registry_Quay {
   id
@@ -75263,11 +75321,15 @@ export const QuayDetailsFragmentDoc = gql`
   scheduled_stop_point {
     ...scheduled_stop_point_detail_fields
   }
+  externalLinks {
+    ...external_links_details
+  }
 }
     ${AccessibilityAssessmentDetailsFragmentDoc}
 ${InfoSpotDetailsFragmentDoc}
 ${ShelterEquipmentDetailsFragmentDoc}
-${ScheduledStopPointDetailFieldsFragmentDoc}`;
+${ScheduledStopPointDetailFieldsFragmentDoc}
+${ExternalLinksDetailsFragmentDoc}`;
 export const TopographicPlaceDetailsFragmentDoc = gql`
     fragment topographic_place_details on stop_registry_TopographicPlace {
   id
