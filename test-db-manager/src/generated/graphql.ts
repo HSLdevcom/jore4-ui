@@ -10132,6 +10132,8 @@ export type StopRegistryQuay = {
   boardingPositions?: Maybe<Array<Maybe<StopRegistryBoardingPosition>>>;
   compassBearing?: Maybe<Scalars['stop_registry_BigDecimal']['output']>;
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  /** External links */
+  externalLinks?: Maybe<Array<Maybe<StopRegistryExternalLink>>>;
   geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -10167,6 +10169,7 @@ export type StopRegistryQuayInput = {
   boardingPositions?: InputMaybe<Array<InputMaybe<StopRegistryBoardingPositionInput>>>;
   compassBearing?: InputMaybe<Scalars['stop_registry_BigDecimal']['input']>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  externalLinks?: InputMaybe<Array<InputMaybe<StopRegistryExternalLinkInput>>>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   /** Ignore when creating new */
   id?: InputMaybe<Scalars['String']['input']>;
@@ -10663,6 +10666,17 @@ export enum StopRegistryDisplayType {
   ElectricTft = 'electricTFT',
   None = 'none'
 }
+
+export type StopRegistryExternalLink = {
+  __typename?: 'stop_registry_externalLink';
+  location?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+export type StopRegistryExternalLinkInput = {
+  location?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
 
 export enum StopRegistryGender {
   Both = 'both',
