@@ -19,6 +19,8 @@ import { Tag } from '../../enums';
 import {
   BasicDetailsForm,
   BasicDetailsViewCard,
+  ExternalLinksForm,
+  ExternalLinksSection,
   InfoSpotViewCard,
   InfoSpotsForm,
   LocationDetailsForm,
@@ -796,6 +798,108 @@ describe('Stop details', () => {
         signView
           .getSignageInstructionExceptions()
           .shouldHaveText('Uusi teksti');
+      },
+    );
+  });
+
+  describe('external links', () => {
+    let externalLinksForm: ExternalLinksForm;
+    let externalLinksSection: ExternalLinksSection;
+
+    beforeEach(() => {
+      externalLinksForm = stopDetailsPage.externalLinks.form;
+      externalLinksSection = stopDetailsPage.externalLinks;
+    });
+
+    it(
+      'should view and edit external links',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        stopDetailsPage.visit('H2003');
+        stopDetailsPage.page().shouldBeVisible();
+
+        externalLinksSection.getTitle().shouldHaveText('Linkit');
+        externalLinksSection.getNoExternalLinks().shouldBeVisible();
+        externalLinksSection.getNoExternalLinks().shouldHaveText('Ei linkkejä');
+
+        externalLinksSection.getEditButton().click();
+        externalLinksForm.externalLinks
+          .getNameInput()
+          .clearAndType('Linkin nimi');
+        externalLinksForm.externalLinks
+          .getLocationInput()
+          .clearAndType('http://www.example.com');
+        externalLinksForm.getSaveButton().click();
+        externalLinksSection.getNoExternalLinks().should('not.exist');
+        externalLinksSection.getExternalLinks().should('have.length', 1);
+
+        externalLinksSection.getNthExternalLink(0).within(() => {
+          externalLinksSection.getName().shouldHaveText('Linkin nimi');
+          externalLinksSection
+            .getLocation()
+            .should('have.attr', 'href', 'http://www.example.com');
+        });
+      },
+    );
+
+    it(
+      'should add and delete external links',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        stopDetailsPage.visit('H2003');
+        stopDetailsPage.page().shouldBeVisible();
+
+        externalLinksSection.getTitle().shouldHaveText('Linkit');
+        externalLinksSection.getNoExternalLinks().shouldBeVisible();
+        externalLinksSection.getNoExternalLinks().shouldHaveText('Ei linkkejä');
+
+        externalLinksSection.getEditButton().click();
+        externalLinksForm.getNthExternalLink(0).within(() => {
+          externalLinksForm.externalLinks
+            .getNameInput()
+            .clearAndType('Linkin nimi 1');
+          externalLinksForm.externalLinks
+            .getLocationInput()
+            .clearAndType('http://www.example.com');
+        });
+        externalLinksForm.getAddNewButton().click();
+        externalLinksForm.getNthExternalLink(1).within(() => {
+          externalLinksForm.externalLinks
+            .getNameInput()
+            .clearAndType('Linkin nimi 2');
+          externalLinksForm.externalLinks
+            .getLocationInput()
+            .clearAndType('http://www.example2.com');
+        });
+        externalLinksForm.getSaveButton().click();
+        externalLinksSection.getNoExternalLinks().should('not.exist');
+        externalLinksSection.getExternalLinks().should('have.length', 2);
+
+        externalLinksSection.getNthExternalLink(0).within(() => {
+          externalLinksSection.getName().shouldHaveText('Linkin nimi 1');
+        });
+        externalLinksSection.getNthExternalLink(1).within(() => {
+          externalLinksSection.getName().shouldHaveText('Linkin nimi 2');
+        });
+
+        externalLinksSection.getEditButton().click();
+        externalLinksForm.getNthExternalLink(0).within(() => {
+          externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
+        });
+        externalLinksForm.getSaveButton().click();
+        externalLinksSection.getExternalLinks().should('have.length', 1);
+        externalLinksSection.getNthExternalLink(0).within(() => {
+          externalLinksSection.getName().shouldHaveText('Linkin nimi 2');
+        });
+
+        externalLinksSection.getEditButton().click();
+        externalLinksForm.getNthExternalLink(0).within(() => {
+          externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
+        });
+        externalLinksForm.getSaveButton().click();
+        externalLinksSection.getExternalLinks().should('have.length', 0);
+        externalLinksSection.getNoExternalLinks().shouldBeVisible();
+        externalLinksSection.getNoExternalLinks().shouldHaveText('Ei linkkejä');
       },
     );
   });
