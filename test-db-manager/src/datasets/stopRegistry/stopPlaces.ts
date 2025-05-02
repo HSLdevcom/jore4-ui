@@ -3,6 +3,7 @@ import {
   StopRegistryAccessibilityLimitationsInput,
   StopRegistryCycleStorageEquipmentInput,
   StopRegistryCycleStorageType,
+  StopRegistryExternalLinkInput,
   StopRegistryGeoJsonType,
   StopRegistryGuidanceType,
   StopRegistryHslAccessibilityProperties,
@@ -66,6 +67,7 @@ export type StopPlaceQuaySeedData = {
     mainLineSign: boolean;
     replacesRailSign: boolean;
   };
+  externalLinks?: Array<StopRegistryExternalLinkInput>;
 };
 
 export const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput =
@@ -167,6 +169,8 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
           ...seedStopPlace.accessibilityLimitations,
         },
       },
+
+      externalLinks: seedStopPlace.externalLinks,
 
       keyValues: [
         getKeyValue('elyNumber', seedStopPlace.elyNumber),
@@ -375,6 +379,12 @@ const H2003: StopPlaceQuaySeedData = {
     mainLineSign: false,
     replacesRailSign: false,
   },
+  externalLinks: [
+    {
+      name: 'Testilinkki',
+      location: 'https://test.fi',
+    },
+  ],
 };
 
 const seedData: Array<StopPlaceQuaySeedData> = [
