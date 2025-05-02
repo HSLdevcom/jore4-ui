@@ -69087,6 +69087,21 @@ export type RouteInfraLinkFieldsFragment = {
     validity_end?: luxon.DateTime | null,
     located_on_infrastructure_link_id: UUID,
     stop_place_ref?: string | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | null> | null,
     other_label_instances: Array<{
       __typename?: 'service_pattern_scheduled_stop_point',
       priority: number,
@@ -69800,6 +69815,21 @@ export type GetRoutesWithStopsQuery = {
           validity_end?: luxon.DateTime | null,
           located_on_infrastructure_link_id: UUID,
           stop_place_ref?: string | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null,
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point',
             priority: number,
@@ -69952,6 +69982,21 @@ export type GetRouteDetailsByIdQuery = {
           validity_end?: luxon.DateTime | null,
           located_on_infrastructure_link_id: UUID,
           stop_place_ref?: string | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null,
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point',
             priority: number,
@@ -70104,6 +70149,21 @@ export type GetRouteDetailsByIdsQuery = {
           validity_end?: luxon.DateTime | null,
           located_on_infrastructure_link_id: UUID,
           stop_place_ref?: string | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null,
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point',
             priority: number,
@@ -70615,6 +70675,21 @@ export type RouteStopFieldsFragment = {
   validity_end?: luxon.DateTime | null,
   located_on_infrastructure_link_id: UUID,
   stop_place_ref?: string | null,
+  stop_place?: Array<{
+    __typename?: 'stop_registry_ParentStopPlace',
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    } | null
+  } | {
+    __typename?: 'stop_registry_StopPlace',
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    } | null
+  } | null> | null,
   other_label_instances: Array<{
     __typename?: 'service_pattern_scheduled_stop_point',
     priority: number,
@@ -71012,6 +71087,21 @@ export type LineWithRoutesFragment = {
           validity_end?: luxon.DateTime | null,
           located_on_infrastructure_link_id: UUID,
           stop_place_ref?: string | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null,
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point',
             priority: number,
@@ -71244,6 +71334,21 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
       validity_end?: luxon.DateTime | null,
       located_on_infrastructure_link_id: UUID,
       stop_place_ref?: string | null,
+      stop_place?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | {
+        __typename?: 'stop_registry_StopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | null> | null,
       other_label_instances: Array<{
         __typename?: 'service_pattern_scheduled_stop_point',
         priority: number,
@@ -71443,6 +71548,21 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
         validity_end?: luxon.DateTime | null,
         located_on_infrastructure_link_id: UUID,
         stop_place_ref?: string | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null,
         other_label_instances: Array<{
           __typename?: 'service_pattern_scheduled_stop_point',
           priority: number,
@@ -71548,6 +71668,21 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
         validity_end?: luxon.DateTime | null,
         located_on_infrastructure_link_id: UUID,
         stop_place_ref?: string | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null,
         other_label_instances: Array<{
           __typename?: 'service_pattern_scheduled_stop_point',
           priority: number,
@@ -71662,6 +71797,21 @@ export type InfraLinkAlongRouteWithStopsFragment = {
       validity_end?: luxon.DateTime | null,
       located_on_infrastructure_link_id: UUID,
       stop_place_ref?: string | null,
+      stop_place?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | {
+        __typename?: 'stop_registry_StopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | null> | null,
       other_label_instances: Array<{
         __typename?: 'service_pattern_scheduled_stop_point',
         priority: number,
@@ -71773,6 +71923,21 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
           validity_end?: luxon.DateTime | null,
           located_on_infrastructure_link_id: UUID,
           stop_place_ref?: string | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null,
           other_label_instances: Array<{
             __typename?: 'service_pattern_scheduled_stop_point',
             priority: number,
@@ -75163,6 +75328,12 @@ ${ScheduledStopPointInJourneyPatternAllFieldsFragmentDoc}`;
 export const RouteStopFieldsFragmentDoc = gql`
     fragment route_stop_fields on service_pattern_scheduled_stop_point {
   ...stop_with_journey_pattern_fields
+  stop_place {
+    name {
+      lang
+      value
+    }
+  }
   other_label_instances {
     ...scheduled_stop_point_default_fields
   }
