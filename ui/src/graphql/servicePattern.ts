@@ -43,6 +43,12 @@ const SCHEDULED_STOP_POINT_DEFAULT_FIELDS = gql`
     validity_end
     located_on_infrastructure_link_id
     stop_place_ref
+    stop_place {
+      name {
+        lang
+        value
+      }
+    }
   }
 `;
 
