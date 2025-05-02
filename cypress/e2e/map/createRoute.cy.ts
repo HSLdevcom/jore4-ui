@@ -130,10 +130,18 @@ describe('Route creation', mapViewport, () => {
         .getRouteStopListHeader('901Y', RouteDirectionEnum.Outbound)
         .shouldBeVisible();
       routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
-      routeStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText('E2E001');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText('E2E003');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText('E2E004');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(3).shouldHaveText('E2E005');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(0)
+        .shouldHaveText('E2E001 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(1)
+        .shouldHaveText('E2E003 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(2)
+        .shouldHaveText('E2E004 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(3)
+        .shouldHaveText('E2E005 -');
     },
   );
 
@@ -180,10 +188,18 @@ describe('Route creation', mapViewport, () => {
       mapModal.map.clickAtPosition(1097, 575);
 
       routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
-      routeStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText('E2E001');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText('E2E002');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText('E2E003');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(3).shouldHaveText('E2E004');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(0)
+        .shouldHaveText('E2E001 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(1)
+        .shouldHaveText('E2E002 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(2)
+        .shouldHaveText('E2E003 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(3)
+        .shouldHaveText('E2E004 -');
 
       // Remove one stop from the journey pattern
       routeStopsOverlay.getNthRouteStopsOverlayRow(2).within(() => {
@@ -202,9 +218,15 @@ describe('Route creation', mapViewport, () => {
         .should('contain', '901X')
         .and('contain', 'Test route');
       routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 3);
-      routeStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText('E2E001');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText('E2E002');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText('E2E004');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(0)
+        .shouldHaveText('E2E001 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(1)
+        .shouldHaveText('E2E002 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(2)
+        .shouldHaveText('E2E004 -');
     },
   );
 
@@ -250,8 +272,12 @@ describe('Route creation', mapViewport, () => {
       mapModal.map.clickAtPosition(1290, 369);
 
       routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 2);
-      routeStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText('E2E001');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText('E2E002');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(0)
+        .shouldHaveText('E2E001 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(1)
+        .shouldHaveText('E2E002 -');
 
       // Remove the other stop from the journey pattern
       routeStopsOverlay.getNthRouteStopsOverlayRow(1).within(() => {
@@ -369,11 +395,21 @@ describe('Route creation', mapViewport, () => {
         .should('contain', '901T')
         .and('contain', 'Based on template test route');
       routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 5);
-      routeStopsOverlay.getNthRouteStopsOverlayRow(0).shouldHaveText('E2E001');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(1).shouldHaveText('E2E002');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(2).shouldHaveText('E2E003');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(3).shouldHaveText('E2E004');
-      routeStopsOverlay.getNthRouteStopsOverlayRow(4).shouldHaveText('E2E005');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(0)
+        .shouldHaveText('E2E001 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(1)
+        .shouldHaveText('E2E002 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(2)
+        .shouldHaveText('E2E003 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(3)
+        .shouldHaveText('E2E004 -');
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(4)
+        .shouldHaveText('E2E005 -');
     },
   );
 });

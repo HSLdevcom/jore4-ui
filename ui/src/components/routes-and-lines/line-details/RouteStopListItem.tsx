@@ -111,7 +111,7 @@ export const RouteStopListItem = ({
         </a>
       </div>
       <div className="col-span-9 flex items-center" data-testid={testIds.name}>
-        <span>!Pysäkki X</span>
+        <span>{stop.stop_place?.at(0)?.name?.value ?? '-'}</span>
         <Visible visible={isViaPoint}>
           <i
             data-testid={testIds.viaIcon}
