@@ -54,11 +54,12 @@ export const RouteStopsOverlayRow = ({
         </div>
         <span
           data-testid={testIds.rowLabel(stop.label)}
-          className={`text-sm font-bold ${
+          className={`text-sm ${
             belongsToJourneyPattern ? 'text-black' : 'text-gray-300'
           }`}
         >
-          {stop.label}
+          <span className="font-bold">{stop.label}</span>{' '}
+          {stop.stop_place?.at(0)?.name?.value}
         </span>
       </div>
       {!isReadOnly && (

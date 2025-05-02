@@ -68931,7 +68931,22 @@ export type VehicleJourneyByStopFragment = {
           __typename?: 'timing_pattern_timing_place',
           label: string,
           timing_place_id: UUID
-        } | null
+        } | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null
       }>
     },
     vehicle_journey: {
@@ -68982,7 +68997,22 @@ export type PassingTimeByStopFragment = {
         __typename?: 'timing_pattern_timing_place',
         label: string,
         timing_place_id: UUID
-      } | null
+      } | null,
+      stop_place?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | {
+        __typename?: 'stop_registry_StopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | null> | null
     }>
   },
   vehicle_journey: {
@@ -69054,7 +69084,22 @@ export type GetRouteWithJourneyPatternQuery = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>,
         journey_pattern: {
           __typename?: 'journey_pattern_journey_pattern',
@@ -69102,7 +69147,22 @@ export type RouteInfraLinkFieldsFragment = {
         __typename?: 'timing_pattern_timing_place',
         timing_place_id: UUID,
         label: string
-      } | null
+      } | null,
+      stop_place?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | {
+        __typename?: 'stop_registry_StopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | null> | null
     }>,
     scheduled_stop_point_in_journey_patterns: Array<{
       __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -69129,7 +69189,22 @@ export type RouteInfraLinkFieldsFragment = {
       __typename?: 'timing_pattern_timing_place',
       timing_place_id: UUID,
       label: string
-    } | null
+    } | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | null> | null
   }>
 };
 
@@ -69228,7 +69303,22 @@ export type GetStopsAlongInfrastructureLinksQuery = {
       __typename?: 'timing_pattern_timing_place',
       timing_place_id: UUID,
       label: string
-    } | null
+    } | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | null> | null
   }>
 };
 
@@ -69280,7 +69370,22 @@ export type JourneyPatternWithStopsFragment = {
         __typename?: 'timing_pattern_timing_place',
         timing_place_id: UUID,
         label: string
-      } | null
+      } | null,
+      stop_place?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | {
+        __typename?: 'stop_registry_StopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | null> | null
     }>,
     journey_pattern: {
       __typename?: 'journey_pattern_journey_pattern',
@@ -69510,7 +69615,22 @@ export type RouteWithJourneyPatternStopsFragment = {
           __typename?: 'timing_pattern_timing_place',
           timing_place_id: UUID,
           label: string
-        } | null
+        } | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null
       }>,
       journey_pattern: {
         __typename?: 'journey_pattern_journey_pattern',
@@ -69718,7 +69838,22 @@ export type GetLineDetailsWithRoutesByIdQuery = {
                 __typename?: 'timing_pattern_timing_place',
                 timing_place_id: UUID,
                 label: string
-              } | null
+              } | null,
+              stop_place?: Array<{
+                __typename?: 'stop_registry_ParentStopPlace',
+                name?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString',
+                  lang?: string | null,
+                  value?: string | null
+                } | null
+              } | {
+                __typename?: 'stop_registry_StopPlace',
+                name?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString',
+                  lang?: string | null,
+                  value?: string | null
+                } | null
+              } | null> | null
             }>,
             vehicle_mode_on_scheduled_stop_point: Array<{
               __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
@@ -69728,7 +69863,22 @@ export type GetLineDetailsWithRoutesByIdQuery = {
               __typename?: 'timing_pattern_timing_place',
               timing_place_id: UUID,
               label: string
-            } | null
+            } | null,
+            stop_place?: Array<{
+              __typename?: 'stop_registry_ParentStopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | {
+              __typename?: 'stop_registry_StopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | null> | null
           }>
         }
       }>
@@ -69815,7 +69965,22 @@ export type GetRoutesWithStopsQuery = {
               __typename?: 'timing_pattern_timing_place',
               timing_place_id: UUID,
               label: string
-            } | null
+            } | null,
+            stop_place?: Array<{
+              __typename?: 'stop_registry_ParentStopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | {
+              __typename?: 'stop_registry_StopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | null> | null
           }>,
           scheduled_stop_point_in_journey_patterns: Array<{
             __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -69842,7 +70007,22 @@ export type GetRoutesWithStopsQuery = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>
       }
     }>,
@@ -69876,7 +70056,22 @@ export type GetRoutesWithStopsQuery = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>,
         journey_pattern: {
           __typename?: 'journey_pattern_journey_pattern',
@@ -69967,7 +70162,22 @@ export type GetRouteDetailsByIdQuery = {
               __typename?: 'timing_pattern_timing_place',
               timing_place_id: UUID,
               label: string
-            } | null
+            } | null,
+            stop_place?: Array<{
+              __typename?: 'stop_registry_ParentStopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | {
+              __typename?: 'stop_registry_StopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | null> | null
           }>,
           scheduled_stop_point_in_journey_patterns: Array<{
             __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -69994,7 +70204,22 @@ export type GetRouteDetailsByIdQuery = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>
       }
     }>,
@@ -70028,7 +70253,22 @@ export type GetRouteDetailsByIdQuery = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>,
         journey_pattern: {
           __typename?: 'journey_pattern_journey_pattern',
@@ -70119,7 +70359,22 @@ export type GetRouteDetailsByIdsQuery = {
               __typename?: 'timing_pattern_timing_place',
               timing_place_id: UUID,
               label: string
-            } | null
+            } | null,
+            stop_place?: Array<{
+              __typename?: 'stop_registry_ParentStopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | {
+              __typename?: 'stop_registry_StopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | null> | null
           }>,
           scheduled_stop_point_in_journey_patterns: Array<{
             __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -70146,7 +70401,22 @@ export type GetRouteDetailsByIdsQuery = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>
       }
     }>,
@@ -70180,7 +70450,22 @@ export type GetRouteDetailsByIdsQuery = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>,
         journey_pattern: {
           __typename?: 'journey_pattern_journey_pattern',
@@ -70272,7 +70557,22 @@ export type GetRouteDetailsByLabelsQuery = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>,
         journey_pattern: {
           __typename?: 'journey_pattern_journey_pattern',
@@ -70510,7 +70810,22 @@ export type GetScheduledStopsOnRouteQuery = {
           __typename?: 'timing_pattern_timing_place',
           timing_place_id: UUID,
           label: string
-        } | null
+        } | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null
       }>
     }>
   }>
@@ -70531,7 +70846,22 @@ export type ScheduledStopPointDefaultFieldsFragment = {
     __typename?: 'timing_pattern_timing_place',
     timing_place_id: UUID,
     label: string
-  } | null
+  } | null,
+  stop_place?: Array<{
+    __typename?: 'stop_registry_ParentStopPlace',
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    } | null
+  } | {
+    __typename?: 'stop_registry_StopPlace',
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    } | null
+  } | null> | null
 };
 
 export type ScheduledStopPointAllFieldsFragment = {
@@ -70556,7 +70886,22 @@ export type ScheduledStopPointAllFieldsFragment = {
     __typename?: 'timing_pattern_timing_place',
     timing_place_id: UUID,
     label: string
-  } | null
+  } | null,
+  stop_place?: Array<{
+    __typename?: 'stop_registry_ParentStopPlace',
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    } | null
+  } | {
+    __typename?: 'stop_registry_StopPlace',
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    } | null
+  } | null> | null
 };
 
 export type StopWithJourneyPatternFieldsFragment = {
@@ -70598,7 +70943,22 @@ export type StopWithJourneyPatternFieldsFragment = {
     __typename?: 'timing_pattern_timing_place',
     timing_place_id: UUID,
     label: string
-  } | null
+  } | null,
+  stop_place?: Array<{
+    __typename?: 'stop_registry_ParentStopPlace',
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    } | null
+  } | {
+    __typename?: 'stop_registry_StopPlace',
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    } | null
+  } | null> | null
 };
 
 export type RouteStopFieldsFragment = {
@@ -70630,7 +70990,22 @@ export type RouteStopFieldsFragment = {
       __typename?: 'timing_pattern_timing_place',
       timing_place_id: UUID,
       label: string
-    } | null
+    } | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | null> | null
   }>,
   scheduled_stop_point_in_journey_patterns: Array<{
     __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -70657,7 +71032,22 @@ export type RouteStopFieldsFragment = {
     __typename?: 'timing_pattern_timing_place',
     timing_place_id: UUID,
     label: string
-  } | null
+  } | null,
+  stop_place?: Array<{
+    __typename?: 'stop_registry_ParentStopPlace',
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    } | null
+  } | {
+    __typename?: 'stop_registry_StopPlace',
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    } | null
+  } | null> | null
 };
 
 export type RemoveStopMutationVariables = Exact<{
@@ -70705,7 +71095,22 @@ export type GetStopsByValidityQuery = {
       __typename?: 'timing_pattern_timing_place',
       timing_place_id: UUID,
       label: string
-    } | null
+    } | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | null> | null
   }>
 };
 
@@ -70738,7 +71143,22 @@ export type GetStopsByIdsQuery = {
       __typename?: 'timing_pattern_timing_place',
       timing_place_id: UUID,
       label: string
-    } | null
+    } | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | null> | null
   }>
 };
 
@@ -70771,7 +71191,22 @@ export type GetStopsByLabelsQuery = {
       __typename?: 'timing_pattern_timing_place',
       timing_place_id: UUID,
       label: string
-    } | null
+    } | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | null> | null
   }>
 };
 
@@ -70844,7 +71279,22 @@ export type GetStopWithRouteGraphDataByIdQuery = {
       __typename?: 'timing_pattern_timing_place',
       timing_place_id: UUID,
       label: string
-    } | null
+    } | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | null> | null
   }>
 };
 
@@ -70912,7 +71362,22 @@ export type InfrastructureLinkWithStopsFragment = {
         __typename?: 'timing_pattern_timing_place',
         timing_place_id: UUID,
         label: string
-      } | null
+      } | null,
+      stop_place?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | {
+        __typename?: 'stop_registry_StopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | null> | null
     }>,
     scheduled_stop_point_in_journey_patterns: Array<{
       __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -70939,7 +71404,22 @@ export type InfrastructureLinkWithStopsFragment = {
       __typename?: 'timing_pattern_timing_place',
       timing_place_id: UUID,
       label: string
-    } | null
+    } | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null
+    } | null> | null
   }>
 };
 
@@ -71027,7 +71507,22 @@ export type LineWithRoutesFragment = {
               __typename?: 'timing_pattern_timing_place',
               timing_place_id: UUID,
               label: string
-            } | null
+            } | null,
+            stop_place?: Array<{
+              __typename?: 'stop_registry_ParentStopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | {
+              __typename?: 'stop_registry_StopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | null> | null
           }>,
           scheduled_stop_point_in_journey_patterns: Array<{
             __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -71054,7 +71549,22 @@ export type LineWithRoutesFragment = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>
       }
     }>,
@@ -71088,7 +71598,22 @@ export type LineWithRoutesFragment = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>,
         journey_pattern: {
           __typename?: 'journey_pattern_journey_pattern',
@@ -71259,7 +71784,22 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
           __typename?: 'timing_pattern_timing_place',
           timing_place_id: UUID,
           label: string
-        } | null
+        } | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null
       }>,
       scheduled_stop_point_in_journey_patterns: Array<{
         __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -71286,7 +71826,22 @@ export type GetLinksWithStopsByExternalLinkIdsQuery = {
         __typename?: 'timing_pattern_timing_place',
         timing_place_id: UUID,
         label: string
-      } | null
+      } | null,
+      stop_place?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | {
+        __typename?: 'stop_registry_StopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | null> | null
     }>
   }>
 };
@@ -71458,7 +72013,22 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>,
         scheduled_stop_point_in_journey_patterns: Array<{
           __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -71485,7 +72055,22 @@ export type RouteWithInfrastructureLinksWithStopsFragment = {
           __typename?: 'timing_pattern_timing_place',
           timing_place_id: UUID,
           label: string
-        } | null
+        } | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null
       }>
     }
   }>
@@ -71563,7 +72148,22 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>,
         scheduled_stop_point_in_journey_patterns: Array<{
           __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -71590,7 +72190,22 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
           __typename?: 'timing_pattern_timing_place',
           timing_place_id: UUID,
           label: string
-        } | null
+        } | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null
       }>
     }
   }>,
@@ -71624,7 +72239,22 @@ export type RouteWithInfrastructureLinksWithStopsAndJpsFragment = {
           __typename?: 'timing_pattern_timing_place',
           timing_place_id: UUID,
           label: string
-        } | null
+        } | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null
       }>,
       journey_pattern: {
         __typename?: 'journey_pattern_journey_pattern',
@@ -71677,7 +72307,22 @@ export type InfraLinkAlongRouteWithStopsFragment = {
           __typename?: 'timing_pattern_timing_place',
           timing_place_id: UUID,
           label: string
-        } | null
+        } | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null
       }>,
       scheduled_stop_point_in_journey_patterns: Array<{
         __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -71704,7 +72349,22 @@ export type InfraLinkAlongRouteWithStopsFragment = {
         __typename?: 'timing_pattern_timing_place',
         timing_place_id: UUID,
         label: string
-      } | null
+      } | null,
+      stop_place?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | {
+        __typename?: 'stop_registry_StopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | null> | null
     }>
   }
 };
@@ -71788,7 +72448,22 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
               __typename?: 'timing_pattern_timing_place',
               timing_place_id: UUID,
               label: string
-            } | null
+            } | null,
+            stop_place?: Array<{
+              __typename?: 'stop_registry_ParentStopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | {
+              __typename?: 'stop_registry_StopPlace',
+              name?: {
+                __typename?: 'stop_registry_EmbeddableMultilingualString',
+                lang?: string | null,
+                value?: string | null
+              } | null
+            } | null> | null
           }>,
           scheduled_stop_point_in_journey_patterns: Array<{
             __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
@@ -71815,7 +72490,22 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>
       }
     }>,
@@ -71849,7 +72539,22 @@ export type GetRouteWithInfrastructureLinksWithStopsQuery = {
             __typename?: 'timing_pattern_timing_place',
             timing_place_id: UUID,
             label: string
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>,
         journey_pattern: {
           __typename?: 'journey_pattern_journey_pattern',
@@ -73115,7 +73820,22 @@ export type EditStopMutation = {
         __typename?: 'timing_pattern_timing_place',
         timing_place_id: UUID,
         label: string
-      } | null
+      } | null,
+      stop_place?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | {
+        __typename?: 'stop_registry_StopPlace',
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null
+      } | null> | null
     }>
   } | null,
   delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: {
@@ -74283,7 +75003,22 @@ export type VehicleJourneyWithServiceFragment = {
           __typename?: 'timing_pattern_timing_place',
           label: string,
           timing_place_id: UUID
-        } | null
+        } | null,
+        stop_place?: Array<{
+          __typename?: 'stop_registry_ParentStopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | {
+          __typename?: 'stop_registry_StopPlace',
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          } | null
+        } | null> | null
       }>
     },
     vehicle_journey: {
@@ -74377,7 +75112,22 @@ export type VehicleScheduleFragment = {
             __typename?: 'timing_pattern_timing_place',
             label: string,
             timing_place_id: UUID
-          } | null
+          } | null,
+          stop_place?: Array<{
+            __typename?: 'stop_registry_ParentStopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | {
+            __typename?: 'stop_registry_StopPlace',
+            name?: {
+              __typename?: 'stop_registry_EmbeddableMultilingualString',
+              lang?: string | null,
+              value?: string | null
+            } | null
+          } | null> | null
         }>
       },
       vehicle_journey: {
@@ -74488,7 +75238,22 @@ export type GetVehicleSchedulesForDateQuery = {
                 __typename?: 'timing_pattern_timing_place',
                 label: string,
                 timing_place_id: UUID
-              } | null
+              } | null,
+              stop_place?: Array<{
+                __typename?: 'stop_registry_ParentStopPlace',
+                name?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString',
+                  lang?: string | null,
+                  value?: string | null
+                } | null
+              } | {
+                __typename?: 'stop_registry_StopPlace',
+                name?: {
+                  __typename?: 'stop_registry_EmbeddableMultilingualString',
+                  lang?: string | null,
+                  value?: string | null
+                } | null
+              } | null> | null
             }>
           },
           vehicle_journey: {
@@ -75138,6 +75903,12 @@ export const ScheduledStopPointDefaultFieldsFragmentDoc = gql`
   validity_end
   located_on_infrastructure_link_id
   stop_place_ref
+  stop_place {
+    name {
+      lang
+      value
+    }
+  }
 }
     `;
 export const ScheduledStopPointAllFieldsFragmentDoc = gql`
