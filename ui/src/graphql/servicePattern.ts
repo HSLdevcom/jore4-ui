@@ -70,6 +70,13 @@ const STOP_WITH_JOURNEY_PATTERN_FIELDS = gql`
 const ROUTE_STOP_FIELDS = gql`
   fragment route_stop_fields on service_pattern_scheduled_stop_point {
     ...stop_with_journey_pattern_fields
+    stop_place {
+      id
+      name {
+        lang
+        value
+      }
+    }
     other_label_instances {
       ...scheduled_stop_point_default_fields
     }
