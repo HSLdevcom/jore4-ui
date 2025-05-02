@@ -453,6 +453,15 @@
         "stopPointInsertFailedStopPlaceReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui! Syy:\n{{reason}}",
         "stopPointInsertFailedStopPlaceNotReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui eikä aiemmin luotua pysäkkirekisteritietuetta saatu poistettua. Jore tietokannoissa on nyt virheitä. Syy:\n{{reason}}"
       }
+    },
+    "externalLinks": {
+      "externalLinks": "Linkit",
+      "noExternalLinks": "Ei linkkejä",
+      "cancelDeleteExternalLink": "Peruuta poisto",
+      "deleteExternalLink": "Poista linkki",
+      "addExternalLink": "Lisää uusi linkki",
+      "name": "Nimi",
+      "location": "Osoite"
     }
   },
   "stopRegistrySearch": {
