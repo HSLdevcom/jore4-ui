@@ -454,6 +454,15 @@
         "stopPointInsertFailedStopPlaceReverted": "Failed to create a scheduled stop point in the lines and routers database! Reason:\n{{reason}}",
         "stopPointInsertFailedStopPlaceNotReverted": "Failed to create a scheduled stop point in the lines and routers database, and the previusly created entry in StopRegistry could be deleted. Jore databases contains errors. Reason:\n{{reason}}"
       }
+    },
+    "externalLinks": {
+      "externalLinks": "Links",
+      "noExternalLinks": "No links",
+      "cancelDeleteExternalLink": "Cancel deletion",
+      "deleteExternalLink": "Delete link",
+      "addExternalLink": "Add new link",
+      "name": "Name",
+      "location": "Link"
     }
   },
   "stopRegistrySearch": {

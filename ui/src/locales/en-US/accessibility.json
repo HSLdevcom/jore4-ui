@@ -37,7 +37,10 @@
   "stops": {
     "showStopDetails": "Show details for stop {{ stopLabel }}",
     "timingPlace": "Timing place",
-    "validityPeriod": "Validity period"
+    "validityPeriod": "Validity period",
+    "editExternalLink": "Edit external links",
+    "addExternalLink": "Add external link",
+    "openExternalLink": "Open external link {{ linkTitle }}"
   },
   "stopAreas": {
     "showStopAreaDetails": "Show details for stop area {{ areaLabel }}"
