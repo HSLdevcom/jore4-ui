@@ -131,9 +131,9 @@
   "stopArea": {
     "stopArea": "Stop area",
     "delete": "Delete stop area",
-    "name": "Name",
+    "name": "Stop area name",
     "nameSwe": "Name (swedish)",
-    "privateCode": "Label",
+    "privateCode": "Stop area label",
     "quays": "Member stops",
     "sharedNameNotice": "Remember that member stops need to share name with the area.",
     "checkingNames": "Checking names for consistency",

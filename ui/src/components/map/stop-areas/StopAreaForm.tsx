@@ -97,27 +97,32 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
         ref={ref}
       >
         <FormColumn className={twMerge('bg-background p-4', className)}>
-          <FormRow mdColumns={2}>
+          <div className="flex gap-4">
             <InputField<FormState>
               type="text"
               translationPrefix="stopArea"
               fieldPath="privateCode"
               testId={testIds.privateCode}
+              className="w-2/5"
             />
-
             <InputField<FormState>
               type="text"
               translationPrefix="stopArea"
               fieldPath="name"
               testId={testIds.name}
+              className="w-full"
             />
-          </FormRow>
+          </div>
+
           <FormRow>
             <StopAreaNames />
           </FormRow>
         </FormColumn>
         <FormColumn>
-          <FormRow mdColumns={2} className="p-4">
+          <FormRow
+            mdColumns={2}
+            className="px-4 sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
+          >
             <InputField<FormState>
               type="number"
               translationPrefix="map"
@@ -134,7 +139,7 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
             />
           </FormRow>
           <FormRow className="border-t border-light-grey p-4">
-            <ValidityPeriodForm />
+            <ValidityPeriodForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
           </FormRow>
         </FormColumn>
       </form>

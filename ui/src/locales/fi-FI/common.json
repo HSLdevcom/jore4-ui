@@ -131,9 +131,9 @@
   "stopArea": {
     "stopArea": "Pysäkkialue",
     "delete": "Poista pysäkkialue",
-    "name": "Nimi",
+    "name": "Pysäkkialueen nimi",
     "nameSwe": "Nimi (ruotsi)",
-    "privateCode": "Tunnus",
+    "privateCode": "Pysäkkialueen tunnus",
     "quays": "Jäsenpysäkit",
     "sharedNameNotice": "Muista nimetä jäsenpysäkit pysäkkialueen nimellä.",
     "checkingNames": "Tarkastetaan nimien yhtenäisyyttä",
