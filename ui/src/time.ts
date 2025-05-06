@@ -2,7 +2,6 @@ import isString from 'lodash/isString';
 import padStart from 'lodash/padStart';
 import { DateTime, Duration, Interval, Settings } from 'luxon';
 import { Maybe, ValidityPeriod } from './generated/graphql';
-import { i18n } from './i18n';
 
 Settings.defaultZone = 'Europe/Helsinki';
 
@@ -50,29 +49,25 @@ export function parseDate(date?: DateLike | null) {
 }
 
 // date formats known by luxon: https://moment.github.io/luxon/#/formatting?id=presets
-export const formatDate = (
+export const formatDateWithLocale = (
+  format: string,
+  locale: string,
+  date?: DateLike | null,
+): string | undefined => parseDate(date)?.setLocale(locale).toFormat(format);
+
+// date formats known by luxon: https://moment.github.io/luxon/#/formatting?id=presets
+export const formatDateWithoutLocale = (
   format: string,
   date?: DateLike | null,
-  locale?: string,
-) => {
-  const dateTime = parseDate(date);
-  if (!dateTime) {
-    return undefined;
-  }
+): string | undefined => parseDate(date)?.toFormat(format);
 
-  // if not explicitly defined, the i18n locale is used
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-  const dateLocale = locale || i18n.language;
+// "shortDate" means format "D.M.YYYY"
+export const mapToShortDate = (date?: DateLike | null) =>
+  formatDateWithoutLocale('d.L.yyyy', date);
 
-  return dateTime.setLocale(dateLocale).toFormat(format);
-};
-
-// "shortDate" means format DD.MM.YYYY
-export const mapToShortDate = (date?: DateLike | null, locale?: string) =>
-  formatDate('d.L.yyyy', date, locale);
-
-export const mapToShortDateTime = (date?: DateLike | null, locale?: string) =>
-  formatDate('d.L.yyyy t', date, locale);
+// "shortDateTime" means format "D.M.YYYY H.mm"
+export const mapToShortDateTime = (date?: DateLike | null) =>
+  formatDateWithoutLocale('d.L.yyyy H.mm', date);
 
 export const mapToISODate = (date?: DateLike | null) =>
   parseDate(date)?.toISODate();

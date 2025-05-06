@@ -2,12 +2,12 @@ import { DateTime } from 'luxon';
 import {
   findEarliestTime,
   findLatestTime,
-  formatDate,
+  formatDateWithLocale,
   mapToISODate,
   parseDate,
 } from './time';
 
-describe(`${formatDate.name}()`, () => {
+describe(`${formatDateWithLocale.name}()`, () => {
   // These tests temporariry disabled as we had to hard-code
   // used date and datetime formats instead of using localized
   // ones in order to do temporary workaround for flaky
