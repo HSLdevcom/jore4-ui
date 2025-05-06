@@ -8,6 +8,8 @@ import {
   StopRegistryAccessibilityAssessmentInput,
   StopRegistryAlternativeName,
   StopRegistryAlternativeNameInput,
+  StopRegistryExternalLink,
+  StopRegistryExternalLinkInput,
   StopRegistryGeneralSign,
   StopRegistryGeneralSignInput,
   StopRegistryGeoJson,
@@ -195,4 +197,16 @@ export function mapPlaceEquipmentsToInput(
       omitIdAndTypeName,
     ),
   };
+}
+
+export function mapExternalLinks(
+  externalLinks:
+    | ReadonlyArray<Maybe<StopRegistryExternalLink>>
+    | null
+    | undefined,
+): Array<StopRegistryExternalLinkInput> | null {
+  return mapCompactOrNull(externalLinks, (link) => ({
+    name: link.name,
+    location: link.location,
+  }));
 }

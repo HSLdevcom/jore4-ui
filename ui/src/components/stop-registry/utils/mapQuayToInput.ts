@@ -12,6 +12,7 @@ import {
   mapAccessibilityAssessmentToInput,
   mapAlternativeNames,
   mapCompactOrNull,
+  mapExternalLinks,
   mapGeoJsonToInput,
   mapPlaceEquipmentsToInput,
   omitTypeName,
@@ -67,6 +68,7 @@ export function mapQuayToInput(
     ),
     geometry: mapGeoJsonToInput(quay.geometry),
     placeEquipments: mapPlaceEquipmentsToInput(quay.placeEquipments),
+    externalLinks: mapExternalLinks(quay.externalLinks),
     privateCode: getQuayPrivateCode(quay),
   };
 }
