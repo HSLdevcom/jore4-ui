@@ -1,4 +1,4 @@
-import { i18n } from '../i18n';
+import { illegalExportDoNotUseOrYouWillRegretItI18NextGlobalInstance as i18n } from '../i18n';
 
 export const parseI18nField = (i18nField: ExplicitAny) => {
   if (!i18nField) {

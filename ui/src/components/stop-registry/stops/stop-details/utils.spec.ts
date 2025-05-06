@@ -1,4 +1,4 @@
-import { i18n } from '../../../../i18n';
+import { illegalExportDoNotUseOrYouWillRegretItI18NextGlobalInstance as i18n } from '../../../../i18n';
 import { optionalBooleanToUiText, translateStopTypes } from './utils';
 
 describe('Stop registry utils', () => {
