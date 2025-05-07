@@ -19,8 +19,16 @@ export class StopAreaForm {
     return cy.getByTestId('StopAreaFormComponent::showHideButton');
   }
 
+  getShowHideEngButton() {
+    return cy.getByTestId('StopAreaFormComponent::showHideButtonEng');
+  }
+
   getNameSwe() {
     return cy.getByTestId('StopAreaFormComponent::nameSwe');
+  }
+
+  getNameEng() {
+    return cy.getByTestId('StopAreaFormComponent::nameEng');
   }
 
   getNameLongFin() {
@@ -31,12 +39,20 @@ export class StopAreaForm {
     return cy.getByTestId('StopAreaFormComponent::nameLongSwe');
   }
 
+  getNameLongEng() {
+    return cy.getByTestId('StopAreaFormComponent::nameLongEng');
+  }
+
   getAbbreviationFin() {
     return cy.getByTestId('StopAreaFormComponent::abbreviationFin');
   }
 
   getAbbreviationSwe() {
     return cy.getByTestId('StopAreaFormComponent::abbreviationSwe');
+  }
+
+  getAbbreviationEng() {
+    return cy.getByTestId('StopAreaFormComponent::abbreviationEng');
   }
 
   getLatitude() {

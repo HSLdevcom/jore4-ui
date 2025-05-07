@@ -39,10 +39,13 @@ function mapToShortDate(date: DateTime | null) {
 type ExpectedBasicDetails = {
   readonly name: string;
   readonly nameSwe: string;
+  readonly nameEng: string;
   readonly nameLongFin: string;
   readonly nameLongSwe: string;
+  readonly nameLongEng: string;
   readonly abbreviationFin: string;
   readonly abbreviationSwe: string;
+  readonly abbreviationEng: string;
   readonly privateCode: string;
   readonly areaSize: string;
   readonly parentTerminal: string;
@@ -127,7 +130,10 @@ describe('Stop area details', () => {
   const testAreaExpectedBasicDetails: ExpectedBasicDetails = {
     name: testStopArea.StopArea.name?.value as string,
     nameSwe: testStopArea.StopArea.alternativeNames?.find(
-      (name) => name?.nameType === 'translation',
+      (name) => name?.nameType === 'translation' && name?.name.lang === 'swe',
+    )?.name.value as string,
+    nameEng: testStopArea.StopArea.alternativeNames?.find(
+      (name) => name?.nameType === 'translation' && name?.name.lang === 'eng',
     )?.name.value as string,
     nameLongFin: testStopArea.StopArea.alternativeNames?.find(
       (name) => name?.nameType === 'alias' && name?.name.lang === 'fin',
@@ -135,11 +141,17 @@ describe('Stop area details', () => {
     nameLongSwe: testStopArea.StopArea.alternativeNames?.find(
       (name) => name?.nameType === 'alias' && name?.name.lang === 'swe',
     )?.name.value as string,
+    nameLongEng: testStopArea.StopArea.alternativeNames?.find(
+      (name) => name?.nameType === 'alias' && name?.name.lang === 'eng',
+    )?.name.value as string,
     abbreviationFin: testStopArea.StopArea.alternativeNames?.find(
       (name) => name?.nameType === 'other' && name?.name.lang === 'fin',
     )?.name.value as string,
     abbreviationSwe: testStopArea.StopArea.alternativeNames?.find(
       (name) => name?.nameType === 'other' && name?.name.lang === 'swe',
+    )?.name.value as string,
+    abbreviationEng: testStopArea.StopArea.alternativeNames?.find(
+      (name) => name?.nameType === 'other' && name?.name.lang === 'eng',
     )?.name.value as string,
     privateCode: testStopArea.StopArea.privateCode?.value as string,
     validFrom: testStopArea.StopArea.validBetween?.fromDate as DateTime,
@@ -199,10 +211,13 @@ describe('Stop area details', () => {
     const { details } = stopAreaDetailsPage;
     details.getName().shouldHaveText(expected.name);
     details.getNameSwe().shouldHaveText(expected.nameSwe);
+    details.getNameEng().shouldHaveText(expected.nameEng);
     details.getNameLongFin().shouldHaveText(expected.nameLongFin);
     details.getNameLongSwe().shouldHaveText(expected.nameLongSwe);
+    details.getNameLongEng().shouldHaveText(expected.nameLongEng);
     details.getAbbreviationFin().shouldHaveText(expected.abbreviationFin);
     details.getAbbreviationSwe().shouldHaveText(expected.abbreviationSwe);
+    details.getAbbreviationEng().shouldHaveText(expected.abbreviationEng);
     details.getPrivateCode().shouldHaveText(expected.privateCode);
     details.getAreaSize().shouldHaveText(expected.areaSize);
     details.getParentTerminal().shouldHaveText(expected.parentTerminal);
@@ -353,10 +368,13 @@ describe('Stop area details', () => {
       edit.getPrivateCode().clearAndType(inputs.privateCode);
       edit.getName().clearAndType(inputs.name);
       edit.getNameSwe().clearAndType(inputs.nameSwe);
+      edit.getNameEng().clearAndType(inputs.nameEng);
       edit.getNameLongFin().clearAndType(inputs.nameLongFin);
       edit.getNameLongSwe().clearAndType(inputs.nameLongSwe);
+      edit.getNameLongEng().clearAndType(inputs.nameLongEng);
       edit.getAbbreviationFin().clearAndType(inputs.abbreviationFin);
       edit.getAbbreviationSwe().clearAndType(inputs.abbreviationSwe);
+      edit.getAbbreviationEng().clearAndType(inputs.abbreviationEng);
 
       setValidity(inputs.validFrom, inputs.validTo);
     }
@@ -400,10 +418,13 @@ describe('Stop area details', () => {
         ...testAreaExpectedBasicDetails,
         name: 'New name',
         nameSwe: 'New name swe',
+        nameEng: 'New name eng',
         nameLongFin: 'New name long fin',
         nameLongSwe: 'New name long swe',
+        nameLongEng: 'New name long eng',
         abbreviationFin: 'New abbreviation swe',
         abbreviationSwe: 'New abbreviation swe',
+        abbreviationEng: 'New abbreviation eng',
         privateCode: 'New private code',
         validFrom: DateTime.now(),
         validTo: null,
