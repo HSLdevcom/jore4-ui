@@ -18,10 +18,13 @@ const testIds = {
   areaQuays: 'BasicDetailsSection::areaQuays',
   areaName: 'BasicDetailsSection::areaName',
   areaNameSwe: 'BasicDetailsSection::areaNameSwe',
+  areaNameEng: 'BasicDetailsSection::areaNameEng',
   areaNameLong: 'BasicDetailsSection::areaNameLong',
   areaNameLongSwe: 'BasicDetailsSection::areaNameLongSwe',
+  areaNameLongEng: 'BasicDetailsSection::areaNameLongEng',
   areaAbbreviationName: 'BasicDetailsSection::areaAbbreviationName',
   areaAbbreviationNameSwe: 'BasicDetailsSection::areaAbbreviationNameSwe',
+  areaAbbreviationNameEng: 'BasicDetailsSection::areaAbbreviationNameEng',
 };
 
 export const StopAreaDetailsSection = ({ stop }: Props) => {
@@ -92,6 +95,27 @@ export const StopAreaDetailsSection = ({ stop }: Props) => {
           testId={testIds.areaAbbreviationNameSwe}
         />
       </DetailRow>
+      {(stop.stop_place?.nameEng ??
+        stop.stop_place?.nameLongEng ??
+        stop.stop_place?.abbreviationEng) && (
+        <DetailRow className="-mx-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
+          <LabeledDetail
+            title={t('stopDetails.basicAreaDetails.areaNameEng')}
+            detail={stop.stop_place?.nameEng}
+            testId={testIds.areaNameEng}
+          />
+          <LabeledDetail
+            title={t('stopDetails.basicAreaDetails.areaNameLongEng')}
+            detail={stop.stop_place?.nameLongEng}
+            testId={testIds.areaNameLongEng}
+          />
+          <LabeledDetail
+            title={t('stopDetails.basicAreaDetails.areaAbbreviationEng')}
+            detail={stop.stop_place?.abbreviationEng}
+            testId={testIds.areaAbbreviationNameEng}
+          />
+        </DetailRow>
+      )}
     </div>
   );
 };
