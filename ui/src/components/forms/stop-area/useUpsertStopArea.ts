@@ -54,6 +54,10 @@ const mapFormStateToInput = ({
         nameType: StopRegistryNameType.Translation,
       },
       {
+        name: { lang: 'eng', value: state.nameEng },
+        nameType: StopRegistryNameType.Translation,
+      },
+      {
         name: { lang: 'swe', value: state.abbreviationSwe },
         nameType: StopRegistryNameType.Other,
       },
@@ -62,11 +66,20 @@ const mapFormStateToInput = ({
         nameType: StopRegistryNameType.Other,
       },
       {
+        name: { lang: 'eng', value: state.abbreviationEng },
+        nameType: StopRegistryNameType.Other,
+      },
+      {
         name: { lang: 'fin', value: state.nameLongFin },
         nameType: StopRegistryNameType.Alias,
       },
       {
         name: { lang: 'swe', value: state.nameLongSwe },
+        nameType: StopRegistryNameType.Alias,
+      },
+
+      {
+        name: { lang: 'eng', value: state.nameLongEng },
         nameType: StopRegistryNameType.Alias,
       },
     ]),
