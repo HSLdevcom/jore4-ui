@@ -6,6 +6,7 @@ import { ExpandButton } from '../../../uiComponents';
 import { FormRow, InputField } from '../../forms/common';
 import { StopAreaFormState } from '../../forms/stop-area';
 import { accordionClassNames } from '../../stop-registry/stops/versions/utils';
+import { StopAreaEnglishNames } from './StopAreaEnglishNames';
 
 const ID = 'StopAreaNameSection';
 const HeaderId = 'StopAreaNameSection::Header';
@@ -99,6 +100,9 @@ export const StopAreaNames: React.FC = () => {
             fieldPath="abbreviationSwe"
             testId={testIds.abbreviationSwe}
           />
+        </FormRow>
+        <FormRow className="w-full">
+          <StopAreaEnglishNames />
         </FormRow>
       </Transition>
     </>
