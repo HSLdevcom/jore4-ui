@@ -36,10 +36,13 @@ export const Annankatu20AltNames: Array<Maybe<StopRegistryAlternativeName>> = [
 // prettier-ignore
 export const Annankatu15AltNames: Array<Maybe<StopRegistryAlternativeName>> = [
   { nameType: StopRegistryNameType.Translation, name: { lang: 'swe', value: 'Annasgatan 15' }, },
+  { nameType: StopRegistryNameType.Translation, name: { lang: 'eng', value: 'Annas street 15' }, },
   { nameType: StopRegistryNameType.Other,       name: { lang: 'fin', value: 'Annankatu 15' } },
   { nameType: StopRegistryNameType.Other,       name: { lang: 'swe', value: 'Annasgatan 15' } },
+  { nameType: StopRegistryNameType.Other,       name: { lang: 'eng', value: 'Annas street 15' } },
   { nameType: StopRegistryNameType.Alias,       name: { lang: 'fin', value: 'Annankatu 15 pitkänimi' } },
   { nameType: StopRegistryNameType.Alias,       name: { lang: 'swe', value: 'Annasgatan 15 långnamn' } },
+  { nameType: StopRegistryNameType.Alias,       name: { lang: 'eng', value: 'Annas street 15 long name' } },
 ];
 
 export const Annankatu20Location: Array<Maybe<StopRegistryAlternativeName>> = [

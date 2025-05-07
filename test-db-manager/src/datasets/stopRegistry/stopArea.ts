@@ -9,10 +9,13 @@ import { getKeyValue } from './utils';
 
 export type StopAreaSeedData = {
   nameSwe?: string;
+  nameEng?: string;
   nameFinLong?: string;
   nameSweLong?: string;
+  nameEngLong?: string;
   abbreviationFin?: string;
   abbreviationSwe?: string;
+  abbreviationEng?: string;
   label: string;
   name: string;
   organisations?: StopPlaceMaintenance;
@@ -44,6 +47,12 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
               nameType: StopRegistryNameType.Alias,
             }
           : null,
+        seedStopArea.nameEngLong
+          ? {
+              name: { lang: 'eng', value: seedStopArea.nameEngLong },
+              nameType: StopRegistryNameType.Alias,
+            }
+          : null,
         seedStopArea.abbreviationFin
           ? {
               name: { lang: 'fin', value: seedStopArea.abbreviationFin },
@@ -54,6 +63,18 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
           ? {
               name: { lang: 'swe', value: seedStopArea.abbreviationSwe },
               nameType: StopRegistryNameType.Other,
+            }
+          : null,
+        seedStopArea.abbreviationEng
+          ? {
+              name: { lang: 'eng', value: seedStopArea.abbreviationEng },
+              nameType: StopRegistryNameType.Other,
+            }
+          : null,
+        seedStopArea.nameEng
+          ? {
+              name: { lang: 'eng', value: seedStopArea.nameEng },
+              nameType: StopRegistryNameType.Translation,
             }
           : null,
         {

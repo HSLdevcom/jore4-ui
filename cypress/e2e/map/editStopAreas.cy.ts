@@ -126,6 +126,10 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.stopAreaForm.getNameLongSwe().type('Pitkä swe');
     mapModal.stopAreaForm.getAbbreviationFin().type('Lyhyt fin');
     mapModal.stopAreaForm.getAbbreviationSwe().type('Lyhyt swe');
+    mapModal.stopAreaForm.getShowHideEngButton().click();
+    mapModal.stopAreaForm.getNameEng().type('Annas street 2');
+    mapModal.stopAreaForm.getNameLongEng().type('Pitkä eng');
+    mapModal.stopAreaForm.getAbbreviationEng().type('Lyhyt eng');
     mapModal.stopAreaForm
       .getLatitude()
       .should('have.prop', 'value')

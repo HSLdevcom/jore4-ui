@@ -88,6 +88,10 @@ const stopAreaInput: Array<StopAreaInput> = [
           nameType: StopRegistryNameType.Translation,
         },
         {
+          name: { lang: 'eng', value: 'North esplanade' },
+          nameType: StopRegistryNameType.Translation,
+        },
+        {
           name: { lang: 'fin', value: 'Pohjoisesplanadi (pitkä)' },
           nameType: StopRegistryNameType.Alias,
         },
@@ -96,11 +100,20 @@ const stopAreaInput: Array<StopAreaInput> = [
           nameType: StopRegistryNameType.Alias,
         },
         {
+          name: { lang: 'eng', value: 'North esplanade (long)' },
+          nameType: StopRegistryNameType.Alias,
+        },
+        {
           name: { lang: 'fin', value: 'Pohj.esplanadi' },
           nameType: StopRegistryNameType.Other,
         },
         {
           name: { lang: 'swe', value: 'N.esplanaden' },
+          nameType: StopRegistryNameType.Other,
+        },
+
+        {
+          name: { lang: 'eng', value: 'N.esplanade' },
           nameType: StopRegistryNameType.Other,
         },
       ],
@@ -486,10 +499,13 @@ describe('Stop details', () => {
         bdView.getAreaQuays().shouldHaveText('H2003');
         bdView.getAreaName().shouldHaveText('Pohjoisesplanadi');
         bdView.getAreaNameSwe().shouldHaveText('Norraesplanaden');
+        bdView.getAreaNameEng().shouldHaveText('North esplanade');
         bdView.getAreaNameLong().shouldHaveText('Pohjoisesplanadi (pitkä)');
         bdView.getAreaNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
+        bdView.getAreaNameLongEng().shouldHaveText('North esplanade (long)');
         bdView.getAreaAbbreviationName().shouldHaveText('Pohj.esplanadi');
         bdView.getAreaAbbreviationNameSwe().shouldHaveText('N.esplanaden');
+        bdView.getAreaAbbreviationNameEng().shouldHaveText('N.esplanade');
 
         stopDetailsPage.basicDetails.getEditButton().click();
 
@@ -502,10 +518,13 @@ describe('Stop details', () => {
         bdView.getAreaQuays().shouldHaveText('H2003');
         bdView.getAreaName().shouldHaveText('Pohjoisesplanadi');
         bdView.getAreaNameSwe().shouldHaveText('Norraesplanaden');
+        bdView.getAreaNameEng().shouldHaveText('North esplanade');
         bdView.getAreaNameLong().shouldHaveText('Pohjoisesplanadi (pitkä)');
         bdView.getAreaNameLongSwe().shouldHaveText('Norraesplanaden (lång)');
+        bdView.getAreaNameLongEng().shouldHaveText('North esplanade (long)');
         bdView.getAreaAbbreviationName().shouldHaveText('Pohj.esplanadi');
         bdView.getAreaAbbreviationNameSwe().shouldHaveText('N.esplanaden');
+        bdView.getAreaAbbreviationNameEng().shouldHaveText('N.esplanade');
 
         // Should be able to save without changing anything.
         stopDetailsPage.basicDetails.getSaveButton().click();
