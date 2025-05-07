@@ -244,17 +244,26 @@ export const getStopPlaceDetailsForEnrichment = <
     nameSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Translation)
         ?.value || undefined,
+    nameEng:
+      findAlternativeName(stopPlace, 'eng', StopRegistryNameType.Translation)
+        ?.value || undefined,
     nameLongFin:
       findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Alias)
         ?.value || undefined,
     nameLongSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Alias)
         ?.value || undefined,
+    nameLongEng:
+      findAlternativeName(stopPlace, 'eng', StopRegistryNameType.Alias)
+        ?.value || undefined,
     abbreviationFin:
       findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Other)
         ?.value || undefined,
     abbreviationSwe:
       findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
+        ?.value || undefined,
+    abbreviationEng:
+      findAlternativeName(stopPlace, 'eng', StopRegistryNameType.Other)
         ?.value || undefined,
     municipality: stopPlace.topographicPlace?.name?.value || undefined,
     fareZone: stopPlace.fareZones?.[0]?.name?.value || undefined,

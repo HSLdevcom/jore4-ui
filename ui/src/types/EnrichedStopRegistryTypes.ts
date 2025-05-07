@@ -9,10 +9,13 @@ import { StopPlaceState } from './stop-registry';
 
 export type StopPlaceEnrichmentProperties = {
   readonly nameSwe?: string | undefined;
+  readonly nameEng?: string | undefined;
   readonly nameLongFin?: string | undefined;
   readonly nameLongSwe?: string | undefined;
+  readonly nameLongEng?: string | undefined;
   readonly abbreviationFin?: string | undefined;
   readonly abbreviationSwe?: string | undefined;
+  readonly abbreviationEng?: string | undefined;
   readonly name?: string | undefined;
   readonly municipality?: string | undefined;
   readonly fareZone?: string | undefined;
