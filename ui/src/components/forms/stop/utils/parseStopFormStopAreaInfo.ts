@@ -47,11 +47,14 @@ export function parseStopFormStopAreaInfo(
 
     nameFin: findName(names, 'TRANSLATION', 'fin'),
     nameSwe: findName(names, 'TRANSLATION', 'swe'),
+    nameEng: findName(names, 'TRANSLATION', 'eng'),
 
     longNameFin: findName(names, 'ALIAS', 'fin'),
     longNameSwe: findName(names, 'ALIAS', 'swe'),
+    longNameEng: findName(names, 'ALIAS', 'eng'),
 
     abbreviationFin: findName(names, 'OTHER', 'fin'),
     abbreviationSwe: findName(names, 'OTHER', 'swe'),
+    abbreviationEng: findName(names, 'OTHER', 'eng'),
   };
 }
