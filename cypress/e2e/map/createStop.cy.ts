@@ -32,7 +32,10 @@ const stopAreaInput: Array<StopAreaInput> = [
   {
     StopArea: {
       name: { lang: 'fin', value: testStopLabels.stopAreaName },
-      privateCode: { type: 'HSL', value: testStopLabels.stopAreaPrivateCode },
+      privateCode: {
+        type: 'HSL/TEST',
+        value: testStopLabels.stopAreaPrivateCode,
+      },
     },
     organisations: null,
   },

@@ -69,7 +69,7 @@ describe('Stop area details', () => {
   const stopAreaData: Array<StopAreaInput> = [
     {
       StopArea: {
-        privateCode: { type: 'HSL', value: 'X0003' },
+        privateCode: { type: 'HSL/TEST', value: 'X0003' },
         name: { lang: 'fin', value: 'Annankatu 15' },
         alternativeNames: Annankatu15AltNames,
         validBetween: {
@@ -94,7 +94,7 @@ describe('Stop area details', () => {
     },
     {
       StopArea: {
-        privateCode: { type: 'HSL', value: 'X0004' },
+        privateCode: { type: 'HSL/TEST', value: 'X0004' },
         name: { lang: 'fin', value: 'Kalevankatu 32' },
         keyValues: [
           { key: 'validityStart', values: ['2000-01-01'] },

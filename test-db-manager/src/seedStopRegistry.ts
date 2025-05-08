@@ -66,7 +66,7 @@ const seedStopRegistry = async () => {
           },
         ],
         transportMode: StopRegistryTransportModeType.Bus,
-        privateCode: { value: publicCode },
+        privateCode: { type: 'HSL/TEST', value: publicCode },
         geometry: firstQuay.geometry,
         quays: quays.map((it) => it.quay),
       };
