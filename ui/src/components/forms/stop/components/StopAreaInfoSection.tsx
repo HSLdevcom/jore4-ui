@@ -20,10 +20,13 @@ const testIds = {
   areaValidityPeriod: 'StopAreaInfoSection::areaValidityPeriod',
   areaName: 'StopAreaInfoSection::areaName',
   areaNameSwe: 'StopAreaInfoSection::areaNameSwe',
+  areaNameEng: 'StopAreaInfoSection::areaNameEng',
   areaNameLong: 'StopAreaInfoSection::areaNameLong',
   areaNameLongSwe: 'StopAreaInfoSection::areaNameLongSwe',
+  areaNameLongEng: 'StopAreaInfoSection::areaNameLongEng',
   areaAbbreviationName: 'StopAreaInfoSection::areaAbbreviationName',
   areaAbbreviationNameSwe: 'StopAreaInfoSection::areaAbbreviationNameSwe',
+  areaAbbreviationNameEng: 'StopAreaInfoSection::areaAbbreviationNameEng',
 };
 
 type StopAreaInfoSectionProps = {
@@ -107,6 +110,27 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
           detail={stopArea.abbreviationSwe}
           testId={testIds.areaAbbreviationNameSwe}
         />
+        {(stopArea.nameEng ??
+          stopArea.longNameEng ??
+          stopArea.abbreviationEng) && (
+          <>
+            <LabeledDetail
+              title={t('stopDetails.basicAreaDetails.areaNameEng')}
+              detail={stopArea.nameEng}
+              testId={testIds.areaNameEng}
+            />
+            <LabeledDetail
+              title={t('stopDetails.basicAreaDetails.areaNameLongEng')}
+              detail={stopArea.longNameEng}
+              testId={testIds.areaNameLongEng}
+            />
+            <LabeledDetail
+              title={t('stopDetails.basicAreaDetails.areaAbbreviationEng')}
+              detail={stopArea.abbreviationEng}
+              testId={testIds.areaAbbreviationNameEng}
+            />
+          </>
+        )}
       </Transition>
     </div>
   );
