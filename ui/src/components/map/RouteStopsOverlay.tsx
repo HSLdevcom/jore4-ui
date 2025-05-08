@@ -81,14 +81,14 @@ export const RouteStopsOverlay = ({
   return (
     <MapOverlay className={className}>
       <MapOverlayHeader testId={testIds.mapOverlayHeader}>
-        <i className="icon-bus-alt text-2xl text-tweaked-brand" />
+        <i className="icon-bus-alt mt-1 text-xl text-tweaked-brand" />
         <div>
-          <h2 className="text-tweaked-brand">
+          <p className="text-base text-tweaked-brand">
             <RouteLabel
               label={routeMetadata.label}
               variant={routeMetadata.variant}
             />
-          </h2>
+          </p>
           <p className="text-light text-xs text-gray-500">{routeName}</p>
         </div>
         <Visible visible={creatingNewRoute}>

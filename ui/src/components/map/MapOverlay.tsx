@@ -30,7 +30,7 @@ export const MapOverlayHeader: FC<MapOverlayHeaderProps> = ({
 }) => {
   return (
     <Row
-      className={`items-center space-x-1 border-b border-gray-200 bg-background p-3 ${className}`}
+      className={`space-x-1 border-b border-gray-200 bg-background p-3 ${className}`}
       testId={testId}
     >
       {children}
