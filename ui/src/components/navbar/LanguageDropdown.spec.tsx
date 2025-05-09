@@ -1,7 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
+import i18n from 'i18next';
 import React from 'react';
-import { illegalExportDoNotUseOrYouWillRegretItI18NextGlobalInstance as i18n } from '../../i18n';
 import { render } from '../../utils/test-utils';
+import '../../i18n';
 import { LanguageDropdown, testIds } from './LanguageDropdown';
 
 describe('<LanguageDropdown />', () => {

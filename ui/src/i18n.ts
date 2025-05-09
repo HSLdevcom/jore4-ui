@@ -30,16 +30,5 @@ i18next.use(initReactI18next).init({
   },
 });
 
-/**
- * Global refence to the I18Next objects should never be used in React code.
- * Function calls employing the global instance cannot react to changes in
- * language, translations or other state bits stored in the I18Next object.
- * Instead, one should always retrieve the active version/state of the I18Next
- * object with the help of `useContext(import('react-18next').I18NextContext)`
- * or `useTranslation` hooks.
- */
-export const illegalExportDoNotUseOrYouWillRegretItI18NextGlobalInstance =
-  i18next;
-
 // All the translation key paths as strings (e.g. "navigation.logout")
 export type TranslationKey = Paths<typeof translationsJson>;

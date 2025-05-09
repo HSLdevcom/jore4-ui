@@ -12,6 +12,10 @@ function debugValue(value: unknown): string {
  * is assumed to contain locale-to-translations pairs such as
  * `{ "fi_FI": "Käännös teksti" }`. Throws if the given value
  * is not an object or if non-string data is stored under the key.
+ *
+ * For compatability an empty string is returned if the given blob
+ * is undefined or null.
+ *
  */
 export function useGetLocalizedTextFromDbBlob(): (
   blob: unknown,
@@ -25,7 +29,11 @@ export function useGetLocalizedTextFromDbBlob(): (
 
   return useCallback(
     (blob: unknown, fallbackField: string = 'fi_FI') => {
-      if (typeof blob !== 'object' || blob === null) {
+      if (blob === undefined || blob === null) {
+        return '';
+      }
+
+      if (typeof blob !== 'object') {
         throw new Error(
           `Given blob is not an JS object! Blob: ${debugValue(blob)}`,
         );
