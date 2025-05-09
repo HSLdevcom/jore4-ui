@@ -85,7 +85,7 @@ const mapFormStateToInput = ({
     ]),
     privateCode: {
       value: state.privateCode,
-      type: 'HSL',
+      type: 'HSL/JORE-4',
     },
     name: {
       value: state.name,
