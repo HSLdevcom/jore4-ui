@@ -3,7 +3,7 @@ import { MdHistory } from 'react-icons/md';
 import { groupBy, pipe } from 'remeda';
 import { twMerge } from 'tailwind-merge';
 import { VehicleJourneyGroup } from '../../../../hooks';
-import { parseI18nField } from '../../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { Column, Visible } from '../../../../layoutComponents';
 import { mapToShortDateTime } from '../../../../time';
 import { TimetablePriority } from '../../../../types/enums';
@@ -50,6 +50,7 @@ export const VehicleServiceTable = ({
   onClick,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 
   const { vehicleJourneys, priority, dayType, createdAt } = vehicleJourneyGroup;
 
@@ -97,7 +98,7 @@ export const VehicleServiceTable = ({
         data-testid={testIds.timetableHeadingButton}
       >
         <Column className="mr-auto">
-          <h4>{parseI18nField(dayType.name_i18n)}</h4>
+          <h4>{getLocalizedTextFromDbBlob(dayType.name_i18n)}</h4>
         </Column>
         <Column className="justify-center">
           <p className="text-sm">

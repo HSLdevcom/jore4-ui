@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge';
 import { PassingTimeByStopFragment } from '../../../generated/graphql';
 import { useAppSelector } from '../../../hooks';
-import { parseI18nField } from '../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Visible } from '../../../layoutComponents';
 import { selectTimetable } from '../../../redux';
 import { mapDurationToShortTime, padToTwoDigits } from '../../../time';
@@ -33,6 +33,8 @@ export const PassingTimesByStopTableRowPassingMinute = ({
   selectedPassingTime,
   setSelectedPassingTime,
 }: Props): React.ReactElement => {
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   const { showArrivalTimes } = useAppSelector(selectTimetable);
   const passing = passingTime.passing_time;
 
@@ -93,7 +95,7 @@ export const PassingTimesByStopTableRowPassingMinute = ({
       <Visible visible={isSelected}>
         <VehicleJourneyPopover
           passingTime={passing}
-          vehicleTypeDescription={parseI18nField(
+          vehicleTypeDescription={getLocalizedTextFromDbBlob(
             passingTime.vehicle_journey.block.vehicle_type?.description_i18n,
           )}
           onClose={() => setSelectedPassingTime(undefined)}

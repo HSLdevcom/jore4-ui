@@ -2,7 +2,7 @@ import {
   VehicleJourneyWithRouteInfoFragment,
   VehicleServiceWithJourneysFragment,
 } from '../../../../generated/graphql';
-import { parseI18nField } from '../../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { Row } from '../../../../layoutComponents';
 import { mapDurationToShortTime } from '../../../../time';
 import { getRouteLabelVariantText } from '../../../../utils';
@@ -25,6 +25,8 @@ export const VehicleJourneyRow = ({
   vehicleJourney: VehicleJourneyWithRouteInfoFragment;
   vehicleService: VehicleServiceWithJourneysFragment;
 }): React.ReactElement => {
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   const route =
     vehicleJourney.journey_pattern_ref.journey_pattern_instance
       ?.journey_pattern_route;
@@ -54,7 +56,7 @@ export const VehicleJourneyRow = ({
         </Row>
       </td>
       <td data-testid={testIds.dayTypeName}>
-        {parseI18nField(vehicleService.day_type.name_i18n)}
+        {getLocalizedTextFromDbBlob(vehicleService.day_type.name_i18n)}
       </td>
       <td data-testid={testIds.startTime}>
         {vehicleJourney.start_time

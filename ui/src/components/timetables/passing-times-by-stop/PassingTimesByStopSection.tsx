@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { pipe, unique } from 'remeda';
 import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
 import { VehicleJourneyGroup, useTimetablesViewState } from '../../../hooks';
-import { parseI18nField } from '../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
 import { TimetablePriority } from '../../../types/enums';
 import { VehicleJourneyGroupInfo } from '../common/VehicleJourneyGroupInfo';
@@ -28,8 +28,10 @@ export const PassingTimesByStopSection = ({
   vehicleJourneyGroups,
   route,
 }: Props): React.ReactElement => {
-  const { dayType, setDayType } = useTimetablesViewState();
   const { t } = useTranslation();
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
+  const { dayType, setDayType } = useTimetablesViewState();
 
   const vehicleJourneyGroupsToDisplay =
     vehicleJourneyGroups?.filter(
@@ -47,7 +49,7 @@ export const PassingTimesByStopSection = ({
     return pipe(
       dayTypes.find((type) => type.label === dayTypeLabel),
       (type) => type?.name_i18n,
-      parseI18nField,
+      getLocalizedTextFromDbBlob,
     );
   };
 

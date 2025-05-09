@@ -5,7 +5,7 @@ import {
   VehicleServiceWithJourneysFragment,
 } from '../../../../generated/graphql';
 import { useToggle } from '../../../../hooks';
-import { parseI18nField } from '../../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { Row, Visible } from '../../../../layoutComponents';
 import { AccordionButton } from '../../../../uiComponents';
 import { VehicleJourneyRow } from './VehicleJourneyRow';
@@ -39,8 +39,12 @@ export const BlockVehicleJourneysTable = ({
   vehicleScheduleFrameLabel,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   const [isOpen, toggleIsOpen] = useToggle();
+
   const identifier = `${vehicleScheduleFrameLabel} ${blockLabel}`;
+
   return (
     <table
       className="border-brand-gray w-full border"
@@ -63,7 +67,7 @@ export const BlockVehicleJourneysTable = ({
               <p data-testid={testIds.vehicleType}>
                 {vehicleType &&
                   t('timetablesPreview.vehicleType', {
-                    vehicleTypeName: parseI18nField(
+                    vehicleTypeName: getLocalizedTextFromDbBlob(
                       vehicleType.description_i18n,
                     ),
                   })}

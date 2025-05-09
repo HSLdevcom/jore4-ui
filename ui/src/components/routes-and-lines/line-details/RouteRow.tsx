@@ -8,7 +8,7 @@ import {
 } from '../../../generated/graphql';
 import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
 import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
-import { parseI18nField } from '../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import {
   MAX_DATE,
@@ -59,6 +59,8 @@ export const RouteRow: FC<PropsWithChildren<Props>> = ({
   controls,
 }) => {
   const { t } = useTranslation();
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   const { showRouteOnMap } = useShowRoutesOnModal();
 
   const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();
@@ -93,7 +95,7 @@ export const RouteRow: FC<PropsWithChildren<Props>> = ({
         </span>
       </div>
       <span className="col-span-8 text-xl" data-testid={testIds.name}>
-        {parseI18nField(route.name_i18n)}
+        {getLocalizedTextFromDbBlob(route.name_i18n)}
       </span>
       <EditButton
         href={routeDetails[Path.editRoute].getLink(

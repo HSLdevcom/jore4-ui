@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { RouteTimetableRowInfo } from '../../../../hooks';
-import { parseI18nField } from '../../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { VehicleJourneyGroupInfo } from '../../common/VehicleJourneyGroupInfo';
 import { VehicleServiceRow } from '../../vehicle-schedule-details';
 import { ExpandableRouteTimetableRow } from './ExpandableRouteTimetableRow';
@@ -17,14 +17,17 @@ export const RouteTimetableCard: React.FC<Props> = ({
   dayTypeNameI18n,
   createdAt,
 }) => {
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   const sectionIdentifier = `ExpandableRouteTimetableRow.${routeTimetableRowInfo.label}.${routeTimetableRowInfo.direction}`;
+
   return (
     <ExpandableRouteTimetableRow
       className="mb-4"
       key={`${routeTimetableRowInfo.label}.${routeTimetableRowInfo.direction}`}
       routeLabel={routeTimetableRowInfo.label}
       direction={routeTimetableRowInfo.direction}
-      routeName={parseI18nField(routeTimetableRowInfo.nameI18n)}
+      routeName={getLocalizedTextFromDbBlob(routeTimetableRowInfo.nameI18n)}
       sectionIdentifier={sectionIdentifier}
     >
       <div className="mt-4 space-y-2" id={sectionIdentifier}>
