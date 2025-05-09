@@ -9,7 +9,7 @@ import {
   useTimetablesViewState,
   useToggle,
 } from '../../../hooks';
-import { parseI18nField } from '../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Row, Visible } from '../../../layoutComponents';
 import { LoadingState, selectLoader, selectTimetable } from '../../../redux';
 import { DayType } from '../../../types/enums';
@@ -45,10 +45,14 @@ export const RouteTimetablesSection = ({
   initiallyOpen = true,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  const { showAllValid } = useAppSelector(selectTimetable);
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   const [isOpen, toggleIsOpen] = useToggle(initiallyOpen);
-  const { activeView, setShowPassingTimesByStop } = useTimetablesViewState();
+
+  const { showAllValid } = useAppSelector(selectTimetable);
   const { fetchRouteTimetables } = useAppSelector(selectLoader);
+
+  const { activeView, setShowPassingTimesByStop } = useTimetablesViewState();
   const routeResult = useGetRouteWithJourneyPatternQuery({
     variables: { routeId },
   });
@@ -73,7 +77,7 @@ export const RouteTimetablesSection = ({
       (item) => DayType[item.dayType.label as keyof typeof DayType],
     ]);
   })();
-  const routeName = parseI18nField(route.name_i18n);
+  const routeName = getLocalizedTextFromDbBlob(route.name_i18n);
   const sectionIdentifier = `${route.direction}-${route.label}-route-timetables-section`;
 
   return (

@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
 import { useAppDispatch } from '../../../hooks';
-import { parseI18nField } from '../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
 import { openChangeTimetableValidityModalAction } from '../../../redux';
 import { mapDurationToShortTime, mapToShortDate } from '../../../time';
@@ -41,6 +41,8 @@ export const VehicleJourneyGroupInfo = ({
   className = '',
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   const dispatch = useAppDispatch();
 
   const changeVehicleScheduleFrameValidity = () => {
@@ -68,7 +70,7 @@ export const VehicleJourneyGroupInfo = ({
     >
       <IconButton
         tooltip={t('accessibility:timetables.changeValidityPeriod', {
-          dayType: parseI18nField(dayTypeNameI18n),
+          dayType: getLocalizedTextFromDbBlob(dayTypeNameI18n),
         })}
         className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base ${
           isDisabled ? 'text-light-grey' : hoverStyle

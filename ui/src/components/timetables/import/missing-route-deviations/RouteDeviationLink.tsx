@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { VehicleScheduleFrameInfo } from '../../../../hooks';
-import { parseI18nField } from '../../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { routeDetails } from '../../../../router/routeDetails';
 import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
 
@@ -20,11 +20,14 @@ export const RouteDeviationLink = ({
   isLast,
   testIdPrefix,
 }: Props) => {
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   const { lineId, uniqueLabel, direction } = deviation;
+
   return (
     <Link
       to={routeDetails['/timetables/lines/:id'].getLink(lineId, uniqueLabel)}
-      title={parseI18nField(deviation.routeName)}
+      title={getLocalizedTextFromDbBlob(deviation.routeName)}
       data-testid={testIds.link(testIdPrefix)}
     >
       <div className="flex items-center">

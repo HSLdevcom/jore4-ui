@@ -5,7 +5,7 @@ import {
   mapDayOfWeekToUiName,
   mapTimetablePriorityToUiName,
 } from '../../../i18n/uiNameMappings';
-import { parseI18nField } from '../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Visible } from '../../../layoutComponents';
 import {
   openDeleteTimetableModalAction,
@@ -71,6 +71,8 @@ export const TimetableVersionTableRow = ({
   data,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   const dispatch = useAppDispatch();
 
   const onClick = () => {
@@ -111,10 +113,11 @@ export const TimetableVersionTableRow = ({
     data.vehicleScheduleFrame.priority,
   )} bg-opacity-25`;
 
-  const dayType = parseI18nField(data.dayType.nameI18n);
-  const vehicleScheduleFrameName = parseI18nField(
+  const dayType = getLocalizedTextFromDbBlob(data.dayType.nameI18n);
+  const vehicleScheduleFrameName = getLocalizedTextFromDbBlob(
     data.vehicleScheduleFrame.nameI18n,
   );
+
   return (
     <tr
       className="h-14 text-center [&>td]:border [&>td]:border-light-grey"

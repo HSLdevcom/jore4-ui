@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../../generated/graphql';
 import { useToggle } from '../../../../hooks';
-import { parseI18nField } from '../../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { Row, Visible } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { AccordionButton } from '../../../../uiComponents';
@@ -26,11 +26,13 @@ export const VehicleScheduleFrameBlocksView = ({
   vehicleScheduleFrame,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   const [isOpen, toggleIsOpen] = useToggle(true);
 
   const blocks = vehicleScheduleFrame.vehicle_services.flatMap((service) =>
     service.blocks.map((block) => ({
-      label: parseI18nField(service.name_i18n),
+      label: getLocalizedTextFromDbBlob(service.name_i18n),
       service,
       block,
     })),

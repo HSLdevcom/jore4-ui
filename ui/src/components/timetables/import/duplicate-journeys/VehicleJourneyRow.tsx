@@ -1,5 +1,5 @@
 import { VehicleJourneyInfo } from '../../../../hooks';
-import { parseI18nField } from '../../../../i18n/utils';
+import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { mapDurationToShortTime, mapToShortDate } from '../../../../time';
 
 interface Props {
@@ -7,6 +7,8 @@ interface Props {
 }
 
 export const VehicleJourneyRow = ({ vehicleJourneyInfo }: Props) => {
+  const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
+
   return (
     <tr className="border odd:bg-white even:bg-hsl-neutral-blue [&>td]:border-light-grey [&>td]:px-8 [&>td]:py-2">
       <td className="border-r font-bold">{vehicleJourneyInfo.uniqueLabel}</td>
@@ -14,7 +16,7 @@ export const VehicleJourneyRow = ({ vehicleJourneyInfo }: Props) => {
         {mapDurationToShortTime(vehicleJourneyInfo.startTime)}
       </td>
       <td className="border-r">
-        {parseI18nField(vehicleJourneyInfo.dayTypeName)}
+        {getLocalizedTextFromDbBlob(vehicleJourneyInfo.dayTypeName)}
       </td>
       <td className="!pr-0">
         {mapToShortDate(vehicleJourneyInfo.validityStart)}
