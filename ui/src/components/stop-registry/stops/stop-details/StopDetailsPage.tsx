@@ -11,6 +11,7 @@ import {
   DetailTabType,
   detailTabs,
 } from './DetailTabSelector';
+import { StopExternalLinks } from './external-links/StopExternalLinks';
 import { SheltersInfoSpotsSection } from './info-spots/SheltersInfoSpots';
 import { LocationDetailsSection } from './location-details/LocationDetailsSection';
 import { MaintenanceSection } from './maintenance';
@@ -68,59 +69,68 @@ export const StopDetailsPage = (): React.ReactElement => {
         loading={loading}
         testId={testIds.loadingStopDetails}
       >
-        {stopDetails && (
-          <>
-            <Visible visible={activeDetailTab === detailTabs.basic.type}>
-              <div
-                className="flex flex-col items-stretch gap-3"
-                id={detailTabs.basic.panelId}
-                data-testid={testIds.basicDetailsTabPanel}
-                aria-labelledby={detailTabs.basic.buttonId}
-                role="tabpanel"
-              >
-                <BasicDetailsSection stop={stopDetails} />
-                <LocationDetailsSection stop={stopDetails} />
-                <SignageDetailsSection stop={stopDetails} />
+        <div className="flex flex-col gap-3 md:flex-row">
+          <div className="w-full md:w-[70%]">
+            {stopDetails && (
+              <>
+                <Visible visible={activeDetailTab === detailTabs.basic.type}>
+                  <div
+                    className="flex flex-col items-stretch gap-3"
+                    id={detailTabs.basic.panelId}
+                    data-testid={testIds.basicDetailsTabPanel}
+                    aria-labelledby={detailTabs.basic.buttonId}
+                    role="tabpanel"
+                  >
+                    <BasicDetailsSection stop={stopDetails} />
+                    <LocationDetailsSection stop={stopDetails} />
+                    <SignageDetailsSection stop={stopDetails} />
+                  </div>
+                </Visible>
+                <Visible
+                  visible={activeDetailTab === detailTabs.technical.type}
+                >
+                  <div
+                    className="flex flex-col items-stretch gap-3"
+                    id={detailTabs.technical.panelId}
+                    data-testid={testIds.technicalFeaturesTabPanel}
+                    aria-labelledby={detailTabs.technical.buttonId}
+                    role="tabpanel"
+                  >
+                    <SheltersSection stop={stopDetails} />
+                    <MeasurementsSection stop={stopDetails} />
+                    <MaintenanceSection stop={stopDetails} />
+                  </div>
+                </Visible>
+                <Visible visible={activeDetailTab === detailTabs.info.type}>
+                  <div
+                    className="flex flex-col items-stretch gap-3"
+                    id={detailTabs.info.panelId}
+                    data-testid={testIds.infoSpotsTabPanel}
+                    aria-labelledby={detailTabs.info.buttonId}
+                    role="tabpanel"
+                  >
+                    <SheltersInfoSpotsSection stop={stopDetails} />
+                  </div>
+                </Visible>
+              </>
+            )}
+            {!stopDetails && (
+              <div className="my-2 flex h-52 items-center justify-center rounded-md border border-light-grey bg-background">
+                <span className="">
+                  <MdWarning
+                    className="mr-2 inline h-6 w-6 text-hsl-red"
+                    role="img"
+                    title={t('stopDetails.notValidOnObservationDate')}
+                  />
+                  {t('stopDetails.notValidOnObservationDate')}
+                </span>
               </div>
-            </Visible>
-            <Visible visible={activeDetailTab === detailTabs.technical.type}>
-              <div
-                className="flex flex-col items-stretch gap-3"
-                id={detailTabs.technical.panelId}
-                data-testid={testIds.technicalFeaturesTabPanel}
-                aria-labelledby={detailTabs.technical.buttonId}
-                role="tabpanel"
-              >
-                <SheltersSection stop={stopDetails} />
-                <MeasurementsSection stop={stopDetails} />
-                <MaintenanceSection stop={stopDetails} />
-              </div>
-            </Visible>
-            <Visible visible={activeDetailTab === detailTabs.info.type}>
-              <div
-                className="flex flex-col items-stretch gap-3"
-                id={detailTabs.info.panelId}
-                data-testid={testIds.infoSpotsTabPanel}
-                aria-labelledby={detailTabs.info.buttonId}
-                role="tabpanel"
-              >
-                <SheltersInfoSpotsSection stop={stopDetails} />
-              </div>
-            </Visible>
-          </>
-        )}
-        {!stopDetails && (
-          <div className="my-2 flex h-52 items-center justify-center rounded-md border border-light-grey bg-background">
-            <span className="">
-              <MdWarning
-                className="mr-2 inline h-6 w-6 text-hsl-red"
-                role="img"
-                title={t('stopDetails.notValidOnObservationDate')}
-              />
-              {t('stopDetails.notValidOnObservationDate')}
-            </span>
+            )}
           </div>
-        )}
+          <div className="w-full md:w-[30%]">
+            {stopDetails && <StopExternalLinks stop={stopDetails} />}
+          </div>
+        </div>
       </LoadingWrapper>
     </Container>
   );

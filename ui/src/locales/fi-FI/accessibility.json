@@ -37,7 +37,10 @@
   "stops": {
     "showStopDetails": "Näytä pysäkin {{ stopLabel }} tiedot",
     "timingPlace": "Hastus-paikka",
-    "validityPeriod": "Voimassaolo"
+    "validityPeriod": "Voimassaolo",
+    "editExternalLink": "Muokkaa ulkoisia linkkejä",
+    "addExternalLink": "Lisää ulkoinen linkki",
+    "openExternalLink": "Avaa ulkoinen linkki {{ linkTitle }}"
   },
   "stopAreas": {
     "showStopAreaDetails": "Näytä pysäkkialueen {{ areaLabel }} tiedot"

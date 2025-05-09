@@ -2,6 +2,8 @@ export * from './BasicDetailsForm';
 export * from './BasicDetailsSection';
 export * from './BasicDetailsViewCard';
 export * from './CreateCopyModal';
+export * from './ExternalLinksForm';
+export * from './ExternalLinksSection';
 export * from './InfoSpotSection';
 export * from './InfoSpotsForm';
 export * from './InfoSpotViewCard';
