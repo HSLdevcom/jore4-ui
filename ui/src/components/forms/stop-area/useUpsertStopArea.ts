@@ -37,13 +37,15 @@ const initializeStopArea = (
   };
 };
 
+type UpsertStopAreaInputs = {
+  readonly stop: EnrichedStopPlace;
+  readonly state: StopAreaFormState;
+};
+
 const mapFormStateToInput = ({
   stop,
   state,
-}: {
-  stop: EnrichedStopPlace;
-  state: StopAreaFormState;
-}): StopRegistryStopPlaceInput => {
+}: UpsertStopAreaInputs): StopRegistryStopPlaceInput => {
   const { id } = stop;
 
   return {
@@ -83,10 +85,16 @@ const mapFormStateToInput = ({
         nameType: StopRegistryNameType.Alias,
       },
     ]),
-    privateCode: {
-      value: state.privateCode,
-      type: 'HSL/JORE-4',
-    },
+    // Don't allow updating/or even touching PrivateCode field for
+    // existing StopAreas.
+    ...(id
+      ? {}
+      : {
+          privateCode: {
+            value: state.privateCode,
+            type: 'HSL/JORE-4',
+          },
+        }),
     name: {
       value: state.name,
       lang: 'fin',
@@ -122,14 +130,8 @@ export const useUpsertStopArea = () => {
    * otherwise a new one is created.
    */
   const upsertStopArea = useCallback(
-    async ({
-      stop,
-      state,
-    }: {
-      stop: EnrichedStopPlace;
-      state: StopAreaFormState;
-    }) => {
-      const input = mapFormStateToInput({ stop, state });
+    async (inputs: UpsertStopAreaInputs) => {
+      const input = mapFormStateToInput(inputs);
 
       const result = await upsertStopAreaMutation({
         variables: { input },

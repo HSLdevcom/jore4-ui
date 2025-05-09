@@ -78,7 +78,10 @@ type Props = {
 const StopAreaFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   Props
-> = ({ className = '', defaultValues, onSubmit }: Props, ref) => {
+> = (
+  { className = '', defaultValues, editedStopAreaId, onSubmit }: Props,
+  ref,
+) => {
   const methods = useForm<FormState>({
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),
@@ -102,6 +105,7 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
               fieldPath="privateCode"
               testId={testIds.privateCode}
               className="w-2/5"
+              disabled={!!editedStopAreaId}
             />
             <InputField<FormState>
               type="text"

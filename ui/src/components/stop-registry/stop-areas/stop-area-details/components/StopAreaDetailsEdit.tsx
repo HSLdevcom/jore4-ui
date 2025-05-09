@@ -143,6 +143,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
                 translationPrefix="stopAreaDetails.basicDetails"
                 fieldPath="privateCode"
                 testId={testIds.privateCode}
+                disabled
               />
             </Column>
             <Column>

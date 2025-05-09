@@ -152,7 +152,7 @@ export const EditStopAreaLayer = forwardRef<
       await upsertStopArea({ stop: editedArea, state });
       onFinishEditing();
     } catch (err) {
-      defaultErrorHandler(err as Error);
+      defaultErrorHandler(err as Error, state);
     }
     setIsLoading(false);
   };
