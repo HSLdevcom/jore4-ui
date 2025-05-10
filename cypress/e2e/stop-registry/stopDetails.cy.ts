@@ -79,7 +79,7 @@ const stopAreaInput: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      privateCode: { type: 'HSL', value: 'H2003' },
+      privateCode: { type: 'HSL/TEST', value: 'H2003' },
       name: { lang: 'fin', value: 'Pohjoisesplanadi' },
       transportMode: StopRegistryTransportModeType.Bus,
       alternativeNames: [

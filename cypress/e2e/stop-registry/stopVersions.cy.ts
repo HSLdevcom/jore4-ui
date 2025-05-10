@@ -150,7 +150,7 @@ function makeStopArea(
 
   const input: StopAreaInput = {
     StopArea: {
-      privateCode: { type: 'HSL', value: privateCode },
+      privateCode: { type: 'HSL/TEST', value: privateCode },
       name: { lang: 'fin', value: `Versiokatu ${index.toString(10)}` },
       alternativeNames: [
         {

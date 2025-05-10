@@ -56,7 +56,7 @@ export const Annankatu20Location: Array<Maybe<StopRegistryAlternativeName>> = [
 const stopPlaceData: Array<StopAreaInput> = [
   {
     StopArea: {
-      privateCode: { type: 'HSL', value: 'X0003' },
+      privateCode: { type: 'HSL/TEST', value: 'X0003' },
       name: { lang: 'fin', value: 'Annankatu 15' },
       alternativeNames: Annankatu15AltNames,
       keyValues: [
@@ -96,7 +96,7 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      privateCode: { type: 'HSL', value: 'X0004' },
+      privateCode: { type: 'HSL/TEST', value: 'X0004' },
       name: { lang: 'fin', value: 'Kalevankatu 32' },
       keyValues: [
         { key: 'validityStart', values: ['2020-01-01'] },
@@ -133,7 +133,7 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      privateCode: { type: 'HSL', value: 'E2E002' },
+      privateCode: { type: 'HSL/TEST', value: 'E2E002' },
       name: Annankatu20Name,
       alternativeNames: Annankatu20AltNames,
       quays: [
@@ -155,7 +155,7 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      privateCode: { type: 'HSL', value: 'E2E004' },
+      privateCode: { type: 'HSL/TEST', value: 'E2E004' },
       name: { lang: 'fin', value: 'Albertinkatu 38' },
       alternativeNames: [
         {
@@ -189,7 +189,7 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      privateCode: { type: 'HSL', value: 'E2E005' },
+      privateCode: { type: 'HSL/TEST', value: 'E2E005' },
       name: { lang: 'fin', value: 'Lönnrotinkatu 32' },
       quays: [
         {
@@ -209,7 +209,7 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      privateCode: { type: 'HSL', value: 'E2E007' },
+      privateCode: { type: 'HSL/TEST', value: 'E2E007' },
       name: { lang: 'fin', value: 'Kalevankatu 18' },
       quays: [
         {
@@ -229,7 +229,7 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      privateCode: { type: 'HSL', value: 'E2E008' },
+      privateCode: { type: 'HSL/TEST', value: 'E2E008' },
       name: { lang: 'fin', value: 'Kuttulammentie' },
       quays: [
         {
@@ -249,7 +249,7 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
-      privateCode: { type: 'HSL', value: 'E2E010' },
+      privateCode: { type: 'HSL/TEST', value: 'E2E010' },
       name: { lang: 'fin', value: 'Finnoonkartano' },
       quays: [
         {

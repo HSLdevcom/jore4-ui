@@ -82,7 +82,7 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
           nameType: StopRegistryNameType.Translation,
         },
       ],
-      privateCode: { type: 'HSL', value: seedStopArea.label },
+      privateCode: { type: 'HSL/TEST', value: seedStopArea.label },
       name: {
         lang: 'fin',
         value: seedStopArea.name,

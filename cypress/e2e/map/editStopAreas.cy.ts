@@ -10,10 +10,13 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
-import { ConfirmationDialog, MapModal } from '../../pageObjects';
+import { ConfirmationDialog, MapModal, Toast } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
-import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import {
+  expectGraphQLCallToReturnError,
+  expectGraphQLCallToSucceed,
+} from '../../utils/assertions';
 import { mapViewport } from '../utils';
 
 describe('Stop areas on map', mapViewport, () => {
@@ -25,40 +28,17 @@ describe('Stop areas on map', mapViewport, () => {
   const stopAreaData: Array<StopAreaInput> = [
     {
       StopArea: {
-        name: { lang: 'fin', value: 'X0003' },
-        description: { lang: 'fin', value: 'Annankatu 15' },
+        name: { lang: 'fin', value: 'Reserved Private Code' },
+        description: { lang: 'fin', value: 'Reserved Private Code Street' },
+        privateCode: { type: 'HSL/JORE-4', value: '700000' },
         validBetween: {
           fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
           toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
         },
         geometry: {
-          coordinates: [24.938927, 60.165433],
+          coordinates: [24.1, 60.1],
           type: StopRegistryGeoJsonType.Point,
         },
-        quays: [
-          {
-            publicCode: 'E2E001',
-            keyValues: [
-              { key: 'streetAddress', values: ['Annankatu 15'] },
-              { key: 'elyNumber', values: ['E2E001'] },
-            ],
-            geometry: {
-              coordinates: [24.938927, 60.165433],
-              type: StopRegistryGeoJsonType.Point,
-            },
-          },
-          {
-            publicCode: 'E2E009',
-            keyValues: [
-              { key: 'streetAddress', values: ['Annankatu 15'] },
-              { key: 'elyNumber', values: ['E2E009'] },
-            ],
-            geometry: {
-              coordinates: [24.938927, 60.165433],
-              type: StopRegistryGeoJsonType.Point,
-            },
-          },
-        ],
       },
       organisations: null,
     },
@@ -88,23 +68,24 @@ describe('Stop areas on map', mapViewport, () => {
 
     cy.task<string[]>('insertStopRegistryData', {
       ...baseStopRegistryData,
-      stopAreas: stopAreaData,
+      stopPlaces: baseStopRegistryData.stopPlaces.concat(stopAreaData),
+      stopPointsRequired: false,
     });
 
     cy.setupTests();
     cy.mockLogin();
   });
 
-  let mapModal: MapModal;
-  let confirmationDialog: ConfirmationDialog;
-  beforeEach(() => {
-    mapModal = new MapModal();
-    confirmationDialog = new ConfirmationDialog();
+  const mapModal = new MapModal();
+  const confirmationDialog = new ConfirmationDialog();
+  const toast = new Toast();
 
+  beforeEach(() => {
     mapModal.map.visit({
       zoom: 17,
       lat: 60.16596,
       lng: 24.93858,
+      path: '/stops',
     });
 
     expectGraphQLCallToSucceed('@gqlGetStopAreasByLocation');
@@ -118,7 +99,7 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.clickAtPosition(758, 391);
 
     mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm.getPrivateCode().type('P1234');
+    mapModal.stopAreaForm.getPrivateCode().type('799999');
     mapModal.stopAreaForm.getName().type('Annankatu 2');
     mapModal.stopAreaForm.getShowHideButton().click();
     mapModal.stopAreaForm.getNameSwe().type('Annasgatan 2');
@@ -150,16 +131,40 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.waitForLoadToComplete();
 
     // Check that the stop area got created.
-    cy.get('[data-testid="Map::StopArea::stopArea::P1234"]').click();
+    cy.get('[data-testid="Map::StopArea::stopArea::799999"]').click();
     mapModal.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
-      .shouldHaveText('P1234 Annankatu 2');
+      .shouldHaveText('799999 Annankatu 2');
     mapModal.stopAreaPopup
       .getValidityPeriod()
       .shouldHaveText('23.1.2020 -  Voimassa toistaiseksi');
 
     // TODO: test that navigation to stop area details page works. Can be done after stop area routing change.
+  });
+
+  it('should handle unique private code exception', () => {
+    mapModal.mapFooter.mapFooterActionsDropdown.getMenu().click();
+    mapModal.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
+
+    mapModal.map.clickAtPosition(758, 391);
+
+    mapModal.stopAreaForm.getForm().shouldBeVisible();
+    mapModal.stopAreaForm.getPrivateCode().type('700000');
+    mapModal.stopAreaForm.getName().type('Name does not matter');
+    mapModal.stopAreaForm.getShowHideButton().click();
+    mapModal.stopAreaForm.getNameSwe().type('This must not be empty');
+    mapModal.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
+    mapModal.stopAreaForm.validityPeriodForm
+      .getIndefiniteCheckbox()
+      .should('be.checked');
+
+    mapModal.stopAreaForm.save();
+
+    toast.expectDangerToast(
+      'Pysäkkialueella tulee olla uniikki tunnus, mutta tunnus 700000 on jo jonkin toisen alueen käytössä!',
+    );
+    expectGraphQLCallToReturnError('@gqlUpsertStopArea');
   });
 
   it('should edit stop area details', () => {
@@ -174,7 +179,7 @@ describe('Stop areas on map', mapViewport, () => {
 
     mapModal.stopAreaPopup.getEditButton().click();
     mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm.getPrivateCode().clearAndType('P3333');
+    mapModal.stopAreaForm.getPrivateCode().shouldBeVisible().shouldBeDisabled();
     mapModal.stopAreaForm.validityPeriodForm.setAsIndefinite();
 
     mapModal.stopAreaForm.save();
@@ -189,7 +194,7 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
-      .shouldHaveText('P3333 Annankatu 15');
+      .shouldHaveText('X0003 Annankatu 15');
     mapModal.stopAreaPopup
       .getValidityPeriod()
       .shouldHaveText('1.1.2000 -  Voimassa toistaiseksi');
@@ -229,7 +234,7 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.clickAtPosition(758, 391);
 
     mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm.getPrivateCode().type('P1234');
+    mapModal.stopAreaForm.getPrivateCode().type('799999');
     mapModal.stopAreaForm.getName().type('Annankatu 2');
     mapModal.stopAreaForm.getShowHideButton().click();
     mapModal.stopAreaForm.getNameSwe().type('Annasgatan 2');
@@ -252,7 +257,7 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.waitForLoadToComplete();
 
     // Delete it
-    cy.get('[data-testid="Map::StopArea::stopArea::P1234"]').click();
+    cy.get('[data-testid="Map::StopArea::stopArea::799999"]').click();
     mapModal.stopAreaPopup.getDeleteButton().click();
     confirmationDialog.getConfirmButton().click();
     mapModal.map.waitForLoadToComplete();

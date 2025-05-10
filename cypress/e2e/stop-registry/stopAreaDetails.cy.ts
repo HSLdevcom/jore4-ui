@@ -69,7 +69,7 @@ describe('Stop area details', () => {
   const stopAreaData: Array<StopAreaInput> = [
     {
       StopArea: {
-        privateCode: { type: 'HSL', value: 'X0003' },
+        privateCode: { type: 'HSL/TEST', value: 'X0003' },
         name: { lang: 'fin', value: 'Annankatu 15' },
         alternativeNames: Annankatu15AltNames,
         validBetween: {
@@ -94,7 +94,7 @@ describe('Stop area details', () => {
     },
     {
       StopArea: {
-        privateCode: { type: 'HSL', value: 'X0004' },
+        privateCode: { type: 'HSL/TEST', value: 'X0004' },
         name: { lang: 'fin', value: 'Kalevankatu 32' },
         keyValues: [
           { key: 'validityStart', values: ['2000-01-01'] },
@@ -307,7 +307,10 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.details.getEditButton().should('not.exist');
       stopAreaDetailsPage.details.edit.getCancelButton().shouldBeVisible();
       stopAreaDetailsPage.details.edit.getSaveButton().shouldBeVisible();
-      stopAreaDetailsPage.details.edit.getPrivateCode().shouldBeVisible();
+      stopAreaDetailsPage.details.edit
+        .getPrivateCode()
+        .shouldBeVisible()
+        .shouldBeDisabled();
       stopAreaDetailsPage.details.edit.getName().shouldBeVisible();
       stopAreaDetailsPage.details.edit.getNameSwe().shouldBeVisible();
       stopAreaDetailsPage.details.edit
@@ -365,7 +368,6 @@ describe('Stop area details', () => {
     function inputBasicDetails(inputs: ExpectedBasicDetails) {
       const { edit } = stopAreaDetailsPage.details;
 
-      edit.getPrivateCode().clearAndType(inputs.privateCode);
       edit.getName().clearAndType(inputs.name);
       edit.getNameSwe().clearAndType(inputs.nameSwe);
       edit.getNameEng().clearAndType(inputs.nameEng);
@@ -425,7 +427,6 @@ describe('Stop area details', () => {
         abbreviationFin: 'New abbreviation swe',
         abbreviationSwe: 'New abbreviation swe',
         abbreviationEng: 'New abbreviation eng',
-        privateCode: 'New private code',
         validFrom: DateTime.now(),
         validTo: null,
       };
@@ -453,7 +454,6 @@ describe('Stop area details', () => {
         ...testAreaExpectedBasicDetails,
         name: 'New name',
         nameSwe: 'New name swe',
-        privateCode: 'New private code',
         validFrom: DateTime.now(),
         validTo: null,
       };
@@ -486,28 +486,6 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.details.edit.getSaveButton().click();
       toast.expectDangerToast(
         'Pysäkkialueella tulee olla uniikki nimi, mutta nimi Kalevankatu 32 on jo jonkin toisen alueen käytössä!',
-      );
-      expectGraphQLCallToReturnError('@gqlUpsertStopArea');
-    });
-
-    it('should handle unique private code exception', () => {
-      const existingPrivateCode =
-        stopAreaData?.find(
-          (d) =>
-            d.StopArea?.privateCode?.value !==
-            testStopArea.StopArea.privateCode?.value,
-        )?.StopArea?.privateCode?.value ?? 'noop';
-      const newBasicDetails: ExpectedBasicDetails = {
-        ...testAreaExpectedBasicDetails,
-        privateCode: existingPrivateCode,
-      };
-
-      assertBasicDetails(testAreaExpectedBasicDetails);
-      stopAreaDetailsPage.details.getEditButton().click();
-      inputBasicDetails(newBasicDetails);
-      stopAreaDetailsPage.details.edit.getSaveButton().click();
-      toast.expectDangerToast(
-        'Pysäkkialueella tulee olla uniikki tunnus, mutta tunnus X0004 on jo jonkin toisen alueen käytössä!',
       );
       expectGraphQLCallToReturnError('@gqlUpsertStopArea');
     });
