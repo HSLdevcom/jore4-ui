@@ -1,4 +1,3 @@
-import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
 import { HorizontalSeparator } from '../../../../../layoutComponents';
 import { StopWithDetails } from '../../../../../types';
@@ -32,9 +31,6 @@ export const LocationDetailsViewCard = ({
   stop,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
-
-  const functionalArea =
-    isNumber(stop.quay?.functionalArea) && `${stop.quay.functionalArea} m`;
 
   return (
     <div data-testid={testIds.container}>
@@ -78,7 +74,11 @@ export const LocationDetailsViewCard = ({
         />
         <LabeledDetail
           title={t('stopDetails.location.functionalArea')}
-          detail={functionalArea}
+          detail={
+            Number.isFinite(stop.quay?.functionalArea)
+              ? `${stop.quay?.functionalArea} m`
+              : null
+          }
           testId={testIds.functionalArea}
         />
       </DetailRow>
