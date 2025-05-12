@@ -1,35 +1,65 @@
-import { useRef } from 'react';
+import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { EnrichedStopPlace } from '../../../types';
 import { submitFormByRef } from '../../../utils';
-import { StopAreaFormState } from '../../forms/stop-area';
+import {
+  StopAreaFormState,
+  useGetNextPrivateCode,
+} from '../../forms/stop-area';
 import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal/Modal';
-import { StopAreaForm } from './StopAreaForm';
+import { StopAreaForm, mapStopAreaDataToFormState } from './StopAreaForm';
 
 const testIds = {
   modal: 'EditStopAreaModal',
 };
 
-interface Props {
-  defaultValues: Partial<StopAreaFormState>;
-  editedStopAreaId: string | null | undefined;
-  onCancel: () => void;
-  onClose: () => void;
-  onSubmit: (changes: StopAreaFormState) => void;
+function useGetDefaultValues(
+  editedArea: EnrichedStopPlace,
+): () => Promise<StopAreaFormState> {
+  const getNextPrivateCode = useGetNextPrivateCode();
+
+  return useMemo(() => {
+    const baseDefaultValues = mapStopAreaDataToFormState(editedArea);
+
+    if (editedArea.id) {
+      const promisedData = Promise.resolve(baseDefaultValues);
+      return () => promisedData;
+    }
+
+    const promisedData: Promise<StopAreaFormState> = getNextPrivateCode().then(
+      (privateCode) => ({
+        ...baseDefaultValues,
+        privateCode,
+      }),
+    );
+
+    return () => promisedData;
+  }, [editedArea, getNextPrivateCode]);
 }
 
-export const EditStopAreaModal = ({
-  defaultValues,
-  editedStopAreaId,
+type EditStopAreaModalProps = {
+  readonly editedArea: EnrichedStopPlace;
+  readonly onCancel: () => void;
+  readonly onClose: () => void;
+  readonly onSubmit: (changes: StopAreaFormState) => void;
+};
+
+export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
+  editedArea,
   onCancel,
   onClose,
   onSubmit,
-}: Props): JSX.Element => {
+}) => {
   const { t } = useTranslation();
+
   const formRef = useRef<ExplicitAny>(null);
   const onSave = () => submitFormByRef(formRef);
-  const heading = defaultValues.privateCode
-    ? t('map.editStopArea', { stopArea: defaultValues.privateCode })
+
+  const getDefaultValues = useGetDefaultValues(editedArea);
+
+  const heading = editedArea?.privateCode?.value
+    ? t('map.editStopArea', { stopArea: editedArea.privateCode.value })
     : t('map.createNewStopArea');
 
   return (
@@ -47,8 +77,7 @@ export const EditStopAreaModal = ({
           heading={heading}
         >
           <StopAreaForm
-            editedStopAreaId={editedStopAreaId}
-            defaultValues={defaultValues}
+            defaultValues={getDefaultValues}
             onSubmit={onSubmit}
             ref={formRef}
           />

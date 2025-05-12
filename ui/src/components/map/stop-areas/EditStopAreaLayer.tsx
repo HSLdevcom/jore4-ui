@@ -216,8 +216,7 @@ export const EditStopAreaLayer = forwardRef<
       )}
       {displayedEditor === StopAreaEditorViews.Modal && (
         <EditStopAreaModal
-          editedStopAreaId={editedArea.id}
-          defaultValues={mapStopAreaDataToFormState(editedArea)}
+          editedArea={editedArea}
           onCancel={onCloseEditors}
           onClose={onCloseEditors}
           onSubmit={onEditStopArea}

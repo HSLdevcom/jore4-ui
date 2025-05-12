@@ -67054,6 +67054,26 @@ export type AlternativeNameInfoFragment = {
   value?: string | null
 };
 
+export type GetStopPlaceMaxPrivateCodeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStopPlaceMaxPrivateCodeQuery = {
+  __typename?: 'query_root',
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query',
+    stops_database_stop_place_aggregate: {
+      __typename?: 'stops_database_stop_place_aggregate',
+      aggregate?: {
+        __typename?: 'stops_database_stop_place_aggregate_fields',
+        max?: {
+          __typename?: 'stops_database_stop_place_max_fields',
+          private_code_value?: string | null
+        } | null
+      } | null
+    }
+  } | null
+};
+
 export type UpsertStopAreaMutationVariables = Exact<{
   input: StopRegistryStopPlaceInput;
 }>;
@@ -76078,6 +76098,53 @@ export type ResolveStopAreaAndMemberStopNamesQueryHookResult = ReturnType<typeof
 export type ResolveStopAreaAndMemberStopNamesLazyQueryHookResult = ReturnType<typeof useResolveStopAreaAndMemberStopNamesLazyQuery>;
 export type ResolveStopAreaAndMemberStopNamesSuspenseQueryHookResult = ReturnType<typeof useResolveStopAreaAndMemberStopNamesSuspenseQuery>;
 export type ResolveStopAreaAndMemberStopNamesQueryResult = Apollo.QueryResult<ResolveStopAreaAndMemberStopNamesQuery, ResolveStopAreaAndMemberStopNamesQueryVariables>;
+export const GetStopPlaceMaxPrivateCodeDocument = gql`
+    query GetStopPlaceMaxPrivateCode {
+  stops_database {
+    stops_database_stop_place_aggregate(
+      where: {parent_stop_place: {_eq: false}, private_code_value: {_like: "7_____"}}
+    ) {
+      aggregate {
+        max {
+          private_code_value
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetStopPlaceMaxPrivateCodeQuery__
+ *
+ * To run a query within a React component, call `useGetStopPlaceMaxPrivateCodeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopPlaceMaxPrivateCodeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopPlaceMaxPrivateCodeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetStopPlaceMaxPrivateCodeQuery(baseOptions?: Apollo.QueryHookOptions<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables>(GetStopPlaceMaxPrivateCodeDocument, options);
+      }
+export function useGetStopPlaceMaxPrivateCodeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables>(GetStopPlaceMaxPrivateCodeDocument, options);
+        }
+export function useGetStopPlaceMaxPrivateCodeSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables>(GetStopPlaceMaxPrivateCodeDocument, options);
+        }
+export type GetStopPlaceMaxPrivateCodeQueryHookResult = ReturnType<typeof useGetStopPlaceMaxPrivateCodeQuery>;
+export type GetStopPlaceMaxPrivateCodeLazyQueryHookResult = ReturnType<typeof useGetStopPlaceMaxPrivateCodeLazyQuery>;
+export type GetStopPlaceMaxPrivateCodeSuspenseQueryHookResult = ReturnType<typeof useGetStopPlaceMaxPrivateCodeSuspenseQuery>;
+export type GetStopPlaceMaxPrivateCodeQueryResult = Apollo.QueryResult<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables>;
 export const UpsertStopAreaDocument = gql`
     mutation UpsertStopArea($input: stop_registry_StopPlaceInput!) {
   stop_registry {
