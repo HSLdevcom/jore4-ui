@@ -9215,8 +9215,6 @@ export type StopRegistryStopPlaceMutationTerminateTariffZoneArgs = {
 
 export type StopRegistryStopPlaceRegister = {
   __typename?: 'stop_registryStopPlaceRegister';
-  /** Check if authorized for entity with role */
-  checkAuthorized?: Maybe<StopRegistryAuthorizationCheck>;
   /** Fare zones */
   fareZones?: Maybe<Array<Maybe<StopRegistryFareZone>>>;
   /** List all fare zone authorities. */
@@ -9227,6 +9225,8 @@ export type StopRegistryStopPlaceRegister = {
   groupOfTariffZones?: Maybe<Array<Maybe<StopRegistryGroupOfTariffZones>>>;
   /** Info spots */
   infoSpots?: Maybe<Array<Maybe<StopRegistryInfoSpot>>>;
+  /** Location permissions */
+  locationPermissions?: Maybe<StopRegistryEntityPermissions>;
   /** Find organisation */
   organisation?: Maybe<Array<Maybe<StopRegistryOrganisation>>>;
   /** Find parking */
@@ -9245,13 +9245,10 @@ export type StopRegistryStopPlaceRegister = {
   tariffZones?: Maybe<Array<Maybe<StopRegistryTariffZone>>>;
   /** Find topographic places */
   topographicPlace?: Maybe<Array<Maybe<StopRegistryTopographicPlace>>>;
+  /** User permissions */
+  userPermissions?: Maybe<StopRegistryUserPermissions>;
   /** List all valid Transportmode/Submode-combinations. */
   validTransportModes?: Maybe<Array<Maybe<StopRegistryTransportModes>>>;
-};
-
-
-export type StopRegistryStopPlaceRegisterCheckAuthorizedArgs = {
-  id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -9290,6 +9287,12 @@ export type StopRegistryStopPlaceRegisterInfoSpotsArgs = {
   page?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
   version?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type StopRegistryStopPlaceRegisterLocationPermissionsArgs = {
+  latitude: Scalars['stop_registry_BigDecimal']['input'];
+  longitude: Scalars['stop_registry_BigDecimal']['input'];
 };
 
 
@@ -9454,15 +9457,6 @@ export type StopRegistryAlternativeNameInput = {
   nameType?: InputMaybe<StopRegistryNameType>;
 };
 
-/** Check if authorized for entity with role */
-export type StopRegistryAuthorizationCheck = {
-  __typename?: 'stop_registry_AuthorizationCheck';
-  /** The identificatior for entity */
-  id?: Maybe<Scalars['String']['output']>;
-  /** The relevant roles for the given ID */
-  roles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-};
-
 export type StopRegistryBoardingPosition = {
   __typename?: 'stop_registry_BoardingPosition';
   geometry?: Maybe<StopRegistryGeoJson>;
@@ -9521,6 +9515,16 @@ export type StopRegistryEmbeddableMultilingualString = {
 export type StopRegistryEmbeddableMultilingualStringInput = {
   lang?: InputMaybe<Scalars['String']['input']>;
   value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StopRegistryEntityPermissions = {
+  __typename?: 'stop_registry_EntityPermissions';
+  allowedStopPlaceTypes?: Maybe<Array<Maybe<StopRegistryStopPlaceType>>>;
+  allowedSubmodes?: Maybe<Array<Maybe<StopRegistrySubmode>>>;
+  bannedStopPlaceTypes?: Maybe<Array<Maybe<StopRegistryStopPlaceType>>>;
+  bannedSubmodes?: Maybe<Array<Maybe<StopRegistrySubmode>>>;
+  canDelete?: Maybe<Scalars['Boolean']['output']>;
+  canEdit?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** The version of the referenced entity. */
@@ -9622,6 +9626,7 @@ export type StopRegistryGroupOfStopPlaces = {
   id?: Maybe<Scalars['String']['output']>;
   members?: Maybe<Array<Maybe<StopRegistryStopPlaceInterface>>>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  permissions?: Maybe<StopRegistryEntityPermissions>;
   purposeOfGrouping?: Maybe<StopRegistryPurposeOfGrouping>;
   shortName?: Maybe<StopRegistryEmbeddableMultilingualString>;
   validBetween?: Maybe<StopRegistryValidBetween>;
@@ -9815,6 +9820,7 @@ export type StopRegistryParentStopPlace = StopRegistryStopPlaceInterface & {
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  permissions?: Maybe<StopRegistryEntityPermissions>;
   placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
   polygon?: Maybe<StopRegistryGeoJson>;
   privateCode?: Maybe<StopRegistryPrivateCode>;
@@ -10135,6 +10141,8 @@ export type StopRegistryQuay = {
   boardingPositions?: Maybe<Array<Maybe<StopRegistryBoardingPosition>>>;
   compassBearing?: Maybe<Scalars['stop_registry_BigDecimal']['output']>;
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  /** External links */
+  externalLinks?: Maybe<Array<Maybe<StopRegistryExternalLink>>>;
   geometry?: Maybe<StopRegistryGeoJson>;
   id?: Maybe<Scalars['String']['output']>;
   importedId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -10170,6 +10178,7 @@ export type StopRegistryQuayInput = {
   boardingPositions?: InputMaybe<Array<InputMaybe<StopRegistryBoardingPositionInput>>>;
   compassBearing?: InputMaybe<Scalars['stop_registry_BigDecimal']['input']>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  externalLinks?: InputMaybe<Array<InputMaybe<StopRegistryExternalLinkInput>>>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   /** Ignore when creating new */
   id?: InputMaybe<Scalars['String']['input']>;
@@ -10291,6 +10300,7 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   organisations?: Maybe<Array<Maybe<StopRegistryStopPlaceOrganisationRef>>>;
   parentSiteRef?: Maybe<Scalars['String']['output']>;
+  permissions?: Maybe<StopRegistryEntityPermissions>;
   placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
   polygon?: Maybe<StopRegistryGeoJson>;
   privateCode?: Maybe<StopRegistryPrivateCode>;
@@ -10355,6 +10365,7 @@ export type StopRegistryStopPlaceInterface = {
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  permissions?: Maybe<StopRegistryEntityPermissions>;
   placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
   polygon?: Maybe<StopRegistryGeoJson>;
   privateCode?: Maybe<StopRegistryPrivateCode>;
@@ -10396,6 +10407,10 @@ export enum StopRegistryStopPlaceType {
   RailStation = 'railStation',
   TramStation = 'tramStation',
   VehicleRailInterchange = 'vehicleRailInterchange'
+}
+
+export enum StopRegistrySubmode {
+  RailReplacementBus = 'railReplacementBus'
 }
 
 export enum StopRegistrySubmodeType {
@@ -10563,6 +10578,12 @@ export type StopRegistryTransportModes = {
   transportMode?: Maybe<Scalars['String']['output']>;
 };
 
+export type StopRegistryUserPermissions = {
+  __typename?: 'stop_registry_UserPermissions';
+  allowNewStopEverywhere?: Maybe<Scalars['Boolean']['output']>;
+  isGuest?: Maybe<Scalars['Boolean']['output']>;
+};
+
 export type StopRegistryValidBetween = {
   __typename?: 'stop_registry_ValidBetween';
   /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
@@ -10666,6 +10687,19 @@ export enum StopRegistryDisplayType {
   ElectricTft = 'electricTFT',
   None = 'none'
 }
+
+export type StopRegistryExternalLink = {
+  __typename?: 'stop_registry_externalLink';
+  location?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  orderNum?: Maybe<Scalars['Int']['output']>;
+  quayId?: Maybe<Scalars['Int']['output']>;
+};
+
+export type StopRegistryExternalLinkInput = {
+  location?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
 
 export enum StopRegistryGender {
   Both = 'both',
