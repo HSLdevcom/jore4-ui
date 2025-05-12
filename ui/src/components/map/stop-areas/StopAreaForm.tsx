@@ -12,7 +12,7 @@ import {
   ValidityPeriodForm,
 } from '../../forms/common';
 import {
-  StopAreaFormState as FormState,
+  StopAreaFormState,
   stopAreaFormSchema,
   stopAreaMemberStopSchema,
 } from '../../forms/stop-area/stopAreaFormSchema';
@@ -46,10 +46,10 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
     .filter((parseResult) => parseResult.success)
     .map((parseResult) => parseResult.data);
 
-  const formState: Partial<FormState> = {
-    privateCode: stopArea.privateCode?.value ?? undefined,
-    name: stopArea.name,
-    nameSwe: stopArea.nameSwe ?? stopArea.name,
+  const formState: StopAreaFormState = {
+    privateCode: stopArea.privateCode?.value ?? '',
+    name: stopArea.name ?? '',
+    nameSwe: stopArea.nameSwe ?? stopArea.name ?? '',
     nameEng: stopArea.nameEng,
     nameLongFin: stopArea.nameLongFin,
     nameLongSwe: stopArea.nameLongSwe,
@@ -60,7 +60,7 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
     latitude,
     longitude,
     quays: quays ?? [],
-    validityStart: mapToISODate(stopArea.validityStart),
+    validityStart: mapToISODate(stopArea.validityStart) ?? '',
     validityEnd: mapToISODate(stopArea.validityEnd),
     indefinite: !stopArea.validityEnd,
   };
@@ -70,19 +70,17 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
 
 type Props = {
   readonly className?: string;
-  readonly defaultValues: Partial<FormState>;
-  readonly editedStopAreaId: string | null | undefined;
-  readonly onSubmit: (changes: FormState) => void;
+  readonly defaultValues:
+    | StopAreaFormState
+    | (() => Promise<StopAreaFormState>);
+  readonly onSubmit: (changes: StopAreaFormState) => void;
 };
 
 const StopAreaFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   Props
-> = (
-  { className = '', defaultValues, editedStopAreaId, onSubmit }: Props,
-  ref,
-) => {
-  const methods = useForm<FormState>({
+> = ({ className = '', defaultValues, onSubmit }: Props, ref) => {
+  const methods = useForm<StopAreaFormState>({
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),
   });
@@ -99,15 +97,15 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
       >
         <FormColumn className={twMerge('bg-background p-4', className)}>
           <div className="flex gap-4">
-            <InputField<FormState>
+            <InputField<StopAreaFormState>
               type="text"
               translationPrefix="stopArea"
               fieldPath="privateCode"
               testId={testIds.privateCode}
               className="w-2/5"
-              disabled={!!editedStopAreaId}
+              disabled
             />
-            <InputField<FormState>
+            <InputField<StopAreaFormState>
               type="text"
               translationPrefix="stopArea"
               fieldPath="name"
@@ -125,14 +123,14 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
             mdColumns={2}
             className="px-4 sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
           >
-            <InputField<FormState>
+            <InputField<StopAreaFormState>
               type="number"
               translationPrefix="map"
               fieldPath="latitude"
               testId={testIds.latitude}
               step="any"
             />
-            <InputField<FormState>
+            <InputField<StopAreaFormState>
               type="number"
               translationPrefix="map"
               fieldPath="longitude"

@@ -25,24 +25,24 @@ describe('Stop areas on map', mapViewport, () => {
   const baseDbResources = getClonedBaseDbResources();
   const baseStopRegistryData = getClonedBaseStopRegistryData();
 
-  const stopAreaData: Array<StopAreaInput> = [
-    {
-      StopArea: {
-        name: { lang: 'fin', value: 'Reserved Private Code' },
-        description: { lang: 'fin', value: 'Reserved Private Code Street' },
-        privateCode: { type: 'HSL/JORE-4', value: '700000' },
-        validBetween: {
-          fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
-          toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
-        },
-        geometry: {
-          coordinates: [24.1, 60.1],
-          type: StopRegistryGeoJsonType.Point,
-        },
+  const baseTestStopAreaInput: StopAreaInput = {
+    StopArea: {
+      name: { lang: 'fin', value: 'Reserved Private Code' },
+      description: { lang: 'fin', value: 'Reserved Private Code Street' },
+      privateCode: { type: 'HSL/JORE-4', value: '700000' },
+      validBetween: {
+        fromDate: DateTime.fromISO('2020-01-01T00:00:00.001'),
+        toDate: DateTime.fromISO('2050-01-01T00:00:00.001'),
       },
-      organisations: null,
+      geometry: {
+        coordinates: [24.1, 60.1],
+        type: StopRegistryGeoJsonType.Point,
+      },
     },
-  ];
+    organisations: null,
+  };
+
+  const stopAreaData: ReadonlyArray<StopAreaInput> = [baseTestStopAreaInput];
 
   before(() => {
     cy.task<UUID[]>(
@@ -99,7 +99,11 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.clickAtPosition(758, 391);
 
     mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm.getPrivateCode().type('799999');
+    mapModal.stopAreaForm
+      .getPrivateCode()
+      .shouldBeVisible()
+      .shouldBeDisabled()
+      .should('have.value', '700001');
     mapModal.stopAreaForm.getName().type('Annankatu 2');
     mapModal.stopAreaForm.getShowHideButton().click();
     mapModal.stopAreaForm.getNameSwe().type('Annasgatan 2');
@@ -131,11 +135,11 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.waitForLoadToComplete();
 
     // Check that the stop area got created.
-    cy.get('[data-testid="Map::StopArea::stopArea::799999"]').click();
+    cy.get('[data-testid="Map::StopArea::stopArea::700001"]').click();
     mapModal.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
-      .shouldHaveText('799999 Annankatu 2');
+      .shouldHaveText('700001 Annankatu 2');
     mapModal.stopAreaPopup
       .getValidityPeriod()
       .shouldHaveText('23.1.2020 -  Voimassa toistaiseksi');
@@ -150,7 +154,11 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.clickAtPosition(758, 391);
 
     mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm.getPrivateCode().type('700000');
+    mapModal.stopAreaForm
+      .getPrivateCode()
+      .shouldBeVisible()
+      .shouldBeDisabled()
+      .should('have.value', '700001');
     mapModal.stopAreaForm.getName().type('Name does not matter');
     mapModal.stopAreaForm.getShowHideButton().click();
     mapModal.stopAreaForm.getNameSwe().type('This must not be empty');
@@ -159,10 +167,25 @@ describe('Stop areas on map', mapViewport, () => {
       .getIndefiniteCheckbox()
       .should('be.checked');
 
+    // Simulate someone else creating another Stop Area at the same time.
+    cy.task<string[]>('insertStopRegistryData', {
+      stopPlaces: [
+        {
+          StopArea: {
+            ...baseTestStopAreaInput.StopArea,
+            name: { lang: 'fin', value: 'Some other name' },
+            privateCode: { type: 'HSL/JORE-4', value: '700001' },
+          },
+          organisations: null,
+        },
+      ],
+      stopPointsRequired: false,
+    });
+
     mapModal.stopAreaForm.save();
 
     toast.expectDangerToast(
-      'Pysäkkialueella tulee olla uniikki tunnus, mutta tunnus 700000 on jo jonkin toisen alueen käytössä!',
+      'Pysäkkialueella tulee olla uniikki tunnus, mutta tunnus 700001 on jo jonkin toisen alueen käytössä!',
     );
     expectGraphQLCallToReturnError('@gqlUpsertStopArea');
   });
@@ -234,7 +257,6 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.clickAtPosition(758, 391);
 
     mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm.getPrivateCode().type('799999');
     mapModal.stopAreaForm.getName().type('Annankatu 2');
     mapModal.stopAreaForm.getShowHideButton().click();
     mapModal.stopAreaForm.getNameSwe().type('Annasgatan 2');
@@ -257,7 +279,7 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.map.waitForLoadToComplete();
 
     // Delete it
-    cy.get('[data-testid="Map::StopArea::stopArea::799999"]').click();
+    cy.get('[data-testid="Map::StopArea::stopArea::700001"]').click();
     mapModal.stopAreaPopup.getDeleteButton().click();
     confirmationDialog.getConfirmButton().click();
     mapModal.map.waitForLoadToComplete();
