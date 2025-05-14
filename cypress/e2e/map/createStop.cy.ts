@@ -3,7 +3,7 @@ import {
   ReusableComponentsVehicleModeEnum,
   StopAreaInput,
   timingPlaces,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { Tag } from '../../enums';
 import {
   ChangeValidityForm,

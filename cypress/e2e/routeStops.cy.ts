@@ -1,4 +1,4 @@
-import { buildStopInJourneyPattern } from '@hsl/jore4-test-db-manager';
+import { buildStopInJourneyPattern } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,

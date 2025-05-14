@@ -1,4 +1,4 @@
-import { ReusableComponentsVehicleModeEnum } from '@hsl/jore4-test-db-manager';
+import { ReusableComponentsVehicleModeEnum } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { capitalizeFirstLetter } from '../e2e/utils';
 
 export class FilterPanel {

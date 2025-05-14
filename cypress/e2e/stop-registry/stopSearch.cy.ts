@@ -7,7 +7,7 @@ import {
   StopRegistryGeoJsonType,
   buildLine,
   buildStop,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import range from 'lodash/range';
 import { DateTime } from 'luxon';
 import {

@@ -12,7 +12,7 @@ import {
   buildStop,
   buildStopInJourneyPattern,
   buildTimingPlace,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import cloneDeepWith from 'lodash/cloneDeepWith';
 import { DateTime } from 'luxon';
 import { UUID } from '../types';

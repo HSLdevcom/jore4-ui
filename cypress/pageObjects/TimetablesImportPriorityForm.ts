@@ -1,4 +1,4 @@
-import { TimetablePriority } from '@hsl/jore4-test-db-manager';
+import { TimetablePriority } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 
 export interface PriorityFormInfo {
   priority?: TimetablePriority;

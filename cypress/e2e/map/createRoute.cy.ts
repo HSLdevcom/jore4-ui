@@ -2,7 +2,7 @@ import {
   Priority,
   ReusableComponentsVehicleModeEnum,
   RouteDirectionEnum,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,

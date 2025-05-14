@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-import { HasuraEnvironment } from '@hsl/jore4-test-db-manager';
+import { HasuraEnvironment } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import type { DateTime } from 'luxon';
 import { mockMapTileServerReponses } from './mockMapTileServerReponses';
 

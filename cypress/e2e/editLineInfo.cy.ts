@@ -3,7 +3,7 @@ import {
   Priority,
   RouteTypeOfLineEnum,
   buildLine,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { Tag } from '../enums';
 import { LineDetailsPage, LineForm } from '../pageObjects';
 import { ObservationDateControl } from '../pageObjects/ObservationDateControl';
