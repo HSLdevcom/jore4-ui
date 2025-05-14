@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "ES2024",
+    "lib": ["dom", "dom.iterable", "ESNext"],
     "types": ["@testing-library/jest-dom"],
     "allowJs": false,
     "noEmit": true,
