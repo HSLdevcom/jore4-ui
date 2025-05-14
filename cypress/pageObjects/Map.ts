@@ -1,4 +1,4 @@
-import { Priority } from '@hsl/jore4-test-db-manager';
+import { Priority } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import qs from 'qs';
 import { expectGraphQLCallToSucceed } from '../utils/assertions';
 import { StopPopUp } from './StopPopUp';

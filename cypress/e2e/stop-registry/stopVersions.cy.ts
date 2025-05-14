@@ -4,7 +4,7 @@ import {
   StopRegistryGeoJsonType,
   StopRegistryNameType,
   StopRegistryQuayInput,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import compact from 'lodash/compact';
 import { DateTime } from 'luxon';
 import {

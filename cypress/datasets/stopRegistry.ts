@@ -6,7 +6,7 @@ import {
   StopRegistryGeoJsonInput,
   StopRegistryGeoJsonType,
   StopRegistryNameType,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import cloneDeep from 'lodash/cloneDeep';
 import { stopCoordinatesByLabel } from './base';
 

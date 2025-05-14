@@ -107,7 +107,10 @@ export const getInfrastructureLinkIdsByExternalIds = (
     });
   });
 
-export type InsertedStopRegistryIds = {
+// Keep in sync with cypress/e2e/utils/InsertedStopRegistryIds.ts
+// We need 2 versions, as while the types are identical, they are imported
+// from different versions of tests-db-manager.
+type InternalInsertedStopRegistryIds = {
   terminalsByName: TerminalIdsByName;
   stopPlaceIdsByName: StopPlaceIdsByName;
   quayDetailsByLabel: QuayDetailsByLabel;
@@ -126,7 +129,7 @@ export const insertStopRegistryData = async ({
   stopPlaces?: Array<StopAreaInput>;
   infoSpots?: Array<InfoSpotInput>;
   stopPointsRequired?: boolean;
-}): Promise<InsertedStopRegistryIds> => {
+}): Promise<InternalInsertedStopRegistryIds> => {
   const organisationIdsByName =
     await insertStopRegistryOrganisations(organisations);
 

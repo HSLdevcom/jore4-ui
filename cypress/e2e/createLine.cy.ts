@@ -1,4 +1,4 @@
-import { Priority } from '@hsl/jore4-test-db-manager';
+import { Priority } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { Tag } from '../enums';
 import { LineDetailsPage, LineForm } from '../pageObjects';
 

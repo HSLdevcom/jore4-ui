@@ -1,4 +1,4 @@
-import { Priority } from '@hsl/jore4-test-db-manager';
+import { Priority } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { PriorityForm } from './PriorityForm';
 import { ValidityPeriodForm } from './ValidityPeriodForm';
 

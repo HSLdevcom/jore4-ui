@@ -1,7 +1,7 @@
 import {
   StopAreaInput,
   StopRegistryGeoJsonType,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,

@@ -13,7 +13,7 @@ import {
   mapToCreateStopsMutation,
   mapToCreateStopsOnJourneyPatternMutation,
   mapToCreateTimingPlacesMutation,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const responseLogger = (message: string, req: any, res: any) => {

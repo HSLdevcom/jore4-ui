@@ -13,7 +13,7 @@ import {
   quayV1562,
   seedInfoSpots,
   seedOrganisations,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { DateTime } from 'luxon';
 import { Tag } from '../../enums';
 import {

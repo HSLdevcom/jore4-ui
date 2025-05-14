@@ -1,12 +1,16 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import cypressGrepPlugin from '@cypress/grep/src/plugin';
 import { defineConfig } from 'cypress';
-import * as tasks from './e2e/utils/tasks';
 import { onLaunchBrowser } from './support/launchBrowser';
+import * as tasks from './support/tasks';
+// import { getWebpackPreprocessor } from './support/webpack';
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
   e2e: {
     // Update default file paths to strip `/cypress/` folder prefix
-    supportFile: 'support/e2e.{js,jsx,ts,tsx}',
+    supportFile: 'support/e2e.ts',
     specPattern: 'e2e/**/*.cy.{js,jsx,ts,tsx}',
     fixturesFolder: 'fixtures',
     screenshotsFolder: 'reports/screenshots',
@@ -27,12 +31,12 @@ export default defineConfig({
       openMode: 0,
     },
     experimentalInteractiveRunEvents: true,
-    // We've imported your old cypress plugins here.
-    // You may want to clean this up later by importing these.
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setupNodeEvents(on, config) {
       on('task', tasks);
       on('before:browser:launch', onLaunchBrowser);
+      //  on('file:preprocessor', getWebpackPreprocessor(config));
+
+      cypressGrepPlugin(config);
     },
     env: process.env,
   },

@@ -1,4 +1,4 @@
-import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager';
+import { RouteDirectionEnum } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { ChangeTimetablesValidityForm } from './ChangeTimetablesValidityForm';
 import { ObservationDateControl } from './ObservationDateControl';
 import { Toast } from './Toast';
