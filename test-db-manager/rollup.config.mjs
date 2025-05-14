@@ -76,6 +76,19 @@ const config = [
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
     plugins: [dts()],
   },
+  {
+    input: './src/CypressSpecExports.ts',
+    output: [
+      { file: './ts-dist/CypressSpecExports.js', format: 'es' },
+      { file: 'dist/CypressSpecExports.js', format: 'cjs' },
+    ],
+    plugins: commonPlugins,
+  },
+  {
+    input: './src/CypressSpecExports.ts',
+    output: [{ file: 'dist/CypressSpecExports.d.ts', format: 'es' }],
+    plugins: [dts()],
+  },
 ];
 
 // eslint-disable-next-line import/no-default-export
