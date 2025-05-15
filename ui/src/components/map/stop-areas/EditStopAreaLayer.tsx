@@ -6,12 +6,11 @@ import React, {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
 import {
-  useAppAction,
-  useAppSelector,
-  useDeleteStopArea,
-  useLoader,
-} from '../../../hooks';
+  DeleteStopArea,
+  useStopAreaDeletion,
+} from '../../../hooks/stop-registry/stop-areas/DeleteStopArea';
 import {
   Operation,
   selectIsMoveStopAreaModeEnabled,
@@ -21,11 +20,7 @@ import {
 import { EnrichedStopPlace } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
 import { mapPointToStopRegistryGeoJSON } from '../../../utils';
-import {
-  ConfirmStopAreaDeletionDialog,
-  StopAreaFormState,
-  useUpsertStopArea,
-} from '../../forms/stop-area';
+import { StopAreaFormState, useUpsertStopArea } from '../../forms/stop-area';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { EditStopAreaModal } from './EditStopAreaModal';
 import { mapStopAreaDataToFormState } from './StopAreaForm';
@@ -54,8 +49,6 @@ export const EditStopAreaLayer = forwardRef<
   const isMoveStopAreaModeEnabled = useAppSelector(
     selectIsMoveStopAreaModeEnabled,
   );
-  const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] =
-    useState(false);
   const [isConfirmMoveDialogOpen, setIsConfirmMoveDialogOpen] = useState(false);
   const [isConfirmEditDialogOpen, setIsConfirmEditDialogOpen] = useState(false);
   const [newStopAreaLocation, setNewStopAreaLocation] = useState<{
@@ -66,12 +59,14 @@ export const EditStopAreaLayer = forwardRef<
     useState<StopAreaFormState>();
 
   const { upsertStopArea, defaultErrorHandler } = useUpsertStopArea();
-  const { deleteStopArea } = useDeleteStopArea();
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
   const setIsMoveStopAreaModeEnabled = useAppAction(
     setIsMoveStopAreaModeEnabledAction,
   );
   const { setIsLoading } = useLoader(Operation.ModifyStopArea);
+
+  const { isConfirmDeleteDialogOpen, openDeleteDialog, closeDeleteDialog } =
+    useStopAreaDeletion();
 
   const isExistingStopArea = !!editedArea.id;
   const defaultDisplayedEditor = isExistingStopArea
@@ -111,12 +106,6 @@ export const EditStopAreaLayer = forwardRef<
     }
   };
 
-  const onDeleteStopArea = () => {
-    setIsConfirmDeleteDialogOpen(true);
-  };
-  const onCancelDeleteStopArea = () => {
-    setIsConfirmDeleteDialogOpen(false);
-  };
   const onMoveStopArea = (e: MapLayerMouseEvent) => {
     const [longitude, latitude] = e.lngLat.toArray();
     setNewStopAreaLocation({ longitude, latitude });
@@ -126,24 +115,6 @@ export const EditStopAreaLayer = forwardRef<
     setIsConfirmMoveDialogOpen(false);
     setDisplayedEditor(StopAreaEditorViews.Popup);
     setIsMoveStopAreaModeEnabled(false);
-  };
-
-  const onConfirmDeleteStopArea = async () => {
-    const stopAreaId = editedArea.id;
-    if (!stopAreaId) {
-      // Shouldn't really end up here ever since we only delete persisted stop areas = have id.
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      await deleteStopArea(stopAreaId);
-      setIsConfirmDeleteDialogOpen(false);
-      onFinishEditing();
-    } catch (err) {
-      defaultErrorHandler(err as Error);
-    }
-    setIsLoading(false);
   };
 
   const doEditStopArea = async (state: StopAreaFormState) => {
@@ -208,7 +179,7 @@ export const EditStopAreaLayer = forwardRef<
       {displayedEditor === StopAreaEditorViews.Popup && (
         <StopAreaPopup
           area={editedArea}
-          onDelete={onDeleteStopArea}
+          onDelete={openDeleteDialog}
           onEdit={onStartEditStopArea}
           onMove={onStartMoveStopArea}
           onClose={onCloseEditors}
@@ -222,11 +193,12 @@ export const EditStopAreaLayer = forwardRef<
           onSubmit={onEditStopArea}
         />
       )}
-      <ConfirmStopAreaDeletionDialog
-        onCancel={onCancelDeleteStopArea}
-        onConfirm={onConfirmDeleteStopArea}
-        isOpen={isConfirmDeleteDialogOpen}
+      <DeleteStopArea
         stopArea={editedArea}
+        isOpen={isConfirmDeleteDialogOpen}
+        onClose={closeDeleteDialog}
+        onDeleteSuccess={onFinishEditing}
+        defaultErrorHandler={defaultErrorHandler}
       />
       <ConfirmationDialog
         isOpen={isConfirmMoveDialogOpen}
