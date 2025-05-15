@@ -162,6 +162,9 @@ jobs:
 
   run_cypress_tests:
     needs:
-      - publish_ui_docker_image_to_docker_hub
-      - publish_cypress_docker_image_to_docker_hub
+      - publish_ui_docker_image_to_acr
+      - publish_cypress_docker_image_to_acr
     uses: ./.github/workflows/run-cypress-tests.yml
+    with:
+      ui_docker_image: ${{ needs.publish_ui_docker_image_to_acr.outputs.docker_image }}
+      cypress_docker_image: ${{ needs.publish_cypress_docker_image_to_acr.outputs.docker_image }}
