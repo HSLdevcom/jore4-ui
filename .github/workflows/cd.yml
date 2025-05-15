@@ -161,10 +161,15 @@ jobs:
       azure_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
   run_cypress_tests:
+    name: Run e2e tests
+    runs-on: ubuntu-24.04
     needs:
       - publish_ui_docker_image_to_acr
       - publish_cypress_docker_image_to_acr
-    uses: ./.github/workflows/run-cypress-tests.yml
-    with:
-      ui_docker_image: ${{ needs.publish_ui_docker_image_to_acr.outputs.docker_image }}
-      cypress_docker_image: ${{ needs.publish_cypress_docker_image_to_acr.outputs.docker_image }}
+    steps:
+      - name: Setup environment and run e2e tests from GitHub action
+        uses: HSLdevcom/jore4-tools/github-actions/run-ci@main
+        with:
+          ui_version: ${{ needs.publish_ui_docker_image_to_acr.outputs.docker_image }}
+          cypress_version: ${{ needs.publish_cypress_docker_image_to_acr.outputs.docker_image }}
+          test-tags: ''
