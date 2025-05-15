@@ -4,21 +4,23 @@ on:
   # This workflow is only called by others, won't be executed on itself
   # as it uses the pre-built Docker image that is produced in the upstream job.
   workflow_call:
+    inputs:
+      ui_docker_image:
+        type: string
+        required: true
+      cypress_docker_image:
+        type: string
+        required: true
 
 jobs:
   run_cypress_tests:
     name: Run cypress e2e tests from docker
     runs-on: ubuntu-24.04
-    env:
-      CYPRESS_IMAGE_NAME: hsldevcom/jore4-cypress
 
     steps:
-      - name: Extract metadata to env variables
-        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
-
       - name: Setup environment and run e2e tests from GitHub action
         uses: HSLdevcom/jore4-tools/github-actions/run-ci@main
         with:
-          ui_version: '${{ env.IMAGE_NAME }}:${{ env.COMMIT_ID }}'
-          cypress_version: '${{ env.CYPRESS_IMAGE_NAME }}:${{ env.COMMIT_ID }}'
+          ui_version: '${{ inputs.ui_docker_image }}'
+          cypress_version: '${{ inputs.cypress_docker_image }}'
           test-tags: ''
