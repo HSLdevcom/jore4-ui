@@ -799,7 +799,8 @@
     "invalidTime": "04:30-28:30",
     "invalidEmail": "Invalid email",
     "substituteDayOfWeek": "Select day",
-    "lineTypes": "Select type"
+    "lineTypes": "Select type",
+    "Invalid url": "Invalid url"
   },
   "errors": {
     "saveFailed": "Something went wrong",
