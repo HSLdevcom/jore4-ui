@@ -1,15 +1,18 @@
 import noop from 'lodash/noop';
-import React, { useCallback, useEffect } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
-import { useDispatch } from 'react-redux';
 import { useCallbackOnKeyEscape } from '../../../hooks';
-import { resetEnabledStopAreaModesAction } from '../../../redux';
 import { Coords } from '../../../types';
 import { StopAreaMarker } from '../markers';
 
-export const CreateStopAreaMarker = (): JSX.Element => {
-  const [mouseCoords, setMouseCoords] = React.useState<Coords>();
-  const dispatch = useDispatch();
+type CreateStopAreaMarkerProps = {
+  readonly onCancel: () => void;
+};
+
+export const CreateStopAreaMarker: FC<CreateStopAreaMarkerProps> = ({
+  onCancel,
+}) => {
+  const [mouseCoords, setMouseCoords] = useState<Coords>();
   const { current: map } = useMap();
 
   const CREATE_STOP_AREA_MARKER_SIZE = 20;
@@ -27,11 +30,7 @@ export const CreateStopAreaMarker = (): JSX.Element => {
     };
   }, [map, onMouseMove]);
 
-  const resetModes = () => {
-    dispatch(resetEnabledStopAreaModesAction());
-  };
-
-  useCallbackOnKeyEscape(resetModes);
+  useCallbackOnKeyEscape(onCancel);
 
   return (
     <>

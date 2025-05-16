@@ -14,3 +14,4 @@ export * from './slices/modals';
 export * from './slices/user';
 export * from './store';
 export * from './thunks';
+export * from './types/MapEntityEditorViewState';

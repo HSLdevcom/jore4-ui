@@ -13,16 +13,16 @@ import {
 } from '../../../hooks';
 import {
   LoadingState,
+  MapEntityEditorViewState,
   MapEntityType,
   Operation,
   selectEditedStopAreaData,
-  selectIsCreateStopAreaModeEnabled,
-  selectIsMoveStopAreaModeEnabled,
+  selectMapStopAreaViewState,
   selectMapViewport,
   selectSelectedStopAreaId,
   selectShowMapEntityTypes,
   setEditedStopAreaDataAction,
-  setIsCreateStopAreaModeEnabledAction,
+  setMapStopAreaViewStateAction,
   setSelectedMapStopAreaIdAction,
 } from '../../../redux';
 import {
@@ -50,18 +50,12 @@ export const StopAreas = React.forwardRef((_props, ref) => {
   const editStopAreaLayerRef = useRef<EditStopAreaLayerRef>(null);
 
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
-  const isCreateStopAreaModeEnabled = useAppSelector(
-    selectIsCreateStopAreaModeEnabled,
-  );
-  const isMoveStopAreaModeEnabled = useAppSelector(
-    selectIsMoveStopAreaModeEnabled,
-  );
+
+  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
+  const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
+
   const { [MapEntityType.StopArea]: showStopAreas } = useAppSelector(
     selectShowMapEntityTypes,
-  );
-
-  const setIsCreateStopAreaModeEnabled = useAppAction(
-    setIsCreateStopAreaModeEnabledAction,
   );
 
   const { defaultErrorHandler, initializeStopArea } = useUpsertStopArea();
@@ -120,7 +114,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
       const stopAreaLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
       const newStopArea = initializeStopArea(stopAreaLocation);
       setEditedStopAreaData(newStopArea);
-      setIsCreateStopAreaModeEnabled(false);
+      setMapStopAreaViewState(MapEntityEditorViewState.CREATE);
     },
     onMoveStopArea: (e: MapLayerMouseEvent) => {
       editStopAreaLayerRef.current?.onMoveStopArea(e);
@@ -139,6 +133,14 @@ export const StopAreas = React.forwardRef((_props, ref) => {
 
   const onPopupClose = () => setSelectedMapStopAreaId(undefined);
 
+  const onCancelMoveOrPlacement = () => {
+    setMapStopAreaViewState(
+      selectedStopAreaId
+        ? MapEntityEditorViewState.POPUP
+        : MapEntityEditorViewState.NONE,
+    );
+  };
+
   const data = stopAreasResult.loading
     ? stopAreasResult.previousData
     : stopAreasResult.data;
@@ -149,6 +151,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
       {areas.map((area) => (
         <StopArea
           area={area}
+          mapStopAreaViewState={mapStopAreaViewState}
           selected={area.netex_id === selectedStopAreaId}
           key={area.id}
           onClick={onClick}
@@ -167,8 +170,10 @@ export const StopAreas = React.forwardRef((_props, ref) => {
           <MemberStops area={editedStopAreaData} />
         </>
       ) : null}
-      {(isCreateStopAreaModeEnabled || isMoveStopAreaModeEnabled) && (
-        <CreateStopAreaMarker />
+
+      {(mapStopAreaViewState === MapEntityEditorViewState.PLACE ||
+        mapStopAreaViewState === MapEntityEditorViewState.MOVE) && (
+        <CreateStopAreaMarker onCancel={onCancelMoveOrPlacement} />
       )}
     </>
   );

@@ -1,7 +1,7 @@
+import { FC } from 'react';
 import { Marker } from 'react-map-gl/maplibre';
 import { StopAreaMinimalShowOnMapFieldsFragment } from '../../../generated/graphql';
-import { useAppSelector } from '../../../hooks';
-import { selectIsMoveStopAreaModeEnabled } from '../../../redux';
+import { MapEntityEditorViewState } from '../../../redux';
 import { getGeometryPoint } from '../../../utils';
 import { StopAreaMarker } from '../markers';
 
@@ -13,18 +13,22 @@ const testIds = {
 };
 
 type StopAreaProps = {
-  area: StopAreaMinimalShowOnMapFieldsFragment;
-  onClick: (area: StopAreaMinimalShowOnMapFieldsFragment) => void;
-  selected: boolean;
+  readonly area: StopAreaMinimalShowOnMapFieldsFragment;
+  readonly mapStopAreaViewState: MapEntityEditorViewState;
+  readonly onClick: (area: StopAreaMinimalShowOnMapFieldsFragment) => void;
+  readonly selected: boolean;
 };
 
-export const StopArea = ({ area, selected, onClick }: StopAreaProps) => {
-  const isMoveStopAreaModeEnabled = useAppSelector(
-    selectIsMoveStopAreaModeEnabled,
-  );
+export const StopArea: FC<StopAreaProps> = ({
+  area,
+  mapStopAreaViewState,
+  selected,
+  onClick,
+}) => {
   // If the stop area is being moved, we use different styles for the stop
   // to indicate the placeholder of the old location
-  const isPlaceholder = selected && isMoveStopAreaModeEnabled;
+  const isPlaceholder =
+    selected && mapStopAreaViewState === MapEntityEditorViewState.MOVE;
 
   const point = getGeometryPoint(area.centroid);
   if (!point) {

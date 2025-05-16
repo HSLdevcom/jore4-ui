@@ -1,12 +1,14 @@
 import { Menu } from '@headlessui/react';
 import noop from 'lodash/noop';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdMoreVert } from 'react-icons/md';
-import { SimpleDropdownMenuItem, SimpleRoundButton } from '../../uiComponents';
 import {
   AlignDirection,
+  SimpleDropdownMenuItem,
   SimpleDropdownMenuItems,
-} from '../../uiComponents/SimpleDropdownMenuItems';
+  SimpleRoundButton,
+} from '../../uiComponents';
 
 const testIds = {
   menu: 'MapFooterActionsDropdown::menu',
@@ -14,17 +16,15 @@ const testIds = {
   createNewStopArea: 'MapFooterActionsDropdown::createNewStopArea',
 };
 
-interface Props {
-  tooltip: string;
-  disabled?: boolean;
-  onCreateNewStopArea: () => void;
-}
+type MapFooterActionsDropdownProps = {
+  readonly disabled?: boolean;
+  readonly onCreateNewStopArea: () => void;
+};
 
-export const MapFooterActionsDropdown = ({
-  tooltip,
+export const MapFooterActionsDropdown: FC<MapFooterActionsDropdownProps> = ({
   disabled,
   onCreateNewStopArea,
-}: Props): JSX.Element => {
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -37,7 +37,7 @@ export const MapFooterActionsDropdown = ({
             className="flex justify-around"
           >
             <SimpleRoundButton
-              tooltip={tooltip}
+              tooltip={t('map.footerActionsTooltip')}
               disabled={disabled}
               onClick={noop}
               inverted={!open}

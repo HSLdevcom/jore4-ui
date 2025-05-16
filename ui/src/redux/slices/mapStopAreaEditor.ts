@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { EnrichedStopPlace } from '../../types';
 import { StoreType, mapToStoreType } from '../mappers';
+import { MapEntityEditorViewState } from '../types';
 
 export type MapStopAreaEditor = {
   readonly selectedStopAreaId?: string;
   readonly editedStopAreaData?: EnrichedStopPlace;
-  readonly isCreateStopAreaModeEnabled: boolean;
-  readonly isMoveStopAreaModeEnabled: boolean;
+  readonly viewState: MapEntityEditorViewState;
 };
 
 type IState = StoreType<MapStopAreaEditor>;
@@ -14,8 +14,7 @@ type IState = StoreType<MapStopAreaEditor>;
 const initialState: IState = {
   selectedStopAreaId: undefined,
   editedStopAreaData: undefined,
-  isCreateStopAreaModeEnabled: false,
-  isMoveStopAreaModeEnabled: false,
+  viewState: MapEntityEditorViewState.NONE,
 };
 
 const slice = createSlice({
@@ -39,15 +38,11 @@ const slice = createSlice({
         payload: stopArea ? mapToStoreType(stopArea) : undefined,
       }),
     },
-    setIsCreateStopAreaModeEnabled: (state, action: PayloadAction<boolean>) => {
-      state.isCreateStopAreaModeEnabled = action.payload;
-    },
-    setIsMoveStopAreaModeEnabled: (state, action: PayloadAction<boolean>) => {
-      state.isMoveStopAreaModeEnabled = action.payload;
-    },
-    resetEnabledStopAreaModes: (state) => {
-      state.isCreateStopAreaModeEnabled = false;
-      state.isMoveStopAreaModeEnabled = false;
+    setMapStopAreaViewState: (
+      state,
+      action: PayloadAction<MapEntityEditorViewState>,
+    ) => {
+      state.viewState = action.payload;
     },
     reset: () => initialState,
   },
@@ -56,9 +51,7 @@ const slice = createSlice({
 export const {
   setSelectedStopAreaId: setSelectedMapStopAreaIdAction,
   setEditedStopAreaData: setEditedStopAreaDataAction,
-  setIsCreateStopAreaModeEnabled: setIsCreateStopAreaModeEnabledAction,
-  setIsMoveStopAreaModeEnabled: setIsMoveStopAreaModeEnabledAction,
-  resetEnabledStopAreaModes: resetEnabledStopAreaModesAction,
+  setMapStopAreaViewState: setMapStopAreaViewStateAction,
   reset: resetMapStopAreaEditorAction,
 } = slice.actions;
 

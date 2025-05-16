@@ -7,15 +7,15 @@ import {
 } from '../../hooks';
 import { Column, Visible } from '../../layoutComponents';
 import {
+  MapEntityEditorViewState,
   Mode,
   selectHasDraftLocation,
   selectHasDraftRouteGeometry,
-  selectIsCreateStopAreaModeEnabled,
   selectIsCreateStopModeEnabled,
-  selectIsMoveStopAreaModeEnabled,
   selectIsMoveStopModeEnabled,
   selectMapFilter,
   selectMapRouteEditor,
+  selectMapStopAreaViewState,
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
@@ -76,12 +76,8 @@ export const MapComponent = (
 
   const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
   const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
-  const isCreateStopAreaModeEnabled = useAppSelector(
-    selectIsCreateStopAreaModeEnabled,
-  );
-  const isMoveStopAreaModeEnabled = useAppSelector(
-    selectIsMoveStopAreaModeEnabled,
-  );
+
+  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
 
   useImperativeHandle(externalRef, () => ({
     onDrawRoute: () => {
@@ -128,14 +124,17 @@ export const MapComponent = (
       onCreateStop(e);
       return;
     }
-    if (isCreateStopAreaModeEnabled) {
+
+    if (mapStopAreaViewState === MapEntityEditorViewState.PLACE) {
       onCreateStopArea(e);
       return;
     }
-    if (isMoveStopAreaModeEnabled) {
+
+    if (mapStopAreaViewState === MapEntityEditorViewState.MOVE) {
       onMoveStopArea(e);
       return;
     }
+
     if (isMoveStopModeEnabled) {
       onMoveStop(e);
     }

@@ -4,17 +4,18 @@ import { MdDelete } from 'react-icons/md';
 import { useAppAction, useAppSelector } from '../../hooks';
 import { Row, Visible } from '../../layoutComponents';
 import {
+  MapEntityEditorViewState,
   Mode,
+  isEditorOpen,
   selectHasChangesInProgress,
   selectHasDraftRouteGeometry,
-  selectIsCreateStopAreaModeEnabled,
   selectIsCreateStopModeEnabled,
   selectIsInViewMode,
-  selectIsMoveStopAreaModeEnabled,
   selectIsMoveStopModeEnabled,
   selectMapRouteEditor,
-  setIsCreateStopAreaModeEnabledAction,
+  selectMapStopAreaViewState,
   setIsCreateStopModeEnabledAction,
+  setMapStopAreaViewStateAction,
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
@@ -61,22 +62,15 @@ export const MapFooter: React.FC<Props> = ({
     setIsCreateStopModeEnabledAction,
   );
 
-  const isCreateStopAreaModeEnabled = useAppSelector(
-    selectIsCreateStopAreaModeEnabled,
-  );
-  const setIsCreateStopAreaModeEnabled = useAppAction(
-    setIsCreateStopAreaModeEnabledAction,
-  );
-  const isMoveStopAreaModeEnabled = useAppSelector(
-    selectIsMoveStopAreaModeEnabled,
-  );
+  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
+  const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
 
   const onAddStops = () => {
     setIsCreateStopModeEnabled(!isCreateStopModeEnabled);
   };
 
   const onAddStopArea = () => {
-    setIsCreateStopAreaModeEnabled(!isCreateStopAreaModeEnabled);
+    setMapStopAreaViewState(MapEntityEditorViewState.PLACE);
   };
 
   return (
@@ -89,8 +83,7 @@ export const MapFooter: React.FC<Props> = ({
           creatingNewRoute ||
           isCreateStopModeEnabled ||
           isMoveStopModeEnabled ||
-          isCreateStopAreaModeEnabled ||
-          isMoveStopAreaModeEnabled
+          mapStopAreaViewState !== MapEntityEditorViewState.NONE
         }
         inverted={drawingMode !== Mode.Draw}
       >
@@ -111,8 +104,7 @@ export const MapFooter: React.FC<Props> = ({
         disabled={
           drawingMode !== undefined ||
           creatingNewRoute ||
-          isCreateStopAreaModeEnabled ||
-          isMoveStopAreaModeEnabled
+          isEditorOpen(mapStopAreaViewState)
         }
         inverted={!isCreateStopModeEnabled}
         testId={testIds.addStopButton}
@@ -127,9 +119,8 @@ export const MapFooter: React.FC<Props> = ({
           creatingNewRoute ||
           hasChangesInProgress ||
           isRouteMetadataFormOpen ||
-          isMoveStopAreaModeEnabled
+          mapStopAreaViewState !== MapEntityEditorViewState.NONE
         }
-        tooltip={t('map.footerActionsTooltip')}
         onCreateNewStopArea={onAddStopArea}
       />
       <SimpleButton
