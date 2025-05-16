@@ -5,6 +5,7 @@ import {
   ActionCreatorWithoutPayload,
   PayloadAction,
 } from '@reduxjs/toolkit';
+import { useCallback } from 'react';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux';
 
@@ -55,5 +56,8 @@ export function useAppAction<
 
 export function useAppAction(action: ExplicitAny): ExplicitAny {
   const dispatch = useAppDispatch();
-  return (...params: ExplicitAny[]) => dispatch(action(...params));
+  return useCallback(
+    (...params: ExplicitAny[]) => dispatch(action(...params)),
+    [dispatch, action],
+  );
 }
