@@ -267,6 +267,18 @@ const stopPlaceData: Array<StopAreaInput> = [
     },
     organisations: null,
   },
+  {
+    StopArea: {
+      privateCode: { type: 'HSL/TEST', value: 'E2ENQ' },
+      name: { lang: 'fin', value: 'No quays' },
+      quays: [],
+      geometry: {
+        coordinates: [60.16993494912799, 24.92596546020357],
+        type: StopRegistryGeoJsonType.Point,
+      },
+    },
+    organisations: null,
+  },
 ];
 
 const baseStopRegistryData = {
