@@ -15,11 +15,13 @@ import {
 } from '../../datasets/stopRegistry';
 import {
   BasicDetailsViewCard,
+  ConfirmationDialog,
   SelectMemberStopsDropdown,
   StopAreaDetailsPage,
   StopDetailsPage,
   Toast,
 } from '../../pageObjects';
+import { DialogWithButtons } from '../../pageObjects/DialogWithButtons';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import {
@@ -507,6 +509,30 @@ describe('Stop area details', () => {
       stopDetailsPage.visit('E2E009');
       stopDetailsPage.page().shouldBeVisible();
       bdViewCard.getAreaName().should('contain.text', 'uusinimi');
+    });
+
+    it('should handle deletion', () => {
+      // Do not allow deletion when there are stops
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getDeleteButton().click();
+      const dialog = new DialogWithButtons();
+      dialog
+        .getTextContent()
+        .contains(
+          'Pysäkkialueeseen liittyy vielä pysäkkejä, eikä sitä voi siksi poistaa. Poista ensin alueeseen liittyvät pysäkit kokonaan tai siirrä ne johonkin toiseen pysäkkialueeseen.',
+        );
+
+      // Allow deletion when there are no stops
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getDeleteButton().click();
+      const confirmationDialog = new ConfirmationDialog();
+
+      confirmationDialog.getConfirmButton().click();
+      cy.url().should('include', '/stop-registry');
     });
   });
 });

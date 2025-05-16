@@ -659,6 +659,7 @@ describe('Stop search', () => {
         'E2E007',
         'E2E008',
         'E2E010',
+        'E2ENQ',
       ]);
     });
 
