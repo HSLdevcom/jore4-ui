@@ -798,7 +798,8 @@
     "invalidTime": "04:30-28:30",
     "invalidEmail": "Virheellinen sähköpostiosoite",
     "substituteDayOfWeek": "Valitse päivä",
-    "lineTypes": "Valitse tyyppi"
+    "lineTypes": "Valitse tyyppi",
+    "Invalid url": "Virheellinen URL"
   },
   "errors": {
     "saveFailed": "Tallennus epäonnistui",
