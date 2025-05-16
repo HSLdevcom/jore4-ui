@@ -108,18 +108,24 @@ export const ExternalLinksForm: React.FC<Props> = ({
             </Visible>
           </div>
         ))}
-        <AddNewButton
-          onClick={addNewExternalLink}
-          label={t('stopDetails.externalLinks.addExternalLink')}
-          testId={testIds.addExternalLink}
-        />
-        <Row className="mt-4 justify-end space-x-2">
-          <SimpleButton testId={testIds.cancelButton} onClick={handleCancel}>
-            {t('cancel')}
-          </SimpleButton>
-          <SimpleButton testId={testIds.saveButton} type="submit">
-            {t('save')}
-          </SimpleButton>
+        <Row className="mt-4 flex justify-between space-x-2">
+          <AddNewButton
+            onClick={addNewExternalLink}
+            label={t('stopDetails.externalLinks.addExternalLink')}
+            testId={testIds.addExternalLink}
+          />
+          <div className="flex space-x-2">
+            <SimpleButton
+              testId={testIds.cancelButton}
+              onClick={handleCancel}
+              inverted
+            >
+              {t('cancel')}
+            </SimpleButton>
+            <SimpleButton testId={testIds.saveButton} type="submit">
+              {t('save')}
+            </SimpleButton>
+          </div>
         </Row>
       </form>
     </FormProvider>

@@ -26,13 +26,14 @@ export const ExternalLinksFormFields: React.FC<Props> = ({
   const { register } = useFormContext<ExternalLinksFormState>();
 
   return (
-    <Column className="space-y-4">
-      <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
+    <Column className="w-full space-y-4">
+      <Row className="flex w-full items-end gap-4">
         <InputField<ExternalLinksFormState>
           type="string"
           translationPrefix="stopDetails"
           fieldPath={`externalLinks.${index}.name`}
-          inputClassName="w-100"
+          className="min-w-0 flex-grow"
+          inputClassName="w-full"
           testId={testIds.name}
           disabled={toBeDeleted}
         />
@@ -59,12 +60,13 @@ export const ExternalLinksFormFields: React.FC<Props> = ({
           )}
         </SlimSimpleButton>
       </Row>
-      <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
+      <Row className="flex w-full items-end">
         <InputField<ExternalLinksFormState>
           type="url"
           translationPrefix="stopDetails"
           fieldPath={`externalLinks.${index}.location`}
-          inputClassName="w-100"
+          className="w-full"
+          inputClassName="w-full"
           testId={testIds.location}
           disabled={toBeDeleted}
         />

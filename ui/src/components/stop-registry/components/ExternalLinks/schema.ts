@@ -1,9 +1,10 @@
 import { z } from 'zod';
 import { ExternalLinksDetailsFragment } from '../../../../generated/graphql';
+import { requiredString } from '../../../forms/common';
 
 export const externalLinksSchema = z.object({
-  name: z.string().min(2).default(''),
-  location: z.string().url().nullable(),
+  name: requiredString,
+  location: z.string().url(),
   orderNum: z.number().int(),
   toBeDeleted: z.boolean(),
 });
@@ -20,7 +21,7 @@ export const mapExternalLinkDataToFormState = (
 ): ExternalLinksState => {
   return {
     name: externalLink.name ?? '',
-    location: externalLink.location ?? null,
+    location: externalLink.location ?? '',
     orderNum: externalLink.orderNum ?? 0,
     toBeDeleted: false,
   };
