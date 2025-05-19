@@ -1,20 +1,21 @@
+import { FC } from 'react';
 import { Marker } from 'react-map-gl/maplibre';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
-import { useAppSelector } from '../../../hooks';
-import { selectIsMoveStopModeEnabled } from '../../../redux';
+import { MapEntityEditorViewState } from '../../../redux';
 import { Point } from '../../../types';
 import { Circle } from '../markers';
 
 const { colors } = theme;
 
-interface Props extends Point {
-  testId?: string;
-  selected?: boolean;
-  onClick: () => void;
-  vehicleMode?: ReusableComponentsVehicleModeEnum;
-  isHighlighted?: boolean;
-}
+type StopProps = {
+  readonly isHighlighted?: boolean;
+  readonly mapStopViewState: MapEntityEditorViewState;
+  readonly onClick: () => void;
+  readonly selected?: boolean;
+  readonly testId?: string;
+  readonly vehicleMode?: ReusableComponentsVehicleModeEnum;
+} & Point;
 
 /** Stop map markers border color is determined in this function. There are
  * different aspects which are affecting this determination. These are
@@ -48,21 +49,22 @@ const determineBorderColor = (
   return colors.hslDark80;
 };
 
-export const Stop = ({
-  testId,
+export const Stop: FC<StopProps> = ({
+  isHighlighted = false,
   latitude,
   longitude,
+  mapStopViewState,
   onClick,
   selected = false,
+  testId,
   vehicleMode = undefined,
-  isHighlighted = false,
-}: Props): React.ReactElement => {
-  const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
+}) => {
   const iconSize = 30;
   const selectedIconSize = 32;
   // If the stop is being moved, we use different styles for the stop
   // to indicate the placeholder of the old location
-  const isPlaceholder = selected && isMoveStopModeEnabled;
+  const isPlaceholder =
+    selected && mapStopViewState === MapEntityEditorViewState.MOVE;
   const iconBorderColor = determineBorderColor(
     isHighlighted,
     selected,

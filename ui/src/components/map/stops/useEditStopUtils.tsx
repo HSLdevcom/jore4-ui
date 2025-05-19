@@ -1,7 +1,6 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
-import { useDispatch } from 'react-redux';
 import { StopRegistryGeoJsonType } from '../../../generated/graphql';
 import {
   EditChanges,
@@ -11,10 +10,9 @@ import {
   useObservationDateQueryParam,
   usePrepareEdit,
 } from '../../../hooks';
-import { Operation, setIsMoveStopModeEnabledAction } from '../../../redux';
+import { MapEntityEditorViewState, Operation } from '../../../redux';
 import { mapLngLatToGeoJSON, showSuccessToast } from '../../../utils';
 import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
-import { StopEditorViews } from './StopEditorViews';
 import { useUpdateStopPriorityFilterIfNeeded } from './useUpdateStopPriorityFilterIfNeeded';
 
 type EditUtilsEditActive = {
@@ -39,11 +37,10 @@ type UseEditStopUtilsReturn = EditUtilsEditActive | EditUtilsEditInactive;
 
 export function useEditStopUtils(
   stopInfo: StopInfoForEditingOnMap | null,
-  setDisplayedEditor: Dispatch<SetStateAction<StopEditorViews>>,
+  setDisplayedEditor: (newViewState: MapEntityEditorViewState) => void,
   onFinishEditing: (netextId: string) => void,
 ): UseEditStopUtilsReturn {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   const [editChanges, setEditChanges] = useState<EditChanges | null>(null);
 
@@ -76,7 +73,7 @@ export function useEditStopUtils(
       },
     });
 
-    setDisplayedEditor(StopEditorViews.Modal);
+    setDisplayedEditor(MapEntityEditorViewState.EDIT);
   };
 
   const onMoveStop = async (event: MapLayerMouseEvent) => {
@@ -145,7 +142,6 @@ export function useEditStopUtils(
       updateStopPriorityFilterIfNeeded(editChanges.editedStop.priority);
 
       onFinishEditing(editChanges.quayId);
-      dispatch(setIsMoveStopModeEnabledAction(false));
     } catch (err) {
       defaultErrorHandler(err as Error);
     } finally {
@@ -154,8 +150,7 @@ export function useEditStopUtils(
   };
 
   const onCancelEdit = () => {
-    dispatch(setIsMoveStopModeEnabledAction(false));
-    setDisplayedEditor(StopEditorViews.Popup);
+    setDisplayedEditor(MapEntityEditorViewState.POPUP);
     setEditChanges(null);
   };
 

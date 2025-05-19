@@ -9,13 +9,13 @@ import { Column, Visible } from '../../layoutComponents';
 import {
   MapEntityEditorViewState,
   Mode,
+  isPlacingOrMoving,
   selectHasDraftLocation,
   selectHasDraftRouteGeometry,
-  selectIsCreateStopModeEnabled,
-  selectIsMoveStopModeEnabled,
   selectMapFilter,
   selectMapRouteEditor,
   selectMapStopAreaViewState,
+  selectMapStopViewState,
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
@@ -74,9 +74,7 @@ export const MapComponent = (
   const [showInfraLinks, setShowInfraLinks] = useState(false);
   const [showRoute, setShowRoute] = useState(true);
 
-  const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
-  const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
-
+  const mapStopViewState = useAppSelector(selectMapStopViewState);
   const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
 
   useImperativeHandle(externalRef, () => ({
@@ -119,24 +117,21 @@ export const MapComponent = (
     stopAreasRef.current?.onMoveStopArea(e);
   };
 
-  const onClick = (e: MapLayerMouseEvent) => {
-    if (isCreateStopModeEnabled) {
-      onCreateStop(e);
-      return;
+  const onClick = (e: MapLayerMouseEvent): void => {
+    if (mapStopViewState === MapEntityEditorViewState.PLACE) {
+      return onCreateStop(e);
+    }
+
+    if (mapStopViewState === MapEntityEditorViewState.MOVE) {
+      return onMoveStop(e);
     }
 
     if (mapStopAreaViewState === MapEntityEditorViewState.PLACE) {
-      onCreateStopArea(e);
-      return;
+      return onCreateStopArea(e);
     }
 
     if (mapStopAreaViewState === MapEntityEditorViewState.MOVE) {
-      onMoveStopArea(e);
-      return;
-    }
-
-    if (isMoveStopModeEnabled) {
-      onMoveStop(e);
+      return onMoveStopArea(e);
     }
 
     // Retrieve all rendered features on the map
@@ -154,7 +149,7 @@ export const MapComponent = (
         // set clicked route as selected
         dispatch(setSelectedRouteIdAction(routeId));
 
-        return;
+        return undefined;
       }
     }
 
@@ -162,6 +157,8 @@ export const MapComponent = (
     if (selectedRouteId) {
       dispatch(setSelectedRouteIdAction(undefined));
     }
+
+    return undefined;
   };
 
   return (
@@ -199,8 +196,7 @@ export const MapComponent = (
       <InfraLinksVectorLayer
         enableInfraLinkLayer={
           showInfraLinks ||
-          isCreateStopModeEnabled ||
-          isMoveStopModeEnabled ||
+          isPlacingOrMoving(mapStopViewState) ||
           hasDraftStopLocation
         }
         showInfraLinks={showInfraLinks}

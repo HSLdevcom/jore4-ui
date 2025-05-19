@@ -1,21 +1,20 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Point } from '../../types';
-import { StoreType } from '../mappers/storeType';
+import { StoreType } from '../mappers';
+import { MapEntityEditorViewState } from '../types';
 
-export interface MapStopEditorState {
-  selectedStopId?: string;
-  draftLocation?: Point;
-  isCreateStopModeEnabled: boolean;
-  isMoveStopModeEnabled: boolean;
-}
+export type MapStopEditorState = {
+  readonly selectedStopId?: string;
+  readonly draftLocation?: Point;
+  readonly viewState: MapEntityEditorViewState;
+};
 
 type IState = StoreType<MapStopEditorState>;
 
 const initialState: IState = {
   selectedStopId: undefined,
   draftLocation: undefined,
-  isCreateStopModeEnabled: false,
-  isMoveStopModeEnabled: false,
+  viewState: MapEntityEditorViewState.NONE,
 };
 
 const slice = createSlice({
@@ -25,21 +24,17 @@ const slice = createSlice({
     setSelectedStopId: (state, action: PayloadAction<string | undefined>) => {
       state.selectedStopId = action.payload;
     },
-    setIsCreateStopModeEnabled: (state, action: PayloadAction<boolean>) => {
-      state.isCreateStopModeEnabled = action.payload;
-    },
-    setIsMoveStopModeEnabled: (state, action: PayloadAction<boolean>) => {
-      state.isMoveStopModeEnabled = action.payload;
-    },
-    resetEnabledModes: (state) => {
-      state.isMoveStopModeEnabled = false;
-      state.isCreateStopModeEnabled = false;
-    },
     setDraftLocation: (
       state,
       action: PayloadAction<StoreType<Point> | undefined>,
     ) => {
       state.draftLocation = action.payload;
+    },
+    setMapStopViewState: (
+      state,
+      action: PayloadAction<MapEntityEditorViewState>,
+    ) => {
+      state.viewState = action.payload;
     },
     reset: () => {
       return initialState;
@@ -49,10 +44,8 @@ const slice = createSlice({
 
 export const {
   setSelectedStopId: setSelectedStopIdAction,
-  setIsCreateStopModeEnabled: setIsCreateStopModeEnabledAction,
-  setIsMoveStopModeEnabled: setIsMoveStopModeEnabledAction,
-  resetEnabledModes: resetEnabledModesAction,
   setDraftLocation: setDraftLocationAction,
+  setMapStopViewState: setMapStopViewStateAction,
   reset: resetMapStopEditorStateAction,
 } = slice.actions;
 

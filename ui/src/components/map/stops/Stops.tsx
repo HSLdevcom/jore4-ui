@@ -10,17 +10,18 @@ import {
 } from '../../../hooks';
 import {
   LoadingState,
+  MapEntityEditorViewState,
   MapEntityType,
   Operation,
+  isPlacingOrMoving,
   selectDraftLocation,
-  selectIsCreateStopModeEnabled,
-  selectIsMoveStopModeEnabled,
+  selectMapStopViewState,
   selectMapViewport,
   selectSelectedStopId,
   selectShowMapEntityTypes,
   selectStopAreaEditorIsActive,
   setDraftLocationAction,
-  setIsCreateStopModeEnabledAction,
+  setMapStopViewStateAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
@@ -29,7 +30,6 @@ import { EditStoplayerRef } from '../refTypes';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
-import { StopEditorViews } from './StopEditorViews';
 import { useFilterStops } from './useFilterStops';
 import { MapStop, useGetMapStops } from './useGetMapStops';
 
@@ -39,26 +39,20 @@ const testIds = {
 };
 
 export const Stops = React.forwardRef((_props, ref) => {
-  const [displayedEditor, setDisplayedEditor] = useState<StopEditorViews>(
-    StopEditorViews.None,
-  );
-
   const filter = useFilterStops();
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const draftLocation = useAppSelector(selectDraftLocation);
-  const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
-  const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
   const stopAreaEditorIsActive = useAppSelector(selectStopAreaEditorIsActive);
   const { [MapEntityType.Stop]: showStops } = useAppSelector(
     selectShowMapEntityTypes,
   );
 
+  const mapStopViewState = useAppSelector(selectMapStopViewState);
+  const setMapStopViewState = useAppAction(setMapStopViewStateAction);
+
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setDraftStopLocation = useAppAction(setDraftLocationAction);
-  const setIsCreateStopModeEnabled = useAppAction(
-    setIsCreateStopModeEnabledAction,
-  );
 
   const editStopLayerRef = useRef<EditStoplayerRef>(null);
 
@@ -93,7 +87,7 @@ export const Stops = React.forwardRef((_props, ref) => {
           latitude: e.lngLat.lat,
           longitude: e.lngLat.lng,
         });
-        setIsCreateStopModeEnabled(false);
+        setMapStopViewState(MapEntityEditorViewState.CREATE);
       } catch (err) {
         defaultErrorHandler(err as Error);
       }
@@ -105,7 +99,7 @@ export const Stops = React.forwardRef((_props, ref) => {
   }));
 
   const onClickStop = (stop: MapStop) => {
-    if (displayedEditor !== StopEditorViews.Modal) {
+    if (mapStopViewState === MapEntityEditorViewState.NONE) {
       setSelectedStopId(stop.netex_id);
     }
   };
@@ -121,10 +115,18 @@ export const Stops = React.forwardRef((_props, ref) => {
     setDraftStopLocation(undefined);
     if (netextId) {
       setSelectedStopId(netextId);
-      setDisplayedEditor(StopEditorViews.Popup);
+      setMapStopViewState(MapEntityEditorViewState.POPUP);
     }
     await refetchStops();
     setIsLoadingSaveStop(false);
+  };
+
+  const onCancelMoveOrPlacement = () => {
+    setMapStopViewState(
+      selectedStopId
+        ? MapEntityEditorViewState.POPUP
+        : MapEntityEditorViewState.NONE,
+    );
   };
 
   if (stopAreaEditorIsActive) {
@@ -138,17 +140,19 @@ export const Stops = React.forwardRef((_props, ref) => {
         const point = mapLngLatToPoint(item.location.coordinates);
         return (
           <Stop
-            testId={testIds.stopMarker(item.label, item.priority)}
-            key={item.netex_id}
-            selected={item.netex_id === selectedStopId}
-            longitude={point.longitude}
-            latitude={point.latitude}
-            onClick={() => onClickStop(item)}
             isHighlighted={getStopHighlighted(item.netex_id)}
+            key={item.netex_id}
+            latitude={point.latitude}
+            longitude={point.longitude}
+            mapStopViewState={mapStopViewState}
+            onClick={() => onClickStop(item)}
+            selected={item.netex_id === selectedStopId}
+            testId={testIds.stopMarker(item.label, item.priority)}
             vehicleMode={getStopVehicleMode(item)}
           />
         );
       })}
+
       {/* Display edited stop + its editor components */}
       {(selectedStopId ?? draftLocation) && (
         <EditStopLayer
@@ -157,13 +161,12 @@ export const Stops = React.forwardRef((_props, ref) => {
           draftLocation={draftLocation ?? null}
           onEditingFinished={onEditingFinished}
           onPopupClose={onPopupClose}
-          displayedEditor={displayedEditor}
-          setDisplayedEditor={setDisplayedEditor}
         />
       )}
+
       {/* Display hovering bus stop while in create mode */}
-      {(isCreateStopModeEnabled || isMoveStopModeEnabled) && (
-        <CreateStopMarker />
+      {isPlacingOrMoving(mapStopViewState) && (
+        <CreateStopMarker onCancel={onCancelMoveOrPlacement} />
       )}
     </>
   );

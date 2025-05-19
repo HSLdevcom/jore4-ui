@@ -9,13 +9,12 @@ import {
   isEditorOpen,
   selectHasChangesInProgress,
   selectHasDraftRouteGeometry,
-  selectIsCreateStopModeEnabled,
   selectIsInViewMode,
-  selectIsMoveStopModeEnabled,
   selectMapRouteEditor,
   selectMapStopAreaViewState,
-  setIsCreateStopModeEnabledAction,
+  selectMapStopViewState,
   setMapStopAreaViewStateAction,
+  setMapStopViewStateAction,
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
@@ -56,17 +55,14 @@ export const MapFooter: React.FC<Props> = ({
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
   const isInViewMode = useAppSelector(selectIsInViewMode);
 
-  const isCreateStopModeEnabled = useAppSelector(selectIsCreateStopModeEnabled);
-  const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
-  const setIsCreateStopModeEnabled = useAppAction(
-    setIsCreateStopModeEnabledAction,
-  );
+  const mapStopViewState = useAppSelector(selectMapStopViewState);
+  const setMapStopViewState = useAppAction(setMapStopViewStateAction);
 
   const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
   const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
 
   const onAddStops = () => {
-    setIsCreateStopModeEnabled(!isCreateStopModeEnabled);
+    setMapStopViewState(MapEntityEditorViewState.PLACE);
   };
 
   const onAddStopArea = () => {
@@ -81,8 +77,7 @@ export const MapFooter: React.FC<Props> = ({
         disabled={
           !isInViewMode ||
           creatingNewRoute ||
-          isCreateStopModeEnabled ||
-          isMoveStopModeEnabled ||
+          mapStopViewState !== MapEntityEditorViewState.NONE ||
           mapStopAreaViewState !== MapEntityEditorViewState.NONE
         }
         inverted={drawingMode !== Mode.Draw}
@@ -106,7 +101,7 @@ export const MapFooter: React.FC<Props> = ({
           creatingNewRoute ||
           isEditorOpen(mapStopAreaViewState)
         }
-        inverted={!isCreateStopModeEnabled}
+        inverted={mapStopViewState === MapEntityEditorViewState.NONE}
         testId={testIds.addStopButton}
         disabledTooltip={t('dataModelRefactor.disabled')}
       >
@@ -114,7 +109,7 @@ export const MapFooter: React.FC<Props> = ({
       </SimpleButton>
       <MapFooterActionsDropdown
         disabled={
-          isCreateStopModeEnabled ||
+          mapStopViewState !== MapEntityEditorViewState.NONE ||
           drawingMode !== undefined ||
           creatingNewRoute ||
           hasChangesInProgress ||

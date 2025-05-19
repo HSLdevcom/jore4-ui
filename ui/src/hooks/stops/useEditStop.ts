@@ -3,7 +3,6 @@ import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { wrapErrors } from '../../components/stop-registry/stops/stop-details/stop-version/utils/wrapErrors';
 import {
   EditStopMutationVariables,
@@ -26,7 +25,6 @@ import {
   mapGetRoutesBrokenByStopChangeResult,
   mapStopResultToStop,
 } from '../../graphql';
-import { setIsMoveStopModeEnabledAction } from '../../redux';
 import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
@@ -478,7 +476,6 @@ export function usePrepareEdit() {
 // in case an exception is thrown
 export function useDefaultErrorHandler() {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   return (err: Error) => {
     if (err instanceof LinkNotResolvedError) {
@@ -504,7 +501,6 @@ export function useDefaultErrorHandler() {
     }
 
     if (err instanceof TimingPlaceRequiredError) {
-      dispatch(setIsMoveStopModeEnabledAction(false));
       return showDangerToast(
         t('stops.timingPlaceRequired', { routeLabels: err.message }),
       );

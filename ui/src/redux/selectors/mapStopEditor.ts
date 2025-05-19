@@ -23,12 +23,7 @@ export const selectHasDraftLocation = createSelector(
   (mapStopEditor) => !!mapStopEditor.draftLocation,
 );
 
-export const selectIsCreateStopModeEnabled = createSelector(
+export const selectMapStopViewState = createSelector(
   selectMapStopEditor,
-  (mapStopEditor) => mapStopEditor.isCreateStopModeEnabled,
-);
-
-export const selectIsMoveStopModeEnabled = createSelector(
-  selectMapStopEditor,
-  (mapStopEditor) => mapStopEditor.isMoveStopModeEnabled,
+  (mapStopEditor) => mapStopEditor.viewState,
 );

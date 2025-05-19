@@ -1,10 +1,8 @@
 import debounce from 'lodash/debounce';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
-import { useDispatch } from 'react-redux';
 import { theme } from '../../../generated/theme';
 import { useCallbackOnKeyEscape } from '../../../hooks';
-import { resetEnabledModesAction } from '../../../redux';
 import { Coords } from '../../../types';
 import {
   drawLineToClosestRoad,
@@ -14,9 +12,12 @@ import { Circle } from '../markers';
 
 const { colors } = theme;
 
-export const CreateStopMarker = (): React.ReactElement => {
-  const [mouseCoords, setMouseCoords] = React.useState<Coords>();
-  const dispatch = useDispatch();
+type CreateStopMarkerProps = {
+  readonly onCancel: () => void;
+};
+
+export const CreateStopMarker: FC<CreateStopMarkerProps> = ({ onCancel }) => {
+  const [mouseCoords, setMouseCoords] = useState<Coords>();
   const { current: map } = useMap();
 
   const createStopMarkerSize = 20;
@@ -47,11 +48,7 @@ export const CreateStopMarker = (): React.ReactElement => {
     };
   }, [map, onMouseMove]);
 
-  const resetModes = () => {
-    dispatch(resetEnabledModesAction());
-  };
-
-  useCallbackOnKeyEscape(resetModes);
+  useCallbackOnKeyEscape(onCancel);
 
   return (
     <>

@@ -1,11 +1,5 @@
 import noop from 'lodash/noop';
-import React, {
-  Dispatch,
-  SetStateAction,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-} from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
@@ -13,14 +7,17 @@ import {
   CreateChanges,
   EditChanges,
   isEditChanges,
+  useAppAction,
   useAppSelector,
   useMapDataLayerLoader,
 } from '../../../hooks';
 import {
+  MapEntityEditorViewState,
   Operation,
   closeTimingPlaceModalAction,
-  selectIsMoveStopModeEnabled,
-  setIsMoveStopModeEnabledAction,
+  isModalOpen,
+  selectMapStopViewState,
+  setMapStopViewStateAction,
   setSelectedRouteIdAction,
 } from '../../../redux';
 import { Point } from '../../../types';
@@ -35,33 +32,20 @@ import { EditStopConfirmationDialog } from './EditStopConfirmationDialog';
 import { EditStopModal } from './EditStopModal';
 import { LineToClosestInfraLink } from './LineToClosestInfraLink';
 import { Stop } from './Stop';
-import { StopEditorViews } from './StopEditorViews';
 import { StopPopup } from './StopPopup';
 import { useCreateStopUtils } from './useCreateStopUtils';
 import { useDeleteStopUtils } from './useDeleteStopUtils';
 import { useEditStopUtils } from './useEditStopUtils';
 
 type EditStopLayerProps = {
-  readonly displayedEditor: StopEditorViews;
   readonly draftLocation: Point | null;
   readonly onEditingFinished: (netexId: string | null) => void;
   readonly onPopupClose: () => void;
   readonly selectedStopId: string | null;
-  readonly setDisplayedEditor: Dispatch<SetStateAction<StopEditorViews>>;
 };
 
 export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
-  (
-    {
-      displayedEditor,
-      draftLocation,
-      onEditingFinished,
-      onPopupClose,
-      selectedStopId,
-      setDisplayedEditor,
-    },
-    ref,
-  ) => {
+  ({ draftLocation, onEditingFinished, onPopupClose, selectedStopId }, ref) => {
     const { stopInfo, loading } = useGetStopInfoForEditingOnMap(selectedStopId);
     useMapDataLayerLoader(
       Operation.FetchStopInfo,
@@ -70,25 +54,29 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
     );
 
     const dispatch = useDispatch();
-    const isMoveStopModeEnabled = useAppSelector(selectIsMoveStopModeEnabled);
+
+    const mapStopViewState = useAppSelector(selectMapStopViewState);
+    const setMapStopViewState = useAppAction(setMapStopViewStateAction);
 
     // computed values for the edited stop
-    const isDraftStop = !!draftLocation;
-    const defaultDisplayedEditor = isDraftStop
-      ? StopEditorViews.Modal
-      : StopEditorViews.Popup;
+    const isExistingStop = !!selectedStopId;
+    const defaultDisplayedEditor = isExistingStop
+      ? MapEntityEditorViewState.POPUP
+      : MapEntityEditorViewState.CREATE;
 
     const defaultValues = draftLocation ?? stopInfo?.formState;
 
     // when a stop is first edited, immediately show the proper editor view
+    const isMoveStopModeEnabled =
+      mapStopViewState === MapEntityEditorViewState.MOVE;
     useEffect(() => {
       if (!isMoveStopModeEnabled) {
-        setDisplayedEditor(defaultDisplayedEditor);
+        setMapStopViewState(defaultDisplayedEditor);
       }
-    }, [defaultDisplayedEditor, isMoveStopModeEnabled, setDisplayedEditor]);
+    }, [defaultDisplayedEditor, isMoveStopModeEnabled, setMapStopViewState]);
 
     const onCloseEditors = () => {
-      setDisplayedEditor(StopEditorViews.None);
+      setMapStopViewState(MapEntityEditorViewState.NONE);
       dispatch(closeTimingPlaceModalAction());
       onPopupClose();
     };
@@ -107,7 +95,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       onProcessEditChanges,
       onConfirmEdit,
       onCancelEdit,
-    } = useEditStopUtils(stopInfo, setDisplayedEditor, onFinishEditing);
+    } = useEditStopUtils(stopInfo, setMapStopViewState, onFinishEditing);
     const { deleteChanges, onDeleteStop, onConfirmDelete, onCancelDelete } =
       useDeleteStopUtils(stopInfo, onFinishEditing);
 
@@ -128,9 +116,8 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
     };
 
     const onStartMoveStop = () => {
-      setDisplayedEditor(StopEditorViews.None);
+      setMapStopViewState(MapEntityEditorViewState.MOVE);
       dispatch(setSelectedRouteIdAction(undefined));
-      dispatch(setIsMoveStopModeEnabledAction(true));
     };
 
     const currentConflicts = (createChanges ?? editChanges)?.conflicts;
@@ -141,16 +128,17 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
 
         {draftLocation && (
           <Stop
-            onClick={noop}
+            isHighlighted
             longitude={draftLocation.longitude}
             latitude={draftLocation.latitude}
+            mapStopViewState={mapStopViewState}
+            onClick={noop}
             selected
-            isHighlighted
             vehicleMode={ReusableComponentsVehicleModeEnum.Bus}
           />
         )}
 
-        {displayedEditor === StopEditorViews.Popup && stopInfo && (
+        {mapStopViewState === MapEntityEditorViewState.POPUP && stopInfo && (
           <StopPopup
             stop={stopInfo}
             onEdit={onStartEditingStop}
@@ -160,7 +148,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
           />
         )}
 
-        {displayedEditor === StopEditorViews.Modal && defaultValues && (
+        {isModalOpen(mapStopViewState) && defaultValues && (
           <EditStopModal
             defaultValues={defaultValues}
             editing={!!selectedStopId}
