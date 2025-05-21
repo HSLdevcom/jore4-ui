@@ -47,7 +47,9 @@ export const removeFromApolloCache = (
  * formatted as follows: {1,2,3,4,5}. This function takes in
  * an array and formats it correctly for hasura.
  */
-export const convertArrayTypeForHasura = <T>(array: T[]): string => {
+export const convertArrayTypeForHasura = <T>(
+  array: ReadonlyArray<T>,
+): string => {
   const convertedItems = array.map((item) => {
     // If there is array inside of array, we need to do the same conversion to
     // the inner array by calling this function recursively

@@ -37,7 +37,7 @@ export const sortStopsOnInfraLinkComparator = (isTraversalForwards: boolean) =>
 export const sortStopsOnInfraLink = <
   TStop extends ScheduledStopPointAllFieldsFragment,
 >(
-  stops: TStop[],
+  stops: Array<TStop>,
   isTraversalForwards: boolean,
 ) => stops.sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
 
@@ -50,8 +50,8 @@ export const sortStopsOnInfraLink = <
  * @returns stops list with the provided stops added to or removed from it
  */
 export const addOrRemoveStopLabelsFromIncludedStops = (
-  stops: string[],
-  stopsToActOn: string[],
+  stops: ReadonlyArray<string>,
+  stopsToActOn: ReadonlyArray<string>,
   belongsToJourneyPattern: boolean,
 ) =>
   belongsToJourneyPattern

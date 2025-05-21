@@ -107,11 +107,11 @@ export const padToTwoDigits = (number: number) =>
 export const mapDurationToShortTime = (duration: Duration) =>
   `${padToTwoDigits(duration.hours)}:${padToTwoDigits(duration.minutes)}`;
 
-export const findEarliestTime = (times: DateTime[]) => {
+export const findEarliestTime = (times: ReadonlyArray<DateTime>) => {
   return DateTime.fromMillis(Math.min(...times.map((item) => item.toMillis())));
 };
 
-export const findLatestTime = (times: DateTime[]) => {
+export const findLatestTime = (times: ReadonlyArray<DateTime>) => {
   return DateTime.fromMillis(Math.max(...times.map((item) => item.toMillis())));
 };
 

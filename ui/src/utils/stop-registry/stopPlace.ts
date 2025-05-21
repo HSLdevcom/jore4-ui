@@ -150,7 +150,7 @@ const omitTypename = <T extends { __typename?: string } | null>(
 
 export const patchKeyValues = (
   stopPlace: {
-    readonly keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+    readonly keyValues?: Maybe<ReadonlyArray<Maybe<StopRegistryKeyValues>>>;
   } | null,
   updates: ReadonlyArray<{ key: string; values: string[] }>,
 ) => {
@@ -218,7 +218,9 @@ export const getQuayDetailsForEnrichment = <
 };
 
 type StopRegistryStopPlaceWithQuays = Omit<StopRegistryStopPlace, 'quays'> & {
-  readonly quays?: Maybe<Array<Maybe<StopRegistryQuayWithoutStopPoint>>>;
+  readonly quays?: Maybe<
+    ReadonlyArray<Maybe<StopRegistryQuayWithoutStopPoint>>
+  >;
 };
 
 const findCoordinate = (

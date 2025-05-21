@@ -38,7 +38,7 @@ type Cache<TFunc extends (...args: ExplicitAny[]) => ExplicitAny> = {
  * @param comparator function to compare individual parameters with
  */
 export function memoizeOne<
-  TFunc extends (...args: ExplicitAny[]) => ExplicitAny,
+  TFunc extends (...args: ReadonlyArray<ExplicitAny>) => ExplicitAny,
 >(fn: TFunc, comparator: ComparatorFn<unknown> = Object.is): TFunc {
   const cache: Cache<TFunc> = {
     params: null,

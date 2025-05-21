@@ -20,13 +20,13 @@ export const stopInJourneyPatternFieldsToRemove = {
  * journey pattern list where only the labels are shown
  */
 export const filterDistinctConsecutiveStops = <TStop extends { label: string }>(
-  stops: TStop[],
+  stops: ReadonlyArray<TStop>,
 ) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
 
 interface BuildJourneyPatternStopSequenceProps {
-  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-  includedStopLabels: string[];
-  journeyPatternStops: JourneyPatternStopFragment[];
+  stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+  includedStopLabels: ReadonlyArray<string>;
+  journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
   journeyPatternId?: UUID;
 }
 
@@ -72,7 +72,7 @@ export const buildJourneyPatternStopSequence = ({
  * @returns An array of stop in journey pattern -metadata
  */
 export const mapRouteStopsToJourneyPatternStops = (
-  stops: StopWithJourneyPatternFieldsFragment[],
+  stops: ReadonlyArray<StopWithJourneyPatternFieldsFragment>,
   routeId: UUID,
 ) => {
   return stops.flatMap((stop) => {
