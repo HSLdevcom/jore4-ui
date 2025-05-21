@@ -3,7 +3,7 @@ import { RouteTableRowFragment } from '../../../generated/graphql';
 import { RoutesTable } from '../../routes-and-lines/main/RoutesTable';
 
 type Props = {
-  routes?: RouteTableRowFragment[];
+  routes?: ReadonlyArray<RouteTableRowFragment>;
   areItemsSelectable?: boolean;
   rowVariant: RouteLineTableRowVariant;
 };

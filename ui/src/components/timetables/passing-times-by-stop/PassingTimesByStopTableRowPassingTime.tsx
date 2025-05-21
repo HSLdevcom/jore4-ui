@@ -12,7 +12,7 @@ const testIds = {
 
 type Props = {
   hour: string;
-  passingTimes: PassingTimeByStopFragment[];
+  passingTimes: ReadonlyArray<PassingTimeByStopFragment>;
 } & HighlightProps;
 
 export const PassingTimesByStopTableRowPassingTime = ({

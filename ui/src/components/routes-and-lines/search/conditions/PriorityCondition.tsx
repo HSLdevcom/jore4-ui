@@ -9,7 +9,7 @@ const testIds = {
 };
 
 type Props = {
-  priorities: Priority[];
+  priorities: ReadonlyArray<Priority>;
   onClick: (attributeName: string, value: Priority[]) => void;
 };
 

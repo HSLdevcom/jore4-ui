@@ -10,8 +10,8 @@ import { LinesList } from './LinesList';
 import { RoutesList } from './RoutesList';
 
 interface Props {
-  lines?: LineTableRowFragment[];
-  routes?: RouteTableRowFragment[];
+  lines?: ReadonlyArray<LineTableRowFragment>;
+  routes?: ReadonlyArray<RouteTableRowFragment>;
   displayedType: DisplayedSearchResultType;
   rowVariant: RouteLineTableRowVariant;
 }

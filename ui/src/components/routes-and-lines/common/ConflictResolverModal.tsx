@@ -28,7 +28,7 @@ const testIds = {
 interface Props {
   onClose: () => void;
   className?: string;
-  conflicts?: CommonConflictItem[];
+  conflicts?: ReadonlyArray<CommonConflictItem>;
 }
 
 interface CommonConflictItem {

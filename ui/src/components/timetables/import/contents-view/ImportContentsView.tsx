@@ -3,7 +3,7 @@ import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../../generated
 import { VehicleScheduleFrameBlocksView } from './VehicleScheduleFrameBlocksView';
 
 interface Props {
-  vehicleScheduleFrames: VehicleScheduleFrameWithRouteInfoFragment[];
+  vehicleScheduleFrames: ReadonlyArray<VehicleScheduleFrameWithRouteInfoFragment>;
 }
 
 export const ImportContentsView = ({

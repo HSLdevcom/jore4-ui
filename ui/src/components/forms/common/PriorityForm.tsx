@@ -25,7 +25,7 @@ interface PriorityButtonProps {
 }
 
 interface Props {
-  hiddenPriorities?: Priority[];
+  hiddenPriorities?: ReadonlyArray<Priority>;
 }
 
 const defaultPriorities: PriorityButtonProps[] = [

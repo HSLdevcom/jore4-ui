@@ -75,7 +75,9 @@ export const TimetableVersionsPage = (): React.ReactElement => {
     ) ?? [];
   const { onClose } = useTimetableVersionsReturnToQueryParam();
 
-  const sortTimetables = (timetables: TimetableVersionRowData[]) => {
+  const sortTimetables = (
+    timetables: ReadonlyArray<TimetableVersionRowData>,
+  ) => {
     return orderBy(
       timetables,
       [

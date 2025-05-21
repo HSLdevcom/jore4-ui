@@ -7,8 +7,8 @@ import { styles } from './routes/editorStyles';
 
 type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & {
   position?: ControlPosition;
-  onCreate: (evt: { features: object[] }) => void;
-  onUpdate: (evt: { features: object[] }) => void;
+  onCreate: (evt: { features: ReadonlyArray<object> }) => void;
+  onUpdate: (evt: { features: ReadonlyArray<object> }) => void;
   onModeChange: () => void;
 };
 

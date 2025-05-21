@@ -24,7 +24,7 @@ const testIds = {
 interface Props {
   testId: string;
   maintainerType: StopRegistryStopPlaceOrganisationRelationshipType;
-  organisations: Array<StopPlaceOrganisationFieldsFragment>;
+  organisations: ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
   editOrganisation: (
     org: StopPlaceOrganisationFieldsFragment | undefined,
     relationshipType: StopRegistryStopPlaceOrganisationRelationshipType,

@@ -3,7 +3,7 @@ import { padToTwoDigits } from '../../../../time';
 
 export interface VehicleServiceRowData {
   hours: number;
-  minutes: number[];
+  minutes: ReadonlyArray<number>;
 }
 
 interface Props {

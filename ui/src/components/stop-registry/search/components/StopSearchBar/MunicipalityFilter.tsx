@@ -49,7 +49,7 @@ export const MunicipalityFilter: FC<MunicipalityFilterProps> = ({
     useFormContext<StopSearchFilters>().watch('searchFor') !== SearchFor.Stops;
 
   const augmentedOnChange = (
-    selected: Array<StopRegistryMunicipality | AllOptionEnum.All>,
+    selected: ReadonlyArray<StopRegistryMunicipality | AllOptionEnum.All>,
   ) => {
     if (
       value.length === 1 &&

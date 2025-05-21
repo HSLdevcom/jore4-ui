@@ -11,7 +11,10 @@ function parseNumberOrDefault(str: string, defaultValue: number): number {
 
 export const usePagination = (): {
   currentPage: number;
-  getPaginatedData: <T>(data: Array<T>, itemsPerPage: number) => Array<T>;
+  getPaginatedData: <T>(
+    data: ReadonlyArray<T>,
+    itemsPerPage: number,
+  ) => Array<T>;
   setPage: (page: number) => void;
   getRenderedPageNumber: (page: number) => string;
   getDisplayedPageNumberList: (
@@ -24,7 +27,10 @@ export const usePagination = (): {
   const { queryParams } = useUrlQuery();
   const initialPage = parseNumberOrDefault(queryParams?.page as string, 1);
 
-  const getPaginatedData = <T>(data: Array<T>, itemsPerPage: number) => {
+  const getPaginatedData = <T>(
+    data: ReadonlyArray<T>,
+    itemsPerPage: number,
+  ) => {
     const currentPage = initialPage;
 
     return data?.slice(

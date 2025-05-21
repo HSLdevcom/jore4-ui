@@ -26,7 +26,7 @@ interface Props extends ComboboxInputProps {
   id?: string;
   buttonContent: ReactNode;
   testId?: string;
-  options: ComboboxOptionRenderer[];
+  options: ReadonlyArray<ComboboxOptionRenderer>;
   onQueryChange: (query: string) => void;
   nullable?: boolean;
 }
