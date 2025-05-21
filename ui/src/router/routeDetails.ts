@@ -23,7 +23,7 @@ export enum Path {
   stopDetails = '/stop-registry/stops/:label',
   stopVersions = '/stop-registry/stops/:label/versions',
   // stopChangeHistory = '/stop-registry/stops/:label/history',
-  // terminalDetails = '/stop-registry/terminals/:id',
+  terminalDetails = '/stop-registry/terminals/:privateCode',
   stopAreaDetails = '/stop-registry/stop-areas/:id',
 
   // Timetables
@@ -127,6 +127,10 @@ export const routeDetails: Record<Path, RouteDetail> = {
   },
   [Path.stopAreaDetails]: {
     getLink: (id: string) => Path.stopAreaDetails.replace(':id', id),
+    includeInNav: false,
+  },
+  [Path.terminalDetails]: {
+    getLink: (id: string) => Path.terminalDetails.replace(':id', id),
     includeInNav: false,
   },
 
