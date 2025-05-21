@@ -10,7 +10,7 @@ export const useStagingAndTargetFramesForCombine = (
     targetPriority: number,
   ) => Promise<UUID | null>,
   fetchVehicleFrames: (
-    ids: UUID[],
+    ids: ReadonlyArray<UUID>,
   ) => Promise<VehicleScheduleVehicleScheduleFrameWithJourneys[]>,
   fetchStagingVehicleFrameIds: () => Promise<UUID[]>,
 ) => {

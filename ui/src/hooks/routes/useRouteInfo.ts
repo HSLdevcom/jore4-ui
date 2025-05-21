@@ -108,7 +108,7 @@ const getRouteInfoFromState = (editedRouteData: EditedRouteData) => {
 };
 
 export const belongsToJourneyPattern = (
-  includedStopLabels: string[],
+  includedStopLabels: ReadonlyArray<string>,
   stopLabel: string,
 ) => {
   return includedStopLabels.includes(stopLabel);
@@ -116,8 +116,8 @@ export const belongsToJourneyPattern = (
 
 interface RouteInfo {
   routeMetadata: RouteMetadataFragment | undefined;
-  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-  includedStopLabels: string[];
+  stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+  includedStopLabels: ReadonlyArray<string>;
 }
 
 /**

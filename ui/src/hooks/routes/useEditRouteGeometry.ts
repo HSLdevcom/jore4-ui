@@ -79,9 +79,9 @@ interface EditParams {
   routeId: UUID;
   journeyPatternId: UUID;
   infraLinksAlongRoute: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
-  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-  includedStopLabels: string[];
-  journeyPatternStops: JourneyPatternStopFragment[];
+  stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+  includedStopLabels: ReadonlyArray<string>;
+  journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
 }
 
 interface EditChanges {

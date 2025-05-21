@@ -56,13 +56,13 @@ const removeSecondDirectionRouteFromResult = (
   );
 
 const groupByLabelAndVariant = (
-  routeInfo: RouteInfoForTimetableVersionFragment[],
+  routeInfo: ReadonlyArray<RouteInfoForTimetableVersionFragment>,
 ) => groupBy(routeInfo, (route) => getRouteLabelVariantText(route));
 
 const extractDistinctJourneyPatternIdsGroupedByRouteLabel = (
   groupedDataByLabelAndVariant: Record<
     string,
-    RouteInfoForTimetableVersionFragment[]
+    ReadonlyArray<RouteInfoForTimetableVersionFragment>
   >,
 ): Record<string, UUID[]> =>
   Object.entries(groupedDataByLabelAndVariant).reduce(

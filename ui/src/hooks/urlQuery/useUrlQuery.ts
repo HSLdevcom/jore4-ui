@@ -169,14 +169,16 @@ export const useUrlQuery = () => {
    * url which was replaced, but rather the one before it.
    */
   const setArrayToUrlQuery = <T>(
-    { paramName, value }: QueryParameter<T[]>,
+    { paramName, value }: QueryParameter<ReadonlyArray<T>>,
     { replace }: ParameterWriteOptions = {},
   ) => {
     setToUrlQuery({ paramName, value: value.join(','), replace });
   };
 
   /** Returns a query parameter in array type */
-  const getArrayFromUrlQuery = (paramName: string): string[] | undefined => {
+  const getArrayFromUrlQuery = (
+    paramName: string,
+  ): ReadonlyArray<string> | undefined => {
     return (queryParams[paramName] as string)
       ?.split(',')
       ?.filter((item) => item !== '');
@@ -273,7 +275,7 @@ export const useUrlQuery = () => {
     paramNames,
     replace = false,
   }: {
-    paramNames: string[];
+    paramNames: ReadonlyArray<string>;
     replace?: boolean;
   }) => {
     const updatedUrlQuery = produce(queryParams, (draft) => {

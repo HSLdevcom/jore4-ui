@@ -45,7 +45,7 @@ const GQL_GET_SELECTED_ROUTE_DETAILS_BY_ID = gql`
 interface Props {
   query: string;
   observationDate: DateTime;
-  priorities: Priority[];
+  priorities: ReadonlyArray<Priority>;
   routeId?: string;
 }
 

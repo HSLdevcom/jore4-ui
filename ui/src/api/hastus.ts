@@ -4,7 +4,7 @@ import { roleHeaderMap, userHasuraRole } from '../graphql/auth';
 import { Priority } from '../types/enums';
 
 interface CommonExportParams {
-  readonly uniqueLabels: string[];
+  readonly uniqueLabels: ReadonlyArray<string>;
   readonly priority: Priority;
 }
 

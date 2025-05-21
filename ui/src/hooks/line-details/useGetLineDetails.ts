@@ -66,7 +66,7 @@ const GQL_GET_HIGHEST_PRIORITY_LINE_DETAILS_WITH_ROUTES = gql`
 `;
 
 const findHighestPriorityRoute = <TRoute extends RouteValidityFragment>(
-  routes: TRoute[],
+  routes: ReadonlyArray<TRoute>,
 ) =>
   routes.reduce((prev, curr) => (prev.priority > curr.priority ? prev : curr));
 
@@ -75,7 +75,7 @@ const filterRoutesByHighestPriorityAndDirection = <
   TRoute extends RouteUniqueFieldsFragment,
 >(
   direction: RouteDirectionEnum,
-  routes: TRoute[],
+  routes: ReadonlyArray<TRoute>,
 ): TRoute[] => {
   const routesFilteredByDirection = routes.filter(
     (route) => route.direction === direction,
@@ -95,7 +95,7 @@ const filterRoutesByHighestPriorityAndDirection = <
 export const filterRoutesByHighestPriority = <
   TRoute extends RouteUniqueFieldsFragment,
 >(
-  lineRoutes: TRoute[],
+  lineRoutes: ReadonlyArray<TRoute>,
 ): TRoute[] => {
   // TODO: what if RouteDirectionEnum is not Inbound or Outbound?
   // In that case we are currently just filtering those routes out!

@@ -50,16 +50,16 @@ const GQL_UPDATE_ROUTE_JOURNEY_PATTERN = gql`
 `;
 interface DeleteStopParams {
   route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
-  stopPointLabels: string[];
+  stopPointLabels: ReadonlyArray<string>;
 }
 
 type AddStopParams = DeleteStopParams;
 
 interface UpdateJourneyPatternChanges {
   journeyPatternId: UUID;
-  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-  includedStopLabels: string[];
-  journeyPatternStops: JourneyPatternStopFragment[];
+  stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+  includedStopLabels: ReadonlyArray<string>;
+  journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
 }
 
 export const getEligibleStopsAlongRoute = <

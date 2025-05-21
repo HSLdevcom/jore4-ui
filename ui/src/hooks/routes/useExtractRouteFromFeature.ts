@@ -59,8 +59,8 @@ const GQL_GET_LINKS_WITH_STOPS_BY_EXTERNAL_LINK_IDS = gql`
 export const getStopLabelsIncludedInRoute = <
   TStop extends StopWithJourneyPatternFieldsFragment,
 >(
-  stops: TStop[],
-  removedStopLabels?: string[],
+  stops: ReadonlyArray<TStop>,
+  removedStopLabels?: ReadonlyArray<string>,
 ): string[] =>
   stops
     .filter((item) => !removedStopLabels?.includes(item.label))
@@ -98,7 +98,9 @@ const isStopValidDuringRouteValidity = (
  */
 const isStopAlongInfraLinks = (
   stop: ScheduledStopPointDefaultFieldsFragment,
-  routeInfraLinks: RouteInfraLink<InfraLinkMatchingFieldsFragment>[],
+  routeInfraLinks: ReadonlyArray<
+    RouteInfraLink<InfraLinkMatchingFieldsFragment>
+  >,
 ) => {
   // first checking if the stop is beside of any of the route's infra links
   const infraLink = routeInfraLinks.find(
@@ -123,7 +125,9 @@ const isStopAlongInfraLinks = (
 const validateStopInstancesAlongGeometry = (
   stop: RouteStopFieldsFragment,
   routeValidity: RouteValidityFragment,
-  routeInfraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[],
+  routeInfraLinks: ReadonlyArray<
+    RouteInfraLink<InfrastructureLinkAllFieldsFragment>
+  >,
 ) => {
   // We always allow draft stops along routes, no integrity checks are done
   if (stop.priority === Priority.Draft) {
@@ -175,7 +179,9 @@ const validateStopInstancesAlongGeometry = (
  * @param routeMetadata: metadata about the edited route (e.g. priority, validity period)
  */
 export const extractJourneyPatternCandidateStops = (
-  infraLinksWithStops: RouteInfraLink<InfrastructureLinkWithStopsFragment>[],
+  infraLinksWithStops: ReadonlyArray<
+    RouteInfraLink<InfrastructureLinkWithStopsFragment>
+  >,
   routeMetadata: RouteValidityFragment,
 ) => {
   // getting the (ordered) list of all the stops that are along the infra links,
@@ -328,7 +334,9 @@ const getRelativeSnapPointDistancesAlongLink = ({
 };
 
 export const mapInfraLinksToFeature = (
-  infraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[],
+  infraLinks: ReadonlyArray<
+    RouteInfraLink<InfrastructureLinkAllFieldsFragment>
+  >,
 ): LineStringFeature => {
   const coordinates: GeoJSON.Position[] = infraLinks.flatMap((link, index) => {
     const linkFeature = mapInfraLinkToFeature(link);
@@ -360,7 +368,7 @@ export const mapInfraLinksToFeature = (
 };
 
 export const getOldRouteGeometryVariables = (
-  previouslyEditedStopLabels: string[],
+  previouslyEditedStopLabels: ReadonlyArray<string>,
   stateInfraLinks:
     | RouteInfraLink<InfrastructureLinkAllFieldsFragment>[]
     | undefined,
@@ -395,13 +403,13 @@ export const useExtractRouteFromFeature = () => {
     useGetStopsAlongInfrastructureLinksLazyQuery();
 
   const fetchInfraLinksWithStopsByExternalIds = useCallback(
-    async (externalLinkIds: string[]) => {
+    async (externalLinkIds: ReadonlyArray<string>) => {
       // Retrieve the infra links from the external link ids returned by map-matching.
       // This will return the links in arbitrary order.
       const infraLinksWithStopsResponse =
         await fetchLinksWithStopsByExternalLinkIds({
           variables: {
-            externalLinkIds,
+            externalLinkIds: [...externalLinkIds],
           },
         });
       const unorderedInfraLinksWithStops =
@@ -461,10 +469,13 @@ export const useExtractRouteFromFeature = () => {
   );
 
   const getRemovedStopLabels = useCallback(
-    async (infrastructureLinkIds: UUID[], currentStopLabels: string[]) => {
+    async (
+      infrastructureLinkIds: ReadonlyArray<UUID>,
+      currentStopLabels: ReadonlyArray<string>,
+    ) => {
       const stopsResult = await fetchStopsAlongInfrastructureLinks({
         variables: {
-          infrastructure_link_ids: infrastructureLinkIds,
+          infrastructure_link_ids: infrastructureLinkIds as Array<string>,
         },
       });
 

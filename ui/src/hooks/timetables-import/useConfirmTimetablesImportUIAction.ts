@@ -63,7 +63,7 @@ export const useConfirmTimetablesImportUIAction = () => {
   };
 
   const onConfirmTimetablesImport = async (
-    stagingVehicleScheduleFrameIds: UUID[],
+    stagingVehicleScheduleFrameIds: ReadonlyArray<UUID>,
     priority: TimetablePriority,
     importStrategy: TimetableImportStrategy,
   ) => {

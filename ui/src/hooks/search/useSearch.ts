@@ -18,7 +18,7 @@ export const useSearch = () => {
 
   const setSearchCondition = (
     condition: string,
-    value: string | Priority[] | DateTime,
+    value: string | ReadonlyArray<Priority> | DateTime,
   ) => {
     setSearchConditions({
       ...searchConditions,

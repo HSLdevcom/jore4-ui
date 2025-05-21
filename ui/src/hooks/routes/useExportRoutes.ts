@@ -72,7 +72,7 @@ export const useExportRoutes = () => {
     return notEligibleRoutes;
   };
 
-  const exportRoutesToHastus = async (routeLabels: string[]) => {
+  const exportRoutesToHastus = async (routeLabels: ReadonlyArray<string>) => {
     try {
       setIsLoading(true);
 

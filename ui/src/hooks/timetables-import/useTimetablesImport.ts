@@ -173,7 +173,7 @@ export const useTimetablesImport = () => {
     useGetStagingVehicleScheduleFramesQuery();
 
   const confirmTimetablesImportByCombining = async (
-    stagingVehicleScheduleFrameIdsToCombine: UUID[],
+    stagingVehicleScheduleFrameIdsToCombine: ReadonlyArray<UUID>,
     priority: TimetablePriority,
   ) => {
     setIsImportLoading(true);
@@ -189,7 +189,7 @@ export const useTimetablesImport = () => {
   };
 
   const confirmTimetablesImportByReplacing = async (
-    stagingVehicleScheduleFrameIdsForReplace: UUID[],
+    stagingVehicleScheduleFrameIdsForReplace: ReadonlyArray<UUID>,
     priority: TimetablePriority,
   ) => {
     setIsImportLoading(true);
@@ -205,7 +205,9 @@ export const useTimetablesImport = () => {
     setIsImportLoading(false);
   };
 
-  const abortTimetablesImport = async (stagingFrameIdsToDelete: UUID[]) => {
+  const abortTimetablesImport = async (
+    stagingFrameIdsToDelete: ReadonlyArray<UUID>,
+  ) => {
     // Note: this also deletes all the children of the staging frames, because of cascade delete.
     setIsAbortLoading(true);
     await deleteStagingTimetables(
@@ -233,7 +235,7 @@ export const useTimetablesImport = () => {
    * a toast message will be shown in UI of the outcome.
    * Returns an object which has corresponding 'successfulFiles' and 'failedFiles'
    */
-  const sendToHastusImporter = async (fileList: File[]) => {
+  const sendToHastusImporter = async (fileList: ReadonlyArray<File>) => {
     const failedFiles: HastusImportFailure[] = [];
     const successfulFiles: File[] = [];
     setIsUploadLoading(true);

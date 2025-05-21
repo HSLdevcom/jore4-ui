@@ -24,7 +24,10 @@ export const useGetRoutesDisplayedInList = (
    * If the history is replaced, it means that back button will not go to the
    * url which was replaced, but rather the one before it.
    */
-  const setDisplayedRoutesToUrl = (routeLabels: string[], replace = true) => {
+  const setDisplayedRoutesToUrl = (
+    routeLabels: ReadonlyArray<string>,
+    replace = true,
+  ) => {
     setArrayToUrlQuery(
       { paramName: QueryParameterName.RouteLabels, value: routeLabels },
       { replace },
