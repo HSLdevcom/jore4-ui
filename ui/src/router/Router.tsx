@@ -22,6 +22,7 @@ import {
 } from '../components/stop-registry';
 import { StopAreaDetailsPage } from '../components/stop-registry/stop-areas/stop-area-details/StopAreaDetailsPage';
 import { StopVersionsPage } from '../components/stop-registry/stops/versions';
+import { TerminalDetailsPage } from '../components/stop-registry/terminals/TerminalDetailsPage';
 import {
   SubstituteDaySettingsPage,
   TimetablesMainPage,
@@ -160,6 +161,11 @@ export const Router: FC = () => {
       _routerRoute: Path.stopAreaDetails,
       protected: true,
       element: <StopAreaDetailsPage />,
+    },
+    [Path.terminalDetails]: {
+      _routerRoute: Path.terminalDetails,
+      protected: true,
+      element: <TerminalDetailsPage />,
     },
 
     // Timetables
