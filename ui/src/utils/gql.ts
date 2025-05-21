@@ -112,9 +112,11 @@ export const buildPriorityEqualGqlFilter = (priority: Priority) => ({
 });
 
 /** Builds an object for gql to filter out all but the given Priority */
-export const buildPriorityInGqlFilter = (priorities: Priority[]) => ({
+export const buildPriorityInGqlFilter = (
+  priorities: ReadonlyArray<Priority>,
+) => ({
   priority: {
-    _in: priorities,
+    _in: priorities as Priority[],
   },
 });
 
@@ -122,7 +124,7 @@ export const buildPriorityInGqlFilter = (priorities: Priority[]) => ({
  * Builds an object for gql to filter out all but the given TimetablePriority
  */
 export const buildTimetablePriorityInGqlFilter = (
-  priorities: TimetablePriority[],
+  priorities: ReadonlyArray<TimetablePriority>,
 ) => ({
   priority: {
     _in: priorities,
@@ -135,7 +137,7 @@ export const buildLabelGqlFilter = (label?: string) => ({
 });
 
 /** Builds an object for gql to filter by labels */
-export const buildLabelInGqlFilter = (labels?: string[]) => ({
+export const buildLabelInGqlFilter = (labels?: ReadonlyArray<string>) => ({
   label: { _in: labels },
 });
 

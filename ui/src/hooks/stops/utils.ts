@@ -3,7 +3,7 @@ import { JourneyPatternJourneyPattern } from '../../generated/graphql';
 
 // gets the unique list of parent routes for the input journey patterns
 export const getRoutesOfJourneyPatterns = (
-  journeyPatterns: JourneyPatternJourneyPattern[],
+  journeyPatterns: ReadonlyArray<JourneyPatternJourneyPattern>,
 ) => {
   const allRoutes = journeyPatterns
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
