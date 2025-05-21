@@ -62,7 +62,7 @@ const mapDurationToString = (duration: Maybe<Duration> | undefined) => {
 };
 
 const convertToPeriodSchema = (
-  input: TimetablesServiceCalendarSubstituteOperatingPeriod[],
+  input: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriod>,
 ): FormState => {
   const periods = input?.map((item) => {
     const periodBeginDate = minBy(
@@ -104,7 +104,7 @@ const convertToPeriodSchema = (
 };
 
 export const mapOccasionalSubstituteOperatingPeriodsToFormState = (
-  occasionalSubstituteOperatingPeriods: TimetablesServiceCalendarSubstituteOperatingPeriod[],
+  occasionalSubstituteOperatingPeriods: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriod>,
 ) => {
   return convertToPeriodSchema(occasionalSubstituteOperatingPeriods);
 };

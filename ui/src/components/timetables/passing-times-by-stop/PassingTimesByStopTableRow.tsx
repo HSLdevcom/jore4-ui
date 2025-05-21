@@ -53,7 +53,7 @@ const testIds = {
 };
 
 type Props = {
-  passingTimes: PassingTimeByStopFragment[];
+  passingTimes: ReadonlyArray<PassingTimeByStopFragment>;
   // TODO: Make this required! For now it has to be optional,
   // as seed data does not contain proper journey patterns for all timetables
   journeyPatternStop?: JourneyPatternStopFragment;

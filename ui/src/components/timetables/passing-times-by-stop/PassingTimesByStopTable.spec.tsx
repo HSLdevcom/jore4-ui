@@ -225,7 +225,7 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
 
   const shouldHaveCorrectLabelTexts = (
     row: HTMLElement,
-    textContentToHave: string[],
+    textContentToHave: ReadonlyArray<string>,
   ) => {
     const column = row.querySelector('td');
     textContentToHave.forEach((text) => expect(column).toHaveTextContent(text));
@@ -237,7 +237,7 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
 
   const shouldHaveCorrectDepartureTimes = (
     timeContainer: Element,
-    minutes: string[],
+    minutes: ReadonlyArray<string>,
   ) => {
     const departureTimes = timeContainer.querySelectorAll(
       selectors.departureTime,

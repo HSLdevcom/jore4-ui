@@ -11,7 +11,7 @@ import { DateRange } from '../common/DateRange';
 interface Props extends ComboboxInputProps {
   testId?: string;
   date: DateTime;
-  priorities: Priority[];
+  priorities: ReadonlyArray<Priority>;
 }
 
 const mapToOptionContent = (item: RouteAllFieldsFragment) => (

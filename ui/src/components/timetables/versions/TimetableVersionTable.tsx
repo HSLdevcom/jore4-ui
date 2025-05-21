@@ -3,7 +3,7 @@ import { TimetableVersionRowData } from '../../../hooks/useGetTimetableVersions'
 import { TimetableVersionTableRow } from './TimetableVersionTableRow';
 
 interface Props {
-  data: TimetableVersionRowData[];
+  data: ReadonlyArray<TimetableVersionRowData>;
   className: string;
 }
 

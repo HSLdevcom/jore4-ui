@@ -24,7 +24,7 @@ const testIds = {
 
 interface Props {
   className?: string;
-  hiddenPriorities?: Priority[];
+  hiddenPriorities?: ReadonlyArray<Priority>;
 }
 
 /**

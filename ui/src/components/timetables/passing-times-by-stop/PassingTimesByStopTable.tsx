@@ -27,7 +27,7 @@ const GQL_VEHICLE_JOURNEY = gql`
 `;
 
 interface Props {
-  vehicleJourneys: VehicleJourneyByStopFragment[];
+  vehicleJourneys: ReadonlyArray<VehicleJourneyByStopFragment>;
   route: RouteWithJourneyPatternStopsFragment;
   className?: string;
 }

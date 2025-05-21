@@ -16,7 +16,7 @@ const testIds = {
 };
 
 type Props = {
-  vehicleJourneyGroups: VehicleJourneyGroup[];
+  vehicleJourneyGroups: ReadonlyArray<VehicleJourneyGroup>;
   route: RouteWithJourneyPatternStopsFragment;
 };
 

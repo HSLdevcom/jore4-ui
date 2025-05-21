@@ -10,8 +10,8 @@ import { DuplicateJourneysSection } from './duplicate-journeys';
 import { MissingRouteDeviationsSection } from './missing-route-deviations';
 
 interface Props {
-  deviations: VehicleScheduleFrameInfo[];
-  duplicateJourneys: VehicleJourneyDuplicate[];
+  deviations: ReadonlyArray<VehicleScheduleFrameInfo>;
+  duplicateJourneys: ReadonlyArray<VehicleJourneyDuplicate>;
   className?: string;
 }
 

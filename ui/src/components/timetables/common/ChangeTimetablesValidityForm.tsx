@@ -26,7 +26,7 @@ interface Props {
   className?: string;
   onSubmit: (state: FormState) => void;
   onCancel: () => void;
-  affectedRouteLabels: string[];
+  affectedRouteLabels: ReadonlyArray<string>;
 }
 
 const testIds = {

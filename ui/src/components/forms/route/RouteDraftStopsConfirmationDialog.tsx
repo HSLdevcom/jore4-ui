@@ -7,7 +7,7 @@ interface Props {
   onRemoveStops: () => void;
   onCancel: () => void;
   routeLabel?: string;
-  stopsLabelsToRemove: string[];
+  stopsLabelsToRemove: ReadonlyArray<string>;
   className?: string;
 }
 

@@ -13,7 +13,7 @@ const testIds = {
 interface Props extends FormInputProps {
   id?: string;
   testId?: string;
-  organisations: Array<StopPlaceOrganisationFieldsFragment>;
+  organisations: ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
 }
 
 const uiNameMapper = (val: StopPlaceOrganisationFieldsFragment | undefined) => {

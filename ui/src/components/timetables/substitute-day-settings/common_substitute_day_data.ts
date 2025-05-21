@@ -1,10 +1,10 @@
-type commonSubstituteDay = {
+type CommonSubstituteDay = {
   name: string;
   month: number;
   day: number;
 };
 
-export const commonSubstituteDayData: commonSubstituteDay[] = [
+export const commonSubstituteDayData: ReadonlyArray<CommonSubstituteDay> = [
   { name: 'Uudenvuodenpäivä', month: 1, day: 1 },
   { name: 'Loppiainen', month: 1, day: 6 },
   { name: 'Vappu', month: 5, day: 1 },

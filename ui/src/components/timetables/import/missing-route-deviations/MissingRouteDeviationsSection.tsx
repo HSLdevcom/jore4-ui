@@ -13,7 +13,7 @@ export const MissingRouteDeviationsSection = ({
   handleClose,
 }: {
   className?: string;
-  routeDeviations: VehicleScheduleFrameInfo[];
+  routeDeviations: ReadonlyArray<VehicleScheduleFrameInfo>;
   handleClose: () => void;
 }) => {
   const { t } = useTranslation();

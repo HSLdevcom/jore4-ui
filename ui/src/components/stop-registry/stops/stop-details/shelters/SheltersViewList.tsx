@@ -3,7 +3,7 @@ import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
 import { ShelterViewCard } from './ShelterViewCard';
 
 interface Props {
-  shelters: Array<ShelterEquipmentDetailsFragment>;
+  shelters: ReadonlyArray<ShelterEquipmentDetailsFragment>;
 }
 
 export const SheltersViewList = ({ shelters }: Props): React.ReactElement => {

@@ -16,7 +16,7 @@ export interface ListboxOptionRenderer {
 }
 
 interface Props {
-  options: ListboxOptionRenderer[];
+  options: ReadonlyArray<ListboxOptionRenderer>;
   testId: string;
 }
 

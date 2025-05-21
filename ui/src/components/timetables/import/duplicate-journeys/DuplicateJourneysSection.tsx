@@ -11,7 +11,7 @@ export const DuplicateJourneysSection = ({
   duplicateJourneys,
 }: {
   className?: string;
-  duplicateJourneys: VehicleJourneyDuplicate[];
+  duplicateJourneys: ReadonlyArray<VehicleJourneyDuplicate>;
 }) => {
   const { t } = useTranslation();
 

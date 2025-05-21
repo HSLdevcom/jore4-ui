@@ -8,7 +8,7 @@ export interface Props {
   id?: string;
   uiNameMapper: (key: string) => string;
   testId?: string;
-  values: string[];
+  values: ReadonlyArray<string>;
   value: string;
   onChange: ValueFn;
   buttonClassNames?: string;

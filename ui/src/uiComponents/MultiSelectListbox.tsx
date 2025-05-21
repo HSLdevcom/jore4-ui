@@ -8,7 +8,7 @@ import { ListboxButton } from './ListboxButton';
 import { ListboxOptionRenderer, ListboxOptions } from './ListboxOptions';
 
 interface MultiSelectFormInputProps {
-  value?: string[];
+  value?: ReadonlyArray<string>;
   onChange: ValueFn;
   onBlur?: Noop;
   fieldState?: ControllerFieldState;
@@ -19,7 +19,7 @@ interface Props extends MultiSelectFormInputProps {
   id?: string;
   buttonContent: ReactNode;
   testId: string;
-  options: ListboxOptionRenderer[];
+  options: ReadonlyArray<ListboxOptionRenderer>;
   buttonClassNames?: string;
   arrowButtonClassNames?: string;
 }
@@ -38,22 +38,22 @@ export const MultiSelectListbox = ({
   arrowButtonClassNames = '',
 }: Props): React.ReactElement => {
   const getRemovedItem = (
-    changedItems: string[],
-    items: string[] | undefined,
+    changedItems: ReadonlyArray<string>,
+    items: ReadonlyArray<string> | undefined,
   ) => {
     return first(items?.filter((item) => !changedItems.includes(item))) ?? '';
   };
 
   const getAddedItem = (
-    changedItems: string[],
-    items: string[] | undefined,
+    changedItems: ReadonlyArray<string>,
+    items: ReadonlyArray<string> | undefined,
   ) => {
     return first(changedItems.filter((item) => !items?.includes(item))) ?? '';
   };
 
   const createUpdatedItems = (
-    changedItems: string[],
-    items: string[] | undefined,
+    changedItems: ReadonlyArray<string>,
+    items: ReadonlyArray<string> | undefined,
   ) => {
     const removed = getRemovedItem(changedItems, items);
     const selected = getAddedItem(changedItems, items);
@@ -82,7 +82,7 @@ export const MultiSelectListbox = ({
     return changedItems;
   };
 
-  const onItemSelect = (changedItems: string[]) => {
+  const onItemSelect = (changedItems: ReadonlyArray<string>) => {
     const updatedItems = createUpdatedItems(changedItems, value);
     const updatedItemsString = updatedItems.join(',');
     onChange({ target: { value: updatedItemsString } });

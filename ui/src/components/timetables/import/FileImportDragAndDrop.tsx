@@ -12,7 +12,7 @@ interface DragZoneClassNames {
 }
 
 interface Props {
-  fileList: File[] | null;
+  fileList: ReadonlyArray<File> | null;
   setFileList: (fileList: File[]) => void;
 }
 

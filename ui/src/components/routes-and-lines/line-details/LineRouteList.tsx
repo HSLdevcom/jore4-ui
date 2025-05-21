@@ -7,7 +7,7 @@ import { Switch, SwitchLabel } from '../../../uiComponents';
 import { LineRouteListItem } from './LineRouteListItem';
 
 interface Props {
-  routes: RouteUniqueFieldsFragment[];
+  routes: ReadonlyArray<RouteUniqueFieldsFragment>;
 }
 
 const testIds = {

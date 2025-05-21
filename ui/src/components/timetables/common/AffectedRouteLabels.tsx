@@ -1,5 +1,5 @@
 interface Props {
-  affectedRouteLabels: string[];
+  affectedRouteLabels: ReadonlyArray<string>;
   text: string;
 }
 

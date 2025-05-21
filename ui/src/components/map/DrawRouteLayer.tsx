@@ -93,7 +93,7 @@ export const DrawRouteLayer = ({ editorLayerRef }: Props) => {
   };
 
   const moveLayers = useCallback(
-    (layerIds: string[]) => {
+    (layerIds: ReadonlyArray<string>) => {
       if (map?.getLayer(`${ACTIVE_LINE_STROKE_ID}.cold`)) {
         layerIds.forEach((layerId) => {
           if (map?.getLayer(layerId)) {
@@ -181,13 +181,13 @@ export const DrawRouteLayer = ({ editorLayerRef }: Props) => {
     setCursor(map, Mode.Edit);
   };
 
-  const updateLineOnMap = (e: { features: object[] }) => {
+  const updateLineOnMap = (e: { features: ReadonlyArray<object> }) => {
     const snappingLineFeature = e.features[0] as LineStringFeature;
     setSnappingLine(snappingLineFeature);
     debouncedOnAddRoute(snappingLineFeature);
   };
 
-  const onCreate = (e: { features: object[] }) => {
+  const onCreate = (e: { features: ReadonlyArray<object> }) => {
     updateLineOnMap(e);
     stopRouteEditing();
   };

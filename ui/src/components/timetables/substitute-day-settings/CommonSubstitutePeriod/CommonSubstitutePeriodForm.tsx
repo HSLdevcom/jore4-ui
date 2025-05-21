@@ -61,7 +61,7 @@ const generatePresetDatesForDateRange = (
 };
 
 export const mapCommonSubstituteOperatingPeriodsToCommonDays = (
-  commonSubstituteOperatingPeriods: TimetablesServiceCalendarSubstituteOperatingPeriod[],
+  commonSubstituteOperatingPeriods: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriod>,
 ): CommonDayType[] => {
   return commonSubstituteOperatingPeriods?.map((period) => {
     const lineTypes: Set<string> = new Set();
@@ -88,8 +88,8 @@ export const mapCommonSubstituteOperatingPeriodsToCommonDays = (
 };
 
 const combineCommonDaysWithPresetDates = (
-  commonDays: CommonDayType[],
-  presetDays: GeneratedDate[],
+  commonDays: Array<CommonDayType>,
+  presetDays: ReadonlyArray<GeneratedDate>,
 ): CommonDayType[] => {
   presetDays.forEach((presetDay) => {
     const presetDayFoundInCommonDays = commonDays.some(
@@ -116,7 +116,7 @@ const combineCommonDaysWithPresetDates = (
 
 interface Props {
   className?: string;
-  commonDays?: CommonDayType[];
+  commonDays?: Array<CommonDayType>;
   onSubmit: (state: FormState) => void;
   dateRange: DateRange;
 }

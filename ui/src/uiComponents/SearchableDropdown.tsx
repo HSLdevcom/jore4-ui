@@ -13,7 +13,7 @@ interface Props<T> extends ComboboxInputProps {
   onQueryChange: (query: string) => void;
   mapToButtonContent: (displayedItem?: T) => React.ReactElement;
   nullOptionRender?: () => React.ReactElement;
-  options: ComboboxOptionRenderer[];
+  options: ReadonlyArray<ComboboxOptionRenderer>;
 }
 
 export const SearchableDropdown = <T extends ExplicitAny>({

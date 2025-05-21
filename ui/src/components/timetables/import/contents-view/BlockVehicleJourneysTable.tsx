@@ -21,7 +21,7 @@ const testIds = {
 export const blockVehicleJourneysTableTestIds = testIds;
 
 interface Props {
-  vehicleJourneys: VehicleJourneyWithRouteInfoFragment[];
+  vehicleJourneys: ReadonlyArray<VehicleJourneyWithRouteInfoFragment>;
   vehicleService: VehicleServiceWithJourneysFragment;
   vehicleType:
     | Pick<TimetablesVehicleTypeVehicleType, 'description_i18n'>

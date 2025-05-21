@@ -5,8 +5,8 @@ export const knownMunicipalities: ReadonlyArray<StopRegistryMunicipality> =
   numberEnumValues(StopRegistryMunicipality);
 
 export function handleAllMunicipalities(
-  selected: Array<StopRegistryMunicipality | AllOptionEnum.All>,
-) {
+  selected: ReadonlyArray<StopRegistryMunicipality | AllOptionEnum.All>,
+): Array<StopRegistryMunicipality | AllOptionEnum> {
   if (
     selected.length === 0 ||
     selected.includes(AllOptionEnum.All) ||
@@ -15,5 +15,5 @@ export function handleAllMunicipalities(
     return [AllOptionEnum.All];
   }
 
-  return selected;
+  return [...selected];
 }

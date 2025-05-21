@@ -1,7 +1,7 @@
 import { RouteTimetablesSection } from './RouteTimetablesSection';
 
 interface Props {
-  routeIds: UUID[];
+  routeIds: ReadonlyArray<UUID>;
 }
 
 export const RouteTimetableList = ({ routeIds }: Props): React.ReactElement => {
