@@ -68971,6 +68971,206 @@ export type StopVersionInfoFragment = {
   } | null
 };
 
+export type GetParentStopPlaceDetailsQueryVariables = Exact<{
+  privateCode: Scalars['String']['input'];
+  validOn: Scalars['String']['input'];
+}>;
+
+
+export type GetParentStopPlaceDetailsQuery = {
+  __typename?: 'query_root',
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query',
+    stops_database_stop_place_newest_version: Array<{
+      __typename?: 'stops_database_stop_place_newest_version',
+      id?: any | null,
+      TiamatStopPlace?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace',
+        id?: string | null,
+        alternativeNames?: Array<{
+          __typename?: 'stop_registry_AlternativeName',
+          nameType: StopRegistryNameType,
+          name: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            lang?: string | null,
+            value?: string | null
+          }
+        } | null> | null,
+        privateCode?: {
+          __typename?: 'stop_registry_PrivateCode',
+          value?: string | null,
+          type?: string | null
+        } | null,
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null,
+        description?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        } | null,
+        geometry?: {
+          __typename?: 'stop_registry_GeoJSON',
+          type?: StopRegistryGeoJsonType | null,
+          coordinates?: GeoJSON.Position | null
+        } | null,
+        keyValues?: Array<{
+          __typename?: 'stop_registry_KeyValues',
+          key?: string | null,
+          values?: Array<string | null> | null
+        } | null> | null,
+        accessibilityAssessment?: {
+          __typename?: 'stop_registry_AccessibilityAssessment',
+          id?: string | null,
+          hslAccessibilityProperties?: {
+            __typename?: 'stop_registry_HslAccessibilityProperties',
+            id?: string | null,
+            stopAreaSideSlope?: number | null,
+            stopAreaLengthwiseSlope?: number | null,
+            endRampSlope?: number | null,
+            shelterLaneDistance?: number | null,
+            curbBackOfRailDistance?: number | null,
+            curbDriveSideOfRailDistance?: number | null,
+            structureLaneDistance?: number | null,
+            stopElevationFromRailTop?: number | null,
+            stopElevationFromSidewalk?: number | null,
+            lowerCleatHeight?: number | null,
+            serviceAreaWidth?: number | null,
+            serviceAreaLength?: number | null,
+            platformEdgeWarningArea?: boolean | null,
+            guidanceTiles?: boolean | null,
+            guidanceStripe?: boolean | null,
+            serviceAreaStripes?: boolean | null,
+            sidewalkAccessibleConnection?: boolean | null,
+            stopAreaSurroundingsAccessible?: boolean | null,
+            curvedStop?: boolean | null,
+            stopType?: StopRegistryStopType | null,
+            shelterType?: StopRegistryShelterWidthType | null,
+            guidanceType?: StopRegistryGuidanceType | null,
+            mapType?: StopRegistryMapType | null,
+            pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
+            accessibilityLevel?: StopRegistryAccessibilityLevel | null
+          } | null,
+          limitations?: {
+            __typename?: 'stop_registry_AccessibilityLimitations',
+            id?: string | null,
+            version?: string | null,
+            audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+            escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+            liftFreeAccess?: StopRegistryLimitationStatusType | null,
+            stepFreeAccess?: StopRegistryLimitationStatusType | null,
+            wheelchairAccess?: StopRegistryLimitationStatusType | null
+          } | null
+        } | null,
+        children?: Array<{
+          __typename?: 'stop_registry_StopPlace',
+          id?: string | null,
+          quays?: Array<{
+            __typename?: 'stop_registry_Quay',
+            id?: string | null,
+            publicCode?: string | null
+          } | null> | null
+        } | null> | null
+      } | {
+        __typename?: 'stop_registry_StopPlace'
+      } | null> | null
+    }>
+  } | null
+};
+
+export type ParentStopPlaceDetailsFragment = {
+  __typename?: 'stop_registry_ParentStopPlace',
+  id?: string | null,
+  alternativeNames?: Array<{
+    __typename?: 'stop_registry_AlternativeName',
+    nameType: StopRegistryNameType,
+    name: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      lang?: string | null,
+      value?: string | null
+    }
+  } | null> | null,
+  privateCode?: {
+    __typename?: 'stop_registry_PrivateCode',
+    value?: string | null,
+    type?: string | null
+  } | null,
+  name?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString',
+    lang?: string | null,
+    value?: string | null
+  } | null,
+  description?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString',
+    lang?: string | null,
+    value?: string | null
+  } | null,
+  geometry?: {
+    __typename?: 'stop_registry_GeoJSON',
+    type?: StopRegistryGeoJsonType | null,
+    coordinates?: GeoJSON.Position | null
+  } | null,
+  keyValues?: Array<{
+    __typename?: 'stop_registry_KeyValues',
+    key?: string | null,
+    values?: Array<string | null> | null
+  } | null> | null,
+  accessibilityAssessment?: {
+    __typename?: 'stop_registry_AccessibilityAssessment',
+    id?: string | null,
+    hslAccessibilityProperties?: {
+      __typename?: 'stop_registry_HslAccessibilityProperties',
+      id?: string | null,
+      stopAreaSideSlope?: number | null,
+      stopAreaLengthwiseSlope?: number | null,
+      endRampSlope?: number | null,
+      shelterLaneDistance?: number | null,
+      curbBackOfRailDistance?: number | null,
+      curbDriveSideOfRailDistance?: number | null,
+      structureLaneDistance?: number | null,
+      stopElevationFromRailTop?: number | null,
+      stopElevationFromSidewalk?: number | null,
+      lowerCleatHeight?: number | null,
+      serviceAreaWidth?: number | null,
+      serviceAreaLength?: number | null,
+      platformEdgeWarningArea?: boolean | null,
+      guidanceTiles?: boolean | null,
+      guidanceStripe?: boolean | null,
+      serviceAreaStripes?: boolean | null,
+      sidewalkAccessibleConnection?: boolean | null,
+      stopAreaSurroundingsAccessible?: boolean | null,
+      curvedStop?: boolean | null,
+      stopType?: StopRegistryStopType | null,
+      shelterType?: StopRegistryShelterWidthType | null,
+      guidanceType?: StopRegistryGuidanceType | null,
+      mapType?: StopRegistryMapType | null,
+      pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
+      accessibilityLevel?: StopRegistryAccessibilityLevel | null
+    } | null,
+    limitations?: {
+      __typename?: 'stop_registry_AccessibilityLimitations',
+      id?: string | null,
+      version?: string | null,
+      audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+      escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+      liftFreeAccess?: StopRegistryLimitationStatusType | null,
+      stepFreeAccess?: StopRegistryLimitationStatusType | null,
+      wheelchairAccess?: StopRegistryLimitationStatusType | null
+    } | null
+  } | null,
+  children?: Array<{
+    __typename?: 'stop_registry_StopPlace',
+    id?: string | null,
+    quays?: Array<{
+      __typename?: 'stop_registry_Quay',
+      id?: string | null,
+      publicCode?: string | null
+    } | null> | null
+  } | null> | null
+};
+
 export type VehicleJourneyByStopFragment = {
   __typename?: 'timetables_vehicle_journey_vehicle_journey',
   journey_pattern_ref_id: UUID,
@@ -75419,6 +75619,48 @@ export const StopVersionInfoFragmentDoc = gql`
   version_comment
 }
     `;
+export const ParentStopPlaceDetailsFragmentDoc = gql`
+    fragment parent_stop_place_details on stop_registry_ParentStopPlace {
+  id
+  alternativeNames {
+    name {
+      lang
+      value
+    }
+    nameType
+  }
+  privateCode {
+    value
+    type
+  }
+  name {
+    lang
+    value
+  }
+  description {
+    lang
+    value
+  }
+  geometry {
+    type
+    coordinates
+  }
+  keyValues {
+    key
+    values
+  }
+  accessibilityAssessment {
+    ...accessibility_assessment_details
+  }
+  children {
+    id
+    quays {
+      id
+      publicCode
+    }
+  }
+}
+    ${AccessibilityAssessmentDetailsFragmentDoc}`;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
     fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
   external_link_id
@@ -77327,6 +77569,54 @@ export type GetQuayVersionsQueryHookResult = ReturnType<typeof useGetQuayVersion
 export type GetQuayVersionsLazyQueryHookResult = ReturnType<typeof useGetQuayVersionsLazyQuery>;
 export type GetQuayVersionsSuspenseQueryHookResult = ReturnType<typeof useGetQuayVersionsSuspenseQuery>;
 export type GetQuayVersionsQueryResult = Apollo.QueryResult<GetQuayVersionsQuery, GetQuayVersionsQueryVariables>;
+export const GetParentStopPlaceDetailsDocument = gql`
+    query getParentStopPlaceDetails($privateCode: String!, $validOn: String!) {
+  stops_database {
+    stops_database_stop_place_newest_version(
+      where: {private_code_value: {_eq: $privateCode}, validity_start: {_lte: $validOn}, _or: [{validity_end: {_is_null: true}}, {validity_end: {_gte: $validOn}}]}
+    ) {
+      id
+      TiamatStopPlace {
+        ...parent_stop_place_details
+      }
+    }
+  }
+}
+    ${ParentStopPlaceDetailsFragmentDoc}`;
+
+/**
+ * __useGetParentStopPlaceDetailsQuery__
+ *
+ * To run a query within a React component, call `useGetParentStopPlaceDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetParentStopPlaceDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetParentStopPlaceDetailsQuery({
+ *   variables: {
+ *      privateCode: // value for 'privateCode'
+ *      validOn: // value for 'validOn'
+ *   },
+ * });
+ */
+export function useGetParentStopPlaceDetailsQuery(baseOptions: Apollo.QueryHookOptions<GetParentStopPlaceDetailsQuery, GetParentStopPlaceDetailsQueryVariables> & ({ variables: GetParentStopPlaceDetailsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetParentStopPlaceDetailsQuery, GetParentStopPlaceDetailsQueryVariables>(GetParentStopPlaceDetailsDocument, options);
+      }
+export function useGetParentStopPlaceDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetParentStopPlaceDetailsQuery, GetParentStopPlaceDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetParentStopPlaceDetailsQuery, GetParentStopPlaceDetailsQueryVariables>(GetParentStopPlaceDetailsDocument, options);
+        }
+export function useGetParentStopPlaceDetailsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetParentStopPlaceDetailsQuery, GetParentStopPlaceDetailsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetParentStopPlaceDetailsQuery, GetParentStopPlaceDetailsQueryVariables>(GetParentStopPlaceDetailsDocument, options);
+        }
+export type GetParentStopPlaceDetailsQueryHookResult = ReturnType<typeof useGetParentStopPlaceDetailsQuery>;
+export type GetParentStopPlaceDetailsLazyQueryHookResult = ReturnType<typeof useGetParentStopPlaceDetailsLazyQuery>;
+export type GetParentStopPlaceDetailsSuspenseQueryHookResult = ReturnType<typeof useGetParentStopPlaceDetailsSuspenseQuery>;
+export type GetParentStopPlaceDetailsQueryResult = Apollo.QueryResult<GetParentStopPlaceDetailsQuery, GetParentStopPlaceDetailsQueryVariables>;
 export const GetRouteWithJourneyPatternDocument = gql`
     query GetRouteWithJourneyPattern($routeId: uuid!) {
   route_route_by_pk(route_id: $routeId) {
