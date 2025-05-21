@@ -15,6 +15,7 @@ import {
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
 import {
+  ParentStopPlaceEnrichmentProperties,
   QuayEnrichmentProperties,
   StopPlaceEnrichmentProperties,
 } from '../../types';
@@ -40,6 +41,16 @@ const isStopPlace = <T extends StopPlaceType>(
   );
 };
 
+const isParentStopPlace = <T extends ParentStopPlaceType>(
+  stopPlaceResult: unknown,
+): stopPlaceResult is T => {
+  return !!(
+    hasTypeName(stopPlaceResult) && // Null obviously does not have type name at all.
+    // eslint-disable-next-line no-underscore-dangle
+    stopPlaceResult.__typename === 'stop_registry_ParentStopPlace'
+  );
+};
+
 /**
  * Takes an array of StopPlace objects from a GraphQL query result.
  * Filters unwanted types from the result, and returns StopPlace objects with correct type.
@@ -52,6 +63,18 @@ export const getStopPlacesFromQueryResult = <T extends StopPlaceType>(
 ): Array<T> => {
   const stopPlaces = stopPlaceResult ?? [];
   return stopPlaces.filter(isStopPlace<T>);
+};
+
+export const getParentStopPlacesFromQueryResult = <
+  T extends ParentStopPlaceType,
+>(
+  parentStopPlaceResult:
+    | ReadonlyArray<T | ParentStopPlaceType | null>
+    | undefined
+    | null,
+): Array<T> => {
+  const parentStopPlaces = parentStopPlaceResult ?? [];
+  return parentStopPlaces.filter(isParentStopPlace<T>);
 };
 
 // Required in DB so can't be null.
@@ -222,7 +245,7 @@ type StopRegistryStopPlaceWithQuays = Omit<StopRegistryStopPlace, 'quays'> & {
 };
 
 const findCoordinate = (
-  stopPlace: StopRegistryStopPlaceWithQuays,
+  stopPlace: StopRegistryStopPlaceWithQuays | StopRegistryParentStopPlace,
   coordinate: 'latitude' | 'longitude',
 ): number | undefined => {
   const coordinates = stopPlace.geometry?.coordinates ?? undefined;
@@ -232,6 +255,10 @@ const findCoordinate = (
 // Mark all keys as required, but allow undefined as value.
 type ObjectWithAllKeyosOfStopPlaceEnrichmentProperties = {
   [K in keyof Required<StopPlaceEnrichmentProperties>]: StopPlaceEnrichmentProperties[K];
+};
+
+type ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties = {
+  [K in keyof Required<ParentStopPlaceEnrichmentProperties>]: ParentStopPlaceEnrichmentProperties[K];
 };
 
 export const getStopPlaceDetailsForEnrichment = <
@@ -272,6 +299,52 @@ export const getStopPlaceDetailsForEnrichment = <
     locationLong: findCoordinate(stopPlace, 'longitude'),
     validityStart: findKeyValue(stopPlace, 'validityStart') || undefined,
     validityEnd: findKeyValue(stopPlace, 'validityEnd') || undefined,
+  };
+  /* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
+};
+
+export const getParentStopPlaceDetailsForEnrichment = <
+  T extends StopRegistryParentStopPlace,
+>(
+  parentStopPlace: T,
+): ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties => {
+  /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+  return {
+    nameSwe:
+      findAlternativeName(
+        parentStopPlace,
+        'swe',
+        StopRegistryNameType.Translation,
+      )?.value || undefined,
+    nameEng:
+      findAlternativeName(
+        parentStopPlace,
+        'eng',
+        StopRegistryNameType.Translation,
+      )?.value || undefined,
+    nameLongFin:
+      findAlternativeName(parentStopPlace, 'fin', StopRegistryNameType.Alias)
+        ?.value || undefined,
+    nameLongSwe:
+      findAlternativeName(parentStopPlace, 'swe', StopRegistryNameType.Alias)
+        ?.value || undefined,
+    nameLongEng:
+      findAlternativeName(parentStopPlace, 'eng', StopRegistryNameType.Alias)
+        ?.value || undefined,
+    abbreviationFin:
+      findAlternativeName(parentStopPlace, 'fin', StopRegistryNameType.Other)
+        ?.value || undefined,
+    abbreviationSwe:
+      findAlternativeName(parentStopPlace, 'swe', StopRegistryNameType.Other)
+        ?.value || undefined,
+    abbreviationEng:
+      findAlternativeName(parentStopPlace, 'eng', StopRegistryNameType.Other)
+        ?.value || undefined,
+    name: parentStopPlace.name?.value || undefined,
+    locationLat: findCoordinate(parentStopPlace, 'latitude'),
+    locationLong: findCoordinate(parentStopPlace, 'longitude'),
+    validityStart: findKeyValue(parentStopPlace, 'validityStart') || undefined,
+    validityEnd: findKeyValue(parentStopPlace, 'validityEnd') || undefined,
   };
   /* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
 };
