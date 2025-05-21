@@ -151,14 +151,14 @@
       "title": "JORE stop area",
       "name": "Stop area name",
       "nameSwe": "Stop area name (swedish)",
-      "nameEng": "Name (english)",
+      "nameEng": "Name (English)",
       "nameLongFin": "Long name (Finnish)",
       "nameLongSwe": "Long name (Swedish)",
       "nameLongEng": "Long name (English)",
       "abbreviationFin": "Abbreviation (Finnish)",
       "abbreviationSwe": "Abbreviation (Swedish)",
       "abbreviationEng": "Abbreviation (English)",
-      "privateCode": "Stop area label",
+      "privateCode": "Private code",
       "parentTerminal": "Parent terminal",
       "areaSize": "Stop area size (m²)",
       "validityPeriod": "Validity period",
@@ -470,6 +470,42 @@
       "addExternalLink": "Add new link",
       "name": "Name",
       "location": "Link"
+    },
+    "alternativeNames": {
+      "nameEng": "Name (English)",
+      "nameLongFin": "Long name (Finnish)",
+      "nameLongSwe": "Long name (Swedish)",
+      "nameLongEng": "Long name (English)",
+      "abbreviationFin": "Abbreviation (Finnish)",
+      "abbreviationSwe": "Abbreviation (Swedish)",
+      "abbreviationEng": "Abbreviation (English)"
+    }
+  },
+
+  "terminalDetails": {
+    "title": "Basic details",
+    "basicDetails": {
+      "title": "Terminal basic details",
+      "description": "Description",
+      "name": "Name",
+      "nameSwe": "Name (Swedish)",
+      "terminalType": "Terminal type",
+      "privateCode": "Private code",
+      "departurePlatforms": "Departure platforms",
+      "arrivalPlatforms": "Arrival platforms",
+      "loadingPlatforms": "Loading platforms",
+      "electricCharging": "Electric charging"
+    },
+    "location": {
+      "title": "Location",
+      "streetAddress": "Street address",
+      "postalCode": "Postal code",
+      "municipality": "Municipality",
+      "fareZone": "Fare zone",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "memberStops": "Member stops ({{count}})",
+      "memberPlatforms": "Member platforms"
     }
   },
   "stopRegistrySearch": {
