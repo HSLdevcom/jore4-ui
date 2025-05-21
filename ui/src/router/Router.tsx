@@ -36,6 +36,7 @@ import { Spinner } from '../uiComponents';
 import { JoreErrorModal } from '../uiComponents/JoreErrorModal';
 import { showDangerToast } from '../utils';
 import { Path } from './routeDetails';
+import { TerminalDetailsPage } from '../components/stop-registry/terminals/TerminalDetailsPage';
 
 const FallbackRoute: FC = () => {
   return (
@@ -160,6 +161,11 @@ export const Router: FC = () => {
       _routerRoute: Path.stopAreaDetails,
       protected: true,
       element: <StopAreaDetailsPage />,
+    },
+    [Path.terminalDetails]: {
+      _routerRoute: Path.terminalDetails,
+      protected: true,
+      element: <TerminalDetailsPage />,
     },
 
     // Timetables
