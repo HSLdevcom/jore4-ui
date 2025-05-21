@@ -4,6 +4,7 @@ import {
   StopRegistryStopPlaceInput,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
+import { mapToAlternativeNames } from './mappers';
 import { StopPlaceMaintenance } from './stopPlaces';
 import { getKeyValue } from './utils';
 
@@ -34,54 +35,7 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
   return {
     StopArea: {
       transportMode: StopRegistryTransportModeType.Bus,
-      alternativeNames: [
-        seedStopArea.nameFinLong
-          ? {
-              name: { lang: 'fin', value: seedStopArea.nameFinLong },
-              nameType: StopRegistryNameType.Alias,
-            }
-          : null,
-        seedStopArea.nameSweLong
-          ? {
-              name: { lang: 'swe', value: seedStopArea.nameSweLong },
-              nameType: StopRegistryNameType.Alias,
-            }
-          : null,
-        seedStopArea.nameEngLong
-          ? {
-              name: { lang: 'eng', value: seedStopArea.nameEngLong },
-              nameType: StopRegistryNameType.Alias,
-            }
-          : null,
-        seedStopArea.abbreviationFin
-          ? {
-              name: { lang: 'fin', value: seedStopArea.abbreviationFin },
-              nameType: StopRegistryNameType.Other,
-            }
-          : null,
-        seedStopArea.abbreviationSwe
-          ? {
-              name: { lang: 'swe', value: seedStopArea.abbreviationSwe },
-              nameType: StopRegistryNameType.Other,
-            }
-          : null,
-        seedStopArea.abbreviationEng
-          ? {
-              name: { lang: 'eng', value: seedStopArea.abbreviationEng },
-              nameType: StopRegistryNameType.Other,
-            }
-          : null,
-        seedStopArea.nameEng
-          ? {
-              name: { lang: 'eng', value: seedStopArea.nameEng },
-              nameType: StopRegistryNameType.Translation,
-            }
-          : null,
-        {
-          name: { lang: 'swe', value: seedStopArea.nameSwe },
-          nameType: StopRegistryNameType.Translation,
-        },
-      ],
+      alternativeNames: mapToAlternativeNames(seedStopArea),
       privateCode: { type: 'HSL/TEST', value: seedStopArea.label },
       name: {
         lang: 'fin',
