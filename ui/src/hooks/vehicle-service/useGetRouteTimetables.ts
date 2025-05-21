@@ -133,7 +133,7 @@ export interface TimetableWithMetadata {
 }
 
 const getTimetableNarrowestValidityPeriod = (
-  vehicleJourneyGroups: VehicleJourneyGroup[],
+  vehicleJourneyGroups: ReadonlyArray<VehicleJourneyGroup>,
 ) => {
   const startTimes = vehicleJourneyGroups.map(
     (item) => item.validity.validityStart,
@@ -158,8 +158,8 @@ const getTimetableNarrowestValidityPeriod = (
  * that one will get the inEffect: true.
  */
 const enrichWithInEffectValue = (
-  vehicleJourneyGroups: VehicleJourneyGroup[],
-  activeDayTypeIds?: UUID[],
+  vehicleJourneyGroups: ReadonlyArray<VehicleJourneyGroup>,
+  activeDayTypeIds?: ReadonlyArray<UUID>,
 ) => {
   return vehicleJourneyGroups.map((group) => {
     const dayTypeIsActive = activeDayTypeIds?.includes(
@@ -195,7 +195,7 @@ const enrichWithInEffectValue = (
  * Object.values to get the result as an array.
  */
 const combineVehicleSchedulesToVehicleJourneyGroups = (
-  vehicleSchedulesOnDate?: VehicleScheduleFragment[],
+  vehicleSchedulesOnDate?: ReadonlyArray<VehicleScheduleFragment>,
 ) => {
   return Object.values(
     vehicleSchedulesOnDate?.reduce(

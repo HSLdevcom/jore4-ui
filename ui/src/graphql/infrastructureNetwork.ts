@@ -47,7 +47,7 @@ export type RouteInfraLink<
 export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = <
   TLink extends InfraLinkAlongRouteDefaultFieldsFragment,
 >(
-  infraLinks: TLink[],
+  infraLinks: ReadonlyArray<TLink>,
 ): RouteInfraLink<TLink['infrastructure_link']>[] =>
   infraLinks?.map((link) => ({
     ...link.infrastructure_link,
@@ -70,8 +70,8 @@ export const mapInfraLinksAlongRouteToGraphQL = (
 export const orderInfraLinksByExternalLinkId = <
   TLink extends InfraLinkMatchingFieldsFragment,
 >(
-  infraLinksWithStops: TLink[],
-  externalLinkIds: string[],
+  infraLinksWithStops: ReadonlyArray<TLink>,
+  externalLinkIds: ReadonlyArray<string>,
 ) =>
   externalLinkIds.map((externalLinkId) => {
     const infraLinkWithStop = infraLinksWithStops.find(

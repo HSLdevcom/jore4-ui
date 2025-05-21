@@ -8,7 +8,7 @@ import { AllOptionEnum, DisplayedSearchResultType } from '../../utils/enum';
 import { useUrlQuery } from '../urlQuery/useUrlQuery';
 
 export type SearchConditions = {
-  priorities: Priority[];
+  priorities: ReadonlyArray<Priority>;
   label: string;
   primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
   typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
@@ -44,7 +44,7 @@ export type QueryStringParameters = {
  * in their correct format
  */
 export type DeserializedQueryStringParameters = {
-  priorities: Priority[];
+  priorities: ReadonlyArray<Priority>;
   label: string;
   primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
   typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;

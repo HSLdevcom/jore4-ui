@@ -26,9 +26,9 @@ import { useValidateRoute } from './useValidateRoute';
 interface CreateParams {
   form: RouteFormState;
   infraLinksAlongRoute: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
-  stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-  includedStopLabels: string[];
-  journeyPatternStops: JourneyPatternStopFragment[];
+  stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+  includedStopLabels: ReadonlyArray<string>;
+  journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
 }
 
 interface CreateChanges {

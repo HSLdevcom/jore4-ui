@@ -90,7 +90,9 @@ export const useEditStopInfoSpots = () => {
     refetchQueries: [GetStopDetailsDocument],
   });
 
-  const clearLocationsForDeletedInfoSpots = (infoSpots: InfoSpotState[]) => {
+  const clearLocationsForDeletedInfoSpots = (
+    infoSpots: ReadonlyArray<InfoSpotState>,
+  ) => {
     const hasDeletedSpots = infoSpots.some((spot) => spot.toBeDeleted);
 
     if (hasDeletedSpots) {
@@ -103,7 +105,7 @@ export const useEditStopInfoSpots = () => {
     return infoSpots;
   };
 
-  const clearDeletedPosters = (infoSpots: InfoSpotState[]) => {
+  const clearDeletedPosters = (infoSpots: ReadonlyArray<InfoSpotState>) => {
     return infoSpots.map((spot) => ({
       ...spot,
       poster: spot.poster?.filter((poster) => !poster.toBeDeletedPoster) ?? [],

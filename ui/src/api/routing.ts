@@ -7,7 +7,7 @@ interface LatLng {
 }
 
 interface RouteBody {
-  readonly routePoints: LatLng[];
+  readonly routePoints: ReadonlyArray<LatLng>;
   readonly linkSearchRadius?: number;
 }
 
@@ -45,7 +45,9 @@ export interface BusRouteResponse {
   }[];
 }
 
-export const getBusRoute = async (coordinates: GeoJSON.Position[]) => {
+export const getBusRoute = async (
+  coordinates: ReadonlyArray<GeoJSON.Position>,
+) => {
   const request: RouteBody = {
     routePoints: coordinates.map(positionToLatLng),
   };

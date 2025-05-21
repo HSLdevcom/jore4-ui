@@ -14,7 +14,7 @@ interface ValidityPeriodParams {
 }
 
 interface JourneyPattern {
-  includedStopLabels: string[];
+  includedStopLabels: ReadonlyArray<string>;
 }
 
 export const useValidateRoute = () => {
@@ -25,7 +25,7 @@ export const useValidateRoute = () => {
   /**
    * Check that there are enoung stops on the route
    */
-  const validateStopCount = (includedStopLabels: string[]) => {
+  const validateStopCount = (includedStopLabels: ReadonlyArray<string>) => {
     if (includedStopLabels.length < 2) {
       throw new Error(t('routes.tooFewStops'));
     }

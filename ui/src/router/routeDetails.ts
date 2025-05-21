@@ -38,7 +38,7 @@ export enum Path {
 }
 
 interface RouteDetail {
-  getLink: (...args: ExplicitAny[]) => string;
+  getLink: (...args: ReadonlyArray<ExplicitAny>) => string;
   translationKey?: TranslationKey; // Currently only needed if the route is included in navigation.
   includeInNav?: boolean;
 }

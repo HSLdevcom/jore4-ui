@@ -23,8 +23,8 @@ export const useFindDuplicateJourneys = () => {
       stagingFrameJourneys,
       targetFrameJourneys,
     }: {
-      stagingFrameJourneys: VehicleJourneyInfo[];
-      targetFrameJourneys: VehicleJourneyInfo[];
+      stagingFrameJourneys: ReadonlyArray<VehicleJourneyInfo>;
+      targetFrameJourneys: ReadonlyArray<VehicleJourneyInfo>;
     }): VehicleJourneyDuplicate[] => {
       const allJourneyCombinations = stagingFrameJourneys.flatMap(
         (stagingJourney) => {

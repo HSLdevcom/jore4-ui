@@ -17,7 +17,7 @@ export const useToReplaceVehicleScheduleFrames = () => {
   const [getReplacedQuery] = useGetToReplaceVehicleScheduleFramesLazyQuery();
 
   const fetchToReplaceFrames = useCallback(
-    async (ids: UUID[], targetPriority: TimetablePriority) => {
+    async (ids: ReadonlyArray<UUID>, targetPriority: TimetablePriority) => {
       try {
         const replacedPromises = ids.map(async (id) => {
           return getReplacedQuery({

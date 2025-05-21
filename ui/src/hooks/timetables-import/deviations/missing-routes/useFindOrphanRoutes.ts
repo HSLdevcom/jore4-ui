@@ -17,8 +17,8 @@ export const useFindOrphanRoutes = () => {
       toReplaceRoutes,
       stagingRoutes,
     }: {
-      toReplaceRoutes: VehicleScheduleFrameInfo[];
-      stagingRoutes: VehicleScheduleFrameInfo[];
+      toReplaceRoutes: ReadonlyArray<VehicleScheduleFrameInfo>;
+      stagingRoutes: ReadonlyArray<VehicleScheduleFrameInfo>;
     }) => {
       const orphans = toReplaceRoutes.filter((toBeReplacedRoute) => {
         return !stagingRoutes.some((stagingRoute) =>

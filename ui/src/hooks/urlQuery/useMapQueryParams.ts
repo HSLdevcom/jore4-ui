@@ -13,11 +13,11 @@ export interface ViewPortParams {
 }
 
 export interface DisplayedRouteParams {
-  routeLabels?: string[];
+  routeLabels?: ReadonlyArray<string>;
   lineLabel?: string;
   routeId?: UUID;
   showSelectedDaySituation?: boolean;
-  priorities?: Priority[];
+  priorities?: ReadonlyArray<Priority>;
 }
 
 export interface OpenMapParams {
@@ -79,7 +79,7 @@ export const useMapQueryParams = () => {
         },
         {
           paramName: QueryParameterName.RouteLabels,
-          value: routeLabels,
+          value: routeLabels as Array<string>,
         },
         {
           paramName: QueryParameterName.LineLabel,
@@ -95,7 +95,7 @@ export const useMapQueryParams = () => {
         },
         {
           paramName: QueryParameterName.RoutePriorities,
-          value: priorities,
+          value: priorities as Array<Priority>,
         },
       ],
     });

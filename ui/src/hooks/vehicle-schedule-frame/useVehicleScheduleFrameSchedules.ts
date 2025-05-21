@@ -82,7 +82,7 @@ type JourneysGroupedByLabelAndDirection = {
 };
 
 const groupJourneysByLabelAndDirection = (
-  journeys: VehicleJourneyWithStartTimeInfoFragment[],
+  journeys: ReadonlyArray<VehicleJourneyWithStartTimeInfoFragment>,
 ) => {
   return journeys.reduce((acc: JourneysGroupedByLabelAndDirection, item) => {
     const updatedAcc = { ...acc };
@@ -110,7 +110,7 @@ const groupJourneysByLabelAndDirection = (
 };
 
 const createTimetableRowInfo = (
-  allJourneys: VehicleJourneyWithStartTimeInfoFragment[],
+  allJourneys: ReadonlyArray<VehicleJourneyWithStartTimeInfoFragment>,
   priority: TimetablePriority,
   vehicleScheduleFrameId: UUID,
   validityStart: DateTime,

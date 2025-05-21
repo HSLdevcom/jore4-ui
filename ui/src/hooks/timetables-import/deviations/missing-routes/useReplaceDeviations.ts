@@ -11,11 +11,11 @@ import { useFindOrphanRoutes } from './useFindOrphanRoutes';
 
 export const useReplaceDeviations = (
   fetchToReplaceFrames: (
-    ids: UUID[],
+    ids: ReadonlyArray<UUID>,
     targetPriority: number,
   ) => Promise<UUID[]>,
   fetchVehicleFrames: (
-    ids: UUID[],
+    ids: ReadonlyArray<UUID>,
   ) => Promise<VehicleScheduleVehicleScheduleFrameWithRoutes[]>,
   fetchStagingVehicleFrameIds: () => Promise<UUID[]>,
 ) => {

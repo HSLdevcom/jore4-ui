@@ -16,7 +16,7 @@ export type VehicleScheduleFrameInfo = {
 export const useCreateVehicleScheduleFrameInfo = () => {
   const createVehicleScheduleFrameInfo = useCallback(
     (
-      vehicleScheduleFrames: VehicleScheduleVehicleScheduleFrameWithRoutes[],
+      vehicleScheduleFrames: ReadonlyArray<VehicleScheduleVehicleScheduleFrameWithRoutes>,
     ): VehicleScheduleFrameInfo[] => {
       if (isEmpty(vehicleScheduleFrames)) {
         return [];

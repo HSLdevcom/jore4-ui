@@ -48,10 +48,10 @@ export const useVehicleScheduleFrameWithRouteLabelAndLineId = () => {
     useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery();
 
   const fetchVehicleFrames = useCallback(
-    async (ids: UUID[]) => {
+    async (ids: ReadonlyArray<UUID>) => {
       const result = await getVehicleScheduleFramesQuery({
         variables: {
-          vehicle_schedule_frame_ids: ids,
+          vehicle_schedule_frame_ids: ids as Array<string>,
         },
       });
       const vehicleScheduleFrames: VehicleScheduleVehicleScheduleFrameWithRoutes[] =

@@ -3,7 +3,7 @@ import { VehicleScheduleFrameInfo } from '../useCreateVehicleScheduleFrameInfo';
 
 export const useMissingRouteDeviationsSort = () => {
   const sortDeviations = (
-    routeDeviations: VehicleScheduleFrameInfo[],
+    routeDeviations: ReadonlyArray<VehicleScheduleFrameInfo>,
   ): VehicleScheduleFrameInfo[] => {
     return orderBy(
       routeDeviations,
