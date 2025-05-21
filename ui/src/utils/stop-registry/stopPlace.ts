@@ -6,6 +6,7 @@ import {
   StopRegistryAccessibilityLevel,
   StopRegistryAlternativeName,
   StopRegistryEmbeddableMultilingualString,
+  StopRegistryGeoJson,
   StopRegistryKeyValues,
   StopRegistryNameType,
   StopRegistryParentStopPlace,
@@ -15,8 +16,9 @@ import {
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
 import {
+  ParentStopPlaceEnrichmentProperties,
   QuayEnrichmentProperties,
-  StopPlaceEnrichmentProperties,
+  SharedEnrichmentProperties,
 } from '../../types';
 import { StopPlaceState } from '../../types/stop-registry';
 import { findKeyValue, findKeyValueParsed } from '../findKeyValue';
@@ -40,6 +42,16 @@ const isStopPlace = <T extends StopPlaceType>(
   );
 };
 
+const isParentStopPlace = <T extends ParentStopPlaceType>(
+  stopPlaceResult: unknown,
+): stopPlaceResult is T => {
+  return !!(
+    hasTypeName(stopPlaceResult) && // Null obviously does not have type name at all.
+    // eslint-disable-next-line no-underscore-dangle
+    stopPlaceResult.__typename === 'stop_registry_ParentStopPlace'
+  );
+};
+
 /**
  * Takes an array of StopPlace objects from a GraphQL query result.
  * Filters unwanted types from the result, and returns StopPlace objects with correct type.
@@ -52,6 +64,18 @@ export const getStopPlacesFromQueryResult = <T extends StopPlaceType>(
 ): Array<T> => {
   const stopPlaces = stopPlaceResult ?? [];
   return stopPlaces.filter(isStopPlace<T>);
+};
+
+export const getParentStopPlacesFromQueryResult = <
+  T extends ParentStopPlaceType,
+>(
+  parentStopPlaceResult:
+    | ReadonlyArray<T | ParentStopPlaceType | null>
+    | undefined
+    | null,
+): Array<T> => {
+  const parentStopPlaces = parentStopPlaceResult ?? [];
+  return parentStopPlaces.filter(isParentStopPlace<T>);
 };
 
 // Required in DB so can't be null.
@@ -222,7 +246,7 @@ type StopRegistryStopPlaceWithQuays = Omit<StopRegistryStopPlace, 'quays'> & {
 };
 
 const findCoordinate = (
-  stopPlace: StopRegistryStopPlaceWithQuays,
+  stopPlace: StopRegistryStopPlaceWithQuays | StopRegistryParentStopPlace,
   coordinate: 'latitude' | 'longitude',
 ): number | undefined => {
   const coordinates = stopPlace.geometry?.coordinates ?? undefined;
@@ -231,7 +255,50 @@ const findCoordinate = (
 
 // Mark all keys as required, but allow undefined as value.
 type ObjectWithAllKeyosOfStopPlaceEnrichmentProperties = {
-  [K in keyof Required<StopPlaceEnrichmentProperties>]: StopPlaceEnrichmentProperties[K];
+  [K in keyof Required<SharedEnrichmentProperties>]: SharedEnrichmentProperties[K];
+};
+
+type ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties = {
+  [K in keyof Required<ParentStopPlaceEnrichmentProperties>]: ParentStopPlaceEnrichmentProperties[K];
+};
+
+const extractSharedStopPlaceDetails = (stopPlace: {
+  alternativeNames?: Maybe<Array<Maybe<StopRegistryAlternativeName>>>;
+  name?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  geometry?: Maybe<StopRegistryGeoJson>;
+  keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+}): Partial<SharedEnrichmentProperties> => {
+  return {
+    nameSwe:
+      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Translation)
+        ?.value ?? undefined,
+    nameEng:
+      findAlternativeName(stopPlace, 'eng', StopRegistryNameType.Translation)
+        ?.value ?? undefined,
+    nameLongFin:
+      findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Alias)
+        ?.value ?? undefined,
+    nameLongSwe:
+      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Alias)
+        ?.value ?? undefined,
+    nameLongEng:
+      findAlternativeName(stopPlace, 'eng', StopRegistryNameType.Alias)
+        ?.value ?? undefined,
+    abbreviationFin:
+      findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Other)
+        ?.value ?? undefined,
+    abbreviationSwe:
+      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
+        ?.value ?? undefined,
+    abbreviationEng:
+      findAlternativeName(stopPlace, 'eng', StopRegistryNameType.Other)
+        ?.value ?? undefined,
+    name: stopPlace.name?.value ?? undefined,
+    locationLat: findCoordinate(stopPlace, 'latitude'),
+    locationLong: findCoordinate(stopPlace, 'longitude'),
+    validityStart: findKeyValue(stopPlace, 'validityStart') ?? undefined,
+    validityEnd: findKeyValue(stopPlace, 'validityEnd') ?? undefined,
+  };
 };
 
 export const getStopPlaceDetailsForEnrichment = <
@@ -239,41 +306,33 @@ export const getStopPlaceDetailsForEnrichment = <
 >(
   stopPlace: T,
 ): ObjectWithAllKeyosOfStopPlaceEnrichmentProperties => {
-  /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
   return {
-    nameSwe:
-      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Translation)
-        ?.value || undefined,
-    nameEng:
-      findAlternativeName(stopPlace, 'eng', StopRegistryNameType.Translation)
-        ?.value || undefined,
-    nameLongFin:
-      findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Alias)
-        ?.value || undefined,
-    nameLongSwe:
-      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Alias)
-        ?.value || undefined,
-    nameLongEng:
-      findAlternativeName(stopPlace, 'eng', StopRegistryNameType.Alias)
-        ?.value || undefined,
-    abbreviationFin:
-      findAlternativeName(stopPlace, 'fin', StopRegistryNameType.Other)
-        ?.value || undefined,
-    abbreviationSwe:
-      findAlternativeName(stopPlace, 'swe', StopRegistryNameType.Other)
-        ?.value || undefined,
-    abbreviationEng:
-      findAlternativeName(stopPlace, 'eng', StopRegistryNameType.Other)
-        ?.value || undefined,
-    municipality: stopPlace.topographicPlace?.name?.value || undefined,
-    fareZone: stopPlace.fareZones?.[0]?.name?.value || undefined,
-    name: stopPlace.name?.value || undefined,
-    locationLat: findCoordinate(stopPlace, 'latitude'),
-    locationLong: findCoordinate(stopPlace, 'longitude'),
-    validityStart: findKeyValue(stopPlace, 'validityStart') || undefined,
-    validityEnd: findKeyValue(stopPlace, 'validityEnd') || undefined,
-  };
-  /* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
+    ...extractSharedStopPlaceDetails(stopPlace),
+    municipality: stopPlace.topographicPlace?.name?.value ?? undefined,
+    fareZone: stopPlace.fareZones?.[0]?.name?.value ?? undefined,
+  } as ObjectWithAllKeyosOfStopPlaceEnrichmentProperties;
+};
+
+export const getParentStopPlaceDetailsForEnrichment = <
+  T extends StopRegistryParentStopPlace,
+>(
+  parentStopPlace: T,
+): ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties => {
+  return {
+    ...extractSharedStopPlaceDetails(parentStopPlace),
+    municipality: findKeyValue(parentStopPlace, 'municipality') ?? undefined,
+    streetAddress: findKeyValue(parentStopPlace, 'streetAddress') ?? undefined,
+    postalCode: findKeyValue(parentStopPlace, 'postalCode') ?? undefined,
+    fareZone: findKeyValue(parentStopPlace, 'fareZone') ?? undefined,
+    departurePlatforms:
+      findKeyValue(parentStopPlace, 'departurePlatforms') ?? undefined,
+    arrivalPlatforms:
+      findKeyValue(parentStopPlace, 'arrivalPlatforms') ?? undefined,
+    loadingPlatforms:
+      findKeyValue(parentStopPlace, 'loadingPlatforms') ?? undefined,
+    electricCharging:
+      findKeyValue(parentStopPlace, 'electricCharging') ?? undefined,
+  } as ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties;
 };
 
 /**
@@ -282,7 +341,7 @@ export const getStopPlaceDetailsForEnrichment = <
  * These can still be overridden in the mutation if needed.
  */
 export const getRequiredStopPlaceMutationProperties = <
-  T extends StopRegistryStopPlaceWithQuays & StopPlaceEnrichmentProperties,
+  T extends StopRegistryStopPlaceWithQuays & SharedEnrichmentProperties,
 >(
   stopPlace: T | null,
 ): Partial<StopRegistryStopPlaceInput> => {

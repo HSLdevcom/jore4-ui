@@ -1,5 +1,6 @@
 import {
   InfoSpotDetailsFragment,
+  ParentStopPlaceDetailsFragment,
   QuayDetailsFragment,
   ScheduledStopPointDetailFieldsFragment,
   StopPlaceDetailsFragment,
@@ -7,7 +8,16 @@ import {
 } from '../generated/graphql';
 import { StopPlaceState } from './stop-registry';
 
-export type StopPlaceEnrichmentProperties = {
+export type ParentStopPlaceEnrichmentProperties = {
+  readonly streetAddress?: string | undefined;
+  readonly postalCode?: string | undefined;
+  readonly departurePlatforms?: string | undefined;
+  readonly arrivalPlatforms?: string | undefined;
+  readonly loadingPlatforms?: string | undefined;
+  readonly electricCharging?: string | undefined;
+};
+
+export type SharedEnrichmentProperties = {
   readonly nameSwe?: string | undefined;
   readonly nameEng?: string | undefined;
   readonly nameLongFin?: string | undefined;
@@ -46,10 +56,13 @@ export type QuayEnrichmentProperties = {
 export type StopPlace = StopPlaceDetailsFragment;
 export type StopPlaceInfoSpots = InfoSpotDetailsFragment;
 export type EnrichedStopPlace = Omit<StopPlace, 'name'> &
-  StopPlaceEnrichmentProperties;
+  SharedEnrichmentProperties;
 export type Quay = QuayDetailsFragment;
 export type EnrichedQuay = Quay & QuayEnrichmentProperties;
-
+export type ParentStopPlace = ParentStopPlaceDetailsFragment;
+export type EnrichedParentStopPlace = Omit<ParentStopPlace, 'name'> &
+  SharedEnrichmentProperties &
+  ParentStopPlaceEnrichmentProperties;
 /** Gets the stop details, including the stop place, depending on query parameters. */
 export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
   stop_place: EnrichedStopPlace | null;
