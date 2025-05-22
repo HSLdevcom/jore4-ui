@@ -140,7 +140,6 @@
     "checkingNamesFailed": "Nimien tarkastus epäonnistui <RefetchButton>Yritä uudelleen</RefetchButton>",
     "editSuccess": "Pysäkkialue muokattu",
     "errors": {
-      "failedToResolveScheduledStopPoint": "Pysäkin tietojen selvitys epäonnistui! Syy",
       "expandToSeeErrors": "Avaa Kieliversiot ja lyhenteet nähdäksesi virheet"
     }
   },

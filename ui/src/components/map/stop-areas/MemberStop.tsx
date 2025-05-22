@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { Marker } from 'react-map-gl/maplibre';
 import { QuayDetailsFragment } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
@@ -7,7 +6,7 @@ import {
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
 } from '../../../redux';
-import { getGeometryPoint, showDangerToastWithError } from '../../../utils';
+import { getGeometryPoint } from '../../../utils';
 import { Circle } from '../markers';
 
 const testIds = {
@@ -20,8 +19,6 @@ type MemberStopProps = {
 };
 
 export const MemberStop = ({ stop }: MemberStopProps) => {
-  const { t } = useTranslation();
-
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
 
@@ -30,15 +27,8 @@ export const MemberStop = ({ stop }: MemberStopProps) => {
       return;
     }
 
-    try {
-      setSelectedMapStopAreaId(undefined);
-      setSelectedStopId(stop.id);
-    } catch (e) {
-      showDangerToastWithError(
-        t('stopArea.errors.failedToResolveScheduledStopPoint'),
-        e,
-      );
-    }
+    setSelectedMapStopAreaId(undefined);
+    setSelectedStopId(stop.id);
   };
 
   const point = getGeometryPoint(stop.geometry);
