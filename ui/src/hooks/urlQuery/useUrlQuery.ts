@@ -1,6 +1,4 @@
 import { produce } from 'immer';
-import isBoolean from 'lodash/isBoolean';
-import isNumber from 'lodash/isNumber';
 import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useCallback, useMemo } from 'react';
@@ -141,16 +139,12 @@ export const useUrlQuery = () => {
           }
 
           // Convert based on the type of the value
-          if (isBoolean(parameter.value)) {
-            draft[parameter.paramName] = parameter.value.toString();
-          } else if (DateTime.isDateTime(parameter.value)) {
+          if (DateTime.isDateTime(parameter.value)) {
             draft[parameter.paramName] = parameter.value.toISODate();
-          } else if (isNumber(parameter.value)) {
-            draft[parameter.paramName] = parameter.value.toString();
           } else if (Array.isArray(parameter.value)) {
             draft[parameter.paramName] = parameter.value.join(',');
           } else {
-            draft[parameter.paramName] = parameter.value;
+            draft[parameter.paramName] = parameter.value.toString();
           }
         });
       });
