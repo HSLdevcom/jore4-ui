@@ -9,11 +9,11 @@ const testIds = {
 };
 
 type LocatorButtonProps = {
-  testId?: string;
-  disabled?: boolean;
-  onClick: () => void;
-  className?: string;
-  tooltipText: string;
+  readonly testId?: string;
+  readonly disabled?: boolean;
+  readonly onClick: () => void;
+  readonly className?: string;
+  readonly tooltipText: string;
 };
 
 export const LocatorButton: FC<LocatorButtonProps> = ({

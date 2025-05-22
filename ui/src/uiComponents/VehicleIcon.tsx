@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   LineTableRowFragment,
@@ -8,17 +9,17 @@ import { isLine } from '../graphql';
 
 type RowItem = LineTableRowFragment | RouteTableRowFragment;
 
-interface Props {
-  className?: string;
-  vehicleMode: VehicleMode;
-  rowItem: RowItem;
-}
+type VehicleIconProps = {
+  readonly className?: string;
+  readonly vehicleMode: VehicleMode;
+  readonly rowItem: RowItem;
+};
 
-export const VehicleIcon = ({
+export const VehicleIcon: FC<VehicleIconProps> = ({
   className = '',
   vehicleMode = VehicleMode.Bus,
   rowItem,
-}: Props) => {
+}) => {
   const { t } = useTranslation();
   const iconTitle = t(
     isLine(rowItem) ? 'accessibility:lines.bus' : 'accessibility:routes.bus',

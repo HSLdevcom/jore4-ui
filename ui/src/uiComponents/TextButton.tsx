@@ -1,13 +1,12 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
-type Props = {
-  active?: boolean;
-  onClick: () => void;
-  className?: string;
-  children: ReactNode;
+type TextButtonProps = {
+  readonly active?: boolean;
+  readonly onClick: () => void;
+  readonly className?: string;
 };
 
-export const TextButton: FC<Props> = ({
+export const TextButton: FC<PropsWithChildren<TextButtonProps>> = ({
   active,
   onClick,
   children,

@@ -3,7 +3,7 @@ import {
   Transition,
   TransitionClasses,
 } from '@headlessui/react';
-import { Fragment, ReactNode } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
 import { ListboxButton } from './ListboxButton';
 import { ListboxOptionRenderer, ListboxOptions } from './ListboxOptions';
@@ -20,24 +20,24 @@ export const dropdownTransition: TransitionClasses = {
 // copied from HeadlessUI Listbox as it's not exported
 export type ValueFn = (...event: ExplicitAny[]) => void;
 
-export interface FormInputProps {
-  value?: string;
-  onChange: ValueFn;
-  onBlur?: Noop;
-  fieldState?: ControllerFieldState;
-  disabled?: boolean;
-}
+export type FormInputProps = {
+  readonly value?: string;
+  readonly onChange: ValueFn;
+  readonly onBlur?: Noop;
+  readonly fieldState?: ControllerFieldState;
+  readonly disabled?: boolean;
+};
 
-interface Props extends FormInputProps {
-  id?: string;
-  buttonContent: ReactNode;
-  testId?: string;
-  options: ListboxOptionRenderer[];
-  buttonClassNames?: string;
-  arrowButtonClassNames?: string;
-}
+type ListboxProps = FormInputProps & {
+  readonly id?: string;
+  readonly buttonContent: ReactNode;
+  readonly testId?: string;
+  readonly options: ListboxOptionRenderer[];
+  readonly buttonClassNames?: string;
+  readonly arrowButtonClassNames?: string;
+};
 
-export const Listbox = ({
+export const Listbox: FC<ListboxProps> = ({
   id,
   buttonContent,
   testId,
@@ -49,7 +49,7 @@ export const Listbox = ({
   buttonClassNames = '',
   arrowButtonClassNames = '',
   disabled = false,
-}: Props): React.ReactElement => {
+}) => {
   const onItemSelected = (val: string) => {
     const event = { target: { value: val } };
     onChange(event);

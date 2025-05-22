@@ -7,21 +7,22 @@ import { CloseIconButton } from './CloseIconButton';
 import { Modal, NewModalBody } from './modal';
 import { SimpleButton } from './SimpleButton';
 
-interface Props {
-  heading: string;
-  isOpen: boolean;
-  onClose: () => void;
-  className?: string;
-  bodyClassName?: string;
-  children: ReactNode;
-}
+type ErrorModalProps = {
+  readonly heading: string;
+  readonly isOpen: boolean;
+  readonly onClose: () => void;
+  readonly className?: string;
+  readonly bodyClassName?: string;
+  readonly children: ReactNode;
+};
+
 const testIds = {
   modal: 'ErrorModal::modal',
   closeButton: 'ErrorModal::closeButton',
   closeIconButton: 'ErrorModal::closeIconButton',
 };
 
-export const ErrorModal: FC<Props> = ({
+export const ErrorModal: FC<ErrorModalProps> = ({
   heading,
   isOpen,
   onClose,
@@ -30,6 +31,7 @@ export const ErrorModal: FC<Props> = ({
   children,
 }) => {
   const { t } = useTranslation();
+
   return (
     <Modal
       isOpen={isOpen}

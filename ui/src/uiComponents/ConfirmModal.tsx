@@ -1,26 +1,26 @@
 import { Dialog } from '@headlessui/react';
-import { FC, ReactNode } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../layoutComponents';
 import { Modal, NewModalBody } from './modal';
 import { SimpleButton } from './SimpleButton';
 
-interface Props {
-  heading: string;
-  isOpen: boolean;
-  onCancel: () => void;
-  onConfirm: () => void;
-  confirmButtonText: string;
-  cancelButtonText: string;
-  className?: string;
-  children: ReactNode;
-}
+type ConfirmModalProps = {
+  readonly heading: string;
+  readonly isOpen: boolean;
+  readonly onCancel: () => void;
+  readonly onConfirm: () => void;
+  readonly confirmButtonText: string;
+  readonly cancelButtonText: string;
+  readonly className?: string;
+};
+
 const testIds = {
   cancelButton: 'ConfirmModal::cancelButton',
   confirmButton: 'ConfirmModal::confirmButton',
 };
 
-export const ConfirmModal: FC<Props> = ({
+export const ConfirmModal: FC<PropsWithChildren<ConfirmModalProps>> = ({
   heading,
   isOpen,
   onCancel,

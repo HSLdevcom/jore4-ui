@@ -1,9 +1,9 @@
 import noop from 'lodash/noop';
-import { FC, ReactNode, Suspense } from 'react';
+import { FC, PropsWithChildren, ReactNode, Suspense } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { theme } from '../generated/theme';
 
-type Props = {
+type LoadingWrapperProps = {
   readonly testId: string;
   readonly loadingText?: ReactNode;
   readonly className?: string;
@@ -11,11 +11,10 @@ type Props = {
   readonly size?: number;
   readonly color?: string;
   readonly speedMultiplier?: number;
-  readonly children: ReactNode;
   readonly orientation?: 'column' | 'row';
 };
 
-const Loader: FC<Omit<Props, 'children' | 'loading'>> = ({
+const Loader: FC<Omit<LoadingWrapperProps, 'loading'>> = ({
   testId,
   loadingText,
   className,
@@ -54,7 +53,7 @@ const TriggerSuspense: FC = () => {
  * hidden during the loading with this, hence the name.
  * There is also an optional loading text below the spinner.
  */
-export const LoadingWrapper: FC<Props> = ({
+export const LoadingWrapper: FC<PropsWithChildren<LoadingWrapperProps>> = ({
   children,
   loading = true,
   ...loaderProps

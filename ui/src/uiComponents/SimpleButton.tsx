@@ -34,9 +34,8 @@ type LinkButtonProps = {
   readonly state?: unknown;
 };
 
-type Props = CommonButtonProps & (ButtonProps | LinkButtonProps);
-
-export type SimpleButtonProps = Props;
+export type SimpleButtonProps = CommonButtonProps &
+  (ButtonProps | LinkButtonProps);
 
 export const commonHoverStyle = 'hover:border-2 hover:border-tweaked-brand';
 
@@ -52,7 +51,7 @@ const getHoverStyles = (inverted = false, disabled = false) => {
     : `${hoverStyle} hover:bg-opacity-50`;
 };
 
-export const SimpleButton: FC<Props> = ({
+export const SimpleButton: FC<SimpleButtonProps> = ({
   id,
   className = '',
   inverted,
