@@ -1,14 +1,13 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
-interface Props {
-  className?: string;
-  testId?: string;
-  tooltip?: string;
-  identifier?: string;
-  children: ReactNode;
-}
+type RowProps = {
+  readonly className?: string;
+  readonly testId?: string;
+  readonly tooltip?: string;
+  readonly identifier?: string;
+};
 
-export const Row: FC<Props> = ({
+export const Row: FC<PropsWithChildren<RowProps>> = ({
   className = '',
   children,
   testId = null,

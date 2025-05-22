@@ -1,12 +1,15 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
-interface Props {
-  className?: string;
-  id?: string;
-  children: ReactNode;
-}
+type ColumnProps = {
+  readonly className?: string;
+  readonly id?: string;
+};
 
-export const Column: FC<Props> = ({ className = '', id, children }) => {
+export const Column: FC<PropsWithChildren<ColumnProps>> = ({
+  className = '',
+  id,
+  children,
+}) => {
   return (
     <div id={id} className={`flex flex-col ${className}`}>
       {children}
