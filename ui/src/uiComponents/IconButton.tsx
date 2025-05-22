@@ -1,22 +1,22 @@
 import React from 'react';
 import { addClassName } from '../utils/components';
 
-interface Props {
-  testId?: string;
-  tooltip: string;
-  className?: string;
-  disabled?: boolean;
-  icon: React.ReactNode;
-  ariaAttributes?: {
-    ariaExpanded?: boolean;
-    ariaControls?: string;
-    ariaLabel?: string;
+type IconButtonProps = {
+  readonly testId?: string;
+  readonly tooltip: string;
+  readonly className?: string;
+  readonly disabled?: boolean;
+  readonly icon: React.ReactNode;
+  readonly ariaAttributes?: {
+    readonly ariaExpanded?: boolean;
+    readonly ariaControls?: string;
+    readonly ariaLabel?: string;
   };
-  identifier?: string;
-  onClick: () => void;
-}
+  readonly identifier?: string;
+  readonly onClick: () => void;
+};
 
-export const IconButton: React.FC<Props> = ({
+export const IconButton: React.FC<IconButtonProps> = ({
   testId,
   tooltip,
   className = '',
@@ -27,6 +27,7 @@ export const IconButton: React.FC<Props> = ({
   onClick,
 }) => {
   const iconClassName = 'inline text-center';
+
   return (
     <button
       id={identifier}

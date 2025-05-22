@@ -5,16 +5,16 @@ import {
   ComboboxOptionRenderer,
 } from './Combobox';
 
-interface Props<T> extends ComboboxInputProps {
-  id?: string;
-  testId?: string;
-  query: string;
-  selectedItem: T | undefined;
-  onQueryChange: (query: string) => void;
-  mapToButtonContent: (displayedItem?: T) => React.ReactElement;
-  nullOptionRender?: () => React.ReactElement;
-  options: ReadonlyArray<ComboboxOptionRenderer>;
-}
+type SearchableDropdownProps<T> = ComboboxInputProps & {
+  readonly id?: string;
+  readonly testId?: string;
+  readonly query: string;
+  readonly selectedItem: T | undefined;
+  readonly onQueryChange: (query: string) => void;
+  readonly mapToButtonContent: (displayedItem?: T) => React.ReactElement;
+  readonly nullOptionRender?: () => React.ReactElement;
+  readonly options: ReadonlyArray<ComboboxOptionRenderer>;
+};
 
 export const SearchableDropdown = <T extends ExplicitAny>({
   selectedItem,
@@ -25,7 +25,7 @@ export const SearchableDropdown = <T extends ExplicitAny>({
   nullOptionRender,
   onQueryChange: parentOnQueryChange,
   ...otherProps
-}: Props<T>): React.ReactElement => {
+}: SearchableDropdownProps<T>): React.ReactElement => {
   const nullOption = nullOptionRender
     ? { key: 'none', value: null, render: nullOptionRender }
     : undefined;

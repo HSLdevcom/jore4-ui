@@ -1,18 +1,19 @@
+import { FC } from 'react';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { IconButton } from './IconButton';
 
-interface Props {
-  testId: string;
-  onToggle: (isOpen: boolean) => void;
-  isOpen: boolean;
-  className?: string;
-  iconClassName?: string;
-  controls: string;
-  openTooltip: string;
-  closeTooltip: string;
-  ariaLabel?: string;
-  identifier?: string;
-}
+type AccordionButtonProps = {
+  readonly testId: string;
+  readonly onToggle: (isOpen: boolean) => void;
+  readonly isOpen: boolean;
+  readonly className?: string;
+  readonly iconClassName?: string;
+  readonly controls: string;
+  readonly openTooltip: string;
+  readonly closeTooltip: string;
+  readonly ariaLabel?: string;
+  readonly identifier?: string;
+};
 
 /**
  * A button that could be used as the toggle button of a section that can be hidden or shown.
@@ -22,7 +23,7 @@ interface Props {
  * @param ariaLabel should be used if the button's text or `<label>` is clear for visual users, making the tooltip redundant, but requires more context for screen readers.
  * @returns
  */
-export const AccordionButton = ({
+export const AccordionButton: FC<AccordionButtonProps> = ({
   testId,
   onToggle,
   isOpen,
@@ -33,7 +34,7 @@ export const AccordionButton = ({
   closeTooltip,
   ariaLabel,
   identifier,
-}: Props) => {
+}) => {
   const tooltip = isOpen ? closeTooltip : openTooltip;
   return (
     <IconButton

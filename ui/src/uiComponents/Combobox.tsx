@@ -1,5 +1,5 @@
 import { Combobox as HUICombobox, Transition } from '@headlessui/react';
-import { Fragment, ReactNode } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
 import { Noop } from 'react-hook-form';
 import { MdCheck, MdSearch } from 'react-icons/md';
 import { dropdownTransition } from './Listbox';
@@ -10,26 +10,26 @@ export const testIds = {
   button: (testId: string) => `${testId}::button`,
 };
 
-export interface ComboboxInputProps {
-  value?: string;
-  onChange: (e: ComboboxEvent) => void;
-  onBlur?: Noop;
-}
+export type ComboboxInputProps = {
+  readonly value?: string;
+  readonly onChange: (e: ComboboxEvent) => void;
+  readonly onBlur?: Noop;
+};
 
-export interface ComboboxOptionRenderer {
-  key: string;
-  value: string | null;
-  render: (props: OptionRenderPropArg) => ReactNode;
-}
+export type ComboboxOptionRenderer = {
+  readonly key: string;
+  readonly value: string | null;
+  readonly render: (props: OptionRenderPropArg) => ReactNode;
+};
 
-interface Props extends ComboboxInputProps {
-  id?: string;
-  buttonContent: ReactNode;
-  testId?: string;
-  options: ReadonlyArray<ComboboxOptionRenderer>;
-  onQueryChange: (query: string) => void;
-  nullable?: boolean;
-}
+type ComboboxProps = ComboboxInputProps & {
+  readonly id?: string;
+  readonly buttonContent: ReactNode;
+  readonly testId?: string;
+  readonly options: ReadonlyArray<ComboboxOptionRenderer>;
+  readonly onQueryChange: (query: string) => void;
+  readonly nullable?: boolean;
+};
 
 export interface ComboboxEvent {
   target: {
@@ -37,7 +37,7 @@ export interface ComboboxEvent {
   };
 }
 
-export const Combobox = ({
+export const Combobox: FC<ComboboxProps> = ({
   id,
   buttonContent,
   testId,
@@ -46,7 +46,7 @@ export const Combobox = ({
   onChange,
   onBlur: onBlurParent,
   onQueryChange,
-}: Props): React.ReactElement => {
+}) => {
   const onItemSelected = (val: string) => {
     const event: ComboboxEvent = { target: { value: val } };
     onChange(event);

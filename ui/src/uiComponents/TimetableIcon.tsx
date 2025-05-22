@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-interface Props {
-  className?: string;
-  hasTimetables?: boolean;
-}
+type TimetableIconProps = {
+  readonly className?: string;
+  readonly hasTimetables?: boolean;
+};
 
 /**
  * A calendar icon, that has a translated title for screenreaders.
@@ -13,10 +14,10 @@ interface Props {
  * @param hasTimetables defines the icons color and title
  * @returns A calendar icon
  */
-export const TimetableIcon = ({
+export const TimetableIcon: FC<TimetableIconProps> = ({
   className = '',
   hasTimetables = false,
-}: Props) => {
+}) => {
   const { t } = useTranslation();
   const iconTitle = hasTimetables ? t('accessibility:timetables.icon') : '';
   const fontColor = hasTimetables ? 'text-tweaked-brand' : 'text-zinc-400';

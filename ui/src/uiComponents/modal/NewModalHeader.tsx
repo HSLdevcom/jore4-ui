@@ -8,17 +8,17 @@ const testIds = {
   closeButton: 'ModalHeader::closeButton',
 };
 
-interface Props {
-  onClose: () => void;
-  heading: string;
-  className?: string;
-}
+type NewModalHeaderProps = {
+  readonly onClose: () => void;
+  readonly heading: string;
+  readonly className?: string;
+};
 
-export const NewModalHeader: FC<Props> = ({
+export const NewModalHeader: FC<NewModalHeaderProps> = ({
   onClose,
   heading,
   className = '',
-}: Props) => {
+}) => {
   return (
     <Row
       className={twMerge(

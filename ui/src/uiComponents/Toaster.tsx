@@ -1,7 +1,6 @@
-import React from 'react';
 import { Toaster as ToasterComponent } from 'react-hot-toast';
 
-export const Toaster = (): React.ReactElement => {
+export const Toaster = () => {
   return (
     <ToasterComponent
       position="bottom-right"

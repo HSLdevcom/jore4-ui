@@ -1,17 +1,17 @@
 import React, { ForwardRefRenderFunction } from 'react';
 
-interface Props {
-  text: string;
-  onClick: () => void;
-  disabled?: boolean;
-  testId: string;
-  className?: string;
-  title?: string;
-}
+type SimpleDropdownMenuItemProps = {
+  readonly text: string;
+  readonly onClick: () => void;
+  readonly disabled?: boolean;
+  readonly testId: string;
+  readonly className?: string;
+  readonly title?: string;
+};
 
 const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
   HTMLButtonElement,
-  Props
+  SimpleDropdownMenuItemProps
 > = ({ text, onClick, disabled, testId, className, title }, ref) => {
   return (
     <button
