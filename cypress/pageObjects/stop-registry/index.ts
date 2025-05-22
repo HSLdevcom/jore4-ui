@@ -1,3 +1,4 @@
+export * from './AlternativeNames';
 export * from './SearchForStopAreas';
 export * from './SortByButton';
 export * from './StopAreaDetailsPage';
