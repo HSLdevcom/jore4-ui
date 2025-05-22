@@ -8,3 +8,5 @@ export * from './StopGroupSelector';
 export * from './StopSearchBar';
 export * from './StopSearchByLine';
 export * from './StopSearchResultsPage';
+export * from './terminals';
+export * from './TerminalDetailsPage';
