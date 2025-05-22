@@ -101,19 +101,26 @@ function getEnrichedStopPlaceDetailsFromQueryResult(
   return getEnrichedStopPlace(stopPlaces.at(0));
 }
 
-export function useGetStopPlaceDetails() {
-  const { id } = useRequiredParams<{ id: string }>();
+export function useGetStopPlaceDetailsById(id: string | null | undefined) {
+  const { data, ...rest } = useGetStopPlaceDetailsQuery(
+    id ? { variables: { id } } : { skip: true },
+  );
 
-  const { data, ...rest } = useGetStopPlaceDetailsQuery({
-    variables: { id },
-  });
-
+  const rawStopPlace = getStopPlacesFromQueryResult<StopPlaceDetailsFragment>(
+    data?.stop_registry?.stopPlace,
+  ).at(0);
   const stopPlaceDetails = useMemo(
-    () => getEnrichedStopPlaceDetailsFromQueryResult(data),
-    [data],
+    () => getEnrichedStopPlace(rawStopPlace),
+    [rawStopPlace],
   );
 
   return { ...rest, stopPlaceDetails };
+}
+
+export function useGetStopPlaceDetails() {
+  const { id } = useRequiredParams<{ id: string }>();
+
+  return useGetStopPlaceDetailsById(id);
 }
 
 export function useGetStopPlaceDetailsLazy() {
