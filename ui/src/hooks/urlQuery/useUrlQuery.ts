@@ -147,10 +147,7 @@ export const useUrlQuery = () => {
             draft[parameter.paramName] = parameter.value.toISODate();
           } else if (isNumber(parameter.value)) {
             draft[parameter.paramName] = parameter.value.toString();
-          } else if (
-            Array.isArray(parameter.value) ||
-            parameter.value instanceof Array // Without this, compiler thinks the readonly arrays are not handled here
-          ) {
+          } else if (Array.isArray(parameter.value)) {
             draft[parameter.paramName] = parameter.value.join(',');
           } else {
             draft[parameter.paramName] = parameter.value;

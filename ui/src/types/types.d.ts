@@ -43,3 +43,11 @@ type Paths<T, D extends number = 10> = [D] extends [never]
 // but most times we know that the keys can only be strings
 type StringKeyOf<T> = Extract<keyof T, string>;
 type ValueOf<T> = T[keyof T];
+
+// Trick for fixing a known issue with isArray handling of ReadonlyArrays in Typescript
+// https://github.com/microsoft/TypeScript/issues/17002
+interface ArrayConstructor {
+  isArray(
+    arg: ReadonlyArray<ExplicitAny> | ExplicitAny,
+  ): arg is ReadonlyArray<ExplicitAny>;
+}
