@@ -1,8 +1,9 @@
 import { twMerge } from 'tailwind-merge';
 
-interface Props {
-  className?: string;
-}
+type HorizontalSeparatorProps = {
+  readonly className?: string;
+};
+
 export const HorizontalSeparator = ({
   className = '',
-}: Props): React.ReactElement => <hr className={twMerge('my-2', className)} />;
+}: HorizontalSeparatorProps) => <hr className={twMerge('my-2', className)} />;
