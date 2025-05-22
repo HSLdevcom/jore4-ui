@@ -5,7 +5,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
 import { MainPage } from '../components/main/MainPage';
-import { MapModal } from '../components/map';
+import { MapLoader, MapModal } from '../components/map';
 import { JoreLoader } from '../components/map/JoreLoader';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
@@ -221,6 +221,7 @@ export const Router: FC = () => {
       </Routes>
       <ProtectedRoute>
         <MapModal />
+        <MapLoader />
       </ProtectedRoute>
       <JoreLoader />
       <JoreErrorModal />

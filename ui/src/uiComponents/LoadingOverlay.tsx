@@ -1,3 +1,4 @@
+import { Portal } from '@headlessui/react';
 import React, { useEffect, useRef, useState } from 'react';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { theme } from '../generated/theme';
@@ -100,16 +101,18 @@ export const LoadingOverlay: React.FC<Props> = ({
   }
 
   return (
-    <div
-      className="fixed left-1/2 top-1/2 z-50 flex h-32 -translate-x-1/2 -translate-y-1/2 cursor-wait rounded border border-light-grey bg-background px-20 shadow-lg"
-      data-testid={testId}
-    >
-      <PulseLoader
-        color={theme.colors.brand}
-        size={25}
-        cssOverride={{ margin: 'auto auto' }}
-        speedMultiplier={0.7}
-      />
-    </div>
+    <Portal>
+      <div
+        className="fixed left-1/2 top-1/2 z-20 flex h-32 -translate-x-1/2 -translate-y-1/2 cursor-wait rounded border border-light-grey bg-background px-20 shadow-lg"
+        data-testid={testId}
+      >
+        <PulseLoader
+          color={theme.colors.brand}
+          size={25}
+          cssOverride={{ margin: 'auto auto' }}
+          speedMultiplier={0.7}
+        />
+      </div>
+    </Portal>
   );
 };

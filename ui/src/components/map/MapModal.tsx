@@ -4,7 +4,6 @@ import { useMapQueryParams } from '../../hooks';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
-import { MapLoader } from './MapLoader';
 import { RouteEditorRef } from './refTypes';
 
 interface Props {
@@ -54,7 +53,6 @@ export const MapModal: React.FC<Props> = ({ className = '' }) => {
         onCancel={() => mapRef.current?.onCancel()}
         onSave={() => mapRef.current?.onSave()}
       />
-      <MapLoader />
     </Dialog>
   );
 };
