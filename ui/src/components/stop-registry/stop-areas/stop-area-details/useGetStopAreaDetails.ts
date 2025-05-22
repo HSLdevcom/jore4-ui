@@ -79,7 +79,7 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
   }
 `;
 
-function getEnrichedStopPlace(
+export function getEnrichedStopPlace(
   stopPlace: StopPlaceDetailsFragment | null | undefined,
 ): EnrichedStopPlace | null {
   if (!stopPlace) {

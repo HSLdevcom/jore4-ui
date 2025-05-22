@@ -14,6 +14,7 @@ import {
   patchKeyValues,
   showDangerToast,
 } from '../../../utils';
+import { getEnrichedStopPlace } from '../../stop-registry/stop-areas/stop-area-details/useGetStopAreaDetails';
 import { StopAreaFormState } from './stopAreaFormSchema';
 import { useStopAreaDetailsApolloErrorHandler } from './util/stopAreaDetailsErrorHandler';
 
@@ -137,7 +138,9 @@ export const useUpsertStopArea = () => {
         variables: { input },
       });
 
-      return result.data?.stop_registry?.mutateStopPlace;
+      return getEnrichedStopPlace(
+        result.data?.stop_registry?.mutateStopPlace?.at(0),
+      );
     },
     [upsertStopAreaMutation],
   );
