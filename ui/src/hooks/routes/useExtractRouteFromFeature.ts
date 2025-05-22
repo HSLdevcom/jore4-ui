@@ -409,7 +409,7 @@ export const useExtractRouteFromFeature = () => {
       const infraLinksWithStopsResponse =
         await fetchLinksWithStopsByExternalLinkIds({
           variables: {
-            externalLinkIds: [...externalLinkIds],
+            externalLinkIds: externalLinkIds as Array<string>,
           },
         });
       const unorderedInfraLinksWithStops =

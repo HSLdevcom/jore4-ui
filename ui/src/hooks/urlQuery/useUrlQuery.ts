@@ -33,8 +33,8 @@ export type QueryParameterTypes =
   | DateTime
   | number
   | undefined
-  | number[]
-  | string[];
+  | ReadonlyArray<number>
+  | ReadonlyArray<string>;
 type ParameterWriteOptions = { replace?: boolean };
 
 /**
@@ -130,7 +130,7 @@ export const useUrlQuery = () => {
       replace = false,
       pathname = undefined,
     }: {
-      parameters: QueryParameter<QueryParameterTypes>[];
+      parameters: ReadonlyArray<QueryParameter<QueryParameterTypes>>;
       replace?: boolean;
       debounced?: boolean;
       pathname?: string;
@@ -148,7 +148,10 @@ export const useUrlQuery = () => {
             draft[parameter.paramName] = parameter.value.toISODate();
           } else if (isNumber(parameter.value)) {
             draft[parameter.paramName] = parameter.value.toString();
-          } else if (isArray(parameter.value)) {
+          } else if (
+            isArray(parameter.value) ||
+            parameter.value instanceof Array // Without this, compiler thinks the readonly arrays are not handled here
+          ) {
             draft[parameter.paramName] = parameter.value.join(',');
           } else {
             draft[parameter.paramName] = parameter.value;
@@ -176,9 +179,7 @@ export const useUrlQuery = () => {
   };
 
   /** Returns a query parameter in array type */
-  const getArrayFromUrlQuery = (
-    paramName: string,
-  ): ReadonlyArray<string> | undefined => {
+  const getArrayFromUrlQuery = (paramName: string): string[] => {
     return (queryParams[paramName] as string)
       ?.split(',')
       ?.filter((item) => item !== '');

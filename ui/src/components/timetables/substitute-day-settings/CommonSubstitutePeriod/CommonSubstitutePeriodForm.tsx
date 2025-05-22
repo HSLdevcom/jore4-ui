@@ -88,9 +88,11 @@ export const mapCommonSubstituteOperatingPeriodsToCommonDays = (
 };
 
 const combineCommonDaysWithPresetDates = (
-  commonDays: Array<CommonDayType>,
+  commonDays: ReadonlyArray<CommonDayType>,
   presetDays: ReadonlyArray<GeneratedDate>,
-): CommonDayType[] => {
+): ReadonlyArray<CommonDayType> => {
+  const mutableCommonDays = [...commonDays];
+
   presetDays.forEach((presetDay) => {
     const presetDayFoundInCommonDays = commonDays.some(
       (commonDay) =>
@@ -99,7 +101,7 @@ const combineCommonDaysWithPresetDates = (
     );
 
     if (!presetDayFoundInCommonDays) {
-      commonDays.push({
+      mutableCommonDays.push({
         periodName: presetDay.name,
         supersededDate: mapDateTimeToFormState(presetDay.date),
         lineTypes: '',
@@ -111,7 +113,7 @@ const combineCommonDaysWithPresetDates = (
     }
   });
 
-  return commonDays;
+  return mutableCommonDays;
 };
 
 interface Props {
