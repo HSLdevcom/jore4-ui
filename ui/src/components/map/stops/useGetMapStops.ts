@@ -24,6 +24,7 @@ const GQL_GET_MAP_STOPS = gql`
         validity_end
         priority
         centroid
+        stop_place_netex_id
       }
     }
   }
@@ -32,6 +33,7 @@ const GQL_GET_MAP_STOPS = gql`
 export type MapStop = FilterableStopInfo & {
   readonly location: Point;
   readonly netex_id: string;
+  readonly stop_place_netex_id: string;
 };
 
 function viewportToWhere(
@@ -84,7 +86,8 @@ export function useGetMapStops({ skipFetching, viewport }: GetMapStopsOptions) {
       if (
         !rawStop?.label ||
         rawStop.centroid?.type !== 'Point' ||
-        !rawStop.netex_id
+        !rawStop.netex_id ||
+        !rawStop.stop_place_netex_id
       ) {
         return null;
       }
@@ -93,6 +96,7 @@ export function useGetMapStops({ skipFetching, viewport }: GetMapStopsOptions) {
         label: rawStop.label,
         location: rawStop.centroid,
         netex_id: rawStop.netex_id,
+        stop_place_netex_id: rawStop.stop_place_netex_id,
         priority: Number(rawStop.priority) as Priority,
         validity_start: parseDate(rawStop.validity_start),
         validity_end: parseDate(rawStop.validity_end),

@@ -67555,6 +67555,7 @@ export type GetMapStopsQuery = {
       validity_end?: string | null,
       priority?: string | null,
       centroid?: GeoJSON.Geometry | null,
+      stop_place_netex_id?: string | null,
       label?: string | null
     }>
   } | null
@@ -76433,6 +76434,7 @@ export const GetMapStopsDocument = gql`
       validity_end
       priority
       centroid
+      stop_place_netex_id
     }
   }
 }
