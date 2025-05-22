@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { MdDelete } from 'react-icons/md';
+import { MdAddCircle, MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -19,10 +19,12 @@ const testIds = {
   deleteButton: 'StopAreaPopup::deleteButton',
   editButton: 'StopAreaPopup::editButton',
   moveButton: 'StopAreaPopup::moveButton',
+  addStopButton: 'StopAreaPopup::addStopButton',
 };
 
 type StopAreaPopupProps = {
   area: EnrichedStopPlace;
+  onAddStop: () => void;
   onDelete: () => void;
   onEdit: () => void;
   onMove: () => void;
@@ -31,6 +33,7 @@ type StopAreaPopupProps = {
 
 export const StopAreaPopup = ({
   area,
+  onAddStop,
   onDelete,
   onEdit,
   onMove,
@@ -99,6 +102,17 @@ export const StopAreaPopup = ({
           >
             <MdDelete aria-label={t('stopArea.delete')} className="text-xl" />
           </SimpleButton>
+
+          <SimpleButton
+            containerClassName="ml-1"
+            className="h-full !px-3"
+            inverted
+            onClick={onAddStop}
+            testId={testIds.addStopButton}
+          >
+            <MdAddCircle aria-label={t('map.addStop')} className="text-xl" />
+          </SimpleButton>
+
           <SimpleButton
             containerClassName="ml-auto"
             onClick={onMove}
@@ -106,6 +120,7 @@ export const StopAreaPopup = ({
           >
             {t('move')}
           </SimpleButton>
+
           <SimpleButton
             containerClassName="ml-2"
             onClick={onEdit}

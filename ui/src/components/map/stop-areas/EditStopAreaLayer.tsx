@@ -14,6 +14,7 @@ import {
   selectMapStopViewState,
   setEditedStopAreaDataAction,
   setMapStopAreaViewStateAction,
+  setMapStopViewStateAction,
   setSelectedMapStopAreaIdAction,
 } from '../../../redux';
 import { EnrichedStopPlace } from '../../../types';
@@ -37,6 +38,8 @@ export const EditStopAreaLayer = forwardRef<
   const { t } = useTranslation();
 
   const mapStopViewState = useAppSelector(selectMapStopViewState);
+  const setMapStopViewState = useAppAction(setMapStopViewStateAction);
+
   const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
   const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
 
@@ -65,6 +68,10 @@ export const EditStopAreaLayer = forwardRef<
 
   const onStartMoveStopArea = () => {
     setMapStopAreaViewState(MapEntityEditorViewState.MOVE);
+  };
+
+  const onAddStop = () => {
+    setMapStopViewState(MapEntityEditorViewState.PLACE);
   };
 
   const onCloseEditors = () => {
@@ -157,6 +164,7 @@ export const EditStopAreaLayer = forwardRef<
         mapStopViewState === MapEntityEditorViewState.NONE && (
           <StopAreaPopup
             area={editedArea}
+            onAddStop={onAddStop}
             onDelete={openDeleteDialog}
             onEdit={onStartEditStopArea}
             onMove={onStartMoveStopArea}
