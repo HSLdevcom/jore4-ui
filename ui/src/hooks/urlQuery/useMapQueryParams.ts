@@ -79,7 +79,7 @@ export const useMapQueryParams = () => {
         },
         {
           paramName: QueryParameterName.RouteLabels,
-          value: routeLabels as Array<string>,
+          value: routeLabels,
         },
         {
           paramName: QueryParameterName.LineLabel,
@@ -95,7 +95,7 @@ export const useMapQueryParams = () => {
         },
         {
           paramName: QueryParameterName.RoutePriorities,
-          value: priorities as Array<Priority>,
+          value: priorities,
         },
       ],
     });

@@ -2,7 +2,7 @@ export const sortAlphabetically = <T>(
   array: ReadonlyArray<T>,
   attribute: keyof T,
 ): T[] =>
-  [...array].sort((a, b) =>
+  array.toSorted((a, b) =>
     String(a[attribute]).localeCompare(String(b[attribute])),
   );
 
