@@ -10,7 +10,10 @@ const GQL_DELETE_STOP_AREA = gql`
 `;
 
 export const useDeleteStopArea = () => {
-  const [deleteStopAreaFunction] = useDeleteStopAreaMutation();
+  const [deleteStopAreaFunction] = useDeleteStopAreaMutation({
+    awaitRefetchQueries: true,
+    refetchQueries: ['GetStopAreasByLocation'],
+  });
 
   const deleteStopArea = async (stopPlaceId: string) => {
     return deleteStopAreaFunction({ variables: { stopPlaceId } });

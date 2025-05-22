@@ -523,6 +523,11 @@ export function useDefaultErrorHandler() {
   };
 }
 
+const refetchQueries = {
+  awaitRefetchQueries: true,
+  refetchQueries: () => ['getStopPlaceDetails', 'GetStopInfoForEditingOnMap'],
+} as const;
+
 export const useEditStop = () => {
   const [editStopMutation] = useEditStopMutation();
   const [editStopPlaceMutation] = useEditStopPlaceMutation();
@@ -535,20 +540,25 @@ export const useEditStop = () => {
       ReturnType<typeof editStopPlaceMutation>
     > | null = null;
 
+    const updateStopPoint =
+      !!changes.stopPointPatch ||
+      !!changes.deleteStopFromJourneyPatternIds?.length;
+
     if (changes.stopPlacePatch) {
       updateStopPlaceResult = await wrapErrors(
         editStopPlaceMutation({
           variables: { patch: changes.stopPlacePatch },
+
+          // If we are not going to update the StopPoint, refetch any and all
+          // active map queries right away. Else defer to after StopPoint update.
+          ...(!updateStopPoint ? refetchQueries : {}),
         }),
         TiamatUpdateFailedError,
         'Failed to update Stop Place in Tiamat!',
       );
     }
 
-    if (
-      changes.stopPointPatch ||
-      changes.deleteStopFromJourneyPatternIds?.length
-    ) {
+    if (updateStopPoint) {
       const variables = mapEditChangesToVariables(changes);
       updateStopPointResult = await wrapErrors(
         editStopMutation({
@@ -560,6 +570,9 @@ export const useEditStop = () => {
               __typename: 'infrastructure_network_infrastructure_link',
             });
           },
+
+          // Always refetch map queries after StopPoint update.
+          ...refetchQueries,
         }),
         StopPointUpdateFailed,
         'Failed to update Scheduled Stop Point in Lines & routes DB!',

@@ -123,7 +123,10 @@ const mapFormStateToInput = ({
 export const useUpsertStopArea = () => {
   const { t } = useTranslation();
   const tryHandleApolloError = useStopAreaDetailsApolloErrorHandler();
-  const [upsertStopAreaMutation] = useUpsertStopAreaMutation();
+  const [upsertStopAreaMutation] = useUpsertStopAreaMutation({
+    awaitRefetchQueries: true,
+    refetchQueries: ['GetStopAreasByLocation'],
+  });
 
   /**
    * Update an existing stop area, or create a new one.

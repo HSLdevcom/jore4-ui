@@ -140,8 +140,10 @@ export function useCheckIsLocationValidForStop() {
 
 export function useCreateStop() {
   const [insertStopPointMutation] = useInsertStopPointMutation();
-  const [insertQuayIntoStopPlaceMutation] =
-    useInsertQuayIntoStopPlaceMutation();
+  const [insertQuayIntoStopPlaceMutation] = useInsertQuayIntoStopPlaceMutation({
+    awaitRefetchQueries: true,
+    refetchQueries: ['getStopPlaceDetails', 'GetStopInfoForEditingOnMap'],
+  });
 
   return async ({ stopPlaceId, quay, stopPoint }: CreateChanges) => {
     const insertQuayResult = await insertQuayIntoStopPlaceMutation({
