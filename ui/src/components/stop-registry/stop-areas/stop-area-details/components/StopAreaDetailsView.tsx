@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapToShortDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
+import { AlternativeNames } from '../../../components/AlternativeNames/AlternativeNames';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { StopAreaComponentProps } from '../types';
 
@@ -9,13 +10,6 @@ const testIds = {
   privateCode: 'StopAreaDetails::privateCode',
   name: 'StopAreaDetails::name',
   nameSwe: 'StopAreaDetails::nameSwe',
-  nameEng: 'StopAreaDetails::nameEng',
-  nameLongFin: 'StopAreaDetails::nameLongFin',
-  nameLongSwe: 'StopAreaDetails::nameLongSwe',
-  nameLongEng: 'StopAreaDetails::nameLongEng',
-  abbreviationFin: 'StopAreaDetails::abbreviationFin',
-  abbreviationSwe: 'StopAreaDetails::abbreviationSwe',
-  abbreviationEng: 'StopAreaDetails::abbreviationEng',
   parentTerminal: 'StopAreaDetails::parentTerminal',
   areaSize: 'StopAreaDetails::areaSize',
   validityPeriod: 'StopAreaDetails::validityPeriod',
@@ -67,44 +61,8 @@ export const StopAreaDetailsView: FC<StopAreaComponentProps> = ({
           testId={testIds.validityPeriod}
         />
       </DetailRow>
+      {area.alternativeNames && <AlternativeNames alternativeNames={area} />}
       <DetailRow className={className}>
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.nameLongFin')}
-          detail={area.nameLongFin}
-          testId={testIds.nameLongFin}
-        />
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.nameLongSwe')}
-          detail={area.nameLongSwe}
-          testId={testIds.nameLongSwe}
-        />
-        <LabeledDetail
-          title={t('stopDetails.basicDetails.abbreviationFin')}
-          detail={area.abbreviationFin}
-          testId={testIds.abbreviationFin}
-        />
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.abbreviationSwe')}
-          detail={area.abbreviationSwe}
-          testId={testIds.abbreviationSwe}
-        />
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.nameEng')}
-          detail={area.nameEng}
-          testId={testIds.nameEng}
-        />
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.nameLongEng')}
-          detail={area.nameLongEng}
-          testId={testIds.nameLongEng}
-        />
-      </DetailRow>
-      <DetailRow className={className}>
-        <LabeledDetail
-          title={t('stopAreaDetails.basicDetails.abbreviationEng')}
-          detail={area.abbreviationEng}
-          testId={testIds.abbreviationEng}
-        />
         <LabeledDetail
           title={t('stopAreaDetails.basicDetails.areaSize')}
           detail={null}
