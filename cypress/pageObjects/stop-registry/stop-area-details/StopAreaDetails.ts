@@ -9,19 +9,22 @@ export class StopAreaDetails {
 
   getNameSwe = () => cy.getByTestId('StopAreaDetails::nameSwe');
 
-  getNameEng = () => cy.getByTestId('StopAreaDetails::nameEng');
+  getNameEng = () => cy.getByTestId('AlternativeNames::nameEng');
 
-  getNameLongFin = () => cy.getByTestId('StopAreaDetails::nameLongFin');
+  getNameLongFin = () => cy.getByTestId('AlternativeNames::nameLongFin');
 
-  getNameLongSwe = () => cy.getByTestId('StopAreaDetails::nameLongSwe');
+  getNameLongSwe = () => cy.getByTestId('AlternativeNames::nameLongSwe');
 
-  getNameLongEng = () => cy.getByTestId('StopAreaDetails::nameLongEng');
+  getNameLongEng = () => cy.getByTestId('AlternativeNames::nameLongEng');
 
-  getAbbreviationFin = () => cy.getByTestId('StopAreaDetails::abbreviationFin');
+  getAbbreviationFin = () =>
+    cy.getByTestId('AlternativeNames::abbreviationFin');
 
-  getAbbreviationSwe = () => cy.getByTestId('StopAreaDetails::abbreviationSwe');
+  getAbbreviationSwe = () =>
+    cy.getByTestId('AlternativeNames::abbreviationSwe');
 
-  getAbbreviationEng = () => cy.getByTestId('StopAreaDetails::abbreviationEng');
+  getAbbreviationEng = () =>
+    cy.getByTestId('AlternativeNames::abbreviationEng');
 
   getPrivateCode = () => cy.getByTestId('StopAreaDetails::privateCode');
 
