@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import type { GeoJSON } from 'geojson';
 import compact from 'lodash/compact';
 import { useMemo } from 'react';
 import {
