@@ -18,7 +18,7 @@ export interface BaseStopFormInfo
 
 export interface NewStopFormInfo extends BaseStopFormInfo {
   publicCode: string;
-  stopPlace: string;
+  stopPlace?: string;
 }
 
 export class StopForm {
@@ -120,8 +120,10 @@ export class StopForm {
   fillFormForNewStop(values: NewStopFormInfo) {
     this.getPublicCodeInput().clearAndType(values.publicCode);
 
-    this.getStopAreaInput().clearAndType(values.stopPlace);
-    this.getStopAreaResult(values.stopPlace).click();
+    if (values.stopPlace) {
+      this.getStopAreaInput().clearAndType(values.stopPlace);
+      this.getStopAreaResult(values.stopPlace).click();
+    }
 
     this.fillBaseForm(values);
   }

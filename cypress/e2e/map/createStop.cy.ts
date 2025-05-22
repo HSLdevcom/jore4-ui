@@ -2,6 +2,7 @@ import {
   Priority,
   ReusableComponentsVehicleModeEnum,
   StopAreaInput,
+  StopRegistryGeoJsonType,
   timingPlaces,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import { Tag } from '../../enums';
@@ -35,6 +36,10 @@ const stopAreaInput: Array<StopAreaInput> = [
       privateCode: {
         type: 'HSL/TEST',
         value: testStopLabels.stopAreaPrivateCode,
+      },
+      geometry: {
+        coordinates: [24.93021804533524, 60.164074274478054],
+        type: StopRegistryGeoJsonType.Point,
       },
     },
     organisations: null,
@@ -248,6 +253,45 @@ describe('Stop creation tests', mapViewport, () => {
       stopDetailsPage.titleRow
         .names()
         .shouldHaveText(`${testStopLabels.stopAreaName}|-`);
+    },
+  );
+
+  it(
+    'Should create stop for preselected StopArea',
+    { tags: [Tag.Map, Tag.Stops, Tag.Smoke], scrollBehavior: 'bottom' },
+    () => {
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      mapModal.map.waitForLoadToComplete();
+
+      mapModal.map.getStopAreaById(testStopLabels.stopAreaPrivateCode).click();
+      mapModal.stopAreaPopup
+        .getLabel()
+        .shouldBeVisible()
+        .shouldHaveText(
+          `${testStopLabels.stopAreaPrivateCode} ${testStopLabels.stopAreaName}`,
+        );
+
+      mapModal.stopAreaPopup.getAddStopButton().click();
+      mapModal.stopAreaPopup.getLabel().should('not.exist');
+
+      mapModal.map.clickRelativePoint(40, 55);
+
+      mapModal.stopForm
+        .getStopAreaInput()
+        .shouldBeDisabled()
+        .and('have.value', testStopLabels.stopAreaName);
+
+      mapModal.stopForm.fillFormForNewStop({
+        publicCode: 'H12345',
+        validityStartISODate: '2022-01-01',
+        priority: Priority.Standard,
+      });
+
+      mapModal.stopForm.save();
+      mapModal.gqlStopShouldBeCreatedSuccessfully();
+      mapModal.checkStopSubmitSuccessToast();
+
+      mapModal.map.stopPopUp.getLabel().shouldBeVisible();
     },
   );
 

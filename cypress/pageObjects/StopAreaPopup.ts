@@ -22,4 +22,8 @@ export class StopAreaPopup {
   getMoveButton() {
     return cy.getByTestId('StopAreaPopup::moveButton');
   }
+
+  getAddStopButton() {
+    return cy.getByTestId('StopAreaPopup::addStopButton');
+  }
 }
