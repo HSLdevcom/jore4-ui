@@ -99,7 +99,7 @@ check_pinned_image() {
   echo "Docker hub image: ${dockerHubImage}"
 
   # Find current tag from values
-  localImage="$(cat ./docker/docker-compose.custom.yml | ${DOCKER_YQ} e \".services.jore4-${1}.image\")"
+  localImage="$(cat ./docker/docker-compose.custom.yml | ${DOCKER_YQ} e .services.jore4-${1}.image)"
   echo "Local image: ${localImage}"
 
   # Warn the user if the local pinned version differs from the current one
