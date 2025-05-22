@@ -1,10 +1,12 @@
-import { FC, ReactNode } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
-interface Props {
-  className?: string;
-  children: ReactNode;
-}
+type ModalBodyProps = {
+  readonly className?: string;
+};
 
-export const ModalBody: FC<Props> = ({ className = '', children }) => {
+export const ModalBody: FC<PropsWithChildren<ModalBodyProps>> = ({
+  className = '',
+  children,
+}) => {
   return <div className={`mx-12 my-8 ${className}`}>{children}</div>;
 };

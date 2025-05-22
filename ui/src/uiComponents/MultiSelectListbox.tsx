@@ -1,30 +1,30 @@
 import { Listbox as HUIListbox, Transition } from '@headlessui/react';
 import first from 'lodash/first';
-import { Fragment, ReactNode } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
 import { AllOptionEnum } from '../utils/enum';
 import { ValueFn, dropdownTransition } from './Listbox';
 import { ListboxButton } from './ListboxButton';
 import { ListboxOptionRenderer, ListboxOptions } from './ListboxOptions';
 
-interface MultiSelectFormInputProps {
-  value?: ReadonlyArray<string>;
-  onChange: ValueFn;
-  onBlur?: Noop;
-  fieldState?: ControllerFieldState;
-  disabled?: boolean;
-}
+type MultiSelectFormInputProps = {
+  readonly value?: ReadonlyArray<string>;
+  readonly onChange: ValueFn;
+  readonly onBlur?: Noop;
+  readonly fieldState?: ControllerFieldState;
+  readonly disabled?: boolean;
+};
 
-interface Props extends MultiSelectFormInputProps {
-  id?: string;
-  buttonContent: ReactNode;
-  testId: string;
-  options: ReadonlyArray<ListboxOptionRenderer>;
-  buttonClassNames?: string;
-  arrowButtonClassNames?: string;
-}
+type MultiSelectListboxProps = MultiSelectFormInputProps & {
+  readonly id?: string;
+  readonly buttonContent: ReactNode;
+  readonly testId: string;
+  readonly options: ReadonlyArray<ListboxOptionRenderer>;
+  readonly buttonClassNames?: string;
+  readonly arrowButtonClassNames?: string;
+};
 
-export const MultiSelectListbox = ({
+export const MultiSelectListbox: FC<MultiSelectListboxProps> = ({
   id,
   buttonContent,
   testId,
@@ -36,7 +36,7 @@ export const MultiSelectListbox = ({
   disabled,
   buttonClassNames = '',
   arrowButtonClassNames = '',
-}: Props): React.ReactElement => {
+}) => {
   const getRemovedItem = (
     changedItems: ReadonlyArray<string>,
     items: ReadonlyArray<string> | undefined,

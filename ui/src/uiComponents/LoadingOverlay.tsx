@@ -12,11 +12,14 @@ const HIDE_LOADER_DELAY = 200;
 const MEDIUM_PRIO_LOADER_DELAY = 300;
 const LOW_PRIO_LOADER_DELAY = 500;
 
-type BaseProps = { testId?: string };
-type IsLoadingProps = { isLoading: boolean; loadingState?: never };
-type LoadingStateProps = { isLoading?: never; loadingState: LoadingState };
+type BaseProps = { readonly testId?: string };
+type IsLoadingProps = { readonly isLoading: boolean; loadingState?: never };
+type LoadingStateProps = {
+  readonly isLoading?: never;
+  readonly loadingState: LoadingState;
+};
 
-type Props = BaseProps & (IsLoadingProps | LoadingStateProps);
+type LoadingOverlayProps = BaseProps & (IsLoadingProps | LoadingStateProps);
 
 function resolveLoadingState(
   loadingState: LoadingState | undefined,
@@ -89,7 +92,7 @@ function useIsVisible(
   return visible;
 }
 
-export const LoadingOverlay: React.FC<Props> = ({
+export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
   isLoading,
   loadingState,
   testId = '',

@@ -1,12 +1,14 @@
 import { Transition } from '@headlessui/react';
-import { FC, Fragment, ReactNode } from 'react';
+import { FC, Fragment, PropsWithChildren } from 'react';
 
-interface Props {
-  show: boolean;
-  children: ReactNode;
-}
+type ToastTransitionProps = {
+  readonly show: boolean;
+};
 
-export const ToastTransition: FC<Props> = ({ show, children }) => {
+export const ToastTransition: FC<PropsWithChildren<ToastTransitionProps>> = ({
+  show,
+  children,
+}) => {
   return (
     <Transition
       // This needs to be a fragment, so that we can match the

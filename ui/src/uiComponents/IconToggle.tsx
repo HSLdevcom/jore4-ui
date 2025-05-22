@@ -1,16 +1,17 @@
+import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-interface Props {
-  active: boolean;
-  onToggle: (active: boolean) => void;
-  disabled?: boolean;
-  className?: string;
-  iconClassName: string;
-  testId: string;
-  tooltip: string;
-}
+type IconToggleProps = {
+  readonly active: boolean;
+  readonly onToggle: (active: boolean) => void;
+  readonly disabled?: boolean;
+  readonly className?: string;
+  readonly iconClassName: string;
+  readonly testId: string;
+  readonly tooltip: string;
+};
 
-export const IconToggle = ({
+export const IconToggle: FC<IconToggleProps> = ({
   active,
   onToggle,
   disabled = false,
@@ -18,11 +19,12 @@ export const IconToggle = ({
   iconClassName = '',
   testId,
   tooltip,
-}: Props): React.ReactElement => {
+}) => {
   const colorClassNames = active
     ? 'bg-tweaked-brand text-white'
     : 'bg-white text-tweaked-brand';
   const disabledClassNames = disabled ? 'text-white bg-light-grey' : '';
+
   return (
     // Button has a title attribute & visual icon
     // eslint-disable-next-line jsx-a11y/control-has-associated-label

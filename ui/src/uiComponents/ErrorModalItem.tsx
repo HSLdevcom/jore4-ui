@@ -9,14 +9,14 @@ const testIds = {
   additionalDetails: 'ErrorModalItem::additionalDetails',
 };
 
-interface Props {
-  title?: string;
-  details: string;
-  additionalDetails?: string;
-  className?: string;
-}
+type ErrorModalItemProps = {
+  readonly title?: string;
+  readonly details: string;
+  readonly additionalDetails?: string;
+  readonly className?: string;
+};
 
-export const ErrorModalItem: React.FC<Props> = ({
+export const ErrorModalItem: React.FC<ErrorModalItemProps> = ({
   title,
   details,
   additionalDetails,

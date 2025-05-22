@@ -7,14 +7,15 @@ const buttonErrorStyles =
 
 const arrowErrorStyles = 'text-hsl-red';
 
-interface Props {
-  hasError: boolean;
-  testId?: string;
-  buttonContent: ReactNode;
-  buttonClassNames?: string;
-  arrowButtonClassNames?: string;
-}
-export const ListboxButton: FC<Props> = ({
+type ListboxButtonProps = {
+  readonly hasError: boolean;
+  readonly testId?: string;
+  readonly buttonContent: ReactNode;
+  readonly buttonClassNames?: string;
+  readonly arrowButtonClassNames?: string;
+};
+
+export const ListboxButton: FC<ListboxButtonProps> = ({
   hasError,
   testId,
   buttonContent,

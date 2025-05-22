@@ -1,21 +1,22 @@
+import { FC } from 'react';
 import { SimpleButton } from './SimpleButton';
 
-type Props = {
-  id?: string;
-  label: string;
-  inverted?: boolean;
-  onClick: () => void;
-  testId?: string;
-  className?: string;
-  disabled?: boolean;
-  tooltip?: string;
-  disabledTooltip?: string;
-  ariaSelected?: boolean;
-  role?: string;
-  ariaControls?: string;
+type SimpleSmallButtonProps = {
+  readonly id?: string;
+  readonly label: string;
+  readonly inverted?: boolean;
+  readonly onClick: () => void;
+  readonly testId?: string;
+  readonly className?: string;
+  readonly disabled?: boolean;
+  readonly tooltip?: string;
+  readonly disabledTooltip?: string;
+  readonly ariaSelected?: boolean;
+  readonly role?: string;
+  readonly ariaControls?: string;
 };
 
-export const SimpleSmallButton = ({
+export const SimpleSmallButton: FC<SimpleSmallButtonProps> = ({
   id,
   label,
   inverted,
@@ -28,7 +29,7 @@ export const SimpleSmallButton = ({
   ariaSelected,
   role,
   ariaControls,
-}: Props): React.ReactElement => {
+}) => {
   const commonClassNames = `!rounded text-sm font-light py-0`;
 
   return (

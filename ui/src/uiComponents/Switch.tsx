@@ -1,15 +1,15 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
-import React, { FC, ReactNode } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
-interface Props {
-  className?: string;
-  checked: boolean;
-  onChange: (enabled: boolean) => void;
-  testId?: string;
-}
+type SwitchProps = {
+  readonly className?: string;
+  readonly checked: boolean;
+  readonly onChange: (enabled: boolean) => void;
+  readonly testId?: string;
+};
 
 // a pre-styled version of the Headless UI Switch component
-export const Switch: React.FC<Props> = ({
+export const Switch: React.FC<SwitchProps> = ({
   testId,
   className = '',
   checked,
@@ -35,12 +35,14 @@ export const Switch: React.FC<Props> = ({
   );
 };
 
-interface LabelProps {
-  className?: string;
-  children: ReactNode;
-}
+type LabelProps = {
+  readonly className?: string;
+};
 
-export const SwitchLabel: FC<LabelProps> = ({ className = '', children }) => {
+export const SwitchLabel: FC<PropsWithChildren<LabelProps>> = ({
+  className = '',
+  children,
+}) => {
   return (
     <HuiSwitch.Label className={`${className} text-base font-normal`}>
       {children}

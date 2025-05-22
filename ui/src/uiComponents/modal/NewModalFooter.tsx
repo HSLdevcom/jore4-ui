@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../../layoutComponents';
 
@@ -6,12 +6,14 @@ const testIds = {
   modalFooter: 'ModalFooter',
 };
 
-interface Props {
-  className?: string;
-  children: ReactNode;
-}
+type NewModalFooterProps = {
+  readonly className?: string;
+};
 
-export const NewModalFooter: FC<Props> = ({ children, className = '' }) => {
+export const NewModalFooter: FC<PropsWithChildren<NewModalFooterProps>> = ({
+  children,
+  className = '',
+}) => {
   return (
     <Row
       testId={testIds.modalFooter}

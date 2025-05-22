@@ -5,9 +5,9 @@ import { usePagination } from './usePagination';
 type ClassNameProps = { readonly className?: string };
 
 type CompatPaginationProps = {
-  totalItemsCount: number;
-  amountOfNeighbours?: number;
-  itemsPerPage?: number;
+  readonly totalItemsCount: number;
+  readonly amountOfNeighbours?: number;
+  readonly itemsPerPage?: number;
 } & ClassNameProps;
 
 const DEFAULT_AMOUNT_OF_NEIGHBOURS = 2;

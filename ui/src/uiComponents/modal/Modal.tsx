@@ -1,17 +1,16 @@
 import { Dialog } from '@headlessui/react';
-import React, { FC, ReactNode } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-  dialogClassName?: string;
-  contentClassName?: string;
-  testId?: string;
-  children: ReactNode;
-}
+type ModalProps = {
+  readonly isOpen: boolean;
+  readonly onClose: () => void;
+  readonly dialogClassName?: string;
+  readonly contentClassName?: string;
+  readonly testId?: string;
+};
 
-export const Modal: FC<Props> = ({
+export const Modal: FC<PropsWithChildren<ModalProps>> = ({
   isOpen,
   onClose,
   dialogClassName = '',

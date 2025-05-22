@@ -4,20 +4,21 @@ import { Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import { commonHoverStyle } from './SimpleButton';
 
-interface LinkProps {
-  href: string;
-}
+type LinkProps = {
+  readonly href: string;
+};
 
-interface ButtonProps {
-  onClick: () => void;
-}
-interface CommonProps {
-  testId?: string;
-  tooltip: string;
-  className?: string;
-}
+type ButtonProps = {
+  readonly onClick: () => void;
+};
 
-type Props = CommonProps & (LinkProps | ButtonProps);
+type CommonProps = {
+  readonly testId?: string;
+  readonly tooltip: string;
+  readonly className?: string;
+};
+
+type EditButtonProps = CommonProps & (LinkProps | ButtonProps);
 
 const ButtonContent = () => (
   <div
@@ -27,7 +28,7 @@ const ButtonContent = () => (
   </div>
 );
 
-export const EditButton: React.FC<Props> = (props) => {
+export const EditButton: React.FC<EditButtonProps> = (props) => {
   const { testId, tooltip, className = '' } = props;
   const href = (props as LinkProps)?.href;
   const onClick = (props as ButtonProps)?.onClick;

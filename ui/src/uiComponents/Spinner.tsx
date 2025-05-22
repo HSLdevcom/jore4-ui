@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 
-interface Props {
-  showSpinner: boolean;
-  className?: string;
-}
+type SpinnerProps = {
+  readonly showSpinner: boolean;
+  readonly className?: string;
+};
 
-export const Spinner = ({
-  showSpinner,
-  className = '',
-}: Props): React.ReactElement => {
+export const Spinner: FC<SpinnerProps> = ({ showSpinner, className = '' }) => {
   return (
     <div className={className}>
       <ClipLoader loading={showSpinner} />

@@ -15,16 +15,16 @@ export interface ListboxOptionRenderer {
   render: (props: OptionRenderPropArg) => ReactNode;
 }
 
-interface Props {
-  options: ReadonlyArray<ListboxOptionRenderer>;
-  testId: string;
-}
+type ListboxOptionsProps = {
+  readonly options: ReadonlyArray<ListboxOptionRenderer>;
+  readonly testId: string;
+};
 
 // HUIListbox throws an error if ref is not set when using children component for options
-export const ListboxOptions = forwardRef<HTMLDivElement, Props>(
+export const ListboxOptions = forwardRef<HTMLDivElement, ListboxOptionsProps>(
   // eslint-disable-next-line prefer-arrow-callback
   function ListboxOptions(
-    { options, testId }: Props,
+    { options, testId }: ListboxOptionsProps,
     ref: ForwardedRef<HTMLDivElement>,
   ): React.ReactElement {
     return (
