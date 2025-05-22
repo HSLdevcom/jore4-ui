@@ -68,7 +68,7 @@ export const LineToClosestInfraLink: FC<LineToClosestInfraLinkProps> = ({
 
   return (
     <LineRenderLayer
-      layerId="MemberLines"
+      layerId="LineToClosestInfraLink"
       geometry={lineToInfraLink}
       layout={{
         'line-cap': 'round',
