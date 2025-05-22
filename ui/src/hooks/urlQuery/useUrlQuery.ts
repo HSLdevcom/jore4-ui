@@ -1,5 +1,4 @@
 import { produce } from 'immer';
-import isArray from 'lodash/isArray';
 import isBoolean from 'lodash/isBoolean';
 import isNumber from 'lodash/isNumber';
 import { DateTime } from 'luxon';
@@ -149,7 +148,7 @@ export const useUrlQuery = () => {
           } else if (isNumber(parameter.value)) {
             draft[parameter.paramName] = parameter.value.toString();
           } else if (
-            isArray(parameter.value) ||
+            Array.isArray(parameter.value) ||
             parameter.value instanceof Array // Without this, compiler thinks the readonly arrays are not handled here
           ) {
             draft[parameter.paramName] = parameter.value.join(',');

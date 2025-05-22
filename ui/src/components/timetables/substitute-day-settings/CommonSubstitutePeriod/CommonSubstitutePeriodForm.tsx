@@ -91,7 +91,7 @@ const combineCommonDaysWithPresetDates = (
   commonDays: ReadonlyArray<CommonDayType>,
   presetDays: ReadonlyArray<GeneratedDate>,
 ): ReadonlyArray<CommonDayType> => {
-  const mutableCommonDays = [...commonDays];
+  const displayedCommonDays = [...commonDays];
 
   presetDays.forEach((presetDay) => {
     const presetDayFoundInCommonDays = commonDays.some(
@@ -101,7 +101,7 @@ const combineCommonDaysWithPresetDates = (
     );
 
     if (!presetDayFoundInCommonDays) {
-      mutableCommonDays.push({
+      displayedCommonDays.push({
         periodName: presetDay.name,
         supersededDate: mapDateTimeToFormState(presetDay.date),
         lineTypes: '',
@@ -113,7 +113,7 @@ const combineCommonDaysWithPresetDates = (
     }
   });
 
-  return mutableCommonDays;
+  return displayedCommonDays;
 };
 
 interface Props {
