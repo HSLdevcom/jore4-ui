@@ -13,10 +13,10 @@ const testIds = {
 
 type PublicCodeProps = {
   readonly className?: string;
-  readonly editing: boolean;
+  readonly disabled: boolean;
 };
 
-export const PublicCode: FC<PublicCodeProps> = ({ className, editing }) => {
+export const PublicCode: FC<PublicCodeProps> = ({ className, disabled }) => {
   const { t } = useTranslation();
   const datalistId = useId();
 
@@ -33,7 +33,7 @@ export const PublicCode: FC<PublicCodeProps> = ({ className, editing }) => {
       latitude,
       longitude,
       query,
-      skip: editing,
+      skip: disabled,
     });
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export const PublicCode: FC<PublicCodeProps> = ({ className, editing }) => {
         customTitlePath="stops.publicCode"
         testId={testIds.publicCode}
         placeholder={loading ? t('stops.loadingUsedPublicCodes') : undefined}
-        disabled={editing || loading}
+        disabled={disabled || loading}
       />
 
       <datalist id={datalistId}>

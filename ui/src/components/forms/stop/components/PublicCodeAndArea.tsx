@@ -8,19 +8,21 @@ import { StopAreaInfoSection } from './StopAreaInfoSection';
 
 type PublicCodeAndAreaProps = {
   readonly className?: string;
-  readonly editing: boolean;
+  readonly publicCodeDisabled: boolean;
+  readonly stopAreaDisabled: boolean;
 };
 
 export const PublicCodeAndArea: FC<PublicCodeAndAreaProps> = ({
   className,
-  editing,
+  publicCodeDisabled,
+  stopAreaDisabled,
 }) => {
   return (
     <FormColumn className={twMerge('bg-background', className)}>
       <div className="flex gap-4">
-        <PublicCode className="min-w-0" editing={editing} />
+        <PublicCode className="min-w-0" disabled={publicCodeDisabled} />
 
-        <FindStopArea className="w-full" disabled={editing} />
+        <FindStopArea className="w-full" disabled={stopAreaDisabled} />
       </div>
 
       <PublicCodePrefixMissmatchWarning />

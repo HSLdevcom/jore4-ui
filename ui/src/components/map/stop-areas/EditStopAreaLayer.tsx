@@ -1,10 +1,5 @@
 import { MapLayerMouseEvent } from 'maplibre-gl';
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
 import {
@@ -16,8 +11,10 @@ import {
   Operation,
   isModalOpen,
   selectMapStopAreaViewState,
+  selectMapStopViewState,
   setEditedStopAreaDataAction,
   setMapStopAreaViewStateAction,
+  setSelectedMapStopAreaIdAction,
 } from '../../../redux';
 import { EnrichedStopPlace } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
@@ -29,53 +26,38 @@ import { mapStopAreaDataToFormState } from './StopAreaForm';
 import { StopAreaPopup } from './StopAreaPopup';
 
 type EditStopAreaLayerProps = {
-  editedArea: EnrichedStopPlace;
-  onEditingFinished?: () => void;
-  onPopupClose: () => void;
+  readonly editedArea: EnrichedStopPlace;
+  readonly onPopupClose: () => void;
 };
 
 export const EditStopAreaLayer = forwardRef<
   EditStopAreaLayerRef,
   EditStopAreaLayerProps
->(({ editedArea, onEditingFinished, onPopupClose }, ref) => {
+>(({ editedArea, onPopupClose }, ref) => {
   const { t } = useTranslation();
 
+  const mapStopViewState = useAppSelector(selectMapStopViewState);
   const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
   const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
+
+  const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
+  const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
 
   const [isConfirmMoveDialogOpen, setIsConfirmMoveDialogOpen] = useState(false);
   const [isConfirmEditDialogOpen, setIsConfirmEditDialogOpen] = useState(false);
   const [newStopAreaLocation, setNewStopAreaLocation] = useState<{
     longitude: number;
     latitude: number;
-  }>();
+  } | null>(null);
   const [stopAreaEditChanges, setStopAreaEditChanges] =
-    useState<StopAreaFormState>();
+    useState<StopAreaFormState | null>(null);
 
   const { upsertStopArea, defaultErrorHandler } = useUpsertStopArea();
-  const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
 
   const { setIsLoading } = useLoader(Operation.ModifyStopArea);
 
   const { isConfirmDeleteDialogOpen, openDeleteDialog, closeDeleteDialog } =
     useStopAreaDeletion();
-
-  const isExistingStopArea = !!editedArea.id;
-  const defaultDisplayedEditor = isExistingStopArea
-    ? MapEntityEditorViewState.POPUP
-    : MapEntityEditorViewState.CREATE;
-
-  const isMoveStopAreaModeEnabled =
-    mapStopAreaViewState === MapEntityEditorViewState.MOVE;
-  useEffect(() => {
-    if (!isMoveStopAreaModeEnabled) {
-      setMapStopAreaViewState(defaultDisplayedEditor);
-    }
-  }, [
-    defaultDisplayedEditor,
-    isMoveStopAreaModeEnabled,
-    setMapStopAreaViewState,
-  ]);
 
   const onStartEditStopArea = () => {
     setMapStopAreaViewState(MapEntityEditorViewState.EDIT);
@@ -91,14 +73,6 @@ export const EditStopAreaLayer = forwardRef<
     onPopupClose();
   };
 
-  const onFinishEditing = () => {
-    onCloseEditors();
-
-    if (onEditingFinished) {
-      onEditingFinished();
-    }
-  };
-
   const onMoveStopArea = (e: MapLayerMouseEvent) => {
     const [longitude, latitude] = e.lngLat.toArray();
     setNewStopAreaLocation({ longitude, latitude });
@@ -109,24 +83,26 @@ export const EditStopAreaLayer = forwardRef<
     setMapStopAreaViewState(MapEntityEditorViewState.POPUP);
   };
 
-  const doEditStopArea = async (state: StopAreaFormState) => {
+  const doUpsertStopArea = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
-      await upsertStopArea({ stop: editedArea, state });
-      onFinishEditing();
+      const updatedStopArea = await upsertStopArea({ stop: editedArea, state });
+      setEditedStopAreaData(updatedStopArea);
+      setSelectedMapStopAreaId(updatedStopArea?.id ?? undefined);
+      setMapStopAreaViewState(MapEntityEditorViewState.POPUP);
     } catch (err) {
       defaultErrorHandler(err as Error, state);
     }
     setIsLoading(false);
   };
 
-  const onEditStopArea = (state: StopAreaFormState) => {
+  const onEditStopArea = async (state: StopAreaFormState) => {
     // Confirm if editing an existing area, but submit new area creation without confirmation.
     if (editedArea.id) {
       setStopAreaEditChanges(state);
       setIsConfirmEditDialogOpen(true);
     } else {
-      doEditStopArea(state);
+      await doUpsertStopArea(state);
     }
   };
 
@@ -138,7 +114,10 @@ export const EditStopAreaLayer = forwardRef<
     if (!stopAreaEditChanges) {
       return;
     }
-    await doEditStopArea(stopAreaEditChanges);
+
+    await doUpsertStopArea(stopAreaEditChanges);
+    setIsConfirmEditDialogOpen(false);
+    setStopAreaEditChanges(null);
   };
 
   const onConfirmMoveStopArea = async () => {
@@ -157,9 +136,15 @@ export const EditStopAreaLayer = forwardRef<
       geometry,
     });
     // An existing stop area, so all required properties have already been persisted -> safe to cast.
-    await doEditStopArea(stopAreaFormState as Required<StopAreaFormState>);
-    setMapStopAreaViewState(MapEntityEditorViewState.POPUP);
-    onFinishEditing();
+    await doUpsertStopArea(stopAreaFormState as Required<StopAreaFormState>);
+    setIsConfirmMoveDialogOpen(false);
+    setNewStopAreaLocation(null);
+  };
+
+  const onDeleteSuccess = () => {
+    setMapStopAreaViewState(MapEntityEditorViewState.NONE);
+    setEditedStopAreaData(undefined);
+    setSelectedMapStopAreaId(undefined);
   };
 
   useImperativeHandle(ref, () => ({
@@ -168,15 +153,16 @@ export const EditStopAreaLayer = forwardRef<
 
   return (
     <>
-      {mapStopAreaViewState === MapEntityEditorViewState.POPUP && (
-        <StopAreaPopup
-          area={editedArea}
-          onDelete={openDeleteDialog}
-          onEdit={onStartEditStopArea}
-          onMove={onStartMoveStopArea}
-          onClose={onCloseEditors}
-        />
-      )}
+      {mapStopAreaViewState === MapEntityEditorViewState.POPUP &&
+        mapStopViewState === MapEntityEditorViewState.NONE && (
+          <StopAreaPopup
+            area={editedArea}
+            onDelete={openDeleteDialog}
+            onEdit={onStartEditStopArea}
+            onMove={onStartMoveStopArea}
+            onClose={onCloseEditors}
+          />
+        )}
 
       {isModalOpen(mapStopAreaViewState) && (
         <EditStopAreaModal
@@ -186,13 +172,15 @@ export const EditStopAreaLayer = forwardRef<
           onSubmit={onEditStopArea}
         />
       )}
+
       <DeleteStopArea
         stopArea={editedArea}
         isOpen={isConfirmDeleteDialogOpen}
         onClose={closeDeleteDialog}
-        onDeleteSuccess={onFinishEditing}
+        onDeleteSuccess={onDeleteSuccess}
         defaultErrorHandler={defaultErrorHandler}
       />
+
       <ConfirmationDialog
         isOpen={isConfirmMoveDialogOpen}
         onCancel={onCancelMoveStopArea}
@@ -205,6 +193,7 @@ export const EditStopAreaLayer = forwardRef<
         cancelText={t('cancel')}
         widthClassName="w-235"
       />
+
       <ConfirmationDialog
         isOpen={isConfirmEditDialogOpen}
         onCancel={onCancelEditStopArea}

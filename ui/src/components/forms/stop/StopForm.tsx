@@ -330,7 +330,12 @@ const StopFormComponent: ForwardRefRenderFunction<HTMLFormElement, Props> = (
         onSubmit={handleSubmit(onFormSubmit)}
         ref={ref}
       >
-        <PublicCodeAndArea editing={editing} className="p-4" />
+        <PublicCodeAndArea
+          className="p-4"
+          publicCodeDisabled={editing}
+          // Either editing or stop creating was initiated from a Stip Area.
+          stopAreaDisabled={!!defaultValues.stopArea}
+        />
         <Location className="p-4" />
         <VersionInfo className="border-t border-light-grey p-4" />
 

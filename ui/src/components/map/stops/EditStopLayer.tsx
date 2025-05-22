@@ -1,5 +1,5 @@
 import noop from 'lodash/noop';
-import React, { forwardRef, useEffect, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useMemo } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
@@ -16,12 +16,20 @@ import {
   Operation,
   closeTimingPlaceModalAction,
   isModalOpen,
+  selectEditedStopAreaData,
   selectMapStopViewState,
   setMapStopViewStateAction,
   setSelectedRouteIdAction,
 } from '../../../redux';
-import { Point } from '../../../types';
-import { useGetStopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
+import { EnrichedStopPlace, Point } from '../../../types';
+import {
+  StopFormState,
+  StopModalStopAreaFormSchema,
+} from '../../forms/stop/types';
+import {
+  StopInfoForEditingOnMap,
+  useGetStopInfoForEditingOnMap,
+} from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
 import {
   ConflictResolverModal,
   mapStopToCommonConflictItem,
@@ -30,12 +38,72 @@ import { EditStoplayerRef } from '../refTypes';
 import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
 import { EditStopConfirmationDialog } from './EditStopConfirmationDialog';
 import { EditStopModal } from './EditStopModal';
+import { LineToActiveStopArea } from './LineToActiveStopArea';
 import { LineToClosestInfraLink } from './LineToClosestInfraLink';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';
 import { useCreateStopUtils } from './useCreateStopUtils';
 import { useDeleteStopUtils } from './useDeleteStopUtils';
 import { useEditStopUtils } from './useEditStopUtils';
+
+function enrichedStopAreaToStopModalStopAreaFormSchema(
+  editedStopAreaData: EnrichedStopPlace,
+): StopModalStopAreaFormSchema | null {
+  if (
+    !editedStopAreaData.id ||
+    !editedStopAreaData.privateCode?.value ||
+    !editedStopAreaData.validityStart
+  ) {
+    return null;
+  }
+
+  return {
+    netextId: editedStopAreaData.id,
+    privateCode: editedStopAreaData.privateCode.value,
+
+    validityStart: editedStopAreaData.validityStart,
+    validityEnd: editedStopAreaData.validityEnd ?? null,
+
+    nameFin: editedStopAreaData.name ?? null,
+    nameSwe: editedStopAreaData.nameSwe ?? null,
+    nameEng: editedStopAreaData.nameEng ?? null,
+
+    longNameFin: editedStopAreaData.nameLongFin ?? null,
+    longNameSwe: editedStopAreaData.nameLongSwe ?? null,
+    longNameEng: editedStopAreaData.nameLongEng ?? null,
+
+    abbreviationFin: editedStopAreaData.abbreviationFin ?? null,
+    abbreviationSwe: editedStopAreaData.abbreviationSwe ?? null,
+    abbreviationEng: editedStopAreaData.abbreviationEng ?? null,
+  };
+}
+
+function useDefaultValues(
+  draftLocation: Point | null,
+  stopInfo: StopInfoForEditingOnMap | null,
+): Partial<StopFormState> | null {
+  const editedStopAreaData = useAppSelector(selectEditedStopAreaData);
+
+  return useMemo(() => {
+    if (draftLocation) {
+      if (editedStopAreaData) {
+        return {
+          ...draftLocation,
+          stopArea:
+            enrichedStopAreaToStopModalStopAreaFormSchema(editedStopAreaData),
+        };
+      }
+
+      return draftLocation;
+    }
+
+    if (stopInfo) {
+      return stopInfo.formState;
+    }
+
+    return null;
+  }, [draftLocation, stopInfo, editedStopAreaData]);
+}
 
 type EditStopLayerProps = {
   readonly draftLocation: Point | null;
@@ -58,22 +126,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
     const mapStopViewState = useAppSelector(selectMapStopViewState);
     const setMapStopViewState = useAppAction(setMapStopViewStateAction);
 
-    // computed values for the edited stop
-    const isExistingStop = !!selectedStopId;
-    const defaultDisplayedEditor = isExistingStop
-      ? MapEntityEditorViewState.POPUP
-      : MapEntityEditorViewState.CREATE;
-
-    const defaultValues = draftLocation ?? stopInfo?.formState;
-
-    // when a stop is first edited, immediately show the proper editor view
-    const isMoveStopModeEnabled =
-      mapStopViewState === MapEntityEditorViewState.MOVE;
-    useEffect(() => {
-      if (!isMoveStopModeEnabled) {
-        setMapStopViewState(defaultDisplayedEditor);
-      }
-    }, [defaultDisplayedEditor, isMoveStopModeEnabled, setMapStopViewState]);
+    const defaultValues = useDefaultValues(draftLocation, stopInfo);
 
     const onCloseEditors = () => {
       setMapStopViewState(MapEntityEditorViewState.NONE);
@@ -125,6 +178,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
     return (
       <>
         <LineToClosestInfraLink draftLocation={draftLocation} stop={stopInfo} />
+        <LineToActiveStopArea.FromDraft draftLocation={draftLocation} />
 
         {draftLocation && (
           <Stop

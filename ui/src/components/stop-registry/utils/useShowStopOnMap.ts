@@ -6,7 +6,9 @@ import {
 } from '../../../hooks';
 import {
   FilterType,
+  MapEntityEditorViewState,
   resetMapState,
+  setMapStopViewStateAction,
   setSelectedStopIdAction,
   setStopFilterAction,
 } from '../../../redux';
@@ -29,6 +31,7 @@ export function useShowStopOnMap() {
     dispatch(resetMapState()).then(() => {
       if (netextId) {
         dispatch(setSelectedStopIdAction(netextId));
+        dispatch(setMapStopViewStateAction(MapEntityEditorViewState.POPUP));
       }
 
       dispatch(

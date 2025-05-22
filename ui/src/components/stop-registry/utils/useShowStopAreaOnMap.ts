@@ -5,7 +5,9 @@ import {
 } from '../../../hooks';
 import {
   FilterType,
+  MapEntityEditorViewState,
   resetMapState,
+  setMapStopAreaViewStateAction,
   setSelectedMapStopAreaIdAction,
   setStopFilterAction,
 } from '../../../redux';
@@ -23,6 +25,7 @@ export function useShowStopAreaOnMap() {
   return (id: string | undefined, point: Point) => {
     dispatch(resetMapState()).then(() => {
       dispatch(setSelectedMapStopAreaIdAction(id));
+      dispatch(setMapStopAreaViewStateAction(MapEntityEditorViewState.POPUP));
       dispatch(
         setStopFilterAction({
           filterType: FilterType.ShowAllBusStops,

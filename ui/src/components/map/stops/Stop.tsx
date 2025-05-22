@@ -8,14 +8,8 @@ import { Circle } from '../markers';
 
 const { colors } = theme;
 
-type StopProps = {
-  readonly isHighlighted?: boolean;
-  readonly mapStopViewState: MapEntityEditorViewState;
-  readonly onClick: () => void;
-  readonly selected?: boolean;
-  readonly testId?: string;
-  readonly vehicleMode?: ReusableComponentsVehicleModeEnum;
-} & Point;
+const iconSize = 30;
+const selectedIconSize = 32;
 
 /** Stop map markers border color is determined in this function. There are
  * different aspects which are affecting this determination. These are
@@ -49,6 +43,15 @@ const determineBorderColor = (
   return colors.hslDark80;
 };
 
+type StopProps = {
+  readonly isHighlighted?: boolean;
+  readonly mapStopViewState: MapEntityEditorViewState;
+  readonly onClick: () => void;
+  readonly selected?: boolean;
+  readonly testId?: string;
+  readonly vehicleMode?: ReusableComponentsVehicleModeEnum;
+} & Point;
+
 export const Stop: FC<StopProps> = ({
   isHighlighted = false,
   latitude,
@@ -59,8 +62,6 @@ export const Stop: FC<StopProps> = ({
   testId,
   vehicleMode = undefined,
 }) => {
-  const iconSize = 30;
-  const selectedIconSize = 32;
   // If the stop is being moved, we use different styles for the stop
   // to indicate the placeholder of the old location
   const isPlaceholder =

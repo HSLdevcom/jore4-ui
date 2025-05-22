@@ -1,14 +1,15 @@
 import debounce from 'lodash/debounce';
+import { Point as MapLibrePoint } from 'maplibre-gl';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { theme } from '../../../generated/theme';
 import { useCallbackOnKeyEscape } from '../../../hooks';
-import { Coords } from '../../../types';
 import {
   drawLineToClosestRoad,
   removeLineFromStopToInfraLink,
 } from '../../../utils/map';
 import { Circle } from '../markers';
+import { LineToActiveStopArea } from './LineToActiveStopArea';
 
 const { colors } = theme;
 
@@ -17,7 +18,8 @@ type CreateStopMarkerProps = {
 };
 
 export const CreateStopMarker: FC<CreateStopMarkerProps> = ({ onCancel }) => {
-  const [mouseCoords, setMouseCoords] = useState<Coords>();
+  const [mouseCoords, setMouseCoords] = useState<MapLibrePoint | null>(null);
+
   const { current: map } = useMap();
 
   const createStopMarkerSize = 20;
@@ -50,25 +52,29 @@ export const CreateStopMarker: FC<CreateStopMarkerProps> = ({ onCancel }) => {
 
   useCallbackOnKeyEscape(onCancel);
 
+  if (!mouseCoords) {
+    return null;
+  }
+
+  /* Display hovering bus stop while in create mode */
   return (
     <>
-      {/* Display hovering bus stop while in create mode */}
-      {mouseCoords && (
-        <div
-          style={{
-            pointerEvents: 'none',
-            position: 'absolute',
-            left: mouseCoords.x - createStopMarkerSize / 2,
-            top: mouseCoords.y - createStopMarkerSize / 2,
-          }}
-        >
-          <Circle
-            centerDot
-            borderColor={colors.hslRed}
-            size={createStopMarkerSize}
-          />
-        </div>
-      )}
+      <LineToActiveStopArea.FromMouse mouseCoords={mouseCoords} />
+
+      <div
+        style={{
+          pointerEvents: 'none',
+          position: 'absolute',
+          left: mouseCoords.x - createStopMarkerSize / 2,
+          top: mouseCoords.y - createStopMarkerSize / 2,
+        }}
+      >
+        <Circle
+          centerDot
+          borderColor={colors.hslRed}
+          size={createStopMarkerSize}
+        />
+      </div>
     </>
   );
 };

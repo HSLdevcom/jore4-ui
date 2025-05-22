@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useRef, useState } from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import {
   useAppAction,
@@ -14,6 +14,7 @@ import {
   MapEntityType,
   Operation,
   isEditorOpen,
+  isNoneOrPopup,
   isPlacingOrMoving,
   selectDraftLocation,
   selectMapStopAreaViewState,
@@ -21,9 +22,10 @@ import {
   selectMapViewport,
   selectSelectedStopId,
   selectShowMapEntityTypes,
-  selectStopAreaEditorIsActive,
   setDraftLocationAction,
+  setEditedStopAreaDataAction,
   setMapStopViewStateAction,
+  setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
@@ -54,6 +56,8 @@ export const Stops = React.forwardRef((_props, ref) => {
   const mapStopViewState = useAppSelector(selectMapStopViewState);
   const setMapStopViewState = useAppAction(setMapStopViewStateAction);
 
+  const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
+  const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setDraftStopLocation = useAppAction(setDraftLocationAction);
 
@@ -105,14 +109,18 @@ export const Stops = React.forwardRef((_props, ref) => {
   }));
 
   const onClickStop = (stop: MapStop) => {
-    if (mapStopViewState === MapEntityEditorViewState.NONE) {
+    if (isNoneOrPopup(mapStopViewState)) {
       setSelectedStopId(stop.netex_id);
+      setSelectedMapStopAreaId(stop.stop_place_netex_id);
+      setMapStopViewState(MapEntityEditorViewState.POPUP);
     }
   };
 
   const onPopupClose = () => {
     setSelectedStopId(undefined);
     setDraftStopLocation(undefined);
+    setSelectedMapStopAreaId(undefined);
+    setEditedStopAreaData(undefined);
   };
 
   const onEditingFinished = async (netextId: string | null) => {

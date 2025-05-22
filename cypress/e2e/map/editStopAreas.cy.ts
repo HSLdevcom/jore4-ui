@@ -236,6 +236,8 @@ describe('Stop areas on map', mapViewport, () => {
     confirmationDialog.getConfirmButton().click();
     mapModal.map.waitForLoadToComplete();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
+    mapModal.stopAreaPopup.getLabel().shouldBeVisible();
+    mapModal.stopAreaPopup.getCloseButton().click();
     mapModal.stopAreaPopup.getLabel().should('not.exist');
 
     // There should be nothing at the old position.

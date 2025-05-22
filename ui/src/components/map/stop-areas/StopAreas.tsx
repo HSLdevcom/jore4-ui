@@ -1,6 +1,5 @@
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
-import { useDispatch } from 'react-redux';
 import {
   StopAreaMinimalShowOnMapFieldsFragment,
   useGetStopAreasByLocationQuery,
@@ -16,40 +15,68 @@ import {
   MapEntityEditorViewState,
   MapEntityType,
   Operation,
+  isEditorOpen,
+  isPlacingOrMoving,
   selectEditedStopAreaData,
   selectMapStopAreaViewState,
+  selectMapStopViewState,
   selectMapViewport,
   selectSelectedStopAreaId,
   selectShowMapEntityTypes,
   setEditedStopAreaDataAction,
   setMapStopAreaViewStateAction,
+  setMapStopViewStateAction,
   setSelectedMapStopAreaIdAction,
+  setSelectedStopIdAction,
 } from '../../../redux';
 import {
   buildWithinViewportGqlGeometryFilter,
   mapLngLatToGeoJSON,
   notNullish,
 } from '../../../utils';
-import {
-  filterCancellationError,
-  makePromiseCleanupHelper,
-} from '../../../utils/makePromiseCleanupHelper';
 import { useUpsertStopArea } from '../../forms/stop-area';
-import { useGetStopPlaceDetailsLazy } from '../../stop-registry/stop-areas/stop-area-details/useGetStopAreaDetails';
+import { useGetStopPlaceDetailsById } from '../../stop-registry/stop-areas/stop-area-details/useGetStopAreaDetails';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { CreateStopAreaMarker } from './CreateStopAreaMarker';
 import { EditStopAreaLayer } from './EditStopAreaLayer';
 import { MemberStops } from './MemberStops';
 import { StopArea } from './StopArea';
 
-export const StopAreas = React.forwardRef((_props, ref) => {
-  const dispatch = useDispatch();
-  const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
+function useFetchAndUpdateSelectedStopAreaData() {
+  const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
-  const editedStopAreaData = useAppSelector(selectEditedStopAreaData);
+
+  const { setLoadingState } = useLoader(Operation.FetchStopAreaDetails);
+
+  const { stopPlaceDetails, loading } =
+    useGetStopPlaceDetailsById(selectedStopAreaId);
+
+  useEffect(() => {
+    setLoadingState(
+      loading ? LoadingState.MediumPriority : LoadingState.NotLoading,
+    );
+  }, [loading, setLoadingState]);
+
+  useEffect(() => {
+    if (stopPlaceDetails) {
+      setEditedStopAreaData(stopPlaceDetails);
+    }
+  }, [stopPlaceDetails, setEditedStopAreaData]);
+}
+
+export const StopAreas = React.forwardRef((_props, ref) => {
   const editStopAreaLayerRef = useRef<EditStopAreaLayerRef>(null);
 
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
+  const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
+
+  const editedStopAreaData = useAppSelector(selectEditedStopAreaData);
+  const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
+
+  const setSelectedStopId = useAppAction(setSelectedStopIdAction);
+
+  const mapStopViewState = useAppSelector(selectMapStopViewState);
+  const setMapStopViewState = useAppAction(setMapStopViewStateAction);
 
   const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
   const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
@@ -58,7 +85,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
     selectShowMapEntityTypes,
   );
 
-  const { defaultErrorHandler, initializeStopArea } = useUpsertStopArea();
+  const { initializeStopArea } = useUpsertStopArea();
 
   const viewport = useAppSelector(selectMapViewport);
   // Skip initial 0 radius fetch and wait for the map to get loaded,
@@ -76,38 +103,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
     skipFetchingAreas,
   );
 
-  const { setLoadingState: setFetchStopAreaDetailsLoadingState } = useLoader(
-    Operation.FetchStopAreaDetails,
-  );
-  const getStopPlaceDetails = useGetStopPlaceDetailsLazy();
-
-  useEffect(() => {
-    setFetchStopAreaDetailsLoadingState(LoadingState.MediumPriority);
-
-    const cleanupHelper = makePromiseCleanupHelper();
-    const basePromise = selectedStopAreaId
-      ? getStopPlaceDetails(selectedStopAreaId)
-      : Promise.resolve(null);
-
-    basePromise
-      .then(cleanupHelper.blockOnCleanup)
-      .then(setEditedStopAreaDataAction)
-      .then(dispatch)
-      .catch(filterCancellationError(defaultErrorHandler))
-      .finally(() => {
-        if (!cleanupHelper.cleanedUp) {
-          setFetchStopAreaDetailsLoadingState(LoadingState.NotLoading);
-        }
-      });
-
-    return cleanupHelper.cleanup;
-  }, [
-    selectedStopAreaId,
-    getStopPlaceDetails,
-    dispatch,
-    setFetchStopAreaDetailsLoadingState,
-    defaultErrorHandler,
-  ]);
+  useFetchAndUpdateSelectedStopAreaData();
 
   useImperativeHandle(ref, () => ({
     onCreateStopArea: (e: MapLayerMouseEvent) => {
@@ -121,16 +117,22 @@ export const StopAreas = React.forwardRef((_props, ref) => {
     },
   }));
 
-  const onEditingFinished = async () => {
-    setEditedStopAreaData(undefined);
+  const onClick = (area: StopAreaMinimalShowOnMapFieldsFragment) => {
+    if (isEditorOpen(mapStopViewState) || isEditorOpen(mapStopAreaViewState)) {
+      return;
+    }
 
-    // Refetch stop areas to include the newly created one.
-    await stopAreasResult.refetch();
+    setMapStopViewState(MapEntityEditorViewState.NONE);
+    setSelectedStopId(undefined);
+
+    if (area.netex_id) {
+      setSelectedMapStopAreaId(area.netex_id);
+      setMapStopAreaViewState(MapEntityEditorViewState.POPUP);
+    } else {
+      setSelectedMapStopAreaId(undefined);
+      setMapStopAreaViewState(MapEntityEditorViewState.NONE);
+    }
   };
-
-  const onClick = (area: StopAreaMinimalShowOnMapFieldsFragment) =>
-    setSelectedMapStopAreaId(area.netex_id ?? undefined);
-
   const onPopupClose = () => setSelectedMapStopAreaId(undefined);
 
   const onCancelMoveOrPlacement = () => {
@@ -141,10 +143,17 @@ export const StopAreas = React.forwardRef((_props, ref) => {
     );
   };
 
+  const isStopBeingEdited = isEditorOpen(mapStopViewState);
   const data = stopAreasResult.loading
     ? stopAreasResult.previousData
     : stopAreasResult.data;
-  const areas = data?.stops_database?.areas?.filter(notNullish) ?? [];
+  const areas =
+    data?.stops_database?.areas?.filter(
+      isStopBeingEdited && selectedStopAreaId
+        ? // If creating a stop for a selected stop area, only show that one.
+          (area) => notNullish(area) && area.netex_id === selectedStopAreaId
+        : notNullish,
+    ) ?? [];
 
   return (
     <>
@@ -163,7 +172,6 @@ export const StopAreas = React.forwardRef((_props, ref) => {
           <EditStopAreaLayer
             ref={editStopAreaLayerRef}
             editedArea={editedStopAreaData}
-            onEditingFinished={onEditingFinished}
             onPopupClose={onPopupClose}
           />
 
@@ -171,8 +179,7 @@ export const StopAreas = React.forwardRef((_props, ref) => {
         </>
       ) : null}
 
-      {(mapStopAreaViewState === MapEntityEditorViewState.PLACE ||
-        mapStopAreaViewState === MapEntityEditorViewState.MOVE) && (
+      {isPlacingOrMoving(mapStopAreaViewState) && (
         <CreateStopAreaMarker onCancel={onCancelMoveOrPlacement} />
       )}
     </>
