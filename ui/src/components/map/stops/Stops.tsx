@@ -13,8 +13,10 @@ import {
   MapEntityEditorViewState,
   MapEntityType,
   Operation,
+  isEditorOpen,
   isPlacingOrMoving,
   selectDraftLocation,
+  selectMapStopAreaViewState,
   selectMapStopViewState,
   selectMapViewport,
   selectSelectedStopId,
@@ -43,7 +45,8 @@ export const Stops = React.forwardRef((_props, ref) => {
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const draftLocation = useAppSelector(selectDraftLocation);
-  const stopAreaEditorIsActive = useAppSelector(selectStopAreaEditorIsActive);
+  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
+
   const { [MapEntityType.Stop]: showStops } = useAppSelector(
     selectShowMapEntityTypes,
   );
@@ -61,10 +64,13 @@ export const Stops = React.forwardRef((_props, ref) => {
   const { getStopVehicleMode, getStopHighlighted } = useMapStops();
 
   const viewport = useAppSelector(selectMapViewport);
+
   // Skip initial 0 radius fetch and wait for the map to get loaded,
   // so that we have a proper viewport.
   const skipFetching =
-    !showStops || stopAreaEditorIsActive || viewport.radius <= 0;
+    !showStops ||
+    mapStopAreaViewState !== MapEntityEditorViewState.NONE ||
+    viewport.radius <= 0;
   const {
     stops: unfilteredStops,
     setFetchStopsLoadingState,
@@ -129,7 +135,7 @@ export const Stops = React.forwardRef((_props, ref) => {
     );
   };
 
-  if (stopAreaEditorIsActive) {
+  if (isEditorOpen(mapStopAreaViewState)) {
     return null;
   }
 
