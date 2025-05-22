@@ -79,35 +79,31 @@ seed_infra_links() {
 }
 
 check_pinned_image() {
-  DOCKER_JQ="docker run --rm -i imega/jq"
   DOCKER_YQ="docker run --rm -i mikefarah/yq"
   GREEN='\033[1;32m'
   RED='\033[1;31m'
   NO_COLOR='\033[0m'
 
-  PREFIX="${2:-main-}"
-
-  local dockerHubImageList
-  local dockerHubTag
-  local dockerHubImage
+  local bundleImage
   local localImage
 
-  # Find latest image with "hsl-main-" tag prefix from docker hub
-  dockerHubImageList=$(curl --silent --get -H \"Accept: application/json\" https://hub.docker.com/v2/repositories/hsldevcom/jore4-"$1"/tags/\?page_size=100\&page=1\&ordering=last_updated)
-  dockerHubTag="$(echo "$dockerHubImageList" | ${DOCKER_JQ} --arg PREFIX "$PREFIX" --raw-output 'first(.results[] | select(.name | startswith($PREFIX))).name')"
-  dockerHubImage="hsldevcom/jore4-${1}:${dockerHubTag}"
-  echo "Docker hub image: ${dockerHubImage}"
+  bundleImage=$(
+    export "$(echo "${1}" | tr '[:upper:]' '[:lower:]')_DOCKER_IMAGE"=
+    eval "echo $(${DOCKER_YQ} ".services.jore4-${1}-base.image" <docker/docker-compose.base.yml)"
+  )
 
   # Find current tag from values
-  localImage="$(cat ./docker/docker-compose.custom.yml | ${DOCKER_YQ} e .services.jore4-${1}.image)"
-  echo "Local image: ${localImage}"
+  localImage="$(${DOCKER_YQ} e .services.jore4-${1}.image <./docker/docker-compose.custom.yml)"
+
+  echo "Bundle image: ${bundleImage}"
+  echo "Local image:  ${localImage}"
 
   # Warn the user if the local pinned version differs from the current one
-  if [[ "$dockerHubImage" == "$localImage" ]]; then
+  if [[ "$bundleImage" == "$localImage" ]]; then
     echo -e "${GREEN}The pinned ${1} image is current, no need to update${NO_COLOR}"
   else
-    echo -e "${RED}The pinned ${1} image version is different compared to the docker hub version"
-    echo -e "You should update the ${1} image in 'docker-compose.custom.yml' to: ${dockerHubImage}${NO_COLOR}"
+    echo -e "${RED}The pinned ${1} image version is different compared to the docker-compose bundle version"
+    echo -e "You should update the ${1} image in 'docker-compose.custom.yml' to: ${bundleImage}${NO_COLOR}"
   fi
 }
 
@@ -328,7 +324,7 @@ setup_environment() {
 }
 
 check_images() {
-  check_pinned_image hasura hsl-main-
+  check_pinned_image hasura
   check_pinned_image tiamat
 }
 
