@@ -6,6 +6,7 @@ import {
   StopRegistryGeoJsonInput,
   StopRegistryGeoJsonType,
   StopRegistryNameType,
+  TerminalInput,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import cloneDeep from 'lodash/cloneDeep';
 import { stopCoordinatesByLabel } from './base';
@@ -281,9 +282,73 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
 ];
 
+// Stop registry terminal data.
+const terminalData: Array<TerminalInput> = [
+  {
+    terminal: {
+      privateCode: { type: 'HSL/TEST', value: 'T2' },
+      name: { lang: 'fin', value: 'E2ET001' },
+      description: { lang: 'fin', value: 'E2E testiterminaali' },
+      alternativeNames: [
+        {
+          nameType: StopRegistryNameType.Translation,
+          name: { lang: 'swe', value: 'Terminalen' },
+        },
+        {
+          nameType: StopRegistryNameType.Translation,
+          name: { lang: 'eng', value: 'Terminal' },
+        },
+        {
+          nameType: StopRegistryNameType.Other,
+          name: { lang: 'fin', value: 'Terminaali' },
+        },
+        {
+          nameType: StopRegistryNameType.Other,
+          name: { lang: 'swe', value: 'Terminalen' },
+        },
+        {
+          nameType: StopRegistryNameType.Other,
+          name: { lang: 'eng', value: 'Terminal' },
+        },
+        {
+          nameType: StopRegistryNameType.Alias,
+          name: { lang: 'fin', value: 'Terminaali pitkänimi' },
+        },
+        {
+          nameType: StopRegistryNameType.Alias,
+          name: { lang: 'swe', value: 'Terminalen långnamn' },
+        },
+        {
+          nameType: StopRegistryNameType.Alias,
+          name: { lang: 'eng', value: 'Terminal long name' },
+        },
+      ],
+      geometry: {
+        coordinates: [60.16993494912799, 24.92596546020357],
+        type: StopRegistryGeoJsonType.Point,
+      },
+      keyValues: [
+        { key: 'validityStart', values: ['2020-01-01'] },
+        { key: 'validityEnd', values: ['2050-01-01'] },
+        { key: 'streetAddress', values: ['Mannerheimintie 22-24'] },
+        { key: 'postalCode', values: ['00100'] },
+        { key: 'municipality', values: ['Helsinki'] },
+        { key: 'fareZone', values: ['A'] },
+        { key: 'terminalType', values: ['Bussiterminaali'] },
+        { key: 'departurePlatforms', values: ['7'] },
+        { key: 'arrivalPlatforms', values: ['6'] },
+        { key: 'loadingPlatforms', values: ['3'] },
+        { key: 'electricCharging', values: ['2'] },
+      ],
+    },
+    memberLabels: ['E2E008'],
+  },
+];
+
 const baseStopRegistryData = {
   organisations: [],
   stopPlaces: stopPlaceData,
+  terminals: terminalData,
 };
 
 export const getClonedBaseStopRegistryData = () =>
