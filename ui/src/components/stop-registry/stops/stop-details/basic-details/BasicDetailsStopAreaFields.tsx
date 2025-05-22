@@ -7,6 +7,7 @@ import {
   getFormattedQuayCodes,
   getQuayPublicCodes,
 } from './BasicDetailsMemberStops';
+import { AlternativeNames } from '../../../components/AlternativeNames/AlternativeNames';
 
 type Props = {
   readonly stop: StopWithDetails;
@@ -72,50 +73,11 @@ export const StopAreaDetailsSection = ({ stop }: Props) => {
           testId={testIds.areaNameSwe}
         />
       </DetailRow>
-      <DetailRow className="-mx-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
-        <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaNameLongFin')}
-          detail={stop.stop_place?.nameLongFin}
-          testId={testIds.areaNameLong}
-        />
-        <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaNameLongSwe')}
-          detail={stop.stop_place?.nameLongSwe}
-          testId={testIds.areaNameLongSwe}
-        />
-        <div className="h-9 w-[0px] border-r border-black" />
-        <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaAbbreviationFin')}
-          detail={stop.stop_place?.abbreviationFin}
-          testId={testIds.areaAbbreviationName}
-        />
-        <LabeledDetail
-          title={t('stopDetails.basicAreaDetails.areaAbbreviationSwe')}
-          detail={stop.stop_place?.abbreviationSwe}
-          testId={testIds.areaAbbreviationNameSwe}
-        />
-      </DetailRow>
-      {(stop.stop_place?.nameEng ??
-        stop.stop_place?.nameLongEng ??
-        stop.stop_place?.abbreviationEng) && (
-        <DetailRow className="-mx-5 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
-          <LabeledDetail
-            title={t('stopDetails.basicAreaDetails.areaNameEng')}
-            detail={stop.stop_place?.nameEng}
-            testId={testIds.areaNameEng}
-          />
-          <LabeledDetail
-            title={t('stopDetails.basicAreaDetails.areaNameLongEng')}
-            detail={stop.stop_place?.nameLongEng}
-            testId={testIds.areaNameLongEng}
-          />
-          <LabeledDetail
-            title={t('stopDetails.basicAreaDetails.areaAbbreviationEng')}
-            detail={stop.stop_place?.abbreviationEng}
-            testId={testIds.areaAbbreviationNameEng}
-          />
-        </DetailRow>
-      )}
+      <div className="-mx-5 mb-1 flex-wrap items-end gap-4 bg-background px-5 py-5 lg:flex-nowrap">
+        {stop.stop_place && (
+          <AlternativeNames alternativeNames={stop.stop_place} />
+        )}
+      </div>
     </div>
   );
 };
