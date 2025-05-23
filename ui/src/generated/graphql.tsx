@@ -73662,6 +73662,26 @@ export type EditStopPlaceMutation = {
   } | null
 };
 
+export type GetQuayMaxPrivateCodeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetQuayMaxPrivateCodeQuery = {
+  __typename?: 'query_root',
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query',
+    stops_database_quay_aggregate: {
+      __typename?: 'stops_database_quay_aggregate',
+      aggregate?: {
+        __typename?: 'stops_database_quay_aggregate_fields',
+        max?: {
+          __typename?: 'stops_database_quay_max_fields',
+          private_code_value?: string | null
+        } | null
+      } | null
+    }
+  } | null
+};
+
 export type GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsQueryVariables = Exact<{
   label: Scalars['String']['input'];
 }>;
@@ -79686,6 +79706,51 @@ export function useEditStopPlaceMutation(baseOptions?: Apollo.MutationHookOption
 export type EditStopPlaceMutationHookResult = ReturnType<typeof useEditStopPlaceMutation>;
 export type EditStopPlaceMutationResult = Apollo.MutationResult<EditStopPlaceMutation>;
 export type EditStopPlaceMutationOptions = Apollo.BaseMutationOptions<EditStopPlaceMutation, EditStopPlaceMutationVariables>;
+export const GetQuayMaxPrivateCodeDocument = gql`
+    query GetQuayMaxPrivateCode {
+  stops_database {
+    stops_database_quay_aggregate(where: {private_code_value: {_like: "7______"}}) {
+      aggregate {
+        max {
+          private_code_value
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetQuayMaxPrivateCodeQuery__
+ *
+ * To run a query within a React component, call `useGetQuayMaxPrivateCodeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetQuayMaxPrivateCodeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetQuayMaxPrivateCodeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetQuayMaxPrivateCodeQuery(baseOptions?: Apollo.QueryHookOptions<GetQuayMaxPrivateCodeQuery, GetQuayMaxPrivateCodeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetQuayMaxPrivateCodeQuery, GetQuayMaxPrivateCodeQueryVariables>(GetQuayMaxPrivateCodeDocument, options);
+      }
+export function useGetQuayMaxPrivateCodeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetQuayMaxPrivateCodeQuery, GetQuayMaxPrivateCodeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetQuayMaxPrivateCodeQuery, GetQuayMaxPrivateCodeQueryVariables>(GetQuayMaxPrivateCodeDocument, options);
+        }
+export function useGetQuayMaxPrivateCodeSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetQuayMaxPrivateCodeQuery, GetQuayMaxPrivateCodeQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetQuayMaxPrivateCodeQuery, GetQuayMaxPrivateCodeQueryVariables>(GetQuayMaxPrivateCodeDocument, options);
+        }
+export type GetQuayMaxPrivateCodeQueryHookResult = ReturnType<typeof useGetQuayMaxPrivateCodeQuery>;
+export type GetQuayMaxPrivateCodeLazyQueryHookResult = ReturnType<typeof useGetQuayMaxPrivateCodeLazyQuery>;
+export type GetQuayMaxPrivateCodeSuspenseQueryHookResult = ReturnType<typeof useGetQuayMaxPrivateCodeSuspenseQuery>;
+export type GetQuayMaxPrivateCodeQueryResult = Apollo.QueryResult<GetQuayMaxPrivateCodeQuery, GetQuayMaxPrivateCodeQueryVariables>;
 export const GetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsDocument = gql`
     query GetScheduledStopPointsInJourneyPatternsUsedAsTimingPoints($label: String!) {
   journey_pattern_scheduled_stop_point_in_journey_pattern(
