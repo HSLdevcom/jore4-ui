@@ -9,15 +9,15 @@ Next.js was still chosen over `create-react-app` as project template as it offer
 
 First, make sure you have the following apps installed:
 
-- [ ] [yarn](https://yarnpkg.com/)
-- [ ] [GithHub CLI](https://cli.github.com/), to authenticate to GitHub
+- [yarn](https://yarnpkg.com/)
+- [GithHub CLI](https://cli.github.com/), to authenticate to GitHub
   - On Mac, Homebrew command: `brew install gh`
-- [ ] [PostgreSQL](https://www.postgresql.org/download/), to get required commands
+- [PostgreSQL](https://www.postgresql.org/download/), to get required commands
   - On Mac, Homebrew command: `brew install postgresql@15`
-- [ ] [Azure CLI](https://learn.microsoft.com/fi-fi/cli/azure/install-azure-cli)
-  - On Mac, Homebrew command: `brew update && brew install azure-cli`
+- [Azure CLI](https://learn.microsoft.com/fi-fi/cli/azure/install-azure-cli)
+  - On Mac, Homebrew command: `brew install azure-cli`
 
-Once those are installed: initialize and update submodule (timetables-data-inserter):
+Once those are installed: initialise and update submodule (timetables-data-inserter):
 
 ```sh
 git submodule update --init
@@ -130,7 +130,7 @@ Some of the element on the map are rendered on a `<canvas>` element, instead of 
 with their own DOM node handles. Thus, these elements cannot be interacted trough normal Cypress DOM APIs.
 Clicking & dragging these elements requires the use raw pixel coordinates which can be difficult to obtain.
 To help creating and maintaining these sorts of tests, there exists a utility component in the UI code base,
-which can be used to visualize the cursor location / mouse events with their respective coordinates.
+which can be used to visualise the cursor location / mouse events with their respective coordinates.
 
 By default, the `<CypressCoordinatesHelper>` component is disabled. To enable the helper one needs to change
 the value of `enableCypressCoordinateHelper` variable to `true` in the file `ui/src/pages/index.tsx`.
@@ -156,7 +156,7 @@ If you use VSCode, following plugins are recommended:
 - [dbaeumer.vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) for showing linting errors within the code
 - [bradlc.vscode-tailwindcss](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) for adding Tailwind suggestions to IntelliSense
 
-It is also recommended to enable the [organize imports](https://code.visualstudio.com/docs/languages/typescript#_organize-imports) feature so that the imports will be ordered as the linter wants automatically.
+It is also recommended to enable the [organise imports](https://code.visualstudio.com/docs/languages/typescript#_organize-imports) feature so that the imports will be ordered as the linter wants automatically.
 Non-VSCode users can sort imports e.g. by running `yarn lint --fix` on command line.
 (Probably there are also ways to configure other IDE's to order imports automatically or a way to make them run the linter with `--fix` flag automatically when code file is saved.)
 
@@ -186,34 +186,43 @@ If you don't need them, you can start the dependencies with `./scripts/start-dep
 
 Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
 
-If Docker setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
+If the Docker Compose setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
 
 You can also start the dependencies and run all seeds by running `./scripts/setup-dependencies-and-seed.sh`.
-This will also download a dump from Azure and you will need to log in when prompted.
+This will also download a database dump for each database from Azure and you will need to log in when prompted.
 Internally the script calls `start-dependencies.sh` and forwards any arguments (eg. `--volume` and `--skip-e2e`) to it.
 
-## Loading dump into development database
+## Loading single dump into development database
 
-The jore3 importer microservice imports data from jore3 and converts it to be compatible with the jore4 datamodel. Existing dumps of this converted data can be found from Azure in `hsl-jore4-common / jore4storage / jore4-dump`
+The jore3-importer microservice imports data from JORE3 and transforms it into the JORE4 data model. Currently, existing database dumps of the transformed data can be found from Azure Blob container at `rg-jore4-dev-001 / stjore4dev001 / jore4-dump`.
 
-To download a dump to your local workspace, run `./scripts/development.sh dump:download` and follow the instructions.
+To download a single dump file to your local workspace and import it into your local development database instance, run `./scripts/development.sh dump:import <azure_blob_filepath> <database_name>` and follow the instructions. _Warning!_ This will empty the target database and overwrite all the data in it!
 
-To load this dump to your local development database instance, run `./scripts/development.sh dump:import` and follow the instructions. _Warning!_ This will empty your current database and overwrite all the data in it!
+If you just want to download a single dump file to your local workspace (but not import it into the database), run `./scripts/development.sh dump:download <azure_blob_filepath>` and follow the instructions.
 
-## Updating dump seed data
+## Updating dump files to initialise databases with data
 
-To update used dumps (`./test-db-manager/src/dumps/infraLinks/infraLinks.sql` dump and `./scripts/development.sh` default pgdump file), do the following:
+To update database dump files (with the `.pgdump` extension), do the following:
+- Check the latest suitable dump files from the `jore4-dump` container under the `stjore4dev001` storage account in the `rg-jore4-dev-001` resource group. As of 2025-05, dump files are organised into directories in Azure Blob storage. They should be accompanied by a README file that states which microservice versions the dumps were created with. Make sure that the `docker-compose.custom.yml` file does not specify `jore4-hasura` and `jore4-tiamat` microservices with versions older than the versions the dump files were created with. If needed, restart dependencies and generate new GraphQL schema for new Hasura version and make necessary changes to achieve ui - hasura compatibility.
+- Update the dump filenames in the `./scripts/development.sh` file. Remove the existing `.pgdump` files from your project directory. Then stop the dependencies, and run `./scripts/setup-dependencies-and-seed.sh`.
+- If everything goes right, after running the script and following the instructions you should now have your databases seeded with the new dumps.
 
-- Check the latest suitable dump file in Azure `jore4-dump` container. The last part of the dump's name indicates the jore4-hasura -repository commit with which the dump is compatible with. Pin that hasura version in ui `docker-compose.custom.yml`. Restart dependencies and generate new GraphQL schema for new Hasura version and make necessary changes to achieve ui - hasura compatibility.
-- Update default dump (`.pgdump` file) name in `./scripts/development.sh` and remove existing `jore4dump.pgdump` file from project directory. Then run stop dependencies and run `./scripts/setup-dependencies-and-seed.sh`.
-- If everything goes right, after running the script and following the instructions you should now have database seeded with the new dump.
-- Next, you should update used infrastructure link seed. To do this, have a look at contents of `./test-db-manager/src/dumps/infraLinks/infraLinks.sql` file. It contains data of infrastructure links. In the beginning of `dump.sql` (about row 30) there should be a copy command which seeds infrastructure links to db. The command starts with
+## Regenerating infraLinks.sql
 
-`COPY infrastructure_network.infrastructure_link (infrastructure_link_id, direction, shape, estimated_length_in_metres, external_link_id, external_link_source) FROM stdin;`.
+After updating dump file for the network & routes database, you may consider updating the seed data for infrastructure links which is located at `./test-db-manager/src/dumps/infraLinks/infraLinks.sql`.
 
-- Copy the command and the data rows immediately after it (about 150 000 rows total) and replace the same command in `infraLinks.sql` to update infrastructure seed data. Make sure you only copy infrastructure link data!
+To do that:
+- First, dump the infrastructure link data in SQL format by running the following command:
+  ```sh
+  pg_restore -a -n infrastructure_network -t infrastructure_link -f infra_links_data.sql <network_pgdump_file>
+  ```
+- From the generated file (`infra_links_data.sql`), find the section starting with:
+  ```sql
+  COPY infrastructure_network.infrastructure_link (infrastructure_link_id, direction, shape, estimated_length_in_metres, external_link_id, external_link_source) FROM stdin;
+  ```
+- Copy the command and the immediately following rows of data (over 150 000 rows in total) and replace the same command in the `infraLinks.sql` file to update infrastructure seed data. Make sure you only copy infrastructure link data!
 
-### Fixing timetables seed data
+### Fixing timetables seed data (NEEDS UPDATE)
 
 - After that you will need to fix some foreign key references to keep timetables seed functional. In `./test-db-manager/src/seedTimetables.ts` there are journey pattern ids (UUID), that you will need to replace to keep references from timetables to routes and lines timetables functional. To do this, search for the routes mentioned in the `seedTimetables.ts` comments from `dump.sql`. Make sure validity period and direction match to the one mentioned in the `seedTimetables.ts` file. Then take the found route's id and search for the route's journey pattern in the same file. Take the journey pattern id and replace the old journey pattern id in the `seedTimetables.ts` file with the new one. This step can also be done without using the dump file, e.g. using an SQL client or even the UI, as long as the db is seeded with the new dump.
 
@@ -230,7 +239,7 @@ Docker image can be tested locally like this:
 ```bash
 # optional: build builder image to support caching, so that you don't have to e.g. run yarn install from scratch every time even if dependencies have stayed the same
 docker build --cache-from=jore4-ui:temp-builder --target build -t jore4-ui:temp-builder .
-# build docker image and utilize cache from previous step if available
+# build docker image and utilise cache from previous step if available
 docker build -t jore4-ui:temp --cache-from=jore4-ui:temp-builder --cache-from=jore4-ui:temp .
 # serve image in port 8080
 docker run -p 8080:80 jore4-ui:temp
@@ -428,7 +437,7 @@ export const ChangeValidityForm = (...):  {
 
 ### TailwindCSS
 
-It is possible to override tailwindcss styles by adding overriding classname after the one that has to be overridden, but this is not default functionality. This could be needed when we want to customize a component which already has themes. For example `SimpleButton` already has paddings, but `SimpleSmallButton` needs smaller paddings. We don't want to use ! / important styles though, as they override everything and and are practically impossible to override.
+It is possible to override tailwindcss styles by adding overriding classname after the one that has to be overridden, but this is not default functionality. This could be needed when we want to customise a component which already has themes. For example `SimpleButton` already has paddings, but `SimpleSmallButton` needs smaller paddings. We don't want to use ! / important styles though, as they override everything and and are practically impossible to override.
 
 It should be noted, that the order of classnames given to component does not automatically mean anything. The classes and styles are applied in the order that they are in the css file, which could be quite random and should not be relied on. For that reason we are using [tailwind-merge](https://www.npmjs.com/package/tailwind-merge) package, which takes the order in account and removes the classnames which are overridden. Therefore whenever classnames are used so that the order should be taken into account, `twMerge` function should be used to combine the classnames.
 
