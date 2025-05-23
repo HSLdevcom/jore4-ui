@@ -19,6 +19,7 @@ import {
   BrokenRouteCheckParams,
   useGetRoutesBrokenByStopChange,
 } from './useEditStop';
+import { useGetNextQuayPrivateCode } from './useGetNextQuayPrivateCode';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 
 // the input does not need to contain all the fields
@@ -80,6 +81,7 @@ function useCheckForBrokenRoutes() {
 export function usePrepareCreate() {
   const { getConflictingStops } = useCheckValidityAndPriorityConflicts();
   const [getStopLinkAndDirection] = useGetStopLinkAndDirection();
+  const getNextQuayPrivateCode = useGetNextQuayPrivateCode();
 
   const checkForBrokenRoutes = useCheckForBrokenRoutes();
 
@@ -90,18 +92,22 @@ export function usePrepareCreate() {
     stopPlaceId,
     quay,
   }: CreateParams): Promise<CreateChanges> => {
-    const [conflicts, { closestLink, direction }] = await Promise.all([
-      getConflictingStops({
-        // these form values always exist
-        label: stopPoint.label,
-        priority: stopPoint.priority,
-        validityStart: stopPoint.validity_start ?? undefined,
-        validityEnd: stopPoint.validity_end ?? undefined,
-      }),
+    const [conflicts, { closestLink, direction }, privateCodeValue] =
+      await Promise.all([
+        getConflictingStops({
+          // these form values always exist
+          label: stopPoint.label,
+          priority: stopPoint.priority,
+          validityStart: stopPoint.validity_start ?? undefined,
+          validityEnd: stopPoint.validity_end ?? undefined,
+        }),
 
-      // we need to fetch the infra link and direction for the stop
-      getStopLinkAndDirection({ stopLocation: stopPoint.measured_location }),
-    ]);
+        // we need to fetch the infra link and direction for the stop
+        getStopLinkAndDirection({ stopLocation: stopPoint.measured_location }),
+
+        // next private code
+        getNextQuayPrivateCode(),
+      ]);
 
     // check if any routes are broken if this stops is added
     await checkForBrokenRoutes({
@@ -113,17 +119,24 @@ export function usePrepareCreate() {
       stopId: null,
     });
 
-    const stopPintWithInfraInfo: ServicePatternScheduledStopPointInsertInput = {
-      ...stopPoint,
-      located_on_infrastructure_link_id: closestLink.infrastructure_link_id,
-      direction,
-    };
+    const stopPointWithInfraInfo: ServicePatternScheduledStopPointInsertInput =
+      {
+        ...stopPoint,
+        located_on_infrastructure_link_id: closestLink.infrastructure_link_id,
+        direction,
+      };
 
     return {
-      stopPoint: stopPintWithInfraInfo,
+      stopPoint: stopPointWithInfraInfo,
       conflicts,
       stopPlaceId,
-      quay,
+      quay: {
+        ...quay,
+        privateCode: {
+          value: privateCodeValue,
+          type: 'HSL/JORE-4',
+        },
+      },
     };
   };
 }

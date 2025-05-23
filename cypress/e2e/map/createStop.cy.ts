@@ -253,6 +253,9 @@ describe('Stop creation tests', mapViewport, () => {
       stopDetailsPage.titleRow
         .names()
         .shouldHaveText(`${testStopLabels.stopAreaName}|-`);
+      stopDetailsPage.basicDetails.viewCard
+        .getPrivateCode()
+        .shouldHaveText('7000000');
     },
   );
 

@@ -102,7 +102,7 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
     stopArea: seedStopPlace.stopArea,
     quay: {
       publicCode: seedStopPlace.publicCode,
-      privateCode: { type: 'HSL', value: seedStopPlace.privateCode },
+      privateCode: { type: 'HSL/TEST', value: seedStopPlace.privateCode },
       description: {
         lang: 'fin',
         value: seedStopPlace.locationFin,
