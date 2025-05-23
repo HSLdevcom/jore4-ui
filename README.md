@@ -17,7 +17,7 @@ First, make sure you have the following apps installed:
 - [Azure CLI](https://learn.microsoft.com/fi-fi/cli/azure/install-azure-cli)
   - On Mac, Homebrew command: `brew install azure-cli`
 
-Once those are installed: initialize and update submodule (timetables-data-inserter):
+Once those are installed: initialise and update submodule (timetables-data-inserter):
 
 ```sh
 git submodule update --init
@@ -130,7 +130,7 @@ Some of the element on the map are rendered on a `<canvas>` element, instead of 
 with their own DOM node handles. Thus, these elements cannot be interacted trough normal Cypress DOM APIs.
 Clicking & dragging these elements requires the use raw pixel coordinates which can be difficult to obtain.
 To help creating and maintaining these sorts of tests, there exists a utility component in the UI code base,
-which can be used to visualize the cursor location / mouse events with their respective coordinates.
+which can be used to visualise the cursor location / mouse events with their respective coordinates.
 
 By default, the `<CypressCoordinatesHelper>` component is disabled. To enable the helper one needs to change
 the value of `enableCypressCoordinateHelper` variable to `true` in the file `ui/src/pages/index.tsx`.
@@ -156,7 +156,7 @@ If you use VSCode, following plugins are recommended:
 - [dbaeumer.vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) for showing linting errors within the code
 - [bradlc.vscode-tailwindcss](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) for adding Tailwind suggestions to IntelliSense
 
-It is also recommended to enable the [organize imports](https://code.visualstudio.com/docs/languages/typescript#_organize-imports) feature so that the imports will be ordered as the linter wants automatically.
+It is also recommended to enable the [organise imports](https://code.visualstudio.com/docs/languages/typescript#_organize-imports) feature so that the imports will be ordered as the linter wants automatically.
 Non-VSCode users can sort imports e.g. by running `yarn lint --fix` on command line.
 (Probably there are also ways to configure other IDE's to order imports automatically or a way to make them run the linter with `--fix` flag automatically when code file is saved.)
 
@@ -230,7 +230,7 @@ Docker image can be tested locally like this:
 ```bash
 # optional: build builder image to support caching, so that you don't have to e.g. run yarn install from scratch every time even if dependencies have stayed the same
 docker build --cache-from=jore4-ui:temp-builder --target build -t jore4-ui:temp-builder .
-# build docker image and utilize cache from previous step if available
+# build docker image and utilise cache from previous step if available
 docker build -t jore4-ui:temp --cache-from=jore4-ui:temp-builder --cache-from=jore4-ui:temp .
 # serve image in port 8080
 docker run -p 8080:80 jore4-ui:temp
@@ -428,7 +428,7 @@ export const ChangeValidityForm = (...):  {
 
 ### TailwindCSS
 
-It is possible to override tailwindcss styles by adding overriding classname after the one that has to be overridden, but this is not default functionality. This could be needed when we want to customize a component which already has themes. For example `SimpleButton` already has paddings, but `SimpleSmallButton` needs smaller paddings. We don't want to use ! / important styles though, as they override everything and and are practically impossible to override.
+It is possible to override tailwindcss styles by adding overriding classname after the one that has to be overridden, but this is not default functionality. This could be needed when we want to customise a component which already has themes. For example `SimpleButton` already has paddings, but `SimpleSmallButton` needs smaller paddings. We don't want to use ! / important styles though, as they override everything and and are practically impossible to override.
 
 It should be noted, that the order of classnames given to component does not automatically mean anything. The classes and styles are applied in the order that they are in the css file, which could be quite random and should not be relied on. For that reason we are using [tailwind-merge](https://www.npmjs.com/package/tailwind-merge) package, which takes the order in account and removes the classnames which are overridden. Therefore whenever classnames are used so that the order should be taken into account, `twMerge` function should be used to combine the classnames.
 
