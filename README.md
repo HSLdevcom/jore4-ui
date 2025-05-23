@@ -194,7 +194,7 @@ Internally the script calls `start-dependencies.sh` and forwards any arguments (
 
 ## Loading dump into development database
 
-The jore3 importer microservice imports data from jore3 and converts it to be compatible with the jore4 datamodel. Existing dumps of this converted data can be found from Azure in `hsl-jore4-common / jore4storage / jore4-dump`
+The jore3-importer microservice imports data from JORE3 and converts it to be compatible with the JORE4 datamodel. Existing dumps of this converted data can be found from Azure in `hsl-jore4-common / jore4storage / jore4-dump`
 
 To download a dump to your local workspace, run `./scripts/development.sh dump:download` and follow the instructions.
 
