@@ -3,6 +3,7 @@ import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
 import { StopBasicDetailsFormState } from '../../components/stop-registry/stops/stop-details/basic-details/basic-details-form/schema';
+import { decodeQuayPrivateCodeType } from '../../components/stop-registry/utils/decodeQuayPrivateCodeType';
 import {
   EditStopMutationVariables,
   RouteUniqueFieldsFragment,
@@ -206,7 +207,10 @@ export const useEditStopBasicDetails = () => {
         ...otherQuays,
         {
           publicCode: state.label,
-          privateCode: { value: state.privateCode, type: 'HSL' },
+          privateCode: {
+            value: state.privateCode,
+            type: decodeQuayPrivateCodeType(state.privateCode),
+          },
           id: stopPlaceQuayId,
           description: { value: state.locationFin, lang: 'fin' },
           alternativeNames: patchAlternativeNames(stop.stop_place, [
