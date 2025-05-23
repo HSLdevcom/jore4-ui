@@ -17,6 +17,7 @@ import {
   mapPlaceEquipmentsToInput,
   omitTypeName,
 } from './copyEntityUtilities';
+import { decodeQuayPrivateCodeType } from './decodeQuayPrivateCodeType';
 
 // Boarding positions are not currently used
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -46,7 +47,10 @@ function getQuayPrivateCode(
   }
 
   if (isEnrichedQuay(quay)) {
-    return { value: quay.privateCode ?? '', type: 'HSL' };
+    return {
+      value: quay.privateCode ?? '',
+      type: decodeQuayPrivateCodeType(quay.privateCode),
+    };
   }
 
   if (!quay.privateCode?.value) {
