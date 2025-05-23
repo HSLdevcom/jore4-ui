@@ -468,6 +468,41 @@
       "addExternalLink": "Lisää uusi linkki",
       "name": "Nimi",
       "location": "Osoite"
+    },
+    "alternativeNames": {
+      "nameEng": "Nimi (englanti)",
+      "nameLongFin": "Pitkänimi (suomi)",
+      "nameLongSwe": "Pitkänimi (ruotsi)",
+      "nameLongEng": "Pitkänimi (englanti)",
+      "abbreviationFin": "Lyhenne (suomi)",
+      "abbreviationSwe": "Lyhenne (ruotsi)",
+      "abbreviationEng": "Lyhenne (englanti)"
+    }
+  },
+  "terminalDetails": {
+    "title": "Perustiedot",
+    "basicDetails": {
+      "title": "Terminaalin perustiedot",
+      "description": "Kuvaus",
+      "name": "Nimi",
+      "nameSwe": "Nimi (ruotsi)",
+      "terminalType": "Terminaalin tyyppi",
+      "privateCode": "Tunnus",
+      "departurePlatforms": "Lähtölaitureita",
+      "arrivalPlatforms": "Tulolaitureita",
+      "loadingPlatforms": "Lastauslaitureita",
+      "electricCharging": "Sähkölataus"
+    },
+    "location": {
+      "title": "Sijainti",
+      "streetAddress": "Osoite",
+      "postalCode": "Postinumero",
+      "municipality": "Kunta",
+      "fareZone": "Maksuvyöhyke",
+      "latitude": "Leveysaste",
+      "longitude": "Pituusaste",
+      "memberStops": "Jäsenpysäkit ({{count}})",
+      "memberPlatforms": "Jäsenlaiturit"
     }
   },
   "stopRegistrySearch": {

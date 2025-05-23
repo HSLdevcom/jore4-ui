@@ -14,6 +14,7 @@ import {
   getClonedBaseStopRegistryData,
 } from '../../datasets/stopRegistry';
 import {
+  AlternativeNames,
   BasicDetailsViewCard,
   ConfirmationDialog,
   SelectMemberStopsDropdown,
@@ -59,6 +60,7 @@ type ExpectedBasicDetails = {
 
 describe('Stop area details', () => {
   const stopAreaDetailsPage = new StopAreaDetailsPage();
+  const alternativeNames = new AlternativeNames();
   const toast = new Toast();
   const selectMemberStopsDropdown = new SelectMemberStopsDropdown();
 
@@ -213,13 +215,19 @@ describe('Stop area details', () => {
     const { details } = stopAreaDetailsPage;
     details.getName().shouldHaveText(expected.name);
     details.getNameSwe().shouldHaveText(expected.nameSwe);
-    details.getNameEng().shouldHaveText(expected.nameEng);
-    details.getNameLongFin().shouldHaveText(expected.nameLongFin);
-    details.getNameLongSwe().shouldHaveText(expected.nameLongSwe);
-    details.getNameLongEng().shouldHaveText(expected.nameLongEng);
-    details.getAbbreviationFin().shouldHaveText(expected.abbreviationFin);
-    details.getAbbreviationSwe().shouldHaveText(expected.abbreviationSwe);
-    details.getAbbreviationEng().shouldHaveText(expected.abbreviationEng);
+    alternativeNames.getNameEng().shouldHaveText(expected.nameEng);
+    alternativeNames.getNameLongFin().shouldHaveText(expected.nameLongFin);
+    alternativeNames.getNameLongSwe().shouldHaveText(expected.nameLongSwe);
+    alternativeNames.getNameLongEng().shouldHaveText(expected.nameLongEng);
+    alternativeNames
+      .getAbbreviationFin()
+      .shouldHaveText(expected.abbreviationFin);
+    alternativeNames
+      .getAbbreviationSwe()
+      .shouldHaveText(expected.abbreviationSwe);
+    alternativeNames
+      .getAbbreviationEng()
+      .shouldHaveText(expected.abbreviationEng);
     details.getPrivateCode().shouldHaveText(expected.privateCode);
     details.getAreaSize().shouldHaveText(expected.areaSize);
     details.getParentTerminal().shouldHaveText(expected.parentTerminal);

@@ -1,3 +1,4 @@
+export * from './AlternativeNames';
 export * from './SearchForStopAreas';
 export * from './SortByButton';
 export * from './StopAreaDetailsPage';
@@ -8,3 +9,5 @@ export * from './StopGroupSelector';
 export * from './StopSearchBar';
 export * from './StopSearchByLine';
 export * from './StopSearchResultsPage';
+export * from './terminals';
+export * from './TerminalDetailsPage';

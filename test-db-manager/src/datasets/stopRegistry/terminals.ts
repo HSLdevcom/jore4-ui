@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import {
   StopRegistryAccessibilityLimitationsInput,
   StopRegistryCreateMultiModalStopPlaceInput,
@@ -9,22 +8,35 @@ import {
   StopRegistryMapType,
   StopRegistryParentStopPlaceInput,
 } from '../../generated/graphql';
+import { mapToAlternativeNames } from './mapAlternativeNames';
 import { defaultAccessibilityLimitations } from './stopPlaces';
 import { getKeyValue } from './utils';
 
 export type TerminalSeedData = {
-  label: string;
+  privateCode: string;
   name: string;
+  nameSwe?: string;
+  nameEng?: string;
+  nameFinLong?: string;
+  nameSweLong?: string;
+  nameEngLong?: string;
+  abbreviationFin?: string;
+  abbreviationSwe?: string;
+  abbreviationEng?: string;
   description: string;
   locationLat: number;
   locationLong: number;
-  validityStart?: DateTime;
+  validityStart?: string;
+  validityEnd?: string;
   streetAddress?: string;
   postalCode?: string;
+  municipality?: string;
+  fareZone?: string;
   departurePlatforms?: string;
   arrivalPlatforms?: string;
   loadingPlatforms?: string;
   electricCharging?: string;
+  terminalType?: string;
   accessibilityProperties?: Partial<StopRegistryHslAccessibilityProperties>;
   accessibilityLimitations?: Partial<StopRegistryAccessibilityLimitationsInput>;
   members: Array<string>;
@@ -45,6 +57,7 @@ const mapToTerminalInput = (seedTerminal: TerminalSeedData): TerminalInput => {
         lang: 'fin',
         value: seedTerminal.name,
       },
+      alternativeNames: mapToAlternativeNames(seedTerminal),
       description: {
         lang: 'fin',
         value: seedTerminal.description,
@@ -54,15 +67,20 @@ const mapToTerminalInput = (seedTerminal: TerminalSeedData): TerminalInput => {
         type: StopRegistryGeoJsonType.Point,
       },
       privateCode: {
-        value: seedTerminal.label,
+        value: seedTerminal.privateCode,
       },
       keyValues: [
         getKeyValue('streetAddress', seedTerminal.streetAddress),
         getKeyValue('postalCode', seedTerminal.postalCode),
+        getKeyValue('municipality', seedTerminal.municipality),
+        getKeyValue('fareZone', seedTerminal.fareZone),
         getKeyValue('departurePlatforms', seedTerminal.departurePlatforms),
         getKeyValue('arrivalPlatforms', seedTerminal.arrivalPlatforms),
         getKeyValue('loadingPlatforms', seedTerminal.loadingPlatforms),
         getKeyValue('electricCharging', seedTerminal.electricCharging),
+        getKeyValue('terminalType', seedTerminal.terminalType),
+        getKeyValue('validityStart', seedTerminal.validityStart),
+        getKeyValue('validityEnd', seedTerminal.validityEnd),
       ],
 
       // Accessibility properties:
@@ -84,17 +102,27 @@ const mapToTerminalInput = (seedTerminal: TerminalSeedData): TerminalInput => {
 
 const northEsplanadi = {
   name: 'Pohjoisesplanadi Terminaali',
+  nameSwe: 'Norraesplanaden',
+  nameFinLong: 'Pohjosesplanadi',
+  nameSweLong: 'Norraesplanaden',
+  abbreviationFin: 'P.Espl.',
+  abbreviationSwe: 'N.Espl.',
   description: 'Terminaali Pohjoisesplanadilla',
-  label: 'T1',
+  privateCode: 'T1',
   locationLat: 60.167836,
   locationLong: 24.94905,
   members: ['X1234'],
+  validityStart: '2020-01-01',
+  validityEnd: '2050-01-01',
   streetAddress: 'Mannerheimintie 22-24',
   postalCode: '00100',
+  municipality: 'Helsinki',
+  fareZone: 'A',
   departurePlatforms: '7',
   arrivalPlatforms: '6  ',
   loadingPlatforms: '3',
   electricCharging: '2',
+  terminalType: 'Bussiterminaali',
   accessibilityLimitations: {
     audibleSignalsAvailable: StopRegistryLimitationStatusType.True,
   },
