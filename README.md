@@ -9,13 +9,13 @@ Next.js was still chosen over `create-react-app` as project template as it offer
 
 First, make sure you have the following apps installed:
 
-- [ ] [yarn](https://yarnpkg.com/)
-- [ ] [GithHub CLI](https://cli.github.com/), to authenticate to GitHub
+- [yarn](https://yarnpkg.com/)
+- [GithHub CLI](https://cli.github.com/), to authenticate to GitHub
   - On Mac, Homebrew command: `brew install gh`
-- [ ] [PostgreSQL](https://www.postgresql.org/download/), to get required commands
+- [PostgreSQL](https://www.postgresql.org/download/), to get required commands
   - On Mac, Homebrew command: `brew install postgresql@15`
-- [ ] [Azure CLI](https://learn.microsoft.com/fi-fi/cli/azure/install-azure-cli)
-  - On Mac, Homebrew command: `brew update && brew install azure-cli`
+- [Azure CLI](https://learn.microsoft.com/fi-fi/cli/azure/install-azure-cli)
+  - On Mac, Homebrew command: `brew install azure-cli`
 
 Once those are installed: initialize and update submodule (timetables-data-inserter):
 
