@@ -1,19 +1,20 @@
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { Column } from '../../layoutComponents';
 
-interface Props {
-  value: DateTime;
-  label: string;
-  onChange: (value: DateTime) => void;
-  className?: string;
-  testId: string;
-  required?: boolean;
-  disabled?: boolean;
-  dateInputId: string;
-  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
-}
+type DateInputProps = {
+  readonly value: DateTime;
+  readonly label: string;
+  readonly onChange: (value: DateTime) => void;
+  readonly className?: string;
+  readonly testId: string;
+  readonly required?: boolean;
+  readonly disabled?: boolean;
+  readonly dateInputId: string;
+  readonly onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
+};
 
-export const DateInput = ({
+export const DateInput: FC<DateInputProps> = ({
   value,
   label,
   onChange,
@@ -23,7 +24,7 @@ export const DateInput = ({
   disabled = false,
   dateInputId,
   onClick,
-}: Props): React.ReactElement => {
+}) => {
   return (
     <Column className={className}>
       <label htmlFor={dateInputId}>{label}</label>

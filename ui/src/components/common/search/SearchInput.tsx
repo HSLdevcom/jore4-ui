@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-type Props = {
-  value?: string;
-  onChange: (value: string) => void;
-  onSearch: () => void;
-  testId?: string;
+type SearchInputProps = {
+  readonly value?: string;
+  readonly onChange: (value: string) => void;
+  readonly onSearch: () => void;
+  readonly testId?: string;
 };
 
-export const SearchInput = ({
+export const SearchInput: FC<SearchInputProps> = ({
   value,
   onChange,
   onSearch,
   testId,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const onKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {

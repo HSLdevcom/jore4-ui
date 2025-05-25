@@ -1,10 +1,9 @@
-import { FC, ReactNode } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
-interface Props {
-  message: string;
-  tooltipClassName?: string;
-  children: ReactNode;
-}
+type TooltipProps = {
+  readonly message: string;
+  readonly tooltipClassName?: string;
+};
 
 /**
  * Adds tooltip for hovering over children. Give delay and position via className
@@ -15,7 +14,7 @@ interface Props {
  * As of Jan 2024, not in active use anymore.
  * There are designs for such an element to show extra information for Timing Points.
  */
-export const Tooltip: FC<Props> = ({
+export const Tooltip: FC<PropsWithChildren<TooltipProps>> = ({
   message,
   tooltipClassName = '',
   children,

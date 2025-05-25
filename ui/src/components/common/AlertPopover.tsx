@@ -1,5 +1,6 @@
 import { Popover } from '@headlessui/react';
 import noop from 'lodash/noop';
+import { FC } from 'react';
 import { Visible } from '../../layoutComponents';
 import { CloseIconButton } from '../../uiComponents';
 
@@ -7,17 +8,17 @@ const testIds = {
   closeButton: 'AlertPopover::closeButton',
 };
 
-interface Props {
-  title: string;
-  description: string;
-  alertIcon: string | undefined;
-}
+type AlertPopoverProps = {
+  readonly title: string;
+  readonly description: string;
+  readonly alertIcon: string | undefined;
+};
 
-export const AlertPopover = ({
+export const AlertPopover: FC<AlertPopoverProps> = ({
   title,
   description,
   alertIcon,
-}: Props): React.ReactElement => {
+}) => {
   return (
     <Visible visible={!!alertIcon}>
       <Popover>

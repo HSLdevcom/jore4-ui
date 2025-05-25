@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { FC } from 'react';
 import { RouteTableRowFragment } from '../../generated/graphql';
 import {
   useAppDispatch,
@@ -38,24 +39,24 @@ const GQL_ROUTE_TABLE_ROW = gql`
   }
 `;
 
-interface Props {
-  className?: string;
-  route: RouteTableRowFragment;
-  isSelectable?: boolean;
-  rowVariant: RouteLineTableRowVariant;
-}
+type RouteTableRowProps = {
+  readonly className?: string;
+  readonly route: RouteTableRowFragment;
+  readonly isSelectable?: boolean;
+  readonly rowVariant: RouteLineTableRowVariant;
+};
 
 /**
  * Reusable component RouteTableRow for list views. This component requires
  * the route information (RouteTableRowFragment) and linkTo parameter to
  * determine where we navigate after clicking this row.
  */
-export const RouteTableRow = ({
+export const RouteTableRow: FC<RouteTableRowProps> = ({
   className = '',
   route,
   isSelectable = false,
   rowVariant,
-}: Props): React.ReactElement => {
+}) => {
   const { showRouteOnMap } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
   const { selectedRows } = useAppSelector(selectExport);

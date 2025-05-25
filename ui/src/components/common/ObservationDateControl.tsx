@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { useObservationDateQueryParam } from '../../hooks';
 import { ObservationDateInput } from '../forms/common';
 
@@ -6,22 +7,22 @@ const testIds = {
   observationDateInput: 'ObservationDateControl::dateInput',
 };
 
-interface Props {
-  className?: string;
-  containerClassName?: string;
-  inputClassName?: string;
-  disabled?: boolean;
-}
+type ObservationDateControlProps = {
+  readonly className?: string;
+  readonly containerClassName?: string;
+  readonly inputClassName?: string;
+  readonly disabled?: boolean;
+};
 
 /**
  * Observation date input which handles its own state in query params.
  */
-export const ObservationDateControl = ({
+export const ObservationDateControl: FC<ObservationDateControlProps> = ({
   className,
   containerClassName,
   inputClassName,
   disabled = false,
-}: Props): React.ReactElement => {
+}) => {
   const { observationDate, setObservationDateToUrl } =
     useObservationDateQueryParam();
   const onDateChange = (date: DateTime) => {

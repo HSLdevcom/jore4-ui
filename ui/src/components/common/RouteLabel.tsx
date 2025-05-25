@@ -1,11 +1,12 @@
+import { FC } from 'react';
 import { Visible } from '../../layoutComponents';
 
-interface Props {
-  label: string;
-  variant?: number | null;
-}
+type RouteLabelProps = {
+  readonly label: string;
+  readonly variant?: number | null;
+};
 
-export const RouteLabel = ({ label, variant }: Props) => {
+export const RouteLabel: FC<RouteLabelProps> = ({ label, variant }) => {
   return (
     <>
       <b>{label}</b>

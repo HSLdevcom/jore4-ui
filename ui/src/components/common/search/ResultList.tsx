@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import {
   LineTableRowFragment,
   RouteTableRowFragment,
@@ -9,22 +10,22 @@ import { RouteLineTableRowVariant } from '../RouteLineTableRow';
 import { LinesList } from './LinesList';
 import { RoutesList } from './RoutesList';
 
-interface Props {
-  lines?: ReadonlyArray<LineTableRowFragment>;
-  routes?: ReadonlyArray<RouteTableRowFragment>;
-  displayedType: DisplayedSearchResultType;
-  rowVariant: RouteLineTableRowVariant;
-}
+type ResultListProps = {
+  readonly lines?: ReadonlyArray<LineTableRowFragment>;
+  readonly routes?: ReadonlyArray<RouteTableRowFragment>;
+  readonly displayedType: DisplayedSearchResultType;
+  readonly rowVariant: RouteLineTableRowVariant;
+};
 
 /** Depending on displayedType this component will return the
  * corresponding list element
  */
-export const ResultList = ({
+export const ResultList: FC<ResultListProps> = ({
   lines,
   routes,
   displayedType,
   rowVariant,
-}: Props): React.ReactElement => {
+}) => {
   const { isSelectingRoutesForExport } = useAppSelector(selectExport);
 
   switch (displayedType) {
