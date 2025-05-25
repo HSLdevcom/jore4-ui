@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { FC } from 'react';
 import { LineTableRowFragment } from '../../generated/graphql';
 import {
   useAppDispatch,
@@ -12,12 +13,12 @@ import {
   RouteLineTableRowVariant,
 } from './RouteLineTableRow';
 
-interface Props {
-  className?: string;
-  line: LineTableRowFragment;
-  isSelectable?: boolean;
-  rowVariant: RouteLineTableRowVariant;
-}
+type LineTableRowProps = {
+  readonly className?: string;
+  readonly line: LineTableRowFragment;
+  readonly isSelectable?: boolean;
+  readonly rowVariant: RouteLineTableRowVariant;
+};
 
 const GQL_LINE_TABLE_ROW = gql`
   fragment line_table_row on route_line {
@@ -54,12 +55,12 @@ const GQL_LINE_TABLE_ROW = gql`
  * the line information (LineTableRowFragment) and linkTo parameter to
  * determine where we navigate after clicking this row.
  */
-export const LineTableRow = ({
+export const LineTableRow: FC<LineTableRowProps> = ({
   className = '',
   line,
   isSelectable = false,
   rowVariant,
-}: Props): React.ReactElement => {
+}) => {
   const { showRoutesOnMapByLineLabel } = useShowRoutesOnModal();
   const dispatch = useAppDispatch();
   const { selectedRows } = useAppSelector(selectExport);

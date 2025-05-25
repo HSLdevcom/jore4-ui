@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   SearchQueryParameterNames,
@@ -13,7 +14,7 @@ const testIds = {
   routesResultsButton: 'ResultSelector::routes',
 };
 
-export const ResultSelector = (): React.ReactElement => {
+export const ResultSelector: FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { queryParameters, setFilter } = useSearch();

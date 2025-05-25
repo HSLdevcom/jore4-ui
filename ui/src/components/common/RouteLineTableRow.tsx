@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
@@ -30,19 +31,21 @@ export enum RouteLineTableRowVariant {
 
 type RowItem = LineTableRowFragment | RouteTableRowFragment;
 
-interface Props {
-  className?: string;
-  lineId: UUID;
-  hasTimetables?: boolean;
-  onLocatorButtonClick?: () => void;
-  locatorButtonTestId: string;
-  rowItem: RowItem;
-  rowVariant: RouteLineTableRowVariant;
-  isSelected?: boolean;
-  onSelectChanged?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  selectionDisabled?: boolean;
-  testId: string;
-}
+type RouteLineTableRowProps = {
+  readonly className?: string;
+  readonly lineId: UUID;
+  readonly hasTimetables?: boolean;
+  readonly onLocatorButtonClick?: () => void;
+  readonly locatorButtonTestId: string;
+  readonly rowItem: RowItem;
+  readonly rowVariant: RouteLineTableRowVariant;
+  readonly isSelected?: boolean;
+  readonly onSelectChanged?: (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => void;
+  readonly selectionDisabled?: boolean;
+  readonly testId: string;
+};
 
 const yBorderClassNames = 'border-y border-y-light-grey';
 const rBorderClassNames = 'border-r border-r-light-grey';
@@ -100,7 +103,7 @@ const getDisplayInformation = (
 /**
  * The visual component used for displaying RouteTableRow and LineTableRow
  */
-export const RouteLineTableRow = ({
+export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
   className = '',
   lineId,
   hasTimetables,
@@ -112,7 +115,7 @@ export const RouteLineTableRow = ({
   isSelected,
   selectionDisabled = false,
   testId,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();

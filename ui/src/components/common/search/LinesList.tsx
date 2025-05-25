@@ -1,22 +1,23 @@
+import { FC } from 'react';
 import { LineTableRow, RouteLineTableRowVariant } from '..';
 import { LineTableRowFragment } from '../../../generated/graphql';
 import { RoutesTable } from '../../routes-and-lines/main/RoutesTable';
 
-type Props = {
-  lines?: ReadonlyArray<LineTableRowFragment>;
-  areItemsSelectable?: boolean;
-  rowVariant: RouteLineTableRowVariant;
+type LinesListProps = {
+  readonly lines?: ReadonlyArray<LineTableRowFragment>;
+  readonly areItemsSelectable?: boolean;
+  readonly rowVariant: RouteLineTableRowVariant;
 };
 
 const testIds = {
   table: 'LinesList::table',
 };
 
-export const LinesList = ({
+export const LinesList: FC<LinesListProps> = ({
   lines,
   areItemsSelectable = false,
   rowVariant,
-}: Props): React.ReactElement => (
+}) => (
   <RoutesTable testId={testIds.table}>
     {lines?.map((item: LineTableRowFragment) => (
       <LineTableRow

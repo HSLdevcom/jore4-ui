@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Path, routeDetails } from '../../router/routeDetails';
@@ -7,23 +8,23 @@ const testIds = {
   button: 'LocatorButton::button',
 };
 
-interface Props {
-  testId?: string;
-  disabled?: boolean;
-  lineId: UUID;
-  routeLabel?: string;
-  label: string;
-  className?: string;
-}
+type LineTimetablesButtonProps = {
+  readonly testId?: string;
+  readonly disabled?: boolean;
+  readonly lineId: UUID;
+  readonly routeLabel?: string;
+  readonly label: string;
+  readonly className?: string;
+};
 
-export const LineTimetablesButton = ({
+export const LineTimetablesButton: FC<LineTimetablesButtonProps> = ({
   testId,
   disabled,
   lineId,
   routeLabel,
   label,
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const disabledStyle = '!bg-background opacity-70 pointer-events-none';
   const navigate = useNavigate();

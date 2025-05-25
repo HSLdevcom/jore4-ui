@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Path, routeDetails } from '../../router/routeDetails';
@@ -8,21 +9,21 @@ const testIds = {
   button: 'LocatorButton::button',
 };
 
-interface Props {
+type LineDetailsButtonProps = {
   testId?: string;
   lineId: UUID;
   label: string;
   routeLabel?: string;
   className?: string;
-}
+};
 
-export const LineDetailsButton = ({
+export const LineDetailsButton: FC<LineDetailsButtonProps> = ({
   testId,
   lineId,
   label,
   routeLabel,
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
