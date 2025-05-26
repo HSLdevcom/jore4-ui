@@ -1,24 +1,24 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, Visible } from '../../../layoutComponents';
 import { Switch, SwitchLabel, TextButton } from '../../../uiComponents';
 
-type Props = {
-  showOwnLines: boolean;
-  limit?: number;
-  onShowOwnChange: (showOwnLines: boolean) => void;
-  onLimitChange: (limit: number) => void;
-  className?: string;
+type ListHeaderProps = {
+  readonly showOwnLines: boolean;
+  readonly limit?: number;
+  readonly onShowOwnChange: (showOwnLines: boolean) => void;
+  readonly onLimitChange: (limit: number) => void;
+  readonly className?: string;
 };
 
-export const ListHeader = ({
+export const ListHeader: FC<ListHeaderProps> = ({
   showOwnLines,
   limit,
   onShowOwnChange,
   onLimitChange,
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   const limitOptions = [5, 10, 15];

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useGetLineDetails,
@@ -12,11 +13,11 @@ const testIds = {
   showDraftsButton: 'ActionsRow::showDraftsButton',
 };
 
-export const ActionsRow = ({
-  className = '',
-}: {
-  className?: string;
-}): React.ReactElement => {
+type ActionsRowProps = {
+  readonly className?: string;
+};
+
+export const ActionsRow: FC<ActionsRowProps> = ({ className = '' }) => {
   const { t } = useTranslation();
 
   const { line } = useGetLineDetails();

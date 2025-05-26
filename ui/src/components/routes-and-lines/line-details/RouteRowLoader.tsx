@@ -1,13 +1,12 @@
+import { FC } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { theme } from '../../../generated/theme';
 
-interface Props {
-  className?: string;
-}
+type RouteRowLoaderProps = {
+  readonly className?: string;
+};
 
-export const RouteRowLoader = ({
-  className = '',
-}: Props): React.ReactElement => {
+export const RouteRowLoader: FC<RouteRowLoaderProps> = ({ className = '' }) => {
   return (
     <div
       className={`mt-1 inline-flex min-h-16 w-full flex-col items-center justify-center bg-lighter-grey ${className}`}

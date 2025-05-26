@@ -1,12 +1,11 @@
-import React, { FC, ReactNode } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
-interface Props {
-  className?: string;
-  testId?: string;
-  children: ReactNode;
-}
+type RoutesTableProps = {
+  readonly className?: string;
+  readonly testId?: string;
+};
 
-export const RoutesTable: FC<Props> = ({
+export const RoutesTable: FC<PropsWithChildren<RoutesTableProps>> = ({
   className = '',
   testId,
   children,

@@ -11,12 +11,12 @@ const testIds = {
   priority: 'LineValidityPeriod::priority',
 };
 
-interface Props {
-  className?: string;
-  line: LineDefaultFieldsFragment;
-}
+type LineValidityPeriodProps = {
+  readonly className?: string;
+  readonly line: LineDefaultFieldsFragment;
+};
 
-export const LineValidityPeriod: React.FC<Props> = ({
+export const LineValidityPeriod: React.FC<LineValidityPeriodProps> = ({
   className = '',
   line,
 }) => {

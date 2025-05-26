@@ -1,20 +1,20 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
 import orderBy from 'lodash/orderBy';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteUniqueFieldsFragment } from '../../../generated/graphql';
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { LineRouteListItem } from './LineRouteListItem';
 
-interface Props {
-  routes: ReadonlyArray<RouteUniqueFieldsFragment>;
-}
+type LineRouteListProps = {
+  readonly routes: ReadonlyArray<RouteUniqueFieldsFragment>;
+};
 
 const testIds = {
   showUnusedStopsSwitch: 'LineRouteList::showUnusedStopsSwitch',
 };
 
-export const LineRouteList = ({ routes }: Props) => {
+export const LineRouteList: FC<LineRouteListProps> = ({ routes }) => {
   const { t } = useTranslation();
   const [showUnusedStops, setShowUnusedStops] = useState(false);
   const sortedRoutes = orderBy(routes, ['label', 'direction'], ['asc', 'desc']);

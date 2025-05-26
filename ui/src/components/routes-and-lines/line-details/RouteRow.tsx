@@ -37,18 +37,18 @@ const testIds = {
   editRouteButton: 'RouteRow::editRouteButton',
 };
 
-interface Props {
-  directionAndLabelId: string;
-  className?: string;
-  route: RouteAllFieldsFragment;
-  observationDate: DateTime;
-  isExpanded: boolean;
-  isLast: boolean;
-  onToggle: () => void;
-  controls: string;
-}
+type RouteRowProps = {
+  readonly directionAndLabelId: string;
+  readonly className?: string;
+  readonly route: RouteAllFieldsFragment;
+  readonly observationDate: DateTime;
+  readonly isExpanded: boolean;
+  readonly isLast: boolean;
+  readonly onToggle: () => void;
+  readonly controls: string;
+};
 
-export const RouteRow: FC<PropsWithChildren<Props>> = ({
+export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
   directionAndLabelId,
   className = '',
   route,

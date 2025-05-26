@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   JourneyPatternScheduledStopPointInJourneyPattern,
@@ -20,11 +21,11 @@ import {
   mapStopJourneyPatternToFormState,
 } from './ViaForm';
 
-interface Props {
-  className?: string;
-}
+type ViaModalProps = {
+  readonly className?: string;
+};
 
-export const ViaModal = ({ className = '' }: Props): React.ReactElement => {
+export const ViaModal: FC<ViaModalProps> = ({ className = '' }) => {
   const { t } = useTranslation();
   const viaModalState = useAppSelector(selectViaModal);
   const { journeyPatternId, stopLabel } = viaModalState;

@@ -1,10 +1,13 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const LineDraftTableHeader = ({
+type LineDraftTableHeaderProps = {
+  readonly className?: string;
+};
+
+export const LineDraftTableHeader: FC<LineDraftTableHeaderProps> = ({
   className = '',
-}: {
-  className?: string;
-}): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const commonClassName = 'p-4';
   return (

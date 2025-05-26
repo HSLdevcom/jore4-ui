@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../generated/graphql';
 import {
@@ -28,17 +29,17 @@ const testIds = {
   openTimingSettings: 'StopActionsDropdown::openTimingSettings',
 };
 
-interface Props {
-  journeyPatternId: UUID | undefined;
-  scheduledStopPointSequence: number | undefined;
-  stopLabel: string;
-  stopBelongsToJourneyPattern: boolean;
-  isViaPoint: boolean | undefined;
-  route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
-  tooltip: string;
-}
+type StopActionsDropdownProps = {
+  readonly journeyPatternId: UUID | undefined;
+  readonly scheduledStopPointSequence: number | undefined;
+  readonly stopLabel: string;
+  readonly stopBelongsToJourneyPattern: boolean;
+  readonly isViaPoint: boolean | undefined;
+  readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
+  readonly tooltip: string;
+};
 
-export const StopActionsDropdown = ({
+export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
   journeyPatternId,
   scheduledStopPointSequence,
   stopLabel,
@@ -46,7 +47,7 @@ export const StopActionsDropdown = ({
   isViaPoint,
   route,
   tooltip,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { setIsLoading } = useLoader(Operation.UpdateRouteJourneyPattern);
