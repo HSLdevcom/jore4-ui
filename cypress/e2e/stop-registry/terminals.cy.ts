@@ -6,14 +6,46 @@ import {
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
-import { AlternativeNames, TerminalDetailsPage } from '../../pageObjects';
+import {
+  AlternativeNames,
+  AlternativeNamesEdit,
+  TerminalDetailsPage,
+  Toast,
+} from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
+import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
+
+type ExpectedBasicDetails = {
+  readonly description: string;
+  readonly name: string;
+  readonly nameSwe: string;
+  readonly nameEng: string;
+  readonly nameLongFin: string;
+  readonly nameLongSwe: string;
+  readonly nameLongEng: string;
+  readonly abbreviationFin: string;
+  readonly abbreviationSwe: string;
+  readonly abbreviationEng: string;
+  readonly terminalType: string;
+  readonly departurePlatforms: string;
+  readonly arrivalPlatforms: string;
+  readonly loadingPlatforms: string;
+  readonly electricCharging: string;
+};
+
+type ExpectedLocationDetails = {
+  readonly streetAddress: string;
+  readonly postalCode: string;
+  readonly municipality: string;
+  readonly fareZone: string;
+};
 
 describe('Terminal details', () => {
   const terminalDetailsPage = new TerminalDetailsPage();
   const alternativeNames = new AlternativeNames();
+  const toast = new Toast();
 
   let dbResources: SupportedResources;
 
@@ -51,6 +83,34 @@ describe('Terminal details', () => {
     });
   });
 
+  function waitForSaveToBeFinished() {
+    expectGraphQLCallToSucceed('@gqlUpsertTerminal');
+    toast.expectSuccessToast('Terminaali muokattu');
+  }
+
+  function assertBasicDetails(expected: ExpectedBasicDetails) {
+    terminalDetailsPage.titleRow.getName().shouldHaveText(expected.name);
+
+    const { terminalDetails } = terminalDetailsPage;
+    const { viewCard } = terminalDetails;
+    viewCard.getNameFin().shouldHaveText(expected.name);
+    viewCard.getNameSwe().shouldHaveText(expected.nameSwe);
+    viewCard.getDescription().shouldHaveText(expected.description);
+    alternativeNames.getNameEng().shouldHaveText(expected.nameEng);
+    alternativeNames.getNameLongFin().shouldHaveText(expected.nameLongFin);
+    alternativeNames.getNameLongSwe().shouldHaveText(expected.nameLongSwe);
+    alternativeNames.getNameLongEng().shouldHaveText(expected.nameLongEng);
+    alternativeNames
+      .getAbbreviationFin()
+      .shouldHaveText(expected.abbreviationFin);
+    alternativeNames
+      .getAbbreviationSwe()
+      .shouldHaveText(expected.abbreviationSwe);
+    alternativeNames
+      .getAbbreviationEng()
+      .shouldHaveText(expected.abbreviationEng);
+  }
+
   const verifyInitialBasicDetails = () => {
     const bdView = terminalDetailsPage.terminalDetails.viewCard;
 
@@ -73,6 +133,15 @@ describe('Terminal details', () => {
     bdView.getElectricCharging().shouldHaveText('2');
   };
 
+  function assertLocationDetails(expected: ExpectedLocationDetails) {
+    const { locationDetails } = terminalDetailsPage;
+    const { viewCard } = locationDetails;
+    viewCard.getStreetAddress().shouldHaveText(expected.streetAddress);
+    viewCard.getPostalCode().shouldHaveText(expected.postalCode);
+    viewCard.getMunicipality().shouldHaveText(expected.municipality);
+    viewCard.getFareZone().shouldHaveText(expected.fareZone);
+  }
+
   const verifyInitialLocationDetails = () => {
     const locationView = terminalDetailsPage.locationDetails.viewCard;
 
@@ -90,13 +159,68 @@ describe('Terminal details', () => {
     it('should view basic details', { tags: [Tag.StopRegistry] }, () => {
       terminalDetailsPage.page().shouldBeVisible();
 
-      terminalDetailsPage.titleRow.privateCode().shouldHaveText('T2');
-      terminalDetailsPage.titleRow.name().shouldHaveText('E2ET001');
+      terminalDetailsPage.titleRow.getPrivateCode().shouldHaveText('T2');
+      terminalDetailsPage.titleRow.getName().shouldHaveText('E2ET001');
       terminalDetailsPage
         .validityPeriod()
         .should('contain', '1.1.2020-1.1.2050');
 
       verifyInitialBasicDetails();
+    });
+
+    function inputBasicDetails(inputs: ExpectedBasicDetails) {
+      const { edit } = terminalDetailsPage.terminalDetails;
+      const altEdit = new AlternativeNamesEdit();
+
+      edit.getDescription().clearAndType(inputs.description);
+      edit.getName().clearAndType(inputs.name);
+      edit.getNameSwe().clearAndType(inputs.nameSwe);
+      altEdit.getNameEng().clearAndType(inputs.nameEng);
+      altEdit.getNameLongFin().clearAndType(inputs.nameLongFin);
+      altEdit.getNameLongSwe().clearAndType(inputs.nameLongSwe);
+      altEdit.getNameLongEng().clearAndType(inputs.nameLongEng);
+      altEdit.getAbbreviationFin().clearAndType(inputs.abbreviationFin);
+      altEdit.getAbbreviationSwe().clearAndType(inputs.abbreviationSwe);
+      altEdit.getAbbreviationEng().clearAndType(inputs.abbreviationEng);
+      edit.getTerminalType().clearAndType(inputs.terminalType);
+      edit.getDeparturePlatforms().clearAndType(inputs.departurePlatforms);
+      edit.getArrivalPlatforms().clearAndType(inputs.arrivalPlatforms);
+      edit.getLoadingPlatforms().clearAndType(inputs.loadingPlatforms);
+      edit.getElectricCharging().clearAndType(inputs.electricCharging);
+    }
+
+    it('should edit basic details', { tags: [Tag.StopRegistry] }, () => {
+      verifyInitialBasicDetails();
+
+      const newBasicDetails: ExpectedBasicDetails = {
+        description: 'New description',
+        name: 'New name',
+        nameSwe: 'New name swe',
+        nameEng: 'New name eng',
+        nameLongFin: 'New name long fin',
+        nameLongSwe: 'New name long swe',
+        nameLongEng: 'New name long eng',
+        abbreviationFin: 'New abbreviation swe',
+        abbreviationSwe: 'New abbreviation swe',
+        abbreviationEng: 'New abbreviation eng',
+        terminalType: 'New type',
+        departurePlatforms: '1',
+        arrivalPlatforms: '1',
+        loadingPlatforms: '1',
+        electricCharging: '1',
+      };
+
+      // Edit basic details
+      terminalDetailsPage.terminalDetails.getEditButton().click();
+      inputBasicDetails(newBasicDetails);
+      terminalDetailsPage.terminalDetails.getSaveButton().click();
+      waitForSaveToBeFinished();
+
+      // Should have saved the changes and be back at view mode with new details
+      assertBasicDetails(newBasicDetails);
+
+      // And the basic details should still match newBasicDetails
+      assertBasicDetails(newBasicDetails);
     });
   });
 
@@ -104,9 +228,41 @@ describe('Terminal details', () => {
     it('should view location details', { tags: [Tag.StopRegistry] }, () => {
       terminalDetailsPage.page().shouldBeVisible();
 
-      terminalDetailsPage.titleRow.privateCode().shouldHaveText('T2');
+      terminalDetailsPage.titleRow.getPrivateCode().shouldHaveText('T2');
 
       verifyInitialLocationDetails();
+    });
+
+    function inputLocationDetails(inputs: ExpectedLocationDetails) {
+      const { edit } = terminalDetailsPage.locationDetails;
+
+      edit.getStreetAddress().clearAndType(inputs.streetAddress);
+      edit.getPostalCode().clearAndType(inputs.postalCode);
+      edit.getMunicipality().clearAndType(inputs.municipality);
+      edit.getFareZone().clearAndType(inputs.fareZone);
+    }
+
+    it('should edit location details', { tags: [Tag.StopRegistry] }, () => {
+      verifyInitialLocationDetails();
+
+      const newLocationDetails: ExpectedLocationDetails = {
+        streetAddress: 'New street address',
+        postalCode: 'New postal code',
+        municipality: 'New municipality',
+        fareZone: 'New fare zone',
+      };
+
+      // Edit location details
+      terminalDetailsPage.locationDetails.getEditButton().click();
+      inputLocationDetails(newLocationDetails);
+      terminalDetailsPage.locationDetails.getSaveButton().click();
+      waitForSaveToBeFinished();
+
+      // Should have saved the changes and be back at view mode with new details
+      assertLocationDetails(newLocationDetails);
+
+      // And the location details should still match newLocationDetails
+      assertLocationDetails(newLocationDetails);
     });
   });
 });
