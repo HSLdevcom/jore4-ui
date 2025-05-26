@@ -39,14 +39,21 @@ export type MapStop = FilterableStopInfo & {
 function viewportToWhere(
   viewport: Viewport,
 ): StopsDatabaseQuayNewestVersionBoolExp {
+  const [[west, south], [east, north]] = viewport.bounds;
+
   return {
     centroid: {
-      _st_d_within: {
-        from: {
-          type: 'Point',
-          coordinates: [viewport.longitude, viewport.latitude],
-        },
-        distance: viewport.radius,
+      _st_within: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [west, south],
+            [east, south],
+            [east, north],
+            [west, north],
+            [west, south],
+          ],
+        ],
       },
     },
   };

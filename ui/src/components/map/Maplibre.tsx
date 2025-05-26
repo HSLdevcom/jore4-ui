@@ -75,16 +75,26 @@ export const Maplibre: FC<Props> = ({
 
   const updateMapDetailsDebounced = useMemo(
     () =>
-      debounce((latitude, longitude, zoom, radius) => {
-        dispatch(
-          setViewPortAction({
-            latitude,
-            longitude,
-            radius,
-          }),
-        );
-        setMapPosition(latitude, longitude, zoom);
-      }, 800),
+      debounce(
+        (
+          latitude: number,
+          longitude: number,
+          zoom: number,
+          radius: number,
+          bounds: [number, number][],
+        ) => {
+          dispatch(
+            setViewPortAction({
+              latitude,
+              longitude,
+              radius,
+              bounds,
+            }),
+          );
+          setMapPosition(latitude, longitude, zoom);
+        },
+        800,
+      ),
     [dispatch, setMapPosition],
   );
 
@@ -117,6 +127,7 @@ export const Maplibre: FC<Props> = ({
         newViewport.longitude,
         newViewport.zoom,
         radius,
+        bounds.toArray(),
       );
     }
   };
