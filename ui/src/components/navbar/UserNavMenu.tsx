@@ -1,13 +1,13 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LOGIN_URL, LOGOUT_URL } from '../../api/user';
 import { useAppSelector } from '../../hooks';
 import { selectUser } from '../../redux';
 import { DropdownMenu } from './DropdownMenu';
 
-interface Props {
-  className?: string;
-}
+type UserNavMenuProps = {
+  readonly className?: string;
+};
 
 export const testIds = {
   toggleDropdown: 'UserNavMenu::toggleDropdown',
@@ -15,7 +15,7 @@ export const testIds = {
   logoutButton: 'UserNavMenu::logoutButton',
 };
 
-export const UserNavMenu = ({ className = '' }: Props): React.ReactElement => {
+export const UserNavMenu: FC<UserNavMenuProps> = ({ className = '' }) => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
 

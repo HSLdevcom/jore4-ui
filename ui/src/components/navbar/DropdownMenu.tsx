@@ -1,15 +1,14 @@
 import { Menu, Transition } from '@headlessui/react';
-import React, { FC, Fragment, ReactNode } from 'react';
+import React, { FC, Fragment, PropsWithChildren, ReactNode } from 'react';
 import { dropdownTransition } from '../../uiComponents';
 import { addClassName } from '../../utils';
 
-interface Props {
-  buttonContent: ReactNode;
-  children: ReactNode;
-  testId?: string;
-}
+type DropdownMenuProps = {
+  readonly buttonContent: ReactNode;
+  readonly testId?: string;
+};
 
-export const DropdownMenu: FC<Props> = ({
+export const DropdownMenu: FC<PropsWithChildren<DropdownMenuProps>> = ({
   buttonContent,
   children,
   testId,
