@@ -14,7 +14,8 @@ const testIds = {
 };
 
 export const TerminalDetailsPage: FC<Record<string, never>> = () => {
-  const { parentStopPlaceDetails, loading } = useGetParentStopPlaceDetails();
+  const { parentStopPlaceDetails, loading, refetch } =
+    useGetParentStopPlaceDetails();
 
   const { setLoadingState } = useLoader(Operation.FetchTerminalPageDetails, {
     initialState: parentStopPlaceDetails
@@ -41,8 +42,8 @@ export const TerminalDetailsPage: FC<Record<string, never>> = () => {
       <TerminalTitleRow terminal={parentStopPlaceDetails} />
       <hr />
       <TerminalVersioningRow terminal={parentStopPlaceDetails} />
-      <TerminalDetails terminal={parentStopPlaceDetails} />
-      <LocationDetails terminal={parentStopPlaceDetails} />
+      <TerminalDetails terminal={parentStopPlaceDetails} refetch={refetch} />
+      <LocationDetails terminal={parentStopPlaceDetails} refetch={refetch} />
     </Container>
   );
 };

@@ -16,6 +16,7 @@ export enum Operation {
   SaveRoute = 'saveRoute',
   MatchRoute = 'matchRoute',
   ModifyStopArea = 'modifyStopArea',
+  ModifyTerminal = 'modifyTerminal',
   CheckBrokenRoutes = 'checkBrokenRoutes',
   SaveTimingPlace = 'saveTimingPlace',
   ExportRoute = 'exportRoute',

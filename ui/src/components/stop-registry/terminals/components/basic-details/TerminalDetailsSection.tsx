@@ -1,28 +1,28 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { submitFormByRef } from '../../../../../utils';
 import {
   InfoContainer,
   InfoContainerControls,
   useInfoContainerControls,
 } from '../../../../common';
 import { terminalInfoContainerColors } from '../../terminalInfoContainerColors';
-import { TerminalComponentProps } from '../../types';
+import { TerminalFormComponentProps } from '../../types';
+import { TerminalDetailsEdit } from './basic-details-form/TerminalDetailsEdit';
 import { TerminalDetailsView } from './TerminalDetailsViewCard';
 
-const testIds = {
-  prefix: 'TerminalDetailsSection',
-  editPrefix: 'TerminalDetailsEditSection',
-};
-
-export const TerminalDetails: FC<TerminalComponentProps> = ({
+export const TerminalDetails: FC<TerminalFormComponentProps> = ({
   terminal,
   className = '',
+  refetch,
 }) => {
   const { t } = useTranslation();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const rawInfoContainerControls = useInfoContainerControls({
     isExpandable: true,
     isEditable: true,
+    onSave: () => submitFormByRef(formRef),
   });
 
   const infoContainerControls: InfoContainerControls = {
@@ -35,11 +35,18 @@ export const TerminalDetails: FC<TerminalComponentProps> = ({
       colors={terminalInfoContainerColors}
       controls={infoContainerControls}
       title={t('terminalDetails.basicDetails.title')}
-      testIdPrefix={
-        infoContainerControls.isInEditMode ? testIds.editPrefix : testIds.prefix
-      }
+      testIdPrefix="TerminalDetailsSection"
     >
-      <TerminalDetailsView terminal={terminal} />
+      {infoContainerControls.isInEditMode ? (
+        <TerminalDetailsEdit
+          terminal={terminal}
+          onFinishEditing={() => infoContainerControls.setIsInEditMode(false)}
+          ref={formRef}
+          refetch={refetch}
+        />
+      ) : (
+        <TerminalDetailsView terminal={terminal} />
+      )}
     </InfoContainer>
   );
 };
