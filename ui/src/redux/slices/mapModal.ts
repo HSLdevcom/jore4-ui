@@ -1,26 +1,36 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Viewport } from '../types';
 
+type Mutable<T> = { -readonly [P in keyof T]: Mutable<T[P]> };
+type MutableViewport = Mutable<Viewport>;
+
 export const HELSINKI_CITY_CENTER_COORDINATES = {
   latitude: 60.1716,
   longitude: 24.9409,
 };
 
-interface IState {
-  isOpen: boolean;
-  viewport: Viewport;
-}
+type IState = {
+  readonly isOpen: boolean;
+  readonly viewport: Viewport;
+};
 
 const initialState: IState = {
   isOpen: false,
-  viewport: { ...HELSINKI_CITY_CENTER_COORDINATES, radius: 0 },
+  viewport: {
+    ...HELSINKI_CITY_CENTER_COORDINATES,
+    radius: 0,
+    bounds: [
+      [0, 0],
+      [0, 0],
+    ],
+  },
 };
 
 const slice = createSlice({
   name: 'mapModal',
   initialState,
   reducers: {
-    setViewPort: (state: IState, action: PayloadAction<Viewport>) => {
+    setViewPort: (state, action: PayloadAction<MutableViewport>) => {
       state.viewport = action.payload;
     },
     reset: () => {

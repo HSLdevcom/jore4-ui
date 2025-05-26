@@ -172,15 +172,24 @@ export const buildWithinViewportGqlFilter = (
 
 export const buildWithinViewportGqlGeometryFilter = (
   viewport: Viewport,
-): GeometryComparisonExp => ({
-  _st_d_within: {
-    from: {
-      type: 'Point',
-      coordinates: [viewport.longitude, viewport.latitude],
+): GeometryComparisonExp => {
+  const [[west, south], [east, north]] = viewport.bounds;
+
+  return {
+    _st_within: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [west, south],
+          [east, south],
+          [east, north],
+          [west, north],
+          [west, south],
+        ],
+      ],
     },
-    distance: viewport.radius,
-  },
-});
+  };
+};
 
 /** Builds an object for gql to filter by primary_vehicle_mode */
 export const buildPrimaryVehicleModeGqlFilter = (
