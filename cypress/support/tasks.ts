@@ -181,9 +181,9 @@ export const getAllOrganisationIds = () => {
   return hasuraAPI(mapToGetAllOrganisationIds());
 };
 
-const deleteStopPlacesAndTerminals = async () => {
+const deleteQuaysStopPlacesAndTerminals = async () => {
   const truncateQuery = fs.readFileSync(
-    'fixtures/truncateStopPlaces.sql',
+    'fixtures/truncateQuaysAndStopPlaces.sql',
     'utf8',
   );
   return stopsDb.raw(truncateQuery);
@@ -221,7 +221,7 @@ const deleteOrganisations = async () => {
 
 export const resetStopRegistryDb = async () => {
   await deleteStopAreas();
-  await deleteStopPlacesAndTerminals();
+  await deleteQuaysStopPlacesAndTerminals();
   await deleteOrganisations();
   // TODO: Add deletion of info spots
 };
