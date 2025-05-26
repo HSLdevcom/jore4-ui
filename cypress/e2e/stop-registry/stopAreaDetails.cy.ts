@@ -15,6 +15,7 @@ import {
 } from '../../datasets/stopRegistry';
 import {
   AlternativeNames,
+  AlternativeNamesEdit,
   BasicDetailsViewCard,
   ConfirmationDialog,
   SelectMemberStopsDropdown,
@@ -377,16 +378,17 @@ describe('Stop area details', () => {
 
     function inputBasicDetails(inputs: ExpectedBasicDetails) {
       const { edit } = stopAreaDetailsPage.details;
+      const altEdit = new AlternativeNamesEdit();
 
       edit.getName().clearAndType(inputs.name);
       edit.getNameSwe().clearAndType(inputs.nameSwe);
-      edit.getNameEng().clearAndType(inputs.nameEng);
-      edit.getNameLongFin().clearAndType(inputs.nameLongFin);
-      edit.getNameLongSwe().clearAndType(inputs.nameLongSwe);
-      edit.getNameLongEng().clearAndType(inputs.nameLongEng);
-      edit.getAbbreviationFin().clearAndType(inputs.abbreviationFin);
-      edit.getAbbreviationSwe().clearAndType(inputs.abbreviationSwe);
-      edit.getAbbreviationEng().clearAndType(inputs.abbreviationEng);
+      altEdit.getNameEng().clearAndType(inputs.nameEng);
+      altEdit.getNameLongFin().clearAndType(inputs.nameLongFin);
+      altEdit.getNameLongSwe().clearAndType(inputs.nameLongSwe);
+      altEdit.getNameLongEng().clearAndType(inputs.nameLongEng);
+      altEdit.getAbbreviationFin().clearAndType(inputs.abbreviationFin);
+      altEdit.getAbbreviationSwe().clearAndType(inputs.abbreviationSwe);
+      altEdit.getAbbreviationEng().clearAndType(inputs.abbreviationEng);
 
       setValidity(inputs.validFrom, inputs.validTo);
     }

@@ -23,6 +23,7 @@ import {
   stopAreaFormSchema,
   useUpsertStopArea,
 } from '../../../../forms/stop-area';
+import { AlternativeNamesEdit } from '../../../components/AlternativeNames/AlternativeNamesEdit';
 
 const testIds = {
   privateCode: 'StopAreaDetailsEdit::privateCode',
@@ -163,66 +164,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
               />
             </Column>
           </FormRow>
-          <FormRow lgColumns={4} mdColumns={2}>
-            <Column>
-              <InputField<FormState>
-                type="text"
-                translationPrefix="stopDetails.basicDetails"
-                fieldPath="nameLongFin"
-                testId={testIds.nameLongFin}
-              />
-            </Column>
-            <Column>
-              <InputField<FormState>
-                type="text"
-                translationPrefix="stopDetails.basicDetails"
-                fieldPath="nameLongSwe"
-                testId={testIds.nameLongSwe}
-              />
-            </Column>
-            <Column>
-              <InputField<FormState>
-                type="text"
-                translationPrefix="stopDetails.basicDetails"
-                fieldPath="abbreviationFin"
-                testId={testIds.abbreviationFin}
-              />
-            </Column>
-            <Column>
-              <InputField<FormState>
-                type="text"
-                translationPrefix="stopDetails.basicDetails"
-                fieldPath="abbreviationSwe"
-                testId={testIds.abbreviationSwe}
-              />
-            </Column>
-          </FormRow>
-          <FormRow lgColumns={4} mdColumns={2}>
-            <Column>
-              <InputField<FormState>
-                type="text"
-                translationPrefix="stopAreaDetails.basicDetails"
-                fieldPath="nameEng"
-                testId={testIds.nameEng}
-              />
-            </Column>
-            <Column>
-              <InputField<FormState>
-                type="text"
-                translationPrefix="stopAreaDetails.basicDetails"
-                fieldPath="nameLongEng"
-                testId={testIds.nameLongEng}
-              />
-            </Column>
-            <Column>
-              <InputField<FormState>
-                type="text"
-                translationPrefix="stopAreaDetails.basicDetails"
-                fieldPath="abbreviationEng"
-                testId={testIds.abbreviationEng}
-              />
-            </Column>
-          </FormRow>
+          <AlternativeNamesEdit />
           <FormRow lgColumns={4} mdColumns={2}>
             <Column>
               <InputField<FormState>
