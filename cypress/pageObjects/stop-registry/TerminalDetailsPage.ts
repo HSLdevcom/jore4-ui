@@ -3,6 +3,7 @@ import {
   TerminalDetailsSection,
   TerminalLocationDetailsSection,
 } from './terminals';
+import { TerminalVersioningRow } from './terminals/TerminalVersioningRow';
 import { TitleRow } from './terminals/TitleRow';
 
 export class TerminalDetailsPage {
@@ -11,6 +12,8 @@ export class TerminalDetailsPage {
   locationDetails = new TerminalLocationDetailsSection();
 
   titleRow = new TitleRow();
+
+  versioningRow = new TerminalVersioningRow();
 
   observationDateControl = new ObservationDateControl();
 
