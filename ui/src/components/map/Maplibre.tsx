@@ -2,7 +2,14 @@ import distance from '@turf/distance';
 import { Units, point } from '@turf/helpers';
 import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
-import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import MapGL, {
   ErrorEvent,
@@ -15,17 +22,16 @@ import { LoadingState, Operation, setViewPortAction } from '../../redux';
 import { log, showWarningToast } from '../../utils';
 import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';
 
-interface Props {
-  className?: string;
+type MaplibreProps = {
+  readonly className?: string;
   // width and height are passed as params to `react-map-gl`.
   // It seems to support certain css features, e.g. "100vh" or "100px",
   // but in other hand "100%" doesn't seem to work...
-  width?: string;
-  height?: string;
-  onClick?: (e: MapLayerMouseEvent) => void;
-  useVectorTilesAsBaseMap?: boolean;
-  children: ReactNode;
-}
+  readonly width?: string;
+  readonly height?: string;
+  readonly onClick?: (e: MapLayerMouseEvent) => void;
+  readonly useVectorTilesAsBaseMap?: boolean;
+};
 
 interface MaplibreViewport {
   latitude: number;
@@ -50,7 +56,7 @@ const style = generateStyle({
   ],
 });
 
-export const Maplibre: FC<Props> = ({
+export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
   onClick,
   width = '100vw',
   height = '100vh',

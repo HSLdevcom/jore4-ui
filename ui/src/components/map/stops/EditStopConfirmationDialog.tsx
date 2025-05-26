@@ -1,18 +1,18 @@
 import { TFunction } from 'i18next';
 import countBy from 'lodash/countBy';
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteUniqueFieldsFragment } from '../../../generated/graphql';
 import { EditChanges } from '../../../hooks';
 import { ConfirmationDialog } from '../../../uiComponents';
 
-interface Props {
-  isOpen: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
-  className?: string;
-  editChanges: EditChanges;
-}
+type EditStopConfirmationDialogProps = {
+  readonly isOpen: boolean;
+  readonly onConfirm: () => void;
+  readonly onCancel: () => void;
+  readonly className?: string;
+  readonly editChanges: EditChanges;
+};
 
 /**
  * Builds a string list from provided routes' labels separated by comma.
@@ -41,13 +41,9 @@ export const buildRouteLabelListString = (
 };
 
 /** Renders a confirmation dialog for confirming changes when a stop is edited */
-export const EditStopConfirmationDialog: React.FC<Props> = ({
-  isOpen,
-  onConfirm,
-  onCancel,
-  className = '',
-  editChanges,
-}) => {
+export const EditStopConfirmationDialog: FC<
+  EditStopConfirmationDialogProps
+> = ({ isOpen, onConfirm, onCancel, className = '', editChanges }) => {
   const { t } = useTranslation();
 
   // TODO improve the confirmation dialog when Design has iterated on how this should look like

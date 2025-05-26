@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { EnrichedStopPlace } from '../../../types';
 import { getPointPosition, notNullish } from '../../../utils';
 import { LinePaint, LineRenderLayer } from '../routes';
@@ -36,10 +36,10 @@ function useMemberStops(area: EnrichedStopPlace) {
 }
 
 type MemberStopsProps = {
-  area: EnrichedStopPlace;
+  readonly area: EnrichedStopPlace;
 };
 
-export const MemberStops = ({ area }: MemberStopsProps) => {
+export const MemberStops: FC<MemberStopsProps> = ({ area }) => {
   const memberLines = useMemberLines(area);
   const memberStops = useMemberStops(area);
 

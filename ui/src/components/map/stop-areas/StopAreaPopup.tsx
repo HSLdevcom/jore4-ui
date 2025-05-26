@@ -23,12 +23,12 @@ const testIds = {
 };
 
 type StopAreaPopupProps = {
-  area: EnrichedStopPlace;
-  onAddStop: () => void;
-  onDelete: () => void;
-  onEdit: () => void;
-  onMove: () => void;
-  onClose: () => void;
+  readonly area: EnrichedStopPlace;
+  readonly onAddStop: () => void;
+  readonly onDelete: () => void;
+  readonly onEdit: () => void;
+  readonly onMove: () => void;
+  readonly onClose: () => void;
 };
 
 export const StopAreaPopup = ({

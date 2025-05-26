@@ -1,18 +1,18 @@
-import { memo, useState } from 'react';
+import { FC, memo, useState } from 'react';
 
-interface Props {
-  testId?: string;
-  size?: number;
-  borderWidth?: number;
-  fillColor?: string;
-  borderColor?: string;
-  strokeDashArray?: number;
-  centerDot?: boolean;
-  centerDotSize?: number;
-  onClick?: () => void;
-}
+type CircleComponentProps = {
+  readonly testId?: string;
+  readonly size?: number;
+  readonly borderWidth?: number;
+  readonly fillColor?: string;
+  readonly borderColor?: string;
+  readonly strokeDashArray?: number;
+  readonly centerDot?: boolean;
+  readonly centerDotSize?: number;
+  readonly onClick?: () => void;
+};
 
-const CircleComponent = ({
+const CircleComponent: FC<CircleComponentProps> = ({
   testId,
   size = 20,
   borderWidth = 2,
@@ -22,7 +22,7 @@ const CircleComponent = ({
   centerDot = false,
   centerDotSize = 2,
   onClick,
-}: Props): React.ReactElement => {
+}) => {
   const [isMouseHovering, setIsMouseHovering] = useState(false);
   return (
     <svg

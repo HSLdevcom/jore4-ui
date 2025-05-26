@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { theme } from '../../../generated/theme';
 import { ArrowLayout, ArrowPaint, ArrowRenderLayer } from './ArrowRenderLayer';
 import { LinePaint, LineRenderLayer } from './LineRenderLayer';
@@ -25,23 +26,23 @@ export const mapLayerIdToRouteId = (layerId: string) => {
   return matches?.length ? (matches[0] as UUID) : undefined;
 };
 
-interface Props {
-  routeId?: UUID;
-  geometry: GeoJSON.LineString;
-  defaultColor?: string;
-  isHighlighted: boolean;
-}
+type RouteGeometryLayerProps = {
+  readonly routeId?: UUID;
+  readonly geometry: GeoJSON.LineString;
+  readonly defaultColor?: string;
+  readonly isHighlighted: boolean;
+};
 
 export const NEW_ROUTE_LINE_ID = 'new_route_line';
 export const NEW_ROUTE_ARROWS_ID = 'new_route_arrows';
 
 // This layer renders route on map
-export const RouteGeometryLayer = ({
+export const RouteGeometryLayer: FC<RouteGeometryLayerProps> = ({
   routeId,
   geometry,
   defaultColor = colors.routes.bus,
   isHighlighted,
-}: Props): React.ReactElement => {
+}) => {
   const beforeId = isHighlighted ? undefined : 'route_base';
 
   const color = isHighlighted ? colors.selectedMapItem : defaultColor;

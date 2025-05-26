@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
@@ -9,13 +10,13 @@ import { mapToValidityPeriod } from '../../../utils';
 import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
 import { PriorityBadge } from '../PriorityBadge';
 
-interface Props {
-  stop: StopInfoForEditingOnMap;
-  onEdit: () => void;
-  onMove: () => void;
-  onClose: () => void;
-  onDelete: () => void;
-}
+type StopPopoupProps = {
+  readonly stop: StopInfoForEditingOnMap;
+  readonly onEdit: () => void;
+  readonly onMove: () => void;
+  readonly onClose: () => void;
+  readonly onDelete: () => void;
+};
 
 const testIds = {
   label: 'StopPopUp::label',
@@ -25,13 +26,13 @@ const testIds = {
   closeButton: 'StopPopUp::closeButton',
 };
 
-export const StopPopup = ({
+export const StopPopup: FC<StopPopoupProps> = ({
   stop,
   onEdit,
   onMove,
   onClose,
   onDelete,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const {
     formState: {

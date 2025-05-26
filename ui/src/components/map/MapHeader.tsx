@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../layoutComponents';
 import { CloseIconButton } from '../../uiComponents';
@@ -8,11 +8,11 @@ const testIds = {
   closeButton: 'MapHeader::closeButton',
 };
 
-interface Props {
-  onClose: () => void;
-}
+type MapHeaderProps = {
+  readonly onClose: () => void;
+};
 
-export const MapHeader: React.FC<Props> = ({ onClose }) => {
+export const MapHeader: FC<MapHeaderProps> = ({ onClose }) => {
   const { t } = useTranslation();
   return (
     <Row className="bg-white px-11 py-4">

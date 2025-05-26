@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteStopFieldsFragment } from '../../generated/graphql';
 import { useAppDispatch } from '../../hooks';
@@ -8,11 +9,11 @@ import {
 import { AlignDirection, SimpleDropdownMenu } from '../../uiComponents';
 import { PriorityBadge } from './PriorityBadge';
 
-interface Props {
-  belongsToJourneyPattern: boolean;
-  stop: RouteStopFieldsFragment;
-  isReadOnly?: boolean;
-}
+type RouteStopsOverlayRowProps = {
+  readonly belongsToJourneyPattern: boolean;
+  readonly stop: RouteStopFieldsFragment;
+  readonly isReadOnly?: boolean;
+};
 
 const testIds = {
   row: 'RouteStopsOverlayRow',
@@ -22,11 +23,11 @@ const testIds = {
     'RouteStopsOverlayRow::menu::toggleStopInJourneyPatternButton',
 };
 
-export const RouteStopsOverlayRow = ({
+export const RouteStopsOverlayRow: FC<RouteStopsOverlayRowProps> = ({
   belongsToJourneyPattern,
   stop,
   isReadOnly,
-}: Props) => {
+}) => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();

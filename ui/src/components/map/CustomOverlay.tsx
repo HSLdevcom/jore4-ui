@@ -59,15 +59,17 @@ class OverlayControl implements IControl {
   }
 }
 
+type CustomOverlayComponentProps = {
+  readonly position: ControlPosition;
+  readonly children: React.ReactElement;
+};
+
 /**
  * A custom control that rerenders arbitrary React content whenever the camera changes
  */
-const CustomOverlayComponent = ({
+const CustomOverlayComponent: React.FC<CustomOverlayComponentProps> = ({
   children,
   position,
-}: {
-  children: React.ReactElement;
-  position: ControlPosition;
 }) => {
   const [, setVersion] = useState(0);
 

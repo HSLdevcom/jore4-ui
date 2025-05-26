@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pipe } from 'remeda';
 import { RouteDirectionEnum } from '../../generated/graphql';
@@ -32,13 +33,13 @@ const testIds = {
     `RouteStopsOverlay::routeStopListHeader::${label}-${direction}`,
 };
 
-interface Props {
-  className?: string;
-}
+type RouteStopsOverlayProps = {
+  readonly className?: string;
+};
 
-export const RouteStopsOverlay = ({
+export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const dispatch = useAppDispatch();
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
   const { observationDate } = useObservationDateQueryParam();

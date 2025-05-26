@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
-import React, {
+import {
+  FC,
   Ref,
   useCallback,
   useEffect,
@@ -29,9 +30,9 @@ import { ACTIVE_LINE_STROKE_ID } from './routes/editorStyles';
 
 const SNAPPING_LINE_LAYER_ID = 'snapping-line';
 
-interface Props {
-  editorLayerRef: Ref<EditorLayerRef>;
-}
+type DrawRouteLayerProps = {
+  readonly editorLayerRef: Ref<EditorLayerRef>;
+};
 
 const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
   if (!map) {
@@ -49,7 +50,7 @@ const setCursor = (map: MapRef | undefined, drawingMode: Mode | undefined) => {
   }
 };
 
-export const DrawRouteLayer = ({ editorLayerRef }: Props) => {
+export const DrawRouteLayer: FC<DrawRouteLayerProps> = ({ editorLayerRef }) => {
   const drawRef = useRef<MapboxDraw | null>(null);
   const { current: mapboxDraw } = drawRef;
   const { current: map } = useMap();

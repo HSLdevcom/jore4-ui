@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { submitFormByRef } from '../../../utils';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
@@ -10,19 +10,19 @@ const testIds = {
   modal: 'EditRouteModal',
 };
 
-interface Props {
-  defaultValues: Partial<RouteFormState>;
-  onSuccess: (data: RouteFormState) => void;
-  onCancel: () => void;
-  onClose: () => void;
-}
+type EditRouteModalProps = {
+  readonly defaultValues: Partial<RouteFormState>;
+  readonly onSuccess: (data: RouteFormState) => void;
+  readonly onCancel: () => void;
+  readonly onClose: () => void;
+};
 
-export const EditRouteModal = ({
+export const EditRouteModal: FC<EditRouteModalProps> = ({
   defaultValues,
   onSuccess,
   onCancel,
   onClose,
-}: Props): React.ReactElement => {
+}) => {
   const formRef = useRef<ExplicitAny>(null);
   const { t } = useTranslation();
 

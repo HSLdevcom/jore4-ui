@@ -1,14 +1,14 @@
 import { Dialog } from '@headlessui/react';
-import React, { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useMapQueryParams } from '../../hooks';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
 import { RouteEditorRef } from './refTypes';
 
-interface Props {
-  className?: string;
-}
+type MapModalProps = {
+  readonly className?: string;
+};
 
 const testIds = { mapModal: 'mapModal' };
 
@@ -18,7 +18,7 @@ const testIds = { mapModal: 'mapModal' };
 const mapHeaderHeight = 64;
 const mapFooterHeight = 82;
 
-export const MapModal: React.FC<Props> = ({ className = '' }) => {
+export const MapModal: FC<MapModalProps> = ({ className = '' }) => {
   const mapRef = useRef<RouteEditorRef>(null);
 
   const { isMapOpen, deleteMapQueryParameters } = useMapQueryParams();
