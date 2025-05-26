@@ -291,12 +291,10 @@ setup_environment() {
 
   start_docker_containers $DOCKER_TESTDB_IMAGE
 
-  if [[ -z ${1+x} || $1 != "test" ]]; then
-    wait_for_database testdb topology topology
-    import_dump $DUMP_ROUTES_FILENAME jore4e2e
-    import_dump $DUMP_TIMETABLES_FILENAME timetablesdb
-    import_dump $DUMP_STOPS_FILENAME stopdb
-  fi
+  wait_for_database testdb topology topology
+  import_dump $DUMP_ROUTES_FILENAME jore4e2e
+  import_dump $DUMP_TIMETABLES_FILENAME timetablesdb
+  import_dump $DUMP_STOPS_FILENAME stopdb
 
   local additional_images=()
   if [ "$INCLUDE_E2E" = true ]; then
@@ -312,18 +310,6 @@ setup_environment() {
   fi
 
   if [[ $1 = "test" ]]; then
-    # Existing tests are made using old data and the data is not compatible with stop registry dump
-    seed_infra_links testdb
-    local old_dump=jore4e2e-test-20240104-data-only-8a28ef5f-20240104.pgdump
-    if [ ! -f $old_dump ]; then
-      download_dump $old_dump
-    fi
-    docker exec -i testdb pg_restore --format=c --disable-triggers --no-owner --role=dbhasura -f dump.sql < $old_dump
-
-    # Add a row to sql dump disabling triggers
-    docker exec -i testdb sed -i '1s;^;SET session_replication_role = replica\;\n;' dump.sql
-    docker exec -i testdb sh -c 'psql postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e < dump.sql'
-
     # Use port 3010 for tiamat
     ./scripts/seed-municipalities-and-fare-zones.sh 3010
 
