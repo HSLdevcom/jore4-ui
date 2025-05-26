@@ -1,16 +1,17 @@
+import { FC } from 'react';
 import { GoDotFill } from 'react-icons/go';
 
-interface Props {
-  hastusCode: string;
-  isUsedAsTimingPoint?: boolean;
-  testId: string;
-}
+type HastusCodeProps = {
+  readonly hastusCode: string;
+  readonly isUsedAsTimingPoint?: boolean;
+  readonly testId: string;
+};
 
-export const HastusCode = ({
+export const HastusCode: FC<HastusCodeProps> = ({
   hastusCode,
   isUsedAsTimingPoint,
   testId,
-}: Props) => {
+}) => {
   return (
     <>
       {isUsedAsTimingPoint ? (

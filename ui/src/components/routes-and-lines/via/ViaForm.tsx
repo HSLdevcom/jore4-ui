@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -17,13 +17,13 @@ export const schema = z.object({
 
 export type FormState = z.infer<typeof schema>;
 
-interface Props {
-  defaultValues?: Partial<FormState>;
-  className?: string;
-  onSubmit: (state: FormState) => void;
-  onRemove: () => void;
-  onCancel: () => void;
-}
+type ViaFormProps = {
+  readonly defaultValues?: Partial<FormState>;
+  readonly className?: string;
+  readonly onSubmit: (state: FormState) => void;
+  readonly onRemove: () => void;
+  readonly onCancel: () => void;
+};
 
 const testIds = {
   finnishName: 'ViaForm::finnishName',
@@ -42,13 +42,13 @@ export const mapStopJourneyPatternToFormState = (
   viaPointShortName: defaultLocalizedString(stopInfo.via_point_short_name_i18n),
 });
 
-export const ViaForm = ({
+export const ViaForm: FC<ViaFormProps> = ({
   defaultValues,
   className = '',
   onSubmit,
   onCancel,
   onRemove,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
 

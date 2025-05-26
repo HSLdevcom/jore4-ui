@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import { DateTime } from 'luxon';
-import React from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
@@ -24,12 +24,6 @@ import { RouteLabel } from '../../common/RouteLabel';
 const testIds = {
   closeButton: 'ConflictResolverModal::closeButton',
 };
-
-interface Props {
-  onClose: () => void;
-  className?: string;
-  conflicts?: ReadonlyArray<CommonConflictItem>;
-}
 
 interface CommonConflictItem {
   validityStart?: DateTime;
@@ -74,11 +68,11 @@ export const mapStopToCommonConflictItem = (
   id: item.scheduled_stop_point_id,
 });
 
-const ConflictItemRow = ({
-  item,
-}: {
-  item: CommonConflictItem;
-}): React.ReactElement => {
+type ConflictItemRowProps = {
+  readonly item: CommonConflictItem;
+};
+
+const ConflictItemRow: FC<ConflictItemRowProps> = ({ item }) => {
   const { t } = useTranslation();
   return (
     <tr
@@ -105,7 +99,13 @@ const ConflictItemRow = ({
   );
 };
 
-export const ConflictResolverModal: React.FC<Props> = ({
+type ConflictResolverModalProps = {
+  readonly onClose: () => void;
+  readonly className?: string;
+  readonly conflicts?: ReadonlyArray<CommonConflictItem>;
+};
+
+export const ConflictResolverModal: React.FC<ConflictResolverModalProps> = ({
   onClose,
   className = '',
   conflicts = [],

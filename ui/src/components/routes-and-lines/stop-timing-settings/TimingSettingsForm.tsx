@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -21,12 +21,12 @@ export const schema = z.object({
 
 export type FormState = z.infer<typeof schema>;
 
-interface Props {
-  defaultValues?: Partial<FormState>;
-  className?: string;
-  onSubmit: (state: FormState) => void;
-  onCancel: () => void;
-}
+type TimingSettingsFormProps = {
+  readonly defaultValues?: Partial<FormState>;
+  readonly className?: string;
+  readonly onSubmit: (state: FormState) => void;
+  readonly onCancel: () => void;
+};
 
 const testIds = {
   isUsedAsTimingPoint: 'TimingSettingsForm::isUsedAsTimingPoint',
@@ -46,12 +46,12 @@ export const mapStopJourneyPatternToFormState = (
   timingPlaceId: stopInfo?.scheduled_stop_points[0].timing_place_id,
 });
 
-export const TimingSettingsForm = ({
+export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
   defaultValues,
   className = '',
   onSubmit,
   onCancel,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
   const dispatch = useAppDispatch();

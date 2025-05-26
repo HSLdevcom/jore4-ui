@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { MdHistory } from 'react-icons/md';
@@ -32,19 +33,19 @@ const testIds = {
   viaIcon: 'RouteStopListItem::viaIcon',
 };
 
-interface Props {
-  className?: string;
-  stop: RouteStopFieldsFragment;
-  route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
-  labelledBy: string;
-}
+type RouteStopListItemProps = {
+  readonly className?: string;
+  readonly stop: RouteStopFieldsFragment;
+  readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
+  readonly labelledBy: string;
+};
 
-export const RouteStopListItem = ({
+export const RouteStopListItem: FC<RouteStopListItemProps> = ({
   className = '',
   stop,
   route,
   labelledBy,
-}: Props): JSX.Element => {
+}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

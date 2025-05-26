@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { Column } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 
-interface Props {
-  className?: string;
-  onCreateRoute?: () => void;
-}
+type CreateRouteBoxProps = {
+  readonly className?: string;
+  readonly onCreateRoute?: () => void;
+};
 
-export const CreateRouteBox: React.FC<Props> = ({
+export const CreateRouteBox: React.FC<CreateRouteBoxProps> = ({
   className = '',
   onCreateRoute,
 }) => {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { pipe } from 'remeda';
 import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
 import { stopBelongsToJourneyPattern } from '../../../graphql';
@@ -12,20 +12,20 @@ import { RouteRow } from './RouteRow';
 import { RouteRowLoader } from './RouteRowLoader';
 import { RouteStopListItem } from './RouteStopListItem';
 
-interface Props {
-  routeId: UUID;
-  showUnusedStops: boolean;
-  isLast: boolean;
-}
+type LineRouteListItemProps = {
+  readonly routeId: UUID;
+  readonly showUnusedStops: boolean;
+  readonly isLast: boolean;
+};
 
 const testIds = {
   lineRouteListItem: 'LineRouteListItem',
 };
-export const LineRouteListItem = ({
+export const LineRouteListItem: FC<LineRouteListItemProps> = ({
   routeId,
   showUnusedStops,
   isLast,
-}: Props): JSX.Element => {
+}) => {
   const [isExpanded, expand] = useState(false);
 
   const onToggle = () => {

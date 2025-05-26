@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteDirectionEnum } from '../../../generated/graphql';
 import {
@@ -12,12 +13,15 @@ const testIds = {
 };
 export const directionBadgeTestIds = testIds;
 
-type Props = {
-  direction: RouteDirectionEnum;
-  className?: string;
+type DirectionBadgeProps = {
+  readonly direction: RouteDirectionEnum;
+  readonly className?: string;
 };
 
-export const DirectionBadge = ({ direction, className = '' }: Props) => {
+export const DirectionBadge: FC<DirectionBadgeProps> = ({
+  direction,
+  className = '',
+}) => {
   const { t } = useTranslation();
 
   const directionText = mapDirectionToUiName(t, direction);

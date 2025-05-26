@@ -16,13 +16,13 @@ const testIds = {
   name: 'LineTitle::name',
 };
 
-interface Props {
-  className?: string;
-  line: LineWithRoutesUniqueFieldsFragment;
-  onCreateRoute?: () => void;
-  showValidityPeriod?: boolean;
-  allowSelectingMultipleRoutes?: boolean;
-}
+type LineTitleProps = {
+  readonly className?: string;
+  readonly line: LineWithRoutesUniqueFieldsFragment;
+  readonly onCreateRoute?: () => void;
+  readonly showValidityPeriod?: boolean;
+  readonly allowSelectingMultipleRoutes?: boolean;
+};
 
 const GQL_LINE_WITH_ROUTES_UNIQUE_FIELDS = gql`
   fragment line_with_routes_unique_fields on route_line {
@@ -33,7 +33,7 @@ const GQL_LINE_WITH_ROUTES_UNIQUE_FIELDS = gql`
   }
 `;
 
-export const LineTitle: React.FC<Props> = ({
+export const LineTitle: React.FC<LineTitleProps> = ({
   className = '',
   line,
   onCreateRoute,

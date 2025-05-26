@@ -20,12 +20,12 @@ const testIds = {
   transportTarget: 'AdditionalInformation::transportTarget',
 };
 
-interface Props {
-  className?: string;
-  line: LineAllFieldsFragment;
-}
+type AdditionalInformationProps = {
+  readonly className?: string;
+  readonly line: LineAllFieldsFragment;
+};
 
-export const AdditionalInformation: React.FC<Props> = ({
+export const AdditionalInformation: React.FC<AdditionalInformationProps> = ({
   className = '',
   line,
 }) => {

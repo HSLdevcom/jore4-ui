@@ -1,11 +1,13 @@
-import React, { FC, ReactNode } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
-interface Props {
-  className?: string;
-  children: ReactNode;
-}
+type PageHeaderProps = {
+  readonly className?: string;
+};
 
-export const PageHeader: FC<Props> = ({ className = '', children }) => {
+export const PageHeader: FC<PropsWithChildren<PageHeaderProps>> = ({
+  className = '',
+  children,
+}) => {
   return (
     <div className={`border-b border-light-grey bg-background ${className}`}>
       <div className="container mx-auto py-10">{children}</div>

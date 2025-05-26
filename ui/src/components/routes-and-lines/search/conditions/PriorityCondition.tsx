@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../../layoutComponents';
 import { Priority } from '../../../../types/enums';
@@ -8,15 +9,15 @@ const testIds = {
     `PriorityCondition::${Priority[priority]}PriorityButton`,
 };
 
-type Props = {
-  priorities: ReadonlyArray<Priority>;
-  onClick: (attributeName: string, value: Priority[]) => void;
+type PriorityConditionProps = {
+  readonly priorities: ReadonlyArray<Priority>;
+  readonly onClick: (attributeName: string, value: Priority[]) => void;
 };
 
-export const PriorityCondition = ({
+export const PriorityCondition: FC<PriorityConditionProps> = ({
   priorities,
   onClick,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   const onClickPriority = (priority: Priority) => {

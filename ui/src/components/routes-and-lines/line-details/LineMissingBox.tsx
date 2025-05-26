@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineFetchError } from '../../../hooks';
 
@@ -19,12 +20,16 @@ const useLineMissingTranslation = (error?: LineFetchError) => {
   );
 };
 
-export const LineMissingBox = (props?: { error?: LineFetchError }) => {
+type LineMissingBoxProps = {
+  readonly error?: LineFetchError;
+};
+
+export const LineMissingBox: FC<LineMissingBoxProps> = ({ error }) => {
   return (
     <div className="flex h-72 w-full flex-shrink-0 items-center justify-center border-light-grey bg-background">
       <span className="icon-alert p-2 text-hsl-red" />
       <p data-testid={testIds.notValidText} className="self-center">
-        {useLineMissingTranslation(props?.error)}
+        {useLineMissingTranslation(error)}
       </p>
     </div>
   );
