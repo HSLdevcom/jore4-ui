@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Path, routeDetails } from '../../router/routeDetails';
 
-interface Props {
-  className?: string;
-  style?: React.CSSProperties;
-}
+type BrandLogoProps = {
+  readonly className?: string;
+  readonly style?: React.CSSProperties;
+};
 
-export const BrandLogo: FC<Props> = ({ className = '', style }) => {
+export const BrandLogo: FC<BrandLogoProps> = ({ className = '', style }) => {
   const { t } = useTranslation();
   const target = routeDetails[Path.root];
   return (

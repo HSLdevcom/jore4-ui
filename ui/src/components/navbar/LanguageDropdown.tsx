@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DropdownMenu } from './DropdownMenu';
 
@@ -7,11 +7,13 @@ export const testIds = {
   toggleLanguage: 'LanguageDropdown::toggleLanguage',
 };
 
-interface Props {
-  className?: string;
-}
+type LanguageDropdownProps = {
+  readonly className?: string;
+};
 
-export const LanguageDropdown: FC<Props> = ({ className = '' }) => {
+export const LanguageDropdown: FC<LanguageDropdownProps> = ({
+  className = '',
+}) => {
   const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
   // TODO: this is is naive implementation and won't work if we have more than 2 supported languages at some point
