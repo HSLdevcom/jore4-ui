@@ -21,15 +21,15 @@ const testIds = {
   warningMessage: 'ObservationPeriodForm::warningMessage',
 };
 
-interface WarningTextProps {
-  warningMessage: string;
-  className?: string;
-}
+type WarningTextProps = {
+  readonly warningMessage: string;
+  readonly className?: string;
+};
 
-const WarningText = ({
+const WarningText: FC<WarningTextProps> = ({
   warningMessage,
   className = '',
-}: WarningTextProps): React.ReactElement => {
+}) => {
   return (
     <Row className={`${className} items-center`}>
       <MdWarning className="mr-2 inline text-lg text-grey" />

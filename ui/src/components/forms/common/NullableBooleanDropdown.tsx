@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../i18n';
 import { FormInputProps, Listbox } from '../../../uiComponents';
@@ -12,13 +13,13 @@ interface DropdownTranslationKeys {
   null: TranslationKey;
 }
 
-export interface NullableBooleanDropdownProps extends FormInputProps {
-  id?: string;
-  testId?: string;
-  className?: string;
-  translationKeys?: DropdownTranslationKeys;
-  buttonClassName?: string;
-}
+export type NullableBooleanDropdownProps = FormInputProps & {
+  readonly id?: string;
+  readonly testId?: string;
+  readonly className?: string;
+  readonly translationKeys?: DropdownTranslationKeys;
+  readonly buttonClassName?: string;
+};
 
 const defaultTranslationKeys: DropdownTranslationKeys = {
   true: 'yes',
@@ -33,14 +34,14 @@ const defaultTranslationKeys: DropdownTranslationKeys = {
  * Note: value parameter typically comes in correct type (boolean|null),
  * but when selected from dropdown it is changed to string.
  */
-export const NullableBooleanDropdown = ({
+export const NullableBooleanDropdown: FC<NullableBooleanDropdownProps> = ({
   id,
   testId,
   value,
   translationKeys = defaultTranslationKeys,
   buttonClassName = '',
   ...formInputProps
-}: NullableBooleanDropdownProps): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const values = ['true', 'false', 'null'];
 

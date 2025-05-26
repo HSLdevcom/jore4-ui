@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TimingPlaceForComboboxFragment } from '../../../generated/graphql';
 import { useChooseTimingPlaceDropdown } from '../../../hooks/ui/useChooseTimingPlaceDropdown';
@@ -7,10 +7,10 @@ import {
   SearchableDropdown,
 } from '../../../uiComponents';
 
-interface Props extends ListboxInputProps {
-  testId?: string;
-  optionAmount?: number;
-}
+type ChooseTimingPlaceDropdownProps = ListboxInputProps & {
+  readonly testId?: string;
+  readonly optionAmount?: number;
+};
 
 const mapToOptionContent = (item: TimingPlaceForComboboxFragment) => (
   <div>
@@ -24,13 +24,13 @@ const mapToOption = (item: TimingPlaceForComboboxFragment) => ({
   render: () => mapToOptionContent(item),
 });
 
-export const ChooseTimingPlaceDropdown = ({
+export const ChooseTimingPlaceDropdown: FC<ChooseTimingPlaceDropdownProps> = ({
   testId,
   value,
   onChange,
   onBlur,
   optionAmount,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   const [query, setQuery] = useState('');

@@ -1,6 +1,6 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { ForwardRefRenderFunction, forwardRef, useState } from 'react';
+import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -22,13 +22,13 @@ import {
 import { TemplateRouteSelector } from './TemplateRouteSelector';
 import { TerminusNameInputs } from './TerminusNameInputs';
 
-export interface RouteFormProps {
-  id?: string;
-  routeLabel?: string | null;
-  className?: string;
-  defaultValues: Partial<FormState>;
-  onSubmit: (state: FormState) => void;
-}
+export type RoutePropertiesFormProps = {
+  readonly id?: string;
+  readonly routeLabel?: string | null;
+  readonly className?: string;
+  readonly defaultValues: Partial<FormState>;
+  readonly onSubmit: (state: FormState) => void;
+};
 
 const testIds = {
   directionDropdown: 'RoutePropertiesFormComponent::directionDropdown',
@@ -42,7 +42,7 @@ const testIds = {
 
 export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
-  RouteFormProps
+  RoutePropertiesFormProps
 > = ({ id, routeLabel, className = '', defaultValues, onSubmit }, ref) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();

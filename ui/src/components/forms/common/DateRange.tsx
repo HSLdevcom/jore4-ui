@@ -1,9 +1,9 @@
 import { DateLike, mapToShortDate } from '../../../time';
 
-interface DateRangeProps {
-  startDate?: DateLike;
-  endDate?: DateLike;
-}
+type DateRangeProps = {
+  readonly startDate?: DateLike;
+  readonly endDate?: DateLike;
+};
 
 export const DateRange = ({
   startDate,

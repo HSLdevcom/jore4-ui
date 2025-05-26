@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -32,19 +32,19 @@ const schema = z.object({
   description: localizedStringOptional,
 });
 
-interface Props {
-  className?: string;
-  onCancel: () => void;
-  onTimingPlaceCreated: (timingPlaceId: UUID) => void;
-}
+type CreateTimingPlaceFormProps = {
+  readonly className?: string;
+  readonly onCancel: () => void;
+  readonly onTimingPlaceCreated: (timingPlaceId: UUID) => void;
+};
 
 export type FormState = z.infer<typeof schema>;
 
-export const CreateTimingPlaceForm = ({
+export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
   className = '',
   onCancel,
   onTimingPlaceCreated,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
   const { setIsLoading } = useLoader(Operation.SaveTimingPlace);

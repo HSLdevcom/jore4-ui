@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -43,13 +43,13 @@ const testIds = {
   vehicleModeDropdown: 'LinePropertiesForm::primaryVehicleModeInput',
   lineTypeDropdown: 'LinePropertiesForm::typeOfLineInput',
 };
-interface Props {
-  className?: string;
-}
+type LinePropertiesFormProps = {
+  readonly className?: string;
+};
 
-export const LinePropertiesForm = ({
+export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const { getValues } = useFormContext<FormState>();
 

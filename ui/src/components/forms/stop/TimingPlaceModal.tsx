@@ -1,16 +1,17 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../hooks/redux';
 import { closeTimingPlaceModalAction } from '../../../redux/slices/modals';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 
-interface Props {
-  onTimingPlaceCreated: (timingPlaceId: UUID) => void;
-}
+type TimingPlaceModalProps = {
+  readonly onTimingPlaceCreated: (timingPlaceId: UUID) => void;
+};
 
-export const TimingPlaceModal = ({
+export const TimingPlaceModal: FC<TimingPlaceModalProps> = ({
   onTimingPlaceCreated,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

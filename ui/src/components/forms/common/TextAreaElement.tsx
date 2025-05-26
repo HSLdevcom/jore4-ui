@@ -10,10 +10,10 @@ export interface TextAreaElementDefaultProps
   testId: string;
 }
 
-interface Props<FormState extends FieldValues>
-  extends TextAreaElementDefaultProps {
-  fieldPath: Path<FormState>;
-}
+type TextAreaElementProps<FormState extends FieldValues> =
+  TextAreaElementDefaultProps & {
+    readonly fieldPath: Path<FormState>;
+  };
 
 export const TextAreaElement = <FormState extends FieldValues>({
   className = '',
@@ -21,7 +21,7 @@ export const TextAreaElement = <FormState extends FieldValues>({
   fieldPath,
   testId,
   ...textAreaHTMLAttributes
-}: Props<FormState>): React.ReactElement => {
+}: TextAreaElementProps<FormState>): React.ReactElement => {
   const {
     register,
     formState: { errors },

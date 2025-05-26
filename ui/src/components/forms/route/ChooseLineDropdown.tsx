@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineForComboboxFragment } from '../../../generated/graphql';
 import { useChooseLineDropdown } from '../../../hooks';
@@ -6,9 +6,9 @@ import { MAX_DATE, MIN_DATE } from '../../../time';
 import { ComboboxInputProps, SearchableDropdown } from '../../../uiComponents';
 import { DateRange } from '../common';
 
-interface Props extends ComboboxInputProps {
-  testId?: string;
-}
+type ChooseLineDropdownProps = ComboboxInputProps & {
+  readonly testId?: string;
+};
 
 const mapToOptionContent = (item: LineForComboboxFragment) => (
   <div>
@@ -28,12 +28,12 @@ const mapToOption = (item: LineForComboboxFragment) => ({
   render: () => mapToOptionContent(item),
 });
 
-export const ChooseLineDropdown = ({
+export const ChooseLineDropdown: FC<ChooseLineDropdownProps> = ({
   testId,
   value,
   onChange,
   onBlur,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   const [query, setQuery] = useState('');

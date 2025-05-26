@@ -4,12 +4,12 @@ import { FieldValues, Path, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../i18n';
 
-interface Props<FormState extends FieldValues> {
-  className?: string;
-  fieldPath: Path<FormState>;
-  translationPrefix: TranslationKey;
-  customTitlePath?: TranslationKey;
-}
+type InputLabelProps<FormState extends FieldValues> = {
+  readonly className?: string;
+  readonly fieldPath: Path<FormState>;
+  readonly translationPrefix: TranslationKey;
+  readonly customTitlePath?: TranslationKey;
+};
 
 const InputLabelImpl = <FormState extends FieldValues>(
   {
@@ -17,7 +17,7 @@ const InputLabelImpl = <FormState extends FieldValues>(
     fieldPath,
     translationPrefix,
     customTitlePath,
-  }: Props<FormState>,
+  }: InputLabelProps<FormState>,
   ref: ForwardedRef<HTMLLabelElement>,
 ): React.ReactElement => {
   const { t } = useTranslation();
@@ -51,5 +51,7 @@ const InputLabelImpl = <FormState extends FieldValues>(
 export const InputLabel = forwardRef(InputLabelImpl) as <
   FormState extends FieldValues,
 >(
-  props: Props<FormState> & { readonly ref?: ForwardedRef<HTMLLabelElement> },
+  props: InputLabelProps<FormState> & {
+    readonly ref?: ForwardedRef<HTMLLabelElement>;
+  },
 ) => ReturnType<typeof InputLabelImpl>;

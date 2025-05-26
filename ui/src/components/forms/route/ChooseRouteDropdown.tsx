@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteAllFieldsFragment } from '../../../generated/graphql';
 import { useChooseRouteDropdown } from '../../../hooks';
@@ -8,11 +8,11 @@ import { Priority } from '../../../types/enums';
 import { ComboboxInputProps, SearchableDropdown } from '../../../uiComponents';
 import { DateRange } from '../common/DateRange';
 
-interface Props extends ComboboxInputProps {
-  testId?: string;
-  date: DateTime;
-  priorities: ReadonlyArray<Priority>;
-}
+type ChooseRouteDropdownProps = ComboboxInputProps & {
+  readonly testId?: string;
+  readonly date: DateTime;
+  readonly priorities: ReadonlyArray<Priority>;
+};
 
 const mapToOptionContent = (item: RouteAllFieldsFragment) => (
   <div className="flex flex-col">
@@ -35,14 +35,14 @@ const mapToOption = (item: RouteAllFieldsFragment) => ({
   render: () => mapToOptionContent(item),
 });
 
-export const ChooseRouteDropdown = ({
+export const ChooseRouteDropdown: FC<ChooseRouteDropdownProps> = ({
   testId,
   value,
   onChange,
   onBlur,
   date,
   priorities,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   const [query, setQuery] = useState('');

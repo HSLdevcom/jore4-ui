@@ -1,17 +1,20 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DialogWithButtons } from '../../../uiComponents';
 
-interface Props {
-  isOpen: boolean;
-  onConfirm: () => void;
-  onRemoveStops: () => void;
-  onCancel: () => void;
-  routeLabel?: string;
-  stopsLabelsToRemove: ReadonlyArray<string>;
-  className?: string;
-}
+type RouteDraftStopsConfirmationDialogProps = {
+  readonly isOpen: boolean;
+  readonly onConfirm: () => void;
+  readonly onRemoveStops: () => void;
+  readonly onCancel: () => void;
+  readonly routeLabel?: string;
+  readonly stopsLabelsToRemove: ReadonlyArray<string>;
+  readonly className?: string;
+};
 
-export const RouteDraftStopsConfirmationDialog = ({
+export const RouteDraftStopsConfirmationDialog: FC<
+  RouteDraftStopsConfirmationDialogProps
+> = ({
   isOpen,
   onConfirm,
   onRemoveStops,
@@ -19,7 +22,7 @@ export const RouteDraftStopsConfirmationDialog = ({
   routeLabel,
   stopsLabelsToRemove,
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   return (

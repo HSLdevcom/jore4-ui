@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -18,15 +19,15 @@ const testIds = {
     `PriorityForm::${testIdPrefix}PriorityButton`,
 };
 
-interface PriorityButtonProps {
-  priority: Priority;
-  testIdPrefix: string;
-  translationKey: TranslationKey;
-}
+type PriorityButtonProps = {
+  readonly priority: Priority;
+  readonly testIdPrefix: string;
+  readonly translationKey: TranslationKey;
+};
 
-interface Props {
-  hiddenPriorities?: ReadonlyArray<Priority>;
-}
+type PriorityFormProps = {
+  readonly hiddenPriorities?: ReadonlyArray<Priority>;
+};
 
 const defaultPriorities: PriorityButtonProps[] = [
   {
@@ -50,9 +51,7 @@ const defaultPriorities: PriorityButtonProps[] = [
  * Component for selecting priority.
  * Can be merged with other forms.
  */
-export const PriorityForm = ({
-  hiddenPriorities,
-}: Props): React.ReactElement => {
+export const PriorityForm: FC<PriorityFormProps> = ({ hiddenPriorities }) => {
   const { t } = useTranslation();
   const {
     setValue,

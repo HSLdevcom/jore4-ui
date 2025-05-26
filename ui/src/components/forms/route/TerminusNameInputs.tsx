@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormColumn, FormRow, InputField } from '../common';
 import { RouteFormState } from './RoutePropertiesForm.types';
@@ -19,13 +20,13 @@ const testIds = {
     'TerminusNameInputs::destination::swedishShortNameInput',
 };
 
-interface Props {
-  className?: string;
-}
+type TerminusNameInputsProps = {
+  readonly className?: string;
+};
 
-export const TerminusNameInputs = ({
+export const TerminusNameInputs: FC<TerminusNameInputsProps> = ({
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   return (
     <div className={`${className} w-full`}>
