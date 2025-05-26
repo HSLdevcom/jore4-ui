@@ -1,5 +1,5 @@
 import get from 'lodash/get';
-import React, {
+import {
   HTMLInputTypeAttribute,
   InputHTMLAttributes,
   ReactElement,
@@ -8,11 +8,10 @@ import React, {
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 
-export interface InputElementDefaultProps
-  extends InputHTMLAttributes<HTMLInputElement> {
+export type InputElementDefaultProps = InputHTMLAttributes<HTMLInputElement> & {
   readonly id: string;
   readonly testId: string;
-}
+};
 
 type HTMLInputProps = Readonly<InputHTMLAttributes<HTMLInputElement>> & {
   readonly type: HTMLInputTypeAttribute;

@@ -1,17 +1,18 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HslRouteTransportTargetEnum } from '../../../generated/graphql';
 import { mapTransportTargetToUiName } from '../../../i18n/uiNameMappings';
 import { FormInputProps } from '../../../uiComponents';
 import { EnumDropdown } from '../common/EnumDropdown';
 
-interface Props extends FormInputProps {
-  testId?: string;
-}
+type TransportTargetDropdownProps = FormInputProps & {
+  readonly testId?: string;
+};
 
-export const TransportTargetDropdown = ({
+export const TransportTargetDropdown: FC<TransportTargetDropdownProps> = ({
   testId,
   ...formInputProps
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   return (

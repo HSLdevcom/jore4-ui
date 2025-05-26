@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
@@ -22,19 +23,19 @@ const testIds = {
     `ChangeValidityForm::${priorityLabel}PriorityButton`,
 };
 
-interface Props {
-  className?: string;
-  hiddenPriorities?: ReadonlyArray<Priority>;
-}
+type ChangeValidityFormProps = {
+  readonly className?: string;
+  readonly hiddenPriorities?: ReadonlyArray<Priority>;
+};
 
 /**
  * Component for selecting priority and validity period for an entity (e.g. line, route, stop).
  * Can be merged with other forms.
  */
-export const ChangeValidityForm = ({
+export const ChangeValidityForm: FC<ChangeValidityFormProps> = ({
   className = '',
   hiddenPriorities,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   return (

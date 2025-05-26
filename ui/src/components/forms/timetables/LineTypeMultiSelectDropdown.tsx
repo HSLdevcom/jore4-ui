@@ -1,19 +1,18 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteTypeOfLineEnum } from '../../../generated/graphql';
 import { mapLineTypeToUiName } from '../../../i18n/uiNameMappings';
 import { FormInputProps } from '../../../uiComponents';
 import { EnumMultiSelectDropdown } from '../common/EnumMultiSelectDropdown';
 
-interface Props extends FormInputProps {
-  id?: string;
-  testId: string;
-}
+type LineTypeMultiSelectDropdownProps = FormInputProps & {
+  readonly id?: string;
+  readonly testId: string;
+};
 
-export const LineTypeMultiSelectDropdown = ({
-  id,
-  testId,
-  ...formInputProps
-}: Props): React.ReactElement => {
+export const LineTypeMultiSelectDropdown: FC<
+  LineTypeMultiSelectDropdownProps
+> = ({ id, testId, ...formInputProps }) => {
   const { t } = useTranslation();
 
   return (

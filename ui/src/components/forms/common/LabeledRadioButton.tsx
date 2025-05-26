@@ -1,25 +1,25 @@
-import React from 'react';
+import { FC } from 'react';
 import {
   LabeledContainer,
   labeledContainerInputStyles,
 } from './LabeledContainer';
 
-interface Props {
-  label: string;
-  onClick: () => void;
-  id: string;
-  fieldPath: string;
-  value: string | number;
-  testId: string;
-  className?: string;
-  tooltip?: string;
-  selected?: boolean;
-  disabled?: boolean;
-  disabledTooltip?: string;
-  hasError?: boolean;
-}
+type LabeledRadioButtonProps = {
+  readonly label: string;
+  readonly onClick: () => void;
+  readonly id: string;
+  readonly fieldPath: string;
+  readonly value: string | number;
+  readonly testId: string;
+  readonly className?: string;
+  readonly tooltip?: string;
+  readonly selected?: boolean;
+  readonly disabled?: boolean;
+  readonly disabledTooltip?: string;
+  readonly hasError?: boolean;
+};
 
-export const LabeledRadioButton = ({
+export const LabeledRadioButton: FC<LabeledRadioButtonProps> = ({
   label,
   onClick,
   id,
@@ -32,7 +32,7 @@ export const LabeledRadioButton = ({
   disabled,
   disabledTooltip,
   hasError,
-}: Props): React.ReactElement => {
+}) => {
   return (
     <LabeledContainer
       onClick={onClick}

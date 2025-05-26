@@ -1,19 +1,18 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-interface Props {
-  label: string;
-  onBlur?: React.FocusEventHandler<HTMLButtonElement> | undefined;
-  onClick: () => void;
-  role: string;
-  className?: string;
-  tooltip?: string;
-  selected?: boolean;
-  disabled?: boolean;
-  disabledTooltip?: string;
-  hasError?: boolean;
-  children: ReactNode;
-}
+type LabeledContainerProps = {
+  readonly label: string;
+  readonly onBlur?: React.FocusEventHandler<HTMLButtonElement> | undefined;
+  readonly onClick: () => void;
+  readonly role: string;
+  readonly className?: string;
+  readonly tooltip?: string;
+  readonly selected?: boolean;
+  readonly disabled?: boolean;
+  readonly disabledTooltip?: string;
+  readonly hasError?: boolean;
+};
 
 // Note: there is no error style defined for "selected" case. Couldn't think of a reasonable case where that would be needed.
 const buttonErrorStyles =
@@ -30,7 +29,7 @@ export const labeledContainerInputStyles = {
   unselected: `${commonInputStyles} text-white border-grey before:opacity-0 enabled:group-hover:bg-background enabled:group-hover:border-grey`,
 };
 
-export const LabeledContainer: FC<Props> = ({
+export const LabeledContainer: FC<PropsWithChildren<LabeledContainerProps>> = ({
   label,
   onBlur,
   onClick,

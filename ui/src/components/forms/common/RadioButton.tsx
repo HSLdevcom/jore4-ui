@@ -3,17 +3,17 @@ import { FieldValues, Path } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 import { InputElement } from './InputElement';
 
-export interface InputElementDefaultProps extends InputHTMLAttributes<Element> {
-  className?: string;
-  id: string;
-  testId: string;
-}
+export type InputElementDefaultProps = InputHTMLAttributes<Element> & {
+  readonly className?: string;
+  readonly id: string;
+  readonly testId: string;
+};
 
-interface Props<FormState extends FieldValues>
-  extends InputElementDefaultProps {
-  fieldPath: Path<FormState>;
-  value: string;
-}
+type RadioButtonProps<FormState extends FieldValues> =
+  InputElementDefaultProps & {
+    readonly fieldPath: Path<FormState>;
+    readonly value: string;
+  };
 
 export const RadioButton = <FormState extends FieldValues>({
   className = '',
@@ -22,7 +22,7 @@ export const RadioButton = <FormState extends FieldValues>({
   testId,
   value,
   ...inputHTMLAttributes
-}: Props<FormState>): React.ReactElement => {
+}: RadioButtonProps<FormState>): React.ReactElement => {
   return (
     <InputElement
       id={id}

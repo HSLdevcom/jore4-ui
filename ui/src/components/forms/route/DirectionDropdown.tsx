@@ -1,19 +1,20 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapDirectionToUiName } from '../../../i18n/uiNameMappings';
 import { RouteDirection } from '../../../types/RouteDirection';
 import { FormInputProps } from '../../../uiComponents';
 import { EnumDropdown } from '../common/EnumDropdown';
 
-interface Props extends FormInputProps {
-  testId?: string;
-}
+type DirectionDropdownProps = FormInputProps & {
+  readonly testId?: string;
+};
 
-export const DirectionDropdown = ({
+export const DirectionDropdown: FC<DirectionDropdownProps> = ({
   testId,
   value,
   onChange,
   onBlur,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   return (

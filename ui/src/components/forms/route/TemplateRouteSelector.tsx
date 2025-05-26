@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DateTime } from 'luxon';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../layoutComponents';
@@ -14,10 +14,10 @@ import {
 } from '../common';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
-interface Props {
-  value?: UUID;
-  onChange: ValueFn;
-}
+type TemplateRouteSelectorProps = {
+  readonly value?: UUID;
+  readonly onChange: ValueFn;
+};
 
 const testIds = {
   container: 'TemplateRouteSelector::container',
@@ -25,10 +25,10 @@ const testIds = {
   chooseRouteDropdown: 'TemplateRouteSelector::chooseRouteDropdown',
 };
 
-export const TemplateRouteSelector = ({
+export const TemplateRouteSelector: FC<TemplateRouteSelectorProps> = ({
   value,
   onChange,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   // PriorityForm uses a FormState.

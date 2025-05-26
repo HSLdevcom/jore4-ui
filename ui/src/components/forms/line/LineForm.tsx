@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -25,15 +25,12 @@ const testIds = {
   cancelButton: 'LineForm::cancelButton',
 };
 
-interface Props {
-  defaultValues: Partial<FormState>;
-  onSubmit: (state: FormState) => void;
-}
+type LineFormProps = {
+  readonly defaultValues: Partial<FormState>;
+  readonly onSubmit: (state: FormState) => void;
+};
 
-export const LineForm = ({
-  defaultValues,
-  onSubmit,
-}: Props): React.ReactElement => {
+export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
   const navigate = useNavigate();
   const formRef = useRef<ExplicitAny>(null);
 

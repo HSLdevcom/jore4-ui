@@ -14,34 +14,35 @@ import { InputElement } from './InputElement';
 import { InputLabel } from './InputLabel';
 import { ValidationErrorList } from './ValidationErrorList';
 
-interface CommonInputProps<FormState extends FieldValues> {
+type CommonInputProps<FormState extends FieldValues> = {
   readonly className?: string;
   readonly inputClassName?: string;
   readonly fieldPath: Path<FormState>;
   readonly translationPrefix: TranslationKey;
   readonly customTitlePath?: TranslationKey;
   readonly testId: string;
-}
+};
 
-interface ControlledInputProps {
+type ControlledInputProps = {
   readonly inputElementRenderer: (
     props: InputElementRenderProps,
   ) => React.ReactElement;
   readonly type?: never;
-}
-interface HTMLInputProps
-  extends Readonly<InputHTMLAttributes<HTMLInputElement>> {
+};
+type HTMLInputProps = Readonly<InputHTMLAttributes<HTMLInputElement>> & {
   readonly inputElementRenderer?: never;
   readonly type: HTMLInputTypeAttribute;
-}
-interface HTMLTextAreaProps
-  extends Readonly<TextareaHTMLAttributes<HTMLTextAreaElement>> {
+};
+type HTMLTextAreaProps = Readonly<
+  TextareaHTMLAttributes<HTMLTextAreaElement>
+> & {
   readonly inputElementRenderer?: never;
   readonly type: 'textarea';
-}
+};
 
-type Props<FormState extends FieldValues> = CommonInputProps<FormState> &
-  (ControlledInputProps | HTMLInputProps | HTMLTextAreaProps);
+type InputFieldProps<FormState extends FieldValues> =
+  CommonInputProps<FormState> &
+    (ControlledInputProps | HTMLInputProps | HTMLTextAreaProps);
 
 export const InputField = <FormState extends FieldValues>({
   className = '',
@@ -53,7 +54,7 @@ export const InputField = <FormState extends FieldValues>({
   type,
   inputElementRenderer,
   ...inputHTMLAttributes
-}: Props<FormState>): React.ReactElement => {
+}: InputFieldProps<FormState>): React.ReactElement => {
   if ((!inputElementRenderer && !type) || (inputElementRenderer && type)) {
     throw new Error(
       'You need to provide exactly one of the "inputElementRenderer" and "type" props',

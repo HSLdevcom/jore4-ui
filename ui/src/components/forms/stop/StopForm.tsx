@@ -240,17 +240,17 @@ function pickChangedFieldsForQuayPatch(
   };
 }
 
-type Props = {
+type StopFormProps = {
   readonly className?: string;
   readonly editing: boolean;
   readonly defaultValues: DefaultValues<StopFormState>;
   readonly onSubmit: (changes: CreateChanges | EditChanges) => void;
 };
 
-const StopFormComponent: ForwardRefRenderFunction<HTMLFormElement, Props> = (
-  { className = '', editing, defaultValues, onSubmit },
-  ref,
-) => {
+const StopFormComponent: ForwardRefRenderFunction<
+  HTMLFormElement,
+  StopFormProps
+> = ({ className = '', editing, defaultValues, onSubmit }, ref) => {
   const { t } = useTranslation();
 
   const methods = useForm<StopFormState>({

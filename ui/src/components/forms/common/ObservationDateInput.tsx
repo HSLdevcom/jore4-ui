@@ -1,19 +1,20 @@
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Column } from '../../../layoutComponents';
 
-interface Props {
-  value: DateTime;
-  onChange: (value: DateTime) => void;
-  className?: string;
-  containerClassName?: string;
-  inputClassName?: string;
-  testId: string;
-  required?: boolean;
-  disabled?: boolean;
-}
+type ObservationDateInputProps = {
+  readonly value: DateTime;
+  readonly onChange: (value: DateTime) => void;
+  readonly className?: string;
+  readonly containerClassName?: string;
+  readonly inputClassName?: string;
+  readonly testId: string;
+  readonly required?: boolean;
+  readonly disabled?: boolean;
+};
 
-export const ObservationDateInput = ({
+export const ObservationDateInput: FC<ObservationDateInputProps> = ({
   value,
   onChange,
   className = '',
@@ -22,7 +23,7 @@ export const ObservationDateInput = ({
   testId,
   required = false,
   disabled = false,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const dateInputId = 'observation-date-input';
   return (

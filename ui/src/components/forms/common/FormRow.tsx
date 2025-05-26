@@ -1,16 +1,15 @@
-import React, { FC, ReactNode } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-interface Props {
-  className?: string;
-  lgColumns?: number;
-  mdColumns?: number;
-  smColumns?: number;
-  testId?: string;
-  children: ReactNode;
-}
+type FormRowProps = {
+  readonly className?: string;
+  readonly lgColumns?: number;
+  readonly mdColumns?: number;
+  readonly smColumns?: number;
+  readonly testId?: string;
+};
 
-export const FormRow: FC<Props> = ({
+export const FormRow: FC<PropsWithChildren<FormRowProps>> = ({
   className = '',
   mdColumns = 1,
   lgColumns = mdColumns,

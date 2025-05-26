@@ -6,11 +6,13 @@ import { InputElementDefaultProps } from './InputElement';
 // Note: this does not contain 'fieldPath'
 export type InputElementRenderProps = FormInputProps & InputElementDefaultProps;
 
-interface Props<FormState extends FieldValues>
-  extends InputElementDefaultProps {
-  fieldPath: Path<FormState>;
-  inputElementRenderer: (props: InputElementRenderProps) => React.ReactElement;
-}
+type ControlledElementProps<FormState extends FieldValues> =
+  InputElementDefaultProps & {
+    readonly fieldPath: Path<FormState>;
+    readonly inputElementRenderer: (
+      props: InputElementRenderProps,
+    ) => React.ReactElement;
+  };
 
 export const ControlledElement = <FormState extends FieldValues>({
   className = '',
@@ -18,7 +20,7 @@ export const ControlledElement = <FormState extends FieldValues>({
   fieldPath,
   testId,
   inputElementRenderer,
-}: Props<FormState>): React.ReactElement => {
+}: ControlledElementProps<FormState>): React.ReactElement => {
   const { control } = useFormContext<FormState>();
 
   return (

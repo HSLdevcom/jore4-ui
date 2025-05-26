@@ -15,13 +15,13 @@ const testIds = {
   errorMessage: (fieldPath: string) => `ValidationError::message::${fieldPath}`,
 };
 
-type ErrorProps = {
+type ValidationErrorProps = {
   readonly className?: string;
   readonly errorMessage: string;
   readonly fieldPath: string;
 };
 
-export const ValidationError: FC<ErrorProps> = ({
+export const ValidationError: FC<ValidationErrorProps> = ({
   className = '',
   errorMessage,
   fieldPath,

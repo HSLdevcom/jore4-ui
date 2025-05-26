@@ -4,21 +4,24 @@ import {
   labeledContainerInputStyles,
 } from './LabeledContainer';
 
-interface Props {
-  label: string;
-  onBlur?: React.FocusEventHandler<HTMLButtonElement> | undefined;
-  onClick: () => void;
-  className?: string;
-  tooltip?: string;
-  id?: string;
-  testId?: string;
-  selected?: boolean;
-  disabled?: boolean;
-  disabledTooltip?: string;
-  hasError?: boolean;
-}
+type LabeledCheckboxProps = {
+  readonly label: string;
+  readonly onBlur?: React.FocusEventHandler<HTMLButtonElement> | undefined;
+  readonly onClick: () => void;
+  readonly className?: string;
+  readonly tooltip?: string;
+  readonly id?: string;
+  readonly testId?: string;
+  readonly selected?: boolean;
+  readonly disabled?: boolean;
+  readonly disabledTooltip?: string;
+  readonly hasError?: boolean;
+};
 
-const LabeledCheckboxImpl: ForwardRefRenderFunction<HTMLInputElement, Props> = (
+const LabeledCheckboxImpl: ForwardRefRenderFunction<
+  HTMLInputElement,
+  LabeledCheckboxProps
+> = (
   {
     label,
     onBlur,
