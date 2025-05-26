@@ -483,6 +483,7 @@
 
   "terminalDetails": {
     "title": "Basic details",
+    "editSuccess": "Terminal edited",
     "basicDetails": {
       "title": "Terminal basic details",
       "description": "Description",
@@ -503,7 +504,8 @@
       "fareZone": "Fare zone",
       "latitude": "Latitude",
       "longitude": "Longitude",
-      "memberStops": "Member stops ({{count}})",
+      "memberStopsTotal": "Member stops ({{total}})",
+      "memberStops": "Member stops",
       "memberPlatforms": "Member platforms"
     }
   },

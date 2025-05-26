@@ -88,7 +88,7 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
   }
 `;
 
-function getEnrichedParentStopPlace(
+export function getEnrichedParentStopPlace(
   parentStopPlace: ParentStopPlaceDetailsFragment | null | undefined,
 ): EnrichedParentStopPlace | null {
   if (!parentStopPlace) {

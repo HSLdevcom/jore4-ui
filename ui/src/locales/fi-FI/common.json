@@ -481,9 +481,10 @@
   },
   "terminalDetails": {
     "title": "Perustiedot",
+    "editSuccess": "Terminaali muokattu",
     "basicDetails": {
       "title": "Terminaalin perustiedot",
-      "description": "Kuvaus",
+      "description": "Terminaalin kuvaus",
       "name": "Nimi",
       "nameSwe": "Nimi (ruotsi)",
       "terminalType": "Terminaalin tyyppi",
@@ -495,13 +496,14 @@
     },
     "location": {
       "title": "Sijainti",
-      "streetAddress": "Osoite",
+      "streetAddress": "Terminaalin osoite",
       "postalCode": "Postinumero",
       "municipality": "Kunta",
       "fareZone": "Maksuvyöhyke",
       "latitude": "Leveysaste",
       "longitude": "Pituusaste",
-      "memberStops": "Jäsenpysäkit ({{count}})",
+      "memberStops": "Jäsenpysäkit",
+      "memberStopsTotal": "Jäsenpysäkit ({{total}})",
       "memberPlatforms": "Jäsenlaiturit"
     }
   },
