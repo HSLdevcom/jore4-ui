@@ -46,12 +46,12 @@ import {
   mapRouteToCommonConflictItem,
 } from '../../routes-and-lines/common/ConflictResolverModal';
 
-interface Props {
+type RouteEditorProps = {
   onDeleteDrawnRoute: () => void;
-}
+};
 
 const RouteEditorComponent = (
-  { onDeleteDrawnRoute }: Props,
+  { onDeleteDrawnRoute }: RouteEditorProps,
   externalRef: Ref<ExplicitAny>,
 ) => {
   const { t } = useTranslation();

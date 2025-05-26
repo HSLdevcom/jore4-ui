@@ -1,20 +1,20 @@
-import { MouseEventHandler } from 'react';
+import { FC, MouseEventHandler } from 'react';
 
-type StopAreaProps = {
-  selected?: boolean;
-  isPlaceholder?: boolean;
-  onClick?: MouseEventHandler<SVGElement>;
-  size?: number;
-  testId?: string;
+type StopAreaMarkerProps = {
+  readonly selected?: boolean;
+  readonly isPlaceholder?: boolean;
+  readonly onClick?: MouseEventHandler<SVGElement>;
+  readonly size?: number;
+  readonly testId?: string;
 };
 
-export const StopAreaMarker = ({
+export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
   onClick,
   selected = false,
   isPlaceholder = false,
   size = 30,
   testId,
-}: StopAreaProps) => {
+}) => {
   const strokeClassName =
     selected && !isPlaceholder
       ? 'stroke-hsl-dark-80'

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import {
   ReusableComponentsVehicleModeEnum,
   useGetRouteRenderInfoByIdQuery,
@@ -6,16 +7,15 @@ import { mapToVariables } from '../../../utils';
 import { mapVehicleModeToRouteColor } from '../../../utils/colors';
 import { RouteGeometryLayer } from './RouteGeometryLayer';
 
-interface Props {
-  routeId: string;
-  isSelected: boolean;
-}
+type ExistingRouteGeometryLayerProps = {
+  readonly routeId: string;
+  readonly isSelected: boolean;
+};
 
 // This layer fetches a single route's geometry and renders it as a line
-export const ExistingRouteGeometryLayer = ({
-  routeId,
-  isSelected,
-}: Props): React.ReactElement => {
+export const ExistingRouteGeometryLayer: FC<
+  ExistingRouteGeometryLayerProps
+> = ({ routeId, isSelected }) => {
   const routeRenderInfoResult = useGetRouteRenderInfoByIdQuery(
     mapToVariables({ routeId }),
   );

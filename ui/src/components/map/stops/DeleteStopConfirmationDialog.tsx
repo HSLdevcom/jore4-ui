@@ -1,25 +1,21 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeleteChanges } from '../../../hooks';
 import { ConfirmationDialog } from '../../../uiComponents';
 import { buildRouteLabelListString } from './EditStopConfirmationDialog';
 
-interface Props {
-  isOpen: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
-  className?: string;
-  deleteChanges: DeleteChanges;
-}
+type DeleteStopConfirmationDialogProps = {
+  readonly isOpen: boolean;
+  readonly onConfirm: () => void;
+  readonly onCancel: () => void;
+  readonly className?: string;
+  readonly deleteChanges: DeleteChanges;
+};
 
 // renders a confirmation dialog for confirming changes when a stop is deleted
-export const DeleteStopConfirmationDialog: React.FC<Props> = ({
-  isOpen,
-  onConfirm,
-  onCancel,
-  className = '',
-  deleteChanges,
-}) => {
+export const DeleteStopConfirmationDialog: FC<
+  DeleteStopConfirmationDialogProps
+> = ({ isOpen, onConfirm, onCancel, className = '', deleteChanges }) => {
   const { t } = useTranslation();
 
   // TODO improve the confirmation dialog when Design has iterated on how this should look like

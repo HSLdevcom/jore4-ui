@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RiDraftLine } from 'react-icons/ri';
 import { Maybe } from '../../generated/graphql';
@@ -6,14 +7,16 @@ import { mapPriorityToUiName } from '../../i18n/uiNameMappings';
 import { Priority } from '../../types/enums';
 import { mapToValidityPeriod } from '../../utils';
 
-export const PriorityBadge = ({
+type PriorityBadgeProps = {
+  readonly priority: Priority;
+  readonly validityStart?: Maybe<DateTime>;
+  readonly validityEnd?: Maybe<DateTime>;
+};
+
+export const PriorityBadge: FC<PriorityBadgeProps> = ({
   priority,
   validityStart,
   validityEnd,
-}: {
-  priority: Priority;
-  validityStart?: Maybe<DateTime>;
-  validityEnd?: Maybe<DateTime>;
 }) => {
   const { t } = useTranslation();
 

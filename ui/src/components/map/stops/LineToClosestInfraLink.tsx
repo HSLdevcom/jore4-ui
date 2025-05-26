@@ -25,7 +25,6 @@ function linestringFromStop(
 
 function linestringFromDraftLocation(
   map: MapInstance | undefined,
-
   draftLocation: Point | null,
 ): LineString | null {
   if (!draftLocation) {

@@ -6,10 +6,10 @@ import { ControlPosition, IControl, useControl } from 'react-map-gl/maplibre';
 import { styles } from './routes/editorStyles';
 
 type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & {
-  position?: ControlPosition;
-  onCreate: (evt: { features: ReadonlyArray<object> }) => void;
-  onUpdate: (evt: { features: ReadonlyArray<object> }) => void;
-  onModeChange: () => void;
+  readonly position?: ControlPosition;
+  readonly onCreate: (evt: { features: ReadonlyArray<object> }) => void;
+  readonly onUpdate: (evt: { features: ReadonlyArray<object> }) => void;
+  readonly onModeChange: () => void;
 };
 
 type MapLibreMap = Parameters<IControl['onAdd']>[0];

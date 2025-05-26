@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { useAppAction, useAppSelector } from '../../hooks';
@@ -19,13 +19,13 @@ import {
 import { SimpleButton } from '../../uiComponents';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
 
-interface Props {
-  onDrawRoute: () => void;
-  onEditRoute: () => void;
-  onDeleteRoute: () => void;
-  onCancel: () => void;
-  onSave: () => void;
-}
+type MapFooterProps = {
+  readonly onDrawRoute: () => void;
+  readonly onEditRoute: () => void;
+  readonly onDeleteRoute: () => void;
+  readonly onCancel: () => void;
+  readonly onSave: () => void;
+};
 
 const testIds = {
   drawRouteButton: 'MapFooter::drawRouteButton',
@@ -35,7 +35,7 @@ const testIds = {
   addStopButton: 'MapFooter:addStopButton',
 };
 
-export const MapFooter: React.FC<Props> = ({
+export const MapFooter: FC<MapFooterProps> = ({
   onDrawRoute,
   onEditRoute,
   onDeleteRoute,

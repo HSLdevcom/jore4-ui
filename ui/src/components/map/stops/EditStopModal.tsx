@@ -10,7 +10,7 @@ const testIds = {
   modal: 'EditStopModal',
 };
 
-type Props = {
+type EditStopModalProps = {
   readonly defaultValues: Partial<FormState>;
   readonly editing: boolean;
   readonly onCancel: () => void;
@@ -18,7 +18,7 @@ type Props = {
   readonly onSubmit: (changes: CreateChanges | EditChanges) => void;
 };
 
-export const EditStopModal: FC<Props> = ({
+export const EditStopModal: FC<EditStopModalProps> = ({
   defaultValues,
   editing,
   onCancel,

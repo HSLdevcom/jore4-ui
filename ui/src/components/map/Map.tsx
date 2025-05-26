@@ -44,14 +44,14 @@ import { RouteStopsOverlay } from './RouteStopsOverlay';
 import { StopAreas } from './stop-areas';
 import { Stops } from './stops';
 
-interface Props {
-  className?: string;
-  width?: string;
-  height?: string;
-}
+type MapProps = {
+  readonly className?: string;
+  readonly width?: string;
+  readonly height?: string;
+};
 
 export const MapComponent = (
-  { className = '', width = '100vw', height = '100vh' }: Props,
+  { className = '', width = '100vw', height = '100vh' }: MapProps,
   externalRef: Ref<RouteEditorRef>,
 ): React.ReactElement => {
   const routeEditorRef = useRef<RouteEditorRef>(null);

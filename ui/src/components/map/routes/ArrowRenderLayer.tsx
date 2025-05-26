@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Layer, Source } from 'react-map-gl/maplibre';
 import { mapGeoJSONtoFeature } from '../../../utils';
 
@@ -11,24 +12,24 @@ export interface ArrowLayout {
 export interface ArrowPaint {
   'icon-color': string;
 }
-interface Props {
-  layerId: string;
-  geometry: GeoJSON.LineString;
-  beforeId?: string;
-  layout?: Partial<ArrowLayout>;
-  paint?: ArrowPaint;
-  minzoom?: number;
-}
+type ArrowRenderLayerProps = {
+  readonly layerId: string;
+  readonly geometry: GeoJSON.LineString;
+  readonly beforeId?: string;
+  readonly layout?: Partial<ArrowLayout>;
+  readonly paint?: ArrowPaint;
+  readonly minzoom?: number;
+};
 
 // this layer renders a static arrows
-export const ArrowRenderLayer = ({
+export const ArrowRenderLayer: FC<ArrowRenderLayerProps> = ({
   layerId,
   geometry,
   beforeId,
   layout,
   paint,
   minzoom,
-}: Props) => {
+}) => {
   const defaultLayout: Partial<ArrowLayout> = {
     'symbol-placement': 'line',
     'symbol-spacing': 100,

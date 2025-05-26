@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Marker } from 'react-map-gl/maplibre';
 import { QuayDetailsFragment } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
@@ -22,7 +23,7 @@ type MemberStopProps = {
   readonly stop: QuayDetailsFragment;
 };
 
-export const MemberStop = ({ stop }: MemberStopProps) => {
+export const MemberStop: FC<MemberStopProps> = ({ stop }) => {
   const mapStopViewState = useAppSelector(selectMapStopViewState);
   const setMapStopViewState = useAppAction(setMapStopViewStateAction);
 
