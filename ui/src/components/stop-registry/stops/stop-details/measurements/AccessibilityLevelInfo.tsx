@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useToggle } from '../../../../../hooks';
 import { mapStopAccessibilityLevelToUiName } from '../../../../../i18n/uiNameMappings';
@@ -13,7 +14,7 @@ type AccessibilityLevelInfoProps = {
   readonly stop: StopWithDetails;
 };
 
-export const AccessibilityLevelInfo: React.FC<AccessibilityLevelInfoProps> = ({
+export const AccessibilityLevelInfo: FC<AccessibilityLevelInfoProps> = ({
   stop,
 }) => {
   const { t } = useTranslation();

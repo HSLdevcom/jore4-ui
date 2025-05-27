@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
@@ -33,7 +33,7 @@ type ExternalLinksFormProps = {
   readonly onSubmit: (state: ExternalLinksFormState) => void;
 };
 
-export const ExternalLinksForm: React.FC<ExternalLinksFormProps> = ({
+export const ExternalLinksForm: FC<ExternalLinksFormProps> = ({
   className,
   externalLinks,
   setIsEditing,

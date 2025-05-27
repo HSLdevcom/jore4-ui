@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { pipe } from 'remeda';
 import {
   useGetLineDetailsByIdLazyQuery,
@@ -24,7 +24,7 @@ import { EditRouteModal } from './EditRouteModal';
 const areFormValuesValid = (formData?: Partial<RouteFormState>) =>
   routeFormSchema.safeParse(formData).success;
 
-export const EditRouteMetadataLayer: React.FC = () => {
+export const EditRouteMetadataLayer: FC = () => {
   const dispatch = useAppDispatch();
   const [getLineDetailsById] = useGetLineDetailsByIdLazyQuery();
   const [getRouteDetailsById] = useGetRouteDetailsByIdLazyQuery();

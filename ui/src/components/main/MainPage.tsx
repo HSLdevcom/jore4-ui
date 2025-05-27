@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LOGIN_URL } from '../../api/user';
 import { useAppSelector } from '../../hooks';
@@ -10,7 +10,7 @@ const testIds = {
   main: 'Main',
 };
 
-export const MainPage: React.FC = () => {
+export const MainPage: FC = () => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
 

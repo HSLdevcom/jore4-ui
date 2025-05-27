@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Layer, Source } from 'react-map-gl/maplibre';
 import { theme } from '../../../generated/theme';
 
@@ -9,7 +9,7 @@ type InfraLinksVectorLayerProps = {
   readonly showInfraLinks: boolean;
 };
 
-export const InfraLinksVectorLayer: React.FC<InfraLinksVectorLayerProps> = ({
+export const InfraLinksVectorLayer: FC<InfraLinksVectorLayerProps> = ({
   enableInfraLinkLayer,
   showInfraLinks,
 }) => {

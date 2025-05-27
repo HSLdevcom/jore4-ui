@@ -1,5 +1,5 @@
 import { Portal } from '@headlessui/react';
-import React, { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { theme } from '../generated/theme';
 // The index.ts can, and do here, cause a massive cyclic dependency loop.
@@ -92,7 +92,7 @@ function useIsVisible(
   return visible;
 }
 
-export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
+export const LoadingOverlay: FC<LoadingOverlayProps> = ({
   isLoading,
   loadingState,
   testId = '',

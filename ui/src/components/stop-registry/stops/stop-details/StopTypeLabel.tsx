@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Visible } from '../../../../layoutComponents';
 
 type StopTypeLabelProps = {
@@ -5,10 +6,7 @@ type StopTypeLabelProps = {
   readonly text: string;
 };
 
-export const StopTypeLabel: React.FC<StopTypeLabelProps> = ({
-  hasType,
-  text,
-}) => {
+export const StopTypeLabel: FC<StopTypeLabelProps> = ({ hasType, text }) => {
   return (
     <Visible visible={hasType}>
       <div className="text-center text-sm leading-normal text-dark-grey">

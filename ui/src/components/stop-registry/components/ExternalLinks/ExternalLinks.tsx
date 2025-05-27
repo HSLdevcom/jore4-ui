@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ExternalLinksDetailsFragment } from '../../../../generated/graphql';
 import { Row } from '../../../../layoutComponents';
@@ -22,7 +22,7 @@ type ExternalLinksProps = {
   readonly onSubmit: (state: ExternalLinksFormState) => void;
 };
 
-export const ExternalLinks: React.FC<ExternalLinksProps> = ({
+export const ExternalLinks: FC<ExternalLinksProps> = ({
   externalLinks,
   onSubmit,
 }) => {

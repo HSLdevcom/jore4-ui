@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopRegistryAccessibilityLevel } from '../../../../generated/graphql';
 import { mapStopPlaceStateToUiName } from '../../../../i18n/uiNameMappings';
@@ -11,7 +12,7 @@ type StopHeaderSummaryRowProps = {
   readonly className?: string;
 };
 
-export const StopHeaderSummaryRow: React.FC<StopHeaderSummaryRowProps> = ({
+export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
   stopDetails,
   className = '',
 }) => {

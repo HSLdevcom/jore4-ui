@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopRegistryAccessibilityLevel } from '../../../../../generated/graphql';
 import { Column, Row } from '../../../../../layoutComponents';
@@ -11,7 +11,7 @@ type AccessibilityLevelDescriptionsDialogProps = {
   readonly onClose: () => void;
 };
 
-export const AccessibilityLevelDescriptionsDialog: React.FC<
+export const AccessibilityLevelDescriptionsDialog: FC<
   AccessibilityLevelDescriptionsDialogProps
 > = ({ isOpen, onClose }) => {
   const { t } = useTranslation();

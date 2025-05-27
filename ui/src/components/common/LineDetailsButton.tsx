@@ -10,11 +10,11 @@ const testIds = {
 };
 
 type LineDetailsButtonProps = {
-  testId?: string;
-  lineId: UUID;
-  label: string;
-  routeLabel?: string;
-  className?: string;
+  readonly testId?: string;
+  readonly lineId: UUID;
+  readonly label: string;
+  readonly routeLabel?: string;
+  readonly className?: string;
 };
 
 export const LineDetailsButton: FC<LineDetailsButtonProps> = ({

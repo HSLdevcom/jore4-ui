@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import { DateTime } from 'luxon';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
@@ -105,7 +105,7 @@ type ConflictResolverModalProps = {
   readonly conflicts?: ReadonlyArray<CommonConflictItem>;
 };
 
-export const ConflictResolverModal: React.FC<ConflictResolverModalProps> = ({
+export const ConflictResolverModal: FC<ConflictResolverModalProps> = ({
   onClose,
   className = '',
   conflicts = [],

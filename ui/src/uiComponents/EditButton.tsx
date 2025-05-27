@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { MdModeEdit } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
@@ -28,7 +28,7 @@ const ButtonContent = () => (
   </div>
 );
 
-export const EditButton: React.FC<EditButtonProps> = (props) => {
+export const EditButton: FC<EditButtonProps> = (props) => {
   const { testId, tooltip, className = '' } = props;
   const href = (props as LinkProps)?.href;
   const onClick = (props as ButtonProps)?.onClick;

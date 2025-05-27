@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { MdHistory } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
@@ -14,7 +15,7 @@ type TimetableHeadingProps = {
   readonly className?: string;
 };
 
-export const TimetableHeading: React.FC<TimetableHeadingProps> = ({
+export const TimetableHeading: FC<TimetableHeadingProps> = ({
   priority,
   dayTypeI18n,
   createdAt,

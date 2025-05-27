@@ -1,5 +1,6 @@
 import { t } from 'i18next';
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { Row } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { CloseIconButton } from '../../../../uiComponents';
@@ -15,7 +16,7 @@ type TimetableVersionPanelHeadingProps = {
   readonly validityEnd?: DateTime;
 };
 
-export const TimetableVersionPanelHeading: React.FC<
+export const TimetableVersionPanelHeading: FC<
   TimetableVersionPanelHeadingProps
 > = ({ validityStart, validityEnd, onClose }) => (
   <Row className="mb-4 ml-2 justify-between">

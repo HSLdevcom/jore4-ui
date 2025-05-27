@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ExternalLinksDetailsFragment } from '../../../../generated/graphql';
 import { Column, Row } from '../../../../layoutComponents';
@@ -14,7 +15,7 @@ type ExternalLinksListProps = {
   readonly externalLinks: ReadonlyArray<ExternalLinksDetailsFragment>;
 };
 
-export const ExternalLinksList: React.FC<ExternalLinksListProps> = ({
+export const ExternalLinksList: FC<ExternalLinksListProps> = ({
   externalLinks,
 }) => {
   const { t } = useTranslation();

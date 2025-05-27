@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useAppDispatch,
@@ -27,7 +27,7 @@ type ChangeTimetablesValidityModalProps = {
   readonly className?: string;
 };
 
-export const ChangeTimetablesValidityModal: React.FC<
+export const ChangeTimetablesValidityModal: FC<
   ChangeTimetablesValidityModalProps
 > = ({ isOpen, onClose, onChange, className = '' }) => {
   const { t } = useTranslation();

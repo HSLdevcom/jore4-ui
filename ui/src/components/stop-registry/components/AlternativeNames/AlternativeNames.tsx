@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DetailRow, LabeledDetail } from '../../stops/stop-details/layout';
 
@@ -26,7 +27,7 @@ type AlternativeNamesProps = {
   readonly className?: string;
 };
 
-export const AlternativeNames: React.FC<AlternativeNamesProps> = ({
+export const AlternativeNames: FC<AlternativeNamesProps> = ({
   alternativeNames,
   className,
 }) => {

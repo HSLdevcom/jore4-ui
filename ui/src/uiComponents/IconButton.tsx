@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { addClassName } from '../utils/components';
 
 type IconButtonProps = {
@@ -16,7 +16,7 @@ type IconButtonProps = {
   readonly onClick: () => void;
 };
 
-export const IconButton: React.FC<IconButtonProps> = ({
+export const IconButton: FC<IconButtonProps> = ({
   testId,
   tooltip,
   className = '',

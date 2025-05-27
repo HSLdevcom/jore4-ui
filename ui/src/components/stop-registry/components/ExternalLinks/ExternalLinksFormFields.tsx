@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import React from 'react';
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Column, Row } from '../../../../layoutComponents';
 import { InputField } from '../../../forms/common';
@@ -18,9 +18,11 @@ type ExternalLinksFormFieldsProps = {
   readonly toBeDeleted: boolean;
 };
 
-export const ExternalLinksFormFields: React.FC<
-  ExternalLinksFormFieldsProps
-> = ({ index, onRemove, toBeDeleted }) => {
+export const ExternalLinksFormFields: FC<ExternalLinksFormFieldsProps> = ({
+  index,
+  onRemove,
+  toBeDeleted,
+}) => {
   const { register } = useFormContext<ExternalLinksFormState>();
 
   return (

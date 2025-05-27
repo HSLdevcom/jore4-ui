@@ -1,5 +1,5 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
-import React, { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
 type SwitchProps = {
   readonly className?: string;
@@ -9,7 +9,7 @@ type SwitchProps = {
 };
 
 // a pre-styled version of the Headless UI Switch component
-export const Switch: React.FC<SwitchProps> = ({
+export const Switch: FC<SwitchProps> = ({
   testId,
   className = '',
   checked,
