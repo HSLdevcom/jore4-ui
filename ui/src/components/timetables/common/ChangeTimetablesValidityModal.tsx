@@ -20,19 +20,16 @@ import {
   FormState,
 } from './ChangeTimetablesValidityForm';
 
-interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-  onChange?: () => void;
-  className?: string;
-}
+type ChangeTimetablesValidityModalProps = {
+  readonly isOpen: boolean;
+  readonly onClose: () => void;
+  readonly onChange?: () => void;
+  readonly className?: string;
+};
 
-export const ChangeTimetablesValidityModal: React.FC<Props> = ({
-  isOpen,
-  onClose,
-  onChange,
-  className = '',
-}) => {
+export const ChangeTimetablesValidityModal: React.FC<
+  ChangeTimetablesValidityModalProps
+> = ({ isOpen, onClose, onChange, className = '' }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const changeTimetableValidityModalState = useAppSelector(

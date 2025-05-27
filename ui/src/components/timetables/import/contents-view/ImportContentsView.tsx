@@ -1,14 +1,15 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../../generated/graphql';
 import { VehicleScheduleFrameBlocksView } from './VehicleScheduleFrameBlocksView';
 
-interface Props {
-  vehicleScheduleFrames: ReadonlyArray<VehicleScheduleFrameWithRouteInfoFragment>;
-}
+type ImportContentsViewProps = {
+  readonly vehicleScheduleFrames: ReadonlyArray<VehicleScheduleFrameWithRouteInfoFragment>;
+};
 
-export const ImportContentsView = ({
+export const ImportContentsView: FC<ImportContentsViewProps> = ({
   vehicleScheduleFrames,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   return (
     <div className="space-y-3">

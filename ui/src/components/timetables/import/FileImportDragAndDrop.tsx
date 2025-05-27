@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, FC, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
@@ -11,16 +11,19 @@ interface DragZoneClassNames {
   iconColor: string;
 }
 
-interface Props {
-  fileList: ReadonlyArray<File> | null;
-  setFileList: (fileList: File[]) => void;
-}
+type FileImportDragAndDropProps = {
+  readonly fileList: ReadonlyArray<File> | null;
+  readonly setFileList: (fileList: File[]) => void;
+};
 
 const isCorrectFormatFile = (file: File) =>
   // exp files have empty file type, just use filename extension for checking instead
   file.type === 'text/csv' || file.name.split('.').pop() === 'exp';
 
-export const FileImportDragAndDrop = ({ fileList, setFileList }: Props) => {
+export const FileImportDragAndDrop: FC<FileImportDragAndDropProps> = ({
+  fileList,
+  setFileList,
+}) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const defaultClassNames: DragZoneClassNames = {

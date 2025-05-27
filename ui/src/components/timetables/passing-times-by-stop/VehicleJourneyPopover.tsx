@@ -1,18 +1,19 @@
 import { Duration } from 'luxon';
+import { FC } from 'react';
 import { mapDurationToShortTime } from '../../../time';
 import { Popover } from '../../../uiComponents';
 
-interface Props {
-  passingTime: Duration;
-  vehicleTypeDescription: string;
-  onClose: () => void;
-}
+type VehicleJourneyPopoverProps = {
+  readonly passingTime: Duration;
+  readonly vehicleTypeDescription: string;
+  readonly onClose: () => void;
+};
 
-export const VehicleJourneyPopover = ({
+export const VehicleJourneyPopover: FC<VehicleJourneyPopoverProps> = ({
   passingTime,
   vehicleTypeDescription,
   onClose,
-}: Props): React.ReactElement => {
+}) => {
   return (
     <Popover className="ml-10" onClose={onClose}>
       <div className="mb-1 space-x-3">

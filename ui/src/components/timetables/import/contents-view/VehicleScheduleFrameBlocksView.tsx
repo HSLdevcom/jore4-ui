@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { VehicleScheduleFrameWithRouteInfoFragment } from '../../../../generated/graphql';
 import { useToggle } from '../../../../hooks';
@@ -18,13 +19,13 @@ const testIds = {
 };
 export const vehicleScheduleFrameBlocksViewTestIds = testIds;
 
-interface Props {
-  vehicleScheduleFrame: VehicleScheduleFrameWithRouteInfoFragment;
-}
+type VehicleScheduleFrameBlocksViewProps = {
+  readonly vehicleScheduleFrame: VehicleScheduleFrameWithRouteInfoFragment;
+};
 
-export const VehicleScheduleFrameBlocksView = ({
-  vehicleScheduleFrame,
-}: Props): React.ReactElement => {
+export const VehicleScheduleFrameBlocksView: FC<
+  VehicleScheduleFrameBlocksViewProps
+> = ({ vehicleScheduleFrame }) => {
   const { t } = useTranslation();
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 

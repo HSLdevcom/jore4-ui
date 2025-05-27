@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import orderBy from 'lodash/orderBy';
 import range from 'lodash/range';
 import { DateTime } from 'luxon';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TimetablesServiceCalendarSubstituteOperatingPeriod } from '../../../../generated/graphql';
@@ -116,19 +116,21 @@ const combineCommonDaysWithPresetDates = (
   return displayedCommonDays;
 };
 
-interface Props {
-  className?: string;
-  commonDays?: Array<CommonDayType>;
-  onSubmit: (state: FormState) => void;
-  dateRange: DateRange;
-}
+type CommonSubstitutePeriodFormProps = {
+  readonly className?: string;
+  readonly commonDays?: Array<CommonDayType>;
+  readonly onSubmit: (state: FormState) => void;
+  readonly dateRange: DateRange;
+};
 
-export const CommonSubstitutePeriodForm = ({
+export const CommonSubstitutePeriodForm: FC<
+  CommonSubstitutePeriodFormProps
+> = ({
   className,
   commonDays,
   onSubmit,
   dateRange: { startDate, endDate },
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
   const dispatch = useAppDispatch();

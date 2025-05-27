@@ -1,4 +1,5 @@
 import { Dialog } from '@headlessui/react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useAppDispatch,
@@ -13,9 +14,9 @@ import {
 import { ConfirmModal } from '../../../uiComponents/ConfirmModal';
 import { AffectedRouteLabels } from '../common/AffectedRouteLabels';
 
-interface Props {
-  fetchTimetableVersions: () => void;
-}
+type DeleteTimetableModalProps = {
+  readonly fetchTimetableVersions: () => void;
+};
 
 const testIds = {
   closeButton: 'DeleteTimetableModal::closeButton',
@@ -23,9 +24,9 @@ const testIds = {
   description: 'DeleteTimetableModal::description',
 };
 
-export const DeleteTimetableModal = ({
+export const DeleteTimetableModal: FC<DeleteTimetableModalProps> = ({
   fetchTimetableVersions,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

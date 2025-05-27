@@ -1,4 +1,5 @@
 import { t } from 'i18next';
+import { FC } from 'react';
 import { z } from 'zod';
 import { Row } from '../../../layoutComponents';
 import { RadioButton } from '../../forms/common/RadioButton';
@@ -8,9 +9,9 @@ const testIds = {
   replaceRadioButton: (prefix: string) => `${prefix}::replaceRadioButton`,
 };
 
-interface Props {
-  testIdPrefix: string;
-}
+type TimetableImportStrategyFormProps = {
+  readonly testIdPrefix: string;
+};
 
 const TimetableImportStrategy = z.enum(['combine', 'replace']);
 export type TimetableImportStrategy = z.infer<typeof TimetableImportStrategy>;
@@ -22,7 +23,9 @@ export type TimetableImportStrategyFormState = z.infer<
   typeof timetableImportStrategyFormSchema
 >;
 
-export const TimetableImportStrategyForm = ({ testIdPrefix }: Props) => {
+export const TimetableImportStrategyForm: FC<
+  TimetableImportStrategyFormProps
+> = ({ testIdPrefix }) => {
   return (
     <Row className="items-center space-x-4">
       <Row className="items-center space-x-2">

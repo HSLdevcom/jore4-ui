@@ -19,15 +19,14 @@ import {
 } from './OccasionalSubstitutePeriodForm';
 import { FormState } from './OccasionalSubstitutePeriodForm.types';
 
-type Props = {
+type OccasionalSubstitutePeriodSectionProps = {
   readonly dateRange: DateRange;
   readonly setDateRange: Dispatch<SetStateAction<DateRange>>;
 };
 
-export const OccasionalSubstitutePeriodSection: FC<Props> = ({
-  dateRange,
-  setDateRange,
-}) => {
+export const OccasionalSubstitutePeriodSection: FC<
+  OccasionalSubstitutePeriodSectionProps
+> = ({ dateRange, setDateRange }) => {
   const { t } = useTranslation();
   const { occasionalSubstituteOperatingPeriods, refetch, loading } =
     useGetOccasionalSubstituteOperatingPeriods(dateRange);

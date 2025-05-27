@@ -14,17 +14,15 @@ import { Modal, NewModalBody, NewModalHeader } from '../../../uiComponents';
 import { ConfirmTimetablesImportForm } from './ConfirmTimetablesImportForm';
 import { FormState, getDefaultValues } from './TimetablesImportFormSchema';
 
-interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-  className?: string;
-}
+type ConfirmTimetablesImportModalProps = {
+  readonly isOpen: boolean;
+  readonly onClose: () => void;
+  readonly className?: string;
+};
 
-export const ConfirmTimetablesImportModal: React.FC<Props> = ({
-  isOpen,
-  onClose,
-  className = '',
-}) => {
+export const ConfirmTimetablesImportModal: React.FC<
+  ConfirmTimetablesImportModalProps
+> = ({ isOpen, onClose, className = '' }) => {
   const { t } = useTranslation();
   const { onConfirmTimetablesImport, showConfirmFailedErrorDialog } =
     useConfirmTimetablesImportUIAction();

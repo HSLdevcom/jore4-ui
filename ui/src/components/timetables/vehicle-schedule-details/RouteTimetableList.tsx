@@ -1,10 +1,13 @@
+import { FC } from 'react';
 import { RouteTimetablesSection } from './RouteTimetablesSection';
 
-interface Props {
-  routeIds: ReadonlyArray<UUID>;
-}
+type RouteTimetableListProps = {
+  readonly routeIds: ReadonlyArray<UUID>;
+};
 
-export const RouteTimetableList = ({ routeIds }: Props): React.ReactElement => {
+export const RouteTimetableList: FC<RouteTimetableListProps> = ({
+  routeIds,
+}) => {
   return (
     <div className="grid gap-y-5">
       {routeIds.map((item) => (

@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import sortBy from 'lodash/sortBy';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGetRouteWithJourneyPatternQuery } from '../../../generated/graphql';
 import {
@@ -28,10 +29,10 @@ const GQL_GET_ROUTE_WITH_JOURNEY_PATTERN = gql`
   }
 `;
 
-interface Props {
-  routeId: UUID;
-  initiallyOpen?: boolean;
-}
+type RouteTimetablesSectionProps = {
+  readonly routeId: UUID;
+  readonly initiallyOpen?: boolean;
+};
 
 const testIds = {
   accordionToggle: 'RouteTimetablesSection::AccordionToggle',
@@ -40,10 +41,10 @@ const testIds = {
   loadingRouteTimetables: 'LoadingWrapper::loadingRouteTimetables',
 };
 
-export const RouteTimetablesSection = ({
+export const RouteTimetablesSection: FC<RouteTimetablesSectionProps> = ({
   routeId,
   initiallyOpen = true,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 

@@ -9,11 +9,15 @@ const testIds = {
   closeButton: 'TimetableVersionPanelHeading::closeButton',
 };
 
-export const TimetableVersionPanelHeading: React.FC<{
-  onClose: () => void;
-  validityStart?: DateTime;
-  validityEnd?: DateTime;
-}> = ({ validityStart, validityEnd, onClose }) => (
+type TimetableVersionPanelHeadingProps = {
+  readonly onClose: () => void;
+  readonly validityStart?: DateTime;
+  readonly validityEnd?: DateTime;
+};
+
+export const TimetableVersionPanelHeading: React.FC<
+  TimetableVersionPanelHeadingProps
+> = ({ validityStart, validityEnd, onClose }) => (
   <Row className="mb-4 ml-2 justify-between">
     <h2 data-testid={testIds.heading}>
       <span className="block text-sm">{t('timetables.scheduleValid')}</span>

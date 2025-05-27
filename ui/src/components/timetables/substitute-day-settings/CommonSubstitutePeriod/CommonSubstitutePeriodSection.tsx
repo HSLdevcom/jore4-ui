@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useCreateSubstituteOperatingPeriod,
@@ -14,20 +15,19 @@ import {
 } from './CommonSubstitutePeriodForm';
 import { FormState } from './CommonSubstitutePeriodForm.types';
 
-interface Props {
-  className?: string;
-  dateRange: DateRange;
-}
+type CommonSubstitutePeriodSectionProps = {
+  readonly className?: string;
+  readonly dateRange: DateRange;
+};
 
 const testIds = {
   loadingCommonSubstitutePeriods:
     'CommonSubstitutePeriodSection::loadingCommonSubstitutePeriods',
 };
 
-export const CommonSubstitutePeriodSection = ({
-  className = '',
-  dateRange,
-}: Props): React.ReactElement => {
+export const CommonSubstitutePeriodSection: FC<
+  CommonSubstitutePeriodSectionProps
+> = ({ className = '', dateRange }) => {
   const { t } = useTranslation();
 
   const { commonSubstituteOperatingPeriods, refetch, loading } =

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../hooks';
 import { TimetableVersionRowData } from '../../../hooks/useGetTimetableVersions';
@@ -63,13 +64,13 @@ const getDayTypeClassName = (priority: TimetablePriority) => {
   return dayTypeClassNames[priority];
 };
 
-interface Props {
-  data: TimetableVersionRowData;
-}
+type TimetableVersionTableRowProps = {
+  readonly data: TimetableVersionRowData;
+};
 
-export const TimetableVersionTableRow = ({
+export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
   data,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 

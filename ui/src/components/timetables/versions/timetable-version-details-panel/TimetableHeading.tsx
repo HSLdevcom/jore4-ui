@@ -7,12 +7,19 @@ import { mapToShortDateTime } from '../../../../time';
 import { TimetablePriority } from '../../../../types/enums';
 import { getTimetableHeadingBgColor } from '../../vehicle-schedule-details';
 
-export const TimetableHeading: React.FC<{
-  priority: TimetablePriority;
-  dayTypeI18n?: LocalizedString;
-  createdAt?: DateTime;
-  className?: string;
-}> = ({ priority, dayTypeI18n, createdAt, className = '' }) => {
+type TimetableHeadingProps = {
+  readonly priority: TimetablePriority;
+  readonly dayTypeI18n?: LocalizedString;
+  readonly createdAt?: DateTime;
+  readonly className?: string;
+};
+
+export const TimetableHeading: React.FC<TimetableHeadingProps> = ({
+  priority,
+  dayTypeI18n,
+  createdAt,
+  className = '',
+}) => {
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 
   return (

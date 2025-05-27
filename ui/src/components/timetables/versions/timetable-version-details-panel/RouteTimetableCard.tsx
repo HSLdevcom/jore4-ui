@@ -6,13 +6,13 @@ import { VehicleServiceRow } from '../../vehicle-schedule-details';
 import { ExpandableRouteTimetableRow } from './ExpandableRouteTimetableRow';
 import { TimetableHeading } from './TimetableHeading';
 
-interface Props {
-  routeTimetableRowInfo: RouteTimetableRowInfo;
-  dayTypeNameI18n: LocalizedString;
-  createdAt?: DateTime;
-}
+type RouteTimetableCardProps = {
+  readonly routeTimetableRowInfo: RouteTimetableRowInfo;
+  readonly dayTypeNameI18n: LocalizedString;
+  readonly createdAt?: DateTime;
+};
 
-export const RouteTimetableCard: React.FC<Props> = ({
+export const RouteTimetableCard: React.FC<RouteTimetableCardProps> = ({
   routeTimetableRowInfo,
   dayTypeNameI18n,
   createdAt,

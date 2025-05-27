@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -21,13 +21,13 @@ export const schema = z.object({
 
 export type FormState = z.infer<typeof schema>;
 
-interface Props {
-  defaultValues?: Partial<FormState>;
-  className?: string;
-  onSubmit: (state: FormState) => void;
-  onCancel: () => void;
-  affectedRouteLabels: ReadonlyArray<string>;
-}
+type ChangeTimetablesValidityFormProps = {
+  readonly defaultValues?: Partial<FormState>;
+  readonly className?: string;
+  readonly onSubmit: (state: FormState) => void;
+  readonly onCancel: () => void;
+  readonly affectedRouteLabels: ReadonlyArray<string>;
+};
 
 const testIds = {
   saveButton: 'ChangeTimetablesValidityForm::saveButton',
@@ -35,13 +35,15 @@ const testIds = {
   endDateInput: 'ChangeTimetablesValidityForm::endDateInput',
 };
 
-export const ChangeTimetablesValidityForm = ({
+export const ChangeTimetablesValidityForm: FC<
+  ChangeTimetablesValidityFormProps
+> = ({
   defaultValues,
   className = '',
   onSubmit,
   onCancel,
   affectedRouteLabels,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
 

@@ -9,14 +9,14 @@ import {
 } from './TimetablesImportFormSchema';
 import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 
-interface Props {
-  defaultValues?: Partial<FormState>;
-  onSubmit: (state: FormState) => void;
-  fetchStagingAndTargetFramesForCombine: (priority: number) => void;
-  fetchRouteDeviations: (priority: number) => void;
-  clearStagingAndTargetFramesForCombine: () => void;
-  clearRouteDeviations: () => void;
-}
+type ConfirmPreviewedTimetablesImportFormProps = {
+  readonly defaultValues?: Partial<FormState>;
+  readonly onSubmit: (state: FormState) => void;
+  readonly fetchStagingAndTargetFramesForCombine: (priority: number) => void;
+  readonly fetchRouteDeviations: (priority: number) => void;
+  readonly clearStagingAndTargetFramesForCombine: () => void;
+  readonly clearRouteDeviations: () => void;
+};
 
 export const ConfirmPreviewedTimetablesImportFormComponent = (
   {
@@ -26,7 +26,7 @@ export const ConfirmPreviewedTimetablesImportFormComponent = (
     fetchStagingAndTargetFramesForCombine,
     fetchRouteDeviations,
     onSubmit,
-  }: Props,
+  }: ConfirmPreviewedTimetablesImportFormProps,
   externalRef: ExplicitAny,
 ): React.ReactElement => {
   const methods = useForm<FormState>({
@@ -88,5 +88,5 @@ export const ConfirmPreviewedTimetablesImportFormComponent = (
 
 export const ConfirmPreviewedTimetablesImportForm = React.forwardRef<
   ExplicitAny,
-  Props
+  ConfirmPreviewedTimetablesImportFormProps
 >(ConfirmPreviewedTimetablesImportFormComponent);

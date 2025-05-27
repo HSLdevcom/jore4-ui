@@ -1,12 +1,15 @@
+import { FC } from 'react';
 import { VehicleJourneyInfo } from '../../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { mapDurationToShortTime, mapToShortDate } from '../../../../time';
 
-interface Props {
-  vehicleJourneyInfo: VehicleJourneyInfo;
-}
+type VehicleJourneyRowProps = {
+  readonly vehicleJourneyInfo: VehicleJourneyInfo;
+};
 
-export const VehicleJourneyRow = ({ vehicleJourneyInfo }: Props) => {
+export const VehicleJourneyRow: FC<VehicleJourneyRowProps> = ({
+  vehicleJourneyInfo,
+}) => {
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 
   return (

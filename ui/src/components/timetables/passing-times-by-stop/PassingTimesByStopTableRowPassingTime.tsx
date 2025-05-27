@@ -1,4 +1,5 @@
 import sortBy from 'lodash/sortBy';
+import { FC } from 'react';
 import { PassingTimeByStopFragment } from '../../../generated/graphql';
 import {
   HighlightProps,
@@ -10,17 +11,14 @@ const testIds = {
   timeContainer: 'PassingTimesByStopTableRowPassingTime::timeContainer',
 };
 
-type Props = {
-  hour: string;
-  passingTimes: ReadonlyArray<PassingTimeByStopFragment>;
+type PassingTimesByStopTableRowPassingTimeProps = {
+  readonly hour: string;
+  readonly passingTimes: ReadonlyArray<PassingTimeByStopFragment>;
 } & HighlightProps;
 
-export const PassingTimesByStopTableRowPassingTime = ({
-  hour,
-  passingTimes,
-  selectedPassingTime,
-  setSelectedPassingTime,
-}: Props): React.ReactElement => {
+export const PassingTimesByStopTableRowPassingTime: FC<
+  PassingTimesByStopTableRowPassingTimeProps
+> = ({ hour, passingTimes, selectedPassingTime, setSelectedPassingTime }) => {
   const sortedPassingTimes = sortBy(
     passingTimes,
     (passingTime) => passingTime.passing_time,

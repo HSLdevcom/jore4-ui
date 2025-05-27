@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { PassingTimeByStopFragment } from '../../../generated/graphql';
 import { useAppSelector } from '../../../hooks';
@@ -11,12 +12,12 @@ import { VehicleJourneyPopover } from './VehicleJourneyPopover';
  * Common props for PassingTimesByStopTableRow and its child components.
  * This is annoying prop drilling, but using redux here feels like an overkill.
  */
-export interface HighlightProps {
-  selectedPassingTime?: PassingTimeByStopFragment;
-  setSelectedPassingTime: (
+export type HighlightProps = {
+  readonly selectedPassingTime?: PassingTimeByStopFragment;
+  readonly setSelectedPassingTime: (
     passingTime: PassingTimeByStopFragment | undefined,
   ) => void;
-}
+};
 
 const testIds = {
   selectPassingTimeButton: 'PassingTimesByStopTableRowPassingMinute::button',
@@ -24,15 +25,13 @@ const testIds = {
   departureTime: 'PassingTimesByStopTableRowPassingMinute::departureTime',
 };
 
-type Props = {
-  passingTime: PassingTimeByStopFragment;
+type PassingTimesByStopTableRowPassingMinuteProps = {
+  readonly passingTime: PassingTimeByStopFragment;
 } & HighlightProps;
 
-export const PassingTimesByStopTableRowPassingMinute = ({
-  passingTime,
-  selectedPassingTime,
-  setSelectedPassingTime,
-}: Props): React.ReactElement => {
+export const PassingTimesByStopTableRowPassingMinute: FC<
+  PassingTimesByStopTableRowPassingMinuteProps
+> = ({ passingTime, selectedPassingTime, setSelectedPassingTime }) => {
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 
   const { showArrivalTimes } = useAppSelector(selectTimetable);

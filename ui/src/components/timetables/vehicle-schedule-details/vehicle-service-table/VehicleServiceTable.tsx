@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
 import { groupBy, pipe } from 'remeda';
@@ -10,10 +11,10 @@ import { TimetablePriority } from '../../../../types/enums';
 import { VehicleJourneyGroupInfo } from '../../common/VehicleJourneyGroupInfo';
 import { VehicleServiceRow, VehicleServiceRowData } from './VehicleServiceRow';
 
-interface Props {
-  vehicleJourneyGroup: VehicleJourneyGroup;
-  onClick: () => void;
-}
+type VehicleServiceTableProps = {
+  readonly vehicleJourneyGroup: VehicleJourneyGroup;
+  readonly onClick: () => void;
+};
 
 const testIds = {
   timetableHeadingButton: 'VehicleServiceTable::headingButton',
@@ -45,10 +46,10 @@ const getOddRowColor = (key: TimetablePriority) => {
   return bgColors[key];
 };
 
-export const VehicleServiceTable = ({
+export const VehicleServiceTable: FC<VehicleServiceTableProps> = ({
   vehicleJourneyGroup,
   onClick,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 

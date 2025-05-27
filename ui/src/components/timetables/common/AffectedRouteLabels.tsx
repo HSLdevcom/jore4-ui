@@ -1,12 +1,14 @@
-interface Props {
-  affectedRouteLabels: ReadonlyArray<string>;
-  text: string;
-}
+import { FC } from 'react';
 
-export const AffectedRouteLabels = ({
+type AffectedRouteLabelsProps = {
+  readonly affectedRouteLabels: ReadonlyArray<string>;
+  readonly text: string;
+};
+
+export const AffectedRouteLabels: FC<AffectedRouteLabelsProps> = ({
   affectedRouteLabels,
   text,
-}: Props): React.ReactElement => {
+}) => {
   return (
     <div className="my-6 flex flex-row items-center space-x-6">
       <i className="icon-alert text-hsl-red" />
