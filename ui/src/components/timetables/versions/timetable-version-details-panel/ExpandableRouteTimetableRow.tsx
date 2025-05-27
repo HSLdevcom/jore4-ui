@@ -1,25 +1,26 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, PropsWithChildren, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteDirectionEnum } from '../../../../generated/graphql';
 import { Row, Visible } from '../../../../layoutComponents';
 import { AccordionButton } from '../../../../uiComponents';
 import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
 
-interface Props {
-  direction: RouteDirectionEnum;
-  routeLabel: string;
-  routeName: string;
-  sectionIdentifier: string;
-  className?: string;
-  children: ReactNode;
-}
+type ExpandableRouteTimetableRowProps = {
+  readonly direction: RouteDirectionEnum;
+  readonly routeLabel: string;
+  readonly routeName: string;
+  readonly sectionIdentifier: string;
+  readonly className?: string;
+};
 
 const testIds = {
   row: 'ExpandableRouteTimetableRow::row',
   expandButton: 'ExpandableRouteTimetableRow::AccordionButton',
 };
 
-export const ExpandableRouteTimetableRow: FC<Props> = ({
+export const ExpandableRouteTimetableRow: FC<
+  PropsWithChildren<ExpandableRouteTimetableRowProps>
+> = ({
   children,
   direction,
   routeLabel,

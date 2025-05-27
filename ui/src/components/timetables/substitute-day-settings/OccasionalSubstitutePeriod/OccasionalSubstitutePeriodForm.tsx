@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import maxBy from 'lodash/maxBy';
 import minBy from 'lodash/minBy';
 import { DateTime, Duration } from 'luxon';
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -36,11 +36,11 @@ const testIds = {
   addRowButton: 'OccasionalSubstitutePeriodForm::addRowButton',
 };
 
-interface Props {
-  onSubmit: (state: FormState) => void;
-  values: FormState;
-  loading: boolean;
-}
+type OccasionalSubstitutePeriodFormProps = {
+  readonly onSubmit: (state: FormState) => void;
+  readonly values: FormState;
+  readonly loading: boolean;
+};
 
 const emptyRowObject: PeriodType = {
   periodName: '',
@@ -119,11 +119,9 @@ export const findLatestDate = (values: FormState) => {
   return DateTime.fromISO(periodWithlatestDate?.endDate ?? '');
 };
 
-export const OccasionalSubstitutePeriodForm = ({
-  onSubmit,
-  values,
-  loading,
-}: Props): React.ReactElement => {
+export const OccasionalSubstitutePeriodForm: FC<
+  OccasionalSubstitutePeriodFormProps
+> = ({ onSubmit, values, loading }) => {
   const { t } = useTranslation();
   const [isResetting, setIsResetting] = useState<boolean>(false);
   const dispatch = useAppDispatch();

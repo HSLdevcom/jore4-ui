@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import {
@@ -9,17 +9,17 @@ import { Visible } from '../../../layoutComponents/Visible';
 import { DuplicateJourneysSection } from './duplicate-journeys';
 import { MissingRouteDeviationsSection } from './missing-route-deviations';
 
-interface Props {
-  deviations: ReadonlyArray<VehicleScheduleFrameInfo>;
-  duplicateJourneys: ReadonlyArray<VehicleJourneyDuplicate>;
-  className?: string;
-}
+type SummarySectionProps = {
+  readonly deviations: ReadonlyArray<VehicleScheduleFrameInfo>;
+  readonly duplicateJourneys: ReadonlyArray<VehicleJourneyDuplicate>;
+  readonly className?: string;
+};
 
-export const SummarySection = ({
+export const SummarySection: FC<SummarySectionProps> = ({
   className = '',
   deviations: routeDeviations,
   duplicateJourneys,
-}: Props) => {
+}) => {
   const [showDeviationSection, setShowDeviationSection] =
     useState<boolean>(true);
   const { t } = useTranslation();

@@ -1,20 +1,21 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TimetableVersionRowData } from '../../../hooks/useGetTimetableVersions';
 import { TimetableVersionTableRow } from './TimetableVersionTableRow';
 
-interface Props {
-  data: ReadonlyArray<TimetableVersionRowData>;
-  className: string;
-}
+type TimetableVersionTableProps = {
+  readonly data: ReadonlyArray<TimetableVersionRowData>;
+  readonly className: string;
+};
 
 const testIds = {
   table: 'TimetableVersionTable',
 };
 
-export const TimetableVersionTable = ({
+export const TimetableVersionTable: FC<TimetableVersionTableProps> = ({
   data,
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   // Uniqueness is determined by validity period, label and variant, priority and day type.

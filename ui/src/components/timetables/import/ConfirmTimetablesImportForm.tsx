@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Row, Visible } from '../../../layoutComponents';
@@ -14,16 +14,16 @@ import {
 } from './TimetablesImportFormSchema';
 import { TimetablesImportPriorityForm } from './TimetablesImportPriorityForm';
 
-interface Props {
-  defaultValues?: Partial<FormState>;
-  className?: string;
-  combiningSameContractTimetables: boolean;
-  inconsistentSpecialDayPrioritiesStaged: boolean;
-  fetchStagingAndTargetFramesForCombine: (priority: number) => void;
-  clearStagingAndTargetFramesForCombine: () => void;
-  onSubmit: (state: FormState) => void;
-  onCancel: () => void;
-}
+type ConfirmTimetablesImportFormProps = {
+  readonly defaultValues?: Partial<FormState>;
+  readonly className?: string;
+  readonly combiningSameContractTimetables: boolean;
+  readonly inconsistentSpecialDayPrioritiesStaged: boolean;
+  readonly fetchStagingAndTargetFramesForCombine: (priority: number) => void;
+  readonly clearStagingAndTargetFramesForCombine: () => void;
+  readonly onSubmit: (state: FormState) => void;
+  readonly onCancel: () => void;
+};
 
 const testIds = {
   saveButton: 'ConfirmTimetablesImportForm::saveButton',
@@ -31,7 +31,9 @@ const testIds = {
   strategyRadioButtonPrefix: 'ConfirmTimetablesImportForm',
 };
 
-export const ConfirmTimetablesImportForm = ({
+export const ConfirmTimetablesImportForm: FC<
+  ConfirmTimetablesImportFormProps
+> = ({
   defaultValues,
   className = '',
   combiningSameContractTimetables,
@@ -40,7 +42,7 @@ export const ConfirmTimetablesImportForm = ({
   clearStagingAndTargetFramesForCombine,
   onSubmit,
   onCancel,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
 

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Row } from '../../../../layoutComponents';
 import { padToTwoDigits } from '../../../../time';
 
@@ -6,10 +7,10 @@ export interface VehicleServiceRowData {
   minutes: ReadonlyArray<number>;
 }
 
-interface Props {
-  data: VehicleServiceRowData;
-  oddRowColor?: string;
-}
+type VehicleServiceRowProps = {
+  readonly data: VehicleServiceRowData;
+  readonly oddRowColor?: string;
+};
 
 const testIds = {
   row: 'VehicleServiceRow::row',
@@ -17,10 +18,10 @@ const testIds = {
   minute: 'VehicleServiceRow::minute',
 };
 
-export const VehicleServiceRow = ({
+export const VehicleServiceRow: FC<VehicleServiceRowProps> = ({
   data,
   oddRowColor = 'bg-hsl-neutral-blue',
-}: Props) => {
+}) => {
   const { hours, minutes } = data;
   return (
     <Row

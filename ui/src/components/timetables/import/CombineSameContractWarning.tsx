@@ -1,15 +1,15 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 
-interface Props {
-  className?: string;
-  iconClassName?: string;
-}
+type CombineSameContractWarningProps = {
+  readonly className?: string;
+  readonly iconClassName?: string;
+};
 
-export const CombineSameContractWarning = ({
-  className = '',
-  iconClassName = '',
-}: Props): React.ReactElement => {
+export const CombineSameContractWarning: FC<
+  CombineSameContractWarningProps
+> = ({ className = '', iconClassName = '' }) => {
   const { t } = useTranslation();
 
   return (

@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { groupBy } from 'remeda';
 import {
@@ -52,19 +53,21 @@ const testIds = {
   tableRow: (stopLabel: string) => `PassingTimesByStopTableRow::${stopLabel}`,
 };
 
-type Props = {
-  passingTimes: ReadonlyArray<PassingTimeByStopFragment>;
+type PassingTimesByStopTableRowProps = {
+  readonly passingTimes: ReadonlyArray<PassingTimeByStopFragment>;
   // TODO: Make this required! For now it has to be optional,
   // as seed data does not contain proper journey patterns for all timetables
-  journeyPatternStop?: JourneyPatternStopFragment;
+  readonly journeyPatternStop?: JourneyPatternStopFragment;
 } & HighlightProps;
 
-export const PassingTimesByStopTableRow = ({
+export const PassingTimesByStopTableRow: FC<
+  PassingTimesByStopTableRowProps
+> = ({
   passingTimes,
   selectedPassingTime,
   journeyPatternStop,
   setSelectedPassingTime,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   // This component only shows information about one stop and one journey pattern.

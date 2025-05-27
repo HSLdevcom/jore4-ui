@@ -1,30 +1,31 @@
+import { FC } from 'react';
 import { Listbox, ValueFn } from '../../../uiComponents';
 
 const testIds = {
   dropdown: 'DayTypeDropdown',
 };
 
-export interface Props {
-  id?: string;
-  uiNameMapper: (key: string) => string;
-  testId?: string;
-  values: ReadonlyArray<string>;
-  value: string;
-  onChange: ValueFn;
-  buttonClassNames?: string;
-}
+export type DayTypeDropdownProps = {
+  readonly id?: string;
+  readonly uiNameMapper: (key: string) => string;
+  readonly testId?: string;
+  readonly values: ReadonlyArray<string>;
+  readonly value: string;
+  readonly onChange: ValueFn;
+  readonly buttonClassNames?: string;
+};
 
 /**
  * Creates dropdown from day type values
  */
-export const DayTypeDropdown = ({
+export const DayTypeDropdown: FC<DayTypeDropdownProps> = ({
   id,
   testId,
   uiNameMapper,
   value,
   values,
   ...formInputProps
-}: Props): React.ReactElement => {
+}) => {
   const mapToOption = (item: string) => ({
     key: item,
     value: item,

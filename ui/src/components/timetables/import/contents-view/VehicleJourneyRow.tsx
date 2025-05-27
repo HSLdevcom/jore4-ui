@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import {
   VehicleJourneyWithRouteInfoFragment,
   VehicleServiceWithJourneysFragment,
@@ -18,13 +19,15 @@ const testIds = {
 };
 export const vehicleJourneyRowTestIds = testIds;
 
-export const VehicleJourneyRow = ({
+type VehicleJourneyRowProps = {
+  readonly vehicleJourney: VehicleJourneyWithRouteInfoFragment;
+  readonly vehicleService: VehicleServiceWithJourneysFragment;
+};
+
+export const VehicleJourneyRow: FC<VehicleJourneyRowProps> = ({
   vehicleJourney,
   vehicleService,
-}: {
-  vehicleJourney: VehicleJourneyWithRouteInfoFragment;
-  vehicleService: VehicleServiceWithJourneysFragment;
-}): React.ReactElement => {
+}) => {
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 
   const route =

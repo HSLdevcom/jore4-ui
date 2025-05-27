@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapToShortDate } from '../../../../time';
@@ -22,17 +23,17 @@ const testIds = {
   editCloseButton: 'CommonSubstitutePeriodItem::editCloseButton',
 };
 
-interface Props {
-  index: number;
-  field: FieldArrayWithId<
+type CommonSubstitutePeriodItemProps = {
+  readonly index: number;
+  readonly field: FieldArrayWithId<
     {
       commonDays: CommonDayType[];
     },
     'commonDays',
     'id'
   >;
-  update: (index: number, flag: boolean, field: UpdateField) => void;
-}
+  readonly update: (index: number, flag: boolean, field: UpdateField) => void;
+};
 
 const PeriodNameAndDateLabel = ({
   periodName,
@@ -53,11 +54,9 @@ const PeriodNameAndDateLabel = ({
   );
 };
 
-export const CommonSubstitutePeriodItem = ({
-  index,
-  field,
-  update,
-}: Props): React.ReactElement => {
+export const CommonSubstitutePeriodItem: FC<
+  CommonSubstitutePeriodItemProps
+> = ({ index, field, update }) => {
   const { t } = useTranslation();
   const { register, watch } = useFormContext<FormState>();
   const edited = watch(`commonDays.${index}.created`);

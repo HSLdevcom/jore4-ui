@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../../layoutComponents';
 import { CloseIconButton } from '../../../uiComponents';
@@ -6,14 +7,16 @@ const testIds = {
   closeButton: 'RouteBreadcrumb::closeButton',
 };
 
-export interface Props {
-  onClose: () => void;
-}
+export type TimetableNavigationProps = {
+  readonly onClose: () => void;
+};
 
 /**
  * Displays close button. Might include breadcrumb in the future
  */
-export const TimetableNavigation = ({ onClose }: Props): React.ReactElement => {
+export const TimetableNavigation: FC<TimetableNavigationProps> = ({
+  onClose,
+}) => {
   const { t } = useTranslation();
 
   return (

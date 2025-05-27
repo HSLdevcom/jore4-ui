@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { VehicleJourneyDuplicate } from '../../../../hooks';
 import { VehicleJourneyRow } from './VehicleJourneyRow';
@@ -6,12 +7,14 @@ const testIds = {
   table: 'DuplicateJourneysSection::table',
 };
 
-export const DuplicateJourneysSection = ({
+type DuplicateJourneysSectionProps = {
+  readonly className?: string;
+  readonly duplicateJourneys: ReadonlyArray<VehicleJourneyDuplicate>;
+};
+
+export const DuplicateJourneysSection: FC<DuplicateJourneysSectionProps> = ({
   className = '',
   duplicateJourneys,
-}: {
-  className?: string;
-  duplicateJourneys: ReadonlyArray<VehicleJourneyDuplicate>;
 }) => {
   const { t } = useTranslation();
 

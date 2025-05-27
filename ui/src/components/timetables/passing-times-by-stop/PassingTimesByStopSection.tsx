@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pipe, unique } from 'remeda';
 import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
@@ -15,19 +16,19 @@ const testIds = {
     `PassingTimesByStopSection::${dayType}::${priority}`,
 };
 
-type Props = {
-  vehicleJourneyGroups: ReadonlyArray<VehicleJourneyGroup>;
-  route: RouteWithJourneyPatternStopsFragment;
+type PassingTimesByStopSectionProps = {
+  readonly vehicleJourneyGroups: ReadonlyArray<VehicleJourneyGroup>;
+  readonly route: RouteWithJourneyPatternStopsFragment;
 };
 
 /**
  * Displays vehicle passing times by stops for each day type / priority combination
  * that are valid during selected observation date.
  */
-export const PassingTimesByStopSection = ({
+export const PassingTimesByStopSection: FC<PassingTimesByStopSectionProps> = ({
   vehicleJourneyGroups,
   route,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 

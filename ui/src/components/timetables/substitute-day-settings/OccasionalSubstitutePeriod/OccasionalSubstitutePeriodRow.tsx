@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdDelete, MdUndo } from 'react-icons/md';
@@ -8,18 +9,18 @@ import { LineTypeMultiSelectDropdown } from '../../../forms/timetables/LineTypeM
 import { SubstituteDayOfWeekDropdown } from '../../../forms/timetables/SubstituteDayOfWeekDropdown';
 import { FormState, PeriodType } from './OccasionalSubstitutePeriodForm.types';
 
-interface Props {
-  index: number;
-  field: FieldArrayWithId<
+type OccasionalSubstitutePeriodRowProps = {
+  readonly index: number;
+  readonly field: FieldArrayWithId<
     {
       periods: PeriodType[];
     },
     'periods',
     'id'
   >;
-  remove: (index: number) => void;
-  update: (index: number, flag: boolean) => void;
-}
+  readonly remove: (index: number) => void;
+  readonly update: (index: number, flag: boolean) => void;
+};
 
 const testIds = {
   row: 'OccasionalSubstitutePeriodRow',
@@ -34,12 +35,9 @@ const testIds = {
   removeButton: 'OccasionalSubstitutePeriodRow::removeButton',
 };
 
-export const OccasionalSubstitutePeriodRow = ({
-  index,
-  field,
-  remove,
-  update,
-}: Props): React.ReactElement => {
+export const OccasionalSubstitutePeriodRow: FC<
+  OccasionalSubstitutePeriodRowProps
+> = ({ index, field, remove, update }) => {
   const { t } = useTranslation();
   const { register, watch } = useFormContext<FormState>();
   const tobeDeleted = watch(`periods.${index}.toBeDeleted`);

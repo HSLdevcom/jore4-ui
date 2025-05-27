@@ -1,25 +1,26 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { VehicleScheduleFrameInfo } from '../../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { routeDetails } from '../../../../router/routeDetails';
 import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
 
-interface Props {
-  deviation: VehicleScheduleFrameInfo;
-  isLast?: boolean;
-  testIdPrefix: string;
-}
+type RouteDeviationLinkProps = {
+  readonly deviation: VehicleScheduleFrameInfo;
+  readonly isLast?: boolean;
+  readonly testIdPrefix: string;
+};
 
 const testIds = {
   link: (testIdPrefix: string) => `${testIdPrefix}::link`,
   label: (testIdPrefix: string) => `${testIdPrefix}::label`,
 };
 
-export const RouteDeviationLink = ({
+export const RouteDeviationLink: FC<RouteDeviationLinkProps> = ({
   deviation,
   isLast,
   testIdPrefix,
-}: Props) => {
+}) => {
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 
   const { lineId, uniqueLabel, direction } = deviation;

@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { groupBy, pipe } from 'remeda';
 import {
@@ -26,17 +26,17 @@ const GQL_VEHICLE_JOURNEY = gql`
   }
 `;
 
-interface Props {
-  vehicleJourneys: ReadonlyArray<VehicleJourneyByStopFragment>;
-  route: RouteWithJourneyPatternStopsFragment;
-  className?: string;
-}
+type PassingTimesByStopTableProps = {
+  readonly vehicleJourneys: ReadonlyArray<VehicleJourneyByStopFragment>;
+  readonly route: RouteWithJourneyPatternStopsFragment;
+  readonly className?: string;
+};
 
-export const PassingTimesByStopTable = ({
+export const PassingTimesByStopTable: FC<PassingTimesByStopTableProps> = ({
   vehicleJourneys,
   route,
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const [selectedPassingTime, setSelectedPassingTime] =
     useState<PassingTimeByStopFragment>();

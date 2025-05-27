@@ -1,5 +1,6 @@
 import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
 import { useAppDispatch } from '../../../hooks';
@@ -17,29 +18,29 @@ const testIds = {
   tripTimeRange: 'VehicleJourneyGroupInfo::tripTimeRange',
 };
 
-export interface Props {
-  vehicleScheduleFrameId: UUID | null | undefined;
-  vehicleJourneys:
+export type VehicleJourneyGroupInfoProps = {
+  readonly vehicleScheduleFrameId: UUID | null | undefined;
+  readonly vehicleJourneys:
     | Pick<VehicleJourneyWithServiceFragment, 'start_time'>[]
     | null;
-  validityStart: DateTime;
-  validityEnd: DateTime;
-  dayTypeNameI18n: LocalizedString;
-  className?: string;
-}
+  readonly validityStart: DateTime;
+  readonly validityEnd: DateTime;
+  readonly dayTypeNameI18n: LocalizedString;
+  readonly className?: string;
+};
 
 /**
  * Displays common information about vehicle journey group, including its validity,
  * number of trips and first and last trip
  */
-export const VehicleJourneyGroupInfo = ({
+export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
   vehicleScheduleFrameId,
   vehicleJourneys,
   validityStart,
   validityEnd,
   dayTypeNameI18n,
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 

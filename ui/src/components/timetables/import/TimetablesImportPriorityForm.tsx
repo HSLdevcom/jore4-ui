@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -18,23 +19,23 @@ const testIds = {
     `TimetablesImportPriorityForm::${testIdPrefix}PriorityButton`,
 };
 
-interface PriorityButtonProps {
-  priority: TimetablePriority;
-  testIdPrefix: string;
-  translationKey: string;
-}
+type PriorityButtonProps = {
+  readonly priority: TimetablePriority;
+  readonly testIdPrefix: string;
+  readonly translationKey: string;
+};
 
-interface Props {
-  showLabel?: boolean;
-}
+type TimetablesImportPriorityFormProps = {
+  readonly showLabel?: boolean;
+};
 
 /**
  * Component for selecting priority for timetables import.
  * Can be merged with other forms.
  */
-export const TimetablesImportPriorityForm = ({
-  showLabel = true,
-}: Props): React.ReactElement => {
+export const TimetablesImportPriorityForm: FC<
+  TimetablesImportPriorityFormProps
+> = ({ showLabel = true }) => {
   const { t } = useTranslation();
   const {
     setValue,

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   TimetablesVehicleTypeVehicleType,
@@ -20,24 +21,24 @@ const testIds = {
 };
 export const blockVehicleJourneysTableTestIds = testIds;
 
-interface Props {
-  vehicleJourneys: ReadonlyArray<VehicleJourneyWithRouteInfoFragment>;
-  vehicleService: VehicleServiceWithJourneysFragment;
-  vehicleType:
+type BlockVehicleJourneysTableProps = {
+  readonly vehicleJourneys: ReadonlyArray<VehicleJourneyWithRouteInfoFragment>;
+  readonly vehicleService: VehicleServiceWithJourneysFragment;
+  readonly vehicleType:
     | Pick<TimetablesVehicleTypeVehicleType, 'description_i18n'>
     | null
     | undefined;
-  blockLabel: string;
-  vehicleScheduleFrameLabel: string;
-}
+  readonly blockLabel: string;
+  readonly vehicleScheduleFrameLabel: string;
+};
 
-export const BlockVehicleJourneysTable = ({
+export const BlockVehicleJourneysTable: FC<BlockVehicleJourneysTableProps> = ({
   vehicleJourneys,
   vehicleService,
   vehicleType,
   blockLabel,
   vehicleScheduleFrameLabel,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 
