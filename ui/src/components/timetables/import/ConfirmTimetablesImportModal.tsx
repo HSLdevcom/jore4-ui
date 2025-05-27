@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useCombiningSameContractTimetables,
@@ -20,7 +20,7 @@ type ConfirmTimetablesImportModalProps = {
   readonly className?: string;
 };
 
-export const ConfirmTimetablesImportModal: React.FC<
+export const ConfirmTimetablesImportModal: FC<
   ConfirmTimetablesImportModalProps
 > = ({ isOpen, onClose, className = '' }) => {
   const { t } = useTranslation();

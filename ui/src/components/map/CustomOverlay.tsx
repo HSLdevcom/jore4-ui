@@ -1,7 +1,6 @@
 // based on https://github.com/visgl/react-map-gl/blob/7.0-release/examples/custom-overlay/src/custom-overlay.tsx
 
-import * as React from 'react';
-import { cloneElement, useState } from 'react';
+import { FC, cloneElement, memo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type {
   ControlPosition,
@@ -67,7 +66,7 @@ type CustomOverlayComponentProps = {
 /**
  * A custom control that rerenders arbitrary React content whenever the camera changes
  */
-const CustomOverlayComponent: React.FC<CustomOverlayComponentProps> = ({
+const CustomOverlayComponent: FC<CustomOverlayComponentProps> = ({
   children,
   position,
 }) => {
@@ -89,4 +88,4 @@ const CustomOverlayComponent: React.FC<CustomOverlayComponentProps> = ({
     : null;
 };
 
-export const CustomOverlay = React.memo(CustomOverlayComponent);
+export const CustomOverlay = memo(CustomOverlayComponent);

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
 type VisibleProps = {
   // This visible parameter has to be required, but the value can be undefined.
@@ -11,7 +11,7 @@ type VisibleProps = {
  * same as `{myBooleanFlag && <MyComponent />}`, but this might
  * be easier to read if there are multiple children components.
  */
-export const Visible: React.FC<PropsWithChildren<VisibleProps>> = ({
+export const Visible: FC<PropsWithChildren<VisibleProps>> = ({
   visible = false,
   children,
 }) => {

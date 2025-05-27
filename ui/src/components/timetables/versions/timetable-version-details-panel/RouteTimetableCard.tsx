@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { RouteTimetableRowInfo } from '../../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { VehicleJourneyGroupInfo } from '../../common/VehicleJourneyGroupInfo';
@@ -12,7 +13,7 @@ type RouteTimetableCardProps = {
   readonly createdAt?: DateTime;
 };
 
-export const RouteTimetableCard: React.FC<RouteTimetableCardProps> = ({
+export const RouteTimetableCard: FC<RouteTimetableCardProps> = ({
   routeTimetableRowInfo,
   dayTypeNameI18n,
   createdAt,

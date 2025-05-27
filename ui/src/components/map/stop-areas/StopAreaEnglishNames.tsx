@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { ExpandButton } from '../../../uiComponents';
@@ -18,7 +18,7 @@ const testIds = {
   errorIndicator: 'StopAreaFormComponent::errorIndicator',
 };
 
-export const StopAreaEnglishNames: React.FC = () => {
+export const StopAreaEnglishNames: FC = () => {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 

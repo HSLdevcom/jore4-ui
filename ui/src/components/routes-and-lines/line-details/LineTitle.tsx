@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import uniqBy from 'lodash/uniqBy';
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
@@ -33,7 +33,7 @@ const GQL_LINE_WITH_ROUTES_UNIQUE_FIELDS = gql`
   }
 `;
 
-export const LineTitle: React.FC<LineTitleProps> = ({
+export const LineTitle: FC<LineTitleProps> = ({
   className = '',
   line,
   onCreateRoute,

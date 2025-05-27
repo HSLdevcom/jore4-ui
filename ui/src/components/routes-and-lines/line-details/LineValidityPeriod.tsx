@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineDefaultFieldsFragment } from '../../../generated/graphql';
 import { mapPriorityToUiName } from '../../../i18n/uiNameMappings';
@@ -16,7 +16,7 @@ type LineValidityPeriodProps = {
   readonly line: LineDefaultFieldsFragment;
 };
 
-export const LineValidityPeriod: React.FC<LineValidityPeriodProps> = ({
+export const LineValidityPeriod: FC<LineValidityPeriodProps> = ({
   className = '',
   line,
 }) => {

@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import React from 'react';
+import { FC } from 'react';
 import { Visible } from '../layoutComponents';
 
 const testIds = {
@@ -16,7 +16,7 @@ type ErrorModalItemProps = {
   readonly className?: string;
 };
 
-export const ErrorModalItem: React.FC<ErrorModalItemProps> = ({
+export const ErrorModalItem: FC<ErrorModalItemProps> = ({
   title,
   details,
   additionalDetails,

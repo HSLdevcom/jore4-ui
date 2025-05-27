@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Column } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
@@ -8,7 +8,7 @@ type CreateRouteBoxProps = {
   readonly onCreateRoute?: () => void;
 };
 
-export const CreateRouteBox: React.FC<CreateRouteBoxProps> = ({
+export const CreateRouteBox: FC<CreateRouteBoxProps> = ({
   className = '',
   onCreateRoute,
 }) => {

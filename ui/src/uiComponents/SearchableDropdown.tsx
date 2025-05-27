@@ -25,7 +25,7 @@ export const SearchableDropdown = <T extends ExplicitAny>({
   nullOptionRender,
   onQueryChange: parentOnQueryChange,
   ...otherProps
-}: SearchableDropdownProps<T>): React.ReactElement => {
+}: SearchableDropdownProps<T>) => {
   const nullOption = nullOptionRender
     ? { key: 'none', value: null, render: nullOptionRender }
     : undefined;

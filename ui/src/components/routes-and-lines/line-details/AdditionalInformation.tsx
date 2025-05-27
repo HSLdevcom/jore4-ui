@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../generated/graphql';
 import {
@@ -25,7 +25,7 @@ type AdditionalInformationProps = {
   readonly line: LineAllFieldsFragment;
 };
 
-export const AdditionalInformation: React.FC<AdditionalInformationProps> = ({
+export const AdditionalInformation: FC<AdditionalInformationProps> = ({
   className = '',
   line,
 }) => {

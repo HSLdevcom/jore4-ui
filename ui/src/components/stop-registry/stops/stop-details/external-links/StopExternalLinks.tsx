@@ -1,4 +1,5 @@
 import compact from 'lodash/compact';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ExternalLinksDetailsFragment } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
@@ -17,7 +18,7 @@ function useExternalLinks(
   return compact(stop?.quay?.externalLinks);
 }
 
-export const StopExternalLinks: React.FC<ExternalLinksProps> = ({ stop }) => {
+export const StopExternalLinks: FC<ExternalLinksProps> = ({ stop }) => {
   const { t } = useTranslation();
 
   const externalLinks = useExternalLinks(stop);
