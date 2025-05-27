@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { Row } from '../../../../layoutComponents';
 import { padToTwoDigits } from '../../../../time';
 
-export interface VehicleServiceRowData {
-  hours: number;
-  minutes: ReadonlyArray<number>;
-}
+export type VehicleServiceRowData = {
+  readonly hours: number;
+  readonly minutes: ReadonlyArray<number>;
+};
 
 type VehicleServiceRowProps = {
   readonly data: VehicleServiceRowData;

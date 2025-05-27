@@ -7,11 +7,11 @@ const testIds = {
   dropdown: 'NullableBooleanDropdown::button',
 };
 
-interface DropdownTranslationKeys {
-  true: TranslationKey;
-  false: TranslationKey;
-  null: TranslationKey;
-}
+type DropdownTranslationKeys = {
+  readonly true: TranslationKey;
+  readonly false: TranslationKey;
+  readonly null: TranslationKey;
+};
 
 export type NullableBooleanDropdownProps = FormInputProps & {
   readonly id?: string;

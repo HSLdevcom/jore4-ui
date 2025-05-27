@@ -25,15 +25,15 @@ const testIds = {
   closeButton: 'ConflictResolverModal::closeButton',
 };
 
-interface CommonConflictItem {
-  validityStart?: DateTime;
-  validityEnd?: DateTime;
-  priority: Priority;
-  label: string;
-  variant?: number | null;
-  id: UUID;
-  href?: string;
-}
+type CommonConflictItem = {
+  readonly validityStart?: DateTime;
+  readonly validityEnd?: DateTime;
+  readonly priority: Priority;
+  readonly label: string;
+  readonly variant?: number | null;
+  readonly id: UUID;
+  readonly href?: string;
+};
 
 export const mapRouteToCommonConflictItem = (
   route: RouteUniqueFieldsFragment,
