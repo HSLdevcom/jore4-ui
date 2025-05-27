@@ -69,7 +69,7 @@ export const LocationDetailsView: FC<TerminalComponentProps> = ({
       </DetailRow>
       <DetailRow>
         <LabeledDetail
-          title={t('terminalDetails.location.memberStops', {
+          title={t('terminalDetails.location.memberStopsCount', {
             count: terminal.children?.length ?? 0,
           })}
           detail={memberStops}
