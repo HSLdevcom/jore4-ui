@@ -3,12 +3,11 @@ import { InputHTMLAttributes } from 'react';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 import { inputErrorStyles } from './InputElement';
 
-export interface TextAreaElementDefaultProps
-  extends InputHTMLAttributes<Element> {
-  className?: string;
-  id: string;
-  testId: string;
-}
+export type TextAreaElementDefaultProps = InputHTMLAttributes<Element> & {
+  readonly className?: string;
+  readonly id: string;
+  readonly testId: string;
+};
 
 type TextAreaElementProps<FormState extends FieldValues> =
   TextAreaElementDefaultProps & {

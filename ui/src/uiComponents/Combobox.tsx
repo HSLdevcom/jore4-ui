@@ -31,11 +31,11 @@ type ComboboxProps = ComboboxInputProps & {
   readonly nullable?: boolean;
 };
 
-export interface ComboboxEvent {
+export type ComboboxEvent = {
   target: {
     value: string;
   };
-}
+};
 
 export const Combobox: FC<ComboboxProps> = ({
   id,

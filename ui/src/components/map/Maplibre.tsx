@@ -33,13 +33,13 @@ type MaplibreProps = {
   readonly useVectorTilesAsBaseMap?: boolean;
 };
 
-interface MaplibreViewport {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  bearing: number;
-  pitch: number;
-}
+type MaplibreViewport = {
+  readonly latitude: number;
+  readonly longitude: number;
+  readonly zoom: number;
+  readonly bearing: number;
+  readonly pitch: number;
+};
 
 const style = generateStyle({
   queryParams: [

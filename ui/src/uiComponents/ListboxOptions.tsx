@@ -3,17 +3,17 @@ import React, { ForwardedRef, ReactNode, forwardRef } from 'react';
 import { addClassName } from '../utils/components';
 
 // copied from HeadlessUI Listbox as it's not exported
-export interface OptionRenderPropArg {
-  active: boolean;
-  selected: boolean;
-  disabled: boolean;
-}
+export type OptionRenderPropArg = {
+  readonly active: boolean;
+  readonly selected: boolean;
+  readonly disabled: boolean;
+};
 
-export interface ListboxOptionRenderer {
-  key: string;
-  value: string;
-  render: (props: OptionRenderPropArg) => ReactNode;
-}
+export type ListboxOptionRenderer = {
+  readonly key: string;
+  readonly value: string;
+  readonly render: (props: OptionRenderPropArg) => ReactNode;
+};
 
 type ListboxOptionsProps = {
   readonly options: ReadonlyArray<ListboxOptionRenderer>;
