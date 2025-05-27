@@ -6,15 +6,14 @@ import { Column, Row } from '../../../../../layoutComponents';
 import { NewModalBody, NewModalHeader } from '../../../../../uiComponents';
 import { AccessibilityLevelIcon } from './AccessibilityLevelIcon';
 
-interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-}
+type AccessibilityLevelDescriptionsDialogProps = {
+  readonly isOpen: boolean;
+  readonly onClose: () => void;
+};
 
-export const AccessibilityLevelDescriptionsDialog: React.FC<Props> = ({
-  isOpen,
-  onClose,
-}) => {
+export const AccessibilityLevelDescriptionsDialog: React.FC<
+  AccessibilityLevelDescriptionsDialogProps
+> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
 
   const translationKeys = {

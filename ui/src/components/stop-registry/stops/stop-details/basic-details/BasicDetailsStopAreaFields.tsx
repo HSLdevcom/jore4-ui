@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
@@ -9,7 +10,7 @@ import {
   getQuayPublicCodes,
 } from './BasicDetailsMemberStops';
 
-type Props = {
+type StopAreaDetailsSectionProps = {
   readonly stop: StopWithDetails;
 };
 
@@ -28,7 +29,9 @@ const testIds = {
   areaAbbreviationNameEng: 'BasicDetailsSection::areaAbbreviationNameEng',
 };
 
-export const StopAreaDetailsSection = ({ stop }: Props) => {
+export const StopAreaDetailsSection: FC<StopAreaDetailsSectionProps> = ({
+  stop,
+}) => {
   const { t } = useTranslation();
 
   return (

@@ -20,7 +20,7 @@ import { StopLabelAndLocationFormRow } from './StopLabelAndLocationFormRow';
 import { StopOtherDetailsFormRow } from './StopOtherDetailsFormRow';
 import { StopTypesFormRow } from './StopTypesFormRow';
 
-type Props = {
+type StopBasicDetailsFormComponentProps = {
   readonly className?: string;
   readonly defaultValues: Partial<StopBasicDetailsFormState>;
   readonly onSubmit: (state: StopBasicDetailsFormState) => void;
@@ -30,7 +30,7 @@ type Props = {
 
 const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
-  Props
+  StopBasicDetailsFormComponentProps
 > = (
   { className = '', defaultValues, onSubmit, hasMainLineSign, stop },
   ref,

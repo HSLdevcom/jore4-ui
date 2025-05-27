@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import {
   InfoSpotDetailsFragment,
@@ -39,14 +39,14 @@ const testIds = {
   noPosters: 'InfoSpotFormFields::noPosters',
 };
 
-type Props = {
+type InfoSpotFormFieldsProps = {
   readonly infoSpotIndex: number;
   readonly infoSpotsData: ReadonlyArray<InfoSpotDetailsFragment>;
   readonly onRemove: (index: number) => void;
   readonly addPoster: (index: number) => void;
 };
 
-export const InfoSpotFormFields: FC<Props> = ({
+export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
   infoSpotIndex,
   infoSpotsData,
   onRemove,

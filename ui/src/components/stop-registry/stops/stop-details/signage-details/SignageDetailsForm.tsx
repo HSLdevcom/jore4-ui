@@ -24,15 +24,20 @@ const testIds = {
     'SignageDetailsForm::signageInstructionExceptions',
 };
 
-interface Props {
-  className?: string;
-  defaultValues: Partial<SignageDetailsFormState>;
-  onSubmit: (state: SignageDetailsFormState) => void;
-  isMainLineStop: boolean;
-}
+type SignageDetailsFormProps = {
+  readonly className?: string;
+  readonly defaultValues: Partial<SignageDetailsFormState>;
+  readonly onSubmit: (state: SignageDetailsFormState) => void;
+  readonly isMainLineStop: boolean;
+};
 
 const SignageDetailsFormComponent = (
-  { className = '', defaultValues, onSubmit, isMainLineStop }: Props,
+  {
+    className = '',
+    defaultValues,
+    onSubmit,
+    isMainLineStop,
+  }: SignageDetailsFormProps,
   ref: ExplicitAny,
 ): React.ReactElement => {
   const { t } = useTranslation();

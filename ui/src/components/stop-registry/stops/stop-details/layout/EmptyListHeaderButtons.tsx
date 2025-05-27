@@ -1,23 +1,24 @@
 import noop from 'lodash/noop';
+import { FC } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { SlimSimpleButton } from './SlimSimpleButton';
 
-interface Props {
-  addNewItemText: string;
-  onAddNewItem: () => void;
-  testIdPrefix?: string;
-}
+type EmptyListHeaderButtonsProps = {
+  readonly addNewItemText: string;
+  readonly onAddNewItem: () => void;
+  readonly testIdPrefix?: string;
+};
 
 const testIds = {
   toggle: (prefix: string) => `${prefix}::toggle`,
   addNewItemButton: (prefix: string) => `${prefix}::addNewItemButton`,
 };
 
-export const EmptyListHeaderButtons = ({
+export const EmptyListHeaderButtons: FC<EmptyListHeaderButtonsProps> = ({
   addNewItemText,
   onAddNewItem,
   testIdPrefix = '',
-}: Props) => {
+}) => {
   return (
     <div className="flex gap-2">
       <SlimSimpleButton

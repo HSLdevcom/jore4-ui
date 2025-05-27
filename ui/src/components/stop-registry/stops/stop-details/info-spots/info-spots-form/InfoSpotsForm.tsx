@@ -19,7 +19,7 @@ const testIds = {
   deleteInfoSpot: 'InfoSpotsForm::deleteInfoSpot',
 };
 
-type Props = {
+type InfoSpotsFormProps = {
   readonly className?: string;
   readonly defaultValues: InfoSpotsFormState;
   readonly infoSpotsData: ReadonlyArray<InfoSpotDetailsFragment>;
@@ -34,7 +34,7 @@ export type InfoSpotsFormRef = {
 
 const InfoSpotsFormComponent: ForwardRefRenderFunction<
   InfoSpotsFormRef,
-  Props
+  InfoSpotsFormProps
 > = (
   {
     className,
@@ -135,6 +135,7 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
   );
 };
 
-export const InfoSpotsForm = React.forwardRef<InfoSpotsFormRef, Props>(
-  InfoSpotsFormComponent,
-);
+export const InfoSpotsForm = React.forwardRef<
+  InfoSpotsFormRef,
+  InfoSpotsFormProps
+>(InfoSpotsFormComponent);

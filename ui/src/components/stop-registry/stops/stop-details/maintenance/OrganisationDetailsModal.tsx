@@ -1,4 +1,5 @@
 import { Dialog } from '@headlessui/react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/graphql';
 import { useUpsertOrganisation } from '../../../../../hooks/stop-registry/useUpsertOrganisation';
@@ -14,12 +15,14 @@ const testIds = {
   title: 'OrganisationDetailsModal::title',
 };
 
-interface Props {
-  isOpen: boolean;
-  organisation?: StopPlaceOrganisationFieldsFragment;
-  onClose: () => void;
-  onSubmit: (org: Pick<StopPlaceOrganisationFieldsFragment, 'id'>) => void;
-}
+type OrganisationDetailsModalProps = {
+  readonly isOpen: boolean;
+  readonly organisation?: StopPlaceOrganisationFieldsFragment;
+  readonly onClose: () => void;
+  readonly onSubmit: (
+    org: Pick<StopPlaceOrganisationFieldsFragment, 'id'>,
+  ) => void;
+};
 
 const mapOrganisationToFormState = (
   organisation: StopPlaceOrganisationFieldsFragment | undefined,
@@ -34,12 +37,12 @@ const mapOrganisationToFormState = (
   };
 };
 
-export const OrganisationDetailsModal = ({
+export const OrganisationDetailsModal: FC<OrganisationDetailsModalProps> = ({
   isOpen,
   organisation,
   onClose,
   onSubmit,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const { upsertOrganisation, defaultErrorHandler } = useUpsertOrganisation();
 

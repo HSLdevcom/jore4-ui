@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HorizontalSeparator } from '../../../../../layoutComponents';
 import { StopWithDetails } from '../../../../../types';
@@ -23,13 +24,13 @@ const testIds = {
   terminalStops: 'LocationDetailsViewCard::terminalStops',
 };
 
-interface Props {
-  stop: StopWithDetails;
-}
+type LocationDetailsViewCardProps = {
+  readonly stop: StopWithDetails;
+};
 
-export const LocationDetailsViewCard = ({
+export const LocationDetailsViewCard: FC<LocationDetailsViewCardProps> = ({
   stop,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   return (

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-type NoVersionRowProps = { noVersionsText: string };
+type NoVersionRowProps = { readonly noVersionsText: string };
 
 export const NoVersionRow: FC<NoVersionRowProps> = ({ noVersionsText }) => {
   return (

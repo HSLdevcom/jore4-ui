@@ -17,16 +17,22 @@ const testIds = {
   functionalArea: 'LocationDetailsForm::functionalArea',
 };
 
-interface Props {
-  className?: string;
-  defaultValues: Partial<LocationDetailsFormState>;
-  municipality?: string | null;
-  fareZone?: string | null;
-  onSubmit: (state: LocationDetailsFormState) => void;
-}
+type LocationDetailsFormComponentProps = {
+  readonly className?: string;
+  readonly defaultValues: Partial<LocationDetailsFormState>;
+  readonly municipality?: string | null;
+  readonly fareZone?: string | null;
+  readonly onSubmit: (state: LocationDetailsFormState) => void;
+};
 
 const LocationDetailsFormComponent = (
-  { className = '', defaultValues, municipality, fareZone, onSubmit }: Props,
+  {
+    className = '',
+    defaultValues,
+    municipality,
+    fareZone,
+    onSubmit,
+  }: LocationDetailsFormComponentProps,
   ref: ExplicitAny,
 ): React.ReactElement => {
   const { t } = useTranslation();

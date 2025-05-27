@@ -1,5 +1,5 @@
 import compact from 'lodash/compact';
-import React, { FC, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import {
   InfoSpotDetailsFragment,
   ShelterEquipmentDetailsFragment,
@@ -7,9 +7,10 @@ import {
 import { StopWithDetails } from '../../../../../types';
 import { InfoSpotsSection } from './InfoSpotsSection';
 
-type Props = {
+type SheltersInfoSpotsSectionProps = {
   readonly stop: StopWithDetails;
 };
+
 type ShelterAndSpots = [
   ShelterEquipmentDetailsFragment,
   ReadonlyArray<InfoSpotDetailsFragment>,
@@ -35,7 +36,9 @@ const useSheltersInfoSpots = (
   }, [stop]);
 };
 
-export const SheltersInfoSpotsSection: FC<Props> = ({ stop }) => {
+export const SheltersInfoSpotsSection: FC<SheltersInfoSpotsSectionProps> = ({
+  stop,
+}) => {
   const items = useSheltersInfoSpots(stop);
 
   return items.map(([shelter, shelterInfoSpots]) => (

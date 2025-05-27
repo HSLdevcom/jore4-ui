@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useEditStopSignageDetails } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
@@ -10,9 +10,9 @@ import { SignageDetailsFormState } from './schema';
 import { SignageDetailsForm } from './SignageDetailsForm';
 import { SignageDetailsViewCard } from './SignageDetailsViewCard';
 
-interface Props {
-  stop: StopWithDetails;
-}
+type SignageDetailsSectionProps = {
+  readonly stop: StopWithDetails;
+};
 
 const mapSignageDetailsToFormState = (
   stop: StopWithDetails,
@@ -30,7 +30,9 @@ const mapSignageDetailsToFormState = (
   };
 };
 
-export const SignageDetailsSection = ({ stop }: Props): React.ReactElement => {
+export const SignageDetailsSection: FC<SignageDetailsSectionProps> = ({
+  stop,
+}) => {
   const { t } = useTranslation();
 
   const { saveStopPlaceSignageDetails, defaultErrorHandler } =

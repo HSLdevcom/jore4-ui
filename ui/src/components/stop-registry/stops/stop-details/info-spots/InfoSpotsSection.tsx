@@ -31,7 +31,7 @@ const testIds = {
   addInfoSpot: 'InfoSpotsSection::addInfoSpot',
 };
 
-type Props = {
+type InfoSpotsSectionProps = {
   readonly stop: StopWithDetails;
   readonly infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
   readonly shelter: ShelterEquipmentDetailsFragment;
@@ -86,7 +86,7 @@ const InfoSpotTitle: FC<{
   );
 };
 
-export const InfoSpotsSection: FC<Props> = ({
+export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
   stop,
   infoSpots,
   shelter,

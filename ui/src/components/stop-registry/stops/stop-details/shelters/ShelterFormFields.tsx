@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import React, { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import {
   StopRegistryShelterCondition,
@@ -38,17 +38,17 @@ const testIds = {
   copyShelter: 'SheltersFormFields::copyShelter',
 };
 
-interface Props {
-  index: number;
-  onRemove: (index: number) => void;
-  onCopy: (shelter: number) => void;
-}
+type ShelterFormFieldsProps = {
+  readonly index: number;
+  readonly onRemove: (index: number) => void;
+  readonly onCopy: (shelter: number) => void;
+};
 
-export const ShelterFormFields = ({
+export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
   index,
   onRemove,
   onCopy,
-}: Props): React.ReactElement => {
+}) => {
   const { register, watch, setValue } = useFormContext<SheltersFormState>();
   const toBeDeleted = watch(`shelters.${index}.toBeDeleted`);
   const allShelters = watch('shelters');

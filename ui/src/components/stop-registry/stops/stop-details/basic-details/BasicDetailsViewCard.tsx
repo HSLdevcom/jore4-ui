@@ -1,12 +1,15 @@
+import { FC } from 'react';
 import { StopWithDetails } from '../../../../../types';
 import { StopAreaDetailsSection } from './BasicDetailsStopAreaFields';
 import { StopDetailsSection } from './BasicDetailsStopFields';
 
-type Props = {
+type BasicDetailsViewCardProps = {
   readonly stop: StopWithDetails;
 };
 
-export const BasicDetailsViewCard = ({ stop }: Props) => {
+export const BasicDetailsViewCard: FC<BasicDetailsViewCardProps> = ({
+  stop,
+}) => {
   return (
     <>
       <StopAreaDetailsSection stop={stop} />

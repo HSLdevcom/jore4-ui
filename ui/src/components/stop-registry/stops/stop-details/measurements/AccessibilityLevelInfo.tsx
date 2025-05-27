@@ -9,11 +9,13 @@ const testIds = {
   accessibilityLevel: 'AccessibilityLevelInfo::accessibilityLevel',
 };
 
-interface Props {
-  stop: StopWithDetails;
-}
+type AccessibilityLevelInfoProps = {
+  readonly stop: StopWithDetails;
+};
 
-export const AccessibilityLevelInfo: React.FC<Props> = ({ stop }) => {
+export const AccessibilityLevelInfo: React.FC<AccessibilityLevelInfoProps> = ({
+  stop,
+}) => {
   const { t } = useTranslation();
   const [isModalOpen, toggleIsModalOpen] = useToggle();
   const accessibilityLevel =

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopRegistryAccessibilityLevel } from '../../../../../generated/graphql';
 import { mapStopAccessibilityLevelToUiName } from '../../../../../i18n/uiNameMappings';
@@ -7,9 +8,9 @@ type AccessibilityLevelWithIcon = Exclude<
   StopRegistryAccessibilityLevel.Unknown
 >;
 
-interface Props {
-  level: AccessibilityLevelWithIcon;
-}
+type AccessibilityLevelIconProps = {
+  readonly level: AccessibilityLevelWithIcon;
+};
 
 const iconFiles: Record<AccessibilityLevelWithIcon, string> = {
   fullyAccessible: 'accessibility_level_4.svg',
@@ -18,7 +19,9 @@ const iconFiles: Record<AccessibilityLevelWithIcon, string> = {
   inaccessible: 'accessibility_level_1.svg',
 };
 
-export const AccessibilityLevelIcon = ({ level }: Props) => {
+export const AccessibilityLevelIcon: FC<AccessibilityLevelIconProps> = ({
+  level,
+}) => {
   const { t } = useTranslation();
 
   const iconFile = iconFiles[level];

@@ -1,16 +1,17 @@
+import { FC } from 'react';
 import { SimpleSmallButton } from '../../../../uiComponents';
 
-interface Props {
-  id: string;
-  tabPanelId: string;
-  testId: string;
-  title: string;
-  isActive: boolean;
-  onClick: () => void;
-  className?: string;
-}
+type DetailTabProps = {
+  readonly id: string;
+  readonly tabPanelId: string;
+  readonly testId: string;
+  readonly title: string;
+  readonly isActive: boolean;
+  readonly onClick: () => void;
+  readonly className?: string;
+};
 
-export const DetailTab = ({
+export const DetailTab: FC<DetailTabProps> = ({
   id,
   tabPanelId,
   testId,
@@ -18,7 +19,7 @@ export const DetailTab = ({
   isActive,
   onClick,
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   return (
     <SimpleSmallButton
       id={id}

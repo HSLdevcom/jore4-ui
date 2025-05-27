@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { t } from 'i18next';
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Row, Visible } from '../../../../../layoutComponents';
@@ -29,17 +29,17 @@ export type OrganisationDetailsFormState = z.infer<
   typeof organisationDetailsFormSchema
 >;
 
-interface Props {
-  defaultValues: Partial<OrganisationDetailsFormState>;
-  onSubmit: (state: OrganisationDetailsFormState) => void;
-  onCancel: () => void;
-}
+type OrganisationDetailsFormProps = {
+  readonly defaultValues: Partial<OrganisationDetailsFormState>;
+  readonly onSubmit: (state: OrganisationDetailsFormState) => void;
+  readonly onCancel: () => void;
+};
 
-export const OrganisationDetailsForm = ({
+export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
   defaultValues,
   onSubmit,
   onCancel,
-}: Props): React.ReactElement => {
+}) => {
   const formRef = useRef<ExplicitAny>(null);
 
   const methods = useForm<OrganisationDetailsFormState>({

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { Visible } from '../../../../layoutComponents';
@@ -6,17 +7,17 @@ const testIds = {
   warning: 'MainLineWarning::warning',
 };
 
-interface Props {
-  className?: string;
-  isMainLineStop: boolean;
-  hasMainLineSign: boolean;
-}
+type MainLineWarningProps = {
+  readonly className?: string;
+  readonly isMainLineStop: boolean;
+  readonly hasMainLineSign: boolean;
+};
 
-export const MainLineWarning = ({
+export const MainLineWarning: FC<MainLineWarningProps> = ({
   isMainLineStop,
   hasMainLineSign,
   className = '',
-}: Props) => {
+}) => {
   const { t } = useTranslation();
 
   return (

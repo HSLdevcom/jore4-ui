@@ -9,11 +9,11 @@ const testIds = {
   posterPlaceSize: 'InfoSpotDetails::posterPlaceSize',
 };
 
-type Props = {
+type InfoSpotDetailsProps = {
   readonly infoSpot: InfoSpotDetailsFragment;
 };
 
-export const InfoSpotDetails: FC<Props> = ({ infoSpot }) => {
+export const InfoSpotDetails: FC<InfoSpotDetailsProps> = ({ infoSpot }) => {
   const { t } = useTranslation();
 
   return (

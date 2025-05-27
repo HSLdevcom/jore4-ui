@@ -33,14 +33,18 @@ const testIds = {
   cleaning: 'MaintenanceDetailsForm::cleaning',
 };
 
-interface Props {
-  className?: string;
-  defaultValues: Partial<MaintenanceDetailsFormState>;
-  onSubmit: (state: MaintenanceDetailsFormState) => void;
-}
+type MaintenanceDetailsFormComponentProps = {
+  readonly className?: string;
+  readonly defaultValues: Partial<MaintenanceDetailsFormState>;
+  readonly onSubmit: (state: MaintenanceDetailsFormState) => void;
+};
 
 const MaintenanceDetailsFormComponent = (
-  { className = '', defaultValues, onSubmit }: Props,
+  {
+    className = '',
+    defaultValues,
+    onSubmit,
+  }: MaintenanceDetailsFormComponentProps,
   ref: ExplicitAny,
 ): React.ReactElement => {
   const organisationsResult = useGetOrganisationsQuery();

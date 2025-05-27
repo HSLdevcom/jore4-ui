@@ -3,13 +3,13 @@ import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
 import { Point } from '../../../../../types';
 import { InfoSpotsViewCard } from './InfoSpotsViewCard';
 
-type Props = {
-  infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
-  location: Point;
-  stopName: string;
+type InfoSpotsViewListProps = {
+  readonly infoSpots: ReadonlyArray<InfoSpotDetailsFragment>;
+  readonly location: Point;
+  readonly stopName: string;
 };
 
-export const InfoSpotsViewList: FC<Props> = ({
+export const InfoSpotsViewList: FC<InfoSpotsViewListProps> = ({
   infoSpots,
   location,
   stopName,

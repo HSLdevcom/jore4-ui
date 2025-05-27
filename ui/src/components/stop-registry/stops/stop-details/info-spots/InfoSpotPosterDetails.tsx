@@ -17,11 +17,13 @@ const testIds = {
   noPosters: 'InfoSpotPosterDetails::noPosters',
 };
 
-type Props = {
+type InfoSpotPosterDetailsProps = {
   readonly infoSpot: InfoSpotDetailsFragment;
 };
 
-export const InfoSpotPosterDetails: FC<Props> = ({ infoSpot: { poster } }) => {
+export const InfoSpotPosterDetails: FC<InfoSpotPosterDetailsProps> = ({
+  infoSpot: { poster },
+}) => {
   const { t } = useTranslation();
 
   if (!poster?.length) {
