@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TFunction } from 'i18next';
-import React, {
+import {
   Dispatch,
   FC,
   FormEventHandler,
-  ReactNode,
+  PropsWithChildren,
   SetStateAction,
   useMemo,
   useState,
@@ -30,13 +30,12 @@ import { StopAreaMemberStopRows } from './StopAreaMemberStopRows';
 import { StopAreaMemberStopsHeader } from './StopAreaMemberStopsHeader';
 
 type RootComponentProps = {
-  readonly children: ReactNode;
   readonly className: string;
   readonly inEditMode: boolean;
   readonly onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
-const RootComponent: FC<RootComponentProps> = ({
+const RootComponent: FC<PropsWithChildren<RootComponentProps>> = ({
   children,
   className,
   inEditMode,

@@ -11,19 +11,19 @@ function detailOrPlaceholder(detail: unknown): string {
   return detail ? String(detail) : '-';
 }
 
-interface Props<T> {
-  title: string;
-  detail: T | null | undefined;
-  testId?: string;
-  className?: string;
-}
+type LabeledDetailProps<T> = {
+  readonly title: string;
+  readonly detail: T | null | undefined;
+  readonly testId?: string;
+  readonly className?: string;
+};
 
 export const LabeledDetail = <T extends ExplicitAny>({
   title,
   detail,
   testId = '',
   className = '',
-}: Props<T>): React.ReactElement => {
+}: LabeledDetailProps<T>): React.ReactElement => {
   return (
     <div className={`inline-flex flex-col ${className}`}>
       <div className="text-sm">{title}</div>

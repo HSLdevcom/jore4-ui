@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/graphql';
 
 const testIds = {
@@ -7,17 +8,17 @@ const testIds = {
   notSelectedPlaceholder: `MaintainerViewCard::notSelectedPlaceholder`,
 };
 
-interface Props {
-  testId: string;
-  title: string;
-  maintainer: StopPlaceOrganisationFieldsFragment | null;
-}
+type MaintainerViewCardProps = {
+  readonly testId: string;
+  readonly title: string;
+  readonly maintainer: StopPlaceOrganisationFieldsFragment | null;
+};
 
-export const MaintainerViewCard = ({
+export const MaintainerViewCard: FC<MaintainerViewCardProps> = ({
   testId,
   title,
   maintainer,
-}: Props): React.ReactElement => {
+}) => {
   return (
     <div data-testid={testId} className="text-sm">
       <h5 className="leading-8">{title}</h5>

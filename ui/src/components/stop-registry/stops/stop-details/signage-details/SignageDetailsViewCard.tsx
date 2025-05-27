@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
@@ -17,11 +18,13 @@ const testIds = {
   mainLineSign: 'SignageDetailsViewCard::mainLineSign',
 };
 
-interface Props {
-  stop: StopWithDetails;
-}
+type SignageDetailsViewCardProps = {
+  readonly stop: StopWithDetails;
+};
 
-export const SignageDetailsViewCard = ({ stop }: Props): React.ReactElement => {
+export const SignageDetailsViewCard: FC<SignageDetailsViewCardProps> = ({
+  stop,
+}) => {
   const { t } = useTranslation();
 
   const generalSign = stop.quay?.placeEquipments?.generalSign?.[0];

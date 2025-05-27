@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
 import { MaintainerViewCard } from './MaintainerViewCard';
@@ -12,11 +13,11 @@ const testIds = {
   cleaning: 'MaintenanceViewCard::cleaning',
 };
 
-interface Props {
-  stop: StopWithDetails;
-}
+type MaintenanceViewCardProps = {
+  readonly stop: StopWithDetails;
+};
 
-export const MaintenanceViewCard = ({ stop }: Props): React.ReactElement => {
+export const MaintenanceViewCard: FC<MaintenanceViewCardProps> = ({ stop }) => {
   const { t } = useTranslation();
 
   const maintainers = getMaintainers(stop);

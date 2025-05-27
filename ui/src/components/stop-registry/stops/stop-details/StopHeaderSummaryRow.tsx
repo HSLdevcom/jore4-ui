@@ -6,12 +6,12 @@ import { StopWithDetails } from '../../../../types';
 import { StopPlaceState } from '../../../../types/stop-registry';
 import { StopTypeLabel } from './StopTypeLabel';
 
-interface Props {
-  stopDetails: StopWithDetails | null | undefined;
-  className?: string;
-}
+type StopHeaderSummaryRowProps = {
+  readonly stopDetails: StopWithDetails | null | undefined;
+  readonly className?: string;
+};
 
-export const StopHeaderSummaryRow: React.FC<Props> = ({
+export const StopHeaderSummaryRow: React.FC<StopHeaderSummaryRowProps> = ({
   stopDetails,
   className = '',
 }) => {

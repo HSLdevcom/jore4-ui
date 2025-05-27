@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   mapStopPlaceStateToUiName,
@@ -8,7 +9,7 @@ import { DetailRow, LabeledDetail } from '../layout';
 import { MainLineWarning } from '../MainLineWarning';
 import { translateStopTypes } from '../utils';
 
-type Props = {
+type StopDetailsSectionProps = {
   readonly stop: StopWithDetails;
 };
 
@@ -30,7 +31,7 @@ const testIds = {
   elyNumber: 'BasicDetailsSection::elyNumber',
 };
 
-export const StopDetailsSection = ({ stop }: Props) => {
+export const StopDetailsSection: FC<StopDetailsSectionProps> = ({ stop }) => {
   const { t } = useTranslation();
 
   const stopState =

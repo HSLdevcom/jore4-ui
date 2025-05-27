@@ -1,19 +1,15 @@
-import { FC, ReactNode } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AlignDirection,
   SimpleDropdownMenu,
 } from '../../../../../uiComponents';
 
-type ActionMenuProps = {
-  children: ReactNode;
-};
-
 const testIds = {
   actionMenu: 'StopAreaHeader::actionMenu',
 };
 
-export const ActionMenu: FC<ActionMenuProps> = ({ children }) => {
+export const ActionMenu: FC<PropsWithChildren> = ({ children }) => {
   const { t } = useTranslation();
   return (
     <SimpleDropdownMenu

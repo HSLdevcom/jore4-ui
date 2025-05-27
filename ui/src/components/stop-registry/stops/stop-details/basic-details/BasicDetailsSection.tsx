@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useEditStopBasicDetails } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
@@ -30,11 +30,11 @@ const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
 
   return formState;
 };
-interface Props {
-  stop: StopWithDetails;
-}
+type BasicDetailsSectionProps = {
+  readonly stop: StopWithDetails;
+};
 
-export const BasicDetailsSection = ({ stop }: Props): React.ReactElement => {
+export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({ stop }) => {
   const { t } = useTranslation();
 
   const { saveStopPlaceDetails, defaultErrorHandler } =

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DetailTab } from './DetailTab';
 
@@ -31,17 +32,17 @@ export const detailTabs = {
   },
 };
 
-interface Props {
-  activeDetailTab: DetailTabType;
-  selectDetailTab: (tab: DetailTabType) => void;
-  className?: string;
-}
+type DetailTabSelectorProps = {
+  readonly activeDetailTab: DetailTabType;
+  readonly selectDetailTab: (tab: DetailTabType) => void;
+  readonly className?: string;
+};
 
-export const DetailTabSelector = ({
+export const DetailTabSelector: FC<DetailTabSelectorProps> = ({
   activeDetailTab,
   selectDetailTab,
   className = '',
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
 
   return (

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../../i18n/uiNameMappings';
@@ -14,13 +15,13 @@ const testIds = {
   elyNumber: 'StopBasicDetailsForm::elyNumber',
   transportMode: 'StopBasicDetailsForm::transportMode',
 };
-interface Props {
-  onClickOpenTimingSettingsModal: () => void;
-}
+type StopOtherDetailsFormRowProps = {
+  readonly onClickOpenTimingSettingsModal: () => void;
+};
 
-export const StopOtherDetailsFormRow = ({
+export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
   onClickOpenTimingSettingsModal,
-}: Props) => {
+}) => {
   const { t } = useTranslation();
   const { watch } = useFormContext();
   const isRailReplacement = watch('stopTypes.railReplacement');

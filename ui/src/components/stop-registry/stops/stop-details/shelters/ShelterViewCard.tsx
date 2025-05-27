@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import {
@@ -24,11 +25,11 @@ const testIds = {
   shelterFasciaBoardTaping: 'ShelterViewCard::shelterFasciaBoardTaping',
   shelterExternalId: 'ShelterViewCard::shelterExternalId',
 };
-interface Props {
-  shelter: ShelterEquipmentDetailsFragment;
-}
+type ShelterViewCardProps = {
+  readonly shelter: ShelterEquipmentDetailsFragment;
+};
 
-export const ShelterViewCard = ({ shelter }: Props) => {
+export const ShelterViewCard: FC<ShelterViewCardProps> = ({ shelter }) => {
   const { t } = useTranslation();
 
   const shelterType =

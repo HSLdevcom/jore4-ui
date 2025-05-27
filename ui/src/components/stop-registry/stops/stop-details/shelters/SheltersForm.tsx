@@ -11,7 +11,7 @@ const testIds = {
   addShelter: 'SheltersForm::addShelter',
 };
 
-type Props = {
+type SheltersFormProps = {
   readonly className?: string;
   readonly defaultValues: SheltersFormState;
   readonly formRef: React.RefObject<HTMLFormElement>;
@@ -30,7 +30,7 @@ const SheltersFormComponent = (
     formRef,
     onSubmit,
     onShelterCountChanged,
-  }: Props,
+  }: SheltersFormProps,
   ref: React.Ref<SheltersFormRef>,
 ): React.ReactElement => {
   const formElementRef = useRef<HTMLFormElement>(null);
@@ -85,6 +85,7 @@ const SheltersFormComponent = (
   );
 };
 
-export const SheltersForm = React.forwardRef<SheltersFormRef, Props>(
-  SheltersFormComponent,
-);
+export const SheltersForm = React.forwardRef<
+  SheltersFormRef,
+  SheltersFormProps
+>(SheltersFormComponent);

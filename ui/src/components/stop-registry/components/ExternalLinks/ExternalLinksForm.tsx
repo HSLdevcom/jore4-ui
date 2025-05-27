@@ -26,14 +26,14 @@ const testIds = {
   cancelButton: 'ExternalLinks::cancelButton',
 };
 
-type Props = {
+type ExternalLinksFormProps = {
   readonly className?: string;
   readonly externalLinks: ReadonlyArray<ExternalLinksDetailsFragment>;
   readonly setIsEditing: (isEditing: boolean) => void;
   readonly onSubmit: (state: ExternalLinksFormState) => void;
 };
 
-export const ExternalLinksForm: React.FC<Props> = ({
+export const ExternalLinksForm: React.FC<ExternalLinksFormProps> = ({
   className,
   externalLinks,
   setIsEditing,

@@ -11,12 +11,15 @@ const testIds = {
   zoneLabel: 'InfoSpotZoneDetails::zoneLabel',
 };
 
-type Props = {
+type InfoSpotZoneDetailsProps = {
   readonly infoSpot: InfoSpotDetailsFragment;
   readonly stopName: string;
 };
 
-export const InfoSpotZoneDetails: FC<Props> = ({ infoSpot, stopName }) => {
+export const InfoSpotZoneDetails: FC<InfoSpotZoneDetailsProps> = ({
+  infoSpot,
+  stopName,
+}) => {
   const { t } = useTranslation();
   return (
     <DetailRow>

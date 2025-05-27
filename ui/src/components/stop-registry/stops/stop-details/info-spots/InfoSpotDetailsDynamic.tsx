@@ -9,11 +9,13 @@ const testIds = {
   speechProperty: 'InfoSpotDetailsDynamic::speechProperty',
 };
 
-type Props = {
+type InfoSpotDetailsDynamicProps = {
   readonly infoSpot: InfoSpotDetailsFragment;
 };
 
-export const InfoSpotDetailsDynamic: FC<Props> = ({ infoSpot }) => {
+export const InfoSpotDetailsDynamic: FC<InfoSpotDetailsDynamicProps> = ({
+  infoSpot,
+}) => {
   const { t } = useTranslation();
 
   if (infoSpot.infoSpotType !== 'dynamic') {

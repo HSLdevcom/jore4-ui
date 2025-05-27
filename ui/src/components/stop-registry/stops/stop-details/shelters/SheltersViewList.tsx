@@ -1,12 +1,13 @@
+import { FC } from 'react';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
 import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
 import { ShelterViewCard } from './ShelterViewCard';
 
-interface Props {
-  shelters: ReadonlyArray<ShelterEquipmentDetailsFragment>;
-}
+type SheltersViewListProps = {
+  readonly shelters: ReadonlyArray<ShelterEquipmentDetailsFragment>;
+};
 
-export const SheltersViewList = ({ shelters }: Props): React.ReactElement => {
+export const SheltersViewList: FC<SheltersViewListProps> = ({ shelters }) => {
   return (
     <div>
       {shelters.map((shelter, idx) => (

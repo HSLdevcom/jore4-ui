@@ -17,7 +17,7 @@ const testIds = {
   addShelter: 'SheltersSection::addShelter',
 };
 
-type Props = {
+type SheltersSectionProps = {
   readonly stop: StopWithDetails;
 };
 
@@ -41,7 +41,7 @@ function useShelterFormDefaultValues(
   return shelterFormDefaultValues;
 }
 
-export const SheltersSection: FC<Props> = ({ stop }) => {
+export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
   const { t } = useTranslation();
 
   const { saveStopPlaceShelters, defaultErrorHandler } = useEditStopShelters();

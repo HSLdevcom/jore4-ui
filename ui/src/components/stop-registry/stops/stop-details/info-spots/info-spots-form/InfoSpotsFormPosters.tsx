@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { StopRegistryPosterPlaceSize } from '../../../../../../generated/graphql';
 import { mapStopRegistryPosterPlaceSizeEnumToUiName } from '../../../../../../i18n/uiNameMappings';
@@ -19,14 +19,14 @@ const testIds = {
   deleteInfoSpotPoster: 'InfoSpotFormFields::deleteInfoSpotPoster',
 };
 
-type Props = {
+type InfoSpotsFormPostersProps = {
   readonly infoSpotIndex: number;
   readonly posterIndex: number;
   readonly addPoster: (index: number) => void;
   readonly onRemovePoster: (index: number, posterIndex: number) => void;
 };
 
-export const InfoSpotsFormPosters: FC<Props> = ({
+export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
   infoSpotIndex,
   posterIndex,
   addPoster,

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   StopRegistryGuidanceType,
@@ -23,9 +23,9 @@ const testIds = {
   accessibilityLevel: 'MeasurementsSection::accessibilityLevel',
 };
 
-interface Props {
-  stop: StopWithDetails;
-}
+type MeasurementsSectionProps = {
+  readonly stop: StopWithDetails;
+};
 
 const mapMeasurementsDataToFormState = (
   stop: StopWithDetails,
@@ -77,7 +77,7 @@ const mapMeasurementsDataToFormState = (
   };
 };
 
-export const MeasurementsSection = ({ stop }: Props): React.ReactElement => {
+export const MeasurementsSection: FC<MeasurementsSectionProps> = ({ stop }) => {
   const { t } = useTranslation();
 
   const { saveStopPlaceMeasurementDetails, defaultErrorHandler } =

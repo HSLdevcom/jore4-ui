@@ -8,13 +8,13 @@ import { NameTd } from './NameTd';
 import { PriorityTd } from './PriorityTd';
 import { ValidityPeriodTd } from './ValidityPeriodTd';
 
-interface Props {
+type StopTableRowProps = {
   readonly actionButtons: ReactNode;
   readonly className?: string;
   readonly inEditMode?: boolean;
   readonly menuItems: ReactNode;
   readonly stop: StopSearchRow;
-}
+};
 
 const testIds = {
   row: (label: string) => `StopTableRow::row::${label}`,
@@ -22,7 +22,7 @@ const testIds = {
 
 const yBorderClassNames = 'border-y border-y-light-grey';
 
-export const StopTableRow: FC<Props> = ({
+export const StopTableRow: FC<StopTableRowProps> = ({
   actionButtons,
   className = '',
   inEditMode,

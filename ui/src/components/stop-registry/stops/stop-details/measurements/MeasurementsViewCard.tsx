@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   mapStopRegistryGuidanceTypeToUiName,
@@ -46,11 +47,13 @@ const testIds = {
   guidanceTiles: 'MeasurementsViewCard::guidanceTiles',
 };
 
-interface Props {
-  stop: StopWithDetails;
-}
+type MeasurementsViewCardProps = {
+  readonly stop: StopWithDetails;
+};
 
-export const MeasurementsViewCard = ({ stop }: Props): React.ReactElement => {
+export const MeasurementsViewCard: FC<MeasurementsViewCardProps> = ({
+  stop,
+}) => {
   const { t } = useTranslation();
 
   const accessibilityProps =

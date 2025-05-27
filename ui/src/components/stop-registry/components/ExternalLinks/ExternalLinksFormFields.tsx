@@ -12,17 +12,15 @@ const testIds = {
   deleteExternalLink: 'ExternalLinksFormFields::deleteExternalLink',
 };
 
-type Props = {
+type ExternalLinksFormFieldsProps = {
   readonly index: number;
   readonly onRemove: (index: number) => void;
   readonly toBeDeleted: boolean;
 };
 
-export const ExternalLinksFormFields: React.FC<Props> = ({
-  index,
-  onRemove,
-  toBeDeleted,
-}) => {
+export const ExternalLinksFormFields: React.FC<
+  ExternalLinksFormFieldsProps
+> = ({ index, onRemove, toBeDeleted }) => {
   const { register } = useFormContext<ExternalLinksFormState>();
 
   return (

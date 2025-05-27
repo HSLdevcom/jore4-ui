@@ -1,5 +1,5 @@
 import mapValues from 'lodash/mapValues';
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useEditStopMaintenanceDetails } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
@@ -15,9 +15,9 @@ const testIds = {
   prefix: 'MaintenanceSection',
 };
 
-interface Props {
-  stop: StopWithDetails;
-}
+type MaintenanceSectionProps = {
+  readonly stop: StopWithDetails;
+};
 
 const mapMaintenanceDetailsToFormState = (
   stop: StopWithDetails,
@@ -31,7 +31,7 @@ const mapMaintenanceDetailsToFormState = (
   return { maintainers: maintainerIdsByType };
 };
 
-export const MaintenanceSection = ({ stop }: Props): React.ReactElement => {
+export const MaintenanceSection: FC<MaintenanceSectionProps> = ({ stop }) => {
   const { t } = useTranslation();
 
   const { saveStopMaintenanceDetails, defaultErrorHandler } =

@@ -1,4 +1,5 @@
 import sortBy from 'lodash/sortBy';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/graphql';
@@ -10,11 +11,11 @@ const testIds = {
   dropdown: 'ChooseOrganisationDropdown::button',
 };
 
-interface Props extends FormInputProps {
-  id?: string;
-  testId?: string;
-  organisations: ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
-}
+type ChooseOrganisationDropdownProps = FormInputProps & {
+  readonly id?: string;
+  readonly testId?: string;
+  readonly organisations: ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
+};
 
 const uiNameMapper = (val: StopPlaceOrganisationFieldsFragment | undefined) => {
   return val?.name ?? undefined;
@@ -28,13 +29,9 @@ const mapToOption = (optionId: string, uiText: string) => ({
   },
 });
 
-export const ChooseOrganisationDropdown = ({
-  id,
-  testId,
-  value,
-  organisations,
-  ...formInputProps
-}: Props) => {
+export const ChooseOrganisationDropdown: FC<
+  ChooseOrganisationDropdownProps
+> = ({ id, testId, value, organisations, ...formInputProps }) => {
   const { t } = useTranslation();
   const selectedOrganisation = organisations.find((o) => o?.id === value);
   const sortedOrganisations = sortBy(organisations, uiNameMapper);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
@@ -21,22 +21,22 @@ const testIds = {
   email: 'MaintainerFormFields::email',
 };
 
-interface Props {
-  testId: string;
-  maintainerType: StopRegistryStopPlaceOrganisationRelationshipType;
-  organisations: ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
-  editOrganisation: (
+type MaintainerFormFieldsProps = {
+  readonly testId: string;
+  readonly maintainerType: StopRegistryStopPlaceOrganisationRelationshipType;
+  readonly organisations: ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
+  readonly editOrganisation: (
     org: StopPlaceOrganisationFieldsFragment | undefined,
     relationshipType: StopRegistryStopPlaceOrganisationRelationshipType,
   ) => void;
-}
+};
 
-export const MaintainerFormFields = ({
+export const MaintainerFormFields: FC<MaintainerFormFieldsProps> = ({
   testId,
   maintainerType,
   organisations,
   editOrganisation,
-}: Props): React.ReactElement => {
+}) => {
   const { t } = useTranslation();
   const { setValue, resetField, watch } =
     useFormContext<MaintenanceDetailsFormState>();

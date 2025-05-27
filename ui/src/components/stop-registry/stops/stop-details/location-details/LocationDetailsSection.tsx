@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useEditStopLocationDetails } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
@@ -9,9 +9,9 @@ import { LocationDetailsForm } from './LocationDetailsForm';
 import { LocationDetailsViewCard } from './LocationDetailsViewCard';
 import { LocationDetailsFormState } from './schema';
 
-interface Props {
-  stop: StopWithDetails;
-}
+type LocationDetailsSectionProps = {
+  readonly stop: StopWithDetails;
+};
 
 const mapLocationDetailsToFormState = (
   stop: StopWithDetails,
@@ -27,7 +27,9 @@ const mapLocationDetailsToFormState = (
   };
 };
 
-export const LocationDetailsSection = ({ stop }: Props): React.ReactElement => {
+export const LocationDetailsSection: FC<LocationDetailsSectionProps> = ({
+  stop,
+}) => {
   const { t } = useTranslation();
 
   const { saveStopPlaceLocationDetails, defaultErrorHandler } =

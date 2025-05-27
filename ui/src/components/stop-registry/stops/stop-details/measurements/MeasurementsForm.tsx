@@ -54,14 +54,14 @@ const testIds = {
   guidanceTiles: 'MeasurementsForm::guidanceTiles',
 };
 
-interface Props {
-  className?: string;
-  defaultValues: Partial<MeasurementsFormState>;
-  onSubmit: (state: MeasurementsFormState) => void;
-}
+type MeasurementsFormComponentProps = {
+  readonly className?: string;
+  readonly defaultValues: Partial<MeasurementsFormState>;
+  readonly onSubmit: (state: MeasurementsFormState) => void;
+};
 
 const MeasurementsFormComponent = (
-  { className = '', defaultValues, onSubmit }: Props,
+  { className = '', defaultValues, onSubmit }: MeasurementsFormComponentProps,
   ref: ExplicitAny,
 ): React.ReactElement => {
   const { t } = useTranslation();

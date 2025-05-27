@@ -17,13 +17,13 @@ const testIds = {
   longitude: 'InfoSpotsViewCard::longitude',
 };
 
-type Props = {
+type InfoSpotsViewCardProps = {
   readonly infoSpot: InfoSpotDetailsFragment;
   readonly location: Point;
   readonly stopName: string;
 };
 
-export const InfoSpotsViewCard: FC<Props> = ({
+export const InfoSpotsViewCard: FC<InfoSpotsViewCardProps> = ({
   infoSpot,
   location,
   stopName,

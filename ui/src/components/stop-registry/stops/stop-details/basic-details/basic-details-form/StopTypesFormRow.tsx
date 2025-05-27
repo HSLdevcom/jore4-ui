@@ -1,13 +1,14 @@
 import { t } from 'i18next';
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { StopRegistryTransportModeType } from '../../../../../../generated/graphql';
 import { FormRow, InputElement } from '../../../../../forms/common';
 import { MainLineWarning } from '../../MainLineWarning';
 import { StopBasicDetailsFormState } from './schema';
 
-interface Props {
-  hasMainLineSign: boolean;
-}
+type StopTypesFormRowProps = {
+  readonly hasMainLineSign: boolean;
+};
 
 const testIds = {
   mainLine: 'StopBasicDetailsForm::mainLine',
@@ -16,7 +17,9 @@ const testIds = {
   virtual: 'StopBasicDetailsForm::virtual',
 };
 
-export const StopTypesFormRow = ({ hasMainLineSign }: Props) => {
+export const StopTypesFormRow: FC<StopTypesFormRowProps> = ({
+  hasMainLineSign,
+}) => {
   const { watch } = useFormContext();
   const isBusTransportMode =
     watch('transportMode') === StopRegistryTransportModeType.Bus;
