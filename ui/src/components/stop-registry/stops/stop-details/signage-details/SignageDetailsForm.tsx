@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { ForwardRefRenderFunction } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings';
@@ -31,15 +31,10 @@ type SignageDetailsFormProps = {
   readonly isMainLineStop: boolean;
 };
 
-const SignageDetailsFormComponent = (
-  {
-    className = '',
-    defaultValues,
-    onSubmit,
-    isMainLineStop,
-  }: SignageDetailsFormProps,
-  ref: ExplicitAny,
-): React.ReactElement => {
+const SignageDetailsFormComponent: ForwardRefRenderFunction<
+  ExplicitAny,
+  SignageDetailsFormProps
+> = ({ className = '', defaultValues, onSubmit, isMainLineStop }, ref) => {
   const { t } = useTranslation();
   const methods = useForm<SignageDetailsFormState>({
     defaultValues,

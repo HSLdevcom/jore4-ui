@@ -1,4 +1,8 @@
-import React, { Ref, useImperativeHandle, useState } from 'react';
+import React, {
+  ForwardRefRenderFunction,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { pipe } from 'remeda';
 import {
@@ -50,10 +54,10 @@ type RouteEditorProps = {
   onDeleteDrawnRoute: () => void;
 };
 
-const RouteEditorComponent = (
-  { onDeleteDrawnRoute }: RouteEditorProps,
-  externalRef: Ref<ExplicitAny>,
-) => {
+const RouteEditorComponent: ForwardRefRenderFunction<
+  ExplicitAny,
+  RouteEditorProps
+> = ({ onDeleteDrawnRoute }, externalRef) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

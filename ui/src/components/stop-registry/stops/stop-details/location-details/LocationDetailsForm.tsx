@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { ForwardRefRenderFunction } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../../../layoutComponents';
@@ -25,16 +25,13 @@ type LocationDetailsFormComponentProps = {
   readonly onSubmit: (state: LocationDetailsFormState) => void;
 };
 
-const LocationDetailsFormComponent = (
-  {
-    className = '',
-    defaultValues,
-    municipality,
-    fareZone,
-    onSubmit,
-  }: LocationDetailsFormComponentProps,
-  ref: ExplicitAny,
-): React.ReactElement => {
+const LocationDetailsFormComponent: ForwardRefRenderFunction<
+  ExplicitAny,
+  LocationDetailsFormComponentProps
+> = (
+  { className = '', defaultValues, municipality, fareZone, onSubmit },
+  ref,
+) => {
   const { t } = useTranslation();
 
   const methods = useForm<LocationDetailsFormState>({
