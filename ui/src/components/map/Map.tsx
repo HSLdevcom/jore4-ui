@@ -1,4 +1,9 @@
-import React, { Ref, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+  ForwardRefRenderFunction,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import { Layer, MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import {
   useAppDispatch,
@@ -50,10 +55,10 @@ type MapProps = {
   readonly height?: string;
 };
 
-export const MapComponent = (
-  { className = '', width = '100vw', height = '100vh' }: MapProps,
-  externalRef: Ref<RouteEditorRef>,
-): React.ReactElement => {
+export const MapComponent: ForwardRefRenderFunction<
+  RouteEditorRef,
+  MapProps
+> = ({ className = '', width = '100vw', height = '100vh' }, externalRef) => {
   const routeEditorRef = useRef<RouteEditorRef>(null);
   const editorLayerRef = useRef<EditorLayerRef>(null);
   const stopsRef = useRef<StopsRef>(null);

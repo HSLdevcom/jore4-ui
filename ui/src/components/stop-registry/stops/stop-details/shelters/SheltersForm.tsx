@@ -1,5 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useImperativeHandle, useRef } from 'react';
+import React, {
+  ForwardRefRenderFunction,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
 import { SheltersFormState, sheltersFormSchema } from './schema';
@@ -23,16 +27,13 @@ export type SheltersFormRef = {
   readonly addNewShelter: () => void;
 };
 
-const SheltersFormComponent = (
-  {
-    className = '',
-    defaultValues,
-    formRef,
-    onSubmit,
-    onShelterCountChanged,
-  }: SheltersFormProps,
-  ref: React.Ref<SheltersFormRef>,
-): React.ReactElement => {
+const SheltersFormComponent: ForwardRefRenderFunction<
+  SheltersFormRef,
+  SheltersFormProps
+> = (
+  { className = '', defaultValues, formRef, onSubmit, onShelterCountChanged },
+  ref,
+) => {
   const formElementRef = useRef<HTMLFormElement>(null);
 
   const methods: UseFormReturn<SheltersFormState> = useForm<SheltersFormState>({

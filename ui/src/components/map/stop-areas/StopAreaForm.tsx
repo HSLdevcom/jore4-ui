@@ -68,7 +68,7 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
   return formState;
 };
 
-type Props = {
+type StopAreaFormProps = {
   readonly className?: string;
   readonly defaultValues:
     | StopAreaFormState
@@ -78,8 +78,8 @@ type Props = {
 
 const StopAreaFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
-  Props
-> = ({ className = '', defaultValues, onSubmit }: Props, ref) => {
+  StopAreaFormProps
+> = ({ className = '', defaultValues, onSubmit }, ref) => {
   const methods = useForm<StopAreaFormState>({
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),

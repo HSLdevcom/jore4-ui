@@ -1,5 +1,5 @@
 import { Listbox as HUIListbox } from '@headlessui/react';
-import React, { ForwardedRef, ReactNode, forwardRef } from 'react';
+import React, { ReactNode, forwardRef } from 'react';
 import { addClassName } from '../utils/components';
 
 // copied from HeadlessUI Listbox as it's not exported
@@ -23,10 +23,7 @@ type ListboxOptionsProps = {
 // HUIListbox throws an error if ref is not set when using children component for options
 export const ListboxOptions = forwardRef<HTMLDivElement, ListboxOptionsProps>(
   // eslint-disable-next-line prefer-arrow-callback
-  function ListboxOptions(
-    { options, testId }: ListboxOptionsProps,
-    ref: ForwardedRef<HTMLDivElement>,
-  ): React.ReactElement {
+  function ListboxOptions({ options, testId }, ref) {
     return (
       <HUIListbox.Options
         as="div"

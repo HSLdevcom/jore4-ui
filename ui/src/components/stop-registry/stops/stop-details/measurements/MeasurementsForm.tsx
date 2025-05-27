@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { ForwardRefRenderFunction } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
@@ -60,10 +60,10 @@ type MeasurementsFormComponentProps = {
   readonly onSubmit: (state: MeasurementsFormState) => void;
 };
 
-const MeasurementsFormComponent = (
-  { className = '', defaultValues, onSubmit }: MeasurementsFormComponentProps,
-  ref: ExplicitAny,
-): React.ReactElement => {
+const MeasurementsFormComponent: ForwardRefRenderFunction<
+  ExplicitAny,
+  MeasurementsFormComponentProps
+> = ({ className = '', defaultValues, onSubmit }, ref) => {
   const { t } = useTranslation();
   const methods = useForm<MeasurementsFormState>({
     defaultValues,

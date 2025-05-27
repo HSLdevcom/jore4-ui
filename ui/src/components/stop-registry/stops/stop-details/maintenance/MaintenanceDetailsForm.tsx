@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useState } from 'react';
+import React, { ForwardRefRenderFunction, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
   StopRegistryStopPlaceOrganisationRelationshipType as MaintainerType,
@@ -39,14 +39,10 @@ type MaintenanceDetailsFormComponentProps = {
   readonly onSubmit: (state: MaintenanceDetailsFormState) => void;
 };
 
-const MaintenanceDetailsFormComponent = (
-  {
-    className = '',
-    defaultValues,
-    onSubmit,
-  }: MaintenanceDetailsFormComponentProps,
-  ref: ExplicitAny,
-): React.ReactElement => {
+const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
+  ExplicitAny,
+  MaintenanceDetailsFormComponentProps
+> = ({ className = '', defaultValues, onSubmit }, ref) => {
   const organisationsResult = useGetOrganisationsQuery();
   const organisations = (organisationsResult.data?.stop_registry
     ?.organisation ?? []) as Array<StopPlaceOrganisationFieldsFragment>;

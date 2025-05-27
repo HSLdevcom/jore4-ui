@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useEffect } from 'react';
+import React, { ForwardRefRenderFunction, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Column, Row } from '../../../layoutComponents';
 import { TimetableImportStrategyForm } from './TimetableImportStrategyForm';
@@ -18,7 +18,10 @@ type ConfirmPreviewedTimetablesImportFormProps = {
   readonly clearRouteDeviations: () => void;
 };
 
-export const ConfirmPreviewedTimetablesImportFormComponent = (
+export const ConfirmPreviewedTimetablesImportFormComponent: ForwardRefRenderFunction<
+  ExplicitAny,
+  ConfirmPreviewedTimetablesImportFormProps
+> = (
   {
     clearStagingAndTargetFramesForCombine,
     clearRouteDeviations,
@@ -26,9 +29,9 @@ export const ConfirmPreviewedTimetablesImportFormComponent = (
     fetchStagingAndTargetFramesForCombine,
     fetchRouteDeviations,
     onSubmit,
-  }: ConfirmPreviewedTimetablesImportFormProps,
-  externalRef: ExplicitAny,
-): React.ReactElement => {
+  },
+  externalRef,
+) => {
   const methods = useForm<FormState>({
     defaultValues,
     resolver: zodResolver(timetablesImportFormSchema),

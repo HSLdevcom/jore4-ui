@@ -1,7 +1,11 @@
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import noop from 'lodash/noop';
 import type { Map as MapBoxMap } from 'mapbox-gl';
-import { Ref, forwardRef, useImperativeHandle } from 'react';
+import {
+  ForwardRefRenderFunction,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import { ControlPosition, IControl, useControl } from 'react-map-gl/maplibre';
 import { styles } from './routes/editorStyles';
 
@@ -22,10 +26,10 @@ declare class MapLibreMapboxDraw extends MapboxDraw implements IControl {
   getDefaultPosition: () => ControlPosition;
 }
 
-const DrawControlComponent = (
-  props: DrawControlProps,
-  ref: Ref<MapboxDraw> | undefined,
-) => {
+const DrawControlComponent: ForwardRefRenderFunction<
+  MapboxDraw,
+  DrawControlProps
+> = (props, ref) => {
   const { onCreate, onModeChange, onUpdate, position } = props;
   const drawRef = useControl<MapLibreMapboxDraw>(
     () => new MapboxDraw({ styles, ...props }) as MapLibreMapboxDraw,
