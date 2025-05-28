@@ -3,7 +3,7 @@
 import { MockedProvider } from '@apollo/client/testing';
 import { RenderOptions, render } from '@testing-library/react';
 import React, { FC, PropsWithChildren } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import { ReduxProvider } from '../../redux';
 // Make sure I18Next is initialized
 import '../../i18n';

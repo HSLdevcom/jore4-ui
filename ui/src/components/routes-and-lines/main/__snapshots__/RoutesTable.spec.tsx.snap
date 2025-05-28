@@ -19,6 +19,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         >
           <a
             class=""
+            data-discover="true"
             href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e"
           >
             <div
@@ -119,6 +120,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         >
           <a
             class=""
+            data-discover="true"
             href="/lines/9058c328-efdd-412c-9b2b-37b0f6a2c6fb"
           >
             <div
@@ -219,6 +221,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         >
           <a
             class=""
+            data-discover="true"
             href="/lines/bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2"
           >
             <div
@@ -319,6 +322,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         >
           <a
             class=""
+            data-discover="true"
             href="/lines/db748c5c-42e3-429f-baa0-e0db227dc2c8"
           >
             <div
@@ -431,6 +435,7 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
         >
           <a
             class=""
+            data-discover="true"
             href="/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e?routeLabels=1"
           >
             <div
@@ -546,6 +551,7 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
         >
           <a
             class="pointer-events-none text-zinc-400"
+            data-discover="true"
             href="/timetables/lines/101f800c-39ed-4d85-8ece-187cd9fe1c5e?routeLabels=1"
           >
             <div
