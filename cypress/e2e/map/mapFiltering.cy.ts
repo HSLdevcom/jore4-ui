@@ -72,6 +72,7 @@ describe('Stop area details', () => {
         zoom: 14,
         lat: testStopArea.StopArea.geometry.coordinates[1],
         lng: testStopArea.StopArea.geometry.coordinates[0],
+        path: '/stop-registry',
       });
     });
   });
