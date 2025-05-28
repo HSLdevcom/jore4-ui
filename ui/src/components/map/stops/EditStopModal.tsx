@@ -2,6 +2,7 @@ import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CreateChanges, EditChanges } from '../../../hooks';
 import { submitFormByRef } from '../../../utils';
+import { useRequestClick } from '../../forms/common/NavigationBlocker';
 import { StopFormState as FormState, StopForm } from '../../forms/stop';
 import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal';
@@ -27,6 +28,8 @@ export const EditStopModal: FC<EditStopModalProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const requestClick = useRequestClick();
+
   const formRef = useRef<ExplicitAny>(null);
   const onSave = () => submitFormByRef(formRef);
 
@@ -51,7 +54,7 @@ export const EditStopModal: FC<EditStopModalProps> = ({
           testId={testIds.modal}
           onSave={onSave}
           onCancel={onCancel}
-          onClose={onClose}
+          onClose={() => requestClick(onClose)}
           heading={buildHeading()}
         >
           <StopForm
