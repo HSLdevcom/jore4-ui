@@ -75,6 +75,7 @@ const Results: FC<StopSearchResultsProps> = ({
 export const StopSearchResultPage = (): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const closeLink = useCloseLink();
   const {
@@ -109,7 +110,11 @@ export const StopSearchResultPage = (): React.ReactElement => {
           <i className="icon-close-large ml-4 text-lg" />
         </Link>
       </Row>
-      <StopSearchBar initialFilters={filters} onSubmit={onSubmitFilters} />
+      <StopSearchBar
+        initialFilters={filters}
+        initialNavigationState={location.state ?? undefined}
+        onSubmit={onSubmitFilters}
+      />
 
       <Results
         filters={filters}
