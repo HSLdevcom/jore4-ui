@@ -1,7 +1,12 @@
-/* eslint-disable no-underscore-dangle */
-import React, { FC, PropsWithChildren, useEffect, useState } from 'react';
+import { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import {
+  Navigate,
+  Outlet,
+  RouteObject,
+  RouterProvider,
+  createBrowserRouter,
+} from 'react-router-dom';
 import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
 import { MainPage } from '../components/main/MainPage';
@@ -30,7 +35,7 @@ import {
 } from '../components/timetables';
 import { ImportTimetablesPage } from '../components/timetables/import/ImportTimetablesPage';
 import { PreviewTimetablesPage } from '../components/timetables/import/PreviewTimetablesPage';
-import { TimetableVersionsPage } from '../components/timetables/versions/TimetableVersionsPage';
+import { TimetableVersionsPage } from '../components/timetables/versions';
 import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
 import { Spinner } from '../uiComponents';
@@ -79,158 +84,177 @@ export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
   return <>{children}</>;
 };
 
-export const Router: FC = () => {
-  interface Route {
-    _routerRoute: Path;
-    protected?: boolean;
-    element: React.ReactElement;
-  }
-
-  const routes: Record<Path, Route> = {
-    [Path.root]: {
-      _routerRoute: Path.root,
-      element: <MainPage />,
-    },
-
-    // Main pages
-    [Path.routes]: {
-      _routerRoute: Path.routes,
-      protected: true,
-      element: <RoutesAndLinesMainPage />,
-    },
-    [Path.stopRegistry]: {
-      _routerRoute: Path.stopRegistry,
-      protected: true,
-      element: <StopRegistryMainPage />,
-    },
-    [Path.timetables]: {
-      _routerRoute: Path.timetables,
-      protected: true,
-      element: <TimetablesMainPage />,
-    },
-
-    // Route and lines
-    [Path.routesSearch]: {
-      _routerRoute: Path.routesSearch,
-      protected: true,
-      element: <SearchResultPage />,
-    },
-    [Path.editRoute]: {
-      _routerRoute: Path.editRoute,
-      protected: true,
-      element: <EditRoutePage />,
-    },
-    [Path.createLine]: {
-      _routerRoute: Path.createLine,
-      protected: true,
-      element: <CreateNewLinePage />,
-    },
-    [Path.lineDetails]: {
-      _routerRoute: Path.lineDetails,
-      protected: true,
-      element: <LineDetailsPage />,
-    },
-    [Path.lineDrafts]: {
-      _routerRoute: Path.lineDrafts,
-      protected: true,
-      element: <LineDraftsPage />,
-    },
-    [Path.editLine]: {
-      _routerRoute: Path.editLine,
-      protected: true,
-      element: <EditLinePage />,
-    },
-
-    // Stop registry
-    [Path.stopSearch]: {
-      _routerRoute: Path.stopSearch,
-      protected: true,
-      element: <StopSearchResultPage />,
-    },
-    [Path.stopDetails]: {
-      _routerRoute: Path.stopDetails,
-      protected: true,
-      element: <StopDetailsPage />,
-    },
-    [Path.stopVersions]: {
-      _routerRoute: Path.stopVersions,
-      protected: true,
-      element: <StopVersionsPage />,
-    },
-    [Path.stopAreaDetails]: {
-      _routerRoute: Path.stopAreaDetails,
-      protected: true,
-      element: <StopAreaDetailsPage />,
-    },
-    [Path.terminalDetails]: {
-      _routerRoute: Path.terminalDetails,
-      protected: true,
-      element: <TerminalDetailsPage />,
-    },
-
-    // Timetables
-    [Path.timetablesSearch]: {
-      _routerRoute: Path.timetablesSearch,
-      protected: true,
-      element: <SearchResultPage />,
-    },
-    [Path.lineTimetables]: {
-      _routerRoute: Path.lineTimetables,
-      protected: true,
-      element: <VehicleScheduleDetailsPage />,
-    },
-    [Path.timetablesImport]: {
-      _routerRoute: Path.timetablesImport,
-      protected: true,
-      element: <ImportTimetablesPage />,
-    },
-    [Path.timetablesImportPreview]: {
-      _routerRoute: Path.timetablesImportPreview,
-      protected: true,
-      element: <PreviewTimetablesPage />,
-    },
-    [Path.lineTimetableVersions]: {
-      _routerRoute: Path.lineTimetableVersions,
-      protected: true,
-      element: <TimetableVersionsPage />,
-    },
-    [Path.substituteOperatingPeriodSettings]: {
-      _routerRoute: Path.substituteOperatingPeriodSettings,
-      protected: true,
-      element: <SubstituteDaySettingsPage />,
-    },
-
-    [Path.fallback]: {
-      _routerRoute: Path.fallback,
-      protected: true,
-      element: <FallbackRoute />,
-    },
-  };
-
+const Layout: FC = () => {
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
-      <Routes>
-        {Object.values(routes).map((route) => (
-          <Route
-            key={route._routerRoute}
-            path={route._routerRoute}
-            element={
-              route.protected ? (
-                <ProtectedRoute>{route.element}</ProtectedRoute>
-              ) : (
-                route.element
-              )
-            }
-          />
-        ))}
-      </Routes>
+      <Outlet />
       <ProtectedRoute>
         <MapModal />
         <MapLoader />
       </ProtectedRoute>
       <JoreLoader />
       <JoreErrorModal />
-    </BrowserRouter>
+    </>
   );
+};
+
+type SimpleJoreRoute = {
+  readonly path: Path;
+  readonly protected?: boolean;
+  readonly index?: boolean;
+  readonly element: React.ReactElement;
+};
+
+const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
+  {
+    path: Path.root,
+    index: true,
+    element: <MainPage />,
+  },
+
+  // Main pages
+  {
+    path: Path.routes,
+    protected: true,
+    element: <RoutesAndLinesMainPage />,
+  },
+  {
+    path: Path.stopRegistry,
+    protected: true,
+    element: <StopRegistryMainPage />,
+  },
+  {
+    path: Path.timetables,
+    protected: true,
+    element: <TimetablesMainPage />,
+  },
+
+  // Route and lines
+  {
+    path: Path.routesSearch,
+    protected: true,
+    element: <SearchResultPage />,
+  },
+  {
+    path: Path.editRoute,
+    protected: true,
+    element: <EditRoutePage />,
+  },
+  {
+    path: Path.createLine,
+    protected: true,
+    element: <CreateNewLinePage />,
+  },
+  {
+    path: Path.lineDetails,
+    protected: true,
+    element: <LineDetailsPage />,
+  },
+  {
+    path: Path.lineDrafts,
+    protected: true,
+    element: <LineDraftsPage />,
+  },
+  {
+    path: Path.editLine,
+    protected: true,
+    element: <EditLinePage />,
+  },
+
+  // Stop registry
+  {
+    path: Path.stopSearch,
+    protected: true,
+    element: <StopSearchResultPage />,
+  },
+  {
+    path: Path.stopDetails,
+    protected: true,
+    element: <StopDetailsPage />,
+  },
+  {
+    path: Path.stopVersions,
+    protected: true,
+    element: <StopVersionsPage />,
+  },
+  {
+    path: Path.stopAreaDetails,
+    protected: true,
+    element: <StopAreaDetailsPage />,
+  },
+  {
+    path: Path.terminalDetails,
+    protected: true,
+    element: <TerminalDetailsPage />,
+  },
+
+  // Timetables
+  {
+    path: Path.timetablesSearch,
+    protected: true,
+    element: <SearchResultPage />,
+  },
+  {
+    path: Path.lineTimetables,
+    protected: true,
+    element: <VehicleScheduleDetailsPage />,
+  },
+  {
+    path: Path.timetablesImport,
+    protected: true,
+    element: <ImportTimetablesPage />,
+  },
+  {
+    path: Path.timetablesImportPreview,
+    protected: true,
+    element: <PreviewTimetablesPage />,
+  },
+  {
+    path: Path.lineTimetableVersions,
+    protected: true,
+    element: <TimetableVersionsPage />,
+  },
+  {
+    path: Path.substituteOperatingPeriodSettings,
+    protected: true,
+    element: <SubstituteDaySettingsPage />,
+  },
+
+  {
+    path: Path.fallback,
+    protected: true,
+    element: <FallbackRoute />,
+  },
+];
+
+function simpleRoutesToRouteObjects(): RouteObject[] {
+  return [
+    {
+      path: '/',
+      element: <Layout />,
+      children: joreRoutes.map((route) => ({
+        path: route.path,
+        index: route.index,
+        element: route.protected ? (
+          <ProtectedRoute>{route.element}</ProtectedRoute>
+        ) : (
+          route.element
+        ),
+      })),
+    },
+  ];
+}
+
+// No routing when Netx.js tries to do SSR.
+const router = global?.document
+  ? createBrowserRouter(simpleRoutesToRouteObjects())
+  : null;
+
+export const Router: FC = () => {
+  if (router === null) {
+    return null;
+  }
+
+  return <RouterProvider router={router} />;
 };
