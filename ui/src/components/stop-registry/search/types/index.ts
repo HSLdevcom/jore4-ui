@@ -4,5 +4,6 @@ export * from './SortingInfo';
 export * from './SortStopsBy';
 export * from './StopPlaceSearchRowDetails';
 export * from './StopSearchFilters';
+export * from './StopSearchNavigationState';
 export * from './StopSearchResultsProps';
 export * from './StopSearchRow';
