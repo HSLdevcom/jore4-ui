@@ -6,7 +6,7 @@ import {
   RouteObject,
   RouterProvider,
   createBrowserRouter,
-} from 'react-router-dom';
+} from 'react-router';
 import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
 import { MainPage } from '../components/main/MainPage';

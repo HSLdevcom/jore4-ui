@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import { useLoader } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
 import { LoadingState, Operation } from '../../../redux';

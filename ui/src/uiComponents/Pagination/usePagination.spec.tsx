@@ -8,7 +8,7 @@ jest.mock('../../hooks/urlQuery/useUrlQuery', () => ({
 
 const mockNavigate = jest.fn();
 
-jest.mock('react-router-dom', () => ({
+jest.mock('react-router', () => ({
   useNavigate: () => mockNavigate,
 }));
 

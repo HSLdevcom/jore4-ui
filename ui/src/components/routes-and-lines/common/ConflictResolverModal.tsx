@@ -2,7 +2,7 @@ import { Dialog } from '@headlessui/react';
 import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import {
   LineDefaultFieldsFragment,
   RouteUniqueFieldsFragment,

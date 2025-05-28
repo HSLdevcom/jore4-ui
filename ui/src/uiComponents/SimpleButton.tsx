@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC, ReactNode } from 'react';
-import { Link, To } from 'react-router-dom';
+import { Link, To } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 
 type CommonButtonProps = {

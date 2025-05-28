@@ -1,5 +1,5 @@
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 export const useReturnToQueryParam = () => {
   const navigate = useNavigate();

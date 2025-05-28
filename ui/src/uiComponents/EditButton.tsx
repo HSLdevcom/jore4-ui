@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { MdModeEdit } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { commonHoverStyle } from './SimpleButton';
 
