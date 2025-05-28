@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { routeDetails } from '../../router/routeDetails';
 
 const testIds = {

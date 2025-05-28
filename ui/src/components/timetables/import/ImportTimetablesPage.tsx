@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { extractErrorType, getImportErrorBody } from '../../../api/hastus';
 import { useAppSelector } from '../../../hooks';
 import { useTimetablesImport } from '../../../hooks/timetables-import/useTimetablesImport';
