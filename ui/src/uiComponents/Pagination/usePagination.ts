@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useUrlQuery } from '../../hooks/urlQuery/useUrlQuery';
 import { getDisplayedPageNumberList, getRenderedPageNumber } from './utils';
 

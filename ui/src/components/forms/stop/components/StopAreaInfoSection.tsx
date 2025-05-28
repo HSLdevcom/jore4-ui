@@ -2,7 +2,7 @@ import { Transition } from '@headlessui/react';
 import { FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { ExpandButton } from '../../../../uiComponents';

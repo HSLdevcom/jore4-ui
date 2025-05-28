@@ -1,9 +1,4 @@
-import {
-  NavigateOptions,
-  To,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { NavigateOptions, To, useLocation, useNavigate } from 'react-router';
 
 export function isBackNavigationSafe(state: unknown): boolean {
   return !!(

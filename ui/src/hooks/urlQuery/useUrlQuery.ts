@@ -2,7 +2,7 @@ import { produce } from 'immer';
 import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useCallback, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { parseDate } from '../../time';
 import { Priority } from '../../types/enums';
 

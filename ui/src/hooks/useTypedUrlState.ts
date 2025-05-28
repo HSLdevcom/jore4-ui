@@ -10,7 +10,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { areEqual, log } from '../utils';
 
 type UrlStateSerializer<T> = (value: T) => string;
