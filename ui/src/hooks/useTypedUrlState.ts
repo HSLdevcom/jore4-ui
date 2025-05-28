@@ -284,7 +284,10 @@ export function useTypedUrlState<StateT extends object>(
   const { search } = useLocation();
   const navigate = useNavigate();
 
-  const expectedSearchRef = useRef<string>(search);
+  const expectedSearchRef = useRef({
+    search,
+    pendingNavigationUpdate: false,
+  });
   const [internalState, setInternalState] = useState<
     StateWithInternalParams<StateT>
   >(() => deserializeState(deserializers, defaultValues, search));
@@ -296,15 +299,31 @@ export function useTypedUrlState<StateT extends object>(
 
   // If URL search is changed externally, update the state to reflect that.
   useEffect(() => {
-    if (expectedSearchRef.current !== search) {
+    if (
+      !expectedSearchRef.current.pendingNavigationUpdate &&
+      expectedSearchRef.current.search !== search
+    ) {
       setInternalState(deserializeState(deserializers, state, search));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
+  useEffect(() => {
+    if (expectedSearchRef.current.pendingNavigationUpdate) {
+      expectedSearchRef.current.pendingNavigationUpdate = false;
+      navigate(
+        { pathname: '.', search: expectedSearchRef.current.search },
+        { replace: true },
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [internalState]);
+
   const setState = useCallback(
     (newState: StateT | ((previousState: StateT) => StateT)) => {
       setInternalState((prevState) => {
+        expectedSearchRef.current.pendingNavigationUpdate = true;
+
         const nextState =
           typeof newState === 'function' ? newState(prevState) : newState;
         const nextInternalState = {
@@ -312,17 +331,11 @@ export function useTypedUrlState<StateT extends object>(
           [INTERNAL_PARAMS]: prevState[INTERNAL_PARAMS],
         };
 
-        const nextSearchString = `?${serializeInternalState(
+        expectedSearchRef.current.search = `?${serializeInternalState(
           serializers,
           defaultValues,
           nextInternalState,
         ).toString()}`;
-
-        expectedSearchRef.current = nextSearchString;
-        navigate(
-          { pathname: '.', search: nextSearchString },
-          { replace: true },
-        );
 
         return nextInternalState;
       });
