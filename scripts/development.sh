@@ -21,8 +21,8 @@ DUMP_TIMETABLES_FILENAME="2025-04-03_test/2025-04-03-jore4-local-timetablesdb-no
 DUMP_STOPS_FILENAME="2025-04-03_test/2025-04-03-jore4-local-stopdb.pgdump"
 
 DOCKER_TESTDB_IMAGE="jore4-testdb"
-DOCKER_IMAGES="jore4-auth jore4-hasura jore4-mbtiles jore4-mapmatchingdb jore4-mapmatching jore4-hastus jore4-tiamat jore4-timetablesapi"
-DOCKER_E2E_IMAGES="jore4-hasura-e2e jore4-tiamat-e2e jore4-timetablesapi-e2e jore4-testdb-e2e"
+DOCKER_IMAGES=("jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
+DOCKER_E2E_IMAGES=("jore4-hasura-e2e" "jore4-tiamat-e2e" "jore4-timetablesapi-e2e" "jore4-testdb-e2e")
 
 ROUTES_DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e
 
@@ -93,7 +93,7 @@ check_pinned_image() {
   )
 
   # Find current tag from values
-  localImage="$(${DOCKER_YQ} e .services.jore4-${1}.image <./docker/docker-compose.custom.yml)"
+  localImage="$(${DOCKER_YQ} e ".services.jore4-${1}.image" <./docker/docker-compose.custom.yml)"
 
   echo "Bundle image: ${bundleImage}"
   echo "Local image:  ${localImage}"
@@ -189,19 +189,23 @@ stop_dependencies() {
 start_dependencies() {
   download_docker_compose_bundle
 
-  local additional_images=""
+  local additional_images=()
   if [ "$INCLUDE_E2E" = true ]; then
-    additional_images=$DOCKER_E2E_IMAGES
+    additional_images+=("${DOCKER_E2E_IMAGES[@]}")
   fi
 
-  start_docker_containers $DOCKER_TESTDB_IMAGE $DOCKER_IMAGES $additional_images
+  start_docker_containers "$DOCKER_TESTDB_IMAGE" "${DOCKER_IMAGES[@]}" "${additional_images[@]}"
+
   # Use port 3010 for tiamat and 3110 for tiamat-e2e
+
   seed_infra_links testdb
   ./scripts/seed-municipalities-and-fare-zones.sh 3010 &
+
   if [ "$INCLUDE_E2E" = true ]; then
     seed_infra_links testdb-e2e
     ./scripts/seed-municipalities-and-fare-zones.sh 3110 &
   fi
+
   wait
 
   check_images
@@ -211,7 +215,7 @@ download_dump() {
   local az_blob_filepath
 
   if [ -z "$1" ]; then
-    read -rp "Dump file name: " az_blob_filepath
+    read -r -p "Dump file name: " az_blob_filepath
     if [ -z "$az_blob_filepath" ]; then
       echo "Error: empty Azure Blob container filepath given. Exiting..."
       exit 1
@@ -274,7 +278,7 @@ download_digitransit_key() {
 
 setup_environment() {
 
-  read -p "Warning: all the current data in the database will be overwritten! Are you sure (y/n)? " REPLY
+  read -r -p "Warning: all the current data in the database will be overwritten! Are you sure (y/n)? " REPLY
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
   fi
@@ -294,12 +298,12 @@ setup_environment() {
     import_dump $DUMP_STOPS_FILENAME stopdb
   fi
 
-  local additional_images=""
+  local additional_images=()
   if [ "$INCLUDE_E2E" = true ]; then
-    additional_images=$DOCKER_E2E_IMAGES
+    additional_images+=("${DOCKER_E2E_IMAGES[@]}")
   fi
 
-  start_docker_containers $DOCKER_IMAGES $additional_images
+  start_docker_containers "${DOCKER_IMAGES[@]}" "${additional_images[@]}"
 
   if [ "$INCLUDE_E2E" = true ]; then
     seed_infra_links testdb-e2e
