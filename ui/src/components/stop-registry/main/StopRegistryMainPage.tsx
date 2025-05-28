@@ -9,6 +9,7 @@ import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import {
   StopSearchBar,
   StopSearchFilters,
+  StopSearchNavigationState,
   defaultSortingInfo,
 } from '../search';
 import {
@@ -24,7 +25,10 @@ export const StopRegistryMainPage: FC = () => {
   } = useStopSearchUrlState();
 
   const navigate = useNavigate();
-  const onSubmit = (nextFilters: StopSearchFilters) => {
+  const onSubmit = (
+    nextFilters: StopSearchFilters,
+    navigationState: StopSearchNavigationState,
+  ) => {
     navigate(
       {
         pathname: Path.stopSearch,
@@ -37,7 +41,7 @@ export const StopRegistryMainPage: FC = () => {
           sortingInfo: defaultSortingInfo,
         }),
       },
-      { replace: true },
+      { replace: true, state: navigationState },
     );
   };
 
