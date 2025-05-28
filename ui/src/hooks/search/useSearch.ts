@@ -1,6 +1,7 @@
 import { produce } from 'immer';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
+import { SearchNavigationState } from '../../components/routes-and-lines/search/types';
 import { Priority } from '../../types/enums';
 import { DisplayedSearchResultType } from '../../utils';
 import { mapObjectToQueryParameterObjects, useUrlQuery } from '../urlQuery';
@@ -54,7 +55,7 @@ export const useSearch = () => {
    * Pushes selected search conditions and live filters to query string.
    * This will trigger GraphQL request, if the searchConditions have changed.
    */
-  const handleSearch = () => {
+  const handleSearch = (state?: SearchNavigationState) => {
     const combinedParameters = {
       ...searchConditions,
       ...queryParameters.filter,
@@ -63,6 +64,7 @@ export const useSearch = () => {
     setMultipleParametersToUrlQuery({
       parameters: mapObjectToQueryParameterObjects(combinedParameters),
       pathname: `${basePath}/search`,
+      state,
     });
   };
 

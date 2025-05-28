@@ -58,8 +58,13 @@ export const useUrlQuery = () => {
   const navigate = useNavigate();
 
   const setQueryString = useCallback(
-    (queryString: string, replace: boolean, pathname?: string) => {
-      navigate({ search: `?${queryString}`, pathname }, { replace });
+    (
+      queryString: string,
+      replace: boolean,
+      pathname?: string,
+      state?: unknown,
+    ) => {
+      navigate({ search: `?${queryString}`, pathname }, { replace, state });
     },
     [navigate],
   );
@@ -126,11 +131,13 @@ export const useUrlQuery = () => {
       parameters,
       replace = false,
       pathname = undefined,
+      state = undefined,
     }: {
       parameters: ReadonlyArray<QueryParameter<QueryParameterTypes>>;
       replace?: boolean;
       debounced?: boolean;
       pathname?: string;
+      state?: unknown;
     }) => {
       const updatedUrlQuery = produce(queryParams, (draft) => {
         parameters.forEach((parameter) => {
@@ -150,7 +157,7 @@ export const useUrlQuery = () => {
       });
       const queryString = qs.stringify(updatedUrlQuery);
 
-      setQueryString(queryString, replace, pathname);
+      setQueryString(queryString, replace, pathname, state);
     },
     [queryParams, setQueryString],
   );

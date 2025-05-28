@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import {
   SearchQueryParameterNames,
   useSearch,
@@ -15,19 +16,32 @@ import { FormRow, ObservationDateInput } from '../../forms/common';
 import { LineTypeDropdown } from '../../forms/line/LineTypeDropdown';
 import { VehicleModeDropdown } from '../../forms/line/VehicleModeDropdown';
 import { PriorityCondition } from './conditions/PriorityCondition';
+import { SearchNavigationState } from './types/SearchNavigationState';
+
+const testIds = {
+  searchInput: 'SearchContainer::searchInput',
+  toggleExpand: 'SearchContainer::chevronToggle',
+  observationDateInput: 'SearchContainer::observationDateInput',
+  searchButton: 'SearchContainer::searchButton',
+};
+
+const generateNavigationState = (
+  isExpanded: boolean,
+): SearchNavigationState => {
+  return {
+    searchExpanded: isExpanded,
+  };
+};
 
 export const SearchContainer = (): React.ReactElement => {
   const { searchConditions, setSearchCondition, handleSearch } = useSearch();
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  const [isExpanded, toggleIsExpanded] = useToggle();
-  const testIds = {
-    searchInput: 'SearchContainer::searchInput',
-    toggleExpand: 'SearchContainer::chevronToggle',
-    observationDateInput: 'SearchContainer::observationDateInput',
-    searchButton: 'SearchContainer::searchButton',
-  };
+  const [isExpanded, toggleIsExpanded] = useToggle(
+    location.state?.searchExpanded,
+  );
 
   const onChangeLabel = (value: string) => {
     setSearchCondition(SearchQueryParameterNames.Label, value);
@@ -50,7 +64,7 @@ export const SearchContainer = (): React.ReactElement => {
 
   const onSearch = () => {
     dispatch(resetSelectedRowsAction());
-    handleSearch();
+    handleSearch(generateNavigationState(isExpanded));
   };
 
   const vehicleModeDropdownId = 'search.primaryVehicleMode';
@@ -138,7 +152,7 @@ export const SearchContainer = (): React.ReactElement => {
           </SimpleButton>
           <SimpleButton
             containerClassName="mr-6"
-            onClick={handleSearch}
+            onClick={() => handleSearch(generateNavigationState(isExpanded))}
             testId={testIds.searchButton}
           >
             {t('search.search')}
