@@ -1169,5 +1169,11 @@
   },
   "dataModelRefactor": {
     "disabled": "This feature has been disabled due to the revent Data model refactorings, and in general due to the ongoing development of the Stop Registry features. This feature is being worked on and should be re-enabled soon."
+  },
+  "navigationBlock": {
+    "title": "Discard changes?",
+    "body": "You have unsaved changes on the one of the form in the current page, if you leave now, you will lose your changes.",
+    "proceed": "Discard changes",
+    "cancel": "Continue editing"
   }
 }

@@ -9,6 +9,7 @@ import {
 } from 'react-router';
 import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
+import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
 import { MainPage } from '../components/main/MainPage';
 import { MapLoader, MapModal } from '../components/map';
 import { JoreLoader } from '../components/map/JoreLoader';
@@ -86,7 +87,7 @@ export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
 
 const Layout: FC = () => {
   return (
-    <>
+    <NavigationBlocker>
       <Navbar />
       <Outlet />
       <ProtectedRoute>
@@ -95,7 +96,7 @@ const Layout: FC = () => {
       </ProtectedRoute>
       <JoreLoader />
       <JoreErrorModal />
-    </>
+    </NavigationBlocker>
   );
 };
 

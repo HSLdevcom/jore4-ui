@@ -1167,5 +1167,11 @@
   },
   "dataModelRefactor": {
     "disabled": "Tämä toiminto on väliaikaisesti poistettu käytöstä vastikäisten tietomallimuutosten, sekä yleisemminkin pysäkkirekisterin kehityksen, johdosta. Toiminnon uusi toteutus on työn alla ja palautunee käyttöön pikapuolin."
+  },
+  "navigationBlock": {
+    "title": "Hylätäänkö muutokset?",
+    "body": "Sivulla olevalla lomakkeella on tallentamattomia muutoksia, jotka menetetään jos poistut.",
+    "proceed": "Hylkää muutokset",
+    "cancel": "Jatka muokkausta"
   }
 }
