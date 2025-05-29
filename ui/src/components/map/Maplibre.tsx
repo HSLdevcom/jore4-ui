@@ -79,6 +79,20 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
     initialState: LoadingState.HighPriority,
   });
 
+  // Due to the fucked up way the old Query string parsing and updating hooks
+  // are constructed they setter functions do not have proper stability.
+  // They are updated every time the query gets changed (param value added,
+  // deleted, changed or order changed). Thus using this unstable function as
+  // hook dependency introduces the same unstability to `updateMapDetailsDebounced`
+  // which in turn, combined with the cleanup useEffect (search ThisCleanUpEffect),
+  // that cancels any pending call, as it should, can result in viewPort updates
+  // getting completely missed.
+  // Thus, setMapPosition is wrapped into a ref here, so we can always call the
+  // latest version from within the debounced function, no matter when a call to
+  // it has happened.
+  const setMapPositionRef = useRef(setMapPosition);
+  setMapPositionRef.current = setMapPosition;
+
   const updateMapDetailsDebounced = useMemo(
     () =>
       debounce(
@@ -97,11 +111,11 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
               bounds,
             }),
           );
-          setMapPosition(latitude, longitude, zoom);
+          setMapPositionRef.current(latitude, longitude, zoom);
         },
         800,
       ),
-    [dispatch, setMapPosition],
+    [dispatch],
   );
 
   const onViewportChange = (newViewport: MaplibreViewport) => {
@@ -161,6 +175,11 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
   const onLoad = () => {
     setLoadingState(LoadingState.NotLoading);
     onViewportChange(viewport);
+
+    // Flush the initial state into Redux store immediately. Else the subcomponents
+    // that are waiting for the map to load, by observing the Redux store, will
+    // have to wait for the debounce period before thet can begin loading data.
+    updateMapDetailsDebounced.flush();
   };
 
   const onError = ({ error }: ErrorEvent) => {
@@ -168,6 +187,7 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
     log.error('Map error:', error);
   };
 
+  // LineId: ThisCleanUpEffect
   useEffect(() => {
     // Cancel the debounced update if the map is going to be closed.
     return () => {
