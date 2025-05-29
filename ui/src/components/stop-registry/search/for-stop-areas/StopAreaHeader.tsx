@@ -2,7 +2,7 @@ import { Geometry } from 'geojson';
 import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { Point } from '../../../../types';

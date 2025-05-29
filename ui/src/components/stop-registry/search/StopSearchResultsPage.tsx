@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { Link, To, useLocation } from 'react-router-dom';
+import { Link, To, useLocation } from 'react-router';
 import { Container, Row } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
 import { Path } from '../../../router/routeDetails';

@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
 import { FormContainer, SimpleButton } from '../../../uiComponents';
