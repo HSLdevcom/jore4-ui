@@ -1,4 +1,5 @@
 export * from './AlternativeNames';
+export * from './AlternativeNamesEdit';
 export * from './SearchForStopAreas';
 export * from './SortByButton';
 export * from './StopAreaDetailsPage';

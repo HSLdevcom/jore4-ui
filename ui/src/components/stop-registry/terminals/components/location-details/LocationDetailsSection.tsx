@@ -1,20 +1,28 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { submitFormByRef } from '../../../../../utils';
 import {
   InfoContainer,
   InfoContainerControls,
   useInfoContainerControls,
 } from '../../../../common';
 import { terminalInfoContainerColors } from '../../terminalInfoContainerColors';
-import { TerminalComponentProps } from '../../types';
+import { TerminalFormComponentProps } from '../../types';
+import { TerminalLocationDetailsEdit } from './location-details-form/LocationDetailsEdit';
 import { LocationDetailsView } from './LocationDetailsViewCard';
 
-export const LocationDetails: FC<TerminalComponentProps> = ({ terminal }) => {
+export const LocationDetails: FC<TerminalFormComponentProps> = ({
+  terminal,
+  refetch,
+}) => {
   const { t } = useTranslation();
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   const rawInfoContainerControls = useInfoContainerControls({
     isExpandable: true,
     isEditable: true,
+    onSave: () => submitFormByRef(formRef),
   });
 
   const infoContainerControls: InfoContainerControls = {
@@ -26,9 +34,18 @@ export const LocationDetails: FC<TerminalComponentProps> = ({ terminal }) => {
       colors={terminalInfoContainerColors}
       controls={infoContainerControls}
       title={t('terminalDetails.location.title')}
-      testIdPrefix="LocationDetailsSection"
+      testIdPrefix="TerminalLocationDetailsSection"
     >
-      <LocationDetailsView terminal={terminal} />
+      {infoContainerControls.isInEditMode ? (
+        <TerminalLocationDetailsEdit
+          terminal={terminal}
+          onFinishEditing={() => infoContainerControls.setIsInEditMode(false)}
+          ref={formRef}
+          refetch={refetch}
+        />
+      ) : (
+        <LocationDetailsView terminal={terminal} />
+      )}
     </InfoContainer>
   );
 };

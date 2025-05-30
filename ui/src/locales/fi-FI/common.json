@@ -481,6 +481,7 @@
   },
   "terminalDetails": {
     "title": "Perustiedot",
+    "editSuccess": "Terminaali muokattu",
     "basicDetails": {
       "title": "Terminaalin perustiedot",
       "description": "Kuvaus",
@@ -501,7 +502,8 @@
       "fareZone": "Maksuvyöhyke",
       "latitude": "Leveysaste",
       "longitude": "Pituusaste",
-      "memberStops": "Jäsenpysäkit ({{count}})",
+      "memberStops": "Jäsenpysäkit",
+      "memberStopsCount": "Jäsenpysäkit ({{count}})",
       "memberPlatforms": "Jäsenlaiturit"
     }
   },

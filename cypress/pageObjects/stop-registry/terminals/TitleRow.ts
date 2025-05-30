@@ -1,9 +1,9 @@
 export class TitleRow {
-  privateCode() {
+  getPrivateCode() {
     return cy.getByTestId('TerminalTitleRow::privateCode');
   }
 
-  name() {
+  getName() {
     return cy.getByTestId('TerminalTitleRow::name');
   }
 }
