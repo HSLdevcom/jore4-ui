@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
@@ -33,7 +34,13 @@ const generateNavigationState = (
   };
 };
 
-export const SearchContainer = (): React.ReactElement => {
+type SearchContainerProps = {
+  readonly searchExpandChanged?: (val: boolean) => void;
+};
+
+export const SearchContainer: FC<SearchContainerProps> = ({
+  searchExpandChanged,
+}) => {
   const { searchConditions, setSearchCondition, handleSearch } = useSearch();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -42,6 +49,11 @@ export const SearchContainer = (): React.ReactElement => {
   const [isExpanded, toggleIsExpanded] = useToggle(
     location.state?.searchExpanded,
   );
+
+  const toggleExpand = () => {
+    searchExpandChanged?.(!isExpanded);
+    toggleIsExpanded();
+  };
 
   const onChangeLabel = (value: string) => {
     setSearchCondition(SearchQueryParameterNames.Label, value);
@@ -87,7 +99,7 @@ export const SearchContainer = (): React.ReactElement => {
             <ChevronToggle
               testId={testIds.toggleExpand}
               isToggled={isExpanded}
-              onClick={toggleIsExpanded}
+              onClick={toggleExpand}
               controls="advanced-search"
               openTooltip={t('accessibility:common.expandSearch')}
               closeTooltip={t('accessibility:common.closeSearch')}
@@ -146,7 +158,7 @@ export const SearchContainer = (): React.ReactElement => {
           <SimpleButton
             containerClassName="mr-6"
             inverted
-            onClick={toggleIsExpanded}
+            onClick={toggleExpand}
           >
             {t('hide')}
           </SimpleButton>
