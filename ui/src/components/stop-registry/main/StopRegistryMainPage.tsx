@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { useToggle } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
 import { defaultPagingInfo } from '../../../types';
@@ -17,6 +18,12 @@ import {
   useStopSearchUrlState,
 } from '../search/utils';
 
+function getNavigationState(
+  searchIsExpanded: boolean,
+): StopSearchNavigationState {
+  return { searchExpanded: searchIsExpanded };
+}
+
 export const StopRegistryMainPage: FC = () => {
   const { t } = useTranslation();
 
@@ -24,11 +31,14 @@ export const StopRegistryMainPage: FC = () => {
     state: { filters, pagingInfo },
   } = useStopSearchUrlState();
 
+  const location = useLocation();
+
+  const [searchIsExpanded, toggleSearchIsExpanded] = useToggle(
+    location.state?.searchExpanded,
+  );
+
   const navigate = useNavigate();
-  const onSubmit = (
-    nextFilters: StopSearchFilters,
-    navigationState: StopSearchNavigationState,
-  ) => {
+  const onSubmit = (nextFilters: StopSearchFilters) => {
     navigate(
       {
         pathname: Path.stopSearch,
@@ -41,7 +51,7 @@ export const StopRegistryMainPage: FC = () => {
           sortingInfo: defaultSortingInfo,
         }),
       },
-      { replace: true, state: navigationState },
+      { replace: true, state: getNavigationState(searchIsExpanded) },
     );
   };
 
@@ -51,7 +61,12 @@ export const StopRegistryMainPage: FC = () => {
         <PageTitle.H1>{t('stops.stops')}</PageTitle.H1>
         <OpenDefaultMapButton containerClassName="ml-auto" />
       </Row>
-      <StopSearchBar initialFilters={filters} onSubmit={onSubmit} />
+      <StopSearchBar
+        initialFilters={filters}
+        searchIsExpanded={searchIsExpanded}
+        toggleSearchIsExpanded={toggleSearchIsExpanded}
+        onSubmit={onSubmit}
+      />
     </Container>
   );
 };

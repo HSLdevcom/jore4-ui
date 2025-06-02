@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Link, To, useLocation } from 'react-router';
+import { useToggle } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
 import { Path } from '../../../router/routeDetails';
@@ -15,6 +16,7 @@ import {
   SearchBy,
   SearchFor,
   StopSearchFilters,
+  StopSearchNavigationState,
   StopSearchResultsProps,
   defaultSortingInfo,
 } from './types';
@@ -28,6 +30,12 @@ const testIds = {
 function useCloseLink(): To {
   const { search } = useLocation();
   return { pathname: Path.stopRegistry, search };
+}
+
+function getNavigationState(
+  searchIsExpanded: boolean,
+): StopSearchNavigationState {
+  return { searchExpanded: searchIsExpanded };
 }
 
 const Results: FC<StopSearchResultsProps> = ({
@@ -85,6 +93,10 @@ export const StopSearchResultPage = (): React.ReactElement => {
     setSortingInfo,
   } = useStopSearchUrlState();
 
+  const [searchIsExpanded, toggleSearchIsExpanded] = useToggle(
+    location.state?.searchExpanded,
+  );
+
   const onSubmitFilters = (nextFilters: StopSearchFilters) => {
     dispatch(resetSelectedRowsAction());
     setFlatState({
@@ -105,6 +117,7 @@ export const StopSearchResultPage = (): React.ReactElement => {
           className="ml-auto text-base font-bold text-brand"
           to={closeLink}
           data-testid={testIds.closeButton}
+          state={getNavigationState(searchIsExpanded)}
         >
           {t('close')}
           <i className="icon-close-large ml-4 text-lg" />
@@ -112,7 +125,8 @@ export const StopSearchResultPage = (): React.ReactElement => {
       </Row>
       <StopSearchBar
         initialFilters={filters}
-        initialNavigationState={location.state ?? undefined}
+        searchIsExpanded={searchIsExpanded}
+        toggleSearchIsExpanded={toggleSearchIsExpanded}
         onSubmit={onSubmitFilters}
       />
 

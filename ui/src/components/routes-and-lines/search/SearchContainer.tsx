@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import {
   SearchQueryParameterNames,
   useSearch,
