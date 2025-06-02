@@ -137,7 +137,7 @@ the value of `enableCypressCoordinateHelper` variable to `true` in the file `ui/
 
 ### Separate database in local e2e tests
 
-- Running e2e tests using a separate database requires additional instances of the `hasura`, `timetablesapi` and `testdb` containers. These are started by default by the `start-dependencies.sh` script.
+- Running e2e tests using a separate database requires additional instances of the `hasura`, `timetablesapi` and `testdb` containers. These are started by default by the `development.sh start:deps` script.
 - Routing of requests in e2e test execution is handled in the following files: `jore4-ui/test-db-manager/src/hasuraApi.ts`, `jore4-ui/test-db-manager/src/config.ts`, `jore4-ui/cypress/support/commands.ts`, `nginx.conf`
 
 During e2e test execution Cypress assigns a value to `x-Environment` header value based on the envrionment variables `CI` and `CYPRESS`. The `CYPRESS` environment variable is set to `true` in the repository's root's `package.json` in the `yarn` commands where Cypress is invoked. The `CI` environment variable is `true` automatically in Github CI and `undefined` in the local environment. In `docker-compose.custom.yml` the `HASURA_URL` environment value is set to point to the Hasura URL that the locally running UI is using to enable routing of the requests based on the `x-Environment` header value.
@@ -172,25 +172,25 @@ Plugins:
 
 ## Setting up dependencies for local development
 
-Run `./scripts/start-dependencies.sh` to set up microservices required for local development using Docker Compose.
+Run `./scripts/development.sh start:deps` to set up microservices required for local development using Docker Compose.
 Script uses JORE4 project's shared Docker Compose bundle defined in [`jore4-docker-compose-bundle`](https://github.com/HSLdevcom/jore4-docker-compose-bundle) repository.
 
-Edit `start-dependencies.sh` script if you want to start only certain subset of our microservices.
+Edit the beginning of the `development.sh` script if you want to start only certain subset of our microservices.
 
 For overriding settings defined in the base Docker Compose file just edit
-`docker/docker-compose.custom.yml` and run `./scripts/start-dependencies.sh` again.
+`docker/docker-compose.custom.yml` and run `./scripts/development.sh start:deps` again.
 
-If you wish to persist the data in the database, start dependencies with `./scripts/start-dependencies.sh --volume`
+If you wish to persist the data in the database, start dependencies with `./scripts/development.sh start:deps --volume`
 By default, the script starts e2e dependencies as well.
-If you don't need them, you can start the dependencies with `./scripts/start-dependencies.sh --skip-e2e`
+If you don't need them, you can start the dependencies with `./scripts/development.sh start:deps --skip-e2e`
 
-Docker containers can be stopped gracefully by running `./stop-dependencies.sh`
+Docker containers can be stopped gracefully by running `./scripts/development.sh stop`
 
 If the Docker Compose setup seems to be in somehow non-working state, you can remove all containers by running `docker rm --force $(docker ps -aq)` and then start dependencies again.
 
-You can also start the dependencies and run all seeds by running `./scripts/setup-dependencies-and-seed.sh`.
+You can also start the dependencies and run all seeds by running `./scripts/development.sh setup:env`.
 This will also download a database dump for each database from Azure and you will need to log in when prompted.
-Internally the script calls `start-dependencies.sh` and forwards any arguments (eg. `--volume` and `--skip-e2e`) to it.
+You can use arguments (eg. `--volume` and `--skip-e2e`) when using `setup:env`.
 
 ## Loading single dump into development database
 
@@ -205,7 +205,7 @@ If you just want to download a single dump file to your local workspace (but not
 To update database dump files (with the `.pgdump` extension), do the following:
 
 - Check the latest suitable dump files from the `jore4-dump` container under the `stjore4dev001` storage account in the `rg-jore4-dev-001` resource group. As of 2025-05, dump files are organised into directories in Azure Blob storage. They should be accompanied by a README file that states which microservice versions the dumps were created with. Make sure that the `docker-compose.custom.yml` file does not specify `jore4-hasura` and `jore4-tiamat` microservices with versions older than the versions the dump files were created with. If needed, restart dependencies and generate new GraphQL schema for new Hasura version and make necessary changes to achieve ui - hasura compatibility.
-- Update the dump filenames in the `./scripts/development.sh` file. Remove the existing `.pgdump` files from your project directory. Then stop the dependencies, and run `./scripts/setup-dependencies-and-seed.sh`.
+- Update the dump filenames in the `./scripts/development.sh` file. Remove the existing `.pgdump` files from your project directory. Then stop the dependencies, and run `./scripts/development.sh setup:env`.
 - If everything goes right, after running the script and following the instructions you should now have your databases seeded with the new dumps.
 
 ## Regenerating infraLinks.sql
@@ -296,7 +296,7 @@ If the imported SVG in Fontello does not look like the icon from Figma (e.g. out
 
 ## Map tiles
 
-The background map tiles are loaded from [Digitransit](https://digitransit.fi/) and need an API key to download. The key is defined in the project secrets and will be downloaded to `.env.local` environment variables file when running the `./scripts/setup-dependencies-and-seed.sh` script. In Docker environment the key will be loaded as a part of reading the secrets and stored in an environment variable.
+The background map tiles are loaded from [Digitransit](https://digitransit.fi/) and need an API key to download. The key is defined in the project secrets and will be downloaded to `.env.local` environment variables file when running the `./scripts/development.sh setup:env` script. In Docker environment the key will be loaded as a part of reading the secrets and stored in an environment variable.
 
 ## Coding style
 
