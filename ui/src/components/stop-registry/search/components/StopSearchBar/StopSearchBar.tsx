@@ -1,15 +1,10 @@
 import { FC, useEffect, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useToggle } from '../../../../../hooks';
 import { Column, Row, Visible } from '../../../../../layoutComponents';
 import { ChevronToggle, SimpleButton } from '../../../../../uiComponents';
 import { DateInputField, InputField } from '../../../../forms/common';
-import {
-  SearchFor,
-  StopSearchFilters,
-  StopSearchNavigationState,
-} from '../../types';
+import { SearchFor, StopSearchFilters } from '../../types';
 import { MunicipalityFilter } from './MunicipalityFilter';
 import { PriorityFilter } from './PriorityFilter';
 import { SearchCriteriaRadioButtons } from './SearchCriteriaRadioButtons';
@@ -25,23 +20,19 @@ const testIds = {
 
 type StopSearchBarProps = {
   readonly initialFilters: StopSearchFilters;
-  readonly initialNavigationState?: StopSearchNavigationState;
-  readonly onSubmit: (
-    filters: StopSearchFilters,
-    navigationState: StopSearchNavigationState,
-  ) => void;
+  readonly searchIsExpanded: boolean;
+  readonly toggleSearchIsExpanded: () => void;
+  readonly onSubmit: (filters: StopSearchFilters) => void;
 };
 
 export const StopSearchBar: FC<StopSearchBarProps> = ({
   initialFilters,
-  initialNavigationState,
+  searchIsExpanded,
+  toggleSearchIsExpanded,
   onSubmit,
 }) => {
   const { t } = useTranslation();
 
-  const [isExpanded, toggleIsExpanded] = useToggle(
-    initialNavigationState?.searchExpanded,
-  );
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const methods = useForm<StopSearchFilters>({
@@ -66,9 +57,7 @@ export const StopSearchBar: FC<StopSearchBarProps> = ({
     <FormProvider {...methods}>
       <form
         className="container mx-auto flex flex-col py-10"
-        onSubmit={methods.handleSubmit((filters) =>
-          onSubmit(filters, { searchExpanded: isExpanded }),
-        )}
+        onSubmit={methods.handleSubmit((filters) => onSubmit(filters))}
         ref={formRef}
       >
         <Column className="items-stretch space-y-4 bg-background px-10 py-4">
@@ -87,8 +76,8 @@ export const StopSearchBar: FC<StopSearchBarProps> = ({
               <ChevronToggle
                 className="mt-[18px]"
                 testId={testIds.toggleExpand}
-                isToggled={isExpanded}
-                onClick={toggleIsExpanded}
+                isToggled={searchIsExpanded}
+                onClick={toggleSearchIsExpanded}
                 controls="advanced-search"
                 openTooltip={t('accessibility:common.expandSearch')}
                 closeTooltip={t('accessibility:common.closeSearch')}
@@ -102,7 +91,7 @@ export const StopSearchBar: FC<StopSearchBarProps> = ({
           </Row>
         </Column>
 
-        <Visible visible={isExpanded}>
+        <Visible visible={searchIsExpanded}>
           <div
             id="advanced-search"
             className="space-y-5 border-2 border-background p-10"
