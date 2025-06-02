@@ -71,7 +71,7 @@ export const useSearch = () => {
   /**
    * Navigates back to '/routes' but retains the query parameters.
    */
-  const handleClose = () => {
+  const handleClose = (state?: SearchNavigationState) => {
     const combinedParameters = {
       ...queryParameters.filter,
       ...queryParameters.search,
@@ -80,6 +80,7 @@ export const useSearch = () => {
     setMultipleParametersToUrlQuery({
       parameters: mapObjectToQueryParameterObjects(combinedParameters),
       pathname: `${basePath}`,
+      state,
     });
   };
 

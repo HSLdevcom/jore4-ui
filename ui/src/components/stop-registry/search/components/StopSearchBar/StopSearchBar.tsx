@@ -57,7 +57,7 @@ export const StopSearchBar: FC<StopSearchBarProps> = ({
     <FormProvider {...methods}>
       <form
         className="container mx-auto flex flex-col py-10"
-        onSubmit={methods.handleSubmit((filters) => onSubmit(filters))}
+        onSubmit={methods.handleSubmit(onSubmit)}
         ref={formRef}
       >
         <Column className="items-stretch space-y-4 bg-background px-10 py-4">

@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router';
 import { useSearch, useSearchResults } from '../../../hooks';
 import { useBasePath } from '../../../hooks/useBasePath';
 import { Container, Row, Visible } from '../../../layoutComponents';
@@ -24,6 +26,11 @@ export const SearchResultPage = (): React.ReactElement => {
   const { lines, reducedRoutes, loading } = useSearchResults();
   const { basePath } = useBasePath();
   const itemsPerPage = 10;
+
+  const location = useLocation();
+  const [searchIsExpanded, setSearchIsExpanded] = useState<boolean>(
+    location.state?.searchExpanded,
+  );
 
   const displayedLines = getPaginatedData(lines, itemsPerPage);
   const displayedRoutes = getPaginatedData(reducedRoutes, itemsPerPage);
@@ -61,11 +68,11 @@ export const SearchResultPage = (): React.ReactElement => {
         <CloseIconButton
           label={t('close')}
           className="ml-auto text-base font-bold text-brand"
-          onClick={handleClose}
+          onClick={() => handleClose({ searchExpanded: searchIsExpanded })}
           testId={testIds.closeButton}
         />
       </Row>
-      <SearchContainer />
+      <SearchContainer searchExpandChanged={setSearchIsExpanded} />
       <LoadingWrapper
         className="flex justify-center"
         loadingText={t('search.searching')}
