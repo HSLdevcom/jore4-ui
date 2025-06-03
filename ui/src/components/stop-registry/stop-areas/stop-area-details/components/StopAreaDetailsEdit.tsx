@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
-import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { useLoader } from '../../../../../hooks';
@@ -17,9 +17,7 @@ import {
 } from '../../../../forms/common';
 import {
   StopAreaFormState as FormState,
-  NameConsistencyChecker,
   StopAreaFormState,
-  TypedName,
   stopAreaFormSchema,
   useUpsertStopArea,
 } from '../../../../forms/stop-area';
@@ -76,20 +74,6 @@ export const mapStopAreaDataToFormState = (
   };
 };
 
-function getOverriddenNames(
-  methods: UseFormReturn<FormState>,
-): ReadonlyArray<TypedName> {
-  const [name] = methods.watch(['name']);
-  return [
-    {
-      type: 'TRANSLATION',
-      lang: 'fin',
-      value: name,
-    },
-    // TODO: Short name + translations
-  ];
-}
-
 type StopAreaDetailsEditProps = {
   readonly area: EnrichedStopPlace;
   readonly className?: string;
@@ -125,8 +109,6 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
     resolver: zodResolver(stopAreaFormSchema),
   });
   const { handleSubmit } = methods;
-
-  const overriddenNames = getOverriddenNames(methods);
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -190,11 +172,6 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
           <FormRow lgColumns={2} mdColumns={1}>
             <ValidityPeriodForm />
           </FormRow>
-
-          <NameConsistencyChecker.NameOnlyForm
-            stopAreaId={area.id as string}
-            stopAreaNameOverrides={overriddenNames}
-          />
         </FormColumn>
       </form>
     </FormProvider>
