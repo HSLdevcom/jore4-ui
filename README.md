@@ -192,6 +192,9 @@ You can also start the dependencies and run all seeds by running `./scripts/deve
 This will also download a database dump for each database from Azure and you will need to log in when prompted.
 You can use arguments (eg. `--volume` and `--skip-e2e`) when using `setup:env`.
 
+Currently the stop registry dump does not include any terminals. If you want to populate the database with terminals, you can do it by running a different version of the setup script: `./scripts/development.sh setup:test`. This will run the seed script in `test-db-manager` and insert terminals for testing.
+Arguments also work with `setup:test`.
+
 ## Loading single dump into development database
 
 The jore3-importer microservice imports data from JORE3 and transforms it into the JORE4 data model. Currently, existing database dumps of the transformed data can be found from Azure Blob container at `rg-jore4-dev-001 / stjore4dev001 / jore4-dump`.
