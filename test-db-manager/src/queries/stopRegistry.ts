@@ -142,6 +142,21 @@ const GQL_INSERT_INFO_SPOT = gql`
   }
 `;
 
+const GQL_ALL_STOP_PLACE_LABELS_AND_IDS = gql `
+  query GetAllStopPlaceLabelsAndIds {
+    stop_registry {
+      stopPlace(onlyMonomodalStopPlaces: true, size: 10000) {
+        ... on stop_registry_StopPlace {
+          id
+          privateCode {
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const mapToInsertStopPlaceMutation = (
   input: Partial<StopRegistryStopPlaceInput>,
 ) => {
@@ -239,5 +254,11 @@ export const mapToInsertInfoSpotMutation = (
   return {
     query: getGqlString(GQL_INSERT_INFO_SPOT),
     variables: { infoSpot: input },
+  };
+};
+
+export const mapToGetAllStopPlaceLabelsAndIds = () => {
+  return {
+    query: getGqlString(GQL_ALL_STOP_PLACE_LABELS_AND_IDS),
   };
 };

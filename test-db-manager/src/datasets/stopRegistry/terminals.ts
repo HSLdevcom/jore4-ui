@@ -132,7 +132,45 @@ const northEsplanadi = {
   },
 };
 
+const pasila = {
+  name: 'Pasila',
+  nameSwe: 'Böle',
+  nameFinLong: 'Pasilan terminaali',
+  nameSweLong: 'Böle terminal',
+  abbreviationFin: 'PA.',
+  abbreviationSwe: 'BÖ.',
+  description: 'Terminaali joka sijaitsee Pasilassa',
+  privateCode: 'PA',
+  locationLat: 60.167836,
+  locationLong: 24.94905,
+  members: ['110548', '110699'],
+  validityStart: '2020-01-01',
+  validityEnd: '2050-01-01',
+  streetAddress: 'Pasilansilta 5',
+  postalCode: '00520',
+  municipality: 'Helsinki',
+  fareZone: 'A',
+  departurePlatforms: '7',
+  arrivalPlatforms: '6  ',
+  loadingPlatforms: '3',
+  electricCharging: '2',
+  terminalType: 'Bussiterminaali',
+  accessibilityLimitations: {
+    audibleSignalsAvailable: StopRegistryLimitationStatusType.True,
+  },
+  accessibilityProperties: {
+    guidanceType: StopRegistryGuidanceType.Braille,
+    mapType: StopRegistryMapType.Tactile,
+  },
+};
+
 const seedData: Array<TerminalSeedData> = [northEsplanadi];
 
 export const seedTerminals: Array<TerminalInput> =
   seedData.map(mapToTerminalInput);
+
+const localSeedData: Array<TerminalSeedData> = [pasila];
+
+export const seedLocalTerminals: Array<TerminalInput> = 
+  localSeedData.map(mapToTerminalInput);
+  
