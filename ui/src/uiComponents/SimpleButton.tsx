@@ -1,7 +1,147 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FC, ReactNode } from 'react';
-import { Link, To } from 'react-router';
-import { twMerge } from 'tailwind-merge';
+import React, {
+  ButtonHTMLAttributes,
+  FC,
+  ForwardRefRenderFunction,
+  ForwardedRef,
+  ReactNode,
+  forwardRef,
+} from 'react';
+import { Link, LinkProps, To } from 'react-router';
+import { twJoin, twMerge } from 'tailwind-merge';
+
+// Keep as compatability for other components, which import this list.
+export const commonHoverStyle = 'hover:border-2 hover:border-tweaked-brand';
+
+function getHoverStyles(inverted?: boolean, disabled?: boolean) {
+  if (disabled) {
+    return '';
+  }
+
+  return twJoin(
+    'hover:outline hover:outline-1',
+    inverted
+      ? 'hover:outline-brand hover:border-brand'
+      : 'hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50',
+  );
+}
+
+function getCommonClassNames(inverted?: boolean, disabled?: boolean) {
+  const colorClassNames = inverted
+    ? 'text-brand bg-white border-grey active:border-brand'
+    : 'text-white bg-brand border-brand active:bg-opacity-50';
+
+  const disabledClassNames = disabled
+    ? 'cursor-not-allowed opacity-70 text-white bg-light-grey border-light-grey'
+    : '';
+
+  return twJoin(
+    'px-4 py-2 font-bold border rounded-full',
+    colorClassNames,
+    disabledClassNames,
+    getHoverStyles(inverted, disabled),
+  );
+}
+
+function getClassNames(
+  inverted?: boolean,
+  disabled?: boolean,
+  className?: string,
+  invertedClassName?: string,
+): string {
+  return twMerge(
+    getCommonClassNames(inverted, disabled),
+    className,
+    inverted ? invertedClassName : null,
+  );
+}
+
+type SimpleButtonButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  readonly inverted?: boolean;
+  readonly invertedClassName?: string;
+  readonly testId?: string;
+};
+
+const SimpleButtonButtonImpl: ForwardRefRenderFunction<
+  HTMLButtonElement,
+  SimpleButtonButtonProps
+> = (
+  {
+    className,
+    inverted,
+    disabled,
+    testId,
+    invertedClassName,
+    type = 'button',
+    ...buttonProps
+  },
+  ref: ForwardedRef<HTMLButtonElement>,
+) => {
+  return (
+    <button
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...buttonProps}
+      className={getClassNames(
+        inverted,
+        disabled,
+        className,
+        invertedClassName,
+      )}
+      data-testid={testId}
+      disabled={disabled}
+      ref={ref}
+      // eslint-disable-next-line react/button-has-type
+      type={type}
+    />
+  );
+};
+export const SimpleButtonButton = forwardRef(SimpleButtonButtonImpl);
+
+type SimpleLinkButtonProps = LinkProps & {
+  readonly disabled?: boolean;
+  readonly inverted?: boolean;
+  readonly invertedClassName?: string;
+  readonly testId?: string;
+};
+
+export const SimpleLinkButtonImpl: ForwardRefRenderFunction<
+  HTMLAnchorElement,
+  SimpleLinkButtonProps
+> = (
+  {
+    className,
+    inverted,
+    disabled,
+    testId,
+    invertedClassName,
+    to,
+    ...linkProps
+  },
+  ref,
+) => {
+  // Try to take accessibility of disabled link buttons into account as stated
+  // in Bootstrap's documentation:
+  // https://getbootstrap.com/docs/5.1/components/buttons/#link-functionality-caveat
+  // "Disabled buttons using <a> should not include the href attribute."
+
+  return (
+    <Link
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...linkProps}
+      className={getClassNames(
+        inverted,
+        disabled,
+        className,
+        invertedClassName,
+      )}
+      to={disabled ? {} : to}
+      aria-disabled={disabled}
+      tabIndex={disabled ? -1 : undefined}
+      data-testid={testId}
+      ref={ref as ForwardedRef<HTMLAnchorElement>}
+    />
+  );
+};
+export const SimpleLinkButton = forwardRef(SimpleLinkButtonImpl);
 
 type CommonButtonProps = {
   readonly id?: string;
@@ -37,30 +177,16 @@ type LinkButtonProps = {
 export type SimpleButtonProps = CommonButtonProps &
   (ButtonProps | LinkButtonProps);
 
-export const commonHoverStyle = 'hover:border-2 hover:border-tweaked-brand';
-
-const getHoverStyles = (inverted = false, disabled = false) => {
-  const hoverStyle = `${commonHoverStyle} m-px hover:m-0`;
-
-  if (disabled) {
-    return '';
-  }
-
-  return inverted
-    ? `${hoverStyle} hover:border-brand`
-    : `${hoverStyle} hover:bg-opacity-50`;
-};
-
 export const SimpleButton: FC<SimpleButtonProps> = ({
   id,
-  className = '',
+  className,
   inverted,
   selected,
   disabled,
   testId,
   children,
   containerClassName = '',
-  invertedClassName = '',
+  invertedClassName,
   tooltip,
   disabledTooltip,
   ariaSelected,
@@ -70,41 +196,23 @@ export const SimpleButton: FC<SimpleButtonProps> = ({
   onClick,
   href,
   state,
-}) => {
-  const colorClassNames = inverted
-    ? `text-brand bg-white border border-grey active:border-brand ${invertedClassName}`
-    : `text-white bg-brand border border-brand active:bg-opacity-50`;
-  const disabledClassNames = disabled
-    ? 'cursor-not-allowed opacity-70 text-white bg-light-grey border-light-grey'
-    : '';
-  const commonClassNames = `px-4 py-2 font-bold rounded-full ${colorClassNames} ${getHoverStyles(
-    inverted,
-    disabled,
-  )} ${disabledClassNames}`;
-
+}: SimpleButtonProps) => {
   if (href) {
-    // Try to take accessibility of disabled link buttons into account as stated
-    // in Bootstrap's documentation:
-    // https://getbootstrap.com/docs/5.1/components/buttons/#link-functionality-caveat
-    // "Disabled buttons using <a> should not include the href attribute."
     return (
       <span className={`inline-flex ${containerClassName}`}>
-        <Link
+        <SimpleLinkButton
           id={id}
-          className={twMerge(
-            `${commonClassNames} flex items-center ${className}`,
-          )}
-          type="button"
-          // @ts-expect-error we want to pass undefined as href for disabled buttons
-          to={disabled ? undefined : href}
+          className={className}
+          disabled={disabled}
+          inverted={inverted}
+          invertedClassName={invertedClassName}
+          to={href}
           state={state}
-          aria-disabled={disabled}
-          tabIndex={disabled ? -1 : undefined}
-          data-testid={testId}
+          testId={testId}
           title={disabled ? disabledTooltip : tooltip}
         >
           {children}
-        </Link>
+        </SimpleLinkButton>
       </span>
     );
   }
@@ -116,22 +224,23 @@ export const SimpleButton: FC<SimpleButtonProps> = ({
   ) {
     return (
       <span className={`inline-flex ${containerClassName}`}>
-        <button
+        <SimpleButtonButton
           id={id}
           data-selected={selected}
-          className={twMerge(`${commonClassNames} ${className}`)}
-          // eslint-disable-next-line react/button-has-type
+          className={className}
+          invertedClassName={invertedClassName}
+          inverted={inverted}
           type={type}
           onClick={onClick}
           disabled={disabled}
-          data-testid={testId}
+          testId={testId}
           title={disabled ? disabledTooltip : tooltip}
           aria-selected={ariaSelected}
           role={role}
           aria-controls={ariaControls}
         >
           {children}
-        </button>
+        </SimpleButtonButton>
       </span>
     );
   }
