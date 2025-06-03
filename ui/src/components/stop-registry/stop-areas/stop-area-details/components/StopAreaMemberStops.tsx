@@ -16,6 +16,7 @@ import { Operation } from '../../../../../redux';
 import { EnrichedStopPlace } from '../../../../../types';
 import { ConfirmationDialog } from '../../../../../uiComponents';
 import { showSuccessToast } from '../../../../../utils';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import {
   StopAreaFormState as FormState,
   StopAreaFormMember,
@@ -107,6 +108,7 @@ function useMemberStopFormControls(
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'StopAreaMemberStops');
 
   return {
     stopToRemove,

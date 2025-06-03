@@ -23,6 +23,7 @@ import {
   parseSubstituteDayOfWeek,
   submitFormByRef,
 } from '../../../../utils';
+import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import {
   FormState,
   PeriodType,
@@ -130,6 +131,18 @@ export const OccasionalSubstitutePeriodForm: FC<
     values,
     resolver: zodResolver(schema),
   });
+  useDirtyFormBlockNavigation(
+    methods.formState,
+    'OccasionalSubstitutePeriodForm',
+    {
+      // Allow the onSubmit method to do a observationDate change after
+      // saving successfully. The actual form itself is disabled while the
+      // form is in active edit state, so changing the observation date
+      // through the search box is not possible while we are in edit mode
+      // and "should" block navigation.
+      allowSearchChange: true,
+    },
+  );
 
   const {
     control,

@@ -10,6 +10,7 @@ import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { showSuccessToast } from '../../../../../../utils';
 import { FormColumn, FormRow, InputField } from '../../../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { AlternativeNamesEdit } from '../../../../components/AlternativeNames/AlternativeNamesEdit';
 import { TerminalFormState, terminalFormSchema } from './schema';
 import { useUpsertTerminalDetails } from './useEditTerminalDetails';
@@ -91,6 +92,7 @@ const TerminalDetailsEditImpl: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(terminalFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'TerminalDetailsEdit');
   const { handleSubmit } = methods;
 
   return (

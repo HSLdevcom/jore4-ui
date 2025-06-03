@@ -19,6 +19,7 @@ import {
   localizedStringOptional,
   requiredString,
 } from '../common';
+import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 
 const testIds = {
   label: 'CreateTimingPlaceForm::label',
@@ -62,6 +63,7 @@ export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
     defaultValues,
     resolver: zodResolver(schema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'CreateTimingPlaceForm');
   const { handleSubmit } = methods;
 
   const onCreate = async (state: FormState) =>

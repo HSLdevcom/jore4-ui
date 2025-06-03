@@ -11,6 +11,7 @@ import {
   InputField,
   TextAreaElement,
 } from '../../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { MainLineWarning } from '../MainLineWarning';
 import { SignageDetailsFormState, signageDetailsFormSchema } from './schema';
 
@@ -40,6 +41,7 @@ const SignageDetailsFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(signageDetailsFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'SignageDetailsForm');
   const { handleSubmit, watch } = methods;
   const hasMainLineSign = !!watch('mainLineSign');
 

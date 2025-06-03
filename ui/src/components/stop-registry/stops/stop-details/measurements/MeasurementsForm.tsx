@@ -22,6 +22,7 @@ import {
   InputField,
   NullableBooleanDropdown,
 } from '../../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { MeasurementsFormState, measurementsFormSchema } from './schema';
 
 const testIds = {
@@ -69,6 +70,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(measurementsFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'MeasurementsForm');
   const { handleSubmit } = methods;
 
   return (

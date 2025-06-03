@@ -36,6 +36,7 @@ import {
   patchKeyValues,
 } from '../../../utils';
 import { ValidationError } from '../common';
+import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { Location, PublicCodeAndArea, VersionInfo } from './components';
 import { TimingPlaceModal } from './TimingPlaceModal';
 import { MISSING_ID, StopFormState, stopFormSchema } from './types';
@@ -257,6 +258,7 @@ const StopFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(stopFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'StopForm');
 
   const {
     formState: { dirtyFields, errors },

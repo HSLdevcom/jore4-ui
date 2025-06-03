@@ -7,6 +7,7 @@ import { Row, Visible } from '../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../uiComponents';
 import { submitFormByRef } from '../../../../../utils';
 import { FormRow, InputField, requiredString } from '../../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 
 const testIds = {
   cancelButton: 'OrganisationDetailsForm::cancelButton',
@@ -46,6 +47,7 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
     defaultValues,
     resolver: zodResolver(organisationDetailsFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'OrganisationDetailsForm');
   const { handleSubmit } = methods;
 
   const onSave = () => {

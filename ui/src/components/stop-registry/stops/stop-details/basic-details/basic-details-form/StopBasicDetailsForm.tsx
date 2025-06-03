@@ -13,6 +13,7 @@ import {
 } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
 import { FormColumn } from '../../../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
 import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
 import { StopBasicDetailsFormState, schema } from './schema';
@@ -42,6 +43,7 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(schema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'StopBasicDetailsForm');
   const { handleSubmit } = methods;
 
   const onTimingPlaceCreated = (timingPlaceId: UUID) => {

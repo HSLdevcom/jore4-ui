@@ -8,6 +8,7 @@ import { Operation } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
+import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import {
   FailedToResolveExistingQuays,
   StopPlaceInsertFailed,
@@ -120,6 +121,7 @@ export const useCopyStopFormUtils = (
     resolver: zodResolver(stopVersionSchema),
     mode: 'all',
   });
+  useDirtyFormBlockNavigation(methods.formState, 'CopyStopForm');
 
   const handleError = useErrorHandler();
 

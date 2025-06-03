@@ -13,6 +13,7 @@ import {
 import { Switch, SwitchLabel } from '../../../uiComponents';
 import { FormColumn, FormRow, InputField } from '../common';
 import { ChangeValidityForm } from '../common/ChangeValidityForm';
+import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
 import {
@@ -54,6 +55,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(routeFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'RoutePropertiesForm');
 
   const [showTemplateRouteSelector, setShowTemplateRouteSelector] =
     useState(false);

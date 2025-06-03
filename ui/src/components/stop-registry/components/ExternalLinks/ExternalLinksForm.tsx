@@ -11,6 +11,7 @@ import {
 } from '../../../../layoutComponents';
 import { SimpleButton } from '../../../../uiComponents';
 import { AddNewButton } from '../../../../uiComponents/AddNewButton';
+import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import { ExternalLinksFormFields } from './ExternalLinksFormFields';
 import {
   ExternalLinksFormState,
@@ -51,6 +52,7 @@ export const ExternalLinksForm: FC<ExternalLinksFormProps> = ({
     defaultValues,
     resolver: zodResolver(externalLinksFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'ExternalLinksForm');
   const { control, setValue, getValues, handleSubmit, watch } = methods;
 
   const {

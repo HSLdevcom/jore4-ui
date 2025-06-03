@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../../../layoutComponents';
 import { FormColumn, InputField, InputLabel } from '../../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { LocationDetailsFormState, locationDetailsFormSchema } from './schema';
 
 const testIds = {
@@ -38,6 +39,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(locationDetailsFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'LocationDetailsForm');
   const { handleSubmit } = methods;
 
   return (

@@ -11,6 +11,7 @@ import {
   InputField,
   ValidityPeriodForm,
 } from '../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 import {
   StopAreaFormState,
   stopAreaFormSchema,
@@ -84,6 +85,7 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'StopAreaForm');
   const { handleSubmit } = methods;
 
   return (

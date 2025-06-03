@@ -18,6 +18,7 @@ import {
   parseSubstituteDayOfWeek,
   submitFormByRef,
 } from '../../../../utils';
+import { useDirtyFormBlockNavigation } from '../../../forms/common/NavigationBlocker';
 import { commonSubstituteDayData } from '../common_substitute_day_data';
 import {
   CommonDayType,
@@ -157,6 +158,7 @@ export const CommonSubstitutePeriodForm: FC<
     values: { commonDays: orderedDisplayedCommonDays },
     resolver: zodResolver(schema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'CommonSubstitutePeriodForm');
 
   const {
     clearErrors,

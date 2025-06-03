@@ -12,6 +12,7 @@ import {
   FormState as ChangeValidityFormState,
   schema as changeValidityFormSaveFormSchema,
 } from '../common/ChangeValidityForm';
+import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import {
   LinePropertiesForm,
   FormState as LinePropertiesFormState,
@@ -43,6 +44,7 @@ export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
     defaultValues,
     resolver: zodResolver(formSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'LineForm');
   const { handleSubmit } = methods;
 
   const onSave = () => {

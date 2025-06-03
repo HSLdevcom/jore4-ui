@@ -8,6 +8,7 @@ import {
   StopRegistryStopPlaceOrganisationRelationshipType,
   useGetOrganisationsQuery,
 } from '../../../../../generated/graphql';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { MaintainerFormFields } from './MaintainerFormFields';
 import { OrganisationDetailsModal } from './OrganisationDetailsModal';
 import {
@@ -51,6 +52,7 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(maintenanceDetailsFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'MaintenanceDetailsForm');
   const { handleSubmit, setValue } = methods;
 
   const [isEditingOrganisation, setIsEditingOrganisation] = useState(false);

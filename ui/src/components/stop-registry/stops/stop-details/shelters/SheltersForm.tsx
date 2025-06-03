@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
+import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { SheltersFormState, sheltersFormSchema } from './schema';
 import { ShelterFormFields } from './ShelterFormFields';
 import { useSheltersFormUtils } from './useSheltersForm';
@@ -40,6 +41,7 @@ const SheltersFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(sheltersFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'SheltersForm');
 
   const {
     shelters,

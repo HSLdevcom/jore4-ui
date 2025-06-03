@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
+import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { InfoSpotFormFields } from './InfoSpotsFormFields';
 import {
   InfoSpotsFormSchema,
@@ -52,6 +53,7 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(InfoSpotsFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'InfoSpotsForm');
   const { control, setValue, getValues, handleSubmit } = methods;
 
   const {

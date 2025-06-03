@@ -12,6 +12,7 @@ import {
   InputField,
   requiredString,
 } from '../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 import { AffectedRouteLabels } from './AffectedRouteLabels';
 
 export const schema = z.object({
@@ -51,6 +52,10 @@ export const ChangeTimetablesValidityForm: FC<
     defaultValues,
     resolver: zodResolver(schema),
   });
+  useDirtyFormBlockNavigation(
+    methods.formState,
+    'ChangeTimetablesValidityForm',
+  );
 
   const { handleSubmit } = methods;
 

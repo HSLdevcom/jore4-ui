@@ -10,6 +10,7 @@ import { openTimingPlaceModalAction } from '../../../redux';
 import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
 import { InputElement, InputField } from '../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 import { ChooseTimingPlaceDropdown } from '../../forms/stop/ChooseTimingPlaceDropdown';
 
 export const schema = z.object({
@@ -60,6 +61,7 @@ export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
     defaultValues,
     resolver: zodResolver(schema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'TimingSettingsForm');
 
   const { handleSubmit, watch, setValue } = methods;
 

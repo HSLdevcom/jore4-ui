@@ -12,6 +12,7 @@ import {
   PriorityFormState,
   priorityFormSchema,
 } from '../common';
+import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 type TemplateRouteSelectorProps = {
@@ -40,6 +41,7 @@ export const TemplateRouteSelector: FC<TemplateRouteSelectorProps> = ({
     },
     resolver: zodResolver(priorityFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'TemplateRouteSelector');
 
   const [observationDate, setObservationDate] = useState(DateTime.now());
 

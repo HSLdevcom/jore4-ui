@@ -8,6 +8,7 @@ import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { defaultLocalizedString, submitFormByRef } from '../../../utils';
 import { InputField, localizedStringRequired } from '../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 
 export const schema = z.object({
   viaPointName: localizedStringRequired,
@@ -56,6 +57,7 @@ export const ViaForm: FC<ViaFormProps> = ({
     defaultValues,
     resolver: zodResolver(schema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'ViaForm');
 
   const { handleSubmit } = methods;
 

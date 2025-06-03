@@ -8,6 +8,7 @@ import { Operation } from '../../../../../../redux';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { showSuccessToast } from '../../../../../../utils';
 import { FormColumn, InputField } from '../../../../../forms/common';
+import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import {
   TerminalLocationDetailsFormState,
   terminalLocationDetailsFormSchema,
@@ -72,6 +73,7 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(terminalLocationDetailsFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'LocationDetailsEdit');
   const { handleSubmit } = methods;
 
   return (

@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { ForwardRefRenderFunction, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Column, Row } from '../../../layoutComponents';
+import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 import { TimetableImportStrategyForm } from './TimetableImportStrategyForm';
 import {
   FormState,
@@ -36,6 +37,10 @@ export const ConfirmPreviewedTimetablesImportFormComponent: ForwardRefRenderFunc
     defaultValues,
     resolver: zodResolver(timetablesImportFormSchema),
   });
+  useDirtyFormBlockNavigation(
+    methods.formState,
+    'ConfirmPreviewedTimetablesImportForm',
+  );
 
   const { handleSubmit, watch } = methods;
 

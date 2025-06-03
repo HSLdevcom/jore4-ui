@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Row, Visible } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
 import { CombineSameContractWarning } from './CombineSameContractWarning';
 import { SpecialDayMixedPrioritiesWarning } from './SpecialDayMixedPrioritiesWarning';
 import { TimetableImportStrategyForm } from './TimetableImportStrategyForm';
@@ -50,6 +51,7 @@ export const ConfirmTimetablesImportForm: FC<
     defaultValues,
     resolver: zodResolver(timetablesImportFormSchema),
   });
+  useDirtyFormBlockNavigation(methods.formState, 'ConfirmTimetablesImportForm');
 
   const { handleSubmit, watch } = methods;
 
