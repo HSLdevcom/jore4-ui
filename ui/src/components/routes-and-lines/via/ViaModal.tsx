@@ -15,6 +15,7 @@ import { selectViaModal } from '../../../redux';
 import { closeViaModalAction } from '../../../redux/slices/modals';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
+import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
 import {
   FormState,
   ViaForm,
@@ -27,6 +28,8 @@ type ViaModalProps = {
 
 export const ViaModal: FC<ViaModalProps> = ({ className = '' }) => {
   const { t } = useTranslation();
+  const wrapInContextNavigation = useWrapInContextNavigation('ViaForm');
+
   const viaModalState = useAppSelector(selectViaModal);
   const { journeyPatternId, stopLabel } = viaModalState;
   const dispatch = useAppDispatch();
@@ -80,9 +83,8 @@ export const ViaModal: FC<ViaModalProps> = ({ className = '' }) => {
     }
   };
 
-  const onClose = () => {
-    dispatch(closeViaModalAction());
-  };
+  const onCancel = () => dispatch(closeViaModalAction());
+  const onClose = wrapInContextNavigation(onCancel);
 
   return (
     <Modal isOpen onClose={onClose} contentClassName={className}>
@@ -95,7 +97,7 @@ export const ViaModal: FC<ViaModalProps> = ({ className = '' }) => {
       {stopInfo && (
         <ModalBody>
           <ViaForm
-            onCancel={onClose}
+            onCancel={onCancel}
             onSubmit={(formState) => onSubmit(formState, stopInfo)}
             onRemove={() => onRemove(stopInfo)}
             defaultValues={mapStopJourneyPatternToFormState(stopInfo)}

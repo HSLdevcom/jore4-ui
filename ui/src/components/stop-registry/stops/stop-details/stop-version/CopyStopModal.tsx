@@ -4,6 +4,7 @@ import { useObservationDateQueryParam } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
 import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
+import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import { ModalBody } from '../../../../map/modal';
 import { CopyStopBoilerPlate } from './CopyStopBoilerPlate';
 import { CopyStopForm } from './CopyStopForm';
@@ -27,6 +28,7 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
   originalStop,
 }) => {
   const { t } = useTranslation();
+  const wrappedOnClose = useWrapInContextNavigation('CopyStopForm')(onClose);
 
   const { setObservationDateToUrl } = useObservationDateQueryParam();
 
@@ -44,9 +46,9 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} testId={testIds.modal}>
+    <Modal isOpen={isOpen} onClose={wrappedOnClose} testId={testIds.modal}>
       <ModalHeader
-        onClose={onClose}
+        onClose={wrappedOnClose}
         heading={t('stopDetails.version.title.copy')}
       />
       <LoadingWrapper

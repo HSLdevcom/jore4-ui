@@ -39,6 +39,7 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
           onCancel={onCancel}
           onClose={onClose}
           heading={t('routes.enterRouteData')}
+          navigationContext="RoutePropertiesForm"
         >
           <RoutePropertiesForm
             className="max-h-[50vh] max-w-2xl overflow-auto"

@@ -5,6 +5,7 @@ import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/gr
 import { useUpsertOrganisation } from '../../../../../hooks/stop-registry/useUpsertOrganisation';
 import { Row } from '../../../../../layoutComponents';
 import { Modal, NewModalBody } from '../../../../../uiComponents';
+import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import {
   OrganisationDetailsForm,
   OrganisationDetailsFormState,
@@ -44,6 +45,10 @@ export const OrganisationDetailsModal: FC<OrganisationDetailsModalProps> = ({
   onSubmit,
 }) => {
   const { t } = useTranslation();
+  const wrapInContextNavigation = useWrapInContextNavigation(
+    'OrganisationDetailsForm',
+  );
+
   const { upsertOrganisation, defaultErrorHandler } = useUpsertOrganisation();
 
   const onConfirm = async (state: OrganisationDetailsFormState) => {
@@ -58,7 +63,11 @@ export const OrganisationDetailsModal: FC<OrganisationDetailsModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} testId={testIds.modal}>
+    <Modal
+      isOpen={isOpen}
+      onClose={wrapInContextNavigation(onClose)}
+      testId={testIds.modal}
+    >
       <Row className="flex justify-between px-5 py-4">
         <Dialog.Title as="h4" data-testid={testIds.title}>
           {organisation?.id

@@ -4,6 +4,10 @@ import { twMerge } from 'tailwind-merge';
 import { useCallbackOnKeyEscape } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
+import {
+  NavigationContext,
+  useWrapInContextNavigation,
+} from '../../forms/common/NavigationBlocker';
 import { ModalBody } from './ModalBody';
 import { ModalHeader } from './ModalHeader';
 
@@ -53,6 +57,7 @@ type ModalProps = {
   readonly onCancel: () => void;
   readonly onSave: () => void;
   readonly children: ReactNode;
+  readonly navigationContext: NavigationContext;
 };
 
 export const Modal: FC<ModalProps> = ({
@@ -66,8 +71,11 @@ export const Modal: FC<ModalProps> = ({
   onCancel,
   onSave,
   children,
+  navigationContext,
 }) => {
-  useCallbackOnKeyEscape(onClose);
+  const wrapInContextNavigation = useWrapInContextNavigation(navigationContext);
+  const requestNavigationOnClose = wrapInContextNavigation(onClose);
+  useCallbackOnKeyEscape(requestNavigationOnClose);
 
   return (
     <div
@@ -76,7 +84,7 @@ export const Modal: FC<ModalProps> = ({
     >
       <ModalHeader
         className={headerClassName}
-        onClose={onClose}
+        onClose={requestNavigationOnClose}
         heading={heading}
       />
       <ModalBody className={twMerge('overflow-auto', bodyClassName)}>

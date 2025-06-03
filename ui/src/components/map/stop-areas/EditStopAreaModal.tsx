@@ -75,6 +75,7 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
           onCancel={onCancel}
           onClose={onClose}
           heading={heading}
+          navigationContext="StopAreaForm"
         >
           <StopAreaForm
             defaultValues={getDefaultValues}

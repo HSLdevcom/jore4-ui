@@ -13,6 +13,7 @@ import { selectTimingSettingsModal } from '../../../redux';
 import { closeTimingSettingsModalAction } from '../../../redux/slices/modals';
 import { Modal, ModalHeader } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
+import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
 import {
   FormState,
   TimingSettingsForm,
@@ -56,6 +57,9 @@ const GQL_GET_SCHEDULED_STOP_POINT_WITH_TIMING_SETTINGS = gql`
 
 export const TimingSettingsModal = (): React.ReactElement => {
   const { t } = useTranslation();
+  const wrapInContextNavigation =
+    useWrapInContextNavigation('TimingSettingsForm');
+
   const timingSettingsModalState = useAppSelector(selectTimingSettingsModal);
   const { data: timingSettings } = timingSettingsModalState;
   // if the timing settings modal is open, we know that timingSettings fields are set
@@ -99,9 +103,8 @@ export const TimingSettingsModal = (): React.ReactElement => {
     }
   };
 
-  const onClose = () => {
-    dispatch(closeTimingSettingsModalAction());
-  };
+  const onCancel = () => dispatch(closeTimingSettingsModalAction());
+  const onClose = wrapInContextNavigation(onCancel);
 
   return (
     <Modal isOpen onClose={onClose}>
@@ -114,7 +117,7 @@ export const TimingSettingsModal = (): React.ReactElement => {
       {stopInfo && (
         <TimingSettingsForm
           className="p-8"
-          onCancel={onClose}
+          onCancel={onCancel}
           onSubmit={(formState) => onSubmit(formState, stopInfo)}
           defaultValues={mapStopJourneyPatternToFormState(stopInfo)}
         />

@@ -11,6 +11,7 @@ import {
 } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { Modal, NewModalBody, NewModalHeader } from '../../../uiComponents';
+import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
 import { ConfirmTimetablesImportForm } from './ConfirmTimetablesImportForm';
 import { FormState, getDefaultValues } from './TimetablesImportFormSchema';
 
@@ -24,6 +25,10 @@ export const ConfirmTimetablesImportModal: FC<
   ConfirmTimetablesImportModalProps
 > = ({ isOpen, onClose, className = '' }) => {
   const { t } = useTranslation();
+  const wrappedOnClose = useWrapInContextNavigation(
+    'ConfirmTimetablesImportForm',
+  )(onClose);
+
   const { onConfirmTimetablesImport, showConfirmFailedErrorDialog } =
     useConfirmTimetablesImportUIAction();
   const {
@@ -67,9 +72,13 @@ export const ConfirmTimetablesImportModal: FC<
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} contentClassName={className}>
+    <Modal
+      isOpen={isOpen}
+      onClose={wrappedOnClose}
+      contentClassName={className}
+    >
       <NewModalHeader
-        onClose={onClose}
+        onClose={wrappedOnClose}
         heading={t('confirmTimetablesImportModal.title')}
       />
       <NewModalBody>

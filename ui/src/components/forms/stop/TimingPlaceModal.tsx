@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../hooks/redux';
 import { closeTimingPlaceModalAction } from '../../../redux/slices/modals';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
+import { useWrapInContextNavigation } from '../common/NavigationBlocker';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 
 type TimingPlaceModalProps = {
@@ -14,14 +15,16 @@ export const TimingPlaceModal: FC<TimingPlaceModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const wrapInContextNavigation = useWrapInContextNavigation(
+    'CreateTimingPlaceForm',
+  );
 
-  const onClose = () => {
-    dispatch(closeTimingPlaceModalAction());
-  };
+  const onCloseModal = () => dispatch(closeTimingPlaceModalAction());
+  const onClose = wrapInContextNavigation(onCloseModal);
 
   const timingPlaceCreated = (timingPlaceId: UUID) => {
     onTimingPlaceCreated(timingPlaceId);
-    onClose();
+    onCloseModal();
   };
 
   return (
@@ -29,7 +32,7 @@ export const TimingPlaceModal: FC<TimingPlaceModalProps> = ({
       <ModalHeader onClose={onClose} heading={t('timingPlaces.label')} />
       <ModalBody>
         <CreateTimingPlaceForm
-          onCancel={onClose}
+          onCancel={onCloseModal}
           onTimingPlaceCreated={timingPlaceCreated}
         />
       </ModalBody>

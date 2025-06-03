@@ -15,6 +15,7 @@ import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../utils/toastService';
+import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
 import {
   ChangeTimetablesValidityForm,
   FormState,
@@ -31,6 +32,10 @@ export const ChangeTimetablesValidityModal: FC<
   ChangeTimetablesValidityModalProps
 > = ({ isOpen, onClose, onChange, className = '' }) => {
   const { t } = useTranslation();
+  const wrappedOnClose = useWrapInContextNavigation(
+    'ChangeTimetablesValidityForm',
+  )(onClose);
+
   const dispatch = useAppDispatch();
   const changeTimetableValidityModalState = useAppSelector(
     selectChangeTimetableValidityModal,
@@ -70,9 +75,13 @@ export const ChangeTimetablesValidityModal: FC<
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} contentClassName={className}>
+    <Modal
+      isOpen={isOpen}
+      onClose={wrappedOnClose}
+      contentClassName={className}
+    >
       <ModalHeader
-        onClose={onClose}
+        onClose={wrappedOnClose}
         heading={t('changeTimetablesValidityModal.title')}
       />
       <ModalBody>

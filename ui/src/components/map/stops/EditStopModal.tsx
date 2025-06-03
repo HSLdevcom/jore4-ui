@@ -53,6 +53,7 @@ export const EditStopModal: FC<EditStopModalProps> = ({
           onCancel={onCancel}
           onClose={onClose}
           heading={buildHeading()}
+          navigationContext="StopForm"
         >
           <StopForm
             defaultValues={defaultValues}
