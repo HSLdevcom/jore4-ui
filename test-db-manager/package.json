@@ -11,6 +11,7 @@
     "seed": "yarn seed:timetables && yarn seed:stops",
     "seed:timetables": "node dist/seedTimetables.js",
     "seed:stops": "node dist/seedStopRegistry.js",
+    "seed:terminals": "node dist/seedStopRegistryTerminals.js",
     "clean": "rm -rf ts-dist && rm -rf dist && rm -f tsconfig.tsbuildinfo && rm -rf .rollup.cache",
     "ts:check": "yarn tsc --noEmit",
     "ts:build": "yarn tsc --build"

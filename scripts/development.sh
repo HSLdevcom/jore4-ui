@@ -315,12 +315,10 @@ setup_environment() {
   fi
 
   if [[ $1 = "test" ]]; then
-    # Use port 3010 for tiamat
-    ./scripts/seed-municipalities-and-fare-zones.sh 3010
-
     cd ./test-db-manager
     yarn build
-    yarn seed
+    # Stop registry dumps do not include any terminal data, use the seed data to insert them
+    yarn seed:terminals
     cd ..
   fi
 
@@ -361,7 +359,10 @@ print_usage() {
     downloaded.
 
   setup:test
-    Start dependencies and seed databases with test data.
+    Start dependencies and seed databases with dump data and insert additional terminals.
+
+    The stop registry dump does not currently contain any terminals, so use this command
+    if you want to have terminal data in the database.
 
     If the Digitransit subscription key has not yet been fetched (stored in
     ui/.env.local), you will need to set the HTTPS_PROXY environment
