@@ -126,3 +126,16 @@ export interface InsertOrganisationResult {
     };
   };
 }
+
+export interface GetAllStopPlaceLabelsAndIdsResult {
+  data: {
+    stop_registry: {
+      stopPlace: {
+        id: string;
+        privateCode: {
+          value: string | null;
+        };
+      }[];
+    };
+  };
+}
