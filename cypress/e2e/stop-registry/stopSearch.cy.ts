@@ -983,7 +983,7 @@ describe('Stop search', () => {
             name: { lang: 'fin', value: 'X1234' },
             quays: extraPrioStops.map((stopPoint) => ({
               publicCode: stopPoint.label,
-              privateCode: { value: stopPoint.label, type: 'HSL' },
+              privateCode: { value: stopPoint.label, type: 'HSL/TEST' },
               geometry: {
                 coordinates: stopPoint.measured_location.coordinates.slice(
                   0,
