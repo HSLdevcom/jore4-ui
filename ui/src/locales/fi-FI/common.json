@@ -135,9 +135,6 @@
     "nameSwe": "Nimi (ruotsi)",
     "privateCode": "Pysäkkialueen tunnus",
     "quays": "Jäsenpysäkit",
-    "sharedNameNotice": "Muista nimetä jäsenpysäkit pysäkkialueen nimellä.",
-    "checkingNames": "Tarkastetaan nimien yhtenäisyyttä",
-    "checkingNamesFailed": "Nimien tarkastus epäonnistui <RefetchButton>Yritä uudelleen</RefetchButton>",
     "editSuccess": "Pysäkkialue muokattu",
     "errors": {
       "expandToSeeErrors": "Avaa Kieliversiot ja lyhenteet nähdäksesi virheet"
