@@ -21,6 +21,7 @@ import {
 } from '../generated/graphql';
 import { hasuraApi } from '../hasuraApi';
 import {
+  mapToGetAllStopPlaceLabelsAndIds,
   mapToGetStopPointByLabelQuery,
   mapToInsertInfoSpotMutation,
   mapToInsertOrganisationMutation,
@@ -30,6 +31,7 @@ import {
   mapToUpdateTerminalMutation,
 } from '../queries';
 import {
+  GetAllStopPlaceLabelsAndIdsResult,
   GetStopPointByLabelResult,
   InsertInfoSpotsResult,
   InsertOrganisationResult,
@@ -563,6 +565,22 @@ export const insertStopPlaces = async (
   console.log(`Inserted ${stopPlaces.length} stop places.`);
 
   return { collectedStopIds, collectedQuayDetails };
+};
+
+export const fetchStopPlaceIdsAndLabels = async () => {
+  const stopIds: StopPlaceIdsByName = {};
+
+  const stopPlaceFetchResult = (await hasuraApi(
+    mapToGetAllStopPlaceLabelsAndIds(),
+  )) as GetAllStopPlaceLabelsAndIdsResult;
+
+  stopPlaceFetchResult.data.stop_registry.stopPlace.forEach((stop) => {
+    if (stop.privateCode.value !== null) {
+      stopIds[stop.privateCode.value] = stop.id;
+    }
+  });
+
+  return stopIds;
 };
 
 export const insertTerminals = async (

@@ -315,7 +315,7 @@ setup_environment() {
 
     cd ./test-db-manager
     yarn build
-    yarn seed
+    yarn seed:terminals
     cd ..
   fi
 
