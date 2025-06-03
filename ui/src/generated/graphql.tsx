@@ -22028,319 +22028,6 @@ export type StopsDatabaseGroupOfStopPlacesMutationResponse = {
   returning: Array<StopsDatabaseGroupOfStopPlaces>;
 };
 
-/** columns and relationships of "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersion = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version';
-  centroid?: Maybe<Scalars['geometry']['output']>;
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  description_lang?: Maybe<Scalars['String']['output']>;
-  description_value?: Maybe<Scalars['String']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  /** An array relationship */
-  group_of_stop_places_alternative_names: Array<StopsDatabaseGroupOfStopPlacesAlternativeNames>;
-  /** An aggregate relationship */
-  group_of_stop_places_alternative_names_aggregate: StopsDatabaseGroupOfStopPlacesAlternativeNamesAggregate;
-  id?: Maybe<Scalars['bigint']['output']>;
-  name_lang?: Maybe<Scalars['String']['output']>;
-  name_value?: Maybe<Scalars['String']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  private_code_type?: Maybe<Scalars['String']['output']>;
-  private_code_value?: Maybe<Scalars['String']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['bigint']['output']>;
-  short_name_lang?: Maybe<Scalars['String']['output']>;
-  short_name_value?: Maybe<Scalars['String']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** columns and relationships of "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionGroupOfStopPlacesAlternativeNamesArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesAlternativeNamesSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesAlternativeNamesOrderBy>>;
-  where?: InputMaybe<StopsDatabaseGroupOfStopPlacesAlternativeNamesBoolExp>;
-};
-
-
-/** columns and relationships of "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionGroupOfStopPlacesAlternativeNamesAggregateArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesAlternativeNamesSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesAlternativeNamesOrderBy>>;
-  where?: InputMaybe<StopsDatabaseGroupOfStopPlacesAlternativeNamesBoolExp>;
-};
-
-/** aggregated selection of "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionAggregate = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_aggregate';
-  aggregate?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionAggregateFields>;
-  nodes: Array<StopsDatabaseGroupOfStopPlacesNewestVersion>;
-};
-
-/** aggregate fields of "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionAggregateFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_aggregate_fields';
-  avg?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionAvgFields>;
-  count: Scalars['Int']['output'];
-  max?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionMaxFields>;
-  min?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionMinFields>;
-  stddev?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionStddevFields>;
-  stddev_pop?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionStddevPopFields>;
-  stddev_samp?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionStddevSampFields>;
-  sum?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionSumFields>;
-  var_pop?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionVarPopFields>;
-  var_samp?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionVarSampFields>;
-  variance?: Maybe<StopsDatabaseGroupOfStopPlacesNewestVersionVarianceFields>;
-};
-
-
-/** aggregate fields of "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionAggregateFieldsCountArgs = {
-  columns?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** aggregate avg on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionAvgFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_avg_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Boolean expression to filter rows from the table "group_of_stop_places_newest_version". All fields are combined with a logical 'AND'. */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp = {
-  _and?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>>;
-  _not?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
-  _or?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>>;
-  centroid?: InputMaybe<GeometryComparisonExp>;
-  changed?: InputMaybe<TimestampComparisonExp>;
-  changed_by?: InputMaybe<StringComparisonExp>;
-  created?: InputMaybe<TimestampComparisonExp>;
-  description_lang?: InputMaybe<StringComparisonExp>;
-  description_value?: InputMaybe<StringComparisonExp>;
-  from_date?: InputMaybe<TimestampComparisonExp>;
-  group_of_stop_places_alternative_names?: InputMaybe<StopsDatabaseGroupOfStopPlacesAlternativeNamesBoolExp>;
-  group_of_stop_places_alternative_names_aggregate?: InputMaybe<GroupOfStopPlacesAlternativeNamesAggregateBoolExp>;
-  id?: InputMaybe<BigintComparisonExp>;
-  name_lang?: InputMaybe<StringComparisonExp>;
-  name_value?: InputMaybe<StringComparisonExp>;
-  netex_id?: InputMaybe<StringComparisonExp>;
-  private_code_type?: InputMaybe<StringComparisonExp>;
-  private_code_value?: InputMaybe<StringComparisonExp>;
-  purpose_of_grouping_id?: InputMaybe<BigintComparisonExp>;
-  short_name_lang?: InputMaybe<StringComparisonExp>;
-  short_name_value?: InputMaybe<StringComparisonExp>;
-  to_date?: InputMaybe<TimestampComparisonExp>;
-  version?: InputMaybe<BigintComparisonExp>;
-  version_comment?: InputMaybe<StringComparisonExp>;
-};
-
-/** aggregate max on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionMaxFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_max_fields';
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  description_lang?: Maybe<Scalars['String']['output']>;
-  description_value?: Maybe<Scalars['String']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  name_lang?: Maybe<Scalars['String']['output']>;
-  name_value?: Maybe<Scalars['String']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  private_code_type?: Maybe<Scalars['String']['output']>;
-  private_code_value?: Maybe<Scalars['String']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['bigint']['output']>;
-  short_name_lang?: Maybe<Scalars['String']['output']>;
-  short_name_value?: Maybe<Scalars['String']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregate min on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionMinFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_min_fields';
-  changed?: Maybe<Scalars['timestamp']['output']>;
-  changed_by?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['timestamp']['output']>;
-  description_lang?: Maybe<Scalars['String']['output']>;
-  description_value?: Maybe<Scalars['String']['output']>;
-  from_date?: Maybe<Scalars['timestamp']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  name_lang?: Maybe<Scalars['String']['output']>;
-  name_value?: Maybe<Scalars['String']['output']>;
-  netex_id?: Maybe<Scalars['String']['output']>;
-  private_code_type?: Maybe<Scalars['String']['output']>;
-  private_code_value?: Maybe<Scalars['String']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['bigint']['output']>;
-  short_name_lang?: Maybe<Scalars['String']['output']>;
-  short_name_value?: Maybe<Scalars['String']['output']>;
-  to_date?: Maybe<Scalars['timestamp']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-  version_comment?: Maybe<Scalars['String']['output']>;
-};
-
-/** Ordering options when selecting data from "group_of_stop_places_newest_version". */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy = {
-  centroid?: InputMaybe<OrderBy>;
-  changed?: InputMaybe<OrderBy>;
-  changed_by?: InputMaybe<OrderBy>;
-  created?: InputMaybe<OrderBy>;
-  description_lang?: InputMaybe<OrderBy>;
-  description_value?: InputMaybe<OrderBy>;
-  from_date?: InputMaybe<OrderBy>;
-  group_of_stop_places_alternative_names_aggregate?: InputMaybe<StopsDatabaseGroupOfStopPlacesAlternativeNamesAggregateOrderBy>;
-  id?: InputMaybe<OrderBy>;
-  name_lang?: InputMaybe<OrderBy>;
-  name_value?: InputMaybe<OrderBy>;
-  netex_id?: InputMaybe<OrderBy>;
-  private_code_type?: InputMaybe<OrderBy>;
-  private_code_value?: InputMaybe<OrderBy>;
-  purpose_of_grouping_id?: InputMaybe<OrderBy>;
-  short_name_lang?: InputMaybe<OrderBy>;
-  short_name_value?: InputMaybe<OrderBy>;
-  to_date?: InputMaybe<OrderBy>;
-  version?: InputMaybe<OrderBy>;
-  version_comment?: InputMaybe<OrderBy>;
-};
-
-/** select columns of table "group_of_stop_places_newest_version" */
-export enum StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn {
-  /** column name */
-  Centroid = 'centroid',
-  /** column name */
-  Changed = 'changed',
-  /** column name */
-  ChangedBy = 'changed_by',
-  /** column name */
-  Created = 'created',
-  /** column name */
-  DescriptionLang = 'description_lang',
-  /** column name */
-  DescriptionValue = 'description_value',
-  /** column name */
-  FromDate = 'from_date',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  NameLang = 'name_lang',
-  /** column name */
-  NameValue = 'name_value',
-  /** column name */
-  NetexId = 'netex_id',
-  /** column name */
-  PrivateCodeType = 'private_code_type',
-  /** column name */
-  PrivateCodeValue = 'private_code_value',
-  /** column name */
-  PurposeOfGroupingId = 'purpose_of_grouping_id',
-  /** column name */
-  ShortNameLang = 'short_name_lang',
-  /** column name */
-  ShortNameValue = 'short_name_value',
-  /** column name */
-  ToDate = 'to_date',
-  /** column name */
-  Version = 'version',
-  /** column name */
-  VersionComment = 'version_comment'
-}
-
-/** aggregate stddev on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionStddevFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_stddev_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate stddev_pop on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionStddevPopFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate stddev_samp on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionStddevSampFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Streaming cursor of the table "group_of_stop_places_newest_version" */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionStreamCursorInput = {
-  /** Stream column input with initial value */
-  initial_value: StopsDatabaseGroupOfStopPlacesNewestVersionStreamCursorValueInput;
-  /** cursor ordering */
-  ordering?: InputMaybe<StopsDatabaseCursorOrdering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionStreamCursorValueInput = {
-  centroid?: InputMaybe<Scalars['geometry']['input']>;
-  changed?: InputMaybe<Scalars['timestamp']['input']>;
-  changed_by?: InputMaybe<Scalars['String']['input']>;
-  created?: InputMaybe<Scalars['timestamp']['input']>;
-  description_lang?: InputMaybe<Scalars['String']['input']>;
-  description_value?: InputMaybe<Scalars['String']['input']>;
-  from_date?: InputMaybe<Scalars['timestamp']['input']>;
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  name_lang?: InputMaybe<Scalars['String']['input']>;
-  name_value?: InputMaybe<Scalars['String']['input']>;
-  netex_id?: InputMaybe<Scalars['String']['input']>;
-  private_code_type?: InputMaybe<Scalars['String']['input']>;
-  private_code_value?: InputMaybe<Scalars['String']['input']>;
-  purpose_of_grouping_id?: InputMaybe<Scalars['bigint']['input']>;
-  short_name_lang?: InputMaybe<Scalars['String']['input']>;
-  short_name_value?: InputMaybe<Scalars['String']['input']>;
-  to_date?: InputMaybe<Scalars['timestamp']['input']>;
-  version?: InputMaybe<Scalars['bigint']['input']>;
-  version_comment?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate sum on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionSumFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_sum_fields';
-  id?: Maybe<Scalars['bigint']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['bigint']['output']>;
-  version?: Maybe<Scalars['bigint']['output']>;
-};
-
-/** aggregate var_pop on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionVarPopFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_var_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate var_samp on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionVarSampFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_var_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
-/** aggregate variance on columns */
-export type StopsDatabaseGroupOfStopPlacesNewestVersionVarianceFields = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version_variance_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  purpose_of_grouping_id?: Maybe<Scalars['Float']['output']>;
-  version?: Maybe<Scalars['Float']['output']>;
-};
-
 /** input type for inserting object relation for remote table "group_of_stop_places" */
 export type StopsDatabaseGroupOfStopPlacesObjRelInsertInput = {
   data: StopsDatabaseGroupOfStopPlacesInsertInput;
@@ -35920,11 +35607,9 @@ export type StopsDatabasePlaceEquipment = {
   seats?: Maybe<Scalars['numeric']['output']>;
   shelter_condition?: Maybe<Scalars['String']['output']>;
   shelter_electricity?: Maybe<Scalars['String']['output']>;
-  shelter_external_id?: Maybe<Scalars['String']['output']>;
   shelter_fascia_board_taping?: Maybe<Scalars['Boolean']['output']>;
   shelter_has_display?: Maybe<Scalars['Boolean']['output']>;
   shelter_lighting?: Maybe<Scalars['Boolean']['output']>;
-  shelter_number?: Maybe<Scalars['Int']['output']>;
   shelter_type?: Maybe<Scalars['String']['output']>;
   sign_content_type?: Maybe<Scalars['String']['output']>;
   sign_graphic?: Maybe<Scalars['String']['output']>;
@@ -35988,7 +35673,6 @@ export type StopsDatabasePlaceEquipmentAvgFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
-  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36040,11 +35724,9 @@ export type StopsDatabasePlaceEquipmentBoolExp = {
   seats?: InputMaybe<NumericComparisonExp>;
   shelter_condition?: InputMaybe<StringComparisonExp>;
   shelter_electricity?: InputMaybe<StringComparisonExp>;
-  shelter_external_id?: InputMaybe<StringComparisonExp>;
   shelter_fascia_board_taping?: InputMaybe<BooleanComparisonExp>;
   shelter_has_display?: InputMaybe<BooleanComparisonExp>;
   shelter_lighting?: InputMaybe<BooleanComparisonExp>;
-  shelter_number?: InputMaybe<IntComparisonExp>;
   shelter_type?: InputMaybe<StringComparisonExp>;
   sign_content_type?: InputMaybe<StringComparisonExp>;
   sign_graphic?: InputMaybe<StringComparisonExp>;
@@ -36093,8 +35775,6 @@ export type StopsDatabasePlaceEquipmentMaxFields = {
   seats?: Maybe<Scalars['numeric']['output']>;
   shelter_condition?: Maybe<Scalars['String']['output']>;
   shelter_electricity?: Maybe<Scalars['String']['output']>;
-  shelter_external_id?: Maybe<Scalars['String']['output']>;
-  shelter_number?: Maybe<Scalars['Int']['output']>;
   shelter_type?: Maybe<Scalars['String']['output']>;
   sign_content_type?: Maybe<Scalars['String']['output']>;
   sign_graphic?: Maybe<Scalars['String']['output']>;
@@ -36137,8 +35817,6 @@ export type StopsDatabasePlaceEquipmentMinFields = {
   seats?: Maybe<Scalars['numeric']['output']>;
   shelter_condition?: Maybe<Scalars['String']['output']>;
   shelter_electricity?: Maybe<Scalars['String']['output']>;
-  shelter_external_id?: Maybe<Scalars['String']['output']>;
-  shelter_number?: Maybe<Scalars['Int']['output']>;
   shelter_type?: Maybe<Scalars['String']['output']>;
   sign_content_type?: Maybe<Scalars['String']['output']>;
   sign_graphic?: Maybe<Scalars['String']['output']>;
@@ -36192,11 +35870,9 @@ export type StopsDatabasePlaceEquipmentOrderBy = {
   seats?: InputMaybe<OrderBy>;
   shelter_condition?: InputMaybe<OrderBy>;
   shelter_electricity?: InputMaybe<OrderBy>;
-  shelter_external_id?: InputMaybe<OrderBy>;
   shelter_fascia_board_taping?: InputMaybe<OrderBy>;
   shelter_has_display?: InputMaybe<OrderBy>;
   shelter_lighting?: InputMaybe<OrderBy>;
-  shelter_number?: InputMaybe<OrderBy>;
   shelter_type?: InputMaybe<OrderBy>;
   sign_content_type?: InputMaybe<OrderBy>;
   sign_graphic?: InputMaybe<OrderBy>;
@@ -36296,15 +35972,11 @@ export enum StopsDatabasePlaceEquipmentSelectColumn {
   /** column name */
   ShelterElectricity = 'shelter_electricity',
   /** column name */
-  ShelterExternalId = 'shelter_external_id',
-  /** column name */
   ShelterFasciaBoardTaping = 'shelter_fascia_board_taping',
   /** column name */
   ShelterHasDisplay = 'shelter_has_display',
   /** column name */
   ShelterLighting = 'shelter_lighting',
-  /** column name */
-  ShelterNumber = 'shelter_number',
   /** column name */
   ShelterType = 'shelter_type',
   /** column name */
@@ -36354,7 +36026,6 @@ export type StopsDatabasePlaceEquipmentStddevFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
-  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36377,7 +36048,6 @@ export type StopsDatabasePlaceEquipmentStddevPopFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
-  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36400,7 +36070,6 @@ export type StopsDatabasePlaceEquipmentStddevSampFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
-  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36457,11 +36126,9 @@ export type StopsDatabasePlaceEquipmentStreamCursorValueInput = {
   seats?: InputMaybe<Scalars['numeric']['input']>;
   shelter_condition?: InputMaybe<Scalars['String']['input']>;
   shelter_electricity?: InputMaybe<Scalars['String']['input']>;
-  shelter_external_id?: InputMaybe<Scalars['String']['input']>;
   shelter_fascia_board_taping?: InputMaybe<Scalars['Boolean']['input']>;
   shelter_has_display?: InputMaybe<Scalars['Boolean']['input']>;
   shelter_lighting?: InputMaybe<Scalars['Boolean']['input']>;
-  shelter_number?: InputMaybe<Scalars['Int']['input']>;
   shelter_type?: InputMaybe<Scalars['String']['input']>;
   sign_content_type?: InputMaybe<Scalars['String']['input']>;
   sign_graphic?: InputMaybe<Scalars['String']['input']>;
@@ -36495,7 +36162,6 @@ export type StopsDatabasePlaceEquipmentSumFields = {
   number_of_toilets?: Maybe<Scalars['numeric']['output']>;
   place_equipment_id?: Maybe<Scalars['bigint']['output']>;
   seats?: Maybe<Scalars['numeric']['output']>;
-  shelter_number?: Maybe<Scalars['Int']['output']>;
   timetable_cabinets?: Maybe<Scalars['Int']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   wheelchair_area_length?: Maybe<Scalars['numeric']['output']>;
@@ -36518,7 +36184,6 @@ export type StopsDatabasePlaceEquipmentVarPopFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
-  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36541,7 +36206,6 @@ export type StopsDatabasePlaceEquipmentVarSampFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
-  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36564,7 +36228,6 @@ export type StopsDatabasePlaceEquipmentVarianceFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
-  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -49585,10 +49248,6 @@ export type StopsDatabaseStopsDatabaseQuery = {
   stops_database_group_of_stop_places_members: Array<StopsDatabaseGroupOfStopPlacesMembers>;
   /** fetch aggregated fields from the table: "group_of_stop_places_members" */
   stops_database_group_of_stop_places_members_aggregate: StopsDatabaseGroupOfStopPlacesMembersAggregate;
-  /** fetch data from the table: "group_of_stop_places_newest_version" */
-  stops_database_group_of_stop_places_newest_version: Array<StopsDatabaseGroupOfStopPlacesNewestVersion>;
-  /** fetch aggregated fields from the table: "group_of_stop_places_newest_version" */
-  stops_database_group_of_stop_places_newest_version_aggregate: StopsDatabaseGroupOfStopPlacesNewestVersionAggregate;
   /** fetch data from the table: "group_of_tariff_zones" */
   stops_database_group_of_tariff_zones: Array<StopsDatabaseGroupOfTariffZones>;
   /** fetch aggregated fields from the table: "group_of_tariff_zones" */
@@ -50664,24 +50323,6 @@ export type StopsDatabaseStopsDatabaseQueryStopsDatabaseGroupOfStopPlacesMembers
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersOrderBy>>;
   where?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
-};
-
-
-export type StopsDatabaseStopsDatabaseQueryStopsDatabaseGroupOfStopPlacesNewestVersionArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy>>;
-  where?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
-};
-
-
-export type StopsDatabaseStopsDatabaseQueryStopsDatabaseGroupOfStopPlacesNewestVersionAggregateArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy>>;
-  where?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
 };
 
 
@@ -52388,12 +52029,6 @@ export type StopsDatabaseStopsDatabaseSubscription = {
   stops_database_group_of_stop_places_members_aggregate: StopsDatabaseGroupOfStopPlacesMembersAggregate;
   /** fetch data from the table in a streaming manner: "group_of_stop_places_members" */
   stops_database_group_of_stop_places_members_stream: Array<StopsDatabaseGroupOfStopPlacesMembers>;
-  /** fetch data from the table: "group_of_stop_places_newest_version" */
-  stops_database_group_of_stop_places_newest_version: Array<StopsDatabaseGroupOfStopPlacesNewestVersion>;
-  /** fetch aggregated fields from the table: "group_of_stop_places_newest_version" */
-  stops_database_group_of_stop_places_newest_version_aggregate: StopsDatabaseGroupOfStopPlacesNewestVersionAggregate;
-  /** fetch data from the table in a streaming manner: "group_of_stop_places_newest_version" */
-  stops_database_group_of_stop_places_newest_version_stream: Array<StopsDatabaseGroupOfStopPlacesNewestVersion>;
   /** fetch data from the table in a streaming manner: "group_of_stop_places" */
   stops_database_group_of_stop_places_stream: Array<StopsDatabaseGroupOfStopPlaces>;
   /** fetch data from the table: "group_of_tariff_zones" */
@@ -53840,31 +53475,6 @@ export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseGroupOfStopPlaces
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<StopsDatabaseGroupOfStopPlacesMembersStreamCursorInput>>;
   where?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
-};
-
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseGroupOfStopPlacesNewestVersionArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy>>;
-  where?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
-};
-
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseGroupOfStopPlacesNewestVersionAggregateArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesNewestVersionOrderBy>>;
-  where?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
-};
-
-
-export type StopsDatabaseStopsDatabaseSubscriptionStopsDatabaseGroupOfStopPlacesNewestVersionStreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionStreamCursorInput>>;
-  where?: InputMaybe<StopsDatabaseGroupOfStopPlacesNewestVersionBoolExp>;
 };
 
 
@@ -66905,155 +66515,6 @@ export type FindStopPlacesByQueryAndGroupQuery = {
   } | null
 };
 
-export type ResolveMemberStopNamesQueryVariables = Exact<{
-  stopAreaId: Scalars['String']['input'];
-}>;
-
-
-export type ResolveMemberStopNamesQuery = {
-  __typename?: 'query_root',
-  stops_database?: {
-    __typename?: 'stops_database_stops_database_query',
-    stops: Array<{
-      __typename?: 'stops_database_stop_place_newest_version',
-      id?: any | null,
-      nameLang?: string | null,
-      nameValue?: string | null,
-      alternativeNamesJoinTable: Array<{
-        __typename?: 'stops_database_stop_place_alternative_names',
-        alternative_names_id: any,
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name',
-          id: any,
-          type?: string | null,
-          lang?: string | null,
-          value?: string | null
-        }
-      }>
-    }>
-  } | null
-};
-
-export type ResolveStopAreaNamesQueryVariables = Exact<{
-  stopAreaId: Scalars['String']['input'];
-}>;
-
-
-export type ResolveStopAreaNamesQuery = {
-  __typename?: 'query_root',
-  stops_database?: {
-    __typename?: 'stops_database_stops_database_query',
-    stopArea: Array<{
-      __typename?: 'stops_database_group_of_stop_places_newest_version',
-      id?: any | null,
-      nameLang?: string | null,
-      nameValue?: string | null,
-      alternativeNamesJoinTable: Array<{
-        __typename?: 'stops_database_group_of_stop_places_alternative_names',
-        alternative_names_id: any,
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name',
-          id: any,
-          type?: string | null,
-          lang?: string | null,
-          value?: string | null
-        }
-      }>
-    }>
-  } | null
-};
-
-export type ResolveStopAreaAndMemberStopNamesQueryVariables = Exact<{
-  stopAreaId: Scalars['String']['input'];
-  memberStopIds: Array<Scalars['String']['input']> | Scalars['String']['input'];
-}>;
-
-
-export type ResolveStopAreaAndMemberStopNamesQuery = {
-  __typename?: 'query_root',
-  stops_database?: {
-    __typename?: 'stops_database_stops_database_query',
-    stopArea: Array<{
-      __typename?: 'stops_database_group_of_stop_places_newest_version',
-      id?: any | null,
-      nameLang?: string | null,
-      nameValue?: string | null,
-      alternativeNamesJoinTable: Array<{
-        __typename?: 'stops_database_group_of_stop_places_alternative_names',
-        alternative_names_id: any,
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name',
-          id: any,
-          type?: string | null,
-          lang?: string | null,
-          value?: string | null
-        }
-      }>
-    }>,
-    stops: Array<{
-      __typename?: 'stops_database_stop_place_newest_version',
-      id?: any | null,
-      nameLang?: string | null,
-      nameValue?: string | null,
-      alternativeNamesJoinTable: Array<{
-        __typename?: 'stops_database_stop_place_alternative_names',
-        alternative_names_id: any,
-        alternative_name: {
-          __typename?: 'stops_database_alternative_name',
-          id: any,
-          type?: string | null,
-          lang?: string | null,
-          value?: string | null
-        }
-      }>
-    }>
-  } | null
-};
-
-export type StopAreaNameInfoFragment = {
-  __typename?: 'stops_database_group_of_stop_places_newest_version',
-  id?: any | null,
-  nameLang?: string | null,
-  nameValue?: string | null,
-  alternativeNamesJoinTable: Array<{
-    __typename?: 'stops_database_group_of_stop_places_alternative_names',
-    alternative_names_id: any,
-    alternative_name: {
-      __typename?: 'stops_database_alternative_name',
-      id: any,
-      type?: string | null,
-      lang?: string | null,
-      value?: string | null
-    }
-  }>
-};
-
-export type StopPlaceNameInfoFragment = {
-  __typename?: 'stops_database_stop_place_newest_version',
-  id?: any | null,
-  nameLang?: string | null,
-  nameValue?: string | null,
-  alternativeNamesJoinTable: Array<{
-    __typename?: 'stops_database_stop_place_alternative_names',
-    alternative_names_id: any,
-    alternative_name: {
-      __typename?: 'stops_database_alternative_name',
-      id: any,
-      type?: string | null,
-      lang?: string | null,
-      value?: string | null
-    }
-  }>
-};
-
-export type AlternativeNameInfoFragment = {
-  __typename?: 'stops_database_alternative_name',
-  id: any,
-  type?: string | null,
-  lang?: string | null,
-  value?: string | null
-};
-
 export type GetStopPlaceMaxPrivateCodeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -75220,40 +74681,6 @@ export const RouteTableRowFragmentDoc = gql`
   }
 }
     ${RouteMapParamsFragmentDoc}`;
-export const AlternativeNameInfoFragmentDoc = gql`
-    fragment AlternativeNameInfo on stops_database_alternative_name {
-  id
-  type: name_type
-  lang: name_lang
-  value: name_value
-}
-    `;
-export const StopAreaNameInfoFragmentDoc = gql`
-    fragment StopAreaNameInfo on stops_database_group_of_stop_places_newest_version {
-  id
-  nameLang: description_lang
-  nameValue: description_value
-  alternativeNamesJoinTable: group_of_stop_places_alternative_names {
-    alternative_names_id
-    alternative_name {
-      ...AlternativeNameInfo
-    }
-  }
-}
-    ${AlternativeNameInfoFragmentDoc}`;
-export const StopPlaceNameInfoFragmentDoc = gql`
-    fragment StopPlaceNameInfo on stops_database_stop_place_newest_version {
-  id
-  nameLang: name_lang
-  nameValue: name_value
-  alternativeNamesJoinTable: stop_place_alternative_names {
-    alternative_names_id
-    alternative_name {
-      ...AlternativeNameInfo
-    }
-  }
-}
-    ${AlternativeNameInfoFragmentDoc}`;
 export const StopFormStopAreaInfoFragmentDoc = gql`
     fragment StopFormStopAreaInfo on stops_database_stop_place_newest_version {
   id
@@ -76386,145 +75813,6 @@ export type FindStopPlacesByQueryAndGroupQueryHookResult = ReturnType<typeof use
 export type FindStopPlacesByQueryAndGroupLazyQueryHookResult = ReturnType<typeof useFindStopPlacesByQueryAndGroupLazyQuery>;
 export type FindStopPlacesByQueryAndGroupSuspenseQueryHookResult = ReturnType<typeof useFindStopPlacesByQueryAndGroupSuspenseQuery>;
 export type FindStopPlacesByQueryAndGroupQueryResult = Apollo.QueryResult<FindStopPlacesByQueryAndGroupQuery, FindStopPlacesByQueryAndGroupQueryVariables>;
-export const ResolveMemberStopNamesDocument = gql`
-    query ResolveMemberStopNames($stopAreaId: String!) {
-  stops_database {
-    stops: stops_database_stop_place_newest_version(
-      where: {group_of_stop_places_members: {group_of_stop_place: {netex_id: {_eq: $stopAreaId}}}}
-    ) {
-      ...StopPlaceNameInfo
-    }
-  }
-}
-    ${StopPlaceNameInfoFragmentDoc}`;
-
-/**
- * __useResolveMemberStopNamesQuery__
- *
- * To run a query within a React component, call `useResolveMemberStopNamesQuery` and pass it any options that fit your needs.
- * When your component renders, `useResolveMemberStopNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useResolveMemberStopNamesQuery({
- *   variables: {
- *      stopAreaId: // value for 'stopAreaId'
- *   },
- * });
- */
-export function useResolveMemberStopNamesQuery(baseOptions: Apollo.QueryHookOptions<ResolveMemberStopNamesQuery, ResolveMemberStopNamesQueryVariables> & ({ variables: ResolveMemberStopNamesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ResolveMemberStopNamesQuery, ResolveMemberStopNamesQueryVariables>(ResolveMemberStopNamesDocument, options);
-      }
-export function useResolveMemberStopNamesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ResolveMemberStopNamesQuery, ResolveMemberStopNamesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ResolveMemberStopNamesQuery, ResolveMemberStopNamesQueryVariables>(ResolveMemberStopNamesDocument, options);
-        }
-export function useResolveMemberStopNamesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveMemberStopNamesQuery, ResolveMemberStopNamesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ResolveMemberStopNamesQuery, ResolveMemberStopNamesQueryVariables>(ResolveMemberStopNamesDocument, options);
-        }
-export type ResolveMemberStopNamesQueryHookResult = ReturnType<typeof useResolveMemberStopNamesQuery>;
-export type ResolveMemberStopNamesLazyQueryHookResult = ReturnType<typeof useResolveMemberStopNamesLazyQuery>;
-export type ResolveMemberStopNamesSuspenseQueryHookResult = ReturnType<typeof useResolveMemberStopNamesSuspenseQuery>;
-export type ResolveMemberStopNamesQueryResult = Apollo.QueryResult<ResolveMemberStopNamesQuery, ResolveMemberStopNamesQueryVariables>;
-export const ResolveStopAreaNamesDocument = gql`
-    query ResolveStopAreaNames($stopAreaId: String!) {
-  stops_database {
-    stopArea: stops_database_group_of_stop_places_newest_version(
-      where: {netex_id: {_eq: $stopAreaId}}
-    ) {
-      ...StopAreaNameInfo
-    }
-  }
-}
-    ${StopAreaNameInfoFragmentDoc}`;
-
-/**
- * __useResolveStopAreaNamesQuery__
- *
- * To run a query within a React component, call `useResolveStopAreaNamesQuery` and pass it any options that fit your needs.
- * When your component renders, `useResolveStopAreaNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useResolveStopAreaNamesQuery({
- *   variables: {
- *      stopAreaId: // value for 'stopAreaId'
- *   },
- * });
- */
-export function useResolveStopAreaNamesQuery(baseOptions: Apollo.QueryHookOptions<ResolveStopAreaNamesQuery, ResolveStopAreaNamesQueryVariables> & ({ variables: ResolveStopAreaNamesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ResolveStopAreaNamesQuery, ResolveStopAreaNamesQueryVariables>(ResolveStopAreaNamesDocument, options);
-      }
-export function useResolveStopAreaNamesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ResolveStopAreaNamesQuery, ResolveStopAreaNamesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ResolveStopAreaNamesQuery, ResolveStopAreaNamesQueryVariables>(ResolveStopAreaNamesDocument, options);
-        }
-export function useResolveStopAreaNamesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveStopAreaNamesQuery, ResolveStopAreaNamesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ResolveStopAreaNamesQuery, ResolveStopAreaNamesQueryVariables>(ResolveStopAreaNamesDocument, options);
-        }
-export type ResolveStopAreaNamesQueryHookResult = ReturnType<typeof useResolveStopAreaNamesQuery>;
-export type ResolveStopAreaNamesLazyQueryHookResult = ReturnType<typeof useResolveStopAreaNamesLazyQuery>;
-export type ResolveStopAreaNamesSuspenseQueryHookResult = ReturnType<typeof useResolveStopAreaNamesSuspenseQuery>;
-export type ResolveStopAreaNamesQueryResult = Apollo.QueryResult<ResolveStopAreaNamesQuery, ResolveStopAreaNamesQueryVariables>;
-export const ResolveStopAreaAndMemberStopNamesDocument = gql`
-    query ResolveStopAreaAndMemberStopNames($stopAreaId: String!, $memberStopIds: [String!]!) {
-  stops_database {
-    stopArea: stops_database_group_of_stop_places_newest_version(
-      where: {netex_id: {_eq: $stopAreaId}}
-    ) {
-      ...StopAreaNameInfo
-    }
-    stops: stops_database_stop_place_newest_version(
-      where: {netex_id: {_in: $memberStopIds}}
-    ) {
-      ...StopPlaceNameInfo
-    }
-  }
-}
-    ${StopAreaNameInfoFragmentDoc}
-${StopPlaceNameInfoFragmentDoc}`;
-
-/**
- * __useResolveStopAreaAndMemberStopNamesQuery__
- *
- * To run a query within a React component, call `useResolveStopAreaAndMemberStopNamesQuery` and pass it any options that fit your needs.
- * When your component renders, `useResolveStopAreaAndMemberStopNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useResolveStopAreaAndMemberStopNamesQuery({
- *   variables: {
- *      stopAreaId: // value for 'stopAreaId'
- *      memberStopIds: // value for 'memberStopIds'
- *   },
- * });
- */
-export function useResolveStopAreaAndMemberStopNamesQuery(baseOptions: Apollo.QueryHookOptions<ResolveStopAreaAndMemberStopNamesQuery, ResolveStopAreaAndMemberStopNamesQueryVariables> & ({ variables: ResolveStopAreaAndMemberStopNamesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ResolveStopAreaAndMemberStopNamesQuery, ResolveStopAreaAndMemberStopNamesQueryVariables>(ResolveStopAreaAndMemberStopNamesDocument, options);
-      }
-export function useResolveStopAreaAndMemberStopNamesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ResolveStopAreaAndMemberStopNamesQuery, ResolveStopAreaAndMemberStopNamesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ResolveStopAreaAndMemberStopNamesQuery, ResolveStopAreaAndMemberStopNamesQueryVariables>(ResolveStopAreaAndMemberStopNamesDocument, options);
-        }
-export function useResolveStopAreaAndMemberStopNamesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveStopAreaAndMemberStopNamesQuery, ResolveStopAreaAndMemberStopNamesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ResolveStopAreaAndMemberStopNamesQuery, ResolveStopAreaAndMemberStopNamesQueryVariables>(ResolveStopAreaAndMemberStopNamesDocument, options);
-        }
-export type ResolveStopAreaAndMemberStopNamesQueryHookResult = ReturnType<typeof useResolveStopAreaAndMemberStopNamesQuery>;
-export type ResolveStopAreaAndMemberStopNamesLazyQueryHookResult = ReturnType<typeof useResolveStopAreaAndMemberStopNamesLazyQuery>;
-export type ResolveStopAreaAndMemberStopNamesSuspenseQueryHookResult = ReturnType<typeof useResolveStopAreaAndMemberStopNamesSuspenseQuery>;
-export type ResolveStopAreaAndMemberStopNamesQueryResult = Apollo.QueryResult<ResolveStopAreaAndMemberStopNamesQuery, ResolveStopAreaAndMemberStopNamesQueryVariables>;
 export const GetStopPlaceMaxPrivateCodeDocument = gql`
     query GetStopPlaceMaxPrivateCode {
   stops_database {

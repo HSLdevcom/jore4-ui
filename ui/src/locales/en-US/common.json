@@ -135,9 +135,6 @@
     "nameSwe": "Name (swedish)",
     "privateCode": "Stop area label",
     "quays": "Member stops",
-    "sharedNameNotice": "Remember that member stops need to share name with the area.",
-    "checkingNames": "Checking names for consistency",
-    "checkingNamesFailed": "Failed to check the consistency of names <RefetchButton>Try again</RefetchButton>",
     "editSuccess": "Stop area edited",
     "errors": {
       "expandToSeeErrors": "Expand Language versions and abbreviations to see errors"
