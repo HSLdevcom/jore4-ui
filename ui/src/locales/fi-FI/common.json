@@ -138,7 +138,8 @@
     "editSuccess": "Pysäkkialue muokattu",
     "errors": {
       "expandToSeeErrors": "Avaa Kieliversiot ja lyhenteet nähdäksesi virheet"
-    }
+    },
+    "noStops": "Ei pysäkkejä."
   },
   "stopAreaDetails": {
     "title": "Pysäkkialue",

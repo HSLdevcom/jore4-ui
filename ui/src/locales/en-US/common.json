@@ -138,7 +138,8 @@
     "editSuccess": "Stop area edited",
     "errors": {
       "expandToSeeErrors": "Expand Language versions and abbreviations to see errors"
-    }
+    },
+    "noStops": "No stops."
   },
   "stopAreaDetails": {
     "title": "Stop area",

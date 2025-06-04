@@ -9,6 +9,7 @@ import { StopAreaFormMember } from '../../../../forms/stop-area';
 import { StopSearchRow } from '../../../search';
 import { StopAreaComponentProps, StopAreaMemberRow } from '../types';
 import { mapMembersToStopSearchFormat } from '../utils';
+import { StopAreaMemberNoStops } from './StopAreaMemberNoStops';
 import { StopAreaMemberStopRow } from './StopAreaMemberStopRow';
 
 function groupBySelectionStatus(
@@ -134,6 +135,11 @@ export const StopAreaMemberStopRows: FC<StopAreaMemberStopRowsProps> = ({
   onRemove,
 }) => {
   const { t } = useTranslation();
+  const stopAreas = mapRows(t, area, inEditMode, inEditSelectedStops);
+
+  if (stopAreas.length === 0) {
+    return <StopAreaMemberNoStops />;
+  }
 
   return (
     <table
@@ -143,7 +149,7 @@ export const StopAreaMemberStopRows: FC<StopAreaMemberStopRowsProps> = ({
       )}
     >
       <tbody>
-        {mapRows(t, area, inEditMode, inEditSelectedStops).map((member) => (
+        {stopAreas.map((member) => (
           <StopAreaMemberStopRow
             inEditMode={inEditMode}
             key={member.quay.scheduled_stop_point_id}
