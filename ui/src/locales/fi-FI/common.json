@@ -503,7 +503,8 @@
       "longitude": "Pituusaste",
       "memberStops": "Jäsenpysäkit",
       "memberStopsTotal": "Jäsenpysäkit ({{total}})",
-      "memberPlatforms": "Jäsenlaiturit"
+      "memberPlatforms": "Jäsenlaiturit",
+      "noMemberStopsSelected": "Terminaalilla pitää olla vähintään yksi jäsenpysäkki."
     }
   },
   "stopRegistrySearch": {
