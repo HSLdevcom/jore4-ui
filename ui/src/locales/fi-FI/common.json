@@ -521,6 +521,7 @@
     "sortOrder": "Järjestys:",
     "resultCount": "{{count}} hakutulos",
     "resultCount_other": "{{count}} hakutulosta",
+    "goToStopAreaDetails": "Siirry pysäkkialueen tietoihin.",
 
     "stopRowActions": {
       "openDetails": "Näytä pysäkin tiedot",

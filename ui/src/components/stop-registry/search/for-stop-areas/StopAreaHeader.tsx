@@ -33,11 +33,13 @@ function centroidToPoint(centroid: Geometry | null | undefined): Point | null {
 type StopAreaHeaderProps = {
   readonly className?: string;
   readonly stopArea: FindStopAreaInfo;
+  readonly isRounded?: boolean;
 };
 
 export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
   className,
   stopArea,
+  isRounded,
 }) => {
   const { t } = useTranslation();
 
@@ -52,6 +54,7 @@ export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
     <div
       className={twMerge(
         'flex items-center gap-4 rounded-t-xl border-x border-t border-x-light-grey border-t-light-grey bg-background p-4',
+        isRounded ? 'rounded-b-xl border-b border-b-light-grey' : '',
         className,
       )}
     >
