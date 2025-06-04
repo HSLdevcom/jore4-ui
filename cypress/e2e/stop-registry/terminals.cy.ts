@@ -9,6 +9,7 @@ import { Tag } from '../../enums';
 import {
   AlternativeNames,
   AlternativeNamesEdit,
+  SelectMemberStopsDropdown,
   TerminalDetailsPage,
   Toast,
 } from '../../pageObjects';
@@ -46,6 +47,7 @@ describe('Terminal details', () => {
   const terminalDetailsPage = new TerminalDetailsPage();
   const alternativeNames = new AlternativeNames();
   const toast = new Toast();
+  const selectMemberStopsDropdown = new SelectMemberStopsDropdown();
 
   let dbResources: SupportedResources;
 
@@ -152,7 +154,7 @@ describe('Terminal details', () => {
     locationView.getFareZone().shouldHaveText('A');
     locationView.getLatitude().shouldHaveText('24.92596546020357');
     locationView.getLongitude().shouldHaveText('60.16993494912799');
-    locationView.getMemberStops().shouldHaveText('E2E008');
+    locationView.getMemberStops().shouldHaveText('E2E008, E2E010');
   };
 
   describe('basic details', () => {
@@ -263,6 +265,73 @@ describe('Terminal details', () => {
 
       // And the location details should still match newLocationDetails
       assertLocationDetails(newLocationDetails);
+    });
+
+    it('should add member stops', { tags: [Tag.StopRegistry] }, () => {
+      verifyInitialLocationDetails();
+      const { edit } = terminalDetailsPage.locationDetails;
+
+      // Add member stop
+      terminalDetailsPage.locationDetails.getEditButton().click();
+      edit.getSelectMemberStops().within(() => {
+        selectMemberStopsDropdown.dropdownButton().click();
+        selectMemberStopsDropdown.getInput().clearAndType('E2E009');
+        selectMemberStopsDropdown.getMemberOptions().should('have.length', 1);
+        selectMemberStopsDropdown
+          .getMemberOptions()
+          .eq(0)
+          .should('contain.text', 'E2E009')
+          .click();
+      });
+
+      terminalDetailsPage.locationDetails.getSaveButton().click();
+      waitForSaveToBeFinished();
+
+      terminalDetailsPage.locationDetails.viewCard
+        .getMemberStops()
+        .shouldHaveText('E2E001, E2E008, E2E009, E2E010');
+    });
+
+    it('should delete member stops', { tags: [Tag.StopRegistry] }, () => {
+      verifyInitialLocationDetails();
+      const { edit } = terminalDetailsPage.locationDetails;
+
+      // Delete member stop
+      terminalDetailsPage.locationDetails.getEditButton().click();
+      edit.getSelectMemberStops().within(() => {
+        selectMemberStopsDropdown.dropdownButton().click();
+        selectMemberStopsDropdown
+          .getSelectedMembers()
+          .contains('E2E010')
+          .click();
+      });
+
+      terminalDetailsPage.locationDetails.getSaveButton().click();
+      waitForSaveToBeFinished();
+
+      terminalDetailsPage.locationDetails.viewCard
+        .getMemberStops()
+        .shouldHaveText('E2E008');
+
+      terminalDetailsPage.locationDetails.getEditButton().click();
+      edit.getSelectMemberStops().within(() => {
+        selectMemberStopsDropdown.dropdownButton().click();
+        selectMemberStopsDropdown
+          .getSelectedMembers()
+          .contains('E2E008')
+          .click();
+      });
+
+      selectMemberStopsDropdown
+        .getWarningText()
+        .shouldHaveText(
+          'Terminaalilla pitää olla vähintään yksi jäsenpysäkki.',
+        );
+
+      terminalDetailsPage.locationDetails.getSaveButton().click();
+      toast.expectDangerToast(
+        'Tallennus epäonnistui: Terminaalilla pitää olla vähintään yksi jäsenpysäkki.',
+      );
     });
   });
 });

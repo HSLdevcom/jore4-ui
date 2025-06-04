@@ -341,7 +341,7 @@ const terminalData: Array<TerminalInput> = [
         { key: 'electricCharging', values: ['2'] },
       ],
     },
-    memberLabels: ['E2E008'],
+    memberLabels: ['E2E008', 'E2E010'],
   },
 ];
 
