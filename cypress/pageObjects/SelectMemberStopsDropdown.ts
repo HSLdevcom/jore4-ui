@@ -7,6 +7,10 @@ export class SelectMemberStopsDropdown {
     return cy.getByTestId('SelectMemberStopsDropdown::input');
   }
 
+  getWarningText() {
+    return cy.getByTestId('SelectMemberStopsDropdown::warningText');
+  }
+
   getSelectedMembers() {
     return cy.getByTestId('SelectedMemberStops::option');
   }
