@@ -9,10 +9,7 @@ import React, {
 import { Link, LinkProps, To } from 'react-router';
 import { twJoin, twMerge } from 'tailwind-merge';
 
-// Keep as compatability for other components, which import this list.
-export const commonHoverStyle = 'hover:border-2 hover:border-tweaked-brand';
-
-function getHoverStyles(inverted?: boolean, disabled?: boolean) {
+export function getHoverStyles(inverted?: boolean, disabled?: boolean) {
   if (disabled) {
     return '';
   }

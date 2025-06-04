@@ -1,12 +1,15 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../router/routeDetails';
-import { IconButton, commonHoverStyle } from '../../uiComponents';
+import { IconButton, getHoverStyles } from '../../uiComponents';
 
 const testIds = {
   button: 'LocatorButton::button',
 };
+
+const disabledStyle = '!bg-background opacity-70 pointer-events-none';
 
 type LineTimetablesButtonProps = {
   readonly testId?: string;
@@ -26,7 +29,6 @@ export const LineTimetablesButton: FC<LineTimetablesButtonProps> = ({
   className = '',
 }) => {
   const { t } = useTranslation();
-  const disabledStyle = '!bg-background opacity-70 pointer-events-none';
   const navigate = useNavigate();
 
   const onClick = () => {
@@ -35,9 +37,12 @@ export const LineTimetablesButton: FC<LineTimetablesButtonProps> = ({
   return (
     <IconButton
       tooltip={t('accessibility:lines.showTimetables', { label })}
-      className={`h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand ${commonHoverStyle} ${
-        disabled ? disabledStyle : ''
-      } ${className}`}
+      className={twMerge(
+        'h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand',
+        getHoverStyles(false, disabled),
+        disabled ? disabledStyle : '',
+        className,
+      )}
       onClick={onClick}
       disabled={disabled}
       icon={<i className="icon-calendar" aria-hidden />}

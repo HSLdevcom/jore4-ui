@@ -69,34 +69,30 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             Reitti A - B FI
           </span>
           <a
-            class="rounded-full ml-0"
+            class="rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 ml-0"
             data-discover="true"
             data-testid="RouteRow::editRouteButton"
             href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
             title="Muokkaa reittiä 65x, suunta 1"
           >
-            <div
-              class="flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
+            <svg
+              class="aria-hidden text-2xl text-tweaked-brand"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                class="aria-hidden text-2xl text-tweaked-brand"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                />
-              </svg>
-            </div>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              />
+            </svg>
           </a>
           <span
             class="col-span-4 text-center md:text-sm lg:text-base"
@@ -135,7 +131,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -265,34 +261,30 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             Reitti A - B FI
           </span>
           <a
-            class="rounded-full ml-0"
+            class="rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 ml-0"
             data-discover="true"
             data-testid="RouteRow::editRouteButton"
             href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
             title="Muokkaa reittiä 65x, suunta 1"
           >
-            <div
-              class="flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
+            <svg
+              class="aria-hidden text-2xl text-tweaked-brand"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                class="aria-hidden text-2xl text-tweaked-brand"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                />
-              </svg>
-            </div>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              />
+            </svg>
           </a>
           <span
             class="col-span-4 text-center md:text-sm lg:text-base"
@@ -331,7 +323,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"
@@ -673,34 +665,30 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             Reitti A - B FI
           </span>
           <a
-            class="rounded-full ml-0"
+            class="rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 ml-0"
             data-discover="true"
             data-testid="RouteRow::editRouteButton"
             href="/routes/03d55414-e5cf-4cce-9faf-d86ccb7e5f98/edit?observationDate=2017-02-14"
             title="Muokkaa reittiä 65x, suunta 1"
           >
-            <div
-              class="flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white hover:border-2 hover:border-tweaked-brand"
+            <svg
+              class="aria-hidden text-2xl text-tweaked-brand"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                class="aria-hidden text-2xl text-tweaked-brand"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                />
-                <path
-                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                />
-              </svg>
-            </div>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              />
+            </svg>
           </a>
           <span
             class="col-span-4 text-center md:text-sm lg:text-base"
@@ -739,7 +727,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             class="col-span-2 flex h-full items-center justify-center border-l-4 border-white"
           >
             <button
-              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+              class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
               data-testid="RouteRow::showRouteButton"
               title="Näytä kartalla reitti 65x, suunta 1"
               type="button"

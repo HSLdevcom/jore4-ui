@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { addClassName } from '../utils/components';
 
 type IconButtonProps = {
@@ -16,24 +17,24 @@ type IconButtonProps = {
   readonly onClick: () => void;
 };
 
+const iconClassName = 'inline text-center';
+
 export const IconButton: FC<IconButtonProps> = ({
   testId,
   tooltip,
-  className = '',
+  className,
   disabled,
   icon,
   ariaAttributes,
   identifier,
   onClick,
 }) => {
-  const iconClassName = 'inline text-center';
-
   return (
     <button
       id={identifier}
       data-testid={testId}
       title={tooltip}
-      className={`text-center ${className}`}
+      className={twMerge('text-center', className)}
       type="button"
       onClick={onClick}
       disabled={disabled}

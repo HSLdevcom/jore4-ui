@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { MdPinDrop } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import { IconButton } from './IconButton';
-import { commonHoverStyle } from './SimpleButton';
+import { getHoverStyles } from './SimpleButton';
 
 const testIds = {
   button: 'LocatorButton::button',
@@ -29,7 +29,7 @@ export const LocatorButton: FC<LocatorButtonProps> = ({
         `h-10 w-10`,
         `rounded-full border border-grey`,
         `bg-white text-tweaked-brand`,
-        commonHoverStyle,
+        getHoverStyles(false, disabled),
         'disabled:pointer-events-none disabled:bg-background disabled:opacity-70',
         className,
       )}

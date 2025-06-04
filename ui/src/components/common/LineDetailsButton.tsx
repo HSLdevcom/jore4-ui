@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { twMerge } from 'tailwind-merge';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { IconButton } from '../../uiComponents/IconButton';
-import { commonHoverStyle } from '../../uiComponents/SimpleButton';
+import { getHoverStyles } from '../../uiComponents/SimpleButton';
 
 const testIds = {
   button: 'LocatorButton::button',
@@ -33,7 +34,11 @@ export const LineDetailsButton: FC<LineDetailsButtonProps> = ({
   return (
     <IconButton
       tooltip={t('accessibility:lines.details', { label })}
-      className={`h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand ${commonHoverStyle} ${className}`}
+      className={twMerge(
+        'h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand',
+        getHoverStyles(false, false),
+        className,
+      )}
       onClick={onClick}
       icon={<i className="icon-bus-alt" aria-hidden />}
       testId={testId ?? testIds.button}

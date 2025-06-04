@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete, MdUndo } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import { IconButton, commonHoverStyle } from '../../../../../../uiComponents';
+import { IconButton, getHoverStyles } from '../../../../../../uiComponents';
 import { StopAreaFormMember } from '../../../../../forms/stop-area';
 import { StopSearchRow } from '../../../../search';
 
@@ -45,7 +45,7 @@ export const EditModeActionButton: FC<EditModeActionButtonProps> = ({
 
   const allClasses = twMerge(
     'h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand',
-    commonHoverStyle,
+    getHoverStyles(false, false),
     className,
   );
 

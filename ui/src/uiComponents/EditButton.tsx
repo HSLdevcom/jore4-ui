@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { MdModeEdit } from 'react-icons/md';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
-import { commonHoverStyle } from './SimpleButton';
+import { getHoverStyles } from './SimpleButton';
 
 type LinkProps = {
   readonly href: string;
@@ -21,11 +21,7 @@ type CommonProps = {
 type EditButtonProps = CommonProps & (LinkProps | ButtonProps);
 
 const ButtonContent = () => (
-  <div
-    className={`flex h-10 w-10 items-center justify-center rounded-full border border-grey bg-white ${commonHoverStyle}`}
-  >
-    <MdModeEdit className="aria-hidden text-2xl text-tweaked-brand" />
-  </div>
+  <MdModeEdit className="aria-hidden text-2xl text-tweaked-brand" />
 );
 
 export const EditButton: FC<EditButtonProps> = (props) => {
@@ -33,13 +29,19 @@ export const EditButton: FC<EditButtonProps> = (props) => {
   const href = (props as LinkProps)?.href;
   const onClick = (props as ButtonProps)?.onClick;
 
+  const classNames = twMerge(
+    'ml-5 rounded-full flex h-10 w-10 items-center justify-center border border-grey bg-white',
+    getHoverStyles(false, false),
+    className,
+  );
+
   if (href) {
     return (
       <Link
         to={href}
         data-testid={testId}
         title={tooltip}
-        className={twMerge('ml-5 rounded-full', className)}
+        className={classNames}
       >
         <ButtonContent />
       </Link>
@@ -52,7 +54,7 @@ export const EditButton: FC<EditButtonProps> = (props) => {
       type="button"
       data-testid={testId}
       title={tooltip}
-      className={twMerge('ml-5 rounded-full', className)}
+      className={classNames}
     >
       <ButtonContent />
     </button>

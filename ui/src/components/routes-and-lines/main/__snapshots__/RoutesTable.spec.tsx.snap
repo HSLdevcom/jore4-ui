@@ -65,7 +65,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand !bg-background opacity-70 pointer-events-none"
             data-testid="LocatorButton::button"
             disabled=""
             title="Näytä aikataulut linjalle 65"
@@ -81,7 +81,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
             data-testid="LineTableRow::showLineRoutes"
             title="Näytä kartalla linja 65"
             type="button"
@@ -166,7 +166,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand !bg-background opacity-70 pointer-events-none"
             data-testid="LocatorButton::button"
             disabled=""
             title="Näytä aikataulut linjalle 71"
@@ -182,7 +182,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
             data-testid="LineTableRow::showLineRoutes"
             title="Näytä kartalla linja 71"
             type="button"
@@ -267,7 +267,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand !bg-background opacity-70 pointer-events-none"
             data-testid="LocatorButton::button"
             disabled=""
             title="Näytä aikataulut linjalle 785K"
@@ -283,7 +283,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
             data-testid="LineTableRow::showLineRoutes"
             title="Näytä kartalla linja 785K"
             type="button"
@@ -368,7 +368,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand !bg-background opacity-70 pointer-events-none"
             data-testid="LocatorButton::button"
             disabled=""
             title="Näytä aikataulut linjalle 1234"
@@ -384,7 +384,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
           class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50 disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
             data-testid="LineTableRow::showLineRoutes"
             title="Näytä kartalla linja 1234"
             type="button"
@@ -483,7 +483,7 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
           class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand !bg-background opacity-70 pointer-events-none "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand !bg-background opacity-70 pointer-events-none"
             data-testid="LocatorButton::button"
             disabled=""
             title="Näytä aikataulut linjalle 1"
@@ -499,7 +499,7 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
           class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
             data-testid="RouteTableRow::showRoute"
             disabled=""
             title="Näytä kartalla reitti 1"
@@ -600,7 +600,7 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
           class="w-1/12 pl-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand "
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:outline hover:outline-1 hover:outline-tweaked-brand hover:border-tweaked-brand hover:bg-opacity-50"
             data-testid="LocatorButton::button"
             title="Näytä tarkemmat tiedot linjalle 1"
             type="button"
@@ -615,7 +615,7 @@ exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
           class="w-1/12 p-6 text-right align-middle border-y border-y-light-grey"
         >
           <button
-            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand hover:border-2 hover:border-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
+            class="text-center h-10 w-10 rounded-full border border-grey bg-white text-tweaked-brand disabled:pointer-events-none disabled:bg-background disabled:opacity-70"
             data-testid="RouteTableRow::showRoute"
             disabled=""
             title="Näytä kartalla reitti 1"

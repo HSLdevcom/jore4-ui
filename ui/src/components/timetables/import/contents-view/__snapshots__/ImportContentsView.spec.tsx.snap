@@ -34,7 +34,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           <button
             aria-controls="SUMMER_SCHEDULES Week day service"
             aria-expanded="true"
-            class="text-center "
+            class="text-center"
             data-testid="BlockVehicleJourneysTable::toggleShowTable"
             title="Piilota autokierron SUMMER_SCHEDULES Week day service tiedot"
             type="button"
@@ -276,7 +276,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
             <button
               aria-controls="SUMMER_SCHEDULESBlocks"
               aria-expanded="true"
-              class="text-center "
+              class="text-center"
               data-testid="VehicleScheduleFrameBlocksView::toggleShowTable"
               title="Piilota aikataulun SUMMER_SCHEDULES autokierrot"
               type="button"
@@ -341,7 +341,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   <button
                     aria-controls="SUMMER_SCHEDULES Week day service"
                     aria-expanded="false"
-                    class="text-center "
+                    class="text-center"
                     data-testid="BlockVehicleJourneysTable::toggleShowTable"
                     title="Näytä autokierron SUMMER_SCHEDULES Week day service tiedot"
                     type="button"
@@ -404,7 +404,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   <button
                     aria-controls="SUMMER_SCHEDULES Saturday service"
                     aria-expanded="false"
-                    class="text-center "
+                    class="text-center"
                     data-testid="BlockVehicleJourneysTable::toggleShowTable"
                     title="Näytä autokierron SUMMER_SCHEDULES Saturday service tiedot"
                     type="button"
@@ -466,7 +466,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
             <button
               aria-controls="AUTUMN_SCHEDULESBlocks"
               aria-expanded="true"
-              class="text-center "
+              class="text-center"
               data-testid="VehicleScheduleFrameBlocksView::toggleShowTable"
               title="Piilota aikataulun AUTUMN_SCHEDULES autokierrot"
               type="button"
@@ -531,7 +531,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   <button
                     aria-controls="AUTUMN_SCHEDULES Sunday service"
                     aria-expanded="false"
-                    class="text-center "
+                    class="text-center"
                     data-testid="BlockVehicleJourneysTable::toggleShowTable"
                     title="Näytä autokierron AUTUMN_SCHEDULES Sunday service tiedot"
                     type="button"

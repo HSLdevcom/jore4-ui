@@ -2,13 +2,14 @@ import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
 import { useAppDispatch } from '../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
 import { openChangeTimetableValidityModalAction } from '../../../redux';
 import { mapDurationToShortTime, mapToShortDate } from '../../../time';
-import { IconButton, commonHoverStyle } from '../../../uiComponents';
+import { IconButton, getHoverStyles } from '../../../uiComponents';
 
 const testIds = {
   container: 'VehicleJourneyGroupInfo',
@@ -63,7 +64,7 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
   // TODO: in the future there might be a need for using this button to
   // link to the substitute operating day's page
   const isDisabled = !vehicleScheduleFrameId;
-  const hoverStyle = `${commonHoverStyle} hover:bg-light-grey`;
+
   return (
     <Row
       testId={testIds.container}
@@ -73,9 +74,11 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
         tooltip={t('accessibility:timetables.changeValidityPeriod', {
           dayType: getLocalizedTextFromDbBlob(dayTypeNameI18n),
         })}
-        className={`mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base ${
-          isDisabled ? 'text-light-grey' : hoverStyle
-        }`}
+        className={twMerge(
+          'mr-2 h-8 w-16 rounded-sm border border-light-grey bg-white text-base disabled:text-light-grey',
+          getHoverStyles(false, isDisabled),
+          'hover:bg-light-grey',
+        )}
         disabled={isDisabled}
         onClick={changeVehicleScheduleFrameValidity}
         icon={<i className="icon-calendar" aria-hidden />}
