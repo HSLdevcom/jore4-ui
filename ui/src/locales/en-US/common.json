@@ -503,7 +503,8 @@
       "longitude": "Longitude",
       "memberStopsTotal": "Member stops ({{total}})",
       "memberStops": "Member stops",
-      "memberPlatforms": "Member platforms"
+      "memberPlatforms": "Member platforms",
+      "noMemberStopsSelected": "Terminal must have at least one member stop."
     }
   },
   "stopRegistrySearch": {
