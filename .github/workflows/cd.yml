@@ -8,48 +8,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish_ui_docker_image_to_docker_hub:
-    name: Build & Push UI docker image to dockerhub
-    runs-on: ubuntu-24.04
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Extract metadata to env variables
-        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
-
-      - name: Pull previous image to support caching
-        run: docker pull $IMAGE_NAME:builder || echo "Previous builder image not found"
-
-      - name: Build dependencies & source code into builder image to support caching
-        run: docker build --cache-from=$IMAGE_NAME:builder --target build -t $IMAGE_NAME:builder --build-arg NEXT_PUBLIC_GIT_HASH=$GITHUB_SHA .
-
-      - name: Build docker image for distribution
-        run: docker build --cache-from=$IMAGE_NAME:builder --cache-from=$IMAGE_NAME:latest -t $IMAGE_NAME:dev --build-arg NEXT_PUBLIC_GIT_HASH=$GITHUB_SHA .
-
-      - name: Tag docker image as 'latest'
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: docker tag $IMAGE_NAME:dev $IMAGE_NAME:latest
-
-      - name: Tag docker image as '<branch_name>-<git_commit_sha>'
-        run: docker tag $IMAGE_NAME:dev $IMAGE_NAME:$COMMIT_ID
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.JORE4_DOCKERHUB_USER }}
-          password: ${{ secrets.JORE4_DOCKERHUB_TOKEN }}
-
-      - name: Push image tagged with git commit details to Docker Hub
-        run: docker push $IMAGE_NAME:$COMMIT_ID
-
-      - name: Push rest of the tags to Docker Hub
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: |
-          docker push $IMAGE_NAME:builder
-          docker push $IMAGE_NAME:latest
-
   publish_ui_docker_image_to_acr:
     name: Publish UI Docker image to ACR
     permissions:
@@ -67,57 +25,6 @@ jobs:
       azure_client_id: ${{ secrets.AZURE_CLIENT_ID }}
       azure_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
       azure_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-  publish_cypress_docker_image_to_docker_hub:
-    name: Build & Push cypress docker image to dockerhub
-    runs-on: ubuntu-24.04
-    env:
-      CYPRESS_IMAGE_NAME: hsldevcom/jore4-cypress
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Extract metadata to env variables
-        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
-
-      - name: Pull previous image to support caching
-        run: docker pull $CYPRESS_IMAGE_NAME:latest || echo "Previous image not found"
-
-      - name: Get latest stable Chrome version number
-        id: chrome-version
-        # Ubuntu Chrome version number needed by Dockerfile.cypress is appended with '-1'
-        # but it is not included in the omahaproxy version number so we need to add it here manually
-        run: |
-          echo "CHROME_VERSION=$(curl -X GET "https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=linux&num=1" | \
-          python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version'])")-1" >> $GITHUB_OUTPUT
-
-      - name: Build docker images
-        run: |
-          docker build \
-            --cache-from=$CYPRESS_IMAGE_NAME:latest \
-            -t $CYPRESS_IMAGE_NAME:latest \
-            -t $CYPRESS_IMAGE_NAME:$COMMIT_ID \
-            --build-arg CHROME_VERSION=${{ steps.chrome-version.outputs.CHROME_VERSION }} \
-            --file Dockerfile.cypress \
-            .
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.JORE4_DOCKERHUB_USER }}
-          password: ${{ secrets.JORE4_DOCKERHUB_TOKEN }}
-
-      - name: Push intermediate docker images to Docker Hub
-        run: |
-          docker push $CYPRESS_IMAGE_NAME:$COMMIT_ID
-
-      - name: Push the distribution image to Docker Hub
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: |
-          docker push $CYPRESS_IMAGE_NAME:latest
 
   set_variables:
     name: Set Variables
