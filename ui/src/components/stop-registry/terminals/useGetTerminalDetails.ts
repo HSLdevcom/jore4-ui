@@ -4,6 +4,7 @@ import { useCallback, useMemo } from 'react';
 import {
   GetParentStopPlaceDetailsQuery,
   ParentStopPlaceDetailsFragment,
+  StopRegistryParentStopPlace,
   useGetParentStopPlaceDetailsLazyQuery,
   useGetParentStopPlaceDetailsQuery,
 } from '../../../generated/graphql';
@@ -80,9 +81,17 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
 
     children {
       id
+      name {
+        value
+      }
       quays {
         id
         publicCode
+        scheduled_stop_point {
+          scheduled_stop_point_id
+          validity_start
+          validity_end
+        }
       }
     }
   }
@@ -97,7 +106,9 @@ export function getEnrichedParentStopPlace(
 
   return {
     ...parentStopPlace,
-    ...getParentStopPlaceDetailsForEnrichment(parentStopPlace),
+    ...getParentStopPlaceDetailsForEnrichment(
+      parentStopPlace as StopRegistryParentStopPlace,
+    ),
   } as EnrichedParentStopPlace;
 }
 
