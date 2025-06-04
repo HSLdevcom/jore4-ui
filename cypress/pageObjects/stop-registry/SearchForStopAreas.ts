@@ -17,4 +17,9 @@ export class SearchForStopAreas {
     cy.getByTestId('StopAreaSearch::showStopAreaDetails');
 
   getActionMenuShowOnMap = () => cy.getByTestId('StopAreaSearch::showOnMap');
+
+  getNoStopsInStopAreaText = () => cy.getByTestId('StopAreaSearch:noStopsText');
+
+  getNoStopsInStopAreaLink = () =>
+    cy.getByTestId('StopAreaSearch::noStopsLink');
 }
