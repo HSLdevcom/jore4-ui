@@ -13,4 +13,7 @@ export class TerminalLocationDetailsEdit {
   getLatitude = () => cy.getByTestId('TerminalLocationDetailsEdit::latitude');
 
   getLongitude = () => cy.getByTestId('TerminalLocationDetailsEdit::longitude');
+
+  getSelectMemberStops = () =>
+    cy.getByTestId('TerminalLocationDetailsEdit::memberStops');
 }
