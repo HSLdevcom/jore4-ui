@@ -224,10 +224,10 @@ download_dump() {
     az_blob_filepath="$1"
   fi
 
-  login
-
   # Download the dump file, if it does not already exist.
   if [ ! -f "$az_blob_filepath" ]; then
+    login
+
     echo "Downloading dump file: $az_blob_filepath"
 
     az storage blob download \
