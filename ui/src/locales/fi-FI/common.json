@@ -197,6 +197,7 @@
   "stopDetails": {
     "stopDetails": "Pysäkkitiedot",
     "notValidOnObservationDate": "Pysäkki ei ole voimassa valittuna päivänä.",
+    "errorWhileGettingStopDetails": "Virhe pysäkin lataamisessa.",
     "selectedVersion": {
       "showingSelected": "Näytetään valittu versio",
       "showByDate": "Palaa tarkasteluhetkeen"

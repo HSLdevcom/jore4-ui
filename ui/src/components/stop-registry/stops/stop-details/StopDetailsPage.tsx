@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { useGetStopDetails, useRequiredParams } from '../../../../hooks';
@@ -32,8 +32,8 @@ const testIds = {
   loadingStopDetails: 'StopDetailsPage::loadingStopDetails',
 };
 
-export const StopDetailsPage = (): React.ReactElement => {
-  const { stopDetails, loading } = useGetStopDetails();
+export const StopDetailsPage: FC = () => {
+  const { stopDetails, loading, error } = useGetStopDetails();
   const { t } = useTranslation();
   const [activeDetailTab, selectDetailTab] = useState(
     DetailTabType.BasicDetailsTab,
@@ -71,7 +71,7 @@ export const StopDetailsPage = (): React.ReactElement => {
       >
         <div className="flex flex-col gap-3 md:flex-row">
           <div className="w-full md:w-[70%]">
-            {stopDetails && (
+            {stopDetails && !error && (
               <>
                 <Visible visible={activeDetailTab === detailTabs.basic.type}>
                   <div
@@ -114,15 +114,23 @@ export const StopDetailsPage = (): React.ReactElement => {
                 </Visible>
               </>
             )}
-            {!stopDetails && (
+            {(!stopDetails || error) && (
               <div className="my-2 flex h-52 items-center justify-center rounded-md border border-light-grey bg-background">
                 <span className="">
                   <MdWarning
                     className="mr-2 inline h-6 w-6 text-hsl-red"
                     role="img"
-                    title={t('stopDetails.notValidOnObservationDate')}
+                    title={t(
+                      error
+                        ? 'stopDetails.errorWhileGettingStopDetails'
+                        : 'stopDetails.notValidOnObservationDate',
+                    )}
                   />
-                  {t('stopDetails.notValidOnObservationDate')}
+                  {t(
+                    error
+                      ? 'stopDetails.errorWhileGettingStopDetails'
+                      : 'stopDetails.notValidOnObservationDate',
+                  )}
                 </span>
               </div>
             )}
