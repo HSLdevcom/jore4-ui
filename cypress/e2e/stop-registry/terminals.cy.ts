@@ -9,6 +9,7 @@ import { Tag } from '../../enums';
 import {
   AlternativeNames,
   AlternativeNamesEdit,
+  SelectMemberStopsDropdown,
   TerminalDetailsPage,
   Toast,
 } from '../../pageObjects';
@@ -46,6 +47,7 @@ describe('Terminal details', () => {
   const terminalDetailsPage = new TerminalDetailsPage();
   const alternativeNames = new AlternativeNames();
   const toast = new Toast();
+  const selectMemberStopsDropdown = new SelectMemberStopsDropdown();
 
   let dbResources: SupportedResources;
 
@@ -263,6 +265,48 @@ describe('Terminal details', () => {
 
       // And the location details should still match newLocationDetails
       assertLocationDetails(newLocationDetails);
+    });
+
+    it('should edit member stops', { tags: [Tag.StopRegistry] }, () => {
+      verifyInitialLocationDetails();
+      const { edit } = terminalDetailsPage.locationDetails;
+
+      // Add member stop
+      terminalDetailsPage.locationDetails.getEditButton().click();
+      edit.getSelectMemberStops().within(() => {
+        selectMemberStopsDropdown.dropdownButton().click();
+        selectMemberStopsDropdown.getInput().clearAndType('E2E009');
+        selectMemberStopsDropdown.getMemberOptions().should('have.length', 2);
+        selectMemberStopsDropdown
+          .getMemberOptions()
+          .eq(0)
+          .should('contain.text', 'E2E009')
+          .click();
+      });
+
+      terminalDetailsPage.locationDetails.getSaveButton().click();
+      waitForSaveToBeFinished();
+
+      terminalDetailsPage.locationDetails.viewCard
+        .getMemberStops()
+        .shouldHaveText('E2E001, E2E008, E2E009');
+
+      // Delete member stop
+      terminalDetailsPage.locationDetails.getEditButton().click();
+      edit.getSelectMemberStops().within(() => {
+        selectMemberStopsDropdown.dropdownButton().click();
+        selectMemberStopsDropdown
+          .getSelectedMembers()
+          .contains('E2E009')
+          .click();
+      });
+
+      terminalDetailsPage.locationDetails.getSaveButton().click();
+      waitForSaveToBeFinished();
+
+      terminalDetailsPage.locationDetails.viewCard
+        .getMemberStops()
+        .shouldHaveText('E2E008');
     });
   });
 });
