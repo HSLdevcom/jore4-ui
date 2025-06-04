@@ -711,6 +711,28 @@ describe('Stop search', () => {
 
       stopAreaDetailsPage.details.getName().should('contain', 'Kalevankatu 32');
     });
+
+    it('should find E2ENQ and display no stops', () => {
+      stopSearchBar.searchForDropdown.openSearchForDropdown();
+      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+
+      stopSearchBar.getSearchInput().clearAndType(`E2ENQ{enter}`);
+      expectGraphQLCallToSucceed('@gqlfindStopAreas');
+
+      stopGroupSelector.shouldHaveGroups(['E2ENQ']);
+
+      searchForStopAreas
+        .getStopAreaLabel()
+        .shouldHaveText('Pysäkkialue E2ENQ | No quays');
+
+      searchForStopAreas
+        .getNoStopsInStopAreaText()
+        .shouldHaveText('Ei pysäkkejä.Siirry pysäkkialueen tietoihin.');
+      searchForStopAreas.getNoStopsInStopAreaLink().click();
+
+      const stopAreaDetailsPage = new StopAreaDetailsPage();
+      stopAreaDetailsPage.details.getName().should('contain', 'No quays');
+    });
   });
 
   describe('Sorting & paging', () => {
