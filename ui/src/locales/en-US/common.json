@@ -197,6 +197,7 @@
   "stopDetails": {
     "stopDetails": "Stop details",
     "notValidOnObservationDate": "Stop is not valid on chosen date.",
+    "errorWhileGettingStopDetails": "Error while getting stop details.",
     "selectedVersion": {
       "showingSelected": "Showing selected version",
       "showByDate": "Return to observation date"
