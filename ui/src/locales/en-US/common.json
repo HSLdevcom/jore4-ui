@@ -523,6 +523,7 @@
     "sortOrder": "Sort by:",
     "resultCount": "{{count}} search result",
     "resultCount_other": "{{count}} search results",
+    "goToStopAreaDetails": "Go to stop area details page.",
 
     "stopRowActions": {
       "openDetails": "Open stop details page",

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../layoutComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
@@ -7,6 +7,7 @@ import {
   StopSearchResultStopsTable,
 } from '../components';
 import { StopAreaHeader } from './StopAreaHeader';
+import { StopAreaSearchNoStops } from './StopAreaSearchNoStops';
 import { FindStopAreaInfo } from './useFindStopAreas';
 import { useGetStopResultByStopAreaId } from './useGetStopResultByStopAreaId';
 
@@ -31,7 +32,10 @@ export const StopAreaStopsTable: FC<StopAreaStopsTableProps> = ({
 
   return (
     <div className={className}>
-      <StopAreaHeader stopArea={stopArea} />
+      <StopAreaHeader
+        stopArea={stopArea}
+        isRounded={!loading && stops.length === 0}
+      />
 
       <Visible visible={!!error}>
         <LoadingStopsErrorRow error={error} refetch={refetch} />
@@ -47,6 +51,10 @@ export const StopAreaStopsTable: FC<StopAreaStopsTableProps> = ({
           <StopSearchResultStopsTable stops={stops} />
         </Visible>
       </LoadingWrapper>
+
+      <Visible visible={!loading && stops.length === 0}>
+        <StopAreaSearchNoStops stopArea={stopArea} />
+      </Visible>
     </div>
   );
 };
