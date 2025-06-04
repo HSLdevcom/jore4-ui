@@ -1,15 +1,26 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import {
+  MemberStopQuayDetailsFragment,
+  MemberStopStopPlaceDetailsFragment,
+} from '../../../../../../generated/graphql';
 import { useLoader } from '../../../../../../hooks';
 import { Row } from '../../../../../../layoutComponents';
 import { Operation } from '../../../../../../redux';
+import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { showSuccessToast } from '../../../../../../utils';
+import {
+  findKeyValue,
+  notNullish,
+  showSuccessToast,
+} from '../../../../../../utils';
 import { FormColumn, InputField } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
+import { SelectMemberStopsDropdown } from '../member-stops/SelectMemberStopsDropdown';
 import {
+  SelectedStop,
   TerminalLocationDetailsFormState,
   terminalLocationDetailsFormSchema,
 } from './schema';
@@ -25,9 +36,39 @@ const testIds = {
   memberStops: 'TerminalLocationDetailsEdit::memberStops',
 };
 
-const mapTerminalLocationDataToFormState = (
+function mapQuayToSelectedStop(
+  stopPlace: MemberStopStopPlaceDetailsFragment,
+  quay: MemberStopQuayDetailsFragment,
+): SelectedStop {
+  const validityStart = mapToISODate(findKeyValue(quay, 'validityStart'));
+  const validityEnd = mapToISODate(findKeyValue(quay, 'validityEnd'));
+  return {
+    stopPlaceId: stopPlace?.id ?? '',
+    name: stopPlace?.name?.value ?? '',
+    quayId: quay?.id ?? '',
+    publicCode: quay?.publicCode ?? '',
+    validityStart: validityStart ?? '',
+    validityEnd: validityEnd ?? '',
+    indefinite: !validityEnd,
+  };
+}
+
+function extractSelectedStops(terminal: EnrichedParentStopPlace) {
+  return (
+    terminal.children
+      ?.filter(notNullish)
+      .flatMap(
+        (child) =>
+          child.quays
+            ?.filter(notNullish)
+            .map((quay) => mapQuayToSelectedStop(child, quay)) ?? [],
+      ) ?? []
+  );
+}
+
+function mapTerminalLocationDataToFormState(
   terminal: EnrichedParentStopPlace,
-): TerminalLocationDetailsFormState => {
+): TerminalLocationDetailsFormState {
   return {
     streetAddress: terminal.streetAddress ?? '',
     postalCode: terminal.postalCode ?? '',
@@ -35,8 +76,9 @@ const mapTerminalLocationDataToFormState = (
     fareZone: terminal.fareZone ?? '',
     latitude: terminal.geometry?.coordinates?.[1] ?? 0,
     longitude: terminal.geometry?.coordinates?.[0] ?? 0,
+    selectedStops: extractSelectedStops(terminal),
   };
-};
+}
 
 type TerminalDetailsEditProps = {
   readonly terminal: EnrichedParentStopPlace;
@@ -52,10 +94,15 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
   const { upsertTerminalLocationDetails, defaultErrorHandler } =
     useUpsertTerminalLocationDetails();
   const { setIsLoading } = useLoader(Operation.ModifyTerminal);
+
   const onSubmit = async (state: TerminalLocationDetailsFormState) => {
     setIsLoading(true);
     try {
-      await upsertTerminalLocationDetails({ terminal, state });
+      await upsertTerminalLocationDetails({
+        terminal,
+        state,
+        selectedStops: state.selectedStops,
+      });
 
       showSuccessToast(t('terminalDetails.editSuccess'));
       onFinishEditing();
@@ -69,12 +116,21 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
     () => mapTerminalLocationDataToFormState(terminal),
     [terminal],
   );
+
   const methods = useForm<TerminalLocationDetailsFormState>({
     defaultValues,
     resolver: zodResolver(terminalLocationDetailsFormSchema),
   });
   useDirtyFormBlockNavigation(methods.formState, 'LocationDetailsEdit');
   const { handleSubmit } = methods;
+
+  const {
+    field: { value: selectedStops, onChange: onSelectedStopsChange },
+  } = useController({
+    name: 'selectedStops',
+    control: methods.control,
+    defaultValue: [],
+  });
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -109,8 +165,6 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
               fieldPath="fareZone"
               testId={testIds.fareZone}
             />
-          </Row>
-          <Row className="flex-wrap gap-4">
             <InputField<TerminalLocationDetailsFormState>
               type="number"
               inputClassName="w-32"
@@ -127,6 +181,17 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
               disabled
               fieldPath="longitude"
               testId={testIds.longitude}
+            />
+          </Row>
+          <Row className="flex-col">
+            <div className="mb-2 text-sm font-bold">
+              {t('terminalDetails.location.memberStops')}
+            </div>
+            <SelectMemberStopsDropdown
+              className="lg:w-1/2"
+              value={selectedStops}
+              onChange={onSelectedStopsChange}
+              testId={testIds.memberStops}
             />
           </Row>
         </FormColumn>
