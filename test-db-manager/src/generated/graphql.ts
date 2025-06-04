@@ -35604,9 +35604,11 @@ export type StopsDatabasePlaceEquipment = {
   seats?: Maybe<Scalars['numeric']['output']>;
   shelter_condition?: Maybe<Scalars['String']['output']>;
   shelter_electricity?: Maybe<Scalars['String']['output']>;
+  shelter_external_id?: Maybe<Scalars['String']['output']>;
   shelter_fascia_board_taping?: Maybe<Scalars['Boolean']['output']>;
   shelter_has_display?: Maybe<Scalars['Boolean']['output']>;
   shelter_lighting?: Maybe<Scalars['Boolean']['output']>;
+  shelter_number?: Maybe<Scalars['Int']['output']>;
   shelter_type?: Maybe<Scalars['String']['output']>;
   sign_content_type?: Maybe<Scalars['String']['output']>;
   sign_graphic?: Maybe<Scalars['String']['output']>;
@@ -35670,6 +35672,7 @@ export type StopsDatabasePlaceEquipmentAvgFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
+  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -35721,9 +35724,11 @@ export type StopsDatabasePlaceEquipmentBoolExp = {
   seats?: InputMaybe<NumericComparisonExp>;
   shelter_condition?: InputMaybe<StringComparisonExp>;
   shelter_electricity?: InputMaybe<StringComparisonExp>;
+  shelter_external_id?: InputMaybe<StringComparisonExp>;
   shelter_fascia_board_taping?: InputMaybe<BooleanComparisonExp>;
   shelter_has_display?: InputMaybe<BooleanComparisonExp>;
   shelter_lighting?: InputMaybe<BooleanComparisonExp>;
+  shelter_number?: InputMaybe<IntComparisonExp>;
   shelter_type?: InputMaybe<StringComparisonExp>;
   sign_content_type?: InputMaybe<StringComparisonExp>;
   sign_graphic?: InputMaybe<StringComparisonExp>;
@@ -35772,6 +35777,8 @@ export type StopsDatabasePlaceEquipmentMaxFields = {
   seats?: Maybe<Scalars['numeric']['output']>;
   shelter_condition?: Maybe<Scalars['String']['output']>;
   shelter_electricity?: Maybe<Scalars['String']['output']>;
+  shelter_external_id?: Maybe<Scalars['String']['output']>;
+  shelter_number?: Maybe<Scalars['Int']['output']>;
   shelter_type?: Maybe<Scalars['String']['output']>;
   sign_content_type?: Maybe<Scalars['String']['output']>;
   sign_graphic?: Maybe<Scalars['String']['output']>;
@@ -35814,6 +35821,8 @@ export type StopsDatabasePlaceEquipmentMinFields = {
   seats?: Maybe<Scalars['numeric']['output']>;
   shelter_condition?: Maybe<Scalars['String']['output']>;
   shelter_electricity?: Maybe<Scalars['String']['output']>;
+  shelter_external_id?: Maybe<Scalars['String']['output']>;
+  shelter_number?: Maybe<Scalars['Int']['output']>;
   shelter_type?: Maybe<Scalars['String']['output']>;
   sign_content_type?: Maybe<Scalars['String']['output']>;
   sign_graphic?: Maybe<Scalars['String']['output']>;
@@ -35867,9 +35876,11 @@ export type StopsDatabasePlaceEquipmentOrderBy = {
   seats?: InputMaybe<OrderBy>;
   shelter_condition?: InputMaybe<OrderBy>;
   shelter_electricity?: InputMaybe<OrderBy>;
+  shelter_external_id?: InputMaybe<OrderBy>;
   shelter_fascia_board_taping?: InputMaybe<OrderBy>;
   shelter_has_display?: InputMaybe<OrderBy>;
   shelter_lighting?: InputMaybe<OrderBy>;
+  shelter_number?: InputMaybe<OrderBy>;
   shelter_type?: InputMaybe<OrderBy>;
   sign_content_type?: InputMaybe<OrderBy>;
   sign_graphic?: InputMaybe<OrderBy>;
@@ -35969,11 +35980,15 @@ export enum StopsDatabasePlaceEquipmentSelectColumn {
   /** column name */
   ShelterElectricity = 'shelter_electricity',
   /** column name */
+  ShelterExternalId = 'shelter_external_id',
+  /** column name */
   ShelterFasciaBoardTaping = 'shelter_fascia_board_taping',
   /** column name */
   ShelterHasDisplay = 'shelter_has_display',
   /** column name */
   ShelterLighting = 'shelter_lighting',
+  /** column name */
+  ShelterNumber = 'shelter_number',
   /** column name */
   ShelterType = 'shelter_type',
   /** column name */
@@ -36023,6 +36038,7 @@ export type StopsDatabasePlaceEquipmentStddevFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
+  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36045,6 +36061,7 @@ export type StopsDatabasePlaceEquipmentStddevPopFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
+  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36067,6 +36084,7 @@ export type StopsDatabasePlaceEquipmentStddevSampFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
+  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36123,9 +36141,11 @@ export type StopsDatabasePlaceEquipmentStreamCursorValueInput = {
   seats?: InputMaybe<Scalars['numeric']['input']>;
   shelter_condition?: InputMaybe<Scalars['String']['input']>;
   shelter_electricity?: InputMaybe<Scalars['String']['input']>;
+  shelter_external_id?: InputMaybe<Scalars['String']['input']>;
   shelter_fascia_board_taping?: InputMaybe<Scalars['Boolean']['input']>;
   shelter_has_display?: InputMaybe<Scalars['Boolean']['input']>;
   shelter_lighting?: InputMaybe<Scalars['Boolean']['input']>;
+  shelter_number?: InputMaybe<Scalars['Int']['input']>;
   shelter_type?: InputMaybe<Scalars['String']['input']>;
   sign_content_type?: InputMaybe<Scalars['String']['input']>;
   sign_graphic?: InputMaybe<Scalars['String']['input']>;
@@ -36159,6 +36179,7 @@ export type StopsDatabasePlaceEquipmentSumFields = {
   number_of_toilets?: Maybe<Scalars['numeric']['output']>;
   place_equipment_id?: Maybe<Scalars['bigint']['output']>;
   seats?: Maybe<Scalars['numeric']['output']>;
+  shelter_number?: Maybe<Scalars['Int']['output']>;
   timetable_cabinets?: Maybe<Scalars['Int']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   wheelchair_area_length?: Maybe<Scalars['numeric']['output']>;
@@ -36181,6 +36202,7 @@ export type StopsDatabasePlaceEquipmentVarPopFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
+  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36203,6 +36225,7 @@ export type StopsDatabasePlaceEquipmentVarSampFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
+  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
@@ -36225,6 +36248,7 @@ export type StopsDatabasePlaceEquipmentVarianceFields = {
   number_of_toilets?: Maybe<Scalars['Float']['output']>;
   place_equipment_id?: Maybe<Scalars['Float']['output']>;
   seats?: Maybe<Scalars['Float']['output']>;
+  shelter_number?: Maybe<Scalars['Float']['output']>;
   timetable_cabinets?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
   wheelchair_area_length?: Maybe<Scalars['Float']['output']>;
