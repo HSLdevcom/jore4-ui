@@ -68456,6 +68456,109 @@ export type StopVersionInfoFragment = {
   } | null
 };
 
+export type RemoveFromMultiModalStopPlaceMutationVariables = Exact<{
+  parentSiteRef: Scalars['String']['input'];
+  stopPlaceId?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+}>;
+
+
+export type RemoveFromMultiModalStopPlaceMutation = {
+  __typename?: 'mutation_root',
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation',
+    removeFromMultiModalStopPlace?: {
+      __typename?: 'stop_registry_ParentStopPlace',
+      id?: string | null
+    } | null
+  } | null
+};
+
+export type AddToMultiModalStopPlaceMutationVariables = Exact<{
+  input: StopRegistryAddToMultiModalStopPlaceInput;
+}>;
+
+
+export type AddToMultiModalStopPlaceMutation = {
+  __typename?: 'mutation_root',
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation',
+    addToMultiModalStopPlace?: {
+      __typename?: 'stop_registry_ParentStopPlace',
+      id?: string | null
+    } | null
+  } | null
+};
+
+export type FindQuaysByQueryQueryVariables = Exact<{
+  offset: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
+  publicCodeFilter: Scalars['String']['input'];
+}>;
+
+
+export type FindQuaysByQueryQuery = {
+  __typename?: 'query_root',
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query',
+    stops: Array<{
+      __typename?: 'stops_database_stop_place_newest_version',
+      TiamatStopPlace?: Array<{
+        __typename?: 'stop_registry_ParentStopPlace'
+      } | {
+        __typename?: 'stop_registry_StopPlace',
+        id?: string | null,
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          value?: string | null
+        } | null,
+        quays?: Array<{
+          __typename?: 'stop_registry_Quay',
+          id?: string | null,
+          publicCode?: string | null,
+          scheduled_stop_point?: {
+            __typename?: 'service_pattern_scheduled_stop_point',
+            scheduled_stop_point_id: UUID,
+            validity_start?: luxon.DateTime | null,
+            validity_end?: luxon.DateTime | null
+          } | null
+        } | null> | null
+      } | null> | null
+    }>
+  } | null
+};
+
+export type MemberStopStopPlaceDetailsFragment = {
+  __typename?: 'stop_registry_StopPlace',
+  id?: string | null,
+  name?: {
+    __typename?: 'stop_registry_EmbeddableMultilingualString',
+    value?: string | null
+  } | null,
+  quays?: Array<{
+    __typename?: 'stop_registry_Quay',
+    id?: string | null,
+    publicCode?: string | null,
+    scheduled_stop_point?: {
+      __typename?: 'service_pattern_scheduled_stop_point',
+      scheduled_stop_point_id: UUID,
+      validity_start?: luxon.DateTime | null,
+      validity_end?: luxon.DateTime | null
+    } | null
+  } | null> | null
+};
+
+export type MemberStopQuayDetailsFragment = {
+  __typename?: 'stop_registry_Quay',
+  id?: string | null,
+  publicCode?: string | null,
+  scheduled_stop_point?: {
+    __typename?: 'service_pattern_scheduled_stop_point',
+    scheduled_stop_point_id: UUID,
+    validity_start?: luxon.DateTime | null,
+    validity_end?: luxon.DateTime | null
+  } | null
+};
+
 export type GetParentStopPlaceDetailsQueryVariables = Exact<{
   privateCode: Scalars['String']['input'];
   validOn: Scalars['String']['input'];
@@ -68552,10 +68655,20 @@ export type GetParentStopPlaceDetailsQuery = {
         children?: Array<{
           __typename?: 'stop_registry_StopPlace',
           id?: string | null,
+          name?: {
+            __typename?: 'stop_registry_EmbeddableMultilingualString',
+            value?: string | null
+          } | null,
           quays?: Array<{
             __typename?: 'stop_registry_Quay',
             id?: string | null,
-            publicCode?: string | null
+            publicCode?: string | null,
+            scheduled_stop_point?: {
+              __typename?: 'service_pattern_scheduled_stop_point',
+              scheduled_stop_point_id: UUID,
+              validity_start?: luxon.DateTime | null,
+              validity_end?: luxon.DateTime | null
+            } | null
           } | null> | null
         } | null> | null
       } | {
@@ -68648,10 +68761,20 @@ export type ParentStopPlaceDetailsFragment = {
   children?: Array<{
     __typename?: 'stop_registry_StopPlace',
     id?: string | null,
+    name?: {
+      __typename?: 'stop_registry_EmbeddableMultilingualString',
+      value?: string | null
+    } | null,
     quays?: Array<{
       __typename?: 'stop_registry_Quay',
       id?: string | null,
-      publicCode?: string | null
+      publicCode?: string | null,
+      scheduled_stop_point?: {
+        __typename?: 'service_pattern_scheduled_stop_point',
+        scheduled_stop_point_id: UUID,
+        validity_start?: luxon.DateTime | null,
+        validity_end?: luxon.DateTime | null
+      } | null
     } | null> | null
   } | null> | null
 };
@@ -68748,10 +68871,20 @@ export type UpsertTerminalMutation = {
       children?: Array<{
         __typename?: 'stop_registry_StopPlace',
         id?: string | null,
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          value?: string | null
+        } | null,
         quays?: Array<{
           __typename?: 'stop_registry_Quay',
           id?: string | null,
-          publicCode?: string | null
+          publicCode?: string | null,
+          scheduled_stop_point?: {
+            __typename?: 'service_pattern_scheduled_stop_point',
+            scheduled_stop_point_id: UUID,
+            validity_start?: luxon.DateTime | null,
+            validity_end?: luxon.DateTime | null
+          } | null
         } | null> | null
       } | null> | null
     } | null> | null
@@ -75192,6 +75325,28 @@ export const StopVersionInfoFragmentDoc = gql`
   version_comment
 }
     `;
+export const MemberStopQuayDetailsFragmentDoc = gql`
+    fragment member_stop_quay_details on stop_registry_Quay {
+  id
+  publicCode
+  scheduled_stop_point {
+    scheduled_stop_point_id
+    validity_start
+    validity_end
+  }
+}
+    `;
+export const MemberStopStopPlaceDetailsFragmentDoc = gql`
+    fragment member_stop_stop_place_details on stop_registry_StopPlace {
+  id
+  name {
+    value
+  }
+  quays {
+    ...member_stop_quay_details
+  }
+}
+    ${MemberStopQuayDetailsFragmentDoc}`;
 export const ParentStopPlaceDetailsFragmentDoc = gql`
     fragment parent_stop_place_details on stop_registry_ParentStopPlace {
   id
@@ -75227,9 +75382,17 @@ export const ParentStopPlaceDetailsFragmentDoc = gql`
   }
   children {
     id
+    name {
+      value
+    }
     quays {
       id
       publicCode
+      scheduled_stop_point {
+        scheduled_stop_point_id
+        validity_start
+        validity_end
+      }
     }
   }
 }
@@ -77003,6 +77166,131 @@ export type GetQuayVersionsQueryHookResult = ReturnType<typeof useGetQuayVersion
 export type GetQuayVersionsLazyQueryHookResult = ReturnType<typeof useGetQuayVersionsLazyQuery>;
 export type GetQuayVersionsSuspenseQueryHookResult = ReturnType<typeof useGetQuayVersionsSuspenseQuery>;
 export type GetQuayVersionsQueryResult = Apollo.QueryResult<GetQuayVersionsQuery, GetQuayVersionsQueryVariables>;
+export const RemoveFromMultiModalStopPlaceDocument = gql`
+    mutation removeFromMultiModalStopPlace($parentSiteRef: String!, $stopPlaceId: [String]) {
+  stop_registry {
+    removeFromMultiModalStopPlace(
+      parentSiteRef: $parentSiteRef
+      stopPlaceId: $stopPlaceId
+    ) {
+      id
+    }
+  }
+}
+    `;
+export type RemoveFromMultiModalStopPlaceMutationFn = Apollo.MutationFunction<RemoveFromMultiModalStopPlaceMutation, RemoveFromMultiModalStopPlaceMutationVariables>;
+
+/**
+ * __useRemoveFromMultiModalStopPlaceMutation__
+ *
+ * To run a mutation, you first call `useRemoveFromMultiModalStopPlaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFromMultiModalStopPlaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFromMultiModalStopPlaceMutation, { data, loading, error }] = useRemoveFromMultiModalStopPlaceMutation({
+ *   variables: {
+ *      parentSiteRef: // value for 'parentSiteRef'
+ *      stopPlaceId: // value for 'stopPlaceId'
+ *   },
+ * });
+ */
+export function useRemoveFromMultiModalStopPlaceMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFromMultiModalStopPlaceMutation, RemoveFromMultiModalStopPlaceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveFromMultiModalStopPlaceMutation, RemoveFromMultiModalStopPlaceMutationVariables>(RemoveFromMultiModalStopPlaceDocument, options);
+      }
+export type RemoveFromMultiModalStopPlaceMutationHookResult = ReturnType<typeof useRemoveFromMultiModalStopPlaceMutation>;
+export type RemoveFromMultiModalStopPlaceMutationResult = Apollo.MutationResult<RemoveFromMultiModalStopPlaceMutation>;
+export type RemoveFromMultiModalStopPlaceMutationOptions = Apollo.BaseMutationOptions<RemoveFromMultiModalStopPlaceMutation, RemoveFromMultiModalStopPlaceMutationVariables>;
+export const AddToMultiModalStopPlaceDocument = gql`
+    mutation addToMultiModalStopPlace($input: stop_registry_addToMultiModalStopPlaceInput!) {
+  stop_registry {
+    addToMultiModalStopPlace(input: $input) {
+      id
+    }
+  }
+}
+    `;
+export type AddToMultiModalStopPlaceMutationFn = Apollo.MutationFunction<AddToMultiModalStopPlaceMutation, AddToMultiModalStopPlaceMutationVariables>;
+
+/**
+ * __useAddToMultiModalStopPlaceMutation__
+ *
+ * To run a mutation, you first call `useAddToMultiModalStopPlaceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddToMultiModalStopPlaceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addToMultiModalStopPlaceMutation, { data, loading, error }] = useAddToMultiModalStopPlaceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddToMultiModalStopPlaceMutation(baseOptions?: Apollo.MutationHookOptions<AddToMultiModalStopPlaceMutation, AddToMultiModalStopPlaceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddToMultiModalStopPlaceMutation, AddToMultiModalStopPlaceMutationVariables>(AddToMultiModalStopPlaceDocument, options);
+      }
+export type AddToMultiModalStopPlaceMutationHookResult = ReturnType<typeof useAddToMultiModalStopPlaceMutation>;
+export type AddToMultiModalStopPlaceMutationResult = Apollo.MutationResult<AddToMultiModalStopPlaceMutation>;
+export type AddToMultiModalStopPlaceMutationOptions = Apollo.BaseMutationOptions<AddToMultiModalStopPlaceMutation, AddToMultiModalStopPlaceMutationVariables>;
+export const FindQuaysByQueryDocument = gql`
+    query findQuaysByQuery($offset: Int!, $limit: Int!, $publicCodeFilter: String!) {
+  stops_database {
+    stops: stops_database_stop_place_newest_version(
+      where: {stop_place_quays: {quay: {public_code: {_ilike: $publicCodeFilter}}}}
+      offset: $offset
+      limit: $limit
+      order_by: [{public_code: asc}]
+    ) {
+      TiamatStopPlace {
+        ...member_stop_stop_place_details
+      }
+    }
+  }
+}
+    ${MemberStopStopPlaceDetailsFragmentDoc}`;
+
+/**
+ * __useFindQuaysByQueryQuery__
+ *
+ * To run a query within a React component, call `useFindQuaysByQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindQuaysByQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindQuaysByQueryQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *      publicCodeFilter: // value for 'publicCodeFilter'
+ *   },
+ * });
+ */
+export function useFindQuaysByQueryQuery(baseOptions: Apollo.QueryHookOptions<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables> & ({ variables: FindQuaysByQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>(FindQuaysByQueryDocument, options);
+      }
+export function useFindQuaysByQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>(FindQuaysByQueryDocument, options);
+        }
+export function useFindQuaysByQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>(FindQuaysByQueryDocument, options);
+        }
+export type FindQuaysByQueryQueryHookResult = ReturnType<typeof useFindQuaysByQueryQuery>;
+export type FindQuaysByQueryLazyQueryHookResult = ReturnType<typeof useFindQuaysByQueryLazyQuery>;
+export type FindQuaysByQuerySuspenseQueryHookResult = ReturnType<typeof useFindQuaysByQuerySuspenseQuery>;
+export type FindQuaysByQueryQueryResult = Apollo.QueryResult<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>;
 export const GetParentStopPlaceDetailsDocument = gql`
     query getParentStopPlaceDetails($privateCode: String!, $validOn: String!) {
   stops_database {
