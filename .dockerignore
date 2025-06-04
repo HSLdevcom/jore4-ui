@@ -6,6 +6,9 @@
 # testing
 /coverage
 
+# Seed data
+/test-db-manager/src/dumps
+
 # next.js
 /.next/
 /out/
