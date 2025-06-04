@@ -136,6 +136,24 @@ export type StringComparisonExp = {
   _similar?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type TerminalStopSearchResult = {
+  __typename?: 'TerminalStopSearchResult';
+  cursor: Scalars['bigint']['output'];
+  stops: Scalars['jsonb']['output'];
+};
+
+
+export type TerminalStopSearchResultStopsArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum TerminalStopSearchResultEnumName {
+  /** column name */
+  Cursor = 'cursor',
+  /** column name */
+  Stops = 'stops'
+}
+
 export type ToCombineTargetVehicleScheduleFrameIdInput = {
   stagingVehicleScheduleFrameId: Scalars['uuid']['input'];
   targetPriority: Scalars['Int']['input'];
@@ -357,6 +375,11 @@ export type FareZoneNeighboursAggregateBoolExpCount = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
   filter?: InputMaybe<StopsDatabaseFareZoneNeighboursBoolExp>;
   predicate: IntComparisonExp;
+};
+
+/** findStopsForTerminalNative Query Arguments */
+export type FindStopsForTerminalArguments = {
+  query: Scalars['String']['input'];
 };
 
 /** Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'. */
@@ -10872,6 +10895,21 @@ export enum StopRegistryStopType {
   Other = 'other',
   PullOut = 'pullOut'
 }
+
+/** Boolean expression to filter rows from the logical model for "TerminalStopSearchResult". All fields are combined with a logical 'AND'. */
+export type StopsDatabaseTerminalStopSearchResultBoolExpBoolExp = {
+  _and?: InputMaybe<Array<StopsDatabaseTerminalStopSearchResultBoolExpBoolExp>>;
+  _not?: InputMaybe<StopsDatabaseTerminalStopSearchResultBoolExpBoolExp>;
+  _or?: InputMaybe<Array<StopsDatabaseTerminalStopSearchResultBoolExpBoolExp>>;
+  cursor?: InputMaybe<BigintComparisonExp>;
+  stops?: InputMaybe<JsonbComparisonExp>;
+};
+
+/** Ordering options when selecting data from "TerminalStopSearchResult". */
+export type StopsDatabaseTerminalStopSearchResultOrderBy = {
+  cursor?: InputMaybe<OrderBy>;
+  stops?: InputMaybe<OrderBy>;
+};
 
 /** columns and relationships of "access_space" */
 export type StopsDatabaseAccessSpace = {
@@ -49093,6 +49131,7 @@ export type StopsDatabaseStopsDatabaseMutationFrontendStopsDatabaseUpdateValueMa
 
 export type StopsDatabaseStopsDatabaseQuery = {
   __typename?: 'stops_database_stops_database_query';
+  findStopsForTerminal: Array<TerminalStopSearchResult>;
   /** fetch data from the table: "access_space" */
   stops_database_access_space: Array<StopsDatabaseAccessSpace>;
   /** fetch aggregated fields from the table: "access_space" */
@@ -49625,6 +49664,16 @@ export type StopsDatabaseStopsDatabaseQuery = {
   stops_database_value_items: Array<StopsDatabaseValueItems>;
   /** fetch aggregated fields from the table: "value_items" */
   stops_database_value_items_aggregate: StopsDatabaseValueItemsAggregate;
+};
+
+
+export type StopsDatabaseStopsDatabaseQueryFindStopsForTerminalArgs = {
+  args: FindStopsForTerminalArguments;
+  distinct_on?: InputMaybe<Array<TerminalStopSearchResultEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseTerminalStopSearchResultOrderBy>>;
+  where?: InputMaybe<StopsDatabaseTerminalStopSearchResultBoolExpBoolExp>;
 };
 
 
@@ -51808,6 +51857,7 @@ export type StopsDatabaseStopsDatabaseQueryStopsDatabaseValueItemsAggregateArgs 
 
 export type StopsDatabaseStopsDatabaseSubscription = {
   __typename?: 'stops_database_stops_database_subscription';
+  findStopsForTerminal: Array<TerminalStopSearchResult>;
   /** fetch data from the table: "access_space" */
   stops_database_access_space: Array<StopsDatabaseAccessSpace>;
   /** fetch aggregated fields from the table: "access_space" */
@@ -52546,6 +52596,16 @@ export type StopsDatabaseStopsDatabaseSubscription = {
   stops_database_value_items_stream: Array<StopsDatabaseValueItems>;
   /** fetch data from the table in a streaming manner: "value" */
   stops_database_value_stream: Array<StopsDatabaseValue>;
+};
+
+
+export type StopsDatabaseStopsDatabaseSubscriptionFindStopsForTerminalArgs = {
+  args: FindStopsForTerminalArguments;
+  distinct_on?: InputMaybe<Array<TerminalStopSearchResultEnumName>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseTerminalStopSearchResultOrderBy>>;
+  where?: InputMaybe<StopsDatabaseTerminalStopSearchResultBoolExpBoolExp>;
 };
 
 
