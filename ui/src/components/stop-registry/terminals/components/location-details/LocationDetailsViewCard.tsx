@@ -27,11 +27,16 @@ const getMemberStops = (terminal: EnrichedParentStopPlace): string => {
   return quayCodes.length ? quayCodes.join(', ') : '-';
 };
 
+const getMemberStopsTotal = (terminal: EnrichedParentStopPlace): number => {
+  return terminal.children?.flatMap((child) => child?.quays ?? []).length ?? 0;
+};
+
 export const LocationDetailsView: FC<TerminalComponentProps> = ({
   terminal,
 }) => {
   const { t } = useTranslation();
   const memberStops = getMemberStops(terminal);
+  const memberStopsTotal = getMemberStopsTotal(terminal);
 
   return (
     <div data-testid={testIds.container}>
@@ -70,7 +75,7 @@ export const LocationDetailsView: FC<TerminalComponentProps> = ({
       <DetailRow>
         <LabeledDetail
           title={t('terminalDetails.location.memberStopsTotal', {
-            total: terminal.children?.length ?? 0,
+            total: memberStopsTotal,
           })}
           detail={memberStops}
           testId={testIds.memberStops}

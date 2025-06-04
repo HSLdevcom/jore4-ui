@@ -1,13 +1,19 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import {
+  MemberStopQuayDetailsFragment,
+  MemberStopStopPlaceDetailsFragment,
+} from '../../../../../../generated/graphql';
 import { useLoader } from '../../../../../../hooks';
 import { Row } from '../../../../../../layoutComponents';
 import { Operation } from '../../../../../../redux';
+import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { showSuccessToast } from '../../../../../../utils';
 import { FormColumn, InputField } from '../../../../../forms/common';
+import { SelectMemberStopsDropdown } from '../member-stops/SelectMemberStopsDropdown';
 import {
   TerminalLocationDetailsFormState,
   terminalLocationDetailsFormSchema,
@@ -24,6 +30,32 @@ const testIds = {
   memberStops: 'TerminalLocationDetailsEdit::memberStops',
 };
 
+const mapQuayToSelectedStop = (
+  child: MemberStopStopPlaceDetailsFragment,
+  quay: MemberStopQuayDetailsFragment,
+) => ({
+  id: child?.id ?? '',
+  name: child?.name?.value ?? '',
+  quayId: quay?.id ?? '',
+  publicCode: quay?.publicCode ?? '',
+  validityStart: mapToISODate(quay?.scheduled_stop_point?.validity_start) ?? '',
+  validityEnd: mapToISODate(quay?.scheduled_stop_point?.validity_end),
+  indefinite: !quay?.scheduled_stop_point?.validity_end,
+});
+
+const extractSelectedStops = (terminal: EnrichedParentStopPlace) => {
+  return (
+    terminal.children
+      ?.filter((child) => child?.quays)
+      ?.flatMap(
+        (child) =>
+          child?.quays
+            ?.filter((quay) => quay !== null)
+            .map((quay) => mapQuayToSelectedStop(child, quay)) ?? [],
+      ) ?? []
+  );
+};
+
 const mapTerminalLocationDataToFormState = (
   terminal: EnrichedParentStopPlace,
 ): TerminalLocationDetailsFormState => {
@@ -34,6 +66,7 @@ const mapTerminalLocationDataToFormState = (
     fareZone: terminal.fareZone ?? '',
     latitude: terminal.geometry?.coordinates?.[1] ?? 0,
     longitude: terminal.geometry?.coordinates?.[0] ?? 0,
+    selectedStops: extractSelectedStops(terminal),
   };
 };
 
@@ -51,10 +84,15 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
   const { upsertTerminalLocationDetails, defaultErrorHandler } =
     useUpsertTerminalLocationDetails();
   const { setIsLoading } = useLoader(Operation.ModifyTerminal);
+
   const onSubmit = async (state: TerminalLocationDetailsFormState) => {
     setIsLoading(true);
     try {
-      await upsertTerminalLocationDetails({ terminal, state });
+      await upsertTerminalLocationDetails({
+        terminal,
+        state,
+        selectedStops: state.selectedStops,
+      });
 
       showSuccessToast(t('terminalDetails.editSuccess'));
       onFinishEditing();
@@ -68,11 +106,21 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
     () => mapTerminalLocationDataToFormState(terminal),
     [terminal],
   );
+
   const methods = useForm<TerminalLocationDetailsFormState>({
     defaultValues,
     resolver: zodResolver(terminalLocationDetailsFormSchema),
   });
+
   const { handleSubmit } = methods;
+
+  const {
+    field: { value: selectedStops, onChange: onSelectedStopsChange },
+  } = useController({
+    name: 'selectedStops',
+    control: methods.control,
+    defaultValue: [],
+  });
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -107,8 +155,6 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
               fieldPath="fareZone"
               testId={testIds.fareZone}
             />
-          </Row>
-          <Row className="flex-wrap gap-4">
             <InputField<TerminalLocationDetailsFormState>
               type="number"
               inputClassName="w-32"
@@ -125,6 +171,17 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
               disabled
               fieldPath="longitude"
               testId={testIds.longitude}
+            />
+          </Row>
+          <Row className="flex-col">
+            <div className="mb-2 text-sm font-bold">
+              {t('terminalDetails.location.memberStops')}
+            </div>
+            <SelectMemberStopsDropdown
+              className="lg:w-1/2"
+              value={selectedStops}
+              onChange={onSelectedStopsChange}
+              testId={testIds.memberStops}
             />
           </Row>
         </FormColumn>
