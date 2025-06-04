@@ -55,7 +55,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@shared-build-and-publish-docker-image-v1
+    uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@seed-data
     with:
       docker_image_name: jore4-ui
       # Currently (2025-05) gyp tries to build something on arm64 and this would require at least Python to be
@@ -152,7 +152,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@shared-build-and-publish-docker-image-v1
+    uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@seed-data
     with:
       docker_image_name: jore4-cypress
       build_arm64_image: true
@@ -172,7 +172,7 @@ jobs:
       - publish_cypress_docker_image_to_acr
     steps:
       - name: Setup environment and run e2e tests from GitHub action
-        uses: HSLdevcom/jore4-tools/github-actions/run-ci@main
+        uses: HSLdevcom/jore4-tools/github-actions/run-ci@seed-data
         with:
           ui_version: ${{ needs.publish_ui_docker_image_to_acr.outputs.docker_image }}
           cypress_version: ${{ needs.publish_cypress_docker_image_to_acr.outputs.docker_image }}
