@@ -296,7 +296,20 @@ If the imported SVG in Fontello does not look like the icon from Figma (e.g. out
 
 ## Map tiles
 
-The background map tiles are loaded from [Digitransit](https://digitransit.fi/) and need an API key to download. The key is defined in the project secrets and will be downloaded to `.env.local` environment variables file when running the `./scripts/development.sh setup:env` script. In Docker environment the key will be loaded as a part of reading the secrets and stored in an environment variable.
+Background map tiles are downloaded from the [Digitransit](https://digitransit.fi/) service and
+require an API key to be included in each map tile request. The key is stored as a secret in Azure
+Key Vault, from where it is downloaded and placed in the `ui/.env.local` file if that file does not
+already exist. Since Azure Key Vault is accessed through a SOCKS proxy, you need to open an SSH
+tunnel to Azure environment and set the `HTTPS_PROXY` environment variable as shown in the example
+below when you run the `./scripts/development.sh setup:env` command for the first time. For more
+information about opening an SSH tunnel, see the general JORE4 Azure guidance (in non-public wiki).
+
+```sh
+HTTPS_PROXY=... ./scripts/development.sh setup:env
+```
+
+In the Docker environment, the key is loaded as part of reading secrets and stored in an environment
+variable.
 
 ## Coding style
 

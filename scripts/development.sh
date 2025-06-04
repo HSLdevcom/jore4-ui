@@ -270,6 +270,11 @@ import_dump() {
 }
 
 download_digitransit_key() {
+  if [[ -z "$HTTPS_PROXY" ]]; then
+    echo "The HTTPS_PROXY environment variable must be set according to the general JORE4 Azure guidelines when downloading the Digitransit key from Azure Key Vault."
+    exit 1
+  fi
+
   login
 
   echo "Downloading secret value to ui/.env.local"
@@ -346,6 +351,9 @@ print_usage() {
   setup:env
     Start dependencies and seed databases with dump data.
 
+    The first time you run this command, you will need to pass the HTTPS_PROXY
+    environment variable. For more information, see the README.md file.
+
     You can change which version of the Docker Compose bundle is downloaded by
     passing a commit reference to the jore4-docker-compose-bundle repository via
     the BUNDLE_REF environment variable. By default, the latest version is
@@ -353,6 +361,9 @@ print_usage() {
 
   setup:test
     Start dependencies and seed databases with test data.
+
+    The first time you run this command, you will need to pass the HTTPS_PROXY
+    environment variable. For more information, see the README.md file.
 
     You can change which version of the Docker Compose bundle is downloaded by
     passing a commit reference to the jore4-docker-compose-bundle repository via
@@ -373,6 +384,9 @@ print_usage() {
 
   digitransit:fetch
     Download Digitransit map API key for JORE4 account.
+
+    You will need to pass the HTTPS_PROXY environment variable. For more
+    information, see the README.md file.
 
   check:images
     Check if the Docker images used are the latest.
