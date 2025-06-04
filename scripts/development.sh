@@ -270,9 +270,14 @@ import_dump() {
 }
 
 download_digitransit_key() {
+  if [[ -z "$HTTPS_PROXY" ]]; then
+    echo "The HTTPS_PROXY environment variable must be set according to the general JORE4 Azure guidelines when fetching the Digitransit subscription key from Azure Key Vault."
+    exit 1
+  fi
+
   login
 
-  echo "Downloading secret value to ui/.env.local"
+  echo "Fetching Digitransit subscription key value to ui/.env.local"
   { echo -n "NEXT_PUBLIC_DIGITRANSIT_API_KEY=" && az keyvault secret show --name "hsl-jore4-digitransit-api-key" --vault-name "kv-jore4-dev-001" --query "value"; } > ui/.env.local
 }
 
@@ -346,6 +351,10 @@ print_usage() {
   setup:env
     Start dependencies and seed databases with dump data.
 
+    If the Digitransit subscription key has not yet been fetched (stored in
+    ui/.env.local), you will need to set the HTTPS_PROXY environment
+    variable. For more information, see the README.md file.
+
     You can change which version of the Docker Compose bundle is downloaded by
     passing a commit reference to the jore4-docker-compose-bundle repository via
     the BUNDLE_REF environment variable. By default, the latest version is
@@ -353,6 +362,10 @@ print_usage() {
 
   setup:test
     Start dependencies and seed databases with test data.
+
+    If the Digitransit subscription key has not yet been fetched (stored in
+    ui/.env.local), you will need to set the HTTPS_PROXY environment
+    variable. For more information, see the README.md file.
 
     You can change which version of the Docker Compose bundle is downloaded by
     passing a commit reference to the jore4-docker-compose-bundle repository via
@@ -372,7 +385,10 @@ print_usage() {
     'stjore4dev001' storage account in the 'rg-jore4-dev-001' resource group.
 
   digitransit:fetch
-    Download Digitransit map API key for JORE4 account.
+    Download Digitransit subscription key for JORE4 account.
+
+    You will need to set the HTTPS_PROXY environment variable. For more
+    information, see the README.md file.
 
   check:images
     Check if the Docker images used are the latest.
