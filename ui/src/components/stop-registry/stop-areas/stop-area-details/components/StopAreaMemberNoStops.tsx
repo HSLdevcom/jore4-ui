@@ -1,26 +1,14 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdInfoOutline } from 'react-icons/md';
-import { twMerge } from 'tailwind-merge';
 
-type StopAreaMemberNoStopsProps = {
-  readonly className?: string;
-};
-
-export const StopAreaMemberNoStops: FC<StopAreaMemberNoStopsProps> = ({
-  className,
-}) => {
+export const StopAreaMemberNoStops: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div
-      className={twMerge(
-        'mt-4 flex w-full flex-row items-center justify-start gap-2',
-        className,
-      )}
-    >
+    <div className="mt-4 flex w-full flex-row items-center gap-2">
       <MdInfoOutline className="text-2xl text-brand" aria-hidden />
-      {t('stopArea.noStops')}
+      <p>{t('stopArea.noStops')}</p>
     </div>
   );
 };
