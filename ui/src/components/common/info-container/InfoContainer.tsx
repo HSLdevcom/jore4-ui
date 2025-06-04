@@ -96,7 +96,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
   return (
     <div
       className={twMerge(
-        'overflow-hidden rounded-t-lg border border-[--borderColor]',
+        'rounded-t-lg border border-[--borderColor]',
         isExpanded ? '' : 'rounded-b-lg',
         className,
       )}
