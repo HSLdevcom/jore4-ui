@@ -143,16 +143,14 @@ export const CommonSubstitutePeriodForm: FC<
     [startDate, endDate],
   );
 
-  const displayedCommonDays = combineCommonDaysWithPresetDates(
-    commonDays ?? [],
-    generatedPresetDates,
-  );
+  const orderedDisplayedCommonDays = useMemo(() => {
+    const displayedCommonDays = combineCommonDaysWithPresetDates(
+      commonDays ?? [],
+      generatedPresetDates,
+    );
 
-  const orderedDisplayedCommonDays = orderBy(
-    displayedCommonDays,
-    ['supersededDate'],
-    ['asc'],
-  );
+    return orderBy(displayedCommonDays, ['supersededDate'], ['asc']);
+  }, [generatedPresetDates, commonDays]);
 
   const methods = useForm<FormState>({
     values: { commonDays: orderedDisplayedCommonDays },

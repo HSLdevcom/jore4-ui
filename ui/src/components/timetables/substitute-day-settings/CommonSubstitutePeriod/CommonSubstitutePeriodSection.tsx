@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useCreateSubstituteOperatingPeriod,
@@ -32,6 +32,13 @@ export const CommonSubstitutePeriodSection: FC<
 
   const { commonSubstituteOperatingPeriods, refetch, loading } =
     useGetCommonSubstituteOperatingPeriods(dateRange);
+  const commonDays = useMemo(
+    () =>
+      mapCommonSubstituteOperatingPeriodsToCommonDays(
+        commonSubstituteOperatingPeriods,
+      ),
+    [commonSubstituteOperatingPeriods],
+  );
 
   const { prepareAndExecute: prepareAndExecuteCreate } =
     useCreateSubstituteOperatingPeriod();
@@ -78,9 +85,7 @@ export const CommonSubstitutePeriodSection: FC<
         <CommonSubstitutePeriodForm
           dateRange={dateRange}
           className="my-8"
-          commonDays={mapCommonSubstituteOperatingPeriodsToCommonDays(
-            commonSubstituteOperatingPeriods,
-          )}
+          commonDays={commonDays}
           onSubmit={onSubmit}
         />
       </LoadingWrapper>
