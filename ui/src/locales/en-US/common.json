@@ -167,12 +167,17 @@
     "memberStops": {
       "title": "Stops",
       "addStop": "Add a stop",
+      "getStop": "Get stop",
+      "transferDate": "Set stop transfer date",
+      "moveStopToArea": "Move a stop to stop area",
+      "stopVersions": "Stop has the following transferable versions:",
       "menuActions": {
         "remove": "Remove stop from stop area"
       },
       "actionButtons": {
         "remove": "Remove stop from stop area",
-        "addBack": "Add back to stop area"
+        "addBack": "Add back to stop area",
+        "getStopVersions": "Get stop versions"
       },
       "confirmRemoval": {
         "title": "Removing stop from the stop area",
