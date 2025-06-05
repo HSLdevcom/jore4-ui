@@ -1,13 +1,19 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MdInfoOutline } from 'react-icons/md';
+
+const testIds = {
+  noStopsText: 'StopAreaDetails::noStopsText',
+};
 
 export const StopAreaMemberNoStops: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="mt-4 flex w-full flex-row items-center gap-2">
-      <MdInfoOutline className="text-2xl text-brand" aria-hidden />
+    <div
+      className="mt-4 flex w-full flex-row items-center gap-1"
+      data-testid={testIds.noStopsText}
+    >
+      <i className="icon-info text-2xl text-brand" />
       <p>{t('stopArea.noStops')}</p>
     </div>
   );

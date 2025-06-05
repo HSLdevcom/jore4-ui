@@ -135,9 +135,9 @@ export const StopAreaMemberStopRows: FC<StopAreaMemberStopRowsProps> = ({
   onRemove,
 }) => {
   const { t } = useTranslation();
-  const stopAreas = mapRows(t, area, inEditMode, inEditSelectedStops);
+  const memberStops = mapRows(t, area, inEditMode, inEditSelectedStops);
 
-  if (stopAreas.length === 0) {
+  if (memberStops.length === 0) {
     return <StopAreaMemberNoStops />;
   }
 
@@ -149,7 +149,7 @@ export const StopAreaMemberStopRows: FC<StopAreaMemberStopRowsProps> = ({
       )}
     >
       <tbody>
-        {stopAreas.map((member) => (
+        {memberStops.map((member) => (
           <StopAreaMemberStopRow
             inEditMode={inEditMode}
             key={member.quay.scheduled_stop_point_id}

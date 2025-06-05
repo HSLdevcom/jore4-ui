@@ -16,4 +16,6 @@ export class StopAreaDetails {
   getAreaSize = () => cy.getByTestId('StopAreaDetails::areaSize');
 
   getValidityPeriod = () => cy.getByTestId('StopAreaDetails::validityPeriod');
+
+  getNoStopsText = () => cy.getByTestId('StopAreaDetails::noStopsText');
 }
