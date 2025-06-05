@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MdInfoOutline, MdOpenInNew } from 'react-icons/md';
+import { MdOpenInNew } from 'react-icons/md';
 import { Link } from 'react-router';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { FindStopAreaInfo } from './useFindStopAreas';
@@ -21,10 +21,10 @@ export const StopAreaSearchNoStops: FC<StopAreaSearchNoStopsProps> = ({
 
   return (
     <div
-      className="ml-4 mt-4 flex w-full flex-row items-center gap-2"
+      className="ml-2 mt-4 flex w-full flex-row items-center gap-1"
       data-testid={testIds.noStopsInStopArea}
     >
-      <MdInfoOutline className="text-2xl text-brand" aria-hidden />
+      <i className="icon-info text-2xl text-brand" />
       <p>{t('stopArea.noStops')}</p>
       <Link
         to={routeDetails[Path.stopAreaDetails].getLink(stopArea.netex_id)}

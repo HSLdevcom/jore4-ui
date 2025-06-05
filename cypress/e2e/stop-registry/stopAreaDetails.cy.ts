@@ -544,5 +544,14 @@ describe('Stop area details', () => {
       confirmationDialog.getConfirmButton().click();
       cy.url().should('include', '/stop-registry');
     });
+
+    it('should show no stops text on stop area without stops', () => {
+      // Check that the text is shown on the stop area without stops
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ);
+
+      stopAreaDetailsPage.details
+        .getNoStopsText()
+        .shouldHaveText('Ei pysäkkejä.');
+    });
   });
 });
