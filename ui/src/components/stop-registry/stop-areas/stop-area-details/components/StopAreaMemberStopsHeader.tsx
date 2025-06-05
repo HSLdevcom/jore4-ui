@@ -1,29 +1,56 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import { StopAreaEditableBlock } from '../StopAreaEditableBlock';
-import { StopAreaMemberStopsEditHeader } from './StopAreaMemberStopsEditHeader';
-import { StopAreaMemberStopsViewHeader } from './StopAreaMemberStopsViewHeader';
+import { StopAreaMemberStopModal } from './StopAreaMemberStopModal';
+
+const testIds = {
+  addStopButton: 'MemberStops::addStopButton',
+};
 
 type StopAreaMemberStopsHeaderProps = {
   readonly areaId: string | null | undefined;
   readonly blockInEdit: StopAreaEditableBlock | null;
-  readonly onCancel: () => void;
   readonly onEditStops: () => void;
 };
 
 export const StopAreaMemberStopsHeader: FC<StopAreaMemberStopsHeaderProps> = ({
   areaId,
   blockInEdit,
-  onCancel,
   onEditStops,
 }) => {
-  if (blockInEdit === StopAreaEditableBlock.MEMBERS) {
-    return (
-      <StopAreaMemberStopsEditHeader areaId={areaId} onCancel={onCancel} />
-    );
-  }
+  const { t } = useTranslation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   if (blockInEdit === null) {
-    return <StopAreaMemberStopsViewHeader onEditStops={onEditStops} />;
+    return (
+      <>
+        <div className="flex-grow" />
+
+        <SlimSimpleButton
+          type="button"
+          onClick={handleOpenModal}
+          inverted
+          testId={testIds.addStopButton}
+        >
+          {t('stopAreaDetails.memberStops.moveStopToArea')}
+        </SlimSimpleButton>
+
+        <StopAreaMemberStopModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onSave={onEditStops}
+          areaId={areaId}
+        />
+      </>
+    );
   }
 
   return null;
