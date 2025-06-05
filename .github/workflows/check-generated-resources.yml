@@ -15,7 +15,7 @@ jobs:
           submodules: recursive
 
       - name: Start e2e env
-        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@setup-e2e-environment-v8
+        uses: HSLdevcom/jore4-tools/github-actions/setup-e2e-environment@setup-e2e-environment-v9
         with:
           custom_docker_compose: ./docker/docker-compose.custom.yml
 
