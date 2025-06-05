@@ -181,6 +181,7 @@ describe('Occasional substitute operating periods', () => {
       substituteDaySettingsPage.occasionalSubstitutePeriodForm
         .getSaveButton()
         .click();
+      toast.expectSuccessToast('Tallennus onnistui');
 
       // Navigate to route's timetable
       navbar.getTimetablesLink().click();
