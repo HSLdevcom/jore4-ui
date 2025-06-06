@@ -17,6 +17,7 @@ export * from './MapItemTypeFiltersOverlay';
 export * from './MapModal';
 export * from './MapObservationDateFiltersOverlay';
 export * from './Navbar';
+export * from './NavigationBlockedDialog';
 export * from './ObservationPeriodForm';
 export * from './Pagination';
 export * from './PreviewTimetablesPage';

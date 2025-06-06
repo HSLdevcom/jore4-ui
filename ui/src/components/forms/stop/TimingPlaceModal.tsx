@@ -6,6 +6,8 @@ import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import { useWrapInContextNavigation } from '../common/NavigationBlocker';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 
+const testIds = { modal: 'TimingPlaceModal' };
+
 type TimingPlaceModalProps = {
   readonly onTimingPlaceCreated: (timingPlaceId: UUID) => void;
 };
@@ -28,7 +30,7 @@ export const TimingPlaceModal: FC<TimingPlaceModalProps> = ({
   };
 
   return (
-    <Modal isOpen onClose={onClose}>
+    <Modal isOpen onClose={onClose} testId={testIds.modal}>
       <ModalHeader onClose={onClose} heading={t('timingPlaces.label')} />
       <ModalBody>
         <CreateTimingPlaceForm

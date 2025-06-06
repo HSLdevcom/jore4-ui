@@ -16,6 +16,8 @@ import {
   ConfirmationDialog,
   FilterPanel,
   Map,
+  MapModal,
+  NavigationBlockedDialog,
   StopForm,
   Toast,
   ToastType,
@@ -341,4 +343,60 @@ describe('Stop editing tests', () => {
       'Pysäkkien tiedot on päivitetty pysäkkirekisteriin, mutta niiden vienti linjastoon epäonnistui! Tallennusta on syytä yrittää uudelleen! Syy: Response not successful: Received status code 500',
     );
   });
+
+  it(
+    'Should warn about unsaved forms',
+    { tags: Tag.Stops, scrollBehavior: 'bottom' },
+    () => {
+      const mapModal = new MapModal();
+      const navBlock = new NavigationBlockedDialog();
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      map.waitForLoadToComplete();
+
+      map
+        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .click({ force: true });
+
+      map.stopPopUp.getEditButton().click();
+
+      stopForm.getLatitudeInput().clearAndType('1.0');
+
+      stopForm.getAddTimingPlaceButton().click();
+      stopForm.createTimingPlaceForm.fillTimingPlaceForm({
+        label: testTimingPlaceLabels.label1,
+        description: 'New timing place description',
+      });
+
+      stopForm.createTimingPlaceForm.getCloseButton().click();
+      navBlock
+        .getTitle()
+        .shouldBeVisible()
+        .shouldHaveText('Hylätäänkö muutokset?');
+      navBlock.getResetButton().click();
+      navBlock.getTitle().should('not.exist');
+
+      stopForm.createTimingPlaceForm.getAddTimingPlaceSubmitButton().click();
+      toast.expectSuccessToast('Hastus-paikka luotu');
+
+      stopForm.getModal().within(() => {
+        cy.getByTestId('ModalHeader::closeButton').click();
+      });
+      navBlock
+        .getTitle()
+        .shouldBeVisible()
+        .shouldHaveText('Hylätäänkö muutokset?');
+      navBlock.getResetButton().click();
+      navBlock.getTitle().should('not.exist');
+
+      mapModal.getCloseButton().click();
+      navBlock
+        .getTitle()
+        .shouldBeVisible()
+        .shouldHaveText('Hylätäänkö muutokset?');
+      navBlock.getProceedButton().click();
+      navBlock.getTitle().should('not.exist');
+      mapModal.getCloseButton().should('not.exist');
+    },
+  );
 });
