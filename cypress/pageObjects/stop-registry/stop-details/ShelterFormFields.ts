@@ -29,45 +29,22 @@ export class ShelterFormFields {
   getTimetableCabinetsInput = () =>
     cy.getByTestId('ShelterFormFields::timetableCabinets');
 
-  getTrashCanDropdownButton = () =>
-    cy.getByTestId('ShelterFormFields::trashCan::ListboxButton');
+  getTrashCanCheckbox = () => cy.getByTestId('ShelterFormFields::trashCan');
 
-  getTrashCanDropdownOptions = () =>
-    cy.getByTestId('ShelterFormFields::trashCan::ListboxOptions');
+  getShelterHasDisplayCheckbox = () =>
+    cy.getByTestId('ShelterFormFields::shelterHasDisplay');
 
-  getShelterHasDisplayDropdownButton = () =>
-    cy.getByTestId('ShelterFormFields::shelterHasDisplay::ListboxButton');
+  getBicycleParkingCheckbox = () =>
+    cy.getByTestId('ShelterFormFields::bicycleParking');
 
-  getShelterHasDisplayDropdownOptions = () =>
-    cy.getByTestId('ShelterFormFields::shelterHasDisplay::ListboxOptions');
+  getLeaningRailCheckbox = () =>
+    cy.getByTestId('ShelterFormFields::leaningRail');
 
-  getBicycleParkingDropdownButton = () =>
-    cy.getByTestId('ShelterFormFields::bicycleParking::ListboxButton');
+  getOutsideBenchCheckbox = () =>
+    cy.getByTestId('ShelterFormFields::outsideBench');
 
-  getBicycleParkingDropdownOptions = () =>
-    cy.getByTestId('ShelterFormFields::bicycleParking::ListboxOptions');
-
-  getLeaningRailDropdownButton = () =>
-    cy.getByTestId('ShelterFormFields::leaningRail::ListboxButton');
-
-  getLeaningRailDropdownOptions = () =>
-    cy.getByTestId('ShelterFormFields::leaningRail::ListboxOptions');
-
-  getOutsideBenchDropdownButton = () =>
-    cy.getByTestId('ShelterFormFields::outsideBench::ListboxButton');
-
-  getOutsideBenchDropdownOptions = () =>
-    cy.getByTestId('ShelterFormFields::outsideBench::ListboxOptions');
-
-  getShelterFasciaBoardTapingDropdownButton = () =>
-    cy.getByTestId(
-      'ShelterFormFields::shelterFasciaBoardTaping::ListboxButton',
-    );
-
-  getShelterFasciaBoardTapingDropdownOptions = () =>
-    cy.getByTestId(
-      'ShelterFormFields::shelterFasciaBoardTaping::ListboxOptions',
-    );
+  getShelterFasciaBoardTapingCheckbox = () =>
+    cy.getByTestId('ShelterFormFields::shelterFasciaBoardTaping');
 
   getShelterExternalIdInput = () =>
     cy.getByTestId('ShelterFormFields::shelterExternalId');
