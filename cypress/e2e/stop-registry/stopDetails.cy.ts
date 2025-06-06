@@ -995,20 +995,12 @@ describe('Stop details', () => {
               .getShelterConditionDropdownButton()
               .should('have.text', 'Välttävä');
             shelter.getTimetableCabinetsInput().should('have.value', '1');
-            shelter.getTrashCanDropdownButton().should('have.text', 'Kyllä');
-            shelter
-              .getShelterHasDisplayDropdownButton()
-              .should('have.text', 'Kyllä');
-            shelter
-              .getBicycleParkingDropdownButton()
-              .should('have.text', 'Kyllä');
-            shelter.getLeaningRailDropdownButton().should('have.text', 'Kyllä');
-            shelter
-              .getOutsideBenchDropdownButton()
-              .should('have.text', 'Kyllä');
-            shelter
-              .getShelterFasciaBoardTapingDropdownButton()
-              .should('have.text', 'Kyllä');
+            shelter.getTrashCanCheckbox().should('be.checked');
+            shelter.getShelterHasDisplayCheckbox().should('be.checked');
+            shelter.getBicycleParkingCheckbox().should('be.checked');
+            shelter.getLeaningRailCheckbox().should('be.checked');
+            shelter.getOutsideBenchCheckbox().should('be.checked');
+            shelter.getShelterFasciaBoardTapingCheckbox().should('be.checked');
 
             // Change everything:
             shelter.getShelterExternalIdInput().clearAndType('98765');
@@ -1031,24 +1023,12 @@ describe('Stop details', () => {
               .contains('Hyvä')
               .click();
             shelter.getTimetableCabinetsInput().clearAndType('42');
-            shelter.getTrashCanDropdownButton().click();
-            shelter.getTrashCanDropdownOptions().contains('Ei').click();
-            shelter.getShelterHasDisplayDropdownButton().click();
-            shelter
-              .getShelterHasDisplayDropdownOptions()
-              .contains('Ei')
-              .click();
-            shelter.getBicycleParkingDropdownButton().click();
-            shelter.getBicycleParkingDropdownOptions().contains('Ei').click();
-            shelter.getLeaningRailDropdownButton().click();
-            shelter.getLeaningRailDropdownOptions().contains('Ei').click();
-            shelter.getOutsideBenchDropdownButton().click();
-            shelter.getOutsideBenchDropdownOptions().contains('Ei').click();
-            shelter.getShelterFasciaBoardTapingDropdownButton().click();
-            shelter
-              .getShelterFasciaBoardTapingDropdownOptions()
-              .contains('Ei')
-              .click();
+            shelter.getTrashCanCheckbox().click();
+            shelter.getShelterHasDisplayCheckbox().click();
+            shelter.getBicycleParkingCheckbox().click();
+            shelter.getLeaningRailCheckbox().click();
+            shelter.getOutsideBenchCheckbox().click();
+            shelter.getShelterFasciaBoardTapingCheckbox().click();
           });
 
           // Submit.
@@ -1219,14 +1199,12 @@ describe('Stop details', () => {
             shelter.getShelterLightingDropdownButton().shouldBeDisabled();
             shelter.getShelterConditionDropdownButton().shouldBeDisabled();
             shelter.getTimetableCabinetsInput().shouldBeDisabled();
-            shelter.getTrashCanDropdownButton().shouldBeDisabled();
-            shelter.getShelterHasDisplayDropdownButton().shouldBeDisabled();
-            shelter.getBicycleParkingDropdownButton().shouldBeDisabled();
-            shelter.getLeaningRailDropdownButton().shouldBeDisabled();
-            shelter.getOutsideBenchDropdownButton().shouldBeDisabled();
-            shelter
-              .getShelterFasciaBoardTapingDropdownButton()
-              .shouldBeDisabled();
+            shelter.getTrashCanCheckbox().shouldBeDisabled();
+            shelter.getShelterHasDisplayCheckbox().shouldBeDisabled();
+            shelter.getBicycleParkingCheckbox().shouldBeDisabled();
+            shelter.getLeaningRailCheckbox().shouldBeDisabled();
+            shelter.getOutsideBenchCheckbox().shouldBeDisabled();
+            shelter.getShelterFasciaBoardTapingCheckbox().shouldBeDisabled();
           });
 
           // Delete and cancel the deletion of another shelter,
@@ -1412,7 +1390,6 @@ describe('Stop details', () => {
           form.getPlatformEdgeWarningAreaCheckbox().click();
 
           form.getSidewalkAccessibleConnectionCheckbox().click();
-          form;
           form.getGuidanceStripeCheckbox().click();
           form.getServiceAreaStripesCheckbox().click();
           form.getGuidanceTypeDropdownButton().click();
