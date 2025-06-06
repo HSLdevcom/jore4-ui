@@ -41,33 +41,17 @@ export class MeasurementsForm {
   getLowerCleatHeightInput = () =>
     cy.getByTestId('MeasurementsForm::lowerCleatHeight');
 
-  getPlatformEdgeWarningAreaDropdownButton = () =>
-    cy.getByTestId('MeasurementsForm::platformEdgeWarningArea::ListboxButton');
+  getPlatformEdgeWarningAreaCheckbox = () =>
+    cy.getByTestId('MeasurementsForm::platformEdgeWarningArea');
 
-  getPlatformEdgeWarningAreaDropdownOptions = () =>
-    cy.getByTestId('MeasurementsForm::platformEdgeWarningArea::ListboxOptions');
+  getSidewalkAccessibleConnectionCheckbox = () =>
+    cy.getByTestId('MeasurementsForm::sidewalkAccessibleConnection');
 
-  getSidewalkAccessibleConnectionDropdownButton = () =>
-    cy.getByTestId(
-      'MeasurementsForm::sidewalkAccessibleConnection::ListboxButton',
-    );
+  getGuidanceStripeCheckbox = () =>
+    cy.getByTestId('MeasurementsForm::guidanceStripe');
 
-  getSidewalkAccessibleConnectionDropdownOptions = () =>
-    cy.getByTestId(
-      'MeasurementsForm::sidewalkAccessibleConnection::ListboxOptions',
-    );
-
-  getGuidanceStripeDropdownButton = () =>
-    cy.getByTestId('MeasurementsForm::guidanceStripe::ListboxButton');
-
-  getGuidanceStripeDropdownOptions = () =>
-    cy.getByTestId('MeasurementsForm::guidanceStripe::ListboxOptions');
-
-  getServiceAreaStripesDropdownButton = () =>
-    cy.getByTestId('MeasurementsForm::serviceAreaStripes::ListboxButton');
-
-  getServiceAreaStripesDropdownOptions = () =>
-    cy.getByTestId('MeasurementsForm::serviceAreaStripes::ListboxOptions');
+  getServiceAreaStripesCheckbox = () =>
+    cy.getByTestId('MeasurementsForm::serviceAreaStripes');
 
   getGuidanceTypeDropdownButton = () =>
     cy.getByTestId('MeasurementsForm::guidanceType::ListboxButton');
@@ -75,11 +59,8 @@ export class MeasurementsForm {
   getGuidanceTypeDropdownOptions = () =>
     cy.getByTestId('MeasurementsForm::guidanceType::ListboxOptions');
 
-  getGuidanceTilesDropdownButton = () =>
-    cy.getByTestId('MeasurementsForm::guidanceTiles::ListboxButton');
-
-  getGuidanceTilesDropdownOptions = () =>
-    cy.getByTestId('MeasurementsForm::guidanceTiles::ListboxOptions');
+  getGuidanceTilesCheckbox = () =>
+    cy.getByTestId('MeasurementsForm::guidanceTiles');
 
   getMapTypeDropdownButton = () =>
     cy.getByTestId('MeasurementsForm::mapType::ListboxButton');
