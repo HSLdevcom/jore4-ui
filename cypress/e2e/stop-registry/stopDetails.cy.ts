@@ -1347,7 +1347,7 @@ describe('Stop details', () => {
       });
 
       it(
-        'should view and edit measurement deatils',
+        'should view and edit measurement details',
         { tags: [Tag.StopRegistry] },
         () => {
           verifyInitialMeasurements();
@@ -1373,16 +1373,12 @@ describe('Stop details', () => {
           form.getStopElevationFromSidewalkInput().should('have.value', '7');
           form.getLowerCleatHeightInput().should('have.value', '8');
 
-          form
-            .getPlatformEdgeWarningAreaDropdownButton()
-            .shouldHaveText('Kyllä');
-          form
-            .getSidewalkAccessibleConnectionDropdownButton()
-            .shouldHaveText('Kyllä');
-          form.getGuidanceStripeDropdownButton().shouldHaveText('Kyllä');
-          form.getServiceAreaStripesDropdownButton().shouldHaveText('Kyllä');
+          form.getPlatformEdgeWarningAreaCheckbox().should('be.checked');
+          form.getSidewalkAccessibleConnectionCheckbox().should('be.checked');
+          form.getGuidanceStripeCheckbox().should('be.checked');
+          form.getServiceAreaStripesCheckbox().should('be.checked');
           form.getGuidanceTypeDropdownButton().shouldHaveText('Pisteopaste');
-          form.getGuidanceTilesDropdownButton().shouldHaveText('Kyllä');
+          form.getGuidanceTilesCheckbox().should('be.checked');
           form.getMapTypeDropdownButton().shouldHaveText('Kohokartta');
 
           form.getCurbDriveSideOfRailDistanceInput().should('have.value', '5');
@@ -1413,27 +1409,18 @@ describe('Stop details', () => {
           form.getStopElevationFromSidewalkInput().clearAndType('20');
           form.getLowerCleatHeightInput().clearAndType('7');
 
-          form.getPlatformEdgeWarningAreaDropdownButton().click();
-          form
-            .getPlatformEdgeWarningAreaDropdownOptions()
-            .contains('Ei')
-            .click();
-          form.getSidewalkAccessibleConnectionDropdownButton().click();
-          form
-            .getSidewalkAccessibleConnectionDropdownOptions()
-            .contains('Ei')
-            .click();
-          form.getGuidanceStripeDropdownButton().click();
-          form.getGuidanceStripeDropdownOptions().contains('Ei').click();
-          form.getServiceAreaStripesDropdownButton().click();
-          form.getServiceAreaStripesDropdownOptions().contains('Ei').click();
+          form.getPlatformEdgeWarningAreaCheckbox().click();
+
+          form.getSidewalkAccessibleConnectionCheckbox().click();
+          form;
+          form.getGuidanceStripeCheckbox().click();
+          form.getServiceAreaStripesCheckbox().click();
           form.getGuidanceTypeDropdownButton().click();
           form
             .getGuidanceTypeDropdownOptions()
             .contains('Ei opastetta')
             .click();
-          form.getGuidanceTilesDropdownButton().click();
-          form.getGuidanceTilesDropdownOptions().contains('Ei').click();
+          form.getGuidanceTilesCheckbox().click();
           form.getMapTypeDropdownButton().click();
           form.getMapTypeDropdownOptions().contains('Muu kartta').click();
 
@@ -1518,33 +1505,13 @@ describe('Stop details', () => {
           form.getStopElevationFromSidewalkInput().clear();
           form.getLowerCleatHeightInput().clear();
 
-          form.getPlatformEdgeWarningAreaDropdownButton().click();
-          form
-            .getPlatformEdgeWarningAreaDropdownOptions()
-            .contains('Ei tiedossa')
-            .click();
-          form.getSidewalkAccessibleConnectionDropdownButton().click();
-          form
-            .getSidewalkAccessibleConnectionDropdownOptions()
-            .contains('Ei tiedossa')
-            .click();
-          form.getGuidanceStripeDropdownButton().click();
-          form
-            .getGuidanceStripeDropdownOptions()
-            .contains('Ei tiedossa')
-            .click();
-          form.getServiceAreaStripesDropdownButton().click();
-          form
-            .getServiceAreaStripesDropdownOptions()
-            .contains('Ei tiedossa')
-            .click();
+          form.getPlatformEdgeWarningAreaCheckbox().click();
+          form.getSidewalkAccessibleConnectionCheckbox().click();
+          form.getGuidanceStripeCheckbox().click();
+          form.getServiceAreaStripesCheckbox().click();
           form.getGuidanceTypeDropdownButton().click();
           form.getGuidanceTypeDropdownOptions().contains('Ei tiedossa').click();
-          form.getGuidanceTilesDropdownButton().click();
-          form
-            .getGuidanceTilesDropdownOptions()
-            .contains('Ei tiedossa')
-            .click();
+          form.getGuidanceTilesCheckbox().click();
           form.getMapTypeDropdownButton().click();
           form.getMapTypeDropdownOptions().contains('Ei tiedossa').click();
 
@@ -1582,12 +1549,12 @@ describe('Stop details', () => {
           view.getStopElevationFromSidewalk().shouldHaveText('-');
           view.getLowerCleatHeight().shouldHaveText('-');
 
-          view.getPlatformEdgeWarningArea().shouldHaveText('-');
-          view.getSidewalkAccessibleConnection().shouldHaveText('-');
-          view.getGuidanceStripe().shouldHaveText('-');
-          view.getServiceAreaStripes().shouldHaveText('-');
+          view.getPlatformEdgeWarningArea().shouldHaveText('Ei');
+          view.getSidewalkAccessibleConnection().shouldHaveText('Ei');
+          view.getGuidanceStripe().shouldHaveText('Ei');
+          view.getServiceAreaStripes().shouldHaveText('Ei');
           view.getGuidanceType().shouldHaveText('-');
-          view.getGuidanceTiles().shouldHaveText('-');
+          view.getGuidanceTiles().shouldHaveText('Ei');
           view.getMapType().shouldHaveText('-');
 
           view.getCurbDriveSideOfRailDistance().shouldHaveText('-');
