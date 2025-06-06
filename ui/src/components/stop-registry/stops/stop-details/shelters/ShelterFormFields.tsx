@@ -14,6 +14,7 @@ import {
 import { Column, Row } from '../../../../../layoutComponents';
 import {
   EnumDropdown,
+  InputElement,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../forms/common';
@@ -69,7 +70,7 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
 
   return (
     <Column className="space-y-4">
-      <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
+      <Row className="flex-wrap items-end gap-4">
         <InputField<SheltersFormState>
           type="number"
           translationPrefix="stopDetails"
@@ -172,98 +173,81 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           disabled={toBeDeleted}
         />
       </Row>
-      <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
-        <InputField<SheltersFormState>
-          translationPrefix="stopDetails"
-          fieldPath={`shelters.${index}.trashCan`}
-          testId={testIds.trashCan}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
-            <NullableBooleanDropdown
-              placeholder={t('unknown')}
-              buttonClassName="min-w-32"
-              disabled={toBeDeleted}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
-          )}
-        />
-        <InputField<SheltersFormState>
-          translationPrefix="stopDetails"
-          fieldPath={`shelters.${index}.shelterHasDisplay`}
-          testId={testIds.shelterHasDisplay}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
-            <NullableBooleanDropdown
-              placeholder={t('unknown')}
-              buttonClassName="min-w-32"
-              disabled={toBeDeleted}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
-          )}
-        />
-        <InputField<SheltersFormState>
-          translationPrefix="stopDetails"
-          fieldPath={`shelters.${index}.bicycleParking`}
-          testId={testIds.bicycleParking}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
-            <NullableBooleanDropdown
-              placeholder={t('unknown')}
-              buttonClassName="min-w-32"
-              disabled={toBeDeleted}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
-          )}
-        />
-        <InputField<SheltersFormState>
-          translationPrefix="stopDetails"
-          fieldPath={`shelters.${index}.leaningRail`}
-          testId={testIds.leaningRail}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
-            <NullableBooleanDropdown
-              placeholder={t('unknown')}
-              buttonClassName="min-w-32"
-              disabled={toBeDeleted}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
-          )}
-        />
-        <InputField<SheltersFormState>
-          translationPrefix="stopDetails"
-          fieldPath={`shelters.${index}.outsideBench`}
-          testId={testIds.outsideBench}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
-            <NullableBooleanDropdown
-              placeholder={t('unknown')}
-              buttonClassName="min-w-32"
-              disabled={toBeDeleted}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
-          )}
-        />
-        <InputField<SheltersFormState>
-          translationPrefix="stopDetails"
-          fieldPath={`shelters.${index}.shelterFasciaBoardTaping`}
-          className="max-w-40"
-          testId={testIds.shelterFasciaBoardTaping}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
-            <NullableBooleanDropdown
-              placeholder={t('unknown')}
-              buttonClassName="min-w-32"
-              disabled={toBeDeleted}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
-          )}
-        />
+      <Row className="flex-wrap items-end gap-4">
+        <label htmlFor="trashCan" className="inline-flex font-normal">
+          <InputElement<SheltersFormState>
+            type="checkbox"
+            id="trashCan"
+            fieldPath={`shelters.${index}.trashCan`}
+            className="mr-2 h-6 w-6"
+            testId={testIds.trashCan}
+            disabled={toBeDeleted}
+          />
+          {t('stopDetails.shelters.trashCan')}
+        </label>
+
+        <label htmlFor="shelterHasDisplay" className="inline-flex font-normal">
+          <InputElement<SheltersFormState>
+            type="checkbox"
+            id="shelterHasDisplay"
+            fieldPath={`shelters.${index}.shelterHasDisplay`}
+            className="mr-2 h-6 w-6"
+            testId={testIds.shelterHasDisplay}
+            disabled={toBeDeleted}
+          />
+          {t('stopDetails.shelters.shelterHasDisplay')}
+        </label>
+
+        <label htmlFor="bicycleParking" className="inline-flex font-normal">
+          <InputElement<SheltersFormState>
+            type="checkbox"
+            id="bicycleParking"
+            fieldPath={`shelters.${index}.bicycleParking`}
+            className="mr-2 h-6 w-6"
+            testId={testIds.bicycleParking}
+            disabled={toBeDeleted}
+          />
+          {t('stopDetails.shelters.bicycleParking')}
+        </label>
+
+        <label htmlFor="leaningRail" className="inline-flex font-normal">
+          <InputElement<SheltersFormState>
+            type="checkbox"
+            id="leaningRail"
+            fieldPath={`shelters.${index}.leaningRail`}
+            className="mr-2 h-6 w-6"
+            testId={testIds.leaningRail}
+            disabled={toBeDeleted}
+          />
+          {t('stopDetails.shelters.leaningRail')}
+        </label>
+
+        <label htmlFor="outsideBench" className="inline-flex font-normal">
+          <InputElement<SheltersFormState>
+            type="checkbox"
+            id="outsideBench"
+            fieldPath={`shelters.${index}.outsideBench`}
+            className="mr-2 h-6 w-6"
+            testId={testIds.outsideBench}
+            disabled={toBeDeleted}
+          />
+          {t('stopDetails.shelters.outsideBench')}
+        </label>
+
+        <label
+          htmlFor="shelterFasciaBoardTaping"
+          className="inline-flex font-normal"
+        >
+          <InputElement<SheltersFormState>
+            type="checkbox"
+            id="shelterFasciaBoardTaping"
+            fieldPath={`shelters.${index}.shelterFasciaBoardTaping`}
+            className="mr-2 h-6 w-6"
+            testId={testIds.shelterFasciaBoardTaping}
+            disabled={toBeDeleted}
+          />
+          {t('stopDetails.shelters.shelterFasciaBoardTaping')}
+        </label>
       </Row>
       <input
         type="checkbox"
