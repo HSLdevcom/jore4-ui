@@ -16,9 +16,14 @@ import {
   mapStopRegistryShelterWidthTypeToUiName,
   mapStopRegistryStopTypeToUiName,
 } from '../../../../../i18n/uiNameMappings';
-import { Column, Row } from '../../../../../layoutComponents';
+import {
+  Column,
+  HorizontalSeparator,
+  Row,
+} from '../../../../../layoutComponents';
 import {
   EnumDropdown,
+  InputElement,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../forms/common';
@@ -78,7 +83,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <Column className="space-y-4">
-          <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
+          <Row className="flex-wrap items-end gap-4">
             <InputField<MeasurementsFormState>
               translationPrefix="stopDetails.measurements"
               fieldPath="stopType"
@@ -147,6 +152,8 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               inputClassName="w-20"
               testId={testIds.curbBackOfRailDistance}
             />
+          </Row>
+          <Row className="flex-wrap items-end gap-4">
             <InputField<MeasurementsFormState>
               type="number"
               translationPrefix="stopDetails.measurements"
@@ -164,8 +171,6 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               inputClassName="w-20"
               testId={testIds.stopAreaLengthwiseSlope}
             />
-          </Row>
-          <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
             <InputField<MeasurementsFormState>
               type="number"
               translationPrefix="stopDetails.measurements"
@@ -202,117 +207,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               testId={testIds.lowerCleatHeight}
             />
           </Row>
-          <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
-            <InputField<MeasurementsFormState>
-              translationPrefix="stopDetails.measurements"
-              fieldPath="platformEdgeWarningArea"
-              testId={testIds.platformEdgeWarningArea}
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <NullableBooleanDropdown
-                  placeholder={t('unknown')}
-                  buttonClassName="min-w-32"
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                />
-              )}
-            />
-            <InputField<MeasurementsFormState>
-              translationPrefix="stopDetails.measurements"
-              fieldPath="sidewalkAccessibleConnection"
-              testId={testIds.sidewalkAccessibleConnection}
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <NullableBooleanDropdown
-                  placeholder={t('unknown')}
-                  buttonClassName="min-w-32"
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                />
-              )}
-            />
-            <InputField<MeasurementsFormState>
-              translationPrefix="stopDetails.measurements"
-              fieldPath="guidanceStripe"
-              testId={testIds.guidanceStripe}
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <NullableBooleanDropdown
-                  placeholder={t('unknown')}
-                  buttonClassName="min-w-32"
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                />
-              )}
-            />
-            <InputField<MeasurementsFormState>
-              translationPrefix="stopDetails.measurements"
-              fieldPath="serviceAreaStripes"
-              testId={testIds.serviceAreaStripes}
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <NullableBooleanDropdown
-                  placeholder={t('unknown')}
-                  buttonClassName="min-w-32"
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                />
-              )}
-            />
-            <InputField<MeasurementsFormState>
-              translationPrefix="stopDetails.measurements"
-              fieldPath="guidanceType"
-              testId={testIds.guidanceType}
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <EnumDropdown<StopRegistryGuidanceType>
-                  enumType={StopRegistryGuidanceType}
-                  placeholder={t('unknown')}
-                  uiNameMapper={(value) =>
-                    mapStopRegistryGuidanceTypeToUiName(t, value)
-                  }
-                  includeNullOption
-                  buttonClassName="min-w-32"
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                />
-              )}
-            />
-            <InputField<MeasurementsFormState>
-              translationPrefix="stopDetails.measurements"
-              fieldPath="guidanceTiles"
-              testId={testIds.guidanceTiles}
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <NullableBooleanDropdown
-                  placeholder={t('unknown')}
-                  buttonClassName="min-w-32"
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                />
-              )}
-            />
-            <InputField<MeasurementsFormState>
-              translationPrefix="stopDetails.measurements"
-              fieldPath="mapType"
-              testId={testIds.mapType}
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <EnumDropdown<StopRegistryMapType>
-                  enumType={StopRegistryMapType}
-                  placeholder={t('unknown')}
-                  uiNameMapper={(value) =>
-                    mapStopRegistryMapTypeToUiName(t, value)
-                  }
-                  includeNullOption
-                  buttonClassName="min-w-32"
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                />
-              )}
-            />
-          </Row>
-          <Row className="flex-wrap items-end gap-4 lg:flex-nowrap">
+          <Row className="flex-wrap items-end gap-4">
             <InputField<MeasurementsFormState>
               type="number"
               translationPrefix="stopDetails.measurements"
@@ -366,6 +261,9 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                 />
               )}
             />
+          </Row>
+          <HorizontalSeparator />
+          <Row className="flex-wrap items-end gap-4">
             <InputField<MeasurementsFormState>
               translationPrefix="stopDetails.measurements"
               fieldPath="stopAreaSurroundingsAccessible"
@@ -385,6 +283,105 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
                 />
               )}
             />
+            <InputField<MeasurementsFormState>
+              translationPrefix="stopDetails.measurements"
+              fieldPath="guidanceType"
+              testId={testIds.guidanceType}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              inputElementRenderer={(props) => (
+                <EnumDropdown<StopRegistryGuidanceType>
+                  enumType={StopRegistryGuidanceType}
+                  placeholder={t('unknown')}
+                  uiNameMapper={(value) =>
+                    mapStopRegistryGuidanceTypeToUiName(t, value)
+                  }
+                  includeNullOption
+                  buttonClassName="min-w-32"
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                />
+              )}
+            />
+            <InputField<MeasurementsFormState>
+              translationPrefix="stopDetails.measurements"
+              fieldPath="mapType"
+              testId={testIds.mapType}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              inputElementRenderer={(props) => (
+                <EnumDropdown<StopRegistryMapType>
+                  enumType={StopRegistryMapType}
+                  placeholder={t('unknown')}
+                  uiNameMapper={(value) =>
+                    mapStopRegistryMapTypeToUiName(t, value)
+                  }
+                  includeNullOption
+                  buttonClassName="min-w-32"
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                />
+              )}
+            />
+          </Row>
+          <Row className="flex-wrap items-end gap-4">
+            <label
+              htmlFor="sidewalkAccessibleConnection"
+              className="inline-flex font-normal"
+            >
+              <InputElement<MeasurementsFormState>
+                type="checkbox"
+                id="sidewalkAccessibleConnection"
+                fieldPath="sidewalkAccessibleConnection"
+                className="mr-2 h-6 w-6"
+                testId={testIds.sidewalkAccessibleConnection}
+              />
+              {t('stopDetails.measurements.sidewalkAccessibleConnection')}
+            </label>
+            <label
+              htmlFor="platformEdgeWarningArea"
+              className="inline-flex font-normal"
+            >
+              <InputElement<MeasurementsFormState>
+                type="checkbox"
+                id="platformEdgeWarningArea"
+                fieldPath="platformEdgeWarningArea"
+                className="mr-2 h-6 w-6"
+                testId={testIds.platformEdgeWarningArea}
+              />
+              {t('stopDetails.measurements.platformEdgeWarningArea')}
+            </label>
+            <label htmlFor="guidanceStripe" className="inline-flex font-normal">
+              <InputElement<MeasurementsFormState>
+                type="checkbox"
+                id="guidanceStripe"
+                fieldPath="guidanceStripe"
+                className="mr-2 h-6 w-6"
+                testId={testIds.guidanceStripe}
+              />
+              {t('stopDetails.measurements.guidanceStripe')}
+            </label>
+            <label
+              htmlFor="serviceAreaStripes"
+              className="inline-flex font-normal"
+            >
+              <InputElement<MeasurementsFormState>
+                type="checkbox"
+                id="serviceAreaStripes"
+                fieldPath="serviceAreaStripes"
+                className="mr-2 h-6 w-6"
+                testId={testIds.serviceAreaStripes}
+              />
+              {t('stopDetails.measurements.serviceAreaStripes')}
+            </label>
+            <label htmlFor="guidanceTiles" className="inline-flex font-normal">
+              <InputElement<MeasurementsFormState>
+                type="checkbox"
+                id="guidanceTiles"
+                fieldPath="guidanceTiles"
+                className="mr-2 h-6 w-6"
+                testId={testIds.guidanceTiles}
+              />
+              {t('stopDetails.measurements.guidanceTiles')}
+            </label>
           </Row>
         </Column>
       </form>
