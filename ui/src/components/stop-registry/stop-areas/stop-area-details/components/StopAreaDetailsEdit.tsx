@@ -62,16 +62,6 @@ export const mapStopAreaDataToFormState = (
     validityStart: mapToISODate(area.validityStart),
     validityEnd: mapToISODate(area.validityEnd),
     indefinite: !area.validityEnd,
-    quays: (area.quays ?? []).map((quay) => ({
-      id: quay?.id ?? '',
-      name: {
-        value: quay?.description?.value ?? '',
-        lang: quay?.description?.lang ?? '',
-      },
-      scheduled_stop_point: {
-        label: quay?.scheduled_stop_point?.label ?? '',
-      },
-    })),
   };
 };
 
@@ -85,7 +75,7 @@ type StopAreaDetailsEditProps = {
 const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   StopAreaDetailsEditProps
-> = ({ area, className = '', onFinishEditing, refetch }, ref) => {
+> = ({ area, className = '', refetch, onFinishEditing }, ref) => {
   const { t } = useTranslation();
 
   const { upsertStopArea, defaultErrorHandler } = useUpsertStopArea();
