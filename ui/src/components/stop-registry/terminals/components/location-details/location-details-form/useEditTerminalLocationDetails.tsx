@@ -9,8 +9,9 @@ import {
 } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { patchKeyValues } from '../../../../../../utils';
+import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
 import { useUpsertTerminal } from '../../../useUpsertTerminal';
-import { SelectedStop, TerminalLocationDetailsFormState } from './schema';
+import { TerminalLocationDetailsFormState } from './schema';
 
 const GQL_REMOVE_FROM_MULTIMODAL_STOP_PLACE = gql`
   mutation removeFromMultiModalStopPlace(
