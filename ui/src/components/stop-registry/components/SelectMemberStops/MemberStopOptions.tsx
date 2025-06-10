@@ -1,8 +1,8 @@
 import { Combobox as HUICombobox } from '@headlessui/react';
 import { FC } from 'react';
 import { MdOutlineAddCircle } from 'react-icons/md';
-import { mapToShortDate } from '../../../../../../time';
-import { SelectedStop } from '../location-details-form/schema';
+import { mapToShortDate } from '../../../../time';
+import { SelectedStop } from './schema';
 
 const testIds = {
   option: 'MemberStopOptions::option',

@@ -1,7 +1,7 @@
 import { Combobox as HUICombobox } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SelectedStop } from '../location-details-form/schema';
+import { SelectedStop } from './schema';
 
 export const FETCH_MORE_OPTION: SelectedStop = {
   stopPlaceId: 'FETCH_MORE',
