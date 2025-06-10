@@ -1,74 +1,84 @@
 import { Combobox as HUICombobox, Transition } from '@headlessui/react';
 import { FC, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { mapToShortDate } from '../../../../time';
 import { dropdownTransition } from '../../../../uiComponents';
 import { log } from '../../../../utils';
-import { StopAreaFormMember } from '../stopAreaFormSchema';
-import { MemberStopOptions } from './MemberStopOptions';
-import { SelectedMemberStops } from './SelectedMemberStops';
+import { MemberStopOptions } from '../../../stop-registry/components/SelectMemberStops/MemberStopOptions';
+import { SelectedStop } from '../../../stop-registry/components/SelectMemberStops/schema';
 import {
   FETCH_MORE_OPTION,
   SelectMemberStopQueryStatus,
-} from './SelectMemberStopQueryStatus';
+} from '../../../stop-registry/components/SelectMemberStops/SelectMemberStopsQueryStatus';
+import { useFindQuaysByQuery } from '../../../stop-registry/components/SelectMemberStops/useFindQuaysByQuery';
 import { SelectMemberStopsDropdownButton } from './SelectMemberStopsDropdownButton';
-import { useFindStopPlaceByQuery } from './useFindStopPlaceByQuery';
 
-const testIds = {
+export const testIds = {
   input: 'SelectMemberStopsDropdown::input',
+  warningText: 'SelectMemberStopsDropdown::warningText',
 };
 
-function stopAreaFormMembersAreSame(
-  a: StopAreaFormMember,
-  b: StopAreaFormMember,
-) {
-  return a.id === b.id;
+export function compareMembersById(
+  a: SelectedStop | null | undefined,
+  b: SelectedStop | null | undefined,
+): boolean {
+  if (!a || !b) {
+    return a === b;
+  }
+  return a.stopPlaceId === b.stopPlaceId && a.quayId === b.quayId;
 }
 
-function compareMembersByLabel(
-  a: StopAreaFormMember,
-  b: StopAreaFormMember,
-): number {
-  return a.scheduled_stop_point.label.localeCompare(
-    b.scheduled_stop_point.label,
-  );
+export function sortByPublicCode(
+  stops: ReadonlyArray<SelectedStop>,
+): SelectedStop[] {
+  return stops.toSorted((a, b) => a.publicCode.localeCompare(b.publicCode));
 }
 
 type SelectMemberStopsDropdownProps = {
   readonly className?: string;
   readonly disabled?: boolean;
-  readonly value: Array<StopAreaFormMember> | undefined;
-  readonly editedStopAreaId: string | null | undefined;
-  readonly onChange: (selected: Array<StopAreaFormMember>) => void;
+  readonly value: SelectedStop | undefined;
+  readonly onSelectionChange: (
+    newValue: SelectedStop | undefined,
+    currentValue: SelectedStop | undefined,
+    options: SelectedStop[],
+  ) => void;
   readonly testId?: string;
+  readonly inputAriaLabel?: string;
 };
 
-export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
+export const SelectMemberStopsDropdownArea: FC<
+  SelectMemberStopsDropdownProps
+> = ({
   className = '',
   disabled,
-  value = [],
-  editedStopAreaId,
-  onChange,
+  value,
   testId,
-}: SelectMemberStopsDropdownProps) => {
+  onSelectionChange,
+  inputAriaLabel,
+}) => {
   const [query, setQuery] = useState('');
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const cleanQuery = query.trim();
 
   const { options, loading, allFetched, fetchNextPage } =
-    useFindStopPlaceByQuery(cleanQuery, editedStopAreaId);
+    useFindQuaysByQuery(cleanQuery);
 
-  const unselectedOptions = useMemo(() => {
-    const selectedIds = value?.map((stop) => stop.id) ?? [];
-    return options.filter((stop) => !selectedIds.includes(stop.id));
-  }, [value, options]);
+  const unselectedOptions = useMemo(
+    () => options.filter((stop) => stop.stopPlaceId !== value?.stopPlaceId),
+    [value?.stopPlaceId, options],
+  );
 
-  const onChangeInternal = (newValue: ReadonlyArray<StopAreaFormMember>) => {
-    if (newValue.includes(FETCH_MORE_OPTION)) {
+  const handleSelectionChange = (newValue: SelectedStop | undefined) => {
+    if (newValue === FETCH_MORE_OPTION) {
       fetchNextPage().catch((error) =>
         log.error('Failed to fetch next page:', error),
       );
-    } else {
-      onChange(newValue.toSorted(compareMembersByLabel));
+      return;
     }
+
+    setQuery('');
+    onSelectionChange(newValue, value, options);
   };
 
   const [mutationObserver] = useState<MutationObserver>(
@@ -81,6 +91,7 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
             change.target.dataset.headlessuiState === ''
           ) {
             setQuery('');
+            setIsInputFocused(false);
           }
         }
       }),
@@ -98,25 +109,42 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
   return (
     <HUICombobox
       as="div"
-      by={stopAreaFormMembersAreSame}
+      by={compareMembersById}
       className={twMerge('relative w-full', className)}
       disabled={disabled}
-      multiple
       nullable={false}
-      onChange={onChangeInternal}
+      onChange={handleSelectionChange}
       value={value}
       ref={onCloseRef}
       data-testid={testId}
     >
       <div className="relative w-full">
         <HUICombobox.Input
-          className="relative h-full w-full border border-grey bg-white px-2 py-3 ui-open:rounded-b-none ui-not-open:rounded-md"
+          className="relative h-full w-full border border-grey bg-white px-2 py-3 pr-16 ui-open:rounded-b-none ui-not-open:rounded-md"
           onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setIsInputFocused(true)}
+          onBlur={() => setIsInputFocused(false)}
           value={query}
+          aria-label={inputAriaLabel}
           data-testid={testIds.input}
         />
 
-        <SelectMemberStopsDropdownButton selected={value} />
+        {value && !query.trim() && !isInputFocused && (
+          <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center">
+            <span
+              className="text-black"
+              title={`${value.publicCode} ${value.name}`}
+            >
+              <strong>
+                {value.publicCode} {value.name}
+              </strong>{' '}
+              {mapToShortDate(value.validityStart)} -{' '}
+              {mapToShortDate(value.validityEnd)}
+            </span>
+          </div>
+        )}
+
+        <SelectMemberStopsDropdownButton />
       </div>
 
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
@@ -125,7 +153,6 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
           as="div"
           className="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
         >
-          <SelectedMemberStops selected={value} />
           <MemberStopOptions options={unselectedOptions} />
 
           <SelectMemberStopQueryStatus
