@@ -10,7 +10,8 @@ import {
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { patchKeyValues } from '../../../../../../utils';
 import { useUpsertTerminal } from '../../../useUpsertTerminal';
-import { SelectedStop, TerminalLocationDetailsFormState } from './schema';
+import { TerminalLocationDetailsFormState } from './schema';
+import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
 
 const GQL_REMOVE_FROM_MULTIMODAL_STOP_PLACE = gql`
   mutation removeFromMultiModalStopPlace(
