@@ -2,6 +2,7 @@
 // @ts-ignore
 import cypressGrepPlugin from '@cypress/grep/src/plugin';
 import { defineConfig } from 'cypress';
+import cypressSplit from 'cypress-split';
 import { onLaunchBrowser } from './support/launchBrowser';
 import * as tasks from './support/tasks';
 
@@ -31,10 +32,14 @@ export default defineConfig({
     },
     experimentalInteractiveRunEvents: true,
     setupNodeEvents(on, config) {
+      cypressSplit(on, config);
+
       on('task', tasks);
       on('before:browser:launch', onLaunchBrowser);
 
       cypressGrepPlugin(config);
+
+      return config;
     },
     env: process.env,
   },
