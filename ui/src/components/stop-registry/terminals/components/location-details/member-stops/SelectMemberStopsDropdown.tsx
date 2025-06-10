@@ -1,32 +1,16 @@
-import { Combobox as HUICombobox, Transition } from '@headlessui/react';
-import { FC, useMemo, useState } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
-import { twMerge } from 'tailwind-merge';
-import { dropdownTransition } from '../../../../../../uiComponents';
-import { log } from '../../../../../../utils';
-import { SelectedStop } from '../location-details-form/schema';
-import { MemberStopOptions } from './MemberStopOptions';
-import { SelectedMemberStops } from './SelectedMemberStops';
-import { SelectMemberStopsDropdownButton } from './SelectMemberStopsDropdownButton';
+import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
 import {
-  FETCH_MORE_OPTION,
-  SelectMemberStopQueryStatus,
-} from './SelectMemberStopsQueryStatus';
-import { useFindQuaysByQuery } from './useFindQuaysByQuery';
+  BaseSelectMemberStopsDropdown,
+  SelectMemberStopsDropdownProps,
+  sortByPublicCode,
+} from '../../../../components/SelectMemberStops/SelectMemberStopsDropdown';
 
 const testIds = {
-  input: 'SelectMemberStopsDropdown::input',
   warningText: 'SelectMemberStopsDropdown::warningText',
 };
-
-function compareMembersById(a: SelectedStop, b: SelectedStop) {
-  return a.stopPlaceId === b.stopPlaceId && a.quayId === b.quayId;
-}
-
-function sortByPublicCode(stops: ReadonlyArray<SelectedStop>): SelectedStop[] {
-  return stops.toSorted((a, b) => a.publicCode.localeCompare(b.publicCode));
-}
 
 function findNewlySelectedStop(
   newValue: ReadonlyArray<SelectedStop>,
@@ -104,128 +88,52 @@ function processSelection(
   return [...newValue];
 }
 
-type SelectMemberStopsDropdownProps = {
-  readonly className?: string;
-  readonly disabled?: boolean;
-  readonly value: SelectedStop[] | undefined;
-  readonly onChange: (selected: SelectedStop[]) => void;
-  readonly testId?: string;
-};
-
 export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
-  className = '',
-  disabled,
   value = [],
   onChange,
-  testId,
+  ...restProps
 }) => {
   const { t } = useTranslation();
-  const [query, setQuery] = useState('');
-  const [hoveredStopPlaceId, setHoveredStopPlaceId] = useState<
-    string | undefined
-  >();
-  const cleanQuery = query.trim();
 
-  const { options, loading, allFetched, fetchNextPage } =
-    useFindQuaysByQuery(cleanQuery);
-
-  const unselectedOptions = useMemo(() => {
-    const selectedIds = value.map((stop) => stop.stopPlaceId);
-    return options.filter((stop) => !selectedIds.includes(stop.stopPlaceId));
-  }, [value, options]);
-
-  const hasNoSelectedStops = value.length === 0;
-
-  const handleSelectionChange = (newValue: readonly SelectedStop[]) => {
-    if (newValue.includes(FETCH_MORE_OPTION)) {
-      fetchNextPage().catch((error) =>
-        log.error('Failed to fetch next page:', error),
-      );
-      return;
-    }
-
-    const processedSelection = processSelection(newValue, value, options);
+  const handleSelectionChange = (
+    newValue: readonly SelectedStop[],
+    currentValue: SelectedStop[],
+    options: SelectedStop[],
+  ) => {
+    const processedSelection = processSelection(
+      newValue,
+      currentValue,
+      options,
+    );
     onChange(sortByPublicCode(processedSelection));
   };
 
-  const [mutationObserver] = useState<MutationObserver>(
-    () =>
-      new MutationObserver((changes) => {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const change of changes) {
-          if (
-            change.target instanceof HTMLElement &&
-            change.target.dataset.headlessuiState === ''
-          ) {
-            setQuery('');
-          }
-        }
-      }),
-  );
+  const renderWarning = () => {
+    const hasNoSelectedStops = value.length === 0;
 
-  const onCloseRef = (div: HTMLDivElement | null) => {
-    mutationObserver.disconnect();
-    if (div) {
-      mutationObserver.observe(div, {
-        attributeFilter: ['data-headlessui-state'],
-      });
+    if (!hasNoSelectedStops) {
+      return null;
     }
+
+    return (
+      <div className="text-hsl-red">
+        <MdWarning className="mr-2 inline text-lg" />
+        <span data-testid={testIds.warningText}>
+          {t('terminalDetails.location.noMemberStopsSelected')}
+        </span>
+      </div>
+    );
   };
 
   return (
-    <HUICombobox
-      as="div"
-      by={compareMembersById}
-      className={twMerge('relative w-full', className)}
-      disabled={disabled}
-      multiple
-      nullable={false}
-      onChange={handleSelectionChange}
+    <BaseSelectMemberStopsDropdown
       value={value}
-      ref={onCloseRef}
-      data-testid={testId}
-    >
-      {hasNoSelectedStops && (
-        <div className="text-hsl-red">
-          <MdWarning className="mr-2 inline text-lg" />
-          <span data-testid={testIds.warningText}>
-            {t('terminalDetails.location.noMemberStopsSelected')}
-          </span>
-        </div>
-      )}
-      <div className="relative w-full">
-        <HUICombobox.Input
-          className="relative h-full w-full border border-grey bg-white px-2 py-3 ui-open:rounded-b-none ui-not-open:rounded-md"
-          onChange={(e) => setQuery(e.target.value)}
-          value={query}
-          aria-label={t('terminalDetails.location.memberStops')}
-          data-testid={testIds.input}
-        />
-
-        <SelectMemberStopsDropdownButton selected={value} />
-      </div>
-
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <Transition {...dropdownTransition}>
-        <HUICombobox.Options
-          as="div"
-          className="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
-        >
-          <SelectedMemberStops
-            selected={value}
-            hoveredStopPlaceId={hoveredStopPlaceId}
-            onHover={setHoveredStopPlaceId}
-          />
-
-          <MemberStopOptions options={unselectedOptions} />
-
-          <SelectMemberStopQueryStatus
-            allFetched={allFetched}
-            loading={loading}
-            query={cleanQuery}
-          />
-        </HUICombobox.Options>
-      </Transition>
-    </HUICombobox>
+      onChange={onChange}
+      onSelectionChange={handleSelectionChange}
+      renderWarning={renderWarning}
+      inputAriaLabel={t('terminalDetails.location.memberStops')}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...restProps}
+    />
   );
 };
