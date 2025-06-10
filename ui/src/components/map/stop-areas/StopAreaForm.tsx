@@ -15,7 +15,6 @@ import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocke
 import {
   StopAreaFormState,
   stopAreaFormSchema,
-  stopAreaMemberStopSchema,
 } from '../../forms/stop-area/stopAreaFormSchema';
 import { StopAreaNames } from './StopAreaNames';
 
@@ -34,19 +33,6 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
     stopArea?.geometry?.coordinates ?? [],
   );
 
-  const quays = stopArea.quays
-    ?.map((quay) =>
-      stopAreaMemberStopSchema.safeParse({
-        ...quay,
-        name: {
-          value: stopArea.name,
-          lang: 'fin',
-        },
-      }),
-    )
-    .filter((parseResult) => parseResult.success)
-    .map((parseResult) => parseResult.data);
-
   const formState: StopAreaFormState = {
     privateCode: stopArea.privateCode?.value ?? '',
     name: stopArea.name ?? '',
@@ -60,7 +46,6 @@ export const mapStopAreaDataToFormState = (stopArea: EnrichedStopPlace) => {
     abbreviationEng: stopArea.abbreviationEng,
     latitude,
     longitude,
-    quays: quays ?? [],
     validityStart: mapToISODate(stopArea.validityStart) ?? '',
     validityEnd: mapToISODate(stopArea.validityEnd),
     indefinite: !stopArea.validityEnd,

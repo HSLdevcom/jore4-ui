@@ -6,21 +6,6 @@ import {
   validityPeriodFormSchema,
 } from '../common';
 
-const nameSchema = z.object({
-  value: z.string().optional(),
-  lang: z.string().optional(),
-});
-
-const scheduledStopPointLabelSchema = z.object({
-  label: requiredString,
-});
-
-export const stopAreaMemberStopSchema = z.object({
-  id: requiredString,
-  name: nameSchema,
-  scheduled_stop_point: scheduledStopPointLabelSchema,
-});
-
 export const stopAreaFormSchema = z
   .object({
     nameLongFin: z.string().optional(),
@@ -35,11 +20,8 @@ export const stopAreaFormSchema = z
     name: requiredString,
     latitude: requiredNumber.min(-180).max(180),
     longitude: requiredNumber.min(-180).max(180),
-    quays: z.array(stopAreaMemberStopSchema),
   })
   .merge(validityPeriodFormSchema);
 
 export type StopAreaFormState = z.infer<typeof stopAreaFormSchema> &
   ValidityPeriodFormState;
-
-export type StopAreaFormMember = z.infer<typeof stopAreaMemberStopSchema>;
