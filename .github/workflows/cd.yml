@@ -76,7 +76,7 @@ jobs:
     needs:
       - publish_ui_docker_image_to_acr
       - publish_cypress_docker_image_to_acr
-    uses: HSLdevcom/jore4-tools/.github/workflows/shared-run-e2e.yml@main
+    uses: HSLdevcom/jore4-tools/.github/workflows/shared-run-e2e.yml@split-e2e
     with:
       ui_version: ${{ needs.publish_ui_docker_image_to_acr.outputs.docker_image }}
       cypress_version: ${{ needs.publish_cypress_docker_image_to_acr.outputs.docker_image }}
