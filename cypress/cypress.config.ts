@@ -2,6 +2,7 @@
 // @ts-ignore
 import cypressGrepPlugin from '@cypress/grep/src/plugin';
 import { defineConfig } from 'cypress';
+import { GenerateCtrfReport } from 'cypress-ctrf-json-reporter';
 import cypressSplit from 'cypress-split';
 import { onLaunchBrowser } from './support/launchBrowser';
 import * as tasks from './support/tasks';
@@ -36,6 +37,15 @@ export default defineConfig({
 
       on('task', tasks);
       on('before:browser:launch', onLaunchBrowser);
+      if (process.env.JORE4_CYPRESS_GENERATE_CTRF_REPORT === 'true') {
+        // eslint-disable-next-line no-new
+        new GenerateCtrfReport({
+          on,
+          outputFile: 'ctrf-report.json',
+          outputDir: 'ctrf',
+          appName: 'JORE4',
+        });
+      }
 
       cypressGrepPlugin(config);
 
