@@ -2,6 +2,7 @@ import React, {
   ForwardRefRenderFunction,
   forwardRef,
   useImperativeHandle,
+  useMemo,
   useRef,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
@@ -23,9 +24,11 @@ import {
   selectDraftLocation,
   selectMapStopAreaViewState,
   selectMapStopViewState,
+  selectSelectedStopAreaId,
   selectSelectedStopId,
   setDraftLocationAction,
   setEditedStopAreaDataAction,
+  setMapStopAreaViewStateAction,
   setMapStopViewStateAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
@@ -42,6 +45,7 @@ import { useFilterStops } from './useFilterStops';
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
     `Map::Stops::stopMarker::${label}_${Priority[priority]}`,
+  memberStop: (netextId: string) => `Map::StopArea::memberStop::${netextId}`,
 };
 
 type StopsProps = {
@@ -53,11 +57,14 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
   { displayedRouteIds, stops },
   ref,
 ) => {
-  const filter = useFilterStops();
+  const filterByUiFiltersAndRoute = useFilterStops();
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
+  const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const draftLocation = useAppSelector(selectDraftLocation);
+
   const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
+  const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
 
   const mapStopViewState = useAppSelector(selectMapStopViewState);
   const setMapStopViewState = useAppAction(setMapStopViewStateAction);
@@ -106,6 +113,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
       setSelectedStopId(stop.netex_id);
       setSelectedMapStopAreaId(stop.stop_place_netex_id);
       setMapStopViewState(MapEntityEditorViewState.POPUP);
+      setMapStopAreaViewState(MapEntityEditorViewState.NONE);
     }
   };
 
@@ -135,26 +143,42 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     );
   };
 
+  const filteredStops = useMemo(() => {
+    if (selectedStopAreaId) {
+      return stops.filter(
+        (it) => it.stop_place_netex_id === selectedStopAreaId,
+      );
+    }
+
+    return filterByUiFiltersAndRoute(stops);
+  }, [stops, filterByUiFiltersAndRoute, selectedStopAreaId]);
+
   if (isEditorOpen(mapStopAreaViewState)) {
     return null;
   }
 
-  const filteredStops = filter(stops);
   return (
     <>
       {/* Display existing stops */}
-      {filteredStops?.map((item) => {
+      {filteredStops.map((item) => {
         const point = mapLngLatToPoint(item.location.coordinates);
+        const asMemberStop = !!selectedStopAreaId;
+
         return (
           <Stop
-            isHighlighted={getStopHighlighted(item.netex_id)}
+            isHighlighted={getStopHighlighted(item)}
+            asMemberStop={asMemberStop}
             key={item.netex_id}
             latitude={point.latitude}
             longitude={point.longitude}
             mapStopViewState={mapStopViewState}
             onClick={() => onClickStop(item)}
             selected={item.netex_id === selectedStopId}
-            testId={testIds.stopMarker(item.label, item.priority)}
+            testId={
+              asMemberStop
+                ? testIds.memberStop(item.netex_id)
+                : testIds.stopMarker(item.label, item.priority)
+            }
             vehicleMode={getStopVehicleMode(item)}
           />
         );

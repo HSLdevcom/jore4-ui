@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
+import { MapStop } from '../../components/map/types';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteWithJourneyPatternStopsFragment,
@@ -10,6 +11,7 @@ import {
   selectEditedRouteData,
   selectEditedRouteIncludedStops,
   selectMapRouteEditor,
+  selectSelectedStopAreaId,
   selectSelectedStopId,
 } from '../../redux';
 import { Priority } from '../../types/enums';
@@ -40,6 +42,7 @@ const extractHighestPriorityStopsFromRoute = <
 
 export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
   const { selectedRouteId } = useAppSelector(selectMapRouteEditor);
+  const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const { observationDate } = useObservationDateQueryParam();
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedRouteIncludedStops = useAppSelector(
@@ -96,24 +99,19 @@ export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
     [displayedRoutes, editedRouteStopLabels],
   );
 
+  // If editing a route, highlight stops on edited route
+  // Otherwise highlight stops belonging to selected route
+  // Also highlight selectedRoute stops until editedRouteData is loaded
+  const highlightedStopIds =
+    editedRouteIncludedStops.length > 0
+      ? editedRouteStopIds
+      : selectedRouteActiveStopIds;
   const getStopHighlighted = useCallback(
-    (id: UUID): boolean => {
-      // If editing a route, highlight stops on edited route
-      // Otherwise highlight stops belonging to selected route
-      // Also highlight selectedRoute stops until editedRouteData is loaded
-      const highlightedStopIds =
-        editedRouteIncludedStops.length > 0
-          ? editedRouteStopIds
-          : selectedRouteActiveStopIds;
-
-      return highlightedStopIds?.includes(id) || selectedStopId === id;
-    },
-    [
-      editedRouteIncludedStops.length,
-      editedRouteStopIds,
-      selectedRouteActiveStopIds,
-      selectedStopId,
-    ],
+    (stop: MapStop): boolean =>
+      selectedStopAreaId === stop.stop_place_netex_id ||
+      selectedStopId === stop.netex_id ||
+      highlightedStopIds.includes(stop.netex_id),
+    [highlightedStopIds, selectedStopId, selectedStopAreaId],
   );
 
   return { getStopVehicleMode, getStopHighlighted };
