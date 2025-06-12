@@ -33,11 +33,14 @@ const GQL_GET_QUAY_VERSIONS = gql`
     stop_place {
       id
       netex_id
+      name_value
     }
 
     validity_start
     validity_end
     priority
+
+    public_code
 
     centroid
 
@@ -81,7 +84,9 @@ function mapQuayToStopVersionInfoItem(
   return {
     id: rawQuay.id,
     netex_id: requireValue(rawQuay.netex_id),
+    public_code: requireValue(rawQuay.public_code),
     stop_place_netex_id: requireValue(rawQuay.stop_place?.netex_id),
+    stop_place_name: requireValue(rawQuay.stop_place?.name_value),
     validity_start: requireValue(parseDate(rawQuay.validity_start)),
     validity_end: parseDate(rawQuay.validity_end) ?? null,
     priority,
