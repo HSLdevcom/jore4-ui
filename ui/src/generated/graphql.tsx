@@ -67574,6 +67574,25 @@ export type GetScheduledStopPointWithTimingSettingsQuery = {
   }>
 };
 
+export type FindQuaysByQueryQueryVariables = Exact<{
+  cursor: Scalars['bigint']['input'];
+  limit: Scalars['Int']['input'];
+  query: Scalars['String']['input'];
+}>;
+
+
+export type FindQuaysByQueryQuery = {
+  __typename?: 'query_root',
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query',
+    findStopsForTerminal: Array<{
+      __typename?: 'TerminalStopSearchResult',
+      cursor: any,
+      stops: any
+    }>
+  } | null
+};
+
 export type DoesStopHaveNextValidAlternativeQueryVariables = Exact<{
   label: Scalars['String']['input'];
   validAfter: Scalars['date']['input'];
@@ -68773,6 +68792,7 @@ export type GetQuayVersionsQuery = {
       validity_start?: string | null,
       validity_end?: string | null,
       priority?: string | null,
+      public_code?: string | null,
       centroid?: GeoJSON.Geometry | null,
       created?: any | null,
       changed?: any | null,
@@ -68781,7 +68801,8 @@ export type GetQuayVersionsQuery = {
       stop_place?: {
         __typename?: 'stops_database_stop_place',
         id: any,
-        netex_id?: string | null
+        netex_id?: string | null,
+        name_value?: string | null
       } | null
     }>
   } | null
@@ -68794,6 +68815,7 @@ export type StopVersionInfoFragment = {
   validity_start?: string | null,
   validity_end?: string | null,
   priority?: string | null,
+  public_code?: string | null,
   centroid?: GeoJSON.Geometry | null,
   created?: any | null,
   changed?: any | null,
@@ -68802,7 +68824,8 @@ export type StopVersionInfoFragment = {
   stop_place?: {
     __typename?: 'stops_database_stop_place',
     id: any,
-    netex_id?: string | null
+    netex_id?: string | null,
+    name_value?: string | null
   } | null
 };
 
@@ -68836,25 +68859,6 @@ export type AddToMultiModalStopPlaceMutation = {
       __typename?: 'stop_registry_ParentStopPlace',
       id?: string | null
     } | null
-  } | null
-};
-
-export type FindQuaysByQueryQueryVariables = Exact<{
-  cursor: Scalars['bigint']['input'];
-  limit: Scalars['Int']['input'];
-  query: Scalars['String']['input'];
-}>;
-
-
-export type FindQuaysByQueryQuery = {
-  __typename?: 'query_root',
-  stops_database?: {
-    __typename?: 'stops_database_stops_database_query',
-    findStopsForTerminal: Array<{
-      __typename?: 'TerminalStopSearchResult',
-      cursor: any,
-      stops: any
-    }>
   } | null
 };
 
@@ -75649,10 +75653,12 @@ export const StopVersionInfoFragmentDoc = gql`
   stop_place {
     id
     netex_id
+    name_value
   }
   validity_start
   validity_end
   priority
+  public_code
   centroid
   created
   changed
@@ -77013,6 +77019,56 @@ export type GetScheduledStopPointWithTimingSettingsQueryHookResult = ReturnType<
 export type GetScheduledStopPointWithTimingSettingsLazyQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithTimingSettingsLazyQuery>;
 export type GetScheduledStopPointWithTimingSettingsSuspenseQueryHookResult = ReturnType<typeof useGetScheduledStopPointWithTimingSettingsSuspenseQuery>;
 export type GetScheduledStopPointWithTimingSettingsQueryResult = Apollo.QueryResult<GetScheduledStopPointWithTimingSettingsQuery, GetScheduledStopPointWithTimingSettingsQueryVariables>;
+export const FindQuaysByQueryDocument = gql`
+    query findQuaysByQuery($cursor: bigint!, $limit: Int!, $query: String!) {
+  stops_database {
+    findStopsForTerminal(
+      args: {query: $query}
+      limit: $limit
+      order_by: [{cursor: asc}]
+      where: {cursor: {_gt: $cursor}}
+    ) {
+      cursor
+      stops
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindQuaysByQueryQuery__
+ *
+ * To run a query within a React component, call `useFindQuaysByQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindQuaysByQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindQuaysByQueryQuery({
+ *   variables: {
+ *      cursor: // value for 'cursor'
+ *      limit: // value for 'limit'
+ *      query: // value for 'query'
+ *   },
+ * });
+ */
+export function useFindQuaysByQueryQuery(baseOptions: Apollo.QueryHookOptions<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables> & ({ variables: FindQuaysByQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>(FindQuaysByQueryDocument, options);
+      }
+export function useFindQuaysByQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>(FindQuaysByQueryDocument, options);
+        }
+export function useFindQuaysByQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>(FindQuaysByQueryDocument, options);
+        }
+export type FindQuaysByQueryQueryHookResult = ReturnType<typeof useFindQuaysByQueryQuery>;
+export type FindQuaysByQueryLazyQueryHookResult = ReturnType<typeof useFindQuaysByQueryLazyQuery>;
+export type FindQuaysByQuerySuspenseQueryHookResult = ReturnType<typeof useFindQuaysByQuerySuspenseQuery>;
+export type FindQuaysByQueryQueryResult = Apollo.QueryResult<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>;
 export const DoesStopHaveNextValidAlternativeDocument = gql`
     query DoesStopHaveNextValidAlternative($label: String!, $validAfter: date!, $validPriorities: [Int!]!) {
   stopPoint: service_pattern_scheduled_stop_point_aggregate(
@@ -77818,56 +77874,6 @@ export function useAddToMultiModalStopPlaceMutation(baseOptions?: Apollo.Mutatio
 export type AddToMultiModalStopPlaceMutationHookResult = ReturnType<typeof useAddToMultiModalStopPlaceMutation>;
 export type AddToMultiModalStopPlaceMutationResult = Apollo.MutationResult<AddToMultiModalStopPlaceMutation>;
 export type AddToMultiModalStopPlaceMutationOptions = Apollo.BaseMutationOptions<AddToMultiModalStopPlaceMutation, AddToMultiModalStopPlaceMutationVariables>;
-export const FindQuaysByQueryDocument = gql`
-    query findQuaysByQuery($cursor: bigint!, $limit: Int!, $query: String!) {
-  stops_database {
-    findStopsForTerminal(
-      args: {query: $query}
-      limit: $limit
-      order_by: [{cursor: asc}]
-      where: {cursor: {_gt: $cursor}}
-    ) {
-      cursor
-      stops
-    }
-  }
-}
-    `;
-
-/**
- * __useFindQuaysByQueryQuery__
- *
- * To run a query within a React component, call `useFindQuaysByQueryQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindQuaysByQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFindQuaysByQueryQuery({
- *   variables: {
- *      cursor: // value for 'cursor'
- *      limit: // value for 'limit'
- *      query: // value for 'query'
- *   },
- * });
- */
-export function useFindQuaysByQueryQuery(baseOptions: Apollo.QueryHookOptions<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables> & ({ variables: FindQuaysByQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>(FindQuaysByQueryDocument, options);
-      }
-export function useFindQuaysByQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>(FindQuaysByQueryDocument, options);
-        }
-export function useFindQuaysByQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>(FindQuaysByQueryDocument, options);
-        }
-export type FindQuaysByQueryQueryHookResult = ReturnType<typeof useFindQuaysByQueryQuery>;
-export type FindQuaysByQueryLazyQueryHookResult = ReturnType<typeof useFindQuaysByQueryLazyQuery>;
-export type FindQuaysByQuerySuspenseQueryHookResult = ReturnType<typeof useFindQuaysByQuerySuspenseQuery>;
-export type FindQuaysByQueryQueryResult = Apollo.QueryResult<FindQuaysByQueryQuery, FindQuaysByQueryQueryVariables>;
 export const GetParentStopPlaceDetailsDocument = gql`
     query getParentStopPlaceDetails($privateCode: String!, $validOn: String!) {
   stops_database {
