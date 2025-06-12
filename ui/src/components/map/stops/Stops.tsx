@@ -16,7 +16,6 @@ import {
 import {
   LoadingState,
   MapEntityEditorViewState,
-  MapEntityType,
   Operation,
   isEditorOpen,
   isNoneOrPopup,
@@ -24,9 +23,7 @@ import {
   selectDraftLocation,
   selectMapStopAreaViewState,
   selectMapStopViewState,
-  selectMapViewport,
   selectSelectedStopId,
-  selectShowMapEntityTypes,
   setDraftLocationAction,
   setEditedStopAreaDataAction,
   setMapStopViewStateAction,
@@ -36,22 +33,24 @@ import {
 import { Priority } from '../../../types/enums';
 import { mapLngLatToGeoJSON, mapLngLatToPoint } from '../../../utils';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
+import { MapStop } from '../types';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 import { useFilterStops } from './useFilterStops';
-import { MapStop, useGetMapStops } from './useGetMapStops';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
     `Map::Stops::stopMarker::${label}_${Priority[priority]}`,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type StopsProps = {};
+type StopsProps = {
+  readonly displayedRouteIds: ReadonlyArray<string>;
+  readonly stops: ReadonlyArray<MapStop>;
+};
 
 export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
-  _props,
+  { displayedRouteIds, stops },
   ref,
 ) => {
   const filter = useFilterStops();
@@ -59,10 +58,6 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const draftLocation = useAppSelector(selectDraftLocation);
   const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
-
-  const { [MapEntityType.Stop]: showStops } = useAppSelector(
-    selectShowMapEntityTypes,
-  );
 
   const mapStopViewState = useAppSelector(selectMapStopViewState);
   const setMapStopViewState = useAppAction(setMapStopViewStateAction);
@@ -76,25 +71,12 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
 
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
-  const { getStopVehicleMode, getStopHighlighted } = useMapStops();
+  const { getStopVehicleMode, getStopHighlighted } =
+    useMapStops(displayedRouteIds);
 
-  const viewport = useAppSelector(selectMapViewport);
-
-  // Skip initial 0 radius fetch and wait for the map to get loaded,
-  // so that we have a proper viewport.
-  const skipFetching =
-    !showStops ||
-    mapStopAreaViewState !== MapEntityEditorViewState.NONE ||
-    viewport.radius <= 0;
-  const {
-    stops: unfilteredStops,
-    setFetchStopsLoadingState,
-    refetch: refetchStops,
-  } = useGetMapStops({
-    viewport,
-    skipFetching,
-  });
-  const stops = filter(unfilteredStops);
+  const { setLoadingState: setFetchStopsLoadingState } = useLoader(
+    Operation.FetchStops,
+  );
 
   const checkIsLocationValidForStop = useCheckIsLocationValidForStop();
   const defaultErrorHandler = useDefaultErrorHandler();
@@ -142,7 +124,6 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
       setSelectedStopId(netextId);
       setMapStopViewState(MapEntityEditorViewState.POPUP);
     }
-    await refetchStops();
     setIsLoadingSaveStop(false);
   };
 
@@ -158,10 +139,11 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     return null;
   }
 
+  const filteredStops = filter(stops);
   return (
     <>
       {/* Display existing stops */}
-      {stops?.map((item) => {
+      {filteredStops?.map((item) => {
         const point = mapLngLatToPoint(item.location.coordinates);
         return (
           <Stop

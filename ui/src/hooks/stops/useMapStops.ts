@@ -15,7 +15,6 @@ import {
 import { Priority } from '../../types/enums';
 import { filterHighestPriorityCurrentStops, mapToVariables } from '../../utils';
 import { useAppSelector } from '../redux';
-import { useGetRoutesDisplayedInMap } from '../routes';
 import { useObservationDateQueryParam } from '../urlQuery';
 
 type LabelledStop = { readonly label: string };
@@ -39,10 +38,9 @@ const extractHighestPriorityStopsFromRoute = <
   );
 };
 
-export const useMapStops = () => {
+export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
   const { selectedRouteId } = useAppSelector(selectMapRouteEditor);
   const { observationDate } = useObservationDateQueryParam();
-  const { displayedRouteIds } = useGetRoutesDisplayedInMap();
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedRouteIncludedStops = useAppSelector(
     selectEditedRouteIncludedStops,

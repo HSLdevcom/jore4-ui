@@ -1,21 +1,19 @@
 import { FC } from 'react';
 import { Marker } from 'react-map-gl/maplibre';
-import { StopAreaMinimalShowOnMapFieldsFragment } from '../../../generated/graphql';
 import { MapEntityEditorViewState } from '../../../redux';
 import { getGeometryPoint } from '../../../utils';
 import { StopAreaMarker } from '../markers';
+import { MapStopArea } from '../types';
 
 const testIds = {
-  stopArea: ({
-    private_code_value: id,
-  }: StopAreaMinimalShowOnMapFieldsFragment) =>
+  stopArea: ({ private_code_value: id }: MapStopArea) =>
     `Map::StopArea::stopArea::${id}`,
 };
 
 type StopAreaProps = {
-  readonly area: StopAreaMinimalShowOnMapFieldsFragment;
+  readonly area: MapStopArea;
   readonly mapStopAreaViewState: MapEntityEditorViewState;
-  readonly onClick: (area: StopAreaMinimalShowOnMapFieldsFragment) => void;
+  readonly onClick: (area: MapStopArea) => void;
   readonly selected: boolean;
 };
 

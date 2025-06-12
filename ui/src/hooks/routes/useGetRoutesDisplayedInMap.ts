@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { useMemo } from 'react';
 import {
   RouteRouteBoolExp,
   useGetLineRoutesByLabelQuery,
@@ -92,8 +93,6 @@ export const useGetRoutesDisplayedInMap = () => {
     skip: skipRoutesByRouteInfoResult,
   });
 
-  const routesByRouteInfo = routesByRouteInfoResult.data?.route_route ?? [];
-
   // Get routes by LINE LABEL
   const lineFilters = {
     ...buildLabelGqlFilter(lineLabel),
@@ -108,18 +107,27 @@ export const useGetRoutesDisplayedInMap = () => {
     skip: skipRoutesByLineLabelResult,
   });
 
-  const routesByLineLabel =
-    routesByLineLabelResult?.data?.route_line.flatMap(
-      (line) => line.line_routes,
-    ) ?? [];
+  const rawRoutesByRoute = routesByRouteInfoResult.data?.route_route;
+  const rawLines = routesByLineLabelResult?.data?.route_line;
 
-  const routes = [...routesByRouteInfo, ...routesByLineLabel];
+  const routes = useMemo(() => {
+    const lineRoutes = rawLines?.flatMap((line) => line.line_routes);
+
+    return [...(rawRoutesByRoute ?? []), ...(lineRoutes ?? [])];
+  }, [rawRoutesByRoute, rawLines]);
 
   // If we choose not to show the situation on selected day,
   // do not filter routes
-  const displayedRoutes = showSelectedDaySituation
-    ? filterRoutesByHighestPriority(routes)
-    : routes;
+  const displayedRoutes = useMemo(
+    () =>
+      showSelectedDaySituation ? filterRoutesByHighestPriority(routes) : routes,
+    [routes, showSelectedDaySituation],
+  );
+
+  const displayedRouteIds = useMemo(
+    () => displayedRoutes.map((route) => route.route_id),
+    [displayedRoutes],
+  );
 
   const initialLoadDone =
     !!(
@@ -134,8 +142,5 @@ export const useGetRoutesDisplayedInMap = () => {
 
   useMapDataLayerLoader(Operation.FetchRoutes, initialLoadDone, isLoading);
 
-  return {
-    displayedRouteIds: displayedRoutes.map((route) => route.route_id),
-    displayedRoutes,
-  };
+  return { displayedRoutes, displayedRouteIds, loading: isLoading };
 };

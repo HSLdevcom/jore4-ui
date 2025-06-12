@@ -8,11 +8,7 @@ import React, {
   useState,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useGetRoutesDisplayedInMap,
-} from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Column } from '../../layoutComponents';
 import {
   MapEntityEditorViewState,
@@ -30,6 +26,7 @@ import { MapFilterPanel } from './MapFilterPanel';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
+import { useGetMapData } from './queries/useGetMapData';
 import { RouteEditorRef, StopAreasRef, StopsRef } from './refTypes';
 import { Routes, isRouteGeometryLayer, mapLayerIdToRouteId } from './routes';
 import { RouteStopsOverlay } from './routes/RouteStopsOverlay';
@@ -165,9 +162,7 @@ export const MapComponent: ForwardRefRenderFunction<
   const hasDraftStopLocation = useAppSelector(selectHasDraftLocation);
   const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
 
-  const { displayedRouteIds } = useGetRoutesDisplayedInMap();
-
-  const routeDisplayed = !!displayedRouteIds.length;
+  const { areas, displayedRouteIds, stops } = useGetMapData();
 
   return (
     <Maplibre
@@ -176,13 +171,17 @@ export const MapComponent: ForwardRefRenderFunction<
       onClick={onClick}
       className={className}
     >
-      <Stops ref={editorRefs.stopsRef} />
-      <StopAreas ref={editorRefs.stopAreasRef} />
+      <Stops
+        stops={stops}
+        displayedRouteIds={displayedRouteIds}
+        ref={editorRefs.stopsRef}
+      />
+      <StopAreas areas={areas} ref={editorRefs.stopAreasRef} />
 
       <CustomOverlay position="top-left">
         <Column className="items-start overflow-hidden p-2">
           <MapFilterPanel
-            routeDisplayed={routeDisplayed}
+            routeDisplayed={!!displayedRouteIds.length}
             showInfraLinks={showInfraLinks}
             showRoute={showRoute}
             setShowInfraLinks={setShowInfraLinks}
