@@ -1,11 +1,9 @@
+import { Geometry } from 'geojson';
 import compact from 'lodash/compact';
 import { LayerSpecification } from 'maplibre-gl';
 import { MapInstance, MapRef } from 'react-map-gl/maplibre';
-import { isRouteGeometryLayer } from '../../components/map/routes';
+import { isRouteGeometryLayer } from '../../components/map/routes/utils';
 import { theme } from '../../generated/theme';
-
-// TODO: Can we import these somewhere?
-export type Geometry = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 export const removeLayer = (map: MapInstance, id: string) => {
   if (map.getLayer(id)) {

@@ -1,4 +1,9 @@
-import React, { useImperativeHandle, useRef } from 'react';
+import React, {
+  ForwardRefRenderFunction,
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import {
   useAppAction,
@@ -30,7 +35,7 @@ import {
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
 import { mapLngLatToGeoJSON, mapLngLatToPoint } from '../../../utils';
-import { EditStoplayerRef } from '../refTypes';
+import { EditStoplayerRef, StopsRef } from '../refTypes';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
@@ -42,7 +47,13 @@ const testIds = {
     `Map::Stops::stopMarker::${label}_${Priority[priority]}`,
 };
 
-export const Stops = React.forwardRef((_props, ref) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+type StopsProps = {};
+
+export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
+  _props,
+  ref,
+) => {
   const filter = useFilterStops();
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
@@ -103,7 +114,7 @@ export const Stops = React.forwardRef((_props, ref) => {
       }
       setFetchStopsLoadingState(LoadingState.NotLoading);
     },
-    onMoveStop: (e: MapLayerMouseEvent) => {
+    onMoveStop: async (e: MapLayerMouseEvent) => {
       editStopLayerRef.current?.onMoveStop(e);
     },
   }));
@@ -184,6 +195,5 @@ export const Stops = React.forwardRef((_props, ref) => {
       )}
     </>
   );
-});
-
-Stops.displayName = 'Stops';
+};
+export const Stops = forwardRef(StopsImpl);

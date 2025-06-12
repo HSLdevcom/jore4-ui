@@ -8,25 +8,25 @@ import {
   useRef,
 } from 'react';
 import { MapRef, useMap } from 'react-map-gl/maplibre';
-import { useGetRouteDetailsByIdQuery } from '../../generated/graphql';
-import { mapRouteToInfraLinksAlongRoute } from '../../graphql';
+import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
+import { mapRouteToInfraLinksAlongRoute } from '../../../graphql';
 import {
   LineStringFeature,
   mapInfraLinksToFeature,
   useAppDispatch,
   useAppSelector,
-} from '../../hooks';
-import { useSnappingLine } from '../../hooks/map/useSnappingLine';
+} from '../../../hooks';
 import {
   Mode,
   selectEditedRouteData,
   selectMapRouteEditor,
   stopRouteEditingAction,
-} from '../../redux';
-import { DrawControl } from './DrawControl';
-import { EditorLayerRef } from './refTypes';
-import { NEW_ROUTE_ARROWS_ID, NEW_ROUTE_LINE_ID } from './routes';
-import { ACTIVE_LINE_STROKE_ID } from './routes/editorStyles';
+} from '../../../redux';
+import { DrawControl } from '../DrawControl';
+import { EditorLayerRef } from '../refTypes';
+import { ACTIVE_LINE_STROKE_ID } from './editorStyles';
+import { useSnappingLine } from './useSnappingLine';
+import { NEW_ROUTE_ARROWS_ID, NEW_ROUTE_LINE_ID } from './utils';
 
 const SNAPPING_LINE_LAYER_ID = 'snapping-line';
 
