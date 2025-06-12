@@ -9,6 +9,7 @@ import {
   MapEntityType,
   Operation,
   selectMapViewport,
+  selectSelectedStopAreaId,
   selectShowMapEntityTypes,
 } from '../../../redux';
 import { Viewport } from '../../../redux/types';
@@ -30,14 +31,12 @@ export function useGetMapData() {
     [MapEntityType.StopArea]: showStopAreas,
   } = useAppSelector(selectShowMapEntityTypes);
 
-  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
+  const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
 
-  const skipFetchingStops =
-    !showStops ||
-    mapStopAreaViewState !== MapEntityEditorViewState.NONE ||
-    !viewportIsLoaded;
+  const skipFetchingStops = !showStops || !viewportIsLoaded;
   const { stops, loading: stopsAreLoading } = useGetMapStops({
     viewport,
+    selectedStopAreaId,
     skipFetching: skipFetchingStops,
   });
 

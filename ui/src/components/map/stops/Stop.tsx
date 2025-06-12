@@ -10,6 +10,7 @@ const { colors } = theme;
 
 const iconSize = 30;
 const selectedIconSize = 32;
+const centerDotSize = 3;
 
 /** Stop map markers border color is determined in this function. There are
  * different aspects which are affecting this determination. These are
@@ -22,7 +23,8 @@ const selectedIconSize = 32;
  * * If none of the above apply, we use 'hsl-dark-80' as the border color
  */
 const determineBorderColor = (
-  isHilighted: boolean,
+  isHighlighted: boolean,
+  asMemberStop: boolean,
   isSelected: boolean,
   isPlaceholder: boolean,
   stopVehicleMode?: ReusableComponentsVehicleModeEnum,
@@ -30,12 +32,19 @@ const determineBorderColor = (
   if (isPlaceholder) {
     return colors.grey;
   }
+
   if (isSelected) {
     return colors.hslDark80;
   }
-  if (isHilighted) {
+
+  if (asMemberStop) {
+    return colors.tweakedBrand;
+  }
+
+  if (isHighlighted) {
     return colors.selectedMapItem;
   }
+
   if (stopVehicleMode) {
     return colors.stops[stopVehicleMode] ?? colors.hslDark80;
   }
@@ -45,6 +54,7 @@ const determineBorderColor = (
 
 type StopProps = {
   readonly isHighlighted?: boolean;
+  readonly asMemberStop?: boolean;
   readonly mapStopViewState: MapEntityEditorViewState;
   readonly onClick: () => void;
   readonly selected?: boolean;
@@ -54,6 +64,7 @@ type StopProps = {
 
 export const Stop: FC<StopProps> = ({
   isHighlighted = false,
+  asMemberStop = false,
   latitude,
   longitude,
   mapStopViewState,
@@ -68,16 +79,16 @@ export const Stop: FC<StopProps> = ({
     selected && mapStopViewState === MapEntityEditorViewState.MOVE;
   const iconBorderColor = determineBorderColor(
     isHighlighted,
+    asMemberStop,
     selected,
     isPlaceholder,
     vehicleMode,
   );
 
   const iconFillColor =
-    vehicleMode !== undefined || selected ? 'white' : colors.lightGrey;
-
-  const iconBorderWidth = 3;
-  const centerDotSize = 3;
+    vehicleMode !== undefined || selected || asMemberStop
+      ? 'white'
+      : colors.lightGrey;
 
   return (
     <Marker longitude={longitude} latitude={latitude}>
@@ -87,7 +98,7 @@ export const Stop: FC<StopProps> = ({
         onClick={onClick}
         borderColor={iconBorderColor}
         fillColor={iconFillColor}
-        borderWidth={iconBorderWidth}
+        borderWidth={3}
         strokeDashArray={isPlaceholder ? 2 : 0}
         centerDot={selected}
         centerDotSize={selected ? centerDotSize * 1.5 : centerDotSize}

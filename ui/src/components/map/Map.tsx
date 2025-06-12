@@ -31,7 +31,7 @@ import { RouteEditorRef, StopAreasRef, StopsRef } from './refTypes';
 import { Routes, isRouteGeometryLayer, mapLayerIdToRouteId } from './routes';
 import { RouteStopsOverlay } from './routes/RouteStopsOverlay';
 import { StopAreas } from './stop-areas';
-import { Stops } from './stops';
+import { MemberStopLines, Stops } from './stops';
 
 type MapViewState = {
   readonly mapStopViewState: MapEntityEditorViewState;
@@ -177,6 +177,8 @@ export const MapComponent: ForwardRefRenderFunction<
         ref={editorRefs.stopsRef}
       />
       <StopAreas areas={areas} ref={editorRefs.stopAreasRef} />
+
+      <MemberStopLines areas={areas} stops={stops} />
 
       <CustomOverlay position="top-left">
         <Column className="items-start overflow-hidden p-2">

@@ -30,7 +30,6 @@ import { EditStopAreaLayerRef, StopAreasRef } from '../refTypes';
 import { MapStopArea } from '../types';
 import { CreateStopAreaMarker } from './CreateStopAreaMarker';
 import { EditStopAreaLayer } from './EditStopAreaLayer';
-import { MemberStops } from './MemberStops';
 import { StopArea } from './StopArea';
 
 function useFetchAndUpdateSelectedStopAreaData() {
@@ -141,15 +140,11 @@ const StopAreasImpl: ForwardRefRenderFunction<StopAreasRef, StopAreasProps> = (
       ))}
 
       {editedStopAreaData ? (
-        <>
-          <EditStopAreaLayer
-            ref={editStopAreaLayerRef}
-            editedArea={editedStopAreaData}
-            onPopupClose={onPopupClose}
-          />
-
-          <MemberStops area={editedStopAreaData} />
-        </>
+        <EditStopAreaLayer
+          ref={editStopAreaLayerRef}
+          editedArea={editedStopAreaData}
+          onPopupClose={onPopupClose}
+        />
       ) : null}
 
       {isPlacingOrMoving(mapStopAreaViewState) && (
