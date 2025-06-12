@@ -34,7 +34,11 @@ export const StopArea: FC<StopAreaProps> = ({
   }
 
   return (
-    <Marker longitude={point.longitude} latitude={point.latitude}>
+    <Marker
+      className="z-[1]"
+      longitude={point.longitude}
+      latitude={point.latitude}
+    >
       <StopAreaMarker
         onClick={() => onClick(area)}
         selected={selected}
