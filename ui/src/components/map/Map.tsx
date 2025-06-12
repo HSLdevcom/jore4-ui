@@ -1,88 +1,65 @@
 import React, {
   ForwardRefRenderFunction,
+  ForwardedRef,
+  MutableRefObject,
+  RefObject,
   useImperativeHandle,
   useRef,
   useState,
 } from 'react';
-import { Layer, MapLayerMouseEvent } from 'react-map-gl/maplibre';
+import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import {
   useAppDispatch,
   useAppSelector,
   useGetRoutesDisplayedInMap,
 } from '../../hooks';
-import { Column, Visible } from '../../layoutComponents';
+import { Column } from '../../layoutComponents';
 import {
   MapEntityEditorViewState,
-  Mode,
   isPlacingOrMoving,
   selectHasDraftLocation,
-  selectHasDraftRouteGeometry,
   selectMapFilter,
-  selectMapRouteEditor,
   selectMapStopAreaViewState,
   selectMapStopViewState,
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
 import { CustomOverlay } from './CustomOverlay';
-import { DrawRouteLayer } from './DrawRouteLayer';
 import { ItemTypeFiltersOverlay } from './filters/ItemTypeFiltersOverlay';
 import { MapFilterPanel } from './MapFilterPanel';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
-import {
-  EditorLayerRef,
-  RouteEditorRef,
-  StopAreasRef,
-  StopsRef,
-} from './refTypes';
-import {
-  DraftRouteGeometryLayer,
-  EditRouteMetadataLayer,
-  RouteEditor,
-  isRouteGeometryLayer,
-  mapLayerIdToRouteId,
-} from './routes';
-import { ExistingRouteGeometryLayer } from './routes/ExistingRouteGeometryLayer';
-import { RouteStopsOverlay } from './RouteStopsOverlay';
+import { RouteEditorRef, StopAreasRef, StopsRef } from './refTypes';
+import { Routes, isRouteGeometryLayer, mapLayerIdToRouteId } from './routes';
+import { RouteStopsOverlay } from './routes/RouteStopsOverlay';
 import { StopAreas } from './stop-areas';
 import { Stops } from './stops';
 
-type MapProps = {
-  readonly className?: string;
-  readonly width?: string;
-  readonly height?: string;
+type MapViewState = {
+  readonly mapStopViewState: MapEntityEditorViewState;
+  readonly mapStopAreaViewState: MapEntityEditorViewState;
 };
 
-export const MapComponent: ForwardRefRenderFunction<
-  RouteEditorRef,
-  MapProps
-> = ({ className = '', width = '100vw', height = '100vh' }, externalRef) => {
-  const routeEditorRef = useRef<RouteEditorRef>(null);
-  const editorLayerRef = useRef<EditorLayerRef>(null);
-  const stopsRef = useRef<StopsRef>(null);
-  const stopAreasRef = useRef<StopAreasRef>(null);
+type EditorRefs = {
+  readonly routeEditorRef: MutableRefObject<RouteEditorRef | null>;
+  readonly stopsRef: MutableRefObject<StopsRef | null>;
+  readonly stopAreasRef: MutableRefObject<StopAreasRef | null>;
+};
 
-  const { drawingMode } = useAppSelector(selectMapRouteEditor);
-  const hasDraftRouteGeometry = useAppSelector(selectHasDraftRouteGeometry);
-  const hasDraftStopLocation = useAppSelector(selectHasDraftLocation);
-  const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
+function useEditorRefs(): EditorRefs {
+  return {
+    routeEditorRef: useRef(null),
+    stopsRef: useRef(null),
+    stopAreasRef: useRef(null),
+  };
+}
 
-  const dispatch = useAppDispatch();
-  const selectedRouteId = useAppSelector(selectSelectedRouteId);
-
-  const { displayedRouteIds } = useGetRoutesDisplayedInMap();
-
-  const routeDisplayed = !!displayedRouteIds?.length;
-
-  const [showInfraLinks, setShowInfraLinks] = useState(false);
-  const [showRoute, setShowRoute] = useState(true);
-
-  const mapStopViewState = useAppSelector(selectMapStopViewState);
-  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
-
-  useImperativeHandle(externalRef, () => ({
+function useRouteEditorImperativeHandle(
+  ref: ForwardedRef<RouteEditorRef>,
+  routeEditorRef: RefObject<RouteEditorRef>,
+) {
+  useImperativeHandle(ref, () => ({
     onDrawRoute: () => {
       routeEditorRef.current?.onDrawRoute();
     },
@@ -99,46 +76,20 @@ export const MapComponent: ForwardRefRenderFunction<
       routeEditorRef.current?.onSave();
     },
   }));
+}
 
-  const onCreateStop = (e: MapLayerMouseEvent) => {
-    if (stopsRef.current && drawingMode === undefined) {
-      stopsRef.current.onCreateStop(e);
-    }
+function useMapViewState(): MapViewState {
+  return {
+    mapStopViewState: useAppSelector(selectMapStopViewState),
+    mapStopAreaViewState: useAppSelector(selectMapStopAreaViewState),
   };
+}
 
-  const onCreateStopArea = (e: MapLayerMouseEvent) => {
-    if (stopAreasRef.current && drawingMode === undefined) {
-      stopAreasRef.current.onCreateStopArea(e);
-    }
-  };
+function useHandleMapRouteClick() {
+  const dispatch = useAppDispatch();
+  const routeIsSelected = !!useAppSelector(selectSelectedRouteId);
 
-  const onMoveStop = (e: MapLayerMouseEvent) => {
-    if (!drawingMode) {
-      stopsRef.current?.onMoveStop(e);
-    }
-  };
-
-  const onMoveStopArea = (e: MapLayerMouseEvent) => {
-    stopAreasRef.current?.onMoveStopArea(e);
-  };
-
-  const onClick = (e: MapLayerMouseEvent): void => {
-    if (mapStopViewState === MapEntityEditorViewState.PLACE) {
-      return onCreateStop(e);
-    }
-
-    if (mapStopViewState === MapEntityEditorViewState.MOVE) {
-      return onMoveStop(e);
-    }
-
-    if (mapStopAreaViewState === MapEntityEditorViewState.PLACE) {
-      return onCreateStopArea(e);
-    }
-
-    if (mapStopAreaViewState === MapEntityEditorViewState.MOVE) {
-      return onMoveStopArea(e);
-    }
-
+  return (e: MapLayerMouseEvent) => {
     // Retrieve all rendered features on the map
     const { features } = e;
 
@@ -153,18 +104,70 @@ export const MapComponent: ForwardRefRenderFunction<
 
         // set clicked route as selected
         dispatch(setSelectedRouteIdAction(routeId));
-
-        return undefined;
       }
+
+      return;
     }
 
     // If clicked away, unselect route (if any)
-    if (selectedRouteId) {
+    if (routeIsSelected) {
       dispatch(setSelectedRouteIdAction(undefined));
     }
-
-    return undefined;
   };
+}
+
+function useOnClickMap(
+  { stopsRef, stopAreasRef }: EditorRefs,
+  { mapStopViewState, mapStopAreaViewState }: MapViewState,
+) {
+  const handleMapRouteClick = useHandleMapRouteClick();
+
+  return async (e: MapLayerMouseEvent): Promise<void> => {
+    if (mapStopViewState === MapEntityEditorViewState.PLACE) {
+      return stopsRef.current?.onCreateStop(e);
+    }
+
+    if (mapStopViewState === MapEntityEditorViewState.MOVE) {
+      return stopsRef.current?.onMoveStop(e);
+    }
+
+    if (mapStopAreaViewState === MapEntityEditorViewState.PLACE) {
+      return stopAreasRef.current?.onCreateStopArea(e);
+    }
+
+    if (mapStopAreaViewState === MapEntityEditorViewState.MOVE) {
+      return stopAreasRef.current?.onMoveStopArea(e);
+    }
+
+    return handleMapRouteClick(e);
+  };
+}
+
+type MapProps = {
+  readonly className?: string;
+  readonly width?: string;
+  readonly height?: string;
+};
+
+export const MapComponent: ForwardRefRenderFunction<
+  RouteEditorRef,
+  MapProps
+> = ({ className = '', width = '100vw', height = '100vh' }, externalRef) => {
+  const [showInfraLinks, setShowInfraLinks] = useState(false);
+  const [showRoute, setShowRoute] = useState(true);
+
+  const editorRefs = useEditorRefs();
+  const mapViewState = useMapViewState();
+
+  useRouteEditorImperativeHandle(externalRef, editorRefs.routeEditorRef);
+  const onClick = useOnClickMap(editorRefs, mapViewState);
+
+  const hasDraftStopLocation = useAppSelector(selectHasDraftLocation);
+  const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
+
+  const { displayedRouteIds } = useGetRoutesDisplayedInMap();
+
+  const routeDisplayed = !!displayedRouteIds.length;
 
   return (
     <Maplibre
@@ -173,8 +176,9 @@ export const MapComponent: ForwardRefRenderFunction<
       onClick={onClick}
       className={className}
     >
-      <Stops ref={stopsRef} />
-      <StopAreas ref={stopAreasRef} />
+      <Stops ref={editorRefs.stopsRef} />
+      <StopAreas ref={editorRefs.stopAreasRef} />
+
       <CustomOverlay position="top-left">
         <Column className="items-start overflow-hidden p-2">
           <MapFilterPanel
@@ -184,11 +188,10 @@ export const MapComponent: ForwardRefRenderFunction<
             setShowInfraLinks={setShowInfraLinks}
             setShowRoute={setShowRoute}
           />
-          {(!!selectedRouteId || hasDraftRouteGeometry) && (
-            <RouteStopsOverlay className="mt-2 max-h-[60vh] overflow-hidden" />
-          )}
+          <RouteStopsOverlay className="mt-2 max-h-[60vh] overflow-hidden" />
         </Column>
       </CustomOverlay>
+
       <CustomOverlay position="bottom-right">
         <Column className="items-end p-2">
           {showMapEntityTypeFilterOverlay && (
@@ -197,42 +200,21 @@ export const MapComponent: ForwardRefRenderFunction<
           <ObservationDateOverlay />
         </Column>
       </CustomOverlay>
-      <EditRouteMetadataLayer />
+
       <InfraLinksVectorLayer
         enableInfraLinkLayer={
           showInfraLinks ||
-          isPlacingOrMoving(mapStopViewState) ||
+          isPlacingOrMoving(mapViewState.mapStopViewState) ||
           hasDraftStopLocation
         }
         showInfraLinks={showInfraLinks}
       />
-      {/**
-       * Empty layer for dynamically ordering route layers
-       * https://github.com/visgl/react-map-gl/issues/939#issuecomment-625290200
-       */}
-      <Layer
-        id="route_base"
-        type="background"
-        layout={{ visibility: 'none' }}
-        paint={{}}
+
+      <Routes
+        displayedRouteIds={displayedRouteIds}
+        showRoute={showRoute}
+        ref={editorRefs.routeEditorRef}
       />
-      {showRoute &&
-        routeDisplayed &&
-        displayedRouteIds?.map((item) => (
-          <ExistingRouteGeometryLayer
-            key={item}
-            routeId={item}
-            isSelected={selectedRouteId === item && !hasDraftRouteGeometry}
-          />
-        ))}
-      <DraftRouteGeometryLayer />
-      <RouteEditor
-        onDeleteDrawnRoute={() => editorLayerRef.current?.onDelete()}
-        ref={routeEditorRef}
-      />
-      <Visible visible={drawingMode === Mode.Draw || drawingMode === Mode.Edit}>
-        <DrawRouteLayer editorLayerRef={editorLayerRef} />
-      </Visible>
     </Maplibre>
   );
 };

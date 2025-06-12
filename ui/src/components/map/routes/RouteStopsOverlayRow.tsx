@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteStopFieldsFragment } from '../../generated/graphql';
-import { useAppDispatch } from '../../hooks';
+import { RouteStopFieldsFragment } from '../../../generated/graphql';
+import { useAppDispatch } from '../../../hooks';
 import {
   excludeStopFromJourneyPatternAction,
   includeStopToJourneyPatternAction,
-} from '../../redux';
-import { AlignDirection, SimpleDropdownMenu } from '../../uiComponents';
-import { PriorityBadge } from './PriorityBadge';
+} from '../../../redux';
+import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
+import { PriorityBadge } from '../PriorityBadge';
 
 type RouteStopsOverlayRowProps = {
   readonly belongsToJourneyPattern: boolean;

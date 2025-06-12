@@ -2,7 +2,7 @@ import flatten from '@turf/flatten';
 import { point } from '@turf/helpers';
 import nearestPointOnLine from '@turf/nearest-point-on-line';
 import pointToLineDistance from '@turf/point-to-line-distance';
-import { Feature, LineString, Point } from 'geojson';
+import { Feature, Geometry, LineString, Point } from 'geojson';
 import minBy from 'lodash/minBy';
 import {
   GeoJSONSource,
@@ -12,11 +12,7 @@ import {
 import { MapInstance } from 'react-map-gl/maplibre';
 import { Point as JorePoint } from '../../types';
 import { notNullish } from '../misc';
-import {
-  Geometry,
-  createGeometryLineBetweenPoints,
-  removeLayer,
-} from './mapUtils';
+import { createGeometryLineBetweenPoints, removeLayer } from './mapUtils';
 
 type LineAndDistance = {
   readonly line: LineString;

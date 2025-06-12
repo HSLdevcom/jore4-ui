@@ -24,7 +24,7 @@ export const ExistingRouteGeometryLayer: FC<
 
   // do not render anything before data is received
   if (!routeRenderInfo?.route_shape) {
-    return <></>;
+    return null;
   }
 
   const vehicleMode =
