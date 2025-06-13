@@ -43,7 +43,7 @@ function useInitialFilterInfo() {
     {
       type: MapEntityType.Terminal,
       label: t('filters.mapEntityType.terminal'),
-      disabled: true,
+      disabled: false,
     },
   ];
 
