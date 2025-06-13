@@ -121,6 +121,9 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
 }) => {
   const { t } = useTranslation();
   const [query, setQuery] = useState('');
+  const [hoveredStopPlaceId, setHoveredStopPlaceId] = useState<
+    string | undefined
+  >();
   const cleanQuery = query.trim();
 
   const { options, loading, allFetched, fetchNextPage } =
@@ -208,7 +211,11 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
           as="div"
           className="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
         >
-          <SelectedMemberStops selected={value} />
+          <SelectedMemberStops
+            selected={value}
+            hoveredStopPlaceId={hoveredStopPlaceId}
+            onHover={setHoveredStopPlaceId}
+          />
 
           <MemberStopOptions options={unselectedOptions} />
 

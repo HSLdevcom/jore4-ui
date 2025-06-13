@@ -19,6 +19,7 @@ const theme = {
       hslPink10: '#FCF7FA',
       hslSpeedTramTurquoise: '#BFECE9',
       hslTramGreen: '#BFE5D7',
+      hslWarningSurface: '#FFF8E8',
     },
     border: {
       hslBlue: '#B1D6EE',
@@ -44,6 +45,7 @@ const theme = {
     hslNeutralBlue: '#E5F2FA',
     cityBicycleYellow: '#FCBC19',
     hslWarningYellow: '#FED100',
+    hslWarningRed: '#CA4000',
     hslHighlightYellowDark: '#C89515',
     hslHighlightYellowLight: '#FFD771',
     hslLightPurple: '#DDC8E0',
