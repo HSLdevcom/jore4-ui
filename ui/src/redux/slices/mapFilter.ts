@@ -47,7 +47,7 @@ const initialState: IState = {
   showMapEntityType: {
     [MapEntityType.Stop]: true,
     [MapEntityType.StopArea]: true,
-    [MapEntityType.Terminal]: false,
+    [MapEntityType.Terminal]: true,
     [MapEntityType.InfoSpot]: false,
   },
 };
