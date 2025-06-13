@@ -296,6 +296,9 @@ const buildCacheDefinition = () => {
       group_of_stop_places_members: {
         keyFields: ['group_of_stop_places_id', 'ref', 'version'],
       },
+      stops_database_stop_place_children: {
+        keyFields: ['stop_place_id', 'children_id'],
+      },
     },
   });
 
