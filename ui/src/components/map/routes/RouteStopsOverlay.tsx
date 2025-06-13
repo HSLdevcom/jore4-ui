@@ -1,30 +1,30 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pipe } from 'remeda';
-import { RouteDirectionEnum } from '../../generated/graphql';
+import { RouteDirectionEnum } from '../../../generated/graphql';
 import {
   belongsToJourneyPattern,
   useAppDispatch,
   useAppSelector,
   useObservationDateQueryParam,
   useRouteInfo,
-} from '../../hooks';
-import { mapDirectionToSymbol } from '../../i18n/uiNameMappings';
-import { Row, Visible } from '../../layoutComponents';
+} from '../../../hooks';
+import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
+import { Row, Visible } from '../../../layoutComponents';
 import {
   selectHasChangesInProgress,
   selectMapRouteEditor,
   setRouteMetadataFormOpenAction,
-} from '../../redux';
-import { Priority } from '../../types/enums';
-import { EditButton } from '../../uiComponents';
+} from '../../../redux';
+import { Priority } from '../../../types/enums';
+import { EditButton } from '../../../uiComponents';
 import {
   filterDistinctConsecutiveStops,
   filterHighestPriorityCurrentStops,
-} from '../../utils';
-import { RouteLabel } from '../common/RouteLabel';
-import { MapOverlay, MapOverlayHeader } from './MapOverlay';
-import { PriorityBadge } from './PriorityBadge';
+} from '../../../utils';
+import { RouteLabel } from '../../common/RouteLabel';
+import { MapOverlay, MapOverlayHeader } from '../MapOverlay';
+import { PriorityBadge } from '../PriorityBadge';
 import { RouteStopsOverlayRow } from './RouteStopsOverlayRow';
 
 const testIds = {
@@ -56,7 +56,7 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
   } = useRouteInfo(selectedRouteId);
 
   if (!routeMetadata) {
-    return <></>;
+    return null;
   }
 
   const highestPriorityStopsEligibleForJourneyPattern = pipe(

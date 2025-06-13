@@ -1,4 +1,10 @@
-import React, { useImperativeHandle, useRef } from 'react';
+import React, {
+  ForwardRefRenderFunction,
+  forwardRef,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+} from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import {
   useAppAction,
@@ -11,7 +17,6 @@ import {
 import {
   LoadingState,
   MapEntityEditorViewState,
-  MapEntityType,
   Operation,
   isEditorOpen,
   isNoneOrPopup,
@@ -19,39 +24,47 @@ import {
   selectDraftLocation,
   selectMapStopAreaViewState,
   selectMapStopViewState,
-  selectMapViewport,
+  selectSelectedStopAreaId,
   selectSelectedStopId,
-  selectShowMapEntityTypes,
   setDraftLocationAction,
   setEditedStopAreaDataAction,
+  setMapStopAreaViewStateAction,
   setMapStopViewStateAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
 import { mapLngLatToGeoJSON, mapLngLatToPoint } from '../../../utils';
-import { EditStoplayerRef } from '../refTypes';
+import { EditStoplayerRef, StopsRef } from '../refTypes';
+import { MapStop } from '../types';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
 import { useFilterStops } from './useFilterStops';
-import { MapStop, useGetMapStops } from './useGetMapStops';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
     `Map::Stops::stopMarker::${label}_${Priority[priority]}`,
+  memberStop: (netextId: string) => `Map::StopArea::memberStop::${netextId}`,
 };
 
-export const Stops = React.forwardRef((_props, ref) => {
-  const filter = useFilterStops();
+type StopsProps = {
+  readonly displayedRouteIds: ReadonlyArray<string>;
+  readonly stops: ReadonlyArray<MapStop>;
+};
+
+export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
+  { displayedRouteIds, stops },
+  ref,
+) => {
+  const filterByUiFiltersAndRoute = useFilterStops();
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
+  const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const draftLocation = useAppSelector(selectDraftLocation);
-  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
 
-  const { [MapEntityType.Stop]: showStops } = useAppSelector(
-    selectShowMapEntityTypes,
-  );
+  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
+  const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
 
   const mapStopViewState = useAppSelector(selectMapStopViewState);
   const setMapStopViewState = useAppAction(setMapStopViewStateAction);
@@ -65,25 +78,12 @@ export const Stops = React.forwardRef((_props, ref) => {
 
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
-  const { getStopVehicleMode, getStopHighlighted } = useMapStops();
+  const { getStopVehicleMode, getStopHighlighted } =
+    useMapStops(displayedRouteIds);
 
-  const viewport = useAppSelector(selectMapViewport);
-
-  // Skip initial 0 radius fetch and wait for the map to get loaded,
-  // so that we have a proper viewport.
-  const skipFetching =
-    !showStops ||
-    mapStopAreaViewState !== MapEntityEditorViewState.NONE ||
-    viewport.radius <= 0;
-  const {
-    stops: unfilteredStops,
-    setFetchStopsLoadingState,
-    refetch: refetchStops,
-  } = useGetMapStops({
-    viewport,
-    skipFetching,
-  });
-  const stops = filter(unfilteredStops);
+  const { setLoadingState: setFetchStopsLoadingState } = useLoader(
+    Operation.FetchStops,
+  );
 
   const checkIsLocationValidForStop = useCheckIsLocationValidForStop();
   const defaultErrorHandler = useDefaultErrorHandler();
@@ -103,7 +103,7 @@ export const Stops = React.forwardRef((_props, ref) => {
       }
       setFetchStopsLoadingState(LoadingState.NotLoading);
     },
-    onMoveStop: (e: MapLayerMouseEvent) => {
+    onMoveStop: async (e: MapLayerMouseEvent) => {
       editStopLayerRef.current?.onMoveStop(e);
     },
   }));
@@ -113,6 +113,7 @@ export const Stops = React.forwardRef((_props, ref) => {
       setSelectedStopId(stop.netex_id);
       setSelectedMapStopAreaId(stop.stop_place_netex_id);
       setMapStopViewState(MapEntityEditorViewState.POPUP);
+      setMapStopAreaViewState(MapEntityEditorViewState.NONE);
     }
   };
 
@@ -131,7 +132,6 @@ export const Stops = React.forwardRef((_props, ref) => {
       setSelectedStopId(netextId);
       setMapStopViewState(MapEntityEditorViewState.POPUP);
     }
-    await refetchStops();
     setIsLoadingSaveStop(false);
   };
 
@@ -143,6 +143,16 @@ export const Stops = React.forwardRef((_props, ref) => {
     );
   };
 
+  const filteredStops = useMemo(() => {
+    if (selectedStopAreaId) {
+      return stops.filter(
+        (it) => it.stop_place_netex_id === selectedStopAreaId,
+      );
+    }
+
+    return filterByUiFiltersAndRoute(stops);
+  }, [stops, filterByUiFiltersAndRoute, selectedStopAreaId]);
+
   if (isEditorOpen(mapStopAreaViewState)) {
     return null;
   }
@@ -150,18 +160,25 @@ export const Stops = React.forwardRef((_props, ref) => {
   return (
     <>
       {/* Display existing stops */}
-      {stops?.map((item) => {
+      {filteredStops.map((item) => {
         const point = mapLngLatToPoint(item.location.coordinates);
+        const asMemberStop = !!selectedStopAreaId;
+
         return (
           <Stop
-            isHighlighted={getStopHighlighted(item.netex_id)}
+            isHighlighted={getStopHighlighted(item)}
+            asMemberStop={asMemberStop}
             key={item.netex_id}
             latitude={point.latitude}
             longitude={point.longitude}
             mapStopViewState={mapStopViewState}
             onClick={() => onClickStop(item)}
             selected={item.netex_id === selectedStopId}
-            testId={testIds.stopMarker(item.label, item.priority)}
+            testId={
+              asMemberStop
+                ? testIds.memberStop(item.netex_id)
+                : testIds.stopMarker(item.label, item.priority)
+            }
             vehicleMode={getStopVehicleMode(item)}
           />
         );
@@ -184,6 +201,5 @@ export const Stops = React.forwardRef((_props, ref) => {
       )}
     </>
   );
-});
-
-Stops.displayName = 'Stops';
+};
+export const Stops = forwardRef(StopsImpl);
