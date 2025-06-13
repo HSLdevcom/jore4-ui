@@ -7,6 +7,7 @@ import cypressSplit from 'cypress-split';
 import { onLaunchBrowser } from './support/launchBrowser';
 import * as tasks from './support/tasks';
 
+
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
   e2e: {
@@ -33,14 +34,38 @@ export default defineConfig({
     },
     experimentalInteractiveRunEvents: true,
     setupNodeEvents(on, config) {
-      cypressSplit(on, config);
-
+      // Hanler for task event needs to be an object and as there is no multiple handlers
+      // currently registering to task event, the handler is registered directly using on
+      // callback.
       on('task', tasks);
-      on('before:browser:launch', onLaunchBrowser);
+
+      // handlers map and compositeOn function implement composite pattern (https://en.wikipedia.org/wiki/Composite_pattern)
+      // to allow multiple event handlers to receive events from the same Cypress event.
+      // Currently (2025-06) cypress-split and cypress-ctrf-reporter both are registering to
+      // after:run event but the implementation allows any events to have multiple listeners.
+      const handlers = new Map();
+
+      const compositeOn = function(
+        event,
+        handler,
+      ) {
+          const eventHandlers = handlers.get(event);
+
+          if (eventHandlers) {
+            eventHandlers.push(handler);
+          }
+          else {
+            handlers.set(event, [handler]);
+          }
+      };
+
+      cypressSplit(compositeOn, config);
+
+      compositeOn('before:browser:launch', onLaunchBrowser);
       if (process.env.JORE4_CYPRESS_GENERATE_CTRF_REPORT === 'true') {
         // eslint-disable-next-line no-new
         new GenerateCtrfReport({
-          on,
+          on: compositeOn,
           outputFile: 'ctrf-report.json',
           outputDir: 'ctrf',
           appName: 'JORE4',
@@ -48,6 +73,17 @@ export default defineConfig({
       }
 
       cypressGrepPlugin(config);
+
+      for (const [event, eventHandlers] of handlers.entries()) {
+        on(
+          event,
+          (...args: any[]) => {
+            eventHandlers.forEach((handler) => {
+              handler(...args);
+            });
+          },
+        );
+      }
 
       return config;
     },
