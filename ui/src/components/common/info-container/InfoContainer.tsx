@@ -108,7 +108,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
     >
       <div
         className={twJoin(
-          'flex h-14 items-center justify-between bg-[--backgroundColor] px-4 py-2',
+          'flex h-14 items-center justify-between rounded-t-lg bg-[--backgroundColor] px-4 py-2',
           isExpanded ? 'border-b border-[--borderColor]' : '',
         )}
       >
