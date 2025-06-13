@@ -6,6 +6,7 @@ export * from './mapModal';
 export * from './mapRouteEditor';
 export * from './mapStopAreaEditor';
 export * from './mapStopEditor';
+export * from './mapTerminalEditor';
 export * from './modals';
 export * from './timetable';
 export * from './timetableVersionPanel';

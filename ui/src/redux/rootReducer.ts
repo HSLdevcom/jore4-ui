@@ -7,6 +7,7 @@ import { mapModalReducer } from './slices/mapModal';
 import { mapRouteEditorReducer } from './slices/mapRouteEditor';
 import { mapStopAreaEditorReducer } from './slices/mapStopAreaEditor';
 import { mapStopEditorReducer } from './slices/mapStopEditor';
+import { mapTerminalEditorReducer } from './slices/mapTerminalEditor';
 import { modalsReducer } from './slices/modals';
 import { timetableReducer } from './slices/timetable';
 import { timetableVersionPanelReducer } from './slices/timetableVersionPanel';
@@ -17,6 +18,7 @@ const appReducer = combineReducers({
   loader: loaderReducer,
   mapStopAreaEditor: mapStopAreaEditorReducer,
   mapStopEditor: mapStopEditorReducer,
+  mapTerminalEditor: mapTerminalEditorReducer,
   mapRouteEditor: mapRouteEditorReducer,
   mapFilter: mapFilterReducer,
   mapModal: mapModalReducer,
