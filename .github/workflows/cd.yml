@@ -80,4 +80,7 @@ jobs:
     with:
       ui_version: ${{ needs.publish_ui_docker_image_to_acr.outputs.docker_image }}
       cypress_version: ${{ needs.publish_cypress_docker_image_to_acr.outputs.docker_image }}
+      update_e2e_test_durations: ${{ github.ref }} == "refs/heads/main" }}
       test-tags: ''
+    secrets:
+      jore4_ci_data_repo_ssh_key: ${{ secrets.JORE4_CI_DATA_REPO_DEPLOY_KEY }}
