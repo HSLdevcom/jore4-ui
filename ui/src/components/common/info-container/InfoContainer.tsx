@@ -108,8 +108,8 @@ export const InfoContainer: FC<InfoContainerProps> = ({
     >
       <div
         className={twJoin(
-          'flex h-14 items-center justify-between bg-[--backgroundColor] px-4 py-2',
-          isExpanded ? 'border-b border-[--borderColor]' : '',
+          'flex h-14 items-center justify-between rounded-lg bg-[--backgroundColor] px-4 py-2',
+          isExpanded ? 'rounded-b-none border-b border-[--borderColor]' : '',
         )}
       >
         <span data-testid={testIds.title(testIdPrefix)}>
@@ -140,7 +140,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
         </div>
 
         {isEditable && isInEditMode && (
-          <div className="flex items-center justify-end space-x-2 rounded-b-lg border-t border-[--borderColor] bg-[--backgroundColor] px-4 py-2">
+          <div className="flex items-center justify-end space-x-2 border-t border-[--borderColor] bg-[--backgroundColor] px-4 py-2">
             {addNewButton && <div className="mr-auto">{addNewButton}</div>}
 
             <SimpleButton
