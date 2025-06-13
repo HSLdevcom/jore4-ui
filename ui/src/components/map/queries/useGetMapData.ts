@@ -10,11 +10,13 @@ import {
   Operation,
   selectMapViewport,
   selectSelectedStopAreaId,
+  selectSelectedTerminalId,
   selectShowMapEntityTypes,
 } from '../../../redux';
 import { Viewport } from '../../../redux/types';
 import { useGetMapStopAreas } from './useGetMapStopAreas';
 import { useGetMapStops } from './useGetMapStops';
+import { useGetMapTerminals } from './useGetMapTerminals';
 
 function isViewportLoaded(viewport: Viewport): boolean {
   const [[west = 0, south = 0], [east = 0, north = 0]] = viewport.bounds;
@@ -29,14 +31,17 @@ export function useGetMapData() {
   const {
     [MapEntityType.Stop]: showStops,
     [MapEntityType.StopArea]: showStopAreas,
+    [MapEntityType.Terminal]: showTerminals,
   } = useAppSelector(selectShowMapEntityTypes);
 
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
+  const selectedTerminalId = useAppSelector(selectSelectedTerminalId);
 
   const skipFetchingStops = !showStops || !viewportIsLoaded;
   const { stops, loading: stopsAreLoading } = useGetMapStops({
     viewport,
     selectedStopAreaId,
+    selectedTerminalId,
     skipFetching: skipFetchingStops,
   });
 
@@ -46,20 +51,29 @@ export function useGetMapData() {
     viewport,
   });
 
-  const { setLoadingState } = useLoader(Operation.LoadMapData, {
-    initialState: LoadingState.HighPriority,
+  const skipFetchingTerminals = !showTerminals || !viewportIsLoaded;
+  const { terminals, loading: terminalsAreLoading } = useGetMapTerminals({
+    skipFetching: skipFetchingTerminals,
+    viewport,
   });
 
   const { displayedRouteIds, loading: displayedRoutesAreLoading } =
     useGetRoutesDisplayedInMap();
 
+  const { setLoadingState } = useLoader(Operation.LoadMapData, {
+    initialState: LoadingState.HighPriority,
+  });
+
   const loading =
-    stopsAreLoading || areasAreLoading || displayedRoutesAreLoading;
+    stopsAreLoading ||
+    areasAreLoading ||
+    terminalsAreLoading ||
+    displayedRoutesAreLoading;
   useEffect(() => {
     setLoadingState(
       loading ? LoadingState.MediumPriority : LoadingState.NotLoading,
     );
   }, [loading, setLoadingState]);
 
-  return { stops, areas, displayedRouteIds };
+  return { stops, areas, displayedRouteIds, terminals };
 }

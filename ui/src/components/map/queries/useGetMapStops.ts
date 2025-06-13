@@ -58,6 +58,16 @@ function viewportToWhere(
   };
 }
 
+function whereSelectedTerminal(
+  terminalId: string | null | undefined,
+): StopsDatabaseQuayNewestVersionBoolExp | null {
+  if (!terminalId) {
+    return null;
+  }
+
+  return { stopPlaceParent: { parent: { netex_id: { _eq: terminalId } } } };
+}
+
 function whereSelectedStopArea(
   stopAreaId: string | null | undefined,
 ): StopsDatabaseQuayNewestVersionBoolExp | null {
@@ -93,12 +103,14 @@ function mapRawStopToMapStop(
 
 type GetMapStopsOptions = {
   readonly selectedStopAreaId: string | null | undefined;
+  readonly selectedTerminalId: string | null | undefined;
   readonly skipFetching: boolean;
   readonly viewport: Viewport;
 };
 
 export function useGetMapStops({
   selectedStopAreaId,
+  selectedTerminalId,
   skipFetching,
   viewport,
 }: GetMapStopsOptions) {
@@ -108,6 +120,7 @@ export function useGetMapStops({
         _or: compact([
           viewportToWhere(viewport),
           whereSelectedStopArea(selectedStopAreaId),
+          whereSelectedTerminal(selectedTerminalId),
         ]),
       },
     },
