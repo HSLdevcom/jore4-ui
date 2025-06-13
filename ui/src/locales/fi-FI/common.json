@@ -166,13 +166,18 @@
     },
     "memberStops": {
       "title": "Pysäkit",
+      "transferDate": "Aseta pysäkin siirtopäivä",
       "addStop": "Lisää pysäkki",
+      "getStop": "Hae pysäkki",
+      "moveStopToArea": "Siirrä alueelle pysäkki",
+      "stopVersions": "Pysäkillä on seuraavat siirrettävät versiot:",
       "menuActions": {
         "remove": "Poista pysäkki pysäkkialueelta"
       },
       "actionButtons": {
         "remove": "Poista pysäkki pysäkkialueelta",
-        "addBack": "Lisää takaisin pysäkkialueelle"
+        "addBack": "Lisää takaisin pysäkkialueelle",
+        "getStopVersions": "Hae pysäkkiversiot"
       },
       "confirmRemoval": {
         "title": "Poistetaan pysäkki pysäkkialueen käytöstä",

@@ -2,7 +2,7 @@ import { Combobox as HUICombobox } from '@headlessui/react';
 import { FC } from 'react';
 import { MdOutlineClear } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import { SelectedStop } from '../location-details-form/schema';
+import { SelectedStop } from './schema';
 
 const testIds = {
   option: 'SelectedMemberStops::option',

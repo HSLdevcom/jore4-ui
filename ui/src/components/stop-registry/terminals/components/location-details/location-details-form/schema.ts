@@ -1,14 +1,5 @@
 import { z } from 'zod';
-import { validityPeriodFormSchema } from '../../../../../forms/common';
-
-export const selectedStopSchema = z
-  .object({
-    stopPlaceId: z.string(),
-    name: z.string(),
-    quayId: z.string(),
-    publicCode: z.string(),
-  })
-  .merge(validityPeriodFormSchema);
+import { selectedStopSchema } from '../../../../components/SelectMemberStops/schema';
 
 export const terminalLocationDetailsFormSchema = z.object({
   streetAddress: z.string().optional().nullable(),
@@ -23,5 +14,3 @@ export const terminalLocationDetailsFormSchema = z.object({
 export type TerminalLocationDetailsFormState = z.infer<
   typeof terminalLocationDetailsFormSchema
 >;
-
-export type SelectedStop = z.infer<typeof selectedStopSchema>;
