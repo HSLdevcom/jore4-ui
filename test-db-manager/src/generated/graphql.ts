@@ -38647,6 +38647,8 @@ export type StopsDatabaseQuayNewestVersion = {
   site_ref?: Maybe<Scalars['String']['output']>;
   site_ref_version?: Maybe<Scalars['String']['output']>;
   /** An object relationship */
+  stopPlaceParent?: Maybe<StopsDatabaseStopPlaceChildren>;
+  /** An object relationship */
   stop_place?: Maybe<StopsDatabaseStopPlace>;
   stop_place_id?: Maybe<Scalars['bigint']['output']>;
   stop_place_netex_id?: Maybe<Scalars['String']['output']>;
@@ -38788,6 +38790,7 @@ export type StopsDatabaseQuayNewestVersionBoolExp = {
   short_name_value?: InputMaybe<StringComparisonExp>;
   site_ref?: InputMaybe<StringComparisonExp>;
   site_ref_version?: InputMaybe<StringComparisonExp>;
+  stopPlaceParent?: InputMaybe<StopsDatabaseStopPlaceChildrenBoolExp>;
   stop_place?: InputMaybe<StopsDatabaseStopPlaceBoolExp>;
   stop_place_id?: InputMaybe<BigintComparisonExp>;
   stop_place_netex_id?: InputMaybe<StringComparisonExp>;
@@ -38929,6 +38932,7 @@ export type StopsDatabaseQuayNewestVersionOrderBy = {
   short_name_value?: InputMaybe<OrderBy>;
   site_ref?: InputMaybe<OrderBy>;
   site_ref_version?: InputMaybe<OrderBy>;
+  stopPlaceParent?: InputMaybe<StopsDatabaseStopPlaceChildrenOrderBy>;
   stop_place?: InputMaybe<StopsDatabaseStopPlaceOrderBy>;
   stop_place_id?: InputMaybe<OrderBy>;
   stop_place_netex_id?: InputMaybe<OrderBy>;
@@ -41192,9 +41196,11 @@ export type StopsDatabaseStopPlaceBoolExp = {
 /** columns and relationships of "stop_place_children" */
 export type StopsDatabaseStopPlaceChildren = {
   __typename?: 'stops_database_stop_place_children';
+  /** An object relationship */
+  child: StopsDatabaseStopPlace;
   children_id: Scalars['bigint']['output'];
   /** An object relationship */
-  stop_place: StopsDatabaseStopPlace;
+  parent: StopsDatabaseStopPlace;
   stop_place_id: Scalars['bigint']['output'];
 };
 
@@ -41268,8 +41274,9 @@ export type StopsDatabaseStopPlaceChildrenBoolExp = {
   _and?: InputMaybe<Array<StopsDatabaseStopPlaceChildrenBoolExp>>;
   _not?: InputMaybe<StopsDatabaseStopPlaceChildrenBoolExp>;
   _or?: InputMaybe<Array<StopsDatabaseStopPlaceChildrenBoolExp>>;
+  child?: InputMaybe<StopsDatabaseStopPlaceBoolExp>;
   children_id?: InputMaybe<BigintComparisonExp>;
-  stop_place?: InputMaybe<StopsDatabaseStopPlaceBoolExp>;
+  parent?: InputMaybe<StopsDatabaseStopPlaceBoolExp>;
   stop_place_id?: InputMaybe<BigintComparisonExp>;
 };
 
@@ -41289,8 +41296,9 @@ export type StopsDatabaseStopPlaceChildrenIncInput = {
 
 /** input type for inserting data into table "stop_place_children" */
 export type StopsDatabaseStopPlaceChildrenInsertInput = {
+  child?: InputMaybe<StopsDatabaseStopPlaceObjRelInsertInput>;
   children_id?: InputMaybe<Scalars['bigint']['input']>;
-  stop_place?: InputMaybe<StopsDatabaseStopPlaceObjRelInsertInput>;
+  parent?: InputMaybe<StopsDatabaseStopPlaceObjRelInsertInput>;
   stop_place_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
@@ -41345,8 +41353,9 @@ export type StopsDatabaseStopPlaceChildrenOnConflict = {
 
 /** Ordering options when selecting data from "stop_place_children". */
 export type StopsDatabaseStopPlaceChildrenOrderBy = {
+  child?: InputMaybe<StopsDatabaseStopPlaceOrderBy>;
   children_id?: InputMaybe<OrderBy>;
-  stop_place?: InputMaybe<StopsDatabaseStopPlaceOrderBy>;
+  parent?: InputMaybe<StopsDatabaseStopPlaceOrderBy>;
   stop_place_id?: InputMaybe<OrderBy>;
 };
 
@@ -42274,6 +42283,10 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   centroid?: Maybe<Scalars['geometry']['output']>;
   changed?: Maybe<Scalars['timestamp']['output']>;
   changed_by?: Maybe<Scalars['String']['output']>;
+  /** An array relationship */
+  children: Array<StopsDatabaseStopPlaceChildren>;
+  /** An aggregate relationship */
+  children_aggregate: StopsDatabaseStopPlaceChildrenAggregate;
   coach_submode?: Maybe<Scalars['String']['output']>;
   covered?: Maybe<Scalars['Int']['output']>;
   created?: Maybe<Scalars['timestamp']['output']>;
@@ -42291,6 +42304,8 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   name_lang?: Maybe<Scalars['String']['output']>;
   name_value?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  parent?: Maybe<StopsDatabaseStopPlaceChildren>;
   parent_site_ref?: Maybe<Scalars['String']['output']>;
   parent_site_ref_version?: Maybe<Scalars['String']['output']>;
   parent_stop_place?: Maybe<Scalars['Boolean']['output']>;
@@ -42312,10 +42327,6 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   stop_place_alternative_names: Array<StopsDatabaseStopPlaceAlternativeNames>;
   /** An aggregate relationship */
   stop_place_alternative_names_aggregate: StopsDatabaseStopPlaceAlternativeNamesAggregate;
-  /** An array relationship */
-  stop_place_children: Array<StopsDatabaseStopPlaceChildren>;
-  /** An aggregate relationship */
-  stop_place_children_aggregate: StopsDatabaseStopPlaceChildrenAggregate;
   /** An array relationship */
   stop_place_equipment_places: Array<StopsDatabaseStopPlaceEquipmentPlaces>;
   /** An aggregate relationship */
@@ -42377,6 +42388,26 @@ export type StopsDatabaseStopPlaceNewestVersionTiamatStopPlaceArgs = {
 
 
 /** columns and relationships of "stop_place_newest_version" */
+export type StopsDatabaseStopPlaceNewestVersionChildrenArgs = {
+  distinct_on?: InputMaybe<Array<StopsDatabaseStopPlaceChildrenSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseStopPlaceChildrenOrderBy>>;
+  where?: InputMaybe<StopsDatabaseStopPlaceChildrenBoolExp>;
+};
+
+
+/** columns and relationships of "stop_place_newest_version" */
+export type StopsDatabaseStopPlaceNewestVersionChildrenAggregateArgs = {
+  distinct_on?: InputMaybe<Array<StopsDatabaseStopPlaceChildrenSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<StopsDatabaseStopPlaceChildrenOrderBy>>;
+  where?: InputMaybe<StopsDatabaseStopPlaceChildrenBoolExp>;
+};
+
+
+/** columns and relationships of "stop_place_newest_version" */
 export type StopsDatabaseStopPlaceNewestVersionGroupOfStopPlacesMembersArgs = {
   distinct_on?: InputMaybe<Array<StopsDatabaseGroupOfStopPlacesMembersSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -42433,26 +42464,6 @@ export type StopsDatabaseStopPlaceNewestVersionStopPlaceAlternativeNamesAggregat
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<StopsDatabaseStopPlaceAlternativeNamesOrderBy>>;
   where?: InputMaybe<StopsDatabaseStopPlaceAlternativeNamesBoolExp>;
-};
-
-
-/** columns and relationships of "stop_place_newest_version" */
-export type StopsDatabaseStopPlaceNewestVersionStopPlaceChildrenArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseStopPlaceChildrenSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseStopPlaceChildrenOrderBy>>;
-  where?: InputMaybe<StopsDatabaseStopPlaceChildrenBoolExp>;
-};
-
-
-/** columns and relationships of "stop_place_newest_version" */
-export type StopsDatabaseStopPlaceNewestVersionStopPlaceChildrenAggregateArgs = {
-  distinct_on?: InputMaybe<Array<StopsDatabaseStopPlaceChildrenSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<StopsDatabaseStopPlaceChildrenOrderBy>>;
-  where?: InputMaybe<StopsDatabaseStopPlaceChildrenBoolExp>;
 };
 
 
@@ -42590,6 +42601,8 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   centroid?: InputMaybe<GeometryComparisonExp>;
   changed?: InputMaybe<TimestampComparisonExp>;
   changed_by?: InputMaybe<StringComparisonExp>;
+  children?: InputMaybe<StopsDatabaseStopPlaceChildrenBoolExp>;
+  children_aggregate?: InputMaybe<StopPlaceChildrenAggregateBoolExp>;
   coach_submode?: InputMaybe<StringComparisonExp>;
   covered?: InputMaybe<IntComparisonExp>;
   created?: InputMaybe<TimestampComparisonExp>;
@@ -42605,6 +42618,7 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   name_lang?: InputMaybe<StringComparisonExp>;
   name_value?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
+  parent?: InputMaybe<StopsDatabaseStopPlaceChildrenBoolExp>;
   parent_site_ref?: InputMaybe<StringComparisonExp>;
   parent_site_ref_version?: InputMaybe<StringComparisonExp>;
   parent_stop_place?: InputMaybe<BooleanComparisonExp>;
@@ -42621,8 +42635,6 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   stop_place_access_spaces_aggregate?: InputMaybe<StopPlaceAccessSpacesAggregateBoolExp>;
   stop_place_alternative_names?: InputMaybe<StopsDatabaseStopPlaceAlternativeNamesBoolExp>;
   stop_place_alternative_names_aggregate?: InputMaybe<StopPlaceAlternativeNamesAggregateBoolExp>;
-  stop_place_children?: InputMaybe<StopsDatabaseStopPlaceChildrenBoolExp>;
-  stop_place_children_aggregate?: InputMaybe<StopPlaceChildrenAggregateBoolExp>;
   stop_place_equipment_places?: InputMaybe<StopsDatabaseStopPlaceEquipmentPlacesBoolExp>;
   stop_place_equipment_places_aggregate?: InputMaybe<StopPlaceEquipmentPlacesAggregateBoolExp>;
   stop_place_key_values?: InputMaybe<StopsDatabaseStopPlaceKeyValuesBoolExp>;
@@ -42656,6 +42668,7 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   centroid?: InputMaybe<Scalars['geometry']['input']>;
   changed?: InputMaybe<Scalars['timestamp']['input']>;
   changed_by?: InputMaybe<Scalars['String']['input']>;
+  children?: InputMaybe<StopsDatabaseStopPlaceChildrenArrRelInsertInput>;
   coach_submode?: InputMaybe<Scalars['String']['input']>;
   covered?: InputMaybe<Scalars['Int']['input']>;
   created?: InputMaybe<Scalars['timestamp']['input']>;
@@ -42670,6 +42683,7 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   name_lang?: InputMaybe<Scalars['String']['input']>;
   name_value?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
+  parent?: InputMaybe<StopsDatabaseStopPlaceChildrenObjRelInsertInput>;
   parent_site_ref?: InputMaybe<Scalars['String']['input']>;
   parent_site_ref_version?: InputMaybe<Scalars['String']['input']>;
   parent_stop_place?: InputMaybe<Scalars['Boolean']['input']>;
@@ -42684,7 +42698,6 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   short_name_value?: InputMaybe<Scalars['String']['input']>;
   stop_place_access_spaces?: InputMaybe<StopsDatabaseStopPlaceAccessSpacesArrRelInsertInput>;
   stop_place_alternative_names?: InputMaybe<StopsDatabaseStopPlaceAlternativeNamesArrRelInsertInput>;
-  stop_place_children?: InputMaybe<StopsDatabaseStopPlaceChildrenArrRelInsertInput>;
   stop_place_equipment_places?: InputMaybe<StopsDatabaseStopPlaceEquipmentPlacesArrRelInsertInput>;
   stop_place_key_values?: InputMaybe<StopsDatabaseStopPlaceKeyValuesArrRelInsertInput>;
   stop_place_quays?: InputMaybe<StopsDatabaseStopPlaceQuaysArrRelInsertInput>;
@@ -42813,6 +42826,7 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   centroid?: InputMaybe<OrderBy>;
   changed?: InputMaybe<OrderBy>;
   changed_by?: InputMaybe<OrderBy>;
+  children_aggregate?: InputMaybe<StopsDatabaseStopPlaceChildrenAggregateOrderBy>;
   coach_submode?: InputMaybe<OrderBy>;
   covered?: InputMaybe<OrderBy>;
   created?: InputMaybe<OrderBy>;
@@ -42827,6 +42841,7 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   name_lang?: InputMaybe<OrderBy>;
   name_value?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
+  parent?: InputMaybe<StopsDatabaseStopPlaceChildrenOrderBy>;
   parent_site_ref?: InputMaybe<OrderBy>;
   parent_site_ref_version?: InputMaybe<OrderBy>;
   parent_stop_place?: InputMaybe<OrderBy>;
@@ -42841,7 +42856,6 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   short_name_value?: InputMaybe<OrderBy>;
   stop_place_access_spaces_aggregate?: InputMaybe<StopsDatabaseStopPlaceAccessSpacesAggregateOrderBy>;
   stop_place_alternative_names_aggregate?: InputMaybe<StopsDatabaseStopPlaceAlternativeNamesAggregateOrderBy>;
-  stop_place_children_aggregate?: InputMaybe<StopsDatabaseStopPlaceChildrenAggregateOrderBy>;
   stop_place_equipment_places_aggregate?: InputMaybe<StopsDatabaseStopPlaceEquipmentPlacesAggregateOrderBy>;
   stop_place_key_values_aggregate?: InputMaybe<StopsDatabaseStopPlaceKeyValuesAggregateOrderBy>;
   stop_place_quays_aggregate?: InputMaybe<StopsDatabaseStopPlaceQuaysAggregateOrderBy>;
