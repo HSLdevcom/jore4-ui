@@ -14,20 +14,18 @@ import {
   isEditorOpen,
   isPlacingOrMoving,
   selectEditedStopAreaData,
-  selectMapStopAreaViewState,
-  selectMapStopViewState,
   selectSelectedStopAreaId,
   setEditedStopAreaDataAction,
-  setMapStopAreaViewStateAction,
-  setMapStopViewStateAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
+  setSelectedTerminalIdAction,
 } from '../../../redux';
-import { mapLngLatToGeoJSON } from '../../../utils';
+import { mapLngLatToGeoJSON, none } from '../../../utils';
 import { useUpsertStopArea } from '../../forms/stop-area';
 import { useGetStopPlaceDetailsById } from '../../stop-registry/stop-areas/stop-area-details/useGetStopAreaDetails';
 import { EditStopAreaLayerRef, StopAreasRef } from '../refTypes';
 import { MapStopArea } from '../types';
+import { useMapViewState } from '../utils/useMapViewState';
 import { CreateStopAreaMarker } from './CreateStopAreaMarker';
 import { EditStopAreaLayer } from './EditStopAreaLayer';
 import { StopArea } from './StopArea';
@@ -64,6 +62,8 @@ const StopAreasImpl: ForwardRefRenderFunction<StopAreasRef, StopAreasProps> = (
 ) => {
   const editStopAreaLayerRef = useRef<EditStopAreaLayerRef>(null);
 
+  const [mapViewState, setMapViewState] = useMapViewState();
+
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
 
@@ -71,12 +71,7 @@ const StopAreasImpl: ForwardRefRenderFunction<StopAreasRef, StopAreasProps> = (
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
 
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
-
-  const mapStopViewState = useAppSelector(selectMapStopViewState);
-  const setMapStopViewState = useAppAction(setMapStopViewStateAction);
-
-  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
-  const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
+  const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
 
   const { initializeStopArea } = useUpsertStopArea();
 
@@ -87,7 +82,7 @@ const StopAreasImpl: ForwardRefRenderFunction<StopAreasRef, StopAreasProps> = (
       const stopAreaLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
       const newStopArea = initializeStopArea(stopAreaLocation);
       setEditedStopAreaData(newStopArea);
-      setMapStopAreaViewState(MapEntityEditorViewState.CREATE);
+      setMapViewState({ stopAreas: MapEntityEditorViewState.CREATE });
     },
     onMoveStopArea: async (e: MapLayerMouseEvent) => {
       editStopAreaLayerRef.current?.onMoveStopArea(e);
@@ -95,32 +90,33 @@ const StopAreasImpl: ForwardRefRenderFunction<StopAreasRef, StopAreasProps> = (
   }));
 
   const onClick = (area: MapStopArea) => {
-    if (isEditorOpen(mapStopViewState) || isEditorOpen(mapStopAreaViewState)) {
-      return;
-    }
+    if (none(isEditorOpen, mapViewState)) {
+      if (!area.netex_id) {
+        throw new Error('Stop area has no NetexID!');
+      }
 
-    setMapStopViewState(MapEntityEditorViewState.NONE);
-    setSelectedStopId(undefined);
-
-    if (area.netex_id) {
+      setSelectedStopId(undefined);
+      setSelectedTerminalId(undefined);
       setSelectedMapStopAreaId(area.netex_id);
-      setMapStopAreaViewState(MapEntityEditorViewState.POPUP);
-    } else {
-      setSelectedMapStopAreaId(undefined);
-      setMapStopAreaViewState(MapEntityEditorViewState.NONE);
+
+      setMapViewState({
+        stopAreas: MapEntityEditorViewState.POPUP,
+        stops: MapEntityEditorViewState.NONE,
+        terminals: MapEntityEditorViewState.NONE,
+      });
     }
   };
   const onPopupClose = () => setSelectedMapStopAreaId(undefined);
 
   const onCancelMoveOrPlacement = () => {
-    setMapStopAreaViewState(
-      selectedStopAreaId
+    setMapViewState({
+      stopAreas: selectedStopAreaId
         ? MapEntityEditorViewState.POPUP
         : MapEntityEditorViewState.NONE,
-    );
+    });
   };
 
-  const isStopBeingEdited = isEditorOpen(mapStopViewState);
+  const isStopBeingEdited = isEditorOpen(mapViewState.stops);
   // If creating a stop for a selected stop area, only show that one.
   const shownAreas =
     isStopBeingEdited && selectedStopAreaId
@@ -132,7 +128,7 @@ const StopAreasImpl: ForwardRefRenderFunction<StopAreasRef, StopAreasProps> = (
       {shownAreas.map((area) => (
         <StopArea
           area={area}
-          mapStopAreaViewState={mapStopAreaViewState}
+          mapStopAreaViewState={mapViewState.stopAreas}
           selected={area.netex_id === selectedStopAreaId}
           key={area.id}
           onClick={onClick}
@@ -147,7 +143,7 @@ const StopAreasImpl: ForwardRefRenderFunction<StopAreasRef, StopAreasProps> = (
         />
       ) : null}
 
-      {isPlacingOrMoving(mapStopAreaViewState) && (
+      {isPlacingOrMoving(mapViewState.stopAreas) && (
         <CreateStopAreaMarker onCancel={onCancelMoveOrPlacement} />
       )}
     </>
