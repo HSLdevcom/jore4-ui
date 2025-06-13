@@ -67159,6 +67159,53 @@ export type MapStopMinimalDetailsFragment = {
   label?: string | null
 };
 
+export type GetStopTerminalsByLocationQueryVariables = Exact<{
+  locationFilter?: InputMaybe<GeometryComparisonExp>;
+}>;
+
+
+export type GetStopTerminalsByLocationQuery = {
+  __typename?: 'query_root',
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query',
+    terminals: Array<{
+      __typename?: 'stops_database_stop_place_newest_version',
+      id?: any | null,
+      netex_id?: string | null,
+      private_code_value?: string | null,
+      centroid?: GeoJSON.Geometry | null,
+      children: Array<{
+        __typename?: 'stops_database_stop_place_children',
+        children_id: any,
+        stop_place_id: any,
+        child: {
+          __typename?: 'stops_database_stop_place',
+          id: any,
+          netexId?: string | null
+        }
+      }>
+    }>
+  } | null
+};
+
+export type MapMinimalTerminalDetailsFragment = {
+  __typename?: 'stops_database_stop_place_newest_version',
+  id?: any | null,
+  netex_id?: string | null,
+  private_code_value?: string | null,
+  centroid?: GeoJSON.Geometry | null,
+  children: Array<{
+    __typename?: 'stops_database_stop_place_children',
+    children_id: any,
+    stop_place_id: any,
+    child: {
+      __typename?: 'stops_database_stop_place',
+      id: any,
+      netexId?: string | null
+    }
+  }>
+};
+
 export type LineWithRoutesUniqueFieldsFragment = {
   __typename?: 'route_line',
   primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
@@ -74944,6 +74991,22 @@ export const MapStopMinimalDetailsFragmentDoc = gql`
   stop_place_netex_id
 }
     `;
+export const MapMinimalTerminalDetailsFragmentDoc = gql`
+    fragment MapMinimalTerminalDetails on stops_database_stop_place_newest_version {
+  id
+  netex_id
+  private_code_value
+  centroid
+  children {
+    children_id
+    stop_place_id
+    child {
+      id
+      netexId: netex_id
+    }
+  }
+}
+    `;
 export const LineDefaultFieldsFragmentDoc = gql`
     fragment line_default_fields on route_line {
   line_id
@@ -76410,6 +76473,50 @@ export type GetMapStopsQueryHookResult = ReturnType<typeof useGetMapStopsQuery>;
 export type GetMapStopsLazyQueryHookResult = ReturnType<typeof useGetMapStopsLazyQuery>;
 export type GetMapStopsSuspenseQueryHookResult = ReturnType<typeof useGetMapStopsSuspenseQuery>;
 export type GetMapStopsQueryResult = Apollo.QueryResult<GetMapStopsQuery, GetMapStopsQueryVariables>;
+export const GetStopTerminalsByLocationDocument = gql`
+    query GetStopTerminalsByLocation($locationFilter: geometry_comparison_exp) {
+  stops_database {
+    terminals: stops_database_stop_place_newest_version(
+      where: {centroid: $locationFilter, netex_id: {_is_null: false}, parent_stop_place: {_eq: true}}
+    ) {
+      ...MapMinimalTerminalDetails
+    }
+  }
+}
+    ${MapMinimalTerminalDetailsFragmentDoc}`;
+
+/**
+ * __useGetStopTerminalsByLocationQuery__
+ *
+ * To run a query within a React component, call `useGetStopTerminalsByLocationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopTerminalsByLocationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopTerminalsByLocationQuery({
+ *   variables: {
+ *      locationFilter: // value for 'locationFilter'
+ *   },
+ * });
+ */
+export function useGetStopTerminalsByLocationQuery(baseOptions?: Apollo.QueryHookOptions<GetStopTerminalsByLocationQuery, GetStopTerminalsByLocationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopTerminalsByLocationQuery, GetStopTerminalsByLocationQueryVariables>(GetStopTerminalsByLocationDocument, options);
+      }
+export function useGetStopTerminalsByLocationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopTerminalsByLocationQuery, GetStopTerminalsByLocationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopTerminalsByLocationQuery, GetStopTerminalsByLocationQueryVariables>(GetStopTerminalsByLocationDocument, options);
+        }
+export function useGetStopTerminalsByLocationSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopTerminalsByLocationQuery, GetStopTerminalsByLocationQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStopTerminalsByLocationQuery, GetStopTerminalsByLocationQueryVariables>(GetStopTerminalsByLocationDocument, options);
+        }
+export type GetStopTerminalsByLocationQueryHookResult = ReturnType<typeof useGetStopTerminalsByLocationQuery>;
+export type GetStopTerminalsByLocationLazyQueryHookResult = ReturnType<typeof useGetStopTerminalsByLocationLazyQuery>;
+export type GetStopTerminalsByLocationSuspenseQueryHookResult = ReturnType<typeof useGetStopTerminalsByLocationSuspenseQuery>;
+export type GetStopTerminalsByLocationQueryResult = Apollo.QueryResult<GetStopTerminalsByLocationQuery, GetStopTerminalsByLocationQueryVariables>;
 export const ListChangingRoutesDocument = gql`
     query ListChangingRoutes($limit: Int) {
   route_route(limit: $limit, order_by: [{label: asc}, {validity_start: asc}]) {
