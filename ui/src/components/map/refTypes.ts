@@ -27,3 +27,8 @@ export interface StopAreasRef {
   onCreateStopArea: (e: MapLayerMouseEvent) => Promise<void>;
   onMoveStopArea: (e: MapLayerMouseEvent) => Promise<void>;
 }
+
+export interface TerminalsRef {
+  onCreateTerminal: (e: MapLayerMouseEvent) => Promise<void>;
+  onMoveTerminal: (e: MapLayerMouseEvent) => Promise<void>;
+}
