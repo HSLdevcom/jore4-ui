@@ -1,7 +1,8 @@
+import some from 'lodash/some';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
-import { useAppAction, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { Row, Visible } from '../../layoutComponents';
 import {
   MapEntityEditorViewState,
@@ -11,13 +12,10 @@ import {
   selectHasDraftRouteGeometry,
   selectIsInViewMode,
   selectMapRouteEditor,
-  selectMapStopAreaViewState,
-  selectMapStopViewState,
-  setMapStopAreaViewStateAction,
-  setMapStopViewStateAction,
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
+import { useMapViewState } from './utils/useMapViewState';
 
 type MapFooterProps = {
   readonly onDrawRoute: () => void;
@@ -55,31 +53,27 @@ export const MapFooter: FC<MapFooterProps> = ({
   const hasChangesInProgress = useAppSelector(selectHasChangesInProgress);
   const isInViewMode = useAppSelector(selectIsInViewMode);
 
-  const mapStopViewState = useAppSelector(selectMapStopViewState);
-  const setMapStopViewState = useAppAction(setMapStopViewStateAction);
-
-  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
-  const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
+  const [mapViewState, setMapViewState] = useMapViewState();
 
   const onAddStops = () => {
-    setMapStopViewState(MapEntityEditorViewState.PLACE);
+    setMapViewState({ stops: MapEntityEditorViewState.PLACE });
   };
 
   const onAddStopArea = () => {
-    setMapStopAreaViewState(MapEntityEditorViewState.PLACE);
+    setMapViewState({ stopAreas: MapEntityEditorViewState.PLACE });
   };
+
+  const someItemIsSelected = some(
+    mapViewState,
+    (state) => state !== MapEntityEditorViewState.NONE,
+  );
 
   return (
     <Row className="space-x-4 bg-white px-10 py-5">
       <SimpleButton
         testId={testIds.drawRouteButton}
         onClick={onDrawRoute}
-        disabled={
-          !isInViewMode ||
-          creatingNewRoute ||
-          mapStopViewState !== MapEntityEditorViewState.NONE ||
-          mapStopAreaViewState !== MapEntityEditorViewState.NONE
-        }
+        disabled={!isInViewMode || creatingNewRoute || someItemIsSelected}
         inverted={drawingMode !== Mode.Draw}
       >
         {t('map.drawRoute')}
@@ -99,9 +93,13 @@ export const MapFooter: FC<MapFooterProps> = ({
         disabled={
           drawingMode !== undefined ||
           creatingNewRoute ||
-          isEditorOpen(mapStopAreaViewState)
+          // Allow stop area to be pre-selected
+          isEditorOpen(mapViewState.stopAreas) ||
+          // But nothing else must be selected on the map
+          mapViewState.stops !== MapEntityEditorViewState.NONE ||
+          mapViewState.terminals !== MapEntityEditorViewState.NONE
         }
-        inverted={mapStopViewState === MapEntityEditorViewState.NONE}
+        inverted={mapViewState.stops === MapEntityEditorViewState.NONE}
         testId={testIds.addStopButton}
         disabledTooltip={t('dataModelRefactor.disabled')}
       >
@@ -109,12 +107,11 @@ export const MapFooter: FC<MapFooterProps> = ({
       </SimpleButton>
       <MapFooterActionsDropdown
         disabled={
-          mapStopViewState !== MapEntityEditorViewState.NONE ||
+          someItemIsSelected ||
           drawingMode !== undefined ||
           creatingNewRoute ||
           hasChangesInProgress ||
-          isRouteMetadataFormOpen ||
-          mapStopAreaViewState !== MapEntityEditorViewState.NONE
+          isRouteMetadataFormOpen
         }
         onCreateNewStopArea={onAddStopArea}
       />

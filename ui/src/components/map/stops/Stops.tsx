@@ -19,24 +19,20 @@ import {
   MapEntityEditorViewState,
   Operation,
   isEditorOpen,
-  isNoneOrPopup,
   isPlacingOrMoving,
   selectDraftLocation,
-  selectMapStopAreaViewState,
-  selectMapStopViewState,
   selectSelectedStopAreaId,
   selectSelectedStopId,
   setDraftLocationAction,
   setEditedStopAreaDataAction,
-  setMapStopAreaViewStateAction,
-  setMapStopViewStateAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
-import { mapLngLatToGeoJSON, mapLngLatToPoint } from '../../../utils';
+import { mapLngLatToGeoJSON, mapLngLatToPoint, none } from '../../../utils';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
 import { MapStop } from '../types';
+import { useMapViewState } from '../utils/useMapViewState';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
@@ -59,15 +55,11 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
 ) => {
   const filterByUiFiltersAndRoute = useFilterStops();
 
+  const [mapViewState, setMapViewState] = useMapViewState();
+
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const draftLocation = useAppSelector(selectDraftLocation);
-
-  const mapStopAreaViewState = useAppSelector(selectMapStopAreaViewState);
-  const setMapStopAreaViewState = useAppAction(setMapStopAreaViewStateAction);
-
-  const mapStopViewState = useAppSelector(selectMapStopViewState);
-  const setMapStopViewState = useAppAction(setMapStopViewStateAction);
 
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
@@ -97,7 +89,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
           latitude: e.lngLat.lat,
           longitude: e.lngLat.lng,
         });
-        setMapStopViewState(MapEntityEditorViewState.CREATE);
+        setMapViewState({ stops: MapEntityEditorViewState.CREATE });
       } catch (err) {
         defaultErrorHandler(err as Error);
       }
@@ -109,11 +101,14 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
   }));
 
   const onClickStop = (stop: MapStop) => {
-    if (isNoneOrPopup(mapStopViewState)) {
+    if (none(isEditorOpen, mapViewState)) {
       setSelectedStopId(stop.netex_id);
       setSelectedMapStopAreaId(stop.stop_place_netex_id);
-      setMapStopViewState(MapEntityEditorViewState.POPUP);
-      setMapStopAreaViewState(MapEntityEditorViewState.NONE);
+      setMapViewState({
+        stops: MapEntityEditorViewState.POPUP,
+        stopAreas: MapEntityEditorViewState.NONE,
+        terminals: MapEntityEditorViewState.NONE,
+      });
     }
   };
 
@@ -130,17 +125,17 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     setDraftStopLocation(undefined);
     if (netextId) {
       setSelectedStopId(netextId);
-      setMapStopViewState(MapEntityEditorViewState.POPUP);
+      setMapViewState({ stops: MapEntityEditorViewState.POPUP });
     }
     setIsLoadingSaveStop(false);
   };
 
   const onCancelMoveOrPlacement = () => {
-    setMapStopViewState(
-      selectedStopId
+    setMapViewState({
+      stops: selectedStopId
         ? MapEntityEditorViewState.POPUP
         : MapEntityEditorViewState.NONE,
-    );
+    });
   };
 
   const filteredStops = useMemo(() => {
@@ -153,7 +148,10 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     return filterByUiFiltersAndRoute(stops);
   }, [stops, filterByUiFiltersAndRoute, selectedStopAreaId]);
 
-  if (isEditorOpen(mapStopAreaViewState)) {
+  if (
+    isEditorOpen(mapViewState.stopAreas) ||
+    isEditorOpen(mapViewState.terminals)
+  ) {
     return null;
   }
 
@@ -171,7 +169,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
             key={item.netex_id}
             latitude={point.latitude}
             longitude={point.longitude}
-            mapStopViewState={mapStopViewState}
+            mapStopViewState={mapViewState.stops}
             onClick={() => onClickStop(item)}
             selected={item.netex_id === selectedStopId}
             testId={
@@ -196,7 +194,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
       )}
 
       {/* Display hovering bus stop while in create mode */}
-      {isPlacingOrMoving(mapStopViewState) && (
+      {isPlacingOrMoving(mapViewState.stops) && (
         <CreateStopMarker onCancel={onCancelMoveOrPlacement} />
       )}
     </>
