@@ -72,7 +72,7 @@ jobs:
       azure_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
   run_e2e_tests:
-    name: Run e2e tests
+    name: Run E2E tests
     needs:
       - publish_ui_docker_image_to_acr
       - publish_cypress_docker_image_to_acr
