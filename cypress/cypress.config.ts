@@ -4,6 +4,7 @@ import cypressGrepPlugin from '@cypress/grep/src/plugin';
 import { defineConfig } from 'cypress';
 import { GenerateCtrfReport } from 'cypress-ctrf-json-reporter';
 import cypressSplit from 'cypress-split';
+import { CompositeCypressEventHandler } from './support/compositeEventHandler';
 import { onLaunchBrowser } from './support/launchBrowser';
 import * as tasks from './support/tasks';
 
@@ -33,14 +34,20 @@ export default defineConfig({
     },
     experimentalInteractiveRunEvents: true,
     setupNodeEvents(on, config) {
-      cypressSplit(on, config);
+      const compositeEventHandler = new CompositeCypressEventHandler(on);
+
+      const compositeOn = compositeEventHandler.on.bind(
+        compositeEventHandler,
+      ) as unknown as Cypress.PluginEvents;
+
+      cypressSplit(compositeOn, config);
 
       on('task', tasks);
       on('before:browser:launch', onLaunchBrowser);
       if (process.env.JORE4_CYPRESS_GENERATE_CTRF_REPORT === 'true') {
         // eslint-disable-next-line no-new
         new GenerateCtrfReport({
-          on,
+          on: compositeOn,
           outputFile: 'ctrf-report.json',
           outputDir: 'ctrf',
           appName: 'JORE4',
