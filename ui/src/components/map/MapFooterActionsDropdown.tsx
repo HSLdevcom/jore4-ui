@@ -19,11 +19,13 @@ const testIds = {
 type MapFooterActionsDropdownProps = {
   readonly disabled?: boolean;
   readonly onCreateNewStopArea: () => void;
+  readonly onCreateNewTerminal: () => void;
 };
 
 export const MapFooterActionsDropdown: FC<MapFooterActionsDropdownProps> = ({
   disabled,
   onCreateNewStopArea,
+  onCreateNewTerminal,
 }) => {
   const { t } = useTranslation();
 
@@ -50,7 +52,8 @@ export const MapFooterActionsDropdown: FC<MapFooterActionsDropdownProps> = ({
             alignItems={AlignDirection.Top}
           >
             <SimpleDropdownMenuItem
-              onClick={noop}
+              onClick={onCreateNewTerminal}
+              disabled // Until create marker component exists
               text={t('map.createNewTerminal') + ' TODO'} // eslint-disable-line prefer-template
               testId={testIds.createNewTerminal}
             />

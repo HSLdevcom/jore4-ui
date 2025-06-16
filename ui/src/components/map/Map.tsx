@@ -27,11 +27,17 @@ import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
 import { useGetMapData } from './queries/useGetMapData';
-import { RouteEditorRef, StopAreasRef, StopsRef } from './refTypes';
+import {
+  RouteEditorRef,
+  StopAreasRef,
+  StopsRef,
+  TerminalsRef,
+} from './refTypes';
 import { Routes, isRouteGeometryLayer, mapLayerIdToRouteId } from './routes';
 import { RouteStopsOverlay } from './routes/RouteStopsOverlay';
 import { StopAreas } from './stop-areas';
 import { MemberStopLines, Stops } from './stops';
+import { Terminals } from './terminals';
 
 type MapViewState = {
   readonly mapStopViewState: MapEntityEditorViewState;
@@ -42,6 +48,7 @@ type EditorRefs = {
   readonly routeEditorRef: MutableRefObject<RouteEditorRef | null>;
   readonly stopsRef: MutableRefObject<StopsRef | null>;
   readonly stopAreasRef: MutableRefObject<StopAreasRef | null>;
+  readonly terminalsRef: MutableRefObject<TerminalsRef | null>;
 };
 
 function useEditorRefs(): EditorRefs {
@@ -49,6 +56,7 @@ function useEditorRefs(): EditorRefs {
     routeEditorRef: useRef(null),
     stopsRef: useRef(null),
     stopAreasRef: useRef(null),
+    terminalsRef: useRef(null),
   };
 }
 
@@ -162,7 +170,7 @@ export const MapComponent: ForwardRefRenderFunction<
   const hasDraftStopLocation = useAppSelector(selectHasDraftLocation);
   const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
 
-  const { areas, displayedRouteIds, stops } = useGetMapData();
+  const { areas, displayedRouteIds, stops, terminals } = useGetMapData();
 
   return (
     <Maplibre
@@ -177,6 +185,7 @@ export const MapComponent: ForwardRefRenderFunction<
         ref={editorRefs.stopsRef}
       />
       <StopAreas areas={areas} ref={editorRefs.stopAreasRef} />
+      <Terminals terminals={terminals} ref={editorRefs.terminalsRef} />
 
       <MemberStopLines areas={areas} stops={stops} />
 
