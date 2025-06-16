@@ -63,6 +63,11 @@ export const MapFooter: FC<MapFooterProps> = ({
     setMapViewState({ stopAreas: MapEntityEditorViewState.PLACE });
   };
 
+  const onAddTerminal = () => {
+    throw new Error('Not implemented!'); // Needs the create marker component
+    // setMapViewState({ terminals: MapEntityEditorViewState.PLACE });
+  };
+
   const someItemIsSelected = some(
     mapViewState,
     (state) => state !== MapEntityEditorViewState.NONE,
@@ -114,6 +119,7 @@ export const MapFooter: FC<MapFooterProps> = ({
           isRouteMetadataFormOpen
         }
         onCreateNewStopArea={onAddStopArea}
+        onCreateNewTerminal={onAddTerminal}
       />
       <SimpleButton
         className="h-full !px-3 text-xl"
