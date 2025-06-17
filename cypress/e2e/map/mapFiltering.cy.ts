@@ -45,35 +45,39 @@ describe('Stop area details', () => {
     cy.task<UUID[]>(
       'getInfrastructureLinkIdsByExternalIds',
       testInfraLinkExternalIds,
-    ).then((infraLinkIds) => {
-      const stops = buildStopsOnInfraLinks(infraLinkIds);
+    )
+      .then((infraLinkIds) => {
+        const stops = buildStopsOnInfraLinks(infraLinkIds);
 
-      const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
+        const infraLinksAlongRoute = buildInfraLinksAlongRoute(infraLinkIds);
 
-      dbResources = {
-        ...baseDbResources,
-        stops,
-        infraLinksAlongRoute,
-      };
-    });
+        dbResources = {
+          ...baseDbResources,
+          stops,
+          infraLinksAlongRoute,
+        };
+      })
+      .then(() => {
+        // Readonly tests, initialize the DB only once
+        cy.task('resetDbs');
+
+        insertToDbHelper(dbResources);
+
+        cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
+          ...baseStopRegistryData,
+        });
+      });
   });
 
   beforeEach(() => {
-    cy.task('resetDbs');
+    cy.setupTests();
+    cy.mockLogin();
 
-    insertToDbHelper(dbResources);
-    cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
-      ...baseStopRegistryData,
-    }).then(() => {
-      cy.setupTests();
-      cy.mockLogin();
-
-      map.visit({
-        zoom: 14,
-        lat: testStopArea.StopArea.geometry.coordinates[1],
-        lng: testStopArea.StopArea.geometry.coordinates[0],
-        path: '/stop-registry',
-      });
+    map.visit({
+      zoom: 14,
+      lat: testStopArea.StopArea.geometry.coordinates[1],
+      lng: testStopArea.StopArea.geometry.coordinates[0],
+      path: '/stop-registry',
     });
   });
 
@@ -152,6 +156,19 @@ describe('Stop area details', () => {
       observationDateFilters.getToggleShowFiltersButton().click();
       mapItemFilters.setFilters({ [KnownMapItemTypeFilters.StopArea]: false });
       map.getStopAreaById('X0003').should('not.exist');
+    });
+
+    it('should filter terminals', () => {
+      // Wait for map to load
+      map.waitForLoadToComplete();
+
+      // Make sure terminal is visible
+      map.getTerminalById('T2').shouldBeVisible();
+
+      // Set terminals to be hidden
+      observationDateFilters.getToggleShowFiltersButton().click();
+      mapItemFilters.setFilters({ [KnownMapItemTypeFilters.Terminal]: false });
+      map.getTerminalById('T2').should('not.exist');
     });
   });
 });

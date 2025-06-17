@@ -152,8 +152,8 @@ describe('Terminal details', () => {
     locationView.getPostalCode().shouldHaveText('00100');
     locationView.getMunicipality().shouldHaveText('Helsinki');
     locationView.getFareZone().shouldHaveText('A');
-    locationView.getLatitude().shouldHaveText('24.92596546020357');
-    locationView.getLongitude().shouldHaveText('60.16993494912799');
+    locationView.getLatitude().shouldHaveText('60.16993494912799');
+    locationView.getLongitude().shouldHaveText('24.92596546020357');
     locationView.getMemberStops().shouldHaveText('E2E008, E2E010');
   };
 
