@@ -17,8 +17,8 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
 }) => {
   const strokeClassName =
     selected && !isPlaceholder
-      ? 'stroke-hsl-dark-80'
-      : 'stroke-dark-grey hover:stroke-tweaked-brand';
+      ? 'cursor-pointer stroke-hsl-dark-80'
+      : 'cursor-pointer stroke-dark-grey hover:stroke-tweaked-brand';
   const subCircleClassName =
     selected && !isPlaceholder ? 'fill-hsl-dark-80' : '';
   const selectedSize = size + 2;
