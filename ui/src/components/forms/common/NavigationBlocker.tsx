@@ -142,7 +142,12 @@ export function useDirtyFormBlockNavigation(
 
       // If processing a "close button click" that is trying to close a
       // modal, the form with the same context should be able to block it.
-      if (context && 'context' in args && args.context !== context) {
+      if (
+        context &&
+        'context' in args &&
+        args.context &&
+        args.context !== context
+      ) {
         return false;
       }
 
