@@ -77,7 +77,7 @@ type BlockerContext = {
   readonly requestNavigation: RequestNavigationFn;
 };
 
-const navigationBlockerContext = createContext<BlockerContext>({
+export const navigationBlockerContext = createContext<BlockerContext>({
   registerBlock: () => noop,
   requestNavigation: noop,
 });

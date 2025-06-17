@@ -1,10 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
 import { useGetStopDetails, useRequiredParams } from '../../../../hooks';
 import { Container, Visible } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
+import { navigationBlockerContext } from '../../../forms/common/NavigationBlocker';
 import { BasicDetailsSection } from './basic-details/BasicDetailsSection';
 import {
   DetailTabSelector,
@@ -33,12 +34,17 @@ const testIds = {
 };
 
 export const StopDetailsPage: FC = () => {
-  const { stopDetails, loading, error } = useGetStopDetails();
   const { t } = useTranslation();
-  const [activeDetailTab, selectDetailTab] = useState(
+  const { label } = useRequiredParams<{ label: string }>();
+
+  const [activeDetailTab, setActiveDetailTab] = useState(
     DetailTabType.BasicDetailsTab,
   );
-  const { label } = useRequiredParams<{ label: string }>();
+  const { requestNavigation } = useContext(navigationBlockerContext);
+  const selectDetailTab = (nextTab: DetailTabType) =>
+    requestNavigation(() => setActiveDetailTab(nextTab));
+
+  const { stopDetails, loading, error } = useGetStopDetails();
 
   return (
     <Container testId={testIds.page}>
