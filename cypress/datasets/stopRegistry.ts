@@ -324,7 +324,7 @@ const terminalData: Array<TerminalInput> = [
         },
       ],
       geometry: {
-        coordinates: [60.16993494912799, 24.92596546020357],
+        coordinates: [24.92596546020357, 60.16993494912799],
         type: StopRegistryGeoJsonType.Point,
       },
       keyValues: [
