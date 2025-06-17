@@ -29,7 +29,7 @@ const CircleComponent: FC<CircleComponentProps> = ({
       height={size}
       width={size}
       onClick={onClick}
-      className="rounded-full"
+      className="cursor-pointer rounded-full"
       onMouseEnter={() => setIsMouseHovering(true)}
       onMouseLeave={() => setIsMouseHovering(false)}
     >
