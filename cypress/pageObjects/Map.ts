@@ -81,6 +81,10 @@ export class Map {
     return cy.getByTestId(`Map::StopArea::stopArea::${id}`);
   }
 
+  getTerminalById(id: string) {
+    return cy.getByTestId(`Map::MapTerminal::terminal::${id}`);
+  }
+
   visit(params?: { zoom?: number; lat: number; lng: number; path?: string }) {
     if (params) {
       cy.visit(
