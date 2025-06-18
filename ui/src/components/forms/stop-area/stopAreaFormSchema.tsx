@@ -7,8 +7,8 @@ import {
 } from '../common';
 
 const nameSchema = z.object({
-  value: requiredString,
-  lang: requiredString,
+  value: z.string().optional(),
+  lang: z.string().optional(),
 });
 
 const scheduledStopPointLabelSchema = z.object({
