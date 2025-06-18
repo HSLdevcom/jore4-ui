@@ -181,13 +181,14 @@ export const MapComponent: ForwardRefRenderFunction<
     >
       <Stops
         stops={stops}
+        terminals={terminals}
         displayedRouteIds={displayedRouteIds}
         ref={editorRefs.stopsRef}
       />
       <StopAreas areas={areas} ref={editorRefs.stopAreasRef} />
       <Terminals terminals={terminals} ref={editorRefs.terminalsRef} />
 
-      <MemberStopLines areas={areas} stops={stops} />
+      <MemberStopLines areas={areas} stops={stops} terminals={terminals} />
 
       <CustomOverlay position="top-left">
         <Column className="items-start overflow-hidden p-2">

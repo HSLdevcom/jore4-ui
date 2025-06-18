@@ -23,6 +23,7 @@ import {
   selectDraftLocation,
   selectSelectedStopAreaId,
   selectSelectedStopId,
+  selectSelectedTerminalId,
   setDraftLocationAction,
   setEditedStopAreaDataAction,
   setSelectedMapStopAreaIdAction,
@@ -31,7 +32,7 @@ import {
 import { Priority } from '../../../types/enums';
 import { mapLngLatToGeoJSON, mapLngLatToPoint, none } from '../../../utils';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
-import { MapStop } from '../types';
+import { MapStop, MapTerminal } from '../types';
 import { useMapViewState } from '../utils/useMapViewState';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
@@ -44,21 +45,60 @@ const testIds = {
   memberStop: (netextId: string) => `Map::StopArea::memberStop::${netextId}`,
 };
 
+function useFilteredStops(
+  stops: ReadonlyArray<MapStop>,
+  terminals: ReadonlyArray<MapTerminal>,
+  selectedStopAreaId: string | undefined | null,
+  selectedTerminalId: string | undefined | null,
+): ReadonlyArray<MapStop> {
+  const filterByUiFiltersAndRoute = useFilterStops();
+
+  return useMemo(() => {
+    if (selectedStopAreaId) {
+      return stops.filter(
+        (it) => it.stop_place_netex_id === selectedStopAreaId,
+      );
+    }
+
+    if (selectedTerminalId) {
+      const childAreaIds = terminals
+        .find((it) => it.netex_id === selectedTerminalId)
+        ?.children.map((it) => it.netexId);
+
+      if (!childAreaIds?.length) {
+        return [];
+      }
+
+      return stops.filter((it) =>
+        childAreaIds.includes(it.stop_place_netex_id),
+      );
+    }
+
+    return filterByUiFiltersAndRoute(stops);
+  }, [
+    selectedStopAreaId,
+    selectedTerminalId,
+    filterByUiFiltersAndRoute,
+    stops,
+    terminals,
+  ]);
+}
+
 type StopsProps = {
   readonly displayedRouteIds: ReadonlyArray<string>;
   readonly stops: ReadonlyArray<MapStop>;
+  readonly terminals: ReadonlyArray<MapTerminal>;
 };
 
 export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
-  { displayedRouteIds, stops },
+  { displayedRouteIds, stops, terminals },
   ref,
 ) => {
-  const filterByUiFiltersAndRoute = useFilterStops();
-
   const [mapViewState, setMapViewState] = useMapViewState();
 
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
+  const selectedTerminalId = useAppSelector(selectSelectedTerminalId);
   const draftLocation = useAppSelector(selectDraftLocation);
 
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
@@ -138,15 +178,12 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     });
   };
 
-  const filteredStops = useMemo(() => {
-    if (selectedStopAreaId) {
-      return stops.filter(
-        (it) => it.stop_place_netex_id === selectedStopAreaId,
-      );
-    }
-
-    return filterByUiFiltersAndRoute(stops);
-  }, [stops, filterByUiFiltersAndRoute, selectedStopAreaId]);
+  const filteredStops = useFilteredStops(
+    stops,
+    terminals,
+    selectedStopAreaId,
+    selectedTerminalId,
+  );
 
   if (
     isEditorOpen(mapViewState.stopAreas) ||
@@ -155,12 +192,13 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     return null;
   }
 
+  const asMemberStop = !!(selectedStopAreaId ?? selectedTerminalId);
+
   return (
     <>
       {/* Display existing stops */}
       {filteredStops.map((item) => {
         const point = mapLngLatToPoint(item.location.coordinates);
-        const asMemberStop = !!selectedStopAreaId;
 
         return (
           <Stop
