@@ -162,8 +162,26 @@ describe('Stop area details', () => {
       // Wait for map to load
       map.waitForLoadToComplete();
 
+      // Hide stop areas, no effect on the tests, but they do cover up the
+      // member stops. Also stops should be visible
+      observationDateFilters.getToggleShowFiltersButton().click();
+      mapItemFilters.setFilters({ [KnownMapItemTypeFilters.StopArea]: false });
+      observationDateFilters.getToggleShowFiltersButton().click();
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      map.waitForLoadToComplete();
+
       // Make sure terminal is visible
       map.getTerminalById('T2').shouldBeVisible();
+
+      // All stops should also be visible
+      assertStopsAreVisible();
+
+      // But clicking the terminal infobox open, only members should be shown.
+      map.getTerminalById('T2').click();
+      map.waitForLoadToComplete();
+      assertStopsAreNotOnMap();
+      map.getMemberStop('E2E008').shouldBeVisible();
+      map.getMemberStop('E2E010').shouldBeVisible();
 
       // Set terminals to be hidden
       observationDateFilters.getToggleShowFiltersButton().click();

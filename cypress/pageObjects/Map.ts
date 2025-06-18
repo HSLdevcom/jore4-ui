@@ -77,6 +77,10 @@ export class Map {
     );
   }
 
+  getMemberStop(testStopLabel: string) {
+    return cy.getByTestId(`Map::Stops::memberStop::${testStopLabel}`);
+  }
+
   getStopAreaById(id: string) {
     return cy.getByTestId(`Map::StopArea::stopArea::${id}`);
   }

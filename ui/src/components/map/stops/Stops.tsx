@@ -42,7 +42,7 @@ import { useFilterStops } from './useFilterStops';
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
     `Map::Stops::stopMarker::${label}_${Priority[priority]}`,
-  memberStop: (netextId: string) => `Map::StopArea::memberStop::${netextId}`,
+  memberStop: (label: string) => `Map::Stops::memberStop::${label}`,
 };
 
 function useFilteredStops(
@@ -212,7 +212,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
             selected={item.netex_id === selectedStopId}
             testId={
               asMemberStop
-                ? testIds.memberStop(item.netex_id)
+                ? testIds.memberStop(item.label)
                 : testIds.stopMarker(item.label, item.priority)
             }
             vehicleMode={getStopVehicleMode(item)}
