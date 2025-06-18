@@ -70,7 +70,7 @@ export const getParentStopPlacesFromQueryResult = <
   T extends ParentStopPlaceType,
 >(
   parentStopPlaceResult:
-    | ReadonlyArray<T | ParentStopPlaceType | null>
+    | ReadonlyArray<T | StopPlaceType | null>
     | undefined
     | null,
 ): Array<T> => {

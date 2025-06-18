@@ -130,7 +130,7 @@ export const routeDetails: Record<Path, RouteDetail> = {
     includeInNav: false,
   },
   [Path.terminalDetails]: {
-    getLink: (id: string) => Path.terminalDetails.replace(':id', id),
+    getLink: (id: string) => Path.terminalDetails.replace(':privateCode', id),
     includeInNav: false,
   },
 

@@ -45,6 +45,9 @@
   "stopAreas": {
     "showStopAreaDetails": "Show details for stop area {{ areaLabel }}"
   },
+  "terminals": {
+    "showTerminalDetails": "Show details for terminal {{ terminalLabel }}"
+  },
   "timetables": {
     "icon": "Timetable",
     "changeValidityPeriod": "Change the validity period for {{dayType}}",

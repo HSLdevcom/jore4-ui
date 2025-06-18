@@ -67206,6 +67206,119 @@ export type MapMinimalTerminalDetailsFragment = {
   }>
 };
 
+export type GetTerminalDetailsByNetexIdQueryVariables = Exact<{
+  netexId: Scalars['String']['input'];
+}>;
+
+
+export type GetTerminalDetailsByNetexIdQuery = {
+  __typename?: 'query_root',
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister',
+    stopPlace?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      id?: string | null,
+      alternativeNames?: Array<{
+        __typename?: 'stop_registry_AlternativeName',
+        nameType: StopRegistryNameType,
+        name: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        }
+      } | null> | null,
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode',
+        value?: string | null,
+        type?: string | null
+      } | null,
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null,
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null,
+      geometry?: {
+        __typename?: 'stop_registry_GeoJSON',
+        type?: StopRegistryGeoJsonType | null,
+        coordinates?: GeoJSON.Position | null
+      } | null,
+      keyValues?: Array<{
+        __typename?: 'stop_registry_KeyValues',
+        key?: string | null,
+        values?: Array<string | null> | null
+      } | null> | null,
+      accessibilityAssessment?: {
+        __typename?: 'stop_registry_AccessibilityAssessment',
+        id?: string | null,
+        hslAccessibilityProperties?: {
+          __typename?: 'stop_registry_HslAccessibilityProperties',
+          id?: string | null,
+          stopAreaSideSlope?: number | null,
+          stopAreaLengthwiseSlope?: number | null,
+          endRampSlope?: number | null,
+          shelterLaneDistance?: number | null,
+          curbBackOfRailDistance?: number | null,
+          curbDriveSideOfRailDistance?: number | null,
+          structureLaneDistance?: number | null,
+          stopElevationFromRailTop?: number | null,
+          stopElevationFromSidewalk?: number | null,
+          lowerCleatHeight?: number | null,
+          serviceAreaWidth?: number | null,
+          serviceAreaLength?: number | null,
+          platformEdgeWarningArea?: boolean | null,
+          guidanceTiles?: boolean | null,
+          guidanceStripe?: boolean | null,
+          serviceAreaStripes?: boolean | null,
+          sidewalkAccessibleConnection?: boolean | null,
+          stopAreaSurroundingsAccessible?: boolean | null,
+          curvedStop?: boolean | null,
+          stopType?: StopRegistryStopType | null,
+          shelterType?: StopRegistryShelterWidthType | null,
+          guidanceType?: StopRegistryGuidanceType | null,
+          mapType?: StopRegistryMapType | null,
+          pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
+          accessibilityLevel?: StopRegistryAccessibilityLevel | null
+        } | null,
+        limitations?: {
+          __typename?: 'stop_registry_AccessibilityLimitations',
+          id?: string | null,
+          version?: string | null,
+          audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+          escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+          liftFreeAccess?: StopRegistryLimitationStatusType | null,
+          stepFreeAccess?: StopRegistryLimitationStatusType | null,
+          wheelchairAccess?: StopRegistryLimitationStatusType | null
+        } | null
+      } | null,
+      children?: Array<{
+        __typename?: 'stop_registry_StopPlace',
+        id?: string | null,
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          value?: string | null
+        } | null,
+        quays?: Array<{
+          __typename?: 'stop_registry_Quay',
+          id?: string | null,
+          publicCode?: string | null,
+          keyValues?: Array<{
+            __typename?: 'stop_registry_KeyValues',
+            key?: string | null,
+            values?: Array<string | null> | null
+          } | null> | null
+        } | null> | null
+      } | null> | null
+    } | {
+      __typename?: 'stop_registry_StopPlace'
+    } | null> | null
+  } | null
+};
+
 export type LineWithRoutesUniqueFieldsFragment = {
   __typename?: 'route_line',
   primary_vehicle_mode: ReusableComponentsVehicleModeEnum,
@@ -76517,6 +76630,48 @@ export type GetStopTerminalsByLocationQueryHookResult = ReturnType<typeof useGet
 export type GetStopTerminalsByLocationLazyQueryHookResult = ReturnType<typeof useGetStopTerminalsByLocationLazyQuery>;
 export type GetStopTerminalsByLocationSuspenseQueryHookResult = ReturnType<typeof useGetStopTerminalsByLocationSuspenseQuery>;
 export type GetStopTerminalsByLocationQueryResult = Apollo.QueryResult<GetStopTerminalsByLocationQuery, GetStopTerminalsByLocationQueryVariables>;
+export const GetTerminalDetailsByNetexIdDocument = gql`
+    query GetTerminalDetailsByNetexId($netexId: String!) {
+  stop_registry {
+    stopPlace(id: $netexId) {
+      ...parent_stop_place_details
+    }
+  }
+}
+    ${ParentStopPlaceDetailsFragmentDoc}`;
+
+/**
+ * __useGetTerminalDetailsByNetexIdQuery__
+ *
+ * To run a query within a React component, call `useGetTerminalDetailsByNetexIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTerminalDetailsByNetexIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTerminalDetailsByNetexIdQuery({
+ *   variables: {
+ *      netexId: // value for 'netexId'
+ *   },
+ * });
+ */
+export function useGetTerminalDetailsByNetexIdQuery(baseOptions: Apollo.QueryHookOptions<GetTerminalDetailsByNetexIdQuery, GetTerminalDetailsByNetexIdQueryVariables> & ({ variables: GetTerminalDetailsByNetexIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTerminalDetailsByNetexIdQuery, GetTerminalDetailsByNetexIdQueryVariables>(GetTerminalDetailsByNetexIdDocument, options);
+      }
+export function useGetTerminalDetailsByNetexIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTerminalDetailsByNetexIdQuery, GetTerminalDetailsByNetexIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTerminalDetailsByNetexIdQuery, GetTerminalDetailsByNetexIdQueryVariables>(GetTerminalDetailsByNetexIdDocument, options);
+        }
+export function useGetTerminalDetailsByNetexIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTerminalDetailsByNetexIdQuery, GetTerminalDetailsByNetexIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTerminalDetailsByNetexIdQuery, GetTerminalDetailsByNetexIdQueryVariables>(GetTerminalDetailsByNetexIdDocument, options);
+        }
+export type GetTerminalDetailsByNetexIdQueryHookResult = ReturnType<typeof useGetTerminalDetailsByNetexIdQuery>;
+export type GetTerminalDetailsByNetexIdLazyQueryHookResult = ReturnType<typeof useGetTerminalDetailsByNetexIdLazyQuery>;
+export type GetTerminalDetailsByNetexIdSuspenseQueryHookResult = ReturnType<typeof useGetTerminalDetailsByNetexIdSuspenseQuery>;
+export type GetTerminalDetailsByNetexIdQueryResult = Apollo.QueryResult<GetTerminalDetailsByNetexIdQuery, GetTerminalDetailsByNetexIdQueryVariables>;
 export const ListChangingRoutesDocument = gql`
     query ListChangingRoutes($limit: Int) {
   route_route(limit: $limit, order_by: [{label: asc}, {validity_start: asc}]) {
