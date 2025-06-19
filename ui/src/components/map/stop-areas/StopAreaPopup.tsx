@@ -99,8 +99,13 @@ export const StopAreaPopup = ({
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
+            tooltip={t('stopArea.delete')}
           >
-            <MdDelete aria-label={t('stopArea.delete')} className="text-xl" />
+            <MdDelete
+              role="presentation"
+              aria-label={t('stopArea.delete')}
+              className="text-xl"
+            />
           </SimpleButton>
 
           <SimpleButton
@@ -109,8 +114,9 @@ export const StopAreaPopup = ({
             inverted
             onClick={onAddStop}
             testId={testIds.addStopButton}
+            tooltip={t('map.addStop')}
           >
-            <MdAddCircle aria-label={t('map.addStop')} className="text-xl" />
+            <MdAddCircle role="presentation" className="text-xl" />
           </SimpleButton>
 
           <SimpleButton

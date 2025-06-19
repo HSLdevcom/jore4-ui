@@ -100,8 +100,9 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
+            tooltip={t('remove')}
           >
-            <MdDelete aria-label={t('remove')} className="text-xl" />
+            <MdDelete role="presentation" className="text-xl" />
           </SimpleButton>
 
           <SimpleButton

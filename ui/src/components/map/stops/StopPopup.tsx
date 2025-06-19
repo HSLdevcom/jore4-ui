@@ -109,8 +109,9 @@ export const StopPopup: FC<StopPopupProps> = ({
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
+            tooltip={t('map.deleteRoute')}
           >
-            <MdDelete aria-label={t('map.deleteRoute')} className="text-xl" />
+            <MdDelete role="presentation" className="text-xl" />
           </SimpleButton>
 
           <SimpleButton
