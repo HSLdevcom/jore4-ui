@@ -206,6 +206,7 @@ export const SimpleButton: FC<SimpleButtonProps> = ({
           to={href}
           state={state}
           testId={testId}
+          aria-label={disabled ? disabledTooltip : tooltip}
           title={disabled ? disabledTooltip : tooltip}
         >
           {children}
@@ -231,6 +232,7 @@ export const SimpleButton: FC<SimpleButtonProps> = ({
           onClick={onClick}
           disabled={disabled}
           testId={testId}
+          aria-label={disabled ? disabledTooltip : tooltip}
           title={disabled ? disabledTooltip : tooltip}
           aria-selected={ariaSelected}
           role={role}
