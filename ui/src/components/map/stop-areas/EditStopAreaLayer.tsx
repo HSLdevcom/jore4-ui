@@ -1,6 +1,7 @@
 import { MapLayerMouseEvent } from 'maplibre-gl';
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useMap } from 'react-map-gl/maplibre';
 import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
 import {
   DeleteStopArea,
@@ -19,7 +20,10 @@ import {
 } from '../../../redux';
 import { EnrichedStopPlace } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
-import { mapPointToStopRegistryGeoJSON } from '../../../utils';
+import {
+  getGeometryPoint,
+  mapPointToStopRegistryGeoJSON,
+} from '../../../utils';
 import { StopAreaFormState, useUpsertStopArea } from '../../forms/stop-area';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { EditStopAreaModal } from './EditStopAreaModal';
@@ -36,6 +40,8 @@ export const EditStopAreaLayer = forwardRef<
   EditStopAreaLayerProps
 >(({ editedArea, onPopupClose }, ref) => {
   const { t } = useTranslation();
+
+  const map = useMap();
 
   const mapStopViewState = useAppSelector(selectMapStopViewState);
   const setMapStopViewState = useAppAction(setMapStopViewStateAction);
@@ -63,6 +69,16 @@ export const EditStopAreaLayer = forwardRef<
     useStopAreaDeletion();
 
   const onStartEditStopArea = () => {
+    const point = getGeometryPoint(editedArea.geometry);
+    if (point) {
+      map.current?.easeTo({
+        center: {
+          lon: point.longitude,
+          lat: point.latitude,
+        },
+      });
+    }
+
     setMapStopAreaViewState(MapEntityEditorViewState.EDIT);
   };
 
