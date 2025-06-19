@@ -93,9 +93,9 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
           )}
         </Row>
 
-        <Row className="mt-16 gap-2 px-2">
+        <Row className="mt-16">
           <SimpleButton
-            className="flex aspect-square items-center justify-center p-0"
+            className="flex aspect-square h-[38px] w-[38px] items-center justify-center self-stretch p-0"
             disabled
             onClick={onDelete}
             inverted
@@ -113,7 +113,12 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
             {t('move')}
           </SimpleButton>
 
-          <SimpleButton disabled onClick={onEdit} testId={testIds.editButton}>
+          <SimpleButton
+            containerClassName="ml-2"
+            disabled
+            onClick={onEdit}
+            testId={testIds.editButton}
+          >
             {t('edit')}
           </SimpleButton>
         </Row>

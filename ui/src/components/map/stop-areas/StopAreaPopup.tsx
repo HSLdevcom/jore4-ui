@@ -95,7 +95,7 @@ export const StopAreaPopup = ({
 
         <Row className="mt-16">
           <SimpleButton
-            className="h-full !px-3"
+            className="flex aspect-square h-[38px] w-[38px] items-center justify-center self-stretch p-0"
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
@@ -105,7 +105,7 @@ export const StopAreaPopup = ({
 
           <SimpleButton
             containerClassName="ml-1"
-            className="h-full !px-3"
+            className="flex aspect-square h-[38px] w-[38px] items-center justify-center self-stretch p-0"
             inverted
             onClick={onAddStop}
             testId={testIds.addStopButton}

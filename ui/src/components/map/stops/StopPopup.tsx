@@ -10,7 +10,7 @@ import { mapToValidityPeriod } from '../../../utils';
 import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
 import { PriorityBadge } from '../PriorityBadge';
 
-type StopPopoupProps = {
+type StopPopupProps = {
   readonly stop: StopInfoForEditingOnMap;
   readonly onEdit: () => void;
   readonly onMove: () => void;
@@ -26,7 +26,7 @@ const testIds = {
   closeButton: 'StopPopUp::closeButton',
 };
 
-export const StopPopup: FC<StopPopoupProps> = ({
+export const StopPopup: FC<StopPopupProps> = ({
   stop,
   onEdit,
   onMove,
@@ -105,13 +105,14 @@ export const StopPopup: FC<StopPopoupProps> = ({
         </Row>
         <Row className="mt-16">
           <SimpleButton
-            className="h-full !px-3"
+            className="flex aspect-square h-[38px] w-[38px] items-center justify-center self-stretch p-0"
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
           >
             <MdDelete aria-label={t('map.deleteRoute')} className="text-xl" />
           </SimpleButton>
+
           <SimpleButton
             containerClassName="ml-auto"
             onClick={onMove}
@@ -119,6 +120,7 @@ export const StopPopup: FC<StopPopoupProps> = ({
           >
             {t('move')}
           </SimpleButton>
+
           <SimpleButton
             containerClassName="ml-2"
             onClick={onEdit}
