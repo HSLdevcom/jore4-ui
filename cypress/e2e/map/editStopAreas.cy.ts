@@ -191,7 +191,7 @@ describe('Stop areas on map', mapViewport, () => {
   });
 
   it('should edit stop area details', () => {
-    mapModal.map.clickAtPosition(1025, 731);
+    mapModal.map.getStopAreaById('X0003').click();
 
     mapModal.map.waitForLoadToComplete();
 
@@ -212,7 +212,7 @@ describe('Stop areas on map', mapViewport, () => {
     mapModal.stopAreaForm.getForm().should('not.exist');
 
     // Check that edited info was persisted.
-    mapModal.map.clickAtPosition(1025, 731);
+    mapModal.map.getStopAreaById('X0003').click();
 
     mapModal.stopAreaPopup
       .getLabel()
