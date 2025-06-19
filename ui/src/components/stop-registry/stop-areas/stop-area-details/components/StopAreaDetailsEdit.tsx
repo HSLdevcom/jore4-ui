@@ -3,12 +3,18 @@ import React, { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { MemberStopQuayDetailsFragment } from '../../../../../generated/graphql';
 import { useLoader } from '../../../../../hooks';
 import { Column } from '../../../../../layoutComponents';
 import { Operation } from '../../../../../redux';
 import { mapToISODate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
-import { mapLngLatToPoint, showSuccessToast } from '../../../../../utils';
+import {
+  findKeyValue,
+  mapLngLatToPoint,
+  notNullish,
+  showSuccessToast,
+} from '../../../../../utils';
 import {
   FormColumn,
   FormRow,
@@ -23,6 +29,7 @@ import {
   useUpsertStopArea,
 } from '../../../../forms/stop-area';
 import { AlternativeNamesEdit } from '../../../components/AlternativeNames/AlternativeNamesEdit';
+import { SelectedStop } from '../../../components/SelectMemberStops/schema';
 
 const testIds = {
   privateCode: 'StopAreaDetailsEdit::privateCode',
@@ -38,6 +45,31 @@ const testIds = {
   latitude: 'StopAreaDetailsEdit::latitude',
   longitude: 'StopAreaDetailsEdit::longitude',
 };
+
+function mapQuayToSelectedStop(
+  stopPlace: EnrichedStopPlace,
+  quay: MemberStopQuayDetailsFragment,
+): SelectedStop {
+  const validityStart = mapToISODate(findKeyValue(quay, 'validityStart'));
+  const validityEnd = mapToISODate(findKeyValue(quay, 'validityEnd'));
+  return {
+    stopPlaceId: stopPlace?.id ?? '',
+    name: stopPlace?.name ?? '',
+    quayId: quay?.id ?? '',
+    publicCode: quay?.publicCode ?? '',
+    validityStart: validityStart ?? '',
+    validityEnd: validityEnd ?? '',
+    indefinite: !validityEnd,
+  };
+}
+
+function extractSelectedStops(stopPlace: EnrichedStopPlace): SelectedStop[] {
+  return (
+    stopPlace.quays
+      ?.filter(notNullish)
+      .map((quay) => mapQuayToSelectedStop(stopPlace, quay)) ?? []
+  );
+}
 
 export const mapStopAreaDataToFormState = (
   area: EnrichedStopPlace,
@@ -62,16 +94,7 @@ export const mapStopAreaDataToFormState = (
     validityStart: mapToISODate(area.validityStart),
     validityEnd: mapToISODate(area.validityEnd),
     indefinite: !area.validityEnd,
-    quays: (area.quays ?? []).map((quay) => ({
-      id: quay?.id ?? '',
-      name: {
-        value: quay?.description?.value ?? '',
-        lang: quay?.description?.lang ?? '',
-      },
-      scheduled_stop_point: {
-        label: quay?.scheduled_stop_point?.label ?? '',
-      },
-    })),
+    quays: extractSelectedStops(area),
   };
 };
 

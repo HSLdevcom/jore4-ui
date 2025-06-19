@@ -1,16 +1,17 @@
 import { Combobox as HUICombobox, Transition } from '@headlessui/react';
-import { FC, useMemo, useState } from 'react';
+import { FC, ReactNode, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { dropdownTransition } from '../../../../uiComponents';
 import { log } from '../../../../utils';
-import { MemberStopOptions } from '../../../stop-registry/components/SelectMemberStops/MemberStopOptions';
-import { SelectedStop } from '../../../stop-registry/components/SelectMemberStops/schema';
+import { MemberStopOptions } from './MemberStopOptions';
+import { SelectedStop } from './schema';
+import { SelectedMemberStops } from './SelectedMemberStops';
+import { SelectMemberStopsDropdownButton } from './SelectMemberStopsDropdownButton';
 import {
   FETCH_MORE_OPTION,
   SelectMemberStopQueryStatus,
-} from '../../../stop-registry/components/SelectMemberStops/SelectMemberStopsQueryStatus';
-import { useFindQuaysByQuery } from '../../../stop-registry/components/SelectMemberStops/useFindQuaysByQuery';
-import { SelectMemberStopsDropdownButton } from './SelectMemberStopsDropdownButton';
+} from './SelectMemberStopsQueryStatus';
+import { useFindQuaysByQuery } from './useFindQuaysByQuery';
 
 export const testIds = {
   input: 'SelectMemberStopsDropdown::input',
@@ -27,42 +28,51 @@ export function sortByPublicCode(
   return stops.toSorted((a, b) => a.publicCode.localeCompare(b.publicCode));
 }
 
-type SelectMemberStopsDropdownProps = {
+export type SelectMemberStopsDropdownProps = {
   readonly className?: string;
   readonly disabled?: boolean;
-  readonly value: SelectedStop | undefined;
+  readonly value: SelectedStop[] | undefined;
+  readonly onChange: (selected: SelectedStop[]) => void;
+  readonly testId?: string;
+};
+
+type BaseSelectMemberStopsDropdownProps = SelectMemberStopsDropdownProps & {
   readonly onSelectionChange: (
-    newValue: SelectedStop | undefined,
-    currentValue: SelectedStop | undefined,
+    newValue: readonly SelectedStop[],
+    currentValue: SelectedStop[],
     options: SelectedStop[],
   ) => void;
-  readonly testId?: string;
+  readonly renderWarning?: () => ReactNode;
   readonly inputAriaLabel?: string;
 };
 
-export const SelectMemberStopsDropdownArea: FC<
-  SelectMemberStopsDropdownProps
+export const BaseSelectMemberStopsDropdown: FC<
+  BaseSelectMemberStopsDropdownProps
 > = ({
   className = '',
   disabled,
-  value,
+  value = [],
   testId,
   onSelectionChange,
+  renderWarning,
   inputAriaLabel,
 }) => {
   const [query, setQuery] = useState('');
+  const [hoveredStopPlaceId, setHoveredStopPlaceId] = useState<
+    string | undefined
+  >();
   const cleanQuery = query.trim();
 
   const { options, loading, allFetched, fetchNextPage } =
     useFindQuaysByQuery(cleanQuery);
 
-  const unselectedOptions = useMemo(
-    () => options.filter((stop) => stop.stopPlaceId !== value?.stopPlaceId),
-    [value?.stopPlaceId, options],
-  );
+  const unselectedOptions = useMemo(() => {
+    const selectedIds = value.map((stop) => stop.stopPlaceId);
+    return options.filter((stop) => !selectedIds.includes(stop.stopPlaceId));
+  }, [value, options]);
 
-  const handleSelectionChange = (newValue: SelectedStop | undefined) => {
-    if (newValue === FETCH_MORE_OPTION) {
+  const handleSelectionChange = (newValue: readonly SelectedStop[]) => {
+    if (newValue.includes(FETCH_MORE_OPTION)) {
       fetchNextPage().catch((error) =>
         log.error('Failed to fetch next page:', error),
       );
@@ -102,12 +112,15 @@ export const SelectMemberStopsDropdownArea: FC<
       by={compareMembersById}
       className={twMerge('relative w-full', className)}
       disabled={disabled}
+      multiple
       nullable={false}
       onChange={handleSelectionChange}
       value={value}
       ref={onCloseRef}
       data-testid={testId}
     >
+      {renderWarning?.()}
+
       <div className="relative w-full">
         <HUICombobox.Input
           className="relative h-full w-full border border-grey bg-white px-2 py-3 ui-open:rounded-b-none ui-not-open:rounded-md"
@@ -126,6 +139,11 @@ export const SelectMemberStopsDropdownArea: FC<
           as="div"
           className="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
         >
+          <SelectedMemberStops
+            selected={value}
+            hoveredStopPlaceId={hoveredStopPlaceId}
+            onHover={setHoveredStopPlaceId}
+          />
           <MemberStopOptions options={unselectedOptions} />
 
           <SelectMemberStopQueryStatus
