@@ -3,7 +3,6 @@ import length from '@turf/length';
 import { Feature, LineString, Point } from 'geojson';
 import isEqual from 'lodash/isEqual';
 import { useCallback } from 'react';
-import { pipe } from 'remeda';
 import { getBusRoute } from '../../api/routing';
 import {
   InfraLinkMatchingFieldsFragment,
@@ -232,16 +231,14 @@ const mapInfraLinkToFeature = (
   const shouldReverseGeometry =
     !!shape.coordinates.length && !isTraversalForwards;
 
-  return pipe(
-    shouldReverseGeometry
-      ? [...shape.coordinates].reverse()
-      : shape.coordinates,
-    (linkCoordinates) =>
-      mapGeoJSONtoFeature({
-        ...shape,
-        coordinates: linkCoordinates,
-      }),
-  );
+  const linkCoordinates = shouldReverseGeometry
+    ? shape.coordinates.toReversed()
+    : shape.coordinates;
+
+  return mapGeoJSONtoFeature({
+    ...shape,
+    coordinates: linkCoordinates,
+  });
 };
 
 interface SnapPointCalculationParams {
@@ -342,14 +339,13 @@ export const mapInfraLinksToFeature = (
     const linkFeature = mapInfraLinkToFeature(link);
 
     // Distances in percentages how far along the infrastructure link the desired point is located
-    const relativeDistancesAlongLink = pipe(
+    const relativeDistancesAlongLink = getRelativeSnapPointDistancesAlongLink(
       getSnapPointCalculateParamsForInfraLink(
         linkFeature,
         link.direction,
         index,
         infraLinks.length,
       ),
-      getRelativeSnapPointDistancesAlongLink,
     );
 
     return (

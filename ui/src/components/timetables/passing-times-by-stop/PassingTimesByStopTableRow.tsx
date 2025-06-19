@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
+import groupBy from 'lodash/groupBy';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { groupBy } from 'remeda';
 import {
   JourneyPatternStopFragment,
   PassingTimeByStopFragment,

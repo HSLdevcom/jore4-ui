@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { pipe } from 'remeda';
 import {
   JourneyPatternStopFragment,
   RouteStopFieldsFragment,
@@ -66,13 +65,12 @@ export const getEligibleStopsAlongRoute = <
   TRoute extends RouteWithInfrastructureLinksWithStopsFragment,
 >(
   route: TRoute,
-) =>
-  pipe(
-    route,
-    (routeGeometry) => routeGeometry.infrastructure_links_along_route,
-    mapInfrastructureLinksAlongRouteToRouteInfraLinks,
-    (links) => extractJourneyPatternCandidateStops(links, route),
+) => {
+  const links = mapInfrastructureLinksAlongRouteToRouteInfraLinks(
+    route.infrastructure_links_along_route,
   );
+  return extractJourneyPatternCandidateStops(links, route);
+};
 
 /**
  * Hook for adding and removing stops to route's journey pattern.
@@ -89,28 +87,19 @@ export const useEditRouteJourneyPattern = () => {
     const { route, stopPointLabels } = params;
 
     // TODO: Get rid of stopsEligibleForJourneyPattern in this hook
-    const stopsEligibleForJourneyPattern = pipe(
-      route,
-      getEligibleStopsAlongRoute,
-      // If multiple versions of one stop is active, they are in the list, but
-      // only one version should be added to the journey pattern
-      filterDistinctConsecutiveStops,
+    const stopsEligibleForJourneyPattern = filterDistinctConsecutiveStops(
+      getEligibleStopsAlongRoute(route),
     );
 
-    const includedStopLabels = pipe(
-      stopsEligibleForJourneyPattern,
+    const stopLabels = stopsEligibleForJourneyPattern
       // Filter out stops that do not belong to journey pattern and map stops to labels
-      (stops) =>
-        stops
-          .filter((stop) => stopBelongsToJourneyPattern(stop, route.route_id))
-          .map((stop) => stop.label),
-      // Add or remove stop from label list
-      (stopLabels) =>
-        addOrRemoveStopLabelsFromIncludedStops(
-          stopLabels,
-          stopPointLabels,
-          stopBelongsToRoute,
-        ),
+      .filter((stop) => stopBelongsToJourneyPattern(stop, route.route_id))
+      .map((stop) => stop.label);
+
+    const includedStopLabels = addOrRemoveStopLabelsFromIncludedStops(
+      stopLabels,
+      stopPointLabels,
+      stopBelongsToRoute,
     );
 
     validateStopCount(includedStopLabels);

@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { pipe } from 'remeda';
 import {
   RouteMetadataFragment,
   RouteStopFieldsFragment,
@@ -77,9 +76,8 @@ const GQL_GET_ROUTE_WITH_INFRASTRUCTURE_LINKS_WITH_STOPS = gql`
 const getRouteInfoFromRoute = (
   route: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 ) => {
-  const infraLinksWithStops = pipe(
+  const infraLinksWithStops = mapInfrastructureLinksAlongRouteToRouteInfraLinks(
     route.infrastructure_links_along_route,
-    mapInfrastructureLinksAlongRouteToRouteInfraLinks,
   );
 
   const stopsEligibleForJourneyPattern = extractJourneyPatternCandidateStops(

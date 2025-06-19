@@ -1,7 +1,7 @@
+import groupBy from 'lodash/groupBy';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
-import { groupBy, pipe } from 'remeda';
 import { twMerge } from 'tailwind-merge';
 import { VehicleJourneyGroup } from '../../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
@@ -55,17 +55,17 @@ export const VehicleServiceTable: FC<VehicleServiceTableProps> = ({
 
   const { vehicleJourneys, priority, dayType, createdAt } = vehicleJourneyGroup;
 
-  const departureTimesByHour = vehicleJourneys
-    ? pipe(
-        vehicleJourneys,
-        (services) => services.flatMap((item) => item.start_time),
-        (journeyStartTimes) =>
-          journeyStartTimes.sort(
-            (time1, time2) => time1.as('millisecond') - time2.as('millisecond'),
-          ),
-        (journeyStartTimes) => groupBy(journeyStartTimes, (item) => item.hours),
-      )
-    : [];
+  const sortedDepartureTimes =
+    vehicleJourneys
+      ?.flatMap((item) => item.start_time)
+      .sort(
+        (time1, time2) => time1.as('millisecond') - time2.as('millisecond'),
+      ) ?? [];
+
+  const departureTimesByHour = groupBy(
+    sortedDepartureTimes,
+    (item) => item.hours,
+  );
 
   const rowData: VehicleServiceRowData[] = Object.entries(
     departureTimesByHour,

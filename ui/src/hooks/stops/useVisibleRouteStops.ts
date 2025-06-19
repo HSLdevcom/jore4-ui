@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { pipe } from 'remeda';
 import { selectEditedRouteData, selectHasChangesInProgress } from '../../redux';
 import { useAppSelector } from '../redux';
 import { useGetRoutesDisplayedInMap } from '../routes';
@@ -15,15 +14,16 @@ export const useVisibleRouteStops = () => {
   );
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
 
-  const displayedRouteStopLabels = pipe(
-    displayedRoutes,
-    (routes) => routes.flatMap((route) => route.route_journey_patterns),
-    (journeyPatterns) =>
-      journeyPatterns.flatMap(
-        (journeyPattern) =>
-          journeyPattern.scheduled_stop_point_in_journey_patterns,
-      ),
-    (stops) => stops.map((stop) => stop.scheduled_stop_point_label),
+  const displayedRouteStopLabels = useMemo(
+    () =>
+      displayedRoutes
+        .flatMap((route) => route.route_journey_patterns)
+        .flatMap(
+          (journeyPattern) =>
+            journeyPattern.scheduled_stop_point_in_journey_patterns,
+        )
+        .map((stop) => stop.scheduled_stop_point_label),
+    [displayedRoutes],
   );
 
   /**

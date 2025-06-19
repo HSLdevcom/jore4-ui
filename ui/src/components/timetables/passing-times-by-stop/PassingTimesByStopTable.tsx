@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
+import groupBy from 'lodash/groupBy';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { groupBy, pipe } from 'remeda';
 import {
   PassingTimeByStopFragment,
   RouteWithJourneyPatternStopsFragment,
@@ -45,19 +45,15 @@ export const PassingTimesByStopTable: FC<PassingTimesByStopTableProps> = ({
     return <></>;
   }
 
-  const passingTimesByStop = pipe(
-    // Get passing times from vehicle journeys
-    vehicleJourneys.flatMap(
-      (vehicleJourney) => vehicleJourney.timetabled_passing_times,
-    ),
-    // Group passing times by stop label
-    (passingTimes) =>
-      groupBy(
-        passingTimes,
-        (item) =>
-          item.scheduled_stop_point_in_journey_pattern_ref
-            .scheduled_stop_point_label,
-      ),
+  const passingTimes = vehicleJourneys.flatMap(
+    (vehicleJourney) => vehicleJourney.timetabled_passing_times,
+  );
+
+  const passingTimesByStop = groupBy(
+    passingTimes,
+    (item) =>
+      item.scheduled_stop_point_in_journey_pattern_ref
+        .scheduled_stop_point_label,
   );
 
   const stopsInJourneyPattern =

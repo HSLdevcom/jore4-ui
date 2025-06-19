@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { pipe } from 'remeda';
 import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
 import { stopBelongsToJourneyPattern } from '../../../graphql';
 import {
@@ -55,22 +54,17 @@ export const LineRouteListItem: FC<LineRouteListItemProps> = ({
    * If "show unused stops" is selected, also show stops that are not in the journey pattern
    * but are along route geometry.
    */
-  const displayedStops = pipe(
-    route,
-    getEligibleStopsAlongRoute,
-    (stops) =>
-      filterHighestPriorityCurrentStops(
-        stops,
-        observationDate,
-        route.priority === Priority.Draft,
-      ),
-    showUnusedStops
-      ? (stops) => stops // Return stops array unchanged
-      : (stops) =>
-          stops.filter((stop) =>
-            stopBelongsToJourneyPattern(stop, route.route_id),
-          ),
+  const stopsAlongRoute = getEligibleStopsAlongRoute(route);
+  const highestPriorityCurrentStops = filterHighestPriorityCurrentStops(
+    stopsAlongRoute,
+    observationDate,
+    route.priority === Priority.Draft,
   );
+  const displayedStops = showUnusedStops
+    ? highestPriorityCurrentStops // Return stops array unchanged
+    : highestPriorityCurrentStops.filter((stop) =>
+        stopBelongsToJourneyPattern(stop, route.route_id),
+      );
 
   const directionAndLabelElementId = `direction-and-label-${route.label}-${route.variant}-${route.direction}`;
   const routeStopListElementId = 'route-stop-list';

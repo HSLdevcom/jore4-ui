@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { pipe } from 'remeda';
 import {
   useGetLineDetailsByIdLazyQuery,
   useGetRouteDetailsByIdLazyQuery,
@@ -73,15 +72,13 @@ export const EditRouteMetadataLayer: FC = () => {
         throw new Error("Can't find route and line details");
       }
 
-      const newJourneyPatternStops = pipe(
-        routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0]
-          .ordered_scheduled_stop_point_in_journey_patterns,
-        (stopsInJourneyPattern) =>
-          stopsInJourneyPattern.map((stopInJourneyPattern) => ({
+      const newJourneyPatternStops =
+        routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0].ordered_scheduled_stop_point_in_journey_patterns.map(
+          (stopInJourneyPattern) => ({
             ...stopInJourneyPattern,
             ...stopInJourneyPatternFieldsToRemove,
-          })),
-      );
+          }),
+        );
 
       dispatch(
         setDraftRouteJourneyPatternAction({ stops: newJourneyPatternStops }),

@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
+import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon/src/datetime';
-import { groupBy, pipe } from 'remeda';
 import { VehicleServiceRowData } from '../../components/timetables/vehicle-schedule-details/vehicle-service-table/VehicleServiceRow';
 import {
   RouteDirectionEnum,
@@ -128,14 +128,14 @@ const createTimetableRowInfo = (
         const { journeys, nameI18n } =
           journeysGroupedByLabelAndDirection[routeLabel][direction];
 
-        const groupedStartTimes = pipe(
+        const groupedStartTimes = groupBy(
           journeys
             .map((journey) => journey.start_time)
             .sort(
               (time1, time2) =>
                 time1.as('millisecond') - time2.as('millisecond'),
             ),
-          groupBy((item) => item.hours),
+          (item) => item.hours,
         );
 
         const vehicleServiceRowData: VehicleServiceRowData[] = Object.entries(

@@ -1,8 +1,8 @@
 import flip from 'lodash/flip';
+import groupBy from 'lodash/groupBy';
 import maxBy from 'lodash/maxBy';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
-import { groupBy } from 'remeda';
 import { ScheduledStopPointAllFieldsFragment } from '../generated/graphql';
 import { FilterableStopInfo } from '../types';
 import { Priority } from '../types/enums';

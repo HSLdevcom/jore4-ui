@@ -1,9 +1,9 @@
 import { QueryResult, gql } from '@apollo/client';
+import flow from 'lodash/flow';
 import groupBy from 'lodash/groupBy';
 import uniq from 'lodash/uniq';
 import uniqWith from 'lodash/uniqWith';
 import { DateTime } from 'luxon';
-import { pipe } from 'remeda';
 import {
   GetRouteInfoForTimetableVersionsQuery,
   RouteInfoForTimetableVersionFragment,
@@ -101,12 +101,11 @@ export const useGetJourneyPatternIdsByLineLabel = ({
     variables: { routeFilters },
   });
 
-  const journeyPatternIdsGroupedByRouteLabel = pipe(
-    result,
+  const journeyPatternIdsGroupedByRouteLabel = flow(
     removeSecondDirectionRouteFromResult,
     groupByLabelAndVariant,
     extractDistinctJourneyPatternIdsGroupedByRouteLabel,
-  );
+  )(result);
 
   return {
     journeyPatternIdsGroupedByRouteLabel,

@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { pipe } from 'remeda';
 import { RouteDirectionEnum } from '../../../generated/graphql';
 import {
   belongsToJourneyPattern,
@@ -59,14 +58,13 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
     return null;
   }
 
-  const highestPriorityStopsEligibleForJourneyPattern = pipe(
-    filterHighestPriorityCurrentStops(
-      stopsEligibleForJourneyPattern,
-      observationDate,
-      routeMetadata.priority === Priority.Draft,
-    ),
-    filterDistinctConsecutiveStops,
+  const highestPriorityCurrentStops = filterHighestPriorityCurrentStops(
+    stopsEligibleForJourneyPattern,
+    observationDate,
+    routeMetadata.priority === Priority.Draft,
   );
+  const highestPriorityStopsEligibleForJourneyPattern =
+    filterDistinctConsecutiveStops(highestPriorityCurrentStops);
 
   /**
    * When editing a route, we want to show all stops eligible for route,

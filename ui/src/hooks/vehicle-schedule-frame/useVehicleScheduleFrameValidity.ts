@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
-import { filter, flatMap, isTruthy, pipe } from 'remeda';
 import {
   useGetVehicleScheduleFrameWithRoutesQuery,
   useUpdateVehicleScheduleFrameValidityMutation,
@@ -64,6 +63,10 @@ const GQL_UPDATE_VEHICLE_SCHEDULE_FRAME_VALIDITY = gql`
   }
 `;
 
+function validLabel(label: string | null | undefined): label is string {
+  return !!label;
+}
+
 export const useVehicleScheduleFrameValidity = (
   vehicleScheduleFrameId?: UUID,
 ) => {
@@ -80,24 +83,19 @@ export const useVehicleScheduleFrameValidity = (
     vehicleScheduleFrameResult.data?.timetables
       ?.timetables_vehicle_schedule_vehicle_schedule_frame[0];
 
-  const affectedRouteLabels = vehicleScheduleFrame
-    ? pipe(
-        vehicleScheduleFrame.vehicle_services,
-        flatMap(
-          (vehicleService) =>
-            vehicleService?.journey_patterns_in_vehicle_service,
-        ),
-        flatMap(
-          (journeyPatternInVehicleService) =>
-            journeyPatternInVehicleService?.journey_pattern_instance,
-        ),
-        flatMap(
-          (journeyPattern) => journeyPattern?.journey_pattern_route?.label,
-        ),
-        uniq,
-        filter(isTruthy),
+  const allAffectedRouteLabels =
+    vehicleScheduleFrame?.vehicle_services
+      .flatMap(
+        (vehicleService) => vehicleService.journey_patterns_in_vehicle_service,
       )
-    : [];
+      .map(
+        (journeyPatternInVehicleService) =>
+          journeyPatternInVehicleService.journey_pattern_instance,
+      )
+      .map((journeyPattern) => journeyPattern?.journey_pattern_route?.label)
+      .filter(validLabel) ?? [];
+
+  const affectedRouteLabels = uniq(allAffectedRouteLabels);
 
   const [updateVehicleScheduleValidityMutation] =
     useUpdateVehicleScheduleFrameValidityMutation();

@@ -4,7 +4,6 @@ import React, {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { pipe } from 'remeda';
 import {
   RouteDefaultFieldsFragment,
   RouteRoute,
@@ -214,14 +213,14 @@ const RouteEditorComponent: ForwardRefRenderFunction<
         routeDetailsResult.data.route_route_by_pk.route_journey_patterns[0];
 
       // Preserve journey pattern stop metadata (e.g. via info)
-      const newJourneyPatternStops = pipe(
-        editedRouteJourneyPattern.ordered_scheduled_stop_point_in_journey_patterns,
-        (stopsInJourneyPattern) =>
-          stopsInJourneyPattern.map((stopInJourneyPattern) => ({
+
+      const newJourneyPatternStops =
+        editedRouteJourneyPattern.ordered_scheduled_stop_point_in_journey_patterns.map(
+          (stopInJourneyPattern) => ({
             ...stopInJourneyPattern,
             ...stopInJourneyPatternFieldsToRemove,
-          })),
-      );
+          }),
+        );
 
       dispatch(
         setDraftRouteJourneyPatternAction({

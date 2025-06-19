@@ -1,6 +1,6 @@
+import uniq from 'lodash/uniq';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { pipe, unique } from 'remeda';
 import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
 import { VehicleJourneyGroup, useTimetablesViewState } from '../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
@@ -39,19 +39,17 @@ export const PassingTimesByStopSection: FC<PassingTimesByStopSectionProps> = ({
       (vehicleJourneyGroup) => vehicleJourneyGroup.dayType.label === dayType,
     ) ?? [];
 
-  const dayTypes = pipe(
+  const dayTypes = uniq(
     vehicleJourneyGroups.map(
       (vehicleJourneyGroup) => vehicleJourneyGroup.dayType,
     ),
-    (types) => unique(types),
   );
 
   const dayTypeUiNameMapper = (dayTypeLabel: string) => {
-    return pipe(
-      dayTypes.find((type) => type.label === dayTypeLabel),
-      (type) => type?.name_i18n,
-      getLocalizedTextFromDbBlob,
-    );
+    const name = dayTypes.find(
+      (type) => type.label === dayTypeLabel,
+    )?.name_i18n;
+    return getLocalizedTextFromDbBlob(name);
   };
 
   if (!dayType) {

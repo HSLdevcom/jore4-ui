@@ -1,5 +1,5 @@
+import uniq from 'lodash/uniq';
 import { useEffect, useMemo } from 'react';
-import { pipe, unique } from 'remeda';
 import { LineWithRoutesUniqueFieldsFragment } from '../../generated/graphql';
 import { QueryParameterName, useUrlQuery } from '../urlQuery/useUrlQuery';
 
@@ -11,10 +11,8 @@ export const useGetRoutesDisplayedInList = (
 ) => {
   const { setArrayToUrlQuery, getArrayFromUrlQuery } = useUrlQuery();
 
-  const uniqueLineRouteLabels = pipe(
-    line?.line_routes,
-    (routes) => routes?.map((route) => route.label) ?? [],
-    (routeLabels) => unique(routeLabels),
+  const uniqueLineRouteLabels = uniq(
+    line?.line_routes.map((route) => route.label),
   );
 
   /**
