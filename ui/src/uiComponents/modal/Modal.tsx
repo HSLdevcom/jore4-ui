@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import React, { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type ModalProps = {

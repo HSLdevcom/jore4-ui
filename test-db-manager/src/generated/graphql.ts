@@ -37,6 +37,8 @@ export type Scalars = {
   stop_registry_Coordinates: { input: GeoJSON.Position; output: GeoJSON.Position; }
   /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
   stop_registry_DateTime: { input: luxon.DateTime; output: luxon.DateTime; }
+  /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
+  stop_registry_LocalDate: { input: any; output: any; }
   /** Legacy GeoJSON Coordinates */
   stop_registry_legacyCoordinates: { input: any; output: any; }
   timestamp: { input: any; output: any; }
@@ -9154,6 +9156,7 @@ export type StopRegistryStopPlaceMutationMergeStopPlacesArgs = {
 
 export type StopRegistryStopPlaceMutationMoveQuaysToStopArgs = {
   fromVersionComment?: InputMaybe<Scalars['String']['input']>;
+  moveQuayFromDate?: InputMaybe<Scalars['stop_registry_LocalDate']['input']>;
   quayIds?: InputMaybe<Array<Scalars['String']['input']>>;
   toStopPlaceId?: InputMaybe<Scalars['String']['input']>;
   toVersionComment?: InputMaybe<Scalars['String']['input']>;
