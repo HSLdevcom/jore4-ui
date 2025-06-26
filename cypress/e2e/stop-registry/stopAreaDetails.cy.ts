@@ -263,10 +263,6 @@ describe('Stop area details', () => {
           .getShowOnMapMenuItem()
           .shouldBeVisible()
           .shouldHaveText('Näytä pysäkki kartalla');
-        memberStops
-          .getRemoveStopMenuItem()
-          .shouldBeVisible()
-          .shouldHaveText('Poista pysäkki pysäkkialueelta');
         memberStops.getActionMenu().click();
       });
     }
@@ -280,18 +276,6 @@ describe('Stop area details', () => {
   });
 
   describe('Editing', () => {
-    function assertEditButtonsEnabled() {
-      stopAreaDetailsPage.details
-        .getEditButton()
-        .shouldBeVisible()
-        .should('not.be.disabled');
-
-      stopAreaDetailsPage.memberStops
-        .getAddStopButton()
-        .shouldBeVisible()
-        .should('not.be.disabled');
-    }
-
     function setValidity(from: DateTime, to: DateTime | null) {
       stopAreaDetailsPage.details.edit.validity.setStartDate(
         from.toISODate() ?? '',
@@ -305,71 +289,6 @@ describe('Stop area details', () => {
         stopAreaDetailsPage.details.edit.validity.setAsIndefinite(true);
       }
     }
-
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('should not allow editing multiple sections simultaneously', () => {
-      // Initial state, edit buttons enabled
-      assertEditButtonsEnabled();
-
-      // Start editing details
-      stopAreaDetailsPage.details.getEditButton().click();
-
-      // Details save/edit enabled
-      stopAreaDetailsPage.details.getEditButton().should('not.exist');
-      stopAreaDetailsPage.details.edit.getCancelButton().shouldBeVisible();
-      stopAreaDetailsPage.details.edit.getSaveButton().shouldBeVisible();
-      stopAreaDetailsPage.details.edit
-        .getPrivateCode()
-        .shouldBeVisible()
-        .shouldBeDisabled();
-      stopAreaDetailsPage.details.edit.getName().shouldBeVisible();
-      stopAreaDetailsPage.details.edit.getNameSwe().shouldBeVisible();
-      stopAreaDetailsPage.details.edit
-        .getLongitude()
-        .shouldBeVisible()
-        .shouldBeDisabled();
-      stopAreaDetailsPage.details.edit
-        .getLatitude()
-        .shouldBeVisible()
-        .shouldBeDisabled();
-      stopAreaDetailsPage.details.edit.validity
-        .getStartDateInput()
-        .shouldBeVisible();
-      stopAreaDetailsPage.details.edit.validity
-        .getEndDateInput()
-        .shouldBeVisible();
-      stopAreaDetailsPage.details.edit.validity
-        .getIndefiniteCheckbox()
-        .shouldBeVisible();
-
-      // Member stops no editing available
-      stopAreaDetailsPage.memberStops.getAddStopButton().should('not.exist');
-      stopAreaDetailsPage.memberStops.getCancelButton().should('not.exist');
-      stopAreaDetailsPage.memberStops.getSaveButton().should('not.exist');
-      stopAreaDetailsPage.memberStops
-        .getSelectMemberStops()
-        .should('not.exist');
-
-      // Cancel editing details & Start editing members
-      stopAreaDetailsPage.details.edit.getCancelButton().click();
-      assertEditButtonsEnabled();
-      stopAreaDetailsPage.memberStops.getAddStopButton().click();
-
-      // Member stop editing enabled
-      stopAreaDetailsPage.memberStops.getAddStopButton().should('not.exist');
-      stopAreaDetailsPage.memberStops.getCancelButton().shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getSaveButton().shouldBeVisible();
-      stopAreaDetailsPage.memberStops.getSelectMemberStops().shouldBeVisible();
-
-      // Details editing disabled
-      stopAreaDetailsPage.details.getEditButton().should('not.exist');
-      stopAreaDetailsPage.details.edit.getCancelButton().should('not.exist');
-      stopAreaDetailsPage.details.edit.getSaveButton().should('not.exist');
-
-      // Cancel editing members
-      stopAreaDetailsPage.memberStops.getCancelButton().click();
-      assertEditButtonsEnabled();
-    });
 
     function waitForSaveToBeFinished() {
       expectGraphQLCallToSucceed('@gqlUpsertStopArea');
@@ -391,38 +310,6 @@ describe('Stop area details', () => {
       altEdit.getAbbreviationEng().clearAndType(inputs.abbreviationEng);
 
       setValidity(inputs.validFrom, inputs.validTo);
-    }
-
-    function testMemberStopEditing() {
-      // Remove stop E2E009
-      stopAreaDetailsPage.memberStops.getAddStopButton().click();
-      // Test remove/add back
-      stopAreaDetailsPage.memberStops.getStopRow('E2E001').within(() => {
-        stopAreaDetailsPage.memberStops.getRemoveButton().click();
-        stopAreaDetailsPage.memberStops.getAddBackButton().click();
-      });
-      stopAreaDetailsPage.memberStops.getStopRow('E2E009').within(() => {
-        stopAreaDetailsPage.memberStops.getRemoveButton().click();
-      });
-      stopAreaDetailsPage.memberStops.getSaveButton().click();
-      waitForSaveToBeFinished();
-      stopAreaDetailsPage.memberStops.getStopRow('E2E009').should('not.exist');
-      assertEditButtonsEnabled();
-
-      // Find and add back stop E2E009
-      stopAreaDetailsPage.memberStops.getAddStopButton().click();
-      stopAreaDetailsPage.memberStops.getSelectMemberStops().within(() => {
-        selectMemberStopsDropdown.dropdownButton().click();
-        selectMemberStopsDropdown.getInput().clearAndType('E2E009');
-        selectMemberStopsDropdown.getMemberOptions().should('have.length', 1);
-        selectMemberStopsDropdown
-          .getMemberOptions()
-          .eq(0)
-          .should('contain.text', 'E2E009')
-          .click();
-      });
-      stopAreaDetailsPage.memberStops.getSaveButton().click();
-      waitForSaveToBeFinished();
     }
 
     it('should allow editing details', () => {
@@ -449,8 +336,6 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.details.edit.getSaveButton().click();
       waitForSaveToBeFinished();
 
-      // Commented out while editing member stops is disabled
-      // assertEditButtonsEnabled();
       // Should have saved the changes and be back at view mode with new details
       assertBasicDetails(newBasicDetails);
 
@@ -458,27 +343,35 @@ describe('Stop area details', () => {
       assertBasicDetails(newBasicDetails);
     });
 
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('should allow editing members', () => {
-      assertBasicDetails(testAreaExpectedBasicDetails);
+    it('should allow adding member stops', () => {
+      stopAreaDetailsPage.memberStops.getAddStopButton().click();
+      stopAreaDetailsPage.memberStops.modal.modal().shouldBeVisible();
+      selectMemberStopsDropdown.dropdownButton().click();
+      selectMemberStopsDropdown.getInput().click({ force: true });
+      selectMemberStopsDropdown.getInput().clear().type('E2E003');
+      selectMemberStopsDropdown.getMemberOptions().should('have.length', 1);
+      selectMemberStopsDropdown
+        .getMemberOptions()
+        .eq(0)
+        .should('contain.text', 'E2E003')
+        .click();
 
-      const newBasicDetails: ExpectedBasicDetails = {
-        ...testAreaExpectedBasicDetails,
-        name: 'New name',
-        nameSwe: 'New name swe',
-        validFrom: DateTime.now(),
-        validTo: null,
-      };
+      stopAreaDetailsPage.memberStops.modal
+        .getTransferDateInput()
+        .shouldBeVisible();
+      stopAreaDetailsPage.memberStops.modal.setTransferDate('2025-06-28');
+      stopAreaDetailsPage.memberStops.modal.getStopVersionsButton().click();
 
-      // Edit member stops
-      testMemberStopEditing();
+      stopAreaDetailsPage.memberStops.modal
+        .getStopVersionsList()
+        .shouldBeVisible();
 
-      // Both stops should be present in the end
+      stopAreaDetailsPage.memberStops.modal.saveButton().click();
+
+      // All stops should be present in the end
       stopAreaDetailsPage.memberStops.getStopRow('E2E001').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
       stopAreaDetailsPage.memberStops.getStopRow('E2E009').shouldBeVisible();
-
-      // And the basic details should still match newBasicDetails
-      assertBasicDetails(newBasicDetails);
     });
 
     it('should handle unique name exception', () => {
