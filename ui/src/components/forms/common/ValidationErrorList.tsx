@@ -7,7 +7,6 @@ import {
   useFormContext,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { MdWarning } from 'react-icons/md';
 import { Column, Row } from '../../../layoutComponents';
 import { REQUIRED_FIELD_ERROR_MESSAGE } from './customZodSchemas';
 
@@ -27,9 +26,9 @@ export const ValidationError: FC<ValidationErrorProps> = ({
   fieldPath,
 }) => (
   <Row className={`${className} items-center`}>
-    <MdWarning className="mr-2 inline text-lg text-hsl-red" />
+    <i className="icon-alert mr-4 text-hsl-red" />
     <span
-      className="text-hsl-red"
+      className="text-sm text-hsl-red"
       data-testid={testIds.errorMessage(fieldPath)}
     >
       {errorMessage}
