@@ -451,13 +451,15 @@
       "fields": {
         "versionName": "Version nimi",
         "versionDescription": "Muutoksen peruste",
-        "versionDescriptionNotImplementedYetTitle": "Kenttää ei ole vielä toteutettu tässä Joren testiversiossa!"
+        "versionDescriptionNotImplementedYetTitle": "Kenttää ei ole vielä toteutettu tässä Joren testiversiossa!",
+        "affectedLines": "Huomaa vaikutukset seuraaviin reitteihin:"
       },
       "success": {
         "edit": "Versio tallennettu",
         "copy": "Uusi versio luotu\nAvataan uusi versio"
       },
       "errors": {
+        "edit": "Version tallennus epäonnistui:\n{{reason}}",
         "copy": "Kopion tallennus epäonnistui:\n{{reason}}",
         "failedToResolveExistingQuays": "Pysäkin pysäkkialueen muiden pysäkkien selvitys epäonnistui! Syy:\n{{reason}}",
         "stopPlaceInsertFailed": "Pysäkkirekisteritietueen luonti epäonnistui! Syy:\n{{reason}}",

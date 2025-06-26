@@ -452,13 +452,15 @@
       "fields": {
         "versionName": "Version name",
         "versionDescription": "Reason for change",
-        "versionDescriptionNotImplementedYetTitle": "This field has not yet been implemented in this Jore test version!"
+        "versionDescriptionNotImplementedYetTitle": "This field has not yet been implemented in this Jore test version!",
+        "affectedLines": "Note the effects on the following routes:"
       },
       "success": {
         "edit": "Version saved",
         "copy": "New version created\nOpening up new version"
       },
       "errors": {
+        "edit": "Failed to save new version:\n{{reason}}",
         "copy": "Failed to save copy:\n{{reason}}",
         "failedToResolveExistingQuays": "Failed to resolve the other stops belonging to the same Stop Area! Reason:\n{{reason}}",
         "stopPlaceInsertFailed": "Failed to create entry in StopRegistry! Reason:\n{{reason}}",
