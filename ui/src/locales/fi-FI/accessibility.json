@@ -40,7 +40,8 @@
     "validityPeriod": "Voimassaolo",
     "editExternalLink": "Muokkaa ulkoisia linkkejä",
     "addExternalLink": "Lisää ulkoinen linkki",
-    "openExternalLink": "Avaa ulkoinen linkki {{ linkTitle }}"
+    "openExternalLink": "Avaa ulkoinen linkki {{ linkTitle }}",
+    "editStopValidity": "Muokkaa pysäkin {{ stopLabel}} versiota"
   },
   "stopAreas": {
     "showStopAreaDetails": "Näytä pysäkkialueen {{ areaLabel }} tiedot"

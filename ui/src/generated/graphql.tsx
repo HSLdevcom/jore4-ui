@@ -68689,6 +68689,82 @@ export type GetOrganisationsQuery = {
   } | null
 };
 
+export type FindLinesByStopQueryVariables = Exact<{
+  stopPlaceId: Scalars['String']['input'];
+  validOn: Scalars['date']['input'];
+}>;
+
+
+export type FindLinesByStopQuery = {
+  __typename?: 'query_root',
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point',
+    stop_place_ref?: string | null,
+    label: string,
+    priority: number,
+    validity_start?: luxon.DateTime | null,
+    validity_end?: luxon.DateTime | null,
+    scheduled_stop_point_id: UUID,
+    scheduled_stop_point_in_journey_patterns: Array<{
+      __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+      journey_pattern_id: UUID,
+      scheduled_stop_point_sequence: number,
+      journey_pattern: {
+        __typename?: 'journey_pattern_journey_pattern',
+        journey_pattern_id: UUID,
+        journey_pattern_route?: {
+          __typename?: 'route_route',
+          label: string,
+          priority: number,
+          validity_start?: luxon.DateTime | null,
+          validity_end?: luxon.DateTime | null,
+          route_id: UUID
+        } | null
+      }
+    }>
+  }>
+};
+
+export type StopPointDetailsFragment = {
+  __typename?: 'service_pattern_scheduled_stop_point',
+  stop_place_ref?: string | null,
+  label: string,
+  priority: number,
+  validity_start?: luxon.DateTime | null,
+  validity_end?: luxon.DateTime | null,
+  scheduled_stop_point_id: UUID
+};
+
+export type JourneyRouteInfoFragment = {
+  __typename?: 'service_pattern_scheduled_stop_point',
+  scheduled_stop_point_in_journey_patterns: Array<{
+    __typename?: 'journey_pattern_scheduled_stop_point_in_journey_pattern',
+    journey_pattern_id: UUID,
+    scheduled_stop_point_sequence: number,
+    journey_pattern: {
+      __typename?: 'journey_pattern_journey_pattern',
+      journey_pattern_id: UUID,
+      journey_pattern_route?: {
+        __typename?: 'route_route',
+        label: string,
+        priority: number,
+        validity_start?: luxon.DateTime | null,
+        validity_end?: luxon.DateTime | null,
+        route_id: UUID
+      } | null
+    }
+  }>
+};
+
+export type JourneyPatternRouteFragment = {
+  __typename?: 'route_route',
+  label: string,
+  priority: number,
+  validity_start?: luxon.DateTime | null,
+  validity_end?: luxon.DateTime | null,
+  route_id: UUID
+};
+
 export type ResolveStopSheltersQueryVariables = Exact<{
   netexId: Scalars['String']['input'];
 }>;
@@ -75698,6 +75774,41 @@ ${QuayDetailsFragmentDoc}
 ${AccessibilityAssessmentDetailsFragmentDoc}
 ${TopographicPlaceDetailsFragmentDoc}
 ${FareZoneDetailsFragmentDoc}`;
+export const StopPointDetailsFragmentDoc = gql`
+    fragment StopPointDetails on service_pattern_scheduled_stop_point {
+  stop_place_ref
+  label
+  priority
+  validity_start
+  validity_end
+  scheduled_stop_point_id
+}
+    `;
+export const JourneyPatternRouteFragmentDoc = gql`
+    fragment JourneyPatternRoute on route_route {
+  label
+  priority
+  validity_start
+  validity_end
+  route_id
+}
+    `;
+export const JourneyRouteInfoFragmentDoc = gql`
+    fragment JourneyRouteInfo on service_pattern_scheduled_stop_point {
+  scheduled_stop_point_in_journey_patterns(
+    where: {journey_pattern: {journey_pattern_route: {validity_start: {_lte: $validOn}, _or: [{validity_end: {_gte: $validOn}}, {validity_end: {_is_null: true}}]}}}
+  ) {
+    journey_pattern_id
+    scheduled_stop_point_sequence
+    journey_pattern {
+      journey_pattern_id
+      journey_pattern_route {
+        ...JourneyPatternRoute
+      }
+    }
+  }
+}
+    ${JourneyPatternRouteFragmentDoc}`;
 export const StopVersionInfoFragmentDoc = gql`
     fragment StopVersionInfo on stops_database_quay_newest_version {
   id
@@ -77666,6 +77777,53 @@ export type GetOrganisationsQueryHookResult = ReturnType<typeof useGetOrganisati
 export type GetOrganisationsLazyQueryHookResult = ReturnType<typeof useGetOrganisationsLazyQuery>;
 export type GetOrganisationsSuspenseQueryHookResult = ReturnType<typeof useGetOrganisationsSuspenseQuery>;
 export type GetOrganisationsQueryResult = Apollo.QueryResult<GetOrganisationsQuery, GetOrganisationsQueryVariables>;
+export const FindLinesByStopDocument = gql`
+    query FindLinesByStop($stopPlaceId: String!, $validOn: date!) {
+  service_pattern_scheduled_stop_point(
+    where: {stop_place_ref: {_eq: $stopPlaceId}, validity_start: {_lte: $validOn}, _or: [{validity_end: {_gte: $validOn}}, {validity_end: {_is_null: true}}]}
+    distinct_on: [label, priority]
+    order_by: {label: asc, priority: desc}
+  ) {
+    ...StopPointDetails
+    ...JourneyRouteInfo
+  }
+}
+    ${StopPointDetailsFragmentDoc}
+${JourneyRouteInfoFragmentDoc}`;
+
+/**
+ * __useFindLinesByStopQuery__
+ *
+ * To run a query within a React component, call `useFindLinesByStopQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindLinesByStopQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindLinesByStopQuery({
+ *   variables: {
+ *      stopPlaceId: // value for 'stopPlaceId'
+ *      validOn: // value for 'validOn'
+ *   },
+ * });
+ */
+export function useFindLinesByStopQuery(baseOptions: Apollo.QueryHookOptions<FindLinesByStopQuery, FindLinesByStopQueryVariables> & ({ variables: FindLinesByStopQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindLinesByStopQuery, FindLinesByStopQueryVariables>(FindLinesByStopDocument, options);
+      }
+export function useFindLinesByStopLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindLinesByStopQuery, FindLinesByStopQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindLinesByStopQuery, FindLinesByStopQueryVariables>(FindLinesByStopDocument, options);
+        }
+export function useFindLinesByStopSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindLinesByStopQuery, FindLinesByStopQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindLinesByStopQuery, FindLinesByStopQueryVariables>(FindLinesByStopDocument, options);
+        }
+export type FindLinesByStopQueryHookResult = ReturnType<typeof useFindLinesByStopQuery>;
+export type FindLinesByStopLazyQueryHookResult = ReturnType<typeof useFindLinesByStopLazyQuery>;
+export type FindLinesByStopSuspenseQueryHookResult = ReturnType<typeof useFindLinesByStopSuspenseQuery>;
+export type FindLinesByStopQueryResult = Apollo.QueryResult<FindLinesByStopQuery, FindLinesByStopQueryVariables>;
 export const ResolveStopSheltersDocument = gql`
     query ResolveStopShelters($netexId: String!) {
   stop_registry {
