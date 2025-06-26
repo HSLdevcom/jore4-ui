@@ -1,4 +1,8 @@
+import { MemberStopsModal } from './MemberStopModal';
+
 export class StopAreaMemberStops {
+  modal = new MemberStopsModal();
+
   getStopRow = (label: string) => cy.getByTestId(`StopTableRow::row::${label}`);
 
   getLink = () => cy.getByTestId('StopTableRow::link');
@@ -12,9 +16,6 @@ export class StopAreaMemberStops {
 
   getShowOnMapMenuItem = () =>
     cy.getByTestId('StopTableRow::ActionMenu::ShowOnMap');
-
-  getRemoveStopMenuItem = () =>
-    cy.getByTestId('StopTableRow::ActionMenu::removeStopMenuItem');
 
   getAddStopButton = () => cy.getByTestId('MemberStops::addStopButton');
 
