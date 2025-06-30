@@ -262,14 +262,12 @@
       "longitude": "Longitude",
       "altitude": "Altitude",
       "functionalArea": "Functional area",
-      "stopArea": "Stop area",
-      "stopAreaName": "Stop area name",
-      "stopAreaStops": "Stop area stops",
+      "guidanceType": "Guidance type",
       "platformNumber": "Platform number",
       "memberPlatforms": "Member platforms",
       "terminal": "Terminal",
       "terminalName": "Terminal name",
-      "terminalStops": "Terminal stops",
+      "terminalStops": "Terminal stops ({{total}})",
       "input": {
         "functionalArea": "Functional area (m)"
       }

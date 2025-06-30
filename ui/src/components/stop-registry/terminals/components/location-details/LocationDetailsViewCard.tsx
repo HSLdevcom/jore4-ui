@@ -17,15 +17,14 @@ const testIds = {
   memberPlatforms: 'LocationDetailsViewCard::memberPlatforms',
 };
 
-function getMemberStops(terminal: EnrichedParentStopPlace): {
+export function getMemberStops(terminal: EnrichedParentStopPlace): {
   memberStops: string;
   memberStopsTotal: number;
 } {
   const quays = terminal.children?.flatMap((child) => child?.quays ?? []) ?? [];
-  const quayCodes = quays
-    .map((quay) => quay?.publicCode)
-    .filter(Boolean)
-    .sort();
+  const quayCodes = Array.from(
+    new Set(quays.map((quay) => quay?.publicCode).filter(Boolean)),
+  ).sort();
 
   return {
     memberStops: quayCodes.length ? quayCodes.join(', ') : '-',
