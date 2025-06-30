@@ -20,6 +20,7 @@ export const theme = {
       hslSpeedTramTurquoise: "#BFECE9",
       hslTramGreen: "#BFE5D7",
       hslWarningSurface: "#FFF8E8",
+      hslButtonSelected: "#003456",
     },
     border: {
       hslBlue: "#B1D6EE",
