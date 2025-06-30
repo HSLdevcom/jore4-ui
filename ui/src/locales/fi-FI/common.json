@@ -261,14 +261,12 @@
       "longitude": "Pituusaste",
       "altitude": "Korkeus",
       "functionalArea": "Toiminnallinen alue",
-      "stopArea": "Pysäkkialue",
-      "stopAreaName": "Pysäkkialueen nimi",
-      "stopAreaStops": "Jäsenpysäkit",
+      "guidanceType": "Opastetyyppi",
       "platformNumber": "Laiturinumero",
       "memberPlatforms": "Jäsenlaiturit",
       "terminal": "Terminaali",
       "terminalName": "Terminaalin nimi",
-      "terminalStops": "Jäsenpysäkit",
+      "terminalStops": "Terminaalin jäsenpysäkit ({{total}})",
       "input": {
         "functionalArea": "Toiminnallinen alue (m)"
       }
