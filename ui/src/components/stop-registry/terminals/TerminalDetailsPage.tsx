@@ -4,6 +4,7 @@ import { useLoader } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
 import { LoadingState, Operation } from '../../../redux';
 import { TerminalDetails } from './components/basic-details/TerminalDetailsSection';
+import { TerminalExternalLinks } from './components/external-links/TerminalExternalLinks';
 import { LocationDetails } from './components/location-details/LocationDetailsSection';
 import { TerminalTitleRow } from './components/TerminalTitleRow';
 import { TerminalVersioningRow } from './components/TerminalVersioningRow';
@@ -41,8 +42,17 @@ export const TerminalDetailsPage: FC<Record<string, never>> = () => {
       <TerminalTitleRow terminal={parentStopPlaceDetails} />
       <hr />
       <TerminalVersioningRow terminal={parentStopPlaceDetails} />
-      <TerminalDetails terminal={parentStopPlaceDetails} />
-      <LocationDetails terminal={parentStopPlaceDetails} />
+      <div className="flex flex-col gap-3 md:flex-row">
+        <div className="w-full space-y-4 md:w-[70%]">
+          <TerminalDetails terminal={parentStopPlaceDetails} />
+          <LocationDetails terminal={parentStopPlaceDetails} />
+        </div>
+        <div className="w-full md:w-[30%]">
+          {parentStopPlaceDetails && (
+            <TerminalExternalLinks terminal={parentStopPlaceDetails} />
+          )}
+        </div>
+      </div>
     </Container>
   );
 };
