@@ -18,10 +18,8 @@ const testIds = {
   stopAreaName: 'LocationDetailsViewCard::stopAreaName',
   stopAreaStops: 'LocationDetailsViewCard::stopAreaStops',
   quay: 'LocationDetailsViewCard::quay',
+  guidanceType: 'LocationDetailsViewCard::guidanceType',
   stopAreaQuays: 'LocationDetailsViewCard::stopAreaQuays',
-  terminal: 'LocationDetailsViewCard::terminal',
-  terminalName: 'LocationDetailsViewCard::terminalName',
-  terminalStops: 'LocationDetailsViewCard::terminalStops',
 };
 
 type LocationDetailsViewCardProps = {
@@ -86,49 +84,21 @@ export const LocationDetailsViewCard: FC<LocationDetailsViewCardProps> = ({
       <HorizontalSeparator />
       <DetailRow>
         <LabeledDetail
-          title={t('stopDetails.location.stopArea')}
-          detail={null /* TODO */}
-          testId={testIds.stopArea}
-        />
-        <LabeledDetail
-          title={t('stopDetails.location.stopAreaName')}
-          detail={null /* TODO */}
-          testId={testIds.stopAreaName}
-        />
-        <LabeledDetail
-          title={t('stopDetails.location.stopAreaStops')}
-          detail={null /* TODO */}
-          testId={testIds.stopAreaStops}
-        />
-        <LabeledDetail
           title={t('stopDetails.location.quay')}
-          detail={
-            null /* TODO:  stop.quay?.placeEquipments?.generalSign?.content?.value */
-          }
+          detail={null /* TODO */}
           testId={testIds.quay}
         />
         <LabeledDetail
-          title={t('stopDetails.location.stopAreaQuays')}
+          title={t('stopDetails.location.guidanceType')}
+          detail={null /* TODO */}
+          testId={testIds.guidanceType}
+        />
+        <LabeledDetail
+          title={t('stopDetails.location.stopAreaQuays', {
+            total: 0,
+          })}
           detail={null /* TODO */}
           testId={testIds.stopAreaQuays}
-        />
-      </DetailRow>
-      <HorizontalSeparator />
-      <DetailRow>
-        <LabeledDetail
-          title={t('stopDetails.location.terminal')}
-          detail={null /* TODO */}
-          testId={testIds.terminal}
-        />
-        <LabeledDetail
-          title={t('stopDetails.location.terminalName')}
-          detail={null /* TODO */}
-          testId={testIds.terminalName}
-        />
-        <LabeledDetail
-          title={t('stopDetails.location.terminalStops')}
-          detail={null /* TODO */}
-          testId={testIds.terminalStops}
         />
       </DetailRow>
     </div>

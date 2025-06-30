@@ -3,8 +3,10 @@ import React, { ForwardRefRenderFunction } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../../../layoutComponents';
+import { StopWithDetails } from '../../../../../types';
 import { FormColumn, InputField, InputLabel } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
+import { LocationTerminalDetails } from './LocationTerminalDetails';
 import { LocationDetailsFormState, locationDetailsFormSchema } from './schema';
 
 const testIds = {
@@ -21,18 +23,14 @@ const testIds = {
 type LocationDetailsFormComponentProps = {
   readonly className?: string;
   readonly defaultValues: Partial<LocationDetailsFormState>;
-  readonly municipality?: string | null;
-  readonly fareZone?: string | null;
   readonly onSubmit: (state: LocationDetailsFormState) => void;
+  readonly stop: StopWithDetails;
 };
 
 const LocationDetailsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   LocationDetailsFormComponentProps
-> = (
-  { className = '', defaultValues, municipality, fareZone, onSubmit },
-  ref,
-) => {
+> = ({ className = '', defaultValues, onSubmit, stop }, ref) => {
   const { t } = useTranslation();
 
   const methods = useForm<LocationDetailsFormState>({
@@ -46,8 +44,9 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
+        <LocationTerminalDetails stop={stop} />
         <FormColumn>
-          <Row className="flex-wrap gap-4">
+          <Row className="mt-5 flex-wrap gap-4">
             <InputField<LocationDetailsFormState>
               type="text"
               translationPrefix="stopDetails.location"
@@ -76,7 +75,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
                 >
                   {
                     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-                    municipality || '-'
+                    stop.stop_place?.municipality || '-'
                   }
                 </span>
                 <i className="icon-info text-lg text-brand" />
@@ -97,7 +96,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
                 >
                   {
                     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-                    fareZone || '-'
+                    stop.stop_place?.fareZone || '-'
                   }
                 </span>
                 <i className="icon-info text-lg text-brand" />

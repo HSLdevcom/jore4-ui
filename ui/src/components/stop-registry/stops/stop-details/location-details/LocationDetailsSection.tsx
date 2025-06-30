@@ -7,6 +7,7 @@ import { InfoContainer, useInfoContainerControls } from '../../../../common';
 import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { LocationDetailsForm } from './LocationDetailsForm';
 import { LocationDetailsViewCard } from './LocationDetailsViewCard';
+import { LocationTerminalDetails } from './LocationTerminalDetails';
 import { LocationDetailsFormState } from './schema';
 
 type LocationDetailsSectionProps = {
@@ -65,13 +66,15 @@ export const LocationDetailsSection: FC<LocationDetailsSectionProps> = ({
       {infoContainerControls.isInEditMode && !!defaultValues ? (
         <LocationDetailsForm
           defaultValues={defaultValues}
-          municipality={stop.stop_place?.municipality}
-          fareZone={stop.stop_place?.fareZone}
+          stop={stop}
           ref={formRef}
           onSubmit={onSubmit}
         />
       ) : (
-        <LocationDetailsViewCard stop={stop} />
+        <>
+          <LocationTerminalDetails stop={stop} />
+          <LocationDetailsViewCard stop={stop} />
+        </>
       )}
     </InfoContainer>
   );
