@@ -37,6 +37,7 @@ module.exports = {
           'hsl-pink': colors.background.hslPink,
           'hsl-speed-tram-turquoise': colors.background.hslSpeedTramTurquoise,
           'hsl-tram-green': colors.background.hslTramGreen,
+          'hsl-button-selected': colors.background.hslButtonSelected,
         },
         border: {
           'hsl-blue': colors.border.hslBlue,
