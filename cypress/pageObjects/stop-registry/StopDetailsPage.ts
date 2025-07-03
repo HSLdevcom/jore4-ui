@@ -2,7 +2,6 @@ import { ObservationDateControl } from '../ObservationDateControl';
 import {
   BasicDetailsSection,
   CreateCopyModal,
-  ExternalLinksSection,
   InfoSpotsSection,
   LocationDetailsSection,
   MaintenanceSection,
@@ -14,8 +13,6 @@ import {
 
 export class StopDetailsPage {
   basicDetails = new BasicDetailsSection();
-
-  externalLinks = new ExternalLinksSection();
 
   infoSpots = new InfoSpotsSection();
 
