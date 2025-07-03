@@ -3,7 +3,10 @@ import { FC, useCallback } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { ExternalLinksDetailsFragment } from '../../../../generated/graphql';
+import {
+  ExternalLinksDetailsFragment,
+  TerminalExternalLinksDetailsFragment,
+} from '../../../../generated/graphql';
 import {
   HorizontalSeparator,
   Row,
@@ -29,7 +32,9 @@ const testIds = {
 
 type ExternalLinksFormProps = {
   readonly className?: string;
-  readonly externalLinks: ReadonlyArray<ExternalLinksDetailsFragment>;
+  readonly externalLinks: ReadonlyArray<
+    ExternalLinksDetailsFragment | TerminalExternalLinksDetailsFragment
+  >;
   readonly setIsEditing: (isEditing: boolean) => void;
   readonly onSubmit: (state: ExternalLinksFormState) => void;
 };

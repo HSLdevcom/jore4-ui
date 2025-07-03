@@ -1,6 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ExternalLinksDetailsFragment } from '../../../../generated/graphql';
+import {
+  ExternalLinksDetailsFragment,
+  TerminalExternalLinksDetailsFragment,
+} from '../../../../generated/graphql';
 import { Column, Row } from '../../../../layoutComponents';
 
 const testIds = {
@@ -12,7 +15,9 @@ const testIds = {
 };
 
 type ExternalLinksListProps = {
-  readonly externalLinks: ReadonlyArray<ExternalLinksDetailsFragment>;
+  readonly externalLinks: ReadonlyArray<
+    ExternalLinksDetailsFragment | TerminalExternalLinksDetailsFragment
+  >;
 };
 
 export const ExternalLinksList: FC<ExternalLinksListProps> = ({

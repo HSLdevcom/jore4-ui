@@ -1,5 +1,8 @@
 import { z } from 'zod';
-import { ExternalLinksDetailsFragment } from '../../../../generated/graphql';
+import {
+  ExternalLinksDetailsFragment,
+  TerminalExternalLinksDetailsFragment,
+} from '../../../../generated/graphql';
 import { requiredString } from '../../../forms/common';
 
 export const externalLinksSchema = z.object({
@@ -17,7 +20,9 @@ export type ExternalLinksState = z.infer<typeof externalLinksSchema>;
 export type ExternalLinksFormState = z.infer<typeof externalLinksFormSchema>;
 
 export const mapExternalLinkDataToFormState = (
-  externalLink: ExternalLinksDetailsFragment,
+  externalLink:
+    | ExternalLinksDetailsFragment
+    | TerminalExternalLinksDetailsFragment,
 ): ExternalLinksState => {
   return {
     name: externalLink.name ?? '',

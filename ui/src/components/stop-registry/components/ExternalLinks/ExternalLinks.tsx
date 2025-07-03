@@ -1,6 +1,9 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ExternalLinksDetailsFragment } from '../../../../generated/graphql';
+import {
+  ExternalLinksDetailsFragment,
+  TerminalExternalLinksDetailsFragment,
+} from '../../../../generated/graphql';
 import { Row } from '../../../../layoutComponents';
 import { EditButton } from '../../../../uiComponents';
 import { ExternalLinksForm } from './ExternalLinksForm';
@@ -18,7 +21,9 @@ const testIds = {
 };
 
 type ExternalLinksProps = {
-  readonly externalLinks: ReadonlyArray<ExternalLinksDetailsFragment>;
+  readonly externalLinks: ReadonlyArray<
+    ExternalLinksDetailsFragment | TerminalExternalLinksDetailsFragment
+  >;
   readonly onSubmit: (state: ExternalLinksFormState) => void;
 };
 
