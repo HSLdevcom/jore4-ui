@@ -340,6 +340,12 @@ const terminalData: Array<TerminalInput> = [
         { key: 'loadingPlatforms', values: ['3'] },
         { key: 'electricCharging', values: ['2'] },
       ],
+      externalLinks: [
+        {
+          name: 'Terminaalin Testilinkki',
+          location: 'https://terminaltest.fi',
+        },
+      ],
     },
     memberLabels: ['E2E008', 'E2E010'],
   },

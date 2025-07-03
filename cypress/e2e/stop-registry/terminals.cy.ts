@@ -9,6 +9,8 @@ import { Tag } from '../../enums';
 import {
   AlternativeNames,
   AlternativeNamesEdit,
+  ExternalLinksForm,
+  ExternalLinksSection,
   SelectMemberStopsDropdown,
   TerminalDetailsPage,
   Toast,
@@ -48,6 +50,7 @@ describe('Terminal details', () => {
   const alternativeNames = new AlternativeNames();
   const toast = new Toast();
   const selectMemberStopsDropdown = new SelectMemberStopsDropdown();
+  const externalLinks = new ExternalLinksSection();
 
   let dbResources: SupportedResources;
 
@@ -155,6 +158,15 @@ describe('Terminal details', () => {
     locationView.getLatitude().shouldHaveText('60.16993494912799');
     locationView.getLongitude().shouldHaveText('24.92596546020357');
     locationView.getMemberStops().shouldHaveText('E2E008, E2E010');
+  };
+
+  const verifyInitialExternalLinks = () => {
+    const externalLinksView = externalLinks;
+
+    externalLinksView.getName().shouldHaveText('Terminaalin Testilinkki');
+    externalLinksView
+      .getLocation()
+      .should('have.attr', 'href', 'https://terminaltest.fi');
   };
 
   describe('basic details', () => {
@@ -333,5 +345,92 @@ describe('Terminal details', () => {
         'Tallennus epäonnistui: Terminaalilla pitää olla vähintään yksi jäsenpysäkki.',
       );
     });
+  });
+
+  describe('external links', () => {
+    const externalLinksView = externalLinks;
+    const externalLinksForm = new ExternalLinksForm();
+
+    it(
+      'should view and edit external links',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        externalLinksView.getTitle().shouldHaveText('Linkit');
+        externalLinksView.getExternalLinks().shouldBeVisible();
+        externalLinksView.getNthExternalLink(0).within(() => {
+          verifyInitialExternalLinks();
+        });
+
+        externalLinksView.getEditButton().click();
+        externalLinksForm.externalLinks
+          .getNameInput()
+          .clearAndType('Linkin nimi');
+        externalLinksForm.externalLinks
+          .getLocationInput()
+          .clearAndType('http://www.example.com');
+        externalLinksForm.getSaveButton().click();
+        externalLinksView.getNoExternalLinks().should('not.exist');
+        externalLinksView.getExternalLinks().should('have.length', 1);
+
+        externalLinksView.getNthExternalLink(0).within(() => {
+          externalLinksView.getName().shouldHaveText('Linkin nimi');
+          externalLinksView
+            .getLocation()
+            .should('have.attr', 'href', 'http://www.example.com');
+        });
+      },
+    );
+
+    it(
+      'should add and delete external links',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        externalLinksView.getTitle().shouldHaveText('Linkit');
+        externalLinksView.getExternalLinks().shouldBeVisible();
+        externalLinksView.getNthExternalLink(0).within(() => {
+          verifyInitialExternalLinks();
+        });
+
+        externalLinksView.getEditButton().click();
+        externalLinksForm.getAddNewButton().click();
+        externalLinksForm.getNthExternalLink(1).within(() => {
+          externalLinksForm.externalLinks
+            .getNameInput()
+            .clearAndType('Linkin nimi 2');
+          externalLinksForm.externalLinks
+            .getLocationInput()
+            .clearAndType('http://www.example2.com');
+        });
+        externalLinksForm.getSaveButton().click();
+        externalLinksView.getNoExternalLinks().should('not.exist');
+        externalLinksView.getExternalLinks().should('have.length', 2);
+
+        externalLinksView.getNthExternalLink(0).within(() => {
+          externalLinksView.getName().shouldHaveText('Terminaalin Testilinkki');
+        });
+        externalLinksView.getNthExternalLink(1).within(() => {
+          externalLinksView.getName().shouldHaveText('Linkin nimi 2');
+        });
+
+        externalLinksView.getEditButton().click();
+        externalLinksForm.getNthExternalLink(0).within(() => {
+          externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
+        });
+        externalLinksForm.getSaveButton().click();
+        externalLinksView.getExternalLinks().should('have.length', 1);
+        externalLinksView.getNthExternalLink(0).within(() => {
+          externalLinksView.getName().shouldHaveText('Linkin nimi 2');
+        });
+
+        externalLinksView.getEditButton().click();
+        externalLinksForm.getNthExternalLink(0).within(() => {
+          externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
+        });
+        externalLinksForm.getSaveButton().click();
+        externalLinksView.getExternalLinks().should('have.length', 0);
+        externalLinksView.getNoExternalLinks().shouldBeVisible();
+        externalLinksView.getNoExternalLinks().shouldHaveText('Ei linkkejä');
+      },
+    );
   });
 });

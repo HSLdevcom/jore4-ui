@@ -1,6 +1,7 @@
 import {
   StopRegistryAccessibilityLimitationsInput,
   StopRegistryCreateMultiModalStopPlaceInput,
+  StopRegistryExternalLinkInput,
   StopRegistryGeoJsonType,
   StopRegistryGuidanceType,
   StopRegistryHslAccessibilityProperties,
@@ -40,6 +41,7 @@ export type TerminalSeedData = {
   accessibilityProperties?: Partial<StopRegistryHslAccessibilityProperties>;
   accessibilityLimitations?: Partial<StopRegistryAccessibilityLimitationsInput>;
   members: Array<string>;
+  externalLinks?: Array<StopRegistryExternalLinkInput>;
 };
 
 export type TerminalInput = {
@@ -82,6 +84,7 @@ const mapToTerminalInput = (seedTerminal: TerminalSeedData): TerminalInput => {
         getKeyValue('validityStart', seedTerminal.validityStart),
         getKeyValue('validityEnd', seedTerminal.validityEnd),
       ],
+      externalLinks: seedTerminal.externalLinks,
 
       // Accessibility properties:
       accessibilityAssessment:
