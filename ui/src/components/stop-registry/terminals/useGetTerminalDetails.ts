@@ -82,6 +82,10 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
     children {
       ...member_stop_stop_place_details
     }
+
+    externalLinks {
+      ...terminal_external_links_details
+    }
   }
 
   fragment member_stop_stop_place_details on stop_registry_StopPlace {
@@ -101,6 +105,13 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
       key
       values
     }
+  }
+
+  fragment terminal_external_links_details on stop_registry_stopPlaceExternalLink {
+    stopPlaceId
+    orderNum
+    name
+    location
   }
 `;
 
