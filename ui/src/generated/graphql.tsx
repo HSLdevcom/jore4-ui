@@ -40,7 +40,7 @@ export type Scalars = {
   stop_registry_Coordinates: { input: GeoJSON.Position; output: GeoJSON.Position; }
   /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
   stop_registry_DateTime: { input: luxon.DateTime; output: luxon.DateTime; }
-  /** Date time using the format: yyyy-MM-dd'T'HH:mm:ss.SSSXXXX. Example: 2017-04-23T18:25:43.511+0100 */
+  /** Date using the format: yyyy-MM-dd. Example: 2025-04-23 */
   stop_registry_LocalDate: { input: any; output: any; }
   /** Legacy GeoJSON Coordinates */
   stop_registry_legacyCoordinates: { input: any; output: any; }
@@ -9837,6 +9837,8 @@ export type StopRegistryParentStopPlace = StopRegistryStopPlaceInterface & {
   changedBy?: Maybe<Scalars['String']['output']>;
   children?: Maybe<Array<Maybe<StopRegistryStopPlace>>>;
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  /** External links */
+  externalLinks?: Maybe<Array<Maybe<StopRegistryStopPlaceExternalLink>>>;
   fareZones?: Maybe<Array<Maybe<StopRegistryFareZone>>>;
   geometry?: Maybe<StopRegistryGeoJson>;
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
@@ -9866,6 +9868,7 @@ export type StopRegistryParentStopPlaceInput = {
   alternativeNames?: InputMaybe<Array<InputMaybe<StopRegistryAlternativeNameInput>>>;
   children?: InputMaybe<Array<InputMaybe<StopRegistryStopPlaceInput>>>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  externalLinks?: InputMaybe<Array<InputMaybe<StopRegistryExternalLinkInput>>>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   /** Ignore when creating new */
   id?: InputMaybe<Scalars['String']['input']>;
@@ -10315,6 +10318,8 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   alternativeNames?: Maybe<Array<Maybe<StopRegistryAlternativeName>>>;
   changedBy?: Maybe<Scalars['String']['output']>;
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  /** External links */
+  externalLinks?: Maybe<Array<Maybe<StopRegistryStopPlaceExternalLink>>>;
   fareZones?: Maybe<Array<Maybe<StopRegistryFareZone>>>;
   geometry?: Maybe<StopRegistryGeoJson>;
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
@@ -10353,6 +10358,7 @@ export type StopRegistryStopPlaceInput = {
   adjacentSites?: InputMaybe<Array<InputMaybe<StopRegistryVersionLessEntityRefInput>>>;
   alternativeNames?: InputMaybe<Array<InputMaybe<StopRegistryAlternativeNameInput>>>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  externalLinks?: InputMaybe<Array<InputMaybe<StopRegistryExternalLinkInput>>>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
   /** Ignore when creating new */
   id?: InputMaybe<Scalars['String']['input']>;
@@ -10382,6 +10388,8 @@ export type StopRegistryStopPlaceInterface = {
   alternativeNames?: Maybe<Array<Maybe<StopRegistryAlternativeName>>>;
   changedBy?: Maybe<Scalars['String']['output']>;
   description?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  /** External links */
+  externalLinks?: Maybe<Array<Maybe<StopRegistryStopPlaceExternalLink>>>;
   fareZones?: Maybe<Array<Maybe<StopRegistryFareZone>>>;
   geometry?: Maybe<StopRegistryGeoJson>;
   groups?: Maybe<Array<Maybe<StopRegistryGroupOfStopPlaces>>>;
@@ -10886,6 +10894,14 @@ export enum StopRegistrySignContentType {
   TouchPoint = 'touchPoint',
   TransportMode = 'transportMode'
 }
+
+export type StopRegistryStopPlaceExternalLink = {
+  __typename?: 'stop_registry_stopPlaceExternalLink';
+  location?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  orderNum?: Maybe<Scalars['Int']['output']>;
+  stopPlaceId?: Maybe<Scalars['Int']['output']>;
+};
 
 export enum StopRegistryStopPlaceOrganisationRelationshipType {
   Cleaning = 'cleaning',
@@ -67389,6 +67405,13 @@ export type GetTerminalDetailsByNetexIdQuery = {
             values?: Array<string | null> | null
           } | null> | null
         } | null> | null
+      } | null> | null,
+      externalLinks?: Array<{
+        __typename?: 'stop_registry_stopPlaceExternalLink',
+        stopPlaceId?: number | null,
+        orderNum?: number | null,
+        name?: string | null,
+        location?: string | null
       } | null> | null
     } | {
       __typename?: 'stop_registry_StopPlace'
@@ -68972,6 +68995,13 @@ export type GetParentStopPlaceDetailsQuery = {
               values?: Array<string | null> | null
             } | null> | null
           } | null> | null
+        } | null> | null,
+        externalLinks?: Array<{
+          __typename?: 'stop_registry_stopPlaceExternalLink',
+          stopPlaceId?: number | null,
+          orderNum?: number | null,
+          name?: string | null,
+          location?: string | null
         } | null> | null
       } | {
         __typename?: 'stop_registry_StopPlace'
@@ -69077,6 +69107,13 @@ export type ParentStopPlaceDetailsFragment = {
         values?: Array<string | null> | null
       } | null> | null
     } | null> | null
+  } | null> | null,
+  externalLinks?: Array<{
+    __typename?: 'stop_registry_stopPlaceExternalLink',
+    stopPlaceId?: number | null,
+    orderNum?: number | null,
+    name?: string | null,
+    location?: string | null
   } | null> | null
 };
 
@@ -69108,6 +69145,14 @@ export type MemberStopQuayDetailsFragment = {
     key?: string | null,
     values?: Array<string | null> | null
   } | null> | null
+};
+
+export type TerminalExternalLinksDetailsFragment = {
+  __typename?: 'stop_registry_stopPlaceExternalLink',
+  stopPlaceId?: number | null,
+  orderNum?: number | null,
+  name?: string | null,
+  location?: string | null
 };
 
 export type UpsertTerminalMutationVariables = Exact<{
@@ -69216,6 +69261,13 @@ export type UpsertTerminalMutation = {
             values?: Array<string | null> | null
           } | null> | null
         } | null> | null
+      } | null> | null,
+      externalLinks?: Array<{
+        __typename?: 'stop_registry_stopPlaceExternalLink',
+        stopPlaceId?: number | null,
+        orderNum?: number | null,
+        name?: string | null,
+        location?: string | null
       } | null> | null
     } | null> | null
   } | null
@@ -75687,6 +75739,14 @@ export const MemberStopStopPlaceDetailsFragmentDoc = gql`
   }
 }
     ${MemberStopQuayDetailsFragmentDoc}`;
+export const TerminalExternalLinksDetailsFragmentDoc = gql`
+    fragment terminal_external_links_details on stop_registry_stopPlaceExternalLink {
+  stopPlaceId
+  orderNum
+  name
+  location
+}
+    `;
 export const ParentStopPlaceDetailsFragmentDoc = gql`
     fragment parent_stop_place_details on stop_registry_ParentStopPlace {
   id
@@ -75723,9 +75783,13 @@ export const ParentStopPlaceDetailsFragmentDoc = gql`
   children {
     ...member_stop_stop_place_details
   }
+  externalLinks {
+    ...terminal_external_links_details
+  }
 }
     ${AccessibilityAssessmentDetailsFragmentDoc}
-${MemberStopStopPlaceDetailsFragmentDoc}`;
+${MemberStopStopPlaceDetailsFragmentDoc}
+${TerminalExternalLinksDetailsFragmentDoc}`;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
     fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
   external_link_id
