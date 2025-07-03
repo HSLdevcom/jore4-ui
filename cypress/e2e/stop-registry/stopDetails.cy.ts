@@ -191,6 +191,9 @@ const buildScheduledStopPoints = (
 describe('Stop details', () => {
   let stopDetailsPage: StopDetailsPage;
   let toast: Toast;
+
+  const externalLinks = new ExternalLinksSection();
+
   const baseDbResources = {
     timingPlaces,
   };
@@ -284,7 +287,7 @@ describe('Stop details', () => {
   };
 
   const verifyInitialExternalLinks = () => {
-    const externalLinksView = stopDetailsPage.externalLinks;
+    const externalLinksView = externalLinks;
 
     externalLinksView.getName().shouldHaveText('Testilinkki');
     externalLinksView
@@ -849,8 +852,8 @@ describe('Stop details', () => {
     let externalLinksSection: ExternalLinksSection;
 
     beforeEach(() => {
-      externalLinksForm = stopDetailsPage.externalLinks.form;
-      externalLinksSection = stopDetailsPage.externalLinks;
+      externalLinksForm = externalLinks.form;
+      externalLinksSection = externalLinks;
     });
 
     it(

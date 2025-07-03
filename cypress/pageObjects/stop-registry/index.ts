@@ -1,5 +1,7 @@
 export * from './AlternativeNames';
 export * from './AlternativeNamesEdit';
+export * from './ExternalLinksSection';
+export * from './ExternalLinksForm';
 export * from './SearchForStopAreas';
 export * from './SortByButton';
 export * from './StopAreaDetailsPage';
