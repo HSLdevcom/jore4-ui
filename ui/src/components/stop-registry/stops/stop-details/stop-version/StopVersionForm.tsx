@@ -25,6 +25,7 @@ const testIds = {
 type StopVersionFormProps = {
   readonly className?: string;
   readonly existingValidityRanges?: ReadonlyArray<ExistingStopValidityRange>;
+  readonly isEditing?: boolean;
   readonly affectedLines?: ReadonlyArray<LinesByStop>;
   readonly onCancel: () => void;
   readonly onSubmit: FormEventHandler<HTMLFormElement>;
@@ -33,6 +34,7 @@ type StopVersionFormProps = {
 export const StopVersionForm: FC<StopVersionFormProps> = ({
   className,
   existingValidityRanges,
+  isEditing,
   affectedLines,
   onCancel,
   onSubmit,
@@ -77,6 +79,7 @@ export const StopVersionForm: FC<StopVersionFormProps> = ({
       {existingValidityRanges && (
         <ValidityRangeIsValidVirtualField
           existingValidityRanges={existingValidityRanges}
+          isEditing={isEditing}
         />
       )}
 

@@ -61,6 +61,7 @@ function resolveErrorMessage(
   validityEnd: string | undefined,
   indefinite: boolean,
   existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>,
+  isEditing?: boolean,
 ): string | null {
   // If end is before start
   if (validityStart && !indefinite && validityEnd) {
@@ -89,7 +90,8 @@ function resolveErrorMessage(
     },
   });
 
-  if (overlappingRange) {
+  // If we are editing, we don't need to check for overlaps at this point
+  if (overlappingRange && !isEditing) {
     return t('formValidation.stopValidityPeriodOverlap', {
       start: mapToShortDate(overlappingRange.validity_start),
       end: mapToShortDate(overlappingRange.validity_end),
@@ -101,6 +103,7 @@ function resolveErrorMessage(
 
 function useValidateValidityPeriod(
   existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>,
+  isEditing?: boolean,
 ) {
   const { t } = useTranslation();
 
@@ -123,6 +126,7 @@ function useValidateValidityPeriod(
         validityEnd,
         indefinite,
         existingValidityRanges,
+        isEditing,
       ),
     [
       t,
@@ -131,6 +135,7 @@ function useValidateValidityPeriod(
       validityEnd,
       indefinite,
       existingValidityRanges,
+      isEditing,
     ],
   );
 
@@ -148,12 +153,13 @@ function useValidateValidityPeriod(
 
 type ValidityRangeIsValidVirtualFieldProps = {
   readonly existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>;
+  readonly isEditing?: boolean;
 };
 
 export const ValidityRangeIsValidVirtualField: FC<
   ValidityRangeIsValidVirtualFieldProps
-> = ({ existingValidityRanges }) => {
-  useValidateValidityPeriod(existingValidityRanges);
+> = ({ existingValidityRanges, isEditing }) => {
+  useValidateValidityPeriod(existingValidityRanges, isEditing);
 
   return (
     <ValidationErrorList<StopVersionFormState>

@@ -9,30 +9,23 @@ import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
-import {
-  FailedToResolveExistingQuays,
-  StopPlaceInsertFailed,
-  StopPlaceRevertFailed,
-  StopPointInsertFailed,
-} from '../errors';
-import {
-  CreateStopVersionResult,
-  StopVersionFormState,
-  stopVersionSchema,
-} from '../types';
+import { QuayKeyValuesEditFailed } from '../errors/QuayKeyValuesEditFailed';
+import { ScheduledStopPointEditFailed } from '../errors/ScheduledStopPointEditFailed';
+import { StopVersionFormState, stopVersionSchema } from '../types';
+import { EditStopVersionResult } from '../types/EditStopVersionResult';
+import { useEditStopValidity } from './useEditStopValidity';
 
 function useDefaultValues(
   originalStop: StopWithDetails,
 ): Omit<StopVersionFormState, 'priority'> {
   return useMemo(() => {
-    const validityStart = originalStop.validity_end
-      ?.plus({ days: 1 })
-      .startOf('day');
+    const validityStart = originalStop.validity_start?.startOf('day');
+    const validityEnd = originalStop.validity_end?.startOf('day');
 
     return {
       indefinite: originalStop.validity_end === null,
       validityStart: validityStart?.toISODate() ?? '',
-      validityEnd: '',
+      validityEnd: validityEnd?.toISODate() ?? '',
       versionDescription: '',
       versionName: '',
     };
@@ -64,37 +57,23 @@ function useErrorHandler() {
 
   // TODO: Check these for edit
   const resolveErrorMessage = (error: unknown) => {
-    if (error instanceof FailedToResolveExistingQuays) {
-      return t('stopDetails.version.errors.failedToResolveExistingQuays', {
+    if (error instanceof ScheduledStopPointEditFailed) {
+      return t('stopDetails.version.errors.failedToEditScheduledStopPoint', {
         reason: extractNestedOrTopLevelMessage(error),
       });
     }
 
-    if (error instanceof StopPlaceInsertFailed) {
-      return t('stopDetails.version.errors.stopPlaceInsertFailed', {
+    if (error instanceof QuayKeyValuesEditFailed) {
+      return t('stopDetails.version.errors.failedToEditQuayKeyValues', {
         reason: extractNestedOrTopLevelMessage(error),
       });
-    }
-
-    if (error instanceof StopPointInsertFailed) {
-      return t(
-        'stopDetails.version.errors.stopPointInsertFailedStopPlaceReverted',
-        { reason: extractNestedOrTopLevelMessage(error) },
-      );
-    }
-
-    if (error instanceof StopPlaceRevertFailed) {
-      return t(
-        'stopDetails.version.errors.stopPointInsertFailedStopPlaceNotReverted',
-        { reason: error.errors.map(extractMessageFromError).join('\n') },
-      );
     }
 
     return extractMessageFromError(error);
   };
 
   return (error: unknown) => {
-    log.error('Failed to create copy of stop place:', error);
+    log.error('Failed to edit stop validity:', error);
     showToast({
       className: 'whitespace-pre-line',
       message: t('stopDetails.version.errors.edit', {
@@ -107,11 +86,12 @@ function useErrorHandler() {
 
 export const useEditStopValidityFormUtils = (
   originalStop: StopWithDetails,
-  onEditDone: (result: CreateStopVersionResult) => void,
+  onEditDone: (result: EditStopVersionResult) => void,
 ) => {
   const { t } = useTranslation();
 
   const { setIsLoading } = useLoader(Operation.SaveStop);
+  const editStopValidity = useEditStopValidity();
 
   const defaultValues = useDefaultValues(originalStop);
 
@@ -124,7 +104,7 @@ export const useEditStopValidityFormUtils = (
 
   const handleError = useErrorHandler();
 
-  const handleSuccess = (result: CreateStopVersionResult) => {
+  const handleSuccess = (result: EditStopVersionResult) => {
     showToast({
       className: 'whitespace-pre-line',
       message: t('stopDetails.version.success.edit'),
@@ -135,7 +115,13 @@ export const useEditStopValidityFormUtils = (
 
   const onFormSubmit = (state: StopVersionFormState) => {
     setIsLoading(true);
-    // copyStop(state, originalStop).then(handleSuccess).catch(handleError);
+
+    // Check if there conflicts with the same priority
+    // TODO: Show the conflict modal
+
+    editStopValidity(state, originalStop)
+      .then(handleSuccess)
+      .catch(handleError);
     setIsLoading(false);
   };
 

@@ -7,7 +7,7 @@ import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import { ModalBody } from '../../../../map/modal';
 import { EditStopValidityForm } from './EditStopValidityForm';
-import { CreateStopVersionResult } from './types';
+import { EditStopVersionResult } from './types/EditStopVersionResult';
 import { useResolveExistingStopValidityRanges } from './utils';
 import { useFindLinesByStopId } from './utils/useFindLinesByStopId';
 
@@ -47,10 +47,11 @@ export const EditStopValidityModal: FC<EditStopValidityModalProps> = ({
     skip: !isOpen,
   });
 
-  const onCopyCreated = (result: CreateStopVersionResult) => {
+  const onEditDone = (result: EditStopVersionResult) => {
     onClose();
-    if (result.stopPointInput.validity_start) {
-      setObservationDateToUrl(result.stopPointInput.validity_start);
+
+    if (result.validityStart) {
+      setObservationDateToUrl(result.validityStart);
     }
   };
 
@@ -79,7 +80,7 @@ export const EditStopValidityModal: FC<EditStopValidityModalProps> = ({
               affectedLines={lines}
               originalStop={originalStop}
               onCancel={onClose}
-              onCopyCreated={onCopyCreated}
+              onEditDone={onEditDone}
             />
           </ModalBody>
         )}
