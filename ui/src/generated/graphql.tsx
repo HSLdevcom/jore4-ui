@@ -68627,6 +68627,85 @@ export type DeleteQuayMutation = {
   } | null
 };
 
+export type EditKeyValuesOfQuayMutationVariables = Exact<{
+  stopId: Scalars['String']['input'];
+  quayId: Scalars['String']['input'];
+  keyValues: Array<StopRegistryKeyValuesInput> | StopRegistryKeyValuesInput;
+  versionComment: Scalars['String']['input'];
+}>;
+
+
+export type EditKeyValuesOfQuayMutation = {
+  __typename?: 'mutation_root',
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation',
+    mutateStopPlace?: Array<{
+      __typename?: 'stop_registry_StopPlace',
+      quays?: Array<{
+        __typename?: 'stop_registry_Quay',
+        publicCode?: string | null,
+        keyValues?: Array<{
+          __typename?: 'stop_registry_KeyValues',
+          key?: string | null,
+          values?: Array<string | null> | null
+        } | null> | null
+      } | null> | null
+    } | null> | null
+  } | null
+};
+
+export type EditScheduledStopPointValidityMutationVariables = Exact<{
+  stopId: Scalars['String']['input'];
+  priority: Scalars['Int']['input'];
+  validityStart: Scalars['date']['input'];
+  validityEnd?: InputMaybe<Scalars['date']['input']>;
+}>;
+
+
+export type EditScheduledStopPointValidityMutation = {
+  __typename?: 'mutation_root',
+  update_service_pattern_scheduled_stop_point?: {
+    __typename?: 'service_pattern_scheduled_stop_point_mutation_response',
+    returning: Array<{
+      __typename?: 'service_pattern_scheduled_stop_point',
+      label: string,
+      priority: number,
+      stop_place_ref?: string | null,
+      scheduled_stop_point_id: UUID,
+      validity_start?: luxon.DateTime | null,
+      validity_end?: luxon.DateTime | null
+    }>
+  } | null
+};
+
+export type GetQuayQueryVariables = Exact<{
+  quayId: Scalars['String']['input'];
+}>;
+
+
+export type GetQuayQuery = {
+  __typename?: 'query_root',
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceRegister',
+    stopPlace?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace'
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      id?: string | null,
+      quays?: Array<{
+        __typename?: 'stop_registry_Quay',
+        id?: string | null,
+        publicCode?: string | null,
+        keyValues?: Array<{
+          __typename?: 'stop_registry_KeyValues',
+          key?: string | null,
+          values?: Array<string | null> | null
+        } | null> | null
+      } | null> | null
+    } | null> | null
+  } | null
+};
+
 export type InsertQuayIntoStopPlaceMutationVariables = Exact<{
   stopPlaceId: Scalars['String']['input'];
   quayInput: StopRegistryQuayInput;
@@ -68763,6 +68842,25 @@ export type JourneyPatternRouteFragment = {
   validity_start?: luxon.DateTime | null,
   validity_end?: luxon.DateTime | null,
   route_id: UUID
+};
+
+export type ScheduledStopPointsByLabelBetweenDatesQueryVariables = Exact<{
+  stopLabel: Scalars['String']['input'];
+  fromDate: Scalars['date']['input'];
+  toDate: Scalars['date']['input'];
+}>;
+
+
+export type ScheduledStopPointsByLabelBetweenDatesQuery = {
+  __typename?: 'query_root',
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point',
+    label: string,
+    priority: number,
+    stop_place_ref?: string | null,
+    validity_start?: luxon.DateTime | null,
+    validity_end?: luxon.DateTime | null
+  }>
 };
 
 export type ResolveStopSheltersQueryVariables = Exact<{
@@ -77651,6 +77749,150 @@ export function useDeleteQuayMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteQuayMutationHookResult = ReturnType<typeof useDeleteQuayMutation>;
 export type DeleteQuayMutationResult = Apollo.MutationResult<DeleteQuayMutation>;
 export type DeleteQuayMutationOptions = Apollo.BaseMutationOptions<DeleteQuayMutation, DeleteQuayMutationVariables>;
+export const EditKeyValuesOfQuayDocument = gql`
+    mutation EditKeyValuesOfQuay($stopId: String!, $quayId: String!, $keyValues: [stop_registry_KeyValuesInput!]!, $versionComment: String!) {
+  stop_registry {
+    mutateStopPlace(
+      StopPlace: {id: $stopId, quays: {id: $quayId, keyValues: $keyValues, versionComment: $versionComment}}
+    ) {
+      quays {
+        publicCode
+        keyValues {
+          key
+          values
+        }
+      }
+    }
+  }
+}
+    `;
+export type EditKeyValuesOfQuayMutationFn = Apollo.MutationFunction<EditKeyValuesOfQuayMutation, EditKeyValuesOfQuayMutationVariables>;
+
+/**
+ * __useEditKeyValuesOfQuayMutation__
+ *
+ * To run a mutation, you first call `useEditKeyValuesOfQuayMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditKeyValuesOfQuayMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editKeyValuesOfQuayMutation, { data, loading, error }] = useEditKeyValuesOfQuayMutation({
+ *   variables: {
+ *      stopId: // value for 'stopId'
+ *      quayId: // value for 'quayId'
+ *      keyValues: // value for 'keyValues'
+ *      versionComment: // value for 'versionComment'
+ *   },
+ * });
+ */
+export function useEditKeyValuesOfQuayMutation(baseOptions?: Apollo.MutationHookOptions<EditKeyValuesOfQuayMutation, EditKeyValuesOfQuayMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditKeyValuesOfQuayMutation, EditKeyValuesOfQuayMutationVariables>(EditKeyValuesOfQuayDocument, options);
+      }
+export type EditKeyValuesOfQuayMutationHookResult = ReturnType<typeof useEditKeyValuesOfQuayMutation>;
+export type EditKeyValuesOfQuayMutationResult = Apollo.MutationResult<EditKeyValuesOfQuayMutation>;
+export type EditKeyValuesOfQuayMutationOptions = Apollo.BaseMutationOptions<EditKeyValuesOfQuayMutation, EditKeyValuesOfQuayMutationVariables>;
+export const EditScheduledStopPointValidityDocument = gql`
+    mutation EditScheduledStopPointValidity($stopId: String!, $priority: Int!, $validityStart: date!, $validityEnd: date) {
+  update_service_pattern_scheduled_stop_point(
+    where: {stop_place_ref: {_eq: $stopId}, priority: {_eq: $priority}}
+    _set: {validity_start: $validityStart, validity_end: $validityEnd}
+  ) {
+    returning {
+      label
+      priority
+      stop_place_ref
+      scheduled_stop_point_id
+      validity_start
+      validity_end
+    }
+  }
+}
+    `;
+export type EditScheduledStopPointValidityMutationFn = Apollo.MutationFunction<EditScheduledStopPointValidityMutation, EditScheduledStopPointValidityMutationVariables>;
+
+/**
+ * __useEditScheduledStopPointValidityMutation__
+ *
+ * To run a mutation, you first call `useEditScheduledStopPointValidityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditScheduledStopPointValidityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editScheduledStopPointValidityMutation, { data, loading, error }] = useEditScheduledStopPointValidityMutation({
+ *   variables: {
+ *      stopId: // value for 'stopId'
+ *      priority: // value for 'priority'
+ *      validityStart: // value for 'validityStart'
+ *      validityEnd: // value for 'validityEnd'
+ *   },
+ * });
+ */
+export function useEditScheduledStopPointValidityMutation(baseOptions?: Apollo.MutationHookOptions<EditScheduledStopPointValidityMutation, EditScheduledStopPointValidityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditScheduledStopPointValidityMutation, EditScheduledStopPointValidityMutationVariables>(EditScheduledStopPointValidityDocument, options);
+      }
+export type EditScheduledStopPointValidityMutationHookResult = ReturnType<typeof useEditScheduledStopPointValidityMutation>;
+export type EditScheduledStopPointValidityMutationResult = Apollo.MutationResult<EditScheduledStopPointValidityMutation>;
+export type EditScheduledStopPointValidityMutationOptions = Apollo.BaseMutationOptions<EditScheduledStopPointValidityMutation, EditScheduledStopPointValidityMutationVariables>;
+export const GetQuayDocument = gql`
+    query GetQuay($quayId: String!) {
+  stop_registry {
+    stopPlace(query: $quayId) {
+      ... on stop_registry_StopPlace {
+        id
+        quays {
+          id
+          publicCode
+          keyValues {
+            key
+            values
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetQuayQuery__
+ *
+ * To run a query within a React component, call `useGetQuayQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetQuayQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetQuayQuery({
+ *   variables: {
+ *      quayId: // value for 'quayId'
+ *   },
+ * });
+ */
+export function useGetQuayQuery(baseOptions: Apollo.QueryHookOptions<GetQuayQuery, GetQuayQueryVariables> & ({ variables: GetQuayQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetQuayQuery, GetQuayQueryVariables>(GetQuayDocument, options);
+      }
+export function useGetQuayLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetQuayQuery, GetQuayQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetQuayQuery, GetQuayQueryVariables>(GetQuayDocument, options);
+        }
+export function useGetQuaySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetQuayQuery, GetQuayQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetQuayQuery, GetQuayQueryVariables>(GetQuayDocument, options);
+        }
+export type GetQuayQueryHookResult = ReturnType<typeof useGetQuayQuery>;
+export type GetQuayLazyQueryHookResult = ReturnType<typeof useGetQuayLazyQuery>;
+export type GetQuaySuspenseQueryHookResult = ReturnType<typeof useGetQuaySuspenseQuery>;
+export type GetQuayQueryResult = Apollo.QueryResult<GetQuayQuery, GetQuayQueryVariables>;
 export const InsertQuayIntoStopPlaceDocument = gql`
     mutation InsertQuayIntoStopPlace($stopPlaceId: String!, $quayInput: stop_registry_QuayInput!) {
   stop_registry {
@@ -77824,6 +78066,54 @@ export type FindLinesByStopQueryHookResult = ReturnType<typeof useFindLinesBySto
 export type FindLinesByStopLazyQueryHookResult = ReturnType<typeof useFindLinesByStopLazyQuery>;
 export type FindLinesByStopSuspenseQueryHookResult = ReturnType<typeof useFindLinesByStopSuspenseQuery>;
 export type FindLinesByStopQueryResult = Apollo.QueryResult<FindLinesByStopQuery, FindLinesByStopQueryVariables>;
+export const ScheduledStopPointsByLabelBetweenDatesDocument = gql`
+    query ScheduledStopPointsByLabelBetweenDates($stopLabel: String!, $fromDate: date!, $toDate: date!) {
+  service_pattern_scheduled_stop_point(
+    where: {label: {_eq: $stopLabel}, validity_start: {_lte: $toDate}, _or: [{validity_end: {_gte: $fromDate}}, {validity_end: {_is_null: true}}]}
+  ) {
+    label
+    priority
+    stop_place_ref
+    validity_start
+    validity_end
+  }
+}
+    `;
+
+/**
+ * __useScheduledStopPointsByLabelBetweenDatesQuery__
+ *
+ * To run a query within a React component, call `useScheduledStopPointsByLabelBetweenDatesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useScheduledStopPointsByLabelBetweenDatesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useScheduledStopPointsByLabelBetweenDatesQuery({
+ *   variables: {
+ *      stopLabel: // value for 'stopLabel'
+ *      fromDate: // value for 'fromDate'
+ *      toDate: // value for 'toDate'
+ *   },
+ * });
+ */
+export function useScheduledStopPointsByLabelBetweenDatesQuery(baseOptions: Apollo.QueryHookOptions<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables> & ({ variables: ScheduledStopPointsByLabelBetweenDatesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>(ScheduledStopPointsByLabelBetweenDatesDocument, options);
+      }
+export function useScheduledStopPointsByLabelBetweenDatesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>(ScheduledStopPointsByLabelBetweenDatesDocument, options);
+        }
+export function useScheduledStopPointsByLabelBetweenDatesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>(ScheduledStopPointsByLabelBetweenDatesDocument, options);
+        }
+export type ScheduledStopPointsByLabelBetweenDatesQueryHookResult = ReturnType<typeof useScheduledStopPointsByLabelBetweenDatesQuery>;
+export type ScheduledStopPointsByLabelBetweenDatesLazyQueryHookResult = ReturnType<typeof useScheduledStopPointsByLabelBetweenDatesLazyQuery>;
+export type ScheduledStopPointsByLabelBetweenDatesSuspenseQueryHookResult = ReturnType<typeof useScheduledStopPointsByLabelBetweenDatesSuspenseQuery>;
+export type ScheduledStopPointsByLabelBetweenDatesQueryResult = Apollo.QueryResult<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>;
 export const ResolveStopSheltersDocument = gql`
     query ResolveStopShelters($netexId: String!) {
   stop_registry {
