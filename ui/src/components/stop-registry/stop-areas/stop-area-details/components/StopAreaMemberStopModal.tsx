@@ -235,6 +235,7 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
           type="button"
           onClick={handleClose}
           disabled={isSaving}
+          inverted
         >
           {t('cancel')}
         </SlimSimpleButton>
