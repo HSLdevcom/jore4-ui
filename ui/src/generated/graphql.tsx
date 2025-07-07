@@ -68844,23 +68844,78 @@ export type JourneyPatternRouteFragment = {
   route_id: UUID
 };
 
-export type ScheduledStopPointsByLabelBetweenDatesQueryVariables = Exact<{
+export type GetOverlappingStopVersionsQueryVariables = Exact<{
   stopLabel: Scalars['String']['input'];
+  currentStopId: Scalars['String']['input'];
+  priority: Scalars['Int']['input'];
   fromDate: Scalars['date']['input'];
   toDate: Scalars['date']['input'];
 }>;
 
 
-export type ScheduledStopPointsByLabelBetweenDatesQuery = {
+export type GetOverlappingStopVersionsQuery = {
   __typename?: 'query_root',
   service_pattern_scheduled_stop_point: Array<{
     __typename?: 'service_pattern_scheduled_stop_point',
+    scheduled_stop_point_id: UUID,
     label: string,
     priority: number,
     stop_place_ref?: string | null,
     validity_start?: luxon.DateTime | null,
-    validity_end?: luxon.DateTime | null
+    validity_end?: luxon.DateTime | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      id?: string | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      id?: string | null
+    } | null> | null
   }>
+};
+
+export type GetOverlappingStopVersionsIndefiniteQueryVariables = Exact<{
+  stopLabel: Scalars['String']['input'];
+  currentStopId: Scalars['String']['input'];
+  priority: Scalars['Int']['input'];
+  fromDate: Scalars['date']['input'];
+}>;
+
+
+export type GetOverlappingStopVersionsIndefiniteQuery = {
+  __typename?: 'query_root',
+  service_pattern_scheduled_stop_point: Array<{
+    __typename?: 'service_pattern_scheduled_stop_point',
+    scheduled_stop_point_id: UUID,
+    label: string,
+    priority: number,
+    stop_place_ref?: string | null,
+    validity_start?: luxon.DateTime | null,
+    validity_end?: luxon.DateTime | null,
+    stop_place?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace',
+      id?: string | null
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      id?: string | null
+    } | null> | null
+  }>
+};
+
+export type OverlappingStopVersionsDataFragment = {
+  __typename?: 'service_pattern_scheduled_stop_point',
+  scheduled_stop_point_id: UUID,
+  label: string,
+  priority: number,
+  stop_place_ref?: string | null,
+  validity_start?: luxon.DateTime | null,
+  validity_end?: luxon.DateTime | null,
+  stop_place?: Array<{
+    __typename?: 'stop_registry_ParentStopPlace',
+    id?: string | null
+  } | {
+    __typename?: 'stop_registry_StopPlace',
+    id?: string | null
+  } | null> | null
 };
 
 export type ResolveStopSheltersQueryVariables = Exact<{
@@ -75907,6 +75962,19 @@ export const JourneyRouteInfoFragmentDoc = gql`
   }
 }
     ${JourneyPatternRouteFragmentDoc}`;
+export const OverlappingStopVersionsDataFragmentDoc = gql`
+    fragment OverlappingStopVersionsData on service_pattern_scheduled_stop_point {
+  scheduled_stop_point_id
+  label
+  priority
+  stop_place_ref
+  validity_start
+  validity_end
+  stop_place {
+    id
+  }
+}
+    `;
 export const StopVersionInfoFragmentDoc = gql`
     fragment StopVersionInfo on stops_database_quay_newest_version {
   id
@@ -78066,54 +78134,97 @@ export type FindLinesByStopQueryHookResult = ReturnType<typeof useFindLinesBySto
 export type FindLinesByStopLazyQueryHookResult = ReturnType<typeof useFindLinesByStopLazyQuery>;
 export type FindLinesByStopSuspenseQueryHookResult = ReturnType<typeof useFindLinesByStopSuspenseQuery>;
 export type FindLinesByStopQueryResult = Apollo.QueryResult<FindLinesByStopQuery, FindLinesByStopQueryVariables>;
-export const ScheduledStopPointsByLabelBetweenDatesDocument = gql`
-    query ScheduledStopPointsByLabelBetweenDates($stopLabel: String!, $fromDate: date!, $toDate: date!) {
+export const GetOverlappingStopVersionsDocument = gql`
+    query GetOverlappingStopVersions($stopLabel: String!, $currentStopId: String!, $priority: Int!, $fromDate: date!, $toDate: date!) {
   service_pattern_scheduled_stop_point(
-    where: {label: {_eq: $stopLabel}, validity_start: {_lte: $toDate}, _or: [{validity_end: {_gte: $fromDate}}, {validity_end: {_is_null: true}}]}
+    where: {label: {_eq: $stopLabel}, stop_place_ref: {_neq: $currentStopId}, priority: {_eq: $priority}, validity_start: {_lte: $toDate}, _or: [{validity_end: {_gte: $fromDate}}, {validity_end: {_is_null: true}}]}
   ) {
-    label
-    priority
-    stop_place_ref
-    validity_start
-    validity_end
+    ...OverlappingStopVersionsData
   }
 }
-    `;
+    ${OverlappingStopVersionsDataFragmentDoc}`;
 
 /**
- * __useScheduledStopPointsByLabelBetweenDatesQuery__
+ * __useGetOverlappingStopVersionsQuery__
  *
- * To run a query within a React component, call `useScheduledStopPointsByLabelBetweenDatesQuery` and pass it any options that fit your needs.
- * When your component renders, `useScheduledStopPointsByLabelBetweenDatesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetOverlappingStopVersionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOverlappingStopVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useScheduledStopPointsByLabelBetweenDatesQuery({
+ * const { data, loading, error } = useGetOverlappingStopVersionsQuery({
  *   variables: {
  *      stopLabel: // value for 'stopLabel'
+ *      currentStopId: // value for 'currentStopId'
+ *      priority: // value for 'priority'
  *      fromDate: // value for 'fromDate'
  *      toDate: // value for 'toDate'
  *   },
  * });
  */
-export function useScheduledStopPointsByLabelBetweenDatesQuery(baseOptions: Apollo.QueryHookOptions<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables> & ({ variables: ScheduledStopPointsByLabelBetweenDatesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetOverlappingStopVersionsQuery(baseOptions: Apollo.QueryHookOptions<GetOverlappingStopVersionsQuery, GetOverlappingStopVersionsQueryVariables> & ({ variables: GetOverlappingStopVersionsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>(ScheduledStopPointsByLabelBetweenDatesDocument, options);
+        return Apollo.useQuery<GetOverlappingStopVersionsQuery, GetOverlappingStopVersionsQueryVariables>(GetOverlappingStopVersionsDocument, options);
       }
-export function useScheduledStopPointsByLabelBetweenDatesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>) {
+export function useGetOverlappingStopVersionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOverlappingStopVersionsQuery, GetOverlappingStopVersionsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>(ScheduledStopPointsByLabelBetweenDatesDocument, options);
+          return Apollo.useLazyQuery<GetOverlappingStopVersionsQuery, GetOverlappingStopVersionsQueryVariables>(GetOverlappingStopVersionsDocument, options);
         }
-export function useScheduledStopPointsByLabelBetweenDatesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>) {
+export function useGetOverlappingStopVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOverlappingStopVersionsQuery, GetOverlappingStopVersionsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>(ScheduledStopPointsByLabelBetweenDatesDocument, options);
+          return Apollo.useSuspenseQuery<GetOverlappingStopVersionsQuery, GetOverlappingStopVersionsQueryVariables>(GetOverlappingStopVersionsDocument, options);
         }
-export type ScheduledStopPointsByLabelBetweenDatesQueryHookResult = ReturnType<typeof useScheduledStopPointsByLabelBetweenDatesQuery>;
-export type ScheduledStopPointsByLabelBetweenDatesLazyQueryHookResult = ReturnType<typeof useScheduledStopPointsByLabelBetweenDatesLazyQuery>;
-export type ScheduledStopPointsByLabelBetweenDatesSuspenseQueryHookResult = ReturnType<typeof useScheduledStopPointsByLabelBetweenDatesSuspenseQuery>;
-export type ScheduledStopPointsByLabelBetweenDatesQueryResult = Apollo.QueryResult<ScheduledStopPointsByLabelBetweenDatesQuery, ScheduledStopPointsByLabelBetweenDatesQueryVariables>;
+export type GetOverlappingStopVersionsQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsQuery>;
+export type GetOverlappingStopVersionsLazyQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsLazyQuery>;
+export type GetOverlappingStopVersionsSuspenseQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsSuspenseQuery>;
+export type GetOverlappingStopVersionsQueryResult = Apollo.QueryResult<GetOverlappingStopVersionsQuery, GetOverlappingStopVersionsQueryVariables>;
+export const GetOverlappingStopVersionsIndefiniteDocument = gql`
+    query GetOverlappingStopVersionsIndefinite($stopLabel: String!, $currentStopId: String!, $priority: Int!, $fromDate: date!) {
+  service_pattern_scheduled_stop_point(
+    where: {label: {_eq: $stopLabel}, stop_place_ref: {_neq: $currentStopId}, priority: {_eq: $priority}, _not: {validity_end: {_lt: $fromDate}}}
+  ) {
+    ...OverlappingStopVersionsData
+  }
+}
+    ${OverlappingStopVersionsDataFragmentDoc}`;
+
+/**
+ * __useGetOverlappingStopVersionsIndefiniteQuery__
+ *
+ * To run a query within a React component, call `useGetOverlappingStopVersionsIndefiniteQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOverlappingStopVersionsIndefiniteQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOverlappingStopVersionsIndefiniteQuery({
+ *   variables: {
+ *      stopLabel: // value for 'stopLabel'
+ *      currentStopId: // value for 'currentStopId'
+ *      priority: // value for 'priority'
+ *      fromDate: // value for 'fromDate'
+ *   },
+ * });
+ */
+export function useGetOverlappingStopVersionsIndefiniteQuery(baseOptions: Apollo.QueryHookOptions<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables> & ({ variables: GetOverlappingStopVersionsIndefiniteQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>(GetOverlappingStopVersionsIndefiniteDocument, options);
+      }
+export function useGetOverlappingStopVersionsIndefiniteLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>(GetOverlappingStopVersionsIndefiniteDocument, options);
+        }
+export function useGetOverlappingStopVersionsIndefiniteSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>(GetOverlappingStopVersionsIndefiniteDocument, options);
+        }
+export type GetOverlappingStopVersionsIndefiniteQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsIndefiniteQuery>;
+export type GetOverlappingStopVersionsIndefiniteLazyQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsIndefiniteLazyQuery>;
+export type GetOverlappingStopVersionsIndefiniteSuspenseQueryHookResult = ReturnType<typeof useGetOverlappingStopVersionsIndefiniteSuspenseQuery>;
+export type GetOverlappingStopVersionsIndefiniteQueryResult = Apollo.QueryResult<GetOverlappingStopVersionsIndefiniteQuery, GetOverlappingStopVersionsIndefiniteQueryVariables>;
 export const ResolveStopSheltersDocument = gql`
     query ResolveStopShelters($netexId: String!) {
   stop_registry {
