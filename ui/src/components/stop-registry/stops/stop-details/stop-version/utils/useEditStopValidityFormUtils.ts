@@ -14,6 +14,7 @@ import { ScheduledStopPointEditFailed } from '../errors/ScheduledStopPointEditFa
 import { StopVersionFormState, stopVersionSchema } from '../types';
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
 import { useEditStopValidity } from './useEditStopValidity';
+import { useGetOverlappingStopVersions } from './useGetOverlappingStopVersions';
 
 function useDefaultValues(
   originalStop: StopWithDetails,
@@ -92,6 +93,7 @@ export const useEditStopValidityFormUtils = (
 
   const { setIsLoading } = useLoader(Operation.SaveStop);
   const editStopValidity = useEditStopValidity();
+  const getOverlappingStopVersions = useGetOverlappingStopVersions();
 
   const defaultValues = useDefaultValues(originalStop);
 
@@ -113,11 +115,30 @@ export const useEditStopValidityFormUtils = (
     onEditDone(result);
   };
 
-  const onFormSubmit = (state: StopVersionFormState) => {
+  const onFormSubmit = async (state: StopVersionFormState) => {
     setIsLoading(true);
 
-    // Check if there conflicts with the same priority
-    // TODO: Show the conflict modal
+    const { overlappingStopVersions } = await getOverlappingStopVersions(
+      originalStop.label,
+      originalStop.stop_place_ref ?? '',
+      originalStop.priority,
+      state.validityStart,
+      state.validityEnd,
+      state.indefinite,
+    );
+
+    if (overlappingStopVersions.length > 0) {
+      // TODO: Show the conflict modal
+
+      showToast({
+        className: 'whitespace-pre-line',
+        message: t('stopDetails.version.errors.edit', {
+          reason: 'DUPLIKAATTI',
+        }),
+      });
+      setIsLoading(false);
+      return;
+    }
 
     editStopValidity(state, originalStop)
       .then(handleSuccess)
