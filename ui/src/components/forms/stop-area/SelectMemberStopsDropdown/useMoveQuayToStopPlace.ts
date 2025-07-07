@@ -21,7 +21,7 @@ import { MoveQuayParams, QuayInfo } from './utils/types';
 
 export const useMoveQuayToStopPlace = () => {
   const { t } = useTranslation();
-  const [moveQuayMutation, { loading: moveLoading, error: moveError }] =
+  const [moveQuayMutation, { loading: moveLoading, error: moveError, reset }] =
     useMoveQuayToStopPlaceMutation();
   const [getStopPointsByQuayId] = useGetStopPointsByQuayIdLazyQuery();
   const [insertStopPointMutation] = useInsertStopPointMutation();
@@ -99,5 +99,6 @@ export const useMoveQuayToStopPlace = () => {
     loading: moveLoading,
     error: moveError,
     defaultErrorHandler,
+    reset,
   };
 };

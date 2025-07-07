@@ -77,6 +77,7 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
     loading: moveLoading,
     error: moveError,
     defaultErrorHandler,
+    reset: resetMoveError,
   } = useMoveQuayToStopPlace();
 
   const stopVersionsResult = useGetStopVersions(
@@ -98,6 +99,10 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
 
   const handleClose = () => {
     resetState();
+
+    if (resetMoveError) {
+      resetMoveError();
+    }
     onClose();
   };
 
