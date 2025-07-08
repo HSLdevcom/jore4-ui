@@ -6,10 +6,8 @@ import {
   useEditScheduledStopPointValidityMutation,
   useGetQuayLazyQuery,
 } from '../../../../../../generated/graphql';
-import { StopWithDetails } from '../../../../../../types';
 import { QuayKeyValuesEditFailed } from '../errors/QuayKeyValuesEditFailed';
 import { ScheduledStopPointEditFailed } from '../errors/ScheduledStopPointEditFailed';
-import { StopVersionFormState } from '../types';
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
 import { wrapErrors } from './wrapErrors';
 
@@ -19,7 +17,8 @@ function useEditcheduledStopPointValidity() {
 
   return useCallback(
     async (
-      originalStop: StopWithDetails,
+      quayId: string,
+      priority: number,
       validityStart: DateTime,
       validityEnd?: DateTime,
       indefinite?: boolean,
@@ -27,8 +26,8 @@ function useEditcheduledStopPointValidity() {
       const response = await wrapErrors(
         editScheduledStopPointValidityMutation({
           variables: {
-            stopId: originalStop.stop_place_ref as string,
-            priority: originalStop.priority, // Don't support changing priority yet
+            stopId: quayId,
+            priority,
             validityStart,
             validityEnd: validityEnd && !indefinite ? validityEnd : null,
           },
@@ -59,14 +58,14 @@ function useEditQuayValidity() {
 
   return useCallback(
     async (
-      originalStop: StopWithDetails,
+      quayId: string,
       versionComment: string,
       validityStart: DateTime,
       validityEnd?: DateTime,
       indefinite?: boolean,
     ) => {
       const { data } = await getQuay({
-        variables: { quayId: originalStop.stop_place_ref as string },
+        variables: { quayId },
       });
       if (
         !data?.stop_registry?.stopPlace ||
@@ -76,18 +75,18 @@ function useEditQuayValidity() {
           'stop_registry_StopPlace'
       ) {
         throw new QuayKeyValuesEditFailed(
-          `Failed to get stop place for quayId: ${originalStop.stop_place_ref}. Data received: ${JSON.stringify(data)}`,
+          `Failed to get stop place for quayId: ${quayId}. Data received: ${JSON.stringify(data)}`,
         );
       }
 
       const stopPlaceId = data.stop_registry.stopPlace[0].id as string;
       const originalQuay = data.stop_registry.stopPlace[0].quays?.find(
-        (q) => q?.id === originalStop.stop_place_ref,
+        (q) => q?.id === quayId,
       );
 
       if (!originalQuay) {
         throw new QuayKeyValuesEditFailed(
-          `Failed to find quay with id: ${originalStop.stop_place_ref} in stop place ${stopPlaceId}. Quays: ${JSON.stringify(data.stop_registry.stopPlace[0].quays)}`,
+          `Failed to find quay with id: ${quayId} in stop place ${stopPlaceId}. Quays: ${JSON.stringify(data.stop_registry.stopPlace[0].quays)}`,
         );
       }
 
@@ -114,7 +113,7 @@ function useEditQuayValidity() {
       const response = await wrapErrors(
         editKeyValuesOfQuayMutation({
           variables: {
-            quayId: originalStop.stop_place_ref as string,
+            quayId,
             stopId: stopPlaceId,
             keyValues,
             versionComment,
@@ -136,48 +135,54 @@ function useEditQuayValidity() {
 }
 
 export function useEditStopValidity() {
-  // TODO: Cut validity of conflicting versions
-
   const editScheduledStopPointValidity = useEditcheduledStopPointValidity();
   const editQuayValidity = useEditQuayValidity();
 
   return useCallback(
     async (
-      state: StopVersionFormState,
-      originalStop: StopWithDetails,
+      quayId: string | undefined | null,
+      versionPriority: number,
+      versionName: string,
+      validityStart: string,
+      validityEnd?: string,
+      indefinite?: boolean,
     ): Promise<EditStopVersionResult> => {
-      if (!originalStop.stop_place_ref) {
+      if (!quayId) {
         throw new Error('Stop place ref missing for the quay being edited!');
       }
 
-      const validityStart = DateTime.fromFormat(
-        state.validityStart,
+      const validityStartDateTime = DateTime.fromFormat(
+        validityStart,
         'yyyy-MM-dd',
       );
-      const validityEnd = state.validityEnd
-        ? DateTime.fromFormat(state.validityEnd, 'yyyy-MM-dd')
-        : undefined;
+      const validityEndDateTime =
+        validityEnd && !indefinite
+          ? DateTime.fromFormat(validityEnd, 'yyyy-MM-dd')
+          : undefined;
 
       const { stopId, priority } = await editScheduledStopPointValidity(
-        originalStop,
-        validityStart,
-        validityEnd,
-        state.indefinite,
+        quayId,
+        versionPriority,
+        validityStartDateTime,
+        validityEndDateTime,
+        indefinite,
       );
+
       const { stopPlaceId } = await editQuayValidity(
-        originalStop,
-        state.versionName,
-        validityStart,
-        validityEnd,
-        state.indefinite,
+        quayId,
+        versionName,
+        validityStartDateTime,
+        validityEndDateTime,
+        indefinite,
       );
+
       return {
         stopPlaceId,
         quayId: stopId,
         priority,
-        validityStart,
-        validityEnd,
-        indefinite: state.indefinite,
+        validityStart: validityStartDateTime,
+        validityEnd: validityEndDateTime,
+        indefinite: indefinite ?? false,
       };
     },
     [editQuayValidity, editScheduledStopPointValidity],

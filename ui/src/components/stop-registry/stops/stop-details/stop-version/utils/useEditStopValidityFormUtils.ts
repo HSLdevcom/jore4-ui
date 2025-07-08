@@ -3,16 +3,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useLoader } from '../../../../../../hooks';
-import { Operation } from '../../../../../../redux';
+import { useAppDispatch, useLoader } from '../../../../../../hooks';
+import {
+  Operation,
+  openCutStopVersionValidityModalAction,
+} from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
+import { FailedToCutOverlappingStopVersion } from '../errors/FailedToCutOverlappingStopVersion';
 import { QuayKeyValuesEditFailed } from '../errors/QuayKeyValuesEditFailed';
 import { ScheduledStopPointEditFailed } from '../errors/ScheduledStopPointEditFailed';
+import { UnableToCutOverlappingStopVersion } from '../errors/UnableToCutOverlappingStopVersion';
 import { StopVersionFormState, stopVersionSchema } from '../types';
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
+import { useCutOverlappingStopVersion } from './useCutOverlappingStopVersion';
 import { useEditStopValidity } from './useEditStopValidity';
 import { useGetOverlappingStopVersions } from './useGetOverlappingStopVersions';
 
@@ -70,6 +76,18 @@ function useErrorHandler() {
       });
     }
 
+    if (error instanceof FailedToCutOverlappingStopVersion) {
+      return t('stopDetails.version.errors.failedToCutOverlappingStopVersion', {
+        reason: extractNestedOrTopLevelMessage(error),
+      });
+    }
+
+    if (error instanceof UnableToCutOverlappingStopVersion) {
+      return t('stopDetails.version.errors.unableToCutOverlappingStopVersion', {
+        reason: extractNestedOrTopLevelMessage(error),
+      });
+    }
+
     return extractMessageFromError(error);
   };
 
@@ -91,9 +109,11 @@ export const useEditStopValidityFormUtils = (
 ) => {
   const { t } = useTranslation();
 
+  const dispatch = useAppDispatch();
   const { setIsLoading } = useLoader(Operation.SaveStop);
   const editStopValidity = useEditStopValidity();
   const getOverlappingStopVersions = useGetOverlappingStopVersions();
+  const cutOverlappingStopVersion = useCutOverlappingStopVersion();
 
   const defaultValues = useDefaultValues(originalStop);
 
@@ -128,26 +148,75 @@ export const useEditStopValidityFormUtils = (
     );
 
     if (overlappingStopVersions.length > 0) {
-      // TODO: Show the conflict modal
+      // TODO: Determine the dates to cut the overlapping stop versions to
+      // TODO: Determine here if the overlap is such that the new version can be cut
+      // If there are some causes, show error toast and don't open the modal
+      // Otherwise, generate the description that contains the dates
 
-      showToast({
-        className: 'whitespace-pre-line',
-        message: t('stopDetails.version.errors.edit', {
-          reason: 'DUPLIKAATTI',
+      dispatch(
+        openCutStopVersionValidityModalAction({
+          description: t('cutStopVersionValidityModal.description'),
         }),
-      });
+      );
       setIsLoading(false);
-      return;
+    } else {
+      editStopValidity(
+        originalStop.stop_place_ref,
+        originalStop.priority,
+        state.versionName,
+        state.validityStart,
+        state.validityEnd,
+        state.indefinite,
+      )
+        .then(handleSuccess)
+        .catch(handleError);
     }
 
-    editStopValidity(state, originalStop)
-      .then(handleSuccess)
-      .catch(handleError);
+    setIsLoading(false);
+  };
+
+  const onDialogSubmit = async (state: StopVersionFormState) => {
+    setIsLoading(true);
+
+    const { overlappingStopVersions } = await getOverlappingStopVersions(
+      originalStop.label,
+      originalStop.stop_place_ref ?? '',
+      originalStop.priority,
+      state.validityStart,
+      state.validityEnd,
+      state.indefinite,
+    );
+
+    const overlapCutSuccess = overlappingStopVersions.every(async (version) => {
+      try {
+        await cutOverlappingStopVersion(state, version);
+        return true;
+      } catch (error) {
+        handleError(error);
+        return false;
+      }
+    });
+
+    if (overlapCutSuccess) {
+      // After all cuts, save the new version
+      await editStopValidity(
+        originalStop.stop_place_ref,
+        originalStop.priority,
+        state.versionName,
+        state.validityStart,
+        state.validityEnd,
+        state.indefinite,
+      )
+        .then(handleSuccess)
+        .catch(handleError);
+    }
+
     setIsLoading(false);
   };
 
   return {
     methods,
     onFormSubmit,
+    onDialogSubmit,
   };
 };

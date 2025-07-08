@@ -446,7 +446,8 @@
       "title": {
         "edit": "Muokkaa versiota",
         "copy": "Kopioidaan uudeksi versioksi",
-        "copySubTitle": "Uuden version tiedot"
+        "copySubTitle": "Uuden version tiedot",
+        "cutTitle": "Päällekkäinen versio"
       },
       "fields": {
         "versionName": "Version nimi",
@@ -464,7 +465,9 @@
         "failedToResolveExistingQuays": "Pysäkin pysäkkialueen muiden pysäkkien selvitys epäonnistui! Syy:\n{{reason}}",
         "stopPlaceInsertFailed": "Pysäkkirekisteritietueen luonti epäonnistui! Syy:\n{{reason}}",
         "stopPointInsertFailedStopPlaceReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui! Syy:\n{{reason}}",
-        "stopPointInsertFailedStopPlaceNotReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui eikä aiemmin luotua pysäkkirekisteritietuetta saatu poistettua. Jore tietokannoissa on nyt virheitä. Syy:\n{{reason}}"
+        "stopPointInsertFailedStopPlaceNotReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui eikä aiemmin luotua pysäkkirekisteritietuetta saatu poistettua. Jore tietokannoissa on nyt virheitä. Syy:\n{{reason}}",
+        "unableToCutOverlappingStopVersion": "Päällekkäisen version leikkaaminen ei onnistu. Syy:\n{{reason}}",
+        "failedToCutOverlappingStopVersion": "Päällekkäisen version leikkaaminen epäonnistui. Syy:\n{{reason}}"
       }
     },
     "externalLinks": {
@@ -1108,6 +1111,7 @@
   "move": "Siirrä",
   "cancel": "Peruuta",
   "close": "Sulje",
+  "cut": "Leikkaa",
   "version": "Versio: {{ version }}",
   "hide": "Piilota",
   "all": "Kaikki",
