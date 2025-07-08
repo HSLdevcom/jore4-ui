@@ -720,7 +720,8 @@
     "StopSign": "Stop sign",
     "CanopyFrame": "Canopy frame",
     "PoleSign": "Pole sign",
-    "JokerSign": "Joker sign"
+    "JokerSign": "Joker sign",
+    "Minibuses": "Minibuses"
   },
   "stopRegistryStopTypeEnum": {
     "busBulb": "Bus bulb",

@@ -11,6 +11,7 @@ export enum StopPlaceSignType {
   CanopyFrame = 'CanopyFrame',
   PoleSign = 'PoleSign',
   JokerSign = 'JokerSign',
+  Minibuses = 'Minibuses',
 }
 
 /**
