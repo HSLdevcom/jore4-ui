@@ -416,6 +416,7 @@
       "addInfoSpotPoster": "Add poster",
       "deleteInfoSpotPoster": "Delete poster",
       "noPosters": "No posters",
+      "noSheltersInfo": "No info spots. Please go to Technical properties tab and add shelter type first.",
       "type": {
         "static": "Static",
         "dynamic": "Dynamic",

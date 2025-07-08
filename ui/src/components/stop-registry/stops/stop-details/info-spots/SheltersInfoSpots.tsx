@@ -5,6 +5,7 @@ import {
   ShelterEquipmentDetailsFragment,
 } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
+import { InfoSpotsNoShelters } from './InfoSpotsNoShelters';
 import { InfoSpotsSection } from './InfoSpotsSection';
 
 type SheltersInfoSpotsSectionProps = {
@@ -40,6 +41,10 @@ export const SheltersInfoSpotsSection: FC<SheltersInfoSpotsSectionProps> = ({
   stop,
 }) => {
   const items = useSheltersInfoSpots(stop);
+
+  if (!items.length) {
+    return <InfoSpotsNoShelters />;
+  }
 
   return items.map(([shelter, shelterInfoSpots]) => (
     <InfoSpotsSection

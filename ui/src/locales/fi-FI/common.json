@@ -415,6 +415,7 @@
       "addInfoSpotPoster": "Lisää paikalle infotuote",
       "deleteInfoSpotPoster": "Poista infotuote",
       "noPosters": "Ei infotuotetta",
+      "noSheltersInfo": "Ei infopaikkoja. Mene Tekniset ominaisuudet -välilehdelle ja lisää ensin katostyyppi.",
       "type": {
         "dynamic": "Dynaaminen",
         "static": "Staattinen",

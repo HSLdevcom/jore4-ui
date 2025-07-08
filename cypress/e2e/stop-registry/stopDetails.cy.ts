@@ -2194,6 +2194,45 @@ describe('Stop details', () => {
         });
       },
     );
+    it(
+      'should show info text when there are no shelters',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        // First, delete all existing shelters
+        stopDetailsPage.technicalFeaturesTabButton().click();
+        stopDetailsPage.shelters.getEditButton().click();
+        stopDetailsPage.shelters.viewCard.getContainers().should('not.exist');
+
+        stopDetailsPage.shelters.form.getShelters().each(($shelter, index) => {
+          stopDetailsPage.shelters.form.getNthShelter(index).within(() => {
+            stopDetailsPage.shelters.form.shelters
+              .getDeleteShelterButton()
+              .click();
+            stopDetailsPage.shelters.form.shelters
+              .getShelterTypeDropdownButton()
+              .shouldBeDisabled();
+          });
+        });
+
+        stopDetailsPage.shelters.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
+
+        stopDetailsPage.shelters.viewCard.getContainers().should('not.exist');
+        stopDetailsPage.shelters
+          .getTitle()
+          .should('have.text', 'Ei pysäkkikatosta');
+
+        stopDetailsPage.infoSpotsTabButton().click();
+
+        stopDetailsPage.infoSpots.getNoSheltersInfoText().should('be.visible');
+        stopDetailsPage.infoSpots
+          .getNoSheltersInfoText()
+          .should(
+            'contain.text',
+            'Ei infopaikkoja. Mene Tekniset ominaisuudet -välilehdelle ja lisää ensin katostyyppi.',
+          );
+      },
+    );
   });
 
   describe('version and copies', () => {
