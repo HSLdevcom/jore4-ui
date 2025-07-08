@@ -718,7 +718,8 @@
     "StopSign": "Pysäkinmerkki",
     "CanopyFrame": "Katoskehikko",
     "PoleSign": "Tolppamerkki",
-    "JokerSign": "Jokerimerkki"
+    "JokerSign": "Jokerimerkki",
+    "Minibuses": "Lähibussikilpi"
   },
   "stopRegistryStopTypeEnum": {
     "busBulb": "Uloke",

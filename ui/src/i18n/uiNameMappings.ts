@@ -144,6 +144,7 @@ export const mapStopPlaceSignTypeToUiName =
       t('stopPlaceSignTypeEnum.CanopyFrame'),
     [StopPlaceSignType.PoleSign]: (t) => t('stopPlaceSignTypeEnum.PoleSign'),
     [StopPlaceSignType.JokerSign]: (t) => t('stopPlaceSignTypeEnum.JokerSign'),
+    [StopPlaceSignType.Minibuses]: (t) => t('stopPlaceSignTypeEnum.Minibuses'),
   });
 
 export const mapStopRegistryStopTypeToUiName = genTranslationMapper<
