@@ -25,4 +25,8 @@ export class InfoSpotsSection {
   getAddNewInfoSpotButton() {
     return cy.getByTestId('InfoSpotsSection::addInfoSpot');
   }
+
+  getNoSheltersInfoText() {
+    return cy.getByTestId('InfoSpotsSection::noSheltersText');
+  }
 }
