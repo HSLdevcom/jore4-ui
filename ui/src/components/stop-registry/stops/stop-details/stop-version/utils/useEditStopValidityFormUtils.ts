@@ -1,5 +1,6 @@
 import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -19,8 +20,11 @@ import { ScheduledStopPointEditFailed } from '../errors/ScheduledStopPointEditFa
 import { UnableToCutOverlappingStopVersion } from '../errors/UnableToCutOverlappingStopVersion';
 import { StopVersionFormState, stopVersionSchema } from '../types';
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
-import { useCutOverlappingStopVersion } from './useCutOverlappingStopVersion';
 import { useEditStopValidity } from './useEditStopValidity';
+import {
+  OverlapCutDatesResult,
+  useGetOverlappingCutDates,
+} from './useGetOverlappingCutDates';
 import { useGetOverlappingStopVersions } from './useGetOverlappingStopVersions';
 
 function useDefaultValues(
@@ -114,7 +118,7 @@ export const useEditStopValidityFormUtils = (
   const { setIsLoading } = useLoader(Operation.SaveStop);
   const editStopValidity = useEditStopValidity();
   const getOverlappingStopVersions = useGetOverlappingStopVersions();
-  const cutOverlappingStopVersion = useCutOverlappingStopVersion();
+  const cutOverlappingStopVersion = useGetOverlappingCutDates();
 
   const defaultValues = useDefaultValues(originalStop);
 
@@ -136,6 +140,37 @@ export const useEditStopValidityFormUtils = (
     onEditDone(result);
   };
 
+  const openDialogForNextOverlap = async (
+    state: StopVersionFormState,
+    overlap: OverlapCutDatesResult,
+  ) => {
+    const formatDate = (date?: DateTime) => date?.toFormat('dd.MM.yyyy');
+
+    try {
+      if (overlap) {
+        const currentVersion = overlap.currentVersion.indefinite
+          ? `${formatDate(overlap.currentVersion.start)} -`
+          : `${formatDate(overlap.currentVersion.start)} - ${formatDate(overlap.currentVersion.end)}`;
+        const newVersion = state.indefinite
+          ? `${formatDate(DateTime.fromISO(state.validityStart))} -`
+          : `${formatDate(DateTime.fromISO(state.validityStart))} - ${formatDate(DateTime.fromISO(state.validityEnd ?? ''))}`;
+
+        dispatch(
+          openCutStopVersionValidityModalAction({
+            currentVersion,
+            newVersion,
+            cutDate: overlap.newVersion?.cutToEnd
+              ? (formatDate(overlap.newVersion?.end) ?? '')
+              : (formatDate(overlap.newVersion?.start) ?? ''),
+            isCutToEnd: overlap.newVersion?.cutToEnd ?? false,
+          }),
+        );
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
   const onFormSubmit = async (state: StopVersionFormState) => {
     setIsLoading(true);
 
@@ -149,16 +184,11 @@ export const useEditStopValidityFormUtils = (
     );
 
     if (overlappingStopVersions.length > 0) {
-      // TODO: Determine the dates to cut the overlapping stop versions to
-      // TODO: Determine here if the overlap is such that the new version can be cut
-      // If there are some causes, show error toast and don't open the modal
-      // Otherwise, generate the description that contains the dates
-
-      dispatch(
-        openCutStopVersionValidityModalAction({
-          description: t('cutStopVersionValidityModal.description'),
-        }),
+      const cutDates = cutOverlappingStopVersion(
+        state,
+        overlappingStopVersions[0],
       );
+      await openDialogForNextOverlap(state, cutDates);
       setIsLoading(false);
     } else {
       editStopValidity(
@@ -188,32 +218,49 @@ export const useEditStopValidityFormUtils = (
       state.indefinite,
     );
 
-    const results = await Promise.all(
-      overlappingStopVersions.map(async (version) => {
-        try {
-          await cutOverlappingStopVersion(state, version);
-          return true;
-        } catch (error) {
-          handleError(error);
-          return false;
-        }
-      }),
-    );
-    const overlapCutSuccess = results.every(Boolean);
+    if (overlappingStopVersions.length >= 1) {
+      try {
+        const versionToRemove = overlappingStopVersions[0];
+        let cutDates = cutOverlappingStopVersion(state, versionToRemove);
 
-    if (overlapCutSuccess) {
-      // After all cuts, save the new version
-      await editStopValidity(
-        originalStop.stop_place_ref,
-        originalStop.priority,
-        state.versionName,
-        state.validityStart,
-        state.validityEnd,
-        state.indefinite,
-      )
-        .then(handleSuccess)
-        .catch(handleError);
+        if (cutDates.newVersion) {
+          await editStopValidity(
+            versionToRemove.stop_place_ref,
+            versionToRemove.priority,
+            state.versionName,
+            cutDates.newVersion.start.toISODate(),
+            cutDates.newVersion.end?.toISODate(),
+            cutDates.newVersion.indefinite,
+          );
+        }
+
+        if (overlappingStopVersions.length > 1) {
+          cutDates = cutOverlappingStopVersion(
+            state,
+            overlappingStopVersions[1],
+          );
+          await openDialogForNextOverlap(state, cutDates);
+          return;
+        }
+      } catch (error) {
+        handleError(error);
+        dispatch(closeCutStopVersionValidityModalAction());
+        setIsLoading(false);
+        return;
+      }
     }
+
+    // If there is no overlap remaining, just edit the stop validity
+    await editStopValidity(
+      originalStop.stop_place_ref,
+      originalStop.priority,
+      state.versionName,
+      state.validityStart,
+      state.validityEnd,
+      state.indefinite,
+    )
+      .then(handleSuccess)
+      .catch(handleError);
 
     dispatch(closeCutStopVersionValidityModalAction());
     setIsLoading(false);

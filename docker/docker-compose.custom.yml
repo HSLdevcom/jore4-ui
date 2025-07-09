@@ -1,7 +1,7 @@
 services:
   jore4-ui:
     build:
-      context: '..'
+      context: ".."
 
   jore4-hasura:
     # locking hasura image so that we can develop the UI against a static graphql API
@@ -25,20 +25,20 @@ services:
 
   jore4-mapmatching:
     # pinning map-matching API to compatible version
-    image: 'hsldevcom/jore4-map-matching:main--20240905-b35697db3217e9d33792c1518d0741c9a2babcd7'
+    image: "hsldevcom/jore4-map-matching:main--20240905-b35697db3217e9d33792c1518d0741c9a2babcd7"
 
   jore4-hastus:
     # pinning hastus import-export-microservice version
-    image: 'hsldevcom/jore4-hastus:main--20240906-7d2024adb1008dec08768b54a5ad73a74bd3d7fe'
+    image: "hsldevcom/jore4-hastus:main--20240906-7d2024adb1008dec08768b54a5ad73a74bd3d7fe"
     environment:
       # use the same Hasura URL that the UI uses to enable routing requests to correct Hasura instances
       # when running e2e tests locally
-      HASURA_URL: 'http://host.docker.internal:3300/api/graphql/v1/graphql'
+      HASURA_URL: "http://host.docker.internal:3300/api/graphql/v1/graphql"
 
   jore4-tiamat:
     # Pin tiamat to a compatible version.
     # Note: also update jore4-tiamat-e2e in docker-compose.e2e when changing this.
-    image: 'crjore4prod001.azurecr.io/jore4-tiamat:main-2025-07-03-b5a1b1a766afdd3e64fe46b1dbfc48ed440ffd9d'
+    image: "crjore4prod001.azurecr.io/jore4-tiamat:main-2025-07-03-b5a1b1a766afdd3e64fe46b1dbfc48ed440ffd9d"
 
   jore4-timetablesapi:
     # Pin timetables api to a compatible version.

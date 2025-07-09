@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../../../../../hooks';
 import {
   closeCutStopVersionValidityModalAction,
   selectCutStopVersionValidityModal,
-  selectIsCutStopVersionValidityModalOpen,
 } from '../../../../../redux';
 import { StopWithDetails } from '../../../../../types';
 import { ConfirmModal } from '../../../../../uiComponents/ConfirmModal';
@@ -38,9 +37,6 @@ export const EditStopValidityForm: FC<EditStopValidityFormProps> = ({
 
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const isCutModalOpen = useAppSelector(
-    selectIsCutStopVersionValidityModalOpen,
-  );
   const cutModalState = useAppSelector(selectCutStopVersionValidityModal);
 
   return (
@@ -57,13 +53,36 @@ export const EditStopValidityForm: FC<EditStopValidityFormProps> = ({
 
       <ConfirmModal
         heading={t('stopDetails.version.title.cutTitle')}
-        isOpen={isCutModalOpen}
+        isOpen={cutModalState.isOpen}
         onCancel={() => dispatch(closeCutStopVersionValidityModalAction())}
         onConfirm={methods.handleSubmit(onDialogSubmit)}
         confirmButtonText={t('cut')}
         cancelButtonText={t('cancel')}
       >
-        <Dialog.Description>{cutModalState.description}</Dialog.Description>
+        <Dialog.Description className="text-sm">
+          <p>
+            <span className="font-bold">
+              {t('stopDetails.version.cutModal.currentVersion')}:
+            </span>{' '}
+            {cutModalState.currentVersion}
+          </p>
+          <p>
+            <span className="font-bold">
+              {t('stopDetails.version.cutModal.newVersion')}:
+            </span>{' '}
+            {cutModalState.newVersion}
+          </p>
+
+          <p className="mt-4">
+            {cutModalState.isCutToEnd
+              ? t('stopDetails.version.cutModal.cutCurrentVersionToEnd', {
+                  date: cutModalState.cutDate,
+                })
+              : t('stopDetails.version.cutModal.cutCurrentVersionToStart', {
+                  date: cutModalState.cutDate,
+                })}
+          </p>
+        </Dialog.Description>
       </ConfirmModal>
     </FormProvider>
   );
