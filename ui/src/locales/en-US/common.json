@@ -456,6 +456,12 @@
         "versionDescriptionNotImplementedYetTitle": "This field has not yet been implemented in this Jore test version!",
         "affectedLines": "Note the effects on the following routes:"
       },
+      "cutModal": {
+        "currentVersion": "Current version",
+        "newVersion": "New version",
+        "cutCurrentVersionToEnd": "Cut current version to end on {{date}}?",
+        "cutCurrentVersionToStart": "Cut current version to start on {{date}}?"
+      },
       "success": {
         "edit": "Version saved",
         "copy": "New version created\nOpening up new version"

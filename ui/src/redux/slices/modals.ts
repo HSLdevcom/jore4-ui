@@ -45,7 +45,10 @@ interface deleteTimetableModalState {
 
 interface CutStopVersionValidityModalState {
   isOpen: boolean;
-  description?: string;
+  currentVersion?: string;
+  newVersion?: string;
+  cutDate?: string;
+  isCutToEnd?: boolean;
 }
 
 const initialState: IState = {
@@ -72,7 +75,10 @@ const initialState: IState = {
   },
   cutStopVersionValidityModal: {
     isOpen: false,
-    description: undefined,
+    currentVersion: undefined,
+    newVersion: undefined,
+    cutDate: undefined,
+    isCutToEnd: undefined,
   },
 };
 
@@ -156,15 +162,26 @@ const slice = createSlice({
     },
     openCutStopVersionValidityModal: (
       state,
-      action: PayloadAction<{ description?: string }>,
+      action: PayloadAction<{
+        currentVersion: string;
+        newVersion: string;
+        cutDate: string;
+        isCutToEnd: boolean;
+      }>,
     ) => {
       state.cutStopVersionValidityModal.isOpen = true;
-      state.cutStopVersionValidityModal.description =
-        action.payload.description;
+      state.cutStopVersionValidityModal.currentVersion =
+        action.payload.currentVersion;
+      state.cutStopVersionValidityModal.newVersion = action.payload.newVersion;
+      state.cutStopVersionValidityModal.cutDate = action.payload.cutDate;
+      state.cutStopVersionValidityModal.isCutToEnd = action.payload.isCutToEnd;
     },
     closeCutStopVersionValidityModal: (state) => {
       state.cutStopVersionValidityModal.isOpen = false;
-      state.cutStopVersionValidityModal.description = undefined;
+      state.cutStopVersionValidityModal.currentVersion = undefined;
+      state.cutStopVersionValidityModal.newVersion = undefined;
+      state.cutStopVersionValidityModal.cutDate = undefined;
+      state.cutStopVersionValidityModal.isCutToEnd = undefined;
     },
   },
 });

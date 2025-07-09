@@ -97,7 +97,9 @@ export function useGetOverlappingStopVersions() {
         });
 
         if (data && data?.service_pattern_scheduled_stop_point.length > 0) {
-          overlappingStopVersions = data.service_pattern_scheduled_stop_point;
+          overlappingStopVersions = [
+            ...data.service_pattern_scheduled_stop_point,
+          ];
         }
       } else {
         const { data } = await getOverlappingStopVersionsIndefinite({
@@ -111,9 +113,24 @@ export function useGetOverlappingStopVersions() {
         });
 
         if (data && data?.service_pattern_scheduled_stop_point.length > 0) {
-          overlappingStopVersions = data.service_pattern_scheduled_stop_point;
+          overlappingStopVersions = [
+            ...data.service_pattern_scheduled_stop_point,
+          ];
         }
       }
+
+      overlappingStopVersions.sort((a, b) => {
+        const aStart =
+          typeof a.validity_start === 'string'
+            ? a.validity_start
+            : (a.validity_start?.toISO?.() ?? '');
+        const bStart =
+          typeof b.validity_start === 'string'
+            ? b.validity_start
+            : (b.validity_start?.toISO?.() ?? '');
+
+        return aStart.localeCompare(bStart);
+      });
 
       return {
         overlappingStopVersions,

@@ -455,6 +455,12 @@
         "versionDescriptionNotImplementedYetTitle": "Kenttää ei ole vielä toteutettu tässä Joren testiversiossa!",
         "affectedLines": "Huomaa vaikutukset seuraaviin reitteihin:"
       },
+      "cutModal": {
+        "currentVersion": "Nykyinen versio",
+        "newVersion": "Uusi versio",
+        "cutCurrentVersionToEnd": "Leikataanko nykyinen versio päättymään {{date}}?",
+        "cutCurrentVersionToStart": "Leikataanko nykyinen versio alkamaan {{date}}?"
+      },
       "success": {
         "edit": "Versio tallennettu",
         "copy": "Uusi versio luotu\nAvataan uusi versio"
