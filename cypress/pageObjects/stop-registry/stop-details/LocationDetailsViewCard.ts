@@ -34,7 +34,11 @@ export class LocationDetailsViewCard {
   getMemberPlatforms = () =>
     cy.getByTestId('LocationDetailsViewCard::memberPlatforms');
 
-  getTerminal = () => cy.getByTestId('LocationDetailsViewCard::terminal');
+  getTerminalPrivateCode = () =>
+    cy.getByTestId('LocationDetailsViewCard::terminalPrivateCode');
+
+  getTerminalLink = () =>
+    cy.getByTestId('LocationDetailsViewCard::terminalLink');
 
   getTerminalName = () =>
     cy.getByTestId('LocationDetailsViewCard::terminalName');
