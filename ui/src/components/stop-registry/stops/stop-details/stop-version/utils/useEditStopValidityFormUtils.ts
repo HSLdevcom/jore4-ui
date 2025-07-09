@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useLoader } from '../../../../../../hooks';
 import {
   Operation,
+  closeCutStopVersionValidityModalAction,
   openCutStopVersionValidityModalAction,
 } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
@@ -187,15 +188,18 @@ export const useEditStopValidityFormUtils = (
       state.indefinite,
     );
 
-    const overlapCutSuccess = overlappingStopVersions.every(async (version) => {
-      try {
-        await cutOverlappingStopVersion(state, version);
-        return true;
-      } catch (error) {
-        handleError(error);
-        return false;
-      }
-    });
+    const results = await Promise.all(
+      overlappingStopVersions.map(async (version) => {
+        try {
+          await cutOverlappingStopVersion(state, version);
+          return true;
+        } catch (error) {
+          handleError(error);
+          return false;
+        }
+      }),
+    );
+    const overlapCutSuccess = results.every(Boolean);
 
     if (overlapCutSuccess) {
       // After all cuts, save the new version
@@ -211,6 +215,7 @@ export const useEditStopValidityFormUtils = (
         .catch(handleError);
     }
 
+    dispatch(closeCutStopVersionValidityModalAction());
     setIsLoading(false);
   };
 
