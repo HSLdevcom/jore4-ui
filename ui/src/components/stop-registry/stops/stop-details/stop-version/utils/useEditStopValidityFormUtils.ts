@@ -20,11 +20,9 @@ import { ScheduledStopPointEditFailed } from '../errors/ScheduledStopPointEditFa
 import { UnableToCutOverlappingStopVersion } from '../errors/UnableToCutOverlappingStopVersion';
 import { StopVersionFormState, stopVersionSchema } from '../types';
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
+import { OverlappingCutDatesResult } from '../types/OverLappingCutDatesResult';
 import { useEditStopValidity } from './useEditStopValidity';
-import {
-  OverlapCutDatesResult,
-  useGetOverlappingCutDates,
-} from './useGetOverlappingCutDates';
+import { useGetOverlappingCutDates } from './useGetOverlappingCutDates';
 import { useGetOverlappingStopVersions } from './useGetOverlappingStopVersions';
 
 function useDefaultValues(
@@ -67,7 +65,6 @@ function extractNestedOrTopLevelMessage(error: unknown) {
 function useErrorHandler() {
   const { t } = useTranslation();
 
-  // TODO: Check these for edit
   const resolveErrorMessage = (error: unknown) => {
     if (error instanceof ScheduledStopPointEditFailed) {
       return t('stopDetails.version.errors.failedToEditScheduledStopPoint', {
@@ -142,7 +139,7 @@ export const useEditStopValidityFormUtils = (
 
   const openDialogForNextOverlap = async (
     state: StopVersionFormState,
-    overlap: OverlapCutDatesResult,
+    overlap: OverlappingCutDatesResult,
   ) => {
     const formatDate = (date?: DateTime) => date?.toFormat('dd.MM.yyyy');
 
@@ -184,11 +181,17 @@ export const useEditStopValidityFormUtils = (
     );
 
     if (overlappingStopVersions.length > 0) {
-      const cutDates = cutOverlappingStopVersion(
-        state,
-        overlappingStopVersions[0],
-      );
-      await openDialogForNextOverlap(state, cutDates);
+      try {
+        // Go through all the overlaps and check that there are no errors
+        const cutDates = overlappingStopVersions.map((version) =>
+          cutOverlappingStopVersion(state, version),
+        );
+
+        await openDialogForNextOverlap(state, cutDates[0]);
+      } catch (error) {
+        handleError(error);
+      }
+
       setIsLoading(false);
     } else {
       editStopValidity(
@@ -234,11 +237,11 @@ export const useEditStopValidityFormUtils = (
           );
         }
 
+        // There are more overlaps, open the same dialog for the next overlap
         if (overlappingStopVersions.length > 1) {
-          cutDates = cutOverlappingStopVersion(
-            state,
-            overlappingStopVersions[1],
-          );
+          const nextVersionToRemove = overlappingStopVersions[1];
+          cutDates = cutOverlappingStopVersion(state, nextVersionToRemove);
+
           await openDialogForNextOverlap(state, cutDates);
           return;
         }

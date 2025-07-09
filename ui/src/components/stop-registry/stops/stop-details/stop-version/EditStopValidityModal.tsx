@@ -56,39 +56,35 @@ export const EditStopValidityModal: FC<EditStopValidityModalProps> = ({
   };
 
   return (
-    <>
-      <Modal
-        isOpen={isOpen}
+    <Modal
+      isOpen={isOpen}
+      onClose={wrappedOnClose}
+      testId={testIds.modal}
+      contentClassName="w-[585px]"
+    >
+      <ModalHeader
         onClose={wrappedOnClose}
-        testId={testIds.modal}
-        contentClassName="w-[585px]"
+        heading={t('stopDetails.version.title.edit')}
+      />
+      <LoadingWrapper
+        testId={testIds.loading}
+        loading={
+          !originalStop || loadingExistingValidityRanges || loadingLinesForStop
+        }
       >
-        <ModalHeader
-          onClose={wrappedOnClose}
-          heading={t('stopDetails.version.title.edit')}
-        />
-        <LoadingWrapper
-          testId={testIds.loading}
-          loading={
-            !originalStop ||
-            loadingExistingValidityRanges ||
-            loadingLinesForStop
-          }
-        >
-          {originalStop && (
-            <ModalBody className="border-x-0">
-              <EditStopValidityForm
-                className="mt-4 border-x-0"
-                existingValidityRanges={ranges}
-                affectedLines={lines}
-                originalStop={originalStop}
-                onCancel={onClose}
-                onEditDone={onEditDone}
-              />
-            </ModalBody>
-          )}
-        </LoadingWrapper>
-      </Modal>
-    </>
+        {originalStop && (
+          <ModalBody className="border-x-0">
+            <EditStopValidityForm
+              className="mt-4 border-x-0"
+              existingValidityRanges={ranges}
+              affectedLines={lines}
+              originalStop={originalStop}
+              onCancel={onClose}
+              onEditDone={onEditDone}
+            />
+          </ModalBody>
+        )}
+      </LoadingWrapper>
+    </Modal>
   );
 };
