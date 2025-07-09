@@ -5,7 +5,7 @@ import {
   useGetOverlappingStopVersionsIndefiniteLazyQuery,
   useGetOverlappingStopVersionsLazyQuery,
 } from '../../../../../../generated/graphql';
-import { OverlappingStopVersionResult } from '../types/OverlappingStopVersionsResult';
+import { OverlappingStopVersionResult } from '../types/OverlappingStopVersionResult';
 
 const GQL_GET_OVERLAPPING_STOP_VERSIONS_QUERY = gql`
   query GetOverlappingStopVersions(
