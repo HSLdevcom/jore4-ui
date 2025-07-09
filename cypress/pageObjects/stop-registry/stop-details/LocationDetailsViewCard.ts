@@ -20,20 +20,16 @@ export class LocationDetailsViewCard {
   getFunctionalArea = () =>
     cy.getByTestId('LocationDetailsViewCard::functionalArea');
 
-  getStopArea = () => cy.getByTestId('LocationDetailsViewCard::stopArea');
-
-  getStopAreaName = () =>
-    cy.getByTestId('LocationDetailsViewCard::stopAreaName');
-
-  getStopAreaStops = () =>
-    cy.getByTestId('LocationDetailsViewCard::stopAreaStops');
-
   getQuay = () => cy.getByTestId('LocationDetailsViewCard::quay');
 
   getStopAreaQuays = () =>
     cy.getByTestId('LocationDetailsViewCard::stopAreaQuays');
 
-  getTerminal = () => cy.getByTestId('LocationDetailsViewCard::terminal');
+  getTerminalPrivateCode = () =>
+    cy.getByTestId('LocationDetailsViewCard::terminalPrivateCode');
+
+  getTerminalLink = () =>
+    cy.getByTestId('LocationDetailsViewCard::terminalLink');
 
   getTerminalName = () =>
     cy.getByTestId('LocationDetailsViewCard::terminalName');
