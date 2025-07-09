@@ -3,8 +3,10 @@ import {
   Priority,
   StopAreaInput,
   StopInsertInput,
+  StopRegistryGeoJsonType,
   StopRegistryNameType,
   StopRegistryTransportModeType,
+  TerminalInput,
   buildStop,
   buildTimingPlace,
   extractInfrastructureLinkIdsFromResponse,
@@ -141,6 +143,35 @@ const stopAreaInput: Array<StopAreaInput> = [
   },
 ];
 
+const terminalH2003: TerminalInput = {
+  terminal: {
+    privateCode: { type: 'HSL/TEST', value: 'TH2003' },
+    name: { lang: 'fin', value: 'E2ETH2003' },
+    description: { lang: 'fin', value: 'E2E testiterminaali H2003' },
+    geometry: {
+      coordinates: [24.92596546020357, 60.16993494912799],
+      type: StopRegistryGeoJsonType.Point,
+    },
+    keyValues: [
+      { key: 'validityStart', values: ['2020-01-01'] },
+      { key: 'validityEnd', values: ['2050-01-01'] },
+      { key: 'streetAddress', values: ['Mannerheimintie 22-24'] },
+      { key: 'postalCode', values: ['00100'] },
+      { key: 'municipality', values: ['Helsinki'] },
+      { key: 'fareZone', values: ['A'] },
+      { key: 'terminalType', values: ['BusTerminal'] },
+      { key: 'departurePlatforms', values: ['7'] },
+      { key: 'arrivalPlatforms', values: ['6'] },
+      { key: 'loadingPlatforms', values: ['3'] },
+      { key: 'electricCharging', values: ['2'] },
+    ],
+    externalLinks: [
+      { name: 'Terminaalin Testilinkki', location: 'https://terminaltest.fi' },
+    ],
+  },
+  memberLabels: ['H2003'],
+};
+
 const buildScheduledStopPoints = (
   infrastructureLinkIds: UUID[],
 ): StopInsertInput[] => [
@@ -223,9 +254,7 @@ describe('Stop details', () => {
     insertToDbHelper(dbResources);
     toast = new Toast();
     cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
-      // Inserting the terminals here causes it's child stop H0003,
-      // to generate extra versions of it's quay, which breaks info spots.
-      // terminals: seedTerminals,
+      terminals: [terminalH2003],
       stopPlaces: stopAreaInput,
       organisations: seedOrganisations,
       infoSpots: seedInfoSpots,
@@ -264,14 +293,15 @@ describe('Stop details', () => {
     locationView.getLongitude().shouldHaveText('24.932072417514647');
     locationView.getAltitude().shouldHaveText('0');
     locationView.getFunctionalArea().shouldHaveText('20 m');
-    locationView.getStopArea().shouldHaveText('-');
-    locationView.getStopAreaName().shouldHaveText('-');
-    locationView.getStopAreaStops().shouldHaveText('-');
     locationView.getPlatformNumber().shouldHaveText('A2');
     locationView.getMemberPlatforms().shouldHaveText('-');
-    locationView.getTerminal().shouldHaveText('-');
-    locationView.getTerminalName().shouldHaveText('-');
-    locationView.getTerminalStops().shouldHaveText('-');
+    locationView.getTerminalPrivateCode().shouldHaveText('TH2003');
+    locationView
+      .getTerminalLink()
+      .shouldBeVisible()
+      .should('have.attr', 'href', `/stop-registry/terminals/TH2003`);
+    locationView.getTerminalName().shouldHaveText('E2ETH2003');
+    locationView.getTerminalStops().shouldHaveText('H2003');
   };
 
   const verifyInitialSignageDetails = () => {
