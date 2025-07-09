@@ -42,8 +42,3 @@ export const selectCutStopVersionValidityModal = createSelector(
   selectModals,
   (modals) => modals.cutStopVersionValidityModal,
 );
-
-export const selectIsCutStopVersionValidityModalOpen = createSelector(
-  selectCutStopVersionValidityModal,
-  (cutStopVersionValidityModal) => cutStopVersionValidityModal.isOpen,
-);

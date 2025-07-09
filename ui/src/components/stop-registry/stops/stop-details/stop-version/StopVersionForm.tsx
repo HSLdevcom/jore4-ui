@@ -9,7 +9,7 @@ import {
   PriorityForm,
   ValidityPeriodForm,
 } from '../../../../forms/common';
-import { AffectedLinesField } from './AffectedLinesField';
+import { AffectedRouteLabels } from '../../../../timetables/common/AffectedRouteLabels';
 import { ExistingStopValidityRange, StopVersionFormState } from './types';
 import { LinesByStop } from './types/LinesByStopResult';
 import { ValidityRangeIsValidVirtualField } from './ValidityRangeIsValidVirtualField';
@@ -83,7 +83,12 @@ export const StopVersionForm: FC<StopVersionFormProps> = ({
         />
       )}
 
-      {affectedLines && <AffectedLinesField affectedLines={affectedLines} />}
+      {affectedLines && (
+        <AffectedRouteLabels
+          affectedRouteLabels={affectedLines.map((l) => l.label)}
+          text={t('stopDetails.version.fields.affectedLines')}
+        />
+      )}
 
       <Row className="-mx-12 !-mb-8 justify-end space-x-4 border border-light-grey bg-background px-12 py-2">
         <SimpleButton inverted onClick={onCancel} testId={testIds.cancelButton}>

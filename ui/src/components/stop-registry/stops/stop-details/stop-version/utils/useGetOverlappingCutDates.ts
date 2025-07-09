@@ -3,26 +3,13 @@ import { useCallback } from 'react';
 import { OverlappingStopVersionsDataFragment } from '../../../../../../generated/graphql';
 import { UnableToCutOverlappingStopVersion } from '../errors/UnableToCutOverlappingStopVersion';
 import { StopVersionFormState } from '../types';
-
-export type OverlapCutDatesResult = {
-  currentVersion: {
-    start: DateTime;
-    end: DateTime | undefined;
-    indefinite: boolean;
-  };
-  newVersion?: {
-    start: DateTime;
-    end: DateTime | undefined;
-    indefinite: boolean;
-    cutToEnd: boolean;
-  };
-};
+import { OverlappingCutDatesResult } from '../types/OverLappingCutDatesResult';
 
 export function useGetOverlappingCutDates() {
   const getOverlapCutDates = (
     state: StopVersionFormState,
     version: Readonly<OverlappingStopVersionsDataFragment>,
-  ): OverlapCutDatesResult => {
+  ): OverlappingCutDatesResult => {
     const versionStart = version.validity_start as DateTime;
     const versionEnd = version.validity_end ?? null;
 
@@ -97,6 +84,7 @@ export function useGetOverlappingCutDates() {
       );
     }
 
+    // No cutting required
     return {
       currentVersion,
       newVersion: undefined,

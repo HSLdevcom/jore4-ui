@@ -90,7 +90,7 @@ function resolveErrorMessage(
     },
   });
 
-  // If we are editing, we don't need to check for overlaps at this point
+  // If we are editing validity range, we don't need to check for overlaps at this point
   if (overlappingRange && !isEditing) {
     return t('formValidation.stopValidityPeriodOverlap', {
       start: mapToShortDate(overlappingRange.validity_start),
