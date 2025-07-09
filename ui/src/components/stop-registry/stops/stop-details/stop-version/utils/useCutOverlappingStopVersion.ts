@@ -53,10 +53,8 @@ export function useCutOverlappingStopVersion() {
               version.priority,
               state.versionName,
               stateEnd.plus({ days: 1 }).toISODate(),
-              version.validity_end
-                ? version.validity_end.toISODate()
-                : undefined,
-              !!version.validity_end,
+              versionEnd?.toISODate(),
+              !versionEnd,
             );
           } catch {
             throw new FailedToCutOverlappingStopVersion(
@@ -66,7 +64,7 @@ export function useCutOverlappingStopVersion() {
         } else {
           // Version end is before state end => Whole version is inside the new version
           throw new UnableToCutOverlappingStopVersion(
-            'The version is inside the new version and can not be cut automatically!',
+            'Can not cut a version that is completely inside the new version!',
           );
         }
       }
@@ -92,7 +90,7 @@ export function useCutOverlappingStopVersion() {
     } else if (versionStart >= stateStart) {
       // Version start is equal or later than state start and state doesn't end => Can't cut version
       throw new UnableToCutOverlappingStopVersion(
-        'Version start is later than or equal to the state start',
+        'Can not cut a version that starts after an indefinite version!',
       );
     }
   };
