@@ -8,10 +8,10 @@ import {
 import { StopWithDetails } from '../../types';
 import { notNullish, showDangerToast } from '../../utils';
 
-interface EditTiamatParams {
-  state: MaintenanceDetailsFormState;
-  stop: StopWithDetails;
-}
+type EditTiamatParams = {
+  readonly state: MaintenanceDetailsFormState;
+  readonly stop: StopWithDetails;
+};
 
 export const useEditStopMaintenanceDetails = () => {
   const { t } = useTranslation();

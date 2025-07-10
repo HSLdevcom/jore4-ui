@@ -5,10 +5,10 @@ import {
 } from '../../generated/graphql';
 import { useValidateRoute } from '../routes/useValidateRoute';
 
-interface ValidateParams {
-  lineId: UUID;
-  input: RouteLineSetInput;
-}
+type ValidateParams = {
+  readonly lineId: UUID;
+  readonly input: RouteLineSetInput;
+};
 
 export const useValidateLine = () => {
   const { t } = useTranslation();

@@ -2,16 +2,16 @@ import { FC } from 'react';
 import { Layer, Source } from 'react-map-gl/maplibre';
 import { mapGeoJSONtoFeature } from '../../../utils';
 
-export interface ArrowLayout {
-  'symbol-placement': 'line' | 'point' | 'line-center' | undefined;
-  'symbol-spacing': number;
-  'icon-allow-overlap': boolean;
-  'icon-image': string;
-  'icon-offset': [number, number];
-}
-export interface ArrowPaint {
-  'icon-color': string;
-}
+export type ArrowLayout = {
+  readonly 'symbol-placement': 'line' | 'point' | 'line-center' | undefined;
+  readonly 'symbol-spacing': number;
+  readonly 'icon-allow-overlap': boolean;
+  readonly 'icon-image': string;
+  readonly 'icon-offset': [number, number];
+};
+export type ArrowPaint = {
+  readonly 'icon-color': string;
+};
 type ArrowRenderLayerProps = {
   readonly layerId: string;
   readonly geometry: GeoJSON.LineString;

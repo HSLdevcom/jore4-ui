@@ -14,22 +14,22 @@ type TimingSettingsPatch = Pick<
   | 'is_used_as_timing_point'
 >;
 
-interface EditParams {
-  form: FormState;
-  journeyPatternId: UUID;
-  stopLabel: string;
-  sequence: number;
-  stopId: UUID;
-}
+type EditParams = {
+  readonly form: FormState;
+  readonly journeyPatternId: UUID;
+  readonly stopLabel: string;
+  readonly sequence: number;
+  readonly stopId: UUID;
+};
 
-interface EditChanges {
-  journeyPatternId: UUID;
-  stopLabel: string;
-  sequence: number;
-  patch: TimingSettingsPatch;
-  stopId: UUID;
-  timingPlaceId: UUID | null;
-}
+type EditChanges = {
+  readonly journeyPatternId: UUID;
+  readonly stopLabel: string;
+  readonly sequence: number;
+  readonly patch: TimingSettingsPatch;
+  readonly stopId: UUID;
+  readonly timingPlaceId: UUID | null;
+};
 
 const GQL_PATCH_SCHEDULED_STOP_POINT_TIMING_SETTINGS = gql`
   mutation PatchScheduledStopPointTimingSettings(

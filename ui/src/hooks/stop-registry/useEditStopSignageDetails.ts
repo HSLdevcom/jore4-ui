@@ -7,10 +7,10 @@ import { StopWithDetails } from '../../types';
 import { showDangerToast } from '../../utils';
 import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
-interface EditTiamatParams {
-  state: SignageDetailsFormState;
-  stop: StopWithDetails;
-}
+type EditTiamatParams = {
+  readonly state: SignageDetailsFormState;
+  readonly stop: StopWithDetails;
+};
 
 export const useEditStopSignageDetails = () => {
   const { t } = useTranslation();

@@ -26,11 +26,11 @@ export type ActiveStopFilters = {
   [key in FilterType]: boolean;
 };
 
-export interface IState {
-  showMapEntityTypeFilterOverlay: boolean;
-  stopFilters: ActiveStopFilters;
-  showMapEntityType: ShownMapEntityTypes;
-}
+export type IState = {
+  readonly showMapEntityTypeFilterOverlay: boolean;
+  readonly stopFilters: ActiveStopFilters;
+  readonly showMapEntityType: ShownMapEntityTypes;
+};
 
 const initialState: IState = {
   showMapEntityTypeFilterOverlay: false,
@@ -57,20 +57,20 @@ const slice = createSlice({
   initialState,
   reducers: {
     setShowMapEntityTypeFilterOverlay: (
-      state: IState,
+      state,
       action: PayloadAction<boolean>,
     ) => {
       state.showMapEntityTypeFilterOverlay = action.payload;
     },
     setStopFilter: (
-      state: IState,
+      state,
       action: PayloadAction<{ filterType: FilterType; isActive: boolean }>,
     ) => {
       const { filterType, isActive } = action.payload;
       state.stopFilters[filterType] = isActive;
     },
     setShowMapEntityType: (
-      state: IState,
+      state,
       action: PayloadAction<{
         readonly entityType: MapEntityType;
         readonly shown: boolean;

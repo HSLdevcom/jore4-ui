@@ -3,16 +3,16 @@ import { z } from 'zod';
 import { SubstituteDayOfWeek } from '../../../../types/enums';
 import { requiredDate } from '../../../forms/common/customZodSchemas';
 
-interface CommonDay {
-  created: boolean;
-  fromDatabase: boolean;
-  substituteDayOfWeek: string | SubstituteDayOfWeek;
-  lineTypes: string;
-  periodId?: string;
-  periodName: string;
-  supersededDate: string;
-  isPreset: boolean;
-}
+type CommonDay = {
+  readonly created: boolean;
+  readonly fromDatabase: boolean;
+  readonly substituteDayOfWeek: string | SubstituteDayOfWeek;
+  readonly lineTypes: string;
+  readonly periodId?: string;
+  readonly periodName: string;
+  readonly supersededDate: string;
+  readonly isPreset: boolean;
+};
 
 type CommonDayProperty = 'substituteDayOfWeek' | 'lineTypes';
 

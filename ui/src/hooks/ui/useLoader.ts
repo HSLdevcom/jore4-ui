@@ -8,9 +8,9 @@ import {
   setLoadingStateAction,
 } from '../../redux';
 
-interface LoaderOptions {
-  initialState?: LoadingState;
-}
+type LoaderOptions = {
+  readonly initialState?: LoadingState;
+};
 
 export function useLoader(operation: Operation, options?: LoaderOptions) {
   const dispatch = useDispatch();

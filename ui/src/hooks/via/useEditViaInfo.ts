@@ -11,17 +11,17 @@ type ViaInfoPatch = Pick<
   'is_via_point' | 'via_point_name_i18n' | 'via_point_short_name_i18n'
 >;
 
-interface EditParams {
-  form: FormState;
-  journeyPatternId: UUID;
-  stopLabel: string;
-}
+type EditParams = {
+  readonly form: FormState;
+  readonly journeyPatternId: UUID;
+  readonly stopLabel: string;
+};
 
-interface EditChanges {
-  journeyPatternId: UUID;
-  stopLabel: string;
-  patch: ViaInfoPatch;
-}
+type EditChanges = {
+  readonly journeyPatternId: UUID;
+  readonly stopLabel: string;
+  readonly patch: ViaInfoPatch;
+};
 
 // Note: this will set the VIA info to _all_ of the instances of the stop with the given label
 // within the journey pattern. E.g. if the bus travels in a loop and visits the same stop multiple

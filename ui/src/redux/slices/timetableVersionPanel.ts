@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-interface IState {
-  isOpen: boolean;
-  vehicleScheduleFrameId: UUID;
-}
+type IState = {
+  readonly isOpen: boolean;
+  readonly vehicleScheduleFrameId: UUID;
+};
 
 const initialState: IState = {
   isOpen: false,
@@ -15,7 +15,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     openVersionPanel: (
-      state: IState,
+      state,
       action: PayloadAction<{
         vehicleScheduleFrameId: UUID;
       }>,
@@ -23,7 +23,7 @@ const slice = createSlice({
       state.vehicleScheduleFrameId = action.payload.vehicleScheduleFrameId;
       state.isOpen = true;
     },
-    closeVersionPanel: (state: IState) => {
+    closeVersionPanel: (state) => {
       state.vehicleScheduleFrameId = '';
       state.isOpen = false;
     },

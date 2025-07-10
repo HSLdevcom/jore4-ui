@@ -23,18 +23,18 @@ import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPrio
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { useValidateRoute } from './useValidateRoute';
 
-interface CreateParams {
-  form: RouteFormState;
-  infraLinksAlongRoute: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
-  stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
-  includedStopLabels: ReadonlyArray<string>;
-  journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
-}
+type CreateParams = {
+  readonly form: RouteFormState;
+  readonly infraLinksAlongRoute: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
+  readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+  readonly includedStopLabels: ReadonlyArray<string>;
+  readonly journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
+};
 
-interface CreateChanges {
-  input: InsertRouteOneMutationVariables;
-  conflicts?: RouteDefaultFieldsFragment[];
-}
+type CreateChanges = {
+  readonly input: InsertRouteOneMutationVariables;
+  readonly conflicts?: RouteDefaultFieldsFragment[];
+};
 
 export const useCreateRoute = () => {
   const { t } = useTranslation();

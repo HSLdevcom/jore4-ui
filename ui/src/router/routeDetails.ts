@@ -37,11 +37,11 @@ export enum Path {
   fallback = '*',
 }
 
-interface RouteDetail {
-  getLink: (...args: ReadonlyArray<ExplicitAny>) => string;
-  translationKey?: TranslationKey; // Currently only needed if the route is included in navigation.
-  includeInNav?: boolean;
-}
+type RouteDetail = {
+  readonly getLink: (...args: ReadonlyArray<ExplicitAny>) => string;
+  readonly translationKey?: TranslationKey; // Currently only needed if the route is included in navigation.
+  readonly includeInNav?: boolean;
+};
 
 const getLineIdRouteLabelLink = (
   path: Path,

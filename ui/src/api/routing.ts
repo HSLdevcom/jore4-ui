@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { MapMatchingNoSegmentError } from '../utils';
 
-interface LatLng {
+type LatLng = {
   readonly lat: number;
   readonly lng: number;
-}
+};
 
-interface RouteBody {
+type RouteBody = {
   readonly routePoints: ReadonlyArray<LatLng>;
   readonly linkSearchRadius?: number;
-}
+};
 
 const positionToLatLng = (pos: GeoJSON.Position): LatLng => {
   return { lng: pos[0], lat: pos[1] };
@@ -21,29 +21,29 @@ const apiClient = axios.create({
 
 const getBus = (coordinates: RouteBody) => apiClient.post('/bus', coordinates);
 
-export interface BusRouteResponse {
-  code: 'Ok';
-  routes: {
-    geometry: GeoJSON.LineString;
-    weight: number;
-    distance: number;
-    paths: {
-      infrastructureLinkId: number;
-      externalLinkRef: {
-        infrastructureSource: 'digiroad_r';
-        externalLinkId: string;
+export type BusRouteResponse = {
+  readonly code: 'Ok';
+  readonly routes: {
+    readonly geometry: GeoJSON.LineString;
+    readonly weight: number;
+    readonly distance: number;
+    readonly paths: {
+      readonly infrastructureLinkId: number;
+      readonly externalLinkRef: {
+        readonly infrastructureSource: 'digiroad_r';
+        readonly externalLinkId: string;
       };
-      geometry: GeoJSON.LineString;
-      weight: number;
-      distance: number;
-      infrastructureLinkName: {
-        fi: string;
-        sv: string;
+      readonly geometry: GeoJSON.LineString;
+      readonly weight: number;
+      readonly distance: number;
+      readonly infrastructureLinkName: {
+        readonly fi: string;
+        readonly sv: string;
       };
-      isTraversalForwards: boolean;
+      readonly isTraversalForwards: boolean;
     }[];
   }[];
-}
+};
 
 export const getBusRoute = async (
   coordinates: ReadonlyArray<GeoJSON.Position>,

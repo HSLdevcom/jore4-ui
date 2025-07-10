@@ -15,13 +15,13 @@ import {
 } from '../../utils';
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 
-interface CreateParams {
-  form: FormState;
-}
-interface CreateChanges {
-  input: RouteLineInsertInput;
-  conflicts?: LineDefaultFieldsFragment[];
-}
+type CreateParams = {
+  readonly form: FormState;
+};
+type CreateChanges = {
+  readonly input: RouteLineInsertInput;
+  readonly conflicts?: LineDefaultFieldsFragment[];
+};
 
 export const mapFormToInput = (state: FormState) => {
   const input = {

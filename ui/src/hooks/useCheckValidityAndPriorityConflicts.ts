@@ -12,17 +12,17 @@ import {
 import { Priority } from '../types/enums';
 import { buildVariantGqlFilter } from '../utils';
 
-export interface CommonParams {
-  label: string;
-  priority: Priority;
-  validityStart?: DateTime;
-  validityEnd?: DateTime;
-}
+export type CommonParams = {
+  readonly label: string;
+  readonly priority: Priority;
+  readonly validityStart?: DateTime;
+  readonly validityEnd?: DateTime;
+};
 
-interface RouteParams extends CommonParams {
-  direction: RouteDirectionEnum;
-  variant: number | null;
-}
+type RouteParams = CommonParams & {
+  readonly direction: RouteDirectionEnum;
+  readonly variant: number | null;
+};
 
 const buildValidityStartMissingGqlFilterOrConditions = (
   params: CommonParams,

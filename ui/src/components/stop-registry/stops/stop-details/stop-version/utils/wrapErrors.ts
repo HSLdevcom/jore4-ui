@@ -1,6 +1,6 @@
-interface TypedErrorConstructor<T extends Error> {
+type TypedErrorConstructor<T extends Error> = {
   new (message?: string, options?: ErrorOptions): T;
-}
+};
 
 export async function wrapErrors<PromisedValue, ErrorType extends Error>(
   promise: Promise<PromisedValue>,

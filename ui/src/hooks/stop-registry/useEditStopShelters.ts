@@ -15,10 +15,10 @@ import { StopWithDetails } from '../../types';
 import { showDangerToast } from '../../utils';
 import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
-interface EditTiamatParams {
-  state: SheltersFormState;
-  stop: StopWithDetails;
-}
+type EditTiamatParams = {
+  readonly state: SheltersFormState;
+  readonly stop: StopWithDetails;
+};
 
 const enclosedShelterTypes = [
   StopRegistryShelterType.Glass,

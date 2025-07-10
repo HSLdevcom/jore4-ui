@@ -1,22 +1,22 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-export interface ErrorDetails {
-  details: string;
-  additionalDetails?: string;
-}
+export type ErrorDetails = {
+  readonly details: string;
+  readonly additionalDetails?: string;
+};
 
-export interface ErrorListItem extends ErrorDetails {
-  key: string;
-  errorTitle: string;
-}
+export type ErrorListItem = ErrorDetails & {
+  readonly key: string;
+  readonly errorTitle: string;
+};
 
-interface IState {
-  isOpen: boolean;
-  errorModalTitle: string;
+type IState = {
+  readonly isOpen: boolean;
+  readonly errorModalTitle: string;
   // These are mutually exclusive. See actions below.
-  singleErrorDetails?: ErrorDetails;
-  errorList: ErrorListItem[];
-}
+  readonly singleErrorDetails?: ErrorDetails;
+  readonly errorList: ErrorListItem[];
+};
 
 const initialState: IState = {
   isOpen: false,
@@ -29,7 +29,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     openErrorListModal: (
-      state: IState,
+      state,
       action: PayloadAction<{
         errorModalTitle: string;
         errorList: ErrorListItem[];
@@ -41,7 +41,7 @@ const slice = createSlice({
       state.isOpen = true;
     },
     openSingleErrorModal: (
-      state: IState,
+      state,
       action: PayloadAction<{
         errorModalTitle: string;
         errorDetails: ErrorDetails;
@@ -52,7 +52,7 @@ const slice = createSlice({
       state.errorList = []; // Not used in this case.
       state.isOpen = true;
     },
-    closeErrorModal: (state: IState) => {
+    closeErrorModal: (state) => {
       state.singleErrorDetails = undefined;
       state.errorList = [];
       state.isOpen = false;

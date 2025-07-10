@@ -102,15 +102,15 @@ const GQL_GET_VEHICLE_SCHEDULES_FOR_DATE = gql`
  * @property validity: Validity period for timetables
  * @property vehicleJourneys: Array of vehicle journeys
  */
-export interface VehicleJourneyGroup {
-  dayType: DayTypeAllFieldsFragment;
-  vehicleJourneys: VehicleJourneyWithServiceFragment[] | null;
-  priority: TimetablePriority;
-  validity: Validity;
-  vehicleScheduleFrameId?: UUID | null;
-  createdAt?: DateTime | null | undefined;
-  inEffect?: boolean;
-}
+export type VehicleJourneyGroup = {
+  readonly dayType: DayTypeAllFieldsFragment;
+  readonly vehicleJourneys: VehicleJourneyWithServiceFragment[] | null;
+  readonly priority: TimetablePriority;
+  readonly validity: Validity;
+  readonly vehicleScheduleFrameId?: UUID | null;
+  readonly createdAt?: DateTime | null | undefined;
+  readonly inEffect?: boolean;
+};
 
 type Validity = {
   validityStart: DateTime;
@@ -126,11 +126,11 @@ type Validity = {
  * @property journeyPatternId: Journey pattern id for which the vehicle journey groups belong to
  * @property vehicleJourneyGroups: Array of vehicle journey groups
  */
-export interface TimetableWithMetadata {
-  validity?: Validity;
-  journeyPatternId: UUID;
-  vehicleJourneyGroups: VehicleJourneyGroup[];
-}
+export type TimetableWithMetadata = {
+  readonly validity?: Validity;
+  readonly journeyPatternId: UUID;
+  readonly vehicleJourneyGroups: VehicleJourneyGroup[];
+};
 
 const getTimetableNarrowestValidityPeriod = (
   vehicleJourneyGroups: ReadonlyArray<VehicleJourneyGroup>,

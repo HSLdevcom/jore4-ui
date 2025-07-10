@@ -11,14 +11,14 @@ import {
 } from '../../generated/graphql';
 import { showDangerToast } from '../../utils';
 
-interface CreateParams {
-  input: NewTimingPlaceFragment;
-}
+type CreateParams = {
+  readonly input: NewTimingPlaceFragment;
+};
 
-interface CreateChanges {
-  timingPlaceToCreate: TimingPatternTimingPlaceInsertInput;
-  conflicts?: CreatedTimingPlaceFragment[];
-}
+type CreateChanges = {
+  readonly timingPlaceToCreate: TimingPatternTimingPlaceInsertInput;
+  readonly conflicts?: CreatedTimingPlaceFragment[];
+};
 
 const GQL_NEW_TIMING_PLACE = gql`
   fragment new_timing_place on timing_pattern_timing_place {

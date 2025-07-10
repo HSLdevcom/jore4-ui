@@ -8,14 +8,14 @@ import {
   mapDateInputToValidityStart,
 } from '../../utils';
 
-interface ValidityPeriodParams {
-  validity_start?: Maybe<DateTime>;
-  validity_end?: Maybe<DateTime>;
-}
+type ValidityPeriodParams = {
+  readonly validity_start?: Maybe<DateTime>;
+  readonly validity_end?: Maybe<DateTime>;
+};
 
-interface JourneyPattern {
-  includedStopLabels: ReadonlyArray<string>;
-}
+type JourneyPattern = {
+  readonly includedStopLabels: ReadonlyArray<string>;
+};
 
 export const useValidateRoute = () => {
   const { t } = useTranslation();

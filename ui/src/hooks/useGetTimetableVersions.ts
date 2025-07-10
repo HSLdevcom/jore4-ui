@@ -57,26 +57,26 @@ const GQL_GET_TIMETABLE_VERSIONS_BY_JOURNEY_PARTTERN_IDS = gql`
  * UI DTO for Timetable version row data. NOTE: this is first iteration and might change completely.
  * For now it contains all the necessary information for timetable version rows.
  */
-export interface TimetableVersionRowData {
-  routeLabelAndVariant: string;
-  dayType: {
-    id: UUID;
-    label: string;
-    nameI18n: LocalizedString;
+export type TimetableVersionRowData = {
+  readonly routeLabelAndVariant: string;
+  readonly dayType: {
+    readonly id: UUID;
+    readonly label: string;
+    readonly nameI18n: LocalizedString;
   };
-  vehicleScheduleFrame: {
-    id: UUID | undefined;
-    nameI18n: LocalizedString;
-    priority: TimetablePriority;
-    validityStart?: DateTime | null;
-    validityEnd?: DateTime | null;
+  readonly vehicleScheduleFrame: {
+    readonly id: UUID | undefined;
+    readonly nameI18n: LocalizedString;
+    readonly priority: TimetablePriority;
+    readonly validityStart?: DateTime | null;
+    readonly validityEnd?: DateTime | null;
   };
-  substituteDay?: {
-    substituteDayOfWeek: DayOfWeek;
-    supersededDate: DateTime;
+  readonly substituteDay?: {
+    readonly substituteDayOfWeek: DayOfWeek;
+    readonly supersededDate: DateTime;
   };
-  inEffect?: boolean;
-}
+  readonly inEffect?: boolean;
+};
 
 const mapSubstituteDayData = (
   timetableVersionData: TimetableVersionFragment,

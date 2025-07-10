@@ -23,12 +23,12 @@ export const filterDistinctConsecutiveStops = <TStop extends { label: string }>(
   stops: ReadonlyArray<TStop>,
 ) => stops.filter((stop, index) => stops[index - 1]?.label !== stop.label);
 
-interface BuildJourneyPatternStopSequenceProps {
-  stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
-  includedStopLabels: ReadonlyArray<string>;
-  journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
-  journeyPatternId?: UUID;
-}
+type BuildJourneyPatternStopSequenceProps = {
+  readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+  readonly includedStopLabels: ReadonlyArray<string>;
+  readonly journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
+  readonly journeyPatternId?: UUID;
+};
 
 /**
  * Maps an array of stops to a list of stops in journey pattern,
