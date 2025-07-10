@@ -174,7 +174,7 @@ export const useEditStopFormUtils = (
     const { overlappingStopVersions } = await getOverlappingStopVersions(
       originalStop.label,
       originalStop.stop_place_ref ?? '',
-      originalStop.priority,
+      state.priority,
       state.validityStart,
       state.validityEnd,
       state.indefinite,
@@ -197,7 +197,7 @@ export const useEditStopFormUtils = (
       // Add reason for change here when implemented
       editStopValidityAndPriority(
         originalStop.stop_place_ref,
-        originalStop.priority,
+        state.priority,
         state.versionName,
         state.validityStart,
         state.validityEnd,
@@ -216,7 +216,7 @@ export const useEditStopFormUtils = (
     const { overlappingStopVersions } = await getOverlappingStopVersions(
       originalStop.label,
       originalStop.stop_place_ref ?? '',
-      originalStop.priority,
+      state.priority,
       state.validityStart,
       state.validityEnd,
       state.indefinite,
@@ -224,14 +224,14 @@ export const useEditStopFormUtils = (
 
     if (overlappingStopVersions.length >= 1) {
       try {
-        const versionToRemove = overlappingStopVersions[0];
-        let cutDates = cutOverlappingStopVersion(state, versionToRemove);
+        const versionToCut = overlappingStopVersions[0];
+        let cutDates = cutOverlappingStopVersion(state, versionToCut);
 
         if (cutDates.newVersion) {
           // Add reason for change here when implemented
           await editStopValidityAndPriority(
-            versionToRemove.stop_place_ref,
-            versionToRemove.priority,
+            versionToCut.stop_place_ref,
+            versionToCut.priority,
             state.versionName,
             cutDates.newVersion.start.toISODate(),
             cutDates.newVersion.end?.toISODate(),
@@ -259,7 +259,7 @@ export const useEditStopFormUtils = (
     // Add reason for change here when implemented
     await editStopValidityAndPriority(
       originalStop.stop_place_ref,
-      originalStop.priority,
+      state.priority,
       state.versionName,
       state.validityStart,
       state.validityEnd,
