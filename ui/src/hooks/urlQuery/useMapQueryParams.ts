@@ -6,25 +6,25 @@ import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
 const DEFAULT_ZOOM = 13 as const;
 
-export interface ViewPortParams {
-  latitude?: number;
-  longitude?: number;
-  zoom?: number;
-}
+export type ViewPortParams = {
+  readonly latitude?: number;
+  readonly longitude?: number;
+  readonly zoom?: number;
+};
 
-export interface DisplayedRouteParams {
-  routeLabels?: ReadonlyArray<string>;
-  lineLabel?: string;
-  routeId?: UUID;
-  showSelectedDaySituation?: boolean;
-  priorities?: ReadonlyArray<Priority>;
-}
+export type DisplayedRouteParams = {
+  readonly routeLabels?: ReadonlyArray<string>;
+  readonly lineLabel?: string;
+  readonly routeId?: UUID;
+  readonly showSelectedDaySituation?: boolean;
+  readonly priorities?: ReadonlyArray<Priority>;
+};
 
-export interface OpenMapParams {
-  viewPortParams: ViewPortParams;
-  displayedRouteParams: DisplayedRouteParams;
-  observationDate: DateTime;
-}
+export type OpenMapParams = {
+  readonly viewPortParams: ViewPortParams;
+  readonly displayedRouteParams: DisplayedRouteParams;
+  readonly observationDate: DateTime;
+};
 
 export const useMapQueryParams = () => {
   const {

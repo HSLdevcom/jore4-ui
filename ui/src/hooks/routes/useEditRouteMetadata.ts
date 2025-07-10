@@ -22,16 +22,16 @@ import {
 import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
 import { useValidateRoute } from './useValidateRoute';
 
-interface EditParams {
-  routeId: UUID;
-  form: RouteFormState;
-}
+type EditParams = {
+  readonly routeId: UUID;
+  readonly form: RouteFormState;
+};
 
-interface EditChanges {
-  routeId: UUID;
-  patch: RouteRouteSetInput;
-  conflicts?: RouteDefaultFieldsFragment[];
-}
+type EditChanges = {
+  readonly routeId: UUID;
+  readonly patch: RouteRouteSetInput;
+  readonly conflicts?: RouteDefaultFieldsFragment[];
+};
 
 export const mapRouteFormToInput = (state: RouteFormState) => {
   const { label, variant, priority, validityStart, validityEnd, indefinite } =

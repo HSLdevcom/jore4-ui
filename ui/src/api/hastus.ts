@@ -3,18 +3,18 @@ import { DateTime } from 'luxon';
 import { roleHeaderMap, userHasuraRole } from '../graphql/auth';
 import { Priority } from '../types/enums';
 
-interface CommonExportParams {
+type CommonExportParams = {
   readonly uniqueLabels: ReadonlyArray<string>;
   readonly priority: Priority;
-}
+};
 
-interface ExportBody extends CommonExportParams {
+type ExportBody = CommonExportParams & {
   readonly observationDate: string;
-}
+};
 
-interface ExportParams extends CommonExportParams {
+type ExportParams = CommonExportParams & {
   readonly observationDate: DateTime;
-}
+};
 
 // See fi.hsl.jore4.hastus.api.util.HastusApiErrorType enum in the jore4-hastus repository.
 export enum HastusApiErrorType {

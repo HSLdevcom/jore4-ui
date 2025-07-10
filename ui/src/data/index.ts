@@ -6,11 +6,11 @@ export * from './1004x_w_r.geojson';
 export * from './1088b.geojson';
 export * from './4433k.geojson';
 
-export interface ExampleRoute {
-  id: string;
-  name: string;
-  data: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
+export type ExampleRoute = {
+  readonly id: string;
+  readonly name: string;
+  readonly data: ExplicitAny;
+};
 
 export const routes = {
   '1004x': { id: '1004x', name: '1004x', data: geojson1004 } as ExampleRoute,

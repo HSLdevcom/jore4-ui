@@ -112,11 +112,11 @@ export const belongsToJourneyPattern = (
   return includedStopLabels.includes(stopLabel);
 };
 
-interface RouteInfo {
-  routeMetadata: RouteMetadataFragment | undefined;
-  stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
-  includedStopLabels: ReadonlyArray<string>;
-}
+type RouteInfo = {
+  readonly routeMetadata: RouteMetadataFragment | undefined;
+  readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+  readonly includedStopLabels: ReadonlyArray<string>;
+};
 
 /**
  * Hook for getting route's metadata and eligible + included stops in the journey pattern.

@@ -75,21 +75,21 @@ const GQL_UPDATE_ROUTE_GEOMETRY = gql`
   }
 `;
 
-interface EditParams {
-  routeId: UUID;
-  journeyPatternId: UUID;
-  infraLinksAlongRoute: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
-  stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
-  includedStopLabels: ReadonlyArray<string>;
-  journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
-}
+type EditParams = {
+  readonly routeId: UUID;
+  readonly journeyPatternId: UUID;
+  readonly infraLinksAlongRoute: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
+  readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+  readonly includedStopLabels: ReadonlyArray<string>;
+  readonly journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
+};
 
-interface EditChanges {
-  routeId: UUID;
-  journeyPatternId: UUID;
-  newInfrastructureLinks: RouteInfrastructureLinkAlongRouteInsertInput[];
-  newStopsInJourneyPattern: JourneyPatternScheduledStopPointInJourneyPatternInsertInput[];
-}
+type EditChanges = {
+  readonly routeId: UUID;
+  readonly journeyPatternId: UUID;
+  readonly newInfrastructureLinks: RouteInfrastructureLinkAlongRouteInsertInput[];
+  readonly newStopsInJourneyPattern: JourneyPatternScheduledStopPointInJourneyPatternInsertInput[];
+};
 
 /**
  * Hook for editing route's geometry (journey pattern and infrastructure links).

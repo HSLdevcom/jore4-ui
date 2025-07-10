@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import uniq from 'lodash/uniq';
 
-interface IState {
-  isSelectingRoutesForExport: boolean;
-  selectedRows: string[];
-}
+type IState = {
+  readonly isSelectingRoutesForExport: boolean;
+  readonly selectedRows: string[];
+};
 
 const initialState: IState = {
   isSelectingRoutesForExport: false,
@@ -18,15 +18,15 @@ const slice = createSlice({
     setIsSelectingRoutesForExport: (state, action: PayloadAction<boolean>) => {
       state.isSelectingRoutesForExport = action.payload;
     },
-    selectRow: (state: IState, action: PayloadAction<string>) => {
+    selectRow: (state, action: PayloadAction<string>) => {
       const { selectedRows: selectedRoutes } = state;
       state.selectedRows = [...selectedRoutes, action.payload];
     },
-    deselectRow: (state: IState, action: PayloadAction<string>) => {
+    deselectRow: (state, action: PayloadAction<string>) => {
       const { selectedRows } = state;
       state.selectedRows = selectedRows.filter((id) => id !== action.payload);
     },
-    selectRows: (state: IState, action: PayloadAction<string[]>) => {
+    selectRows: (state, action: PayloadAction<string[]>) => {
       const { selectedRows } = state;
       // If we are selecting rows with "Select all", we need to take uniq
       // to avoid adding the already checked rows again

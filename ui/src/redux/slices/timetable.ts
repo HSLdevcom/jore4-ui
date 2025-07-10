@@ -1,14 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { StoreType } from '../mappers';
 
-export interface TimetableState {
-  showArrivalTimes: boolean;
-  showAllValid: boolean;
-  settings: {
-    isOccasionalSubstitutePeriodFormDirty: boolean;
-    isCommonSubstitutePeriodFormDirty: boolean;
+export type TimetableState = {
+  readonly showArrivalTimes: boolean;
+  readonly showAllValid: boolean;
+  readonly settings: {
+    readonly isOccasionalSubstitutePeriodFormDirty: boolean;
+    readonly isCommonSubstitutePeriodFormDirty: boolean;
   };
-}
+};
 
 type IState = StoreType<TimetableState>;
 

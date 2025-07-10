@@ -15,10 +15,10 @@ import { showDangerToast } from '../../utils';
 import { useCalculateStopAccessibilityLevel } from './useCalculateStopAccessibilityLevel';
 import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
-interface EditTiamatParams {
-  state: MeasurementsFormState;
-  stop: StopWithDetails;
-}
+type EditTiamatParams = {
+  readonly state: MeasurementsFormState;
+  readonly stop: StopWithDetails;
+};
 
 export const useEditStopMeasurementDetails = () => {
   const { t } = useTranslation();

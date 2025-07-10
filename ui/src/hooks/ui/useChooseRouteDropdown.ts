@@ -42,12 +42,12 @@ const GQL_GET_SELECTED_ROUTE_DETAILS_BY_ID = gql`
   }
 `;
 
-interface Props {
-  query: string;
-  observationDate: DateTime;
-  priorities: ReadonlyArray<Priority>;
-  routeId?: string;
-}
+type Props = {
+  readonly query: string;
+  readonly observationDate: DateTime;
+  readonly priorities: ReadonlyArray<Priority>;
+  readonly routeId?: string;
+};
 
 export const useChooseRouteDropdown = ({
   query,

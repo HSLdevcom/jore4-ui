@@ -30,27 +30,27 @@ import {
 import { useValidateTimingSettings } from '../stops/useValidateTimingSettings';
 import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
-interface EditRoutesAndLinesParams {
-  stopId: UUID;
-  state: StopBasicDetailsFormState;
-}
+type EditRoutesAndLinesParams = {
+  readonly stopId: UUID;
+  readonly state: StopBasicDetailsFormState;
+};
 
 // TODO: Go through this. Some of it can be deleted, but realised that the label name change conflicts are currently
 // not handled here and they should. (just by changing the label should remove the stop from routes it is being used by)
-interface EditRoutesAndLinesChanges {
-  stopId: UUID;
-  stopLabel: string;
-  patch: PartialScheduledStopPointSetInput;
-  editedStop: ServicePatternScheduledStopPoint;
-  deleteStopFromRoutes: RouteUniqueFieldsFragment[];
-  deleteStopFromJourneyPatternIds?: UUID[];
-  conflicts?: ServicePatternScheduledStopPoint[];
-}
+type EditRoutesAndLinesChanges = {
+  readonly stopId: UUID;
+  readonly stopLabel: string;
+  readonly patch: PartialScheduledStopPointSetInput;
+  readonly editedStop: ServicePatternScheduledStopPoint;
+  readonly deleteStopFromRoutes: RouteUniqueFieldsFragment[];
+  readonly deleteStopFromJourneyPatternIds?: UUID[];
+  readonly conflicts?: ServicePatternScheduledStopPoint[];
+};
 
-interface EditTiamatParams {
-  state: StopBasicDetailsFormState;
-  stop: StopWithDetails;
-}
+type EditTiamatParams = {
+  readonly state: StopBasicDetailsFormState;
+  readonly stop: StopWithDetails;
+};
 
 const GQL_UPDATE_STOP_PLACE = gql`
   mutation UpdateStopPlace($input: stop_registry_StopPlaceInput!) {

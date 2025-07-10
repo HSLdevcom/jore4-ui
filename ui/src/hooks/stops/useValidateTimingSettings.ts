@@ -31,10 +31,10 @@ const GQL_GET_SCHEDULED_STOP_POINTS_IN_JOURNEY_PATTERNS_USED_AS_TIMING_POINTS = 
   }
 `;
 
-interface Params {
-  stopLabel: string;
-  timingPlaceId?: UUID | null;
-}
+type Params = {
+  readonly stopLabel: string;
+  readonly timingPlaceId?: UUID | null;
+};
 
 /**
  * Hook for validating timing settings (is used as timing place?) for each journey pattern that

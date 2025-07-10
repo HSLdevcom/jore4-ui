@@ -14,11 +14,11 @@ enum AlertLevel {
   Important,
 }
 
-export interface AlertStatus {
-  alertLevel: AlertLevel;
-  title: string;
-  description: string;
-}
+export type AlertStatus = {
+  readonly alertLevel: AlertLevel;
+  readonly title: string;
+  readonly description: string;
+};
 
 export const useAlertsAndHighLights = () => {
   const getAlertStatus = (

@@ -35,16 +35,16 @@ const logOnError = (message: string, res: ExplicitAny) => {
   }
 };
 
-interface SupportedResources {
-  infraLinks?: InfraLinkInsertInput[];
-  vehicleSubmodeOnInfrastructureLink?: VehicleSubmodeOnInfraLinkInsertInput[];
-  lines?: LineInsertInput[];
-  stops?: StopInsertInput[];
-  routes?: RouteInsertInput[];
-  infraLinksAlongRoute?: InfraLinkAlongRouteInsertInput[];
-  journeyPatterns?: JourneyPatternInsertInput[];
-  stopsInJourneyPattern?: StopInJourneyPatternInsertInput[];
-}
+type SupportedResources = {
+  readonly infraLinks?: InfraLinkInsertInput[];
+  readonly vehicleSubmodeOnInfrastructureLink?: VehicleSubmodeOnInfraLinkInsertInput[];
+  readonly lines?: LineInsertInput[];
+  readonly stops?: StopInsertInput[];
+  readonly routes?: RouteInsertInput[];
+  readonly infraLinksAlongRoute?: InfraLinkAlongRouteInsertInput[];
+  readonly journeyPatterns?: JourneyPatternInsertInput[];
+  readonly stopsInJourneyPattern?: StopInJourneyPatternInsertInput[];
+};
 
 export const insertToDbHelper = async ({
   infraLinks,

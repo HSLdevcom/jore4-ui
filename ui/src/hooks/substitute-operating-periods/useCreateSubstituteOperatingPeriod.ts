@@ -34,13 +34,13 @@ const GQL_CREATE_SUBSTITUTE_OPERATING_PERIOD = gql`
   }
 `;
 
-interface CreateParams {
-  form: FormState;
-}
+type CreateParams = {
+  readonly form: FormState;
+};
 
-interface CreateChanges {
-  input: CreateSubstituteOperatingPeriodMutationVariables;
-}
+type CreateChanges = {
+  readonly input: CreateSubstituteOperatingPeriodMutationVariables;
+};
 
 const useCreateSubstituteOperatingPeriodHook: MutationHook<
   CreateParams,

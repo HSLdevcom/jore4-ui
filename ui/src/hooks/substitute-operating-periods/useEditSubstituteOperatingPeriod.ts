@@ -46,12 +46,13 @@ const GQL_UPDATE_SUBSTITUTE_PERIOD = gql`
   }
 `;
 
-interface EditParams {
-  form: FormState;
-}
-interface EditChanges {
-  input: EditSubstituteOperatingPeriodsMutationVariables;
-}
+type EditParams = {
+  readonly form: FormState;
+};
+
+type EditChanges = {
+  readonly input: EditSubstituteOperatingPeriodsMutationVariables;
+};
 
 const useEditSubstituteOperatingPeriodHook: MutationHook<
   EditParams,

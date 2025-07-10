@@ -5,11 +5,11 @@ import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { showDangerToast } from '../../../utils';
 
-interface DragZoneClassNames {
-  dragZone: string;
-  outerCircle: string;
-  iconColor: string;
-}
+type DragZoneClassNames = {
+  readonly dragZone: string;
+  readonly outerCircle: string;
+  readonly iconColor: string;
+};
 
 type FileImportDragAndDropProps = {
   readonly fileList: ReadonlyArray<File> | null;

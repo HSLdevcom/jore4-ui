@@ -47,19 +47,19 @@ const GQL_UPDATE_ROUTE_JOURNEY_PATTERN = gql`
     }
   }
 `;
-interface DeleteStopParams {
-  route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
-  stopPointLabels: ReadonlyArray<string>;
-}
+type DeleteStopParams = {
+  readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
+  readonly stopPointLabels: ReadonlyArray<string>;
+};
 
 type AddStopParams = DeleteStopParams;
 
-interface UpdateJourneyPatternChanges {
-  journeyPatternId: UUID;
-  stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
-  includedStopLabels: ReadonlyArray<string>;
-  journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
-}
+type UpdateJourneyPatternChanges = {
+  readonly journeyPatternId: UUID;
+  readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+  readonly includedStopLabels: ReadonlyArray<string>;
+  readonly journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
+};
 
 export const getEligibleStopsAlongRoute = <
   TRoute extends RouteWithInfrastructureLinksWithStopsFragment,

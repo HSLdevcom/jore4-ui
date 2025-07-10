@@ -13,10 +13,10 @@ import {
   LinkNotResolvedError,
 } from '../../utils';
 
-interface Params {
-  stopLocation: GeoJSON.Point;
-  maxSearchDistance?: number;
-}
+type Params = {
+  readonly stopLocation: GeoJSON.Point;
+  readonly maxSearchDistance?: number;
+};
 
 export const useGetStopLinkAndDirection = () => {
   const [fetchClosestLink] = useQueryClosestLinkLazyQuery();

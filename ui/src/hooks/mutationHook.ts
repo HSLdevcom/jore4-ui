@@ -1,19 +1,21 @@
 import { FetchResult, OperationVariables } from '@apollo/client';
 import flow from 'lodash/flow';
 
-export interface MutationHookFunctions<
+export type MutationHookFunctions<
   TParams,
   TChanges,
   TMutationVariables extends OperationVariables,
-> {
-  prepare: (params: TParams) => Promise<TChanges> | TChanges;
-  mapChangesToVariables: (
+> = {
+  readonly prepare: (params: TParams) => Promise<TChanges> | TChanges;
+  readonly mapChangesToVariables: (
     changes: TChanges,
   ) => Promise<TMutationVariables> | TMutationVariables;
-  executeMutation: (variables: TMutationVariables) => Promise<FetchResult>;
+  readonly executeMutation: (
+    variables: TMutationVariables,
+  ) => Promise<FetchResult>;
   // TODO: possible future extension
   // defaultErrorHandler?: (error: Error) => void;
-}
+};
 
 // TODO: allow MutationHook to return other functions as well, not only MutationHookFunctions
 // currently the caller cannot see these extra functions

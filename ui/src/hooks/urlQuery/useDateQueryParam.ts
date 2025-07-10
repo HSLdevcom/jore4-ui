@@ -2,11 +2,11 @@ import { DateTime } from 'luxon';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
-interface Props {
-  initialize?: boolean;
-  queryParamName: QueryParameterName;
-  initialDate?: DateTime;
-}
+type Props = {
+  readonly initialize?: boolean;
+  readonly queryParamName: QueryParameterName;
+  readonly initialDate?: DateTime;
+};
 
 /**
  * Query parameter hook for setting and getting date query parameter. Initialization

@@ -6,9 +6,9 @@ import { isDateInRange } from '../../time';
 import { showWarningToast } from '../../utils';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
-interface Props {
-  initialize?: boolean;
-}
+type Props = {
+  readonly initialize?: boolean;
+};
 
 /**
  * Query parameter hook for setting and getting observationDate. Initialization

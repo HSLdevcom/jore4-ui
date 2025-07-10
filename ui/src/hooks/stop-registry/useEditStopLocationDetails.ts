@@ -11,10 +11,10 @@ import {
 } from '../../utils';
 import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
-interface EditTiamatParams {
-  state: LocationDetailsFormState;
-  stop: StopWithDetails;
-}
+type EditTiamatParams = {
+  readonly state: LocationDetailsFormState;
+  readonly stop: StopWithDetails;
+};
 
 export const useEditStopLocationDetails = () => {
   const { t } = useTranslation();

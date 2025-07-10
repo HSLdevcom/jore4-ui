@@ -12,16 +12,16 @@ import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPrio
 import { mapFormToInput } from './useCreateLine';
 import { useValidateLine } from './useValidateLine';
 
-interface EditParams {
-  lineId: UUID;
-  form: FormState;
-}
+type EditParams = {
+  readonly lineId: UUID;
+  readonly form: FormState;
+};
 
-interface EditChanges {
-  lineId: UUID;
-  patch: RouteLineSetInput;
-  conflicts?: LineAllFieldsFragment[];
-}
+type EditChanges = {
+  readonly lineId: UUID;
+  readonly patch: RouteLineSetInput;
+  readonly conflicts?: LineAllFieldsFragment[];
+};
 
 export const useEditLine = () => {
   const { t } = useTranslation();

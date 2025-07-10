@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { UserInfo } from '../../types/UserInfo';
 
-interface IState {
-  userInfo?: UserInfo;
-}
+type IState = {
+  readonly userInfo?: UserInfo;
+};
 
 const initialState: IState = {
   userInfo: undefined,

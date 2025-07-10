@@ -4,15 +4,15 @@ import {
 } from '../../generated/graphql';
 import { MutationHook, extendHook } from '../mutationHook';
 
-interface RemoveParams {
-  journeyPatternId: UUID;
-  stopLabel: string;
-}
+type RemoveParams = {
+  readonly journeyPatternId: UUID;
+  readonly stopLabel: string;
+};
 
-interface RemoveChanges {
-  journeyPatternId: UUID;
-  stopLabel: string;
-}
+type RemoveChanges = {
+  readonly journeyPatternId: UUID;
+  readonly stopLabel: string;
+};
 
 // Note: this will remove the VIA info from _all_ of the instances of the stop with the given label
 // within the journey pattern. E.g. if the bus travels in a loop and visits the same stop multiple

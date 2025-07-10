@@ -241,15 +241,15 @@ const mapInfraLinkToFeature = (
   });
 };
 
-interface SnapPointCalculationParams {
-  isFirstLink: boolean;
-  isLastLink: boolean;
-  isLoopLink: boolean;
-  isBetweenLink: boolean;
-  isOnlyLink: boolean;
-  isBidirectional: boolean;
-  isLinkLengthValid: boolean;
-}
+type SnapPointCalculationParams = {
+  readonly isFirstLink: boolean;
+  readonly isLastLink: boolean;
+  readonly isLoopLink: boolean;
+  readonly isBetweenLink: boolean;
+  readonly isOnlyLink: boolean;
+  readonly isBidirectional: boolean;
+  readonly isLinkLengthValid: boolean;
+};
 
 const getSnapPointCalculateParamsForInfraLink = (
   linkFeature: GeoJSON.Feature<LineString>,
