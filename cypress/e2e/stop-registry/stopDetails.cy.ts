@@ -2430,6 +2430,228 @@ describe('Stop details', () => {
       stopDetailsPage.loadingStopDetails().should('not.exist');
       stopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-1.4.2020');
     });
+
+    it('should modify a version without overlap', () => {
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.page().shouldBeVisible();
+
+      stopDetailsPage.titleRow.label().shouldHaveText('H2003');
+      stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
+
+      stopDetailsPage.titleRow.editValidityButton().click();
+      const { editValidityModal } = stopDetailsPage;
+      const { form } = editValidityModal;
+
+      editValidityModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          form.versionName().clearAndType('Shorter version');
+          form.priority.setPriority(Priority.Standard);
+          form.validity.fillForm({
+            validityStartISODate: '2020-03-20',
+            validityEndISODate: '2030-05-31',
+          });
+          form.submitButton().click();
+        });
+
+      toast.expectSuccessToast('Versio muokattu');
+      editValidityModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2030');
+
+      stopDetailsPage.titleRow.editValidityButton().click();
+      editValidityModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          form.versionName().clearAndType('Longer version');
+          form.priority.setPriority(Priority.Standard);
+          form.validity.fillForm({
+            validityStartISODate: '2020-03-20',
+            validityEndISODate: undefined,
+          });
+          form.submitButton().click();
+        });
+
+      toast.expectSuccessToast('Versio muokattu');
+      editValidityModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().should('contain', '20.3.2020-');
+    });
+
+    it('should not allow cut validity when overlapping whole version', () => {
+      // Insert two versions with temporary priority
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.titleRow.actionsMenuButton().click();
+      stopDetailsPage.titleRow
+        .actionsMenuCopyButton()
+        .should('not.be.disabled')
+        .click();
+
+      const { copyModal } = stopDetailsPage;
+      const { form: copyForm } = copyModal;
+
+      copyModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          copyForm.versionName().clearAndType('Temp version #1');
+          copyForm.priority.setPriority(Priority.Temporary);
+          copyForm.validity.fillForm({
+            validityStartISODate: '2030-03-18',
+            validityEndISODate: '2030-03-19',
+          });
+          copyForm.submitButton().click();
+        });
+
+      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      copyModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+
+      stopDetailsPage.titleRow.actionsMenuButton().click();
+      stopDetailsPage.titleRow
+        .actionsMenuCopyButton()
+        .should('not.be.disabled')
+        .click();
+
+      copyModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          copyForm.versionName().clearAndType('Temp version #2');
+          copyForm.priority.setPriority(Priority.Temporary);
+          copyForm.validity.fillForm({
+            validityStartISODate: '2030-03-20',
+            validityEndISODate: '2030-03-25',
+          });
+          copyForm.submitButton().click();
+        });
+
+      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      copyModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().shouldHaveText('20.3.2030-25.3.2030');
+
+      // Modify temp version #2 to overlap with temp version #1
+      stopDetailsPage.titleRow.editValidityButton().click();
+      const { editValidityModal } = stopDetailsPage;
+      const { form } = editValidityModal;
+
+      editValidityModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          form.versionName().clearAndType('Overlapping version');
+          form.priority.setPriority(Priority.Standard);
+          form.validity.fillForm({
+            validityStartISODate: '2030-03-15',
+            validityEndISODate: '2030-03-25',
+          });
+          form.submitButton().click();
+        });
+
+      toast.expectDangerToast('Päällekkäisen version leikkaaminen ei onnistu.');
+    });
+
+    it('should modify a version with overlapping validity period', () => {
+      // Insert two versions with temporary priority
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.titleRow.actionsMenuButton().click();
+      stopDetailsPage.titleRow
+        .actionsMenuCopyButton()
+        .should('not.be.disabled')
+        .click();
+
+      const { copyModal } = stopDetailsPage;
+      const { form: copyForm } = copyModal;
+
+      copyModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          copyForm.versionName().clearAndType('Temp version #1');
+          copyForm.priority.setPriority(Priority.Temporary);
+          copyForm.validity.fillForm({
+            validityStartISODate: '2030-03-10',
+            validityEndISODate: '2030-03-19',
+          });
+          copyForm.submitButton().click();
+        });
+
+      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      copyModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+
+      stopDetailsPage.titleRow.actionsMenuButton().click();
+      stopDetailsPage.titleRow
+        .actionsMenuCopyButton()
+        .should('not.be.disabled')
+        .click();
+
+      copyModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          copyForm.versionName().clearAndType('Temp version #2');
+          copyForm.priority.setPriority(Priority.Temporary);
+          copyForm.validity.fillForm({
+            validityStartISODate: '2030-03-20',
+            validityEndISODate: '2030-03-25',
+          });
+          copyForm.submitButton().click();
+        });
+
+      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      copyModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().shouldHaveText('20.3.2030-25.3.2030');
+
+      // Modify temp version #2 to overlap with temp version #1
+      stopDetailsPage.titleRow.editValidityButton().click();
+      const { editValidityModal } = stopDetailsPage;
+      const { form } = editValidityModal;
+
+      editValidityModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          form.versionName().clearAndType('Overlapping version');
+          form.priority.setPriority(Priority.Standard);
+          form.validity.fillForm({
+            validityStartISODate: '2030-03-15',
+            validityEndISODate: '2030-03-25',
+          });
+          form.submitButton().click();
+        });
+
+      // Validate cut confirmation modal
+      const { cutValidityConfirmationModal } = stopDetailsPage;
+      const { confirmationModal } = cutValidityConfirmationModal;
+
+      cutValidityConfirmationModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          cutValidityConfirmationModal
+            .currentVersion()
+            .should('contain', '10.03.2030 - 19.03.2030');
+          cutValidityConfirmationModal
+            .newVersion()
+            .should('contain', '15.03.2030 - 25.03.2030');
+          cutValidityConfirmationModal
+            .cutDate()
+            .should('contain', '14.03.2030');
+
+          confirmationModal.getConfirmButton().click();
+        });
+
+      toast.expectSuccessToast('Versio muokattu');
+      editValidityModal.modal().should('not.exist');
+      cutValidityConfirmationModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().should('contain', '15.3.2030-25.3.2030');
+    });
   });
 
   // A regression test to ensure that our mutations don't eg. reset any fields they are not supposed to.

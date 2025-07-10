@@ -10,6 +10,8 @@ import {
   SignageDetailsSection,
   TitleRow,
 } from './stop-details';
+import { CutValidityConfirmationModal } from './stop-details/CutValidityConfirmationModal';
+import { EditValidityModal } from './stop-details/EditValidityModal';
 
 export class StopDetailsPage {
   basicDetails = new BasicDetailsSection();
@@ -30,7 +32,11 @@ export class StopDetailsPage {
 
   copyModal = new CreateCopyModal();
 
+  editValidityModal = new EditValidityModal();
+
   observationDateControl = new ObservationDateControl();
+
+  cutValidityConfirmationModal = new CutValidityConfirmationModal();
 
   visit(label: string) {
     cy.visit(`/stop-registry/stops/${label}`);

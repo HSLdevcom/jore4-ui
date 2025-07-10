@@ -13,6 +13,7 @@ type ConfirmModalProps = {
   readonly confirmButtonText: string;
   readonly cancelButtonText: string;
   readonly className?: string;
+  readonly testId?: string;
 };
 
 const testIds = {
@@ -29,12 +30,14 @@ export const ConfirmModal: FC<PropsWithChildren<ConfirmModalProps>> = ({
   cancelButtonText,
   className = '',
   children,
+  testId,
 }) => {
   return (
     <Modal
       isOpen={isOpen}
       onClose={onCancel}
       contentClassName={twMerge('w-1/4', className)}
+      testId={testId}
     >
       <Row className="flex justify-between px-5 py-4">
         <Dialog.Title as="h4">{heading}</Dialog.Title>

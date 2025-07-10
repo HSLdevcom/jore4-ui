@@ -462,7 +462,7 @@
         "cutCurrentVersionToStart": "Leikataanko nykyinen versio alkamaan {{date}}?"
       },
       "success": {
-        "edit": "Versio tallennettu",
+        "edit": "Versio muokattu",
         "copy": "Uusi versio luotu\nAvataan uusi versio"
       },
       "errors": {
