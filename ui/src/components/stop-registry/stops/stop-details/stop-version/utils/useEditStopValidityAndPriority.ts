@@ -11,7 +11,7 @@ import { ScheduledStopPointEditFailed } from '../errors/ScheduledStopPointEditFa
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
 import { wrapErrors } from './wrapErrors';
 
-function useEditcheduledStopPointValidity() {
+function useEditScheduledStopPointValidityAndPriority() {
   const [editScheduledStopPointValidityMutation] =
     useEditScheduledStopPointValidityMutation();
 
@@ -144,8 +144,9 @@ function useEditQuayValidity() {
   );
 }
 
-export function useEditStopValidity() {
-  const editScheduledStopPointValidity = useEditcheduledStopPointValidity();
+export function useEditStopValidityAndPriority() {
+  const editScheduledStopPointValidityAndPriority =
+    useEditScheduledStopPointValidityAndPriority();
   const editQuayValidity = useEditQuayValidity();
 
   return useCallback(
@@ -171,13 +172,14 @@ export function useEditStopValidity() {
           ? DateTime.fromFormat(validityEnd, 'yyyy-MM-dd')
           : undefined;
 
-      const { stopId, priority } = await editScheduledStopPointValidity(
-        quayId,
-        versionPriority,
-        validityStartDateTime,
-        validityEndDateTime,
-        indefinite,
-      );
+      const { stopId, priority } =
+        await editScheduledStopPointValidityAndPriority(
+          quayId,
+          versionPriority,
+          validityStartDateTime,
+          validityEndDateTime,
+          indefinite,
+        );
 
       const { stopPlaceId } = await editQuayValidity(
         quayId,
@@ -197,6 +199,6 @@ export function useEditStopValidity() {
         indefinite: indefinite ?? false,
       };
     },
-    [editQuayValidity, editScheduledStopPointValidity],
+    [editQuayValidity, editScheduledStopPointValidityAndPriority],
   );
 }
