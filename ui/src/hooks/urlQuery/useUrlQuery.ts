@@ -21,6 +21,7 @@ export enum QueryParameterName {
   DayType = 'dayType',
   StartDate = 'startDate',
   EndDate = 'endDate',
+  StopPriority = 'priority',
 }
 
 export type QueryParameter<TType> = { paramName: string; value: TType };

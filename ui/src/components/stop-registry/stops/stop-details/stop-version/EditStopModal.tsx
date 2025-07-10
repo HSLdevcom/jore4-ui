@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../hooks';
+import { usePriorityQueryParam } from '../../../../../hooks/urlQuery/usePriorityQueryParam';
 import { StopWithDetails } from '../../../../../types';
 import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
@@ -32,6 +33,7 @@ export const EditStopModal: FC<EditStopModalProps> = ({
 
   const { setObservationDateToUrl, observationDate } =
     useObservationDateQueryParam();
+  const { setPriorityToUrl } = usePriorityQueryParam();
 
   const { ranges, loading: loadingExistingValidityRanges } =
     useResolveExistingStopValidityRanges({
@@ -50,6 +52,10 @@ export const EditStopModal: FC<EditStopModalProps> = ({
 
     if (result.validityStart) {
       setObservationDateToUrl(result.validityStart);
+    }
+
+    if (result.priority) {
+      setPriorityToUrl(result.priority);
     }
   };
 
