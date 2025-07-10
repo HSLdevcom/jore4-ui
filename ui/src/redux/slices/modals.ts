@@ -1,55 +1,55 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-interface IState {
-  viaModal: ViaModalState;
-  timingPlaceModal: TimingPlaceModalState;
-  timingSettingsModal: TimingSettingsModalState;
-  changeTimetableValidityModal: ChangeTimetableValidityModalState;
-  deleteTimetableModal: deleteTimetableModalState;
-  cutStopVersionValidityModal: CutStopVersionValidityModalState;
-}
+type IState = {
+  readonly viaModal: ViaModalState;
+  readonly timingPlaceModal: TimingPlaceModalState;
+  readonly timingSettingsModal: TimingSettingsModalState;
+  readonly changeTimetableValidityModal: ChangeTimetableValidityModalState;
+  readonly deleteTimetableModal: deleteTimetableModalState;
+  readonly cutStopVersionValidityModal: CutStopVersionValidityModalState;
+};
 
-interface ViaModalState {
-  isOpen: boolean;
-  journeyPatternId?: UUID;
-  stopLabel?: string;
-}
+type ViaModalState = {
+  readonly isOpen: boolean;
+  readonly journeyPatternId?: UUID;
+  readonly stopLabel?: string;
+};
 
-interface ChangeTimetableValidityModalState {
-  isOpen: boolean;
-  vehicleScheduleFrameId?: UUID;
-  lastModifiedVehicleScheduleFrame?: {
-    vehicleScheduleFrameId: UUID;
-    validityStart: string;
-    validityEnd: string;
+type ChangeTimetableValidityModalState = {
+  readonly isOpen: boolean;
+  readonly vehicleScheduleFrameId?: UUID;
+  readonly lastModifiedVehicleScheduleFrame?: {
+    readonly vehicleScheduleFrameId: UUID;
+    readonly validityStart: string;
+    readonly validityEnd: string;
   };
-}
+};
 
-interface TimingSettingsModalState {
-  isOpen: boolean;
-  data?: {
-    journeyPatternId: UUID;
-    stopLabel: string;
-    sequence: number;
+type TimingSettingsModalState = {
+  readonly isOpen: boolean;
+  readonly data?: {
+    readonly journeyPatternId: UUID;
+    readonly stopLabel: string;
+    readonly sequence: number;
   };
-}
+};
 
-interface TimingPlaceModalState {
-  isOpen: boolean;
-}
+type TimingPlaceModalState = {
+  readonly isOpen: boolean;
+};
 
-interface deleteTimetableModalState {
-  isOpen: boolean;
-  vehicleScheduleFrameId?: UUID;
-}
+type deleteTimetableModalState = {
+  readonly isOpen: boolean;
+  readonly vehicleScheduleFrameId?: UUID;
+};
 
-interface CutStopVersionValidityModalState {
-  isOpen: boolean;
-  currentVersion?: string;
-  newVersion?: string;
-  cutDate?: string;
-  isCutToEnd?: boolean;
-}
+type CutStopVersionValidityModalState = {
+  readonly isOpen: boolean;
+  readonly currentVersion?: string;
+  readonly newVersion?: string;
+  readonly cutDate?: string;
+  readonly isCutToEnd?: boolean;
+};
 
 const initialState: IState = {
   viaModal: {

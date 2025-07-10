@@ -1,15 +1,15 @@
 import { DateTime } from 'luxon';
 
 export type OverlappingCutDatesResult = {
-  currentVersion: {
-    start: DateTime;
-    end: DateTime | undefined;
-    indefinite: boolean;
+  readonly currentVersion: {
+    readonly start: DateTime;
+    readonly end: DateTime | undefined;
+    readonly indefinite: boolean;
   };
-  newVersion?: {
-    start: DateTime;
-    end: DateTime | undefined;
-    indefinite: boolean;
-    cutToEnd: boolean;
+  readonly newVersion?: {
+    readonly start: DateTime;
+    readonly end: DateTime | undefined;
+    readonly indefinite: boolean;
+    readonly cutToEnd: boolean;
   };
 };

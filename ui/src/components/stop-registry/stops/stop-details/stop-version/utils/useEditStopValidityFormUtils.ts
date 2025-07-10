@@ -194,6 +194,7 @@ export const useEditStopValidityFormUtils = (
 
       setIsLoading(false);
     } else {
+      // Add reason for change here when implemented
       editStopValidity(
         originalStop.stop_place_ref,
         originalStop.priority,
@@ -227,6 +228,7 @@ export const useEditStopValidityFormUtils = (
         let cutDates = cutOverlappingStopVersion(state, versionToRemove);
 
         if (cutDates.newVersion) {
+          // Add reason for change here when implemented
           await editStopValidity(
             versionToRemove.stop_place_ref,
             versionToRemove.priority,
@@ -254,6 +256,7 @@ export const useEditStopValidityFormUtils = (
     }
 
     // If there is no overlap remaining, just edit the stop validity
+    // Add reason for change here when implemented
     await editStopValidity(
       originalStop.stop_place_ref,
       originalStop.priority,
