@@ -63,6 +63,7 @@ function useEditQuayValidity() {
       validityStart: DateTime,
       validityEnd?: DateTime,
       indefinite?: boolean,
+      reasonForChange?: string,
     ) => {
       const { data } = await getQuay({
         variables: { quayId },
@@ -110,6 +111,15 @@ function useEditQuayValidity() {
         values: [validityEnd && !indefinite ? validityEnd.toISODate() : null],
       });
 
+      if (reasonForChange) {
+        const existing = keyValues.find((kv) => kv.key === 'reasonForChange');
+        if (existing) {
+          existing.values = [reasonForChange];
+        } else {
+          keyValues.push({ key: 'reasonForChange', values: [reasonForChange] });
+        }
+      }
+
       const response = await wrapErrors(
         editKeyValuesOfQuayMutation({
           variables: {
@@ -146,6 +156,7 @@ export function useEditStopValidity() {
       validityStart: string,
       validityEnd?: string,
       indefinite?: boolean,
+      reasonForChange?: string,
     ): Promise<EditStopVersionResult> => {
       if (!quayId) {
         throw new Error('Stop place ref missing for the quay being edited!');
@@ -174,6 +185,7 @@ export function useEditStopValidity() {
         validityStartDateTime,
         validityEndDateTime,
         indefinite,
+        reasonForChange,
       );
 
       return {

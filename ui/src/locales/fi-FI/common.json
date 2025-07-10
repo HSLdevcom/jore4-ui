@@ -458,22 +458,22 @@
       "cutModal": {
         "currentVersion": "Nykyinen versio",
         "newVersion": "Uusi versio",
-        "cutCurrentVersionToEnd": "Leikataanko nykyinen versio päättymään {{date}}?",
-        "cutCurrentVersionToStart": "Leikataanko nykyinen versio alkamaan {{date}}?"
+        "cutCurrentVersionToEnd": "Leikataanko nykyinen versio päättymään {{ date }}?",
+        "cutCurrentVersionToStart": "Leikataanko nykyinen versio alkamaan {{ date }}?"
       },
       "success": {
         "edit": "Versio muokattu",
         "copy": "Uusi versio luotu\nAvataan uusi versio"
       },
       "errors": {
-        "edit": "Version tallennus epäonnistui:\n{{reason}}",
-        "copy": "Kopion tallennus epäonnistui:\n{{reason}}",
-        "failedToResolveExistingQuays": "Pysäkin pysäkkialueen muiden pysäkkien selvitys epäonnistui! Syy:\n{{reason}}",
-        "stopPlaceInsertFailed": "Pysäkkirekisteritietueen luonti epäonnistui! Syy:\n{{reason}}",
-        "stopPointInsertFailedStopPlaceReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui! Syy:\n{{reason}}",
-        "stopPointInsertFailedStopPlaceNotReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui eikä aiemmin luotua pysäkkirekisteritietuetta saatu poistettua. Jore tietokannoissa on nyt virheitä. Syy:\n{{reason}}",
-        "unableToCutOverlappingStopVersion": "Päällekkäisen version leikkaaminen ei onnistu. Syy:\n{{reason}}",
-        "failedToCutOverlappingStopVersion": "Päällekkäisen version leikkaaminen epäonnistui. Syy:\n{{reason}}"
+        "edit": "Version tallennus epäonnistui:\n{{ reason }}",
+        "copy": "Kopion tallennus epäonnistui:\n{{ reason }}",
+        "failedToResolveExistingQuays": "Pysäkin pysäkkialueen muiden pysäkkien selvitys epäonnistui! Syy:\n{{ reason }}",
+        "stopPlaceInsertFailed": "Pysäkkirekisteritietueen luonti epäonnistui! Syy:\n{{ reason }}",
+        "stopPointInsertFailedStopPlaceReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui! Syy:\n{{ reason }}",
+        "stopPointInsertFailedStopPlaceNotReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui eikä aiemmin luotua pysäkkirekisteritietuetta saatu poistettua. Jore tietokannoissa on nyt virheitä. Syy:\n{{ reason }}",
+        "unableToCutOverlappingStopVersion": "Päällekkäisen version leikkaaminen ei onnistu. Syy:\n{{ reason }}",
+        "failedToCutOverlappingStopVersion": "Päällekkäisen version leikkaaminen epäonnistui. Syy:\n{{ reason }}"
       }
     },
     "externalLinks": {

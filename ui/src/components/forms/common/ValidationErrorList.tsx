@@ -26,7 +26,7 @@ export const ValidationError: FC<ValidationErrorProps> = ({
   fieldPath,
 }) => (
   <Row className={`${className} items-center`}>
-    <i className="icon-alert mr-4 text-hsl-red" />
+    <i className="icon-alert mr-6 text-hsl-red" />
     <span
       className="text-sm text-hsl-red"
       data-testid={testIds.errorMessage(fieldPath)}

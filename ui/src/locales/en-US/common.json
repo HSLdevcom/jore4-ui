@@ -459,22 +459,22 @@
       "cutModal": {
         "currentVersion": "Current version",
         "newVersion": "New version",
-        "cutCurrentVersionToEnd": "Cut current version to end on {{date}}?",
-        "cutCurrentVersionToStart": "Cut current version to start on {{date}}?"
+        "cutCurrentVersionToEnd": "Cut current version to end on {{ date }}?",
+        "cutCurrentVersionToStart": "Cut current version to start on {{ date }}?"
       },
       "success": {
         "edit": "Version edited",
         "copy": "New version created\nOpening up new version"
       },
       "errors": {
-        "edit": "Failed to save new version:\n{{reason}}",
-        "copy": "Failed to save copy:\n{{reason}}",
-        "failedToResolveExistingQuays": "Failed to resolve the other stops belonging to the same Stop Area! Reason:\n{{reason}}",
-        "stopPlaceInsertFailed": "Failed to create entry in StopRegistry! Reason:\n{{reason}}",
-        "stopPointInsertFailedStopPlaceReverted": "Failed to create a scheduled stop point in the lines and routers database! Reason:\n{{reason}}",
-        "stopPointInsertFailedStopPlaceNotReverted": "Failed to create a scheduled stop point in the lines and routers database, and the previusly created entry in StopRegistry could be deleted. Jore databases contains errors. Reason:\n{{reason}}",
-        "unableToCutOverlappingStopVersion": "Unable to cut overlapping stop version. Reason:\n{{reason}}",
-        "failedToCutOverlappingStopVersion": "Failed to cut overlapping stop version. Reason:\n{{reason}}"
+        "edit": "Failed to save new version:\n{{ reason }}",
+        "copy": "Failed to save copy:\n{{ reason }}",
+        "failedToResolveExistingQuays": "Failed to resolve the other stops belonging to the same Stop Area! Reason:\n{{ reason }}",
+        "stopPlaceInsertFailed": "Failed to create entry in StopRegistry! Reason:\n{{ reason }}",
+        "stopPointInsertFailedStopPlaceReverted": "Failed to create a scheduled stop point in the lines and routers database! Reason:\n{{ reason }}",
+        "stopPointInsertFailedStopPlaceNotReverted": "Failed to create a scheduled stop point in the lines and routers database, and the previusly created entry in StopRegistry could be deleted. Jore databases contains errors. Reason:\n{{ reason }}",
+        "unableToCutOverlappingStopVersion": "Unable to cut overlapping stop version. Reason:\n{{ reason }}",
+        "failedToCutOverlappingStopVersion": "Failed to cut overlapping stop version. Reason:\n{{ reason }}"
       }
     },
     "externalLinks": {
