@@ -8,8 +8,12 @@ const GQL_EDIT_SCHEDULED_STOP_POINT_VALIDITY = gql`
     $validityEnd: date
   ) {
     update_service_pattern_scheduled_stop_point(
-      where: { stop_place_ref: { _eq: $stopId }, priority: { _eq: $priority } }
-      _set: { validity_start: $validityStart, validity_end: $validityEnd }
+      where: { stop_place_ref: { _eq: $stopId } }
+      _set: {
+        validity_start: $validityStart
+        validity_end: $validityEnd
+        priority: $priority
+      }
     ) {
       returning {
         label

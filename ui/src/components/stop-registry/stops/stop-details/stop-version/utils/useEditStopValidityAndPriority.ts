@@ -60,6 +60,7 @@ function useEditQuayValidity() {
     async (
       quayId: string,
       versionComment: string,
+      priority: number,
       validityStart: DateTime,
       validityEnd?: DateTime,
       indefinite?: boolean,
@@ -95,7 +96,9 @@ function useEditQuayValidity() {
         originalQuay.keyValues
           ?.filter(
             (kv) =>
-              kv && kv.key !== 'validityStart' && kv.key !== 'validityEnd',
+              kv &&
+              kv.key &&
+              !['validityStart', 'validityEnd', 'priority'].includes(kv.key),
           )
           .map((kv) => {
             return { key: kv?.key, values: kv?.values };
@@ -105,16 +108,18 @@ function useEditQuayValidity() {
         key: 'validityStart',
         values: [validityStart.toISODate()],
       });
-
       keyValues.push({
         key: 'validityEnd',
         values: [validityEnd && !indefinite ? validityEnd.toISODate() : null],
       });
+      keyValues.push({ key: 'priority', values: [priority.toString()] });
 
       if (reasonForChange) {
-        const existing = keyValues.find((kv) => kv.key === 'reasonForChange');
-        if (existing) {
-          existing.values = [reasonForChange];
+        const existingReasonForChange = keyValues.find(
+          (kv) => kv.key === 'reasonForChange',
+        );
+        if (existingReasonForChange) {
+          existingReasonForChange.values = [reasonForChange];
         } else {
           keyValues.push({ key: 'reasonForChange', values: [reasonForChange] });
         }
@@ -152,7 +157,7 @@ export function useEditStopValidityAndPriority() {
   return useCallback(
     async (
       quayId: string | undefined | null,
-      versionPriority: number,
+      priority: number,
       versionName: string,
       validityStart: string,
       validityEnd?: string,
@@ -172,10 +177,10 @@ export function useEditStopValidityAndPriority() {
           ? DateTime.fromFormat(validityEnd, 'yyyy-MM-dd')
           : undefined;
 
-      const { stopId, priority } =
+      const { stopId, priority: newPriority } =
         await editScheduledStopPointValidityAndPriority(
           quayId,
-          versionPriority,
+          priority,
           validityStartDateTime,
           validityEndDateTime,
           indefinite,
@@ -184,6 +189,7 @@ export function useEditStopValidityAndPriority() {
       const { stopPlaceId } = await editQuayValidity(
         quayId,
         versionName,
+        priority,
         validityStartDateTime,
         validityEndDateTime,
         indefinite,
@@ -193,7 +199,7 @@ export function useEditStopValidityAndPriority() {
       return {
         stopPlaceId,
         quayId: stopId,
-        priority,
+        priority: newPriority,
         validityStart: validityStartDateTime,
         validityEnd: validityEndDateTime,
         indefinite: indefinite ?? false,
