@@ -32,7 +32,7 @@ const knownNavigationContexts = [
   'ConfirmTimetablesImportForm',
   'CopyStopForm',
   'CreateTimingPlaceForm',
-  'EditStopValidityForm',
+  'EditStopForm',
   'ExternalLinksForm',
   'InfoSpotsForm',
   'LineForm',

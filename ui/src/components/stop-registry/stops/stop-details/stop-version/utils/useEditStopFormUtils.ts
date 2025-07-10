@@ -21,7 +21,7 @@ import { UnableToCutOverlappingStopVersion } from '../errors/UnableToCutOverlapp
 import { StopVersionFormState, stopVersionSchema } from '../types';
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
 import { OverlappingCutDatesResult } from '../types/OverLappingCutDatesResult';
-import { useEditStopValidity } from './useEditStopValidity';
+import { useEditStopValidityAndPriority } from './useEditStopValidityAndPriority';
 import { useGetOverlappingCutDates } from './useGetOverlappingCutDates';
 import { useGetOverlappingStopVersions } from './useGetOverlappingStopVersions';
 
@@ -105,7 +105,7 @@ function useErrorHandler() {
   };
 }
 
-export const useEditStopValidityFormUtils = (
+export const useEditStopFormUtils = (
   originalStop: StopWithDetails,
   onEditDone: (result: EditStopVersionResult) => void,
 ) => {
@@ -113,7 +113,7 @@ export const useEditStopValidityFormUtils = (
 
   const dispatch = useAppDispatch();
   const { setIsLoading } = useLoader(Operation.SaveStop);
-  const editStopValidity = useEditStopValidity();
+  const editStopValidityAndPriority = useEditStopValidityAndPriority();
   const getOverlappingStopVersions = useGetOverlappingStopVersions();
   const cutOverlappingStopVersion = useGetOverlappingCutDates();
 
@@ -124,7 +124,7 @@ export const useEditStopValidityFormUtils = (
     resolver: zodResolver(stopVersionSchema),
     mode: 'all',
   });
-  useDirtyFormBlockNavigation(methods.formState, 'EditStopValidityForm');
+  useDirtyFormBlockNavigation(methods.formState, 'EditStopForm');
 
   const handleError = useErrorHandler();
 
@@ -195,7 +195,7 @@ export const useEditStopValidityFormUtils = (
       setIsLoading(false);
     } else {
       // Add reason for change here when implemented
-      editStopValidity(
+      editStopValidityAndPriority(
         originalStop.stop_place_ref,
         originalStop.priority,
         state.versionName,
@@ -210,7 +210,7 @@ export const useEditStopValidityFormUtils = (
     setIsLoading(false);
   };
 
-  const onDialogSubmit = async (state: StopVersionFormState) => {
+  const onCutConfirmationSubmit = async (state: StopVersionFormState) => {
     setIsLoading(true);
 
     const { overlappingStopVersions } = await getOverlappingStopVersions(
@@ -229,7 +229,7 @@ export const useEditStopValidityFormUtils = (
 
         if (cutDates.newVersion) {
           // Add reason for change here when implemented
-          await editStopValidity(
+          await editStopValidityAndPriority(
             versionToRemove.stop_place_ref,
             versionToRemove.priority,
             state.versionName,
@@ -257,7 +257,7 @@ export const useEditStopValidityFormUtils = (
 
     // If there is no overlap remaining, just edit the stop validity
     // Add reason for change here when implemented
-    await editStopValidity(
+    await editStopValidityAndPriority(
       originalStop.stop_place_ref,
       originalStop.priority,
       state.versionName,
@@ -275,6 +275,6 @@ export const useEditStopValidityFormUtils = (
   return {
     methods,
     onFormSubmit,
-    onDialogSubmit,
+    onCutConfirmationSubmit,
   };
 };

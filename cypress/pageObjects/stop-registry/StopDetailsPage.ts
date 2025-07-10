@@ -10,7 +10,7 @@ import {
   SignageDetailsSection,
   TitleRow,
 } from './stop-details';
-import { CutValidityConfirmationModal } from './stop-details/CutValidityConfirmationModal';
+import { OverlappingVersionCutConfirmationModal } from './stop-details/CutValidityConfirmationModal';
 import { EditValidityModal } from './stop-details/EditValidityModal';
 
 export class StopDetailsPage {
@@ -36,7 +36,8 @@ export class StopDetailsPage {
 
   observationDateControl = new ObservationDateControl();
 
-  cutValidityConfirmationModal = new CutValidityConfirmationModal();
+  overlappingCutConfirmationModal =
+    new OverlappingVersionCutConfirmationModal();
 
   visit(label: string) {
     cy.visit(`/stop-registry/stops/${label}`);
