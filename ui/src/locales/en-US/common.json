@@ -463,7 +463,7 @@
         "cutCurrentVersionToStart": "Cut current version to start on {{date}}?"
       },
       "success": {
-        "edit": "Version saved",
+        "edit": "Version edited",
         "copy": "New version created\nOpening up new version"
       },
       "errors": {

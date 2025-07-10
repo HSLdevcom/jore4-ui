@@ -15,6 +15,13 @@ import { EditStopVersionResult } from './types/EditStopVersionResult';
 import { LinesByStop } from './types/LinesByStopResult';
 import { useEditStopValidityFormUtils } from './utils/useEditStopValidityFormUtils';
 
+const testIds = {
+  modal: 'CutValidityConfirmationModal::modal',
+  currentVersion: 'CutValidityConfirmationModal::currentVersion',
+  newVersion: 'CutValidityConfirmationModal::newVersion',
+  cutDate: 'CutValidityConfirmationModal::cutDate',
+};
+
 type EditStopValidityFormProps = {
   readonly className?: string;
   readonly existingValidityRanges: ReadonlyArray<ExistingStopValidityRange>;
@@ -58,22 +65,23 @@ export const EditStopValidityForm: FC<EditStopValidityFormProps> = ({
         onConfirm={methods.handleSubmit(onDialogSubmit)}
         confirmButtonText={t('cut')}
         cancelButtonText={t('cancel')}
+        testId={testIds.modal}
       >
         <Dialog.Description className="text-sm">
-          <p>
+          <p data-testid={testIds.currentVersion}>
             <span className="font-bold">
               {t('stopDetails.version.cutModal.currentVersion')}:
             </span>{' '}
             {cutModalState.currentVersion}
           </p>
-          <p>
+          <p data-testid={testIds.newVersion}>
             <span className="font-bold">
               {t('stopDetails.version.cutModal.newVersion')}:
             </span>{' '}
             {cutModalState.newVersion}
           </p>
 
-          <p className="mt-4">
+          <p data-testid={testIds.cutDate} className="mt-4">
             {cutModalState.isCutToEnd
               ? t('stopDetails.version.cutModal.cutCurrentVersionToEnd', {
                   date: cutModalState.cutDate,
