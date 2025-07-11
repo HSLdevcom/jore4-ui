@@ -2626,20 +2626,20 @@ describe('Stop details', () => {
         });
 
       // Validate cut confirmation modal
-      const { cutValidityConfirmationModal } = stopDetailsPage;
-      const { confirmationModal } = cutValidityConfirmationModal;
+      const { overlappingCutConfirmationModal } = stopDetailsPage;
+      const { confirmationModal } = overlappingCutConfirmationModal;
 
-      cutValidityConfirmationModal
+      overlappingCutConfirmationModal
         .modal()
         .should('exist')
         .within(() => {
-          cutValidityConfirmationModal
+          overlappingCutConfirmationModal
             .currentVersion()
             .should('contain', '10.03.2030 - 19.03.2030');
-          cutValidityConfirmationModal
+          overlappingCutConfirmationModal
             .newVersion()
             .should('contain', '15.03.2030 - 25.03.2030');
-          cutValidityConfirmationModal
+          overlappingCutConfirmationModal
             .cutDate()
             .should('contain', '14.03.2030');
 
@@ -2648,7 +2648,7 @@ describe('Stop details', () => {
 
       toast.expectSuccessToast('Versio muokattu');
       editValidityModal.modal().should('not.exist');
-      cutValidityConfirmationModal.modal().should('not.exist');
+      overlappingCutConfirmationModal.modal().should('not.exist');
       stopDetailsPage.loadingStopDetails().should('not.exist');
       stopDetailsPage.validityPeriod().should('contain', '15.3.2030-25.3.2030');
     });

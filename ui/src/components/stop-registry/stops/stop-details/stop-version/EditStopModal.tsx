@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useObservationDateQueryParam } from '../../../../../hooks';
+import { usePriorityQueryParam } from '../../../../../hooks/urlQuery/usePriorityQueryParam';
 import { StopWithDetails } from '../../../../../types';
 import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import { ModalBody } from '../../../../map/modal';
-import { EditStopValidityForm } from './EditStopValidityForm';
+import { EditStopForm } from './EditStopForm';
 import { EditStopVersionResult } from './types/EditStopVersionResult';
 import { useResolveExistingStopValidityRanges } from './utils';
 import { useFindLinesByStopId } from './utils/useFindLinesByStopId';
@@ -16,24 +17,23 @@ const testIds = {
   loading: 'EditStopValidityModal::loading',
 };
 
-type EditStopValidityModalProps = {
+type EditStopModalProps = {
   readonly isOpen: boolean;
   readonly onClose: () => void;
   readonly originalStop: StopWithDetails | null;
 };
 
-export const EditStopValidityModal: FC<EditStopValidityModalProps> = ({
+export const EditStopModal: FC<EditStopModalProps> = ({
   isOpen,
   onClose,
   originalStop,
 }) => {
   const { t } = useTranslation();
-  const wrappedOnClose = useWrapInContextNavigation('EditStopValidityForm')(
-    onClose,
-  );
+  const wrappedOnClose = useWrapInContextNavigation('EditStopForm')(onClose);
 
   const { setObservationDateToUrl, observationDate } =
     useObservationDateQueryParam();
+  const { setPriorityToUrl } = usePriorityQueryParam();
 
   const { ranges, loading: loadingExistingValidityRanges } =
     useResolveExistingStopValidityRanges({
@@ -52,6 +52,10 @@ export const EditStopValidityModal: FC<EditStopValidityModalProps> = ({
 
     if (result.validityStart) {
       setObservationDateToUrl(result.validityStart);
+    }
+
+    if (result.priority) {
+      setPriorityToUrl(result.priority);
     }
   };
 
@@ -74,7 +78,7 @@ export const EditStopValidityModal: FC<EditStopValidityModalProps> = ({
       >
         {originalStop && (
           <ModalBody className="border-x-0">
-            <EditStopValidityForm
+            <EditStopForm
               className="mt-4 border-x-0"
               existingValidityRanges={ranges}
               affectedLines={lines}

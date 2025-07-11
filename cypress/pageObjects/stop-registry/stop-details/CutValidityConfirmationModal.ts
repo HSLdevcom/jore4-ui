@@ -1,21 +1,23 @@
 import { ConfirmModal } from '../../ConfirmModal';
 
-export class CutValidityConfirmationModal {
+export class OverlappingVersionCutConfirmationModal {
   confirmationModal = new ConfirmModal();
 
   modal() {
-    return cy.getByTestId('CutValidityConfirmationModal::modal');
+    return cy.getByTestId('OverlappingVersionCutConfirmationModal::modal');
   }
 
   currentVersion() {
-    return cy.getByTestId('CutValidityConfirmationModal::currentVersion');
+    return cy.getByTestId(
+      'OverlappingVersionCutConfirmationModal::currentVersion',
+    );
   }
 
   newVersion() {
-    return cy.getByTestId('CutValidityConfirmationModal::newVersion');
+    return cy.getByTestId('OverlappingVersionCutConfirmationModal::newVersion');
   }
 
   cutDate() {
-    return cy.getByTestId('CutValidityConfirmationModal::cutDate');
+    return cy.getByTestId('OverlappingVersionCutConfirmationModal::cutDate');
   }
 }

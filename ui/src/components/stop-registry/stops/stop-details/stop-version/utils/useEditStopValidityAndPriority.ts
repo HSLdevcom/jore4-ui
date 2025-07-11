@@ -11,7 +11,7 @@ import { ScheduledStopPointEditFailed } from '../errors/ScheduledStopPointEditFa
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
 import { wrapErrors } from './wrapErrors';
 
-function useEditcheduledStopPointValidity() {
+function useEditScheduledStopPointValidityAndPriority() {
   const [editScheduledStopPointValidityMutation] =
     useEditScheduledStopPointValidityMutation();
 
@@ -60,6 +60,7 @@ function useEditQuayValidity() {
     async (
       quayId: string,
       versionComment: string,
+      priority: number,
       validityStart: DateTime,
       validityEnd?: DateTime,
       indefinite?: boolean,
@@ -111,10 +112,19 @@ function useEditQuayValidity() {
         values: [validityEnd && !indefinite ? validityEnd.toISODate() : null],
       });
 
+      const existingPriority = keyValues.find((kv) => kv.key === 'priority');
+      if (existingPriority) {
+        existingPriority.values = [priority.toString()];
+      } else {
+        keyValues.push({ key: 'priority', values: [priority.toString()] });
+      }
+
       if (reasonForChange) {
-        const existing = keyValues.find((kv) => kv.key === 'reasonForChange');
-        if (existing) {
-          existing.values = [reasonForChange];
+        const existingReasonForChange = keyValues.find(
+          (kv) => kv.key === 'reasonForChange',
+        );
+        if (existingReasonForChange) {
+          existingReasonForChange.values = [reasonForChange];
         } else {
           keyValues.push({ key: 'reasonForChange', values: [reasonForChange] });
         }
@@ -144,14 +154,15 @@ function useEditQuayValidity() {
   );
 }
 
-export function useEditStopValidity() {
-  const editScheduledStopPointValidity = useEditcheduledStopPointValidity();
+export function useEditStopValidityAndPriority() {
+  const editScheduledStopPointValidityAndPriority =
+    useEditScheduledStopPointValidityAndPriority();
   const editQuayValidity = useEditQuayValidity();
 
   return useCallback(
     async (
       quayId: string | undefined | null,
-      versionPriority: number,
+      priority: number,
       versionName: string,
       validityStart: string,
       validityEnd?: string,
@@ -171,17 +182,19 @@ export function useEditStopValidity() {
           ? DateTime.fromFormat(validityEnd, 'yyyy-MM-dd')
           : undefined;
 
-      const { stopId, priority } = await editScheduledStopPointValidity(
-        quayId,
-        versionPriority,
-        validityStartDateTime,
-        validityEndDateTime,
-        indefinite,
-      );
+      const { stopId, priority: newPriority } =
+        await editScheduledStopPointValidityAndPriority(
+          quayId,
+          priority,
+          validityStartDateTime,
+          validityEndDateTime,
+          indefinite,
+        );
 
       const { stopPlaceId } = await editQuayValidity(
         quayId,
         versionName,
+        priority,
         validityStartDateTime,
         validityEndDateTime,
         indefinite,
@@ -191,12 +204,12 @@ export function useEditStopValidity() {
       return {
         stopPlaceId,
         quayId: stopId,
-        priority,
+        priority: newPriority,
         validityStart: validityStartDateTime,
         validityEnd: validityEndDateTime,
         indefinite: indefinite ?? false,
       };
     },
-    [editQuayValidity, editScheduledStopPointValidity],
+    [editQuayValidity, editScheduledStopPointValidityAndPriority],
   );
 }
