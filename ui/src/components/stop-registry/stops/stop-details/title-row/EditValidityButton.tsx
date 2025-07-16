@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { StopWithDetails } from '../../../../../types';
 import { getHoverStyles } from '../../../../../uiComponents';
-import { EditStopValidityModal } from '../stop-version/EditStopValidityModal';
+import { EditStopModal } from '../stop-version/EditStopModal';
 
 const testIds = {
   button: 'StopTitleRow::editValidityButton',
@@ -19,7 +19,7 @@ export const EditValidityButton: FC<EditValidityButtonProps> = ({
   stop,
 }) => {
   const { t } = useTranslation();
-  const [showValidityModal, setShowValidityModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   return (
     <>
@@ -41,14 +41,14 @@ export const EditValidityButton: FC<EditValidityButtonProps> = ({
         })}
         disabled={!stop}
         type="button"
-        onClick={() => setShowValidityModal(true)}
+        onClick={() => setShowEditModal(true)}
       >
         <i className="icon-calendar aria-hidden text-2xl text-brand" />
       </button>
 
-      <EditStopValidityModal
-        isOpen={showValidityModal}
-        onClose={() => setShowValidityModal(false)}
+      <EditStopModal
+        isOpen={showEditModal}
+        onClose={() => setShowEditModal(false)}
         originalStop={stop}
       />
     </>

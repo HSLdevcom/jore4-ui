@@ -6,31 +6,29 @@ import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
 import { ModalBody } from '../../../../map/modal';
-import { EditStopValidityForm } from './EditStopValidityForm';
+import { EditStopForm } from './EditStopForm';
 import { EditStopVersionResult } from './types/EditStopVersionResult';
 import { useResolveExistingStopValidityRanges } from './utils';
 import { useFindLinesByStopId } from './utils/useFindLinesByStopId';
 
 const testIds = {
-  modal: 'EditStopValidityModal::modal',
-  loading: 'EditStopValidityModal::loading',
+  modal: 'EditStopModal::modal',
+  loading: 'EditStopModal::loading',
 };
 
-type EditStopValidityModalProps = {
+type EditStopModalProps = {
   readonly isOpen: boolean;
   readonly onClose: () => void;
   readonly originalStop: StopWithDetails | null;
 };
 
-export const EditStopValidityModal: FC<EditStopValidityModalProps> = ({
+export const EditStopModal: FC<EditStopModalProps> = ({
   isOpen,
   onClose,
   originalStop,
 }) => {
   const { t } = useTranslation();
-  const wrappedOnClose = useWrapInContextNavigation('EditStopValidityForm')(
-    onClose,
-  );
+  const wrappedOnClose = useWrapInContextNavigation('EditStopForm')(onClose);
 
   const { setObservationDateToUrl, observationDate } =
     useObservationDateQueryParam();
@@ -74,7 +72,7 @@ export const EditStopValidityModal: FC<EditStopValidityModalProps> = ({
       >
         {originalStop && (
           <ModalBody className="border-x-0">
-            <EditStopValidityForm
+            <EditStopForm
               className="mt-4 border-x-0"
               existingValidityRanges={ranges}
               affectedLines={lines}

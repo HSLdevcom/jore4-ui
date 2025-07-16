@@ -1,9 +1,9 @@
 import { StopVersionForm } from './StopVersionForm';
 
-export class EditValidityModal {
+export class EditStopModal {
   form = new StopVersionForm();
 
   modal() {
-    return cy.getByTestId('EditStopValidityModal::modal');
+    return cy.getByTestId('EditStopModal::modal');
   }
 }

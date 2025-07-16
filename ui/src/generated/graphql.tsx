@@ -77866,8 +77866,8 @@ export type EditKeyValuesOfQuayMutationOptions = Apollo.BaseMutationOptions<Edit
 export const EditScheduledStopPointValidityDocument = gql`
     mutation EditScheduledStopPointValidity($stopId: String!, $priority: Int!, $validityStart: date!, $validityEnd: date) {
   update_service_pattern_scheduled_stop_point(
-    where: {stop_place_ref: {_eq: $stopId}, priority: {_eq: $priority}}
-    _set: {validity_start: $validityStart, validity_end: $validityEnd}
+    where: {stop_place_ref: {_eq: $stopId}}
+    _set: {validity_start: $validityStart, validity_end: $validityEnd, priority: $priority}
   ) {
     returning {
       label
