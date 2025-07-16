@@ -11,7 +11,7 @@ import {
   TitleRow,
 } from './stop-details';
 import { OverlappingVersionCutConfirmationModal } from './stop-details/CutValidityConfirmationModal';
-import { EditValidityModal } from './stop-details/EditValidityModal';
+import { EditStopModal } from './stop-details/EditStopModal';
 
 export class StopDetailsPage {
   basicDetails = new BasicDetailsSection();
@@ -32,7 +32,7 @@ export class StopDetailsPage {
 
   copyModal = new CreateCopyModal();
 
-  editValidityModal = new EditValidityModal();
+  editStopModal = new EditStopModal();
 
   observationDateControl = new ObservationDateControl();
 
