@@ -12,8 +12,8 @@ import { useResolveExistingStopValidityRanges } from './utils';
 import { useFindLinesByStopId } from './utils/useFindLinesByStopId';
 
 const testIds = {
-  modal: 'EditStopValidityModal::modal',
-  loading: 'EditStopValidityModal::loading',
+  modal: 'EditStopModal::modal',
+  loading: 'EditStopModal::loading',
 };
 
 type EditStopModalProps = {

@@ -2303,6 +2303,50 @@ describe('Stop details', () => {
       );
     }
 
+    function createCopyForVersionTesting(
+      versionName: string,
+      validityStartISODate: string,
+      validityEndISODate?: string,
+      priority?: Priority,
+    ) {
+      stopDetailsPage.titleRow.actionsMenuButton().click();
+      stopDetailsPage.titleRow
+        .actionsMenuCopyButton()
+        .should('not.be.disabled')
+        .click();
+
+      const { copyModal } = stopDetailsPage;
+      const { form } = copyModal;
+
+      copyModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          form.versionName().clearAndType(versionName);
+
+          if (priority) {
+            form.priority.setPriority(priority);
+          }
+
+          form.validity.fillForm({
+            validityStartISODate,
+            validityEndISODate: validityEndISODate ?? undefined,
+          });
+
+          if (!validityEndISODate) {
+            form.validity.setAsIndefinite(true);
+          } else {
+            form.validity.setAsIndefinite(false);
+          }
+
+          form.submitButton().click();
+        });
+
+      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      copyModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+    }
+
     it('should create a copy', () => {
       stopDetailsPage.visit('H2003');
 
@@ -2439,10 +2483,10 @@ describe('Stop details', () => {
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
 
       stopDetailsPage.titleRow.editValidityButton().click();
-      const { editValidityModal } = stopDetailsPage;
-      const { form } = editValidityModal;
+      const { editStopModal } = stopDetailsPage;
+      const { form } = editStopModal;
 
-      editValidityModal
+      editStopModal
         .modal()
         .should('exist')
         .within(() => {
@@ -2456,12 +2500,12 @@ describe('Stop details', () => {
         });
 
       toast.expectSuccessToast('Versio muokattu');
-      editValidityModal.modal().should('not.exist');
+      editStopModal.modal().should('not.exist');
       stopDetailsPage.loadingStopDetails().should('not.exist');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2030');
 
       stopDetailsPage.titleRow.editValidityButton().click();
-      editValidityModal
+      editStopModal
         .modal()
         .should('exist')
         .within(() => {
@@ -2475,79 +2519,171 @@ describe('Stop details', () => {
         });
 
       toast.expectSuccessToast('Versio muokattu');
-      editValidityModal.modal().should('not.exist');
+      editStopModal.modal().should('not.exist');
       stopDetailsPage.loadingStopDetails().should('not.exist');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-');
+    });
+
+    it('should change priority', () => {
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.page().shouldBeVisible();
+
+      stopDetailsPage.titleRow.label().shouldHaveText('H2003');
+
+      createCopyForVersionTesting(
+        'Draft version',
+        '2030-01-01',
+        '2030-01-31',
+        Priority.Draft,
+      );
+      stopDetailsPage.validityPeriod().should('contain', '1.1.2030-31.1.2030');
+
+      stopDetailsPage.titleRow.editValidityButton().click();
+      const { editStopModal } = stopDetailsPage;
+      const { form } = editStopModal;
+
+      editStopModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          form.versionName().clearAndType('Temporary version');
+          form.priority.setPriority(Priority.Temporary);
+          form.submitButton().click();
+        });
+
+      toast.expectSuccessToast('Versio muokattu');
+      editStopModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().should('contain', '1.1.2030-31.1.2030');
+
+      // Check that priority has changed
+      cy.visit(
+        `/stop-registry/stops/H2003?observationDate=2030-01-01&priority=30`,
+      );
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage
+        .page()
+        .should('contain', 'Pysäkki ei ole voimassa valittuna päivänä.');
+
+      cy.visit(
+        `/stop-registry/stops/H2003?observationDate=2030-01-01&priority=20`,
+      );
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().should('contain', '1.1.2030-31.1.2030');
+    });
+
+    it('should change priority and cut overlap', () => {
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.page().shouldBeVisible();
+
+      stopDetailsPage.titleRow.label().shouldHaveText('H2003');
+
+      createCopyForVersionTesting(
+        'Temporary version',
+        '2030-02-01',
+        '2030-03-10',
+        Priority.Temporary,
+      );
+      createCopyForVersionTesting(
+        'Draft version',
+        '2030-01-01',
+        '2030-01-31',
+        Priority.Draft,
+      );
+      stopDetailsPage.validityPeriod().should('contain', '1.1.2030-31.1.2030');
+
+      stopDetailsPage.titleRow.editValidityButton().click();
+      const { editStopModal } = stopDetailsPage;
+      const { form } = editStopModal;
+
+      editStopModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          form.versionName().clearAndType('Temporary version with overlap');
+          form.validity.fillForm({
+            validityStartISODate: '2030-01-01',
+            validityEndISODate: '2030-02-28',
+          });
+          form.priority.setPriority(Priority.Temporary);
+          form.submitButton().click();
+        });
+
+      // Validate cut confirmation modal
+      const { overlappingCutConfirmationModal } = stopDetailsPage;
+      const { confirmationModal } = overlappingCutConfirmationModal;
+
+      overlappingCutConfirmationModal
+        .modal()
+        .should('exist')
+        .within(() => {
+          overlappingCutConfirmationModal
+            .currentVersion()
+            .should('contain', '01.02.2030 - 10.03.2030');
+          overlappingCutConfirmationModal
+            .newVersion()
+            .should('contain', '01.01.2030 - 28.02.2030');
+          overlappingCutConfirmationModal
+            .cutDate()
+            .should('contain', '01.03.2030');
+
+          confirmationModal.getConfirmButton().click();
+        });
+
+      toast.expectSuccessToast('Versio muokattu');
+      editStopModal.modal().should('not.exist');
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().should('contain', '1.1.2030-28.2.2030');
+
+      // Check that priority has changed
+      cy.visit(
+        `/stop-registry/stops/H2003?observationDate=2030-01-01&priority=30`,
+      );
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage
+        .page()
+        .should('contain', 'Pysäkki ei ole voimassa valittuna päivänä.');
+
+      cy.visit(
+        `/stop-registry/stops/H2003?observationDate=2030-01-01&priority=20`,
+      );
+      stopDetailsPage.loadingStopDetails().should('not.exist');
+      stopDetailsPage.validityPeriod().should('contain', '1.1.2030-28.2.2030');
     });
 
     it('should not allow cut validity when overlapping whole version', () => {
       // Insert two versions with temporary priority
       stopDetailsPage.visit('H2003');
-      stopDetailsPage.titleRow.actionsMenuButton().click();
-      stopDetailsPage.titleRow
-        .actionsMenuCopyButton()
-        .should('not.be.disabled')
-        .click();
 
-      const { copyModal } = stopDetailsPage;
-      const { form: copyForm } = copyModal;
-
-      copyModal
-        .modal()
-        .should('exist')
-        .within(() => {
-          copyForm.versionName().clearAndType('Temp version #1');
-          copyForm.priority.setPriority(Priority.Temporary);
-          copyForm.validity.fillForm({
-            validityStartISODate: '2030-03-18',
-            validityEndISODate: '2030-03-19',
-          });
-          copyForm.submitButton().click();
-        });
-
-      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
-      copyModal.modal().should('not.exist');
-      stopDetailsPage.loadingStopDetails().should('not.exist');
-
-      stopDetailsPage.titleRow.actionsMenuButton().click();
-      stopDetailsPage.titleRow
-        .actionsMenuCopyButton()
-        .should('not.be.disabled')
-        .click();
-
-      copyModal
-        .modal()
-        .should('exist')
-        .within(() => {
-          copyForm.versionName().clearAndType('Temp version #2');
-          copyForm.priority.setPriority(Priority.Temporary);
-          copyForm.validity.fillForm({
-            validityStartISODate: '2030-03-20',
-            validityEndISODate: '2030-03-25',
-          });
-          copyForm.submitButton().click();
-        });
-
-      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
-      copyModal.modal().should('not.exist');
-      stopDetailsPage.loadingStopDetails().should('not.exist');
-      stopDetailsPage.validityPeriod().shouldHaveText('20.3.2030-25.3.2030');
+      createCopyForVersionTesting(
+        'Temp version #1',
+        '2030-03-18',
+        '2030-03-19',
+        Priority.Temporary,
+      );
+      createCopyForVersionTesting(
+        'Temp version #2',
+        '2030-03-20',
+        '2030-03-25',
+        Priority.Temporary,
+      );
 
       // Modify temp version #2 to overlap with temp version #1
       stopDetailsPage.titleRow.editValidityButton().click();
-      const { editValidityModal } = stopDetailsPage;
-      const { form } = editValidityModal;
+      const { editStopModal } = stopDetailsPage;
+      const { form } = editStopModal;
 
-      editValidityModal
+      editStopModal
         .modal()
         .should('exist')
         .within(() => {
           form.versionName().clearAndType('Overlapping version');
-          form.priority.setPriority(Priority.Standard);
+          form.priority.setPriority(Priority.Temporary);
           form.validity.fillForm({
             validityStartISODate: '2030-03-15',
             validityEndISODate: '2030-03-25',
           });
+
           form.submitButton().click();
         });
 
@@ -2557,67 +2693,32 @@ describe('Stop details', () => {
     it('should modify a version with overlapping validity period', () => {
       // Insert two versions with temporary priority
       stopDetailsPage.visit('H2003');
-      stopDetailsPage.titleRow.actionsMenuButton().click();
-      stopDetailsPage.titleRow
-        .actionsMenuCopyButton()
-        .should('not.be.disabled')
-        .click();
 
-      const { copyModal } = stopDetailsPage;
-      const { form: copyForm } = copyModal;
+      createCopyForVersionTesting(
+        'Temp version #1',
+        '2030-03-10',
+        '2030-03-19',
+        Priority.Temporary,
+      );
 
-      copyModal
-        .modal()
-        .should('exist')
-        .within(() => {
-          copyForm.versionName().clearAndType('Temp version #1');
-          copyForm.priority.setPriority(Priority.Temporary);
-          copyForm.validity.fillForm({
-            validityStartISODate: '2030-03-10',
-            validityEndISODate: '2030-03-19',
-          });
-          copyForm.submitButton().click();
-        });
-
-      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
-      copyModal.modal().should('not.exist');
-      stopDetailsPage.loadingStopDetails().should('not.exist');
-
-      stopDetailsPage.titleRow.actionsMenuButton().click();
-      stopDetailsPage.titleRow
-        .actionsMenuCopyButton()
-        .should('not.be.disabled')
-        .click();
-
-      copyModal
-        .modal()
-        .should('exist')
-        .within(() => {
-          copyForm.versionName().clearAndType('Temp version #2');
-          copyForm.priority.setPriority(Priority.Temporary);
-          copyForm.validity.fillForm({
-            validityStartISODate: '2030-03-20',
-            validityEndISODate: '2030-03-25',
-          });
-          copyForm.submitButton().click();
-        });
-
-      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
-      copyModal.modal().should('not.exist');
-      stopDetailsPage.loadingStopDetails().should('not.exist');
-      stopDetailsPage.validityPeriod().shouldHaveText('20.3.2030-25.3.2030');
+      createCopyForVersionTesting(
+        'Temp version #2',
+        '2030-03-20',
+        '2030-03-25',
+        Priority.Temporary,
+      );
 
       // Modify temp version #2 to overlap with temp version #1
       stopDetailsPage.titleRow.editValidityButton().click();
-      const { editValidityModal } = stopDetailsPage;
-      const { form } = editValidityModal;
+      const { editStopModal } = stopDetailsPage;
+      const { form } = editStopModal;
 
-      editValidityModal
+      editStopModal
         .modal()
         .should('exist')
         .within(() => {
           form.versionName().clearAndType('Overlapping version');
-          form.priority.setPriority(Priority.Standard);
+          form.priority.setPriority(Priority.Temporary);
           form.validity.fillForm({
             validityStartISODate: '2030-03-15',
             validityEndISODate: '2030-03-25',
@@ -2647,7 +2748,7 @@ describe('Stop details', () => {
         });
 
       toast.expectSuccessToast('Versio muokattu');
-      editValidityModal.modal().should('not.exist');
+      editStopModal.modal().should('not.exist');
       overlappingCutConfirmationModal.modal().should('not.exist');
       stopDetailsPage.loadingStopDetails().should('not.exist');
       stopDetailsPage.validityPeriod().should('contain', '15.3.2030-25.3.2030');
