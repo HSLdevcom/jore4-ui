@@ -4,6 +4,7 @@ import {
   requiredNumber,
   requiredString,
 } from '../../../../../forms/common';
+import { selectedStopSchema } from '../../../../components/SelectMemberStops/schema';
 
 export const terminalFormSchema = z.object({
   description: z.object({
@@ -27,6 +28,7 @@ export const terminalFormSchema = z.object({
   electricCharging: z.string().optional(),
   latitude: requiredNumber.min(-180).max(180),
   longitude: requiredNumber.min(-180).max(180),
+  selectedStops: z.array(selectedStopSchema).default([]),
 });
 
 export type TerminalFormState = z.infer<typeof terminalFormSchema> &

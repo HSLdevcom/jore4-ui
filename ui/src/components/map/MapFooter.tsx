@@ -64,8 +64,7 @@ export const MapFooter: FC<MapFooterProps> = ({
   };
 
   const onAddTerminal = () => {
-    throw new Error('Not implemented!'); // Needs the create marker component
-    // setMapViewState({ terminals: MapEntityEditorViewState.PLACE });
+    setMapViewState({ terminals: MapEntityEditorViewState.PLACE });
   };
 
   const someItemIsSelected = some(

@@ -17,6 +17,7 @@ import {
   selectMapFilter,
   selectMapStopAreaViewState,
   selectMapStopViewState,
+  selectMapTerminalViewState,
   selectSelectedRouteId,
   setSelectedRouteIdAction,
 } from '../../redux';
@@ -42,6 +43,7 @@ import { Terminals } from './terminals';
 type MapViewState = {
   readonly mapStopViewState: MapEntityEditorViewState;
   readonly mapStopAreaViewState: MapEntityEditorViewState;
+  readonly mapTerminalViewState: MapEntityEditorViewState;
 };
 
 type EditorRefs = {
@@ -87,6 +89,7 @@ function useMapViewState(): MapViewState {
   return {
     mapStopViewState: useAppSelector(selectMapStopViewState),
     mapStopAreaViewState: useAppSelector(selectMapStopAreaViewState),
+    mapTerminalViewState: useAppSelector(selectMapTerminalViewState),
   };
 }
 
@@ -122,8 +125,12 @@ function useHandleMapRouteClick() {
 }
 
 function useOnClickMap(
-  { stopsRef, stopAreasRef }: EditorRefs,
-  { mapStopViewState, mapStopAreaViewState }: MapViewState,
+  { stopsRef, stopAreasRef, terminalsRef }: EditorRefs,
+  {
+    mapStopViewState,
+    mapStopAreaViewState,
+    mapTerminalViewState,
+  }: MapViewState,
 ) {
   const handleMapRouteClick = useHandleMapRouteClick();
 
@@ -142,6 +149,14 @@ function useOnClickMap(
 
     if (mapStopAreaViewState === MapEntityEditorViewState.MOVE) {
       return stopAreasRef.current?.onMoveStopArea(e);
+    }
+
+    if (mapTerminalViewState === MapEntityEditorViewState.PLACE) {
+      return terminalsRef.current?.onCreateTerminal(e);
+    }
+
+    if (mapTerminalViewState === MapEntityEditorViewState.MOVE) {
+      return terminalsRef.current?.onMoveTerminal(e);
     }
 
     return handleMapRouteClick(e);

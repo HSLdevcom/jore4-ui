@@ -1,8 +1,10 @@
+import { MapLayerMouseEvent } from 'maplibre-gl';
 import {
   ForwardRefRenderFunction,
   forwardRef,
   useEffect,
   useImperativeHandle,
+  useRef,
 } from 'react';
 import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
 import {
@@ -10,31 +12,42 @@ import {
   MapEntityEditorViewState,
   Operation,
   isEditorOpen,
+  isPlacingOrMoving,
+  selectEditedTerminalData,
   selectSelectedTerminalId,
+  setEditedTerminalDataAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
   setSelectedTerminalIdAction,
 } from '../../../redux';
-import { none } from '../../../utils';
+import { mapLngLatToGeoJSON, none } from '../../../utils';
+import { useUpsertTerminal } from '../../stop-registry/terminals/useUpsertTerminal';
 import { useGetTerminalDetails } from '../queries';
-import { TerminalsRef } from '../refTypes';
+import { EditTerminalLayerRef, TerminalsRef } from '../refTypes';
 import { MapTerminal } from '../types';
 import { useMapViewState } from '../utils/useMapViewState';
+import { CreateTerminalMarker } from './CreateTerminalMarker';
+import { EditTerminalLayer } from './EditTerminalLayer';
 import { Terminal } from './Terminal';
-import { TerminalPopup } from './TerminalPopup';
 
-function useLoadSelectedTerminalDetails(
-  selectedTerminalId: string | null | undefined,
-) {
+function useFetchAndUpdateSelectedTerminalData() {
+  const selectedTerminalId = useAppSelector(selectSelectedTerminalId);
+  const setEditedTerminalData = useAppAction(setEditedTerminalDataAction);
+
   const { setLoadingState } = useLoader(Operation.FetchTerminalDetails);
   const { terminal, loading } = useGetTerminalDetails(selectedTerminalId);
+
   useEffect(() => {
     setLoadingState(
       loading ? LoadingState.MediumPriority : LoadingState.NotLoading,
     );
   }, [loading, setLoadingState]);
 
-  return terminal;
+  useEffect(() => {
+    if (terminal) {
+      setEditedTerminalData(terminal);
+    }
+  }, [terminal, setEditedTerminalData]);
 }
 
 type TerminalsProps = {
@@ -45,6 +58,8 @@ const TerminalsImpl: ForwardRefRenderFunction<TerminalsRef, TerminalsProps> = (
   { terminals },
   ref,
 ) => {
+  const editTerminalLayerRef = useRef<EditTerminalLayerRef>(null);
+
   const [mapViewState, setMapViewState] = useMapViewState();
 
   const selectedTerminalId = useAppSelector(selectSelectedTerminalId);
@@ -53,11 +68,19 @@ const TerminalsImpl: ForwardRefRenderFunction<TerminalsRef, TerminalsProps> = (
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
 
-  const terminalDetails = useLoadSelectedTerminalDetails(selectedTerminalId);
+  const editedTerminalData = useAppSelector(selectEditedTerminalData);
+  const setEditedTerminalData = useAppAction(setEditedTerminalDataAction);
+
+  const { initializeTerminal } = useUpsertTerminal();
+
+  useFetchAndUpdateSelectedTerminalData();
 
   useImperativeHandle(ref, () => ({
-    onCreateTerminal() {
-      throw new Error('Not implemented!');
+    onCreateTerminal: async (e: MapLayerMouseEvent) => {
+      const terminalLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
+      const newTerminal = initializeTerminal(terminalLocation);
+      setEditedTerminalData(newTerminal);
+      setMapViewState({ terminals: MapEntityEditorViewState.CREATE });
     },
     onMoveTerminal() {
       throw new Error('Not implemented!');
@@ -82,8 +105,14 @@ const TerminalsImpl: ForwardRefRenderFunction<TerminalsRef, TerminalsProps> = (
     }
   };
 
-  const notImplemented = () => {
-    throw new Error('Not implemented!');
+  const onPopupClose = () => setSelectedTerminalId(undefined);
+
+  const onCancelMoveOrPlacement = () => {
+    setMapViewState({
+      terminals: selectedTerminalId
+        ? MapEntityEditorViewState.POPUP
+        : MapEntityEditorViewState.NONE,
+    });
   };
 
   return (
@@ -98,24 +127,17 @@ const TerminalsImpl: ForwardRefRenderFunction<TerminalsRef, TerminalsProps> = (
         />
       ))}
 
-      {/* Move into EditTerminalLayer when that gets implemented,
-          as-per stop and area implementations. */}
-      {mapViewState.terminals === MapEntityEditorViewState.POPUP &&
-        terminalDetails && (
-          <TerminalPopup
-            onClose={() => {
-              setMapViewState({ terminals: MapEntityEditorViewState.NONE });
-              setSelectedTerminalId(undefined);
-            }}
-            onDelete={notImplemented}
-            onEdit={notImplemented}
-            onMove={notImplemented}
-            terminal={terminalDetails}
-          />
-        )}
+      {editedTerminalData ? (
+        <EditTerminalLayer
+          ref={editTerminalLayerRef}
+          editedTerminal={editedTerminalData}
+          onPopupClose={onPopupClose}
+        />
+      ) : null}
 
-      {/* EditTerminalLayer */}
-      {/* CreateTerminalMarker */}
+      {isPlacingOrMoving(mapViewState.terminals) && (
+        <CreateTerminalMarker onCancel={onCancelMoveOrPlacement} />
+      )}
     </>
   );
 };

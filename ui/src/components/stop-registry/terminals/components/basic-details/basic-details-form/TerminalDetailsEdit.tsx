@@ -3,15 +3,25 @@ import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import {
+  MemberStopQuayDetailsFragment,
+  MemberStopStopPlaceDetailsFragment,
+} from '../../../../../../generated/graphql';
 import { useLoader } from '../../../../../../hooks';
 import { Column } from '../../../../../../layoutComponents';
 import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { mapLngLatToPoint, showSuccessToast } from '../../../../../../utils';
+import {
+  findKeyValue,
+  mapLngLatToPoint,
+  notNullish,
+  showSuccessToast,
+} from '../../../../../../utils';
 import { FormColumn, FormRow, InputField } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { AlternativeNamesEdit } from '../../../../components/AlternativeNames/AlternativeNamesEdit';
+import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
 import { TerminalFormState, terminalFormSchema } from './schema';
 import { useUpsertTerminalDetails } from './useEditTerminalDetails';
 
@@ -25,6 +35,36 @@ const testIds = {
   arrivalPlatforms: 'TerminalDetailsEdit::arrivalPlatforms',
   loadingPlatforms: 'TerminalDetailsEdit::loadingPlatforms',
   electricCharging: 'TerminalDetailsEdit::electricCharging',
+};
+
+const mapQuayToSelectedStop = (
+  stopPlace: MemberStopStopPlaceDetailsFragment,
+  quay: MemberStopQuayDetailsFragment,
+): SelectedStop => {
+  const validityStart = mapToISODate(findKeyValue(quay, 'validityStart'));
+  const validityEnd = mapToISODate(findKeyValue(quay, 'validityEnd'));
+  return {
+    stopPlaceId: stopPlace?.id ?? '',
+    name: stopPlace?.name?.value ?? '',
+    quayId: quay?.id ?? '',
+    publicCode: quay?.publicCode ?? '',
+    validityStart: validityStart ?? '',
+    validityEnd: validityEnd ?? '',
+    indefinite: !validityEnd,
+  };
+};
+
+const extractSelectedStops = (terminal: EnrichedParentStopPlace) => {
+  return (
+    terminal.children
+      ?.filter(notNullish)
+      .flatMap(
+        (child) =>
+          child.quays
+            ?.filter(notNullish)
+            .map((quay) => mapQuayToSelectedStop(child, quay)) ?? [],
+      ) ?? []
+  );
 };
 
 export const mapTerminalDataToFormState = (
@@ -59,6 +99,7 @@ export const mapTerminalDataToFormState = (
     electricCharging: terminal.electricCharging,
     latitude,
     longitude,
+    selectedStops: extractSelectedStops(terminal),
   };
 };
 
