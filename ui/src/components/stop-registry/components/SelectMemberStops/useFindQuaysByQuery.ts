@@ -35,29 +35,31 @@ export function useFindQuaysByQuery(query: string) {
     skip: !query,
   });
 
-  const options = useMemo(() => {
+  const { options, allQueryResults } = useMemo(() => {
     if (!data?.stops_database?.findStopsForTerminal) {
-      return [];
+      return { options: [], allQueryResults: [] };
     }
 
     const allStops = data.stops_database.findStopsForTerminal.flatMap(
       (result) => result.stops ?? [],
     );
 
-    const matchingStops = allStops.filter((stop) =>
-      stop.publicCode?.toLowerCase().includes(query.toLowerCase()),
-    );
-
-    const mappedStops = matchingStops.map((stop) => ({
+    const mappedStops = allStops.map((stop) => ({
       ...stop,
       validityEnd: stop.validityEnd ?? undefined,
       indefinite: !stop.validityEnd,
     }));
 
-    return mappedStops
+    const parsedStops = mappedStops
       .map((quay) => selectedStopSchema.safeParse(quay))
       .filter((result) => result.success)
       .map((result) => result.data);
+
+    const matchingStops = parsedStops.filter((stop) =>
+      stop.publicCode?.toLowerCase().includes(query.toLowerCase()),
+    );
+
+    return { options: matchingStops, allQueryResults: parsedStops };
   }, [data, query]);
 
   const findStopsResults = data?.stops_database?.findStopsForTerminal ?? [];
@@ -94,5 +96,5 @@ export function useFindQuaysByQuery(query: string) {
     });
   };
 
-  return { options, loading, fetchNextPage, allFetched };
+  return { options, allQueryResults, loading, fetchNextPage, allFetched };
 }

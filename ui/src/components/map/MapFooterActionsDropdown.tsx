@@ -53,8 +53,7 @@ export const MapFooterActionsDropdown: FC<MapFooterActionsDropdownProps> = ({
           >
             <SimpleDropdownMenuItem
               onClick={onCreateNewTerminal}
-              disabled // Until create marker component exists
-              text={t('map.createNewTerminal') + ' TODO'} // eslint-disable-line prefer-template
+              text={t('map.createNewTerminal')}
               testId={testIds.createNewTerminal}
             />
             <SimpleDropdownMenuItem

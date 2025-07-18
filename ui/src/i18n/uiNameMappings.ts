@@ -1,4 +1,5 @@
 import { TFunction } from 'i18next';
+import { TerminalType } from '../components/stop-registry/types/TerminalType';
 import {
   HslRouteTransportTargetEnum,
   ReusableComponentsVehicleModeEnum,
@@ -384,4 +385,13 @@ export const mapSubstituteDayOfWeekToUiName = genTranslationMapper<
   [SubstituteDayOfWeek.Friday]: (t) => t('timetableDayEnum.friday'),
   [SubstituteDayOfWeek.Saturday]: (t) => t('timetableDayEnum.saturday'),
   [SubstituteDayOfWeek.Sunday]: (t) => t('timetableDayEnum.sunday'),
+});
+
+export const mapTerminalTypeToUiName = genTranslationMapper<TerminalType>({
+  [TerminalType.RailwayStation]: (t) => t('terminalTypeEnum.railwayStation'),
+  [TerminalType.BusTerminal]: (t) => t('terminalTypeEnum.busTerminal'),
+  [TerminalType.TramTerminal]: (t) => t('terminalTypeEnum.tramTerminal'),
+  [TerminalType.MetroTerminal]: (t) => t('terminalTypeEnum.metroTerminal'),
+  [TerminalType.FerryTerminal]: (t) => t('terminalTypeEnum.ferryTerminal'),
+  [TerminalType.FerryStation]: (t) => t('terminalTypeEnum.ferryStation'),
 });

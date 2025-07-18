@@ -38,6 +38,7 @@ export const ListboxOptions = forwardRef<HTMLDivElement, ListboxOptionsProps>(
               id={`listbox-option-${item.key}`}
               key={item.key}
               value={item.value}
+              data-testid={`${testId}::${item.key}`}
             >
               {(optionProps) => {
                 const child = item.render(optionProps);

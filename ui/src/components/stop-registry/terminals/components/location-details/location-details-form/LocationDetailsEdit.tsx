@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
+import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
@@ -37,6 +37,7 @@ const testIds = {
 };
 
 function mapQuayToSelectedStop(
+  terminal: EnrichedParentStopPlace,
   stopPlace: MemberStopStopPlaceDetailsFragment,
   quay: MemberStopQuayDetailsFragment,
 ): SelectedStop {
@@ -44,6 +45,7 @@ function mapQuayToSelectedStop(
   const validityEnd = mapToISODate(findKeyValue(quay, 'validityEnd'));
   return {
     stopPlaceId: stopPlace?.id ?? '',
+    stopPlaceParentId: terminal.id ?? null,
     name: stopPlace?.name?.value ?? '',
     quayId: quay?.id ?? '',
     publicCode: quay?.publicCode ?? '',
@@ -61,7 +63,7 @@ function extractSelectedStops(terminal: EnrichedParentStopPlace) {
         (child) =>
           child.quays
             ?.filter(notNullish)
-            .map((quay) => mapQuayToSelectedStop(child, quay)) ?? [],
+            .map((quay) => mapQuayToSelectedStop(terminal, child, quay)) ?? [],
       ) ?? []
   );
 }

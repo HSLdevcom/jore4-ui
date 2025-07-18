@@ -7,7 +7,15 @@ export class TerminalDetailsEdit {
 
   getNameSwe = () => cy.getByTestId('TerminalDetailsEdit::nameSwe');
 
-  getTerminalType = () => cy.getByTestId('TerminalDetailsEdit::terminalType');
+  getTerminalType = () =>
+    cy.getByTestId('TerminalDetailsEdit::terminalType::ListboxButton');
+
+  selectTerminalType(type: string) {
+    cy.getByTestId('TerminalDetailsEdit::terminalType::ListboxButton').click();
+    cy.getByTestId(
+      `TerminalDetailsEdit::terminalType::ListboxOptions::${type}`,
+    ).click();
+  }
 
   getDeparturePlatforms = () =>
     cy.getByTestId('TerminalDetailsEdit::departurePlatforms');
