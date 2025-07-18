@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { mapTerminalTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { AlternativeNames } from '../../../components/AlternativeNames/AlternativeNames';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
+import { parseTerminalType } from '../../../utils';
 import { TerminalComponentProps } from '../../types';
 
 const testIds = {
@@ -21,6 +23,7 @@ export const TerminalDetailsView: FC<TerminalComponentProps> = ({
   className = '',
 }) => {
   const { t } = useTranslation();
+  const terminalType = parseTerminalType(terminal.terminalType);
 
   return (
     <>
@@ -52,7 +55,9 @@ export const TerminalDetailsView: FC<TerminalComponentProps> = ({
       <DetailRow className={className}>
         <LabeledDetail
           title={t('terminalDetails.basicDetails.terminalType')}
-          detail={terminal.terminalType}
+          detail={
+            terminalType ? mapTerminalTypeToUiName(t, terminalType) : undefined
+          }
           testId={testIds.terminalType}
         />
         <LabeledDetail

@@ -495,6 +495,16 @@
       "abbreviationEng": "Lyhenne (englanti)"
     }
   },
+  "terminal": {
+    "name": "Terminaalin nimi",
+    "privateCode": "Terminaalin tunnus",
+    "errors": {
+      "expandToSeeErrors": "Avaa Kieliversiot ja lyhenteet nähdäksesi virheet"
+    },
+    "showDetails": "Kieliversiot ja lyhenteet",
+    "chooseTerminalType": "Valitse",
+    "saveSuccess": "Terminaali luotu"
+  },
   "terminalDetails": {
     "title": "Perustiedot",
     "editSuccess": "Terminaali muokattu",
@@ -503,6 +513,13 @@
       "description": "Terminaalin kuvaus",
       "name": "Nimi",
       "nameSwe": "Nimi (ruotsi)",
+      "nameEng": "Nimi (englanti)",
+      "nameLongFin": "Pitkänimi (suomi)",
+      "nameLongSwe": "Pitkänimi (ruotsi)",
+      "nameLongEng": "Pitkänimi (englanti)",
+      "abbreviationFin": "Lyhenne (suomi)",
+      "abbreviationSwe": "Lyhenne (ruotsi)",
+      "abbreviationEng": "Lyhenne (englanti)",
       "terminalType": "Terminaalin tyyppi",
       "privateCode": "Tunnus",
       "departurePlatforms": "Lähtölaitureita",
@@ -521,8 +538,17 @@
       "memberStops": "Jäsenpysäkit",
       "memberStopsTotal": "Jäsenpysäkit ({{total}})",
       "memberPlatforms": "Jäsenlaiturit",
-      "noMemberStopsSelected": "Terminaalilla pitää olla vähintään yksi jäsenpysäkki."
+      "noMemberStopsSelected": "Terminaalilla pitää olla vähintään yksi jäsenpysäkki.",
+      "stopAlreadyBelongsToTerminal": "Pysäkki on jo liitetty toiseen terminaaliin."
     }
+  },
+  "terminalTypeEnum": {
+    "railwayStation": "Juna-asema",
+    "busTerminal": "Bussiterminaali",
+    "tramTerminal": "Ratikkaterminaali",
+    "metroTerminal": "Metroterminaali",
+    "ferryTerminal": "Laivaterminaali",
+    "ferryStation": "Lautta-asema"
   },
   "stopRegistrySearch": {
     "byAddress": "Osoitteella",

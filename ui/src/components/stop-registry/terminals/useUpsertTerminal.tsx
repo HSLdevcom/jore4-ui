@@ -9,6 +9,9 @@ import { EnrichedParentStopPlace } from '../../../types';
 import { showDangerToastWithError } from '../../../utils';
 import { getEnrichedParentStopPlace } from './useGetTerminalDetails';
 
+// TODO: This is not really upsert but update
+// When inserting the following error occurs:
+// Exception while fetching data (/mutateParentStopPlace) : Cannot create new parent stop place. Use mutation createMultiModalStopPlace
 const GQL_UPSERT_TERMINAL = gql`
   mutation UpsertTerminal($input: stop_registry_ParentStopPlaceInput!) {
     stop_registry {
