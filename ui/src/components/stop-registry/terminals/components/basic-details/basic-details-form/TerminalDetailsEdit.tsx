@@ -1,17 +1,29 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
+import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import {
+  MemberStopQuayDetailsFragment,
+  MemberStopStopPlaceDetailsFragment,
+} from '../../../../../../generated/graphql';
 import { useLoader } from '../../../../../../hooks';
 import { Column } from '../../../../../../layoutComponents';
 import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { showSuccessToast } from '../../../../../../utils';
+import {
+  findKeyValue,
+  mapLngLatToPoint,
+  notNullish,
+  showSuccessToast,
+} from '../../../../../../utils';
 import { FormColumn, FormRow, InputField } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { AlternativeNamesEdit } from '../../../../components/AlternativeNames/AlternativeNamesEdit';
+import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
+import { TerminalTypeDropdown } from '../../../../components/TerminalTypeDropdown';
+import { TerminalType } from '../../../../types/TerminalType';
 import { TerminalFormState, terminalFormSchema } from './schema';
 import { useUpsertTerminalDetails } from './useEditTerminalDetails';
 
@@ -27,32 +39,73 @@ const testIds = {
   electricCharging: 'TerminalDetailsEdit::electricCharging',
 };
 
+const mapQuayToSelectedStop = (
+  terminal: EnrichedParentStopPlace,
+  stopPlace: MemberStopStopPlaceDetailsFragment,
+  quay: MemberStopQuayDetailsFragment,
+): SelectedStop => {
+  const validityStart = mapToISODate(findKeyValue(quay, 'validityStart'));
+  const validityEnd = mapToISODate(findKeyValue(quay, 'validityEnd'));
+  return {
+    stopPlaceId: stopPlace?.id ?? '',
+    stopPlaceParentId: terminal.id ?? null,
+    name: stopPlace?.name?.value ?? '',
+    quayId: quay?.id ?? '',
+    publicCode: quay?.publicCode ?? '',
+    validityStart: validityStart ?? '',
+    validityEnd: validityEnd ?? '',
+    indefinite: !validityEnd,
+  };
+};
+
+const extractSelectedStops = (terminal: EnrichedParentStopPlace) => {
+  return (
+    terminal.children
+      ?.filter(notNullish)
+      .flatMap(
+        (child) =>
+          child.quays
+            ?.filter(notNullish)
+            .map((quay) => mapQuayToSelectedStop(terminal, child, quay)) ?? [],
+      ) ?? []
+  );
+};
+
 export const mapTerminalDataToFormState = (
   terminal: EnrichedParentStopPlace,
-): Partial<TerminalFormState> => {
+): TerminalFormState => {
+  const { latitude, longitude } = mapLngLatToPoint(
+    terminal.geometry?.coordinates ?? [],
+  );
+
   return {
-    privateCode: terminal.privateCode?.value ?? undefined,
+    privateCode: terminal.privateCode?.value ?? '',
     description: {
       lang: terminal.description?.lang ?? null,
       value: terminal.description?.value ?? null,
     },
-    name: terminal.name ?? undefined,
-    nameSwe: terminal.nameSwe ?? undefined,
-    nameEng: terminal.nameEng ?? undefined,
-    nameLongFin: terminal.nameLongFin ?? undefined,
-    nameLongSwe: terminal.nameLongSwe ?? undefined,
-    nameLongEng: terminal.nameLongEng ?? undefined,
-    abbreviationFin: terminal.abbreviationFin ?? undefined,
-    abbreviationSwe: terminal.abbreviationSwe ?? undefined,
-    abbreviationEng: terminal.abbreviationEng ?? undefined,
-    validityStart: mapToISODate(terminal.validityStart),
+    name: terminal.name ?? '',
+    nameSwe: terminal.nameSwe ?? '',
+    nameEng: terminal.nameEng,
+    nameLongFin: terminal.nameLongFin,
+    nameLongSwe: terminal.nameLongSwe,
+    nameLongEng: terminal.nameLongEng,
+    abbreviationFin: terminal.abbreviationFin,
+    abbreviationSwe: terminal.abbreviationSwe,
+    abbreviationEng: terminal.abbreviationEng,
+    validityStart: mapToISODate(terminal.validityStart) ?? '',
     validityEnd: mapToISODate(terminal.validityEnd),
     indefinite: !terminal.validityEnd,
-    terminalType: terminal.terminalType ?? undefined,
-    departurePlatforms: terminal.departurePlatforms ?? undefined,
-    arrivalPlatforms: terminal.arrivalPlatforms ?? undefined,
-    loadingPlatforms: terminal.loadingPlatforms ?? undefined,
-    electricCharging: terminal.electricCharging ?? undefined,
+    terminalType: terminal.terminalType
+      ? (terminal.terminalType as TerminalType)
+      : undefined,
+    departurePlatforms: terminal.departurePlatforms,
+    arrivalPlatforms: terminal.arrivalPlatforms,
+    loadingPlatforms: terminal.loadingPlatforms,
+    electricCharging: terminal.electricCharging,
+    latitude,
+    longitude,
+    selectedStops: extractSelectedStops(terminal),
   };
 };
 
@@ -146,10 +199,16 @@ const TerminalDetailsEditImpl: ForwardRefRenderFunction<
           <FormRow lgColumns={5} mdColumns={2}>
             <Column>
               <InputField<TerminalFormState>
-                type="text"
                 translationPrefix="terminalDetails.basicDetails"
                 fieldPath="terminalType"
                 testId={testIds.terminalType}
+                // eslint-disable-next-line react/no-unstable-nested-components
+                inputElementRenderer={(props) => (
+                  <TerminalTypeDropdown
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...props}
+                  />
+                )}
               />
             </Column>
             <Column>

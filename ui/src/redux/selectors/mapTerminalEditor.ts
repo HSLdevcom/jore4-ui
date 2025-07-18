@@ -28,3 +28,8 @@ export const selectMapTerminalViewState = createSelector(
   selectMapTerminalEditor,
   (mapTerminalEditor) => mapTerminalEditor.viewState,
 );
+
+export const selectEditedTerminalData = createSelector(
+  selectMapTerminalEditor,
+  (mapTerminalEditor) => mapTerminalEditor.editedTerminalData,
+);
