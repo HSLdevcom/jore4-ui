@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
+import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
@@ -8,7 +8,7 @@ import { Column } from '../../../../../../layoutComponents';
 import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { showSuccessToast } from '../../../../../../utils';
+import { mapLngLatToPoint, showSuccessToast } from '../../../../../../utils';
 import { FormColumn, FormRow, InputField } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { AlternativeNamesEdit } from '../../../../components/AlternativeNames/AlternativeNamesEdit';
@@ -29,30 +29,36 @@ const testIds = {
 
 export const mapTerminalDataToFormState = (
   terminal: EnrichedParentStopPlace,
-): Partial<TerminalFormState> => {
+): TerminalFormState => {
+  const { latitude, longitude } = mapLngLatToPoint(
+    terminal.geometry?.coordinates ?? [],
+  );
+
   return {
-    privateCode: terminal.privateCode?.value ?? undefined,
+    privateCode: terminal.privateCode?.value ?? '',
     description: {
       lang: terminal.description?.lang ?? null,
       value: terminal.description?.value ?? null,
     },
-    name: terminal.name ?? undefined,
-    nameSwe: terminal.nameSwe ?? undefined,
-    nameEng: terminal.nameEng ?? undefined,
-    nameLongFin: terminal.nameLongFin ?? undefined,
-    nameLongSwe: terminal.nameLongSwe ?? undefined,
-    nameLongEng: terminal.nameLongEng ?? undefined,
-    abbreviationFin: terminal.abbreviationFin ?? undefined,
-    abbreviationSwe: terminal.abbreviationSwe ?? undefined,
-    abbreviationEng: terminal.abbreviationEng ?? undefined,
-    validityStart: mapToISODate(terminal.validityStart),
+    name: terminal.name ?? '',
+    nameSwe: terminal.nameSwe ?? '',
+    nameEng: terminal.nameEng,
+    nameLongFin: terminal.nameLongFin,
+    nameLongSwe: terminal.nameLongSwe,
+    nameLongEng: terminal.nameLongEng,
+    abbreviationFin: terminal.abbreviationFin,
+    abbreviationSwe: terminal.abbreviationSwe,
+    abbreviationEng: terminal.abbreviationEng,
+    validityStart: mapToISODate(terminal.validityStart) ?? '',
     validityEnd: mapToISODate(terminal.validityEnd),
     indefinite: !terminal.validityEnd,
-    terminalType: terminal.terminalType ?? undefined,
-    departurePlatforms: terminal.departurePlatforms ?? undefined,
-    arrivalPlatforms: terminal.arrivalPlatforms ?? undefined,
-    loadingPlatforms: terminal.loadingPlatforms ?? undefined,
-    electricCharging: terminal.electricCharging ?? undefined,
+    terminalType: terminal.terminalType,
+    departurePlatforms: terminal.departurePlatforms,
+    arrivalPlatforms: terminal.arrivalPlatforms,
+    loadingPlatforms: terminal.loadingPlatforms,
+    electricCharging: terminal.electricCharging,
+    latitude,
+    longitude,
   };
 };
 

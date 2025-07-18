@@ -495,6 +495,14 @@
       "abbreviationEng": "Lyhenne (englanti)"
     }
   },
+  "terminal": {
+    "name": "Terminaalin nimi",
+    "privateCode": "Terminaalin tunnus",
+    "errors": {
+      "expandToSeeErrors": "Avaa Kieliversiot ja lyhenteet nähdäksesi virheet"
+    },
+    "showDetails": "Kieliversiot ja lyhenteet"
+  },
   "terminalDetails": {
     "title": "Perustiedot",
     "editSuccess": "Terminaali muokattu",
@@ -503,6 +511,13 @@
       "description": "Terminaalin kuvaus",
       "name": "Nimi",
       "nameSwe": "Nimi (ruotsi)",
+      "nameEng": "Nimi (englanti)",
+      "nameLongFin": "Pitkänimi (suomi)",
+      "nameLongSwe": "Pitkänimi (ruotsi)",
+      "nameLongEng": "Pitkänimi (englanti)",
+      "abbreviationFin": "Lyhenne (suomi)",
+      "abbreviationSwe": "Lyhenne (ruotsi)",
+      "abbreviationEng": "Lyhenne (englanti)",
       "terminalType": "Terminaalin tyyppi",
       "privateCode": "Tunnus",
       "departurePlatforms": "Lähtölaitureita",

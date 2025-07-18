@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   ValidityPeriodFormState,
+  requiredNumber,
   requiredString,
 } from '../../../../../forms/common';
 
@@ -24,6 +25,8 @@ export const terminalFormSchema = z.object({
   arrivalPlatforms: z.string().optional(),
   loadingPlatforms: z.string().optional(),
   electricCharging: z.string().optional(),
+  latitude: requiredNumber.min(-180).max(180),
+  longitude: requiredNumber.min(-180).max(180),
 });
 
 export type TerminalFormState = z.infer<typeof terminalFormSchema> &

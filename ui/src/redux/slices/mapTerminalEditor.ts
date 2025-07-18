@@ -1,17 +1,19 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Point } from '../../types';
-import { StoreType } from '../mappers';
+import { EnrichedParentStopPlace, Point } from '../../types';
+import { StoreType, mapToStoreType } from '../mappers';
 import { MapEntityEditorViewState } from '../types';
 
 export type MapTerminalEditorState = {
   readonly selectedTerminalId?: string;
   readonly draftLocation?: Point;
+  readonly editedTerminalData?: EnrichedParentStopPlace;
   readonly viewState: MapEntityEditorViewState;
 };
 
 const initialState: MapTerminalEditorState = {
   selectedTerminalId: undefined,
   draftLocation: undefined,
+  editedTerminalData: undefined,
   viewState: MapEntityEditorViewState.NONE,
 };
 
@@ -37,6 +39,17 @@ const slice = createSlice({
     ) => {
       state.viewState = action.payload;
     },
+    setEditedTerminalData: {
+      reducer: (
+        state,
+        action: PayloadAction<StoreType<EnrichedParentStopPlace> | undefined>,
+      ) => {
+        state.editedTerminalData = action.payload ?? undefined;
+      },
+      prepare: (terminal: EnrichedParentStopPlace | undefined | null) => ({
+        payload: terminal ? mapToStoreType(terminal) : undefined,
+      }),
+    },
     reset: () => {
       return initialState;
     },
@@ -47,6 +60,7 @@ export const {
   setSelectedTerminalId: setSelectedTerminalIdAction,
   setTerminalDraftLocation: setTerminalDraftLocationAction,
   setMapTerminalViewState: setMapTerminalViewStateAction,
+  setEditedTerminalData: setEditedTerminalDataAction,
   reset: resetMapTerminalEditorStateAction,
 } = slice.actions;
 
