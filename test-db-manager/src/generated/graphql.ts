@@ -10752,6 +10752,7 @@ export type StopRegistryInfoSpot = {
   displayType?: Maybe<StopRegistryDisplayType>;
   floor?: Maybe<Scalars['String']['output']>;
   geometry?: Maybe<StopRegistryGeoJson>;
+  height?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   infoSpotLocations?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   infoSpotType?: Maybe<StopRegistryInfoSpotType>;
@@ -10764,6 +10765,7 @@ export type StopRegistryInfoSpot = {
   speechProperty?: Maybe<Scalars['Boolean']['output']>;
   validBetween?: Maybe<StopRegistryValidBetween>;
   version?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
   zoneLabel?: Maybe<Scalars['String']['output']>;
 };
 
@@ -10773,6 +10775,7 @@ export type StopRegistryInfoSpotInput = {
   displayType?: InputMaybe<StopRegistryDisplayType>;
   floor?: InputMaybe<Scalars['String']['input']>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
+  height?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   infoSpotLocations?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   infoSpotType?: InputMaybe<StopRegistryInfoSpotType>;
@@ -10783,6 +10786,7 @@ export type StopRegistryInfoSpotInput = {
   purpose?: InputMaybe<Scalars['String']['input']>;
   railInformation?: InputMaybe<Scalars['String']['input']>;
   speechProperty?: InputMaybe<Scalars['Boolean']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
   zoneLabel?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -10827,17 +10831,21 @@ export enum StopRegistryPedestrianCrossingRampType {
 
 export type StopRegistryPoster = {
   __typename?: 'stop_registry_poster';
+  height?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   lines?: Maybe<Scalars['String']['output']>;
   posterSize?: Maybe<StopRegistryPosterPlaceSize>;
   version?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 export type StopRegistryPosterInput = {
+  height?: InputMaybe<Scalars['Int']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   lines?: InputMaybe<Scalars['String']['input']>;
   posterSize?: InputMaybe<StopRegistryPosterPlaceSize>;
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export enum StopRegistryPosterPlaceSize {
@@ -24509,14 +24517,15 @@ export type StopsDatabaseInfoSpotPoster = {
   changed_by?: Maybe<Scalars['String']['output']>;
   created?: Maybe<Scalars['timestamp']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
+  height?: Maybe<Scalars['Int']['output']>;
   id: Scalars['bigint']['output'];
   label?: Maybe<Scalars['String']['output']>;
   lines?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
-  poster_size?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   version: Scalars['bigint']['output'];
   version_comment?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 /** aggregated selection of "info_spot_poster" */
@@ -24552,8 +24561,10 @@ export type StopsDatabaseInfoSpotPosterAggregateFieldsCountArgs = {
 /** aggregate avg on columns */
 export type StopsDatabaseInfoSpotPosterAvgFields = {
   __typename?: 'stops_database_info_spot_poster_avg_fields';
+  height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to filter rows from the table "info_spot_poster". All fields are combined with a logical 'AND'. */
@@ -24565,14 +24576,15 @@ export type StopsDatabaseInfoSpotPosterBoolExp = {
   changed_by?: InputMaybe<StringComparisonExp>;
   created?: InputMaybe<TimestampComparisonExp>;
   from_date?: InputMaybe<TimestampComparisonExp>;
+  height?: InputMaybe<IntComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
   label?: InputMaybe<StringComparisonExp>;
   lines?: InputMaybe<StringComparisonExp>;
   netex_id?: InputMaybe<StringComparisonExp>;
-  poster_size?: InputMaybe<StringComparisonExp>;
   to_date?: InputMaybe<TimestampComparisonExp>;
   version?: InputMaybe<BigintComparisonExp>;
   version_comment?: InputMaybe<StringComparisonExp>;
+  width?: InputMaybe<IntComparisonExp>;
 };
 
 /** unique or primary key constraints on table "info_spot_poster" */
@@ -24583,8 +24595,10 @@ export enum StopsDatabaseInfoSpotPosterConstraint {
 
 /** input type for incrementing numeric columns in table "info_spot_poster" */
 export type StopsDatabaseInfoSpotPosterIncInput = {
+  height?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "info_spot_poster" */
@@ -24593,14 +24607,15 @@ export type StopsDatabaseInfoSpotPosterInsertInput = {
   changed_by?: InputMaybe<Scalars['String']['input']>;
   created?: InputMaybe<Scalars['timestamp']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
+  height?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   lines?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
-  poster_size?: InputMaybe<Scalars['String']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   version_comment?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** aggregate max on columns */
@@ -24610,14 +24625,15 @@ export type StopsDatabaseInfoSpotPosterMaxFields = {
   changed_by?: Maybe<Scalars['String']['output']>;
   created?: Maybe<Scalars['timestamp']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
+  height?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   lines?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
-  poster_size?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 /** aggregate min on columns */
@@ -24627,14 +24643,15 @@ export type StopsDatabaseInfoSpotPosterMinFields = {
   changed_by?: Maybe<Scalars['String']['output']>;
   created?: Maybe<Scalars['timestamp']['output']>;
   from_date?: Maybe<Scalars['timestamp']['output']>;
+  height?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   lines?: Maybe<Scalars['String']['output']>;
   netex_id?: Maybe<Scalars['String']['output']>;
-  poster_size?: Maybe<Scalars['String']['output']>;
   to_date?: Maybe<Scalars['timestamp']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
   version_comment?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 /** response of any mutation on the table "info_spot_poster" */
@@ -24659,14 +24676,15 @@ export type StopsDatabaseInfoSpotPosterOrderBy = {
   changed_by?: InputMaybe<OrderBy>;
   created?: InputMaybe<OrderBy>;
   from_date?: InputMaybe<OrderBy>;
+  height?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   label?: InputMaybe<OrderBy>;
   lines?: InputMaybe<OrderBy>;
   netex_id?: InputMaybe<OrderBy>;
-  poster_size?: InputMaybe<OrderBy>;
   to_date?: InputMaybe<OrderBy>;
   version?: InputMaybe<OrderBy>;
   version_comment?: InputMaybe<OrderBy>;
+  width?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: info_spot_poster */
@@ -24685,6 +24703,8 @@ export enum StopsDatabaseInfoSpotPosterSelectColumn {
   /** column name */
   FromDate = 'from_date',
   /** column name */
+  Height = 'height',
+  /** column name */
   Id = 'id',
   /** column name */
   Label = 'label',
@@ -24693,13 +24713,13 @@ export enum StopsDatabaseInfoSpotPosterSelectColumn {
   /** column name */
   NetexId = 'netex_id',
   /** column name */
-  PosterSize = 'poster_size',
-  /** column name */
   ToDate = 'to_date',
   /** column name */
   Version = 'version',
   /** column name */
-  VersionComment = 'version_comment'
+  VersionComment = 'version_comment',
+  /** column name */
+  Width = 'width'
 }
 
 /** input type for updating data in table "info_spot_poster" */
@@ -24708,35 +24728,42 @@ export type StopsDatabaseInfoSpotPosterSetInput = {
   changed_by?: InputMaybe<Scalars['String']['input']>;
   created?: InputMaybe<Scalars['timestamp']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
+  height?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   lines?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
-  poster_size?: InputMaybe<Scalars['String']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   version_comment?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type StopsDatabaseInfoSpotPosterStddevFields = {
   __typename?: 'stops_database_info_spot_poster_stddev_fields';
+  height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type StopsDatabaseInfoSpotPosterStddevPopFields = {
   __typename?: 'stops_database_info_spot_poster_stddev_pop_fields';
+  height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type StopsDatabaseInfoSpotPosterStddevSampFields = {
   __typename?: 'stops_database_info_spot_poster_stddev_samp_fields';
+  height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Streaming cursor of the table "info_spot_poster" */
@@ -24753,21 +24780,24 @@ export type StopsDatabaseInfoSpotPosterStreamCursorValueInput = {
   changed_by?: InputMaybe<Scalars['String']['input']>;
   created?: InputMaybe<Scalars['timestamp']['input']>;
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
+  height?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   lines?: InputMaybe<Scalars['String']['input']>;
   netex_id?: InputMaybe<Scalars['String']['input']>;
-  poster_size?: InputMaybe<Scalars['String']['input']>;
   to_date?: InputMaybe<Scalars['timestamp']['input']>;
   version?: InputMaybe<Scalars['bigint']['input']>;
   version_comment?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** aggregate sum on columns */
 export type StopsDatabaseInfoSpotPosterSumFields = {
   __typename?: 'stops_database_info_spot_poster_sum_fields';
+  height?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
   version?: Maybe<Scalars['bigint']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 /** update columns of table "info_spot_poster" */
@@ -24781,6 +24811,8 @@ export enum StopsDatabaseInfoSpotPosterUpdateColumn {
   /** column name */
   FromDate = 'from_date',
   /** column name */
+  Height = 'height',
+  /** column name */
   Id = 'id',
   /** column name */
   Label = 'label',
@@ -24789,13 +24821,13 @@ export enum StopsDatabaseInfoSpotPosterUpdateColumn {
   /** column name */
   NetexId = 'netex_id',
   /** column name */
-  PosterSize = 'poster_size',
-  /** column name */
   ToDate = 'to_date',
   /** column name */
   Version = 'version',
   /** column name */
-  VersionComment = 'version_comment'
+  VersionComment = 'version_comment',
+  /** column name */
+  Width = 'width'
 }
 
 export type StopsDatabaseInfoSpotPosterUpdates = {
@@ -24810,22 +24842,28 @@ export type StopsDatabaseInfoSpotPosterUpdates = {
 /** aggregate var_pop on columns */
 export type StopsDatabaseInfoSpotPosterVarPopFields = {
   __typename?: 'stops_database_info_spot_poster_var_pop_fields';
+  height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
 export type StopsDatabaseInfoSpotPosterVarSampFields = {
   __typename?: 'stops_database_info_spot_poster_var_samp_fields';
+  height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
 export type StopsDatabaseInfoSpotPosterVarianceFields = {
   __typename?: 'stops_database_info_spot_poster_variance_fields';
+  height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   version?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
 };
 
 /** columns and relationships of "installed_equipment" */

@@ -496,7 +496,15 @@
       "abbreviationEng": "Abbreviation (English)"
     }
   },
-
+  "terminal": {
+    "name": "Terminal name",
+    "privateCode": "Terminal label",
+    "errors": {
+      "expandToSeeErrors": "Expand Language versions and abbreviations to see errors"
+    },
+    "showDetails": "Language versions and abbreviations",
+    "chooseTerminalType": "Choose"
+  },
   "terminalDetails": {
     "title": "Basic details",
     "editSuccess": "Terminal edited",
@@ -505,6 +513,13 @@
       "description": "Description",
       "name": "Name",
       "nameSwe": "Name (Swedish)",
+      "nameEng": "Name (English)",
+      "nameLongFin": "Long name (Finnish)",
+      "nameLongSwe": "Long name (Swedish)",
+      "nameLongEng": "Long name (English)",
+      "abbreviationFin": "Abbreviation (Finnish)",
+      "abbreviationSwe": "Abbreviation (Swedish)",
+      "abbreviationEng": "Abbreviation (English)",
       "terminalType": "Terminal type",
       "privateCode": "Private code",
       "departurePlatforms": "Departure platforms",
@@ -523,8 +538,17 @@
       "memberStopsTotal": "Member stops ({{total}})",
       "memberStops": "Member stops",
       "memberPlatforms": "Member platforms",
-      "noMemberStopsSelected": "Terminal must have at least one member stop."
+      "noMemberStopsSelected": "Terminal must have at least one member stop.",
+      "stopAlreadyBelongsToTerminal": "Stop already belongs to another terminal."
     }
+  },
+  "terminalTypeEnum": {
+    "railwayStation": "Railway station",
+    "busTerminal": "Bus terminal",
+    "tramTerminal": "Tram terminal",
+    "metroTerminal": "Metro terminal",
+    "ferryTerminal": "Ferry terminal",
+    "ferryStation": "Ferry station"
   },
   "stopRegistrySearch": {
     "byAddress": "By address",

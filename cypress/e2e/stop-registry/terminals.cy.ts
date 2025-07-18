@@ -89,7 +89,7 @@ describe('Terminal details', () => {
   });
 
   function waitForSaveToBeFinished() {
-    expectGraphQLCallToSucceed('@gqlUpsertTerminal');
+    expectGraphQLCallToSucceed('@gqlUpdateTerminal');
     toast.expectSuccessToast('Terminaali muokattu');
   }
 
@@ -196,7 +196,7 @@ describe('Terminal details', () => {
       altEdit.getAbbreviationFin().clearAndType(inputs.abbreviationFin);
       altEdit.getAbbreviationSwe().clearAndType(inputs.abbreviationSwe);
       altEdit.getAbbreviationEng().clearAndType(inputs.abbreviationEng);
-      edit.getTerminalType().clearAndType(inputs.terminalType);
+      edit.selectTerminalType(inputs.terminalType);
       edit.getDeparturePlatforms().clearAndType(inputs.departurePlatforms);
       edit.getArrivalPlatforms().clearAndType(inputs.arrivalPlatforms);
       edit.getLoadingPlatforms().clearAndType(inputs.loadingPlatforms);
@@ -217,7 +217,7 @@ describe('Terminal details', () => {
         abbreviationFin: 'New abbreviation swe',
         abbreviationSwe: 'New abbreviation swe',
         abbreviationEng: 'New abbreviation eng',
-        terminalType: 'New type',
+        terminalType: 'Ratikkaterminaali',
         departurePlatforms: '1',
         arrivalPlatforms: '1',
         loadingPlatforms: '1',

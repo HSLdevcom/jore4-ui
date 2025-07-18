@@ -5,6 +5,7 @@ import { SelectedStop } from './schema';
 
 export const FETCH_MORE_OPTION: SelectedStop = {
   stopPlaceId: 'FETCH_MORE',
+  stopPlaceParentId: null,
   name: '',
   quayId: '',
   publicCode: '',

@@ -28,6 +28,9 @@ export type StopAreasRef = {
   readonly onMoveStopArea: (e: MapLayerMouseEvent) => Promise<void>;
 };
 
+export type EditTerminalLayerRef = {
+  readonly onMoveTerminal: (e: MapLayerMouseEvent) => Promise<void>;
+};
 export type TerminalsRef = {
   readonly onCreateTerminal: (e: MapLayerMouseEvent) => Promise<void>;
   readonly onMoveTerminal: (e: MapLayerMouseEvent) => Promise<void>;
