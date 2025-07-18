@@ -334,7 +334,7 @@ const terminalData: Array<TerminalInput> = [
         { key: 'postalCode', values: ['00100'] },
         { key: 'municipality', values: ['Helsinki'] },
         { key: 'fareZone', values: ['A'] },
-        { key: 'terminalType', values: ['Bussiterminaali'] },
+        { key: 'terminalType', values: ['BusTerminal'] },
         { key: 'departurePlatforms', values: ['7'] },
         { key: 'arrivalPlatforms', values: ['6'] },
         { key: 'loadingPlatforms', values: ['3'] },

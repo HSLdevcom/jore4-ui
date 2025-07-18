@@ -40,7 +40,7 @@ type BaseSelectMemberStopsDropdownProps = SelectMemberStopsDropdownProps & {
   readonly onSelectionChange: (
     newValue: readonly SelectedStop[],
     currentValue: SelectedStop[],
-    options: SelectedStop[],
+    allQueryResults: SelectedStop[],
   ) => void;
   readonly renderWarning?: () => ReactNode;
   readonly inputAriaLabel?: string;
@@ -63,7 +63,7 @@ export const BaseSelectMemberStopsDropdown: FC<
   >();
   const cleanQuery = query.trim();
 
-  const { options, loading, allFetched, fetchNextPage } =
+  const { options, allQueryResults, loading, allFetched, fetchNextPage } =
     useFindQuaysByQuery(cleanQuery);
 
   const unselectedOptions = useMemo(() => {
@@ -79,7 +79,7 @@ export const BaseSelectMemberStopsDropdown: FC<
       return;
     }
 
-    onSelectionChange(newValue, value, options);
+    onSelectionChange(newValue, value, allQueryResults);
   };
 
   const [mutationObserver] = useState<MutationObserver>(

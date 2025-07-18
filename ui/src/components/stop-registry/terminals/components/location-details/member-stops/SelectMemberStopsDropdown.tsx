@@ -43,9 +43,9 @@ function findDeletedStop(
 function getRelatedQuays(
   selectedStop: Readonly<SelectedStop>,
   currentSelection: ReadonlyArray<SelectedStop>,
-  options: ReadonlyArray<SelectedStop>,
+  allQueryResults: ReadonlyArray<SelectedStop>,
 ): SelectedStop[] {
-  return options.filter((option) => {
+  return allQueryResults.filter((option) => {
     const isSameStopPlace = option.stopPlaceId === selectedStop.stopPlaceId;
     const isDifferentQuay = option.quayId !== selectedStop.quayId;
     const notAlreadySelected = !currentSelection.some(
@@ -59,7 +59,7 @@ function getRelatedQuays(
 function processSelection(
   newValue: ReadonlyArray<SelectedStop>,
   currentValue: ReadonlyArray<SelectedStop>,
-  options: ReadonlyArray<SelectedStop>,
+  allQueryResults: ReadonlyArray<SelectedStop>,
 ): SelectedStop[] {
   const isAddingStops = newValue.length > currentValue.length;
   const isRemovingStops = newValue.length < currentValue.length;
@@ -70,7 +70,11 @@ function processSelection(
       return [...newValue];
     }
 
-    const relatedQuays = getRelatedQuays(newlySelected, newValue, options);
+    const relatedQuays = getRelatedQuays(
+      newlySelected,
+      newValue,
+      allQueryResults,
+    );
     return [...newValue, ...relatedQuays];
   }
 
@@ -98,12 +102,12 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
   const handleSelectionChange = (
     newValue: readonly SelectedStop[],
     currentValue: SelectedStop[],
-    options: SelectedStop[],
+    allQueryResults: SelectedStop[],
   ) => {
     const processedSelection = processSelection(
       newValue,
       currentValue,
-      options,
+      allQueryResults,
     );
     onChange(sortByPublicCode(processedSelection));
   };
