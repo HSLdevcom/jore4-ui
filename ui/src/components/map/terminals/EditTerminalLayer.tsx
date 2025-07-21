@@ -12,7 +12,7 @@ import {
 } from '../../../redux';
 import { EnrichedParentStopPlace } from '../../../types';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
-import { useUpsertTerminalDetails } from '../../stop-registry/terminals/components/basic-details/basic-details-form/useEditTerminalDetails';
+import { useCreateTerminal } from '../../stop-registry/terminals/useCreateTerminal';
 import { EditTerminalLayerRef } from '../refTypes';
 import { EditTerminalModal } from './EditTerminalModal';
 import { TerminalPopup } from './TerminalPopup';
@@ -32,8 +32,7 @@ export const EditTerminalLayer = forwardRef<
   const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
   const setEditedTerminalData = useAppAction(setEditedTerminalDataAction);
 
-  const { upsertTerminalDetails, defaultErrorHandler } =
-    useUpsertTerminalDetails();
+  const { createTerminal, defaultErrorHandler } = useCreateTerminal();
 
   const { setIsLoading } = useLoader(Operation.ModifyTerminal);
 
@@ -52,16 +51,15 @@ export const EditTerminalLayer = forwardRef<
     onPopupClose();
   };
 
-  const doUpsertTerminal = async (state: TerminalFormState) => {
+  const doInsertTerminal = async (state: TerminalFormState) => {
     setIsLoading(true);
     try {
-      const updatedTerminal = await upsertTerminalDetails({
-        terminal: editedTerminal,
+      const createdTerminal = await createTerminal({
         state,
       });
 
-      setEditedTerminalData(updatedTerminal ?? undefined);
-      setSelectedTerminalId(updatedTerminal?.id ?? undefined);
+      setEditedTerminalData(createdTerminal ?? undefined);
+      setSelectedTerminalId(createdTerminal?.id ?? undefined);
       setMapTerminalViewState(MapEntityEditorViewState.POPUP);
     } catch (err) {
       defaultErrorHandler(err as Error);
@@ -74,7 +72,7 @@ export const EditTerminalLayer = forwardRef<
     if (editedTerminal.id) {
       // TODO:Implement this when implementing terminal editing
     } else {
-      await doUpsertTerminal(state);
+      await doInsertTerminal(state);
     }
   };
 

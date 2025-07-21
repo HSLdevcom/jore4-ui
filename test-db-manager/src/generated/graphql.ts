@@ -10694,9 +10694,12 @@ export type StopRegistryAddToMultiModalStopPlaceInput = {
 };
 
 export type StopRegistryCreateMultiModalStopPlaceInput = {
+  alternativeNames?: InputMaybe<Array<InputMaybe<StopRegistryAlternativeNameInput>>>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
+  keyValues?: InputMaybe<Array<InputMaybe<StopRegistryKeyValuesInput>>>;
   name: StopRegistryEmbeddableMultilingualStringInput;
+  privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
   stopPlaceIds: Array<InputMaybe<Scalars['String']['input']>>;
   validBetween?: InputMaybe<StopRegistryValidBetweenInput>;
   versionComment?: InputMaybe<Scalars['String']['input']>;
