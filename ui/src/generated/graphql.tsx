@@ -10697,9 +10697,12 @@ export type StopRegistryAddToMultiModalStopPlaceInput = {
 };
 
 export type StopRegistryCreateMultiModalStopPlaceInput = {
+  alternativeNames?: InputMaybe<Array<InputMaybe<StopRegistryAlternativeNameInput>>>;
   description?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
   geometry?: InputMaybe<StopRegistryGeoJsonInput>;
+  keyValues?: InputMaybe<Array<InputMaybe<StopRegistryKeyValuesInput>>>;
   name: StopRegistryEmbeddableMultilingualStringInput;
+  privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
   stopPlaceIds: Array<InputMaybe<Scalars['String']['input']>>;
   validBetween?: InputMaybe<StopRegistryValidBetweenInput>;
   versionComment?: InputMaybe<Scalars['String']['input']>;
@@ -69152,6 +69155,124 @@ export type AddToMultiModalStopPlaceMutation = {
   } | null
 };
 
+export type CreateTerminalMutationVariables = Exact<{
+  input: StopRegistryCreateMultiModalStopPlaceInput;
+}>;
+
+
+export type CreateTerminalMutation = {
+  __typename?: 'mutation_root',
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation',
+    createMultiModalStopPlace?: {
+      __typename?: 'stop_registry_ParentStopPlace',
+      id?: string | null,
+      alternativeNames?: Array<{
+        __typename?: 'stop_registry_AlternativeName',
+        nameType: StopRegistryNameType,
+        name: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          lang?: string | null,
+          value?: string | null
+        }
+      } | null> | null,
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode',
+        value?: string | null,
+        type?: string | null
+      } | null,
+      name?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null,
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null,
+      geometry?: {
+        __typename?: 'stop_registry_GeoJSON',
+        type?: StopRegistryGeoJsonType | null,
+        coordinates?: GeoJSON.Position | null
+      } | null,
+      keyValues?: Array<{
+        __typename?: 'stop_registry_KeyValues',
+        key?: string | null,
+        values?: Array<string | null> | null
+      } | null> | null,
+      accessibilityAssessment?: {
+        __typename?: 'stop_registry_AccessibilityAssessment',
+        id?: string | null,
+        hslAccessibilityProperties?: {
+          __typename?: 'stop_registry_HslAccessibilityProperties',
+          id?: string | null,
+          stopAreaSideSlope?: number | null,
+          stopAreaLengthwiseSlope?: number | null,
+          endRampSlope?: number | null,
+          shelterLaneDistance?: number | null,
+          curbBackOfRailDistance?: number | null,
+          curbDriveSideOfRailDistance?: number | null,
+          structureLaneDistance?: number | null,
+          stopElevationFromRailTop?: number | null,
+          stopElevationFromSidewalk?: number | null,
+          lowerCleatHeight?: number | null,
+          serviceAreaWidth?: number | null,
+          serviceAreaLength?: number | null,
+          platformEdgeWarningArea?: boolean | null,
+          guidanceTiles?: boolean | null,
+          guidanceStripe?: boolean | null,
+          serviceAreaStripes?: boolean | null,
+          sidewalkAccessibleConnection?: boolean | null,
+          stopAreaSurroundingsAccessible?: boolean | null,
+          curvedStop?: boolean | null,
+          stopType?: StopRegistryStopType | null,
+          shelterType?: StopRegistryShelterWidthType | null,
+          guidanceType?: StopRegistryGuidanceType | null,
+          mapType?: StopRegistryMapType | null,
+          pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
+          accessibilityLevel?: StopRegistryAccessibilityLevel | null
+        } | null,
+        limitations?: {
+          __typename?: 'stop_registry_AccessibilityLimitations',
+          id?: string | null,
+          version?: string | null,
+          audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+          escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+          liftFreeAccess?: StopRegistryLimitationStatusType | null,
+          stepFreeAccess?: StopRegistryLimitationStatusType | null,
+          wheelchairAccess?: StopRegistryLimitationStatusType | null
+        } | null
+      } | null,
+      children?: Array<{
+        __typename?: 'stop_registry_StopPlace',
+        id?: string | null,
+        name?: {
+          __typename?: 'stop_registry_EmbeddableMultilingualString',
+          value?: string | null
+        } | null,
+        quays?: Array<{
+          __typename?: 'stop_registry_Quay',
+          id?: string | null,
+          publicCode?: string | null,
+          keyValues?: Array<{
+            __typename?: 'stop_registry_KeyValues',
+            key?: string | null,
+            values?: Array<string | null> | null
+          } | null> | null
+        } | null> | null
+      } | null> | null,
+      externalLinks?: Array<{
+        __typename?: 'stop_registry_stopPlaceExternalLink',
+        stopPlaceId?: number | null,
+        orderNum?: number | null,
+        name?: string | null,
+        location?: string | null
+      } | null> | null
+    } | null
+  } | null
+};
+
 export type GetParentStopPlaceDetailsQueryVariables = Exact<{
   privateCode: Scalars['String']['input'];
   validOn: Scalars['String']['input'];
@@ -69422,12 +69543,12 @@ export type TerminalExternalLinksDetailsFragment = {
   location?: string | null
 };
 
-export type UpsertTerminalMutationVariables = Exact<{
+export type UpdateTerminalMutationVariables = Exact<{
   input: StopRegistryParentStopPlaceInput;
 }>;
 
 
-export type UpsertTerminalMutation = {
+export type UpdateTerminalMutation = {
   __typename?: 'mutation_root',
   stop_registry?: {
     __typename?: 'stop_registryStopPlaceMutation',
@@ -78535,6 +78656,41 @@ export function useAddToMultiModalStopPlaceMutation(baseOptions?: Apollo.Mutatio
 export type AddToMultiModalStopPlaceMutationHookResult = ReturnType<typeof useAddToMultiModalStopPlaceMutation>;
 export type AddToMultiModalStopPlaceMutationResult = Apollo.MutationResult<AddToMultiModalStopPlaceMutation>;
 export type AddToMultiModalStopPlaceMutationOptions = Apollo.BaseMutationOptions<AddToMultiModalStopPlaceMutation, AddToMultiModalStopPlaceMutationVariables>;
+export const CreateTerminalDocument = gql`
+    mutation CreateTerminal($input: stop_registry_createMultiModalStopPlaceInput!) {
+  stop_registry {
+    createMultiModalStopPlace(input: $input) {
+      ...parent_stop_place_details
+    }
+  }
+}
+    ${ParentStopPlaceDetailsFragmentDoc}`;
+export type CreateTerminalMutationFn = Apollo.MutationFunction<CreateTerminalMutation, CreateTerminalMutationVariables>;
+
+/**
+ * __useCreateTerminalMutation__
+ *
+ * To run a mutation, you first call `useCreateTerminalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTerminalMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTerminalMutation, { data, loading, error }] = useCreateTerminalMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateTerminalMutation(baseOptions?: Apollo.MutationHookOptions<CreateTerminalMutation, CreateTerminalMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateTerminalMutation, CreateTerminalMutationVariables>(CreateTerminalDocument, options);
+      }
+export type CreateTerminalMutationHookResult = ReturnType<typeof useCreateTerminalMutation>;
+export type CreateTerminalMutationResult = Apollo.MutationResult<CreateTerminalMutation>;
+export type CreateTerminalMutationOptions = Apollo.BaseMutationOptions<CreateTerminalMutation, CreateTerminalMutationVariables>;
 export const GetParentStopPlaceDetailsDocument = gql`
     query getParentStopPlaceDetails($privateCode: String!, $validOn: String!) {
   stops_database {
@@ -78583,8 +78739,8 @@ export type GetParentStopPlaceDetailsQueryHookResult = ReturnType<typeof useGetP
 export type GetParentStopPlaceDetailsLazyQueryHookResult = ReturnType<typeof useGetParentStopPlaceDetailsLazyQuery>;
 export type GetParentStopPlaceDetailsSuspenseQueryHookResult = ReturnType<typeof useGetParentStopPlaceDetailsSuspenseQuery>;
 export type GetParentStopPlaceDetailsQueryResult = Apollo.QueryResult<GetParentStopPlaceDetailsQuery, GetParentStopPlaceDetailsQueryVariables>;
-export const UpsertTerminalDocument = gql`
-    mutation UpsertTerminal($input: stop_registry_ParentStopPlaceInput!) {
+export const UpdateTerminalDocument = gql`
+    mutation UpdateTerminal($input: stop_registry_ParentStopPlaceInput!) {
   stop_registry {
     mutateParentStopPlace(ParentStopPlace: $input) {
       ...parent_stop_place_details
@@ -78592,32 +78748,32 @@ export const UpsertTerminalDocument = gql`
   }
 }
     ${ParentStopPlaceDetailsFragmentDoc}`;
-export type UpsertTerminalMutationFn = Apollo.MutationFunction<UpsertTerminalMutation, UpsertTerminalMutationVariables>;
+export type UpdateTerminalMutationFn = Apollo.MutationFunction<UpdateTerminalMutation, UpdateTerminalMutationVariables>;
 
 /**
- * __useUpsertTerminalMutation__
+ * __useUpdateTerminalMutation__
  *
- * To run a mutation, you first call `useUpsertTerminalMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpsertTerminalMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdateTerminalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTerminalMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [upsertTerminalMutation, { data, loading, error }] = useUpsertTerminalMutation({
+ * const [updateTerminalMutation, { data, loading, error }] = useUpdateTerminalMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useUpsertTerminalMutation(baseOptions?: Apollo.MutationHookOptions<UpsertTerminalMutation, UpsertTerminalMutationVariables>) {
+export function useUpdateTerminalMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTerminalMutation, UpdateTerminalMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpsertTerminalMutation, UpsertTerminalMutationVariables>(UpsertTerminalDocument, options);
+        return Apollo.useMutation<UpdateTerminalMutation, UpdateTerminalMutationVariables>(UpdateTerminalDocument, options);
       }
-export type UpsertTerminalMutationHookResult = ReturnType<typeof useUpsertTerminalMutation>;
-export type UpsertTerminalMutationResult = Apollo.MutationResult<UpsertTerminalMutation>;
-export type UpsertTerminalMutationOptions = Apollo.BaseMutationOptions<UpsertTerminalMutation, UpsertTerminalMutationVariables>;
+export type UpdateTerminalMutationHookResult = ReturnType<typeof useUpdateTerminalMutation>;
+export type UpdateTerminalMutationResult = Apollo.MutationResult<UpdateTerminalMutation>;
+export type UpdateTerminalMutationOptions = Apollo.BaseMutationOptions<UpdateTerminalMutation, UpdateTerminalMutationVariables>;
 export const GetRouteWithJourneyPatternDocument = gql`
     query GetRouteWithJourneyPattern($routeId: uuid!) {
   route_route_by_pk(route_id: $routeId) {
