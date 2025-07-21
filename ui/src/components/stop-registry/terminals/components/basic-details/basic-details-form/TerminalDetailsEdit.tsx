@@ -25,7 +25,7 @@ import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
 import { TerminalTypeDropdown } from '../../../../components/TerminalTypeDropdown';
 import { TerminalType } from '../../../../types/TerminalType';
 import { TerminalFormState, terminalFormSchema } from './schema';
-import { useUpsertTerminalDetails } from './useEditTerminalDetails';
+import { useUpdateTerminalDetails } from './useUpdateTerminalDetails';
 
 const testIds = {
   privateCode: 'TerminalDetailsEdit::privateCode',
@@ -121,13 +121,13 @@ const TerminalDetailsEditImpl: ForwardRefRenderFunction<
 > = ({ terminal, className = '', onFinishEditing }, ref) => {
   const { t } = useTranslation();
 
-  const { upsertTerminalDetails, defaultErrorHandler } =
-    useUpsertTerminalDetails();
+  const { updateTerminalDetails, defaultErrorHandler } =
+    useUpdateTerminalDetails();
   const { setIsLoading } = useLoader(Operation.ModifyTerminal);
   const onSubmit = async (state: TerminalFormState) => {
     setIsLoading(true);
     try {
-      await upsertTerminalDetails({ terminal, state });
+      await updateTerminalDetails({ terminal, state });
 
       showSuccessToast(t('terminalDetails.editSuccess'));
       onFinishEditing();

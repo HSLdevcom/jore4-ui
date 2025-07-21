@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import {
   StopRegistryParentStopPlaceInput,
-  useUpsertTerminalMutation,
+  useUpdateTerminalMutation,
 } from '../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../types';
 import { showDangerToastWithError } from '../../../../../utils';
@@ -49,14 +49,14 @@ function prepareEditForTiamatDb({ state, terminal }: EditTiamatParams) {
 
 export const useEditTerminalExternalLinks = () => {
   const { t } = useTranslation();
-  const [upsertTerminalMutation] = useUpsertTerminalMutation({
+  const [updateTerminalMutation] = useUpdateTerminalMutation({
     awaitRefetchQueries: true,
     refetchQueries: ['getParentStopPlaceDetails'],
   });
 
   const updateTiamatStopPlace = async (editParams: EditTiamatParams) => {
     const changesToTiamatDb = prepareEditForTiamatDb(editParams);
-    await upsertTerminalMutation({
+    await updateTerminalMutation({
       variables: changesToTiamatDb,
     });
   };
