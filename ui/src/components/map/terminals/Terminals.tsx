@@ -21,7 +21,7 @@ import {
   setSelectedTerminalIdAction,
 } from '../../../redux';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
-import { useUpsertTerminal } from '../../stop-registry/terminals/useUpsertTerminal';
+import { useCreateTerminal } from '../../stop-registry/terminals/useCreateTerminal';
 import { useGetTerminalDetails } from '../queries';
 import { EditTerminalLayerRef, TerminalsRef } from '../refTypes';
 import { MapTerminal } from '../types';
@@ -71,15 +71,15 @@ const TerminalsImpl: ForwardRefRenderFunction<TerminalsRef, TerminalsProps> = (
   const editedTerminalData = useAppSelector(selectEditedTerminalData);
   const setEditedTerminalData = useAppAction(setEditedTerminalDataAction);
 
-  const { initializeTerminal } = useUpsertTerminal();
+  const { initializeTerminal } = useCreateTerminal();
 
   useFetchAndUpdateSelectedTerminalData();
 
   useImperativeHandle(ref, () => ({
     onCreateTerminal: async (e: MapLayerMouseEvent) => {
       const terminalLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
-      const newTerminal = initializeTerminal(terminalLocation);
-      setEditedTerminalData(newTerminal);
+      const initializedTerminal = initializeTerminal(terminalLocation);
+      setEditedTerminalData(initializedTerminal);
       setMapViewState({ terminals: MapEntityEditorViewState.CREATE });
     },
     onMoveTerminal() {

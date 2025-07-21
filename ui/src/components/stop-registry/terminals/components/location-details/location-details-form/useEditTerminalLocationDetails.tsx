@@ -10,7 +10,7 @@ import {
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { patchKeyValues } from '../../../../../../utils';
 import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
-import { useUpsertTerminal } from '../../../useUpsertTerminal';
+import { useUpdateTerminal } from '../../../useUpdateTerminal';
 import { TerminalLocationDetailsFormState } from './schema';
 
 const GQL_REMOVE_FROM_MULTIMODAL_STOP_PLACE = gql`
@@ -113,7 +113,7 @@ const mapFormStateToInput = ({
 
 export const useUpsertTerminalLocationDetails = () => {
   const { t } = useTranslation();
-  const { upsertTerminal, defaultErrorHandler } = useUpsertTerminal();
+  const { updateTerminal, defaultErrorHandler } = useUpdateTerminal();
   const [addToMultiModalStopPlace] = useAddToMultiModalStopPlaceMutation();
   const [removeFromMultiModalStopPlace] =
     useRemoveFromMultiModalStopPlaceMutation();
@@ -123,7 +123,7 @@ export const useUpsertTerminalLocationDetails = () => {
       const { terminal, state, selectedStops = [] } = inputs;
 
       const terminalInput = mapFormStateToInput({ terminal, state });
-      await upsertTerminal(terminalInput);
+      await updateTerminal(terminalInput);
 
       if (!terminal.id) {
         return;
@@ -168,7 +168,7 @@ export const useUpsertTerminalLocationDetails = () => {
       }
     },
     [
-      upsertTerminal,
+      updateTerminal,
       addToMultiModalStopPlace,
       removeFromMultiModalStopPlace,
       t,

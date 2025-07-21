@@ -14,7 +14,7 @@ import {
 import { EnrichedParentStopPlace } from '../../../types';
 import { showSuccessToast } from '../../../utils';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
-import { useUpsertTerminalDetails } from '../../stop-registry/terminals/components/basic-details/basic-details-form/useEditTerminalDetails';
+import { useCreateTerminal } from '../../stop-registry/terminals/useCreateTerminal';
 import { EditTerminalLayerRef } from '../refTypes';
 import { EditTerminalModal } from './EditTerminalModal';
 import { TerminalPopup } from './TerminalPopup';
@@ -36,8 +36,7 @@ export const EditTerminalLayer = forwardRef<
   const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
   const setEditedTerminalData = useAppAction(setEditedTerminalDataAction);
 
-  const { upsertTerminalDetails, defaultErrorHandler } =
-    useUpsertTerminalDetails();
+  const { createTerminal, defaultErrorHandler } = useCreateTerminal();
 
   const { setIsLoading } = useLoader(Operation.ModifyTerminal);
 
@@ -59,8 +58,7 @@ export const EditTerminalLayer = forwardRef<
   const doCreateTerminal = async (state: TerminalFormState) => {
     setIsLoading(true);
     try {
-      const updatedTerminal = await upsertTerminalDetails({
-        terminal: editedTerminal,
+      const createdTerminal = await createTerminal({
         state,
       });
 
