@@ -25,6 +25,16 @@ export class MapFooter {
       .click();
   }
 
+  addTerminal() {
+    cy.getByTestId('MapFooterActionsDropdown::menu')
+      .should('be.visible')
+      .click();
+
+    cy.getByTestId('MapFooterActionsDropdown::createNewTerminal')
+      .should('be.visible')
+      .click();
+  }
+
   editRoute() {
     cy.getByTestId('MapFooter::editRouteButton')
       .should('be.visible')
