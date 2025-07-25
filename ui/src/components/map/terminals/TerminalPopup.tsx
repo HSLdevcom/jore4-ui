@@ -116,7 +116,6 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
 
           <SimpleButton
             containerClassName="ml-2"
-            disabled
             onClick={onEdit}
             testId={testIds.editButton}
           >

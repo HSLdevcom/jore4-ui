@@ -544,6 +544,10 @@
       "memberPlatforms": "Member platforms",
       "noMemberStopsSelected": "Terminal must have at least one member stop.",
       "stopAlreadyBelongsToTerminal": "Stop already belongs to another terminal."
+    },
+    "errors": {
+      "terminalsUniqueName": "Terminal should have unique name but {{name}} is already in use by another terminal or stop area!",
+      "terminalsUniquePrivateCode": "Terminal should have unique private code but {{privateCode}} is already in use by another terminal or stop area!"
     }
   },
   "terminalTypeEnum": {
@@ -553,6 +557,11 @@
     "metroTerminal": "Metro terminal",
     "ferryTerminal": "Ferry terminal",
     "ferryStation": "Ferry station"
+  },
+  "confirmEditTerminalDialog": {
+    "title": "Confirm changes",
+    "description": "Confirm editing terminal ({{ terminalName }})",
+    "confirmText": "OK"
   },
   "stopRegistrySearch": {
     "byAddress": "By address",

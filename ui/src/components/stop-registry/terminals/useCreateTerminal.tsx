@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { ApolloError, gql } from '@apollo/client';
 import compact from 'lodash/compact';
 import uniq from 'lodash/uniq';
 import { useCallback } from 'react';
@@ -15,6 +15,7 @@ import {
 } from '../../../utils';
 import { TerminalFormState } from './components/basic-details/basic-details-form/schema';
 import { getEnrichedParentStopPlace } from './useGetTerminalDetails';
+import { useTerminalApolloErrorHandler } from './utils/terminalErrorHandler';
 
 const GQL_CREATE_TERMINAL = gql`
   mutation CreateTerminal(
@@ -148,6 +149,7 @@ const initializeTerminal = (
 
 export const useCreateTerminal = () => {
   const { t } = useTranslation();
+  const tryHandleApolloError = useTerminalApolloErrorHandler();
   const [createTerminalMutation] = useCreateTerminalMutation({
     awaitRefetchQueries: true,
     refetchQueries: ['GetStopTerminalsByLocation'],
@@ -167,9 +169,19 @@ export const useCreateTerminal = () => {
     [createTerminalMutation],
   );
 
-  const defaultErrorHandler = (err: unknown) => {
-    showDangerToastWithError(t('errors.saveFailed'), err);
-  };
+  const defaultErrorHandler = useCallback(
+    (err: unknown, details?: TerminalFormState) => {
+      if (err instanceof ApolloError) {
+        const isKnownError = tryHandleApolloError(err, details);
+        if (isKnownError) {
+          return;
+        }
+      }
+
+      showDangerToastWithError(t('errors.saveFailed'), err);
+    },
+    [t, tryHandleApolloError],
+  );
 
   return {
     initializeTerminal,

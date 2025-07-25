@@ -134,7 +134,7 @@ const TerminalDetailsEditImpl: ForwardRefRenderFunction<
       showSuccessToast(t('terminalDetails.editSuccess'));
       onFinishEditing();
     } catch (err) {
-      defaultErrorHandler(err as Error);
+      defaultErrorHandler(err as Error, state);
     }
     setIsLoading(false);
   };

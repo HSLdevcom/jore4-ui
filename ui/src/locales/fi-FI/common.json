@@ -543,6 +543,10 @@
       "memberPlatforms": "Jäsenlaiturit",
       "noMemberStopsSelected": "Terminaalilla pitää olla vähintään yksi jäsenpysäkki.",
       "stopAlreadyBelongsToTerminal": "Pysäkki on jo liitetty toiseen terminaaliin."
+    },
+    "errors": {
+      "terminalsUniqueName": "Terminaalilla tulee olla uniikki nimi, mutta nimi {{name}} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!",
+      "terminalsUniquePrivateCode": "Terminaalilla tulee olla uniikki tunnus, mutta tunnus {{privateCode}} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!"
     }
   },
   "terminalTypeEnum": {
@@ -552,6 +556,11 @@
     "metroTerminal": "Metroterminaali",
     "ferryTerminal": "Laivaterminaali",
     "ferryStation": "Lautta-asema"
+  },
+  "confirmEditTerminalDialog": {
+    "title": "Vahvista muutos",
+    "description": "Vahvista terminaalin muokkaus ({{ terminalName }})",
+    "confirmText": "OK"
   },
   "stopRegistrySearch": {
     "byAddress": "Osoitteella",
