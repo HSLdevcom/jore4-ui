@@ -550,6 +550,11 @@
     "ferryTerminal": "Laivaterminaali",
     "ferryStation": "Lautta-asema"
   },
+  "confirmEditTerminalDialog": {
+    "title": "Vahvista muutos",
+    "description": "Vahvista terminaalin muokkaus ({{ terminalName }})",
+    "confirmText": "OK"
+  },
   "stopRegistrySearch": {
     "byAddress": "Osoitteella",
     "byLabel": "Tunnuksella",

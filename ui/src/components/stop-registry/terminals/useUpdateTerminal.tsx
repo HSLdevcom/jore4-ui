@@ -22,7 +22,7 @@ export const useUpdateTerminal = () => {
   const { t } = useTranslation();
   const [updateTerminalMutation] = useUpdateTerminalMutation({
     awaitRefetchQueries: true,
-    refetchQueries: ['getParentStopPlaceDetails'],
+    refetchQueries: ['getParentStopPlaceDetails', 'GetStopTerminalsByLocation'],
   });
 
   const updateTerminal = useCallback(

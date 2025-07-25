@@ -34,13 +34,14 @@ type TerminalFormProps = {
   readonly defaultValues:
     | TerminalFormState
     | (() => Promise<TerminalFormState>);
+  readonly isEditing?: boolean;
   readonly onSubmit: (changes: TerminalFormState) => void;
 };
 
 const TerminalFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   TerminalFormProps
-> = ({ className = '', defaultValues, onSubmit }, ref) => {
+> = ({ className = '', defaultValues, isEditing, onSubmit }, ref) => {
   const { t } = useTranslation();
 
   const methods = useForm<TerminalFormState>({
@@ -75,6 +76,7 @@ const TerminalFormComponent: ForwardRefRenderFunction<
               fieldPath="privateCode"
               testId={testIds.privateCode}
               className="w-2/5"
+              disabled={isEditing}
             />
             <InputField<TerminalFormState>
               type="text"
@@ -129,7 +131,9 @@ const TerminalFormComponent: ForwardRefRenderFunction<
           >
             <div>
               <div className="mb-2 text-sm font-bold">
-                {t('terminalDetails.location.memberStops')}
+                {t('terminalDetails.location.memberStopsTotal', {
+                  total: selectedStops.length,
+                })}
               </div>
               <SelectMemberStopsDropdown
                 value={selectedStops}

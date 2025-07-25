@@ -187,7 +187,9 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
           </Row>
           <Row className="flex-col">
             <div className="mb-2 text-sm font-bold">
-              {t('terminalDetails.location.memberStops')}
+              {t('terminalDetails.location.memberStopsTotal', {
+                total: selectedStops.length,
+              })}
             </div>
             <SelectMemberStopsDropdown
               className="lg:w-1/2"

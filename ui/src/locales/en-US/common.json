@@ -551,6 +551,11 @@
     "ferryTerminal": "Ferry terminal",
     "ferryStation": "Ferry station"
   },
+  "confirmEditTerminalDialog": {
+    "title": "Confirm changes",
+    "description": "Confirm editing terminal ({{ terminalName }})",
+    "confirmText": "OK"
+  },
   "stopRegistrySearch": {
     "byAddress": "By address",
     "byLabel": "By label",
