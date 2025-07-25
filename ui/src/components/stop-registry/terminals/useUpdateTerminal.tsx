@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { ApolloError, gql } from '@apollo/client';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -6,7 +6,9 @@ import {
   useUpdateTerminalMutation,
 } from '../../../generated/graphql';
 import { showDangerToastWithError } from '../../../utils';
+import { TerminalFormState } from './components/basic-details/basic-details-form/schema';
 import { getEnrichedParentStopPlace } from './useGetTerminalDetails';
+import { useTerminalApolloErrorHandler } from './utils/terminalErrorHandler';
 
 const GQL_UPDATE_TERMINAL = gql`
   mutation UpdateTerminal($input: stop_registry_ParentStopPlaceInput!) {
@@ -20,9 +22,10 @@ const GQL_UPDATE_TERMINAL = gql`
 
 export const useUpdateTerminal = () => {
   const { t } = useTranslation();
+  const tryHandleApolloError = useTerminalApolloErrorHandler();
   const [updateTerminalMutation] = useUpdateTerminalMutation({
     awaitRefetchQueries: true,
-    refetchQueries: ['getParentStopPlaceDetails'],
+    refetchQueries: ['getParentStopPlaceDetails', 'GetStopTerminalsByLocation'],
   });
 
   const updateTerminal = useCallback(
@@ -38,9 +41,19 @@ export const useUpdateTerminal = () => {
     [updateTerminalMutation],
   );
 
-  const defaultErrorHandler = (err: unknown) => {
-    showDangerToastWithError(t('errors.saveFailed'), err);
-  };
+  const defaultErrorHandler = useCallback(
+    (err: unknown, details?: TerminalFormState) => {
+      if (err instanceof ApolloError) {
+        const isKnownError = tryHandleApolloError(err, details);
+        if (isKnownError) {
+          return;
+        }
+      }
+
+      showDangerToastWithError(t('errors.saveFailed'), err);
+    },
+    [t, tryHandleApolloError],
+  );
 
   return {
     updateTerminal,

@@ -30,9 +30,7 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
   const formRef = useRef<HTMLFormElement | null>(null);
   const onSave = () => submitFormByRef(formRef);
 
-  const heading = editedTerminal?.privateCode?.value
-    ? t('map.editTerminal', { terminal: editedTerminal.privateCode.value })
-    : t('map.createNewTerminal');
+  const heading = editedTerminal?.name ?? t('map.createNewTerminal');
 
   return (
     <CustomOverlay position="top-right">
@@ -53,6 +51,7 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
             defaultValues={mapTerminalDataToFormState(editedTerminal)}
             onSubmit={onSubmit}
             ref={formRef}
+            isEditing={!!editedTerminal.privateCode}
           />
         </Modal>
       </div>
