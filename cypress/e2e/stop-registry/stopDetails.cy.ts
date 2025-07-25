@@ -264,14 +264,15 @@ describe('Stop details', () => {
     locationView.getLongitude().shouldHaveText('24.932072417514647');
     locationView.getAltitude().shouldHaveText('0');
     locationView.getFunctionalArea().shouldHaveText('20 m');
-    locationView.getStopArea().shouldHaveText('-');
-    locationView.getStopAreaName().shouldHaveText('-');
-    locationView.getStopAreaStops().shouldHaveText('-');
     locationView.getQuay().shouldHaveText('-');
     locationView.getStopAreaQuays().shouldHaveText('-');
-    locationView.getTerminal().shouldHaveText('-');
-    locationView.getTerminalName().shouldHaveText('-');
-    locationView.getTerminalStops().shouldHaveText('-');
+    locationView.getTerminalPrivateCode().shouldHaveText('T2');
+    locationView
+      .getTerminalLink()
+      .shouldBeVisible()
+      .should('have.attr', 'href', `/stop-registry/terminals/T2`);
+    locationView.getTerminalName().shouldHaveText('E2ET001');
+    locationView.getTerminalStops().shouldHaveText('E2E008, E2E010');
   };
 
   const verifyInitialSignageDetails = () => {
