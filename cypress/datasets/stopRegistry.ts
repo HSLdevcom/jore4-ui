@@ -221,6 +221,7 @@ const stopPlaceData: Array<StopAreaInput> = [
           keyValues: [
             { key: 'streetAddress', values: ['Kalevankatu 18'] },
             { key: 'elyNumber', values: ['E2E007'] },
+            { key: 'validityStart', values: ['2020-03-20'] },
           ],
         },
       ],
@@ -241,6 +242,7 @@ const stopPlaceData: Array<StopAreaInput> = [
           keyValues: [
             { key: 'streetAddress', values: ['Kuttulammentie 15'] },
             { key: 'elyNumber', values: ['E2E008'] },
+            { key: 'validityStart', values: ['2020-03-20'] },
           ],
         },
       ],
@@ -261,6 +263,7 @@ const stopPlaceData: Array<StopAreaInput> = [
           keyValues: [
             { key: 'streetAddress', values: ['Finnoonkartano'] },
             { key: 'elyNumber', values: ['E2E010'] },
+            { key: 'validityStart', values: ['2020-03-20'] },
           ],
         },
       ],

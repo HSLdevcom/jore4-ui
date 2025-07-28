@@ -17,6 +17,7 @@ import { BlockerFunction, useBlocker } from 'react-router';
 import { CloseIconButton, SimpleButtonButton } from '../../../uiComponents';
 
 const testIds = {
+  dialog: 'NavigationBlockedDialog',
   closeButton: 'NavigationBlockedDialog::closeButton',
   title: 'NavigationBlockedDialog::title',
   body: 'NavigationBlockedDialog::body',
@@ -206,6 +207,7 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
       initialFocus={initialFocusRef}
       open={isOpen}
       onClose={onReset}
+      data-testid={testIds.dialog}
     >
       {/* The actual basis number does not matter too much.
        * But it is needed to tell the flex-div above that the dialog itself should
