@@ -80,7 +80,7 @@ export const EditTerminalLayer = forwardRef<
     setIsLoading(false);
   };
 
-  const doUpdateStopArea = async (state: TerminalFormState) => {
+  const doUpdateTerminal = async (state: TerminalFormState) => {
     setIsLoading(true);
     try {
       const updatedTerminal = await updateTerminalMapDetails({
@@ -121,7 +121,7 @@ export const EditTerminalLayer = forwardRef<
       return;
     }
 
-    await doUpdateStopArea(terminalEditChanges);
+    await doUpdateTerminal(terminalEditChanges);
     setIsConfirmEditDialogOpen(false);
     setTerminalEditChanges(null);
 

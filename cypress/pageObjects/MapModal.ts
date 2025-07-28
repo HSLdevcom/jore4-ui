@@ -9,6 +9,7 @@ import { StopAreaForm } from './StopAreaForm';
 import { StopAreaPopup } from './StopAreaPopup';
 import { NewStopFormInfo, StopForm } from './StopForm';
 import { NewTerminalFormInfo, TerminalForm } from './TerminalForm';
+import { TerminalPopup } from './TerminalPopup';
 import { Toast } from './Toast';
 
 export class MapModal {
@@ -23,6 +24,8 @@ export class MapModal {
   terminalForm = new TerminalForm();
 
   stopAreaPopup = new StopAreaPopup();
+
+  terminalPopup = new TerminalPopup();
 
   stopAreaForm = new StopAreaForm();
 

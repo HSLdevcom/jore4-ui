@@ -13,13 +13,17 @@ import {
   MapModal,
   Navbar,
   TerminalDetailsPage,
+  Toast,
 } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
+import { expectGraphQLCallToReturnError } from '../../utils/assertions';
 import { InsertedStopRegistryIds, mapViewport } from '../utils';
 
-const testStopLabels = {
+const testTerminalLabels = {
   terminalPrivateCode: 'TA',
+  existingTerminalPrivateCode: 'T2',
+  existingTerminalName: 'E2ET001',
   terminalName: 'Terminal A',
   stops: ['E2E001', 'E2E002'],
   expectedMemberStops: 'E2E001, E2E002, E2E009',
@@ -29,6 +33,7 @@ const mapModal = new MapModal();
 const mapFilterPanel = new FilterPanel();
 const navbar = new Navbar();
 const terminalDetailsPage = new TerminalDetailsPage();
+const toast = new Toast();
 
 const testCoordinates1 = {
   lng: 24.93458814980886,
@@ -92,11 +97,11 @@ describe('Terminal creation tests', mapViewport, () => {
     () => {
       mapModal.createTerminalAtLocation({
         terminalFormInfo: {
-          privateCode: testStopLabels.terminalPrivateCode,
-          name: testStopLabels.terminalName,
-          nameSwe: testStopLabels.terminalName,
+          privateCode: testTerminalLabels.terminalPrivateCode,
+          name: testTerminalLabels.terminalName,
+          nameSwe: testTerminalLabels.terminalName,
           validityStartISODate: '2022-01-01',
-          stops: testStopLabels.stops,
+          stops: testTerminalLabels.stops,
         },
         clickRelativePoint: {
           xPercentage: 40,
@@ -111,23 +116,23 @@ describe('Terminal creation tests', mapViewport, () => {
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
       cy.getByTestId(
-        `Map::MapTerminal::terminal::${testStopLabels.terminalPrivateCode}`,
+        `Map::MapTerminal::terminal::${testTerminalLabels.terminalPrivateCode}`,
       ).should('exist');
 
       mapModal.getCloseButton().click();
 
       navbar.getStopsLink().click();
 
-      terminalDetailsPage.visit(testStopLabels.terminalPrivateCode);
+      terminalDetailsPage.visit(testTerminalLabels.terminalPrivateCode);
 
       const { terminalDetails, locationDetails } = terminalDetailsPage;
       const { viewCard } = terminalDetails;
       const { viewCard: locationView } = locationDetails;
-      viewCard.getNameFin().shouldHaveText(testStopLabels.terminalName);
-      viewCard.getNameSwe().shouldHaveText(testStopLabels.terminalName);
+      viewCard.getNameFin().shouldHaveText(testTerminalLabels.terminalName);
+      viewCard.getNameSwe().shouldHaveText(testTerminalLabels.terminalName);
       locationView
         .getMemberStops()
-        .shouldHaveText(testStopLabels.expectedMemberStops);
+        .shouldHaveText(testTerminalLabels.expectedMemberStops);
     },
   );
 
@@ -137,11 +142,11 @@ describe('Terminal creation tests', mapViewport, () => {
     () => {
       mapModal.createTerminalAtLocation({
         terminalFormInfo: {
-          privateCode: testStopLabels.terminalPrivateCode,
-          name: testStopLabels.terminalName,
-          nameSwe: testStopLabels.terminalName,
+          privateCode: testTerminalLabels.terminalPrivateCode,
+          name: testTerminalLabels.terminalName,
+          nameSwe: testTerminalLabels.terminalName,
           validityStartISODate: '2022-01-01',
-          stops: testStopLabels.stops,
+          stops: testTerminalLabels.stops,
           // Actual coordinates will be on Topeliuksenkatu
           latitude: testCoordinates2.lat.toString(),
           longitude: testCoordinates2.lng.toString(),
@@ -166,8 +171,64 @@ describe('Terminal creation tests', mapViewport, () => {
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
       cy.getByTestId(
-        `Map::MapTerminal::terminal::${testStopLabels.terminalPrivateCode}`,
+        `Map::MapTerminal::terminal::${testTerminalLabels.terminalPrivateCode}`,
       ).should('exist');
+    },
+  );
+
+  it(
+    'should handle unique private code exception',
+    {
+      tags: [Tag.Terminals, Tag.Map],
+      scrollBehavior: 'bottom',
+    },
+    () => {
+      mapModal.createTerminalAtLocation({
+        terminalFormInfo: {
+          privateCode: testTerminalLabels.existingTerminalPrivateCode,
+          name: testTerminalLabels.terminalName,
+          nameSwe: testTerminalLabels.terminalName,
+          validityStartISODate: '2022-01-01',
+          stops: testTerminalLabels.stops,
+        },
+        clickRelativePoint: {
+          xPercentage: 40,
+          yPercentage: 55,
+        },
+      });
+
+      toast.expectDangerToast(
+        `Terminaalilla tulee olla uniikki tunnus, mutta tunnus ${testTerminalLabels.existingTerminalPrivateCode} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!`,
+      );
+      expectGraphQLCallToReturnError('@gqlCreateTerminal');
+    },
+  );
+
+  it(
+    'should handle unique name exception',
+    {
+      tags: [Tag.Terminals, Tag.Map],
+      scrollBehavior: 'bottom',
+    },
+    () => {
+      mapModal.createTerminalAtLocation({
+        terminalFormInfo: {
+          privateCode: testTerminalLabels.terminalPrivateCode,
+          name: testTerminalLabels.existingTerminalName,
+          nameSwe: testTerminalLabels.terminalName,
+          validityStartISODate: '2022-01-01',
+          stops: testTerminalLabels.stops,
+        },
+        clickRelativePoint: {
+          xPercentage: 40,
+          yPercentage: 55,
+        },
+      });
+
+      toast.expectDangerToast(
+        `Terminaalilla tulee olla uniikki nimi, mutta nimi ${testTerminalLabels.existingTerminalName} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!`,
+      );
+      expectGraphQLCallToReturnError('@gqlCreateTerminal');
     },
   );
 });

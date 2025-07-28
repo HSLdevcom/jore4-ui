@@ -1,7 +1,7 @@
-import { ChangeValidityForm } from './ChangeValidityForm';
-import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
-import { PriorityForm } from './PriorityForm';
-import { ValidityPeriodFormInfo } from './ValidityPeriodForm';
+import {
+  ValidityPeriodForm,
+  ValidityPeriodFormInfo,
+} from './ValidityPeriodForm';
 
 export interface BaseTerminalFormInfo extends ValidityPeriodFormInfo {
   name?: string;
@@ -19,11 +19,11 @@ export interface NewTerminalFormInfo extends BaseTerminalFormInfo {
 }
 
 export class TerminalForm {
-  changeValidityForm = new ChangeValidityForm();
+  validityPeriodForm = new ValidityPeriodForm();
 
-  createTimingPlaceForm = new CreateTimingPlaceForm();
-
-  priorityForm = new PriorityForm();
+  getForm() {
+    return cy.getByTestId('TerminalFormComponent::form');
+  }
 
   getPrivateCodeInput() {
     return cy.getByTestId('TerminalFormComponent::privateCode');
@@ -72,7 +72,7 @@ export class TerminalForm {
       this.getLongitudeInput().clearAndType(values.longitude);
     }
 
-    this.changeValidityForm.validityPeriodForm.fillForm(values);
+    this.validityPeriodForm.fillForm(values);
   }
 
   fillFormForNewTerminal(values: NewTerminalFormInfo) {
