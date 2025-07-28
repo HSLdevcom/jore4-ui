@@ -10,6 +10,7 @@ const arrowErrorStyles = 'text-hsl-red';
 type ListboxButtonProps = {
   readonly hasError: boolean;
   readonly testId?: string;
+  readonly id?: string;
   readonly buttonContent: ReactNode;
   readonly buttonClassNames?: string;
   readonly arrowButtonClassNames?: string;
@@ -18,6 +19,7 @@ type ListboxButtonProps = {
 export const ListboxButton: FC<ListboxButtonProps> = ({
   hasError,
   testId,
+  id,
   buttonContent,
   buttonClassNames,
   arrowButtonClassNames,
@@ -31,6 +33,7 @@ export const ListboxButton: FC<ListboxButtonProps> = ({
         buttonClassNames,
       )}
       data-testid={testId}
+      id={id}
     >
       {buttonContent}
       <i

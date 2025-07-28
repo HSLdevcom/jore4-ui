@@ -2,11 +2,12 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
 import { LabeledDetail } from '../layout';
-import { formatDimension, optionalBooleanToUiText } from '../utils';
+import { optionalBooleanToUiText } from '../utils';
+import { formatSizedDbItem } from './utils';
 
 const testIds = {
   backlight: 'InfoSpotDetails::backlight',
-  posterPlaceSize: 'InfoSpotDetails::posterPlaceSize',
+  size: 'InfoSpotDetails::size',
 };
 
 type InfoSpotDetailsProps = {
@@ -19,9 +20,9 @@ export const InfoSpotDetails: FC<InfoSpotDetailsProps> = ({ infoSpot }) => {
   return (
     <>
       <LabeledDetail
-        title={t('stopDetails.infoSpots.posterPlaceSize')}
-        detail={formatDimension(infoSpot.posterPlaceSize)}
-        testId={testIds.posterPlaceSize}
+        title={t('stopDetails.infoSpots.size')}
+        detail={formatSizedDbItem(t, infoSpot)}
+        testId={testIds.size}
       />
       <LabeledDetail
         title={t('stopDetails.infoSpots.backlight')}

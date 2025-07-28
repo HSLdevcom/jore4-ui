@@ -28,7 +28,7 @@ export class InfoSpotViewCard {
 
   getBacklight = () => cy.getByTestId('InfoSpotDetails::backlight');
 
-  getPosterPlaceSize = () => cy.getByTestId('InfoSpotDetails::posterPlaceSize');
+  getSize = () => cy.getByTestId('InfoSpotDetails::size');
 
   getPosterContainers = () =>
     cy.getByTestId('InfoSpotPosterDetails::container');

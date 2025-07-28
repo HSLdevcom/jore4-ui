@@ -410,8 +410,8 @@ describe('Stop details', () => {
     infoSpotView.getLatitude().shouldHaveText(expectedLocation.lat);
     infoSpotView.getLongitude().shouldHaveText(expectedLocation.lon);
     infoSpotView.getBacklight().shouldHaveText('Kyllä');
-    infoSpotView.getPosterPlaceSize().shouldHaveText('80x120cm');
-    infoSpotView.getPosterSize().shouldHaveText('a4');
+    infoSpotView.getSize().shouldHaveText('80 × 120 cm');
+    infoSpotView.getPosterSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
     infoSpotView.getPosterLabel().shouldHaveText('PT1234');
     infoSpotView.getPosterLines().shouldHaveText('1, 6, 17');
     infoSpotView.getFloor().shouldHaveText('1');
@@ -441,7 +441,7 @@ describe('Stop details', () => {
       infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
       infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
       infoSpotView.getBacklight().shouldHaveText('-');
-      infoSpotView.getPosterPlaceSize().shouldHaveText('-');
+      infoSpotView.getSize().shouldHaveText('-');
       infoSpotView.getFloor().shouldHaveText('1');
       infoSpotView.getRailInformation().shouldHaveText('8');
       infoSpotView.getStops().shouldHaveText('V1562');
@@ -457,7 +457,7 @@ describe('Stop details', () => {
       infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
       infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
       infoSpotView.getBacklight().shouldHaveText('-');
-      infoSpotView.getPosterPlaceSize().shouldHaveText('-');
+      infoSpotView.getSize().shouldHaveText('-');
       infoSpotView.getFloor().shouldHaveText('1');
       infoSpotView.getRailInformation().shouldHaveText('9');
       infoSpotView.getStops().shouldHaveText('V1562');
@@ -1890,30 +1890,42 @@ describe('Stop details', () => {
           infoSpot.getLabel().should('have.value', 'JP1234568');
           infoSpot.getPurpose().should('have.value', 'Tiedotteet');
           infoSpot.getBacklightButton().should('have.text', 'Kyllä');
-          infoSpot.getPosterPlaceSizeButton().should('have.text', '80x120cm');
-          infoSpot.getPosterSizeButton().should('have.text', 'A4');
-          infoSpot.getPosterLabel().should('have.value', 'PT1234');
-          infoSpot.getPosterLines().should('have.value', '1, 6, 17');
+          infoSpot.getSizeSelectorButton().should('have.text', '80 × 120 cm');
           infoSpot.getFloor().should('have.value', '1');
           infoSpot.getRailInformation().should('have.value', '7');
           infoSpot.getZoneLabel().should('have.value', 'A');
+          infoSpot.getNthPosterContainer(0).within(() => {
+            infoSpot
+              .getSizeSelectorButton()
+              .should('have.text', 'A4 (21.0 × 29.7 cm)');
+            infoSpot.getPosterLabel().should('have.value', 'PT1234');
+            infoSpot.getPosterLines().should('have.value', '1, 6, 17');
+          });
           infoSpot.getNoPostersLabel().should('not.exist');
 
           // Change everything
           infoSpot.getLabel().clearAndType('IP98765432');
           infoSpot.getPurpose().clearAndType('Uusi tarkoitus');
-          infoSpot.getPosterPlaceSizeButton().click();
-          infoSpot.getPosterPlaceSizeOptions().contains('A4').click();
+          infoSpot.getSizeSelectorButton().click();
+          infoSpot
+            .getSizeSelectorOptions()
+            .contains('A4 (21.0 × 29.7 cm)')
+            .click();
           infoSpot.getBacklightButton().click();
           infoSpot.getBacklightOptions().contains('Ei').click();
           infoSpot.getDescription().clearAndType('Infopaikan uusi kuvaus');
-          infoSpot.getPosterLabel().clearAndType('PT1235');
-          infoSpot.getPosterSizeButton().click();
-          infoSpot.getPosterSizeOptions().contains('A3').click();
-          infoSpot.getPosterLines().clearAndType('2, 7, 18');
           infoSpot.getZoneLabel().clearAndType('B');
           infoSpot.getRailInformation().clearAndType('8');
           infoSpot.getFloor().clearAndType('2');
+          infoSpot.getNthPosterContainer(0).within(() => {
+            infoSpot.getPosterLabel().clearAndType('PT1235');
+            infoSpot.getSizeSelectorButton().click();
+            infoSpot
+              .getSizeSelectorOptions()
+              .contains('A3 (29.7 × 42.0 cm)')
+              .click();
+            infoSpot.getPosterLines().clearAndType('2, 7, 18');
+          });
         });
 
         // Submit.
@@ -1928,13 +1940,15 @@ describe('Stop details', () => {
           infoSpotView.getLabel().shouldHaveText('IP98765432');
           infoSpotView.getPurpose().shouldHaveText('Uusi tarkoitus');
           infoSpotView.getBacklight().shouldHaveText('Ei');
-          infoSpotView.getPosterPlaceSize().shouldHaveText('a4');
-          infoSpotView.getPosterSize().shouldHaveText('a3');
-          infoSpotView.getPosterLabel().shouldHaveText('PT1235');
-          infoSpotView.getPosterLines().shouldHaveText('2, 7, 18');
+          infoSpotView.getSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
           infoSpotView.getFloor().shouldHaveText('2');
           infoSpotView.getRailInformation().shouldHaveText('8');
           infoSpotView.getZoneLabel().shouldHaveText('B');
+          infoSpotView.getNthPosterContainer(0).within(() => {
+            infoSpotView.getPosterSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
+            infoSpotView.getPosterLabel().shouldHaveText('PT1235');
+            infoSpotView.getPosterLines().shouldHaveText('2, 7, 18');
+          });
           infoSpotView.getNoPosters().should('not.exist');
         });
 
@@ -1972,7 +1986,7 @@ describe('Stop details', () => {
           infoSpotView.getLabel().shouldHaveText('IP2345678');
           infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö uusi');
           infoSpotView.getBacklight().shouldHaveText('-');
-          infoSpotView.getPosterPlaceSize().shouldHaveText('-');
+          infoSpotView.getSize().shouldHaveText('-');
           infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
           infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
           infoSpotView.getFloor().shouldHaveText('2');
@@ -2053,23 +2067,32 @@ describe('Stop details', () => {
           infoSpotForm.getNthInfoSpot(1).within(() => {
             infoSpot.getLabel().clearAndType('IP125');
             infoSpot.getPurpose().clearAndType('Staattisen tarkoitus');
-            infoSpot.getPosterPlaceSizeButton().click();
-            infoSpot.getPosterPlaceSizeOptions().contains('A3').click();
+            infoSpot.getSizeSelectorButton().click();
+            infoSpot
+              .getSizeSelectorOptions()
+              .contains('A3 (29.7 × 42.0 cm)')
+              .click();
             infoSpot.getBacklightButton().click();
             infoSpot.getBacklightOptions().contains('Kyllä').click();
             infoSpot.getDescription().clearAndType('Staattisen kuvaus');
             infoSpot.getAddPosterButton().click();
             infoSpot.getNthPosterContainer(0).within(() => {
               infoSpot.getPosterLabel().clearAndType('PT1236');
-              infoSpot.getPosterSizeButton().click();
-              infoSpot.getPosterSizeOptions().contains('A3').click();
+              infoSpot.getSizeSelectorButton().click();
+              infoSpot
+                .getSizeSelectorOptions()
+                .contains('A3 (29.7 × 42.0 cm)')
+                .click();
               infoSpot.getPosterLines().clearAndType('2, 7, 1');
             });
             infoSpot.getAddPosterButton().click();
             infoSpot.getNthPosterContainer(1).within(() => {
               infoSpot.getPosterLabel().clearAndType('PT1237');
-              infoSpot.getPosterSizeButton().click();
-              infoSpot.getPosterSizeOptions().contains('A4').click();
+              infoSpot.getSizeSelectorButton().click();
+              infoSpot
+                .getSizeSelectorOptions()
+                .contains('A4 (21.0 × 29.7 cm)')
+                .click();
               infoSpot.getPosterLines().clearAndType('2');
             });
             infoSpot.getZoneLabel().clearAndType('A');
@@ -2103,14 +2126,14 @@ describe('Stop details', () => {
           infoSpotView.getDescription().shouldHaveText('Staattisen kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP125');
           infoSpotView.getBacklight().shouldHaveText('Kyllä');
-          infoSpotView.getPosterPlaceSize().shouldHaveText('a3');
+          infoSpotView.getSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
           infoSpotView.getNthPosterContainer(1).within(() => {
-            infoSpotView.getPosterSize().shouldHaveText('a4');
+            infoSpotView.getPosterSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
             infoSpotView.getPosterLabel().shouldHaveText('PT1237');
             infoSpotView.getPosterLines().shouldHaveText('2');
           });
           infoSpotView.getNthPosterContainer(0).within(() => {
-            infoSpotView.getPosterSize().shouldHaveText('a3');
+            infoSpotView.getPosterSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
             infoSpotView.getPosterLabel().shouldHaveText('PT1236');
             infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
           });
@@ -2134,17 +2157,23 @@ describe('Stop details', () => {
           infoSpotForm.getNthInfoSpot(1).within(() => {
             infoSpot.getLabel().should('have.value', 'IP125');
             infoSpot.getPurpose().should('have.value', 'Staattisen tarkoitus');
-            infoSpot.getPosterPlaceSizeButton().should('have.text', 'A3');
+            infoSpot
+              .getSizeSelectorButton()
+              .should('have.text', 'A3 (29.7 × 42.0 cm)');
             infoSpot.getBacklightButton().should('have.text', 'Kyllä');
             infoSpot.getDescription().should('have.value', 'Staattisen kuvaus');
             infoSpot.getNthPosterContainer(0).within(() => {
               infoSpot.getPosterLabel().should('have.value', 'PT1236');
-              infoSpot.getPosterSizeButton().should('have.text', 'A3');
+              infoSpot
+                .getSizeSelectorButton()
+                .should('have.text', 'A3 (29.7 × 42.0 cm)');
               infoSpot.getPosterLines().should('have.value', '2, 7, 1');
             });
             infoSpot.getNthPosterContainer(1).within(() => {
               infoSpot.getPosterLabel().should('have.value', 'PT1237');
-              infoSpot.getPosterSizeButton().should('have.text', 'A4');
+              infoSpot
+                .getSizeSelectorButton()
+                .should('have.text', 'A4 (21.0 × 29.7 cm)');
               infoSpot.getPosterLines().should('have.value', '2');
             });
             infoSpot.getZoneLabel().should('have.value', 'A');
@@ -2177,9 +2206,9 @@ describe('Stop details', () => {
           infoSpotView.getDescription().shouldHaveText('Staattisen kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP125');
           infoSpotView.getBacklight().shouldHaveText('Kyllä');
-          infoSpotView.getPosterPlaceSize().shouldHaveText('a3');
+          infoSpotView.getSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
           infoSpotView.getNthPosterContainer(0).within(() => {
-            infoSpotView.getPosterSize().shouldHaveText('a3');
+            infoSpotView.getPosterSize().shouldHaveText('A3 (29.7 × 42.0 cm)');
             infoSpotView.getPosterLabel().shouldHaveText('PT1236');
             infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
           });
@@ -2194,6 +2223,51 @@ describe('Stop details', () => {
         });
       },
     );
+
+    it(
+      'should allow entering manual spot & poster sizes',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        infoSpotView.getNthSectionContainer(0).within(() => {
+          stopDetailsPage.infoSpots.getEditButton().click();
+          infoSpotForm.getNthInfoSpot(0).within(() => {
+            infoSpotForm.infoSpots.getSizeSelectorButton().click();
+            infoSpotForm.infoSpots
+              .getSizeSelectorOptions()
+              .contains('Syötä mitat')
+              .click();
+            infoSpotForm.infoSpots.getSizeWidth().clearAndType('176');
+            infoSpotForm.infoSpots.getSizeHeight().clearAndType('250');
+          });
+        });
+
+        stopDetailsPage.infoSpots.getSaveButton().click();
+        toast.expectSuccessToast('Pysäkki muokattu');
+
+        infoSpotView.getNthSectionContainer(0).within(() => {
+          stopDetailsPage.infoSpots.getEditButton().click();
+          infoSpotForm.getNthInfoSpot(0).within(() => {
+            infoSpotForm.infoSpots.getAddPosterButton().click();
+            infoSpotForm.infoSpots.getNthPosterContainer(0).within(() => {
+              infoSpotForm.infoSpots.getSizeSelectorButton().click();
+              const getOption = (index: number) =>
+                infoSpotForm.infoSpots
+                  .getSizeSelectorOptions()
+                  .get('[role="option"]')
+                  .eq(index);
+
+              getOption(0).contains('80 × 120 cm');
+              getOption(1).contains('A3 (29.7 × 42.0 cm)');
+              getOption(2).contains('A4 (21.0 × 29.7 cm)');
+              getOption(3).contains('Ei tiedossa');
+              getOption(4).contains('Syötä mitat');
+              getOption(5).contains('B5 (17.6 × 25.0 cm)');
+            });
+          });
+        });
+      },
+    );
+
     it(
       'should show info text when there are no shelters',
       { tags: [Tag.StopRegistry] },

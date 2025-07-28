@@ -9,7 +9,6 @@ import {
   StopRegistryGuidanceType,
   StopRegistryMapType,
   StopRegistryPedestrianCrossingRampType,
-  StopRegistryPosterPlaceSize,
   StopRegistryShelterCondition,
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
@@ -252,18 +251,6 @@ export const mapStopRegistryShelterTypeEnumToUiName = genTranslationMapper<
     t('stopRegistryShelterTypeEnum.virtual'),
   [StopRegistryShelterType.Wooden]: (t) =>
     t('stopRegistryShelterTypeEnum.wooden'),
-});
-
-export const mapStopRegistryPosterPlaceSizeEnumToUiName = genTranslationMapper<
-  StopRegistryPosterPlaceSize | NullOptionEnum
->({
-  [NullOptionEnum.Null]: (t) => t('unknown'),
-  [StopRegistryPosterPlaceSize.A3]: (t) =>
-    t('stopDetails.infoSpots.posterPlaceSizes.a3'),
-  [StopRegistryPosterPlaceSize.A4]: (t) =>
-    t('stopDetails.infoSpots.posterPlaceSizes.a4'),
-  [StopRegistryPosterPlaceSize.Cm80x120]: (t) =>
-    t('stopDetails.infoSpots.posterPlaceSizes.cm80x120'),
 });
 
 export const mapStopAccessibilityLevelToUiName =

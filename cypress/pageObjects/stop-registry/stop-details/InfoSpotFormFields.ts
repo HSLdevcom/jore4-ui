@@ -17,11 +17,23 @@ export class InfoSpotFormFields {
   getBacklightOptions = () =>
     cy.getByTestId('InfoSpotFormFields::backlight::ListboxOptions');
 
-  getPosterPlaceSizeButton = () =>
-    cy.getByTestId('InfoSpotFormFields::posterPlaceSize::ListboxButton');
+  getSizeSelectorButton = () =>
+    // Only get the 1st and ignore the deeply nested poster ones. To get the poster button,
+    // nest this call in proper getNthPosterContainer().within block
+    cy.getByTestId('InfoSpotFormFields::size::selector::ListboxButton').first();
 
-  getPosterPlaceSizeOptions = () =>
-    cy.getByTestId('InfoSpotFormFields::posterPlaceSize::ListboxOptions');
+  getSizeSelectorOptions = () =>
+    cy.getByTestId('InfoSpotFormFields::size::selector::ListboxOptions');
+
+  getSizeWidth = () =>
+    // Only get the 1st and ignore the deeply nested poster ones. To get the poster button,
+    // nest this call in proper getNthPosterContainer().within block
+    cy.getByTestId('InfoSpotFormFields::size::width').first();
+
+  getSizeHeight = () =>
+    // Only get the 1st and ignore the deeply nested poster ones. To get the poster button,
+    // nest this call in proper getNthPosterContainer().within block
+    cy.getByTestId('InfoSpotFormFields::size::height').first();
 
   getDisplayTypeButton = () =>
     cy.getByTestId('InfoSpotFormFields::displayType::ListboxButton');
@@ -47,12 +59,6 @@ export class InfoSpotFormFields {
 
   getNthPosterContainer = (index: number) =>
     this.getPosterContainers().eq(index);
-
-  getPosterSizeButton = () =>
-    cy.getByTestId('InfoSpotPosterFormFields::posterSize::ListboxButton');
-
-  getPosterSizeOptions = () =>
-    cy.getByTestId('InfoSpotPosterFormFields::posterSize::ListboxOptions');
 
   getPosterLabel = () =>
     cy.getByTestId('InfoSpotPosterFormFields::posterLabel');

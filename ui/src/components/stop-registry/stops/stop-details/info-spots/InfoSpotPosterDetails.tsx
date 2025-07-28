@@ -1,3 +1,4 @@
+import compact from 'lodash/compact';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
@@ -7,7 +8,7 @@ import {
   Visible,
 } from '../../../../../layoutComponents';
 import { DetailRow, LabeledDetail } from '../layout';
-import { formatDimension } from '../utils';
+import { formatSizedDbItem } from './utils';
 
 const testIds = {
   posterContainer: 'InfoSpotPosterDetails::container',
@@ -22,11 +23,13 @@ type InfoSpotPosterDetailsProps = {
 };
 
 export const InfoSpotPosterDetails: FC<InfoSpotPosterDetailsProps> = ({
-  infoSpot: { poster },
+  infoSpot,
 }) => {
   const { t } = useTranslation();
 
-  if (!poster?.length) {
+  const actualPosters = compact(infoSpot.poster);
+
+  if (!actualPosters.length) {
     return (
       <>
         <Row className="px-10 py-5" testId={testIds.noPosters}>
@@ -37,26 +40,26 @@ export const InfoSpotPosterDetails: FC<InfoSpotPosterDetailsProps> = ({
     );
   }
 
-  return poster?.map((item, index) => (
-    <div key={item?.label} data-testid={testIds.posterContainer}>
+  return actualPosters.map((poster, index) => (
+    <div key={poster.label} data-testid={testIds.posterContainer}>
       <DetailRow className="px-10 py-5">
         <LabeledDetail
           title={t('stopDetails.infoSpots.posterSize')}
-          detail={formatDimension(item?.posterSize)}
+          detail={formatSizedDbItem(t, poster)}
           testId={testIds.posterSize}
         />
         <LabeledDetail
           title={t('stopDetails.infoSpots.posterLabel')}
-          detail={item?.label}
+          detail={poster.label}
           testId={testIds.posterLabel}
         />
         <LabeledDetail
           title={t('stopDetails.infoSpots.posterLines')}
-          detail={item?.lines}
+          detail={poster.lines}
           testId={testIds.posterLines}
         />
       </DetailRow>
-      <Visible visible={index === poster.length - 1}>
+      <Visible visible={index === actualPosters.length - 1}>
         <HorizontalSeparator className="m-0 border-[--borderColor]" />
       </Visible>
     </div>

@@ -4,7 +4,6 @@ import {
   InfoSpotDetailsFragment,
   ShelterEquipmentDetailsFragment,
 } from '../../../../../generated/graphql';
-import { useEditStopInfoSpots } from '../../../../../hooks/stop-registry/useEditStopInfoSpots';
 import { mapStopRegistryShelterTypeEnumToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { AddNewButton } from '../../../../../uiComponents/AddNewButton';
@@ -21,11 +20,10 @@ import {
   InfoSpotsForm,
   InfoSpotsFormRef,
 } from './info-spots-form/InfoSpotsForm';
-import {
-  InfoSpotsFormState,
-  mapInfoSpotDataToFormState,
-} from './info-spots-form/schema';
 import { InfoSpotsViewList } from './InfoSpotsViewList';
+import { useEditStopInfoSpots } from './queries';
+import { InfoSpotsFormState } from './types';
+import { mapInfoSpotDataToFormState } from './utils';
 
 const testIds = {
   addInfoSpot: 'InfoSpotsSection::addInfoSpot',

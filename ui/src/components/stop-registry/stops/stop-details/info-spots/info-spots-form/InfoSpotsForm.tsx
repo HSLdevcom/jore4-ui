@@ -7,12 +7,9 @@ import React, {
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
+import { InfoSpotsFormSchema, InfoSpotsFormState, PosterState } from '../types';
+import { mapInfoSpotDataToFormState } from '../utils';
 import { InfoSpotFormFields } from './InfoSpotsFormFields';
-import {
-  InfoSpotsFormSchema,
-  InfoSpotsFormState,
-  mapInfoSpotDataToFormState,
-} from './schema';
 
 const testIds = {
   infoSpot: 'InfoSpotsForm::infoSpot',
@@ -83,8 +80,12 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
   }));
 
   const addNewPoster = (infoSpotIndex: number) => {
-    const newPoster = {
-      posterSize: null,
+    const newPoster: PosterState = {
+      size: {
+        uiState: 'UNKNOWN',
+        width: null,
+        height: null,
+      },
       label: '',
       lines: '',
       toBeDeletedPoster: false,

@@ -258,7 +258,8 @@ const GQL_INFO_SPOT_DETAILS = gql`
     displayType
     floor
     label
-    posterPlaceSize
+    width
+    height
     infoSpotLocations
     infoSpotType
     purpose
@@ -267,7 +268,8 @@ const GQL_INFO_SPOT_DETAILS = gql`
     zoneLabel
     poster {
       label
-      posterSize
+      width
+      height
       lines
     }
   }

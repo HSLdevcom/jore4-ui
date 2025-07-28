@@ -396,7 +396,7 @@
       "floor": "Floor",
       "label": "Label",
       "maintenance": "Maintenance",
-      "posterPlaceSize": "Poster Place Size",
+      "size": "Poster Place Size",
       "infoSpotType": "Poster Place Type",
       "displayType": "Display Type",
       "speechProperty": "Speech Property",
@@ -430,10 +430,13 @@
         "chargeableEInk": "Chargeable, E-ink",
         "none": "None"
       },
-      "posterPlaceSizes": {
-        "a4": "A4",
-        "a3": "A3",
-        "cm80x120": "80x120cm"
+      "sizes": {
+        "standardSizes": "Standard sizes",
+        "extraSizes": "Other sizes",
+        "unknown": "Unknown",
+        "new": "Enter measurements",
+        "width": "Width (mm)",
+        "height": "Height (mm)"
       }
     },
     "actions": {

@@ -395,7 +395,7 @@
       "floor": "Kerros",
       "label": "Infopaikan tunnus",
       "maintenance": "Huoltotiedot",
-      "posterPlaceSize": "Koko",
+      "size": "Infopaikan koko",
       "infoSpotType": "Julistepaikan tyyppi",
       "displayType": "Näytön tyyppi",
       "speechProperty": "Puheominaisuus",
@@ -429,10 +429,13 @@
         "chargeableEInk": "Ladattava, E-muste",
         "none": "Ei näyttöä"
       },
-      "posterPlaceSizes": {
-        "a4": "A4",
-        "a3": "A3",
-        "cm80x120": "80x120cm"
+      "sizes": {
+        "standardSizes": "Standardimitat",
+        "extraSizes": "Poikkevat mitat",
+        "unknown": "Ei tiedossa",
+        "new": "Syötä mitat",
+        "width": "Leveys (mm)",
+        "height": "Korkeus (mm)"
       }
     },
     "actions": {

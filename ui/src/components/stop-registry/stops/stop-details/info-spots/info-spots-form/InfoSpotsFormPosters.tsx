@@ -1,14 +1,13 @@
 import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { StopRegistryPosterPlaceSize } from '../../../../../../generated/graphql';
-import { mapStopRegistryPosterPlaceSizeEnumToUiName } from '../../../../../../i18n/uiNameMappings';
 import { Row } from '../../../../../../layoutComponents';
 import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
-import { EnumDropdown, InputField } from '../../../../../forms/common';
+import { InputField } from '../../../../../forms/common';
 import { SlimSimpleButton } from '../../layout';
+import { InfoSpotsFormState } from '../types';
 import { usePosterNames } from './InfoSpotsPosterNames';
-import { InfoSpotsFormState } from './schema';
+import { SizeFormFragment } from './SizeFormFragment';
 
 const testIds = {
   addInfoSpotPoster: 'InfoSpotFormFields::addInfoSpotPoster',
@@ -45,27 +44,10 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
   return (
     <div data-testid={testIds.posterContainer}>
       <Row className="my-5 flex-wrap items-end gap-4 px-10 lg:flex-nowrap">
-        <InputField<InfoSpotsFormState>
-          translationPrefix="stopDetails"
-          fieldPath={`infoSpots.${infoSpotIndex}.poster.${posterIndex}.posterSize`}
-          customTitlePath="stopDetails.infoSpots.posterSize"
-          testId={testIds.posterSize}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
-            <EnumDropdown<StopRegistryPosterPlaceSize>
-              enumType={StopRegistryPosterPlaceSize}
-              placeholder={t('unknown')}
-              uiNameMapper={(value) =>
-                mapStopRegistryPosterPlaceSizeEnumToUiName(t, value)
-              }
-              buttonClassName="min-w-36"
-              includeNullOption
-              disabled={toBeDeletedPoster}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
-            />
-          )}
+        <SizeFormFragment
+          sizeStatePath={`infoSpots.${infoSpotIndex}.poster.${posterIndex}.size`}
         />
+
         <InputField<InfoSpotsFormState>
           type="text"
           translationPrefix="stopDetails"

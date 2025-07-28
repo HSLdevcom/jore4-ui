@@ -67593,7 +67593,8 @@ export type UpsertStopAreaMutation = {
           displayType?: StopRegistryDisplayType | null,
           floor?: string | null,
           label?: string | null,
-          posterPlaceSize?: StopRegistryPosterPlaceSize | null,
+          width?: number | null,
+          height?: number | null,
           infoSpotLocations?: Array<string | null> | null,
           infoSpotType?: StopRegistryInfoSpotType | null,
           purpose?: string | null,
@@ -67608,7 +67609,8 @@ export type UpsertStopAreaMutation = {
           poster?: Array<{
             __typename?: 'stop_registry_poster',
             label?: string | null,
-            posterSize?: StopRegistryPosterPlaceSize | null,
+            width?: number | null,
+            height?: number | null,
             lines?: string | null
           } | null> | null
         } | null> | null,
@@ -68870,7 +68872,8 @@ export type GetStopPlaceDetailsQuery = {
           displayType?: StopRegistryDisplayType | null,
           floor?: string | null,
           label?: string | null,
-          posterPlaceSize?: StopRegistryPosterPlaceSize | null,
+          width?: number | null,
+          height?: number | null,
           infoSpotLocations?: Array<string | null> | null,
           infoSpotType?: StopRegistryInfoSpotType | null,
           purpose?: string | null,
@@ -68885,7 +68888,8 @@ export type GetStopPlaceDetailsQuery = {
           poster?: Array<{
             __typename?: 'stop_registry_poster',
             label?: string | null,
-            posterSize?: StopRegistryPosterPlaceSize | null,
+            width?: number | null,
+            height?: number | null,
             lines?: string | null
           } | null> | null
         } | null> | null,
@@ -69165,7 +69169,8 @@ export type StopPlaceDetailsFragment = {
       displayType?: StopRegistryDisplayType | null,
       floor?: string | null,
       label?: string | null,
-      posterPlaceSize?: StopRegistryPosterPlaceSize | null,
+      width?: number | null,
+      height?: number | null,
       infoSpotLocations?: Array<string | null> | null,
       infoSpotType?: StopRegistryInfoSpotType | null,
       purpose?: string | null,
@@ -69180,7 +69185,8 @@ export type StopPlaceDetailsFragment = {
       poster?: Array<{
         __typename?: 'stop_registry_poster',
         label?: string | null,
-        posterSize?: StopRegistryPosterPlaceSize | null,
+        width?: number | null,
+        height?: number | null,
         lines?: string | null
       } | null> | null
     } | null> | null,
@@ -69469,6 +69475,66 @@ export type FindExistingPosterNamesQuery = {
       __typename?: 'stops_database_info_spot_poster',
       id: any,
       label?: string | null
+    }>
+  } | null
+};
+
+export type UpdateInfoSpotMutationVariables = Exact<{
+  input: Array<InputMaybe<StopRegistryInfoSpotInput>> | InputMaybe<StopRegistryInfoSpotInput>;
+}>;
+
+
+export type UpdateInfoSpotMutation = {
+  __typename?: 'mutation_root',
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation',
+    mutateInfoSpots?: Array<{
+      __typename?: 'stop_registry_infoSpot',
+      id?: string | null,
+      backlight?: boolean | null,
+      displayType?: StopRegistryDisplayType | null,
+      floor?: string | null,
+      label?: string | null,
+      width?: number | null,
+      height?: number | null,
+      infoSpotLocations?: Array<string | null> | null,
+      infoSpotType?: StopRegistryInfoSpotType | null,
+      purpose?: string | null,
+      railInformation?: string | null,
+      speechProperty?: boolean | null,
+      zoneLabel?: string | null,
+      description?: {
+        __typename?: 'stop_registry_EmbeddableMultilingualString',
+        lang?: string | null,
+        value?: string | null
+      } | null,
+      poster?: Array<{
+        __typename?: 'stop_registry_poster',
+        label?: string | null,
+        width?: number | null,
+        height?: number | null,
+        lines?: string | null
+      } | null> | null
+    } | null> | null
+  } | null
+};
+
+export type GetInfoSpotSizesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetInfoSpotSizesQuery = {
+  __typename?: 'query_root',
+  stopsDb?: {
+    __typename?: 'stops_database_stops_database_query',
+    infoSpotSizes: Array<{
+      __typename?: 'stops_database_info_spot',
+      width?: number | null,
+      height?: number | null
+    }>,
+    infoSpotPosterSizes: Array<{
+      __typename?: 'stops_database_info_spot_poster',
+      width?: number | null,
+      height?: number | null
     }>
   } | null
 };
@@ -73708,7 +73774,8 @@ export type UpdateStopPlaceMutation = {
           displayType?: StopRegistryDisplayType | null,
           floor?: string | null,
           label?: string | null,
-          posterPlaceSize?: StopRegistryPosterPlaceSize | null,
+          width?: number | null,
+          height?: number | null,
           infoSpotLocations?: Array<string | null> | null,
           infoSpotType?: StopRegistryInfoSpotType | null,
           purpose?: string | null,
@@ -73723,7 +73790,8 @@ export type UpdateStopPlaceMutation = {
           poster?: Array<{
             __typename?: 'stop_registry_poster',
             label?: string | null,
-            posterSize?: StopRegistryPosterPlaceSize | null,
+            width?: number | null,
+            height?: number | null,
             lines?: string | null
           } | null> | null
         } | null> | null,
@@ -73866,44 +73934,6 @@ export type UpdateStopPlaceMutation = {
           value?: string | null,
           lang?: string | null
         } | null
-      } | null> | null
-    } | null> | null
-  } | null
-};
-
-export type UpdateInfoSpotMutationVariables = Exact<{
-  input: Array<InputMaybe<StopRegistryInfoSpotInput>> | InputMaybe<StopRegistryInfoSpotInput>;
-}>;
-
-
-export type UpdateInfoSpotMutation = {
-  __typename?: 'mutation_root',
-  stop_registry?: {
-    __typename?: 'stop_registryStopPlaceMutation',
-    mutateInfoSpots?: Array<{
-      __typename?: 'stop_registry_infoSpot',
-      id?: string | null,
-      backlight?: boolean | null,
-      displayType?: StopRegistryDisplayType | null,
-      floor?: string | null,
-      label?: string | null,
-      posterPlaceSize?: StopRegistryPosterPlaceSize | null,
-      infoSpotLocations?: Array<string | null> | null,
-      infoSpotType?: StopRegistryInfoSpotType | null,
-      purpose?: string | null,
-      railInformation?: string | null,
-      speechProperty?: boolean | null,
-      zoneLabel?: string | null,
-      description?: {
-        __typename?: 'stop_registry_EmbeddableMultilingualString',
-        lang?: string | null,
-        value?: string | null
-      } | null,
-      poster?: Array<{
-        __typename?: 'stop_registry_poster',
-        label?: string | null,
-        posterSize?: StopRegistryPosterPlaceSize | null,
-        lines?: string | null
       } | null> | null
     } | null> | null
   } | null
@@ -74085,7 +74115,8 @@ export type GetStopDetailsQuery = {
           displayType?: StopRegistryDisplayType | null,
           floor?: string | null,
           label?: string | null,
-          posterPlaceSize?: StopRegistryPosterPlaceSize | null,
+          width?: number | null,
+          height?: number | null,
           infoSpotLocations?: Array<string | null> | null,
           infoSpotType?: StopRegistryInfoSpotType | null,
           purpose?: string | null,
@@ -74100,7 +74131,8 @@ export type GetStopDetailsQuery = {
           poster?: Array<{
             __typename?: 'stop_registry_poster',
             label?: string | null,
-            posterSize?: StopRegistryPosterPlaceSize | null,
+            width?: number | null,
+            height?: number | null,
             lines?: string | null
           } | null> | null
         } | null> | null,
@@ -74404,7 +74436,8 @@ export type QuayDetailsFragment = {
     displayType?: StopRegistryDisplayType | null,
     floor?: string | null,
     label?: string | null,
-    posterPlaceSize?: StopRegistryPosterPlaceSize | null,
+    width?: number | null,
+    height?: number | null,
     infoSpotLocations?: Array<string | null> | null,
     infoSpotType?: StopRegistryInfoSpotType | null,
     purpose?: string | null,
@@ -74419,7 +74452,8 @@ export type QuayDetailsFragment = {
     poster?: Array<{
       __typename?: 'stop_registry_poster',
       label?: string | null,
-      posterSize?: StopRegistryPosterPlaceSize | null,
+      width?: number | null,
+      height?: number | null,
       lines?: string | null
     } | null> | null
   } | null> | null,
@@ -74580,7 +74614,8 @@ export type InfoSpotDetailsFragment = {
   displayType?: StopRegistryDisplayType | null,
   floor?: string | null,
   label?: string | null,
-  posterPlaceSize?: StopRegistryPosterPlaceSize | null,
+  width?: number | null,
+  height?: number | null,
   infoSpotLocations?: Array<string | null> | null,
   infoSpotType?: StopRegistryInfoSpotType | null,
   purpose?: string | null,
@@ -74595,7 +74630,8 @@ export type InfoSpotDetailsFragment = {
   poster?: Array<{
     __typename?: 'stop_registry_poster',
     label?: string | null,
-    posterSize?: StopRegistryPosterPlaceSize | null,
+    width?: number | null,
+    height?: number | null,
     lines?: string | null
   } | null> | null
 };
@@ -76566,7 +76602,8 @@ export const InfoSpotDetailsFragmentDoc = gql`
   displayType
   floor
   label
-  posterPlaceSize
+  width
+  height
   infoSpotLocations
   infoSpotType
   purpose
@@ -76575,7 +76612,8 @@ export const InfoSpotDetailsFragmentDoc = gql`
   zoneLabel
   poster {
     label
-    posterSize
+    width
+    height
     lines
   }
 }
@@ -78890,6 +78928,95 @@ export type FindExistingPosterNamesQueryHookResult = ReturnType<typeof useFindEx
 export type FindExistingPosterNamesLazyQueryHookResult = ReturnType<typeof useFindExistingPosterNamesLazyQuery>;
 export type FindExistingPosterNamesSuspenseQueryHookResult = ReturnType<typeof useFindExistingPosterNamesSuspenseQuery>;
 export type FindExistingPosterNamesQueryResult = Apollo.QueryResult<FindExistingPosterNamesQuery, FindExistingPosterNamesQueryVariables>;
+export const UpdateInfoSpotDocument = gql`
+    mutation UpdateInfoSpot($input: [stop_registry_infoSpotInput]!) {
+  stop_registry {
+    mutateInfoSpots(infoSpot: $input) {
+      ...info_spot_details
+    }
+  }
+}
+    ${InfoSpotDetailsFragmentDoc}`;
+export type UpdateInfoSpotMutationFn = Apollo.MutationFunction<UpdateInfoSpotMutation, UpdateInfoSpotMutationVariables>;
+
+/**
+ * __useUpdateInfoSpotMutation__
+ *
+ * To run a mutation, you first call `useUpdateInfoSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateInfoSpotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateInfoSpotMutation, { data, loading, error }] = useUpdateInfoSpotMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateInfoSpotMutation(baseOptions?: Apollo.MutationHookOptions<UpdateInfoSpotMutation, UpdateInfoSpotMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateInfoSpotMutation, UpdateInfoSpotMutationVariables>(UpdateInfoSpotDocument, options);
+      }
+export type UpdateInfoSpotMutationHookResult = ReturnType<typeof useUpdateInfoSpotMutation>;
+export type UpdateInfoSpotMutationResult = Apollo.MutationResult<UpdateInfoSpotMutation>;
+export type UpdateInfoSpotMutationOptions = Apollo.BaseMutationOptions<UpdateInfoSpotMutation, UpdateInfoSpotMutationVariables>;
+export const GetInfoSpotSizesDocument = gql`
+    query GetInfoSpotSizes {
+  stopsDb: stops_database {
+    infoSpotSizes: stops_database_info_spot(
+      distinct_on: [width, height]
+      order_by: [{width: desc}, {height: desc}]
+      where: {width: {_is_null: false}, height: {_is_null: false}}
+    ) {
+      width
+      height
+    }
+    infoSpotPosterSizes: stops_database_info_spot_poster(
+      distinct_on: [width, height]
+      order_by: [{width: desc}, {height: desc}]
+      where: {width: {_is_null: false}, height: {_is_null: false}}
+    ) {
+      width
+      height
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetInfoSpotSizesQuery__
+ *
+ * To run a query within a React component, call `useGetInfoSpotSizesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInfoSpotSizesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetInfoSpotSizesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetInfoSpotSizesQuery(baseOptions?: Apollo.QueryHookOptions<GetInfoSpotSizesQuery, GetInfoSpotSizesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetInfoSpotSizesQuery, GetInfoSpotSizesQueryVariables>(GetInfoSpotSizesDocument, options);
+      }
+export function useGetInfoSpotSizesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetInfoSpotSizesQuery, GetInfoSpotSizesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetInfoSpotSizesQuery, GetInfoSpotSizesQueryVariables>(GetInfoSpotSizesDocument, options);
+        }
+export function useGetInfoSpotSizesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetInfoSpotSizesQuery, GetInfoSpotSizesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetInfoSpotSizesQuery, GetInfoSpotSizesQueryVariables>(GetInfoSpotSizesDocument, options);
+        }
+export type GetInfoSpotSizesQueryHookResult = ReturnType<typeof useGetInfoSpotSizesQuery>;
+export type GetInfoSpotSizesLazyQueryHookResult = ReturnType<typeof useGetInfoSpotSizesLazyQuery>;
+export type GetInfoSpotSizesSuspenseQueryHookResult = ReturnType<typeof useGetInfoSpotSizesSuspenseQuery>;
+export type GetInfoSpotSizesQueryResult = Apollo.QueryResult<GetInfoSpotSizesQuery, GetInfoSpotSizesQueryVariables>;
 export const GetOrganisationsDocument = gql`
     query GetOrganisations {
   stop_registry {
@@ -81123,41 +81250,6 @@ export function useUpdateStopPlaceMutation(baseOptions?: Apollo.MutationHookOpti
 export type UpdateStopPlaceMutationHookResult = ReturnType<typeof useUpdateStopPlaceMutation>;
 export type UpdateStopPlaceMutationResult = Apollo.MutationResult<UpdateStopPlaceMutation>;
 export type UpdateStopPlaceMutationOptions = Apollo.BaseMutationOptions<UpdateStopPlaceMutation, UpdateStopPlaceMutationVariables>;
-export const UpdateInfoSpotDocument = gql`
-    mutation UpdateInfoSpot($input: [stop_registry_infoSpotInput]!) {
-  stop_registry {
-    mutateInfoSpots(infoSpot: $input) {
-      ...info_spot_details
-    }
-  }
-}
-    ${InfoSpotDetailsFragmentDoc}`;
-export type UpdateInfoSpotMutationFn = Apollo.MutationFunction<UpdateInfoSpotMutation, UpdateInfoSpotMutationVariables>;
-
-/**
- * __useUpdateInfoSpotMutation__
- *
- * To run a mutation, you first call `useUpdateInfoSpotMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateInfoSpotMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateInfoSpotMutation, { data, loading, error }] = useUpdateInfoSpotMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateInfoSpotMutation(baseOptions?: Apollo.MutationHookOptions<UpdateInfoSpotMutation, UpdateInfoSpotMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateInfoSpotMutation, UpdateInfoSpotMutationVariables>(UpdateInfoSpotDocument, options);
-      }
-export type UpdateInfoSpotMutationHookResult = ReturnType<typeof useUpdateInfoSpotMutation>;
-export type UpdateInfoSpotMutationResult = Apollo.MutationResult<UpdateInfoSpotMutation>;
-export type UpdateInfoSpotMutationOptions = Apollo.BaseMutationOptions<UpdateInfoSpotMutation, UpdateInfoSpotMutationVariables>;
 export const GetStopDetailsDocument = gql`
     query GetStopDetails($where: service_pattern_scheduled_stop_point_bool_exp) {
   service_pattern_scheduled_stop_point(

@@ -1,22 +1,18 @@
 import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
-import {
-  InfoSpotDetailsFragment,
-  StopRegistryPosterPlaceSize,
-} from '../../../../../../generated/graphql';
-import { mapStopRegistryPosterPlaceSizeEnumToUiName } from '../../../../../../i18n/uiNameMappings';
+import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { Column, Row } from '../../../../../../layoutComponents';
 import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
 import {
-  EnumDropdown,
   FormRow,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
 import { SlimSimpleButton } from '../../layout';
+import { InfoSpotsFormState } from '../types';
 import { InfoSpotsFormPosters } from './InfoSpotsFormPosters';
-import { InfoSpotsFormState } from './schema';
+import { SizeFormFragment } from './SizeFormFragment';
 
 const testIds = {
   description: 'InfoSpotFormFields::description',
@@ -25,7 +21,6 @@ const testIds = {
   latitude: 'InfoSpotFormFields::latitude',
   longitude: 'InfoSpotFormFields::longitude',
   backlight: 'InfoSpotFormFields::backlight',
-  posterPlaceSize: 'InfoSpotFormFields::posterPlaceSize',
   floor: 'InfoSpotFormFields::floor',
   railInformation: 'InfoSpotFormFields::railInformation',
   stops: 'InfoSpotFormFields::stops',
@@ -92,6 +87,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             testId={testIds.label}
             disabled={toBeDeleted}
           />
+
           <InputField<InfoSpotsFormState>
             type="text"
             translationPrefix="stopDetails"
@@ -99,25 +95,9 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             testId={testIds.purpose}
             disabled={toBeDeleted}
           />
-          <InputField<InfoSpotsFormState>
-            translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.posterPlaceSize`}
-            testId={testIds.posterPlaceSize}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            inputElementRenderer={(props) => (
-              <EnumDropdown<StopRegistryPosterPlaceSize>
-                enumType={StopRegistryPosterPlaceSize}
-                placeholder={t('unknown')}
-                uiNameMapper={(value) =>
-                  mapStopRegistryPosterPlaceSizeEnumToUiName(t, value)
-                }
-                buttonClassName="min-w-36"
-                includeNullOption
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...props}
-              />
-            )}
-          />
+
+          <SizeFormFragment sizeStatePath={`infoSpots.${infoSpotIndex}.size`} />
+
           <InputField<InfoSpotsFormState>
             translationPrefix="stopDetails"
             fieldPath={`infoSpots.${infoSpotIndex}.backlight`}
@@ -142,6 +122,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             testId={testIds.zoneLabel}
             disabled={toBeDeleted}
           />
+
           <InputField<InfoSpotsFormState>
             type="text"
             translationPrefix="stopDetails"
@@ -150,6 +131,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             testId={testIds.railInformation}
             disabled={toBeDeleted}
           />
+
           <InputField<InfoSpotsFormState>
             type="text"
             translationPrefix="stopDetails"
