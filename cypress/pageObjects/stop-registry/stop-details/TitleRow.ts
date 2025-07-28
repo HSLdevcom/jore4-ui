@@ -7,10 +7,6 @@ export class TitleRow {
     return cy.getByTestId('StopTitleRow::names');
   }
 
-  editValidityButton() {
-    return cy.getByTestId('StopTitleRow::editValidityButton');
-  }
-
   openOnMapButton() {
     return cy.getByTestId('StopTitleRow::StopTitleRow::openOnMapButton');
   }

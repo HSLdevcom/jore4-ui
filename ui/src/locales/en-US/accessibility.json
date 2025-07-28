@@ -41,7 +41,8 @@
     "editExternalLink": "Edit external links",
     "addExternalLink": "Add external link",
     "openExternalLink": "Open external link {{ linkTitle }}",
-    "editStopValidity": "Edit version for stop {{ stopLabel }}"
+    "editStopValidity": "Edit version for stop {{ stopLabel }}",
+    "stopTimetablesButton": "Show timetables for stop"
   },
   "stopAreas": {
     "showStopAreaDetails": "Show details for stop area {{ areaLabel }}"

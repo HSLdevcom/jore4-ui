@@ -2,9 +2,9 @@ import compact from 'lodash/compact';
 import { FC } from 'react';
 import { StopWithDetails } from '../../../../../types';
 import { PageTitle } from '../../../../common';
-import { EditValidityButton } from './EditValidityButton';
 import { ExtraActions } from './ExtraActions';
 import { OpenOnMapButton } from './OpenOnMapButton';
+import { StopTimetablesButton } from './StopTimetablesButton';
 
 const testIds = {
   label: 'StopTitleRow::label',
@@ -45,7 +45,7 @@ export const StopTitleRow: FC<StopTitleRowProps> = ({ stopDetails, label }) => {
 
       <div className="flex-grow" />
 
-      <EditValidityButton stop={stopDetails} />
+      <StopTimetablesButton />
       <OpenOnMapButton className="ml-2" label={label} stop={stopDetails} />
       <ExtraActions className="ml-2" stop={stopDetails} />
     </div>

@@ -1,20 +1,20 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { StopWithDetails } from '../../../../../types';
-import { getHoverStyles } from '../../../../../uiComponents';
-import { EditStopModal } from '../stop-version/EditStopModal';
+import { StopWithDetails } from '../../../../types';
+import { getHoverStyles } from '../../../../uiComponents';
+import { EditStopModal } from './stop-version/EditStopModal';
 
 const testIds = {
-  button: 'StopTitleRow::editValidityButton',
+  button: 'StopDetailsPage::editStopValidityButton',
 };
 
-type EditValidityButtonProps = {
+type EditStopValidityButtonProps = {
   readonly className?: string;
   readonly stop: StopWithDetails | null;
 };
 
-export const EditValidityButton: FC<EditValidityButtonProps> = ({
+export const EditStopValidityButton: FC<EditStopValidityButtonProps> = ({
   className,
   stop,
 }) => {
@@ -25,9 +25,9 @@ export const EditValidityButton: FC<EditValidityButtonProps> = ({
     <>
       <button
         className={twMerge(
-          'h-11 w-11',
+          'h-8 w-14',
           'flex items-center justify-center',
-          'rounded-full border border-grey',
+          'rounded-sm border border-grey',
           'disabled:pointer-events-none disabled:bg-background disabled:opacity-70',
           getHoverStyles(false, !stop),
           className,
@@ -43,7 +43,7 @@ export const EditValidityButton: FC<EditValidityButtonProps> = ({
         type="button"
         onClick={() => setShowEditModal(true)}
       >
-        <i className="icon-calendar aria-hidden text-2xl text-brand" />
+        <i className="icon-calendar aria-hidden text-lg" />
       </button>
 
       <EditStopModal

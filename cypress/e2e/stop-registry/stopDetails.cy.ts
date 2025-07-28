@@ -2482,7 +2482,7 @@ describe('Stop details', () => {
       stopDetailsPage.titleRow.label().shouldHaveText('H2003');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
 
-      stopDetailsPage.titleRow.editValidityButton().click();
+      stopDetailsPage.editStopValidityButton().click();
       const { editStopModal } = stopDetailsPage;
       const { form } = editStopModal;
 
@@ -2504,7 +2504,7 @@ describe('Stop details', () => {
       stopDetailsPage.loadingStopDetails().should('not.exist');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2030');
 
-      stopDetailsPage.titleRow.editValidityButton().click();
+      stopDetailsPage.editStopValidityButton().click();
       editStopModal
         .modal()
         .should('exist')
@@ -2538,7 +2538,7 @@ describe('Stop details', () => {
       );
       stopDetailsPage.validityPeriod().should('contain', '1.1.2030-31.1.2030');
 
-      stopDetailsPage.titleRow.editValidityButton().click();
+      stopDetailsPage.editStopValidityButton().click();
       const { editStopModal } = stopDetailsPage;
       const { form } = editStopModal;
 
@@ -2592,7 +2592,7 @@ describe('Stop details', () => {
       );
       stopDetailsPage.validityPeriod().should('contain', '1.1.2030-31.1.2030');
 
-      stopDetailsPage.titleRow.editValidityButton().click();
+      stopDetailsPage.editStopValidityButton().click();
       const { editStopModal } = stopDetailsPage;
       const { form } = editStopModal;
 
@@ -2669,7 +2669,7 @@ describe('Stop details', () => {
       );
 
       // Modify temp version #2 to overlap with temp version #1
-      stopDetailsPage.titleRow.editValidityButton().click();
+      stopDetailsPage.editStopValidityButton().click();
       const { editStopModal } = stopDetailsPage;
       const { form } = editStopModal;
 
@@ -2709,7 +2709,7 @@ describe('Stop details', () => {
       );
 
       // Modify temp version #2 to overlap with temp version #1
-      stopDetailsPage.titleRow.editValidityButton().click();
+      stopDetailsPage.editStopValidityButton().click();
       const { editStopModal } = stopDetailsPage;
       const { form } = editStopModal;
 
