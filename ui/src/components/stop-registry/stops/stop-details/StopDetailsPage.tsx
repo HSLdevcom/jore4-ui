@@ -12,6 +12,7 @@ import {
   DetailTabType,
   detailTabs,
 } from './DetailTabSelector';
+import { EditStopValidityButton } from './EditStopValidityButton';
 import { StopExternalLinks } from './external-links/StopExternalLinks';
 import { SheltersInfoSpotsSection } from './info-spots/SheltersInfoSpots';
 import { LocationDetailsSection } from './location-details/LocationDetailsSection';
@@ -53,10 +54,9 @@ export const StopDetailsPage: FC = () => {
       {/* TODO: Stop/Announcement/Breakroom/Lines tabs */}
       <StopDetailsVersion label={label} />
       <hr className="my-4" />
-      <div className="my-4 flex items-center">
+      <div className="my-4 flex items-center gap-4">
         <h2 className="">{t('stopDetails.stopDetails')}</h2>
         <div
-          className="ml-4"
           title={t('accessibility:stops.validityPeriod')}
           data-testid={testIds.validityPeriod}
         >
@@ -64,6 +64,7 @@ export const StopDetailsPage: FC = () => {
           <span className="mx-1">-</span>
           {mapToShortDate(stopDetails?.validity_end)}
         </div>
+        <EditStopValidityButton stop={stopDetails} />
       </div>
       <DetailTabSelector
         className="mb-3"
