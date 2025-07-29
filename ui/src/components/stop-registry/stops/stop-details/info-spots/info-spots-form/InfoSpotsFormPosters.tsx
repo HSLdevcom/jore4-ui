@@ -43,7 +43,7 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
 
   return (
     <div data-testid={testIds.posterContainer}>
-      <Row className="my-5 flex-wrap items-end gap-4 px-10 lg:flex-nowrap">
+      <Row className="my-5 flex-wrap items-end gap-4 px-10">
         <SizeFormFragment
           sizeStatePath={`infoSpots.${infoSpotIndex}.poster.${posterIndex}.size`}
         />

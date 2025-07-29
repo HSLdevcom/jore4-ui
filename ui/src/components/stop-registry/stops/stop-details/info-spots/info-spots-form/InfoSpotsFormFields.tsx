@@ -79,7 +79,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             infoSpot: infoSpotsData[infoSpotIndex]?.label,
           })}
         </span>
-        <Row className="flex-wrap items-end gap-4 py-2.5 lg:flex-nowrap">
+        <Row className="flex-wrap items-end gap-4 py-2.5">
           <InputField<InfoSpotsFormState>
             type="text"
             translationPrefix="stopDetails"
