@@ -54,8 +54,8 @@ export const StopDetailsPage: FC = () => {
       {/* TODO: Stop/Announcement/Breakroom/Lines tabs */}
       <StopDetailsVersion label={label} />
       <hr className="my-4" />
-      <div className="my-4 flex items-center gap-4">
-        <h2 className="">{t('stopDetails.stopDetails')}</h2>
+      <div className="my-4 flex items-center gap-2">
+        <h2>{t('stopDetails.stopDetails')}</h2>
         <div
           title={t('accessibility:stops.validityPeriod')}
           data-testid={testIds.validityPeriod}
