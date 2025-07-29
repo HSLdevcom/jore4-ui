@@ -25,7 +25,7 @@ export const EditStopValidityButton: FC<EditStopValidityButtonProps> = ({
     <>
       <button
         className={twMerge(
-          'h-8 w-14',
+          'h-6 w-10',
           'flex items-center justify-center',
           'rounded-sm border border-grey',
           'disabled:pointer-events-none disabled:bg-background disabled:opacity-70',
