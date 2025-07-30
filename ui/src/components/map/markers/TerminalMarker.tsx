@@ -6,6 +6,7 @@ type TerminalMarkerProps = {
   readonly onClick?: MouseEventHandler<HTMLDivElement>;
   readonly size?: number;
   readonly testId?: string;
+  readonly title?: string;
 };
 
 export const TerminalMarker: FC<TerminalMarkerProps> = ({
@@ -14,6 +15,7 @@ export const TerminalMarker: FC<TerminalMarkerProps> = ({
   isPlaceholder = false,
   size = 30,
   testId,
+  title,
 }) => {
   const width = `${size}px`;
   const fontSize = `${size + 15}px`;
@@ -27,6 +29,7 @@ export const TerminalMarker: FC<TerminalMarkerProps> = ({
       style={{ width, height: width, fontSize }}
       aria-hidden
       onClick={onClick}
+      title={title}
     >
       <i className="icon-bus" />
     </div>

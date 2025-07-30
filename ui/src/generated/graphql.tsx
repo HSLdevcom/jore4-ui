@@ -67997,6 +67997,7 @@ export type GetStopTerminalsByLocationQuery = {
       netex_id?: string | null,
       private_code_value?: string | null,
       centroid?: GeoJSON.Geometry | null,
+      name_value?: string | null,
       children: Array<{
         __typename?: 'stops_database_stop_place_children',
         children_id: any,
@@ -68017,6 +68018,7 @@ export type MapMinimalTerminalDetailsFragment = {
   netex_id?: string | null,
   private_code_value?: string | null,
   centroid?: GeoJSON.Geometry | null,
+  name_value?: string | null,
   children: Array<{
     __typename?: 'stops_database_stop_place_children',
     children_id: any,

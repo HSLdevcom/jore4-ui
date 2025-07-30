@@ -8,7 +8,7 @@ import { useMapDataLayerSimpleQueryLoader } from '../../../hooks';
 import { Operation } from '../../../redux';
 import { Viewport } from '../../../redux/types';
 import { buildWithinViewportGqlGeometryFilter } from '../../../utils';
-import { ChildStopPlaceIds, MapTerminal } from '../types/MapTerminal';
+import { ChildStopPlaceIds, MapTerminal } from '../types';
 
 const GQL_QUERY_GET_STOP_TERMINALS_BY_LOCATION = gql`
   query GetStopTerminalsByLocation($locationFilter: geometry_comparison_exp) {
@@ -30,6 +30,7 @@ const GQL_QUERY_GET_STOP_TERMINALS_BY_LOCATION = gql`
     netex_id
     private_code_value
     centroid
+    name_value
 
     children {
       children_id

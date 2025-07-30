@@ -44,6 +44,7 @@ export const Terminal: FC<TerminalProps> = ({
         selected={selected}
         isPlaceholder={isPlaceholder}
         testId={testIds.terminal(terminal)}
+        title={`${terminal.private_code_value}: ${terminal.name_value}`}
       />
     </Marker>
   );
