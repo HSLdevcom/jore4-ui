@@ -14,8 +14,13 @@ import {
 } from '../../../redux';
 import { EnrichedParentStopPlace } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
-import { getGeometryPoint, showSuccessToast } from '../../../utils';
+import {
+  getGeometryPoint,
+  mapPointToStopRegistryGeoJSON,
+  showSuccessToast,
+} from '../../../utils';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
+import { mapTerminalDataToFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/TerminalDetailsEdit';
 import { useCreateTerminal } from '../../stop-registry/terminals/useCreateTerminal';
 import { EditTerminalLayerRef } from '../refTypes';
 import { useUpdateTerminalMapDetails } from '../utils/useUpdateTerminalMapDetails';
@@ -50,17 +55,17 @@ export const EditTerminalLayer = forwardRef<
 
   const { setIsLoading } = useLoader(Operation.ModifyTerminal);
 
+  const [isConfirmMoveDialogOpen, setIsConfirmMoveDialogOpen] = useState(false);
   const [isConfirmEditDialogOpen, setIsConfirmEditDialogOpen] = useState(false);
+  const [newTerminalLocation, setNewTerminalLocation] = useState<{
+    longitude: number;
+    latitude: number;
+  } | null>(null);
   const [terminalEditChanges, setTerminalEditChanges] =
     useState<TerminalFormState | null>(null);
 
   const notImplemented = () => {
     throw new Error('Not implemented!');
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onMoveTerminal = (e: MapLayerMouseEvent) => {
-    notImplemented();
   };
 
   const doCreateTerminal = async (state: TerminalFormState) => {
@@ -133,6 +138,43 @@ export const EditTerminalLayer = forwardRef<
     });
   };
 
+  const onStartMoveTerminal = () => {
+    setMapTerminalViewState(MapEntityEditorViewState.MOVE);
+  };
+
+  const onCancelMoveTerminal = () => {
+    setIsConfirmMoveDialogOpen(false);
+    setMapTerminalViewState(MapEntityEditorViewState.POPUP);
+  };
+
+  const onConfirmMoveStopArea = async () => {
+    if (!newTerminalLocation) {
+      return;
+    }
+
+    const { longitude, latitude } = newTerminalLocation;
+    const geometry = mapPointToStopRegistryGeoJSON({
+      longitude,
+      latitude,
+    });
+
+    const terminalFormState = mapTerminalDataToFormState({
+      ...editedTerminal,
+      geometry,
+    });
+
+    await doUpdateTerminal(terminalFormState);
+    setIsConfirmMoveDialogOpen(false);
+    setNewTerminalLocation(null);
+
+    map.current?.easeTo({
+      center: {
+        lon: longitude,
+        lat: latitude,
+      },
+    });
+  };
+
   const onCloseEditors = () => {
     setEditedTerminalData(undefined);
     setMapTerminalViewState(MapEntityEditorViewState.NONE);
@@ -148,6 +190,12 @@ export const EditTerminalLayer = forwardRef<
     }
   };
 
+  const onMoveTerminal = (e: MapLayerMouseEvent) => {
+    const [longitude, latitude] = e.lngLat.toArray();
+    setNewTerminalLocation({ longitude, latitude });
+    setIsConfirmMoveDialogOpen(true);
+  };
+
   useImperativeHandle(ref, () => ({
     onMoveTerminal: async (e: MapLayerMouseEvent) => onMoveTerminal(e),
   }));
@@ -159,7 +207,7 @@ export const EditTerminalLayer = forwardRef<
           onClose={onCloseEditors}
           onDelete={notImplemented}
           onEdit={onStartEditTerminal}
-          onMove={notImplemented}
+          onMove={onStartMoveTerminal}
           terminal={editedTerminal}
         />
       )}
@@ -172,6 +220,19 @@ export const EditTerminalLayer = forwardRef<
           onSubmit={onEditTerminal}
         />
       )}
+
+      <ConfirmationDialog
+        isOpen={isConfirmMoveDialogOpen}
+        onCancel={onCancelMoveTerminal}
+        onConfirm={onConfirmMoveStopArea}
+        title={t('confirmEditTerminalDialog.title')}
+        description={t('confirmEditTerminalDialog.description', {
+          terminalName: editedTerminal.name ?? '',
+        })}
+        confirmText={t('confirmEditTerminalDialog.confirmText')}
+        cancelText={t('cancel')}
+        widthClassName="w-235"
+      />
 
       <ConfirmationDialog
         isOpen={isConfirmEditDialogOpen}

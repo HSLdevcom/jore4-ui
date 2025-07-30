@@ -82,8 +82,8 @@ const TerminalsImpl: ForwardRefRenderFunction<TerminalsRef, TerminalsProps> = (
       setEditedTerminalData(initializedTerminal);
       setMapViewState({ terminals: MapEntityEditorViewState.CREATE });
     },
-    onMoveTerminal() {
-      throw new Error('Not implemented!');
+    onMoveTerminal: async (e: MapLayerMouseEvent) => {
+      editTerminalLayerRef.current?.onMoveTerminal(e);
     },
   }));
 
