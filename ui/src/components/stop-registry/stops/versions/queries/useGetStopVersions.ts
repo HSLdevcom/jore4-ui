@@ -131,6 +131,7 @@ export function useGetStopVersions(
 ): GetStopVersionsLoading | GetStopVersionsLoaded {
   const { data, loading } = useGetQuayVersionsQuery({
     variables: { publicCode },
+    skip: !publicCode,
   });
 
   const rawQuays = data?.stops_database?.quays;
