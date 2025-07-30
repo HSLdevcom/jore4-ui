@@ -70,7 +70,9 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),
   });
-  useDirtyFormBlockNavigation(methods.formState, 'StopAreaForm');
+  useDirtyFormBlockNavigation(methods.formState, 'StopAreaForm', {
+    allowSearchChange: true,
+  });
   const { handleSubmit } = methods;
 
   return (
