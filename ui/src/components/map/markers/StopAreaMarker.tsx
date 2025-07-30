@@ -6,6 +6,7 @@ type StopAreaMarkerProps = {
   readonly onClick?: MouseEventHandler<SVGElement>;
   readonly size?: number;
   readonly testId?: string;
+  readonly title?: string;
 };
 
 export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
@@ -14,6 +15,7 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
   isPlaceholder = false,
   size = 30,
   testId,
+  title,
 }) => {
   const strokeClassName =
     selected && !isPlaceholder
@@ -34,6 +36,8 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
       xmlns="http://www.w3.org/2000/svg"
       onClick={onClick}
     >
+      {title ? <title>{title}</title> : null}
+
       <circle
         className="fill-white"
         cx="14"
