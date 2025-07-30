@@ -31,8 +31,9 @@ import {
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
 import { mapLngLatToGeoJSON, mapLngLatToPoint, none } from '../../../utils';
+import { useResolveStopHoverTitle } from '../queries';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
-import { MapStop, MapTerminal } from '../types';
+import { MapStop, MapStopArea, MapTerminal } from '../types';
 import { useMapViewState } from '../utils/useMapViewState';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
@@ -85,13 +86,14 @@ function useFilteredStops(
 }
 
 type StopsProps = {
+  readonly areas: ReadonlyArray<MapStopArea>;
   readonly displayedRouteIds: ReadonlyArray<string>;
   readonly stops: ReadonlyArray<MapStop>;
   readonly terminals: ReadonlyArray<MapTerminal>;
 };
 
 export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
-  { displayedRouteIds, stops, terminals },
+  { areas, displayedRouteIds, stops, terminals },
   ref,
 ) => {
   const [mapViewState, setMapViewState] = useMapViewState();
@@ -140,6 +142,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     },
   }));
 
+  const resolveStopHoverTitle = useResolveStopHoverTitle(areas);
   const onClickStop = (stop: MapStop) => {
     if (none(isEditorOpen, mapViewState)) {
       setSelectedStopId(stop.netex_id);
@@ -208,7 +211,9 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
             latitude={point.latitude}
             longitude={point.longitude}
             mapStopViewState={mapViewState.stops}
-            onClick={() => onClickStop(item)}
+            onClick={onClickStop}
+            onResolveTitle={resolveStopHoverTitle}
+            stop={item}
             selected={item.netex_id === selectedStopId}
             testId={
               asMemberStop

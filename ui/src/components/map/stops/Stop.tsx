@@ -3,8 +3,8 @@ import { Marker } from 'react-map-gl/maplibre';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { theme } from '../../../generated/theme';
 import { MapEntityEditorViewState } from '../../../redux';
-import { Point } from '../../../types';
-import { Circle } from '../markers';
+import { StopMarker } from '../markers';
+import { MapStop } from '../types';
 
 const { colors } = theme;
 
@@ -52,15 +52,32 @@ const determineBorderColor = (
   return colors.hslDark80;
 };
 
-type StopProps = {
+type BaseStopProps = {
+  readonly longitude: number;
+  readonly latitude: number;
   readonly isHighlighted?: boolean;
   readonly asMemberStop?: boolean;
   readonly mapStopViewState: MapEntityEditorViewState;
-  readonly onClick: () => void;
   readonly selected?: boolean;
   readonly testId?: string;
   readonly vehicleMode?: ReusableComponentsVehicleModeEnum;
-} & Point;
+};
+
+type ExistingStopSpecialProps = {
+  readonly onClick: (stop: MapStop) => void;
+  readonly onResolveTitle: (stop: MapStop) => Promise<string | null>;
+  readonly stop: MapStop;
+};
+
+type ExistingStopSpecialPropsNever = {
+  readonly [key in keyof ExistingStopSpecialProps]?: never;
+};
+
+type ExistingStopProps = BaseStopProps & ExistingStopSpecialProps;
+
+type PlaceholderStopProps = BaseStopProps & ExistingStopSpecialPropsNever;
+
+type StopProps = PlaceholderStopProps | ExistingStopProps;
 
 export const Stop: FC<StopProps> = ({
   isHighlighted = false,
@@ -68,10 +85,12 @@ export const Stop: FC<StopProps> = ({
   latitude,
   longitude,
   mapStopViewState,
-  onClick,
   selected = false,
   testId,
-  vehicleMode = undefined,
+  vehicleMode,
+  onClick,
+  onResolveTitle,
+  stop,
 }) => {
   // If the stop is being moved, we use different styles for the stop
   // to indicate the placeholder of the old location
@@ -92,16 +111,19 @@ export const Stop: FC<StopProps> = ({
 
   return (
     <Marker longitude={longitude} latitude={latitude}>
-      <Circle
+      <StopMarker
         size={selected ? selectedIconSize : iconSize}
         testId={testId}
-        onClick={onClick}
         borderColor={iconBorderColor}
         fillColor={iconFillColor}
         borderWidth={3}
         strokeDashArray={isPlaceholder ? 2 : 0}
         centerDot={selected}
         centerDotSize={selected ? centerDotSize * 1.5 : centerDotSize}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...(stop
+          ? ({ onClick, onResolveTitle, stop } as ExistingStopSpecialProps)
+          : ({} as ExistingStopSpecialPropsNever))}
       />
     </Marker>
   );

@@ -8,7 +8,7 @@ import {
   drawLineToClosestRoad,
   removeLineFromStopToInfraLink,
 } from '../../../utils/map';
-import { Circle } from '../markers';
+import { StopMarker } from '../markers';
 import { LineToActiveStopArea } from './LineToActiveStopArea';
 
 const { colors } = theme;
@@ -69,7 +69,7 @@ export const CreateStopMarker: FC<CreateStopMarkerProps> = ({ onCancel }) => {
           top: mouseCoords.y - createStopMarkerSize / 2,
         }}
       >
-        <Circle
+        <StopMarker
           centerDot
           borderColor={colors.hslRed}
           size={createStopMarkerSize}

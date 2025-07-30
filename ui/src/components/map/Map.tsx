@@ -195,6 +195,7 @@ export const MapComponent: ForwardRefRenderFunction<
       className={className}
     >
       <Stops
+        areas={areas}
         stops={stops}
         terminals={terminals}
         displayedRouteIds={displayedRouteIds}

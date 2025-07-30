@@ -27,6 +27,7 @@ const GQL_QUERY_GET_STOP_AREAS_BY_LOCATION = gql`
     netex_id
     private_code_value
     centroid
+    name_value
   }
 `;
 

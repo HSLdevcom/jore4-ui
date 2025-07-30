@@ -67932,7 +67932,8 @@ export type GetStopAreasByLocationQuery = {
       id?: any | null,
       netex_id?: string | null,
       private_code_value?: string | null,
-      centroid?: GeoJSON.Geometry | null
+      centroid?: GeoJSON.Geometry | null,
+      name_value?: string | null
     }>
   } | null
 };
@@ -67942,7 +67943,8 @@ export type MapMinimalStopAreaDetailsFragment = {
   id?: any | null,
   netex_id?: string | null,
   private_code_value?: string | null,
-  centroid?: GeoJSON.Geometry | null
+  centroid?: GeoJSON.Geometry | null,
+  name_value?: string | null
 };
 
 export type GetMapStopsQueryVariables = Exact<{
@@ -68144,6 +68146,23 @@ export type GetTerminalDetailsByNetexIdQuery = {
     } | {
       __typename?: 'stop_registry_StopPlace'
     } | null> | null
+  } | null
+};
+
+export type ResolveStopNameQueryVariables = Exact<{
+  stopPlaceNetexId: Scalars['String']['input'];
+}>;
+
+
+export type ResolveStopNameQuery = {
+  __typename?: 'query_root',
+  stops_database?: {
+    __typename?: 'stops_database_stops_database_query',
+    stops_database_stop_place_newest_version: Array<{
+      __typename?: 'stops_database_stop_place_newest_version',
+      id?: any | null,
+      name_value?: string | null
+    }>
   } | null
 };
 
@@ -76332,6 +76351,7 @@ export const MapMinimalStopAreaDetailsFragmentDoc = gql`
   netex_id
   private_code_value
   centroid
+  name_value
 }
     `;
 export const MapStopMinimalDetailsFragmentDoc = gql`
@@ -76352,6 +76372,7 @@ export const MapMinimalTerminalDetailsFragmentDoc = gql`
   netex_id
   private_code_value
   centroid
+  name_value
   children {
     children_id
     stop_place_id
@@ -78118,6 +78139,51 @@ export type GetTerminalDetailsByNetexIdQueryHookResult = ReturnType<typeof useGe
 export type GetTerminalDetailsByNetexIdLazyQueryHookResult = ReturnType<typeof useGetTerminalDetailsByNetexIdLazyQuery>;
 export type GetTerminalDetailsByNetexIdSuspenseQueryHookResult = ReturnType<typeof useGetTerminalDetailsByNetexIdSuspenseQuery>;
 export type GetTerminalDetailsByNetexIdQueryResult = Apollo.QueryResult<GetTerminalDetailsByNetexIdQuery, GetTerminalDetailsByNetexIdQueryVariables>;
+export const ResolveStopNameDocument = gql`
+    query ResolveStopName($stopPlaceNetexId: String!) {
+  stops_database {
+    stops_database_stop_place_newest_version(
+      where: {netex_id: {_eq: $stopPlaceNetexId}}
+    ) {
+      id
+      name_value
+    }
+  }
+}
+    `;
+
+/**
+ * __useResolveStopNameQuery__
+ *
+ * To run a query within a React component, call `useResolveStopNameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveStopNameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveStopNameQuery({
+ *   variables: {
+ *      stopPlaceNetexId: // value for 'stopPlaceNetexId'
+ *   },
+ * });
+ */
+export function useResolveStopNameQuery(baseOptions: Apollo.QueryHookOptions<ResolveStopNameQuery, ResolveStopNameQueryVariables> & ({ variables: ResolveStopNameQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ResolveStopNameQuery, ResolveStopNameQueryVariables>(ResolveStopNameDocument, options);
+      }
+export function useResolveStopNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ResolveStopNameQuery, ResolveStopNameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ResolveStopNameQuery, ResolveStopNameQueryVariables>(ResolveStopNameDocument, options);
+        }
+export function useResolveStopNameSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ResolveStopNameQuery, ResolveStopNameQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ResolveStopNameQuery, ResolveStopNameQueryVariables>(ResolveStopNameDocument, options);
+        }
+export type ResolveStopNameQueryHookResult = ReturnType<typeof useResolveStopNameQuery>;
+export type ResolveStopNameLazyQueryHookResult = ReturnType<typeof useResolveStopNameLazyQuery>;
+export type ResolveStopNameSuspenseQueryHookResult = ReturnType<typeof useResolveStopNameSuspenseQuery>;
+export type ResolveStopNameQueryResult = Apollo.QueryResult<ResolveStopNameQuery, ResolveStopNameQueryVariables>;
 export const ListChangingRoutesDocument = gql`
     query ListChangingRoutes($limit: Int) {
   route_route(limit: $limit, order_by: [{label: asc}, {validity_start: asc}]) {

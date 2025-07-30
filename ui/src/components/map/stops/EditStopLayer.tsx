@@ -1,4 +1,3 @@
-import noop from 'lodash/noop';
 import React, { forwardRef, useImperativeHandle, useMemo } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
@@ -186,7 +185,6 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
             longitude={draftLocation.longitude}
             latitude={draftLocation.latitude}
             mapStopViewState={mapStopViewState}
-            onClick={noop}
             selected
             vehicleMode={ReusableComponentsVehicleModeEnum.Bus}
           />
