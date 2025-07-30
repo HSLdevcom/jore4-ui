@@ -37,14 +37,15 @@ export function sortByPublicCode(
 type SelectMemberStopsDropdownProps = {
   readonly className?: string;
   readonly disabled?: boolean;
-  readonly value: SelectedStop | undefined;
+  readonly value: SelectedStop | null;
   readonly onSelectionChange: (
-    newValue: SelectedStop | undefined,
-    currentValue: SelectedStop | undefined,
+    newValue: SelectedStop | null,
+    currentValue: SelectedStop | null,
     options: SelectedStop[],
   ) => void;
   readonly testId?: string;
   readonly inputAriaLabel?: string;
+  readonly areaId?: string;
 };
 
 export const SelectMemberStopsDropdownArea: FC<
@@ -56,6 +57,7 @@ export const SelectMemberStopsDropdownArea: FC<
   testId,
   onSelectionChange,
   inputAriaLabel,
+  areaId,
 }) => {
   const [query, setQuery] = useState('');
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -64,12 +66,14 @@ export const SelectMemberStopsDropdownArea: FC<
   const { options, loading, allFetched, fetchNextPage } =
     useFindQuaysByQuery(cleanQuery);
 
-  const unselectedOptions = useMemo(
-    () => options.filter((stop) => stop.stopPlaceId !== value?.stopPlaceId),
-    [value?.stopPlaceId, options],
-  );
+  const unselectedOptions = useMemo(() => {
+    return options.filter(
+      (stop) =>
+        stop.stopPlaceId !== value?.stopPlaceId && stop.stopPlaceId !== areaId,
+    );
+  }, [options, value?.stopPlaceId, areaId]);
 
-  const handleSelectionChange = (newValue: SelectedStop | undefined) => {
+  const handleSelectionChange = (newValue: SelectedStop | null) => {
     if (newValue === FETCH_MORE_OPTION) {
       fetchNextPage().catch((error) =>
         log.error('Failed to fetch next page:', error),

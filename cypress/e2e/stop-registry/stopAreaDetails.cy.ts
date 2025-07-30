@@ -347,12 +347,12 @@ describe('Stop area details', () => {
       assertBasicDetails(newBasicDetails);
     });
 
-    it('should allow adding member stops', () => {
+    it('should allow moving member stop to the stop area', () => {
       stopAreaDetailsPage.memberStops.getAddStopButton().click();
       stopAreaDetailsPage.memberStops.modal.modal().shouldBeVisible();
       selectMemberStopsDropdown.dropdownButton().click();
-      selectMemberStopsDropdown.getInput().click({ force: true });
-      selectMemberStopsDropdown.getInput().clear().type('E2E003');
+      selectMemberStopsDropdown.getInput().click();
+      selectMemberStopsDropdown.getInput().clearAndType('E2E003');
       selectMemberStopsDropdown.getMemberOptions().should('have.length', 1);
       selectMemberStopsDropdown
         .getMemberOptions()
@@ -378,6 +378,16 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.memberStops.getStopRow('E2E001').shouldBeVisible();
       stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
       stopAreaDetailsPage.memberStops.getStopRow('E2E009').shouldBeVisible();
+    });
+
+    it('should not find member stop to move to the stop area if it already is in the stop area', () => {
+      stopAreaDetailsPage.memberStops.getAddStopButton().click();
+      stopAreaDetailsPage.memberStops.modal.modal().shouldBeVisible();
+      selectMemberStopsDropdown.dropdownButton().click();
+      selectMemberStopsDropdown.getInput().click();
+      selectMemberStopsDropdown.getInput().clearAndType('E2E001');
+      selectMemberStopsDropdown.getMemberOptions().should('have.length', 0);
+      stopAreaDetailsPage.memberStops.modal.saveButton().should('be.disabled');
     });
 
     it('should handle unique name exception', () => {

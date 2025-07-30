@@ -131,12 +131,11 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
 
   const handleStopSelection = useCallback(
     (
-      newValue: SelectedStop | undefined,
-      formOnChange?: (value: SelectedStop | undefined) => void,
+      newValue: SelectedStop | null,
+      formOnChange?: (value: SelectedStop | null) => void,
     ) => {
-      const stopValue = newValue ?? null;
       updateState({
-        selectedStop: stopValue,
+        selectedStop: newValue,
         showVersions: false,
       });
 
@@ -184,11 +183,12 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
             {t('stopAreaDetails.memberStops.getStop')}
           </div>
           <SelectMemberStopsDropdownArea
-            value={selectedStop ?? undefined}
+            value={selectedStop ?? null}
             testId={testIds.selectMemberStops}
             onSelectionChange={(newValue) =>
               handleStopSelection(newValue, undefined)
             }
+            areaId={areaId}
           />
         </div>
 
