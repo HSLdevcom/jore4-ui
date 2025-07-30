@@ -200,4 +200,44 @@ describe('Terminals on map', mapViewport, () => {
       terminalForm.getForm().shouldBeVisible();
     },
   );
+
+  it(
+    'should move terminal on map',
+    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
+    () => {
+      mapModal.map.visit({
+        zoom: 14,
+        lat: 60.16993,
+        lng: 24.92596,
+        path: '/stops',
+      });
+
+      mapModal.map.getTerminalById('T3').click();
+
+      mapModal.map.waitForLoadToComplete();
+
+      const { terminalPopup, terminalForm } = mapModal;
+
+      terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
+      terminalPopup.getMoveButton().click();
+
+      // Move the terminal to around Rautatientori
+      mapModal.map.clickRelativePoint(70, 45);
+
+      confirmationDialog.getConfirmButton().click();
+      expectGraphQLCallToSucceed('@gqlUpdateTerminal');
+
+      terminalPopup.getLabel().shouldBeVisible();
+      terminalPopup.getEditButton().click();
+
+      // Confirm that the coordinates have changed
+      terminalForm.getForm().shouldBeVisible();
+      terminalForm
+        .getLatitudeInput()
+        .should('not.have.value', '60.169740177140625');
+      terminalForm
+        .getLongitudeInput()
+        .should('not.have.value', '24.927445210156606');
+    },
+  );
 });

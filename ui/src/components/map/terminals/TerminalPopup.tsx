@@ -107,7 +107,6 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
 
           <SimpleButton
             containerClassName="ml-auto"
-            disabled
             onClick={onMove}
             testId={testIds.moveButton}
           >
