@@ -24,6 +24,7 @@ import { mapTerminalDataToFormState } from '../../stop-registry/terminals/compon
 import { useCreateTerminal } from '../../stop-registry/terminals/useCreateTerminal';
 import { EditTerminalLayerRef } from '../refTypes';
 import { useUpdateTerminalMapDetails } from '../utils/useUpdateTerminalMapDetails';
+import { DeleteTerminal } from './DeleteTerminal';
 import { EditTerminalModal } from './EditTerminalModal';
 import { TerminalPopup } from './TerminalPopup';
 
@@ -57,16 +58,15 @@ export const EditTerminalLayer = forwardRef<
 
   const [isConfirmMoveDialogOpen, setIsConfirmMoveDialogOpen] = useState(false);
   const [isConfirmEditDialogOpen, setIsConfirmEditDialogOpen] = useState(false);
+  const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] =
+    useState(false);
+
   const [newTerminalLocation, setNewTerminalLocation] = useState<{
     longitude: number;
     latitude: number;
   } | null>(null);
   const [terminalEditChanges, setTerminalEditChanges] =
     useState<TerminalFormState | null>(null);
-
-  const notImplemented = () => {
-    throw new Error('Not implemented!');
-  };
 
   const doCreateTerminal = async (state: TerminalFormState) => {
     setIsLoading(true);
@@ -196,6 +196,10 @@ export const EditTerminalLayer = forwardRef<
     setIsConfirmMoveDialogOpen(true);
   };
 
+  const onDeleteTerminal = () => {
+    setIsConfirmDeleteDialogOpen(true);
+  };
+
   useImperativeHandle(ref, () => ({
     onMoveTerminal: async (e: MapLayerMouseEvent) => onMoveTerminal(e),
   }));
@@ -205,7 +209,7 @@ export const EditTerminalLayer = forwardRef<
       {mapTerminalViewState === MapEntityEditorViewState.POPUP && (
         <TerminalPopup
           onClose={onCloseEditors}
-          onDelete={notImplemented}
+          onDelete={onDeleteTerminal}
           onEdit={onStartEditTerminal}
           onMove={onStartMoveTerminal}
           terminal={editedTerminal}
@@ -220,6 +224,12 @@ export const EditTerminalLayer = forwardRef<
           onSubmit={onEditTerminal}
         />
       )}
+
+      <DeleteTerminal
+        isOpen={isConfirmDeleteDialogOpen}
+        setIsOpen={setIsConfirmDeleteDialogOpen}
+        terminal={editedTerminal}
+      />
 
       <ConfirmationDialog
         isOpen={isConfirmMoveDialogOpen}
