@@ -73654,6 +73654,19 @@ export type DeleteStopAreaMutation = {
   } | null
 };
 
+export type DeleteTerminalMutationVariables = Exact<{
+  terminalId: Scalars['String']['input'];
+}>;
+
+
+export type DeleteTerminalMutation = {
+  __typename?: 'mutation_root',
+  stop_registry?: {
+    __typename?: 'stop_registryStopPlaceMutation',
+    deleteStopPlace?: boolean | null
+  } | null
+};
+
 export type UpdateStopPlaceMutationVariables = Exact<{
   input: StopRegistryStopPlaceInput;
 }>;
@@ -81283,6 +81296,39 @@ export function useDeleteStopAreaMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteStopAreaMutationHookResult = ReturnType<typeof useDeleteStopAreaMutation>;
 export type DeleteStopAreaMutationResult = Apollo.MutationResult<DeleteStopAreaMutation>;
 export type DeleteStopAreaMutationOptions = Apollo.BaseMutationOptions<DeleteStopAreaMutation, DeleteStopAreaMutationVariables>;
+export const DeleteTerminalDocument = gql`
+    mutation DeleteTerminal($terminalId: String!) {
+  stop_registry {
+    deleteStopPlace(stopPlaceId: $terminalId)
+  }
+}
+    `;
+export type DeleteTerminalMutationFn = Apollo.MutationFunction<DeleteTerminalMutation, DeleteTerminalMutationVariables>;
+
+/**
+ * __useDeleteTerminalMutation__
+ *
+ * To run a mutation, you first call `useDeleteTerminalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTerminalMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTerminalMutation, { data, loading, error }] = useDeleteTerminalMutation({
+ *   variables: {
+ *      terminalId: // value for 'terminalId'
+ *   },
+ * });
+ */
+export function useDeleteTerminalMutation(baseOptions?: Apollo.MutationHookOptions<DeleteTerminalMutation, DeleteTerminalMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteTerminalMutation, DeleteTerminalMutationVariables>(DeleteTerminalDocument, options);
+      }
+export type DeleteTerminalMutationHookResult = ReturnType<typeof useDeleteTerminalMutation>;
+export type DeleteTerminalMutationResult = Apollo.MutationResult<DeleteTerminalMutation>;
+export type DeleteTerminalMutationOptions = Apollo.BaseMutationOptions<DeleteTerminalMutation, DeleteTerminalMutationVariables>;
 export const UpdateStopPlaceDocument = gql`
     mutation UpdateStopPlace($input: stop_registry_StopPlaceInput!) {
   stop_registry {
