@@ -509,7 +509,8 @@
     },
     "showDetails": "Language versions and abbreviations",
     "chooseTerminalType": "Choose",
-    "saveSuccess": "Terminal created"
+    "saveSuccess": "Terminal created",
+    "deleteSuccess": "Terminal deleted"
   },
   "terminalDetails": {
     "title": "Basic details",
@@ -564,6 +565,13 @@
     "title": "Confirm changes",
     "description": "Confirm editing terminal ({{ terminalName }})",
     "confirmText": "OK"
+  },
+  "confirmDeleteTerminalDialog": {
+    "title": "Terminal is being deleted",
+    "description_one": "Terminal has {{ count }} member stop. The member stop will not be deleted.",
+    "description_other": "Terminal has {{ count }} member stops. The member stops will not be deleted.",
+    "deleteTerminalDescription": "Delete terminal?",
+    "confirmText": "Delete"
   },
   "stopRegistrySearch": {
     "byAddress": "By address",
@@ -898,6 +906,7 @@
     "Invalid url": "Invalid url"
   },
   "errors": {
+    "deleteFailed": "Deletion failed",
     "saveFailed": "Something went wrong",
     "leaveMultipleHandles": "Cannot delete snap point(s)! You should leave at least two of them.",
     "tooFarFromInfrastructureLink": "Make sure each point in route geometry is close enough to the road network. Check coverage of the road network along the route, if necessary.",

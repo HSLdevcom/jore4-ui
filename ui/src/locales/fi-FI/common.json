@@ -508,7 +508,8 @@
     },
     "showDetails": "Kieliversiot ja lyhenteet",
     "chooseTerminalType": "Valitse",
-    "saveSuccess": "Terminaali luotu"
+    "saveSuccess": "Terminaali luotu",
+    "deleteSuccess": "Terminaali poistettu"
   },
   "terminalDetails": {
     "title": "Perustiedot",
@@ -563,6 +564,13 @@
     "title": "Vahvista muutos",
     "description": "Vahvista terminaalin muokkaus ({{ terminalName }})",
     "confirmText": "OK"
+  },
+  "confirmDeleteTerminalDialog": {
+    "title": "Terminaali poistetaan",
+    "description_one": "Terminaaliin on yhdistetty {{ count }} pysäkki. Sitä ei poisteta.",
+    "description_other": "Terminaaliin on yhdistetty {{ count }} pysäkkiä. Niitä ei poisteta.",
+    "deleteTerminalDescription": "Poistetaanko terminaali?",
+    "confirmText": "Poista"
   },
   "stopRegistrySearch": {
     "byAddress": "Osoitteella",
@@ -897,6 +905,7 @@
     "Invalid url": "Virheellinen URL"
   },
   "errors": {
+    "deleteFailed": "Poistaminen epäonnistui",
     "saveFailed": "Tallennus epäonnistui",
     "leaveMultipleHandles": "Pisteitä ei voida poistaa! Jätä vähintään kaksi pistettä.",
     "tooFarFromInfrastructureLink": "Piirrä reitti joka osaltaan riittävän lähelle haluttua tieverkkoa. Tarkista tarvittaessa tieverkon kattavuus reitin alueella.",

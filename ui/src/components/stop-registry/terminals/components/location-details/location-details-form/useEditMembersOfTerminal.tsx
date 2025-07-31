@@ -40,6 +40,7 @@ const GQL_ADD_TO_MULTIMODAL_STOP_PLACE = gql`
 type EditMembersOfTerminalInputs = {
   readonly terminal: EnrichedParentStopPlace;
   readonly selectedStops?: ReadonlyArray<SelectedStop>;
+  readonly isDeleting?: boolean;
 };
 
 function getExistingChildrenIds(
@@ -71,8 +72,10 @@ function getStopPlacesToRemove(
 function validateSelectedStops(
   selectedStopIds: readonly string[],
   t: (key: string) => string,
+  isDeleting?: boolean,
 ): void {
-  if (selectedStopIds.length === 0) {
+  // When deleting a terminal, we need to be able to remove all members
+  if (selectedStopIds.length === 0 && !isDeleting) {
     throw new Error(t('terminalDetails.location.noMemberStopsSelected'));
   }
 }
@@ -85,7 +88,7 @@ export const useEditMembersOfTerminal = () => {
 
   const editMembersOfTerminal = useCallback(
     async (inputs: EditMembersOfTerminalInputs) => {
-      const { terminal, selectedStops = [] } = inputs;
+      const { terminal, selectedStops = [], isDeleting } = inputs;
 
       if (!terminal.id) {
         return;
@@ -103,7 +106,7 @@ export const useEditMembersOfTerminal = () => {
         selectedStopIds,
       );
 
-      validateSelectedStops(selectedStopIds, t);
+      validateSelectedStops(selectedStopIds, t, isDeleting);
 
       if (stopPlacesToAdd.length > 0) {
         await addToMultiModalStopPlace({

@@ -96,7 +96,6 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
         <Row className="mt-16">
           <SimpleButton
             className="flex aspect-square h-[38px] w-[38px] items-center justify-center self-stretch p-0"
-            disabled
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
