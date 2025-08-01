@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
+import { useObservationDateQueryParam } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { Point } from '../../../../types';
 import { LocatorButton } from '../../../../uiComponents';
@@ -43,6 +44,10 @@ export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
+
   const showOnMap = useShowStopAreaOnMap();
   const point = centroidToPoint(stopArea.centroid);
 
@@ -59,7 +64,10 @@ export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
       )}
     >
       <Link
-        to={routeDetails[Path.stopAreaDetails].getLink(stopArea.netex_id)}
+        to={routeDetails[Path.stopAreaDetails].getLink(
+          stopArea.private_code,
+          observationDate,
+        )}
         data-testid={testIds.stopAreaLink}
         title={t('accessibility:stopAreas.showStopAreaDetails', {
           areaLabel: stopArea.name_value,
@@ -85,7 +93,7 @@ export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
         <OpenDetails
           key="openDetails"
           className={className}
-          netexId={stopArea.netex_id}
+          privateCode={stopArea.private_code}
           testId={testIds.showStopAreaDetails}
         />
         <ShowAreaOnMap

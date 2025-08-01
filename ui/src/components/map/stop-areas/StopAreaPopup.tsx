@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { MdAddCircle, MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
+import { useObservationDateQueryParam } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { parseDate } from '../../../time';
@@ -41,6 +42,10 @@ export const StopAreaPopup = ({
 }: StopAreaPopupProps) => {
   const { t } = useTranslation();
 
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
+
   const point = getGeometryPoint(area.geometry);
   const areaLabel = area.privateCode?.value;
   const areaName = area.name ?? '';
@@ -64,7 +69,10 @@ export const StopAreaPopup = ({
             <Row className="items-center">
               <h3>
                 <a
-                  href={routeDetails[Path.stopAreaDetails].getLink(area.id)}
+                  href={routeDetails[Path.stopAreaDetails].getLink(
+                    areaLabel,
+                    observationDate,
+                  )}
                   target="_blank"
                   rel="noreferrer"
                   data-testid={testIds.label}
