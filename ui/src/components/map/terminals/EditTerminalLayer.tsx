@@ -11,8 +11,9 @@ import {
   setEditedTerminalDataAction,
   setMapTerminalViewStateAction,
   setSelectedTerminalIdAction,
+  setTerminalDraftLocationAction,
 } from '../../../redux';
-import { EnrichedParentStopPlace } from '../../../types';
+import { EnrichedParentStopPlace, Point } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
 import {
   getGeometryPoint,
@@ -26,17 +27,19 @@ import { EditTerminalLayerRef } from '../refTypes';
 import { useUpdateTerminalMapDetails } from '../utils/useUpdateTerminalMapDetails';
 import { DeleteTerminal } from './DeleteTerminal';
 import { EditTerminalModal } from './EditTerminalModal';
+import { NewTerminalMarker } from './NewTerminalMarker';
 import { TerminalPopup } from './TerminalPopup';
 
 type EditTerminalLayerProps = {
   readonly editedTerminal: EnrichedParentStopPlace;
+  readonly draftLocation: Point | null;
   readonly onPopupClose: () => void;
 };
 
 export const EditTerminalLayer = forwardRef<
   EditTerminalLayerRef,
   EditTerminalLayerProps
->(({ editedTerminal, onPopupClose }, ref) => {
+>(({ editedTerminal, draftLocation, onPopupClose }, ref) => {
   const { t } = useTranslation();
 
   const map = useMap();
@@ -46,6 +49,7 @@ export const EditTerminalLayer = forwardRef<
 
   const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
   const setEditedTerminalData = useAppAction(setEditedTerminalDataAction);
+  const setDraftLocation = useAppAction(setTerminalDraftLocationAction);
 
   const { createTerminal, defaultErrorHandler: createTerminalErrorHandler } =
     useCreateTerminal();
@@ -187,6 +191,7 @@ export const EditTerminalLayer = forwardRef<
       setIsConfirmEditDialogOpen(true);
     } else {
       await doCreateTerminal(state);
+      setDraftLocation(undefined);
     }
   };
 
@@ -224,6 +229,8 @@ export const EditTerminalLayer = forwardRef<
           onSubmit={onEditTerminal}
         />
       )}
+
+      {draftLocation && <NewTerminalMarker point={draftLocation} />}
 
       <DeleteTerminal
         isOpen={isConfirmDeleteDialogOpen}

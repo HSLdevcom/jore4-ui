@@ -13,12 +13,14 @@ import {
   Operation,
   isEditorOpen,
   isPlacingOrMoving,
+  selectDraftTerminalLocation,
   selectEditedTerminalData,
   selectSelectedTerminalId,
   setEditedTerminalDataAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
   setSelectedTerminalIdAction,
+  setTerminalDraftLocationAction,
 } from '../../../redux';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
 import { useCreateTerminal } from '../../stop-registry/terminals/useCreateTerminal';
@@ -71,6 +73,9 @@ const TerminalsImpl: ForwardRefRenderFunction<TerminalsRef, TerminalsProps> = (
   const editedTerminalData = useAppSelector(selectEditedTerminalData);
   const setEditedTerminalData = useAppAction(setEditedTerminalDataAction);
 
+  const draftLocation = useAppSelector(selectDraftTerminalLocation);
+  const setDraftLocation = useAppAction(setTerminalDraftLocationAction);
+
   const { initializeTerminal } = useCreateTerminal();
 
   useFetchAndUpdateSelectedTerminalData();
@@ -80,6 +85,10 @@ const TerminalsImpl: ForwardRefRenderFunction<TerminalsRef, TerminalsProps> = (
       const terminalLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
       const initializedTerminal = initializeTerminal(terminalLocation);
       setEditedTerminalData(initializedTerminal);
+      setDraftLocation({
+        longitude: e.lngLat.lng,
+        latitude: e.lngLat.lat,
+      });
       setMapViewState({ terminals: MapEntityEditorViewState.CREATE });
     },
     onMoveTerminal: async (e: MapLayerMouseEvent) => {
@@ -131,6 +140,7 @@ const TerminalsImpl: ForwardRefRenderFunction<TerminalsRef, TerminalsProps> = (
         <EditTerminalLayer
           ref={editTerminalLayerRef}
           editedTerminal={editedTerminalData}
+          draftLocation={draftLocation ?? null}
           onPopupClose={onPopupClose}
         />
       ) : null}
