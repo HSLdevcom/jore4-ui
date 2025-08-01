@@ -1,10 +1,10 @@
 import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import { StopRegistryParentStopPlaceInput } from '../../../../../../generated/graphql';
+import { useUpdateTerminal } from '../../../../../../hooks/stop-registry/terminals';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { patchKeyValues } from '../../../../../../utils';
 import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
-import { useUpdateTerminal } from '../../../useUpdateTerminal';
 import { TerminalLocationDetailsFormState } from './schema';
 import { useEditMembersOfTerminal } from './useEditMembersOfTerminal';
 

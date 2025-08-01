@@ -105,8 +105,6 @@ export const DeleteTerminal: FC<DeleteTerminalProps> = ({
     }
 
     await doDeleteTerminal(terminal.id);
-    setEditedTerminalData(undefined);
-    setSelectedTerminalId(undefined);
     setIsOpen(false);
   };
 

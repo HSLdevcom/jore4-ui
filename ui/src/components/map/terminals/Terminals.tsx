@@ -7,6 +7,7 @@ import {
   useRef,
 } from 'react';
 import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
+import { useCreateTerminal } from '../../../hooks/stop-registry/terminals';
 import {
   LoadingState,
   MapEntityEditorViewState,
@@ -21,7 +22,6 @@ import {
   setSelectedTerminalIdAction,
 } from '../../../redux';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
-import { useCreateTerminal } from '../../stop-registry/terminals/useCreateTerminal';
 import { useGetTerminalDetails } from '../queries';
 import { EditTerminalLayerRef, TerminalsRef } from '../refTypes';
 import { MapTerminal } from '../types';

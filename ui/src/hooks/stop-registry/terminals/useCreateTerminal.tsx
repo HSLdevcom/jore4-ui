@@ -3,8 +3,12 @@ import compact from 'lodash/compact';
 import uniq from 'lodash/uniq';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TerminalFormState } from '../../../components/stop-registry/terminals/components/basic-details/basic-details-form/schema';
+import { getEnrichedParentStopPlace } from '../../../components/stop-registry/terminals/useGetTerminalDetails';
+import { useTerminalApolloErrorHandler } from '../../../components/stop-registry/terminals/utils/terminalErrorHandler';
 import {
   StopRegistryCreateMultiModalStopPlaceInput,
+  StopRegistryGeoJsonType,
   StopRegistryNameType,
   useCreateTerminalMutation,
 } from '../../../generated/graphql';
@@ -13,9 +17,6 @@ import {
   mapPointToStopRegistryGeoJSON,
   showDangerToastWithError,
 } from '../../../utils';
-import { TerminalFormState } from './components/basic-details/basic-details-form/schema';
-import { getEnrichedParentStopPlace } from './useGetTerminalDetails';
-import { useTerminalApolloErrorHandler } from './utils/terminalErrorHandler';
 
 const GQL_CREATE_TERMINAL = gql`
   mutation CreateTerminal(
@@ -143,6 +144,7 @@ const initializeTerminal = (
   return {
     geometry: {
       coordinates: terminalLocation.coordinates,
+      type: StopRegistryGeoJsonType.Point,
     },
   };
 };
