@@ -14,16 +14,6 @@ export const selectSelectedTerminalId = createSelector(
   (mapTerminalEditor) => mapTerminalEditor.selectedTerminalId,
 );
 
-export const selectDraftTerminalLocation = createSelector(
-  selectMapTerminalEditor,
-  (mapTerminalEditor) => mapTerminalEditor.draftLocation,
-);
-
-export const selectHasDraftTerminalLocation = createSelector(
-  selectMapTerminalEditor,
-  (mapTerminalEditor) => !!mapTerminalEditor.draftLocation,
-);
-
 export const selectMapTerminalViewState = createSelector(
   selectMapTerminalEditor,
   (mapTerminalEditor) => mapTerminalEditor.viewState,

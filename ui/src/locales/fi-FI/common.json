@@ -139,7 +139,8 @@
     "errors": {
       "expandToSeeErrors": "Avaa Kieliversiot ja lyhenteet nähdäksesi virheet"
     },
-    "noStops": "Ei pysäkkejä."
+    "noStops": "Ei pysäkkejä.",
+    "newStopArea": "Uusi pysäkkialue"
   },
   "stopAreaDetails": {
     "title": "Pysäkkialue",
@@ -509,7 +510,8 @@
     "showDetails": "Kieliversiot ja lyhenteet",
     "chooseTerminalType": "Valitse",
     "saveSuccess": "Terminaali luotu",
-    "deleteSuccess": "Terminaali poistettu"
+    "deleteSuccess": "Terminaali poistettu",
+    "newTerminal": "Uusi terminaali"
   },
   "terminalDetails": {
     "title": "Perustiedot",

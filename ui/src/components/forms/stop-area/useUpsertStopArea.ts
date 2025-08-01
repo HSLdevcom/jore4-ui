@@ -3,6 +3,7 @@ import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  StopRegistryGeoJsonType,
   StopRegistryNameType,
   StopRegistryStopPlaceInput,
   useUpsertStopAreaMutation,
@@ -34,6 +35,7 @@ const initializeStopArea = (
   return {
     geometry: {
       coordinates: stopAreaLocation.coordinates,
+      type: StopRegistryGeoJsonType.Point,
     },
   };
 };
