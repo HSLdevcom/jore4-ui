@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import qs from 'qs';
 import { QueryParameterName } from '../hooks/urlQuery/useUrlQuery';
 import { TranslationKey } from '../i18n';
@@ -126,7 +127,19 @@ export const routeDetails: Record<Path, RouteDetail> = {
     includeInNav: false,
   },
   [Path.stopAreaDetails]: {
-    getLink: (id: string) => Path.stopAreaDetails.replace(':id', id),
+    getLink: (id: string, observationDate: DateTime | string = '') => {
+      const observationDateStr =
+        observationDate instanceof DateTime
+          ? observationDate.toISODate()
+          : observationDate;
+      if (observationDateStr) {
+        return `${Path.stopAreaDetails.replace(':id', id)}?${qs.stringify({
+          [QueryParameterName.ObservationDate]: observationDateStr,
+        })}`;
+      }
+
+      return Path.stopAreaDetails.replace(':id', id);
+    },
     includeInNav: false,
   },
   [Path.terminalDetails]: {

@@ -4,6 +4,7 @@ import { useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
+import { useObservationDateQueryParam } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
 import { ExpandButton } from '../../../../uiComponents';
 import { LabeledDetail } from '../../../stop-registry/stops/stop-details/layout';
@@ -39,6 +40,10 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
+
   const stopArea = useWatch<StopFormState, 'stopArea'>({ name: 'stopArea' });
 
   if (!stopArea) {
@@ -49,7 +54,10 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
     <div className={twMerge('flex flex-col', className)}>
       <Link
         className="flex self-end"
-        to={routeDetails[Path.stopAreaDetails].getLink(stopArea.netextId)}
+        to={routeDetails[Path.stopAreaDetails].getLink(
+          stopArea.privateCode,
+          observationDate,
+        )}
         target="_blank"
         title={t('accessibility:stopAreas.showStopAreaDetails', {
           areaLabel: stopArea.nameFin ?? stopArea.nameSwe,

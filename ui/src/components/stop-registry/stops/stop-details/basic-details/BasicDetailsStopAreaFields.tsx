@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
+import { useObservationDateQueryParam } from '../../../../../hooks';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { StopWithDetails } from '../../../../../types';
 import { AlternativeNames } from '../../../components/AlternativeNames/AlternativeNames';
@@ -34,12 +35,19 @@ export const StopAreaDetailsSection: FC<StopAreaDetailsSectionProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
+
   return (
     <div className="-mx-5 -mt-5 bg-background px-5 pt-2.5">
       {/* Has negative margin to stretch grey bg to previous div */}
       <DetailRow>
         <Link
-          to={routeDetails[Path.stopAreaDetails].getLink(stop.stop_place?.id)}
+          to={routeDetails[Path.stopAreaDetails].getLink(
+            stop.stop_place?.privateCode?.value,
+            observationDate,
+          )}
           data-testid={testIds.areaLink}
           title={t('accessibility:stopAreas.showStopAreaDetails', {
             areaLabel: stop.stop_place?.name,

@@ -1,12 +1,14 @@
 import { gql } from '@apollo/client';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import {
-  GetStopPlaceDetailsQuery,
   StopPlaceDetailsFragment,
-  useGetStopPlaceDetailsLazyQuery,
+  StopsDatabaseStopPlaceNewestVersionBoolExp,
   useGetStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
-import { useRequiredParams } from '../../../../hooks';
+import {
+  useObservationDateQueryParam,
+  useRequiredParams,
+} from '../../../../hooks';
 import { EnrichedStopPlace } from '../../../../types';
 import {
   getStopPlaceDetailsForEnrichment,
@@ -14,10 +16,15 @@ import {
 } from '../../../../utils';
 
 const GQL_GET_STOP_AREA_DETAILS = gql`
-  query getStopPlaceDetails($id: String!) {
-    stop_registry {
-      stopPlace(id: $id, onlyMonomodalStopPlaces: true) {
-        ...stop_place_details
+  query getStopPlaceDetails(
+    $where: stops_database_stop_place_newest_version_bool_exp
+  ) {
+    stopsDb: stops_database {
+      newestVersion: stops_database_stop_place_newest_version(where: $where) {
+        id
+        TiamatStopPlace {
+          ...stop_place_details
+        }
       }
     }
   }
@@ -92,22 +99,15 @@ export function getEnrichedStopPlace(
   };
 }
 
-function getEnrichedStopPlaceDetailsFromQueryResult(
-  data: GetStopPlaceDetailsQuery | undefined,
-): EnrichedStopPlace | null {
-  const stopPlaces = getStopPlacesFromQueryResult<StopPlaceDetailsFragment>(
-    data?.stop_registry?.stopPlace,
-  );
-  return getEnrichedStopPlace(stopPlaces.at(0));
-}
-
-export function useGetStopPlaceDetailsById(id: string | null | undefined) {
+function useGetStopPlaceDetailsByWhere(
+  where: StopsDatabaseStopPlaceNewestVersionBoolExp | null,
+) {
   const { data, ...rest } = useGetStopPlaceDetailsQuery(
-    id ? { variables: { id } } : { skip: true },
+    where ? { variables: { where } } : { skip: true },
   );
 
   const rawStopPlace = getStopPlacesFromQueryResult<StopPlaceDetailsFragment>(
-    data?.stop_registry?.stopPlace,
+    data?.stopsDb?.newestVersion.at(0)?.TiamatStopPlace,
   ).at(0);
   const stopPlaceDetails = useMemo(
     () => getEnrichedStopPlace(rawStopPlace),
@@ -117,20 +117,33 @@ export function useGetStopPlaceDetailsById(id: string | null | undefined) {
   return { ...rest, stopPlaceDetails };
 }
 
-export function useGetStopPlaceDetails() {
-  const { id } = useRequiredParams<{ id: string }>();
-
-  return useGetStopPlaceDetailsById(id);
+export function useGetStopPlaceDetailsById(id: string | null | undefined) {
+  return useGetStopPlaceDetailsByWhere(id ? { netex_id: { _eq: id } } : null);
 }
 
-export function useGetStopPlaceDetailsLazy() {
-  const [getStopPlaceDetails] = useGetStopPlaceDetailsLazyQuery();
+function useGetStopPlaceDetailsWhereConditions(): StopsDatabaseStopPlaceNewestVersionBoolExp {
+  const { id = '' } = useRequiredParams<{ id: string }>();
+  const { observationDate } = useObservationDateQueryParam();
+  const observationDateStr = observationDate.toISODate();
 
-  return useCallback(
-    async (id: string) => {
-      const { data } = await getStopPlaceDetails({ variables: { id } });
-      return getEnrichedStopPlaceDetailsFromQueryResult(data);
-    },
-    [getStopPlaceDetails],
-  );
+  if (id.startsWith('HSL')) {
+    return { netex_id: { _eq: id } };
+  }
+
+  return {
+    _and: [
+      { private_code_value: { _eq: id } },
+      { validity_start: { _lte: observationDateStr } },
+      {
+        _or: [
+          { validity_end: { _gte: observationDateStr } },
+          { validity_end: { _is_null: true } },
+        ],
+      },
+    ],
+  };
+}
+
+export function useGetStopPlaceDetails() {
+  return useGetStopPlaceDetailsByWhere(useGetStopPlaceDetailsWhereConditions());
 }
