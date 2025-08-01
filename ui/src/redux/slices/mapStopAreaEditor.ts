@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { EnrichedStopPlace } from '../../types';
+import { EnrichedStopPlace, Point } from '../../types';
 import { StoreType, mapToStoreType } from '../mappers';
 import { MapEntityEditorViewState } from '../types';
 
@@ -7,6 +7,7 @@ export type MapStopAreaEditor = {
   readonly selectedStopAreaId?: string;
   readonly editedStopAreaData?: EnrichedStopPlace;
   readonly viewState: MapEntityEditorViewState;
+  readonly draftLocation?: Point;
 };
 
 type IState = StoreType<MapStopAreaEditor>;
@@ -45,6 +46,12 @@ const slice = createSlice({
     ) => {
       state.viewState = action.payload;
     },
+    setStopAreaDraftLocation: (
+      state,
+      action: PayloadAction<StoreType<Point> | undefined>,
+    ) => {
+      state.draftLocation = action.payload;
+    },
     reset: () => initialState,
   },
 });
@@ -53,6 +60,7 @@ export const {
   setSelectedStopAreaId: setSelectedMapStopAreaIdAction,
   setEditedStopAreaData: setEditedStopAreaDataAction,
   setMapStopAreaViewState: setMapStopAreaViewStateAction,
+  setStopAreaDraftLocation: setStopAreaDraftLocationAction,
   reset: resetMapStopAreaEditorAction,
 } = slice.actions;
 

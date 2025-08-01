@@ -139,7 +139,8 @@
     "errors": {
       "expandToSeeErrors": "Expand Language versions and abbreviations to see errors"
     },
-    "noStops": "No stops."
+    "noStops": "No stops.",
+    "newStopArea": "New stop area"
   },
   "stopAreaDetails": {
     "title": "Stop area",
