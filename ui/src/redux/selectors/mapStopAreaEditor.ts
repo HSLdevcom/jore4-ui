@@ -13,6 +13,11 @@ export const selectSelectedStopAreaId = createSelector(
   (mapStopAreEditor) => mapStopAreEditor.selectedStopAreaId,
 );
 
+export const selectDraftStopAreaLocation = createSelector(
+  selectMapStopAreaEditor,
+  (mapTerminalEditor) => mapTerminalEditor.draftLocation,
+);
+
 export const selectEditedStopAreaData = createSelector(
   selectMapStopAreaEditor,
   (mapStopAreaEditor) => mapStopAreaEditor.editedStopAreaData,

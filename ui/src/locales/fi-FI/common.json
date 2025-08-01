@@ -139,7 +139,8 @@
     "errors": {
       "expandToSeeErrors": "Avaa Kieliversiot ja lyhenteet nähdäksesi virheet"
     },
-    "noStops": "Ei pysäkkejä."
+    "noStops": "Ei pysäkkejä.",
+    "newStopArea": "Uusi pysäkkialue"
   },
   "stopAreaDetails": {
     "title": "Pysäkkialue",

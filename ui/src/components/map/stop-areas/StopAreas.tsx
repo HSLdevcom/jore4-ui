@@ -1,4 +1,4 @@
-import React, {
+import {
   ForwardRefRenderFunction,
   forwardRef,
   useEffect,
@@ -13,12 +13,14 @@ import {
   Operation,
   isEditorOpen,
   isPlacingOrMoving,
+  selectDraftStopAreaLocation,
   selectEditedStopAreaData,
   selectSelectedStopAreaId,
   setEditedStopAreaDataAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
   setSelectedTerminalIdAction,
+  setStopAreaDraftLocationAction,
 } from '../../../redux';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
 import { useUpsertStopArea } from '../../forms/stop-area';
@@ -73,6 +75,9 @@ const StopAreasImpl: ForwardRefRenderFunction<StopAreasRef, StopAreasProps> = (
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
   const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
 
+  const draftLocation = useAppSelector(selectDraftStopAreaLocation);
+  const setDraftLocation = useAppAction(setStopAreaDraftLocationAction);
+
   const { initializeStopArea } = useUpsertStopArea();
 
   useFetchAndUpdateSelectedStopAreaData();
@@ -82,6 +87,10 @@ const StopAreasImpl: ForwardRefRenderFunction<StopAreasRef, StopAreasProps> = (
       const stopAreaLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
       const newStopArea = initializeStopArea(stopAreaLocation);
       setEditedStopAreaData(newStopArea);
+      setDraftLocation({
+        longitude: e.lngLat.lng,
+        latitude: e.lngLat.lat,
+      });
       setMapViewState({ stopAreas: MapEntityEditorViewState.CREATE });
     },
     onMoveStopArea: async (e: MapLayerMouseEvent) => {
@@ -139,6 +148,7 @@ const StopAreasImpl: ForwardRefRenderFunction<StopAreasRef, StopAreasProps> = (
         <EditStopAreaLayer
           ref={editStopAreaLayerRef}
           editedArea={editedStopAreaData}
+          draftLocation={draftLocation ?? null}
           onPopupClose={onPopupClose}
         />
       ) : null}
