@@ -510,7 +510,8 @@
     "showDetails": "Language versions and abbreviations",
     "chooseTerminalType": "Choose",
     "saveSuccess": "Terminal created",
-    "deleteSuccess": "Terminal deleted"
+    "deleteSuccess": "Terminal deleted",
+    "newTerminal": "New terminal"
   },
   "terminalDetails": {
     "title": "Basic details",

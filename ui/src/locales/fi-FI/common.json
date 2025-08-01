@@ -509,7 +509,8 @@
     "showDetails": "Kieliversiot ja lyhenteet",
     "chooseTerminalType": "Valitse",
     "saveSuccess": "Terminaali luotu",
-    "deleteSuccess": "Terminaali poistettu"
+    "deleteSuccess": "Terminaali poistettu",
+    "newTerminal": "Uusi terminaali"
   },
   "terminalDetails": {
     "title": "Perustiedot",
