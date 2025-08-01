@@ -477,7 +477,9 @@
         "stopPointInsertFailedStopPlaceReverted": "Failed to create a scheduled stop point in the lines and routers database! Reason:\n{{ reason }}",
         "stopPointInsertFailedStopPlaceNotReverted": "Failed to create a scheduled stop point in the lines and routers database, and the previusly created entry in StopRegistry could be deleted. Jore databases contains errors. Reason:\n{{ reason }}",
         "unableToCutOverlappingStopVersion": "Unable to cut overlapping stop version. Reason:\n{{ reason }}",
-        "failedToCutOverlappingStopVersion": "Failed to cut overlapping stop version. Reason:\n{{ reason }}"
+        "failedToCutOverlappingStopVersion": "Failed to cut overlapping stop version. Reason:\n{{ reason }}",
+        "failedToEditScheduledStopPoint": "Failed to update related Stop point in the Routes and lines DB. Reason:\n{{ reason }}",
+        "failedToEditQuayKeyValues": "Failed to update the values stored as KeyVaue pairs on the related Quay In the StopRegistry. Reason::\n{{ reason }}"
       }
     },
     "externalLinks": {

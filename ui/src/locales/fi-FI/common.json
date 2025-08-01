@@ -476,7 +476,9 @@
         "stopPointInsertFailedStopPlaceReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui! Syy:\n{{ reason }}",
         "stopPointInsertFailedStopPlaceNotReverted": "Pysähdyspisteen luonti linjastotietokantaan epäonnistui eikä aiemmin luotua pysäkkirekisteritietuetta saatu poistettua. Jore tietokannoissa on nyt virheitä. Syy:\n{{ reason }}",
         "unableToCutOverlappingStopVersion": "Päällekkäisen version leikkaaminen ei onnistu. Syy:\n{{ reason }}",
-        "failedToCutOverlappingStopVersion": "Päällekkäisen version leikkaaminen epäonnistui. Syy:\n{{ reason }}"
+        "failedToCutOverlappingStopVersion": "Päällekkäisen version leikkaaminen epäonnistui. Syy:\n{{ reason }}",
+        "failedToEditScheduledStopPoint": "Pysäkin pysähdyspisteen päivitys reitit ja linjat tietokantaan epäonnistui. Syy:\n{{ reason }}",
+        "failedToEditQuayKeyValues": "Avain-arvo -parien (KeyValues) päivitys Pysäkkikisterin pysäkin (Quay) tietoihin epäonnistui. Syy:\n{{ reason }}"
       }
     },
     "externalLinks": {
