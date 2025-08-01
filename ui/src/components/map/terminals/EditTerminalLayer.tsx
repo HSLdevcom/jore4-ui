@@ -1,208 +1,82 @@
 import { MapLayerMouseEvent } from 'maplibre-gl';
 import { forwardRef, useImperativeHandle, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useMap } from 'react-map-gl/maplibre';
-import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
+import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
-  Operation,
   isModalOpen,
+  selectDraftTerminalLocation,
   selectMapTerminalViewState,
   setEditedTerminalDataAction,
   setMapTerminalViewStateAction,
-  setSelectedTerminalIdAction,
+  setTerminalDraftEditsAction,
   setTerminalDraftLocationAction,
 } from '../../../redux';
-import { EnrichedParentStopPlace, Point } from '../../../types';
-import { ConfirmationDialog } from '../../../uiComponents';
-import {
-  getGeometryPoint,
-  mapPointToStopRegistryGeoJSON,
-  showSuccessToast,
-} from '../../../utils';
+import { EnrichedParentStopPlace } from '../../../types';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
-import { mapTerminalDataToFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/TerminalDetailsEdit';
-import { useCreateTerminal } from '../../stop-registry/terminals/useCreateTerminal';
 import { EditTerminalLayerRef } from '../refTypes';
-import { useUpdateTerminalMapDetails } from '../utils/useUpdateTerminalMapDetails';
 import { DeleteTerminal } from './DeleteTerminal';
+import { EditTerminal } from './EditTerminal';
 import { EditTerminalModal } from './EditTerminalModal';
+import { MoveTerminal } from './MoveTerminal';
 import { NewTerminalMarker } from './NewTerminalMarker';
 import { TerminalPopup } from './TerminalPopup';
+import { useTerminalCreation } from './useTerminalCreation';
 
 type EditTerminalLayerProps = {
   readonly editedTerminal: EnrichedParentStopPlace;
-  readonly draftLocation: Point | null;
   readonly onPopupClose: () => void;
 };
 
 export const EditTerminalLayer = forwardRef<
   EditTerminalLayerRef,
   EditTerminalLayerProps
->(({ editedTerminal, draftLocation, onPopupClose }, ref) => {
-  const { t } = useTranslation();
-
-  const map = useMap();
-
+>(({ editedTerminal, onPopupClose }, ref) => {
   const mapTerminalViewState = useAppSelector(selectMapTerminalViewState);
   const setMapTerminalViewState = useAppAction(setMapTerminalViewStateAction);
 
-  const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
-  const setEditedTerminalData = useAppAction(setEditedTerminalDataAction);
+  const draftLocation = useAppSelector(selectDraftTerminalLocation);
   const setDraftLocation = useAppAction(setTerminalDraftLocationAction);
-
-  const { createTerminal, defaultErrorHandler: createTerminalErrorHandler } =
-    useCreateTerminal();
-  const {
-    updateTerminalMapDetails,
-    defaultErrorHandler: updateTerminalErrorHandler,
-  } = useUpdateTerminalMapDetails();
-
-  const { setIsLoading } = useLoader(Operation.ModifyTerminal);
+  const setEditedTerminalData = useAppAction(setEditedTerminalDataAction);
+  const setTerminalDraftEdits = useAppAction(setTerminalDraftEditsAction);
 
   const [isConfirmMoveDialogOpen, setIsConfirmMoveDialogOpen] = useState(false);
   const [isConfirmEditDialogOpen, setIsConfirmEditDialogOpen] = useState(false);
   const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] =
     useState(false);
 
-  const [newTerminalLocation, setNewTerminalLocation] = useState<{
-    longitude: number;
-    latitude: number;
-  } | null>(null);
-  const [terminalEditChanges, setTerminalEditChanges] =
-    useState<TerminalFormState | null>(null);
-
-  const doCreateTerminal = async (state: TerminalFormState) => {
-    setIsLoading(true);
-    try {
-      const createdTerminal = await createTerminal({
-        state,
-      });
-
-      showSuccessToast(t('terminal.saveSuccess'));
-      setEditedTerminalData(createdTerminal ?? undefined);
-      setSelectedTerminalId(createdTerminal?.id ?? undefined);
-      setMapTerminalViewState(MapEntityEditorViewState.POPUP);
-    } catch (err) {
-      createTerminalErrorHandler(err as Error, state);
-    }
-    setIsLoading(false);
-  };
-
-  const doUpdateTerminal = async (state: TerminalFormState) => {
-    setIsLoading(true);
-    try {
-      const updatedTerminal = await updateTerminalMapDetails({
-        terminal: editedTerminal,
-        state,
-        selectedStops: state.selectedStops,
-      });
-
-      setEditedTerminalData(updatedTerminal ?? undefined);
-      setSelectedTerminalId(updatedTerminal?.id ?? undefined);
-      setMapTerminalViewState(MapEntityEditorViewState.POPUP);
-    } catch (err) {
-      updateTerminalErrorHandler(err as Error, state);
-    }
-    setIsLoading(false);
-  };
+  const { doCreateTerminal } = useTerminalCreation();
 
   const onStartEditTerminal = () => {
-    const point = getGeometryPoint(editedTerminal.geometry);
-    if (point) {
-      map.current?.easeTo({
-        center: {
-          lon: point.longitude,
-          lat: point.latitude,
-        },
-      });
-    }
-
     setMapTerminalViewState(MapEntityEditorViewState.EDIT);
-  };
-
-  const onCancelEditTerminal = () => {
-    setIsConfirmEditDialogOpen(false);
-  };
-
-  const onConfirmEditTerminal = async () => {
-    if (!terminalEditChanges) {
-      return;
-    }
-
-    await doUpdateTerminal(terminalEditChanges);
-    setIsConfirmEditDialogOpen(false);
-    setTerminalEditChanges(null);
-
-    map.current?.easeTo({
-      center: {
-        lon: terminalEditChanges.longitude,
-        lat: terminalEditChanges.latitude,
-      },
-    });
   };
 
   const onStartMoveTerminal = () => {
     setMapTerminalViewState(MapEntityEditorViewState.MOVE);
   };
 
-  const onCancelMoveTerminal = () => {
-    setIsConfirmMoveDialogOpen(false);
-    setMapTerminalViewState(MapEntityEditorViewState.POPUP);
+  const onEditTerminal = async (state: TerminalFormState) => {
+    if (editedTerminal.id) {
+      setTerminalDraftEdits(state);
+      setIsConfirmEditDialogOpen(true);
+    } else {
+      await doCreateTerminal(state);
+    }
   };
 
-  const onConfirmMoveStopArea = async () => {
-    if (!newTerminalLocation) {
-      return;
-    }
+  const onMoveTerminal = (e: MapLayerMouseEvent) => {
+    const [longitude, latitude] = e.lngLat.toArray();
+    setDraftLocation({ longitude, latitude });
+    setIsConfirmMoveDialogOpen(true);
+  };
 
-    const { longitude, latitude } = newTerminalLocation;
-    const geometry = mapPointToStopRegistryGeoJSON({
-      longitude,
-      latitude,
-    });
-
-    const terminalFormState = mapTerminalDataToFormState({
-      ...editedTerminal,
-      geometry,
-    });
-
-    await doUpdateTerminal(terminalFormState);
-    setIsConfirmMoveDialogOpen(false);
-    setNewTerminalLocation(null);
-
-    map.current?.easeTo({
-      center: {
-        lon: longitude,
-        lat: latitude,
-      },
-    });
+  const onDeleteTerminal = () => {
+    setIsConfirmDeleteDialogOpen(true);
   };
 
   const onCloseEditors = () => {
     setEditedTerminalData(undefined);
     setMapTerminalViewState(MapEntityEditorViewState.NONE);
     onPopupClose();
-  };
-
-  const onEditTerminal = async (state: TerminalFormState) => {
-    if (editedTerminal.id) {
-      setTerminalEditChanges(state);
-      setIsConfirmEditDialogOpen(true);
-    } else {
-      await doCreateTerminal(state);
-      setDraftLocation(undefined);
-    }
-  };
-
-  const onMoveTerminal = (e: MapLayerMouseEvent) => {
-    const [longitude, latitude] = e.lngLat.toArray();
-    setNewTerminalLocation({ longitude, latitude });
-    setIsConfirmMoveDialogOpen(true);
-  };
-
-  const onDeleteTerminal = () => {
-    setIsConfirmDeleteDialogOpen(true);
   };
 
   useImperativeHandle(ref, () => ({
@@ -230,7 +104,10 @@ export const EditTerminalLayer = forwardRef<
         />
       )}
 
-      {draftLocation && <NewTerminalMarker point={draftLocation} />}
+      {draftLocation &&
+        mapTerminalViewState === MapEntityEditorViewState.CREATE && (
+          <NewTerminalMarker point={draftLocation} />
+        )}
 
       <DeleteTerminal
         isOpen={isConfirmDeleteDialogOpen}
@@ -238,30 +115,16 @@ export const EditTerminalLayer = forwardRef<
         terminal={editedTerminal}
       />
 
-      <ConfirmationDialog
+      <MoveTerminal
         isOpen={isConfirmMoveDialogOpen}
-        onCancel={onCancelMoveTerminal}
-        onConfirm={onConfirmMoveStopArea}
-        title={t('confirmEditTerminalDialog.title')}
-        description={t('confirmEditTerminalDialog.description', {
-          terminalName: editedTerminal.name ?? '',
-        })}
-        confirmText={t('confirmEditTerminalDialog.confirmText')}
-        cancelText={t('cancel')}
-        widthClassName="w-235"
+        setIsOpen={setIsConfirmMoveDialogOpen}
+        terminal={editedTerminal}
       />
 
-      <ConfirmationDialog
+      <EditTerminal
         isOpen={isConfirmEditDialogOpen}
-        onCancel={onCancelEditTerminal}
-        onConfirm={onConfirmEditTerminal}
-        title={t('confirmEditTerminalDialog.title')}
-        description={t('confirmEditTerminalDialog.description', {
-          terminalName: editedTerminal.name ?? '',
-        })}
-        confirmText={t('confirmEditTerminalDialog.confirmText')}
-        cancelText={t('cancel')}
-        widthClassName="w-235"
+        setIsOpen={setIsConfirmEditDialogOpen}
+        terminal={editedTerminal}
       />
     </>
   );

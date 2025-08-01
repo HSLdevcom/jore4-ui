@@ -33,3 +33,8 @@ export const selectEditedTerminalData = createSelector(
   selectMapTerminalEditor,
   (mapTerminalEditor) => mapTerminalEditor.editedTerminalData,
 );
+
+export const selectTerminalDraftEdits = createSelector(
+  selectMapTerminalEditor,
+  (mapTerminalEditor) => mapTerminalEditor.terminalDraftEdits,
+);
