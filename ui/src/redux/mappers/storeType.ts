@@ -16,10 +16,10 @@ type SerializedTypes = DateTime;
 export type StoreType<T> = T extends SerializedTypes // serializable property -> convert to string
   ? string
   : T extends Array<infer U> // array -> recurse
-    ? Array<StoreType<U>>
+    ? ReadonlyArray<StoreType<U>>
     : T extends PlainObject // object -> recurse
       ? {
-          [Property in keyof T]: StoreType<T[Property]>;
+          readonly [Property in keyof T]: StoreType<T[Property]>;
         }
       : T; // otherwise return as-is
 

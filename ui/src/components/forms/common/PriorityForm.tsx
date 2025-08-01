@@ -29,7 +29,7 @@ type PriorityFormProps = {
   readonly hiddenPriorities?: ReadonlyArray<Priority>;
 };
 
-const defaultPriorities: PriorityButtonProps[] = [
+const defaultPriorities: ReadonlyArray<PriorityButtonProps> = [
   {
     priority: Priority.Standard,
     testIdPrefix: 'standard',

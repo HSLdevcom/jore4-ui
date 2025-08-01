@@ -38,7 +38,9 @@ const mapLineToFormState = (line: LineAllFieldsFragment): FormState => ({
 
 export const EditLinePage = (): React.ReactElement => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
-  const [conflicts, setConflicts] = useState<LineAllFieldsFragment[]>([]);
+  const [conflicts, setConflicts] = useState<
+    ReadonlyArray<LineAllFieldsFragment>
+  >([]);
   const {
     prepareEdit,
     mapEditChangesToVariables,

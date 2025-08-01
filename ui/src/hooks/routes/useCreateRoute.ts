@@ -25,7 +25,9 @@ import { useValidateRoute } from './useValidateRoute';
 
 type CreateParams = {
   readonly form: RouteFormState;
-  readonly infraLinksAlongRoute: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
+  readonly infraLinksAlongRoute: ReadonlyArray<
+    RouteInfraLink<InfrastructureLinkAllFieldsFragment>
+  >;
   readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
   readonly includedStopLabels: ReadonlyArray<string>;
   readonly journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
@@ -33,7 +35,7 @@ type CreateParams = {
 
 type CreateChanges = {
   readonly input: InsertRouteOneMutationVariables;
-  readonly conflicts?: RouteDefaultFieldsFragment[];
+  readonly conflicts?: ReadonlyArray<RouteDefaultFieldsFragment>;
 };
 
 export const useCreateRoute = () => {

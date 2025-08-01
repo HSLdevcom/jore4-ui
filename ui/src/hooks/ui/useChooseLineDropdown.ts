@@ -50,14 +50,15 @@ export const useChooseLineDropdown = (
   lineId?: string,
   observationDate?: DateTime,
 ): {
-  lines: LineForComboboxFragment[];
+  lines: ReadonlyArray<LineForComboboxFragment>;
   selectedLine?: LineForComboboxFragment;
 } => {
   const [today] = useState(DateTime.now());
 
   const [debouncedQuery] = useDebouncedString(query, 300);
 
-  const [lines, setLines] = useState<LineForComboboxFragment[]>(Array);
+  const [lines, setLines] =
+    useState<ReadonlyArray<LineForComboboxFragment>>(Array);
 
   const linesResult = useGetLinesForComboboxQuery(
     mapToVariables({

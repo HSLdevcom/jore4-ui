@@ -19,7 +19,7 @@ import { LineRouteList } from './LineRouteList';
 describe(`<${LineRouteList.name} />`, () => {
   // These responses are copy-pasted from the actual graphql response.
   // The actual request for this is GET_ROUTE_DETAILS_BY_ID.
-  const mocks: Array<
+  const mocks: ReadonlyArray<
     MockedResponse & { result: { data: GetRouteDetailsByIdQuery } }
   > = [
     {

@@ -27,7 +27,7 @@ type CommonSubstitutePeriodItemProps = {
   readonly index: number;
   readonly field: FieldArrayWithId<
     {
-      commonDays: CommonDayType[];
+      commonDays: ReadonlyArray<CommonDayType>;
     },
     'commonDays',
     'id'

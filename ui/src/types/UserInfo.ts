@@ -3,5 +3,5 @@ export type UserInfo = {
   fullName?: string;
   givenName?: string;
   familyName?: string;
-  permissions: string[];
+  permissions: ReadonlyArray<string>;
 };

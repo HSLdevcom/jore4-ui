@@ -43,7 +43,7 @@ export const ImportTimetablesPage = (): React.ReactElement => {
     abortTimetablesImport,
   } = useTimetablesImport();
 
-  const [fileList, setFileList] = useState<File[] | null>(null);
+  const [fileList, setFileList] = useState<ReadonlyArray<File> | null>(null);
   const [isAbortImportModalOpen, setIsAbortImportModalOpen] = useState(false);
   const [isConfirmImportModalOpen, setIsConfirmImportModalOpen] =
     useState(false);

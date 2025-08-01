@@ -6,7 +6,7 @@ import {
 
 type ElementWithKeyValues = {
   readonly keyValues?: Maybe<
-    Array<Maybe<StopRegistryKeyValues | StopRegistryKeyValuesInput>>
+    ReadonlyArray<Maybe<StopRegistryKeyValues | StopRegistryKeyValuesInput>>
   >;
 };
 

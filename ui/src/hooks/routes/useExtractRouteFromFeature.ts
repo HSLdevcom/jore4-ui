@@ -366,7 +366,7 @@ export const mapInfraLinksToFeature = (
 export const getOldRouteGeometryVariables = (
   previouslyEditedStopLabels: ReadonlyArray<string>,
   stateInfraLinks:
-    | RouteInfraLink<InfrastructureLinkAllFieldsFragment>[]
+    | ReadonlyArray<RouteInfraLink<InfrastructureLinkAllFieldsFragment>>
     | undefined,
   baseRoute?: RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 ) => {
@@ -404,9 +404,7 @@ export const useExtractRouteFromFeature = () => {
       // This will return the links in arbitrary order.
       const infraLinksWithStopsResponse =
         await fetchLinksWithStopsByExternalLinkIds({
-          variables: {
-            externalLinkIds: externalLinkIds as Array<string>,
-          },
+          variables: { externalLinkIds },
         });
       const unorderedInfraLinksWithStops =
         infraLinksWithStopsResponse.data
@@ -471,7 +469,7 @@ export const useExtractRouteFromFeature = () => {
     ) => {
       const stopsResult = await fetchStopsAlongInfrastructureLinks({
         variables: {
-          infrastructure_link_ids: infrastructureLinkIds as Array<string>,
+          infrastructure_link_ids: infrastructureLinkIds,
         },
       });
 

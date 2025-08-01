@@ -27,9 +27,9 @@ export type StopAccessibilityLevelCalculationProperties = {
   accessibilityAssessment?: {
     hslAccessibilityProperties?: HslAccessibilityLevelCalculationProperties;
   } | null;
-  quays?: Array<{
+  quays?: ReadonlyArray<{
     placeEquipments?: {
-      shelterEquipment?: Array<ShelterAccessibilityLevelCalculationProperties> | null;
+      shelterEquipment?: ReadonlyArray<ShelterAccessibilityLevelCalculationProperties> | null;
     } | null;
   } | null> | null;
 } | null;

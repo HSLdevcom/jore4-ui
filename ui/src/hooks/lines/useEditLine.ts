@@ -20,7 +20,7 @@ type EditParams = {
 type EditChanges = {
   readonly lineId: UUID;
   readonly patch: RouteLineSetInput;
-  readonly conflicts?: LineAllFieldsFragment[];
+  readonly conflicts?: ReadonlyArray<LineAllFieldsFragment>;
 };
 
 export const useEditLine = () => {

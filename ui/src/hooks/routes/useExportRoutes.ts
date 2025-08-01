@@ -56,10 +56,12 @@ export const useExportRoutes = () => {
    * all routes uniqueLabel and direction which are not eligible.
    */
   const findNotEligibleRoutesForExport = (
-    routesToExport: Pick<
-      RouteTableRowFragment,
-      'unique_label' | 'direction' | 'route_journey_patterns'
-    >[],
+    routesToExport: ReadonlyArray<
+      Pick<
+        RouteTableRowFragment,
+        'unique_label' | 'direction' | 'route_journey_patterns'
+      >
+    >,
   ): string[] => {
     const notEligibleRoutes: string[] = [];
     routesToExport.forEach((route) => {

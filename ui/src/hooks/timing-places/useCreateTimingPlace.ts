@@ -17,7 +17,7 @@ type CreateParams = {
 
 type CreateChanges = {
   readonly timingPlaceToCreate: TimingPatternTimingPlaceInsertInput;
-  readonly conflicts?: CreatedTimingPlaceFragment[];
+  readonly conflicts?: ReadonlyArray<CreatedTimingPlaceFragment>;
 };
 
 const GQL_NEW_TIMING_PLACE = gql`

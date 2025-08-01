@@ -50,7 +50,7 @@ const buildVehicleJourney = (
 };
 
 const buildSingleBlockFrameWithJourneys = (
-  journeys: Array<VehicleJourneyWithPatternAndRouteFragmentFragment>,
+  journeys: ReadonlyArray<VehicleJourneyWithPatternAndRouteFragmentFragment>,
 ): VehicleScheduleVehicleScheduleFrameWithJourneys => {
   return {
     validity_start: DateTime.fromISO('2023-07-13'),

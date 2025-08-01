@@ -28,7 +28,9 @@ export const useMoveQuayToStopPlace = () => {
   const [updateStopPointMutation] = useUpdateStopPointMutation();
   const [getOriginalQuays] = useGetOriginalQuaysLazyQuery();
 
-  const fetchOriginalQuays = async (quayIds: string[]): Promise<QuayInfo[]> => {
+  const fetchOriginalQuays = async (
+    quayIds: ReadonlyArray<string>,
+  ): Promise<QuayInfo[]> => {
     const originalQuaysResult = await getOriginalQuays({
       variables: { quayId: quayIds[0] },
     });

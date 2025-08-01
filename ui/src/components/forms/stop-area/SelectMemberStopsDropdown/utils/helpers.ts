@@ -47,8 +47,8 @@ export function extractStopPlaceQuays(
 }
 
 export function createQuayMapping(
-  originalQuays: QuayInfo[],
-  newQuays: QuayInfo[],
+  originalQuays: ReadonlyArray<QuayInfo>,
+  newQuays: ReadonlyArray<QuayInfo>,
 ): Map<string, string> {
   const mapping = new Map<string, string>();
 
@@ -70,11 +70,11 @@ export function createQuayMapping(
 }
 
 export async function fetchExistingStopPoints(
-  quayIds: string[],
+  quayIds: ReadonlyArray<string>,
   getStopPointsByQuayId: ReturnType<
     typeof useGetStopPointsByQuayIdLazyQuery
   >[0],
-): Promise<StopPointInfo[]> {
+): Promise<ReadonlyArray<StopPointInfo>> {
   const stopPointsResult = await getStopPointsByQuayId({
     variables: { quayIds },
   });

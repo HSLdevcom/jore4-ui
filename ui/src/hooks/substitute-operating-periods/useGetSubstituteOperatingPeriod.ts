@@ -38,7 +38,7 @@ const mapSubstituteOperatingPeriodsResult = (
   result?: GetSubstituteOperatingPeriodsQuery,
 ) => {
   return result?.timetables
-    ?.timetables_service_calendar_substitute_operating_period as TimetablesServiceCalendarSubstituteOperatingPeriod[];
+    ?.timetables_service_calendar_substitute_operating_period as ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriod>;
 };
 
 export const useGetCommonSubstituteOperatingPeriods = ({

@@ -78,7 +78,9 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   const { deleteMapQueryParameters, setRouteId } = useMapQueryParams();
 
   const [isDeleting, setIsDeleting] = useState(false);
-  const [conflicts, setConflicts] = useState<RouteDefaultFieldsFragment[]>([]);
+  const [conflicts, setConflicts] = useState<
+    ReadonlyArray<RouteDefaultFieldsFragment>
+  >([]);
 
   const [getRouteDetailsById] = useGetRouteDetailsByIdLazyQuery();
 

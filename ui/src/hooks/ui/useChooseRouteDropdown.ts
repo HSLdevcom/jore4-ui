@@ -57,7 +57,8 @@ export const useChooseRouteDropdown = ({
 }: Props) => {
   const [debouncedQuery] = useDebouncedString(query, 300);
 
-  const [routes, setRoutes] = useState<RouteAllFieldsFragment[]>(Array);
+  const [routes, setRoutes] =
+    useState<ReadonlyArray<RouteAllFieldsFragment>>(Array);
   const routesResult = useGetRouteDetailsByLabelWildcardQuery(
     mapToVariables({
       labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,

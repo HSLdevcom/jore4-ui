@@ -76,10 +76,10 @@ export const useVehicleScheduleFrameWithJourneys = () => {
     async (ids: ReadonlyArray<UUID>) => {
       const result = await getVehicleScheduleFramesQuery({
         variables: {
-          vehicle_schedule_frame_ids: ids as Array<string>,
+          vehicle_schedule_frame_ids: ids,
         },
       });
-      const vehicleScheduleFrames: VehicleScheduleVehicleScheduleFrameWithJourneys[] =
+      const vehicleScheduleFrames: ReadonlyArray<VehicleScheduleVehicleScheduleFrameWithJourneys> =
         result.data?.timetables
           ?.timetables_vehicle_schedule_vehicle_schedule_frame ?? [];
       return vehicleScheduleFrames;

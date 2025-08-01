@@ -30,10 +30,10 @@ const GQL_SEARCH_LINES_AND_ROUTES = gql`
 
 export const useSearchResults = (): {
   loading: boolean;
-  lines: LineTableRowFragment[];
+  lines: ReadonlyArray<LineTableRowFragment>;
   /** Routes reduced to only have 1 direction per label */
-  reducedRoutes: RouteTableRowFragment[];
-  routes: RouteTableRowFragment[];
+  reducedRoutes: ReadonlyArray<RouteTableRowFragment>;
+  routes: ReadonlyArray<RouteTableRowFragment>;
   resultCount: number;
   resultType: DisplayedSearchResultType;
 } => {
@@ -54,7 +54,7 @@ export const useSearchResults = (): {
   // Reduce routes to only have the 'Outbound' versions of the routes if there are two
   // versions of the route
   const reducedRoutes = routes.reduce(
-    (acc: RouteTableRowFragment[], current) => {
+    (acc: ReadonlyArray<RouteTableRowFragment>, current) => {
       const duplicateUniqueLabelExists = acc.some(
         (route) => route.unique_label === current.unique_label,
       );

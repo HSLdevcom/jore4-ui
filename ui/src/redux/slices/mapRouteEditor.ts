@@ -23,7 +23,9 @@ export type EditedRouteData = {
   /**
    * Array of infrastructure links along the created / edited route
    */
-  readonly infraLinks?: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
+  readonly infraLinks?: ReadonlyArray<
+    RouteInfraLink<InfrastructureLinkAllFieldsFragment>
+  >;
   /**
    * Id of the route used as a template route, when creating a new route
    */
@@ -40,11 +42,11 @@ export type EditedRouteData = {
   /**
    * Array of stop labels that are included in the edited route
    */
-  readonly includedStopLabels: string[];
+  readonly includedStopLabels: ReadonlyArray<string>;
   /**
    * Array of stops that are eligible to be added to the journey pattern
    */
-  readonly stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
+  readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
   /**
    * Draft route geometry
    */
@@ -119,11 +121,12 @@ const slice = createSlice({
     /**
      * Quit route creation mode. Reset draw mode and metadata.
      */
-    resetRouteCreating: (state) => {
-      state.drawingMode = initialState.drawingMode;
-      state.creatingNewRoute = false;
-      state.editedRouteData = initialState.editedRouteData;
-    },
+    resetRouteCreating: (state) => ({
+      ...state,
+      drawingMode: initialState.drawingMode,
+      creatingNewRoute: false,
+      editedRouteData: initialState.editedRouteData,
+    }),
     /**
      * Start editing route geometry. Could be existing route or freshly drawn draft route.
      */
@@ -146,12 +149,14 @@ const slice = createSlice({
     /**
      * Stop editing route geometry.
      */
-    stopRouteEditing: (state) => {
-      state.drawingMode = undefined;
-      if (!state.creatingNewRoute) {
-        state.editedRouteData = initialState.editedRouteData;
-      }
-    },
+    stopRouteEditing: (state) =>
+      !state.creatingNewRoute
+        ? {
+            ...state,
+            drawingMode: undefined,
+            editedRouteData: initialState.editedRouteData,
+          }
+        : { ...state, drawingMode: undefined },
     /**
      * Set template route to be used when drawing a new route.
      */
@@ -228,9 +233,11 @@ const slice = createSlice({
         state,
         action: PayloadAction<
           StoreType<{
-            includedStopLabels: string[];
-            stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-            infraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
+            includedStopLabels: ReadonlyArray<string>;
+            stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+            infraLinks: ReadonlyArray<
+              RouteInfraLink<InfrastructureLinkAllFieldsFragment>
+            >;
             geometry?: GeoJSON.LineString;
           }>
         >,
@@ -242,12 +249,15 @@ const slice = createSlice({
           geometry,
         } = action.payload;
 
-        state.editedRouteData = {
-          ...state.editedRouteData,
-          includedStopLabels: uniq(includedStopLabels),
-          stopsEligibleForJourneyPattern,
-          infraLinks,
-          geometry,
+        return {
+          ...state,
+          editedRouteData: {
+            ...state.editedRouteData,
+            includedStopLabels: uniq(includedStopLabels),
+            stopsEligibleForJourneyPattern,
+            infraLinks,
+            geometry,
+          },
         };
       },
       prepare: ({
@@ -256,9 +266,11 @@ const slice = createSlice({
         infraLinks,
         geometry,
       }: {
-        includedStopLabels: string[];
-        stopsEligibleForJourneyPattern: RouteStopFieldsFragment[];
-        infraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
+        includedStopLabels: ReadonlyArray<string>;
+        stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
+        infraLinks: ReadonlyArray<
+          RouteInfraLink<InfrastructureLinkAllFieldsFragment>
+        >;
         geometry?: GeoJSON.LineString;
       }) => ({
         payload: mapToStoreType({
@@ -275,9 +287,13 @@ const slice = createSlice({
     setDraftRouteJourneyPattern: (
       state,
       action: PayloadAction<JourneyPattern>,
-    ) => {
-      state.editedRouteData.journeyPattern = action.payload;
-    },
+    ) => ({
+      ...state,
+      editedRouteData: {
+        ...state.editedRouteData,
+        journeyPattern: action.payload,
+      },
+    }),
     /**
      * Reset created / edited route geometry in state.
      */

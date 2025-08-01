@@ -42,9 +42,9 @@ type EditRoutesAndLinesChanges = {
   readonly stopLabel: string;
   readonly patch: PartialScheduledStopPointSetInput;
   readonly editedStop: ServicePatternScheduledStopPoint;
-  readonly deleteStopFromRoutes: RouteUniqueFieldsFragment[];
-  readonly deleteStopFromJourneyPatternIds?: UUID[];
-  readonly conflicts?: ServicePatternScheduledStopPoint[];
+  readonly deleteStopFromRoutes: ReadonlyArray<RouteUniqueFieldsFragment>;
+  readonly deleteStopFromJourneyPatternIds?: ReadonlyArray<UUID>;
+  readonly conflicts?: ReadonlyArray<ServicePatternScheduledStopPoint>;
 };
 
 type EditTiamatParams = {

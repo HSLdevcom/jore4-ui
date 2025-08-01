@@ -37,9 +37,9 @@ export const sortStopsOnInfraLinkComparator = (isTraversalForwards: boolean) =>
 export const sortStopsOnInfraLink = <
   TStop extends ScheduledStopPointAllFieldsFragment,
 >(
-  stops: Array<TStop>,
+  stops: ReadonlyArray<TStop>,
   isTraversalForwards: boolean,
-) => stops.sort(sortStopsOnInfraLinkComparator(isTraversalForwards));
+) => stops.toSorted(sortStopsOnInfraLinkComparator(isTraversalForwards));
 
 /**
  * Adds stops to or removes stops from the first stop parameter, depending on

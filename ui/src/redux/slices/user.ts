@@ -13,9 +13,10 @@ const slice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginSuccess: (state, action: PayloadAction<UserInfo>) => {
-      state.userInfo = action.payload;
-    },
+    loginSuccess: (state, action: PayloadAction<UserInfo>) => ({
+      ...state,
+      userInfo: action.payload,
+    }),
     loginFailed: (state) => {
       state.userInfo = undefined;
     },

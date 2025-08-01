@@ -21,9 +21,9 @@ const testIds = {
 
 export type VehicleJourneyGroupInfoProps = {
   readonly vehicleScheduleFrameId: UUID | null | undefined;
-  readonly vehicleJourneys:
-    | Pick<VehicleJourneyWithServiceFragment, 'start_time'>[]
-    | null;
+  readonly vehicleJourneys: ReadonlyArray<
+    Pick<VehicleJourneyWithServiceFragment, 'start_time'>
+  > | null;
   readonly validityStart: DateTime;
   readonly validityEnd: DateTime;
   readonly dayTypeNameI18n: LocalizedString;

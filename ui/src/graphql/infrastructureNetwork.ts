@@ -55,7 +55,9 @@ export const mapInfrastructureLinksAlongRouteToRouteInfraLinks = <
   })) ?? [];
 
 export const mapInfraLinksAlongRouteToGraphQL = (
-  infraLinks: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[],
+  infraLinks: ReadonlyArray<
+    RouteInfraLink<InfrastructureLinkAllFieldsFragment>
+  >,
 ) =>
   infraLinks.map((link, index) => ({
     infrastructure_link_id: link.infrastructure_link_id,
@@ -168,7 +170,7 @@ export const mapInfraLinkWithStopsResult = (
   result: GqlQueryResult<GetLinksWithStopsByExternalLinkIdsQuery>,
 ) =>
   result.data?.infrastructure_network_infrastructure_link as
-    | InfrastructureNetworkInfrastructureLink[]
+    | ReadonlyArray<InfrastructureNetworkInfrastructureLink>
     | [];
 
 const GET_STOPS_ALONG_INFRASTRUCTURE_LINKS = gql`

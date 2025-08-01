@@ -13,7 +13,7 @@ type OccasionalSubstitutePeriodRowProps = {
   readonly index: number;
   readonly field: FieldArrayWithId<
     {
-      periods: PeriodType[];
+      periods: ReadonlyArray<PeriodType>;
     },
     'periods',
     'id'

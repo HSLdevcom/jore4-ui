@@ -15,7 +15,7 @@ describe(`<${RoutesTable.name} />`, () => {
   const route1Id = '03d55414-e5cf-4cce-9faf-d86ccb7e5f98';
   const lineId = '101f800c-39ed-4d85-8ece-187cd9fe1c5e';
 
-  const routesResponseMock: RouteTableRowFragment[] = [
+  const routesResponseMock: ReadonlyArray<RouteTableRowFragment> = [
     {
       __typename: 'route_route',
       ...buildRoute({ label: '1' }),
@@ -64,7 +64,7 @@ describe(`<${RoutesTable.name} />`, () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  const linesResponseMock: LineTableRowFragment[] = [
+  const linesResponseMock: ReadonlyArray<LineTableRowFragment> = [
     {
       line_id: '101f800c-39ed-4d85-8ece-187cd9fe1c5e',
       label: '65',

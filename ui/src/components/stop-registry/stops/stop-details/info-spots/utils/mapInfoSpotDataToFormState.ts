@@ -27,7 +27,7 @@ export function mapInfoSpotDataToFormState(
     floor: infoSpot.floor ?? null,
     label: infoSpot.label ?? null,
     size: determineItemSize(infoSpot),
-    infoSpotLocations: infoSpot.infoSpotLocations ?? null,
+    infoSpotLocations: compact(infoSpot.infoSpotLocations),
     infoSpotType: infoSpot.infoSpotType ?? null,
     purpose: infoSpot.purpose ?? null,
     railInformation: infoSpot.railInformation ?? null,

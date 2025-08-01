@@ -146,9 +146,9 @@ export type EditChanges = {
   readonly stopPointPatch: PartialScheduledStopPointSetInput | null;
   readonly stopPlacePatch: StopRegistryStopPlaceInput | null;
   readonly editedStop: ScheduledStopPointAllFieldsFragment;
-  readonly deleteStopFromRoutes: RouteUniqueFieldsFragment[];
-  readonly deleteStopFromJourneyPatternIds?: UUID[];
-  readonly conflicts?: ScheduledStopPointAllFieldsFragment[];
+  readonly deleteStopFromRoutes: ReadonlyArray<RouteUniqueFieldsFragment>;
+  readonly deleteStopFromJourneyPatternIds?: ReadonlyArray<UUID>;
+  readonly conflicts?: ReadonlyArray<ScheduledStopPointAllFieldsFragment>;
   readonly quayId: string;
 };
 
@@ -204,8 +204,8 @@ function quayPatchToStopPlacePatch(
 }
 
 type GetRoutesBrokenByStopChangeResult = {
-  readonly brokenJourneyPatternIds: Array<string>;
-  readonly brokenRoutes: Array<RouteAllFieldsFragment>;
+  readonly brokenJourneyPatternIds: ReadonlyArray<string>;
+  readonly brokenRoutes: ReadonlyArray<RouteAllFieldsFragment>;
 };
 
 export function useGetRoutesBrokenByStopChange() {

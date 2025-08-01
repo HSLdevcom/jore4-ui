@@ -30,7 +30,7 @@ type EditParams = {
 type EditChanges = {
   readonly routeId: UUID;
   readonly patch: RouteRouteSetInput;
-  readonly conflicts?: RouteDefaultFieldsFragment[];
+  readonly conflicts?: ReadonlyArray<RouteDefaultFieldsFragment>;
 };
 
 export const mapRouteFormToInput = (state: RouteFormState) => {

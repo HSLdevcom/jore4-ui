@@ -104,7 +104,7 @@ const GQL_GET_VEHICLE_SCHEDULES_FOR_DATE = gql`
  */
 export type VehicleJourneyGroup = {
   readonly dayType: DayTypeAllFieldsFragment;
-  readonly vehicleJourneys: VehicleJourneyWithServiceFragment[] | null;
+  readonly vehicleJourneys: ReadonlyArray<VehicleJourneyWithServiceFragment> | null;
   readonly priority: TimetablePriority;
   readonly validity: Validity;
   readonly vehicleScheduleFrameId?: UUID | null;
@@ -129,7 +129,7 @@ type Validity = {
 export type TimetableWithMetadata = {
   readonly validity?: Validity;
   readonly journeyPatternId: UUID;
-  readonly vehicleJourneyGroups: VehicleJourneyGroup[];
+  readonly vehicleJourneyGroups: ReadonlyArray<VehicleJourneyGroup>;
 };
 
 const getTimetableNarrowestValidityPeriod = (

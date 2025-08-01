@@ -119,7 +119,7 @@ const combineCommonDaysWithPresetDates = (
 
 type CommonSubstitutePeriodFormProps = {
   readonly className?: string;
-  readonly commonDays?: Array<CommonDayType>;
+  readonly commonDays?: ReadonlyArray<CommonDayType>;
   readonly onSubmit: (state: FormState) => void;
   readonly dateRange: DateRange;
 };

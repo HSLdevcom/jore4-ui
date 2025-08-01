@@ -11,7 +11,7 @@ import { useEditMembersOfTerminal } from './useEditMembersOfTerminal';
 type UpsertTerminalInputs = {
   readonly terminal: EnrichedParentStopPlace;
   readonly state: TerminalLocationDetailsFormState;
-  readonly selectedStops?: SelectedStop[];
+  readonly selectedStops?: ReadonlyArray<SelectedStop>;
 };
 
 const mapFormStateToInput = ({

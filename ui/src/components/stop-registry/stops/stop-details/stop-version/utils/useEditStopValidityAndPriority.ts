@@ -1,11 +1,13 @@
+import compact from 'lodash/compact';
+import { pick } from 'lodash/fp';
 import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import {
-  StopRegistryKeyValuesInput,
   useEditKeyValuesOfQuayMutation,
   useEditScheduledStopPointValidityMutation,
   useGetQuayLazyQuery,
 } from '../../../../../../generated/graphql';
+import { setMultipleKeyValues } from '../../../../../../utils';
 import { QuayKeyValuesEditFailed } from '../errors/QuayKeyValuesEditFailed';
 import { ScheduledStopPointEditFailed } from '../errors/ScheduledStopPointEditFailed';
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
@@ -71,10 +73,9 @@ function useEditQuayValidity() {
       });
       if (
         !data?.stop_registry?.stopPlace ||
-        !data?.stop_registry?.stopPlace[0] ||
+        !data.stop_registry.stopPlace[0] ||
         // eslint-disable-next-line no-underscore-dangle
-        data?.stop_registry?.stopPlace[0].__typename !==
-          'stop_registry_StopPlace'
+        data.stop_registry.stopPlace[0].__typename !== 'stop_registry_StopPlace'
       ) {
         throw new QuayKeyValuesEditFailed(
           `Failed to get stop place for quayId: ${quayId}. Data received: ${JSON.stringify(data)}`,
@@ -92,38 +93,32 @@ function useEditQuayValidity() {
         );
       }
 
-      const keyValues: StopRegistryKeyValuesInput[] =
-        originalQuay.keyValues
-          ?.filter(
-            (kv) =>
-              kv &&
-              kv.key &&
-              !['validityStart', 'validityEnd', 'priority'].includes(kv.key),
+      const keyValues = setMultipleKeyValues(
+        compact(originalQuay.keyValues)
+          .filter(
+            ({ key }) =>
+              !['validityStart', 'validityEnd', 'priority'].includes(
+                key as string,
+              ),
           )
-          .map((kv) => {
-            return { key: kv?.key, values: kv?.values };
-          }) ?? [];
-
-      keyValues.push({
-        key: 'validityStart',
-        values: [validityStart.toISODate()],
-      });
-      keyValues.push({
-        key: 'validityEnd',
-        values: [validityEnd && !indefinite ? validityEnd.toISODate() : null],
-      });
-      keyValues.push({ key: 'priority', values: [priority.toString()] });
-
-      if (reasonForChange) {
-        const existingReasonForChange = keyValues.find(
-          (kv) => kv.key === 'reasonForChange',
-        );
-        if (existingReasonForChange) {
-          existingReasonForChange.values = [reasonForChange];
-        } else {
-          keyValues.push({ key: 'reasonForChange', values: [reasonForChange] });
-        }
-      }
+          .map(pick(['key', 'values'])),
+        compact([
+          {
+            key: 'validityStart',
+            values: [validityStart.toISODate()],
+          },
+          validityEnd && !indefinite
+            ? {
+                key: 'validityEnd',
+                values: [validityEnd.toISODate()],
+              }
+            : null,
+          { key: 'priority', values: [priority.toString()] },
+          reasonForChange
+            ? { key: 'reasonForChange', values: [reasonForChange] }
+            : null,
+        ]),
+      );
 
       const response = await wrapErrors(
         editKeyValuesOfQuayMutation({

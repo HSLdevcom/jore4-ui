@@ -17,7 +17,7 @@ export const useDeleteSubstituteOperatingPeriod = () => {
   const [mutateFunction] = useDeleteSubstituteOperatingPeriodMutation();
 
   const deleteSubstituteOperatingPeriod = async (form: {
-    periods: Pick<PeriodType, 'periodId' | 'toBeDeleted'>[];
+    periods: ReadonlyArray<Pick<PeriodType, 'periodId' | 'toBeDeleted'>>;
   }) => {
     const deletedIds = form.periods
       .filter((p) => p.toBeDeleted)

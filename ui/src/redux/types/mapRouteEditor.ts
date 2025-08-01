@@ -3,7 +3,7 @@ import { JourneyPatternStopFragment } from '../../generated/graphql';
 
 export type JourneyPattern = {
   readonly id?: UUID;
-  readonly stops: JourneyPatternStopFragment[];
+  readonly stops: ReadonlyArray<JourneyPatternStopFragment>;
 };
 
 export const GQL_JOURNEY_PATTERN_STOP = gql`

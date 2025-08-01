@@ -3,7 +3,7 @@ import uniq from 'lodash/uniq';
 
 type IState = {
   readonly isSelectingRoutesForExport: boolean;
-  readonly selectedRows: string[];
+  readonly selectedRows: ReadonlyArray<string>;
 };
 
 const initialState: IState = {
@@ -26,15 +26,16 @@ const slice = createSlice({
       const { selectedRows } = state;
       state.selectedRows = selectedRows.filter((id) => id !== action.payload);
     },
-    selectRows: (state, action: PayloadAction<string[]>) => {
+    selectRows: (state, action: PayloadAction<ReadonlyArray<string>>) => {
       const { selectedRows } = state;
       // If we are selecting rows with "Select all", we need to take uniq
       // to avoid adding the already checked rows again
       state.selectedRows = uniq([...selectedRows, ...action.payload]);
     },
-    resetSelectedRows: (state) => {
-      state.selectedRows = initialState.selectedRows;
-    },
+    resetSelectedRows: (state) => ({
+      ...state,
+      selectedRows: initialState.selectedRows,
+    }),
   },
 });
 

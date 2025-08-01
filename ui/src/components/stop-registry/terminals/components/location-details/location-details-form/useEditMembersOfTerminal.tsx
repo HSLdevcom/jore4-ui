@@ -39,7 +39,7 @@ const GQL_ADD_TO_MULTIMODAL_STOP_PLACE = gql`
 
 type EditMembersOfTerminalInputs = {
   readonly terminal: EnrichedParentStopPlace;
-  readonly selectedStops?: SelectedStop[];
+  readonly selectedStops?: ReadonlyArray<SelectedStop>;
 };
 
 function getExistingChildrenIds(

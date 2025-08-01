@@ -15,7 +15,7 @@ type IState = {
   readonly errorModalTitle: string;
   // These are mutually exclusive. See actions below.
   readonly singleErrorDetails?: ErrorDetails;
-  readonly errorList: ErrorListItem[];
+  readonly errorList: ReadonlyArray<ErrorListItem>;
 };
 
 const initialState: IState = {
@@ -29,17 +29,17 @@ const slice = createSlice({
   initialState,
   reducers: {
     openErrorListModal: (
-      state,
+      _state,
       action: PayloadAction<{
         errorModalTitle: string;
-        errorList: ErrorListItem[];
+        errorList: ReadonlyArray<ErrorListItem>;
       }>,
-    ) => {
-      state.errorModalTitle = action.payload.errorModalTitle;
-      state.errorList = action.payload.errorList;
-      state.singleErrorDetails = undefined; // Not used in this case.
-      state.isOpen = true;
-    },
+    ) => ({
+      errorModalTitle: action.payload.errorModalTitle,
+      errorList: action.payload.errorList,
+      singleErrorDetails: undefined, // Not used in this case.
+      isOpen: true,
+    }),
     openSingleErrorModal: (
       state,
       action: PayloadAction<{

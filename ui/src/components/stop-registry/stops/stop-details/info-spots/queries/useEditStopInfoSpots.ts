@@ -36,12 +36,14 @@ function mapPosterInput(
     return null;
   }
 
-  return poster.map(({ label, size, lines }) => ({
-    label,
-    width: size.width,
-    height: size.height,
-    lines,
-  })) as Array<StopRegistryPosterInput>;
+  return poster.map(
+    ({ label, size, lines }): StopRegistryPosterInput => ({
+      label,
+      width: size.width,
+      height: size.height,
+      lines,
+    }),
+  );
 }
 
 function mapInfoSpotFormToInput(

@@ -10,7 +10,7 @@ export type MapTerminalEditorState = {
   readonly viewState: MapEntityEditorViewState;
 };
 
-const initialState: MapTerminalEditorState = {
+const initialState: StoreType<MapTerminalEditorState> = {
   selectedTerminalId: undefined,
   draftLocation: undefined,
   editedTerminalData: undefined,
@@ -43,9 +43,10 @@ const slice = createSlice({
       reducer: (
         state,
         action: PayloadAction<StoreType<EnrichedParentStopPlace> | undefined>,
-      ) => {
-        state.editedTerminalData = action.payload ?? undefined;
-      },
+      ) => ({
+        ...state,
+        editedTerminalData: action.payload,
+      }),
       prepare: (terminal: EnrichedParentStopPlace | undefined | null) => ({
         payload: terminal ? mapToStoreType(terminal) : undefined,
       }),

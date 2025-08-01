@@ -58,6 +58,7 @@ module.exports = {
       config: {
         ...defaultConfig,
         withHooks: true,
+        immutableTypes: true,
         scalars,
       },
     },

@@ -78,7 +78,9 @@ const GQL_UPDATE_ROUTE_GEOMETRY = gql`
 type EditParams = {
   readonly routeId: UUID;
   readonly journeyPatternId: UUID;
-  readonly infraLinksAlongRoute: RouteInfraLink<InfrastructureLinkAllFieldsFragment>[];
+  readonly infraLinksAlongRoute: ReadonlyArray<
+    RouteInfraLink<InfrastructureLinkAllFieldsFragment>
+  >;
   readonly stopsEligibleForJourneyPattern: ReadonlyArray<RouteStopFieldsFragment>;
   readonly includedStopLabels: ReadonlyArray<string>;
   readonly journeyPatternStops: ReadonlyArray<JourneyPatternStopFragment>;
@@ -87,8 +89,8 @@ type EditParams = {
 type EditChanges = {
   readonly routeId: UUID;
   readonly journeyPatternId: UUID;
-  readonly newInfrastructureLinks: RouteInfrastructureLinkAlongRouteInsertInput[];
-  readonly newStopsInJourneyPattern: JourneyPatternScheduledStopPointInJourneyPatternInsertInput[];
+  readonly newInfrastructureLinks: ReadonlyArray<RouteInfrastructureLinkAlongRouteInsertInput>;
+  readonly newStopsInJourneyPattern: ReadonlyArray<JourneyPatternScheduledStopPointInJourneyPatternInsertInput>;
 };
 
 /**

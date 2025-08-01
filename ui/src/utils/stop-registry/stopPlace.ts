@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
 import {
   AccessibilityAssessmentDetailsFragment,
@@ -93,29 +92,35 @@ const findAlternativeName = (
 };
 
 export const setAlternativeName = (
-  initialAlternativeNames: (StopRegistryAlternativeName | null)[] | undefined,
+  initialAlternativeNames:
+    | ReadonlyArray<StopRegistryAlternativeName | null>
+    | undefined,
   newAlternativeName: {
     name: { lang: string; value: string | undefined };
     nameType: StopRegistryNameType;
   },
 ) => {
-  const alternativeNames = cloneDeep(initialAlternativeNames) ?? [];
-  const existingAlternativeName = alternativeNames.find(
+  const alternativeNames = initialAlternativeNames ?? [];
+  const existingAlternativeNameIndex = alternativeNames.findIndex(
     (alternativeName) =>
       alternativeName?.nameType === newAlternativeName.nameType &&
       alternativeName?.name.lang === newAlternativeName.name.lang,
   );
 
-  if (existingAlternativeName) {
-    existingAlternativeName.name.value = newAlternativeName.name.value;
-  } else {
-    alternativeNames.push(newAlternativeName);
+  if (existingAlternativeNameIndex >= 0) {
+    return alternativeNames.with(
+      existingAlternativeNameIndex,
+      newAlternativeName,
+    );
   }
-  return alternativeNames;
+
+  return alternativeNames.concat(newAlternativeName);
 };
 
 export const setMultipleAlternativeNames = (
-  initialAlternativeNames: (StopRegistryAlternativeName | null)[] | undefined,
+  initialAlternativeNames:
+    | ReadonlyArray<StopRegistryAlternativeName | null>
+    | undefined,
   updates: {
     name: { lang: string; value: string | undefined };
     nameType: StopRegistryNameType;
@@ -130,11 +135,21 @@ export const setMultipleAlternativeNames = (
  * Changes the value of given key in initialKeyValues if the key is found,
  * otherwise adds the key values pair to initialKeyValues
  */
-export const setKeyValue = (
+export function setKeyValue(
+  initialKeyValues: ReadonlyArray<StopRegistryKeyValues>,
+  key: string,
+  values: ReadonlyArray<string>,
+): StopRegistryKeyValues[];
+export function setKeyValue(
   initialKeyValues: ReadonlyArray<StopRegistryKeyValues | null> | undefined,
   key: string,
-  values: Maybe<string>[],
-): (StopRegistryKeyValues | null)[] => {
+  values: ReadonlyArray<string>,
+): (StopRegistryKeyValues | null)[];
+export function setKeyValue(
+  initialKeyValues: ReadonlyArray<StopRegistryKeyValues | null> | undefined,
+  key: string,
+  values: ReadonlyArray<string>,
+): (StopRegistryKeyValues | null)[] {
   const newItem = { key, values };
 
   const keyValues = initialKeyValues ?? [];
@@ -143,23 +158,29 @@ export const setKeyValue = (
   );
 
   if (existingKeyIndex >= 0) {
-    const copy = keyValues.slice();
-    copy[existingKeyIndex] = newItem;
-    return copy;
+    return keyValues.with(existingKeyIndex, newItem);
   }
 
   return keyValues.concat(newItem);
-};
+}
 
-export const setMultipleKeyValues = (
+export function setMultipleKeyValues(
+  initialKeyValues: ReadonlyArray<StopRegistryKeyValues>,
+  updates: ReadonlyArray<{ key: string; values: ReadonlyArray<string> }>,
+): StopRegistryKeyValues[];
+export function setMultipleKeyValues(
   initialKeyValues: ReadonlyArray<StopRegistryKeyValues | null> | undefined,
-  updates: ReadonlyArray<{ key: string; values: string[] }>,
-) => {
+  updates: ReadonlyArray<{ key: string; values: ReadonlyArray<string> }>,
+): (StopRegistryKeyValues | null)[];
+export function setMultipleKeyValues(
+  initialKeyValues: ReadonlyArray<StopRegistryKeyValues | null> | undefined,
+  updates: ReadonlyArray<{ key: string; values: ReadonlyArray<string> }>,
+): (StopRegistryKeyValues | null)[] {
   return updates.reduce(
     (acc, { key, values }) => setKeyValue(acc, key, values),
     initialKeyValues?.slice() ?? [],
   );
-};
+}
 
 // TODO: This typename omit can be avoided completely by using
 // newer version of apollo client and then adding removeTypenameFromVariables link
@@ -176,7 +197,7 @@ export const patchKeyValues = (
   stopPlace: {
     readonly keyValues?: Maybe<ReadonlyArray<Maybe<StopRegistryKeyValues>>>;
   } | null,
-  updates: ReadonlyArray<{ key: string; values: string[] }>,
+  updates: ReadonlyArray<{ key: string; values: ReadonlyArray<string> }>,
 ) => {
   const initialKeyValues =
     stopPlace?.keyValues?.map((keyValue) => omitTypename(keyValue)) ?? [];
@@ -265,10 +286,10 @@ type ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties = {
 };
 
 const extractSharedStopPlaceDetails = (stopPlace: {
-  alternativeNames?: Maybe<Array<Maybe<StopRegistryAlternativeName>>>;
+  alternativeNames?: Maybe<ReadonlyArray<Maybe<StopRegistryAlternativeName>>>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   geometry?: Maybe<StopRegistryGeoJson>;
-  keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
+  keyValues?: Maybe<ReadonlyArray<Maybe<StopRegistryKeyValues>>>;
 }): Partial<SharedEnrichmentProperties> => {
   return {
     nameSwe:

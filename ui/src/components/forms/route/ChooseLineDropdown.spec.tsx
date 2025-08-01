@@ -22,7 +22,7 @@ describe('<ChooseLineDropdown />', () => {
   const testId = 'ChooseLineDropdown1';
   const buttonTestId = `${testId}::button`;
 
-  const mocks: MockedResponse[] = [
+  const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
         query: GetLinesForComboboxDocument,

@@ -161,7 +161,8 @@ export const useGetTimetableVersions = ({
   startDate: DateTime;
   endDate: DateTime;
 }) => {
-  const [versions, setVersions] = useState<TimetableVersionRowData[]>();
+  const [versions, setVersions] =
+    useState<ReadonlyArray<TimetableVersionRowData>>();
   const [getTimetableVersionsByJourneyPatternIds] =
     useGetTimetableVersionsByJourneyPatternIdsLazyQuery();
 

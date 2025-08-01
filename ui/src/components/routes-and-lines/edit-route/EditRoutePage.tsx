@@ -45,7 +45,7 @@ export const EditRoutePage = (): React.ReactElement => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [draftStops, setDraftStops] = useState<
-    ServicePatternScheduledStopPoint[]
+    ReadonlyArray<ServicePatternScheduledStopPoint>
   >([]);
   const [routeFormData, setRouteFormData] = useState<RouteFormState | null>(
     null,
@@ -65,7 +65,9 @@ export const EditRoutePage = (): React.ReactElement => {
     mapEditJourneyPatternChangesToVariables,
     updateRouteGeometryMutation,
   } = useEditRouteJourneyPattern();
-  const [conflicts, setConflicts] = useState<RouteDefaultFieldsFragment[]>([]);
+  const [conflicts, setConflicts] = useState<
+    ReadonlyArray<RouteDefaultFieldsFragment>
+  >([]);
   const formRef = useRef<ExplicitAny>(null);
   const { id } = useRequiredParams<{ id: string }>();
 

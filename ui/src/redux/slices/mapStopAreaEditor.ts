@@ -31,9 +31,10 @@ const slice = createSlice({
       reducer: (
         state,
         action: PayloadAction<StoreType<EnrichedStopPlace> | undefined>,
-      ) => {
-        state.editedStopAreaData = action.payload ?? undefined;
-      },
+      ) => ({
+        ...state,
+        editedStopAreaData: action.payload,
+      }),
       prepare: (stopArea: EnrichedStopPlace | undefined | null) => ({
         payload: stopArea ? mapToStoreType(stopArea) : undefined,
       }),

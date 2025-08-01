@@ -20,7 +20,7 @@ type CreateParams = {
 };
 type CreateChanges = {
   readonly input: RouteLineInsertInput;
-  readonly conflicts?: LineDefaultFieldsFragment[];
+  readonly conflicts?: ReadonlyArray<LineDefaultFieldsFragment>;
 };
 
 export const mapFormToInput = (state: FormState) => {

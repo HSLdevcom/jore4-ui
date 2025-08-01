@@ -468,6 +468,4 @@ export const getQuayIdsFromStopExcept = (
   stop?.stop_place?.quays
     ?.map((quay) => quay?.id)
     .filter((id) => id !== quayId)
-    .map((id) => {
-      return { id };
-    }) ?? [];
+    .map((id) => ({ id })) ?? [];

@@ -94,9 +94,11 @@ export const mapRouteStopsToJourneyPatternStops = (
 };
 
 type JourneyPatternWithGenericReturnType<TType> = {
-  scheduled_stop_point_in_journey_patterns: (TType & {
-    scheduled_stop_point_sequence: number;
-  })[];
+  scheduled_stop_point_in_journey_patterns: ReadonlyArray<
+    TType & {
+      scheduled_stop_point_sequence: number;
+    }
+  >;
 };
 
 /**

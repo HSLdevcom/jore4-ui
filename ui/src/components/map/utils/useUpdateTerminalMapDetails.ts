@@ -18,7 +18,7 @@ import { useUpdateTerminal } from '../../stop-registry/terminals/useUpdateTermin
 type UpdateTerminalInputs = {
   readonly terminal: EnrichedParentStopPlace;
   readonly state: TerminalFormState;
-  readonly selectedStops?: SelectedStop[];
+  readonly selectedStops?: ReadonlyArray<SelectedStop>;
 };
 
 const mapFormStateToInput = ({

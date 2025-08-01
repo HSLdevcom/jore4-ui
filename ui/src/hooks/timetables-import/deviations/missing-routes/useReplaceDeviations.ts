@@ -13,18 +13,20 @@ export const useReplaceDeviations = (
   fetchToReplaceFrames: (
     ids: ReadonlyArray<UUID>,
     targetPriority: number,
-  ) => Promise<UUID[]>,
+  ) => Promise<ReadonlyArray<UUID>>,
   fetchVehicleFrames: (
     ids: ReadonlyArray<UUID>,
-  ) => Promise<VehicleScheduleVehicleScheduleFrameWithRoutes[]>,
-  fetchStagingVehicleFrameIds: () => Promise<UUID[]>,
+  ) => Promise<ReadonlyArray<VehicleScheduleVehicleScheduleFrameWithRoutes>>,
+  fetchStagingVehicleFrameIds: () => Promise<ReadonlyArray<UUID>>,
 ) => {
   const { t } = useTranslation();
   const { createVehicleScheduleFrameInfo } =
     useCreateVehicleScheduleFrameInfo();
   const { findOrphanRoutes } = useFindOrphanRoutes();
 
-  const [deviations, setDeviations] = useState<VehicleScheduleFrameInfo[]>([]);
+  const [deviations, setDeviations] = useState<
+    ReadonlyArray<VehicleScheduleFrameInfo>
+  >([]);
 
   const fetchRouteDeviations = useCallback(
     async (targetPriority: TimetablePriority) => {

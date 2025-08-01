@@ -16,10 +16,12 @@ import { isDateInRange } from '../time';
  * }
  */
 type RouteJourneyPatternsWithJourneyPatternRefs = {
-  route_journey_patterns: Pick<
-    RouteTableRowFragment['route_journey_patterns'][0],
-    'journey_pattern_refs'
-  >[];
+  route_journey_patterns: ReadonlyArray<
+    Pick<
+      RouteTableRowFragment['route_journey_patterns'][0],
+      'journey_pattern_refs'
+    >
+  >;
 };
 
 /**

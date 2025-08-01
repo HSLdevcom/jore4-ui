@@ -2,7 +2,7 @@ import { GetStopPointsByQuayIdQuery } from '../../../../../generated/graphql';
 
 export type MoveQuayParams = {
   toStopPlaceId: string;
-  quayIds: string[];
+  quayIds: ReadonlyArray<string>;
   moveQuayFromDate: string;
   fromVersionComment: string;
   toVersionComment: string;
@@ -21,14 +21,14 @@ export type MoveStopPlace = {
   id?: string | null;
   version?: string | null;
   versionComment?: string | null;
-  quays?: Array<{
+  quays?: ReadonlyArray<{
     __typename?: string;
     id?: string | null;
     publicCode?: string | null;
-    keyValues?: Array<{
+    keyValues?: ReadonlyArray<{
       __typename?: string;
       key?: string | null;
-      values?: Array<string | null> | null;
+      values?: ReadonlyArray<string | null> | null;
     } | null> | null;
   } | null> | null;
 };

@@ -11,8 +11,8 @@ export const useStagingAndTargetFramesForCombine = (
   ) => Promise<UUID | null>,
   fetchVehicleFrames: (
     ids: ReadonlyArray<UUID>,
-  ) => Promise<VehicleScheduleVehicleScheduleFrameWithJourneys[]>,
-  fetchStagingVehicleFrameIds: () => Promise<UUID[]>,
+  ) => Promise<ReadonlyArray<VehicleScheduleVehicleScheduleFrameWithJourneys>>,
+  fetchStagingVehicleFrameIds: () => Promise<ReadonlyArray<UUID>>,
 ) => {
   const [
     stagingAndTargetFramesForCombine,

@@ -46,7 +46,7 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
 > = ({ className = '', defaultValues, onSubmit }, ref) => {
   const organisationsResult = useGetOrganisationsQuery();
   const organisations = (organisationsResult.data?.stop_registry
-    ?.organisation ?? []) as Array<StopPlaceOrganisationFieldsFragment>;
+    ?.organisation ?? []) as ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
 
   const methods = useForm<MaintenanceDetailsFormState>({
     defaultValues,

@@ -40,13 +40,13 @@ export const useChooseTimingPlaceDropdown = (
   query: string,
   timingPlaceId?: string,
 ): {
-  timingPlaces: TimingPlaceForComboboxFragment[];
+  timingPlaces: ReadonlyArray<TimingPlaceForComboboxFragment>;
   selectedTimingPlace?: TimingPlaceForComboboxFragment;
 } => {
   const [debouncedQuery] = useDebouncedString(query, 300);
 
   const [timingPlaces, setTimingPlaces] =
-    useState<TimingPlaceForComboboxFragment[]>(Array);
+    useState<ReadonlyArray<TimingPlaceForComboboxFragment>>(Array);
   const timingPlacesResult = useGetTimingPlacesForComboboxQuery(
     mapToVariables({
       labelPattern: `${mapToSqlLikeValue(debouncedQuery)}%`,

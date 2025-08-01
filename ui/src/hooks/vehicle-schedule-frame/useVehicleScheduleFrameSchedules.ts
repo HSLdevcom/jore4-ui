@@ -62,8 +62,8 @@ export type RouteTimetableRowInfo = {
   direction: RouteDirectionEnum;
   nameI18n: LocalizedString;
   label: string;
-  vehicleServiceRowData: VehicleServiceRowData[];
-  vehicleJourneys: VehicleJourneyWithStartTimeInfoFragment[];
+  vehicleServiceRowData: ReadonlyArray<VehicleServiceRowData>;
+  vehicleJourneys: ReadonlyArray<VehicleJourneyWithStartTimeInfoFragment>;
   priority: TimetablePriority;
   vehicleScheduleFrameId: UUID;
   validity: {

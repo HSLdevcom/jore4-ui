@@ -25,7 +25,9 @@ export const CreateNewLinePage = (): React.ReactElement => {
     insertLineMutation,
     defaultErrorHandler,
   } = useCreateLine();
-  const [conflicts, setConflicts] = useState<LineDefaultFieldsFragment[]>([]);
+  const [conflicts, setConflicts] = useState<
+    ReadonlyArray<LineDefaultFieldsFragment>
+  >([]);
   const [createdLineId, setCreatedLineId] = useState<UUID>();
   const { t } = useTranslation();
 

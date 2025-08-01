@@ -52,7 +52,7 @@ const ToggleRow: FC<ToggleRowProps> = ({ toggles }) => {
 const noop = () => null;
 // placeholder toggles of unimplemented features that can be used
 // for visual purposes.
-export const placeholderToggles: IconToggle[] = [
+export const placeholderToggles: ReadonlyArray<IconToggle> = [
   {
     iconClassName: 'icon-tram',
     active: false,

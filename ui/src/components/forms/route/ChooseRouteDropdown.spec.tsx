@@ -25,7 +25,9 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
   const buttonTestId = `${testId}::button`;
   const inputTestId = `${testId}::input`;
 
-  const mocks: MockedResponse<GetRouteDetailsByLabelWildcardQuery>[] = [
+  const mocks: ReadonlyArray<
+    MockedResponse<GetRouteDetailsByLabelWildcardQuery>
+  > = [
     {
       request: {
         query: GetRouteDetailsByLabelWildcardDocument,

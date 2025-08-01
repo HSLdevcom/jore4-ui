@@ -32,7 +32,7 @@ type ListboxProps = FormInputProps & {
   readonly id?: string;
   readonly buttonContent: ReactNode;
   readonly testId?: string;
-  readonly options: ListboxOptionRenderer[];
+  readonly options: ReadonlyArray<ListboxOptionRenderer>;
   readonly buttonClassNames?: string;
   readonly arrowButtonClassNames?: string;
 };
