@@ -68751,79 +68751,23 @@ export type SearchStopsQuery = {
 };
 
 export type GetStopPlaceDetailsQueryVariables = Exact<{
-  id: Scalars['String']['input'];
+  where?: InputMaybe<StopsDatabaseStopPlaceNewestVersionBoolExp>;
 }>;
 
 
 export type GetStopPlaceDetailsQuery = {
   readonly __typename?: 'query_root',
-  readonly stop_registry?: {
-    readonly __typename?: 'stop_registryStopPlaceRegister',
-    readonly stopPlace?: ReadonlyArray<{
-      readonly __typename?: 'stop_registry_ParentStopPlace'
-    } | {
-      readonly __typename?: 'stop_registry_StopPlace',
-      readonly id?: string | null,
-      readonly transportMode?: StopRegistryTransportModeType | null,
-      readonly alternativeNames?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_AlternativeName',
-        readonly nameType: StopRegistryNameType,
-        readonly name: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly lang?: string | null,
-          readonly value?: string | null
-        }
-      } | null> | null,
-      readonly privateCode?: {
-        readonly __typename?: 'stop_registry_PrivateCode',
-        readonly value?: string | null,
-        readonly type?: string | null
-      } | null,
-      readonly name?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null,
-      readonly organisations?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
-        readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
-        readonly organisationRef: string,
-        readonly organisation?: {
-          readonly __typename?: 'stop_registry_Organisation',
-          readonly id?: string | null,
-          readonly name?: string | null,
-          readonly privateContactDetails?: {
-            readonly __typename?: 'stop_registry_Contact',
-            readonly id?: string | null,
-            readonly email?: string | null,
-            readonly phone?: string | null
-          } | null
-        } | null
-      } | null> | null,
-      readonly geometry?: {
-        readonly __typename?: 'stop_registry_GeoJSON',
-        readonly type?: StopRegistryGeoJsonType | null,
-        readonly coordinates?: GeoJSON.Position | null
-      } | null,
-      readonly keyValues?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_KeyValues',
-        readonly key?: string | null,
-        readonly values?: ReadonlyArray<string | null> | null
-      } | null> | null,
-      readonly quays?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_Quay',
+  readonly stopsDb?: {
+    readonly __typename?: 'stops_database_stops_database_query',
+    readonly newestVersion: ReadonlyArray<{
+      readonly __typename?: 'stops_database_stop_place_newest_version',
+      readonly id?: any | null,
+      readonly TiamatStopPlace?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_ParentStopPlace'
+      } | {
+        readonly __typename?: 'stop_registry_StopPlace',
         readonly id?: string | null,
-        readonly publicCode?: string | null,
-        readonly privateCode?: {
-          readonly __typename?: 'stop_registry_PrivateCode',
-          readonly type?: string | null,
-          readonly value?: string | null
-        } | null,
-        readonly description?: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly lang?: string | null,
-          readonly value?: string | null
-        } | null,
+        readonly transportMode?: StopRegistryTransportModeType | null,
         readonly alternativeNames?: ReadonlyArray<{
           readonly __typename?: 'stop_registry_AlternativeName',
           readonly nameType: StopRegistryNameType,
@@ -68833,11 +68777,225 @@ export type GetStopPlaceDetailsQuery = {
             readonly value?: string | null
           }
         } | null> | null,
+        readonly privateCode?: {
+          readonly __typename?: 'stop_registry_PrivateCode',
+          readonly value?: string | null,
+          readonly type?: string | null
+        } | null,
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        } | null,
+        readonly organisations?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+          readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+          readonly organisationRef: string,
+          readonly organisation?: {
+            readonly __typename?: 'stop_registry_Organisation',
+            readonly id?: string | null,
+            readonly name?: string | null,
+            readonly privateContactDetails?: {
+              readonly __typename?: 'stop_registry_Contact',
+              readonly id?: string | null,
+              readonly email?: string | null,
+              readonly phone?: string | null
+            } | null
+          } | null
+        } | null> | null,
         readonly geometry?: {
           readonly __typename?: 'stop_registry_GeoJSON',
-          readonly coordinates?: GeoJSON.Position | null,
-          readonly type?: StopRegistryGeoJsonType | null
+          readonly type?: StopRegistryGeoJsonType | null,
+          readonly coordinates?: GeoJSON.Position | null
         } | null,
+        readonly keyValues?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_KeyValues',
+          readonly key?: string | null,
+          readonly values?: ReadonlyArray<string | null> | null
+        } | null> | null,
+        readonly quays?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_Quay',
+          readonly id?: string | null,
+          readonly publicCode?: string | null,
+          readonly privateCode?: {
+            readonly __typename?: 'stop_registry_PrivateCode',
+            readonly type?: string | null,
+            readonly value?: string | null
+          } | null,
+          readonly description?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly lang?: string | null,
+            readonly value?: string | null
+          } | null,
+          readonly alternativeNames?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_AlternativeName',
+            readonly nameType: StopRegistryNameType,
+            readonly name: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly lang?: string | null,
+              readonly value?: string | null
+            }
+          } | null> | null,
+          readonly geometry?: {
+            readonly __typename?: 'stop_registry_GeoJSON',
+            readonly coordinates?: GeoJSON.Position | null,
+            readonly type?: StopRegistryGeoJsonType | null
+          } | null,
+          readonly accessibilityAssessment?: {
+            readonly __typename?: 'stop_registry_AccessibilityAssessment',
+            readonly id?: string | null,
+            readonly hslAccessibilityProperties?: {
+              readonly __typename?: 'stop_registry_HslAccessibilityProperties',
+              readonly id?: string | null,
+              readonly stopAreaSideSlope?: number | null,
+              readonly stopAreaLengthwiseSlope?: number | null,
+              readonly endRampSlope?: number | null,
+              readonly shelterLaneDistance?: number | null,
+              readonly curbBackOfRailDistance?: number | null,
+              readonly curbDriveSideOfRailDistance?: number | null,
+              readonly structureLaneDistance?: number | null,
+              readonly stopElevationFromRailTop?: number | null,
+              readonly stopElevationFromSidewalk?: number | null,
+              readonly lowerCleatHeight?: number | null,
+              readonly serviceAreaWidth?: number | null,
+              readonly serviceAreaLength?: number | null,
+              readonly platformEdgeWarningArea?: boolean | null,
+              readonly guidanceTiles?: boolean | null,
+              readonly guidanceStripe?: boolean | null,
+              readonly serviceAreaStripes?: boolean | null,
+              readonly sidewalkAccessibleConnection?: boolean | null,
+              readonly stopAreaSurroundingsAccessible?: boolean | null,
+              readonly curvedStop?: boolean | null,
+              readonly stopType?: StopRegistryStopType | null,
+              readonly shelterType?: StopRegistryShelterWidthType | null,
+              readonly guidanceType?: StopRegistryGuidanceType | null,
+              readonly mapType?: StopRegistryMapType | null,
+              readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
+              readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
+            } | null,
+            readonly limitations?: {
+              readonly __typename?: 'stop_registry_AccessibilityLimitations',
+              readonly id?: string | null,
+              readonly version?: string | null,
+              readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+              readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+              readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
+              readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
+              readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
+            } | null
+          } | null,
+          readonly keyValues?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_KeyValues',
+            readonly key?: string | null,
+            readonly values?: ReadonlyArray<string | null> | null
+          } | null> | null,
+          readonly infoSpots?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_infoSpot',
+            readonly id?: string | null,
+            readonly backlight?: boolean | null,
+            readonly displayType?: StopRegistryDisplayType | null,
+            readonly floor?: string | null,
+            readonly label?: string | null,
+            readonly width?: number | null,
+            readonly height?: number | null,
+            readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+            readonly infoSpotType?: StopRegistryInfoSpotType | null,
+            readonly purpose?: string | null,
+            readonly railInformation?: string | null,
+            readonly speechProperty?: boolean | null,
+            readonly zoneLabel?: string | null,
+            readonly description?: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly lang?: string | null,
+              readonly value?: string | null
+            } | null,
+            readonly poster?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_poster',
+              readonly label?: string | null,
+              readonly width?: number | null,
+              readonly height?: number | null,
+              readonly lines?: string | null
+            } | null> | null
+          } | null> | null,
+          readonly placeEquipments?: {
+            readonly __typename?: 'stop_registry_PlaceEquipments',
+            readonly id?: string | null,
+            readonly shelterEquipment?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_ShelterEquipment',
+              readonly id?: string | null,
+              readonly enclosed?: boolean | null,
+              readonly stepFree?: boolean | null,
+              readonly shelterNumber?: number | null,
+              readonly shelterType?: StopRegistryShelterType | null,
+              readonly shelterElectricity?: StopRegistryShelterElectricity | null,
+              readonly shelterLighting?: boolean | null,
+              readonly shelterCondition?: StopRegistryShelterCondition | null,
+              readonly timetableCabinets?: number | null,
+              readonly trashCan?: boolean | null,
+              readonly shelterHasDisplay?: boolean | null,
+              readonly bicycleParking?: boolean | null,
+              readonly leaningRail?: boolean | null,
+              readonly outsideBench?: boolean | null,
+              readonly shelterFasciaBoardTaping?: boolean | null,
+              readonly shelterExternalId?: string | null
+            } | null> | null,
+            readonly cycleStorageEquipment?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_CycleStorageEquipment',
+              readonly cycleStorageType?: StopRegistryCycleStorageType | null
+            } | null> | null,
+            readonly generalSign?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_GeneralSign',
+              readonly signContentType?: StopRegistrySignContentType | null,
+              readonly numberOfFrames?: number | null,
+              readonly lineSignage?: boolean | null,
+              readonly mainLineSign?: boolean | null,
+              readonly replacesRailSign?: boolean | null,
+              readonly privateCode?: {
+                readonly __typename?: 'stop_registry_PrivateCode',
+                readonly value?: string | null,
+                readonly type?: string | null
+              } | null,
+              readonly content?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly value?: string | null
+              } | null,
+              readonly note?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null
+            } | null> | null
+          } | null,
+          readonly scheduled_stop_point?: {
+            readonly __typename?: 'service_pattern_scheduled_stop_point',
+            readonly priority: number,
+            readonly direction: InfrastructureNetworkDirectionEnum,
+            readonly scheduled_stop_point_id: UUID,
+            readonly label: string,
+            readonly timing_place_id?: UUID | null,
+            readonly validity_start?: luxon.DateTime | null,
+            readonly validity_end?: luxon.DateTime | null,
+            readonly located_on_infrastructure_link_id: UUID,
+            readonly stop_place_ref?: string | null,
+            readonly measured_location: GeoJSON.Point,
+            readonly timing_place?: {
+              readonly __typename?: 'timing_pattern_timing_place',
+              readonly timing_place_id: UUID,
+              readonly label: string
+            } | null,
+            readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+              readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+              readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+            }>
+          } | null,
+          readonly externalLinks?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_externalLink',
+            readonly quayId?: number | null,
+            readonly orderNum?: number | null,
+            readonly name?: string | null,
+            readonly location?: string | null
+          } | null> | null
+        } | null> | null,
         readonly accessibilityAssessment?: {
           readonly __typename?: 'stop_registry_AccessibilityAssessment',
           readonly id?: string | null,
@@ -68881,180 +69039,26 @@ export type GetStopPlaceDetailsQuery = {
             readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
           } | null
         } | null,
-        readonly keyValues?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_KeyValues',
-          readonly key?: string | null,
-          readonly values?: ReadonlyArray<string | null> | null
-        } | null> | null,
-        readonly infoSpots?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_infoSpot',
+        readonly topographicPlace?: {
+          readonly __typename?: 'stop_registry_TopographicPlace',
           readonly id?: string | null,
-          readonly backlight?: boolean | null,
-          readonly displayType?: StopRegistryDisplayType | null,
-          readonly floor?: string | null,
-          readonly label?: string | null,
-          readonly width?: number | null,
-          readonly height?: number | null,
-          readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
-          readonly infoSpotType?: StopRegistryInfoSpotType | null,
-          readonly purpose?: string | null,
-          readonly railInformation?: string | null,
-          readonly speechProperty?: boolean | null,
-          readonly zoneLabel?: string | null,
-          readonly description?: {
+          readonly name?: {
             readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-            readonly lang?: string | null,
-            readonly value?: string | null
-          } | null,
-          readonly poster?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_poster',
-            readonly label?: string | null,
-            readonly width?: number | null,
-            readonly height?: number | null,
-            readonly lines?: string | null
-          } | null> | null
-        } | null> | null,
-        readonly placeEquipments?: {
-          readonly __typename?: 'stop_registry_PlaceEquipments',
+            readonly value?: string | null,
+            readonly lang?: string | null
+          } | null
+        } | null,
+        readonly fareZones?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_FareZone',
           readonly id?: string | null,
-          readonly shelterEquipment?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_ShelterEquipment',
-            readonly id?: string | null,
-            readonly enclosed?: boolean | null,
-            readonly stepFree?: boolean | null,
-            readonly shelterNumber?: number | null,
-            readonly shelterType?: StopRegistryShelterType | null,
-            readonly shelterElectricity?: StopRegistryShelterElectricity | null,
-            readonly shelterLighting?: boolean | null,
-            readonly shelterCondition?: StopRegistryShelterCondition | null,
-            readonly timetableCabinets?: number | null,
-            readonly trashCan?: boolean | null,
-            readonly shelterHasDisplay?: boolean | null,
-            readonly bicycleParking?: boolean | null,
-            readonly leaningRail?: boolean | null,
-            readonly outsideBench?: boolean | null,
-            readonly shelterFasciaBoardTaping?: boolean | null,
-            readonly shelterExternalId?: string | null
-          } | null> | null,
-          readonly cycleStorageEquipment?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_CycleStorageEquipment',
-            readonly cycleStorageType?: StopRegistryCycleStorageType | null
-          } | null> | null,
-          readonly generalSign?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_GeneralSign',
-            readonly signContentType?: StopRegistrySignContentType | null,
-            readonly numberOfFrames?: number | null,
-            readonly lineSignage?: boolean | null,
-            readonly mainLineSign?: boolean | null,
-            readonly replacesRailSign?: boolean | null,
-            readonly privateCode?: {
-              readonly __typename?: 'stop_registry_PrivateCode',
-              readonly value?: string | null,
-              readonly type?: string | null
-            } | null,
-            readonly content?: {
-              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-              readonly value?: string | null
-            } | null,
-            readonly note?: {
-              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-              readonly lang?: string | null,
-              readonly value?: string | null
-            } | null
-          } | null> | null
-        } | null,
-        readonly scheduled_stop_point?: {
-          readonly __typename?: 'service_pattern_scheduled_stop_point',
-          readonly priority: number,
-          readonly direction: InfrastructureNetworkDirectionEnum,
-          readonly scheduled_stop_point_id: UUID,
-          readonly label: string,
-          readonly timing_place_id?: UUID | null,
-          readonly validity_start?: luxon.DateTime | null,
-          readonly validity_end?: luxon.DateTime | null,
-          readonly located_on_infrastructure_link_id: UUID,
-          readonly stop_place_ref?: string | null,
-          readonly measured_location: GeoJSON.Point,
-          readonly timing_place?: {
-            readonly __typename?: 'timing_pattern_timing_place',
-            readonly timing_place_id: UUID,
-            readonly label: string
-          } | null,
-          readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
-            readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
-            readonly vehicle_mode: ReusableComponentsVehicleModeEnum
-          }>
-        } | null,
-        readonly externalLinks?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_externalLink',
-          readonly quayId?: number | null,
-          readonly orderNum?: number | null,
-          readonly name?: string | null,
-          readonly location?: string | null
+          readonly name?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly value?: string | null,
+            readonly lang?: string | null
+          } | null
         } | null> | null
-      } | null> | null,
-      readonly accessibilityAssessment?: {
-        readonly __typename?: 'stop_registry_AccessibilityAssessment',
-        readonly id?: string | null,
-        readonly hslAccessibilityProperties?: {
-          readonly __typename?: 'stop_registry_HslAccessibilityProperties',
-          readonly id?: string | null,
-          readonly stopAreaSideSlope?: number | null,
-          readonly stopAreaLengthwiseSlope?: number | null,
-          readonly endRampSlope?: number | null,
-          readonly shelterLaneDistance?: number | null,
-          readonly curbBackOfRailDistance?: number | null,
-          readonly curbDriveSideOfRailDistance?: number | null,
-          readonly structureLaneDistance?: number | null,
-          readonly stopElevationFromRailTop?: number | null,
-          readonly stopElevationFromSidewalk?: number | null,
-          readonly lowerCleatHeight?: number | null,
-          readonly serviceAreaWidth?: number | null,
-          readonly serviceAreaLength?: number | null,
-          readonly platformEdgeWarningArea?: boolean | null,
-          readonly guidanceTiles?: boolean | null,
-          readonly guidanceStripe?: boolean | null,
-          readonly serviceAreaStripes?: boolean | null,
-          readonly sidewalkAccessibleConnection?: boolean | null,
-          readonly stopAreaSurroundingsAccessible?: boolean | null,
-          readonly curvedStop?: boolean | null,
-          readonly stopType?: StopRegistryStopType | null,
-          readonly shelterType?: StopRegistryShelterWidthType | null,
-          readonly guidanceType?: StopRegistryGuidanceType | null,
-          readonly mapType?: StopRegistryMapType | null,
-          readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
-          readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
-        } | null,
-        readonly limitations?: {
-          readonly __typename?: 'stop_registry_AccessibilityLimitations',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
-          readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
-          readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
-          readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
-          readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
-        } | null
-      } | null,
-      readonly topographicPlace?: {
-        readonly __typename?: 'stop_registry_TopographicPlace',
-        readonly id?: string | null,
-        readonly name?: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly value?: string | null,
-          readonly lang?: string | null
-        } | null
-      } | null,
-      readonly fareZones?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_FareZone',
-        readonly id?: string | null,
-        readonly name?: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly value?: string | null,
-          readonly lang?: string | null
-        } | null
       } | null> | null
-    } | null> | null
+    }>
   } | null
 };
 
@@ -78683,10 +78687,13 @@ export type SearchStopsLazyQueryHookResult = ReturnType<typeof useSearchStopsLaz
 export type SearchStopsSuspenseQueryHookResult = ReturnType<typeof useSearchStopsSuspenseQuery>;
 export type SearchStopsQueryResult = Apollo.QueryResult<SearchStopsQuery, SearchStopsQueryVariables>;
 export const GetStopPlaceDetailsDocument = gql`
-    query getStopPlaceDetails($id: String!) {
-  stop_registry {
-    stopPlace(id: $id, onlyMonomodalStopPlaces: true) {
-      ...stop_place_details
+    query getStopPlaceDetails($where: stops_database_stop_place_newest_version_bool_exp) {
+  stopsDb: stops_database {
+    newestVersion: stops_database_stop_place_newest_version(where: $where) {
+      id
+      TiamatStopPlace {
+        ...stop_place_details
+      }
     }
   }
 }
@@ -78704,11 +78711,11 @@ export const GetStopPlaceDetailsDocument = gql`
  * @example
  * const { data, loading, error } = useGetStopPlaceDetailsQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      where: // value for 'where'
  *   },
  * });
  */
-export function useGetStopPlaceDetailsQuery(baseOptions: Apollo.QueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables> & ({ variables: GetStopPlaceDetailsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetStopPlaceDetailsQuery(baseOptions?: Apollo.QueryHookOptions<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>(GetStopPlaceDetailsDocument, options);
       }
