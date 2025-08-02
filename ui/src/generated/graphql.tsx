@@ -69931,124 +69931,6 @@ export type AddToMultiModalStopPlaceMutation = {
   } | null
 };
 
-export type CreateTerminalMutationVariables = Exact<{
-  input: StopRegistryCreateMultiModalStopPlaceInput;
-}>;
-
-
-export type CreateTerminalMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly stop_registry?: {
-    readonly __typename?: 'stop_registryStopPlaceMutation',
-    readonly createMultiModalStopPlace?: {
-      readonly __typename?: 'stop_registry_ParentStopPlace',
-      readonly id?: string | null,
-      readonly alternativeNames?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_AlternativeName',
-        readonly nameType: StopRegistryNameType,
-        readonly name: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly lang?: string | null,
-          readonly value?: string | null
-        }
-      } | null> | null,
-      readonly privateCode?: {
-        readonly __typename?: 'stop_registry_PrivateCode',
-        readonly value?: string | null,
-        readonly type?: string | null
-      } | null,
-      readonly name?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null,
-      readonly description?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null,
-      readonly geometry?: {
-        readonly __typename?: 'stop_registry_GeoJSON',
-        readonly type?: StopRegistryGeoJsonType | null,
-        readonly coordinates?: GeoJSON.Position | null
-      } | null,
-      readonly keyValues?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_KeyValues',
-        readonly key?: string | null,
-        readonly values?: ReadonlyArray<string | null> | null
-      } | null> | null,
-      readonly accessibilityAssessment?: {
-        readonly __typename?: 'stop_registry_AccessibilityAssessment',
-        readonly id?: string | null,
-        readonly hslAccessibilityProperties?: {
-          readonly __typename?: 'stop_registry_HslAccessibilityProperties',
-          readonly id?: string | null,
-          readonly stopAreaSideSlope?: number | null,
-          readonly stopAreaLengthwiseSlope?: number | null,
-          readonly endRampSlope?: number | null,
-          readonly shelterLaneDistance?: number | null,
-          readonly curbBackOfRailDistance?: number | null,
-          readonly curbDriveSideOfRailDistance?: number | null,
-          readonly structureLaneDistance?: number | null,
-          readonly stopElevationFromRailTop?: number | null,
-          readonly stopElevationFromSidewalk?: number | null,
-          readonly lowerCleatHeight?: number | null,
-          readonly serviceAreaWidth?: number | null,
-          readonly serviceAreaLength?: number | null,
-          readonly platformEdgeWarningArea?: boolean | null,
-          readonly guidanceTiles?: boolean | null,
-          readonly guidanceStripe?: boolean | null,
-          readonly serviceAreaStripes?: boolean | null,
-          readonly sidewalkAccessibleConnection?: boolean | null,
-          readonly stopAreaSurroundingsAccessible?: boolean | null,
-          readonly curvedStop?: boolean | null,
-          readonly stopType?: StopRegistryStopType | null,
-          readonly shelterType?: StopRegistryShelterWidthType | null,
-          readonly guidanceType?: StopRegistryGuidanceType | null,
-          readonly mapType?: StopRegistryMapType | null,
-          readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
-          readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
-        } | null,
-        readonly limitations?: {
-          readonly __typename?: 'stop_registry_AccessibilityLimitations',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
-          readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
-          readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
-          readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
-          readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
-        } | null
-      } | null,
-      readonly children?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_StopPlace',
-        readonly id?: string | null,
-        readonly name?: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly value?: string | null
-        } | null,
-        readonly quays?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_Quay',
-          readonly id?: string | null,
-          readonly publicCode?: string | null,
-          readonly keyValues?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_KeyValues',
-            readonly key?: string | null,
-            readonly values?: ReadonlyArray<string | null> | null
-          } | null> | null
-        } | null> | null
-      } | null> | null,
-      readonly externalLinks?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_stopPlaceExternalLink',
-        readonly stopPlaceId?: number | null,
-        readonly orderNum?: number | null,
-        readonly name?: string | null,
-        readonly location?: string | null
-      } | null> | null
-    } | null
-  } | null
-};
-
 export type GetParentStopPlaceDetailsQueryVariables = Exact<{
   privateCode: Scalars['String']['input'];
   validOn: Scalars['String']['input'];
@@ -70317,124 +70199,6 @@ export type TerminalExternalLinksDetailsFragment = {
   readonly orderNum?: number | null,
   readonly name?: string | null,
   readonly location?: string | null
-};
-
-export type UpdateTerminalMutationVariables = Exact<{
-  input: StopRegistryParentStopPlaceInput;
-}>;
-
-
-export type UpdateTerminalMutation = {
-  readonly __typename?: 'mutation_root',
-  readonly stop_registry?: {
-    readonly __typename?: 'stop_registryStopPlaceMutation',
-    readonly mutateParentStopPlace?: ReadonlyArray<{
-      readonly __typename?: 'stop_registry_ParentStopPlace',
-      readonly id?: string | null,
-      readonly alternativeNames?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_AlternativeName',
-        readonly nameType: StopRegistryNameType,
-        readonly name: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly lang?: string | null,
-          readonly value?: string | null
-        }
-      } | null> | null,
-      readonly privateCode?: {
-        readonly __typename?: 'stop_registry_PrivateCode',
-        readonly value?: string | null,
-        readonly type?: string | null
-      } | null,
-      readonly name?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null,
-      readonly description?: {
-        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-        readonly lang?: string | null,
-        readonly value?: string | null
-      } | null,
-      readonly geometry?: {
-        readonly __typename?: 'stop_registry_GeoJSON',
-        readonly type?: StopRegistryGeoJsonType | null,
-        readonly coordinates?: GeoJSON.Position | null
-      } | null,
-      readonly keyValues?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_KeyValues',
-        readonly key?: string | null,
-        readonly values?: ReadonlyArray<string | null> | null
-      } | null> | null,
-      readonly accessibilityAssessment?: {
-        readonly __typename?: 'stop_registry_AccessibilityAssessment',
-        readonly id?: string | null,
-        readonly hslAccessibilityProperties?: {
-          readonly __typename?: 'stop_registry_HslAccessibilityProperties',
-          readonly id?: string | null,
-          readonly stopAreaSideSlope?: number | null,
-          readonly stopAreaLengthwiseSlope?: number | null,
-          readonly endRampSlope?: number | null,
-          readonly shelterLaneDistance?: number | null,
-          readonly curbBackOfRailDistance?: number | null,
-          readonly curbDriveSideOfRailDistance?: number | null,
-          readonly structureLaneDistance?: number | null,
-          readonly stopElevationFromRailTop?: number | null,
-          readonly stopElevationFromSidewalk?: number | null,
-          readonly lowerCleatHeight?: number | null,
-          readonly serviceAreaWidth?: number | null,
-          readonly serviceAreaLength?: number | null,
-          readonly platformEdgeWarningArea?: boolean | null,
-          readonly guidanceTiles?: boolean | null,
-          readonly guidanceStripe?: boolean | null,
-          readonly serviceAreaStripes?: boolean | null,
-          readonly sidewalkAccessibleConnection?: boolean | null,
-          readonly stopAreaSurroundingsAccessible?: boolean | null,
-          readonly curvedStop?: boolean | null,
-          readonly stopType?: StopRegistryStopType | null,
-          readonly shelterType?: StopRegistryShelterWidthType | null,
-          readonly guidanceType?: StopRegistryGuidanceType | null,
-          readonly mapType?: StopRegistryMapType | null,
-          readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
-          readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
-        } | null,
-        readonly limitations?: {
-          readonly __typename?: 'stop_registry_AccessibilityLimitations',
-          readonly id?: string | null,
-          readonly version?: string | null,
-          readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
-          readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
-          readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
-          readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
-          readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
-        } | null
-      } | null,
-      readonly children?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_StopPlace',
-        readonly id?: string | null,
-        readonly name?: {
-          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
-          readonly value?: string | null
-        } | null,
-        readonly quays?: ReadonlyArray<{
-          readonly __typename?: 'stop_registry_Quay',
-          readonly id?: string | null,
-          readonly publicCode?: string | null,
-          readonly keyValues?: ReadonlyArray<{
-            readonly __typename?: 'stop_registry_KeyValues',
-            readonly key?: string | null,
-            readonly values?: ReadonlyArray<string | null> | null
-          } | null> | null
-        } | null> | null
-      } | null> | null,
-      readonly externalLinks?: ReadonlyArray<{
-        readonly __typename?: 'stop_registry_stopPlaceExternalLink',
-        readonly stopPlaceId?: number | null,
-        readonly orderNum?: number | null,
-        readonly name?: string | null,
-        readonly location?: string | null
-      } | null> | null
-    } | null> | null
-  } | null
 };
 
 export type VehicleJourneyByStopFragment = {
@@ -73658,16 +73422,252 @@ export type DeleteStopAreaMutation = {
   } | null
 };
 
+export type CreateTerminalMutationVariables = Exact<{
+  input: StopRegistryCreateMultiModalStopPlaceInput;
+}>;
+
+
+export type CreateTerminalMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly stop_registry?: {
+    readonly __typename?: 'stop_registryStopPlaceMutation',
+    readonly createMultiModalStopPlace?: {
+      readonly __typename?: 'stop_registry_ParentStopPlace',
+      readonly id?: string | null,
+      readonly alternativeNames?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_AlternativeName',
+        readonly nameType: StopRegistryNameType,
+        readonly name: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        }
+      } | null> | null,
+      readonly privateCode?: {
+        readonly __typename?: 'stop_registry_PrivateCode',
+        readonly value?: string | null,
+        readonly type?: string | null
+      } | null,
+      readonly name?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null,
+      readonly description?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null,
+      readonly geometry?: {
+        readonly __typename?: 'stop_registry_GeoJSON',
+        readonly type?: StopRegistryGeoJsonType | null,
+        readonly coordinates?: GeoJSON.Position | null
+      } | null,
+      readonly keyValues?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_KeyValues',
+        readonly key?: string | null,
+        readonly values?: ReadonlyArray<string | null> | null
+      } | null> | null,
+      readonly accessibilityAssessment?: {
+        readonly __typename?: 'stop_registry_AccessibilityAssessment',
+        readonly id?: string | null,
+        readonly hslAccessibilityProperties?: {
+          readonly __typename?: 'stop_registry_HslAccessibilityProperties',
+          readonly id?: string | null,
+          readonly stopAreaSideSlope?: number | null,
+          readonly stopAreaLengthwiseSlope?: number | null,
+          readonly endRampSlope?: number | null,
+          readonly shelterLaneDistance?: number | null,
+          readonly curbBackOfRailDistance?: number | null,
+          readonly curbDriveSideOfRailDistance?: number | null,
+          readonly structureLaneDistance?: number | null,
+          readonly stopElevationFromRailTop?: number | null,
+          readonly stopElevationFromSidewalk?: number | null,
+          readonly lowerCleatHeight?: number | null,
+          readonly serviceAreaWidth?: number | null,
+          readonly serviceAreaLength?: number | null,
+          readonly platformEdgeWarningArea?: boolean | null,
+          readonly guidanceTiles?: boolean | null,
+          readonly guidanceStripe?: boolean | null,
+          readonly serviceAreaStripes?: boolean | null,
+          readonly sidewalkAccessibleConnection?: boolean | null,
+          readonly stopAreaSurroundingsAccessible?: boolean | null,
+          readonly curvedStop?: boolean | null,
+          readonly stopType?: StopRegistryStopType | null,
+          readonly shelterType?: StopRegistryShelterWidthType | null,
+          readonly guidanceType?: StopRegistryGuidanceType | null,
+          readonly mapType?: StopRegistryMapType | null,
+          readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
+          readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
+        } | null,
+        readonly limitations?: {
+          readonly __typename?: 'stop_registry_AccessibilityLimitations',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+          readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+          readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
+          readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
+          readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
+        } | null
+      } | null,
+      readonly children?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_StopPlace',
+        readonly id?: string | null,
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly value?: string | null
+        } | null,
+        readonly quays?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_Quay',
+          readonly id?: string | null,
+          readonly publicCode?: string | null,
+          readonly keyValues?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_KeyValues',
+            readonly key?: string | null,
+            readonly values?: ReadonlyArray<string | null> | null
+          } | null> | null
+        } | null> | null
+      } | null> | null,
+      readonly externalLinks?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_stopPlaceExternalLink',
+        readonly stopPlaceId?: number | null,
+        readonly orderNum?: number | null,
+        readonly name?: string | null,
+        readonly location?: string | null
+      } | null> | null
+    } | null
+  } | null
+};
+
 export type DeleteTerminalMutationVariables = Exact<{
   terminalId: Scalars['String']['input'];
 }>;
 
 
 export type DeleteTerminalMutation = {
-  __typename?: 'mutation_root',
-  stop_registry?: {
-    __typename?: 'stop_registryStopPlaceMutation',
-    deleteStopPlace?: boolean | null
+  readonly __typename?: 'mutation_root',
+  readonly stop_registry?: {
+    readonly __typename?: 'stop_registryStopPlaceMutation',
+    readonly deleteStopPlace?: boolean | null
+  } | null
+};
+
+export type UpdateTerminalMutationVariables = Exact<{
+  input: StopRegistryParentStopPlaceInput;
+}>;
+
+
+export type UpdateTerminalMutation = {
+  readonly __typename?: 'mutation_root',
+  readonly stop_registry?: {
+    readonly __typename?: 'stop_registryStopPlaceMutation',
+    readonly mutateParentStopPlace?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_ParentStopPlace',
+      readonly id?: string | null,
+      readonly alternativeNames?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_AlternativeName',
+        readonly nameType: StopRegistryNameType,
+        readonly name: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        }
+      } | null> | null,
+      readonly privateCode?: {
+        readonly __typename?: 'stop_registry_PrivateCode',
+        readonly value?: string | null,
+        readonly type?: string | null
+      } | null,
+      readonly name?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null,
+      readonly description?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null,
+      readonly geometry?: {
+        readonly __typename?: 'stop_registry_GeoJSON',
+        readonly type?: StopRegistryGeoJsonType | null,
+        readonly coordinates?: GeoJSON.Position | null
+      } | null,
+      readonly keyValues?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_KeyValues',
+        readonly key?: string | null,
+        readonly values?: ReadonlyArray<string | null> | null
+      } | null> | null,
+      readonly accessibilityAssessment?: {
+        readonly __typename?: 'stop_registry_AccessibilityAssessment',
+        readonly id?: string | null,
+        readonly hslAccessibilityProperties?: {
+          readonly __typename?: 'stop_registry_HslAccessibilityProperties',
+          readonly id?: string | null,
+          readonly stopAreaSideSlope?: number | null,
+          readonly stopAreaLengthwiseSlope?: number | null,
+          readonly endRampSlope?: number | null,
+          readonly shelterLaneDistance?: number | null,
+          readonly curbBackOfRailDistance?: number | null,
+          readonly curbDriveSideOfRailDistance?: number | null,
+          readonly structureLaneDistance?: number | null,
+          readonly stopElevationFromRailTop?: number | null,
+          readonly stopElevationFromSidewalk?: number | null,
+          readonly lowerCleatHeight?: number | null,
+          readonly serviceAreaWidth?: number | null,
+          readonly serviceAreaLength?: number | null,
+          readonly platformEdgeWarningArea?: boolean | null,
+          readonly guidanceTiles?: boolean | null,
+          readonly guidanceStripe?: boolean | null,
+          readonly serviceAreaStripes?: boolean | null,
+          readonly sidewalkAccessibleConnection?: boolean | null,
+          readonly stopAreaSurroundingsAccessible?: boolean | null,
+          readonly curvedStop?: boolean | null,
+          readonly stopType?: StopRegistryStopType | null,
+          readonly shelterType?: StopRegistryShelterWidthType | null,
+          readonly guidanceType?: StopRegistryGuidanceType | null,
+          readonly mapType?: StopRegistryMapType | null,
+          readonly pedestrianCrossingRampType?: StopRegistryPedestrianCrossingRampType | null,
+          readonly accessibilityLevel?: StopRegistryAccessibilityLevel | null
+        } | null,
+        readonly limitations?: {
+          readonly __typename?: 'stop_registry_AccessibilityLimitations',
+          readonly id?: string | null,
+          readonly version?: string | null,
+          readonly audibleSignalsAvailable?: StopRegistryLimitationStatusType | null,
+          readonly escalatorFreeAccess?: StopRegistryLimitationStatusType | null,
+          readonly liftFreeAccess?: StopRegistryLimitationStatusType | null,
+          readonly stepFreeAccess?: StopRegistryLimitationStatusType | null,
+          readonly wheelchairAccess?: StopRegistryLimitationStatusType | null
+        } | null
+      } | null,
+      readonly children?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_StopPlace',
+        readonly id?: string | null,
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly value?: string | null
+        } | null,
+        readonly quays?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_Quay',
+          readonly id?: string | null,
+          readonly publicCode?: string | null,
+          readonly keyValues?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_KeyValues',
+            readonly key?: string | null,
+            readonly values?: ReadonlyArray<string | null> | null
+          } | null> | null
+        } | null> | null
+      } | null> | null,
+      readonly externalLinks?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_stopPlaceExternalLink',
+        readonly stopPlaceId?: number | null,
+        readonly orderNum?: number | null,
+        readonly name?: string | null,
+        readonly location?: string | null
+      } | null> | null
+    } | null> | null
   } | null
 };
 
@@ -79556,41 +79556,6 @@ export function useAddToMultiModalStopPlaceMutation(baseOptions?: Apollo.Mutatio
 export type AddToMultiModalStopPlaceMutationHookResult = ReturnType<typeof useAddToMultiModalStopPlaceMutation>;
 export type AddToMultiModalStopPlaceMutationResult = Apollo.MutationResult<AddToMultiModalStopPlaceMutation>;
 export type AddToMultiModalStopPlaceMutationOptions = Apollo.BaseMutationOptions<AddToMultiModalStopPlaceMutation, AddToMultiModalStopPlaceMutationVariables>;
-export const CreateTerminalDocument = gql`
-    mutation CreateTerminal($input: stop_registry_createMultiModalStopPlaceInput!) {
-  stop_registry {
-    createMultiModalStopPlace(input: $input) {
-      ...parent_stop_place_details
-    }
-  }
-}
-    ${ParentStopPlaceDetailsFragmentDoc}`;
-export type CreateTerminalMutationFn = Apollo.MutationFunction<CreateTerminalMutation, CreateTerminalMutationVariables>;
-
-/**
- * __useCreateTerminalMutation__
- *
- * To run a mutation, you first call `useCreateTerminalMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateTerminalMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createTerminalMutation, { data, loading, error }] = useCreateTerminalMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateTerminalMutation(baseOptions?: Apollo.MutationHookOptions<CreateTerminalMutation, CreateTerminalMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateTerminalMutation, CreateTerminalMutationVariables>(CreateTerminalDocument, options);
-      }
-export type CreateTerminalMutationHookResult = ReturnType<typeof useCreateTerminalMutation>;
-export type CreateTerminalMutationResult = Apollo.MutationResult<CreateTerminalMutation>;
-export type CreateTerminalMutationOptions = Apollo.BaseMutationOptions<CreateTerminalMutation, CreateTerminalMutationVariables>;
 export const GetParentStopPlaceDetailsDocument = gql`
     query getParentStopPlaceDetails($privateCode: String!, $validOn: String!) {
   stops_database {
@@ -79639,41 +79604,6 @@ export type GetParentStopPlaceDetailsQueryHookResult = ReturnType<typeof useGetP
 export type GetParentStopPlaceDetailsLazyQueryHookResult = ReturnType<typeof useGetParentStopPlaceDetailsLazyQuery>;
 export type GetParentStopPlaceDetailsSuspenseQueryHookResult = ReturnType<typeof useGetParentStopPlaceDetailsSuspenseQuery>;
 export type GetParentStopPlaceDetailsQueryResult = Apollo.QueryResult<GetParentStopPlaceDetailsQuery, GetParentStopPlaceDetailsQueryVariables>;
-export const UpdateTerminalDocument = gql`
-    mutation UpdateTerminal($input: stop_registry_ParentStopPlaceInput!) {
-  stop_registry {
-    mutateParentStopPlace(ParentStopPlace: $input) {
-      ...parent_stop_place_details
-    }
-  }
-}
-    ${ParentStopPlaceDetailsFragmentDoc}`;
-export type UpdateTerminalMutationFn = Apollo.MutationFunction<UpdateTerminalMutation, UpdateTerminalMutationVariables>;
-
-/**
- * __useUpdateTerminalMutation__
- *
- * To run a mutation, you first call `useUpdateTerminalMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateTerminalMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateTerminalMutation, { data, loading, error }] = useUpdateTerminalMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateTerminalMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTerminalMutation, UpdateTerminalMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateTerminalMutation, UpdateTerminalMutationVariables>(UpdateTerminalDocument, options);
-      }
-export type UpdateTerminalMutationHookResult = ReturnType<typeof useUpdateTerminalMutation>;
-export type UpdateTerminalMutationResult = Apollo.MutationResult<UpdateTerminalMutation>;
-export type UpdateTerminalMutationOptions = Apollo.BaseMutationOptions<UpdateTerminalMutation, UpdateTerminalMutationVariables>;
 export const GetRouteWithJourneyPatternDocument = gql`
     query GetRouteWithJourneyPattern($routeId: uuid!) {
   route_route_by_pk(route_id: $routeId) {
@@ -81303,6 +81233,41 @@ export function useDeleteStopAreaMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteStopAreaMutationHookResult = ReturnType<typeof useDeleteStopAreaMutation>;
 export type DeleteStopAreaMutationResult = Apollo.MutationResult<DeleteStopAreaMutation>;
 export type DeleteStopAreaMutationOptions = Apollo.BaseMutationOptions<DeleteStopAreaMutation, DeleteStopAreaMutationVariables>;
+export const CreateTerminalDocument = gql`
+    mutation CreateTerminal($input: stop_registry_createMultiModalStopPlaceInput!) {
+  stop_registry {
+    createMultiModalStopPlace(input: $input) {
+      ...parent_stop_place_details
+    }
+  }
+}
+    ${ParentStopPlaceDetailsFragmentDoc}`;
+export type CreateTerminalMutationFn = Apollo.MutationFunction<CreateTerminalMutation, CreateTerminalMutationVariables>;
+
+/**
+ * __useCreateTerminalMutation__
+ *
+ * To run a mutation, you first call `useCreateTerminalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTerminalMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTerminalMutation, { data, loading, error }] = useCreateTerminalMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateTerminalMutation(baseOptions?: Apollo.MutationHookOptions<CreateTerminalMutation, CreateTerminalMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateTerminalMutation, CreateTerminalMutationVariables>(CreateTerminalDocument, options);
+      }
+export type CreateTerminalMutationHookResult = ReturnType<typeof useCreateTerminalMutation>;
+export type CreateTerminalMutationResult = Apollo.MutationResult<CreateTerminalMutation>;
+export type CreateTerminalMutationOptions = Apollo.BaseMutationOptions<CreateTerminalMutation, CreateTerminalMutationVariables>;
 export const DeleteTerminalDocument = gql`
     mutation DeleteTerminal($terminalId: String!) {
   stop_registry {
@@ -81336,6 +81301,41 @@ export function useDeleteTerminalMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteTerminalMutationHookResult = ReturnType<typeof useDeleteTerminalMutation>;
 export type DeleteTerminalMutationResult = Apollo.MutationResult<DeleteTerminalMutation>;
 export type DeleteTerminalMutationOptions = Apollo.BaseMutationOptions<DeleteTerminalMutation, DeleteTerminalMutationVariables>;
+export const UpdateTerminalDocument = gql`
+    mutation UpdateTerminal($input: stop_registry_ParentStopPlaceInput!) {
+  stop_registry {
+    mutateParentStopPlace(ParentStopPlace: $input) {
+      ...parent_stop_place_details
+    }
+  }
+}
+    ${ParentStopPlaceDetailsFragmentDoc}`;
+export type UpdateTerminalMutationFn = Apollo.MutationFunction<UpdateTerminalMutation, UpdateTerminalMutationVariables>;
+
+/**
+ * __useUpdateTerminalMutation__
+ *
+ * To run a mutation, you first call `useUpdateTerminalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTerminalMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTerminalMutation, { data, loading, error }] = useUpdateTerminalMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTerminalMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTerminalMutation, UpdateTerminalMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTerminalMutation, UpdateTerminalMutationVariables>(UpdateTerminalDocument, options);
+      }
+export type UpdateTerminalMutationHookResult = ReturnType<typeof useUpdateTerminalMutation>;
+export type UpdateTerminalMutationResult = Apollo.MutationResult<UpdateTerminalMutation>;
+export type UpdateTerminalMutationOptions = Apollo.BaseMutationOptions<UpdateTerminalMutation, UpdateTerminalMutationVariables>;
 export const UpdateStopPlaceDocument = gql`
     mutation UpdateStopPlace($input: stop_registry_StopPlaceInput!) {
   stop_registry {
