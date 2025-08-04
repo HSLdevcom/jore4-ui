@@ -21,6 +21,8 @@ export enum QueryParameterName {
   DayType = 'dayType',
   StartDate = 'startDate',
   EndDate = 'endDate',
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  Priority = 'priority',
 }
 
 export type QueryParameter<TType> = { paramName: string; value: TType };
