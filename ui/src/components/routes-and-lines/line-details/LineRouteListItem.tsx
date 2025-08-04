@@ -83,12 +83,9 @@ export const LineRouteListItem: FC<LineRouteListItemProps> = ({
       />
       {isExpanded && (
         <ul id={routeStopListElementId}>
-          {displayedStops.map((item, index) => (
+          {displayedStops.map((item) => (
             <RouteStopListItem
-              // This list is recreated every time when changes happen, so we can
-              // use index as key here
-              // eslint-disable-next-line react/no-array-index-key
-              key={`${item.label}_${index}`}
+              key={item.scheduled_stop_point_id}
               stop={item}
               route={route}
               labelledBy={directionAndLabelElementId}
