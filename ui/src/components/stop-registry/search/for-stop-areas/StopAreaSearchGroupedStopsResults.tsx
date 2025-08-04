@@ -29,8 +29,8 @@ export const StopAreaSearchGroupedStopsResults: FC<
   // or null in case there are no results.
   useEffect(() => {
     if (
-      areaToShow &&
-      stopAreas.some((area) => area.id.toString(10) === areaToShow.id)
+      activeAreaId &&
+      stopAreas.some((area) => area.id.toString(10) === activeAreaId)
     ) {
       return;
     }

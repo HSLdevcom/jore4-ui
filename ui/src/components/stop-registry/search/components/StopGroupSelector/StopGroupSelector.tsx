@@ -1,36 +1,312 @@
-import { RadioGroup } from '@headlessui/react';
-import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  FocusEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  ReactNode,
+  RefObject,
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { Visible } from '../../../../../layoutComponents';
 import { StopGroupOption } from './StopGroupOption';
 import { StopGroupSelectorItem } from './StopGroupSelectorItem';
-import { useVisibilityMap } from './useVisibilityMap';
+import { VisibilityMap, useVisibilityMap } from './useVisibilityMap';
 
 const testIds = {
   showAll: `StopGroupSelector::showAllButton`,
   showLess: `StopGroupSelector::showLessButton`,
 };
 
-type StopGroupSelectorProps<ID> = {
+function stopEvent(event: SyntheticEvent) {
+  event.stopPropagation();
+  event.preventDefault();
+}
+
+/**
+ * Walk up through the DOM tree from start up to topParent,
+ * and try to find a HTMLElement that has data-group-id attribute.
+ *
+ * @param start 1st child to test
+ * @param topParent assumed ancestor of start
+ */
+function findChildGroupElement(
+  start: Element,
+  topParent: Element,
+): HTMLElement | null {
+  let current: Element | null = start;
+
+  while (current && current !== topParent) {
+    if (current instanceof HTMLElement) {
+      const { groupId } = current.dataset;
+      if (typeof groupId === 'string') {
+        return current;
+      }
+    }
+
+    current = current.parentElement;
+  }
+
+  return null;
+}
+
+/**
+ * Perform findChildGroupElement on the Event targets.
+ *
+ * @param target start from
+ * @param currentTarget search up to
+ */
+function findGroupElementFromEvent({
+  target,
+  currentTarget,
+}: SyntheticEvent): HTMLElement | null {
+  if (
+    !(target instanceof HTMLElement) ||
+    !(currentTarget instanceof HTMLElement)
+  ) {
+    return null;
+  }
+
+  return findChildGroupElement(target, currentTarget);
+}
+
+function useControls(
+  groups: ReadonlyArray<StopGroupSelectorItem<string>>,
+  onSelect: (selected: string | null) => void,
+  showAll: boolean,
+  visibilityMap: VisibilityMap<string>,
+  groupListRef: RefObject<HTMLElement | null>,
+) {
+  const onMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
+    const group = findGroupElementFromEvent(e);
+    if (group) {
+      const { groupId } = group.dataset;
+      if (typeof groupId === 'string') {
+        onSelect(groupId);
+      }
+    }
+  };
+
+  // Find the child element with the given id as data-group-id.
+  // Used to focus previous/next group.
+  const focusByGroupId = (groupId: string) => {
+    if (!visibilityMap[groupId] || groupListRef.current === null) {
+      return;
+    }
+
+    const targetElement = groupListRef.current.querySelector(
+      `[data-group-id="${groupId}"]`,
+    );
+    if (targetElement instanceof HTMLElement) {
+      targetElement.focus();
+    }
+  };
+
+  // On left arrow
+  const onFocusPrevious = (currentGroupId: string) => {
+    const findIndex = groups.findIndex((group) => group.id === currentGroupId);
+    if (findIndex >= 1) {
+      focusByGroupId(groups[findIndex - 1].id);
+    }
+  };
+
+  // On right arrow
+  const onFocusNext = (currentGroupId: string) => {
+    const findIndex = groups.findIndex((group) => group.id === currentGroupId);
+    if (findIndex >= 0 && findIndex < groups.length - 1) {
+      focusByGroupId(groups[findIndex + 1].id);
+    }
+  };
+
+  // Focus the group visually above or below (technically allows left/right too)
+  // the currently focused group.
+  const focusByVisualLocation = (
+    currentGroup: HTMLElement,
+    getCoordinates: (
+      rect: DOMRect,
+      gapInPixels: number,
+    ) => { x: number; y: number },
+  ) => {
+    if (groupListRef.current === null) {
+      return;
+    }
+
+    // Compute the pixel size of the list elements gap CSS attribute
+    const gapInPixels = Number.parseFloat(
+      window.getComputedStyle(groupListRef.current).gap,
+    );
+
+    const { x, y } = getCoordinates(
+      currentGroup.getBoundingClientRect(),
+      gapInPixels,
+    );
+
+    // Resolve top most element at xy coordinated relative to viewport.
+    const elementAtPoint = document.elementFromPoint(x, y);
+
+    // See if we have a valid group element as or as an ancestor of the
+    // element found at the coordinates.
+    if (elementAtPoint && groupListRef.current.contains(elementAtPoint)) {
+      const groupElement = findChildGroupElement(
+        elementAtPoint,
+        groupListRef.current,
+      );
+
+      // If found -> Focus!
+      groupElement?.focus();
+    }
+  };
+
+  // On up arrow
+  const onFocusAbove = (currentGroup: HTMLElement) => {
+    focusByVisualLocation(
+      currentGroup,
+      ({ height, top, width, left }, gapInPixels) => ({
+        x: Math.round(left + width / 2),
+        y: Math.round(top - height / 2 - gapInPixels),
+      }),
+    );
+  };
+
+  // On down arrow
+  const onFocusBelow = (currentGroup: HTMLElement) => {
+    focusByVisualLocation(
+      currentGroup,
+      ({ height, bottom, width, left }, gapInPixels) => ({
+        x: Math.round(left + width / 2),
+        y: Math.round(bottom + height / 2 + gapInPixels),
+      }),
+    );
+  };
+
+  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = (e) => {
+    const group = findGroupElementFromEvent(e);
+
+    if (group) {
+      const { groupId } = group.dataset;
+      if (typeof groupId !== 'string') {
+        return;
+      }
+
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+        return;
+      }
+
+      switch (e.key) {
+        case ' ':
+          onSelect(groupId);
+          stopEvent(e);
+          break;
+
+        case 'ArrowLeft':
+          onFocusPrevious(groupId);
+          stopEvent(e);
+          break;
+
+        case 'ArrowRight':
+          onFocusNext(groupId);
+          stopEvent(e);
+          break;
+
+        case 'ArrowUp':
+          onFocusAbove(group);
+          stopEvent(e);
+          break;
+
+        case 'ArrowDown':
+          onFocusBelow(group);
+          stopEvent(e);
+          break;
+
+        default:
+          break;
+      }
+    }
+  };
+
+  const scrollSelectedIntoView = useCallback(
+    (behavior: ScrollBehavior) => {
+      if (!groupListRef.current) {
+        return;
+      }
+
+      const selected = groupListRef.current.querySelector(
+        '[aria-checked="true"]',
+      );
+
+      if (!selected) {
+        return;
+      }
+
+      const selectedRect = selected.getBoundingClientRect();
+      const containerRect = groupListRef.current.getBoundingClientRect();
+      const visible =
+        selectedRect.left >= containerRect.left &&
+        selectedRect.right <= containerRect.right &&
+        selectedRect.top >= containerRect.top &&
+        selectedRect.bottom <= containerRect.bottom;
+
+      if (!visible) {
+        selected.scrollIntoView({
+          block: 'center',
+          inline: 'center',
+          behavior,
+        });
+      }
+    },
+    [groupListRef],
+  );
+
+  const onFocus: FocusEventHandler<HTMLDivElement> = (e) => {
+    const group = findGroupElementFromEvent(e);
+    if (group) {
+      group.scrollIntoView({
+        block: 'center',
+        inline: 'center',
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const onBlur: FocusEventHandler<HTMLDivElement> = (e) => {
+    if (
+      groupListRef.current !== null &&
+      !groupListRef.current.contains(e.relatedTarget) &&
+      !showAll
+    ) {
+      scrollSelectedIntoView('smooth');
+    }
+  };
+
+  return { onMouseDown, onKeyDown, onBlur, onFocus, scrollSelectedIntoView };
+}
+
+type StopGroupSelectorProps = {
   readonly className?: string;
-  readonly groups: ReadonlyArray<StopGroupSelectorItem<ID>>;
+  readonly groups: ReadonlyArray<StopGroupSelectorItem<string>>;
   readonly label: ReactNode;
-  readonly onSelect: (selected: UUID | null) => void;
-  readonly selected: ID | null;
+  readonly onSelect: (selected: string | null) => void;
+  readonly selected: string | null;
 };
 
 const SHOW_ALL_BY_DEFAULT_MAX = 20;
 const MAX_PADDING = 5;
 
-export const StopGroupSelector = <ID extends string>({
+export const StopGroupSelector = ({
   className,
   groups,
   label: radioGroupLabel,
   onSelect,
   selected,
-}: StopGroupSelectorProps<ID>) => {
+}: StopGroupSelectorProps) => {
   const { t } = useTranslation();
+  const id = useId();
 
   const showAllByDefault = groups.length <= SHOW_ALL_BY_DEFAULT_MAX;
   const [showAll, setShowAll] = useState(showAllByDefault);
@@ -54,16 +330,32 @@ export const StopGroupSelector = <ID extends string>({
     [groups],
   );
 
-  return (
-    <RadioGroup
-      className={twMerge('flex gap-2', className)}
-      onChange={onSelect}
-      value={selected}
-    >
-      <RadioGroup.Label className="mt-2">{radioGroupLabel}</RadioGroup.Label>
+  const { onMouseDown, onBlur, onFocus, onKeyDown, scrollSelectedIntoView } =
+    useControls(groups, onSelect, showAll, visibilityMap, groupListRef);
 
+  useEffect(() => {
+    scrollSelectedIntoView('instant');
+  }, [groups, scrollSelectedIntoView]);
+
+  return (
+    <div
+      className={twMerge('flex gap-2', className)}
+      role="radiogroup"
+      aria-labelledby={id}
+    >
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label id={id} className="mt-2" role="none">
+        {radioGroupLabel}
+      </label>
+
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
+        onMouseDown={onMouseDown}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onKeyDown={onKeyDown}
         className={twJoin(
+          // focusByVisualLocation relies on the gap CSS attribute being present.
           'flex items-center gap-2 overflow-hidden',
           showAll ? 'flex-wrap' : '',
         )}
@@ -74,6 +366,7 @@ export const StopGroupSelector = <ID extends string>({
             key={group.id}
             group={group}
             longestLabel={longestLabel}
+            selected={group.id === selected}
             showAll={showAll}
             showAllByDefault={showAllByDefault}
             visible={visibilityMap[group.id]}
@@ -85,7 +378,12 @@ export const StopGroupSelector = <ID extends string>({
           <button
             className="text-nowrap text-base font-bold text-brand"
             data-testid={testIds.showLess}
-            onClick={() => setShowAll(false)}
+            onClick={() => {
+              setShowAll(false);
+              setTimeout(() => {
+                scrollSelectedIntoView('instant');
+              }, 0);
+            }}
             type="button"
           >
             {t('stopRegistrySearch.showLessLines')}
@@ -104,6 +402,6 @@ export const StopGroupSelector = <ID extends string>({
           {t('stopRegistrySearch.showAllLines', { count: groups.length })}
         </button>
       </Visible>
-    </RadioGroup>
+    </div>
   );
 };
