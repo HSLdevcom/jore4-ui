@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { useObservationDateQueryParam } from '../../../../../hooks';
 import { EnrichedStopPlace } from '../../../../../types';
 import { StopAreaComponentProps, StopAreaMemberRow } from '../types';
 import { mapMembersToStopSearchFormat } from '../utils';
@@ -26,6 +27,11 @@ export const StopAreaMemberStopRows: FC<StopAreaComponentProps> = ({
   className = '',
 }) => {
   const { t } = useTranslation();
+
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
+
   const memberStops = mapRows(t, area);
 
   if (memberStops.length === 0) {
@@ -44,6 +50,7 @@ export const StopAreaMemberStopRows: FC<StopAreaComponentProps> = ({
           <StopAreaMemberStopRow
             key={member.quay.scheduled_stop_point_id}
             member={member}
+            observationDate={observationDate}
           />
         ))}
       </tbody>

@@ -1,10 +1,14 @@
+import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
+import { useAppSelector, useObservationDateQueryParam } from '../../../hooks';
 import { Column, Row, Visible } from '../../../layoutComponents';
+import { FilterType, selectMapFilter } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { parseDate } from '../../../time';
+import { Priority } from '../../../types/enums';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import { mapToValidityPeriod } from '../../../utils';
 import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
@@ -26,6 +30,33 @@ const testIds = {
   closeButton: 'StopPopUp::closeButton',
 };
 
+function useLinkToDetailsPage(
+  publicCode: string,
+  validityStart: DateTime,
+  priority: Priority,
+): string {
+  const { stopFilters } = useAppSelector(selectMapFilter);
+
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
+
+  const showHighestPriorityCurrentStops =
+    stopFilters[FilterType.ShowHighestPriorityCurrentStops];
+
+  // AKA default map mode. → Standard/Temp prio, on selected day.
+  if (showHighestPriorityCurrentStops) {
+    return routeDetails[Path.stopDetails].getLink(publicCode, {
+      observationDate,
+    });
+  }
+
+  return routeDetails[Path.stopDetails].getLink(publicCode, {
+    observationDate: validityStart,
+    priority,
+  });
+}
+
 export const StopPopup: FC<StopPopupProps> = ({
   stop,
   onEdit,
@@ -34,6 +65,7 @@ export const StopPopup: FC<StopPopupProps> = ({
   onDelete,
 }) => {
   const { t } = useTranslation();
+
   const {
     formState: {
       publicCode: { value: stopLabel },
@@ -50,6 +82,12 @@ export const StopPopup: FC<StopPopupProps> = ({
   const validityStart = parseDate(validityStartStr);
   const validityEnd = parseDate(validityEndStr);
 
+  const linkToDetailsPage = useLinkToDetailsPage(
+    stopLabel,
+    validityStart,
+    priority,
+  );
+
   return (
     <Popup
       className="z-[3] mt-5 min-w-80"
@@ -65,7 +103,7 @@ export const StopPopup: FC<StopPopupProps> = ({
             <Row className="items-center">
               <h3>
                 <a
-                  href={routeDetails[Path.stopDetails].getLink(stopLabel)}
+                  href={linkToDetailsPage}
                   target="_blank"
                   rel="noreferrer"
                   data-testid={testIds.label}

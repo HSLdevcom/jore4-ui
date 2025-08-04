@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { StopSearchRow } from '../types';
@@ -13,6 +14,7 @@ type StopTableRowProps = {
   readonly className?: string;
   readonly inEditMode?: boolean;
   readonly menuItems: ReactNode;
+  readonly observationDate: DateTime;
   readonly stop: StopSearchRow;
 };
 
@@ -27,6 +29,7 @@ export const StopTableRow: FC<StopTableRowProps> = ({
   className = '',
   inEditMode,
   menuItems,
+  observationDate,
   stop,
 }) => {
   return (
@@ -41,6 +44,7 @@ export const StopTableRow: FC<StopTableRowProps> = ({
 
       <LabelAndTimingPlaceTd
         className={`w-auto px-4 py-3 pr-20 ${yBorderClassNames}`}
+        observationDate={observationDate}
         stop={stop}
       />
 

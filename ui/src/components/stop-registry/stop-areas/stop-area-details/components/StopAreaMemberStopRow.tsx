@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { mapLngLatToPoint } from '../../../../../utils';
 import {
@@ -23,10 +24,12 @@ function getRowBgClassName(added: boolean, selected: boolean) {
 
 type StopAreaMemberStopRowProps = {
   readonly member: StopAreaMemberRow;
+  readonly observationDate: DateTime;
 };
 
 export const StopAreaMemberStopRow: FC<StopAreaMemberStopRowProps> = ({
   member: { quay, selected, added },
+  observationDate,
 }) => {
   const locatableStop: LocatableStop = {
     label: quay.label,
@@ -37,12 +40,13 @@ export const StopAreaMemberStopRow: FC<StopAreaMemberStopRowProps> = ({
   return (
     <StopTableRow
       className={getRowBgClassName(added, selected)}
-      stop={quay}
       actionButtons={<LocatorActionButton stop={locatableStop} />}
       menuItems={[
         <OpenDetailsPage key="OpenDetailsPage" stop={locatableStop} />,
         <ShowOnMap key="ShowOnMap" stop={locatableStop} />,
       ]}
+      observationDate={observationDate}
+      stop={quay}
     />
   );
 };

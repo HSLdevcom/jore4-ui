@@ -2540,13 +2540,14 @@ describe('Stop details', () => {
       stopDetailsPage.loadingStopDetails().should('not.exist');
       stopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-');
 
-      // Return to showing the Draft version
+      // Returning to date based versioning should keep the Temp version and
+      // not show the Draft version.
       stopDetailsPage
         .returnToDateBasedVersionSelection()
         .shouldBeVisible()
         .click();
       stopDetailsPage.loadingStopDetails().should('not.exist');
-      stopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-1.4.2020');
+      stopDetailsPage.validityPeriod().shouldHaveText('20.3.2020-');
     });
 
     it('should modify a version without overlap', () => {

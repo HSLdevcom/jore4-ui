@@ -1,5 +1,7 @@
+import { DateTime } from 'luxon';
 import React, { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { useObservationDateQueryParam } from '../../../../hooks';
 import { mapLngLatToPoint } from '../../../../utils';
 import {
   LocatorActionButton,
@@ -14,8 +16,14 @@ const testIds = {
   table: 'StopSearchByStopResultList::table',
 };
 
-type StopSearchResultRowProps = { readonly stop: StopSearchRow };
-const StopSearchResultRow: FC<StopSearchResultRowProps> = ({ stop }) => {
+type StopSearchResultRowProps = {
+  readonly observationDate: DateTime;
+  readonly stop: StopSearchRow;
+};
+const StopSearchResultRow: FC<StopSearchResultRowProps> = ({
+  observationDate,
+  stop,
+}) => {
   const locatableStop: LocatableStop = {
     label: stop.label,
     netextId: stop.quay.netexId ?? null,
@@ -29,6 +37,7 @@ const StopSearchResultRow: FC<StopSearchResultRowProps> = ({ stop }) => {
         <ShowOnMap key="showOnMap" stop={locatableStop} />,
         <OpenDetailsPage key="openDetails" stop={locatableStop} />,
       ]}
+      observationDate={observationDate}
       stop={stop}
     />
   );
@@ -42,6 +51,10 @@ type StopSearchResultStopsTableProps = {
 export const StopSearchResultStopsTable: FC<
   StopSearchResultStopsTableProps
 > = ({ className, stops }) => {
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
+
   return (
     <table
       className={twMerge('h-1 w-full border-x border-x-light-grey', className)}
@@ -49,7 +62,11 @@ export const StopSearchResultStopsTable: FC<
     >
       <tbody>
         {stops?.map((stop: StopSearchRow) => (
-          <StopSearchResultRow key={stop.scheduled_stop_point_id} stop={stop} />
+          <StopSearchResultRow
+            key={stop.scheduled_stop_point_id}
+            observationDate={observationDate ?? null}
+            stop={stop}
+          />
         ))}
       </tbody>
     </table>

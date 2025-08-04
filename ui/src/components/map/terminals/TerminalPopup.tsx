@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
+import { useObservationDateQueryParam } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { parseDate } from '../../../time';
@@ -39,6 +40,10 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
+
   const point = getGeometryPoint(terminal.geometry);
   const terminalLabel = terminal.privateCode?.value;
   const terminalName = terminal.name ?? '';
@@ -64,6 +69,7 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
                 <a
                   href={routeDetails[Path.terminalDetails].getLink(
                     terminalLabel,
+                    { observationDate },
                   )}
                   target="_blank"
                   rel="noreferrer"

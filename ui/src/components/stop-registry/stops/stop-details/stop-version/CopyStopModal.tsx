@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useObservationDateQueryParam } from '../../../../../hooks';
+import { useNavigate } from 'react-router';
+import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { StopWithDetails } from '../../../../../types';
 import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
@@ -30,7 +31,7 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
   const { t } = useTranslation();
   const wrappedOnClose = useWrapInContextNavigation('CopyStopForm')(onClose);
 
-  const { setObservationDateToUrl } = useObservationDateQueryParam();
+  const navigate = useNavigate();
 
   const { ranges, loading: loadingExistingValidityRanges } =
     useResolveExistingStopValidityRanges({
@@ -41,7 +42,13 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
   const onCopyCreated = (result: CreateStopVersionResult) => {
     onClose();
     if (result.stopPointInput.validity_start) {
-      setObservationDateToUrl(result.stopPointInput.validity_start);
+      navigate(
+        routeDetails[Path.stopDetails].getLink(result.stopPointInput.label, {
+          observationDate: result.stopPointInput.validity_start,
+          priority: result.stopPointInput.priority,
+        }),
+        { replace: true },
+      );
     }
   };
 

@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { useObservationDateQueryParam } from '../../../../../hooks';
+import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { StopWithDetails } from '../../../../../types';
 import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
@@ -30,8 +32,9 @@ export const EditStopModal: FC<EditStopModalProps> = ({
   const { t } = useTranslation();
   const wrappedOnClose = useWrapInContextNavigation('EditStopForm')(onClose);
 
-  const { setObservationDateToUrl, observationDate } =
-    useObservationDateQueryParam();
+  const { observationDate } = useObservationDateQueryParam();
+
+  const navigate = useNavigate();
 
   const { ranges, loading: loadingExistingValidityRanges } =
     useResolveExistingStopValidityRanges({
@@ -49,7 +52,13 @@ export const EditStopModal: FC<EditStopModalProps> = ({
     onClose();
 
     if (result.validityStart) {
-      setObservationDateToUrl(result.validityStart);
+      navigate(
+        routeDetails[Path.stopDetails].getLink(originalStop?.label, {
+          observationDate: result.validityStart,
+          priority: result.priority,
+        }),
+        { replace: true },
+      );
     }
   };
 

@@ -391,7 +391,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             >
               <a
                 data-testid="RouteStopListItem::label"
-                href="/stop-registry/stops/H1234"
+                href="/stop-registry/stops/H1234?observationDate=2017-02-14"
                 title="Näytä pysäkin H1234 tiedot"
               >
                 H1234
@@ -495,7 +495,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             >
               <a
                 data-testid="RouteStopListItem::label"
-                href="/stop-registry/stops/H1236"
+                href="/stop-registry/stops/H1236?observationDate=2017-02-14"
                 title="Näytä pysäkin H1236 tiedot"
               >
                 H1236
@@ -795,7 +795,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             >
               <a
                 data-testid="RouteStopListItem::label"
-                href="/stop-registry/stops/H1234"
+                href="/stop-registry/stops/H1234?observationDate=2017-02-14"
                 title="Näytä pysäkin H1234 tiedot"
               >
                 H1234
@@ -899,7 +899,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             >
               <a
                 data-testid="RouteStopListItem::label"
-                href="/stop-registry/stops/H1235"
+                href="/stop-registry/stops/H1235?observationDate=2017-02-14"
                 title="Näytä pysäkin H1235 tiedot"
               >
                 H1235
@@ -1003,7 +1003,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             >
               <a
                 data-testid="RouteStopListItem::label"
-                href="/stop-registry/stops/H1236"
+                href="/stop-registry/stops/H1236?observationDate=2017-02-14"
                 title="Näytä pysäkin H1236 tiedot"
               >
                 H1236
@@ -1072,7 +1072,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:r5:"
+                id="headlessui-menu-button-:r3:"
                 title="Lisää toimintoja pysäkille H1236"
                 type="button"
               >

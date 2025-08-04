@@ -6,7 +6,7 @@ import { Container, Visible } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { navigationBlockerContext } from '../../../forms/common/NavigationBlocker';
-import { BasicDetailsSection } from './basic-details/BasicDetailsSection';
+import { BasicDetailsSection } from './basic-details';
 import {
   DetailTabSelector,
   DetailTabType,
@@ -15,11 +15,11 @@ import {
 import { EditStopValidityButton } from './EditStopValidityButton';
 import { StopExternalLinks } from './external-links/StopExternalLinks';
 import { SheltersInfoSpotsSection } from './info-spots/SheltersInfoSpots';
-import { LocationDetailsSection } from './location-details/LocationDetailsSection';
+import { LocationDetailsSection } from './location-details';
 import { MaintenanceSection } from './maintenance';
 import { MeasurementsSection } from './measurements';
 import { SheltersSection } from './shelters';
-import { SignageDetailsSection } from './signage-details/SignageDetailsSection';
+import { SignageDetailsSection } from './signage-details';
 import { StopDetailsVersion } from './StopDetailsVersion';
 import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
 import { StopTitleRow } from './title-row/StopTitleRow';

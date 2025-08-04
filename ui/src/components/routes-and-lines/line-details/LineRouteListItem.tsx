@@ -89,6 +89,7 @@ export const LineRouteListItem: FC<LineRouteListItemProps> = ({
               stop={item}
               route={route}
               labelledBy={directionAndLabelElementId}
+              observationDate={observationDate}
             />
           ))}
         </ul>

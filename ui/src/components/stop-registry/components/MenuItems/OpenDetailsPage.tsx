@@ -1,4 +1,3 @@
-import qs from 'qs';
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -22,18 +21,19 @@ const OpenDetailsPageImpl: ForwardRefRenderFunction<
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const pathname = routeDetails[Path.stopDetails].getLink(stop.label);
-  const search = qs.stringify(
-    { observationDate: observationDate?.toISODate(), priority },
-    { addQueryPrefix: true },
-  );
-
   return (
     <SimpleDropdownMenuItem
       ref={ref}
       className={className}
       text={t('stopRegistrySearch.stopRowActions.openDetails')}
-      onClick={() => navigate({ pathname, search })}
+      onClick={() =>
+        navigate(
+          routeDetails[Path.stopDetails].getLink(stop.label, {
+            observationDate,
+            priority,
+          }),
+        )
+      }
       testId={testIds.showStopDetails}
     />
   );

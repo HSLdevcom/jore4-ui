@@ -1,7 +1,9 @@
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
+import { DateTime } from 'luxon';
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useObservationDateQueryParam } from '../../../hooks';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { EnrichedStopPlace } from '../../../types';
 import { DialogWithButtons } from '../../../uiComponents';
@@ -22,6 +24,7 @@ type ConfirmationContent = {
 function getDeleteBlockedContent(
   t: TFunction,
   stopArea: EnrichedStopPlace,
+  observationDate: DateTime,
 ): ConfirmationContent {
   return {
     body: (
@@ -34,7 +37,9 @@ function getDeleteBlockedContent(
           {compact(stopArea.quays).map((quay) => (
             <li key={quay?.id}>
               <a
-                href={routeDetails[Path.stopDetails].getLink(quay.publicCode)}
+                href={routeDetails[Path.stopDetails].getLink(quay.publicCode, {
+                  observationDate,
+                })}
                 target="_blank"
                 rel="noreferrer"
                 data-testid={testIds.linkToMemberStop(quay.publicCode ?? '')}
@@ -58,9 +63,10 @@ function getDeleteBlockedContent(
 function getConfirmationContent(
   t: TFunction,
   stopArea: EnrichedStopPlace,
+  observationDate: DateTime,
 ): ConfirmationContent {
   if (compact(stopArea.quays).length) {
-    return getDeleteBlockedContent(t, stopArea);
+    return getDeleteBlockedContent(t, stopArea, observationDate);
   }
 
   return {
@@ -82,7 +88,15 @@ export const ConfirmStopAreaDeletionDialog: FC<
 > = ({ isOpen, onConfirm, onCancel, className = '', stopArea }) => {
   const { t } = useTranslation();
 
-  const { body, isDeletable } = getConfirmationContent(t, stopArea);
+  const { observationDate } = useObservationDateQueryParam({
+    initialize: false,
+  });
+
+  const { body, isDeletable } = getConfirmationContent(
+    t,
+    stopArea,
+    observationDate,
+  );
 
   return (
     <DialogWithButtons

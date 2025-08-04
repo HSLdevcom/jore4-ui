@@ -20,12 +20,12 @@ import {
   StopPlaceInfoSpots,
   StopWithDetails,
 } from '../../types';
+import { Priority } from '../../types/enums';
 import {
   findKeyValue,
   getQuayDetailsForEnrichment,
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
-  notNullish,
 } from '../../utils';
 import { useObservationDateQueryParam, useUrlQuery } from '../urlQuery';
 import { useRequiredParams } from '../useRequiredParams';
@@ -343,21 +343,26 @@ function getCorrectQuay(
   observationDateTs: number,
   priority: number,
 ): Quay | null {
-  const validQuays = quays
-    ?.filter(notNullish)
+  const validQuays = compact(quays)
     .filter((it) => it.publicCode === requestedPublicCode)
     .filter(validOn(observationDateTs));
 
   if (Number.isFinite(priority)) {
     return (
-      validQuays?.find(
+      validQuays.find(
         (quay) => findKeyValue(quay, 'priority') === String(priority),
       ) ?? null
     );
   }
 
+  // Ignore drafts by default. Only show if requested separately by priority query param.
+  // This is to align the behaviour of the page with how the map works.
+  const nonDraftQuays = validQuays.filter(
+    (quay) => Number(findKeyValue(quay, 'priority')) !== Priority.Draft,
+  );
   return (
-    maxBy(validQuays, (quay) => Number(findKeyValue(quay, 'priority'))) ?? null
+    maxBy(nonDraftQuays, (quay) => Number(findKeyValue(quay, 'priority'))) ??
+    null
   );
 }
 
@@ -416,6 +421,7 @@ function getWhereCondition(
   const labelCondition: ServicePatternScheduledStopPointBoolExp = {
     label: { _eq: label },
   };
+
   const observationDateCondition: ServicePatternScheduledStopPointBoolExp = {
     _and: [
       { validity_start: { _lte: observationDate } },
@@ -428,18 +434,15 @@ function getWhereCondition(
     ],
   };
 
-  if (Number.isFinite(priority)) {
-    return {
-      _and: [
-        labelCondition,
-        observationDateCondition,
-        { priority: { _eq: priority } },
-      ],
-    };
-  }
+  // Ignore drafts by default. Only show if requested separately by priority query param.
+  // This is to align the behaviour of the page with how the map works.
+  const priorityCondition: ServicePatternScheduledStopPointBoolExp =
+    Number.isFinite(priority)
+      ? { priority: { _eq: priority } }
+      : { priority: { _neq: Priority.Draft } };
 
   return {
-    _and: [labelCondition, observationDateCondition],
+    _and: [labelCondition, observationDateCondition, priorityCondition],
   };
 }
 

@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -9,8 +10,13 @@ const testIds = {
   link: 'StopTableRow::link',
 };
 
-export const LabelAndTimingPlaceTd: FC<StopRowTdProps> = ({
+type LabelAndTimingPlaceTdProps = StopRowTdProps & {
+  readonly observationDate: DateTime;
+};
+
+export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
   className,
+  observationDate,
   stop,
 }) => {
   const { t } = useTranslation();
@@ -18,7 +24,10 @@ export const LabelAndTimingPlaceTd: FC<StopRowTdProps> = ({
     <td className={className}>
       <Row className="mb-2 items-center font-bold leading-none">
         <Link
-          to={routeDetails[Path.stopDetails].getLink(stop.label)}
+          to={routeDetails[Path.stopDetails].getLink(stop.label, {
+            observationDate,
+            priority: stop.priority,
+          })}
           data-testid={testIds.link}
           title={t('accessibility:stops.showStopDetails', {
             stopLabel: stop.label,

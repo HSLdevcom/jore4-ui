@@ -580,6 +580,9 @@ describe(`<${LineRouteList.name} />`, () => {
     ).getByTestId('RouteStopListItem::label');
     expect(label).toHaveTextContent('H1234');
     expect(label.title).toContain('H1234');
-    expect(label).toHaveAttribute('href', '/stop-registry/stops/H1234');
+    expect(label).toHaveAttribute(
+      'href',
+      '/stop-registry/stops/H1234?observationDate=2017-02-14',
+    );
   });
 });

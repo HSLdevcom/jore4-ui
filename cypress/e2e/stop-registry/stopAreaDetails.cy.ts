@@ -250,7 +250,11 @@ describe('Stop area details', () => {
         memberStops
           .getLink()
           .shouldBeVisible()
-          .should('have.attr', 'href', `/stop-registry/stops/${label}`);
+          .should(
+            'have.attr',
+            'href',
+            `/stop-registry/stops/${label}?observationDate=${DateTime.now().toISODate()}&priority=10`,
+          );
 
         memberStops.getShowOnMapButton().shouldBeVisible();
 

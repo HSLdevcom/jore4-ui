@@ -38,6 +38,7 @@ type RouteStopListItemProps = {
   readonly stop: RouteStopFieldsFragment;
   readonly route: RouteWithInfrastructureLinksWithStopsAndJpsFragment;
   readonly labelledBy: string;
+  readonly observationDate: DateTime;
 };
 
 export const RouteStopListItem: FC<RouteStopListItemProps> = ({
@@ -45,6 +46,7 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
   stop,
   route,
   labelledBy,
+  observationDate,
 }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -104,7 +106,9 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
     >
       <div className="col-span-3 items-center justify-center text-center text-2xl">
         <a
-          href={routeDetails[Path.stopDetails].getLink(stop.label)}
+          href={routeDetails[Path.stopDetails].getLink(stop.label, {
+            observationDate,
+          })}
           data-testid={testIds.label}
           title={t('accessibility:stops.showStopDetails', { stopLabel })}
         >
