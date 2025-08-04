@@ -32,10 +32,9 @@ export const StopAreaSearchNoStops: FC<StopAreaSearchNoStopsProps> = ({
       <i className="icon-info text-2xl text-brand" />
       <p>{t('stopArea.noStops')}</p>
       <Link
-        to={routeDetails[Path.stopAreaDetails].getLink(
-          stopArea.private_code,
+        to={routeDetails[Path.stopAreaDetails].getLink(stopArea.private_code, {
           observationDate,
-        )}
+        })}
         data-testid={testIds.stopAreaLink}
         title={t('accessibility:stopAreas.showStopAreaDetails', {
           areaLabel: stopArea.name_value,

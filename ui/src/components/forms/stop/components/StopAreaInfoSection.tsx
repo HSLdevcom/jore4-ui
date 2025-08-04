@@ -54,10 +54,9 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
     <div className={twMerge('flex flex-col', className)}>
       <Link
         className="flex self-end"
-        to={routeDetails[Path.stopAreaDetails].getLink(
-          stopArea.privateCode,
+        to={routeDetails[Path.stopAreaDetails].getLink(stopArea.privateCode, {
           observationDate,
-        )}
+        })}
         target="_blank"
         title={t('accessibility:stopAreas.showStopAreaDetails', {
           areaLabel: stopArea.nameFin ?? stopArea.nameSwe,

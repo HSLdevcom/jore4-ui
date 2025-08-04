@@ -64,10 +64,9 @@ export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
       )}
     >
       <Link
-        to={routeDetails[Path.stopAreaDetails].getLink(
-          stopArea.private_code,
+        to={routeDetails[Path.stopAreaDetails].getLink(stopArea.private_code, {
           observationDate,
-        )}
+        })}
         data-testid={testIds.stopAreaLink}
         title={t('accessibility:stopAreas.showStopAreaDetails', {
           areaLabel: stopArea.name_value,

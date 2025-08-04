@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
-import { routeDetails } from '../../router/routeDetails';
+import { isNavigationRoute, routeDetails } from '../../router/routeDetails';
 
 const testIds = {
   navLink: (translationKey?: string) => `NavLinks::${translationKey}`,
@@ -12,7 +12,7 @@ export const NavLinks: FC = () => {
   return (
     <>
       {Object.values(routeDetails)
-        .filter((item) => item.includeInNav)
+        .filter(isNavigationRoute)
         .map(({ translationKey, getLink }) => (
           <div key={translationKey} className="flex hover:bg-brand-darker">
             <NavLink
@@ -25,8 +25,7 @@ export const NavLinks: FC = () => {
               data-testid={testIds.navLink(translationKey)}
               end
             >
-              {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-              {t(translationKey!)}
+              {t(translationKey)}
             </NavLink>
           </div>
         ))}

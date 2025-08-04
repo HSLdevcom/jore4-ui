@@ -71,7 +71,9 @@ const getDisplayInformation = (
             label={rowItem.label}
           />
         ),
-        linkTo: routeDetails[Path.lineTimetables].getLink(lineId, routeLabel),
+        linkTo: routeDetails[Path.lineTimetables].getLink(lineId, {
+          routeLabels: routeLabel,
+        }),
         isDisabled: !hasTimetables,
       };
     case RouteLineTableRowVariant.RoutesAndLines:
@@ -94,7 +96,9 @@ const getDisplayInformation = (
             label={rowItem.label}
           />
         ),
-        linkTo: routeDetails[Path.lineDetails].getLink(lineId, routeLabel),
+        linkTo: routeDetails[Path.lineDetails].getLink(lineId, {
+          routeLabels: routeLabel,
+        }),
         isDisabled: false,
       };
   }

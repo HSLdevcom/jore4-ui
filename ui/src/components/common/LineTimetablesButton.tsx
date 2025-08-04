@@ -32,7 +32,11 @@ export const LineTimetablesButton: FC<LineTimetablesButtonProps> = ({
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(routeDetails[Path.lineTimetables].getLink(lineId, routeLabel));
+    navigate(
+      routeDetails[Path.lineTimetables].getLink(lineId, {
+        routeLabels: routeLabel,
+      }),
+    );
   };
   return (
     <IconButton

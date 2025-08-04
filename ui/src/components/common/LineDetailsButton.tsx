@@ -29,7 +29,11 @@ export const LineDetailsButton: FC<LineDetailsButtonProps> = ({
   const { t } = useTranslation();
 
   const onClick = () => {
-    navigate(routeDetails[Path.lineDetails].getLink(lineId, routeLabel));
+    navigate(
+      routeDetails[Path.lineDetails].getLink(lineId, {
+        routeLabels: routeLabel,
+      }),
+    );
   };
   return (
     <IconButton

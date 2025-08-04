@@ -46,7 +46,7 @@ export const StopAreaDetailsSection: FC<StopAreaDetailsSectionProps> = ({
         <Link
           to={routeDetails[Path.stopAreaDetails].getLink(
             stop.stop_place?.privateCode?.value,
-            observationDate,
+            { observationDate },
           )}
           data-testid={testIds.areaLink}
           title={t('accessibility:stopAreas.showStopAreaDetails', {

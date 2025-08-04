@@ -27,7 +27,9 @@ export const RouteDeviationLink: FC<RouteDeviationLinkProps> = ({
 
   return (
     <Link
-      to={routeDetails['/timetables/lines/:id'].getLink(lineId, uniqueLabel)}
+      to={routeDetails['/timetables/lines/:id'].getLink(lineId, {
+        routeLabels: uniqueLabel,
+      })}
       title={getLocalizedTextFromDbBlob(deviation.routeName)}
       data-testid={testIds.link(testIdPrefix)}
     >

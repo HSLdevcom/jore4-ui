@@ -1,64 +1,98 @@
 import { DateTime } from 'luxon';
 import qs from 'qs';
-import { QueryParameterName } from '../hooks/urlQuery/useUrlQuery';
+import { QueryParameterName } from '../hooks/urlQuery';
 import { TranslationKey } from '../i18n';
 
-export enum Path {
-  root = '/',
+export const Path = {
+  root: '/',
 
   // Main pages
-  routes = '/routes',
-  stopRegistry = '/stop-registry',
-  timetables = '/timetables',
+  routes: '/routes',
+  stopRegistry: '/stop-registry',
+  timetables: '/timetables',
 
   // Routes and lines
-  routesSearch = '/routes/search',
-  editRoute = '/routes/:id/edit',
-  createLine = '/lines/create',
-  lineDetails = '/lines/:id',
-  lineDrafts = '/lines/:label/drafts',
-  editLine = '/lines/:id/edit',
+  routesSearch: '/routes/search',
+  editRoute: '/routes/:id/edit',
+  createLine: '/lines/create',
+  lineDetails: '/lines/:id',
+  lineDrafts: '/lines/:label/drafts',
+  editLine: '/lines/:id/edit',
 
   // Stop registry
-  stopSearch = '/stop-registry/search',
-  stopDetails = '/stop-registry/stops/:label',
-  stopVersions = '/stop-registry/stops/:label/versions',
-  // stopChangeHistory = '/stop-registry/stops/:label/history',
-  terminalDetails = '/stop-registry/terminals/:privateCode',
-  stopAreaDetails = '/stop-registry/stop-areas/:id',
+  stopSearch: '/stop-registry/search',
+  stopDetails: '/stop-registry/stops/:label',
+  stopVersions: '/stop-registry/stops/:label/versions',
+  // stopChangeHistory : '/stop-registry/stops/:label/history',
+  terminalDetails: '/stop-registry/terminals/:privateCode',
+  stopAreaDetails: '/stop-registry/stop-areas/:id',
 
   // Timetables
-  timetablesSearch = '/timetables/search',
-  lineTimetables = '/timetables/lines/:id',
-  timetablesImport = '/timetables/import',
-  timetablesImportPreview = '/timetables/import/preview',
-  lineTimetableVersions = '/timetables/lines/:label/versions',
-  substituteOperatingPeriodSettings = '/timetables/settings',
+  timetablesSearch: '/timetables/search',
+  lineTimetables: '/timetables/lines/:id',
+  timetablesImport: '/timetables/import',
+  timetablesImportPreview: '/timetables/import/preview',
+  lineTimetableVersions: '/timetables/lines/:label/versions',
+  substituteOperatingPeriodSettings: '/timetables/settings',
 
-  fallback = '*',
+  fallback: '*',
+} as const;
+
+export type PathValue = (typeof Path)[keyof typeof Path];
+type QueryParams = Partial<
+  Readonly<
+    Record<QueryParameterName, string | number | boolean | DateTime | undefined>
+  >
+>;
+type GetLinkFn = (id?: string | null, queryParams?: QueryParams) => string;
+
+function genVariableLinkGenerator(
+  path: PathValue,
+  idField: string = ':id',
+): GetLinkFn {
+  return (id?: string | null, queryParams?: QueryParams) => {
+    if (!id) {
+      return '/404';
+    }
+
+    const search = queryParams
+      ? qs.stringify(queryParams, {
+          filter: (_prefix, value) => {
+            if (value instanceof DateTime) {
+              return value.toISODate();
+            }
+
+            return value;
+          },
+          addQueryPrefix: true,
+        })
+      : '';
+    const withId = id ? path.replace(idField, id) : path;
+    return `${withId}${search}`;
+  };
 }
 
-type RouteDetail = {
-  readonly getLink: (...args: ReadonlyArray<ExplicitAny>) => string;
-  readonly translationKey?: TranslationKey; // Currently only needed if the route is included in navigation.
-  readonly includeInNav?: boolean;
+type NavigationRoute = {
+  readonly getLink: GetLinkFn;
+  readonly translationKey: TranslationKey; // Currently only needed if the route is included in navigation.
+  readonly includeInNav: true;
 };
 
-const getLineIdRouteLabelLink = (
-  path: Path,
-  lineId: UUID,
-  routeLabel?: string,
-) => {
-  const searchQuery = routeLabel
-    ? `?${qs.stringify({
-        [QueryParameterName.RouteLabels]: routeLabel,
-      })}`
-    : '';
-
-  return `${path.replace(':id', lineId)}${searchQuery}`;
+type NonNavigationRoute = {
+  readonly getLink: GetLinkFn;
+  readonly translationKey?: never;
+  readonly includeInNav?: false;
 };
 
-export const routeDetails: Record<Path, RouteDetail> = {
+type RouteDetails = NavigationRoute | NonNavigationRoute;
+
+export function isNavigationRoute(
+  route: RouteDetails,
+): route is NavigationRoute {
+  return route.includeInNav === true;
+}
+
+export const routeDetails: Readonly<Record<PathValue, RouteDetails>> = {
   [Path.root]: {
     getLink: () => Path.root,
     translationKey: 'routes.root',
@@ -89,10 +123,7 @@ export const routeDetails: Record<Path, RouteDetail> = {
     includeInNav: false,
   },
   [Path.editRoute]: {
-    getLink: (id: string, observationIsoDate: string) =>
-      `${Path.editRoute.replace(':id', id)}?${qs.stringify({
-        [QueryParameterName.ObservationDate]: observationIsoDate,
-      })}`,
+    getLink: genVariableLinkGenerator(Path.editRoute),
     includeInNav: false,
   },
   [Path.createLine]: {
@@ -100,16 +131,15 @@ export const routeDetails: Record<Path, RouteDetail> = {
     includeInNav: false,
   },
   [Path.lineDetails]: {
-    getLink: (id: string, routeLabel?: string) =>
-      getLineIdRouteLabelLink(Path.lineDetails, id, routeLabel),
+    getLink: genVariableLinkGenerator(Path.lineDetails),
     includeInNav: false,
   },
   [Path.lineDrafts]: {
-    getLink: (label: string) => Path.lineDrafts.replace(':label', label),
+    getLink: genVariableLinkGenerator(Path.lineDrafts, ':label'),
     includeInNav: false,
   },
   [Path.editLine]: {
-    getLink: (id: string) => Path.editLine.replace(':id', id),
+    getLink: genVariableLinkGenerator(Path.editLine),
     includeInNav: false,
   },
 
@@ -119,31 +149,19 @@ export const routeDetails: Record<Path, RouteDetail> = {
     includeInNav: false,
   },
   [Path.stopDetails]: {
-    getLink: (label: string) => Path.stopDetails.replace(':label', label),
+    getLink: genVariableLinkGenerator(Path.stopDetails, ':label'),
     includeInNav: false,
   },
   [Path.stopVersions]: {
-    getLink: (label: string) => Path.stopVersions.replace(':label', label),
+    getLink: genVariableLinkGenerator(Path.stopVersions, ':label'),
     includeInNav: false,
   },
   [Path.stopAreaDetails]: {
-    getLink: (id: string, observationDate: DateTime | string = '') => {
-      const observationDateStr =
-        observationDate instanceof DateTime
-          ? observationDate.toISODate()
-          : observationDate;
-      if (observationDateStr) {
-        return `${Path.stopAreaDetails.replace(':id', id)}?${qs.stringify({
-          [QueryParameterName.ObservationDate]: observationDateStr,
-        })}`;
-      }
-
-      return Path.stopAreaDetails.replace(':id', id);
-    },
+    getLink: genVariableLinkGenerator(Path.stopAreaDetails),
     includeInNav: false,
   },
   [Path.terminalDetails]: {
-    getLink: (id: string) => Path.terminalDetails.replace(':privateCode', id),
+    getLink: genVariableLinkGenerator(Path.terminalDetails, ':privateCode'),
     includeInNav: false,
   },
 
@@ -153,8 +171,7 @@ export const routeDetails: Record<Path, RouteDetail> = {
     includeInNav: false,
   },
   [Path.lineTimetables]: {
-    getLink: (id: string, routeLabel?: string) =>
-      getLineIdRouteLabelLink(Path.lineTimetables, id, routeLabel),
+    getLink: genVariableLinkGenerator(Path.lineTimetables),
     includeInNav: false,
   },
   [Path.timetablesImport]: {
@@ -163,10 +180,10 @@ export const routeDetails: Record<Path, RouteDetail> = {
   },
   [Path.timetablesImportPreview]: {
     getLink: () => Path.timetablesImportPreview,
+    includeInNav: false,
   },
   [Path.lineTimetableVersions]: {
-    getLink: (label: string) =>
-      Path.lineTimetableVersions.replace(':label', label),
+    getLink: genVariableLinkGenerator(Path.lineTimetableVersions, ':label'),
     includeInNav: false,
   },
   [Path.substituteOperatingPeriodSettings]: {
@@ -176,5 +193,6 @@ export const routeDetails: Record<Path, RouteDetail> = {
 
   [Path.fallback]: {
     getLink: () => '404',
+    includeInNav: false,
   },
-};
+} as const;

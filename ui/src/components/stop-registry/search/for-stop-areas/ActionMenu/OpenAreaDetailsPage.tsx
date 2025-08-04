@@ -26,10 +26,9 @@ export const OpenDetails = forwardRef<HTMLButtonElement, OpenDetailsProps>(
         text={t('stopRegistrySearch.stopAreaRowActions.openDetails')}
         onClick={() =>
           navigate(
-            routeDetails[Path.stopAreaDetails].getLink(
-              privateCode,
+            routeDetails[Path.stopAreaDetails].getLink(privateCode, {
               observationDate,
-            ),
+            }),
           )
         }
         testId={testId}

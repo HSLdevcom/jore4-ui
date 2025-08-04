@@ -98,10 +98,9 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
         {getLocalizedTextFromDbBlob(route.name_i18n)}
       </span>
       <EditButton
-        href={routeDetails[Path.editRoute].getLink(
-          route.route_id,
-          observationDate.toISODate(),
-        )}
+        href={routeDetails[Path.editRoute].getLink(route.route_id, {
+          observationDate: observationDate.toISODate(),
+        })}
         testId={testIds.editRouteButton}
         tooltip={t('accessibility:routes.editRouteDirection', {
           label,

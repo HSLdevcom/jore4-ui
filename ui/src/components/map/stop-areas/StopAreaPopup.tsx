@@ -69,10 +69,9 @@ export const StopAreaPopup = ({
             <Row className="items-center">
               <h3>
                 <a
-                  href={routeDetails[Path.stopAreaDetails].getLink(
-                    areaLabel,
+                  href={routeDetails[Path.stopAreaDetails].getLink(areaLabel, {
                     observationDate,
-                  )}
+                  })}
                   target="_blank"
                   rel="noreferrer"
                   data-testid={testIds.label}

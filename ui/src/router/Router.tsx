@@ -42,7 +42,7 @@ import { selectUser } from '../redux';
 import { Spinner } from '../uiComponents';
 import { JoreErrorModal } from '../uiComponents/JoreErrorModal';
 import { showDangerToast } from '../utils';
-import { Path } from './routeDetails';
+import { Path, PathValue } from './routeDetails';
 
 const FallbackRoute: FC = () => {
   return (
@@ -101,7 +101,7 @@ const Layout: FC = () => {
 };
 
 type SimpleJoreRoute = {
-  readonly path: Path;
+  readonly path: PathValue;
   readonly protected?: boolean;
   readonly index?: boolean;
   readonly element: React.ReactElement;
