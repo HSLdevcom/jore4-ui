@@ -240,4 +240,30 @@ describe('Terminals on map', mapViewport, () => {
         .should('not.have.value', '24.927445210156606');
     },
   );
+
+  it(
+    'should delete terminal on map',
+    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
+    () => {
+      mapModal.map.getTerminalById('T3').click();
+
+      mapModal.map.waitForLoadToComplete();
+
+      const { terminalPopup } = mapModal;
+
+      terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
+      terminalPopup.getDeleteButton().click();
+
+      // Should list member stops on the confirmation dialog
+      confirmationDialog.dialogWithButtons
+        .getTextContent()
+        .should('contain', 'E2E007');
+
+      confirmationDialog.getConfirmButton().click();
+      expectGraphQLCallToSucceed('@gqlDeleteTerminal');
+
+      // Make sure that the terminal is not visible on the map
+      mapModal.map.getTerminalById('T3').should('not.exist');
+    },
+  );
 });
