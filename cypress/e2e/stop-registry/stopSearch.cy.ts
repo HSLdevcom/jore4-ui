@@ -534,14 +534,26 @@ describe('Stop search', () => {
       stopGroupSelector.getShowAllGroupsButton().shouldBeVisible();
     }
 
-    it('should have a working asterisk search and line selector', () => {
-      const allExtraLines = insertExtraLines();
-      injectKnownMonospaceFont();
+    describe('should have a working asterisk search and line selector', () => {
+      beforeEach(() => {
+        injectKnownMonospaceFont();
+      });
 
-      stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+      it('should have a working asterisk search and line selector - showA', () => {
+        insertExtraLines();
 
-      assertShowsAllResultsByDefault();
-      assertShowAllAndShowLessWork(allExtraLines);
+        stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+
+        assertShowsAllResultsByDefault();
+      });
+
+      it('should have a working asterisk search and line selector', () => {
+        const allExtraLines = insertExtraLines();
+
+        stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+
+        assertShowAllAndShowLessWork(allExtraLines);
+      });
     });
 
     function assertIsObject(obj: unknown): asserts obj is object {

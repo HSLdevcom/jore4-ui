@@ -1,10 +1,12 @@
 import noop from 'lodash/noop';
 import { RefObject, useEffect, useState } from 'react';
 
-type VisibilityMap = Readonly<Record<UUID, boolean>>;
+export type VisibilityMap<ID extends string> = Readonly<Record<ID, boolean>>;
 
 // Maps lines to { [lineId]: true } object.
-function getAllShownMap<ID>(groups: ReadonlyArray<ID>): VisibilityMap {
+function getAllShownMap<ID extends string>(
+  groups: ReadonlyArray<ID>,
+): VisibilityMap<ID> {
   const entries = groups.map((id) => [id, true]);
   return Object.fromEntries(entries);
 }
@@ -18,12 +20,12 @@ function getAllShownMap<ID>(groups: ReadonlyArray<ID>): VisibilityMap {
  * @param groups list of all lines that are expected to be in the list.
  * @param groupListRef ref to list container.
  */
-export function useVisibilityMap<ID>(
+export function useVisibilityMap<ID extends string>(
   allShown: boolean,
   groups: ReadonlyArray<ID>,
   groupListRef: RefObject<HTMLDivElement>,
-) {
-  const [visibilityMap, setVisibilityMap] = useState<VisibilityMap>(() =>
+): VisibilityMap<ID> {
+  const [visibilityMap, setVisibilityMap] = useState<VisibilityMap<ID>>(() =>
     getAllShownMap(groups),
   );
 

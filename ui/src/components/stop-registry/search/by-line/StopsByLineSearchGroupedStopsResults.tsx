@@ -27,10 +27,7 @@ export const StopsByLineSearchGroupedStopsResults: FC<
   // the results, if not, then select the 1st line from the results as active,
   // or null in case there are no results.
   useEffect(() => {
-    if (
-      lineToShow &&
-      lines.some((line) => line.line_id === lineToShow.line_id)
-    ) {
+    if (activeLineId && lines.some((line) => line.line_id === activeLineId)) {
       return;
     }
 
