@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon';
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Row } from '../../../../../layoutComponents';
 import {
+  CloseIconButton,
   ModalBody,
-  ModalHeader,
   NewModalFooter,
 } from '../../../../../uiComponents';
 import { Modal } from '../../../../../uiComponents/modal/Modal';
@@ -13,6 +14,9 @@ import { SelectedStop } from '../../../components/SelectMemberStops/schema';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import { useGetStopVersions } from '../../../stops/versions/queries/useGetStopVersions';
 import { StopVersion } from '../../../stops/versions/types';
+import { useGetStopAreaVersions } from '../../versions/queries/useGetStopAreaVersions';
+import { StopAreaVersion } from '../../versions/types';
+import { FutureVersionsAlertPopover } from './FutureVersionsAlertPopover';
 import { StopVersionsList } from './StopVersionsList';
 
 const testIds = {
@@ -21,6 +25,7 @@ const testIds = {
   transferDateInput: 'MemberStops::transferDateInput',
   getStopVersionsButton: 'MemberStops::getStopVersionsButton',
   saveButton: 'MemberStops::saveButton',
+  closeButton: 'MembersStops::closeButton',
 };
 
 type StopAreaMemberStopModalProps = {
@@ -28,6 +33,7 @@ type StopAreaMemberStopModalProps = {
   readonly onClose: () => void;
   readonly onSave: () => void;
   readonly areaId: string;
+  readonly areaPrivateCode: string;
 };
 
 type ModalState = {
@@ -62,11 +68,30 @@ const useFilteredStopVersions = (
   }, [stopVersions, selectedDate]);
 };
 
+// Remove versions that end before the selected date
+const useRemovePastStopAreaVersions = (
+  stopAreaVersions: ReadonlyArray<StopAreaVersion> | null | undefined,
+  selectedDate: Readonly<string>,
+): ReadonlyArray<StopAreaVersion> | null | undefined => {
+  return useMemo(() => {
+    if (!stopAreaVersions || !selectedDate) {
+      return stopAreaVersions;
+    }
+
+    const filterDate = DateTime.fromISO(selectedDate).startOf('day');
+    return stopAreaVersions?.filter(
+      (version) =>
+        version.validity_end === null || version.validity_end >= filterDate,
+    );
+  }, [selectedDate, stopAreaVersions]);
+};
+
 export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
   isOpen,
   onClose,
   onSave,
   areaId,
+  areaPrivateCode,
 }) => {
   const { t } = useTranslation();
   const [state, setState] = useState<ModalState>(initialState);
@@ -83,11 +108,21 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
   const stopVersionsResult = useGetStopVersions(
     showVersions && selectedStop?.publicCode ? selectedStop.publicCode : '',
   );
-
   const filteredStopVersions = useFilteredStopVersions(
     stopVersionsResult.stopVersions,
     selectedDate,
   );
+
+  // Wait for the modal to be opened before fetching stop area versions
+  const stopAreaVersionsResult = useGetStopAreaVersions(
+    isOpen ? areaPrivateCode : '',
+  );
+  const filteredStopAreaVersions = useRemovePastStopAreaVersions(
+    stopAreaVersionsResult.stopAreaVersions,
+    selectedDate,
+  );
+  const hasMultipleFutureStopAreaVersions =
+    filteredStopAreaVersions?.length && filteredStopAreaVersions.length > 1;
 
   const resetState = useCallback(() => {
     setState(initialState);
@@ -172,10 +207,17 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
       testId={testIds.modal}
       contentClassName="rounded-lg max-w-2xl w-full mx-4 drop-shadow-none"
     >
-      <ModalHeader
-        onClose={handleClose}
-        heading={t('stopAreaDetails.memberStops.moveStopToArea')}
-      />
+      <Row className="flex flex-row items-center border border-light-grey bg-background px-10 py-7">
+        <h2>{t('stopAreaDetails.memberStops.moveStopToArea')}</h2>
+        {hasMultipleFutureStopAreaVersions ? (
+          <FutureVersionsAlertPopover className="ml-4" />
+        ) : null}
+        <CloseIconButton
+          className="ml-auto"
+          onClick={onClose}
+          testId={testIds.closeButton}
+        />
+      </Row>
 
       <ModalBody className="!mx-0 !my-0">
         <div className="mx-8 my-8">

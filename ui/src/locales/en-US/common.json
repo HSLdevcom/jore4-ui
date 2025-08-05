@@ -187,7 +187,8 @@
       "statusTag": {
         "added": "Added",
         "removed": "Removed"
-      }
+      },
+      "futureVersionsAlert": "The stop area has future versions. After the move, this stop belongs only to the stop area version it was moved to. The stop does not automatically belong to future stop area versions. Create a copy of the stop for future area versions if necessary."
     },
     "errors": {
       "stopPlacesUniqueName": "Stop area should have unique name but {{name}} is already in use!",

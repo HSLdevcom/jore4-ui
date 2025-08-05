@@ -1,5 +1,6 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { EnrichedStopPlace } from '../../../../../types';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import { StopAreaMemberStopModal } from './StopAreaMemberStopModal';
 
@@ -8,11 +9,11 @@ const testIds = {
 };
 
 type StopAreaMemberStopsHeaderProps = {
-  readonly areaId: string;
+  readonly area: EnrichedStopPlace;
 };
 
 export const StopAreaMemberStopsHeader: FC<StopAreaMemberStopsHeaderProps> = ({
-  areaId,
+  area,
 }) => {
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +25,10 @@ export const StopAreaMemberStopsHeader: FC<StopAreaMemberStopsHeaderProps> = ({
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  if (!area.id || !area.privateCode?.value) {
+    return null;
+  }
 
   return (
     <>
@@ -42,7 +47,8 @@ export const StopAreaMemberStopsHeader: FC<StopAreaMemberStopsHeaderProps> = ({
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSave={handleCloseModal}
-        areaId={areaId}
+        areaId={area.id}
+        areaPrivateCode={area.privateCode.value}
       />
     </>
   );
