@@ -14,7 +14,7 @@ export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
       <div className="flex items-center gap-4">
         <h2>{t('stopAreaDetails.memberStops.title')}</h2>
 
-        {area.id && <StopAreaMemberStopsHeader areaId={area.id} />}
+        <StopAreaMemberStopsHeader area={area} />
       </div>
 
       <StopAreaMemberStopRows area={area} />
