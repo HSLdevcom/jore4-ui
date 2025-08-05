@@ -69357,6 +69357,49 @@ export type StopPlaceDetailsFragment = {
   } | null> | null
 };
 
+export type GetStopPlaceVersionsQueryVariables = Exact<{
+  privateCode: Scalars['String']['input'];
+}>;
+
+
+export type GetStopPlaceVersionsQuery = {
+  readonly __typename?: 'query_root',
+  readonly stops_database?: {
+    readonly __typename?: 'stops_database_stops_database_query',
+    readonly stopAreas: ReadonlyArray<{
+      readonly __typename?: 'stops_database_stop_place_newest_version',
+      readonly id?: any | null,
+      readonly netex_id?: string | null,
+      readonly private_code_type?: string | null,
+      readonly private_code_value?: string | null,
+      readonly name_value?: string | null,
+      readonly validity_start?: string | null,
+      readonly validity_end?: string | null,
+      readonly centroid?: GeoJSON.Geometry | null,
+      readonly created?: any | null,
+      readonly changed?: any | null,
+      readonly changed_by?: string | null,
+      readonly version_comment?: string | null
+    }>
+  } | null
+};
+
+export type StopAreaVersionInfoFragment = {
+  readonly __typename?: 'stops_database_stop_place_newest_version',
+  readonly id?: any | null,
+  readonly netex_id?: string | null,
+  readonly private_code_type?: string | null,
+  readonly private_code_value?: string | null,
+  readonly name_value?: string | null,
+  readonly validity_start?: string | null,
+  readonly validity_end?: string | null,
+  readonly centroid?: GeoJSON.Geometry | null,
+  readonly created?: any | null,
+  readonly changed?: any | null,
+  readonly changed_by?: string | null,
+  readonly version_comment?: string | null
+};
+
 export type DeleteQuayMutationVariables = Exact<{
   stopPlaceId: Scalars['String']['input'];
   quayId: Scalars['String']['input'];
@@ -76849,6 +76892,22 @@ ${QuayDetailsFragmentDoc}
 ${AccessibilityAssessmentDetailsFragmentDoc}
 ${TopographicPlaceDetailsFragmentDoc}
 ${FareZoneDetailsFragmentDoc}`;
+export const StopAreaVersionInfoFragmentDoc = gql`
+    fragment StopAreaVersionInfo on stops_database_stop_place_newest_version {
+  id
+  netex_id
+  private_code_type
+  private_code_value
+  name_value
+  validity_start
+  validity_end
+  centroid
+  created
+  changed
+  changed_by
+  version_comment
+}
+    `;
 export const StopPointDetailsFragmentDoc = gql`
     fragment StopPointDetails on service_pattern_scheduled_stop_point {
   stop_place_ref
@@ -78744,6 +78803,51 @@ export type GetStopPlaceDetailsQueryHookResult = ReturnType<typeof useGetStopPla
 export type GetStopPlaceDetailsLazyQueryHookResult = ReturnType<typeof useGetStopPlaceDetailsLazyQuery>;
 export type GetStopPlaceDetailsSuspenseQueryHookResult = ReturnType<typeof useGetStopPlaceDetailsSuspenseQuery>;
 export type GetStopPlaceDetailsQueryResult = Apollo.QueryResult<GetStopPlaceDetailsQuery, GetStopPlaceDetailsQueryVariables>;
+export const GetStopPlaceVersionsDocument = gql`
+    query GetStopPlaceVersions($privateCode: String!) {
+  stops_database {
+    stopAreas: stops_database_stop_place_newest_version(
+      where: {private_code_value: {_eq: $privateCode}}
+      order_by: [{validity_start: asc}, {priority: asc}]
+    ) {
+      ...StopAreaVersionInfo
+    }
+  }
+}
+    ${StopAreaVersionInfoFragmentDoc}`;
+
+/**
+ * __useGetStopPlaceVersionsQuery__
+ *
+ * To run a query within a React component, call `useGetStopPlaceVersionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopPlaceVersionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStopPlaceVersionsQuery({
+ *   variables: {
+ *      privateCode: // value for 'privateCode'
+ *   },
+ * });
+ */
+export function useGetStopPlaceVersionsQuery(baseOptions: Apollo.QueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables> & ({ variables: GetStopPlaceVersionsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>(GetStopPlaceVersionsDocument, options);
+      }
+export function useGetStopPlaceVersionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>(GetStopPlaceVersionsDocument, options);
+        }
+export function useGetStopPlaceVersionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>(GetStopPlaceVersionsDocument, options);
+        }
+export type GetStopPlaceVersionsQueryHookResult = ReturnType<typeof useGetStopPlaceVersionsQuery>;
+export type GetStopPlaceVersionsLazyQueryHookResult = ReturnType<typeof useGetStopPlaceVersionsLazyQuery>;
+export type GetStopPlaceVersionsSuspenseQueryHookResult = ReturnType<typeof useGetStopPlaceVersionsSuspenseQuery>;
+export type GetStopPlaceVersionsQueryResult = Apollo.QueryResult<GetStopPlaceVersionsQuery, GetStopPlaceVersionsQueryVariables>;
 export const DeleteQuayDocument = gql`
     mutation DeleteQuay($stopPlaceId: String!, $quayId: String!) {
   stop_registry {

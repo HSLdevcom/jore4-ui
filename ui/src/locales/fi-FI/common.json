@@ -187,7 +187,8 @@
       "statusTag": {
         "added": "Lisätty",
         "removed": "poistettu"
-      }
+      },
+      "futureVersionsAlert": "Pysäkkialueesta on tulevia versioita. Siirron jälkeen pysäkki noudattaa näiden tulevien pysäkkialueversioiden muutoksia."
     },
     "errors": {
       "stopPlacesUniqueName": "Pysäkkialueella tulee olla uniikki nimi, mutta nimi {{name}} on jo jonkin toisen alueen käytössä!",
