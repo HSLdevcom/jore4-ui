@@ -10,7 +10,7 @@ const NO_BREAK_SPACE = '\xa0';
 
 const baseClasses = twJoin(
   'cursor-pointer rounded border px-2 py-1 text-center font-bold text-dark-grey',
-  'aria-checked:border-brand aria-checked:bg-brand aria-checked:text-white',
+  'aria-selected:border-brand aria-selected:bg-brand aria-selected:text-white',
   'hover:border-black hover:bg-background-hsl-blue hover:text-black',
   'font-mono', // Helps to align the items into a grid
 );
@@ -40,8 +40,8 @@ const StopGroupOptionImpl = <ID extends string>({
       data-testid={testIds.groupSelector(id)}
       id={`select-group-${id}`}
       title={title}
-      role="radio"
-      aria-checked={selected}
+      role="option"
+      aria-selected={selected}
       tabIndex={selected ? 0 : -1}
     >
       {label.padEnd(
