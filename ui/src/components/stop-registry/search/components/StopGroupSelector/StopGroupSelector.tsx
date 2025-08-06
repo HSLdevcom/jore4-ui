@@ -303,8 +303,8 @@ type StopGroupSelectorProps = {
   readonly className?: string;
   readonly groups: ReadonlyArray<StopGroupSelectorItem<string>>;
   readonly label: ReactNode;
-  readonly onSelect: (selected: string | null) => void;
-  readonly selected: string | null;
+  readonly onSelect: (selected: string[] | null) => void;
+  readonly selected: string[] | null;
 };
 
 const SHOW_ALL_BY_DEFAULT_MAX = 20;
@@ -342,18 +342,49 @@ export const StopGroupSelector = ({
     [groups],
   );
 
+  const handleSelect = useCallback(
+    (selectedId: string | null) => {
+      if (!selectedId) {
+        return;
+      }
+
+      // If nothing is selected, set the new selected value
+      if (!selected) {
+        onSelect([selectedId]);
+        return;
+      }
+
+      // If the selectedId is not in the selected array, add it
+      if (!selected.includes(selectedId)) {
+        onSelect([...selected, selectedId]);
+        return;
+      }
+
+      // If the selectedId is already in the selected array,
+      // remove it if it is not the only selected value
+      if (selected.length > 1) {
+        onSelect(selected.filter((sId) => sId !== selectedId));
+      }
+    },
+    [onSelect, selected],
+  );
+
   const {
     onMouseDown,
     onBlur,
     onFocus,
     onKeyDown,
     scrollSelectedIntoViewIfNeeded,
-  } = useControls(groups, onSelect, showAll, visibilityMap, groupListRef);
+  } = useControls(groups, handleSelect, showAll, visibilityMap, groupListRef);
 
   // Make sure the selected group is visible, on mount
   // or when the list if groups change.
   useEffect(() => {
-    scrollSelectedIntoViewIfNeeded('instant');
+    // Defer to next render cycle after the component is mounted to make sure that
+    // the target element is not counted as visible if it is not.
+    setTimeout(() => {
+      scrollSelectedIntoViewIfNeeded('instant');
+    }, 0);
   }, [groups, scrollSelectedIntoViewIfNeeded]);
 
   return (
@@ -385,7 +416,7 @@ export const StopGroupSelector = ({
             key={group.id}
             group={group}
             longestLabel={longestLabel}
-            selected={group.id === selected}
+            selected={!!selected?.includes(group.id)}
             showAll={showAll}
             showAllByDefault={showAllByDefault}
             visible={visibilityMap[group.id]}

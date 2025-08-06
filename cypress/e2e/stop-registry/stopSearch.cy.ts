@@ -858,6 +858,24 @@ describe('Stop search', () => {
       sortByButton.assertSorting('label', 'desc');
       assertResultOrder(['E2E009', 'E2E006', 'E2E003', 'E2E001']);
     });
+
+    it('should be able to select multiple stop areas', () => {
+      stopSearchBar.searchForDropdown.openSearchForDropdown();
+      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+      stopSearchBar.getSearchInput().clearAndType(`X*{enter}`);
+      stopGroupSelector.getGroupSelectors().contains('X0003').click();
+
+      searchForStopAreas.getStopAreaLabel().should('contain', 'X0003');
+
+      stopGroupSelector.getGroupSelectors().contains('X0004').click();
+      searchForStopAreas.getStopAreaLabel().should('have.length', 2);
+      searchForStopAreas.getStopAreaLabel().eq(0).should('contain', 'X0003');
+      searchForStopAreas.getStopAreaLabel().eq(1).should('contain', 'X0004');
+
+      stopGroupSelector.getGroupSelectors().contains('X0003').click();
+      searchForStopAreas.getStopAreaLabel().should('have.length', 1);
+      searchForStopAreas.getStopAreaLabel().should('contain', 'X0004');
+    });
   });
 
   describe('Priority visualization', () => {
