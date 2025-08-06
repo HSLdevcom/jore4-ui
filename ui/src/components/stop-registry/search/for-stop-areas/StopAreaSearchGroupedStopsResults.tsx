@@ -1,4 +1,11 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { PagingInfo } from '../../../../types';
 import { SortingInfo } from '../types';
 import { CountAndSortingRow } from './CountAndSortingRow';
@@ -16,26 +23,44 @@ type StopAreaSearchGroupedStopsResultsProps = {
 export const StopAreaSearchGroupedStopsResults: FC<
   StopAreaSearchGroupedStopsResultsProps
 > = ({ setPagingInfo, setSortingInfo, sortingInfo, stopAreas }) => {
-  const [activeAreaId, setActiveAreaId] = useState<string | null>(
-    stopAreas.at(0)?.id.toString(10) ?? null,
-  );
+  const [activeAreaIds, setActiveAreaIds] =
+    useState<ReadonlyArray<string> | null>(
+      stopAreas.at(0) ? [stopAreas.at(0)?.id.toString(10)] : null,
+    );
 
-  const areaToShow = stopAreas.find(
-    (area) => area.id.toString(10) === activeAreaId,
-  );
+  const selectedAreas = useMemo(() => {
+    return stopAreas.filter((area) =>
+      activeAreaIds?.includes(area.id.toString(10)),
+    );
+  }, [activeAreaIds, stopAreas]);
 
-  // If stop area list changes, check to see if the selected area is still within
+  // If stop area list changes, check to see if the selected areas are still within
   // the results, if not, then select the 1st area from the results as active,
   // or null in case there are no results.
   useEffect(() => {
-    if (
-      activeAreaId &&
-      stopAreas.some((area) => area.id.toString(10) === activeAreaId)
-    ) {
+    if (!activeAreaIds || activeAreaIds.length === 0) {
+      const idString: string | undefined = stopAreas.at(0)?.id.toString(10);
+      setActiveAreaIds(idString ? [idString] : null);
       return;
     }
 
-    setActiveAreaId(stopAreas.at(0)?.id.toString(10) ?? null);
+    // Check if all currently selected areas are still in the results
+    const availableAreaIds = stopAreas.map((area) => area.id.toString(10));
+    const validSelectedIds = activeAreaIds.filter((id) =>
+      availableAreaIds.includes(id),
+    );
+
+    // If some or all selected areas are no longer available, update the selection
+    if (validSelectedIds.length !== activeAreaIds.length) {
+      if (validSelectedIds.length > 0) {
+        // Keep the valid selections
+        setActiveAreaIds(validSelectedIds);
+      } else {
+        // No valid selections left, select the first available area
+        const idString: string | undefined = stopAreas.at(0)?.id.toString(10);
+        setActiveAreaIds(idString ? [idString] : null);
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stopAreas]);
 
@@ -49,13 +74,19 @@ export const StopAreaSearchGroupedStopsResults: FC<
         sortingInfo={sortingInfo}
       />
       <StopAreaSelector
-        activeStopId={activeAreaId}
+        activeAreaIds={activeAreaIds}
         className="mb-6"
         stopAreas={stopAreas}
-        setActiveStopId={setActiveAreaId}
+        setActiveAreaIds={setActiveAreaIds}
       />
 
-      {areaToShow && <StopAreaStopsTable stopArea={areaToShow} />}
+      {selectedAreas.map((area) => (
+        <StopAreaStopsTable
+          key={area.id}
+          stopArea={area}
+          className="mb-6 last:mb-0"
+        />
+      ))}
     </>
   );
 };

@@ -82,6 +82,7 @@ function useControls(
   showAll: boolean,
   visibilityMap: VisibilityMap<string>,
   groupListRef: RefObject<HTMLElement | null>,
+  selectedGroups: ReadonlyArray<string> | null,
 ) {
   const onMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
     const group = findGroupElementFromEvent(e);
@@ -233,14 +234,22 @@ function useControls(
   // Find the selected item, and if it is not fully visible within the list
   // container, scroll the group element into view.
   const scrollSelectedIntoViewIfNeeded = useCallback(
-    (behavior: ScrollBehavior) => {
+    (behavior: ScrollBehavior, groupId?: string) => {
       if (!groupListRef.current) {
         return;
       }
 
-      const selected = groupListRef.current.querySelector(
-        '[aria-checked="true"]',
-      );
+      let selected: Element | null;
+
+      if (groupId) {
+        // If groupId is provided, find the specific group element
+        selected = groupListRef.current.querySelector(
+          `[data-group-id="${groupId}"][aria-selected="true"]`,
+        );
+      }
+
+      // Fallback to first selected element if no groupId provided or not found
+      selected ??= groupListRef.current.querySelector('[aria-selected="true"]');
 
       if (!selected) {
         return;
@@ -286,7 +295,9 @@ function useControls(
       !groupListRef.current.contains(e.relatedTarget) &&
       !showAll
     ) {
-      scrollSelectedIntoViewIfNeeded('smooth');
+      // Scroll to the last selected group
+      const latestSelected = selectedGroups?.at(-1);
+      scrollSelectedIntoViewIfNeeded('smooth', latestSelected);
     }
   };
 
@@ -303,8 +314,8 @@ type StopGroupSelectorProps = {
   readonly className?: string;
   readonly groups: ReadonlyArray<StopGroupSelectorItem<string>>;
   readonly label: ReactNode;
-  readonly onSelect: (selected: string | null) => void;
-  readonly selected: string | null;
+  readonly onSelect: (selected: ReadonlyArray<string> | null) => void;
+  readonly selected: ReadonlyArray<string> | null;
 };
 
 const SHOW_ALL_BY_DEFAULT_MAX = 20;
@@ -342,28 +353,68 @@ export const StopGroupSelector = ({
     [groups],
   );
 
+  const handleSelect = useCallback(
+    (selectedId: string | null) => {
+      if (!selectedId) {
+        return;
+      }
+
+      // If nothing is selected, set the new selected value
+      if (!selected) {
+        onSelect([selectedId]);
+        return;
+      }
+
+      // If the selectedId is not in the selected array, add it
+      if (!selected.includes(selectedId)) {
+        onSelect([...selected, selectedId]);
+        return;
+      }
+
+      // If the selectedId is already in the selected array,
+      // remove it if it is not the only selected value
+      if (selected.length > 1) {
+        onSelect(selected.filter((sId) => sId !== selectedId));
+      }
+    },
+    [onSelect, selected],
+  );
+
   const {
     onMouseDown,
     onBlur,
     onFocus,
     onKeyDown,
     scrollSelectedIntoViewIfNeeded,
-  } = useControls(groups, onSelect, showAll, visibilityMap, groupListRef);
+  } = useControls(
+    groups,
+    handleSelect,
+    showAll,
+    visibilityMap,
+    groupListRef,
+    selected,
+  );
 
   // Make sure the selected group is visible, on mount
   // or when the list if groups change.
   useEffect(() => {
-    scrollSelectedIntoViewIfNeeded('instant');
+    // Defer to next render cycle after the component is mounted to make sure that
+    // the target element is not counted as visible if it is not.
+    setTimeout(() => {
+      // Scroll to the first selected group
+      scrollSelectedIntoViewIfNeeded('instant');
+    }, 0);
   }, [groups, scrollSelectedIntoViewIfNeeded]);
 
   return (
     <div
       className={twMerge('flex gap-2', className)}
-      role="radiogroup"
+      role="listbox"
       aria-labelledby={id}
+      aria-multiselectable="true"
     >
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label id={id} className="mt-2" role="none">
+      <label id={id} className="mt-2 text-nowrap" role="none">
         {radioGroupLabel}
       </label>
 
@@ -385,7 +436,7 @@ export const StopGroupSelector = ({
             key={group.id}
             group={group}
             longestLabel={longestLabel}
-            selected={group.id === selected}
+            selected={!!selected?.includes(group.id)}
             showAll={showAll}
             showAllByDefault={showAllByDefault}
             visible={visibilityMap[group.id]}
@@ -403,7 +454,8 @@ export const StopGroupSelector = ({
               // Defer to next render cycle, we need to wait for setShowAll call
               // to get flushed onto screen.
               setTimeout(() => {
-                scrollSelectedIntoViewIfNeeded('instant');
+                const latestSelected = selected?.at(-1);
+                scrollSelectedIntoViewIfNeeded('instant', latestSelected);
               }, 0);
             }}
             type="button"
