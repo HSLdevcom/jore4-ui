@@ -650,6 +650,23 @@ describe('Stop search', () => {
       assertOutboundRouteIsValid();
       assertInboundRouteIsValid();
     });
+
+    it('should be able to select multiple lines', () => {
+      stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+      stopSearchBar.getSearchInput().clearAndType(`9*{enter}`);
+
+      stopGroupSelector.getGroupSelectors().contains('901').click();
+      stopGroupSelector.getGroupSelectors().contains('9999').click();
+
+      stopGroupSelector.getGroupSelectors().should('have.length', 3);
+      stopGroupSelector.getGroupSelectors().eq(0).should('contain', '901');
+      stopGroupSelector.getGroupSelectors().eq(2).should('contain', '9999');
+
+      // Assert that both lines are shown
+      stopSearchByLine.getActiveLineName().should('have.length', 2);
+      stopSearchByLine.getActiveLineName().eq(0).should('contain', '901');
+      stopSearchByLine.getActiveLineName().eq(1).should('contain', '9999');
+    });
   });
 
   describe('for stop areas', () => {
