@@ -1,4 +1,4 @@
-import React, {
+import {
   ForwardRefRenderFunction,
   forwardRef,
   useImperativeHandle,
@@ -55,8 +55,10 @@ function useFilteredStops(
   const filterByUiFiltersAndRoute = useFilterStops();
 
   return useMemo(() => {
+    const filteredStops = filterByUiFiltersAndRoute(stops);
+
     if (selectedStopAreaId) {
-      return stops.filter(
+      return filteredStops.filter(
         (it) => it.stop_place_netex_id === selectedStopAreaId,
       );
     }
@@ -70,12 +72,12 @@ function useFilteredStops(
         return [];
       }
 
-      return stops.filter((it) =>
+      return filteredStops.filter((it) =>
         childAreaIds.includes(it.stop_place_netex_id),
       );
     }
 
-    return filterByUiFiltersAndRoute(stops);
+    return filteredStops;
   }, [
     selectedStopAreaId,
     selectedTerminalId,

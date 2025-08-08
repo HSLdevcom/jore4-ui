@@ -1,9 +1,10 @@
 import noop from 'lodash/noop';
 import { CanvasSource } from 'maplibre-gl';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { MapInstance, useMap } from 'react-map-gl/maplibre';
 import { useAppSelector } from '../../../../hooks';
 import { selectSelectedStopAreaId } from '../../../../redux';
+import { useFilterStops } from '../../stops/useFilterStops';
 import { MapStop } from '../../types';
 import { CanvasRenderer } from './CanvasRenderer';
 import { pixelSize } from './constants';
@@ -82,9 +83,15 @@ export const FunctionalAreaVisualization: FC<
   FunctionalAreaVisualizationProps
 > = ({ stops }) => {
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
+  const filterByUiFiltersAndRoute = useFilterStops();
+
+  const filteredStops = useMemo(
+    () => filterByUiFiltersAndRoute(stops),
+    [filterByUiFiltersAndRoute, stops],
+  );
 
   const { boundingBox, circles, converter } = useVisualizationData(
-    stops,
+    filteredStops,
     selectedStopAreaId,
   );
 
