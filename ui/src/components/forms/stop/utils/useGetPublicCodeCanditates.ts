@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
-import distance from '@turf/distance';
-import { lengthToDegrees } from '@turf/helpers';
+import { distance, lengthToDegrees } from '@turf/turf';
 import { Point } from 'geojson';
 import compact from 'lodash/compact';
 import { useMemo } from 'react';

@@ -1,7 +1,9 @@
-import flatten from '@turf/flatten';
-import { point } from '@turf/helpers';
-import nearestPointOnLine from '@turf/nearest-point-on-line';
-import pointToLineDistance from '@turf/point-to-line-distance';
+import {
+  flatten,
+  nearestPointOnLine,
+  point,
+  pointToLineDistance,
+} from '@turf/turf';
 import { Feature, Geometry, LineString, Point } from 'geojson';
 import minBy from 'lodash/minBy';
 import {
