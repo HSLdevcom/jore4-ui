@@ -11,6 +11,7 @@ import {
   createAndInsertStopPoint,
   createQuayMapping,
   executeQuayMove,
+  extractQuayValidityEnd,
   extractStopPlaceQuays,
   fetchExistingStopPoints,
   getPreviousDay,
@@ -78,17 +79,51 @@ export const useMoveQuayToStopPlace = () => {
       if (!newQuayId) {
         throw new Error(`No mapping found for quay ID: ${originalQuayId}`);
       }
+
+      const newQuayValidityEnd = extractQuayValidityEnd(
+        movedStopPlace,
+        newQuayId,
+      );
+
       await createAndInsertStopPoint(
         stopPointNeedingUpdate,
         newQuayId,
         params.moveQuayFromDate,
+        newQuayValidityEnd,
         insertStopPointMutation,
       );
 
       return { data: { stop_registry: { moveQuaysToStop: movedStopPlace } } };
     }
-    // Moving from validity start, no stop point updates needed
+
+    const originalQuayId = params.quayIds[0];
+    if (!originalQuayId) {
+      throw new Error('Original quay ID is required');
+    }
+
     const movedStopPlace = await executeQuayMove(params, moveQuayMutation);
+    const quayValidityEnd = extractQuayValidityEnd(
+      movedStopPlace,
+      originalQuayId,
+    );
+
+    if (quayValidityEnd) {
+      const stopPointId = existingStopPoints.find(
+        (sp) => sp.stop_place_ref === originalQuayId,
+      )?.scheduled_stop_point_id;
+
+      if (!stopPointId) {
+        throw new Error('Stop point ID is required');
+      }
+
+      // Update the stop point validity end date if the stop place has an end date
+      await updateStopPointValidity(
+        stopPointId,
+        quayValidityEnd,
+        updateStopPointMutation,
+      );
+    }
+
     return { data: { stop_registry: { moveQuaysToStop: movedStopPlace } } };
   };
 
