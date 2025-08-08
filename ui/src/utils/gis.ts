@@ -1,5 +1,4 @@
-import along from '@turf/along';
-import length from '@turf/length';
+import { along, length } from '@turf/turf';
 import { Feature, LineString } from 'geojson';
 import flow from 'lodash/flow';
 import {

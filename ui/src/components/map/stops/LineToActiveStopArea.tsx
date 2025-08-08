@@ -1,4 +1,4 @@
-import { point } from '@turf/helpers';
+import { point } from '@turf/turf';
 import { LineString, Position } from 'geojson';
 import { Point as MapLibrePoint } from 'maplibre-gl';
 import { FC } from 'react';
