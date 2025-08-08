@@ -8,6 +8,7 @@ import {
 import { getPointPosition } from '../../../utils';
 import { LinePaint, LineRenderLayer } from '../routes';
 import { MapStop, MapStopArea, MapTerminal } from '../types';
+import { useFilterStops } from './useFilterStops';
 
 const memberLinePaint: Partial<LinePaint> = {
   'line-offset': 0,
@@ -24,14 +25,18 @@ function useStopAreaMemberInfo(
   areas: ReadonlyArray<MapStopArea>,
 ): MemberLineInfo | null {
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
+  const filterByUiFiltersAndRoute = useFilterStops();
 
   const memberStops: ReadonlyArray<MapStop> = useMemo(() => {
     if (!selectedStopAreaId) {
       return [];
     }
 
-    return stops.filter((it) => it.stop_place_netex_id === selectedStopAreaId);
-  }, [selectedStopAreaId, stops]);
+    const filteredStops = filterByUiFiltersAndRoute(stops);
+    return filteredStops.filter(
+      (it) => it.stop_place_netex_id === selectedStopAreaId,
+    );
+  }, [filterByUiFiltersAndRoute, selectedStopAreaId, stops]);
 
   const targetPosition: Position | null = useMemo(() => {
     if (selectedStopAreaId) {
@@ -59,6 +64,7 @@ function useTerminalMemberInfo(
     () => terminals.find((it) => it.netex_id === selectedTerminalId) ?? null,
     [selectedTerminalId, terminals],
   );
+  const filterByUiFiltersAndRoute = useFilterStops();
 
   const memberStops: ReadonlyArray<MapStop> = useMemo(() => {
     const childAreaIds =
@@ -68,8 +74,11 @@ function useTerminalMemberInfo(
       return [];
     }
 
-    return stops.filter((it) => childAreaIds.includes(it.stop_place_netex_id));
-  }, [selectedTerminal, stops]);
+    const filteredStops = filterByUiFiltersAndRoute(stops);
+    return filteredStops.filter((it) =>
+      childAreaIds.includes(it.stop_place_netex_id),
+    );
+  }, [filterByUiFiltersAndRoute, selectedTerminal?.children, stops]);
 
   const targetPosition = getPointPosition(selectedTerminal?.centroid);
 
