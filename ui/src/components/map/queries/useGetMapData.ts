@@ -14,6 +14,7 @@ import {
   selectShowMapEntityTypes,
 } from '../../../redux';
 import { Viewport } from '../../../redux/types';
+import { useFilterStops } from '../stops/useFilterStops';
 import { useGetMapStopAreas } from './useGetMapStopAreas';
 import { useGetMapStops } from './useGetMapStops';
 import { useGetMapTerminals } from './useGetMapTerminals';
@@ -27,6 +28,7 @@ function isViewportLoaded(viewport: Viewport): boolean {
 export function useGetMapData() {
   const viewport = useAppSelector(selectMapViewport);
   const viewportIsLoaded = isViewportLoaded(viewport);
+  const filterByUiFiltersAndRoute = useFilterStops();
 
   const {
     [MapEntityType.Stop]: showStops,
@@ -75,5 +77,10 @@ export function useGetMapData() {
     );
   }, [loading, setLoadingState]);
 
-  return { stops, areas, displayedRouteIds, terminals };
+  return {
+    stops: filterByUiFiltersAndRoute(stops),
+    areas,
+    displayedRouteIds,
+    terminals,
+  };
 }

@@ -1,4 +1,4 @@
-import React, {
+import {
   ForwardRefRenderFunction,
   forwardRef,
   useImperativeHandle,
@@ -38,7 +38,6 @@ import { useMapViewState } from '../utils/useMapViewState';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
-import { useFilterStops } from './useFilterStops';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>
@@ -52,8 +51,6 @@ function useFilteredStops(
   selectedStopAreaId: string | undefined | null,
   selectedTerminalId: string | undefined | null,
 ): ReadonlyArray<MapStop> {
-  const filterByUiFiltersAndRoute = useFilterStops();
-
   return useMemo(() => {
     if (selectedStopAreaId) {
       return stops.filter(
@@ -75,14 +72,8 @@ function useFilteredStops(
       );
     }
 
-    return filterByUiFiltersAndRoute(stops);
-  }, [
-    selectedStopAreaId,
-    selectedTerminalId,
-    filterByUiFiltersAndRoute,
-    stops,
-    terminals,
-  ]);
+    return stops;
+  }, [selectedStopAreaId, selectedTerminalId, stops, terminals]);
 }
 
 type StopsProps = {
