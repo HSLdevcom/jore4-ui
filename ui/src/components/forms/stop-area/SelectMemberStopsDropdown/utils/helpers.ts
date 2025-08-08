@@ -46,6 +46,29 @@ export function extractStopPlaceQuays(
     .filter((quay) => quay.id && quay.publicCode);
 }
 
+export function extractQuayValidityEnd(
+  stopPlace: MoveStopPlace | null | undefined,
+  quayId: string,
+): string | null | undefined {
+  // eslint-disable-next-line no-underscore-dangle
+  if (stopPlace?.__typename !== 'stop_registry_StopPlace') {
+    return undefined;
+  }
+
+  if (!stopPlace.quays) {
+    return undefined;
+  }
+
+  const quay = stopPlace.quays.find((q) => q?.id === quayId);
+  if (!quay) {
+    return undefined;
+  }
+
+  const validityEnd = quay.keyValues?.find((kv) => kv?.key === 'validityEnd');
+  const validityEndValue = validityEnd?.values?.[0];
+  return validityEndValue ?? null;
+}
+
 export function createQuayMapping(
   originalQuays: ReadonlyArray<QuayInfo>,
   newQuays: ReadonlyArray<QuayInfo>,
@@ -136,6 +159,7 @@ export async function createAndInsertStopPoint(
   originalStopPoint: StopPointInfo,
   newQuayId: string,
   moveFromDate: string,
+  validityEnd: string | null | undefined,
   insertStopPointMutation: ReturnType<typeof useInsertStopPointMutation>[0],
 ) {
   const baseStopPoint: ServicePatternScheduledStopPointInsertInput = {
@@ -144,7 +168,7 @@ export async function createAndInsertStopPoint(
     label: originalStopPoint.label,
     timing_place_id: originalStopPoint.timing_place_id,
     validity_start: DateTime.fromISO(moveFromDate),
-    validity_end: originalStopPoint.validity_end,
+    validity_end: validityEnd ? DateTime.fromISO(validityEnd) : null,
     located_on_infrastructure_link_id:
       originalStopPoint.located_on_infrastructure_link_id,
     stop_place_ref: newQuayId,
