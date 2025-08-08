@@ -4,17 +4,17 @@ import { StopGroupSelector, StopGroupSelectorItem } from '../components';
 import { FindStopAreaInfo } from './useFindStopAreas';
 
 type StopAreaSelectorProps = {
-  readonly activeStopId: string | null;
+  readonly activeAreaIds: string[] | null;
   readonly className?: string;
   readonly stopAreas: ReadonlyArray<FindStopAreaInfo>;
-  readonly setActiveStopId: (activeLineId: string | null) => void;
+  readonly setActiveAreaIds: (activeStopIds: string[] | null) => void;
 };
 
 export const StopAreaSelector: FC<StopAreaSelectorProps> = ({
-  activeStopId,
+  activeAreaIds,
   className,
   stopAreas,
-  setActiveStopId,
+  setActiveAreaIds,
 }) => {
   const { t } = useTranslation();
 
@@ -39,9 +39,11 @@ export const StopAreaSelector: FC<StopAreaSelectorProps> = ({
     <StopGroupSelector
       className={className}
       groups={groups}
-      label={t('stopRegistrySearch.stopAreas')}
-      onSelect={setActiveStopId}
-      selected={activeStopId ?? null}
+      label={t('stopRegistrySearch.stopAreas', {
+        count: activeAreaIds?.length ?? 0,
+      })}
+      onSelect={setActiveAreaIds}
+      selected={activeAreaIds}
     />
   );
 };
