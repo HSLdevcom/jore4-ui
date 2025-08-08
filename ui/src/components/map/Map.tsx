@@ -36,7 +36,7 @@ import {
 } from './refTypes';
 import { Routes, isRouteGeometryLayer, mapLayerIdToRouteId } from './routes';
 import { RouteStopsOverlay } from './routes/RouteStopsOverlay';
-import { StopAreas } from './stop-areas';
+import { FunctionalAreaVisualization, StopAreas } from './stop-areas';
 import { MemberStopLines, Stops } from './stops';
 import { Terminals } from './terminals';
 
@@ -242,6 +242,8 @@ export const MapComponent: ForwardRefRenderFunction<
         showRoute={showRoute}
         ref={editorRefs.routeEditorRef}
       />
+
+      <FunctionalAreaVisualization stops={stops} />
     </Maplibre>
   );
 };

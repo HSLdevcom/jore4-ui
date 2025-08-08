@@ -67960,11 +67960,12 @@ export type GetMapStopsQuery = {
       readonly __typename?: 'stops_database_quay_newest_version',
       readonly id?: any | null,
       readonly netex_id?: string | null,
+      readonly stop_place_netex_id?: string | null,
       readonly validity_start?: string | null,
       readonly validity_end?: string | null,
       readonly priority?: string | null,
       readonly centroid?: GeoJSON.Geometry | null,
-      readonly stop_place_netex_id?: string | null,
+      readonly functional_area?: string | null,
       readonly label?: string | null
     }>
   } | null
@@ -67974,11 +67975,12 @@ export type MapStopMinimalDetailsFragment = {
   readonly __typename?: 'stops_database_quay_newest_version',
   readonly id?: any | null,
   readonly netex_id?: string | null,
+  readonly stop_place_netex_id?: string | null,
   readonly validity_start?: string | null,
   readonly validity_end?: string | null,
   readonly priority?: string | null,
   readonly centroid?: GeoJSON.Geometry | null,
-  readonly stop_place_netex_id?: string | null,
+  readonly functional_area?: string | null,
   readonly label?: string | null
 };
 
@@ -76420,12 +76422,13 @@ export const MapStopMinimalDetailsFragmentDoc = gql`
     fragment MapStopMinimalDetails on stops_database_quay_newest_version {
   id
   netex_id
+  stop_place_netex_id
   label: public_code
   validity_start
   validity_end
   priority
   centroid
-  stop_place_netex_id
+  functional_area
 }
     `;
 export const MapMinimalTerminalDetailsFragmentDoc = gql`

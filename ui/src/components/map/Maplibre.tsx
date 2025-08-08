@@ -1,5 +1,4 @@
-import distance from '@turf/distance';
-import { Units, point } from '@turf/helpers';
+import { Units, distance, point } from '@turf/turf';
 import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
 import {

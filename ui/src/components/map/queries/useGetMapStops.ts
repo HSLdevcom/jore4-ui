@@ -26,12 +26,16 @@ const GQL_GET_MAP_STOPS = gql`
   fragment MapStopMinimalDetails on stops_database_quay_newest_version {
     id
     netex_id
+    stop_place_netex_id
+
     label: public_code
+
     validity_start
     validity_end
     priority
+
     centroid
-    stop_place_netex_id
+    functional_area
   }
 `;
 
@@ -78,6 +82,16 @@ function whereSelectedStopArea(
   return { stop_place_netex_id: { _eq: stopAreaId } };
 }
 
+function parseValidNumber(value: unknown): number | null {
+  const parsed = Number(value);
+
+  if (Number.isFinite(parsed)) {
+    return parsed;
+  }
+
+  return null;
+}
+
 function mapRawStopToMapStop(
   rawStop: MapStopMinimalDetailsFragment | null,
 ): MapStop | null {
@@ -98,6 +112,7 @@ function mapRawStopToMapStop(
     priority: Number(rawStop.priority) as Priority,
     validity_start: parseDate(rawStop.validity_start),
     validity_end: parseDate(rawStop.validity_end),
+    functional_area: parseValidNumber(rawStop.functional_area),
   };
 }
 
