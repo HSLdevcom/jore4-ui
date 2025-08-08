@@ -69,7 +69,7 @@ function useTerminalMemberInfo(
     }
 
     return stops.filter((it) => childAreaIds.includes(it.stop_place_netex_id));
-  }, [selectedTerminal, stops]);
+  }, [selectedTerminal?.children, stops]);
 
   const targetPosition = getPointPosition(selectedTerminal?.centroid);
 
