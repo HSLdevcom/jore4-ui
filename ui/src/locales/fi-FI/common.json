@@ -188,7 +188,8 @@
         "added": "Lisätty",
         "removed": "poistettu"
       },
-      "futureVersionsAlert": "Pysäkkialueesta on tulevia versioita. Pysäkki kuuluu siirron jälkeen ainoastaan nyt tarkasteltavaan pysäkkialueen versioon. Luo pysäkistä kopio tuleviin alueen versioihin tarpeen vaatiessa."
+      "futureVersionsAlert": "Pysäkkialueesta on tulevia versioita. Pysäkki kuuluu siirron jälkeen ainoastaan nyt tarkasteltavaan pysäkkialueen versioon. Luo pysäkistä kopio tuleviin alueen versioihin tarpeen vaatiessa.",
+      "moveError": "Virhe pysäkin siirtämisessä alueelle. Syy:\n{{ reason }}"
     },
     "errors": {
       "stopPlacesUniqueName": "Pysäkkialueella tulee olla uniikki nimi, mutta nimi {{name}} on jo jonkin toisen alueen käytössä!",

@@ -58,13 +58,7 @@ export const useMoveQuayToStopPlace = () => {
     });
 
     if (stopPointNeedingUpdate) {
-      const validityEndDate = getPreviousDay(params.moveQuayFromDate);
-      await updateStopPointValidity(
-        stopPointNeedingUpdate.scheduled_stop_point_id,
-        validityEndDate,
-        updateStopPointMutation,
-      );
-
+      // Do the tiamat mutation first before updating the stop point validity end date
       const movedStopPlace = await executeQuayMove(params, moveQuayMutation);
 
       const newQuays = extractStopPlaceQuays(movedStopPlace);
@@ -85,6 +79,15 @@ export const useMoveQuayToStopPlace = () => {
         newQuayId,
       );
 
+      // Update the original stop point
+      const validityEndDate = getPreviousDay(params.moveQuayFromDate);
+      await updateStopPointValidity(
+        stopPointNeedingUpdate.scheduled_stop_point_id,
+        validityEndDate,
+        updateStopPointMutation,
+      );
+
+      // Create a new stop point
       await createAndInsertStopPoint(
         stopPointNeedingUpdate,
         newQuayId,
