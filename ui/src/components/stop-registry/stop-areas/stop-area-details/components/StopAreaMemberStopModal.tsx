@@ -272,7 +272,9 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
 
         {moveError && (
           <div className="mx-8 mb-4 rounded border border-red-400 bg-red-100 p-3 text-red-700">
-            {t('stopAreaDetails.memberStops.moveError')}: {moveError.message}
+            {t('stopAreaDetails.memberStops.moveError', {
+              reason: moveError.message,
+            })}
           </div>
         )}
       </ModalBody>
