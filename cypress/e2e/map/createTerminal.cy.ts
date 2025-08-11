@@ -10,6 +10,7 @@ import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
 import {
   FilterPanel,
+  Map,
   MapModal,
   Navbar,
   TerminalDetailsPage,
@@ -29,6 +30,7 @@ const testTerminalLabels = {
   expectedMemberStops: 'E2E001, E2E002, E2E009',
 };
 
+const map = new Map();
 const mapModal = new MapModal();
 const mapFilterPanel = new FilterPanel();
 const navbar = new Navbar();
@@ -88,6 +90,8 @@ describe('Terminal creation tests', mapViewport, () => {
         lat: testCoordinates1.lat,
         lng: testCoordinates1.lng,
       });
+      map.getLoader().shouldBeVisible();
+      map.waitForLoadToComplete();
     });
   });
 
@@ -114,6 +118,7 @@ describe('Terminal creation tests', mapViewport, () => {
       mapModal.checkTerminalSubmitSuccessToast();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      map.waitForLoadToComplete();
 
       cy.getByTestId(
         `Map::MapTerminal::terminal::${testTerminalLabels.terminalPrivateCode}`,
@@ -169,6 +174,7 @@ describe('Terminal creation tests', mapViewport, () => {
       });
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      map.waitForLoadToComplete();
 
       cy.getByTestId(
         `Map::MapTerminal::terminal::${testTerminalLabels.terminalPrivateCode}`,
