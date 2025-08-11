@@ -84,15 +84,15 @@ export function useResolveStopHoverTitle(
         const priority = priorityMap[stop.priority];
 
         if (name && priority) {
-          return `${code}: ${name} (${priority})`;
+          return `${code} ${name} (${priority})`;
         }
 
         if (name) {
-          return `${code}: ${name}`;
+          return `${code} ${name}`;
         }
 
         if (priority) {
-          return `${code}: (${priority})`;
+          return `${code} (${priority})`;
         }
 
         return code;

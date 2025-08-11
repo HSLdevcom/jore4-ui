@@ -44,7 +44,7 @@ export const StopArea: FC<StopAreaProps> = ({
         selected={selected}
         isPlaceholder={isPlaceholder}
         testId={testIds.stopArea(area)}
-        title={`${area.private_code_value}: ${area.name_value}`}
+        title={`${area.private_code_value} ${area.name_value}`}
       />
     </Marker>
   );
