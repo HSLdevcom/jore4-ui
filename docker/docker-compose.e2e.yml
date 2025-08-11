@@ -11,7 +11,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-tiamat-base
-    image: "crjore4prod001.azurecr.io/jore4-tiamat:main-2025-08-01-2dc9704d36f7ec3948f6d473c9913fcc253dd19e"
+    image: "crjore4prod001.azurecr.io/jore4-tiamat:main-2025-08-11-ef0cb2acf6bdacc8e9902ec40f12aac976b688b2"
     container_name: "tiamat-e2e"
     environment:
       - TIAMAT_DB_URL=jdbc:postgresql://jore4-testdb-e2e:5432/stopdb?stringtype=unspecified
