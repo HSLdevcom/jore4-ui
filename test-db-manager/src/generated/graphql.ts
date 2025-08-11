@@ -42922,6 +42922,8 @@ export type StopsDatabaseStopPlaceNewestVersion = {
   /** An aggregate relationship */
   group_of_stop_places_members_aggregate: StopsDatabaseGroupOfStopPlacesMembersAggregate;
   id?: Maybe<Scalars['bigint']['output']>;
+  is_area?: Maybe<Scalars['Boolean']['output']>;
+  is_terminal?: Maybe<Scalars['Boolean']['output']>;
   metro_submode?: Maybe<Scalars['String']['output']>;
   modification_enumeration?: Maybe<Scalars['String']['output']>;
   name_lang?: Maybe<Scalars['String']['output']>;
@@ -43236,6 +43238,8 @@ export type StopsDatabaseStopPlaceNewestVersionBoolExp = {
   group_of_stop_places_members?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersBoolExp>;
   group_of_stop_places_members_aggregate?: InputMaybe<GroupOfStopPlacesMembersAggregateBoolExp>;
   id?: InputMaybe<BigintComparisonExp>;
+  is_area?: InputMaybe<BooleanComparisonExp>;
+  is_terminal?: InputMaybe<BooleanComparisonExp>;
   metro_submode?: InputMaybe<StringComparisonExp>;
   modification_enumeration?: InputMaybe<StringComparisonExp>;
   name_lang?: InputMaybe<StringComparisonExp>;
@@ -43301,6 +43305,8 @@ export type StopsDatabaseStopPlaceNewestVersionInsertInput = {
   funicular_submode?: InputMaybe<Scalars['String']['input']>;
   group_of_stop_places_members?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersArrRelInsertInput>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  is_area?: InputMaybe<Scalars['Boolean']['input']>;
+  is_terminal?: InputMaybe<Scalars['Boolean']['input']>;
   metro_submode?: InputMaybe<Scalars['String']['input']>;
   modification_enumeration?: InputMaybe<Scalars['String']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
@@ -43459,6 +43465,8 @@ export type StopsDatabaseStopPlaceNewestVersionOrderBy = {
   funicular_submode?: InputMaybe<OrderBy>;
   group_of_stop_places_members_aggregate?: InputMaybe<StopsDatabaseGroupOfStopPlacesMembersAggregateOrderBy>;
   id?: InputMaybe<OrderBy>;
+  is_area?: InputMaybe<OrderBy>;
+  is_terminal?: InputMaybe<OrderBy>;
   metro_submode?: InputMaybe<OrderBy>;
   modification_enumeration?: InputMaybe<OrderBy>;
   name_lang?: InputMaybe<OrderBy>;
@@ -43532,6 +43540,10 @@ export enum StopsDatabaseStopPlaceNewestVersionSelectColumn {
   FunicularSubmode = 'funicular_submode',
   /** column name */
   Id = 'id',
+  /** column name */
+  IsArea = 'is_area',
+  /** column name */
+  IsTerminal = 'is_terminal',
   /** column name */
   MetroSubmode = 'metro_submode',
   /** column name */
@@ -43656,6 +43668,8 @@ export type StopsDatabaseStopPlaceNewestVersionStreamCursorValueInput = {
   from_date?: InputMaybe<Scalars['timestamp']['input']>;
   funicular_submode?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  is_area?: InputMaybe<Scalars['Boolean']['input']>;
+  is_terminal?: InputMaybe<Scalars['Boolean']['input']>;
   metro_submode?: InputMaybe<Scalars['String']['input']>;
   modification_enumeration?: InputMaybe<Scalars['String']['input']>;
   name_lang?: InputMaybe<Scalars['String']['input']>;
