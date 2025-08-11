@@ -188,7 +188,8 @@
         "added": "Added",
         "removed": "Removed"
       },
-      "futureVersionsAlert": "There are future versions of the stop area. After the transfer, the stop will only belong to the currently viewed version of the stop area. Create a copy of the stop for future versions of the area if necessary."
+      "futureVersionsAlert": "There are future versions of the stop area. After the transfer, the stop will only belong to the currently viewed version of the stop area. Create a copy of the stop for future versions of the area if necessary.",
+      "moveError": "Error moving stop to stop area. Reason:\n{{ reason }}"
     },
     "errors": {
       "stopPlacesUniqueName": "Stop area should have unique name but {{name}} is already in use!",
@@ -1168,6 +1169,7 @@
   "save": "Save",
   "edit": "Edit",
   "move": "Move",
+  "moving": "Moving",
   "cancel": "Cancel",
   "close": "Close",
   "cut": "Cut",
