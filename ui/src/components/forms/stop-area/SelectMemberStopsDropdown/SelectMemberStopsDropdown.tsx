@@ -68,10 +68,9 @@ export const SelectMemberStopsDropdownArea: FC<
 
   const unselectedOptions = useMemo(() => {
     return options.filter(
-      (stop) =>
-        stop.stopPlaceId !== value?.stopPlaceId && stop.stopPlaceId !== areaId,
+      (stop) => stop.quayId !== value?.quayId && stop.stopPlaceId !== areaId,
     );
-  }, [options, value?.stopPlaceId, areaId]);
+  }, [options, value?.quayId, areaId]);
 
   const handleSelectionChange = (newValue: SelectedStop | null) => {
     if (newValue === FETCH_MORE_OPTION) {

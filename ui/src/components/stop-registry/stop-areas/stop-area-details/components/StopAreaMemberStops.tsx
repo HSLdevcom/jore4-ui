@@ -6,6 +6,7 @@ import { StopAreaMemberStopsHeader } from './StopAreaMemberStopsHeader';
 
 export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
   area,
+  refetch,
 }) => {
   const { t } = useTranslation();
 
@@ -14,7 +15,7 @@ export const StopAreaMemberStops: FC<EditableStopAreaComponentProps> = ({
       <div className="flex items-center gap-4">
         <h2>{t('stopAreaDetails.memberStops.title')}</h2>
 
-        <StopAreaMemberStopsHeader area={area} />
+        <StopAreaMemberStopsHeader area={area} refetch={refetch} />
       </div>
 
       <StopAreaMemberStopRows area={area} />

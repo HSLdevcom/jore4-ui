@@ -11,6 +11,7 @@ export type MoveQuayParams = {
 export type QuayInfo = {
   id: string;
   publicCode: string;
+  validityStart?: string;
 };
 
 export type StopPointInfo =

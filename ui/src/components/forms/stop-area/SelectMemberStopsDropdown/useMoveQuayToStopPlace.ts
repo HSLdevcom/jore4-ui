@@ -9,7 +9,7 @@ import {
 import { showDangerToastWithError } from '../../../../utils';
 import {
   createAndInsertStopPoint,
-  createQuayMapping,
+  createQuayMappingForCopiedQuay,
   executeQuayMove,
   extractQuayValidityEnd,
   extractStopPlaceQuays,
@@ -62,7 +62,11 @@ export const useMoveQuayToStopPlace = () => {
       const movedStopPlace = await executeQuayMove(params, moveQuayMutation);
 
       const newQuays = extractStopPlaceQuays(movedStopPlace);
-      const quayMapping = createQuayMapping(originalQuays, newQuays);
+      const quayMapping = createQuayMappingForCopiedQuay(
+        originalQuays,
+        newQuays,
+        params.moveQuayFromDate,
+      );
 
       const originalQuayId = stopPointNeedingUpdate.stop_place_ref;
       if (!originalQuayId) {

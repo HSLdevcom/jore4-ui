@@ -7,6 +7,7 @@ import {
   useUpdateStopPointMutation,
 } from '../../../../../generated/graphql';
 import { PartialScheduledStopPointSetInput } from '../../../../../graphql';
+import { findKeyValue } from '../../../../../utils';
 import {
   MoveQuayParams,
   MoveStopPlace,
@@ -42,6 +43,7 @@ export function extractStopPlaceQuays(
     .map((quay) => ({
       id: quay.id ?? '',
       publicCode: quay.publicCode ?? '',
+      validityStart: findKeyValue(quay, 'validityStart') ?? undefined,
     }))
     .filter((quay) => quay.id && quay.publicCode);
 }
@@ -69,9 +71,10 @@ export function extractQuayValidityEnd(
   return validityEndValue ?? null;
 }
 
-export function createQuayMapping(
+export function createQuayMappingForCopiedQuay(
   originalQuays: ReadonlyArray<QuayInfo>,
   newQuays: ReadonlyArray<QuayInfo>,
+  moveQuayFromDate: string,
 ): Map<string, string> {
   const mapping = new Map<string, string>();
 
@@ -81,7 +84,9 @@ export function createQuayMapping(
     }
 
     const matchingNewQuay = newQuays.find(
-      (newQuay) => newQuay?.publicCode === originalQuay.publicCode,
+      (newQuay) =>
+        newQuay.publicCode === originalQuay.publicCode &&
+        newQuay.validityStart === moveQuayFromDate,
     );
 
     if (matchingNewQuay?.id) {
@@ -117,7 +122,6 @@ export async function executeQuayMove(
       fromVersionComment: params.fromVersionComment,
       toVersionComment: params.toVersionComment,
     },
-    refetchQueries: ['getStopPlaceDetails'],
   });
 
   const movedStopPlace = moveResult?.data?.stop_registry?.moveQuaysToStop;

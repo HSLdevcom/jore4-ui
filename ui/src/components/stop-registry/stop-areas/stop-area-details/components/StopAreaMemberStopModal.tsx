@@ -34,6 +34,7 @@ type StopAreaMemberStopModalProps = {
   readonly onSave: () => void;
   readonly areaId: string;
   readonly areaPrivateCode: string;
+  readonly refetch: () => Promise<unknown>;
 };
 
 type ModalState = {
@@ -92,6 +93,7 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
   onSave,
   areaId,
   areaPrivateCode,
+  refetch,
 }) => {
   const { t } = useTranslation();
   const [state, setState] = useState<ModalState>(initialState);
@@ -156,6 +158,7 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
 
     try {
       await moveQuayToStopPlace(saveParams);
+      await refetch();
 
       onSave();
       handleClose();

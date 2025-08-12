@@ -10,10 +10,12 @@ const testIds = {
 
 type StopAreaMemberStopsHeaderProps = {
   readonly area: EnrichedStopPlace;
+  readonly refetch: () => Promise<unknown>;
 };
 
 export const StopAreaMemberStopsHeader: FC<StopAreaMemberStopsHeaderProps> = ({
   area,
+  refetch,
 }) => {
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,6 +51,7 @@ export const StopAreaMemberStopsHeader: FC<StopAreaMemberStopsHeaderProps> = ({
         onSave={handleCloseModal}
         areaId={area.id}
         areaPrivateCode={area.privateCode.value}
+        refetch={refetch}
       />
     </>
   );
