@@ -21,7 +21,10 @@ export const SelectMemberStopsDropdownButton: FC<
       data-testid={testIds.button}
       className="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
     >
-      <span className="hidden ui-not-open:block" title={selectedText}>
+      <span
+        className="hidden min-w-0 flex-1 truncate ui-not-open:block"
+        title={selectedText}
+      >
         {selectedText}
       </span>
 
