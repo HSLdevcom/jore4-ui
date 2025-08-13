@@ -519,6 +519,11 @@
   "terminalDetails": {
     "title": "Basic details",
     "editSuccess": "Terminal edited",
+    "tabs": {
+      "basic": "Terminal",
+      "stops": "Stops",
+      "stopsWithCount": "Stops ({{ count }})"
+    },
     "basicDetails": {
       "title": "Terminal basic details",
       "description": "Description",
@@ -551,6 +556,9 @@
       "memberPlatforms": "Member platforms",
       "noMemberStopsSelected": "Terminal must have at least one member stop.",
       "stopAlreadyBelongsToTerminal": "Stop already belongs to another terminal."
+    },
+    "stops": {
+      "title": "Stops"
     },
     "errors": {
       "terminalsUniqueName": "Terminal should have unique name but {{name}} is already in use by another terminal or stop area!",
