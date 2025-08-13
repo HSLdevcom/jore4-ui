@@ -518,6 +518,11 @@
   "terminalDetails": {
     "title": "Perustiedot",
     "editSuccess": "Terminaali muokattu",
+    "tabs": {
+      "basic": "Terminaali",
+      "stops": "Pysäkit",
+      "stopsWithCount": "Pysäkit ({{ count }})"
+    },
     "basicDetails": {
       "title": "Terminaalin perustiedot",
       "description": "Terminaalin kuvaus",
@@ -550,6 +555,9 @@
       "memberPlatforms": "Jäsenlaiturit",
       "noMemberStopsSelected": "Terminaalilla pitää olla vähintään yksi jäsenpysäkki.",
       "stopAlreadyBelongsToTerminal": "Pysäkki on jo liitetty toiseen terminaaliin."
+    },
+    "stops": {
+      "title": "Pysäkit"
     },
     "errors": {
       "terminalsUniqueName": "Terminaalilla tulee olla uniikki nimi, mutta nimi {{name}} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!",
