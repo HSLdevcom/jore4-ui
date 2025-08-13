@@ -414,7 +414,12 @@ export const StopGroupSelector = ({
       aria-multiselectable="true"
     >
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label id={id} className="mt-2 text-nowrap" role="none">
+      <label
+        id={id}
+        // Align the bottom of the labels text with the bottom of the options text.
+        className="mb-0 mt-[calc(0.5rem+2px)] text-nowrap"
+        role="none"
+      >
         {radioGroupLabel}
       </label>
 
@@ -426,7 +431,8 @@ export const StopGroupSelector = ({
         onKeyDown={onKeyDown}
         className={twJoin(
           // focusByVisualLocation relies on the gap CSS attribute being present.
-          'flex items-center gap-2 overflow-hidden',
+          // padding 4px to account for focus outline on the options.
+          'flex items-center gap-2 overflow-hidden p-[4px]',
           showAll ? 'flex-wrap' : '',
         )}
         ref={groupListRef}

@@ -12,6 +12,7 @@ const baseClasses = twJoin(
   'cursor-pointer rounded border px-2 py-1 text-center font-bold text-dark-grey',
   'aria-selected:border-brand aria-selected:bg-brand aria-selected:text-white',
   'hover:border-black hover:bg-background-hsl-blue hover:text-black',
+  'focus:outline-2 focus:outline-offset-4 focus:outline-black',
   'font-mono', // Helps to align the items into a grid
 );
 
