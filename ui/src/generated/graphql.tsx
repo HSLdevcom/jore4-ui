@@ -68142,10 +68142,41 @@ export type GetTerminalDetailsByNetexIdQuery = {
           readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
           readonly value?: string | null
         } | null,
+        readonly privateCode?: {
+          readonly __typename?: 'stop_registry_PrivateCode',
+          readonly value?: string | null
+        } | null,
         readonly quays?: ReadonlyArray<{
           readonly __typename?: 'stop_registry_Quay',
           readonly id?: string | null,
           readonly publicCode?: string | null,
+          readonly description?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly lang?: string | null,
+            readonly value?: string | null
+          } | null,
+          readonly scheduled_stop_point?: {
+            readonly __typename?: 'service_pattern_scheduled_stop_point',
+            readonly priority: number,
+            readonly direction: InfrastructureNetworkDirectionEnum,
+            readonly scheduled_stop_point_id: UUID,
+            readonly label: string,
+            readonly timing_place_id?: UUID | null,
+            readonly validity_start?: luxon.DateTime | null,
+            readonly validity_end?: luxon.DateTime | null,
+            readonly located_on_infrastructure_link_id: UUID,
+            readonly stop_place_ref?: string | null,
+            readonly measured_location: GeoJSON.Point,
+            readonly timing_place?: {
+              readonly __typename?: 'timing_pattern_timing_place',
+              readonly timing_place_id: UUID,
+              readonly label: string
+            } | null,
+            readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+              readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+              readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+            }>
+          } | null,
           readonly keyValues?: ReadonlyArray<{
             readonly __typename?: 'stop_registry_KeyValues',
             readonly key?: string | null,
@@ -70089,10 +70120,41 @@ export type GetParentStopPlaceDetailsQuery = {
             readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
             readonly value?: string | null
           } | null,
+          readonly privateCode?: {
+            readonly __typename?: 'stop_registry_PrivateCode',
+            readonly value?: string | null
+          } | null,
           readonly quays?: ReadonlyArray<{
             readonly __typename?: 'stop_registry_Quay',
             readonly id?: string | null,
             readonly publicCode?: string | null,
+            readonly description?: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly lang?: string | null,
+              readonly value?: string | null
+            } | null,
+            readonly scheduled_stop_point?: {
+              readonly __typename?: 'service_pattern_scheduled_stop_point',
+              readonly priority: number,
+              readonly direction: InfrastructureNetworkDirectionEnum,
+              readonly scheduled_stop_point_id: UUID,
+              readonly label: string,
+              readonly timing_place_id?: UUID | null,
+              readonly validity_start?: luxon.DateTime | null,
+              readonly validity_end?: luxon.DateTime | null,
+              readonly located_on_infrastructure_link_id: UUID,
+              readonly stop_place_ref?: string | null,
+              readonly measured_location: GeoJSON.Point,
+              readonly timing_place?: {
+                readonly __typename?: 'timing_pattern_timing_place',
+                readonly timing_place_id: UUID,
+                readonly label: string
+              } | null,
+              readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+                readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+                readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+              }>
+            } | null,
             readonly keyValues?: ReadonlyArray<{
               readonly __typename?: 'stop_registry_KeyValues',
               readonly key?: string | null,
@@ -70201,10 +70263,41 @@ export type ParentStopPlaceDetailsFragment = {
       readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
       readonly value?: string | null
     } | null,
+    readonly privateCode?: {
+      readonly __typename?: 'stop_registry_PrivateCode',
+      readonly value?: string | null
+    } | null,
     readonly quays?: ReadonlyArray<{
       readonly __typename?: 'stop_registry_Quay',
       readonly id?: string | null,
       readonly publicCode?: string | null,
+      readonly description?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null,
+      readonly scheduled_stop_point?: {
+        readonly __typename?: 'service_pattern_scheduled_stop_point',
+        readonly priority: number,
+        readonly direction: InfrastructureNetworkDirectionEnum,
+        readonly scheduled_stop_point_id: UUID,
+        readonly label: string,
+        readonly timing_place_id?: UUID | null,
+        readonly validity_start?: luxon.DateTime | null,
+        readonly validity_end?: luxon.DateTime | null,
+        readonly located_on_infrastructure_link_id: UUID,
+        readonly stop_place_ref?: string | null,
+        readonly measured_location: GeoJSON.Point,
+        readonly timing_place?: {
+          readonly __typename?: 'timing_pattern_timing_place',
+          readonly timing_place_id: UUID,
+          readonly label: string
+        } | null,
+        readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+          readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+          readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+        }>
+      } | null,
       readonly keyValues?: ReadonlyArray<{
         readonly __typename?: 'stop_registry_KeyValues',
         readonly key?: string | null,
@@ -70228,10 +70321,41 @@ export type MemberStopStopPlaceDetailsFragment = {
     readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
     readonly value?: string | null
   } | null,
+  readonly privateCode?: {
+    readonly __typename?: 'stop_registry_PrivateCode',
+    readonly value?: string | null
+  } | null,
   readonly quays?: ReadonlyArray<{
     readonly __typename?: 'stop_registry_Quay',
     readonly id?: string | null,
     readonly publicCode?: string | null,
+    readonly description?: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly lang?: string | null,
+      readonly value?: string | null
+    } | null,
+    readonly scheduled_stop_point?: {
+      readonly __typename?: 'service_pattern_scheduled_stop_point',
+      readonly priority: number,
+      readonly direction: InfrastructureNetworkDirectionEnum,
+      readonly scheduled_stop_point_id: UUID,
+      readonly label: string,
+      readonly timing_place_id?: UUID | null,
+      readonly validity_start?: luxon.DateTime | null,
+      readonly validity_end?: luxon.DateTime | null,
+      readonly located_on_infrastructure_link_id: UUID,
+      readonly stop_place_ref?: string | null,
+      readonly measured_location: GeoJSON.Point,
+      readonly timing_place?: {
+        readonly __typename?: 'timing_pattern_timing_place',
+        readonly timing_place_id: UUID,
+        readonly label: string
+      } | null,
+      readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+        readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+        readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+      }>
+    } | null,
     readonly keyValues?: ReadonlyArray<{
       readonly __typename?: 'stop_registry_KeyValues',
       readonly key?: string | null,
@@ -70244,6 +70368,33 @@ export type MemberStopQuayDetailsFragment = {
   readonly __typename?: 'stop_registry_Quay',
   readonly id?: string | null,
   readonly publicCode?: string | null,
+  readonly description?: {
+    readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+    readonly lang?: string | null,
+    readonly value?: string | null
+  } | null,
+  readonly scheduled_stop_point?: {
+    readonly __typename?: 'service_pattern_scheduled_stop_point',
+    readonly priority: number,
+    readonly direction: InfrastructureNetworkDirectionEnum,
+    readonly scheduled_stop_point_id: UUID,
+    readonly label: string,
+    readonly timing_place_id?: UUID | null,
+    readonly validity_start?: luxon.DateTime | null,
+    readonly validity_end?: luxon.DateTime | null,
+    readonly located_on_infrastructure_link_id: UUID,
+    readonly stop_place_ref?: string | null,
+    readonly measured_location: GeoJSON.Point,
+    readonly timing_place?: {
+      readonly __typename?: 'timing_pattern_timing_place',
+      readonly timing_place_id: UUID,
+      readonly label: string
+    } | null,
+    readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+      readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+      readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+    }>
+  } | null,
   readonly keyValues?: ReadonlyArray<{
     readonly __typename?: 'stop_registry_KeyValues',
     readonly key?: string | null,
@@ -73576,10 +73727,41 @@ export type CreateTerminalMutation = {
           readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
           readonly value?: string | null
         } | null,
+        readonly privateCode?: {
+          readonly __typename?: 'stop_registry_PrivateCode',
+          readonly value?: string | null
+        } | null,
         readonly quays?: ReadonlyArray<{
           readonly __typename?: 'stop_registry_Quay',
           readonly id?: string | null,
           readonly publicCode?: string | null,
+          readonly description?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly lang?: string | null,
+            readonly value?: string | null
+          } | null,
+          readonly scheduled_stop_point?: {
+            readonly __typename?: 'service_pattern_scheduled_stop_point',
+            readonly priority: number,
+            readonly direction: InfrastructureNetworkDirectionEnum,
+            readonly scheduled_stop_point_id: UUID,
+            readonly label: string,
+            readonly timing_place_id?: UUID | null,
+            readonly validity_start?: luxon.DateTime | null,
+            readonly validity_end?: luxon.DateTime | null,
+            readonly located_on_infrastructure_link_id: UUID,
+            readonly stop_place_ref?: string | null,
+            readonly measured_location: GeoJSON.Point,
+            readonly timing_place?: {
+              readonly __typename?: 'timing_pattern_timing_place',
+              readonly timing_place_id: UUID,
+              readonly label: string
+            } | null,
+            readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+              readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+              readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+            }>
+          } | null,
           readonly keyValues?: ReadonlyArray<{
             readonly __typename?: 'stop_registry_KeyValues',
             readonly key?: string | null,
@@ -73707,10 +73889,41 @@ export type UpdateTerminalMutation = {
           readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
           readonly value?: string | null
         } | null,
+        readonly privateCode?: {
+          readonly __typename?: 'stop_registry_PrivateCode',
+          readonly value?: string | null
+        } | null,
         readonly quays?: ReadonlyArray<{
           readonly __typename?: 'stop_registry_Quay',
           readonly id?: string | null,
           readonly publicCode?: string | null,
+          readonly description?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly lang?: string | null,
+            readonly value?: string | null
+          } | null,
+          readonly scheduled_stop_point?: {
+            readonly __typename?: 'service_pattern_scheduled_stop_point',
+            readonly priority: number,
+            readonly direction: InfrastructureNetworkDirectionEnum,
+            readonly scheduled_stop_point_id: UUID,
+            readonly label: string,
+            readonly timing_place_id?: UUID | null,
+            readonly validity_start?: luxon.DateTime | null,
+            readonly validity_end?: luxon.DateTime | null,
+            readonly located_on_infrastructure_link_id: UUID,
+            readonly stop_place_ref?: string | null,
+            readonly measured_location: GeoJSON.Point,
+            readonly timing_place?: {
+              readonly __typename?: 'timing_pattern_timing_place',
+              readonly timing_place_id: UUID,
+              readonly label: string
+            } | null,
+            readonly vehicle_mode_on_scheduled_stop_point: ReadonlyArray<{
+              readonly __typename?: 'service_pattern_vehicle_mode_on_scheduled_stop_point',
+              readonly vehicle_mode: ReusableComponentsVehicleModeEnum
+            }>
+          } | null,
           readonly keyValues?: ReadonlyArray<{
             readonly __typename?: 'stop_registry_KeyValues',
             readonly key?: string | null,
@@ -76996,16 +77209,26 @@ export const MemberStopQuayDetailsFragmentDoc = gql`
     fragment member_stop_quay_details on stop_registry_Quay {
   id
   publicCode
+  description {
+    lang
+    value
+  }
+  scheduled_stop_point {
+    ...scheduled_stop_point_detail_fields
+  }
   keyValues {
     key
     values
   }
 }
-    `;
+    ${ScheduledStopPointDetailFieldsFragmentDoc}`;
 export const MemberStopStopPlaceDetailsFragmentDoc = gql`
     fragment member_stop_stop_place_details on stop_registry_StopPlace {
   id
   name {
+    value
+  }
+  privateCode {
     value
   }
   quays {
