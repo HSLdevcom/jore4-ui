@@ -20,9 +20,11 @@ import {
 } from './useCheckValidityAndPriorityConflicts';
 
 jest.mock('apollo-link-scalars', () => ({
+  ...jest.requireActual('apollo-link-scalars'),
   withScalars: () => mockApolloLink,
 }));
 jest.mock('graphql', () => ({
+  ...jest.requireActual('graphql'),
   buildClientSchema: jest.fn(),
 }));
 
