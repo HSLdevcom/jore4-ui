@@ -17,6 +17,7 @@ const baseClasses = twJoin(
 );
 
 type StopGroupOptionProps<ID> = {
+  readonly focusable: boolean;
   readonly group: StopGroupSelectorItem<ID>;
   readonly longestLabel: number;
   readonly selected: boolean;
@@ -26,6 +27,7 @@ type StopGroupOptionProps<ID> = {
 };
 
 const StopGroupOptionImpl = <ID extends string>({
+  focusable,
   group: { id, label, title },
   longestLabel,
   selected,
@@ -35,7 +37,7 @@ const StopGroupOptionImpl = <ID extends string>({
 }: StopGroupOptionProps<ID>) => {
   return (
     <div
-      className={twJoin(baseClasses, showAll || visible ? '' : 'invisible')}
+      className={baseClasses}
       data-group-id={id}
       data-visible={visible}
       data-testid={testIds.groupSelector(id)}
@@ -43,7 +45,7 @@ const StopGroupOptionImpl = <ID extends string>({
       title={title}
       role="option"
       aria-selected={selected}
-      tabIndex={selected ? 0 : -1}
+      tabIndex={focusable ? 0 : -1}
     >
       {label.padEnd(
         showAll && !showAllByDefault ? longestLabel : 0,

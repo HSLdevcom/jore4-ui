@@ -1,9 +1,11 @@
 import {
+  Dispatch,
   FocusEventHandler,
   KeyboardEventHandler,
   MouseEventHandler,
   ReactNode,
   RefObject,
+  SetStateAction,
   SyntheticEvent,
   useCallback,
   useEffect,
@@ -76,6 +78,32 @@ function findGroupElementFromEvent({
   return findChildGroupElement(target, currentTarget);
 }
 
+function domRectContains(container: DOMRect, assumedChild: DOMRect): boolean {
+  return (
+    assumedChild.left >= container.left &&
+    assumedChild.right <= container.right &&
+    assumedChild.top >= container.top &&
+    assumedChild.bottom <= container.bottom
+  );
+}
+
+function someSelectedItemIsInView(groupElement: HTMLElement): boolean {
+  const allSelected = groupElement.querySelectorAll('[aria-selected="true"]');
+  const containerRect = groupElement.getBoundingClientRect();
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const selected of allSelected) {
+    const selectedRect = selected.getBoundingClientRect();
+    const visible = domRectContains(containerRect, selectedRect);
+
+    if (visible) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function useControls(
   groups: ReadonlyArray<StopGroupSelectorItem<string>>,
   onSelect: (selected: string | null) => void,
@@ -83,13 +111,19 @@ function useControls(
   visibilityMap: VisibilityMap<string>,
   groupListRef: RefObject<HTMLElement | null>,
   selectedGroups: ReadonlyArray<string> | null,
+  setLastToHaveFocus: Dispatch<SetStateAction<string | null>>,
 ) {
+  const [focusWithin, setFocusWithin] = useState(false);
+
   const onMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
     const group = findGroupElementFromEvent(e);
     if (group) {
       const { groupId } = group.dataset;
+      const isSelected = group.ariaSelected === 'true';
       if (typeof groupId === 'string') {
         onSelect(groupId);
+        // When selected, return to it. Else should prefer another selected option.
+        setLastToHaveFocus(isSelected ? null : groupId);
       }
     }
   };
@@ -97,13 +131,10 @@ function useControls(
   // Find the child element with the given id as data-group-id.
   // Used to focus previous/next group.
   const focusByGroupId = (groupId: string) => {
-    if (!visibilityMap[groupId] || groupListRef.current === null) {
-      return;
-    }
-
-    const targetElement = groupListRef.current.querySelector(
+    const targetElement = groupListRef.current?.querySelector(
       `[data-group-id="${groupId}"]`,
     );
+
     if (targetElement instanceof HTMLElement) {
       targetElement.focus();
     }
@@ -111,17 +142,69 @@ function useControls(
 
   // On left arrow
   const onFocusPrevious = (currentGroupId: string) => {
-    const findIndex = groups.findIndex((group) => group.id === currentGroupId);
-    if (findIndex >= 1) {
-      focusByGroupId(groups[findIndex - 1].id);
+    const currentIndex = groups.findIndex(
+      (group) => group.id === currentGroupId,
+    );
+    if (currentIndex >= 1) {
+      focusByGroupId(groups[currentIndex - 1].id);
+    }
+  };
+
+  // On left arrow + some modifier key
+  const onFocusPreviousSelected = (currentGroupId: string) => {
+    if (!selectedGroups || selectedGroups.length === 0) {
+      return;
+    }
+
+    if (selectedGroups.length === 1) {
+      focusByGroupId(selectedGroups[0]);
+    }
+
+    const currentIndex = groups.findIndex(
+      (group) => group.id === currentGroupId,
+    );
+    if (currentIndex > 0) {
+      const previousGroups = groups.slice(0, currentIndex);
+      const previousSelected = previousGroups.findLast((group) =>
+        selectedGroups.includes(group.id),
+      );
+      if (previousSelected) {
+        focusByGroupId(previousSelected.id);
+      }
     }
   };
 
   // On right arrow
   const onFocusNext = (currentGroupId: string) => {
-    const findIndex = groups.findIndex((group) => group.id === currentGroupId);
-    if (findIndex >= 0 && findIndex < groups.length - 1) {
-      focusByGroupId(groups[findIndex + 1].id);
+    const currentIndex = groups.findIndex(
+      (group) => group.id === currentGroupId,
+    );
+    if (currentIndex >= 0 && currentIndex < groups.length - 1) {
+      focusByGroupId(groups[currentIndex + 1].id);
+    }
+  };
+
+  // On right arrow + some modifier key
+  const onFocusNextSelected = (currentGroupId: string) => {
+    if (!selectedGroups || selectedGroups.length === 0) {
+      return;
+    }
+
+    if (selectedGroups.length === 1) {
+      focusByGroupId(selectedGroups[0]);
+    }
+
+    const currentIndex = groups.findIndex(
+      (group) => group.id === currentGroupId,
+    );
+    if (currentIndex >= 0 && currentIndex < groups.length - 1) {
+      const nextGroups = groups.slice(currentIndex + 1);
+      const nextSelected = nextGroups.find((group) =>
+        selectedGroups.includes(group.id),
+      );
+      if (nextSelected) {
+        focusByGroupId(nextSelected.id);
+      }
     }
   };
 
@@ -191,27 +274,36 @@ function useControls(
 
     if (group) {
       const { groupId } = group.dataset;
+      const isSelected = group.ariaSelected === 'true';
       if (typeof groupId !== 'string') {
         return;
       }
 
-      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
-        return;
-      }
+      const modifier = e.altKey || e.ctrlKey || e.metaKey || e.shiftKey;
 
       switch (e.key) {
         case ' ':
           onSelect(groupId);
+          // When selected, return to it. Else should prefer another selected option.
+          setLastToHaveFocus(isSelected ? null : groupId);
           stopEvent(e);
           break;
 
         case 'ArrowLeft':
-          onFocusPrevious(groupId);
+          if (modifier) {
+            onFocusPreviousSelected(groupId);
+          } else {
+            onFocusPrevious(groupId);
+          }
           stopEvent(e);
           break;
 
         case 'ArrowRight':
-          onFocusNext(groupId);
+          if (modifier) {
+            onFocusNextSelected(groupId);
+          } else {
+            onFocusNext(groupId);
+          }
           stopEvent(e);
           break;
 
@@ -234,8 +326,13 @@ function useControls(
   // Find the selected item, and if it is not fully visible within the list
   // container, scroll the group element into view.
   const scrollSelectedIntoViewIfNeeded = useCallback(
-    (behavior: ScrollBehavior, groupId?: string) => {
+    (behavior: ScrollBehavior, groupId?: string | null) => {
       if (!groupListRef.current) {
+        return;
+      }
+
+      const someIsInView = someSelectedItemIsInView(groupListRef.current);
+      if (someIsInView) {
         return;
       }
 
@@ -257,12 +354,7 @@ function useControls(
 
       const selectedRect = selected.getBoundingClientRect();
       const containerRect = groupListRef.current.getBoundingClientRect();
-      const visible =
-        selectedRect.left >= containerRect.left &&
-        selectedRect.right <= containerRect.right &&
-        selectedRect.top >= containerRect.top &&
-        selectedRect.bottom <= containerRect.bottom;
-
+      const visible = domRectContains(containerRect, selectedRect);
       if (!visible) {
         selected.scrollIntoView({
           block: 'center',
@@ -276,13 +368,21 @@ function useControls(
 
   // Scroll the group element into view when it receives focus.
   const onFocus: FocusEventHandler<HTMLDivElement> = (e) => {
-    const group = findGroupElementFromEvent(e);
-    if (group) {
-      group.scrollIntoView({
-        block: 'center',
-        inline: 'center',
-        behavior: 'smooth',
-      });
+    if (!(e.target instanceof HTMLButtonElement)) {
+      setFocusWithin(true);
+
+      const group = findGroupElementFromEvent(e);
+      if (group) {
+        if (group.ariaSelected === 'true') {
+          setLastToHaveFocus(group.dataset.groupId ?? null);
+        }
+
+        group.scrollIntoView({
+          block: 'center',
+          inline: 'center',
+          behavior: 'smooth',
+        });
+      }
     }
   };
 
@@ -290,24 +390,62 @@ function useControls(
   // make sure the selected group is visible. Aka, if the user has "scrolled"
   // through the groups with ← & → arrow keys, without making a new selection.
   const onBlur: FocusEventHandler<HTMLDivElement> = (e) => {
+    if (groupListRef.current === null) {
+      return;
+    }
+
     if (
-      groupListRef.current !== null &&
-      !groupListRef.current.contains(e.relatedTarget) &&
-      !showAll
+      !groupListRef.current.contains(e.relatedTarget) ||
+      e.relatedTarget instanceof HTMLButtonElement
     ) {
-      // Scroll to the last selected group
-      const latestSelected = selectedGroups?.at(-1);
-      scrollSelectedIntoViewIfNeeded('smooth', latestSelected);
+      setFocusWithin(false);
+
+      if (!showAll) {
+        // Scroll to the last selected group
+        const latestSelected = selectedGroups?.at(-1);
+        scrollSelectedIntoViewIfNeeded('smooth', latestSelected);
+      }
     }
   };
 
   return {
+    focusWithin,
     onMouseDown,
     onKeyDown,
     onBlur,
     onFocus,
     scrollSelectedIntoViewIfNeeded,
   };
+}
+
+function resolveFocusableElementId(
+  focusWithinList: boolean,
+  lastToHaveFocus: string | null,
+  visibilityMap: VisibilityMap<string>,
+  selected: ReadonlyArray<string> | null,
+  groups: ReadonlyArray<StopGroupSelectorItem<string>>,
+) {
+  // If the list has focus within tab should always select exit from the list.
+  if (focusWithinList) {
+    return null;
+  }
+
+  // Else prefer to refocus the element that was last interacted with.
+  // Should always be visible, might need to wait for scroll to finish.
+  if (lastToHaveFocus && visibilityMap[lastToHaveFocus]) {
+    return lastToHaveFocus;
+  }
+
+  // Fallbacks, 1st visible selected option
+  const firstVisibleSelectedOption = selected?.find(
+    (option) => visibilityMap[option],
+  );
+  if (firstVisibleSelectedOption) {
+    return firstVisibleSelectedOption;
+  }
+
+  // Any 1st visible option.
+  return groups.find((option) => visibilityMap[option.id])?.id;
 }
 
 type StopGroupSelectorProps = {
@@ -334,6 +472,8 @@ export const StopGroupSelector = ({
   const showAllByDefault = groups.length <= SHOW_ALL_BY_DEFAULT_MAX;
   const [showAll, setShowAll] = useState(showAllByDefault);
   useEffect(() => setShowAll(showAllByDefault), [showAllByDefault]);
+
+  const [lastToHaveFocus, setLastToHaveFocus] = useState<string | null>(null);
 
   const groupListRef = useRef<HTMLDivElement | null>(null);
   const groupIds = useMemo(() => groups.map((group) => group.id), [groups]);
@@ -381,6 +521,7 @@ export const StopGroupSelector = ({
   );
 
   const {
+    focusWithin,
     onMouseDown,
     onBlur,
     onFocus,
@@ -393,6 +534,7 @@ export const StopGroupSelector = ({
     visibilityMap,
     groupListRef,
     selected,
+    setLastToHaveFocus,
   );
 
   // Make sure the selected group is visible, on mount
@@ -405,6 +547,21 @@ export const StopGroupSelector = ({
       scrollSelectedIntoViewIfNeeded('instant');
     }, 0);
   }, [groups, scrollSelectedIntoViewIfNeeded]);
+
+  useEffect(() => {
+    if (!groupIds.includes(lastToHaveFocus as string)) {
+      setLastToHaveFocus(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [groupIds]);
+
+  const focusableOption = resolveFocusableElementId(
+    focusWithin,
+    lastToHaveFocus,
+    visibilityMap,
+    selected,
+    groups,
+  );
 
   return (
     <div
@@ -432,10 +589,11 @@ export const StopGroupSelector = ({
         className={twJoin(
           // focusByVisualLocation relies on the gap CSS attribute being present.
           // padding 4px to account for focus outline on the options.
-          'flex items-center gap-2 overflow-hidden p-[4px]',
+          'flex items-center gap-2 overflow-x-auto p-[4px]',
           showAll ? 'flex-wrap' : '',
         )}
         ref={groupListRef}
+        style={{ scrollbarWidth: 'none' }}
       >
         {groups.map((group) => (
           <StopGroupOption
@@ -446,6 +604,7 @@ export const StopGroupSelector = ({
             showAll={showAll}
             showAllByDefault={showAllByDefault}
             visible={visibilityMap[group.id]}
+            focusable={focusableOption === group.id}
           />
         ))}
 
@@ -460,8 +619,7 @@ export const StopGroupSelector = ({
               // Defer to next render cycle, we need to wait for setShowAll call
               // to get flushed onto screen.
               setTimeout(() => {
-                const latestSelected = selected?.at(-1);
-                scrollSelectedIntoViewIfNeeded('instant', latestSelected);
+                scrollSelectedIntoViewIfNeeded('instant', focusableOption);
               }, 0);
             }}
             type="button"
