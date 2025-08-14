@@ -2,6 +2,7 @@ import isEqual from 'lodash/isEqual';
 import React, { FC, useCallback, useMemo } from 'react';
 import { FieldPathByValue, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { TranslationKey } from '../../../../../../i18n';
 import { Column } from '../../../../../../layoutComponents';
 import { none } from '../../../../../../utils';
 import { InputField, InputLabel } from '../../../../../forms/common';
@@ -80,10 +81,12 @@ function getSelectedOption(
 
 type SizeFormFragmentProps = {
   readonly sizeStatePath: FieldPathByValue<InfoSpotsFormState, ItemSizeState>;
+  readonly titlePath: TranslationKey;
 };
 
 export const SizeFormFragment: FC<SizeFormFragmentProps> = ({
   sizeStatePath,
+  titlePath,
 }) => {
   const { setValue, watch } = useFormContext<InfoSpotsFormState>();
   const posterSizeMenu = usePosterSizeMenu();
@@ -117,7 +120,7 @@ export const SizeFormFragment: FC<SizeFormFragmentProps> = ({
         <InputLabel<InfoSpotsFormState>
           fieldPath={`${sizeStatePath}.uiState`}
           translationPrefix="stopDetails"
-          customTitlePath="stopDetails.infoSpots.size"
+          customTitlePath={titlePath}
         />
         <SizeSelector
           className="w-48"

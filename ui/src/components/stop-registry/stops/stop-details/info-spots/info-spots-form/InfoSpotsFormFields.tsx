@@ -96,7 +96,10 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             disabled={toBeDeleted}
           />
 
-          <SizeFormFragment sizeStatePath={`infoSpots.${infoSpotIndex}.size`} />
+          <SizeFormFragment
+            sizeStatePath={`infoSpots.${infoSpotIndex}.size`}
+            titlePath="stopDetails.infoSpots.size"
+          />
 
           <InputField<InfoSpotsFormState>
             translationPrefix="stopDetails"
