@@ -93,6 +93,9 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
     name {
       value
     }
+    privateCode {
+      value
+    }
     quays {
       ...member_stop_quay_details
     }
@@ -101,6 +104,13 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
   fragment member_stop_quay_details on stop_registry_Quay {
     id
     publicCode
+    description {
+      lang
+      value
+    }
+    scheduled_stop_point {
+      ...scheduled_stop_point_detail_fields
+    }
     keyValues {
       key
       values
