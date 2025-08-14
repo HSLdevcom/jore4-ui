@@ -6,8 +6,8 @@ import { LoadingState, Operation } from '../../../redux';
 import { TerminalDetails } from './components/basic-details/TerminalDetailsSection';
 import { TerminalExternalLinks } from './components/external-links/TerminalExternalLinks';
 import { LocationDetails } from './components/location-details/LocationDetailsSection';
+import { TerminalVersioningRow } from './components/terminal-versions';
 import { TerminalTitleRow } from './components/TerminalTitleRow';
-import { TerminalVersioningRow } from './components/TerminalVersioningRow';
 import { useGetParentStopPlaceDetails } from './useGetTerminalDetails';
 
 const testIds = {

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../i18n';
 import { showDangerToast } from '../../../../utils';
 import { TerminalFormState } from '../components/basic-details/basic-details-form/schema';
+import { TerminalValidityFormState } from '../components/terminal-versions/TerminalValidityFormState';
 
 const ERRORS: Readonly<Record<string, TranslationKey>> = {
   STOP_PLACE_UNIQUE_NAME: 'terminalDetails.errors.terminalsUniqueName',
@@ -26,12 +27,15 @@ function mapApolloErrorToTranslationKey(
 
 export function useTerminalApolloErrorHandler(): (
   error: ApolloError,
-  details?: TerminalFormState,
+  details?: TerminalFormState | TerminalValidityFormState,
 ) => boolean {
   const { t } = useTranslation();
 
   return useCallback(
-    (error: ApolloError, details?: TerminalFormState): boolean => {
+    (
+      error: ApolloError,
+      details?: TerminalFormState | TerminalValidityFormState,
+    ): boolean => {
       const translationKey = mapApolloErrorToTranslationKey(error);
       if (translationKey) {
         showDangerToast(t(translationKey, details));

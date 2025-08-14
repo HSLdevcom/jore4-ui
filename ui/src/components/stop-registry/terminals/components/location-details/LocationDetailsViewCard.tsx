@@ -84,6 +84,7 @@ export const LocationDetailsView: FC<TerminalComponentProps> = ({
           })}
           detail={memberStops}
           testId={testIds.memberStops}
+          className="w-full lg:w-1/2" // Prevent large amount of stops from pushing the member platforms to the right
         />
         <LabeledDetail
           title={t('terminalDetails.location.memberPlatforms')}

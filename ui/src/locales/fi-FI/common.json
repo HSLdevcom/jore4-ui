@@ -554,6 +554,19 @@
     "errors": {
       "terminalsUniqueName": "Terminaalilla tulee olla uniikki nimi, mutta nimi {{name}} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!",
       "terminalsUniquePrivateCode": "Terminaalilla tulee olla uniikki tunnus, mutta tunnus {{privateCode}} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!"
+    },
+    "version": {
+      "title": {
+        "edit": "Muokkaa voimassaoloaikaa"
+      },
+      "fields": {
+        "versionName": "Version nimi",
+        "versionDescription": "Muutoksen peruste",
+        "versionDescriptionNotImplementedYetTitle": "Kenttää ei ole vielä toteutettu tässä Joren testiversiossa!"
+      },
+      "success": {
+        "edit": "Voimassaoloaika muokattu"
+      }
     }
   },
   "terminalTypeEnum": {

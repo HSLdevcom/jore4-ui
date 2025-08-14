@@ -1,4 +1,4 @@
-import { EnrichedParentStopPlace } from '../../../types';
+import { EnrichedParentStopPlace } from '../../../../types';
 
 export type TerminalComponentProps = {
   readonly terminal: EnrichedParentStopPlace;

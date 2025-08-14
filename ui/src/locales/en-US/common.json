@@ -555,6 +555,19 @@
     "errors": {
       "terminalsUniqueName": "Terminal should have unique name but {{name}} is already in use by another terminal or stop area!",
       "terminalsUniquePrivateCode": "Terminal should have unique private code but {{privateCode}} is already in use by another terminal or stop area!"
+    },
+    "version": {
+      "title": {
+        "edit": "Edit validity"
+      },
+      "fields": {
+        "versionName": "Version name",
+        "versionDescription": "Reason for change",
+        "versionDescriptionNotImplementedYetTitle": "This field has not yet been implemented in this Jore test version!"
+      },
+      "success": {
+        "edit": "Validity edited"
+      }
     }
   },
   "terminalTypeEnum": {

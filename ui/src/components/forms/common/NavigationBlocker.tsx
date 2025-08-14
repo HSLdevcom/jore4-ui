@@ -55,6 +55,7 @@ const knownNavigationContexts = [
   'TemplateRouteSelector',
   'TerminalDetailsEdit',
   'TerminalForm',
+  'TerminalValidityForm',
   'TimingSettingsForm',
   'ViaForm',
 ] as const;

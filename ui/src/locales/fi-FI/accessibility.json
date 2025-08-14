@@ -48,7 +48,9 @@
     "showStopAreaDetails": "Näytä pysäkkialueen {{ areaLabel }} tiedot"
   },
   "terminals": {
-    "showTerminalDetails": "Näytä terminaalin {{ terminalLabel }} tiedot"
+    "showTerminalDetails": "Näytä terminaalin {{ terminalLabel }} tiedot",
+    "validityPeriod": "Voimassaolo",
+    "editTerminalValidity": "Muokkaa terminaalin {{ terminalName }} versiota"
   },
   "timetables": {
     "icon": "Aikataulu",
