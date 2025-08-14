@@ -93,6 +93,11 @@ describe('Terminal details', () => {
     toast.expectSuccessToast('Terminaali muokattu');
   }
 
+  function waitForValidityEditToBeFinished() {
+    expectGraphQLCallToSucceed('@gqlUpdateTerminal');
+    toast.expectSuccessToast('Voimassaoloaika muokattu');
+  }
+
   function assertBasicDetails(expected: ExpectedBasicDetails) {
     terminalDetailsPage.titleRow.getName().shouldHaveText(expected.name);
 
@@ -430,6 +435,71 @@ describe('Terminal details', () => {
         externalLinksView.getExternalLinks().should('have.length', 0);
         externalLinksView.getNoExternalLinks().shouldBeVisible();
         externalLinksView.getNoExternalLinks().shouldHaveText('Ei linkkejä');
+      },
+    );
+  });
+
+  describe('terminal validity', () => {
+    it('should edit terminal validity', { tags: [Tag.StopRegistry] }, () => {
+      terminalDetailsPage
+        .validityPeriod()
+        .should('contain', '1.1.2020-1.1.2050');
+
+      terminalDetailsPage.versioningRow
+        .getEditValidityButton()
+        .shouldBeVisible()
+        .click();
+
+      terminalDetailsPage.editTerminalValidityModal
+        .getModal()
+        .shouldBeVisible();
+
+      terminalDetailsPage.editTerminalValidityModal.form
+        .versionName()
+        .clearAndType('Edit #1');
+      terminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
+        validityStartISODate: '2023-01-01',
+        validityEndISODate: '2040-01-01',
+      });
+      terminalDetailsPage.editTerminalValidityModal.form.submitButton().click();
+
+      waitForValidityEditToBeFinished();
+
+      terminalDetailsPage
+        .validityPeriod()
+        .should('contain', '1.1.2023-1.1.2040');
+    });
+
+    it(
+      'should edit terminal validity to be indefinite',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage
+          .validityPeriod()
+          .should('contain', '1.1.2020-1.1.2050');
+
+        terminalDetailsPage.versioningRow
+          .getEditValidityButton()
+          .shouldBeVisible()
+          .click();
+
+        terminalDetailsPage.editTerminalValidityModal
+          .getModal()
+          .shouldBeVisible();
+
+        terminalDetailsPage.editTerminalValidityModal.form
+          .versionName()
+          .clearAndType('Edit #1');
+        terminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
+          validityStartISODate: '2023-01-01',
+        });
+        terminalDetailsPage.editTerminalValidityModal.form
+          .submitButton()
+          .click();
+
+        waitForValidityEditToBeFinished();
+
+        terminalDetailsPage.validityPeriod().should('contain', '1.1.2023-');
       },
     );
   });

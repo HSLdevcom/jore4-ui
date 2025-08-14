@@ -1,4 +1,4 @@
-export class TitleRow {
+export class TerminalTitleRow {
   getPrivateCode() {
     return cy.getByTestId('TerminalTitleRow::privateCode');
   }

@@ -1,21 +1,24 @@
 import { ObservationDateControl } from '../ObservationDateControl';
 import {
+  EditTerminalValidityModal,
   TerminalDetailsSection,
   TerminalLocationDetailsSection,
+  TerminalTitleRow,
+  TerminalVersioningRow,
 } from './terminals';
-import { TerminalVersioningRow } from './terminals/TerminalVersioningRow';
-import { TitleRow } from './terminals/TitleRow';
 
 export class TerminalDetailsPage {
   terminalDetails = new TerminalDetailsSection();
 
   locationDetails = new TerminalLocationDetailsSection();
 
-  titleRow = new TitleRow();
+  titleRow = new TerminalTitleRow();
 
   versioningRow = new TerminalVersioningRow();
 
   observationDateControl = new ObservationDateControl();
+
+  editTerminalValidityModal = new EditTerminalValidityModal();
 
   visit(privateCode: string) {
     cy.visit(`/stop-registry/terminals/${privateCode}`);

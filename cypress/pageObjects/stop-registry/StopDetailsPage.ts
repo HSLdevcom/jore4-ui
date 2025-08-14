@@ -8,7 +8,7 @@ import {
   MeasurementsSection,
   SheltersSection,
   SignageDetailsSection,
-  TitleRow,
+  StopTitleRow,
 } from './stop-details';
 import { OverlappingVersionCutConfirmationModal } from './stop-details/CutValidityConfirmationModal';
 import { EditStopModal } from './stop-details/EditStopModal';
@@ -28,7 +28,7 @@ export class StopDetailsPage {
 
   maintenance = new MaintenanceSection();
 
-  titleRow = new TitleRow();
+  titleRow = new StopTitleRow();
 
   copyModal = new CreateCopyModal();
 

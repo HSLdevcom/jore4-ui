@@ -21,4 +21,4 @@ export * from './ShelterViewCard';
 export * from './SignageDetailsForm';
 export * from './SignageDetailsSection';
 export * from './SignageDetailsViewCard';
-export * from './TitleRow';
+export * from './StopTitleRow';

@@ -1,4 +1,4 @@
-export class TitleRow {
+export class StopTitleRow {
   label() {
     return cy.getByTestId('StopTitleRow::label');
   }
