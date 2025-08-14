@@ -19,12 +19,20 @@ import {
   useCheckValidityAndPriorityConflicts,
 } from './useCheckValidityAndPriorityConflicts';
 
-jest.mock('apollo-link-scalars', () => ({
-  withScalars: () => mockApolloLink,
-}));
-jest.mock('graphql', () => ({
-  buildClientSchema: jest.fn(),
-}));
+jest.mock('apollo-link-scalars', () => {
+  const original = jest.requireActual('apollo-link-scalars');
+  return {
+    ...original,
+    withScalars: () => mockApolloLink,
+  };
+});
+jest.mock('graphql', () => {
+  const original = jest.requireActual('graphql');
+  return {
+    ...original,
+    buildClientSchema: jest.fn(),
+  };
+});
 
 // custom typings for lines to be used in this test suite to avoid
 // TS errors due to TS interpreting everything in `RouteLineInsertInput`
