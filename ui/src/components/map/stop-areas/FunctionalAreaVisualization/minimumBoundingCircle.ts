@@ -36,6 +36,10 @@ function trianglePolygon(
   return polygon([[a, b, c, a]]).geometry;
 }
 
+function toJSON(value: unknown): string {
+  return JSON.stringify(value, null, 0);
+}
+
 function perpendicularBisector(a: Coordinates, b: Coordinates) {
   const d = distance(a, b);
 
@@ -48,7 +52,9 @@ function perpendicularBisector(a: Coordinates, b: Coordinates) {
   );
 
   if (intersectionPoints.length !== 2) {
-    throw new Error('broke');
+    throw new Error(
+      `Failed to calculate perpendicular bisector for points: ${toJSON({ a, b })} distance between the points is: ${d} km. Intersection points: ${toJSON(intersectionPoints)}`,
+    );
   }
 
   return greatCircle(intersectionPoints[0], intersectionPoints[1]);
@@ -69,7 +75,9 @@ function triangleCircumcircle(triangle: Triangle): CenterRadius {
   ].flatMap((f) => f.features);
 
   if (intersections.length === 0) {
-    throw new Error('Failed to intersect perpendicular bisectors!');
+    throw new Error(
+      `Failed to intersect perpendicular bisectors! Data: ${toJSON({ triangle: { a, b, c }, bisectors: { abBi, bcBi, acBi } })}`,
+    );
   }
 
   let center: Coordinates | null = null;
@@ -209,12 +217,17 @@ function getSimplifiedPoints(item: FeatureOrGeo) {
 
   if (!hull) {
     throw new Error(
-      `Unable to construct a convex hull on feature: ${JSON.stringify(item, null, 0)}`,
+      `Unable to construct a convex hull on feature: ${toJSON(item)}`,
     );
   }
 
   // Hull is a simple polygon, with only a single sub path.
-  return hull.geometry.coordinates[0] as Array<Coordinates>;
+  const hullPoints = hull.geometry.coordinates[0] as Array<Coordinates>;
+
+  // Hull is a closed loop polygon, thus it's start and end coordinates are the
+  // same, aka duplicates of each other. Duplicate points can break perpendicularBisector
+  // calculation deeper in the algorithm.
+  return hullPoints.slice(0, -1);
 }
 
 function inplaceFisherYatesShuffle<T>(array: Array<T>): void {
