@@ -136,9 +136,6 @@ const buildHttpLink = (isTesting: boolean) => {
   const httpLinkConfig = isTesting
     ? {
         ...defaultConfig,
-        // `fetch` is not available in test context (with jest) so we have to provide it
-        // eslint-disable-next-line @typescript-eslint/no-require-imports,global-require,import/no-extraneous-dependencies
-        fetch: require('cross-fetch'),
         // logging in directly as admin, only works in e2e environment
         headers: { 'x-hasura-admin-secret': 'hasura' },
       }

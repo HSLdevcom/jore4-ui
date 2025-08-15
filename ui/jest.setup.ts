@@ -1,6 +1,7 @@
 // This needs to be registered trough proper import.
 // jest.config.js setupFilesAfterEnv is no longer enough.
 import '@testing-library/jest-dom';
+import 'cross-fetch/polyfill';
 
 import { TextEncoder, TextDecoder } from 'node:util';
 
