@@ -328,7 +328,7 @@ component's functionality grows, it's going to be hard to detach it from the hos
 #### Bad inline components
 
 ```ts
-export const EditButton: React.FC<Props> = (props) => {
+export const EditButton: FC<Props> = (props) => {
   const { testId } = props;
   const href = (props as LinkProps)?.href;
   const onClick = (props as ButtonProps)?.onClick;
@@ -358,13 +358,13 @@ export const EditButton: React.FC<Props> = (props) => {
 #### Good non-inline components
 
 ```ts
-const ButtonContent = () => (
+const ButtonContent: FC = () => (
   <div className="ml-5 h-10 w-10 rounded-full border border-grey bg-white">
     <MdModeEdit className="m-2 text-2xl text-tweaked-brand" />
   </div>
 );
 
-export const EditButton: React.FC<Props> = (props) => {
+export const EditButton: FC<Props> = (props) => {
   const { testId } = props;
   const href = (props as LinkProps)?.href;
   const onClick = (props as ButtonProps)?.onClick;

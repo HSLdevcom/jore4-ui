@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useRequiredParams,
@@ -14,7 +15,7 @@ const testIds = {
   closeButton: 'LineDraftsPage::closeButton',
 };
 
-export const LineDraftsPage = (): React.ReactElement => {
+export const LineDraftsPage: FC = () => {
   const { t } = useTranslation();
   const { label } = useRequiredParams<{ label: string }>();
   const { routes } = useGetLineDraftDetails();

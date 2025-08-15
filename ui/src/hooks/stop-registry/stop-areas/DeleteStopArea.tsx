@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { useDeleteStopArea, useLoader } from '../..';
 import { ConfirmStopAreaDeletionDialog } from '../../../components/forms/stop-area';
 import { Operation } from '../../../redux';

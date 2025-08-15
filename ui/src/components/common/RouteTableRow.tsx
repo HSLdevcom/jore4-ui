@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { FC } from 'react';
+import { ChangeEventHandler, FC } from 'react';
 import { RouteTableRowFragment } from '../../generated/graphql';
 import {
   useAppDispatch,
@@ -65,7 +65,7 @@ export const RouteTableRow: FC<RouteTableRowProps> = ({
     showRouteOnMap(route);
   };
 
-  const onSelectChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onSelectChanged: ChangeEventHandler<HTMLInputElement> = (event) => {
     const selected = event.target.checked;
     const selectAction = selected ? selectRowAction : deselectRowAction;
     dispatch(selectAction(route.unique_label));

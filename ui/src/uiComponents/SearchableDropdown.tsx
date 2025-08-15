@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import {
   Combobox,
   ComboboxEvent,
@@ -11,8 +12,8 @@ type SearchableDropdownProps<T> = ComboboxInputProps & {
   readonly query: string;
   readonly selectedItem: T | undefined;
   readonly onQueryChange: (query: string) => void;
-  readonly mapToButtonContent: (displayedItem?: T) => React.ReactElement;
-  readonly nullOptionRender?: () => React.ReactElement;
+  readonly mapToButtonContent: (displayedItem?: T) => ReactElement;
+  readonly nullOptionRender?: () => ReactElement;
   readonly options: ReadonlyArray<ComboboxOptionRenderer>;
 };
 

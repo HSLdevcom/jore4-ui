@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -33,7 +33,7 @@ const testIds = {
   loading: 'ImportTimetablesPage::LoadingOverlay',
 };
 
-export const ImportTimetablesPage = (): React.ReactElement => {
+export const ImportTimetablesPage: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {

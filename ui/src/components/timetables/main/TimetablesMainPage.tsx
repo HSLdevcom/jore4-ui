@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -10,7 +11,7 @@ const testIds = {
   settingsButton: 'TimetablesMainPage::settingsButton',
 };
 
-export const TimetablesMainPage = (): React.ReactElement => {
+export const TimetablesMainPage: FC = () => {
   const { t } = useTranslation();
 
   const importTimetablesRoute = routeDetails[Path.timetablesImport];

@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { ForwardRefRenderFunction } from 'react';
+import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
@@ -389,4 +389,4 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
   );
 };
 
-export const MeasurementsForm = React.forwardRef(MeasurementsFormComponent);
+export const MeasurementsForm = forwardRef(MeasurementsFormComponent);

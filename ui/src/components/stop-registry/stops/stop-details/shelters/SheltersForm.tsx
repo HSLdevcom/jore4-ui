@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, {
+import {
   ForwardRefRenderFunction,
+  RefObject,
+  forwardRef,
   useImperativeHandle,
   useRef,
 } from 'react';
@@ -19,7 +21,7 @@ const testIds = {
 type SheltersFormProps = {
   readonly className?: string;
   readonly defaultValues: SheltersFormState;
-  readonly formRef: React.RefObject<HTMLFormElement>;
+  readonly formRef: RefObject<HTMLFormElement>;
   readonly onSubmit: (state: SheltersFormState) => void;
   readonly onShelterCountChanged: (newShelterCount: number) => void;
 };
@@ -88,7 +90,6 @@ const SheltersFormComponent: ForwardRefRenderFunction<
   );
 };
 
-export const SheltersForm = React.forwardRef<
-  SheltersFormRef,
-  SheltersFormProps
->(SheltersFormComponent);
+export const SheltersForm = forwardRef<SheltersFormRef, SheltersFormProps>(
+  SheltersFormComponent,
+);

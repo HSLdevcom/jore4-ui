@@ -1,4 +1,4 @@
-import React, { ForwardRefRenderFunction, forwardRef, useRef } from 'react';
+import { ForwardRefRenderFunction, forwardRef, useRef } from 'react';
 import { Layer } from 'react-map-gl/maplibre';
 import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';

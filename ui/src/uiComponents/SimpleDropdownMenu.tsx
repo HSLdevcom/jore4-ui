@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { MdMoreVert } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 import {

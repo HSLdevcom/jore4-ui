@@ -1,5 +1,5 @@
 import groupBy from 'lodash/groupBy';
-import { FC } from 'react';
+import { FC, KeyboardEventHandler } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
@@ -76,7 +76,7 @@ export const VehicleServiceTable: FC<VehicleServiceTableProps> = ({
 
   const hasVehicleJourneys = !!rowData.length;
 
-  const onKeyPress = (e: React.KeyboardEvent) => {
+  const onKeyPress: KeyboardEventHandler = (e) => {
     if (e.code === 'Enter') {
       onClick();
     }

@@ -1,4 +1,4 @@
-import React, { ForwardRefRenderFunction, forwardRef } from 'react';
+import { FocusEventHandler, ForwardRefRenderFunction, forwardRef } from 'react';
 import {
   LabeledContainer,
   labeledContainerInputStyles,
@@ -6,7 +6,7 @@ import {
 
 type LabeledCheckboxProps = {
   readonly label: string;
-  readonly onBlur?: React.FocusEventHandler<HTMLButtonElement> | undefined;
+  readonly onBlur?: FocusEventHandler<HTMLButtonElement> | undefined;
   readonly onClick: () => void;
   readonly className?: string;
   readonly tooltip?: string;

@@ -1,5 +1,5 @@
 import without from 'lodash/without';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mapPriorityToUiName } from '../../../../../i18n/uiNameMappings';

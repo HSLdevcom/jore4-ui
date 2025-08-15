@@ -1,5 +1,5 @@
 import { Combobox as HUICombobox, Transition } from '@headlessui/react';
-import { FC, Fragment, ReactNode } from 'react';
+import { FC, FocusEventHandler, Fragment, ReactNode } from 'react';
 import { Noop } from 'react-hook-form';
 import { MdCheck, MdSearch } from 'react-icons/md';
 import { dropdownTransition } from './Listbox';
@@ -59,7 +59,7 @@ export const Combobox: FC<ComboboxProps> = ({
    * options. Only if we really focus out (click outside the combobox) we want to trigger
    * onBlur event.
    */
-  const onBlur = (e: React.FocusEvent) => {
+  const onBlur: FocusEventHandler = (e) => {
     const relatedTarget = e.relatedTarget as HTMLElement;
     if (relatedTarget?.role === 'option') {
       e.preventDefault();

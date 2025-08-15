@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import {
@@ -38,7 +38,7 @@ const testIds = {
   loading: 'PrieviewTimetablesPage::LoadingOverlay',
 };
 
-export const PreviewTimetablesPage = (): React.ReactElement => {
+export const PreviewTimetablesPage: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {

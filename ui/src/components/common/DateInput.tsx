@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import { Column } from '../../layoutComponents';
 
 type DateInputProps = {
@@ -11,7 +11,7 @@ type DateInputProps = {
   readonly required?: boolean;
   readonly disabled?: boolean;
   readonly dateInputId: string;
-  readonly onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
+  readonly onClick?: MouseEventHandler<HTMLInputElement>;
 };
 
 export const DateInput: FC<DateInputProps> = ({

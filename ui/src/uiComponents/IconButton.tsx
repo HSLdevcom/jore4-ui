@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC, ReactNode, isValidElement } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { addClassName } from '../utils/components';
 
@@ -7,7 +7,7 @@ type IconButtonProps = {
   readonly tooltip: string;
   readonly className?: string;
   readonly disabled?: boolean;
-  readonly icon: React.ReactNode;
+  readonly icon: ReactNode;
   readonly ariaAttributes?: {
     readonly ariaExpanded?: boolean;
     readonly ariaControls?: string;
@@ -42,7 +42,7 @@ export const IconButton: FC<IconButtonProps> = ({
       aria-controls={ariaAttributes?.ariaControls}
       aria-label={ariaAttributes?.ariaLabel}
     >
-      {React.isValidElement(icon) ? addClassName(icon, iconClassName) : icon}
+      {isValidElement(icon) ? addClassName(icon, iconClassName) : icon}
     </button>
   );
 };

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
 type Elements = {
   readonly x: HTMLElement;

@@ -1,4 +1,10 @@
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  ReactElement,
+  useEffect,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Navigate,
@@ -104,7 +110,7 @@ type SimpleJoreRoute = {
   readonly path: PathValue;
   readonly protected?: boolean;
   readonly index?: boolean;
-  readonly element: React.ReactElement;
+  readonly element: ReactElement;
 };
 
 const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [

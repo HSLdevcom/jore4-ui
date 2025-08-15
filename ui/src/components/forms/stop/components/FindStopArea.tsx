@@ -1,6 +1,6 @@
 import { Combobox } from '@headlessui/react';
 import debounce from 'lodash/debounce';
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineSearch } from 'react-icons/md';

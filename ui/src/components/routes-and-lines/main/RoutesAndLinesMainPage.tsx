@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -11,7 +12,7 @@ const testIds = {
   createLineButton: 'RoutesAndLinesPage::createLineButton',
 };
 
-export const RoutesAndLinesMainPage = (): React.ReactElement => {
+export const RoutesAndLinesMainPage: FC = () => {
   const { t } = useTranslation();
   const createLineReactRoute = routeDetails[Path.createLine];
 

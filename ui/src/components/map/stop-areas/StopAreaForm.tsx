@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { ForwardRefRenderFunction } from 'react';
+import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 import { mapToISODate } from '../../../time';
@@ -136,4 +136,4 @@ const StopAreaFormComponent: ForwardRefRenderFunction<
   );
 };
 
-export const StopAreaForm = React.forwardRef(StopAreaFormComponent);
+export const StopAreaForm = forwardRef(StopAreaFormComponent);

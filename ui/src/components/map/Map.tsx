@@ -1,8 +1,9 @@
-import React, {
+import {
   ForwardRefRenderFunction,
   ForwardedRef,
   MutableRefObject,
   RefObject,
+  forwardRef,
   useImperativeHandle,
   useRef,
   useState,
@@ -248,4 +249,4 @@ export const MapComponent: ForwardRefRenderFunction<
   );
 };
 
-export const Map = React.forwardRef(MapComponent);
+export const Map = forwardRef(MapComponent);

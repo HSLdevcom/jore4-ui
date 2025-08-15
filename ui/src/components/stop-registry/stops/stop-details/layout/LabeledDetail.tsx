@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 function detailOrPlaceholder(detail: unknown): string {
   // Cases where the falsy value is OK.
   if (
@@ -23,7 +25,7 @@ export const LabeledDetail = <T extends ExplicitAny>({
   detail,
   testId = '',
   className = '',
-}: LabeledDetailProps<T>): React.ReactElement => {
+}: LabeledDetailProps<T>): ReactElement => {
   return (
     <div className={`inline-flex flex-col ${className}`}>
       <div className="text-sm">{title}</div>

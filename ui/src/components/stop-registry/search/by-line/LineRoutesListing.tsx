@@ -1,4 +1,4 @@
-import React, { FC, useDeferredValue } from 'react';
+import { FC, useDeferredValue } from 'react';
 import { SortingInfo } from '../types';
 import { RouteStopsTable } from './RouteStopsTable';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { FormColumn, FormRow, InputField } from '../../common';
 import { StopFormState } from '../types';
 import { TimingPlace } from './TimingPlace';

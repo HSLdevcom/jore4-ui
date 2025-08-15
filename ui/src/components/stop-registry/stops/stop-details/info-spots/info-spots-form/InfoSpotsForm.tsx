@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, {
+import {
   ForwardRefRenderFunction,
+  RefObject,
+  forwardRef,
   useImperativeHandle,
   useRef,
 } from 'react';
@@ -21,7 +23,7 @@ type InfoSpotsFormProps = {
   readonly className?: string;
   readonly defaultValues: InfoSpotsFormState;
   readonly infoSpotsData: ReadonlyArray<InfoSpotDetailsFragment>;
-  readonly formRef: React.RefObject<HTMLFormElement>;
+  readonly formRef: RefObject<HTMLFormElement>;
   readonly onSubmit: (state: InfoSpotsFormState) => void;
   readonly infoSpotLocations: (string | null)[];
 };
@@ -138,7 +140,6 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
   );
 };
 
-export const InfoSpotsForm = React.forwardRef<
-  InfoSpotsFormRef,
-  InfoSpotsFormProps
->(InfoSpotsFormComponent);
+export const InfoSpotsForm = forwardRef<InfoSpotsFormRef, InfoSpotsFormProps>(
+  InfoSpotsFormComponent,
+);

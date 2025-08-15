@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { FormInputProps, Listbox } from '../../../uiComponents';
 import { AllOptionEnum, NullOptionEnum, getEnumValues } from '../../../utils';
 
@@ -61,7 +62,7 @@ export const EnumDropdown = <TEnum extends string>({
   includeAllOption,
   includeNullOption,
   ...formInputProps
-}: EnumDropdownProps<TEnum>): React.ReactElement => {
+}: EnumDropdownProps<TEnum>): ReactElement => {
   const values = getEnumValues({
     ...(includeAllOption ? { ...AllOptionEnum } : {}),
     ...enumType,

@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
 import { FormInputProps } from '../../../uiComponents';
 import { InputElementDefaultProps } from './InputElement';
@@ -11,7 +11,7 @@ type ControlledElementProps<FormState extends FieldValues> =
     readonly fieldPath: Path<FormState>;
     readonly inputElementRenderer: (
       props: InputElementRenderProps,
-    ) => React.ReactElement;
+    ) => ReactElement;
   };
 
 export const ControlledElement = <FormState extends FieldValues>({
@@ -20,7 +20,7 @@ export const ControlledElement = <FormState extends FieldValues>({
   fieldPath,
   testId,
   inputElementRenderer,
-}: ControlledElementProps<FormState>): React.ReactElement => {
+}: ControlledElementProps<FormState>): ReactElement => {
   const { control } = useFormContext<FormState>();
 
   return (

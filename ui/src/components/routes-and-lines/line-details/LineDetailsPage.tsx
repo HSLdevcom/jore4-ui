@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../generated/graphql';
 import {
@@ -30,7 +31,7 @@ import { LineRouteList } from './LineRouteList';
 import { LineTitle } from './LineTitle';
 import { MapPreview } from './MapPreview';
 
-export const LineDetailsPage = (): React.ReactElement => {
+export const LineDetailsPage: FC = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();

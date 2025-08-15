@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { FC } from 'react';
+import { ChangeEventHandler, FC } from 'react';
 import { LineTableRowFragment } from '../../generated/graphql';
 import {
   useAppDispatch,
@@ -69,7 +69,7 @@ export const LineTableRow: FC<LineTableRowProps> = ({
     showRoutesOnMapByLineLabel(line);
   };
 
-  const onSelectChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onSelectChanged: ChangeEventHandler<HTMLInputElement> = (event) => {
     const selected = event.target.checked;
 
     const selectAction = selected ? selectRowAction : deselectRowAction;

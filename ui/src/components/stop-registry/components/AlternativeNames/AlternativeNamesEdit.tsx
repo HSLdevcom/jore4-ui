@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Column } from '../../../../layoutComponents';
 import { FormRow, InputField } from '../../../forms/common';
 import { AlternativeNamesSchema } from './schema';
@@ -12,7 +13,7 @@ const testIds = {
   abbreviationEng: 'AlternativeNamesEdit::abbreviationEng',
 };
 
-export const AlternativeNamesEdit: React.FC = () => {
+export const AlternativeNamesEdit: FC = () => {
   return (
     <>
       <FormRow lgColumns={4} mdColumns={2}>

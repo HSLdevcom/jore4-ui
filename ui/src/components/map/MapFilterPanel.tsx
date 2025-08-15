@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { FilterType, selectMapFilter, setStopFilterAction } from '../../redux';
 import { FilterPanel, placeholderToggles } from '../../uiComponents';

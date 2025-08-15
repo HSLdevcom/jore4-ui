@@ -1,6 +1,7 @@
 import { Geometry } from 'geojson';
 import compact from 'lodash/compact';
 import { LayerSpecification } from 'maplibre-gl';
+import { RefObject } from 'react';
 import { MapInstance, MapRef } from 'react-map-gl/maplibre';
 import { isRouteGeometryLayer } from '../../components/map/routes/utils';
 import { theme } from '../../generated/theme';
@@ -21,7 +22,7 @@ export const createGeometryLineBetweenPoints = (
   };
 };
 
-export const loadMapAssets = (mapRef: React.RefObject<MapRef>) => {
+export const loadMapAssets = (mapRef: RefObject<MapRef>) => {
   const map = mapRef.current?.getMap();
   if (!map) {
     return;
@@ -49,7 +50,7 @@ export const loadMapAssets = (mapRef: React.RefObject<MapRef>) => {
 };
 
 // Construct an array of interactive (e.g. hoverable) layer ids
-export const getInteractiveLayerIds = (mapRef: React.RefObject<MapRef>) => {
+export const getInteractiveLayerIds = (mapRef: RefObject<MapRef>) => {
   // Get all rendered layer ids
   const layers = mapRef.current
     ?.getMap()

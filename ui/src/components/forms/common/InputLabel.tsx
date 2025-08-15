@@ -1,5 +1,5 @@
 import get from 'lodash/get';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, ReactElement, forwardRef } from 'react';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../i18n';
@@ -19,7 +19,7 @@ const InputLabelImpl = <FormState extends FieldValues>(
     customTitlePath,
   }: InputLabelProps<FormState>,
   ref: ForwardedRef<HTMLLabelElement>,
-): React.ReactElement => {
+): ReactElement => {
   const { t } = useTranslation();
   const {
     formState: { errors },

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router';
 import {
@@ -36,7 +36,7 @@ const mapLineToFormState = (line: LineAllFieldsFragment): FormState => ({
   indefinite: !line.validity_end,
 });
 
-export const EditLinePage = (): React.ReactElement => {
+export const EditLinePage: FC = () => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [conflicts, setConflicts] = useState<
     ReadonlyArray<LineAllFieldsFragment>

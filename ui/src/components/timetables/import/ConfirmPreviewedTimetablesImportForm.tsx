@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { ForwardRefRenderFunction, useEffect } from 'react';
+import { ForwardRefRenderFunction, forwardRef, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Column, Row } from '../../../layoutComponents';
 import { useDirtyFormBlockNavigation } from '../../forms/common/NavigationBlocker';
@@ -94,7 +94,7 @@ export const ConfirmPreviewedTimetablesImportFormComponent: ForwardRefRenderFunc
   );
 };
 
-export const ConfirmPreviewedTimetablesImportForm = React.forwardRef<
+export const ConfirmPreviewedTimetablesImportForm = forwardRef<
   ExplicitAny,
   ConfirmPreviewedTimetablesImportFormProps
 >(ConfirmPreviewedTimetablesImportFormComponent);

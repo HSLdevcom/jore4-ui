@@ -1,18 +1,15 @@
-import React, { FC, ReactNode } from 'react';
+import { FC, JSX, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type CustomTextAndIconButtonProps = {
   readonly icon: ReactNode;
   readonly testId?: string;
   readonly text: ReactNode;
-  readonly type: Exclude<
-    React.JSX.IntrinsicElements['button']['type'],
-    undefined
-  >;
+  readonly type: Exclude<JSX.IntrinsicElements['button']['type'], undefined>;
 };
 
 type AllowedButtonProps = Omit<
-  React.JSX.IntrinsicElements['button'],
+  JSX.IntrinsicElements['button'],
   'children' | 'type'
 >;
 

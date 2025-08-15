@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import { ChangeEventHandler, FC, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row } from '../../../../../layoutComponents';
 import {
@@ -184,7 +184,7 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
     [updateState],
   );
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDateChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     updateState({ selectedDate: event.target.value });
   };
 

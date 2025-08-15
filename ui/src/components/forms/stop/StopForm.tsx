@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import compact from 'lodash/compact';
-import React, { ForwardRefRenderFunction } from 'react';
+import { ForwardRefRenderFunction, forwardRef } from 'react';
 import {
   DefaultValues,
   FieldNamesMarkedBoolean,
@@ -356,4 +356,4 @@ const StopFormComponent: ForwardRefRenderFunction<
   );
 };
 
-export const StopForm = React.forwardRef(StopFormComponent);
+export const StopForm = forwardRef(StopFormComponent);

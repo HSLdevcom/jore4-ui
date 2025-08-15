@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { useAppSelector } from '../hooks';
 import { selectUser } from '../redux';
 

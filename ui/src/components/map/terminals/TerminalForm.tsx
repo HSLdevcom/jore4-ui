@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { ForwardRefRenderFunction } from 'react';
+import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
@@ -153,4 +153,4 @@ const TerminalFormComponent: ForwardRefRenderFunction<
   );
 };
 
-export const TerminalForm = React.forwardRef(TerminalFormComponent);
+export const TerminalForm = forwardRef(TerminalFormComponent);

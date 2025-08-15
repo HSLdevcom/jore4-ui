@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { FC } from 'react';
+import { ChangeEventHandler, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
@@ -59,14 +59,14 @@ export const SearchContainer: FC<SearchContainerProps> = ({
     setSearchCondition(SearchQueryParameterNames.Label, value);
   };
 
-  const onChangeVehiclemode = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeVehiclemode: ChangeEventHandler<HTMLInputElement> = (e) => {
     setSearchCondition(
       SearchQueryParameterNames.PrimaryVehicleMode,
       e.target.value,
     );
   };
 
-  const onChangeTypeOfLine = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeTypeOfLine: ChangeEventHandler<HTMLInputElement> = (e) => {
     setSearchCondition(SearchQueryParameterNames.TypeOfLine, e.target.value);
   };
 

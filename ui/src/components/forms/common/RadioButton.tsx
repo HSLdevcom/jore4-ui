@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, ReactElement } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 import { InputElement } from './InputElement';
@@ -22,7 +22,7 @@ export const RadioButton = <FormState extends FieldValues>({
   testId,
   value,
   ...inputHTMLAttributes
-}: RadioButtonProps<FormState>): React.ReactElement => {
+}: RadioButtonProps<FormState>): ReactElement => {
   return (
     <InputElement
       id={id}

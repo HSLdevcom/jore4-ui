@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import { ChangeEvent, FC, useRef, useState } from 'react';
+import { ChangeEvent, DragEventHandler, FC, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
@@ -40,17 +40,17 @@ export const FileImportDragAndDrop: FC<FileImportDragAndDropProps> = ({
 
   const [isDragging, setIsDragging] = useState(false);
 
-  const handleOnDragOver = (event: React.DragEvent) => {
+  const handleOnDragOver: DragEventHandler = (event) => {
     event.preventDefault();
     setIsDragging(true);
   };
 
-  const handleOnDragLeave = (event: React.DragEvent) => {
+  const handleOnDragLeave: DragEventHandler = (event) => {
     event.preventDefault();
     setIsDragging(false);
   };
 
-  const handleOnDrop = (event: React.DragEvent) => {
+  const handleOnDrop: DragEventHandler = (event) => {
     event.preventDefault();
     setIsDragging(false);
 

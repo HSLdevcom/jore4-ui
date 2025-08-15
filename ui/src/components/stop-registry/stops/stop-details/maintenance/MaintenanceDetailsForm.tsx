@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { ForwardRefRenderFunction, useState } from 'react';
+import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
   StopRegistryStopPlaceOrganisationRelationshipType as MaintainerType,
@@ -136,6 +136,6 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
   );
 };
 
-export const MaintenanceDetailsForm = React.forwardRef(
+export const MaintenanceDetailsForm = forwardRef(
   MaintenanceDetailsFormComponent,
 );

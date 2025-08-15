@@ -1,5 +1,6 @@
-import React, {
+import {
   ForwardRefRenderFunction,
+  forwardRef,
   useImperativeHandle,
   useState,
 } from 'react';
@@ -315,4 +316,4 @@ const RouteEditorComponent: ForwardRefRenderFunction<
   );
 };
 
-export const RouteEditor = React.forwardRef(RouteEditorComponent);
+export const RouteEditor = forwardRef(RouteEditorComponent);

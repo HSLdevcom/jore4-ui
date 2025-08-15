@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   RouteDefaultFieldsFragment,
@@ -41,7 +41,7 @@ const testIds = {
   deleteButton: 'EditRoutePage::deleteButton',
 };
 
-export const EditRoutePage = (): React.ReactElement => {
+export const EditRoutePage: FC = () => {
   const [hasFinishedEditing, setHasFinishedEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [draftStops, setDraftStops] = useState<

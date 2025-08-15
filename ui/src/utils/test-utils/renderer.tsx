@@ -2,7 +2,7 @@
 
 import { MockedProvider } from '@apollo/client/testing';
 import { RenderOptions, render } from '@testing-library/react';
-import React, { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, ReactElement } from 'react';
 import { BrowserRouter } from 'react-router';
 import { ReduxProvider } from '../../redux';
 // Make sure I18Next is initialized
@@ -20,7 +20,7 @@ const AllTheProviders: FC<PropsWithChildren> = ({ children }) => {
 };
 
 const customRender = (
-  ui: React.ReactElement,
+  ui: ReactElement,
   options?: Omit<RenderOptions, 'queries'>,
 ) => render(ui, { wrapper: AllTheProviders, ...options });
 

@@ -1,5 +1,6 @@
 import uniqueId from 'lodash/uniqueId';
 import { DateTime, Duration } from 'luxon';
+import { FC, PropsWithChildren } from 'react';
 import {
   InfrastructureNetworkDirectionEnum,
   PassingTimeByStopFragment,
@@ -202,10 +203,8 @@ describe(`<${PassingTimesByStopTable.name} />`, () => {
     ],
   };
 
-  const DispatchSetShowArrivalTimesActionWrapper = ({
+  const DispatchSetShowArrivalTimesActionWrapper: FC<PropsWithChildren> = ({
     children,
-  }: {
-    children: React.ReactElement;
   }) => {
     const dispatch = useAppDispatch();
     dispatch(setShowArrivalTimesAction(true));

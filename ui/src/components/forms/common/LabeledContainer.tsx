@@ -1,9 +1,9 @@
-import React, { FC, PropsWithChildren } from 'react';
+import { FC, FocusEventHandler, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type LabeledContainerProps = {
   readonly label: string;
-  readonly onBlur?: React.FocusEventHandler<HTMLButtonElement> | undefined;
+  readonly onBlur?: FocusEventHandler<HTMLButtonElement> | undefined;
   readonly onClick: () => void;
   readonly role: string;
   readonly className?: string;

@@ -80,7 +80,7 @@ const Results: FC<StopSearchResultsProps> = ({
   );
 };
 
-export const StopSearchResultPage = (): React.ReactElement => {
+export const StopSearchResultPage: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();

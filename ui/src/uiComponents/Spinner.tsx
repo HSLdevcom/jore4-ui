@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 type SpinnerProps = {

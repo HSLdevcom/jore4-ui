@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router';
 import {
@@ -18,7 +18,7 @@ import {
   mapLineToCommonConflictItem,
 } from '../common/ConflictResolverModal';
 
-export const CreateNewLinePage = (): React.ReactElement => {
+export const CreateNewLinePage: FC = () => {
   const {
     prepareCreate,
     mapCreateChangesToVariables,

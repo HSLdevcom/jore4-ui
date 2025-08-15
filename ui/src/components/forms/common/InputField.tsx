@@ -1,6 +1,7 @@
-import React, {
+import {
   HTMLInputTypeAttribute,
   InputHTMLAttributes,
+  ReactElement,
   TextareaHTMLAttributes,
 } from 'react';
 import { FieldValues, Path } from 'react-hook-form';
@@ -26,7 +27,7 @@ type CommonInputProps<FormState extends FieldValues> = {
 type ControlledInputProps = {
   readonly inputElementRenderer: (
     props: InputElementRenderProps,
-  ) => React.ReactElement;
+  ) => ReactElement;
   readonly type?: never;
 };
 type HTMLInputProps = Readonly<InputHTMLAttributes<HTMLInputElement>> & {
@@ -54,7 +55,7 @@ export const InputField = <FormState extends FieldValues>({
   type,
   inputElementRenderer,
   ...inputHTMLAttributes
-}: InputFieldProps<FormState>): React.ReactElement => {
+}: InputFieldProps<FormState>): ReactElement => {
   if ((!inputElementRenderer && !type) || (inputElementRenderer && type)) {
     throw new Error(
       'You need to provide exactly one of the "inputElementRenderer" and "type" props',

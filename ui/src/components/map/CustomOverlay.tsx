@@ -1,6 +1,6 @@
 // based on https://github.com/visgl/react-map-gl/blob/7.0-release/examples/custom-overlay/src/custom-overlay.tsx
 
-import { FC, cloneElement, memo, useState } from 'react';
+import { FC, ReactElement, cloneElement, memo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type {
   ControlPosition,
@@ -60,7 +60,7 @@ class OverlayControl implements IControl {
 
 type CustomOverlayComponentProps = {
   readonly position: ControlPosition;
-  readonly children: React.ReactElement;
+  readonly children: ReactElement;
 };
 
 /**

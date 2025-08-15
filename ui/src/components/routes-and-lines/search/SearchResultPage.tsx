@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 import { useSearch, useSearchResults } from '../../../hooks';
@@ -18,7 +18,7 @@ import { ExportToolbar } from './ExportToolbar';
 import { FiltersContainer } from './filters/FiltersContainer';
 import { SearchContainer } from './SearchContainer';
 
-export const SearchResultPage = (): React.ReactElement => {
+export const SearchResultPage: FC = () => {
   const { handleClose, queryParameters } = useSearch();
   const { resultCount } = useSearchResults();
   const { t } = useTranslation();

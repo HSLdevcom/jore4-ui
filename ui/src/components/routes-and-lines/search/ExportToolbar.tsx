@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useAppDispatch,
@@ -27,7 +28,7 @@ const testIds = {
   exportSelectedButton: 'ExportToolBar::exportSelectedButton',
 };
 
-export const ExportToolbar = (): React.ReactElement => {
+export const ExportToolbar: FC = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { observationDate } = useObservationDateQueryParam();

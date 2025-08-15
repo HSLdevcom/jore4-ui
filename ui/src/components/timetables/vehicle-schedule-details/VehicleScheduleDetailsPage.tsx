@@ -1,4 +1,5 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   TimetablesView,
@@ -34,7 +35,7 @@ const testIds = {
   showVersionsButton: 'VehicleScheduleDetailsPage::showVersionsButton',
 };
 
-export const VehicleScheduleDetailsPage = (): React.ReactElement => {
+export const VehicleScheduleDetailsPage: FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

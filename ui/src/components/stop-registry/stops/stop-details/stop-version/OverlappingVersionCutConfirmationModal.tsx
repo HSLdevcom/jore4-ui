@@ -16,7 +16,7 @@ const testIds = {
 };
 
 type OverlappingVersionCutConfirmationModalProps = {
-  readonly onConfirm: (e?: React.BaseSyntheticEvent) => Promise<void>;
+  readonly onConfirm: () => void;
 };
 
 export const OverlappingVersionCutConfirmationModal: FC<

@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import React from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useListChangingRoutesQuery,
@@ -36,13 +36,12 @@ const GQL_LIST_OWN_LINES = gql`
   }
 `;
 
-export const RoutesAndLinesLists = (): React.ReactElement => {
+export const RoutesAndLinesLists: FC = () => {
   const { t } = useTranslation();
 
   // changing routes
-  const [showOwnChangingRoutes, setShowOwnChangingRoutes] =
-    React.useState(true);
-  const [changingRoutesLimit, setChangingRoutesLimit] = React.useState<
+  const [showOwnChangingRoutes, setShowOwnChangingRoutes] = useState(true);
+  const [changingRoutesLimit, setChangingRoutesLimit] = useState<
     number | undefined
   >(5);
   const changingRoutesResult = useListChangingRoutesQuery({

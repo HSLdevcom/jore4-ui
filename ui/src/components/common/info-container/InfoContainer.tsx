@@ -1,10 +1,5 @@
 import { Transition } from '@headlessui/react';
-import React, {
-  FC,
-  JSXElementConstructor,
-  ReactNode,
-  isValidElement,
-} from 'react';
+import { FC, JSXElementConstructor, ReactNode, isValidElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { SimpleButton } from '../../../uiComponents';

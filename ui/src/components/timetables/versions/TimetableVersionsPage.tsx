@@ -1,5 +1,5 @@
 import orderBy from 'lodash/orderBy';
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   TimetableVersionRowData,
@@ -29,7 +29,7 @@ const testIds = {
   closeButton: 'TimetableVersionsPage::closeButton',
 };
 
-export const TimetableVersionsPage = (): React.ReactElement => {
+export const TimetableVersionsPage: FC = () => {
   const { t } = useTranslation();
   const { label } = useRequiredParams<{ label: string }>();
   const { startDate, endDate } = useTimeRangeQueryParams();

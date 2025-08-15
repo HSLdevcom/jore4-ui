@@ -1,5 +1,5 @@
 import { Listbox as HUIListbox } from '@headlessui/react';
-import React, { ReactNode, forwardRef } from 'react';
+import { ReactNode, forwardRef, isValidElement } from 'react';
 import { addClassName } from '../utils/components';
 
 // copied from HeadlessUI Listbox as it's not exported
@@ -42,7 +42,7 @@ export const ListboxOptions = forwardRef<HTMLDivElement, ListboxOptionsProps>(
             >
               {(optionProps) => {
                 const child = item.render(optionProps);
-                return React.isValidElement(child) ? (
+                return isValidElement(child) ? (
                   addClassName(
                     child,
                     `${

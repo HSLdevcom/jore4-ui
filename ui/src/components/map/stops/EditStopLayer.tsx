@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useMemo } from 'react';
+import { forwardRef, useImperativeHandle, useMemo } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';

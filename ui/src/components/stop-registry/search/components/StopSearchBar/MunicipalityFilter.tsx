@@ -1,7 +1,7 @@
 import { Listbox as HUIListbox, Transition } from '@headlessui/react';
 import { TFunction } from 'i18next';
 import without from 'lodash/without';
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Column } from '../../../../../layoutComponents';

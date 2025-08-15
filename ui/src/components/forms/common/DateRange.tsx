@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { DateLike, mapToShortDate } from '../../../time';
 
 type DateRangeProps = {
@@ -5,9 +6,6 @@ type DateRangeProps = {
   readonly endDate?: DateLike;
 };
 
-export const DateRange = ({
-  startDate,
-  endDate,
-}: DateRangeProps): React.ReactElement => {
+export const DateRange: FC<DateRangeProps> = ({ startDate, endDate }) => {
   return <>{`${mapToShortDate(startDate)} - ${mapToShortDate(endDate)}`}</>;
 };

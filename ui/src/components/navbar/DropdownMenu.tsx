@@ -1,5 +1,12 @@
 import { Menu, Transition } from '@headlessui/react';
-import React, { FC, Fragment, PropsWithChildren, ReactNode } from 'react';
+import {
+  Children,
+  FC,
+  Fragment,
+  PropsWithChildren,
+  ReactNode,
+  isValidElement,
+} from 'react';
 import { dropdownTransition } from '../../uiComponents';
 import { addClassName } from '../../utils';
 
@@ -36,10 +43,10 @@ export const DropdownMenu: FC<PropsWithChildren<DropdownMenuProps>> = ({
               className="absolute right-0 w-full origin-top-right rounded-b-md border-t border-black border-opacity-20 bg-brand shadow-md"
             >
               <div className="my-4">
-                {React.Children.map(children, (child) => (
+                {Children.map(children, (child) => (
                   <Menu.Item>
                     {({ active }) =>
-                      React.isValidElement(child) ? (
+                      isValidElement(child) ? (
                         addClassName(
                           child,
                           `${

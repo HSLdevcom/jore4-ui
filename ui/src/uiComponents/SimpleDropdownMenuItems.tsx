@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import React, { FC, Fragment, ReactNode } from 'react';
+import { Children, FC, Fragment, ReactNode, isValidElement } from 'react';
 import { twJoin } from 'tailwind-merge';
 import { addClassName } from '../utils';
 import { dropdownTransition } from './Listbox';
@@ -51,8 +51,8 @@ export const SimpleDropdownMenuItems: FC<SimpleDropdownMenuItemsProps> = ({
     // eslint-disable-next-line react/jsx-props-no-spreading
     <Transition show={isOpen} as={Fragment} {...dropdownTransition}>
       <Menu.Items static className={twJoin(commonClassName, alignClassName)}>
-        {React.Children.map(children, (child) =>
-          React.isValidElement(child) ? (
+        {Children.map(children, (child) =>
+          isValidElement(child) ? (
             <Menu.Item>
               {({ active }) =>
                 addClassName(

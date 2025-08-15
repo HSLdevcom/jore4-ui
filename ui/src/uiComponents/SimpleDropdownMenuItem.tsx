@@ -1,4 +1,4 @@
-import React, { ForwardRefRenderFunction } from 'react';
+import { ForwardRefRenderFunction, forwardRef } from 'react';
 
 type SimpleDropdownMenuItemProps = {
   readonly text: string;
@@ -30,6 +30,6 @@ const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
   );
 };
 
-export const SimpleDropdownMenuItem = React.forwardRef(
+export const SimpleDropdownMenuItem = forwardRef(
   SimpleDropdownMenuItemComponent,
 );

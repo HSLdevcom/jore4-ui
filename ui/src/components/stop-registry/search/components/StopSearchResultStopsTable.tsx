@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { useObservationDateQueryParam } from '../../../../hooks';
 import { mapLngLatToPoint } from '../../../../utils';

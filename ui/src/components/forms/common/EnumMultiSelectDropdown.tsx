@@ -1,5 +1,6 @@
 import first from 'lodash/first';
 import isUndefined from 'lodash/isUndefined';
+import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MultiSelectListbox } from '../../../uiComponents';
 import { OptionRenderPropArg } from '../../../uiComponents/ListboxOptions';
@@ -17,7 +18,7 @@ export const EnumMultiSelectDropdown = <TEnum extends string>({
   placeholder,
   value,
   ...formInputProps
-}: EnumDropdownProps<TEnum>): React.ReactElement => {
+}: EnumDropdownProps<TEnum>): ReactElement => {
   const { t } = useTranslation();
 
   // To handle array values in multi select component

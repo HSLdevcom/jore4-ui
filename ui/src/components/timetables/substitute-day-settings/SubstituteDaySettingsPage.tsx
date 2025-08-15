@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import {
@@ -22,7 +22,7 @@ const testIds = {
   closeButton: 'SubstituteDaySettingsPage::closeButton',
 };
 
-export const SubstituteDaySettingsPage = (): React.ReactElement => {
+export const SubstituteDaySettingsPage: FC = () => {
   const { t } = useTranslation();
 
   const { date: startDate } = useDateQueryParam({

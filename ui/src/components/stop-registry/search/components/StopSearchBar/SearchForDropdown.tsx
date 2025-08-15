@@ -1,6 +1,6 @@
 import { Listbox as HUIListbox, Transition } from '@headlessui/react';
 import pick from 'lodash/pick';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';

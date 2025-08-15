@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { HorizontalSeparator } from '../../../layoutComponents';
 import { FilterRow } from './FilterRow';

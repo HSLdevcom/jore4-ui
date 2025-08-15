@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import React, { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import { FieldPathByValue, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../../../i18n';

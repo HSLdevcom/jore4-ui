@@ -1,5 +1,5 @@
 import get from 'lodash/get';
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, ReactElement } from 'react';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 import { inputErrorStyles } from './InputElement';
 
@@ -20,7 +20,7 @@ export const TextAreaElement = <FormState extends FieldValues>({
   fieldPath,
   testId,
   ...textAreaHTMLAttributes
-}: TextAreaElementProps<FormState>): React.ReactElement => {
+}: TextAreaElementProps<FormState>): ReactElement => {
   const {
     register,
     formState: { errors },

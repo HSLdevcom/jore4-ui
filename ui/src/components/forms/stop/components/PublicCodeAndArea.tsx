@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { FormColumn } from '../../common';
 import { FindStopArea } from './FindStopArea';

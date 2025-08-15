@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ChangeEventHandler, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import {
@@ -40,9 +40,7 @@ type RouteLineTableRowProps = {
   readonly rowItem: RowItem;
   readonly rowVariant: RouteLineTableRowVariant;
   readonly isSelected?: boolean;
-  readonly onSelectChanged?: (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => void;
+  readonly onSelectChanged?: ChangeEventHandler<HTMLInputElement>;
   readonly selectionDisabled?: boolean;
   readonly testId: string;
 };

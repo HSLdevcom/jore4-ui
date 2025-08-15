@@ -1,10 +1,10 @@
-import React, { FC, ReactNode } from 'react';
+import { FC, JSX, ReactNode } from 'react';
 import { FaChevronUp } from 'react-icons/fa';
 import { twMerge } from 'tailwind-merge';
 import { TextAndIconButton } from './TextAndIconButton';
 
 type AllowedButtonProps = Omit<
-  React.JSX.IntrinsicElements['button'],
+  JSX.IntrinsicElements['button'],
   | 'aria-controls'
   | 'aria-expanded'
   | 'aria-pressed'

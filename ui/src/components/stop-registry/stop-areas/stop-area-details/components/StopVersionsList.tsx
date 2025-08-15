@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { mapToShortDate } from '../../../../../time';
 import { StopVersion } from '../../../stops/versions/types';
 
@@ -11,7 +11,7 @@ type StopVersionsListProps = {
   readonly title: string;
 };
 
-export const StopVersionsList: React.FC<StopVersionsListProps> = ({
+export const StopVersionsList: FC<StopVersionsListProps> = ({
   versions,
   title,
 }) => {

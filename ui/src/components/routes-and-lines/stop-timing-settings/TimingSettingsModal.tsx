@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ScheduledStopPointWithTimingSettingsFragment,
@@ -55,7 +56,7 @@ const GQL_GET_SCHEDULED_STOP_POINT_WITH_TIMING_SETTINGS = gql`
   }
 `;
 
-export const TimingSettingsModal = (): React.ReactElement => {
+export const TimingSettingsModal: FC = () => {
   const { t } = useTranslation();
   const wrapInContextNavigation =
     useWrapInContextNavigation('TimingSettingsForm');
