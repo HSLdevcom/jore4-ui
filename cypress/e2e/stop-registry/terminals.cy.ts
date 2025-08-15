@@ -503,4 +503,98 @@ describe('Terminal details', () => {
       },
     );
   });
+
+  describe('stops tab', () => {
+    it(
+      'should display stops tab with correct count',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+
+        terminalDetailsPage
+          .getTabSelector()
+          .getStopsTab()
+          .shouldHaveText('Pysäkit (2)');
+      },
+    );
+
+    it(
+      'should open stops tab and display member stops',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+
+        terminalDetailsPage.getTabSelector().getStopsTab().click();
+
+        terminalDetailsPage
+          .getStopsSection()
+          .getTitle()
+          .shouldHaveText('Pysäkit');
+
+        terminalDetailsPage
+          .getStopsSection()
+          .getStopAreas()
+          .should('have.length', 2);
+
+        terminalDetailsPage
+          .getStopsSection()
+          .getNthStopArea(0)
+          .within(() => {
+            terminalDetailsPage
+              .getStopsSection()
+              .getStopAreaHeader()
+              .should('contain.text', 'Finnoonkartano');
+
+            terminalDetailsPage
+              .getStopsSection()
+              .getStopAreaStopsTable()
+              .shouldBeVisible();
+            terminalDetailsPage
+              .getStopsSection()
+              .getStopAreaStopsTable()
+              .find('tbody tr')
+              .should('have.length', 1);
+          });
+
+        terminalDetailsPage
+          .getStopsSection()
+          .getNthStopArea(1)
+          .within(() => {
+            terminalDetailsPage
+              .getStopsSection()
+              .getStopAreaHeader()
+              .should('contain.text', 'Kuttulammentie');
+
+            terminalDetailsPage
+              .getStopsSection()
+              .getStopAreaStopsTable()
+              .shouldBeVisible();
+            terminalDetailsPage
+              .getStopsSection()
+              .getStopAreaStopsTable()
+              .find('tbody tr')
+              .should('have.length', 1);
+          });
+      },
+    );
+
+    it(
+      'should navigate to stop area details when clicking stop area link',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+
+        terminalDetailsPage.getTabSelector().getStopsTab().click();
+
+        terminalDetailsPage
+          .getStopsSection()
+          .getNthStopArea(0)
+          .within(() => {
+            terminalDetailsPage.getStopsSection().getStopAreaHeader().click();
+          });
+
+        cy.url().should('include', '/stop-registry/stop-areas/');
+      },
+    );
+  });
 });
