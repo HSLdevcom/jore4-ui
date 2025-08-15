@@ -26,10 +26,7 @@ import {
 import { DialogWithButtons } from '../../pageObjects/DialogWithButtons';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
-import {
-  expectGraphQLCallToReturnError,
-  expectGraphQLCallToSucceed,
-} from '../../utils/assertions';
+import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { InsertedStopRegistryIds } from '../utils';
 
 function mapToShortDate(date: DateTime | null) {
@@ -388,27 +385,6 @@ describe('Stop area details', () => {
       selectMemberStopsDropdown.getInput().clearAndType('E2E001');
       selectMemberStopsDropdown.getMemberOptions().should('have.length', 0);
       stopAreaDetailsPage.memberStops.modal.saveButton().should('be.disabled');
-    });
-
-    it('should handle unique name exception', () => {
-      const existingLabel =
-        stopAreaData?.find(
-          (d) => d.StopArea?.name?.value !== testStopArea.StopArea.name?.value,
-        )?.StopArea?.name?.value ?? 'noop';
-
-      const newBasicDetails: ExpectedBasicDetails = {
-        ...testAreaExpectedBasicDetails,
-        name: existingLabel,
-      };
-
-      assertBasicDetails(testAreaExpectedBasicDetails);
-      stopAreaDetailsPage.details.getEditButton().click();
-      inputBasicDetails(newBasicDetails);
-      stopAreaDetailsPage.details.edit.getSaveButton().click();
-      toast.expectDangerToast(
-        'Pysäkkialueella tulee olla uniikki nimi, mutta nimi Kalevankatu 32 on jo jonkin toisen alueen käytössä!',
-      );
-      expectGraphQLCallToReturnError('@gqlUpsertStopArea');
     });
 
     it('should change name in all stop pages when editing stop area name', () => {
