@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 import { getGqlString } from '../builders/mutations/utils';
 import {
   StopRegistryCreateMultiModalStopPlaceInput,

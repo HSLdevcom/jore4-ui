@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 import { getGqlString } from '../builders/mutations/utils';
 
 const GQL_GET_STOP_POINT_BY_LABEL = gql`
