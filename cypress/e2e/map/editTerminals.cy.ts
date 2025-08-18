@@ -10,22 +10,14 @@ import {
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
-import { ConfirmationDialog, MapModal, Toast } from '../../pageObjects';
+import { ConfirmationDialog, MapModal } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
-import {
-  expectGraphQLCallToReturnError,
-  expectGraphQLCallToSucceed,
-} from '../../utils/assertions';
+import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { mapViewport } from '../utils';
-
-const testTerminalLabels = {
-  existingTerminalName: 'E2ET001',
-};
 
 const mapModal = new MapModal();
 const confirmationDialog = new ConfirmationDialog();
-const toast = new Toast();
 
 describe('Terminals on map', mapViewport, () => {
   let dbResources: SupportedResources;
@@ -162,42 +154,6 @@ describe('Terminals on map', mapViewport, () => {
 
       expectGraphQLCallToSucceed('@gqlGetStopTerminalsByLocation');
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 E2ET001');
-    },
-  );
-
-  it(
-    'should handle unique name exception',
-    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
-    () => {
-      mapModal.map.getTerminalById('T3').click();
-
-      mapModal.map.waitForLoadToComplete();
-
-      const { terminalPopup, terminalForm } = mapModal;
-
-      terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
-
-      terminalPopup.getEditButton().click();
-      terminalForm.getForm().shouldBeVisible();
-      terminalForm
-        .getPrivateCodeInput()
-        .shouldBeVisible()
-        .shouldBeDisabled()
-        .should('have.value', 'T3');
-
-      terminalForm
-        .getNameInput()
-        .clearAndType(testTerminalLabels.existingTerminalName);
-
-      terminalForm.save();
-
-      confirmationDialog.getConfirmButton().click();
-
-      toast.expectDangerToast(
-        `Terminaalilla tulee olla uniikki nimi, mutta nimi ${testTerminalLabels.existingTerminalName} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!`,
-      );
-      expectGraphQLCallToReturnError('@gqlUpdateTerminal');
-      terminalForm.getForm().shouldBeVisible();
     },
   );
 

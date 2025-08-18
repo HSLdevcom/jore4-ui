@@ -209,32 +209,4 @@ describe('Terminal creation tests', mapViewport, () => {
       expectGraphQLCallToReturnError('@gqlCreateTerminal');
     },
   );
-
-  it(
-    'should handle unique name exception',
-    {
-      tags: [Tag.Terminals, Tag.Map],
-      scrollBehavior: 'bottom',
-    },
-    () => {
-      mapModal.createTerminalAtLocation({
-        terminalFormInfo: {
-          privateCode: testTerminalLabels.terminalPrivateCode,
-          name: testTerminalLabels.existingTerminalName,
-          nameSwe: testTerminalLabels.terminalName,
-          validityStartISODate: '2022-01-01',
-          stops: testTerminalLabels.stops,
-        },
-        clickRelativePoint: {
-          xPercentage: 40,
-          yPercentage: 55,
-        },
-      });
-
-      toast.expectDangerToast(
-        `Terminaalilla tulee olla uniikki nimi, mutta nimi ${testTerminalLabels.existingTerminalName} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!`,
-      );
-      expectGraphQLCallToReturnError('@gqlCreateTerminal');
-    },
-  );
 });

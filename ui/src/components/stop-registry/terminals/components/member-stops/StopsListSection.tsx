@@ -51,9 +51,7 @@ function mapChildrenToStopAreas(
       .filter((row): row is StopSearchRow => row !== null),
   }));
 
-  sections.toSorted((a, b) => a.name.localeCompare(b.name));
-
-  return sections;
+  return sections.toSorted((a, b) => a.name.localeCompare(b.name));
 }
 
 export const StopsListSection: FC<StopsProps> = ({ terminal }) => {
