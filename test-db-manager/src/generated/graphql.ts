@@ -9845,6 +9845,7 @@ export type StopRegistryParentStopPlace = StopRegistryStopPlaceInterface & {
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  organisations?: Maybe<Array<Maybe<StopRegistryStopPlaceOrganisationRef>>>;
   permissions?: Maybe<StopRegistryEntityPermissions>;
   placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
   polygon?: Maybe<StopRegistryGeoJson>;
@@ -9871,6 +9872,7 @@ export type StopRegistryParentStopPlaceInput = {
   id?: InputMaybe<Scalars['String']['input']>;
   keyValues?: InputMaybe<Array<InputMaybe<StopRegistryKeyValuesInput>>>;
   name?: InputMaybe<StopRegistryEmbeddableMultilingualStringInput>;
+  organisations?: InputMaybe<Array<InputMaybe<StopRegistryStopPlaceOrganisationRefInput>>>;
   placeEquipments?: InputMaybe<StopRegistryPlaceEquipmentsInput>;
   privateCode?: InputMaybe<StopRegistryPrivateCodeInput>;
   publicCode?: InputMaybe<Scalars['String']['input']>;
@@ -10424,6 +10426,7 @@ export type StopRegistryStopPlaceInterface = {
   keyValues?: Maybe<Array<Maybe<StopRegistryKeyValues>>>;
   modificationEnumeration?: Maybe<StopRegistryModificationEnumerationType>;
   name?: Maybe<StopRegistryEmbeddableMultilingualString>;
+  organisations?: Maybe<Array<Maybe<StopRegistryStopPlaceOrganisationRef>>>;
   permissions?: Maybe<StopRegistryEntityPermissions>;
   placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
   polygon?: Maybe<StopRegistryGeoJson>;
