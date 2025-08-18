@@ -8,7 +8,7 @@ import {
   NewModalFooter,
 } from '../../../../../uiComponents';
 import { Modal } from '../../../../../uiComponents/modal/Modal';
-import { SelectStopDropdown } from '../../../../forms/stop-area';
+import { SelectStopDropdown } from '../../../components/SelectMemberStops';
 import { SelectedStop } from '../../../components/SelectMemberStops/common/schema';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import { useGetStopVersions } from '../../../stops/versions/queries/useGetStopVersions';

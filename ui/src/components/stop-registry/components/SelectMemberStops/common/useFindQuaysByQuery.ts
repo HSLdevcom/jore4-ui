@@ -76,7 +76,7 @@ export function useFindQuaysByQuery(query: string) {
       variables: {
         cursor: lastCursor,
         query: `${query}%`,
-        limit: LIMIT,
+        LIMIT,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         const prevResults = prev?.stops_database?.findStopsForTerminal ?? [];

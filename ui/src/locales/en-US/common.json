@@ -558,11 +558,13 @@
       "stopAlreadyBelongsToTerminal": "Stop already belongs to another terminal."
     },
     "stops": {
-      "title": "Stops"
+      "title": "Stops",
+      "addStopToTerminal": "Add stop to terminal"
     },
     "errors": {
       "terminalsUniqueName": "Terminal should have unique name but {{name}} is already in use by another terminal or stop area!",
-      "terminalsUniquePrivateCode": "Terminal should have unique private code but {{privateCode}} is already in use by another terminal or stop area!"
+      "terminalsUniquePrivateCode": "Terminal should have unique private code but {{privateCode}} is already in use by another terminal or stop area!",
+      "editMemberStops": "Failed to edit member stops"
     },
     "version": {
       "title": {
@@ -1188,6 +1190,7 @@
     "errorMessage": "Error deleting timetable"
   },
   "save": "Save",
+  "saving": "Saving",
   "edit": "Edit",
   "move": "Move",
   "moving": "Moving",

@@ -11,7 +11,7 @@ import {
   SelectedStop,
   useFindQuaysByQuery,
 } from '../common';
-import { SelectMemberStopsDropdownButton } from './SelectMemberStopsDropdownButton';
+import { SelectMemberStopsDropdownButton } from '../common/SelectMemberStopsDropdownButton';
 
 const testIds = {
   input: 'BaseSelectMemberStopsDropdown::input',
