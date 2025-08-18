@@ -24,6 +24,7 @@ export const EditTerminalValidityButton: FC<TerminalComponentProps> = ({
           'flex items-center justify-center',
           'rounded-sm border border-grey',
           'disabled:pointer-events-none disabled:bg-background disabled:opacity-70',
+          'outline-tweaked-brand focus:outline focus:outline-2 focus:outline-offset-1',
           getHoverStyles(false, !terminal),
           className,
         )}
