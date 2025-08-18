@@ -1,24 +1,24 @@
 import { Combobox as HUICombobox, Transition } from '@headlessui/react';
 import { FC, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { mapToShortDate } from '../../../../time';
-import { dropdownTransition } from '../../../../uiComponents';
-import { log } from '../../../../utils';
-import { MemberStopOptions } from '../../../stop-registry/components/SelectMemberStops/MemberStopOptions';
-import { SelectedStop } from '../../../stop-registry/components/SelectMemberStops/schema';
+import { mapToShortDate } from '../../../../../time';
+import { dropdownTransition } from '../../../../../uiComponents';
+import { log } from '../../../../../utils';
 import {
   FETCH_MORE_OPTION,
+  MemberStopOptions,
   SelectMemberStopQueryStatus,
-} from '../../../stop-registry/components/SelectMemberStops/SelectMemberStopsQueryStatus';
-import { useFindQuaysByQuery } from '../../../stop-registry/components/SelectMemberStops/useFindQuaysByQuery';
-import { SelectMemberStopsDropdownButton } from './SelectMemberStopsDropdownButton';
+  SelectedStop,
+  useFindQuaysByQuery,
+} from '../common';
+import { SelectStopDropdownButton } from './SelectStopDropdownButton';
 
-export const testIds = {
-  input: 'SelectMemberStopsDropdown::input',
-  warningText: 'SelectMemberStopsDropdown::warningText',
+const testIds = {
+  input: 'SelectStopDropdown::input',
+  warningText: 'SelectStopDropdown::warningText',
 };
 
-export function compareMembersById(
+function compareMembersById(
   a: SelectedStop | null | undefined,
   b: SelectedStop | null | undefined,
 ): boolean {
@@ -28,13 +28,7 @@ export function compareMembersById(
   return a.stopPlaceId === b.stopPlaceId && a.quayId === b.quayId;
 }
 
-export function sortByPublicCode(
-  stops: ReadonlyArray<SelectedStop>,
-): SelectedStop[] {
-  return stops.toSorted((a, b) => a.publicCode.localeCompare(b.publicCode));
-}
-
-type SelectMemberStopsDropdownProps = {
+type SelectStopDropdown = {
   readonly className?: string;
   readonly disabled?: boolean;
   readonly value: SelectedStop | null;
@@ -48,9 +42,7 @@ type SelectMemberStopsDropdownProps = {
   readonly areaId?: string;
 };
 
-export const SelectMemberStopsDropdownArea: FC<
-  SelectMemberStopsDropdownProps
-> = ({
+export const SelectStopDropdown: FC<SelectStopDropdown> = ({
   className = '',
   disabled,
   value,
@@ -147,7 +139,7 @@ export const SelectMemberStopsDropdownArea: FC<
           </div>
         )}
 
-        <SelectMemberStopsDropdownButton />
+        <SelectStopDropdownButton />
       </div>
 
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}

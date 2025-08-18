@@ -1,15 +1,15 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
-import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
 import {
   BaseSelectMemberStopsDropdown,
   SelectMemberStopsDropdownProps,
   sortByPublicCode,
-} from '../../../../components/SelectMemberStops/SelectMemberStopsDropdown';
+} from '../../../../components/SelectMemberStops';
+import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';
 
 const testIds = {
-  warningText: 'SelectMemberStopsDropdown::warningText',
+  warningText: 'SelectTerminalMemberStopsDropdown::warningText',
 };
 
 function findNewlySelectedStop(
@@ -92,11 +92,9 @@ function processSelection(
   return [...newValue];
 }
 
-export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
-  value = [],
-  onChange,
-  ...restProps
-}) => {
+export const SelectTerminalMemberStopsDropdown: FC<
+  SelectMemberStopsDropdownProps
+> = ({ value = [], onChange, ...restProps }) => {
   const { t } = useTranslation();
 
   const handleSelectionChange = (

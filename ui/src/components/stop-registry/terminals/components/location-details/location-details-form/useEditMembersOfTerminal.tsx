@@ -7,7 +7,7 @@ import {
   useRemoveFromMultiModalStopPlaceMutation,
 } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
+import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';
 
 const GQL_REMOVE_FROM_MULTIMODAL_STOP_PLACE = gql`
   mutation removeFromMultiModalStopPlace(

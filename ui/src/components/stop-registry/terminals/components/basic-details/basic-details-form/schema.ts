@@ -5,7 +5,7 @@ import {
   requiredString,
   validityPeriodFormSchema,
 } from '../../../../../forms/common';
-import { selectedStopSchema } from '../../../../components/SelectMemberStops/schema';
+import { selectedStopSchema } from '../../../../components/SelectMemberStops/common/schema';
 import { TerminalType } from '../../../../types/TerminalType';
 
 export const terminalFormSchema = z

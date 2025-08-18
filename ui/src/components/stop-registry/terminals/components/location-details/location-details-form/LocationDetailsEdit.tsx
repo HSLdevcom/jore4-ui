@@ -18,8 +18,8 @@ import {
 } from '../../../../../../utils';
 import { FormColumn, InputField } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
-import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
-import { SelectMemberStopsDropdown } from '../member-stops/SelectMemberStopsDropdown';
+import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';
+import { SelectTerminalMemberStopsDropdown } from '../member-stops';
 import {
   TerminalLocationDetailsFormState,
   terminalLocationDetailsFormSchema,
@@ -191,7 +191,7 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
                 total: selectedStops.length,
               })}
             </div>
-            <SelectMemberStopsDropdown
+            <SelectTerminalMemberStopsDropdown
               className="lg:w-1/2"
               value={selectedStops}
               onChange={onSelectedStopsChange}

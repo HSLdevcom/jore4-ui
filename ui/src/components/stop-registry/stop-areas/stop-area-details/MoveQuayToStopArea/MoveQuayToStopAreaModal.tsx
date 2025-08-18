@@ -8,9 +8,8 @@ import {
   NewModalFooter,
 } from '../../../../../uiComponents';
 import { Modal } from '../../../../../uiComponents/modal/Modal';
-import { SelectMemberStopsDropdownArea } from '../../../../forms/stop-area';
-import { useMoveQuayToStopPlace } from '../../../../forms/stop-area/SelectMemberStopsDropdown/useMoveQuayToStopPlace';
-import { SelectedStop } from '../../../components/SelectMemberStops/schema';
+import { SelectStopDropdown } from '../../../../forms/stop-area';
+import { SelectedStop } from '../../../components/SelectMemberStops/common/schema';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import { useGetStopVersions } from '../../../stops/versions/queries/useGetStopVersions';
 import { StopVersion } from '../../../stops/versions/types';
@@ -18,6 +17,7 @@ import { useGetStopAreaVersions } from '../../versions/queries/useGetStopAreaVer
 import { StopAreaVersion } from '../../versions/types';
 import { FutureVersionsAlertPopover } from './FutureVersionsAlertPopover';
 import { StopVersionsList } from './StopVersionsList';
+import { useMoveQuayToStopPlace } from './useMoveQuayToStopPlace';
 
 const testIds = {
   selectMemberStops: 'MemberStops::selectMemberStops',
@@ -28,7 +28,7 @@ const testIds = {
   closeButton: 'MembersStops::closeButton',
 };
 
-type StopAreaMemberStopModalProps = {
+type MoveQuayToStopAreaModalProps = {
   readonly isOpen: boolean;
   readonly onClose: () => void;
   readonly onSave: () => void;
@@ -87,7 +87,7 @@ const useRemovePastStopAreaVersions = (
   }, [selectedDate, stopAreaVersions]);
 };
 
-export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
+export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
   isOpen,
   onClose,
   onSave,
@@ -227,7 +227,7 @@ export const StopAreaMemberStopModal: FC<StopAreaMemberStopModalProps> = ({
           <div className="mb-2 text-sm font-bold">
             {t('stopAreaDetails.memberStops.getStop')}
           </div>
-          <SelectMemberStopsDropdownArea
+          <SelectStopDropdown
             value={selectedStop ?? null}
             testId={testIds.selectMemberStops}
             onSelectionChange={(newValue) =>

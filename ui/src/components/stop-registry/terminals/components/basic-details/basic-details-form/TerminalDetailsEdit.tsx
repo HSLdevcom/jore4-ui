@@ -22,7 +22,7 @@ import {
 import { FormColumn, FormRow, InputField } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { AlternativeNamesEdit } from '../../../../components/AlternativeNames/AlternativeNamesEdit';
-import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
+import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';
 import { TerminalTypeDropdown } from '../../../../components/TerminalTypeDropdown';
 import { TerminalType } from '../../../../types/TerminalType';
 import { TerminalFormState, terminalFormSchema } from './schema';

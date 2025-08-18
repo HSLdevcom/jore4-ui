@@ -1,24 +1,23 @@
 import { Combobox as HUICombobox, Transition } from '@headlessui/react';
 import { FC, ReactNode, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { dropdownTransition } from '../../../../uiComponents';
-import { log } from '../../../../utils';
-import { MemberStopOptions } from './MemberStopOptions';
-import { SelectedStop } from './schema';
-import { SelectedMemberStops } from './SelectedMemberStops';
-import { SelectMemberStopsDropdownButton } from './SelectMemberStopsDropdownButton';
+import { dropdownTransition } from '../../../../../uiComponents';
+import { log } from '../../../../../utils';
 import {
   FETCH_MORE_OPTION,
+  MemberStopOptions,
   SelectMemberStopQueryStatus,
-} from './SelectMemberStopsQueryStatus';
-import { useFindQuaysByQuery } from './useFindQuaysByQuery';
+  SelectedMemberStops,
+  SelectedStop,
+  useFindQuaysByQuery,
+} from '../common';
+import { SelectMemberStopsDropdownButton } from './SelectMemberStopsDropdownButton';
 
-export const testIds = {
-  input: 'SelectMemberStopsDropdown::input',
-  warningText: 'SelectMemberStopsDropdown::warningText',
+const testIds = {
+  input: 'BaseSelectMemberStopsDropdown::input',
 };
 
-export function compareMembersById(a: SelectedStop, b: SelectedStop) {
+function compareMembersById(a: SelectedStop, b: SelectedStop) {
   return a.stopPlaceId === b.stopPlaceId && a.quayId === b.quayId;
 }
 
@@ -144,7 +143,7 @@ export const BaseSelectMemberStopsDropdown: FC<
             hoveredStopPlaceId={hoveredStopPlaceId}
             onHover={setHoveredStopPlaceId}
           />
-          <MemberStopOptions options={unselectedOptions} />
+          <MemberStopOptions options={unselectedOptions} allowDisable />
 
           <SelectMemberStopQueryStatus
             allFetched={allFetched}

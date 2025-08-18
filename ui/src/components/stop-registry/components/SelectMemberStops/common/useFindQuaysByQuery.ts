@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { useEffect, useMemo, useState } from 'react';
-import { useFindQuaysByQueryQuery } from '../../../../generated/graphql';
+import { useFindQuaysByQueryQuery } from '../../../../../generated/graphql';
 import { selectedStopSchema } from './schema';
 
 const LIMIT = 5;
