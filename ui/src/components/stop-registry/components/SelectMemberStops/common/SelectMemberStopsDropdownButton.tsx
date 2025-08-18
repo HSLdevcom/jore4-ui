@@ -1,7 +1,7 @@
 import { Combobox as HUICombobox } from '@headlessui/react';
 import { FC } from 'react';
 import { MdSearch } from 'react-icons/md';
-import { SelectedStop } from '../common/schema';
+import { SelectedStop } from './schema';
 
 const testIds = {
   button: 'SelectMemberStopsDropdownButton',
