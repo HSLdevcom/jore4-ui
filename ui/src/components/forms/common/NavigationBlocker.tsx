@@ -56,6 +56,7 @@ const knownNavigationContexts = [
   'TerminalDetailsEdit',
   'TerminalForm',
   'TerminalValidityForm',
+  'TerminalMemberStopsForm',
   'TimingSettingsForm',
   'ViaForm',
 ] as const;

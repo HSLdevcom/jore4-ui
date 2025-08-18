@@ -1,3 +1,4 @@
+import { SelectTerminalMemberStopsDropdown } from './SelectTerminalMemberStopsDropdown';
 import {
   ValidityPeriodForm,
   ValidityPeriodFormInfo,
@@ -18,6 +19,8 @@ export interface NewTerminalFormInfo extends BaseTerminalFormInfo {
 }
 
 export class TerminalForm {
+  memberStops = new SelectTerminalMemberStopsDropdown();
+
   validityPeriodForm = new ValidityPeriodForm();
 
   getForm() {
@@ -78,9 +81,9 @@ export class TerminalForm {
     this.fillBaseForm(values);
 
     values.stops.forEach((stop) => {
-      cy.getByTestId('SelectMemberStopsDropdownButton').click();
-      cy.getByTestId('SelectMemberStopsDropdown::input').clearAndType(stop);
-      cy.getByTestId('MemberStopOptions::option').click();
+      this.memberStops.dropdownButton().click();
+      this.memberStops.getInput().clearAndType(stop);
+      this.memberStops.common.getMemberOptions().click();
     });
   }
 

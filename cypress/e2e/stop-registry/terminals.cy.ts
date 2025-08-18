@@ -12,15 +12,14 @@ import {
   ExternalLinksForm,
   ExternalLinksSection,
   Map,
-  SelectMemberStopsDropdown,
   TerminalDetailsPage,
   TerminalInfoSpotRow,
   TerminalInfoSpotsViewCard,
   TerminalInfoSpotsViewList,
   Toast,
 } from '../../pageObjects';
-import { TerminalPopup } from '../../pageObjects/TerminalPopup';
 import { SelectTerminalMemberStopsDropdown } from '../../pageObjects/SelectTerminalMemberStopsDropdown';
+import { TerminalPopup } from '../../pageObjects/TerminalPopup';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
