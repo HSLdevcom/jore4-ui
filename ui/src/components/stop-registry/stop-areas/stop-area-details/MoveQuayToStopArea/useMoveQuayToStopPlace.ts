@@ -5,8 +5,8 @@ import {
   useInsertStopPointMutation,
   useMoveQuayToStopPlaceMutation,
   useUpdateStopPointMutation,
-} from '../../../../generated/graphql';
-import { showDangerToastWithError } from '../../../../utils';
+} from '../../../../../generated/graphql';
+import { showDangerToastWithError } from '../../../../../utils';
 import {
   createAndInsertStopPoint,
   createQuayMappingForCopiedQuay,

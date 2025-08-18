@@ -1,4 +1,4 @@
-import { GetStopPointsByQuayIdQuery } from '../../../../../generated/graphql';
+import { GetStopPointsByQuayIdQuery } from '../../../../../../generated/graphql';
 
 export type MoveQuayParams = {
   toStopPlaceId: string;

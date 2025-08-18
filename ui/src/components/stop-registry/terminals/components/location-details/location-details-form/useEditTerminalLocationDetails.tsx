@@ -4,7 +4,7 @@ import { StopRegistryParentStopPlaceInput } from '../../../../../../generated/gr
 import { useUpdateTerminal } from '../../../../../../hooks/stop-registry/terminals';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import { patchKeyValues } from '../../../../../../utils';
-import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
+import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';
 import { TerminalLocationDetailsFormState } from './schema';
 import { useEditMembersOfTerminal } from './useEditMembersOfTerminal';
 

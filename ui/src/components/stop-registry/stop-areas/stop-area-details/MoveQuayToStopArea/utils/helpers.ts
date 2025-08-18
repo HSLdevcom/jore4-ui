@@ -5,9 +5,9 @@ import {
   useInsertStopPointMutation,
   useMoveQuayToStopPlaceMutation,
   useUpdateStopPointMutation,
-} from '../../../../../generated/graphql';
-import { PartialScheduledStopPointSetInput } from '../../../../../graphql';
-import { findKeyValue } from '../../../../../utils';
+} from '../../../../../../generated/graphql';
+import { PartialScheduledStopPointSetInput } from '../../../../../../graphql';
+import { findKeyValue } from '../../../../../../utils';
 import {
   MoveQuayParams,
   MoveStopPlace,

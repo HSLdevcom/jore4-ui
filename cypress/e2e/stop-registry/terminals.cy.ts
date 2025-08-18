@@ -20,6 +20,7 @@ import {
   Toast,
 } from '../../pageObjects';
 import { TerminalPopup } from '../../pageObjects/TerminalPopup';
+import { SelectTerminalMemberStopsDropdown } from '../../pageObjects/SelectTerminalMemberStopsDropdown';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
@@ -59,7 +60,8 @@ describe('Terminal details', () => {
   const terminalDetailsPage = new TerminalDetailsPage();
   const alternativeNames = new AlternativeNames();
   const toast = new Toast();
-  const selectMemberStopsDropdown = new SelectMemberStopsDropdown();
+  const selectTerminalMemberStopsDropdown =
+    new SelectTerminalMemberStopsDropdown();
   const externalLinks = new ExternalLinksSection();
 
   const map = new Map();
@@ -314,10 +316,12 @@ describe('Terminal details', () => {
       // Add member stop
       terminalDetailsPage.locationDetails.getEditButton().click();
       edit.getSelectMemberStops().within(() => {
-        selectMemberStopsDropdown.dropdownButton().click();
-        selectMemberStopsDropdown.getInput().clearAndType('E2E009');
-        selectMemberStopsDropdown.getMemberOptions().should('have.length', 1);
-        selectMemberStopsDropdown
+        selectTerminalMemberStopsDropdown.dropdownButton().click();
+        selectTerminalMemberStopsDropdown.getInput().clearAndType('E2E009');
+        selectTerminalMemberStopsDropdown.common
+          .getMemberOptions()
+          .should('have.length', 1);
+        selectTerminalMemberStopsDropdown.common
           .getMemberOptions()
           .eq(0)
           .should('contain.text', 'E2E009')
@@ -339,8 +343,8 @@ describe('Terminal details', () => {
       // Delete member stop
       terminalDetailsPage.locationDetails.getEditButton().click();
       edit.getSelectMemberStops().within(() => {
-        selectMemberStopsDropdown.dropdownButton().click();
-        selectMemberStopsDropdown
+        selectTerminalMemberStopsDropdown.dropdownButton().click();
+        selectTerminalMemberStopsDropdown.common
           .getSelectedMembers()
           .contains('E2E010')
           .click();
@@ -355,14 +359,14 @@ describe('Terminal details', () => {
 
       terminalDetailsPage.locationDetails.getEditButton().click();
       edit.getSelectMemberStops().within(() => {
-        selectMemberStopsDropdown.dropdownButton().click();
-        selectMemberStopsDropdown
+        selectTerminalMemberStopsDropdown.dropdownButton().click();
+        selectTerminalMemberStopsDropdown.common
           .getSelectedMembers()
           .contains('E2E008')
           .click();
       });
 
-      selectMemberStopsDropdown
+      selectTerminalMemberStopsDropdown
         .getWarningText()
         .shouldHaveText(
           'Terminaalilla pitää olla vähintään yksi jäsenpysäkki.',

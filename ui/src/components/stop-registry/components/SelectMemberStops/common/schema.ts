@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { validityPeriodFormSchema } from '../../../forms/common';
+import { validityPeriodFormSchema } from '../../../../forms/common';
 
 export const selectedStopSchema = z
   .object({

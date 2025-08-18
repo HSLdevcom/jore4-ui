@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { selectedStopSchema } from '../../../../components/SelectMemberStops/schema';
+import { selectedStopSchema } from '../../../../components/SelectMemberStops/common/schema';
 
 export const terminalLocationDetailsFormSchema = z.object({
   streetAddress: z.string().optional().nullable(),

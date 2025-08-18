@@ -18,7 +18,7 @@ import {
   AlternativeNamesEdit,
   BasicDetailsViewCard,
   ConfirmationDialog,
-  SelectMemberStopsDropdown,
+  SelectStopDropdown,
   StopAreaDetailsPage,
   StopDetailsPage,
   Toast,
@@ -60,7 +60,7 @@ describe('Stop area details', () => {
   const stopAreaDetailsPage = new StopAreaDetailsPage();
   const alternativeNames = new AlternativeNames();
   const toast = new Toast();
-  const selectMemberStopsDropdown = new SelectMemberStopsDropdown();
+  const selectStopDropdown = new SelectStopDropdown();
 
   let dbResources: SupportedResources;
   let dbIds: InsertedStopRegistryIds;
@@ -347,11 +347,11 @@ describe('Stop area details', () => {
     it('should allow moving member stop to the stop area', () => {
       stopAreaDetailsPage.memberStops.getAddStopButton().click();
       stopAreaDetailsPage.memberStops.modal.modal().shouldBeVisible();
-      selectMemberStopsDropdown.dropdownButton().click();
-      selectMemberStopsDropdown.getInput().click();
-      selectMemberStopsDropdown.getInput().clearAndType('E2E003');
-      selectMemberStopsDropdown.getMemberOptions().should('have.length', 1);
-      selectMemberStopsDropdown
+      selectStopDropdown.dropdownButton().click();
+      selectStopDropdown.getInput().click();
+      selectStopDropdown.getInput().clearAndType('E2E003');
+      selectStopDropdown.common.getMemberOptions().should('have.length', 1);
+      selectStopDropdown.common
         .getMemberOptions()
         .eq(0)
         .should('contain.text', 'E2E003')
@@ -380,10 +380,10 @@ describe('Stop area details', () => {
     it('should not find member stop to move to the stop area if it already is in the stop area', () => {
       stopAreaDetailsPage.memberStops.getAddStopButton().click();
       stopAreaDetailsPage.memberStops.modal.modal().shouldBeVisible();
-      selectMemberStopsDropdown.dropdownButton().click();
-      selectMemberStopsDropdown.getInput().click();
-      selectMemberStopsDropdown.getInput().clearAndType('E2E001');
-      selectMemberStopsDropdown.getMemberOptions().should('have.length', 0);
+      selectStopDropdown.dropdownButton().click();
+      selectStopDropdown.getInput().click();
+      selectStopDropdown.getInput().clearAndType('E2E001');
+      selectStopDropdown.common.getMemberOptions().should('have.length', 0);
       stopAreaDetailsPage.memberStops.modal.saveButton().should('be.disabled');
     });
 

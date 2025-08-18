@@ -3,10 +3,10 @@ import { FC } from 'react';
 import { MdSearch } from 'react-icons/md';
 
 const testIds = {
-  button: 'SelectMemberStopsDropdownButton',
+  button: 'SelectStopDropdownButton',
 };
 
-export const SelectMemberStopsDropdownButton: FC = () => {
+export const SelectStopDropdownButton: FC = () => {
   return (
     <HUICombobox.Button
       data-testid={testIds.button}
