@@ -10331,6 +10331,7 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   readonly name?: Maybe<StopRegistryEmbeddableMultilingualString>;
   readonly organisations?: Maybe<ReadonlyArray<Maybe<StopRegistryStopPlaceOrganisationRef>>>;
   readonly parentSiteRef?: Maybe<Scalars['String']['output']>;
+  readonly parentStopPlace?: Maybe<ReadonlyArray<Maybe<StopRegistryStopPlaceInterface>>>;
   readonly permissions?: Maybe<StopRegistryEntityPermissions>;
   readonly placeEquipments?: Maybe<StopRegistryPlaceEquipments>;
   readonly polygon?: Maybe<StopRegistryGeoJson>;
@@ -10349,6 +10350,33 @@ export type StopRegistryStopPlace = StopRegistryStopPlaceInterface & {
   readonly version?: Maybe<Scalars['String']['output']>;
   readonly versionComment?: Maybe<Scalars['String']['output']>;
   readonly weighting?: Maybe<StopRegistryInterchangeWeightingType>;
+};
+
+
+export type StopRegistryStopPlaceParentStopPlaceArgs = {
+  allVersions?: InputMaybe<Scalars['Boolean']['input']>;
+  code?: InputMaybe<Scalars['String']['input']>;
+  countryReference?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  countyReference?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  hasParking?: InputMaybe<Scalars['Boolean']['input']>;
+  importedId?: InputMaybe<Scalars['String']['input']>;
+  key?: InputMaybe<Scalars['String']['input']>;
+  municipalityReference?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  onlyMonomodalStopPlaces?: InputMaybe<Scalars['Boolean']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pointInTime?: InputMaybe<Scalars['stop_registry_DateTime']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+  stopPlaceType?: InputMaybe<ReadonlyArray<InputMaybe<StopRegistryStopPlaceType>>>;
+  tags?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  values?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  version?: InputMaybe<Scalars['Int']['input']>;
+  versionValidity?: InputMaybe<StopRegistryVersionValidity>;
+  withDuplicatedQuayImportedIds?: InputMaybe<Scalars['Boolean']['input']>;
+  withNearbySimilarDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+  withTags?: InputMaybe<Scalars['Boolean']['input']>;
+  withoutLocationOnly?: InputMaybe<Scalars['Boolean']['input']>;
+  withoutQuaysOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type StopRegistryStopPlaceInput = {
