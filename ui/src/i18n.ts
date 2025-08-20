@@ -1,24 +1,25 @@
-import i18next, { Resource } from 'i18next';
+import { Resource, use as i18nextUse } from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import translationsJson from './locales/fi-FI/common.json';
+import enAccessibility from './locales/en-US/accessibility.json';
+import enCommon from './locales/en-US/common.json';
+import fiAccessibility from './locales/fi-FI/accessibility.json';
+import fiCommon from './locales/fi-FI/common.json';
 
 export type SupportedLocale = 'fi-FI' | 'en-US';
 export const defaultLocale: SupportedLocale = 'fi-FI';
 
-const modules = ['common', 'accessibility'];
-const locales = ['fi-FI', 'en-US'];
-const resources: Resource = {};
-locales.forEach((locale) => {
-  modules.forEach((module) => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports,global-require,import/no-dynamic-require
-    const tr = require(`./locales/${locale}/${module}.json`);
-    if (!resources[locale]) {
-      resources[locale] = {};
-    }
-    resources[locale][module] = tr;
-  });
-});
-i18next.use(initReactI18next).init({
+const resources: Resource = {
+  'fi-FI': {
+    common: fiCommon,
+    accessibility: fiAccessibility,
+  },
+  'en-US': {
+    common: enCommon,
+    accessibility: enAccessibility,
+  },
+};
+
+i18nextUse(initReactI18next).init({
   lng: defaultLocale,
   fallbackLng: defaultLocale,
   resources,
@@ -31,4 +32,4 @@ i18next.use(initReactI18next).init({
 });
 
 // All the translation key paths as strings (e.g. "navigation.logout")
-export type TranslationKey = Paths<typeof translationsJson>;
+export type TranslationKey = Paths<typeof fiCommon>;
