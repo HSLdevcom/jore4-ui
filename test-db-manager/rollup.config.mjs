@@ -1,7 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
-import dts from 'rollup-plugin-dts';
+import { dts } from 'rollup-plugin-dts';
 
 const commonPlugins = [
   nodeResolve({ exportConditions: ['node'] }),
@@ -14,8 +14,8 @@ const commonPlugins = [
   }),
 ];
 
-// had to define cross-fetch as external to get rid of rollup build error.
-const commonExternals = ['cross-fetch', 'cross-fetch/polyfill'];
+// Mark node modules as externals. Needed for knex's optional drivers.
+const commonExternals = [/node_modules/];
 
 /**
  * @type {import('rollup').RollupOptions}
