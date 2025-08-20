@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member,import/no-named-as-default */
 import i18n from 'i18next';
 import '../../../../i18n';
 import { optionalBooleanToUiText, translateStopTypes } from './utils';

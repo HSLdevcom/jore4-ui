@@ -1,3 +1,5 @@
+// Allow importing qs as qs.
+/* eslint-disable import/no-named-as-default-member */
 import { Priority } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import qs from 'qs';
 import { expectGraphQLCallToSucceed } from '../utils/assertions';

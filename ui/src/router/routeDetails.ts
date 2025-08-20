@@ -1,3 +1,5 @@
+// Allow importing qs as qs.
+/* eslint-disable import/no-named-as-default-member */
 import { DateTime } from 'luxon';
 import qs from 'qs';
 import { QueryParameterName } from '../hooks/urlQuery';

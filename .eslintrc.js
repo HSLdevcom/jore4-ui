@@ -7,11 +7,13 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'airbnb',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:i18n-json/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'plugin:jsx-a11y/recommended',
+    './eslint/airbnb/index.js',
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:eslint-comments/recommended',
@@ -38,6 +40,7 @@ module.exports = {
   plugins: [
     'react',
     'react-hooks',
+    'jsx-a11y',
     '@typescript-eslint',
     'jest',
     'jest-formatting',
@@ -165,8 +168,6 @@ module.exports = {
     'react/jsx-no-useless-fragment': 'off',
     'lodash/import-scope': ['error', 'method'], // prefer importing individual lodash methods (e.g. `import map from 'lodash/map'` instead of whole lodash library (`import { map } from 'lodash'`) to minimize bundle size
     'react/react-in-jsx-scope': 'off', // not needed with next.js: https://stackoverflow.com/a/61160875
-    'react-hooks/rules-of-hooks': 'error', // enforce best practices with react hoooks
-    'react-hooks/exhaustive-deps': 'error', // enforce best practices with react hoooks: https://github.com/facebook/create-react-app/issues/6880#issuecomment-485912528
     'i18n-json/sorted-keys': 'off',
     'i18n-json/valid-message-syntax': 'off', // Seems to be a bit broken currently.
     'i18n-json/identical-keys': [
