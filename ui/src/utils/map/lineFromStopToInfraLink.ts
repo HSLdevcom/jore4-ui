@@ -4,7 +4,7 @@ import {
   point,
   pointToLineDistance,
 } from '@turf/turf';
-import { Feature, Geometry, LineString, Point } from 'geojson';
+import type { Feature, Geometry, LineString, Point } from 'geojson';
 import minBy from 'lodash/minBy';
 import {
   GeoJSONSource,

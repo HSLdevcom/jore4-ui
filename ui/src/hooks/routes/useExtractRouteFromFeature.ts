@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { length } from '@turf/turf';
-import { Feature, LineString, Point } from 'geojson';
+import type { Feature, LineString, Point } from 'geojson';
 import isEqual from 'lodash/isEqual';
 import { useCallback } from 'react';
 import { getBusRoute } from '../../api/routing';

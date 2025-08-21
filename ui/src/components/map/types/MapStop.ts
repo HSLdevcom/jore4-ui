@@ -1,4 +1,4 @@
-import { Point } from 'geojson';
+import type { Point } from 'geojson';
 import { FilterableStopInfo } from '../../../types';
 
 export type MapStop = FilterableStopInfo & {

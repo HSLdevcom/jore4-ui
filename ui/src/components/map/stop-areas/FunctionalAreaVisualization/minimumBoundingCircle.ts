@@ -12,7 +12,13 @@ import {
   midpoint,
   polygon,
 } from '@turf/turf';
-import { Feature, FeatureCollection, Geometry, Point, Polygon } from 'geojson';
+import type {
+  Feature,
+  FeatureCollection,
+  Geometry,
+  Point,
+  Polygon,
+} from 'geojson';
 import { CenterRadius, Coordinates } from './types';
 
 type FeatureOrGeo = Feature | FeatureCollection | Geometry;

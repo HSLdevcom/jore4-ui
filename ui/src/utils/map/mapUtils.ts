@@ -1,4 +1,4 @@
-import { Geometry } from 'geojson';
+import type { Geometry } from 'geojson';
 import compact from 'lodash/compact';
 import { LayerSpecification } from 'maplibre-gl';
 import { RefObject } from 'react';

@@ -1,4 +1,4 @@
-import { MultiLineString, Position } from 'geojson';
+import type { MultiLineString, Position } from 'geojson';
 import { FC, useMemo } from 'react';
 import { useAppSelector } from '../../../hooks';
 import {

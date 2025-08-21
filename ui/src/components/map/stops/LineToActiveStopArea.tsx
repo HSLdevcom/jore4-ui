@@ -1,5 +1,5 @@
 import { point } from '@turf/turf';
-import { LineString, Position } from 'geojson';
+import type { LineString, Position } from 'geojson';
 import { Point as MapLibrePoint } from 'maplibre-gl';
 import { FC } from 'react';
 import { useMap } from 'react-map-gl/maplibre';

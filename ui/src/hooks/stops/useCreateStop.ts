@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { Point } from 'geojson';
+import type { Point } from 'geojson';
 import {
   ScheduledStopPointDefaultFieldsFragment,
   ServicePatternScheduledStopPointInsertInput,

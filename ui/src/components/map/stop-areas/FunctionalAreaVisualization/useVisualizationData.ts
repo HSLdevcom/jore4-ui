@@ -5,7 +5,7 @@ import {
   distance,
   featureCollection,
 } from '@turf/turf';
-import { BBox, Geometry } from 'geojson';
+import type { BBox, Geometry } from 'geojson';
 import isEqual from 'lodash/isEqual';
 import uniqWith from 'lodash/uniqWith';
 import { useMemo } from 'react';
