@@ -1,4 +1,5 @@
 export * from './EditTerminalValidityModal';
+export * from './TerminalAddStopsModal';
 export * from './TerminalDetailsEdit';
 export * from './TerminalDetailsSection';
 export * from './TerminalDetailsViewCard';

@@ -1,4 +1,5 @@
 import { ObservationDateControl } from '../ObservationDateControl';
+import { TerminalDetailsStopsPage } from './TerminalDetailsStopsPage';
 import {
   EditTerminalValidityModal,
   TerminalDetailsSection,
@@ -20,6 +21,8 @@ export class TerminalDetailsPage {
 
   editTerminalValidityModal = new EditTerminalValidityModal();
 
+  stopsPage = new TerminalDetailsStopsPage();
+
   visit(privateCode: string) {
     cy.visit(`/stop-registry/terminals/${privateCode}`);
   }
@@ -37,21 +40,6 @@ export class TerminalDetailsPage {
       getStopsTab: () => cy.getByTestId('TerminalDetailsPage::stopsTabButton'),
       getBasicDetailsTab: () =>
         cy.getByTestId('TerminalDetailsPage::basicDetailsTabButton'),
-    };
-  }
-
-  getStopsSection() {
-    return {
-      getTitle: () => cy.getByTestId('TerminalDetailsPage::stopsTitle'),
-      getStopAreas: () =>
-        cy.getByTestId('TerminalDetailsPage::stopAreaSection'),
-      getNthStopArea(index: number) {
-        return this.getStopAreas().eq(index);
-      },
-      getStopAreaHeader: () =>
-        cy.getByTestId('TerminalDetailsPage::stopAreaHeader'),
-      getStopAreaStopsTable: () =>
-        cy.getByTestId('TerminalDetailsPage::stopAreaStopsTable'),
     };
   }
 }

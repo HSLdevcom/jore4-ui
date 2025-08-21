@@ -1,4 +1,8 @@
 import {
+  StopRegistryGeoJsonType,
+  TerminalInput,
+} from '@hsl/jore4-test-db-manager';
+import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
   getClonedBaseDbResources,
@@ -58,6 +62,22 @@ describe('Terminal details', () => {
   const baseDbResources = getClonedBaseDbResources();
   const baseStopRegistryData = getClonedBaseStopRegistryData();
 
+  const baseTerminalInput: TerminalInput = {
+    terminal: {
+      ...baseStopRegistryData.terminals[0].terminal,
+      privateCode: { type: 'HSL/TEST', value: 'T3' },
+      name: { lang: 'fin', value: 'E2ET002' },
+      description: { lang: 'fin', value: 'E2E testiterminaali #2' },
+      geometry: {
+        coordinates: [24.927445210156606, 60.169740177140625],
+        type: StopRegistryGeoJsonType.Point,
+      },
+    },
+    memberLabels: ['E2E007'],
+  };
+
+  const terminalData: ReadonlyArray<TerminalInput> = [baseTerminalInput];
+
   before(() => {
     cy.task<UUID[]>(
       'getInfrastructureLinkIdsByExternalIds',
@@ -81,6 +101,7 @@ describe('Terminal details', () => {
     insertToDbHelper(dbResources);
     cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
       ...baseStopRegistryData,
+      terminals: baseStopRegistryData.terminals.concat(terminalData),
     }).then(() => {
       cy.setupTests();
       cy.mockLogin();
@@ -529,55 +550,37 @@ describe('Terminal details', () => {
 
         terminalDetailsPage.getTabSelector().getStopsTab().click();
 
-        terminalDetailsPage
-          .getStopsSection()
-          .getTitle()
-          .shouldHaveText('Pysäkit');
+        terminalDetailsPage.stopsPage.getTitle().shouldHaveText('Pysäkit');
 
-        terminalDetailsPage
-          .getStopsSection()
-          .getStopAreas()
-          .should('have.length', 2);
+        terminalDetailsPage.stopsPage.getStopAreas().should('have.length', 2);
 
-        terminalDetailsPage
-          .getStopsSection()
-          .getNthStopArea(0)
-          .within(() => {
-            terminalDetailsPage
-              .getStopsSection()
-              .getStopAreaHeader()
-              .should('contain.text', 'Finnoonkartano');
+        terminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
+          terminalDetailsPage.stopsPage
+            .getStopAreaHeader()
+            .should('contain.text', 'Finnoonkartano');
 
-            terminalDetailsPage
-              .getStopsSection()
-              .getStopAreaStopsTable()
-              .shouldBeVisible();
-            terminalDetailsPage
-              .getStopsSection()
-              .getStopAreaStopsTable()
-              .find('tbody tr')
-              .should('have.length', 1);
-          });
+          terminalDetailsPage.stopsPage
+            .getStopAreaStopsTable()
+            .shouldBeVisible();
+          terminalDetailsPage.stopsPage
+            .getStopAreaStopsTable()
+            .find('tbody tr')
+            .should('have.length', 1);
+        });
 
-        terminalDetailsPage
-          .getStopsSection()
-          .getNthStopArea(1)
-          .within(() => {
-            terminalDetailsPage
-              .getStopsSection()
-              .getStopAreaHeader()
-              .should('contain.text', 'Kuttulammentie');
+        terminalDetailsPage.stopsPage.getNthStopArea(1).within(() => {
+          terminalDetailsPage.stopsPage
+            .getStopAreaHeader()
+            .should('contain.text', 'Kuttulammentie');
 
-            terminalDetailsPage
-              .getStopsSection()
-              .getStopAreaStopsTable()
-              .shouldBeVisible();
-            terminalDetailsPage
-              .getStopsSection()
-              .getStopAreaStopsTable()
-              .find('tbody tr')
-              .should('have.length', 1);
-          });
+          terminalDetailsPage.stopsPage
+            .getStopAreaStopsTable()
+            .shouldBeVisible();
+          terminalDetailsPage.stopsPage
+            .getStopAreaStopsTable()
+            .find('tbody tr')
+            .should('have.length', 1);
+        });
       },
     );
 
@@ -589,14 +592,139 @@ describe('Terminal details', () => {
 
         terminalDetailsPage.getTabSelector().getStopsTab().click();
 
-        terminalDetailsPage
-          .getStopsSection()
-          .getNthStopArea(0)
-          .within(() => {
-            terminalDetailsPage.getStopsSection().getStopAreaHeader().click();
-          });
+        terminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
+          terminalDetailsPage.stopsPage.getStopAreaHeader().click();
+        });
 
         cy.url().should('include', '/stop-registry/stop-areas/');
+      },
+    );
+
+    it(
+      'should be able to add stops to terminal on stops tab',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+        terminalDetailsPage.getTabSelector().getStopsTab().click();
+
+        terminalDetailsPage.stopsPage.getAddStopToTerminalButton().click();
+        terminalDetailsPage.stopsPage.addStopsModal
+          .getModal()
+          .shouldBeVisible();
+
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+          .dropdownButton()
+          .click();
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+          .getInput()
+          .type('E2E009', { force: true });
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+          .getMemberOptions()
+          .should('have.length', 1);
+
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+          .getMemberOptions()
+          .eq(0)
+          .should('contain.text', 'E2E009')
+          .click();
+
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+          .dropdownButton()
+          .click();
+
+        terminalDetailsPage.stopsPage.addStopsModal.getSaveButton().click();
+
+        terminalDetailsPage.stopsPage.getStopAreas().should('have.length', 3);
+
+        terminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
+          terminalDetailsPage.stopsPage
+            .getStopAreaHeader()
+            .should('contain.text', 'Annankatu 15');
+          terminalDetailsPage.stopsPage
+            .getStopAreaStopsTable()
+            .shouldBeVisible();
+          terminalDetailsPage.stopsPage
+            .getStopAreaStopsTable()
+            .find('tbody tr')
+            .should('have.length', 2);
+        });
+      },
+    );
+
+    it(
+      'should be able to remove stops from terminal on stops tab',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+        terminalDetailsPage.getTabSelector().getStopsTab().click();
+
+        terminalDetailsPage.stopsPage.getAddStopToTerminalButton().click();
+        terminalDetailsPage.stopsPage.addStopsModal
+          .getModal()
+          .shouldBeVisible();
+
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+          .dropdownButton()
+          .click();
+
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+          .getSelectedMembers()
+          .should('have.length', 2);
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+          .getSelectedMembers()
+          .contains('E2E008')
+          .click();
+
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+          .dropdownButton()
+          .click();
+
+        terminalDetailsPage.stopsPage.addStopsModal.getSaveButton().click();
+
+        terminalDetailsPage.stopsPage.getStopAreas().should('have.length', 1);
+
+        terminalDetailsPage.stopsPage.getNthStopArea(0).within(() => {
+          terminalDetailsPage.stopsPage
+            .getStopAreaHeader()
+            .should('contain.text', 'Finnoonkartano');
+          terminalDetailsPage.stopsPage
+            .getStopAreaStopsTable()
+            .shouldBeVisible();
+          terminalDetailsPage.stopsPage
+            .getStopAreaStopsTable()
+            .find('tbody tr')
+            .should('have.length', 1);
+        });
+      },
+    );
+
+    it(
+      'should not be able to add stops that belong to a different terminal',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+        terminalDetailsPage.getTabSelector().getStopsTab().click();
+
+        terminalDetailsPage.stopsPage.getAddStopToTerminalButton().click();
+        terminalDetailsPage.stopsPage.addStopsModal
+          .getModal()
+          .shouldBeVisible();
+
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+          .dropdownButton()
+          .click();
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown
+          .getInput()
+          .type('E2E007', { force: true });
+
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+          .getMemberOptions()
+          .should('have.length', 1);
+        terminalDetailsPage.stopsPage.addStopsModal.dropdown.common
+          .getMemberOptions()
+          .eq(0)
+          .should('contain.text', 'E2E007')
+          .should('have.attr', 'aria-disabled', 'true');
       },
     );
   });
