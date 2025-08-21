@@ -2,18 +2,18 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedStopPlace } from '../../../../../types';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
-import { StopAreaMemberStopModal } from './StopAreaMemberStopModal';
+import { MoveQuayToStopAreaModal } from './MoveQuayToStopAreaModal';
 
 const testIds = {
   addStopButton: 'MemberStops::addStopButton',
 };
 
-type StopAreaMemberStopsHeaderProps = {
+type MoveQuayToStopAreaHeaderProps = {
   readonly area: EnrichedStopPlace;
   readonly refetch: () => Promise<unknown>;
 };
 
-export const StopAreaMemberStopsHeader: FC<StopAreaMemberStopsHeaderProps> = ({
+export const MoveQuayToStopAreaHeader: FC<MoveQuayToStopAreaHeaderProps> = ({
   area,
   refetch,
 }) => {
@@ -45,7 +45,7 @@ export const StopAreaMemberStopsHeader: FC<StopAreaMemberStopsHeaderProps> = ({
         {t('stopAreaDetails.memberStops.moveStopToArea')}
       </SlimSimpleButton>
 
-      <StopAreaMemberStopModal
+      <MoveQuayToStopAreaModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSave={handleCloseModal}

@@ -15,7 +15,7 @@ import {
   TerminalFormState,
   terminalFormSchema,
 } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
-import { SelectMemberStopsDropdown } from '../../stop-registry/terminals/components/location-details/member-stops/SelectMemberStopsDropdown';
+import { SelectTerminalMemberStopsDropdown } from '../../stop-registry/terminals/components/location-details/member-stops';
 import { TerminalNames } from './TerminalNames';
 
 const testIds = {
@@ -137,7 +137,7 @@ const TerminalFormComponent: ForwardRefRenderFunction<
                   total: selectedStops.length,
                 })}
               </div>
-              <SelectMemberStopsDropdown
+              <SelectTerminalMemberStopsDropdown
                 value={selectedStops}
                 onChange={onSelectedStopsChange}
                 testId={testIds.memberStops}

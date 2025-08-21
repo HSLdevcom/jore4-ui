@@ -557,11 +557,13 @@
       "stopAlreadyBelongsToTerminal": "Pysäkki on jo liitetty toiseen terminaaliin."
     },
     "stops": {
-      "title": "Pysäkit"
+      "title": "Pysäkit",
+      "addStopToTerminal": "Lisää pysäkki terminaaliin"
     },
     "errors": {
       "terminalsUniqueName": "Terminaalilla tulee olla uniikki nimi, mutta nimi {{name}} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!",
-      "terminalsUniquePrivateCode": "Terminaalilla tulee olla uniikki tunnus, mutta tunnus {{privateCode}} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!"
+      "terminalsUniquePrivateCode": "Terminaalilla tulee olla uniikki tunnus, mutta tunnus {{privateCode}} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!",
+      "editMemberStops": "Jäsenpysäkkien muokkaaminen epäonnistui"
     },
     "version": {
       "title": {
@@ -1187,9 +1189,11 @@
     "errorMessage": "Virhe aikataulun poistamisessa"
   },
   "save": "Tallenna",
+  "saving": "Tallennetaan",
   "edit": "Muokkaa",
   "move": "Siirrä",
   "moving": "Siirretään",
+  "loading": "Ladataan",
   "cancel": "Peruuta",
   "close": "Sulje",
   "cut": "Leikkaa",

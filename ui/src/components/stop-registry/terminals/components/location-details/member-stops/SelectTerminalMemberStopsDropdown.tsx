@@ -1,15 +1,16 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
-import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
 import {
   BaseSelectMemberStopsDropdown,
+  FloatingBaseSelectMemberStopsDropdown,
   SelectMemberStopsDropdownProps,
   sortByPublicCode,
-} from '../../../../components/SelectMemberStops/SelectMemberStopsDropdown';
+} from '../../../../components/SelectMemberStops';
+import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';
 
 const testIds = {
-  warningText: 'SelectMemberStopsDropdown::warningText',
+  warningText: 'SelectTerminalMemberStopsDropdown::warningText',
 };
 
 function findNewlySelectedStop(
@@ -92,11 +93,13 @@ function processSelection(
   return [...newValue];
 }
 
-export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
-  value = [],
-  onChange,
-  ...restProps
-}) => {
+type SelectTerminalMemberStopsDropdownProps = SelectMemberStopsDropdownProps & {
+  readonly floating?: boolean;
+};
+
+export const SelectTerminalMemberStopsDropdown: FC<
+  SelectTerminalMemberStopsDropdownProps
+> = ({ value = [], onChange, floating, ...restProps }) => {
   const { t } = useTranslation();
 
   const handleSelectionChange = (
@@ -128,6 +131,21 @@ export const SelectMemberStopsDropdown: FC<SelectMemberStopsDropdownProps> = ({
       </div>
     );
   };
+
+  // Floating dropdown results, recommended to use when there are
+  if (floating) {
+    return (
+      <FloatingBaseSelectMemberStopsDropdown
+        value={value}
+        onChange={onChange}
+        onSelectionChange={handleSelectionChange}
+        renderWarning={renderWarning}
+        inputAriaLabel={t('terminalDetails.location.memberStops')}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...restProps}
+      />
+    );
+  }
 
   return (
     <BaseSelectMemberStopsDropdown

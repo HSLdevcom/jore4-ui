@@ -2,7 +2,7 @@ import { Combobox as HUICombobox } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineAddCircle } from 'react-icons/md';
-import { mapToShortDate } from '../../../../time';
+import { mapToShortDate } from '../../../../../time';
 import { SelectedStop } from './schema';
 
 const testIds = {
@@ -11,13 +11,17 @@ const testIds = {
 
 type MemberStopOptionsProps = {
   readonly options: ReadonlyArray<SelectedStop>;
+  readonly allowDisable?: boolean;
 };
 
-export const MemberStopOptions: FC<MemberStopOptionsProps> = ({ options }) => {
+export const MemberStopOptions: FC<MemberStopOptionsProps> = ({
+  options,
+  allowDisable,
+}) => {
   const { t } = useTranslation();
 
   return options.map((stop) => {
-    const isDisabled = stop.stopPlaceParentId !== null;
+    const isDisabled = stop.stopPlaceParentId !== null && allowDisable;
 
     return (
       <HUICombobox.Option
@@ -41,6 +45,7 @@ export const MemberStopOptions: FC<MemberStopOptionsProps> = ({ options }) => {
           {mapToShortDate(stop.validityEnd)}
         </span>
         <div className="flex-grow" />
+
         {!isDisabled && (
           <MdOutlineAddCircle className="text-hsl mx-1 text-2xl text-brand" />
         )}

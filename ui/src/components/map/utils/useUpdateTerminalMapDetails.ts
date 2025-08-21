@@ -11,7 +11,7 @@ import {
   patchAlternativeNames,
   patchKeyValues,
 } from '../../../utils';
-import { SelectedStop } from '../../stop-registry/components/SelectMemberStops/schema';
+import { SelectedStop } from '../../stop-registry/components/SelectMemberStops/common/schema';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { useEditMembersOfTerminal } from '../../stop-registry/terminals/components/location-details/location-details-form/useEditMembersOfTerminal';
 

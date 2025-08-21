@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.13.9",
+    "@floating-ui/react": "^0.27.15",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@headlessui/react": "1.7.10",
     "@headlessui/tailwindcss": "^0.2.2",

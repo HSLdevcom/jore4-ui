@@ -4,6 +4,7 @@ import { MemberStopQuayDetailsFragment } from '../../../../../generated/graphql'
 import { useObservationDateQueryParam } from '../../../../../hooks';
 import { EnrichedParentStopPlace } from '../../../../../types';
 import { StopSearchRow } from '../../../search/types';
+import { AddMemberStopsHeader } from './AddMemberStops';
 import { StopAreaSection } from './StopAreaSection';
 
 const testIds = {
@@ -65,9 +66,14 @@ export const StopsListSection: FC<StopsProps> = ({ terminal }) => {
 
   return (
     <>
-      <h2 data-testid={testIds.stopsTitle}>
-        {t('terminalDetails.stops.title')}
-      </h2>
+      <div className="flex flex-row items-center justify-between">
+        <h2 data-testid={testIds.stopsTitle}>
+          {t('terminalDetails.stops.title')}
+        </h2>
+
+        <AddMemberStopsHeader terminal={terminal} />
+      </div>
+
       {stopAreas.map((section) => (
         <StopAreaSection
           key={section.id}
