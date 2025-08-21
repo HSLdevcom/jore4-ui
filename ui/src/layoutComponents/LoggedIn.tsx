@@ -10,5 +10,5 @@ import { selectUser } from '../redux';
 export const LoggedIn: FC<PropsWithChildren> = ({ children }) => {
   const { userInfo } = useAppSelector(selectUser);
   const loggedIn = !!userInfo?.permissions;
-  return loggedIn ? <>{children}</> : null;
+  return loggedIn ? children : null;
 };

@@ -31,12 +31,10 @@ export const InfoSpotPosterDetails: FC<InfoSpotPosterDetailsProps> = ({
 
   if (!actualPosters.length) {
     return (
-      <>
-        <Row className="px-10 py-5" testId={testIds.noPosters}>
-          <i className="icon-alert mr-2.5 text-hsl-red" role="presentation" />
-          {t('stopDetails.infoSpots.noPosters')}
-        </Row>
-      </>
+      <Row className="px-10 py-5" testId={testIds.noPosters}>
+        <i className="icon-alert mr-2.5 text-hsl-red" role="presentation" />
+        {t('stopDetails.infoSpots.noPosters')}
+      </Row>
     );
   }
 

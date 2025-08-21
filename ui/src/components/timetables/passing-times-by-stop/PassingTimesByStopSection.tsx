@@ -53,7 +53,7 @@ export const PassingTimesByStopSection: FC<PassingTimesByStopSectionProps> = ({
   };
 
   if (!dayType) {
-    return <></>;
+    return null;
   }
 
   return (

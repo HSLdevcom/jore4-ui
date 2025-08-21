@@ -42,7 +42,7 @@ export const PassingTimesByStopTable: FC<PassingTimesByStopTableProps> = ({
     useState<PassingTimeByStopFragment>();
 
   if (!vehicleJourneys) {
-    return <></>;
+    return null;
   }
 
   const passingTimes = vehicleJourneys.flatMap(

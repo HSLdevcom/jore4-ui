@@ -32,20 +32,20 @@ export const CreateStopAreaMarker: FC<CreateStopAreaMarkerProps> = ({
 
   useCallbackOnKeyEscape(onCancel);
 
+  if (!mouseCoords) {
+    return null;
+  }
+
   return (
-    <>
-      {mouseCoords && (
-        <div
-          style={{
-            pointerEvents: 'none',
-            position: 'absolute',
-            left: mouseCoords.x - CREATE_STOP_AREA_MARKER_SIZE / 2,
-            top: mouseCoords.y - CREATE_STOP_AREA_MARKER_SIZE / 2,
-          }}
-        >
-          <StopAreaMarker selected onClick={noop} />
-        </div>
-      )}
-    </>
+    <div
+      style={{
+        pointerEvents: 'none',
+        position: 'absolute',
+        left: mouseCoords.x - CREATE_STOP_AREA_MARKER_SIZE / 2,
+        top: mouseCoords.y - CREATE_STOP_AREA_MARKER_SIZE / 2,
+      }}
+    >
+      <StopAreaMarker selected onClick={noop} />
+    </div>
   );
 };

@@ -88,7 +88,7 @@ export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
     return <Navigate to="/" />;
   }
 
-  return <>{children}</>;
+  return children;
 };
 
 const Layout: FC = () => {

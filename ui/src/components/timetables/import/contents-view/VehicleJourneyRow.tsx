@@ -39,7 +39,7 @@ export const VehicleJourneyRow: FC<VehicleJourneyRowProps> = ({
   if (!route) {
     // eslint-disable-next-line no-console
     console.error('No route found for vehicle journey!');
-    return <></>;
+    return null;
   }
 
   return (

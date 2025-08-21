@@ -7,7 +7,7 @@ export const DraftRouteGeometryLayer: FC = () => {
   const { geometry } = useAppSelector(selectEditedRouteData);
 
   if (!geometry) {
-    return <></>;
+    return null;
   }
 
   return <RouteGeometryLayer geometry={geometry} isHighlighted />;

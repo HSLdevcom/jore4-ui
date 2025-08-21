@@ -19,5 +19,5 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
     getUserInfo();
   }, [getUserInfo]);
 
-  return <>{children}</>;
+  return children;
 };

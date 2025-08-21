@@ -64,7 +64,7 @@ export const RouteTimetablesSection: FC<RouteTimetablesSectionProps> = ({
   );
 
   if (!route) {
-    return <></>;
+    return null;
   }
 
   // depending on the showAll mode, we either show all day type timetables

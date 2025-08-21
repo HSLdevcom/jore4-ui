@@ -48,6 +48,6 @@ export const ResultList: FC<ResultListProps> = ({
     default:
       // eslint-disable-next-line no-console
       console.error(`Error: ${displayedType} does not exist.`);
-      return <></>;
+      return null;
   }
 };

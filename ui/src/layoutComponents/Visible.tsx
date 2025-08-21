@@ -15,5 +15,5 @@ export const Visible: FC<PropsWithChildren<VisibleProps>> = ({
   visible = false,
   children,
 }) => {
-  return visible ? <>{children}</> : null;
+  return visible ? children : null;
 };

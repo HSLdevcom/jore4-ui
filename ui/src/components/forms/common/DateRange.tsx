@@ -7,5 +7,5 @@ type DateRangeProps = {
 };
 
 export const DateRange: FC<DateRangeProps> = ({ startDate, endDate }) => {
-  return <>{`${mapToShortDate(startDate)} - ${mapToShortDate(endDate)}`}</>;
+  return `${mapToShortDate(startDate)} - ${mapToShortDate(endDate)}`;
 };

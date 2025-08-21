@@ -50,13 +50,11 @@ export const ExternalLinks: FC<ExternalLinksProps> = ({
       </Row>
 
       {isEditing ? (
-        <>
-          <ExternalLinksForm
-            externalLinks={externalLinks}
-            setIsEditing={setIsEditing}
-            onSubmit={onSubmit}
-          />
-        </>
+        <ExternalLinksForm
+          externalLinks={externalLinks}
+          setIsEditing={setIsEditing}
+          onSubmit={onSubmit}
+        />
       ) : (
         <ExternalLinksList externalLinks={externalLinks} />
       )}

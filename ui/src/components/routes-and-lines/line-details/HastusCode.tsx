@@ -12,22 +12,22 @@ export const HastusCode: FC<HastusCodeProps> = ({
   isUsedAsTimingPoint,
   testId,
 }) => {
+  if (isUsedAsTimingPoint) {
+    return (
+      <div className="relative">
+        <span data-testid={testId}>{hastusCode}</span>
+        <span className="absolute my-1 text-green-700">
+          <GoDotFill />
+        </span>
+      </div>
+    );
+  }
+
   return (
-    <>
-      {isUsedAsTimingPoint ? (
-        <div className="relative">
-          <span data-testid={testId}>{hastusCode}</span>
-          <span className="absolute my-1 text-green-700">
-            <GoDotFill />
-          </span>
-        </div>
-      ) : (
-        <div>
-          <span className="text-grey" data-testid={testId}>
-            {hastusCode}
-          </span>
-        </div>
-      )}
-    </>
+    <div>
+      <span className="text-grey" data-testid={testId}>
+        {hastusCode}
+      </span>
+    </div>
   );
 };

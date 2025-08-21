@@ -30,20 +30,20 @@ export const CreateTerminalMarker: FC<CreateTerminalMarkerProps> = ({
 
   useCallbackOnKeyEscape(onCancel);
 
+  if (!mouseCoords) {
+    return null;
+  }
+
   return (
-    <>
-      {mouseCoords && (
-        <div
-          style={{
-            pointerEvents: 'none',
-            position: 'absolute',
-            left: mouseCoords.x - CREATE_TERMINAL_MARKER_SIZE / 2,
-            top: mouseCoords.y - CREATE_TERMINAL_MARKER_SIZE / 2,
-          }}
-        >
-          <TerminalMarker selected onClick={noop} />
-        </div>
-      )}
-    </>
+    <div
+      style={{
+        pointerEvents: 'none',
+        position: 'absolute',
+        left: mouseCoords.x - CREATE_TERMINAL_MARKER_SIZE / 2,
+        top: mouseCoords.y - CREATE_TERMINAL_MARKER_SIZE / 2,
+      }}
+    >
+      <TerminalMarker selected onClick={noop} />
+    </div>
   );
 };
