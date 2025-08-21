@@ -4,10 +4,6 @@ module.exports = {
     // https://eslint.org/docs/rules/for-direction
     'for-direction': 'error',
 
-    // Enforces that a return statement is present in property getters
-    // https://eslint.org/docs/rules/getter-return
-    'getter-return': ['error', { allowImplicit: true }],
-
     // disallow using an async function as a Promise executor
     // https://eslint.org/docs/rules/no-async-promise-executor
     'no-async-promise-executor': 'error',
@@ -40,15 +36,9 @@ module.exports = {
     // disallow use of debugger
     'no-debugger': 'error',
 
-    // disallow duplicate arguments in functions
-    'no-dupe-args': 'error',
-
     // Disallow duplicate conditions in if-else-if chains
     // https://eslint.org/docs/rules/no-dupe-else-if
     'no-dupe-else-if': 'error',
-
-    // disallow duplicate keys when creating object literals
-    'no-dupe-keys': 'error',
 
     // disallow a duplicate case label.
     'no-duplicate-case': 'error',
@@ -65,29 +55,6 @@ module.exports = {
     // disallow double-negation boolean casts in a boolean context
     // https://eslint.org/docs/rules/no-extra-boolean-cast
     'no-extra-boolean-cast': 'error',
-
-    // disallow unnecessary parentheses
-    // https://eslint.org/docs/rules/no-extra-parens
-    'no-extra-parens': [
-      'off',
-      'all',
-      {
-        conditionalAssign: true,
-        nestedBinaryExpressions: false,
-        returnAssign: false,
-        ignoreJSX: 'all', // delegate to eslint-plugin-react
-        enforceForArrowConditionals: false,
-      },
-    ],
-
-    // disallow unnecessary semicolons
-    'no-extra-semi': 'error',
-
-    // disallow overwriting functions written as function declarations
-    'no-func-assign': 'error',
-
-    // https://eslint.org/docs/rules/no-import-assign
-    'no-import-assign': 'error',
 
     // disallow function or variable declarations in nested blocks
     'no-inner-declarations': 'error',
@@ -106,14 +73,6 @@ module.exports = {
     // https://eslint.org/docs/rules/no-misleading-character-class
     'no-misleading-character-class': 'error',
 
-    // disallow the use of object properties of the global object (Math and JSON) as functions
-    'no-obj-calls': 'error',
-
-    // Disallow new operators with global non-constructor functions
-    // https://eslint.org/docs/latest/rules/no-new-native-nonconstructor
-    // TODO: semver-major, enable
-    'no-new-native-nonconstructor': 'off',
-
     // Disallow returning values from Promise executor functions
     // https://eslint.org/docs/rules/no-promise-executor-return
     'no-promise-executor-return': 'error',
@@ -125,10 +84,6 @@ module.exports = {
     // disallow multiple spaces in a regular expression literal
     'no-regex-spaces': 'error',
 
-    // Disallow returning values from setters
-    // https://eslint.org/docs/rules/no-setter-return
-    'no-setter-return': 'error',
-
     // disallow sparse arrays
     'no-sparse-arrays': 'error',
 
@@ -139,9 +94,6 @@ module.exports = {
     // Avoid code that looks like two expressions but is actually one
     // https://eslint.org/docs/rules/no-unexpected-multiline
     'no-unexpected-multiline': 'error',
-
-    // disallow unreachable statements after a return, throw, continue, or break statement
-    'no-unreachable': 'error',
 
     // Disallow loops with a body that allows only one iteration
     // https://eslint.org/docs/rules/no-unreachable-loop
@@ -155,10 +107,6 @@ module.exports = {
     // disallow return/throw/break/continue inside finally blocks
     // https://eslint.org/docs/rules/no-unsafe-finally
     'no-unsafe-finally': 'error',
-
-    // disallow negating the left operand of relational operators
-    // https://eslint.org/docs/rules/no-unsafe-negation
-    'no-unsafe-negation': 'error',
 
     // disallow use of optional chaining in contexts where the undefined value is not allowed
     // https://eslint.org/docs/rules/no-unsafe-optional-chaining

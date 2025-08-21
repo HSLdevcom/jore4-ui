@@ -48,10 +48,6 @@ module.exports = {
     // https://eslint.org/docs/rules/dot-notation
     'dot-notation': ['error', { allowKeywords: true }],
 
-    // enforces consistent newlines before or after dots
-    // https://eslint.org/docs/rules/dot-location
-    'dot-location': ['error', 'property'],
-
     // require the use of === and !==
     // https://eslint.org/docs/rules/eqeqeq
     eqeqeq: ['error', 'always', { null: 'ignore' }],
@@ -143,10 +139,6 @@ module.exports = {
     // https://eslint.org/docs/rules/no-global-assign
     'no-global-assign': ['error', { exceptions: [] }],
 
-    // deprecated in favor of no-global-assign
-    // https://eslint.org/docs/rules/no-native-reassign
-    'no-native-reassign': 'off',
-
     // disallow implicit type conversions
     // https://eslint.org/docs/rules/no-implicit-coercion
     'no-implicit-coercion': [
@@ -196,15 +188,6 @@ module.exports = {
         ignoreArrayIndexes: true,
         enforceConst: true,
         detectObjects: false,
-      },
-    ],
-
-    // disallow use of multiple spaces
-    // https://eslint.org/docs/rules/no-multi-spaces
-    'no-multi-spaces': [
-      'error',
-      {
-        ignoreEOLComments: false,
       },
     ],
 
@@ -269,10 +252,6 @@ module.exports = {
     // https://eslint.org/docs/rules/no-proto
     'no-proto': 'error',
 
-    // disallow declaring the same variable more than once
-    // https://eslint.org/docs/rules/no-redeclare
-    'no-redeclare': 'error',
-
     // disallow certain object properties
     // https://eslint.org/docs/rules/no-restricted-properties
     'no-restricted-properties': [
@@ -331,10 +310,6 @@ module.exports = {
     // https://eslint.org/docs/rules/no-return-assign
     'no-return-assign': ['error', 'always'],
 
-    // disallow redundant `return await`
-    // https://eslint.org/docs/rules/no-return-await
-    'no-return-await': 'error',
-
     // disallow use of `javascript:` urls.
     // https://eslint.org/docs/rules/no-script-url
     'no-script-url': 'error',
@@ -363,17 +338,6 @@ module.exports = {
     // disallow unmodified conditions of loops
     // https://eslint.org/docs/rules/no-unmodified-loop-condition
     'no-unmodified-loop-condition': 'off',
-
-    // disallow usage of expressions in statement position
-    // https://eslint.org/docs/rules/no-unused-expressions
-    'no-unused-expressions': [
-      'error',
-      {
-        allowShortCircuit: false,
-        allowTernary: false,
-        allowTaggedTemplates: false,
-      },
-    ],
 
     // disallow unused labels
     // https://eslint.org/docs/rules/no-unused-labels
@@ -409,10 +373,6 @@ module.exports = {
       'off',
       { terms: ['todo', 'fixme', 'xxx'], location: 'start' },
     ],
-
-    // disallow use of the with statement
-    // https://eslint.org/docs/rules/no-with
-    'no-with': 'error',
 
     // require using Error objects as Promise rejection reasons
     // https://eslint.org/docs/rules/prefer-promise-reject-errors
@@ -456,7 +416,7 @@ module.exports = {
     'wrap-iife': ['error', 'outside', { functionPrototypeMethods: false }],
 
     // require or disallow Yoda conditions
-    // https://eslint.org/docs/rules/yoda
+    //
     yoda: 'error',
   },
 };
