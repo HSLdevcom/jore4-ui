@@ -1,7 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-// eslint-disable-next-line import/no-named-as-default
 import i18n from 'i18next';
-import React from 'react';
 import { render } from '../../utils/test-utils';
 import '../../i18n';
 import { LanguageDropdown, testIds } from './LanguageDropdown';

@@ -56,6 +56,7 @@ export const DropdownMenu: FC<PropsWithChildren<DropdownMenuProps>> = ({
                       ) : (
                         // Menu.Item requires all the rendered children to be of type ReactElement.
                         // TODO: Is this still true after we update headlessui?
+                        // eslint-disable-next-line react/jsx-no-useless-fragment
                         <>{child}</>
                       )
                     }

@@ -17,11 +17,9 @@ export class Toast {
       .should('have.css', 'opacity', '1')
       // Then assert it is of a right type.
       .then((toast) => {
-        // eslint-disable-next-line jest/valid-expect
         expect(toast).have.attr('data-testid', toastType);
 
         if (message) {
-          // eslint-disable-next-line jest/valid-expect
           expect(toast).to.contain(message);
         }
 
@@ -43,7 +41,6 @@ export class Toast {
         .should('have.css', 'opacity', '1')
         // Then assert it is of a right type.
         .should((toast) => {
-          // eslint-disable-next-line jest/valid-expect
           expect(toast).to.contain(message);
           return toast;
         })

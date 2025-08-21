@@ -1,5 +1,3 @@
-/* eslint-disable jest/valid-expect */
-
 import type { CyHttpMessages, Interception } from 'cypress/types/net-stubbing';
 import { DateTime } from 'luxon';
 import { debug } from './templateStringHelpers';

@@ -51,6 +51,7 @@ export const ListboxOptions = forwardRef<HTMLDivElement, ListboxOptionsProps>(
                   )
                 ) : (
                   // HUIListboxOption requires all the rendered children to be of type ReactElement.
+                  // eslint-disable-next-line react/jsx-no-useless-fragment
                   <>{child}</>
                 );
               }}

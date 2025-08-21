@@ -255,7 +255,6 @@ describe('Stop creation tests', mapViewport, () => {
         .shouldHaveText(`${testStopLabels.stopAreaName}|-`);
       stopDetailsPage.basicDetails.viewCard
         .getPrivateCode()
-        // eslint-disable-next-line jest/valid-expect
         .should(($field) => expect($field.get(0).innerText).to.match(/7\d{6}/));
     },
   );

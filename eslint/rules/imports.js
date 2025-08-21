@@ -1,8 +1,6 @@
 module.exports = {
   rules: {
-    // Static analysis:
-
-    // Helpful warnings:
+    // Original rules from Airbnb config
 
     // do not allow a default import name to match a named export
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-named-as-default.md
@@ -11,40 +9,6 @@ module.exports = {
     // warn on accessing default export property names that are also named exports
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-named-as-default-member.md
     'import/no-named-as-default-member': 'error',
-
-    // Forbid the use of extraneous packages
-    // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-extraneous-dependencies.md
-    // paths are treated both as absolute paths, and relative to process.cwd()
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        devDependencies: [
-          'test/**', // tape, common npm pattern
-          'tests/**', // also common npm pattern
-          'spec/**', // mocha, rspec-like pattern
-          '**/__tests__/**', // jest pattern
-          '**/__mocks__/**', // jest pattern
-          'test.{js,jsx}', // repos with a single test file
-          'test-*.{js,jsx}', // repos with multiple top-level test files
-          '**/*{.,_}{test,spec}.{js,jsx}', // tests where the extension or filename suffix denotes that it is a test
-          '**/jest.config.js', // jest config
-          '**/jest.setup.js', // jest setup
-          '**/vue.config.js', // vue-cli config
-          '**/webpack.config.js', // webpack config
-          '**/webpack.config.*.js', // webpack config
-          '**/rollup.config.js', // rollup config
-          '**/rollup.config.*.js', // rollup config
-          '**/gulpfile.js', // gulp config
-          '**/gulpfile.*.js', // gulp config
-          '**/Gruntfile{,.js}', // grunt config
-          '**/protractor.conf.js', // protractor config
-          '**/protractor.conf.*.js', // protractor config
-          '**/karma.conf.js', // karma config
-          '**/.eslintrc.js', // eslint config
-        ],
-        optionalDependencies: false,
-      },
-    ],
 
     // Forbid mutable exports
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-mutable-exports.md
@@ -70,32 +34,9 @@ module.exports = {
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-duplicates.md
     'import/no-duplicates': 'error',
 
-    // Ensure consistent use of file extension within the import path
-    // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/extensions.md
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        mjs: 'never',
-        jsx: 'never',
-      },
-    ],
-
-    // ensure absolute imports are above relative imports and that unassigned imports are ignored
-    // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
-    'import/order': [
-      'error',
-      { groups: [['builtin', 'external', 'internal']] },
-    ],
-
     // Require a newline after the last import/require in a group
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/newline-after-import.md
     'import/newline-after-import': 'error',
-
-    // Require modules with a single export to use a default export
-    // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/prefer-default-export.md
-    'import/prefer-default-export': 'error',
 
     // Forbid import of modules using absolute paths
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-absolute-path.md
@@ -137,5 +78,55 @@ module.exports = {
     // Use this rule to prevent importing packages through relative paths.
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-relative-packages.md
     'import/no-relative-packages': 'error',
+
+    // Jore overrides
+    'import/prefer-default-export': 'off', // default exports are bad, prefer named exports: https://basarat.gitbook.io/typescript/main-1/defaultisbad
+    'import/no-default-export': 'error', // default exports are bad, prefer named exports
+
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      // prevent importing .ts/.tsx files with file extension
+      {
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      // allow importing dev dependencies in test files
+      {
+        devDependencies: [
+          '**/*.spec.ts',
+          '**/*.spec.tsx',
+          './ui/src/utils/test-utils/**',
+        ],
+      },
+    ],
+    // Sort members of each import, since import/order rule does not take care of that.
+    'sort-imports': ['error', { ignoreDeclarationSort: true }],
+    'import/order': [
+      // require imports to be sorted like vscode automatically does with its "organize imports" feature.
+      // https://code.visualstudio.com/docs/languages/typescript#_organize-imports
+      'error',
+      {
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+        'newlines-between': 'never',
+        groups: [
+          ['external', 'builtin'],
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+          'object',
+        ],
+      },
+    ],
+
+    // prefer importing individual lodash methods (e.g. `import map from 'lodash/map'` instead of whole lodash library (`import { map } from 'lodash'`) to minimize bundle size
+    'lodash/import-scope': ['error', 'method'],
   },
 };

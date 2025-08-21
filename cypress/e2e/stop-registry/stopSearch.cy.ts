@@ -1,4 +1,3 @@
-/* eslint-disable jest/valid-expect */
 import {
   InfrastructureNetworkDirectionEnum,
   Priority,

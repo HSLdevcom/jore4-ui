@@ -1,15 +1,6 @@
 module.exports = {
   rules: {
-    // enforces no braces where they can be omitted
-    // https://eslint.org/docs/rules/arrow-body-style
-    // TODO: enable requireReturnForObjectLiteral?
-    'arrow-body-style': [
-      'error',
-      'as-needed',
-      {
-        requireReturnForObjectLiteral: false,
-      },
-    ],
+    // Original rules from Airbnb config
 
     // disallow importing from the same path more than once
     // https://eslint.org/docs/rules/no-duplicate-imports
@@ -108,20 +99,11 @@ module.exports = {
     // https://eslint.org/docs/rules/require-yield
     'require-yield': 'error',
 
-    // import sorting
-    // https://eslint.org/docs/rules/sort-imports
-    'sort-imports': [
-      'off',
-      {
-        ignoreCase: false,
-        ignoreDeclarationSort: false,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-      },
-    ],
-
     // require a Symbol description
     // https://eslint.org/docs/rules/symbol-description
     'symbol-description': 'error',
+
+    // Jore overrides
+    'arrow-body-style': 'off', // allow writing arrow functions like () => { return ... } instead of forcing those to be () => (...)
   },
 };

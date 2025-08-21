@@ -1,5 +1,3 @@
-// Allow importing qs as qs.
-/* eslint-disable import/no-named-as-default-member */
 import qs from 'qs';
 import { FC } from 'react';
 import { Navigate, NavigateProps } from 'react-router';

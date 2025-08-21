@@ -1,5 +1,7 @@
 module.exports = {
   rules: {
+    // Original rules from Airbnb config
+
     // require camel case names
     camelcase: ['error', { properties: 'never', ignoreDestructuring: false }],
 
@@ -198,10 +200,6 @@ module.exports = {
     // disallow use of the Object constructor
     'no-new-object': 'error',
 
-    // disallow use of unary operators, ++ and --
-    // https://eslint.org/docs/rules/no-plusplus
-    'no-plusplus': 'error',
-
     // disallow certain syntax forms
     // https://eslint.org/docs/rules/no-restricted-syntax
     'no-restricted-syntax': [
@@ -298,5 +296,15 @@ module.exports = {
     // require or disallow the Unicode Byte Order Mark
     // https://eslint.org/docs/rules/unicode-bom
     'unicode-bom': ['error', 'never'],
+
+    // Jore overrides
+    'eslint-comments/no-unused-disable': 'error', // ban unused eslint-disable comments
+    'eslint-comments/disable-enable-pair': [
+      'error',
+      {
+        // if eslint rules are disabled in the beginning of file, it usually means that it is done for a reason and it doesn't make sense to enable those again at the end of the file
+        allowWholeFile: true,
+      },
+    ],
   },
 };

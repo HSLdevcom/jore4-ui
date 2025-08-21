@@ -1,11 +1,13 @@
-const baseStyleRules = require('./style').rules;
+const { rules: baseStyleRules } = require('./style');
 
 const dangleRules = baseStyleRules['no-underscore-dangle'];
 
+// View link below for react rules documentation
+// https://github.com/jsx-eslint/eslint-plugin-react#list-of-supported-rules
 module.exports = {
-  // View link below for react rules documentation
-  // https://github.com/jsx-eslint/eslint-plugin-react#list-of-supported-rules
   rules: {
+    // Original rules from Airbnb config
+
     'no-underscore-dangle': [
       dangleRules[0],
       {
@@ -106,17 +108,6 @@ module.exports = {
       { ignorePureComponents: true },
     ],
 
-    // Prevent missing props validation in a React component definition
-    // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prop-types.md
-    'react/prop-types': [
-      'error',
-      {
-        ignore: [],
-        customValidators: [],
-        skipUndeclared: false,
-      },
-    ],
-
     // Prevent extra closing tags for components without children
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
     'react/self-closing-comp': 'error',
@@ -173,10 +164,6 @@ module.exports = {
       },
     ],
 
-    // only .jsx files may have JSX
-    // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
-    'react/jsx-filename-extension': ['error', { extensions: ['.jsx'] }],
-
     // Prevent problem with children and props.dangerouslySetInnerHTML
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md
     'react/no-danger-with-children': 'error',
@@ -202,15 +189,6 @@ module.exports = {
     // Prevent usage of Array index in keys
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md
     'react/no-array-index-key': 'error',
-
-    // Enforce a defaultProps definition for every prop that is not a required prop
-    // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/require-default-props.md
-    'react/require-default-props': [
-      'error',
-      {
-        forbidDefaultForRequired: true,
-      },
-    ],
 
     // Forbids using non-exported propTypes
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-foreign-prop-types.md
@@ -285,18 +263,6 @@ module.exports = {
     // TODO: set to "static public field" once babel-preset-airbnb supports public class fields
     'react/static-property-placement': ['error', 'property assignment'],
 
-    // Disallow JSX props spreading
-    // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-spreading.md
-    'react/jsx-props-no-spreading': [
-      'error',
-      {
-        html: 'enforce',
-        custom: 'enforce',
-        explicitSpread: 'ignore',
-        exceptions: [],
-      },
-    ],
-
     // Prevent usage of `javascript:` URLs
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-script-url.md
     'react/jsx-no-script-url': [
@@ -312,16 +278,6 @@ module.exports = {
     // Disallow unnecessary fragments
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-useless-fragment.md
     'react/jsx-no-useless-fragment': 'error',
-
-    // Enforce a specific function type for function components
-    // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/function-component-definition.md
-    'react/function-component-definition': [
-      'error',
-      {
-        namedComponents: ['function-declaration', 'function-expression'],
-        unnamedComponents: 'function-expression',
-      },
-    ],
 
     // Prevent react contexts from taking non-stable values
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-constructed-context-values.md
@@ -350,5 +306,44 @@ module.exports = {
     // Prevent declaring unused methods of component class
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unused-class-component-methods.md
     'react/no-unused-class-component-methods': 'error',
+
+    // Jore overrides
+    'react/forbid-component-props': [
+      'error',
+      {
+        forbid: [
+          // catch common misspelling that can cause errors
+          { propName: 'data-testId', message: 'Should be "data-testid"' },
+        ],
+      },
+    ],
+    'react/forbid-dom-props': [
+      'error',
+      {
+        forbid: [
+          { propName: 'data-testId', message: 'Should be "data-testid"' },
+        ],
+      },
+    ],
+    'react/prop-types': 'off', // not needed with TypeScript as it checks type compatability already on compile time based
+    'react/function-component-definition': [
+      // enforce consistent react component definitions
+      'error',
+      { namedComponents: 'arrow-function' },
+    ],
+    'react/jsx-filename-extension': [
+      // require jsx to be in TS files. For some reason both .tsx and .ts extensions need to be listed here, but this will still complain if it finds .jsx in .ts file
+      'error',
+      { extensions: ['.tsx', '.ts'] },
+    ],
+    'react/jsx-props-no-spreading': [
+      'error',
+      // allow spreading props in...
+      // - form-related fields as it seems to be convention
+      //   with `react-hook-form`'s `register` method: https://react-hook-form.com/get-started
+      // - in certain `react-map-gl` related components as it seems to be
+      //   convention also with those: https://visgl.github.io/react-map-gl/docs/api-reference/layer
+      { exceptions: ['input', 'textarea', 'Layer'] },
+    ],
   },
 };

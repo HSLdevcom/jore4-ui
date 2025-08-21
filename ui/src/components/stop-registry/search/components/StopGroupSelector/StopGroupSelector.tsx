@@ -570,7 +570,6 @@ export const StopGroupSelector = ({
       aria-labelledby={id}
       aria-multiselectable="true"
     >
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label
         id={id}
         // Align the bottom of the labels text with the bottom of the options text.

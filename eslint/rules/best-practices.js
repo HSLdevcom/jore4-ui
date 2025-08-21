@@ -1,5 +1,7 @@
 module.exports = {
   rules: {
+    // Original rules from Airbnb config
+
     // enforces getter/setter pairs in objects
     // https://eslint.org/docs/rules/accessor-pairs
     'accessor-pairs': 'off',
@@ -29,10 +31,6 @@ module.exports = {
     // https://eslint.org/docs/rules/consistent-return
     'consistent-return': 'error',
 
-    // specify curly brace conventions for all control statements
-    // https://eslint.org/docs/rules/curly
-    curly: ['error', 'multi-line'], // multiline
-
     // require default case in switch statements
     // https://eslint.org/docs/rules/default-case
     'default-case': ['error', { commentPattern: '^no default$' }],
@@ -47,10 +45,6 @@ module.exports = {
     // encourages use of dot notation whenever possible
     // https://eslint.org/docs/rules/dot-notation
     'dot-notation': ['error', { allowKeywords: true }],
-
-    // require the use of === and !==
-    // https://eslint.org/docs/rules/eqeqeq
-    eqeqeq: ['error', 'always', { null: 'ignore' }],
 
     // Require grouped accessor pairs in object literals and classes
     // https://eslint.org/docs/rules/grouped-accessor-pairs
@@ -225,29 +219,6 @@ module.exports = {
     // https://eslint.org/docs/rules/no-octal-escape
     'no-octal-escape': 'error',
 
-    // disallow reassignment of function parameters
-    // disallow parameter object manipulation except for specific exclusions
-    // rule: https://eslint.org/docs/rules/no-param-reassign.html
-    'no-param-reassign': [
-      'error',
-      {
-        props: true,
-        ignorePropertyModificationsFor: [
-          'acc', // for reduce accumulators
-          'accumulator', // for reduce accumulators
-          'e', // for e.returnvalue
-          'ctx', // for Koa routing
-          'context', // for Koa routing
-          'req', // for Express requests
-          'request', // for Express requests
-          'res', // for Express responses
-          'response', // for Express responses
-          '$scope', // for Angular 1 scopes
-          'staticContext', // for ReactRouter context
-        ],
-      },
-    ],
-
     // disallow usage of __proto__ property
     // https://eslint.org/docs/rules/no-proto
     'no-proto': 'error',
@@ -418,5 +389,18 @@ module.exports = {
     // require or disallow Yoda conditions
     //
     yoda: 'error',
+
+    // Jore overrides
+    eqeqeq: ['error', 'always'],
+    curly: ['error', 'all'], // Enforce consistent brace style for all control statements https://eslint.org/docs/latest/rules/curly
+
+    'no-param-reassign': [
+      'error',
+      // ignore 'draft' as its convention to use that name with immer: https://immerjs.github.io/immer/
+      // ignore 'state' as `redux-toolkit` handles state modifications with `immer`
+      { props: true, ignorePropertyModificationsFor: ['draft', 'state'] },
+    ],
+
+    'no-unused-expressions': ['error', { allowTernary: true }], // allow expressions like `booleanValue ? doSomething() : doSomethingElse()`
   },
 };
