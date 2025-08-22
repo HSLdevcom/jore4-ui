@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 import {
   StopPlaceDetailsFragment,
+  StopRegistryStopPlaceInterface,
   StopsDatabaseStopPlaceNewestVersionBoolExp,
   useGetStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
@@ -72,6 +73,10 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
       ...quay_details
     }
 
+    parentStopPlace {
+      ...terminal_details
+    }
+
     accessibilityAssessment {
       ...accessibility_assessment_details
     }
@@ -84,6 +89,21 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
       ...fare_zone_details
     }
   }
+
+  fragment terminal_details on stop_registry_ParentStopPlace {
+    id
+    name {
+      lang
+      value
+    }
+    privateCode {
+      value
+      type
+    }
+    children {
+      ...member_stop_stop_place_details
+    }
+  }
 `;
 
 export function getEnrichedStopPlace(
@@ -93,9 +113,16 @@ export function getEnrichedStopPlace(
     return null;
   }
 
+  const transformedStopPlace = {
+    ...stopPlace,
+    parentStopPlace: stopPlace.parentStopPlace
+      ? [stopPlace.parentStopPlace as StopRegistryStopPlaceInterface]
+      : undefined,
+  };
+
   return {
     ...stopPlace,
-    ...getStopPlaceDetailsForEnrichment(stopPlace),
+    ...getStopPlaceDetailsForEnrichment(transformedStopPlace),
   };
 }
 
