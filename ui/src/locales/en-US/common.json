@@ -524,6 +524,10 @@
       "stops": "Stops",
       "stopsWithCount": "Stops ({{ count }})"
     },
+    "detailTabs": {
+      "basic": "Basic details",
+      "info": "Info spots"
+    },
     "basicDetails": {
       "title": "Terminal basic details",
       "description": "Description",
@@ -556,6 +560,17 @@
       "memberPlatforms": "Member platforms",
       "noMemberStopsSelected": "Terminal must have at least one member stop.",
       "stopAlreadyBelongsToTerminal": "Stop already belongs to another terminal."
+    },
+    "infoSpots": {
+      "title": "Terminal info spots",
+      "label": "Label",
+      "stop": "Stop",
+      "shelter": "Shelter",
+      "purpose": "Purpose",
+      "size": "Size",
+      "description": "Description",
+      "openDetails": "Open info spot details",
+      "closeDetails": "Close info spot details"
     },
     "stops": {
       "title": "Stops"
