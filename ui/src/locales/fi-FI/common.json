@@ -523,6 +523,10 @@
       "stops": "Pysäkit",
       "stopsWithCount": "Pysäkit ({{ count }})"
     },
+    "detailTabs": {
+      "basic": "Perustiedot",
+      "info": "Infopaikat"
+    },
     "basicDetails": {
       "title": "Terminaalin perustiedot",
       "description": "Terminaalin kuvaus",
@@ -555,6 +559,17 @@
       "memberPlatforms": "Jäsenlaiturit",
       "noMemberStopsSelected": "Terminaalilla pitää olla vähintään yksi jäsenpysäkki.",
       "stopAlreadyBelongsToTerminal": "Pysäkki on jo liitetty toiseen terminaaliin."
+    },
+    "infoSpots": {
+      "title": "Terminaalin infopaikat",
+      "label": "Tunnus",
+      "stop": "Pysäkki",
+      "shelter": "Katos",
+      "purpose": "Käyttö",
+      "size": "Koko",
+      "description": "Kuvaus",
+      "openDetails": "Avaa infopaikan tiedot",
+      "closeDetails": "Sulje infopaikan tiedot"
     },
     "stops": {
       "title": "Pysäkit"
