@@ -75,6 +75,10 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
       values
     }
 
+    infoSpots {
+      ...info_spot_details
+    }
+
     accessibilityAssessment {
       ...accessibility_assessment_details
     }
@@ -114,6 +118,16 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
     keyValues {
       key
       values
+    }
+    infoSpots {
+      ...info_spot_details
+    }
+    placeEquipments {
+      id
+      shelterEquipment {
+        id
+        shelterNumber
+      }
     }
   }
 
