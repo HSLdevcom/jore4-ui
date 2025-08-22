@@ -8,13 +8,13 @@ const testIds = {
 };
 
 export enum TabType {
-  BasicDetailsTab = 'BasicDetailsTab',
+  BasicTab = 'BasicTab',
   StopsTab = 'StopsTab',
 }
 
 export const tabs = {
   basic: {
-    type: TabType.BasicDetailsTab,
+    type: TabType.BasicTab,
     buttonId: 'detail-tab-basic',
     panelId: 'detail-tabpanel-basic',
   },
@@ -57,9 +57,9 @@ export const TabSelector: FC<TabSelectorProps> = ({
         title={t('terminalDetails.tabs.basic')}
         className="rounded-br-none rounded-tr-none"
         onClick={() => {
-          selectTab(TabType.BasicDetailsTab);
+          selectTab(TabType.BasicTab);
         }}
-        isActive={activeTab === TabType.BasicDetailsTab}
+        isActive={activeTab === TabType.BasicTab}
       />
       <Tab
         id={tabs.stops.buttonId}
