@@ -68120,6 +68120,34 @@ export type GetTerminalDetailsByNetexIdQuery = {
         readonly key?: string | null,
         readonly values?: ReadonlyArray<string | null> | null
       } | null> | null,
+      readonly infoSpots?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_infoSpot',
+        readonly id?: string | null,
+        readonly backlight?: boolean | null,
+        readonly displayType?: StopRegistryDisplayType | null,
+        readonly floor?: string | null,
+        readonly label?: string | null,
+        readonly width?: number | null,
+        readonly height?: number | null,
+        readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+        readonly infoSpotType?: StopRegistryInfoSpotType | null,
+        readonly purpose?: string | null,
+        readonly railInformation?: string | null,
+        readonly speechProperty?: boolean | null,
+        readonly zoneLabel?: string | null,
+        readonly description?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        } | null,
+        readonly poster?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_poster',
+          readonly label?: string | null,
+          readonly width?: number | null,
+          readonly height?: number | null,
+          readonly lines?: string | null
+        } | null> | null
+      } | null> | null,
       readonly accessibilityAssessment?: {
         readonly __typename?: 'stop_registry_AccessibilityAssessment',
         readonly id?: string | null,
@@ -68209,7 +68237,44 @@ export type GetTerminalDetailsByNetexIdQuery = {
             readonly __typename?: 'stop_registry_KeyValues',
             readonly key?: string | null,
             readonly values?: ReadonlyArray<string | null> | null
-          } | null> | null
+          } | null> | null,
+          readonly infoSpots?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_infoSpot',
+            readonly id?: string | null,
+            readonly backlight?: boolean | null,
+            readonly displayType?: StopRegistryDisplayType | null,
+            readonly floor?: string | null,
+            readonly label?: string | null,
+            readonly width?: number | null,
+            readonly height?: number | null,
+            readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+            readonly infoSpotType?: StopRegistryInfoSpotType | null,
+            readonly purpose?: string | null,
+            readonly railInformation?: string | null,
+            readonly speechProperty?: boolean | null,
+            readonly zoneLabel?: string | null,
+            readonly description?: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly lang?: string | null,
+              readonly value?: string | null
+            } | null,
+            readonly poster?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_poster',
+              readonly label?: string | null,
+              readonly width?: number | null,
+              readonly height?: number | null,
+              readonly lines?: string | null
+            } | null> | null
+          } | null> | null,
+          readonly placeEquipments?: {
+            readonly __typename?: 'stop_registry_PlaceEquipments',
+            readonly id?: string | null,
+            readonly shelterEquipment?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_ShelterEquipment',
+              readonly id?: string | null,
+              readonly shelterNumber?: number | null
+            } | null> | null
+          } | null
         } | null> | null
       } | null> | null,
       readonly externalLinks?: ReadonlyArray<{
@@ -70098,6 +70163,34 @@ export type GetParentStopPlaceDetailsQuery = {
           readonly key?: string | null,
           readonly values?: ReadonlyArray<string | null> | null
         } | null> | null,
+        readonly infoSpots?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_infoSpot',
+          readonly id?: string | null,
+          readonly backlight?: boolean | null,
+          readonly displayType?: StopRegistryDisplayType | null,
+          readonly floor?: string | null,
+          readonly label?: string | null,
+          readonly width?: number | null,
+          readonly height?: number | null,
+          readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+          readonly infoSpotType?: StopRegistryInfoSpotType | null,
+          readonly purpose?: string | null,
+          readonly railInformation?: string | null,
+          readonly speechProperty?: boolean | null,
+          readonly zoneLabel?: string | null,
+          readonly description?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly lang?: string | null,
+            readonly value?: string | null
+          } | null,
+          readonly poster?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_poster',
+            readonly label?: string | null,
+            readonly width?: number | null,
+            readonly height?: number | null,
+            readonly lines?: string | null
+          } | null> | null
+        } | null> | null,
         readonly accessibilityAssessment?: {
           readonly __typename?: 'stop_registry_AccessibilityAssessment',
           readonly id?: string | null,
@@ -70187,7 +70280,44 @@ export type GetParentStopPlaceDetailsQuery = {
               readonly __typename?: 'stop_registry_KeyValues',
               readonly key?: string | null,
               readonly values?: ReadonlyArray<string | null> | null
-            } | null> | null
+            } | null> | null,
+            readonly infoSpots?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_infoSpot',
+              readonly id?: string | null,
+              readonly backlight?: boolean | null,
+              readonly displayType?: StopRegistryDisplayType | null,
+              readonly floor?: string | null,
+              readonly label?: string | null,
+              readonly width?: number | null,
+              readonly height?: number | null,
+              readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+              readonly infoSpotType?: StopRegistryInfoSpotType | null,
+              readonly purpose?: string | null,
+              readonly railInformation?: string | null,
+              readonly speechProperty?: boolean | null,
+              readonly zoneLabel?: string | null,
+              readonly description?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly lang?: string | null,
+                readonly value?: string | null
+              } | null,
+              readonly poster?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_poster',
+                readonly label?: string | null,
+                readonly width?: number | null,
+                readonly height?: number | null,
+                readonly lines?: string | null
+              } | null> | null
+            } | null> | null,
+            readonly placeEquipments?: {
+              readonly __typename?: 'stop_registry_PlaceEquipments',
+              readonly id?: string | null,
+              readonly shelterEquipment?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_ShelterEquipment',
+                readonly id?: string | null,
+                readonly shelterNumber?: number | null
+              } | null> | null
+            } | null
           } | null> | null
         } | null> | null,
         readonly externalLinks?: ReadonlyArray<{
@@ -70240,6 +70370,34 @@ export type ParentStopPlaceDetailsFragment = {
     readonly __typename?: 'stop_registry_KeyValues',
     readonly key?: string | null,
     readonly values?: ReadonlyArray<string | null> | null
+  } | null> | null,
+  readonly infoSpots?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_infoSpot',
+    readonly id?: string | null,
+    readonly backlight?: boolean | null,
+    readonly displayType?: StopRegistryDisplayType | null,
+    readonly floor?: string | null,
+    readonly label?: string | null,
+    readonly width?: number | null,
+    readonly height?: number | null,
+    readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+    readonly infoSpotType?: StopRegistryInfoSpotType | null,
+    readonly purpose?: string | null,
+    readonly railInformation?: string | null,
+    readonly speechProperty?: boolean | null,
+    readonly zoneLabel?: string | null,
+    readonly description?: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly lang?: string | null,
+      readonly value?: string | null
+    } | null,
+    readonly poster?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_poster',
+      readonly label?: string | null,
+      readonly width?: number | null,
+      readonly height?: number | null,
+      readonly lines?: string | null
+    } | null> | null
   } | null> | null,
   readonly accessibilityAssessment?: {
     readonly __typename?: 'stop_registry_AccessibilityAssessment',
@@ -70330,7 +70488,44 @@ export type ParentStopPlaceDetailsFragment = {
         readonly __typename?: 'stop_registry_KeyValues',
         readonly key?: string | null,
         readonly values?: ReadonlyArray<string | null> | null
-      } | null> | null
+      } | null> | null,
+      readonly infoSpots?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_infoSpot',
+        readonly id?: string | null,
+        readonly backlight?: boolean | null,
+        readonly displayType?: StopRegistryDisplayType | null,
+        readonly floor?: string | null,
+        readonly label?: string | null,
+        readonly width?: number | null,
+        readonly height?: number | null,
+        readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+        readonly infoSpotType?: StopRegistryInfoSpotType | null,
+        readonly purpose?: string | null,
+        readonly railInformation?: string | null,
+        readonly speechProperty?: boolean | null,
+        readonly zoneLabel?: string | null,
+        readonly description?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        } | null,
+        readonly poster?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_poster',
+          readonly label?: string | null,
+          readonly width?: number | null,
+          readonly height?: number | null,
+          readonly lines?: string | null
+        } | null> | null
+      } | null> | null,
+      readonly placeEquipments?: {
+        readonly __typename?: 'stop_registry_PlaceEquipments',
+        readonly id?: string | null,
+        readonly shelterEquipment?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_ShelterEquipment',
+          readonly id?: string | null,
+          readonly shelterNumber?: number | null
+        } | null> | null
+      } | null
     } | null> | null
   } | null> | null,
   readonly externalLinks?: ReadonlyArray<{
@@ -70388,7 +70583,44 @@ export type MemberStopStopPlaceDetailsFragment = {
       readonly __typename?: 'stop_registry_KeyValues',
       readonly key?: string | null,
       readonly values?: ReadonlyArray<string | null> | null
-    } | null> | null
+    } | null> | null,
+    readonly infoSpots?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_infoSpot',
+      readonly id?: string | null,
+      readonly backlight?: boolean | null,
+      readonly displayType?: StopRegistryDisplayType | null,
+      readonly floor?: string | null,
+      readonly label?: string | null,
+      readonly width?: number | null,
+      readonly height?: number | null,
+      readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+      readonly infoSpotType?: StopRegistryInfoSpotType | null,
+      readonly purpose?: string | null,
+      readonly railInformation?: string | null,
+      readonly speechProperty?: boolean | null,
+      readonly zoneLabel?: string | null,
+      readonly description?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly lang?: string | null,
+        readonly value?: string | null
+      } | null,
+      readonly poster?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_poster',
+        readonly label?: string | null,
+        readonly width?: number | null,
+        readonly height?: number | null,
+        readonly lines?: string | null
+      } | null> | null
+    } | null> | null,
+    readonly placeEquipments?: {
+      readonly __typename?: 'stop_registry_PlaceEquipments',
+      readonly id?: string | null,
+      readonly shelterEquipment?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_ShelterEquipment',
+        readonly id?: string | null,
+        readonly shelterNumber?: number | null
+      } | null> | null
+    } | null
   } | null> | null
 };
 
@@ -70427,7 +70659,44 @@ export type MemberStopQuayDetailsFragment = {
     readonly __typename?: 'stop_registry_KeyValues',
     readonly key?: string | null,
     readonly values?: ReadonlyArray<string | null> | null
-  } | null> | null
+  } | null> | null,
+  readonly infoSpots?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_infoSpot',
+    readonly id?: string | null,
+    readonly backlight?: boolean | null,
+    readonly displayType?: StopRegistryDisplayType | null,
+    readonly floor?: string | null,
+    readonly label?: string | null,
+    readonly width?: number | null,
+    readonly height?: number | null,
+    readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+    readonly infoSpotType?: StopRegistryInfoSpotType | null,
+    readonly purpose?: string | null,
+    readonly railInformation?: string | null,
+    readonly speechProperty?: boolean | null,
+    readonly zoneLabel?: string | null,
+    readonly description?: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly lang?: string | null,
+      readonly value?: string | null
+    } | null,
+    readonly poster?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_poster',
+      readonly label?: string | null,
+      readonly width?: number | null,
+      readonly height?: number | null,
+      readonly lines?: string | null
+    } | null> | null
+  } | null> | null,
+  readonly placeEquipments?: {
+    readonly __typename?: 'stop_registry_PlaceEquipments',
+    readonly id?: string | null,
+    readonly shelterEquipment?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_ShelterEquipment',
+      readonly id?: string | null,
+      readonly shelterNumber?: number | null
+    } | null> | null
+  } | null
 };
 
 export type TerminalExternalLinksDetailsFragment = {
@@ -73705,6 +73974,34 @@ export type CreateTerminalMutation = {
         readonly key?: string | null,
         readonly values?: ReadonlyArray<string | null> | null
       } | null> | null,
+      readonly infoSpots?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_infoSpot',
+        readonly id?: string | null,
+        readonly backlight?: boolean | null,
+        readonly displayType?: StopRegistryDisplayType | null,
+        readonly floor?: string | null,
+        readonly label?: string | null,
+        readonly width?: number | null,
+        readonly height?: number | null,
+        readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+        readonly infoSpotType?: StopRegistryInfoSpotType | null,
+        readonly purpose?: string | null,
+        readonly railInformation?: string | null,
+        readonly speechProperty?: boolean | null,
+        readonly zoneLabel?: string | null,
+        readonly description?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        } | null,
+        readonly poster?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_poster',
+          readonly label?: string | null,
+          readonly width?: number | null,
+          readonly height?: number | null,
+          readonly lines?: string | null
+        } | null> | null
+      } | null> | null,
       readonly accessibilityAssessment?: {
         readonly __typename?: 'stop_registry_AccessibilityAssessment',
         readonly id?: string | null,
@@ -73794,7 +74091,44 @@ export type CreateTerminalMutation = {
             readonly __typename?: 'stop_registry_KeyValues',
             readonly key?: string | null,
             readonly values?: ReadonlyArray<string | null> | null
-          } | null> | null
+          } | null> | null,
+          readonly infoSpots?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_infoSpot',
+            readonly id?: string | null,
+            readonly backlight?: boolean | null,
+            readonly displayType?: StopRegistryDisplayType | null,
+            readonly floor?: string | null,
+            readonly label?: string | null,
+            readonly width?: number | null,
+            readonly height?: number | null,
+            readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+            readonly infoSpotType?: StopRegistryInfoSpotType | null,
+            readonly purpose?: string | null,
+            readonly railInformation?: string | null,
+            readonly speechProperty?: boolean | null,
+            readonly zoneLabel?: string | null,
+            readonly description?: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly lang?: string | null,
+              readonly value?: string | null
+            } | null,
+            readonly poster?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_poster',
+              readonly label?: string | null,
+              readonly width?: number | null,
+              readonly height?: number | null,
+              readonly lines?: string | null
+            } | null> | null
+          } | null> | null,
+          readonly placeEquipments?: {
+            readonly __typename?: 'stop_registry_PlaceEquipments',
+            readonly id?: string | null,
+            readonly shelterEquipment?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_ShelterEquipment',
+              readonly id?: string | null,
+              readonly shelterNumber?: number | null
+            } | null> | null
+          } | null
         } | null> | null
       } | null> | null,
       readonly externalLinks?: ReadonlyArray<{
@@ -73867,6 +74201,34 @@ export type UpdateTerminalMutation = {
         readonly key?: string | null,
         readonly values?: ReadonlyArray<string | null> | null
       } | null> | null,
+      readonly infoSpots?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_infoSpot',
+        readonly id?: string | null,
+        readonly backlight?: boolean | null,
+        readonly displayType?: StopRegistryDisplayType | null,
+        readonly floor?: string | null,
+        readonly label?: string | null,
+        readonly width?: number | null,
+        readonly height?: number | null,
+        readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+        readonly infoSpotType?: StopRegistryInfoSpotType | null,
+        readonly purpose?: string | null,
+        readonly railInformation?: string | null,
+        readonly speechProperty?: boolean | null,
+        readonly zoneLabel?: string | null,
+        readonly description?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly lang?: string | null,
+          readonly value?: string | null
+        } | null,
+        readonly poster?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_poster',
+          readonly label?: string | null,
+          readonly width?: number | null,
+          readonly height?: number | null,
+          readonly lines?: string | null
+        } | null> | null
+      } | null> | null,
       readonly accessibilityAssessment?: {
         readonly __typename?: 'stop_registry_AccessibilityAssessment',
         readonly id?: string | null,
@@ -73956,7 +74318,44 @@ export type UpdateTerminalMutation = {
             readonly __typename?: 'stop_registry_KeyValues',
             readonly key?: string | null,
             readonly values?: ReadonlyArray<string | null> | null
-          } | null> | null
+          } | null> | null,
+          readonly infoSpots?: ReadonlyArray<{
+            readonly __typename?: 'stop_registry_infoSpot',
+            readonly id?: string | null,
+            readonly backlight?: boolean | null,
+            readonly displayType?: StopRegistryDisplayType | null,
+            readonly floor?: string | null,
+            readonly label?: string | null,
+            readonly width?: number | null,
+            readonly height?: number | null,
+            readonly infoSpotLocations?: ReadonlyArray<string | null> | null,
+            readonly infoSpotType?: StopRegistryInfoSpotType | null,
+            readonly purpose?: string | null,
+            readonly railInformation?: string | null,
+            readonly speechProperty?: boolean | null,
+            readonly zoneLabel?: string | null,
+            readonly description?: {
+              readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+              readonly lang?: string | null,
+              readonly value?: string | null
+            } | null,
+            readonly poster?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_poster',
+              readonly label?: string | null,
+              readonly width?: number | null,
+              readonly height?: number | null,
+              readonly lines?: string | null
+            } | null> | null
+          } | null> | null,
+          readonly placeEquipments?: {
+            readonly __typename?: 'stop_registry_PlaceEquipments',
+            readonly id?: string | null,
+            readonly shelterEquipment?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_ShelterEquipment',
+              readonly id?: string | null,
+              readonly shelterNumber?: number | null
+            } | null> | null
+          } | null
         } | null> | null
       } | null> | null,
       readonly externalLinks?: ReadonlyArray<{
@@ -77248,8 +77647,19 @@ export const MemberStopQuayDetailsFragmentDoc = gql`
     key
     values
   }
+  infoSpots {
+    ...info_spot_details
+  }
+  placeEquipments {
+    id
+    shelterEquipment {
+      id
+      shelterNumber
+    }
+  }
 }
-    ${ScheduledStopPointDetailFieldsFragmentDoc}`;
+    ${ScheduledStopPointDetailFieldsFragmentDoc}
+${InfoSpotDetailsFragmentDoc}`;
 export const MemberStopStopPlaceDetailsFragmentDoc = gql`
     fragment member_stop_stop_place_details on stop_registry_StopPlace {
   id
@@ -77302,6 +77712,9 @@ export const ParentStopPlaceDetailsFragmentDoc = gql`
     key
     values
   }
+  infoSpots {
+    ...info_spot_details
+  }
   accessibilityAssessment {
     ...accessibility_assessment_details
   }
@@ -77312,7 +77725,8 @@ export const ParentStopPlaceDetailsFragmentDoc = gql`
     ...terminal_external_links_details
   }
 }
-    ${AccessibilityAssessmentDetailsFragmentDoc}
+    ${InfoSpotDetailsFragmentDoc}
+${AccessibilityAssessmentDetailsFragmentDoc}
 ${MemberStopStopPlaceDetailsFragmentDoc}
 ${TerminalExternalLinksDetailsFragmentDoc}`;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
