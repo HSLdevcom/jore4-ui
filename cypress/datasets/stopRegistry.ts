@@ -5,7 +5,12 @@ import {
   StopRegistryEmbeddableMultilingualString,
   StopRegistryGeoJsonInput,
   StopRegistryGeoJsonType,
+  StopRegistryInfoSpotType,
   StopRegistryNameType,
+  StopRegistryPosterPlaceSize,
+  StopRegistryShelterCondition,
+  StopRegistryShelterElectricity,
+  StopRegistryShelterType,
   TerminalInput,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import cloneDeep from 'lodash/cloneDeep';
@@ -244,6 +249,27 @@ const stopPlaceData: Array<StopAreaInput> = [
             { key: 'elyNumber', values: ['E2E008'] },
             { key: 'validityStart', values: ['2020-03-20'] },
           ],
+          placeEquipments: {
+            shelterEquipment: [
+              {
+                enclosed: true,
+                stepFree: false,
+                shelterNumber: 1,
+                shelterType: StopRegistryShelterType.Steel,
+                shelterElectricity: StopRegistryShelterElectricity.Continuous,
+                shelterLighting: true,
+                shelterCondition: StopRegistryShelterCondition.Mediocre,
+                timetableCabinets: 1,
+                trashCan: true,
+                shelterHasDisplay: true,
+                bicycleParking: true,
+                leaningRail: true,
+                outsideBench: true,
+                shelterFasciaBoardTaping: true,
+                shelterExternalId: '12345',
+              },
+            ],
+          },
         },
       ],
       geometry: coordinatesToStopRegistryGeoJSON(stopCoordinatesByLabel.E2E008),
@@ -354,10 +380,39 @@ const terminalData: Array<TerminalInput> = [
   },
 ];
 
+const infoSpotData = [
+  {
+    infoSpot: {
+      description: {
+        lang: 'fin',
+        value: 'Terminaalin infopiste',
+      },
+      floor: '1',
+      label: 'E2E_INFO_001',
+      infoSpotType: StopRegistryInfoSpotType.Static,
+      purpose: 'Tiedotteet',
+      railInformation: '1',
+      zoneLabel: 'A',
+      backlight: true,
+      posterPlaceSize: StopRegistryPosterPlaceSize.Cm80x120,
+      poster: [
+        {
+          label: 'E2E_POSTER_001',
+          posterSize: StopRegistryPosterPlaceSize.A4,
+          lines: '1, 2, 3',
+        },
+      ],
+    },
+    locatedOnStopLabel: 'E2E008',
+    associatedShelter: 0,
+  },
+];
+
 const baseStopRegistryData = {
   organisations: [],
   stopPlaces: stopPlaceData,
   terminals: terminalData,
+  infoSpots: infoSpotData,
 };
 
 export const getClonedBaseStopRegistryData = () =>
