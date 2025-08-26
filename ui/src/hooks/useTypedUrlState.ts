@@ -274,7 +274,7 @@ export function useTypedUrlState<StateT extends object>(
   defaultValues: StateT,
 ): [StateT, Dispatch<SetStateAction<StateT>>] {
   // Drop check on PROD build
-  // eslint-disable-next-line spaced-comment
+  // eslint-disable-next-line @stylistic/spaced-comment
   /*#__PURE__*/ useAssertProperSerializationData(
     serializers,
     deserializers,

@@ -43,9 +43,10 @@ const uiPlugins = [
   'jsx-a11y',
   '@typescript-eslint',
   'lodash',
+  '@stylistic',
 ];
 
-const nodePlugins = ['@typescript-eslint', 'lodash'];
+const nodePlugins = ['@typescript-eslint', 'lodash', '@stylistic'];
 
 module.exports = {
   root: true,

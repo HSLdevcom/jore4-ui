@@ -167,7 +167,7 @@ module.exports = {
 
     // Enforce curly braces or disallow unnecessary curly braces in JSX props and/or children
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md
-    'jsx-curly-brace-presence': ['error'],
+    '@stylistic/jsx-curly-brace-presence': ['error'],
 
     // Enforce consistent usage of destructuring assignment of props, state, and context
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/destructuring-assignment.md
