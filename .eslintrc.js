@@ -7,9 +7,15 @@ const {
 } = require('./eslint/rules');
 
 const reactSettings = { react: { version: 'detect' } };
+const nodeSettings = { node: { version: '>=23.9.0' } };
 const jsxParserOptions = { ecmaFeatures: { jsx: true } };
 
-function getExtends({ react = false, jest = false, cypress = false } = {}) {
+function getExtends({
+  react = false,
+  node = false,
+  jest = false,
+  cypress = false,
+} = {}) {
   return [
     'eslint:recommended',
 
@@ -29,6 +35,8 @@ function getExtends({ react = false, jest = false, cypress = false } = {}) {
 
     'plugin:@eslint-community/eslint-comments/recommended',
 
+    ...(node ? ['plugin:n/recommended-module'] : []),
+
     ...(jest ? ['plugin:jest/recommended'] : []),
 
     ...(cypress ? ['plugin:cypress/recommended'] : []),
@@ -46,7 +54,7 @@ const uiPlugins = [
   '@stylistic',
 ];
 
-const nodePlugins = ['@typescript-eslint', 'lodash', '@stylistic'];
+const nodePlugins = ['@typescript-eslint', 'lodash', 'n', '@stylistic'];
 
 module.exports = {
   root: true,
@@ -90,8 +98,8 @@ module.exports = {
       env: { browser: true, node: true, jest: true },
       parser: '@typescript-eslint/parser',
       parserOptions: jsxParserOptions,
-      settings: reactSettings,
-      extends: getExtends({ react: true, jest: true }),
+      settings: { ...reactSettings, ...nodeSettings },
+      extends: getExtends({ react: true, node: true, jest: true }),
       plugins: [...uiPlugins, 'jest'],
       rules: unitTestRules,
     },
@@ -107,7 +115,8 @@ module.exports = {
     {
       files: ['cypress/**/*.ts'],
       env: { node: true },
-      extends: getExtends({ cypress: true }),
+      settings: nodeSettings,
+      extends: getExtends({ node: true, cypress: true }),
       plugins: nodePlugins,
       rules: cypressRules,
     },
@@ -116,7 +125,8 @@ module.exports = {
     {
       files: ['test-db-manager/**/*.ts'],
       env: { node: true },
-      extends: getExtends(),
+      settings: nodeSettings,
+      extends: getExtends({ node: true }),
       plugins: nodePlugins,
       rules: testDBManagerRules,
     },
