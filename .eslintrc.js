@@ -29,9 +29,7 @@ function getExtends({ react = false, jest = false, cypress = false } = {}) {
 
     'plugin:eslint-comments/recommended',
 
-    ...(jest
-      ? ['plugin:jest/recommended', 'plugin:jest-formatting/recommended']
-      : []),
+    ...(jest ? ['plugin:jest/recommended'] : []),
 
     ...(cypress ? ['plugin:cypress/recommended'] : []),
 
@@ -93,7 +91,7 @@ module.exports = {
       parserOptions: jsxParserOptions,
       settings: reactSettings,
       extends: getExtends({ react: true, jest: true }),
-      plugins: [...uiPlugins, 'jest', 'jest-formatting'],
+      plugins: [...uiPlugins, 'jest'],
       rules: unitTestRules,
     },
 

@@ -11,6 +11,7 @@ const { rules: reactA11y } = require('./react-a11y');
 const { rules: reactHooks } = require('./react-hooks');
 const { rules: typescript } = require('./typescript');
 const { rules: cypress } = require('./cypress');
+const { rules: jest } = require('./jest');
 
 const { rules: i18nRules } = require('./i18n.js');
 
@@ -31,6 +32,7 @@ const uiRules = {
 const unitTestRules = {
   ...uiRules,
   ...node,
+  ...jest,
 };
 
 const nodeProjectRules = {
