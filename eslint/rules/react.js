@@ -40,16 +40,12 @@ module.exports = {
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md
     'react/forbid-prop-types': [
       'error',
-      {
-        forbid: ['any', 'array', 'object'],
-        checkContextTypes: true,
-        checkChildContextTypes: true,
-      },
+      { checkContextTypes: true, checkChildContextTypes: true },
     ],
 
     // Enforce boolean attributes notation in JSX
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md
-    'react/jsx-boolean-value': ['error', 'never', { always: [] }],
+    'react/jsx-boolean-value': 'error',
 
     // Validate JSX has key prop when in array or iterator
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-key.md
@@ -63,21 +59,13 @@ module.exports = {
       {
         ignoreRefs: true,
         allowArrowFunctions: true,
-        allowFunctions: false,
-        allowBind: false,
         ignoreDOMComponents: true,
       },
     ],
 
     // Enforce PascalCase for user-defined JSX components
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md
-    'react/jsx-pascal-case': [
-      'error',
-      {
-        allowAllCaps: true,
-        ignore: [],
-      },
-    ],
+    'react/jsx-pascal-case': ['error', { allowAllCaps: true }],
 
     // Prevent usage of setState in componentDidUpdate
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md
@@ -93,7 +81,7 @@ module.exports = {
 
     // Require ES6 class declarations over React.createClass
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md
-    'react/prefer-es6-class': ['error', 'always'],
+    'react/prefer-es6-class': 'error',
 
     // Require stateless functions when not using lifecycle methods, setState or ref
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md
@@ -126,33 +114,6 @@ module.exports = {
           'rendering',
         ],
         groups: {
-          lifecycle: [
-            'displayName',
-            'propTypes',
-            'contextTypes',
-            'childContextTypes',
-            'mixins',
-            'statics',
-            'defaultProps',
-            'constructor',
-            'getDefaultProps',
-            'getInitialState',
-            'state',
-            'getChildContext',
-            'getDerivedStateFromProps',
-            'componentWillMount',
-            'UNSAFE_componentWillMount',
-            'componentDidMount',
-            'componentWillReceiveProps',
-            'UNSAFE_componentWillReceiveProps',
-            'shouldComponentUpdate',
-            'componentWillUpdate',
-            'UNSAFE_componentWillUpdate',
-            'getSnapshotBeforeUpdate',
-            'componentDidUpdate',
-            'componentDidCatch',
-            'componentWillUnmount',
-          ],
           rendering: ['/^render.+$/', 'render'],
         },
       },
@@ -164,13 +125,7 @@ module.exports = {
 
     // Prevent unused propType definitions
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unused-prop-types.md
-    'react/no-unused-prop-types': [
-      'error',
-      {
-        customValidators: [],
-        skipShapeProps: true,
-      },
-    ],
+    'react/no-unused-prop-types': 'error',
 
     // Require style prop value be an object or var
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/style-prop-object.md
@@ -196,10 +151,7 @@ module.exports = {
 
     // Enforce all defaultProps have a corresponding non-required PropType
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/default-props-match-prop-types.md
-    'react/default-props-match-prop-types': [
-      'error',
-      { allowRequiredDefaults: false },
-    ],
+    'react/default-props-match-prop-types': 'error',
 
     // Prevent usage of shouldComponentUpdate when extending React.PureComponent
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-redundant-should-component-update.md
@@ -215,14 +167,11 @@ module.exports = {
 
     // Enforce curly braces or disallow unnecessary curly braces in JSX props and/or children
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md
-    'react/jsx-curly-brace-presence': [
-      'error',
-      { props: 'never', children: 'never' },
-    ],
+    'jsx-curly-brace-presence': ['error'],
 
     // Enforce consistent usage of destructuring assignment of props, state, and context
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/destructuring-assignment.md
-    'react/destructuring-assignment': ['error', 'always'],
+    'react/destructuring-assignment': 'error',
 
     // Prevent using this.state within a this.setState
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-access-state-in-setstate.md
@@ -230,14 +179,7 @@ module.exports = {
 
     // Prevent usage of button elements without an explicit type attribute
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md
-    'react/button-has-type': [
-      'error',
-      {
-        button: true,
-        submit: true,
-        reset: false,
-      },
-    ],
+    'react/button-has-type': ['error', { reset: false }],
 
     // Prevent this from being used in stateless functional components
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-this-in-sfc.md
@@ -245,16 +187,14 @@ module.exports = {
 
     // Enforce shorthand or standard form for React fragments
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-fragments.md
-    'react/jsx-fragments': ['error', 'syntax'],
+    'react/jsx-fragments': 'error',
 
     // Enforce state initialization style
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/state-in-constructor.md
-    // TODO: set to "never" once babel-preset-airbnb supports public class fields
-    'react/state-in-constructor': ['error', 'always'],
+    'react/state-in-constructor': 'error',
 
     // Enforces where React component static properties should be positioned
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/static-property-placement.md
-    // TODO: set to "static public field" once babel-preset-airbnb supports public class fields
     'react/static-property-placement': ['error', 'property assignment'],
 
     // Prevent usage of `javascript:` URLs
