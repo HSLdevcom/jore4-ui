@@ -7,3 +7,7 @@ export * from './TerminalLocationDetailsSection';
 export * from './TerminalLocationDetailsViewCard';
 export * from './TerminalTitleRow';
 export * from './TerminalVersioningRow';
+export * from './TerminalInfoSpotsSection';
+export * from './TerminalInfoSpotsViewList';
+export * from './TerminalInfoSpotsViewCard';
+export * from './TerminalInfoSpotRow';

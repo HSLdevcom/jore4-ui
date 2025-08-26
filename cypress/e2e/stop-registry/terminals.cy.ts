@@ -13,6 +13,9 @@ import {
   ExternalLinksSection,
   SelectMemberStopsDropdown,
   TerminalDetailsPage,
+  TerminalInfoSpotRow,
+  TerminalInfoSpotsViewCard,
+  TerminalInfoSpotsViewList,
   Toast,
 } from '../../pageObjects';
 import { UUID } from '../../types';
@@ -594,6 +597,77 @@ describe('Terminal details', () => {
           });
 
         cy.url().should('include', '/stop-registry/stop-areas/');
+      },
+    );
+  });
+
+  describe('info spots', () => {
+    const infoSpotsViewCard = new TerminalInfoSpotsViewCard();
+    const infoSpotsViewList = new TerminalInfoSpotsViewList();
+    const infoSpotsRow = new TerminalInfoSpotRow();
+
+    it(
+      'should display info spots tab and view info spots',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+
+        terminalDetailsPage
+          .getTabSelector()
+          .getInfoSpotsTab()
+          .shouldBeVisible();
+
+        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+
+        terminalDetailsPage.infoSpots.getContainer().shouldBeVisible();
+        terminalDetailsPage.infoSpots.getTitle().shouldBeVisible();
+
+        infoSpotsViewList.getTable().shouldBeVisible();
+
+        infoSpotsViewList.getLabelSortButton().shouldBeVisible();
+        infoSpotsViewList.getStopSortButton().shouldBeVisible();
+        infoSpotsViewList.getShelterSortButton().shouldBeVisible();
+        infoSpotsViewList.getPurposeSortButton().shouldBeVisible();
+        infoSpotsViewList.getSizeSortButton().shouldBeVisible();
+        infoSpotsViewList.getDescriptionSortButton().shouldBeVisible();
+      },
+    );
+
+    it(
+      'should expand info spot details when clicking toggle button',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+
+        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+
+        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
+        infoSpotsRow.getNthDetailsRow(0).within(() => {
+          infoSpotsRow.getLabelCell().shouldHaveText('E2E_INFO_001');
+          infoSpotsRow.getQuayPublicCodeCell().shouldHaveText('E2E008');
+          infoSpotsRow.getShelterNumberCell().shouldHaveText('1');
+          infoSpotsRow.getPurposeCell().shouldHaveText('Tiedotteet');
+          infoSpotsRow.getSizeCell().shouldHaveText('80 × 120 cm');
+          infoSpotsRow
+            .getDescriptionCell()
+            .shouldHaveText('Terminaalin infopiste');
+        });
+
+        infoSpotsRow.getNthToggleButton(0).click();
+        infoSpotsViewCard.getContainer().shouldBeVisible();
+        infoSpotsViewCard.getLabel().shouldHaveText('E2E_INFO_001');
+        infoSpotsViewCard.getPurpose().shouldHaveText('Tiedotteet');
+        infoSpotsViewCard.getBacklight().shouldHaveText('Kyllä');
+        infoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
+        infoSpotsViewCard.getFloor().shouldHaveText('1');
+        infoSpotsViewCard.getRailInformation().shouldHaveText('1');
+        infoSpotsViewCard.getZoneLabel().shouldHaveText('A');
+        infoSpotsViewCard
+          .getDescription()
+          .shouldHaveText('Terminaalin infopiste');
+        infoSpotsViewCard.getPosterSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
+        infoSpotsViewCard.getPosterLabel().shouldHaveText('E2E_POSTER_001');
+        infoSpotsViewCard.getPosterLines().shouldHaveText('1, 2, 3');
       },
     );
   });
