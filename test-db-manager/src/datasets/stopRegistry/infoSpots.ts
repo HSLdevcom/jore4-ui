@@ -2,7 +2,6 @@ import {
   StopRegistryDisplayType,
   StopRegistryInfoSpotInput,
   StopRegistryInfoSpotType,
-  StopRegistryPosterPlaceSize,
 } from '../../generated/graphql';
 
 export type InfoSpotInput = {
@@ -31,12 +30,14 @@ const infoSpotJP1234568: StopRegistryInfoSpotInput = {
   displayType: null, // Only set if posterPlaceType = Dynamic
   speechProperty: null, // Only set if posterPlaceType = Dynamic
   backlight: true, // Only set if posterPlaceType = Static
-  posterPlaceSize: StopRegistryPosterPlaceSize.Cm80x120, // Only set if posterPlaceType = Static
+  width: 800,
+  height: 1200,
   poster: [
     // Only set if posterPlaceType = Static
     {
       label: 'PT1234',
-      posterSize: StopRegistryPosterPlaceSize.A4,
+      width: 210,
+      height: 297,
       lines: '1, 6, 17',
     },
   ],
@@ -57,7 +58,8 @@ const infoSpotJP1234567: StopRegistryInfoSpotInput = {
   displayType: StopRegistryDisplayType.BatteryMultiRow, // Only set if posterPlaceType = Dynamic
   speechProperty: true, // Only set if posterPlaceType = Dynamic
   backlight: null, // Only set if posterPlaceType = Static
-  posterPlaceSize: null, // Only set if posterPlaceType = Static
+  width: null,
+  height: null,
   poster: null, // Only set if posterPlaceType = Static
 };
 
@@ -76,7 +78,8 @@ const infoSpotJP1234569: StopRegistryInfoSpotInput = {
   displayType: null, // Only set if posterPlaceType = Dynamic
   speechProperty: null, // Only set if posterPlaceType = Dynamic
   backlight: null, // Only set if posterPlaceType = Static
-  posterPlaceSize: null, // Only set if posterPlaceType = Static
+  width: null,
+  height: null,
   poster: null, // Only set if posterPlaceType = Static
 };
 

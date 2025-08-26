@@ -2,6 +2,7 @@ import { ObservationDateControl } from '../ObservationDateControl';
 import {
   EditTerminalValidityModal,
   TerminalDetailsSection,
+  TerminalInfoSpotsSection,
   TerminalLocationDetailsSection,
   TerminalTitleRow,
   TerminalVersioningRow,
@@ -11,6 +12,8 @@ export class TerminalDetailsPage {
   terminalDetails = new TerminalDetailsSection();
 
   locationDetails = new TerminalLocationDetailsSection();
+
+  infoSpots = new TerminalInfoSpotsSection();
 
   titleRow = new TerminalTitleRow();
 
@@ -37,6 +40,8 @@ export class TerminalDetailsPage {
       getStopsTab: () => cy.getByTestId('TerminalDetailsPage::stopsTabButton'),
       getBasicDetailsTab: () =>
         cy.getByTestId('TerminalDetailsPage::basicDetailsTabButton'),
+      getInfoSpotsTab: () =>
+        cy.getByTestId('TerminalDetailsPage::infoSpotsTabButton'),
     };
   }
 
