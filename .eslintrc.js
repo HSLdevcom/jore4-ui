@@ -27,7 +27,7 @@ function getExtends({ react = false, jest = false, cypress = false } = {}) {
 
     'plugin:@typescript-eslint/recommended',
 
-    'plugin:eslint-comments/recommended',
+    'plugin:@eslint-community/eslint-comments/recommended',
 
     ...(jest ? ['plugin:jest/recommended'] : []),
 
