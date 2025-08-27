@@ -10,6 +10,7 @@ import {
   ServicePatternScheduledStopPointBoolExp,
   StopRegistryPosterInput,
   StopRegistryQuayInput,
+  StopRegistryStopPlaceInterface,
   useGetStopDetailsQuery,
 } from '../../generated/graphql';
 import {
@@ -298,9 +299,16 @@ const getEnrichedStopPlace = (
     return null;
   }
 
+  const transformedStopPlace = {
+    ...stopPlace,
+    parentStopPlace: stopPlace.parentStopPlace
+      ? [stopPlace.parentStopPlace as StopRegistryStopPlaceInterface]
+      : undefined,
+  };
+
   return {
     ...stopPlace,
-    ...getStopPlaceDetailsForEnrichment(stopPlace),
+    ...getStopPlaceDetailsForEnrichment(transformedStopPlace),
   };
 };
 

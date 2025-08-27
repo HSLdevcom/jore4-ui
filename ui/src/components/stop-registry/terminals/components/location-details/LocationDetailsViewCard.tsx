@@ -16,7 +16,7 @@ const testIds = {
   memberPlatforms: 'LocationDetailsViewCard::memberPlatforms',
 };
 
-const getMemberStops = (terminal: EnrichedParentStopPlace): string => {
+export const getMemberStops = (terminal: EnrichedParentStopPlace): string => {
   const quayCodes =
     terminal.children
       ?.flatMap((child) => child?.quays ?? [])
@@ -27,7 +27,9 @@ const getMemberStops = (terminal: EnrichedParentStopPlace): string => {
   return quayCodes.length ? quayCodes.join(', ') : '-';
 };
 
-const getMemberStopsTotal = (terminal: EnrichedParentStopPlace): number => {
+export const getMemberStopsTotal = (
+  terminal: EnrichedParentStopPlace,
+): number => {
   return (
     terminal.children?.reduce(
       (total, child) => total + (child?.quays?.length ?? 0),
