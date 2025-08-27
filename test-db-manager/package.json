@@ -27,8 +27,8 @@
     "lodash": "^4.17.21",
     "luxon": "^3.7.1",
     "pg": "^8.16.3",
-    "rollup": "^4.46.2",
-    "rollup-plugin-dts": "^6.2.1",
+    "rollup": "^4.49.0",
+    "rollup-plugin-dts": "^6.2.3",
     "ts-node": "^10.9.2",
     "uuid": "^11.1.0"
   },
