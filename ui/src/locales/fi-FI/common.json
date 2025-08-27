@@ -640,6 +640,11 @@
       "showOnMap": "Näytä pysäkkialue kartalla"
     },
 
+    "terminalRowActions": {
+      "openDetails": "Näytä terminaalin tiedot",
+      "showOnMap": "Näytä terminaali kartalla"
+    },
+
     "searchFor": {
       "stops": "Pysäkit",
       "stopAreas": "Pysäkkialueet",
