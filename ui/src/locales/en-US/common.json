@@ -641,6 +641,11 @@
       "showOnMap": "Show stop area on the map"
     },
 
+    "terminalRowActions": {
+      "openDetails": "Show terminal details page",
+      "showOnMap": "Show terminal on the map"
+    },
+
     "searchFor": {
       "stops": "Stops",
       "stopAreas": "Stop areas",
