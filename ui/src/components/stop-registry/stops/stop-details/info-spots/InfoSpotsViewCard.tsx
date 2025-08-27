@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../generated/graphql';
 import { Point } from '../../../../../types';
+import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPosters';
 import { DetailRow, LabeledDetail } from '../layout';
 import { InfoSpotDetails } from './InfoSpotDetails';
-import { InfoSpotPosterDetails } from './InfoSpotPosterDetails';
 import { InfoSpotZoneDetails } from './InfoSpotZoneDetails';
 
 const testIds = {
@@ -65,7 +65,7 @@ export const InfoSpotsViewCard: FC<InfoSpotsViewCardProps> = ({
           />
         </DetailRow>
       </div>
-      <InfoSpotPosterDetails infoSpot={infoSpot} />
+      <InfoSpotPosters infoSpot={infoSpot} />
     </div>
   );
 };
