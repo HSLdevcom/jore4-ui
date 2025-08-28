@@ -46,6 +46,10 @@ export const useEditStopLocationDetails = () => {
                 key: 'postalCode',
                 values: [state.postalCode.toString()],
               },
+              state.memberPlatforms && {
+                key: 'memberPlatforms',
+                values: [state.memberPlatforms.toString()],
+              },
               isNumber(state.functionalArea) && {
                 key: 'functionalArea',
                 values: [state.functionalArea.toString()],

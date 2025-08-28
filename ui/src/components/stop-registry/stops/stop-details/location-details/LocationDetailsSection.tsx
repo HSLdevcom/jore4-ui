@@ -24,6 +24,7 @@ const mapLocationDetailsToFormState = (
     longitude: stop.measured_location.coordinates[0],
     altitude: stop.measured_location.coordinates[2],
     functionalArea: stop.quay?.functionalArea ?? undefined,
+    memberPlatforms: stop.quay?.memberPlatforms ?? undefined,
   };
 };
 

@@ -22,6 +22,7 @@ const testIds = {
   terminal: 'LocationDetailsViewCard::terminal',
   terminalName: 'LocationDetailsViewCard::terminalName',
   terminalStops: 'LocationDetailsViewCard::terminalStops',
+  memberPlatforms: 'LocationDetailsViewCard::memberPlatforms',
 };
 
 type LocationDetailsViewCardProps = {
@@ -108,9 +109,9 @@ export const LocationDetailsViewCard: FC<LocationDetailsViewCardProps> = ({
           testId={testIds.quay}
         />
         <LabeledDetail
-          title={t('stopDetails.location.stopAreaQuays')}
-          detail={null /* TODO */}
-          testId={testIds.stopAreaQuays}
+          title={t('stopDetails.location.memberPlatforms')}
+          detail={stop.quay?.memberPlatforms}
+          testId={testIds.memberPlatforms}
         />
       </DetailRow>
       <HorizontalSeparator />

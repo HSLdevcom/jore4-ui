@@ -265,7 +265,7 @@
       "stopAreaName": "Pysäkkialueen nimi",
       "stopAreaStops": "Jäsenpysäkit",
       "quay": "Laituri",
-      "stopAreaQuays": "Jäsenlaiturit",
+      "memberPlatforms": "Jäsenlaiturit",
       "terminal": "Terminaali",
       "terminalName": "Terminaalin nimi",
       "terminalStops": "Jäsenpysäkit",
@@ -556,7 +556,7 @@
       "longitude": "Pituusaste",
       "memberStops": "Jäsenpysäkit",
       "memberStopsTotal": "Jäsenpysäkit ({{total}})",
-      "memberPlatforms": "Jäsenlaiturit",
+      "memberPlatforms": "Jäsenlaiturit ({{total}})",
       "noMemberStopsSelected": "Terminaalilla pitää olla vähintään yksi jäsenpysäkki.",
       "stopAlreadyBelongsToTerminal": "Pysäkki on jo liitetty toiseen terminaaliin."
     },

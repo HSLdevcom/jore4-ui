@@ -247,6 +247,7 @@ export const getQuayDetailsForEnrichment = <
     streetAddress: findKeyValue(quay, 'streetAddress'),
     postalCode: findKeyValue(quay, 'postalCode'),
     functionalArea: findKeyValueParsed(quay, 'functionalArea', parseFloat),
+    memberPlatforms: findKeyValue(quay, 'memberPlatforms'),
     stopState: findKeyValue(quay, 'stopState') as StopPlaceState,
     accessibilityLevel:
       quay.accessibilityAssessment?.hslAccessibilityProperties
