@@ -11,6 +11,7 @@ import {
   AlternativeNamesEdit,
   ExternalLinksForm,
   ExternalLinksSection,
+  Map,
   SelectMemberStopsDropdown,
   TerminalDetailsPage,
   TerminalInfoSpotRow,
@@ -18,6 +19,7 @@ import {
   TerminalInfoSpotsViewList,
   Toast,
 } from '../../pageObjects';
+import { TerminalPopup } from '../../pageObjects/TerminalPopup';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
@@ -54,6 +56,9 @@ describe('Terminal details', () => {
   const toast = new Toast();
   const selectMemberStopsDropdown = new SelectMemberStopsDropdown();
   const externalLinks = new ExternalLinksSection();
+
+  const map = new Map();
+  const terminalPopUp = new TerminalPopup();
 
   let dbResources: SupportedResources;
 
@@ -243,6 +248,14 @@ describe('Terminal details', () => {
 
       // And the basic details should still match newBasicDetails
       assertBasicDetails(newBasicDetails);
+    });
+
+    it('should have working locator button', () => {
+      terminalDetailsPage.titleRow.getLocatorButton().click();
+
+      map.waitForLoadToComplete();
+
+      terminalPopUp.getLabel().shouldHaveText('T2 E2ET001');
     });
   });
 
