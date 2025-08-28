@@ -23,6 +23,7 @@ import {
 } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';
+import { MemberPlatformsDisplay } from '../LocationDetailsMemberPlatforms';
 import { SelectTerminalMemberStopsDropdown } from '../member-stops';
 import {
   TerminalLocationDetailsFormState,
@@ -215,17 +216,22 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
               testId={testIds.longitude}
             />
           </Row>
-          <Row className="flex-col">
-            <div className="mb-2 text-sm font-bold">
-              {t('terminalDetails.location.memberStopsTotal', {
-                total: selectedStops.length,
-              })}
+          <Row className="gap-4">
+            <div className="lg:w-1/2">
+              <div className="mb-2 text-sm font-bold">
+                {t('terminalDetails.location.memberStopsTotal', {
+                  total: selectedStops.length,
+                })}
+              </div>
+              <SelectTerminalMemberStopsDropdown
+                value={selectedStops}
+                onChange={onSelectedStopsChange}
+                testId={testIds.memberStops}
+              />
             </div>
-            <SelectTerminalMemberStopsDropdown
-              className="lg:w-1/2"
-              value={selectedStops}
-              onChange={onSelectedStopsChange}
-              testId={testIds.memberStops}
+            <MemberPlatformsDisplay
+              terminal={terminal}
+              className="justify-end lg:w-1/2"
             />
           </Row>
         </FormColumn>

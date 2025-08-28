@@ -68186,6 +68186,14 @@ export type GetTerminalDetailsByNetexIdQuery = {
           readonly placeEquipments?: {
             readonly __typename?: 'stop_registry_PlaceEquipments',
             readonly id?: string | null,
+            readonly generalSign?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_GeneralSign',
+              readonly id?: string | null,
+              readonly content?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly value?: string | null
+              } | null
+            } | null> | null,
             readonly shelterEquipment?: ReadonlyArray<{
               readonly __typename?: 'stop_registry_ShelterEquipment',
               readonly id?: string | null,
@@ -70343,6 +70351,14 @@ export type GetParentStopPlaceDetailsQuery = {
             readonly placeEquipments?: {
               readonly __typename?: 'stop_registry_PlaceEquipments',
               readonly id?: string | null,
+              readonly generalSign?: ReadonlyArray<{
+                readonly __typename?: 'stop_registry_GeneralSign',
+                readonly id?: string | null,
+                readonly content?: {
+                  readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                  readonly value?: string | null
+                } | null
+              } | null> | null,
               readonly shelterEquipment?: ReadonlyArray<{
                 readonly __typename?: 'stop_registry_ShelterEquipment',
                 readonly id?: string | null,
@@ -70565,6 +70581,14 @@ export type ParentStopPlaceDetailsFragment = {
       readonly placeEquipments?: {
         readonly __typename?: 'stop_registry_PlaceEquipments',
         readonly id?: string | null,
+        readonly generalSign?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_GeneralSign',
+          readonly id?: string | null,
+          readonly content?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly value?: string | null
+          } | null
+        } | null> | null,
         readonly shelterEquipment?: ReadonlyArray<{
           readonly __typename?: 'stop_registry_ShelterEquipment',
           readonly id?: string | null,
@@ -70660,6 +70684,14 @@ export type MemberStopStopPlaceDetailsFragment = {
     readonly placeEquipments?: {
       readonly __typename?: 'stop_registry_PlaceEquipments',
       readonly id?: string | null,
+      readonly generalSign?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_GeneralSign',
+        readonly id?: string | null,
+        readonly content?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly value?: string | null
+        } | null
+      } | null> | null,
       readonly shelterEquipment?: ReadonlyArray<{
         readonly __typename?: 'stop_registry_ShelterEquipment',
         readonly id?: string | null,
@@ -70736,6 +70768,14 @@ export type MemberStopQuayDetailsFragment = {
   readonly placeEquipments?: {
     readonly __typename?: 'stop_registry_PlaceEquipments',
     readonly id?: string | null,
+    readonly generalSign?: ReadonlyArray<{
+      readonly __typename?: 'stop_registry_GeneralSign',
+      readonly id?: string | null,
+      readonly content?: {
+        readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+        readonly value?: string | null
+      } | null
+    } | null> | null,
     readonly shelterEquipment?: ReadonlyArray<{
       readonly __typename?: 'stop_registry_ShelterEquipment',
       readonly id?: string | null,
@@ -74182,6 +74222,14 @@ export type CreateTerminalMutation = {
           readonly placeEquipments?: {
             readonly __typename?: 'stop_registry_PlaceEquipments',
             readonly id?: string | null,
+            readonly generalSign?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_GeneralSign',
+              readonly id?: string | null,
+              readonly content?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly value?: string | null
+              } | null
+            } | null> | null,
             readonly shelterEquipment?: ReadonlyArray<{
               readonly __typename?: 'stop_registry_ShelterEquipment',
               readonly id?: string | null,
@@ -74423,6 +74471,14 @@ export type UpdateTerminalMutation = {
           readonly placeEquipments?: {
             readonly __typename?: 'stop_registry_PlaceEquipments',
             readonly id?: string | null,
+            readonly generalSign?: ReadonlyArray<{
+              readonly __typename?: 'stop_registry_GeneralSign',
+              readonly id?: string | null,
+              readonly content?: {
+                readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+                readonly value?: string | null
+              } | null
+            } | null> | null,
             readonly shelterEquipment?: ReadonlyArray<{
               readonly __typename?: 'stop_registry_ShelterEquipment',
               readonly id?: string | null,
@@ -77725,6 +77781,12 @@ export const MemberStopQuayDetailsFragmentDoc = gql`
   }
   placeEquipments {
     id
+    generalSign {
+      id
+      content {
+        value
+      }
+    }
     shelterEquipment {
       id
       shelterNumber

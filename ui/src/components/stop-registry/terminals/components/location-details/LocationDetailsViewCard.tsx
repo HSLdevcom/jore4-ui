@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { TerminalComponentProps } from '../../types';
+import { MemberPlatformsDisplay } from './LocationDetailsMemberPlatforms';
 
 const testIds = {
   container: 'LocationDetailsViewCard::container',
@@ -86,9 +87,8 @@ export const LocationDetailsView: FC<TerminalComponentProps> = ({
           testId={testIds.memberStops}
           className="w-full lg:w-1/2" // Prevent large amount of stops from pushing the member platforms to the right
         />
-        <LabeledDetail
-          title={t('terminalDetails.location.memberPlatforms')}
-          detail="-"
+        <MemberPlatformsDisplay
+          terminal={terminal}
           testId={testIds.memberPlatforms}
         />
       </DetailRow>
