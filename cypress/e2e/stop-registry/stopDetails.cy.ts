@@ -268,7 +268,7 @@ describe('Stop details', () => {
     locationView.getStopAreaName().shouldHaveText('-');
     locationView.getStopAreaStops().shouldHaveText('-');
     locationView.getQuay().shouldHaveText('-');
-    locationView.getStopAreaQuays().shouldHaveText('-');
+    locationView.getMemberPlatforms().shouldHaveText('-');
     locationView.getTerminal().shouldHaveText('-');
     locationView.getTerminalName().shouldHaveText('-');
     locationView.getTerminalStops().shouldHaveText('-');
@@ -778,6 +778,8 @@ describe('Stop details', () => {
         .should('have.value', '20')
         .clearAndType('7');
 
+      locationForm.getMemberPlatforms().clearAndType('2');
+
       stopDetailsPage.locationDetails.getSaveButton().click();
       toast.expectSuccessToast('Pysäkki muokattu');
       locationView.getContainer().shouldBeVisible();
@@ -789,6 +791,7 @@ describe('Stop details', () => {
       locationView.getLatitude().shouldHaveText('60.166003223527824');
       locationView.getLongitude().shouldHaveText('24.932072417514647');
       locationView.getFunctionalArea().shouldHaveText('7 m');
+      locationView.getMemberPlatforms().shouldHaveText('2');
     });
   });
 

@@ -30,8 +30,8 @@ export class LocationDetailsViewCard {
 
   getQuay = () => cy.getByTestId('LocationDetailsViewCard::quay');
 
-  getStopAreaQuays = () =>
-    cy.getByTestId('LocationDetailsViewCard::stopAreaQuays');
+  getMemberPlatforms = () =>
+    cy.getByTestId('LocationDetailsViewCard::memberPlatforms');
 
   getTerminal = () => cy.getByTestId('LocationDetailsViewCard::terminal');
 

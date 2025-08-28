@@ -17,4 +17,7 @@ export class LocationDetailsForm {
 
   getFunctionalAreaInput = () =>
     cy.getByTestId('LocationDetailsForm::functionalArea');
+
+  getMemberPlatforms = () =>
+    cy.getByTestId('LocationDetailsForm::memberPlatforms');
 }
