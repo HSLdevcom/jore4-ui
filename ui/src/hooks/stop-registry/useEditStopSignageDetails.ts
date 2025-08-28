@@ -1,7 +1,7 @@
 import isString from 'lodash/isString';
-import omit from 'lodash/omit';
 import { useTranslation } from 'react-i18next';
 import { SignageDetailsFormState } from '../../components/stop-registry/stops/stop-details/signage-details/schema';
+import { omitTypeName } from '../../components/stop-registry/utils/copyEntityUtilities';
 import { useUpdateStopPlaceMutation } from '../../generated/graphql';
 import { StopWithDetails } from '../../types';
 import { showDangerToast } from '../../utils';
@@ -39,7 +39,8 @@ export const useEditStopSignageDetails = () => {
             // (if more, they would be deleted?).
             generalSign: [
               {
-                ...omit(initialGeneralSign, '__typename'),
+                content: omitTypeName(initialGeneralSign.content),
+                signContentType: initialGeneralSign.signContentType,
                 privateCode: state.signType && {
                   type: 'HSL',
                   value: state.signType,

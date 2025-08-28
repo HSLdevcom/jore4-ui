@@ -46,6 +46,7 @@ export type QuayEnrichmentProperties = {
   readonly functionalArea: number | null;
   readonly stopState: StopPlaceState | null;
   readonly accessibilityLevel: StopRegistryAccessibilityLevel;
+  readonly platformNumber: string | null;
   readonly stopType: {
     readonly mainLine: boolean;
     readonly virtual: boolean;

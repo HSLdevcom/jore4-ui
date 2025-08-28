@@ -11,6 +11,7 @@ export const locationDetailsFormSchema = z.object({
   // We don't currently have a mechanism to remove values from keyValues, where this will end up.
   // Could add, but didn't deem it necessary yet. Easier to just make this required.
   functionalArea: requiredNumber,
+  platformNumber: z.string().optional().nullable(),
 });
 
 export type LocationDetailsFormState = z.infer<
