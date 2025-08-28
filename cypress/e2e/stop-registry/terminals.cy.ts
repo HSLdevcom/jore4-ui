@@ -57,6 +57,7 @@ type ExpectedLocationDetails = {
   readonly postalCode: string;
   readonly municipality: string;
   readonly fareZone: string;
+  readonly memberPlatforms: string;
 };
 
 describe('Terminal details', () => {
@@ -185,6 +186,7 @@ describe('Terminal details', () => {
     viewCard.getPostalCode().shouldHaveText(expected.postalCode);
     viewCard.getMunicipality().shouldHaveText(expected.municipality);
     viewCard.getFareZone().shouldHaveText(expected.fareZone);
+    viewCard.getMemberPlatforms().shouldHaveText(expected.memberPlatforms);
   }
 
   const verifyInitialLocationDetails = () => {
@@ -198,6 +200,7 @@ describe('Terminal details', () => {
     locationView.getLatitude().shouldHaveText('60.16993494912799');
     locationView.getLongitude().shouldHaveText('24.92596546020357');
     locationView.getMemberStops().shouldHaveText('E2E008, E2E010');
+    locationView.getMemberPlatforms().shouldHaveText('A3');
   };
 
   const verifyInitialExternalLinks = () => {
@@ -314,6 +317,7 @@ describe('Terminal details', () => {
         ...updates,
         municipality: 'Helsinki',
         fareZone: 'A',
+        memberPlatforms: 'A3',
       };
 
       // Edit location details
