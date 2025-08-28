@@ -47,8 +47,6 @@ const nodeProjectRules = {
   ...typescript,
 };
 
-const testDBManagerRules = nodeProjectRules;
-
 const cypressRules = {
   ...nodeProjectRules,
   ...cypress,
@@ -58,6 +56,6 @@ module.exports = {
   uiRules,
   unitTestRules,
   cypressRules,
-  testDBManagerRules,
+  nodeProjectRules,
   i18nRules,
 };

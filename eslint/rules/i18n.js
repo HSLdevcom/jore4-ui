@@ -8,8 +8,12 @@ module.exports = {
       'error',
       {
         filePath: {
-          'common.json': resolve('../../ui/src/locales/fi-FI/common.json'),
+          'common.json': resolve(
+            __dirname,
+            '../../ui/src/locales/fi-FI/common.json',
+          ),
           'accessibility.json': resolve(
+            __dirname,
             '../../ui/src/locales/fi-FI/accessibility.json',
           ),
         },
