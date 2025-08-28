@@ -6,4 +6,8 @@ export class TerminalTitleRow {
   getName() {
     return cy.getByTestId('TerminalTitleRow::name');
   }
+
+  getLocatorButton() {
+    return cy.getByTestId('TerminalTitleRow::locatorButton');
+  }
 }
