@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { TerminalComponentProps } from '../../types';
+import { MemberPlatforms } from './LocationDetailsMemberPlatforms';
 
 const testIds = {
   container: 'LocationDetailsViewCard::container',
@@ -16,32 +17,27 @@ const testIds = {
   memberPlatforms: 'LocationDetailsViewCard::memberPlatforms',
 };
 
-const getMemberStops = (terminal: EnrichedParentStopPlace): string => {
-  const quayCodes =
-    terminal.children
-      ?.flatMap((child) => child?.quays ?? [])
-      .map((quay) => quay?.publicCode)
-      .filter(Boolean)
-      .sort() ?? [];
+function getMemberStops(terminal: EnrichedParentStopPlace): {
+  memberStops: string;
+  memberStopsTotal: number;
+} {
+  const quays = terminal.children?.flatMap((child) => child?.quays ?? []) ?? [];
+  const quayCodes = quays
+    .map((quay) => quay?.publicCode)
+    .filter(Boolean)
+    .sort();
 
-  return quayCodes.length ? quayCodes.join(', ') : '-';
-};
-
-const getMemberStopsTotal = (terminal: EnrichedParentStopPlace): number => {
-  return (
-    terminal.children?.reduce(
-      (total, child) => total + (child?.quays?.length ?? 0),
-      0,
-    ) ?? 0
-  );
-};
+  return {
+    memberStops: quayCodes.length ? quayCodes.join(', ') : '-',
+    memberStopsTotal: quays.length,
+  };
+}
 
 export const LocationDetailsView: FC<TerminalComponentProps> = ({
   terminal,
 }) => {
   const { t } = useTranslation();
-  const memberStops = getMemberStops(terminal);
-  const memberStopsTotal = getMemberStopsTotal(terminal);
+  const { memberStops, memberStopsTotal } = getMemberStops(terminal);
 
   return (
     <div data-testid={testIds.container}>
@@ -86,11 +82,7 @@ export const LocationDetailsView: FC<TerminalComponentProps> = ({
           testId={testIds.memberStops}
           className="w-full lg:w-1/2" // Prevent large amount of stops from pushing the member platforms to the right
         />
-        <LabeledDetail
-          title={t('terminalDetails.location.memberPlatforms')}
-          detail="-"
-          testId={testIds.memberPlatforms}
-        />
+        <MemberPlatforms terminal={terminal} testId={testIds.memberPlatforms} />
       </DetailRow>
     </div>
   );
