@@ -249,6 +249,14 @@ const stopPlaceData: Array<StopAreaInput> = [
             { key: 'validityStart', values: ['2020-03-20'] },
           ],
           placeEquipments: {
+            generalSign: [
+              {
+                content: {
+                  lang: 'fin',
+                  value: 'A3',
+                },
+              },
+            ],
             shelterEquipment: [
               {
                 enclosed: true,

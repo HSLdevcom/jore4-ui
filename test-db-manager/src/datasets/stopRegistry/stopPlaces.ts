@@ -66,6 +66,7 @@ export type StopPlaceQuaySeedData = {
     lineSignage: boolean;
     mainLineSign: boolean;
     replacesRailSign: boolean;
+    content?: string;
   };
   externalLinks?: Array<StopRegistryExternalLinkInput>;
 };
@@ -138,10 +139,19 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
               type: 'HSL',
               value: seedStopPlace.signs.signType,
             },
+
             numberOfFrames: seedStopPlace.signs.numberOfFrames,
             lineSignage: seedStopPlace.signs.lineSignage,
             mainLineSign: seedStopPlace.signs.mainLineSign,
             replacesRailSign: seedStopPlace.signs.replacesRailSign,
+            ...(seedStopPlace.signs.content
+              ? {
+                  content: {
+                    lang: 'fin',
+                    value: seedStopPlace.signs.content,
+                  },
+                }
+              : {}),
             ...(seedStopPlace.signs.note
               ? {
                   note: {
@@ -378,6 +388,7 @@ const H2003: StopPlaceQuaySeedData = {
     lineSignage: true,
     mainLineSign: false,
     replacesRailSign: false,
+    content: 'A2',
   },
   externalLinks: [
     {
