@@ -6,10 +6,6 @@ module.exports = {
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-named-as-default.md
     'import/no-named-as-default': 'error',
 
-    // warn on accessing default export property names that are also named exports
-    // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-named-as-default-member.md
-    'import/no-named-as-default-member': 'error',
-
     // Forbid mutable exports
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-mutable-exports.md
     'import/no-mutable-exports': 'error',
@@ -128,5 +124,17 @@ module.exports = {
 
     // prefer importing individual lodash methods (e.g. `import map from 'lodash/map'` instead of whole lodash library (`import { map } from 'lodash'`) to minimize bundle size
     'lodash/import-scope': ['error', 'method'],
+
+    // Allow importing stuff however makes the most sense.
+    // While it's usually ok to import individual items, sometimes namespacing
+    // stuff makes more sense, especially if the lib's author prefers full
+    // default imports. Having a whitelist for this rule could make this usable,
+    // but alas no luck. 90% of our imports are also our own files, for which
+    // 'import/no-default-export' rule is also turned on, so they cannot even have
+    // default exports.
+    // This rule also has been flip-flopping back and fords during the ESLint v9
+    // upgrade process, sometimes throwing errors, sometimes not. This developer
+    // has not been able to determine the reason for that.
+    'import/no-named-as-default-member': 'off',
   },
 };
