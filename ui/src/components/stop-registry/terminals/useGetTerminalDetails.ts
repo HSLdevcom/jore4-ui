@@ -136,6 +136,12 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
     }
     placeEquipments {
       id
+      generalSign {
+        id
+        content {
+          value
+        }
+      }
       shelterEquipment {
         id
         shelterNumber
