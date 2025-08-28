@@ -16,6 +16,7 @@ const testIds = {
   longitude: 'LocationDetailsForm::longitude',
   altitude: 'LocationDetailsForm::altitude',
   functionalArea: 'LocationDetailsForm::functionalArea',
+  platformNumber: 'LocationDetailsForm::platformNumber',
 };
 
 type LocationDetailsFormComponentProps = {
@@ -137,6 +138,12 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
               min={0}
               fieldPath="functionalArea"
               testId={testIds.functionalArea}
+            />
+            <InputField<LocationDetailsFormState>
+              type="text"
+              translationPrefix="stopDetails.location"
+              fieldPath="platformNumber"
+              testId={testIds.platformNumber}
             />
           </Row>
         </FormColumn>

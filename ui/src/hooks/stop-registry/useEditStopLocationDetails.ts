@@ -2,6 +2,10 @@ import compact from 'lodash/compact';
 import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
 import { LocationDetailsFormState } from '../../components/stop-registry/stops/stop-details/location-details/schema';
+import {
+  mapPrivateCodeToInput,
+  omitTypeName,
+} from '../../components/stop-registry/utils/copyEntityUtilities';
 import { useUpdateStopPlaceMutation } from '../../generated/graphql';
 import { StopWithDetails } from '../../types';
 import {
@@ -27,6 +31,9 @@ export const useEditStopLocationDetails = () => {
     const stopPlaceQuayId = stop.stop_place_ref;
     const otherQuays = getQuayIdsFromStopExcept(stop, stopPlaceQuayId);
 
+    const initialGeneralSign =
+      stop.quay?.placeEquipments?.generalSign?.[0] ?? {};
+
     const input = {
       id: stop.stop_place?.id,
       quays: [
@@ -35,6 +42,24 @@ export const useEditStopLocationDetails = () => {
           id: stopPlaceQuayId,
           // Note: this can't be modified (at the moment at least), but currently this is the only place where it is synced to timetables DB.
           geometry: mapPointToStopRegistryGeoJSON(state),
+          placeEquipments: {
+            generalSign: [
+              {
+                lineSignage: initialGeneralSign.lineSignage,
+                mainLineSign: initialGeneralSign.mainLineSign,
+                numberOfFrames: initialGeneralSign.numberOfFrames,
+                replacesRailSign: initialGeneralSign.replacesRailSign,
+                signContentType: initialGeneralSign.signContentType,
+                privateCode: mapPrivateCodeToInput(
+                  initialGeneralSign.privateCode,
+                ),
+                note: omitTypeName(initialGeneralSign.note),
+                content: state.platformNumber
+                  ? { value: state.platformNumber }
+                  : null,
+              },
+            ],
+          },
           keyValues: patchKeyValues(
             stop.quay,
             compact([
