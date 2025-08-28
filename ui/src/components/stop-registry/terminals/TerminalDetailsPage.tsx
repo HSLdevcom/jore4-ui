@@ -26,6 +26,7 @@ const testIds = {
 
 export const TerminalDetailsPage: FC<Record<string, never>> = () => {
   const { parentStopPlaceDetails, loading } = useGetParentStopPlaceDetails();
+  console.log('parentStopPlaceDetails', parentStopPlaceDetails);
 
   const { setLoadingState } = useLoader(Operation.FetchTerminalPageDetails, {
     initialState: parentStopPlaceDetails
