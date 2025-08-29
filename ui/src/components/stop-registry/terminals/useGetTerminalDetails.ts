@@ -70,6 +70,18 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
       coordinates
     }
 
+    topographicPlace {
+      name {
+        value
+      }
+    }
+
+    fareZones {
+      name {
+        value
+      }
+    }
+
     keyValues {
       key
       values

@@ -343,10 +343,10 @@ export const getParentStopPlaceDetailsForEnrichment = <
 ): ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties => {
   return {
     ...extractSharedStopPlaceDetails(parentStopPlace),
-    municipality: findKeyValue(parentStopPlace, 'municipality') ?? undefined,
+    municipality: parentStopPlace.topographicPlace?.name?.value ?? undefined,
     streetAddress: findKeyValue(parentStopPlace, 'streetAddress') ?? undefined,
     postalCode: findKeyValue(parentStopPlace, 'postalCode') ?? undefined,
-    fareZone: findKeyValue(parentStopPlace, 'fareZone') ?? undefined,
+    fareZone: parentStopPlace.fareZones?.at(0)?.name?.value ?? undefined,
     departurePlatforms:
       findKeyValue(parentStopPlace, 'departurePlatforms') ?? undefined,
     arrivalPlatforms:
