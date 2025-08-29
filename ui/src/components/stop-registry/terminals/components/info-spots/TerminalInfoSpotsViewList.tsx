@@ -96,6 +96,7 @@ export const TerminalInfoSpotsViewList: FC<TerminalInfoSpotsViewListProps> = ({
           </SortableHeader>
           <SortableHeader
             field="size"
+            className={`${CSS_CLASSES.sizeCell} text-left`}
             onSort={handleSort}
             getSortIcon={getSortIcon}
             getSortIconTransform={getSortIconTransform}

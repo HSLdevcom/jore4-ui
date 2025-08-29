@@ -63,14 +63,16 @@ export const TerminalInfoSpotRow: FC<TerminalInfoSpotRowProps> = ({
         data-testid={testIds.detailsRow}
       >
         {isOpen ? (
-          <td colSpan={7} className="py-5 pl-5 pr-3">
-            <span className="text-xl">
-              {t('stopDetails.infoSpots.infoSpot', {
-                infoSpot: infoSpot.label,
-              })}
-            </span>
-            <div className="float-right text-right align-middle">
-              {accordionButton}
+          <td colSpan={7} className="p-0">
+            <div className="border border-b-0 border-border-hsl-commuter-train-purple py-5 pl-5 pr-3">
+              <span className="text-xl">
+                {t('stopDetails.infoSpots.infoSpot', {
+                  infoSpot: infoSpot.label,
+                })}
+              </span>
+              <div className="float-right text-right align-middle">
+                {accordionButton}
+              </div>
             </div>
           </td>
         ) : (
@@ -99,10 +101,7 @@ export const TerminalInfoSpotRow: FC<TerminalInfoSpotRowProps> = ({
             >
               {formatDisplayValue(infoSpot.purpose)}
             </td>
-            <td
-              className={CSS_CLASSES.tableCell}
-              data-testid={testIds.sizeCell}
-            >
+            <td className={CSS_CLASSES.sizeCell} data-testid={testIds.sizeCell}>
               {formatSizedDbItem(t, infoSpot)}
             </td>
             <td
@@ -124,10 +123,12 @@ export const TerminalInfoSpotRow: FC<TerminalInfoSpotRowProps> = ({
       {isOpen && (
         <tr id={controls}>
           <td colSpan={7} className="p-0">
-            <TerminalInfoSpotsViewCard
-              infoSpot={infoSpot}
-              location={location}
-            />
+            <div className="mb-2 border border-t-0 border-border-hsl-commuter-train-purple shadow-lg">
+              <TerminalInfoSpotsViewCard
+                infoSpot={infoSpot}
+                location={location}
+              />
+            </div>
           </td>
         </tr>
       )}
