@@ -57,7 +57,7 @@ export const TerminalInfoSpotsViewList: FC<TerminalInfoSpotsViewListProps> = ({
 
   return (
     <table
-      className="w-full table-fixed border-x border-x-light-grey"
+      className="w-full border-x border-x-light-grey"
       data-testid={testIds.table}
     >
       <thead className="bg-background-hsl-commuter-train-purple bg-opacity-25 font-bold">
@@ -96,6 +96,7 @@ export const TerminalInfoSpotsViewList: FC<TerminalInfoSpotsViewListProps> = ({
           </SortableHeader>
           <SortableHeader
             field="size"
+            className={`${CSS_CLASSES.tableCell} text-left`}
             onSort={handleSort}
             getSortIcon={getSortIcon}
             getSortIconTransform={getSortIconTransform}
