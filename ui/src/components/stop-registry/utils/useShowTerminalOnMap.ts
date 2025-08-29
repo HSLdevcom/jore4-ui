@@ -29,7 +29,7 @@ export function useShowTerminalOnMap() {
       dispatch(
         setStopFilterAction({
           filterType: FilterType.ShowAllBusStops,
-          isActive: false,
+          isActive: true,
         }),
       );
 
