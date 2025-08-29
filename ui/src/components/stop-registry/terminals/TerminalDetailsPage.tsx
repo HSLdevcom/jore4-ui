@@ -17,7 +17,7 @@ import {
   DetailTabType,
   detailTabs,
 } from './DetailTabSelector';
-import { TabSelector, TabType, tabs } from './TabSelector';
+import { TabType, tabs } from './TabSelector';
 import { useGetParentStopPlaceDetails } from './useGetTerminalDetails';
 
 const testIds = {
@@ -68,9 +68,8 @@ export const TerminalDetailsPage: FC<Record<string, never>> = () => {
 
   return (
     <Container className="space-y-4" testId={testIds.page}>
-      <TerminalTitleRow terminal={parentStopPlaceDetails} />
-      <TabSelector
-        className="mb-3"
+      <TerminalTitleRow
+        terminal={parentStopPlaceDetails}
         activeTab={activeTab}
         selectTab={selectTab}
         stopsCount={(parentStopPlaceDetails.children ?? []).reduce(
