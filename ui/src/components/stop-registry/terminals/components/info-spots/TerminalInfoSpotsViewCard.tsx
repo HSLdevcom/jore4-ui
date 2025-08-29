@@ -29,7 +29,7 @@ export const TerminalInfoSpotsViewCard: FC<TerminalInfoSpotsViewCardProps> = ({
 
   return (
     <div data-testid={testIds.container}>
-      <div className="bg-background-hsl-commuter-train-purple bg-opacity-25 p-5">
+      <div className="bg-background-hsl-commuter-train-purple bg-opacity-25 p-5 pt-0">
         <DetailRow>
           <LabeledDetail
             title={t('stopDetails.infoSpots.label')}
