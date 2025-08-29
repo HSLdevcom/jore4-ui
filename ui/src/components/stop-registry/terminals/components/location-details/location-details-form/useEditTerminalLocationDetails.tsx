@@ -32,12 +32,6 @@ const mapFormStateToInput = ({
         state.postalCode
           ? { key: 'postalCode', values: [state.postalCode] }
           : undefined,
-        state.municipality
-          ? { key: 'municipality', values: [state.municipality] }
-          : undefined,
-        state.fareZone
-          ? { key: 'fareZone', values: [state.fareZone] }
-          : undefined,
       ]),
     ),
   };

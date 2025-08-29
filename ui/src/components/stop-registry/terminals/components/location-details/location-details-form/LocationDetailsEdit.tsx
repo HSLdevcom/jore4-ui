@@ -7,7 +7,7 @@ import {
   MemberStopStopPlaceDetailsFragment,
 } from '../../../../../../generated/graphql';
 import { useLoader } from '../../../../../../hooks';
-import { Row } from '../../../../../../layoutComponents';
+import { Column, Row } from '../../../../../../layoutComponents';
 import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
@@ -16,7 +16,11 @@ import {
   notNullish,
   showSuccessToast,
 } from '../../../../../../utils';
-import { FormColumn, InputField } from '../../../../../forms/common';
+import {
+  FormColumn,
+  InputField,
+  InputLabel,
+} from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { SelectedStop } from '../../../../components/SelectMemberStops/schema';
 import { SelectMemberStopsDropdown } from '../member-stops/SelectMemberStopsDropdown';
@@ -74,8 +78,6 @@ function mapTerminalLocationDataToFormState(
   return {
     streetAddress: terminal.streetAddress ?? '',
     postalCode: terminal.postalCode ?? '',
-    municipality: terminal.municipality ?? '',
-    fareZone: terminal.fareZone ?? '',
     latitude: terminal.geometry?.coordinates?.[1] ?? 0,
     longitude: terminal.geometry?.coordinates?.[0] ?? 0,
     selectedStops: extractSelectedStops(terminal),
@@ -153,20 +155,48 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
               fieldPath="postalCode"
               testId={testIds.postalCode}
             />
-            <InputField<TerminalLocationDetailsFormState>
-              type="text"
-              inputClassName="w-24"
-              translationPrefix="terminalDetails.location"
-              fieldPath="municipality"
-              testId={testIds.municipality}
-            />
-            <InputField<TerminalLocationDetailsFormState>
-              type="text"
-              inputClassName="w-24"
-              translationPrefix="terminalDetails.location"
-              fieldPath="fareZone"
-              testId={testIds.fareZone}
-            />
+            <Column>
+              <InputLabel
+                fieldPath="municipality"
+                translationPrefix="terminalDetails.location"
+              />
+              <div
+                className="flex h-full items-center"
+                title={t('stopDetails.location.municipalityInputNote')}
+              >
+                <span
+                  id="terminalDetails.location.municipality"
+                  data-testid={testIds.municipality}
+                >
+                  {
+                    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                    terminal.municipality || '-'
+                  }
+                </span>
+                <i className="icon-info text-lg text-brand" />
+              </div>
+            </Column>
+            <Column>
+              <InputLabel
+                fieldPath="fareZone"
+                translationPrefix="terminalDetails.location"
+              />
+              <div
+                className="flex h-full items-center"
+                title={t('stopDetails.location.fareZoneInputNote')}
+              >
+                <span
+                  id="terminalDetails.location.fareZone"
+                  data-testid={testIds.fareZone}
+                >
+                  {
+                    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                    terminal.fareZone || '-'
+                  }
+                </span>
+                <i className="icon-info text-lg text-brand" />
+              </div>
+            </Column>
             <InputField<TerminalLocationDetailsFormState>
               type="number"
               inputClassName="w-32"

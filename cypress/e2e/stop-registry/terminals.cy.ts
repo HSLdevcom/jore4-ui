@@ -43,6 +43,11 @@ type ExpectedBasicDetails = {
   readonly electricCharging: string;
 };
 
+type LocationDetailUpdates = {
+  readonly streetAddress: string;
+  readonly postalCode: string;
+};
+
 type ExpectedLocationDetails = {
   readonly streetAddress: string;
   readonly postalCode: string;
@@ -268,28 +273,30 @@ describe('Terminal details', () => {
       verifyInitialLocationDetails();
     });
 
-    function inputLocationDetails(inputs: ExpectedLocationDetails) {
+    function inputLocationDetails(inputs: LocationDetailUpdates) {
       const { edit } = terminalDetailsPage.locationDetails;
 
       edit.getStreetAddress().clearAndType(inputs.streetAddress);
       edit.getPostalCode().clearAndType(inputs.postalCode);
-      edit.getMunicipality().clearAndType(inputs.municipality);
-      edit.getFareZone().clearAndType(inputs.fareZone);
     }
 
     it('should edit location details', { tags: [Tag.StopRegistry] }, () => {
       verifyInitialLocationDetails();
 
-      const newLocationDetails: ExpectedLocationDetails = {
+      const updates: LocationDetailUpdates = {
         streetAddress: 'New street address',
         postalCode: 'New postal code',
-        municipality: 'New municipality',
-        fareZone: 'New fare zone',
+      };
+
+      const newLocationDetails: ExpectedLocationDetails = {
+        ...updates,
+        municipality: 'Helsinki',
+        fareZone: 'A',
       };
 
       // Edit location details
       terminalDetailsPage.locationDetails.getEditButton().click();
-      inputLocationDetails(newLocationDetails);
+      inputLocationDetails(updates);
       terminalDetailsPage.locationDetails.getSaveButton().click();
       waitForSaveToBeFinished();
 

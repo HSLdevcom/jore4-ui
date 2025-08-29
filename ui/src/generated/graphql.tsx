@@ -68115,6 +68115,20 @@ export type GetTerminalDetailsByNetexIdQuery = {
         readonly type?: StopRegistryGeoJsonType | null,
         readonly coordinates?: GeoJSON.Position | null
       } | null,
+      readonly topographicPlace?: {
+        readonly __typename?: 'stop_registry_TopographicPlace',
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly value?: string | null
+        } | null
+      } | null,
+      readonly fareZones?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_FareZone',
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly value?: string | null
+        } | null
+      } | null> | null,
       readonly keyValues?: ReadonlyArray<{
         readonly __typename?: 'stop_registry_KeyValues',
         readonly key?: string | null,
@@ -70158,6 +70172,20 @@ export type GetParentStopPlaceDetailsQuery = {
           readonly type?: StopRegistryGeoJsonType | null,
           readonly coordinates?: GeoJSON.Position | null
         } | null,
+        readonly topographicPlace?: {
+          readonly __typename?: 'stop_registry_TopographicPlace',
+          readonly name?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly value?: string | null
+          } | null
+        } | null,
+        readonly fareZones?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_FareZone',
+          readonly name?: {
+            readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+            readonly value?: string | null
+          } | null
+        } | null> | null,
         readonly keyValues?: ReadonlyArray<{
           readonly __typename?: 'stop_registry_KeyValues',
           readonly key?: string | null,
@@ -70366,6 +70394,20 @@ export type ParentStopPlaceDetailsFragment = {
     readonly type?: StopRegistryGeoJsonType | null,
     readonly coordinates?: GeoJSON.Position | null
   } | null,
+  readonly topographicPlace?: {
+    readonly __typename?: 'stop_registry_TopographicPlace',
+    readonly name?: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly value?: string | null
+    } | null
+  } | null,
+  readonly fareZones?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_FareZone',
+    readonly name?: {
+      readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+      readonly value?: string | null
+    } | null
+  } | null> | null,
   readonly keyValues?: ReadonlyArray<{
     readonly __typename?: 'stop_registry_KeyValues',
     readonly key?: string | null,
@@ -73969,6 +74011,20 @@ export type CreateTerminalMutation = {
         readonly type?: StopRegistryGeoJsonType | null,
         readonly coordinates?: GeoJSON.Position | null
       } | null,
+      readonly topographicPlace?: {
+        readonly __typename?: 'stop_registry_TopographicPlace',
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly value?: string | null
+        } | null
+      } | null,
+      readonly fareZones?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_FareZone',
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly value?: string | null
+        } | null
+      } | null> | null,
       readonly keyValues?: ReadonlyArray<{
         readonly __typename?: 'stop_registry_KeyValues',
         readonly key?: string | null,
@@ -74196,6 +74252,20 @@ export type UpdateTerminalMutation = {
         readonly type?: StopRegistryGeoJsonType | null,
         readonly coordinates?: GeoJSON.Position | null
       } | null,
+      readonly topographicPlace?: {
+        readonly __typename?: 'stop_registry_TopographicPlace',
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly value?: string | null
+        } | null
+      } | null,
+      readonly fareZones?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_FareZone',
+        readonly name?: {
+          readonly __typename?: 'stop_registry_EmbeddableMultilingualString',
+          readonly value?: string | null
+        } | null
+      } | null> | null,
       readonly keyValues?: ReadonlyArray<{
         readonly __typename?: 'stop_registry_KeyValues',
         readonly key?: string | null,
@@ -77707,6 +77777,16 @@ export const ParentStopPlaceDetailsFragmentDoc = gql`
   geometry {
     type
     coordinates
+  }
+  topographicPlace {
+    name {
+      value
+    }
+  }
+  fareZones {
+    name {
+      value
+    }
   }
   keyValues {
     key
