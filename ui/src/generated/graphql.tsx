@@ -67473,7 +67473,10 @@ export type GetOriginalQuaysQuery = {
   } | null
 };
 
-export type GetStopPlaceMaxPrivateCodeQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetStopPlaceMaxPrivateCodeQueryVariables = Exact<{
+  isParent: Scalars['Boolean']['input'];
+  mask: Scalars['String']['input'];
+}>;
 
 
 export type GetStopPlaceMaxPrivateCodeQuery = {
@@ -78545,10 +78548,10 @@ export type GetOriginalQuaysLazyQueryHookResult = ReturnType<typeof useGetOrigin
 export type GetOriginalQuaysSuspenseQueryHookResult = ReturnType<typeof useGetOriginalQuaysSuspenseQuery>;
 export type GetOriginalQuaysQueryResult = Apollo.QueryResult<GetOriginalQuaysQuery, GetOriginalQuaysQueryVariables>;
 export const GetStopPlaceMaxPrivateCodeDocument = gql`
-    query GetStopPlaceMaxPrivateCode {
+    query GetStopPlaceMaxPrivateCode($isParent: Boolean!, $mask: String!) {
   stops_database {
     stops_database_stop_place_aggregate(
-      where: {parent_stop_place: {_eq: false}, private_code_value: {_like: "7_____"}}
+      where: {parent_stop_place: {_eq: $isParent}, private_code_value: {_like: $mask}}
     ) {
       aggregate {
         max {
@@ -78572,10 +78575,12 @@ export const GetStopPlaceMaxPrivateCodeDocument = gql`
  * @example
  * const { data, loading, error } = useGetStopPlaceMaxPrivateCodeQuery({
  *   variables: {
+ *      isParent: // value for 'isParent'
+ *      mask: // value for 'mask'
  *   },
  * });
  */
-export function useGetStopPlaceMaxPrivateCodeQuery(baseOptions?: Apollo.QueryHookOptions<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables>) {
+export function useGetStopPlaceMaxPrivateCodeQuery(baseOptions: Apollo.QueryHookOptions<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables> & ({ variables: GetStopPlaceMaxPrivateCodeQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetStopPlaceMaxPrivateCodeQuery, GetStopPlaceMaxPrivateCodeQueryVariables>(GetStopPlaceMaxPrivateCodeDocument, options);
       }

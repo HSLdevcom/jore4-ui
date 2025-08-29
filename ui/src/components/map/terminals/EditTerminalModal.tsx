@@ -1,7 +1,8 @@
-import { FC, useRef } from 'react';
+import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../types';
 import { submitFormByRef } from '../../../utils';
+import { useGetNextPrivateCode } from '../../forms/stop-area';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { mapTerminalDataToFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/TerminalDetailsEdit';
 import { CustomOverlay } from '../CustomOverlay';
@@ -11,6 +12,30 @@ import { TerminalForm } from './TerminalForm';
 const testIds = {
   modal: 'EditTerminalModal',
 };
+
+function useGetDefaultValues(
+  editedTerminal: EnrichedParentStopPlace,
+): () => Promise<TerminalFormState> {
+  const getNextPrivateCode = useGetNextPrivateCode(true);
+
+  return useMemo(() => {
+    const baseDefaultValues = mapTerminalDataToFormState(editedTerminal);
+
+    if (editedTerminal.id) {
+      const promisedData = Promise.resolve(baseDefaultValues);
+      return () => promisedData;
+    }
+
+    const promisedData: Promise<TerminalFormState> = getNextPrivateCode().then(
+      (privateCode) => ({
+        ...baseDefaultValues,
+        privateCode,
+      }),
+    );
+
+    return () => promisedData;
+  }, [editedTerminal, getNextPrivateCode]);
+}
 
 type EditTerminalModalProps = {
   readonly editedTerminal: EnrichedParentStopPlace;
@@ -30,6 +55,8 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
   const formRef = useRef<HTMLFormElement | null>(null);
   const onSave = () => submitFormByRef(formRef);
 
+  const getDefaultValues = useGetDefaultValues(editedTerminal);
+
   const heading = editedTerminal?.name ?? t('map.createNewTerminal');
 
   return (
@@ -48,10 +75,9 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
           navigationContext="TerminalForm"
         >
           <TerminalForm
-            defaultValues={mapTerminalDataToFormState(editedTerminal)}
+            defaultValues={getDefaultValues}
             onSubmit={onSubmit}
             ref={formRef}
-            isEditing={!!editedTerminal.privateCode}
           />
         </Modal>
       </div>

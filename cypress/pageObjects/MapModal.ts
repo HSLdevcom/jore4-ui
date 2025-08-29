@@ -78,7 +78,15 @@ export class MapModal {
 
     this.terminalForm.fillFormForNewTerminal(terminalFormInfo);
 
+    const privateCode = this.terminalForm
+      .getPrivateCodeInput()
+      .shouldBeVisible()
+      .shouldBeDisabled()
+      .invoke('val');
+
     this.terminalForm.save();
+
+    return privateCode;
   };
 
   checkStopSubmitSuccessToast() {

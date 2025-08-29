@@ -14,7 +14,6 @@ export interface BaseTerminalFormInfo extends ValidityPeriodFormInfo {
 }
 
 export interface NewTerminalFormInfo extends BaseTerminalFormInfo {
-  privateCode: string;
   stops: string[];
 }
 
@@ -76,7 +75,6 @@ export class TerminalForm {
   }
 
   fillFormForNewTerminal(values: NewTerminalFormInfo) {
-    this.getPrivateCodeInput().clearAndType(values.privateCode);
     this.fillBaseForm(values);
 
     values.stops.forEach((stop) => {
