@@ -7,6 +7,7 @@ import { getGeometryPoint } from '../../../../utils';
 import { PageTitle } from '../../../common';
 import { ObservationDateControl } from '../../../common/ObservationDateControl';
 import { useShowTerminalOnMap } from '../../utils/useShowTerminalOnMap';
+import { TabSelector, TabType } from '../TabSelector';
 import { TerminalComponentProps } from '../types';
 
 const testIds = {
@@ -15,9 +16,18 @@ const testIds = {
   locatorButton: 'TerminalTitleRow::locatorButton',
 };
 
-export const TerminalTitleRow: FC<TerminalComponentProps> = ({
+type TerminalTitleRowProps = TerminalComponentProps & {
+  readonly activeTab: TabType;
+  readonly selectTab: (tab: TabType) => void;
+  readonly stopsCount?: number;
+};
+
+export const TerminalTitleRow: FC<TerminalTitleRowProps> = ({
   terminal,
   className = '',
+  activeTab,
+  selectTab,
+  stopsCount,
 }) => {
   const { t } = useTranslation();
   const showOnMap = useShowTerminalOnMap();
@@ -28,29 +38,37 @@ export const TerminalTitleRow: FC<TerminalComponentProps> = ({
     : noop;
 
   return (
-    <div className={twMerge('flex items-center', className)}>
-      <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
-      <PageTitle.H1
-        className="mr-2"
-        testId={testIds.privateCode}
-        titleText={terminal.privateCode?.value ?? ''}
-      >
-        {terminal.privateCode?.value ?? ''}
-      </PageTitle.H1>
+    <div className={twMerge('space-y-2', className)}>
+      <div className="flex items-center">
+        <i className="icon-bus-alt mr-2 text-3xl text-tweaked-brand" />
+        <PageTitle.H1
+          className="mr-2"
+          testId={testIds.privateCode}
+          titleText={terminal.privateCode?.value ?? ''}
+        >
+          {terminal.privateCode?.value ?? ''}
+        </PageTitle.H1>
 
-      <div className="text-xl" data-testid={testIds.name}>
-        {terminal.name ?? ''}
+        <div className="text-xl" data-testid={testIds.name}>
+          {terminal.name ?? ''}
+        </div>
+
+        <div className="flex-grow" />
+        <LocatorButton
+          onClick={onClickTerminalMap}
+          tooltipText={t('stopRegistrySearch.terminalRowActions.showOnMap')}
+          testId={testIds.locatorButton}
+        />
       </div>
 
-      <div className="flex-grow" />
-      <LocatorButton
-        onClick={onClickTerminalMap}
-        tooltipText={t('stopRegistrySearch.terminalRowActions.showOnMap')}
-        testId={testIds.locatorButton}
-        className="mr-2 mt-5"
-      />
-
-      <ObservationDateControl containerClassName="w-1/6" />
+      <div className="flex items-center justify-between">
+        <TabSelector
+          activeTab={activeTab}
+          selectTab={selectTab}
+          stopsCount={stopsCount}
+        />
+        <ObservationDateControl />
+      </div>
     </div>
   );
 };
