@@ -558,6 +558,12 @@
       "noMemberStopsSelected": "Terminaalilla pitää olla vähintään yksi jäsenpysäkki.",
       "stopAlreadyBelongsToTerminal": "Pysäkki on jo liitetty toiseen terminaaliin."
     },
+    "owner": {
+      "title": "Yhteystiedot",
+      "owner": "Terminaalin omistaja",
+      "contractId": "Sopimustunnus",
+      "note": "Hallinnointirajat"
+    },
     "infoSpots": {
       "title": "Terminaalin infopaikat",
       "label": "Tunnus",

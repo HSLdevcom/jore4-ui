@@ -12,10 +12,12 @@ import {
   StopRegistryQuay,
   StopRegistryStopPlace,
   StopRegistryStopPlaceInput,
+  StopRegistryStopPlaceOrganisationRelationshipType,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
 import {
   ParentStopPlaceEnrichmentProperties,
+  ParentStopPlaceOwner,
   QuayEnrichmentProperties,
   SharedEnrichmentProperties,
 } from '../../types';
@@ -338,6 +340,29 @@ export const getStopPlaceDetailsForEnrichment = <
   } as ObjectWithAllKeyosOfStopPlaceEnrichmentProperties;
 };
 
+function findParentStopPlaceOwnerDetails(
+  parentStopPlace: StopRegistryParentStopPlace,
+): ParentStopPlaceOwner | null {
+  const ownerOrg = parentStopPlace.organisations?.find(
+    (org) =>
+      org?.relationshipType ===
+      StopRegistryStopPlaceOrganisationRelationshipType.Owner,
+  );
+
+  if (!ownerOrg || !ownerOrg.organisation) {
+    return null;
+  }
+
+  return {
+    organizationRef: ownerOrg.organisationRef,
+    name: ownerOrg.organisation.name ?? null,
+    email: ownerOrg.organisation.privateContactDetails?.email ?? null,
+    phone: ownerOrg.organisation.privateContactDetails?.phone ?? null,
+    contractId: findKeyValue(parentStopPlace, 'owner-contractId'),
+    note: findKeyValue(parentStopPlace, 'owner-note'),
+  };
+}
+
 export const getParentStopPlaceDetailsForEnrichment = <
   T extends StopRegistryParentStopPlace,
 >(
@@ -358,6 +383,7 @@ export const getParentStopPlaceDetailsForEnrichment = <
     electricCharging:
       findKeyValue(parentStopPlace, 'electricCharging') ?? undefined,
     terminalType: findKeyValue(parentStopPlace, 'terminalType') ?? undefined,
+    owner: findParentStopPlaceOwnerDetails(parentStopPlace),
   } as ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties;
 };
 

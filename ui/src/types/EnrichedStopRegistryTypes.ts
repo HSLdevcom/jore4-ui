@@ -8,6 +8,15 @@ import {
 } from '../generated/graphql';
 import { StopPlaceState } from './stop-registry';
 
+export type ParentStopPlaceOwner = {
+  readonly organizationRef: string;
+  readonly name: string | null;
+  readonly email: string | null;
+  readonly phone: string | null;
+  readonly contractId: string | null;
+  readonly note: string | null;
+};
+
 export type ParentStopPlaceEnrichmentProperties = {
   readonly streetAddress?: string | undefined;
   readonly postalCode?: string | undefined;
@@ -16,6 +25,7 @@ export type ParentStopPlaceEnrichmentProperties = {
   readonly loadingPlatforms?: string | undefined;
   readonly electricCharging?: string | undefined;
   readonly terminalType?: string | undefined;
+  readonly owner?: ParentStopPlaceOwner | null;
 };
 
 export type SharedEnrichmentProperties = {

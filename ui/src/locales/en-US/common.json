@@ -559,6 +559,12 @@
       "noMemberStopsSelected": "Terminal must have at least one member stop.",
       "stopAlreadyBelongsToTerminal": "Stop already belongs to another terminal."
     },
+    "owner": {
+      "title": "Contact details",
+      "owner": "Terminal's owner",
+      "contractId": "Contract ID",
+      "note": "Managed area"
+    },
     "infoSpots": {
       "title": "Terminal info spots",
       "label": "Label",

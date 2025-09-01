@@ -102,6 +102,10 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
     externalLinks {
       ...terminal_external_links_details
     }
+
+    organisations {
+      ...terminal_organization_ref
+    }
   }
 
   fragment member_stop_stop_place_details on stop_registry_StopPlace {
@@ -154,6 +158,14 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
     orderNum
     name
     location
+  }
+
+  fragment terminal_organization_ref on stop_registry_StopPlaceOrganisationRef {
+    organisationRef
+    relationshipType
+    organisation {
+      ...stop_place_organisation_fields
+    }
   }
 `;
 
