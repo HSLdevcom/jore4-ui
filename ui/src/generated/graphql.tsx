@@ -68321,6 +68321,22 @@ export type GetTerminalDetailsByNetexIdQuery = {
         readonly orderNum?: number | null,
         readonly name?: string | null,
         readonly location?: string | null
+      } | null> | null,
+      readonly organisations?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+        readonly organisationRef: string,
+        readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+        readonly organisation?: {
+          readonly __typename?: 'stop_registry_Organisation',
+          readonly id?: string | null,
+          readonly name?: string | null,
+          readonly privateContactDetails?: {
+            readonly __typename?: 'stop_registry_Contact',
+            readonly id?: string | null,
+            readonly email?: string | null,
+            readonly phone?: string | null
+          } | null
+        } | null
       } | null> | null
     } | {
       readonly __typename?: 'stop_registry_StopPlace'
@@ -70815,6 +70831,22 @@ export type GetParentStopPlaceDetailsQuery = {
           readonly orderNum?: number | null,
           readonly name?: string | null,
           readonly location?: string | null
+        } | null> | null,
+        readonly organisations?: ReadonlyArray<{
+          readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+          readonly organisationRef: string,
+          readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+          readonly organisation?: {
+            readonly __typename?: 'stop_registry_Organisation',
+            readonly id?: string | null,
+            readonly name?: string | null,
+            readonly privateContactDetails?: {
+              readonly __typename?: 'stop_registry_Contact',
+              readonly id?: string | null,
+              readonly email?: string | null,
+              readonly phone?: string | null
+            } | null
+          } | null
         } | null> | null
       } | {
         readonly __typename?: 'stop_registry_StopPlace'
@@ -71045,6 +71077,22 @@ export type ParentStopPlaceDetailsFragment = {
     readonly orderNum?: number | null,
     readonly name?: string | null,
     readonly location?: string | null
+  } | null> | null,
+  readonly organisations?: ReadonlyArray<{
+    readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+    readonly organisationRef: string,
+    readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+    readonly organisation?: {
+      readonly __typename?: 'stop_registry_Organisation',
+      readonly id?: string | null,
+      readonly name?: string | null,
+      readonly privateContactDetails?: {
+        readonly __typename?: 'stop_registry_Contact',
+        readonly id?: string | null,
+        readonly email?: string | null,
+        readonly phone?: string | null
+      } | null
+    } | null
   } | null> | null
 };
 
@@ -71232,6 +71280,23 @@ export type TerminalExternalLinksDetailsFragment = {
   readonly orderNum?: number | null,
   readonly name?: string | null,
   readonly location?: string | null
+};
+
+export type TerminalOrganizationRefFragment = {
+  readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+  readonly organisationRef: string,
+  readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+  readonly organisation?: {
+    readonly __typename?: 'stop_registry_Organisation',
+    readonly id?: string | null,
+    readonly name?: string | null,
+    readonly privateContactDetails?: {
+      readonly __typename?: 'stop_registry_Contact',
+      readonly id?: string | null,
+      readonly email?: string | null,
+      readonly phone?: string | null
+    } | null
+  } | null
 };
 
 export type VehicleJourneyByStopFragment = {
@@ -74686,6 +74751,22 @@ export type CreateTerminalMutation = {
         readonly orderNum?: number | null,
         readonly name?: string | null,
         readonly location?: string | null
+      } | null> | null,
+      readonly organisations?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+        readonly organisationRef: string,
+        readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+        readonly organisation?: {
+          readonly __typename?: 'stop_registry_Organisation',
+          readonly id?: string | null,
+          readonly name?: string | null,
+          readonly privateContactDetails?: {
+            readonly __typename?: 'stop_registry_Contact',
+            readonly id?: string | null,
+            readonly email?: string | null,
+            readonly phone?: string | null
+          } | null
+        } | null
       } | null> | null
     } | null
   } | null
@@ -74935,6 +75016,22 @@ export type UpdateTerminalMutation = {
         readonly orderNum?: number | null,
         readonly name?: string | null,
         readonly location?: string | null
+      } | null> | null,
+      readonly organisations?: ReadonlyArray<{
+        readonly __typename?: 'stop_registry_StopPlaceOrganisationRef',
+        readonly organisationRef: string,
+        readonly relationshipType?: StopRegistryStopPlaceOrganisationRelationshipType | null,
+        readonly organisation?: {
+          readonly __typename?: 'stop_registry_Organisation',
+          readonly id?: string | null,
+          readonly name?: string | null,
+          readonly privateContactDetails?: {
+            readonly __typename?: 'stop_registry_Contact',
+            readonly id?: string | null,
+            readonly email?: string | null,
+            readonly phone?: string | null
+          } | null
+        } | null
       } | null> | null
     } | null> | null
   } | null
@@ -78499,6 +78596,15 @@ export const TerminalExternalLinksDetailsFragmentDoc = gql`
   location
 }
     `;
+export const TerminalOrganizationRefFragmentDoc = gql`
+    fragment terminal_organization_ref on stop_registry_StopPlaceOrganisationRef {
+  organisationRef
+  relationshipType
+  organisation {
+    ...stop_place_organisation_fields
+  }
+}
+    ${StopPlaceOrganisationFieldsFragmentDoc}`;
 export const ParentStopPlaceDetailsFragmentDoc = gql`
     fragment parent_stop_place_details on stop_registry_ParentStopPlace {
   id
@@ -78551,11 +78657,15 @@ export const ParentStopPlaceDetailsFragmentDoc = gql`
   externalLinks {
     ...terminal_external_links_details
   }
+  organisations {
+    ...terminal_organization_ref
+  }
 }
     ${InfoSpotDetailsFragmentDoc}
 ${AccessibilityAssessmentDetailsFragmentDoc}
 ${MemberStopStopPlaceDetailsFragmentDoc}
-${TerminalExternalLinksDetailsFragmentDoc}`;
+${TerminalExternalLinksDetailsFragmentDoc}
+${TerminalOrganizationRefFragmentDoc}`;
 export const InfraLinkMatchingFieldsFragmentDoc = gql`
     fragment infra_link_matching_fields on infrastructure_network_infrastructure_link {
   external_link_id

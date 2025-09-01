@@ -10,6 +10,7 @@ import { TerminalExternalLinks } from './components/external-links/TerminalExter
 import { TerminalInfoSpotsSection } from './components/info-spots/TerminalInfoSpotsSection';
 import { LocationDetails } from './components/location-details/LocationDetailsSection';
 import { StopsListSection } from './components/member-stops/StopsListSection';
+import { OwnerDetailsSection } from './components/owner-details/OwnerDetailsSection';
 import { TerminalVersioningRow } from './components/terminal-versions';
 import { TerminalTitleRow } from './components/TerminalTitleRow';
 import {
@@ -90,6 +91,7 @@ export const TerminalDetailsPage: FC<Record<string, never>> = () => {
             <div className="w-full space-y-4 md:w-[70%]">
               <TerminalDetails terminal={parentStopPlaceDetails} />
               <LocationDetails terminal={parentStopPlaceDetails} />
+              <OwnerDetailsSection terminal={parentStopPlaceDetails} />
             </div>
           </Visible>
           <Visible visible={activeDetailTab === detailTabs.info.type}>
