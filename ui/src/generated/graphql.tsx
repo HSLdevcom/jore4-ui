@@ -79480,7 +79480,7 @@ export type UpdateStopPointMutationOptions = Apollo.BaseMutationOptions<UpdateSt
 export const GetOriginalQuaysDocument = gql`
     query GetOriginalQuays($quayId: String!) {
   stop_registry {
-    stopPlace(query: $quayId) {
+    stopPlace(query: $quayId, onlyMonomodalStopPlaces: true) {
       ... on stop_registry_StopPlace {
         quays {
           id
@@ -79752,7 +79752,7 @@ export type EditScheduledStopPointValidityMutationOptions = Apollo.BaseMutationO
 export const GetQuayDocument = gql`
     query GetQuay($quayId: String!) {
   stop_registry {
-    stopPlace(query: $quayId) {
+    stopPlace(query: $quayId, onlyMonomodalStopPlaces: true) {
       ... on stop_registry_StopPlace {
         id
         quays {
@@ -80157,7 +80157,7 @@ export type GetOverlappingStopVersionsIndefiniteQueryResult = Apollo.QueryResult
 export const ResolveStopSheltersDocument = gql`
     query ResolveStopShelters($netexId: String!) {
   stop_registry {
-    stopPlace(query: $netexId) {
+    stopPlace(query: $netexId, onlyMonomodalStopPlaces: true) {
       id
       ... on stop_registry_StopPlace {
         quays {

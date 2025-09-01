@@ -11,7 +11,7 @@ import { FailedToResolveNewShelters } from '../errors';
 const GQL_RESOLVE_STOP_SHELTERS = gql`
   query ResolveStopShelters($netexId: String!) {
     stop_registry {
-      stopPlace(query: $netexId) {
+      stopPlace(query: $netexId, onlyMonomodalStopPlaces: true) {
         id
 
         ... on stop_registry_StopPlace {

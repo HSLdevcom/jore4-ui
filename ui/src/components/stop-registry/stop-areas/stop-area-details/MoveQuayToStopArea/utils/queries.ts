@@ -76,7 +76,7 @@ const GQL_UPDATE_STOP_POINT = gql`
 const GQL_GET_ORIGINAL_QUAYS = gql`
   query GetOriginalQuays($quayId: String!) {
     stop_registry {
-      stopPlace(query: $quayId) {
+      stopPlace(query: $quayId, onlyMonomodalStopPlaces: true) {
         ... on stop_registry_StopPlace {
           quays {
             id
