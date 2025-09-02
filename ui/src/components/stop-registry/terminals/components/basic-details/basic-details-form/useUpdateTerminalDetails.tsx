@@ -56,10 +56,6 @@ const mapFormStateToInput = ({
         nameType: StopRegistryNameType.Alias,
       },
     ]),
-    privateCode: {
-      value: state.privateCode,
-      type: 'HSL/JORE-4',
-    },
     name: {
       value: state.name,
       lang: 'fin',
