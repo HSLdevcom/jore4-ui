@@ -1,8 +1,22 @@
 import { FC, PropsWithChildren } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
+
+function genColClasses(
+  typeClass: string,
+  cols: number | undefined,
+  extraClasses: string = '',
+): string {
+  if (Number.isFinite(cols)) {
+    return `${typeClass}:grid-cols-${cols} ${extraClasses}`;
+  }
+
+  return extraClasses;
+}
 
 type FormRowProps = {
   readonly className?: string;
+  readonly xxlColumns?: number;
+  readonly xlColumns?: number;
   readonly lgColumns?: number;
   readonly mdColumns?: number;
   readonly smColumns?: number;
@@ -11,22 +25,34 @@ type FormRowProps = {
 
 export const FormRow: FC<PropsWithChildren<FormRowProps>> = ({
   className = '',
-  mdColumns = 1,
-  lgColumns = mdColumns,
+  mdColumns,
+  xxlColumns,
+  xlColumns,
+  lgColumns,
+  // For compatability with previous implementation.
   smColumns = mdColumns,
   children,
   testId,
 }) => {
   const baseClassName = 'grid grid-cols-1 gap-y-5';
 
-  const lgClassName = `lg:grid-cols-${lgColumns} lg:gap-x-8`;
-  const mdClassName = `md:grid-cols-${mdColumns} md:gap-x-8`;
-  const smClassName = `sm:grid-cols-${smColumns} sm:gap-x-4`;
+  const xxlClassName = genColClasses('2xl', xxlColumns);
+  const xlClassName = genColClasses('xl', xlColumns);
+  const lgClassName = genColClasses('lg', lgColumns);
+  const mdClassName = genColClasses('md', mdColumns, 'md:gap-x-8');
+  const smClassName = genColClasses('sm', smColumns, 'sm:gap-x-4');
 
   return (
     <div
       className={twMerge(
-        `${baseClassName} ${lgClassName} ${mdClassName} ${smClassName}`,
+        twJoin(
+          baseClassName,
+          xxlClassName,
+          xlClassName,
+          lgClassName,
+          mdClassName,
+          smClassName,
+        ),
         className,
       )}
       data-testid={testId}

@@ -95,10 +95,8 @@ module.exports = {
     plugin(({ addVariant }) => {
       addVariant('important', ({ container }) => {
         container.walkRules((rule) => {
-          // eslint-disable-next-line no-param-reassign
           rule.selector = `.\\!${rule.selector.slice(1)}`;
           rule.walkDecls((decl) => {
-            // eslint-disable-next-line no-param-reassign
             decl.important = true;
           });
         });
@@ -110,7 +108,7 @@ module.exports = {
     {
       // these classes are referenced dynamically by a template string, so have to remove them from tree-shaking
       pattern: /^grid/,
-      variants: ['md', 'lg'],
+      variants: ['sm', 'md', 'lg', 'xl', '2xl'],
     },
   ],
 };
