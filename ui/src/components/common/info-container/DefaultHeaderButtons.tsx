@@ -27,7 +27,10 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
       <Visible visible={isEditable && !isInEditMode}>
         <SlimSimpleButton
           testId={testIds.editButton(testIdPrefix)}
-          onClick={() => setIsInEditMode(true)}
+          onClick={() => {
+            setIsInEditMode(true);
+            setIsExpanded(true);
+          }}
         >
           {t('edit')}
         </SlimSimpleButton>
