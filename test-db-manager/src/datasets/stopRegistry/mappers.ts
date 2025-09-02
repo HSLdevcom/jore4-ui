@@ -1,6 +1,8 @@
+import compact from 'lodash/compact';
 import {
   StopRegistryCreateMultiModalStopPlaceInput,
   StopRegistryInfoSpotInput,
+  StopRegistryOrganisationInput,
   StopRegistryParentStopPlaceInput,
   StopRegistryStopPlaceInput,
   StopRegistryStopPlaceOrganisationRef,
@@ -87,12 +89,28 @@ export const buildTerminalCreateInput = (
 };
 
 export const buildTerminalUpdateInput = (
-  id: string,
   input: TerminalInput,
+  organisationIdsByName: OrganisationIdsByName,
 ): Partial<StopRegistryParentStopPlaceInput> => {
+  if (!input.owner) {
+    return input.terminal;
+  }
+
+  const ownerRef =
+    'organisationRef' in input.owner
+      ? input.owner.organisationRef
+      : organisationIdsByName[input.owner.name];
+
   return {
-    id,
-    ...input,
+    ...input.terminal,
+    keyValues: compact(input.terminal.keyValues).concat(
+      { key: 'owner-contractId', values: [input.owner.contractId] },
+      { key: 'owner-note', values: [input.owner.note] },
+    ),
+    organisations: compact(input.terminal.organisations).concat({
+      organisationRef: ownerRef,
+      relationshipType: StopRegistryStopPlaceOrganisationRelationshipType.Owner,
+    }),
   };
 };
 
@@ -125,3 +143,25 @@ export const setInfoSpotRelations = (
   }
   return infoSpot;
 };
+
+export function mapTerminalOwnersToOrganisations(
+  terminals?: ReadonlyArray<TerminalInput>,
+): Array<StopRegistryOrganisationInput> {
+  const newTerminalOwnerOrgs = terminals
+    ?.map((terminal) => terminal.owner)
+    .map<StopRegistryOrganisationInput | null>((owner) => {
+      if (owner && 'name' in owner) {
+        return {
+          name: owner.name,
+          privateContactDetails: {
+            phone: owner.phone,
+            email: owner.email,
+          },
+        };
+      }
+
+      return null;
+    });
+
+  return compact(newTerminalOwnerOrgs);
+}

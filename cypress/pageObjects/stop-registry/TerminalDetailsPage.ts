@@ -5,6 +5,7 @@ import {
   TerminalDetailsSection,
   TerminalInfoSpotsSection,
   TerminalLocationDetailsSection,
+  TerminalOwnerDetailsSection,
   TerminalTitleRow,
   TerminalVersioningRow,
 } from './terminals';
@@ -25,6 +26,8 @@ export class TerminalDetailsPage {
   editTerminalValidityModal = new EditTerminalValidityModal();
 
   stopsPage = new TerminalDetailsStopsPage();
+
+  owner = new TerminalOwnerDetailsSection();
 
   visit(privateCode: string) {
     cy.visit(`/stop-registry/terminals/${privateCode}`);

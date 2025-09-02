@@ -13,6 +13,21 @@ import { mapToAlternativeNames } from './mapAlternativeNames';
 import { defaultAccessibilityLimitations } from './stopPlaces';
 import { getKeyValue } from './utils';
 
+type TerminalOwnerDetails = {
+  readonly contractId: string;
+  readonly note: string;
+};
+
+type TerminalOwnerExistingOrganisation = { readonly organisationRef: string };
+type TerminalOwnerNew = {
+  readonly name: string;
+  readonly phone: string;
+  readonly email: string;
+};
+
+export type TerminalOwner = TerminalOwnerDetails &
+  (TerminalOwnerExistingOrganisation | TerminalOwnerNew);
+
 export type TerminalSeedData = {
   privateCode: string;
   name: string;
@@ -42,10 +57,12 @@ export type TerminalSeedData = {
   accessibilityLimitations?: Partial<StopRegistryAccessibilityLimitationsInput>;
   members: Array<string>;
   externalLinks?: Array<StopRegistryExternalLinkInput>;
+  owner?: TerminalOwner;
 };
 
 export type TerminalInput = {
   memberLabels: Array<string>;
+  owner?: TerminalOwner | null;
   // Only some details can be inserted with the Create mutation. Others must be Updated afterwards.
   terminal: Omit<StopRegistryCreateMultiModalStopPlaceInput, 'stopPlaceIds'> &
     Partial<StopRegistryParentStopPlaceInput>;
@@ -54,6 +71,7 @@ export type TerminalInput = {
 const mapToTerminalInput = (seedTerminal: TerminalSeedData): TerminalInput => {
   return {
     memberLabels: seedTerminal.members,
+    owner: seedTerminal.owner,
     terminal: {
       name: {
         lang: 'fin',
