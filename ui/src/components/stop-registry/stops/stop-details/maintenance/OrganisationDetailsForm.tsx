@@ -41,7 +41,7 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
   onSubmit,
   onCancel,
 }) => {
-  const formRef = useRef<ExplicitAny>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const methods = useForm<OrganisationDetailsFormState>({
     defaultValues,
@@ -57,7 +57,16 @@ export const OrganisationDetailsForm: FC<OrganisationDetailsFormProps> = ({
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
+      <form
+        onSubmit={(e) => {
+          // On the terminal details page, this form gets nested in another form,
+          // through a Portal, so fine from HTML perspective, but React still propagates
+          // the submit event to top level form by default.
+          e.stopPropagation();
+          handleSubmit(onSubmit)(e);
+        }}
+        ref={formRef}
+      >
         <div className="max-w-[400px] space-y-2">
           <FormRow>
             <InputField<OrganisationDetailsFormState>

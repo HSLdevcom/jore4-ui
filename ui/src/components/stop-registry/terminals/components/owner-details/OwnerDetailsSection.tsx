@@ -1,5 +1,6 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { submitFormByRef } from '../../../../../utils';
 import {
   InfoContainer,
   InfoContainerControls,
@@ -7,6 +8,7 @@ import {
 } from '../../../../common';
 import { terminalInfoContainerColors } from '../../terminalInfoContainerColors';
 import { TerminalComponentProps } from '../../types';
+import { OwnerDetailsEdit } from './OwnerDetailsEdit';
 import { OwnerDetailsViewCard } from './OwnerDetailsViewCard';
 
 export const OwnerDetailsSection: FC<TerminalComponentProps> = ({
@@ -14,9 +16,12 @@ export const OwnerDetailsSection: FC<TerminalComponentProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   const rawInfoContainerControls = useInfoContainerControls({
     isExpandable: true,
-    isEditable: false,
+    isEditable: true,
+    onSave: () => submitFormByRef(formRef),
   });
 
   const infoContainerControls: InfoContainerControls = {
@@ -30,7 +35,15 @@ export const OwnerDetailsSection: FC<TerminalComponentProps> = ({
       title={t('terminalDetails.owner.title')}
       testIdPrefix="TerminalOwnerDetailsSection"
     >
-      <OwnerDetailsViewCard terminal={terminal} />
+      {infoContainerControls.isInEditMode ? (
+        <OwnerDetailsEdit
+          terminal={terminal}
+          onFinishEditing={() => infoContainerControls.setIsInEditMode(false)}
+          ref={formRef}
+        />
+      ) : (
+        <OwnerDetailsViewCard terminal={terminal} />
+      )}
     </InfoContainer>
   );
 };

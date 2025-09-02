@@ -2,6 +2,7 @@ import { ApolloError, gql } from '@apollo/client';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TerminalFormState } from '../../../components/stop-registry/terminals/components/basic-details/basic-details-form/schema';
+import { TerminalOwnerFormState } from '../../../components/stop-registry/terminals/components/owner-details/terminalOwnerSchema';
 import { TerminalValidityFormState } from '../../../components/stop-registry/terminals/components/terminal-versions/TerminalValidityFormState';
 import { getEnrichedParentStopPlace } from '../../../components/stop-registry/terminals/useGetTerminalDetails';
 import { useTerminalApolloErrorHandler } from '../../../components/stop-registry/terminals/utils/terminalErrorHandler';
@@ -43,7 +44,13 @@ export const useUpdateTerminal = () => {
   );
 
   const defaultErrorHandler = useCallback(
-    (err: unknown, details?: TerminalFormState | TerminalValidityFormState) => {
+    (
+      err: unknown,
+      details?:
+        | TerminalFormState
+        | TerminalValidityFormState
+        | TerminalOwnerFormState,
+    ) => {
       if (err instanceof ApolloError) {
         const isKnownError = tryHandleApolloError(err, details);
         if (isKnownError) {

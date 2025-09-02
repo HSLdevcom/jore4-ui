@@ -18,7 +18,7 @@ const testIds = {
 
 type OrganisationDetailsModalProps = {
   readonly isOpen: boolean;
-  readonly organisation?: StopPlaceOrganisationFieldsFragment;
+  readonly organisation?: StopPlaceOrganisationFieldsFragment | null;
   readonly onClose: () => void;
   readonly onSubmit: (
     org: Pick<StopPlaceOrganisationFieldsFragment, 'id'>,
@@ -26,7 +26,7 @@ type OrganisationDetailsModalProps = {
 };
 
 const mapOrganisationToFormState = (
-  organisation: StopPlaceOrganisationFieldsFragment | undefined,
+  organisation: StopPlaceOrganisationFieldsFragment | undefined | null,
 ): Partial<OrganisationDetailsFormState> => {
   return {
     id: organisation?.id ?? undefined,
