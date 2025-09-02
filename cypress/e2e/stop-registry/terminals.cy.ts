@@ -212,6 +212,17 @@ describe('Terminal details', () => {
       .should('have.attr', 'href', 'https://terminaltest.fi');
   };
 
+  function assertOwnerDetails() {
+    const { view } = terminalDetailsPage.owner;
+
+    view.getName().shouldHaveText('Omistaja');
+    view.getPhone().shouldHaveText('+3585645638');
+    view.getEmail().shouldHaveText('jore4.testi.email@hsl.fi');
+
+    view.getContractId().shouldHaveText('123456-789');
+    view.getNote().shouldHaveText('Kattaa koko E2E Testiterminaalin alueen');
+  }
+
   describe('basic details', () => {
     it('should view basic details', { tags: [Tag.StopRegistry] }, () => {
       terminalDetailsPage.page().shouldBeVisible();
@@ -400,6 +411,13 @@ describe('Terminal details', () => {
       toast.expectDangerToast(
         'Tallennus epäonnistui: Terminaalilla pitää olla vähintään yksi jäsenpysäkki.',
       );
+    });
+  });
+
+  describe('Owner details', () => {
+    it('should view owner details', { tags: [Tag.StopRegistry] }, () => {
+      terminalDetailsPage.page().shouldBeVisible();
+      assertOwnerDetails();
     });
   });
 

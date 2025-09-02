@@ -11,6 +11,7 @@ import {
   TerminalIdsByName,
   TerminalInput,
   buildTerminalCreateInput,
+  buildTerminalUpdateInput,
   e2eDatabaseConfig,
   getDbConnection,
   hasuraApi,
@@ -18,6 +19,7 @@ import {
   insertOrganisations as insertStopRegistryOrganisations,
   insertStopPlaces as insertStopRegistryStopPlaces,
   insertTerminals,
+  mapTerminalOwnersToOrganisations,
   mapToDeleteOrganisationMutation,
   mapToDeleteStopAreaMutation,
   mapToGetAllOrganisationIds,
@@ -130,8 +132,9 @@ export const insertStopRegistryData = async ({
   infoSpots?: Array<InfoSpotInput>;
   stopPointsRequired?: boolean;
 }): Promise<InternalInsertedStopRegistryIds> => {
-  const organisationIdsByName =
-    await insertStopRegistryOrganisations(organisations);
+  const organisationIdsByName = await insertStopRegistryOrganisations(
+    organisations.concat(mapTerminalOwnersToOrganisations(terminals)),
+  );
 
   const stopPlaceInputs = stopPlaces.map((sp) =>
     setStopPlaceOrganisations(sp, organisationIdsByName),
@@ -147,7 +150,9 @@ export const insertStopRegistryData = async ({
   const terminalCreateInputs = terminals.map((terminal) =>
     buildTerminalCreateInput(terminal, collectedStopIds),
   );
-  const terminalUpdateInputs = terminals.map((terminal) => terminal.terminal);
+  const terminalUpdateInputs = terminals.map((terminal) =>
+    buildTerminalUpdateInput(terminal, organisationIdsByName),
+  );
   const terminalsByName = await insertTerminals(
     terminalCreateInputs,
     terminalUpdateInputs,

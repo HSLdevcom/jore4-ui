@@ -1,6 +1,8 @@
 import groupBy from 'lodash/groupBy';
 import {
   buildTerminalCreateInput,
+  buildTerminalUpdateInput,
+  mapTerminalOwnersToOrganisations,
   seedInfoSpots,
   seedOrganisations,
   seedQuays,
@@ -23,7 +25,9 @@ import {
 } from './graphql-helpers';
 
 const seedStopRegistry = async () => {
-  const collectedOrganisationIds = await insertOrganisations(seedOrganisations);
+  const collectedOrganisationIds = await insertOrganisations(
+    seedOrganisations.concat(mapTerminalOwnersToOrganisations(seedTerminals)),
+  );
 
   const stopPlacesWithOrganisations = seedStopAreas.map((sa) =>
     setStopPlaceOrganisations(sa, collectedOrganisationIds),
@@ -80,8 +84,8 @@ const seedStopRegistry = async () => {
   const terminalCreateInputs = seedTerminals.map((terminal) =>
     buildTerminalCreateInput(terminal, collectedStopIds),
   );
-  const terminalUpdateInputs = seedTerminals.map(
-    (terminal) => terminal.terminal,
+  const terminalUpdateInputs = seedTerminals.map((terminal) =>
+    buildTerminalUpdateInput(terminal, collectedOrganisationIds),
   );
   await insertTerminals(terminalCreateInputs, terminalUpdateInputs);
 

@@ -12,3 +12,4 @@ export * from './TerminalInfoSpotsSection';
 export * from './TerminalInfoSpotsViewList';
 export * from './TerminalInfoSpotsViewCard';
 export * from './TerminalInfoSpotRow';
+export * from './TerminalOwnerDetailsSection';

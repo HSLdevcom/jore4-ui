@@ -11,6 +11,7 @@ import {
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
   TerminalInput,
+  seedOrganisations,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import cloneDeep from 'lodash/cloneDeep';
 import { stopCoordinatesByLabel } from './base';
@@ -384,6 +385,13 @@ const terminalData: Array<TerminalInput> = [
       ],
     },
     memberLabels: ['E2E008', 'E2E010'],
+    owner: {
+      contractId: '123456-789',
+      note: 'Kattaa koko E2E Testiterminaalin alueen',
+      name: 'Omistaja',
+      phone: '+3585645638',
+      email: 'jore4.testi.email@hsl.fi',
+    },
   },
 ];
 
@@ -418,7 +426,7 @@ const infoSpotData = [
 ];
 
 const baseStopRegistryData = {
-  organisations: [],
+  organisations: seedOrganisations,
   stopPlaces: stopPlaceData,
   terminals: terminalData,
   infoSpots: infoSpotData,
