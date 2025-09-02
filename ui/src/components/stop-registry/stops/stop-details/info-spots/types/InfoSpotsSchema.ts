@@ -8,26 +8,26 @@ import {
   nullableBoolean,
 } from '../../../../../forms/common';
 
-const itemSizeUiState = z.enum([
+export const itemSizeUiState = z.enum([
   'UNKNOWN', // Width = null, height = null; Default state, or explicitly set.
   'EXISTING', // A known size from a list, or previously set width != null, height != null
   'NEW', // A new size, width and height start as null, but should both be set
 ]);
 
-const itemSizeSchema = z.object({
+export const itemSizeSchema = z.object({
   uiState: itemSizeUiState,
   width: z.number().min(0).nullable(),
   height: z.number().min(0).nullable(),
 });
 
-const posterSchema = z.object({
+export const posterSchema = z.object({
   label: z.string().nullable(),
   lines: z.string().nullable(),
   size: itemSizeSchema,
   toBeDeletedPoster: z.boolean(),
 });
 
-const infoSpotSchema = z.object({
+export const infoSpotSchema = z.object({
   infoSpotId: z.string().nullable(),
   backlight: nullableBoolean,
   description: z.object({

@@ -273,6 +273,10 @@ const GQL_INFO_SPOT_DETAILS = gql`
       height
       lines
     }
+    geometry {
+      type
+      coordinates
+    }
   }
 `;
 
