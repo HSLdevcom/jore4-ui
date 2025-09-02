@@ -50,7 +50,8 @@
   "terminals": {
     "showTerminalDetails": "Näytä terminaalin {{ terminalLabel }} tiedot",
     "validityPeriod": "Voimassaolo",
-    "editTerminalValidity": "Muokkaa terminaalin {{ terminalName }} versiota"
+    "editTerminalValidity": "Muokkaa terminaalin {{ terminalName }} versiota",
+    "openInfoSpots": "Avaa infopaikan tiedot"
   },
   "timetables": {
     "icon": "Aikataulu",

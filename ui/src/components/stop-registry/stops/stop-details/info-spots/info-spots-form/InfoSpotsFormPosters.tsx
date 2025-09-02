@@ -21,6 +21,7 @@ const testIds = {
 type InfoSpotsFormPostersProps = {
   readonly infoSpotIndex: number;
   readonly posterIndex: number;
+  readonly infoSpotToBeDeleted?: boolean;
   readonly addPoster: (index: number) => void;
   readonly onRemovePoster: (index: number, posterIndex: number) => void;
 };
@@ -28,6 +29,7 @@ type InfoSpotsFormPostersProps = {
 export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
   infoSpotIndex,
   posterIndex,
+  infoSpotToBeDeleted,
   addPoster,
   onRemovePoster,
 }) => {
@@ -44,9 +46,10 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
   return (
     <div data-testid={testIds.posterContainer}>
       <Row className="my-5 flex-wrap items-end gap-4 px-10">
-        <SizeFormFragment
+        <SizeFormFragment<InfoSpotsFormState>
           titlePath="stopDetails.infoSpots.posterSize"
           sizeStatePath={`infoSpots.${infoSpotIndex}.poster.${posterIndex}.size`}
+          disabled={toBeDeletedPoster || infoSpotToBeDeleted}
         />
 
         <InputField<InfoSpotsFormState>
@@ -55,7 +58,7 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
           fieldPath={`infoSpots.${infoSpotIndex}.poster.${posterIndex}.label`}
           customTitlePath="stopDetails.infoSpots.posterLabel"
           testId={testIds.posterLabel}
-          disabled={toBeDeletedPoster}
+          disabled={toBeDeletedPoster || infoSpotToBeDeleted}
           list="posternames-data-list"
         />
         <datalist id="posternames-data-list">
@@ -71,7 +74,7 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
           fieldPath={`infoSpots.${infoSpotIndex}.poster.${posterIndex}.lines`}
           customTitlePath="stopDetails.infoSpots.posterLines"
           testId={testIds.posterLines}
-          disabled={toBeDeletedPoster}
+          disabled={toBeDeletedPoster || infoSpotToBeDeleted}
         />
       </Row>
       <Row className="px-10 pb-5">
@@ -79,6 +82,7 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
           testId={testIds.deleteInfoSpotPoster}
           onClick={() => onRemovePoster(infoSpotIndex, posterIndex)}
           inverted
+          disabled={infoSpotToBeDeleted}
         >
           {t(
             toBeDeletedPoster
@@ -86,7 +90,7 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
               : 'stopDetails.infoSpots.deleteInfoSpotPoster',
           )}
         </SlimSimpleButton>
-        {isLastPoster && (
+        {isLastPoster && !infoSpotToBeDeleted && (
           <AddNewButton
             testId={testIds.addInfoSpotPoster}
             label={t('stopDetails.infoSpots.addInfoSpotPoster')}

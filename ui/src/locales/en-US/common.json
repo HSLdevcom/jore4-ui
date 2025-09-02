@@ -576,6 +576,9 @@
     },
     "infoSpots": {
       "title": "Terminal info spots",
+      "infoSpot": "Info spot {{infoSpot}}",
+      "infoSpotWithQuay": "Info spot {{infoSpot}} | {{quayPublicCode}} {{quayName}}",
+      "addTerminalInfoSpot": "Add terminal info spot",
       "label": "Label",
       "stop": "Stop",
       "shelter": "Shelter",
@@ -583,7 +586,10 @@
       "size": "Size",
       "description": "Description",
       "openDetails": "Open info spot details",
-      "closeDetails": "Close info spot details"
+      "closeDetails": "Close info spot details",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "posterDetails": "Additional information"
     },
     "stops": {
       "title": "Stops",

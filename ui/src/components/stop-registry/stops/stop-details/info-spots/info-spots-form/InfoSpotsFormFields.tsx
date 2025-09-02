@@ -96,9 +96,10 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             disabled={toBeDeleted}
           />
 
-          <SizeFormFragment
+          <SizeFormFragment<InfoSpotsFormState>
             sizeStatePath={`infoSpots.${infoSpotIndex}.size`}
             titlePath="stopDetails.infoSpots.size"
+            disabled={toBeDeleted}
           />
 
           <InputField<InfoSpotsFormState>
@@ -177,6 +178,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             posterIndex={posterIndex}
             addPoster={addPoster}
             onRemovePoster={onRemovePoster}
+            infoSpotToBeDeleted={toBeDeleted}
           />
         ))
       ) : (

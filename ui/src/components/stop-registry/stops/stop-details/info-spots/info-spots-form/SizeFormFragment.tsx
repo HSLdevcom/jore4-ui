@@ -1,6 +1,12 @@
 import isEqual from 'lodash/isEqual';
-import { FC, useCallback, useMemo } from 'react';
-import { FieldPathByValue, useFormContext } from 'react-hook-form';
+import { useCallback, useMemo } from 'react';
+import {
+  FieldPathByValue,
+  FieldValues,
+  Path,
+  PathValue,
+  useFormContext,
+} from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../../../../i18n';
 import { Column } from '../../../../../../layoutComponents';
@@ -8,7 +14,6 @@ import { none } from '../../../../../../utils';
 import { InputField, InputLabel } from '../../../../../forms/common';
 import { useGetInfoSpotSizes } from '../queries/useGetInfoSpotSizes';
 import {
-  InfoSpotsFormState,
   ItemSizeState,
   NewMenuItem,
   PosterSizeSubMenu,
@@ -79,18 +84,20 @@ function getSelectedOption(
   return selectedOption ?? NewMenuItem;
 }
 
-type SizeFormFragmentProps = {
-  readonly sizeStatePath: FieldPathByValue<InfoSpotsFormState, ItemSizeState>;
+// Generic props so the fragment can be reused in terminal forms as well.
+type SizeFormFragmentProps<FormState extends FieldValues> = {
+  readonly sizeStatePath: FieldPathByValue<FormState, ItemSizeState>;
   readonly titlePath: TranslationKey;
+  readonly disabled?: boolean; // Optional external disable (e.g. poster marked for deletion)
 };
 
-export const SizeFormFragment: FC<SizeFormFragmentProps> = ({
+export const SizeFormFragment = <FormState extends FieldValues>({
   sizeStatePath,
   titlePath,
-}) => {
-  const { setValue, watch } = useFormContext<InfoSpotsFormState>();
+  disabled,
+}: SizeFormFragmentProps<FormState>) => {
+  const { setValue, watch } = useFormContext<FormState>();
   const posterSizeMenu = usePosterSizeMenu();
-
   const state = watch(sizeStatePath);
   const numberInputsDisabled = state.uiState !== 'NEW';
 
@@ -100,15 +107,23 @@ export const SizeFormFragment: FC<SizeFormFragmentProps> = ({
         selectedOption.uiState === 'EXISTING' ||
         selectedOption.uiState === 'UNKNOWN'
       ) {
-        setValue(sizeStatePath, selectedOption, {
-          shouldTouch: true,
-          shouldDirty: true,
-        });
+        setValue(
+          sizeStatePath,
+          selectedOption as PathValue<FormState, Path<FormState>>,
+          {
+            shouldTouch: true,
+            shouldDirty: true,
+          },
+        );
       } else {
-        setValue(`${sizeStatePath}.uiState`, 'NEW', {
-          shouldTouch: true,
-          shouldDirty: true,
-        });
+        setValue(
+          `${sizeStatePath}.uiState` as Path<FormState>,
+          'NEW' as PathValue<FormState, Path<FormState>>,
+          {
+            shouldTouch: true,
+            shouldDirty: true,
+          },
+        );
       }
     },
     [setValue, sizeStatePath],
@@ -117,14 +132,14 @@ export const SizeFormFragment: FC<SizeFormFragmentProps> = ({
   return (
     <>
       <Column>
-        <InputLabel<InfoSpotsFormState>
-          fieldPath={`${sizeStatePath}.uiState`}
+        <InputLabel<FormState>
+          fieldPath={`${sizeStatePath}.uiState` as Path<FormState>}
           translationPrefix="stopDetails"
           customTitlePath={titlePath}
         />
         <SizeSelector
           className="w-48"
-          disabled={!posterSizeMenu.loaded}
+          disabled={!posterSizeMenu.loaded || disabled}
           id={`stopDetails.${sizeStatePath}.uiState`}
           onChange={onSizeChanged}
           subMenus={posterSizeMenu.options}
@@ -132,22 +147,20 @@ export const SizeFormFragment: FC<SizeFormFragmentProps> = ({
           testId={testIds.selector}
         />
       </Column>
-
-      <InputField<InfoSpotsFormState>
+      <InputField<FormState>
         inputClassName="w-28"
-        disabled={numberInputsDisabled}
-        fieldPath={`${sizeStatePath}.width`}
+        disabled={numberInputsDisabled || disabled}
+        fieldPath={`${sizeStatePath}.width` as Path<FormState>}
         translationPrefix="stopDetails"
         customTitlePath="stopDetails.infoSpots.sizes.width"
         testId={testIds.width}
         type="number"
         min={0}
       />
-
-      <InputField<InfoSpotsFormState>
+      <InputField<FormState>
         inputClassName="w-28"
-        disabled={numberInputsDisabled}
-        fieldPath={`${sizeStatePath}.height`}
+        disabled={numberInputsDisabled || disabled}
+        fieldPath={`${sizeStatePath}.height` as Path<FormState>}
         translationPrefix="stopDetails"
         customTitlePath="stopDetails.infoSpots.sizes.height"
         testId={testIds.height}

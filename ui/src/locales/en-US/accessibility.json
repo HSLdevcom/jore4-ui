@@ -50,7 +50,8 @@
   "terminals": {
     "showTerminalDetails": "Show details for terminal {{ terminalLabel }}",
     "validityPeriod": "Validity period",
-    "editTerminalValidity": "Edit version for terminal {{ terminalName }}"
+    "editTerminalValidity": "Edit version for terminal {{ terminalName }}",
+    "openInfoSpots": "Open info spot details"
   },
   "timetables": {
     "icon": "Timetable",
