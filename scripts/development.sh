@@ -270,15 +270,15 @@ import_dump() {
 }
 
 download_digitransit_key() {
-  if [[ -z "$HTTPS_PROXY" ]]; then
-    echo "The HTTPS_PROXY environment variable must be set according to the general JORE4 Azure guidelines when fetching the Digitransit subscription key from Azure Key Vault."
+  if [[ -z "$AZ_HTTPS_PROXY" ]]; then
+    echo "The AZ_HTTPS_PROXY environment variable must be set according to the general JORE4 Azure guidelines when fetching the Digitransit subscription key from Azure Key Vault."
     exit 1
   fi
 
   login
 
   echo "Fetching Digitransit subscription key value to ui/.env.local"
-  { echo -n "NEXT_PUBLIC_DIGITRANSIT_API_KEY=" && az keyvault secret show --name "hsl-jore4-digitransit-api-key" --vault-name "kv-jore4-dev-001" --query "value"; } > ui/.env.local
+  { echo -n "NEXT_PUBLIC_DIGITRANSIT_API_KEY=" && HTTPS_PROXY="$AZ_HTTPS_PROXY" az keyvault secret show --name "hsl-jore4-digitransit-api-key" --vault-name "kv-jore4-dev-001" --query "value"; } > ui/.env.local
 }
 
 setup_environment() {
@@ -350,7 +350,7 @@ print_usage() {
     Start dependencies and seed databases with dump data.
 
     If the Digitransit subscription key has not yet been fetched (stored in
-    ui/.env.local), you will need to set the HTTPS_PROXY environment
+    ui/.env.local), you will need to set the AZ_HTTPS_PROXY environment
     variable. For more information, see the README.md file.
 
     You can change which version of the Docker Compose bundle is downloaded by
@@ -365,7 +365,7 @@ print_usage() {
     if you want to have terminal data in the database.
 
     If the Digitransit subscription key has not yet been fetched (stored in
-    ui/.env.local), you will need to set the HTTPS_PROXY environment
+    ui/.env.local), you will need to set the AZ_HTTPS_PROXY environment
     variable. For more information, see the README.md file.
 
     You can change which version of the Docker Compose bundle is downloaded by
@@ -388,7 +388,7 @@ print_usage() {
   digitransit:fetch
     Download Digitransit subscription key for JORE4 account.
 
-    You will need to set the HTTPS_PROXY environment variable. For more
+    You will need to set the AZ_HTTPS_PROXY environment variable. For more
     information, see the README.md file.
 
   check:images

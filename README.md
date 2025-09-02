@@ -303,11 +303,11 @@ Background map tiles are downloaded from the [Digitransit](https://digitransit.f
 require a subscription key to be included in each map tile request. The key is stored as a secret in
 Azure Key Vault, from where it is fetched and placed in the `ui/.env.local` file. Since Azure Key
 Vault is accessed through a SOCKS proxy, you need to open an SSH tunnel to Azure environment and set
-the `HTTPS_PROXY` environment variable as shown in the example below when you run the
+the `AZ_HTTPS_PROXY` environment variable as shown in the example below when you run the
 `./scripts/development.sh setup:env` command and the `ui/.env.local` file does not exist.
 
 ```sh
-HTTPS_PROXY=... ./scripts/development.sh setup:env
+AZ_HTTPS_PROXY=... ./scripts/development.sh setup:env
 ```
 
 For more information about opening an SSH tunnel, see the general JORE4 Azure guidance (in
