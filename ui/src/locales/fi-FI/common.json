@@ -566,6 +566,9 @@
     },
     "infoSpots": {
       "title": "Terminaalin infopaikat",
+      "infoSpot": "Infopaikka {{infoSpot}}",
+      "infoSpotWithQuay": "Infopaikka {{infoSpot}} | {{quayPublicCode}} {{quayName}}",
+      "addTerminalInfoSpot": "Lisää terminaalin infopaikka",
       "label": "Tunnus",
       "stop": "Pysäkki",
       "shelter": "Katos",
@@ -573,7 +576,10 @@
       "size": "Koko",
       "description": "Kuvaus",
       "openDetails": "Avaa infopaikan tiedot",
-      "closeDetails": "Sulje infopaikan tiedot"
+      "closeDetails": "Sulje infopaikan tiedot",
+      "latitude": "Leveysaste",
+      "longitude": "Pituusaste",
+      "posterDetails": "Lisätieto"
     },
     "stops": {
       "title": "Pysäkit",

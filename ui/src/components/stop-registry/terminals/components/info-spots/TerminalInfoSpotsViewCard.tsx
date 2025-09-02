@@ -5,6 +5,7 @@ import { formatSizedDbItem } from '../../../stops/stop-details/info-spots/utils'
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { optionalBooleanToUiText } from '../../../stops/stop-details/utils';
 import { TerminalInfoSpotsViewCardProps } from './types';
+import { getTerminalInfoSpotLocation } from './utils';
 
 const testIds = {
   container: 'TerminalInfoSpotsViewCard::container',
@@ -23,9 +24,10 @@ const testIds = {
 
 export const TerminalInfoSpotsViewCard: FC<TerminalInfoSpotsViewCardProps> = ({
   infoSpot,
-  location,
+  terminal,
 }) => {
   const { t } = useTranslation();
+  const location = getTerminalInfoSpotLocation(infoSpot, terminal);
 
   return (
     <div data-testid={testIds.container}>
@@ -53,12 +55,12 @@ export const TerminalInfoSpotsViewCard: FC<TerminalInfoSpotsViewCardProps> = ({
           />
           <LabeledDetail
             title={t('stopDetails.location.latitude')}
-            detail={location.latitude}
+            detail={location?.latitude}
             testId={testIds.latitude}
           />
           <LabeledDetail
             title={t('stopDetails.location.longitude')}
-            detail={location.longitude}
+            detail={location?.longitude}
             testId={testIds.longitude}
           />
         </DetailRow>
