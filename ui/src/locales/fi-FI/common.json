@@ -741,6 +741,7 @@
     "title": "Vahvista muutos",
     "description": "Vahvista pysäkin muokkaus ({{ stopLabel }})",
     "removedFromRoutes": "Pysäkki poistetaan seuraavilta reiteiltä: {{ routeLabels }}",
+    "additionalInfo": "Pysäkki siirtyy saman tien. Jos haluat siirtää pysäkin tiettynä ajankohtana, kopioi pysäkistä ensin uusi versio sen tietonäkymässä.",
     "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versiota)",
     "confirmText": "OK"
   },
