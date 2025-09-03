@@ -7,6 +7,18 @@ export class StopSearchByLine {
     return cy.getByTestId('StopSearchByLine::line::validity');
   }
 
+  getActiveLineAllStopsCount() {
+    return cy.getByTestId('StopSearchByLine::line::countAll');
+  }
+
+  getActiveLineInboundStopsCount() {
+    return cy.getByTestId('StopSearchByLine::line::countInbound::count');
+  }
+
+  getActiveLineOutboundStopsCount() {
+    return cy.getByTestId('StopSearchByLine::line::countOutbound::count');
+  }
+
   getRouteContainer(id: string) {
     return cy.getByTestId(`StopSearchByLine::route::${id}`);
   }
