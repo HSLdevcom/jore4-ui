@@ -419,6 +419,62 @@ describe('Terminal details', () => {
       terminalDetailsPage.page().shouldBeVisible();
       assertOwnerDetails();
     });
+
+    it('should edit owner details', { tags: [Tag.StopRegistry] }, () => {
+      const {
+        owner,
+        owner: {
+          view,
+          edit,
+          edit: { ownerModal },
+        },
+      } = terminalDetailsPage;
+
+      terminalDetailsPage.page().shouldBeVisible();
+
+      // Start editing owner
+      owner.getEditButton().click();
+
+      // Add a new owner
+      edit.getOwnerDropdownButton().click();
+      edit.getOwnerDropdownOptions().contains('Lisää uusi toimija').click();
+      ownerModal.form.getName().clearAndType('Uusi nimi');
+      ownerModal.form.getPhone().clearAndType('987654321');
+      ownerModal.form.getEmail().clearAndType('uusi.omistaja@hsl.fi');
+      ownerModal.form.getSaveButton().click();
+
+      // Change the other fields too
+      edit.getContractId().clearAndType('Uusi sopimustunnus');
+      edit.getNote().clearAndType('Uudet hallintorajat');
+
+      // Save
+      owner.getSaveButton().click();
+      toast.expectSuccessToast('Terminaali muokattu');
+
+      // Assert info has been saved
+      view.getName().shouldHaveText('Uusi nimi');
+      view.getPhone().shouldHaveText('987654321');
+      view.getEmail().shouldHaveText('uusi.omistaja@hsl.fi');
+
+      view.getContractId().shouldHaveText('Uusi sopimustunnus');
+      view.getNote().shouldHaveText('Uudet hallintorajat');
+
+      // All other fields should have stayd the same.
+      verifyInitialBasicDetails();
+      verifyInitialLocationDetails();
+      verifyInitialExternalLinks();
+
+      //  Switch back to old owner.
+      owner.getEditButton().click();
+      edit.getOwnerDropdownButton().click();
+      edit.getOwnerDropdownOptions().contains('Omistaja').click();
+      owner.getSaveButton().click();
+      toast.expectSuccessToast('Terminaali muokattu');
+
+      view.getName().shouldHaveText('Omistaja');
+      view.getPhone().shouldHaveText('+3585645638');
+      view.getEmail().shouldHaveText('jore4.testi.email@hsl.fi');
+    });
   });
 
   describe('external links', () => {
