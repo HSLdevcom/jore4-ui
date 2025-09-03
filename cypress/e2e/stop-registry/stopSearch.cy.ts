@@ -646,6 +646,16 @@ describe('Stop search', () => {
         .getActiveLineValidity()
         .should('contain', 'Voimassa 1.1.2022 -');
 
+      stopSearchByLine
+        .getActiveLineAllStopsCount()
+        .shouldHaveText('9 pysäkkiä');
+      stopSearchByLine
+        .getActiveLineInboundStopsCount()
+        .shouldHaveText('5 pys.');
+      stopSearchByLine
+        .getActiveLineOutboundStopsCount()
+        .shouldHaveText('5 pys.');
+
       assertOutboundRouteIsValid();
       assertInboundRouteIsValid();
     });

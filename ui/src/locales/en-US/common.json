@@ -635,6 +635,10 @@
     "sortOrder": "Sort by:",
     "resultCount": "{{count}} search result",
     "resultCount_other": "{{count}} search results",
+    "stopsCount": "{{count}} stop",
+    "stopsCount_other": "{{count}} stops",
+    "stopsCountShort": "{{count}} stop",
+    "stopsCountShort_other": "{{count}} stops",
     "goToStopAreaDetails": "Go to stop area details page.",
 
     "stopRowActions": {

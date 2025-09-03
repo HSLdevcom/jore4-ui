@@ -634,6 +634,10 @@
     "sortOrder": "Järjestys:",
     "resultCount": "{{count}} hakutulos",
     "resultCount_other": "{{count}} hakutulosta",
+    "stopsCount": "{{count}} pysäkki",
+    "stopsCount_other": "{{count}} pysäkkiä",
+    "stopsCountShort": "{{count}} pys.",
+    "stopsCountShort_other": "{{count}} pys.",
     "goToStopAreaDetails": "Siirry pysäkkialueen tietoihin.",
 
     "stopRowActions": {

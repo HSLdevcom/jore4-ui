@@ -68634,6 +68634,37 @@ export type FindStopByLineRouteInfoFragment = {
   readonly validity_end?: luxon.DateTime | null
 };
 
+export type GetLineRouteStopCountsQueryVariables = Exact<{
+  inboundRoute: Scalars['uuid']['input'];
+  outboundRoute: Scalars['uuid']['input'];
+}>;
+
+
+export type GetLineRouteStopCountsQuery = {
+  readonly __typename?: 'query_root',
+  readonly combinedStopPoints: {
+    readonly __typename?: 'service_pattern_scheduled_stop_point_aggregate',
+    readonly aggregate?: {
+      readonly __typename?: 'service_pattern_scheduled_stop_point_aggregate_fields',
+      readonly count: number
+    } | null
+  },
+  readonly inboundStopPoints: {
+    readonly __typename?: 'service_pattern_scheduled_stop_point_aggregate',
+    readonly aggregate?: {
+      readonly __typename?: 'service_pattern_scheduled_stop_point_aggregate_fields',
+      readonly count: number
+    } | null
+  },
+  readonly outboundStopPoints: {
+    readonly __typename?: 'service_pattern_scheduled_stop_point_aggregate',
+    readonly aggregate?: {
+      readonly __typename?: 'service_pattern_scheduled_stop_point_aggregate_fields',
+      readonly count: number
+    } | null
+  }
+};
+
 export type GetStopsByRouteIdQueryVariables = Exact<{
   routeId: Scalars['uuid']['input'];
 }>;
@@ -79951,6 +79982,68 @@ export type FindLinesByStopSearchQueryHookResult = ReturnType<typeof useFindLine
 export type FindLinesByStopSearchLazyQueryHookResult = ReturnType<typeof useFindLinesByStopSearchLazyQuery>;
 export type FindLinesByStopSearchSuspenseQueryHookResult = ReturnType<typeof useFindLinesByStopSearchSuspenseQuery>;
 export type FindLinesByStopSearchQueryResult = Apollo.QueryResult<FindLinesByStopSearchQuery, FindLinesByStopSearchQueryVariables>;
+export const GetLineRouteStopCountsDocument = gql`
+    query GetLineRouteStopCounts($inboundRoute: uuid!, $outboundRoute: uuid!) {
+  combinedStopPoints: service_pattern_scheduled_stop_point_aggregate(
+    where: {scheduled_stop_point_in_journey_patterns: {journey_pattern: {on_route_id: {_in: [$inboundRoute, $outboundRoute]}}}}
+    distinct_on: [label]
+  ) {
+    aggregate {
+      count
+    }
+  }
+  inboundStopPoints: service_pattern_scheduled_stop_point_aggregate(
+    where: {scheduled_stop_point_in_journey_patterns: {journey_pattern: {on_route_id: {_eq: $inboundRoute}}}}
+    distinct_on: [label]
+  ) {
+    aggregate {
+      count
+    }
+  }
+  outboundStopPoints: service_pattern_scheduled_stop_point_aggregate(
+    where: {scheduled_stop_point_in_journey_patterns: {journey_pattern: {on_route_id: {_eq: $outboundRoute}}}}
+    distinct_on: [label]
+  ) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLineRouteStopCountsQuery__
+ *
+ * To run a query within a React component, call `useGetLineRouteStopCountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLineRouteStopCountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLineRouteStopCountsQuery({
+ *   variables: {
+ *      inboundRoute: // value for 'inboundRoute'
+ *      outboundRoute: // value for 'outboundRoute'
+ *   },
+ * });
+ */
+export function useGetLineRouteStopCountsQuery(baseOptions: Apollo.QueryHookOptions<GetLineRouteStopCountsQuery, GetLineRouteStopCountsQueryVariables> & ({ variables: GetLineRouteStopCountsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLineRouteStopCountsQuery, GetLineRouteStopCountsQueryVariables>(GetLineRouteStopCountsDocument, options);
+      }
+export function useGetLineRouteStopCountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLineRouteStopCountsQuery, GetLineRouteStopCountsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLineRouteStopCountsQuery, GetLineRouteStopCountsQueryVariables>(GetLineRouteStopCountsDocument, options);
+        }
+export function useGetLineRouteStopCountsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetLineRouteStopCountsQuery, GetLineRouteStopCountsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetLineRouteStopCountsQuery, GetLineRouteStopCountsQueryVariables>(GetLineRouteStopCountsDocument, options);
+        }
+export type GetLineRouteStopCountsQueryHookResult = ReturnType<typeof useGetLineRouteStopCountsQuery>;
+export type GetLineRouteStopCountsLazyQueryHookResult = ReturnType<typeof useGetLineRouteStopCountsLazyQuery>;
+export type GetLineRouteStopCountsSuspenseQueryHookResult = ReturnType<typeof useGetLineRouteStopCountsSuspenseQuery>;
+export type GetLineRouteStopCountsQueryResult = Apollo.QueryResult<GetLineRouteStopCountsQuery, GetLineRouteStopCountsQueryVariables>;
 export const GetStopsByRouteIdDocument = gql`
     query getStopsByRouteId($routeId: uuid!) {
   stopPoints: service_pattern_scheduled_stop_point(
