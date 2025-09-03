@@ -664,7 +664,7 @@
       "label": "Label",
       "name": "Name",
       "address": "Address",
-      "sequenceNumber": "Sequence number",
+      "sequenceNumber": "Driving order",
       "byStopArea": "By stop"
     }
   },

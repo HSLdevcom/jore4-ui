@@ -663,7 +663,7 @@
       "label": "Tunnus",
       "name": "Nimi",
       "address": "Osoite",
-      "sequenceNumber": "Järjestysnumero",
+      "sequenceNumber": "Ajojärjestys",
       "byStopArea": "Pysäkkialueen mukaan"
     }
   },
