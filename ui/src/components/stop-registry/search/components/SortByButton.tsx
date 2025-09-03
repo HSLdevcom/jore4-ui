@@ -28,6 +28,9 @@ function trSortStopsBy(t: TFunction, value: SortStopsBy): ReactNode {
     case SortStopsBy.BY_STOP_AREA:
       return t('stopRegistrySearch.sortBy.byStopArea');
 
+    case SortStopsBy.BY_TERMINAL:
+      return t('stopRegistrySearch.sortBy.byTerminal');
+
     default:
       return null;
   }

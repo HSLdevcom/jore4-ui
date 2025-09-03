@@ -517,6 +517,7 @@
   "terminalDetails": {
     "title": "Basic details",
     "editSuccess": "Terminal edited",
+    "noStops": "No stops.",
     "tabs": {
       "basic": "Terminal",
       "stops": "Stops",
@@ -626,16 +627,19 @@
     "municipalityPlaceholder": "Choose",
     "lines": "Lines",
     "stopAreas": "Stop areas ({{ count }})",
+    "terminals": "Terminals ({{ count }})",
     "showAllLines": "Show all ({{ count }})",
     "showLessLines": "Show less",
     "failedToFetchStops": "Failed to fetch stops! Reason: {{reason}}",
     "tryToRefetch": "Try to refetch stops",
     "stopAreaLabel": "Stop area {{privateCode}} | {{name}}",
+    "terminalLabel": "Terminal {{privateCode}} | {{name}}",
     "showStopAreaOnMap": "Show stop area on the map",
     "sortOrder": "Sort by:",
     "resultCount": "{{count}} search result",
     "resultCount_other": "{{count}} search results",
     "goToStopAreaDetails": "Go to stop area details page.",
+    "gotoTerminalDetails": "Go to terminal details page.",
 
     "stopRowActions": {
       "openDetails": "Open stop details page",
@@ -671,7 +675,8 @@
       "name": "Name",
       "address": "Address",
       "sequenceNumber": "Driving order",
-      "byStopArea": "By stop"
+      "byStopArea": "By stop area",
+      "byTerminal": "By terminal"
     }
   },
   "stopRegistryNamedEntity": {
