@@ -13,7 +13,7 @@ const testIds = {
   searchForDropdown: 'StopSearchBar::SearchForDropdown',
 };
 
-const disabled: ReadonlyArray<SearchFor> = [SearchFor.Terminals];
+const disabled: ReadonlyArray<SearchFor> = [];
 
 function useResetAndSetSearchFor() {
   const { getValues, reset } = useFormContext<StopSearchFilters>();

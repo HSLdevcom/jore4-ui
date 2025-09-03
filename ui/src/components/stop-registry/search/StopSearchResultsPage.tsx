@@ -12,6 +12,7 @@ import { StopsByLineSearchResults } from './by-line';
 import { StopSearchByStopResults } from './by-stop';
 import { StopSearchBar } from './components';
 import { StopAreaSearchResults } from './for-stop-areas/StopAreaSearchResults';
+import { TerminalSearchResults } from './for-terminals/TerminalSearchResults';
 import {
   SearchBy,
   SearchFor,
@@ -60,6 +61,18 @@ const Results: FC<StopSearchResultsProps> = ({
   if (filters.searchFor === SearchFor.StopAreas) {
     return (
       <StopAreaSearchResults
+        filters={filters}
+        pagingInfo={pagingInfo}
+        setPagingInfo={setPagingInfo}
+        setSortingInfo={setSortingInfo}
+        sortingInfo={sortingInfo}
+      />
+    );
+  }
+
+  if (filters.searchFor === SearchFor.Terminals) {
+    return (
+      <TerminalSearchResults
         filters={filters}
         pagingInfo={pagingInfo}
         setPagingInfo={setPagingInfo}
