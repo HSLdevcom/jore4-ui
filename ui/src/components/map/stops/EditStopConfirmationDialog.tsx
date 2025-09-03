@@ -65,6 +65,9 @@ export const EditStopConfirmationDialog: FC<
       confirmationTextParts.push(removedRoutesText);
     }
 
+    const additionalInfo = t('confirmEditStopDialog.additionalInfo');
+    confirmationTextParts.push(additionalInfo);
+
     return confirmationTextParts.join('\n\n');
   };
 
