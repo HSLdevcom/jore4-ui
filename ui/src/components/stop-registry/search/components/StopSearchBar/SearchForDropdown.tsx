@@ -13,8 +13,6 @@ const testIds = {
   searchForDropdown: 'StopSearchBar::SearchForDropdown',
 };
 
-const disabled: ReadonlyArray<SearchFor> = [SearchFor.Terminals];
-
 function useResetAndSetSearchFor() {
   const { getValues, reset } = useFormContext<StopSearchFilters>();
 
@@ -78,7 +76,6 @@ export const SearchForDropdown: FC<SearchForDropdownProps> = ({
                 className="group flex border-b border-grey px-2 py-2 text-left ui-selected:bg-dark-grey ui-selected:text-white ui-active:bg-dark-grey ui-active:text-white"
                 key={searchFor}
                 value={searchFor}
-                disabled={disabled.includes(searchFor)}
               >
                 {trSearchFor(t, searchFor)}
               </HUIListbox.Option>
