@@ -13,7 +13,7 @@ import {
   SimpleDropdownMenuItem,
 } from '../../../../../uiComponents';
 import { useUpsertStopArea } from '../../../../forms/stop-area';
-import { ShowAreaOnMap } from '../../../search/for-stop-areas/ActionMenu/ShowAreaOnMap';
+import { ShowOnMap } from '../../../search/components/StopPlaceSharedComponents/ActionMenu/ShowOnMap';
 
 const testIds = {
   actionMenu: 'StopAreaTitleRow::actionMenu',
@@ -61,10 +61,11 @@ export const TitleRowActions: FC<TitleRowActionsProps> = ({
           onClick={openDeleteDialog}
           testId={testIds.delete}
         />
-        <ShowAreaOnMap
+        <ShowOnMap
           key="showOnMap"
           onClick={showOnMap}
           testId={testIds.showOnMap}
+          text={t('stopRegistrySearch.stopAreaRowActions.showOnMap')}
         />
       </SimpleDropdownMenu>
 
