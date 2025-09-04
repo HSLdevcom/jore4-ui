@@ -120,7 +120,7 @@ export const OwnerOrganizationFields: FC<MaintainerFormFieldsProps> = ({
           </div>
         </div>
 
-        <div className="self-end">
+        <div>
           <Visible visible={!!selectedOwner}>
             <SlimSimpleButton
               className="px-8"
