@@ -68736,6 +68736,17 @@ export type ResolveStopPlaceNetextIdsByLineIdsQuery = {
   }>
 };
 
+export type FindStopPlaceInfoFragment = {
+  readonly __typename?: 'stops_database_stop_place_newest_version',
+  readonly id?: any | null,
+  readonly netex_id?: string | null,
+  readonly version?: any | null,
+  readonly name_lang?: string | null,
+  readonly name_value?: string | null,
+  readonly centroid?: GeoJSON.Geometry | null,
+  readonly private_code?: string | null
+};
+
 export type FindStopAreasQueryVariables = Exact<{
   query: Scalars['String']['input'];
   validOn: Scalars['String']['input'];
@@ -68759,27 +68770,39 @@ export type FindStopAreasQuery = {
   } | null
 };
 
-export type FindStopAreaInfoFragment = {
-  readonly __typename?: 'stops_database_stop_place_newest_version',
-  readonly id?: any | null,
-  readonly netex_id?: string | null,
-  readonly version?: any | null,
-  readonly name_lang?: string | null,
-  readonly name_value?: string | null,
-  readonly centroid?: GeoJSON.Geometry | null,
-  readonly private_code?: string | null
-};
-
-export type GetStopsByStopAreaIdQueryVariables = Exact<{
-  stopAreaId: Scalars['bigint']['input'];
+export type FindTerminalsQueryVariables = Exact<{
+  query: Scalars['String']['input'];
+  validOn: Scalars['String']['input'];
 }>;
 
 
-export type GetStopsByStopAreaIdQuery = {
+export type FindTerminalsQuery = {
   readonly __typename?: 'query_root',
   readonly stops_database?: {
     readonly __typename?: 'stops_database_stops_database_query',
-    readonly quays: ReadonlyArray<{
+    readonly terminals: ReadonlyArray<{
+      readonly __typename?: 'stops_database_stop_place_newest_version',
+      readonly id?: any | null,
+      readonly netex_id?: string | null,
+      readonly version?: any | null,
+      readonly name_lang?: string | null,
+      readonly name_value?: string | null,
+      readonly centroid?: GeoJSON.Geometry | null,
+      readonly private_code?: string | null
+    }>
+  } | null
+};
+
+export type GetStopsByIdQueryVariables = Exact<{
+  stopPlaceId?: InputMaybe<Scalars['bigint']['input']>;
+}>;
+
+
+export type GetStopsByIdQuery = {
+  readonly __typename?: 'query_root',
+  readonly stops_database?: {
+    readonly __typename?: 'stops_database_stops_database_query',
+    readonly stops: ReadonlyArray<{
       readonly __typename?: 'stops_database_quay_newest_version',
       readonly id?: any | null,
       readonly netex_id?: string | null,
@@ -78140,8 +78163,8 @@ export const GetStopByRouteIdSearchResultFragmentDoc = gql`
 }
     ${StopTableRowFragmentDoc}
 ${StopTableRowQuayBaseDetailsFragmentDoc}`;
-export const FindStopAreaInfoFragmentDoc = gql`
-    fragment FindStopAreaInfo on stops_database_stop_place_newest_version {
+export const FindStopPlaceInfoFragmentDoc = gql`
+    fragment FindStopPlaceInfo on stops_database_stop_place_newest_version {
   id
   netex_id
   version
@@ -80040,14 +80063,14 @@ export const FindStopAreasDocument = gql`
     query findStopAreas($query: String!, $validOn: String!) {
   stops_database {
     stopAreas: stops_database_stop_place_newest_version(
-      where: {_and: [{_or: [{private_code_value: {_ilike: $query}}, {name_value: {_ilike: $query}}, {stop_place_alternative_names: {alternative_name: {name_value: {_ilike: $query}}}}]}, {validity_start: {_lte: $validOn}}, {_or: [{validity_end: {_gte: $validOn}}, {validity_end: {_is_null: true}}]}]}
+      where: {_and: [{_or: [{private_code_value: {_ilike: $query}}, {name_value: {_ilike: $query}}, {stop_place_alternative_names: {alternative_name: {name_value: {_ilike: $query}}}}]}, {validity_start: {_lte: $validOn}}, {is_area: {_eq: true}}, {_or: [{validity_end: {_gte: $validOn}}, {validity_end: {_is_null: true}}]}]}
       order_by: [{netex_id: asc}, {version: desc}]
     ) {
-      ...FindStopAreaInfo
+      ...FindStopPlaceInfo
     }
   }
 }
-    ${FindStopAreaInfoFragmentDoc}`;
+    ${FindStopPlaceInfoFragmentDoc}`;
 
 /**
  * __useFindStopAreasQuery__
@@ -80082,11 +80105,57 @@ export type FindStopAreasQueryHookResult = ReturnType<typeof useFindStopAreasQue
 export type FindStopAreasLazyQueryHookResult = ReturnType<typeof useFindStopAreasLazyQuery>;
 export type FindStopAreasSuspenseQueryHookResult = ReturnType<typeof useFindStopAreasSuspenseQuery>;
 export type FindStopAreasQueryResult = Apollo.QueryResult<FindStopAreasQuery, FindStopAreasQueryVariables>;
-export const GetStopsByStopAreaIdDocument = gql`
-    query getStopsByStopAreaId($stopAreaId: bigint!) {
+export const FindTerminalsDocument = gql`
+    query findTerminals($query: String!, $validOn: String!) {
   stops_database {
-    quays: stops_database_quay_newest_version(
-      where: {stop_place_id: {_eq: $stopAreaId}}
+    terminals: stops_database_stop_place_newest_version(
+      where: {_and: [{_or: [{private_code_value: {_ilike: $query}}, {name_value: {_ilike: $query}}]}, {validity_start: {_lte: $validOn}}, {is_terminal: {_eq: true}}, {_or: [{validity_end: {_gte: $validOn}}, {validity_end: {_is_null: true}}]}]}
+      order_by: [{netex_id: asc}, {version: desc}]
+    ) {
+      ...FindStopPlaceInfo
+    }
+  }
+}
+    ${FindStopPlaceInfoFragmentDoc}`;
+
+/**
+ * __useFindTerminalsQuery__
+ *
+ * To run a query within a React component, call `useFindTerminalsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindTerminalsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindTerminalsQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *      validOn: // value for 'validOn'
+ *   },
+ * });
+ */
+export function useFindTerminalsQuery(baseOptions: Apollo.QueryHookOptions<FindTerminalsQuery, FindTerminalsQueryVariables> & ({ variables: FindTerminalsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindTerminalsQuery, FindTerminalsQueryVariables>(FindTerminalsDocument, options);
+      }
+export function useFindTerminalsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindTerminalsQuery, FindTerminalsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindTerminalsQuery, FindTerminalsQueryVariables>(FindTerminalsDocument, options);
+        }
+export function useFindTerminalsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FindTerminalsQuery, FindTerminalsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindTerminalsQuery, FindTerminalsQueryVariables>(FindTerminalsDocument, options);
+        }
+export type FindTerminalsQueryHookResult = ReturnType<typeof useFindTerminalsQuery>;
+export type FindTerminalsLazyQueryHookResult = ReturnType<typeof useFindTerminalsLazyQuery>;
+export type FindTerminalsSuspenseQueryHookResult = ReturnType<typeof useFindTerminalsSuspenseQuery>;
+export type FindTerminalsQueryResult = Apollo.QueryResult<FindTerminalsQuery, FindTerminalsQueryVariables>;
+export const GetStopsByIdDocument = gql`
+    query getStopsById($stopPlaceId: bigint) {
+  stops_database {
+    stops: stops_database_quay_newest_version(
+      where: {_or: [{stop_place_id: {_eq: $stopPlaceId}}, {stopPlaceParent: {stop_place_id: {_eq: $stopPlaceId}}}]}
       order_by: [{public_code: asc}]
     ) {
       ...stop_table_row_quay
@@ -80096,37 +80165,37 @@ export const GetStopsByStopAreaIdDocument = gql`
     ${StopTableRowQuayFragmentDoc}`;
 
 /**
- * __useGetStopsByStopAreaIdQuery__
+ * __useGetStopsByIdQuery__
  *
- * To run a query within a React component, call `useGetStopsByStopAreaIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetStopsByStopAreaIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetStopsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStopsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetStopsByStopAreaIdQuery({
+ * const { data, loading, error } = useGetStopsByIdQuery({
  *   variables: {
- *      stopAreaId: // value for 'stopAreaId'
+ *      stopPlaceId: // value for 'stopPlaceId'
  *   },
  * });
  */
-export function useGetStopsByStopAreaIdQuery(baseOptions: Apollo.QueryHookOptions<GetStopsByStopAreaIdQuery, GetStopsByStopAreaIdQueryVariables> & ({ variables: GetStopsByStopAreaIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetStopsByIdQuery(baseOptions?: Apollo.QueryHookOptions<GetStopsByIdQuery, GetStopsByIdQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetStopsByStopAreaIdQuery, GetStopsByStopAreaIdQueryVariables>(GetStopsByStopAreaIdDocument, options);
+        return Apollo.useQuery<GetStopsByIdQuery, GetStopsByIdQueryVariables>(GetStopsByIdDocument, options);
       }
-export function useGetStopsByStopAreaIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByStopAreaIdQuery, GetStopsByStopAreaIdQueryVariables>) {
+export function useGetStopsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStopsByIdQuery, GetStopsByIdQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetStopsByStopAreaIdQuery, GetStopsByStopAreaIdQueryVariables>(GetStopsByStopAreaIdDocument, options);
+          return Apollo.useLazyQuery<GetStopsByIdQuery, GetStopsByIdQueryVariables>(GetStopsByIdDocument, options);
         }
-export function useGetStopsByStopAreaIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopsByStopAreaIdQuery, GetStopsByStopAreaIdQueryVariables>) {
+export function useGetStopsByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStopsByIdQuery, GetStopsByIdQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetStopsByStopAreaIdQuery, GetStopsByStopAreaIdQueryVariables>(GetStopsByStopAreaIdDocument, options);
+          return Apollo.useSuspenseQuery<GetStopsByIdQuery, GetStopsByIdQueryVariables>(GetStopsByIdDocument, options);
         }
-export type GetStopsByStopAreaIdQueryHookResult = ReturnType<typeof useGetStopsByStopAreaIdQuery>;
-export type GetStopsByStopAreaIdLazyQueryHookResult = ReturnType<typeof useGetStopsByStopAreaIdLazyQuery>;
-export type GetStopsByStopAreaIdSuspenseQueryHookResult = ReturnType<typeof useGetStopsByStopAreaIdSuspenseQuery>;
-export type GetStopsByStopAreaIdQueryResult = Apollo.QueryResult<GetStopsByStopAreaIdQuery, GetStopsByStopAreaIdQueryVariables>;
+export type GetStopsByIdQueryHookResult = ReturnType<typeof useGetStopsByIdQuery>;
+export type GetStopsByIdLazyQueryHookResult = ReturnType<typeof useGetStopsByIdLazyQuery>;
+export type GetStopsByIdSuspenseQueryHookResult = ReturnType<typeof useGetStopsByIdSuspenseQuery>;
+export type GetStopsByIdQueryResult = Apollo.QueryResult<GetStopsByIdQuery, GetStopsByIdQueryVariables>;
 export const SearchStopsDocument = gql`
     query SearchStops($where: stops_database_quay_newest_version_bool_exp, $orderBy: [stops_database_quay_newest_version_order_by!]!, $offset: Int!, $limit: Int!) {
   stops_database {
