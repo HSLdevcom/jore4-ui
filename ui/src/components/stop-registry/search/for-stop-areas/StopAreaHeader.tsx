@@ -1,4 +1,3 @@
-import type { Geometry } from 'geojson';
 import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,14 +5,13 @@ import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { useObservationDateQueryParam } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { Point } from '../../../../types';
 import { LocatorButton } from '../../../../uiComponents';
-import { mapLngLatToPoint } from '../../../../utils';
+import { getGeometryPoint } from '../../../../utils';
 import { useShowStopAreaOnMap } from '../../utils';
-import { ActionMenu } from './ActionMenu/ActionMenu';
-import { OpenDetails } from './ActionMenu/OpenAreaDetailsPage';
-import { ShowAreaOnMap } from './ActionMenu/ShowAreaOnMap';
-import { FindStopAreaInfo } from './useFindStopAreas';
+import { ActionMenu } from '../components/StopPlaceSharedComponents/ActionMenu/ActionMenu';
+import { OpenDetails } from '../components/StopPlaceSharedComponents/ActionMenu/OpenDetailsPage';
+import { ShowOnMap } from '../components/StopPlaceSharedComponents/ActionMenu/ShowOnMap';
+import { FindStopPlaceInfo } from '../components/StopPlaceSharedComponents/useFindStopPlaces';
 
 const testIds = {
   stopAreaLabel: 'StopAreaSearch::label',
@@ -23,23 +21,15 @@ const testIds = {
   showStopAreaDetails: 'StopAreaSearch::showStopAreaDetails',
 };
 
-function centroidToPoint(centroid: Geometry | null | undefined): Point | null {
-  if (centroid?.type === 'Point') {
-    return mapLngLatToPoint(centroid.coordinates);
-  }
-
-  return null;
-}
-
 type StopAreaHeaderProps = {
   readonly className?: string;
-  readonly stopArea: FindStopAreaInfo;
-  readonly isRounded?: boolean;
+  readonly stopPlace: FindStopPlaceInfo;
+  readonly isRounded: boolean;
 };
 
 export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
   className,
-  stopArea,
+  stopPlace: stopArea,
   isRounded,
 }) => {
   const { t } = useTranslation();
@@ -49,7 +39,7 @@ export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
   });
 
   const showOnMap = useShowStopAreaOnMap();
-  const point = centroidToPoint(stopArea.centroid);
+  const point = getGeometryPoint(stopArea.centroid);
 
   const onClickAreaMap = point
     ? () => showOnMap(stopArea.netex_id ?? undefined, point)
@@ -90,16 +80,17 @@ export const StopAreaHeader: FC<StopAreaHeaderProps> = ({
 
       <ActionMenu>
         <OpenDetails
-          key="openDetails"
           className={className}
           privateCode={stopArea.private_code}
           testId={testIds.showStopAreaDetails}
+          text={t('stopRegistrySearch.stopAreaRowActions.openDetails')}
+          details={Path.stopAreaDetails}
         />
-        <ShowAreaOnMap
-          key="showOnMap"
+        <ShowOnMap
           className={className}
           onClick={onClickAreaMap}
           testId={testIds.showOnMap}
+          text={t('stopRegistrySearch.stopAreaRowActions.showOnMap')}
         />
       </ActionMenu>
     </div>
