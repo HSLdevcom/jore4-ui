@@ -3,6 +3,7 @@ export * from './AlternativeNamesEdit';
 export * from './ExternalLinksForm';
 export * from './ExternalLinksSection';
 export * from './SearchForStopAreas';
+export * from './SearchForTerminals';
 export * from './SortByButton';
 export * from './stop-details';
 export * from './stop-versions';
