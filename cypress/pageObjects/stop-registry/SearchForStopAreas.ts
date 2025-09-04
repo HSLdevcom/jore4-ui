@@ -11,7 +11,7 @@ export class SearchForStopAreas {
     return cy.getByTestId('StopAreaSearch::locatorButton');
   }
 
-  getActionMenu = () => cy.getByTestId('StopAreaHeader::actionMenu');
+  getActionMenu = () => cy.getByTestId('SearchHeader::actionMenu');
 
   getActionMenuShowDetails = () =>
     cy.getByTestId('StopAreaSearch::showStopAreaDetails');
