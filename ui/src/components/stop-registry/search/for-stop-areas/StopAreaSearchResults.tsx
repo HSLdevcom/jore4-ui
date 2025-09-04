@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
+import { SearchGroupedStopsResults } from '../components/shared/GroupedStopsResults';
+import { NongroupedStopsResults } from '../components/shared/NongroupedStopsResults';
+import { useFindStopPlaces } from '../components/shared/useFindStopPlaces';
 import { SortStopsBy, StopSearchResultsProps } from '../types';
-import { StopAreaNongroupedStopsResults } from './StopAreaNongroupedStopsResults';
-import { StopAreaSearchGroupedStopsResults } from './StopAreaSearchGroupedStopsResults';
-import { useFindStopAreas } from './useFindStopAreas';
 
 const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopAreaSearchResults',
@@ -19,7 +19,7 @@ export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { stopAreas, loading } = useFindStopAreas(filters);
+  const { stopPlaces, loading } = useFindStopPlaces(filters, 'is_area');
 
   const { sortBy } = sortingInfo;
   const groupByArea =
@@ -33,19 +33,21 @@ export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
       testId={testIds.loadingSearchResults}
     >
       {groupByArea ? (
-        <StopAreaSearchGroupedStopsResults
+        <SearchGroupedStopsResults
           setPagingInfo={setPagingInfo}
           setSortingInfo={setSortingInfo}
           sortingInfo={sortingInfo}
-          stopAreas={stopAreas}
+          stopPlaces={stopPlaces}
+          isTerminal={false}
         />
       ) : (
-        <StopAreaNongroupedStopsResults
-          stopAreas={stopAreas}
+        <NongroupedStopsResults
+          stopPlaces={stopPlaces}
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
           pagingInfo={pagingInfo}
           setPagingInfo={setPagingInfo}
+          isTerminal={false}
         />
       )}
     </LoadingWrapper>

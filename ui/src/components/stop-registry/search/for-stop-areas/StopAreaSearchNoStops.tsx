@@ -4,7 +4,7 @@ import { MdOpenInNew } from 'react-icons/md';
 import { Link } from 'react-router';
 import { useObservationDateQueryParam } from '../../../../hooks';
 import { Path, routeDetails } from '../../../../router/routeDetails';
-import { FindStopAreaInfo } from './useFindStopAreas';
+import { FindStopPlaceInfo } from '../components/shared/useFindStopPlaces';
 
 const testIds = {
   noStopsInStopArea: 'StopAreaSearch:noStopsText',
@@ -12,7 +12,7 @@ const testIds = {
 };
 
 type StopAreaSearchNoStopsProps = {
-  readonly stopArea: FindStopAreaInfo;
+  readonly stopArea: FindStopPlaceInfo;
 };
 
 export const StopAreaSearchNoStops: FC<StopAreaSearchNoStopsProps> = ({

@@ -1,26 +1,19 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { PagingInfo } from '../../../../types';
 import { ResultCountHeader } from '../components/ResultCountHeader';
 import { SortResultsBy } from '../components/SortResultsBy';
-import { SortStopsBy, SortingInfo } from '../types';
+import { SortStopsBy } from '../types';
+import {
+  CountAndSortingRowProps,
+  commonSortingFields,
+} from '../types/CountAndSortingRow';
 
 const supportedSortingFields: ReadonlyArray<SortStopsBy> = [
-  SortStopsBy.LABEL,
-  SortStopsBy.NAME,
-  SortStopsBy.ADDRESS,
+  ...commonSortingFields,
   SortStopsBy.BY_STOP_AREA,
 ];
 
 const groupOnlyFields: ReadonlyArray<SortStopsBy> = [SortStopsBy.BY_STOP_AREA];
-
-type CountAndSortingRowProps = {
-  readonly className?: string;
-  readonly resultCount: number;
-  readonly sortingInfo: SortingInfo;
-  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
-  readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
-};
 
 export const CountAndSortingRow: FC<CountAndSortingRowProps> = ({
   className,
