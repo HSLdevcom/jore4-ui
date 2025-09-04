@@ -1,10 +1,13 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
+import { SearchGroupedStopsResults } from '../components/StopPlaceSharedComponents/GroupedStopsResults';
+import { NongroupedStopsResults } from '../components/StopPlaceSharedComponents/NongroupedStopsResults';
+import { useFindStopPlaces } from '../components/StopPlaceSharedComponents/useFindStopPlaces';
 import { SortStopsBy, StopSearchResultsProps } from '../types';
-import { StopAreaNongroupedStopsResults } from './StopAreaNongroupedStopsResults';
-import { StopAreaSearchGroupedStopsResults } from './StopAreaSearchGroupedStopsResults';
-import { useFindStopAreas } from './useFindStopAreas';
+import { CountAndSortingRow } from './CountAndSortingRow';
+import { StopAreaHeader } from './StopAreaHeader';
+import { StopAreaSearchNoStops } from './StopAreaSearchNoStops';
 
 const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopAreaSearchResults',
@@ -19,7 +22,7 @@ export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { stopAreas, loading } = useFindStopAreas(filters);
+  const { stopPlaces, loading } = useFindStopPlaces(filters, 'is_area');
 
   const { sortBy } = sortingInfo;
   const groupByArea =
@@ -33,19 +36,24 @@ export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
       testId={testIds.loadingSearchResults}
     >
       {groupByArea ? (
-        <StopAreaSearchGroupedStopsResults
+        <SearchGroupedStopsResults
           setPagingInfo={setPagingInfo}
           setSortingInfo={setSortingInfo}
           sortingInfo={sortingInfo}
-          stopAreas={stopAreas}
+          stopPlaces={stopPlaces}
+          CountAndSortingRowComponent={CountAndSortingRow}
+          HeaderComponent={StopAreaHeader}
+          NoStopsComponent={StopAreaSearchNoStops}
+          translationLabel="stopRegistrySearch.stopAreas"
         />
       ) : (
-        <StopAreaNongroupedStopsResults
-          stopAreas={stopAreas}
+        <NongroupedStopsResults
+          stopPlaces={stopPlaces}
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}
           pagingInfo={pagingInfo}
           setPagingInfo={setPagingInfo}
+          CountAndSortingRowComponent={CountAndSortingRow}
         />
       )}
     </LoadingWrapper>
