@@ -138,6 +138,10 @@ const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
     infoSpots {
       ...info_spot_details
     }
+    geometry {
+      type
+      coordinates
+    }
     placeEquipments {
       id
       generalSign {

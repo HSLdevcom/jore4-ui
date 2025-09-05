@@ -1,6 +1,9 @@
 export class TerminalInfoSpotsViewList {
   getTable = () => cy.getByTestId('TerminalInfoSpotsViewList::table');
 
+  getTableContent = () =>
+    cy.getByTestId('TerminalInfoSpotsViewList::tableContent');
+
   getSortButton = (column: string) =>
     cy.getByTestId(`TerminalInfoSpotsViewList::sortButton::${column}`);
 
