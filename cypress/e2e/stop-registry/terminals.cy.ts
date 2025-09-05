@@ -538,6 +538,8 @@ describe('Terminal details', () => {
             .clearAndType('http://www.example2.com');
         });
         externalLinksForm.getSaveButton().click();
+        waitForSaveToBeFinished();
+
         externalLinksView.getNoExternalLinks().should('not.exist');
         externalLinksView.getExternalLinks().should('have.length', 2);
 
@@ -553,6 +555,8 @@ describe('Terminal details', () => {
           externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
         });
         externalLinksForm.getSaveButton().click();
+        waitForSaveToBeFinished();
+
         externalLinksView.getExternalLinks().should('have.length', 1);
         externalLinksView.getNthExternalLink(0).within(() => {
           externalLinksView.getName().shouldHaveText('Linkin nimi 2');
@@ -563,6 +567,8 @@ describe('Terminal details', () => {
           externalLinksForm.externalLinks.getDeleteExternalLinkButton().click();
         });
         externalLinksForm.getSaveButton().click();
+        waitForSaveToBeFinished();
+
         externalLinksView.getExternalLinks().should('have.length', 0);
         externalLinksView.getNoExternalLinks().shouldBeVisible();
         externalLinksView.getNoExternalLinks().shouldHaveText('Ei linkkejä');
