@@ -1,5 +1,9 @@
 export class TerminalInfoSpotRow {
+  getIdAndQuayCell = () => cy.getByTestId('TerminalInfoSpotRow::idAndQuayCell');
+
   getLabelCell = () => cy.getByTestId('TerminalInfoSpotRow::labelCell');
+
+  getEditButton = () => cy.getByTestId('TerminalInfoSpotRow::editButton');
 
   getQuayPublicCodeCell = () =>
     cy.getByTestId('TerminalInfoSpotRow::quayPublicCodeCell');
@@ -23,4 +27,8 @@ export class TerminalInfoSpotRow {
   getDetailsRow = () => cy.getByTestId('TerminalInfoSpotRow::detailsRow');
 
   getNthDetailsRow = (index: number) => this.getDetailsRow().eq(index);
+
+  getSaveButton = () => cy.getByTestId('TerminalInfoSpotRow::saveButton');
+
+  getCancelButton = () => cy.getByTestId('TerminalInfoSpotRow::cancelButton');
 }

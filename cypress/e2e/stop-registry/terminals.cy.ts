@@ -18,6 +18,7 @@ import {
   Map,
   TerminalDetailsPage,
   TerminalInfoSpotRow,
+  TerminalInfoSpotsSection,
   TerminalInfoSpotsViewCard,
   TerminalInfoSpotsViewList,
   Toast,
@@ -132,6 +133,11 @@ describe('Terminal details', () => {
   function waitForValidityEditToBeFinished() {
     expectGraphQLCallToSucceed('@gqlUpdateTerminal');
     toast.expectSuccessToast('Voimassaoloaika muokattu');
+  }
+
+  function waitForTerminalInfoSpotSaveToBeFinished() {
+    expectGraphQLCallToSucceed('@gqlUpdateInfoSpot');
+    toast.expectSuccessToast('Terminaali muokattu');
   }
 
   function assertBasicDetails(expected: ExpectedBasicDetails) {
@@ -834,6 +840,8 @@ describe('Terminal details', () => {
     const infoSpotsViewCard = new TerminalInfoSpotsViewCard();
     const infoSpotsViewList = new TerminalInfoSpotsViewList();
     const infoSpotsRow = new TerminalInfoSpotRow();
+    const infoSpotSection = new TerminalInfoSpotsSection();
+    const terminalInfoSpotsViewList = new TerminalInfoSpotsViewList();
 
     it(
       'should display info spots tab and view info spots',
@@ -883,6 +891,11 @@ describe('Terminal details', () => {
         });
 
         infoSpotsRow.getNthToggleButton(0).click();
+        infoSpotsRow.getNthDetailsRow(0).within(() => {
+          infoSpotsRow
+            .getIdAndQuayCell()
+            .shouldHaveText('Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie');
+        });
         infoSpotsViewCard.getContainer().shouldBeVisible();
         infoSpotsViewCard.getLabel().shouldHaveText('E2E_INFO_001');
         infoSpotsViewCard.getPurpose().shouldHaveText('Tiedotteet');
@@ -897,6 +910,284 @@ describe('Terminal details', () => {
         infoSpotsViewCard.getPosterSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
         infoSpotsViewCard.getPosterLabel().shouldHaveText('E2E_POSTER_001');
         infoSpotsViewCard.getPosterLines().shouldHaveText('1, 2, 3');
+      },
+    );
+
+    it(
+      'should hide info spots when toggle button is clicked',
+      {
+        tags: [Tag.StopRegistry],
+      },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+
+        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+
+        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
+        infoSpotSection.getToggleButton().click();
+
+        infoSpotsRow.getNthDetailsRow(0).should('not.be.visible');
+
+        infoSpotSection.getToggleButton().click();
+        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
+      },
+    );
+
+    it(
+      'should edit existing quay info spot',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+
+        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
+        infoSpotsRow.getNthToggleButton(0).click();
+
+        infoSpotsRow.getNthDetailsRow(0).within(() => {
+          infoSpotsRow
+            .getIdAndQuayCell()
+            .shouldHaveText('Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie');
+        });
+
+        infoSpotsRow.getEditButton().click();
+        infoSpotSection.form.formFields
+          .getLabel()
+          .clearAndType('E2E_INFO_001_EDIT');
+
+        // Location should be disabled for quay info spot
+        infoSpotSection.form.formFields.getLatitude().shouldBeDisabled();
+        infoSpotSection.form.formFields.getLongitude().shouldBeDisabled();
+
+        infoSpotsRow.getSaveButton().click();
+        waitForTerminalInfoSpotSaveToBeFinished();
+
+        infoSpotsRow.getNthDetailsRow(0).within(() => {
+          infoSpotsRow
+            .getIdAndQuayCell()
+            .shouldHaveText(
+              'Infopaikka E2E_INFO_001_EDIT | E2E008 Kuttulammentie',
+            );
+        });
+      },
+    );
+
+    it(
+      'should add new terminal info spot',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+
+        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        infoSpotSection.getAddNewButton().click();
+
+        infoSpotSection.form.formFields.getLabel().clearAndType('E2E_INFO_002');
+        infoSpotSection.form.formFields.getPurpose().clearAndType('Tiedotteet');
+        infoSpotSection.form.formFields.getSizeSelectorButton().click();
+        infoSpotSection.form.formFields
+          .getSizeSelectorOptions()
+          .contains('80 × 120 cm')
+          .click();
+
+        infoSpotSection.form.formFields.getBacklightButton().click();
+        infoSpotSection.form.formFields
+          .getBacklightOptions()
+          .contains('Kyllä')
+          .click();
+
+        // Confirm that default location is set correctly
+        infoSpotSection.form.formFields
+          .getLatitude()
+          .should('have.value', '60.16993494912799');
+        infoSpotSection.form.formFields
+          .getLongitude()
+          .should('have.value', '24.92596546020357');
+
+        // Set custom location
+        infoSpotSection.form.formFields.getLatitude().clearAndType('60.170000');
+        infoSpotSection.form.formFields
+          .getLongitude()
+          .clearAndType('24.926000');
+
+        infoSpotSection.form.formFields.getZoneLabel().clearAndType('A');
+        infoSpotSection.form.formFields.getFloor().clearAndType('1');
+        infoSpotSection.form.formFields
+          .getDescription()
+          .clearAndType('Toinen terminaalin infopiste');
+
+        infoSpotSection.form.formFields.getAddPosterButton().click();
+        infoSpotSection.form.formFields.getNthPosterContainer(0).within(() => {
+          infoSpotSection.form.formFields.getSizeSelectorButton().click();
+          infoSpotSection.form.formFields
+            .getSizeSelectorOptions()
+            .contains('80 × 120 cm')
+            .click();
+
+          infoSpotSection.form.formFields
+            .getPosterLabel()
+            .clearAndType('E2E_002_POSTER_001');
+          infoSpotSection.form.formFields
+            .getPosterDetails()
+            .clearAndType('Kartta');
+        });
+
+        infoSpotSection.getSaveButton().click();
+        waitForTerminalInfoSpotSaveToBeFinished();
+
+        infoSpotsViewList.getSortButton('label').click();
+
+        infoSpotsRow.getNthDetailsRow(1).shouldBeVisible();
+        infoSpotsRow.getNthDetailsRow(1).within(() => {
+          infoSpotsRow
+            .getIdAndQuayCell()
+            .shouldHaveText('Infopaikka E2E_INFO_002');
+        });
+
+        infoSpotsViewCard.getContainer().shouldBeVisible();
+        infoSpotsViewCard.getLabel().shouldHaveText('E2E_INFO_002');
+        infoSpotsViewCard.getPurpose().shouldHaveText('Tiedotteet');
+        infoSpotsViewCard.getBacklight().shouldHaveText('Kyllä');
+        infoSpotsViewCard.getSize().shouldHaveText('80 × 120 cm');
+        infoSpotsViewCard.getFloor().shouldHaveText('1');
+        infoSpotsViewCard.getRailInformation().shouldHaveText('-');
+        infoSpotsViewCard.getZoneLabel().shouldHaveText('A');
+        infoSpotsViewCard
+          .getDescription()
+          .shouldHaveText('Toinen terminaalin infopiste');
+        infoSpotsViewCard.getPosterSize().shouldHaveText('80 × 120 cm');
+        infoSpotsViewCard.getPosterLabel().shouldHaveText('E2E_002_POSTER_001');
+        infoSpotsViewCard.getPosterLines().shouldHaveText('Kartta');
+      },
+    );
+
+    it('should delete terminal info spot', { tags: [Tag.StopRegistry] }, () => {
+      terminalDetailsPage.page().shouldBeVisible();
+
+      terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+      infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
+      infoSpotsRow.getNthToggleButton(0).click();
+
+      infoSpotsRow.getNthDetailsRow(0).within(() => {
+        infoSpotsRow
+          .getIdAndQuayCell()
+          .shouldHaveText('Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie');
+      });
+
+      infoSpotsRow.getEditButton().click();
+      infoSpotSection.form.formFields.getDeleteInfoSpotButton().click();
+
+      infoSpotsRow.getSaveButton().click();
+      waitForTerminalInfoSpotSaveToBeFinished();
+
+      terminalInfoSpotsViewList.getTableContent().should('be.empty');
+    });
+
+    it(
+      'should delete terminal info spot poster',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+
+        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
+        infoSpotsRow.getNthToggleButton(0).click();
+
+        infoSpotsRow.getNthDetailsRow(0).within(() => {
+          infoSpotsRow
+            .getIdAndQuayCell()
+            .shouldHaveText('Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie');
+        });
+
+        infoSpotsRow.getEditButton().click();
+
+        infoSpotSection.form.formFields.getNthPosterContainer(0).within(() => {
+          infoSpotSection.form.formFields.getDeletePosterButton().click();
+        });
+
+        infoSpotsRow.getSaveButton().click();
+        waitForTerminalInfoSpotSaveToBeFinished();
+
+        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
+        infoSpotsViewCard.getNoPosters().shouldBeVisible();
+      },
+    );
+
+    it(
+      'should add new terminal info spot poster',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.page().shouldBeVisible();
+
+        terminalDetailsPage.getTabSelector().getInfoSpotsTab().click();
+        infoSpotsRow.getNthDetailsRow(0).shouldBeVisible();
+        infoSpotsRow.getNthToggleButton(0).click();
+
+        infoSpotsRow.getNthDetailsRow(0).within(() => {
+          infoSpotsRow
+            .getIdAndQuayCell()
+            .shouldHaveText('Infopaikka E2E_INFO_001 | E2E008 Kuttulammentie');
+        });
+
+        infoSpotsRow.getEditButton().click();
+
+        infoSpotSection.form.formFields.getAddPosterButton().click();
+        infoSpotSection.form.formFields.getNthPosterContainer(1).within(() => {
+          infoSpotSection.form.formFields.getSizeSelectorButton().click();
+          infoSpotSection.form.formFields
+            .getSizeSelectorOptions()
+            .contains('80 × 120 cm')
+            .click();
+
+          infoSpotSection.form.formFields
+            .getPosterLabel()
+            .clearAndType('E2E_POSTER_002');
+          infoSpotSection.form.formFields
+            .getPosterDetails()
+            .clearAndType('Kartta');
+        });
+
+        infoSpotsRow.getSaveButton().click();
+        waitForTerminalInfoSpotSaveToBeFinished();
+
+        // Check both poster containers, match by label, and assert other properties accordingly
+        const expectedPosters = [
+          {
+            label: 'E2E_POSTER_001',
+            lines: '1, 2, 3',
+            size: 'A4 (21.0 × 29.7 cm)',
+          },
+          {
+            label: 'E2E_POSTER_002',
+            lines: 'Kartta',
+            size: '80 × 120 cm',
+          },
+        ];
+
+        infoSpotsViewCard.getPosterContainer().should('have.length', 2);
+        infoSpotsViewCard
+          .getPosterContainer()
+          .each((posterContainer: JQuery<HTMLElement>) => {
+            cy.wrap(posterContainer).within(() => {
+              infoSpotsViewCard
+                .getPosterLabel()
+                .invoke('text')
+                .then((labelText: string) => {
+                  const poster = expectedPosters.find(
+                    (p) => p.label === labelText.trim(),
+                  );
+
+                  if (!poster) {
+                    throw new Error(
+                      `Poster with label ${labelText} should exist`,
+                    );
+                  }
+
+                  infoSpotsViewCard
+                    .getPosterLines()
+                    .shouldHaveText(poster.lines);
+                  infoSpotsViewCard.getPosterSize().shouldHaveText(poster.size);
+                });
+            });
+          });
       },
     );
   });
