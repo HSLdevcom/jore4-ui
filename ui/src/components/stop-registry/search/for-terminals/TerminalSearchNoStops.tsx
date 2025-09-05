@@ -7,16 +7,16 @@ import { Path, routeDetails } from '../../../../router/routeDetails';
 import { FindStopPlaceInfo } from '../components/shared/useFindStopPlaces';
 
 const testIds = {
-  noStopsInStopArea: 'StopAreaSearch:noStopsText',
-  stopAreaLink: 'StopAreaSearch::noStopsLink',
+  noStopsInTerminal: 'TerminalSearch:noStopsText',
+  terminalLink: 'TerminalSearch::noStopsLink',
 };
 
-type StopAreaSearchNoStopsProps = {
-  readonly stopArea: FindStopPlaceInfo;
+type TerminalSearchNoStopsProps = {
+  readonly terminal: FindStopPlaceInfo;
 };
 
-export const StopAreaSearchNoStops: FC<StopAreaSearchNoStopsProps> = ({
-  stopArea,
+export const TerminalSearchNoStops: FC<TerminalSearchNoStopsProps> = ({
+  terminal,
 }) => {
   const { t } = useTranslation();
 
@@ -27,21 +27,21 @@ export const StopAreaSearchNoStops: FC<StopAreaSearchNoStopsProps> = ({
   return (
     <div
       className="ml-2 mt-4 flex w-full flex-row items-center gap-1"
-      data-testid={testIds.noStopsInStopArea}
+      data-testid={testIds.noStopsInTerminal}
     >
       <i className="icon-info text-2xl text-brand" />
-      <p>{t('stopArea.noStops')}</p>
+      <p>{t('terminalDetails.noStops')}</p>
       <Link
-        to={routeDetails[Path.stopAreaDetails].getLink(stopArea.private_code, {
+        to={routeDetails[Path.terminalDetails].getLink(terminal.private_code, {
           observationDate,
         })}
-        data-testid={testIds.stopAreaLink}
-        title={t('accessibility:stopAreas.showStopAreaDetails', {
-          areaLabel: stopArea.name_value,
+        data-testid={testIds.terminalLink}
+        title={t('accessibility:terminals.showTerminalDetails', {
+          terminalLabel: terminal.name_value,
         })}
         className="flex flex-row items-center gap-1 font-bold"
       >
-        <span>{t('stopRegistrySearch.goToStopAreaDetails')}</span>
+        <span>{t('stopRegistrySearch.goToTerminalDetails')}</span>
         <MdOpenInNew />
       </Link>
     </div>

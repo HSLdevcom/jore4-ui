@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import {
   AlignDirection,
   SimpleDropdownMenu,
-} from '../../../../../uiComponents';
+} from '../../../../../../uiComponents';
 
 const testIds = {
-  actionMenu: 'StopAreaHeader::actionMenu',
+  actionMenu: 'SearchHeader::actionMenu',
 };
 
 export const ActionMenu: FC<PropsWithChildren> = ({ children }) => {

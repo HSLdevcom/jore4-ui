@@ -7,10 +7,10 @@ import { useFindStopPlaces } from '../components/shared/useFindStopPlaces';
 import { SortStopsBy, StopSearchResultsProps } from '../types';
 
 const testIds = {
-  loadingSearchResults: 'LoadingWrapper::loadingStopAreaSearchResults',
+  loadingSearchResults: 'LoadingWrapper::loadingTerminalSearchResults',
 };
 
-export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
+export const TerminalSearchResults: FC<StopSearchResultsProps> = ({
   filters,
   pagingInfo,
   setPagingInfo,
@@ -19,11 +19,11 @@ export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { stopPlaces, loading } = useFindStopPlaces(filters, 'is_area');
+  const { stopPlaces, loading } = useFindStopPlaces(filters, 'is_terminal');
 
   const { sortBy } = sortingInfo;
-  const groupByArea =
-    sortBy === SortStopsBy.BY_STOP_AREA || sortBy === SortStopsBy.DEFAULT;
+  const groupByTerminal =
+    sortBy === SortStopsBy.BY_TERMINAL || sortBy === SortStopsBy.DEFAULT;
 
   return (
     <LoadingWrapper
@@ -32,13 +32,13 @@ export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
       loading={loading}
       testId={testIds.loadingSearchResults}
     >
-      {groupByArea ? (
+      {groupByTerminal ? (
         <SearchGroupedStopsResults
           setPagingInfo={setPagingInfo}
           setSortingInfo={setSortingInfo}
           sortingInfo={sortingInfo}
           stopPlaces={stopPlaces}
-          isTerminal={false}
+          isTerminal
         />
       ) : (
         <NongroupedStopsResults
@@ -47,7 +47,7 @@ export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
           setSortingInfo={setSortingInfo}
           pagingInfo={pagingInfo}
           setPagingInfo={setPagingInfo}
-          isTerminal={false}
+          isTerminal
         />
       )}
     </LoadingWrapper>

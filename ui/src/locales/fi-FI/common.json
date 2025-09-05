@@ -516,6 +516,7 @@
   "terminalDetails": {
     "title": "Perustiedot",
     "editSuccess": "Terminaali muokattu",
+    "noStops": "Ei pysäkkejä.",
     "tabs": {
       "basic": "Terminaali",
       "stops": "Pysäkit",
@@ -625,11 +626,13 @@
     "municipalityPlaceholder": "Valitse",
     "lines": "Linjat",
     "stopAreas": "Pysäkkialueet ({{ count }})",
+    "terminals": "Terminaalit ({{ count }})",
     "showAllLines": "Näytä kaikki ({{ count }})",
     "showLessLines": "Näytä vähemmän",
     "failedToFetchStops": "Pysäkkien noutaminen epäonnistui! Syy: {{reason}}",
     "tryToRefetch": "Yritä noutaa pysäkit uudelleen",
     "stopAreaLabel": "Pysäkkialue {{privateCode}} | {{name}}",
+    "terminalLabel": "Terminaali {{privateCode}} | {{name}}",
     "showStopAreaOnMap": "Näytä pysäkkialue kartalla",
     "sortOrder": "Järjestys:",
     "resultCount": "{{count}} hakutulos",
@@ -639,6 +642,7 @@
     "stopsCountShort": "{{count}} pys.",
     "stopsCountShort_other": "{{count}} pys.",
     "goToStopAreaDetails": "Siirry pysäkkialueen tietoihin.",
+    "gotoTerminalDetails": "Siirry terminaalin tietoihin.",
 
     "stopRowActions": {
       "openDetails": "Näytä pysäkin tiedot",
@@ -674,7 +678,8 @@
       "name": "Nimi",
       "address": "Osoite",
       "sequenceNumber": "Ajojärjestys",
-      "byStopArea": "Pysäkkialueen mukaan"
+      "byStopArea": "Pysäkkialueen mukaan",
+      "byTerminal": "Terminaalin mukaan"
     }
   },
   "stopRegistryNamedEntity": {

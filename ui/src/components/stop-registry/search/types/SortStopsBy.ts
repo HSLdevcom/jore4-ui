@@ -5,6 +5,7 @@ export enum SortStopsBy {
   // In Stop search by-label, or by-address: LABEL,
   // In Stop search by-line: SEQUENCE_NUMBER
   // In Stop Area search: BY_STOP_AREA
+  // In Terminal search: BY_TERMINAL
   DEFAULT = 'default',
 
   LABEL = 'label',
@@ -14,4 +15,6 @@ export enum SortStopsBy {
   SEQUENCE_NUMBER = 'sequenceNumber',
 
   BY_STOP_AREA = 'byStopArea',
+
+  BY_TERMINAL = 'byTerminal',
 }

@@ -1,19 +1,19 @@
 import { forwardRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { useObservationDateQueryParam } from '../../../../../hooks';
-import { Path, routeDetails } from '../../../../../router/routeDetails';
-import { SimpleDropdownMenuItem } from '../../../../../uiComponents';
+import { useObservationDateQueryParam } from '../../../../../../hooks';
+import { PathValue, routeDetails } from '../../../../../../router/routeDetails';
+import { SimpleDropdownMenuItem } from '../../../../../../uiComponents';
 
 type OpenDetailsProps = {
   readonly className?: string;
   readonly privateCode: string | null | undefined;
   readonly testId: string;
+  readonly text: string;
+  readonly details: PathValue;
 };
 
 export const OpenDetails = forwardRef<HTMLButtonElement, OpenDetailsProps>(
-  ({ className, privateCode, testId }, ref) => {
-    const { t } = useTranslation();
+  ({ className, privateCode, testId, text, details }, ref) => {
     const navigate = useNavigate();
 
     const { observationDate } = useObservationDateQueryParam({
@@ -23,10 +23,10 @@ export const OpenDetails = forwardRef<HTMLButtonElement, OpenDetailsProps>(
     return (
       <SimpleDropdownMenuItem
         className={className}
-        text={t('stopRegistrySearch.stopAreaRowActions.openDetails')}
+        text={text}
         onClick={() =>
           navigate(
-            routeDetails[Path.stopAreaDetails].getLink(privateCode, {
+            routeDetails[details].getLink(privateCode, {
               observationDate,
             }),
           )

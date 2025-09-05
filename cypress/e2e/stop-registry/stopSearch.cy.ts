@@ -21,12 +21,14 @@ import { Tag } from '../../enums';
 import {
   Pagination,
   SearchForStopAreas,
+  SearchForTerminals,
   SortByButton,
   StopAreaDetailsPage,
   StopGroupSelector,
   StopSearchBar,
   StopSearchByLine,
   StopSearchResultsPage,
+  TerminalDetailsPage,
 } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
@@ -52,6 +54,7 @@ describe('Stop search', () => {
   const stopSearchByLine = new StopSearchByLine();
   const stopGroupSelector = new StopGroupSelector();
   const searchForStopAreas = new SearchForStopAreas();
+  const searchForTerminals = new SearchForTerminals();
   const sortByButton = new SortByButton();
   const pagination = new Pagination();
 
@@ -698,7 +701,6 @@ describe('Stop search', () => {
         'E2E008',
         'E2E010',
         'E2ENQ',
-        'T2',
       ]);
     });
 
@@ -770,6 +772,66 @@ describe('Stop search', () => {
 
       const stopAreaDetailsPage = new StopAreaDetailsPage();
       stopAreaDetailsPage.details.getName().should('contain', 'No quays');
+    });
+  });
+
+  describe('for terminals', () => {
+    beforeEach(init);
+
+    it('should find all by *', () => {
+      stopSearchBar.searchForDropdown.openSearchForDropdown();
+      stopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
+
+      stopSearchBar.getSearchInput().clearAndType(`*{enter}`);
+      expectGraphQLCallToSucceed('@gqlfindTerminals');
+
+      stopGroupSelector.shouldHaveGroups(['T2']);
+    });
+
+    it('should find and navigate to T2', () => {
+      stopSearchBar.searchForDropdown.openSearchForDropdown();
+      stopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
+
+      stopSearchBar.getSearchInput().clearAndType(`T2{enter}`);
+      expectGraphQLCallToSucceed('@gqlfindTerminals');
+
+      stopGroupSelector.shouldHaveGroups(['T2']);
+
+      searchForTerminals
+        .getTerminalLabel()
+        .shouldHaveText('Terminaali T2 | E2ET001');
+
+      searchForTerminals.getLocatorButton().shouldBeVisible();
+
+      stopSearchResultsPage
+        .getRowByLabel('E2E008')
+        .shouldBeVisible()
+        .and('contain', 'E2E008')
+        .and('contain', 'Kuttulammentie')
+        .and('contain', '20.3.2020-');
+
+      stopSearchResultsPage
+        .getRowByLabel('E2E010')
+        .shouldBeVisible()
+        .and('contain', 'E2E010')
+        .and('contain', '1AACKT')
+        .and('contain', 'Finnoonkartano')
+        .and('contain', '20.3.2020-');
+
+      searchForTerminals.getTerminalLink().click();
+
+      const terminalDetailsPage = new TerminalDetailsPage();
+      terminalDetailsPage.titleRow.getPrivateCode().should('contain', 'T2');
+
+      cy.go('back');
+
+      searchForTerminals.getActionMenu().click();
+
+      searchForTerminals.getActionMenuShowOnMap().shouldBeVisible();
+
+      searchForTerminals.getActionMenuShowDetails().click();
+
+      terminalDetailsPage.titleRow.getPrivateCode().should('contain', 'T2');
     });
   });
 
@@ -901,6 +963,28 @@ describe('Stop search', () => {
       stopGroupSelector.getGroupSelectors().contains('X0003').click();
       searchForStopAreas.getStopAreaLabel().should('have.length', 1);
       searchForStopAreas.getStopAreaLabel().should('contain', 'X0004');
+    });
+
+    it('should sort on search for terminals', () => {
+      stopSearchBar.searchForDropdown.openSearchForDropdown();
+      stopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
+      stopSearchBar.getSearchInput().type(`T*{enter}`);
+      stopGroupSelector.getGroupSelectors().contains('T2').click();
+      searchForTerminals.getTerminalLabel();
+
+      sortByButton.assertSorting('byTerminal', 'groupOnly');
+      assertResultOrder(['E2E008', 'E2E010']);
+
+      // Label ascending
+      sortByButton.getButton('label').click();
+      sortByButton.assertSorting('label', 'asc');
+      assertResultOrder(['E2E008', 'E2E010']);
+
+      // Label descending
+      sortByButton.getButton('label').click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+      sortByButton.assertSorting('label', 'desc');
+      assertResultOrder(['E2E010', 'E2E008']);
     });
   });
 
