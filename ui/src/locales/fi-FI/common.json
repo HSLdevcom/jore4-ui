@@ -189,7 +189,15 @@
         "removed": "poistettu"
       },
       "futureVersionsAlert": "Pysäkkialueesta on tulevia versioita. Pysäkki kuuluu siirron jälkeen ainoastaan nyt tarkasteltavaan pysäkkialueen versioon. Luo pysäkistä kopio tuleviin alueen versioihin tarpeen vaatiessa.",
-      "moveError": "Virhe pysäkin siirtämisessä alueelle. Syy:\n{{ reason }}"
+      "moveError": "Virhe pysäkin siirtämisessä alueelle. Syy:\n{{ reason }}",
+      "moveSuccess": "Pysäkki siirretty pysäkkialueelle.",
+      "errors": {
+        "noOriginalQuaysFound": "Alkuperäisen pysäkin tietoja ei löydetty.",
+        "noNewQuaysFound": "Siirretyn pysäkin tietoja ei löydetty.",
+        "originalQuayIdRequired": "Alkuperäisen pysäkin ID on pakollinen.",
+        "noMappingForQuayId": "Vastaavuutta ei löytynyt pysäkin ID:llä {{ quayId }}.",
+        "stopPointIdRequired": "Pysähdyspisteen ID on pakollinen."
+      }
     },
     "errors": {
       "stopPlacesUniqueName": "Pysäkkialueella tulee olla uniikki nimi, mutta nimi {{name}} on jo jonkin toisen alueen käytössä!",

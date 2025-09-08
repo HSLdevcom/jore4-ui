@@ -50,6 +50,13 @@ export const useMoveQuayToStopPlace = () => {
       fetchExistingStopPoints(params.quayIds, getStopPointsByQuayId),
     ]);
 
+    if (originalQuays.length === 0) {
+      // No original quays found, cannot proceed as would cause quay mapping to fail
+      throw new Error(
+        t('stopAreaDetails.memberStops.errors.noOriginalQuaysFound'),
+      );
+    }
+
     const stopPointNeedingUpdate = existingStopPoints.find((stopPoint) => {
       const isMovingFromValidityStart =
         stopPoint.validity_start &&
@@ -60,8 +67,15 @@ export const useMoveQuayToStopPlace = () => {
     if (stopPointNeedingUpdate) {
       // Do the tiamat mutation first before updating the stop point validity end date
       const movedStopPlace = await executeQuayMove(params, moveQuayMutation);
-
       const newQuays = extractStopPlaceQuays(movedStopPlace);
+
+      if (newQuays.length === 0) {
+        // No new quays found, cannot proceed as would cause quay mapping to fail
+        throw new Error(
+          t('stopAreaDetails.memberStops.errors.noNewQuaysFound'),
+        );
+      }
+
       const quayMapping = createQuayMappingForCopiedQuay(
         originalQuays,
         newQuays,
@@ -70,12 +84,18 @@ export const useMoveQuayToStopPlace = () => {
 
       const originalQuayId = stopPointNeedingUpdate.stop_place_ref;
       if (!originalQuayId) {
-        throw new Error('Original quay ID is required');
+        throw new Error(
+          t('stopAreaDetails.memberStops.errors.originalQuayIdRequired'),
+        );
       }
 
       const newQuayId = quayMapping.get(originalQuayId);
       if (!newQuayId) {
-        throw new Error(`No mapping found for quay ID: ${originalQuayId}`);
+        throw new Error(
+          t('stopAreaDetails.memberStops.errors.noMappingForQuayId', {
+            quayId: originalQuayId,
+          }),
+        );
       }
 
       const newQuayValidityEnd = extractQuayValidityEnd(
@@ -105,7 +125,9 @@ export const useMoveQuayToStopPlace = () => {
 
     const originalQuayId = params.quayIds[0];
     if (!originalQuayId) {
-      throw new Error('Original quay ID is required');
+      throw new Error(
+        t('stopAreaDetails.memberStops.errors.originalQuayIdRequired'),
+      );
     }
 
     const movedStopPlace = await executeQuayMove(params, moveQuayMutation);
@@ -120,7 +142,9 @@ export const useMoveQuayToStopPlace = () => {
       )?.scheduled_stop_point_id;
 
       if (!stopPointId) {
-        throw new Error('Stop point ID is required');
+        throw new Error(
+          t('stopAreaDetails.memberStops.errors.stopPointIdRequired'),
+        );
       }
 
       // Update the stop point validity end date if the stop place has an end date

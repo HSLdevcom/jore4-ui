@@ -189,7 +189,15 @@
         "removed": "Removed"
       },
       "futureVersionsAlert": "There are future versions of the stop area. After the transfer, the stop will only belong to the currently viewed version of the stop area. Create a copy of the stop for future versions of the area if necessary.",
-      "moveError": "Error moving stop to stop area. Reason:\n{{ reason }}"
+      "moveError": "Error moving stop to stop area. Reason:\n{{ reason }}",
+      "moveSuccess": "Stop moved to stop area.",
+      "errors": {
+        "noOriginalQuaysFound": "Original quay information not found.",
+        "noNewQuaysFound": "No information found for the moved quay.",
+        "originalQuayIdRequired": "Original quay ID is required.",
+        "noMappingForQuayId": "No mapping found for quay ID: {{ quayId }}.",
+        "stopPointIdRequired": "Stop point ID is required."
+      }
     },
     "errors": {
       "stopPlacesUniqueName": "Stop area should have unique name but {{name}} is already in use!",
