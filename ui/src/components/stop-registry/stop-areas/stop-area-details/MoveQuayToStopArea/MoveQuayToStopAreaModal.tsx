@@ -8,6 +8,7 @@ import {
   NewModalFooter,
 } from '../../../../../uiComponents';
 import { Modal } from '../../../../../uiComponents/modal/Modal';
+import { showSuccessToast } from '../../../../../utils';
 import { SelectStopDropdown } from '../../../components/SelectMemberStops';
 import { SelectedStop } from '../../../components/SelectMemberStops/common/schema';
 import { SlimSimpleButton } from '../../../stops/stop-details/layout';
@@ -159,6 +160,8 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
     try {
       await moveQuayToStopPlace(saveParams);
       await refetch();
+
+      showSuccessToast(t('stopAreaDetails.memberStops.moveSuccess'));
 
       onSave();
       handleClose();
