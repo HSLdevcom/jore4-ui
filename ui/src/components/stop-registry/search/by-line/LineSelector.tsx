@@ -32,7 +32,9 @@ export const LineSelector: FC<LineSelectorProps> = ({
     <StopGroupSelector
       className={className}
       groups={groups}
-      label={t('stopRegistrySearch.lines')}
+      label={t('stopRegistrySearch.lines', {
+        count: activeLineIds?.length ?? 0,
+      })}
       onSelect={setActiveLineIds}
       selected={activeLineIds}
     />

@@ -639,7 +639,7 @@
     "byLabel": "By label",
     "byLine": "By line label",
     "municipalityPlaceholder": "Choose",
-    "lines": "Lines",
+    "lines": "Lines ({{ count }})",
     "stopAreas": "Stop areas ({{ count }})",
     "terminals": "Terminals ({{ count }})",
     "showAllLines": "Show all ({{ count }})",
