@@ -638,7 +638,7 @@
     "byLabel": "Tunnuksella",
     "byLine": "Linjan tunnuksella",
     "municipalityPlaceholder": "Valitse",
-    "lines": "Linjat",
+    "lines": "Linjat ({{ count }})",
     "stopAreas": "Pysäkkialueet ({{ count }})",
     "terminals": "Terminaalit ({{ count }})",
     "showAllLines": "Näytä kaikki ({{ count }})",
