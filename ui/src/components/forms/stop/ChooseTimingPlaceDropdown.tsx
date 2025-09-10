@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TimingPlaceForComboboxFragment } from '../../../generated/graphql';
-import { useChooseTimingPlaceDropdown } from '../../../hooks/ui/useChooseTimingPlaceDropdown';
 import {
   FormInputProps as ListboxInputProps,
   SearchableDropdown,
 } from '../../../uiComponents';
+import { useChooseTimingPlaceDropdown } from './utils/useChooseTimingPlaceDropdown';
 
 type ChooseTimingPlaceDropdownProps = ListboxInputProps & {
   readonly testId?: string;

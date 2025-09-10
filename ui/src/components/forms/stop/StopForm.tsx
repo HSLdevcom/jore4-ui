@@ -15,16 +15,7 @@ import {
   StopRegistryQuayInput,
 } from '../../../generated/graphql';
 import { PartialScheduledStopPointSetInput } from '../../../graphql';
-import {
-  CreateChanges,
-  CreateStopPointInput,
-  EditChanges,
-  useAppSelector,
-  useDefaultErrorHandler,
-  useLoader,
-  usePrepareCreate,
-  usePrepareEdit,
-} from '../../../hooks';
+import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { Operation, selectIsTimingPlaceModalOpen } from '../../../redux';
 import { RequiredKeys } from '../../../types';
@@ -35,6 +26,17 @@ import {
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
 } from '../../../utils';
+import { useLoader } from '../../common/hooks';
+import {
+  CreateChanges,
+  CreateStopPointInput,
+  usePrepareCreate,
+} from '../../map/stops/hooks/useCreateStop';
+import {
+  EditChanges,
+  useDefaultErrorHandler,
+  usePrepareEdit,
+} from '../../map/stops/hooks/useEditStop';
 import { ValidationError } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { Location, PublicCodeAndArea, VersionInfo } from './components';
