@@ -1,8 +1,9 @@
 import { FC, useState } from 'react';
-import { useDeleteStopArea, useLoader } from '../..';
-import { ConfirmStopAreaDeletionDialog } from '../../../components/forms/stop-area';
-import { Operation } from '../../../redux';
-import { EnrichedStopPlace } from '../../../types';
+import { Operation } from '../../../../../redux';
+import { EnrichedStopPlace } from '../../../../../types';
+import { ConfirmStopAreaDeletionDialog } from '../../../../forms/stop-area';
+import { useLoader } from '../../../../common/hooks/useLoader';
+import { useDeleteStopArea } from './useDeleteStopArea';
 
 type DeleteStopAreaProps = {
   readonly stopArea: EnrichedStopPlace;

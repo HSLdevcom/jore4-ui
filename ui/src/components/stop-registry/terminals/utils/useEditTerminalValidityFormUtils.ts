@@ -2,7 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useLoader } from '../../../../hooks';
 import { Operation } from '../../../../redux';
 import { EnrichedParentStopPlace } from '../../../../types';
 import { showToast } from '../../../../utils';
@@ -13,6 +12,7 @@ import {
 } from '../components/terminal-versions/TerminalValidityFormState';
 import { EditTerminalValidityResult } from '../types';
 import { useEditTerminalValidity } from './useEditTerminalValidity';
+import { useLoader } from '../../../common/hooks/useLoader';
 
 function useDefaultValues(
   originalTerminal: EnrichedParentStopPlace,

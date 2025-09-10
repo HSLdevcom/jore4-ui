@@ -3,7 +3,6 @@ import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { useLoader } from '../../../../../hooks';
 import { Column } from '../../../../../layoutComponents';
 import { Operation } from '../../../../../redux';
 import { EnrichedParentStopPlace } from '../../../../../types';
@@ -16,6 +15,7 @@ import {
   terminalOwnerSchema,
 } from './terminalOwnerSchema';
 import { useUpdateTerminalOwner } from './useUpdateTerminalOwner';
+import { useLoader } from '../../../../common/hooks/useLoader';
 
 const testIds = {
   ownerRef: 'OwnerDetailsEdit::ownerRef',

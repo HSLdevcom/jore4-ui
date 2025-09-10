@@ -2,7 +2,6 @@ import { Dialog } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/graphql';
-import { useUpsertOrganisation } from '../../../../../hooks/stop-registry/useUpsertOrganisation';
 import { Row } from '../../../../../layoutComponents';
 import { Modal, NewModalBody } from '../../../../../uiComponents';
 import { useWrapInContextNavigation } from '../../../../forms/common/NavigationBlocker';
@@ -10,6 +9,7 @@ import {
   OrganisationDetailsForm,
   OrganisationDetailsFormState,
 } from './OrganisationDetailsForm';
+import { useUpsertOrganisation } from './useUpsertOrganisation';
 
 const testIds = {
   modal: 'OrganisationDetailsModal',

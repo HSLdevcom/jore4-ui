@@ -1,6 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { MeasurementsFormState } from '../../components/stop-registry/stops/stop-details/measurements/schema';
-import { extractRelevantAccessibilityAssessment } from '../../components/stop-registry/stops/stop-details/utils';
 import {
   StopRegistryGuidanceType,
   StopRegistryLimitationStatusType,
@@ -9,11 +7,13 @@ import {
   StopRegistryShelterWidthType,
   StopRegistryStopType,
   useUpdateStopPlaceMutation,
-} from '../../generated/graphql';
-import { StopWithDetails } from '../../types';
-import { showDangerToast } from '../../utils';
+} from '../../../../../generated/graphql';
+import { StopWithDetails } from '../../../../../types';
+import { showDangerToast } from '../../../../../utils';
+import { getQuayIdsFromStopExcept } from '../useGetStopDetails';
+import { extractRelevantAccessibilityAssessment } from '../utils';
+import { MeasurementsFormState } from './schema';
 import { useCalculateStopAccessibilityLevel } from './useCalculateStopAccessibilityLevel';
-import { getQuayIdsFromStopExcept } from './useGetStopDetails';
 
 type EditTiamatParams = {
   readonly state: MeasurementsFormState;

@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { StopWithDetails } from '../../../../../types';
 import { getMemberStops } from '../../../terminals/components/location-details/LocationDetailsViewCard';
-import { getEnrichedParentStopPlace } from '../../../terminals/useGetTerminalDetails';
+import { getEnrichedParentStopPlace } from '../../../terminals/hooks/useGetTerminalDetails';
 import { DetailRow, LabeledDetail } from '../layout';
 
 type LocationTerminalDetailsProps = {

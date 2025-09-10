@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useLoader } from '../../../../../../hooks';
+import { useAppDispatch } from '../../../../../../hooks';
 import {
   Operation,
   closeCutStopVersionValidityModalAction,
@@ -24,6 +24,7 @@ import { OverlappingCutDatesResult } from '../types/OverLappingCutDatesResult';
 import { useEditStopValidityAndPriority } from './useEditStopValidityAndPriority';
 import { useGetOverlappingCutDates } from './useGetOverlappingCutDates';
 import { useGetOverlappingStopVersions } from './useGetOverlappingStopVersions';
+import { useLoader } from '../../../../../common/hooks/useLoader';
 
 function useDefaultValues(
   originalStop: StopWithDetails,

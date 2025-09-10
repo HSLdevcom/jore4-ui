@@ -12,7 +12,12 @@ import {
   StopRegistryQuayInput,
   StopRegistryStopPlaceInterface,
   useGetStopDetailsQuery,
-} from '../../generated/graphql';
+} from '../../../../generated/graphql';
+import {
+  useObservationDateQueryParam,
+  useUrlQuery,
+} from '../../../../hooks/urlQuery';
+import { useRequiredParams } from '../../../../hooks/useRequiredParams';
 import {
   EnrichedQuay,
   EnrichedStopPlace,
@@ -20,16 +25,14 @@ import {
   StopPlace,
   StopPlaceInfoSpots,
   StopWithDetails,
-} from '../../types';
-import { Priority } from '../../types/enums';
+} from '../../../../types';
+import { Priority } from '../../../../types/enums';
 import {
   findKeyValue,
   getQuayDetailsForEnrichment,
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
-} from '../../utils';
-import { useObservationDateQueryParam, useUrlQuery } from '../urlQuery';
-import { useRequiredParams } from '../useRequiredParams';
+} from '../../../../utils';
 
 const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
   fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {

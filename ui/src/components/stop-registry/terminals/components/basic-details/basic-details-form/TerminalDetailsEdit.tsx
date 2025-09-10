@@ -8,7 +8,6 @@ import {
   MemberStopQuayDetailsFragment,
   MemberStopStopPlaceDetailsFragment,
 } from '../../../../../../generated/graphql';
-import { useLoader } from '../../../../../../hooks';
 import { Column } from '../../../../../../layoutComponents';
 import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
@@ -27,6 +26,7 @@ import { TerminalTypeDropdown } from '../../../../components/TerminalTypeDropdow
 import { TerminalType } from '../../../../types/TerminalType';
 import { TerminalFormState, terminalFormSchema } from './schema';
 import { useUpdateTerminalDetails } from './useUpdateTerminalDetails';
+import { useLoader } from '../../../../../common/hooks/useLoader';
 
 const testIds = {
   privateCode: 'TerminalDetailsEdit::privateCode',

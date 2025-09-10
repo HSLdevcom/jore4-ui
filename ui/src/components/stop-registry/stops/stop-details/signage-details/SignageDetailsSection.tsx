@@ -1,6 +1,5 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useEditStopSignageDetails } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
@@ -9,6 +8,7 @@ import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { SignageDetailsFormState } from './schema';
 import { SignageDetailsForm } from './SignageDetailsForm';
 import { SignageDetailsViewCard } from './SignageDetailsViewCard';
+import { useEditStopSignageDetails } from './useEditStopSignageDetails';
 
 type SignageDetailsSectionProps = {
   readonly stop: StopWithDetails;

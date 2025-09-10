@@ -3,7 +3,6 @@ import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { useLoader } from '../../../../../hooks';
 import { Column } from '../../../../../layoutComponents';
 import { Operation } from '../../../../../redux';
 import { mapToISODate } from '../../../../../time';
@@ -23,6 +22,7 @@ import {
   useUpsertStopArea,
 } from '../../../../forms/stop-area';
 import { AlternativeNamesEdit } from '../../../components/AlternativeNames/AlternativeNamesEdit';
+import { useLoader } from '../../../../common/hooks/useLoader';
 
 const testIds = {
   privateCode: 'StopAreaDetailsEdit::privateCode',

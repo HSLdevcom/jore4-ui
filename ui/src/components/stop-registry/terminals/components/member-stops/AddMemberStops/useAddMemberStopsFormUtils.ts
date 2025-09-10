@@ -6,7 +6,6 @@ import {
   MemberStopQuayDetailsFragment,
   MemberStopStopPlaceDetailsFragment,
 } from '../../../../../../generated/graphql';
-import { useLoader } from '../../../../../../hooks';
 import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
@@ -22,6 +21,7 @@ import {
   TerminalAddStopsFormState,
   terminalAddStopsFormSchema,
 } from './schema';
+import { useLoader } from '../../../../../common/hooks/useLoader';
 
 function mapQuayToSelectedStop(
   terminal: EnrichedParentStopPlace,
