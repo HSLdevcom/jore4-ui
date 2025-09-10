@@ -6,7 +6,7 @@ import {
   useRef,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
-import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
+import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   LoadingState,
   MapEntityEditorViewState,
@@ -29,6 +29,7 @@ import { useMapViewState } from '../utils/useMapViewState';
 import { CreateStopAreaMarker } from './CreateStopAreaMarker';
 import { EditStopAreaLayer } from './EditStopAreaLayer';
 import { StopArea } from './StopArea';
+import { useLoader } from '../../common/hooks/useLoader';
 
 function useFetchAndUpdateSelectedStopAreaData() {
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);

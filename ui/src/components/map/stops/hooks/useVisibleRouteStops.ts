@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
-import { selectEditedRouteData, selectHasChangesInProgress } from '../../redux';
-import { useAppSelector } from '../redux';
-import { useGetRoutesDisplayedInMap } from '../routes';
+import { useAppSelector } from '../../../../hooks/redux';
+import {
+  selectEditedRouteData,
+  selectHasChangesInProgress,
+} from '../../../../redux';
+import { useGetRoutesDisplayedInMap } from './useGetRoutesDisplayedInMap';
 
 /**
  * Hook for getting stop labels that belong to any displayed route or edited / created route

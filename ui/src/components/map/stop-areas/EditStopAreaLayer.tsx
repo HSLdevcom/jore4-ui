@@ -2,11 +2,7 @@ import { MapLayerMouseEvent } from 'maplibre-gl';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMap } from 'react-map-gl/maplibre';
-import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
-import {
-  DeleteStopArea,
-  useStopAreaDeletion,
-} from '../../../hooks/stop-registry/stop-areas/DeleteStopArea';
+import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
@@ -25,11 +21,16 @@ import {
   mapPointToStopRegistryGeoJSON,
 } from '../../../utils';
 import { StopAreaFormState, useUpsertStopArea } from '../../forms/stop-area';
+import {
+  DeleteStopArea,
+  useStopAreaDeletion,
+} from '../../stop-registry/stop-areas/stop-area-details/hooks/DeleteStopArea';
 import { EditStopAreaLayerRef } from '../refTypes';
 import { EditStopAreaModal } from './EditStopAreaModal';
 import { NewStopAreaMarker } from './NewStopAreaMarker';
 import { mapStopAreaDataToFormState } from './StopAreaForm';
 import { StopAreaPopup } from './StopAreaPopup';
+import { useLoader } from '../../common/hooks/useLoader';
 
 type EditStopAreaLayerProps = {
   readonly editedArea: EnrichedStopPlace;

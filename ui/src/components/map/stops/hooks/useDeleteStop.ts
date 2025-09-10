@@ -1,19 +1,19 @@
 import { useTranslation } from 'react-i18next';
-import { useDeleteQuay } from '../../components/stop-registry/stops/queries/useDeleteQuay';
 import {
   RouteUniqueFieldsFragment,
   ServicePatternScheduledStopPoint,
   useGetStopWithRouteGraphDataByIdLazyQuery,
   useRemoveStopMutation,
-} from '../../generated/graphql';
-import { mapStopResultToStop } from '../../graphql';
+} from '../../../../generated/graphql';
+import { mapStopResultToStop } from '../../../../graphql';
 import {
   EditRouteTerminalStopsError,
   InternalError,
   removeFromApolloCache,
   showDangerToast,
   showDangerToastWithError,
-} from '../../utils';
+} from '../../../../utils';
+import { useDeleteQuay } from '../../../stop-registry/stops/queries/useDeleteQuay';
 import { getRoutesOfJourneyPatterns } from './utils';
 
 type DeleteParams = {

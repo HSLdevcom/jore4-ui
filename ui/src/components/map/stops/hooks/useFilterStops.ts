@@ -4,18 +4,22 @@ import { useCallback } from 'react';
 import {
   useAppSelector,
   useObservationDateQueryParam,
-  useVisibleRouteStops,
-} from '../../../hooks';
-import { ActiveStopFilters, FilterType, selectMapFilter } from '../../../redux';
-import { FilterableStopInfo } from '../../../types';
-import { Priority } from '../../../types/enums';
+} from '../../../../hooks';
+import {
+  ActiveStopFilters,
+  FilterType,
+  selectMapFilter,
+} from '../../../../redux';
+import { FilterableStopInfo } from '../../../../types';
+import { Priority } from '../../../../types/enums';
 import {
   filterHighestPriorityCurrentStops,
   hasPriority,
   isCurrentEntity,
   isFutureEntity,
   isPastEntity,
-} from '../../../utils';
+} from '../../../../utils';
+import { useVisibleRouteStops } from './useVisibleRouteStops';
 
 type FilterStopsFn = <TStop extends FilterableStopInfo>(
   stops: ReadonlyArray<TStop>,

@@ -1,9 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import {
-  useAppSelector,
-  useGetRoutesDisplayedInMap,
-  useLoader,
-} from '../../../hooks';
+import { useAppSelector } from '../../../hooks';
 import {
   LoadingState,
   MapEntityType,
@@ -14,10 +10,12 @@ import {
   selectShowMapEntityTypes,
 } from '../../../redux';
 import { Viewport } from '../../../redux/types';
-import { useFilterStops } from '../stops/useFilterStops';
+import { useFilterStops } from '../stops/hooks/useFilterStops';
+import { useGetRoutesDisplayedInMap } from '../stops/hooks/useGetRoutesDisplayedInMap';
 import { useGetMapStopAreas } from './useGetMapStopAreas';
 import { useGetMapStops } from './useGetMapStops';
 import { useGetMapTerminals } from './useGetMapTerminals';
+import { useLoader } from '../../common/hooks/useLoader';
 
 function isViewportLoaded(viewport: Viewport): boolean {
   const [[west = 0, south = 0], [east = 0, north = 0]] = viewport.bounds;

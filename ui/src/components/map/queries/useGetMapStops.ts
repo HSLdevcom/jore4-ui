@@ -6,13 +6,13 @@ import {
   StopsDatabaseQuayNewestVersionBoolExp,
   useGetMapStopsQuery,
 } from '../../../generated/graphql';
-import { useMapDataLayerSimpleQueryLoader } from '../../../hooks';
 import { Operation } from '../../../redux';
 import { Viewport } from '../../../redux/types';
 import { parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { mapCompactOrNull } from '../../stop-registry/utils';
 import { MapStop } from '../types';
+import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks/useLoader';
 
 const GQL_GET_MAP_STOPS = gql`
   query GetMapStops($where: stops_database_quay_newest_version_bool_exp) {

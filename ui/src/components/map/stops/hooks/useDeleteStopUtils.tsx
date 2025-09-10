@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DeleteChanges, useDeleteStop, useLoader } from '../../../hooks';
-import { Operation } from '../../../redux';
-import { showSuccessToast } from '../../../utils';
-import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
+import { Operation } from '../../../../redux';
+import { showSuccessToast } from '../../../../utils';
+import { StopInfoForEditingOnMap } from '../../../forms/stop/utils/useGetStopInfoForEditingOnMap';
+import { DeleteChanges, useDeleteStop } from './useDeleteStop';
+import { useLoader } from '../../../common/hooks/useLoader';
 
 type DeleteUtilsDeleteActive = {
   readonly deleteChanges: DeleteChanges;

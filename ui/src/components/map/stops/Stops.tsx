@@ -6,14 +6,7 @@ import {
   useRef,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
-import {
-  useAppAction,
-  useAppSelector,
-  useCheckIsLocationValidForStop,
-  useDefaultErrorHandler,
-  useLoader,
-  useMapStops,
-} from '../../../hooks';
+import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   LoadingState,
   MapEntityEditorViewState,
@@ -38,6 +31,10 @@ import { useMapViewState } from '../utils/useMapViewState';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
 import { Stop } from './Stop';
+import { useLoader } from '../../common/hooks/useLoader';
+import { useCheckIsLocationValidForStop } from './hooks/useCreateStop';
+import { useDefaultErrorHandler } from './hooks/useEditStop';
+import { useMapStops } from './hooks/useMapStops';
 
 const testIds = {
   stopMarker: (label: string, priority: Priority) =>

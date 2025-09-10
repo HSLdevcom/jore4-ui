@@ -1,8 +1,8 @@
+import { renderHook } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
-import { RouteDirectionEnum } from '../../generated/graphql';
-import { mapLineDetailsResult } from '../../graphql';
-import { renderHook } from '../../utils/test-utils';
+import { RouteDirectionEnum } from '../../../../generated/graphql';
+import { mapLineDetailsResult } from '../../../../graphql';
+import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 import { useValidateRoute } from './useValidateRoute';
 
 jest.mock('@apollo/client', () => ({
