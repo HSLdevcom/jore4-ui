@@ -2,15 +2,19 @@ import { Listbox as HUIListbox, Transition } from '@headlessui/react';
 import { TFunction } from 'i18next';
 import without from 'lodash/without';
 import { FC, ReactNode } from 'react';
-import { useController, useFormContext } from 'react-hook-form';
+import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Column } from '../../../../../layoutComponents';
-import { StopRegistryMunicipality } from '../../../../../types/enums';
-import { ListboxButton, dropdownTransition } from '../../../../../uiComponents';
-import { AllOptionEnum, numberEnumEntries } from '../../../../../utils';
-import { InputLabel, ValidationErrorList } from '../../../../forms/common';
-import { SearchFor, StopSearchFilters } from '../../types';
-import { handleAllMunicipalities } from '../../utils';
+import { Column } from '../../../../../../layoutComponents';
+import { StopRegistryMunicipality } from '../../../../../../types/enums';
+import {
+  ListboxButton,
+  dropdownTransition,
+} from '../../../../../../uiComponents';
+import { AllOptionEnum, numberEnumEntries } from '../../../../../../utils';
+import { InputLabel, ValidationErrorList } from '../../../../../forms/common';
+import { StopSearchFilters } from '../../../types';
+import { handleAllMunicipalities } from '../../../utils';
+import { DisableableFilterProps } from '../Types/DisableableFilterProps';
 
 const testIds = {
   municipalitiesDropdown: 'StopSearchBar::municipalitiesDropdown',
@@ -31,22 +35,17 @@ function getButtonContent(
   return t('selected', { count: value.length });
 }
 
-type MunicipalityFilterProps = {
-  readonly className?: string;
-};
-
-export const MunicipalityFilter: FC<MunicipalityFilterProps> = ({
+export const MunicipalityFilter: FC<DisableableFilterProps> = ({
   className,
+  disabled,
 }) => {
   const { t } = useTranslation();
+
   const {
     field: { onChange, value, ...controls },
   } = useController<StopSearchFilters, 'municipalities'>({
     name: 'municipalities',
   });
-
-  const disabled =
-    useFormContext<StopSearchFilters>().watch('searchFor') !== SearchFor.Stops;
 
   const augmentedOnChange = (
     selected: ReadonlyArray<StopRegistryMunicipality | AllOptionEnum.All>,
