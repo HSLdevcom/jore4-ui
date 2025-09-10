@@ -685,7 +685,12 @@
       "searchFor": "Search for",
       "elyNumber": "ELY number",
       "municipalities": "Municipality",
-      "priorities": "Priority"
+      "priorities": "Priority",
+      "transportMode": "Transport mode",
+      "stopState": "Stop state",
+      "shelter": "Shelter",
+      "electricity": "Electricity",
+      "infoSpots": "Info spots"
     },
 
     "sortBy": {

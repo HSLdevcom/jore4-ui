@@ -1,33 +1,30 @@
 import without from 'lodash/without';
 import { FC } from 'react';
-import { useController, useFormContext } from 'react-hook-form';
+import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { mapPriorityToUiName } from '../../../../../i18n/uiNameMappings';
-import { Column, Row } from '../../../../../layoutComponents';
-import { Priority, knownPriorityValues } from '../../../../../types/enums';
-import { InputLabel, LabeledCheckbox } from '../../../../forms/common';
-import { SearchFor, StopSearchFilters } from '../../types';
+import { mapPriorityToUiName } from '../../../../../../i18n/uiNameMappings';
+import { Column, Row } from '../../../../../../layoutComponents';
+import { Priority, knownPriorityValues } from '../../../../../../types/enums';
+import { InputLabel, LabeledCheckbox } from '../../../../../forms/common';
+import { StopSearchFilters } from '../../../types';
+import { DisableableFilterProps } from '../Types/DisableableFilterProps';
 
 const testIds = {
   priorityCheckbox: (priority: Priority) =>
     `StopSearchBar::priority::${Priority[priority]}`,
 };
 
-type PriorityFilterProps = {
-  readonly className?: string;
-};
-
-export const PriorityFilter: FC<PriorityFilterProps> = ({ className }) => {
+export const PriorityFilter: FC<DisableableFilterProps> = ({
+  className,
+  disabled,
+}) => {
   const { t } = useTranslation();
 
   const {
-    field: { onChange, value, disabled, onBlur, ref },
+    field: { onChange, value, disabled: controllerDisabled, onBlur, ref },
   } = useController<StopSearchFilters, 'priorities'>({
     name: 'priorities',
   });
-
-  const notForStops =
-    useFormContext<StopSearchFilters>().watch('searchFor') !== SearchFor.Stops;
 
   const togglePriority = (priority: Priority) => () => {
     if (value.includes(priority)) {
@@ -50,7 +47,7 @@ export const PriorityFilter: FC<PriorityFilterProps> = ({ className }) => {
             label={mapPriorityToUiName(t, priority)}
             onBlur={onBlur}
             onClick={togglePriority(priority)}
-            disabled={!!disabled || notForStops}
+            disabled={!!controllerDisabled || disabled}
             selected={value.includes(priority)}
             testId={testIds.priorityCheckbox(priority)}
             ref={ref}
