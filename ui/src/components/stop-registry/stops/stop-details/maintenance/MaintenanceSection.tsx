@@ -1,7 +1,6 @@
 import mapValues from 'lodash/mapValues';
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useEditStopMaintenanceDetails } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
@@ -9,6 +8,7 @@ import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { MaintenanceDetailsForm } from './MaintenanceDetailsForm';
 import { MaintenanceViewCard } from './MaintenanceViewCard';
 import { MaintenanceDetailsFormState } from './schema';
+import { useEditStopMaintenanceDetails } from './useEditStopMaintenanceDetails';
 import { getMaintainers } from './utils';
 
 const testIds = {

@@ -2,10 +2,6 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { twJoin } from 'tailwind-merge';
-import {
-  DeleteStopArea,
-  useStopAreaDeletion,
-} from '../../../../../hooks/stop-registry/stop-areas/DeleteStopArea';
 import { EnrichedStopPlace } from '../../../../../types';
 import {
   AlignDirection,
@@ -14,6 +10,7 @@ import {
 } from '../../../../../uiComponents';
 import { useUpsertStopArea } from '../../../../forms/stop-area';
 import { ShowOnMap } from '../../../search/components/StopPlaceSharedComponents/ActionMenu/ShowOnMap';
+import { DeleteStopArea, useStopAreaDeletion } from '../hooks/DeleteStopArea';
 
 const testIds = {
   actionMenu: 'StopAreaTitleRow::actionMenu',

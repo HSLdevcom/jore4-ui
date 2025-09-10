@@ -5,7 +5,7 @@ import {
   ShelterEquipmentDetailsFragment,
   StopRegistryAccessibilityLevel,
   StopRegistryShelterType,
-} from '../../generated/graphql';
+} from '../../../../../generated/graphql';
 
 export type HslAccessibilityLevelCalculationProperties = Pick<
   HslAccessibilityPropertiesDetailsFragment,

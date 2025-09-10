@@ -6,7 +6,6 @@ import {
   MemberStopQuayDetailsFragment,
   MemberStopStopPlaceDetailsFragment,
 } from '../../../../../../generated/graphql';
-import { useLoader } from '../../../../../../hooks';
 import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
@@ -15,6 +14,7 @@ import {
   notNullish,
   showDangerToastWithError,
 } from '../../../../../../utils';
+import { useLoader } from '../../../../../common/hooks/useLoader';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { SelectedStop } from '../../../../components/SelectMemberStops/common';
 import { useEditMembersOfTerminal } from '../../location-details/location-details-form/useEditMembersOfTerminal';

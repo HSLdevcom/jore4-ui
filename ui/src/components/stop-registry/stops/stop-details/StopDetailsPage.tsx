@@ -1,7 +1,7 @@
 import { FC, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
-import { useGetStopDetails, useRequiredParams } from '../../../../hooks';
+import { useRequiredParams } from '../../../../hooks';
 import { Container, Visible } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
@@ -23,6 +23,7 @@ import { SignageDetailsSection } from './signage-details';
 import { StopDetailsVersion } from './StopDetailsVersion';
 import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
 import { StopTitleRow } from './title-row/StopTitleRow';
+import { useGetStopDetails } from './useGetStopDetails';
 
 const testIds = {
   page: 'StopDetailsPage::page',

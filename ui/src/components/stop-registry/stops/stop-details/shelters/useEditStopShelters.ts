@@ -1,19 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import {
-  ShelterState,
-  SheltersFormState,
-} from '../../components/stop-registry/stops/stop-details/shelters/schema';
-import {
   StopRegistryCycleStorageType,
   StopRegistryShelterCondition,
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
   StopRegistryStopPlaceInput,
   useUpdateStopPlaceMutation,
-} from '../../generated/graphql';
-import { StopWithDetails } from '../../types';
-import { showDangerToast } from '../../utils';
-import { getQuayIdsFromStopExcept } from './useGetStopDetails';
+} from '../../../../../generated/graphql';
+import { StopWithDetails } from '../../../../../types';
+import { showDangerToast } from '../../../../../utils';
+import { getQuayIdsFromStopExcept } from '../useGetStopDetails';
+import { ShelterState, SheltersFormState } from './schema';
 
 type EditTiamatParams = {
   readonly state: SheltersFormState;

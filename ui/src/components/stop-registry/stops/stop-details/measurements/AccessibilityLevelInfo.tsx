@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useToggle } from '../../../../../hooks';
 import { mapStopAccessibilityLevelToUiName } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { defaultAccessibilityLevel } from '../../../../../utils';
+import { useToggle } from '../../../../common/hooks/useToggle';
 import { AccessibilityLevelDescriptionsDialog } from './AccessibilityLevelDescriptionsDialog';
 
 const testIds = {
