@@ -7,16 +7,16 @@ import {
   StopRegistryParentStopPlace,
   useGetParentStopPlaceDetailsLazyQuery,
   useGetParentStopPlaceDetailsQuery,
-} from '../../../generated/graphql';
+} from '../../../../generated/graphql';
 import {
   useObservationDateQueryParam,
   useRequiredParams,
-} from '../../../hooks';
-import { EnrichedParentStopPlace } from '../../../types';
+} from '../../../../hooks';
+import { EnrichedParentStopPlace } from '../../../../types';
 import {
   getParentStopPlaceDetailsForEnrichment,
   getParentStopPlacesFromQueryResult,
-} from '../../../utils';
+} from '../../../../utils';
 
 const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
   query getParentStopPlaceDetails($privateCode: String!, $validOn: String!) {

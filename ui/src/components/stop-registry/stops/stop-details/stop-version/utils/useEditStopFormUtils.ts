@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useLoader } from '../../../../../../hooks';
+import { useAppDispatch } from '../../../../../../hooks';
 import {
   Operation,
   closeCutStopVersionValidityModalAction,
@@ -13,6 +13,7 @@ import {
 import { StopWithDetails } from '../../../../../../types';
 import { log, showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
+import { useLoader } from '../../../../../common/hooks/useLoader';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { FailedToCutOverlappingStopVersion } from '../errors/FailedToCutOverlappingStopVersion';
 import { QuayKeyValuesEditFailed } from '../errors/QuayKeyValuesEditFailed';

@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
-import { useToggle } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
 import { defaultPagingInfo } from '../../../types';
 import { PageTitle } from '../../common';
+import { useToggle } from '../../common/hooks/useToggle';
 import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import {
   StopSearchBar,

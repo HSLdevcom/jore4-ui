@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import {
   StopRegistryOrganisationInput,
   useUpsertOrganisationMutation,
-} from '../../generated/graphql';
-import { showDangerToastWithError } from '../../utils';
+} from '../../../../../generated/graphql';
+import { showDangerToastWithError } from '../../../../../utils';
 
 const GQL_UPSERT_ORGANISATION = gql`
   mutation UpsertOrganisation($objects: [stop_registry_OrganisationInput]) {

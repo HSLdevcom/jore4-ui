@@ -2,10 +2,10 @@ import compact from 'lodash/compact';
 import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import { StopRegistryParentStopPlaceInput } from '../../../../generated/graphql';
-import { useUpdateTerminal } from '../../../../hooks/stop-registry/terminals';
 import { EnrichedParentStopPlace } from '../../../../types';
 import { patchKeyValues } from '../../../../utils';
 import { TerminalValidityFormState } from '../components/terminal-versions/TerminalValidityFormState';
+import { useUpdateTerminal } from '../hooks';
 import { EditTerminalValidityResult } from '../types';
 
 type EditTerminalValidityInputs = {

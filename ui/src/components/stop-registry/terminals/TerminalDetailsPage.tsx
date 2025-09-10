@@ -1,9 +1,9 @@
 import compact from 'lodash/compact';
 import { FC, useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router';
-import { useLoader } from '../../../hooks';
 import { Container, Visible } from '../../../layoutComponents';
 import { LoadingState, Operation } from '../../../redux';
+import { useLoader } from '../../common/hooks/useLoader';
 import { navigationBlockerContext } from '../../forms/common/NavigationBlocker';
 import { TerminalDetails } from './components/basic-details/TerminalDetailsSection';
 import { TerminalExternalLinks } from './components/external-links/TerminalExternalLinks';
@@ -18,8 +18,8 @@ import {
   DetailTabType,
   detailTabs,
 } from './DetailTabSelector';
+import { useGetParentStopPlaceDetails } from './hooks/useGetTerminalDetails';
 import { TabType, tabs } from './TabSelector';
-import { useGetParentStopPlaceDetails } from './useGetTerminalDetails';
 
 const testIds = {
   page: 'TerminalDetailsPage::page',
