@@ -3,11 +3,8 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../generated/graphql';
 import {
-  LineFetchError,
   useAppDispatch,
   useAppSelector,
-  useGetLineDetails,
-  useGetRoutesDisplayedInList,
   useMapQueryParams,
 } from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
@@ -30,6 +27,8 @@ import { LineMissingBox } from './LineMissingBox';
 import { LineRouteList } from './LineRouteList';
 import { LineTitle } from './LineTitle';
 import { MapPreview } from './MapPreview';
+import { LineFetchError, useGetLineDetails } from './useGetLineDetails';
+import { useGetRoutesDisplayedInList } from './useGetRoutesDisplayedInList';
 
 export const LineDetailsPage: FC = () => {
   const { t } = useTranslation();

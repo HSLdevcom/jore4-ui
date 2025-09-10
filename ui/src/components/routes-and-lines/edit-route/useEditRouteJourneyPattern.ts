@@ -6,20 +6,20 @@ import {
   RouteWithInfrastructureLinksWithStopsFragment,
   UpdateRouteJourneyPatternMutationVariables,
   useUpdateRouteJourneyPatternMutation,
-} from '../../generated/graphql';
+} from '../../../generated/graphql';
 import {
   mapInfrastructureLinksAlongRouteToRouteInfraLinks,
   stopBelongsToJourneyPattern,
-} from '../../graphql';
+} from '../../../graphql';
 import {
   addOrRemoveStopLabelsFromIncludedStops,
   buildJourneyPatternStopSequence,
   filterDistinctConsecutiveStops,
   mapRouteStopsToJourneyPatternStops,
   removeFromApolloCache,
-} from '../../utils';
-import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
-import { useValidateRoute } from './useValidateRoute';
+} from '../../../utils';
+import { extractJourneyPatternCandidateStops } from '../../map/routes/hooks/useExtractRouteFromFeature';
+import { useValidateRoute } from '../../map/routes/hooks/useValidateRoute';
 
 const GQL_UPDATE_ROUTE_JOURNEY_PATTERN = gql`
   mutation UpdateRouteJourneyPattern(

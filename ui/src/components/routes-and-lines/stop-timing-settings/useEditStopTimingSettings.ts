@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client';
-import { FormState } from '../../components/routes-and-lines/stop-timing-settings/TimingSettingsForm';
 import {
   JourneyPatternScheduledStopPointInJourneyPatternSetInput,
   PatchScheduledStopPointTimingSettingsMutationVariables,
   usePatchScheduledStopPointTimingSettingsMutation,
-} from '../../generated/graphql';
-import { MutationHook, extendHook } from '../mutationHook';
+} from '../../../generated/graphql';
+import { MutationHook, extendHook } from '../../../hooks';
+import { FormState } from './TimingSettingsForm';
 
 type TimingSettingsPatch = Pick<
   JourneyPatternScheduledStopPointInJourneyPatternSetInput,

@@ -5,13 +5,7 @@ import {
   ServicePatternScheduledStopPoint,
   useGetRouteDetailsByIdsQuery,
 } from '../../../generated/graphql';
-import {
-  mapRouteToFormState,
-  useDeleteRoute,
-  useEditRouteJourneyPattern,
-  useEditRouteMetadata,
-  useRequiredParams,
-} from '../../../hooks';
+import { useRequiredParams } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import {
@@ -29,11 +23,17 @@ import { RedirectWithQuery } from '../../common/RedirectWithQuery';
 import { RouteDraftStopsConfirmationDialog } from '../../forms/route/RouteDraftStopsConfirmationDialog';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
+import { useDeleteRoute } from '../../map/routes/hooks/useDeleteRoute';
+import {
+  mapRouteToFormState,
+  useEditRouteMetadata,
+} from '../../map/routes/hooks/useEditRouteMetadata';
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
 } from '../common/ConflictResolverModal';
 import { PageHeader } from '../common/PageHeader';
+import { useEditRouteJourneyPattern } from './useEditRouteJourneyPattern';
 
 const testIds = {
   saveButton: 'EditRoutePage::saveButton',

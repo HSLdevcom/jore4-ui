@@ -7,7 +7,7 @@ import {
   RouteStopFieldsFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 } from '../../../generated/graphql';
-import { useAlertsAndHighLights, useAppDispatch } from '../../../hooks';
+import { useAppDispatch } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { openTimingSettingsModalAction } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -19,6 +19,7 @@ import {
 } from '../../../time';
 import { IconButton } from '../../../uiComponents';
 import { AlertPopover } from '../../common/AlertPopover';
+import { useAlertsAndHighLights } from '../../common/hooks/useAlertsAndHighLights';
 import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';
 

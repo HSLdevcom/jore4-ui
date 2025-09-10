@@ -1,15 +1,13 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useRequiredParams,
-  useRoutesAndLinesDraftReturnToQueryParam,
-} from '../../../hooks';
-import { useGetLineDraftDetails } from '../../../hooks/line-drafts/useGetLineDraftDetails';
+import { useRequiredParams } from '../../../hooks';
 import { Column, Container, Row } from '../../../layoutComponents';
 import { CloseIconButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { LineRouteList } from '../line-details/LineRouteList';
+import { useGetLineDraftDetails } from './useGetLineDraftDetails';
+import { useRoutesAndLinesDraftReturnToQueryParam } from './useRoutesAndLinesDraftReturnToQueryParam';
 
 const testIds = {
   closeButton: 'LineDraftsPage::closeButton',
