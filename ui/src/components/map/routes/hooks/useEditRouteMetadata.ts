@@ -8,7 +8,6 @@ import {
   useGetScheduledStopsOnRouteLazyQuery,
   usePatchRouteMutation,
 } from '../../../../generated/graphql';
-import { useCheckValidityAndPriorityConflicts } from '../../../../hooks/useCheckValidityAndPriorityConflicts';
 import { MIN_DATE, mapToISODate } from '../../../../time';
 import { Priority } from '../../../../types/enums';
 import { RouteDirection } from '../../../../types/RouteDirection';
@@ -19,6 +18,7 @@ import {
   removeFromApolloCache,
   showDangerToastWithError,
 } from '../../../../utils';
+import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks/useCheckValidityAndPriorityConflicts';
 import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 import { useValidateRoute } from './useValidateRoute';
 

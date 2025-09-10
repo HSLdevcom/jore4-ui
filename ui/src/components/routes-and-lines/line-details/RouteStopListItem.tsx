@@ -7,7 +7,7 @@ import {
   RouteStopFieldsFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
 } from '../../../generated/graphql';
-import { useAlertsAndHighLights, useAppDispatch } from '../../../hooks';
+import { useAppDispatch } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { openTimingSettingsModalAction } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -21,6 +21,7 @@ import { IconButton } from '../../../uiComponents';
 import { AlertPopover } from '../../common/AlertPopover';
 import { HastusCode } from './HastusCode';
 import { StopActionsDropdown } from './StopActionsDropdown';
+import { useAlertsAndHighLights } from '../../common/hooks/useAlertsAndHighLights';
 
 const testIds = {
   container: 'RouteStopListItem::container',

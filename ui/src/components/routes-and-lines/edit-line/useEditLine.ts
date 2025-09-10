@@ -1,15 +1,15 @@
 import { useTranslation } from 'react-i18next';
-import { FormState } from '../../components/forms/line/LineForm';
 import {
   LineAllFieldsFragment,
   PatchLineMutationVariables,
   RouteLineSetInput,
   usePatchLineMutation,
-} from '../../generated/graphql';
-import { MIN_DATE } from '../../time';
-import { showDangerToastWithError } from '../../utils';
-import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
-import { mapFormToInput } from './useCreateLine';
+} from '../../../generated/graphql';
+import { MIN_DATE } from '../../../time';
+import { showDangerToastWithError } from '../../../utils';
+import { useCheckValidityAndPriorityConflicts } from '../../common/hooks/useCheckValidityAndPriorityConflicts';
+import { FormState } from '../../forms/line/LineForm';
+import { mapFormToInput } from '../create-line/useCreateLine';
 import { useValidateLine } from './useValidateLine';
 
 type EditParams = {

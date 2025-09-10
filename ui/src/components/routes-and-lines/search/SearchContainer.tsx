@@ -3,16 +3,14 @@ import { ChangeEventHandler, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
-import {
-  SearchQueryParameterNames,
-  useSearch,
-  useToggle,
-} from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
 import { ChevronToggle, SimpleButton } from '../../../uiComponents';
 import { AllOptionEnum } from '../../../utils';
+import { useToggle } from '../../common/hooks/useToggle';
 import { SearchInput } from '../../common/search';
+import { useSearch } from '../../common/search/useSearch';
+import { SearchQueryParameterNames } from '../../common/search/useSearchQueryParser';
 import { FormRow, ObservationDateInput } from '../../forms/common';
 import { LineTypeDropdown } from '../../forms/line/LineTypeDropdown';
 import { VehicleModeDropdown } from '../../forms/line/VehicleModeDropdown';
