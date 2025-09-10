@@ -1,0 +1,6 @@
+/* The generated icon classes have extra margins on them. Remove them. */
+.noIconMargins *[class^='icon-']:before,
+.noIconMargins *[class*=' icon-']:before {
+  margin-left: 0;
+  margin-right: 0;
+}
