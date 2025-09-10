@@ -1,11 +1,11 @@
 import { produce } from 'immer';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
-import { SearchNavigationState } from '../../components/routes-and-lines/search/types';
-import { Priority } from '../../types/enums';
-import { DisplayedSearchResultType } from '../../utils';
-import { mapObjectToQueryParameterObjects, useUrlQuery } from '../urlQuery';
-import { useBasePath } from '../useBasePath';
+import { mapObjectToQueryParameterObjects, useUrlQuery } from '../../../hooks';
+import { Priority } from '../../../types/enums';
+import { DisplayedSearchResultType } from '../../../utils';
+import { SearchNavigationState } from '../../routes-and-lines/search/types';
+import { useBasePath } from './useBasePath';
 import { FilterConditions, useSearchQueryParser } from './useSearchQueryParser';
 
 export const useSearch = () => {

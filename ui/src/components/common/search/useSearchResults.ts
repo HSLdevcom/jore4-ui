@@ -4,12 +4,12 @@ import {
   RouteDirectionEnum,
   RouteTableRowFragment,
   useSearchLinesAndRoutesQuery,
-} from '../../generated/graphql';
+} from '../../../generated/graphql';
 import {
   DisplayedSearchResultType,
   buildSearchLinesAndRoutesGqlQueryVariables,
   mapToVariables,
-} from '../../utils';
+} from '../../../utils';
 import { useSearchQueryParser } from './useSearchQueryParser';
 
 const GQL_SEARCH_LINES_AND_ROUTES = gql`
