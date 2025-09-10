@@ -5,11 +5,7 @@ import {
   ScheduledStopPointWithTimingSettingsFragment,
   useGetScheduledStopPointWithTimingSettingsQuery,
 } from '../../../generated/graphql';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useEditStopTimingSetting,
-} from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectTimingSettingsModal } from '../../../redux';
 import { closeTimingSettingsModalAction } from '../../../redux/slices/modals';
 import { Modal, ModalHeader } from '../../../uiComponents';
@@ -20,6 +16,7 @@ import {
   TimingSettingsForm,
   mapStopJourneyPatternToFormState,
 } from './TimingSettingsForm';
+import { useEditStopTimingSetting } from './useEditStopTimingSettings';
 
 const GQL_SCHEDULED_STOP_POINT_WITH_TIMING_SETTINGS = gql`
   fragment scheduled_stop_point_with_timing_settings on journey_pattern_scheduled_stop_point_in_journey_pattern {
