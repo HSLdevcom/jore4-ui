@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import {
   OrderBy,
   ReusableComponentsVehicleModeEnum,
@@ -8,7 +9,7 @@ import {
   RouteTypeOfLineEnum,
   SearchLinesAndRoutesQueryVariables,
 } from '../generated/graphql';
-import { SearchConditions } from '../hooks/search/useSearchQueryParser';
+import { Priority } from '../types/enums';
 import { AllOptionEnum } from './enum';
 import {
   buildActiveDateGqlFilter,
@@ -17,6 +18,14 @@ import {
   buildPriorityInGqlFilter,
   buildTypeOfLineGqlFilter,
 } from './gql';
+
+export type SearchConditions = {
+  priorities: ReadonlyArray<Priority>;
+  label: string;
+  primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
+  typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
+  observationDate: DateTime;
+};
 
 export const mapToSqlLikeValue = (str: string) => {
   return str.replaceAll('*', '%');
