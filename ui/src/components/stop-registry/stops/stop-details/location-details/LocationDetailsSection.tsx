@@ -1,6 +1,5 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useEditStopLocationDetails } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
@@ -9,6 +8,7 @@ import { LocationDetailsForm } from './LocationDetailsForm';
 import { LocationDetailsViewCard } from './LocationDetailsViewCard';
 import { LocationTerminalDetails } from './LocationTerminalDetails';
 import { LocationDetailsFormState } from './schema';
+import { useEditStopLocationDetails } from './useEditStopLocationDetails';
 
 type LocationDetailsSectionProps = {
   readonly stop: StopWithDetails;

@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 import { Navigate } from 'react-router';
-import { useLoader } from '../../../../hooks';
 import { Container } from '../../../../layoutComponents';
 import { LoadingState, Operation } from '../../../../redux';
+import { useLoader } from '../../../common/hooks';
 import {
   StopAreaDetailsAndMap,
   StopAreaMemberStops,

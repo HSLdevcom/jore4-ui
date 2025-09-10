@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import {
   StopRegistryAccessibilityLevel as StopAccessibilityLevel,
   StopRegistryShelterType,
-} from '../../generated/graphql';
+} from '../../../../../generated/graphql';
 import {
   HslAccessibilityLevelCalculationProperties,
   ShelterAccessibilityLevelCalculationProperties,
