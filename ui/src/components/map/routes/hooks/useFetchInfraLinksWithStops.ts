@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useExtractRouteFromFeature, useLoader } from '..';
-import { Operation } from '../../redux';
-import { MapMatchingNoSegmentError, showDangerToast } from '../../utils';
+import { Operation } from '../../../../redux';
+import { MapMatchingNoSegmentError, showDangerToast } from '../../../../utils';
+import { useLoader } from '../../../common/hooks/useLoader';
+import { useExtractRouteFromFeature } from './useExtractRouteFromFeature';
 
 export const useFetchInfraLinksWithStops = () => {
   const { setIsLoading } = useLoader(Operation.FetchInfraLinksWithStops);

@@ -4,7 +4,6 @@ import {
   StopRegistryNameType,
   StopRegistryParentStopPlaceInput,
 } from '../../../generated/graphql';
-import { useUpdateTerminal } from '../../../hooks/stop-registry/terminals';
 import { EnrichedParentStopPlace } from '../../../types';
 import {
   mapPointToStopRegistryGeoJSON,
@@ -14,6 +13,7 @@ import {
 import { SelectedStop } from '../../stop-registry/components/SelectMemberStops/common/schema';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { useEditMembersOfTerminal } from '../../stop-registry/terminals/components/location-details/location-details-form/useEditMembersOfTerminal';
+import { useUpdateTerminal } from '../../stop-registry/terminals/hooks';
 
 type UpdateTerminalInputs = {
   readonly terminal: EnrichedParentStopPlace;

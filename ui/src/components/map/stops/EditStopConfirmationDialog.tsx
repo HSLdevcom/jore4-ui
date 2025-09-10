@@ -3,8 +3,8 @@ import countBy from 'lodash/countBy';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteUniqueFieldsFragment } from '../../../generated/graphql';
-import { EditChanges } from '../../../hooks';
 import { ConfirmationDialog } from '../../../uiComponents';
+import { EditChanges } from './hooks/useEditStop';
 
 type EditStopConfirmationDialogProps = {
   readonly isOpen: boolean;

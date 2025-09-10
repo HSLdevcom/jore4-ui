@@ -4,17 +4,20 @@ import {
   RouteRouteBoolExp,
   useGetLineRoutesByLabelQuery,
   useGetRouteByFiltersQuery,
-} from '../../generated/graphql';
-import { Operation } from '../../redux';
+} from '../../../../generated/graphql';
+import {
+  useMapQueryParams,
+  useObservationDateQueryParam,
+} from '../../../../hooks';
+import { Operation } from '../../../../redux';
 import {
   buildActiveDateGqlFilter,
   buildLabelGqlFilter,
   buildLabelInGqlFilter,
   buildPriorityInGqlFilter,
-} from '../../utils';
-import { filterRoutesByHighestPriority } from '../line-details';
-import { useMapDataLayerLoader } from '../ui';
-import { useMapQueryParams, useObservationDateQueryParam } from '../urlQuery';
+} from '../../../../utils';
+import { useMapDataLayerLoader } from '../../../common/hooks/useLoader';
+import { filterRoutesByHighestPriority } from '../../../routes-and-lines/line-details/useGetLineDetails';
 
 const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
   query GetLineRoutesByLabel(

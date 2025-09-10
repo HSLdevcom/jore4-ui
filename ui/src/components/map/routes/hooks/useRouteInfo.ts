@@ -4,17 +4,17 @@ import {
   RouteStopFieldsFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
   useGetRouteWithInfrastructureLinksWithStopsQuery,
-} from '../../generated/graphql';
+} from '../../../../generated/graphql';
 import {
   getRouteStopLabels,
   mapInfrastructureLinksAlongRouteToRouteInfraLinks,
-} from '../../graphql';
+} from '../../../../graphql';
+import { useAppSelector } from '../../../../hooks';
 import {
   EditedRouteData,
   selectEditedRouteData,
   selectHasChangesInProgress,
-} from '../../redux';
-import { useAppSelector } from '../redux';
+} from '../../../../redux';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { extractJourneyPatternCandidateStops } from './useExtractRouteFromFeature';
 

@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
 import {
   InfrastructureLinkAllFieldsFragment,
   InsertRouteOneMutationVariables,
@@ -7,19 +6,20 @@ import {
   RouteDefaultFieldsFragment,
   RouteStopFieldsFragment,
   useInsertRouteOneMutation,
-} from '../../generated/graphql';
+} from '../../../../generated/graphql';
 import {
   RouteInfraLink,
   mapInfraLinksAlongRouteToGraphQL,
-} from '../../graphql';
-import { MIN_DATE } from '../../time';
+} from '../../../../graphql';
+import { MIN_DATE } from '../../../../time';
 import {
   buildJourneyPatternStopSequence,
   mapToObject,
   removeFromApolloCache,
   showDangerToastWithError,
-} from '../../utils';
-import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
+} from '../../../../utils';
+import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks/useCheckValidityAndPriorityConflicts';
+import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 import { mapRouteFormToInput } from './useEditRouteMetadata';
 import { useValidateRoute } from './useValidateRoute';
 

@@ -6,8 +6,7 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
-import { useCreateTerminal } from '../../../hooks/stop-registry/terminals';
+import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   LoadingState,
   MapEntityEditorViewState,
@@ -22,6 +21,8 @@ import {
   setSelectedTerminalIdAction,
 } from '../../../redux';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
+import { useLoader } from '../../common/hooks/useLoader';
+import { useCreateTerminal } from '../../stop-registry/terminals/hooks';
 import { useGetTerminalDetails } from '../queries';
 import { EditTerminalLayerRef, TerminalsRef } from '../refTypes';
 import { MapTerminal } from '../types';
