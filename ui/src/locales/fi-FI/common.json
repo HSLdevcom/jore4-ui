@@ -130,6 +130,7 @@
   },
   "stopArea": {
     "stopArea": "Pysäkkialue",
+    "copy": "Kopioi uudeksi versioksi",
     "delete": "Poista pysäkkialue",
     "name": "Pysäkkialueen nimi",
     "nameSwe": "Nimi (ruotsi)",
@@ -197,6 +198,13 @@
         "originalQuayIdRequired": "Alkuperäisen pysäkin ID on pakollinen.",
         "noMappingForQuayId": "Vastaavuutta ei löytynyt pysäkin ID:llä {{ quayId }}.",
         "stopPointIdRequired": "Pysähdyspisteen ID on pakollinen."
+      }
+    },
+    "version": {
+      "copy": {
+        "title": "Kopioidaan uudeksi versioksi",
+        "subTitle": "Uuden version tiedot",
+        "boilerplate": "Pysäkkialueen kaikki ominaisuudet ja alkamishetkellä voimassaolevat pysäkit kopioidaan mukana. Voit muokata uuden version ominaisuuksia kopioinnin jälkeen."
       }
     },
     "errors": {

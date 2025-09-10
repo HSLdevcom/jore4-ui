@@ -130,6 +130,7 @@
   },
   "stopArea": {
     "stopArea": "Stop area",
+    "copy": "Copy as new version",
     "delete": "Delete stop area",
     "name": "Stop area name",
     "nameSwe": "Name (swedish)",
@@ -197,6 +198,13 @@
         "originalQuayIdRequired": "Original quay ID is required.",
         "noMappingForQuayId": "No mapping found for quay ID: {{ quayId }}.",
         "stopPointIdRequired": "Stop point ID is required."
+      }
+    },
+    "version": {
+      "copy": {
+        "title": "Copy as new version",
+        "subTitle": "New version details",
+        "boilerplate": "All properties of the stop area and the stops valid at the time of start are copied. You can edit the properties of the new version after copying."
       }
     },
     "errors": {

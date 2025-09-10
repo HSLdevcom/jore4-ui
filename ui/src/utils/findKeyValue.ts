@@ -4,7 +4,7 @@ import {
   StopRegistryKeyValuesInput,
 } from '../generated/graphql';
 
-type ElementWithKeyValues = {
+export type ElementWithKeyValues = {
   readonly keyValues?: Maybe<
     ReadonlyArray<Maybe<StopRegistryKeyValues | StopRegistryKeyValuesInput>>
   >;
