@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { SearchBy, SearchFor, StopSearchFilters } from '../../types';
+import { SearchBy, SearchFor, StopSearchFilters } from '../../../types';
 
 function useOptions() {
   const { t } = useTranslation();
