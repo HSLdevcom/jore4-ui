@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router';
-import { PathValue } from '../router/routeDetails';
+import { PathValue } from '../../../router/routeDetails';
 
 /**
  * Hook for getting the basePath from URL.
