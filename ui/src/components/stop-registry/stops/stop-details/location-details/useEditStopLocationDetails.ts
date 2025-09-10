@@ -1,19 +1,16 @@
 import compact from 'lodash/compact';
 import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
-import { LocationDetailsFormState } from '../../components/stop-registry/stops/stop-details/location-details/schema';
-import {
-  mapPrivateCodeToInput,
-  omitTypeName,
-} from '../../components/stop-registry/utils/copyEntityUtilities';
-import { useUpdateStopPlaceMutation } from '../../generated/graphql';
-import { StopWithDetails } from '../../types';
+import { useUpdateStopPlaceMutation } from '../../../../../generated/graphql';
+import { StopWithDetails } from '../../../../../types';
 import {
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
   showDangerToast,
-} from '../../utils';
-import { getQuayIdsFromStopExcept } from './useGetStopDetails';
+} from '../../../../../utils';
+import { mapPrivateCodeToInput, omitTypeName } from '../../../utils';
+import { getQuayIdsFromStopExcept } from '../useGetStopDetails';
+import { LocationDetailsFormState } from './schema';
 
 type EditTiamatParams = {
   readonly state: LocationDetailsFormState;

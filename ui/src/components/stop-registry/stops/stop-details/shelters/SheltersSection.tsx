@@ -2,7 +2,6 @@ import compact from 'lodash/compact';
 import { FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShelterEquipmentDetailsFragment } from '../../../../../generated/graphql';
-import { useEditStopShelters } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
 import { AddNewButton } from '../../../../../uiComponents/AddNewButton';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
@@ -12,6 +11,7 @@ import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { SheltersFormState, mapShelterDataToFormState } from './schema';
 import { SheltersForm, SheltersFormRef } from './SheltersForm';
 import { SheltersViewList } from './SheltersViewList';
+import { useEditStopShelters } from './useEditStopShelters';
 
 const testIds = {
   addShelter: 'SheltersSection::addShelter',

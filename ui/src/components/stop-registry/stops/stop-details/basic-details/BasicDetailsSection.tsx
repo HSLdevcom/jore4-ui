@@ -1,6 +1,5 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useEditStopBasicDetails } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
@@ -8,6 +7,7 @@ import { stopInfoContainerColors } from '../stopInfoContainerColors';
 import { StopBasicDetailsFormState } from './basic-details-form/schema';
 import { StopBasicDetailsForm } from './basic-details-form/StopBasicDetailsForm';
 import { BasicDetailsViewCard } from './BasicDetailsViewCard';
+import { useEditStopBasicDetails } from './useEditStopBasicDetails';
 
 const mapStopBasicDetailsDataToFormState = (stop: StopWithDetails) => {
   const formState: Partial<StopBasicDetailsFormState> = {

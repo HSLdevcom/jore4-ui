@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { useDeleteStopAreaMutation } from '../../../generated/graphql';
+import { useDeleteStopAreaMutation } from '../../../../../generated/graphql';
 
 const GQL_DELETE_STOP_AREA = gql`
   mutation DeleteStopArea($stopPlaceId: String!) {

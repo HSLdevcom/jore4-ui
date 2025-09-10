@@ -2,8 +2,6 @@ import { gql } from '@apollo/client';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
-import { StopBasicDetailsFormState } from '../../components/stop-registry/stops/stop-details/basic-details/basic-details-form/schema';
-import { decodeQuayPrivateCodeType } from '../../components/stop-registry/utils/decodeQuayPrivateCodeType';
 import {
   EditStopMutationVariables,
   RouteUniqueFieldsFragment,
@@ -13,12 +11,12 @@ import {
   useEditStopMutation,
   useGetStopWithRouteGraphDataByIdLazyQuery,
   useUpdateStopPlaceMutation,
-} from '../../generated/graphql';
+} from '../../../../../generated/graphql';
 import {
   PartialScheduledStopPointSetInput,
   mapStopResultToStop,
-} from '../../graphql';
-import { StopWithDetails } from '../../types';
+} from '../../../../../graphql';
+import { StopWithDetails } from '../../../../../types';
 import {
   InternalError,
   TimingPlaceRequiredError,
@@ -26,9 +24,11 @@ import {
   patchAlternativeNames,
   patchKeyValues,
   showDangerToast,
-} from '../../utils';
-import { useValidateTimingSettings } from '../stops/useValidateTimingSettings';
-import { getQuayIdsFromStopExcept } from './useGetStopDetails';
+} from '../../../../../utils';
+import { useValidateTimingSettings } from '../../../../map/stops/hooks/useValidateTimingSettings';
+import { decodeQuayPrivateCodeType } from '../../../utils/decodeQuayPrivateCodeType';
+import { getQuayIdsFromStopExcept } from '../useGetStopDetails';
+import { StopBasicDetailsFormState } from './basic-details-form/schema';
 
 type EditRoutesAndLinesParams = {
   readonly stopId: UUID;

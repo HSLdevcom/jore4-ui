@@ -6,7 +6,6 @@ import {
   MemberStopQuayDetailsFragment,
   MemberStopStopPlaceDetailsFragment,
 } from '../../../../../../generated/graphql';
-import { useLoader } from '../../../../../../hooks';
 import { Column, Row } from '../../../../../../layoutComponents';
 import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
@@ -16,6 +15,7 @@ import {
   notNullish,
   showSuccessToast,
 } from '../../../../../../utils';
+import { useLoader } from '../../../../../common/hooks/useLoader';
 import {
   FormColumn,
   InputField,
