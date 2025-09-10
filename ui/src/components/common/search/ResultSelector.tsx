@@ -1,13 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  SearchQueryParameterNames,
-  useAppDispatch,
-  useSearch,
-} from '../../../hooks';
+import { useAppDispatch } from '../../../hooks';
 import { resetSelectedRowsAction } from '../../../redux';
 import { SimpleSmallButton } from '../../../uiComponents';
 import { DisplayedSearchResultType } from '../../../utils';
+import { useSearch } from './useSearch';
+import { SearchQueryParameterNames } from './useSearchQueryParser';
 
 const testIds = {
   linesResultsButton: 'ResultSelector::lines',

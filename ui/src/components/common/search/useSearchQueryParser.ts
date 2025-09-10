@@ -2,18 +2,14 @@ import { DateTime } from 'luxon';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
-} from '../../generated/graphql';
-import { Priority } from '../../types/enums';
-import { AllOptionEnum, DisplayedSearchResultType } from '../../utils/enum';
-import { useUrlQuery } from '../urlQuery/useUrlQuery';
-
-export type SearchConditions = {
-  priorities: ReadonlyArray<Priority>;
-  label: string;
-  primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
-  typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
-  observationDate: DateTime;
-};
+} from '../../../generated/graphql';
+import { useUrlQuery } from '../../../hooks';
+import { Priority } from '../../../types/enums';
+import {
+  AllOptionEnum,
+  DisplayedSearchResultType,
+  SearchConditions,
+} from '../../../utils';
 
 export type FilterConditions = {
   displayedType: DisplayedSearchResultType;
