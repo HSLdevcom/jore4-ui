@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { useShowRoutesOnModal } from '../../../../hooks';
 import {
   mapDirectionToLabel,
   mapDirectionToSymbol,
@@ -9,6 +8,7 @@ import {
 import { Row } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { LocatorButton } from '../../../../uiComponents';
+import { useShowRoutesOnModal } from '../../../common/hooks/useShowRoutesOnModal';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 
 const testIds = {

@@ -11,7 +11,7 @@ import {
   useState,
 } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import { areEqual, log } from '../utils';
+import { areEqual, log } from '../../../../utils';
 
 type UrlStateSerializer<T> = (value: T) => string;
 type UrlStateDeserializer<T> = (value: string) => T;
