@@ -5,7 +5,6 @@ import {
   TimetablesView,
   useAppDispatch,
   useAppSelector,
-  useGetLineDetails,
   useGetRoutesDisplayedInList,
   useTimetableVersionsReturnToQueryParam,
   useTimetablesViewState,
@@ -25,6 +24,7 @@ import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormColumn, FormRow } from '../../forms/common';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
 import { LineTitle } from '../../routes-and-lines/line-details/LineTitle';
+import { useGetLineDetails } from '../../routes-and-lines/line-details/useGetLineDetails';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import { RouteTimetableList } from './RouteTimetableList';
 import { TimetableNavigation } from './TimetableNavigation';

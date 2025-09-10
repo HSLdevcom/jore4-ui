@@ -6,7 +6,6 @@ import {
   RouteAllFieldsFragment,
   RouteDirectionEnum,
 } from '../../../generated/graphql';
-import { useAlertsAndHighLights, useShowRoutesOnModal } from '../../../hooks';
 import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -22,6 +21,10 @@ import {
   LocatorButton,
 } from '../../../uiComponents';
 import { AlertPopover } from '../../common/AlertPopover';
+import {
+  useAlertsAndHighLights,
+  useShowRoutesOnModal,
+} from '../../common/hooks';
 import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from './DirectionBadge';
 

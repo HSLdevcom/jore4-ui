@@ -1,7 +1,7 @@
 import uniq from 'lodash/uniq';
 import { useEffect, useMemo } from 'react';
-import { LineWithRoutesUniqueFieldsFragment } from '../../generated/graphql';
-import { QueryParameterName, useUrlQuery } from '../urlQuery/useUrlQuery';
+import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
+import { QueryParameterName, useUrlQuery } from '../../../hooks';
 
 /**
  * Query parameter hook for setting and getting displayed routes by their labels.

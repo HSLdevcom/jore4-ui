@@ -1,6 +1,6 @@
-import { Path, routeDetails } from '../../router/routeDetails';
-import { useUrlQuery } from '../urlQuery';
-import { useReturnToQueryParam } from './useReturnToQueryParam';
+import { useUrlQuery } from '../../../hooks';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { useReturnToQueryParam } from '../../common/hooks/useReturnToQueryParam';
 
 /**
  * Used to persist the line ID which was used to get to lineDrafts.

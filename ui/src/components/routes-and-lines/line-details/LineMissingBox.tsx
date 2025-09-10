@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LineFetchError } from '../../../hooks';
+import { LineFetchError } from './useGetLineDetails';
 
 const testIds = {
   notValidText: 'LineMissingBox::notValidText',
