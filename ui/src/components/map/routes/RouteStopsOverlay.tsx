@@ -2,11 +2,9 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteDirectionEnum } from '../../../generated/graphql';
 import {
-  belongsToJourneyPattern,
   useAppDispatch,
   useAppSelector,
   useObservationDateQueryParam,
-  useRouteInfo,
 } from '../../../hooks';
 import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
 import { Row, Visible } from '../../../layoutComponents';
@@ -24,6 +22,7 @@ import {
 import { RouteLabel } from '../../common/RouteLabel';
 import { MapOverlay, MapOverlayHeader } from '../MapOverlay';
 import { PriorityBadge } from '../PriorityBadge';
+import { belongsToJourneyPattern, useRouteInfo } from './hooks';
 import { RouteStopsOverlayRow } from './RouteStopsOverlayRow';
 
 const testIds = {

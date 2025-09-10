@@ -9,16 +9,16 @@ import {
   RouteStopFieldsFragment,
   UpdateRouteGeometryMutationVariables,
   useUpdateRouteGeometryMutation,
-} from '../../generated/graphql';
+} from '../../../../generated/graphql';
 import {
   RouteInfraLink,
   mapInfraLinksAlongRouteToGraphQL,
-} from '../../graphql';
+} from '../../../../graphql';
 import {
   buildJourneyPatternStopSequence,
   removeFromApolloCache,
   showDangerToastWithError,
-} from '../../utils';
+} from '../../../../utils';
 import { useValidateRoute } from './useValidateRoute';
 
 const GQL_UPDATE_ROUTE_GEOMETRY = gql`

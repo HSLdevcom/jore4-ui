@@ -1,8 +1,7 @@
 import { TFunction } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppAction, useLoader } from '../../../hooks';
-import { useDeleteTerminal } from '../../../hooks/stop-registry/terminals';
+import { useAppAction } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
@@ -13,7 +12,9 @@ import {
 import { EnrichedParentStopPlace } from '../../../types';
 import { ConfirmationDialog } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
+import { useLoader } from '../../common/hooks/useLoader';
 import { useEditMembersOfTerminal } from '../../stop-registry/terminals/components/location-details/location-details-form/useEditMembersOfTerminal';
+import { useDeleteTerminal } from '../../stop-registry/terminals/hooks';
 
 const getMemberStops = (terminal: EnrichedParentStopPlace): string => {
   const quayCodes =

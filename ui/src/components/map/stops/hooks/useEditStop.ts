@@ -3,7 +3,6 @@ import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
 import { useTranslation } from 'react-i18next';
-import { wrapErrors } from '../../components/stop-registry/stops/stop-details/stop-version/utils/wrapErrors';
 import {
   EditStopMutationVariables,
   InfrastructureNetworkDirectionEnum,
@@ -19,12 +18,12 @@ import {
   useEditStopPlaceMutation,
   useGetRoutesBrokenByStopChangeLazyQuery,
   useGetStopWithRouteGraphDataByIdLazyQuery,
-} from '../../generated/graphql';
+} from '../../../../generated/graphql';
 import {
   PartialScheduledStopPointSetInput,
   mapGetRoutesBrokenByStopChangeResult,
   mapStopResultToStop,
-} from '../../graphql';
+} from '../../../../graphql';
 import {
   DirectionNotResolvedError,
   EditRouteTerminalStopsError,
@@ -38,8 +37,9 @@ import {
   defaultTo,
   removeFromApolloCache,
   showDangerToast,
-} from '../../utils';
-import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
+} from '../../../../utils';
+import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
+import { wrapErrors } from '../../../stop-registry/stops/stop-details/stop-version/utils/wrapErrors';
 import { useGetStopLinkAndDirection } from './useGetStopLinkAndDirection';
 import { useValidateTimingSettings } from './useValidateTimingSettings';
 

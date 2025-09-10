@@ -2,16 +2,16 @@ import {
   InfrastructureNetworkDirectionEnum,
   useQueryClosestLinkLazyQuery,
   useQueryPointDirectionOnLinkLazyQuery,
-} from '../../generated/graphql';
+} from '../../../../generated/graphql';
 import {
   mapClosestLinkResult,
   mapGetPointDirectionOnLinkResult,
-} from '../../graphql';
+} from '../../../../graphql';
 import {
   DirectionNotResolvedError,
   IncompatibleDirectionsError,
   LinkNotResolvedError,
-} from '../../utils';
+} from '../../../../utils';
 
 type Params = {
   readonly stopLocation: GeoJSON.Point;

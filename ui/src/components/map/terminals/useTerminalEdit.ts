@@ -1,4 +1,4 @@
-import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
+import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
@@ -7,6 +7,7 @@ import {
   setMapTerminalViewStateAction,
   setSelectedTerminalIdAction,
 } from '../../../redux';
+import { useLoader } from '../../common/hooks/useLoader';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { useUpdateTerminalMapDetails } from '../utils/useUpdateTerminalMapDetails';
 

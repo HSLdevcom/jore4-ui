@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  CreateChanges,
-  useCreateStop,
-  useDefaultErrorHandler,
-  useLoader,
-  useObservationDateQueryParam,
-} from '../../../hooks';
-import { Operation } from '../../../redux';
-import { showSuccessToast } from '../../../utils';
+import { useObservationDateQueryParam } from '../../../../hooks';
+import { Operation } from '../../../../redux';
+import { showSuccessToast } from '../../../../utils';
+import { useLoader } from '../../../common/hooks';
+import { CreateChanges, useCreateStop } from './useCreateStop';
+import { useDefaultErrorHandler } from './useEditStop';
 import { useUpdateStopPriorityFilterIfNeeded } from './useUpdateStopPriorityFilterIfNeeded';
 
 export function useCreateStopUtils(

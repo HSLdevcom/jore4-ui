@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
   FilterType,
   selectMapFilter,
   setStopFilterAction,
-} from '../../../redux';
-import { Priority } from '../../../types/enums';
-import { showWarningToast } from '../../../utils';
+} from '../../../../redux';
+import { Priority } from '../../../../types/enums';
+import { showWarningToast } from '../../../../utils';
 
 function mapPriorityToFilterType(priority: Priority): FilterType {
   switch (priority) {

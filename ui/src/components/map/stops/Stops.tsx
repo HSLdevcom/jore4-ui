@@ -6,14 +6,7 @@ import {
   useRef,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
-import {
-  useAppAction,
-  useAppSelector,
-  useCheckIsLocationValidForStop,
-  useDefaultErrorHandler,
-  useLoader,
-  useMapStops,
-} from '../../../hooks';
+import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   LoadingState,
   MapEntityEditorViewState,
@@ -31,12 +24,18 @@ import {
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
 import { mapLngLatToGeoJSON, mapLngLatToPoint, none } from '../../../utils';
+import { useLoader } from '../../common/hooks';
 import { useResolveStopHoverTitle } from '../queries';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
 import { MapStop, MapStopArea, MapTerminal } from '../types';
 import { useMapViewState } from '../utils/useMapViewState';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
+import {
+  useCheckIsLocationValidForStop,
+  useDefaultErrorHandler,
+  useMapStops,
+} from './hooks';
 import { Stop } from './Stop';
 
 const testIds = {

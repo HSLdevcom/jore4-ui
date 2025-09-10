@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
-import { StopRegistryGeoJsonType } from '../../../generated/graphql';
+import { StopRegistryGeoJsonType } from '../../../../generated/graphql';
+import { useObservationDateQueryParam } from '../../../../hooks';
+import { MapEntityEditorViewState, Operation } from '../../../../redux';
+import { mapLngLatToGeoJSON, showSuccessToast } from '../../../../utils';
+import { useLoader } from '../../../common/hooks';
+import { StopInfoForEditingOnMap } from '../../../forms/stop/utils/useGetStopInfoForEditingOnMap';
 import {
   EditChanges,
   useDefaultErrorHandler,
   useEditStop,
-  useLoader,
-  useObservationDateQueryParam,
   usePrepareEdit,
-} from '../../../hooks';
-import { MapEntityEditorViewState, Operation } from '../../../redux';
-import { mapLngLatToGeoJSON, showSuccessToast } from '../../../utils';
-import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
+} from './useEditStop';
 import { useUpdateStopPriorityFilterIfNeeded } from './useUpdateStopPriorityFilterIfNeeded';
 
 type EditUtilsEditActive = {

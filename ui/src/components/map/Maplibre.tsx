@@ -16,10 +16,11 @@ import MapGL, {
   MapRef,
   NavigationControl,
 } from 'react-map-gl/maplibre';
-import { useAppDispatch, useLoader, useMapQueryParams } from '../../hooks';
+import { useAppDispatch, useMapQueryParams } from '../../hooks';
 import { LoadingState, Operation, setViewPortAction } from '../../redux';
 import { log, showWarningToast } from '../../utils';
 import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';
+import { useLoader } from '../common/hooks/useLoader';
 
 type MaplibreProps = {
   readonly className?: string;

@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useAppAction, useLoader } from '../../../hooks';
-import { useCreateTerminal } from '../../../hooks/stop-registry/terminals';
+import { useAppAction } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
@@ -9,7 +8,9 @@ import {
   setSelectedTerminalIdAction,
 } from '../../../redux';
 import { showSuccessToast } from '../../../utils';
+import { useLoader } from '../../common/hooks/useLoader';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
+import { useCreateTerminal } from '../../stop-registry/terminals/hooks';
 
 export const useTerminalCreation = () => {
   const { t } = useTranslation();
