@@ -4,10 +4,13 @@ import { FC } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { ListboxButton, dropdownTransition } from '../../../../../uiComponents';
-import { InputLabel } from '../../../../forms/common';
-import { SearchFor, StopSearchFilters, defaultFilters } from '../../types';
-import { trSearchFor } from '../../utils';
+import {
+  ListboxButton,
+  dropdownTransition,
+} from '../../../../../../uiComponents';
+import { InputLabel } from '../../../../../forms/common';
+import { SearchFor, StopSearchFilters, defaultFilters } from '../../../types';
+import { trSearchFor } from '../../../utils';
 
 const testIds = {
   searchForDropdown: 'StopSearchBar::SearchForDropdown',
