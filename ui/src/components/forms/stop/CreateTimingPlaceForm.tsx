@@ -3,8 +3,6 @@ import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { useCreateTimingPlace } from '../../../hooks/timing-places/useCreateTimingPlace';
-import { useLoader } from '../../../hooks/ui/useLoader';
 import { Row } from '../../../layoutComponents';
 import { Operation } from '../../../redux';
 import { SimpleButton } from '../../../uiComponents';
@@ -13,6 +11,7 @@ import {
   showSuccessToast,
   submitFormByRef,
 } from '../../../utils';
+import { useLoader } from '../../common/hooks/useLoader';
 import {
   FormRow,
   InputField,
@@ -20,6 +19,7 @@ import {
   requiredString,
 } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
+import { useCreateTimingPlace } from './utils/useCreateTimingPlace';
 
 const testIds = {
   label: 'CreateTimingPlaceForm::label',

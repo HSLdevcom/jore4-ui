@@ -15,16 +15,6 @@ import {
   StopRegistryQuayInput,
 } from '../../../generated/graphql';
 import { PartialScheduledStopPointSetInput } from '../../../graphql';
-import {
-  CreateChanges,
-  CreateStopPointInput,
-  EditChanges,
-  useAppSelector,
-  useDefaultErrorHandler,
-  useLoader,
-  usePrepareCreate,
-  usePrepareEdit,
-} from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { Operation, selectIsTimingPlaceModalOpen } from '../../../redux';
 import { RequiredKeys } from '../../../types';
@@ -40,6 +30,18 @@ import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { Location, PublicCodeAndArea, VersionInfo } from './components';
 import { TimingPlaceModal } from './TimingPlaceModal';
 import { MISSING_ID, StopFormState, stopFormSchema } from './types';
+import { useAppSelector } from '../../../hooks';
+import { useLoader } from '../../common/hooks/useLoader';
+import {
+  CreateStopPointInput,
+  CreateChanges,
+  usePrepareCreate,
+} from '../../map/stops/hooks/useCreateStop';
+import {
+  EditChanges,
+  usePrepareEdit,
+  useDefaultErrorHandler,
+} from '../../map/stops/hooks/useEditStop';
 
 type StopFormStateStopPointMappedSetInput = RequiredKeys<
   PartialScheduledStopPointSetInput,
