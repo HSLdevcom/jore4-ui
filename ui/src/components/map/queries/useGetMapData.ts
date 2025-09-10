@@ -1,9 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import {
-  useAppSelector,
-  useGetRoutesDisplayedInMap,
-  useLoader,
-} from '../../../hooks';
+import { useAppSelector } from '../../../hooks';
 import {
   LoadingState,
   MapEntityType,
@@ -14,7 +10,9 @@ import {
   selectShowMapEntityTypes,
 } from '../../../redux';
 import { Viewport } from '../../../redux/types';
-import { useFilterStops } from '../stops/useFilterStops';
+import { useLoader } from '../../common/hooks/useLoader';
+import { useFilterStops } from '../stops/hooks/useFilterStops';
+import { useGetRoutesDisplayedInMap } from '../stops/hooks/useGetRoutesDisplayedInMap';
 import { useGetMapStopAreas } from './useGetMapStopAreas';
 import { useGetMapStops } from './useGetMapStops';
 import { useGetMapTerminals } from './useGetMapTerminals';

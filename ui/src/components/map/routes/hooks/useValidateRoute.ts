@@ -1,12 +1,15 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
-import { Maybe, useGetLineDetailsByIdLazyQuery } from '../../generated/graphql';
-import { mapLineDetailsResult } from '../../graphql';
+import {
+  Maybe,
+  useGetLineDetailsByIdLazyQuery,
+} from '../../../../generated/graphql';
+import { mapLineDetailsResult } from '../../../../graphql';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
-} from '../../utils';
+} from '../../../../utils';
+import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 
 type ValidityPeriodParams = {
   readonly validity_start?: Maybe<DateTime>;

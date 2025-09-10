@@ -6,7 +6,7 @@ import {
   useRef,
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
-import { useAppAction, useAppSelector, useLoader } from '../../../hooks';
+import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   LoadingState,
   MapEntityEditorViewState,
@@ -21,6 +21,7 @@ import {
   setSelectedTerminalIdAction,
 } from '../../../redux';
 import { mapLngLatToGeoJSON, none } from '../../../utils';
+import { useLoader } from '../../common/hooks/useLoader';
 import { useUpsertStopArea } from '../../forms/stop-area';
 import { useGetStopPlaceDetailsById } from '../../stop-registry/stop-areas/stop-area-details/useGetStopAreaDetails';
 import { EditStopAreaLayerRef, StopAreasRef } from '../refTypes';

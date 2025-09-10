@@ -2,14 +2,7 @@ import { forwardRef, useImperativeHandle, useMemo } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
-import {
-  CreateChanges,
-  EditChanges,
-  isEditChanges,
-  useAppAction,
-  useAppSelector,
-  useMapDataLayerLoader,
-} from '../../../hooks';
+import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
@@ -21,6 +14,7 @@ import {
   setSelectedRouteIdAction,
 } from '../../../redux';
 import { EnrichedStopPlace, Point } from '../../../types';
+import { useMapDataLayerLoader } from '../../common/hooks/useLoader';
 import {
   StopFormState,
   StopModalStopAreaFormSchema,
@@ -37,13 +31,15 @@ import { EditStoplayerRef } from '../refTypes';
 import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
 import { EditStopConfirmationDialog } from './EditStopConfirmationDialog';
 import { EditStopModal } from './EditStopModal';
+import { CreateChanges } from './hooks/useCreateStop';
+import { useCreateStopUtils } from './hooks/useCreateStopUtils';
+import { useDeleteStopUtils } from './hooks/useDeleteStopUtils';
+import { EditChanges, isEditChanges } from './hooks/useEditStop';
+import { useEditStopUtils } from './hooks/useEditStopUtils';
 import { LineToActiveStopArea } from './LineToActiveStopArea';
 import { LineToClosestInfraLink } from './LineToClosestInfraLink';
 import { Stop } from './Stop';
 import { StopPopup } from './StopPopup';
-import { useCreateStopUtils } from './useCreateStopUtils';
-import { useDeleteStopUtils } from './useDeleteStopUtils';
-import { useEditStopUtils } from './useEditStopUtils';
 
 function enrichedStopAreaToStopModalStopAreaFormSchema(
   editedStopAreaData: EnrichedStopPlace,

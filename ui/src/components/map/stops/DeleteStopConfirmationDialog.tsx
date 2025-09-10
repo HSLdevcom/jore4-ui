@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DeleteChanges } from '../../../hooks';
 import { ConfirmationDialog } from '../../../uiComponents';
 import { buildRouteLabelListString } from './EditStopConfirmationDialog';
+import { DeleteChanges } from './hooks/useDeleteStop';
 
 type DeleteStopConfirmationDialogProps = {
   readonly isOpen: boolean;

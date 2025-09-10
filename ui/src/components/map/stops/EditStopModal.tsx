@@ -1,10 +1,11 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CreateChanges, EditChanges } from '../../../hooks';
 import { submitFormByRef } from '../../../utils';
 import { StopFormState as FormState, StopForm } from '../../forms/stop';
 import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal';
+import { CreateChanges } from './hooks/useCreateStop';
+import { EditChanges } from './hooks/useEditStop';
 
 const testIds = {
   modal: 'EditStopModal',
