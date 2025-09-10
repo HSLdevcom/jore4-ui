@@ -5,9 +5,9 @@ import {
   LineForComboboxFragment,
   useGetLinesForComboboxQuery,
   useGetSelectedLineDetailsByIdQuery,
-} from '../../generated/graphql';
-import { mapToSqlLikeValue, mapToVariables } from '../../utils';
-import { useDebouncedString } from '../useDebouncedString';
+} from '../../../generated/graphql';
+import { useDebouncedString } from '../../../hooks';
+import { mapToSqlLikeValue, mapToVariables } from '../../../utils';
 
 const GQL_GET_LINES_FOR_COMBOBOX = gql`
   query GetLinesForCombobox($labelPattern: String!, $date: date!) {

@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineForComboboxFragment } from '../../../generated/graphql';
-import { useChooseLineDropdown } from '../../../hooks';
 import { MAX_DATE, MIN_DATE } from '../../../time';
 import { ComboboxInputProps, SearchableDropdown } from '../../../uiComponents';
 import { DateRange } from '../common';
+import { useChooseLineDropdown } from './useChooseLineDropdown';
 
 type ChooseLineDropdownProps = ComboboxInputProps & {
   readonly testId?: string;

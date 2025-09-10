@@ -3,9 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {
   useAppDispatch,
   useAppSelector,
-  useExportRoutes,
   useObservationDateQueryParam,
-  useSearchResults,
 } from '../../../hooks';
 import { Row, Visible } from '../../../layoutComponents';
 import {
@@ -22,6 +20,8 @@ import {
   isRouteActiveOnObservationDate,
   showDangerToast,
 } from '../../../utils';
+import { useSearchResults } from '../../common/search/useSearchResults';
+import { useExportRoutes } from './useExportRoutes';
 
 const testIds = {
   toggleSelectingButton: 'ExportToolBar::toggleSelectingButton',

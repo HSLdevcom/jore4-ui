@@ -1,13 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useGetLineDetails,
-  useRoutesAndLinesDraftReturnToQueryParam,
-} from '../../../hooks';
 import { Column, Container } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import { ObservationDateControl } from '../../common/ObservationDateControl';
 import { FormRow } from '../../forms/common';
+import { useRoutesAndLinesDraftReturnToQueryParam } from '../line-drafts/useRoutesAndLinesDraftReturnToQueryParam';
+import { useGetLineDetails } from './useGetLineDetails';
 
 const testIds = {
   showDraftsButton: 'ActionsRow::showDraftsButton',

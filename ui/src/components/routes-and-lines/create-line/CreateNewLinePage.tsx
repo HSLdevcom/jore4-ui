@@ -6,7 +6,6 @@ import {
   ReusableComponentsVehicleModeEnum,
 } from '../../../generated/graphql';
 import { mapInsertLineOneResult } from '../../../graphql';
-import { useCreateLine } from '../../../hooks';
 import { Container, Row } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { Priority } from '../../../types/enums';
@@ -17,6 +16,7 @@ import {
   ConflictResolverModal,
   mapLineToCommonConflictItem,
 } from '../common/ConflictResolverModal';
+import { useCreateLine } from './useCreateLine';
 
 export const CreateNewLinePage: FC = () => {
   const {

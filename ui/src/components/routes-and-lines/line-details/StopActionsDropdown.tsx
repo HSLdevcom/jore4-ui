@@ -1,12 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteWithInfrastructureLinksWithStopsAndJpsFragment } from '../../../generated/graphql';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useEditRouteJourneyPattern,
-  useLoader,
-} from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   Operation,
   openTimingSettingsModalAction,
@@ -19,6 +14,8 @@ import {
   SimpleDropdownMenuItem,
 } from '../../../uiComponents';
 import { showDangerToast, showSuccessToast } from '../../../utils';
+import { useLoader } from '../../common/hooks/useLoader';
+import { useEditRouteJourneyPattern } from '../edit-route/useEditRouteJourneyPattern';
 
 const testIds = {
   menu: 'StopActionsDropdown::menu',

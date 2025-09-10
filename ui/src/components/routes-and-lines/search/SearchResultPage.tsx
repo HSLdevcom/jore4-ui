@@ -1,8 +1,6 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
-import { useSearch, useSearchResults } from '../../../hooks';
-import { useBasePath } from '../../../hooks/useBasePath';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import { Path } from '../../../router/routeDetails';
 import {
@@ -14,6 +12,9 @@ import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
 import { PageTitle } from '../../common';
 import { RouteLineTableRowVariant } from '../../common/RouteLineTableRow';
 import { ResultList } from '../../common/search/ResultList';
+import { useBasePath } from '../../common/search/useBasePath';
+import { useSearch } from '../../common/search/useSearch';
+import { useSearchResults } from '../../common/search/useSearchResults';
 import { ExportToolbar } from './ExportToolbar';
 import { FiltersContainer } from './filters/FiltersContainer';
 import { SearchContainer } from './SearchContainer';

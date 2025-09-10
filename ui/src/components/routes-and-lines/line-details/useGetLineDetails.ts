@@ -12,16 +12,18 @@ import {
   useGetHighestPriorityLineDetailsWithRoutesLazyQuery,
   useGetLineDetailsByIdQuery,
   useGetLineValidityPeriodByIdLazyQuery,
-} from '../../generated/graphql';
-import { mapLineValidityPeriod } from '../../graphql';
+} from '../../../generated/graphql';
+import { mapLineValidityPeriod } from '../../../graphql';
+import {
+  useObservationDateQueryParam,
+  useRequiredParams,
+} from '../../../hooks';
 import {
   buildActiveDateGqlFilter,
   buildDraftPriorityGqlFilter,
   buildLabelGqlFilter,
-} from '../../utils';
-import { getRouteLabelVariantText } from '../../utils/route';
-import { useObservationDateQueryParam } from '../urlQuery';
-import { useRequiredParams } from '../useRequiredParams';
+  getRouteLabelVariantText,
+} from '../../../utils';
 
 const GQL_INFRASTRUCTURE_LINK_WITH_STOPS_FRAGMENT = gql`
   fragment infrastructure_link_with_stops on infrastructure_network_infrastructure_link {
