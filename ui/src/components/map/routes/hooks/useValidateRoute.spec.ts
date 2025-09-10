@@ -1,8 +1,8 @@
+import { renderHook } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import { RouteFormState } from '../../components/forms/route/RoutePropertiesForm.types';
-import { RouteDirectionEnum } from '../../generated/graphql';
-import { mapLineDetailsResult } from '../../graphql';
-import { renderHook } from '../../utils/test-utils';
+import { RouteDirectionEnum } from '../../../../generated/graphql';
+import { mapLineDetailsResult } from '../../../../graphql';
+import { RouteFormState } from '../../../forms/route/RoutePropertiesForm.types';
 import { useValidateRoute } from './useValidateRoute';
 
 jest.mock('@apollo/client', () => ({
@@ -24,12 +24,12 @@ jest.mock('react-i18next', () => ({
   }),
 }));
 
-jest.mock('../../generated/graphql', () => ({
-  ...jest.requireActual('../../generated/graphql'),
+jest.mock('../../../../generated/graphql', () => ({
+  ...jest.requireActual('../../../../generated/graphql'),
   useGetLineDetailsByIdLazyQuery: jest.fn(() => [jest.fn()]),
 }));
 
-jest.mock('../../graphql', () => ({
+jest.mock('../../../../graphql', () => ({
   mapLineDetailsResult: jest.fn(),
 }));
 
@@ -54,7 +54,7 @@ describe('useValidateRoute', () => {
   const mockedGetLineDetailsByIdLazyQuery = jest.fn();
 
   jest
-    .requireMock('../../generated/graphql')
+    .requireMock('../../../../generated/graphql')
     .useGetLineDetailsByIdLazyQuery.mockImplementation(() => {
       return [jest.fn(), jest.fn()];
     });
@@ -161,7 +161,7 @@ describe('useValidateRoute', () => {
       };
 
       jest
-        .requireMock('../../generated/graphql')
+        .requireMock('../../../../generated/graphql')
         .useGetLineDetailsByIdLazyQuery.mockReturnValue(() => {
           return [jest.fn(() => lineMock)];
         });
@@ -192,7 +192,7 @@ describe('useValidateRoute', () => {
       ]);
 
       jest
-        .requireMock('../../generated/graphql')
+        .requireMock('../../../../generated/graphql')
         .useGetLineDetailsByIdLazyQuery.mockImplementation(() => {
           return [mockedMapLineDetailsResult];
         });

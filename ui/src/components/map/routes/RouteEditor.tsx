@@ -11,13 +11,8 @@ import {
   useGetRouteDetailsByIdLazyQuery,
 } from '../../../generated/graphql';
 import {
-  mapRouteToFormState,
   useAppDispatch,
   useAppSelector,
-  useCreateRoute,
-  useDeleteRoute,
-  useEditRouteGeometry,
-  useLoader,
   useMapQueryParams,
   useObservationDateQueryParam,
 } from '../../../hooks';
@@ -44,11 +39,18 @@ import {
   showSuccessToast,
   stopInJourneyPatternFieldsToRemove,
 } from '../../../utils';
+import { useLoader } from '../../common/hooks/useLoader';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import {
   ConflictResolverModal,
   mapRouteToCommonConflictItem,
 } from '../../routes-and-lines/common/ConflictResolverModal';
+import {
+  mapRouteToFormState,
+  useCreateRoute,
+  useDeleteRoute,
+  useEditRouteGeometry,
+} from './hooks';
 
 type RouteEditorProps = {
   onDeleteDrawnRoute: () => void;

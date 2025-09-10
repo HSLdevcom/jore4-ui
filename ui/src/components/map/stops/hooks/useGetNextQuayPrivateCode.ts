@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
-import { useGetQuayMaxPrivateCodeLazyQuery } from '../../generated/graphql';
+import { useGetQuayMaxPrivateCodeLazyQuery } from '../../../../generated/graphql';
 
 const MIN_JORE_4_CODE = 7000000;
 const MAX_JORE_4_CODE = 7999999;
