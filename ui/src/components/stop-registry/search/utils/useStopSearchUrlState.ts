@@ -3,13 +3,6 @@ import omit from 'lodash/omit';
 import pick from 'lodash/pick';
 import { DateTime } from 'luxon';
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
-import {
-  UrlStateDeserializers,
-  UrlStateSerializers,
-  serializeState,
-  toEnum,
-  useTypedUrlState,
-} from '../../../../hooks';
 import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
 import {
   StopRegistryMunicipality,
@@ -34,6 +27,13 @@ import {
   handleAllMunicipalities,
   knownMunicipalities,
 } from './handleAllMunicipalities';
+import {
+  UrlStateDeserializers,
+  UrlStateSerializers,
+  serializeState,
+  toEnum,
+  useTypedUrlState,
+} from './useTypedUrlState';
 
 type StopSearchUrlFlatState = StopSearchFilters & PagingInfo & SortingInfo;
 
