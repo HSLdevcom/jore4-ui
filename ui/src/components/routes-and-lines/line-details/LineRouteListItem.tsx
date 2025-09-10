@@ -1,12 +1,10 @@
 import { FC, useState } from 'react';
 import { useGetRouteDetailsByIdQuery } from '../../../generated/graphql';
 import { stopBelongsToJourneyPattern } from '../../../graphql';
-import {
-  getEligibleStopsAlongRoute,
-  useObservationDateQueryParam,
-} from '../../../hooks';
+import { useObservationDateQueryParam } from '../../../hooks';
 import { Priority } from '../../../types/enums';
 import { filterHighestPriorityCurrentStops } from '../../../utils';
+import { getEligibleStopsAlongRoute } from '../edit-route/useEditRouteJourneyPattern';
 import { RouteRow } from './RouteRow';
 import { RouteRowLoader } from './RouteRowLoader';
 import { RouteStopListItem } from './RouteStopListItem';

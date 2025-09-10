@@ -4,11 +4,11 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
-import { useGetRoutesDisplayedInList } from '../../../hooks';
 import { Column, Row } from '../../../layoutComponents';
 import { IconButton, SimpleSmallButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
 import { LineValidityPeriod } from './LineValidityPeriod';
+import { useGetRoutesDisplayedInList } from './useGetRoutesDisplayedInList';
 
 const testIds = {
   heading: 'LineTitle::heading',

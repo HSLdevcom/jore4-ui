@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import {
   RouteLineSetInput,
   useGetLineDetailsWithRoutesByIdLazyQuery,
-} from '../../generated/graphql';
-import { useValidateRoute } from '../routes/useValidateRoute';
+} from '../../../generated/graphql';
+import { useValidateRoute } from '../../map/routes/hooks/useValidateRoute';
 
 type ValidateParams = {
   readonly lineId: UUID;

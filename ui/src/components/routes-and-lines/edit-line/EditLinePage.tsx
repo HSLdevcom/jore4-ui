@@ -6,7 +6,7 @@ import {
   useGetLineDetailsByIdQuery,
 } from '../../../generated/graphql';
 import { mapLineDetailsResult } from '../../../graphql';
-import { useEditLine, useRequiredParams } from '../../../hooks';
+import { useRequiredParams } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
 import { Path, routeDetails } from '../../../router/routeDetails';
 import { mapToISODate } from '../../../time';
@@ -22,6 +22,7 @@ import {
   mapLineToCommonConflictItem,
 } from '../common/ConflictResolverModal';
 import { PageHeader } from '../common/PageHeader';
+import { useEditLine } from './useEditLine';
 
 const mapLineToFormState = (line: LineAllFieldsFragment): FormState => ({
   label: line.label,
