@@ -7,7 +7,6 @@ import {
   StopRegistryShelterWidthType,
   StopRegistryStopType,
 } from '../../../../../generated/graphql';
-import { useEditStopMeasurementDetails } from '../../../../../hooks';
 import { StopWithDetails } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
 import { InfoContainer, useInfoContainerControls } from '../../../../common';
@@ -17,6 +16,7 @@ import { AccessibilityLevelInfo } from './AccessibilityLevelInfo';
 import { MeasurementsForm } from './MeasurementsForm';
 import { MeasurementsViewCard } from './MeasurementsViewCard';
 import { MeasurementsFormState } from './schema';
+import { useEditStopMeasurementDetails } from './useEditStopMeasurementDetails';
 
 const testIds = {
   prefix: 'MeasurementsSection',

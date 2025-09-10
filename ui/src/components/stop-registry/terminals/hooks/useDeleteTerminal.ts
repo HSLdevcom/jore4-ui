@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { useDeleteTerminalMutation } from '../../../generated/graphql';
+import { useDeleteTerminalMutation } from '../../../../generated/graphql';
 
 const GQL_DELETE_TERMINAL = gql`
   mutation DeleteTerminal($terminalId: String!) {

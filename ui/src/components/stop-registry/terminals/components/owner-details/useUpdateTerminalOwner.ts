@@ -5,9 +5,9 @@ import {
   StopRegistryParentStopPlaceInput,
   StopRegistryStopPlaceOrganisationRelationshipType,
 } from '../../../../../generated/graphql';
-import { useUpdateTerminal } from '../../../../../hooks/stop-registry/terminals';
 import { EnrichedParentStopPlace } from '../../../../../types';
 import { patchKeyValues } from '../../../../../utils';
+import { useUpdateTerminal } from '../../hooks';
 import { TerminalOwnerFormState } from './terminalOwnerSchema';
 
 type UpdateTerminalOwnerInputs = {

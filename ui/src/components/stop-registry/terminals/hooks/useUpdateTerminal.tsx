@@ -1,16 +1,16 @@
 import { ApolloError, gql } from '@apollo/client';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TerminalFormState } from '../../../components/stop-registry/terminals/components/basic-details/basic-details-form/schema';
-import { TerminalOwnerFormState } from '../../../components/stop-registry/terminals/components/owner-details/terminalOwnerSchema';
-import { TerminalValidityFormState } from '../../../components/stop-registry/terminals/components/terminal-versions/TerminalValidityFormState';
-import { getEnrichedParentStopPlace } from '../../../components/stop-registry/terminals/useGetTerminalDetails';
-import { useTerminalApolloErrorHandler } from '../../../components/stop-registry/terminals/utils/terminalErrorHandler';
 import {
   StopRegistryParentStopPlaceInput,
   useUpdateTerminalMutation,
-} from '../../../generated/graphql';
-import { showDangerToastWithError } from '../../../utils';
+} from '../../../../generated/graphql';
+import { showDangerToastWithError } from '../../../../utils';
+import { TerminalFormState } from '../components/basic-details/basic-details-form/schema';
+import { TerminalOwnerFormState } from '../components/owner-details/terminalOwnerSchema';
+import { TerminalValidityFormState } from '../components/terminal-versions/TerminalValidityFormState';
+import { useTerminalApolloErrorHandler } from '../utils/terminalErrorHandler';
+import { getEnrichedParentStopPlace } from './useGetTerminalDetails';
 
 const GQL_UPDATE_TERMINAL = gql`
   mutation UpdateTerminal($input: stop_registry_ParentStopPlaceInput!) {

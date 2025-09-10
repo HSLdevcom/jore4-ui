@@ -8,7 +8,6 @@ import {
   MemberStopQuayDetailsFragment,
   MemberStopStopPlaceDetailsFragment,
 } from '../../../../../../generated/graphql';
-import { useLoader } from '../../../../../../hooks';
 import { Column } from '../../../../../../layoutComponents';
 import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
@@ -19,6 +18,7 @@ import {
   notNullish,
   showSuccessToast,
 } from '../../../../../../utils';
+import { useLoader } from '../../../../../common/hooks/useLoader';
 import { FormColumn, FormRow, InputField } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { AlternativeNamesEdit } from '../../../../components/AlternativeNames/AlternativeNamesEdit';

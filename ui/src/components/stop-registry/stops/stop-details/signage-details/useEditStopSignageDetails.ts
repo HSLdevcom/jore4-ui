@@ -1,11 +1,11 @@
 import isString from 'lodash/isString';
 import { useTranslation } from 'react-i18next';
-import { SignageDetailsFormState } from '../../components/stop-registry/stops/stop-details/signage-details/schema';
-import { omitTypeName } from '../../components/stop-registry/utils/copyEntityUtilities';
-import { useUpdateStopPlaceMutation } from '../../generated/graphql';
-import { StopWithDetails } from '../../types';
-import { showDangerToast } from '../../utils';
-import { getQuayIdsFromStopExcept } from './useGetStopDetails';
+import { useUpdateStopPlaceMutation } from '../../../../../generated/graphql';
+import { StopWithDetails } from '../../../../../types';
+import { showDangerToast } from '../../../../../utils';
+import { omitTypeName } from '../../../utils/copyEntityUtilities';
+import { getQuayIdsFromStopExcept } from '../useGetStopDetails';
+import { SignageDetailsFormState } from './schema';
 
 type EditTiamatParams = {
   readonly state: SignageDetailsFormState;

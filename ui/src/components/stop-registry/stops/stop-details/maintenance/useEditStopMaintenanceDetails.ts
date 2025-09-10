@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { MaintenanceDetailsFormState } from '../../components/stop-registry/stops/stop-details/maintenance/schema';
 import {
   StopRegistryStopPlaceOrganisationRefInput,
   StopRegistryStopPlaceOrganisationRelationshipType,
   useUpdateStopPlaceMutation,
-} from '../../generated/graphql';
-import { StopWithDetails } from '../../types';
-import { notNullish, showDangerToast } from '../../utils';
+} from '../../../../../generated/graphql';
+import { StopWithDetails } from '../../../../../types';
+import { notNullish, showDangerToast } from '../../../../../utils';
+import { MaintenanceDetailsFormState } from './schema';
 
 type EditTiamatParams = {
   readonly state: MaintenanceDetailsFormState;
