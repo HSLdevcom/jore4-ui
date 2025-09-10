@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
-import { useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQuery } from '../../generated/graphql';
+import { useGetScheduledStopPointsInJourneyPatternsUsedAsTimingPointsLazyQuery } from '../../../../generated/graphql';
 import {
   TimingPlaceRequiredError,
   getRouteLabelVariantText,
-} from '../../utils';
+} from '../../../../utils';
 
 const GQL_GET_SCHEDULED_STOP_POINTS_IN_JOURNEY_PATTERNS_USED_AS_TIMING_POINTS = gql`
   query GetScheduledStopPointsInJourneyPatternsUsedAsTimingPoints(

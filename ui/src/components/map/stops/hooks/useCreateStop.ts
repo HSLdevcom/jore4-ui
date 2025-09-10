@@ -6,15 +6,15 @@ import {
   StopRegistryQuayInput,
   useInsertQuayIntoStopPlaceMutation,
   useInsertStopPointMutation,
-} from '../../generated/graphql';
-import { OptionalKeys } from '../../types';
+} from '../../../../generated/graphql';
+import { OptionalKeys } from '../../../../types';
 import {
   IncompatibleWithExistingRoutesError,
   findKeyValue,
   getRouteLabelVariantText,
   removeFromApolloCache,
-} from '../../utils';
-import { useCheckValidityAndPriorityConflicts } from '../useCheckValidityAndPriorityConflicts';
+} from '../../../../utils';
+import { useCheckValidityAndPriorityConflicts } from '../../../common/hooks';
 import {
   BrokenRouteCheckParams,
   useGetRoutesBrokenByStopChange,

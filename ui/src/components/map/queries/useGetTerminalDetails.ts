@@ -5,7 +5,7 @@ import {
   useGetTerminalDetailsByNetexIdQuery,
 } from '../../../generated/graphql';
 import { getParentStopPlacesFromQueryResult } from '../../../utils';
-import { getEnrichedParentStopPlace } from '../../stop-registry/terminals/useGetTerminalDetails';
+import { getEnrichedParentStopPlace } from '../../stop-registry/terminals/hooks/useGetTerminalDetails';
 
 const GQL_GET_TERMINAL_DETAILS_BY_NETEX_ID = gql`
   query GetTerminalDetailsByNetexId($netexId: String!) {

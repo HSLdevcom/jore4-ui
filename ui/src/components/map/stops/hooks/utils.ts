@@ -1,5 +1,5 @@
 import uniqBy from 'lodash/uniqBy';
-import { JourneyPatternJourneyPattern } from '../../generated/graphql';
+import { JourneyPatternJourneyPattern } from '../../../../generated/graphql';
 
 // gets the unique list of parent routes for the input journey patterns
 export const getRoutesOfJourneyPatterns = (

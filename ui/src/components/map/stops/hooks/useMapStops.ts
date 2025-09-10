@@ -1,23 +1,26 @@
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
-import { MapStop } from '../../components/map/types';
 import {
   ReusableComponentsVehicleModeEnum,
   RouteWithJourneyPatternStopsFragment,
   useGetRouteDetailsByIdsQuery,
-} from '../../generated/graphql';
-import { getRouteStopLabels } from '../../graphql';
+} from '../../../../generated/graphql';
+import { getRouteStopLabels } from '../../../../graphql';
+import { useAppSelector } from '../../../../hooks/redux';
+import { useObservationDateQueryParam } from '../../../../hooks/urlQuery';
 import {
   selectEditedRouteData,
   selectEditedRouteIncludedStops,
   selectMapRouteEditor,
   selectSelectedStopAreaId,
   selectSelectedStopId,
-} from '../../redux';
-import { Priority } from '../../types/enums';
-import { filterHighestPriorityCurrentStops, mapToVariables } from '../../utils';
-import { useAppSelector } from '../redux';
-import { useObservationDateQueryParam } from '../urlQuery';
+} from '../../../../redux';
+import { Priority } from '../../../../types/enums';
+import {
+  filterHighestPriorityCurrentStops,
+  mapToVariables,
+} from '../../../../utils';
+import { MapStop } from '../../types';
 
 type LabelledStop = { readonly label: string };
 

@@ -6,11 +6,11 @@ import {
   StopsDatabaseQuayNewestVersionBoolExp,
   useGetMapStopsQuery,
 } from '../../../generated/graphql';
-import { useMapDataLayerSimpleQueryLoader } from '../../../hooks';
 import { Operation } from '../../../redux';
 import { Viewport } from '../../../redux/types';
 import { parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
+import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks/useLoader';
 import { mapCompactOrNull } from '../../stop-registry/utils';
 import { MapStop } from '../types';
 

@@ -1,22 +1,21 @@
 import { useCallback } from 'react';
 import { MapRef } from 'react-map-gl/maplibre';
+import { useGetRouteDetailsByIdQuery } from '../../../../generated/graphql';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import {
+  selectEditedRouteData,
+  selectMapRouteEditor,
+  setDraftRouteGeometryAction,
+} from '../../../../redux';
+import { log } from '../../../../utils';
+import { addRoute } from '../../../../utils/map';
 import {
   LineStringFeature,
   extractJourneyPatternCandidateStops,
   getOldRouteGeometryVariables,
   getStopLabelsIncludedInRoute,
-  useAppDispatch,
-  useAppSelector,
   useExtractRouteFromFeature,
-} from '..';
-import { useGetRouteDetailsByIdQuery } from '../../generated/graphql';
-import {
-  selectEditedRouteData,
-  selectMapRouteEditor,
-  setDraftRouteGeometryAction,
-} from '../../redux';
-import { log } from '../../utils';
-import { addRoute } from '../../utils/map';
+} from './useExtractRouteFromFeature';
 import { useFetchInfraLinksWithStops } from './useFetchInfraLinksWithStops';
 import { useRouteMetadata } from './useRouteMetadata';
 
