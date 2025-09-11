@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client';
 import flatten from 'lodash/flatten';
-import { FormState } from '../../components/timetables/substitute-day-settings/OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 import {
   EditSubstituteOperatingPeriodsMutationVariables,
   TimetablesServiceCalendarSubstituteOperatingPeriodInsertInput,
   useEditSubstituteOperatingPeriodsMutation,
-} from '../../generated/graphql';
-import { mapPeriodsToDayByLineTypes } from '../../utils/substituteOperatingPeriod';
-import { MutationHook, extendHook } from '../mutationHook';
+} from '../../../../generated/graphql';
+import { MutationHook, extendHook } from '../../../../hooks';
+import { mapPeriodsToDayByLineTypes } from '../../../../utils';
+import { FormState } from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 
 // Hasura doesn't support updating nested objects in one mutation
 // https://hasura.io/docs/latest/mutations/postgres/update/

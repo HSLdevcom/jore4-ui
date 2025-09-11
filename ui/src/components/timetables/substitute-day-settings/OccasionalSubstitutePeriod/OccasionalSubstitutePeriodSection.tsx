@@ -1,16 +1,14 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useCreateSubstituteOperatingPeriod,
-  useDeleteSubstituteOperatingPeriod,
-  useEditSubstituteOperatingPeriod,
-  useGetOccasionalSubstituteOperatingPeriods,
-} from '../../../../hooks/substitute-operating-periods';
 import { DateRange } from '../../../../types';
 import {
   showDangerToastWithError,
   showSuccessToast,
 } from '../../../../utils/toastService';
+import { useCreateSubstituteOperatingPeriod } from '../hooks/useCreateSubstituteOperatingPeriod';
+import { useDeleteSubstituteOperatingPeriod } from '../hooks/useDeleteSubstituteOperatingPeriod';
+import { useEditSubstituteOperatingPeriod } from '../hooks/useEditSubstituteOperatingPeriod';
+import { useGetOccasionalSubstituteOperatingPeriods } from '../hooks/useGetSubstituteOperatingPeriod';
 import {
   OccasionalSubstitutePeriodForm,
   findEarliestDate,
