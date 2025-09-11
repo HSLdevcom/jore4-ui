@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import {
   GetVehicleScheduleFrameWithRouteAndLineInfoQuery,
   useGetVehicleScheduleFrameWithRouteAndLineInfoLazyQuery,
-} from '../../../generated/graphql';
+} from '../../../../../generated/graphql';
 
 const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTE_AND_LINE_INFO = gql`
   query GetVehicleScheduleFrameWithRouteAndLineInfo(

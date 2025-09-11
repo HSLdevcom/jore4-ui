@@ -1,8 +1,18 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { useAppSelector } from '../../../hooks';
+import { Container, Row, Visible } from '../../../layoutComponents';
+import { selectIsJoreOperationLoading } from '../../../redux';
+import { Path, routeDetails } from '../../../router/routeDetails';
+import { AccordionButton, SimpleButton } from '../../../uiComponents';
+import { submitFormByRef } from '../../../utils';
+import { PageTitle } from '../../common';
+import { useToggle } from '../../common/hooks';
+import { CombineSameContractWarning } from './CombineSameContractWarning';
+import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
+import { ImportContentsView } from './contents-view';
 import {
-  useAppSelector,
   useCombiningSameContractTimetables,
   useConfirmTimetablesImportUIAction,
   useDuplicateJourneyDeviations,
@@ -12,19 +22,9 @@ import {
   useTimetablesImport,
   useToCombineTargetVehicleScheduleFrameId,
   useToReplaceVehicleScheduleFrames,
-  useToggle,
   useVehicleScheduleFrameWithJourneys,
   useVehicleScheduleFrameWithRouteLabelAndLineId,
-} from '../../../hooks';
-import { Container, Row, Visible } from '../../../layoutComponents';
-import { selectIsJoreOperationLoading } from '../../../redux';
-import { Path, routeDetails } from '../../../router/routeDetails';
-import { AccordionButton, SimpleButton } from '../../../uiComponents';
-import { submitFormByRef } from '../../../utils';
-import { PageTitle } from '../../common';
-import { CombineSameContractWarning } from './CombineSameContractWarning';
-import { ConfirmPreviewedTimetablesImportForm } from './ConfirmPreviewedTimetablesImportForm';
-import { ImportContentsView } from './contents-view';
+} from './hooks';
 import { SpecialDayMixedPrioritiesWarning } from './SpecialDayMixedPrioritiesWarning';
 import { SummarySection } from './SummarySection';
 import { FormState, getDefaultValues } from './TimetablesImportFormSchema';

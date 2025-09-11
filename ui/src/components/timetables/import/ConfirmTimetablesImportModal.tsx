@@ -1,5 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Visible } from '../../../layoutComponents';
+import { Modal, NewModalBody, NewModalHeader } from '../../../uiComponents';
+import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
+import { ConfirmTimetablesImportForm } from './ConfirmTimetablesImportForm';
 import {
   useCombiningSameContractTimetables,
   useConfirmTimetablesImportUIAction,
@@ -8,11 +12,7 @@ import {
   useTimetablesImport,
   useToCombineTargetVehicleScheduleFrameId,
   useVehicleScheduleFrameWithJourneys,
-} from '../../../hooks';
-import { Visible } from '../../../layoutComponents';
-import { Modal, NewModalBody, NewModalHeader } from '../../../uiComponents';
-import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
-import { ConfirmTimetablesImportForm } from './ConfirmTimetablesImportForm';
+} from './hooks';
 import { FormState, getDefaultValues } from './TimetablesImportFormSchema';
 
 type ConfirmTimetablesImportModalProps = {
