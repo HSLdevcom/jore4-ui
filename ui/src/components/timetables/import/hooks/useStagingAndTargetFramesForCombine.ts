@@ -1,7 +1,7 @@
 import keyBy from 'lodash/keyBy';
 import { useCallback, useState } from 'react';
-import { NonNullableKeys } from '../../types';
-import { TimetablePriority } from '../../types/enums';
+import { NonNullableKeys } from '../../../../types';
+import { TimetablePriority } from '../../../../types/enums';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from './deviations';
 
 export const useStagingAndTargetFramesForCombine = (

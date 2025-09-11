@@ -2,17 +2,17 @@ import { gql } from '@apollo/client';
 import { AxiosError } from 'axios';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import { sendFileToHastusImporter } from '../../api/hastus';
+import { sendFileToHastusImporter } from '../../../../api/hastus';
 import {
   useCombineTimetablesMutation,
   useDeleteStagingTimetablesMutation,
   useGetStagingVehicleScheduleFramesQuery,
   useReplaceTimetablesMutation,
-} from '../../generated/graphql';
-import { Operation } from '../../redux';
-import { TimetablePriority } from '../../types/enums';
-import { mapToVariables, showSuccessToast } from '../../utils';
-import { useLoader } from '../ui';
+} from '../../../../generated/graphql';
+import { Operation } from '../../../../redux';
+import { TimetablePriority } from '../../../../types/enums';
+import { mapToVariables, showSuccessToast } from '../../../../utils';
+import { useLoader } from '../../../common/hooks';
 
 const GQL_VEHICLE_JOURNEY_WITH_ROUTE_INFO_FRAGMENT = gql`
   fragment vehicle_journey_with_route_info on timetables_vehicle_journey_vehicle_journey {

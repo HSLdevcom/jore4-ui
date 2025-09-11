@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useGetStagingVehicleScheduleFramesLazyQuery } from '../../../generated/graphql';
+import { useGetStagingVehicleScheduleFramesLazyQuery } from '../../../../../generated/graphql';
 
 export const useGetStagingVehicleScheduleFrameIds = () => {
   const [getStagingVehicleScheduleFramesQuery] =

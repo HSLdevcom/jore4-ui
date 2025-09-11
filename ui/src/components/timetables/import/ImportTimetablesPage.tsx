@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { extractErrorType, getImportErrorBody } from '../../../api/hastus';
 import { useAppSelector } from '../../../hooks';
-import { useTimetablesImport } from '../../../hooks/timetables-import/useTimetablesImport';
 import { mapHastusErrorTypeToErrorMessage } from '../../../i18n/hastusErrorMappings';
 import { Container, Row } from '../../../layoutComponents';
 import {
@@ -23,6 +22,7 @@ import { PageTitle } from '../../common';
 import { FormRow } from '../../forms/common';
 import { ConfirmTimetablesImportModal } from './ConfirmTimetablesImportModal';
 import { FileImportDragAndDrop } from './FileImportDragAndDrop';
+import { useTimetablesImport } from './hooks';
 
 const testIds = {
   uploadButton: 'ImportTimetablesPage::uploadButton',
