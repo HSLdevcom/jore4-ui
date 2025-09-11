@@ -1,12 +1,11 @@
 import { gql } from '@apollo/client';
-import { FormState } from '../../components/timetables/substitute-day-settings/OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 import {
   CreateSubstituteOperatingPeriodMutationVariables,
   useCreateSubstituteOperatingPeriodMutation,
-} from '../../generated/graphql';
-import { mapToData } from '../../utils';
-import { mapPeriodsToDayByLineTypes } from '../../utils/substituteOperatingPeriod';
-import { MutationHook, extendHook } from '../mutationHook';
+} from '../../../../generated/graphql';
+import { MutationHook, extendHook } from '../../../../hooks';
+import { mapPeriodsToDayByLineTypes, mapToData } from '../../../../utils';
+import { FormState } from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 
 const GQL_CREATE_SUBSTITUTE_OPERATING_PERIOD = gql`
   mutation CreateSubstituteOperatingPeriod(

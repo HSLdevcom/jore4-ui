@@ -1,14 +1,12 @@
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useCreateSubstituteOperatingPeriod,
-  useDeleteSubstituteOperatingPeriod,
-  useEditSubstituteOperatingPeriod,
-  useGetCommonSubstituteOperatingPeriods,
-} from '../../../../hooks/substitute-operating-periods';
 import { DateRange } from '../../../../types';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import { showDangerToastWithError, showSuccessToast } from '../../../../utils';
+import { useCreateSubstituteOperatingPeriod } from '../hooks/useCreateSubstituteOperatingPeriod';
+import { useDeleteSubstituteOperatingPeriod } from '../hooks/useDeleteSubstituteOperatingPeriod';
+import { useEditSubstituteOperatingPeriod } from '../hooks/useEditSubstituteOperatingPeriod';
+import { useGetCommonSubstituteOperatingPeriods } from '../hooks/useGetSubstituteOperatingPeriod';
 import {
   CommonSubstitutePeriodForm,
   mapCommonSubstituteOperatingPeriodsToCommonDays,
