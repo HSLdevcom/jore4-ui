@@ -7,7 +7,6 @@ import {
   ReusableComponentsVehicleModeEnum as VehicleMode,
 } from '../../generated/graphql';
 import { isRoute } from '../../graphql';
-import { useAlertsAndHighLights } from '../../hooks';
 import { Column, Row, Visible } from '../../layoutComponents';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { MAX_DATE, MIN_DATE, mapToShortDate } from '../../time';
@@ -15,6 +14,7 @@ import { LocatorButton } from '../../uiComponents';
 import { TimetableIcon } from '../../uiComponents/TimetableIcon';
 import { VehicleIcon } from '../../uiComponents/VehicleIcon';
 import { AlertPopover } from './AlertPopover';
+import { useAlertsAndHighLights } from './hooks/useAlertsAndHighLights';
 import { LineDetailsButton } from './LineDetailsButton';
 import { LineTimetablesButton } from './LineTimetablesButton';
 import { RouteLabel } from './RouteLabel';
