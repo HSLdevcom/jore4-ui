@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
 import { useCallback } from 'react';
-import { useGetToReplaceVehicleScheduleFramesLazyQuery } from '../../../../generated/graphql';
-import { TimetablePriority } from '../../../../types/enums';
+import { useGetToReplaceVehicleScheduleFramesLazyQuery } from '../../../../../../generated/graphql';
+import { TimetablePriority } from '../../../../../../types/enums';
 
 const GQL_GET_REPLACED_VEHICLE_SCHEDULE_FRAMES = gql`
   query GetToReplaceVehicleScheduleFrames(

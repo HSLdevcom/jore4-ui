@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import {
   GetVehicleScheduleFrameWithJourneyInfoQuery,
   useGetVehicleScheduleFrameWithJourneyInfoLazyQuery,
-} from '../../../generated/graphql';
+} from '../../../../../generated/graphql';
 
 const GQL_VEHICLE_JOURNEY_WITH_PATTERN_AND_ROUTE_FRAGMENT = gql`
   fragment vehicle_journey_with_pattern_and_route_fragment on timetables_vehicle_journey_vehicle_journey {

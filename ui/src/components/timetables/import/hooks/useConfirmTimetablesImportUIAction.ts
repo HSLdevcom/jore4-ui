@@ -1,17 +1,17 @@
 import { ApolloError } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { TimetableImportStrategy } from '../../components/timetables/import/TimetableImportStrategyForm';
-import { Operation, openSingleErrorModalAction } from '../../redux';
-import { TimetablePriority } from '../../types/enums';
-import { showSuccessToast } from '../../utils';
+import { Operation, openSingleErrorModalAction } from '../../../../redux';
+import { TimetablePriority } from '../../../../types/enums';
+import { showSuccessToast } from '../../../../utils';
 import {
   TimetablesApiErrorType,
   extractErrorType,
   extractRawSqlError,
-} from '../../utils/timetablesApiErrors';
-import { useLoader } from '../ui';
+} from '../../../../utils/timetablesApiErrors';
+import { TimetableImportStrategy } from '../TimetableImportStrategyForm';
 import { useTimetablesImport } from './useTimetablesImport';
+import { useLoader } from '../../../common/hooks/useLoader';
 
 export const useConfirmTimetablesImportUIAction = () => {
   const { t } = useTranslation();

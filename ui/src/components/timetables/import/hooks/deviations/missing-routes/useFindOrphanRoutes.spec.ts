@@ -1,6 +1,6 @@
 import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
-import { RouteDirectionEnum } from '../../../../generated/graphql';
-import { renderHook } from '../../../../utils/test-utils/renderer';
+import { renderHook } from '@testing-library/react';
+import { RouteDirectionEnum } from '../../../../../../generated/graphql';
 import { useFindOrphanRoutes } from './useFindOrphanRoutes';
 
 const notUsedPartOfInfoObject = {
