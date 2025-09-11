@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { QueryParameterName, useUrlQuery } from '../urlQuery';
+import { QueryParameterName, useUrlQuery } from '../../../hooks';
 
 export enum TimetablesView {
   DEFAULT = '',

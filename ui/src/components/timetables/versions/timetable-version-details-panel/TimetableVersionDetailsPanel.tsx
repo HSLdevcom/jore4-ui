@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
-import {
-  useAppSelector,
-  useCallbackOnKeyEscape,
-  useVehicleScheduleFrameSchedules,
-} from '../../../../hooks';
+import { useAppSelector, useCallbackOnKeyEscape } from '../../../../hooks';
 import { Visible } from '../../../../layoutComponents';
 import {
   closeVersionPanelAction,
@@ -15,6 +11,7 @@ import {
   sortAlphabetically,
   sortReverseAlphabetically,
 } from '../../../../utils';
+import { useVehicleScheduleFrameSchedules } from '../../common/useVehicleScheduleFrameSchedules';
 import { RouteTimetableCard } from './RouteTimetableCard';
 import { TimetableVersionPanelHeading } from './TimetableVersionPanelHeading';
 

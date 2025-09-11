@@ -1,18 +1,15 @@
 import { Dialog } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useVehicleScheduleFrameValidity,
-} from '../../../hooks';
-import { useDeleteVehicleScheduleFrame } from '../../../hooks/vehicle-schedule-frame/useDeleteVehicleScheduleFrame';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   closeDeleteTimetableModalAction,
   selectDeleteTimetableModal,
 } from '../../../redux';
 import { ConfirmModal } from '../../../uiComponents/ConfirmModal';
 import { AffectedRouteLabels } from '../common/AffectedRouteLabels';
+import { useVehicleScheduleFrameValidity } from '../common/useVehicleScheduleFrameValidity';
+import { useDeleteVehicleScheduleFrame } from './hooks/useDeleteVehicleScheduleFrame';
 
 type DeleteTimetableModalProps = {
   readonly fetchTimetableVersions: () => void;
