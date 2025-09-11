@@ -161,7 +161,7 @@ function resolveStateValue<StateT extends object>(
 
   if (urlParamValue !== null) {
     try {
-      return deserializers[key](urlParamValue);
+      return deserializers[key](urlParamValue.trim());
     } catch (e) {
       warnOrThrow(
         `Failed to parse url param (${key as string}) with value of (${urlParamValue})!`,

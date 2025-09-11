@@ -45,6 +45,23 @@ type StopSearchUrlState = {
 
 const SEPRATOR = ',';
 
+function serializeMunicipalities(
+  them: StopSearchFilters['municipalities'],
+): string {
+  return them
+    .map((enumValue) =>
+      enumValue === AllOptionEnum.All
+        ? enumValue
+        : // Reverse mapping for municipality → Enum value (number) to enum Key (string)
+          StopRegistryMunicipality[enumValue],
+    )
+    .join(SEPRATOR);
+}
+
+function serializeArray<ValueT>(values: ReadonlyArray<ValueT>): string {
+  return values.map(String).join(SEPRATOR);
+}
+
 const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
   // Filters
   query: identity,
@@ -52,16 +69,8 @@ const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
   searchBy: identity,
   searchFor: identity,
   observationDate: (date) => date.toISODate(),
-  municipalities: (them) =>
-    them
-      .map((enumValue) =>
-        enumValue === AllOptionEnum.All
-          ? enumValue
-          : // Reverse mapping for municipality → Enum value (number) to enum Key (string)
-            StopRegistryMunicipality[enumValue],
-      )
-      .join(SEPRATOR),
-  priorities: (priorities) => priorities.map(String).join(SEPRATOR),
+  municipalities: serializeMunicipalities,
+  priorities: serializeArray,
 
   // Paging
   page: String,
@@ -79,10 +88,23 @@ const lowerCaseMunicipalities: ReadonlyArray<
   value,
 ]);
 
+/**
+ * Split string into array on SEPERATOR, with handling for empty strings.
+ *
+ * @param value string to split
+ */
+function splitString(value: string): Array<string> {
+  if (value.length === 0) {
+    return [];
+  }
+
+  return value.split(SEPRATOR);
+}
+
 function parseMunicipalities(
   value: string,
 ): Array<StopRegistryMunicipality | AllOptionEnum> {
-  const parsed = value.split(SEPRATOR).map((enumKeyOrNumberValue) => {
+  const parsed = splitString(value).map((enumKeyOrNumberValue) => {
     if (enumKeyOrNumberValue === AllOptionEnum.All) {
       return AllOptionEnum.All;
     }
@@ -116,7 +138,7 @@ const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
   searchFor: toEnum(Object.values(SearchFor)),
   observationDate: (value) => DateTime.fromISO(value),
   municipalities: parseMunicipalities,
-  priorities: (value) => value.split(SEPRATOR).map(Number).map(toPriority),
+  priorities: (value) => splitString(value).map(Number).map(toPriority),
 
   // Paging
   page: Number,
