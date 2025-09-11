@@ -3,6 +3,7 @@ import omit from 'lodash/omit';
 import pick from 'lodash/pick';
 import { DateTime } from 'luxon';
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
+import { ZodArray, ZodTypeAny, z } from 'zod';
 import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
 import {
   StopRegistryMunicipality,
@@ -10,10 +11,12 @@ import {
 } from '../../../../types/enums';
 import {
   AllOptionEnum,
+  NullOptionEnum,
   areEqual,
   memoizeOne,
   numberEnumEntries,
 } from '../../../../utils';
+import { allKnownPosterSizes } from '../../stops/stop-details/info-spots/types';
 import {
   SearchBy,
   SearchFor,
@@ -22,6 +25,7 @@ import {
   StopSearchFilters,
   defaultFilters,
   defaultSortingInfo,
+  stopSearchFiltersSchema,
 } from '../types';
 import {
   handleAllMunicipalities,
@@ -43,7 +47,8 @@ type StopSearchUrlState = {
   readonly sortingInfo: SortingInfo;
 };
 
-const SEPRATOR = ',';
+const SEPARATOR = ',';
+const SIZE_SEPARATOR = '|';
 
 function serializeMunicipalities(
   them: StopSearchFilters['municipalities'],
@@ -55,11 +60,33 @@ function serializeMunicipalities(
         : // Reverse mapping for municipality → Enum value (number) to enum Key (string)
           StopRegistryMunicipality[enumValue],
     )
-    .join(SEPRATOR);
+    .join(SEPARATOR);
 }
 
 function serializeArray<ValueT>(values: ReadonlyArray<ValueT>): string {
-  return values.map(String).join(SEPRATOR);
+  return values.map(String).join(SEPARATOR);
+}
+
+function serializeInfoSpots(value: StopSearchFilters['infoSpots']): string {
+  return value
+    .map((size) => {
+      if (typeof size === 'string') {
+        return size;
+      }
+
+      const knownLabel = allKnownPosterSizes.find(
+        (knownPosterSize) =>
+          knownPosterSize.size.width === size.width &&
+          knownPosterSize.size.height === size.height,
+      )?.label;
+
+      if (knownLabel) {
+        return knownLabel;
+      }
+
+      return `${size.width}${SIZE_SEPARATOR}${size.height}`;
+    })
+    .join(SEPARATOR);
 }
 
 const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
@@ -71,6 +98,11 @@ const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
   observationDate: (date) => date.toISODate(),
   municipalities: serializeMunicipalities,
   priorities: serializeArray,
+  transportationMode: serializeArray,
+  stopState: serializeArray,
+  shelter: serializeArray,
+  electricity: serializeArray,
+  infoSpots: serializeInfoSpots,
 
   // Paging
   page: String,
@@ -89,16 +121,20 @@ const lowerCaseMunicipalities: ReadonlyArray<
 ]);
 
 /**
- * Split string into array on SEPERATOR, with handling for empty strings.
+ * Split string into array on separator, with handling for empty strings.
  *
  * @param value string to split
+ * @param separator string to split on
  */
-function splitString(value: string): Array<string> {
+function splitString(
+  value: string,
+  separator: string = SEPARATOR,
+): Array<string> {
   if (value.length === 0) {
     return [];
   }
 
-  return value.split(SEPRATOR);
+  return value.split(separator);
 }
 
 function parseMunicipalities(
@@ -130,6 +166,113 @@ function parseMunicipalities(
 
 const toPriority = toEnum(knownPriorityValues);
 
+/**
+ * If All is included -> [All]
+ * If empty -> [All]
+ * Else -> [input list]
+ *
+ * @param values
+ */
+function cleanupEnumArrayWithAllOption<Enum>(
+  values: Array<Enum | AllOptionEnum>,
+): Array<Enum | AllOptionEnum> {
+  if (values.length && !values.includes(AllOptionEnum.All)) {
+    return values;
+  }
+
+  return [AllOptionEnum.All];
+}
+
+/**
+ * If All is included -> [All]
+ * If empty -> [Null]
+ * Else -> [input list]
+ *
+ * @param values
+ */
+function cleanupEnumArrayWithAllAndNullOptions<Enum>(
+  values: Array<Enum | AllOptionEnum | NullOptionEnum>,
+): Array<Enum | AllOptionEnum | NullOptionEnum> {
+  if (values.includes(AllOptionEnum.All)) {
+    return [AllOptionEnum.All];
+  }
+
+  if (values.length === 0) {
+    return [NullOptionEnum.Null];
+  }
+
+  return values;
+}
+
+function parseEnumArray<
+  EnumT extends ZodTypeAny,
+  Parser extends ZodArray<EnumT>,
+>(
+  parser: Parser,
+  cleanerFn: (dirty: z.output<Parser>) => z.output<Parser>,
+): (value: string) => z.output<Parser> {
+  return (value) => {
+    const splut = splitString(value);
+    const parsed = parser.parse(splut);
+    return cleanerFn(parsed);
+  };
+}
+
+function parseEnumArrayWithAllOption<
+  EnumT extends ZodTypeAny,
+  Parser extends ZodArray<EnumT>,
+>(parser: Parser): (value: string) => z.output<Parser> {
+  return parseEnumArray(parser, cleanupEnumArrayWithAllOption);
+}
+
+function parseEnumArrayWithAllAndNullOptions<
+  EnumT extends ZodTypeAny,
+  Parser extends ZodArray<EnumT>,
+>(parser: Parser): (value: string) => z.output<Parser> {
+  return parseEnumArray(parser, cleanupEnumArrayWithAllAndNullOptions);
+}
+
+const parseTransportationMode = parseEnumArrayWithAllOption(
+  stopSearchFiltersSchema.shape.transportationMode,
+);
+const parseStopState = parseEnumArrayWithAllOption(
+  stopSearchFiltersSchema.shape.stopState,
+);
+const parseShelter = parseEnumArrayWithAllAndNullOptions(
+  stopSearchFiltersSchema.shape.shelter,
+);
+const parseElectricity = parseEnumArrayWithAllAndNullOptions(
+  stopSearchFiltersSchema.shape.electricity,
+);
+
+function parseInfoSpots(value: string): StopSearchFilters['infoSpots'] {
+  return splitString(value).map((size) => {
+    if (size === AllOptionEnum.All || size === NullOptionEnum.Null) {
+      return size;
+    }
+
+    const knownSize = allKnownPosterSizes.find(
+      (known) => known.label === size,
+    )?.size;
+
+    if (knownSize) {
+      return knownSize;
+    }
+
+    const [width = 0, height = 0] = splitString(size, SIZE_SEPARATOR)
+      .map(Number)
+      .filter(Number.isSafeInteger);
+
+    if (width <= 0 || height <= 0) {
+      throw new Error(
+        `Found an invalid size (${size}) while parsing InfoSpots filter from value: ${value}`,
+      );
+    }
+
+    return { width, height };
+  });
+}
+
 const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
   // Filters
   query: identity,
@@ -139,6 +282,11 @@ const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
   observationDate: (value) => DateTime.fromISO(value),
   municipalities: parseMunicipalities,
   priorities: (value) => splitString(value).map(Number).map(toPriority),
+  transportationMode: parseTransportationMode,
+  stopState: parseStopState,
+  shelter: parseShelter,
+  electricity: parseElectricity,
+  infoSpots: parseInfoSpots,
 
   // Paging
   page: Number,
