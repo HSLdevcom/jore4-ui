@@ -6,7 +6,7 @@ import {
   Operation,
   setLoadingAction,
   setLoadingStateAction,
-} from '../../redux';
+} from '../../../redux';
 
 type LoaderOptions = {
   readonly initialState?: LoadingState;

@@ -5,18 +5,18 @@ import {
   Maybe,
   RouteMapParamsFragment,
   RouteValidityFragment,
-} from '../generated/graphql';
-import { resetMapState, setSelectedRouteIdAction } from '../redux';
-import { isDateInRange } from '../time';
-import { Priority } from '../types/enums';
-import { getRouteShapeFirstCoordinates } from '../utils/routeShape';
-import { useAppDispatch } from './redux';
+} from '../../../generated/graphql';
 import {
   DisplayedRouteParams,
   ViewPortParams,
+  useAppDispatch,
   useMapQueryParams,
   useObservationDateQueryParam,
-} from './urlQuery';
+} from '../../../hooks';
+import { resetMapState, setSelectedRouteIdAction } from '../../../redux';
+import { isDateInRange } from '../../../time';
+import { Priority } from '../../../types/enums';
+import { getRouteShapeFirstCoordinates } from '../../../utils';
 
 const GQL_ROUTE_MAP_PARAMS = gql`
   fragment route_map_params on route_route {
