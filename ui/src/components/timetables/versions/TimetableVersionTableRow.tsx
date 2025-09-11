@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../hooks';
-import { TimetableVersionRowData } from '../../../hooks/useGetTimetableVersions';
 import {
   mapDayOfWeekToUiName,
   mapTimetablePriorityToUiName,
@@ -20,6 +19,7 @@ import {
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../uiComponents';
+import { TimetableVersionRowData } from './hooks/useGetTimetableVersions';
 
 const testIds = {
   row: 'TimetableVersionTableRow::row',

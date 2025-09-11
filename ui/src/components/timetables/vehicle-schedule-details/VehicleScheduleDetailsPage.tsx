@@ -1,14 +1,7 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  TimetablesView,
-  useAppDispatch,
-  useAppSelector,
-  useGetRoutesDisplayedInList,
-  useTimetableVersionsReturnToQueryParam,
-  useTimetablesViewState,
-} from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Container, Row, Visible } from '../../../layoutComponents';
 import {
   closeChangeTimetableValidityModalAction,
@@ -25,7 +18,13 @@ import { FormColumn, FormRow } from '../../forms/common';
 import { PageHeader } from '../../routes-and-lines/common/PageHeader';
 import { LineTitle } from '../../routes-and-lines/line-details/LineTitle';
 import { useGetLineDetails } from '../../routes-and-lines/line-details/useGetLineDetails';
+import { useGetRoutesDisplayedInList } from '../../routes-and-lines/line-details/useGetRoutesDisplayedInList';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
+import {
+  TimetablesView,
+  useTimetablesViewState,
+} from '../common/useTimetablesViewState';
+import { useTimetableVersionsReturnToQueryParam } from '../versions/hooks/useTimetableVersionsReturnToQueryParam';
 import { RouteTimetableList } from './RouteTimetableList';
 import { TimetableNavigation } from './TimetableNavigation';
 

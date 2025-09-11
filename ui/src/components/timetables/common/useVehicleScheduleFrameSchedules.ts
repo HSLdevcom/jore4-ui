@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client';
 import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon/src/datetime';
-import { VehicleServiceRowData } from '../../components/timetables/vehicle-schedule-details/vehicle-service-table/VehicleServiceRow';
 import {
   RouteDirectionEnum,
   VehicleJourneyWithStartTimeInfoFragment,
   useGetVehicleScheduleFrameSchedulesQuery,
-} from '../../generated/graphql';
-import { TimetablePriority } from '../../types/enums';
+} from '../../../generated/graphql';
+import { TimetablePriority } from '../../../types/enums';
+import { VehicleServiceRowData } from '../vehicle-schedule-details';
 
 const GQL_VEHICLE_SCHEDULE_FRAME_SCHEDULES = gql`
   query GetVehicleScheduleFrameSchedules($vehicle_schedule_frame_id: uuid!) {
