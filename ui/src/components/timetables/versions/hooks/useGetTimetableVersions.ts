@@ -4,9 +4,9 @@ import { useCallback, useEffect, useState } from 'react';
 import {
   TimetableVersionFragment,
   useGetTimetableVersionsByJourneyPatternIdsLazyQuery,
-} from '../generated/graphql';
-import { DayOfWeek, TimetablePriority } from '../types/enums';
-import { convertArrayTypeForHasura } from '../utils';
+} from '../../../../generated/graphql';
+import { DayOfWeek, TimetablePriority } from '../../../../types/enums';
+import { convertArrayTypeForHasura } from '../../../../utils';
 
 const GQL_TIMETABLE_VERSIONS_FRAGMENT = gql`
   fragment timetable_version on timetables_return_value_timetable_version {

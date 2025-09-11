@@ -1,8 +1,8 @@
 import { DateTime, Duration } from 'luxon';
 import { VehicleJourneyWithServiceFragment } from '../../../generated/graphql';
-import { VehicleJourneyGroup } from '../../../hooks';
 import { TimetablePriority } from '../../../types/enums';
 import { render } from '../../../utils/test-utils';
+import { VehicleJourneyGroup } from '../vehicle-schedule-details/useGetRouteTimetables';
 import { VehicleJourneyGroupInfo } from './VehicleJourneyGroupInfo';
 
 describe(`<${VehicleJourneyGroupInfo.name} />`, () => {
