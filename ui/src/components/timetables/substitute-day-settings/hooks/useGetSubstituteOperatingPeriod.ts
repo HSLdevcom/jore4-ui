@@ -4,11 +4,11 @@ import {
   GetSubstituteOperatingPeriodsQuery,
   TimetablesServiceCalendarSubstituteOperatingPeriod,
   useGetSubstituteOperatingPeriodsQuery,
-} from '../../generated/graphql';
+} from '../../../../generated/graphql';
 import {
   buildActiveDateRangeGqlFilterForSubstituteOperatingPeriods,
   buildIsPresetSubstituteOperatingPeriodFilter,
-} from '../../utils';
+} from '../../../../utils';
 
 const GQL_GET_SUBSTITUTE_OPERATING_PERIODS = gql`
   query GetSubstituteOperatingPeriods(
