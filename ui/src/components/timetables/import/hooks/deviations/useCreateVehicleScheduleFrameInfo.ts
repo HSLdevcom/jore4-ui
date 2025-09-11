@@ -1,8 +1,8 @@
 import compact from 'lodash/compact';
 import isEmpty from 'lodash/isEmpty';
 import { useCallback } from 'react';
-import { RouteDirectionEnum } from '../../../generated/graphql';
-import { RouteDirection } from '../../../types/RouteDirection';
+import { RouteDirectionEnum } from '../../../../../generated/graphql';
+import { RouteDirection } from '../../../../../types/RouteDirection';
 import { VehicleScheduleVehicleScheduleFrameWithRoutes } from './useVehicleScheduleFrameWithRouteLabelAndLineId';
 
 export type VehicleScheduleFrameInfo = {

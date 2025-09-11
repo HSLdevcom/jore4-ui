@@ -1,8 +1,6 @@
-import {
-  RouteDirectionEnum,
-  buildLocalizedString,
-} from '@hsl/jore4-test-db-manager';
+import { buildLocalizedString } from '@hsl/jore4-test-db-manager';
 import { renderHook } from '@testing-library/react';
+import { RouteDirectionEnum } from '../../../../../../generated/graphql';
 import { VehicleScheduleFrameInfo } from '../useCreateVehicleScheduleFrameInfo';
 import { useMissingRouteDeviationsSort } from './useMissingRouteDeviationsSort';
 

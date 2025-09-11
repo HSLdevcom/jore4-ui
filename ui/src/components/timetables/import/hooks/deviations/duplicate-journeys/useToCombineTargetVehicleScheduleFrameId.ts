@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
-import { useGetToCombineTargetVehicleScheduleFrameIdLazyQuery } from '../../../../generated/graphql';
-import { TimetablePriority } from '../../../../types/enums';
+import { useGetToCombineTargetVehicleScheduleFrameIdLazyQuery } from '../../../../../../generated/graphql';
+import { TimetablePriority } from '../../../../../../types/enums';
 
 const GQL_GET_COMBINE_TARGET_VEHICLE_SCHEDULE_FRAME_ID = gql`
   query GetToCombineTargetVehicleScheduleFrameId(
