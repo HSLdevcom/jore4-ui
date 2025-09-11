@@ -7,13 +7,13 @@ import {
 } from '@hsl/jore4-test-db-manager';
 import { act, renderHook } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import { OptionalKeys } from '../types';
+import { OptionalKeys } from '../../../types';
 import {
   insertToDbHelper,
   mockApolloLink,
   removeFromDbHelper,
   renderOptions,
-} from '../utils/test-utils/integration-tests';
+} from '../../../utils/test-utils/integration-tests';
 import {
   CommonParams,
   useCheckValidityAndPriorityConflicts,
