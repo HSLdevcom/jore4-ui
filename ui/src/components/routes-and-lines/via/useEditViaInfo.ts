@@ -1,10 +1,10 @@
-import { FormState } from '../../components/routes-and-lines/via/ViaForm';
 import {
   JourneyPatternScheduledStopPointInJourneyPatternSetInput,
   PatchScheduledStopPointViaInfoMutationVariables,
   usePatchScheduledStopPointViaInfoMutation,
-} from '../../generated/graphql';
-import { MutationHook, extendHook } from '../mutationHook';
+} from '../../../generated/graphql';
+import { MutationHook, extendHook } from '../../../hooks';
+import { FormState } from './ViaForm';
 
 type ViaInfoPatch = Pick<
   JourneyPatternScheduledStopPointInJourneyPatternSetInput,
