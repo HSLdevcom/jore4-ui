@@ -5,17 +5,14 @@ import {
   useGetScheduledStopPointWithViaInfoQuery,
 } from '../../../generated/graphql';
 import { mapGetScheduledStopPointWithViaInfo as mapGetScheduledStopPointWithViaInfoResult } from '../../../graphql';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useEditViaInfo,
-  useRemoveViaInfo,
-} from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectViaModal } from '../../../redux';
 import { closeViaModalAction } from '../../../redux/slices/modals';
 import { Modal, ModalBody, ModalHeader } from '../../../uiComponents';
 import { showDangerToastWithError, showSuccessToast } from '../../../utils';
 import { useWrapInContextNavigation } from '../../forms/common/NavigationBlocker';
+import { useEditViaInfo } from './useEditViaInfo';
+import { useRemoveViaInfo } from './useRemoveViaInfo';
 import {
   FormState,
   ViaForm,
