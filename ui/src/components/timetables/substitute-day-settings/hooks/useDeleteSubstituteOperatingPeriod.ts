@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
-import { PeriodType } from '../../components/timetables/substitute-day-settings/OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
-import { useDeleteSubstituteOperatingPeriodMutation } from '../../generated/graphql';
+import { useDeleteSubstituteOperatingPeriodMutation } from '../../../../generated/graphql';
+import { PeriodType } from '../OccasionalSubstitutePeriod/OccasionalSubstitutePeriodForm.types';
 
 const GQL_DELETE_SUBSTITUTE_OPERATING_PERIOD = gql`
   mutation DeleteSubstituteOperatingPeriod($ids: [uuid!]!) {
