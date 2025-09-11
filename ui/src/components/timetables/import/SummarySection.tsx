@@ -1,12 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
-import {
-  VehicleJourneyDuplicate,
-  VehicleScheduleFrameInfo,
-} from '../../../hooks';
 import { Visible } from '../../../layoutComponents/Visible';
 import { DuplicateJourneysSection } from './duplicate-journeys';
+import { VehicleJourneyDuplicate, VehicleScheduleFrameInfo } from './hooks';
 import { MissingRouteDeviationsSection } from './missing-route-deviations';
 
 type SummarySectionProps = {

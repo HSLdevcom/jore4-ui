@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TimetablePriority } from '../../../../types/enums';
-import { showDangerToastWithError } from '../../../../utils';
+import { TimetablePriority } from '../../../../../../types/enums';
+import { showDangerToastWithError } from '../../../../../../utils';
 import {
   VehicleScheduleFrameInfo,
   useCreateVehicleScheduleFrameInfo,

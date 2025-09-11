@@ -1,8 +1,8 @@
 import compact from 'lodash/compact';
 import { DateTime, Duration } from 'luxon';
 import { useCallback } from 'react';
-import { RouteDirectionEnum } from '../../../../generated/graphql';
-import { RouteDirection } from '../../../../types/RouteDirection';
+import { RouteDirectionEnum } from '../../../../../../generated/graphql';
+import { RouteDirection } from '../../../../../../types/RouteDirection';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from '../useVehicleScheduleFrameWithJourneys';
 
 export type VehicleJourneyInfo = {

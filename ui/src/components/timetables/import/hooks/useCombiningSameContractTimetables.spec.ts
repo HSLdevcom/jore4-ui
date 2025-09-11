@@ -4,7 +4,7 @@ import { DateTime, Duration } from 'luxon';
 import {
   RouteDirectionEnum,
   VehicleJourneyWithPatternAndRouteFragmentFragment,
-} from '../../generated/graphql';
+} from '../../../../generated/graphql';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from './deviations';
 import { useCombiningSameContractTimetables } from './useCombiningSameContractTimetables';
 

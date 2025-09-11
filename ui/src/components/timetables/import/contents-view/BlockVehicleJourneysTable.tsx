@@ -5,10 +5,10 @@ import {
   VehicleJourneyWithRouteInfoFragment,
   VehicleServiceWithJourneysFragment,
 } from '../../../../generated/graphql';
-import { useToggle } from '../../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { Row, Visible } from '../../../../layoutComponents';
 import { AccordionButton } from '../../../../uiComponents';
+import { useToggle } from '../../../common/hooks/useToggle';
 import { VehicleJourneyRow } from './VehicleJourneyRow';
 
 const testIds = {
