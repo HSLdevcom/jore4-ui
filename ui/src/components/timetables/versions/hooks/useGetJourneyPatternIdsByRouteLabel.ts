@@ -8,12 +8,12 @@ import {
   GetRouteInfoForTimetableVersionsQuery,
   RouteInfoForTimetableVersionFragment,
   useGetRouteInfoForTimetableVersionsQuery,
-} from '../generated/graphql';
+} from '../../../../generated/graphql';
 import {
   buildActiveDateRangeGqlFilter,
   buildRouteLineLabelGqlFilter,
   getRouteLabelVariantText,
-} from '../utils';
+} from '../../../../utils';
 
 const GQL_ROUTE_INFO_FOR_TIMETABLE_VERSION_FRAGMENT = gql`
   fragment route_info_for_timetable_version on route_route {

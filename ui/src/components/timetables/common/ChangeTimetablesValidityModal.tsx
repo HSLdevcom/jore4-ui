@@ -1,10 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useVehicleScheduleFrameValidity,
-} from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
   selectChangeTimetableValidityModal,
   setChangeTimetableValidityModalSuccessResultAction,
@@ -20,6 +16,7 @@ import {
   ChangeTimetablesValidityForm,
   FormState,
 } from './ChangeTimetablesValidityForm';
+import { useVehicleScheduleFrameValidity } from './useVehicleScheduleFrameValidity';
 
 type ChangeTimetablesValidityModalProps = {
   readonly isOpen: boolean;

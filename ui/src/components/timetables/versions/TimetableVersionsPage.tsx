@@ -2,14 +2,10 @@ import orderBy from 'lodash/orderBy';
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  TimetableVersionRowData,
   useAppDispatch,
   useAppSelector,
-  useGetJourneyPatternIdsByLineLabel,
-  useGetTimetableVersions,
   useRequiredParams,
   useTimeRangeQueryParams,
-  useTimetableVersionsReturnToQueryParam,
 } from '../../../hooks';
 import { Container } from '../../../layoutComponents';
 import {
@@ -22,6 +18,12 @@ import { PageTitle, TimeRangeControl } from '../../common';
 import { FormColumn, FormRow } from '../../forms/common';
 import { ChangeTimetablesValidityModal } from '../common/ChangeTimetablesValidityModal';
 import { DeleteTimetableModal } from './DeleteTimetableModal';
+import { useGetJourneyPatternIdsByLineLabel } from './hooks/useGetJourneyPatternIdsByRouteLabel';
+import {
+  TimetableVersionRowData,
+  useGetTimetableVersions,
+} from './hooks/useGetTimetableVersions';
+import { useTimetableVersionsReturnToQueryParam } from './hooks/useTimetableVersionsReturnToQueryParam';
 import { TimetableVersionDetailsPanel } from './timetable-version-details-panel/TimetableVersionDetailsPanel';
 import { TimetableVersionTable } from './TimetableVersionTable';
 

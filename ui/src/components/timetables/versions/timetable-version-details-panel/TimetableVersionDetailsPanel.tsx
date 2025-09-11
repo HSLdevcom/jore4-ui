@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
-import {
-  useAppSelector,
-  useCallbackOnKeyEscape,
-  useVehicleScheduleFrameSchedules,
-} from '../../../../hooks';
+import { useAppSelector, useCallbackOnKeyEscape } from '../../../../hooks';
 import { Visible } from '../../../../layoutComponents';
 import {
   closeVersionPanelAction,
@@ -17,6 +13,7 @@ import {
 } from '../../../../utils';
 import { RouteTimetableCard } from './RouteTimetableCard';
 import { TimetableVersionPanelHeading } from './TimetableVersionPanelHeading';
+import { useVehicleScheduleFrameSchedules } from '../../common/useVehicleScheduleFrameSchedules';
 
 export const TimetableVersionDetailsPanel = () => {
   const { isOpen, vehicleScheduleFrameId } = useAppSelector(

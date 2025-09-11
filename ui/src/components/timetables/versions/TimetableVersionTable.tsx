@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TimetableVersionRowData } from '../../../hooks/useGetTimetableVersions';
+import { TimetableVersionRowData } from './hooks/useGetTimetableVersions';
 import { TimetableVersionTableRow } from './TimetableVersionTableRow';
 
 type TimetableVersionTableProps = {

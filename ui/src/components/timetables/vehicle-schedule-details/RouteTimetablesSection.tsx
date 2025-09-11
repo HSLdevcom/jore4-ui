@@ -3,22 +3,22 @@ import sortBy from 'lodash/sortBy';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGetRouteWithJourneyPatternQuery } from '../../../generated/graphql';
-import {
-  TimetablesView,
-  useAppSelector,
-  useGetRouteTimetables,
-  useTimetablesViewState,
-  useToggle,
-} from '../../../hooks';
+import { useAppSelector } from '../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Row, Visible } from '../../../layoutComponents';
 import { LoadingState, selectLoader, selectTimetable } from '../../../redux';
 import { DayType } from '../../../types/enums';
 import { AccordionButton } from '../../../uiComponents';
 import { LoadingWrapper } from '../../../uiComponents/LoadingWrapper';
+import { useToggle } from '../../common/hooks/useToggle';
 import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from '../../routes-and-lines/line-details/DirectionBadge';
+import {
+  TimetablesView,
+  useTimetablesViewState,
+} from '../common/useTimetablesViewState';
 import { PassingTimesByStopSection } from '../passing-times-by-stop/PassingTimesByStopSection';
+import { useGetRouteTimetables } from './useGetRouteTimetables';
 import { VehicleServiceTable } from './vehicle-service-table';
 
 const GQL_GET_ROUTE_WITH_JOURNEY_PATTERN = gql`

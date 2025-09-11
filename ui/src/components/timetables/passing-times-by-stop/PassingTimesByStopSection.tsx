@@ -2,7 +2,6 @@ import uniq from 'lodash/uniq';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteWithJourneyPatternStopsFragment } from '../../../generated/graphql';
-import { VehicleJourneyGroup, useTimetablesViewState } from '../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../i18n/utils';
 import { Row } from '../../../layoutComponents';
 import { TimetablePriority } from '../../../types/enums';
@@ -10,6 +9,8 @@ import { VehicleJourneyGroupInfo } from '../common/VehicleJourneyGroupInfo';
 import { getTimetableHeadingBgColor } from '../vehicle-schedule-details/vehicle-service-table/VehicleServiceTable';
 import { DayTypeDropdown } from './DayTypeDropdown';
 import { PassingTimesByStopTable } from './PassingTimesByStopTable';
+import { useTimetablesViewState } from '../common/useTimetablesViewState';
+import { VehicleJourneyGroup } from '../vehicle-schedule-details/useGetRouteTimetables';
 
 const testIds = {
   passingTimesByStopSection: (dayType: string, priority: TimetablePriority) =>

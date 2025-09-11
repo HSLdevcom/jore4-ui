@@ -6,13 +6,12 @@ import {
   VehicleJourneyWithServiceFragment,
   VehicleScheduleFragment,
   useGetVehicleSchedulesForDateLazyQuery,
-} from '../../generated/graphql';
-import { Operation, selectChangeTimetableValidityModal } from '../../redux';
-import { findEarliestTime, findLatestTime } from '../../time';
-import { TimetablePriority } from '../../types/enums';
-import { useAppSelector } from '../redux';
-import { useLoader } from '../ui';
-import { useObservationDateQueryParam } from '../urlQuery';
+} from '../../../generated/graphql';
+import { useAppSelector, useObservationDateQueryParam } from '../../../hooks';
+import { Operation, selectChangeTimetableValidityModal } from '../../../redux';
+import { findEarliestTime, findLatestTime } from '../../../time';
+import { TimetablePriority } from '../../../types/enums';
+import { useLoader } from '../../common/hooks/useLoader';
 
 const GQL_DAY_TYPE_FRAGMENT = gql`
   fragment day_type_all_fields on timetables_service_calendar_day_type {
