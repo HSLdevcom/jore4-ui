@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { VehicleJourneyDuplicate } from '../../../../hooks';
+import { VehicleJourneyDuplicate } from '../hooks';
 import { VehicleJourneyRow } from './VehicleJourneyRow';
 
 const testIds = {

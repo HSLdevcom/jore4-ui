@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
 import { DateTime, Duration } from 'luxon';
-import { RouteDirectionEnum } from '../../generated/graphql';
-import { TimetablePriority } from '../../types/enums';
+import { RouteDirectionEnum } from '../../../../generated/graphql';
+import { TimetablePriority } from '../../../../types/enums';
 import { VehicleScheduleVehicleScheduleFrameWithJourneys } from './deviations';
 import { useStagingAndTargetFramesForCombine } from './useStagingAndTargetFramesForCombine';
 

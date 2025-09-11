@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
 import { DateTime, Duration } from 'luxon';
-import { RouteDirectionEnum } from '../../../../generated/graphql';
+import { RouteDirectionEnum } from '../../../../../../generated/graphql';
 import { VehicleJourneyInfo } from './useCreateVehicleJourneyInfo';
 import { useFindDuplicateJourneys } from './useFindDuplicateJourneys';
 

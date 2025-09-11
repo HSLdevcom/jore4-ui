@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { Link } from 'react-router';
-import { VehicleScheduleFrameInfo } from '../../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { routeDetails } from '../../../../router/routeDetails';
 import { DirectionBadge } from '../../../routes-and-lines/line-details/DirectionBadge';
+import { VehicleScheduleFrameInfo } from '../hooks';
 
 type RouteDeviationLinkProps = {
   readonly deviation: VehicleScheduleFrameInfo;
