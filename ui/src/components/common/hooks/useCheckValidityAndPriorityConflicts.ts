@@ -8,9 +8,9 @@ import {
   useGetLinesByValidityLazyQuery,
   useGetRoutesByValidityLazyQuery,
   useGetStopsByValidityLazyQuery,
-} from '../generated/graphql';
-import { Priority } from '../types/enums';
-import { buildVariantGqlFilter } from '../utils';
+} from '../../../generated/graphql';
+import { Priority } from '../../../types/enums';
+import { buildVariantGqlFilter } from '../../../utils';
 
 export type CommonParams = {
   readonly label: string;
