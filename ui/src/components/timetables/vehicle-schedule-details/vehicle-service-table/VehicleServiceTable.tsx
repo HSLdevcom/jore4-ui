@@ -3,12 +3,12 @@ import { FC, KeyboardEventHandler } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import { VehicleJourneyGroup } from '../../../../hooks';
 import { useGetLocalizedTextFromDbBlob } from '../../../../i18n/utils';
 import { Column, Visible } from '../../../../layoutComponents';
 import { mapToShortDateTime } from '../../../../time';
 import { TimetablePriority } from '../../../../types/enums';
 import { VehicleJourneyGroupInfo } from '../../common/VehicleJourneyGroupInfo';
+import { VehicleJourneyGroup } from '../useGetRouteTimetables';
 import { VehicleServiceRow, VehicleServiceRowData } from './VehicleServiceRow';
 
 type VehicleServiceTableProps = {

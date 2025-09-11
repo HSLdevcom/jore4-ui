@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import {
   useGetVehicleScheduleFrameWithRoutesQuery,
   useUpdateVehicleScheduleFrameValidityMutation,
-} from '../../generated/graphql';
+} from '../../../generated/graphql';
 
 const GQL_VEHICLE_SCHEDULE_FRAME_WITH_ROUTES = gql`
   fragment vehicle_schedule_frame_with_routes on timetables_vehicle_schedule_vehicle_schedule_frame {
