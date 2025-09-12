@@ -692,6 +692,12 @@
       "infoSpots": "Infopaikat"
     },
 
+    "noOptions": {
+      "shelter": "Ei katosta",
+      "electricity": "Ei tiedossa",
+      "infoSpot": "Ei infopaikkaa"
+    },
+
     "sortBy": {
       "label": "Tunnus",
       "name": "Nimi",

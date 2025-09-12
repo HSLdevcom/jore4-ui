@@ -2,9 +2,12 @@ import { FC, useId } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { Column, Row } from '../../../../../../layoutComponents';
+import { ElectricityFilter } from './ElectricityFilter';
 import { ElyFilter } from './ElyFilter';
 import { MunicipalityFilter } from './MunicipalityFilter';
 import { PriorityFilter } from './PriorityFilter';
+import { ShelterFilter } from './ShelterFilter';
+import { StopStateFilter } from './StopStateFilter';
 import { TransportationModeFilter } from './TransportationModeFilter';
 
 type PlaceHolderFilterProps = {
@@ -79,17 +82,11 @@ export const StopPropertyFilters: FC<StopPropertyFilterProps> = ({
         disabled={notForStops}
       />
 
-      <PlaceHolderFilter
+      <StopStateFilter className={genericFilterSizing} disabled={notForStops} />
+      <ShelterFilter className={genericFilterSizing} disabled={notForStops} />
+      <ElectricityFilter
         className={genericFilterSizing}
-        label={t('stopRegistrySearch.fieldLabels.stopState')}
-      />
-      <PlaceHolderFilter
-        className={genericFilterSizing}
-        label={t('stopRegistrySearch.fieldLabels.shelter')}
-      />
-      <PlaceHolderFilter
-        className={genericFilterSizing}
-        label={t('stopRegistrySearch.fieldLabels.electricity')}
+        disabled={notForStops}
       />
 
       <PlaceHolderFilter
