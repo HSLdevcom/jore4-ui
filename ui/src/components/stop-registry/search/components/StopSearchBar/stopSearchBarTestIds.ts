@@ -1,3 +1,5 @@
+import { JoreStopRegistryTransportModeType } from '../../../../../types/stop-registry';
+
 export const stopSearchBarTestIds = {
   elyInput: 'StopSearchBar::elyInput',
   observationDateInput: 'StopSearchBar::observationDateInput',
@@ -7,4 +9,6 @@ export const stopSearchBarTestIds = {
   stopStateFilter: 'StopSearchBar::stopStateFilter',
   shelterFilter: 'StopSearchBar::shelterFilter',
   electricityFilter: 'StopSearchBar::electricityFilter',
+  transportationModeButton: (mode: JoreStopRegistryTransportModeType) =>
+    `StopSearchBar::transportationMode::${mode}`,
 };
