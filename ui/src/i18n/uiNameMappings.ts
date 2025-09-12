@@ -37,31 +37,46 @@ class UnknownTranslationRequestedError extends Error {
   }
 }
 
-function genTranslationMapper<
-  MappedValue extends string | number | symbol,
-  InputValue extends string | number | symbol = MappedValue,
->(
-  mapping: Readonly<Record<MappedValue, (t: TFunction) => string>>,
-): (t: TFunction, value: InputValue) => string;
+type Translatable = string | number | symbol;
+
+type TranslationMapping<MappedValue extends Translatable> = Readonly<
+  Record<MappedValue, (t: TFunction) => string>
+>;
+
+export interface TranslationMapper<
+  MappedValue extends Translatable,
+  InputValue extends Translatable = MappedValue,
+> {
+  (t: TFunction, value: InputValue): string;
+}
+
+export interface ExtendableTranslationMapper<
+  MappedValue extends Translatable,
+  InputValue extends Translatable = MappedValue,
+> extends TranslationMapper<MappedValue, InputValue> {
+  extend<
+    MappedValueExtensions extends Translatable,
+    InputValueExtension extends Translatable = MappedValueExtensions,
+  >(
+    extensions: TranslationMapping<MappedValueExtensions>,
+    extendedDefaultValue?: (
+      t: TFunction,
+      value: InputValue | InputValueExtension,
+    ) => string,
+  ): ExtendableTranslationMapper<
+    MappedValue | MappedValueExtensions,
+    InputValue | InputValueExtension
+  >;
+}
 
 function genTranslationMapper<
-  MappedValue extends string | number | symbol,
-  InputValue extends string | number | symbol = MappedValue,
-  DefaultOutputValue = string,
+  MappedValue extends Translatable,
+  InputValue extends Translatable = MappedValue,
 >(
-  mapping: Readonly<Record<MappedValue, (t: TFunction) => string>>,
-  defaultValue: (t: TFunction, value: InputValue) => DefaultOutputValue,
-): (t: TFunction, value: InputValue) => string | DefaultOutputValue;
-
-function genTranslationMapper<
-  MappedValue extends string | number | symbol,
-  InputValue extends string | number | symbol = MappedValue,
-  DefaultOutputValue = string,
->(
-  mapping: Readonly<Record<MappedValue, (t: TFunction) => string>>,
-  defaultValue?: (t: TFunction, value: InputValue) => DefaultOutputValue,
-): (t: TFunction, value: InputValue) => string | DefaultOutputValue {
-  return (t: TFunction, value: InputValue): string | DefaultOutputValue => {
+  mapping: TranslationMapping<MappedValue>,
+  defaultValue?: (t: TFunction, value: InputValue) => string,
+): ExtendableTranslationMapper<MappedValue, InputValue> {
+  const mapper = ((t: TFunction, value: InputValue): string => {
     if (value in mapping) {
       return mapping[value as unknown as MappedValue](t);
     }
@@ -71,7 +86,25 @@ function genTranslationMapper<
     }
 
     throw new UnknownTranslationRequestedError(value);
+  }) as ExtendableTranslationMapper<MappedValue, InputValue>;
+
+  mapper.extend = function extend<
+    MappedValueExtensions extends Translatable,
+    InputValueExtension extends Translatable = MappedValueExtensions,
+  >(
+    extensions: TranslationMapping<MappedValueExtensions>,
+    extendedDefaultValue?: (
+      t: TFunction,
+      value: InputValue | InputValueExtension,
+    ) => string,
+  ) {
+    return genTranslationMapper<
+      MappedValue | MappedValueExtensions,
+      InputValue | InputValueExtension
+    >({ ...mapping, ...extensions }, extendedDefaultValue);
   };
+
+  return mapper;
 }
 
 export const mapPriorityToUiName = genTranslationMapper<Priority>({
