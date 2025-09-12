@@ -241,7 +241,6 @@
       "elyNumber": "ELY number",
       "stopInformation": "Stop-specific information"
     },
-
     "basicAreaDetails": {
       "areaName": "Name (Finnish)",
       "areaNameSwe": "Name (Swedish)",
@@ -691,6 +690,12 @@
       "shelter": "Shelter",
       "electricity": "Electricity",
       "infoSpots": "Info spots"
+    },
+
+    "noOptions": {
+      "shelter": "No shelter",
+      "electricity": "Not defined",
+      "infoSpot": "No info spot"
     },
 
     "sortBy": {
