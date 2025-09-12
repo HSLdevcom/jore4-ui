@@ -4,4 +4,7 @@ export const stopSearchBarTestIds = {
   searchButton: 'StopSearchBar::searchButton',
   searchInput: 'StopSearchBar::searchInput',
   toggleExpand: 'StopSearchBar::chevronToggle',
+  stopStateFilter: 'StopSearchBar::stopStateFilter',
+  shelterFilter: 'StopSearchBar::shelterFilter',
+  electricityFilter: 'StopSearchBar::electricityFilter',
 };
