@@ -7,3 +7,4 @@ export * from './StopSearchFilters';
 export * from './StopSearchNavigationState';
 export * from './StopSearchResultsProps';
 export * from './StopSearchRow';
+export * from './StringMunicipality';
