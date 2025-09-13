@@ -24,14 +24,12 @@ export class StopSearchBar {
   }
 
   getMunicipalitiesDropdown() {
-    return cy.getByTestId(
-      'StopSearchBar::municipalitiesDropdown::ListboxButton',
-    );
+    return cy.getByTestId('StopSearchBar::municipalitiesFilter::button');
   }
 
   getMunicipalitiesOptions() {
-    return cy.getByTestId(
-      'StopSearchBar::municipalitiesDropdown::ListboxOptions',
+    return cy.get(
+      '[data-testid^="StopSearchBar::municipalitiesFilter::Option::"]',
     );
   }
 

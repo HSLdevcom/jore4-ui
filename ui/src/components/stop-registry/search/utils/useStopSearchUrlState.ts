@@ -5,16 +5,12 @@ import { DateTime } from 'luxon';
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 import { ZodArray, ZodTypeAny, z } from 'zod';
 import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
-import {
-  StopRegistryMunicipality,
-  knownPriorityValues,
-} from '../../../../types/enums';
+import { knownPriorityValues } from '../../../../types/enums';
 import {
   AllOptionEnum,
   NullOptionEnum,
   areEqual,
   memoizeOne,
-  numberEnumEntries,
 } from '../../../../utils';
 import { allKnownPosterSizes } from '../../stops/stop-details/info-spots/types';
 import {
@@ -27,10 +23,6 @@ import {
   defaultSortingInfo,
   stopSearchFiltersSchema,
 } from '../types';
-import {
-  handleAllMunicipalities,
-  knownMunicipalities,
-} from './handleAllMunicipalities';
 import {
   UrlStateDeserializers,
   UrlStateSerializers,
@@ -49,19 +41,6 @@ type StopSearchUrlState = {
 
 const SEPARATOR = ',';
 const SIZE_SEPARATOR = '|';
-
-function serializeMunicipalities(
-  them: StopSearchFilters['municipalities'],
-): string {
-  return them
-    .map((enumValue) =>
-      enumValue === AllOptionEnum.All
-        ? enumValue
-        : // Reverse mapping for municipality → Enum value (number) to enum Key (string)
-          StopRegistryMunicipality[enumValue],
-    )
-    .join(SEPARATOR);
-}
 
 function serializeArray<ValueT>(values: ReadonlyArray<ValueT>): string {
   return values.map(String).join(SEPARATOR);
@@ -96,7 +75,7 @@ const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
   searchBy: identity,
   searchFor: identity,
   observationDate: (date) => date.toISODate(),
-  municipalities: serializeMunicipalities,
+  municipalities: serializeArray,
   priorities: serializeArray,
   transportationMode: serializeArray,
   stopState: serializeArray,
@@ -113,13 +92,6 @@ const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
   sortOrder: identity,
 };
 
-const lowerCaseMunicipalities: ReadonlyArray<
-  [string, StopRegistryMunicipality]
-> = numberEnumEntries(StopRegistryMunicipality).map(([key, value]) => [
-  key.toLowerCase(),
-  value,
-]);
-
 /**
  * Split string into array on separator, with handling for empty strings.
  *
@@ -135,33 +107,6 @@ function splitString(
   }
 
   return value.split(separator);
-}
-
-function parseMunicipalities(
-  value: string,
-): Array<StopRegistryMunicipality | AllOptionEnum> {
-  const parsed = splitString(value).map((enumKeyOrNumberValue) => {
-    if (enumKeyOrNumberValue === AllOptionEnum.All) {
-      return AllOptionEnum.All;
-    }
-
-    const asNumber = Number(enumKeyOrNumberValue);
-    if (knownMunicipalities.includes(asNumber)) {
-      return asNumber as StopRegistryMunicipality;
-    }
-
-    const lowercased = enumKeyOrNumberValue.toLowerCase();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, byName] =
-      lowerCaseMunicipalities.find(([key]) => key === lowercased) ?? [];
-    if (byName) {
-      return byName;
-    }
-
-    throw new TypeError(`Value (${value}) is not a valid municipality!`);
-  });
-
-  return handleAllMunicipalities(parsed);
 }
 
 const toPriority = toEnum(knownPriorityValues);
@@ -231,6 +176,10 @@ function parseEnumArrayWithAllAndNullOptions<
 >(parser: Parser): (value: string) => z.output<Parser> {
   return parseEnumArray(parser, cleanupEnumArrayWithAllAndNullOptions);
 }
+
+const parseMunicipalities = parseEnumArrayWithAllOption(
+  stopSearchFiltersSchema.shape.municipalities,
+);
 
 const parseTransportationMode = parseEnumArrayWithAllOption(
   stopSearchFiltersSchema.shape.transportationMode,

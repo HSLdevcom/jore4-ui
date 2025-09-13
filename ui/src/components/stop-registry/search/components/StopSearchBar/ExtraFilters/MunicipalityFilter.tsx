@@ -1,126 +1,65 @@
-import { Listbox as HUIListbox, Transition } from '@headlessui/react';
 import { TFunction } from 'i18next';
-import without from 'lodash/without';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { useController } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { Column } from '../../../../../../layoutComponents';
-import { StopRegistryMunicipality } from '../../../../../../types/enums';
-import {
-  ListboxButton,
-  dropdownTransition,
-} from '../../../../../../uiComponents';
-import { AllOptionEnum, numberEnumEntries } from '../../../../../../utils';
+import { AllOptionEnum } from '../../../../../../utils';
 import { InputLabel, ValidationErrorList } from '../../../../../forms/common';
-import { StopSearchFilters } from '../../../types';
-import { handleAllMunicipalities } from '../../../utils';
+import {
+  StopSearchFilters,
+  StringMunicipality,
+  knownMunicipalities,
+} from '../../../types';
+import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { DisableableFilterProps } from '../Types/DisableableFilterProps';
+import { EnumFilter } from './EnumFilter';
 
-const testIds = {
-  municipalitiesDropdown: 'StopSearchBar::municipalitiesDropdown',
-};
+type Option = StringMunicipality | AllOptionEnum.All;
 
-function getButtonContent(
-  t: TFunction,
-  value: ReadonlyArray<StopRegistryMunicipality | AllOptionEnum.All>,
-): ReactNode {
-  if (value.length === 0) {
-    return t('stopRegistrySearch.municipalityPlaceholder');
-  }
+const options: ReadonlyArray<Option> = [
+  AllOptionEnum.All,
+  ...knownMunicipalities,
+];
 
-  if (value.includes(AllOptionEnum.All)) {
+function uiNameMapper(t: TFunction, value: Option): string {
+  if (value === AllOptionEnum.All) {
     return t('all');
   }
 
-  return t('selected', { count: value.length });
+  return value;
 }
+
+const defaultValue: ReadonlyArray<Option> = [AllOptionEnum.All];
 
 export const MunicipalityFilter: FC<DisableableFilterProps> = ({
   className,
   disabled,
 }) => {
-  const { t } = useTranslation();
-
   const {
-    field: { onChange, value, ...controls },
+    field: { onBlur, onChange, value },
   } = useController<StopSearchFilters, 'municipalities'>({
     name: 'municipalities',
+    disabled,
   });
-
-  const augmentedOnChange = (
-    selected: ReadonlyArray<StopRegistryMunicipality | AllOptionEnum.All>,
-  ) => {
-    if (
-      value.length === 1 &&
-      value.at(0) === AllOptionEnum.All &&
-      selected.length >= 2
-    ) {
-      onChange(without(selected, AllOptionEnum.All));
-    } else {
-      onChange(handleAllMunicipalities(selected));
-    }
-  };
 
   return (
     <Column className={className}>
-      <HUIListbox
-        as="div"
-        className="relative"
-        disabled={disabled}
-        multiple
-        onChange={augmentedOnChange}
+      <InputLabel<StopSearchFilters>
+        fieldPath="municipalities"
+        translationPrefix="stopRegistrySearch.fieldLabels"
+      />
+
+      <EnumFilter
+        defaultValue={defaultValue}
+        id="stopRegistrySearch.fieldLabels.municipalities"
+        options={options}
+        onBlur={onBlur}
+        onChange={onChange}
+        testId={stopSearchBarTestIds.municipalitiesFilter}
+        uiNameMapper={uiNameMapper}
         value={value}
-        data-testid={testIds.municipalitiesDropdown}
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...controls}
-      >
-        <HUIListbox.Label
-          as={InputLabel<StopSearchFilters>}
-          fieldPath="municipalities"
-          translationPrefix="stopRegistrySearch.fieldLabels"
-        />
+      />
 
-        <ListboxButton
-          hasError={false}
-          buttonContent={getButtonContent(t, value)}
-          testId={`${testIds.municipalitiesDropdown}::ListboxButton`}
-        />
-
-        <HUIListbox.Options>
-          {({ open }) => (
-            <Transition
-              data-testid={`${testIds.municipalitiesDropdown}::ListboxOptions`}
-              className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
-              show={open}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...dropdownTransition}
-            >
-              <HUIListbox.Option
-                as="div"
-                className="group flex border-b border-grey px-2 py-2 text-left ui-selected:bg-dark-grey ui-selected:text-white ui-active:bg-dark-grey ui-active:text-white"
-                value={AllOptionEnum.All}
-              >
-                {t('all')}
-              </HUIListbox.Option>
-
-              {numberEnumEntries(StopRegistryMunicipality).map(
-                ([municipalityName, municipalityNumber]) => (
-                  <HUIListbox.Option
-                    as="div"
-                    className="group flex border-b border-grey px-2 py-2 text-left ui-selected:bg-dark-grey ui-selected:text-white ui-active:bg-dark-grey ui-active:text-white"
-                    key={municipalityName}
-                    value={municipalityNumber}
-                  >
-                    {municipalityName}
-                  </HUIListbox.Option>
-                ),
-              )}
-            </Transition>
-          )}
-        </HUIListbox.Options>
-
-        <ValidationErrorList<StopSearchFilters> fieldPath="municipalities" />
-      </HUIListbox>
+      <ValidationErrorList<StopSearchFilters> fieldPath="municipalities" />
     </Column>
   );
 };
