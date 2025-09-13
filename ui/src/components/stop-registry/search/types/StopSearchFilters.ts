@@ -1,6 +1,6 @@
 import omit from 'lodash/omit';
 import { DateTime } from 'luxon';
-import { EnumLike, z } from 'zod';
+import { EnumLike, ZodEnum, z } from 'zod';
 import {
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
@@ -14,18 +14,24 @@ import { AllOptionEnum, NullOptionEnum, areEqual } from '../../../../utils';
 import { instanceOfDateTime, requiredString } from '../../../forms/common';
 import { SearchBy } from './SearchBy';
 import { SearchFor } from './SearchFor';
+import { StringMunicipality, knownMunicipalities } from './StringMunicipality';
+
+const allEnum = z.nativeEnum(AllOptionEnum);
+
+function zMunicipalityEnumArray() {
+  const municipalityEnum = z.enum(
+    knownMunicipalities as [StringMunicipality, ...StringMunicipality[]],
+  );
+  return z.array(z.union([municipalityEnum, allEnum]));
+}
 
 function zEnumArrayWithAll<Elements extends EnumLike>(values: Elements) {
-  return z.array(z.union([z.nativeEnum(values), z.nativeEnum(AllOptionEnum)]));
+  return z.array(z.union([z.nativeEnum(values), allEnum]));
 }
 
 function zEnumArrayWithAllAndNull<Elements extends EnumLike>(values: Elements) {
   return z.array(
-    z.union([
-      z.nativeEnum(values),
-      z.nativeEnum(AllOptionEnum),
-      z.nativeEnum(NullOptionEnum),
-    ]),
+    z.union([z.nativeEnum(values), allEnum, z.nativeEnum(NullOptionEnum)]),
   );
 }
 
@@ -40,7 +46,7 @@ export const stopSearchFiltersSchema = z.object({
   searchFor: z.nativeEnum(SearchFor),
   observationDate: instanceOfDateTime,
   elyNumber: z.string(),
-  municipalities: zEnumArrayWithAll(StopRegistryMunicipality),
+  municipalities: zMunicipalityEnumArray(),
   priorities: z.array(z.nativeEnum(Priority)).min(1),
   transportationMode: zEnumArrayWithAll(JoreStopRegistryTransportModeType),
   stopState: zEnumArrayWithAll(StopPlaceState),

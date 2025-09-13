@@ -1,6 +1,9 @@
 import isEmpty from 'lodash/isEmpty';
 import { StopsDatabaseQuayNewestVersionBoolExp } from '../../../../generated/graphql';
-import { knownPriorityValues } from '../../../../types/enums';
+import {
+  StopRegistryMunicipality,
+  knownPriorityValues,
+} from '../../../../types/enums';
 import {
   AllOptionEnum,
   NullOptionEnum,
@@ -8,7 +11,7 @@ import {
   mapToSqlLikeValue,
 } from '../../../../utils';
 import { buildSearchStopByLabelOrNameFilter } from '../../utils/buildSearchStopByLabelOrNameFilter';
-import { SearchBy, StopSearchFilters } from '../types';
+import { SearchBy, StopSearchFilters, StringMunicipality } from '../types';
 
 function buildAddressLikeFilter(
   value: string,
@@ -48,7 +51,20 @@ function buildSearchStopsMunicipalityFilter({
     return {};
   }
 
-  return { stop_place: { topographic_place_id: { _in: municipalities } } };
+  return {
+    stop_place: {
+      topographic_place_id: {
+        _in: municipalities.map(
+          (name) =>
+            (
+              StopRegistryMunicipality as unknown as Readonly<
+                Record<StringMunicipality, number>
+              >
+            )[name as StringMunicipality],
+        ),
+      },
+    },
+  };
 }
 
 function buildSearchStopsObservationDateFilter({
