@@ -71,7 +71,7 @@ export const TerminalInfoSpotRowHeader: FC<TerminalInfoSpotRowHeaderProps> = ({
     >
       {isOpen ? (
         <td colSpan={7} className="p-0">
-          <div className="border-t border-border-hsl-commuter-train-purple py-5 pl-5 pr-3">
+          <div className="border-t border-border-hsl-commuter-train-purple py-3 pl-5 pr-3 xl:py-5">
             <span className="text-xl" data-testid={testIds.idAndQuayCell}>
               {infoSpotQuay
                 ? t('terminalDetails.infoSpots.infoSpotWithQuay', {

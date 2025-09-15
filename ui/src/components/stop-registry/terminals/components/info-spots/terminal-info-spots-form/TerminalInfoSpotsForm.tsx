@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ForwardRefRenderFunction, forwardRef } from 'react';
+import { ForwardRefRenderFunction, forwardRef, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
@@ -16,6 +16,7 @@ type TerminalInfoSpotsFormProps = {
   readonly className?: string;
   readonly defaultValues: TerminalInfoSpotFormState;
   readonly infoSpot?: InfoSpotDetailsFragment;
+  readonly setFormIsDirty?: (val: boolean) => void;
   readonly onSubmit: (state: TerminalInfoSpotFormState) => void;
   readonly terminal: EnrichedParentStopPlace;
 };
@@ -23,13 +24,17 @@ type TerminalInfoSpotsFormProps = {
 const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   TerminalInfoSpotsFormProps
-> = ({ className, defaultValues, onSubmit, terminal, infoSpot }, ref) => {
+> = (
+  { className, defaultValues, setFormIsDirty, onSubmit, terminal, infoSpot },
+  ref,
+) => {
   const methods = useForm<TerminalInfoSpotFormState>({
     defaultValues,
     resolver: zodResolver(terminalInfoSpotSchema),
   });
-  useDirtyFormBlockNavigation(methods.formState, 'TerminalInfoSpotsForm');
-  const { setValue, getValues, handleSubmit } = methods;
+  const { setValue, getValues, handleSubmit, formState } = methods;
+  useDirtyFormBlockNavigation(formState, 'TerminalInfoSpotsForm');
+  const { isDirty } = formState;
 
   const addNewPoster = () => {
     const newPoster: PosterState = {
@@ -57,6 +62,12 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
       shouldTouch: true,
     });
   };
+
+  useEffect(() => {
+    if (setFormIsDirty) {
+      setFormIsDirty(isDirty);
+    }
+  }, [isDirty, setFormIsDirty]);
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

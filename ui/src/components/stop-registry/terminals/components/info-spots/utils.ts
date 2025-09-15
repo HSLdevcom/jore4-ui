@@ -14,9 +14,9 @@ export const CSS_CLASSES = {
   evenRow: 'bg-background',
   oddRow: '',
   openRow: '!bg-background-hsl-commuter-train-purple bg-opacity-25',
-  tableCell: 'w-0 text-nowrap px-5 py-3 text-sm',
-  descriptionCell: 'w-full px-5 py-3 text-sm',
-  actionCell: 'w-0 py-2 pr-3 text-sm',
+  tableCell: 'w-0 text-nowrap px-3 xl:px-5 py-3 text-sm',
+  descriptionCell: 'w-full px-3 xl:px-5 py-3 text-sm',
+  actionCell: 'w-0 py-3 pr-3 text-sm',
 };
 
 export function resolveQuayPublicCode(

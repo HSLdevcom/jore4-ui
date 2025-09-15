@@ -62,6 +62,7 @@ type InfoContainerProps = {
    */
   readonly title: ReactNode;
   readonly addNewButton?: ReactNode;
+  readonly disableSaveButton?: boolean;
 };
 
 const testIds = {
@@ -83,6 +84,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
   testIdPrefix = '',
   title,
   bodyClassName,
+  disableSaveButton,
 }) => {
   const { t } = useTranslation();
 
@@ -149,6 +151,7 @@ export const InfoContainer: FC<InfoContainerProps> = ({
             <SimpleButton
               onClick={controls.onSave}
               testId={testIds.saveButton(testIdPrefix)}
+              disabled={disableSaveButton}
             >
               {t('save')}
             </SimpleButton>

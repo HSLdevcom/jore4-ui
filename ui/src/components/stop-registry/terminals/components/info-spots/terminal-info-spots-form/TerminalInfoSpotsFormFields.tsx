@@ -62,7 +62,7 @@ export const TerminalInfoSpotFormFields: FC<
 
   return (
     <Column>
-      <div className="bg-background p-5">
+      <div className="bg-background-hsl-commuter-train-purple bg-opacity-25 p-5">
         <Row className="flex-wrap items-end gap-4 py-2.5">
           <InputField<TerminalInfoSpotFormState>
             type="text"
@@ -151,7 +151,7 @@ export const TerminalInfoSpotFormFields: FC<
 
         <FormRow
           mdColumns={1}
-          className="flex-wrap items-end gap-4 bg-background py-2.5 lg:flex-nowrap"
+          className="flex-wrap items-end gap-4 py-2.5 lg:flex-nowrap"
         >
           <InputField<TerminalInfoSpotFormState>
             type="text"

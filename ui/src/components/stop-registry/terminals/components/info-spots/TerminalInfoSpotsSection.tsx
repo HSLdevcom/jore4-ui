@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../../types';
 import { showSuccessToast, submitFormByRef } from '../../../../../utils';
@@ -51,6 +51,7 @@ export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
   const { isInEditMode } = infoContainerControls;
 
   const [latestAdded, setLatestAdded] = useState<string | undefined>();
+  const [formIsDirty, setFormIsDirty] = useState(false);
 
   const onSubmit = async (state: TerminalInfoSpotFormState) => {
     try {
@@ -63,6 +64,12 @@ export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
       defaultErrorHandler(err as Error);
     }
   };
+
+  useEffect(() => {
+    if (!infoContainerControls.isExpanded) {
+      setLatestAdded(undefined);
+    }
+  }, [infoContainerControls.isExpanded]);
 
   return (
     <InfoContainer
@@ -81,6 +88,7 @@ export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
           : t('terminalDetails.infoSpots.title')
       }
       testIdPrefix="TerminalInfoSpotsSection"
+      disableSaveButton={!formIsDirty}
     >
       {isInEditMode ? (
         <TerminalInfoSpotsForm
@@ -89,6 +97,7 @@ export const TerminalInfoSpotsSection: FC<TerminalInfoSpotsSectionProps> = ({
           ref={formRef}
           terminal={terminal}
           onSubmit={onSubmit}
+          setFormIsDirty={setFormIsDirty}
         />
       ) : (
         <TerminalInfoSpotsViewList
