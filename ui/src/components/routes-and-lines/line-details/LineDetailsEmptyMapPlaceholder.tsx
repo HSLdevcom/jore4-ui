@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import { theme } from '../../../generated/theme';
 
 const testIds = {
@@ -7,9 +8,9 @@ const { colors } = theme;
 
 const border = `border border-light-grey`;
 
-const mapIconStyle = {
+const mapIconStyle: CSSProperties = {
   color: colors.background.grey,
-  'font-size': '10.3125rem',
+  fontSize: '10.3125rem',
 };
 export const LineDetailsEmptyMapPlaceholder = () => {
   return (
