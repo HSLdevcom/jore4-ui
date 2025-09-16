@@ -1,7 +1,10 @@
 import compact from 'lodash/compact';
 import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
-import { useUpdateStopPlaceMutation } from '../../../../../generated/graphql';
+import {
+  StopRegistrySignContentType,
+  useUpdateStopPlaceMutation,
+} from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
 import {
   mapPointToStopRegistryGeoJSON,
@@ -46,11 +49,13 @@ export const useEditStopLocationDetails = () => {
                 mainLineSign: initialGeneralSign.mainLineSign,
                 numberOfFrames: initialGeneralSign.numberOfFrames,
                 replacesRailSign: initialGeneralSign.replacesRailSign,
-                signContentType: initialGeneralSign.signContentType,
                 privateCode: mapPrivateCodeToInput(
                   initialGeneralSign.privateCode,
                 ),
                 note: omitTypeName(initialGeneralSign.note),
+                signContentType: state.signContentType
+                  ? (state.signContentType as StopRegistrySignContentType)
+                  : null,
                 content: state.platformNumber
                   ? { value: state.platformNumber }
                   : null,
