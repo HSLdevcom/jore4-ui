@@ -29,6 +29,17 @@ function assertValidSize(
   }
 }
 
+export function formatSizeOption(option: PosterSize): string {
+  const knownSize = allKnownPosterSizes.find(
+    ({ size }) => size.width === option.width && size.height === option.height,
+  );
+  if (knownSize?.label) {
+    return `${knownSize.label} (${formatSize(knownSize.size)})`;
+  }
+
+  return formatSize(option);
+}
+
 export function formatOption(t: TFunction, option: ItemSizeState): string {
   if (option.uiState === 'UNKNOWN') {
     return t('stopDetails.infoSpots.sizes.unknown');
@@ -38,15 +49,8 @@ export function formatOption(t: TFunction, option: ItemSizeState): string {
     return t('stopDetails.infoSpots.sizes.new');
   }
 
-  const knownSize = allKnownPosterSizes.find(
-    ({ size }) => size.width === option.width && size.height === option.height,
-  );
-  if (knownSize?.label) {
-    return `${knownSize.label} (${formatSize(knownSize.size)})`;
-  }
-
   assertValidSize(option);
-  return formatSize(option);
+  return formatSizeOption(option);
 }
 
 export function formatSizedDbItem(

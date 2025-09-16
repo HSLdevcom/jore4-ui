@@ -1,33 +1,14 @@
-import { FC, useId } from 'react';
-import { useTranslation } from 'react-i18next';
+import { FC } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { Column, Row } from '../../../../../../layoutComponents';
+import { Row } from '../../../../../../layoutComponents';
 import { ElectricityFilter } from './ElectricityFilter';
 import { ElyFilter } from './ElyFilter';
+import { InfoSpotsFilter } from './InfoSpotsFilter';
 import { MunicipalityFilter } from './MunicipalityFilter';
 import { PriorityFilter } from './PriorityFilter';
 import { ShelterFilter } from './ShelterFilter';
 import { StopStateFilter } from './StopStateFilter';
 import { TransportationModeFilter } from './TransportationModeFilter';
-
-type PlaceHolderFilterProps = {
-  readonly className?: string;
-  readonly label: string;
-};
-
-const PlaceHolderFilter: FC<PlaceHolderFilterProps> = ({
-  className,
-  label,
-}) => {
-  const id = useId();
-
-  return (
-    <Column className={className}>
-      <label htmlFor={id}>{label}</label>
-      <input id={id} type="text" disabled />
-    </Column>
-  );
-};
 
 type StopPropertyFilterProps = {
   readonly className?: string;
@@ -64,8 +45,6 @@ export const StopPropertyFilters: FC<StopPropertyFilterProps> = ({
   className,
   notForStops,
 }) => {
-  const { t } = useTranslation();
-
   return (
     <Row className={twMerge('flex-wrap justify-start gap-4', className)}>
       <TransportationModeFilter
@@ -89,10 +68,7 @@ export const StopPropertyFilters: FC<StopPropertyFilterProps> = ({
         disabled={notForStops}
       />
 
-      <PlaceHolderFilter
-        className={genericFilterSizing}
-        label={t('stopRegistrySearch.fieldLabels.infoSpots')}
-      />
+      <InfoSpotsFilter className={genericFilterSizing} disabled={notForStops} />
       <ElyFilter className={genericFilterSizing} disabled={notForStops} />
     </Row>
   );
