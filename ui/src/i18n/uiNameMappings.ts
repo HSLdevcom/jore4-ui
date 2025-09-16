@@ -13,6 +13,7 @@ import {
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
   StopRegistryShelterWidthType,
+  StopRegistrySignContentType,
   StopRegistryStopType,
   StopRegistryTransportModeType,
 } from '../generated/graphql';
@@ -146,6 +147,18 @@ export const mapStopPlaceSignTypeToUiName =
     [StopPlaceSignType.JokerSign]: (t) => t('stopPlaceSignTypeEnum.JokerSign'),
     [StopPlaceSignType.Minibuses]: (t) => t('stopPlaceSignTypeEnum.Minibuses'),
   });
+
+export const mapSignContentTypeToUiName = genTranslationMapper<
+  | StopRegistrySignContentType.TransportModePoint
+  | StopRegistrySignContentType.Other
+  | NullOptionEnum,
+  StopRegistrySignContentType | NullOptionEnum
+>({
+  [NullOptionEnum.Null]: (t) => t('signContentTypeEnum.none'),
+  [StopRegistrySignContentType.TransportModePoint]: (t) =>
+    t('signContentTypeEnum.transportModePoint'),
+  [StopRegistrySignContentType.Other]: (t) => t('signContentTypeEnum.other'),
+});
 
 export const mapStopRegistryStopTypeToUiName = genTranslationMapper<
   StopRegistryStopType | NullOptionEnum

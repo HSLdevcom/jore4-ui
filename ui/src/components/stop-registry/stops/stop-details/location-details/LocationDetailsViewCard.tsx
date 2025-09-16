@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { mapSignContentTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import { HorizontalSeparator } from '../../../../../layoutComponents';
 import { StopWithDetails } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../layout';
@@ -14,7 +15,7 @@ const testIds = {
   longitude: 'LocationDetailsViewCard::longitude',
   altitude: 'LocationDetailsViewCard::altitude',
   functionalArea: 'LocationDetailsViewCard::functionalArea',
-  guidanceType: 'LocationDetailsViewCard::guidanceType',
+  signContentType: 'LocationDetailsViewCard::signContentType',
   terminal: 'LocationDetailsViewCard::terminal',
   terminalName: 'LocationDetailsViewCard::terminalName',
   terminalStops: 'LocationDetailsViewCard::terminalStops',
@@ -30,6 +31,12 @@ export const LocationDetailsViewCard: FC<LocationDetailsViewCardProps> = ({
   stop,
 }) => {
   const { t } = useTranslation();
+
+  const signContentType =
+    stop.quay?.placeEquipments?.generalSign?.at(0)?.signContentType;
+  const signContentText = signContentType
+    ? mapSignContentTypeToUiName(t, signContentType)
+    : t('signContentTypeEnum.none');
 
   return (
     <div data-testid={testIds.container}>
@@ -89,9 +96,9 @@ export const LocationDetailsViewCard: FC<LocationDetailsViewCardProps> = ({
           testId={testIds.platformNumber}
         />
         <LabeledDetail
-          title={t('stopDetails.location.guidanceType')}
-          detail={null /* TODO */}
-          testId={testIds.guidanceType}
+          title={t('stopDetails.location.signContentType')}
+          detail={signContentText}
+          testId={testIds.signContentType}
         />
         <LabeledDetail
           title={t('stopDetails.location.memberPlatforms')}

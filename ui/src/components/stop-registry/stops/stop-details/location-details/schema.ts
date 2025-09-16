@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { requiredNumber } from '../../../../forms/common';
+import { StopRegistrySignContentType } from '../../../../../generated/graphql';
+import { createNullableEnum, requiredNumber } from '../../../../forms/common';
 
 export const locationDetailsFormSchema = z.object({
   streetAddress: z.string().optional().nullable(),
@@ -12,6 +13,7 @@ export const locationDetailsFormSchema = z.object({
   // Could add, but didn't deem it necessary yet. Easier to just make this required.
   functionalArea: requiredNumber,
   platformNumber: z.string().optional().nullable(),
+  signContentType: createNullableEnum<StopRegistrySignContentType>(),
 });
 
 export type LocationDetailsFormState = z.infer<

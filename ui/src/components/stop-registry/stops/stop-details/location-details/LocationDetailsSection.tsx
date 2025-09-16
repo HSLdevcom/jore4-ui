@@ -27,6 +27,9 @@ const mapLocationDetailsToFormState = (
     functionalArea: stop.quay?.functionalArea ?? undefined,
     platformNumber:
       stop.quay?.placeEquipments?.generalSign?.[0]?.content?.value ?? undefined,
+    signContentType:
+      stop.quay?.placeEquipments?.generalSign?.[0]?.signContentType ??
+      undefined,
   };
 };
 
