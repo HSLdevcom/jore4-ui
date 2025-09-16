@@ -4,6 +4,7 @@ import { twJoin, twMerge } from 'tailwind-merge';
 import { Column, Row } from '../../../../../../layoutComponents';
 import { ElectricityFilter } from './ElectricityFilter';
 import { ElyFilter } from './ElyFilter';
+import { InfoSpotsFilter } from './InfoSpotsFilter';
 import { MunicipalityFilter } from './MunicipalityFilter';
 import { PriorityFilter } from './PriorityFilter';
 import { ShelterFilter } from './ShelterFilter';
@@ -89,10 +90,7 @@ export const StopPropertyFilters: FC<StopPropertyFilterProps> = ({
         disabled={notForStops}
       />
 
-      <PlaceHolderFilter
-        className={genericFilterSizing}
-        label={t('stopRegistrySearch.fieldLabels.infoSpots')}
-      />
+      <InfoSpotsFilter className={genericFilterSizing} disabled={notForStops} />
       <ElyFilter className={genericFilterSizing} disabled={notForStops} />
     </Row>
   );

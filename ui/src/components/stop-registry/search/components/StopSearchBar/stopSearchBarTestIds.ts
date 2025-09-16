@@ -12,4 +12,5 @@ export const stopSearchBarTestIds = {
   transportationModeButton: (mode: JoreStopRegistryTransportModeType) =>
     `StopSearchBar::transportationMode::${mode}`,
   municipalitiesFilter: 'StopSearchBar::municipalitiesFilter',
+  infoSpotsFilter: 'StopSearchBar::infoSpotsFilter',
 };
