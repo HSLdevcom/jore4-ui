@@ -2,16 +2,24 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { StopRegistrySignContentType } from '../../../../../generated/graphql';
+import { mapSignContentTypeToUiName } from '../../../../../i18n/uiNameMappings';
 import {
   Column,
   HorizontalSeparator,
   Row,
 } from '../../../../../layoutComponents';
 import { StopWithDetails } from '../../../../../types';
-import { FormColumn, InputField, InputLabel } from '../../../../forms/common';
+import {
+  EnumDropdown,
+  FormColumn,
+  InputField,
+  InputLabel,
+} from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { LocationTerminalDetails } from './LocationTerminalDetails';
 import { LocationDetailsFormState, locationDetailsFormSchema } from './schema';
+import { LocationSignContentType } from './types';
 
 const testIds = {
   streetAddress: 'LocationDetailsForm::streetAddress',
@@ -23,6 +31,7 @@ const testIds = {
   altitude: 'LocationDetailsForm::altitude',
   functionalArea: 'LocationDetailsForm::functionalArea',
   platformNumber: 'LocationDetailsForm::platformNumber',
+  signContentType: 'LocationDetailsForm::signContentType',
 };
 
 type LocationDetailsFormComponentProps = {
@@ -144,12 +153,29 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
             />
           </Row>
           <HorizontalSeparator />
-          <Row>
+          <Row className="flex-wrap gap-4">
             <InputField<LocationDetailsFormState>
               type="text"
               translationPrefix="stopDetails.location"
               fieldPath="platformNumber"
               testId={testIds.platformNumber}
+            />
+            <InputField<LocationDetailsFormState>
+              translationPrefix="stopDetails.location"
+              fieldPath="signContentType"
+              testId={testIds.signContentType}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              inputElementRenderer={(props) => (
+                <EnumDropdown<StopRegistrySignContentType>
+                  enumType={LocationSignContentType}
+                  placeholder={t('signContentTypeEnum.none')}
+                  uiNameMapper={(value) => mapSignContentTypeToUiName(t, value)}
+                  buttonClassName="min-w-36"
+                  includeNullOption
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...props}
+                />
+              )}
             />
           </Row>
         </FormColumn>

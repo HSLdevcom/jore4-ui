@@ -13,6 +13,7 @@ import {
   StopRegistryShelterElectricity,
   StopRegistryShelterType,
   StopRegistryShelterWidthType,
+  StopRegistrySignContentType,
   StopRegistryStopType,
   StopRegistryTransportModeType,
 } from '../generated/graphql';
@@ -146,6 +147,34 @@ export const mapStopPlaceSignTypeToUiName =
     [StopPlaceSignType.JokerSign]: (t) => t('stopPlaceSignTypeEnum.JokerSign'),
     [StopPlaceSignType.Minibuses]: (t) => t('stopPlaceSignTypeEnum.Minibuses'),
   });
+
+export const mapSignContentTypeToUiName = genTranslationMapper<
+  StopRegistrySignContentType | NullOptionEnum
+>({
+  [NullOptionEnum.Null]: (t) => t('signContentTypeEnum.none'),
+  [StopRegistrySignContentType.TransportModePoint]: (t) =>
+    t('signContentTypeEnum.TransportModePoint'),
+  [StopRegistrySignContentType.Assistance]: (t) =>
+    t('signContentTypeEnum.assistance'),
+  [StopRegistrySignContentType.EmergencyExit]: (t) =>
+    t('signContentTypeEnum.emergencyExit'),
+  [StopRegistrySignContentType.Entrance]: (t) =>
+    t('signContentTypeEnum.entrance'),
+  [StopRegistrySignContentType.Exit]: (t) => t('signContentTypeEnum.exit'),
+  [StopRegistrySignContentType.MeetingPoint]: (t) =>
+    t('signContentTypeEnum.meetingPoint'),
+  [StopRegistrySignContentType.NoSmoking]: (t) =>
+    t('signContentTypeEnum.noSmoking'),
+  [StopRegistrySignContentType.Other]: (t) => t('signContentTypeEnum.other'),
+  [StopRegistrySignContentType.SosPhone]: (t) =>
+    t('signContentTypeEnum.sosPhone'),
+  [StopRegistrySignContentType.Tickets]: (t) =>
+    t('signContentTypeEnum.tickets'),
+  [StopRegistrySignContentType.TouchPoint]: (t) =>
+    t('signContentTypeEnum.touchPoint'),
+  [StopRegistrySignContentType.TransportMode]: (t) =>
+    t('signContentTypeEnum.transportMode'),
+});
 
 export const mapStopRegistryStopTypeToUiName = genTranslationMapper<
   StopRegistryStopType | NullOptionEnum

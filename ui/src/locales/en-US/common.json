@@ -270,7 +270,7 @@
       "longitude": "Longitude",
       "altitude": "Altitude",
       "functionalArea": "Functional area",
-      "guidanceType": "Guidance type",
+      "signContentType": "Guidance type",
       "platformNumber": "Platform number",
       "memberPlatforms": "Member platforms",
       "terminal": "Terminal",
@@ -905,6 +905,11 @@
     "urban": "Urban",
     "virtual": "Virtual",
     "wooden": "Wooden"
+  },
+  "signContentTypeEnum": {
+    "TransportModePoint": "Shield",
+    "other": "Fixed sign",
+    "none": "None"
   },
   "stopAccessibilityLevelEnum": {
     "fullyAccessible": "Fully accessible",
