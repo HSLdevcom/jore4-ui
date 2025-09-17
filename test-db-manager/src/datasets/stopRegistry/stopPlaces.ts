@@ -134,7 +134,7 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
       placeEquipments: {
         generalSign: seedStopPlace.signs && [
           {
-            signContentType: StopRegistrySignContentType.TransportMode,
+            signContentType: StopRegistrySignContentType.TransportModePoint,
             privateCode: {
               type: 'HSL',
               value: seedStopPlace.signs.signType,
