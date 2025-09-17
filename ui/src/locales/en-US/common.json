@@ -130,6 +130,7 @@
   },
   "stopArea": {
     "stopArea": "Stop area",
+    "copy": "Copy as new version",
     "delete": "Delete stop area",
     "name": "Stop area name",
     "nameSwe": "Name (swedish)",
@@ -197,6 +198,30 @@
         "originalQuayIdRequired": "Original quay ID is required.",
         "noMappingForQuayId": "No mapping found for quay ID: {{ quayId }}.",
         "stopPointIdRequired": "Stop point ID is required."
+      }
+    },
+    "version": {
+      "copy": {
+        "title": "Copy as new version",
+        "subTitle": "New version details",
+        "boilerplate": "All properties of the stop area and the stops valid at the time of start are copied. You can edit the properties of the new version after copying.",
+        "success": "New version created\nOpening up new version"
+      },
+      "cutModal": {
+        "title": "Overlapping version",
+        "currentVersion": "Current version",
+        "newVersion": "New version",
+        "cutCurrentVersionToEnd": "Cut current version to end on {{ date }}?",
+        "cutCurrentVersionToStart": "Cut current version to start on {{ date }}?"
+      },
+      "errors": {
+        "copy": "Stop area copy failed:\n{{ reason }}",
+        "stopPlacesInsertFailed": "Failed to insert stop places. Reason:\n{{ reason }}",
+        "failedToResolveNewShelters": "Failed to resolve new shelters. Reason:\n{{ reason }}",
+        "stopAreaInsertFailed": "Failed to insert stop area. Reason:\n{{ reason }}",
+        "failedToResolveExistingShelter": "Failed to resolve existing shelter. Reason:\n{{ reason }}",
+        "copyStopAreaInvalidDateRangeError": "Invalid date range provided for the new version. Reason:\n{{ reason }}",
+        "overlappingMultipleStopAreaVersions": "Other stop area versions already exist for the selected dates which prevents copying.\nPlease edit other versions before continuing."
       }
     },
     "errors": {
