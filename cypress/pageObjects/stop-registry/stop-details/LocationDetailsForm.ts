@@ -20,4 +20,10 @@ export class LocationDetailsForm {
 
   getPlatformNumber = () =>
     cy.getByTestId('LocationDetailsForm::platformNumber');
+
+  getSignContentTypeDropdownButton = () =>
+    cy.getByTestId('LocationDetailsForm::signContentType::ListboxButton');
+
+  getSignContentTypeDropdownOptions = () =>
+    cy.getByTestId('LocationDetailsForm::signContentType::ListboxOptions');
 }
