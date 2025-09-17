@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   StopAreaVersionInfoFragment,
+  useGetStopPlaceVersionsLazyQuery,
   useGetStopPlaceVersionsQuery,
 } from '../../../../../generated/graphql';
 import { parseDate } from '../../../../../time';
@@ -93,4 +94,25 @@ export function useGetStopAreaVersions(
   }
 
   return { loading: false, stopAreaVersions };
+}
+
+export function useGetStopAreaVersionsLazy() {
+  const [getStopAreaVersions] = useGetStopPlaceVersionsLazyQuery();
+
+  return useCallback(
+    async (privateCode: string): Promise<GetStopAreaVersionsLoaded> => {
+      const { data } = await getStopAreaVersions({
+        variables: { privateCode },
+      });
+
+      const rawStopAreas = data?.stops_database?.stopAreas;
+
+      const stopAreaVersions: ReadonlyArray<StopAreaVersion> = rawStopAreas
+        ? rawStopAreas.map(mapRawStopAreaToStopAreaVersion)
+        : [];
+
+      return { loading: false, stopAreaVersions };
+    },
+    [getStopAreaVersions],
+  );
 }
