@@ -78,3 +78,6 @@ h4 {
 .maplibregl-ctrl-bottom-right {
   z-index: 1;
 }
+.maplibregl-ctrl-top-right {
+  top: 70px;
+}
