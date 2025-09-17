@@ -31,6 +31,9 @@ function determineNeededUpdatesForQuay(
     quayValidityStart < validityStart &&
     (quayValidityEnd === null || quayValidityEnd >= validityStart);
 
+  // Don't set new end date for quays if we are cutting from start as we
+  // want to keep the original end date if possible for quays
+
   // New end date is set if (only when cutting from end):
   // - Quay doesn't have an end date and stop area has an end date
   // - Quay's end date is after the new stop area end date AND quay validity starts before the new stop area end date
