@@ -15,12 +15,12 @@ type MapHeaderProps = {
 export const MapHeader: FC<MapHeaderProps> = ({ onClose }) => {
   const { t } = useTranslation();
   return (
-    <Row className="bg-white px-11 py-4">
-      <PageTitle.H2 titleText={t('map.pageTitle')}>
+    <Row className="absolute right-0 top-0 z-30 p-2.5">
+      <PageTitle.H2 className="sr-only" titleText={t('map.pageTitle')}>
         {t('map.joreMap')}
       </PageTitle.H2>
       <CloseIconButton
-        className="ml-auto font-bold text-brand"
+        className="ml-auto bg-white p-2.5 font-bold text-brand shadow-md"
         label={t('close')}
         onClick={onClose}
         testId={testIds.closeButton}
