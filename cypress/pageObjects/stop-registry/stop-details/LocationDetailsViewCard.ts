@@ -31,6 +31,9 @@ export class LocationDetailsViewCard {
   getPlatformNumber = () =>
     cy.getByTestId('LocationDetailsViewCard::platformNumber');
 
+  getSignContentType = () =>
+    cy.getByTestId('LocationDetailsViewCard::signContentType');
+
   getMemberPlatforms = () =>
     cy.getByTestId('LocationDetailsViewCard::memberPlatforms');
 

@@ -294,6 +294,7 @@ describe('Stop details', () => {
     locationView.getAltitude().shouldHaveText('0');
     locationView.getFunctionalArea().shouldHaveText('20 m');
     locationView.getPlatformNumber().shouldHaveText('A2');
+    locationView.getSignContentType().shouldHaveText('Kilpi');
     locationView.getMemberPlatforms().shouldHaveText('-');
     locationView.getTerminalPrivateCode().shouldHaveText('TH2003');
     locationView
@@ -810,6 +811,15 @@ describe('Stop details', () => {
 
       locationForm.getPlatformNumber().clearAndType('2');
 
+      locationForm
+        .getSignContentTypeDropdownButton()
+        .shouldHaveText('Kilpi')
+        .click();
+      locationForm
+        .getSignContentTypeDropdownOptions()
+        .contains('Ei opastetta')
+        .click();
+
       stopDetailsPage.locationDetails.getSaveButton().click();
       toast.expectSuccessToast('Pysäkki muokattu');
       locationView.getContainer().shouldBeVisible();
@@ -822,6 +832,7 @@ describe('Stop details', () => {
       locationView.getLongitude().shouldHaveText('24.932072417514647');
       locationView.getFunctionalArea().shouldHaveText('7 m');
       locationView.getPlatformNumber().shouldHaveText('2');
+      locationView.getSignContentType().shouldHaveText('Ei opastetta');
     });
   });
 
