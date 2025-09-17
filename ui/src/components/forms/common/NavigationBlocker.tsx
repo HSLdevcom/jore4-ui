@@ -31,6 +31,7 @@ const knownNavigationContexts = [
   'CommonSubstitutePeriodForm',
   'ConfirmPreviewedTimetablesImportForm',
   'ConfirmTimetablesImportForm',
+  'CopyStopAreaForm',
   'CopyStopForm',
   'CreateTimingPlaceForm',
   'EditStopForm',
