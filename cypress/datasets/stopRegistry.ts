@@ -307,6 +307,35 @@ const stopPlaceData: Array<StopAreaInput> = [
   },
   {
     StopArea: {
+      privateCode: { type: 'HSL/TEST', value: 'E2E011' },
+      name: { lang: 'fin', value: 'Eteläinen Hesperiankatu' },
+      keyValues: [
+        { key: 'validityStart', values: ['2020-01-01'] },
+        { key: 'validityEnd', values: ['2052-01-01'] },
+      ],
+      geometry: {
+        coordinates: [24.920286, 60.176133],
+        type: StopRegistryGeoJsonType.Point,
+      },
+      quays: [
+        {
+          publicCode: 'E2E011',
+          keyValues: [
+            { key: 'streetAddress', values: ['Eteläinen Hesperiankatu'] },
+            { key: 'elyNumber', values: ['E2E011'] },
+            { key: 'validityStart', values: ['2020-01-01'] },
+            { key: 'validityEnd', values: ['2052-01-01'] },
+          ],
+          geometry: coordinatesToStopRegistryGeoJSON(
+            stopCoordinatesByLabel.E2E011,
+          ),
+        },
+      ],
+    },
+    organisations: null,
+  },
+  {
+    StopArea: {
       privateCode: { type: 'HSL/TEST', value: 'E2ENQ' },
       name: { lang: 'fin', value: 'No quays' },
       quays: [],
