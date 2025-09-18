@@ -1,4 +1,6 @@
+import { ObservationDateControl } from '../ObservationDateControl';
 import {
+  CopyStopAreaModal,
   StopAreaDetails,
   StopAreaMemberStops,
   StopAreaMinimap,
@@ -16,6 +18,10 @@ export class StopAreaDetailsPage {
   titleRow = new StopAreaTitleRow();
 
   versioningRow = new StopAreaVersioningRow();
+
+  copyModal = new CopyStopAreaModal();
+
+  observationDateControl = new ObservationDateControl();
 
   visit(netexId: string) {
     cy.visit(`/stop-registry/stop-areas/${netexId}`);
