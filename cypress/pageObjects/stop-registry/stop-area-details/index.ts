@@ -1,3 +1,4 @@
+export * from './CopyStopAreaModal';
 export * from './StopAreaDetails';
 export * from './StopAreaMemberStops';
 export * from './StopAreaMinimap';
