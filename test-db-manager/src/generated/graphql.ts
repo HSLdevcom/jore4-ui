@@ -68533,3 +68533,93 @@ export type GetAllStopPlaceLabelsAndIdsQuery = {
     } | null> | null
   } | null
 };
+
+export type GetQuayMaxPrivateCodeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetQuayMaxPrivateCodeQuery = {
+  __typename?: 'query_root',
+  sdb?: {
+    __typename?: 'stops_database_stops_database_query',
+    table: {
+      __typename?: 'stops_database_quay_aggregate',
+      aggregate?: {
+        __typename?: 'stops_database_quay_aggregate_fields',
+        max?: {
+          __typename?: 'stops_database_quay_max_fields',
+          code?: string | null
+        } | null
+      } | null
+    }
+  } | null
+};
+
+export type GetStopAreaMaxPrivateCodeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetStopAreaMaxPrivateCodeQuery = {
+  __typename?: 'query_root',
+  sdb?: {
+    __typename?: 'stops_database_stops_database_query',
+    table: {
+      __typename?: 'stops_database_stop_place_aggregate',
+      aggregate?: {
+        __typename?: 'stops_database_stop_place_aggregate_fields',
+        max?: {
+          __typename?: 'stops_database_stop_place_max_fields',
+          code?: string | null
+        } | null
+      } | null
+    }
+  } | null
+};
+
+export type GetTerminalMaxPrivateCodeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTerminalMaxPrivateCodeQuery = {
+  __typename?: 'query_root',
+  sdb?: {
+    __typename?: 'stops_database_stops_database_query',
+    table: {
+      __typename?: 'stops_database_stop_place_aggregate',
+      aggregate?: {
+        __typename?: 'stops_database_stop_place_aggregate_fields',
+        max?: {
+          __typename?: 'stops_database_stop_place_max_fields',
+          code?: string | null
+        } | null
+      } | null
+    }
+  } | null
+};
+
+export type GetLocationMunicipalityQueryVariables = Exact<{
+  location: Scalars['geometry']['input'];
+}>;
+
+
+export type GetLocationMunicipalityQuery = {
+  __typename?: 'query_root',
+  stopsDatabase?: {
+    __typename?: 'stops_database_stops_database_query',
+    municipality: Array<{
+      __typename?: 'stops_database_topographic_place',
+      name?: string | null
+    }>
+  } | null
+};
+
+export type GetExistingQuayPublicCodesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetExistingQuayPublicCodesQuery = {
+  __typename?: 'query_root',
+  stopsDatabase?: {
+    __typename?: 'stops_database_stops_database_query',
+    usedPublicCodes: Array<{
+      __typename?: 'stops_database_quay',
+      publicCode?: string | null
+    }>
+  } | null
+};
