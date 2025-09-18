@@ -46,6 +46,7 @@ export const stopCoordinatesByLabel = {
   E2E008: [24.937281651830318, 60.16645331474371, 0],
   E2E009: [24.93877038021971, 60.1653765292378, 0],
   E2E010: [24.706945, 60.157696, 0],
+  E2E011: [24.920286, 60.176133, 0],
 };
 
 export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
@@ -185,6 +186,21 @@ export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
     measured_location: {
       type: 'Point',
       coordinates: stopCoordinatesByLabel.E2E010,
+    },
+  },
+  {
+    ...buildStop({
+      label: 'E2E011',
+      located_on_infrastructure_link_id: testInfraLinkIds[0],
+    }),
+    validity_start: DateTime.fromISO('2020-03-20'),
+    validity_end: DateTime.fromISO('2052-01-01'),
+    direction: InfrastructureNetworkDirectionEnum.Backward,
+    scheduled_stop_point_id: 'f4059163-52bc-4b8f-8152-8558e7931b71',
+    timing_place_id: timingPlaces[0].timing_place_id,
+    measured_location: {
+      type: 'Point',
+      coordinates: stopCoordinatesByLabel.E2E011,
     },
   },
 ];

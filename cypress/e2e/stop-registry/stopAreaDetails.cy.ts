@@ -439,4 +439,504 @@ describe('Stop area details', () => {
         .shouldHaveText('Ei pysäkkejä.');
     });
   });
+
+  describe.only('Copying', () => {
+    function waitForCopyToBeFinished() {
+      expectGraphQLCallToSucceed('@gqlUpsertStopArea');
+      expectGraphQLCallToSucceed('@gqlEditMultipleStopPoints');
+      expectGraphQLCallToSucceed('@gqlUpsertStopArea');
+      expectGraphQLCallToSucceed('@gqlInsertMultipleStopPoints');
+      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      expectGraphQLCallToSucceed('@gqlgetStopPlaceDetails');
+    }
+
+    function waitForCopyWithNoStopsToBeFinished() {
+      expectGraphQLCallToSucceed('@gqlUpsertStopArea');
+      toast.expectSuccessToast('Uusi versio luotu\nAvataan uusi versio');
+      expectGraphQLCallToSucceed('@gqlgetStopPlaceDetails');
+    }
+
+    function waitForObservationDateChange() {
+      expectGraphQLCallToSucceed('@gqlgetStopPlaceDetails');
+    }
+
+    function waitForSaveToBeFinished() {
+      expectGraphQLCallToSucceed('@gqlUpsertStopArea');
+      toast.expectSuccessToast('Pysäkkialue muokattu');
+    }
+
+    it('should copy and cut current version from end', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+
+      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.validity.setStartDate('2030-01-01');
+      form.validity.setAsIndefinite(false);
+      form.validity.setEndDate('2052-01-01');
+      form.getSubmitButton().click();
+
+      confirmationModal.modal().shouldBeVisible();
+      confirmationModal
+        .getCurrentVersion()
+        .shouldHaveText('1.1.2000 - 1.1.2052');
+      confirmationModal.getNewVersion().shouldHaveText('1.1.2030 - 1.1.2052');
+      confirmationModal.getCutDate().should('contain.text', '31.12.2029');
+      confirmationModal.buttons.getConfirmButton().click();
+
+      waitForCopyToBeFinished();
+
+      // Confirm that the dates of the new version are correct
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2030-1.1.2052');
+
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '1.1.2030-1.1.2052',
+        );
+      });
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '1.1.2030-1.1.2052',
+        );
+      });
+
+      stopAreaDetailsPage.observationDateControl.setObservationDate(
+        '2025-01-01',
+      );
+      waitForObservationDateChange();
+
+      // Confirm that the old version was cut correctly
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2000-31.12.2029');
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '20.3.2020-31.12.2029',
+        );
+      });
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '20.3.2020-31.12.2029',
+        );
+      });
+    });
+
+    it('should copy and cut current version from end as indefinite', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+
+      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.validity.setStartDate('2030-01-01');
+      form.validity.setAsIndefinite(true);
+      form.getSubmitButton().click();
+
+      confirmationModal.modal().shouldBeVisible();
+      confirmationModal
+        .getCurrentVersion()
+        .shouldHaveText('1.1.2000 - 1.1.2052');
+      confirmationModal.getNewVersion().shouldHaveText('1.1.2030 -');
+      confirmationModal.getCutDate().should('contain.text', '31.12.2029');
+      confirmationModal.buttons.getConfirmButton().click();
+
+      waitForCopyToBeFinished();
+
+      // Confirm that the dates of the new version are correct
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2030-');
+
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+        cy.get('[title="Voimassaolo"]').should('have.text', '1.1.2030-');
+      });
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+        cy.get('[title="Voimassaolo"]').should('have.text', '1.1.2030-');
+      });
+
+      stopAreaDetailsPage.observationDateControl.setObservationDate(
+        '2025-01-01',
+      );
+      waitForObservationDateChange();
+
+      // Confirm that the old version was cut correctly
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2000-31.12.2029');
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '20.3.2020-31.12.2029',
+        );
+      });
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '20.3.2020-31.12.2029',
+        );
+      });
+    });
+
+    it('should copy and cut current version from start', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+
+      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.validity.setStartDate('2000-01-01');
+      form.validity.setAsIndefinite(false);
+      form.validity.setEndDate('2029-12-31');
+      form.getSubmitButton().click();
+
+      confirmationModal.modal().shouldBeVisible();
+      confirmationModal
+        .getCurrentVersion()
+        .shouldHaveText('1.1.2000 - 1.1.2052');
+      confirmationModal.getNewVersion().shouldHaveText('1.1.2000 - 31.12.2029');
+      confirmationModal.getCutDate().should('contain.text', '1.1.2030');
+      confirmationModal.buttons.getConfirmButton().click();
+
+      waitForCopyToBeFinished();
+
+      // Confirm that the dates of the new version are correct
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2000-31.12.2029');
+
+      stopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '20.3.2020-31.12.2029',
+        );
+      });
+
+      stopAreaDetailsPage.observationDateControl.setObservationDate(
+        '2035-01-01',
+      );
+      waitForObservationDateChange();
+
+      // Confirm that the old version was cut correctly
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2030-1.1.2052');
+      stopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '1.1.2030-1.1.2052',
+        );
+      });
+    });
+
+    it('should copy and cut current indefinite version from start', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+
+      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.validity.setStartDate('2000-01-01');
+      form.validity.setAsIndefinite(false);
+      form.validity.setEndDate('2029-12-31');
+      form.getSubmitButton().click();
+
+      confirmationModal.modal().shouldBeVisible();
+      confirmationModal
+        .getCurrentVersion()
+        .shouldHaveText('1.1.2000 - 1.1.2052');
+      confirmationModal.getNewVersion().shouldHaveText('1.1.2000 - 31.12.2029');
+      confirmationModal.getCutDate().should('contain.text', '1.1.2030');
+      confirmationModal.buttons.getConfirmButton().click();
+
+      waitForCopyToBeFinished();
+
+      // Confirm that the dates of the new version are correct
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2000-31.12.2029');
+
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '20.3.2020-31.12.2029',
+        );
+      });
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '20.3.2020-31.12.2029',
+        );
+      });
+
+      stopAreaDetailsPage.observationDateControl.setObservationDate(
+        '2035-01-01',
+      );
+      waitForObservationDateChange();
+
+      // Confirm that the old version was cut correctly
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2030-1.1.2052');
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+        cy.get('[title="Voimassaolo"]').should('have.text', '1.1.2030-');
+      });
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+        cy.get('[title="Voimassaolo"]').should('have.text', '1.1.2030-');
+      });
+    });
+
+    it('should show error when copying version over current version', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form } = stopAreaDetailsPage.copyModal;
+
+      form.getVersionNameInput().clearAndType('E2E test copy #2');
+      form.validity.setStartDate('2000-01-01');
+      form.validity.setAsIndefinite(false);
+      form.validity.setEndDate('2059-12-31');
+      form.getSubmitButton().click();
+
+      toast.expectDangerToast(
+        'Pysäkkialueen kopiointi epäonnistui:\nUudelle versiolle annettu päivämääräväli on virheellinen.',
+      );
+    });
+
+    it('should show error when copying version over period with multiple versions', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+
+      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.validity.setStartDate('2030-01-01');
+      form.validity.setAsIndefinite(false);
+      form.validity.setEndDate('2052-01-01');
+      form.getSubmitButton().click();
+
+      confirmationModal.modal().shouldBeVisible();
+      confirmationModal
+        .getCurrentVersion()
+        .shouldHaveText('1.1.2000 - 1.1.2052');
+      confirmationModal.getNewVersion().shouldHaveText('1.1.2030 - 1.1.2052');
+      confirmationModal.getCutDate().should('contain.text', '31.12.2029');
+      confirmationModal.buttons.getConfirmButton().click();
+
+      waitForCopyToBeFinished();
+
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2030-1.1.2052');
+
+      // Try to create a copy over the original version
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      form.getVersionNameInput().clearAndType('E2E test copy #2');
+      form.validity.setStartDate('2025-01-01');
+      form.validity.setAsIndefinite(false);
+      form.validity.setEndDate('2040-01-01');
+      form.getSubmitButton().click();
+
+      toast.expectDangerToast(
+        'Pysäkkialueen kopiointi epäonnistui:\nValituille päivämäärille on olemassa muita pysäkkialueen versioita mikä estää kopioinnin.\nMuokkaa päällekkäisiä versioita ennen jatkamista.',
+      );
+    });
+
+    it('should include stops with validity after stop area when copying version', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+
+      // First we have to edit the tested stop area to shorter validity to prevent issues with MAX_DATE in this case
+      stopAreaDetailsPage.details.getEditButton().click();
+      stopAreaDetailsPage.details.edit.getNameSwe().clearAndType('ABC');
+      stopAreaDetailsPage.details.edit.validity.setEndDate('2045-01-01');
+      stopAreaDetailsPage.details.edit.getSaveButton().click();
+      waitForSaveToBeFinished();
+
+      // Confirm that the dates of the new version are correct
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2000-1.1.2045');
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form } = stopAreaDetailsPage.copyModal;
+
+      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.validity.setStartDate('2045-01-02');
+      form.validity.setAsIndefinite(false);
+      form.validity.setEndDate('2060-01-01');
+      form.getSubmitButton().click();
+
+      waitForCopyToBeFinished();
+
+      // Confirm that the dates of the new version are correct
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('2.1.2045-1.1.2060');
+
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '2.1.2045-1.1.2060',
+        );
+      });
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '2.1.2045-1.1.2060',
+        );
+      });
+
+      stopAreaDetailsPage.observationDateControl.setObservationDate(
+        '2025-01-01',
+      );
+      waitForObservationDateChange();
+
+      // Confirm that the old version was cut correctly
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2000-1.1.2045');
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E003').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '20.3.2020-1.1.2045',
+        );
+      });
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E006').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '20.3.2020-1.1.2045',
+        );
+      });
+    });
+
+    it('should not include stops after their validity has ended when copying version', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form } = stopAreaDetailsPage.copyModal;
+
+      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.validity.setStartDate('2052-01-02');
+      form.validity.setAsIndefinite(true);
+      form.getSubmitButton().click();
+
+      waitForCopyWithNoStopsToBeFinished();
+
+      // Confirm that the dates of the new version are correct
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('2.1.2052-');
+      stopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
+
+      stopAreaDetailsPage.observationDateControl.setObservationDate(
+        '2025-01-01',
+      );
+      waitForObservationDateChange();
+
+      // Confirm that the old version was cut correctly
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2000-1.1.2052');
+      stopAreaDetailsPage.memberStops.getStopRow('E2E011').shouldBeVisible();
+      stopAreaDetailsPage.memberStops.getStopRow('E2E011').within(() => {
+        cy.get('[title="Voimassaolo"]').should(
+          'have.text',
+          '20.3.2020-1.1.2052',
+        );
+      });
+    });
+
+    it('should be able to copy stop area without stops', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
+
+      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.validity.setStartDate('2030-01-01');
+      form.validity.setAsIndefinite(false);
+      form.validity.setEndDate('2060-01-01');
+      form.getSubmitButton().click();
+
+      confirmationModal.modal().shouldBeVisible();
+      confirmationModal
+        .getCurrentVersion()
+        .shouldHaveText('1.1.2000 - 1.1.2052');
+      confirmationModal.getNewVersion().shouldHaveText('1.1.2030 - 1.1.2060');
+      confirmationModal.getCutDate().should('contain.text', '31.12.2029');
+      confirmationModal.buttons.getConfirmButton().click();
+
+      waitForCopyWithNoStopsToBeFinished();
+
+      // Confirm that the dates of the new version are correct
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2030-1.1.2060');
+      stopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
+
+      stopAreaDetailsPage.observationDateControl.setObservationDate(
+        '2025-01-01',
+      );
+      waitForObservationDateChange();
+
+      // Confirm that the old version was cut correctly
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2000-31.12.2029');
+      stopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
+    });
+  });
 });
