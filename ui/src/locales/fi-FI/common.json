@@ -130,6 +130,7 @@
   },
   "stopArea": {
     "stopArea": "Pysäkkialue",
+    "copy": "Kopioi uudeksi versioksi",
     "delete": "Poista pysäkkialue",
     "name": "Pysäkkialueen nimi",
     "nameSwe": "Nimi (ruotsi)",
@@ -197,6 +198,30 @@
         "originalQuayIdRequired": "Alkuperäisen pysäkin ID on pakollinen.",
         "noMappingForQuayId": "Vastaavuutta ei löytynyt pysäkin ID:llä {{ quayId }}.",
         "stopPointIdRequired": "Pysähdyspisteen ID on pakollinen."
+      }
+    },
+    "version": {
+      "copy": {
+        "title": "Kopioidaan uudeksi versioksi",
+        "subTitle": "Uuden version tiedot",
+        "boilerplate": "Pysäkkialueen kaikki ominaisuudet ja alkamishetkellä voimassaolevat pysäkit kopioidaan mukana. Voit muokata uuden version ominaisuuksia kopioinnin jälkeen.",
+        "success": "Uusi versio luotu\nAvataan uusi versio"
+      },
+      "cutModal": {
+        "title": "Päällekkäinen versio",
+        "currentVersion": "Nykyinen versio",
+        "newVersion": "Uusi versio",
+        "cutCurrentVersionToEnd": "Leikataanko nykyinen versio päättymään {{ date }}?",
+        "cutCurrentVersionToStart": "Leikataanko nykyinen versio alkamaan {{ date }}?"
+      },
+      "errors": {
+        "copy": "Pysäkkialueen kopiointi epäonnistui:\n{{ reason }}",
+        "stopPlacesInsertFailed": "Pysähdyspaikan lisääminen epäonnistui. Syy:\n{{ reason }}",
+        "failedToResolveNewShelters": "Uusia katoksia ei löytynyt. Syy:\n{{ reason }}",
+        "stopAreaInsertFailed": "Pysäkkialueen lisääminen epäonnistui. Syy:\n{{ reason }}",
+        "failedToResolveExistingShelter": "Nykyistä katosta ei löytynyt. Syy:\n{{ reason }}",
+        "copyStopAreaInvalidDateRangeError": "Uudelle versiolle annettu päivämääräväli on virheellinen.",
+        "overlappingMultipleStopAreaVersions": "Valituille päivämäärille on olemassa muita pysäkkialueen versioita mikä estää kopioinnin.\nMuokkaa päällekkäisiä versioita ennen jatkamista."
       }
     },
     "errors": {

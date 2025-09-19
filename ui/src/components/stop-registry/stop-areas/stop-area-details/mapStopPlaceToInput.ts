@@ -12,16 +12,15 @@ import {
   StopRegistryVersionLessEntityRef,
   StopRegistryVersionLessEntityRefInput,
 } from '../../../../generated/graphql';
-import { StopWithDetails } from '../../../../types';
+import { EnrichedStopPlace } from '../../../../types';
 import {
-  // mapAccessibilityAssessmentToInput,
+  mapAccessibilityAssessmentToInput,
   mapAlternativeNames,
   mapCompactOrNull,
   mapGeoJsonToInput,
   // mapPlaceEquipmentsToInput,
   mapPrivateCodeToInput,
   mapQuayToInput,
-  omitTypeName,
 } from '../../utils';
 
 function mapAdjacentSitesToInput(
@@ -64,13 +63,8 @@ function mapOrganizationsToInput(
 
 // Kept in case we ever want to also make copies of StopAreas
 export function mapStopPlaceToInput(
-  originalStop: StopWithDetails,
+  stopPlace: EnrichedStopPlace,
 ): StopRegistryStopPlaceInput {
-  const stopPlace = originalStop.stop_place;
-  if (!stopPlace) {
-    throw new Error('Cannot clone a stop without a StopPlace!');
-  }
-
   return {
     ...pick(stopPlace, [
       'keyValues',
@@ -88,7 +82,9 @@ export function mapStopPlaceToInput(
     description: null, // omitTypeName(stopPlace.description),
     shortName: null, // omitTypeName(stopPlace.shortName),
     alternativeNames: mapAlternativeNames(stopPlace.alternativeNames),
-    accessibilityAssessment: null, // mapAccessibilityAssessmentToInput(stopPlace.accessibilityAssessment),
+    accessibilityAssessment: mapAccessibilityAssessmentToInput(
+      stopPlace.accessibilityAssessment,
+    ),
     geometry: mapGeoJsonToInput(stopPlace.geometry),
     placeEquipments: null, // mapPlaceEquipmentsToInput(stopPlace.placeEquipments),
     privateCode: mapPrivateCodeToInput(stopPlace.privateCode),
