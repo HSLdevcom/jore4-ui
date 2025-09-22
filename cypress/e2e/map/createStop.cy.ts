@@ -9,7 +9,7 @@ import { Tag } from '../../enums';
 import {
   ChangeValidityForm,
   FilterPanel,
-  MapModal,
+  MapPage,
   Navbar,
   StopDetailsPage,
   StopSearchBar,
@@ -46,7 +46,7 @@ const stopAreaInput: Array<StopAreaInput> = [
   },
 ];
 
-const mapModal = new MapModal();
+const mapPage = new MapPage();
 const mapFilterPanel = new FilterPanel();
 const changeValidityForm = new ChangeValidityForm();
 const navbar = new Navbar();
@@ -67,7 +67,7 @@ describe('Stop creation tests', mapViewport, () => {
     cy.setupTests();
     cy.mockLogin();
 
-    mapModal.map.visit({
+    mapPage.map.visit({
       path: '/stops',
       zoom: 16,
       lat: 60.164074274478054,
@@ -79,7 +79,7 @@ describe('Stop creation tests', mapViewport, () => {
     'Should create stop on map',
     { tags: [Tag.Map, Tag.Stops, Tag.Smoke], scrollBehavior: 'bottom' },
     () => {
-      mapModal.createStopAtLocation({
+      mapPage.createStopAtLocation({
         stopFormInfo: {
           publicCode: testStopLabels.testLabel1,
           stopPlace: testStopLabels.stopAreaPrivateCode,
@@ -92,9 +92,9 @@ describe('Stop creation tests', mapViewport, () => {
         },
       });
 
-      mapModal.gqlStopShouldBeCreatedSuccessfully();
+      mapPage.gqlStopShouldBeCreatedSuccessfully();
 
-      mapModal.checkStopSubmitSuccessToast();
+      mapPage.checkStopSubmitSuccessToast();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -109,7 +109,7 @@ describe('Stop creation tests', mapViewport, () => {
     { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
     () => {
       // Create stop
-      mapModal.createStopAtLocation({
+      mapPage.createStopAtLocation({
         stopFormInfo: {
           publicCode: testStopLabels.manualCoordinatesLabel,
           stopPlace: testStopLabels.stopAreaPrivateCode,
@@ -125,12 +125,12 @@ describe('Stop creation tests', mapViewport, () => {
         },
       });
 
-      mapModal.gqlStopShouldBeCreatedSuccessfully();
+      mapPage.gqlStopShouldBeCreatedSuccessfully();
 
-      mapModal.checkStopSubmitSuccessToast();
+      mapPage.checkStopSubmitSuccessToast();
 
       // Change map position to created stop location
-      mapModal.map.visit({
+      mapPage.map.visit({
         zoom: 16,
         lat: 60.1805636468358,
         lng: 24.918451016960763,
@@ -148,7 +148,7 @@ describe('Stop creation tests', mapViewport, () => {
     'Should create stop with end time on map',
     { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
     () => {
-      mapModal.createStopAtLocation({
+      mapPage.createStopAtLocation({
         stopFormInfo: {
           publicCode: testStopLabels.endDateLabel,
           stopPlace: testStopLabels.stopAreaPrivateCode,
@@ -162,9 +162,9 @@ describe('Stop creation tests', mapViewport, () => {
         },
       });
 
-      mapModal.gqlStopShouldBeCreatedSuccessfully();
-      mapModal.checkStopSubmitSuccessToast();
-      mapModal.map.stopPopUp.getCloseButton().click();
+      mapPage.gqlStopShouldBeCreatedSuccessfully();
+      mapPage.checkStopSubmitSuccessToast();
+      mapPage.map.stopPopUp.getCloseButton().click();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -172,7 +172,7 @@ describe('Stop creation tests', mapViewport, () => {
         `Map::Stops::stopMarker::${testStopLabels.endDateLabel}_Standard`,
       ).click();
 
-      mapModal.map.stopPopUp.getEditButton().click();
+      mapPage.map.stopPopUp.getEditButton().click();
 
       changeValidityForm.validityPeriodForm
         .getEndDateInput()
@@ -189,7 +189,7 @@ describe('Stop creation tests', mapViewport, () => {
       defaultCommandTimeout: 10000,
     },
     () => {
-      mapModal.createStopAtLocation({
+      mapPage.createStopAtLocation({
         stopFormInfo: {
           publicCode: testStopLabels.timingPlaceLabel,
           stopPlace: testStopLabels.stopAreaPrivateCode,
@@ -206,9 +206,9 @@ describe('Stop creation tests', mapViewport, () => {
         },
       });
 
-      mapModal.gqlStopShouldBeCreatedSuccessfully();
-      mapModal.checkStopSubmitSuccessToast();
-      mapModal.map.stopPopUp.getCloseButton().click();
+      mapPage.gqlStopShouldBeCreatedSuccessfully();
+      mapPage.checkStopSubmitSuccessToast();
+      mapPage.map.stopPopUp.getCloseButton().click();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -216,9 +216,9 @@ describe('Stop creation tests', mapViewport, () => {
         `Map::Stops::stopMarker::${testStopLabels.timingPlaceLabel}_Standard`,
       ).click();
 
-      mapModal.map.stopPopUp.getEditButton().click();
+      mapPage.map.stopPopUp.getEditButton().click();
 
-      mapModal.stopForm
+      mapPage.stopForm
         .getTimingPlaceDropdown()
         .should('contain', timingPlaces[0].label);
     },
@@ -228,20 +228,20 @@ describe('Stop creation tests', mapViewport, () => {
     'Should create stop and have its stop registry details correctly',
     { tags: [Tag.Map, Tag.Stops, Tag.StopRegistry], scrollBehavior: 'bottom' },
     () => {
-      mapModal.mapFooter.addStop();
-      mapModal.map.clickRelativePoint(40, 55);
+      mapPage.mapFooter.addStop();
+      mapPage.map.clickRelativePoint(40, 55);
 
-      mapModal.stopForm.fillFormForNewStop({
+      mapPage.stopForm.fillFormForNewStop({
         publicCode: 'T0001',
         stopPlace: testStopLabels.stopAreaPrivateCode,
         validityStartISODate: '2022-01-01',
         priority: Priority.Standard,
       });
 
-      mapModal.stopForm.save();
+      mapPage.stopForm.save();
 
-      mapModal.checkStopSubmitSuccessToast();
-      mapModal.getCloseButton().click();
+      mapPage.checkStopSubmitSuccessToast();
+      mapPage.getCloseButton().click();
 
       navbar.getStopsLink().click();
 
@@ -264,37 +264,37 @@ describe('Stop creation tests', mapViewport, () => {
     { tags: [Tag.Map, Tag.Stops, Tag.Smoke], scrollBehavior: 'bottom' },
     () => {
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapModal.map.waitForLoadToComplete();
+      mapPage.map.waitForLoadToComplete();
 
-      mapModal.map.getStopAreaById(testStopLabels.stopAreaPrivateCode).click();
-      mapModal.stopAreaPopup
+      mapPage.map.getStopAreaById(testStopLabels.stopAreaPrivateCode).click();
+      mapPage.stopAreaPopup
         .getLabel()
         .shouldBeVisible()
         .shouldHaveText(
           `${testStopLabels.stopAreaPrivateCode} ${testStopLabels.stopAreaName}`,
         );
 
-      mapModal.stopAreaPopup.getAddStopButton().click();
-      mapModal.stopAreaPopup.getLabel().should('not.exist');
+      mapPage.stopAreaPopup.getAddStopButton().click();
+      mapPage.stopAreaPopup.getLabel().should('not.exist');
 
-      mapModal.map.clickRelativePoint(40, 55);
+      mapPage.map.clickRelativePoint(40, 55);
 
-      mapModal.stopForm
+      mapPage.stopForm
         .getStopAreaInput()
         .shouldBeDisabled()
         .and('have.value', testStopLabels.stopAreaName);
 
-      mapModal.stopForm.fillFormForNewStop({
+      mapPage.stopForm.fillFormForNewStop({
         publicCode: 'H12345',
         validityStartISODate: '2022-01-01',
         priority: Priority.Standard,
       });
 
-      mapModal.stopForm.save();
-      mapModal.gqlStopShouldBeCreatedSuccessfully();
-      mapModal.checkStopSubmitSuccessToast();
+      mapPage.stopForm.save();
+      mapPage.gqlStopShouldBeCreatedSuccessfully();
+      mapPage.checkStopSubmitSuccessToast();
 
-      mapModal.map.stopPopUp.getLabel().shouldBeVisible();
+      mapPage.map.stopPopUp.getLabel().shouldBeVisible();
     },
   );
 
@@ -302,11 +302,11 @@ describe('Stop creation tests', mapViewport, () => {
     'should automatically recommend proper Public Code',
     { tags: [Tag.Map, Tag.Stops, Tag.StopRegistry], scrollBehavior: 'bottom' },
     () => {
-      const { stopForm: form } = mapModal;
+      const { stopForm: form } = mapPage;
 
       // Add 1st stop
-      mapModal.mapFooter.addStop();
-      mapModal.map.clickRelativePoint(40, 55);
+      mapPage.mapFooter.addStop();
+      mapPage.map.clickRelativePoint(40, 55);
 
       form.getPublicCodePrefixMissmatchWarning().should('not.exist');
 
@@ -317,12 +317,12 @@ describe('Stop creation tests', mapViewport, () => {
         priority: Priority.Standard,
       });
       form.save();
-      mapModal.checkStopSubmitSuccessToast();
-      mapModal.map.stopPopUp.getCloseButton().click();
+      mapPage.checkStopSubmitSuccessToast();
+      mapPage.map.stopPopUp.getCloseButton().click();
 
       // Add another stop close to the 1st one
-      mapModal.mapFooter.addStop();
-      mapModal.map.clickRelativePoint(42, 57);
+      mapPage.mapFooter.addStop();
+      mapPage.map.clickRelativePoint(42, 57);
 
       form.getPublicCodeCandidate('H1235').should('exist');
       form.getPublicCodeCandidate('H0001').should('exist');
@@ -340,7 +340,7 @@ describe('Stop creation tests', mapViewport, () => {
       form.getPublicCodeInput().clearAndType('H1235');
       form.getPublicCodePrefixMissmatchWarning().should('not.exist');
       form.save();
-      mapModal.checkStopSubmitSuccessToast();
+      mapPage.checkStopSubmitSuccessToast();
     },
   );
 });
