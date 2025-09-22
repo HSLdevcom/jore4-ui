@@ -14,7 +14,7 @@ export * from './LineRouteList';
 export * from './Map';
 export * from './MapFooter';
 export * from './MapItemTypeFiltersOverlay';
-export * from './MapModal';
+export * from './MapPage';
 export * from './MapObservationDateFiltersOverlay';
 export * from './Navbar';
 export * from './NavigationBlockedDialog';

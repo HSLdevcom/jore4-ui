@@ -16,7 +16,7 @@ import {
   ConfirmationDialog,
   FilterPanel,
   Map,
-  MapModal,
+  MapPage,
   NavigationBlockedDialog,
   StopForm,
   Toast,
@@ -348,7 +348,7 @@ describe('Stop editing tests', () => {
     'Should warn about unsaved forms',
     { tags: Tag.Stops, scrollBehavior: 'bottom' },
     () => {
-      const mapModal = new MapModal();
+      const mapPage = new MapPage();
       const navBlock = new NavigationBlockedDialog();
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -389,14 +389,14 @@ describe('Stop editing tests', () => {
       navBlock.getResetButton().click();
       navBlock.getTitle().should('not.exist');
 
-      mapModal.getCloseButton().click();
+      mapPage.getCloseButton().click();
       navBlock
         .getTitle()
         .shouldBeVisible()
         .shouldHaveText('Hylätäänkö muutokset?');
       navBlock.getProceedButton().click();
       navBlock.getTitle().should('not.exist');
-      mapModal.getCloseButton().should('not.exist');
+      mapPage.getCloseButton().should('not.exist');
     },
   );
 });
