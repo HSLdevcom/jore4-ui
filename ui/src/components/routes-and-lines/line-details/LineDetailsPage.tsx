@@ -2,11 +2,7 @@ import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LineAllFieldsFragment } from '../../../generated/graphql';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useMapQueryParams,
-} from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Column, Container, Row, Visible } from '../../../layoutComponents';
 import {
   resetMapRouteEditorStateAction,
@@ -34,7 +30,6 @@ export const LineDetailsPage: FC = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
-  const { addMapOpenQueryParameter } = useMapQueryParams();
 
   const { line, lineError } = useGetLineDetails();
 
@@ -43,7 +38,6 @@ export const LineDetailsPage: FC = () => {
   const createRoute = (routeLine: LineAllFieldsFragment) => {
     dispatch(resetMapRouteEditorStateAction());
     dispatch(setLineInfoAction(routeLine));
-    addMapOpenQueryParameter();
   };
 
   const isViaModalOpen = useAppSelector(selectIsViaModalOpen);
