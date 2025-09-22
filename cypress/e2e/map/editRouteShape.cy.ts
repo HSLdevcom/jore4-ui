@@ -12,7 +12,7 @@ import { Tag } from '../../enums';
 import {
   Map,
   MapFooter,
-  MapModal,
+  MapPage,
   RouteEditor,
   RoutesAndLinesPage,
   SearchResultsPage,
@@ -28,7 +28,7 @@ describe('Edit route geometry', mapViewport, () => {
   let routeEditor: RouteEditor;
   let searchResultsPage: SearchResultsPage;
   let routesAndLinesPage: RoutesAndLinesPage;
-  let mapModal: MapModal;
+  let mapPage: MapPage;
   let mapFooter: MapFooter;
 
   let dbResources: SupportedResources;
@@ -61,7 +61,7 @@ describe('Edit route geometry', mapViewport, () => {
     routeEditor = new RouteEditor();
     searchResultsPage = new SearchResultsPage();
     routesAndLinesPage = new RoutesAndLinesPage();
-    mapModal = new MapModal();
+    mapPage = new MapPage();
     mapFooter = new MapFooter();
 
     cy.setupTests();
@@ -94,24 +94,24 @@ describe('Edit route geometry', mapViewport, () => {
       ]);
 
       mapFooter.editRoute();
-      mapModal.map.getLoader().should('exist');
-      mapModal.map.getLoader().should('not.exist');
+      mapPage.map.getLoader().should('exist');
+      mapPage.map.getLoader().should('not.exist');
 
-      mapModal.map.moveRouteEditorHandle({
+      mapPage.map.moveRouteEditorHandle({
         start: { x: 776, y: 272 },
         destination: { x: 639, y: 419 },
       });
 
-      mapModal.map.getLoader().should('exist');
-      mapModal.map.getLoader().should('not.exist');
+      mapPage.map.getLoader().should('exist');
+      mapPage.map.getLoader().should('not.exist');
 
-      mapModal.map.moveRouteEditorHandle({
+      mapPage.map.moveRouteEditorHandle({
         start: { x: 616, y: 272 },
         destination: { x: 580, y: 400 },
       });
 
-      mapModal.map.getLoader().should('exist');
-      mapModal.map.getLoader().should('not.exist');
+      mapPage.map.getLoader().should('exist');
+      mapPage.map.getLoader().should('not.exist');
 
       mapFooter.save();
 
@@ -145,7 +145,7 @@ describe('Edit route geometry', mapViewport, () => {
       });
 
       mapFooter.getCreateRouteButton().click();
-      mapModal.routePropertiesForm.fillRouteProperties({
+      mapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Template route',
         label: '902',
         line: '901',
@@ -164,41 +164,41 @@ describe('Edit route geometry', mapViewport, () => {
         },
       });
 
-      mapModal.routePropertiesForm.getUseTemplateRouteButton().click();
-      mapModal.routePropertiesForm.templateRouteSelector.fillForm({
+      mapPage.routePropertiesForm.getUseTemplateRouteButton().click();
+      mapPage.routePropertiesForm.templateRouteSelector.fillForm({
         label: '901',
       });
 
-      mapModal.routePropertiesForm.changeValidityForm.setPriority(
+      mapPage.routePropertiesForm.changeValidityForm.setPriority(
         Priority.Standard,
       );
 
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
+      mapPage.routePropertiesForm.changeValidityForm.validityPeriodForm.setStartDate(
         '2022-08-11',
       );
-      mapModal.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
+      mapPage.routePropertiesForm.changeValidityForm.validityPeriodForm.setEndDate(
         '2032-08-11',
       );
-      mapModal.editRouteModal.save();
-      mapModal.map.getLoader().should('exist');
-      mapModal.map.getLoader().should('not.exist');
+      mapPage.editRouteModal.save();
+      mapPage.map.getLoader().should('exist');
+      mapPage.map.getLoader().should('not.exist');
 
       // Move the two handles so that E2E002 should not be included in the route.
-      mapModal.map.moveRouteEditorHandle({
+      mapPage.map.moveRouteEditorHandle({
         start: { x: 1672, y: 235 },
         destination: { x: 1619, y: 382 },
       });
 
-      mapModal.map.getLoader().should('exist');
-      mapModal.map.getLoader().should('not.exist');
+      mapPage.map.getLoader().should('exist');
+      mapPage.map.getLoader().should('not.exist');
 
-      mapModal.map.moveRouteEditorHandle({
+      mapPage.map.moveRouteEditorHandle({
         start: { x: 1516, y: 235 },
         destination: { x: 1483, y: 385 },
       });
 
-      mapModal.map.getLoader().should('exist');
-      mapModal.map.getLoader().should('not.exist');
+      mapPage.map.getLoader().should('exist');
+      mapPage.map.getLoader().should('not.exist');
 
       // Wait until the unwanted stops have actually disapeared from the listing.
       routeStopsOverlay.stopsShouldNotBeIncludedInRoute(['E2E002', 'E2E007']);

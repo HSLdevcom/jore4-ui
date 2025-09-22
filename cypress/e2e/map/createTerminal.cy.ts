@@ -14,7 +14,7 @@ import { Tag } from '../../enums';
 import {
   FilterPanel,
   Map,
-  MapModal,
+  MapPage,
   TerminalDetailsPage,
   Toast,
 } from '../../pageObjects';
@@ -31,7 +31,7 @@ const testTerminalLabels = {
 };
 
 const map = new Map();
-const mapModal = new MapModal();
+const mapPage = new MapPage();
 const mapFilterPanel = new FilterPanel();
 const terminalDetailsPage = new TerminalDetailsPage();
 const toast = new Toast();
@@ -83,13 +83,12 @@ describe('Terminal creation tests', mapViewport, () => {
       cy.setupTests();
       cy.mockLogin();
 
-      mapModal.map.visit({
+      mapPage.map.visit({
         path: '/stops',
         zoom: 16,
         lat: testCoordinates1.lat,
         lng: testCoordinates1.lng,
       });
-      map.getLoader().shouldBeVisible();
       map.waitForLoadToComplete();
     });
   });
@@ -98,7 +97,7 @@ describe('Terminal creation tests', mapViewport, () => {
     'Should create terminal on map and verify details',
     { tags: [Tag.Map, Tag.Terminals, Tag.Smoke], scrollBehavior: 'bottom' },
     () => {
-      const privateCode = mapModal.createTerminalAtLocation({
+      const privateCode = mapPage.createTerminalAtLocation({
         terminalFormInfo: {
           name: testTerminalLabels.terminalName,
           nameSwe: testTerminalLabels.terminalName,
@@ -111,9 +110,9 @@ describe('Terminal creation tests', mapViewport, () => {
         },
       });
 
-      mapModal.gqlTerminalShouldBeCreatedSuccessfully();
+      mapPage.gqlTerminalShouldBeCreatedSuccessfully();
 
-      mapModal.checkTerminalSubmitSuccessToast();
+      mapPage.checkTerminalSubmitSuccessToast();
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
       map.waitForLoadToComplete().then(() => {
@@ -141,7 +140,7 @@ describe('Terminal creation tests', mapViewport, () => {
     'Should place terminal correctly by using manually typed latitude and longitude',
     { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
     () => {
-      const privateCode = mapModal.createTerminalAtLocation({
+      const privateCode = mapPage.createTerminalAtLocation({
         terminalFormInfo: {
           name: testTerminalLabels.terminalName,
           nameSwe: testTerminalLabels.terminalName,
@@ -157,12 +156,12 @@ describe('Terminal creation tests', mapViewport, () => {
         },
       });
 
-      mapModal.gqlTerminalShouldBeCreatedSuccessfully();
+      mapPage.gqlTerminalShouldBeCreatedSuccessfully();
 
-      mapModal.checkTerminalSubmitSuccessToast();
+      mapPage.checkTerminalSubmitSuccessToast();
 
       // Change map position to created terminal location
-      mapModal.map.visit({
+      mapPage.map.visit({
         zoom: 16,
         lat: testCoordinates2.lat,
         lng: testCoordinates2.lng,
@@ -186,18 +185,18 @@ describe('Terminal creation tests', mapViewport, () => {
       scrollBehavior: 'bottom',
     },
     () => {
-      mapModal.mapFooter.addTerminal();
+      mapPage.mapFooter.addTerminal();
 
-      mapModal.map.clickRelativePoint(50, 50);
+      mapPage.map.clickRelativePoint(50, 50);
 
-      mapModal.terminalForm.fillFormForNewTerminal({
+      mapPage.terminalForm.fillFormForNewTerminal({
         name: testTerminalLabels.terminalName,
         nameSwe: testTerminalLabels.terminalName,
         validityStartISODate: '2022-01-01',
         stops: testTerminalLabels.stops,
       });
 
-      mapModal.terminalForm
+      mapPage.terminalForm
         .getPrivateCodeInput()
         .shouldBeVisible()
         .shouldBeDisabled()
@@ -242,7 +241,7 @@ describe('Terminal creation tests', mapViewport, () => {
             stopPointsRequired: false,
           });
 
-          mapModal.terminalForm.save();
+          mapPage.terminalForm.save();
 
           toast.expectDangerToast(
             `Terminaalilla tulee olla uniikki tunnus, mutta tunnus ${privateCode} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!`,

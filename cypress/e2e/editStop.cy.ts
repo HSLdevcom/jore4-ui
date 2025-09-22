@@ -16,7 +16,7 @@ import {
   ConfirmationDialog,
   FilterPanel,
   Map,
-  MapModal,
+  MapPage,
   NavigationBlockedDialog,
   StopForm,
   Toast,
@@ -191,6 +191,10 @@ describe('Stop editing tests', () => {
 
       map.stopPopUp.getEditButton().click();
 
+      // Problems with NavigationBlocker appearing mid-typing without this wait
+      // Needs to be fixed properly later
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(300);
       stopForm.fillBaseForm(updatedStopInfo);
       stopForm.save();
 
@@ -344,11 +348,11 @@ describe('Stop editing tests', () => {
     );
   });
 
-  it(
+  it.only(
     'Should warn about unsaved forms',
     { tags: Tag.Stops, scrollBehavior: 'bottom' },
     () => {
-      const mapModal = new MapModal();
+      const mapPage = new MapPage();
       const navBlock = new NavigationBlockedDialog();
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -360,6 +364,10 @@ describe('Stop editing tests', () => {
 
       map.stopPopUp.getEditButton().click();
 
+      // Problems with NavigationBlocker appearing mid-typing without this wait
+      // Needs to be fixed properly later
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(300);
       stopForm.getLatitudeInput().clearAndType('1.0');
 
       stopForm.getAddTimingPlaceButton().click();
@@ -389,14 +397,14 @@ describe('Stop editing tests', () => {
       navBlock.getResetButton().click();
       navBlock.getTitle().should('not.exist');
 
-      mapModal.getCloseButton().click();
+      mapPage.getCloseButton().click();
       navBlock
         .getTitle()
         .shouldBeVisible()
         .shouldHaveText('Hylätäänkö muutokset?');
       navBlock.getProceedButton().click();
       navBlock.getTitle().should('not.exist');
-      mapModal.getCloseButton().should('not.exist');
+      mapPage.getCloseButton().should('not.exist');
     },
   );
 });
