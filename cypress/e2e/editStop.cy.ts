@@ -16,7 +16,7 @@ import {
   ConfirmationDialog,
   FilterPanel,
   Map,
-  MapModal,
+  MapPage,
   NavigationBlockedDialog,
   StopForm,
   Toast,
@@ -80,7 +80,6 @@ describe('Stop editing tests', () => {
       cy.setupTests();
       cy.mockLogin();
       map.visit({
-        path: '/stops',
         // Zoom in so that the stops are not shown on top of each other
         zoom: 16,
         lat: testCoordinates1.lat,
@@ -95,8 +94,8 @@ describe('Stop editing tests', () => {
     () => {
       // Coordinates for the point where the stop is moved in the test.
       const endCoordinates = {
-        lng: 24.93892259957684,
-        lat: 60.1657872112159,
+        lng: 24.93892259957707,
+        lat: 60.16576852992367,
       };
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
@@ -191,6 +190,10 @@ describe('Stop editing tests', () => {
 
       map.stopPopUp.getEditButton().click();
 
+      // Problems with NavigationBlocker appearing mid-typing without this wait
+      // Needs to be fixed properly later
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(300);
       stopForm.fillBaseForm(updatedStopInfo);
       stopForm.save();
 
@@ -299,6 +302,10 @@ describe('Stop editing tests', () => {
 
     map.stopPopUp.getEditButton().click();
 
+    // Problems with NavigationBlocker appearing mid-typing without this wait
+    // Needs to be fixed properly later
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(300);
     stopForm.fillBaseForm({
       validityStartISODate: '2024-01-01',
       validityEndISODate: '2029-12-31',
@@ -327,6 +334,10 @@ describe('Stop editing tests', () => {
 
     map.stopPopUp.getEditButton().click();
 
+    // Problems with NavigationBlocker appearing mid-typing without this wait
+    // Needs to be fixed properly later
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(300);
     stopForm.fillBaseForm({
       validityStartISODate: '2024-01-01',
       validityEndISODate: '2029-12-31',
@@ -348,7 +359,7 @@ describe('Stop editing tests', () => {
     'Should warn about unsaved forms',
     { tags: Tag.Stops, scrollBehavior: 'bottom' },
     () => {
-      const mapModal = new MapModal();
+      const mapPage = new MapPage();
       const navBlock = new NavigationBlockedDialog();
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
@@ -360,6 +371,10 @@ describe('Stop editing tests', () => {
 
       map.stopPopUp.getEditButton().click();
 
+      // Problems with NavigationBlocker appearing mid-typing without this wait
+      // Needs to be fixed properly later
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(300);
       stopForm.getLatitudeInput().clearAndType('1.0');
 
       stopForm.getAddTimingPlaceButton().click();
@@ -389,14 +404,14 @@ describe('Stop editing tests', () => {
       navBlock.getResetButton().click();
       navBlock.getTitle().should('not.exist');
 
-      mapModal.getCloseButton().click();
+      mapPage.getCloseButton().click();
       navBlock
         .getTitle()
         .shouldBeVisible()
         .shouldHaveText('Hylätäänkö muutokset?');
       navBlock.getProceedButton().click();
       navBlock.getTitle().should('not.exist');
-      mapModal.getCloseButton().should('not.exist');
+      mapPage.getCloseButton().should('not.exist');
     },
   );
 });

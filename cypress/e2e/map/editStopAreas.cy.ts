@@ -10,7 +10,7 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
-import { ConfirmationDialog, MapModal, Toast } from '../../pageObjects';
+import { ConfirmationDialog, MapPage, Toast } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import {
@@ -76,71 +76,70 @@ describe('Stop areas on map', mapViewport, () => {
     cy.mockLogin();
   });
 
-  const mapModal = new MapModal();
+  const mapPage = new MapPage();
   const confirmationDialog = new ConfirmationDialog();
   const toast = new Toast();
 
   beforeEach(() => {
-    mapModal.map.visit({
+    mapPage.map.visit({
       zoom: 17,
       lat: 60.16596,
       lng: 24.93858,
-      path: '/stops',
     });
 
     expectGraphQLCallToSucceed('@gqlGetStopAreasByLocation');
-    mapModal.map.waitForLoadToComplete();
+    mapPage.map.waitForLoadToComplete();
   });
 
   it('should create new stop area', () => {
-    mapModal.mapFooter.mapFooterActionsDropdown.getMenu().click();
-    mapModal.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
+    mapPage.mapFooter.mapFooterActionsDropdown.getMenu().click();
+    mapPage.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
 
-    mapModal.map.clickAtPosition(758, 391);
+    mapPage.map.clickAtPosition(758, 391);
 
-    mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm
+    mapPage.stopAreaForm.getForm().shouldBeVisible();
+    mapPage.stopAreaForm
       .getPrivateCode()
       .shouldBeVisible()
       .shouldBeDisabled()
       .should('have.value', '700001');
-    mapModal.stopAreaForm.getName().type('Annankatu 2');
-    mapModal.stopAreaForm.getShowHideButton().click();
-    mapModal.stopAreaForm.getNameSwe().type('Annasgatan 2');
-    mapModal.stopAreaForm.getNameLongFin().type('Pitkä fin');
-    mapModal.stopAreaForm.getNameLongSwe().type('Pitkä swe');
-    mapModal.stopAreaForm.getAbbreviationFin().type('Lyhyt fin');
-    mapModal.stopAreaForm.getAbbreviationSwe().type('Lyhyt swe');
-    mapModal.stopAreaForm.getShowHideEngButton().click();
-    mapModal.stopAreaForm.getNameEng().type('Annas street 2');
-    mapModal.stopAreaForm.getNameLongEng().type('Pitkä eng');
-    mapModal.stopAreaForm.getAbbreviationEng().type('Lyhyt eng');
-    mapModal.stopAreaForm
+    mapPage.stopAreaForm.getName().type('Annankatu 2');
+    mapPage.stopAreaForm.getShowHideButton().click();
+    mapPage.stopAreaForm.getNameSwe().type('Annasgatan 2');
+    mapPage.stopAreaForm.getNameLongFin().type('Pitkä fin');
+    mapPage.stopAreaForm.getNameLongSwe().type('Pitkä swe');
+    mapPage.stopAreaForm.getAbbreviationFin().type('Lyhyt fin');
+    mapPage.stopAreaForm.getAbbreviationSwe().type('Lyhyt swe');
+    mapPage.stopAreaForm.getShowHideEngButton().click();
+    mapPage.stopAreaForm.getNameEng().type('Annas street 2');
+    mapPage.stopAreaForm.getNameLongEng().type('Pitkä eng');
+    mapPage.stopAreaForm.getAbbreviationEng().type('Lyhyt eng');
+    mapPage.stopAreaForm
       .getLatitude()
       .should('have.prop', 'value')
       .should('not.be.empty');
-    mapModal.stopAreaForm
+    mapPage.stopAreaForm
       .getLongitude()
       .should('have.prop', 'value')
       .should('not.be.empty');
-    mapModal.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
-    mapModal.stopAreaForm.validityPeriodForm
+    mapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
+    mapPage.stopAreaForm.validityPeriodForm
       .getIndefiniteCheckbox()
       .should('be.checked');
 
-    mapModal.stopAreaForm.save();
+    mapPage.stopAreaForm.save();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-    mapModal.stopAreaForm.getForm().should('not.exist');
+    mapPage.stopAreaForm.getForm().should('not.exist');
 
-    mapModal.map.waitForLoadToComplete();
+    mapPage.map.waitForLoadToComplete();
 
     // Check that the stop area got created.
     cy.get('[data-testid="Map::StopArea::stopArea::700001"]').click();
-    mapModal.stopAreaPopup
+    mapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('700001 Annankatu 2');
-    mapModal.stopAreaPopup
+    mapPage.stopAreaPopup
       .getValidityPeriod()
       .shouldHaveText('23.1.2020 -  Voimassa toistaiseksi');
 
@@ -148,22 +147,22 @@ describe('Stop areas on map', mapViewport, () => {
   });
 
   it('should handle unique private code exception', () => {
-    mapModal.mapFooter.mapFooterActionsDropdown.getMenu().click();
-    mapModal.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
+    mapPage.mapFooter.mapFooterActionsDropdown.getMenu().click();
+    mapPage.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
 
-    mapModal.map.clickAtPosition(758, 391);
+    mapPage.map.clickAtPosition(758, 391);
 
-    mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm
+    mapPage.stopAreaForm.getForm().shouldBeVisible();
+    mapPage.stopAreaForm
       .getPrivateCode()
       .shouldBeVisible()
       .shouldBeDisabled()
       .should('have.value', '700001');
-    mapModal.stopAreaForm.getName().type('Name does not matter');
-    mapModal.stopAreaForm.getShowHideButton().click();
-    mapModal.stopAreaForm.getNameSwe().type('This must not be empty');
-    mapModal.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
-    mapModal.stopAreaForm.validityPeriodForm
+    mapPage.stopAreaForm.getName().type('Name does not matter');
+    mapPage.stopAreaForm.getShowHideButton().click();
+    mapPage.stopAreaForm.getNameSwe().type('This must not be empty');
+    mapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
+    mapPage.stopAreaForm.validityPeriodForm
       .getIndefiniteCheckbox()
       .should('be.checked');
 
@@ -182,7 +181,7 @@ describe('Stop areas on map', mapViewport, () => {
       stopPointsRequired: false,
     });
 
-    mapModal.stopAreaForm.save();
+    mapPage.stopAreaForm.save();
 
     toast.expectDangerToast(
       'Pysäkkialueella tulee olla uniikki tunnus, mutta tunnus 700001 on jo jonkin toisen alueen käytössä!',
@@ -191,61 +190,61 @@ describe('Stop areas on map', mapViewport, () => {
   });
 
   it('should edit stop area details', () => {
-    mapModal.map.getStopAreaById('X0003').click();
+    mapPage.map.getStopAreaById('X0003').click();
 
-    mapModal.map.waitForLoadToComplete();
+    mapPage.map.waitForLoadToComplete();
 
-    mapModal.stopAreaPopup
+    mapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('X0003 Annankatu 15');
 
-    mapModal.stopAreaPopup.getEditButton().click();
-    mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm.getPrivateCode().shouldBeVisible().shouldBeDisabled();
-    mapModal.stopAreaForm.validityPeriodForm.setAsIndefinite();
+    mapPage.stopAreaPopup.getEditButton().click();
+    mapPage.stopAreaForm.getForm().shouldBeVisible();
+    mapPage.stopAreaForm.getPrivateCode().shouldBeVisible().shouldBeDisabled();
+    mapPage.stopAreaForm.validityPeriodForm.setAsIndefinite();
 
-    mapModal.stopAreaForm.save();
+    mapPage.stopAreaForm.save();
 
     confirmationDialog.getConfirmButton().click();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-    mapModal.stopAreaForm.getForm().should('not.exist');
+    mapPage.stopAreaForm.getForm().should('not.exist');
 
     // Check that edited info was persisted.
-    mapModal.map.getStopAreaById('X0003').click();
+    mapPage.map.getStopAreaById('X0003').click();
 
-    mapModal.stopAreaPopup
+    mapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('X0003 Annankatu 15');
-    mapModal.stopAreaPopup
+    mapPage.stopAreaPopup
       .getValidityPeriod()
       .shouldHaveText('1.1.2000 -  Voimassa toistaiseksi');
-    mapModal.stopAreaPopup.getEditButton().click();
+    mapPage.stopAreaPopup.getEditButton().click();
   });
 
   it('should relocate stop area on map', () => {
-    mapModal.map.clickAtPosition(1025, 731);
-    mapModal.map.waitForLoadToComplete();
+    mapPage.map.clickAtPosition(1025, 731);
+    mapPage.map.waitForLoadToComplete();
 
-    mapModal.stopAreaPopup.getMoveButton().click();
-    mapModal.stopAreaPopup.getLabel().should('not.exist');
+    mapPage.stopAreaPopup.getMoveButton().click();
+    mapPage.stopAreaPopup.getLabel().should('not.exist');
 
-    mapModal.map.clickAtPosition(1180, 500);
+    mapPage.map.clickAtPosition(1180, 500);
 
     confirmationDialog.getConfirmButton().click();
-    mapModal.map.waitForLoadToComplete();
+    mapPage.map.waitForLoadToComplete();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-    mapModal.stopAreaPopup.getLabel().shouldBeVisible();
-    mapModal.stopAreaPopup.getCloseButton().click();
-    mapModal.stopAreaPopup.getLabel().should('not.exist');
+    mapPage.stopAreaPopup.getLabel().shouldBeVisible();
+    mapPage.stopAreaPopup.getCloseButton().click();
+    mapPage.stopAreaPopup.getLabel().should('not.exist');
 
     // There should be nothing at the old position.
-    mapModal.map.clickAtPosition(1025, 731);
-    mapModal.stopAreaPopup.getLabel().should('not.exist');
+    mapPage.map.clickAtPosition(1025, 731);
+    mapPage.stopAreaPopup.getLabel().should('not.exist');
 
-    mapModal.map.clickAtPosition(1180, 500);
-    mapModal.stopAreaPopup
+    mapPage.map.clickAtPosition(1180, 500);
+    mapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
       .shouldHaveText('X0003 Annankatu 15');
@@ -253,49 +252,49 @@ describe('Stop areas on map', mapViewport, () => {
 
   it('should delete a stop area', () => {
     // Create a stop area without stops
-    mapModal.mapFooter.mapFooterActionsDropdown.getMenu().click();
-    mapModal.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
+    mapPage.mapFooter.mapFooterActionsDropdown.getMenu().click();
+    mapPage.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
 
-    mapModal.map.clickAtPosition(758, 391);
+    mapPage.map.clickAtPosition(758, 391);
 
-    mapModal.stopAreaForm.getForm().shouldBeVisible();
-    mapModal.stopAreaForm.getName().type('Annankatu 2');
-    mapModal.stopAreaForm.getShowHideButton().click();
-    mapModal.stopAreaForm.getNameSwe().type('Annasgatan 2');
-    mapModal.stopAreaForm
+    mapPage.stopAreaForm.getForm().shouldBeVisible();
+    mapPage.stopAreaForm.getName().type('Annankatu 2');
+    mapPage.stopAreaForm.getShowHideButton().click();
+    mapPage.stopAreaForm.getNameSwe().type('Annasgatan 2');
+    mapPage.stopAreaForm
       .getLatitude()
       .should('have.prop', 'value')
       .should('not.be.empty');
-    mapModal.stopAreaForm
+    mapPage.stopAreaForm
       .getLongitude()
       .should('have.prop', 'value')
       .should('not.be.empty');
-    mapModal.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
-    mapModal.stopAreaForm.validityPeriodForm
+    mapPage.stopAreaForm.validityPeriodForm.setStartDate('2020-01-23');
+    mapPage.stopAreaForm.validityPeriodForm
       .getIndefiniteCheckbox()
       .should('be.checked');
 
-    mapModal.stopAreaForm.save();
+    mapPage.stopAreaForm.save();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
-    mapModal.stopAreaForm.getForm().should('not.exist');
-    mapModal.map.waitForLoadToComplete();
+    mapPage.stopAreaForm.getForm().should('not.exist');
+    mapPage.map.waitForLoadToComplete();
 
     // Delete it
     cy.get('[data-testid="Map::StopArea::stopArea::700001"]').click();
-    mapModal.stopAreaPopup.getDeleteButton().click();
+    mapPage.stopAreaPopup.getDeleteButton().click();
     confirmationDialog.getConfirmButton().click();
-    mapModal.map.waitForLoadToComplete();
-    mapModal.stopAreaPopup.getLabel().should('not.exist');
+    mapPage.map.waitForLoadToComplete();
+    mapPage.stopAreaPopup.getLabel().should('not.exist');
 
     // There should be nothing at the old position.
-    mapModal.map.clickAtPosition(1025, 731);
-    mapModal.stopAreaPopup.getLabel().should('not.exist');
+    mapPage.map.clickAtPosition(1025, 731);
+    mapPage.stopAreaPopup.getLabel().should('not.exist');
 
     // should only have cancel-button because it has stops in it
-    mapModal.map.clickAtPosition(1025, 731);
-    mapModal.map.waitForLoadToComplete();
+    mapPage.map.clickAtPosition(1025, 731);
+    mapPage.map.waitForLoadToComplete();
 
-    mapModal.stopAreaPopup.getDeleteButton().click();
+    mapPage.stopAreaPopup.getDeleteButton().click();
     confirmationDialog.getConfirmButton().should('not.exist');
     confirmationDialog.getCancelButton().click();
   });
