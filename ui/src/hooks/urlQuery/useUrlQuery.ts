@@ -7,7 +7,6 @@ import { parseDate } from '../../time';
 import { Priority } from '../../types/enums';
 
 export enum QueryParameterName {
-  MapOpen = 'mapOpen',
   Longitude = 'lng',
   Latitude = 'lat',
   Zoom = 'z',
