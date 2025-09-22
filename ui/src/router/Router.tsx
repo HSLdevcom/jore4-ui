@@ -1,3 +1,4 @@
+import compact from 'lodash/compact';
 import {
   FC,
   PropsWithChildren,
@@ -17,7 +18,7 @@ import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
 import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
 import { MainPage } from '../components/main/MainPage';
-import { MapLoader, MapModal } from '../components/map';
+import { MapPage } from '../components/map';
 import { JoreLoader } from '../components/map/JoreLoader';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
@@ -94,15 +95,30 @@ export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
 const Layout: FC = () => {
   return (
     <NavigationBlocker>
-      <Navbar />
       <Outlet />
-      <ProtectedRoute>
-        <MapModal />
-        <MapLoader />
-      </ProtectedRoute>
       <JoreLoader />
       <JoreErrorModal />
     </NavigationBlocker>
+  );
+};
+
+const WithNavigation: FC<PropsWithChildren> = ({ children }) => (
+  <>
+    <Navbar />
+    {children}
+  </>
+);
+
+const WithFooter: FC<PropsWithChildren> = ({ children }) => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      {children}
+      <footer className="mt-6 flex justify-center">
+        <p>{t('version', { version: process.env.NEXT_PUBLIC_GIT_HASH })}</p>
+      </footer>
+    </>
   );
 };
 
@@ -110,6 +126,8 @@ type SimpleJoreRoute = {
   readonly path: PathValue;
   readonly protected?: boolean;
   readonly index?: boolean;
+  readonly hideNav?: boolean;
+  readonly hideFooter?: boolean;
   readonly element: ReactElement;
 };
 
@@ -135,6 +153,13 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
     path: Path.timetables,
     protected: true,
     element: <TimetablesMainPage />,
+  },
+  {
+    path: Path.map,
+    protected: true,
+    hideNav: true,
+    hideFooter: true,
+    element: <MapPage />,
   },
 
   // Route and lines
@@ -240,15 +265,22 @@ function simpleRoutesToRouteObjects(): RouteObject[] {
     {
       path: '/',
       element: <Layout />,
-      children: joreRoutes.map((route) => ({
-        path: route.path,
-        index: route.index,
-        element: route.protected ? (
-          <ProtectedRoute>{route.element}</ProtectedRoute>
-        ) : (
-          route.element
-        ),
-      })),
+      children: joreRoutes.map((route) => {
+        const element = compact([
+          route.protected ? ProtectedRoute : null,
+          route.hideNav ? null : WithNavigation,
+          route.hideFooter ? null : WithFooter,
+        ]).reduce(
+          (children, Wrapper) => <Wrapper>{children}</Wrapper>,
+          route.element,
+        );
+
+        return {
+          path: route.path,
+          index: route.index,
+          element,
+        };
+      }),
     },
   ];
 }
