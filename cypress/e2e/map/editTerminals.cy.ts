@@ -10,13 +10,13 @@ import {
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
-import { ConfirmationDialog, MapModal } from '../../pageObjects';
+import { ConfirmationDialog, MapPage } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 import { mapViewport } from '../utils';
 
-const mapModal = new MapModal();
+const mapPage = new MapPage();
 const confirmationDialog = new ConfirmationDialog();
 
 describe('Terminals on map', mapViewport, () => {
@@ -74,7 +74,7 @@ describe('Terminals on map', mapViewport, () => {
   });
 
   beforeEach(() => {
-    mapModal.map.visit({
+    mapPage.map.visit({
       zoom: 17,
       lat: 60.16993,
       lng: 24.92596,
@@ -82,18 +82,18 @@ describe('Terminals on map', mapViewport, () => {
     });
 
     expectGraphQLCallToSucceed('@gqlGetStopTerminalsByLocation');
-    mapModal.map.waitForLoadToComplete();
+    mapPage.map.waitForLoadToComplete();
   });
 
   it(
     'should edit terminal details',
     { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
     () => {
-      mapModal.map.getTerminalById('T2').click();
+      mapPage.map.getTerminalById('T2').click();
 
-      mapModal.map.waitForLoadToComplete();
+      mapPage.map.waitForLoadToComplete();
 
-      const { terminalPopup, terminalForm } = mapModal;
+      const { terminalPopup, terminalForm } = mapPage;
 
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 E2ET001');
 
@@ -127,11 +127,11 @@ describe('Terminals on map', mapViewport, () => {
     'should move a terminal with form inputs',
     { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
     () => {
-      mapModal.map.getTerminalById('T2').click();
+      mapPage.map.getTerminalById('T2').click();
 
-      mapModal.map.waitForLoadToComplete();
+      mapPage.map.waitForLoadToComplete();
 
-      const { terminalPopup, terminalForm } = mapModal;
+      const { terminalPopup, terminalForm } = mapPage;
 
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 E2ET001');
 
@@ -161,24 +161,24 @@ describe('Terminals on map', mapViewport, () => {
     'should move terminal on map',
     { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
     () => {
-      mapModal.map.visit({
+      mapPage.map.visit({
         zoom: 14,
         lat: 60.16993,
         lng: 24.92596,
         path: '/stops',
       });
 
-      mapModal.map.getTerminalById('T3').click();
+      mapPage.map.getTerminalById('T3').click();
 
-      mapModal.map.waitForLoadToComplete();
+      mapPage.map.waitForLoadToComplete();
 
-      const { terminalPopup, terminalForm } = mapModal;
+      const { terminalPopup, terminalForm } = mapPage;
 
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
       terminalPopup.getMoveButton().click();
 
       // Move the terminal to around Rautatientori
-      mapModal.map.clickRelativePoint(70, 45);
+      mapPage.map.clickRelativePoint(70, 45);
 
       confirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlUpdateTerminal');
@@ -201,11 +201,11 @@ describe('Terminals on map', mapViewport, () => {
     'should delete terminal on map',
     { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
     () => {
-      mapModal.map.getTerminalById('T3').click();
+      mapPage.map.getTerminalById('T3').click();
 
-      mapModal.map.waitForLoadToComplete();
+      mapPage.map.waitForLoadToComplete();
 
-      const { terminalPopup } = mapModal;
+      const { terminalPopup } = mapPage;
 
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T3 E2ET002');
       terminalPopup.getDeleteButton().click();
@@ -219,7 +219,7 @@ describe('Terminals on map', mapViewport, () => {
       expectGraphQLCallToSucceed('@gqlDeleteTerminal');
 
       // Make sure that the terminal is not visible on the map
-      mapModal.map.getTerminalById('T3').should('not.exist');
+      mapPage.map.getTerminalById('T3').should('not.exist');
     },
   );
 });
