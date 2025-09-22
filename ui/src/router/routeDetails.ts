@@ -10,6 +10,7 @@ export const Path = {
   routes: '/routes',
   stopRegistry: '/stop-registry',
   timetables: '/timetables',
+  map: '/map',
 
   // Routes and lines
   routesSearch: '/routes/search',
@@ -115,6 +116,9 @@ export const routeDetails: Readonly<Record<PathValue, RouteDetails>> = {
     getLink: () => Path.timetables,
     translationKey: 'timetables.timetables',
     includeInNav: true,
+  },
+  [Path.map]: {
+    getLink: () => Path.map,
   },
 
   // Routes and lines
