@@ -14,9 +14,9 @@ export const OpenDefaultMapButton = ({
 }: OpenDefaultMapButtonProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { addMapOpenQueryParameter } = useMapQueryParams();
+  const { navigateToMap } = useMapQueryParams();
 
-  const onOpenMapModal = () => {
+  const onOpenMap = () => {
     dispatch(resetMapState());
     /**
      * By default only stops that belong to displayed route are shown on map.
@@ -29,13 +29,13 @@ export const OpenDefaultMapButton = ({
       }),
     );
 
-    addMapOpenQueryParameter();
+    navigateToMap();
   };
 
   return (
     <SimpleButton
       containerClassName={containerClassName}
-      onClick={onOpenMapModal}
+      onClick={onOpenMap}
       testId={testId}
     >
       {t('map.open')}
