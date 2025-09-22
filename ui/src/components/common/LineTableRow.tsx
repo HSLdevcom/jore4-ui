@@ -4,7 +4,7 @@ import { LineTableRowFragment } from '../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { deselectRowAction, selectExport, selectRowAction } from '../../redux';
 import { routeHasTimetables } from '../../utils/route';
-import { useShowRoutesOnModal } from './hooks/useShowRoutesOnModal';
+import { useShowRoutesOnMap } from './hooks/useShowRoutesOnMap';
 import {
   RouteLineTableRow,
   RouteLineTableRowVariant,
@@ -58,7 +58,7 @@ export const LineTableRow: FC<LineTableRowProps> = ({
   isSelectable = false,
   rowVariant,
 }) => {
-  const { showRoutesOnMapByLineLabel } = useShowRoutesOnModal();
+  const { showRoutesOnMapByLineLabel } = useShowRoutesOnMap();
   const dispatch = useAppDispatch();
   const { selectedRows } = useAppSelector(selectExport);
 
