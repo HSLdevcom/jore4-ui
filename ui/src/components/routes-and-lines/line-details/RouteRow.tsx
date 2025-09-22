@@ -21,10 +21,7 @@ import {
   LocatorButton,
 } from '../../../uiComponents';
 import { AlertPopover } from '../../common/AlertPopover';
-import {
-  useAlertsAndHighLights,
-  useShowRoutesOnModal,
-} from '../../common/hooks';
+import { useAlertsAndHighLights, useShowRoutesOnMap } from '../../common/hooks';
 import { RouteLabel } from '../../common/RouteLabel';
 import { DirectionBadge } from './DirectionBadge';
 
@@ -64,7 +61,7 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
   const { t } = useTranslation();
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 
-  const { showRouteOnMap } = useShowRoutesOnModal();
+  const { showRouteOnMap } = useShowRoutesOnMap();
 
   const { getAlertStatus, getAlertStyle } = useAlertsAndHighLights();
   const alertStatus = getAlertStatus(route);

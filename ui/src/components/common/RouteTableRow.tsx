@@ -4,11 +4,11 @@ import { RouteTableRowFragment } from '../../generated/graphql';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { deselectRowAction, selectExport, selectRowAction } from '../../redux';
 import { routeHasTimetables } from '../../utils/route';
-import { useShowRoutesOnModal } from './hooks/useShowRoutesOnModal';
 import {
   RouteLineTableRow,
   RouteLineTableRowVariant,
 } from './RouteLineTableRow';
+import { useShowRoutesOnMap } from './hooks';
 
 const GQL_ROUTE_TABLE_ROW = gql`
   fragment route_table_row on route_route {
@@ -54,7 +54,7 @@ export const RouteTableRow: FC<RouteTableRowProps> = ({
   isSelectable = false,
   rowVariant,
 }) => {
-  const { showRouteOnMap } = useShowRoutesOnModal();
+  const { showRouteOnMap } = useShowRoutesOnMap();
   const dispatch = useAppDispatch();
   const { selectedRows } = useAppSelector(selectExport);
 
