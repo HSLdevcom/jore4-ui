@@ -17,7 +17,7 @@ import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
 import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
 import { MainPage } from '../components/main/MainPage';
-import { MapLoader, MapModal } from '../components/map';
+import { MapLoader, MapPage } from '../components/map';
 import { JoreLoader } from '../components/map/JoreLoader';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
@@ -97,7 +97,6 @@ const Layout: FC = () => {
       <Navbar />
       <Outlet />
       <ProtectedRoute>
-        <MapModal />
         <MapLoader />
       </ProtectedRoute>
       <JoreLoader />
@@ -135,6 +134,11 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
     path: Path.timetables,
     protected: true,
     element: <TimetablesMainPage />,
+  },
+  {
+    path: Path.map,
+    protected: true,
+    element: <MapPage />,
   },
 
   // Route and lines
