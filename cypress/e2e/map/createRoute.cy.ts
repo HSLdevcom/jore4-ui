@@ -10,7 +10,7 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { Tag } from '../../enums';
-import { MapFooter, MapModal, Toast } from '../../pageObjects';
+import { MapFooter, MapPage, Toast } from '../../pageObjects';
 import { FilterPanel } from '../../pageObjects/FilterPanel';
 import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
 import { UUID } from '../../types';
@@ -18,7 +18,7 @@ import { SupportedResources, insertToDbHelper } from '../../utils';
 import { mapViewport } from '../utils';
 
 describe('Route creation', mapViewport, () => {
-  let mapModal: MapModal;
+  let mapPage: MapPage;
   let routeStopsOverlay: RouteStopsOverlay;
   let mapFooter: MapFooter;
   let filterPanel: FilterPanel;
@@ -53,7 +53,7 @@ describe('Route creation', mapViewport, () => {
   beforeEach(() => {
     cy.task('resetDbs');
 
-    mapModal = new MapModal();
+    mapPage = new MapPage();
 
     insertToDbHelper(dbResources);
 
@@ -72,13 +72,13 @@ describe('Route creation', mapViewport, () => {
       scrollBehavior: 'bottom',
     },
     () => {
-      mapModal.map.visit(mapLocation);
+      mapPage.map.visit(mapLocation);
 
       filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapModal.map.waitForLoadToComplete();
+      mapPage.map.waitForLoadToComplete();
 
       mapFooter.getCreateRouteButton().click();
-      mapModal.routePropertiesForm.fillRouteProperties({
+      mapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Test route',
         label: '901Y',
         variant: '56',
@@ -101,22 +101,22 @@ describe('Route creation', mapViewport, () => {
         validityEndISODate: '2025-12-01',
       });
 
-      mapModal.editRouteModal.save();
+      mapPage.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001,
       // (exclude E2E002) E2E003, E2E004 and E2E005
-      mapModal.map.clickAtPosition(1395, 488);
-      mapModal.map.clickAtPosition(1362, 462);
-      mapModal.map.clickAtPosition(1240, 477);
-      mapModal.map.clickAtPosition(1179, 452);
-      mapModal.map.clickAtPosition(1080, 516);
-      mapModal.map.clickAtPosition(1095, 592);
-      mapModal.map.clickAtPosition(991, 657);
+      mapPage.map.clickAtPosition(1395, 488);
+      mapPage.map.clickAtPosition(1362, 462);
+      mapPage.map.clickAtPosition(1240, 477);
+      mapPage.map.clickAtPosition(1179, 452);
+      mapPage.map.clickAtPosition(1080, 516);
+      mapPage.map.clickAtPosition(1095, 592);
+      mapPage.map.clickAtPosition(991, 657);
       // Click the last added node again to finish the route
-      mapModal.map.clickAtPosition(991, 657);
+      mapPage.map.clickAtPosition(991, 657);
 
-      mapModal.map.getLoader().should('exist');
-      mapModal.map.getLoader().should('not.exist');
+      mapPage.map.getLoader().should('exist');
+      mapPage.map.getLoader().should('not.exist');
 
       mapFooter.save();
       toast.expectSuccessToast('Reitti tallennettu');
@@ -150,13 +150,13 @@ describe('Route creation', mapViewport, () => {
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
       const { routeStopsOverlayRow } = routeStopsOverlay;
-      mapModal.map.visit(mapLocation);
+      mapPage.map.visit(mapLocation);
 
       filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapModal.map.waitForLoadToComplete();
+      mapPage.map.waitForLoadToComplete();
 
       mapFooter.getCreateRouteButton().click();
-      mapModal.routePropertiesForm.fillRouteProperties({
+      mapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Test route',
         label: '901X',
         line: '901',
@@ -178,14 +178,14 @@ describe('Route creation', mapViewport, () => {
         validityEndISODate: '2025-12-01',
       });
 
-      mapModal.editRouteModal.save();
+      mapPage.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001 - E2E004
-      mapModal.map.clickAtPosition(1395, 488);
-      mapModal.map.clickAtPosition(1290, 369);
-      mapModal.map.clickAtPosition(1097, 575);
+      mapPage.map.clickAtPosition(1395, 488);
+      mapPage.map.clickAtPosition(1290, 369);
+      mapPage.map.clickAtPosition(1097, 575);
       // Click the last added node again to finish the route
-      mapModal.map.clickAtPosition(1097, 575);
+      mapPage.map.clickAtPosition(1097, 575);
 
       routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
       routeStopsOverlay
@@ -235,13 +235,13 @@ describe('Route creation', mapViewport, () => {
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
       const { routeStopsOverlayRow } = routeStopsOverlay;
-      mapModal.map.visit(mapLocation);
+      mapPage.map.visit(mapLocation);
 
       filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapModal.map.waitForLoadToComplete();
+      mapPage.map.waitForLoadToComplete();
 
       mapFooter.getCreateRouteButton().click();
-      mapModal.routePropertiesForm.fillRouteProperties({
+      mapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Erronous route',
         label: '901F',
         line: '901',
@@ -263,13 +263,13 @@ describe('Route creation', mapViewport, () => {
         validityEndISODate: '2025-12-01',
       });
 
-      mapModal.editRouteModal.save();
+      mapPage.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001 and E2E002
-      mapModal.map.clickAtPosition(1395, 488);
-      mapModal.map.clickAtPosition(1290, 369);
+      mapPage.map.clickAtPosition(1395, 488);
+      mapPage.map.clickAtPosition(1290, 369);
       // Click the last added node again to finish the route
-      mapModal.map.clickAtPosition(1290, 369);
+      mapPage.map.clickAtPosition(1290, 369);
 
       routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 2);
       routeStopsOverlay
@@ -299,13 +299,13 @@ describe('Route creation', mapViewport, () => {
     'Should create new route with an indefinite validity end date',
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
-      mapModal.map.visit(mapLocation);
+      mapPage.map.visit(mapLocation);
 
       filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapModal.map.waitForLoadToComplete();
+      mapPage.map.waitForLoadToComplete();
 
       mapFooter.getCreateRouteButton().click();
-      mapModal.routePropertiesForm.fillRouteProperties({
+      mapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Indefinite end time route',
         label: '901I',
         line: '901',
@@ -327,17 +327,17 @@ describe('Route creation', mapViewport, () => {
         validityEndISODate: undefined, // == indefinite
       });
 
-      mapModal.editRouteModal.save();
+      mapPage.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001
       // and E2E002
-      mapModal.map.clickAtPosition(1395, 488);
-      mapModal.map.clickAtPosition(1290, 369);
+      mapPage.map.clickAtPosition(1395, 488);
+      mapPage.map.clickAtPosition(1290, 369);
       // Click the last added node again to finish the route
-      mapModal.map.clickAtPosition(1290, 369);
+      mapPage.map.clickAtPosition(1290, 369);
 
-      mapModal.map.getLoader().should('exist');
-      mapModal.map.getLoader().should('not.exist');
+      mapPage.map.getLoader().should('exist');
+      mapPage.map.getLoader().should('not.exist');
 
       mapFooter.save();
       toast.expectSuccessToast('Reitti tallennettu');
@@ -348,13 +348,13 @@ describe('Route creation', mapViewport, () => {
     'Should create a new route using an existing route as a template',
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {
-      mapModal.map.visit(mapLocation);
+      mapPage.map.visit(mapLocation);
 
       filterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
-      mapModal.map.waitForLoadToComplete();
+      mapPage.map.waitForLoadToComplete();
 
       mapFooter.getCreateRouteButton().click();
-      mapModal.routePropertiesForm.fillRouteProperties({
+      mapPage.routePropertiesForm.fillRouteProperties({
         finnishName: 'Based on template test route',
         label: '901T',
         line: '901',
@@ -377,16 +377,16 @@ describe('Route creation', mapViewport, () => {
       });
 
       // Use standard route 901 from dataset as template
-      mapModal.routePropertiesForm.getUseTemplateRouteButton().click();
-      mapModal.routePropertiesForm.templateRouteSelector.fillForm({
+      mapPage.routePropertiesForm.getUseTemplateRouteButton().click();
+      mapPage.routePropertiesForm.templateRouteSelector.fillForm({
         priority: Priority.Standard,
         label: '901',
       });
 
-      mapModal.editRouteModal.save();
+      mapPage.editRouteModal.save();
 
-      mapModal.map.getLoader().should('exist');
-      mapModal.map.getLoader().should('not.exist');
+      mapPage.map.getLoader().should('exist');
+      mapPage.map.getLoader().should('not.exist');
 
       mapFooter.save();
 

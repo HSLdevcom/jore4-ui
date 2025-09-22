@@ -44,7 +44,7 @@ export class Map {
     cy.getByTestId(clickPoint.mapMarkerTestId).then((mark) => {
       const { x } = mark[0].getBoundingClientRect();
       const { y } = mark[0].getBoundingClientRect();
-      cy.getByTestId('mapModal').click(
+      cy.getByTestId('mapPage').click(
         x + clickPoint.rightOffset,
         y + clickPoint.downOffset,
       );
@@ -52,7 +52,7 @@ export class Map {
   }
 
   clickAtPosition(x: number, y: number) {
-    cy.getByTestId('mapModal').click(x, y);
+    cy.getByTestId('mapPage').click(x, y);
   }
 
   getNthSnappingPointHandle(nth: number) {
@@ -67,7 +67,7 @@ export class Map {
     cy.window().then((window) => {
       const x = (window.innerWidth / 100) * xPercentage;
       const y = (window.innerHeight / 100) * yPercentage;
-      cy.getByTestId('mapModal').click(x, y);
+      cy.getByTestId('mapPage').click(x, y);
     });
   }
 
@@ -92,9 +92,8 @@ export class Map {
   visit(params?: { zoom?: number; lat: number; lng: number; path?: string }) {
     if (params) {
       cy.visit(
-        `${params.path ?? '/routes'}?${qs.stringify({
+        `/map?${qs.stringify({
           z: params.zoom ?? 13, // 13 is default zoom level
-          mapOpen: true,
           lat: params.lat,
           lng: params.lng,
         })}`,
@@ -102,7 +101,7 @@ export class Map {
       this.waitForLoadToComplete();
       return;
     }
-    cy.visit('/routes?mapOpen=true');
+    cy.visit('/map');
     this.waitForLoadToComplete();
   }
 
@@ -114,8 +113,8 @@ export class Map {
     return this.getLoader().should('not.exist');
   }
 
-  getMapModal() {
-    return cy.getByTestId('mapModal');
+  getMapPage() {
+    return cy.getByTestId('mapPage');
   }
 
   // Route editor handle needs to exist in start coordinate
@@ -126,21 +125,21 @@ export class Map {
     // Focus canvas before triggering mouse events
     // Cypress mousedown event doesn't focus map when triggering
     cy.get('canvas.maplibregl-canvas').focus();
-    this.getMapModal().trigger('mousedown', {
+    this.getMapPage().trigger('mousedown', {
       button: 1,
       buttons: 1,
       x: coordinates.start.x,
       y: coordinates.start.y,
       eventConstructor: 'MouseEvent',
     });
-    this.getMapModal().trigger('mousemove', {
+    this.getMapPage().trigger('mousemove', {
       button: 1,
       buttons: 1,
       x: coordinates.destination.x,
       y: coordinates.destination.y,
       eventConstructor: 'MouseEvent',
     });
-    this.getMapModal().trigger('mouseup', {
+    this.getMapPage().trigger('mouseup', {
       button: 1,
       buttons: 1,
       x: coordinates.destination.x,
