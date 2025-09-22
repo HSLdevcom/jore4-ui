@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon';
 import { useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../redux';
+import { Path } from '../../router/routeDetails';
 import { Priority } from '../../types/enums';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
@@ -28,7 +30,6 @@ export type OpenMapParams = {
 
 export const useMapQueryParams = () => {
   const {
-    setBooleanToUrlQuery,
     getStringParamFromUrlQuery,
     getBooleanParamFromUrlQuery,
     getFloatParamFromUrlQuery,
@@ -39,11 +40,11 @@ export const useMapQueryParams = () => {
     setToUrlQuery,
   } = useUrlQuery();
 
-  const addMapOpenQueryParameter = () => {
-    setBooleanToUrlQuery({
-      paramName: QueryParameterName.MapOpen,
-      value: true,
-    });
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const navigateToMap = () => {
+    navigate(Path.map);
   };
 
   /**
@@ -72,7 +73,6 @@ export const useMapQueryParams = () => {
           value: longitude ?? HELSINKI_CITY_CENTER_COORDINATES.longitude,
         },
         { paramName: QueryParameterName.Zoom, value: zoom ?? DEFAULT_ZOOM },
-        { paramName: QueryParameterName.MapOpen, value: true },
         {
           paramName: QueryParameterName.ObservationDate,
           value: observationDate,
@@ -98,13 +98,13 @@ export const useMapQueryParams = () => {
           value: priorities,
         },
       ],
+      pathname: Path.map,
     });
   };
 
   const deleteMapQueryParameters = () => {
     deleteMultipleFromUrlQuery({
       paramNames: [
-        QueryParameterName.MapOpen,
         QueryParameterName.Longitude,
         QueryParameterName.Latitude,
         QueryParameterName.Zoom,
@@ -117,7 +117,7 @@ export const useMapQueryParams = () => {
     });
   };
 
-  const isMapOpen = getBooleanParamFromUrlQuery(QueryParameterName.MapOpen);
+  const isMapOpen = location.pathname === Path.map;
 
   const mapPosition = {
     longitude:
@@ -165,7 +165,7 @@ export const useMapQueryParams = () => {
   );
 
   return {
-    addMapOpenQueryParameter,
+    navigateToMap,
     isMapOpen,
     mapPosition,
     routeLabels,
