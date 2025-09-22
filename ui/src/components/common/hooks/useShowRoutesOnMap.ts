@@ -41,13 +41,13 @@ const GQL_LINE_MAP_PARAMS = gql`
   }
 `;
 
-export const useShowRoutesOnModal = () => {
+export const useShowRoutesOnMap = () => {
   const dispatch = useAppDispatch();
   const { openMapWithParameters } = useMapQueryParams();
   const { observationDate: listViewObservationDate } =
     useObservationDateQueryParam({ initialize: false });
 
-  const showRoutesOnModal = ({
+  const showRoutesOnMap = ({
     viewPortParams,
     displayedRouteParams: {
       showSelectedDaySituation = true,
@@ -90,7 +90,7 @@ export const useShowRoutesOnModal = () => {
       route.route_shape,
     );
 
-    showRoutesOnModal({
+    showRoutesOnMap({
       displayedRouteParams: { routeLabels: [route.label] },
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: route.validity_start!,
@@ -112,7 +112,7 @@ export const useShowRoutesOnModal = () => {
       line.line_routes[0]?.route_shape,
     );
 
-    showRoutesOnModal({
+    showRoutesOnMap({
       displayedRouteParams: {
         lineLabel: line.label,
         priorities:
@@ -130,7 +130,7 @@ export const useShowRoutesOnModal = () => {
       route.route_shape,
     );
 
-    showRoutesOnModal({
+    showRoutesOnMap({
       displayedRouteParams: {
         routeId: route.route_id,
         showSelectedDaySituation: false,
