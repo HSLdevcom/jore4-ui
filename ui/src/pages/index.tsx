@@ -13,7 +13,7 @@ import { Toaster } from '../uiComponents/Toaster';
 const enableCypressCoordinateHelper = false;
 
 const Index = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   return (
     <HelmetProvider>
@@ -47,9 +47,6 @@ const Index = () => {
             </Suspense>
           </ReduxProvider>
         </ApolloProvider>
-        <footer className="mt-6 flex justify-center">
-          <p>{t('version', { version: process.env.NEXT_PUBLIC_GIT_HASH })}</p>
-        </footer>
 
         {enableCypressCoordinateHelper && <CypressCoordinatesHelper />}
       </div>

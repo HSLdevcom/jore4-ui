@@ -12,12 +12,13 @@ import {
   RouteObject,
   RouterProvider,
   createBrowserRouter,
+  useLocation,
 } from 'react-router';
 import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
 import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
 import { MainPage } from '../components/main/MainPage';
-import { MapLoader, MapModal } from '../components/map';
+import { MapPage } from '../components/map';
 import { JoreLoader } from '../components/map/JoreLoader';
 import { Navbar } from '../components/navbar';
 import { CreateNewLinePage } from '../components/routes-and-lines/create-line/CreateNewLinePage';
@@ -92,14 +93,19 @@ export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
 };
 
 const Layout: FC = () => {
+  const { t } = useTranslation();
+  const location = useLocation();
+  const isMapPage = location.pathname === Path.map;
+
   return (
     <NavigationBlocker>
-      <Navbar />
+      {!isMapPage && <Navbar />}
       <Outlet />
-      <ProtectedRoute>
-        <MapModal />
-        <MapLoader />
-      </ProtectedRoute>
+      {!isMapPage && (
+        <footer className="mt-6 flex justify-center">
+          <p>{t('version', { version: process.env.NEXT_PUBLIC_GIT_HASH })}</p>
+        </footer>
+      )}
       <JoreLoader />
       <JoreErrorModal />
     </NavigationBlocker>
@@ -135,6 +141,11 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
     path: Path.timetables,
     protected: true,
     element: <TimetablesMainPage />,
+  },
+  {
+    path: Path.map,
+    protected: true,
+    element: <MapPage />,
   },
 
   // Route and lines
