@@ -12,7 +12,7 @@ import { NewTerminalFormInfo, TerminalForm } from './TerminalForm';
 import { TerminalPopup } from './TerminalPopup';
 import { Toast } from './Toast';
 
-export class MapModal {
+export class MapPage {
   map = new Map();
 
   mapFooter = new MapFooter();
