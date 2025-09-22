@@ -8,7 +8,7 @@ import {
 import { Row } from '../../../../layoutComponents';
 import { mapToShortDate } from '../../../../time';
 import { LocatorButton } from '../../../../uiComponents';
-import { useShowRoutesOnModal } from '../../../common/hooks';
+import { useShowRoutesOnMap } from '../../../common/hooks';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 
 const testIds = {
@@ -28,7 +28,7 @@ type RouteInfoRowProps = {
 export const RouteInfoRow: FC<RouteInfoRowProps> = ({ className, route }) => {
   const { t } = useTranslation();
 
-  const { showRouteOnMap } = useShowRoutesOnModal();
+  const { showRouteOnMap } = useShowRoutesOnMap();
 
   return (
     <div
