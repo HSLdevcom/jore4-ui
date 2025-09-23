@@ -221,7 +221,8 @@
         "stopAreaInsertFailed": "Failed to insert stop area. Reason:\n{{ reason }}",
         "failedToResolveExistingShelter": "Failed to resolve existing shelter. Reason:\n{{ reason }}",
         "copyStopAreaInvalidDateRangeError": "Invalid date range provided for the new version.",
-        "overlappingMultipleStopAreaVersions": "Other stop area versions already exist for the selected dates which prevents copying.\nPlease edit other versions before continuing."
+        "overlappingMultipleStopAreaVersions": "Other stop area versions already exist for the selected dates which prevents copying.\nPlease edit other versions before continuing.",
+        "stopAreaEditWouldMakeRouteInvalidError": "Copying the stop area would make at least one route invalid due to validity dates.\nBefore continuing please edit the routes that the stops in this stop area are part of."
       }
     },
     "errors": {
