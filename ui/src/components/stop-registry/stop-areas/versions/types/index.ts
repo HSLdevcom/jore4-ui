@@ -1,6 +1,7 @@
 export * from './CopyStopAreaInvalidDateRangeError';
 export * from './CopyStopAreaResult';
 export * from './OverlappingMultipleStopAreaVersions';
+export * from './StopAreaEditWouldMakeRouteInvalidError';
 export * from './StopAreaInsertFailed';
 export * from './StopAreaVersion';
 export * from './StopAreaVersionSchema';

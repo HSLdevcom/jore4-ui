@@ -221,7 +221,8 @@
         "stopAreaInsertFailed": "Pysäkkialueen lisääminen epäonnistui. Syy:\n{{ reason }}",
         "failedToResolveExistingShelter": "Nykyistä katosta ei löytynyt. Syy:\n{{ reason }}",
         "copyStopAreaInvalidDateRangeError": "Uudelle versiolle annettu päivämääräväli on virheellinen.",
-        "overlappingMultipleStopAreaVersions": "Valituille päivämäärille on olemassa muita pysäkkialueen versioita mikä estää kopioinnin.\nMuokkaa päällekkäisiä versioita ennen jatkamista."
+        "overlappingMultipleStopAreaVersions": "Valituille päivämäärille on olemassa muita pysäkkialueen versioita mikä estää kopioinnin.\nMuokkaa päällekkäisiä versioita ennen jatkamista.",
+        "stopAreaEditWouldMakeRouteInvalidError": "Pysäkkialueen kopiointi tekisi ainakin yhden pysäkkialueen pysäkin kautta kulkevan reitin voimassaolon virheelliseksi.\nMuokkaa reittejä, joihin tämän pysäkkialueen pysäkit kuuluvat, ennen jatkamista."
       }
     },
     "errors": {

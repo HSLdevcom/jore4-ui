@@ -19,6 +19,7 @@ import {
   CopyStopAreaInvalidDateRangeError,
   CopyStopAreaSuccessResult,
   OverlappingMultipleStopAreaVersions,
+  StopAreaEditWouldMakeRouteInvalidError,
   StopAreaInsertFailed,
   StopAreaVersionFormState,
   StopPlacesInsertFailed,
@@ -76,6 +77,12 @@ function useErrorHandler() {
         {
           reason: extractNestedOrTopLevelMessage(error),
         },
+      );
+    }
+
+    if (error instanceof StopAreaEditWouldMakeRouteInvalidError) {
+      return t(
+        'stopAreaDetails.version.errors.stopAreaEditWouldMakeRouteInvalidError',
       );
     }
 
