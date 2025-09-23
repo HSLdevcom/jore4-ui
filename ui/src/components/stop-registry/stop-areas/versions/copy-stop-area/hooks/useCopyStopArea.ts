@@ -7,7 +7,6 @@ import {
   useUpsertStopAreaMutation,
 } from '../../../../../../generated/graphql';
 import { ScheduledStopPointSetInput } from '../../../../../../graphql';
-import { parseDate } from '../../../../../../time';
 import { EnrichedStopPlace } from '../../../../../../types';
 import {
   FailedToResolveNewShelters,
@@ -17,11 +16,9 @@ import { useGetShelters } from '../../../../stops/stop-details/stop-version/util
 import { wrapErrors } from '../../../../stops/stop-details/stop-version/utils/wrapErrors';
 import { getEnrichedStopPlace } from '../../../stop-area-details/useGetStopAreaDetails';
 import { useCutStopAreaValidity } from '../../cut-stop-area-validity';
-import { useGetStopAreaVersionsLazy } from '../../queries/useGetStopAreaVersions';
 import {
   CopyStopAreaResult,
   CopyStopAreaSuccessResult,
-  OverlappingMultipleStopAreaVersions,
   StopAreaInsertFailed,
   StopAreaVersionFormState,
   StopPlacesInsertFailed,
@@ -34,59 +31,7 @@ import {
   mapToInfoSpotInput,
   mapToStopAreaCopyInput,
 } from '../utils';
-
-function useAssertNoOverlappingVersions() {
-  const getStopAreaVersions = useGetStopAreaVersionsLazy();
-
-  return useCallback(
-    async (
-      privateCode: string,
-      currentVersionNetexId: string,
-      validityStart: string,
-      validityEnd?: string,
-    ) => {
-      const stopAreaVersionsResult = await getStopAreaVersions(privateCode);
-
-      const mappedVersions = stopAreaVersionsResult.stopAreaVersions.map(
-        (version) => ({
-          netexId: version.netex_id,
-          validityStart: version.validity_start,
-          validityEnd: version.validity_end,
-        }),
-      );
-
-      const currentVersionRemoved = mappedVersions.filter(
-        (v) => v.netexId !== currentVersionNetexId,
-      );
-
-      const currentStart = parseDate(validityStart).toMillis();
-      const currentEnd =
-        parseDate(validityEnd)?.toMillis() ?? Number.POSITIVE_INFINITY;
-
-      const overlap = currentVersionRemoved.some((version) => {
-        const versionStart = version.validityStart.toMillis();
-        const versionEnd =
-          version.validityEnd?.toMillis() ?? Number.POSITIVE_INFINITY;
-
-        //    If the new one ends before the current one has even started → No overlap
-        // or If the new one starts after the current one has ended → No overlap
-        if (versionEnd < currentStart || versionStart > currentEnd) {
-          return false;
-        }
-
-        // Else there is at least one day of overlap.
-        return true;
-      });
-
-      if (overlap) {
-        throw new OverlappingMultipleStopAreaVersions(
-          'Stop area versions overlap',
-        );
-      }
-    },
-    [getStopAreaVersions],
-  );
-}
+import { useAssertForCopyStopArea } from './useAssertForCopyStopArea';
 
 function useInsertStopPoints() {
   const [insertStopsMutation] = useInsertMultipleStopPointsMutation();
@@ -222,7 +167,10 @@ function useInsertStopAreaCopy() {
 }
 
 export function useCopyStopArea() {
-  const assertNoOverlappingVersions = useAssertNoOverlappingVersions();
+  const {
+    assertNoOverlappingVersions,
+    assertRouteStaysValidAfterStopPointChanges,
+  } = useAssertForCopyStopArea();
   const cutStopAreaValidity = useCutStopAreaValidity();
   const insertStopAreaCopy = useInsertStopAreaCopy();
 
@@ -240,21 +188,27 @@ export function useCopyStopArea() {
         state.validityEnd,
       );
 
-      const cutResult = determineCutDatesForCurrentStopArea(
+      const { cutStart, cutEnd, cutDirection, requiresConfirmation } =
+        determineCutDatesForCurrentStopArea(stopArea, state);
+
+      // This will throw error if the validity changes would affect
+      // some route connected to one of the stops in the area
+      await assertRouteStaysValidAfterStopPointChanges(
         stopArea,
-        state,
-        cutConfirmed,
+        cutStart,
+        cutEnd,
+        state.validityStart,
+        state.validityEnd ?? null,
       );
 
-      if (cutResult.showCutConfirmationModal) {
+      if (requiresConfirmation && !cutConfirmed) {
         // Show confirmation modal to user
         return {
           showCutConfirmationModal: true,
-          currentVersionCutDirection: cutResult.cutDirection,
+          currentVersionCutDirection: cutDirection,
         };
       }
 
-      const { cutStart, cutEnd, cutDirection } = cutResult;
       const { mutatedStopArea, mutatedStopPoints } = await cutStopAreaValidity(
         stopArea,
         cutDirection,
@@ -272,6 +226,11 @@ export function useCopyStopArea() {
 
       return insertResponse;
     },
-    [assertNoOverlappingVersions, cutStopAreaValidity, insertStopAreaCopy],
+    [
+      assertNoOverlappingVersions,
+      assertRouteStaysValidAfterStopPointChanges,
+      cutStopAreaValidity,
+      insertStopAreaCopy,
+    ],
   );
 }

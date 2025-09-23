@@ -162,24 +162,18 @@ function determineCutEndDate(
   return addDaysToISODate(minDate, -1);
 }
 
-type CutDatesSuccessResult = {
+type CutDatesResult = {
   readonly cutStart: string;
   readonly cutEnd: string | null;
   readonly cutDirection: CutDirection;
-  readonly showCutConfirmationModal?: never;
-};
-
-type CutDatesRequiresConfirmationResult = {
-  readonly showCutConfirmationModal: true;
-  readonly cutDirection: CutDirection;
+  readonly requiresConfirmation: boolean;
 };
 
 // Resolves current stop area validity cut dates and performs validation
 export function determineCutDatesForCurrentStopArea(
   stopArea: EnrichedStopPlace,
   state: StopAreaVersionFormState,
-  cutConfirmationGiven: boolean = false,
-): CutDatesSuccessResult | CutDatesRequiresConfirmationResult {
+): CutDatesResult {
   if (!stopArea.validityStart) {
     // Should not be possible
     throw new Error('Cannot copy stop area without validity start date.');
@@ -204,17 +198,11 @@ export function determineCutDatesForCurrentStopArea(
       );
     }
 
-    if (cutConfirmationGiven) {
-      return {
-        cutStart: addDaysToISODate(state.validityEnd, 1),
-        cutEnd: stopArea.validityEnd ?? null,
-        cutDirection: 'start',
-      };
-    }
-
     return {
-      showCutConfirmationModal: true,
+      cutStart: addDaysToISODate(state.validityEnd, 1),
+      cutEnd: stopArea.validityEnd ?? null,
       cutDirection: 'start',
+      requiresConfirmation: true,
     };
   }
 
@@ -226,13 +214,7 @@ export function determineCutDatesForCurrentStopArea(
       cutStart: stopArea.validityStart,
       cutEnd: addDaysToISODate(state.validityStart, -1),
       cutDirection: 'end',
-    };
-  }
-
-  if (!cutConfirmationGiven) {
-    return {
-      showCutConfirmationModal: true,
-      cutDirection: 'end',
+      requiresConfirmation: false,
     };
   }
 
@@ -242,5 +224,6 @@ export function determineCutDatesForCurrentStopArea(
     cutStart: stopArea.validityStart,
     cutEnd: determineCutEndDate(stopArea, state),
     cutDirection: 'end',
+    requiresConfirmation: true,
   };
 }
