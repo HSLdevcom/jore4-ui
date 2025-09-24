@@ -3,13 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { Row, Visible } from '../../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../../uiComponents';
+import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { StopPropertyFilters } from './StopPropertyFilters';
-
-const testIds = {
-  searchButton: 'StopSearchBar::searchButton',
-  elyInput: 'StopSearchBar::elyInput',
-  observationDateInput: 'StopSearchBar::observationDateInput',
-};
 
 type ExtraFiltersProps = {
   readonly className?: string;
@@ -50,7 +45,7 @@ export const ExtraFilters: FC<ExtraFiltersProps> = ({
         <SimpleButton
           containerClassName="mr-6"
           type="submit"
-          testId={testIds.searchButton}
+          testId={stopSearchBarTestIds.searchButton}
         >
           {t('search.search')}
         </SimpleButton>

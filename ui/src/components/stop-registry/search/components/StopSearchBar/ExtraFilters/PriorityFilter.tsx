@@ -7,12 +7,8 @@ import { Column, Row } from '../../../../../../layoutComponents';
 import { Priority, knownPriorityValues } from '../../../../../../types/enums';
 import { InputLabel, LabeledCheckbox } from '../../../../../forms/common';
 import { StopSearchFilters } from '../../../types';
+import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { DisableableFilterProps } from '../Types/DisableableFilterProps';
-
-const testIds = {
-  priorityCheckbox: (priority: Priority) =>
-    `StopSearchBar::priority::${Priority[priority]}`,
-};
 
 export const PriorityFilter: FC<DisableableFilterProps> = ({
   className,
@@ -49,7 +45,7 @@ export const PriorityFilter: FC<DisableableFilterProps> = ({
             onClick={togglePriority(priority)}
             disabled={!!controllerDisabled || disabled}
             selected={value.includes(priority)}
-            testId={testIds.priorityCheckbox(priority)}
+            testId={stopSearchBarTestIds.priorityCheckbox(priority)}
             ref={ref}
           />
         ))}

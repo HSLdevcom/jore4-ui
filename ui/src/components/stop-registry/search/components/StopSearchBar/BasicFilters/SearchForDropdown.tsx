@@ -11,10 +11,7 @@ import {
 import { InputLabel } from '../../../../../forms/common';
 import { SearchFor, StopSearchFilters, defaultFilters } from '../../../types';
 import { trSearchFor } from '../../../utils';
-
-const testIds = {
-  searchForDropdown: 'StopSearchBar::SearchForDropdown',
-};
+import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 
 function useResetAndSetSearchFor() {
   const { getValues, reset } = useFormContext<StopSearchFilters>();
@@ -48,7 +45,7 @@ export const SearchForDropdown: FC<SearchForDropdownProps> = ({
       className={twMerge('relative', className)}
       onChange={onChange}
       value={value}
-      data-testid={testIds.searchForDropdown}
+      data-testid={stopSearchBarTestIds.searchForDropdown}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...controls}
     >
@@ -61,13 +58,13 @@ export const SearchForDropdown: FC<SearchForDropdownProps> = ({
       <ListboxButton
         hasError={false}
         buttonContent={trSearchFor(t, value)}
-        testId={`${testIds.searchForDropdown}::ListboxButton`}
+        testId={`${stopSearchBarTestIds.searchForDropdown}::ListboxButton`}
       />
 
       <HUIListbox.Options>
         {({ open }) => (
           <Transition
-            data-testid={`${testIds.searchForDropdown}::ListboxOptions`}
+            data-testid={`${stopSearchBarTestIds.searchForDropdown}::ListboxOptions`}
             className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
             show={open}
             // eslint-disable-next-line react/jsx-props-no-spreading
