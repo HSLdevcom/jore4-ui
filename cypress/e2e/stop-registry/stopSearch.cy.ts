@@ -3,6 +3,7 @@ import {
   Priority,
   RouteTypeOfLineEnum,
   StopAreaInput,
+  StopInsertInput,
   StopRegistryGeoJsonType,
   buildLine,
   buildStop,
@@ -992,7 +993,7 @@ describe('Stop search', () => {
     const startDate = today.minus({ years: 1 });
 
     beforeEach(() => {
-      const extraPrioStops = [
+      const extraPrioStops: StopInsertInput[] = [
         {
           // All good
           ...buildStop({
@@ -1156,7 +1157,7 @@ describe('Stop search', () => {
                 { key: 'priority', values: [stopPoint.priority.toString()] },
                 {
                   key: 'validityStart',
-                  values: [stopPoint.validity_start.toISODate()],
+                  values: [stopPoint.validity_start?.toISODate() ?? null],
                 },
                 {
                   key: 'validityEnd',
