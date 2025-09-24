@@ -21,7 +21,8 @@ export const infrastructureLinks: InfrastructureNetworkInfrastructureLinkInsertI
         ],
       },
       estimated_length_in_metres: 1200,
-      external_link_source: InfrastructureNetworkExternalSourceEnum.DigiroadR,
+      external_link_source:
+        InfrastructureNetworkExternalSourceEnum.DigiroadRMml,
       external_link_id: '1',
     },
     {
@@ -35,7 +36,8 @@ export const infrastructureLinks: InfrastructureNetworkInfrastructureLinkInsertI
         ],
       },
       estimated_length_in_metres: 1100,
-      external_link_source: InfrastructureNetworkExternalSourceEnum.DigiroadR,
+      external_link_source:
+        InfrastructureNetworkExternalSourceEnum.DigiroadRMml,
       external_link_id: '2',
     },
     {
@@ -49,7 +51,8 @@ export const infrastructureLinks: InfrastructureNetworkInfrastructureLinkInsertI
         ],
       },
       estimated_length_in_metres: 1600,
-      external_link_source: InfrastructureNetworkExternalSourceEnum.DigiroadR,
+      external_link_source:
+        InfrastructureNetworkExternalSourceEnum.DigiroadRMml,
       external_link_id: '3',
     },
   ];

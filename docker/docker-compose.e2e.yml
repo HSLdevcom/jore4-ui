@@ -43,7 +43,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-hasura-base
-    image: 'crjore4prod001.azurecr.io/jore4-hsl-hasura:main-2025-10-01-b46eab0a91c25177d1b9c15361900f0d8f968fb7'
+    image: 'crjore4prod001.azurecr.io/jore4-hsl-hasura:main-2025-10-20-6331337c9d7eda232cb453b4aa508c9198e8d8a6'
     container_name: "hasura-e2e"
     ports:
       - "127.0.0.1:3211:8080"
