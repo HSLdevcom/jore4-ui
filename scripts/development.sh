@@ -16,9 +16,9 @@ DOCKER_COMPOSE_BUNDLE_REF=${BUNDLE_REF:-main}
 # this project from others.
 export COMPOSE_PROJECT_NAME=jore4-ui
 
-DUMP_ROUTES_FILENAME="2025-04-03_test/2025-04-03-jore4-local-jore4e2e.pgdump"
-DUMP_TIMETABLES_FILENAME="2025-04-03_test/2025-04-03-jore4-local-timetablesdb-nodata.pgdump"
-DUMP_STOPS_FILENAME="2025-04-03_test/2025-04-03-jore4-local-stopdb.pgdump"
+DUMP_ROUTES_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-jore4e2e.pgdump"
+DUMP_TIMETABLES_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-timetablesdb-nodata.pgdump"
+DUMP_STOPS_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-stopdb.pgdump"
 
 DOCKER_TESTDB_IMAGE="jore4-testdb"
 DOCKER_IMAGES=("jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
