@@ -6,6 +6,7 @@
 
 declare namespace Cypress {
   import type { DateTime } from 'luxon';
+  import type { InsertQuayInputs, InsertQuaysResult } from './types';
 
   interface Chainable {
     /**
@@ -60,6 +61,18 @@ declare namespace Cypress {
      * @example cy.setupTests()
      */
     setupTests(): Chainable<void>;
+
+    /**
+     * Inserts the specified quays into the DB with real proper generated
+     * public and private codes.
+     *
+     * @param event task id 'insertQuaysWithRealIds'
+     * @param inputs quays to insert
+     */
+    task<Tags extends string>(
+      event: 'insertQuaysWithRealIds',
+      inputs: InsertQuayInputs<Tags>,
+    ): Chainable<InsertQuaysResult<Tags>>;
   }
 }
 

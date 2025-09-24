@@ -7,6 +7,7 @@ import {
   RouteInsertInput,
   RouteTypeOfLineEnum,
   StopInJourneyPatternInsertInput,
+  StopInsertInput,
   buildLine,
   buildRoute,
   buildStop,
@@ -48,7 +49,9 @@ export const stopCoordinatesByLabel = {
   E2E010: [24.706945, 60.157696, 0],
 };
 
-export const buildStopsOnInfraLinks = (testInfraLinkIds: UUID[]) => [
+export const buildStopsOnInfraLinks = (
+  testInfraLinkIds: UUID[],
+): StopInsertInput[] => [
   // Stops along test route 901 Outbound
   {
     ...buildStop({

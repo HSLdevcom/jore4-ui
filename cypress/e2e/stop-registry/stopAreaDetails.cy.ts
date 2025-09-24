@@ -160,8 +160,8 @@ describe('Stop area details', () => {
     validTo: testStopArea.StopArea.validBetween?.toDate as DateTime,
     areaSize: '-',
     parentTerminal: '-',
-    longitude: testStopArea.StopArea.geometry?.coordinates[0],
-    latitude: testStopArea.StopArea.geometry?.coordinates[1],
+    longitude: testStopArea.StopArea.geometry?.coordinates?.at(0) ?? 0,
+    latitude: testStopArea.StopArea.geometry?.coordinates?.at(1) ?? 0,
   };
 
   before(() => {

@@ -38,6 +38,8 @@ import {
 } from '@hsl/timetables-data-inserter';
 import * as fs from 'fs';
 
+export { insertQuaysWithRealIds } from './insertQuaysWithRealIds';
+
 const jore4db = getDbConnection(e2eDatabaseConfig);
 const timetablesDb = getDbConnection(timetablesDatabaseConfig);
 const stopsDb = getDbConnection(stopsDatabaseConfig);
