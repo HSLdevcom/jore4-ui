@@ -331,8 +331,8 @@ describe('Stop search', () => {
       () => {
         stopSearchBar.getSearchInput().type(`*`);
         stopSearchBar.getExpandToggle().click();
-        stopSearchBar.openMunicipalityDropdown();
-        stopSearchBar.isMunicipalitySelected('Kaikki');
+        stopSearchBar.municipality.openDropdown();
+        stopSearchBar.municipality.isSelected('Kaikki');
         stopSearchBar.getSearchButton().click();
         expectGraphQLCallToSucceed('@gqlSearchStops');
         stopSearchResultsPage.getContainer().should('be.visible');
@@ -345,10 +345,9 @@ describe('Stop search', () => {
       { tags: Tag.StopRegistry },
       () => {
         stopSearchBar.getExpandToggle().click();
-        stopSearchBar.openMunicipalityDropdown();
-        stopSearchBar.isMunicipalitySelected('Kaikki');
-        stopSearchBar.toggleMunicipality('Kaikki');
-        stopSearchBar.toggleMunicipality('Espoo');
+        stopSearchBar.municipality.openDropdown();
+        stopSearchBar.municipality.isSelected('Kaikki');
+        stopSearchBar.municipality.toggleOption('Espoo');
         stopSearchBar.getSearchButton().click();
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1217,10 +1216,7 @@ describe('Stop search', () => {
 
       prioritySets.forEach((prioritySet) => {
         allPriorities.forEach((priority) => {
-          stopSearchBar.setIncludePriority(
-            priority,
-            prioritySet.includes(priority),
-          );
+          stopSearchBar.priority.set(priority, prioritySet.includes(priority));
         });
 
         stopSearchBar.getSearchInput().clearAndType('P*{enter}');
