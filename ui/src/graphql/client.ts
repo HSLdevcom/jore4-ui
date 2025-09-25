@@ -35,7 +35,7 @@ const buildScalarMappingLink = () => {
       serialize: (parsed: unknown) => {
         // if it's a luxon DateTime, serialize it to ISO date string
         if (DateTime.isDateTime(parsed)) {
-          return parsed.toFormat('yyyy-LL-dd');
+          return parsed.toISODate();
         }
         // otherwise (string, null, undefined) just pass it on as is
         return parsed;
