@@ -20,7 +20,8 @@ const testIds = {
   substituteDayOfWeek:
     'CommonSubstitutePeriodItem::substituteDayOfWeekDropdown',
   lineTypes: 'CommonSubstitutePeriodItem::lineTypesDropdown',
-  editCloseButton: 'CommonSubstitutePeriodItem::editCloseButton',
+  editButton: 'CommonSubstitutePeriodItem::editButton',
+  closeButton: 'CommonSubstitutePeriodItem::closeButton',
 };
 
 type CommonSubstitutePeriodItemProps = {
@@ -86,7 +87,7 @@ export const CommonSubstitutePeriodItem: FC<
             showEdit={toBeDeleted}
             onEdit={() => update(index, toBeDeleted, 'toBeDeleted')}
             onClose={() => update(index, toBeDeleted, 'toBeDeleted')}
-            testId={testIds.editCloseButton}
+            testId={toBeDeleted ? testIds.editButton : testIds.closeButton}
           />
         ) : (
           <EditCloseButton
@@ -95,7 +96,7 @@ export const CommonSubstitutePeriodItem: FC<
             showEdit={!edited}
             onEdit={() => update(index, edited, 'created')}
             onClose={() => update(index, edited, 'created')}
-            testId={testIds.editCloseButton}
+            testId={!edited ? testIds.editButton : testIds.closeButton}
           />
         )}
       </div>

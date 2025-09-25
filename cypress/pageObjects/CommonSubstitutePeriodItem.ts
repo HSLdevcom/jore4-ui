@@ -5,13 +5,23 @@ export class CommonSubstitutePeriodItem {
     );
   }
 
-  getEditCloseButton() {
-    return cy.getByTestId('CommonSubstitutePeriodItem::editCloseButton');
+  getEditButton() {
+    return cy.getByTestId('CommonSubstitutePeriodItem::editButton');
   }
 
-  clickCommonSubstitutePeriodEditCloseButton(periodName: string) {
+  getCloseButton() {
+    return cy.getByTestId('CommonSubstitutePeriodItem::closeButton');
+  }
+
+  clickCommonSubstitutePeriodEditButton(periodName: string) {
     this.getContainer(periodName).within(() => {
-      this.getEditCloseButton().click();
+      this.getEditButton().click();
+    });
+  }
+
+  clickCommonSubstitutePeriodCloseButton(periodName: string) {
+    this.getContainer(periodName).within(() => {
+      this.getCloseButton().click();
     });
   }
 
