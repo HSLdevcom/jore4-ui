@@ -7,6 +7,10 @@ export class StopSearchResultsPage {
     return cy.getByTestId('StopSearchResultsPage::closeButton');
   }
 
+  getResultCount() {
+    return cy.getByTestId('StopSearchResultsPage::resultCount');
+  }
+
   getResultsTable() {
     return cy.getByTestId('StopSearchByStopResultList::table');
   }

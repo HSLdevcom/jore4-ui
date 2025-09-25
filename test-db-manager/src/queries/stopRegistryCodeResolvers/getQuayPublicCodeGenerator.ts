@@ -19,7 +19,8 @@ const GQL_GET_LOCATION_MUNICIPALITY = gql`
           topographic_place_type: { _eq: "MUNICIPALITY" }
           persistable_polygon: { polygon: { _st_contains: $location } }
         }
-        limit: 1 # There should be no overlapping municipalities
+        # There should be no overlapping municipalities
+        limit: 1
       ) {
         name: name_value
       }

@@ -69,16 +69,29 @@ export type HasuraResponseBody<Data> = {
   readonly data?: Data;
 };
 
+type HasuraBodyRequestInit<
+  Variables extends Readonly<Record<string, unknown>>,
+> = Omit<RequestInit, 'body'> & {
+  readonly body: HasuraStringQueryBody<Variables>;
+};
+
 const contentTypeHeader = 'content-type';
 const contentTypeJson = 'application/json; charset=utf-8';
 
 class HasuraException extends Error {
+  readonly request: HasuraBodyRequestInit<Readonly<Record<string, unknown>>>;
+
   readonly response: HasuraResponseBody<unknown>;
 
-  constructor(response: HasuraResponseBody<unknown>) {
+  constructor(
+    request: HasuraBodyRequestInit<Readonly<Record<string, unknown>>>,
+    response: HasuraResponseBody<unknown>,
+  ) {
     super(
-      `Hasura response contains errors! Response: ${JSON.stringify(response, null, 2)}`,
+      `Hasura response contains errors! Request and response:\n${JSON.stringify({ request, response }, null, 2)}`,
     );
+
+    this.request = request;
     this.response = response;
   }
 }
@@ -108,38 +121,46 @@ export async function hasuraApi<
   requestBody: HasuraQueryBody<Variables>,
   expectNoErrors = false,
 ): Promise<HasuraResponseBody<Data>> {
-  const req = {
+  const reqWithRawBody: HasuraBodyRequestInit<Variables> = {
     method: 'POST',
-    body: JSON.stringify(processHasuraRequestBody(requestBody)),
+    body: processHasuraRequestBody(requestBody),
     headers: {
       [contentTypeHeader]: contentTypeJson,
       ...getHasuraAuthenticationHeaders(),
     },
   };
 
-  const response = await fetch(getHasuraURL(), req);
+  const response = await fetch(getHasuraURL(), {
+    ...reqWithRawBody,
+    body: JSON.stringify(reqWithRawBody.body),
+  });
 
   if (
     !response.ok ||
     response.headers.get(contentTypeHeader) !== contentTypeJson
   ) {
-    const responseJson = JSON.stringify(
+    const requestAndResponse = JSON.stringify(
       {
-        status: response.status,
-        headers: Object.fromEntries(response.headers.entries()),
-        body: await response.text(),
+        request: reqWithRawBody,
+        response: {
+          status: response.status,
+          headers: Object.fromEntries(response.headers.entries()),
+          body: await response.text(),
+        },
       },
       null,
       2,
     );
 
-    throw new Error(`Hasura request failed! Response:  ${responseJson}`);
+    throw new Error(
+      `Hasura request failed! Request and response data:\n${requestAndResponse}`,
+    );
   }
 
   const body: HasuraResponseBody<Data> = await response.json();
 
   if (expectNoErrors && body.errors?.length) {
-    throw new HasuraException(body);
+    throw new HasuraException(reqWithRawBody, body);
   }
 
   return body;

@@ -5,10 +5,19 @@ import {
   StopAreaInput,
   StopInsertInput,
   StopRegistryGeoJsonType,
+  StopRegistryInfoSpotInput,
+  StopRegistryQuayInput,
+  StopRegistryShelterElectricity,
+  StopRegistryShelterEquipmentInput,
+  StopRegistryShelterType,
+  StopRegistryTransportModeType,
   buildLine,
   buildStop,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
+import compact from 'lodash/compact';
 import range from 'lodash/range';
+import uniqBy from 'lodash/uniqBy';
+import without from 'lodash/without';
 import { DateTime } from 'luxon';
 import {
   buildInfraLinksAlongRoute,
@@ -18,7 +27,7 @@ import {
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
-import { Tag } from '../../enums';
+import { StopPlaceState, Tag } from '../../enums';
 import {
   Pagination,
   SearchForStopAreas,
@@ -31,6 +40,7 @@ import {
   StopSearchResultsPage,
   TerminalDetailsPage,
 } from '../../pageObjects';
+import { InsertQuayInput, InsertQuaysResult } from '../../support/types';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
@@ -80,7 +90,7 @@ describe('Stop search', () => {
     });
   });
 
-  beforeEach(() => {
+  function insertHardcodedTestDataBeforeEach() {
     cy.task('resetDbs');
     insertToDbHelper(dbResources);
 
@@ -88,7 +98,7 @@ describe('Stop search', () => {
       'insertStopRegistryData',
       getClonedBaseStopRegistryData(),
     );
-  });
+  }
 
   function setupTestsAndNavigateToPage(
     qs: Record<string, unknown>,
@@ -105,12 +115,13 @@ describe('Stop search', () => {
     stopSearchBar.getSearchInput().clear();
   }
 
-  function init() {
+  function initWithHardcodedData() {
+    insertHardcodedTestDataBeforeEach();
     setupTestsAndNavigateToPage({}, false);
   }
 
   describe('by label', () => {
-    beforeEach(init);
+    beforeEach(initWithHardcodedData);
 
     it(
       'should be able to search with an exact stop label',
@@ -165,7 +176,7 @@ describe('Stop search', () => {
   });
 
   describe('by ELY number', () => {
-    beforeEach(init);
+    beforeEach(initWithHardcodedData);
 
     // not ok
 
@@ -226,7 +237,7 @@ describe('Stop search', () => {
   });
 
   describe('by address', () => {
-    beforeEach(init);
+    beforeEach(initWithHardcodedData);
 
     it(
       'should be able to search with an exact address',
@@ -283,7 +294,7 @@ describe('Stop search', () => {
   });
 
   describe('Search criteria', () => {
-    beforeEach(init);
+    beforeEach(initWithHardcodedData);
 
     it(
       'Should trigger search when the search criteria is changed and the search input field contains text',
@@ -324,7 +335,7 @@ describe('Stop search', () => {
   });
 
   describe('by municipality', () => {
-    beforeEach(init);
+    beforeEach(initWithHardcodedData);
 
     it(
       'Should search by all municipalities by default',
@@ -360,7 +371,7 @@ describe('Stop search', () => {
   });
 
   describe('by name variants', () => {
-    beforeEach(init);
+    beforeEach(initWithHardcodedData);
 
     it(
       'should be able to search with an exact name',
@@ -428,7 +439,7 @@ describe('Stop search', () => {
   });
 
   describe('by line label', () => {
-    beforeEach(init);
+    beforeEach(initWithHardcodedData);
 
     const SHOW_ALL_BY_DEFAULT_MAX = 20;
 
@@ -682,7 +693,7 @@ describe('Stop search', () => {
   });
 
   describe('for stop areas', () => {
-    beforeEach(init);
+    beforeEach(initWithHardcodedData);
 
     it('should find all by *', () => {
       stopSearchBar.searchForDropdown.openSearchForDropdown();
@@ -777,7 +788,7 @@ describe('Stop search', () => {
   });
 
   describe('for terminals', () => {
-    beforeEach(init);
+    beforeEach(initWithHardcodedData);
 
     it('should find all by *', () => {
       stopSearchBar.searchForDropdown.openSearchForDropdown();
@@ -838,6 +849,7 @@ describe('Stop search', () => {
 
   describe('Sorting & paging', () => {
     beforeEach(() => {
+      insertHardcodedTestDataBeforeEach();
       setupTestsAndNavigateToPage({ pageSize: 5 });
     });
 
@@ -1243,6 +1255,344 @@ describe('Stop search', () => {
           },
         );
       });
+    });
+  });
+
+  describe('By extended search filters', () => {
+    type TestStops = InsertQuaysResult<
+      keyof ReturnType<typeof generateTestData>
+    >;
+    let testStops: TestStops;
+
+    const template: StopRegistryQuayInput = {
+      keyValues: [
+        { key: 'stopState', values: [StopPlaceState.InOperation] },
+        { key: 'priority', values: ['10'] },
+        { key: 'validityStart', values: ['2025-01-01'] },
+      ],
+    };
+
+    const shelterPostTemplate: StopRegistryShelterEquipmentInput = {
+      shelterNumber: 1,
+      shelterType: StopRegistryShelterType.Post,
+    };
+
+    const shelterUrbanTemplate: StopRegistryShelterEquipmentInput = {
+      shelterNumber: 1,
+      shelterType: StopRegistryShelterType.Urban,
+    };
+
+    const startLongitude = 24.945831;
+    const startLatitude = 60.192059;
+    let generatedQuayIndex = 0;
+
+    function generateQuay(
+      stopPlaceId: string,
+      ...changes: ReadonlyArray<Partial<StopRegistryQuayInput>>
+    ): InsertQuayInput {
+      const location: Partial<StopRegistryQuayInput> = {
+        geometry: {
+          type: StopRegistryGeoJsonType.Point,
+          coordinates: [
+            startLongitude + (generatedQuayIndex % 10) * 0.00002,
+            startLatitude + Math.floor(generatedQuayIndex / 10) * 0.00002,
+          ],
+        },
+      };
+      generatedQuayIndex += 1;
+
+      const input = [template, location, ...changes].reduce(
+        (compiled, set) => ({
+          ...compiled,
+          ...set,
+          keyValues: uniqBy(
+            compact((set.keyValues ?? [])?.concat(compiled.keyValues ?? [])),
+            (kv) => kv.key,
+          ),
+        }),
+        {},
+      );
+
+      return { stopPlaceId, input };
+    }
+
+    function generateTestData(stopPlaceId: string) {
+      generatedQuayIndex = 0;
+
+      return {
+        template: generateQuay(stopPlaceId),
+        outOfUse: generateQuay(stopPlaceId, {
+          keyValues: [
+            { key: 'stopState', values: [StopPlaceState.OutOfOperation] },
+          ],
+        }),
+        shelterPostUndefinedElectricity: generateQuay(stopPlaceId, {
+          placeEquipments: { shelterEquipment: [shelterPostTemplate] },
+        }),
+        shelterPostNoElectricity: generateQuay(stopPlaceId, {
+          placeEquipments: {
+            shelterEquipment: [
+              {
+                ...shelterPostTemplate,
+                shelterElectricity: StopRegistryShelterElectricity.None,
+              },
+            ],
+          },
+        }),
+        shelterPostLightElectricity: generateQuay(stopPlaceId, {
+          placeEquipments: {
+            shelterEquipment: [
+              {
+                ...shelterPostTemplate,
+                shelterElectricity: StopRegistryShelterElectricity.Light,
+              },
+            ],
+          },
+        }),
+        infoSpotA4: generateQuay(stopPlaceId, {
+          placeEquipments: { shelterEquipment: [shelterUrbanTemplate] },
+        }),
+        infoSpotA5: generateQuay(stopPlaceId, {
+          placeEquipments: { shelterEquipment: [shelterUrbanTemplate] },
+        }),
+      };
+    }
+
+    function generateInfoSpotsForTestData(
+      generatedStops: TestStops,
+    ): Array<StopRegistryInfoSpotInput> {
+      return [
+        {
+          label: 'Sized A4',
+          width: 210,
+          height: 297,
+          infoSpotLocations: [
+            generatedStops.tagToNetextId.infoSpotA4,
+            generatedStops.tagToShelters.infoSpotA4[0],
+          ],
+        },
+        {
+          label: 'Sized A5',
+          width: 148,
+          height: 210,
+          infoSpotLocations: [
+            generatedStops.tagToNetextId.infoSpotA5,
+            generatedStops.tagToShelters.infoSpotA5[0],
+          ],
+        },
+      ];
+    }
+
+    before(() => {
+      cy.task('resetDbs');
+
+      const privateCode = 'EF001';
+      cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
+        stopPlaces: [
+          {
+            StopArea: {
+              name: {
+                lang: 'fin',
+                value: 'Haun lisäsuodattimet - testi pysäkki',
+              },
+              privateCode: { type: 'HSL/TEST', value: privateCode },
+              transportMode: StopRegistryTransportModeType.Bus,
+            },
+            organisations: null,
+          },
+        ],
+        stopPointsRequired: false,
+      })
+        .then((ids) => {
+          const testDataInputs = generateTestData(
+            ids.stopPlaceIdsByName[privateCode],
+          );
+
+          return cy.task('insertQuaysWithRealIds', testDataInputs);
+        })
+        .then((insertResult) => {
+          testStops = insertResult;
+          return insertResult;
+        })
+        .then(generateInfoSpotsForTestData)
+        .then((infoSpotData) => cy.task('insertInfoSpots', infoSpotData));
+    });
+
+    beforeEach(() => setupTestsAndNavigateToPage({ pageSize: 100 }, true));
+
+    function shouldHaveResultOf(
+      ...expectedStops: ReadonlyArray<string | ReadonlyArray<string>>
+    ) {
+      const flattened = expectedStops.flat();
+      stopSearchResultsPage
+        .getResultCount()
+        .should('contain.text', `${flattened.length} hakutulos`);
+      flattened.forEach((stop) => {
+        stopSearchResultsPage.getRowByLabel(stop).shouldBeVisible();
+      });
+    }
+
+    function shouldHaveResultWithout(
+      ...unexpectedStops: ReadonlyArray<string | ReadonlyArray<string>>
+    ) {
+      const flattened = unexpectedStops.flat();
+      const allStops = Object.values(testStops.tagToPublicCode);
+      const expectedStops = without(allStops, ...flattened);
+
+      stopSearchResultsPage
+        .getResultCount()
+        .should('contain.text', `${expectedStops.length} hakutulos`);
+      expectedStops.forEach((stop) => {
+        stopSearchResultsPage.getRowByLabel(stop).shouldBeVisible();
+      });
+      flattened.forEach((stop) => {
+        stopSearchResultsPage.getRowByLabel(stop).should('not.exist');
+      });
+    }
+
+    it('Should filter by transport mode', () => {
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.getSearchInput().clearAndType('*');
+
+      // Search for non bus stops (0)
+      stopSearchBar.transportationMode.toggle(
+        StopRegistryTransportModeType.Bus,
+      );
+      stopSearchBar.transportationMode.isNotSelected(
+        StopRegistryTransportModeType.Bus,
+      );
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      stopSearchResultsPage.getResultCount().shouldHaveText('0 hakutulosta');
+
+      // Search for bus stops
+      stopSearchBar.transportationMode.toggle(
+        StopRegistryTransportModeType.Bus,
+      );
+      stopSearchBar.transportationMode.isSelected(
+        StopRegistryTransportModeType.Bus,
+      );
+
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      const testStopTotalCount = Object.values(testStops.inputs).length;
+      stopSearchResultsPage
+        .getResultCount()
+        .should('contain.text', `${testStopTotalCount} hakutulos`);
+    });
+
+    it('Should filter by stop state', () => {
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.getSearchInput().clearAndType('*');
+
+      // Search for out of use stops
+      stopSearchBar.stopState.openDropdown();
+      stopSearchBar.stopState.toggleOption(StopPlaceState.OutOfOperation);
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      shouldHaveResultOf(testStops.tagToPublicCode.outOfUse);
+
+      // Search for in use stops
+      stopSearchBar.stopState.openDropdown();
+      stopSearchBar.stopState.toggleOption(StopPlaceState.InOperation);
+      stopSearchBar.stopState.toggleOption(StopPlaceState.OutOfOperation);
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      shouldHaveResultWithout(testStops.tagToPublicCode.outOfUse);
+    });
+
+    it('Should filter by shelter', () => {
+      const stopWithPostShelter = [
+        testStops.tagToPublicCode.shelterPostUndefinedElectricity,
+        testStops.tagToPublicCode.shelterPostNoElectricity,
+        testStops.tagToPublicCode.shelterPostLightElectricity,
+      ];
+
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.getSearchInput().clearAndType('*');
+
+      // Search for stops with shelter post
+      stopSearchBar.shelters.openDropdown();
+      stopSearchBar.shelters.toggleOption(StopRegistryShelterType.Post);
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      shouldHaveResultOf(stopWithPostShelter);
+
+      // Search for stops without shelter
+      stopSearchBar.shelters.openDropdown();
+      stopSearchBar.shelters.toggleOption('Ei katosta');
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      shouldHaveResultWithout(
+        stopWithPostShelter.concat(
+          testStops.tagToPublicCode.infoSpotA4,
+          testStops.tagToPublicCode.infoSpotA5,
+        ),
+      );
+    });
+
+    it('Should filter by electricity', () => {
+      const stopsWithDefinedElectricityStatus = [
+        testStops.tagToPublicCode.shelterPostNoElectricity,
+        testStops.tagToPublicCode.shelterPostLightElectricity,
+      ];
+
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.getSearchInput().clearAndType('*');
+
+      // Search for stops with shelter with defined electricity propert
+      stopSearchBar.electricity.openDropdown();
+      stopSearchBar.electricity.toggleOption(
+        StopRegistryShelterElectricity.Light,
+      );
+      stopSearchBar.electricity.toggleOption(
+        StopRegistryShelterElectricity.None,
+      );
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      shouldHaveResultOf(stopsWithDefinedElectricityStatus);
+
+      // Search for stops with undefined electricity status
+      stopSearchBar.electricity.openDropdown();
+      stopSearchBar.electricity.toggleOption('Ei tiedossa');
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      shouldHaveResultWithout(stopsWithDefinedElectricityStatus);
+    });
+
+    it('Should filter by InfoSpots', () => {
+      const stopsWithInfoSpots = [
+        testStops.tagToPublicCode.infoSpotA4,
+        testStops.tagToPublicCode.infoSpotA5,
+      ];
+
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.getSearchInput().clearAndType('*');
+
+      // Search for stops with A4 or A5 sized InfoSpots
+      stopSearchBar.infoSpots.openDropdown();
+      stopSearchBar.infoSpots.toggleOption('A4');
+      stopSearchBar.infoSpots.toggleOption('A5');
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      shouldHaveResultOf(stopsWithInfoSpots);
+
+      // Search for stops without InfoSpots
+      stopSearchBar.infoSpots.openDropdown();
+      stopSearchBar.infoSpots.toggleOption('Ei infopaikkaa');
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      shouldHaveResultWithout(stopsWithInfoSpots);
     });
   });
 });

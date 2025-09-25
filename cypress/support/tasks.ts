@@ -7,6 +7,7 @@ import {
   QuayDetailsByLabel,
   StopAreaInput,
   StopPlaceIdsByName,
+  StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
   TerminalIdsByName,
   TerminalInput,
@@ -95,6 +96,7 @@ export const getInfrastructureLinkIdsByExternalIds = (
     mapToGetInfrastructureLinksByExternalIdsQuery(
       infrastructureLinkExternalIds,
     ),
+    true,
   ).then((res) => {
     return infrastructureLinkExternalIds.map((id) => {
       const typedResult = res as GetInfrastructureLinksByExternalIdsResult;
@@ -262,3 +264,10 @@ export const emptyDownloadsFolder = () => {
   });
   return true;
 };
+
+export async function insertInfoSpots(
+  infoSpots: Array<Partial<StopRegistryInfoSpotInput>>,
+) {
+  await insertStopRegistryInfoSpots(infoSpots);
+  return null;
+}
