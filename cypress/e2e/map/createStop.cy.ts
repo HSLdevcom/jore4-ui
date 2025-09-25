@@ -16,7 +16,7 @@ import {
   StopSearchResultsPage,
 } from '../../pageObjects';
 import { insertToDbHelper } from '../../utils';
-import { InsertedStopRegistryIds, mapViewport } from '../utils';
+import { InsertedStopRegistryIds } from '../utils';
 
 const testStopLabels = {
   testLabel1: 'T0001',
@@ -54,7 +54,7 @@ const stopSearchBar = new StopSearchBar();
 const stopSearchResultsPage = new StopSearchResultsPage();
 const stopDetailsPage = new StopDetailsPage();
 
-describe('Stop creation tests', mapViewport, () => {
+describe('Stop creation tests', () => {
   beforeEach(() => {
     cy.task('resetDbs');
     insertToDbHelper(dbResources);
@@ -305,7 +305,8 @@ describe('Stop creation tests', mapViewport, () => {
 
       // Add 1st stop
       mapPage.mapFooter.addStop();
-      mapPage.map.clickRelativePoint(40, 55);
+      mapPage.map.waitForLoadToComplete();
+      mapPage.map.clickAtCoordinates(24.9333, 60.1643);
 
       form.getPublicCodePrefixMissmatchWarning().should('not.exist');
 
@@ -321,7 +322,8 @@ describe('Stop creation tests', mapViewport, () => {
 
       // Add another stop close to the 1st one
       mapPage.mapFooter.addStop();
-      mapPage.map.clickRelativePoint(42, 57);
+      mapPage.map.waitForLoadToComplete();
+      mapPage.map.clickAtCoordinates(24.9331, 60.1643);
 
       form.getPublicCodeCandidate('H1235').should('exist');
       form.getPublicCodeCandidate('H0001').should('exist');

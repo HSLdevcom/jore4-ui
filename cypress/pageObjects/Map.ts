@@ -138,33 +138,50 @@ export class Map {
   }
 
   // Route editor handle needs to exist in start coordinate
-  moveRouteEditorHandle = (coordinates: {
-    start: { x: number; y: number };
-    destination: { x: number; y: number };
+  moveRouteEditorHandleByCoordinates = (coordinates: {
+    start: { longitude: number; latitude: number };
+    destination: { longitude: number; latitude: number };
   }) => {
-    // Focus canvas before triggering mouse events
-    // Cypress mousedown event doesn't focus map when triggering
-    cy.get('canvas.maplibregl-canvas').focus();
-    this.getMapPage().trigger('mousedown', {
-      button: 1,
-      buttons: 1,
-      x: coordinates.start.x,
-      y: coordinates.start.y,
-      eventConstructor: 'MouseEvent',
-    });
-    this.getMapPage().trigger('mousemove', {
-      button: 1,
-      buttons: 1,
-      x: coordinates.destination.x,
-      y: coordinates.destination.y,
-      eventConstructor: 'MouseEvent',
-    });
-    this.getMapPage().trigger('mouseup', {
-      button: 1,
-      buttons: 1,
-      x: coordinates.destination.x,
-      y: coordinates.destination.y,
-      eventConstructor: 'MouseEvent',
+    cy.window().then((win) => {
+      if (!win.coordinatesToOnScreenPixels) {
+        throw new Error(
+          'coordinatesToOnScreenPixels function not available. Make sure the map is loaded.',
+        );
+      }
+
+      const startPixels = win.coordinatesToOnScreenPixels(
+        coordinates.start.longitude,
+        coordinates.start.latitude,
+      );
+      const destPixels = win.coordinatesToOnScreenPixels(
+        coordinates.destination.longitude,
+        coordinates.destination.latitude,
+      );
+
+      // Focus canvas before triggering mouse events
+      // Cypress mousedown event doesn't focus map when triggering
+      cy.get('canvas.maplibregl-canvas').focus();
+      this.getMapPage().trigger('mousedown', {
+        button: 1,
+        buttons: 1,
+        x: startPixels.x,
+        y: startPixels.y,
+        eventConstructor: 'MouseEvent',
+      });
+      this.getMapPage().trigger('mousemove', {
+        button: 1,
+        buttons: 1,
+        x: destPixels.x,
+        y: destPixels.y,
+        eventConstructor: 'MouseEvent',
+      });
+      this.getMapPage().trigger('mouseup', {
+        button: 1,
+        buttons: 1,
+        x: destPixels.x,
+        y: destPixels.y,
+        eventConstructor: 'MouseEvent',
+      });
     });
   };
 }

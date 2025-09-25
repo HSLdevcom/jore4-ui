@@ -14,12 +14,11 @@ import { ConfirmationDialog, MapPage } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
-import { mapViewport } from '../utils';
 
 const mapPage = new MapPage();
 const confirmationDialog = new ConfirmationDialog();
 
-describe('Terminals on map', mapViewport, () => {
+describe('Terminals on map', () => {
   let dbResources: SupportedResources;
 
   const baseDbResources = getClonedBaseDbResources();
