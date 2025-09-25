@@ -12,6 +12,26 @@ export interface ClickPointNearMapMarker {
 export class Map {
   stopPopUp = new StopPopUp();
 
+  /**
+   * Click on the map at specific MapLibre coordinates.
+   * This method uses the global coordinatesToOnScreenPixels function to convert
+   * geographic coordinates to screen pixels.
+   *
+   * @param longitude - The longitude coordinate
+   * @param latitude - The latitude coordinate
+   */
+  clickAtCoordinates(longitude: number, latitude: number) {
+    cy.window().then((win) => {
+      if (!win.coordinatesToOnScreenPixels) {
+        throw new Error(
+          'coordinatesToOnScreenPixels function not available. Make sure the map is loaded.',
+        );
+      }
+      const pixels = win.coordinatesToOnScreenPixels(longitude, latitude);
+      cy.getByTestId('mapPage').click(pixels.x, pixels.y);
+    });
+  }
+
   zoomIn(n = 1) {
     Cypress._.times(n, (iteration) => {
       cy.get('button[class*="maplibregl-ctrl-zoom-in"]').click();
