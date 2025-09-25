@@ -25,7 +25,7 @@ import {
 import { UUID } from '../types';
 import { SupportedResources, insertToDbHelper } from '../utils';
 import { expectGraphQLCallToSucceed } from '../utils/assertions';
-import { InsertedStopRegistryIds, mapViewport } from './utils';
+import { InsertedStopRegistryIds } from './utils';
 
 const testTimingPlaceLabels = {
   label1: 'Test created timing place label 1',
@@ -90,12 +90,12 @@ describe('Stop editing tests', () => {
 
   it(
     'Should move a stop on the map',
-    { tags: Tag.Stops, scrollBehavior: 'bottom', ...mapViewport },
+    { tags: Tag.Stops, scrollBehavior: 'bottom' },
     () => {
       // Coordinates for the point where the stop is moved in the test.
       const endCoordinates = {
-        lng: 24.93892259957707,
-        lat: 60.16576852992367,
+        lng: 24.938922599577666,
+        lat: 60.165579047646474,
       };
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
@@ -165,8 +165,8 @@ describe('Stop editing tests', () => {
     { tags: Tag.Stops, scrollBehavior: 'bottom' },
     () => {
       const testCoordinates2 = {
-        lng: 24.92904198486008,
-        lat: 60.16490775039894,
+        lng: 24.938922599577666,
+        lat: 60.165579047646474,
       };
 
       const updatedStopInfo: BaseStopFormInfo = {
@@ -190,10 +190,6 @@ describe('Stop editing tests', () => {
 
       map.stopPopUp.getEditButton().click();
 
-      // Problems with NavigationBlocker appearing mid-typing without this wait
-      // Needs to be fixed properly later
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(300);
       stopForm.fillBaseForm(updatedStopInfo);
       stopForm.save();
 
@@ -302,10 +298,6 @@ describe('Stop editing tests', () => {
 
     map.stopPopUp.getEditButton().click();
 
-    // Problems with NavigationBlocker appearing mid-typing without this wait
-    // Needs to be fixed properly later
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(300);
     stopForm.fillBaseForm({
       validityStartISODate: '2024-01-01',
       validityEndISODate: '2029-12-31',
@@ -334,10 +326,6 @@ describe('Stop editing tests', () => {
 
     map.stopPopUp.getEditButton().click();
 
-    // Problems with NavigationBlocker appearing mid-typing without this wait
-    // Needs to be fixed properly later
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(300);
     stopForm.fillBaseForm({
       validityStartISODate: '2024-01-01',
       validityEndISODate: '2029-12-31',
@@ -371,10 +359,6 @@ describe('Stop editing tests', () => {
 
       map.stopPopUp.getEditButton().click();
 
-      // Problems with NavigationBlocker appearing mid-typing without this wait
-      // Needs to be fixed properly later
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(300);
       stopForm.getLatitudeInput().clearAndType('1.0');
 
       stopForm.getAddTimingPlaceButton().click();

@@ -21,7 +21,7 @@ import {
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToReturnError } from '../../utils/assertions';
-import { InsertedStopRegistryIds, mapViewport } from '../utils';
+import { InsertedStopRegistryIds } from '../utils';
 
 const testTerminalLabels = {
   existingTerminalName: 'E2ET001',
@@ -48,7 +48,7 @@ const testCoordinates2 = {
   el: 0,
 };
 
-describe('Terminal creation tests', mapViewport, () => {
+describe('Terminal creation tests', () => {
   const baseDbResources = getClonedBaseDbResources();
   const baseStopRegistryData = getClonedBaseStopRegistryData();
 

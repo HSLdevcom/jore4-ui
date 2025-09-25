@@ -20,9 +20,8 @@ import {
 import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
-import { mapViewport } from '../utils';
 
-describe('Edit route geometry', mapViewport, () => {
+describe('Edit route geometry', () => {
   let map: Map;
   let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;
@@ -98,16 +97,16 @@ describe('Edit route geometry', mapViewport, () => {
       mapPage.map.getLoader().should('not.exist');
 
       mapPage.map.moveRouteEditorHandle({
-        start: { x: 776, y: 272 },
-        destination: { x: 639, y: 419 },
+        start: { x: 775, y: 236 },
+        destination: { x: 629, y: 403 },
       });
 
       mapPage.map.getLoader().should('exist');
       mapPage.map.getLoader().should('not.exist');
 
       mapPage.map.moveRouteEditorHandle({
-        start: { x: 616, y: 272 },
-        destination: { x: 580, y: 400 },
+        start: { x: 616, y: 238 },
+        destination: { x: 568, y: 306 },
       });
 
       mapPage.map.getLoader().should('exist');
@@ -185,7 +184,7 @@ describe('Edit route geometry', mapViewport, () => {
 
       // Move the two handles so that E2E002 should not be included in the route.
       mapPage.map.moveRouteEditorHandle({
-        start: { x: 1672, y: 235 },
+        start: { x: 1677, y: 200 },
         destination: { x: 1619, y: 382 },
       });
 
@@ -193,7 +192,7 @@ describe('Edit route geometry', mapViewport, () => {
       mapPage.map.getLoader().should('not.exist');
 
       mapPage.map.moveRouteEditorHandle({
-        start: { x: 1516, y: 235 },
+        start: { x: 1518, y: 202 },
         destination: { x: 1483, y: 385 },
       });
 
