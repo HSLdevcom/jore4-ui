@@ -75,18 +75,14 @@ describe('Common substitute operating periods', () => {
 
       // Make sure the page is clear
       substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
-        '2023-02-02',
-        '2023-02-02',
-      );
-
-      cy.getByTestId('ObservationPeriodForm::filterButton').click();
-
-      substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
         '2023-01-01',
         '2023-12-31',
       );
 
       cy.getByTestId('ObservationPeriodForm::filterButton').click();
+      substituteDaySettingsPage
+        .getLoadingCommonSubstitutePeriods()
+        .should('not.exist');
 
       // Add a common substitute day
       substituteDaySettingsPage.commonSubstitutePeriodForm.editCommonSubstitutePeriod(
@@ -98,6 +94,7 @@ describe('Common substitute operating periods', () => {
       );
       substituteDaySettingsPage.commonSubstitutePeriodForm
         .getSaveButton()
+        .should('be.enabled')
         .click();
       toast.expectSuccessToast('Tallennus onnistui');
 
@@ -198,18 +195,13 @@ describe('Common substitute operating periods', () => {
 
       // Make sure the page is clear
       substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
-        '2023-02-02',
-        '2023-02-02',
-      );
-
-      cy.getByTestId('ObservationPeriodForm::filterButton').click();
-
-      substituteDaySettingsPage.observationPeriodForm.setObservationPeriod(
         '2023-01-01',
         '2023-12-31',
       );
-
       cy.getByTestId('ObservationPeriodForm::filterButton').click();
+      substituteDaySettingsPage
+        .getLoadingCommonSubstitutePeriods()
+        .should('not.exist');
 
       substituteDaySettingsPage.commonSubstitutePeriodForm.removeCommonSubstitutePeriod(
         'Tapaninpäivä 2023',
