@@ -12,7 +12,7 @@ export class CommonSubstitutePeriodForm {
     substituteDay: string;
     lineTypes?: string[];
   }) {
-    this.commonSubstitutePeriodItem.clickCommonSubstitutePeriodEditCloseButton(
+    this.commonSubstitutePeriodItem.clickCommonSubstitutePeriodEditButton(
       values.periodName,
     );
     this.commonSubstitutePeriodItem
@@ -39,7 +39,7 @@ export class CommonSubstitutePeriodForm {
   }
 
   removeCommonSubstitutePeriod(periodName: string) {
-    this.commonSubstitutePeriodItem.clickCommonSubstitutePeriodEditCloseButton(
+    this.commonSubstitutePeriodItem.clickCommonSubstitutePeriodCloseButton(
       periodName,
     );
     this.getSaveButton().click();
