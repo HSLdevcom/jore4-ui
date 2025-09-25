@@ -180,6 +180,17 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
     // that are waiting for the map to load, by observing the Redux store, will
     // have to wait for the debounce period before thet can begin loading data.
     updateMapDetailsDebounced.flush();
+
+    // Expose global function for Cypress testing to convert coordinates to screen pixels
+    if (mapRef.current) {
+      const mapGL = mapRef.current.getMap();
+      window.coordinatesToOnScreenPixels = (
+        longitude: number,
+        latitude: number,
+      ) => {
+        return mapGL.project([longitude, latitude]);
+      };
+    }
   };
 
   const onError = ({ error }: ErrorEvent) => {
@@ -192,6 +203,10 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
     // Cancel the debounced update if the map is going to be closed.
     return () => {
       updateMapDetailsDebounced.cancel();
+      // Clean up global function when component unmounts
+      if (window.coordinatesToOnScreenPixels) {
+        delete window.coordinatesToOnScreenPixels;
+      }
     };
   }, [updateMapDetailsDebounced]);
 
