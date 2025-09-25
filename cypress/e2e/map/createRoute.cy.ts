@@ -7,6 +7,7 @@ import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,
   getClonedBaseDbResources,
+  stopCoordinatesByLabel,
   testInfraLinkExternalIds,
 } from '../../datasets/base';
 import { Tag } from '../../enums';
@@ -105,15 +106,28 @@ describe('Route creation', mapViewport, () => {
 
       // Create a geometry for route that includes dataset stops E2E001,
       // (exclude E2E002) E2E003, E2E004 and E2E005
-      mapPage.map.clickAtPosition(1395, 488);
-      mapPage.map.clickAtPosition(1362, 462);
-      mapPage.map.clickAtPosition(1240, 477);
-      mapPage.map.clickAtPosition(1179, 452);
-      mapPage.map.clickAtPosition(1080, 516);
-      mapPage.map.clickAtPosition(1095, 592);
-      mapPage.map.clickAtPosition(991, 657);
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E001[0],
+        stopCoordinatesByLabel.E2E001[1],
+      );
+      mapPage.map.clickAtCoordinates(24.93559846081388, 60.16562893059165);
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E003[0],
+        stopCoordinatesByLabel.E2E003[1],
+      );
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E004[0],
+        stopCoordinatesByLabel.E2E004[1],
+      );
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E005[0],
+        stopCoordinatesByLabel.E2E005[1],
+      );
       // Click the last added node again to finish the route
-      mapPage.map.clickAtPosition(991, 657);
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E005[0],
+        stopCoordinatesByLabel.E2E005[1],
+      );
 
       mapPage.map.getLoader().should('exist');
       mapPage.map.getLoader().should('not.exist');
@@ -181,11 +195,23 @@ describe('Route creation', mapViewport, () => {
       mapPage.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001 - E2E004
-      mapPage.map.clickAtPosition(1395, 488);
-      mapPage.map.clickAtPosition(1290, 369);
-      mapPage.map.clickAtPosition(1097, 575);
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E001[0],
+        stopCoordinatesByLabel.E2E001[1],
+      );
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E002[0],
+        stopCoordinatesByLabel.E2E002[1],
+      );
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E004[0],
+        stopCoordinatesByLabel.E2E004[1],
+      );
       // Click the last added node again to finish the route
-      mapPage.map.clickAtPosition(1097, 575);
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E004[0],
+        stopCoordinatesByLabel.E2E004[1],
+      );
 
       routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 4);
       routeStopsOverlay
@@ -266,10 +292,19 @@ describe('Route creation', mapViewport, () => {
       mapPage.editRouteModal.save();
 
       // Create a geometry for route that includes dataset stops E2E001 and E2E002
-      mapPage.map.clickAtPosition(1395, 488);
-      mapPage.map.clickAtPosition(1290, 369);
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E001[0],
+        stopCoordinatesByLabel.E2E001[1],
+      );
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E002[0],
+        stopCoordinatesByLabel.E2E002[1],
+      );
       // Click the last added node again to finish the route
-      mapPage.map.clickAtPosition(1290, 369);
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E002[0],
+        stopCoordinatesByLabel.E2E002[1],
+      );
 
       routeStopsOverlay.getRouteStopsOverlayRows().should('have.length', 2);
       routeStopsOverlay
@@ -331,10 +366,19 @@ describe('Route creation', mapViewport, () => {
 
       // Create a geometry for route that includes dataset stops E2E001
       // and E2E002
-      mapPage.map.clickAtPosition(1395, 488);
-      mapPage.map.clickAtPosition(1290, 369);
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E001[0],
+        stopCoordinatesByLabel.E2E001[1],
+      );
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E002[0],
+        stopCoordinatesByLabel.E2E002[1],
+      );
       // Click the last added node again to finish the route
-      mapPage.map.clickAtPosition(1290, 369);
+      mapPage.map.clickAtCoordinates(
+        stopCoordinatesByLabel.E2E002[0],
+        stopCoordinatesByLabel.E2E002[1],
+      );
 
       mapPage.map.getLoader().should('exist');
       mapPage.map.getLoader().should('not.exist');

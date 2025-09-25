@@ -95,7 +95,7 @@ describe('Stop areas on map', mapViewport, () => {
     mapPage.mapFooter.mapFooterActionsDropdown.getMenu().click();
     mapPage.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
 
-    mapPage.map.clickAtPosition(758, 391);
+    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
 
     mapPage.stopAreaForm.getForm().shouldBeVisible();
     mapPage.stopAreaForm
@@ -134,7 +134,7 @@ describe('Stop areas on map', mapViewport, () => {
     mapPage.map.waitForLoadToComplete();
 
     // Check that the stop area got created.
-    cy.get('[data-testid="Map::StopArea::stopArea::700001"]').click();
+    mapPage.map.getStopAreaById('700001').click();
     mapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
@@ -143,14 +143,23 @@ describe('Stop areas on map', mapViewport, () => {
       .getValidityPeriod()
       .shouldHaveText('23.1.2020 -  Voimassa toistaiseksi');
 
-    // TODO: test that navigation to stop area details page works. Can be done after stop area routing change.
+    // Check that the stop area label has a correct link
+    mapPage.map.getStopAreaById('700001').click();
+    mapPage.stopAreaPopup
+      .getLabel()
+      .shouldBeVisible()
+      .shouldHaveText('700001 Annankatu 2');
+    mapPage.stopAreaPopup
+      .getLabel()
+      .should('have.attr', 'href')
+      .and('include', '/stop-registry/stop-areas/700001');
   });
 
   it('should handle unique private code exception', () => {
     mapPage.mapFooter.mapFooterActionsDropdown.getMenu().click();
     mapPage.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
 
-    mapPage.map.clickAtPosition(758, 391);
+    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
 
     mapPage.stopAreaForm.getForm().shouldBeVisible();
     mapPage.stopAreaForm
@@ -224,13 +233,13 @@ describe('Stop areas on map', mapViewport, () => {
   });
 
   it('should relocate stop area on map', () => {
-    mapPage.map.clickAtPosition(1025, 731);
+    mapPage.map.getStopAreaById('X0003').click();
     mapPage.map.waitForLoadToComplete();
 
     mapPage.stopAreaPopup.getMoveButton().click();
     mapPage.stopAreaPopup.getLabel().should('not.exist');
 
-    mapPage.map.clickAtPosition(1180, 500);
+    mapPage.map.clickAtCoordinates(24.937, 60.166);
 
     confirmationDialog.getConfirmButton().click();
     mapPage.map.waitForLoadToComplete();
@@ -240,10 +249,10 @@ describe('Stop areas on map', mapViewport, () => {
     mapPage.stopAreaPopup.getLabel().should('not.exist');
 
     // There should be nothing at the old position.
-    mapPage.map.clickAtPosition(1025, 731);
+    mapPage.map.clickAtCoordinates(24.938927, 60.165433);
     mapPage.stopAreaPopup.getLabel().should('not.exist');
 
-    mapPage.map.clickAtPosition(1180, 500);
+    mapPage.map.clickAtCoordinates(24.937, 60.166);
     mapPage.stopAreaPopup
       .getLabel()
       .shouldBeVisible()
@@ -255,7 +264,7 @@ describe('Stop areas on map', mapViewport, () => {
     mapPage.mapFooter.mapFooterActionsDropdown.getMenu().click();
     mapPage.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
 
-    mapPage.map.clickAtPosition(758, 391);
+    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
 
     mapPage.stopAreaForm.getForm().shouldBeVisible();
     mapPage.stopAreaForm.getName().type('Annankatu 2');
@@ -280,18 +289,18 @@ describe('Stop areas on map', mapViewport, () => {
     mapPage.map.waitForLoadToComplete();
 
     // Delete it
-    cy.get('[data-testid="Map::StopArea::stopArea::700001"]').click();
+    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
     mapPage.stopAreaPopup.getDeleteButton().click();
     confirmationDialog.getConfirmButton().click();
     mapPage.map.waitForLoadToComplete();
     mapPage.stopAreaPopup.getLabel().should('not.exist');
 
     // There should be nothing at the old position.
-    mapPage.map.clickAtPosition(1025, 731);
+    mapPage.map.clickAtCoordinates(24.9375, 60.1655);
     mapPage.stopAreaPopup.getLabel().should('not.exist');
 
     // should only have cancel-button because it has stops in it
-    mapPage.map.clickAtPosition(1025, 731);
+    mapPage.map.getStopAreaById('X0003').click();
     mapPage.map.waitForLoadToComplete();
 
     mapPage.stopAreaPopup.getDeleteButton().click();
