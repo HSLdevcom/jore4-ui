@@ -533,6 +533,9 @@
       "abbreviationFin": "Abbreviation (Finnish)",
       "abbreviationSwe": "Abbreviation (Swedish)",
       "abbreviationEng": "Abbreviation (English)"
+    },
+    "highlightPropertiesRow": {
+      "lines": "Lines"
     }
   },
   "terminal": {

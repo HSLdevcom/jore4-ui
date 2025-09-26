@@ -533,6 +533,9 @@
       "abbreviationFin": "Lyhenne (suomi)",
       "abbreviationSwe": "Lyhenne (ruotsi)",
       "abbreviationEng": "Lyhenne (englanti)"
+    },
+    "highlightPropertiesRow": {
+      "lines": "Linjoja"
     }
   },
   "terminal": {
