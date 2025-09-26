@@ -40,6 +40,7 @@ const knownNavigationContexts = [
   'LocationDetailsEdit',
   'LocationDetailsForm',
   'MaintenanceDetailsForm',
+  'MapPage',
   'MeasurementsForm',
   'NavigationBlocker',
   'OccasionalSubstitutePeriodForm',

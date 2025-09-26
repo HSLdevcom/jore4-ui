@@ -1,5 +1,6 @@
 import { FC, useRef } from 'react';
 import { useNavigateBackSafely } from '../../hooks';
+import { useWrapInContextNavigation } from '../forms/common/NavigationBlocker';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
@@ -11,10 +12,11 @@ const testIds = { mapPage: 'mapPage' };
 export const MapPage: FC = () => {
   const mapRef = useRef<RouteEditorRef>(null);
   const navigateBackSafely = useNavigateBackSafely();
+  const wrapInContextNavigation = useWrapInContextNavigation('MapPage');
 
-  const onCloseMap = () => {
+  const onCloseMap = wrapInContextNavigation(() => {
     navigateBackSafely('/');
-  };
+  });
 
   return (
     <div

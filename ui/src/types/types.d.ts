@@ -51,3 +51,11 @@ type ArrayConstructor = {
     arg: ReadonlyArray<T> | unknown,
   ): arg is ReadonlyArray<T>;
 };
+
+// Global window interface extension for Cypress testing utilities
+interface Window {
+  coordinatesToOnScreenPixels?: (
+    longitude: number,
+    latitude: number,
+  ) => { x: number; y: number };
+}

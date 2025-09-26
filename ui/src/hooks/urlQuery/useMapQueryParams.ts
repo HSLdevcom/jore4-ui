@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { HELSINKI_CITY_CENTER_COORDINATES } from '../../redux';
 import { Priority } from '../../types/enums';
+import { makeBackNavigationIsSafeState } from '../useSafeBackNavigation';
 import { QueryParameterName, useUrlQuery } from './useUrlQuery';
 
 const DEFAULT_ZOOM = 13 as const;
@@ -43,7 +44,7 @@ export const useMapQueryParams = () => {
   const location = useLocation();
 
   const navigateToMap = () => {
-    navigate('/map');
+    navigate('/map', { state: makeBackNavigationIsSafeState() });
   };
 
   /**
@@ -98,6 +99,7 @@ export const useMapQueryParams = () => {
         },
       ],
       pathname: '/map',
+      state: makeBackNavigationIsSafeState(),
     });
   };
 
@@ -158,11 +160,11 @@ export const useMapQueryParams = () => {
           { paramName: QueryParameterName.Zoom, value: zoom },
         ],
         replace: true,
+        state: location.state,
       });
     },
-    [setMultipleParametersToUrlQuery],
+    [setMultipleParametersToUrlQuery, location.state],
   );
-
   return {
     navigateToMap,
     isMapOpen,

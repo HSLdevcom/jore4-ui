@@ -20,9 +20,8 @@ import {
 import { RouteStopsOverlay } from '../../pageObjects/RouteStopsOverlay';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
-import { mapViewport } from '../utils';
 
-describe('Edit route geometry', mapViewport, () => {
+describe('Edit route geometry', () => {
   let map: Map;
   let routeStopsOverlay: RouteStopsOverlay;
   let routeEditor: RouteEditor;
@@ -97,17 +96,23 @@ describe('Edit route geometry', mapViewport, () => {
       mapPage.map.getLoader().should('exist');
       mapPage.map.getLoader().should('not.exist');
 
-      mapPage.map.moveRouteEditorHandle({
-        start: { x: 776, y: 272 },
-        destination: { x: 639, y: 419 },
+      mapPage.map.moveRouteEditorHandleByCoordinates({
+        start: { longitude: 24.93737988831691, latitude: 60.16655610103186 },
+        destination: {
+          longitude: 24.935474587220085,
+          latitude: 60.16555861384899,
+        },
       });
 
       mapPage.map.getLoader().should('exist');
       mapPage.map.getLoader().should('not.exist');
 
-      mapPage.map.moveRouteEditorHandle({
-        start: { x: 616, y: 272 },
-        destination: { x: 580, y: 400 },
+      mapPage.map.moveRouteEditorHandleByCoordinates({
+        start: { longitude: 24.935684070587428, latitude: 60.16653128828523 },
+        destination: {
+          longitude: 24.93470648154286,
+          latitude: 60.16602014153341,
+        },
       });
 
       mapPage.map.getLoader().should('exist');
@@ -184,17 +189,23 @@ describe('Edit route geometry', mapViewport, () => {
       mapPage.map.getLoader().should('not.exist');
 
       // Move the two handles so that E2E002 should not be included in the route.
-      mapPage.map.moveRouteEditorHandle({
-        start: { x: 1672, y: 235 },
-        destination: { x: 1619, y: 382 },
+      mapPage.map.moveRouteEditorHandleByCoordinates({
+        start: { longitude: 24.93737988831691, latitude: 60.16655610103186 },
+        destination: {
+          longitude: 24.935474587220085,
+          latitude: 60.16555861384899,
+        },
       });
 
       mapPage.map.getLoader().should('exist');
       mapPage.map.getLoader().should('not.exist');
 
-      mapPage.map.moveRouteEditorHandle({
-        start: { x: 1516, y: 235 },
-        destination: { x: 1483, y: 385 },
+      mapPage.map.moveRouteEditorHandleByCoordinates({
+        start: { longitude: 24.935684070587428, latitude: 60.16653128828523 },
+        destination: {
+          longitude: 24.93470648154286,
+          latitude: 60.16602014153341,
+        },
       });
 
       mapPage.map.getLoader().should('exist');
