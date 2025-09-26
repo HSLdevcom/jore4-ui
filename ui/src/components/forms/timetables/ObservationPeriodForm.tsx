@@ -10,8 +10,10 @@ import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { Row } from '../../../layoutComponents/Row';
 import { selectTimetable } from '../../../redux';
+import { parseDate } from '../../../time';
 import { DateRange } from '../../../types';
 import { SimpleButton } from '../../../uiComponents';
+import { areEqual } from '../../../utils';
 import { InputField, requiredDate } from '../common';
 
 const testIds = {
@@ -118,17 +120,6 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
   const formDisabled =
     isOccasionalSubstitutePeriodFormDirty || isCommonSubstitutePeriodFormDirty;
 
-  const handleKeyDown = useCallback(
-    (event: { key: string }) => {
-      if (event.key === 'Enter') {
-        if (!formDisabled) {
-          onSubmit();
-        }
-      }
-    },
-    [formDisabled, onSubmit],
-  );
-
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...form}>
@@ -142,7 +133,6 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
                 fieldPath="startDate"
                 testId={testIds.startDate}
                 disabled={formDisabled}
-                onKeyDown={handleKeyDown}
               />
               <InputField<ObservationPeriodSchema>
                 type="date"
@@ -150,7 +140,6 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
                 fieldPath="endDate"
                 testId={testIds.endDate}
                 disabled={formDisabled}
-                onKeyDown={handleKeyDown}
               />
               <div className="flex self-end pb-2">
                 <SimpleButton
