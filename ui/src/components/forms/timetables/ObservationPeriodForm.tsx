@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import noop from 'lodash/noop';
 import { DateTime, Duration } from 'luxon';
-import { Dispatch, FC, SetStateAction, useCallback } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
@@ -112,11 +112,21 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
   });
 
   const onSubmit = form.handleSubmit((formValues) => {
-    setDateRange({
-      startDate: DateTime.fromISO(formValues.startDate),
-      endDate: DateTime.fromISO(formValues.endDate),
+    setDateRange((prevRange) => {
+      const newRange = {
+        startDate: parseDate(formValues.startDate),
+        endDate: parseDate(formValues.endDate),
+      };
+
+      // Preserve object identity
+      if (areEqual(prevRange, newRange)) {
+        return prevRange;
+      }
+
+      return newRange;
     });
   });
+
   const formDisabled =
     isOccasionalSubstitutePeriodFormDirty || isCommonSubstitutePeriodFormDirty;
 
