@@ -9,7 +9,7 @@ import {
 import { onError } from '@apollo/client/link/error';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
-import { withScalars } from 'apollo-link-scalars';
+import { ParsingFunctionsObject, withScalars } from 'apollo-link-scalars';
 import { FunctionsMap } from 'apollo-link-scalars/src/types/functions-map';
 import { IntrospectionQuery, buildClientSchema } from 'graphql';
 import { createClient as createWsClient } from 'graphql-ws';
@@ -29,6 +29,18 @@ function parseDateTime(raw: unknown) {
 }
 
 const buildScalarMappingLink = () => {
+  const dateTimeMapper: ParsingFunctionsObject<DateTime, unknown> = {
+    serialize: (parsed: unknown) => {
+      if (DateTime.isDateTime(parsed)) {
+        return parsed.toISO({ includeOffset: true });
+      }
+
+      return parsed;
+    },
+
+    parseValue: parseDateTime,
+  };
+
   const typesMap: FunctionsMap = {
     // automatically (de)serializing between graphql date <-> luxon.DateTime types
     date: {
@@ -60,16 +72,8 @@ const buildScalarMappingLink = () => {
         return Duration.fromISO(raw);
       },
     },
-    stop_registry_DateTime: {
-      serialize: (parsed: unknown) => {
-        if (DateTime.isDateTime(parsed)) {
-          return parsed.toISO({ includeOffset: true });
-        }
-
-        return parsed;
-      },
-      parseValue: parseDateTime,
-    },
+    stop_registry_DateTime: dateTimeMapper,
+    timetamptz: dateTimeMapper,
   };
 
   const schema = buildClientSchema(
