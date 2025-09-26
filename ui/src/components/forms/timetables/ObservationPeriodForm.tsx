@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import noop from 'lodash/noop';
 import { DateTime, Duration } from 'luxon';
-import { Dispatch, FC, SetStateAction, useCallback } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
@@ -10,8 +10,10 @@ import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
 import { Row } from '../../../layoutComponents/Row';
 import { selectTimetable } from '../../../redux';
+import { parseDate } from '../../../time';
 import { DateRange } from '../../../types';
 import { SimpleButton } from '../../../uiComponents';
+import { areEqual } from '../../../utils';
 import { InputField, requiredDate } from '../common';
 
 const testIds = {
@@ -110,24 +112,23 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
   });
 
   const onSubmit = form.handleSubmit((formValues) => {
-    setDateRange({
-      startDate: DateTime.fromISO(formValues.startDate),
-      endDate: DateTime.fromISO(formValues.endDate),
+    setDateRange((prevRange) => {
+      const newRange = {
+        startDate: parseDate(formValues.startDate),
+        endDate: parseDate(formValues.endDate),
+      };
+
+      // Preserve object identity
+      if (areEqual(prevRange, newRange)) {
+        return prevRange;
+      }
+
+      return newRange;
     });
   });
+
   const formDisabled =
     isOccasionalSubstitutePeriodFormDirty || isCommonSubstitutePeriodFormDirty;
-
-  const handleKeyDown = useCallback(
-    (event: { key: string }) => {
-      if (event.key === 'Enter') {
-        if (!formDisabled) {
-          onSubmit();
-        }
-      }
-    },
-    [formDisabled, onSubmit],
-  );
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -142,7 +143,6 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
                 fieldPath="startDate"
                 testId={testIds.startDate}
                 disabled={formDisabled}
-                onKeyDown={handleKeyDown}
               />
               <InputField<ObservationPeriodSchema>
                 type="date"
@@ -150,7 +150,6 @@ export const ObservationPeriodForm: FC<ObservationPeriodFormProps> = ({
                 fieldPath="endDate"
                 testId={testIds.endDate}
                 disabled={formDisabled}
-                onKeyDown={handleKeyDown}
               />
               <div className="flex self-end pb-2">
                 <SimpleButton

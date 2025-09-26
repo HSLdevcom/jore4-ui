@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { TimetablesServiceCalendarSubstituteOperatingPeriod } from '../../../../generated/graphql';
+import { SubstituteOperatingPeriodSettingsInfoFragment } from '../../../../generated/graphql';
 import { useAppDispatch } from '../../../../hooks';
 import { Row } from '../../../../layoutComponents';
 import { setIsCommonSubstitutePeriodFormDirtyAction } from '../../../../redux/slices/timetable';
@@ -62,7 +62,7 @@ const generatePresetDatesForDateRange = (
 };
 
 export const mapCommonSubstituteOperatingPeriodsToCommonDays = (
-  commonSubstituteOperatingPeriods: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriod>,
+  commonSubstituteOperatingPeriods: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
 ): CommonDayType[] => {
   return commonSubstituteOperatingPeriods?.map((period) => {
     const lineTypes: Set<string> = new Set();

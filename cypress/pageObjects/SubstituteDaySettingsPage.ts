@@ -12,6 +12,12 @@ export class SubstituteDaySettingsPage {
 
   toast = new Toast();
 
+  getLoadingCommonSubstitutePeriods() {
+    return cy.getByTestId(
+      'CommonSubstitutePeriodSection::loadingCommonSubstitutePeriods',
+    );
+  }
+
   close = () => {
     cy.getByTestId('SubstituteDaySettingsPage::closeButton').click();
   };

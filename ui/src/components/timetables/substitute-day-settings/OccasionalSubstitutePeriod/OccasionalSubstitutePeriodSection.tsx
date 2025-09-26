@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateRange } from '../../../../types';
+import { areEqual } from '../../../../utils';
 import {
   showDangerToastWithError,
   showSuccessToast,
@@ -26,8 +27,11 @@ export const OccasionalSubstitutePeriodSection: FC<
   OccasionalSubstitutePeriodSectionProps
 > = ({ dateRange, setDateRange }) => {
   const { t } = useTranslation();
-  const { occasionalSubstituteOperatingPeriods, refetch, loading } =
-    useGetOccasionalSubstituteOperatingPeriods(dateRange);
+  const {
+    substitutePeriods: occasionalSubstituteOperatingPeriods,
+    refetch,
+    loading,
+  } = useGetOccasionalSubstituteOperatingPeriods(dateRange);
   const { prepareAndExecute: prepareAndExecuteCreate } =
     useCreateSubstituteOperatingPeriod();
 
@@ -43,9 +47,18 @@ export const OccasionalSubstitutePeriodSection: FC<
       await prepareAndExecuteEdit({ form });
       await prepareAndExecuteCreate({ form });
 
-      setDateRange({
-        startDate: findEarliestDate(form),
-        endDate: findLatestDate(form),
+      setDateRange((prevRange) => {
+        const newRange = {
+          startDate: findEarliestDate(form),
+          endDate: findLatestDate(form),
+        };
+
+        // Preserve object identity
+        if (areEqual(prevRange, newRange)) {
+          return prevRange;
+        }
+
+        return newRange;
       });
 
       await refetch();
