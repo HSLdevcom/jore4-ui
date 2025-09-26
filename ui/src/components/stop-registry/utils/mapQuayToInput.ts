@@ -57,14 +57,14 @@ function getQuayPrivateCode(
     return null;
   }
 
-  return quay.privateCode as StopRegistryPrivateCodeInput;
+  return omitTypeName(quay.privateCode) as StopRegistryPrivateCodeInput;
 }
 
 export function mapQuayToInput(
   quay: Omit<EnrichedQuay | StopRegistryQuay, 'scheduled_stop_point'>,
 ): StopRegistryQuayInput {
   return {
-    ...pick(quay, ['compassBearing', 'keyValues', 'publicCode']),
+    ...pick(quay, ['compassBearing', 'publicCode']),
     description: omitTypeName(quay.description),
     alternativeNames: mapAlternativeNames(quay.alternativeNames),
     accessibilityAssessment: mapAccessibilityAssessmentToInput(
@@ -74,5 +74,6 @@ export function mapQuayToInput(
     placeEquipments: mapPlaceEquipmentsToInput(quay.placeEquipments),
     externalLinks: mapExternalLinks(quay.externalLinks),
     privateCode: getQuayPrivateCode(quay),
+    keyValues: quay.keyValues?.map((kv) => omitTypeName(kv)),
   };
 }
