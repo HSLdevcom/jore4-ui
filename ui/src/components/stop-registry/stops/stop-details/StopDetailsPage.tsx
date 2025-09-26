@@ -20,8 +20,8 @@ import { MaintenanceSection } from './maintenance';
 import { MeasurementsSection } from './measurements';
 import { SheltersSection } from './shelters';
 import { SignageDetailsSection } from './signage-details';
+import { StopHeaderSummaryRow } from './stop-header-summary-row';
 import { StopDetailsVersion } from './StopDetailsVersion';
-import { StopHeaderSummaryRow } from './StopHeaderSummaryRow';
 import { StopTitleRow } from './title-row/StopTitleRow';
 import { useGetStopDetails } from './useGetStopDetails';
 
@@ -52,7 +52,6 @@ export const StopDetailsPage: FC = () => {
     <Container testId={testIds.page}>
       <StopTitleRow stopDetails={stopDetails} label={label} />
       <StopHeaderSummaryRow className="my-2" stopDetails={stopDetails} />
-      {/* TODO: Stop/Announcement/Breakroom/Lines tabs */}
       <StopDetailsVersion label={label} />
       <hr className="my-4" />
       <div className="my-4 flex items-center gap-2">
