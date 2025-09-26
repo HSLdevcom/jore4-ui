@@ -28,8 +28,11 @@ export const CommonSubstitutePeriodSection: FC<
 > = ({ className = '', dateRange }) => {
   const { t } = useTranslation();
 
-  const { commonSubstituteOperatingPeriods, refetch, loading } =
-    useGetCommonSubstituteOperatingPeriods(dateRange);
+  const {
+    substitutePeriods: commonSubstituteOperatingPeriods,
+    refetch,
+    loading,
+  } = useGetCommonSubstituteOperatingPeriods(dateRange);
   const commonDays = useMemo(
     () =>
       mapCommonSubstituteOperatingPeriodsToCommonDays(

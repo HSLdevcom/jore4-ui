@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { AiOutlinePlus } from 'react-icons/ai';
 import {
   Maybe,
-  TimetablesServiceCalendarSubstituteOperatingPeriod,
+  SubstituteOperatingPeriodSettingsInfoFragment,
 } from '../../../../generated/graphql';
 import { useAppDispatch } from '../../../../hooks';
 import { Row, Visible } from '../../../../layoutComponents';
@@ -63,7 +63,7 @@ const mapDurationToString = (duration: Maybe<Duration> | undefined) => {
 };
 
 const convertToPeriodSchema = (
-  input: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriod>,
+  input: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
 ): FormState => {
   const periods = input?.map((item) => {
     const periodBeginDate = minBy(
@@ -105,7 +105,7 @@ const convertToPeriodSchema = (
 };
 
 export const mapOccasionalSubstituteOperatingPeriodsToFormState = (
-  occasionalSubstituteOperatingPeriods: ReadonlyArray<TimetablesServiceCalendarSubstituteOperatingPeriod>,
+  occasionalSubstituteOperatingPeriods: ReadonlyArray<SubstituteOperatingPeriodSettingsInfoFragment>,
 ) => {
   return convertToPeriodSchema(occasionalSubstituteOperatingPeriods);
 };
