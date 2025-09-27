@@ -71,8 +71,12 @@ export const mapToShortDateTime = (date?: DateLike | null) =>
 
 export function mapToISODate(date: DateLike): string;
 export function mapToISODate(date: null | undefined): undefined;
-export function mapToISODate(date?: DateLike | null): string | undefined;
-export function mapToISODate(date?: DateLike | null): string | undefined {
+export function mapToISODate(
+  date: DateLike | null | undefined,
+): string | undefined;
+export function mapToISODate(
+  date: DateLike | null | undefined,
+): string | undefined {
   return parseDate(date)?.toISODate();
 }
 

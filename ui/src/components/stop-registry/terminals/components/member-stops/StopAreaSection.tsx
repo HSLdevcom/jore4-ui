@@ -3,14 +3,14 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
-import { mapLngLatToPoint } from '../../../../../utils';
+import { getGeometryPoint } from '../../../../../utils';
 import {
   LocatorActionButton,
   OpenDetailsPage,
   ShowOnMap,
+  StopSearchRow,
+  StopTableRow,
 } from '../../../components';
-import { StopTableRow } from '../../../search';
-import { StopSearchRow } from '../../../search/types';
 import { LocatableStop } from '../../../types/LocatableStop';
 
 const testIds = {
@@ -61,13 +61,14 @@ const StopAreaHeader: FC<StopAreaHeaderProps> = ({
 
 const StopRow: FC<StopRowProps> = ({ stop, observationDate }) => {
   const locatableStop: LocatableStop = {
-    label: stop.label,
-    netextId: stop.quay.netexId ?? null,
-    location: mapLngLatToPoint(stop.measured_location.coordinates),
+    label: stop.publicCode,
+    netextId: stop.netexId,
+    location: getGeometryPoint(stop.location),
   };
+
   return (
     <StopTableRow
-      key={stop.scheduled_stop_point_id}
+      key={stop.id}
       actionButtons={<LocatorActionButton stop={locatableStop} />}
       menuItems={[
         <OpenDetailsPage key="OpenDetailsPage" stop={locatableStop} />,
@@ -99,7 +100,7 @@ export const StopAreaSection: FC<StopAreaSectionProps> = ({
         <tbody>
           {stops.map((stop) => (
             <StopRow
-              key={stop.scheduled_stop_point_id}
+              key={stop.id}
               stop={stop}
               observationDate={observationDate}
             />

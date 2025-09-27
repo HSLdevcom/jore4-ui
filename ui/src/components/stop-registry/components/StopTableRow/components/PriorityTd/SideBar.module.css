@@ -1,0 +1,16 @@
+.dashed {
+  --dashSize: 0.5rem; /* 8px by default */
+
+  /* background-color defined by a Tailwind class */
+  /* Prettier wants that horrid comment style below. */
+  background-image: linear-gradient(
+    /* Top to bottom */ to bottom,
+    /* Start by showing background color */ transparent,
+    /* Show that for 8px */ transparent var(--dashSize),
+    /* Switch to white */ white var(--dashSize),
+    /* And show that for the rest of the bg size (3px) */ white
+  );
+  /* Let width be auto, but define a known height for the single "dash" */
+  background-size: auto calc(var(--dashSize) + 3px);
+  background-repeat: repeat-y; /* Repeat dashes on Y-axis */
+}

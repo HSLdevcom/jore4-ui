@@ -1,8 +1,11 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { useObservationDateQueryParam } from '../../../../../hooks';
+import {
+  StopSearchRow,
+  mapEnrichedStopPlaceStopAreaQuaysToStopSearchRows,
+} from '../../../components';
 import { StopAreaComponentProps } from '../types';
-import { mapMembersToStopSearchFormat } from '../utils';
 import { StopAreaMemberNoStops } from './StopAreaMemberNoStops';
 import { StopAreaMemberStopRow } from './StopAreaMemberStopRow';
 
@@ -14,7 +17,10 @@ export const StopAreaMemberStopRows: FC<StopAreaComponentProps> = ({
     initialize: false,
   });
 
-  const memberStops = mapMembersToStopSearchFormat(area);
+  const memberStops: ReadonlyArray<StopSearchRow> = useMemo(
+    () => mapEnrichedStopPlaceStopAreaQuaysToStopSearchRows(area),
+    [area],
+  );
 
   if (memberStops.length === 0) {
     return <StopAreaMemberNoStops />;
@@ -30,7 +36,7 @@ export const StopAreaMemberStopRows: FC<StopAreaComponentProps> = ({
       <tbody>
         {memberStops.map((member) => (
           <StopAreaMemberStopRow
-            key={member.scheduled_stop_point_id}
+            key={member.id}
             member={member}
             observationDate={observationDate}
           />
