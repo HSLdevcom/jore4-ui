@@ -1,9 +1,12 @@
+import compact from 'lodash/compact';
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MemberStopQuayDetailsFragment } from '../../../../../generated/graphql';
 import { useObservationDateQueryParam } from '../../../../../hooks';
 import { EnrichedParentStopPlace } from '../../../../../types';
-import { StopSearchRow } from '../../../search/types';
+import {
+  StopSearchRow,
+  mapRawTiamatStopAreaQuaysToStopSearchRows,
+} from '../../../components';
 import { AddMemberStopsHeader } from './AddMemberStops';
 import { StopAreaSection } from './StopAreaSection';
 
@@ -22,34 +25,15 @@ type StopAreaData = {
   readonly stops: ReadonlyArray<StopSearchRow>;
 };
 
-function toStopSearchRow(
-  quay: MemberStopQuayDetailsFragment | null | undefined,
-): StopSearchRow | null {
-  const ssp = quay?.scheduled_stop_point;
-  if (!ssp) {
-    return null;
-  }
-  return {
-    ...ssp,
-    quay: {
-      netexId: quay?.id ?? null,
-      nameFin: quay?.description?.value ?? null,
-      nameSwe: null,
-    },
-  } as StopSearchRow;
-}
-
 function mapChildrenToStopAreas(
   terminal: EnrichedParentStopPlace,
 ): ReadonlyArray<StopAreaData> {
-  const children = terminal.children ?? [];
+  const children = compact(terminal.children);
   const sections = children.map((child) => ({
-    id: child?.id ?? '',
-    privateCode: child?.privateCode?.value ?? '',
-    name: child?.name?.value ?? '',
-    stops: (child?.quays ?? [])
-      .map(toStopSearchRow)
-      .filter((row): row is StopSearchRow => row !== null),
+    id: child.id ?? '',
+    privateCode: child.privateCode?.value ?? '',
+    name: child.name?.value ?? '',
+    stops: mapRawTiamatStopAreaQuaysToStopSearchRows(child),
   }));
 
   return sections.toSorted((a, b) => a.name.localeCompare(b.name));

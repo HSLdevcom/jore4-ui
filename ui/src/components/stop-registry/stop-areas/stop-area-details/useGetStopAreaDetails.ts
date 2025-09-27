@@ -88,6 +88,9 @@ const GQL_GET_STOP_AREA_DETAILS = gql`
     fareZones {
       ...fare_zone_details
     }
+
+    # Make sure we have all the details needed to display the member rows.
+    ...StopTableRow_StopArea_Details
   }
 
   fragment terminal_details on stop_registry_ParentStopPlace {

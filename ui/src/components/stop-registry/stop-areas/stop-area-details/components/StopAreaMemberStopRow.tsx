@@ -1,12 +1,13 @@
 import { DateTime } from 'luxon';
 import { FC } from 'react';
-import { mapLngLatToPoint } from '../../../../../utils';
+import { getGeometryPoint } from '../../../../../utils';
 import {
   LocatorActionButton,
   OpenDetailsPage,
   ShowOnMap,
+  StopSearchRow,
+  StopTableRow,
 } from '../../../components';
-import { StopSearchRow, StopTableRow } from '../../../search';
 import { LocatableStop } from '../../../types';
 
 type StopAreaMemberStopRowProps = {
@@ -19,9 +20,9 @@ export const StopAreaMemberStopRow: FC<StopAreaMemberStopRowProps> = ({
   observationDate,
 }) => {
   const locatableStop: LocatableStop = {
-    label: member.label,
-    netextId: member.quay.netexId ?? '',
-    location: mapLngLatToPoint(member.measured_location.coordinates),
+    label: member.publicCode,
+    netextId: member.netexId,
+    location: getGeometryPoint(member.location),
   };
 
   return (

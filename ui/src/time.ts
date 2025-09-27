@@ -69,8 +69,16 @@ export const mapToShortDate = (date?: DateLike | null) =>
 export const mapToShortDateTime = (date?: DateLike | null) =>
   formatDateWithoutLocale('d.L.yyyy H.mm', date);
 
-export const mapToISODate = (date?: DateLike | null) =>
-  parseDate(date)?.toISODate();
+export function mapToISODate(date: DateLike): string;
+export function mapToISODate(date: null | undefined): undefined;
+export function mapToISODate(
+  date: DateLike | null | undefined,
+): string | undefined;
+export function mapToISODate(
+  date: DateLike | null | undefined,
+): string | undefined {
+  return parseDate(date)?.toISODate();
+}
 
 export const MIN_DATE = DateTime.fromISO('1970-01-01').startOf('day');
 export const MAX_DATE = DateTime.fromISO('2050-12-31').endOf('day');

@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import compact from 'lodash/compact';
 import { useMemo } from 'react';
 import {
   OrderBy,
@@ -7,53 +8,8 @@ import {
   useSearchStopsQuery,
 } from '../../../../generated/graphql';
 import { PagingInfo, SortOrder } from '../../../../types';
-import { SortStopsBy, SortingInfo, StopSearchRow } from '../types';
-import { mapQueryResultToStopSearchRows } from './resultMappers';
-
-const GQL_STOP_TABLE_ROW = gql`
-  fragment stop_table_row on service_pattern_scheduled_stop_point {
-    scheduled_stop_point_id
-    label
-    measured_location
-    validity_start
-    validity_end
-    timing_place_id
-    priority
-    timing_place {
-      timing_place_id
-      label
-    }
-  }
-`;
-
-const GQL_STOP_TABLE_ROW_QUAY_BASE_DETAILS = gql`
-  fragment stop_table_row_quay_base_details on stops_database_quay_newest_version {
-    id
-    netex_id
-
-    stop_place {
-      name_lang
-      name_value
-
-      stop_place_alternative_names {
-        alternative_name {
-          name_lang
-          name_type
-          name_value
-        }
-      }
-    }
-  }
-`;
-
-const GQL_STOP_TABLE_ROW_QUAY = gql`
-  fragment stop_table_row_quay on stops_database_quay_newest_version {
-    ...stop_table_row_quay_base_details
-    scheduled_stop_point_instance {
-      ...stop_table_row
-    }
-  }
-`;
+import { StopSearchRow, mapQueryResultToStopSearchRow } from '../../components';
+import { SortStopsBy, SortingInfo } from '../types';
 
 const GQL_SEARCH_STOPS = gql`
   query SearchStops(
@@ -77,6 +33,14 @@ const GQL_SEARCH_STOPS = gql`
           count
         }
       }
+    }
+  }
+
+  fragment stop_table_row_quay on stops_database_quay_newest_version {
+    ...StopTableRow_Quay_Details
+
+    scheduled_stop_point_instance {
+      ...StopTableRow_ScheduledStopPoint_Details
     }
   }
 `;
@@ -152,11 +116,13 @@ export const useStopSearchResults = ({
   });
 
   const stopSearchRows: ReadonlyArray<StopSearchRow> = useMemo(() => {
-    if (!data?.stops_database?.stops) {
-      return [];
-    }
-
-    return mapQueryResultToStopSearchRows(data.stops_database.stops);
+    const mapped = data?.stops_database?.stops?.map((rawStop) =>
+      mapQueryResultToStopSearchRow(
+        rawStop,
+        rawStop.scheduled_stop_point_instance,
+      ),
+    );
+    return compact(mapped);
   }, [data]);
 
   return {
