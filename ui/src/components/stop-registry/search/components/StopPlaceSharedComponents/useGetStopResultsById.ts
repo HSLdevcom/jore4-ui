@@ -1,8 +1,11 @@
 import { gql } from '@apollo/client';
+import compact from 'lodash/compact';
 import { useMemo } from 'react';
 import { useGetStopsByIdQuery } from '../../../../../generated/graphql';
-import { StopSearchRow } from '../../types';
-import { mapQueryResultToStopSearchRows } from '../../utils';
+import {
+  StopSearchRow,
+  mapQueryResultToStopSearchRow,
+} from '../../../components';
 
 const GQL_GET_STOPS_BY_ID = gql`
   query getStopsById($stopPlaceId: bigint) {
@@ -28,11 +31,10 @@ export const useGetStopResultById = (stopPlaceId: number | bigint) => {
   });
 
   const stopSearchRows: ReadonlyArray<StopSearchRow> = useMemo(() => {
-    if (!data?.stops_database?.stops) {
-      return [];
-    }
-
-    return mapQueryResultToStopSearchRows(data.stops_database.stops);
+    const mapped = data?.stops_database?.stops.map((quay) =>
+      mapQueryResultToStopSearchRow(quay, quay.scheduled_stop_point_instance),
+    );
+    return compact(mapped);
   }, [data]);
 
   return {
