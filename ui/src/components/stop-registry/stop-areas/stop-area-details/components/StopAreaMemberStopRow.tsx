@@ -6,47 +6,33 @@ import {
   OpenDetailsPage,
   ShowOnMap,
 } from '../../../components';
-import { StopTableRow } from '../../../search';
+import { StopSearchRow, StopTableRow } from '../../../search';
 import { LocatableStop } from '../../../types';
-import { StopAreaMemberRow } from '../types';
-
-function getRowBgClassName(added: boolean, selected: boolean) {
-  if (added) {
-    return 'bg-background-hsl-green-10';
-  }
-
-  if (!selected) {
-    return 'bg-background text-grey';
-  }
-
-  return '';
-}
 
 type StopAreaMemberStopRowProps = {
-  readonly member: StopAreaMemberRow;
+  readonly member: StopSearchRow;
   readonly observationDate: DateTime;
 };
 
 export const StopAreaMemberStopRow: FC<StopAreaMemberStopRowProps> = ({
-  member: { quay, selected, added },
+  member,
   observationDate,
 }) => {
   const locatableStop: LocatableStop = {
-    label: quay.label,
-    netextId: quay.quay.netexId ?? null,
-    location: mapLngLatToPoint(quay.measured_location.coordinates),
+    label: member.label,
+    netextId: member.quay.netexId ?? '',
+    location: mapLngLatToPoint(member.measured_location.coordinates),
   };
 
   return (
     <StopTableRow
-      className={getRowBgClassName(added, selected)}
       actionButtons={<LocatorActionButton stop={locatableStop} />}
       menuItems={[
         <OpenDetailsPage key="OpenDetailsPage" stop={locatableStop} />,
         <ShowOnMap key="ShowOnMap" stop={locatableStop} />,
       ]}
       observationDate={observationDate}
-      stop={quay}
+      stop={member}
     />
   );
 };
