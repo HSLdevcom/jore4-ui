@@ -4,3 +4,4 @@ export * from './useLoader';
 export * from './useReturnToQueryParam';
 export * from './useShowRoutesOnMap';
 export * from './useToggle';
+export * from './useTypedUrlState';

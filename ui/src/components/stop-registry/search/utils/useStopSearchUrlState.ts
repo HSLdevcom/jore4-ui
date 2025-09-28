@@ -12,6 +12,13 @@ import {
   areEqual,
   memoizeOne,
 } from '../../../../utils';
+import {
+  UrlStateDeserializers,
+  UrlStateSerializers,
+  serializeState,
+  toEnum,
+  useTypedUrlState,
+} from '../../../common/hooks';
 import { allKnownPosterSizes } from '../../stops/stop-details/info-spots/types';
 import {
   SearchBy,
@@ -23,13 +30,6 @@ import {
   defaultSortingInfo,
   stopSearchFiltersSchema,
 } from '../types';
-import {
-  UrlStateDeserializers,
-  UrlStateSerializers,
-  serializeState,
-  toEnum,
-  useTypedUrlState,
-} from './useTypedUrlState';
 
 type StopSearchUrlFlatState = StopSearchFilters & PagingInfo & SortingInfo;
 
