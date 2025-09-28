@@ -211,7 +211,7 @@ function buildInfoSpotsFilter({
 
   if (infoSpots.includes(NullOptionEnum.Null)) {
     // Aka, where does not exist
-    return { info_spot_locations: { location_netex_id: { _is_null: true } } };
+    return { _not: { info_spot_locations: {} } };
   }
 
   return {
