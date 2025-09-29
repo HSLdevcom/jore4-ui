@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useMapQueryParams } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { FilterType, resetMapState, setStopFilterAction } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
+import { useNavigateToMap } from '../map/utils/useNavigateToMap';
 
 type OpenDefaultMapButtonProps = {
   readonly containerClassName?: string;
@@ -14,7 +15,7 @@ export const OpenDefaultMapButton = ({
 }: OpenDefaultMapButtonProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { navigateToMap } = useMapQueryParams();
+  const navigateToMap = useNavigateToMap();
 
   const onOpenMap = () => {
     dispatch(resetMapState());

@@ -1,8 +1,4 @@
-import {
-  useAppDispatch,
-  useMapQueryParams,
-  useObservationDateQueryParam,
-} from '../../../hooks';
+import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
 import {
   FilterType,
   MapEntityEditorViewState,
@@ -12,6 +8,7 @@ import {
   setStopFilterAction,
 } from '../../../redux';
 import { Point } from '../../../types';
+import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 
 export function useShowTerminalOnMap() {
   const dispatch = useAppDispatch();
@@ -20,7 +17,7 @@ export function useShowTerminalOnMap() {
   const { observationDate } = useObservationDateQueryParam({
     initialize: false,
   });
-  const { openMapWithParameters } = useMapQueryParams();
+  const navigateToMap = useNavigateToMap();
 
   return (id: string | undefined, point: Point) => {
     dispatch(resetMapState()).then(() => {
@@ -33,14 +30,15 @@ export function useShowTerminalOnMap() {
         }),
       );
 
-      openMapWithParameters({
-        viewPortParams: {
+      navigateToMap({
+        viewPort: {
           latitude: point.latitude,
           longitude: point.longitude,
           zoom: 18,
         },
-        observationDate,
-        displayedRouteParams: {},
+        filters: {
+          observationDate,
+        },
       });
     });
   };

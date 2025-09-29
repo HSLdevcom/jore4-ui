@@ -5,10 +5,6 @@ import {
   useGetLineRoutesByLabelQuery,
   useGetRouteByFiltersQuery,
 } from '../../../../generated/graphql';
-import {
-  useMapQueryParams,
-  useObservationDateQueryParam,
-} from '../../../../hooks';
 import { Operation } from '../../../../redux';
 import {
   buildActiveDateGqlFilter,
@@ -18,6 +14,7 @@ import {
 } from '../../../../utils';
 import { useMapDataLayerLoader } from '../../../common/hooks';
 import { filterRoutesByHighestPriority } from '../../../routes-and-lines/line-details/useGetLineDetails';
+import { useMapUrlStateContext } from '../../utils/mapUrlState';
 
 const GQL_GET_LINE_ROUTES_BY_LABEL = gql`
   query GetLineRoutesByLabel(
@@ -62,18 +59,22 @@ const GQL_DISPLAYED_ROUTE = gql`
 `;
 
 export const useGetRoutesDisplayedInMap = () => {
-  const { observationDate } = useObservationDateQueryParam();
   const {
-    routeLabels,
-    lineLabel,
-    routeId,
-    showSelectedDaySituation,
-    priorities,
-  } = useMapQueryParams();
+    state: {
+      displayedRoute: {
+        routeLabels,
+        lineLabel,
+        routeId,
+        showSelectedDaySituation,
+        routePriorities,
+      },
+      filters: { observationDate },
+    },
+  } = useMapUrlStateContext();
 
   const routeFilters = {
     ...buildActiveDateGqlFilter(observationDate),
-    ...(priorities ? buildPriorityInGqlFilter(priorities) : {}),
+    ...(routePriorities ? buildPriorityInGqlFilter(routePriorities) : {}),
   };
 
   const skipRoutesByRouteInfoResult = !routeLabels?.length && !routeId;

@@ -1,11 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteDirectionEnum } from '../../../generated/graphql';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useObservationDateQueryParam,
-} from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { mapDirectionToSymbol } from '../../../i18n/uiNameMappings';
 import { Row, Visible } from '../../../layoutComponents';
 import {
@@ -22,6 +18,7 @@ import {
 import { RouteLabel } from '../../common/RouteLabel';
 import { MapOverlay, MapOverlayHeader } from '../MapOverlay';
 import { PriorityBadge } from '../PriorityBadge';
+import { useMapObservationDate } from '../utils/mapUrlState';
 import { belongsToJourneyPattern, useRouteInfo } from './hooks';
 import { RouteStopsOverlayRow } from './RouteStopsOverlayRow';
 
@@ -40,7 +37,7 @@ export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);
-  const { observationDate } = useObservationDateQueryParam();
+  const observationDate = useMapObservationDate();
   const { selectedRouteId, creatingNewRoute } =
     useAppSelector(selectMapRouteEditor);
 

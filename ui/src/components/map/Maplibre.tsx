@@ -16,11 +16,12 @@ import MapGL, {
   MapRef,
   NavigationControl,
 } from 'react-map-gl/maplibre';
-import { useAppDispatch, useMapQueryParams } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { LoadingState, Operation, setViewPortAction } from '../../redux';
 import { log, showWarningToast } from '../../utils';
 import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';
 import { useLoader } from '../common/hooks/useLoader';
+import { useMapUrlStateContext } from './utils/mapUrlState';
 
 type MaplibreProps = {
   readonly className?: string;
@@ -66,10 +67,13 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
 
   const mapRef = useRef<MapRef>(null);
 
-  const { mapPosition, setMapPosition } = useMapQueryParams();
+  const {
+    state: { viewPort: urlViewPort },
+    setViewPort: setUrlViewPort,
+  } = useMapUrlStateContext();
 
   const [viewport, setViewport] = useState<MaplibreViewport>({
-    ...mapPosition,
+    ...urlViewPort,
     bearing: 0,
     pitch: 0,
   });
@@ -78,20 +82,6 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
   const { setLoadingState } = useLoader(Operation.LoadMap, {
     initialState: LoadingState.HighPriority,
   });
-
-  // Due to the fucked up way the old Query string parsing and updating hooks
-  // are constructed they setter functions do not have proper stability.
-  // They are updated every time the query gets changed (param value added,
-  // deleted, changed or order changed). Thus using this unstable function as
-  // hook dependency introduces the same unstability to `updateMapDetailsDebounced`
-  // which in turn, combined with the cleanup useEffect (search ThisCleanUpEffect),
-  // that cancels any pending call, as it should, can result in viewPort updates
-  // getting completely missed.
-  // Thus, setMapPosition is wrapped into a ref here, so we can always call the
-  // latest version from within the debounced function, no matter when a call to
-  // it has happened.
-  const setMapPositionRef = useRef(setMapPosition);
-  setMapPositionRef.current = setMapPosition;
 
   const updateMapDetailsDebounced = useMemo(
     () =>
@@ -111,11 +101,11 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
               bounds,
             }),
           );
-          setMapPositionRef.current(latitude, longitude, zoom);
+          setUrlViewPort({ latitude, longitude, zoom });
         },
         800,
       ),
-    [dispatch],
+    [dispatch, setUrlViewPort],
   );
 
   const onViewportChange = (newViewport: MaplibreViewport) => {

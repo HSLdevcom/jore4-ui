@@ -1,9 +1,5 @@
 import { DateTime } from 'luxon';
-import {
-  useAppDispatch,
-  useMapQueryParams,
-  useObservationDateQueryParam,
-} from '../../../hooks';
+import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
 import {
   FilterType,
   MapEntityEditorViewState,
@@ -12,6 +8,7 @@ import {
   setSelectedStopIdAction,
   setStopFilterAction,
 } from '../../../redux';
+import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 import { LocatableStop } from '../types';
 
 export function useShowStopOnMap() {
@@ -22,7 +19,7 @@ export function useShowStopOnMap() {
     useObservationDateQueryParam({
       initialize: false,
     });
-  const { openMapWithParameters } = useMapQueryParams();
+  const navigateToMap = useNavigateToMap();
 
   return (
     { netextId, location }: LocatableStop,
@@ -41,14 +38,15 @@ export function useShowStopOnMap() {
         }),
       );
 
-      openMapWithParameters({
-        viewPortParams: {
+      navigateToMap({
+        viewPort: {
           latitude: location.latitude,
           longitude: location.longitude,
           zoom: 15,
         },
-        observationDate: observeOnDate ?? currentObservationDate,
-        displayedRouteParams: {},
+        filters: {
+          observationDate: observeOnDate ?? currentObservationDate,
+        },
       });
     });
   };
