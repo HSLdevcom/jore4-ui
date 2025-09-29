@@ -8,6 +8,7 @@ import {
   MeasurementsSection,
   SheltersSection,
   SignageDetailsSection,
+  StopHeaderSummaryRow,
   StopTitleRow,
 } from './stop-details';
 import { OverlappingVersionCutConfirmationModal } from './stop-details/CutValidityConfirmationModal';
@@ -38,6 +39,8 @@ export class StopDetailsPage {
 
   overlappingCutConfirmationModal =
     new OverlappingVersionCutConfirmationModal();
+
+  headerSummaryRow = new StopHeaderSummaryRow();
 
   visit(label: string) {
     cy.visit(`/stop-registry/stops/${label}`);
