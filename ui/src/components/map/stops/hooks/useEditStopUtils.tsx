@@ -2,11 +2,16 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { StopRegistryGeoJsonType } from '../../../../generated/graphql';
-import { useObservationDateQueryParam } from '../../../../hooks';
 import { MapEntityEditorViewState, Operation } from '../../../../redux';
-import { mapLngLatToGeoJSON, showSuccessToast } from '../../../../utils';
+import { isDateInRange } from '../../../../time';
+import {
+  mapLngLatToGeoJSON,
+  showSuccessToast,
+  showWarningToast,
+} from '../../../../utils';
 import { useLoader } from '../../../common/hooks';
 import { StopInfoForEditingOnMap } from '../../../forms/stop/utils/useGetStopInfoForEditingOnMap';
+import { useMapUrlStateContext } from '../../utils/mapUrlState';
 import {
   EditChanges,
   useDefaultErrorHandler,
@@ -46,8 +51,13 @@ export function useEditStopUtils(
 
   const map = useMap();
 
-  const { updateObservationDateByValidityPeriodIfNeeded } =
-    useObservationDateQueryParam();
+  const {
+    state: {
+      filters: { observationDate },
+    },
+    setFlatUrlState,
+  } = useMapUrlStateContext();
+
   const updateStopPriorityFilterIfNeeded =
     useUpdateStopPriorityFilterIfNeeded();
 
@@ -138,7 +148,22 @@ export function useEditStopUtils(
 
       showSuccessToast(t('stops.editSuccess'));
 
-      updateObservationDateByValidityPeriodIfNeeded(editChanges.editedStop);
+      if (
+        !isDateInRange(
+          observationDate,
+          editChanges.editedStop.validity_start,
+          editChanges.editedStop.validity_end,
+        )
+      ) {
+        setFlatUrlState((p) => ({
+          ...p,
+          observationDate:
+            editChanges.editedStop.validity_start ??
+            editChanges.editedStop.validity_end ??
+            observationDate,
+        }));
+        showWarningToast(t('filters.observationDateAdjusted'));
+      }
       updateStopPriorityFilterIfNeeded(editChanges.editedStop.priority);
 
       onFinishEditing(editChanges.quayId);

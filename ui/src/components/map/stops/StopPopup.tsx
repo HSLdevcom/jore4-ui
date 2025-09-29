@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
-import { useAppSelector, useObservationDateQueryParam } from '../../../hooks';
+import { useAppSelector } from '../../../hooks';
 import { Column, Row, Visible } from '../../../layoutComponents';
 import { FilterType, selectMapFilter } from '../../../redux';
 import { Path, routeDetails } from '../../../router/routeDetails';
@@ -13,6 +13,7 @@ import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import { mapToValidityPeriod } from '../../../utils';
 import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';
 import { PriorityBadge } from '../PriorityBadge';
+import { useMapObservationDate } from '../utils/mapUrlState';
 
 type StopPopupProps = {
   readonly stop: StopInfoForEditingOnMap;
@@ -37,9 +38,7 @@ function useLinkToDetailsPage(
 ): string {
   const { stopFilters } = useAppSelector(selectMapFilter);
 
-  const { observationDate } = useObservationDateQueryParam({
-    initialize: false,
-  });
+  const observationDate = useMapObservationDate();
 
   const showHighestPriorityCurrentStops =
     stopFilters[FilterType.ShowHighestPriorityCurrentStops];

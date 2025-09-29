@@ -6,6 +6,7 @@ import { MapFooter } from './MapFooter';
 import { MapHeader } from './MapHeader';
 import { MapLoader } from './MapLoader';
 import { RouteEditorRef } from './refTypes';
+import { ProvideMapUrlStateContext } from './utils/mapUrlState';
 
 const testIds = { mapPage: 'mapPage' };
 
@@ -19,22 +20,25 @@ export const MapPage: FC = () => {
   });
 
   return (
-    <div
-      data-testid={testIds.mapPage}
-      className="flex h-screen w-screen flex-col bg-background"
-    >
-      <MapHeader onClose={onCloseMap} />
+    <ProvideMapUrlStateContext>
+      <div
+        data-testid={testIds.mapPage}
+        className="flex h-screen w-screen flex-col bg-background"
+      >
+        <MapHeader onClose={onCloseMap} />
 
-      <Map ref={mapRef} className="flex-grow" />
+        <Map ref={mapRef} className="flex-grow" />
 
-      <MapFooter
-        onDrawRoute={() => mapRef.current?.onDrawRoute()}
-        onEditRoute={() => mapRef.current?.onEditRoute()}
-        onDeleteRoute={() => mapRef.current?.onDeleteRoute()}
-        onCancel={() => mapRef.current?.onCancel()}
-        onSave={() => mapRef.current?.onSave()}
-      />
-      <MapLoader />
-    </div>
+        <MapFooter
+          onDrawRoute={() => mapRef.current?.onDrawRoute()}
+          onEditRoute={() => mapRef.current?.onEditRoute()}
+          onDeleteRoute={() => mapRef.current?.onDeleteRoute()}
+          onCancel={() => mapRef.current?.onCancel()}
+          onSave={() => mapRef.current?.onSave()}
+        />
+
+        <MapLoader />
+      </div>
+    </ProvideMapUrlStateContext>
   );
 };

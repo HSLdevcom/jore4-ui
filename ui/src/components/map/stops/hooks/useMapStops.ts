@@ -7,7 +7,6 @@ import {
 } from '../../../../generated/graphql';
 import { getRouteStopLabels } from '../../../../graphql';
 import { useAppSelector } from '../../../../hooks/redux';
-import { useObservationDateQueryParam } from '../../../../hooks/urlQuery';
 import {
   selectEditedRouteData,
   selectEditedRouteIncludedStops,
@@ -21,6 +20,7 @@ import {
   mapToVariables,
 } from '../../../../utils';
 import { MapStop } from '../../types';
+import { useMapObservationDate } from '../../utils/mapUrlState';
 
 type LabelledStop = { readonly label: string };
 
@@ -46,7 +46,7 @@ const extractHighestPriorityStopsFromRoute = <
 export const useMapStops = (displayedRouteIds: ReadonlyArray<string>) => {
   const { selectedRouteId } = useAppSelector(selectMapRouteEditor);
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
-  const { observationDate } = useObservationDateQueryParam();
+  const observationDate = useMapObservationDate();
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const editedRouteIncludedStops = useAppSelector(
     selectEditedRouteIncludedStops,

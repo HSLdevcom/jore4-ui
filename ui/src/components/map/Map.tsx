@@ -28,7 +28,7 @@ import { MapFilterPanel } from './MapFilterPanel';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
 import { ObservationDateOverlay } from './ObservationDateOverlay';
-import { useGetMapData } from './queries/useGetMapData';
+import { useGetMapData } from './queries';
 import {
   RouteEditorRef,
   StopAreasRef,

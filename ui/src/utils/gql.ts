@@ -110,7 +110,7 @@ export const buildTimetablePriorityInGqlFilter = (
 });
 
 /** Builds an object for gql to filter by label */
-export const buildLabelGqlFilter = (label?: string) => ({
+export const buildLabelGqlFilter = (label?: string | null) => ({
   label: { _eq: label },
 });
 

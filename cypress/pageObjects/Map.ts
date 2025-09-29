@@ -113,9 +113,9 @@ export class Map {
     if (params) {
       cy.visit(
         `/map?${qs.stringify({
-          z: params.zoom ?? 13, // 13 is default zoom level
-          lat: params.lat,
-          lng: params.lng,
+          zoom: params.zoom ?? 13, // 13 is default zoom level
+          latitude: params.lat,
+          longitude: params.lng,
         })}`,
       );
       this.waitForLoadToComplete();

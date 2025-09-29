@@ -1,10 +1,7 @@
 import partial from 'lodash/partial';
 import { DateTime } from 'luxon';
 import { useCallback } from 'react';
-import {
-  useAppSelector,
-  useObservationDateQueryParam,
-} from '../../../../hooks';
+import { useAppSelector } from '../../../../hooks';
 import {
   ActiveStopFilters,
   FilterType,
@@ -19,6 +16,7 @@ import {
   isFutureEntity,
   isPastEntity,
 } from '../../../../utils';
+import { useMapObservationDate } from '../../utils/mapUrlState';
 import { useVisibleRouteStops } from './useVisibleRouteStops';
 
 type FilterStopsFn = <TStop extends FilterableStopInfo>(
@@ -107,7 +105,7 @@ function filterStopsByTimeAndPriority<TStop extends FilterableStopInfo>(
 
 export function useFilterStops(): FilterStopsFn {
   const { stopFilters } = useAppSelector(selectMapFilter);
-  const { observationDate } = useObservationDateQueryParam();
+  const observationDate = useMapObservationDate();
 
   const { visibleRouteStopLabels } = useVisibleRouteStops();
 

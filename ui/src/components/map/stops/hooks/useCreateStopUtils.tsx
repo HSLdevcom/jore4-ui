@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useObservationDateQueryParam } from '../../../../hooks';
 import { Operation } from '../../../../redux';
-import { showSuccessToast } from '../../../../utils';
+import { isDateInRange } from '../../../../time';
+import { showSuccessToast, showWarningToast } from '../../../../utils';
 import { useLoader } from '../../../common/hooks';
+import { useMapUrlStateContext } from '../../utils/mapUrlState';
 import { CreateChanges, useCreateStop } from './useCreateStop';
 import { useDefaultErrorHandler } from './useEditStop';
 import { useUpdateStopPriorityFilterIfNeeded } from './useUpdateStopPriorityFilterIfNeeded';
@@ -19,8 +20,13 @@ export function useCreateStopUtils(
 
   const { setIsLoading: setIsLoadingSaveStop } = useLoader(Operation.SaveStop);
 
-  const { updateObservationDateByValidityPeriodIfNeeded } =
-    useObservationDateQueryParam();
+  const {
+    state: {
+      filters: { observationDate },
+    },
+    setFlatUrlState,
+  } = useMapUrlStateContext();
+
   const updateStopPriorityFilterIfNeeded =
     useUpdateStopPriorityFilterIfNeeded();
 
@@ -40,7 +46,24 @@ export function useCreateStopUtils(
       setCreateChanges(null);
 
       showSuccessToast(t('stops.saveSuccess'));
-      updateObservationDateByValidityPeriodIfNeeded(changes.stopPoint);
+
+      if (
+        !isDateInRange(
+          observationDate,
+          changes.stopPoint.validity_start,
+          changes.stopPoint.validity_end,
+        )
+      ) {
+        setFlatUrlState((p) => ({
+          ...p,
+          observationDate:
+            changes.stopPoint.validity_start ??
+            changes.stopPoint.validity_end ??
+            observationDate,
+        }));
+        showWarningToast(t('filters.observationDateAdjusted'));
+      }
+
       updateStopPriorityFilterIfNeeded(changes.stopPoint.priority);
       onFinishEditing(quayId);
     } catch (err) {

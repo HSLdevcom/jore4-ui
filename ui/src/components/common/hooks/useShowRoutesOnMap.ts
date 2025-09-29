@@ -1,22 +1,22 @@
 import { gql } from '@apollo/client';
+import merge from 'lodash/merge';
 import { DateTime } from 'luxon';
 import {
   LineTableRowFragment,
-  Maybe,
   RouteMapParamsFragment,
   RouteValidityFragment,
 } from '../../../generated/graphql';
-import {
-  DisplayedRouteParams,
-  ViewPortParams,
-  useAppDispatch,
-  useMapQueryParams,
-  useObservationDateQueryParam,
-} from '../../../hooks';
+import { useAppDispatch, useObservationDateQueryParam } from '../../../hooks';
 import { resetMapState, setSelectedRouteIdAction } from '../../../redux';
 import { isDateInRange } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { getRouteShapeFirstCoordinates } from '../../../utils';
+import {
+  DisplayedRouteParams,
+  OpenMapViewPortParams,
+  defaultDisplayedRouteParams,
+} from '../../map/types';
+import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 
 const GQL_ROUTE_MAP_PARAMS = gql`
   fragment route_map_params on route_route {
@@ -41,27 +41,26 @@ const GQL_LINE_MAP_PARAMS = gql`
   }
 `;
 
+type ShowRoutesOnMapParams = {
+  readonly viewPort: OpenMapViewPortParams | undefined;
+  readonly displayedRoute: Partial<DisplayedRouteParams>;
+  readonly validityStart: DateTime;
+  readonly validityEnd: DateTime | null | undefined;
+};
+
 export const useShowRoutesOnMap = () => {
   const dispatch = useAppDispatch();
-  const { openMapWithParameters } = useMapQueryParams();
+  const navigateToMap = useNavigateToMap();
+
   const { observationDate: listViewObservationDate } =
     useObservationDateQueryParam({ initialize: false });
 
   const showRoutesOnMap = ({
-    viewPortParams,
-    displayedRouteParams: {
-      showSelectedDaySituation = true,
-      priorities = [Priority.Standard, Priority.Temporary],
-      ...displayedRouteParams
-    },
+    viewPort,
+    displayedRoute,
     validityStart,
     validityEnd,
-  }: {
-    viewPortParams: ViewPortParams;
-    displayedRouteParams: DisplayedRouteParams;
-    validityStart: DateTime;
-    validityEnd: Maybe<DateTime> | undefined;
-  }) => {
+  }: ShowRoutesOnMapParams) => {
     // Use observation date from list view by default. If observation date
     // is outside validity, make observation validity start date, so map is not empty.
 
@@ -74,14 +73,16 @@ export const useShowRoutesOnMap = () => {
       : validityStart;
 
     dispatch(resetMapState());
-    openMapWithParameters({
-      viewPortParams,
-      displayedRouteParams: {
-        ...displayedRouteParams,
-        showSelectedDaySituation,
-        priorities,
+    navigateToMap({
+      viewPort,
+      displayedRoute: merge({}, defaultDisplayedRouteParams, {
+        showSelectedDaySituation: true,
+        routePriorities: [Priority.Standard, Priority.Temporary],
+        ...displayedRoute,
+      }),
+      filters: {
+        observationDate: newObservationDate,
       },
-      observationDate: newObservationDate,
     });
   };
 
@@ -91,14 +92,11 @@ export const useShowRoutesOnMap = () => {
     );
 
     showRoutesOnMap({
-      displayedRouteParams: { routeLabels: [route.label] },
+      displayedRoute: { routeLabels: [route.label] },
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: route.validity_start!,
       validityEnd: route.validity_end,
-      viewPortParams: {
-        latitude,
-        longitude,
-      },
+      viewPort: latitude && longitude ? { latitude, longitude } : undefined,
     });
 
     // Automatically select the route on map
@@ -113,15 +111,15 @@ export const useShowRoutesOnMap = () => {
     );
 
     showRoutesOnMap({
-      displayedRouteParams: {
+      displayedRoute: {
         lineLabel: line.label,
-        priorities:
+        routePriorities:
           line.priority === Priority.Draft ? [Priority.Draft] : undefined,
       },
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: line.validity_start!,
       validityEnd: line.validity_end,
-      viewPortParams: { latitude, longitude },
+      viewPort: latitude && longitude ? { latitude, longitude } : undefined,
     });
   };
 
@@ -131,15 +129,19 @@ export const useShowRoutesOnMap = () => {
     );
 
     showRoutesOnMap({
-      displayedRouteParams: {
+      displayedRoute: {
         routeId: route.route_id,
         showSelectedDaySituation: false,
-        priorities: [Priority.Standard, Priority.Temporary, Priority.Draft],
+        routePriorities: [
+          Priority.Standard,
+          Priority.Temporary,
+          Priority.Draft,
+        ],
       },
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       validityStart: route.validity_start!,
       validityEnd: route.validity_end,
-      viewPortParams: { latitude, longitude },
+      viewPort: latitude && longitude ? { latitude, longitude } : undefined,
     });
 
     // Automatically select the route on map
