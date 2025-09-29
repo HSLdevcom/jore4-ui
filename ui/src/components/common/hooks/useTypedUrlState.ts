@@ -347,22 +347,3 @@ export function useTypedUrlState<StateT extends object>(
 
   return [state, setState];
 }
-
-/**
- * Create a deserializer for String enum `enum My { A='a', B='b' }`
- *
- * @param knownValues Object.values(MyEnum)
- */
-export function toEnum<T extends string | number>(
-  knownValues: ReadonlyArray<T>,
-): (value: T extends string ? string : number) => T {
-  return (value) => {
-    if (knownValues.includes(value as ExplicitAny)) {
-      return value as unknown as T;
-    }
-
-    throw new TypeError(
-      `Value (${value}) is not a valid enum value! Known values are: ${knownValues}`,
-    );
-  };
-}

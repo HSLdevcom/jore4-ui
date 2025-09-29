@@ -5,7 +5,6 @@ import { DateTime } from 'luxon';
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 import { ZodArray, ZodTypeAny, z } from 'zod';
 import { PagingInfo, SortOrder, defaultPagingInfo } from '../../../../types';
-import { knownPriorityValues } from '../../../../types/enums';
 import {
   AllOptionEnum,
   NullOptionEnum,
@@ -13,12 +12,18 @@ import {
   memoizeOne,
 } from '../../../../utils';
 import {
+  SEPARATOR,
+  parsePriorities,
+  serializeArray,
+  splitString,
+  toEnum,
+} from '../../../common/hooks/typedUrlStateHelpers';
+import {
   UrlStateDeserializers,
   UrlStateSerializers,
   serializeState,
-  toEnum,
   useTypedUrlState,
-} from '../../../common/hooks';
+} from '../../../common/hooks/useTypedUrlState';
 import { allKnownPosterSizes } from '../../stops/stop-details/info-spots/types';
 import {
   SearchBy,
@@ -39,12 +44,7 @@ type StopSearchUrlState = {
   readonly sortingInfo: SortingInfo;
 };
 
-const SEPARATOR = ',';
 const SIZE_SEPARATOR = '|';
-
-function serializeArray<ValueT>(values: ReadonlyArray<ValueT>): string {
-  return values.map(String).join(SEPARATOR);
-}
 
 function serializeInfoSpots(value: StopSearchFilters['infoSpots']): string {
   return value
@@ -91,25 +91,6 @@ const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
   sortBy: identity,
   sortOrder: identity,
 };
-
-/**
- * Split string into array on separator, with handling for empty strings.
- *
- * @param value string to split
- * @param separator string to split on
- */
-function splitString(
-  value: string,
-  separator: string = SEPARATOR,
-): Array<string> {
-  if (value.length === 0) {
-    return [];
-  }
-
-  return value.split(separator);
-}
-
-const toPriority = toEnum(knownPriorityValues);
 
 /**
  * If All is included -> [All]
@@ -230,7 +211,7 @@ const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
   searchFor: toEnum(Object.values(SearchFor)),
   observationDate: (value) => DateTime.fromISO(value),
   municipalities: parseMunicipalities,
-  priorities: (value) => splitString(value).map(Number).map(toPriority),
+  priorities: parsePriorities,
   transportationMode: parseTransportationMode,
   stopState: parseStopState,
   shelter: parseShelter,
