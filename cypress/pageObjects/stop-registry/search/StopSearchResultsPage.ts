@@ -11,6 +11,14 @@ export class StopSearchResultsPage {
     return cy.getByTestId('StopSearchResultsPage::resultCount');
   }
 
+  getShowOnMapButton() {
+    return cy.getByTestId('StopSearchResultsPage::showOnMapButton');
+  }
+
+  getShowOnMapButtonLoading() {
+    return cy.getByTestId('StopSearchResultsPage::showOnMapButton::loading');
+  }
+
   getResultsTable() {
     return cy.getByTestId('StopSearchByStopResultList::table');
   }

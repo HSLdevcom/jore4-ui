@@ -36,9 +36,11 @@ export const StopSearchByStopResults: FC<StopSearchResultsProps> = ({
     >
       <CountAndSortingRow
         className="mb-6"
+        filters={filters}
         resultCount={resultCount}
         setSortingInfo={setSortingInfo}
         sortingInfo={sortingInfo}
+        stops={stops}
       />
       {error ? (
         <LoadingStopsErrorRow error={error} refetch={refetch} />

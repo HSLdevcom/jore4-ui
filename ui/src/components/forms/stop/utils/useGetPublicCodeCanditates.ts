@@ -7,6 +7,7 @@ import {
   GetExistingQuayPublicCodesQuery,
   useGetExistingQuayPublicCodesQuery,
 } from '../../../../generated/graphql';
+import { knownMunicipalityPrefixes } from '../../../../types/enums';
 
 const GQL_GET_EXISTING_PUBLIC_CODES = gql`
   query GetExistingQuayPublicCodes(
@@ -48,18 +49,6 @@ const GQL_GET_EXISTING_PUBLIC_CODES = gql`
     }
   }
 `;
-
-const knownMunicipalityPrefixes = {
-  Helsinki: 'H',
-  Vantaa: 'V',
-  Espoo: 'E',
-  Kauniainen: 'Ka',
-  Siuntio: 'So',
-  Kirkkonummi: 'Ki',
-  Sipoo: 'Si',
-  Kerava: 'Ke',
-  Tuusula: 'Tu',
-} as const;
 
 const distanceToNearbyStops = lengthToDegrees(100, 'meters');
 

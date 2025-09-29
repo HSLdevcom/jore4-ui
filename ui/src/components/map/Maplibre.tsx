@@ -1,5 +1,6 @@
 import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
+import type { LngLatBoundsLike } from 'maplibre-gl';
 import {
   FC,
   PropsWithChildren,
@@ -15,11 +16,17 @@ import MapGL, {
   MapRef,
   NavigationControl,
 } from 'react-map-gl/maplibre';
-import { useAppDispatch } from '../../hooks';
-import { LoadingState, Operation, setViewPortAction } from '../../redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  LoadingState,
+  Operation,
+  selectMapViewport,
+  setViewPortAction,
+} from '../../redux';
 import { log, showWarningToast } from '../../utils';
 import { getInteractiveLayerIds, loadMapAssets } from '../../utils/map';
 import { useLoader } from '../common/hooks/useLoader';
+import { isViewportLoaded } from './utils/isViewportLoaded';
 import { useMapUrlStateContext } from './utils/mapUrlState';
 
 type MaplibreProps = {
@@ -77,6 +84,7 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
     pitch: 0,
   });
 
+  const reduxViewport = useAppSelector(selectMapViewport);
   const dispatch = useAppDispatch();
   const { setLoadingState } = useLoader(Operation.LoadMap, {
     initialState: LoadingState.HighPriority,
@@ -153,7 +161,18 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
 
   const onLoad = () => {
     setLoadingState(LoadingState.NotLoading);
-    onViewportChange(viewport);
+    if (isViewportLoaded(reduxViewport)) {
+      // Ensure the zoom happens asynchronously regardless of the browsers
+      // reduced motion setting. Having the zoom triggered synchronously here
+      // can lead to wrong viewport getting written in the redux store.
+      setTimeout(() => {
+        mapRef.current
+          ?.getMap()
+          .fitBounds(reduxViewport.bounds as LngLatBoundsLike);
+      }, 0);
+    } else {
+      onViewportChange(viewport);
+    }
 
     // Flush the initial state into Redux store immediately. Else the subcomponents
     // that are waiting for the map to load, by observing the Redux store, will
