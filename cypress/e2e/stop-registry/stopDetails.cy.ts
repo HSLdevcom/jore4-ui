@@ -511,6 +511,8 @@ describe('Stop details', () => {
         .shouldHaveText('Pohjoisesplanadi|Norraesplanaden');
       stopDetailsPage.validityPeriod().should('contain', '20.3.2020-31.5.2050');
 
+      stopDetailsPage.headerSummaryRow.lineCount().should('have.text', 0);
+
       stopDetailsPage.basicDetailsTabPanel().should('be.visible');
       stopDetailsPage.technicalFeaturesTabPanel().should('not.exist');
       stopDetailsPage.infoSpotsTabPanel().should('not.exist');
@@ -654,6 +656,11 @@ describe('Stop details', () => {
         bdView.getStopType().shouldHaveText('Runkolinja, vaihtopysäkki');
         bdView.getTransportMode().shouldHaveText('Bussi');
 
+        // Make sure header row reflects these
+        stopDetailsPage.headerSummaryRow
+          .stopTypes()
+          .should('have.text', 'RunkolinjaVaihtopysäkki');
+
         stopDetailsPage.basicDetails.getEditButton().click();
 
         // Verify correct initial values.
@@ -692,6 +699,14 @@ describe('Stop details', () => {
         bdView.getStopState().shouldHaveText('Pois käytöstä');
         bdView.getElyNumber().shouldHaveText('1234567');
 
+        // Make sure header row reflects these
+        stopDetailsPage.headerSummaryRow
+          .stopTypes()
+          .should('have.text', 'Raideliikennettä korvaavaVirtuaalipysäkki');
+        stopDetailsPage.headerSummaryRow
+          .stopState()
+          .should('have.text', 'Pois käytöstä');
+
         stopDetailsPage.basicDetails.getEditButton().click();
 
         bdForm.getRailReplacementCheckbox().click();
@@ -720,6 +735,9 @@ describe('Stop details', () => {
         bdView.getTransportMode().shouldHaveText('Raitiovaunu');
         bdView.getStopState().shouldHaveText('Käytössä');
         bdView.getTimingPlaceId().shouldHaveText('1AACKT');
+
+        // Make sure header row reflects these
+        stopDetailsPage.headerSummaryRow.stopState().should('not.exist');
       },
     );
 
@@ -1417,7 +1435,7 @@ describe('Stop details', () => {
             .getStopAreaSurroundingsAccessibleDropdownButton()
             .shouldHaveText('Esteellinen');
 
-          // Change everything:
+          // Change nearly everything and make the stop accessible:
           form.getStopTypeDropdownButton().click();
           form.getStopTypeDropdownOptions().contains('Uloke').click();
           form.getCurvedStopDropdownButton().click();
@@ -1430,11 +1448,9 @@ describe('Stop details', () => {
           form.getStopAreaLengthwiseSlopeInput().clearAndType('2.2');
 
           form.getStructureLaneDistanceInput().clearAndType('4');
-          form.getStopElevationFromRailTopInput().clearAndType('55');
-          form.getStopElevationFromSidewalkInput().clearAndType('20');
+          form.getStopElevationFromRailTopInput().clearAndType('25');
+          form.getStopElevationFromSidewalkInput().clearAndType('16');
           form.getLowerCleatHeightInput().clearAndType('7');
-
-          form.getPlatformEdgeWarningAreaCheckbox().click();
 
           form.getSidewalkAccessibleConnectionCheckbox().click();
           form.getGuidanceStripeCheckbox().click();
@@ -1478,11 +1494,11 @@ describe('Stop details', () => {
           view.getStopAreaLengthwiseSlope().shouldHaveText('2.2');
 
           view.getStructureLaneDistance().shouldHaveText('4');
-          view.getStopElevationFromRailTop().shouldHaveText('55');
-          view.getStopElevationFromSidewalk().shouldHaveText('20');
+          view.getStopElevationFromRailTop().shouldHaveText('25');
+          view.getStopElevationFromSidewalk().shouldHaveText('16');
           view.getLowerCleatHeight().shouldHaveText('7');
 
-          view.getPlatformEdgeWarningArea().shouldHaveText('Ei');
+          view.getPlatformEdgeWarningArea().shouldHaveText('Kyllä');
           view.getSidewalkAccessibleConnection().shouldHaveText('Ei');
           view.getGuidanceStripe().shouldHaveText('Ei');
           view.getServiceAreaStripes().shouldHaveText('Ei');
@@ -1501,7 +1517,9 @@ describe('Stop details', () => {
 
           stopDetailsPage.measurements
             .getAccessibilityLevel()
-            .shouldHaveText('Osittain esteellinen');
+            .shouldHaveText('Täysin esteetön');
+
+          stopDetailsPage.headerSummaryRow.accessibleIcon().shouldBeVisible();
         },
       );
 
