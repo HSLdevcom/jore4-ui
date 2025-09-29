@@ -68,8 +68,7 @@ function serializeInfoSpots(value: StopSearchFilters['infoSpots']): string {
     .join(SEPARATOR);
 }
 
-const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
-  // Filters
+export const filterSerializers: UrlStateSerializers<StopSearchFilters> = {
   query: identity,
   elyNumber: identity,
   searchBy: identity,
@@ -82,6 +81,11 @@ const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
   shelter: serializeArray,
   electricity: serializeArray,
   infoSpots: serializeInfoSpots,
+};
+
+const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
+  // Filters
+  ...filterSerializers,
 
   // Paging
   page: String,
@@ -203,8 +207,7 @@ function parseInfoSpots(value: string): StopSearchFilters['infoSpots'] {
   });
 }
 
-const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
-  // Filters
+export const filterDeserializers: UrlStateDeserializers<StopSearchFilters> = {
   query: identity,
   elyNumber: identity,
   searchBy: toEnum(Object.values(SearchBy)),
@@ -217,6 +220,11 @@ const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
   shelter: parseShelter,
   electricity: parseElectricity,
   infoSpots: parseInfoSpots,
+};
+
+const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
+  // Filters
+  ...filterDeserializers,
 
   // Paging
   page: Number,
