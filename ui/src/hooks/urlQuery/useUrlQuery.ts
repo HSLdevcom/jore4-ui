@@ -50,7 +50,7 @@ export const mapObjectToQueryParameterObjects = <
 };
 
 export const useUrlQuery = () => {
-  const query = useLocation().search;
+  const { search: query, state: routerState } = useLocation();
   const queryParams = useMemo(
     () => qs.parse(query, { ignoreQueryPrefix: true }),
     [query],
@@ -65,9 +65,12 @@ export const useUrlQuery = () => {
       pathname?: string,
       state?: unknown,
     ) => {
-      navigate({ search: `?${queryString}`, pathname }, { replace, state });
+      navigate(
+        { search: `?${queryString}`, pathname },
+        { replace, state: state ?? routerState },
+      );
     },
-    [navigate],
+    [navigate, routerState],
   );
 
   /** Sets parameter to URL query

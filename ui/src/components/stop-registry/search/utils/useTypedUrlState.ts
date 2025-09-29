@@ -281,7 +281,7 @@ export function useTypedUrlState<StateT extends object>(
     defaultValues,
   );
 
-  const { search } = useLocation();
+  const { search, state: routerState } = useLocation();
   const navigate = useNavigate();
 
   const expectedSearchRef = useRef({
@@ -313,7 +313,7 @@ export function useTypedUrlState<StateT extends object>(
       expectedSearchRef.current.pendingNavigationUpdate = false;
       navigate(
         { pathname: '.', search: expectedSearchRef.current.search },
-        { replace: true },
+        { replace: true, state: routerState },
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
