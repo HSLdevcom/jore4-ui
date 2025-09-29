@@ -11,8 +11,11 @@ import { Viewport } from '../../../redux/types';
 import { parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks/useLoader';
+import { buildSearchStopsGqlQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';
 import { mapCompactOrNull } from '../../stop-registry/utils';
 import { MapStop } from '../types';
+import { useMapUrlStateContext } from '../utils/mapUrlState';
+import { hasSearchFilters } from '../utils/useIsInSearchResultMode';
 
 const GQL_GET_MAP_STOPS = gql`
   query GetMapStops($where: stops_database_quay_newest_version_bool_exp) {
@@ -129,15 +132,23 @@ export function useGetMapStops({
   skipFetching,
   viewport,
 }: GetMapStopsOptions) {
+  const {
+    state: { filters },
+  } = useMapUrlStateContext();
+  const isInSearchMode = hasSearchFilters(filters);
+
+  const whereInViewPort = viewportToWhere(viewport);
   const stopsResult = useGetMapStopsQuery({
     variables: {
-      where: {
-        _or: compact([
-          viewportToWhere(viewport),
-          whereSelectedStopArea(selectedStopAreaId),
-          whereSelectedTerminal(selectedTerminalId),
-        ]),
-      },
+      where: isInSearchMode
+        ? buildSearchStopsGqlQueryVariables(filters, whereInViewPort)
+        : {
+            _or: compact([
+              whereInViewPort,
+              whereSelectedStopArea(selectedStopAreaId),
+              whereSelectedTerminal(selectedTerminalId),
+            ]),
+          },
     },
     skip: skipFetching,
   });
