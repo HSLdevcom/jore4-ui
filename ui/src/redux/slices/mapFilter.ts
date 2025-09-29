@@ -66,12 +66,21 @@ const slice = createSlice({
     ) => {
       state.showMapEntityTypeFilterOverlay = action.payload;
     },
+    setStopFilters: (state, action: PayloadAction<ActiveStopFilters>) => {
+      state.stopFilters = action.payload;
+    },
     setStopFilter: (
       state,
       action: PayloadAction<{ filterType: FilterType; isActive: boolean }>,
     ) => {
       const { filterType, isActive } = action.payload;
       state.stopFilters[filterType] = isActive;
+    },
+    setShowMapEntityTypes: (
+      state,
+      action: PayloadAction<ShownMapEntityTypes>,
+    ) => {
+      state.showMapEntityType = action.payload;
     },
     setShowMapEntityType: (
       state,
@@ -90,8 +99,10 @@ const slice = createSlice({
 
 export const {
   setShowMapEntityTypeFilterOverlay: setShowMapEntityTypeFilterOverlayAction,
+  setStopFilters: setStopFiltersAction,
   setStopFilter: setStopFilterAction,
   setShowMapEntityType: setShowMapEntityTypeAction,
+  setShowMapEntityTypes: setShowMapEntityTypesAction,
 } = slice.actions;
 
 export const mapFilterReducer = slice.reducer;

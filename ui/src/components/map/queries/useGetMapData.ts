@@ -9,18 +9,12 @@ import {
   selectSelectedTerminalId,
   selectShowMapEntityTypes,
 } from '../../../redux';
-import { Viewport } from '../../../redux/types';
 import { useLoader } from '../../common/hooks';
 import { useFilterStops, useGetRoutesDisplayedInMap } from '../stops/hooks';
+import { isViewportLoaded } from '../utils/isViewportLoaded';
 import { useGetMapStopAreas } from './useGetMapStopAreas';
 import { useGetMapStops } from './useGetMapStops';
 import { useGetMapTerminals } from './useGetMapTerminals';
-
-function isViewportLoaded(viewport: Viewport): boolean {
-  const [[west = 0, south = 0], [east = 0, north = 0]] = viewport.bounds;
-
-  return Math.abs(west - east) > 0 && Math.abs(south - north) > 0;
-}
 
 export function useGetMapData() {
   const viewport = useAppSelector(selectMapViewport);

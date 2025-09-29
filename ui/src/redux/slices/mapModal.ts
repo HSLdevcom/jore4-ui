@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Viewport } from '../types';
 
 type Mutable<T> = { -readonly [P in keyof T]: Mutable<T[P]> };
-type MutableViewport = Mutable<Viewport>;
+export type MutableViewport = Mutable<Viewport>;
 
 export const HELSINKI_CITY_CENTER_COORDINATES = {
   latitude: 60.1716,
@@ -14,15 +14,17 @@ type IState = {
   readonly viewport: Viewport;
 };
 
+export const defaultViewPort: Viewport = {
+  ...HELSINKI_CITY_CENTER_COORDINATES,
+  bounds: [
+    [0, 0],
+    [0, 0],
+  ],
+};
+
 const initialState: IState = {
   isOpen: false,
-  viewport: {
-    ...HELSINKI_CITY_CENTER_COORDINATES,
-    bounds: [
-      [0, 0],
-      [0, 0],
-    ],
-  },
+  viewport: defaultViewPort,
 };
 
 const slice = createSlice({

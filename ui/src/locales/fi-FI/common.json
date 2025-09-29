@@ -688,6 +688,7 @@
     "stopsCountShort_other": "{{count}} pys.",
     "goToStopAreaDetails": "Siirry pysäkkialueen tietoihin.",
     "gotoTerminalDetails": "Siirry terminaalin tietoihin.",
+    "showOnMap": "Näytä kartalla",
 
     "stopRowActions": {
       "openDetails": "Näytä pysäkin tiedot",

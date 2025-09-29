@@ -688,6 +688,7 @@
     "stopsCountShort_other": "{{count}} stops",
     "goToStopAreaDetails": "Go to stop area details page.",
     "gotoTerminalDetails": "Go to terminal details page.",
+    "showOnMap": "Show on map",
 
     "stopRowActions": {
       "openDetails": "Open stop details page",

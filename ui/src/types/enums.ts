@@ -83,3 +83,15 @@ export enum StopRegistryMunicipality {
   Kerava = 10,
   Tuusula = 11,
 }
+
+export const knownMunicipalityPrefixes = {
+  Helsinki: 'H',
+  Vantaa: 'V',
+  Espoo: 'E',
+  Kauniainen: 'Ka',
+  Siuntio: 'So',
+  Kirkkonummi: 'Ki',
+  Sipoo: 'Si',
+  Kerava: 'Ke',
+  Tuusula: 'Tu',
+} as const;
