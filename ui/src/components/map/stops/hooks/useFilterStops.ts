@@ -17,11 +17,12 @@ import {
   isPastEntity,
 } from '../../../../utils';
 import { useMapObservationDate } from '../../utils/mapUrlState';
+import { useIsInSearchResultMode } from '../../utils/useIsInSearchResultMode';
 import { useVisibleRouteStops } from './useVisibleRouteStops';
 
 type FilterStopsFn = <TStop extends FilterableStopInfo>(
   stops: ReadonlyArray<TStop>,
-) => Array<TStop>;
+) => ReadonlyArray<TStop>;
 
 function isStopInDisplayedRoutes(
   displayedRouteStopLabels: ReadonlyArray<string>,
@@ -109,8 +110,14 @@ export function useFilterStops(): FilterStopsFn {
 
   const { visibleRouteStopLabels } = useVisibleRouteStops();
 
+  const isInSearchResultMode = useIsInSearchResultMode();
+
   return useCallback(
     (stops) => {
+      if (isInSearchResultMode) {
+        return stops;
+      }
+
       const filteredByTimeAndPriority = filterStopsByTimeAndPriority(
         stops,
         observationDate,
@@ -129,6 +136,11 @@ export function useFilterStops(): FilterStopsFn {
         isStopInDisplayedRoutes(visibleRouteStopLabels, stop.label),
       );
     },
-    [observationDate, stopFilters, visibleRouteStopLabels],
+    [
+      observationDate,
+      stopFilters,
+      visibleRouteStopLabels,
+      isInSearchResultMode,
+    ],
   );
 }

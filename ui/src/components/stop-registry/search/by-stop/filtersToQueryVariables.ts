@@ -228,6 +228,7 @@ function buildInfoSpotsFilter({
 
 export function buildSearchStopsGqlQueryVariables(
   filters: StopSearchFilters,
+  extraConditions: StopsDatabaseQuayNewestVersionBoolExp = {},
 ): StopsDatabaseQuayNewestVersionBoolExp {
   const queryFilter = buildSearchStopsQueryFilter(filters);
 
@@ -257,6 +258,7 @@ export function buildSearchStopsGqlQueryVariables(
       shelterFilter,
       electricityFilter,
       infoSpotsFilter,
+      extraConditions,
     ].filter((filter) => !isEmpty(filter)),
   };
 }
