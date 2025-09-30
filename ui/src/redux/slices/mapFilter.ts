@@ -16,6 +16,7 @@ export enum FilterType {
   ShowDraftStops = 'show-draft-stops',
   ShowHighestPriorityCurrentStops = 'show-highest-priority-current-stops',
   ShowAllBusStops = 'show-all-bus-stops',
+  ShowAllTramStops = 'show-all-tram-stops',
 }
 
 export type ShownMapEntityTypes = {
@@ -43,6 +44,7 @@ const initialState: IState = {
     [FilterType.ShowDraftStops]: false,
     [FilterType.ShowHighestPriorityCurrentStops]: true,
     [FilterType.ShowAllBusStops]: false,
+    [FilterType.ShowAllTramStops]: false,
   },
   showMapEntityType: {
     [MapEntityType.Stop]: true,
