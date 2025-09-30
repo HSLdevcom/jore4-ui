@@ -6197,6 +6197,8 @@ export type RouteInfrastructureLinkAlongRouteVarianceOrderBy = {
 /** The line from Transmodel: http://www.transmodel-cen.eu/model/index.htm?goto=2:1:3:487 */
 export type RouteLine = {
   __typename?: 'route_line';
+  /** The line text description of the line. */
+  description?: Maybe<Scalars['String']['output']>;
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label: Scalars['String']['output'];
   /** An object relationship */
@@ -6353,6 +6355,7 @@ export type RouteLineBoolExp = {
   _and?: InputMaybe<Array<RouteLineBoolExp>>;
   _not?: InputMaybe<RouteLineBoolExp>;
   _or?: InputMaybe<Array<RouteLineBoolExp>>;
+  description?: InputMaybe<StringComparisonExp>;
   label?: InputMaybe<StringComparisonExp>;
   legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeBoolExp>;
   legacy_hsl_municipality_code?: InputMaybe<StringComparisonExp>;
@@ -6410,6 +6413,8 @@ export type RouteLineIncInput = {
 
 /** input type for inserting data into table "route.line" */
 export type RouteLineInsertInput = {
+  /** The line text description of the line. */
+  description?: InputMaybe<Scalars['String']['input']>;
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: InputMaybe<Scalars['String']['input']>;
   legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeObjRelInsertInput>;
@@ -6441,6 +6446,8 @@ export type RouteLineInsertInput = {
 /** aggregate max on columns */
 export type RouteLineMaxFields = {
   __typename?: 'route_line_max_fields';
+  /** The line text description of the line. */
+  description?: Maybe<Scalars['String']['output']>;
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']['output']>;
   /** Defines the legacy municipality that is mainly used for data exports. */
@@ -6457,6 +6464,8 @@ export type RouteLineMaxFields = {
 
 /** order by max() on columns of table "route.line" */
 export type RouteLineMaxOrderBy = {
+  /** The line text description of the line. */
+  description?: InputMaybe<OrderBy>;
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: InputMaybe<OrderBy>;
   /** Defines the legacy municipality that is mainly used for data exports. */
@@ -6474,6 +6483,8 @@ export type RouteLineMaxOrderBy = {
 /** aggregate min on columns */
 export type RouteLineMinFields = {
   __typename?: 'route_line_min_fields';
+  /** The line text description of the line. */
+  description?: Maybe<Scalars['String']['output']>;
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: Maybe<Scalars['String']['output']>;
   /** Defines the legacy municipality that is mainly used for data exports. */
@@ -6490,6 +6501,8 @@ export type RouteLineMinFields = {
 
 /** order by min() on columns of table "route.line" */
 export type RouteLineMinOrderBy = {
+  /** The line text description of the line. */
+  description?: InputMaybe<OrderBy>;
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: InputMaybe<OrderBy>;
   /** Defines the legacy municipality that is mainly used for data exports. */
@@ -6529,6 +6542,7 @@ export type RouteLineOnConflict = {
 
 /** Ordering options when selecting data from "route.line". */
 export type RouteLineOrderBy = {
+  description?: InputMaybe<OrderBy>;
   label?: InputMaybe<OrderBy>;
   legacyHslMunicipalityCodeByLegacyHslMunicipalityCode?: InputMaybe<HslRouteLegacyHslMunicipalityCodeOrderBy>;
   legacy_hsl_municipality_code?: InputMaybe<OrderBy>;
@@ -6564,6 +6578,8 @@ export type RouteLinePrependInput = {
 /** select columns of table "route.line" */
 export enum RouteLineSelectColumn {
   /** column name */
+  Description = 'description',
+  /** column name */
   Label = 'label',
   /** column name */
   LegacyHslMunicipalityCode = 'legacy_hsl_municipality_code',
@@ -6589,6 +6605,8 @@ export enum RouteLineSelectColumn {
 
 /** input type for updating data in table "route.line" */
 export type RouteLineSetInput = {
+  /** The line text description of the line. */
+  description?: InputMaybe<Scalars['String']['input']>;
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: InputMaybe<Scalars['String']['input']>;
   /** Defines the legacy municipality that is mainly used for data exports. */
@@ -6661,6 +6679,8 @@ export type RouteLineStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type RouteLineStreamCursorValueInput = {
+  /** The line text description of the line. */
+  description?: InputMaybe<Scalars['String']['input']>;
   /** The label of the line definition. The label is unique for a certain priority and validity period. */
   label?: InputMaybe<Scalars['String']['input']>;
   /** Defines the legacy municipality that is mainly used for data exports. */
@@ -6699,6 +6719,8 @@ export type RouteLineSumOrderBy = {
 
 /** update columns of table "route.line" */
 export enum RouteLineUpdateColumn {
+  /** column name */
+  Description = 'description',
   /** column name */
   Label = 'label',
   /** column name */

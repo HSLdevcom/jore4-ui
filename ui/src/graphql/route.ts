@@ -16,6 +16,7 @@ const LINE_DEFAULT_FIELDS = gql`
   fragment line_default_fields on route_line {
     line_id
     label
+    description
     name_i18n
     short_name_i18n
     validity_start
@@ -246,13 +247,7 @@ const GET_ROUTES_BY_VALIDITY = gql`
 const INSERT_LINE = gql`
   mutation InsertLineOne($object: route_line_insert_input!) {
     insert_route_line_one(object: $object) {
-      line_id
-      label
-      priority
-      primary_vehicle_mode
-      transport_target
-      validity_start
-      validity_end
+      ...line_all_fields
     }
   }
 `;
