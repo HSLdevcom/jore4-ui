@@ -13,6 +13,7 @@ import {
   StopRegistryStopPlace,
   StopRegistryStopPlaceInput,
   StopRegistryStopPlaceOrganisationRelationshipType,
+  StopRegistryTopographicPlaceType,
 } from '../../generated/graphql';
 import { hasTypeName } from '../../graphql';
 import {
@@ -335,7 +336,11 @@ export const getStopPlaceDetailsForEnrichment = <
 ): ObjectWithAllKeyosOfStopPlaceEnrichmentProperties => {
   return {
     ...extractSharedStopPlaceDetails(stopPlace),
-    municipality: stopPlace.topographicPlace?.name?.value ?? undefined,
+    municipality:
+      stopPlace.topographicPlace?.topographicPlaceType ===
+      StopRegistryTopographicPlaceType.Municipality
+        ? (stopPlace.topographicPlace.name?.value ?? undefined)
+        : undefined,
     fareZone: stopPlace.fareZones?.[0]?.name?.value ?? undefined,
   } as ObjectWithAllKeyosOfStopPlaceEnrichmentProperties;
 };

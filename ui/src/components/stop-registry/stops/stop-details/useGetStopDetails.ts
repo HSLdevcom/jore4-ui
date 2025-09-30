@@ -191,6 +191,7 @@ const GQL_EXTERNAL_LINKS_DETAILS = gql`
 const GQL_TOPOGRAPHIC_PLACE_DETAILS = gql`
   fragment topographic_place_details on stop_registry_TopographicPlace {
     id
+    topographicPlaceType
     name {
       value
       lang
