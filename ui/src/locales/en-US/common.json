@@ -1048,7 +1048,8 @@
       "stopArea": "Stop areas",
       "terminal": "Terminals",
       "infoScreen": "Info screens",
-      "infoSpot": "Info spots"
+      "infoSpot": "Info spots",
+      "busNetwork": "Bus network"
     }
   },
   "search": {

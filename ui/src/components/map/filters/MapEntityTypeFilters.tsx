@@ -6,7 +6,7 @@ import { ClassNameProps } from './types';
 import { useMapEntityTypeFilters } from './useMapEntityTypeFilters';
 
 export const MapEntityTypeFilters: FC<ClassNameProps> = ({ className }) => {
-  const { infoTypes, stopTypes } = useMapEntityTypeFilters();
+  const { infoTypes, stopTypes, networkTypes } = useMapEntityTypeFilters();
 
   return (
     <div className={twMerge('flex flex-col items-stretch gap-2', className)}>
@@ -15,6 +15,10 @@ export const MapEntityTypeFilters: FC<ClassNameProps> = ({ className }) => {
       ))}
       <HorizontalSeparator className="m-0" />
       {infoTypes.map((filter) => (
+        <FilterRow key={filter.id} filter={filter} />
+      ))}{' '}
+      <HorizontalSeparator className="m-0" />
+      {networkTypes.map((filter) => (
         <FilterRow key={filter.id} filter={filter} />
       ))}
     </div>
