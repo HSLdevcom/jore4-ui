@@ -54,14 +54,6 @@ const noop = () => null;
 // for visual purposes.
 export const placeholderToggles: ReadonlyArray<IconToggle> = [
   {
-    iconClassName: 'icon-tram',
-    active: false,
-    onToggle: noop,
-    disabled: true,
-    testId: 'placeholder',
-    tooltip: (t) => t('vehicleModeEnum.tram'),
-  },
-  {
     iconClassName: 'icon-train',
     active: false,
     onToggle: noop,

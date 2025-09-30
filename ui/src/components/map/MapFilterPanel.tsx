@@ -49,6 +49,19 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
           testId: 'FilterPanel::toggleShowAllBusStops',
           tooltip: (t) => t('vehicleModeEnum.bus'),
         },
+        {
+          iconClassName: 'icon-tram',
+          active: stopFilters[FilterType.ShowAllTramStops],
+          onToggle: (isActive: boolean) =>
+            dispatch(
+              setStopFilterAction({
+                filterType: FilterType.ShowAllTramStops,
+                isActive,
+              }),
+            ),
+          testId: 'FilterPanel::toggleShowAllTramStops',
+          tooltip: (t) => t('vehicleModeEnum.tram'),
+        },
         ...placeholderToggles,
       ]}
       infraLinks={{
