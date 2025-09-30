@@ -1,21 +1,17 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { FilterType, selectMapFilter, setStopFilterAction } from '../../redux';
-import { FilterPanel, placeholderToggles } from '../../uiComponents';
+import { FilterPanel, placeholderToggles } from './FilterPanel';
 
 type MapFilterPanelProps = {
   readonly routeDisplayed: boolean;
-  readonly showInfraLinks: boolean;
   readonly showRoute: boolean;
-  readonly setShowInfraLinks: Dispatch<SetStateAction<boolean>>;
   readonly setShowRoute: Dispatch<SetStateAction<boolean>>;
 };
 
 export const MapFilterPanel: FC<MapFilterPanelProps> = ({
   routeDisplayed,
-  showInfraLinks,
   showRoute,
-  setShowInfraLinks,
   setShowRoute,
 }) => {
   const dispatch = useAppDispatch();
@@ -51,11 +47,6 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
         },
         ...placeholderToggles,
       ]}
-      infraLinks={{
-        active: showInfraLinks,
-        onToggle: setShowInfraLinks,
-        testId: 'FilterPanel::toggleShowInfraLinks',
-      }}
     />
   );
 };

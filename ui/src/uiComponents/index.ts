@@ -7,7 +7,6 @@ export * from './ConfirmationDialog';
 export * from './DialogWithButtons';
 export * from './EditButton';
 export * from './ExpandButton';
-export * from './FilterPanel';
 export * from './FormContainer';
 export * from './IconButton';
 export * from './IconToggle';

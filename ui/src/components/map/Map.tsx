@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Column } from '../../layoutComponents';
 import {
   MapEntityEditorViewState,
+  MapEntityType,
   isPlacingOrMoving,
   selectHasDraftLocation,
   selectMapFilter,
@@ -20,6 +21,7 @@ import {
   selectMapStopViewState,
   selectMapTerminalViewState,
   selectSelectedRouteId,
+  selectShowMapEntityTypes,
   setSelectedRouteIdAction,
 } from '../../redux';
 import { CustomOverlay } from './CustomOverlay';
@@ -27,7 +29,6 @@ import { ItemTypeFiltersOverlay } from './filters/ItemTypeFiltersOverlay';
 import { MapFilterPanel } from './MapFilterPanel';
 import { Maplibre } from './Maplibre';
 import { InfraLinksVectorLayer } from './network';
-import { ObservationDateOverlay } from './ObservationDateOverlay';
 import { useGetMapData } from './queries/useGetMapData';
 import {
   RouteEditorRef,
@@ -174,7 +175,6 @@ export const MapComponent: ForwardRefRenderFunction<
   RouteEditorRef,
   MapProps
 > = ({ className = '', width = '100vw', height = '100vh' }, externalRef) => {
-  const [showInfraLinks, setShowInfraLinks] = useState(false);
   const [showRoute, setShowRoute] = useState(true);
 
   const editorRefs = useEditorRefs();
@@ -185,6 +185,8 @@ export const MapComponent: ForwardRefRenderFunction<
 
   const hasDraftStopLocation = useAppSelector(selectHasDraftLocation);
   const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
+  const showMapEntityTypes = useAppSelector(selectShowMapEntityTypes);
+  const showInfraLinks = showMapEntityTypes[MapEntityType.Network];
 
   const { areas, displayedRouteIds, stops, terminals } = useGetMapData();
 
@@ -211,21 +213,15 @@ export const MapComponent: ForwardRefRenderFunction<
         <Column className="items-start overflow-hidden p-2">
           <MapFilterPanel
             routeDisplayed={!!displayedRouteIds.length}
-            showInfraLinks={showInfraLinks}
             showRoute={showRoute}
-            setShowInfraLinks={setShowInfraLinks}
             setShowRoute={setShowRoute}
           />
           <RouteStopsOverlay className="mt-2 max-h-[60vh] overflow-hidden" />
-        </Column>
-      </CustomOverlay>
-
-      <CustomOverlay position="bottom-right">
-        <Column className="items-end p-2">
-          {showMapEntityTypeFilterOverlay && (
-            <ItemTypeFiltersOverlay className="mb-2" />
-          )}
-          <ObservationDateOverlay />
+          <Column className="items-end p-2">
+            {showMapEntityTypeFilterOverlay && (
+              <ItemTypeFiltersOverlay className="mb-2" />
+            )}
+          </Column>
         </Column>
       </CustomOverlay>
 
