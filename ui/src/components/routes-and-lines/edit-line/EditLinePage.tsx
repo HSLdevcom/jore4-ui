@@ -26,6 +26,7 @@ import { useEditLine } from './useEditLine';
 
 const mapLineToFormState = (line: LineAllFieldsFragment): FormState => ({
   label: line.label,
+  description: line.description ?? undefined,
   name: defaultLocalizedString(line.name_i18n),
   shortName: defaultLocalizedString(line.short_name_i18n),
   primaryVehicleMode: line.primary_vehicle_mode,

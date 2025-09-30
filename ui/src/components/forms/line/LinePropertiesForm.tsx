@@ -13,6 +13,7 @@ import {
   FormColumn,
   FormRow,
   InputField,
+  TextAreaElement,
   localizedStringRequired,
   requiredString,
 } from '../common';
@@ -24,6 +25,7 @@ export const schema = z.object({
   label: requiredString,
   name: localizedStringRequired,
   shortName: localizedStringRequired,
+  description: z.string().optional(),
   transportTarget: z.nativeEnum(HslRouteTransportTargetEnum),
   primaryVehicleMode: z.nativeEnum(ReusableComponentsVehicleModeEnum),
   typeOfLine: z.nativeEnum(RouteTypeOfLineEnum),
@@ -42,6 +44,7 @@ const testIds = {
   transportTargetDropdown: 'LinePropertiesForm::transportTargetInput',
   vehicleModeDropdown: 'LinePropertiesForm::primaryVehicleModeInput',
   lineTypeDropdown: 'LinePropertiesForm::typeOfLineInput',
+  lineDescription: 'LinePropertiesForm::descriptionInput',
 };
 type LinePropertiesFormProps = {
   readonly className?: string;
@@ -169,6 +172,23 @@ export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
               <LineTypeDropdown
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
+              />
+            )}
+          />
+        </FormRow>
+        <FormRow mdColumns={3}>
+          <InputField<FormState>
+            className="col-span-2"
+            translationPrefix="lines"
+            fieldPath="description"
+            testId={testIds.lineDescription}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            inputElementRenderer={(props) => (
+              <TextAreaElement
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...props}
+                fieldPath="description"
+                className="h-full"
               />
             )}
           />

@@ -63,6 +63,7 @@
     "properties": "Properties",
     "label": "Label",
     "showNameVersions": "Name versions",
+    "description": "Line text",
     "name": {
       "fi_FI": "Line name",
       "sv_FI": "Line name in Swedish"

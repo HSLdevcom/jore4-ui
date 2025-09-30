@@ -63,6 +63,7 @@
     "properties": "Oheistiedot",
     "label": "Tunnus",
     "showNameVersions": "Nimiversiot",
+    "description": "Linjateksti",
     "name": {
       "fi_FI": "Linjan nimi",
       "sv_FI": "Linjan nimi ruotsiksi"

@@ -26,6 +26,7 @@ type CreateChanges = {
 export const mapFormToInput = (state: FormState) => {
   const input = {
     label: state.label,
+    description: state.description,
     name_i18n: state.name,
     short_name_i18n: state.shortName,
     primary_vehicle_mode:
