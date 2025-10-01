@@ -50,6 +50,10 @@ export class LineForm {
     cy.get('[role="option"]').contains(type).click();
   }
 
+  getLineTextInput() {
+    return cy.getByTestId('LinePropertiesForm::descriptionInput');
+  }
+
   save() {
     return cy.getByTestId('LineForm::saveButton').click();
   }
