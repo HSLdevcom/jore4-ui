@@ -5,6 +5,7 @@ export enum MapEntityType {
   StopArea = 'show-stop-areas',
   Terminal = 'show-terminals',
   InfoSpot = 'show-info-spots',
+  Network = 'show-network',
 }
 
 export enum FilterType {
@@ -51,6 +52,7 @@ const initialState: IState = {
     [MapEntityType.StopArea]: true,
     [MapEntityType.Terminal]: true,
     [MapEntityType.InfoSpot]: false,
+    [MapEntityType.Network]: false,
   },
 };
 
