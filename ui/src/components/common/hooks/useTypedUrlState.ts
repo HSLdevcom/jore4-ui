@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import omit from 'lodash/omit';
 import without from 'lodash/without';
 import xor from 'lodash/xor';
@@ -12,6 +14,96 @@ import {
 } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { areEqual, log } from '../../../utils';
+
+class TypedUrlStateError extends Error {
+  readonly key: string | number | symbol;
+
+  readonly value: unknown;
+
+  constructor(
+    message: string,
+    key: string | number | symbol,
+    value: unknown,
+    cause: Error | unknown,
+  ) {
+    super(message, { cause });
+
+    this.key = key;
+    this.value = value;
+  }
+}
+
+class TypedUrlStateSerializationError extends TypedUrlStateError {
+  constructor(
+    key: string | number | symbol,
+    value: unknown,
+    cause: Error | unknown,
+  ) {
+    super(
+      `Failed to serialize state: key(${String(key)}) | value(${String(value)})!`,
+      key,
+      value,
+      cause,
+    );
+  }
+
+  static try<T>(
+    key: string | number | symbol,
+    value: unknown,
+    action: () => T,
+  ): T {
+    try {
+      return action();
+    } catch (cause) {
+      throw new TypedUrlStateSerializationError(key, value, cause);
+    }
+  }
+}
+
+class TypedUrlStateDeserializationError extends TypedUrlStateError {
+  constructor(
+    key: string | number | symbol,
+    value: unknown,
+    cause: Error | unknown,
+  ) {
+    super(
+      `Failed to deserialize state: key(${String(key)}) | value(${String(value)})!`,
+      key,
+      value,
+      cause,
+    );
+  }
+
+  static try<T>(
+    key: string | number | symbol,
+    value: unknown,
+    action: () => T,
+  ): T {
+    try {
+      return action();
+    } catch (cause) {
+      throw new TypedUrlStateDeserializationError(key, value, cause);
+    }
+  }
+}
+
+// On dev mode throws error, otherwise (in prod) logs a warning, with the expectation
+// that the calling function has a sane fallback for the error.
+export function warnOrThrow(cause: unknown) {
+  const error =
+    cause instanceof Error
+      ? cause
+      : new Error(
+          `Caught non error cause: String(${String(cause)}) | JSON(${JSON.stringify(cause)})`,
+          { cause },
+        );
+
+  if (process.env.NODE_ENV === 'development') {
+    throw error;
+  } else {
+    log.warn(error);
+  }
+}
 
 type UrlStateSerializer<T> = (value: T) => string;
 type UrlStateDeserializer<T> = (value: string) => T;
@@ -50,16 +142,6 @@ type PartialState = Record<string, unknown> & {
   [INTERNAL_PARAMS]: { [key: string]: ReadonlyArray<string> };
 };
 
-// On dev mode throws error, otherwise (in prod) logs a warning, with the expectation
-// that the calling function has a sane fallback for the error.
-export function warnOrThrow(message: string, cause?: unknown) {
-  if (process.env.NODE_ENV === 'development') {
-    throw new Error(message, { cause });
-  } else {
-    log.warn(cause ? `${message} Cause: ${String(cause)}` : message);
-  }
-}
-
 /**
  * Actual serialization implementation. Transforms state to URLSearchParams
  *
@@ -89,7 +171,9 @@ function serializeInternalState<StateT extends object>(
     .filter((knownKey) => !areEqual(defaultValues[knownKey], state[knownKey]))
     .map((knownKey) => [
       knownKey as string,
-      serializers[knownKey](state[knownKey] as ExplicitAny),
+      TypedUrlStateSerializationError.try(knownKey, state[knownKey], () =>
+        serializers[knownKey](state[knownKey] as ExplicitAny),
+      ),
     ]);
 
   return new URLSearchParams([...unknownParams, ...serializedParams]);
@@ -161,12 +245,12 @@ function resolveStateValue<StateT extends object>(
 
   if (urlParamValue !== null) {
     try {
-      return deserializers[key](urlParamValue.trim());
-    } catch (e) {
-      warnOrThrow(
-        `Failed to parse url param (${key as string}) with value of (${urlParamValue})!`,
-        e,
+      const trimmed = urlParamValue.trim();
+      return TypedUrlStateDeserializationError.try(key, trimmed, () =>
+        deserializers[key](trimmed),
       );
+    } catch (e) {
+      warnOrThrow(e);
     }
   }
 
