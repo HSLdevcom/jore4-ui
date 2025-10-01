@@ -18,7 +18,6 @@ const initialState: IState = {
   isOpen: false,
   viewport: {
     ...HELSINKI_CITY_CENTER_COORDINATES,
-    radius: 0,
     bounds: [
       [0, 0],
       [0, 0],

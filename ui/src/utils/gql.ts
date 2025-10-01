@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
 import {
-  GeographyComparisonExp,
   GeometryComparisonExp,
   ReusableComponentsVehicleModeEnum,
   RouteTypeOfLineEnum,
@@ -134,18 +133,6 @@ export const buildLabelLikeGqlFilter = (label?: string) => ({
 /** Builds an object for gql to filter route by line label */
 export const buildRouteLineLabelGqlFilter = (label: string) => ({
   route_line: buildLabelGqlFilter(label),
-});
-
-export const buildWithinViewportGqlFilter = (
-  viewport: Viewport,
-): GeographyComparisonExp => ({
-  _st_d_within: {
-    from: {
-      type: 'Point',
-      coordinates: [viewport.longitude, viewport.latitude],
-    },
-    distance: viewport.radius,
-  },
 });
 
 export const buildWithinViewportGqlGeometryFilter = (

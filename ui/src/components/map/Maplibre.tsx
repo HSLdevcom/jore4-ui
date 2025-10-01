@@ -1,4 +1,3 @@
-import { Units, distance, point } from '@turf/turf';
 import { generateStyle } from 'hsl-map-style';
 import debounce from 'lodash/debounce';
 import {
@@ -90,14 +89,12 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
           latitude: number,
           longitude: number,
           zoom: number,
-          radius: number,
           bounds: [number, number][],
         ) => {
           dispatch(
             setViewPortAction({
               latitude,
               longitude,
-              radius,
               bounds,
             }),
           );
@@ -123,20 +120,12 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
 
       const bounds = mapGL.getBounds();
 
-      const from = point([newViewport.longitude, newViewport.latitude]);
-      // eslint-disable-next-line no-underscore-dangle
-      const to = point([bounds._sw.lng, bounds._sw.lat]);
-      const options = { units: 'meters' as Units };
-
-      const radius = distance(from, to, options);
-
       // Update map details with a debounce to avoid hundreds of updates while
       // user is changing map position
       updateMapDetailsDebounced(
         newViewport.latitude,
         newViewport.longitude,
         newViewport.zoom,
-        radius,
         bounds.toArray(),
       );
     }
