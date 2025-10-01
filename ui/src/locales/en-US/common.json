@@ -142,7 +142,8 @@
       "expandToSeeErrors": "Expand Language versions and abbreviations to see errors"
     },
     "noStops": "No stops.",
-    "newStopArea": "New stop area"
+    "newStopArea": "New stop area",
+    "deleteSuccess": "Stop area deleted"
   },
   "stopAreaDetails": {
     "title": "Stop area",

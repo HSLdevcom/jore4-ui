@@ -2,12 +2,14 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { twJoin } from 'tailwind-merge';
+import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { EnrichedStopPlace } from '../../../../../types';
 import {
   AlignDirection,
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../../../uiComponents';
+import { showSuccessToast } from '../../../../../utils';
 import { useUpsertStopArea } from '../../../../forms/stop-area';
 import { ShowOnMap } from '../../../search/components/StopPlaceSharedComponents/ActionMenu/ShowOnMap';
 import { CopyStopAreaModal } from '../../versions/copy-stop-area';
@@ -41,7 +43,8 @@ export const TitleRowActions: FC<TitleRowActionsProps> = ({
   const [isCopyDialogOpen, setIsCopyDialogOpen] = useState(false);
 
   const onDeleteSuccess = () => {
-    navigate('/stop-registry');
+    showSuccessToast(t('stopArea.deleteSuccess'));
+    navigate(routeDetails[Path.stopRegistry].getLink());
   };
 
   return (

@@ -142,7 +142,8 @@
       "expandToSeeErrors": "Avaa Kieliversiot ja lyhenteet nähdäksesi virheet"
     },
     "noStops": "Ei pysäkkejä.",
-    "newStopArea": "Uusi pysäkkialue"
+    "newStopArea": "Uusi pysäkkialue",
+    "deleteSuccess": "Pysäkkialue poistettu"
   },
   "stopAreaDetails": {
     "title": "Pysäkkialue",

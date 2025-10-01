@@ -19,6 +19,7 @@ import { ConfirmationDialog } from '../../../uiComponents';
 import {
   getGeometryPoint,
   mapPointToStopRegistryGeoJSON,
+  showSuccessToast,
 } from '../../../utils';
 import { useLoader } from '../../common/hooks';
 import { StopAreaFormState, useUpsertStopArea } from '../../forms/stop-area';
@@ -170,6 +171,7 @@ export const EditStopAreaLayer = forwardRef<
     setMapStopAreaViewState(MapEntityEditorViewState.NONE);
     setEditedStopAreaData(undefined);
     setSelectedMapStopAreaId(undefined);
+    showSuccessToast(t('stopArea.deleteSuccess'));
   };
 
   useImperativeHandle(ref, () => ({
