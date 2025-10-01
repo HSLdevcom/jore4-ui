@@ -11,6 +11,7 @@ import {
   StopSearchBar,
   StopSearchFilters,
   StopSearchNavigationState,
+  defaultFilters,
   defaultSortingInfo,
 } from '../search';
 import {
@@ -43,7 +44,10 @@ export const StopRegistryMainPage: FC = () => {
       {
         pathname: Path.stopSearch,
         search: stopSearchUrlStateToSearch({
-          filters: nextFilters,
+          filters: {
+            ...defaultFilters,
+            ...nextFilters,
+          },
           pagingInfo: {
             ...defaultPagingInfo,
             pageSize: pagingInfo.pageSize,

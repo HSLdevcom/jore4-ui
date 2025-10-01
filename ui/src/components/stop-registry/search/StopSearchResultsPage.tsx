@@ -19,6 +19,7 @@ import {
   StopSearchFilters,
   StopSearchNavigationState,
   StopSearchResultsProps,
+  defaultFilters,
   defaultSortingInfo,
 } from './types';
 import { trSearchFor, useStopSearchUrlState } from './utils';
@@ -112,7 +113,9 @@ export const StopSearchResultPage: FC = () => {
 
   const onSubmitFilters = (nextFilters: StopSearchFilters) => {
     dispatch(resetSelectedRowsAction());
+
     setFlatState({
+      ...defaultFilters,
       ...nextFilters,
       ...defaultSortingInfo,
       ...defaultPagingInfo,
