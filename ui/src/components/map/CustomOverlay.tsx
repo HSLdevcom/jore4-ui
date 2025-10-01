@@ -30,7 +30,7 @@ class OverlayControl implements IControl {
     /* global document */
     this.container = document.createElement('div');
     this.container.className =
-      'pointer-events-auto translate-x-0 translate-y-0';
+      'pointer-events-none translate-x-0 translate-y-0';
     this.redraw();
     return this.container;
   }

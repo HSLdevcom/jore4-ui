@@ -66,7 +66,7 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
     <CustomOverlay position="top-right">
       <div className="flex max-h-[calc(100vh-240px)] w-[calc(450px+(2*1.25rem))] p-5">
         <Modal
-          className="flex max-h-full flex-grow flex-col"
+          className="pointer-events-auto flex max-h-full flex-grow flex-col"
           headerClassName="*:text-xl px-4 py-4 items-center"
           bodyClassName="mx-0 my-0"
           footerClassName="px-4 py-2"
