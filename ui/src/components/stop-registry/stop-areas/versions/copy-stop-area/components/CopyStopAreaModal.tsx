@@ -1,3 +1,4 @@
+import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -48,7 +49,7 @@ export const CopyStopAreaModal: FC<CopyStopAreaProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={wrappedOnClose} testId={testIds.modal}>
+    <Modal isOpen={isOpen} onClose={noop} testId={testIds.modal}>
       <ModalHeader
         onClose={wrappedOnClose}
         heading={t('stopAreaDetails.version.copy.title')}

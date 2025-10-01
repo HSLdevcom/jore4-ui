@@ -1,6 +1,7 @@
 import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import {
+  GetStopPlaceDetailsDocument,
   StopRegistryInfoSpotInput,
   useInsertMultipleStopPointsMutation,
   useUpdateInfoSpotMutation,
@@ -129,6 +130,7 @@ function useInsertStopAreaCopy() {
 
       const result = await upsertStopAreaMutation({
         variables: { input },
+        refetchQueries: [GetStopPlaceDetailsDocument],
       });
       const mutationResult = getEnrichedStopPlace(
         result.data?.stop_registry?.mutateStopPlace?.at(0),
@@ -215,6 +217,7 @@ export function useCopyStopArea() {
         cutStart,
         cutEnd,
         state.versionName,
+        false,
       );
 
       const insertResponse = await insertStopAreaCopy(

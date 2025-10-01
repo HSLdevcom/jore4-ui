@@ -1,11 +1,11 @@
 import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useObservationDateQueryParam } from '../../../../../../hooks';
 import { Operation } from '../../../../../../redux';
-import { mapToISODate, parseDate } from '../../../../../../time';
+import { mapToISODate } from '../../../../../../time';
 import { EnrichedStopPlace } from '../../../../../../types';
 import { showToast } from '../../../../../../utils';
 import { getApolloErrorMessage } from '../../../../../../utils/apolloErrors';
@@ -28,23 +28,18 @@ import {
 import { CopyStopAreaCutConfirmationModalState } from '../types';
 import { useCopyStopArea } from './useCopyStopArea';
 
-function useDefaultValues(
-  stopArea: EnrichedStopPlace,
-): Omit<StopAreaVersionFormState, 'priority'> {
-  return useMemo(() => {
-    const validityStart = stopArea.validityEnd
-      ? parseDate(stopArea.validityEnd).plus({ days: 1 })
-      : (parseDate(stopArea.validityStart)?.plus({ days: 1 }) ??
-        DateTime.now());
+function useDefaultValues(): StopAreaVersionFormState {
+  const { observationDate } = useObservationDateQueryParam();
 
+  return useMemo(() => {
     return {
-      indefinite: stopArea.validityEnd === null,
-      validityStart: mapToISODate(validityStart),
+      indefinite: false,
+      validityStart: mapToISODate(observationDate),
       validityEnd: '',
       versionDescription: '',
       versionName: '',
     };
-  }, [stopArea]);
+  }, [observationDate]);
 }
 
 function extractMessageFromError(error: unknown) {
@@ -144,7 +139,7 @@ export const useCopyStopAreaFormUtils = (
   const { setIsLoading } = useLoader(Operation.SaveStop);
   const copyStopArea = useCopyStopArea();
 
-  const defaultValues = useDefaultValues(stopArea);
+  const defaultValues = useDefaultValues();
 
   const methods = useForm<StopAreaVersionFormState>({
     defaultValues,

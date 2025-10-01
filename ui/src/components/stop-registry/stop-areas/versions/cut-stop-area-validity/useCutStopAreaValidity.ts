@@ -60,6 +60,7 @@ function useUpdateStopArea() {
       validityStart: string,
       validityEnd: string | null,
       versionName: string,
+      doRefetch: boolean = false,
     ): Promise<EnrichedStopPlace> => {
       const input = mapToEditStopAreaInput(
         stopArea,
@@ -75,7 +76,7 @@ function useUpdateStopArea() {
 
       const result = await upsertStopAreaMutation({
         variables: { input },
-        refetchQueries: [GetStopPlaceDetailsDocument],
+        refetchQueries: doRefetch ? [GetStopPlaceDetailsDocument] : [],
         awaitRefetchQueries: true,
       });
 
@@ -112,6 +113,7 @@ export function useCutStopAreaValidity() {
       validityStart: string,
       validityEnd: string | null,
       versionName: string,
+      refetchArea: boolean = false,
     ): Promise<CutStopAreaValidityResult> => {
       const mutatedStopPoints = await updateStopPoints(
         stopArea,
@@ -126,6 +128,7 @@ export function useCutStopAreaValidity() {
         validityStart,
         validityEnd,
         versionName,
+        refetchArea,
       );
 
       return { mutatedStopArea, mutatedStopPoints };
