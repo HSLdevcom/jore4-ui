@@ -1,9 +1,19 @@
 import { TFunction } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row } from '../layoutComponents';
-import { Card } from './Card';
-import { IconToggle } from './IconToggle';
+import { MdLayers } from 'react-icons/md';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Row } from '../../layoutComponents';
+import {
+  selectMapFilter,
+  setShowMapEntityTypeFilterOverlayAction,
+} from '../../redux';
+import { IconButton } from '../../uiComponents/IconButton';
+import { IconToggle } from '../../uiComponents/IconToggle';
+
+const testIds = {
+  toggleFiltersButton: 'ObservationDateOverlay::toggleFiltersButton',
+};
 
 type Toggle = {
   readonly active: boolean;
@@ -25,7 +35,7 @@ const ToggleRow: FC<ToggleRowProps> = ({ toggles }) => {
   const { t } = useTranslation();
 
   return (
-    <Row className="mt-2">
+    <Row>
       {toggles.map(
         (
           { active, onToggle, iconClassName, disabled, testId, tooltip },
@@ -82,42 +92,55 @@ export const placeholderToggles: ReadonlyArray<IconToggle> = [
 type FilterPanelProps = {
   readonly routes: ReadonlyArray<IconToggle>;
   readonly stops: ReadonlyArray<IconToggle>;
-  readonly infraLinks: Toggle;
   readonly className?: string;
+  readonly observationDateControl?: React.ReactNode;
 };
 
 export const FilterPanel: FC<FilterPanelProps> = ({
   routes,
   stops,
-  infraLinks,
   className = '',
+  observationDateControl,
 }) => {
   const { t } = useTranslation();
   const headingClassName = 'text-sm font-bold';
-  return (
-    <div className={`inline-block ${className}`}>
-      <Card className="flex-col rounded-b-none">
-        <h6 className={headingClassName}>{t('map.showRoutes')}</h6>
-        <ToggleRow toggles={routes} />
-      </Card>
+  const dispatch = useAppDispatch();
+  const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
 
-      <Card className="flex-col rounded-none !border-t-0">
+  return (
+    <div className={`flex items-end gap-2 bg-white p-2 ${className}`}>
+      <i
+        className="icon-favicon text-5xl text-tweaked-brand"
+        role="presentation"
+      />
+      {observationDateControl}
+
+      <div className="flex items-center gap-4 rounded-md border border-grey p-2">
         <h6 className={headingClassName}>{t('map.showStops')}</h6>
         <ToggleRow toggles={stops} />
-      </Card>
+      </div>
 
-      <Card className="flex-col rounded-t-none !px-5 !py-2.5">
-        <label htmlFor="show-network" className="inline-flex font-normal">
-          <input
-            type="checkbox"
-            id="show-network"
-            checked={infraLinks.active}
-            onChange={(e) => infraLinks.onToggle(e.target.checked)}
-            className="mr-2.5 h-6 w-6"
-          />
-          {t('map.showNetwork')}
-        </label>
-      </Card>
+      <div className="flex items-center gap-4 rounded-md border border-grey p-2">
+        <h6 className={headingClassName}>{t('map.showRoutes')}</h6>
+        <ToggleRow toggles={routes} />
+      </div>
+      <div>
+        <IconButton
+          tooltip={t('accessibility:map.showFilters')}
+          className="block h-11 w-11 self-stretch rounded-md border border-black"
+          icon={
+            <MdLayers className="aria-hidden text-2xl text-tweaked-brand" />
+          }
+          onClick={() =>
+            dispatch(
+              setShowMapEntityTypeFilterOverlayAction(
+                !showMapEntityTypeFilterOverlay,
+              ),
+            )
+          }
+          testId={testIds.toggleFiltersButton}
+        />
+      </div>
     </div>
   );
 };
