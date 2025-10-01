@@ -43,7 +43,7 @@ export const IconToggle: FC<IconToggleProps> = ({
       title={tooltip}
     >
       <i
-        className={`text-5xl ${iconClassName} aria-hidden`}
+        className={`text-xl ${iconClassName} aria-hidden`}
         // our icon library's css file adds margins with ::before pseudo element and this inline style is hack to get rid of those
         style={{ marginLeft: '-.2em', marginRight: '-0.2em' }}
       />
