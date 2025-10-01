@@ -16,6 +16,7 @@ type InitialFilterItem = {
 type MapEntityTypeFilters = {
   readonly infoTypes: ReadonlyArray<FilterItem>;
   readonly stopTypes: ReadonlyArray<FilterItem>;
+  readonly networkTypes: ReadonlyArray<FilterItem>;
 };
 
 function useInitialFilterInfo() {
@@ -47,14 +48,23 @@ function useInitialFilterInfo() {
     },
   ];
 
-  return { initialInfoTypes, initialStopTypes };
+  const initialNetworkTypes: ReadonlyArray<InitialFilterItem> = [
+    {
+      type: MapEntityType.Network,
+      label: t('filters.mapEntityType.busNetwork'),
+      disabled: false,
+    },
+  ];
+
+  return { initialInfoTypes, initialStopTypes, initialNetworkTypes };
 }
 
 export function useMapEntityTypeFilters(): MapEntityTypeFilters {
   const showMapEntityType = useAppSelector(selectShowMapEntityTypes);
   const setShowMapEntityType = useAppAction(setShowMapEntityTypeAction);
 
-  const { initialInfoTypes, initialStopTypes } = useInitialFilterInfo();
+  const { initialInfoTypes, initialStopTypes, initialNetworkTypes } =
+    useInitialFilterInfo();
 
   const mapToProperFilter: (item: InitialFilterItem) => FilterItem = ({
     type,
@@ -72,5 +82,6 @@ export function useMapEntityTypeFilters(): MapEntityTypeFilters {
   return {
     infoTypes: initialInfoTypes.map(mapToProperFilter),
     stopTypes: initialStopTypes.map(mapToProperFilter),
+    networkTypes: initialNetworkTypes.map(mapToProperFilter),
   };
 }

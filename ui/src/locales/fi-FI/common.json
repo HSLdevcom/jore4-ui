@@ -1048,7 +1048,8 @@
       "stopArea": "Pysäkkialueet",
       "terminal": "Terminaalit",
       "infoScreen": "Infonäytöt",
-      "infoSpot": "Infopaikat"
+      "infoSpot": "Infopaikat",
+      "busNetwork": "Bussiverkko"
     }
   },
   "search": {
