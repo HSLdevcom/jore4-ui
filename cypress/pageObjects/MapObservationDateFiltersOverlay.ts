@@ -1,7 +1,7 @@
-import { ObservationDateControl } from './ObservationDateControl';
+import { MapObservationDateControl } from './MapObservationDateControl';
 
 export class MapObservationDateFiltersOverlay {
-  observationDateControl = new ObservationDateControl();
+  observationDateControl = new MapObservationDateControl();
 
   getToggleShowFiltersButton() {
     return cy.getByTestId('ObservationDateOverlay::toggleFiltersButton');
