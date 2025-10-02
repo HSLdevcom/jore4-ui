@@ -2,7 +2,7 @@ import some from 'lodash/some';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete } from 'react-icons/md';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Row, Visible } from '../../layoutComponents';
 import {
   MapEntityEditorViewState,
@@ -12,8 +12,10 @@ import {
   selectHasDraftRouteGeometry,
   selectIsInViewMode,
   selectMapRouteEditor,
+  setRouteMetadataFormOpenAction,
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
+import { FloatingFooter } from './FloatingFooter';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
 import { useMapViewState } from './utils/useMapViewState';
 
@@ -26,6 +28,7 @@ type MapFooterProps = {
 };
 
 const testIds = {
+  mapFooter: 'MapFooter::mapFooter',
   drawRouteButton: 'MapFooter::drawRouteButton',
   editRouteButton: 'MapFooter::editRouteButton',
   saveButton: 'MapFooter::saveButton',
@@ -41,6 +44,7 @@ export const MapFooter: FC<MapFooterProps> = ({
   onSave,
 }) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const {
     drawingMode,
@@ -72,8 +76,61 @@ export const MapFooter: FC<MapFooterProps> = ({
     (state) => state !== MapEntityEditorViewState.NONE,
   );
 
+  const someItemIsInPlaceMode = some(
+    mapViewState,
+    (state) => state === MapEntityEditorViewState.PLACE,
+  );
+
+  const isInDrawingMode = drawingMode === Mode.Draw && creatingNewRoute;
+
+  const onCancelAddMode = () => {
+    setMapViewState({
+      stops: MapEntityEditorViewState.NONE,
+      stopAreas: MapEntityEditorViewState.NONE,
+      terminals: MapEntityEditorViewState.NONE,
+    });
+  };
+
+  const onCancelDrawMode = () => {
+    // Return to route modal mode when canceling drawing mode
+    dispatch(setRouteMetadataFormOpenAction(true));
+    // Stop the drawing mode but keep the route creation process
+    onCancel();
+  };
+
+  const getCancelHandler = () => {
+    if (isInDrawingMode) {
+      return onCancelDrawMode;
+    }
+    return onCancelAddMode;
+  };
+
+  const getAddModeText = () => {
+    if (isInDrawingMode) {
+      return t('map.drawRoute');
+    }
+    if (mapViewState.stops === MapEntityEditorViewState.PLACE) {
+      return t('map.addStop');
+    }
+    if (mapViewState.stopAreas === MapEntityEditorViewState.PLACE) {
+      return t('map.createNewStopArea');
+    }
+    if (mapViewState.terminals === MapEntityEditorViewState.PLACE) {
+      return t('map.createNewTerminal');
+    }
+    return '';
+  };
+
+  if (someItemIsInPlaceMode || isInDrawingMode) {
+    return (
+      <FloatingFooter onClose={getCancelHandler()} testId="MapFooter">
+        {getAddModeText()}
+      </FloatingFooter>
+    );
+  }
+
   return (
-    <Row className="space-x-4 bg-white px-10 py-5">
+    <Row testId={testIds.mapFooter} className="space-x-4 bg-white px-10 py-5">
       <SimpleButton
         testId={testIds.drawRouteButton}
         onClick={onDrawRoute}
