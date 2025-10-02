@@ -38,11 +38,11 @@ export const EditStopModal: FC<EditStopModalProps> = ({
   };
 
   return (
-    <CustomOverlay position="top-right">
+    <CustomOverlay position="top-left">
       {/* max-height: Viewport height - 240px of other elements
        *       width: 450px (content) + 1.25rem of padding on each side
        */}
-      <div className="flex max-h-[calc(100vh-240px)] w-[calc(450px+(2*1.25rem))] p-5">
+      <div className="flex max-h-[calc(100vh-240px)] w-[calc(450px+(2*1.25rem))] px-2">
         <Modal
           className="pointer-events-auto flex max-h-full flex-grow flex-col"
           headerClassName="*:text-xl px-4 py-4 items-center"

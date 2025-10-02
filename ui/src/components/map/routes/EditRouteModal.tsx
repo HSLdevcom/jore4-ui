@@ -31,8 +31,8 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
   };
 
   return (
-    <CustomOverlay position="top-right">
-      <div className="py-5">
+    <CustomOverlay position="top-left">
+      <div className="px-2">
         <Modal
           className="pointer-events-auto"
           testId={testIds.modal}
