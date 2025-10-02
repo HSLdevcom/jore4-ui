@@ -24,19 +24,21 @@ export const FloatingFooter: FC<FloatingFooterProps> = ({
           // Rounded blue border with dropdown shadow
           'rounded border-2 border-tweaked-brand shadow-md',
           // Blue text on white background
-          'bg-white p-5 font-bold text-tweaked-brand',
-          'flex items-center justify-center',
+          'bg-white font-bold text-tweaked-brand',
+          'flex items-center justify-center pl-16',
         ),
         className,
       )}
       data-testid={testId}
     >
+      <div className="flex-grow" />
       {children}
+      <div className="flex-grow" />
 
       <CloseIconButton
+        className="flex h-16 w-16 items-center justify-center"
         onClick={onClose}
         testId={`${testId}::closeButton`}
-        className="absolute right-3"
       />
     </div>
   );

@@ -782,7 +782,9 @@
     "createNewTerminal": "Create new terminal",
     "createNewStopArea": "Create new stop area",
     "editStopArea": "Stop area {{stopArea}}",
-    "error": "Map error: {{message}}"
+    "error": "Map error: {{message}}",
+    "searchResults": "Search results:",
+    "searchResultCount": "$t(map.searchResults) {{count}}."
   },
   "saveChangesModal": {
     "title": "Save changes",
