@@ -218,9 +218,9 @@ export const MapComponent: ForwardRefRenderFunction<
             className="pointer-events-auto"
           />
           <RouteStopsOverlay className="pointer-events-auto mt-2 max-h-[60vh] overflow-hidden" />
-          <Column className="items-end py-2">
+          <Column className="items-end pt-2">
             {showMapEntityTypeFilterOverlay && (
-              <ItemTypeFiltersOverlay className="pointer-events-auto mb-2" />
+              <ItemTypeFiltersOverlay className="pointer-events-auto" />
             )}
           </Column>
         </Column>
