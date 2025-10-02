@@ -782,7 +782,9 @@
     "createNewTerminal": "Luo uusi terminaali",
     "createNewStopArea": "Luo uusi pysäkkialue",
     "editStopArea": "Pysäkkialue {{stopArea}}",
-    "error": "Karttavirhe: {{message}}"
+    "error": "Karttavirhe: {{message}}",
+    "searchResults": "Hakutuloksia:",
+    "searchResultCount": "$t(map.searchResults) {{count}}."
   },
   "saveChangesModal": {
     "title": "Tallenna muutos",

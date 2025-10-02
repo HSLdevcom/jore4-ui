@@ -12,6 +12,7 @@ import {
 import { IconButton } from '../../uiComponents/IconButton';
 import { IconToggle } from '../../uiComponents/IconToggle';
 import { MapObservationDateControl } from './MapObservationDateControl';
+import { useIsInSearchResultMode } from './utils/useIsInSearchResultMode';
 
 const testIds = {
   toggleFiltersButton: 'ObservationDateOverlay::toggleFiltersButton',
@@ -106,6 +107,7 @@ export const FilterPanel: FC<FilterPanelProps> = ({
   const headingClassName = 'text-sm font-bold';
   const dispatch = useAppDispatch();
   const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
+  const isInSearchResultMode = useIsInSearchResultMode();
 
   return (
     <div
@@ -118,34 +120,38 @@ export const FilterPanel: FC<FilterPanelProps> = ({
         className="icon-favicon text-5xl text-tweaked-brand"
         role="presentation"
       />
-      <MapObservationDateControl />
+      {!isInSearchResultMode && (
+        <>
+          <MapObservationDateControl />
 
-      <div className="flex items-center gap-4 rounded-md border border-grey p-2">
-        <h6 className={headingClassName}>{t('map.showStops')}</h6>
-        <ToggleRow toggles={stops} />
-      </div>
+          <div className="flex items-center gap-4 rounded-md border border-grey p-2">
+            <h6 className={headingClassName}>{t('map.showStops')}</h6>
+            <ToggleRow toggles={stops} />
+          </div>
 
-      <div className="flex items-center gap-4 rounded-md border border-grey p-2">
-        <h6 className={headingClassName}>{t('map.showRoutes')}</h6>
-        <ToggleRow toggles={routes} />
-      </div>
-      <div>
-        <IconButton
-          tooltip={t('accessibility:map.showFilters')}
-          className="block h-11 w-11 self-stretch rounded-md border border-black"
-          icon={
-            <MdLayers className="aria-hidden text-2xl text-tweaked-brand" />
-          }
-          onClick={() =>
-            dispatch(
-              setShowMapEntityTypeFilterOverlayAction(
-                !showMapEntityTypeFilterOverlay,
-              ),
-            )
-          }
-          testId={testIds.toggleFiltersButton}
-        />
-      </div>
+          <div className="flex items-center gap-4 rounded-md border border-grey p-2">
+            <h6 className={headingClassName}>{t('map.showRoutes')}</h6>
+            <ToggleRow toggles={routes} />
+          </div>
+          <div>
+            <IconButton
+              tooltip={t('accessibility:map.showFilters')}
+              className="block h-11 w-11 self-stretch rounded-md border border-black"
+              icon={
+                <MdLayers className="aria-hidden text-2xl text-tweaked-brand" />
+              }
+              onClick={() =>
+                dispatch(
+                  setShowMapEntityTypeFilterOverlayAction(
+                    !showMapEntityTypeFilterOverlay,
+                  ),
+                )
+              }
+              testId={testIds.toggleFiltersButton}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };
