@@ -2,16 +2,12 @@ import debounce from 'lodash/debounce';
 import { Point as MapLibrePoint } from 'maplibre-gl';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
-import { theme } from '../../../generated/theme';
 import { useCallbackOnKeyEscape } from '../../../hooks';
 import {
   drawLineToClosestRoad,
   removeLineFromStopToInfraLink,
 } from '../../../utils/map';
-import { StopMarker } from '../markers';
 import { LineToActiveStopArea } from './LineToActiveStopArea';
-
-const { colors } = theme;
 
 type CreateStopMarkerProps = {
   readonly onCancel: () => void;
@@ -21,8 +17,6 @@ export const CreateStopMarker: FC<CreateStopMarkerProps> = ({ onCancel }) => {
   const [mouseCoords, setMouseCoords] = useState<MapLibrePoint | null>(null);
 
   const { current: map } = useMap();
-
-  const createStopMarkerSize = 20;
 
   // Without debounce when drawing line from infralink to stop
   // map tries to draw a line atleast every 0.01ms
@@ -65,15 +59,27 @@ export const CreateStopMarker: FC<CreateStopMarkerProps> = ({ onCancel }) => {
         style={{
           pointerEvents: 'none',
           position: 'absolute',
-          left: mouseCoords.x - createStopMarkerSize / 2,
-          top: mouseCoords.y - createStopMarkerSize / 2,
+          left: mouseCoords.x - 20.5,
+          top: mouseCoords.y - 20.5,
         }}
       >
-        <StopMarker
-          centerDot
-          borderColor={colors.hslRed}
-          size={createStopMarkerSize}
-        />
+        <svg
+          width="41"
+          height="41"
+          viewBox="0 0 41 41"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M20 0.199219V15.1992" stroke="black" strokeWidth="2" />
+          <path d="M20 25.1992V40.1992" stroke="black" strokeWidth="2" />
+          <path
+            d="M15.0527 20.1992H-0.000185966"
+            stroke="black"
+            strokeWidth="2"
+          />
+          <path d="M40.0527 20.1992H24.9998" stroke="black" strokeWidth="2" />
+          <circle cx="20" cy="20.1992" r="2.5" fill="black" />
+        </svg>
       </div>
     </>
   );
