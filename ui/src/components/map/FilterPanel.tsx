@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdLayers } from 'react-icons/md';
+import { twMerge } from 'tailwind-merge';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Row } from '../../layoutComponents';
 import {
@@ -107,7 +108,12 @@ export const FilterPanel: FC<FilterPanelProps> = ({
   const { showMapEntityTypeFilterOverlay } = useAppSelector(selectMapFilter);
 
   return (
-    <div className={`flex items-end gap-2 bg-white p-2 ${className}`}>
+    <div
+      className={twMerge(
+        'flex items-end gap-2 bg-white p-2 shadow-md',
+        className,
+      )}
+    >
       <i
         className="icon-favicon text-5xl text-tweaked-brand"
         role="presentation"
