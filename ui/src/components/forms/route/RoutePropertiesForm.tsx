@@ -55,7 +55,10 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(routeFormSchema),
   });
-  useDirtyFormBlockNavigation(methods.formState, 'RoutePropertiesForm');
+  useDirtyFormBlockNavigation(methods.formState, 'RoutePropertiesForm', {
+    allowSearchChange: true, // Allow search change so that moving the map does not show the navigation blocked dialog
+    allowStateChange: true, // Allow state change so that location state updates do not show the navigation blocked dialog
+  });
 
   const [showTemplateRouteSelector, setShowTemplateRouteSelector] =
     useState(false);
