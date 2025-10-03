@@ -17,7 +17,7 @@ type Option = StringMunicipality | AllOptionEnum.All;
 
 const options: ReadonlyArray<Option> = [
   AllOptionEnum.All,
-  ...knownMunicipalities,
+  ...knownMunicipalities.toSorted((a, b) => a.localeCompare(b)),
 ];
 
 function uiNameMapper(t: TFunction, value: Option): string {
