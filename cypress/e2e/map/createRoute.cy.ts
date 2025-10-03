@@ -159,6 +159,45 @@ describe('Route creation', () => {
   );
 
   it(
+    'should cancel creating a new route',
+    { tags: [Tag.Routes, Tag.Map], scrollBehavior: 'bottom' },
+    () => {
+      mapPage.map.visit(mapLocation);
+      mapPage.map.waitForLoadToComplete();
+
+      mapPage.mapFooter.createRoute();
+      mapPage.routePropertiesForm.fillRouteProperties({
+        finnishName: 'Test route',
+        label: '901Y',
+        variant: '56',
+        line: '901',
+        direction: RouteDirectionEnum.Outbound,
+        origin: {
+          finnishName: 'Test origin FIN',
+          finnishShortName: 'Test origin FIN shortName',
+          swedishName: 'Test origin SWE',
+          swedishShortName: 'Test origin SWE shortName',
+        },
+        destination: {
+          finnishName: 'Test destination FIN',
+          finnishShortName: 'Test destination FIN shortName',
+          swedishName: 'Test destination SWE',
+          swedishShortName: 'Test destination SWE shortName',
+        },
+        priority: Priority.Standard,
+        validityStartISODate: '2022-01-01',
+        validityEndISODate: '2025-12-01',
+      });
+
+      mapPage.editRouteModal.save();
+      mapPage.mapFooter.getMapFooter().should('not.exist');
+
+      mapPage.mapFooter.cancelAddMode();
+      mapPage.mapFooter.getMapFooter().shouldBeVisible();
+    },
+  );
+
+  it(
     'Should create a new route and leave out one stop',
     { tags: [Tag.Map, Tag.Routes, Tag.Network], scrollBehavior: 'bottom' },
     () => {

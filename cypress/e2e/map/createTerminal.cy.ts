@@ -136,6 +136,20 @@ describe('Terminal creation tests', () => {
   );
 
   it(
+    'should cancel creating a new terminal',
+    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
+    () => {
+      mapPage.map.waitForLoadToComplete();
+
+      mapPage.mapFooter.addTerminal();
+      mapPage.mapFooter.getMapFooter().should('not.exist');
+
+      mapPage.mapFooter.cancelAddMode();
+      mapPage.mapFooter.getMapFooter().shouldBeVisible();
+    },
+  );
+
+  it(
     'Should place terminal correctly by using manually typed latitude and longitude',
     { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
     () => {
