@@ -97,12 +97,12 @@ function mapFormStateToQuayKeyValues(
     },
     { key: 'priority', values: [state.priority.toString(10)] },
     { key: 'validityStart', values: [state.validityStart] },
-    state.indefinite
-      ? null
-      : {
+    state.validityEnd
+      ? {
           key: 'validityEnd',
-          values: [state.validityEnd as string],
-        },
+          values: [state.validityEnd],
+        }
+      : undefined,
   ]);
 }
 
@@ -177,11 +177,15 @@ function getKeyValuesPatch(
   formState: StopFormState,
 ): StopRegistryQuayInput {
   if (priority || validityStart || validityEnd || indefinite) {
+    const filteredKeyValues = patchKeyValues(
+      formState,
+      mapFormStateToQuayKeyValues(formState),
+    ).filter((kv) =>
+      kv?.key !== 'validityEnd' ? true : !formState.indefinite,
+    );
+
     return {
-      keyValues: patchKeyValues(
-        formState,
-        mapFormStateToQuayKeyValues(formState),
-      ),
+      keyValues: filteredKeyValues,
     };
   }
 
