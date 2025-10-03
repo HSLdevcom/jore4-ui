@@ -31,25 +31,28 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
   };
 
   return (
-    <CustomOverlay position="top-right">
-      <div className="py-5">
-        <Modal
-          className="pointer-events-auto"
-          testId={testIds.modal}
-          onSave={onModalSave}
-          onCancel={onCancel}
-          onClose={onClose}
-          heading={t('routes.enterRouteData')}
-          navigationContext="RoutePropertiesForm"
-        >
-          <RoutePropertiesForm
-            className="max-h-[50vh] max-w-2xl overflow-auto"
-            defaultValues={defaultValues}
-            ref={formRef}
-            onSubmit={onSuccess}
-          />
-        </Modal>
-      </div>
+    <CustomOverlay
+      className="min-h-full w-[calc(650px+(2*1.25rem))]"
+      position="top-left"
+    >
+      <Modal
+        className="pointer-events-auto flex max-h-full flex-col"
+        headerClassName="text-xl px-4 py-4 items-center"
+        bodyClassName="mx-0 my-0"
+        footerClassName="px-4 py-2"
+        testId={testIds.modal}
+        onSave={onModalSave}
+        onCancel={onCancel}
+        onClose={onClose}
+        heading={t('routes.enterRouteData')}
+        navigationContext="RoutePropertiesForm"
+      >
+        <RoutePropertiesForm
+          defaultValues={defaultValues}
+          ref={formRef}
+          onSubmit={onSuccess}
+        />
+      </Modal>
     </CustomOverlay>
   );
 };
