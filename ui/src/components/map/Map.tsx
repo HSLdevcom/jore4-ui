@@ -41,6 +41,7 @@ import { RouteStopsOverlay } from './routes/RouteStopsOverlay';
 import { FunctionalAreaVisualization, StopAreas } from './stop-areas';
 import { MemberStopLines, Stops } from './stops';
 import { Terminals } from './terminals';
+import { mapTestIds } from './utils/useAdjustContentHeight';
 
 type MapViewState = {
   readonly mapStopViewState: MapEntityEditorViewState;
@@ -210,7 +211,10 @@ export const MapComponent: ForwardRefRenderFunction<
       <MemberStopLines areas={areas} stops={stops} terminals={terminals} />
 
       <CustomOverlay position="top-left">
-        <Column className="items-start overflow-hidden p-2">
+        <Column
+          testId={mapTestIds.mapHeader}
+          className="items-start overflow-hidden p-2"
+        >
           <MapFilterPanel
             routeDisplayed={!!displayedRouteIds.length}
             showRoute={showRoute}
@@ -218,9 +222,9 @@ export const MapComponent: ForwardRefRenderFunction<
             className="pointer-events-auto"
           />
           <RouteStopsOverlay className="pointer-events-auto mt-2 max-h-[60vh] overflow-hidden" />
-          <Column className="items-end py-2">
+          <Column className="items-end pt-2">
             {showMapEntityTypeFilterOverlay && (
-              <ItemTypeFiltersOverlay className="pointer-events-auto mb-2" />
+              <ItemTypeFiltersOverlay className="pointer-events-auto" />
             )}
           </Column>
         </Column>

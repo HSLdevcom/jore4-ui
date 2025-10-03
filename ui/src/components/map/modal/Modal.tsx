@@ -52,6 +52,7 @@ type ModalProps = {
   readonly bodyClassName?: string;
   readonly footerClassName?: string;
   readonly testId?: string;
+  readonly bodyTestId?: string;
   readonly heading: ReactNode;
   readonly onClose: () => void;
   readonly onCancel: () => void;
@@ -66,6 +67,7 @@ export const Modal: FC<ModalProps> = ({
   bodyClassName,
   footerClassName,
   testId,
+  bodyTestId,
   heading,
   onClose,
   onCancel,
@@ -87,7 +89,10 @@ export const Modal: FC<ModalProps> = ({
         onClose={requestNavigationOnClose}
         heading={heading}
       />
-      <ModalBody className={twMerge('overflow-auto', bodyClassName)}>
+      <ModalBody
+        testId={bodyTestId}
+        className={twMerge('overflow-auto', bodyClassName)}
+      >
         {children}
       </ModalBody>
       <ModalFooter

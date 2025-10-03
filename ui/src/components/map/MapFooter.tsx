@@ -15,6 +15,7 @@ import {
 } from '../../redux';
 import { SimpleButton } from '../../uiComponents';
 import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
+import { mapTestIds } from './utils/useAdjustContentHeight';
 import { useMapViewState } from './utils/useMapViewState';
 
 type MapFooterProps = {
@@ -73,7 +74,10 @@ export const MapFooter: FC<MapFooterProps> = ({
   );
 
   return (
-    <Row className="space-x-4 bg-white px-10 py-5">
+    <Row
+      testId={mapTestIds.mapFooter}
+      className="space-x-4 bg-white px-10 py-5"
+    >
       <SimpleButton
         testId={testIds.drawRouteButton}
         onClick={onDrawRoute}
