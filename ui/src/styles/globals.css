@@ -75,9 +75,20 @@ h4 {
 .border-l-dashed {
   border-left-style: dashed;
 }
+
 .maplibregl-ctrl-bottom-right {
   z-index: 1;
 }
+
 .maplibregl-ctrl-top-right {
   top: 70px;
+}
+
+.maplibregl-ctrl-top-left {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content;
+  height: calc(100vh - 82px);
+  gap: 1rem;
+  padding: 0.5rem;
 }
