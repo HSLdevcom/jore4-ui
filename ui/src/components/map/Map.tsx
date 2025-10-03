@@ -10,7 +10,6 @@ import {
 } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Column } from '../../layoutComponents';
 import {
   MapEntityEditorViewState,
   MapEntityType,
@@ -209,22 +208,25 @@ export const MapComponent: ForwardRefRenderFunction<
 
       <MemberStopLines areas={areas} stops={stops} terminals={terminals} />
 
-      <CustomOverlay position="top-left">
-        <Column className="items-start overflow-hidden p-2">
-          <MapFilterPanel
-            routeDisplayed={!!displayedRouteIds.length}
-            showRoute={showRoute}
-            setShowRoute={setShowRoute}
-            className="pointer-events-auto"
-          />
-          <RouteStopsOverlay className="pointer-events-auto mt-2 max-h-[60vh] overflow-hidden" />
-          <Column className="items-end py-2">
-            {showMapEntityTypeFilterOverlay && (
-              <ItemTypeFiltersOverlay className="pointer-events-auto mb-2" />
-            )}
-          </Column>
-        </Column>
+      <CustomOverlay
+        className="col-span-2 justify-self-start"
+        position="top-left"
+      >
+        <MapFilterPanel
+          routeDisplayed={!!displayedRouteIds.length}
+          showRoute={showRoute}
+          setShowRoute={setShowRoute}
+          className="pointer-events-auto shadow-md"
+        />
       </CustomOverlay>
+
+      {showMapEntityTypeFilterOverlay && (
+        <CustomOverlay order={2} position="top-left">
+          <ItemTypeFiltersOverlay className="pointer-events-auto mb-2" />
+        </CustomOverlay>
+      )}
+
+      <RouteStopsOverlay className="pointer-events-auto mt-2 max-h-[60vh] overflow-hidden" />
 
       <InfraLinksVectorLayer
         enableInfraLinkLayer={

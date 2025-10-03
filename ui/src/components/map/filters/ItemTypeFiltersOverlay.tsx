@@ -10,7 +10,7 @@ export const ItemTypeFiltersOverlay: FC<ClassNameProps> = ({ className }) => {
   const { t } = useTranslation();
 
   return (
-    <MapOverlay className={twMerge(`w-auto rounded-b`, className)}>
+    <MapOverlay className={twMerge(`w-[430px] rounded-b`, className)}>
       <MapOverlayHeader>
         <h4>{t('filters.title')}</h4>
       </MapOverlayHeader>
