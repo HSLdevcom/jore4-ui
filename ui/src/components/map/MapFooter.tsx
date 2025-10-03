@@ -73,7 +73,7 @@ export const MapFooter: FC<MapFooterProps> = ({
   );
 
   return (
-    <Row className="space-x-4 bg-white px-10 py-5">
+    <Row identifier="mapfooter" className="space-x-4 bg-white px-10 py-5">
       <SimpleButton
         testId={testIds.drawRouteButton}
         onClick={onDrawRoute}

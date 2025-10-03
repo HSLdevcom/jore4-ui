@@ -5,6 +5,7 @@ import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal/Modal';
+import { useAdjustContentHeight } from '../utils/useAdjustContentHeight';
 
 const testIds = {
   modal: 'EditRouteModal',
@@ -30,11 +31,16 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
     submitFormByRef(formRef);
   };
 
+  useAdjustContentHeight();
+
   return (
-    <CustomOverlay position="top-right">
-      <div className="py-5">
+    <CustomOverlay position="top-left">
+      <div className="flex max-h-[calc(100vh-510px)] w-[calc(650px+(2*1.25rem))] px-2">
         <Modal
-          className="pointer-events-auto"
+          className="pointer-events-auto flex flex-col"
+          headerClassName="*:text-xl px-4 py-4 items-center"
+          bodyClassName="mx-0 my-0"
+          footerClassName="px-4 py-2"
           testId={testIds.modal}
           onSave={onModalSave}
           onCancel={onCancel}
@@ -43,7 +49,6 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
           navigationContext="RoutePropertiesForm"
         >
           <RoutePropertiesForm
-            className="max-h-[50vh] max-w-2xl overflow-auto"
             defaultValues={defaultValues}
             ref={formRef}
             onSubmit={onSuccess}

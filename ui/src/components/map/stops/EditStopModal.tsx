@@ -4,6 +4,7 @@ import { submitFormByRef } from '../../../utils';
 import { StopFormState as FormState, StopForm } from '../../forms/stop';
 import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal';
+import { useAdjustContentHeight } from '../utils/useAdjustContentHeight';
 import { CreateChanges, EditChanges } from './hooks';
 
 const testIds = {
@@ -30,6 +31,8 @@ export const EditStopModal: FC<EditStopModalProps> = ({
   const formRef = useRef<ExplicitAny>(null);
   const onSave = () => submitFormByRef(formRef);
 
+  useAdjustContentHeight();
+
   const buildHeading = () => {
     const { publicCode: { value: label } = {} } = defaultValues;
     return label
@@ -38,13 +41,10 @@ export const EditStopModal: FC<EditStopModalProps> = ({
   };
 
   return (
-    <CustomOverlay position="top-right">
-      {/* max-height: Viewport height - 240px of other elements
-       *       width: 450px (content) + 1.25rem of padding on each side
-       */}
-      <div className="flex max-h-[calc(100vh-240px)] w-[calc(450px+(2*1.25rem))] p-5">
+    <CustomOverlay position="top-left">
+      <div className="flex w-[calc(450px+(2*1.25rem))] px-2">
         <Modal
-          className="pointer-events-auto flex max-h-full flex-grow flex-col"
+          className="pointer-events-auto flex flex-col"
           headerClassName="*:text-xl px-4 py-4 items-center"
           bodyClassName="mx-0 my-0"
           footerClassName="px-4 py-2"

@@ -7,6 +7,7 @@ import { TerminalFormState } from '../../stop-registry/terminals/components/basi
 import { mapTerminalDataToFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/TerminalDetailsEdit';
 import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal';
+import { useAdjustContentHeight } from '../utils/useAdjustContentHeight';
 import { TerminalForm } from './TerminalForm';
 
 const testIds = {
@@ -55,13 +56,15 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
   const formRef = useRef<HTMLFormElement | null>(null);
   const onSave = () => submitFormByRef(formRef);
 
+  useAdjustContentHeight();
+
   const getDefaultValues = useGetDefaultValues(editedTerminal);
 
   const heading = editedTerminal?.name ?? t('map.createNewTerminal');
 
   return (
-    <CustomOverlay position="top-right">
-      <div className="flex max-h-[calc(100vh-240px)] w-[calc(450px+(2*1.25rem))] p-5">
+    <CustomOverlay position="top-left">
+      <div className="flex w-[calc(450px+(2*1.25rem))] px-2">
         <Modal
           className="pointer-events-auto flex max-h-full flex-grow flex-col"
           headerClassName="*:text-xl px-4 py-4 items-center"
