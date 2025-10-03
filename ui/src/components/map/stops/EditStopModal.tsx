@@ -37,32 +37,35 @@ export const EditStopModal: FC<EditStopModalProps> = ({
       : t('stops.createStop');
   };
 
+  /**
+   * No sure how or why, but container min-h-full + modal max-h-full + grid
+   * stuff in global.css is the magic combo that makes stuff size corrently
+   */
+
   return (
-    <CustomOverlay position="top-right">
-      {/* max-height: Viewport height - 240px of other elements
-       *       width: 450px (content) + 1.25rem of padding on each side
-       */}
-      <div className="flex max-h-[calc(100vh-240px)] w-[calc(450px+(2*1.25rem))] p-5">
-        <Modal
-          className="pointer-events-auto flex max-h-full flex-grow flex-col"
-          headerClassName="*:text-xl px-4 py-4 items-center"
-          bodyClassName="mx-0 my-0"
-          footerClassName="px-4 py-2"
-          testId={testIds.modal}
-          onSave={onSave}
-          onCancel={onCancel}
-          onClose={onClose}
-          heading={buildHeading()}
-          navigationContext="StopForm"
-        >
-          <StopForm
-            defaultValues={defaultValues}
-            editing={editing}
-            onSubmit={onSubmit}
-            ref={formRef}
-          />
-        </Modal>
-      </div>
+    <CustomOverlay
+      className="min-h-full w-[calc(450px+(2*1.25rem))]"
+      position="top-left"
+    >
+      <Modal
+        className="pointer-events-auto flex max-h-full flex-col"
+        headerClassName="*:text-xl px-4 py-4 items-center"
+        bodyClassName="mx-0 my-0"
+        footerClassName="px-4 py-2"
+        testId={testIds.modal}
+        onSave={onSave}
+        onCancel={onCancel}
+        onClose={onClose}
+        heading={buildHeading()}
+        navigationContext="StopForm"
+      >
+        <StopForm
+          defaultValues={defaultValues}
+          editing={editing}
+          onSubmit={onSubmit}
+          ref={formRef}
+        />
+      </Modal>
     </CustomOverlay>
   );
 };
