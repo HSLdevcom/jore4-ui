@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
 import {
@@ -55,7 +56,10 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     defaultValues,
     resolver: zodResolver(routeFormSchema),
   });
-  useDirtyFormBlockNavigation(methods.formState, 'RoutePropertiesForm');
+  useDirtyFormBlockNavigation(methods.formState, 'RoutePropertiesForm', {
+    allowSearchChange: true, // Allow search change so that moving the map does not show the navigation blocked dialog
+    allowStateChange: true, // Allow state change so that location state updates do not show the navigation blocked dialog
+  });
 
   const [showTemplateRouteSelector, setShowTemplateRouteSelector] =
     useState(false);
@@ -71,7 +75,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     <FormProvider {...methods}>
       <form
         id={id ?? 'route-properties-form'}
-        className={className ?? ''}
+        className={twMerge('space-y-6', className)}
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >
@@ -82,7 +86,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
             </h2>
           </Row>
         )}
-        <FormColumn>
+        <FormColumn className={twMerge('p-4', className)}>
           <FormRow mdColumns={5} smColumns={4}>
             <InputField<FormState>
               type="text"
@@ -137,7 +141,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
         <TerminusNameInputs />
         {creatingNewRoute && (
           <>
-            <Row className="my-4 flex-auto items-center">
+            <Row className="flex-auto items-center px-4">
               <HuiSwitch.Group>
                 <SwitchLabel className="my-1 mr-2">
                   {t('routes.useTemplateRoute')}
@@ -163,8 +167,8 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
             )}
           </>
         )}
-        <Row className="mt-7 border-t">
-          <ChangeValidityForm className="mt-5" />
+        <Row className="border-t p-4">
+          <ChangeValidityForm />
         </Row>
       </form>
     </FormProvider>
