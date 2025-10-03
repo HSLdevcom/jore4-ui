@@ -91,8 +91,7 @@ describe('Stop areas on map', () => {
   });
 
   it('should create new stop area', () => {
-    mapPage.mapFooter.mapFooterActionsDropdown.getMenu().click();
-    mapPage.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
+    mapPage.mapFooter.addStopArea();
 
     mapPage.map.clickAtCoordinates(24.9375, 60.1655);
 
@@ -154,9 +153,18 @@ describe('Stop areas on map', () => {
       .and('include', '/stop-registry/stop-areas/700001');
   });
 
+  it('should cancel creating a new stop area', () => {
+    mapPage.map.waitForLoadToComplete();
+
+    mapPage.mapFooter.addStopArea();
+    mapPage.mapFooter.getMapFooter().should('not.exist');
+
+    mapPage.mapFooter.cancelAddMode();
+    mapPage.mapFooter.getMapFooter().shouldBeVisible();
+  });
+
   it('should handle unique private code exception', () => {
-    mapPage.mapFooter.mapFooterActionsDropdown.getMenu().click();
-    mapPage.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
+    mapPage.mapFooter.addStopArea();
 
     mapPage.map.clickAtCoordinates(24.9375, 60.1655);
 
@@ -260,8 +268,7 @@ describe('Stop areas on map', () => {
 
   it('should delete a stop area', () => {
     // Create a stop area without stops
-    mapPage.mapFooter.mapFooterActionsDropdown.getMenu().click();
-    mapPage.mapFooter.mapFooterActionsDropdown.getCreateNewStopArea().click();
+    mapPage.mapFooter.addStopArea();
 
     mapPage.map.clickAtCoordinates(24.9375, 60.1655);
 
