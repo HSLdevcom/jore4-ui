@@ -1,10 +1,11 @@
-import { MapFooterActionsDropdown } from './MapFooterActionsDropdown';
 import { Toast } from './Toast';
 
 export class MapFooter {
   toast = new Toast();
 
-  mapFooterActionsDropdown = new MapFooterActionsDropdown();
+  getMapFooter() {
+    return cy.getByTestId('MapFooter::mapFooter');
+  }
 
   getCreateRouteButton() {
     return cy.getByTestId('MapFooter::drawRouteButton');
@@ -22,6 +23,16 @@ export class MapFooter {
       .getByTestId('MapFooter:addStopButton')
       .should('be.visible')
       .and('be.enabled')
+      .click();
+  }
+
+  addStopArea() {
+    cy.getByTestId('MapFooterActionsDropdown::menu')
+      .should('be.visible')
+      .click();
+
+    cy.getByTestId('MapFooterActionsDropdown::createNewStopArea')
+      .should('be.visible')
       .click();
   }
 
@@ -53,6 +64,14 @@ export class MapFooter {
   cancel() {
     return cy
       .getByTestId('MapFooter::cancelButton')
+      .should('be.visible')
+      .and('be.enabled')
+      .click();
+  }
+
+  cancelAddMode() {
+    return cy
+      .getByTestId('MapFooter::cancelAddModeButton')
       .should('be.visible')
       .and('be.enabled')
       .click();

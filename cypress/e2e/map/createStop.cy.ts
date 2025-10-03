@@ -104,6 +104,20 @@ describe('Stop creation tests', () => {
   );
 
   it(
+    'should cancel creating a new stop',
+    { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
+    () => {
+      mapPage.map.waitForLoadToComplete();
+
+      mapPage.mapFooter.addStop();
+      mapPage.mapFooter.getMapFooter().should('not.exist');
+
+      mapPage.mapFooter.cancelAddMode();
+      mapPage.mapFooter.getMapFooter().shouldBeVisible();
+    },
+  );
+
+  it(
     'Should place stop correctly by using manually typed latitude and longitude',
     { tags: [Tag.Stops, Tag.Map], scrollBehavior: 'bottom' },
     () => {
