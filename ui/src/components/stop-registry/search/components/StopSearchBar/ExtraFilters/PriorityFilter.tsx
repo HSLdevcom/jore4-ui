@@ -40,6 +40,7 @@ export const PriorityFilter: FC<DisableableFilterProps> = ({
         {knownPriorityValues.map((priority) => (
           <LabeledCheckbox
             key={priority}
+            className="h-[--input-height]"
             label={mapPriorityToUiName(t, priority)}
             onBlur={onBlur}
             onClick={togglePriority(priority)}
