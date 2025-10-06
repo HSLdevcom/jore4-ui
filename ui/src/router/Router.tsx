@@ -30,7 +30,6 @@ import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/Rout
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
 import {
   StopDetailsPage,
-  StopRegistryMainPage,
   StopSearchResultPage,
 } from '../components/stop-registry';
 import { StopAreaDetailsPage } from '../components/stop-registry/stop-areas/stop-area-details/StopAreaDetailsPage';
@@ -147,7 +146,7 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
   {
     path: Path.stopRegistry,
     protected: true,
-    element: <StopRegistryMainPage />,
+    element: <Navigate replace to={Path.stopSearch} />,
   },
   {
     path: Path.timetables,
