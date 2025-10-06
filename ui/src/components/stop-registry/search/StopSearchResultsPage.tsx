@@ -1,13 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { Link, To, useLocation } from 'react-router';
 import { Container, Row } from '../../../layoutComponents';
-import { resetSelectedRowsAction } from '../../../redux';
-import { Path } from '../../../router/routeDetails';
 import { defaultPagingInfo } from '../../../types';
+import { CloseIconButton } from '../../../uiComponents';
+import { areEqual } from '../../../utils';
 import { PageTitle } from '../../common';
-import { useToggle } from '../../common/hooks/useToggle';
+import { OpenDefaultMapButton } from '../../common/OpenDefaultMapButton';
 import { StopsByLineSearchResults } from './by-line';
 import { StopSearchByStopResults } from './by-stop';
 import { StopSearchBar } from './components';
@@ -17,28 +15,55 @@ import {
   SearchBy,
   SearchFor,
   StopSearchFilters,
-  StopSearchNavigationState,
   StopSearchResultsProps,
   defaultFilters,
   defaultSortingInfo,
 } from './types';
-import { trSearchFor, useStopSearchUrlState } from './utils';
+import { trSearchFor, useStopSearchRouterState } from './utils';
 
 const testIds = {
   container: 'StopSearchResultsPage::Container',
   closeButton: 'StopSearchResultsPage::closeButton',
 };
 
-function useCloseLink(): To {
-  const { search } = useLocation();
-  return { pathname: Path.stopRegistry, search };
-}
+const NoFiltersHeader: FC = () => {
+  const { t } = useTranslation();
 
-function getNavigationState(
-  searchIsExpanded: boolean,
-): StopSearchNavigationState {
-  return { searchExpanded: searchIsExpanded };
-}
+  return (
+    <Row className="justify-between">
+      <PageTitle.H1>{t('stops.stops')}</PageTitle.H1>
+      <OpenDefaultMapButton />
+    </Row>
+  );
+};
+
+type ActiveFiltersHeaderProps = {
+  readonly resetSearch: () => void;
+  readonly searchFor: SearchFor;
+};
+
+const ActiveFiltersHeader: FC<ActiveFiltersHeaderProps> = ({
+  resetSearch,
+  searchFor,
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <Row className="justify-between">
+      <PageTitle.H1>
+        {t('search.searchResultsTitleFor', {
+          for: trSearchFor(t, searchFor),
+        })}
+      </PageTitle.H1>
+      <CloseIconButton
+        className="text-lg font-bold text-brand"
+        label={t('close')}
+        onClick={resetSearch}
+        testId={testIds.closeButton}
+      />
+    </Row>
+  );
+};
 
 const Results: FC<StopSearchResultsProps> = ({
   filters,
@@ -95,26 +120,19 @@ const Results: FC<StopSearchResultsProps> = ({
 };
 
 export const StopSearchResultPage: FC = () => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const location = useLocation();
-
-  const closeLink = useCloseLink();
   const {
     state: { filters, pagingInfo, sortingInfo },
-    setFlatState,
+    historyState: { searchIsExpanded },
+    setHistoryState,
     setPagingInfo,
+    setSearchState,
     setSortingInfo,
-  } = useStopSearchUrlState();
+  } = useStopSearchRouterState();
 
-  const [searchIsExpanded, toggleSearchIsExpanded] = useToggle(
-    location.state?.searchExpanded,
-  );
+  const hasActiveFilters = !areEqual(defaultFilters, filters);
 
   const onSubmitFilters = (nextFilters: StopSearchFilters) => {
-    dispatch(resetSelectedRowsAction());
-
-    setFlatState({
+    setSearchState({
       ...defaultFilters,
       ...nextFilters,
       ...defaultSortingInfo,
@@ -125,34 +143,42 @@ export const StopSearchResultPage: FC = () => {
 
   return (
     <Container testId={testIds.container}>
-      <Row>
-        <PageTitle.H1>
-          {`${t('search.searchResultsTitle')} | ${trSearchFor(t, filters.searchFor)}`}
-        </PageTitle.H1>
-        <Link
-          className="ml-auto text-base font-bold text-brand"
-          to={closeLink}
-          data-testid={testIds.closeButton}
-          state={getNavigationState(searchIsExpanded)}
-        >
-          {t('close')}
-          <i className="icon-close-large ml-4 text-lg" />
-        </Link>
-      </Row>
+      {hasActiveFilters ? (
+        <ActiveFiltersHeader
+          resetSearch={() =>
+            setSearchState({
+              ...defaultFilters,
+              ...defaultSortingInfo,
+              ...defaultPagingInfo,
+            })
+          }
+          searchFor={filters.searchFor}
+        />
+      ) : (
+        <NoFiltersHeader />
+      )}
+
       <StopSearchBar
         initialFilters={filters}
         searchIsExpanded={searchIsExpanded}
-        toggleSearchIsExpanded={toggleSearchIsExpanded}
+        toggleSearchIsExpanded={() =>
+          setHistoryState((p) => ({
+            ...p,
+            searchIsExpanded: !p.searchIsExpanded,
+          }))
+        }
         onSubmit={onSubmitFilters}
       />
 
-      <Results
-        filters={filters}
-        pagingInfo={pagingInfo}
-        setPagingInfo={setPagingInfo}
-        setSortingInfo={setSortingInfo}
-        sortingInfo={sortingInfo}
-      />
+      {hasActiveFilters && (
+        <Results
+          filters={filters}
+          pagingInfo={pagingInfo}
+          setPagingInfo={setPagingInfo}
+          setSortingInfo={setSortingInfo}
+          sortingInfo={sortingInfo}
+        />
+      )}
     </Container>
   );
 };

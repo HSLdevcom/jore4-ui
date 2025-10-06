@@ -13,17 +13,17 @@ import {
 } from '../../../../utils';
 import {
   SEPARATOR,
-  parsePriorities,
-  serializeArray,
-  splitString,
-  toEnum,
-} from '../../../common/hooks/typedUrlStateHelpers';
-import {
+  TypedRouterStateError,
   UrlStateDeserializers,
   UrlStateSerializers,
-  serializeState,
-  useTypedUrlState,
-} from '../../../common/hooks/useTypedUrlState';
+  parsePriorities,
+  serializeArray,
+  serializeUrlSearchState,
+  splitString,
+  toEnum,
+  useTypedRouterState,
+} from '../../../common/hooks/typedRouterState';
+import { SimpleRecord } from '../../../common/hooks/typedRouterState/types';
 import { allKnownPosterSizes } from '../../stops/stop-details/info-spots/types';
 import {
   SearchBy,
@@ -38,10 +38,14 @@ import {
 
 type StopSearchUrlFlatState = StopSearchFilters & PagingInfo & SortingInfo;
 
-type StopSearchUrlState = {
+type StopSearchSearchState = {
   readonly filters: StopSearchFilters;
   readonly pagingInfo: PagingInfo;
   readonly sortingInfo: SortingInfo;
+};
+
+type StopSearchHistoryState = {
+  readonly searchIsExpanded: boolean;
 };
 
 const SIZE_SEPARATOR = '|';
@@ -246,6 +250,22 @@ const defaultValues: StopSearchUrlFlatState = {
   ...defaultSortingInfo,
 };
 
+const defaultHistoryValues: StopSearchHistoryState = {
+  searchIsExpanded: false,
+};
+
+function assertHistoryStateShape(
+  state: SimpleRecord,
+): asserts state is StopSearchHistoryState {
+  if (typeof state.searchIsExpanded !== 'boolean') {
+    throw new TypedRouterStateError(
+      `Expected boolean value for useStopSearchRouterState's history state's searchIsExpanded field, but value was (${String(state.searchIsExpanded)})`,
+      'searchIsExpanded',
+      state.searchIsExpanded,
+    );
+  }
+}
+
 function pickFilters(flatState: StopSearchUrlFlatState) {
   return omit(flatState, ['page', 'pageSize', 'sortBy', 'sortOrder']);
 }
@@ -266,7 +286,7 @@ type MemoizedPickers = {
 
 function useReconstitutedState(
   flatState: StopSearchUrlFlatState,
-): StopSearchUrlState {
+): StopSearchSearchState {
   const memoizedPickersRef = useRef<null | MemoizedPickers>(null);
 
   memoizedPickersRef.current ??= {
@@ -300,30 +320,44 @@ function useSetter<T extends Readonly<Record<string, unknown>>>(
   );
 }
 
-export function useStopSearchUrlState() {
-  const [flatState, setFlatState] = useTypedUrlState<StopSearchUrlFlatState>(
-    serializers,
-    deserializers,
-    defaultValues,
-  );
+export function useStopSearchRouterState() {
+  const {
+    state: { search, history },
+    setSearchState,
+    setHistoryState,
+  } = useTypedRouterState<StopSearchUrlFlatState, StopSearchHistoryState>({
+    search: {
+      serializers,
+      deserializers,
+      defaultValues,
+    },
+    history: {
+      defaultValues: defaultHistoryValues,
+      assertShape: assertHistoryStateShape,
+    },
+  });
 
-  const state: StopSearchUrlState = useReconstitutedState(flatState);
+  const state: StopSearchSearchState = useReconstitutedState(search);
 
-  const setFilters = useSetter(setFlatState, pickFilters);
-  const setPagingInfo = useSetter(setFlatState, pickPagingInfo);
-  const setSortingInfo = useSetter(setFlatState, pickSortingInfo);
+  const setFilters = useSetter(setSearchState, pickFilters);
+  const setPagingInfo = useSetter(setSearchState, pickPagingInfo);
+  const setSortingInfo = useSetter(setSearchState, pickSortingInfo);
 
   return {
     state,
+    historyState: history,
     setFilters,
     setPagingInfo,
     setSortingInfo,
-    setFlatState,
+    setSearchState,
+    setHistoryState,
   };
 }
 
-export function stopSearchUrlStateToSearch(state: StopSearchUrlState): string {
-  return serializeState(serializers, defaultValues, {
+export function stopSearchUrlStateToSearch(
+  state: StopSearchSearchState,
+): string {
+  return serializeUrlSearchState(serializers, defaultValues, {
     ...state.filters,
     ...state.pagingInfo,
     ...state.sortingInfo,

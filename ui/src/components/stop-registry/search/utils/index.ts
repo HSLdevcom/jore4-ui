@@ -1,3 +1,3 @@
 export * from './trSearchFor';
 export * from './useNumericSortingCollator';
-export * from './useStopSearchUrlState';
+export * from './useStopSearchRouterState';

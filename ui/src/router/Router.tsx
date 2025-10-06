@@ -13,6 +13,7 @@ import {
   RouteObject,
   RouterProvider,
   createBrowserRouter,
+  useLocation,
 } from 'react-router';
 import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
@@ -30,7 +31,6 @@ import { RoutesAndLinesMainPage } from '../components/routes-and-lines/main/Rout
 import { SearchResultPage } from '../components/routes-and-lines/search/SearchResultPage';
 import {
   StopDetailsPage,
-  StopRegistryMainPage,
   StopSearchResultPage,
 } from '../components/stop-registry';
 import { StopAreaDetailsPage } from '../components/stop-registry/stop-areas/stop-area-details/StopAreaDetailsPage';
@@ -57,6 +57,22 @@ const FallbackRoute: FC = () => {
       <PageTitle.H1>404</PageTitle.H1>
       <p>page not found</p>
     </div>
+  );
+};
+
+const RedirectToStopSearch: FC = () => {
+  const { hash, search, state } = useLocation();
+
+  return (
+    <Navigate
+      replace
+      state={state}
+      to={{
+        hash,
+        pathname: Path.stopSearch,
+        search,
+      }}
+    />
   );
 };
 
@@ -147,7 +163,7 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
   {
     path: Path.stopRegistry,
     protected: true,
-    element: <StopRegistryMainPage />,
+    element: <RedirectToStopSearch />,
   },
   {
     path: Path.timetables,

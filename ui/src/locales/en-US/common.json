@@ -1060,6 +1060,7 @@
   "search": {
     "advancedSearchTitle": "Advanced search",
     "searchResultsTitle": "Search results",
+    "searchResultsTitleFor": "$t(search.searchResultsTitle) | {{for}}",
     "resultCount": "{{ resultCount }} results",
     "searchPlaceholder": "Enter label",
     "searchLabel": "Search",

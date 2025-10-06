@@ -177,24 +177,18 @@ describe('Stop search', () => {
     );
   }
 
-  function setupTestsAndNavigateToPage(
-    qs: Record<string, unknown>,
-    startOnResultPage: boolean = false,
-  ) {
+  function setupTestsAndNavigateToPage(qs: Record<string, unknown>) {
     cy.setupTests();
     cy.mockLogin();
 
-    if (startOnResultPage) {
-      cy.visit({ url: '/stop-registry/search', qs });
-    } else {
-      cy.visit({ url: '/stop-registry', qs });
-    }
+    cy.visit({ url: '/stop-registry/search', qs });
+
     stopSearchBar.getSearchInput().clear();
   }
 
   function initWithHardcodedData() {
     insertHardcodedTestDataBeforeEach();
-    setupTestsAndNavigateToPage({}, false);
+    setupTestsAndNavigateToPage({});
   }
 
   describe('by label', () => {
@@ -1272,7 +1266,7 @@ describe('Stop search', () => {
         stopPlaces,
       });
 
-      setupTestsAndNavigateToPage({}, true);
+      setupTestsAndNavigateToPage({});
     });
 
     it('should visualise priorities correctly', () => {
@@ -1468,7 +1462,7 @@ describe('Stop search', () => {
         .then((infoSpotData) => cy.task('insertInfoSpots', infoSpotData));
     });
 
-    beforeEach(() => setupTestsAndNavigateToPage({ pageSize: 100 }, true));
+    beforeEach(() => setupTestsAndNavigateToPage({ pageSize: 100 }));
 
     function shouldHaveResultWithout(
       ...unexpectedStops: ReadonlyArray<string | ReadonlyArray<string>>
@@ -1782,7 +1776,7 @@ describe('Stop search', () => {
     }
 
     it('Should show and zoom-in on a tightly packed result set', () => {
-      setupTestsAndNavigateToPage({ pageSize: 100 }, true);
+      setupTestsAndNavigateToPage({ pageSize: 100 });
 
       searchAndOpenPoleTypeResultsOnAMap(
         StopRegistryShelterType.Urban,
@@ -1794,7 +1788,7 @@ describe('Stop search', () => {
 
     it('Should show and zoom-out to a sparsely distributed result set', () => {
       // Simulate situation with many results that don't fit on a single page.
-      setupTestsAndNavigateToPage({ pageSize: 2 }, true);
+      setupTestsAndNavigateToPage({ pageSize: 2 });
 
       searchAndOpenPoleTypeResultsOnAMap(
         StopRegistryShelterType.Post,

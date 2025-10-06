@@ -1060,6 +1060,7 @@
   "search": {
     "advancedSearchTitle": "Kohdenna haku",
     "searchResultsTitle": "Hakutulokset",
+    "searchResultsTitleFor": "$t(search.searchResultsTitle) | {{for}}",
     "resultCount": "{{ resultCount }} hakutulosta",
     "searchPlaceholder": "Anna tunnus",
     "searchLabel": "Haku",

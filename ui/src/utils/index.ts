@@ -26,4 +26,5 @@ export * from './stops';
 export * from './substituteOperatingPeriod';
 export * from './toastService';
 export * from './url';
+export * from './useViewState';
 export * from './validity';
