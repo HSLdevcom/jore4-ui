@@ -28,7 +28,7 @@ export class StopSearchResultsPage {
   }
 
   getRowByScheduledStopPointId(scheduledStopPointId: string) {
-    return cy.get(`[data-scheduled-stop-point-id='${scheduledStopPointId}'`);
+    return cy.get(`[data-scheduled-stop-point-id='${scheduledStopPointId}']`);
   }
 
   getRowLinkByLabel(label: string) {
