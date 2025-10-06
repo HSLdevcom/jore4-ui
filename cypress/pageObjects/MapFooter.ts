@@ -76,4 +76,12 @@ export class MapFooter {
       .and('be.enabled')
       .click();
   }
+
+  getStopResultsFooter() {
+    return cy.getByTestId('StopResultsFooter');
+  }
+
+  getStopResultsFooterCloseButton() {
+    return cy.getByTestId('StopResultsFooter::closeButton');
+  }
 }

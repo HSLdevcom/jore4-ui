@@ -29,6 +29,8 @@ import {
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { StopPlaceState, Tag } from '../../enums';
 import {
+  Map,
+  MapFooter,
   Pagination,
   SearchForStopAreas,
   SearchForTerminals,
@@ -48,6 +50,17 @@ import { InsertedStopRegistryIds } from '../utils';
 
 const baseDbResources = getClonedBaseDbResources();
 
+const stopSearchBar = new StopSearchBar();
+const stopSearchResultsPage = new StopSearchResultsPage();
+const stopSearchByLine = new StopSearchByLine();
+const stopGroupSelector = new StopGroupSelector();
+const searchForStopAreas = new SearchForStopAreas();
+const searchForTerminals = new SearchForTerminals();
+const sortByButton = new SortByButton();
+const pagination = new Pagination();
+const map = new Map();
+const mapFooter = new MapFooter();
+
 function getUuid(index: number) {
   if (!Number.isInteger(index)) {
     throw new Error(`Index must be an integer! But was: ${index}`);
@@ -59,16 +72,80 @@ function getUuid(index: number) {
   return base.substring(0, base.length - indexStr.length) + indexStr;
 }
 
-describe('Stop search', () => {
-  const stopSearchBar = new StopSearchBar();
-  const stopSearchResultsPage = new StopSearchResultsPage();
-  const stopSearchByLine = new StopSearchByLine();
-  const stopGroupSelector = new StopGroupSelector();
-  const searchForStopAreas = new SearchForStopAreas();
-  const searchForTerminals = new SearchForTerminals();
-  const sortByButton = new SortByButton();
-  const pagination = new Pagination();
+const template: StopRegistryQuayInput = {
+  keyValues: [
+    { key: 'stopState', values: [StopPlaceState.InOperation] },
+    { key: 'priority', values: ['10'] },
+    { key: 'validityStart', values: ['2025-01-01'] },
+  ],
+};
 
+const shelterPostTemplate: StopRegistryShelterEquipmentInput = {
+  shelterNumber: 1,
+  shelterType: StopRegistryShelterType.Post,
+};
+
+const shelterUrbanTemplate: StopRegistryShelterEquipmentInput = {
+  shelterNumber: 1,
+  shelterType: StopRegistryShelterType.Urban,
+};
+
+const geoDelta = 0.00002;
+
+type PointGeometry = {
+  coordinates: number[];
+  type: StopRegistryGeoJsonType.Point;
+};
+
+const centroids = {
+  helsinki: {
+    coordinates: [24.9342, 60.1756],
+    type: StopRegistryGeoJsonType.Point,
+  },
+  vantaa: {
+    coordinates: [25.0333, 60.3],
+    type: StopRegistryGeoJsonType.Point,
+  },
+  espoo: {
+    coordinates: [24.66, 60.21],
+    type: StopRegistryGeoJsonType.Point,
+  },
+  kauniainen: {
+    coordinates: [24.7264, 60.2097],
+    type: StopRegistryGeoJsonType.Point,
+  },
+} as const satisfies Readonly<Record<string, PointGeometry>>;
+
+function offsetPoint(
+  point: PointGeometry,
+  index: number,
+  columns = 10,
+  delta = geoDelta,
+): PointGeometry {
+  const [startLongitude, startLatitude] = point.coordinates;
+
+  return {
+    type: StopRegistryGeoJsonType.Point,
+    coordinates: [
+      startLongitude + (index % columns) * delta,
+      startLatitude + Math.floor(index / columns) * delta,
+    ],
+  };
+}
+
+function shouldHaveResultOf(
+  ...expectedStops: ReadonlyArray<string | ReadonlyArray<string>>
+) {
+  const flattened = expectedStops.flat();
+  stopSearchResultsPage
+    .getResultCount()
+    .should('contain.text', `${flattened.length} hakutulos`);
+  flattened.forEach((stop) => {
+    stopSearchResultsPage.getRowByLabel(stop).shouldBeVisible();
+  });
+}
+
+describe('Stop search', () => {
   let dbResources: SupportedResources;
   let testInfraLinkIds: ReadonlyArray<UUID>;
 
@@ -1263,27 +1340,6 @@ describe('Stop search', () => {
       keyof ReturnType<typeof generateTestData>
     >;
     let testStops: TestStops;
-
-    const template: StopRegistryQuayInput = {
-      keyValues: [
-        { key: 'stopState', values: [StopPlaceState.InOperation] },
-        { key: 'priority', values: ['10'] },
-        { key: 'validityStart', values: ['2025-01-01'] },
-      ],
-    };
-
-    const shelterPostTemplate: StopRegistryShelterEquipmentInput = {
-      shelterNumber: 1,
-      shelterType: StopRegistryShelterType.Post,
-    };
-
-    const shelterUrbanTemplate: StopRegistryShelterEquipmentInput = {
-      shelterNumber: 1,
-      shelterType: StopRegistryShelterType.Urban,
-    };
-
-    const startLongitude = 24.945831;
-    const startLatitude = 60.192059;
     let generatedQuayIndex = 0;
 
     function generateQuay(
@@ -1291,13 +1347,7 @@ describe('Stop search', () => {
       ...changes: ReadonlyArray<Partial<StopRegistryQuayInput>>
     ): InsertQuayInput {
       const location: Partial<StopRegistryQuayInput> = {
-        geometry: {
-          type: StopRegistryGeoJsonType.Point,
-          coordinates: [
-            startLongitude + (generatedQuayIndex % 10) * 0.00002,
-            startLatitude + Math.floor(generatedQuayIndex / 10) * 0.00002,
-          ],
-        },
+        geometry: offsetPoint(centroids.helsinki, generatedQuayIndex),
       };
       generatedQuayIndex += 1;
 
@@ -1419,18 +1469,6 @@ describe('Stop search', () => {
     });
 
     beforeEach(() => setupTestsAndNavigateToPage({ pageSize: 100 }, true));
-
-    function shouldHaveResultOf(
-      ...expectedStops: ReadonlyArray<string | ReadonlyArray<string>>
-    ) {
-      const flattened = expectedStops.flat();
-      stopSearchResultsPage
-        .getResultCount()
-        .should('contain.text', `${flattened.length} hakutulos`);
-      flattened.forEach((stop) => {
-        stopSearchResultsPage.getRowByLabel(stop).shouldBeVisible();
-      });
-    }
 
     function shouldHaveResultWithout(
       ...unexpectedStops: ReadonlyArray<string | ReadonlyArray<string>>
@@ -1593,6 +1631,184 @@ describe('Stop search', () => {
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultWithout(stopsWithInfoSpots);
+    });
+  });
+
+  describe('Show results on map', () => {
+    type TestStops = InsertQuaysResult<
+      keyof ReturnType<typeof generateTestData>
+    >;
+    let testStops: TestStops;
+
+    function generateQuay(
+      stopPlaceId: string,
+      ...changes: ReadonlyArray<Partial<StopRegistryQuayInput>>
+    ): InsertQuayInput {
+      const input = [template, ...changes].reduce(
+        (compiled, set) => ({
+          ...compiled,
+          ...set,
+          keyValues: uniqBy(
+            compact((set.keyValues ?? [])?.concat(compiled.keyValues ?? [])),
+            (kv) => kv.key,
+          ),
+        }),
+        {},
+      );
+
+      return { stopPlaceId, input };
+    }
+
+    function generateTestData(
+      urbanShelterStopPlaceId: string,
+      postShelterStopPlaceId: string,
+    ) {
+      return {
+        urban1: generateQuay(urbanShelterStopPlaceId, {
+          placeEquipments: { shelterEquipment: [shelterUrbanTemplate] },
+          geometry: offsetPoint(centroids.helsinki, 1),
+        }),
+        urban2: generateQuay(urbanShelterStopPlaceId, {
+          placeEquipments: { shelterEquipment: [shelterUrbanTemplate] },
+          geometry: offsetPoint(centroids.helsinki, 2),
+        }),
+        postEspoo: generateQuay(postShelterStopPlaceId, {
+          placeEquipments: { shelterEquipment: [shelterPostTemplate] },
+          geometry: centroids.espoo,
+        }),
+        postHelsinki: generateQuay(postShelterStopPlaceId, {
+          placeEquipments: { shelterEquipment: [shelterPostTemplate] },
+          geometry: centroids.helsinki,
+        }),
+        postKauniainen: generateQuay(postShelterStopPlaceId, {
+          placeEquipments: { shelterEquipment: [shelterPostTemplate] },
+          geometry: centroids.kauniainen,
+        }),
+        postVantaa: generateQuay(postShelterStopPlaceId, {
+          placeEquipments: { shelterEquipment: [shelterPostTemplate] },
+          geometry: centroids.vantaa,
+        }),
+      };
+    }
+
+    before(() => {
+      cy.task('resetDbs');
+
+      const urbanShelters = 'US001';
+      const posts = 'PS002';
+      cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
+        stopPlaces: [
+          {
+            StopArea: {
+              name: {
+                lang: 'fin',
+                value: 'Tulokset kartalla - tiukkaklusteri urbaanikatoksia',
+              },
+              privateCode: { type: 'HSL/TEST', value: urbanShelters },
+              transportMode: StopRegistryTransportModeType.Bus,
+            },
+            organisations: null,
+          },
+          {
+            StopArea: {
+              name: {
+                lang: 'fin',
+                value: 'Tulokset kartalla - tolppia siellä täällä',
+              },
+              privateCode: { type: 'HSL/TEST', value: posts },
+              transportMode: StopRegistryTransportModeType.Bus,
+            },
+            organisations: null,
+          },
+        ],
+        stopPointsRequired: false,
+      })
+        .then((ids) => {
+          const testDataInputs = generateTestData(
+            ids.stopPlaceIdsByName[urbanShelters],
+            ids.stopPlaceIdsByName[posts],
+          );
+
+          return cy.task('insertQuaysWithRealIds', testDataInputs);
+        })
+        .then((insertResult) => {
+          testStops = insertResult;
+          return insertResult;
+        });
+    });
+
+    function searchAndOpenPoleTypeResultsOnAMap(
+      type: StopRegistryShelterType,
+      assertResults: (expectedStops: ReadonlyArray<string>) => void,
+      ...expectedStops: ReadonlyArray<string | ReadonlyArray<string>>
+    ) {
+      const flattenedResults = expectedStops.flat();
+
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.getSearchInput().clearAndType('*');
+
+      // Search for stops with the given shelter type
+      stopSearchBar.shelters.openDropdown();
+      stopSearchBar.shelters.toggleOption(type);
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      // Assert results
+      assertResults(flattenedResults);
+
+      stopSearchResultsPage
+        .getShowOnMapButton()
+        .shouldBeVisible()
+        .and('be.enabled');
+      stopSearchResultsPage.getShowOnMapButton().click();
+      stopSearchResultsPage.getShowOnMapButtonLoading().should('not.exist');
+
+      map.getLoader().shouldBeVisible();
+      map.waitForLoadToComplete();
+
+      flattenedResults.forEach((stop) => {
+        map
+          .getStopByStopLabelAndPriority(stop, Priority.Standard)
+          .shouldBeVisible();
+      });
+
+      mapFooter
+        .getStopResultsFooter()
+        .shouldHaveText(`Hakutuloksia: ${flattenedResults.length}.`);
+      mapFooter.getStopResultsFooterCloseButton().click();
+
+      // Assert we are back on the search page
+      assertResults(flattenedResults);
+    }
+
+    it('Should show and zoom-in on a tightly packed result set', () => {
+      setupTestsAndNavigateToPage({ pageSize: 100 }, true);
+
+      searchAndOpenPoleTypeResultsOnAMap(
+        StopRegistryShelterType.Urban,
+        shouldHaveResultOf,
+        testStops.tagToPublicCode.urban1,
+        testStops.tagToPublicCode.urban2,
+      );
+    });
+
+    it('Should show and zoom-out to a sparsely distributed result set', () => {
+      // Simulate situation with many results that don't fit on a single page.
+      setupTestsAndNavigateToPage({ pageSize: 2 }, true);
+
+      searchAndOpenPoleTypeResultsOnAMap(
+        StopRegistryShelterType.Post,
+        // Only assert result count, as some stops are paged out.
+        (results) => {
+          stopSearchResultsPage
+            .getResultCount()
+            .should('contain.text', `${results.length} hakutulos`);
+        },
+        testStops.tagToPublicCode.postEspoo,
+        testStops.tagToPublicCode.postHelsinki,
+        testStops.tagToPublicCode.postKauniainen,
+        testStops.tagToPublicCode.postVantaa,
+      );
     });
   });
 });
