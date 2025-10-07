@@ -32,7 +32,10 @@ export const TerminusNameInputs: FC<TerminusNameInputsProps> = ({
     <div className={`${className} w-full px-4`}>
       <h3 className="my-4 w-full pt-1">{t('routes.origin.title')}</h3>
       <FormColumn>
-        <FormRow mdColumns={2}>
+        <FormRow
+          className="items-end sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
+          mdColumns={2}
+        >
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"
@@ -61,7 +64,10 @@ export const TerminusNameInputs: FC<TerminusNameInputsProps> = ({
       </FormColumn>
       <h3 className="my-4 w-full pt-1">{t('routes.destination.title')}</h3>
       <FormColumn>
-        <FormRow mdColumns={2}>
+        <FormRow
+          className="items-end sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
+          mdColumns={2}
+        >
           <InputField<RouteFormState>
             type="text"
             translationPrefix="routes"

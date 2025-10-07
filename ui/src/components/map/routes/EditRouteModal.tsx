@@ -32,12 +32,12 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
 
   return (
     <CustomOverlay
-      className="min-h-full w-[calc(650px+(2*1.25rem))]"
+      className="min-h-full w-[calc(450px+(2*1.25rem))]"
       position="top-left"
     >
       <Modal
         className="pointer-events-auto flex max-h-full flex-col"
-        headerClassName="text-xl px-4 py-4 items-center"
+        headerClassName="*:text-xl px-4 py-4 items-center"
         bodyClassName="mx-0 my-0"
         footerClassName="px-4 py-2"
         testId={testIds.modal}
