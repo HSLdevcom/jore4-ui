@@ -26,6 +26,7 @@ const testIds = {
 type ChangeValidityFormProps = {
   readonly className?: string;
   readonly hiddenPriorities?: ReadonlyArray<Priority>;
+  readonly dateInputRowClassName?: string;
 };
 
 /**
@@ -35,6 +36,7 @@ type ChangeValidityFormProps = {
 export const ChangeValidityForm: FC<ChangeValidityFormProps> = ({
   className = '',
   hiddenPriorities,
+  dateInputRowClassName,
 }) => {
   const { t } = useTranslation();
 
@@ -44,7 +46,7 @@ export const ChangeValidityForm: FC<ChangeValidityFormProps> = ({
       <Row className="mb-4 pt-6">
         <PriorityForm hiddenPriorities={hiddenPriorities} />
       </Row>
-      <ValidityPeriodForm />
+      <ValidityPeriodForm dateInputRowClassName={dateInputRowClassName} />
     </div>
   );
 };
