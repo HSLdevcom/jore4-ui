@@ -66,7 +66,7 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
     >
       <Modal
         className="pointer-events-auto flex max-h-full flex-col"
-        headerClassName="text-xl px-4 py-4 items-center"
+        headerClassName="*:text-xl px-4 py-4 items-center"
         bodyClassName="mx-0 my-0"
         footerClassName="px-4 py-2"
         testId={testIds.modal}

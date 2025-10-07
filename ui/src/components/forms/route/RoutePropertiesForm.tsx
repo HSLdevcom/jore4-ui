@@ -12,8 +12,7 @@ import {
   setTemplateRouteIdAction,
 } from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
-import { FormColumn, FormRow, InputField } from '../common';
-import { ChangeValidityForm } from '../common/ChangeValidityForm';
+import { ChangeValidityForm, FormColumn, FormRow, InputField } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
@@ -87,7 +86,11 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
           </Row>
         )}
         <FormColumn className={twMerge('p-4', className)}>
-          <FormRow mdColumns={5} smColumns={4}>
+          <FormRow
+            className="sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
+            mdColumns={5}
+            smColumns={4}
+          >
             <InputField<FormState>
               type="text"
               translationPrefix="routes"
@@ -167,9 +170,9 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
             )}
           </>
         )}
-        <Row className="border-t p-4">
-          <ChangeValidityForm />
-        </Row>
+        <FormRow className="border-t border-light-grey p-4">
+          <ChangeValidityForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
+        </FormRow>
       </form>
     </FormProvider>
   );
