@@ -36,7 +36,7 @@ export const FloatingFooter: FC<FloatingFooterProps> = ({
       <div className="flex-grow" />
 
       <CloseIconButton
-        className="flex h-16 w-16 items-center justify-center"
+        className="flex h-14 w-16 items-center justify-center"
         onClick={onClose}
         testId={`${testId}::closeButton`}
       />
