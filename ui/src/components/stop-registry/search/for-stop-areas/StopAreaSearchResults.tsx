@@ -32,7 +32,7 @@ export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
     <LoadingWrapper
       className="flex justify-center"
       loadingText={t('search.searching')}
-      loading={loading}
+      loading={stopPlaces.length === 0 ? loading : false}
       testId={testIds.loadingSearchResults}
     >
       {groupByArea ? (
