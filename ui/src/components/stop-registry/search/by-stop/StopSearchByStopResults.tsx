@@ -31,7 +31,7 @@ export const StopSearchByStopResults: FC<StopSearchResultsProps> = ({
     <LoadingWrapper
       className="flex justify-center"
       loadingText={t('search.searching')}
-      loading={loading}
+      loading={resultCount === 0 ? loading : false}
       testId={testIds.loadingSearchResults}
     >
       <CountAndSortingRow

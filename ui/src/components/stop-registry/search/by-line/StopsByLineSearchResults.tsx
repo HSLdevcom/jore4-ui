@@ -29,7 +29,7 @@ export const StopsByLineSearchResults: FC<StopSearchResultsProps> = ({
     <LoadingWrapper
       className="flex justify-center"
       loadingText={t('search.searching')}
-      loading={loading}
+      loading={lines.length === 0 ? loading : false}
       testId={testIds.loadingSearchResults}
     >
       {groupByLine ? (
