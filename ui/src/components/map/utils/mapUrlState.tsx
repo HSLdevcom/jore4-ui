@@ -12,16 +12,14 @@ import {
 } from 'react';
 import { areEqual, memoizeOne } from '../../../utils';
 import {
-  parsePriorities,
-  serializeArray,
-  splitString,
-} from '../../common/hooks/typedUrlStateHelpers';
-import {
   UrlStateDeserializers,
   UrlStateSerializers,
-  serializeState,
+  parsePriorities,
+  serializeArray,
+  serializeUrlSearchState,
+  splitString,
   useTypedUrlState,
-} from '../../common/hooks/useTypedUrlState';
+} from '../../common/hooks/typedRouterState';
 import {
   StopSearchFilters,
   defaultFilters,
@@ -29,7 +27,7 @@ import {
 import {
   filterDeserializers,
   filterSerializers,
-} from '../../stop-registry/search/utils/useStopSearchUrlState';
+} from '../../stop-registry/search/utils/useStopSearchRouterState';
 import {
   DisplayedRouteParams,
   MapUrlState,
@@ -238,7 +236,7 @@ export function useMapObservationDate() {
 }
 
 export function mapUrlStateToSearch(state: OpenMapUrlState): string {
-  return serializeState(serializers, defaultValues, {
+  return serializeUrlSearchState(serializers, defaultValues, {
     ...defaultValues,
     ...(state.displayedRoute ?? {}),
     ...(state.filters ?? {}),
