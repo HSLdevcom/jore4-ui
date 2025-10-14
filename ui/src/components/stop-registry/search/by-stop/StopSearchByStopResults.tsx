@@ -45,7 +45,10 @@ export const StopSearchByStopResults: FC<StopSearchResultsProps> = ({
       {error ? (
         <LoadingStopsErrorRow error={error} refetch={refetch} />
       ) : (
-        <StopSearchResultStopsTable stops={stops} />
+        <StopSearchResultStopsTable
+          observationDate={filters.observationDate}
+          stops={stops}
+        />
       )}
 
       <Visible visible={!!resultCount}>

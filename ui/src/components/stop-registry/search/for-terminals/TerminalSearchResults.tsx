@@ -37,6 +37,7 @@ export const TerminalSearchResults: FC<StopSearchResultsProps> = ({
     >
       {groupByTerminal ? (
         <SearchGroupedStopsResults
+          observationDate={filters.observationDate}
           setPagingInfo={setPagingInfo}
           setSortingInfo={setSortingInfo}
           sortingInfo={sortingInfo}
@@ -48,6 +49,7 @@ export const TerminalSearchResults: FC<StopSearchResultsProps> = ({
         />
       ) : (
         <NongroupedStopsResults
+          observationDate={filters.observationDate}
           stopPlaces={stopPlaces}
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}

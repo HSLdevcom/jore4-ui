@@ -37,6 +37,7 @@ export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
     >
       {groupByArea ? (
         <SearchGroupedStopsResults
+          observationDate={filters.observationDate}
           setPagingInfo={setPagingInfo}
           setSortingInfo={setSortingInfo}
           sortingInfo={sortingInfo}
@@ -48,6 +49,7 @@ export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
         />
       ) : (
         <NongroupedStopsResults
+          observationDate={filters.observationDate}
           stopPlaces={stopPlaces}
           sortingInfo={sortingInfo}
           setSortingInfo={setSortingInfo}

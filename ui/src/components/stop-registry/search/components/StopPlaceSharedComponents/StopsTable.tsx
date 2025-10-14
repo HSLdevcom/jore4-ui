@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { ComponentType, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../../layoutComponents';
@@ -13,6 +14,7 @@ const testIds = {
 
 type StopsTableProps = {
   readonly className?: string;
+  readonly observationDate: DateTime;
   readonly stopPlace: FindStopPlaceInfo;
   readonly HeaderComponent: ComponentType<{
     stopPlace: FindStopPlaceInfo;
@@ -25,6 +27,7 @@ type StopsTableProps = {
 
 export const StopsTable: FC<StopsTableProps> = ({
   className,
+  observationDate,
   stopPlace,
   HeaderComponent,
   NoStopsComponent,
@@ -51,7 +54,10 @@ export const StopsTable: FC<StopsTableProps> = ({
         loading={loading && stops.length === 0}
       >
         <Visible visible={stops.length > 0}>
-          <StopSearchResultStopsTable stops={stops} />
+          <StopSearchResultStopsTable
+            observationDate={observationDate}
+            stops={stops}
+          />
         </Visible>
       </LoadingWrapper>
 

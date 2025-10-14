@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { useObservationDateQueryParam } from '../../../../hooks';
 import { getGeometryPoint } from '../../../../utils';
 import {
   LocatorActionButton,
@@ -45,16 +44,13 @@ const StopSearchResultRow: FC<StopSearchResultRowProps> = ({
 
 type StopSearchResultStopsTableProps = {
   readonly className?: string;
+  readonly observationDate: DateTime;
   readonly stops: ReadonlyArray<StopSearchRow>;
 };
 
 export const StopSearchResultStopsTable: FC<
   StopSearchResultStopsTableProps
-> = ({ className, stops }) => {
-  const { observationDate } = useObservationDateQueryParam({
-    initialize: false,
-  });
-
+> = ({ className, observationDate, stops }) => {
   return (
     <table
       className={twMerge('h-1 w-full border-x border-x-light-grey', className)}
@@ -64,7 +60,7 @@ export const StopSearchResultStopsTable: FC<
         {stops.map((stop: StopSearchRow) => (
           <StopSearchResultRow
             key={stop.id}
-            observationDate={observationDate ?? null}
+            observationDate={observationDate}
             stop={stop}
           />
         ))}

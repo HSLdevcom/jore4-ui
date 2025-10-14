@@ -35,6 +35,7 @@ export const StopsByLineSearchResults: FC<StopSearchResultsProps> = ({
       {groupByLine ? (
         <StopsByLineSearchGroupedStopsResults
           lines={lines}
+          observationDate={filters.observationDate}
           setPagingInfo={setPagingInfo}
           setSortingInfo={setSortingInfo}
           sortingInfo={sortingInfo}
@@ -42,6 +43,7 @@ export const StopsByLineSearchResults: FC<StopSearchResultsProps> = ({
       ) : (
         <StopsByLineNongroupedStopsResults
           lines={lines}
+          observationDate={filters.observationDate}
           pagingInfo={pagingInfo}
           setPagingInfo={setPagingInfo}
           setSortingInfo={setSortingInfo}

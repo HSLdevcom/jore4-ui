@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../layoutComponents';
@@ -19,6 +20,7 @@ const testIds = {
 
 type StopsByLineNongroupedStopsResultsProps = {
   readonly lines: ReadonlyArray<FindStopByLineInfo>;
+  readonly observationDate: DateTime;
   readonly pagingInfo: PagingInfo;
   readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
   readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
@@ -27,7 +29,14 @@ type StopsByLineNongroupedStopsResultsProps = {
 
 export const StopsByLineNongroupedStopsResults: FC<
   StopsByLineNongroupedStopsResultsProps
-> = ({ lines, pagingInfo, setPagingInfo, setSortingInfo, sortingInfo }) => {
+> = ({
+  lines,
+  observationDate,
+  pagingInfo,
+  setPagingInfo,
+  setSortingInfo,
+  sortingInfo,
+}) => {
   const { t } = useTranslation();
 
   const {
@@ -67,7 +76,12 @@ export const StopsByLineNongroupedStopsResults: FC<
         <LoadingStopsErrorRow error={error} refetch={stopsRefetch} />
       )}
 
-      {!error && <StopSearchResultStopsTable stops={stops} />}
+      {!error && (
+        <StopSearchResultStopsTable
+          observationDate={observationDate}
+          stops={stops}
+        />
+      )}
 
       <Visible visible={!!resultCount}>
         <div className="grid grid-cols-4">

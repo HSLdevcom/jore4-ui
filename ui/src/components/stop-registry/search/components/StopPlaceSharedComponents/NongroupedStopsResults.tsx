@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { ComponentType, Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../../layoutComponents';
@@ -16,6 +17,7 @@ const testIds = {
 };
 
 type NongroupedStopsResults = {
+  readonly observationDate: DateTime;
   readonly pagingInfo: PagingInfo;
   readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
   readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
@@ -25,6 +27,7 @@ type NongroupedStopsResults = {
 };
 
 export const NongroupedStopsResults: FC<NongroupedStopsResults> = ({
+  observationDate,
   pagingInfo,
   setPagingInfo,
   setSortingInfo,
@@ -55,7 +58,10 @@ export const NongroupedStopsResults: FC<NongroupedStopsResults> = ({
       {error ? (
         <LoadingStopsErrorRow error={error} refetch={refetch} />
       ) : (
-        <StopSearchResultStopsTable stops={stops} />
+        <StopSearchResultStopsTable
+          observationDate={observationDate}
+          stops={stops}
+        />
       )}
 
       <Visible visible={!!resultCount}>

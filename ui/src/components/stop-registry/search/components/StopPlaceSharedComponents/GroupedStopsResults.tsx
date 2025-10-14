@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import {
   ComponentType,
   Dispatch,
@@ -24,6 +25,7 @@ type NoStopsComponentProps = {
 };
 
 type SearchGroupedStopsResultsProps = {
+  readonly observationDate: DateTime;
   readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
   readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
   readonly sortingInfo: SortingInfo;
@@ -35,6 +37,7 @@ type SearchGroupedStopsResultsProps = {
 };
 
 export const SearchGroupedStopsResults: FC<SearchGroupedStopsResultsProps> = ({
+  observationDate,
   setPagingInfo,
   setSortingInfo,
   sortingInfo,
@@ -106,9 +109,10 @@ export const SearchGroupedStopsResults: FC<SearchGroupedStopsResultsProps> = ({
 
       {selectedStopPlaces.map((stopPlace) => (
         <StopsTable
-          key={stopPlace.id}
-          stopPlace={stopPlace}
           className="mb-6 last:mb-0"
+          key={stopPlace.id}
+          observationDate={observationDate}
+          stopPlace={stopPlace}
           HeaderComponent={HeaderComponent}
           NoStopsComponent={NoStopsComponent}
         />

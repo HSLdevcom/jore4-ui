@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import {
   Dispatch,
   FC,
@@ -16,6 +17,7 @@ import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 
 type StopsByLineSearchGroupedStopsResultsProps = {
   readonly lines: ReadonlyArray<FindStopByLineInfo>;
+  readonly observationDate: DateTime;
   readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
   readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
   readonly sortingInfo: SortingInfo;
@@ -23,7 +25,13 @@ type StopsByLineSearchGroupedStopsResultsProps = {
 
 export const StopsByLineSearchGroupedStopsResults: FC<
   StopsByLineSearchGroupedStopsResultsProps
-> = ({ lines, setPagingInfo, setSortingInfo, sortingInfo }) => {
+> = ({
+  lines,
+  observationDate,
+  setPagingInfo,
+  setSortingInfo,
+  sortingInfo,
+}) => {
   const [activeLineIds, setActiveLineIds] =
     useState<ReadonlyArray<UUID> | null>(
       lines.at(0)?.line_id ? [lines.at(0)?.line_id as string] : null,
@@ -83,7 +91,11 @@ export const StopsByLineSearchGroupedStopsResults: FC<
       {linesToShow.map((line) => (
         <>
           <ActiveLineHeader line={line} className="mt-6" />
-          <LineRoutesListing line={line} sortingInfo={sortingInfo} />
+          <LineRoutesListing
+            observationDate={observationDate}
+            line={line}
+            sortingInfo={sortingInfo}
+          />
         </>
       ))}
     </>
