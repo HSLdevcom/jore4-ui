@@ -689,6 +689,10 @@
     "goToStopAreaDetails": "Go to stop area details page.",
     "gotoTerminalDetails": "Go to terminal details page.",
     "showOnMap": "Show on map",
+    "downloadAsCsv": "Download as CSV file",
+    "csvFileName": "Stop search results {{today}} at {{now}} o'clock.csv",
+    "csvGenerationError": "CSV Report generation failed:",
+    "csvDownloaded": "CSV report downloaded as: <Filename />",
 
     "stopRowActions": {
       "openDetails": "Open stop details page",

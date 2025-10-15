@@ -8,6 +8,7 @@ import { StopSearchRow } from '../../components';
 import { ResultCountHeader } from '../components/ResultCountHeader';
 import { SortResultsBy } from '../components/SortResultsBy';
 import { SortStopsBy, SortingInfo, StopSearchFilters } from '../types';
+import { DownloadResultsAsCSVButton } from './DownloadResultsAsCSVButton';
 import { useOpenStopResultsOnMap } from './useOpenStopResultsOnMap';
 
 const testIds = {
@@ -70,6 +71,8 @@ export const CountAndSortingRow: FC<CountAndSortingRowProps> = ({
           )}
         </SimpleButton>
       )}
+
+      {resultCount > 0 && <DownloadResultsAsCSVButton filters={filters} />}
 
       <div className="flex-grow" />
 
