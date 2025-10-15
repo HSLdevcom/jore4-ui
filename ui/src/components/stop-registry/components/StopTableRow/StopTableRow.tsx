@@ -9,9 +9,10 @@ import {
   PriorityTd,
   ValidityPeriodTd,
 } from './components';
+import { SelectRowTd } from './components/SelectRowTd';
 import { StopSearchRow } from './types';
 
-type StopTableRowProps = {
+type StopTableRowBaseProps = {
   readonly actionButtons: ReactNode;
   readonly className?: string;
   readonly inEditMode?: boolean;
@@ -19,6 +20,21 @@ type StopTableRowProps = {
   readonly observationDate: DateTime;
   readonly stop: StopSearchRow;
 };
+
+export type SelectableStopTableRowProps = {
+  readonly selectable: true;
+  readonly isSelected: boolean;
+  readonly onToggleSelection: (rowId: string) => void;
+};
+
+export type NonSelectableStopTableRowProps = {
+  readonly selectable?: false | never;
+  readonly isSelected?: never;
+  readonly onToggleSelection?: never;
+};
+
+type StopTableRowProps = StopTableRowBaseProps &
+  (SelectableStopTableRowProps | NonSelectableStopTableRowProps);
 
 const testIds = {
   row: (label: string) => `StopTableRow::row::${label}`,
@@ -30,8 +46,11 @@ export const StopTableRow: FC<StopTableRowProps> = ({
   actionButtons,
   className = '',
   inEditMode,
+  isSelected,
   menuItems,
   observationDate,
+  onToggleSelection,
+  selectable,
   stop,
 }) => {
   return (
@@ -41,7 +60,15 @@ export const StopTableRow: FC<StopTableRowProps> = ({
       data-netext-id={stop.netexId}
       data-scheduled-stop-point-id={stop.scheduledStopPointId}
     >
-      {/* TODO: select column */}
+      {selectable && (
+        <SelectRowTd
+          className="w-auto border-r border-r-light-grey pr-5"
+          isSelected={isSelected}
+          onToggleSelection={onToggleSelection}
+          stop={stop}
+        />
+      )}
+
       <PriorityTd className={`w-auto ${yBorderClassNames}`} stop={stop} />
 
       <LabelAndTimingPlaceTd
