@@ -31,6 +31,9 @@ type Cache<TFunc extends (...args: ExplicitAny[]) => ExplicitAny> = {
  * Only has a single cache slot. Thus, multiple consecutive calls with
  * the same arguments, provide the same result with referential equality.
  *
+ * Additionally, if the parameters change, but the final result is comparatively
+ * same, the old reference is returned.
+ *
  * Does not support functions that use `this`.
  * By default, uses Object.is to compare the function parameters.
  *
@@ -50,7 +53,10 @@ export function memoizeOne<
       cache.params === null ||
       !paramsAreEqual(cache.params, args, comparator)
     ) {
-      cache.result = fn.call(null, ...args) as ReturnType<TFunc>;
+      const newResult = fn.call(null, ...args) as ReturnType<TFunc>;
+      if (!comparator(cache.result, newResult)) {
+        cache.result = newResult;
+      }
       cache.params = args as Parameters<TFunc>;
     }
 
