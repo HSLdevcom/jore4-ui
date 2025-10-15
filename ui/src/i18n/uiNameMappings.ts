@@ -38,7 +38,7 @@ class UnknownTranslationRequestedError extends Error {
   }
 }
 
-type Translatable = string | number | symbol;
+export type Translatable = string | number | symbol;
 
 type TranslationMapping<MappedValue extends Translatable> = Readonly<
   Record<MappedValue, (t: TFunction) => string>
