@@ -19,7 +19,11 @@ const findOrganisationForRelationshipType = (
 export const getMaintainers = (
   stop: StopWithDetails,
 ): Record<StopOrganisationType, StopPlaceOrganisationFieldsFragment | null> => {
-  const organisations: StopOrganisations = stop.stop_place?.organisations;
+  const selectedQuay = stop.stop_place?.quays?.find(
+    (quay) => quay?.id === stop.stop_place_ref,
+  );
+
+  const organisations: StopOrganisations = selectedQuay?.organisations;
 
   const cleaning = findOrganisationForRelationshipType(
     organisations,

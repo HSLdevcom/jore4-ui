@@ -22,6 +22,7 @@ export const useEditStopMaintenanceDetails = () => {
     stop,
   }: EditTiamatParams) => {
     const stopPlaceId = stop.stop_place?.id;
+    const stopPlaceQuayId = stop.stop_place_ref;
 
     const selectedOrganisations: Array<StopRegistryStopPlaceOrganisationRefInput> =
       Object.entries(state.maintainers)
@@ -40,8 +41,13 @@ export const useEditStopMaintenanceDetails = () => {
 
     const input = {
       id: stopPlaceId,
-      organisations:
-        selectedOrganisations.length > 0 ? selectedOrganisations : [null],
+      quays: [
+        {
+          id: stopPlaceQuayId,
+          organisations:
+            selectedOrganisations.length > 0 ? selectedOrganisations : [null],
+        },
+      ],
     };
 
     return input;
