@@ -689,6 +689,10 @@
     "goToStopAreaDetails": "Siirry pysäkkialueen tietoihin.",
     "gotoTerminalDetails": "Siirry terminaalin tietoihin.",
     "showOnMap": "Näytä kartalla",
+    "downloadAsCsv": "Lataa CSV muodossa",
+    "csvFileName": "Pysäkkihakutulokset {{today}} klo {{now}}.csv",
+    "csvGenerationError": "CSV raportin tuottaminen epäonnistui:",
+    "csvDownloaded": "CSV raportti ladattu nimellä: <Filename />",
 
     "stopRowActions": {
       "openDetails": "Näytä pysäkin tiedot",
