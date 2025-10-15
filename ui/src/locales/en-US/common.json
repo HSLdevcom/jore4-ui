@@ -350,7 +350,7 @@
       "maintainers": {
         "cleaning": "Cleaning",
         "infoUpkeep": "Info upkeep (static)",
-        "maintenance": "Stop area maintenance",
+        "maintenance": "Road area maintenance",
         "owner": "Shelter owner",
         "winterMaintenance": "Winter maintenance"
       },
