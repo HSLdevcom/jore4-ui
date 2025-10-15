@@ -176,6 +176,13 @@ const GQL_QUAY_DETAILS = gql`
     externalLinks {
       ...external_links_details
     }
+    organisations {
+      relationshipType
+      organisationRef
+      organisation {
+        ...stop_place_organisation_fields
+      }
+    }
   }
 `;
 
