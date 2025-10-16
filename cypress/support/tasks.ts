@@ -7,6 +7,7 @@ import {
   QuayDetailsByLabel,
   StopAreaInput,
   StopPlaceIdsByName,
+  StopPlaceMaintenance,
   StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
   TerminalIdsByName,
@@ -29,6 +30,7 @@ import {
   mapToGetInfrastructureLinksByExternalIdsQuery,
   resetRoutesAndLinesDb,
   setInfoSpotRelations,
+  setQuayOrganisations,
   setStopPlaceOrganisations,
   stopsDatabaseConfig,
   timetablesDatabaseConfig,
@@ -140,9 +142,43 @@ export const insertStopRegistryData = async ({
     organisations.concat(mapTerminalOwnersToOrganisations(terminals)),
   );
 
-  const stopPlaceInputs = stopPlaces.map((sp) =>
-    setStopPlaceOrganisations(sp, organisationIdsByName),
-  );
+  const stopPlaceInputs = stopPlaces.map((sp) => {
+    const stopPlaceWithOrgs = setStopPlaceOrganisations(
+      sp,
+      organisationIdsByName,
+    );
+
+    if (stopPlaceWithOrgs.quays) {
+      const updatedQuays = stopPlaceWithOrgs.quays.map((quay) => {
+        if (!quay) {
+          return quay;
+        }
+
+        const quayInput = {
+          quay,
+          organisations: quay.organisations as StopPlaceMaintenance | null,
+        };
+
+        const quayWithOrganisations = setQuayOrganisations(
+          quayInput,
+          organisationIdsByName,
+        );
+
+        return {
+          ...quay,
+          ...quayWithOrganisations,
+        };
+      });
+
+      return {
+        ...stopPlaceWithOrgs,
+        quays: updatedQuays,
+      };
+    }
+
+    return stopPlaceWithOrgs;
+  });
+
   const { collectedStopIds, collectedQuayDetails } =
     await insertStopRegistryStopPlaces(stopPlaceInputs, stopPointsRequired);
 
