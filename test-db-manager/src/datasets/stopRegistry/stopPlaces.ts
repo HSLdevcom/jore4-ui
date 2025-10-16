@@ -69,6 +69,7 @@ export type StopPlaceQuaySeedData = {
     content?: string;
   };
   externalLinks?: Array<StopRegistryExternalLinkInput>;
+  organisations?: StopPlaceMaintenance;
 };
 
 export const defaultAccessibilityLimitations: StopRegistryAccessibilityLimitationsInput =
@@ -96,11 +97,13 @@ export type QuayNetexRef = {
 export type QuayInput = {
   stopArea?: string;
   quay: Partial<StopRegistryQuayInput>;
+  organisations?: StopPlaceMaintenance | null;
 };
 
 const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
   return {
     stopArea: seedStopPlace.stopArea,
+    organisations: seedStopPlace.organisations,
     quay: {
       publicCode: seedStopPlace.publicCode,
       privateCode: { type: 'HSL/TEST', value: seedStopPlace.privateCode },
@@ -396,6 +399,13 @@ const H2003: StopPlaceQuaySeedData = {
       location: 'https://test.fi',
     },
   ],
+  organisations: {
+    cleaning: 'Clear Channel',
+    infoUpkeep: null,
+    maintenance: 'ELY-keskus',
+    owner: 'JCD',
+    winterMaintenance: 'ELY-keskus',
+  },
 };
 
 const seedData: Array<StopPlaceQuaySeedData> = [

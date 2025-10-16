@@ -4,6 +4,7 @@ import {
   StopRegistryInfoSpotInput,
   StopRegistryOrganisationInput,
   StopRegistryParentStopPlaceInput,
+  StopRegistryQuayInput,
   StopRegistryStopPlaceInput,
   StopRegistryStopPlaceOrganisationRef,
   StopRegistryStopPlaceOrganisationRelationshipType,
@@ -11,7 +12,7 @@ import {
 import { isNotNullish } from '../../utils';
 import { InfoSpotInput } from './infoSpots';
 import { StopAreaInput } from './stopArea';
-import { StopPlaceMaintenance } from './stopPlaces';
+import { QuayInput, StopPlaceMaintenance } from './stopPlaces';
 import { TerminalInput } from './terminals';
 
 export type QuayDetails = {
@@ -70,6 +71,21 @@ export const setStopPlaceOrganisations = (
   return {
     ...input.StopArea,
     organisations: stopPlaceOrganisations,
+  };
+};
+
+export const setQuayOrganisations = (
+  input: QuayInput,
+  organisationIdsByName: OrganisationIdsByName,
+): Partial<StopRegistryQuayInput> => {
+  const quayOrganisations = mapStopPlaceMaintenanceToInput(
+    input.organisations,
+    organisationIdsByName,
+  );
+
+  return {
+    ...input.quay,
+    organisations: quayOrganisations,
   };
 };
 
