@@ -5,6 +5,7 @@ import {
   StopInsertInput,
   StopRegistryGeoJsonType,
   StopRegistryNameType,
+  StopRegistryStopPlaceOrganisationRefInput,
   StopRegistryTransportModeType,
   TerminalInput,
   buildStop,
@@ -123,15 +124,16 @@ const stopAreaInput: Array<StopAreaInput> = [
         },
       ],
       geometry: quayH2003.quay.geometry,
-      quays: [quayH2003.quay],
+      quays: [
+        {
+          ...quayH2003.quay,
+          organisations: quayH2003.organisations as
+            | StopRegistryStopPlaceOrganisationRefInput[]
+            | null,
+        },
+      ],
     },
-    organisations: {
-      cleaning: 'Clear Channel',
-      infoUpkeep: null,
-      maintenance: 'ELY-keskus',
-      owner: 'JCD',
-      winterMaintenance: 'ELY-keskus',
-    },
+    organisations: null,
   },
   {
     StopArea: {
