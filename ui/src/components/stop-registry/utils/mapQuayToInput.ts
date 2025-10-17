@@ -14,6 +14,7 @@ import {
   mapCompactOrNull,
   mapExternalLinks,
   mapGeoJsonToInput,
+  mapOrganisations,
   mapPlaceEquipmentsToInput,
   omitTypeName,
 } from './copyEntityUtilities';
@@ -75,5 +76,6 @@ export function mapQuayToInput(
     externalLinks: mapExternalLinks(quay.externalLinks),
     privateCode: getQuayPrivateCode(quay),
     keyValues: quay.keyValues?.map((kv) => omitTypeName(kv)),
+    organisations: mapOrganisations(quay.organisations),
   };
 }
