@@ -19,6 +19,8 @@ import {
   StopRegistryPlaceEquipmentsInput,
   StopRegistryPrivateCode,
   StopRegistryPrivateCodeInput,
+  StopRegistryStopPlaceOrganisationRef,
+  StopRegistryStopPlaceOrganisationRefInput,
 } from '../../../generated/graphql';
 
 export function omitTypeName<T extends object>(
@@ -208,5 +210,17 @@ export function mapExternalLinks(
   return mapCompactOrNull(externalLinks, (link) => ({
     name: link.name,
     location: link.location,
+  }));
+}
+
+export function mapOrganisations(
+  organisations:
+    | ReadonlyArray<Maybe<StopRegistryStopPlaceOrganisationRef>>
+    | null
+    | undefined,
+): Array<StopRegistryStopPlaceOrganisationRefInput> | null {
+  return mapCompactOrNull(organisations, (org) => ({
+    organisationRef: org.organisationRef,
+    relationshipType: org.relationshipType,
   }));
 }
