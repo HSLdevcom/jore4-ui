@@ -81,6 +81,14 @@ export const EditTerminalLayer = forwardRef<
     onPopupClose();
   };
 
+  const onCloseModal = () => {
+    if (editedTerminal.id) {
+      setMapTerminalViewState(MapEntityEditorViewState.POPUP);
+    } else {
+      onCloseEditors();
+    }
+  };
+
   useImperativeHandle(ref, () => ({
     onMoveTerminal: async (e: MapLayerMouseEvent) => onMoveTerminal(e),
   }));
@@ -100,8 +108,8 @@ export const EditTerminalLayer = forwardRef<
       {isModalOpen(mapTerminalViewState) && (
         <EditTerminalModal
           editedTerminal={editedTerminal}
-          onCancel={onCloseEditors}
-          onClose={onCloseEditors}
+          onCancel={onCloseModal}
+          onClose={onCloseModal}
           onSubmit={onEditTerminal}
         />
       )}

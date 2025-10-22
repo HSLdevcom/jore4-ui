@@ -166,6 +166,14 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       return onCreateStop(changes);
     };
 
+    const onCloseModal = () => {
+      if (stopInfo) {
+        setMapStopViewState(MapEntityEditorViewState.POPUP);
+      } else {
+        onCloseEditors();
+      }
+    };
+
     const onStartMoveStop = () => {
       setMapStopViewState(MapEntityEditorViewState.MOVE);
       dispatch(setSelectedRouteIdAction(undefined));
@@ -203,8 +211,8 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
           <EditStopModal
             defaultValues={defaultValues}
             editing={!!selectedStopId}
-            onCancel={onCloseEditors}
-            onClose={onCloseEditors}
+            onCancel={onCloseModal}
+            onClose={onCloseModal}
             onSubmit={onStopFormSubmit}
           />
         )}
