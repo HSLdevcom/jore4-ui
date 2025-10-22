@@ -65,6 +65,10 @@ export const formatDateWithoutLocale = (
 export const mapToShortDate = (date?: DateLike | null) =>
   formatDateWithoutLocale('d.L.yyyy', date);
 
+// "shorTime" means format "H.mm"
+export const mapToShorTime = (date?: DateLike | null) =>
+  formatDateWithoutLocale('H.mm', date);
+
 // "shortDateTime" means format "D.M.YYYY H.mm"
 export const mapToShortDateTime = (date?: DateLike | null) =>
   formatDateWithoutLocale('d.L.yyyy H.mm', date);
