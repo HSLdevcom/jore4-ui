@@ -174,6 +174,14 @@ export const EditStopAreaLayer = forwardRef<
     showSuccessToast(t('stopArea.deleteSuccess'));
   };
 
+  const onCloseModal = () => {
+    if (editedArea.id) {
+      setMapStopAreaViewState(MapEntityEditorViewState.POPUP);
+    } else {
+      onCloseEditors();
+    }
+  };
+
   useImperativeHandle(ref, () => ({
     onMoveStopArea: async (e: MapLayerMouseEvent) => onMoveStopArea(e),
   }));
@@ -194,8 +202,8 @@ export const EditStopAreaLayer = forwardRef<
       {isModalOpen(mapStopAreaViewState) && (
         <EditStopAreaModal
           editedArea={editedArea}
-          onCancel={onCloseEditors}
-          onClose={onCloseEditors}
+          onCancel={onCloseModal}
+          onClose={onCloseModal}
           onSubmit={onEditStopArea}
         />
       )}
