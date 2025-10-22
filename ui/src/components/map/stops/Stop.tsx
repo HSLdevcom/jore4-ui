@@ -110,7 +110,7 @@ export const Stop: FC<StopProps> = ({
       : colors.lightGrey;
 
   return (
-    <Marker longitude={longitude} latitude={latitude}>
+    <Marker longitude={longitude} latitude={latitude} className="z-[2]">
       <StopMarker
         size={selected ? selectedIconSize : iconSize}
         testId={testId}
