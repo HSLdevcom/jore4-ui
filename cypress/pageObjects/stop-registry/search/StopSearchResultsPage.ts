@@ -1,4 +1,8 @@
+import { Toast } from '../../Toast';
+
 export class StopSearchResultsPage {
+  toast = new Toast();
+
   getContainer() {
     return cy.getByTestId('StopSearchResultsPage::Container');
   }
@@ -45,5 +49,30 @@ export class StopSearchResultsPage {
 
   getRowPriority() {
     return cy.getByTestId('StopTableRow::priority');
+  }
+
+  getDownloadAsCSVButton() {
+    return cy.getByTestId('DownloadResultsAsCSVButton::button');
+  }
+
+  getDownloadAsCSVButtonLoading() {
+    return cy.getByTestId('DownloadResultsAsCSVButton::loading');
+  }
+
+  getDownloadedCSVReport() {
+    this.toast.expectSuccessToast('CSV raportti ladattu nimellä: ');
+    return cy
+      .getByTestId('DownloadResultsAsCSVButton::filename')
+      .then((filenameSpan) => filenameSpan.text())
+      .then((filename) =>
+        cy.task('readDownloadedCSV', {
+          // File should be found with the given filename, but when running the
+          // tests in Github for some reason the file endsup being called 'download'
+          possibleFileNames: [filename, 'download'],
+
+          downloadsFolder: Cypress.config('downloadsFolder'),
+          timeout: Cypress.config('taskTimeout'),
+        }),
+      );
   }
 }

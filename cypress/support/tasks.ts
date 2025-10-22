@@ -39,7 +39,9 @@ import {
   HslTimetablesDatasetInput,
   insertHslDataset,
 } from '@hsl/timetables-data-inserter';
-import * as fs from 'fs';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { ReadDownloadedCSVOptions } from './types';
 
 export { insertQuaysWithRealIds } from './insertQuaysWithRealIds';
 
@@ -306,4 +308,50 @@ export async function insertInfoSpots(
 ) {
   await insertStopRegistryInfoSpots(infoSpots);
   return null;
+}
+
+export function readDownloadedCSV({
+  downloadsFolder,
+  possibleFileNames,
+  timeout,
+}: ReadDownloadedCSVOptions): Promise<string> {
+  const resolveFileName = new Promise<string>((resolve, reject) => {
+    let resolved = false;
+
+    const watcher = fs.watch(downloadsFolder, (type, file) => {
+      if (resolved || !file) {
+        return;
+      }
+
+      if (
+        possibleFileNames.includes(path.basename(file)) &&
+        type === 'rename'
+      ) {
+        resolved = true;
+        watcher.close();
+        resolve(path.resolve(downloadsFolder, file));
+      }
+    });
+
+    const existingFile = fs
+      .readdirSync(downloadsFolder)
+      .find((file) => possibleFileNames.includes(file));
+
+    if (existingFile) {
+      resolved = true;
+      watcher.close();
+      resolve(path.resolve(downloadsFolder, existingFile));
+    }
+
+    setTimeout(() => {
+      if (!resolved) {
+        watcher.close();
+        reject(new Error(`readDownloadedCSV timeout after ${timeout} ms!`));
+      }
+    }, timeout);
+  });
+
+  return resolveFileName.then((foundFile) =>
+    fs.promises.readFile(foundFile, 'utf8'),
+  );
 }

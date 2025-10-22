@@ -27,3 +27,9 @@ export type InsertQuaysResult<Tags extends string> = {
   readonly tagToNetextId: QuayTagToNetextId<Tags>;
   readonly tagToShelters: QuayTagToShelters<Tags>;
 };
+
+export type ReadDownloadedCSVOptions = {
+  readonly downloadsFolder: string;
+  readonly possibleFileNames: ReadonlyArray<string>;
+  readonly timeout: number;
+};

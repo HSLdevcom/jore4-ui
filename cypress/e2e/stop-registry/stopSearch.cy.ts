@@ -1805,4 +1805,33 @@ describe('Stop search', () => {
       );
     });
   });
+
+  describe('CSV reports', () => {
+    beforeEach(initWithHardcodedData);
+
+    it('Should generate and download a CSV report', () => {
+      const observationDate = '2025-01-01';
+      stopSearchBar.getObservationDateInput().clearAndType(observationDate);
+      stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 9);
+
+      stopSearchResultsPage
+        .getDownloadAsCSVButton()
+        .shouldBeVisible()
+        .should('be.enabled')
+        .click();
+
+      stopSearchResultsPage.getDownloadedCSVReport().then((generatedData) => {
+        cy.fixture<string>(
+          'csvReports/stopSearchHardCodedData.csv',
+          'utf-8',
+        ).then((referenceData) => {
+          expect(generatedData).to.eql(referenceData);
+        });
+      });
+    });
+  });
 });

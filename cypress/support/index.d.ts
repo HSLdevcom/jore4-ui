@@ -6,7 +6,11 @@
 
 declare namespace Cypress {
   import type { DateTime } from 'luxon';
-  import type { InsertQuayInputs, InsertQuaysResult } from './types';
+  import type {
+    InsertQuayInputs,
+    InsertQuaysResult,
+    ReadDownloadedCSVOptions,
+  } from './types';
 
   interface Chainable {
     /**
@@ -73,6 +77,18 @@ declare namespace Cypress {
       event: 'insertQuaysWithRealIds',
       inputs: InsertQuayInputs<Tags>,
     ): Chainable<InsertQuaysResult<Tags>>;
+
+    /**
+     * Lookup a download CSV file that might be found under multiple names.
+     * Loads the 1st found file.
+     *
+     * @param event task id 'readDownloadedCSV'
+     * @param options options
+     */
+    task(
+      event: 'readDownloadedCSV',
+      options: ReadDownloadedCSVOptions,
+    ): Chainable<string>;
   }
 }
 
