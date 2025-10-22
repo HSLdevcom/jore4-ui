@@ -66,7 +66,7 @@ export const showToast = ({
   }, 0);
 };
 
-export const showDangerToast = (message: string) => {
+export const showDangerToast = (message: ReactNode) => {
   return showToast({
     message,
     type: 'danger',
@@ -74,26 +74,40 @@ export const showDangerToast = (message: string) => {
 };
 
 export const showDangerToastWithError = (
-  messageSubject: string,
+  messageSubject: ReactNode,
   err: unknown,
 ) => {
   if (err instanceof ApolloError) {
-    return showDangerToast(`${messageSubject}: ${getApolloErrorMessage(err)}`);
+    return showDangerToast(
+      <>
+        <span>{messageSubject}</span>
+        {': '}
+        <span>{getApolloErrorMessage(err)}</span>
+      </>,
+    );
   }
+
   if (err instanceof Error) {
-    return showDangerToast(`${messageSubject}: ${err.message}`);
+    return showDangerToast(
+      <>
+        <span>{messageSubject}</span>
+        {': '}
+        <span>{err.message}</span>
+      </>,
+    );
   }
+
   return showDangerToast(messageSubject);
 };
 
-export const showSuccessToast = (message: string) => {
+export const showSuccessToast = (message: ReactNode) => {
   return showToast({
     message,
     type: 'success',
   });
 };
 
-export const showWarningToast = (message: string) => {
+export const showWarningToast = (message: ReactNode) => {
   return showToast({
     message,
     type: 'warning',
