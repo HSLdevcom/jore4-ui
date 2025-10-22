@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler } from 'react';
+import { FC, MouseEventHandler, useState } from 'react';
 
 type StopAreaMarkerProps = {
   readonly selected?: boolean;
@@ -13,7 +13,7 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
   onClick,
   selected = false,
   isPlaceholder = false,
-  size = 30,
+  size = 28,
   testId,
   title,
 }) => {
@@ -21,9 +21,19 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
     selected && !isPlaceholder
       ? 'cursor-pointer stroke-hsl-dark-80'
       : 'cursor-pointer stroke-dark-grey hover:stroke-tweaked-brand';
-  const subCircleClassName =
-    selected && !isPlaceholder ? 'fill-hsl-dark-80' : '';
   const selectedSize = size + 2;
+
+  const [isMouseHovering, setIsMouseHovering] = useState(false);
+
+  const onMouseEnter: MouseEventHandler<SVGSVGElement> = () => {
+    setIsMouseHovering(true);
+  };
+
+  const onMouseLeave: MouseEventHandler<SVGSVGElement> = () => {
+    setIsMouseHovering(false);
+  };
+
+  const ellipseStroke = isMouseHovering ? '#0062A1' : '#333333';
 
   return (
     <svg
@@ -35,23 +45,75 @@ export const StopAreaMarker: FC<StopAreaMarkerProps> = ({
       className={strokeClassName}
       xmlns="http://www.w3.org/2000/svg"
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {title ? <title>{title}</title> : null}
 
       <circle
-        className="fill-white"
-        cx="14"
-        cy="14"
-        r="12.5"
-        strokeWidth="3"
-        strokeDasharray={isPlaceholder ? 2 : 0}
+        cx="13.75"
+        cy="13.75"
+        r="12.75"
+        stroke="#0074BF"
+        strokeWidth="2"
       />
-
-      <g strokeWidth="2">
-        <circle className={subCircleClassName} cx="18.763" cy="16.75" r="3" />
-        <circle className={subCircleClassName} cx="9.237" cy="16.75" r="3" />
-        <circle className={subCircleClassName} cx="14" cy="8.5" r="3" />
-      </g>
+      {selected || isMouseHovering ? (
+        <>
+          <ellipse
+            cx="13.9062"
+            cy="14"
+            rx="6.90625"
+            ry="7"
+            fill="white"
+            stroke="#003456"
+          />
+          <ellipse
+            cx="13.9062"
+            cy="14"
+            rx="6.90625"
+            ry="7"
+            fill="white"
+            stroke={ellipseStroke}
+          />
+          <ellipse
+            cx="11.9312"
+            cy="15"
+            rx="0.53125"
+            ry="0.5"
+            fill={ellipseStroke}
+            stroke={ellipseStroke}
+            strokeWidth="2"
+          />
+          <ellipse
+            cx="15.9312"
+            cy="15"
+            rx="0.53125"
+            ry="0.5"
+            fill={ellipseStroke}
+            stroke={ellipseStroke}
+            strokeWidth="2"
+          />
+          <ellipse
+            cx="0.53125"
+            cy="0.5"
+            rx="0.53125"
+            ry="0.5"
+            transform="matrix(-1 0 0 1 14.4625 11.5)"
+            fill={ellipseStroke}
+            stroke={ellipseStroke}
+            strokeWidth="2"
+          />
+        </>
+      ) : (
+        <ellipse
+          cx="13.9062"
+          cy="14"
+          rx="6.90625"
+          ry="7"
+          fill="white"
+          stroke="#333333"
+        />
+      )}
     </svg>
   );
 };
