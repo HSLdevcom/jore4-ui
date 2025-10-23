@@ -30,8 +30,8 @@ import {
 } from '../../../map/types';
 import { useNavigateToMap } from '../../../map/utils/useNavigateToMap';
 import { StopSearchRow } from '../../components';
-import { StopSearchFilters } from '../types';
-import { buildSearchStopsGqlQueryVariables } from './filtersToQueryVariables';
+import { ResultSelection, StopSearchFilters } from '../types';
+import { filtersAndResultSelectionToQueryVariables } from './filtersToQueryVariables';
 
 const GQL_GET_STOP_SEARCH_RESULT_LOCATIONS = gql`
   query GetStopSearchResultLocations(
@@ -138,6 +138,27 @@ function resolveViewPortInfo(
   };
 }
 
+function filterKnownResultBySelection(
+  results: ReadonlyArray<StopSearchRow>,
+  { selectionState, excluded, included }: ResultSelection,
+): ReadonlyArray<StopSearchRow> {
+  if (selectionState === 'NONE_SELECTED') {
+    throw new Error(
+      "Unexpected selection state. Can't open the map if nothing is selected!",
+    );
+  }
+
+  if (selectionState === 'ALL_SELECTED') {
+    return results;
+  }
+
+  if (excluded.length) {
+    return results.filter((it) => !excluded.includes(it.id));
+  }
+
+  return results.filter((it) => included.includes(it.id));
+}
+
 function resultsToGeometry(results: ReadonlyArray<StopSearchRow>): Geometry {
   return geometryCollection(results.map((stop) => stop.location)).geometry;
 }
@@ -146,10 +167,16 @@ function useResolveAllResultLocations() {
   const [searchStops] = useGetStopSearchResultLocationsLazyQuery();
 
   return useCallback(
-    async (filters: StopSearchFilters): Promise<Array<Point> | null> => {
+    async (
+      filters: StopSearchFilters,
+      resultSelection: ResultSelection,
+    ): Promise<Array<Point> | null> => {
       const result = await searchStops({
         variables: {
-          where: buildSearchStopsGqlQueryVariables(filters),
+          where: filtersAndResultSelectionToQueryVariables(
+            filters,
+            resultSelection,
+          ),
         },
       });
 
@@ -173,16 +200,22 @@ function useResolveResultGeometry() {
   return useCallback(
     async (
       filters: StopSearchFilters,
+      resultSelection: ResultSelection,
       resultCount: number,
       results: ReadonlyArray<StopSearchRow>,
     ): Promise<Geometry> => {
       // We already know all the results → Zoom in onto them
       if (results.length === resultCount) {
-        return resultsToGeometry(results);
+        return resultsToGeometry(
+          filterKnownResultBySelection(results, resultSelection),
+        );
       }
 
       // Try to fetch all the results
-      const allResultLocations = await resolveAllResultLocations(filters);
+      const allResultLocations = await resolveAllResultLocations(
+        filters,
+        resultSelection,
+      );
       if (allResultLocations) {
         return geometryCollection(allResultLocations).geometry;
       }
@@ -196,6 +229,7 @@ function useResolveResultGeometry() {
 
 export function useOpenStopResultsOnMap(
   filters: StopSearchFilters,
+  resultSelection: ResultSelection,
   resultCount: number,
   results: ReadonlyArray<StopSearchRow>,
 ): readonly [boolean, () => void] {
@@ -229,6 +263,7 @@ export function useOpenStopResultsOnMap(
       try {
         const resultGeometry = await resolveResultGeometry(
           filters,
+          resultSelection,
           resultCount,
           results,
         );
@@ -245,6 +280,7 @@ export function useOpenStopResultsOnMap(
         navigateToMap({
           viewPort: urlViewPort,
           filters,
+          resultSelection,
         });
       } catch (e) {
         log.error(

@@ -57,6 +57,7 @@ export const CountAndSortingRow: FC<CountAndSortingRowProps> = ({
 
   const [transitioning, transitionToMap] = useOpenStopResultsOnMap(
     filters,
+    resultSelection,
     resultCount,
     stops,
   );

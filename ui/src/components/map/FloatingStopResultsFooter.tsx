@@ -6,8 +6,12 @@ import { theme } from '../../generated/theme';
 import { useNavigateBackSafely } from '../../hooks';
 import { Path, routeDetails } from '../../router/routeDetails';
 import { defaultPagingInfo } from '../../types';
-import { StopSearchFilters, defaultSortingInfo } from '../stop-registry';
-import { buildSearchStopsGqlQueryVariables } from '../stop-registry/search/by-stop/filtersToQueryVariables';
+import {
+  ResultSelection,
+  StopSearchFilters,
+  defaultSortingInfo,
+} from '../stop-registry';
+import { filtersAndResultSelectionToQueryVariables } from '../stop-registry/search/by-stop/filtersToQueryVariables';
 import { stopSearchUrlStateToSearch } from '../stop-registry/search/utils';
 import { FloatingFooter } from './FloatingFooter';
 import { useMapUrlStateContext } from './utils/mapUrlState';
@@ -30,10 +34,16 @@ const testIds = {
   stopResultsFooter: 'StopResultsFooter',
 };
 
-function useGetStopResultsCount(filters: StopSearchFilters) {
+function useGetStopResultsCount(
+  filters: StopSearchFilters,
+  resultSelection: ResultSelection,
+) {
   const { data, loading } = useGetStopResultsCountQuery({
     variables: {
-      where: buildSearchStopsGqlQueryVariables(filters),
+      where: filtersAndResultSelectionToQueryVariables(
+        filters,
+        resultSelection,
+      ),
     },
   });
 
@@ -47,10 +57,10 @@ export const FloatingStopResultsFooter = () => {
   const { t } = useTranslation();
 
   const {
-    state: { filters },
+    state: { filters, resultSelection },
   } = useMapUrlStateContext();
 
-  const { count, loading } = useGetStopResultsCount(filters);
+  const { count, loading } = useGetStopResultsCount(filters, resultSelection);
 
   const navigateBackSafely = useNavigateBackSafely();
 

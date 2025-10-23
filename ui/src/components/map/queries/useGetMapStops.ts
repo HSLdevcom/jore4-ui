@@ -11,7 +11,7 @@ import { Viewport } from '../../../redux/types';
 import { parseDate } from '../../../time';
 import { Priority } from '../../../types/enums';
 import { useMapDataLayerSimpleQueryLoader } from '../../common/hooks/useLoader';
-import { buildSearchStopsGqlQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';
+import { filtersAndResultSelectionToQueryVariables } from '../../stop-registry/search/by-stop/filtersToQueryVariables';
 import { mapCompactOrNull } from '../../stop-registry/utils';
 import { MapStop } from '../types';
 import { useMapUrlStateContext } from '../utils/mapUrlState';
@@ -133,7 +133,7 @@ export function useGetMapStops({
   viewport,
 }: GetMapStopsOptions) {
   const {
-    state: { filters },
+    state: { filters, resultSelection },
   } = useMapUrlStateContext();
   const isInSearchMode = hasSearchFilters(filters);
 
@@ -141,7 +141,11 @@ export function useGetMapStops({
   const stopsResult = useGetMapStopsQuery({
     variables: {
       where: isInSearchMode
-        ? buildSearchStopsGqlQueryVariables(filters, whereInViewPort)
+        ? filtersAndResultSelectionToQueryVariables(
+            filters,
+            resultSelection,
+            whereInViewPort,
+          )
         : {
             _or: compact([
               whereInViewPort,

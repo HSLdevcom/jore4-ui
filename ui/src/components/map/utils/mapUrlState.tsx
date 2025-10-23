@@ -18,11 +18,15 @@ import {
   serializeArray,
   serializeUrlSearchState,
   splitString,
+  toEnum,
   useTypedUrlState,
 } from '../../common/hooks/typedRouterState';
 import {
+  ResultSelection,
   StopSearchFilters,
   defaultFilters,
+  defaultResultSelection,
+  selectionStateValues,
 } from '../../stop-registry/search/types';
 import {
   filterDeserializers,
@@ -39,11 +43,13 @@ import {
 
 type MapUrlFlatState = DisplayedRouteParams &
   StopSearchFilters &
+  ResultSelection &
   ViewPortParams;
 
 const defaultValues: MapUrlFlatState = {
   ...defaultDisplayedRouteParams,
   ...defaultFilters,
+  ...defaultResultSelection,
   ...defaultViewPortParams,
 };
 
@@ -56,6 +62,12 @@ const displayedRouteParamSerializers: UrlStateSerializers<DisplayedRouteParams> 
     showSelectedDaySituation: (show) => (show ? '' : String(false)),
   };
 
+const resultSelectionSerializers: UrlStateSerializers<ResultSelection> = {
+  selectionState: (it) => it,
+  excluded: serializeArray,
+  included: serializeArray,
+};
+
 const viewPortParamSerializers: UrlStateSerializers<ViewPortParams> = {
   latitude: String,
   longitude: String,
@@ -65,6 +77,7 @@ const viewPortParamSerializers: UrlStateSerializers<ViewPortParams> = {
 const serializers: UrlStateSerializers<MapUrlFlatState> = {
   ...displayedRouteParamSerializers,
   ...filterSerializers,
+  ...resultSelectionSerializers,
   ...viewPortParamSerializers,
 };
 
@@ -100,6 +113,12 @@ const displayedRouteParamDeserializers: UrlStateDeserializers<DisplayedRoutePara
     showSelectedDaySituation: ifBooleanOrPresent,
   };
 
+const resultSelectionDeserializers: UrlStateDeserializers<ResultSelection> = {
+  selectionState: toEnum(selectionStateValues),
+  excluded: splitString,
+  included: splitString,
+};
+
 const viewPortParamDeserializers: UrlStateDeserializers<ViewPortParams> = {
   latitude: Number.parseFloat,
   longitude: Number.parseFloat,
@@ -109,6 +128,7 @@ const viewPortParamDeserializers: UrlStateDeserializers<ViewPortParams> = {
 const deserializers: UrlStateDeserializers<MapUrlFlatState> = {
   ...displayedRouteParamDeserializers,
   ...filterDeserializers,
+  ...resultSelectionDeserializers,
   ...viewPortParamDeserializers,
 };
 
@@ -122,12 +142,26 @@ const displayedRouteFields = [
 
 const viewPortFields = ['latitude', 'longitude', 'zoom'] as const;
 
-function pickFilters(flatState: MapUrlFlatState) {
-  return omit(flatState, [...displayedRouteFields, ...viewPortFields]);
-}
+const resultSelectionFields = [
+  'selectionState',
+  'excluded',
+  'included',
+] as const;
 
 function pickDisplayedRoute(flatState: MapUrlFlatState) {
   return pick(flatState, displayedRouteFields);
+}
+
+function pickFilters(flatState: MapUrlFlatState) {
+  return omit(flatState, [
+    ...displayedRouteFields,
+    ...resultSelectionFields,
+    ...viewPortFields,
+  ]);
+}
+
+function pickResultSelection(flatState: MapUrlFlatState) {
+  return pick(flatState, resultSelectionFields);
 }
 
 function pickViewPort(flatState: MapUrlFlatState) {
@@ -137,6 +171,7 @@ function pickViewPort(flatState: MapUrlFlatState) {
 type MemoizedPickers = {
   readonly pickDisplayedRoute: typeof pickDisplayedRoute;
   readonly pickFilters: typeof pickFilters;
+  readonly pickResultSelection: typeof pickResultSelection;
   readonly pickViewPort: typeof pickViewPort;
 };
 
@@ -146,6 +181,7 @@ function useReconstitutedState(flatState: MapUrlFlatState): MapUrlState {
   memoizedPickersRef.current ??= {
     pickDisplayedRoute: memoizeOne(pickDisplayedRoute, areEqual),
     pickFilters: memoizeOne(pickFilters, areEqual),
+    pickResultSelection: memoizeOne(pickResultSelection, areEqual),
     pickViewPort: memoizeOne(pickViewPort, areEqual),
   };
 
@@ -154,6 +190,7 @@ function useReconstitutedState(flatState: MapUrlFlatState): MapUrlState {
   return {
     displayedRoute: memoizedPickers.pickDisplayedRoute(flatState),
     filters: memoizedPickers.pickFilters(flatState),
+    resultSelection: memoizedPickers.pickResultSelection(flatState),
     viewPort: memoizedPickers.pickViewPort(flatState),
   };
 }
@@ -210,6 +247,7 @@ const MapUrlStateContext = createContext<ReturnType<typeof useMapUrlState>>({
   state: {
     displayedRoute: defaultDisplayedRouteParams,
     filters: defaultFilters,
+    resultSelection: defaultResultSelection,
     viewPort: defaultViewPortParams,
   },
   setDisplayedRoute: placeHolderMapUrlStateContextFunction,
@@ -240,6 +278,7 @@ export function mapUrlStateToSearch(state: OpenMapUrlState): string {
     ...defaultValues,
     ...(state.displayedRoute ?? {}),
     ...(state.filters ?? {}),
+    ...(state.resultSelection ?? {}),
     ...(state.viewPort ?? {}),
   }).toString();
 }

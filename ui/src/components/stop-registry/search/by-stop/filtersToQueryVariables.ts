@@ -13,6 +13,7 @@ import {
 import { buildSearchStopByLabelOrNameFilter } from '../../utils/buildSearchStopByLabelOrNameFilter';
 import {
   InfoSpotSize,
+  ResultSelection,
   SearchBy,
   StopSearchFilters,
   StringMunicipality,
@@ -228,7 +229,7 @@ function buildInfoSpotsFilter({
 
 export function buildSearchStopsGqlQueryVariables(
   filters: StopSearchFilters,
-  extraConditions: StopsDatabaseQuayNewestVersionBoolExp = {},
+  ...extraConditions: ReadonlyArray<StopsDatabaseQuayNewestVersionBoolExp>
 ): StopsDatabaseQuayNewestVersionBoolExp {
   const queryFilter = buildSearchStopsQueryFilter(filters);
 
@@ -258,7 +259,35 @@ export function buildSearchStopsGqlQueryVariables(
       shelterFilter,
       electricityFilter,
       infoSpotsFilter,
-      extraConditions,
+      ...extraConditions,
     ].filter((filter) => !isEmpty(filter)),
   };
+}
+
+export function filtersAndResultSelectionToQueryVariables(
+  filters: StopSearchFilters,
+  { selectionState, excluded, included }: ResultSelection,
+  ...extraConditions: ReadonlyArray<StopsDatabaseQuayNewestVersionBoolExp>
+): StopsDatabaseQuayNewestVersionBoolExp {
+  if (selectionState === 'NONE_SELECTED') {
+    throw new Error(
+      "Unexpected selection state. Can't lookup stops if nothing is selected!",
+    );
+  }
+
+  if (selectionState === 'ALL_SELECTED') {
+    return buildSearchStopsGqlQueryVariables(filters, ...extraConditions);
+  }
+
+  if (excluded.length) {
+    return buildSearchStopsGqlQueryVariables(
+      filters,
+      {
+        _not: { id: { _in: excluded } },
+      },
+      ...extraConditions,
+    );
+  }
+
+  return { _and: [{ id: { _in: included } }, ...extraConditions] };
 }
