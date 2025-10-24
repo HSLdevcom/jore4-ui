@@ -5,9 +5,10 @@ import { Pagination } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import {
   LoadingStopsErrorRow,
-  StopSearchResultStopsTable,
+  SelectableStopSearchResultStopsTable,
 } from '../components';
-import { StopSearchResultsProps } from '../types';
+import { ExtendedStopSearchResultsProps } from '../types';
+import { useResultSelection } from '../utils';
 import { CountAndSortingRow } from './CountAndSortingRow';
 import { useStopSearchByStopResults } from './useStopSearchByStopResults';
 
@@ -15,9 +16,11 @@ const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopSearchResults',
 };
 
-export const StopSearchByStopResults: FC<StopSearchResultsProps> = ({
+export const StopSearchByStopResults: FC<ExtendedStopSearchResultsProps> = ({
   filters,
+  historyState: { resultSelection },
   pagingInfo,
+  setHistoryState,
   setPagingInfo,
   setSortingInfo,
   sortingInfo,
@@ -27,6 +30,12 @@ export const StopSearchByStopResults: FC<StopSearchResultsProps> = ({
   const { stops, loading, resultCount, error, refetch } =
     useStopSearchByStopResults(filters, sortingInfo, pagingInfo);
 
+  const { onToggleSelection, onToggleSelectAll } = useResultSelection({
+    resultCount,
+    stops,
+    setHistoryState,
+  });
+
   return (
     <LoadingWrapper
       className="flex justify-center"
@@ -35,9 +44,12 @@ export const StopSearchByStopResults: FC<StopSearchResultsProps> = ({
       testId={testIds.loadingSearchResults}
     >
       <CountAndSortingRow
+        allSelected={resultSelection.selectionState === 'ALL_SELECTED'}
         className="mb-6"
         filters={filters}
+        onToggleSelectAll={onToggleSelectAll}
         resultCount={resultCount}
+        resultSelection={resultSelection}
         setSortingInfo={setSortingInfo}
         sortingInfo={sortingInfo}
         stops={stops}
@@ -45,8 +57,10 @@ export const StopSearchByStopResults: FC<StopSearchResultsProps> = ({
       {error ? (
         <LoadingStopsErrorRow error={error} refetch={refetch} />
       ) : (
-        <StopSearchResultStopsTable
+        <SelectableStopSearchResultStopsTable
           observationDate={filters.observationDate}
+          onToggleSelection={onToggleSelection}
+          selection={resultSelection}
           stops={stops}
         />
       )}

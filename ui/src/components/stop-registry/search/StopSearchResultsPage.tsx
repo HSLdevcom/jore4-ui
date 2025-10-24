@@ -12,11 +12,12 @@ import { StopSearchBar } from './components';
 import { StopAreaSearchResults } from './for-stop-areas/StopAreaSearchResults';
 import { TerminalSearchResults } from './for-terminals/TerminalSearchResults';
 import {
+  ExtendedStopSearchResultsProps,
   SearchBy,
   SearchFor,
   StopSearchFilters,
-  StopSearchResultsProps,
   defaultFilters,
+  defaultResultSelection,
   defaultSortingInfo,
 } from './types';
 import { trSearchFor, useStopSearchRouterState } from './utils';
@@ -65,9 +66,11 @@ const ActiveFiltersHeader: FC<ActiveFiltersHeaderProps> = ({
   );
 };
 
-const Results: FC<StopSearchResultsProps> = ({
+const Results: FC<ExtendedStopSearchResultsProps> = ({
   filters,
+  historyState,
   pagingInfo,
+  setHistoryState,
   setPagingInfo,
   setSortingInfo,
   sortingInfo,
@@ -111,7 +114,9 @@ const Results: FC<StopSearchResultsProps> = ({
   return (
     <StopSearchByStopResults
       filters={filters}
+      historyState={historyState}
       pagingInfo={pagingInfo}
+      setHistoryState={setHistoryState}
       setPagingInfo={setPagingInfo}
       setSortingInfo={setSortingInfo}
       sortingInfo={sortingInfo}
@@ -122,7 +127,7 @@ const Results: FC<StopSearchResultsProps> = ({
 export const StopSearchResultPage: FC = () => {
   const {
     state: { filters, pagingInfo, sortingInfo },
-    historyState: { searchIsExpanded },
+    historyState,
     setHistoryState,
     setPagingInfo,
     setSearchState,
@@ -139,6 +144,11 @@ export const StopSearchResultPage: FC = () => {
       ...defaultPagingInfo,
       pageSize: pagingInfo.pageSize,
     });
+    setHistoryState((p) => ({
+      ...p,
+      resultSelection: defaultResultSelection,
+      knownStopIds: [],
+    }));
   };
 
   return (
@@ -160,7 +170,7 @@ export const StopSearchResultPage: FC = () => {
 
       <StopSearchBar
         initialFilters={filters}
-        searchIsExpanded={searchIsExpanded}
+        searchIsExpanded={historyState.searchIsExpanded}
         toggleSearchIsExpanded={() =>
           setHistoryState((p) => ({
             ...p,
@@ -173,7 +183,9 @@ export const StopSearchResultPage: FC = () => {
       {hasActiveFilters && (
         <Results
           filters={filters}
+          historyState={historyState}
           pagingInfo={pagingInfo}
+          setHistoryState={setHistoryState}
           setPagingInfo={setPagingInfo}
           setSortingInfo={setSortingInfo}
           sortingInfo={sortingInfo}

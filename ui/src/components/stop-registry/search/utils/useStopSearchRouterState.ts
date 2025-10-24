@@ -13,7 +13,7 @@ import {
 } from '../../../../utils';
 import {
   SEPARATOR,
-  TypedRouterStateError,
+  TypedRouterHistoryStateShapeError,
   UrlStateDeserializers,
   UrlStateSerializers,
   parsePriorities,
@@ -26,13 +26,18 @@ import {
 import { SimpleRecord } from '../../../common/hooks/typedRouterState/types';
 import { allKnownPosterSizes } from '../../stops/stop-details/info-spots/types';
 import {
+  ResultSelection,
   SearchBy,
   SearchFor,
+  SelectionState,
   SortStopsBy,
   SortingInfo,
   StopSearchFilters,
+  StopSearchHistoryState,
   defaultFilters,
+  defaultResultSelection,
   defaultSortingInfo,
+  selectionStateValues,
   stopSearchFiltersSchema,
 } from '../types';
 
@@ -42,10 +47,6 @@ type StopSearchSearchState = {
   readonly filters: StopSearchFilters;
   readonly pagingInfo: PagingInfo;
   readonly sortingInfo: SortingInfo;
-};
-
-type StopSearchHistoryState = {
-  readonly searchIsExpanded: boolean;
 };
 
 const SIZE_SEPARATOR = '|';
@@ -252,18 +253,77 @@ const defaultValues: StopSearchUrlFlatState = {
 
 const defaultHistoryValues: StopSearchHistoryState = {
   searchIsExpanded: false,
+  resultSelection: defaultResultSelection,
+  knownStopIds: [],
 };
+
+function assertIsAnArrayOfStrings(
+  path: string,
+  value: unknown,
+): asserts value is Array<string> {
+  if (!Array.isArray(value)) {
+    throw new TypedRouterHistoryStateShapeError(
+      path,
+      value,
+      `Expected an array of strings for useStopSearchRouterState's history state's ${path} field, but value was (${String(value)})!`,
+    );
+  }
+
+  for (let i = 0; i < value.length; i += 1) {
+    const item = value[i];
+    if (typeof item !== 'string') {
+      throw new TypedRouterHistoryStateShapeError(
+        `${path}[${i}]`,
+        item,
+        `Expected an array strings for useStopSearchRouterState's history state's ${path} field, but the array contained item (${String(item)})!`,
+      );
+    }
+  }
+}
+
+function assertIsAResultSelection(
+  path: string,
+  value: unknown,
+): asserts value is ResultSelection {
+  if (typeof value !== 'object' || value === null) {
+    throw new TypedRouterHistoryStateShapeError(
+      path,
+      value,
+      `Expected ResultSelection for useStopSearchRouterState's history state's ${path} field, but value was (${String(value)})!`,
+    );
+  }
+
+  const { selectionState, included, excluded } = value as Record<
+    string,
+    unknown
+  >;
+
+  if (!selectionStateValues.includes(selectionState as SelectionState)) {
+    throw new TypedRouterHistoryStateShapeError(
+      `${path}.selectionState`,
+      selectionState,
+      `Expected ResultSelection for useStopSearchRouterState's history state's ${path} field, but it's selectionState is (${String(selectionState)})!`,
+    );
+  }
+
+  assertIsAnArrayOfStrings(`${path}.included`, included);
+  assertIsAnArrayOfStrings(`${path}.excluded`, excluded);
+}
 
 function assertHistoryStateShape(
   state: SimpleRecord,
 ): asserts state is StopSearchHistoryState {
   if (typeof state.searchIsExpanded !== 'boolean') {
-    throw new TypedRouterStateError(
-      `Expected boolean value for useStopSearchRouterState's history state's searchIsExpanded field, but value was (${String(state.searchIsExpanded)})`,
+    throw new TypedRouterHistoryStateShapeError(
       'searchIsExpanded',
       state.searchIsExpanded,
+      `Expected boolean value for useStopSearchRouterState's history state's searchIsExpanded field, but value was (${String(state.searchIsExpanded)})!`,
     );
   }
+
+  assertIsAnArrayOfStrings('knownStopIds', state.knownStopIds);
+
+  assertIsAResultSelection('resultSelection', state.resultSelection);
 }
 
 function pickFilters(flatState: StopSearchUrlFlatState) {
