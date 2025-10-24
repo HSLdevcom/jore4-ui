@@ -51,6 +51,14 @@ export class StopSearchResultsPage {
     return cy.getByTestId('StopTableRow::priority');
   }
 
+  getSelectInput() {
+    return cy.getByTestId('StopTableRow::selectInput');
+  }
+
+  getSelectAllButton() {
+    return cy.getByTestId('StopSearchResultsPage::selectAllButton');
+  }
+
   getDownloadAsCSVButton() {
     return cy.getByTestId('DownloadResultsAsCSVButton::button');
   }

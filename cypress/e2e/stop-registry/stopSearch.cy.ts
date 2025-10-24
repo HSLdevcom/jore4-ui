@@ -1804,6 +1804,117 @@ describe('Stop search', () => {
         testStops.tagToPublicCode.postVantaa,
       );
     });
+
+    function stopShouldBeSelected() {
+      stopSearchResultsPage
+        .getSelectInput()
+        .shouldBeVisible()
+        .and('be.checked');
+    }
+
+    function stopShouldNotBeSelected() {
+      stopSearchResultsPage
+        .getSelectInput()
+        .shouldBeVisible()
+        .and('not.be.checked');
+    }
+
+    function selectUnselectedRow(label: string) {
+      stopSearchResultsPage
+        .getRowByLabel(label)
+        .shouldBeVisible()
+        .within(() =>
+          stopSearchResultsPage
+            .getSelectInput()
+            .shouldBeVisible()
+            .and('not.be.checked')
+            .click()
+            .and('be.checked'),
+        );
+    }
+
+    function stopShouldBeOnMap(label: string) {
+      map
+        .getStopByStopLabelAndPriority(label, Priority.Standard)
+        .shouldBeVisible();
+    }
+
+    function stopShouldNotBeOnMap(label: string) {
+      map
+        .getStopByStopLabelAndPriority(label, Priority.Standard)
+        .should('not.exist');
+    }
+
+    it('Should show partial selection', () => {
+      setupTestsAndNavigateToPage({ pageSize: 100 });
+
+      const selectedStops = [
+        testStops.tagToPublicCode.urban1,
+        testStops.tagToPublicCode.urban2,
+      ];
+      const notSelectedStops = without(
+        Object.values(testStops.tagToPublicCode),
+        ...selectedStops,
+      );
+
+      // Find some stops
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.shelters.openDropdown();
+      stopSearchBar.shelters.toggleOption(StopRegistryShelterType.Urban);
+      stopSearchBar.shelters.toggleOption(StopRegistryShelterType.Post);
+
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      // By default, all should be selected.
+      stopSearchResultsPage
+        .getSelectAllButton()
+        .shouldBeVisible()
+        .and('be.checked');
+
+      stopSearchResultsPage
+        .getResultRows()
+        .each((row) => cy.wrap(row).within(stopShouldBeSelected));
+
+      // Unselect all
+      stopSearchResultsPage.getSelectAllButton().click().and('not.be.checked');
+
+      stopSearchResultsPage
+        .getResultRows()
+        .each((row) => cy.wrap(row).within(stopShouldNotBeSelected));
+
+      // Select the urban shelter results
+      selectedStops.forEach(selectUnselectedRow);
+
+      // Open the map
+      stopSearchResultsPage
+        .getShowOnMapButton()
+        .shouldBeVisible()
+        .and('be.enabled');
+      stopSearchResultsPage.getShowOnMapButton().click();
+      stopSearchResultsPage.getShowOnMapButtonLoading().should('not.exist');
+
+      map.getLoader().shouldBeVisible();
+      map.waitForLoadToComplete();
+
+      // Urban shelters should be visible and posts should not be shown.
+      selectedStops.forEach(stopShouldBeOnMap);
+      notSelectedStops.forEach(stopShouldNotBeOnMap);
+
+      // Return back to search page.
+      mapFooter.getStopResultsFooterCloseButton().click();
+
+      stopSearchResultsPage
+        .getSelectAllButton()
+        .shouldBeVisible()
+        .and('not.be.checked');
+      selectedStops
+        .map(stopSearchResultsPage.getRowByLabel)
+        .forEach((row) => row.within(stopShouldBeSelected));
+      notSelectedStops
+        .map(stopSearchResultsPage.getRowByLabel)
+        .forEach((row) => row.within(stopShouldNotBeSelected));
+    });
   });
 
   describe('CSV reports', () => {
