@@ -107,6 +107,14 @@ export class MapPage {
   }
 
   getCloseButton() {
+    // Assume the button is going to be clicked.
+    // Allow the browser to flush the event queue, and the Map & React to
+    // settle down and finish any pending Router navigation state changes,
+    // before navigating back to previous page.
+
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1);
+
     return cy.getByTestId('MapHeader::closeButton');
   }
 }
