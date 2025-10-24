@@ -45,16 +45,10 @@ function useSetters<
           ) => TypedRouterState<SearchStateT, HistoryStateT>),
     ) => {
       setInternalState((prevState) => {
-        const nextState =
-          typeof newState === 'function' ? newState(prevState) : newState;
+        // eslint-disable-next-line no-param-reassign
+        pendingNavigationUpdateRef.current = true;
 
-        // Nothing changed → no need to sync into router.
-        if (!areEqual(prevState, nextState)) {
-          // eslint-disable-next-line no-param-reassign
-          pendingNavigationUpdateRef.current = true;
-        }
-
-        return nextState;
+        return typeof newState === 'function' ? newState(prevState) : newState;
       });
     },
 
@@ -174,7 +168,7 @@ export function useTypedRouterState<
           searchState,
           search,
         );
-        const possibleNewHistoryState = { ...p.history, ...historyState };
+        const possibleNewHistoryState = { ...p.history, ...routerState };
 
         // In case of equal states, reuse the old object identity.
         const nextSearch = areEqual(p.search, possibleNewSearchState)
@@ -188,7 +182,7 @@ export function useTypedRouterState<
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, historyState]);
+  }, [search, routerState]);
 
   useEffect(() => {
     if (pendingNavigationUpdateRef.current) {
@@ -202,7 +196,7 @@ export function useTypedRouterState<
 
       navigate(
         { pathname: '.', search: serializedSearchState },
-        { replace: true, state: searchState },
+        { replace: true, state: historyState },
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
