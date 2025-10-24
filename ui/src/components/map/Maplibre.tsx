@@ -197,16 +197,21 @@ export const Maplibre: FC<PropsWithChildren<MaplibreProps>> = ({
   };
 
   // LineId: ThisCleanUpEffect
-  useEffect(() => {
-    // Cancel the debounced update if the map is going to be closed.
-    return () => {
-      updateMapDetailsDebounced.cancel();
+  // Cancel the debounced update if the map is going to be closed.
+  useEffect(
+    () => () => updateMapDetailsDebounced.cancel(),
+    [updateMapDetailsDebounced],
+  );
+
+  useEffect(
+    () => () => {
       // Clean up global function when component unmounts
       if (window.coordinatesToOnScreenPixels) {
         delete window.coordinatesToOnScreenPixels;
       }
-    };
-  }, [updateMapDetailsDebounced]);
+    },
+    [],
+  );
 
   loadMapAssets(mapRef);
   const interactiveLayerIds = getInteractiveLayerIds(mapRef);
