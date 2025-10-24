@@ -297,9 +297,13 @@ export const insertHslTimetablesDatasetToDb = (
 
 export const emptyDownloadsFolder = () => {
   const downloadsFolder = 'downloads';
-  fs.readdirSync(downloadsFolder).forEach((file) => {
-    deleteFile(`${downloadsFolder}/${file}`);
-  });
+
+  if (fs.existsSync(downloadsFolder)) {
+    fs.readdirSync(downloadsFolder).forEach((file) => {
+      deleteFile(`${downloadsFolder}/${file}`);
+    });
+  }
+
   return true;
 };
 
