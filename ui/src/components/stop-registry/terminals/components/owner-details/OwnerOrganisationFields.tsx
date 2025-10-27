@@ -12,7 +12,7 @@ import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import {
   CREATE_NEW_ORGANISATION_OPTION,
   ChooseOrganisationDropdown,
-} from '../../../stops/stop-details/maintenance/ChooseOrganisationDropdown';
+} from '../../../stops/stop-details/maintenance/organisation-dropdown';
 import { OrganisationDetailsModal } from '../../../stops/stop-details/maintenance/OrganisationDetailsModal';
 import { TerminalOwnerFormState } from './terminalOwnerSchema';
 
@@ -104,7 +104,6 @@ export const OwnerOrganizationFields: FC<MaintainerFormFieldsProps> = ({
           // eslint-disable-next-line react/no-unstable-nested-components
           inputElementRenderer={(props) => (
             <ChooseOrganisationDropdown
-              organisations={organisations}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
