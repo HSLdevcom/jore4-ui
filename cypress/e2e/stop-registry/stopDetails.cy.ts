@@ -1658,26 +1658,40 @@ describe('Stop details', () => {
         form.getOwner().within(() => {
           form.fields.getMaintainerDropdownButton().click();
           form.fields
-            .getMaintainerDropdownOptions()
+            .getMaintainerDropdown()
+            .find('[role="option"]')
             .contains('Clear Channel')
             .click();
         });
         form.getMaintenance().within(() => {
           form.fields.getMaintainerDropdownButton().click();
-          form.fields.getMaintainerDropdownOptions().contains('JCD').click();
+          form.fields
+            .getMaintainerDropdown()
+            .find('[role="option"]')
+            .contains('JCD')
+            .click();
         });
         form.getWinterMaintenance().within(() => {
           form.fields.getMaintainerDropdownButton().click();
-          form.fields.getMaintainerDropdownOptions().contains('-').click();
+          form.fields
+            .getMaintainerDropdown()
+            .find('[role="option"]')
+            .contains('Ei toimijaa')
+            .click();
         });
         form.getInfoUpkeep().within(() => {
           form.fields.getMaintainerDropdownButton().click();
-          form.fields.getMaintainerDropdownOptions().contains('JCD').click();
+          form.fields
+            .getMaintainerDropdown()
+            .find('[role="option"]')
+            .contains('JCD')
+            .click();
         });
         form.getCleaning().within(() => {
           form.fields.getMaintainerDropdownButton().click();
           form.fields
-            .getMaintainerDropdownOptions()
+            .getMaintainerDropdown()
+            .find('[role="option"]')
             .contains('ELY-keskus')
             .click();
         });
@@ -1746,19 +1760,35 @@ describe('Stop details', () => {
         // Change everything:
         form.getOwner().within(() => {
           form.fields.getMaintainerDropdownButton().click();
-          form.fields.getMaintainerDropdownOptions().contains('-').click();
+          form.fields
+            .getMaintainerDropdown()
+            .find('[role="option"]')
+            .contains('Ei toimijaa')
+            .click();
         });
         form.getMaintenance().within(() => {
           form.fields.getMaintainerDropdownButton().click();
-          form.fields.getMaintainerDropdownOptions().contains('-').click();
+          form.fields
+            .getMaintainerDropdown()
+            .find('[role="option"]')
+            .contains('Ei toimijaa')
+            .click();
         });
         form.getWinterMaintenance().within(() => {
           form.fields.getMaintainerDropdownButton().click();
-          form.fields.getMaintainerDropdownOptions().contains('-').click();
+          form.fields
+            .getMaintainerDropdown()
+            .find('[role="option"]')
+            .contains('Ei toimijaa')
+            .click();
         });
         form.getCleaning().within(() => {
           form.fields.getMaintainerDropdownButton().click();
-          form.fields.getMaintainerDropdownOptions().contains('-').click();
+          form.fields
+            .getMaintainerDropdown()
+            .find('[role="option"]')
+            .contains('Ei toimijaa')
+            .click();
         });
 
         // Submit.
@@ -1848,7 +1878,8 @@ describe('Stop details', () => {
             .shouldHaveText('ELY-keskus');
           form.fields.getMaintainerDropdownButton().click();
           form.fields
-            .getMaintainerDropdownOptions()
+            .getMaintainerDropdown()
+            .find('[role="option"]')
             .contains('Lisää uusi toimija')
             .click();
           form.fields
@@ -1898,7 +1929,8 @@ describe('Stop details', () => {
         form.getInfoUpkeep().within(() => {
           form.fields.getMaintainerDropdownButton().click();
           form.fields
-            .getMaintainerDropdownOptions()
+            .getMaintainerDropdown()
+            .find('[role="option"]')
             .contains('Uusi Toimija')
             .shouldBeVisible();
           form.fields.getMaintainerDropdownButton().click();

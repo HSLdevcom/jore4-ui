@@ -1,14 +1,10 @@
 export class MaintainerFormFields {
-  getMaintainerDropdownButton() {
-    return cy.getByTestId(
-      'MaintainerFormFields::maintainerDropdown::ListboxButton',
-    );
+  getMaintainerDropdown() {
+    return cy.getByTestId('MaintainerFormFields::maintainerDropdown');
   }
 
-  getMaintainerDropdownOptions() {
-    return cy.getByTestId(
-      'MaintainerFormFields::maintainerDropdown::ListboxOptions',
-    );
+  getMaintainerDropdownButton() {
+    return cy.getByTestId('MaintainerFormFields::maintainerDropdown::button');
   }
 
   getEditOrganisationButton() {
