@@ -13,12 +13,7 @@ export class OwnerDetailsEdit {
     cy.getByTestId('OwnerOrganizationFields::ownerDropdown');
 
   getOwnerDropdownButton = () =>
-    cy.getByTestId('OwnerOrganizationFields::ownerDropdown::ListboxButton');
-
-  getOwnerDropdownOptions = () =>
-    cy.get(
-      '[data-testid^="OwnerOrganizationFields::ownerDropdown::ListboxOptions::"]',
-    );
+    cy.get('[data-testid^="OwnerOrganizationFields::ownerDropdown::button"]');
 
   getEditOrganisationButton = () =>
     cy.getByTestId('OwnerOrganizationFields::editOrganisationButton');

@@ -11,7 +11,7 @@ import { SlimSimpleButton } from '../layout';
 import {
   CREATE_NEW_ORGANISATION_OPTION,
   ChooseOrganisationDropdown,
-} from './ChooseOrganisationDropdown';
+} from './organisation-dropdown';
 import { MaintenanceDetailsFormState } from './schema';
 
 const testIds = {
@@ -81,13 +81,12 @@ export const MaintainerFormFields: FC<MaintainerFormFieldsProps> = ({
           // eslint-disable-next-line react/no-unstable-nested-components
           inputElementRenderer={(props) => (
             <ChooseOrganisationDropdown
-              organisations={organisations}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
             />
           )}
         />
-        <div className="text-sm">
+        <div className="mt-4 text-sm">
           <div data-testid={testIds.phone}>
             {selectedMaintainer?.privateContactDetails?.phone ?? ''}
           </div>

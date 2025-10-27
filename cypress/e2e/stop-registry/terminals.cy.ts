@@ -443,7 +443,11 @@ describe('Terminal details', () => {
 
       // Add a new owner
       edit.getOwnerDropdownButton().click();
-      edit.getOwnerDropdownOptions().contains('Lisää uusi toimija').click();
+      edit
+        .getOwnerDropdown()
+        .find('[role="option"]')
+        .contains('Lisää uusi toimija')
+        .click();
       ownerModal.form.getName().clearAndType('Uusi nimi');
       ownerModal.form.getPhone().clearAndType('987654321');
       ownerModal.form.getEmail().clearAndType('uusi.omistaja@hsl.fi');
@@ -473,7 +477,11 @@ describe('Terminal details', () => {
       //  Switch back to old owner.
       owner.getEditButton().click();
       edit.getOwnerDropdownButton().click();
-      edit.getOwnerDropdownOptions().contains('Omistaja').click();
+      edit
+        .getOwnerDropdown()
+        .find('[role="option"]')
+        .contains('Omistaja')
+        .click();
       owner.getSaveButton().click();
       toast.expectSuccessToast('Terminaali muokattu');
 
