@@ -269,9 +269,14 @@ describe('Route editing', () => {
       setValidityPeriodToForm(routeValidityStart, routeValidityEnd);
 
       editRoutePage.getSaveRouteButton().click();
-      toast.expectDangerToast(
-        'Reitin voimassaoloaijan alku ei voi olla ennen loppua',
-      );
+
+      editRoutePage.changeValidityForm.validityPeriodForm
+        .getEndDateValidityError()
+        .shouldBeVisible()
+        .should(
+          'have.text',
+          'Päättymispäivämäärä ei voi olla ennen alkamispäivämäärää',
+        );
     });
 
     it(

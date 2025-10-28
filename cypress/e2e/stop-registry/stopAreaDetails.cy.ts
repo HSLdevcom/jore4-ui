@@ -956,5 +956,29 @@ describe('Stop area details', () => {
         'Pysäkkialueen kopiointi tekisi ainakin yhden pysäkkialueen pysäkin kautta kulkevan reitin voimassaolon virheelliseksi.\nEnnen jatkamista muokkaa reittejä, joihin tämän pysäkkialueen pysäkit kuuluvat.',
       );
     });
+
+    it('should not allow copy if the end date is before the start date', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
+
+      stopAreaDetailsPage.titleRow.getActionMenu().click();
+      stopAreaDetailsPage.titleRow.getCopyButton().click();
+
+      stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
+      const { form } = stopAreaDetailsPage.copyModal;
+
+      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.validity.setStartDate('2030-01-02');
+      form.validity.setAsIndefinite(false);
+      form.validity.setEndDate('2030-01-01');
+      form.getSubmitButton().click();
+
+      form.validity
+        .getEndDateValidityError()
+        .shouldBeVisible()
+        .should(
+          'have.text',
+          'Päättymispäivämäärä ei voi olla ennen alkamispäivämäärää',
+        );
+    });
   });
 });
