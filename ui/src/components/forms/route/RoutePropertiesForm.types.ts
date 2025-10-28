@@ -3,6 +3,7 @@ import { RouteDirection } from '../../../types/RouteDirection';
 import {
   localizedStringRequired,
   nullablePositiveNumber,
+  refineValidityPeriodSchema,
   requiredString,
   requiredUuid,
 } from '../common';
@@ -26,7 +27,8 @@ export const routeFormSchema = z
     destination: namesSchema.required(),
     variant: nullablePositiveNumber,
   })
-  .merge(changeValidityFormSchema);
+  .merge(changeValidityFormSchema)
+  .superRefine(refineValidityPeriodSchema);
 
 export type RouteFormState = z.infer<typeof routeFormSchema> &
   ChangeValidityFormFormState;

@@ -2,6 +2,7 @@ import { z } from 'zod';
 import {
   REQUIRED_FIELD_ERROR_MESSAGE,
   schema as changeValidityFormSchema,
+  refineValidityPeriodSchema,
   requiredNumber,
   requiredString,
 } from '../../common';
@@ -56,6 +57,7 @@ export const stopFormSchema = z
         path: ['stopArea'],
       });
     }
-  });
+  })
+  .superRefine(refineValidityPeriodSchema);
 
 export type StopFormState = z.infer<typeof stopFormSchema>;

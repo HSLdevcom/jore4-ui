@@ -1031,7 +1031,10 @@
     "invalidEmail": "Virheellinen sähköpostiosoite",
     "substituteDayOfWeek": "Valitse päivä",
     "lineTypes": "Valitse tyyppi",
-    "Invalid url": "Virheellinen URL"
+    "Invalid url": "Virheellinen URL",
+    "validityEndNotDefined": "Päättymispäivä on annettava tai asetettava toistaiseksi voimassaolevaksi",
+    "invalidValidityEndDate": "Päättymispäivämäärä on virheellinen",
+    "validityEndDateBeforeStartDate": "Päättymispäivämäärä ei voi olla ennen alkamispäivämäärää"
   },
   "errors": {
     "deleteFailed": "Poistaminen epäonnistui",

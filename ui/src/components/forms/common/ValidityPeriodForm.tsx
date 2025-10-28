@@ -8,19 +8,50 @@ import { FormColumn } from './FormColumn';
 import { FormRow } from './FormRow';
 import { InputField } from './InputField';
 
+const dateRegex = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+
 export const validityPeriodFormSchema = z.object({
-  validityStart: requiredString.regex(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
-  // TODO: also validityEnd could/should be validated against regex
-  // but only when "indefinite" is set to false. Anyway, seems like zod
-  // schemas start to cause TS errors if merged with each other after
-  // .partial() and .refine() methods have been called, so validation
-  // is left out for now. See message of commit
-  // c7f8d6f6f95712a6d7a6d5003c4b170390e731f9 for details
+  validityStart: requiredString.regex(dateRegex),
   validityEnd: z.string().optional(),
   indefinite: z.boolean(),
 });
 
 export type ValidityPeriodFormState = z.infer<typeof validityPeriodFormSchema>;
+
+// Separate function for validating the validity end date.
+// Run this inside a superRefine after all the schemas have been merged.
+export function refineValidityPeriodSchema(
+  data: { validityStart: string; validityEnd?: string; indefinite: boolean },
+  ctx: z.RefinementCtx,
+) {
+  const { validityStart, validityEnd, indefinite } = data;
+
+  if (indefinite) {
+    return;
+  }
+
+  if (!validityEnd) {
+    ctx.addIssue({
+      path: ['validityEnd'],
+      message: 'validityEndNotDefined',
+      code: z.ZodIssueCode.custom,
+    });
+  } else if (!dateRegex.test(validityEnd)) {
+    ctx.addIssue({
+      path: ['validityEnd'],
+      message: 'invalidValidityEndDate',
+      code: z.ZodIssueCode.custom,
+    });
+  } else if (validityStart && dateRegex.test(validityStart)) {
+    if (validityEnd < validityStart) {
+      ctx.addIssue({
+        path: ['validityEnd'],
+        message: 'validityEndDateBeforeStartDate',
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  }
+}
 
 const testIds = {
   startDateInput: 'ValidityPeriodForm::startDateInput',
