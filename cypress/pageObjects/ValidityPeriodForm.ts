@@ -50,4 +50,8 @@ export class ValidityPeriodForm {
     }
     this.setEndDate(values.validityEndISODate);
   }
+
+  getEndDateValidityError() {
+    return cy.getByTestId('ValidationError::message::validityEnd');
+  }
 }
