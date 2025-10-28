@@ -1032,7 +1032,10 @@
     "invalidEmail": "Invalid email",
     "substituteDayOfWeek": "Select day",
     "lineTypes": "Select type",
-    "Invalid url": "Invalid url"
+    "Invalid url": "Invalid url",
+    "validityEndNotDefined": "End date must be given or set as indefinite",
+    "invalidValidityEndDate": "Invalid validity end date",
+    "validityEndDateBeforeStartDate": "Validity end date cannot be before start date"
   },
   "errors": {
     "deleteFailed": "Deletion failed",

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   ValidityPeriodFormState,
+  refineValidityPeriodSchema,
   requiredNumber,
   requiredString,
   validityPeriodFormSchema,
@@ -21,7 +22,8 @@ export const stopAreaFormSchema = z
     latitude: requiredNumber.min(-180).max(180),
     longitude: requiredNumber.min(-180).max(180),
   })
-  .merge(validityPeriodFormSchema);
+  .merge(validityPeriodFormSchema)
+  .superRefine(refineValidityPeriodSchema);
 
 export type StopAreaFormState = z.infer<typeof stopAreaFormSchema> &
   ValidityPeriodFormState;

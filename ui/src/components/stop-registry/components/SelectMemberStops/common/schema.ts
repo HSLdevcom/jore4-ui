@@ -1,5 +1,8 @@
 import { z } from 'zod';
-import { validityPeriodFormSchema } from '../../../../forms/common';
+import {
+  refineValidityPeriodSchema,
+  validityPeriodFormSchema,
+} from '../../../../forms/common';
 
 export const selectedStopSchema = z
   .object({
@@ -9,6 +12,7 @@ export const selectedStopSchema = z
     quayId: z.string(),
     publicCode: z.string(),
   })
-  .merge(validityPeriodFormSchema);
+  .merge(validityPeriodFormSchema)
+  .superRefine(refineValidityPeriodSchema);
 
 export type SelectedStop = z.infer<typeof selectedStopSchema>;

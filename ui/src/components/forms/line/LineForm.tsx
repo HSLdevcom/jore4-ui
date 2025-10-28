@@ -7,6 +7,7 @@ import { Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
 import { FormContainer, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
+import { refineValidityPeriodSchema } from '../common';
 import {
   ChangeValidityForm,
   FormState as ChangeValidityFormState,
@@ -37,9 +38,10 @@ export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
 
   const { t } = useTranslation();
 
-  const formSchema = linePropertiesFormSchema.merge(
-    changeValidityFormSaveFormSchema,
-  );
+  const formSchema = linePropertiesFormSchema
+    .merge(changeValidityFormSaveFormSchema)
+    .superRefine(refineValidityPeriodSchema);
+
   const methods = useForm<FormState>({
     defaultValues,
     resolver: zodResolver(formSchema),
