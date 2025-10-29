@@ -100,7 +100,7 @@ const mapFormStateToInput = ({
             values: [state.electricCharging],
           }
         : undefined,
-    ]),
+    ]).filter((kv) => (kv?.key !== 'validityEnd' ? true : !state.indefinite)),
     alternativeNames: [
       {
         name: { lang: 'swe', value: state.nameSwe },
