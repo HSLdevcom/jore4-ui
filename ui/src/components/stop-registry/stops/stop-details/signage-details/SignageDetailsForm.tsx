@@ -12,14 +12,11 @@ import {
   TextAreaElement,
 } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
-import { MainLineWarning } from '../MainLineWarning';
 import { SignageDetailsFormState, signageDetailsFormSchema } from './schema';
 
 const testIds = {
   numberOfFrames: 'SignageDetailsForm::numberOfFrames',
-  mainLineSign: 'SignageDetailsForm::mainLineSign',
   replacesRailSign: 'SignageDetailsForm::replacesRailSign',
-  lineSignage: 'SignageDetailsForm::lineSignage',
   signType: 'SignageDetailsForm::signType',
   signageInstructionExceptions:
     'SignageDetailsForm::signageInstructionExceptions',
@@ -29,21 +26,19 @@ type SignageDetailsFormProps = {
   readonly className?: string;
   readonly defaultValues: Partial<SignageDetailsFormState>;
   readonly onSubmit: (state: SignageDetailsFormState) => void;
-  readonly isMainLineStop: boolean;
 };
 
 const SignageDetailsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   SignageDetailsFormProps
-> = ({ className = '', defaultValues, onSubmit, isMainLineStop }, ref) => {
+> = ({ className = '', defaultValues, onSubmit }, ref) => {
   const { t } = useTranslation();
   const methods = useForm<SignageDetailsFormState>({
     defaultValues,
     resolver: zodResolver(signageDetailsFormSchema),
   });
   useDirtyFormBlockNavigation(methods.formState, 'SignageDetailsForm');
-  const { handleSubmit, watch } = methods;
-  const hasMainLineSign = !!watch('mainLineSign');
+  const { handleSubmit } = methods;
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -79,31 +74,6 @@ const SignageDetailsFormComponent: ForwardRefRenderFunction<
               />
             </Row>
             <Row className="flex-wrap gap-8">
-              <label htmlFor="lineSignage" className="inline-flex font-normal">
-                <InputElement<SignageDetailsFormState>
-                  type="checkbox"
-                  id="lineSignage"
-                  fieldPath="lineSignage"
-                  className="mr-2 h-6 w-6"
-                  testId={testIds.lineSignage}
-                />
-                {t('stopDetails.signs.lineSignage')}
-              </label>
-              <label htmlFor="mainLineSign" className="inline-flex font-normal">
-                <InputElement<SignageDetailsFormState>
-                  type="checkbox"
-                  id="mainLineSign"
-                  fieldPath="mainLineSign"
-                  className="mr-2 h-6 w-6"
-                  testId={testIds.mainLineSign}
-                />
-                {t('stopDetails.signs.mainLineSign')}
-                <MainLineWarning
-                  className="ml-2"
-                  isMainLineStop={isMainLineStop}
-                  hasMainLineSign={hasMainLineSign}
-                />
-              </label>
               <label
                 htmlFor="replacesRailSign"
                 className="inline-flex font-normal"

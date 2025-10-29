@@ -279,7 +279,7 @@ describe('Stop details', () => {
     bdView.getElyNumber().shouldHaveText('1234567');
 
     bdView.getTimingPlaceId().shouldHaveText('1AURLA');
-    bdView.getStopType().shouldHaveText('Runkolinja, vaihtopysäkki');
+    bdView.getStopType().shouldHaveText('Raideliikennettä korvaava');
     bdView.getTransportMode().shouldHaveText('Bussi');
   };
 
@@ -313,8 +313,6 @@ describe('Stop details', () => {
     signView.getContainer().shouldBeVisible();
     signView.getSignType().shouldHaveText('Tolppamerkki');
     signView.getNumberOfFrames().shouldHaveText('12');
-    signView.getLineSignage().shouldHaveText('Kyllä');
-    signView.getMainLineSign().shouldHaveText('Ei');
     signView.getReplacesRailSign().shouldHaveText('Ei');
     signView.getSignageInstructionExceptions().shouldHaveText('Ohjetekstiä...');
   };
@@ -655,29 +653,23 @@ describe('Stop details', () => {
 
         bdView.getLabel().shouldHaveText('H2003');
         bdView.getTimingPlaceId().shouldHaveText('1AURLA');
-        bdView.getStopType().shouldHaveText('Runkolinja, vaihtopysäkki');
+        bdView.getStopType().shouldHaveText('Raideliikennettä korvaava');
         bdView.getTransportMode().shouldHaveText('Bussi');
 
         // Make sure header row reflects these
         stopDetailsPage.headerSummaryRow
           .stopTypes()
-          .should('have.text', 'RunkolinjaVaihtopysäkki');
+          .should('have.text', 'Raideliikennettä korvaava');
 
         stopDetailsPage.basicDetails.getEditButton().click();
 
         // Verify correct initial values.
-        bdForm.getMainLineCheckbox().should('be.checked');
-        bdForm.getInterchangeCheckbox().should('be.checked');
-        bdForm.getRailReplacementCheckbox().should('not.be.checked');
+        bdForm.getRailReplacementCheckbox().should('be.checked');
         bdForm.getVirtualCheckbox().should('not.be.checked');
         bdForm.getTransportModeDropdownButton().shouldHaveText('Bussi');
         bdForm.getTimingPlaceDropdown().shouldHaveText('1AURLA (1AURLA)');
 
-        bdForm.getMainLineCheckbox().click();
-        bdForm.getInterchangeCheckbox().click();
-
         // Rail replacement is only available for transport mode: bus
-        bdForm.getRailReplacementCheckbox().click();
         bdForm.getTransportModeDropdownButton().shouldBeDisabled();
 
         bdForm.getVirtualCheckbox().click();
@@ -886,9 +878,7 @@ describe('Stop details', () => {
           .getNumberOfFramesInput()
           .should('have.value', 12)
           .clearAndType('7');
-        signForm.getLineSignageCheckbox().should('be.checked').click();
         signForm.getReplacesRailSignCheckbox().should('not.be.checked').click();
-        signForm.getMainLineSignCheckbox().should('not.be.checked').click();
         signForm
           .getSignageInstructionExceptionsInput()
           .should('have.value', 'Ohjetekstiä...')
@@ -901,8 +891,6 @@ describe('Stop details', () => {
         signView.getContainer().shouldBeVisible();
         signView.getSignType().shouldHaveText('Katoskehikko');
         signView.getNumberOfFrames().shouldHaveText('7');
-        signView.getLineSignage().shouldHaveText('Ei');
-        signView.getMainLineSign().shouldHaveText('Kyllä');
         signView.getReplacesRailSign().shouldHaveText('Kyllä');
         signView
           .getSignageInstructionExceptions()

@@ -44,8 +44,6 @@ export type StopPlaceQuaySeedData = {
   elyNumber?: string;
   stopState?: string /* See StopPlaceState */;
   stopType?: {
-    mainLine: boolean;
-    interchange: boolean;
     railReplacement: boolean;
     virtual: boolean;
   };
@@ -63,8 +61,6 @@ export type StopPlaceQuaySeedData = {
     signType: string /* see StopPlaceSignType */;
     note?: string;
     numberOfFrames: number;
-    lineSignage: boolean;
-    mainLineSign: boolean;
     replacesRailSign: boolean;
     content?: string;
   };
@@ -144,8 +140,6 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
             },
 
             numberOfFrames: seedStopPlace.signs.numberOfFrames,
-            lineSignage: seedStopPlace.signs.lineSignage,
-            mainLineSign: seedStopPlace.signs.mainLineSign,
             replacesRailSign: seedStopPlace.signs.replacesRailSign,
             ...(seedStopPlace.signs.content
               ? {
@@ -191,8 +185,6 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
         getKeyValue('postalCode', seedStopPlace.postalCode),
         getKeyValue('functionalArea', seedStopPlace.functionalArea),
         getKeyValue('stopState', seedStopPlace.stopState),
-        getKeyValue('mainLine', seedStopPlace.stopType?.mainLine),
-        getKeyValue('interchange', seedStopPlace.stopType?.interchange),
         getKeyValue('railReplacement', seedStopPlace.stopType?.railReplacement),
         getKeyValue('virtual', seedStopPlace.stopType?.virtual),
         getKeyValue('priority', seedStopPlace.priority),
@@ -319,9 +311,7 @@ const H2003: StopPlaceQuaySeedData = {
   locationSwe: 'Norraesplanaden (plats)',
   stopState: 'OutOfOperation',
   stopType: {
-    mainLine: true,
-    interchange: true,
-    railReplacement: false,
+    railReplacement: true,
     virtual: false,
   },
   // TODO: the coordinates should come from routes DB really.
@@ -388,8 +378,6 @@ const H2003: StopPlaceQuaySeedData = {
     signType: 'PoleSign',
     note: 'Ohjetekstiä...',
     numberOfFrames: 12,
-    lineSignage: true,
-    mainLineSign: false,
     replacesRailSign: false,
     content: 'A2',
   },

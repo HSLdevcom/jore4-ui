@@ -19,8 +19,6 @@ export const translateStopTypes = (
   }
 
   const result = compact([
-    quay.stopType.mainLine && t('stopPlaceTypes.mainLine'),
-    quay.stopType.interchange && t('stopPlaceTypes.interchange'),
     quay.stopType.railReplacement && t('stopPlaceTypes.railReplacement'),
     quay.stopType.virtual && t('stopPlaceTypes.virtual'),
   ])

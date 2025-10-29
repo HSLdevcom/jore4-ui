@@ -15,15 +15,7 @@ export class SignageDetailsForm {
     return cy.getByTestId('SignageDetailsForm::signageInstructionExceptions');
   }
 
-  getLineSignageCheckbox() {
-    return cy.getByTestId('SignageDetailsForm::lineSignage');
-  }
-
   getReplacesRailSignCheckbox() {
     return cy.getByTestId('SignageDetailsForm::replacesRailSign');
-  }
-
-  getMainLineSignCheckbox() {
-    return cy.getByTestId('SignageDetailsForm::mainLineSign');
   }
 }

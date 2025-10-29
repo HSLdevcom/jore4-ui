@@ -233,8 +233,6 @@
     }
   },
   "stopPlaceTypes": {
-    "mainLine": "Runkolinja",
-    "interchange": "Vaihtopysäkki",
     "railReplacement": "Raideliikennettä korvaava",
     "virtual": "Virtuaalipysäkki"
   },
@@ -284,7 +282,6 @@
       "areaMemberStops": "Jäsenpysäkit ({{count}})",
       "areaNoMemberStops": "Ei jäsenpysäkkejä"
     },
-    "mainLineWarning": "Pysäkin runkolinja-asetus ja kilvityksen asetukset eivät täsmää",
     "location": {
       "title": "Sijainti",
       "streetAddress": "Pysäkin osoite",
@@ -311,10 +308,8 @@
       "title": "Pysäkkikilvet",
       "signType": "Pysäkkikilpien tyyppi",
       "numberOfFrames": "Kilpikehikoiden määrä",
-      "lineSignage": "Linjakilvet",
       "signageInstructionExceptions": "Kilvitysohjeen poikkeus",
-      "replacesRailSign": "Raideliikennettä korvaava",
-      "mainLineSign": "Runkolinjapysäkki"
+      "replacesRailSign": "Raideliikennettä korvaava"
     },
     "measurements": {
       "title": "Mitat ja esteettömyys",

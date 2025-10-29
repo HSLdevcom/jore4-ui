@@ -161,8 +161,6 @@ const GQL_QUAY_DETAILS = gql`
         }
         signContentType
         numberOfFrames
-        lineSignage
-        mainLineSign
         replacesRailSign
         note {
           lang

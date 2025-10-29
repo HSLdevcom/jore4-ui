@@ -23,9 +23,7 @@ const mapSignageDetailsToFormState = (
   return {
     signType: signType ? (signType as StopPlaceSignType) : undefined,
     numberOfFrames: generalSign?.numberOfFrames,
-    lineSignage: generalSign?.lineSignage,
     replacesRailSign: generalSign?.replacesRailSign,
-    mainLineSign: generalSign?.mainLineSign,
     signageInstructionExceptions: generalSign?.note?.value,
   };
 };
@@ -70,7 +68,6 @@ export const SignageDetailsSection: FC<SignageDetailsSectionProps> = ({
           defaultValues={defaultValues}
           ref={formRef}
           onSubmit={onSubmit}
-          isMainLineStop={!!stop.quay?.stopType.mainLine}
         />
       ) : (
         <SignageDetailsViewCard stop={stop} />

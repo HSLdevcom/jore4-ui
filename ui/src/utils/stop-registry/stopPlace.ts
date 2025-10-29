@@ -259,9 +259,7 @@ export const getQuayDetailsForEnrichment = <
       accessibilityAssessment?.hslAccessibilityProperties?.accessibilityLevel ??
       defaultAccessibilityLevel,
     stopType: {
-      mainLine: findKeyValue(quay, 'mainLine') === 'true',
       virtual: findKeyValue(quay, 'virtual') === 'true',
-      interchange: findKeyValue(quay, 'interchange') === 'true',
       railReplacement: findKeyValue(quay, 'railReplacement') === 'true',
     },
   };

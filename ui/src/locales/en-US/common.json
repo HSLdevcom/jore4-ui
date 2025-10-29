@@ -233,8 +233,6 @@
     }
   },
   "stopPlaceTypes": {
-    "mainLine": "Main line",
-    "interchange": "Interchange",
     "railReplacement": "Rail replacement",
     "virtual": "Virtual"
   },
@@ -284,7 +282,6 @@
       "areaNoMemberStops": "No member stops",
       "areaPrivateCodeForm": "Stop area {{privateCode}}"
     },
-    "mainLineWarning": "The stop's main line setting and related signage setting do not match.",
     "location": {
       "title": "Location",
       "streetAddress": "Street address",
@@ -311,10 +308,8 @@
       "title": "Signs",
       "signType": "Sign type",
       "numberOfFrames": "Number of frames",
-      "lineSignage": "Line signage",
       "signageInstructionExceptions": "Signage instruction exceptions",
-      "replacesRailSign": "Replaces rail sign",
-      "mainLineSign": "Main line sign"
+      "replacesRailSign": "Replaces rail sign"
     },
     "measurements": {
       "title": "Measurements and accessibility",

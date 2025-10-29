@@ -42,11 +42,7 @@ export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
   const showStopState = !!stopState && stopState !== StopPlaceState.InOperation;
   const stopType = stopDetails?.quay?.stopType;
   const showStopType =
-    !!stopType &&
-    (stopType.mainLine ||
-      stopType.interchange ||
-      stopType.railReplacement ||
-      stopType.virtual);
+    !!stopType && (stopType.railReplacement || stopType.virtual);
 
   const showStopTypeOrState = showStopState || showStopType;
 
@@ -81,14 +77,6 @@ export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
           className="flex items-center justify-center gap-3"
           data-testid={testIds.stopTypes}
         >
-          <StopTypeLabel
-            hasType={!!stopType?.mainLine}
-            text={t('stopPlaceTypes.mainLine')}
-          />
-          <StopTypeLabel
-            hasType={!!stopType?.interchange}
-            text={t('stopPlaceTypes.interchange')}
-          />
           <StopTypeLabel
             hasType={!!stopType?.railReplacement}
             text={t('stopPlaceTypes.railReplacement')}

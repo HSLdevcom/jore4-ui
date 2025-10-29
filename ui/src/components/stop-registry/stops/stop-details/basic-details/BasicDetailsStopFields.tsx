@@ -6,7 +6,6 @@ import {
 } from '../../../../../i18n/uiNameMappings';
 import { StopWithDetails } from '../../../../../types';
 import { DetailRow, LabeledDetail } from '../layout';
-import { MainLineWarning } from '../MainLineWarning';
 import { translateStopTypes } from '../utils';
 
 type StopDetailsSectionProps = {
@@ -91,12 +90,6 @@ export const StopDetailsSection: FC<StopDetailsSectionProps> = ({ stop }) => {
             title={t('stopDetails.basicDetails.stopType')}
             detail={stop.quay && translateStopTypes(t, stop.quay)}
             testId={testIds.stopType}
-          />
-          <MainLineWarning
-            isMainLineStop={!!stop.quay?.stopType.mainLine}
-            hasMainLineSign={
-              !!stop.quay?.placeEquipments?.generalSign?.[0]?.mainLineSign
-            }
           />
         </div>
       </DetailRow>

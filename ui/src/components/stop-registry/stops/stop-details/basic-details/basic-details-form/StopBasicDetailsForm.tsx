@@ -25,17 +25,13 @@ type StopBasicDetailsFormComponentProps = {
   readonly className?: string;
   readonly defaultValues: Partial<StopBasicDetailsFormState>;
   readonly onSubmit: (state: StopBasicDetailsFormState) => void;
-  readonly hasMainLineSign: boolean;
   readonly stop: StopWithDetails;
 };
 
 const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   StopBasicDetailsFormComponentProps
-> = (
-  { className = '', defaultValues, onSubmit, hasMainLineSign, stop },
-  ref,
-) => {
+> = ({ className = '', defaultValues, onSubmit, stop }, ref) => {
   const dispatch = useDispatch();
   const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 
@@ -65,7 +61,7 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
           <StopOtherDetailsFormRow
             onClickOpenTimingSettingsModal={openTimingPlaceModal}
           />
-          <StopTypesFormRow hasMainLineSign={hasMainLineSign} />
+          <StopTypesFormRow />
         </FormColumn>
       </form>
       <Visible visible={isTimingPlaceModalOpen}>

@@ -4,18 +4,15 @@ import { mapStopPlaceSignTypeToUiName } from '../../../../../i18n/uiNameMappings
 import { StopWithDetails } from '../../../../../types';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
 import { DetailRow, LabeledDetail } from '../layout';
-import { MainLineWarning } from '../MainLineWarning';
 import { optionalBooleanToUiText } from '../utils';
 
 const testIds = {
   container: 'SignageDetailsViewCard::container',
   signType: 'SignageDetailsViewCard::signType',
   numberOfFrames: 'SignageDetailsViewCard::numberOfFrames',
-  lineSignage: 'SignageDetailsViewCard::lineSignage',
   signageInstructionExceptions:
     'SignageDetailsViewCard::signageInstructionExceptions',
   replacesRailSign: 'SignageDetailsViewCard::replacesRailSign',
-  mainLineSign: 'SignageDetailsViewCard::mainLineSign',
 };
 
 type SignageDetailsViewCardProps = {
@@ -57,24 +54,6 @@ export const SignageDetailsViewCard: FC<SignageDetailsViewCardProps> = ({
         />
       </DetailRow>
       <DetailRow>
-        <LabeledDetail
-          title={t('stopDetails.signs.lineSignage')}
-          detail={optionalBooleanToUiText(t, generalSign?.lineSignage)}
-          testId={testIds.lineSignage}
-        />
-        <div className="flex items-center gap-4">
-          <LabeledDetail
-            title={t('stopDetails.signs.mainLineSign')}
-            detail={optionalBooleanToUiText(t, generalSign?.mainLineSign)}
-            testId={testIds.mainLineSign}
-          />
-          <MainLineWarning
-            isMainLineStop={!!stop.quay?.stopType.mainLine}
-            hasMainLineSign={
-              !!stop.quay?.placeEquipments?.generalSign?.[0]?.mainLineSign
-            }
-          />
-        </div>
         <LabeledDetail
           title={t('stopDetails.signs.replacesRailSign')}
           detail={optionalBooleanToUiText(t, generalSign?.replacesRailSign)}

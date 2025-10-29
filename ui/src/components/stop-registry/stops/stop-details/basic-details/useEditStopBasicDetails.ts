@@ -221,21 +221,9 @@ export const useEditStopBasicDetails = () => {
           ]),
           keyValues: patchKeyValues(stop.quay, [
             {
-              key: 'interchange',
-              values: state.stopTypes.interchange
-                ? [state.stopTypes.interchange?.toString()]
-                : [],
-            },
-            {
               key: 'railReplacement',
               values: state.stopTypes.railReplacement
                 ? [state.stopTypes.railReplacement?.toString()]
-                : [],
-            },
-            {
-              key: 'mainLine',
-              values: state.stopTypes.mainLine
-                ? [state.stopTypes.mainLine?.toString()]
                 : [],
             },
             {

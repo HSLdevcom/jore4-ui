@@ -14,11 +14,6 @@ export class BasicDetailsForm {
   getLocationSweInput = () =>
     cy.getByTestId('StopBasicDetailsForm::locationSwe');
 
-  getMainLineCheckbox = () => cy.getByTestId('StopBasicDetailsForm::mainLine');
-
-  getInterchangeCheckbox = () =>
-    cy.getByTestId('StopBasicDetailsForm::interchange');
-
   getRailReplacementCheckbox = () =>
     cy.getByTestId('StopBasicDetailsForm::railReplacement');
 
