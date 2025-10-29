@@ -21,6 +21,7 @@ export const SearchableDropdown = <T extends ExplicitAny>({
   selectedItem,
   options,
   query,
+  value,
   onChange,
   mapToButtonContent,
   nullOptionRender,
@@ -49,6 +50,7 @@ export const SearchableDropdown = <T extends ExplicitAny>({
 
   return (
     <Combobox
+      value={value ?? ''} // Replace undefined value with empty string to avoid error
       buttonContent={query === '' ? mapToButtonContent(selectedItem) : null}
       options={allOptions}
       onChange={onItemSelected}

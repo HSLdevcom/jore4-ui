@@ -1,5 +1,11 @@
 import { FC, useRef } from 'react';
-import { useNavigateBackSafely } from '../../hooks';
+import { useAppAction, useNavigateBackSafely } from '../../hooks';
+import {
+  MapEntityEditorViewState,
+  setSelectedMapStopAreaIdAction,
+  setSelectedStopIdAction,
+  setSelectedTerminalIdAction,
+} from '../../redux';
 import { useWrapInContextNavigation } from '../forms/common/NavigationBlocker';
 import { Map } from './Map';
 import { MapFooter } from './MapFooter';
@@ -7,6 +13,7 @@ import { MapHeader } from './MapHeader';
 import { MapLoader } from './MapLoader';
 import { RouteEditorRef } from './refTypes';
 import { ProvideMapUrlStateContext } from './utils/mapUrlState';
+import { useMapViewState } from './utils/useMapViewState';
 
 const testIds = { mapPage: 'mapPage' };
 
@@ -15,7 +22,26 @@ export const MapPage: FC = () => {
   const navigateBackSafely = useNavigateBackSafely();
   const wrapInContextNavigation = useWrapInContextNavigation('MapPage');
 
+  const [, setMapViewState] = useMapViewState();
+  const setSelectedStopId = useAppAction(setSelectedStopIdAction);
+  const setSelectedStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
+  const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
+
   const onCloseMap = wrapInContextNavigation(() => {
+    // By setting the view states to NONE here on map close, we can prevent an error which
+    // happens if the user has stop placement active and closes the map. The error
+    // happens when the line from stop to infra link is being removed.
+    setMapViewState({
+      stops: MapEntityEditorViewState.NONE,
+      stopAreas: MapEntityEditorViewState.NONE,
+      terminals: MapEntityEditorViewState.NONE,
+    });
+
+    // Also reset any active selections on exit
+    setSelectedStopId(undefined);
+    setSelectedStopAreaId(undefined);
+    setSelectedTerminalId(undefined);
+
     navigateBackSafely('/');
   });
 

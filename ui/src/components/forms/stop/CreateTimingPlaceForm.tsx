@@ -63,7 +63,10 @@ export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
     defaultValues,
     resolver: zodResolver(schema),
   });
-  useDirtyFormBlockNavigation(methods.formState, 'CreateTimingPlaceForm');
+  useDirtyFormBlockNavigation(methods.formState, 'CreateTimingPlaceForm', {
+    allowSearchChange: true, // Allow search change so that moving the map does not show the navigation blocked dialog
+    allowStateChange: true, // Allow state change so that location state updates do not show the navigation blocked dialog
+  });
   const { handleSubmit } = methods;
 
   const onCreate = async (state: FormState) =>
