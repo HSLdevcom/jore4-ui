@@ -11,10 +11,6 @@ export class SignageDetailsViewCard {
     return cy.getByTestId('SignageDetailsViewCard::numberOfFrames');
   }
 
-  getLineSignage() {
-    return cy.getByTestId('SignageDetailsViewCard::lineSignage');
-  }
-
   getSignageInstructionExceptions() {
     return cy.getByTestId(
       'SignageDetailsViewCard::signageInstructionExceptions',
@@ -23,9 +19,5 @@ export class SignageDetailsViewCard {
 
   getReplacesRailSign() {
     return cy.getByTestId('SignageDetailsViewCard::replacesRailSign');
-  }
-
-  getMainLineSign() {
-    return cy.getByTestId('SignageDetailsViewCard::mainLineSign');
   }
 }

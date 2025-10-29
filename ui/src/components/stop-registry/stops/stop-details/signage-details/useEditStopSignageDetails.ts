@@ -46,9 +46,7 @@ export const useEditStopSignageDetails = () => {
                   value: state.signType,
                 },
                 numberOfFrames: state.numberOfFrames,
-                lineSignage: state.lineSignage,
                 replacesRailSign: state.replacesRailSign,
-                mainLineSign: state.mainLineSign,
                 note: isString(state.signageInstructionExceptions)
                   ? {
                       lang: 'fin',

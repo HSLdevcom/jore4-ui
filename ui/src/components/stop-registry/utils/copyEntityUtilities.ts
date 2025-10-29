@@ -154,8 +154,6 @@ function mapGeneralSignToInput(
 
   return {
     ...pick(generalSign, [
-      'lineSignage',
-      'mainLineSign',
       'numberOfFrames',
       'replacesRailSign',
       'signContentType',

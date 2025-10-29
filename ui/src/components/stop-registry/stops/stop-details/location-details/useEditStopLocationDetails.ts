@@ -45,8 +45,6 @@ export const useEditStopLocationDetails = () => {
           placeEquipments: {
             generalSign: [
               {
-                lineSignage: initialGeneralSign.lineSignage,
-                mainLineSign: initialGeneralSign.mainLineSign,
                 numberOfFrames: initialGeneralSign.numberOfFrames,
                 replacesRailSign: initialGeneralSign.replacesRailSign,
                 privateCode: mapPrivateCodeToInput(

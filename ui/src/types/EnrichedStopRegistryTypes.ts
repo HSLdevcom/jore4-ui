@@ -58,9 +58,7 @@ export type QuayEnrichmentProperties = {
   readonly accessibilityLevel: StopRegistryAccessibilityLevel;
   readonly platformNumber: string | null;
   readonly stopType: {
-    readonly mainLine: boolean;
     readonly virtual: boolean;
-    readonly interchange: boolean;
     readonly railReplacement: boolean;
   };
 };

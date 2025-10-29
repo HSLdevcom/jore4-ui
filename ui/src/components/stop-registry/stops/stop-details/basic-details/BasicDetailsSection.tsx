@@ -72,10 +72,6 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({ stop }) => {
           defaultValues={defaultValues}
           ref={formRef}
           onSubmit={onSubmit}
-          hasMainLineSign={
-            stop.quay?.placeEquipments?.generalSign?.at(0)?.mainLineSign ??
-            false
-          }
           stop={stop}
         />
       ) : (

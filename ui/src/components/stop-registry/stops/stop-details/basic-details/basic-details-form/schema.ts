@@ -15,10 +15,8 @@ export const schema = z.object({
   abbreviationFin: z.string().optional(),
   abbreviationSwe: z.string().optional(),
   stopTypes: z.object({
-    mainLine: z.boolean(),
     virtual: z.boolean(),
     railReplacement: z.boolean(),
-    interchange: z.boolean(),
   }),
   transportMode: z
     .nativeEnum(StopRegistryTransportModeType)

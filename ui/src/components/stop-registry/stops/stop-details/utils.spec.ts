@@ -9,8 +9,6 @@ describe('Stop registry utils', () => {
     it('should translate a single stop type', () => {
       const stopPlace = {
         stopType: {
-          mainLine: false,
-          interchange: false,
           railReplacement: true,
           virtual: false,
         },
@@ -22,23 +20,17 @@ describe('Stop registry utils', () => {
     it('should translate multiple stop types', () => {
       const stopPlace = {
         stopType: {
-          mainLine: true,
-          interchange: true,
           railReplacement: true,
           virtual: true,
         },
       };
       const result = translateStopTypes(i18n.t, stopPlace);
-      expect(result).toBe(
-        'Runkolinja, vaihtopysäkki, raideliikennettä korvaava, virtuaalipysäkki',
-      );
+      expect(result).toBe('Raideliikennettä korvaava, virtuaalipysäkki');
     });
 
     it('should return an empty string when stop has no types', () => {
       const stopPlace = {
         stopType: {
-          mainLine: false,
-          interchange: false,
           railReplacement: false,
           virtual: false,
         },
