@@ -456,10 +456,6 @@ describe('Stop area details', () => {
       expectGraphQLCallToSucceed('@gqlgetStopPlaceDetails');
     }
 
-    function waitForObservationDateChange() {
-      expectGraphQLCallToSucceed('@gqlgetStopPlaceDetails');
-    }
-
     it('should copy and cut current version from end', () => {
       stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004);
 
@@ -505,10 +501,7 @@ describe('Stop area details', () => {
         );
       });
 
-      stopAreaDetailsPage.observationDateControl.setObservationDate(
-        '2025-01-01',
-      );
-      waitForObservationDateChange();
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
 
       // Confirm that the old version was cut correctly
       stopAreaDetailsPage.versioningRow
@@ -568,10 +561,7 @@ describe('Stop area details', () => {
         cy.get('[title="Voimassaolo"]').should('have.text', '1.1.2030-');
       });
 
-      stopAreaDetailsPage.observationDateControl.setObservationDate(
-        '2025-01-01',
-      );
-      waitForObservationDateChange();
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
 
       // Confirm that the old version was cut correctly
       stopAreaDetailsPage.versioningRow
@@ -631,10 +621,7 @@ describe('Stop area details', () => {
         );
       });
 
-      stopAreaDetailsPage.observationDateControl.setObservationDate(
-        '2035-01-01',
-      );
-      waitForObservationDateChange();
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011, '2025-01-01');
 
       // Confirm that the old version was cut correctly
       stopAreaDetailsPage.versioningRow
@@ -694,10 +681,7 @@ describe('Stop area details', () => {
         );
       });
 
-      stopAreaDetailsPage.observationDateControl.setObservationDate(
-        '2035-01-01',
-      );
-      waitForObservationDateChange();
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
 
       // Confirm that the old version was cut correctly
       stopAreaDetailsPage.versioningRow
@@ -819,10 +803,7 @@ describe('Stop area details', () => {
         );
       });
 
-      stopAreaDetailsPage.observationDateControl.setObservationDate(
-        '2025-01-01',
-      );
-      waitForObservationDateChange();
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
 
       // Confirm that the old version was cut correctly
       stopAreaDetailsPage.versioningRow
@@ -866,10 +847,7 @@ describe('Stop area details', () => {
         .shouldHaveText('2.1.2052-');
       stopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
 
-      stopAreaDetailsPage.observationDateControl.setObservationDate(
-        '2025-01-01',
-      );
-      waitForObservationDateChange();
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011, '2025-01-01');
 
       // Confirm that the old version was cut correctly
       stopAreaDetailsPage.versioningRow
@@ -915,10 +893,7 @@ describe('Stop area details', () => {
         .shouldHaveText('1.1.2030-1.1.2060');
       stopAreaDetailsPage.details.getNoStopsText().shouldBeVisible();
 
-      stopAreaDetailsPage.observationDateControl.setObservationDate(
-        '2025-01-01',
-      );
-      waitForObservationDateChange();
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2ENQ, '2025-01-01');
 
       // Confirm that the old version was cut correctly
       stopAreaDetailsPage.versioningRow

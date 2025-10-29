@@ -23,7 +23,9 @@ export class StopAreaDetailsPage {
 
   observationDateControl = new ObservationDateControl();
 
-  visit(netexId: string) {
-    cy.visit(`/stop-registry/stop-areas/${netexId}`);
+  visit(netexId: string, observationDate?: string) {
+    cy.visit(
+      `/stop-registry/stop-areas/${netexId}${observationDate ? `?observationDate=${observationDate}` : ''}`,
+    );
   }
 }

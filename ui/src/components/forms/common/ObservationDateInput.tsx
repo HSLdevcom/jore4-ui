@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon';
-import { FC } from 'react';
+import { FC, KeyboardEvent, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Column } from '../../../layoutComponents';
+import { mapToISODate, parseDate } from '../../../time';
 
 type ObservationDateInputProps = {
   readonly value: DateTime;
@@ -26,13 +27,42 @@ export const ObservationDateInput: FC<ObservationDateInputProps> = ({
 }) => {
   const { t } = useTranslation();
   const dateInputId = 'observation-date-input';
+
+  const [localDateValue, setLocalDateValue] = useState(
+    () => mapToISODate(value) ?? '',
+  );
+
+  const updateUrlState = useCallback(() => {
+    const newDate = parseDate(localDateValue);
+
+    if (!newDate.isValid) {
+      setLocalDateValue(mapToISODate(value) ?? '');
+      return;
+    }
+
+    if (!newDate.equals(value)) {
+      onChange(newDate);
+    }
+  }, [localDateValue, value, onChange]);
+
+  const handleKeyUp = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        updateUrlState();
+      }
+    },
+    [updateUrlState],
+  );
+
   return (
     <Column className={containerClassName}>
       <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
       <input
         type="date"
-        value={value.toISODate()}
-        onChange={(e) => onChange(DateTime.fromISO(e.target.value))}
+        value={localDateValue}
+        onChange={(e) => setLocalDateValue(e.target.value)}
+        onBlur={updateUrlState}
+        onKeyUp={handleKeyUp}
         id={dateInputId}
         className={inputClassName}
         data-testid={testId}

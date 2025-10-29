@@ -17,6 +17,7 @@ export class SearchContainer {
 
   setObservationDate(isoDate: string) {
     this.getObservationDateInput().type(isoDate);
+    this.getObservationDateInput().trigger('keyup', { keyCode: 13 });
   }
 
   getSearchButton() {
