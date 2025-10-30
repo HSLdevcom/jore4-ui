@@ -17,7 +17,8 @@ import {
 } from '../../../../utils';
 import { CSVWriter } from '../../../common/ReportWriter/CSVWriter';
 import { StopSearchRow, mapQueryResultToStopSearchRow } from '../../components';
-import { StopSearchFilters } from '../types';
+import { useGenerateEquipmentReport } from '../csv-export/useGenerateEquipmentReport';
+import { StopSearchFilters, defaultResultSelection } from '../types';
 import { buildSearchStopsGqlQueryVariables } from './filtersToQueryVariables';
 
 const testIds = {
@@ -194,7 +195,29 @@ export const DownloadResultsAsCSVButton: FC<
 
   const [generating, setGenerating] = useState<boolean>(false);
 
-  const onClick = useGenerateAndDownloadReport(setGenerating, filters);
+  const generateEquipmentReport = useGenerateEquipmentReport();
+
+  const onClick = () => {
+    setGenerating(true);
+    const fileName = 'Välineraportti.csv';
+    generateEquipmentReport(filters, defaultResultSelection, fileName)
+      .then(() =>
+        showSuccessToast(
+          <Trans
+            t={t}
+            i18nKey="stopRegistrySearch.csvDownloaded"
+            components={{
+              Filename: <span data-testid={testIds.filename}>{fileName}</span>,
+            }}
+          />,
+        ),
+      )
+      .catch((e) => {
+        console.error(e);
+        showDangerToastWithError(t('stopRegistrySearch.csvGenerationError'), e);
+      })
+      .finally(() => setGenerating(false));
+  };
 
   return (
     <SimpleButton

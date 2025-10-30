@@ -56,7 +56,7 @@ export class RecordNotClosedError extends CSVError {}
  * character for rich text fields.
  */
 export class CSVWriter {
-  private readonly t: TFunction;
+  readonly t: TFunction;
 
   /**
    * Has the report been closed aka marked as finished.
@@ -396,6 +396,14 @@ export class CSVWriter {
     link.href = this.finalDataUrl;
     link.type = mimeType;
     link.click();
+  }
+
+  isClosed() {
+    return this.closed;
+  }
+
+  getCurrentRecordWidth() {
+    return this.currentRecordWidth;
   }
 
   /**
