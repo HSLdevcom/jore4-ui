@@ -149,6 +149,8 @@
   "stopAreaDetails": {
     "title": "Pysäkkialue",
     "englishNames": "Englanti",
+    "notValidOnObservationDate": "Pysäkkialue ei ole voimassa valittuna päivänä.",
+    "errorWhileGettingStopAreaDetails": "Virhe pysäkkialueen lataamisessa.",
     "basicDetails": {
       "title": "JORE:n pysäkkialue",
       "name": "Pysäkkialueen nimi",
@@ -553,6 +555,8 @@
     "title": "Perustiedot",
     "editSuccess": "Terminaali muokattu",
     "noStops": "Ei pysäkkejä.",
+    "notValidOnObservationDate": "Terminaali ei ole voimassa valittuna päivänä.",
+    "errorWhileGettingTerminalDetails": "Virhe terminaalin lataamisessa.",
     "tabs": {
       "basic": "Terminaali",
       "stops": "Pysäkit",

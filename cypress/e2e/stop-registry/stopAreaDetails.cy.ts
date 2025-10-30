@@ -621,7 +621,7 @@ describe('Stop area details', () => {
         );
       });
 
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011, '2025-01-01');
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.E2E011, '2030-01-01');
 
       // Confirm that the old version was cut correctly
       stopAreaDetailsPage.versioningRow
@@ -681,7 +681,7 @@ describe('Stop area details', () => {
         );
       });
 
-      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2025-01-01');
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0004, '2030-01-01');
 
       // Confirm that the old version was cut correctly
       stopAreaDetailsPage.versioningRow

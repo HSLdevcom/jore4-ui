@@ -149,6 +149,8 @@
   "stopAreaDetails": {
     "title": "Stop area",
     "englishNames": "English",
+    "notValidOnObservationDate": "Stop area is not valid on chosen date.",
+    "errorWhileGettingStopAreaDetails": "Error while getting stop area details.",
     "basicDetails": {
       "title": "JORE stop area",
       "name": "Stop area name",
@@ -553,6 +555,8 @@
     "title": "Basic details",
     "editSuccess": "Terminal edited",
     "noStops": "No stops.",
+    "notValidOnObservationDate": "Terminal is not valid on chosen date.",
+    "errorWhileGettingTerminalDetails": "Error while getting terminal details.",
     "tabs": {
       "basic": "Terminal",
       "stops": "Stops",
