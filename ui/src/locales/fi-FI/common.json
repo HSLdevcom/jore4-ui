@@ -138,6 +138,7 @@
     "privateCode": "Pysäkkialueen tunnus",
     "quays": "Jäsenpysäkit",
     "editSuccess": "Pysäkkialue muokattu",
+    "saveSuccess": "Pysäkkialue luotu",
     "errors": {
       "expandToSeeErrors": "Avaa Kieliversiot ja lyhenteet nähdäksesi virheet"
     },

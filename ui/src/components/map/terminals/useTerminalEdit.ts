@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useAppAction, useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
@@ -7,11 +8,13 @@ import {
   setMapTerminalViewStateAction,
   setSelectedTerminalIdAction,
 } from '../../../redux';
+import { showSuccessToast } from '../../../utils';
 import { useLoader } from '../../common/hooks/useLoader';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { useUpdateTerminalMapDetails } from '../utils/useUpdateTerminalMapDetails';
 
 export const useTerminalEdit = () => {
+  const { t } = useTranslation();
   const { setIsLoading } = useLoader(Operation.ModifyTerminal);
 
   const { updateTerminalMapDetails, defaultErrorHandler } =
@@ -36,6 +39,7 @@ export const useTerminalEdit = () => {
         selectedStops: state.selectedStops,
       });
 
+      showSuccessToast(t('terminalDetails.editSuccess'));
       setEditedTerminalData(updatedTerminal ?? undefined);
       setSelectedTerminalId(updatedTerminal?.id ?? undefined);
       setMapTerminalViewState(MapEntityEditorViewState.POPUP);

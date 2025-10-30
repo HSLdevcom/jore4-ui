@@ -127,6 +127,7 @@ describe('Stop areas on map', () => {
 
     mapPage.stopAreaForm.save();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
+    toast.expectSuccessToast('Pysäkkialue luotu');
     mapPage.stopAreaForm.getForm().should('not.exist');
 
     mapPage.map.waitForLoadToComplete();
@@ -224,6 +225,7 @@ describe('Stop areas on map', () => {
 
     confirmationDialog.getConfirmButton().click();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
+    toast.expectSuccessToast('Pysäkkialue muokattu');
     mapPage.stopAreaForm.getForm().should('not.exist');
 
     // Check that edited info was persisted.
@@ -251,6 +253,7 @@ describe('Stop areas on map', () => {
     confirmationDialog.getConfirmButton().click();
     mapPage.map.waitForLoadToComplete();
     expectGraphQLCallToSucceed('@gqlUpsertStopArea');
+    toast.expectSuccessToast('Pysäkkialue muokattu');
     mapPage.stopAreaPopup.getLabel().shouldBeVisible();
     mapPage.stopAreaPopup.getCloseButton().click();
     mapPage.stopAreaPopup.getLabel().should('not.exist');
@@ -299,6 +302,8 @@ describe('Stop areas on map', () => {
     mapPage.stopAreaPopup.getDeleteButton().click();
     confirmationDialog.getConfirmButton().click();
     mapPage.map.waitForLoadToComplete();
+    expectGraphQLCallToSucceed('@gqlDeleteStopArea');
+    toast.expectSuccessToast('Pysäkkialue poistettu');
     mapPage.stopAreaPopup.getLabel().should('not.exist');
 
     // There should be nothing at the old position.

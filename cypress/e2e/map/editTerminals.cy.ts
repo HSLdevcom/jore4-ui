@@ -10,13 +10,14 @@ import {
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
-import { ConfirmationDialog, MapPage } from '../../pageObjects';
+import { ConfirmationDialog, MapPage, Toast } from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 
 const mapPage = new MapPage();
 const confirmationDialog = new ConfirmationDialog();
+const toast = new Toast();
 
 describe('Terminals on map', () => {
   let dbResources: SupportedResources;
@@ -110,6 +111,7 @@ describe('Terminals on map', () => {
       confirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlUpdateTerminal');
       terminalForm.getForm().should('not.exist');
+      toast.expectSuccessToast('Terminaali muokattu');
 
       // Check that edited info was persisted.
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 New Name');
@@ -149,6 +151,7 @@ describe('Terminals on map', () => {
       confirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlUpdateTerminal');
       terminalForm.getForm().should('not.exist');
+      toast.expectSuccessToast('Terminaali muokattu');
 
       expectGraphQLCallToSucceed('@gqlGetStopTerminalsByLocation');
       terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 E2ET001');
@@ -179,6 +182,7 @@ describe('Terminals on map', () => {
 
       confirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlUpdateTerminal');
+      toast.expectSuccessToast('Terminaali muokattu');
 
       terminalPopup.getLabel().shouldBeVisible();
       terminalPopup.getEditButton().click();
@@ -214,6 +218,7 @@ describe('Terminals on map', () => {
 
       confirmationDialog.getConfirmButton().click();
       expectGraphQLCallToSucceed('@gqlDeleteTerminal');
+      toast.expectSuccessToast('Terminaali poistettu');
 
       // Make sure that the terminal is not visible on the map
       mapPage.map.getTerminalById('T3').should('not.exist');

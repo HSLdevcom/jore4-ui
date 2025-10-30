@@ -116,6 +116,12 @@ export const EditStopAreaLayer = forwardRef<
       setEditedStopAreaData(updatedStopArea);
       setSelectedMapStopAreaId(updatedStopArea?.id ?? undefined);
       setMapStopAreaViewState(MapEntityEditorViewState.POPUP);
+
+      if (editedArea.id) {
+        showSuccessToast(t('stopArea.editSuccess'));
+      } else {
+        showSuccessToast(t('stopArea.saveSuccess'));
+      }
     } catch (err) {
       defaultErrorHandler(err as Error, state);
     }

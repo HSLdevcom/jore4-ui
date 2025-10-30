@@ -138,6 +138,7 @@
     "privateCode": "Stop area label",
     "quays": "Member stops",
     "editSuccess": "Stop area edited",
+    "saveSuccess": "Stop area created",
     "errors": {
       "expandToSeeErrors": "Expand Language versions and abbreviations to see errors"
     },
