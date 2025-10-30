@@ -153,11 +153,34 @@ export function useGetStopPlaceDetailsById(id: string | null | undefined) {
 
 function useGetStopPlaceDetailsWhereConditions(): StopsDatabaseStopPlaceNewestVersionBoolExp {
   const { id = '' } = useRequiredParams<{ id: string }>();
+
+  if (id.startsWith('HSL')) {
+    return { netex_id: { _eq: id } };
+  }
+
+  return {
+    private_code_value: { _eq: id },
+  };
+}
+
+function useGetStopPlaceDetailsWhereConditionsWithDate(): StopsDatabaseStopPlaceNewestVersionBoolExp {
+  const { id = '' } = useRequiredParams<{ id: string }>();
   const { observationDate } = useObservationDateQueryParam();
   const observationDateStr = observationDate.toISODate();
 
   if (id.startsWith('HSL')) {
-    return { netex_id: { _eq: id } };
+    return {
+      _and: [
+        { netex_id: { _eq: id } },
+        { validity_start: { _lte: observationDateStr } },
+        {
+          _or: [
+            { validity_end: { _gte: observationDateStr } },
+            { validity_end: { _is_null: true } },
+          ],
+        },
+      ],
+    };
   }
 
   return {
@@ -175,5 +198,24 @@ function useGetStopPlaceDetailsWhereConditions(): StopsDatabaseStopPlaceNewestVe
 }
 
 export function useGetStopPlaceDetails() {
-  return useGetStopPlaceDetailsByWhere(useGetStopPlaceDetailsWhereConditions());
+  const validResult = useGetStopPlaceDetailsByWhere(
+    useGetStopPlaceDetailsWhereConditionsWithDate(),
+  );
+
+  const fallbackResult = useGetStopPlaceDetailsByWhere(
+    useGetStopPlaceDetailsWhereConditions(),
+  );
+
+  const hasValidData = !!validResult.stopPlaceDetails;
+  const hasFallbackData = !!fallbackResult.stopPlaceDetails;
+
+  if (hasValidData) {
+    return { ...validResult, isValidOnObservationDate: true };
+  }
+
+  if (hasFallbackData) {
+    return { ...fallbackResult, isValidOnObservationDate: false };
+  }
+
+  return { ...validResult, isValidOnObservationDate: false };
 }

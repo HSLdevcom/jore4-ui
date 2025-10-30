@@ -1,11 +1,9 @@
 import { gql } from '@apollo/client';
-import { DateTime } from 'luxon';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import {
-  GetParentStopPlaceDetailsQuery,
   ParentStopPlaceDetailsFragment,
   StopRegistryParentStopPlace,
-  useGetParentStopPlaceDetailsLazyQuery,
+  StopsDatabaseStopPlaceNewestVersionBoolExp,
   useGetParentStopPlaceDetailsQuery,
 } from '../../../../generated/graphql';
 import {
@@ -19,18 +17,11 @@ import {
 } from '../../../../utils';
 
 const GQL_GET_PARENT_STOP_PLACE_DETAILS = gql`
-  query getParentStopPlaceDetails($privateCode: String!, $validOn: String!) {
-    stops_database {
-      stops_database_stop_place_newest_version(
-        where: {
-          private_code_value: { _eq: $privateCode }
-          validity_start: { _lte: $validOn }
-          _or: [
-            { validity_end: { _is_null: true } }
-            { validity_end: { _gte: $validOn } }
-          ]
-        }
-      ) {
+  query getParentStopPlaceDetails(
+    $where: stops_database_stop_place_newest_version_bool_exp
+  ) {
+    stopsDb: stops_database {
+      newestVersion: stops_database_stop_place_newest_version(where: $where) {
         id
         TiamatStopPlace {
           ...parent_stop_place_details
@@ -191,51 +182,71 @@ export function getEnrichedParentStopPlace(
   } as EnrichedParentStopPlace;
 }
 
-function getEnrichedParentStopPlaceDetailsFromQueryResult(
-  data: GetParentStopPlaceDetailsQuery | undefined,
-): EnrichedParentStopPlace | null {
-  const tiamatStopPlaces =
-    data?.stops_database?.stops_database_stop_place_newest_version?.flatMap(
-      (item) => item.TiamatStopPlace,
-    ) as ReadonlyArray<ParentStopPlaceDetailsFragment | null> | undefined;
+function useGetParentStopPlaceDetailsByWhere(
+  where: StopsDatabaseStopPlaceNewestVersionBoolExp | null,
+) {
+  const { data, ...rest } = useGetParentStopPlaceDetailsQuery(
+    where ? { variables: { where } } : { skip: true },
+  );
 
-  const parentStopPlaces =
+  const rawParentStopPlace =
     getParentStopPlacesFromQueryResult<ParentStopPlaceDetailsFragment>(
-      tiamatStopPlaces,
-    );
-
-  return getEnrichedParentStopPlace(parentStopPlaces.at(0));
-}
-
-export function useGetParentStopPlaceDetails() {
-  const { privateCode } = useRequiredParams<{ privateCode: string }>();
-  const { observationDate } = useObservationDateQueryParam();
-  const validOn = observationDate.toISODate() ?? DateTime.now().toISODate();
-
-  const { data, ...rest } = useGetParentStopPlaceDetailsQuery({
-    variables: { privateCode, validOn },
-  });
-
+      data?.stopsDb?.newestVersion.at(0)?.TiamatStopPlace,
+    ).at(0);
   const parentStopPlaceDetails = useMemo(
-    () => getEnrichedParentStopPlaceDetailsFromQueryResult(data),
-    [data],
+    () => getEnrichedParentStopPlace(rawParentStopPlace),
+    [rawParentStopPlace],
   );
 
   return { ...rest, parentStopPlaceDetails };
 }
 
-export function useGetParentStopPlaceDetailsLazy() {
-  const { observationDate } = useObservationDateQueryParam();
-  const [getParentStopPlaceDetails] = useGetParentStopPlaceDetailsLazyQuery();
+function useGetParentStopPlaceDetailsWhereConditions(): StopsDatabaseStopPlaceNewestVersionBoolExp {
+  const { privateCode = '' } = useRequiredParams<{ privateCode: string }>();
 
-  return useCallback(
-    async (privateCode: string) => {
-      const validOn = observationDate.toISODate() ?? DateTime.now().toISODate();
-      const { data } = await getParentStopPlaceDetails({
-        variables: { privateCode, validOn },
-      });
-      return getEnrichedParentStopPlaceDetailsFromQueryResult(data);
-    },
-    [getParentStopPlaceDetails, observationDate],
+  return {
+    private_code_value: { _eq: privateCode },
+  };
+}
+
+function useGetParentStopPlaceDetailsWhereConditionsWithDate(): StopsDatabaseStopPlaceNewestVersionBoolExp {
+  const { privateCode = '' } = useRequiredParams<{ privateCode: string }>();
+  const { observationDate } = useObservationDateQueryParam();
+  const observationDateStr = observationDate.toISODate();
+
+  return {
+    _and: [
+      { private_code_value: { _eq: privateCode } },
+      { validity_start: { _lte: observationDateStr } },
+      {
+        _or: [
+          { validity_end: { _gte: observationDateStr } },
+          { validity_end: { _is_null: true } },
+        ],
+      },
+    ],
+  };
+}
+
+export function useGetParentStopPlaceDetails() {
+  const validResult = useGetParentStopPlaceDetailsByWhere(
+    useGetParentStopPlaceDetailsWhereConditionsWithDate(),
   );
+
+  const fallbackResult = useGetParentStopPlaceDetailsByWhere(
+    useGetParentStopPlaceDetailsWhereConditions(),
+  );
+
+  const hasValidData = !!validResult.parentStopPlaceDetails;
+  const hasFallbackData = !!fallbackResult.parentStopPlaceDetails;
+
+  if (hasValidData) {
+    return { ...validResult, isValidOnObservationDate: true };
+  }
+
+  if (hasFallbackData) {
+    return { ...fallbackResult, isValidOnObservationDate: false };
+  }
+
+  return { ...validResult, isValidOnObservationDate: false };
 }
