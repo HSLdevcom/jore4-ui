@@ -20,6 +20,8 @@ import {
   EnrichedQuayWithTimingPlace,
   EnrichedStopDetails,
   InitTiamatStopDataFetcherFn,
+  OnProgress,
+  OnQuaysProcessedProgress,
   QuayAndStopPlaceIds,
 } from './types';
 
@@ -103,10 +105,13 @@ function useTiamatStopDataFetcher(
   concurrentFetches: number = 20,
   waitForAllToLoad: boolean = true,
 ): InitTiamatStopDataFetcherFn {
-  const [getStopPlaceAndRelatedQuays] =
-    useGetStopPlaceAndRelatedQuaysLazyQuery();
+  const [getStopPlaceAndRelatedQuays] = useGetStopPlaceAndRelatedQuaysLazyQuery(
+    { fetchPolicy: 'network-only' },
+  );
 
-  return (allIds) => {
+  return (allIds, onProgress) => {
+    let quaysLoaded = 0;
+
     // List of StopPlaces we need to fetch
     const uniqueStopPlaces = uniq(allIds.map((pair) => pair.stopPlaceNetexId));
 
@@ -159,7 +164,6 @@ function useTiamatStopDataFetcher(
       // Query Tiamat for data
       const result = await getStopPlaceAndRelatedQuays({
         variables: { stopPlaceNetextId },
-        fetchPolicy: 'network-only',
       });
 
       // Process and register the StopPlace details
@@ -197,9 +201,11 @@ function useTiamatStopDataFetcher(
         ),
       );
 
-      const allQuaysFound = expectedQuayIdsByStopPlaceId[
-        stopPlaceNetextId
-      ]?.every((id) => quays.some((quay) => quay.id === id));
+      const expectedQuays =
+        expectedQuayIdsByStopPlaceId[stopPlaceNetextId] ?? [];
+      const allQuaysFound = expectedQuays.every((id) =>
+        quays.some((quay) => quay.id === id),
+      );
 
       if (!allQuaysFound) {
         const reason = new Error('Some quays were not found!');
@@ -209,6 +215,8 @@ function useTiamatStopDataFetcher(
       quays.forEach((enrichedQuay) =>
         promisedQuays.get(enrichedQuay.id ?? '')?.resolve(enrichedQuay),
       );
+      quaysLoaded += expectedQuays.length;
+      onProgress(quaysLoaded);
     };
 
     // Helper iterators for StopPlace fetches.
@@ -278,11 +286,17 @@ function usePrepareDataForExport() {
   const resolveQuayAndStopPlaceIds = useResolveQuayAndStopPlaceIds();
   const tiamatStopDataFetcher = useTiamatStopDataFetcher(10);
 
-  return async (filters: StopSearchFilters, selection: ResultSelection) => {
+  return async (
+    filters: StopSearchFilters,
+    selection: ResultSelection,
+    onAllStopsResolved: (count: number) => void,
+    onQuaysLoadedProgress: OnQuaysProcessedProgress,
+  ) => {
     const ids = await resolveQuayAndStopPlaceIds({ filters, selection });
+    onAllStopsResolved(ids.length);
 
     // Begins asynchronously fetching data on the background
-    const dataFetcher = tiamatStopDataFetcher(ids);
+    const dataFetcher = tiamatStopDataFetcher(ids, onQuaysLoadedProgress);
 
     await dataFetcher.allLoaded;
 
@@ -299,10 +313,53 @@ export function useGenerateEquipmentReport() {
     filters: StopSearchFilters,
     selection: ResultSelection,
     filename: string,
+    onProgress: OnProgress,
   ) => {
-    const data = await prepareDataForExport(filters, selection);
+    let stopCount: number | null = null;
+    let loaded: number = 0;
+    let written: number = 0;
+
+    const onUpdateProgress = () => {
+      if (stopCount === null) {
+        return onProgress({ indeterminate: true });
+      }
+
+      if (loaded === stopCount && written === stopCount) {
+        return onProgress({ indeterminate: false, progress: 1 });
+      }
+
+      if (loaded < stopCount) {
+        return onProgress({
+          indeterminate: false,
+          progress: (loaded / stopCount) * 0.7,
+        });
+      }
+
+      return onProgress({
+        indeterminate: false,
+        progress: 0.7 + (written / stopCount) * 0.3,
+      });
+    };
+
+    const data = await prepareDataForExport(
+      filters,
+      selection,
+      (resolvedCount) => {
+        stopCount = resolvedCount;
+        onUpdateProgress();
+      },
+      (loadedCountUpdate) => {
+        loaded = loadedCountUpdate;
+        onUpdateProgress();
+      },
+    );
     using report = new EquipmentReport(t, data);
 
-    return report.generate().then((download) => download(filename));
+    return report
+      .generate((writtenCountUpdate) => {
+        written = writtenCountUpdate;
+        onUpdateProgress();
+      })
+      .then((download) => download(filename));
   };
 }

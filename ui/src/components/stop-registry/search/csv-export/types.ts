@@ -34,6 +34,15 @@ export interface TiamatStopDataFetcher {
   ): Promise<EnrichedStopDetails>;
 }
 
+export type OnQuaysProcessedProgress = (quaysProcessed: number) => void;
+
 export type InitTiamatStopDataFetcherFn = (
   allIds: ReadonlyArray<QuayAndStopPlaceIds>,
+  onProgress: OnQuaysProcessedProgress,
 ) => TiamatStopDataFetcher;
+
+export type OnProgress = (
+  progress:
+    | { readonly indeterminate: true; readonly progress?: never }
+    | { readonly indeterminate: false; readonly progress: number },
+) => void;

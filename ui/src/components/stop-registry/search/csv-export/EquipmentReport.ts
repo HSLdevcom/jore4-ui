@@ -6,7 +6,11 @@ import {
   mapStopRegistryTransportModeTypeToUiName,
 } from '../../../../i18n/uiNameMappings';
 import { CSVWriter } from '../../../common/ReportWriter/CSVWriter';
-import { EnrichedStopDetails, TriggerDownloadFn } from './types';
+import {
+  EnrichedStopDetails,
+  OnQuaysProcessedProgress,
+  TriggerDownloadFn,
+} from './types';
 
 interface ReportFragment {
   fieldCount: number;
@@ -131,7 +135,9 @@ export class EquipmentReport {
     this.writer.closeRecord();
   }
 
-  async generate(): Promise<TriggerDownloadFn> {
+  async generate(
+    onProgress: OnQuaysProcessedProgress,
+  ): Promise<TriggerDownloadFn> {
     const batchSize = 100;
 
     if (this.writer.isClosed()) {
@@ -146,21 +152,20 @@ export class EquipmentReport {
       const writeBatchedRows = (offset: number) => {
         try {
           if (offset < this.data.length - 1) {
-            console.log(
-              `Writing rows: ${offset}-${Math.min(offset + batchSize, this.data.length)}`,
-            );
-            for (let i = offset; i < this.data.length - 1; i += 1) {
-              const record = this.data[i];
+            const writeCount = Math.min(batchSize, this.data.length - offset);
+
+            for (let i = 0; i < writeCount; i += 1) {
+              const record = this.data[offset + i];
               EquipmentReport.sections.forEach((section) =>
                 section.writeRecordFields(this.writer, record),
               );
               this.writer.closePartialRecord();
             }
 
+            onProgress(offset + writeCount);
+
             setTimeout(() => writeBatchedRows(offset + batchSize));
           } else {
-            console.log(`All rows written, closing report!`);
-
             this.writer.closeReport();
             resolve();
           }
