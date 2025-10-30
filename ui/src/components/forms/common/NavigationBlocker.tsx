@@ -27,6 +27,7 @@ const testIds = {
 
 // Context named after the file, that declares a blocker.
 const knownNavigationContexts = [
+  'BlockForAll',
   'ChangeTimetablesValidityForm',
   'CommonSubstitutePeriodForm',
   'ConfirmPreviewedTimetablesImportForm',
@@ -41,7 +42,6 @@ const knownNavigationContexts = [
   'LocationDetailsEdit',
   'LocationDetailsForm',
   'MaintenanceDetailsForm',
-  'MapPage',
   'MeasurementsForm',
   'NavigationBlocker',
   'OccasionalSubstitutePeriodForm',
@@ -65,6 +65,9 @@ const knownNavigationContexts = [
 ] as const;
 
 export type NavigationContext = (typeof knownNavigationContexts)[number];
+
+// To be used in places like closing map page, blocks all possible dirty form contexts
+const blockForAllFormsContext: NavigationContext = 'BlockForAll';
 
 type IsNavigationAllowedFn = (
   args:
@@ -150,10 +153,12 @@ export function useDirtyFormBlockNavigation(
 
       // If processing a "close button click" that is trying to close a
       // modal, the form with the same context should be able to block it.
+      // If args.context is blockAllFormsContext, skip context comparison block.
       if (
         context &&
         'context' in args &&
         args.context &&
+        args.context !== blockForAllFormsContext &&
         args.context !== context
       ) {
         return false;

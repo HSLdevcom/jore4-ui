@@ -20,7 +20,9 @@ const testIds = { mapPage: 'mapPage' };
 export const MapPage: FC = () => {
   const mapRef = useRef<RouteEditorRef>(null);
   const navigateBackSafely = useNavigateBackSafely();
-  const wrapInContextNavigation = useWrapInContextNavigation('MapPage');
+
+  // For the map page we want to block navigation away for all dirty forms that may be open
+  const wrapInContextNavigation = useWrapInContextNavigation('BlockForAll');
 
   const [, setMapViewState] = useMapViewState();
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
