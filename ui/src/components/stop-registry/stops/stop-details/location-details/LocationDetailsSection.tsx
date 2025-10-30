@@ -21,9 +21,9 @@ const mapLocationDetailsToFormState = (
     streetAddress: stop.quay?.streetAddress,
     postalCode: stop.quay?.postalCode,
     // Note: the location exists in stop_place as well, but stops db (measured_location) is the master data for it.
-    latitude: stop.measured_location.coordinates[1],
-    longitude: stop.measured_location.coordinates[0],
-    altitude: stop.measured_location.coordinates[2],
+    latitude: stop.location.latitude,
+    longitude: stop.location.longitude,
+    altitude: stop.location.elevation,
     functionalArea: stop.quay?.functionalArea ?? undefined,
     platformNumber:
       stop.quay?.placeEquipments?.generalSign?.[0]?.content?.value ?? undefined,

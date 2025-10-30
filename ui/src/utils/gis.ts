@@ -41,7 +41,7 @@ export const mapPointToStopRegistryGeoJSON = ({
 
 export const mapLngLatToPoint = (
   lngLat: ReadonlyArray<number>,
-  maxPrecision?: number,
+  maxPrecision: number = 10,
 ): Point => {
   if (lngLat.length < 2 || lngLat.length > 3) {
     throw new Error(

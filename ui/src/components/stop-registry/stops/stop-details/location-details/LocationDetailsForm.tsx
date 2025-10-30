@@ -120,7 +120,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
           <Row className="flex-wrap gap-4">
             <InputField<LocationDetailsFormState>
               type="number"
-              inputClassName="w-32"
+              inputClassName="w-36"
               translationPrefix="stopDetails.location"
               disabled
               size={3}
@@ -129,7 +129,7 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
             />
             <InputField<LocationDetailsFormState>
               type="number"
-              inputClassName="w-32"
+              inputClassName="w-36"
               translationPrefix="stopDetails.location"
               disabled
               fieldPath="longitude"

@@ -109,7 +109,7 @@ const stopPlaceData: Array<StopAreaInput> = [
         { key: 'validityEnd', values: ['2050-01-01'] },
       ],
       geometry: {
-        coordinates: [24.932914978884, 60.165538996581],
+        coordinates: [24.93291498, 60.16553899],
         type: StopRegistryGeoJsonType.Point,
       },
       quays: [
@@ -340,7 +340,7 @@ const stopPlaceData: Array<StopAreaInput> = [
       name: { lang: 'fin', value: 'No quays' },
       quays: [],
       geometry: {
-        coordinates: [60.16993494912799, 24.92596546020357],
+        coordinates: [60.16993495, 24.92596546],
         type: StopRegistryGeoJsonType.Point,
       },
     },
@@ -390,7 +390,7 @@ const terminalData: Array<TerminalInput> = [
         },
       ],
       geometry: {
-        coordinates: [24.92596546020357, 60.16993494912799],
+        coordinates: [24.92596546, 60.16993495],
         type: StopRegistryGeoJsonType.Point,
       },
       keyValues: [

@@ -94,8 +94,8 @@ describe('Stop editing tests', () => {
     () => {
       // Coordinates for the point where the stop is moved in the test.
       const endCoordinates = {
-        lng: 24.938922599577666,
-        lat: 60.165579047646474,
+        lng: 24.9389226,
+        lat: 60.16557905,
       };
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
@@ -165,8 +165,8 @@ describe('Stop editing tests', () => {
     { tags: Tag.Stops, scrollBehavior: 'bottom' },
     () => {
       const testCoordinates2 = {
-        lng: 24.938922599577666,
-        lat: 60.165579047646474,
+        lng: 24.9389226,
+        lat: 60.16557905,
       };
 
       const updatedStopInfo: BaseStopFormInfo = {

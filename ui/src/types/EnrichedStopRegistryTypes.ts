@@ -6,6 +6,7 @@ import {
   StopPlaceDetailsFragment,
   StopRegistryAccessibilityLevel,
 } from '../generated/graphql';
+import { Point } from './GeoHelpers';
 import { StopPlaceState } from './stop-registry';
 
 export type ParentStopPlaceOwner = {
@@ -75,6 +76,7 @@ export type EnrichedParentStopPlace = Omit<ParentStopPlace, 'name'> &
   ParentStopPlaceEnrichmentProperties;
 /** Gets the stop details, including the stop place, depending on query parameters. */
 export type StopWithDetails = ScheduledStopPointDetailFieldsFragment & {
-  stop_place: EnrichedStopPlace | null;
-  quay: EnrichedQuay | null;
+  readonly stop_place: EnrichedStopPlace | null;
+  readonly quay: EnrichedQuay | null;
+  readonly location: Point;
 };

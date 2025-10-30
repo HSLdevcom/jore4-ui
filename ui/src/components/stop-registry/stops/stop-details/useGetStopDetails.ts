@@ -29,6 +29,7 @@ import {
 import { Priority } from '../../../../types/enums';
 import {
   findKeyValue,
+  getGeometryPoint,
   getQuayDetailsForEnrichment,
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
@@ -426,6 +427,7 @@ const getStopDetails = (
 
   return {
     ...stopPoint,
+    location: getGeometryPoint(stopPoint.measured_location),
     stop_place: getEnrichedStopPlace(stopPlace),
     quay: getEnrichedQuay(
       selectedQuayWithSortedInfoSpots,

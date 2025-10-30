@@ -54,15 +54,15 @@ import { InsertedStopRegistryIds } from '../utils';
 const testInfraLinks = [
   {
     externalId: '445156',
-    coordinates: [24.926699622176628, 60.164181083308065, 10.0969999999943],
+    coordinates: [24.92669962, 60.16418108, 10.09699999],
   },
   {
     externalId: '442424',
-    coordinates: [24.92904198486008, 60.16490775039894, 0],
+    coordinates: [24.92904198, 60.16490775, 0],
   },
   {
     externalId: '442325',
-    coordinates: [24.932072417514647, 60.166003223527824, 0],
+    coordinates: [24.93207242, 60.16600322, 0],
   },
 ];
 
@@ -151,7 +151,7 @@ const terminalH2003: TerminalInput = {
     name: { lang: 'fin', value: 'E2ETH2003' },
     description: { lang: 'fin', value: 'E2E testiterminaali H2003' },
     geometry: {
-      coordinates: [24.92596546020357, 60.16993494912799],
+      coordinates: [24.92596546, 60.16993495],
       type: StopRegistryGeoJsonType.Point,
     },
     keyValues: [
@@ -291,8 +291,8 @@ describe('Stop details', () => {
     locationView.getPostalCode().shouldHaveText('00100');
     locationView.getMunicipality().shouldHaveText('Helsinki');
     locationView.getFareZone().shouldHaveText('A');
-    locationView.getLatitude().shouldHaveText('60.166003223527824');
-    locationView.getLongitude().shouldHaveText('24.932072417514647');
+    locationView.getLatitude().shouldHaveText('60.16600322');
+    locationView.getLongitude().shouldHaveText('24.93207242');
     locationView.getAltitude().shouldHaveText('0');
     locationView.getFunctionalArea().shouldHaveText('20 m');
     locationView.getPlatformNumber().shouldHaveText('A2');
@@ -457,8 +457,8 @@ describe('Stop details', () => {
     const infoSpotView = stopDetailsPage.infoSpots.viewCard;
     infoSpotView.getNthSectionContainer(0).within(() => {
       verifyInfoSpotJP1234568({
-        lat: '60.16490775039894',
-        lon: '24.92904198486008',
+        lat: '60.16490775',
+        lon: '24.92904198',
         stops: 'V1562',
       });
     });
@@ -469,8 +469,8 @@ describe('Stop details', () => {
         .shouldHaveText('Ensimmäinen kerros, portaiden takana');
       infoSpotView.getLabel().shouldHaveText('JP1234567');
       infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö');
-      infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-      infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+      infoSpotView.getLatitude().shouldHaveText('60.16490775');
+      infoSpotView.getLongitude().shouldHaveText('24.92904198');
       infoSpotView.getBacklight().shouldHaveText('-');
       infoSpotView.getSize().shouldHaveText('-');
       infoSpotView.getFloor().shouldHaveText('1');
@@ -485,8 +485,8 @@ describe('Stop details', () => {
       infoSpotView.getDescription().shouldHaveText('Tolpassa');
       infoSpotView.getLabel().shouldHaveText('JP1234569');
       infoSpotView.getPurpose().shouldHaveText('Infopaikan käyttötarkoitus');
-      infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-      infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+      infoSpotView.getLatitude().shouldHaveText('60.16490775');
+      infoSpotView.getLongitude().shouldHaveText('24.92904198');
       infoSpotView.getBacklight().shouldHaveText('-');
       infoSpotView.getSize().shouldHaveText('-');
       infoSpotView.getFloor().shouldHaveText('1');
@@ -796,11 +796,11 @@ describe('Stop details', () => {
       locationForm
         .getLatitudeInput()
         .should('be.disabled')
-        .should('have.value', 60.166003223527824);
+        .should('have.value', 60.16600322);
       locationForm
         .getLongitudeInput()
         .should('be.disabled')
-        .should('have.value', 24.932072417514647);
+        .should('have.value', 24.93207242);
       locationForm
         .getAltitudeInput()
         .should('be.disabled')
@@ -840,8 +840,8 @@ describe('Stop details', () => {
       locationView.getPostalCode().shouldHaveText('33720');
       locationView.getMunicipality().shouldHaveText('Helsinki');
       locationView.getFareZone().shouldHaveText('A');
-      locationView.getLatitude().shouldHaveText('60.166003223527824');
-      locationView.getLongitude().shouldHaveText('24.932072417514647');
+      locationView.getLatitude().shouldHaveText('60.16600322');
+      locationView.getLongitude().shouldHaveText('24.93207242');
       locationView.getFunctionalArea().shouldHaveText('7 m');
       locationView.getPlatformNumber().shouldHaveText('2');
       locationView.getSignContentType().shouldHaveText('Ei opastetta');
@@ -2071,8 +2071,8 @@ describe('Stop details', () => {
           infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö uusi');
           infoSpotView.getBacklight().shouldHaveText('-');
           infoSpotView.getSize().shouldHaveText('-');
-          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198');
           infoSpotView.getFloor().shouldHaveText('2');
           infoSpotView.getRailInformation().shouldHaveText('9');
           infoSpotView.getStops().shouldHaveText('V1562');
@@ -2196,8 +2196,8 @@ describe('Stop details', () => {
           infoSpotView.getDescription().shouldHaveText('Dynaamisen kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP123');
           infoSpotView.getPurpose().shouldHaveText('Dynaaminen tarkoitus');
-          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198');
           infoSpotView.getFloor().shouldHaveText('3');
           infoSpotView.getRailInformation().shouldHaveText('1');
           infoSpotView.getStops().shouldHaveText('V1562');
@@ -2222,8 +2222,8 @@ describe('Stop details', () => {
             infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
           });
           infoSpotView.getPurpose().shouldHaveText('Staattisen tarkoitus');
-          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198');
           infoSpotView.getFloor().shouldHaveText('2');
           infoSpotView.getRailInformation().shouldHaveText('7');
           infoSpotView.getStops().shouldHaveText('V1562');
@@ -2297,8 +2297,8 @@ describe('Stop details', () => {
             infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
           });
           infoSpotView.getPurpose().shouldHaveText('Staattisen tarkoitus');
-          infoSpotView.getLatitude().shouldHaveText('60.16490775039894');
-          infoSpotView.getLongitude().shouldHaveText('24.92904198486008');
+          infoSpotView.getLatitude().shouldHaveText('60.16490775');
+          infoSpotView.getLongitude().shouldHaveText('24.92904198');
           infoSpotView.getFloor().shouldHaveText('2');
           infoSpotView.getRailInformation().shouldHaveText('7');
           infoSpotView.getStops().shouldHaveText('V1562');
@@ -2563,8 +2563,8 @@ describe('Stop details', () => {
         .getNthSectionContainer(0)
         .within(() => {
           verifyInfoSpotJP1234568({
-            lat: '60.166003223527824',
-            lon: '24.932072417514647',
+            lat: '60.16600322',
+            lon: '24.93207242',
             stops: 'H2003',
           });
         });

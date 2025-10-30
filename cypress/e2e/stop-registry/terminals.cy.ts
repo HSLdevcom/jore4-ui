@@ -84,7 +84,7 @@ describe('Terminal details', () => {
       name: { lang: 'fin', value: 'E2ET002' },
       description: { lang: 'fin', value: 'E2E testiterminaali #2' },
       geometry: {
-        coordinates: [24.927445210156606, 60.169740177140625],
+        coordinates: [24.92744521, 60.16974018],
         type: StopRegistryGeoJsonType.Point,
       },
     },
@@ -203,8 +203,8 @@ describe('Terminal details', () => {
     locationView.getPostalCode().shouldHaveText('00100');
     locationView.getMunicipality().shouldHaveText('Helsinki');
     locationView.getFareZone().shouldHaveText('A');
-    locationView.getLatitude().shouldHaveText('60.16993494912799');
-    locationView.getLongitude().shouldHaveText('24.92596546020357');
+    locationView.getLatitude().shouldHaveText('60.16993495');
+    locationView.getLongitude().shouldHaveText('24.92596546');
     locationView.getMemberStops().shouldHaveText('E2E008, E2E010');
     locationView.getMemberPlatforms().shouldHaveText('A3');
   };
@@ -1011,10 +1011,10 @@ describe('Terminal details', () => {
         // Confirm that default location is set correctly
         infoSpotSection.form.formFields
           .getLatitude()
-          .should('have.value', '60.16993494912799');
+          .should('have.value', '60.16993495');
         infoSpotSection.form.formFields
           .getLongitude()
-          .should('have.value', '24.92596546020357');
+          .should('have.value', '24.92596546');
 
         // Set custom location
         infoSpotSection.form.formFields.getLatitude().clearAndType('60.170000');

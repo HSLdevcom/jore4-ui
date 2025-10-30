@@ -65,17 +65,17 @@ export const LocationDetailsViewCard: FC<LocationDetailsViewCardProps> = ({
       <DetailRow>
         <LabeledDetail
           title={t('stopDetails.location.latitude')}
-          detail={stop.measured_location.coordinates[1]}
+          detail={stop.location.latitude}
           testId={testIds.latitude}
         />
         <LabeledDetail
           title={t('stopDetails.location.longitude')}
-          detail={stop.measured_location.coordinates[0]}
+          detail={stop.location.longitude}
           testId={testIds.longitude}
         />
         <LabeledDetail
           title={t('stopDetails.location.altitude')}
-          detail={stop.measured_location.coordinates[2]}
+          detail={stop.location.elevation}
           testId={testIds.altitude}
         />
         <LabeledDetail

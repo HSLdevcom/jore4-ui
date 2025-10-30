@@ -9,7 +9,6 @@ import { StopWithDetails } from '../../../../../types';
 import { AddNewButton } from '../../../../../uiComponents/AddNewButton';
 import {
   NullOptionEnum,
-  mapLngLatToPoint,
   showSuccessToast,
   submitFormByRef,
 } from '../../../../../utils';
@@ -95,7 +94,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
   const { saveStopPlaceInfoSpots, defaultErrorHandler } =
     useEditStopInfoSpots();
 
-  const location = mapLngLatToPoint(stop.measured_location.coordinates);
+  const { location } = stop;
 
   const { infoSpotsFormDefaultValues, infoSpotLocations } =
     useInfoSpotFormDefaultValues(infoSpots, stop, shelter);
