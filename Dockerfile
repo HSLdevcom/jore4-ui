@@ -15,7 +15,7 @@ ARG NEXT_PUBLIC_GIT_HASH=unknown
 RUN yarn ws:db run build
 RUN yarn ws:ui run build
 
-FROM nginx:1.24.0-alpine
+FROM nginx:1.29.3-alpine
 EXPOSE 80
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/ui/out /usr/share/nginx/html
