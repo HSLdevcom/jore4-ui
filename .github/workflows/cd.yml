@@ -31,26 +31,16 @@ jobs:
     name: Set Variables
     runs-on: ubuntu-24.04
     outputs:
-      chrome_version: ${{ steps.chrome_version.outputs.CHROME_VERSION }}
+      CHROME_FOR_TESTING_VERSION: ${{ steps.chrome_for_testing_version.outputs.CHROME_FOR_TESTING_VERSION }}
     steps:
       - name: Get latest stable Chrome version
-        id: chrome_version
+        id: chrome_for_testing_version
         run: |
-          # The cypress/factory Docker image requires CHROME_VERSION to be set and the image downloads Chrome from deb
-          # repository provided by Chrome project:
-          # https://github.com/cypress-io/cypress-docker-images/blob/master/factory/installScripts/chrome/default.sh
-          # The default.sh is called from
-          # https://github.com/cypress-io/cypress-docker-images/blob/master/factory/installScripts/chrome/install-chrome-version.js
-          #
-          # A deb repository contains Packages file that lists all packages with current versions available in the package
-          # repository, i.e. the Packages file can be used to find out the current Chrome version
-          echo "CHROME_VERSION=$(
-            curl -s https://dl.google.com/linux/chrome/deb/dists/stable/main/binary-amd64/Packages \
-            | awk '
-                /^Package: google-chrome-stable/{stable_pkg=1}
-                stable_pkg && /^$/{stable_pkg=0}
-                stable_pkg && /^Version:/{print $2}
-              ' \
+          echo "CHROME_FOR_TESTING_VERSION=$(
+            curl \
+              -s \
+              https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions.json \
+              | jq -r .channels.Stable.version
           )" >> $GITHUB_OUTPUT
 
   publish_cypress_docker_image_to_acr:
@@ -66,7 +56,7 @@ jobs:
       build_arm64_image: ${{ github.ref_name == 'main' || startsWith(github.ref_name, 'releases/') }}
       file: Dockerfile.cypress
       build_args: |
-        CHROME_VERSION=${{ needs.set_variables.outputs.chrome_version }}
+        CHROME_FOR_TESTING_VERSION=${{ needs.set_variables.outputs.chrome_for_testing_version }}
     secrets:
       azure_client_id: ${{ secrets.AZURE_CLIENT_ID }}
       azure_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
