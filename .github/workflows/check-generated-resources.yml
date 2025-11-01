@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: recursive
 
@@ -19,9 +19,9 @@ jobs:
         with:
           custom_docker_compose: ./docker/docker-compose.custom.yml
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: '24.x'
+          node-version: '24.11.0'
           cache: 'yarn'
 
       - name: Install node_modules
