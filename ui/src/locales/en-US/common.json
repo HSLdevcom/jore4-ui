@@ -472,6 +472,16 @@
         "new": "Enter measurements",
         "width": "Width (mm)",
         "height": "Height (mm)"
+      },
+      "purposes": {
+        "selectPurpose": "Select purpose",
+        "null": "No purpose",
+        "poster": "Poster",
+        "map": "Map",
+        "instruction": "How to use public transport",
+        "neighborhoodMap": "Neighborhood map",
+        "announcement": "Announcement",
+        "other": "Other purpose"
       }
     },
     "actions": {

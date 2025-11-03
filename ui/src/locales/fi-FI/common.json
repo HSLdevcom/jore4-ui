@@ -472,6 +472,16 @@
         "new": "Syötä mitat",
         "width": "Leveys (mm)",
         "height": "Korkeus (mm)"
+      },
+      "purposes": {
+        "selectPurpose": "Valitse käyttötarkoitus",
+        "null": "Ei käyttötarkoitusta",
+        "poster": "Pysäkkijuliste",
+        "map": "Kartta",
+        "instruction": "Näin käytät joukkoliikennettä",
+        "neighborhoodMap": "Lähialuekartta",
+        "announcement": "Tiedotteet",
+        "other": "Muu käyttötarkoitus"
       }
     },
     "actions": {
