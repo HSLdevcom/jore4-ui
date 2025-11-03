@@ -63,7 +63,7 @@ jobs:
     uses: HSLdevcom/jore4-tools/.github/workflows/shared-build-and-publish-docker-image.yml@shared-build-and-publish-docker-image-v1
     with:
       docker_image_name: jore4-cypress
-      build_arm64_image: true
+      build_arm64_image: ${{ github.ref_name == 'main' || startsWith(github.ref_name, 'releases/') }}
       file: Dockerfile.cypress
       build_args: |
         CHROME_VERSION=${{ needs.set_variables.outputs.chrome_version }}
