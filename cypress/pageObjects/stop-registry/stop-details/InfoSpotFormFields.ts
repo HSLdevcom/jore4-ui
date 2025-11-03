@@ -9,7 +9,14 @@ export class InfoSpotFormFields {
   getInfoSpotTypeOptions = () =>
     cy.getByTestId('InfoSpotFormFields::infoSpotType::ListboxOptions');
 
-  getPurpose = () => cy.getByTestId('InfoSpotFormFields::purpose');
+  getPurposeButton = () =>
+    cy.getByTestId('InfoSpotFormFields::purpose::ListboxButton');
+
+  getPurposeOptions = () =>
+    cy.getByTestId('InfoSpotFormFields::purpose::ListboxOptions');
+
+  getPurposeCustom = () =>
+    cy.getByTestId('InfoSpotFormFields::purpose::customInput');
 
   getBacklightButton = () =>
     cy.getByTestId('InfoSpotFormFields::backlight::ListboxButton');

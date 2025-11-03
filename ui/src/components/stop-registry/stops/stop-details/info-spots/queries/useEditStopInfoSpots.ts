@@ -8,6 +8,7 @@ import {
 } from '../../../../../../generated/graphql';
 import { NullOptionEnum, showDangerToast } from '../../../../../../utils';
 import { InfoSpotState, InfoSpotsFormState } from '../types';
+import { mapPurposeToString } from '../utils';
 
 const GQL_UPDATE_INFO_SPOTS = gql`
   mutation UpdateInfoSpot($input: [stop_registry_infoSpotInput]!) {
@@ -63,7 +64,7 @@ function mapInfoSpotFormToInput(
     height: infoSpot.size.height,
     infoSpotLocations: infoSpot.infoSpotLocations,
     infoSpotType: mapNullEnumOption(infoSpot.infoSpotType),
-    purpose: infoSpot.purpose,
+    purpose: mapPurposeToString(infoSpot.purpose),
     railInformation: infoSpot.railInformation,
     speechProperty: infoSpot.speechProperty,
     zoneLabel: infoSpot.zoneLabel,

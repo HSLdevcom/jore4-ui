@@ -10,6 +10,7 @@ import {
   mapPointToStopRegistryGeoJSON,
   showDangerToastWithError,
 } from '../../../../../../utils';
+import { mapPurposeToString } from '../../../../stops/stop-details/info-spots/utils';
 import { TerminalInfoSpotFormState } from '../types';
 
 function mapNullEnumOption<T>(
@@ -57,7 +58,7 @@ function mapTerminalInfoSpotFormToInput(
     height: infoSpot.size.height,
     infoSpotLocations: infoSpot.infoSpotLocations,
     infoSpotType: mapNullEnumOption(infoSpot.infoSpotType),
-    purpose: infoSpot.purpose,
+    purpose: mapPurposeToString(infoSpot.purpose),
     railInformation: infoSpot.railInformation,
     speechProperty: infoSpot.speechProperty,
     zoneLabel: infoSpot.zoneLabel,

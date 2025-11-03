@@ -7,6 +7,7 @@ import {
   createNullableEnum,
   nullableBoolean,
 } from '../../../../../forms/common';
+import { InfoSpotPurposeEnum } from './InfoSpotPurpose';
 
 export const itemSizeUiState = z.enum([
   'UNKNOWN', // Width = null, height = null; Default state, or explicitly set.
@@ -27,6 +28,11 @@ export const posterSchema = z.object({
   toBeDeletedPoster: z.boolean(),
 });
 
+export const infoSpotPurposeSchema = z.object({
+  purposeType: z.nativeEnum(InfoSpotPurposeEnum),
+  customPurpose: z.string().nullable(),
+});
+
 export const infoSpotSchema = z.object({
   infoSpotId: z.string().nullable(),
   backlight: nullableBoolean,
@@ -39,7 +45,7 @@ export const infoSpotSchema = z.object({
   label: z.string().nullable(),
   infoSpotLocations: z.array(z.string().nullable()).nullable(),
   infoSpotType: createNullableEnum<StopRegistryInfoSpotType>(),
-  purpose: z.string().nullable(),
+  purpose: infoSpotPurposeSchema,
   railInformation: z.string().nullable(),
   speechProperty: nullableBoolean,
   zoneLabel: z.string().nullable(),
@@ -55,6 +61,7 @@ export const InfoSpotsFormSchema = z.object({
 export type ItemSizeUiState = z.infer<typeof itemSizeUiState>;
 export type ItemSizeState = z.infer<typeof itemSizeSchema>;
 export type PosterState = z.infer<typeof posterSchema>;
+export type InfoSpotPurposeState = z.infer<typeof infoSpotPurposeSchema>;
 export type InfoSpotState = z.infer<typeof infoSpotSchema>;
 export type InfoSpotsFormState = z.infer<typeof InfoSpotsFormSchema>;
 
