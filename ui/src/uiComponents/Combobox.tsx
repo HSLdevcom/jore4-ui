@@ -113,7 +113,7 @@ export const Combobox: FC<ComboboxProps> = ({
 
                     const classNames = `${
                       optionProps.active ? 'bg-background' : ''
-                    } flex group text-left pr-2 py-2 focus:outline-none items-center`;
+                    } flex group text-left pr-2 py-2 focus:outline-none items-center border-b border-grey cursor-pointer`;
 
                     return (
                       <span className={classNames}>
