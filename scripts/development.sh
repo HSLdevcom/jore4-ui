@@ -16,9 +16,10 @@ DOCKER_COMPOSE_BUNDLE_REF=${BUNDLE_REF:-main}
 # this project from others.
 export COMPOSE_PROJECT_NAME=jore4-ui
 
-DUMP_ROUTES_FILENAME="2025-04-03_test/2025-04-03-jore4-local-jore4e2e.pgdump"
-DUMP_TIMETABLES_FILENAME="2025-04-03_test/2025-04-03-jore4-local-timetablesdb-nodata.pgdump"
-DUMP_STOPS_FILENAME="2025-04-03_test/2025-04-03-jore4-local-stopdb.pgdump"
+DUMP_ROUTES_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-jore4e2e.pgdump"
+DUMP_TIMETABLES_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-timetablesdb-nodata.pgdump"
+DUMP_STOPS_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-stopdb.pgdump"
+INFRALINKS_FILENAME="2025-09-24_local_test/2025-09-24-infraLinks.sql"
 
 DOCKER_TESTDB_IMAGE="jore4-testdb"
 DOCKER_IMAGES=("jore4-idp" "jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
@@ -71,11 +72,27 @@ wait_for_database() {
   done
 }
 
+download_infralinks() {
+  infralinks_localfile=$(basename "$INFRALINKS_FILENAME")
+  if [ -f "infraLinks.sql" ]; then
+    echo "infraLinks.sql already exists, skipping download."
+    return
+  fi
+  if [ ! -f "$infralinks_localfile" ]; then
+    echo "Downloading infrastructure links..."
+    download_dump "$INFRALINKS_FILENAME"
+  fi
+  echo "Renaming downloaded infrastructure links to infraLinks.sql..."
+  mv "$infralinks_localfile" "infraLinks.sql"
+}
+
 seed_infra_links() {
+  download_infralinks
+
   echo "$1: Seeding infrastructure links..."
 
   wait_for_database "$1" infrastructure_network infrastructure_link
-  docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < test-db-manager/src/dumps/infraLinks/infraLinks.sql;
+  docker exec -i "$1" psql $ROUTES_DB_CONNECTION_STRING < "infraLinks.sql";
 }
 
 check_pinned_image() {
@@ -236,6 +253,7 @@ download_dump() {
       --container-name "jore4-dump" \
       --name "$az_blob_filepath" \
       --file "$(basename "$az_blob_filepath")" \
+      --output none \
       --auth-mode login
   fi
 }
@@ -373,6 +391,10 @@ print_usage() {
     the BUNDLE_REF environment variable. By default, the latest version is
     downloaded.
 
+  infralinks:download
+    Downloads the infrastructure links seed data SQL file (infraLinks.sql) from Azure
+    Blob Storage.
+
   dump:download [<azure_blob_filepath>]
     Downloads a JORE4 database dump from Azure Blob Storage. A full file path
     may be given as a parameter. The file path is used to refer to a file inside
@@ -421,12 +443,16 @@ setup:test)
   setup_environment test
   ;;
 
+infralinks:download)
+  download_infralinks
+  ;;
+
 dump:download)
   download_dump
   ;;
 
 dump:import)
-  import_dump
+  import_dump "$2" "$3"
   ;;
 
 digitransit:fetch)

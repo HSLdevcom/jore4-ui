@@ -104,7 +104,7 @@ describe(`<${LineRouteList.name} />`, () => {
                   direction: InfrastructureNetworkDirectionEnum.Bidirectional,
                   __typename: 'infrastructure_network_infrastructure_link',
                   external_link_source:
-                    InfrastructureNetworkExternalSourceEnum.DigiroadR,
+                    InfrastructureNetworkExternalSourceEnum.DigiroadRMml,
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
                       priority: 10,
@@ -227,7 +227,7 @@ describe(`<${LineRouteList.name} />`, () => {
                   direction: InfrastructureNetworkDirectionEnum.Bidirectional,
                   __typename: 'infrastructure_network_infrastructure_link',
                   external_link_source:
-                    InfrastructureNetworkExternalSourceEnum.DigiroadR,
+                    InfrastructureNetworkExternalSourceEnum.DigiroadRMml,
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
                       priority: 10,
@@ -338,7 +338,7 @@ describe(`<${LineRouteList.name} />`, () => {
                   direction: InfrastructureNetworkDirectionEnum.Bidirectional,
                   __typename: 'infrastructure_network_infrastructure_link',
                   external_link_source:
-                    InfrastructureNetworkExternalSourceEnum.DigiroadR,
+                    InfrastructureNetworkExternalSourceEnum.DigiroadRMml,
                   scheduled_stop_points_located_on_infrastructure_link: [
                     {
                       priority: 10,
