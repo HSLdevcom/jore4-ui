@@ -30,6 +30,9 @@ function setHeadlessBrowserScreenSizeLaunchOptions(
         `--window-size=${width},${height}`,
         // force screen to be non-retina and just use our given resolution
         '--force-device-scale-factor=1',
+        '--disable-gpu',
+        '--disable-features=PaintHolding',
+        '--disable-background-timer-throttling',
       ),
     };
   }
