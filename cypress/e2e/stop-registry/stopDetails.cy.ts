@@ -53,15 +53,15 @@ import { InsertedStopRegistryIds } from '../utils';
 
 const testInfraLinks = [
   {
-    externalId: '445156',
+    externalId: '7d29bd61-6cf7-4d2c-8bd8-b8e835fe90b7:1',
     coordinates: [24.92669962, 60.16418108, 10.09699999],
   },
   {
-    externalId: '442424',
+    externalId: 'cbe70fa1-8797-4dd4-b264-5a69f2ddcfc9:1',
     coordinates: [24.92904198, 60.16490775, 0],
   },
   {
-    externalId: '442325',
+    externalId: 'c1e17eee-96d6-4d83-91d2-51512318bff2:1',
     coordinates: [24.93207242, 60.16600322, 0],
   },
 ];
