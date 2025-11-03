@@ -22,6 +22,7 @@ import {
   QuayEnrichmentProperties,
   SharedEnrichmentProperties,
 } from '../../types';
+import { Priority, knownPriorityValues } from '../../types/enums';
 import { StopPlaceState } from '../../types/stop-registry';
 import { findKeyValue, findKeyValueParsed } from '../findKeyValue';
 import { mapLngLatToPoint } from '../gis';
@@ -240,6 +241,8 @@ export const getQuayDetailsForEnrichment = <
     | null
     | undefined,
 ): QuayEnrichmentProperties => {
+  const rawPriorityNumber = Number(findKeyValue(quay, 'priority'));
+
   return {
     elyNumber: findKeyValue(quay, 'elyNumber'),
     privateCode: quay.privateCode?.value ?? null,
@@ -262,6 +265,11 @@ export const getQuayDetailsForEnrichment = <
       virtual: findKeyValue(quay, 'virtual') === 'true',
       railReplacement: findKeyValue(quay, 'railReplacement') === 'true',
     },
+    validityStart: findKeyValue(quay, 'validityStart'),
+    validityEnd: findKeyValue(quay, 'validityEnd'),
+    priority: knownPriorityValues.includes(rawPriorityNumber)
+      ? (rawPriorityNumber as Priority)
+      : null,
   };
 };
 

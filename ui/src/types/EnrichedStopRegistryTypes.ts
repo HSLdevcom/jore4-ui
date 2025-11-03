@@ -6,6 +6,7 @@ import {
   StopPlaceDetailsFragment,
   StopRegistryAccessibilityLevel,
 } from '../generated/graphql';
+import { Priority } from './enums';
 import { Point } from './GeoHelpers';
 import { StopPlaceState } from './stop-registry';
 
@@ -62,6 +63,9 @@ export type QuayEnrichmentProperties = {
     readonly virtual: boolean;
     readonly railReplacement: boolean;
   };
+  readonly validityStart: string | null;
+  readonly validityEnd: string | null;
+  readonly priority: Priority | null;
 };
 
 export type StopPlace = StopPlaceDetailsFragment;

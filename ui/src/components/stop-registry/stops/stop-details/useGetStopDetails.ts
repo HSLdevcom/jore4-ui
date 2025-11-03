@@ -4,11 +4,8 @@ import maxBy from 'lodash/maxBy';
 import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
-  AccessibilityAssessmentDetailsFragment,
   GetStopDetailsQuery,
-  InfoSpotDetailsFragment,
   ServicePatternScheduledStopPointBoolExp,
-  StopRegistryPosterInput,
   StopRegistryQuayInput,
   StopRegistryStopPlaceInterface,
   useGetStopDetailsQuery,
@@ -19,21 +16,19 @@ import {
 } from '../../../../hooks/urlQuery';
 import { useRequiredParams } from '../../../../hooks/useRequiredParams';
 import {
-  EnrichedQuay,
   EnrichedStopPlace,
   Quay,
   StopPlace,
-  StopPlaceInfoSpots,
   StopWithDetails,
 } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import {
   findKeyValue,
   getGeometryPoint,
-  getQuayDetailsForEnrichment,
   getStopPlaceDetailsForEnrichment,
   getStopPlacesFromQueryResult,
 } from '../../../../utils';
+import { mapToEnrichedQuay } from '../../utils';
 
 const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
   fragment scheduled_stop_point_detail_fields on service_pattern_scheduled_stop_point {
@@ -290,22 +285,6 @@ const GQL_INFO_SPOT_DETAILS = gql`
   }
 `;
 
-function sortInfoSpots(
-  infoSpots: ReadonlyArray<InfoSpotDetailsFragment | null> | undefined | null,
-): Array<StopPlaceInfoSpots> {
-  return compact(infoSpots).sort((a, b) =>
-    (a.label ?? '').localeCompare(b.label ?? ''),
-  );
-}
-
-function sortPosters(
-  posters: ReadonlyArray<StopRegistryPosterInput | null> | undefined | null,
-): Array<StopRegistryPosterInput> {
-  return compact(posters).sort((a, b) =>
-    (a.label ?? '').localeCompare(b.label ?? ''),
-  );
-}
-
 const getEnrichedStopPlace = (
   stopPlace: StopPlace | null,
 ): EnrichedStopPlace | null => {
@@ -323,22 +302,6 @@ const getEnrichedStopPlace = (
   return {
     ...stopPlace,
     ...getStopPlaceDetailsForEnrichment(transformedStopPlace),
-  };
-};
-
-const getEnrichedQuay = (
-  quay: Quay | null | undefined,
-  accessibilityAssessment:
-    | AccessibilityAssessmentDetailsFragment
-    | null
-    | undefined,
-): EnrichedQuay | null => {
-  if (!quay) {
-    return null;
-  }
-  return {
-    ...quay,
-    ...getQuayDetailsForEnrichment(quay, accessibilityAssessment),
   };
 };
 
@@ -388,20 +351,6 @@ function getCorrectQuay(
   );
 }
 
-function sortQuayInfoSpots(quay: Quay | null): Quay | null {
-  if (!quay) {
-    return null;
-  }
-
-  return {
-    ...quay,
-    infoSpots: sortInfoSpots(quay.infoSpots).map((infoSpot) => ({
-      ...infoSpot,
-      poster: sortPosters(infoSpot.poster),
-    })),
-  };
-}
-
 const getStopDetails = (
   data: GetStopDetailsQuery | undefined,
   observationDateTs: number,
@@ -423,16 +372,11 @@ const getStopDetails = (
     priority,
   );
 
-  const selectedQuayWithSortedInfoSpots = sortQuayInfoSpots(selectedQuay);
-
   return {
     ...stopPoint,
     location: getGeometryPoint(stopPoint.measured_location),
     stop_place: getEnrichedStopPlace(stopPlace),
-    quay: getEnrichedQuay(
-      selectedQuayWithSortedInfoSpots,
-      stopPlace?.accessibilityAssessment,
-    ),
+    quay: mapToEnrichedQuay(selectedQuay, stopPlace?.accessibilityAssessment),
   };
 };
 

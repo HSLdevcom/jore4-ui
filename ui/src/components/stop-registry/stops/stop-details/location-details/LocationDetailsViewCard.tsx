@@ -102,7 +102,7 @@ export const LocationDetailsViewCard: FC<LocationDetailsViewCardProps> = ({
         />
         <LabeledDetail
           title={t('stopDetails.location.memberPlatforms')}
-          detail={null /* TODO */}
+          detail={null /* TODO: Also TODO In CSV report */}
           testId={testIds.memberPlatforms}
         />
       </DetailRow>
