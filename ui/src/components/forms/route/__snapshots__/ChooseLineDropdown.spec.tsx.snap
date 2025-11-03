@@ -75,7 +75,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         tabindex="-1"
       >
         <span
-          class="bg-background flex group text-left pr-2 py-2 focus:outline-none items-center"
+          class="bg-background flex group text-left pr-2 py-2 focus:outline-none items-center border-b border-grey cursor-pointer"
         >
           <svg
             class="mx-1 text-2xl text-black"
@@ -115,7 +115,7 @@ exports[`<ChooseLineDropdown /> Opens dropdown when clicked and shows all lines 
         tabindex="-1"
       >
         <span
-          class=" flex group text-left pr-2 py-2 focus:outline-none items-center"
+          class=" flex group text-left pr-2 py-2 focus:outline-none items-center border-b border-grey cursor-pointer"
         >
           <svg
             class="mx-1 text-2xl invisible"
