@@ -39,4 +39,10 @@ jobs:
         run: yarn ws:codegen generate
 
       - name: Verify that generate command made no changes, so schema is up to date
-        run: '[ -z "$(git status --porcelain)" ]'
+        run: |
+          STATUS=$(git status --porcelain)
+          echo "Git status output:"
+          echo "$STATUS"
+          echo "=== Git diff ==="
+          git diff
+          [ -z "$(git status --porcelain)" ]

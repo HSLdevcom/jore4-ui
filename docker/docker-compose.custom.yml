@@ -10,7 +10,7 @@ services:
     # The :hsl-tag contains the desired version of hsl specific hasura.
     # Waiting for merging feature-branch to main in hasura-repo
     # Note: also update jore4-hasura-e2e in docker-compose.e2e when changing this.
-    image: "crjore4prod001.azurecr.io/jore4-hsl-hasura:main-2025-11-03-a11bef7ade55dbe7c61a11e02bee65908e44febe"
+    image: 'crjore4prod001.azurecr.io/jore4-generic-hasura:digiroad_links-2025-11-04-8cecf9f21042ed0d053d86aae10eda0dc92acdf6'
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:
@@ -44,3 +44,13 @@ services:
     # Pin timetables api to a compatible version.
     # Note: also update jore4-timetablesapi-e2e in docker-compose.e2e when changing this.
     image: 'hsldevcom/jore4-timetables-api:main--20240905-da293a99ddeff4776bc7c20d675832b0a407fe9f'
+
+  jore4-mapmatchingdb:
+    environment:
+      DIGIROAD_ROUTING_DUMP_URL: "https://stjore4dev001.blob.core.windows.net/jore4-digiroad/2025-08-29_create_routing_schema_digiroad_r_2025_02_fixup.sql"
+
+  jore4-hasura-e2e:
+    image: 'crjore4prod001.azurecr.io/jore4-generic-hasura:digiroad_links-2025-11-04-8cecf9f21042ed0d053d86aae10eda0dc92acdf6'
+
+  jore4-hasura-base:
+    image: 'crjore4prod001.azurecr.io/jore4-generic-hasura:digiroad_links-2025-11-04-8cecf9f21042ed0d053d86aae10eda0dc92acdf6'

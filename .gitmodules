@@ -1,3 +1,4 @@
 [submodule "jore4-hasura"]
 	path = jore4-hasura
 	url = https://github.com/HSLdevcom/jore4-hasura
+	branch = digiroad_links
