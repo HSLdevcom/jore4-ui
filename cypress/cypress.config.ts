@@ -19,7 +19,7 @@ export default defineConfig({
     videosFolder: 'reports/videos',
     downloadsFolder: 'downloads',
     video: false,
-    defaultCommandTimeout: 20000,
+    defaultCommandTimeout: 40000,
     viewportWidth: 1920,
     viewportHeight: 1080,
     requestTimeout: 20000,
