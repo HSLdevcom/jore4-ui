@@ -17,7 +17,7 @@ services:
     # The :hsl-tag contains the desired version of hsl specific hasura.
     # Waiting for merging feature-branch to main in hasura-repo
     # Note: also update jore4-hasura-e2e in docker-compose.e2e when changing this.
-    image: "crjore4prod001.azurecr.io/jore4-hsl-hasura:main-2025-11-03-a11bef7ade55dbe7c61a11e02bee65908e44febe"
+    #image: "crjore4prod001.azurecr.io/jore4-hsl-hasura:main-2025-11-03-a11bef7ade55dbe7c61a11e02bee65908e44febe"
     # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
     # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
     depends_on:
@@ -30,9 +30,9 @@ services:
     # extra_hosts:
     #   - "jore4-timetablesapi:host-gateway"
 
-  jore4-mapmatching:
+#  jore4-mapmatching:
     # pinning map-matching API to compatible version
-    image: "hsldevcom/jore4-map-matching:main--20240905-b35697db3217e9d33792c1518d0741c9a2babcd7"
+#    image: "hsldevcom/jore4-map-matching:main--20240905-b35697db3217e9d33792c1518d0741c9a2babcd7"
 
   jore4-hastus:
     # pinning hastus import-export-microservice version
