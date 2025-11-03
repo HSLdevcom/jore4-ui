@@ -12,6 +12,7 @@ import {
 import { SlimSimpleButton } from '../../layout';
 import { InfoSpotsFormState } from '../types';
 import { InfoSpotsFormPosters } from './InfoSpotsFormPosters';
+import { PurposeFormFragment } from './PurposeFormFragment';
 import { SizeFormFragment } from './SizeFormFragment';
 
 const testIds = {
@@ -88,11 +89,9 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             disabled={toBeDeleted}
           />
 
-          <InputField<InfoSpotsFormState>
-            type="text"
-            translationPrefix="stopDetails"
-            fieldPath={`infoSpots.${infoSpotIndex}.purpose`}
-            testId={testIds.purpose}
+          <PurposeFormFragment<InfoSpotsFormState>
+            purposeStatePath={`infoSpots.${infoSpotIndex}.purpose`}
+            titlePath="stopDetails.infoSpots.purpose"
             disabled={toBeDeleted}
           />
 

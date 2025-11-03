@@ -1972,7 +1972,7 @@ describe('Stop details', () => {
             .getDescription()
             .should('have.value', 'Ensimmäinen kerros, portaiden vieressä');
           infoSpot.getLabel().should('have.value', 'JP1234568');
-          infoSpot.getPurpose().should('have.value', 'Tiedotteet');
+          infoSpot.getPurposeButton().should('have.text', 'Tiedotteet');
           infoSpot.getBacklightButton().should('have.text', 'Kyllä');
           infoSpot.getSizeSelectorButton().should('have.text', '80 × 120 cm');
           infoSpot.getFloor().should('have.value', '1');
@@ -1989,7 +1989,10 @@ describe('Stop details', () => {
 
           // Change everything
           infoSpot.getLabel().clearAndType('IP98765432');
-          infoSpot.getPurpose().clearAndType('Uusi tarkoitus');
+          infoSpot.getPurposeButton().click();
+          infoSpot.getPurposeOptions().contains('Muu käyttötarkoitus').click();
+          infoSpot.getPurposeCustom().shouldBeVisible();
+          infoSpot.getPurposeCustom().clearAndType('Custom käyttötarkoitus');
           infoSpot.getSizeSelectorButton().click();
           infoSpot
             .getSizeSelectorOptions()
@@ -2022,7 +2025,7 @@ describe('Stop details', () => {
             .getDescription()
             .shouldHaveText('Infopaikan uusi kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP98765432');
-          infoSpotView.getPurpose().shouldHaveText('Uusi tarkoitus');
+          infoSpotView.getPurpose().shouldHaveText('Custom käyttötarkoitus');
           infoSpotView.getBacklight().shouldHaveText('Ei');
           infoSpotView.getSize().shouldHaveText('A4 (21.0 × 29.7 cm)');
           infoSpotView.getFloor().shouldHaveText('2');
@@ -2045,7 +2048,10 @@ describe('Stop details', () => {
             .getDescription()
             .should('have.value', 'Ensimmäinen kerros, portaiden takana');
           infoSpot.getLabel().should('have.value', 'JP1234567');
-          infoSpot.getPurpose().should('have.value', 'Dynaaminen näyttö');
+          infoSpot
+            .getPurposeButton()
+            .should('have.text', 'Muu käyttötarkoitus');
+          infoSpot.getPurposeCustom().should('have.value', 'Dynaaminen näyttö');
           infoSpot.getFloor().should('have.value', '1');
           infoSpot.getRailInformation().should('have.value', '8');
           infoSpot.getZoneLabel().should('have.value', 'B');
@@ -2053,7 +2059,9 @@ describe('Stop details', () => {
 
           // Change everything
           infoSpot.getLabel().clearAndType('IP2345678');
-          infoSpot.getPurpose().clearAndType('Dynaaminen näyttö uusi');
+          infoSpot.getPurposeButton().click();
+          infoSpot.getPurposeOptions().contains('Pysäkkijuliste').click();
+          infoSpot.getPurposeCustom().should('not.exist');
           infoSpot.getDescription().clearAndType('Dynaaminen kuvaus');
           infoSpot.getZoneLabel().clearAndType('C');
           infoSpot.getRailInformation().clearAndType('9');
@@ -2068,7 +2076,7 @@ describe('Stop details', () => {
         infoSpotView.getNthSectionContainer(1).within(() => {
           infoSpotView.getDescription().shouldHaveText('Dynaaminen kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP2345678');
-          infoSpotView.getPurpose().shouldHaveText('Dynaaminen näyttö uusi');
+          infoSpotView.getPurpose().shouldHaveText('Pysäkkijuliste');
           infoSpotView.getBacklight().shouldHaveText('-');
           infoSpotView.getSize().shouldHaveText('-');
           infoSpotView.getLatitude().shouldHaveText('60.16490775');
@@ -2137,7 +2145,8 @@ describe('Stop details', () => {
           const infoSpot = infoSpotForm.infoSpots;
           infoSpotForm.getNthInfoSpot(0).within(() => {
             infoSpot.getLabel().clearAndType('IP123');
-            infoSpot.getPurpose().clearAndType('Dynaaminen tarkoitus');
+            infoSpot.getPurposeButton().click();
+            infoSpot.getPurposeOptions().contains('Kartta').click();
             infoSpot.getDescription().clearAndType('Dynaamisen kuvaus');
             infoSpot.getZoneLabel().clearAndType('A');
             infoSpot.getRailInformation().clearAndType('1');
@@ -2150,7 +2159,8 @@ describe('Stop details', () => {
 
           infoSpotForm.getNthInfoSpot(1).within(() => {
             infoSpot.getLabel().clearAndType('IP125');
-            infoSpot.getPurpose().clearAndType('Staattisen tarkoitus');
+            infoSpot.getPurposeButton().click();
+            infoSpot.getPurposeOptions().contains('Lähialuekartta').click();
             infoSpot.getSizeSelectorButton().click();
             infoSpot
               .getSizeSelectorOptions()
@@ -2195,7 +2205,7 @@ describe('Stop details', () => {
         infoSpotView.getNthViewCardContainer(0).within(() => {
           infoSpotView.getDescription().shouldHaveText('Dynaamisen kuvaus');
           infoSpotView.getLabel().shouldHaveText('IP123');
-          infoSpotView.getPurpose().shouldHaveText('Dynaaminen tarkoitus');
+          infoSpotView.getPurpose().shouldHaveText('Kartta');
           infoSpotView.getLatitude().shouldHaveText('60.16490775');
           infoSpotView.getLongitude().shouldHaveText('24.92904198');
           infoSpotView.getFloor().shouldHaveText('3');
@@ -2221,7 +2231,7 @@ describe('Stop details', () => {
             infoSpotView.getPosterLabel().shouldHaveText('PT1236');
             infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
           });
-          infoSpotView.getPurpose().shouldHaveText('Staattisen tarkoitus');
+          infoSpotView.getPurpose().shouldHaveText('Lähialuekartta');
           infoSpotView.getLatitude().shouldHaveText('60.16490775');
           infoSpotView.getLongitude().shouldHaveText('24.92904198');
           infoSpotView.getFloor().shouldHaveText('2');
@@ -2240,7 +2250,7 @@ describe('Stop details', () => {
           const infoSpot = infoSpotForm.infoSpots;
           infoSpotForm.getNthInfoSpot(1).within(() => {
             infoSpot.getLabel().should('have.value', 'IP125');
-            infoSpot.getPurpose().should('have.value', 'Staattisen tarkoitus');
+            infoSpot.getPurposeButton().should('have.text', 'Lähialuekartta');
             infoSpot
               .getSizeSelectorButton()
               .should('have.text', 'A3 (29.7 × 42.0 cm)');
@@ -2296,7 +2306,7 @@ describe('Stop details', () => {
             infoSpotView.getPosterLabel().shouldHaveText('PT1236');
             infoSpotView.getPosterLines().shouldHaveText('2, 7, 1');
           });
-          infoSpotView.getPurpose().shouldHaveText('Staattisen tarkoitus');
+          infoSpotView.getPurpose().shouldHaveText('Lähialuekartta');
           infoSpotView.getLatitude().shouldHaveText('60.16490775');
           infoSpotView.getLongitude().shouldHaveText('24.92904198');
           infoSpotView.getFloor().shouldHaveText('2');

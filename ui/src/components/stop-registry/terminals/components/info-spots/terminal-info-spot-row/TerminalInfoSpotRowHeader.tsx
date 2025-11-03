@@ -4,7 +4,10 @@ import {
   AccordionButton,
   CloseIconButton,
 } from '../../../../../../uiComponents';
-import { formatSizedDbItem } from '../../../../stops/stop-details/info-spots/utils';
+import {
+  formatPurposeForDisplay,
+  formatSizedDbItem,
+} from '../../../../stops/stop-details/info-spots/utils';
 import { SlimSimpleButton } from '../../../../stops/stop-details/layout';
 import { TerminalInfoSpotRowHeaderProps } from '../types';
 import {
@@ -130,7 +133,7 @@ export const TerminalInfoSpotRowHeader: FC<TerminalInfoSpotRowHeaderProps> = ({
             className={CSS_CLASSES.tableCell}
             data-testid={testIds.purposeCell}
           >
-            {formatDisplayValue(infoSpot.purpose)}
+            {formatPurposeForDisplay(t, infoSpot.purpose)}
           </td>
           <td className={CSS_CLASSES.tableCell} data-testid={testIds.sizeCell}>
             {formatSizedDbItem(t, infoSpot)}

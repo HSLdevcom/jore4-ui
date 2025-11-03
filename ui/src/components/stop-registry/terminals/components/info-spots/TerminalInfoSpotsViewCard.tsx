@@ -1,7 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPosters';
-import { formatSizedDbItem } from '../../../stops/stop-details/info-spots/utils';
+import {
+  formatPurposeForDisplay,
+  formatSizedDbItem,
+} from '../../../stops/stop-details/info-spots/utils';
 import { DetailRow, LabeledDetail } from '../../../stops/stop-details/layout';
 import { optionalBooleanToUiText } from '../../../stops/stop-details/utils';
 import { TerminalInfoSpotsViewCardProps } from './types';
@@ -40,7 +43,7 @@ export const TerminalInfoSpotsViewCard: FC<TerminalInfoSpotsViewCardProps> = ({
           />
           <LabeledDetail
             title={t('stopDetails.infoSpots.purpose')}
-            detail={infoSpot.purpose}
+            detail={formatPurposeForDisplay(t, infoSpot.purpose)}
             testId={testIds.purpose}
           />
           <LabeledDetail

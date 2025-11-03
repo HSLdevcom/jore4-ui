@@ -4,7 +4,14 @@ export class TerminalInfoSpotsFormFields {
 
   getLabel = () => cy.getByTestId('TerminalInfoSpotFormFields::label');
 
-  getPurpose = () => cy.getByTestId('TerminalInfoSpotFormFields::purpose');
+  getPurposeButton = () =>
+    cy.getByTestId('InfoSpotFormFields::purpose::ListboxButton');
+
+  getPurposeOptions = () =>
+    cy.getByTestId('InfoSpotFormFields::purpose::ListboxOptions');
+
+  getPurposeCustom = () =>
+    cy.getByTestId('InfoSpotFormFields::purpose::customInput');
 
   getBacklightButton = () =>
     cy.getByTestId('TerminalInfoSpotFormFields::backlight::ListboxButton');

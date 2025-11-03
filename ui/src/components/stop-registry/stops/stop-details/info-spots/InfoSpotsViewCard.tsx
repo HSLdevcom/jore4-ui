@@ -6,6 +6,7 @@ import { InfoSpotPosters } from '../../../components/InfoSpotPosters/InfoSpotPos
 import { DetailRow, LabeledDetail } from '../layout';
 import { InfoSpotDetails } from './InfoSpotDetails';
 import { InfoSpotZoneDetails } from './InfoSpotZoneDetails';
+import { formatPurposeForDisplay } from './utils/infoSpotPurposeUtils';
 
 const testIds = {
   container: 'InfoSpotsViewCard::container',
@@ -41,7 +42,7 @@ export const InfoSpotsViewCard: FC<InfoSpotsViewCardProps> = ({
           />
           <LabeledDetail
             title={t('stopDetails.infoSpots.purpose')}
-            detail={infoSpot.purpose}
+            detail={formatPurposeForDisplay(t, infoSpot.purpose)}
             testId={testIds.purpose}
           />
           <InfoSpotDetails infoSpot={infoSpot} />

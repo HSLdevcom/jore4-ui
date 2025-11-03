@@ -10,6 +10,7 @@ import {
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
+import { PurposeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/PurposeFormFragment';
 import { SizeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/SizeFormFragment';
 import { SlimSimpleButton } from '../../../../stops/stop-details/layout';
 import { TerminalInfoSpotFormState } from '../types';
@@ -72,11 +73,9 @@ export const TerminalInfoSpotFormFields: FC<
             disabled={toBeDeleted}
           />
 
-          <InputField<TerminalInfoSpotFormState>
-            type="text"
-            translationPrefix="stopDetails.infoSpots"
-            fieldPath="purpose"
-            testId={testIds.purpose}
+          <PurposeFormFragment<TerminalInfoSpotFormState>
+            purposeStatePath="purpose"
+            titlePath="stopDetails.infoSpots.purpose"
             disabled={toBeDeleted}
           />
 

@@ -24,7 +24,7 @@ const infoSpotJP1234568: StopRegistryInfoSpotInput = {
   label: 'JP1234568',
   maintenance: 'Huoltotietojen tekstit tähän...',
   infoSpotType: StopRegistryInfoSpotType.Static,
-  purpose: 'Tiedotteet',
+  purpose: 'Announcement',
   railInformation: '7',
   zoneLabel: 'A',
   displayType: null, // Only set if posterPlaceType = Dynamic

@@ -1,6 +1,7 @@
 import compact from 'lodash/compact';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { InfoSpotState, ItemSizeState, SizedDbItem } from '../types';
+import { mapStringToPurpose } from './infoSpotPurposeUtils';
 
 function determineItemSize({
   width = null,
@@ -29,7 +30,7 @@ export function mapInfoSpotDataToFormState(
     size: determineItemSize(infoSpot),
     infoSpotLocations: compact(infoSpot.infoSpotLocations),
     infoSpotType: infoSpot.infoSpotType ?? null,
-    purpose: infoSpot.purpose ?? null,
+    purpose: mapStringToPurpose(infoSpot.purpose),
     railInformation: infoSpot.railInformation ?? null,
     speechProperty: infoSpot.speechProperty ?? null,
     zoneLabel: infoSpot.zoneLabel ?? null,

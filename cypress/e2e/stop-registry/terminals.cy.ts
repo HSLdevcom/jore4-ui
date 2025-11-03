@@ -995,7 +995,11 @@ describe('Terminal details', () => {
         infoSpotSection.getAddNewButton().click();
 
         infoSpotSection.form.formFields.getLabel().clearAndType('E2E_INFO_002');
-        infoSpotSection.form.formFields.getPurpose().clearAndType('Tiedotteet');
+        infoSpotSection.form.formFields.getPurposeButton().click();
+        infoSpotSection.form.formFields
+          .getPurposeOptions()
+          .contains('Tiedotteet')
+          .click();
         infoSpotSection.form.formFields.getSizeSelectorButton().click();
         infoSpotSection.form.formFields
           .getSizeSelectorOptions()
