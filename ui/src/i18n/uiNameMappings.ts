@@ -1,4 +1,5 @@
 import { TFunction } from 'i18next';
+import { InfoSpotPurposeEnum } from '../components/stop-registry/stops/stop-details/info-spots/types';
 import { TerminalType } from '../components/stop-registry/types/TerminalType';
 import {
   HslRouteTransportTargetEnum,
@@ -428,3 +429,19 @@ export const mapTerminalTypeToUiName = genTranslationMapper<TerminalType>({
   [TerminalType.FerryTerminal]: (t) => t('terminalTypeEnum.ferryTerminal'),
   [TerminalType.FerryStation]: (t) => t('terminalTypeEnum.ferryStation'),
 });
+
+export const mapInfoSpotPurposeToUiName =
+  genTranslationMapper<InfoSpotPurposeEnum>({
+    [InfoSpotPurposeEnum.NULL]: (t) => t('stopDetails.infoSpots.purposes.null'),
+    [InfoSpotPurposeEnum.POSTER]: (t) =>
+      t('stopDetails.infoSpots.purposes.poster'),
+    [InfoSpotPurposeEnum.MAP]: (t) => t('stopDetails.infoSpots.purposes.map'),
+    [InfoSpotPurposeEnum.INSTRUCTION]: (t) =>
+      t('stopDetails.infoSpots.purposes.instruction'),
+    [InfoSpotPurposeEnum.NEIGHBORHOOD_MAP]: (t) =>
+      t('stopDetails.infoSpots.purposes.neighborhoodMap'),
+    [InfoSpotPurposeEnum.ANNOUNCEMENT]: (t) =>
+      t('stopDetails.infoSpots.purposes.announcement'),
+    [InfoSpotPurposeEnum.OTHER]: (t) =>
+      t('stopDetails.infoSpots.purposes.other'),
+  });
