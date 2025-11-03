@@ -404,6 +404,8 @@
     "shelters": {
       "title": "Shelter ({{count}})",
       "titleNoShelters": "No shelters",
+      "csvHeaderPrefix": "Shelter {{number}}",
+      "csvHeaderPrefixAndFieldName": "Shelter {{number}} {{fieldName}}",
       "shelterNumber": "Shelter number",
       "shelterType": "Type",
       "shelterElectricity": "Electricity",
@@ -483,6 +485,24 @@
         "neighborhoodMap": "Neighborhood map",
         "announcement": "Announcement",
         "other": "Other purpose"
+      },
+      "equipmentReport": {
+        "title": {
+          "metaHeader": "Info Spots Shelter {{shelterNumber}}",
+          "label": "Label - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "purpose": "Purpose - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "size": "Size - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "backlight": "Backlight - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "latitude": "Latitutde - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "longitude": "Longitude - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "zoneLabel": "Zone Label - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "railInformation": "Rail Information - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "floor": "Floor - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "description": "Description - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}}",
+          "productSize": "Size - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}",
+          "posterLabel": "Label - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}",
+          "posterLines": "Additional information - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}"
+        }
       }
     },
     "actions": {
@@ -706,6 +726,12 @@
     "csvFileName": "Stop search results {{today}} at {{now}} o'clock.csv",
     "csvGenerationError": "CSV Report generation failed:",
     "csvDownloaded": "CSV report downloaded as: <Filename />",
+
+    "csv": {
+      "metaHeaders": {
+        "validity": "Validity period"
+      }
+    },
 
     "stopRowActions": {
       "openDetails": "Open stop details page",

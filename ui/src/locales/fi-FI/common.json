@@ -404,6 +404,8 @@
     "shelters": {
       "title": "Pysäkkikatos ({{count}})",
       "titleNoShelters": "Ei pysäkkikatosta",
+      "csvHeaderPrefix": "Katos {{number}}",
+      "csvHeaderPrefixAndFieldName": "Katos {{number}} {{fieldName}}",
       "shelterNumber": "Katoksen nro",
       "shelterType": "Katoksen tyyppi",
       "shelterElectricity": "Sähkö",
@@ -483,6 +485,24 @@
         "neighborhoodMap": "Lähialuekartta",
         "announcement": "Tiedotteet",
         "other": "Muu käyttötarkoitus"
+      },
+      "equipmentReport": {
+        "title": {
+          "metaHeader": "Infopaikat katos {{shelterNumber}}",
+          "label": "Tunnus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "purpose": "Käyttötarkoitus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "size": "Koko - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "backlight": "Taustavalo - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "latitude": "Leveysaste - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "longitude": "Pituusaste - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "zoneLabel": "Vyöhyketunnus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "railInformation": "Raidetieto - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "floor": "Kerros - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "description": "Kuvaus - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}}",
+          "productSize": "Koko - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}",
+          "posterLabel": "Painotuote - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}",
+          "posterLines": "Lisätieto - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}"
+        }
       }
     },
     "actions": {
@@ -706,6 +726,12 @@
     "csvFileName": "Pysäkkihakutulokset {{today}} klo {{now}}.csv",
     "csvGenerationError": "CSV raportin tuottaminen epäonnistui:",
     "csvDownloaded": "CSV raportti ladattu nimellä: <Filename />",
+
+    "csv": {
+      "metaHeaders": {
+        "validity": "Voimassaolo"
+      }
+    },
 
     "stopRowActions": {
       "openDetails": "Näytä pysäkin tiedot",

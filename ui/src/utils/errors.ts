@@ -119,3 +119,29 @@ class GetCauseMessageError extends Error {
 export class TiamatUpdateFailedError extends GetCauseMessageError {}
 
 export class StopPointUpdateFailed extends GetCauseMessageError {}
+
+export class AsyncTaskCancelledError extends Error {
+  static findFromErrorChain(error: unknown): AsyncTaskCancelledError | null {
+    if (error instanceof AsyncTaskCancelledError) {
+      return error;
+    }
+
+    if (typeof error !== 'object' || error === null) {
+      return null;
+    }
+
+    if ('cause' in error) {
+      return AsyncTaskCancelledError.findFromErrorChain(error.cause);
+    }
+
+    if ('errors' in error && Array.isArray(error.errors)) {
+      return error.errors.find(AsyncTaskCancelledError.existsInErrorChain);
+    }
+
+    return null;
+  }
+
+  static existsInErrorChain(error: unknown): boolean {
+    return AsyncTaskCancelledError.findFromErrorChain(error) !== null;
+  }
+}
