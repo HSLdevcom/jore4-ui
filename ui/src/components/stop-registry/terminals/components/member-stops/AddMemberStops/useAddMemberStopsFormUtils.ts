@@ -13,6 +13,7 @@ import {
   findKeyValue,
   notNullish,
   showDangerToastWithError,
+  showSuccessToast,
 } from '../../../../../../utils';
 import { useLoader } from '../../../../../common/hooks/useLoader';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
@@ -93,13 +94,14 @@ export const useAddMemberStopsFormUtils = (
         selectedStops: state.selectedStops,
       });
 
+      showSuccessToast(t('terminalDetails.stops.editSuccess'));
       onSuccess();
     } catch (err) {
-      onError();
       showDangerToastWithError(
         t('terminalDetails.errors.editMemberStops'),
         err,
       );
+      onError();
     }
 
     setIsLoading(false);

@@ -624,7 +624,8 @@
     },
     "stops": {
       "title": "Stops",
-      "addStopToTerminal": "Add stop to terminal"
+      "addStopToTerminal": "Add stop to terminal",
+      "editSuccess": "Terminal member stops edited"
     },
     "errors": {
       "terminalsUniqueName": "Terminal should have unique name but {{name}} is already in use by another terminal or stop area!",

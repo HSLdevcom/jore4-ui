@@ -624,7 +624,8 @@
     },
     "stops": {
       "title": "Pysäkit",
-      "addStopToTerminal": "Lisää pysäkki terminaaliin"
+      "addStopToTerminal": "Lisää pysäkki terminaaliin",
+      "editSuccess": "Terminaalin jäsenpysäkit muokattu"
     },
     "errors": {
       "terminalsUniqueName": "Terminaalilla tulee olla uniikki nimi, mutta nimi {{name}} on jo jonkin toisen terminaalin tai pysäkkialueen käytössä!",
