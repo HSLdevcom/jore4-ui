@@ -14,6 +14,7 @@ import { Tag } from '../../enums';
 import {
   FilterPanel,
   Map,
+  MapObservationDateFiltersOverlay,
   MapPage,
   TerminalDetailsPage,
   Toast,
@@ -32,6 +33,7 @@ const testTerminalLabels = {
 
 const map = new Map();
 const mapPage = new MapPage();
+const observationDateFilters = new MapObservationDateFiltersOverlay();
 const mapFilterPanel = new FilterPanel();
 const terminalDetailsPage = new TerminalDetailsPage();
 const toast = new Toast();
@@ -130,6 +132,44 @@ describe('Terminal creation tests', () => {
           locationView
             .getMemberStops()
             .shouldHaveText(testTerminalLabels.expectedMemberStops);
+        });
+      });
+    },
+  );
+
+  it(
+    'Should create terminal and change observation date',
+    { tags: [Tag.Map, Tag.Terminals, Tag.Smoke], scrollBehavior: 'bottom' },
+    () => {
+      observationDateFilters.observationDateControl.setObservationDate(
+        '2025-01-01',
+      );
+
+      const privateCode = mapPage.createTerminalAtLocation({
+        terminalFormInfo: {
+          name: testTerminalLabels.terminalName,
+          nameSwe: testTerminalLabels.terminalName,
+          validityStartISODate: '2030-01-01',
+          stops: testTerminalLabels.stops,
+        },
+        clickRelativePoint: {
+          xPercentage: 40,
+          yPercentage: 55,
+        },
+      });
+
+      mapPage.gqlTerminalShouldBeCreatedSuccessfully();
+
+      observationDateFilters.observationDateControl
+        .getObservationDateInput()
+        .should('have.value', '2030-01-01');
+
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+      map.waitForLoadToComplete().then(() => {
+        privateCode.then((value) => {
+          cy.getByTestId(`Map::MapTerminal::terminal::${value}`).should(
+            'exist',
+          );
         });
       });
     },

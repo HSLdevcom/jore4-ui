@@ -29,8 +29,10 @@ export class TerminalDetailsPage {
 
   owner = new TerminalOwnerDetailsSection();
 
-  visit(privateCode: string) {
-    cy.visit(`/stop-registry/terminals/${privateCode}`);
+  visit(privateCode: string, observationDate?: string) {
+    cy.visit(
+      `/stop-registry/terminals/${privateCode}${observationDate ? `?observationDate=${observationDate}` : ''}`,
+    );
   }
 
   page() {

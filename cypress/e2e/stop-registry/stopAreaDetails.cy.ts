@@ -344,6 +344,27 @@ describe('Stop area details', () => {
       assertBasicDetails(newBasicDetails);
     });
 
+    it('should set observation date after edit', () => {
+      stopAreaDetailsPage.visit(dbIds.stopPlaceIdsByName.X0003, '2025-01-01');
+
+      assertBasicDetails(testAreaExpectedBasicDetails);
+
+      // Edit basic details
+      stopAreaDetailsPage.details.getEditButton().click();
+      setValidity(DateTime.fromISO('2030-01-01'), null);
+      stopAreaDetailsPage.details.edit.getSaveButton().click();
+      waitForSaveToBeFinished();
+
+      // Check that the observation date has been set
+      stopAreaDetailsPage.observationDateControl
+        .getObservationDateInput()
+        .should('have.value', '2030-01-01');
+
+      stopAreaDetailsPage.versioningRow
+        .getValidityPeriod()
+        .shouldHaveText('1.1.2030-');
+    });
+
     it('should allow moving member stop to the stop area', () => {
       stopAreaDetailsPage.memberStops.getAddStopButton().click();
       stopAreaDetailsPage.memberStops.modal.modal().shouldBeVisible();

@@ -9,6 +9,7 @@ import { Tag } from '../../enums';
 import {
   ChangeValidityForm,
   FilterPanel,
+  MapObservationDateFiltersOverlay,
   MapPage,
   Navbar,
   StopDetailsPage,
@@ -48,6 +49,7 @@ const stopAreaInput: Array<StopAreaInput> = [
 
 const mapPage = new MapPage();
 const mapFilterPanel = new FilterPanel();
+const observationDateFilters = new MapObservationDateFiltersOverlay();
 const changeValidityForm = new ChangeValidityForm();
 const navbar = new Navbar();
 const stopSearchBar = new StopSearchBar();
@@ -94,6 +96,41 @@ describe('Stop creation tests', () => {
       mapPage.gqlStopShouldBeCreatedSuccessfully();
 
       mapPage.checkStopSubmitSuccessToast();
+
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      cy.getByTestId(
+        `Map::Stops::stopMarker::${testStopLabels.testLabel1}_Standard`,
+      ).should('exist');
+    },
+  );
+
+  it(
+    'Should create stop and change observation date',
+    { tags: [Tag.Map, Tag.Stops, Tag.Smoke], scrollBehavior: 'bottom' },
+    () => {
+      observationDateFilters.observationDateControl.setObservationDate(
+        '2025-01-01',
+      );
+
+      mapPage.createStopAtLocation({
+        stopFormInfo: {
+          publicCode: testStopLabels.testLabel1,
+          stopPlace: testStopLabels.stopAreaPrivateCode,
+          validityStartISODate: '2030-01-01',
+          priority: Priority.Standard,
+        },
+        clickRelativePoint: {
+          xPercentage: 40,
+          yPercentage: 55,
+        },
+      });
+
+      mapPage.gqlStopShouldBeCreatedSuccessfully();
+
+      observationDateFilters.observationDateControl
+        .getObservationDateInput()
+        .should('have.value', '2030-01-01');
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
 
