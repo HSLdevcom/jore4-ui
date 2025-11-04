@@ -11,6 +11,7 @@ import {
 import { showSuccessToast } from '../../../utils';
 import { useLoader } from '../../common/hooks/useLoader';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
+import { useSetMapObservationDate } from '../utils/useSetObservationDate';
 import { useUpdateTerminalMapDetails } from '../utils/useUpdateTerminalMapDetails';
 
 export const useTerminalEdit = () => {
@@ -24,6 +25,8 @@ export const useTerminalEdit = () => {
   const setEditedTerminalData = useAppAction(setEditedTerminalDataAction);
   const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
   const setMapTerminalViewState = useAppAction(setMapTerminalViewStateAction);
+
+  const setMapObservationDate = useSetMapObservationDate();
 
   const doUpdateTerminal = async (state: TerminalFormState) => {
     if (!editedTerminalData) {
@@ -40,6 +43,7 @@ export const useTerminalEdit = () => {
       });
 
       showSuccessToast(t('terminalDetails.editSuccess'));
+      setMapObservationDate(updatedTerminal);
       setEditedTerminalData(updatedTerminal ?? undefined);
       setSelectedTerminalId(updatedTerminal?.id ?? undefined);
       setMapTerminalViewState(MapEntityEditorViewState.POPUP);

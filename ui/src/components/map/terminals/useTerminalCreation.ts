@@ -11,6 +11,7 @@ import { showSuccessToast } from '../../../utils';
 import { useLoader } from '../../common/hooks/useLoader';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { useCreateTerminal } from '../../stop-registry/terminals/hooks';
+import { useSetMapObservationDate } from '../utils/useSetObservationDate';
 
 export const useTerminalCreation = () => {
   const { t } = useTranslation();
@@ -23,6 +24,8 @@ export const useTerminalCreation = () => {
   const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
   const setMapTerminalViewState = useAppAction(setMapTerminalViewStateAction);
 
+  const setMapObservationDate = useSetMapObservationDate();
+
   const doCreateTerminal = async (state: TerminalFormState) => {
     setIsLoading(true);
 
@@ -32,6 +35,7 @@ export const useTerminalCreation = () => {
       });
 
       showSuccessToast(t('terminal.saveSuccess'));
+      setMapObservationDate(createdTerminal);
       setEditedTerminalData(createdTerminal ?? undefined);
       setSelectedTerminalId(createdTerminal?.id ?? undefined);
       setMapTerminalViewState(MapEntityEditorViewState.POPUP);

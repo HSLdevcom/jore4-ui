@@ -28,6 +28,7 @@ import {
   useStopAreaDeletion,
 } from '../../stop-registry/stop-areas/stop-area-details/hooks/DeleteStopArea';
 import { EditStopAreaLayerRef } from '../refTypes';
+import { useSetMapObservationDate } from '../utils/useSetObservationDate';
 import { EditStopAreaModal } from './EditStopAreaModal';
 import { NewStopAreaMarker } from './NewStopAreaMarker';
 import { mapStopAreaDataToFormState } from './StopAreaForm';
@@ -70,6 +71,8 @@ export const EditStopAreaLayer = forwardRef<
 
   const { isConfirmDeleteDialogOpen, openDeleteDialog, closeDeleteDialog } =
     useStopAreaDeletion();
+
+  const setMapObservationDate = useSetMapObservationDate();
 
   const onStartEditStopArea = () => {
     const point = getGeometryPoint(editedArea.geometry);
@@ -122,6 +125,8 @@ export const EditStopAreaLayer = forwardRef<
       } else {
         showSuccessToast(t('stopArea.saveSuccess'));
       }
+
+      setMapObservationDate(updatedStopArea);
     } catch (err) {
       defaultErrorHandler(err as Error, state);
     }
