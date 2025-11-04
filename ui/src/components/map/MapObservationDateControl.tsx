@@ -36,13 +36,10 @@ export const MapObservationDateControl: FC<MapObservationDateControlProps> = ({
   const [localDateValue, setLocalDateValue] = useState(observationDate);
 
   useEffect(() => {
-    const urlDateString = mapToISODate(observationDate) ?? '';
-    const localDateString = mapToISODate(localDateValue) ?? '';
-
-    if (localDateString !== urlDateString && localDateString === '') {
+    if (observationDate.isValid) {
       setLocalDateValue(observationDate);
     }
-  }, [observationDate, localDateValue]);
+  }, [observationDate]);
 
   const updateUrlState = useCallback(() => {
     const newDate = parseDate(localDateValue);
