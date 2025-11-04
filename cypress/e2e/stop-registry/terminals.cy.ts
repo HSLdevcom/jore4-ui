@@ -647,6 +647,48 @@ describe('Terminal details', () => {
         terminalDetailsPage.validityPeriod().should('contain', '1.1.2023-');
       },
     );
+
+    it(
+      'should set observation date after edit',
+      { tags: [Tag.StopRegistry] },
+      () => {
+        terminalDetailsPage.visit('T2', '2025-01-01');
+
+        terminalDetailsPage
+          .validityPeriod()
+          .should('contain', '1.1.2020-1.1.2050');
+
+        terminalDetailsPage.versioningRow
+          .getEditValidityButton()
+          .shouldBeVisible()
+          .click();
+
+        terminalDetailsPage.editTerminalValidityModal
+          .getModal()
+          .shouldBeVisible();
+
+        terminalDetailsPage.editTerminalValidityModal.form
+          .versionName()
+          .clearAndType('Edit #1');
+        terminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
+          validityStartISODate: '2030-01-01',
+          validityEndISODate: '2040-01-01',
+        });
+        terminalDetailsPage.editTerminalValidityModal.form
+          .submitButton()
+          .click();
+
+        waitForValidityEditToBeFinished();
+
+        terminalDetailsPage.observationDateControl
+          .getObservationDateInput()
+          .should('have.value', '2030-01-01');
+
+        terminalDetailsPage
+          .validityPeriod()
+          .should('contain', '1.1.2030-1.1.2040');
+      },
+    );
   });
 
   describe('stops tab', () => {

@@ -10,12 +10,18 @@ import {
 } from '../../datasets/base';
 import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
 import { Tag } from '../../enums';
-import { ConfirmationDialog, MapPage, Toast } from '../../pageObjects';
+import {
+  ConfirmationDialog,
+  MapObservationDateFiltersOverlay,
+  MapPage,
+  Toast,
+} from '../../pageObjects';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
 import { expectGraphQLCallToSucceed } from '../../utils/assertions';
 
 const mapPage = new MapPage();
+const observationDateFilters = new MapObservationDateFiltersOverlay();
 const confirmationDialog = new ConfirmationDialog();
 const toast = new Toast();
 
@@ -120,6 +126,43 @@ describe('Terminals on map', () => {
         .shouldHaveText('1.1.2020 -  Voimassa toistaiseksi');
       terminalPopup.getCloseButton().click();
       terminalPopup.getLabel().should('not.exist');
+    },
+  );
+
+  it.only(
+    'should set correct observation date after editing',
+    { tags: [Tag.Terminals, Tag.Map], scrollBehavior: 'bottom' },
+    () => {
+      observationDateFilters.observationDateControl.setObservationDate(
+        '2025-01-01',
+      );
+
+      mapPage.map.getTerminalById('T2').click();
+      mapPage.map.waitForLoadToComplete();
+
+      const { terminalPopup, terminalForm } = mapPage;
+
+      terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 E2ET001');
+
+      terminalPopup.getEditButton().click();
+      terminalForm.getForm().shouldBeVisible();
+      terminalForm.validityPeriodForm.setStartDate('2030-01-01');
+      terminalForm.validityPeriodForm.setAsIndefinite();
+
+      terminalForm.save();
+
+      confirmationDialog.getConfirmButton().click();
+      expectGraphQLCallToSucceed('@gqlUpdateTerminal');
+      terminalForm.getForm().should('not.exist');
+      toast.expectWarningToast('Tarkasteluhetkeä muutettu');
+
+      // Check that observation date was correctly set
+      observationDateFilters.observationDateControl
+        .getObservationDateInput()
+        .should('have.value', '2030-01-01');
+
+      // Check that edited info was persisted.
+      terminalPopup.getLabel().shouldBeVisible().shouldHaveText('T2 E2ET001');
     },
   );
 
