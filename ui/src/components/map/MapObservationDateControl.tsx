@@ -33,14 +33,14 @@ export const MapObservationDateControl: FC<MapObservationDateControlProps> = ({
     setFilters,
   } = useMapUrlStateContext();
 
-  const [localDateValue, setLocalDateValue] = useState(
-    () => mapToISODate(observationDate) ?? '',
-  );
+  const [localDateValue, setLocalDateValue] = useState(observationDate);
 
   useEffect(() => {
     const urlDateString = mapToISODate(observationDate) ?? '';
-    if (localDateValue !== urlDateString && localDateValue === '') {
-      setLocalDateValue(urlDateString);
+    const localDateString = mapToISODate(localDateValue) ?? '';
+
+    if (localDateString !== urlDateString && localDateString === '') {
+      setLocalDateValue(observationDate);
     }
   }, [observationDate, localDateValue]);
 
@@ -48,7 +48,7 @@ export const MapObservationDateControl: FC<MapObservationDateControlProps> = ({
     const newDate = parseDate(localDateValue);
 
     if (!newDate.isValid) {
-      setLocalDateValue(mapToISODate(observationDate) ?? '');
+      setLocalDateValue(observationDate);
       return;
     }
 
@@ -77,8 +77,8 @@ export const MapObservationDateControl: FC<MapObservationDateControlProps> = ({
       <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
       <input
         type="date"
-        value={localDateValue}
-        onChange={(e) => setLocalDateValue(e.target.value)}
+        value={mapToISODate(localDateValue)}
+        onChange={(e) => setLocalDateValue(parseDate(e.target.value))}
         onBlur={updateUrlState}
         onKeyUp={handleKeyUp}
         id={dateInputId}

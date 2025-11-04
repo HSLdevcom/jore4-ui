@@ -28,20 +28,16 @@ export const ObservationDateInput: FC<ObservationDateInputProps> = ({
   const { t } = useTranslation();
   const dateInputId = 'observation-date-input';
 
-  const [localDateValue, setLocalDateValue] = useState(
-    () => mapToISODate(value) ?? '',
-  );
+  const [localDateValue, setLocalDateValue] = useState(value);
 
   const updateUrlState = useCallback(() => {
-    const newDate = parseDate(localDateValue);
-
-    if (!newDate.isValid) {
-      setLocalDateValue(mapToISODate(value) ?? '');
+    if (!localDateValue.isValid) {
+      setLocalDateValue(value);
       return;
     }
 
-    if (!newDate.equals(value)) {
-      onChange(newDate);
+    if (!localDateValue.equals(value)) {
+      onChange(localDateValue);
     }
   }, [localDateValue, value, onChange]);
 
@@ -59,8 +55,8 @@ export const ObservationDateInput: FC<ObservationDateInputProps> = ({
       <label htmlFor={dateInputId}>{t('filters.observationDate')}</label>
       <input
         type="date"
-        value={localDateValue}
-        onChange={(e) => setLocalDateValue(e.target.value)}
+        value={mapToISODate(localDateValue)}
+        onChange={(e) => setLocalDateValue(parseDate(e.target.value))}
         onBlur={updateUrlState}
         onKeyUp={handleKeyUp}
         id={dateInputId}
