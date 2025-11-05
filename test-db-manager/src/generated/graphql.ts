@@ -10985,6 +10985,7 @@ export enum StopRegistryStopPlaceOrganisationRelationshipType {
   InfoUpkeep = 'infoUpkeep',
   Maintenance = 'maintenance',
   Owner = 'owner',
+  ShelterMaintenance = 'shelterMaintenance',
   WinterMaintenance = 'winterMaintenance'
 }
 
