@@ -11,6 +11,7 @@ const testIds = {
   winterMaintenance: 'MaintenanceViewCard::winterMaintenance',
   infoUpkeep: 'MaintenanceViewCard::infoUpkeep',
   cleaning: 'MaintenanceViewCard::cleaning',
+  shelterMaintenance: 'MaintenanceViewCard::shelterMaintenance',
 };
 
 type MaintenanceViewCardProps = {
@@ -24,11 +25,16 @@ export const MaintenanceViewCard: FC<MaintenanceViewCardProps> = ({ stop }) => {
 
   return (
     <div data-testid={testIds.container}>
-      <div className="grid grid-cols-3 gap-4 lg:grid-cols-5">
+      <div className="grid grid-cols-3 gap-4 lg:grid-cols-6">
         <MaintainerViewCard
           testId={testIds.owner}
           maintainer={maintainers.owner}
           title={t('stopDetails.maintenance.maintainers.owner')}
+        />
+        <MaintainerViewCard
+          testId={testIds.shelterMaintenance}
+          maintainer={maintainers.shelterMaintenance}
+          title={t('stopDetails.maintenance.maintainers.shelterMaintenance')}
         />
         <MaintainerViewCard
           testId={testIds.maintenance}

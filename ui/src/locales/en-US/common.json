@@ -350,7 +350,8 @@
         "infoUpkeep": "Info upkeep (static)",
         "maintenance": "Road area maintenance",
         "owner": "Shelter owner",
-        "winterMaintenance": "Winter maintenance"
+        "winterMaintenance": "Winter maintenance",
+        "shelterMaintenance": "Shelter maintenance"
       },
       "organisation": {
         "modalTitleEdit": "Edit organisation details",

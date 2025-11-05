@@ -7,6 +7,7 @@ export const maintenanceDetailsFormSchema = z.object({
     winterMaintenance: z.string().nullable(),
     infoUpkeep: z.string().nullable(),
     cleaning: z.string().nullable(),
+    shelterMaintenance: z.string().nullable(),
   }),
 });
 
