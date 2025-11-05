@@ -174,10 +174,13 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
         />
       </Row>
       <Row className="flex-wrap items-end gap-4">
-        <label htmlFor="trashCan" className="inline-flex font-normal">
+        <label
+          htmlFor={`trashCan-${index}`}
+          className="inline-flex font-normal"
+        >
           <InputElement<SheltersFormState>
             type="checkbox"
-            id="trashCan"
+            id={`trashCan-${index}`}
             fieldPath={`shelters.${index}.trashCan`}
             className="mr-2 h-6 w-6"
             testId={testIds.trashCan}
@@ -186,10 +189,13 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           {t('stopDetails.shelters.trashCan')}
         </label>
 
-        <label htmlFor="shelterHasDisplay" className="inline-flex font-normal">
+        <label
+          htmlFor={`shelterHasDisplay-${index}`}
+          className="inline-flex font-normal"
+        >
           <InputElement<SheltersFormState>
             type="checkbox"
-            id="shelterHasDisplay"
+            id={`shelterHasDisplay-${index}`}
             fieldPath={`shelters.${index}.shelterHasDisplay`}
             className="mr-2 h-6 w-6"
             testId={testIds.shelterHasDisplay}
@@ -198,10 +204,13 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           {t('stopDetails.shelters.shelterHasDisplay')}
         </label>
 
-        <label htmlFor="bicycleParking" className="inline-flex font-normal">
+        <label
+          htmlFor={`bicycleParking-${index}`}
+          className="inline-flex font-normal"
+        >
           <InputElement<SheltersFormState>
             type="checkbox"
-            id="bicycleParking"
+            id={`bicycleParking-${index}`}
             fieldPath={`shelters.${index}.bicycleParking`}
             className="mr-2 h-6 w-6"
             testId={testIds.bicycleParking}
@@ -210,10 +219,13 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           {t('stopDetails.shelters.bicycleParking')}
         </label>
 
-        <label htmlFor="leaningRail" className="inline-flex font-normal">
+        <label
+          htmlFor={`leaningRail-${index}`}
+          className="inline-flex font-normal"
+        >
           <InputElement<SheltersFormState>
             type="checkbox"
-            id="leaningRail"
+            id={`leaningRail-${index}`}
             fieldPath={`shelters.${index}.leaningRail`}
             className="mr-2 h-6 w-6"
             testId={testIds.leaningRail}
@@ -222,10 +234,13 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
           {t('stopDetails.shelters.leaningRail')}
         </label>
 
-        <label htmlFor="outsideBench" className="inline-flex font-normal">
+        <label
+          htmlFor={`outsideBench-${index}`}
+          className="inline-flex font-normal"
+        >
           <InputElement<SheltersFormState>
             type="checkbox"
-            id="outsideBench"
+            id={`outsideBench-${index}`}
             fieldPath={`shelters.${index}.outsideBench`}
             className="mr-2 h-6 w-6"
             testId={testIds.outsideBench}
@@ -235,12 +250,12 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
         </label>
 
         <label
-          htmlFor="shelterFasciaBoardTaping"
+          htmlFor={`shelterFasciaBoardTaping-${index}`}
           className="inline-flex font-normal"
         >
           <InputElement<SheltersFormState>
             type="checkbox"
-            id="shelterFasciaBoardTaping"
+            id={`shelterFasciaBoardTaping-${index}`}
             fieldPath={`shelters.${index}.shelterFasciaBoardTaping`}
             className="mr-2 h-6 w-6"
             testId={testIds.shelterFasciaBoardTaping}
