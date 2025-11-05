@@ -32,6 +32,7 @@ const testIds = {
   winterMaintenance: 'MaintenanceDetailsForm::winterMaintenance',
   infoUpkeep: 'MaintenanceDetailsForm::infoUpkeep',
   cleaning: 'MaintenanceDetailsForm::cleaning',
+  shelterMaintenance: 'MaintenanceDetailsForm::shelterMaintenance',
 };
 
 type MaintenanceDetailsFormComponentProps = {
@@ -91,13 +92,19 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
-        className={`grid grid-cols-3 gap-4 lg:grid-cols-5 ${className}`}
+        className={`grid grid-cols-3 gap-4 lg:grid-cols-3 ${className}`}
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >
         <MaintainerFormFields
           testId={testIds.owner}
           maintainerType={MaintainerType.Owner}
+          organisations={organisations}
+          editOrganisation={onEditOrganisation}
+        />
+        <MaintainerFormFields
+          testId={testIds.shelterMaintenance}
+          maintainerType={MaintainerType.ShelterMaintenance}
           organisations={organisations}
           editOrganisation={onEditOrganisation}
         />

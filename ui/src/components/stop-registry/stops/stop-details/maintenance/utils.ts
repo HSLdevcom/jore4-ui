@@ -45,6 +45,10 @@ export const getMaintainers = (
     organisations,
     StopOrganisationType.WinterMaintenance,
   );
+  const shelterMaintenance = findOrganisationForRelationshipType(
+    organisations,
+    StopOrganisationType.ShelterMaintenance,
+  );
 
   return {
     cleaning,
@@ -52,5 +56,6 @@ export const getMaintainers = (
     maintenance,
     owner,
     winterMaintenance,
+    shelterMaintenance,
   };
 };

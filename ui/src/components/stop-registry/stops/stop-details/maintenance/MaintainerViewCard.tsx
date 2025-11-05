@@ -21,7 +21,7 @@ export const MaintainerViewCard: FC<MaintainerViewCardProps> = ({
 }) => {
   return (
     <div data-testid={testId} className="text-sm">
-      <h5 className="leading-8">{title}</h5>
+      <h5 className="mb-2">{title}</h5>
       {maintainer ? (
         <>
           <div data-testid={testIds.name}>{maintainer.name ?? ''}</div>

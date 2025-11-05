@@ -350,7 +350,8 @@
         "infoUpkeep": "Infohoito (staattinen)",
         "maintenance": "Tiealueen kunnossapito",
         "owner": "Katoksen omistaja",
-        "winterMaintenance": "Talvikunnossapito"
+        "winterMaintenance": "Talvikunnossapito",
+        "shelterMaintenance": "Katoksen kunnossapito"
       },
       "organisation": {
         "modalTitleEdit": "Muokkaa toimijan tietoja",
