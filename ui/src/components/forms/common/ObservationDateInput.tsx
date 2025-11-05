@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { FC, KeyboardEvent, useCallback, useState } from 'react';
+import { FC, KeyboardEvent, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Column } from '../../../layoutComponents';
 import { mapToISODate, parseDate } from '../../../time';
@@ -29,6 +29,12 @@ export const ObservationDateInput: FC<ObservationDateInputProps> = ({
   const dateInputId = 'observation-date-input';
 
   const [localDateValue, setLocalDateValue] = useState(value);
+
+  useEffect(() => {
+    if (value.isValid) {
+      setLocalDateValue(value);
+    }
+  }, [value]);
 
   const updateUrlState = useCallback(() => {
     if (!localDateValue.isValid) {

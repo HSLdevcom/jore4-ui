@@ -3,9 +3,10 @@ import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { useObservationDateQueryParam } from '../../../../../hooks';
 import { Column } from '../../../../../layoutComponents';
 import { Operation } from '../../../../../redux';
-import { mapToISODate } from '../../../../../time';
+import { isDateInRange, mapToISODate, parseDate } from '../../../../../time';
 import { EnrichedStopPlace } from '../../../../../types';
 import { mapLngLatToPoint, showSuccessToast } from '../../../../../utils';
 import { useLoader } from '../../../../common/hooks/useLoader';
@@ -78,13 +79,33 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
 > = ({ area, className = '', refetch, onFinishEditing }, ref) => {
   const { t } = useTranslation();
 
+  const { observationDate, setObservationDateToUrl } =
+    useObservationDateQueryParam();
+
   const { upsertStopArea, defaultErrorHandler } = useUpsertStopArea();
   const { setIsLoading } = useLoader(Operation.ModifyStopArea);
   const onSubmit = async (state: StopAreaFormState) => {
     setIsLoading(true);
     try {
-      await upsertStopArea({ stop: area, state });
-      await refetch();
+      const updatedStopArea = await upsertStopArea({ stop: area, state });
+
+      const updatedValidityStart = parseDate(updatedStopArea?.validityStart);
+      const updatedValidityEnd = parseDate(updatedStopArea?.validityEnd);
+
+      if (
+        !isDateInRange(
+          observationDate,
+          updatedValidityStart,
+          updatedValidityEnd,
+        )
+      ) {
+        setObservationDateToUrl(
+          updatedValidityStart ?? updatedValidityEnd ?? observationDate,
+          true,
+        );
+      } else {
+        await refetch();
+      }
 
       showSuccessToast(t('stopArea.editSuccess'));
       onFinishEditing();

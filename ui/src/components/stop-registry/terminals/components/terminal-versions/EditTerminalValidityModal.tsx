@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
-import { Path, routeDetails } from '../../../../../router/routeDetails';
+import { useObservationDateQueryParam } from '../../../../../hooks';
+import { isDateInRange } from '../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../types';
 import { Modal, ModalHeader } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
@@ -31,17 +31,18 @@ export const EditTerminalValidityModal: FC<EditTerminalValidityModalProps> = ({
     onClose,
   );
 
-  const navigate = useNavigate();
+  const { observationDate, setObservationDateToUrl } =
+    useObservationDateQueryParam();
 
   const onEditDone = (result: EditTerminalValidityResult) => {
     onClose();
 
-    if (result.validityStart) {
-      navigate(
-        routeDetails[Path.terminalDetails].getLink(result.privateCode, {
-          observationDate: result.validityStart,
-        }),
-        { replace: true },
+    if (
+      !isDateInRange(observationDate, result.validityStart, result.validityEnd)
+    ) {
+      setObservationDateToUrl(
+        result.validityStart ?? result.validityEnd ?? observationDate,
+        true,
       );
     }
   };
