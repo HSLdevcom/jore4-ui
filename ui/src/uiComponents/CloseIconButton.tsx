@@ -7,6 +7,7 @@ type CloseIconButtonProps = {
   readonly label?: ReactNode;
   readonly onClick: () => void;
   readonly testId: string;
+  readonly title?: string;
 };
 
 export const CloseIconButton: FC<CloseIconButtonProps> = ({
@@ -14,6 +15,7 @@ export const CloseIconButton: FC<CloseIconButtonProps> = ({
   label,
   onClick,
   testId,
+  title,
 }) => {
   return (
     <TextAndIconButton
@@ -23,6 +25,7 @@ export const CloseIconButton: FC<CloseIconButtonProps> = ({
       onClick={onClick}
       text={label}
       type="button"
+      title={title}
     />
   );
 };

@@ -1,4 +1,5 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type SimpleDropdownMenuItemProps = {
   readonly text: string;
@@ -17,9 +18,10 @@ const SimpleDropdownMenuItemComponent: ForwardRefRenderFunction<
     <button
       ref={ref}
       disabled={disabled}
-      className={`${className} ${
-        disabled ? 'bg-background text-dark-grey' : ''
-      }`}
+      className={twMerge(
+        className,
+        disabled ? 'bg-background text-dark-grey' : '',
+      )}
       type="button"
       onClick={onClick}
       data-testid={testId}

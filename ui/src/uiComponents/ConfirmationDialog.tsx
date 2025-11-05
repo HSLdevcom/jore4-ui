@@ -6,7 +6,7 @@ const testIds = {
   confirmButton: 'ConfirmationDialog::confirmButton',
 };
 
-type ConfirmationDialogProps = {
+export type ConfirmationDialogProps = {
   readonly isOpen: boolean;
   readonly onConfirm: () => void;
   readonly onCancel: () => void;
