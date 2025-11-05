@@ -10,6 +10,10 @@ export class MaintenanceDetailsForm {
     return cy.getByTestId('MaintenanceDetailsForm::owner');
   }
 
+  getShelterMaintenance() {
+    return cy.getByTestId('MaintenanceDetailsForm::shelterMaintenance');
+  }
+
   getMaintenance() {
     return cy.getByTestId('MaintenanceDetailsForm::maintenance');
   }

@@ -11,6 +11,10 @@ export class MaintenanceViewCard {
     return cy.getByTestId('MaintenanceViewCard::owner');
   }
 
+  getShelterMaintenance() {
+    return cy.getByTestId('MaintenanceViewCard::shelterMaintenance');
+  }
+
   getMaintenance() {
     return cy.getByTestId('MaintenanceViewCard::maintenance');
   }

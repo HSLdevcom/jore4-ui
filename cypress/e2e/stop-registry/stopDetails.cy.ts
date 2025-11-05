@@ -397,6 +397,13 @@ describe('Stop details', () => {
       maintainerView.getNotSelectedPlaceholder().should('not.exist');
     });
 
+    maintenanceView.getShelterMaintenance().within(() => {
+      maintainerView.getName().shouldHaveText('JCD');
+      maintainerView.getPhone().shouldHaveText('+358501234567');
+      maintainerView.getEmail().shouldHaveText('jcd@example.com');
+      maintainerView.getNotSelectedPlaceholder().should('not.exist');
+    });
+
     maintenanceView.getMaintenance().within(() => {
       maintainerView.getName().shouldHaveText('ELY-keskus');
       maintainerView.getPhone().shouldHaveText('+358501234567');
@@ -1623,6 +1630,9 @@ describe('Stop details', () => {
         form.getOwner().within(() => {
           form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
         });
+        form.getShelterMaintenance().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
+        });
         form.getMaintenance().within(() => {
           form.fields
             .getMaintainerDropdownButton()
@@ -1644,6 +1654,14 @@ describe('Stop details', () => {
 
         // Change everything:
         form.getOwner().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields
+            .getMaintainerDropdown()
+            .find('[role="option"]')
+            .contains('Clear Channel')
+            .click();
+        });
+        form.getShelterMaintenance().within(() => {
           form.fields.getMaintainerDropdownButton().click();
           form.fields
             .getMaintainerDropdown()
@@ -1698,6 +1716,12 @@ describe('Stop details', () => {
           maintainerView.getEmail().shouldHaveText('clear-channel@example.com');
           maintainerView.getNotSelectedPlaceholder().should('not.exist');
         });
+        view.getShelterMaintenance().within(() => {
+          maintainerView.getName().shouldHaveText('Clear Channel');
+          // Verify that details for new maintainer are shown.
+          maintainerView.getPhone().shouldHaveText('+358501223334');
+          maintainerView.getEmail().shouldHaveText('clear-channel@example.com');
+        });
         view.getMaintenance().within(() => {
           maintainerView.getName().shouldHaveText('JCD');
         });
@@ -1726,6 +1750,9 @@ describe('Stop details', () => {
         form.getOwner().within(() => {
           form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
         });
+        form.getShelterMaintenance().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
+        });
         form.getMaintenance().within(() => {
           form.fields
             .getMaintainerDropdownButton()
@@ -1747,6 +1774,14 @@ describe('Stop details', () => {
 
         // Change everything:
         form.getOwner().within(() => {
+          form.fields.getMaintainerDropdownButton().click();
+          form.fields
+            .getMaintainerDropdown()
+            .find('[role="option"]')
+            .contains('Ei toimijaa')
+            .click();
+        });
+        form.getShelterMaintenance().within(() => {
           form.fields.getMaintainerDropdownButton().click();
           form.fields
             .getMaintainerDropdown()
@@ -1787,6 +1822,9 @@ describe('Stop details', () => {
         // Verify changes visible.
         const maintainerView = view.maintainerViewCard;
         view.getOwner().within(() => {
+          maintainerView.getNotSelectedPlaceholder().shouldBeVisible();
+        });
+        view.getShelterMaintenance().within(() => {
           maintainerView.getNotSelectedPlaceholder().shouldBeVisible();
         });
         view.getMaintenance().within(() => {
@@ -1897,6 +1935,9 @@ describe('Stop details', () => {
         });
         // Other maintainers not affected though.
         form.getOwner().within(() => {
+          form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
+        });
+        form.getShelterMaintenance().within(() => {
           form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
         });
         form.getWinterMaintenance().within(() => {

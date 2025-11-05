@@ -107,6 +107,7 @@ const finnooSeedData: StopAreaSeedData = {
     maintenance: 'ELY-keskus',
     owner: 'JCD',
     winterMaintenance: 'ELY-keskus',
+    shelterMaintenance: 'JCD',
   },
 };
 
