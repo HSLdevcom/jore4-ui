@@ -17,6 +17,7 @@ import {
 } from 'react-router';
 import { getUserInfo } from '../api/user';
 import { PageTitle } from '../components/common';
+import { TaskListDisplay } from '../components/common/AsyncTaskList';
 import { NavigationBlocker } from '../components/forms/common/NavigationBlocker';
 import { MainPage } from '../components/main/MainPage';
 import { MapPage } from '../components/map';
@@ -138,12 +139,20 @@ const WithFooter: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
+const WithTaskList: FC<PropsWithChildren> = ({ children }) => (
+  <>
+    {children}
+    <TaskListDisplay />
+  </>
+);
+
 type SimpleJoreRoute = {
   readonly path: PathValue;
   readonly protected?: boolean;
   readonly index?: boolean;
   readonly hideNav?: boolean;
   readonly hideFooter?: boolean;
+  readonly hideTaskList?: boolean;
   readonly element: ReactElement;
 };
 
@@ -175,6 +184,7 @@ const joreRoutes: ReadonlyArray<SimpleJoreRoute> = [
     protected: true,
     hideNav: true,
     hideFooter: true,
+    hideTaskList: true,
     element: <MapPage />,
   },
 
@@ -285,6 +295,7 @@ function simpleRoutesToRouteObjects(): RouteObject[] {
         const element = compact([
           route.protected ? ProtectedRoute : null,
           route.hideNav ? null : WithNavigation,
+          route.hideTaskList ? null : WithTaskList,
           route.hideFooter ? null : WithFooter,
         ]).reduce(
           (children, Wrapper) => <Wrapper>{children}</Wrapper>,

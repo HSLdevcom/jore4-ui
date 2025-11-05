@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { UserProvider } from '../auth/UserProvider';
+import { AsyncTaskListProvider } from '../components/common/AsyncTaskList';
 import { theme } from '../generated/theme';
 import { ApolloProvider } from '../graphql';
 import { ReduxProvider } from '../redux';
@@ -42,7 +43,9 @@ const Index = () => {
               }
             >
               <UserProvider />
-              <Router />
+              <AsyncTaskListProvider>
+                <Router />
+              </AsyncTaskListProvider>
               <Toaster />
             </Suspense>
           </ReduxProvider>

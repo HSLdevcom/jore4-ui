@@ -1,0 +1,58 @@
+/* From: https://codeshack.io/pure-css-modern-progress-bars-collection/ */
+
+/* ==== Base Progress Bar Styles ==== */
+.pbContainer {
+  background-color: #e9ecef; /* Track color */
+  border-radius: 0.25rem; /* Default Bootstrap-like radius */
+  overflow: hidden; /* Important for border-radius on fill */
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  height: 10px; /* Default height */
+  position: relative; /* For labels if any */
+}
+
+.pbFill {
+  height: 100%;
+  background-color: #007bff; /* Default blue, will be overridden by color classes */
+  /* transition: width 0.6s ease; */
+  display: flex; /* For label alignment */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ==== Style Variation 2: Striped (pb-striped) ==== */
+.pbStriped .pbFill {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem; /* Adjust stripe size */
+}
+
+/* ==== Style Variation 3: Animated Stripes (pb-animated) ==== */
+.pbStriped.pbAnimated .pbFill {
+  animation: pb-stripes-animate 1s linear infinite;
+}
+@keyframes pb-stripes-animate {
+  0% {
+    background-position-x: 1rem;
+  }
+}
+
+/* ==== Style Variation 4: Rounded (pb-rounded) ==== */
+.pbRounded {
+  border-radius: 50px; /* Fully rounded container */
+  height: 10px; /* Slightly taller for rounded aesthetic */
+}
+.pbRounded .pbFill {
+  border-radius: 50px; /* Fully rounded fill */
+}
