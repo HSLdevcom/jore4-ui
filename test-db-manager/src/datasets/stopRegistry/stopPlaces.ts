@@ -30,6 +30,7 @@ export type StopPlaceMaintenance = {
   maintenance: OrganisationName | null;
   owner: OrganisationName | null;
   winterMaintenance: OrganisationName | null;
+  shelterMaintenance: OrganisationName | null;
 };
 
 export type StopPlaceQuaySeedData = {
@@ -393,6 +394,7 @@ const H2003: StopPlaceQuaySeedData = {
     maintenance: 'ELY-keskus',
     owner: 'JCD',
     winterMaintenance: 'ELY-keskus',
+    shelterMaintenance: 'JCD',
   },
 };
 
