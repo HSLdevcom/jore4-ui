@@ -109,7 +109,7 @@ export const TerminalInfoSpotFormFields: FC<
             fieldPath="latitude"
             testId={testIds.latitude}
             disabled={toBeDeleted || isStopInfoSpot}
-            inputClassName="w-32"
+            inputClassName="w-36"
           />
 
           <InputField<TerminalInfoSpotFormState>
@@ -118,7 +118,7 @@ export const TerminalInfoSpotFormFields: FC<
             fieldPath="longitude"
             testId={testIds.longitude}
             disabled={toBeDeleted || isStopInfoSpot}
-            inputClassName="w-32"
+            inputClassName="w-36"
           />
 
           <InputField<TerminalInfoSpotFormState>
