@@ -404,6 +404,7 @@
     "shelters": {
       "title": "Pysäkkikatos ({{count}})",
       "titleNoShelters": "Ei pysäkkikatosta",
+      "csvCount": "Katosten lukumäärä",
       "csvHeaderPrefix": "Katos {{number}}",
       "csvHeaderPrefixAndFieldName": "Katos {{number}} {{fieldName}}",
       "shelterNumber": "Katoksen nro",
@@ -722,12 +723,18 @@
     "goToStopAreaDetails": "Siirry pysäkkialueen tietoihin.",
     "gotoTerminalDetails": "Siirry terminaalin tietoihin.",
     "showOnMap": "Näytä kartalla",
-    "downloadAsCsv": "Lataa CSV muodossa",
-    "csvFileName": "Pysäkkihakutulokset {{today}} klo {{now}}.csv",
-    "csvGenerationError": "CSV raportin tuottaminen epäonnistui:",
-    "csvDownloaded": "CSV raportti ladattu nimellä: <Filename />",
 
     "csv": {
+      "downloadEquipmentReport": "Lataa Varustelutietoraportti",
+      "saveAs": "Tallenna raportti nimellä:",
+      "equipmentReportFileName": "Varustelutietoraportti {{today}} klo {{now}}.csv",
+      "confirmCancellationTitle": "Keskeytä raportin tekeminen",
+      "confirmCancellationBody": "Voit ladata uuden raportin keskeyttämisen jälkeen.",
+      "generationInProgress": "Raportti valmistuu",
+      "generationCanceled": "CSV raportin tuottaminen peruutettiin.",
+      "generationError": "CSV raportin tuottaminen epäonnistui:",
+      "downloaded": "CSV raportti ladattu nimellä: <Filename />",
+
       "metaHeaders": {
         "validity": "Voimassaolo"
       }
@@ -1266,7 +1273,7 @@
   "confirmTimetablesAbortImportDialog": {
     "title": "Aikataulujen tuonti keskeytetään",
     "description": "Tuomasi aikataulut eivät tallennu JOREen.",
-    "abort": "Älä keskeytä",
+    "abort": "$t(dontAbort)",
     "confirm": "Keskeytä tuonti"
   },
   "confirmTimetablesImportModal": {
@@ -1292,7 +1299,7 @@
     "specialDayMixedPrioritiesWarning1": "Tuoduissa aikatauluissa on erityispäivien lisäksi myös muita aikatauluja.",
     "specialDayMixedPrioritiesWarning2": "Tallennus ei ole mahdollista. Keskeytä aikataulujen tuonti ja tuo yhden päivän pituiset aikataulut erikseen.",
     "dragAndDrop": "Vedä ja pudota Hastus-tiedostoja tai",
-    "abort": "Keskeytä",
+    "abort": "$t(abort)",
     "abortedSuccessfully": "Aikataulujen tuonti keskeytetty.",
     "openPreview": "Avaa esikatselu",
     "uploadFiles": "Lataa tiedostot",
@@ -1351,6 +1358,8 @@
   "yes": "Kyllä",
   "no": "Ei",
   "remove": "Poista",
+  "abort": "Keskeytä",
+  "dontAbort": "Älä keskeytä",
   "welcomePage": {
     "heading": "JORE4 | Pysäkkirekisterin testikäyttö käynnissä",
     "subheading1": "Pysäkit ja infopaikat",

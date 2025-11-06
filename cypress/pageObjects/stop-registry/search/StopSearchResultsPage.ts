@@ -59,18 +59,18 @@ export class StopSearchResultsPage {
     return cy.getByTestId('StopSearchResultsPage::selectAllButton');
   }
 
-  getDownloadAsCSVButton() {
-    return cy.getByTestId('DownloadResultsAsCSVButton::button');
+  getResultsActionMenu() {
+    return cy.getByTestId('StopSearchResultsPage::results::actionMenu');
   }
 
-  getDownloadAsCSVButtonLoading() {
-    return cy.getByTestId('DownloadResultsAsCSVButton::loading');
+  getDownloadEquipmentDetailsReportButton() {
+    return cy.getByTestId('DownloadEquipmentReportMenu::button');
   }
 
   getDownloadedCSVReport() {
     this.toast.expectSuccessToast('CSV raportti ladattu nimellä: ');
     return cy
-      .getByTestId('DownloadResultsAsCSVButton::filename')
+      .getByTestId('DownloadEquipmentReportMenu::filename')
       .then((filenameSpan) => filenameSpan.text())
       .then((filename) =>
         cy.task('readDownloadedCSV', {

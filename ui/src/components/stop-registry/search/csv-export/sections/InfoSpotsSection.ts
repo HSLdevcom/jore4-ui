@@ -320,7 +320,7 @@ const noInfoSpotsSectionImplementation: ReportSection = {
 class InfoSpotsSectionImplementation implements ReportSection {
   private readonly counts: Counts;
 
-  readonly shouldHavePadding = false;
+  readonly shouldHavePadding = true;
 
   readonly fieldCount: number;
 

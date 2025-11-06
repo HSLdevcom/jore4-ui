@@ -9,7 +9,7 @@ import {
 } from '../../../../../i18n/uiNameMappings';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
 import { EnrichedStopDetails, ReportSection } from '../types';
-import { dynamicSection, writeHeaderArray } from './utils';
+import { dynamicSection, staticSection, writeHeaderArray } from './utils';
 
 const headers: ReadonlyArray<(t: TFunction) => string> = [
   (t) => t('stopDetails.shelters.shelterNumber'),
@@ -165,4 +165,14 @@ export const SheltersSection = dynamicSection(
 
     return new SheltersSectionImplementation(maxShelterCount);
   },
+);
+
+export const ShelterCountSection = staticSection(
+  [],
+  [(t) => t('stopDetails.shelters.csvCount')],
+  (writer, record) =>
+    writer.writeNumberField(
+      record.quay.placeEquipments?.shelterEquipment?.length ?? 0,
+    ),
+  false,
 );

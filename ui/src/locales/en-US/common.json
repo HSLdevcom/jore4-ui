@@ -404,6 +404,7 @@
     "shelters": {
       "title": "Shelter ({{count}})",
       "titleNoShelters": "No shelters",
+      "csvCount": "Number of shelters",
       "csvHeaderPrefix": "Shelter {{number}}",
       "csvHeaderPrefixAndFieldName": "Shelter {{number}} {{fieldName}}",
       "shelterNumber": "Shelter number",
@@ -722,12 +723,18 @@
     "goToStopAreaDetails": "Go to stop area details page.",
     "gotoTerminalDetails": "Go to terminal details page.",
     "showOnMap": "Show on map",
-    "downloadAsCsv": "Download as CSV file",
-    "csvFileName": "Stop search results {{today}} at {{now}} o'clock.csv",
-    "csvGenerationError": "CSV Report generation failed:",
-    "csvDownloaded": "CSV report downloaded as: <Filename />",
 
     "csv": {
+      "downloadEquipmentReport": "Download Equipment Details Report",
+      "saveAs": "Save CSV report under filename:",
+      "equipmentReportFileName": "Equipment Details Report {{today}} at {{now}} o'clock.csv",
+      "confirmCancellationTitle": "Abort report generation",
+      "confirmCancellationBody": "You can download a new report after cancelling this one.",
+      "generationInProgress": "Report is being generated",
+      "generationCanceled": "CSV Report generation canceled.",
+      "generationError": "CSV Report generation failed:",
+      "downloaded": "CSV report downloaded as: <Filename />",
+
       "metaHeaders": {
         "validity": "Validity period"
       }
@@ -1266,7 +1273,7 @@
   "confirmTimetablesAbortImportDialog": {
     "title": "Abort importing timetables",
     "description": "The imported timetables will not be saved to JORE.",
-    "abort": "Do not abort",
+    "abort": "$t(dontAbort)",
     "confirm": "Abort import"
   },
   "confirmTimetablesImportModal": {
@@ -1292,7 +1299,7 @@
     "specialDayMixedPrioritiesWarning1": "Imported timetables contain special days and other timetables.",
     "specialDayMixedPrioritiesWarning2": "Importing not possible. Cancel the import and import one day priority timetables separately.",
     "dragAndDrop": "Drag and drop Hastus files or",
-    "abort": "Abort",
+    "abort": "$t(abort)",
     "abortedSuccessfully": "Timetables import aborted.",
     "openPreview": "Open preview",
     "uploadFiles": "Upload files",
@@ -1351,6 +1358,8 @@
   "yes": "Yes",
   "no": "No",
   "remove": "Remove",
+  "abort": "Abort",
+  "dontAbort": "Do not abort",
   "welcomePage": {
     "heading": "JORE4 | Testing of the stop register is now starting",
     "subheading1": "Stops and info spots",

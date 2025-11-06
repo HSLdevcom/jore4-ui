@@ -6,6 +6,7 @@ import {
   LocationDetailsSection,
   MaintenanceDetailsSection,
   MeasurementsDetailsSection,
+  ShelterCountSection,
   SheltersSection,
   SignageDetailsSection,
   ValidityDetailsSection,
@@ -29,6 +30,7 @@ export class EquipmentReport {
       MaintenanceDetailsSection,
       SignageDetailsSection,
       MeasurementsDetailsSection,
+      ShelterCountSection,
       SheltersSection,
       InfoSpotsSection,
     ];
