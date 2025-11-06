@@ -213,7 +213,7 @@ To update database dump files (with the `.pgdump` extension), do the following:
 
 ## Regenerating infraLinks.sql
 
-After updating dump file for the network & routes database, you may consider updating the seed data for infrastructure links which is located at `./test-db-manager/src/dumps/infraLinks/infraLinks.sql`.
+After updating dump file for the network & routes database, you may consider updating the seed data for infrastructure links which is located in azure blob storage stjore4dev001's jore4-dump container. Download with `scripts/development.sh infralink:download`, after which the file is at `./infraLinks.sql`.
 
 To do that:
 
@@ -226,6 +226,7 @@ To do that:
   COPY infrastructure_network.infrastructure_link (infrastructure_link_id, direction, shape, estimated_length_in_metres, external_link_id, external_link_source) FROM stdin;
   ```
 - Copy the command and the immediately following rows of data (over 150 000 rows in total) and replace the same command in the `infraLinks.sql` file to update infrastructure seed data. Make sure you only copy infrastructure link data!
+- upload the infraLinks.sql to azure (stjore4dev001's jore4-dump container) and update the location to development.sh (INFRALINKS_FILENAME constant).
 
 ### Fixing timetables seed data (NEEDS UPDATE)
 
