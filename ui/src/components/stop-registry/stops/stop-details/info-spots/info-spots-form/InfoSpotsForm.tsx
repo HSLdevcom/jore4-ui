@@ -3,6 +3,7 @@ import {
   ForwardRefRenderFunction,
   RefObject,
   forwardRef,
+  useEffect,
   useImperativeHandle,
   useRef,
 } from 'react';
@@ -26,6 +27,7 @@ type InfoSpotsFormProps = {
   readonly formRef: RefObject<HTMLFormElement>;
   readonly onSubmit: (state: InfoSpotsFormState) => void;
   readonly infoSpotLocations: (string | null)[];
+  readonly setFormIsDirty?: (val: boolean) => void;
 };
 
 export type InfoSpotsFormRef = {
@@ -43,6 +45,7 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     infoSpotLocations,
     onSubmit,
     formRef,
+    setFormIsDirty,
   },
   ref,
 ) => {
@@ -53,7 +56,8 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     resolver: zodResolver(InfoSpotsFormSchema),
   });
   useDirtyFormBlockNavigation(methods.formState, 'InfoSpotsForm');
-  const { control, setValue, getValues, handleSubmit } = methods;
+  const { formState, control, setValue, getValues, handleSubmit } = methods;
+  const { isDirty } = formState;
 
   const {
     append,
@@ -112,6 +116,12 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
       shouldTouch: true,
     });
   };
+
+  useEffect(() => {
+    if (setFormIsDirty) {
+      setFormIsDirty(isDirty);
+    }
+  }, [isDirty, setFormIsDirty]);
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

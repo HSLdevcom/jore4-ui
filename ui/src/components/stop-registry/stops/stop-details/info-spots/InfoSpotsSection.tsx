@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef } from 'react';
+import { FC, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   InfoSpotDetailsFragment,
@@ -93,6 +93,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
 
   const { saveStopPlaceInfoSpots, defaultErrorHandler } =
     useEditStopInfoSpots();
+  const [formIsDirty, setFormIsDirty] = useState(false);
 
   const { location } = stop;
 
@@ -163,6 +164,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
         />
       }
       testIdPrefix="InfoSpotsSection"
+      disableSaveButton={!formIsDirty}
     >
       {infoContainerControls.isInEditMode ? (
         <InfoSpotsForm
@@ -172,6 +174,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
           ref={infoSpotsFormRef}
           infoSpotLocations={infoSpotLocations}
           onSubmit={onSubmit}
+          setFormIsDirty={setFormIsDirty}
         />
       ) : (
         <InfoSpotsViewList
