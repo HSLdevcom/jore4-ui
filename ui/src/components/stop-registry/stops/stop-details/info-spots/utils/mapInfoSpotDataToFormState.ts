@@ -35,6 +35,12 @@ export function mapInfoSpotDataToFormState(
     speechProperty: infoSpot.speechProperty ?? null,
     zoneLabel: infoSpot.zoneLabel ?? null,
     poster: compact(infoSpot.poster).map((poster) => ({
+      // Just use random ID to use as key for poster components
+      id:
+        poster.id ??
+        (window.crypto.randomUUID
+          ? window.crypto.randomUUID()
+          : Math.random().toString(16).slice(2)),
       label: poster.label ?? null,
       lines: poster.lines ?? null,
       size: determineItemSize(poster),

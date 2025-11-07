@@ -273,6 +273,7 @@ const GQL_INFO_SPOT_DETAILS = gql`
     speechProperty
     zoneLabel
     poster {
+      id
       label
       width
       height

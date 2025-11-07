@@ -174,10 +174,9 @@ export const TerminalInfoSpotFormFields: FC<
       </div>
 
       {posters?.length ? (
-        posters.map((_, posterIndex) => (
+        posters.map((poster, posterIndex) => (
           <TerminalInfoSpotsFormPosters
-            // eslint-disable-next-line react/no-array-index-key
-            key={`poster-${posterIndex}`}
+            key={poster.id}
             posterIndex={posterIndex}
             addPoster={addPoster}
             onRemovePoster={onRemovePoster}
