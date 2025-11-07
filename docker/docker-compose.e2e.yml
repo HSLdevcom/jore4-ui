@@ -11,7 +11,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-tiamat-base
-    image: "crjore4prod001.azurecr.io/jore4-tiamat:main-2025-11-05-299ca575927e91a2b6036dcd5237ac4ba2e23648"
+    image: "crjore4prod001.azurecr.io/jore4-tiamat:main-2025-11-06-0323919a3e873444b86fcafa45bd0e0bc928f2ae"
     container_name: "tiamat-e2e"
     environment:
       - TIAMAT_DB_URL=jdbc:postgresql://jore4-testdb-e2e:5432/stopdb?stringtype=unspecified
@@ -43,7 +43,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: jore4-hasura-base
-    image: 'crjore4prod001.azurecr.io/jore4-hsl-hasura:main-2025-10-20-6331337c9d7eda232cb453b4aa508c9198e8d8a6'
+    image: "crjore4prod001.azurecr.io/jore4-hsl-hasura:main-2025-11-03-a11bef7ade55dbe7c61a11e02bee65908e44febe"
     container_name: "hasura-e2e"
     ports:
       - "127.0.0.1:3211:8080"
