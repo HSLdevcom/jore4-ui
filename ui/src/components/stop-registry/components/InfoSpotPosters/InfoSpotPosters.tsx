@@ -43,7 +43,7 @@ export const InfoSpotPosters: FC<InfoSpotPostersProps> = ({ infoSpot }) => {
   return (
     <>
       {actualPosters.map((poster, index) => (
-        <div key={poster.label} data-testid={testIds.posterContainer}>
+        <div key={poster.id} data-testid={testIds.posterContainer}>
           <DetailRow className="px-10 py-5">
             <LabeledDetail
               title={t('stopDetails.infoSpots.posterSize')}

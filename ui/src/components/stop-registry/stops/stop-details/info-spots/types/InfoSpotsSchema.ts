@@ -22,6 +22,7 @@ export const itemSizeSchema = z.object({
 });
 
 export const posterSchema = z.object({
+  id: z.string().nullable(),
   label: z.string().nullable(),
   lines: z.string().nullable(),
   size: itemSizeSchema,

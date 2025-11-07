@@ -169,10 +169,9 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
         </FormRow>
       </div>
       {posters?.length ? (
-        posters.map((_, posterIndex) => (
+        posters.map((poster, posterIndex) => (
           <InfoSpotsFormPosters
-            // eslint-disable-next-line react/no-array-index-key
-            key={`poster-${posterIndex}`}
+            key={poster.id}
             infoSpotIndex={infoSpotIndex}
             posterIndex={posterIndex}
             addPoster={addPoster}

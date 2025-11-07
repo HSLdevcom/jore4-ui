@@ -17,6 +17,6 @@ export function mapInfoSpotToInput(
     geometry: mapGeoJsonToInput(infoSpot.geometry),
     infoSpotLocations: null,
     description: omitTypeName(infoSpot.description),
-    poster: mapCompactOrNull(infoSpot.poster, omitTypeName),
+    poster: mapCompactOrNull(infoSpot.poster, omitIdAndTypeName),
   };
 }

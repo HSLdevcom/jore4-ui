@@ -46,6 +46,9 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
       label: '',
       lines: '',
       toBeDeletedPoster: false,
+      id: window.crypto.randomUUID
+        ? window.crypto.randomUUID()
+        : Math.random().toString(16).slice(2),
     };
 
     setValue('poster', [...(getValues('poster') ?? []), newPoster]);
