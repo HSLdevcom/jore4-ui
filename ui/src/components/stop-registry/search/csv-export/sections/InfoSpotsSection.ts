@@ -1,4 +1,4 @@
-/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-restricted-syntax,max-classes-per-file */
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import noop from 'lodash/noop';
@@ -9,9 +9,10 @@ import { formatSizedDbItem } from '../../../stops/stop-details/info-spots/utils'
 import {
   EnrichedQuayWithTimingPlace,
   EnrichedStopDetails,
+  EnrichedStopDetailsWithSelectedInfoSpot,
   ReportSection,
 } from '../types';
-import { dynamicSection } from './utils';
+import { dynamicSection, writeHeaderArray } from './utils';
 
 // In this file the words Shelter, InfoSpot and Poster can, depending on the
 // context refer to either a single individual database entity, or to the more
@@ -62,6 +63,19 @@ const infoSpotHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
     t('stopDetails.infoSpots.equipmentReport.title.description', context),
 ];
 
+const singleInfoSpotHeaders: ReadonlyArray<(t: TFunction) => string> = [
+  (t) => t('stopDetails.infoSpots.label'),
+  (t) => t('stopDetails.infoSpots.purpose'),
+  (t) => t('stopDetails.infoSpots.size'),
+  (t) => t('stopDetails.infoSpots.backlight'),
+  (t) => t('stopDetails.location.latitude'),
+  (t) => t('stopDetails.location.longitude'),
+  (t) => t('stopDetails.infoSpots.zoneLabel'),
+  (t) => t('stopDetails.infoSpots.railInformation'),
+  (t) => t('stopDetails.infoSpots.floor'),
+  (t) => t('stopDetails.infoSpots.description'),
+];
+
 const posterHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
   (t, context) =>
     t('stopDetails.infoSpots.equipmentReport.title.productSize', context),
@@ -69,6 +83,23 @@ const posterHeaders: ReadonlyArray<GenerateInfoSpotHeader> = [
     t('stopDetails.infoSpots.equipmentReport.title.posterLabel', context),
   (t, context) =>
     t('stopDetails.infoSpots.equipmentReport.title.posterLines', context),
+];
+
+const singleInfoSpotPosterHeaders: ReadonlyArray<
+  (t: TFunction, posterNumber: number) => string
+> = [
+  (t, posterNumber) =>
+    t('stopDetails.infoSpots.infoSpotReport.title.productSize', {
+      posterNumber,
+    }),
+  (t, posterNumber) =>
+    t('stopDetails.infoSpots.infoSpotReport.title.posterLabel', {
+      posterNumber,
+    }),
+  (t, posterNumber) =>
+    t('stopDetails.infoSpots.infoSpotReport.title.posterLines', {
+      posterNumber,
+    }),
 ];
 
 /**
@@ -397,3 +428,65 @@ export const InfoSpotsSection = dynamicSection((data) => {
 
   return new InfoSpotsSectionImplementation(counts, flatFieldCount);
 });
+
+class SingleInfoSposSectionImplementation
+  implements ReportSection<EnrichedStopDetailsWithSelectedInfoSpot>
+{
+  private readonly maxPosters: number;
+
+  readonly shouldHavePadding = true;
+
+  readonly fieldCount: number;
+
+  constructor(maxPosters: number) {
+    this.maxPosters = maxPosters;
+    this.fieldCount =
+      singleInfoSpotHeaders.length +
+      singleInfoSpotPosterHeaders.length * maxPosters;
+  }
+
+  writeMetaHeaders(writer: CSVWriter) {
+    const { t } = writer;
+
+    writer.writeTextField(t('stopDetails.infoSpots.title').toLocaleUpperCase());
+    writer.writeEmptyFields(this.fieldCount - 1);
+  }
+
+  writeHeader(writer: CSVWriter) {
+    const { t } = writer;
+
+    writeHeaderArray(writer, singleInfoSpotHeaders);
+
+    for (let i = 0; i < this.maxPosters; i += 1) {
+      singleInfoSpotPosterHeaders.forEach((genHeader) =>
+        writer.writeTextField(genHeader(t, i + 1)),
+      );
+    }
+  }
+
+  writeRecordFields(
+    writer: CSVWriter,
+    { quay, infoSpotId }: EnrichedStopDetailsWithSelectedInfoSpot,
+  ) {
+    const infoSpot = quay.infoSpots?.find((it) => it?.id === infoSpotId);
+
+    if (!infoSpot || infoSpotId === null) {
+      writeEmptyInfoSpot(writer, this.maxPosters);
+    } else {
+      writeInfoSpotFields(writer, infoSpot, this.maxPosters);
+    }
+  }
+}
+
+export const SingleInfoSpotsSection =
+  dynamicSection<EnrichedStopDetailsWithSelectedInfoSpot>((data) => {
+    const maxPosters = data
+      .values()
+      .flatMap((it) => it.quay.infoSpots ?? [])
+      .map((infoSpot) => infoSpot?.poster)
+      .map(compact)
+      .map((posters) => posters.length)
+      .reduce((a, b) => Math.max(a, b), 0);
+
+    return new SingleInfoSposSectionImplementation(maxPosters);
+  });

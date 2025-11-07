@@ -9,10 +9,13 @@ import {
   ShelterCountSection,
   SheltersSection,
   SignageDetailsSection,
+  SingleInfoSpotsSection,
+  SingularShelterSection,
   ValidityDetailsSection,
 } from './sections';
 import {
   EnrichedStopDetails,
+  EnrichedStopDetailsWithSelectedInfoSpot,
   OnQuaysProcessedProgress,
   ReportContext,
   ReportSection,
@@ -20,38 +23,73 @@ import {
   TriggerDownloadFn,
 } from './types';
 
-export class EquipmentReport {
-  // Builders for sections that should be included in the report.
-  private static readonly defaultSections: ReadonlyArray<ReportSectionInstantiator> =
-    [
-      BasicDetailsSection,
-      ValidityDetailsSection,
-      LocationDetailsSection,
-      MaintenanceDetailsSection,
-      SignageDetailsSection,
-      MeasurementsDetailsSection,
-      ShelterCountSection,
-      SheltersSection,
-      InfoSpotsSection,
-    ];
+// Builders for sections that should be included both reports.
+const baseReportSections: ReadonlyArray<ReportSectionInstantiator> = [
+  BasicDetailsSection,
+  ValidityDetailsSection,
+  LocationDetailsSection,
+  MaintenanceDetailsSection,
+  SignageDetailsSection,
+  MeasurementsDetailsSection,
+  ShelterCountSection,
+];
 
-  private readonly data: ReadonlyArray<EnrichedStopDetails>;
+// Builders for sections that should be included in the Equipment details report.
+const equipmentReportSections: ReadonlyArray<ReportSectionInstantiator> = [
+  ...baseReportSections,
+  SheltersSection,
+  InfoSpotsSection,
+];
 
-  private readonly sections: ReadonlyArray<ReportSection>;
+// Builders for sections that should be included in the InfoSpot details report.
+const infoSpotReportSections: ReadonlyArray<
+  ReportSectionInstantiator<EnrichedStopDetailsWithSelectedInfoSpot>
+> = [...baseReportSections, SingularShelterSection, SingleInfoSpotsSection];
 
-  private readonly lastSection: ReportSection;
-
-  private readonly writer: CSVWriter;
-
-  constructor(
+export class SectionedReport<
+  StopDetails extends EnrichedStopDetails = EnrichedStopDetails,
+> {
+  public static equipmentReport(
     t: TFunction,
     data: ReadonlyArray<EnrichedStopDetails>,
     context: ReportContext,
   ) {
-    this.data = data;
-    this.sections = EquipmentReport.defaultSections.map(({ forDataset }) =>
-      forDataset(data, context),
+    return new SectionedReport(
+      t,
+      equipmentReportSections.map(({ forDataset }) =>
+        forDataset(data, context),
+      ),
+      data,
     );
+  }
+
+  public static infoSpotReport(
+    t: TFunction,
+    data: ReadonlyArray<EnrichedStopDetailsWithSelectedInfoSpot>,
+    context: ReportContext,
+  ) {
+    return new SectionedReport(
+      t,
+      infoSpotReportSections.map(({ forDataset }) => forDataset(data, context)),
+      data,
+    );
+  }
+
+  private readonly data: ReadonlyArray<StopDetails>;
+
+  private readonly sections: ReadonlyArray<ReportSection<StopDetails>>;
+
+  private readonly lastSection: ReportSection<StopDetails>;
+
+  private readonly writer: CSVWriter;
+
+  private constructor(
+    t: TFunction,
+    sections: ReadonlyArray<ReportSection<StopDetails>>,
+    data: ReadonlyArray<StopDetails>,
+  ) {
+    this.data = data;
+    this.sections = sections;
     this.lastSection = this.sections[this.sections.length - 1];
     this.writer = new CSVWriter(t, this.getFieldCount());
   }

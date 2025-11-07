@@ -1,7 +1,5 @@
-import { DateTime } from 'luxon';
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { mapToShortDate, mapToShortTime } from '../../../../time';
 import { SimpleDropdownMenuItem } from '../../../../uiComponents';
 import {
   AsyncTaskCancelledError,
@@ -13,29 +11,44 @@ import {
   ConfirmCancellation,
   useRegisterAsyncTask,
 } from '../../../common/AsyncTaskList';
-import { useGenerateEquipmentReport } from '../csv-export/useGenerateEquipmentReport';
+import { GenerateReport } from '../csv-export/types';
 import { ResultSelection, StopSearchFilters } from '../types';
 
 const testIds = {
-  button: 'DownloadEquipmentReportMenu::button',
-  filename: 'DownloadEquipmentReportMenu::filename',
+  button: (type: string) => `${type}::button`,
+  filename: (type: string) => `${type}::filename`,
 };
 
-type DownloadEquipmentReportMenuItemProps = {
+type DownloadReportMenuItemProps = {
   readonly className?: string;
   readonly disabled?: boolean;
   readonly filters: StopSearchFilters;
+  readonly generateReport: GenerateReport;
+  readonly genFilename: () => string;
   readonly selection: ResultSelection;
+  readonly text: string;
+  readonly type: string;
 };
 
-const DownloadEquipmentReportMenuItemImpl: ForwardRefRenderFunction<
+const DownloadReportMenuItemImpl: ForwardRefRenderFunction<
   HTMLButtonElement,
-  DownloadEquipmentReportMenuItemProps
-> = ({ className, disabled = false, filters, selection }, ref) => {
+  DownloadReportMenuItemProps
+> = (
+  {
+    className,
+    disabled = false,
+    filters,
+    generateReport,
+    genFilename,
+    selection,
+    text,
+    type,
+  },
+  ref,
+) => {
   const { t } = useTranslation();
 
   const registerAsyncTask = useRegisterAsyncTask();
-  const generateEquipmentReport = useGenerateEquipmentReport();
 
   const onGenerationFinished = (fileName: string) => {
     showSuccessToast(
@@ -43,7 +56,9 @@ const DownloadEquipmentReportMenuItemImpl: ForwardRefRenderFunction<
         t={t}
         i18nKey="stopRegistrySearch.csv.downloaded"
         components={{
-          Filename: <span data-testid={testIds.filename}>{fileName}</span>,
+          Filename: (
+            <span data-testid={testIds.filename(type)}>{fileName}</span>
+          ),
         }}
       />,
     );
@@ -59,19 +74,16 @@ const DownloadEquipmentReportMenuItemImpl: ForwardRefRenderFunction<
   };
 
   const onClick = () => {
-    const now = DateTime.now();
+    const filename = genFilename();
 
     registerAsyncTask((onProgress, unregisterTask, id) => {
       const abortController = new AbortController();
 
       const initialize = () => {
-        generateEquipmentReport(
+        generateReport(
           filters,
           selection,
-          t('stopRegistrySearch.csv.equipmentReportFileName', {
-            today: mapToShortDate(now),
-            now: mapToShortTime(now),
-          }),
+          filename,
           t('stopRegistrySearch.csv.saveAs'),
           abortController.signal,
           onProgress,
@@ -109,13 +121,11 @@ const DownloadEquipmentReportMenuItemImpl: ForwardRefRenderFunction<
       ref={ref}
       className={className}
       disabled={disabled}
-      text={t('stopRegistrySearch.csv.downloadEquipmentReport')}
+      text={text}
       onClick={onClick}
-      testId={testIds.button}
+      testId={testIds.button(type)}
     />
   );
 };
 
-export const DownloadEquipmentReportMenuItem = forwardRef(
-  DownloadEquipmentReportMenuItemImpl,
-);
+export const DownloadReportMenuItem = forwardRef(DownloadReportMenuItemImpl);
