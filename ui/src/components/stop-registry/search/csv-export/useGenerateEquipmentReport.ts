@@ -22,12 +22,14 @@ import { getEnrichedStopPlace } from '../../stop-areas/stop-area-details/useGetS
 import { mapCompactOrNull, mapToEnrichedQuay } from '../../utils';
 import { filtersAndResultSelectionToQueryVariables } from '../by-stop/filtersToQueryVariables';
 import { ResultSelection, StopSearchFilters } from '../types';
-import { EquipmentReport } from './EquipmentReport';
+import { SectionedReport } from './SectionedReport';
 import {
   ByAlreadyKnownIds,
   ByFiltersAndSelection,
   EnrichedQuayWithTimingPlace,
   EnrichedStopDetails,
+  EnrichedStopDetailsWithSelectedInfoSpot,
+  GenerateReport,
   InitTiamatStopDataFetcherFn,
   OnProgress,
   OnQuaysProcessedProgress,
@@ -592,7 +594,23 @@ function makeFetchWriteProgressControls(
   };
 }
 
-export function useGenerateEquipmentReport() {
+function promptForFileName(
+  filename: string,
+  saveFileNamePrompt: string,
+): string {
+  // eslint-disable-next-line no-alert
+  const userGivenFilename = window.prompt(saveFileNamePrompt, filename);
+
+  if (userGivenFilename === null) {
+    throw new AsyncTaskCancelledError(
+      'Report generated, but user canceled download.',
+    );
+  }
+
+  return userGivenFilename.trim() ? userGivenFilename : filename;
+}
+
+export function useGenerateEquipmentReport(): GenerateReport {
   const { t } = useTranslation();
   const prepareDataForExport = usePrepareDataForExport();
 
@@ -616,23 +634,72 @@ export function useGenerateEquipmentReport() {
     );
 
     const context: ReportContext = { observationDate: filters.observationDate };
-    using report = new EquipmentReport(t, data, context);
+    using report = SectionedReport.equipmentReport(t, data, context);
     const download = await report.generate(abortSignal, onDataWritten);
 
     abortSignal.throwIfAborted();
 
-    // eslint-disable-next-line no-alert
-    const userGivenFilename = window.prompt(saveFileNamePrompt, filename);
+    const actualFileName = promptForFileName(filename, saveFileNamePrompt);
+    download(actualFileName);
+    return actualFileName;
+  };
+}
 
-    if (userGivenFilename === null) {
-      throw new AsyncTaskCancelledError(
-        'Report generated, but user canceled download.',
-      );
-    }
+function mapToInfoSpotReportData(
+  data: ReadonlyArray<EnrichedStopDetails>,
+): Array<EnrichedStopDetailsWithSelectedInfoSpot> {
+  return data
+    .values()
+    .flatMap((record) => {
+      const infoSpots = compact(record.quay.infoSpots);
 
-    const actualFileName = userGivenFilename.trim()
-      ? userGivenFilename
-      : filename;
+      if (infoSpots.length === 0) {
+        return [{ ...record, infoSpotId: null }];
+      }
+
+      return infoSpots.map((infoSpot) => ({
+        ...record,
+        infoSpotId: infoSpot.id ?? null,
+      }));
+    })
+    .toArray();
+}
+
+export function useGenerateInfoSpotReport(): GenerateReport {
+  const { t } = useTranslation();
+  const prepareDataForExport = usePrepareDataForExport();
+
+  return async (
+    filters: StopSearchFilters,
+    selection: ResultSelection,
+    filename: string,
+    saveFileNamePrompt: string,
+    abortSignal: AbortSignal,
+    onProgress: OnProgress,
+  ): Promise<string> => {
+    const { onTotalCountResolved, onDataFetched, onDataWritten } =
+      makeFetchWriteProgressControls(onProgress);
+
+    const data = await prepareDataForExport(
+      filters,
+      selection,
+      abortSignal,
+      onTotalCountResolved,
+      onDataFetched,
+    );
+    const infoSpotReportData = mapToInfoSpotReportData(data);
+
+    const context: ReportContext = { observationDate: filters.observationDate };
+    using report = SectionedReport.infoSpotReport(
+      t,
+      infoSpotReportData,
+      context,
+    );
+    const download = await report.generate(abortSignal, onDataWritten);
+
+    abortSignal.throwIfAborted();
+
+    const actualFileName = promptForFileName(filename, saveFileNamePrompt);
     download(actualFileName);
     return actualFileName;
   };

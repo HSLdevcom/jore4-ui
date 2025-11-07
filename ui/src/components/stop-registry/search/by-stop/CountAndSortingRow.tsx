@@ -3,11 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PulseLoader } from 'react-spinners';
 import { twMerge } from 'tailwind-merge';
 import { theme } from '../../../../generated/theme';
-import {
-  AlignDirection,
-  SimpleButton,
-  SimpleDropdownMenu,
-} from '../../../../uiComponents';
+import { SimpleButton } from '../../../../uiComponents';
 import { StopSearchRow } from '../../components';
 import { ResultCountHeader } from '../components/ResultCountHeader';
 import { SortResultsBy } from '../components/SortResultsBy';
@@ -17,14 +13,13 @@ import {
   SortingInfo,
   StopSearchFilters,
 } from '../types';
-import { DownloadEquipmentReportMenuItem } from './DownloadEquipmentReportMenuItem';
+import { ResultsActionMenu } from './ResultsActionMenu';
 import { useOpenStopResultsOnMap } from './useOpenStopResultsOnMap';
 
 const testIds = {
   showOnMapButton: 'StopSearchResultsPage::showOnMapButton',
   showOnMapButtonLoading: 'StopSearchResultsPage::showOnMapButton::loading',
   selectAllButton: 'StopSearchResultsPage::selectAllButton',
-  actionMenu: 'StopSearchResultsPage::results::actionMenu',
 };
 
 const supportedSortingFields: ReadonlyArray<SortStopsBy> = [
@@ -109,20 +104,11 @@ export const CountAndSortingRow: FC<CountAndSortingRowProps> = ({
         supportedFields={supportedSortingFields}
       />
 
-      <SimpleDropdownMenu
-        tooltip={t('accessibility:common.actionMenu')}
-        alignItems={AlignDirection.Left}
-        testId={testIds.actionMenu}
-      >
-        <DownloadEquipmentReportMenuItem
-          disabled={
-            resultCount === 0 ||
-            resultSelection.selectionState === 'NONE_SELECTED'
-          }
-          filters={filters}
-          selection={resultSelection}
-        />
-      </SimpleDropdownMenu>
+      <ResultsActionMenu
+        filters={filters}
+        resultCount={resultCount}
+        resultSelection={resultSelection}
+      />
     </div>
   );
 };

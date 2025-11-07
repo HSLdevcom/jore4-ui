@@ -133,6 +133,32 @@ function offsetPoint(
   };
 }
 
+let generatedQuayIndex = 0;
+
+function generateQuay(
+  stopPlaceId: string,
+  ...changes: ReadonlyArray<Partial<StopRegistryQuayInput>>
+): InsertQuayInput {
+  const location: Partial<StopRegistryQuayInput> = {
+    geometry: offsetPoint(centroids.helsinki, generatedQuayIndex),
+  };
+  generatedQuayIndex += 1;
+
+  const input = [template, location, ...changes].reduce(
+    (compiled, set) => ({
+      ...compiled,
+      ...set,
+      keyValues: uniqBy(
+        compact((set.keyValues ?? [])?.concat(compiled.keyValues ?? [])),
+        (kv) => kv.key,
+      ),
+    }),
+    {},
+  );
+
+  return { stopPlaceId, input };
+}
+
 function shouldHaveResultOf(
   ...expectedStops: ReadonlyArray<string | ReadonlyArray<string>>
 ) {
@@ -1334,31 +1360,6 @@ describe('Stop search', () => {
       keyof ReturnType<typeof generateTestData>
     >;
     let testStops: TestStops;
-    let generatedQuayIndex = 0;
-
-    function generateQuay(
-      stopPlaceId: string,
-      ...changes: ReadonlyArray<Partial<StopRegistryQuayInput>>
-    ): InsertQuayInput {
-      const location: Partial<StopRegistryQuayInput> = {
-        geometry: offsetPoint(centroids.helsinki, generatedQuayIndex),
-      };
-      generatedQuayIndex += 1;
-
-      const input = [template, location, ...changes].reduce(
-        (compiled, set) => ({
-          ...compiled,
-          ...set,
-          keyValues: uniqBy(
-            compact((set.keyValues ?? [])?.concat(compiled.keyValues ?? [])),
-            (kv) => kv.key,
-          ),
-        }),
-        {},
-      );
-
-      return { stopPlaceId, input };
-    }
 
     function generateTestData(stopPlaceId: string) {
       generatedQuayIndex = 0;
@@ -1634,29 +1635,12 @@ describe('Stop search', () => {
     >;
     let testStops: TestStops;
 
-    function generateQuay(
-      stopPlaceId: string,
-      ...changes: ReadonlyArray<Partial<StopRegistryQuayInput>>
-    ): InsertQuayInput {
-      const input = [template, ...changes].reduce(
-        (compiled, set) => ({
-          ...compiled,
-          ...set,
-          keyValues: uniqBy(
-            compact((set.keyValues ?? [])?.concat(compiled.keyValues ?? [])),
-            (kv) => kv.key,
-          ),
-        }),
-        {},
-      );
-
-      return { stopPlaceId, input };
-    }
-
     function generateTestData(
       urbanShelterStopPlaceId: string,
       postShelterStopPlaceId: string,
     ) {
+      generatedQuayIndex = 0;
+
       return {
         urban1: generateQuay(urbanShelterStopPlaceId, {
           placeEquipments: { shelterEquipment: [shelterUrbanTemplate] },
@@ -1918,7 +1902,91 @@ describe('Stop search', () => {
   });
 
   describe('CSV reports', () => {
-    beforeEach(initWithHardcodedData);
+    type TestStops = InsertQuaysResult<
+      keyof ReturnType<typeof generateTestData>
+    >;
+
+    function generateTestData(stopPlaceId: string) {
+      generatedQuayIndex = 0;
+
+      return {
+        infoSpotA4: generateQuay(stopPlaceId, {
+          placeEquipments: {
+            shelterEquipment: [
+              { shelterNumber: 1, shelterType: StopRegistryShelterType.Post },
+              { shelterNumber: 2, shelterType: StopRegistryShelterType.Urban },
+            ],
+          },
+        }),
+        infoSpotA5: generateQuay(stopPlaceId, {
+          placeEquipments: { shelterEquipment: [shelterUrbanTemplate] },
+        }),
+      };
+    }
+
+    function generateInfoSpotsForTestData(
+      generatedStops: TestStops,
+    ): Array<StopRegistryInfoSpotInput> {
+      return [
+        {
+          label: 'Sized A4',
+          width: 210,
+          height: 297,
+          poster: [
+            { label: 'Tuote 1', height: 100, width: 100, lines: '' },
+            { label: 'Tuote 2', height: 100, width: 100, lines: 'Lisätieto' },
+          ],
+          infoSpotLocations: [
+            generatedStops.tagToNetexId.infoSpotA4,
+            generatedStops.tagToShelters.infoSpotA4[1],
+          ],
+        },
+        {
+          label: 'Sized A5',
+          width: 148,
+          height: 210,
+          poster: [{ label: 'Öökkönen', height: 88, width: 125 }],
+          infoSpotLocations: [
+            generatedStops.tagToNetexId.infoSpotA5,
+            generatedStops.tagToShelters.infoSpotA5[0],
+          ],
+        },
+      ];
+    }
+
+    function generateAndInsertInfoSpotExtraData() {
+      const privateCode = 'EI001';
+      cy.task<InsertedStopRegistryIds>('insertStopRegistryData', {
+        stopPlaces: [
+          {
+            StopArea: {
+              name: {
+                lang: 'fin',
+                value: 'Infopaikka raportti - testi pysäkki',
+              },
+              privateCode: { type: 'HSL/TEST', value: privateCode },
+              transportMode: StopRegistryTransportModeType.Bus,
+            },
+            organisations: null,
+          },
+        ],
+        stopPointsRequired: false,
+      })
+        .then((ids) => {
+          const testDataInputs = generateTestData(
+            ids.stopPlaceIdsByName[privateCode],
+          );
+
+          return cy.task('insertQuaysWithRealIds', testDataInputs);
+        })
+        .then(generateInfoSpotsForTestData)
+        .then((infoSpotData) => cy.task('insertInfoSpots', infoSpotData));
+    }
+
+    before(initWithHardcodedData);
+    before(generateAndInsertInfoSpotExtraData);
+
+    beforeEach(() => setupTestsAndNavigateToPage({ pageSize: 100 }));
 
     it('Should generate and download Equipment Details CSV report', () => {
       cy.window().then((win) => {
@@ -1941,14 +2009,51 @@ describe('Stop search', () => {
 
       cy.getByTestId('TaskWithProgressBar').shouldBeVisible();
 
-      stopSearchResultsPage.getDownloadedCSVReport().then((generatedData) => {
-        cy.fixture<string>(
-          'csvReports/equipmentDetailsHardCodedData.csv',
-          'utf-8',
-        ).then((referenceData) => {
-          expect(generatedData).to.eql(referenceData);
+      stopSearchResultsPage
+        .getDownloadedEquipmentDetailsCSVReport()
+        .then((generatedData) => {
+          cy.fixture<string>(
+            'csvReports/equipmentDetailsHardCodedData.csv',
+            'utf-8',
+          ).then((referenceData) => {
+            expect(generatedData).to.eql(referenceData);
+          });
         });
+
+      cy.getByTestId('TaskWithProgressBar').should('not.exist');
+    });
+
+    it('Should generate and download Info Spot Details CSV report', () => {
+      cy.window().then((win) => {
+        cy.stub(win, 'prompt').returns('InfoSpotReportTest.csv');
       });
+
+      const observationDate = '2025-01-01';
+      stopSearchBar.getObservationDateInput().clearAndType(observationDate);
+      stopSearchBar.getSearchInput().type(`*{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultCount().shouldHaveText('13 hakutulosta');
+
+      stopSearchResultsPage.getResultsActionMenu().shouldBeVisible().click();
+      stopSearchResultsPage
+        .getDownloadInfoSpotDetailsReportButton()
+        .shouldBeVisible()
+        .click();
+
+      cy.getByTestId('TaskWithProgressBar').shouldBeVisible();
+
+      stopSearchResultsPage
+        .getDownloadedInfoSpotDetailsCSVReport()
+        .then((generatedData) => {
+          cy.fixture<string>(
+            'csvReports/InfoSpotDetailsHardCodedData.csv',
+            'utf-8',
+          ).then((referenceData) => {
+            expect(generatedData).to.eql(referenceData);
+          });
+        });
 
       cy.getByTestId('TaskWithProgressBar').should('not.exist');
     });

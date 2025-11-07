@@ -504,6 +504,13 @@
           "posterLabel": "Label - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}",
           "posterLines": "Additional information - Shelter {{shelterNumber}} - Info Spot {{infoSpotNumber}} - Poster {{posterNumber}}"
         }
+      },
+      "infoSpotReport": {
+        "title": {
+          "productSize": "Poster {{posterNumber}} size",
+          "posterLabel": "Poster {{posterNumber}}",
+          "posterLines": "Poster {{posterNumber}} additional information"
+        }
       }
     },
     "actions": {
@@ -726,8 +733,10 @@
 
     "csv": {
       "downloadEquipmentReport": "Download Equipment Details Report",
+      "downloadInfoSpotReport": "Download Info Spot Details Report",
       "saveAs": "Save CSV report under filename:",
       "equipmentReportFileName": "Equipment Details Report {{today}} at {{now}} o'clock.csv",
+      "infoSpotReportFileName": "Info Spot Details Report {{today}} at {{now}} o'clock.csv",
       "confirmCancellationTitle": "Abort report generation",
       "confirmCancellationBody": "You can download a new report after cancelling this one.",
       "generationInProgress": "Report is being generated",
@@ -736,7 +745,8 @@
       "downloaded": "CSV report downloaded as: <Filename />",
 
       "metaHeaders": {
-        "validity": "Validity period"
+        "validity": "Validity period",
+        "shelter": "Shelter"
       }
     },
 

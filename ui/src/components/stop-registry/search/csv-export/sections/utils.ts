@@ -22,12 +22,14 @@ export function writeGivenMetaHeadersAtStart(
   writer.writeEmptyFields(fieldCount - metaHeaders.length);
 }
 
-export function staticSection(
+export function staticSection<
+  StopDetails extends EnrichedStopDetails = EnrichedStopDetails,
+>(
   metaHeaders: ReadonlyArray<(t: TFunction) => string>,
   headers: ReadonlyArray<(t: TFunction) => string>,
-  writeRecordFields: (writer: CSVWriter, record: EnrichedStopDetails) => void,
+  writeRecordFields: (writer: CSVWriter, record: StopDetails) => void,
   shouldHavePadding: boolean = true,
-): ReportSectionInstantiator {
+): ReportSectionInstantiator<StopDetails> {
   return {
     forDataset: () => ({
       fieldCount: headers.length,
@@ -43,8 +45,10 @@ export function staticSection(
   };
 }
 
-export function dynamicSection(
-  forDataset: ReportSectionInstantiator['forDataset'],
-): ReportSectionInstantiator {
+export function dynamicSection<
+  StopDetails extends EnrichedStopDetails = EnrichedStopDetails,
+>(
+  forDataset: ReportSectionInstantiator<StopDetails>['forDataset'],
+): ReportSectionInstantiator<StopDetails> {
   return { forDataset };
 }

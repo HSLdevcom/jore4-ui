@@ -8,7 +8,11 @@ import {
   mapStopRegistryShelterTypeEnumToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
-import { EnrichedStopDetails, ReportSection } from '../types';
+import {
+  EnrichedStopDetails,
+  EnrichedStopDetailsWithSelectedInfoSpot,
+  ReportSection,
+} from '../types';
 import { dynamicSection, staticSection, writeHeaderArray } from './utils';
 
 const headers: ReadonlyArray<(t: TFunction) => string> = [
@@ -176,3 +180,30 @@ export const ShelterCountSection = staticSection(
     ),
   false,
 );
+
+export const SingularShelterSection =
+  staticSection<EnrichedStopDetailsWithSelectedInfoSpot>(
+    [(t) => t('stopRegistrySearch.csv.metaHeaders.shelter')],
+    headers,
+    // eslint-disable-next-line consistent-return
+    (writer, record) => {
+      if (record.infoSpotId === null) {
+        return writeEmptyShelter(writer);
+      }
+
+      const infoSpotLocations =
+        record.quay.infoSpots?.find(
+          (infoSpot) => infoSpot?.id === record.infoSpotId,
+        )?.infoSpotLocations ?? [];
+
+      const shelter = record.quay.placeEquipments?.shelterEquipment?.find(
+        (it) => infoSpotLocations.includes(it?.id as string),
+      );
+
+      if (shelter) {
+        writeProperShelter(writer, shelter);
+      } else {
+        writeEmptyShelter(writer);
+      }
+    },
+  );

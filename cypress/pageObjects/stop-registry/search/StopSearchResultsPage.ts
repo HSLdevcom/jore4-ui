@@ -64,13 +64,17 @@ export class StopSearchResultsPage {
   }
 
   getDownloadEquipmentDetailsReportButton() {
-    return cy.getByTestId('DownloadEquipmentReportMenu::button');
+    return cy.getByTestId('EquipmentReport::button');
   }
 
-  getDownloadedCSVReport() {
+  getDownloadInfoSpotDetailsReportButton() {
+    return cy.getByTestId('InfoSpotReport::button');
+  }
+
+  getDownloadedCSVReport(type: string) {
     this.toast.expectSuccessToast('CSV raportti ladattu nimellä: ');
     return cy
-      .getByTestId('DownloadEquipmentReportMenu::filename')
+      .getByTestId(`${type}::filename`)
       .then((filenameSpan) => filenameSpan.text())
       .then((filename) =>
         cy.task('readDownloadedCSV', {
@@ -82,5 +86,13 @@ export class StopSearchResultsPage {
           timeout: Cypress.config('taskTimeout'),
         }),
       );
+  }
+
+  getDownloadedEquipmentDetailsCSVReport() {
+    return this.getDownloadedCSVReport('EquipmentReport');
+  }
+
+  getDownloadedInfoSpotDetailsCSVReport() {
+    return this.getDownloadedCSVReport('InfoSpotReport');
   }
 }

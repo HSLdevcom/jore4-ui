@@ -504,6 +504,13 @@
           "posterLabel": "Painotuote - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}",
           "posterLines": "Lisätieto - Katos {{shelterNumber}} - Infopaikka {{infoSpotNumber}} - Tuote {{posterNumber}}"
         }
+      },
+      "infoSpotReport": {
+        "title": {
+          "productSize": "Infotuotteen {{posterNumber}} koko",
+          "posterLabel": "Infotuote {{posterNumber}}",
+          "posterLines": "Infotuotteen {{posterNumber}} lisätieto"
+        }
       }
     },
     "actions": {
@@ -726,8 +733,10 @@
 
     "csv": {
       "downloadEquipmentReport": "Lataa Varustelutietoraportti",
+      "downloadInfoSpotReport": "Lataa Infopaikkaraportti",
       "saveAs": "Tallenna raportti nimellä:",
       "equipmentReportFileName": "Varustelutietoraportti {{today}} klo {{now}}.csv",
+      "infoSpotReportFileName": "Infopaikkaraportti {{today}} klo {{now}}.csv",
       "confirmCancellationTitle": "Keskeytä raportin tekeminen",
       "confirmCancellationBody": "Voit ladata uuden raportin keskeyttämisen jälkeen.",
       "generationInProgress": "Raportti valmistuu",
@@ -736,7 +745,8 @@
       "downloaded": "CSV raportti ladattu nimellä: <Filename />",
 
       "metaHeaders": {
-        "validity": "Voimassaolo"
+        "validity": "Voimassaolo",
+        "shelter": "Katos"
       }
     },
 
