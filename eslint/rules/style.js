@@ -1,3 +1,6 @@
+const netexMisspelledMessage =
+  "Did you misspell 'netex' as netexT with an additional T at the end?";
+
 module.exports = {
   rules: {
     // Original rules from Airbnb config
@@ -75,6 +78,18 @@ module.exports = {
         selector: 'WithStatement',
         message:
           '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
+      },
+      {
+        selector: 'Literal[value=/(netext|Netext)/]',
+        message: netexMisspelledMessage,
+      },
+      {
+        selector: 'Identifier[name=/(netext|Netext)/]',
+        message: netexMisspelledMessage,
+      },
+      {
+        selector: 'TemplateElement[value.raw=/(netext|Netext)/]',
+        message: netexMisspelledMessage,
       },
     ],
 
