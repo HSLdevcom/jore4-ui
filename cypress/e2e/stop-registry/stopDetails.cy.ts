@@ -2089,10 +2089,7 @@ describe('Stop details', () => {
             .getDescription()
             .should('have.value', 'Ensimmäinen kerros, portaiden takana');
           infoSpot.getLabel().should('have.value', 'JP1234567');
-          infoSpot
-            .getPurposeButton()
-            .should('have.text', 'Muu käyttötarkoitus');
-          infoSpot.getPurposeCustom().should('have.value', 'Dynaaminen näyttö');
+          infoSpot.getPurposeButton().should('have.text', 'Dynaaminen näyttö');
           infoSpot.getFloor().should('have.value', '1');
           infoSpot.getRailInformation().should('have.value', '8');
           infoSpot.getZoneLabel().should('have.value', 'B');
