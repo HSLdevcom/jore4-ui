@@ -8,7 +8,7 @@ import {
   InsertQuayInput,
   InsertQuayInputs,
   InsertQuaysResult,
-  QuayTagToNetextId,
+  QuayTagToNetexId,
   QuayTagToPublicCode,
   QuayTagToShelters,
 } from './types';
@@ -77,12 +77,12 @@ export async function insertQuaysWithRealIds<Tags extends string>(
     ]),
   ) as QuayTagToPublicCode<Tags>;
 
-  const tagToNetextId = Object.fromEntries(
+  const tagToNetexId = Object.fromEntries(
     Object.entries<InsertQuayInput>(inputsWithIds).map(([tag, input]) => [
       tag,
       collectedQuayDetails[input.input.publicCode ?? ''].netexId ?? '',
     ]),
-  ) as QuayTagToNetextId<Tags>;
+  ) as QuayTagToNetexId<Tags>;
 
   const tagToShelters = Object.fromEntries(
     Object.entries<InsertQuayInput>(inputsWithIds).map(([tag, input]) => [
@@ -95,7 +95,7 @@ export async function insertQuaysWithRealIds<Tags extends string>(
   return {
     inputs: inputsWithIds,
     tagToPublicCode,
-    tagToNetextId,
+    tagToNetexId,
     tagToShelters,
   };
 }

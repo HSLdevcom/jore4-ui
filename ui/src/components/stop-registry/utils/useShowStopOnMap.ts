@@ -22,12 +22,12 @@ export function useShowStopOnMap() {
   const navigateToMap = useNavigateToMap();
 
   return (
-    { netextId, location }: LocatableStop,
+    { netexId, location }: LocatableStop,
     observeOnDate: DateTime | null = null,
   ) => {
     dispatch(resetMapState()).then(() => {
-      if (netextId) {
-        dispatch(setSelectedStopIdAction(netextId));
+      if (netexId) {
+        dispatch(setSelectedStopIdAction(netexId));
         dispatch(setMapStopViewStateAction(MapEntityEditorViewState.POPUP));
       }
 

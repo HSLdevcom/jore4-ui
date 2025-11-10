@@ -8,7 +8,7 @@ import { parseStopFormStopAreaInfo } from './parseStopFormStopAreaInfo';
 const GQL_STOP_FORM_STOP_AREA_INFO = gql`
   fragment StopFormStopAreaInfo on stops_database_stop_place_newest_version {
     id
-    netextId: netex_id
+    netexId: netex_id
     privateCode: private_code_value
 
     validityStart: validity_start

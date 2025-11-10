@@ -62,7 +62,7 @@ const StopAreaHeader: FC<StopAreaHeaderProps> = ({
 const StopRow: FC<StopRowProps> = ({ stop, observationDate }) => {
   const locatableStop: LocatableStop = {
     label: stop.publicCode,
-    netextId: stop.netexId,
+    netexId: stop.netexId,
     location: getGeometryPoint(stop.location),
   };
 

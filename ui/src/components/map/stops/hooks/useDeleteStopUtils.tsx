@@ -26,7 +26,7 @@ type UseDeleteStopUtilsReturn =
 
 export function useDeleteStopUtils(
   stopInfo: StopInfoForEditingOnMap | null,
-  onFinishEditing: (netextId: string | null) => void,
+  onFinishEditing: (netexId: string | null) => void,
 ): UseDeleteStopUtilsReturn {
   const { t } = useTranslation();
 
@@ -48,14 +48,14 @@ export function useDeleteStopUtils(
     formState: {
       stopId,
       quayId,
-      stopArea: { netextId },
+      stopArea: { netexId },
     },
   }: StopInfoForEditingOnMap) => {
     try {
       const changes = await prepareDelete({
         stopPointId: stopId,
         quayId,
-        stopPlaceId: netextId,
+        stopPlaceId: netexId,
       });
 
       setDeleteChanges(changes);

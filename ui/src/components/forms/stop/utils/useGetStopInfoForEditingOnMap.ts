@@ -22,7 +22,7 @@ const GQL_GET_STOP_INFO_FOR_EDITING_ON_MAP = gql`
         where: { netex_id: { _eq: $quayNetexId } }
       ) {
         id
-        netextId: netex_id
+        netexId: netex_id
 
         label: public_code
         versionName: version_comment
@@ -129,7 +129,7 @@ function parseResult(
       municipality: null,
       expectedPrefix: null,
     },
-    quayId: requireValue(rawQuay.netextId),
+    quayId: requireValue(rawQuay.netexId),
     stopId: requireValue(rawQuay.stopPoint.id),
     stopArea: requireValue(parseStopFormStopAreaInfo(rawQuay.stopPlace)),
 

@@ -1411,7 +1411,7 @@ describe('Stop search', () => {
           width: 210,
           height: 297,
           infoSpotLocations: [
-            generatedStops.tagToNetextId.infoSpotA4,
+            generatedStops.tagToNetexId.infoSpotA4,
             generatedStops.tagToShelters.infoSpotA4[0],
           ],
         },
@@ -1420,7 +1420,7 @@ describe('Stop search', () => {
           width: 148,
           height: 210,
           infoSpotLocations: [
-            generatedStops.tagToNetextId.infoSpotA5,
+            generatedStops.tagToNetexId.infoSpotA5,
             generatedStops.tagToShelters.infoSpotA5[0],
           ],
         },

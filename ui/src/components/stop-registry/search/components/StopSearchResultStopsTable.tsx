@@ -32,7 +32,7 @@ const StopSearchResultRow: FC<StopSearchResultRowProps> = ({
 }) => {
   const locatableStop: LocatableStop = {
     label: stop.publicCode,
-    netextId: stop.netexId,
+    netexId: stop.netexId,
     location: getGeometryPoint(stop.location),
   };
 

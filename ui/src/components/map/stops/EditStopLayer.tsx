@@ -56,7 +56,7 @@ function enrichedStopAreaToStopModalStopAreaFormSchema(
   }
 
   return {
-    netextId: editedStopAreaData.id,
+    netexId: editedStopAreaData.id,
     privateCode: editedStopAreaData.privateCode.value,
 
     validityStart: editedStopAreaData.validityStart,
@@ -132,9 +132,9 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       onPopupClose();
     };
 
-    const onFinishEditing = (netextId: string | null) => {
+    const onFinishEditing = (netexId: string | null) => {
       onCloseEditors();
-      onEditingFinished(netextId);
+      onEditingFinished(netexId);
     };
 
     const { createChanges, onCreateStop, onCancelCreate } =

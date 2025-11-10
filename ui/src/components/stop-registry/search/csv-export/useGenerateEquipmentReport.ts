@@ -8,9 +8,9 @@ import {
   GetStopPlaceAndRelatedQuaysDocument,
   GetStopPlaceAndRelatedQuaysQuery,
   GetStopPlaceAndRelatedQuaysQueryVariables,
-  ResolveSearchResultNetextIdsDocument,
-  ResolveSearchResultNetextIdsQuery,
-  ResolveSearchResultNetextIdsQueryVariables,
+  ResolveSearchResultNetexIdsDocument,
+  ResolveSearchResultNetexIdsQuery,
+  ResolveSearchResultNetexIdsQueryVariables,
   StopPlaceDetailsFragment,
 } from '../../../../generated/graphql';
 import { EnrichedStopPlace, StopPlace } from '../../../../types';
@@ -36,7 +36,7 @@ import {
 } from './types';
 
 const GQL_RESOLVE_SEARCH_RESULT_NETEX_IDS = gql`
-  query ResolveSearchResultNetextIds(
+  query ResolveSearchResultNetexIds(
     $where: stops_database_quay_newest_version_bool_exp!
   ) {
     stopsDb: stops_database {
@@ -52,9 +52,9 @@ const GQL_RESOLVE_SEARCH_RESULT_NETEX_IDS = gql`
 `;
 
 const GQL_GET_STOP_PLACE_AND_RELATED_QUAYS = gql`
-  query GetStopPlaceAndRelatedQuays($stopPlaceNetextId: String!) {
+  query GetStopPlaceAndRelatedQuays($stopPlaceNetexId: String!) {
     stopRegistry: stop_registry {
-      stopPlace(id: $stopPlaceNetextId, onlyMonomodalStopPlaces: true) {
+      stopPlace(id: $stopPlaceNetexId, onlyMonomodalStopPlaces: true) {
         ...stop_place_details
 
         ... on stop_registry_StopPlace {
@@ -76,12 +76,12 @@ type ResolveQuayAndStopPlaceIdsFn = (
 ) => Promise<ReadonlyArray<QuayAndStopPlaceIds>>;
 
 /**
- * Parse raw results from the "Resolve all Netext IDs" -query.
+ * Parse raw results from the "Resolve all Netex IDs" -query.
  *
  * @param data Raw result data from the query
  */
 function parseIdPairs(
-  data: ResolveSearchResultNetextIdsQuery | undefined,
+  data: ResolveSearchResultNetexIdsQuery | undefined,
 ): ReadonlyArray<QuayAndStopPlaceIds> {
   return (
     mapCompactOrNull(data?.stopsDb?.search, (raw) => {
@@ -116,10 +116,10 @@ function useResolveQuayAndStopPlaceIds(): ResolveQuayAndStopPlaceIdsFn {
       );
 
       const results = await apollo.query<
-        ResolveSearchResultNetextIdsQuery,
-        ResolveSearchResultNetextIdsQueryVariables
+        ResolveSearchResultNetexIdsQuery,
+        ResolveSearchResultNetexIdsQueryVariables
       >({
-        query: ResolveSearchResultNetextIdsDocument,
+        query: ResolveSearchResultNetexIdsDocument,
         fetchPolicy: 'network-only',
         variables: { where },
 
@@ -240,12 +240,12 @@ type DataResolvers = ReturnType<typeof getDataResolvers>;
  * or alternatively marked as rejected in case of errors.
  *
  * @param resolvers Resolvers and rejectors for registering the result.
- * @param stopPlaceNetextId Id of the Stop Place we are processing.
+ * @param stopPlaceNetexId Id of the Stop Place we are processing.
  * @param data TThe raw StopPlace response data from Tiamat
  */
 function processRawStopPlace(
   resolvers: DataResolvers,
-  stopPlaceNetextId: string,
+  stopPlaceNetexId: string,
   data: GetStopPlaceAndRelatedQuaysQuery | undefined,
 ) {
   // Process and register the StopPlace details
@@ -258,7 +258,7 @@ function processRawStopPlace(
     const reason = new Error(
       `Unable to get Enriched Stop Place from response! Response: ${JSON.stringify(data)}`,
     );
-    resolvers.markStopPlaceAsRejected(stopPlaceNetextId, reason);
+    resolvers.markStopPlaceAsRejected(stopPlaceNetexId, reason);
     throw reason;
   }
 
@@ -361,7 +361,7 @@ function initiateFetchChains(
   helperContainers: HelperContainers,
   concurrentFetches: number,
   abortSignal: AbortSignal,
-  fetchStopPlace: (stopPlaceNetextId: string) => Promise<void>,
+  fetchStopPlace: (stopPlaceNetexId: string) => Promise<void>,
 ) {
   // List of errors that have happened
   const errors: Array<unknown> = [];
@@ -374,9 +374,9 @@ function initiateFetchChains(
   // Start a for a single StopPlace and once it is in recurse and fetch the
   // next pending one.
   const fetchAndQueueNextStopPlace = async (
-    stopPlaceNetextId: string,
+    stopPlaceNetexId: string,
   ): Promise<void> => {
-    await fetchStopPlace(stopPlaceNetextId);
+    await fetchStopPlace(stopPlaceNetexId);
 
     let next: IteratorResult<string, unknown> = pendingFetchesIterator.next();
     while (!next.done && !errors.length && !abortSignal.aborted) {
@@ -452,7 +452,7 @@ function useTiamatStopDataFetcher(
 
       // Query Tiamat for a StopPlace and register the result onto the premade
       // data promises (promisedStopPlaces & promisedQuays)
-      const fetchStopPlace = async (stopPlaceNetextId: string) => {
+      const fetchStopPlace = async (stopPlaceNetexId: string) => {
         // Query Tiamat for data
         const result = await apollo.query<
           GetStopPlaceAndRelatedQuaysQuery,
@@ -460,7 +460,7 @@ function useTiamatStopDataFetcher(
         >({
           query: GetStopPlaceAndRelatedQuaysDocument,
           fetchPolicy: 'network-only',
-          variables: { stopPlaceNetextId },
+          variables: { stopPlaceNetexId },
 
           // See comment earlier in the file. Search: Apollo and Abort Signals
           // context: { fetchOptions: { signal: abortSignal } },
@@ -472,7 +472,7 @@ function useTiamatStopDataFetcher(
 
         const { rawStopPlace } = processRawStopPlace(
           resolvers,
-          stopPlaceNetextId,
+          stopPlaceNetexId,
           result.data,
         );
 

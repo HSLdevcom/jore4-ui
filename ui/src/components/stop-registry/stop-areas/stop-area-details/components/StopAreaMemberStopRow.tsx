@@ -21,7 +21,7 @@ export const StopAreaMemberStopRow: FC<StopAreaMemberStopRowProps> = ({
 }) => {
   const locatableStop: LocatableStop = {
     label: member.publicCode,
-    netextId: member.netexId,
+    netexId: member.netexId,
     location: getGeometryPoint(member.location),
   };
 

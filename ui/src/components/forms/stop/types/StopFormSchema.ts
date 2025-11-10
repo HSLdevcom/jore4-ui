@@ -50,7 +50,7 @@ export const stopFormSchema = z
     }
 
     // If we don't have a StopArea selected
-    if (!stop.stopArea?.netextId) {
+    if (!stop.stopArea?.netexId) {
       ctx.addIssue({
         code: 'custom',
         message: REQUIRED_FIELD_ERROR_MESSAGE,

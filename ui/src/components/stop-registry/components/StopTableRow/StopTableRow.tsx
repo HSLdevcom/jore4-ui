@@ -57,7 +57,7 @@ export const StopTableRow: FC<StopTableRowProps> = ({
     <tr
       className={twMerge('text-hsl-dark-80', className)}
       data-testid={testIds.row(stop.publicCode)}
-      data-netext-id={stop.netexId}
+      data-netex-id={stop.netexId}
       data-scheduled-stop-point-id={stop.scheduledStopPointId}
     >
       {selectable && (

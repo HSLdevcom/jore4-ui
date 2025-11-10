@@ -36,7 +36,7 @@ export class StopSearchResultsPage {
   }
 
   getRowByNetexId(netexId: string) {
-    return cy.get(`[data-netext-id='${netexId}']`);
+    return cy.get(`[data-netex-id='${netexId}']`);
   }
 
   getRowByScheduledStopPointId(scheduledStopPointId: string) {

@@ -152,12 +152,12 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     setEditedStopAreaData(undefined);
   };
 
-  const onEditingFinished = async (netextId: string | null) => {
+  const onEditingFinished = async (netexId: string | null) => {
     // the newly created stop should become a regular stop from a draft
     // also, the recently edited stop's data is refetched
     setDraftStopLocation(undefined);
-    if (netextId) {
-      setSelectedStopId(netextId);
+    if (netexId) {
+      setSelectedStopId(netexId);
       setMapViewState({ stops: MapEntityEditorViewState.POPUP });
     }
     setIsLoadingSaveStop(false);

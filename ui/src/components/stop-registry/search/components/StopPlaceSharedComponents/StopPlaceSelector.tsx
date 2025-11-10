@@ -27,12 +27,12 @@ export const StopPlaceSelector: FC<StopPlaceSelectorProps> = ({
       stopPlaces.map(
         ({
           id,
-          netex_id: netextId,
+          netex_id: netexId,
           private_code: label,
           name_value: title,
         }) => ({
           id: id.toString(10),
-          label: label ?? netextId ?? id.toString(10),
+          label: label ?? netexId ?? id.toString(10),
           title: title ?? '',
         }),
       ),
