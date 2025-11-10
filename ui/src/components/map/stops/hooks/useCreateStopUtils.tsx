@@ -9,9 +9,7 @@ import { CreateChanges, useCreateStop } from './useCreateStop';
 import { useDefaultErrorHandler } from './useEditStop';
 import { useUpdateStopPriorityFilterIfNeeded } from './useUpdateStopPriorityFilterIfNeeded';
 
-export function useCreateStopUtils(
-  onFinishEditing: (netextId: string) => void,
-) {
+export function useCreateStopUtils(onFinishEditing: (netexId: string) => void) {
   const { t } = useTranslation();
 
   const [createChanges, setCreateChanges] = useState<CreateChanges | null>(

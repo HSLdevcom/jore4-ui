@@ -23,7 +23,7 @@ export function parseStopFormStopAreaInfo(
 ): StopModalStopAreaFormSchema | null {
   if (
     !rawArea ||
-    !rawArea.netextId ||
+    !rawArea.netexId ||
     !rawArea.privateCode ||
     !rawArea.validityStart
   ) {
@@ -39,7 +39,7 @@ export function parseStopFormStopAreaInfo(
     });
 
   return {
-    netextId: rawArea.netextId,
+    netexId: rawArea.netexId,
     privateCode: rawArea.privateCode,
 
     validityStart: rawArea.validityStart,

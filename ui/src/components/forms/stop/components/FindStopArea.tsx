@@ -116,7 +116,7 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
         {areas.map((area) => (
           <Combobox.Option
             className="flex cursor-pointer items-center border-b p-2 text-left focus:outline-none ui-active:bg-dark-grey ui-active:text-white"
-            key={area.netextId}
+            key={area.netexId}
             value={area}
             data-testid={testIds.result(area.privateCode)}
           >

@@ -31,7 +31,7 @@ export const OpenOnMapButton: FC<OpenOnMapButtonProps> = ({
       if (stop.quay.id && location) {
         openStopOnMap({
           label: stop.label,
-          netextId: stop.quay.id,
+          netexId: stop.quay.id,
           location,
         });
       }

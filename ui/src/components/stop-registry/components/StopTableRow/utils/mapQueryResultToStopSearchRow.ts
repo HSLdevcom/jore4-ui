@@ -154,7 +154,7 @@ function mapSingleTiamatStopAreaQuayToStopSearchRow<
 
   return {
     // No access to the DB row id, but we need a unique id.
-    // And from Tiamat's point of view NetextId  + version is that
+    // And from Tiamat's point of view NetexId  + version is that
     id: `${netexId}/${requireValue(quay.version)}`,
     netexId,
 

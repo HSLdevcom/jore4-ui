@@ -51,7 +51,7 @@ export const StopVersionRow: FC<StopVersionRowProps> = ({
 
   const stopForActions: ActionMenuStop = {
     label: publicCode,
-    netextId: stopVersion.netex_id,
+    netexId: stopVersion.netex_id,
     location: stopVersion.location,
     startDate: stopVersion.validity_start,
     priority: stopVersion.priority,

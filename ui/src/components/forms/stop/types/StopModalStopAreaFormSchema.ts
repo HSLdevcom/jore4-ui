@@ -3,7 +3,7 @@ import { z } from 'zod';
 const optionalString = z.string().nullable();
 
 export const stopModalStopAreaFormSchema = z.object({
-  netextId: z.string(),
+  netexId: z.string(),
   privateCode: z.string(),
 
   validityStart: z.string(),

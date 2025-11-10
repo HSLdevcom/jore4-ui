@@ -284,9 +284,9 @@ const StopFormComponent: ForwardRefRenderFunction<
 
   const onEdit = async (state: StopFormState) => {
     // in case of editing, the stopId is valid
-    if (!state.stopId || !state.quayId || !state.stopArea?.netextId) {
+    if (!state.stopId || !state.quayId || !state.stopArea?.netexId) {
       throw new Error(
-        `Expected form to have StopId(${state.stopId}), QuayId(${state.quayId}) and StopPlaceId(${state.stopArea?.netextId})!`,
+        `Expected form to have StopId(${state.stopId}), QuayId(${state.quayId}) and StopPlaceId(${state.stopArea?.netexId})!`,
       );
     }
 
@@ -297,7 +297,7 @@ const StopFormComponent: ForwardRefRenderFunction<
         mapFormStateToStopPointSetInput(state),
         dirtyFields,
       ),
-      stopPlaceId: state.stopArea.netextId,
+      stopPlaceId: state.stopArea.netexId,
       quayId: state.quayId,
       quayPatch: pickChangedFieldsForQuayPatch(dirtyFields, state),
     });
@@ -309,7 +309,7 @@ const StopFormComponent: ForwardRefRenderFunction<
       quay: mapFormStateToQuayInput(state),
       // Typed as nullable, but refined to be non nullable after validation.
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      stopPlaceId: state.stopArea!.netextId,
+      stopPlaceId: state.stopArea!.netexId,
     });
   };
 

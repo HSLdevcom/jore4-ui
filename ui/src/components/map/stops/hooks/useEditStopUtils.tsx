@@ -43,7 +43,7 @@ type UseEditStopUtilsReturn = EditUtilsEditActive | EditUtilsEditInactive;
 export function useEditStopUtils(
   stopInfo: StopInfoForEditingOnMap | null,
   setDisplayedEditor: (newViewState: MapEntityEditorViewState) => void,
-  onFinishEditing: (netextId: string) => void,
+  onFinishEditing: (netexId: string) => void,
 ): UseEditStopUtilsReturn {
   const { t } = useTranslation();
 
@@ -100,7 +100,7 @@ export function useEditStopUtils(
         stopArea,
       },
     } = stopInfo;
-    const stopPlaceId = stopArea?.netextId;
+    const stopPlaceId = stopArea?.netexId;
 
     setIsLoadingBrokenRoutes(true);
     try {

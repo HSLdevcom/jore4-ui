@@ -13,7 +13,7 @@ export type QuayTagToPublicCode<Tags extends string> = Readonly<
   Record<Tags, string>
 >;
 
-export type QuayTagToNetextId<Tags extends string> = Readonly<
+export type QuayTagToNetexId<Tags extends string> = Readonly<
   Record<Tags, string>
 >;
 
@@ -24,7 +24,7 @@ export type QuayTagToShelters<Tags extends string> = Readonly<
 export type InsertQuaysResult<Tags extends string> = {
   readonly inputs: InsertQuayInputs<Tags>;
   readonly tagToPublicCode: QuayTagToPublicCode<Tags>;
-  readonly tagToNetextId: QuayTagToNetextId<Tags>;
+  readonly tagToNetexId: QuayTagToNetexId<Tags>;
   readonly tagToShelters: QuayTagToShelters<Tags>;
 };
 
