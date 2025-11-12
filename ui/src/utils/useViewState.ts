@@ -25,7 +25,6 @@ function assertValueIsSimpleNestedObject(value: object | null) {
     return;
   }
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const child of Object.values(value)) {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     assertValueConsistOfSimpleValue(child);
@@ -33,7 +32,6 @@ function assertValueIsSimpleNestedObject(value: object | null) {
 }
 
 function assertValueIsSimpleNestedArray(value: ReadonlyArray<unknown>) {
-  // eslint-disable-next-line no-restricted-syntax
   for (const child of value) {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     assertValueConsistOfSimpleValue(child);

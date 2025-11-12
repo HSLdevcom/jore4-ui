@@ -159,7 +159,6 @@ function generateCandidates(
   const candidates = new Set<string>();
 
   // Generate codes based on nearby stops.
-  // eslint-disable-next-line no-restricted-syntax
   for (const nearbyStop of matchingNearbyStops) {
     if (candidates.size === count) {
       break;
