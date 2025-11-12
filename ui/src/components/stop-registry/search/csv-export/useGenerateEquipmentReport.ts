@@ -42,7 +42,7 @@ const GQL_RESOLVE_SEARCH_RESULT_NETEX_IDS = gql`
     stopsDb: stops_database {
       search: stops_database_quay_newest_version(
         where: $where
-        order_by: [{ id: asc }]
+        order_by: [{ public_code: asc, priority: asc, validity_start: asc }]
       ) {
         quayNetexId: netex_id
         stopPlaceNetexId: stop_place_netex_id
