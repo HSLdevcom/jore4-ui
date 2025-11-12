@@ -42,7 +42,10 @@ type InsertStopPlaceResult = {
 };
 
 function useInsertStopPlace() {
-  const [insertQuayIntoStopPlace] = useInsertQuayIntoStopPlaceMutation();
+  const [insertQuayIntoStopPlace] = useInsertQuayIntoStopPlaceMutation({
+    refetchQueries: ['GetStopDetails'],
+    awaitRefetchQueries: true,
+  });
 
   return useCallback(
     async (
@@ -113,7 +116,10 @@ function useRevertStopPlaceInsert() {
 }
 
 function useInsertStopPoint() {
-  const [insertStopMutation] = useInsertStopPointMutation();
+  const [insertStopMutation] = useInsertStopPointMutation({
+    refetchQueries: ['GetStopDetails'],
+    awaitRefetchQueries: true,
+  });
   const revertStopPlaceInsert = useRevertStopPlaceInsert();
 
   return useCallback(
@@ -156,7 +162,10 @@ function useInsertStopPoint() {
 }
 
 function useInsertInfoSpots() {
-  const [updateInfoSpotMutation] = useUpdateInfoSpotMutation();
+  const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
+    refetchQueries: ['GetStopDetails'],
+    awaitRefetchQueries: true,
+  });
   const getShelters = useGetShelters();
 
   return useCallback(
