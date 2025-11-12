@@ -22,7 +22,7 @@ export const SelectRowTd: FC<SelectRowTdProps> = ({
     <td aria-label={stop.publicCode} className={className}>
       <input
         checked={isSelected}
-        className="h-7 w-7"
+        className="h-7 w-7 accent-tweaked-brand"
         data-testid={testIds.selectInput}
         onChange={() => onToggleSelection(stop.id)}
         type="checkbox"

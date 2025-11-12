@@ -3,16 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { PulseLoader } from 'react-spinners';
 import { useGetStopResultsCountQuery } from '../../generated/graphql';
 import { theme } from '../../generated/theme';
-import { useNavigateBackSafely } from '../../hooks';
-import { Path, routeDetails } from '../../router/routeDetails';
-import { defaultPagingInfo } from '../../types';
+import { filtersAndResultSelectionToQueryVariables } from '../stop-registry/search/by-stop/filtersToQueryVariables';
 import {
   ResultSelection,
   StopSearchFilters,
-  defaultSortingInfo,
-} from '../stop-registry';
-import { filtersAndResultSelectionToQueryVariables } from '../stop-registry/search/by-stop/filtersToQueryVariables';
-import { stopSearchUrlStateToSearch } from '../stop-registry/search/utils';
+  defaultFilters,
+  defaultResultSelection,
+} from '../stop-registry/search/types';
 import { FloatingFooter } from './FloatingFooter';
 import { useMapUrlStateContext } from './utils/mapUrlState';
 
@@ -58,22 +55,17 @@ export const FloatingStopResultsFooter = () => {
 
   const {
     state: { filters, resultSelection },
+    setFlatUrlState,
   } = useMapUrlStateContext();
 
   const { count, loading } = useGetStopResultsCount(filters, resultSelection);
 
-  const navigateBackSafely = useNavigateBackSafely();
-
-  const onClose = () => {
-    navigateBackSafely({
-      pathname: routeDetails[Path.stopSearch].getLink(),
-      search: stopSearchUrlStateToSearch({
-        filters,
-        pagingInfo: defaultPagingInfo,
-        sortingInfo: defaultSortingInfo,
-      }),
-    });
-  };
+  const onClose = () =>
+    setFlatUrlState((p) => ({
+      ...p,
+      ...defaultFilters,
+      ...defaultResultSelection,
+    }));
 
   return (
     <FloatingFooter

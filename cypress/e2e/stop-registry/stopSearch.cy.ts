@@ -31,6 +31,7 @@ import { StopPlaceState, Tag } from '../../enums';
 import {
   Map,
   MapFooter,
+  MapPage,
   Pagination,
   SearchForStopAreas,
   SearchForTerminals,
@@ -59,6 +60,7 @@ const searchForTerminals = new SearchForTerminals();
 const sortByButton = new SortByButton();
 const pagination = new Pagination();
 const map = new Map();
+const mapPage = new MapPage();
 const mapFooter = new MapFooter();
 
 function getUuid(index: number) {
@@ -1769,7 +1771,7 @@ describe('Stop search', () => {
       mapFooter
         .getStopResultsFooter()
         .shouldHaveText(`Hakutuloksia: ${flattenedResults.length}.`);
-      mapFooter.getStopResultsFooterCloseButton().click();
+      mapPage.getCloseButton().click();
 
       // Assert we are back on the search page
       assertResults(flattenedResults);
@@ -1849,8 +1851,10 @@ describe('Stop search', () => {
       setupTestsAndNavigateToPage({ pageSize: 100 });
 
       const selectedStops = [
-        testStops.tagToPublicCode.urban1,
-        testStops.tagToPublicCode.urban2,
+        testStops.tagToPublicCode.postEspoo,
+        testStops.tagToPublicCode.postVantaa,
+        testStops.tagToPublicCode.postHelsinki,
+        testStops.tagToPublicCode.postKauniainen,
       ];
       const notSelectedStops = without(
         Object.values(testStops.tagToPublicCode),
@@ -1901,8 +1905,12 @@ describe('Stop search', () => {
       selectedStops.forEach(stopShouldBeOnMap);
       notSelectedStops.forEach(stopShouldNotBeOnMap);
 
-      // Return back to search page.
+      // Close the selection.
       mapFooter.getStopResultsFooterCloseButton().click();
+      notSelectedStops.forEach(stopShouldBeOnMap);
+
+      // Navigate back to search results.
+      mapPage.getCloseButton().click();
 
       stopSearchResultsPage
         .getSelectAllButton()

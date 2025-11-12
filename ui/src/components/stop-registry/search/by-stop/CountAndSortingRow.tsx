@@ -71,7 +71,7 @@ export const CountAndSortingRow: FC<CountAndSortingRowProps> = ({
     <div className={twMerge('a flex items-center gap-5', className)}>
       <input
         checked={allSelected}
-        className="h-7 w-7"
+        className="h-7 w-7 accent-tweaked-brand"
         data-testid={testIds.selectAllButton}
         onChange={onToggleSelectAll}
         type="checkbox"
