@@ -15,7 +15,10 @@ import { wrapErrors } from './wrapErrors';
 
 function useEditScheduledStopPointValidityAndPriority() {
   const [editScheduledStopPointValidityMutation] =
-    useEditScheduledStopPointValidityMutation();
+    useEditScheduledStopPointValidityMutation({
+      refetchQueries: ['GetStopDetails'],
+      awaitRefetchQueries: true,
+    });
 
   return useCallback(
     async (
@@ -55,7 +58,10 @@ function useEditScheduledStopPointValidityAndPriority() {
 }
 
 function useEditQuayValidity() {
-  const [editKeyValuesOfQuayMutation] = useEditKeyValuesOfQuayMutation();
+  const [editKeyValuesOfQuayMutation] = useEditKeyValuesOfQuayMutation({
+    refetchQueries: ['GetStopDetails'],
+    awaitRefetchQueries: true,
+  });
   const [getQuay] = useGetQuayLazyQuery();
 
   return useCallback(
