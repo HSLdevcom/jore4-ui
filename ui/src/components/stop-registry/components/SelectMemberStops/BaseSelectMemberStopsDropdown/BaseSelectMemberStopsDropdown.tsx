@@ -84,7 +84,6 @@ export const BaseSelectMemberStopsDropdown: FC<
   const [mutationObserver] = useState<MutationObserver>(
     () =>
       new MutationObserver((changes) => {
-        // eslint-disable-next-line no-restricted-syntax
         for (const change of changes) {
           if (
             change.target instanceof HTMLElement &&

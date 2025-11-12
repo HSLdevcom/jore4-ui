@@ -77,7 +77,6 @@ function assertValueIsSimpleNestedObject(path: string, value: object | null) {
     );
   }
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const [childKey, childValue] of Object.entries(value)) {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     assertValueConsistOfSimpleValue(
