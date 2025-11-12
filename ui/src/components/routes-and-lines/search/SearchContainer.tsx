@@ -1,27 +1,25 @@
 import { DateTime } from 'luxon';
-import { ChangeEventHandler, FC } from 'react';
+import { ChangeEventHandler, FC, useId } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
-import { Column, Container, Row, Visible } from '../../../layoutComponents';
+import { Container, Row, Visible } from '../../../layoutComponents';
 import { resetSelectedRowsAction } from '../../../redux';
-import { ChevronToggle, SimpleButton } from '../../../uiComponents';
 import { AllOptionEnum } from '../../../utils';
 import { useToggle } from '../../common/hooks/useToggle';
-import { SearchInput } from '../../common/search';
+import { ExpandedSearchButtons } from '../../common/search';
 import { useSearch } from '../../common/search/useSearch';
 import { SearchQueryParameterNames } from '../../common/search/useSearchQueryParser';
-import { FormRow, ObservationDateInput } from '../../forms/common';
-import { LineTypeDropdown } from '../../forms/line/LineTypeDropdown';
-import { VehicleModeDropdown } from '../../forms/line/VehicleModeDropdown';
+import { ObservationDateInput } from '../../forms/common';
+import { ExtraFiltersToggle } from '../../stop-registry/search/components/StopSearchBar/BasicFilters/ExtraFiltersToggle';
+import { LineTypeCondition } from './conditions/LineTypeCondition';
 import { PriorityCondition } from './conditions/PriorityCondition';
+import { TransportationModeCondition } from './conditions/TransportationModeCondition';
+import { SearchQuery } from './SearchQuery';
 import { SearchNavigationState } from './types/SearchNavigationState';
 
 const testIds = {
-  searchInput: 'SearchContainer::searchInput',
-  toggleExpand: 'SearchContainer::chevronToggle',
   observationDateInput: 'SearchContainer::observationDateInput',
-  searchButton: 'SearchContainer::searchButton',
 };
 
 const generateNavigationState = (
@@ -43,6 +41,7 @@ export const SearchContainer: FC<SearchContainerProps> = ({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
+  const extraFiltersId = useId();
 
   const [isExpanded, toggleIsExpanded] = useToggle(
     location.state?.searchExpanded,
@@ -55,13 +54,6 @@ export const SearchContainer: FC<SearchContainerProps> = ({
 
   const onChangeLabel = (value: string) => {
     setSearchCondition(SearchQueryParameterNames.Label, value);
-  };
-
-  const onChangeVehiclemode: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setSearchCondition(
-      SearchQueryParameterNames.PrimaryVehicleMode,
-      e.target.value,
-    );
   };
 
   const onChangeTypeOfLine: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -77,97 +69,62 @@ export const SearchContainer: FC<SearchContainerProps> = ({
     handleSearch(generateNavigationState(isExpanded));
   };
 
-  const vehicleModeDropdownId = 'search.primaryVehicleMode';
-  const typeOfLineDropdownId = 'search.typeOfLine';
-
   return (
     <Container className="py-10">
-      <Row className="justify-center bg-background py-4">
-        <Column className="w-2/4">
-          <Row>
-            <label htmlFor="label">{t('search.searchLabel')}</label>
-          </Row>
-          <Row className="space-x-4">
-            <SearchInput
-              testId={testIds.searchInput}
-              value={searchConditions.label}
-              onSearch={onSearch}
-              onChange={onChangeLabel}
-            />
-            <ChevronToggle
-              testId={testIds.toggleExpand}
-              isToggled={isExpanded}
-              onClick={toggleExpand}
-              controls="advanced-search"
-              openTooltip={t('accessibility:common.expandSearch')}
-              closeTooltip={t('accessibility:common.closeSearch')}
-            />
-          </Row>
-        </Column>
+      <Row className="justify-center gap-x-4 bg-background py-4">
+        <ObservationDateInput
+          required
+          containerClassName="min-w-40"
+          value={searchConditions.observationDate}
+          onChange={onChangeDate}
+          testId={testIds.observationDateInput}
+        />
+
+        <SearchQuery
+          className="w-4/6 xl:w-2/6"
+          onChangeLabel={onChangeLabel}
+          onSearch={onSearch}
+          searchConditions={searchConditions}
+        />
+
+        <ExtraFiltersToggle
+          className="mt-[25px]"
+          extraFiltersId={extraFiltersId}
+          searchIsExpanded={isExpanded}
+          toggleSearchIsExpanded={toggleExpand}
+          testIdPrefix="SearchContainer"
+        />
       </Row>
+
       <Visible visible={isExpanded}>
         <div
-          id="advanced-search"
+          id={extraFiltersId}
           className="space-y-5 border-2 border-background p-10"
         >
           <h2>{t('search.advancedSearchTitle')}</h2>
-          <FormRow mdColumns={4}>
-            <Column>
-              <label htmlFor={vehicleModeDropdownId}>
-                {t(`lines.primaryVehicleMode`)}
-              </label>
-              <VehicleModeDropdown
-                id={vehicleModeDropdownId}
-                onChange={onChangeVehiclemode}
-                includeAllOption
-                value={searchConditions.primaryVehicleMode ?? AllOptionEnum.All}
-              />
-            </Column>
-            <Column>
-              <label htmlFor={typeOfLineDropdownId}>
-                {t(`lines.typeOfLine`)}
-              </label>
-              <LineTypeDropdown
-                id={typeOfLineDropdownId}
-                onChange={onChangeTypeOfLine}
-                includeAllOption
-                value={searchConditions.typeOfLine ?? AllOptionEnum.All}
-              />
-            </Column>
-          </FormRow>
-          <FormRow mdColumns={4}>
+          <Row className="space-x-4">
+            <TransportationModeCondition
+              transportationModes={searchConditions.transportMode}
+              setSearchCondition={setSearchCondition}
+            />
+
             <PriorityCondition
               onClick={setSearchCondition}
               priorities={searchConditions.priorities}
             />
-            <Column className="justify-self-end">
-              <Row className="flex-1">
-                <ObservationDateInput
-                  value={searchConditions.observationDate}
-                  onChange={onChangeDate}
-                  required
-                  testId={testIds.observationDateInput}
-                />
-              </Row>
-            </Column>
-          </FormRow>
+
+            <LineTypeCondition
+              value={searchConditions.typeOfLine ?? AllOptionEnum.All}
+              onChange={onChangeTypeOfLine}
+            />
+          </Row>
         </div>
-        <Row className="flex justify-end bg-background py-4">
-          <SimpleButton
-            containerClassName="mr-6"
-            inverted
-            onClick={toggleExpand}
-          >
-            {t('hide')}
-          </SimpleButton>
-          <SimpleButton
-            containerClassName="mr-6"
-            onClick={() => handleSearch(generateNavigationState(isExpanded))}
-            testId={testIds.searchButton}
-          >
-            {t('search.search')}
-          </SimpleButton>
-        </Row>
+        <ExpandedSearchButtons
+          testIdPrefix="SearchContainer"
+          toggleExpand={toggleExpand}
+          searchButtonType="button"
+          onSearch={onSearch}
+        />
       </Visible>
     </Container>
   );
