@@ -22,7 +22,9 @@ import {
 export type SearchConditions = {
   priorities: ReadonlyArray<Priority>;
   label: string;
-  primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
+  transportMode?:
+    | ReadonlyArray<ReusableComponentsVehicleModeEnum>
+    | AllOptionEnum;
   typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
   observationDate: DateTime;
 };
@@ -93,10 +95,9 @@ const buildSearchConditionGqlFilters = ({
     // Build all the filters that are line's properties.
     ...handleLinePropertyGqlFilters({
       properties: {
-        ...buildOptionalSearchConditionGqlFilter<ReusableComponentsVehicleModeEnum>(
-          searchConditions.primaryVehicleMode,
-          buildPrimaryVehicleModeGqlFilter,
-        ),
+        ...buildOptionalSearchConditionGqlFilter<
+          ReadonlyArray<ReusableComponentsVehicleModeEnum>
+        >(searchConditions.transportMode, buildPrimaryVehicleModeGqlFilter),
         ...buildOptionalSearchConditionGqlFilter<RouteTypeOfLineEnum>(
           searchConditions.typeOfLine,
           buildTypeOfLineGqlFilter,

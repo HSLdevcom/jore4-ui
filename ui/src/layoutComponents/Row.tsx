@@ -5,6 +5,7 @@ type RowProps = {
   readonly testId?: string;
   readonly tooltip?: string;
   readonly identifier?: string;
+  readonly role?: string;
 };
 
 export const Row: FC<PropsWithChildren<RowProps>> = ({
@@ -13,6 +14,7 @@ export const Row: FC<PropsWithChildren<RowProps>> = ({
   testId = null,
   tooltip = '',
   identifier,
+  role,
 }) => {
   return (
     <div
@@ -20,6 +22,7 @@ export const Row: FC<PropsWithChildren<RowProps>> = ({
       title={tooltip}
       data-testid={testId}
       id={identifier}
+      role={role}
     >
       {children}
     </div>

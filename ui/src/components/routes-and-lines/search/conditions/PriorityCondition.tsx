@@ -34,12 +34,12 @@ export const PriorityCondition: FC<PriorityConditionProps> = ({
       label: t('priority.standard'),
     },
     {
-      priority: Priority.Draft,
-      label: t('priority.draft'),
-    },
-    {
       priority: Priority.Temporary,
       label: t('priority.temporary'),
+    },
+    {
+      priority: Priority.Draft,
+      label: t('priority.draft'),
     },
   ];
 
@@ -47,7 +47,7 @@ export const PriorityCondition: FC<PriorityConditionProps> = ({
     <Column>
       <fieldset>
         <legend className="font-bold">{t('priority.label')}</legend>
-        <Row className="space-x-2">
+        <Row className="h-[--input-height] space-x-2">
           {priorityButtonData.map((item) => (
             <LabeledCheckbox
               label={item.label}

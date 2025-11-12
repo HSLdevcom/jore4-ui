@@ -37,6 +37,7 @@ export const BasicFilters: FC<BasicFilterProps> = ({
           extraFiltersId={extraFiltersId}
           searchIsExpanded={searchIsExpanded}
           toggleSearchIsExpanded={toggleSearchIsExpanded}
+          testIdPrefix="StopSearchBar"
         />
       </Row>
 
