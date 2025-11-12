@@ -1,9 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { Row, Visible } from '../../../../../../layoutComponents';
-import { SimpleButton } from '../../../../../../uiComponents';
-import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
+import { Visible } from '../../../../../../layoutComponents';
+import { ExpandedSearchButtons } from '../../../../../common';
 import { StopPropertyFilters } from './StopPropertyFilters';
 
 type ExtraFiltersProps = {
@@ -11,6 +10,7 @@ type ExtraFiltersProps = {
   readonly id: string;
   readonly notForStops: boolean;
   readonly searchIsExpanded: boolean;
+  readonly toggleExpanded: () => void;
 };
 
 export const ExtraFilters: FC<ExtraFiltersProps> = ({
@@ -18,6 +18,7 @@ export const ExtraFilters: FC<ExtraFiltersProps> = ({
   id,
   notForStops,
   searchIsExpanded,
+  toggleExpanded,
 }) => {
   const { t } = useTranslation();
 
@@ -41,15 +42,12 @@ export const ExtraFilters: FC<ExtraFiltersProps> = ({
         {/* <MetaFilters className="xl:w-1/3 xl:pt-5 xl:pl-5 pt-5  space-y-5" */}
       </div>
 
-      <Row className="flex justify-end bg-background py-4">
-        <SimpleButton
-          containerClassName="mr-6"
-          type="submit"
-          testId={stopSearchBarTestIds.searchButton}
-        >
-          {t('search.search')}
-        </SimpleButton>
-      </Row>
+      <ExpandedSearchButtons
+        testIdPrefix="StopSearchBar"
+        searchButtonType="submit"
+        toggleExpand={toggleExpanded}
+        onSearch={undefined}
+      />
     </Visible>
   );
 };
