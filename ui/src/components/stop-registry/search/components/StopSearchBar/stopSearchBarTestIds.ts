@@ -10,6 +10,7 @@ export const stopSearchBarTestIds = {
   priorityCheckbox: (priority: Priority) =>
     `StopSearchBar::priority::${Priority[priority]}`,
   searchButton: 'StopSearchBar::searchButton',
+  hideButton: 'StopSearchBar::hideButton',
   searchForDropdown: 'StopSearchBar::SearchForDropdown',
   searchInput: 'StopSearchBar::searchInput',
   shelterFilter: 'StopSearchBar::shelterFilter',
