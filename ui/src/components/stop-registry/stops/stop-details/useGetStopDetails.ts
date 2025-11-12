@@ -1,13 +1,12 @@
 import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
 import maxBy from 'lodash/maxBy';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
   GetStopDetailsQuery,
-  ServicePatternScheduledStopPointBoolExp,
   StopRegistryQuayInput,
   StopRegistryStopPlaceInterface,
+  StopsDatabaseStopPlaceNewestVersionBoolExp,
   useGetStopDetailsQuery,
 } from '../../../../generated/graphql';
 import {
@@ -53,15 +52,23 @@ const GQL_SCHEDULED_STOP_POINT_DETAIL_FIELDS = gql`
 `;
 
 const GQL_GET_STOP_DETAILS = gql`
-  query GetStopDetails($where: service_pattern_scheduled_stop_point_bool_exp) {
-    service_pattern_scheduled_stop_point(
-      where: $where
-      order_by: { priority: desc }
-      limit: 1
-    ) {
-      ...scheduled_stop_point_detail_fields
-      stop_place(onlyMonomodalStopPlaces: true) {
-        ...stop_place_details
+  query GetStopDetails(
+    $where: stops_database_stop_place_newest_version_bool_exp
+  ) {
+    stopsDb: stops_database {
+      newestVersion: stops_database_stop_place_newest_version(
+        where: $where
+        limit: 1
+      ) {
+        id
+        TiamatStopPlace {
+          ...stop_place_details
+          ... on stop_registry_StopPlace {
+            quays {
+              ...quay_details
+            }
+          }
+        }
       }
     }
   }
@@ -356,22 +363,32 @@ const getStopDetails = (
   data: GetStopDetailsQuery | undefined,
   observationDateTs: number,
   priority: number,
+  label: string,
 ): StopWithDetails | null => {
-  const stopPoint = data?.service_pattern_scheduled_stop_point[0];
-  if (!stopPoint) {
+  const stopPlaceResult = data?.stopsDb?.newestVersion?.[0];
+  if (!stopPlaceResult) {
     return null;
   }
 
   const [stopPlace] = getStopPlacesFromQueryResult<StopPlace>(
-    stopPoint.stop_place,
+    stopPlaceResult.TiamatStopPlace,
   );
+
+  if (!stopPlace) {
+    return null;
+  }
 
   const selectedQuay = getCorrectQuay(
     stopPlace.quays,
-    stopPoint.label,
+    label,
     observationDateTs,
     priority,
   );
+
+  const stopPoint = selectedQuay?.scheduled_stop_point;
+  if (!stopPoint) {
+    return null;
+  }
 
   return {
     ...stopPoint,
@@ -383,34 +400,14 @@ const getStopDetails = (
 
 function getWhereCondition(
   label: string,
-  observationDate: DateTime,
-  priority: number,
-): ServicePatternScheduledStopPointBoolExp {
-  const labelCondition: ServicePatternScheduledStopPointBoolExp = {
-    label: { _eq: label },
-  };
-
-  const observationDateCondition: ServicePatternScheduledStopPointBoolExp = {
-    _and: [
-      { validity_start: { _lte: observationDate } },
-      {
-        _or: [
-          { validity_end: { _gte: observationDate } },
-          { validity_end: { _is_null: true } },
-        ],
-      },
-    ],
-  };
-
-  // Ignore drafts by default. Only show if requested separately by priority query param.
-  // This is to align the behaviour of the page with how the map works.
-  const priorityCondition: ServicePatternScheduledStopPointBoolExp =
-    Number.isFinite(priority)
-      ? { priority: { _eq: priority } }
-      : { priority: { _neq: Priority.Draft } };
-
+): StopsDatabaseStopPlaceNewestVersionBoolExp {
+  // Find the stop place that contains a quay with this public code
   return {
-    _and: [labelCondition, observationDateCondition, priorityCondition],
+    stop_place_quays: {
+      quay: {
+        public_code: { _eq: label },
+      },
+    },
   };
 }
 
@@ -420,13 +417,13 @@ export const useGetStopDetails = () => {
   const { queryParams } = useUrlQuery();
   const priority = Number(queryParams.priority);
 
-  const where = getWhereCondition(label, observationDate, priority);
+  const where = getWhereCondition(label);
   const { data, ...rest } = useGetStopDetailsQuery({ variables: { where } });
 
   const observationDateTs = observationDate.valueOf();
   const stopDetails = useMemo(
-    () => getStopDetails(data, observationDateTs, priority),
-    [data, observationDateTs, priority],
+    () => getStopDetails(data, observationDateTs, priority, label),
+    [data, observationDateTs, priority, label],
   );
 
   return { ...rest, stopDetails };
