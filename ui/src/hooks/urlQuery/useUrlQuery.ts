@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import qs from 'qs';
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router';
+import { ReusableComponentsVehicleModeEnum } from '../../generated/graphql';
 import { parseDate } from '../../time';
 import { Priority } from '../../types/enums';
 
@@ -195,6 +196,22 @@ export const useUrlQuery = () => {
       ?.filter((p) => Object.values(Priority).includes(p));
   };
 
+  /** Returns a query parameter in TransportMode array type */
+  const getTransportModeArrayFromUrlQuery = (
+    paramName: string,
+  ): ReusableComponentsVehicleModeEnum[] | undefined => {
+    const arr = getArrayFromUrlQuery(paramName);
+    if (arr && arr.length === 1 && arr[0] === 'all') {
+      return undefined;
+    }
+
+    return arr
+      ?.map((p) => p as ReusableComponentsVehicleModeEnum)
+      ?.filter((p) =>
+        Object.values(ReusableComponentsVehicleModeEnum).includes(p),
+      );
+  };
+
   /** Returns a query parameter as given enum if exists,
    * otherwise returns undefined
    */
@@ -300,6 +317,7 @@ export const useUrlQuery = () => {
     getArrayFromUrlQuery,
     getEnumArrayFromUrlQuery,
     getPriorityArrayFromUrlQuery,
+    getTransportModeArrayFromUrlQuery,
     getEnumFromUrlQuery,
     getStringParamFromUrlQuery,
     getBooleanParamFromUrlQuery,

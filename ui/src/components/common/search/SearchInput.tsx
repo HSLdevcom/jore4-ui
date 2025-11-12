@@ -2,6 +2,7 @@ import { FC, KeyboardEventHandler } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type SearchInputProps = {
+  readonly className?: string;
   readonly value?: string;
   readonly onChange: (value: string) => void;
   readonly onSearch: () => void;
@@ -9,6 +10,7 @@ type SearchInputProps = {
 };
 
 export const SearchInput: FC<SearchInputProps> = ({
+  className,
   value,
   onChange,
   onSearch,
@@ -23,12 +25,12 @@ export const SearchInput: FC<SearchInputProps> = ({
   return (
     <input
       data-testid={testId}
-      className="flex-1"
+      className={className}
       type="text"
       value={value}
       placeholder={t('search.searchPlaceholder')}
       onChange={(e) => onChange(e.target.value)}
-      onKeyPress={onKeyPress}
+      onKeyDown={onKeyPress}
     />
   );
 };

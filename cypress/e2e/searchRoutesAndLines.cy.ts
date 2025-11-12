@@ -93,7 +93,6 @@ describe('Verify that route and line search works', () => {
     { tags: [Tag.Lines, Tag.Routes] },
     () => {
       routesAndLinesPage.searchContainer.getSearchInput().type('*');
-      routesAndLinesPage.searchContainer.getChevron().click();
       routesAndLinesPage.searchContainer.setObservationDate('2024-04-01');
       routesAndLinesPage.searchContainer.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchLinesAndRoutes');
@@ -113,6 +112,35 @@ describe('Verify that route and line search works', () => {
         .getRoutesSearchResultTable()
         // Route 2333 is valid in 2024 and the other two are not
         .should('contain', '2333')
+        .and('not.contain', '1222')
+        .and('not.contain', '1111');
+    },
+  );
+
+  it(
+    'Should show valid results according to the selected transportation modes',
+    { tags: [Tag.Lines, Tag.Routes] },
+    () => {
+      routesAndLinesPage.searchContainer.getSearchInput().type('*');
+      routesAndLinesPage.searchContainer.getChevron().click();
+      routesAndLinesPage.searchContainer
+        .toggleTransportationMode('bus')
+        .click();
+
+      routesAndLinesPage.searchContainer.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchLinesAndRoutes');
+
+      searchResultsPage.getLinesResultsButton().click();
+      searchResultsPage
+        .getLinesSearchResultTable()
+        .should('not.contain', '1777')
+        .and('not.contain', '8889')
+        .and('not.contain', '2666')
+        .and('not.contain', '1666');
+      searchResultsPage.getRoutesResultsButton().click();
+      searchResultsPage
+        .getRoutesSearchResultTable()
+        .should('not.contain', '2333')
         .and('not.contain', '1222')
         .and('not.contain', '1111');
     },

@@ -23,4 +23,8 @@ export class SearchContainer {
   getSearchButton() {
     return cy.getByTestId('SearchContainer::searchButton');
   }
+
+  toggleTransportationMode(mode: string) {
+    return cy.getByTestId(`SearchContainer::transportationMode::${mode}`);
+  }
 }

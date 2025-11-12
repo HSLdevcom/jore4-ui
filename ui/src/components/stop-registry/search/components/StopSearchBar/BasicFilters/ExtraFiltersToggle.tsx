@@ -2,13 +2,17 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { ExpandButton } from '../../../../../../uiComponents';
-import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
+
+const testIds = {
+  toggleExpand: (prefix: string) => `${prefix}::chevronToggle`,
+};
 
 type ExtraFiltersToggleProps = {
   readonly className?: string;
   readonly extraFiltersId: string;
   readonly searchIsExpanded: boolean;
   readonly toggleSearchIsExpanded: () => void;
+  readonly testIdPrefix: string;
 };
 
 export const ExtraFiltersToggle: FC<ExtraFiltersToggleProps> = ({
@@ -16,6 +20,7 @@ export const ExtraFiltersToggle: FC<ExtraFiltersToggleProps> = ({
   extraFiltersId,
   searchIsExpanded,
   toggleSearchIsExpanded,
+  testIdPrefix,
 }) => {
   const { t } = useTranslation();
 
@@ -30,7 +35,7 @@ export const ExtraFiltersToggle: FC<ExtraFiltersToggleProps> = ({
       expanded={searchIsExpanded}
       expandedText=""
       onClick={toggleSearchIsExpanded}
-      testId={stopSearchBarTestIds.toggleExpand}
+      testId={testIds.toggleExpand(testIdPrefix)}
       title={
         searchIsExpanded
           ? t('accessibility:common.closeSearch')

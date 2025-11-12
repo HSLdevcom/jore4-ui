@@ -1,9 +1,10 @@
 import { produce } from 'immer';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
+import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
 import { mapObjectToQueryParameterObjects, useUrlQuery } from '../../../hooks';
 import { Priority } from '../../../types/enums';
-import { DisplayedSearchResultType } from '../../../utils';
+import { AllOptionEnum, DisplayedSearchResultType } from '../../../utils';
 import { SearchNavigationState } from '../../routes-and-lines/search/types';
 import { useBasePath } from './useBasePath';
 import { FilterConditions, useSearchQueryParser } from './useSearchQueryParser';
@@ -19,7 +20,12 @@ export const useSearch = () => {
 
   const setSearchCondition = (
     condition: string,
-    value: string | ReadonlyArray<Priority> | DateTime,
+    value:
+      | string
+      | ReadonlyArray<Priority>
+      | DateTime
+      | ReadonlyArray<ReusableComponentsVehicleModeEnum>
+      | AllOptionEnum,
   ) => {
     setSearchConditions({
       ...searchConditions,
