@@ -1,16 +1,21 @@
 import without from 'lodash/without';
-import { FC } from 'react';
-import { useController } from 'react-hook-form';
+import { FC, ReactElement } from 'react';
+import { FieldValues, Path, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { mapStopRegistryTransportModeTypeToUiName } from '../../../../../../i18n/uiNameMappings';
-import { Row } from '../../../../../../layoutComponents';
-import { JoreStopRegistryTransportModeType } from '../../../../../../types/stop-registry';
-import { AllOptionEnum } from '../../../../../../utils';
-import { StopSearchFilters } from '../../../types';
-import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
-import { DisableableFilterProps } from '../Types/DisableableFilterProps';
+import { TranslationKey } from '../../../../i18n';
+import { mapStopRegistryTransportModeTypeToUiName } from '../../../../i18n/uiNameMappings';
+import { Row } from '../../../../layoutComponents';
+import { JoreStopRegistryTransportModeType } from '../../../../types/stop-registry';
+import { AllOptionEnum } from '../../../../utils';
 import s from './TransportationModeFilter.module.css';
+
+const testIds = {
+  transportationModeButton: (
+    prefix: string,
+    mode: JoreStopRegistryTransportModeType,
+  ) => `${prefix}::transportationMode::${mode}`,
+};
 
 const modeIconMap: Readonly<Record<JoreStopRegistryTransportModeType, string>> =
   {
@@ -25,12 +30,14 @@ type TransportationModeButtonProps = {
   readonly isSelected: (mode: JoreStopRegistryTransportModeType) => boolean;
   readonly mode: JoreStopRegistryTransportModeType;
   readonly onToggle: (mode: JoreStopRegistryTransportModeType) => void;
+  readonly testIdPrefix: string;
 };
 
 const TransportationModeButton: FC<TransportationModeButtonProps> = ({
   isSelected,
   mode,
   onToggle,
+  testIdPrefix,
 }) => {
   const { t } = useTranslation();
 
@@ -44,7 +51,7 @@ const TransportationModeButton: FC<TransportationModeButtonProps> = ({
         'aria-checked:border-tweaked-brand aria-checked:bg-tweaked-brand aria-checked:text-white',
         modeIconMap[mode],
       )}
-      data-testid={stopSearchBarTestIds.transportationModeButton(mode)}
+      data-testid={testIds.transportationModeButton(testIdPrefix, mode)}
       onClick={() => onToggle(mode)}
       role="checkbox"
       type="button"
@@ -60,20 +67,34 @@ const options: ReadonlyArray<JoreStopRegistryTransportModeType> = [
   JoreStopRegistryTransportModeType.Metro,
 ];
 
-export const TransportationModeFilter: FC<DisableableFilterProps> = ({
+type TransportationModeFilterProps<FormState extends FieldValues> = {
+  readonly fieldPath: Path<FormState>;
+  readonly translationPrefix: TranslationKey;
+  readonly testIdPrefix: string;
+  readonly className?: string;
+  readonly disabled?: boolean;
+};
+
+export const TransportationModeFilter = <FormState extends FieldValues>({
+  fieldPath,
+  translationPrefix,
+  testIdPrefix,
   className,
   disabled,
-}) => {
+}: TransportationModeFilterProps<FormState>): ReactElement => {
   const { t } = useTranslation();
 
   const {
     field: { value, onBlur, onChange },
-  } = useController<StopSearchFilters, 'transportationMode'>({
-    name: 'transportationMode',
+  } = useController<FormState, typeof fieldPath>({
+    name: fieldPath,
     disabled,
   });
 
   const isSelected = (mode: JoreStopRegistryTransportModeType) =>
+    // TS thinks that the or can be changed for ?? due to it not getting
+    // the correct type for value, but it does not work here.
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     value.includes(AllOptionEnum.All) || value.includes(mode);
 
   const onToggle = (mode: JoreStopRegistryTransportModeType) => {
@@ -101,7 +122,7 @@ export const TransportationModeFilter: FC<DisableableFilterProps> = ({
 
   return (
     <fieldset className={twMerge('flex flex-col', className)} onBlur={onBlur}>
-      <label>{t('stopRegistrySearch.fieldLabels.transportMode')}</label>
+      <label>{t(`${translationPrefix}.transportMode`)}</label>
       <Row className={twJoin('gap-1', s.noIconMargins)}>
         {options.map((mode) => (
           <TransportationModeButton
@@ -109,6 +130,7 @@ export const TransportationModeFilter: FC<DisableableFilterProps> = ({
             mode={mode}
             onToggle={onToggle}
             isSelected={isSelected}
+            testIdPrefix={testIdPrefix}
           />
         ))}
       </Row>
