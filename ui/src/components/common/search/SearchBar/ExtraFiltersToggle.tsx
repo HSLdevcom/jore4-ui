@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { ExpandButton } from '../../../../../../uiComponents';
+import { ExpandButton } from '../../../../uiComponents';
 
 const testIds = {
   toggleExpand: (prefix: string) => `${prefix}::chevronToggle`,

@@ -1,11 +1,15 @@
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Column, Row } from '../../../../../../layoutComponents';
-import { ExtraFiltersToggle } from './ExtraFiltersToggle';
+import {
+  ExtraFiltersToggle,
+  SearchQueryFilter,
+} from '../../../../../common/search/SearchBar';
+import { StopSearchFilters } from '../../../types';
+import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { ObservationDateFilter } from './ObservationDateFilter';
 import { SearchCriteriaRadioButtons } from './SearchCriteriaRadioButtons';
 import { SearchForDropdown } from './SearchForDropdown';
-import { SearchQueryFilter } from './SearchQueryFilter';
 
 type BasicFilterProps = {
   readonly className?: string;
@@ -30,14 +34,19 @@ export const BasicFilters: FC<BasicFilterProps> = ({
       <Row className="justify-center gap-x-4">
         <ObservationDateFilter className="min-w-40" />
         <SearchForDropdown className="min-w-40 xl:w-1/6" />
-        <SearchQueryFilter className="w-4/6 xl:w-2/6" />
+        <SearchQueryFilter<StopSearchFilters>
+          testIdPrefix={stopSearchBarTestIds.prefix}
+          fieldPath="query"
+          translationPrefix="stopRegistrySearch.fieldLabels"
+          className="w-4/6 xl:w-2/6"
+        />
 
         <ExtraFiltersToggle
           className="mt-[25px]"
           extraFiltersId={extraFiltersId}
           searchIsExpanded={searchIsExpanded}
           toggleSearchIsExpanded={toggleSearchIsExpanded}
-          testIdPrefix="StopSearchBar"
+          testIdPrefix={stopSearchBarTestIds.prefix}
         />
       </Row>
 
