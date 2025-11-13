@@ -159,19 +159,21 @@ export const buildWithinViewportGqlGeometryFilter = (
 
 /** Builds an object for gql to filter by primary_vehicle_mode */
 export const buildPrimaryVehicleModeGqlFilter = (
-  primaryVehicleMode:
-    | ReadonlyArray<ReusableComponentsVehicleModeEnum>
-    | AllOptionEnum,
+  primaryVehicleMode: ReadonlyArray<
+    ReusableComponentsVehicleModeEnum | AllOptionEnum
+  >,
 ) => {
-  if (primaryVehicleMode === AllOptionEnum.All) {
+  if (primaryVehicleMode.includes(AllOptionEnum.All)) {
     return {};
   }
 
-  return {
-    primary_vehicle_mode: {
-      _in: primaryVehicleMode,
-    },
-  };
+  // Filter out any AllOptionEnum values, just in case to satisfy TS
+  const filtered = primaryVehicleMode.filter(
+    (mode): mode is ReusableComponentsVehicleModeEnum =>
+      mode !== AllOptionEnum.All,
+  );
+
+  return { primary_vehicle_mode: { _in: filtered } };
 };
 
 /** Builds an object for gql to filter by typeOfLine */

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { Visible } from '../../../../../../layoutComponents';
 import { ExpandedSearchButtons } from '../../../../../common';
+import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { StopPropertyFilters } from './StopPropertyFilters';
 
 type ExtraFiltersProps = {
@@ -43,7 +44,7 @@ export const ExtraFilters: FC<ExtraFiltersProps> = ({
       </div>
 
       <ExpandedSearchButtons
-        testIdPrefix="StopSearchBar"
+        testIdPrefix={stopSearchBarTestIds.prefix}
         searchButtonType="submit"
         toggleExpand={toggleExpanded}
         onSearch={undefined}

@@ -12,43 +12,16 @@ import {
 } from '../../../utils';
 
 export type FilterConditions = {
-  displayedType: DisplayedSearchResultType;
+  readonly displayedType: DisplayedSearchResultType;
 };
 
-/**
- * Search parameter object with search conditions and filter
- * conditions separately
- */
 export type SearchParameters = {
-  search: SearchConditions;
-  filter: FilterConditions;
-};
-
-/**
- * Query string object where parameters are in string format
- */
-export type QueryStringParameters = {
-  priorities: string;
-  label: string;
-  primaryVehicleMode?: string;
-  typeOfLine?: string;
-  displayedType: string;
-};
-
-/**
- * Query string object where parameters are deserialized and validated
- * in their correct format
- */
-export type DeserializedQueryStringParameters = {
-  priorities: ReadonlyArray<Priority>;
-  label: string;
-  primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
-  typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
-  displayedType: DisplayedSearchResultType;
+  readonly search: SearchConditions;
+  readonly filter: FilterConditions;
 };
 
 export enum SearchQueryParameterNames {
-  Label = 'label',
+  Query = 'query',
   Priorities = 'priorities',
   TransportMode = 'transportMode',
   DisplayedType = 'displayedType',
@@ -57,13 +30,13 @@ export enum SearchQueryParameterNames {
 }
 
 const DEFAULT_PRIORITIES = [Priority.Standard];
-const DEFAULT_TRANSPORT_MODE = AllOptionEnum.All;
+const DEFAULT_TRANSPORT_MODE = [AllOptionEnum.All];
 const DEFAULT_TYPE_OF_LINE = AllOptionEnum.All;
 const DEFAULT_DISPLAYED_DATA = DisplayedSearchResultType.Lines;
 const DEFAULT_LABEL = '';
 const DEFAULT_OBSERVATION_DATE = DateTime.now().startOf('day');
 
-export const useSearchQueryParser = () => {
+export const useSearchQueryParser = (): SearchParameters => {
   const {
     getStringParamFromUrlQuery,
     getPriorityArrayFromUrlQuery,
@@ -71,15 +44,17 @@ export const useSearchQueryParser = () => {
     getEnumFromUrlQuery,
     getDateTimeFromUrlQuery,
   } = useUrlQuery();
-  const label =
-    getStringParamFromUrlQuery(SearchQueryParameterNames.Label) ??
+  const query =
+    getStringParamFromUrlQuery(SearchQueryParameterNames.Query) ??
     DEFAULT_LABEL;
 
   const priorities =
     getPriorityArrayFromUrlQuery(SearchQueryParameterNames.Priorities) ??
     DEFAULT_PRIORITIES;
 
-  const transportMode =
+  const transportMode: Array<
+    ReusableComponentsVehicleModeEnum | AllOptionEnum
+  > =
     getTransportModeArrayFromUrlQuery(
       SearchQueryParameterNames.TransportMode,
     ) ?? DEFAULT_TRANSPORT_MODE;
@@ -101,7 +76,7 @@ export const useSearchQueryParser = () => {
 
   return {
     search: {
-      label,
+      query,
       priorities,
       transportMode,
       typeOfLine,
