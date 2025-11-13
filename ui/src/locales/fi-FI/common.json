@@ -73,6 +73,7 @@
       "sv_FI": "Linjan lyhenne ruotsiksi"
     },
     "transportMode": "Kulkumuoto",
+    "priorities": "Prioriteetti",
     "primaryVehicleMode": "Ensisijainen kulkumuoto",
     "chooseVehicleMode": "Valitse kulkumuoto",
     "line": "Linja {{ label }}",

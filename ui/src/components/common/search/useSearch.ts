@@ -61,14 +61,12 @@ export const useSearch = () => {
    * Pushes selected search conditions and live filters to query string.
    * This will trigger GraphQL request, if the searchConditions have changed.
    */
-  const handleSearch = (state?: SearchNavigationState) => {
-    const combinedParameters = {
-      ...searchConditions,
-      ...queryParameters.filter,
-    };
-
+  const handleSearch = (
+    combinedFilters: typeof searchConditions,
+    state?: SearchNavigationState,
+  ) => {
     setMultipleParametersToUrlQuery({
-      parameters: mapObjectToQueryParameterObjects(combinedParameters),
+      parameters: mapObjectToQueryParameterObjects(combinedFilters),
       pathname: `${basePath}/search`,
       state,
     });

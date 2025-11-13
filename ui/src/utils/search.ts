@@ -21,10 +21,10 @@ import {
 
 export type SearchConditions = {
   priorities: ReadonlyArray<Priority>;
-  label: string;
-  transportMode?:
-    | ReadonlyArray<ReusableComponentsVehicleModeEnum>
-    | AllOptionEnum;
+  query: string;
+  transportMode?: ReadonlyArray<
+    ReusableComponentsVehicleModeEnum | AllOptionEnum
+  >;
   typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
   observationDate: DateTime;
 };
@@ -86,7 +86,7 @@ const buildSearchConditionGqlFilters = ({
   return {
     // Build all the generic filters.
     ...buildOptionalSearchConditionGqlFilter<string>(
-      mapToSqlLikeValue(searchConditions.label),
+      mapToSqlLikeValue(searchConditions.query),
       buildLabelLikeGqlFilter,
     ),
     ...buildPriorityInGqlFilter(searchConditions.priorities),
@@ -96,7 +96,7 @@ const buildSearchConditionGqlFilters = ({
     ...handleLinePropertyGqlFilters({
       properties: {
         ...buildOptionalSearchConditionGqlFilter<
-          ReadonlyArray<ReusableComponentsVehicleModeEnum>
+          ReadonlyArray<ReusableComponentsVehicleModeEnum | AllOptionEnum>
         >(searchConditions.transportMode, buildPrimaryVehicleModeGqlFilter),
         ...buildOptionalSearchConditionGqlFilter<RouteTypeOfLineEnum>(
           searchConditions.typeOfLine,
