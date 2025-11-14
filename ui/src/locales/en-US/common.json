@@ -72,6 +72,8 @@
       "fi_FI": "Line short name",
       "sv_FI": "Line short name in Swedish"
     },
+    "transportMode": "Transport mode",
+    "priorities": "Priority",
     "primaryVehicleMode": "Primary vehicle mode",
     "chooseVehicleMode": "Choose vehicle mode",
     "line": "Line {{ label }}",

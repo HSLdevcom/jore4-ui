@@ -7,6 +7,7 @@ import {
 } from '../generated/graphql';
 import { Viewport } from '../redux/types/mapModal';
 import { Priority, TimetablePriority } from '../types/enums';
+import { AllOptionEnum } from './enum';
 
 /** Builds an object for gql to filter out all
  * results which are not active on the given date
@@ -158,12 +159,22 @@ export const buildWithinViewportGqlGeometryFilter = (
 
 /** Builds an object for gql to filter by primary_vehicle_mode */
 export const buildPrimaryVehicleModeGqlFilter = (
-  primaryVehicleMode: ReusableComponentsVehicleModeEnum,
-) => ({
-  primary_vehicle_mode: {
-    _eq: primaryVehicleMode,
-  },
-});
+  primaryVehicleMode: ReadonlyArray<
+    ReusableComponentsVehicleModeEnum | AllOptionEnum
+  >,
+) => {
+  if (primaryVehicleMode.includes(AllOptionEnum.All)) {
+    return {};
+  }
+
+  // Filter out any AllOptionEnum values, just in case to satisfy TS
+  const filtered = primaryVehicleMode.filter(
+    (mode): mode is ReusableComponentsVehicleModeEnum =>
+      mode !== AllOptionEnum.All,
+  );
+
+  return { primary_vehicle_mode: { _in: filtered } };
+};
 
 /** Builds an object for gql to filter by typeOfLine */
 export const buildTypeOfLineGqlFilter = (typeOfLine: RouteTypeOfLineEnum) => ({

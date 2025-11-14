@@ -20,11 +20,13 @@ import {
 } from './gql';
 
 export type SearchConditions = {
-  priorities: ReadonlyArray<Priority>;
-  label: string;
-  primaryVehicleMode?: ReusableComponentsVehicleModeEnum | AllOptionEnum;
-  typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
-  observationDate: DateTime;
+  readonly priorities: ReadonlyArray<Priority>;
+  readonly query: string;
+  readonly transportMode?: ReadonlyArray<
+    ReusableComponentsVehicleModeEnum | AllOptionEnum
+  >;
+  readonly typeOfLine?: RouteTypeOfLineEnum | AllOptionEnum;
+  readonly observationDate: DateTime;
 };
 
 export const mapToSqlLikeValue = (str: string) => {
@@ -84,7 +86,7 @@ const buildSearchConditionGqlFilters = ({
   return {
     // Build all the generic filters.
     ...buildOptionalSearchConditionGqlFilter<string>(
-      mapToSqlLikeValue(searchConditions.label),
+      mapToSqlLikeValue(searchConditions.query),
       buildLabelLikeGqlFilter,
     ),
     ...buildPriorityInGqlFilter(searchConditions.priorities),
@@ -93,10 +95,9 @@ const buildSearchConditionGqlFilters = ({
     // Build all the filters that are line's properties.
     ...handleLinePropertyGqlFilters({
       properties: {
-        ...buildOptionalSearchConditionGqlFilter<ReusableComponentsVehicleModeEnum>(
-          searchConditions.primaryVehicleMode,
-          buildPrimaryVehicleModeGqlFilter,
-        ),
+        ...buildOptionalSearchConditionGqlFilter<
+          ReadonlyArray<ReusableComponentsVehicleModeEnum | AllOptionEnum>
+        >(searchConditions.transportMode, buildPrimaryVehicleModeGqlFilter),
         ...buildOptionalSearchConditionGqlFilter<RouteTypeOfLineEnum>(
           searchConditions.typeOfLine,
           buildTypeOfLineGqlFilter,

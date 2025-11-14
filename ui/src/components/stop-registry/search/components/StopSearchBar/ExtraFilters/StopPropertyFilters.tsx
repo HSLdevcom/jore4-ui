@@ -1,14 +1,18 @@
 import { FC } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { Row } from '../../../../../../layoutComponents';
+import {
+  PriorityFilter,
+  TransportationModeFilter,
+} from '../../../../../common/search/ExtraFilters';
+import { StopSearchFilters } from '../../../types';
+import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
 import { ElectricityFilter } from './ElectricityFilter';
 import { ElyFilter } from './ElyFilter';
 import { InfoSpotsFilter } from './InfoSpotsFilter';
 import { MunicipalityFilter } from './MunicipalityFilter';
-import { PriorityFilter } from './PriorityFilter';
 import { ShelterFilter } from './ShelterFilter';
 import { StopStateFilter } from './StopStateFilter';
-import { TransportationModeFilter } from './TransportationModeFilter';
 
 type StopPropertyFilterProps = {
   readonly className?: string;
@@ -47,10 +51,19 @@ export const StopPropertyFilters: FC<StopPropertyFilterProps> = ({
 }) => {
   return (
     <Row className={twMerge('flex-wrap justify-start gap-4', className)}>
-      <TransportationModeFilter
+      <TransportationModeFilter<StopSearchFilters>
+        testIdPrefix={stopSearchBarTestIds.prefix}
+        translationPrefix="stopRegistrySearch.fieldLabels"
+        fieldPath="transportationMode"
         className={twJoin('sm:-order-2 md:order-none', genericFilterSizing)}
       />
-      <PriorityFilter className="mr-auto" disabled={notForStops} />
+      <PriorityFilter<StopSearchFilters>
+        testIdPrefix={stopSearchBarTestIds.prefix}
+        translationPrefix="stopRegistrySearch.fieldLabels"
+        fieldPath="priorities"
+        className="mr-auto"
+        disabled={notForStops}
+      />
       <MunicipalityFilter
         className={twJoin(
           'min-w-30 sm:-order-1 md:order-none xl:flex-grow xl:basis-auto',
