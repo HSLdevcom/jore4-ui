@@ -15,6 +15,7 @@ import {
   MaintenanceDetailsFormState,
   maintenanceDetailsFormSchema,
 } from './schema';
+import { StopOwnerFormField } from './StopOwnerFormField';
 
 const GQL_GET_ORGANISATIONS = gql`
   query GetOrganisations {
@@ -54,7 +55,7 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
     resolver: zodResolver(maintenanceDetailsFormSchema),
   });
   useDirtyFormBlockNavigation(methods.formState, 'MaintenanceDetailsForm');
-  const { handleSubmit, setValue } = methods;
+  const { handleSubmit, setValue, control } = methods;
 
   const [isEditingOrganisation, setIsEditingOrganisation] = useState(false);
   const [editedMaintainerType, setEditedMaintainerType] =
@@ -92,10 +93,11 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
-        className={`grid grid-cols-3 gap-4 lg:grid-cols-3 ${className}`}
+        className={`grid grid-cols-3 gap-4 lg:grid-cols-4 ${className}`}
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >
+        <StopOwnerFormField control={control} />
         <MaintainerFormFields
           testId={testIds.owner}
           maintainerType={MaintainerType.Owner}

@@ -346,12 +346,24 @@
     "maintenance": {
       "title": "Maintenance",
       "maintainers": {
+        "stopOwner": "Stop owner",
         "cleaning": "Cleaning",
         "infoUpkeep": "Info upkeep (static)",
         "maintenance": "Road area maintenance",
         "owner": "Shelter owner",
         "winterMaintenance": "Winter maintenance",
         "shelterMaintenance": "Shelter maintenance"
+      },
+      "stopOwnerOptions": {
+        "municipality": "Municipality",
+        "finavia": "Finavia",
+        "hkl": "HKL",
+        "hkr": "HKR",
+        "vr": "VR",
+        "ely": "ELY",
+        "finnishTransportAgency": "Finnish Transport Agency",
+        "privateRoad": "Private Road",
+        "other": "Other"
       },
       "organisation": {
         "modalTitleEdit": "Edit organisation details",

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopWithDetails } from '../../../../../types';
 import { MaintainerViewCard } from './MaintainerViewCard';
+import { StopOwnerViewCard } from './StopOwnerViewCard';
 import { getMaintainers } from './utils';
 
 const testIds = {
@@ -22,10 +23,12 @@ export const MaintenanceViewCard: FC<MaintenanceViewCardProps> = ({ stop }) => {
   const { t } = useTranslation();
 
   const maintainers = getMaintainers(stop);
+  const stopOwner = stop.quay?.stopOwner ?? null;
 
   return (
     <div data-testid={testIds.container}>
-      <div className="grid grid-cols-3 gap-4 lg:grid-cols-6">
+      <div className="grid grid-cols-3 gap-4 lg:grid-cols-4">
+        <StopOwnerViewCard stopOwner={stopOwner} />
         <MaintainerViewCard
           testId={testIds.owner}
           maintainer={maintainers.owner}

@@ -445,3 +445,7 @@ export const mapInfoSpotPurposeToUiName =
     [InfoSpotPurposeEnum.OTHER]: (t) =>
       t('stopDetails.infoSpots.purposes.other'),
   });
+
+export const mapStopOwnerToUiName = (t: TFunction, value: string): string => {
+  return t(`stopDetails.maintenance.stopOwnerOptions.${value}`);
+};

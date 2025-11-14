@@ -346,12 +346,24 @@
     "maintenance": {
       "title": "Ylläpito",
       "maintainers": {
+        "stopOwner": "Pysäkin omistaja",
         "cleaning": "Siivous",
         "infoUpkeep": "Infohoito (staattinen)",
         "maintenance": "Tiealueen kunnossapito",
         "owner": "Katoksen omistaja",
         "winterMaintenance": "Talvikunnossapito",
         "shelterMaintenance": "Katoksen kunnossapito"
+      },
+      "stopOwnerOptions": {
+        "municipality": "Kunta",
+        "finavia": "Finavia",
+        "hkl": "HKL",
+        "hkr": "HKR",
+        "vr": "VR",
+        "ely": "ELY",
+        "finnishTransportAgency": "Liikennevirasto",
+        "privateRoad": "Yksityistie",
+        "other": "Muu"
       },
       "organisation": {
         "modalTitleEdit": "Muokkaa toimijan tietoja",

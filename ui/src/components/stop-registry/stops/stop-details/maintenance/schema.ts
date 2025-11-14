@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const maintenanceDetailsFormSchema = z.object({
+  stopOwner: z.string().nullable(),
   maintainers: z.object({
     owner: z.string().nullable(),
     maintenance: z.string().nullable(),

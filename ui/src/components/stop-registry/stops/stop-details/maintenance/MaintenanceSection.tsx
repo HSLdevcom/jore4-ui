@@ -28,7 +28,9 @@ const mapMaintenanceDetailsToFormState = (
     return maintainer?.id ?? null;
   });
 
-  return { maintainers: maintainerIdsByType };
+  const stopOwner = stop.quay?.stopOwner ?? null;
+
+  return { stopOwner, maintainers: maintainerIdsByType };
 };
 
 export const MaintenanceSection: FC<MaintenanceSectionProps> = ({ stop }) => {
