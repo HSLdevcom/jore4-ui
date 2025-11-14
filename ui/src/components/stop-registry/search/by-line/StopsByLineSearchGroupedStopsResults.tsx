@@ -1,14 +1,5 @@
-import { DateTime } from 'luxon';
-import {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { PagingInfo } from '../../../../types';
-import { SortingInfo } from '../types';
+import { FC } from 'react';
+import { useStopSearchRouterState } from '../utils';
 import { ActiveLineHeader } from './ActiveLineHeader';
 import { CountAndSortingRow } from './CountAndSortingRow';
 import { LineRoutesListing } from './LineRoutesListing';
@@ -17,59 +8,20 @@ import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 
 type StopsByLineSearchGroupedStopsResultsProps = {
   readonly lines: ReadonlyArray<FindStopByLineInfo>;
-  readonly observationDate: DateTime;
-  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
-  readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
-  readonly sortingInfo: SortingInfo;
 };
 
 export const StopsByLineSearchGroupedStopsResults: FC<
   StopsByLineSearchGroupedStopsResultsProps
-> = ({
-  lines,
-  observationDate,
-  setPagingInfo,
-  setSortingInfo,
-  sortingInfo,
-}) => {
-  const [activeLineIds, setActiveLineIds] =
-    useState<ReadonlyArray<UUID> | null>(
-      lines.at(0)?.line_id ? [lines.at(0)?.line_id as string] : null,
-    );
-
-  const linesToShow = useMemo(() => {
-    return lines.filter((line) => activeLineIds?.includes(line.line_id));
-  }, [lines, activeLineIds]);
-
-  // If lines list changes, check to see if the selected line is still within
-  // the results, if not, then select the 1st line from the results as active,
-  // or null in case there are no results.
-  useEffect(() => {
-    if (!activeLineIds || activeLineIds.length === 0) {
-      const idString: string | undefined = lines.at(0)?.line_id;
-      setActiveLineIds(idString ? [idString] : null);
-      return;
-    }
-
-    // Check if all currently selected lines are still in the results
-    const availableLineIds = lines.map((line) => line.line_id);
-    const validSelectedIds = activeLineIds.filter((id) =>
-      availableLineIds.includes(id),
-    );
-
-    // If some or all selected lines are no longer available, update the selection
-    if (validSelectedIds.length !== activeLineIds.length) {
-      if (validSelectedIds.length > 0) {
-        // Keep the valid selections
-        setActiveLineIds(validSelectedIds);
-      } else {
-        // No valid selections left, select the first available area
-        const idString: string | undefined = lines.at(0)?.line_id;
-        setActiveLineIds(idString ? [idString] : null);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lines]);
+> = ({ lines }) => {
+  const {
+    state: {
+      filters: { observationDate },
+      sortingInfo,
+    },
+    historyState: { selectedGroups },
+    setPagingInfo,
+    setSortingInfo,
+  } = useStopSearchRouterState();
 
   return (
     <>
@@ -81,23 +33,20 @@ export const StopsByLineSearchGroupedStopsResults: FC<
         sortingInfo={sortingInfo}
       />
 
-      <LineSelector
-        activeLineIds={activeLineIds}
-        className="mb-6"
-        lines={lines}
-        setActiveLineIds={setActiveLineIds}
-      />
+      <LineSelector className="mb-6" lines={lines} />
 
-      {linesToShow.map((line) => (
-        <>
-          <ActiveLineHeader line={line} className="mt-6" />
-          <LineRoutesListing
-            observationDate={observationDate}
-            line={line}
-            sortingInfo={sortingInfo}
-          />
-        </>
-      ))}
+      {lines
+        .filter((line) => selectedGroups.includes(line.line_id))
+        .map((line) => (
+          <>
+            <ActiveLineHeader line={line} className="mt-6" />
+            <LineRoutesListing
+              observationDate={observationDate}
+              line={line}
+              sortingInfo={sortingInfo}
+            />
+          </>
+        ))}
     </>
   );
 };

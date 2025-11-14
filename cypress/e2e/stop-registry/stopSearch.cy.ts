@@ -894,7 +894,7 @@ describe('Stop search', () => {
       stopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
 
       stopSearchBar.getSearchInput().clearAndType(`*{enter}`);
-      expectGraphQLCallToSucceed('@gqlfindTerminals');
+      expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       stopGroupSelector.shouldHaveGroups(['T2']);
     });
@@ -904,7 +904,7 @@ describe('Stop search', () => {
       stopSearchBar.searchForDropdown.selectSearchFor('Terminaalit');
 
       stopSearchBar.getSearchInput().clearAndType(`T2{enter}`);
-      expectGraphQLCallToSucceed('@gqlfindTerminals');
+      expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       stopGroupSelector.shouldHaveGroups(['T2']);
 

@@ -40,12 +40,14 @@ const infoSpotSize = z.object({
   height: z.number().min(0),
 });
 
+const pgIdType = z.union([z.string(), z.number(), z.bigint()]);
+
 export const stopSearchFiltersSchema = z.object({
   query: requiredString,
   searchBy: z.nativeEnum(SearchBy),
   searchFor: z.nativeEnum(SearchFor),
   observationDate: instanceOfDateTime,
-  elyNumber: z.string(),
+  elyNumber: z.string().readonly(),
   municipalities: zMunicipalityEnumArray(),
   priorities: z.array(z.nativeEnum(Priority)).min(1),
   transportationMode: zEnumArrayWithAll(JoreStopRegistryTransportModeType),
@@ -54,9 +56,13 @@ export const stopSearchFiltersSchema = z.object({
   electricity: zEnumArrayWithAllAndNull(StopRegistryShelterElectricity),
   infoSpots: z.array(z.union([infoSpotSize, allEnum, nullEnum])),
   stopOwner: zEnumArrayWithAll(StopOwner),
+
+  // Extra filters:
+  stopPlaces: z.array(pgIdType),
 });
 
 export type InfoSpotSize = z.infer<typeof infoSpotSize>;
+export type PgIdType = z.infer<typeof pgIdType>;
 export type StopSearchFilters = z.infer<typeof stopSearchFiltersSchema>;
 
 export const defaultFilters: StopSearchFilters = {
@@ -73,6 +79,9 @@ export const defaultFilters: StopSearchFilters = {
   electricity: [AllOptionEnum.All],
   infoSpots: [AllOptionEnum.All],
   stopOwner: [AllOptionEnum.All],
+
+  // Extra filters:
+  stopPlaces: [],
 };
 
 export function pickMeaningfulFilters(filters: StopSearchFilters) {

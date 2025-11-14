@@ -237,6 +237,21 @@ function buildStopOwnerFilter({
   return { stop_owner: { _in: stopOwner } };
 }
 
+function buildStopPlacesFilter({
+  stopPlaces,
+}: StopSearchFilters): StopsDatabaseQuayNewestVersionBoolExp {
+  if (stopPlaces.length === 0) {
+    return {};
+  }
+
+  return {
+    _or: [
+      { stop_place_id: { _in: stopPlaces } },
+      { stopPlaceParent: { stop_place_id: { _in: stopPlaces } } },
+    ],
+  };
+}
+
 export function buildSearchStopsGqlQueryVariables(
   filters: StopSearchFilters,
   ...extraConditions: ReadonlyArray<StopsDatabaseQuayNewestVersionBoolExp>
@@ -257,6 +272,7 @@ export function buildSearchStopsGqlQueryVariables(
   const electricityFilter = buildElectricityFilter(filters);
   const infoSpotsFilter = buildInfoSpotsFilter(filters);
   const stopOwnerFilter = buildStopOwnerFilter(filters);
+  const stopPlacesFilter = buildStopPlacesFilter(filters);
 
   return {
     _and: [
@@ -271,6 +287,7 @@ export function buildSearchStopsGqlQueryVariables(
       electricityFilter,
       infoSpotsFilter,
       stopOwnerFilter,
+      stopPlacesFilter,
       ...extraConditions,
     ].filter((filter) => !isEmpty(filter)),
   };

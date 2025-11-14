@@ -1,23 +1,18 @@
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TranslationKey } from '../../../../../i18n';
 import { StopGroupSelector, StopGroupSelectorItem } from '../StopGroupSelector';
 import { FindStopPlaceInfo } from './useFindStopPlaces';
 
 type StopPlaceSelectorProps = {
-  readonly activeStopPlaceIds: ReadonlyArray<string> | null;
   readonly className?: string;
   readonly stopPlaces: ReadonlyArray<FindStopPlaceInfo>;
-  readonly setActiveStopPlaceIds: (
-    activeStopIds: ReadonlyArray<string> | null,
-  ) => void;
-  readonly translationLabel: string;
+  readonly translationLabel: TranslationKey;
 };
 
 export const StopPlaceSelector: FC<StopPlaceSelectorProps> = ({
-  activeStopPlaceIds,
   className,
   stopPlaces,
-  setActiveStopPlaceIds,
   translationLabel,
 }) => {
   const { t } = useTranslation();
@@ -43,11 +38,7 @@ export const StopPlaceSelector: FC<StopPlaceSelectorProps> = ({
     <StopGroupSelector
       className={className}
       groups={groups}
-      label={t(translationLabel, {
-        count: activeStopPlaceIds?.length ?? 0,
-      })}
-      onSelect={setActiveStopPlaceIds}
-      selected={activeStopPlaceIds}
+      label={(count) => t(translationLabel, { count })}
     />
   );
 };

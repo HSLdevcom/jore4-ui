@@ -1,15 +1,13 @@
-import { DateTime } from 'luxon';
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../layoutComponents';
-import { PagingInfo } from '../../../../types';
 import { Pagination } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import {
   LoadingStopsErrorRow,
   StopSearchResultStopsTable,
 } from '../components';
-import { SortingInfo } from '../types';
+import { useStopSearchRouterState } from '../utils';
 import { CountAndSortingRow } from './CountAndSortingRow';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 import { useGetStopSearchByLinesResult } from './useGetStopSearchByLinesResult';
@@ -20,24 +18,22 @@ const testIds = {
 
 type StopsByLineNongroupedStopsResultsProps = {
   readonly lines: ReadonlyArray<FindStopByLineInfo>;
-  readonly observationDate: DateTime;
-  readonly pagingInfo: PagingInfo;
-  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
-  readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
-  readonly sortingInfo: SortingInfo;
 };
 
 export const StopsByLineNongroupedStopsResults: FC<
   StopsByLineNongroupedStopsResultsProps
-> = ({
-  lines,
-  observationDate,
-  pagingInfo,
-  setPagingInfo,
-  setSortingInfo,
-  sortingInfo,
-}) => {
+> = ({ lines }) => {
   const { t } = useTranslation();
+
+  const {
+    state: {
+      filters: { observationDate },
+      pagingInfo,
+      sortingInfo,
+    },
+    setPagingInfo,
+    setSortingInfo,
+  } = useStopSearchRouterState();
 
   const {
     stops,

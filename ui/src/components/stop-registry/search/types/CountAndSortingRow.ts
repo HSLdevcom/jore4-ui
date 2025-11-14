@@ -1,14 +1,14 @@
-import { Dispatch, SetStateAction } from 'react';
-import { PagingInfo } from '../../../../types';
-import { SortingInfo } from './SortingInfo';
+import { ResultSelection } from './ResultSelection';
 import { SortStopsBy } from './SortStopsBy';
 
 export type CountAndSortingRowProps = {
+  readonly allSelected: boolean;
   readonly className?: string;
+  readonly groupingField: SortStopsBy;
+  readonly onToggleSelectAll: () => void;
+  readonly hasResults: boolean;
   readonly resultCount: number;
-  readonly sortingInfo: SortingInfo;
-  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
-  readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
+  readonly resultSelection: ResultSelection;
 };
 
 export const commonSortingFields: ReadonlyArray<SortStopsBy> = [

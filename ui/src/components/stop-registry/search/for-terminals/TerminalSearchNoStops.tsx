@@ -8,7 +8,7 @@ import { FindStopPlaceInfo } from '../components/StopPlaceSharedComponents/useFi
 
 const testIds = {
   noStopsInTerminal: 'TerminalSearch:noStopsText',
-  terminalLink: 'TerminalSearch::noStopsLink',
+  terminalLink: 'StopPlaceSearch::noStopsLink',
 };
 
 type TerminalSearchNoStopsProps = {
