@@ -1,14 +1,13 @@
-import { DateTime } from 'luxon';
-import { ComponentType, Dispatch, FC, SetStateAction } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../../layoutComponents';
-import { PagingInfo } from '../../../../../types';
 import { Pagination } from '../../../../../uiComponents';
 import { LoadingWrapper } from '../../../../../uiComponents/LoadingWrapper';
-import { SortingInfo } from '../../types';
-import { CountAndSortingRowProps } from '../../types/CountAndSortingRow';
+import { SortStopsBy } from '../../types';
+import { useResultSelection, useStopSearchRouterState } from '../../utils';
 import { LoadingStopsErrorRow } from '../LoadingStopsErrorRow';
-import { StopSearchResultStopsTable } from '../StopSearchResultStopsTable';
+import { SelectableStopSearchResultStopsTable } from '../StopSearchResultStopsTable';
+import { NonGroupedCountAndSortingRow } from './StopPlaceCountAndSortingRow';
 import { FindStopPlaceInfo } from './useFindStopPlaces';
 import { useStopSearchByStopPlacesResults } from './useStopSearchByStopPlacesResults';
 
@@ -17,28 +16,40 @@ const testIds = {
 };
 
 type NongroupedStopsResults = {
-  readonly observationDate: DateTime;
-  readonly pagingInfo: PagingInfo;
-  readonly setPagingInfo: (pagingInfo: PagingInfo) => void;
-  readonly setSortingInfo: Dispatch<SetStateAction<SortingInfo>>;
-  readonly sortingInfo: SortingInfo;
   readonly stopPlaces: ReadonlyArray<FindStopPlaceInfo>;
-  readonly CountAndSortingRowComponent: ComponentType<CountAndSortingRowProps>;
 };
 
 export const NongroupedStopsResults: FC<NongroupedStopsResults> = ({
-  observationDate,
-  pagingInfo,
-  setPagingInfo,
-  setSortingInfo,
-  sortingInfo,
   stopPlaces,
-  CountAndSortingRowComponent,
 }) => {
   const { t } = useTranslation();
 
+  const {
+    state: {
+      filters: { observationDate },
+      pagingInfo,
+      sortingInfo,
+    },
+    historyState: { resultSelection },
+    setPagingInfo,
+    setHistoryState,
+  } = useStopSearchRouterState();
+
+  const stopPlaceIds = useMemo(
+    () => stopPlaces.map((it) => it.id),
+    [stopPlaces],
+  );
+
   const { stops, loading, resultCount, error, refetch } =
-    useStopSearchByStopPlacesResults(stopPlaces, sortingInfo, pagingInfo);
+    useStopSearchByStopPlacesResults(stopPlaceIds, sortingInfo, pagingInfo);
+
+  const stopIds = useMemo(() => stops.map((it) => it.id), [stops]);
+
+  const { onToggleSelection, onToggleSelectAll } = useResultSelection({
+    resultCount,
+    stopIds,
+    setHistoryState,
+  });
 
   return (
     <LoadingWrapper
@@ -47,19 +58,24 @@ export const NongroupedStopsResults: FC<NongroupedStopsResults> = ({
       loading={loading}
       testId={testIds.loadingSearchResults}
     >
-      <CountAndSortingRowComponent
+      <NonGroupedCountAndSortingRow
+        allSelected={resultSelection.selectionState === 'ALL_SELECTED'}
         className="mb-6"
+        groupingField={SortStopsBy.BY_STOP_AREA}
+        onToggleSelectAll={onToggleSelectAll}
+        hasResults={stops.length > 0}
         resultCount={resultCount}
-        setPagingInfo={setPagingInfo}
-        setSortingInfo={setSortingInfo}
-        sortingInfo={sortingInfo}
+        resultSelection={resultSelection}
+        stopPlaceIds={stopPlaceIds}
       />
 
       {error ? (
         <LoadingStopsErrorRow error={error} refetch={refetch} />
       ) : (
-        <StopSearchResultStopsTable
+        <SelectableStopSearchResultStopsTable
           observationDate={observationDate}
+          onToggleSelection={onToggleSelection}
+          selection={resultSelection}
           stops={stops}
         />
       )}

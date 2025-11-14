@@ -1,63 +1,17 @@
 import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
-import { SearchGroupedStopsResults } from '../components/StopPlaceSharedComponents/GroupedStopsResults';
-import { NongroupedStopsResults } from '../components/StopPlaceSharedComponents/NongroupedStopsResults';
-import { useFindStopPlaces } from '../components/StopPlaceSharedComponents/useFindStopPlaces';
-import { SortStopsBy, StopSearchResultsProps } from '../types';
-import { CountAndSortingRow } from './CountAndSortingRow';
+import { StopPlaceSearchResults } from '../components/StopPlaceSharedComponents/StopPlaceSearchResults';
+import { SortStopsBy } from '../types';
 import { StopAreaHeader } from './StopAreaHeader';
 import { StopAreaSearchNoStops } from './StopAreaSearchNoStops';
 
-const testIds = {
-  loadingSearchResults: 'LoadingWrapper::loadingStopAreaSearchResults',
-};
-
-export const StopAreaSearchResults: FC<StopSearchResultsProps> = ({
-  filters,
-  pagingInfo,
-  setPagingInfo,
-  setSortingInfo,
-  sortingInfo,
-}) => {
-  const { t } = useTranslation();
-
-  const { stopPlaces, loading } = useFindStopPlaces(filters, 'area');
-
-  const { sortBy } = sortingInfo;
-  const groupByArea =
-    sortBy === SortStopsBy.BY_STOP_AREA || sortBy === SortStopsBy.DEFAULT;
-
+export const StopAreaSearchResults: FC = () => {
   return (
-    <LoadingWrapper
-      className="flex justify-center"
-      loadingText={t('search.searching')}
-      loading={stopPlaces.length === 0 ? loading : false}
-      testId={testIds.loadingSearchResults}
-    >
-      {groupByArea ? (
-        <SearchGroupedStopsResults
-          observationDate={filters.observationDate}
-          setPagingInfo={setPagingInfo}
-          setSortingInfo={setSortingInfo}
-          sortingInfo={sortingInfo}
-          stopPlaces={stopPlaces}
-          CountAndSortingRowComponent={CountAndSortingRow}
-          HeaderComponent={StopAreaHeader}
-          NoStopsComponent={StopAreaSearchNoStops}
-          translationLabel="stopRegistrySearch.stopAreas"
-        />
-      ) : (
-        <NongroupedStopsResults
-          observationDate={filters.observationDate}
-          stopPlaces={stopPlaces}
-          sortingInfo={sortingInfo}
-          setSortingInfo={setSortingInfo}
-          pagingInfo={pagingInfo}
-          setPagingInfo={setPagingInfo}
-          CountAndSortingRowComponent={CountAndSortingRow}
-        />
-      )}
-    </LoadingWrapper>
+    <StopPlaceSearchResults
+      groupingField={SortStopsBy.BY_STOP_AREA}
+      placeType="area"
+      translationLabel="stopRegistrySearch.stopAreas"
+      HeaderComponent={StopAreaHeader}
+      NoStopsComponent={StopAreaSearchNoStops}
+    />
   );
 };

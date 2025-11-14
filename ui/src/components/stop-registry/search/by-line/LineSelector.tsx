@@ -4,18 +4,11 @@ import { StopGroupSelector } from '../components';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 
 type LineSelectorProps = {
-  readonly activeLineIds: ReadonlyArray<UUID> | null;
   readonly className?: string;
   readonly lines: ReadonlyArray<FindStopByLineInfo>;
-  readonly setActiveLineIds: (activeLineId: ReadonlyArray<UUID> | null) => void;
 };
 
-export const LineSelector: FC<LineSelectorProps> = ({
-  activeLineIds,
-  className,
-  lines,
-  setActiveLineIds,
-}) => {
+export const LineSelector: FC<LineSelectorProps> = ({ className, lines }) => {
   const { t } = useTranslation();
 
   const groups = useMemo(
@@ -32,11 +25,7 @@ export const LineSelector: FC<LineSelectorProps> = ({
     <StopGroupSelector
       className={className}
       groups={groups}
-      label={t('stopRegistrySearch.lines', {
-        count: activeLineIds?.length ?? 0,
-      })}
-      onSelect={setActiveLineIds}
-      selected={activeLineIds}
+      label={(count) => t('stopRegistrySearch.lines', { count })}
     />
   );
 };

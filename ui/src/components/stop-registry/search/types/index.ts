@@ -5,5 +5,4 @@ export * from './SortingInfo';
 export * from './SortStopsBy';
 export * from './StopSearchFilters';
 export * from './StopSearchHistoryState';
-export * from './StopSearchResultsProps';
 export * from './StringMunicipality';

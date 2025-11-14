@@ -1,25 +1,25 @@
 export class SearchForStopAreas {
   getStopAreaLabel() {
-    return cy.getByTestId('StopAreaSearch::label');
+    return cy.getByTestId('StopPlaceSearch::label');
   }
 
   getStopAreaLink() {
-    return cy.getByTestId('StopAreaSearch::link');
+    return cy.getByTestId('StopPlaceSearch::link');
   }
 
   getLocatorButton() {
-    return cy.getByTestId('StopAreaSearch::locatorButton');
+    return cy.getByTestId('StopPlaceSearch::locatorButton');
   }
 
   getActionMenu = () => cy.getByTestId('SearchHeader::actionMenu');
 
   getActionMenuShowDetails = () =>
-    cy.getByTestId('StopAreaSearch::showStopAreaDetails');
+    cy.getByTestId('StopPlaceSearch::showStopPlaceDetails');
 
-  getActionMenuShowOnMap = () => cy.getByTestId('StopAreaSearch::showOnMap');
+  getActionMenuShowOnMap = () => cy.getByTestId('StopPlaceSearch::showOnMap');
 
   getNoStopsInStopAreaText = () => cy.getByTestId('StopAreaSearch:noStopsText');
 
   getNoStopsInStopAreaLink = () =>
-    cy.getByTestId('StopAreaSearch::noStopsLink');
+    cy.getByTestId('StopPlaceSearch::noStopsLink');
 }

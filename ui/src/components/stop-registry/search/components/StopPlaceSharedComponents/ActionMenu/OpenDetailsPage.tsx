@@ -1,11 +1,12 @@
+import { DateTime } from 'luxon';
 import { forwardRef } from 'react';
 import { useNavigate } from 'react-router';
-import { useObservationDateQueryParam } from '../../../../../../hooks';
 import { PathValue, routeDetails } from '../../../../../../router/routeDetails';
 import { SimpleDropdownMenuItem } from '../../../../../../uiComponents';
 
 type OpenDetailsProps = {
   readonly className?: string;
+  readonly observationDate: DateTime;
   readonly privateCode: string | null | undefined;
   readonly testId: string;
   readonly text: string;
@@ -13,12 +14,8 @@ type OpenDetailsProps = {
 };
 
 export const OpenDetails = forwardRef<HTMLButtonElement, OpenDetailsProps>(
-  ({ className, privateCode, testId, text, details }, ref) => {
+  ({ className, details, observationDate, privateCode, testId, text }, ref) => {
     const navigate = useNavigate();
-
-    const { observationDate } = useObservationDateQueryParam({
-      initialize: false,
-    });
 
     return (
       <SimpleDropdownMenuItem

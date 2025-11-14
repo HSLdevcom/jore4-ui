@@ -1,11 +1,10 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { useTranslation } from 'react-i18next';
-import { PulseLoader } from 'react-spinners';
 import { twMerge } from 'tailwind-merge';
-import { theme } from '../../../../generated/theme';
-import { SimpleButton } from '../../../../uiComponents';
 import { StopSearchRow } from '../../components';
+import { OpenStopResultsOnMapButton } from '../components/OpenStopResultsOnMapButton';
 import { ResultCountHeader } from '../components/ResultCountHeader';
+import { ResultsActionMenu } from '../components/ResultsActionMenu';
+import { SelectAllCheckbox } from '../components/SelectAllCheckbox';
 import { SortResultsBy } from '../components/SortResultsBy';
 import {
   ResultSelection,
@@ -13,14 +12,6 @@ import {
   SortingInfo,
   StopSearchFilters,
 } from '../types';
-import { ResultsActionMenu } from './ResultsActionMenu';
-import { useOpenStopResultsOnMap } from './useOpenStopResultsOnMap';
-
-const testIds = {
-  showOnMapButton: 'StopSearchResultsPage::showOnMapButton',
-  showOnMapButtonLoading: 'StopSearchResultsPage::showOnMapButton::loading',
-  selectAllButton: 'StopSearchResultsPage::selectAllButton',
-};
 
 const supportedSortingFields: ReadonlyArray<SortStopsBy> = [
   SortStopsBy.LABEL,
@@ -51,49 +42,22 @@ export const CountAndSortingRow: FC<CountAndSortingRowProps> = ({
   sortingInfo,
   stops,
 }) => {
-  const { t } = useTranslation();
-
-  const nothingSelected = resultSelection.selectionState === 'NONE_SELECTED';
-
-  const [transitioning, transitionToMap] = useOpenStopResultsOnMap(
-    filters,
-    resultSelection,
-    resultCount,
-    stops,
-  );
-
   return (
-    <div className={twMerge('a flex items-center gap-5', className)}>
-      <input
-        checked={allSelected}
-        className="h-7 w-7 accent-tweaked-brand"
-        data-testid={testIds.selectAllButton}
-        onChange={onToggleSelectAll}
-        type="checkbox"
+    <div className={twMerge('flex items-center gap-5', className)}>
+      <SelectAllCheckbox
+        allSelected={allSelected}
+        onToggleSelectAll={onToggleSelectAll}
       />
 
       <ResultCountHeader resultCount={resultCount} />
 
-      {resultCount > 0 && (
-        <SimpleButton
-          className="px-3 py-1 text-sm leading-none disabled:cursor-wait"
-          disabled={nothingSelected || transitioning}
-          onClick={transitionToMap}
-          type="button"
-          testId={testIds.showOnMapButton}
-        >
-          {transitioning ? (
-            <PulseLoader
-              color={theme.colors.brand}
-              cssOverride={{ margin: '-2px' }}
-              data-testid={testIds.showOnMapButtonLoading}
-              size={14}
-            />
-          ) : (
-            t('stopRegistrySearch.showOnMap')
-          )}
-        </SimpleButton>
-      )}
+      <OpenStopResultsOnMapButton
+        filters={filters}
+        hasResults={resultCount > 0}
+        resultCount={resultCount}
+        resultSelection={resultSelection}
+        results={stops}
+      />
 
       <div className="flex-grow" />
 

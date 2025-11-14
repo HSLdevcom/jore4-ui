@@ -1,25 +1,25 @@
 export class SearchForTerminals {
   getTerminalLabel() {
-    return cy.getByTestId('TerminalSearch::label');
+    return cy.getByTestId('StopPlaceSearch::label');
   }
 
   getTerminalLink() {
-    return cy.getByTestId('TerminalSearch::link');
+    return cy.getByTestId('StopPlaceSearch::link');
   }
 
   getLocatorButton() {
-    return cy.getByTestId('TerminalSearch::locatorButton');
+    return cy.getByTestId('StopPlaceSearch::locatorButton');
   }
 
   getActionMenu = () => cy.getByTestId('SearchHeader::actionMenu');
 
   getActionMenuShowDetails = () =>
-    cy.getByTestId('TerminalSearch::showTerminalDetails');
+    cy.getByTestId('StopPlaceSearch::showStopPlaceDetails');
 
-  getActionMenuShowOnMap = () => cy.getByTestId('TerminalSearch::showOnMap');
+  getActionMenuShowOnMap = () => cy.getByTestId('StopPlaceSearch::showOnMap');
 
   getNoStopsInTerminalText = () => cy.getByTestId('TerminalSearch:noStopsText');
 
   getNoStopsInTerminalLink = () =>
-    cy.getByTestId('TerminalSearch::noStopsLink');
+    cy.getByTestId('StopPlaceSearch::noStopsLink');
 }

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../layoutComponents';
 import { Pagination } from '../../../../uiComponents';
@@ -7,8 +7,7 @@ import {
   LoadingStopsErrorRow,
   SelectableStopSearchResultStopsTable,
 } from '../components';
-import { ExtendedStopSearchResultsProps } from '../types';
-import { useResultSelection } from '../utils';
+import { useResultSelection, useStopSearchRouterState } from '../utils';
 import { CountAndSortingRow } from './CountAndSortingRow';
 import { useStopSearchByStopResults } from './useStopSearchByStopResults';
 
@@ -16,23 +15,23 @@ const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopSearchResults',
 };
 
-export const StopSearchByStopResults: FC<ExtendedStopSearchResultsProps> = ({
-  filters,
-  historyState: { resultSelection },
-  pagingInfo,
-  setHistoryState,
-  setPagingInfo,
-  setSortingInfo,
-  sortingInfo,
-}) => {
+export const StopSearchByStopResults: FC = () => {
   const { t } = useTranslation();
+
+  const {
+    state: { filters, sortingInfo, pagingInfo },
+    historyState: { resultSelection },
+    setHistoryState,
+    setPagingInfo,
+    setSortingInfo,
+  } = useStopSearchRouterState();
 
   const { stops, loading, resultCount, error, refetch } =
     useStopSearchByStopResults(filters, sortingInfo, pagingInfo);
 
   const { onToggleSelection, onToggleSelectAll } = useResultSelection({
     resultCount,
-    stops,
+    stopIds: useMemo(() => stops.map((stop) => stop.id), [stops]),
     setHistoryState,
   });
 

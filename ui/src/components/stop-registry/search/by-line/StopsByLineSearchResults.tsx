@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
-import { SortStopsBy, StopSearchResultsProps } from '../types';
+import { SortStopsBy } from '../types';
+import { useStopSearchRouterState } from '../utils';
 import { StopsByLineNongroupedStopsResults } from './StopsByLineNongroupedStopsResults';
 import { StopsByLineSearchGroupedStopsResults } from './StopsByLineSearchGroupedStopsResults';
 import { useFindLinesByStopSearch } from './useFindLinesByStopSearch';
@@ -10,18 +11,17 @@ const testIds = {
   loadingSearchResults: 'LoadingWrapper::loadingStopByLinesSearchResults',
 };
 
-export const StopsByLineSearchResults: FC<StopSearchResultsProps> = ({
-  filters,
-  pagingInfo,
-  setPagingInfo,
-  setSortingInfo,
-  sortingInfo,
-}) => {
+export const StopsByLineSearchResults: FC = () => {
   const { t } = useTranslation();
 
+  const {
+    state: {
+      filters,
+      sortingInfo: { sortBy },
+    },
+  } = useStopSearchRouterState();
   const { lines, loading } = useFindLinesByStopSearch(filters);
 
-  const { sortBy } = sortingInfo;
   const groupByLine =
     sortBy === SortStopsBy.SEQUENCE_NUMBER || sortBy === SortStopsBy.DEFAULT;
 
@@ -33,22 +33,9 @@ export const StopsByLineSearchResults: FC<StopSearchResultsProps> = ({
       testId={testIds.loadingSearchResults}
     >
       {groupByLine ? (
-        <StopsByLineSearchGroupedStopsResults
-          lines={lines}
-          observationDate={filters.observationDate}
-          setPagingInfo={setPagingInfo}
-          setSortingInfo={setSortingInfo}
-          sortingInfo={sortingInfo}
-        />
+        <StopsByLineSearchGroupedStopsResults lines={lines} />
       ) : (
-        <StopsByLineNongroupedStopsResults
-          lines={lines}
-          observationDate={filters.observationDate}
-          pagingInfo={pagingInfo}
-          setPagingInfo={setPagingInfo}
-          setSortingInfo={setSortingInfo}
-          sortingInfo={sortingInfo}
-        />
+        <StopsByLineNongroupedStopsResults lines={lines} />
       )}
     </LoadingWrapper>
   );

@@ -1,3 +1,4 @@
+import without from 'lodash/without';
 import {
   Dispatch,
   FocusEventHandler,
@@ -17,6 +18,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { Visible } from '../../../../../layoutComponents';
+import {
+  assertKnownIdsListingIsGrouped,
+  unregisterSelectionGroups,
+  useStopSearchRouterState,
+} from '../../utils';
 import { StopGroupOption } from './StopGroupOption';
 import { StopGroupSelectorItem } from './StopGroupSelectorItem';
 import { VisibilityMap, useVisibilityMap } from './useVisibilityMap';
@@ -25,6 +31,93 @@ const testIds = {
   showAll: `StopGroupSelector::showAllButton`,
   showLess: `StopGroupSelector::showLessButton`,
 };
+
+function resolveNewGroupSelection(
+  groups: ReadonlyArray<StopGroupSelectorItem<string>>,
+  selected: ReadonlyArray<string>,
+): ReadonlyArray<string> {
+  // Check if all currently selected stop places are still in the results
+  const availableGroupIds = groups.map((group) => group.id);
+  const validGroupIds = selected.filter((id) => availableGroupIds.includes(id));
+
+  // If some or all selected stop places are no longer available, update the selection
+  if (validGroupIds.length !== selected.length || selected.length === 0) {
+    if (validGroupIds.length > 0) {
+      // Keep the valid selections
+      return validGroupIds;
+    }
+
+    // No valid selections left, select the 1st available group or nothing
+    const firstGroup: string | undefined = groups.at(0)?.id;
+    return firstGroup ? [firstGroup] : [];
+  }
+
+  return selected;
+}
+
+function useSelection(groups: ReadonlyArray<StopGroupSelectorItem<string>>) {
+  const {
+    historyState: { selectedGroups: selected },
+    setHistoryState,
+  } = useStopSearchRouterState();
+
+  // If list of groups changes, check to see if the selected groups are still
+  // within the results, if not, then select the 1st group from the list
+  // as active, or empty array in case there are no results.
+  useEffect(() => {
+    setHistoryState((p) => {
+      assertKnownIdsListingIsGrouped(p.knownStopIds);
+
+      const selectedGroups = resolveNewGroupSelection(groups, p.selectedGroups);
+
+      if (selectedGroups === p.selectedGroups) {
+        return p;
+      }
+
+      const removedGroupIds = Object.keys(p.knownStopIds.groups).filter(
+        (registeredGroupId) =>
+          groups.some((group) => group.id === registeredGroupId),
+      );
+
+      return unregisterSelectionGroups(
+        { ...p, selectedGroups },
+        removedGroupIds,
+      );
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [groups]);
+
+  const handleSelect = useCallback(
+    (selectedId: string) => {
+      setHistoryState((p) => {
+        // If the selectedId is not in the selected array, add it
+        if (!p.selectedGroups.includes(selectedId)) {
+          return { ...p, selectedGroups: p.selectedGroups.concat(selectedId) };
+        }
+
+        // Group is already selected, remove it from the selection.
+        // But only of there are still other options selected, aka don't
+        // allow unselecting the last one.
+        const nextSelection = without(p.selectedGroups, selectedId);
+        if (nextSelection.length) {
+          return unregisterSelectionGroups(
+            { ...p, selectedGroups: nextSelection },
+            selectedId,
+          );
+        }
+
+        return p;
+      });
+    },
+    [setHistoryState],
+  );
+
+  return {
+    selected,
+    handleSelect,
+  };
+}
 
 function stopEvent(event: SyntheticEvent) {
   event.stopPropagation();
@@ -105,11 +198,10 @@ function someSelectedItemIsInView(groupElement: HTMLElement): boolean {
 
 function useControls(
   groups: ReadonlyArray<StopGroupSelectorItem<string>>,
-  onSelect: (selected: string | null) => void,
+  onSelect: (selected: string) => void,
   showAll: boolean,
-  visibilityMap: VisibilityMap<string>,
   groupListRef: RefObject<HTMLElement | null>,
-  selectedGroups: ReadonlyArray<string> | null,
+  selectedGroups: ReadonlyArray<string>,
   setLastToHaveFocus: Dispatch<SetStateAction<string | null>>,
 ) {
   const [focusWithin, setFocusWithin] = useState(false);
@@ -151,7 +243,7 @@ function useControls(
 
   // On left arrow + some modifier key
   const onFocusPreviousSelected = (currentGroupId: string) => {
-    if (!selectedGroups || selectedGroups.length === 0) {
+    if (selectedGroups.length === 0) {
       return;
     }
 
@@ -185,7 +277,7 @@ function useControls(
 
   // On right arrow + some modifier key
   const onFocusNextSelected = (currentGroupId: string) => {
-    if (!selectedGroups || selectedGroups.length === 0) {
+    if (selectedGroups.length === 0) {
       return;
     }
 
@@ -401,7 +493,7 @@ function useControls(
 
       if (!showAll) {
         // Scroll to the last selected group
-        const latestSelected = selectedGroups?.at(-1);
+        const latestSelected = selectedGroups.at(-1);
         scrollSelectedIntoViewIfNeeded('smooth', latestSelected);
       }
     }
@@ -450,9 +542,7 @@ function resolveFocusableElementId(
 type StopGroupSelectorProps = {
   readonly className?: string;
   readonly groups: ReadonlyArray<StopGroupSelectorItem<string>>;
-  readonly label: ReactNode;
-  readonly onSelect: (selected: ReadonlyArray<string> | null) => void;
-  readonly selected: ReadonlyArray<string> | null;
+  readonly label: ReactNode | ((count: number) => ReactNode);
 };
 
 const SHOW_ALL_BY_DEFAULT_MAX = 20;
@@ -462,8 +552,6 @@ export const StopGroupSelector = ({
   className,
   groups,
   label: radioGroupLabel,
-  onSelect,
-  selected,
 }: StopGroupSelectorProps) => {
   const { t } = useTranslation();
   const id = useId();
@@ -492,32 +580,7 @@ export const StopGroupSelector = ({
     [groups],
   );
 
-  const handleSelect = useCallback(
-    (selectedId: string | null) => {
-      if (!selectedId) {
-        return;
-      }
-
-      // If nothing is selected, set the new selected value
-      if (!selected) {
-        onSelect([selectedId]);
-        return;
-      }
-
-      // If the selectedId is not in the selected array, add it
-      if (!selected.includes(selectedId)) {
-        onSelect([...selected, selectedId]);
-        return;
-      }
-
-      // If the selectedId is already in the selected array,
-      // remove it if it is not the only selected value
-      if (selected.length > 1) {
-        onSelect(selected.filter((sId) => sId !== selectedId));
-      }
-    },
-    [onSelect, selected],
-  );
+  const { selected, handleSelect } = useSelection(groups);
 
   const {
     focusWithin,
@@ -530,7 +593,6 @@ export const StopGroupSelector = ({
     groups,
     handleSelect,
     showAll,
-    visibilityMap,
     groupListRef,
     selected,
     setLastToHaveFocus,
@@ -575,7 +637,9 @@ export const StopGroupSelector = ({
         className="mb-0 mt-[calc(0.5rem+2px)] text-nowrap"
         role="none"
       >
-        {radioGroupLabel}
+        {typeof radioGroupLabel === 'function'
+          ? radioGroupLabel(selected.length)
+          : radioGroupLabel}
       </label>
 
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}

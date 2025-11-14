@@ -93,7 +93,7 @@ export const StopTableRow: FC<StopTableRowProps> = ({
       />
 
       <ActionMenuTd
-        className={`w-auto py-3 pr-8 ${inEditMode ? '' : 'pl-3'} ${yBorderClassNames}`}
+        className={`w-auto py-3 pr-4 ${inEditMode ? '' : 'pl-4'} ${yBorderClassNames}`}
         inEditMode={inEditMode}
         menuItems={menuItems}
       />

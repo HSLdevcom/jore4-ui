@@ -12,7 +12,6 @@ import { StopSearchBar } from './components';
 import { StopAreaSearchResults } from './for-stop-areas/StopAreaSearchResults';
 import { TerminalSearchResults } from './for-terminals/TerminalSearchResults';
 import {
-  ExtendedStopSearchResultsProps,
   SearchBy,
   SearchFor,
   StopSearchFilters,
@@ -20,7 +19,11 @@ import {
   defaultResultSelection,
   defaultSortingInfo,
 } from './types';
-import { trSearchFor, useStopSearchRouterState } from './utils';
+import {
+  SearchRouterStateContextProvider,
+  trSearchFor,
+  useStopSearchRouterState,
+} from './utils';
 
 const testIds = {
   container: 'StopSearchResultsPage::Container',
@@ -66,72 +69,34 @@ const ActiveFiltersHeader: FC<ActiveFiltersHeaderProps> = ({
   );
 };
 
-const Results: FC<ExtendedStopSearchResultsProps> = ({
-  filters,
-  historyState,
-  pagingInfo,
-  setHistoryState,
-  setPagingInfo,
-  setSortingInfo,
-  sortingInfo,
-}) => {
+const Results: FC<{ readonly filters: StopSearchFilters }> = ({ filters }) => {
   if (filters.searchBy === SearchBy.Line) {
-    return (
-      <StopsByLineSearchResults
-        filters={filters}
-        pagingInfo={pagingInfo}
-        setPagingInfo={setPagingInfo}
-        setSortingInfo={setSortingInfo}
-        sortingInfo={sortingInfo}
-      />
-    );
+    return <StopsByLineSearchResults />;
   }
 
   if (filters.searchFor === SearchFor.StopAreas) {
-    return (
-      <StopAreaSearchResults
-        filters={filters}
-        pagingInfo={pagingInfo}
-        setPagingInfo={setPagingInfo}
-        setSortingInfo={setSortingInfo}
-        sortingInfo={sortingInfo}
-      />
-    );
+    return <StopAreaSearchResults />;
   }
 
   if (filters.searchFor === SearchFor.Terminals) {
-    return (
-      <TerminalSearchResults
-        filters={filters}
-        pagingInfo={pagingInfo}
-        setPagingInfo={setPagingInfo}
-        setSortingInfo={setSortingInfo}
-        sortingInfo={sortingInfo}
-      />
-    );
+    return <TerminalSearchResults />;
   }
 
-  return (
-    <StopSearchByStopResults
-      filters={filters}
-      historyState={historyState}
-      pagingInfo={pagingInfo}
-      setHistoryState={setHistoryState}
-      setPagingInfo={setPagingInfo}
-      setSortingInfo={setSortingInfo}
-      sortingInfo={sortingInfo}
-    />
-  );
+  return <StopSearchByStopResults />;
 };
 
-export const StopSearchResultPage: FC = () => {
+function resultWillBeGrouped(filters: StopSearchFilters): boolean {
+  return (
+    filters.searchFor !== SearchFor.Stops || filters.searchBy === SearchBy.Line
+  );
+}
+
+const StopSearchResultPageImpl: FC = () => {
   const {
-    state: { filters, pagingInfo, sortingInfo },
+    state: { filters, pagingInfo },
     historyState,
     setHistoryState,
-    setPagingInfo,
     setSearchState,
-    setSortingInfo,
   } = useStopSearchRouterState();
 
   const hasActiveFilters = !areEqual(defaultFilters, filters);
@@ -147,7 +112,10 @@ export const StopSearchResultPage: FC = () => {
     setHistoryState((p) => ({
       ...p,
       resultSelection: defaultResultSelection,
-      knownStopIds: [],
+      selectedGroups: [],
+      knownStopIds: resultWillBeGrouped(nextFilters)
+        ? { listingMode: 'grouped', ids: [], groups: {} }
+        : { listingMode: 'flat', ids: [] },
     }));
   };
 
@@ -180,17 +148,15 @@ export const StopSearchResultPage: FC = () => {
         onSubmit={onSubmitFilters}
       />
 
-      {hasActiveFilters && (
-        <Results
-          filters={filters}
-          historyState={historyState}
-          pagingInfo={pagingInfo}
-          setHistoryState={setHistoryState}
-          setPagingInfo={setPagingInfo}
-          setSortingInfo={setSortingInfo}
-          sortingInfo={sortingInfo}
-        />
-      )}
+      {hasActiveFilters && <Results filters={filters} />}
     </Container>
+  );
+};
+
+export const StopSearchResultPage: FC = () => {
+  return (
+    <SearchRouterStateContextProvider>
+      <StopSearchResultPageImpl />
+    </SearchRouterStateContextProvider>
   );
 };

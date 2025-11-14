@@ -1,9 +1,18 @@
 import difference from 'lodash/difference';
+import intersection from 'lodash/intersection';
+import omit from 'lodash/omit';
 import union from 'lodash/union';
+import uniq from 'lodash/uniq';
 import without from 'lodash/without';
 import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
-import { StopSearchRow } from '../../components';
-import { ResultSelection, StopSearchHistoryState } from '../types';
+import {
+  KnownGroupedStopIds,
+  KnownStopIds,
+  PgIdType,
+  ResultSelection,
+  StopSearchHistoryState,
+} from '../types';
+import { useStopSearchRouterState } from './useStopSearchRouterState';
 
 const noIds: ReadonlyArray<string> = [];
 
@@ -26,6 +35,82 @@ function selectNone(): ResultSelection {
     selectionState: 'NONE_SELECTED',
     excluded: noIds,
     included: noIds,
+  };
+}
+
+/**
+ * Return a non-normalized PARTIAL selection state,
+ * in which the given ids are included within the selection set.
+ *
+ * @param selection current selection state
+ * @param include ids of a rows whose selection status is to be ensured to be included
+ */
+function includeAllInSelection(
+  selection: ResultSelection,
+  include: ReadonlyArray<string>,
+): ResultSelection {
+  if (selection.selectionState === 'ALL_SELECTED') {
+    return selection;
+  }
+
+  if (selection.selectionState === 'NONE_SELECTED') {
+    return {
+      selectionState: 'SOME_SELECTED',
+      included: uniq(include),
+      excluded: noIds,
+    };
+  }
+
+  if (selection.included.length) {
+    return {
+      selectionState: 'SOME_SELECTED',
+      included: union(selection.included, include),
+      excluded: noIds,
+    };
+  }
+
+  return {
+    selectionState: 'SOME_SELECTED',
+    included: noIds,
+    excluded: without(selection.excluded, ...include),
+  };
+}
+
+/**
+ * Return a non-normalized PARTIAL selection state,
+ * in which the given ids are excluded from the selection set.
+ *
+ * @param selection current selection state
+ * @param exclude ids of a rows whose selection status is to be ensured to be excluded
+ */
+function excludeAllFromSelection(
+  selection: ResultSelection,
+  exclude: ReadonlyArray<string>,
+): ResultSelection {
+  if (selection.selectionState === 'NONE_SELECTED') {
+    return selection;
+  }
+
+  if (selection.selectionState === 'ALL_SELECTED') {
+    return {
+      selectionState: 'SOME_SELECTED',
+      included: noIds,
+      excluded: uniq(exclude),
+    };
+  }
+
+  if (selection.excluded.length) {
+    return {
+      selectionState: 'SOME_SELECTED',
+      excluded: union(selection.excluded, exclude),
+      included: noIds,
+    };
+  }
+
+  return {
+    selectionState: 'SOME_SELECTED',
+    excluded: noIds,
+    included: without(selection.included, ...exclude),
   };
 }
 
@@ -138,33 +223,39 @@ function optimizeAllStopsKnownSelection(
   collectedStopIds: ReadonlyArray<string>,
   nextSelection: ResultSelection,
 ): ResultSelection {
-  const resultCount = collectedStopIds.length;
+  const knownIncluded = intersection(nextSelection.included, collectedStopIds);
+  const knownExcluded = intersection(nextSelection.excluded, collectedStopIds);
 
-  // All are excluded -> NONE are selected
-  if (nextSelection.excluded.length === resultCount) {
+  // All known are included or no known one is excluded -> ALL are selected
+  if (
+    knownIncluded.length === collectedStopIds.length ||
+    (nextSelection.excluded.length > 0 && knownExcluded.length === 0)
+  ) {
+    return selectAll();
+  }
+  // All known are excluded or no known one is included -> NONE are selected
+  if (
+    knownExcluded.length === collectedStopIds.length ||
+    (nextSelection.included.length > 0 && knownIncluded.length === 0)
+  ) {
     return selectNone();
   }
 
-  // All are included -> ALL are selected
-  if (nextSelection.included.length === resultCount) {
-    return selectAll();
-  }
-
   // Some have been selected → Optimize for selection size
-  const half = Math.floor(resultCount / 2);
-  if (nextSelection.excluded.length > half) {
+  const half = Math.floor(collectedStopIds.length / 2);
+  if (knownIncluded.length > half) {
     return {
       selectionState: 'SOME_SELECTED',
-      excluded: noIds,
-      included: difference(collectedStopIds, nextSelection.excluded),
+      excluded: difference(collectedStopIds, knownIncluded),
+      included: noIds,
     };
   }
 
-  if (nextSelection.included.length > half) {
+  if (knownExcluded.length > half) {
     return {
       selectionState: 'SOME_SELECTED',
-      excluded: difference(collectedStopIds, nextSelection.included),
-      included: noIds,
+      excluded: noIds,
+      included: difference(collectedStopIds, knownExcluded),
     };
   }
 
@@ -218,11 +309,20 @@ type UseResultSelectionOptions = {
   // Setter for the history state.
   readonly setHistoryState: Dispatch<SetStateAction<StopSearchHistoryState>>;
 
-  // Current list of rows on the current pagination page.
-  readonly stops: ReadonlyArray<StopSearchRow>;
+  // Ids of the Stops on the current pagination page.
+  readonly stopIds: ReadonlyArray<string>;
 };
 
-type UseResultSelectionReturn = {
+export type BatchUpdateSelection = (
+  update: (
+    previousSelection: ResultSelection,
+  ) =>
+    | { readonly include: ReadonlyArray<string> }
+    | { readonly exclude: ReadonlyArray<string> }
+    | null,
+) => void;
+
+type UseFlatResultSelectionReturn = {
   // Handler for toggling the selection status of a single row.
   readonly onToggleSelection: (id: string) => void;
 
@@ -230,47 +330,45 @@ type UseResultSelectionReturn = {
   readonly onToggleSelectAll: () => void;
 };
 
-export function useResultSelection({
-  stops,
+function updateHistoryStateWithNewSelection(
+  previousState: StopSearchHistoryState,
+  resultCount: number,
+  nextSelection: ResultSelection,
+): StopSearchHistoryState {
+  const previousSelection = previousState.resultSelection;
+  const collectedStopIds = previousState.knownStopIds.ids;
+
+  const optimalSelection = optimizeSelection({
+    resultCount,
+    collectedStopIds,
+    previousSelection,
+    nextSelection,
+  });
+
+  return { ...previousState, resultSelection: optimalSelection };
+}
+
+function useOnToggleSelectionForFlatSelection({
   resultCount,
   setHistoryState,
-}: UseResultSelectionOptions): UseResultSelectionReturn {
-  // Register new row ids as known when the result page changes (stops updated)
-  useEffect(
-    () =>
-      setHistoryState((p) => ({
-        ...p,
-        knownStopIds: union(
-          p.knownStopIds,
-          stops.map((stop) => stop.id),
-        ),
-      })),
-    [stops, setHistoryState],
-  );
-
-  // Handler for toggling the selection status of a single row.
-  const onToggleSelection = useCallback(
-    (id: string) => {
-      setHistoryState((previousState) => {
-        const previousSelection = previousState.resultSelection;
-        const collectedStopIds = previousState.knownStopIds;
-
-        const nextSelection = toggleSelection(previousSelection, id);
-        const optimalSelection = optimizeSelection({
+}: UseResultSelectionOptions): (id: string) => void {
+  return useCallback(
+    (id: string) =>
+      setHistoryState((previousState) =>
+        updateHistoryStateWithNewSelection(
+          previousState,
           resultCount,
-          collectedStopIds,
-          previousSelection,
-          nextSelection,
-        });
-
-        return { ...previousState, resultSelection: optimalSelection };
-      });
-    },
+          toggleSelection(previousState.resultSelection, id),
+        ),
+      ),
     [setHistoryState, resultCount],
   );
+}
 
-  // Handled for toggling the select all/none meta checkbox.
-  const onToggleSelectAll = useCallback(() => {
+function useOnToggleSelectAll(
+  setHistoryState: Dispatch<SetStateAction<StopSearchHistoryState>>,
+): () => void {
+  return useCallback(() => {
     setHistoryState((p) => ({
       ...p,
       resultSelection:
@@ -279,6 +377,284 @@ export function useResultSelection({
           : selectAll(),
     }));
   }, [setHistoryState]);
+}
+
+export function useResultSelection(
+  params: UseResultSelectionOptions,
+): UseFlatResultSelectionReturn {
+  const { stopIds, resultCount, setHistoryState } = params;
+
+  // Register new row ids as known when the result page changes (stops updated)
+  useEffect(
+    () =>
+      setHistoryState((p) => {
+        const updatedStopIdList = uniq(p.knownStopIds.ids.concat(stopIds));
+
+        return {
+          ...p,
+          resultSelection: optimizeSelection({
+            resultCount,
+            collectedStopIds: updatedStopIdList,
+            previousSelection: p.resultSelection,
+            nextSelection: p.resultSelection,
+          }),
+          knownStopIds: {
+            listingMode: 'flat',
+            ids: updatedStopIdList,
+          },
+        };
+      }),
+
+    [stopIds, resultCount, setHistoryState],
+  );
+
+  // Handler for toggling the selection status of a single row.
+  const onToggleSelection = useOnToggleSelectionForFlatSelection(params);
+
+  // Handler for toggling the select all/none meta checkbox.
+  const onToggleSelectAll = useOnToggleSelectAll(setHistoryState);
 
   return { onToggleSelection, onToggleSelectAll };
+}
+
+export function assertKnownIdsListingIsGrouped(
+  knownIds: KnownStopIds,
+): asserts knownIds is KnownGroupedStopIds {
+  if (knownIds.listingMode !== 'grouped') {
+    throw new TypeError(
+      'Expected knownId listing to be grouped, but it was flat listing instead!',
+    );
+  }
+}
+
+export function unregisterSelectionGroups(
+  previousState: StopSearchHistoryState,
+  ...groupIds: ReadonlyArray<PgIdType | ReadonlyArray<PgIdType>>
+): StopSearchHistoryState {
+  assertKnownIdsListingIsGrouped(previousState.knownStopIds);
+
+  const previousSelection = previousState.resultSelection;
+
+  const groups: Record<string, ReadonlyArray<string>> = omit(
+    previousState.knownStopIds.groups,
+    ...groupIds.flatMap(String),
+  );
+  const ids = uniq(Object.values(groups).flat());
+
+  // All or nothing selected -> No need to touch selection
+  if (previousSelection.selectionState !== 'SOME_SELECTED') {
+    return {
+      ...previousState,
+      knownStopIds: { listingMode: 'grouped', ids, groups },
+    };
+  }
+
+  const includedInNewList = ids.includes.bind(ids);
+  const nextSelection: ResultSelection = {
+    selectionState: 'SOME_SELECTED',
+    excluded: previousSelection.excluded.filter(includedInNewList),
+    included: previousSelection.included.filter(includedInNewList),
+  };
+
+  return {
+    ...previousState,
+    knownStopIds: { listingMode: 'grouped', ids, groups },
+    resultSelection: optimizeSelection({
+      collectedStopIds: ids,
+      resultCount: ids.length,
+      previousSelection,
+      nextSelection,
+    }),
+  };
+}
+
+function makeNewIdListing(
+  previousIdListing: KnownGroupedStopIds,
+  groupId: string,
+  stopIds: ReadonlyArray<string>,
+): KnownGroupedStopIds {
+  const groups = { ...previousIdListing.groups, [groupId]: stopIds };
+  const ids = uniq(Object.values(groups).flat());
+  return { listingMode: 'grouped', ids, groups };
+}
+
+function updateResultSelectionForUpdatedGroup(
+  { excluded, included }: ResultSelection,
+  previousKnownIds: KnownGroupedStopIds,
+  groupId: string,
+  stopIds: ReadonlyArray<string>,
+): ResultSelection {
+  const previousStopIds = previousKnownIds.groups[groupId] ?? [];
+  const removedIds = previousStopIds.filter((id) => !stopIds.includes(id));
+  const addedIds = stopIds.filter((id) => !previousStopIds.includes(id));
+
+  const stillExists = (id: string) => !removedIds.includes(id);
+
+  // Selection is in exclude mode -> Drop removed, and add new ones (aka, don't select them)
+  if (excluded.length) {
+    return {
+      selectionState: 'SOME_SELECTED',
+      excluded: excluded.filter(stillExists).concat(addedIds),
+      included: noIds,
+    };
+  }
+
+  // Selection in include mode → Drop removed.
+  return {
+    selectionState: 'SOME_SELECTED',
+    excluded: noIds,
+    included: included.filter(stillExists),
+  };
+}
+
+function updateResultSelectionForGroup(
+  previousSelection: ResultSelection,
+  previousKnownIds: KnownGroupedStopIds,
+  groupId: string,
+  stopIds: ReadonlyArray<string>,
+): ResultSelection {
+  // All or none selected -> don't change the selection.
+  if (previousSelection.selectionState !== 'SOME_SELECTED') {
+    return previousSelection;
+  }
+
+  // Updating an existing group -> remove dropped and add in added if needed.
+  if (groupId in previousKnownIds.groups) {
+    return updateResultSelectionForUpdatedGroup(
+      previousSelection,
+      previousKnownIds,
+      groupId,
+      stopIds,
+    );
+  }
+
+  // Add completely new group to exclude mode selection
+  if (previousSelection.excluded.length) {
+    return {
+      selectionState: 'SOME_SELECTED',
+      excluded: previousSelection.excluded.concat(stopIds),
+      included: noIds,
+    };
+  }
+
+  // Adding completely new group to include mode selection -> don't change the selection.
+  // Cannot be combined to the 1st if-clause, as the 2nd clause might touch the
+  // include field.
+  return previousSelection;
+}
+
+function useRegisterNewGroup(
+  setHistoryState: Dispatch<SetStateAction<StopSearchHistoryState>>,
+) {
+  return useCallback(
+    (groupId: PgIdType, stopIds: ReadonlyArray<string>) => {
+      setHistoryState((p) => {
+        const {
+          resultSelection: previousSelection,
+          knownStopIds: previousKnownIds,
+        } = p;
+
+        assertKnownIdsListingIsGrouped(previousKnownIds);
+
+        const stringId = String(groupId);
+        const knownStopIds = makeNewIdListing(
+          previousKnownIds,
+          stringId,
+          stopIds,
+        );
+
+        const nextSelection = updateResultSelectionForGroup(
+          previousSelection,
+          previousKnownIds,
+          stringId,
+          stopIds,
+        );
+
+        return {
+          ...p,
+          knownStopIds,
+          // Known id list has changed + potentially exclude list -> reoptimize
+          resultSelection: optimizeSelection({
+            resultCount: knownStopIds.ids.length,
+            collectedStopIds: knownStopIds.ids,
+            previousSelection,
+            nextSelection,
+          }),
+        };
+      });
+    },
+    [setHistoryState],
+  );
+}
+
+function useOnToggleSelectionForGropedSelection(
+  setHistoryState: Dispatch<SetStateAction<StopSearchHistoryState>>,
+) {
+  return useCallback(
+    (id: string) =>
+      setHistoryState((p) =>
+        updateHistoryStateWithNewSelection(
+          p,
+          p.knownStopIds.ids.length,
+          toggleSelection(p.resultSelection, id),
+        ),
+      ),
+    [setHistoryState],
+  );
+}
+
+function useOnBatchUpdateSelection(
+  setHistoryState: Dispatch<SetStateAction<StopSearchHistoryState>>,
+): BatchUpdateSelection {
+  return useCallback(
+    (update) =>
+      setHistoryState((p) => {
+        const previousSelection = p.resultSelection;
+        const change = update(previousSelection);
+
+        if (!change) {
+          return p;
+        }
+
+        return updateHistoryStateWithNewSelection(
+          p,
+          p.knownStopIds.ids.length,
+          'include' in change
+            ? includeAllInSelection(previousSelection, change.include)
+            : excludeAllFromSelection(previousSelection, change.exclude),
+        );
+      }),
+    [setHistoryState],
+  );
+}
+
+type UseGroupedResultSelectionReturn = UseFlatResultSelectionReturn & {
+  readonly onRegisterNewGroup: (
+    groupId: PgIdType,
+    stopIds: ReadonlyArray<string>,
+  ) => void;
+  readonly onBatchUpdateSelection: BatchUpdateSelection;
+};
+
+export function useGroupedResultSelection(): UseGroupedResultSelectionReturn {
+  const { setHistoryState } = useStopSearchRouterState();
+
+  const onRegisterNewGroup = useRegisterNewGroup(setHistoryState);
+
+  // Handler for toggling the selection status of a single row.
+  const onToggleSelection =
+    useOnToggleSelectionForGropedSelection(setHistoryState);
+
+  // Handler for toggling the select all/none meta checkbox.
+  const onToggleSelectAll = useOnToggleSelectAll(setHistoryState);
+
+  // Handler for ensuring inclusion status for multiple
+  const onBatchUpdateSelection = useOnBatchUpdateSelection(setHistoryState);
+
+  return {
+    onRegisterNewGroup,
+    onBatchUpdateSelection,
+    onToggleSelection,
+    onToggleSelectAll,
+  };
 }
