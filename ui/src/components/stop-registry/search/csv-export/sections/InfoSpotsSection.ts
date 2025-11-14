@@ -1,4 +1,4 @@
-/* eslint-disable no-restricted-syntax,max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 import { TFunction } from 'i18next';
 import compact from 'lodash/compact';
 import noop from 'lodash/noop';

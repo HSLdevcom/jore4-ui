@@ -38,9 +38,7 @@ export function getNameFromAlternatives(
   const findOrder = getFindOrder();
 
   if (defaultLang !== findOrder.at(0) && alternatives) {
-    // eslint-disable-next-line no-restricted-syntax
     for (const preferredLang of findOrder) {
-      // eslint-disable-next-line no-restricted-syntax
       for (const alt of alternatives) {
         if (alt.name_lang === preferredLang && alt.name_value) {
           return alt.name_value;

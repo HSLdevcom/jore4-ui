@@ -91,7 +91,6 @@ function someSelectedItemIsInView(groupElement: HTMLElement): boolean {
   const allSelected = groupElement.querySelectorAll('[aria-selected="true"]');
   const containerRect = groupElement.getBoundingClientRect();
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const selected of allSelected) {
     const selectedRect = selected.getBoundingClientRect();
     const visible = domRectContains(containerRect, selectedRect);

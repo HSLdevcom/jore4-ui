@@ -1,6 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies,@typescript-eslint/no-require-imports */
-/* eslint-disable no-console */
-
 // custom dev server for being able to proxy websocket traffic from
 // relative url to local dev server
 // based on https://github.com/vercel/next.js/blob/master/examples/with-custom-reverse-proxy/server.js
@@ -115,7 +112,6 @@ app
 
     const nextUpgradeHandler = app.getUpgradeHandler();
     httpServer.on('upgrade', (req, proxy, head) => {
-      // eslint-disable-next-line no-restricted-syntax
       for (const [path, hpm] of Object.entries(wsProxies)) {
         if (req.url.includes(path)) {
           return hpm.upgrade(req, proxy, head);

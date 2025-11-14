@@ -132,7 +132,6 @@ export const insertStopPlaceForScheduledStopPoint = async ({
     insertStopPlaceResult,
   );
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const quay of stopPlaceNetexRef.quayRef) {
     const scheduledStopPointId = scheduledStopPoints[quay.tag] ?? 'null';
     const stopPlaceRef = quay.netexId;
