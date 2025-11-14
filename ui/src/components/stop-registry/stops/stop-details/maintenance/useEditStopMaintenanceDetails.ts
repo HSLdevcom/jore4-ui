@@ -5,7 +5,11 @@ import {
   useUpdateStopPlaceMutation,
 } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
-import { notNullish, showDangerToast } from '../../../../../utils';
+import {
+  notNullish,
+  patchKeyValues,
+  showDangerToast,
+} from '../../../../../utils';
 import { MaintenanceDetailsFormState } from './schema';
 
 type EditTiamatParams = {
@@ -46,6 +50,12 @@ export const useEditStopMaintenanceDetails = () => {
           id: stopPlaceQuayId,
           organisations:
             selectedOrganisations.length > 0 ? selectedOrganisations : [null],
+          keyValues: patchKeyValues(stop.quay, [
+            {
+              key: 'stopOwner',
+              values: state.stopOwner ? [state.stopOwner] : [],
+            },
+          ]),
         },
       ],
     };

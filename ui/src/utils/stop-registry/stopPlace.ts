@@ -270,6 +270,7 @@ export const getQuayDetailsForEnrichment = <
     priority: knownPriorityValues.includes(rawPriorityNumber)
       ? (rawPriorityNumber as Priority)
       : null,
+    stopOwner: findKeyValue(quay, 'stopOwner'),
   };
 };
 

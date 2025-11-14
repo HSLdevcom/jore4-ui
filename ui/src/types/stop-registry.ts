@@ -25,3 +25,15 @@ export enum JoreStopRegistryTransportModeType {
   Rail = 'rail',
   Water = 'water',
 }
+
+export enum StopOwner {
+  Municipality = 'municipality',
+  Finavia = 'finavia',
+  Hkl = 'hkl',
+  Hkr = 'hkr',
+  Vr = 'vr',
+  Ely = 'ely',
+  FinnishTransportAgency = 'finnishTransportAgency',
+  PrivateRoad = 'privateRoad',
+  Other = 'other',
+}
