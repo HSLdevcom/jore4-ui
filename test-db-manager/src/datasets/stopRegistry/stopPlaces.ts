@@ -66,6 +66,7 @@ export type StopPlaceQuaySeedData = {
     content?: string;
   };
   externalLinks?: Array<StopRegistryExternalLinkInput>;
+  stopOwner?: string;
   organisations?: StopPlaceMaintenance;
 };
 
@@ -191,6 +192,7 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
         getKeyValue('priority', seedStopPlace.priority),
         getKeyValue('validityStart', seedStopPlace.validityStart),
         getKeyValue('validityEnd', seedStopPlace.validityEnd),
+        getKeyValue('stopOwner', seedStopPlace.stopOwner),
       ],
     },
   };
@@ -388,6 +390,7 @@ const H2003: StopPlaceQuaySeedData = {
       location: 'https://test.fi',
     },
   ],
+  stopOwner: 'ely',
   organisations: {
     cleaning: 'Clear Channel',
     infoUpkeep: null,
