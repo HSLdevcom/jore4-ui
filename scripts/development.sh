@@ -19,7 +19,7 @@ export COMPOSE_PROJECT_NAME=jore4-ui
 DUMP_ROUTES_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-jore4e2e.pgdump"
 DUMP_TIMETABLES_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-timetablesdb-nodata.pgdump"
 DUMP_STOPS_FILENAME="2025-09-24_local_test/2025-09-24-jore4-local-stopdb.pgdump"
-INFRALINKS_FILENAME="2025-09-24_local_test/2025-09-24-infraLinks.sql"
+INFRALINKS_URL="https://stjore4dev001.blob.core.windows.net/jore4-ui/2025-09-24-infraLinks.sql"
 
 DOCKER_TESTDB_IMAGE="jore4-testdb"
 DOCKER_IMAGES=("jore4-idp" "jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
@@ -73,17 +73,12 @@ wait_for_database() {
 }
 
 download_infralinks() {
-  infralinks_localfile=$(basename "$INFRALINKS_FILENAME")
   if [ -f "infraLinks.sql" ]; then
     echo "infraLinks.sql already exists, skipping download."
     return
   fi
-  if [ ! -f "$infralinks_localfile" ]; then
-    echo "Downloading infrastructure links..."
-    download_dump "$INFRALINKS_FILENAME"
-  fi
-  echo "Renaming downloaded infrastructure links to infraLinks.sql..."
-  mv "$infralinks_localfile" "infraLinks.sql"
+  echo "Downloading infraLinks.sql..."
+  curl "$INFRALINKS_URL" -o "infraLinks.sql"
 }
 
 seed_infra_links() {
