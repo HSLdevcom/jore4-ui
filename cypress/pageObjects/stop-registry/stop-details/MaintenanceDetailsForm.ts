@@ -6,6 +6,14 @@ export class MaintenanceDetailsForm {
 
   organisationDetailsModal = new OrganisationDetailsModal();
 
+  getStopOwnerDropdownButton() {
+    return cy.getByTestId('MaintenanceDetailsForm::stopOwner::ListboxButton');
+  }
+
+  getStopOwnerDropdownOptions() {
+    return cy.getByTestId('MaintenanceDetailsForm::stopOwner::ListboxOptions');
+  }
+
   getOwner() {
     return cy.getByTestId('MaintenanceDetailsForm::owner');
   }

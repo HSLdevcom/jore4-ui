@@ -390,6 +390,10 @@ describe('Stop details', () => {
     maintenanceView.getContainer().shouldBeVisible();
     maintenanceView.getContainer().scrollIntoView(); // Measurements section is too fat.
 
+    maintenanceView.getStopOwner().within(() => {
+      maintenanceView.getStopOwnerName().shouldHaveText('ELY');
+    });
+
     maintenanceView.getOwner().within(() => {
       maintainerView.getName().shouldHaveText('JCD');
       maintainerView.getPhone().shouldHaveText('+358501234567');
@@ -1627,6 +1631,8 @@ describe('Stop details', () => {
         view.getContainer().should('not.exist');
 
         // Verify correct initial values:
+        form.getStopOwnerDropdownButton().shouldHaveText('ELY');
+
         form.getOwner().within(() => {
           form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
         });
@@ -1653,6 +1659,8 @@ describe('Stop details', () => {
         });
 
         // Change everything:
+        form.getStopOwnerDropdownButton().click();
+        form.getStopOwnerDropdownOptions().contains('Kunta').click();
         form.getOwner().within(() => {
           form.fields.getMaintainerDropdownButton().click();
           form.fields
@@ -1709,6 +1717,7 @@ describe('Stop details', () => {
 
         // Verify changes visible.
         const maintainerView = view.maintainerViewCard;
+        view.getStopOwnerName().shouldHaveText('Kunta');
         view.getOwner().within(() => {
           maintainerView.getName().shouldHaveText('Clear Channel');
           // Verify that details for new maintainer are shown.
@@ -1747,6 +1756,7 @@ describe('Stop details', () => {
         view.getContainer().should('not.exist');
 
         // Verify correct initial values:
+        form.getStopOwnerDropdownButton().shouldHaveText('ELY');
         form.getOwner().within(() => {
           form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
         });
@@ -1821,6 +1831,7 @@ describe('Stop details', () => {
 
         // Verify changes visible.
         const maintainerView = view.maintainerViewCard;
+        view.getStopOwnerName().shouldHaveText('ELY');
         view.getOwner().within(() => {
           maintainerView.getNotSelectedPlaceholder().shouldBeVisible();
         });
@@ -1934,6 +1945,7 @@ describe('Stop details', () => {
           form.fields.getEmail().shouldHaveText('uusi@example.com');
         });
         // Other maintainers not affected though.
+        form.getStopOwnerDropdownButton().shouldHaveText('ELY');
         form.getOwner().within(() => {
           form.fields.getMaintainerDropdownButton().shouldHaveText('JCD');
         });

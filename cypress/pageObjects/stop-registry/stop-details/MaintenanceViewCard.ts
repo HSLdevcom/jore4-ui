@@ -7,6 +7,14 @@ export class MaintenanceViewCard {
     return cy.getByTestId('MaintenanceViewCard::container');
   }
 
+  getStopOwner() {
+    return cy.getByTestId('MaintenanceViewCard::stopOwner');
+  }
+
+  getStopOwnerName() {
+    return cy.getByTestId('MaintenanceViewCard::stopOwnerName');
+  }
+
   getOwner() {
     return cy.getByTestId('MaintenanceViewCard::owner');
   }
