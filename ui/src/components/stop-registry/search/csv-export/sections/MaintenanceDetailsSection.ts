@@ -1,5 +1,6 @@
 import { TFunction } from 'i18next';
 import { StopRegistryStopPlaceOrganisationRelationshipType as StopOrganisationType } from '../../../../../generated/graphql';
+import { mapStopOwnerToUiName } from '../../../../../i18n/uiNameMappings';
 import { CSVWriter } from '../../../../common/ReportWriter/CSVWriter';
 import { EnrichedStopDetails } from '../types';
 import { staticSection } from './utils';
@@ -8,6 +9,7 @@ const metaHeaders: ReadonlyArray<(t: TFunction) => string> = [
   (t) => t('stopDetails.maintenance.title'),
 ];
 const headers: ReadonlyArray<(t: TFunction) => string> = [
+  (t) => t('stopDetails.maintenance.maintainers.stopOwner'),
   (t) => t('stopDetails.maintenance.maintainers.owner'),
   (t) => t('stopDetails.maintenance.maintainers.shelterMaintenance'),
   (t) => t('stopDetails.maintenance.maintainers.maintenance'),
@@ -28,6 +30,8 @@ function writeRecordFields(
   writer: CSVWriter,
   stopDetails: EnrichedStopDetails,
 ) {
+  writer.writeEnumField(stopDetails.quay.stopOwner, mapStopOwnerToUiName);
+
   writer.writeTextField(
     findOrganisationByType(stopDetails, StopOrganisationType.Owner),
   );
