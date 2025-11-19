@@ -795,7 +795,8 @@
       "stopState": "Pysäkin tila",
       "shelter": "Katos",
       "electricity": "Sähkö",
-      "infoSpots": "Infopaikat"
+      "infoSpots": "Infopaikat",
+      "stopOwner": "Pysäkin omistaja"
     },
 
     "noOptions": {

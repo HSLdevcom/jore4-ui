@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapStopOwnerToUiName } from '../../../../../i18n/uiNameMappings';
+import { StopOwner } from '../../../../../types/stop-registry';
 
 const testIds = {
   stopOwner: 'MaintenanceViewCard::stopOwner',
@@ -9,7 +10,7 @@ const testIds = {
 };
 
 type StopOwnerViewCardProps = {
-  readonly stopOwner: string | null;
+  readonly stopOwner: StopOwner | null;
 };
 
 export const StopOwnerViewCard: FC<StopOwnerViewCardProps> = ({

@@ -23,7 +23,7 @@ import {
   SharedEnrichmentProperties,
 } from '../../types';
 import { Priority, knownPriorityValues } from '../../types/enums';
-import { StopPlaceState } from '../../types/stop-registry';
+import { StopOwner, StopPlaceState } from '../../types/stop-registry';
 import { findKeyValue, findKeyValueParsed } from '../findKeyValue';
 import { mapLngLatToPoint } from '../gis';
 
@@ -270,7 +270,7 @@ export const getQuayDetailsForEnrichment = <
     priority: knownPriorityValues.includes(rawPriorityNumber)
       ? (rawPriorityNumber as Priority)
       : null,
-    stopOwner: findKeyValue(quay, 'stopOwner'),
+    stopOwner: findKeyValue(quay, 'stopOwner') as StopOwner,
   };
 };
 

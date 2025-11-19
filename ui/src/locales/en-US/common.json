@@ -795,7 +795,8 @@
       "stopState": "Stop state",
       "shelter": "Shelter",
       "electricity": "Electricity",
-      "infoSpots": "Info spots"
+      "infoSpots": "Info spots",
+      "stopOwner": "Stop owner"
     },
 
     "noOptions": {

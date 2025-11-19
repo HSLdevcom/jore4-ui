@@ -7,5 +7,6 @@ export const stopSearchBarTestIds = {
   searchForDropdown: 'StopSearchBar::SearchForDropdown',
   shelterFilter: 'StopSearchBar::shelterFilter',
   stopStateFilter: 'StopSearchBar::stopStateFilter',
+  stopOwnerFilter: 'StopSearchBar::stopOwnerFilter',
   prefix: 'StopSearchBar',
 };

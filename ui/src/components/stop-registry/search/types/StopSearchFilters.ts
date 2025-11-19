@@ -8,6 +8,7 @@ import {
 import { Priority } from '../../../../types/enums';
 import {
   JoreStopRegistryTransportModeType,
+  StopOwner,
   StopPlaceState,
 } from '../../../../types/stop-registry';
 import { AllOptionEnum, NullOptionEnum, areEqual } from '../../../../utils';
@@ -52,6 +53,7 @@ export const stopSearchFiltersSchema = z.object({
   shelter: zEnumArrayWithAllAndNull(StopRegistryShelterType),
   electricity: zEnumArrayWithAllAndNull(StopRegistryShelterElectricity),
   infoSpots: z.array(z.union([infoSpotSize, allEnum, nullEnum])),
+  stopOwner: zEnumArrayWithAll(StopOwner),
 });
 
 export type InfoSpotSize = z.infer<typeof infoSpotSize>;
@@ -70,6 +72,7 @@ export const defaultFilters: StopSearchFilters = {
   shelter: [AllOptionEnum.All],
   electricity: [AllOptionEnum.All],
   infoSpots: [AllOptionEnum.All],
+  stopOwner: [AllOptionEnum.All],
 };
 
 export function pickMeaningfulFilters(filters: StopSearchFilters) {
