@@ -1455,7 +1455,7 @@ describe('Stop search', () => {
             ids.stopPlaceIdsByName[privateCode],
           );
 
-          return cy.task('insertQuaysWithRealIds', testDataInputs);
+          return cy.task('insertQuaysWithRealIds', { inputs: testDataInputs });
         })
         .then((insertResult) => {
           testStops = insertResult;
@@ -1709,7 +1709,7 @@ describe('Stop search', () => {
             ids.stopPlaceIdsByName[posts],
           );
 
-          return cy.task('insertQuaysWithRealIds', testDataInputs);
+          return cy.task('insertQuaysWithRealIds', { inputs: testDataInputs });
         })
         .then((insertResult) => {
           testStops = insertResult;
@@ -1985,7 +1985,12 @@ describe('Stop search', () => {
             ids.stopPlaceIdsByName[privateCode],
           );
 
-          return cy.task('insertQuaysWithRealIds', testDataInputs);
+          return cy.task('insertQuaysWithRealIds', {
+            inputs: testDataInputs,
+            // Ensure Public and Private Codes get assigned consistently,
+            // as we are comparing the end result to hard coded data.
+            generateIdsSequentially: true,
+          });
         })
         .then(generateInfoSpotsForTestData)
         .then((infoSpotData) => cy.task('insertInfoSpots', infoSpotData));

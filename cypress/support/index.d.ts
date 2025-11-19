@@ -7,8 +7,8 @@
 declare namespace Cypress {
   import type { DateTime } from 'luxon';
   import type {
-    InsertQuayInputs,
     InsertQuaysResult,
+    InsertQuaysWithRealIdsParams,
     ReadDownloadedCSVOptions,
   } from './types';
 
@@ -71,11 +71,11 @@ declare namespace Cypress {
      * public and private codes.
      *
      * @param event task id 'insertQuaysWithRealIds'
-     * @param inputs quays to insert
+     * @param params quays to insert and whether to generate the ids in parallel or sequentially
      */
     task<Tags extends string>(
       event: 'insertQuaysWithRealIds',
-      inputs: InsertQuayInputs<Tags>,
+      params: InsertQuaysWithRealIdsParams<Tags>,
     ): Chainable<InsertQuaysResult<Tags>>;
 
     /**

@@ -144,7 +144,7 @@ function genNextPublicCode(
   return null;
 }
 
-type QuayPublicCodeGeneratorFn = (
+export type QuayPublicCodeGeneratorFn = (
   location: StopRegistryGeoJsonInput | Point | null | undefined,
 ) => Promise<string>;
 

@@ -5,6 +5,11 @@ export type InsertQuayInput = {
   readonly input: StopRegistryQuayInput;
 };
 
+export type InsertQuaysWithRealIdsParams<Tags extends string> = {
+  readonly inputs: InsertQuayInputs<Tags>;
+  readonly generateIdsSequentially?: boolean;
+};
+
 export type InsertQuayInputs<Tags extends string> = Readonly<
   Record<Tags, InsertQuayInput>
 >;
