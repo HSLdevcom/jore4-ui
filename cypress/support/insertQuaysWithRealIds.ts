@@ -1,4 +1,6 @@
 import {
+  PrivateCodeGeneratorFn,
+  QuayPublicCodeGeneratorFn,
   StopRegistryQuayInput,
   getPrivateCodeGenerator,
   getQuayPublicCodeGenerator,
@@ -8,41 +10,80 @@ import {
   InsertQuayInput,
   InsertQuayInputs,
   InsertQuaysResult,
+  InsertQuaysWithRealIdsParams,
   QuayTagToNetexId,
   QuayTagToPublicCode,
   QuayTagToShelters,
 } from './types';
 
+type AsyncMappingMode = 'inParallel' | 'sequentially';
+
+async function mapAsyncInParallelOrSequentially<InputT, OutputT>(
+  mode: AsyncMappingMode,
+  inputs: ReadonlyArray<InputT>,
+  mapperFn: (input: InputT) => Promise<OutputT>,
+): Promise<Array<OutputT>> {
+  if (mode === 'inParallel') {
+    return Promise.all(inputs.map(mapperFn));
+  }
+
+  const mapped = new Array(inputs.length);
+  for (let i = 0; i < inputs.length; i += 1) {
+    // eslint-disable-next-line no-await-in-loop
+    mapped[i] = await mapperFn(inputs[i]);
+  }
+
+  return mapped;
+}
+
+type Generators = {
+  readonly genPublicCode: QuayPublicCodeGeneratorFn;
+  readonly genPrivateCode: PrivateCodeGeneratorFn;
+};
+
+async function fillInIdsForSingleInputQuay(
+  { genPublicCode, genPrivateCode }: Generators,
+  { stopPlaceId, input }: InsertQuayInput,
+): Promise<InsertQuayInput> {
+  const [publicCode, privateCode] = await Promise.all([
+    input.publicCode ?? genPublicCode(input.geometry),
+    input.privateCode ??
+      genPrivateCode().then((value) => ({
+        type: 'HSL/JORE-4',
+        value,
+      })),
+  ]);
+
+  const quayWithIds: StopRegistryQuayInput = {
+    ...input,
+    publicCode,
+    privateCode,
+  };
+
+  return { stopPlaceId, input: quayWithIds };
+}
+
 async function fillInIds<Tags extends string>(
   inputs: InsertQuayInputs<Tags>,
+  mappingMode: AsyncMappingMode,
 ): Promise<InsertQuayInputs<Tags>> {
-  const genPublicCode = getQuayPublicCodeGenerator();
-  const genPrivateCode = getPrivateCodeGenerator('quay');
+  const generators: Generators = {
+    genPublicCode: getQuayPublicCodeGenerator(),
+    genPrivateCode: getPrivateCodeGenerator('quay'),
+  };
 
-  const promisedEntriesWithIds = Object.entries<InsertQuayInput>(inputs).map<
-    Promise<[Tags, InsertQuayInput]>
-  >(async ([tag, { stopPlaceId, input }]) => {
-    const [publicCode, privateCode] = await Promise.all([
-      input.publicCode ?? genPublicCode(input.geometry),
-      input.privateCode ??
-        genPrivateCode().then((value) => ({
-          type: 'HSL/JORE-4',
-          value,
-        })),
-    ]);
+  const inputEntries = Object.entries<InsertQuayInput>(inputs);
 
-    const quayWithIds: StopRegistryQuayInput = {
-      ...input,
-      publicCode,
-      privateCode,
-    };
+  const entriesWithIds = await mapAsyncInParallelOrSequentially(
+    mappingMode,
+    inputEntries,
+    async ([tag, input]): Promise<[Tags, InsertQuayInput]> => [
+      tag as Tags,
+      await fillInIdsForSingleInputQuay(generators, input),
+    ],
+  );
 
-    return [tag as Tags, { stopPlaceId, input: quayWithIds }];
-  });
-
-  return Object.fromEntries(
-    await Promise.all(promisedEntriesWithIds),
-  ) as InsertQuayInputs<Tags>;
+  return Object.fromEntries(entriesWithIds) as InsertQuayInputs<Tags>;
 }
 
 async function updateQuayStopPlaces<Tags extends string>(
@@ -64,10 +105,14 @@ async function updateQuayStopPlaces<Tags extends string>(
   return insertStopPlaces(stopPlaceUpdates, false);
 }
 
-export async function insertQuaysWithRealIds<Tags extends string>(
-  inputs: InsertQuayInputs<Tags>,
-): Promise<InsertQuaysResult<Tags>> {
-  const inputsWithIds = await fillInIds(inputs);
+export async function insertQuaysWithRealIds<Tags extends string>({
+  inputs,
+  generateIdsSequentially = false,
+}: InsertQuaysWithRealIdsParams<Tags>): Promise<InsertQuaysResult<Tags>> {
+  const inputsWithIds = await fillInIds(
+    inputs,
+    generateIdsSequentially ? 'sequentially' : 'inParallel',
+  );
   const { collectedQuayDetails } = await updateQuayStopPlaces(inputsWithIds);
 
   const tagToPublicCode = Object.fromEntries(

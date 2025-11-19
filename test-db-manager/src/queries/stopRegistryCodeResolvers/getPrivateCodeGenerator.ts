@@ -90,7 +90,7 @@ class Incrementable {
   }
 }
 
-type PrivateCodeGeneratorFn = () => Promise<string>;
+export type PrivateCodeGeneratorFn = () => Promise<string>;
 
 export function getPrivateCodeGenerator(
   entity: PrivateCodeEntityType,
