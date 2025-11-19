@@ -8,7 +8,7 @@ import {
 } from '../generated/graphql';
 import { Priority } from './enums';
 import { Point } from './GeoHelpers';
-import { StopPlaceState } from './stop-registry';
+import { StopOwner, StopPlaceState } from './stop-registry';
 
 export type ParentStopPlaceOwner = {
   readonly organizationRef: string;
@@ -66,7 +66,7 @@ export type QuayEnrichmentProperties = {
   readonly validityStart: string | null;
   readonly validityEnd: string | null;
   readonly priority: Priority | null;
-  readonly stopOwner: string | null;
+  readonly stopOwner: StopOwner | null;
 };
 
 export type StopPlace = StopPlaceDetailsFragment;

@@ -86,6 +86,7 @@ export const filterSerializers: UrlStateSerializers<StopSearchFilters> = {
   shelter: serializeArray,
   electricity: serializeArray,
   infoSpots: serializeInfoSpots,
+  stopOwner: serializeArray,
 };
 
 const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
@@ -183,6 +184,9 @@ const parseShelter = parseEnumArrayWithAllAndNullOptions(
 const parseElectricity = parseEnumArrayWithAllAndNullOptions(
   stopSearchFiltersSchema.shape.electricity,
 );
+const parseStopOwner = parseEnumArrayWithAllOption(
+  stopSearchFiltersSchema.shape.stopOwner,
+);
 
 function parseInfoSpots(value: string): StopSearchFilters['infoSpots'] {
   return splitString(value).map((size) => {
@@ -225,6 +229,7 @@ export const filterDeserializers: UrlStateDeserializers<StopSearchFilters> = {
   shelter: parseShelter,
   electricity: parseElectricity,
   infoSpots: parseInfoSpots,
+  stopOwner: parseStopOwner,
 };
 
 const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {

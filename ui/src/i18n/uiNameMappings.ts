@@ -26,6 +26,7 @@ import {
 } from '../types/enums';
 import {
   JoreStopRegistryTransportModeType,
+  StopOwner,
   StopPlaceSignType,
   StopPlaceState,
 } from '../types/stop-registry';
@@ -446,6 +447,18 @@ export const mapInfoSpotPurposeToUiName =
       t('stopDetails.infoSpots.purposes.other'),
   });
 
-export const mapStopOwnerToUiName = (t: TFunction, value: string): string => {
-  return t(`stopDetails.maintenance.stopOwnerOptions.${value}`);
-};
+export const mapStopOwnerToUiName = genTranslationMapper<StopOwner>({
+  [StopOwner.Municipality]: (t) =>
+    t('stopDetails.maintenance.stopOwnerOptions.municipality'),
+  [StopOwner.Finavia]: (t) =>
+    t('stopDetails.maintenance.stopOwnerOptions.finavia'),
+  [StopOwner.Hkl]: (t) => t('stopDetails.maintenance.stopOwnerOptions.hkl'),
+  [StopOwner.Hkr]: (t) => t('stopDetails.maintenance.stopOwnerOptions.hkr'),
+  [StopOwner.Vr]: (t) => t('stopDetails.maintenance.stopOwnerOptions.vr'),
+  [StopOwner.Ely]: (t) => t('stopDetails.maintenance.stopOwnerOptions.ely'),
+  [StopOwner.FinnishTransportAgency]: (t) =>
+    t('stopDetails.maintenance.stopOwnerOptions.finnishTransportAgency'),
+  [StopOwner.PrivateRoad]: (t) =>
+    t('stopDetails.maintenance.stopOwnerOptions.privateRoad'),
+  [StopOwner.Other]: (t) => t('stopDetails.maintenance.stopOwnerOptions.other'),
+});

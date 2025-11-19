@@ -227,6 +227,16 @@ function buildInfoSpotsFilter({
   };
 }
 
+function buildStopOwnerFilter({
+  stopOwner,
+}: StopSearchFilters): StopsDatabaseQuayNewestVersionBoolExp {
+  if (stopOwner.includes(AllOptionEnum.All)) {
+    return {};
+  }
+
+  return { stop_owner: { _in: stopOwner } };
+}
+
 export function buildSearchStopsGqlQueryVariables(
   filters: StopSearchFilters,
   ...extraConditions: ReadonlyArray<StopsDatabaseQuayNewestVersionBoolExp>
@@ -246,6 +256,7 @@ export function buildSearchStopsGqlQueryVariables(
   const shelterFilter = buildShelterFilter(filters);
   const electricityFilter = buildElectricityFilter(filters);
   const infoSpotsFilter = buildInfoSpotsFilter(filters);
+  const stopOwnerFilter = buildStopOwnerFilter(filters);
 
   return {
     _and: [
@@ -259,6 +270,7 @@ export function buildSearchStopsGqlQueryVariables(
       shelterFilter,
       electricityFilter,
       infoSpotsFilter,
+      stopOwnerFilter,
       ...extraConditions,
     ].filter((filter) => !isEmpty(filter)),
   };
