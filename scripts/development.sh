@@ -21,7 +21,7 @@ DUMP_TIMETABLES_FILENAME="2025-04-03_test/2025-04-03-jore4-local-timetablesdb-no
 DUMP_STOPS_FILENAME="2025-04-03_test/2025-04-03-jore4-local-stopdb.pgdump"
 
 DOCKER_TESTDB_IMAGE="jore4-testdb"
-DOCKER_IMAGES=("jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
+DOCKER_IMAGES=("jore4-idp" "jore4-auth" "jore4-hasura" "jore4-mbtiles" "jore4-mapmatchingdb" "jore4-mapmatching" "jore4-hastus" "jore4-tiamat" "jore4-timetablesapi")
 DOCKER_E2E_IMAGES=("jore4-hasura-e2e" "jore4-tiamat-e2e" "jore4-timetablesapi-e2e" "jore4-testdb-e2e")
 
 ROUTES_DB_CONNECTION_STRING=postgresql://dbadmin:adminpassword@localhost:5432/jore4e2e
