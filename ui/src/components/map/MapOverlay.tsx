@@ -28,7 +28,7 @@ export const MapOverlayHeader: FC<PropsWithChildren<MapOverlayHeaderProps>> = ({
 }) => {
   return (
     <Row
-      className={`space-x-1 border-b border-gray-200 bg-background p-3 ${className}`}
+      className={`flex items-center justify-between space-x-1 border-b border-gray-200 bg-background p-3 ${className}`}
       testId={testId}
     >
       {children}
