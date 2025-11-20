@@ -1402,6 +1402,9 @@ describe('Stop search', () => {
         infoSpotA5: generateQuay(stopPlaceId, {
           placeEquipments: { shelterEquipment: [shelterUrbanTemplate] },
         }),
+        stopOwner: generateQuay(stopPlaceId, {
+          keyValues: [{ key: 'stopOwner', values: ['hkl'] }],
+        }),
       };
     }
 
@@ -1628,6 +1631,18 @@ describe('Stop search', () => {
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
       shouldHaveResultWithout(stopsWithInfoSpots);
+    });
+
+    it('Should filter by stop owner', () => {
+      stopSearchBar.getExpandToggle().click();
+      stopSearchBar.getSearchInput().clearAndType('*');
+
+      stopSearchBar.stopOwner.openDropdown();
+      stopSearchBar.stopOwner.toggleOption('hkl');
+      stopSearchBar.getSearchButton().click();
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      shouldHaveResultOf(testStops.tagToPublicCode.stopOwner);
     });
   });
 
