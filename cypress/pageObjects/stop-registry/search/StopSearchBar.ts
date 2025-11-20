@@ -21,6 +21,8 @@ export class StopSearchBar {
 
   stopState = new MultiselectDropDown('StopSearchBar::stopStateFilter');
 
+  stopOwner = new MultiselectDropDown('StopSearchBar::stopOwnerFilter');
+
   transportationMode = new TransportationModeFilter();
 
   getObservationDateInput() {
