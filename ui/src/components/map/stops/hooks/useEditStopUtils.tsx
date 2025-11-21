@@ -119,7 +119,7 @@ export function useEditStopUtils(
           },
         },
       });
-      setEditChanges(changes);
+      setEditChanges({ ...changes, isMove: true });
     } catch (err) {
       defaultErrorHandler(err as Error);
     } finally {
@@ -175,7 +175,7 @@ export function useEditStopUtils(
   };
 
   const onCancelEdit = () => {
-    setDisplayedEditor(MapEntityEditorViewState.POPUP);
+    setDisplayedEditor(MapEntityEditorViewState.EDIT);
     setEditChanges(null);
   };
 
