@@ -19,14 +19,14 @@ import { DateTime } from 'luxon';
 import { UUID } from '../types';
 
 export const testInfraLinkExternalIds = [
-  '442321', // on Annankatu, between Bulevardi and Lönnrotinkatu and
-  '442326', // on Annankatu, between Lönnrotinkatu and Kalevankatu
-  '442317', // on Kalevankatu, between Annankatu and Fredrikinkatu
-  '442027', // on Kalevankatu, between Fredrikinkatu and Albertinkatu
-  '442438', // on Albertinkatu, between Kalevankatu and Lönnrotinkatu (one-way)
-  '445113', // on Lönnrotinkatu, between Albertinkatu and Abrahaminkatu (one-way)
-  '445118', // on Abrahaminkatu, between Lönnrotinkatu and Kalevankatu
-  '442423', // on Kalevankatu, between Abrahaminkatu and Albertinkatu
+  '145c33b2-5d2a-4668-b922-6117408772e0:1', // on Annankatu, between Bulevardi and Lönnrotinkatu and
+  'f8af6fe3-b711-4365-aad9-54a59b26a8aa:1', // on Annankatu, between Lönnrotinkatu and Kalevankatu
+  '11b3a892-22a8-49b0-b2f7-0dae577f46ca:1', // on Kalevankatu, between Annankatu and Fredrikinkatu
+  'd9920aa3-748f-486b-8a44-7c07e55a9d08:1', // on Kalevankatu, between Fredrikinkatu and Albertinkatu
+  'f7953bf5-7bee-426b-a6cb-7b136236630b:1', // on Albertinkatu, between Kalevankatu and Lönnrotinkatu (one-way)
+  '87c2fbd0-697c-460a-ab38-8b0b41eeead1:1', // on Lönnrotinkatu, between Albertinkatu and Abrahaminkatu (one-way)
+  'a87caa98-2d9d-45fa-9dff-3909b7d7d763:1', // on Abrahaminkatu, between Lönnrotinkatu and Kalevankatu
+  '1b0dcad2-a363-482d-a630-5ef8cfcd0fec:1', // on Kalevankatu, between Abrahaminkatu and Albertinkatu
 ];
 
 const timingPlaces = [

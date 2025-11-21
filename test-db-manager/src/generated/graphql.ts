@@ -1208,7 +1208,6 @@ export enum InfrastructureNetworkExternalSourceConstraint {
 }
 
 export enum InfrastructureNetworkExternalSourceEnum {
-  DigiroadR = 'digiroad_r',
   DigiroadRMml = 'digiroad_r_mml',
   DigiroadRSupplementary = 'digiroad_r_supplementary',
   HslFixup = 'hsl_fixup'
