@@ -150,6 +150,7 @@ export type EditChanges = {
   readonly deleteStopFromJourneyPatternIds?: ReadonlyArray<UUID>;
   readonly conflicts?: ReadonlyArray<ScheduledStopPointAllFieldsFragment>;
   readonly quayId: string;
+  readonly isMove?: boolean;
 };
 
 export type BrokenRouteCheckParams = {
