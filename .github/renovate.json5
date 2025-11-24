@@ -1,13 +1,13 @@
 {
-  enabled: false,
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    'github>HSLdevcom/jore4-tools//renovatebot/jore4-default-preset.json5',
+    'github>HSLdevcom/jore4-tools/renovatebot/jore4-default-preset.json5',
   ],
 
   // repository-specific additional rules about grouping, exclusions and inclusions
   // Note: if the rule feels generic enough, should consider adding it to the jore4 default preset
   packageRules: [
+    // Keep these for future reference
     {
       // group major updates for React and corresponding @types packages together
       // these tend to break
@@ -20,6 +20,7 @@
         '@types/react-dom',
       ],
       matchUpdateTypes: ['major'],
+      enabled: false,
     },
     {
       // we don't want to update map related libraries automatically as they require a lot of manual changes
@@ -31,6 +32,19 @@
         '@nebula.gl/edit-modes',
       ],
       enabled: false,
+    },
+
+    {
+      // Disable everything for now
+      matchPackageNames: ['*'],
+      enabled: false,
+    },
+    {
+      // But enable renovatebot for GitHub Actions
+      groupName: 'github actions',
+      groupSlug: 'github-actions',
+      matchManagers: ['github-actions'],
+      enabled: true,
     },
   ],
 }
