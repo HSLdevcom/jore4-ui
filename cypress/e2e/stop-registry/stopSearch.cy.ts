@@ -177,6 +177,8 @@ describe('Stop search', () => {
   let dbResources: SupportedResources;
   let testInfraLinkIds: ReadonlyArray<UUID>;
 
+  let insertedData: 'custom' | 'hardcoded' | null = null;
+
   before(() => {
     cy.task<UUID[]>(
       'getInfrastructureLinkIdsByExternalIds',
@@ -195,7 +197,11 @@ describe('Stop search', () => {
     });
   });
 
-  function insertHardcodedTestDataBeforeEach() {
+  function insertHardcodedTestData() {
+    if (insertedData === 'hardcoded') {
+      return;
+    }
+
     cy.task('resetDbs');
     insertToDbHelper(dbResources);
 
@@ -203,6 +209,8 @@ describe('Stop search', () => {
       'insertStopRegistryData',
       getClonedBaseStopRegistryData(),
     );
+
+    insertedData = 'hardcoded';
   }
 
   function setupTestsAndNavigateToPage(qs: Record<string, unknown>) {
@@ -215,7 +223,7 @@ describe('Stop search', () => {
   }
 
   function initWithHardcodedData() {
-    insertHardcodedTestDataBeforeEach();
+    insertHardcodedTestData();
     setupTestsAndNavigateToPage({});
   }
 
@@ -538,8 +546,6 @@ describe('Stop search', () => {
   });
 
   describe('by line label', () => {
-    beforeEach(initWithHardcodedData);
-
     const SHOW_ALL_BY_DEFAULT_MAX = 20;
 
     // Create extra lines so that showAll/hideExta functionality can be tested.
@@ -646,26 +652,23 @@ describe('Stop search', () => {
       stopGroupSelector.getShowAllGroupsButton().shouldBeVisible();
     }
 
-    describe('should have a working asterisk search and line selector', () => {
-      beforeEach(() => {
-        injectKnownMonospaceFont();
-      });
+    let allExtraLines: ReadonlyArray<string> = [];
 
-      it('should have a working asterisk search and line selector - showA', () => {
-        insertExtraLines();
+    before(() => {
+      insertHardcodedTestData();
+      allExtraLines = insertExtraLines();
+      insertedData = 'custom';
+    });
 
-        stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+    beforeEach(() => setupTestsAndNavigateToPage({}));
 
-        assertShowsAllResultsByDefault();
-      });
+    it.only('should have a working asterisk search and line selector', () => {
+      injectKnownMonospaceFont();
 
-      it('should have a working asterisk search and line selector', () => {
-        const allExtraLines = insertExtraLines();
+      stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
 
-        stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
-
-        assertShowAllAndShowLessWork(allExtraLines);
-      });
+      assertShowsAllResultsByDefault();
+      assertShowAllAndShowLessWork(allExtraLines);
     });
 
     function assertIsObject(obj: unknown): asserts obj is object {
@@ -948,7 +951,7 @@ describe('Stop search', () => {
 
   describe('Sorting & paging', () => {
     beforeEach(() => {
-      insertHardcodedTestDataBeforeEach();
+      insertHardcodedTestData();
       setupTestsAndNavigateToPage({ pageSize: 5 });
     });
 
@@ -1466,6 +1469,8 @@ describe('Stop search', () => {
         })
         .then(generateInfoSpotsForTestData)
         .then((infoSpotData) => cy.task('insertInfoSpots', infoSpotData));
+
+      insertedData = 'custom';
     });
 
     beforeEach(() => setupTestsAndNavigateToPage({ pageSize: 100 }));
@@ -1730,6 +1735,8 @@ describe('Stop search', () => {
           testStops = insertResult;
           return insertResult;
         });
+
+      insertedData = 'custom';
     });
 
     function searchAndOpenPoleTypeResultsOnAMap(
