@@ -6,7 +6,6 @@ import {
   useUpdateInfoSpotMutation,
 } from '../../../../../../generated/graphql';
 import { ScheduledStopPointSetInput } from '../../../../../../graphql';
-import { StopWithDetails } from '../../../../../../types';
 import { findKeyValue } from '../../../../../../utils';
 import { useDeleteQuay } from '../../../queries/useDeleteQuay';
 import {
@@ -14,27 +13,10 @@ import {
   StopPlaceInsertFailed,
   StopPlaceRevertFailed,
 } from '../errors';
-import {
-  CreateStopVersionResult,
-  InfoSpotInputHelper,
-  StopVersionFormState,
-} from '../types';
+import { CreateStopVersionResult, InfoSpotInputHelper } from '../types';
 import { StopRegistryQuayCopyInput } from '../types/StopRegistryQuayCopyInput';
-import { mapCreateCopyFormStateToInputs } from './mapCreateCopyFormStateToInputs';
 import { useGetShelters } from './useGetShelterResolver';
 import { wrapErrors } from './wrapErrors';
-
-function getStopPlaceId(originalStop: StopWithDetails): string {
-  const id = originalStop.stop_place?.id;
-
-  if (!id) {
-    throw new Error(
-      "StopPlace or it's Netex ID missing from the stop that is being copied!",
-    );
-  }
-
-  return id;
-}
 
 type InsertStopPlaceResult = {
   readonly stopPlaceId: string;
@@ -43,19 +25,19 @@ type InsertStopPlaceResult = {
 
 function useInsertStopPlace() {
   const [insertQuayIntoStopPlace] = useInsertQuayIntoStopPlaceMutation({
-    refetchQueries: ['GetStopDetails'],
+    refetchQueries: ['GetStopDetails', 'GetMapStops'],
     awaitRefetchQueries: true,
   });
 
   return useCallback(
     async (
-      originalStop: StopWithDetails,
+      originalStopPlaceId: string,
       quayCopy: StopRegistryQuayCopyInput,
     ): Promise<InsertStopPlaceResult> => {
       const response = await wrapErrors(
         insertQuayIntoStopPlace({
           variables: {
-            stopPlaceId: getStopPlaceId(originalStop),
+            stopPlaceId: originalStopPlaceId,
             quayInput: quayCopy,
           },
         }),
@@ -117,7 +99,7 @@ function useRevertStopPlaceInsert() {
 
 function useInsertStopPoint() {
   const [insertStopMutation] = useInsertStopPointMutation({
-    refetchQueries: ['GetStopDetails'],
+    refetchQueries: ['GetStopDetails', 'GetMapStops'],
     awaitRefetchQueries: true,
   });
   const revertStopPlaceInsert = useRevertStopPlaceInsert();
@@ -163,7 +145,7 @@ function useInsertStopPoint() {
 
 function useInsertInfoSpots() {
   const [updateInfoSpotMutation] = useUpdateInfoSpotMutation({
-    refetchQueries: ['GetStopDetails'],
+    refetchQueries: ['GetStopDetails', 'GetMapStops'],
     awaitRefetchQueries: true,
   });
   const getShelters = useGetShelters();
@@ -208,21 +190,27 @@ function useInsertInfoSpots() {
   );
 }
 
+export type CopyStopInputs = {
+  readonly originalStopPlaceId: string;
+  readonly quayInput: StopRegistryQuayCopyInput;
+  readonly stopPointInput: ScheduledStopPointSetInput;
+  readonly infoSpotInputs: ReadonlyArray<InfoSpotInputHelper> | null;
+};
+
 export function useCopyStop() {
   const insertStopPlace = useInsertStopPlace();
   const insertStopPoint = useInsertStopPoint();
   const insertInfoSpots = useInsertInfoSpots();
 
   return useCallback(
-    async (
-      state: StopVersionFormState,
-      originalStop: StopWithDetails,
-    ): Promise<CreateStopVersionResult> => {
-      const { quayInput, stopPointInput, infoSpotInputs } =
-        mapCreateCopyFormStateToInputs(state, originalStop);
-
+    async ({
+      originalStopPlaceId,
+      quayInput,
+      stopPointInput,
+      infoSpotInputs,
+    }: CopyStopInputs): Promise<CreateStopVersionResult> => {
       const { stopPlaceId, quayId } = await insertStopPlace(
-        originalStop,
+        originalStopPlaceId,
         quayInput,
       );
       const stopPointId = await insertStopPoint(

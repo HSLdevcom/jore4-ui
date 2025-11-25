@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useMemo } from 'react';
+import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
@@ -7,9 +7,12 @@ import {
   MapEntityEditorViewState,
   Operation,
   closeTimingPlaceModalAction,
+  isCopyMode,
   isModalOpen,
+  selectCopyStopId,
   selectEditedStopAreaData,
   selectMapStopViewState,
+  setCopyStopIdAction,
   setMapStopViewStateAction,
   setSelectedRouteIdAction,
 } from '../../../redux';
@@ -28,6 +31,8 @@ import {
   mapStopToCommonConflictItem,
 } from '../../routes-and-lines/common/ConflictResolverModal';
 import { EditStoplayerRef } from '../refTypes';
+import { CopyStopConfirmationDialog } from './CopyStopConfirmationDialog';
+import { CopyStopModal } from './CopyStopModal';
 import { DeleteStopConfirmationDialog } from './DeleteStopConfirmationDialog';
 import { EditStopConfirmationDialog } from './EditStopConfirmationDialog';
 import { EditStopModal } from './EditStopModal';
@@ -39,6 +44,7 @@ import {
   useDeleteStopUtils,
   useEditStopUtils,
 } from './hooks';
+import { useMapCopyStopUtils } from './hooks/useMapCopyStopUtils';
 import { LineToActiveStopArea } from './LineToActiveStopArea';
 import { LineToClosestInfraLink } from './LineToClosestInfraLink';
 import { Stop } from './Stop';
@@ -112,19 +118,25 @@ type EditStopLayerProps = {
 
 export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
   ({ draftLocation, onEditingFinished, onPopupClose, selectedStopId }, ref) => {
-    const { stopInfo, loading } = useGetStopInfoForEditingOnMap(selectedStopId);
+    const dispatch = useDispatch();
+
+    const copyStopId = useAppSelector(selectCopyStopId);
+    const mapStopViewState = useAppSelector(selectMapStopViewState);
+    const setMapStopViewState = useAppAction(setMapStopViewStateAction);
+    const setCopyStopId = useAppAction(setCopyStopIdAction);
+
+    const { stopInfo, loading } = useGetStopInfoForEditingOnMap(
+      selectedStopId ?? copyStopId,
+    );
     useMapDataLayerLoader(
       Operation.FetchStopInfo,
-      !!stopInfo || !selectedStopId,
+      !!stopInfo || (!selectedStopId && !copyStopId),
       loading,
     );
 
-    const dispatch = useDispatch();
-
-    const mapStopViewState = useAppSelector(selectMapStopViewState);
-    const setMapStopViewState = useAppAction(setMapStopViewStateAction);
-
     const defaultValues = useDefaultValues(draftLocation, stopInfo);
+
+    const [copyDialogOpen, setCopyDialogOpen] = useState(false);
 
     const onCloseEditors = () => {
       setMapStopViewState(MapEntityEditorViewState.NONE);
@@ -139,6 +151,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
 
     const { createChanges, onCreateStop, onCancelCreate } =
       useCreateStopUtils(onFinishEditing);
+
     const {
       editChanges,
       onStartEditingStop,
@@ -147,8 +160,22 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       onConfirmEdit,
       onCancelEdit,
     } = useEditStopUtils(stopInfo, setMapStopViewState, onFinishEditing);
+
     const { deleteChanges, onDeleteStop, onConfirmDelete, onCancelDelete } =
       useDeleteStopUtils(stopInfo, onFinishEditing);
+
+    const {
+      defaultStopFormValues,
+      onStartCopyStop,
+      onCancelCopyStop,
+      onCloseCopyModal,
+      onCopyStopFormSubmit,
+    } = useMapCopyStopUtils(
+      stopInfo,
+      onEditingFinished,
+      onPopupClose,
+      setCopyDialogOpen,
+    );
 
     if (createChanges && editChanges) {
       throw new Error('Undefined state');
@@ -163,6 +190,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       if (isEditChanges(changes)) {
         return onProcessEditChanges(changes);
       }
+
       return onCreateStop(changes);
     };
 
@@ -177,6 +205,13 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
     const onStartMoveStop = () => {
       setMapStopViewState(MapEntityEditorViewState.MOVE);
       dispatch(setSelectedRouteIdAction(undefined));
+    };
+
+    const onInitCopyStop = () => {
+      if (selectedStopId) {
+        setCopyStopId(selectedStopId);
+        setCopyDialogOpen(true);
+      }
     };
 
     const currentConflicts = (createChanges ?? editChanges)?.conflicts;
@@ -204,6 +239,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
             onMove={onStartMoveStop}
             onDelete={onDeleteStop}
             onClose={onCloseEditors}
+            onCopy={onInitCopyStop}
           />
         )}
 
@@ -242,6 +278,21 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
             onCancel={onCancelDelete}
             onConfirm={onConfirmDelete}
             deleteChanges={deleteChanges}
+          />
+        )}
+
+        <CopyStopConfirmationDialog
+          isOpen={copyDialogOpen}
+          onConfirm={onStartCopyStop}
+          onCancel={onCancelCopyStop}
+        />
+
+        {isCopyMode(mapStopViewState) && !!defaultStopFormValues && (
+          <CopyStopModal
+            defaultValues={defaultStopFormValues}
+            onCancel={onCloseCopyModal}
+            onClose={onCloseCopyModal}
+            onSubmit={onCopyStopFormSubmit}
           />
         )}
       </>

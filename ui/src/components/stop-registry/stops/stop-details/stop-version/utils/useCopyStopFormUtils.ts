@@ -20,6 +20,7 @@ import {
   StopVersionFormState,
   stopVersionSchema,
 } from '../types';
+import { mapCreateCopyFormStateToInputs } from './mapFormStateToCopyStopInputs';
 import { useCopyStop } from './useCopyStop';
 
 function useDefaultValues(
@@ -136,7 +137,14 @@ export const useCopyStopFormUtils = (
 
   const onFormSubmit = (state: StopVersionFormState) => {
     setIsLoading(true);
-    copyStop(state, originalStop).then(handleSuccess).catch(handleError);
+
+    const { quayInput, stopPointInput, infoSpotInputs, originalStopPlaceId } =
+      mapCreateCopyFormStateToInputs(state, originalStop);
+
+    copyStop({ quayInput, stopPointInput, infoSpotInputs, originalStopPlaceId })
+      .then(handleSuccess)
+      .catch(handleError);
+
     setIsLoading(false);
   };
 

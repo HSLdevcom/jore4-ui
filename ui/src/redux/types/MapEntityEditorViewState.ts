@@ -4,6 +4,8 @@ export enum MapEntityEditorViewState {
   CREATE = 'CREATE',
   POPUP = 'POPUP',
   EDIT = 'EDIT',
+  PLACECOPY = 'PLACECOPY',
+  COPY = 'COPY',
   MOVE = 'MOVE',
 }
 
@@ -13,7 +15,8 @@ type NonEditingViewState =
 
 type MoveOrPlaceViewState =
   | MapEntityEditorViewState.PLACE
-  | MapEntityEditorViewState.MOVE;
+  | MapEntityEditorViewState.MOVE
+  | MapEntityEditorViewState.PLACECOPY;
 
 type ModalOpenViewState =
   | MapEntityEditorViewState.CREATE
@@ -48,7 +51,8 @@ export function isPlacingOrMoving(
 ): boolean {
   return (
     viewState === MapEntityEditorViewState.PLACE ||
-    viewState === MapEntityEditorViewState.MOVE
+    viewState === MapEntityEditorViewState.MOVE ||
+    viewState === MapEntityEditorViewState.PLACECOPY
   );
 }
 
@@ -60,4 +64,10 @@ export function isModalOpen(viewState: MapEntityEditorViewState): boolean {
     viewState === MapEntityEditorViewState.CREATE ||
     viewState === MapEntityEditorViewState.EDIT
   );
+}
+
+export function isCopyMode(viewState: ModalClosedViewState): false;
+export function isCopyMode(viewState: MapEntityEditorViewState): boolean;
+export function isCopyMode(viewState: MapEntityEditorViewState): boolean {
+  return viewState === MapEntityEditorViewState.COPY;
 }

@@ -65,7 +65,10 @@ export const StopAreaInfoSection: FC<StopAreaInfoSectionProps> = ({
         <span className="mr-2 font-bold">{stopArea.privateCode}</span>
         <span className="mr-2">{stopArea.nameFin ?? stopArea.nameSwe}</span>
         <span className="mr-2 font-bold">
-          {`(${formatIsoDateString(stopArea.validityStart)} - ${formatIsoDateString(stopArea.validityEnd)})`}
+          {`(${formatIsoDateString(stopArea.validityStart)}`}
+          {stopArea.validityEnd
+            ? ` - ${formatIsoDateString(stopArea.validityEnd)})`
+            : ' - )'}
         </span>
         <i className="icon-open-in-new" role="presentation" />
       </Link>

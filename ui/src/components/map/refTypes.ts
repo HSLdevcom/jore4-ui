@@ -18,6 +18,7 @@ export type EditStoplayerRef = {
 export type StopsRef = {
   readonly onMoveStop: (e: MapLayerMouseEvent) => Promise<void>;
   readonly onCreateStop: (e: MapLayerMouseEvent) => Promise<void>;
+  readonly onCopyStop: (e: MapLayerMouseEvent) => Promise<void>;
 };
 
 export type EditStopAreaLayerRef = {

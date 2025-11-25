@@ -100,6 +100,7 @@
     "stops": "Stops",
     "stopWithLabel": "Stop {{ stopLabel }}",
     "createStop": "Create new stop",
+    "createStopCopy": "Copy stop {{ stopLabel }}",
     "publicCode": "Stop label",
     "loadingUsedPublicCodes": "Loading labels …",
     "stopPublicCodePrefixMissmatch": "The stop is located within the borders of ”{{municipality}}” municipality, thus it's label should start with prefix of {{expectedPrefix}}.",
@@ -130,7 +131,8 @@
     "timingPlaceRequired": "The stop is used as timing place on the following routes: {{ routeLabels }}. Attach timing place or stop using as timing point on the routes.",
     "tiamatUpdateFailed": "Saving the changes into the Stop Registry failed! Routes and lines database has not been updated. Reason: {{ errorMessage }}",
     "stopPointUpdateFailed": "The stop's details have been saved into the Stop Registry, but saving them into the routes and lines database failed! You ought to retry the saving! Reason: {{ errorMessage }}",
-    "missingIds": "The Stop Registry and the Lines and Routes database are out of sync. This stop cannot currently be edited."
+    "missingIds": "The Stop Registry and the Lines and Routes database are out of sync. This stop cannot currently be edited.",
+    "stopConflictsOnCopyError": "Copying the stop failed: validity period and priority cause an overlap with an existing version."
   },
   "stopArea": {
     "stopArea": "Stop area",
@@ -851,6 +853,8 @@
     "editRoute": "Edit route",
     "addStop": "Add stop",
     "deleteRoute": "Remove route",
+    "deleteStop": "Remove stop",
+    "copyStop": "Copy stop",
     "location": "Location",
     "latitude": "Latitude",
     "longitude": "Longitude",
@@ -888,6 +892,11 @@
     "additionalInfo": "The stop will be moved immediately. If you want to move the stop at a specific time, first copy the stop to a new version in its detail view.",
     "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versions)",
     "confirmText": "OK"
+  },
+  "confirmStopCopyDialog": {
+    "title": "Copy stop",
+    "description": "Next, place the new stop on the map. The equipment\ninformation for the copied stop will be preserved. You\ncan edit it in the stop equipment information view.",
+    "confirmText": "Place stop"
   },
   "confirmRouteDraftStopsDialog": {
     "title": "Route has draft stops",

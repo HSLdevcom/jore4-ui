@@ -22,7 +22,9 @@ function useActiveModes() {
 
   const isInPlaceMode = some(
     mapViewState,
-    (state) => state === MapEntityEditorViewState.PLACE,
+    (state) =>
+      state === MapEntityEditorViewState.PLACE ||
+      state === MapEntityEditorViewState.PLACECOPY,
   );
 
   const isInDrawingMode = drawingMode === Mode.Draw && creatingNewRoute;

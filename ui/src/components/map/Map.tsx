@@ -140,6 +140,10 @@ function useOnClickMap(
       return stopsRef.current?.onCreateStop(e);
     }
 
+    if (mapStopViewState === MapEntityEditorViewState.PLACECOPY) {
+      return stopsRef.current?.onCopyStop(e);
+    }
+
     if (mapStopViewState === MapEntityEditorViewState.MOVE) {
       return stopsRef.current?.onMoveStop(e);
     }

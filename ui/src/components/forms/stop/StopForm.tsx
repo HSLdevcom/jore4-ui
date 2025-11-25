@@ -251,13 +251,27 @@ type StopFormProps = {
   readonly className?: string;
   readonly editing: boolean;
   readonly defaultValues: DefaultValues<StopFormState>;
-  readonly onSubmit: (changes: CreateChanges | EditChanges) => void;
-};
+} & (
+  | {
+      readonly onSubmit: (changes: CreateChanges | EditChanges) => void;
+      readonly submitState?: false | never;
+    }
+  | {
+      readonly onSubmit: (
+        changes: CreateChanges | EditChanges,
+        state: StopFormState,
+      ) => void;
+      readonly submitState: true;
+    }
+);
 
 const StopFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   StopFormProps
-> = ({ className = '', editing, defaultValues, onSubmit }, ref) => {
+> = (
+  { className = '', editing, defaultValues, onSubmit, submitState },
+  ref,
+) => {
   const { t } = useTranslation();
 
   const methods = useForm<StopFormState>({
@@ -320,7 +334,7 @@ const StopFormComponent: ForwardRefRenderFunction<
         ? await onEdit(state)
         : await onCreate(state);
       setIsLoading(false);
-      return onSubmit(changes);
+      return submitState ? onSubmit(changes, state) : onSubmit(changes);
     } catch (err) {
       setIsLoading(false);
       return defaultErrorHandler(err as Error);

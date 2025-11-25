@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '../../hooks';
+import { useAppAction, useAppDispatch } from '../../hooks';
 import {
   MapEntityEditorViewState,
+  setCopyStopIdAction,
   setRouteMetadataFormOpenAction,
 } from '../../redux';
 import { FloatingFooter } from './FloatingFooter';
@@ -21,6 +22,7 @@ export const FloatingAddModeFooter: FC<FloatingAddModeFooterProps> = ({
   const dispatch = useAppDispatch();
 
   const [mapViewState, setMapViewState] = useMapViewState();
+  const setCopyStopId = useAppAction(setCopyStopIdAction);
 
   const onCancelAddMode = () => {
     setMapViewState({
@@ -28,6 +30,9 @@ export const FloatingAddModeFooter: FC<FloatingAddModeFooterProps> = ({
       stopAreas: MapEntityEditorViewState.NONE,
       terminals: MapEntityEditorViewState.NONE,
     });
+
+    // Reset copy stop mode
+    setCopyStopId(undefined);
   };
 
   const onCancelDrawMode = () => {
@@ -51,6 +56,9 @@ export const FloatingAddModeFooter: FC<FloatingAddModeFooterProps> = ({
     }
     if (mapViewState.stops === MapEntityEditorViewState.PLACE) {
       return t('map.addStop');
+    }
+    if (mapViewState.stops === MapEntityEditorViewState.PLACECOPY) {
+      return t('map.copyStop');
     }
     if (mapViewState.stopAreas === MapEntityEditorViewState.PLACE) {
       return t('map.createNewStopArea');
