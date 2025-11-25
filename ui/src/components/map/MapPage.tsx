@@ -2,6 +2,7 @@ import { FC, useRef } from 'react';
 import { useAppAction, useNavigateBackSafely } from '../../hooks';
 import {
   MapEntityEditorViewState,
+  setCopyStopIdAction,
   setSelectedMapStopAreaIdAction,
   setSelectedStopIdAction,
   setSelectedTerminalIdAction,
@@ -26,6 +27,7 @@ export const MapPage: FC = () => {
 
   const [, setMapViewState] = useMapViewState();
   const setSelectedStopId = useAppAction(setSelectedStopIdAction);
+  const setCopyStopId = useAppAction(setCopyStopIdAction);
   const setSelectedStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setSelectedTerminalId = useAppAction(setSelectedTerminalIdAction);
 
@@ -41,6 +43,7 @@ export const MapPage: FC = () => {
 
     // Also reset any active selections on exit
     setSelectedStopId(undefined);
+    setCopyStopId(undefined);
     setSelectedStopAreaId(undefined);
     setSelectedTerminalId(undefined);
 

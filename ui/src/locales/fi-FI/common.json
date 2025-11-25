@@ -100,6 +100,7 @@
     "stops": "Pysäkit",
     "stopWithLabel": "Pysäkki {{ stopLabel }}",
     "createStop": "Luo uusi pysäkki",
+    "createStopCopy": "Kopioi pysäkki {{ stopLabel }}",
     "publicCode": "Pysäkin tunnus",
     "loadingUsedPublicCodes": "Ladataan tunnuksia …",
     "stopPublicCodePrefixMissmatch": "Pysäkki sijaitsee kunnan ”{{municipality}}” rajojen sisällä, joten sen tunnuksen pitäisi alkaa etuliitteellä {{expectedPrefix}}.",
@@ -130,7 +131,8 @@
     "timingPlaceRequired": "Pysäkkiä käytetään Hastus-paikkana seuraavilla reiteillä: {{ routeLabels }}. Aseta Hastus-paikka tai poista Hastus-paikka käytöstä reiteiltä.",
     "tiamatUpdateFailed": "Pysäkkien päivitys pysäkkirekisteriin epäonnistui! Muutoksia ei ole myöskään viety linjastoon. Syy: {{ errorMessage }}",
     "stopPointUpdateFailed": "Pysäkkien tiedot on päivitetty pysäkkirekisteriin, mutta niiden vienti linjastoon epäonnistui! Tallennusta on syytä yrittää uudelleen! Syy: {{ errorMessage }}",
-    "missingIds": "Pysäkkirekisteri ja \"reitit ja linjat\"-tietokanta eivät ole ajantasalla. Pysäkkiä ei voi muokata!"
+    "missingIds": "Pysäkkirekisteri ja \"reitit ja linjat\"-tietokanta eivät ole ajantasalla. Pysäkkiä ei voi muokata!",
+    "stopConflictsOnCopyError": "Pysäkin kopiointi epäonnistui: voimassaoloaika ja prioriteetti aiheuttavat päällekkäisyyden olemassa olevan version kanssa."
   },
   "stopArea": {
     "stopArea": "Pysäkkialue",
@@ -851,6 +853,8 @@
     "editRoute": "Muokkaa reittiä",
     "addStop": "Lisää pysäkki",
     "deleteRoute": "Poista reitti",
+    "deleteStop": "Poista pysäkki",
+    "copyStop": "Kopioi pysäkki",
     "location": "Sijainti",
     "latitude": "Leveysaste",
     "longitude": "Pituusaste",
@@ -888,6 +892,11 @@
     "additionalInfo": "Pysäkki siirtyy saman tien. Jos haluat siirtää pysäkin tiettynä ajankohtana, kopioi pysäkistä ensin uusi versio sen tietonäkymässä.",
     "routeWithNVersions": "{{ routeLabel }} ({{ labelCount }} versiota)",
     "confirmText": "OK"
+  },
+  "confirmStopCopyDialog": {
+    "title": "Pysäkki kopioidaan",
+    "description": "Sijoita seuraavaksi uusi pysäkki kartalle. Kopioidun\npysäkin varustelutiedot säilyvät. Voit muokata niitä\npysäkin varustelutietonäkymässä.",
+    "confirmText": "Sijoita pysäkki"
   },
   "confirmRouteDraftStopsDialog": {
     "title": "Reitillä luonnospysäkkejä",

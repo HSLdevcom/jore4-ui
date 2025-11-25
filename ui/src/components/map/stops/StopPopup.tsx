@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MdDelete } from 'react-icons/md';
+import { MdControlPointDuplicate, MdDelete } from 'react-icons/md';
 import { Popup } from 'react-map-gl/maplibre';
 import { useAppSelector } from '../../../hooks';
 import { Column, Row, Visible } from '../../../layoutComponents';
@@ -21,6 +21,7 @@ type StopPopupProps = {
   readonly onMove: () => void;
   readonly onClose: () => void;
   readonly onDelete: () => void;
+  readonly onCopy: () => void;
 };
 
 const testIds = {
@@ -28,6 +29,7 @@ const testIds = {
   moveButton: 'StopPopUp::moveButton',
   editButton: 'StopPopUp::editButton',
   deleteButton: 'StopPopUp::deleteButton',
+  copyButton: 'StopPopUp::copyButton',
   closeButton: 'StopPopUp::closeButton',
 };
 
@@ -62,6 +64,7 @@ export const StopPopup: FC<StopPopupProps> = ({
   onMove,
   onClose,
   onDelete,
+  onCopy,
 }) => {
   const { t } = useTranslation();
 
@@ -146,9 +149,19 @@ export const StopPopup: FC<StopPopupProps> = ({
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
-            tooltip={t('map.deleteRoute')}
+            tooltip={t('map.deleteStop')}
           >
             <MdDelete role="presentation" className="text-xl" />
+          </SimpleButton>
+
+          <SimpleButton
+            className="ml-2 flex aspect-square h-[38px] w-[38px] items-center justify-center self-stretch p-0"
+            onClick={onCopy}
+            inverted
+            testId={testIds.copyButton}
+            tooltip={t('map.copyStop')}
+          >
+            <MdControlPointDuplicate role="presentation" className="text-xl" />
           </SimpleButton>
 
           <SimpleButton

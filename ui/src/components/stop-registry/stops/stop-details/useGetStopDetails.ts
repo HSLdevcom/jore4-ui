@@ -1,12 +1,14 @@
 import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
 import maxBy from 'lodash/maxBy';
-import { useMemo } from 'react';
+import { DateTime } from 'luxon';
+import { useCallback, useMemo } from 'react';
 import {
   GetStopDetailsQuery,
   StopRegistryQuayInput,
   StopRegistryStopPlaceInterface,
   StopsDatabaseStopPlaceNewestVersionBoolExp,
+  useGetStopDetailsLazyQuery,
   useGetStopDetailsQuery,
 } from '../../../../generated/graphql';
 import {
@@ -431,6 +433,30 @@ export const useGetStopDetails = () => {
   );
 
   return { ...rest, stopDetails };
+};
+
+export const useGetStopDetailsLazy = () => {
+  const [getStopDetailsLazy] = useGetStopDetailsLazyQuery();
+
+  return useCallback(
+    async (label: string, observationDate: DateTime, priority: number) => {
+      const where = getWhereCondition(label);
+      const { data, ...rest } = await getStopDetailsLazy({
+        variables: { where },
+      });
+
+      const observationDateTs = observationDate.valueOf();
+      const stopDetails = getStopDetails(
+        data,
+        observationDateTs,
+        priority,
+        label,
+      );
+
+      return { ...rest, stopDetails };
+    },
+    [getStopDetailsLazy],
+  );
 };
 
 export const getQuayIdsFromStopExcept = (

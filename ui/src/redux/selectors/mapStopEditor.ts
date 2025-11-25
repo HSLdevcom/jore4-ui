@@ -27,3 +27,8 @@ export const selectMapStopViewState = createSelector(
   selectMapStopEditor,
   (mapStopEditor) => mapStopEditor.viewState,
 );
+
+export const selectCopyStopId = createSelector(
+  selectMapStopEditor,
+  (mapStopEditor) => mapStopEditor.copyStopId,
+);

@@ -23,7 +23,7 @@ import {
   setSelectedStopIdAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
-import { mapLngLatToGeoJSON, mapLngLatToPoint, none } from '../../../utils';
+import { mapLngLatToPoint, mapPointToGeoJSON, none } from '../../../utils';
 import { useLoader } from '../../common/hooks';
 import { useResolveStopHoverTitle } from '../queries';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
@@ -111,21 +111,35 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
 
   const checkIsLocationValidForStop = useCheckIsLocationValidForStop();
   const defaultErrorHandler = useDefaultErrorHandler();
+
+  const handleStopAction = async (
+    e: MapLayerMouseEvent,
+    stopState: MapEntityEditorViewState,
+  ) => {
+    setFetchStopsLoadingState(LoadingState.HighPriority);
+
+    try {
+      const stopLocation = mapLngLatToPoint(e.lngLat.toArray());
+      await checkIsLocationValidForStop(mapPointToGeoJSON(stopLocation));
+
+      setDraftStopLocation({
+        latitude: stopLocation.latitude,
+        longitude: stopLocation.longitude,
+      });
+      setMapViewState({ stops: stopState });
+    } catch (err) {
+      defaultErrorHandler(err as Error);
+    }
+
+    setFetchStopsLoadingState(LoadingState.NotLoading);
+  };
+
   useImperativeHandle(ref, () => ({
     onCreateStop: async (e: MapLayerMouseEvent) => {
-      setFetchStopsLoadingState(LoadingState.HighPriority);
-      try {
-        const stopLocation = mapLngLatToGeoJSON(e.lngLat.toArray());
-        await checkIsLocationValidForStop(stopLocation);
-        setDraftStopLocation({
-          latitude: e.lngLat.lat,
-          longitude: e.lngLat.lng,
-        });
-        setMapViewState({ stops: MapEntityEditorViewState.CREATE });
-      } catch (err) {
-        defaultErrorHandler(err as Error);
-      }
-      setFetchStopsLoadingState(LoadingState.NotLoading);
+      handleStopAction(e, MapEntityEditorViewState.CREATE);
+    },
+    onCopyStop: async (e: MapLayerMouseEvent) => {
+      handleStopAction(e, MapEntityEditorViewState.COPY);
     },
     onMoveStop: async (e: MapLayerMouseEvent) => {
       editStopLayerRef.current?.onMoveStop(e);

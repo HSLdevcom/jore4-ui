@@ -7,6 +7,7 @@ export type MapStopEditorState = {
   readonly selectedStopId?: string;
   readonly draftLocation?: Point;
   readonly viewState: MapEntityEditorViewState;
+  readonly copyStopId?: string;
 };
 
 type IState = StoreType<MapStopEditorState>;
@@ -15,6 +16,7 @@ const initialState: IState = {
   selectedStopId: undefined,
   draftLocation: undefined,
   viewState: MapEntityEditorViewState.NONE,
+  copyStopId: undefined,
 };
 
 const slice = createSlice({
@@ -36,6 +38,9 @@ const slice = createSlice({
     ) => {
       state.viewState = action.payload;
     },
+    setCopyStopId: (state, action: PayloadAction<string | undefined>) => {
+      state.copyStopId = action.payload;
+    },
     reset: () => {
       return initialState;
     },
@@ -46,6 +51,7 @@ export const {
   setSelectedStopId: setSelectedStopIdAction,
   setDraftLocation: setDraftLocationAction,
   setMapStopViewState: setMapStopViewStateAction,
+  setCopyStopId: setCopyStopIdAction,
   reset: resetMapStopEditorStateAction,
 } = slice.actions;
 

@@ -4,36 +4,48 @@ import { DateTime } from 'luxon';
 import {
   ServicePatternScheduledStopPointInsertInput,
   StopRegistryKeyValues,
+  StopRegistryNameType,
   StopRegistryQuayInput,
 } from '../../../../../../generated/graphql';
-import { ScheduledStopPointSetInput } from '../../../../../../graphql';
 import { EnrichedQuay, StopWithDetails } from '../../../../../../types';
 import {
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
+  mapPointToGeoJSON,
+  mapPointToStopRegistryGeoJSON,
   patchKeyValues,
 } from '../../../../../../utils';
+import { StopFormState } from '../../../../../forms/stop';
 import {
+  mapAlternativeNames,
   mapCompactOrNull,
   mapInfoSpotToInput,
   mapQuayToInput,
 } from '../../../../utils';
 import { FailedToResolveExistingShelter } from '../errors';
 import { InfoSpotInputHelper, StopVersionFormState } from '../types';
-import { StopRegistryQuayCopyInput } from '../types/StopRegistryQuayCopyInput';
+import { CopyStopInputs } from './useCopyStop';
 
-type CreateCopyInputs = {
-  readonly quayInput: StopRegistryQuayCopyInput;
-  readonly stopPointInput: ScheduledStopPointSetInput;
-  readonly infoSpotInputs: ReadonlyArray<InfoSpotInputHelper> | null;
-};
+function getStopPlaceId(originalStop: StopWithDetails): string {
+  const id = originalStop.stop_place?.id;
+
+  if (!id) {
+    throw new Error(
+      "StopPlace or it's Netex ID missing from the stop that is being copied!",
+    );
+  }
+
+  return id;
+}
 
 type ValidityInput = {
   validityStart: DateTime;
   validityEnd: DateTime | null;
 };
 
-function getValidity(state: StopVersionFormState): ValidityInput {
+function getValidity(
+  state: StopVersionFormState | StopFormState,
+): ValidityInput {
   const validityStart = mapDateInputToValidityStart(state.validityStart);
   if (!validityStart) {
     throw new Error('Cannot map state with null validityStart');
@@ -61,7 +73,7 @@ function getQuayNetexId({ stop_place_ref: id }: StopWithDetails): string {
 }
 
 function getKeyValues(
-  state: StopVersionFormState,
+  state: StopVersionFormState | StopFormState,
   originalStop: StopWithDetails,
 ): Array<StopRegistryKeyValues | null> {
   return patchKeyValues(
@@ -86,26 +98,56 @@ function getKeyValues(
   );
 }
 
+function isStopFormState(
+  state: StopVersionFormState | StopFormState,
+): state is StopFormState {
+  return (state as StopFormState).latitude !== undefined;
+}
+
 function mapQuayAndFormToInput(
-  state: StopVersionFormState,
+  state: StopVersionFormState | StopFormState,
   originalStop: StopWithDetails,
 ): StopRegistryQuayInput {
-  return {
+  const input = {
     ...mapQuayToInput(getQuayFromStopWithDetails(originalStop)),
     id: null,
     keyValues: getKeyValues(state, originalStop),
     versionComment: state.versionName,
-    // versionDescription: state.versionDescription, // Not implemented
+  };
+
+  if (!isStopFormState(state)) {
+    return input;
+  }
+
+  // Replace swedish location from the alternative names
+  const alternativeNames = mapAlternativeNames(
+    originalStop.quay?.alternativeNames,
+  )?.filter((alt) => alt.name.lang !== 'swe' && alt.nameType !== 'other');
+
+  alternativeNames?.push({
+    name: { lang: 'swe', value: state.locationSwe ?? null },
+    nameType: StopRegistryNameType.Other,
+  });
+
+  // In case of StopFormState get some properties from state
+  return {
+    ...input,
+    geometry: mapPointToStopRegistryGeoJSON({
+      latitude: state.latitude,
+      longitude: state.longitude,
+    }),
+    description: { lang: 'fin', value: state.locationFin ?? null },
+    alternativeNames,
   };
 }
 
 function mapStopPointInput(
-  state: StopVersionFormState,
+  state: StopVersionFormState | StopFormState,
   originalStop: StopWithDetails,
 ): ServicePatternScheduledStopPointInsertInput {
   const validity = getValidity(state);
 
-  return {
+  const input = {
     ...pick(originalStop, [
       'direction',
       'label',
@@ -125,9 +167,23 @@ function mapStopPointInput(
       ],
     },
   };
+
+  if (!isStopFormState(state)) {
+    return input;
+  }
+
+  // In case of StopFormState get some properties from state
+  return {
+    ...input,
+    measured_location: mapPointToGeoJSON({
+      latitude: state.latitude,
+      longitude: state.longitude,
+    }),
+    timing_place_id: state.timingPlaceId ?? null,
+  };
 }
 
-export function mapInfoSpotsToInputs(
+function mapInfoSpotsToInputs(
   originalStop: StopWithDetails,
 ): ReadonlyArray<InfoSpotInputHelper> | null {
   const shelters = originalStop.quay?.placeEquipments?.shelterEquipment;
@@ -160,10 +216,23 @@ export function mapInfoSpotsToInputs(
 export function mapCreateCopyFormStateToInputs(
   state: StopVersionFormState,
   originalStop: StopWithDetails,
-): CreateCopyInputs {
+): CopyStopInputs {
   const quayInput = mapQuayAndFormToInput(state, originalStop);
   const stopPointInput = mapStopPointInput(state, originalStop);
   const infoSpotInputs = mapInfoSpotsToInputs(originalStop);
+  const originalStopPlaceId = getStopPlaceId(originalStop);
 
-  return { quayInput, stopPointInput, infoSpotInputs };
+  return { quayInput, stopPointInput, infoSpotInputs, originalStopPlaceId };
+}
+
+export function mapStopFormStateToInputs(
+  state: StopFormState,
+  originalStop: StopWithDetails,
+): CopyStopInputs {
+  const quayInput = mapQuayAndFormToInput(state, originalStop);
+  const stopPointInput = mapStopPointInput(state, originalStop);
+  const infoSpotInputs = mapInfoSpotsToInputs(originalStop);
+  const originalStopPlaceId = getStopPlaceId(originalStop);
+
+  return { quayInput, stopPointInput, infoSpotInputs, originalStopPlaceId };
 }
