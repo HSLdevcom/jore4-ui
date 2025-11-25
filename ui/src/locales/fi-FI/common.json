@@ -61,16 +61,16 @@
     "createNew": "Luo uusi linja",
     "saveSuccess": "Linja tallennettu",
     "properties": "Oheistiedot",
-    "label": "Tunnus",
+    "label": "Linjan tunnus",
     "showNameVersions": "Nimiversiot",
     "description": "Linjateksti",
     "name": {
-      "fi_FI": "Linjan nimi",
-      "sv_FI": "Linjan nimi ruotsiksi"
+      "fi_FI": "Linjan nimi (suomi)",
+      "sv_FI": "Linjan nimi (ruotsi)"
     },
     "shortName": {
-      "fi_FI": "Linjan lyhenne",
-      "sv_FI": "Linjan lyhenne ruotsiksi"
+      "fi_FI": "Linjan lyhenne (suomi)",
+      "sv_FI": "Linjan lyhenne (ruotsi)"
     },
     "transportMode": "Kulkumuoto",
     "priorities": "Prioriteetti",
@@ -85,6 +85,7 @@
     "routes": "Reitit",
     "lines": "Linjat",
     "createNewRoute": "Luo reitti",
+    "newRoute": "Uusi reitti",
     "createNewRouteInstructions": "Uuden reitin luominen avautuu karttanäkymään.",
     "cannotCreateRoute": "Linjalle, jonka voimassaolo on päättynyt, ei voi luoda reittiä.",
     "showDrafts": "Näytä luonnokset",

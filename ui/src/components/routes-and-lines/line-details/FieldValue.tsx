@@ -16,13 +16,10 @@ export const FieldValue: FC<FieldValueProps> = ({
 }) => {
   return (
     <Column className={className}>
-      <span className="text-3xl font-semibold" data-testid={testId}>
-        {
-          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-          value || '-'
-        }
+      <span className="text-sm">{fieldName}</span>
+      <span className="text-m font-bold" data-testid={testId}>
+        {value ?? '-'}
       </span>
-      <span>{fieldName}</span>
     </Column>
   );
 };

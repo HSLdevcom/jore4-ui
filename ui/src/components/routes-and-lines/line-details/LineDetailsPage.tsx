@@ -9,9 +9,11 @@ import {
   selectIsTimingSettingsModalOpen,
   selectIsViaModalOpen,
   setLineInfoAction,
+  startRouteCreatingAction,
 } from '../../../redux';
 import { Priority } from '../../../types/enums';
 import { isPastEntity } from '../../../utils';
+import { useNavigateToMap } from '../../map/utils/useNavigateToMap';
 import { PageHeader } from '../common/PageHeader';
 import { TimingSettingsModal } from '../stop-timing-settings/TimingSettingsModal';
 import { ViaModal } from '../via/ViaModal';
@@ -30,6 +32,7 @@ export const LineDetailsPage: FC = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
+  const navigateToMap = useNavigateToMap();
 
   const { line, lineError } = useGetLineDetails();
 
@@ -38,6 +41,8 @@ export const LineDetailsPage: FC = () => {
   const createRoute = (routeLine: LineAllFieldsFragment) => {
     dispatch(resetMapRouteEditorStateAction());
     dispatch(setLineInfoAction(routeLine));
+    dispatch(startRouteCreatingAction());
+    navigateToMap();
   };
 
   const isViaModalOpen = useAppSelector(selectIsViaModalOpen);
@@ -69,7 +74,7 @@ export const LineDetailsPage: FC = () => {
     <div>
       <PageHeader className={getHeaderBorderClassName()}>
         <Row>
-          <i className="icon-bus-alt text-6xl text-tweaked-brand" />
+          <i className="icon-bus-alt mt-2 text-6xl text-tweaked-brand" />
           {line && <LineTitle line={line} onCreateRoute={onCreateRoute} />}
         </Row>
       </PageHeader>
@@ -83,7 +88,7 @@ export const LineDetailsPage: FC = () => {
             </Row>
             <Row>
               <Column className="w-full">
-                <h1 className="mt-8">{t('lines.routes')}</h1>
+                <h2 className="mt-8">{t('lines.routes')}</h2>
                 {line.line_routes?.length > 0 ? (
                   <LineRouteList routes={displayedRoutes} />
                 ) : (
