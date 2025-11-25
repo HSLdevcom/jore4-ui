@@ -23,7 +23,7 @@ export const LineRouteList: FC<LineRouteListProps> = ({ routes }) => {
     <div>
       <div className="flex items-center">
         <HuiSwitch.Group>
-          <SwitchLabel className="my-8 mr-4">
+          <SwitchLabel className="my-4 mr-4">
             {t('routes.showUnusedStops')}
           </SwitchLabel>
           <Switch

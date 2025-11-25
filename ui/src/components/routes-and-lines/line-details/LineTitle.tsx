@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
 import { Column, Row } from '../../../layoutComponents';
-import { IconButton, SimpleSmallButton } from '../../../uiComponents';
+import { SimpleButton, SimpleSmallButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
 import { LineValidityPeriod } from './LineValidityPeriod';
 import { useGetRoutesDisplayedInList } from './useGetRoutesDisplayedInList';
@@ -63,7 +63,7 @@ export const LineTitle: FC<LineTitleProps> = ({
         <PageTitle.H1 className="mr-4" data-testid={testIds.heading}>
           {t('lines.line', { label: line.label })}
         </PageTitle.H1>
-        <span className="space-x-2">
+        <span className="mr-2 space-x-2">
           {lineRoutes?.length > 0 &&
             lineRoutes.map((item) => (
               <SimpleSmallButton
@@ -75,15 +75,20 @@ export const LineTitle: FC<LineTitleProps> = ({
             ))}
         </span>
         {onCreateRoute && (
-          <IconButton
-            tooltip={t(`accessibility:lines.createNewRoute`, {
+          <SimpleButton
+            onClick={onCreateRoute}
+            testId={testIds.createRouteButton}
+            inverted
+            className="flex items-center gap-2 border-0 bg-transparent px-1 py-0.5"
+            aria-label={t(`accessibility:lines.createNewRoute`, {
               label: line.label,
             })}
-            testId={testIds.createRouteButton}
-            icon={<AiFillPlusCircle className="text-3xl text-brand" />}
-            className="ml-2 rounded-full"
-            onClick={onCreateRoute}
-          />
+          >
+            <span className="font-normal text-black">
+              {t('lines.newRoute')}
+            </span>
+            <AiFillPlusCircle className="text-2xl" />
+          </SimpleButton>
         )}
       </Row>
       <Row>

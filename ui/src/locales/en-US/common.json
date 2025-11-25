@@ -61,16 +61,16 @@
     "createNew": "Create new line",
     "saveSuccess": "Line saved",
     "properties": "Properties",
-    "label": "Label",
+    "label": "Line label",
     "showNameVersions": "Name versions",
     "description": "Line text",
     "name": {
-      "fi_FI": "Line name",
-      "sv_FI": "Line name in Swedish"
+      "fi_FI": "Line name (finnish)",
+      "sv_FI": "Line name (swedish)"
     },
     "shortName": {
-      "fi_FI": "Line short name",
-      "sv_FI": "Line short name in Swedish"
+      "fi_FI": "Line short name (finnish)",
+      "sv_FI": "Line short name (swedish)"
     },
     "transportMode": "Transport mode",
     "priorities": "Priority",
@@ -85,6 +85,7 @@
     "routes": "Routes",
     "lines": "Lines",
     "createNewRoute": "Create new route",
+    "newRoute": "New route",
     "createNewRouteInstructions": "Route drawing opens in a new window.",
     "cannotCreateRoute": "Cannot create new route for past line.",
     "showDrafts": "Show drafts",
