@@ -72,4 +72,11 @@
 .icon-temporary:before { content: '\e881'; } /* '' */
 .icon-temporary-outline:before { content: '\e882'; } /* '' */
 .icon-accessible:before { content: '\e88a'; } /* '' */
+.icon-no-power:before { content: '\e8a0'; } /* '' */
+.icon-replacement-line-grey:before { content: '\e8a1'; } /* '' */
+.icon-time-limited-power:before { content: '\e8a2'; } /* '' */
+.icon-placeholder-icon:before { content: '\e8a3'; } /* '' */
+.icon-power:before { content: '\e8a4'; } /* '' */
+.icon-shelter:before { content: '\e8a5'; } /* '' */
+.icon-post:before { content: '\e8a6'; } /* '' */
 .icon-alert-filled:before { content: '\e8bf'; } /* '' */
