@@ -9,6 +9,7 @@ import {
   PriorityTd,
   ValidityPeriodTd,
 } from './components';
+import { IconsTd } from './components/IconsTd';
 import { SelectRowTd } from './components/SelectRowTd';
 import { StopSearchRow } from './types';
 
@@ -78,7 +79,12 @@ export const StopTableRow: FC<StopTableRowProps> = ({
       />
 
       <NameTd
-        className={`w-full px-8 py-3 ${yBorderClassNames} border-l border-l-background align-top text-sm font-bold leading-6`}
+        className={`w-full px-8 py-3 ${yBorderClassNames} text-sm`}
+        stop={stop}
+      />
+
+      <IconsTd
+        className={`w-auto px-2 ${yBorderClassNames} whitespace-nowrap border-l border-l-background`}
         stop={stop}
       />
 
