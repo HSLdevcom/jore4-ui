@@ -1,17 +1,20 @@
 import compact from 'lodash/compact';
 import {
+  AccessibilityAssessmentDetailsFragment,
   StopRegistryNameType,
+  StopRegistryPlaceEquipments,
   StopTableRowQuayDetailsFragment,
   StopTableRowScheduledStopPointDetailsFragment,
   StopTableRowStopAreaDetailsFragment,
   StopTableRowStopAreaQuayDetailsFragment,
 } from '../../../../../generated/graphql';
 import { parseDate } from '../../../../../time';
-import { EnrichedStopPlace } from '../../../../../types';
+import { EnrichedStopPlace, StopPlace } from '../../../../../types';
 import { Priority, knownPriorityValues } from '../../../../../types/enums';
 import {
   findKeyValue,
   findKeyValueParsed,
+  getStopPlacesFromQueryResult,
   isValidGeoJSONPoint,
   log,
   requireValue,
@@ -83,6 +86,68 @@ function mapStopPointDetails(
   };
 }
 
+function mapEquipmentDetailsFromTiamatQuay(
+  tiamatQuay:
+    | {
+        placeEquipments?: StopRegistryPlaceEquipments | null;
+        accessibilityAssessment?: AccessibilityAssessmentDetailsFragment | null;
+      }
+    | null
+    | undefined,
+): Pick<
+  StopSearchRow,
+  | 'replacesRailSign'
+  | 'platformNumber'
+  | 'electricity'
+  | 'shelter'
+  | 'accessibility'
+> {
+  const placeEquipments = tiamatQuay?.placeEquipments;
+
+  const replacesRailSign = placeEquipments?.generalSign?.some(
+    (sign) => sign?.replacesRailSign === true,
+  );
+
+  const platformNumber = placeEquipments?.generalSign?.find(
+    (sign) => sign?.content?.value,
+  )?.content?.value;
+
+  const firstShelter = placeEquipments?.shelterEquipment?.[0];
+  const electricity = firstShelter?.shelterElectricity ?? undefined;
+  const shelter = firstShelter?.shelterType ?? undefined;
+
+  const accessibility =
+    tiamatQuay?.accessibilityAssessment?.hslAccessibilityProperties
+      ?.accessibilityLevel ?? undefined;
+
+  return {
+    replacesRailSign,
+    platformNumber,
+    electricity,
+    shelter,
+    accessibility,
+  };
+}
+
+function mapEquipmentDetails(
+  quay: StopTableRowQuayDetailsFragment,
+): Pick<
+  StopSearchRow,
+  | 'replacesRailSign'
+  | 'platformNumber'
+  | 'electricity'
+  | 'shelter'
+  | 'accessibility'
+> {
+  const tiamatStopPlaces = quay.stop_place_newest_version?.TiamatStopPlace;
+
+  const [stopPlace] = getStopPlacesFromQueryResult<StopPlace>(tiamatStopPlaces);
+
+  const tiamatQuay = stopPlace?.quays?.find((q) => q?.id === quay.netex_id);
+
+  return mapEquipmentDetailsFromTiamatQuay(tiamatQuay);
+}
+
 function mapQueryResultToStopSearchRowImpl(
   quay: StopTableRowQuayDetailsFragment,
   scheduledStopPoint:
@@ -98,6 +163,7 @@ function mapQueryResultToStopSearchRowImpl(
     publicCode: requireValue(quay.public_code),
     nameFin: requireValue(quay.stop_place?.name_value),
     nameSwe: findSwedishNameFromRawDbResponse(quay),
+    description: quay.description_value ?? null,
 
     location: validateLocation(quay.centroid),
 
@@ -106,6 +172,7 @@ function mapQueryResultToStopSearchRowImpl(
     priority: parsePriority(quay.priority),
 
     ...mapStopPointDetails(scheduledStopPoint),
+    ...mapEquipmentDetails(quay),
   };
 }
 
@@ -170,6 +237,7 @@ function mapSingleTiamatStopAreaQuayToStopSearchRow<
     ...nameResolver(stopArea),
 
     ...mapStopPointDetails(quay.scheduled_stop_point),
+    ...mapEquipmentDetailsFromTiamatQuay(quay),
   };
 }
 

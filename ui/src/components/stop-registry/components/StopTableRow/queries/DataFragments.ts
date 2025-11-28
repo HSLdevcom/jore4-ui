@@ -19,6 +19,7 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
     validity_end
     priority
     centroid
+    description_value
 
     stop_place {
       id
@@ -30,6 +31,38 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
           name_lang
           name_type
           name_value
+        }
+      }
+    }
+
+    stop_place_newest_version {
+      id
+
+      TiamatStopPlace {
+        ... on stop_registry_StopPlace {
+          quays {
+            id
+            accessibilityAssessment {
+              hslAccessibilityProperties {
+                accessibilityLevel
+              }
+            }
+            placeEquipments {
+              id
+              shelterEquipment {
+                id
+                shelterType
+                shelterElectricity
+              }
+              generalSign {
+                replacesRailSign
+                content {
+                  lang
+                  value
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -69,6 +102,31 @@ const GQL_STOP_REGISTRY_STOP_AREA_STOP_DETAILS = gql`
     geometry {
       type
       coordinates
+    }
+    description {
+      lang
+      value
+    }
+
+    placeEquipments {
+      id
+      generalSign {
+        replacesRailSign
+        content {
+          lang
+          value
+        }
+      }
+      shelterEquipment {
+        id
+        shelterType
+        shelterElectricity
+      }
+    }
+    accessibilityAssessment {
+      hslAccessibilityProperties {
+        accessibilityLevel
+      }
     }
 
     scheduled_stop_point {

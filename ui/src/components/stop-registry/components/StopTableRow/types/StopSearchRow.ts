@@ -15,12 +15,19 @@ export type StopSearchRow = {
   readonly publicCode: string;
   readonly nameFin: string;
   readonly nameSwe: string | null;
+  readonly description?: string | null;
+  readonly platformNumber?: string | null;
 
   readonly location: Point;
 
   readonly validityStart: DateTime;
   readonly validityEnd: DateTime | null;
   readonly priority: Priority;
+
+  readonly replacesRailSign?: boolean;
+  readonly electricity?: string | null;
+  readonly shelter?: string | null;
+  readonly accessibility?: string | null;
 
   readonly timingPlace: StopSearchRowTimingPlace | null;
 };
