@@ -83,4 +83,11 @@
 .icon-temporary { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe881;&nbsp;'); }
 .icon-temporary-outline { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe882;&nbsp;'); }
 .icon-accessible { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe88a;&nbsp;'); }
+.icon-no-power { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8a0;&nbsp;'); }
+.icon-replacement-line-grey { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8a1;&nbsp;'); }
+.icon-time-limited-power { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8a2;&nbsp;'); }
+.icon-placeholder-icon { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8a3;&nbsp;'); }
+.icon-power { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8a4;&nbsp;'); }
+.icon-shelter { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8a5;&nbsp;'); }
+.icon-post { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8a6;&nbsp;'); }
 .icon-alert-filled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8bf;&nbsp;'); }
