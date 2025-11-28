@@ -33,12 +33,13 @@ const GQL_RESOLVE_STOP_SHELTERS = gql`
 
 function getSheltersFromResult(
   data: ResolveStopSheltersQuery | undefined,
+  netexId: string,
 ): Array<StopRegistryShelterEquipment> {
   const stopPlace = data?.stop_registry?.stopPlace?.at(0);
 
   if (stopPlace && 'quays' in stopPlace) {
-    const rawShelterList =
-      stopPlace.quays?.at(0)?.placeEquipments?.shelterEquipment;
+    const matchingQuay = stopPlace.quays?.find((quay) => quay?.id === netexId);
+    const rawShelterList = matchingQuay?.placeEquipments?.shelterEquipment;
 
     if (rawShelterList) {
       return compact(rawShelterList);
@@ -55,7 +56,7 @@ export function useGetShelters() {
     async (netexId: string) => {
       try {
         const result = await resolveStopShelters({ variables: { netexId } });
-        return getSheltersFromResult(result.data);
+        return getSheltersFromResult(result.data, netexId);
       } catch (cause) {
         throw new FailedToResolveNewShelters(
           "Failed to resolve new stop's shelters!",

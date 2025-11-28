@@ -69,7 +69,7 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
               {t('stopDetails.version.title.copySubTitle')}
             </h4>
             <CopyStopForm
-              className="mt-4"
+              className="mt-4 w-[550px]"
               existingValidityRanges={ranges}
               originalStop={originalStop}
               onCancel={onClose}
