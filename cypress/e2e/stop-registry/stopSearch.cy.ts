@@ -662,7 +662,7 @@ describe('Stop search', () => {
 
     beforeEach(() => setupTestsAndNavigateToPage({}));
 
-    it.only('should have a working asterisk search and line selector', () => {
+    it('should have a working asterisk search and line selector', () => {
       injectKnownMonospaceFont();
 
       stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
@@ -802,7 +802,7 @@ describe('Stop search', () => {
       stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
 
       stopSearchBar.getSearchInput().clearAndType(`*{enter}`);
-      expectGraphQLCallToSucceed('@gqlfindStopAreas');
+      expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       stopGroupSelector.shouldHaveGroups([
         'X0003',
@@ -823,7 +823,7 @@ describe('Stop search', () => {
       stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
 
       stopSearchBar.getSearchInput().clearAndType(`X0004{enter}`);
-      expectGraphQLCallToSucceed('@gqlfindStopAreas');
+      expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       stopGroupSelector.shouldHaveGroups(['X0004']);
 
@@ -871,7 +871,7 @@ describe('Stop search', () => {
       stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
 
       stopSearchBar.getSearchInput().clearAndType(`E2ENQ{enter}`);
-      expectGraphQLCallToSucceed('@gqlfindStopAreas');
+      expectGraphQLCallToSucceed('@gqlFindStopPlaces');
 
       stopGroupSelector.shouldHaveGroups(['E2ENQ']);
 
@@ -1841,6 +1841,20 @@ describe('Stop search', () => {
         );
     }
 
+    function unselectedSelectedRow(label: string) {
+      stopSearchResultsPage
+        .getRowByLabel(label)
+        .shouldBeVisible()
+        .within(() =>
+          stopSearchResultsPage
+            .getSelectInput()
+            .shouldBeVisible()
+            .and('be.checked')
+            .click()
+            .and('not.be.checked'),
+        );
+    }
+
     function stopShouldBeOnMap(label: string) {
       map
         .getStopByStopLabelAndPriority(label, Priority.Standard)
@@ -1928,6 +1942,66 @@ describe('Stop search', () => {
       notSelectedStops
         .map(stopSearchResultsPage.getRowByLabel)
         .forEach((row) => row.within(stopShouldNotBeSelected));
+    });
+
+    it('Should handle partial selections of Stop Areas', () => {
+      setupTestsAndNavigateToPage({});
+
+      stopSearchBar.searchForDropdown.openSearchForDropdown();
+      stopSearchBar.searchForDropdown.selectSearchFor('Pysäkkialueet');
+      stopSearchBar.getSearchInput().clearAndType('*{enter}');
+
+      // Select both Stop Areas
+      stopGroupSelector.shouldHaveGroups(['PS002', 'US001']);
+      stopGroupSelector.getGroupSelectors().contains('US001').click();
+
+      // By default, all should be selected
+      stopSearchResultsPage
+        .getSelectAllButton()
+        .shouldBeVisible()
+        .and('be.checked');
+
+      // Unselect one
+      unselectedSelectedRow(testStops.tagToPublicCode.urban1);
+
+      // And ALL should not be selected anymore
+      stopSearchResultsPage
+        .getSelectAllButton()
+        .shouldBeVisible()
+        .and('not.be.checked');
+
+      // Unselect the group that contained the unselected stop
+      stopGroupSelector.getGroupSelectors().contains('US001').click();
+      // And ALL should be selected again.
+      stopSearchResultsPage
+        .getSelectAllButton()
+        .shouldBeVisible()
+        .and('be.checked');
+
+      // Unselect one from the list.
+      unselectedSelectedRow(testStops.tagToPublicCode.postHelsinki);
+      // Add in back the unselected Area
+      stopGroupSelector.getGroupSelectors().contains('US001').click();
+      // And then they should not get auto selected as ALL has not been selected.
+      stopSearchResultsPage
+        .getRowByLabel(testStops.tagToPublicCode.urban1)
+        .within(stopShouldNotBeSelected);
+      stopSearchResultsPage
+        .getRowByLabel(testStops.tagToPublicCode.urban2)
+        .within(stopShouldNotBeSelected);
+
+      stopSearchResultsPage
+        .getShowOnMapButton()
+        .shouldBeVisible()
+        .and('be.enabled')
+        .click();
+      stopSearchResultsPage.getShowOnMapButtonLoading().should('not.exist');
+
+      map.getLoader().shouldBeVisible();
+      map.waitForLoadToComplete();
+
+      stopShouldBeOnMap(testStops.tagToPublicCode.postEspoo);
+      stopShouldNotBeOnMap(testStops.tagToPublicCode.postHelsinki);
     });
   });
 
