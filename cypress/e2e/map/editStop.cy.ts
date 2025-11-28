@@ -8,9 +8,9 @@ import {
   buildStopsOnInfraLinks,
   getClonedBaseDbResources,
   testInfraLinkExternalIds,
-} from '../datasets/base';
-import { getClonedBaseStopRegistryData } from '../datasets/stopRegistry';
-import { Tag } from '../enums';
+} from '../../datasets/base';
+import { getClonedBaseStopRegistryData } from '../../datasets/stopRegistry';
+import { Tag } from '../../enums';
 import {
   BaseStopFormInfo,
   ConfirmationDialog,
@@ -21,11 +21,11 @@ import {
   StopForm,
   Toast,
   ToastType,
-} from '../pageObjects';
-import { UUID } from '../types';
-import { SupportedResources, insertToDbHelper } from '../utils';
-import { expectGraphQLCallToSucceed } from '../utils/assertions';
-import { InsertedStopRegistryIds, mapViewport } from './utils';
+} from '../../pageObjects';
+import { UUID } from '../../types';
+import { SupportedResources, insertToDbHelper } from '../../utils';
+import { expectGraphQLCallToSucceed } from '../../utils/assertions';
+import { InsertedStopRegistryIds, mapViewport } from '../utils';
 
 const testTimingPlaceLabels = {
   label1: 'Test created timing place label 1',
@@ -135,6 +135,33 @@ describe('Stop editing tests', () => {
 
   it(
     'Should delete a stop',
+    { tags: Tag.Stops, scrollBehavior: 'bottom' },
+    () => {
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      map.waitForLoadToComplete();
+
+      map
+        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .click({ force: true });
+
+      map.stopPopUp.getDeleteButton().click();
+
+      confirmationDialog.getConfirmButton().click();
+
+      expectGraphQLCallToSucceed('@gqlRemoveStop');
+      expectGraphQLCallToSucceed('@gqlDeleteQuay');
+
+      toast.expectSuccessToast('Pysäkki poistettu');
+
+      map
+        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .should('not.exist');
+    },
+  );
+
+  it(
+    'Should copy a stop',
     { tags: Tag.Stops, scrollBehavior: 'bottom' },
     () => {
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
