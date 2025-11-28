@@ -22,5 +22,10 @@ export type StopSearchRow = {
   readonly validityEnd: DateTime | null;
   readonly priority: Priority;
 
+  readonly replacesRailSign?: boolean;
+  readonly electricity?: string | null;
+  readonly shelter?: string | null;
+  readonly accessibility?: string | null;
+
   readonly timingPlace: StopSearchRowTimingPlace | null;
 };

@@ -33,6 +33,34 @@ const GQL_STOP_TABLE_ROW_QUAY_DETAILS = gql`
         }
       }
     }
+
+    stop_place_newest_version {
+      id
+
+      TiamatStopPlace {
+        ... on stop_registry_StopPlace {
+          quays {
+            id
+            accessibilityAssessment {
+              hslAccessibilityProperties {
+                accessibilityLevel
+              }
+            }
+            placeEquipments {
+              id
+              shelterEquipment {
+                id
+                shelterType
+                shelterElectricity
+              }
+              generalSign {
+                replacesRailSign
+              }
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -69,6 +97,23 @@ const GQL_STOP_REGISTRY_STOP_AREA_STOP_DETAILS = gql`
     geometry {
       type
       coordinates
+    }
+
+    placeEquipments {
+      id
+      generalSign {
+        replacesRailSign
+      }
+      shelterEquipment {
+        id
+        shelterType
+        shelterElectricity
+      }
+    }
+    accessibilityAssessment {
+      hslAccessibilityProperties {
+        accessibilityLevel
+      }
     }
 
     scheduled_stop_point {
