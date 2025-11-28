@@ -18,6 +18,7 @@ import {
   Map,
   MapPage,
   NavigationBlockedDialog,
+  StopDetailsPage,
   StopForm,
   Toast,
   ToastType,
@@ -44,6 +45,7 @@ describe('Stop editing tests', () => {
   const confirmationDialog = new ConfirmationDialog();
   const stopForm = new StopForm();
   const toast = new Toast();
+  const stopDetailsPage = new StopDetailsPage();
 
   const baseDbResources = getClonedBaseDbResources();
   const baseStopRegistryData = getClonedBaseStopRegistryData();
@@ -169,21 +171,50 @@ describe('Stop editing tests', () => {
       map.waitForLoadToComplete();
 
       map
-        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
+        .getStopByStopLabelAndPriority(stops[7].label, stops[0].priority)
         .click({ force: true });
 
-      map.stopPopUp.getDeleteButton().click();
-
+      map.stopPopUp.getCopyButton().click();
       confirmationDialog.getConfirmButton().click();
+      map.clickRelativePoint(63, 22);
 
-      expectGraphQLCallToSucceed('@gqlRemoveStop');
-      expectGraphQLCallToSucceed('@gqlDeleteQuay');
+      // Check that public code is disabled and set
+      cy.getByTestId('CopyStopModal').shouldBeVisible();
+      stopForm.getPublicCodeInput().shouldBeDisabled();
+      stopForm.getPublicCodeInput().should('have.value', stops[7].label);
+      stopForm.getLatitudeInput().clearAndType('60.16654513');
+      stopForm.getLongitudeInput().clearAndType('24.93727036');
+      stopForm.getLocationFinInput().clearAndType('Kopioitu');
+      stopForm.getLocationSweInput().clearAndType('Kopierad');
+      stopForm.getVersionNameInput().clearAndType('Kopioitu versio');
+      stopForm.priorityForm.setAsTemporary();
+      cy.getByTestId('Modal::saveButton').click();
 
-      toast.expectSuccessToast('Pysäkki poistettu');
+      expectGraphQLCallToSucceed('@gqlInsertQuayIntoStopPlace');
+      expectGraphQLCallToSucceed('@gqlInsertStopPoint');
+      expectGraphQLCallToSucceed('@gqlUpdateInfoSpot');
+      map.waitForLoadToComplete();
+      map.stopPopUp.getLabel().shouldBeVisible();
 
-      map
-        .getStopByStopLabelAndPriority(stops[0].label, stops[0].priority)
-        .should('not.exist');
+      // Open copied version
+      cy.visit(
+        `/stop-registry/stops/E2E008?observationDate=2020-03-20&priority=20`,
+      );
+
+      // Check that info spots were correctly copied
+      stopDetailsPage.page().shouldBeVisible();
+      stopDetailsPage.infoSpotsTabButton().click();
+      stopDetailsPage.infoSpots.viewCard
+        .getSectionContainers()
+        .shouldBeVisible();
+      stopDetailsPage.infoSpots.viewCard
+        .getLabel()
+        .shouldHaveText('E2E_INFO_001');
+      stopDetailsPage.infoSpots.viewCard.getNthPosterContainer(0).within(() => {
+        stopDetailsPage.infoSpots.viewCard
+          .getPosterLabel()
+          .shouldHaveText('E2E_POSTER_001');
+      });
     },
   );
 
@@ -369,6 +400,40 @@ describe('Stop editing tests', () => {
       'Pysäkkien tiedot on päivitetty pysäkkirekisteriin, mutta niiden vienti linjastoon epäonnistui! Tallennusta on syytä yrittää uudelleen! Syy: Response not successful: Received status code 500',
     );
   });
+
+  it(
+    'Should prevent copy creating an overlapping stop',
+    { tags: Tag.Stops, scrollBehavior: 'bottom' },
+    () => {
+      mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
+
+      map.waitForLoadToComplete();
+
+      map
+        .getStopByStopLabelAndPriority(stops[7].label, stops[0].priority)
+        .click({ force: true });
+
+      map.stopPopUp.getCopyButton().click();
+      confirmationDialog.getConfirmButton().click();
+      map.clickRelativePoint(63, 22);
+
+      // Check that public code is disabled and set
+      cy.getByTestId('CopyStopModal').shouldBeVisible();
+      stopForm.getPublicCodeInput().shouldBeDisabled();
+      stopForm.getPublicCodeInput().should('have.value', stops[7].label);
+      stopForm.getLatitudeInput().clearAndType('60.16654513');
+      stopForm.getLongitudeInput().clearAndType('24.93727036');
+      stopForm.getLocationFinInput().clearAndType('Kopioitu');
+      stopForm.getLocationSweInput().clearAndType('Kopierad');
+      stopForm.getVersionNameInput().clearAndType('Kopioitu versio');
+      stopForm.priorityForm.setAsStandard();
+      cy.getByTestId('Modal::saveButton').click();
+
+      toast.expectDangerToast(
+        'Pysäkin kopiointi epäonnistui: voimassaoloaika ja prioriteetti aiheuttavat päällekkäisyyden olemassa olevan version kanssa.',
+      );
+    },
+  );
 
   it(
     'Should warn about unsaved forms',

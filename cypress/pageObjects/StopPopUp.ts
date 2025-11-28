@@ -11,6 +11,10 @@ export class StopPopUp {
     return cy.getByTestId('StopPopUp::deleteButton');
   }
 
+  getCopyButton() {
+    return cy.getByTestId('StopPopUp::copyButton');
+  }
+
   getCloseButton() {
     return cy.getByTestId('StopPopUp::closeButton');
   }
