@@ -74,6 +74,10 @@ export class StopForm {
     return cy.getByTestId('StopFormComponent::addTimingPlaceButton');
   }
 
+  getVersionNameInput() {
+    return cy.getByTestId('StopFormComponent::versionName');
+  }
+
   getModal() {
     return cy.getByTestId('EditStopModal');
   }
