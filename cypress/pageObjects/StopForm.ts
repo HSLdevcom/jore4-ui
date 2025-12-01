@@ -5,8 +5,7 @@ import { PriorityForm, PriorityFormInfo } from './PriorityForm';
 import { ValidityPeriodFormInfo } from './ValidityPeriodForm';
 
 export interface BaseStopFormInfo
-  extends ValidityPeriodFormInfo,
-    PriorityFormInfo {
+  extends ValidityPeriodFormInfo, PriorityFormInfo {
   locationFin?: string;
   locationSwe?: string;
   longitude?: string;

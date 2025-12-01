@@ -9,18 +9,18 @@
     "ts:check": "yarn tsc --noEmit"
   },
   "dependencies": {
-    "@babel/core": "^7.28.3",
-    "@graphql-codegen/add": "^5.0.3",
-    "@graphql-codegen/cli": "^5.0.7",
-    "@graphql-codegen/introspection": "^4.0.3",
-    "@graphql-codegen/typescript": "^4.1.6",
-    "@graphql-codegen/typescript-operations": "^4.6.1",
+    "@babel/core": "^7.28.5",
+    "@graphql-codegen/add": "^6.0.0",
+    "@graphql-codegen/cli": "^6.1.0",
+    "@graphql-codegen/introspection": "^5.0.0",
+    "@graphql-codegen/typescript": "^5.0.6",
+    "@graphql-codegen/typescript-operations": "^5.0.6",
     "@graphql-codegen/typescript-react-apollo": "^4.3.3",
-    "@graphql-tools/load": "^8.1.2",
-    "@graphql-tools/merge": "^9.1.1",
-    "@graphql-tools/schema": "^10.0.25",
+    "@graphql-tools/load": "^8.1.7",
+    "@graphql-tools/merge": "^9.1.6",
+    "@graphql-tools/schema": "^10.0.30",
     "@parcel/watcher": "^2.5.0",
-    "graphql": "^16.11.0",
+    "graphql": "^16.12.0",
     "graphql-tag": "^2.12.6"
   }
 }

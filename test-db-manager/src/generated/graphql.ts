@@ -68557,16 +68557,19 @@ export type GetAllStopPlaceLabelsAndIdsQuery = {
   __typename?: 'query_root',
   stop_registry?: {
     __typename?: 'stop_registryStopPlaceRegister',
-    stopPlace?: Array<{
-      __typename?: 'stop_registry_ParentStopPlace'
-    } | {
-      __typename?: 'stop_registry_StopPlace',
-      id?: string | null,
-      privateCode?: {
-        __typename?: 'stop_registry_PrivateCode',
-        value?: string | null
-      } | null
-    } | null> | null
+    stopPlace?: Array<
+      | {
+        __typename?: 'stop_registry_ParentStopPlace'
+      }
+      | {
+        __typename?: 'stop_registry_StopPlace',
+        id?: string | null,
+        privateCode?: {
+          __typename?: 'stop_registry_PrivateCode',
+          value?: string | null
+        } | null
+      }
+     | null> | null
   } | null
 };
 

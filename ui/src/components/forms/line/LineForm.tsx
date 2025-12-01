@@ -27,6 +27,10 @@ const testIds = {
   cancelButton: 'LineForm::cancelButton',
 };
 
+const formSchema = linePropertiesFormSchema
+  .merge(changeValidityFormSaveFormSchema)
+  .superRefine(refineValidityPeriodSchema);
+
 type LineFormProps = {
   readonly defaultValues: Partial<FormState>;
   readonly onSubmit: (state: FormState) => void;
@@ -37,10 +41,6 @@ export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
   const formRef = useRef<ExplicitAny>(null);
 
   const { t } = useTranslation();
-
-  const formSchema = linePropertiesFormSchema
-    .merge(changeValidityFormSaveFormSchema)
-    .superRefine(refineValidityPeriodSchema);
 
   const methods = useForm<FormState>({
     defaultValues,

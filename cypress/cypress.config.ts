@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import cypressGrepPlugin from '@cypress/grep/src/plugin';
+import { plugin as cypressGrepPlugin } from '@cypress/grep/plugin';
 import { defineConfig } from 'cypress';
 import { GenerateCtrfReport } from 'cypress-ctrf-json-reporter';
 import cypressSplit from 'cypress-split';

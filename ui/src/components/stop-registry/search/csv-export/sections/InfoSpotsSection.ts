@@ -429,9 +429,7 @@ export const InfoSpotsSection = dynamicSection((data) => {
   return new InfoSpotsSectionImplementation(counts, flatFieldCount);
 });
 
-class SingleInfoSposSectionImplementation
-  implements ReportSection<EnrichedStopDetailsWithSelectedInfoSpot>
-{
+class SingleInfoSposSectionImplementation implements ReportSection<EnrichedStopDetailsWithSelectedInfoSpot> {
   private readonly maxPosters: number;
 
   readonly shouldHavePadding = true;
