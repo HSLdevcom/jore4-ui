@@ -22,8 +22,8 @@ import { UnableToCutOverlappingStopVersion } from '../errors/UnableToCutOverlapp
 import { StopVersionFormState, stopVersionSchema } from '../types';
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
 import { OverlappingCutDatesResult } from '../types/OverLappingCutDatesResult';
+import { getOverlapCutDates } from './getOverlappingCutDates';
 import { useEditStopValidityAndPriority } from './useEditStopValidityAndPriority';
-import { useGetOverlappingCutDates } from './useGetOverlappingCutDates';
 import { useGetOverlappingStopVersions } from './useGetOverlappingStopVersions';
 
 function useDefaultValues(
@@ -116,7 +116,6 @@ export const useEditStopFormUtils = (
   const { setIsLoading } = useLoader(Operation.SaveStop);
   const editStopValidityAndPriority = useEditStopValidityAndPriority();
   const getOverlappingStopVersions = useGetOverlappingStopVersions();
-  const cutOverlappingStopVersion = useGetOverlappingCutDates();
 
   const defaultValues = useDefaultValues(originalStop);
 
@@ -185,7 +184,7 @@ export const useEditStopFormUtils = (
       try {
         // Go through all the overlaps and check that there are no errors
         const cutDates = overlappingStopVersions.map((version) =>
-          cutOverlappingStopVersion(state, version),
+          getOverlapCutDates(state, version),
         );
 
         await openDialogForNextOverlap(state, cutDates[0]);
@@ -226,7 +225,7 @@ export const useEditStopFormUtils = (
     if (overlappingStopVersions.length >= 1) {
       try {
         const versionToCut = overlappingStopVersions[0];
-        let cutDates = cutOverlappingStopVersion(state, versionToCut);
+        let cutDates = getOverlapCutDates(state, versionToCut);
 
         if (cutDates.newVersion) {
           // Add reason for change here when implemented
@@ -243,7 +242,7 @@ export const useEditStopFormUtils = (
         // There are more overlaps, open the same dialog for the next overlap
         if (overlappingStopVersions.length > 1) {
           const nextVersionToRemove = overlappingStopVersions[1];
-          cutDates = cutOverlappingStopVersion(state, nextVersionToRemove);
+          cutDates = getOverlapCutDates(state, nextVersionToRemove);
 
           await openDialogForNextOverlap(state, cutDates);
           return;

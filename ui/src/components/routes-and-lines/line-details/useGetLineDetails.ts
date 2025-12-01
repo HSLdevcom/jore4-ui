@@ -243,10 +243,12 @@ export const useGetLineDetails = () => {
   }, [getHighestPriorityLineDetails, lineDetailsResult, observationDate]);
 
   useEffect(() => {
+    // TODO: This should probably be done differently
     initializeObservationDate();
   }, [initializeObservationDate]);
 
   useEffect(() => {
+    // TODO: This should probably be done differently
     fetchLineDetails().then((filteredLine) => {
       if (filteredLine) {
         setLineError(null);

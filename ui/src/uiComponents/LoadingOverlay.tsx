@@ -72,6 +72,7 @@ function useIsVisible(
   const [visible, setVisible] = useState(
     resolvedLoadingState !== LoadingState.NotLoading,
   );
+  // eslint-disable-next-line react-hooks/purity
   const shownAt = useRef(visible ? Date.now() : 0);
 
   useEffect(() => {
