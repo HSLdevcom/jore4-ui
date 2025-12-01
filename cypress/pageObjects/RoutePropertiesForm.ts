@@ -10,8 +10,7 @@ import { TerminusNameInputs, TerminusValues } from './TerminusNameInputs';
 import { ValidityPeriodFormInfo } from './ValidityPeriodForm';
 
 export interface RouteFormInfo
-  extends ValidityPeriodFormInfo,
-    PriorityFormInfo {
+  extends ValidityPeriodFormInfo, PriorityFormInfo {
   finnishName?: string;
   label?: string;
   variant?: string;

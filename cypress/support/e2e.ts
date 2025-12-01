@@ -18,7 +18,7 @@ import './commands';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import registerCypressGrep from '@cypress/grep';
+import { register as registerCypressGrep } from '@cypress/grep';
 import { Settings } from 'luxon';
 
 registerCypressGrep();
