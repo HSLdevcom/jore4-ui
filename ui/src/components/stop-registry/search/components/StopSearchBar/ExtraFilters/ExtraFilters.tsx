@@ -41,7 +41,10 @@ export const ExtraFilters: FC<ExtraFiltersProps> = ({
             notForStops={notForStops}
           />
 
-          <MetaFilters className="xl:w-1/3" notForStops={notForStops} />
+          <MetaFilters
+            className="sm:w-full xl:w-1/3"
+            notForStops={notForStops}
+          />
         </Row>
       </div>
 
