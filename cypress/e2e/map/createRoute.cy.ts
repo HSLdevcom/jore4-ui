@@ -97,8 +97,8 @@ describe('Route creation', () => {
           swedishShortName: 'Test destination SWE shortName',
         },
         priority: Priority.Standard,
-        validityStartISODate: '2022-01-01',
-        validityEndISODate: '2025-12-01',
+        validityStartISODate: '2025-01-01',
+        validityEndISODate: '2030-12-01',
       });
 
       mapPage.editRouteModal.save();
@@ -185,8 +185,8 @@ describe('Route creation', () => {
           swedishShortName: 'Test destination SWE shortName',
         },
         priority: Priority.Standard,
-        validityStartISODate: '2022-01-01',
-        validityEndISODate: '2025-12-01',
+        validityStartISODate: '2025-01-01',
+        validityEndISODate: '2030-12-01',
       });
 
       mapPage.editRouteModal.save();
@@ -226,8 +226,8 @@ describe('Route creation', () => {
           swedishShortName: 'Test destination SWE shortName',
         },
         priority: Priority.Standard,
-        validityStartISODate: '2022-01-01',
-        validityEndISODate: '2025-12-01',
+        validityStartISODate: '2025-01-01',
+        validityEndISODate: '2030-12-01',
       });
 
       mapPage.editRouteModal.save();
