@@ -38,9 +38,9 @@ type StopPropertyFilterProps = {
 // In +xl size: Mode 1/3 width, Prio auto width, Municipality gets minimized to
 // the remaining size.
 
-const smBasis = 'sm:basis-[calc((100%-1rem)/2)]'; // 2 cols, 1 gap
-const mdBasis = 'md:basis-[calc((100%-2rem)/3)]'; // 3 cols, 2 gaps
-const lgBasis = 'lg:basis-[calc((100%-3rem)/4)]'; // 4 cols, 3 gaps
+export const smBasis = 'sm:basis-[calc((100%-1rem)/2)]'; // 2 cols, 1 gap
+export const mdBasis = 'md:basis-[calc((100%-2rem)/3)]'; // 3 cols, 2 gaps
+export const lgBasis = 'lg:basis-[calc((100%-3rem)/4)]'; // 4 cols, 3 gaps
 const xlBasis = 'xl:basis-[calc((100%-2rem)/3)]'; // 3 cols, 2 gaps
 
 const genericFilterSizing = twJoin(smBasis, mdBasis, lgBasis, xlBasis);
