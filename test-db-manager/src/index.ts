@@ -8,3 +8,8 @@ export * from './graphql-helpers';
 export * from './hasuraApi';
 export * from './queries';
 export * from './types';
+
+// CLI commands
+export * from './seedStopRegistry';
+export * from './seedStopRegistryTerminals';
+export * from './seedTimetables';

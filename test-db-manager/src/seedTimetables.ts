@@ -6,27 +6,18 @@ import {
   buildVehicleScheduleFrameDeep,
   defaultVehicleServiceByDayTypeParams,
 } from './builders/timetables';
+import { MON_FRI_DAY_TYPE, SAT_DAY_TYPE, SUN_DAY_TYPE } from './datasets';
 import {
-  MON_FRI_DAY_TYPE,
-  SAT_DAY_TYPE,
-  SUN_DAY_TYPE,
-} from './datasets/timetables';
-import {
-  TimetablesResources,
   flattenJourneyPatternRef,
   flattenVehicleScheduleFrame,
   mergeTimetablesResources,
   populateTimetablesDb,
 } from './db-helpers';
 import { TimetablesRouteDirectionEnum } from './generated/graphql';
-import { getVehicleTypes } from './queries/timetables';
+import { getVehicleTypes } from './queries';
 import { Priority } from './types';
 
-const seedTimetables = async (resources: TimetablesResources) => {
-  await populateTimetablesDb(resources);
-};
-
-const seedDb = async () => {
+export const seedTimetables = async () => {
   const stopLabels = buildLabelArray('H22', 10);
   const hastusStopLabels = [stopLabels[0], stopLabels[4], stopLabels[9]];
   const vehicleTypesResult = await getVehicleTypes();
@@ -140,7 +131,5 @@ const seedDb = async () => {
     flattenVehicleScheduleFrame(vsf4),
   ]);
 
-  await seedTimetables(timetablesResources);
+  await populateTimetablesDb(timetablesResources);
 };
-
-seedDb();
