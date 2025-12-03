@@ -3,6 +3,13 @@ services:
     build:
       context: ".."
 
+  jore4-auth:
+    # Manually overwrite the https return address for auth so that it works when running without a proxy locally
+    environment:
+      LOGINPAGE_URL: "http://localhost:3300"
+      LOGOUTPAGE_URL: "http://localhost:3300"
+      SELF_PUBLIC_BASE_URL: "http://localhost:3300"
+
   jore4-hasura:
     # locking hasura image so that we can develop the UI against a static graphql API
     # Link to available jore4-hasura imags in Docker Hub:
