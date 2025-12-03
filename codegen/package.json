@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "generate": "graphql-codegen --config ./codegen.js",
-    "ts:check": "echo No need to check syntax of generated TS && exit 0"
+    "ts:check": "yarn tsc --noEmit"
   },
   "dependencies": {
     "@babel/core": "^7.28.3",
