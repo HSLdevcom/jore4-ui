@@ -1,6 +1,5 @@
 import padStart from 'lodash/padStart';
 import range from 'lodash/range';
-import { v4 as uuid } from 'uuid';
 import { StopInJourneyPatternRefInsertInput } from '../../types';
 import { expectValue } from '../../utils';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
@@ -19,7 +18,7 @@ const buildLabels = ({
 };
 
 const buildStopInJourneyPatternRef = ({
-  id = uuid(),
+  id = crypto.randomUUID(),
   journeyPatternRefId,
   label,
   sequenceNumber,

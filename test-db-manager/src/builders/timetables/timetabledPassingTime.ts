@@ -1,5 +1,4 @@
 import { Duration } from 'luxon';
-import { v4 as uuid } from 'uuid';
 import {
   PartialKeys,
   RequiredKeysOnly,
@@ -31,7 +30,7 @@ export const buildTimetabledPassingTimeInstance = (
   stopInJourneyPatternRefId: UUID,
   timetabledPassingTimeBase: TimetabledPassingTimeInstanceBuilder,
 ): TimetabledPassingTimeInsertInput => ({
-  timetabled_passing_time_id: uuid(),
+  timetabled_passing_time_id: crypto.randomUUID(),
   ...timetabledPassingTimeBase,
   vehicle_journey_id: vehicleJourneyId,
   scheduled_stop_point_in_journey_pattern_ref_id: stopInJourneyPatternRefId,

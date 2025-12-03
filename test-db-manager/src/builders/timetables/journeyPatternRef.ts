@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import { v4 as uuid } from 'uuid';
 import {
   JourneyPatternRefInsertInput,
   JourneyPatternRefInsertInputDeep,
@@ -16,7 +15,7 @@ export const buildJourneyPatternRefInstance = (
   journeyPatternId: UUID,
   journeyPatternRefBase: JourneyPatternRefInstanceBuilder,
 ): JourneyPatternRefInsertInput => ({
-  journey_pattern_ref_id: uuid(),
+  journey_pattern_ref_id: crypto.randomUUID(),
   observation_timestamp: DateTime.fromISO('2023-01-01'),
   snapshot_timestamp: DateTime.fromISO('2022-12-01'),
   ...journeyPatternRefBase,

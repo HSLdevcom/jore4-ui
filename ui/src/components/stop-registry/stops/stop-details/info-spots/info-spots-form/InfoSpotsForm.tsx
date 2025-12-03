@@ -96,9 +96,7 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
       lines: '',
       toBeDeletedPoster: false,
       // Random unique ID for new posters as it is used as key, it is not sent to the backend
-      id: window.crypto.randomUUID
-        ? window.crypto.randomUUID()
-        : Math.random().toString(16).slice(2),
+      id: crypto.randomUUID(),
     };
 
     setValue(`infoSpots.${infoSpotIndex}.poster`, [

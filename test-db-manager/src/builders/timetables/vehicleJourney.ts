@@ -1,5 +1,4 @@
 import { Duration } from 'luxon';
-import { v4 as uuid } from 'uuid';
 import {
   JourneyPatternRefInsertInputDeep,
   JourneyType,
@@ -33,7 +32,7 @@ export const buildVehicleJourneyInstance = (
   journeyPatternRefId: UUID,
   vehicleJourneyBase: VehicleJourneyInstanceBuilder,
 ): VehicleJourneyInsertInput => ({
-  vehicle_journey_id: uuid(),
+  vehicle_journey_id: crypto.randomUUID(),
   contract_number: 'DEFAULT_CONTRACT',
   journey_type: JourneyType.Standard,
   is_backup_journey: false,

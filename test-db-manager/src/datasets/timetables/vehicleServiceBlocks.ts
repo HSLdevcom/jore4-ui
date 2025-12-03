@@ -1,9 +1,8 @@
-import { v4 as uuid } from 'uuid';
 import { VehicleServiceBlockInsertInput } from '../../types';
 import { seedVehicleServicesByName } from './vehicleServices';
 
 const buildVehicleServiceBlock = ({
-  blockId = uuid(),
+  blockId = crypto.randomUUID(),
   vehicleServiceId,
 }: {
   blockId?: UUID;

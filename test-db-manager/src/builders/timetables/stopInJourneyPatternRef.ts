@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import {
   PartialKeys,
   RequiredKeysOnly,
@@ -13,7 +12,7 @@ export const buildStopInJourneyPatternRefInstance = (
   journeyPatternRefId: UUID,
   stopBase: StopInJourneyPatternInstanceBuilder,
 ): StopInJourneyPatternRefInsertInput => ({
-  scheduled_stop_point_in_journey_pattern_ref_id: uuid(),
+  scheduled_stop_point_in_journey_pattern_ref_id: crypto.randomUUID(),
   ...stopBase,
   journey_pattern_ref_id: journeyPatternRefId,
 });

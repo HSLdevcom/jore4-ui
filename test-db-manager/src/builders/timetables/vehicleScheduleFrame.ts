@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import {
   RequiredKeys,
   VehicleScheduleFrameInsertInput,
@@ -19,7 +18,7 @@ export type VehicleScheduleFrameInstanceBuilder = RequiredKeys<
 export const buildVehicleScheduleFrameInstance = (
   vehicleScheduleFrameBase: VehicleScheduleFrameInstanceBuilder,
 ): VehicleScheduleFrameInsertInput => ({
-  vehicle_schedule_frame_id: uuid(),
+  vehicle_schedule_frame_id: crypto.randomUUID(),
   ...vehicleScheduleFrameBase,
   name_i18n: buildLocalizedString(expectValue(vehicleScheduleFrameBase.label)),
 });

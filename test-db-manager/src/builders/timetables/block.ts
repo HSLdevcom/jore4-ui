@@ -1,5 +1,4 @@
 import { Duration } from 'luxon';
-import { v4 as uuid } from 'uuid';
 import {
   BlockInsertInputDeep,
   VehicleServiceBlockInsertInput,
@@ -20,7 +19,7 @@ export const buildBlock = (
   vehicleServiceId: UUID,
   blockBase: BlockInstanceBuilder,
 ): VehicleServiceBlockInsertInput => ({
-  block_id: uuid(),
+  block_id: crypto.randomUUID(),
   ...blockBase,
   vehicle_service_id: vehicleServiceId,
 });

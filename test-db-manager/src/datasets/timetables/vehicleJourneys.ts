@@ -1,5 +1,4 @@
 import times from 'lodash/times';
-import { v4 as uuid } from 'uuid';
 import { JourneyType, VehicleJourneyInsertInput } from '../../types';
 import { expectValue } from '../../utils';
 import { seedJourneyPatternRefs } from './journeyPatternRefs';
@@ -47,11 +46,13 @@ const buildVehicleJourney = ({
 
 export const seedVehicleJourneys: VehicleJourneyInsertInput[] = [
   // Journeys 1-20, all belong to same journey pattern and service block (Vehicle 1 Mon-Fri)
-  ...times(20, () => buildVehicleJourney({ vehicleJourneyId: uuid() })),
+  ...times(20, () =>
+    buildVehicleJourney({ vehicleJourneyId: crypto.randomUUID() }),
+  ),
   // Journeys 21-25, opposite direction (Vehicle 1 Mon-Fri)
   ...times(5, () =>
     buildVehicleJourney({
-      vehicleJourneyId: uuid(),
+      vehicleJourneyId: crypto.randomUUID(),
       journeyPatternRefId: expectValue(
         seedJourneyPatternRefs[1].journey_pattern_ref_id,
       ),
@@ -59,20 +60,26 @@ export const seedVehicleJourneys: VehicleJourneyInsertInput[] = [
   ),
   // Journeys 26-29, all belong to same journey pattern and service block (Vehicle 1 Sat)
   ...times(4, () =>
-    buildVehicleJourney({ vehicleJourneyId: uuid(), blockId: satBlockId }),
+    buildVehicleJourney({
+      vehicleJourneyId: crypto.randomUUID(),
+      blockId: satBlockId,
+    }),
   ),
   // journey 30, belongs to service block (Vehicle 1 Sun)
-  buildVehicleJourney({ vehicleJourneyId: uuid(), blockId: sunBlockId }),
+  buildVehicleJourney({
+    vehicleJourneyId: crypto.randomUUID(),
+    blockId: sunBlockId,
+  }),
   // journeys 31-40 (Vehicle 1 Mon-Fri December 2023, special priority)
   ...times(10, () =>
     buildVehicleJourney({
-      vehicleJourneyId: uuid(),
+      vehicleJourneyId: crypto.randomUUID(),
       blockId: decBlockId,
     }),
   ),
   // Journey 41: for hidden variant Mon-Fri block.
   buildVehicleJourney({
-    vehicleJourneyId: uuid(),
+    vehicleJourneyId: crypto.randomUUID(),
     journeyPatternRefId: expectValue(
       seedJourneyPatternRefs[2].journey_pattern_ref_id,
     ),

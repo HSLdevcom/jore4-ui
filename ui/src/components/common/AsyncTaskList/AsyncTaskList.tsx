@@ -35,41 +35,11 @@ export function useAsyncTasks() {
   return useContext(AsyncTaskListContext).tasks;
 }
 
-/**
- * Generates a V7 type UUID with not so good random bits.
- */
-function fallbackUUID() {
-  const timestampHex = BigInt(Date.now()).toString(16).padStart(12, '0');
-  const timestampHead = timestampHex.substring(0, 8);
-  const timestampTail = timestampHex.substring(8, 12);
-
-  const randomIntString = Math.random().toString().replace('0.', '');
-  const randomHex = BigInt(randomIntString)
-    .toString(16)
-    .padStart(12)
-    .substring(0, 12);
-
-  return `${timestampHead}-${timestampTail}-7000-8000-${randomHex}`;
-}
-
-/**
- * Get V4 UUID, if on local host or on HTTPS connection.
- * Falls back on custom V7 generator on HTTP connection,
- * such as when running Cypress tests in Github.
- */
-function genId() {
-  if (window.crypto.randomUUID) {
-    return window.crypto.randomUUID();
-  }
-
-  return fallbackUUID();
-}
-
 export const AsyncTaskListProvider: FC<PropsWithChildren> = ({ children }) => {
   const [tasks, setTasks] = useState<ReadonlyArray<Task>>([]);
 
   const registerTask = useCallback((register: RegisterTask) => {
-    const id = genId();
+    const id = crypto.randomUUID();
 
     const onProgress: OnProgress = (progress) => {
       setTasks((existingTaskStates) => {

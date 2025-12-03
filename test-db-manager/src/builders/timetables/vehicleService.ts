@@ -1,5 +1,4 @@
 import { Duration } from 'luxon';
-import { v4 as uuid } from 'uuid';
 import { DayTypeId } from '../../datasets';
 import {
   VehicleServiceInsertInput,
@@ -24,7 +23,7 @@ export const buildVehicleServiceInstance = (
   dayTypeId: DayTypeId,
   vehicleServiceBase: VehicleServiceInstanceBuilder,
 ): VehicleServiceInsertInput => ({
-  vehicle_service_id: uuid(),
+  vehicle_service_id: crypto.randomUUID(),
   ...vehicleServiceBase,
   vehicle_schedule_frame_id: vehicleScheduleFrameId,
   day_type_id: dayTypeId,
