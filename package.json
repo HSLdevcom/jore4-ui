@@ -4,7 +4,7 @@
   "private": true,
   "license": "EUPL-1.2",
   "engines": {
-    "node": ">=23.9.0",
+    "node": ">=24",
     "yarn": "1.x"
   },
   "scripts": {
