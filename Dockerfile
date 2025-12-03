@@ -1,7 +1,7 @@
 FROM node:24-alpine3.21 AS build
 RUN apk update && apk add curl
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock tsconfig.json ./
 COPY ./ui/package.json ./ui/
 COPY ./test-db-manager/package.json ./test-db-manager/
 RUN yarn install --frozen-lockfile

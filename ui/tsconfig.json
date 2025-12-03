@@ -1,22 +1,12 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
+    "composite": true,
+    "rootDir": "./",
+
     "target": "ES2024",
     "lib": ["dom", "dom.iterable", "ESNext"],
     "types": ["@testing-library/jest-dom"],
-    "allowJs": false,
-    "noEmit": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true
   },

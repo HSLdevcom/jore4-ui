@@ -1,17 +1,13 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "noEmit": true,
+    "composite": true,
+    "rootDir": "./",
+
+    "lib": ["dom", "dom.iterable", "ESNext"],
     // be explicit about types included
     // to avoid clashing with Jest types
-    "types": ["cypress", "./support", "@cypress/grep"],
-    "allowJs": false,
-    "strict": true,
-    "strictNullChecks": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true
+    "types": ["cypress", "./support", "@cypress/grep"]
   },
   "include": ["./**/*.ts", "./**/*.tsx"]
 }
