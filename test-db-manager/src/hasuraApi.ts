@@ -1,4 +1,3 @@
-import fetch from 'cross-fetch';
 import { DocumentNode } from 'graphql';
 import { getGqlString } from './builders/mutations/utils';
 
