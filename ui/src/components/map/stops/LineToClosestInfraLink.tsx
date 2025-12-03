@@ -1,7 +1,6 @@
 import type { LineString } from 'geojson';
 import { FC } from 'react';
-import { MapInstance } from 'react-map-gl/dist/maplibre';
-import { useMap } from 'react-map-gl/maplibre';
+import { MapInstance, useMap } from 'react-map-gl/maplibre';
 import { Point } from '../../../types';
 import { findNearestPointOnARoad } from '../../../utils/map';
 import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoForEditingOnMap';

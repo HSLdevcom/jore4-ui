@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import groupBy from 'lodash/groupBy';
-import { DateTime } from 'luxon/src/datetime';
+import { DateTime } from 'luxon';
 import {
   RouteDirectionEnum,
   VehicleJourneyWithStartTimeInfoFragment,
