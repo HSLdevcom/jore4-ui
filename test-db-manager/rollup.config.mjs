@@ -3,16 +3,16 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import { dts } from 'rollup-plugin-dts';
 
-const commonPlugins = [
-  nodeResolve({ exportConditions: ['node'] }),
-  commonjs({
-    include: ['./index.js', /node_modules/],
-  }),
-  typescript({
-    tsconfig: './tsconfig.json',
-    compilerOptions: { declarationDir: './types' },
-  }),
-];
+const resolveNodeModulesPlugin = nodeResolve({ exportConditions: ['node'] });
+const commonJsPlugin = commonjs({
+  include: ['./index.js', /node_modules/],
+});
+const tsPlugin = typescript({
+  tsconfig: './tsconfig.json',
+  compilerOptions: { declarationDir: './types' },
+});
+
+const commonPlugins = [resolveNodeModulesPlugin, commonJsPlugin, tsPlugin];
 
 // Mark node modules as externals. Needed for knex's optional drivers.
 const commonExternals = [/node_modules/];
@@ -94,7 +94,7 @@ const config = [
       { file: './ts-dist/CypressSpecExports.js', format: 'es' },
       { file: 'dist/CypressSpecExports.js', format: 'cjs' },
     ],
-    plugins: commonPlugins,
+    plugins: [nodeResolve({ browser: true }), commonJsPlugin, tsPlugin],
   },
   {
     input: './src/CypressSpecExports.ts',
