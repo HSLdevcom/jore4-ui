@@ -1,5 +1,4 @@
-FROM node:24-alpine3.21 AS build
-RUN apk update && apk add curl
+FROM node:24-alpine3.22 AS build
 WORKDIR /app
 COPY package.json yarn.lock tsconfig.json ./
 COPY ./ui/package.json ./ui/
