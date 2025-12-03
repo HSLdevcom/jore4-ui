@@ -29,4 +29,6 @@ jobs:
         run: yarn ws:db build
 
       - name: Run integration tests
+        env:
+          HASURA_URL: 'https://e2e.local.jore.hsldev.com/api/graphql/v1/graphql'
         run: yarn test:integration

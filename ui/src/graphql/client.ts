@@ -96,7 +96,9 @@ function getGraphqlUrl(
   const path = '/api/graphql/v1/graphql';
 
   if (isTesting) {
-    return `http://127.0.0.1:3300${path}`;
+    // In CI or when HASURA_URL is set, use it directly
+    // Otherwise default to UI proxy for local development
+    return process.env.HASURA_URL ?? `http://127.0.0.1:3300${path}`;
   }
 
   if (isWebsocket) {
