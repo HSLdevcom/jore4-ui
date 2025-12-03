@@ -5,7 +5,7 @@ services:
     container_name: cypress
     restart: unless-stopped
     environment:
-      CYPRESS_BASE_URL: http://jore4-proxy:80
+      CYPRESS_BASE_URL: https://e2e.local.jore.hsldev.com:443
       CYPRESS_DISABLE_MAP_TILES: 'true'
       HASURA_API_URL: http://jore4-hasura:8080/v1/graphql
       POSTGRES_HOST: jore4-testdb
