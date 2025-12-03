@@ -1,8 +1,4 @@
-import { ApolloLink, useQuery } from '@apollo/client';
-import { OperationVariables } from '@apollo/client/core';
-import { QueryHookOptions } from '@apollo/client/react/types/types';
-import { TypedDocumentNode } from '@graphql-typed-document-node/core';
-import { DocumentNode } from 'graphql';
+import { ApolloLink } from '@apollo/client';
 
 export const REQUESTED_HASURA_ROLE_HEADER = 'x-hasura-role';
 
@@ -30,14 +26,3 @@ export const authRoleMiddleware = new ApolloLink((operation, forward) => {
 
   return forward(operation);
 });
-
-export function useQueryWithRole<T>(
-  query: DocumentNode | TypedDocumentNode<T, OperationVariables>,
-  role: Role,
-  options?: QueryHookOptions<T>,
-) {
-  return useQuery(query, {
-    ...options,
-    variables: { ...options?.variables, role },
-  });
-}
