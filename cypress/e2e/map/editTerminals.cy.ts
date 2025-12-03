@@ -1,7 +1,7 @@
 import {
   StopRegistryGeoJsonType,
   TerminalInput,
-} from '@hsl/jore4-test-db-manager';
+} from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import {
   buildInfraLinksAlongRoute,
   buildStopsOnInfraLinks,

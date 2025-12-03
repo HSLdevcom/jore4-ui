@@ -1,6 +1,6 @@
-import { StopInsertInput } from '@hsl/jore4-test-db-manager';
 import {
   ReusableComponentsVehicleModeEnum,
+  StopInsertInput,
   StopRegistryGeoJsonType,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
 import {
