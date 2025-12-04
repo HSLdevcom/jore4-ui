@@ -24,7 +24,7 @@ export const SelectRowTd: FC<SelectRowTdProps> = ({
         checked={isSelected}
         className="h-7 w-7 accent-tweaked-brand"
         data-testid={testIds.selectInput}
-        onChange={() => onToggleSelection(stop.id)}
+        onChange={() => onToggleSelection(stop.netexId)}
         type="checkbox"
       />
     </td>

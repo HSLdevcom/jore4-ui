@@ -15,7 +15,9 @@ import {
   UrlStateDeserializers,
   UrlStateSerializers,
   parsePriorities,
+  parseQuayNetexIdList,
   serializeArray,
+  serializeQuayNetexIdList,
   serializeUrlSearchState,
   splitString,
   toEnum,
@@ -64,8 +66,8 @@ const displayedRouteParamSerializers: UrlStateSerializers<DisplayedRouteParams> 
 
 const resultSelectionSerializers: UrlStateSerializers<ResultSelection> = {
   selectionState: (it) => it,
-  excluded: serializeArray,
-  included: serializeArray,
+  excluded: serializeQuayNetexIdList,
+  included: serializeQuayNetexIdList,
 };
 
 const viewPortParamSerializers: UrlStateSerializers<ViewPortParams> = {
@@ -115,8 +117,8 @@ const displayedRouteParamDeserializers: UrlStateDeserializers<DisplayedRoutePara
 
 const resultSelectionDeserializers: UrlStateDeserializers<ResultSelection> = {
   selectionState: toEnum(selectionStateValues),
-  excluded: splitString,
-  included: splitString,
+  excluded: parseQuayNetexIdList,
+  included: parseQuayNetexIdList,
 };
 
 const viewPortParamDeserializers: UrlStateDeserializers<ViewPortParams> = {

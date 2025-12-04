@@ -111,11 +111,11 @@ export const SelectableStopSearchResultStopsTable: FC<
     }
 
     if (selection.included.length) {
-      return selection.included.includes(stop.id);
+      return selection.included.includes(stop.netexId);
     }
 
     if (selection.excluded.length) {
-      return !selection.excluded.includes(stop.id);
+      return !selection.excluded.includes(stop.netexId);
     }
 
     return false;

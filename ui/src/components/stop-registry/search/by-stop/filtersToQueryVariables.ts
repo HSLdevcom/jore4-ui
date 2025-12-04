@@ -312,11 +312,11 @@ export function filtersAndResultSelectionToQueryVariables(
     return buildSearchStopsGqlQueryVariables(
       filters,
       {
-        _not: { id: { _in: excluded } },
+        _not: { netex_id: { _in: excluded } },
       },
       ...extraConditions,
     );
   }
 
-  return { _and: [{ id: { _in: included } }, ...extraConditions] };
+  return { _and: [{ netex_id: { _in: included } }, ...extraConditions] };
 }

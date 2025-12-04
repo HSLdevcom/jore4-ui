@@ -46,7 +46,7 @@ export const StopsTable: FC<StopsTableProps> = ({
 
   const { error, loading, refetch, stops } = useGetStopResultById(stopPlace.id);
 
-  const stopIds = useMemo(() => stops.map((stop) => stop.id), [stops]);
+  const stopIds = useMemo(() => stops.map((stop) => stop.netexId), [stops]);
 
   useEffect(() => {
     onRegisterNewGroup(stopPlace.id, stopIds);

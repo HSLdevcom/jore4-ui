@@ -1,5 +1,6 @@
 import { knownPriorityValues } from '../../../../types/enums';
 
+const quayNetexPrefix = 'HSL:Quay:';
 export const SEPARATOR = ',';
 
 export function serializeArray<ValueT>(values: ReadonlyArray<ValueT>): string {
@@ -46,4 +47,22 @@ const toPriority = toEnum(knownPriorityValues);
 
 export function parsePriorities(value: string) {
   return splitString(value).map(Number).map(toPriority);
+}
+
+/**
+ * Strip the common 'HSL:Quay:' prefix away from the ids, to save bytes available
+ * for the URL.
+ *
+ * @param value list of ids
+ */
+export function serializeQuayNetexIdList(value: ReadonlyArray<string>) {
+  return value.map((id) => id.replace(quayNetexPrefix, '')).join(SEPARATOR);
+}
+/**
+ * Add back the stripped 'HSL:Quay:' prefix back onto the ids.
+ *
+ * @param value list of ids
+ */
+export function parseQuayNetexIdList(value: string): ReadonlyArray<string> {
+  return splitString(value).map((id) => `${quayNetexPrefix}${id}`);
 }
