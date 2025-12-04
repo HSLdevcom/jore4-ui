@@ -551,7 +551,7 @@ describe('Stop Versions Page', () => {
         .getObservationDateInput()
         .should('have.attr', 'value', '2020-03-20');
 
-      stopPopUp.getLabel().shouldHaveText('Pysäkki E2E001');
+      stopPopUp.getLabel().shouldHaveText('E2E001 Annankatu 15');
     });
 
     it('should have working map link in action menu', () => {
@@ -571,7 +571,7 @@ describe('Stop Versions Page', () => {
         .getObservationDateInput()
         .should('have.attr', 'value', '2020-03-20');
 
-      stopPopUp.getLabel().shouldHaveText('Pysäkki E2E001');
+      stopPopUp.getLabel().shouldHaveText('E2E001 Annankatu 15');
     });
 
     it('should have working show details action menu', () => {
