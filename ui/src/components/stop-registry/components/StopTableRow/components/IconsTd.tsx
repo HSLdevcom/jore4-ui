@@ -26,7 +26,7 @@ const EquipmentIcon: FC<EquipmentIconProps> = ({ className, ariaLabel }) => (
   />
 );
 
-const PLACEHOLDER_ICON_CLASS = 'icon-placeholder-icon text-light-grey';
+const PLACEHOLDER_ICON_CLASS = 'icon-placeholder-dot text-light-grey';
 
 const ELECTRICITY_ICON_MAP: Record<
   StopRegistryShelterElectricity,

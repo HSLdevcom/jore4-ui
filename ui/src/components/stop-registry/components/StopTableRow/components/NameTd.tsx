@@ -5,7 +5,7 @@ import { StopRowTdProps } from '../types';
 export const NameTd: FC<StopRowTdProps> = ({ className, stop }) => (
   <td className={className}>
     <Row className="gap-3">
-      <Column className="w-8 border-r border-background pt-1 text-base font-bold">
+      <Column className="w-8 border-r border-background text-base font-bold">
         {stop.platformNumber}
       </Column>
       <Column>

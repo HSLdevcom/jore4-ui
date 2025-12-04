@@ -227,6 +227,7 @@ function mapSingleTiamatStopAreaQuayToStopSearchRow<
 
     publicCode: requireValue(quay.publicCode),
     location: validateLocation(quay.geometry),
+    description: quay.description?.value ?? null,
 
     validityStart: requireValue(
       findKeyValueParsed(quay, 'validityStart', parseDate),

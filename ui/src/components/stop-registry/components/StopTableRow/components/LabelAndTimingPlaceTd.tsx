@@ -22,7 +22,7 @@ export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
   const { t } = useTranslation();
   return (
     <td className={className}>
-      <Row className="mb-2 items-center font-bold leading-none">
+      <Row className="items-center font-bold leading-none">
         <Link
           to={routeDetails[Path.stopDetails].getLink(stop.publicCode, {
             observationDate,
@@ -36,14 +36,16 @@ export const LabelAndTimingPlaceTd: FC<LabelAndTimingPlaceTdProps> = ({
           <h2>{stop.publicCode}</h2>
         </Link>
       </Row>
-      <Row className="items-center">
-        <span
-          className="h-4 text-sm leading-none"
-          title={t('accessibility:stops.timingPlace')}
-        >
-          {stop.timingPlace?.label}
-        </span>
-      </Row>
+      {stop.timingPlace && (
+        <Row className="mt-2 items-center">
+          <span
+            className="h-4 text-sm leading-none"
+            title={t('accessibility:stops.timingPlace')}
+          >
+            {stop.timingPlace?.label}
+          </span>
+        </Row>
+      )}
     </td>
   );
 };
