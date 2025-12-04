@@ -31,7 +31,7 @@ export const StopSearchByStopResults: FC = () => {
 
   const { onToggleSelection, onToggleSelectAll } = useResultSelection({
     resultCount,
-    stopIds: useMemo(() => stops.map((stop) => stop.id), [stops]),
+    stopIds: useMemo(() => stops.map((stop) => stop.netexId), [stops]),
     setHistoryState,
   });
 
