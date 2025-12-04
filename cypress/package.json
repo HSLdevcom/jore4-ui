@@ -9,8 +9,8 @@
     "ts:check": "yarn tsc --noEmit",
     "ts:build": "yarn tsc --build",
     "qa": "yarn --frozen-lockfile && yarn ts:check && yarn prettier:check",
-    "cy:run": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress run --browser chrome",
-    "cy:run:video": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress run --browser chrome --config-file ./cypress.config.video.ts"
+    "cy:run": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress run --browser chrome-for-testing",
+    "cy:run:video": "CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-http://localhost:3300} cypress run --browser chrome-for-testing --config-file ./cypress.config.video.ts"
   },
   "dependencies": {
     "@4tw/cypress-drag-drop": "^2.3.1",
