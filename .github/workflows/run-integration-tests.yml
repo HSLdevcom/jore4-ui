@@ -3,6 +3,9 @@ name: Run integration tests
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   run_integration_tests:
     name: Run ui's integration tests against Docker Compose environment
@@ -10,11 +13,11 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '24.x'
           cache: 'yarn'

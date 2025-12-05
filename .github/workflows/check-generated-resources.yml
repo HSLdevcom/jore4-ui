@@ -3,6 +3,9 @@ name: Check generated resources
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   check_generated_graphql_schema:
     name: Check if the generated GraphQL schema is up to date
@@ -10,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
 
@@ -19,7 +22,7 @@ jobs:
         with:
           custom_docker_compose: ./docker/docker-compose.custom.yml
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '24.x'
           cache: 'yarn'

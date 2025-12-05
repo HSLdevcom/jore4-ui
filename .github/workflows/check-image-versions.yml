@@ -3,6 +3,9 @@ name: Check image versions
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   check_image_versions:
     name: Check if the image versions match in custom and e2e docker compose files.
@@ -10,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
 
