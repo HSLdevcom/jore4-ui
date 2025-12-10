@@ -121,6 +121,7 @@ function mapFormStateToQuayInput(state: StopFormState): StopRegistryQuayInput {
       },
     ],
     keyValues: mapFormStateToQuayKeyValues(state),
+    versionComment: state.reasonForChange !== '' ? state.reasonForChange : null,
   };
 }
 
@@ -224,15 +225,15 @@ function getLocationPatch(
   return {};
 }
 
-function getVersionNamePatch(
-  { versionName }: DirtyFields,
+function getReasonForChangePatch(
+  { reasonForChange }: DirtyFields,
   formState: StopFormState,
 ): StopRegistryQuayInput {
-  if (versionName) {
-    return { versionComment: formState.versionName };
+  if (reasonForChange && formState.reasonForChange !== '') {
+    return { versionComment: formState.reasonForChange };
   }
 
-  return {};
+  return { versionComment: null };
 }
 
 function pickChangedFieldsForQuayPatch(
@@ -243,7 +244,7 @@ function pickChangedFieldsForQuayPatch(
     ...getGeometryPatch(dirtyFields, formState),
     ...getKeyValuesPatch(dirtyFields, formState),
     ...getLocationPatch(dirtyFields, formState),
-    ...getVersionNamePatch(dirtyFields, formState),
+    ...getReasonForChangePatch(dirtyFields, formState),
   };
 }
 

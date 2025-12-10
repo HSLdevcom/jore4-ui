@@ -25,7 +25,6 @@ const GQL_GET_STOP_INFO_FOR_EDITING_ON_MAP = gql`
         netexId: netex_id
 
         label: public_code
-        versionName: version_comment
 
         centroid
 
@@ -139,8 +138,7 @@ function parseResult(
     locationFin: findName(locationNames, 'OTHER', 'fin'),
     locationSwe: findName(locationNames, 'OTHER', 'swe'),
 
-    versionName: rawQuay.versionName,
-    versionDescription: '',
+    reasonForChange: null, // We don't want to pre fill the previous version comment
 
     timingPlaceId: timingPlaceInfo?.id ?? null,
 

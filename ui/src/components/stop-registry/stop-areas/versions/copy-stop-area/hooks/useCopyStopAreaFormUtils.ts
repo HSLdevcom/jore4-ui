@@ -36,8 +36,7 @@ function useDefaultValues(): StopAreaVersionFormState {
       indefinite: false,
       validityStart: mapToISODate(observationDate),
       validityEnd: '',
-      versionDescription: '',
-      versionName: '',
+      reasonForChange: null,
     };
   }, [observationDate]);
 }

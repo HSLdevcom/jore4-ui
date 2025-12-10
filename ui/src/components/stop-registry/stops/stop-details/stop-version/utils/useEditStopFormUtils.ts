@@ -37,8 +37,7 @@ function useDefaultValues(
       indefinite: originalStop.validity_end === null,
       validityStart: validityStart?.toISODate() ?? '',
       validityEnd: validityEnd?.toISODate() ?? '',
-      versionDescription: '',
-      versionName: '',
+      reasonForChange: null,
     };
   }, [originalStop]);
 }
@@ -198,10 +197,10 @@ export const useEditStopFormUtils = (
       editStopValidityAndPriority(
         originalStop.stop_place_ref,
         state.priority,
-        state.versionName,
         state.validityStart,
         state.validityEnd,
         state.indefinite,
+        state.reasonForChange,
       )
         .then(handleSuccess)
         .catch(handleError);
@@ -232,10 +231,10 @@ export const useEditStopFormUtils = (
           await editStopValidityAndPriority(
             versionToCut.stop_place_ref,
             versionToCut.priority,
-            state.versionName,
             cutDates.newVersion.start.toISODate(),
             cutDates.newVersion.end?.toISODate(),
             cutDates.newVersion.indefinite,
+            state.reasonForChange,
           );
         }
 
@@ -260,10 +259,10 @@ export const useEditStopFormUtils = (
     await editStopValidityAndPriority(
       originalStop.stop_place_ref,
       state.priority,
-      state.versionName,
       state.validityStart,
       state.validityEnd,
       state.indefinite,
+      state.reasonForChange,
     )
       .then(handleSuccess)
       .catch(handleError);

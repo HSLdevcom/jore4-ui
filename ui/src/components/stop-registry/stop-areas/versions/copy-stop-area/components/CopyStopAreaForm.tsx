@@ -7,20 +7,15 @@ import { EnrichedStopPlace } from '../../../../../../types';
 import { SimpleButton } from '../../../../../../uiComponents';
 import {
   FormRow,
-  InputField,
+  ReasonForChangeForm,
   ValidityPeriodForm,
 } from '../../../../../forms/common';
-import {
-  CopyStopAreaSuccessResult,
-  StopAreaVersionFormState,
-} from '../../types';
+import { CopyStopAreaSuccessResult } from '../../types';
 import { useCopyStopAreaFormUtils } from '../hooks';
 import { CopyStopAreaCutConfirmationModal } from './CopyStopAreaCutConfirmationModal';
 
 const testIds = {
   form: 'CopyStopAreaForm::form',
-  versionName: 'CopyStopAreaForm::versionName',
-  versionDescription: 'CopyStopAreaForm::versionDescription',
   submitButton: 'CopyStopAreaForm::submitButton',
   cancelButton: 'CopyStopAreaForm::cancelButton',
 };
@@ -57,24 +52,7 @@ export const CopyStopAreaForm: FC<CopyStopAreaFormProps> = ({
         data-testid={testIds.form}
       >
         <FormRow>
-          <InputField<StopAreaVersionFormState>
-            type="text"
-            translationPrefix="stopDetails.version.fields"
-            fieldPath="versionName"
-            testId={testIds.versionName}
-          />
-        </FormRow>
-        <FormRow>
-          <InputField<StopAreaVersionFormState>
-            type="text"
-            translationPrefix="stopDetails.version.fields"
-            fieldPath="versionDescription"
-            testId={testIds.versionDescription}
-            disabled
-            title={t(
-              'stopDetails.version.fields.versionDescriptionNotImplementedYetTitle',
-            )}
-          />
+          <ReasonForChangeForm />
         </FormRow>
 
         <FormRow>

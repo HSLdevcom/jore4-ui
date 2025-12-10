@@ -22,8 +22,7 @@ function useDefaultValues(
       indefinite: !originalTerminal.validityEnd,
       validityStart: originalTerminal.validityStart ?? '',
       validityEnd: originalTerminal.validityEnd,
-      versionDescription: '',
-      versionName: '',
+      reasonForChange: null,
     };
   }, [originalTerminal]);
 }

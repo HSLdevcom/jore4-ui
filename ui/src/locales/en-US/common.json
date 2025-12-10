@@ -545,9 +545,6 @@
         "cutTitle": "Overlapping version"
       },
       "fields": {
-        "versionName": "Version name",
-        "versionDescription": "Reason for change",
-        "versionDescriptionNotImplementedYetTitle": "This field has not yet been implemented in this Jore test version!",
         "affectedLines": "Note the effects on the following routes:"
       },
       "cutModal": {
@@ -691,11 +688,6 @@
     "version": {
       "title": {
         "edit": "Edit validity"
-      },
-      "fields": {
-        "versionName": "Version name",
-        "versionDescription": "Reason for change",
-        "versionDescriptionNotImplementedYetTitle": "This field has not yet been implemented in this Jore test version!"
       },
       "success": {
         "edit": "Validity edited"
@@ -957,6 +949,10 @@
   "validityPeriod": {
     "validityStart": "Starts",
     "validityEnd": "Ends"
+  },
+  "reasonForChangeForm": {
+    "reasonForChange": "Reason for change",
+    "characterLimit": "Character limit reached"
   },
   "vehicleModeEnum": {
     "bus": "Bus",

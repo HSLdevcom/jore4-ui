@@ -244,6 +244,8 @@ export const useEditStopBasicDetails = () => {
         },
       ],
       transportMode: state.transportMode,
+      versionComment:
+        state.reasonForChange !== '' ? state.reasonForChange : null,
     };
   };
 

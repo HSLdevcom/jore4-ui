@@ -1,15 +1,13 @@
 import { z } from 'zod';
 import {
+  reasonForChangeFormSchema,
   refineValidityPeriodSchema,
-  requiredString,
   validityPeriodFormSchema,
 } from '../../../../forms/common';
 
 export const stopAreaVersionSchema = z
-  .object({
-    versionName: requiredString,
-    versionDescription: z.string().optional(), // Not implemented
-  })
+  .object({})
+  .merge(reasonForChangeFormSchema)
   .merge(validityPeriodFormSchema)
   .superRefine(refineValidityPeriodSchema);
 

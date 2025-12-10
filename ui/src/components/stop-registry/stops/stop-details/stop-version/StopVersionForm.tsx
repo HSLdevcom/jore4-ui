@@ -5,19 +5,17 @@ import { Row } from '../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../uiComponents';
 import {
   FormRow,
-  InputField,
   PriorityForm,
+  ReasonForChangeForm,
   ValidityPeriodForm,
 } from '../../../../forms/common';
 import { AffectedRouteLabels } from '../../../../timetables/common/AffectedRouteLabels';
-import { ExistingStopValidityRange, StopVersionFormState } from './types';
+import { ExistingStopValidityRange } from './types';
 import { LinesByStop } from './types/LinesByStopResult';
 import { ValidityRangeIsValidVirtualField } from './ValidityRangeIsValidVirtualField';
 
 const testIds = {
   form: 'StopVersionForm::form',
-  versionName: 'StopVersionForm::versionName',
-  versionDescription: 'StopVersionForm::versionDescription',
   submitButton: 'StopVersionForm::submitButton',
   cancelButton: 'StopVersionForm::cancelButton',
 };
@@ -48,24 +46,7 @@ export const StopVersionForm: FC<StopVersionFormProps> = ({
       data-testid={testIds.form}
     >
       <FormRow>
-        <InputField<StopVersionFormState>
-          type="text"
-          translationPrefix="stopDetails.version.fields"
-          fieldPath="versionName"
-          testId={testIds.versionName}
-        />
-      </FormRow>
-      <FormRow>
-        <InputField<StopVersionFormState>
-          type="text"
-          translationPrefix="stopDetails.version.fields"
-          fieldPath="versionDescription"
-          testId={testIds.versionDescription}
-          disabled
-          title={t(
-            'stopDetails.version.fields.versionDescriptionNotImplementedYetTitle',
-          )}
-        />
+        <ReasonForChangeForm />
       </FormRow>
 
       <FormRow>

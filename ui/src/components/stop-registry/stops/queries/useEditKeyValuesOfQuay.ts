@@ -5,7 +5,7 @@ const GQL_EDIT_KEY_VALUES_OF_QUAY = gql`
     $stopId: String!
     $quayId: String!
     $keyValues: [stop_registry_KeyValuesInput!]!
-    $versionComment: String!
+    $versionComment: String
   ) {
     stop_registry {
       mutateStopPlace(

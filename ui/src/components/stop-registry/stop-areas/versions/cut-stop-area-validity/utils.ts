@@ -108,7 +108,7 @@ export function mapToEditStopAreaInput(
   cutDirection: CutDirection,
   validityStart: string,
   validityEnd: string | null,
-  versionName: string,
+  reasonForChange?: string | null,
 ): StopRegistryStopPlaceInput | null {
   const originalStartDate = findKeyValue(stopArea, 'validityStart');
   const originalEndDate = findKeyValue(stopArea, 'validityEnd') ?? null;
@@ -159,7 +159,7 @@ export function mapToEditStopAreaInput(
   return {
     id: stopArea.id,
     keyValues: keyValues.map((kv) => omitTypeName(kv)), // Remove __typename as patch won't if no changes are done
-    versionComment: versionName,
+    versionComment: reasonForChange,
     quays: mappedQuays.length > 0 ? mappedQuays : null,
   };
 }

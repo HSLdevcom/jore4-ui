@@ -1,18 +1,13 @@
+import { ReasonForChangeForm } from '../../ReasonForChangeForm';
 import { ValidityPeriodForm } from '../../ValidityPeriodForm';
 
 export class TerminalValidityForm {
   validity = new ValidityPeriodForm();
 
+  reasonForChange = new ReasonForChangeForm();
+
   form() {
     return cy.getByTestId('TerminalValidityForm::form');
-  }
-
-  versionName() {
-    return cy.getByTestId('TerminalValidityForm::versionName');
-  }
-
-  versionDescription() {
-    return cy.getByTestId('TerminalValidityForm::versionDescription');
   }
 
   submitButton() {

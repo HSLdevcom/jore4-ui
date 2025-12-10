@@ -112,7 +112,7 @@ function mapQuayAndFormToInput(
     ...mapQuayToInput(getQuayFromStopWithDetails(originalStop)),
     id: null,
     keyValues: getKeyValues(state, originalStop),
-    versionComment: state.versionName,
+    versionComment: state.reasonForChange,
   };
 
   if (!isStopFormState(state)) {

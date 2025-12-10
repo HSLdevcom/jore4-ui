@@ -486,7 +486,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #1');
       form.validity.setStartDate('2030-01-01');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2052-01-01');
@@ -553,7 +555,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #1');
       form.validity.setStartDate('2030-01-01');
       form.validity.setAsIndefinite(true);
       form.getSubmitButton().click();
@@ -613,7 +617,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #1');
       form.validity.setStartDate('2000-01-01');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2029-12-31');
@@ -666,7 +672,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #1');
       form.validity.setStartDate('2000-01-01');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2029-12-31');
@@ -727,7 +735,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #2');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #2');
       form.validity.setStartDate('2000-01-01');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2059-12-31');
@@ -747,7 +757,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #1');
       form.validity.setStartDate('2030-01-01');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2052-01-01');
@@ -771,7 +783,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.titleRow.getActionMenu().click();
       stopAreaDetailsPage.titleRow.getCopyButton().click();
 
-      form.getVersionNameInput().clearAndType('E2E test copy #2');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #2');
       form.validity.setStartDate('2025-01-01');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2040-01-01');
@@ -796,7 +810,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #1');
       form.validity.setStartDate('2052-01-02');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2060-01-01');
@@ -855,7 +871,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #1');
       form.validity.setStartDate('2052-01-02');
       form.validity.setAsIndefinite(true);
       form.getSubmitButton().click();
@@ -892,7 +910,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form, confirmationModal } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #1');
       form.validity.setStartDate('2030-01-01');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2060-01-01');
@@ -932,7 +952,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #1');
       form.validity.setStartDate('2026-01-01');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2030-01-01');
@@ -942,7 +964,9 @@ describe('Stop area details', () => {
         'Pysäkkialueen kopiointi tekisi ainakin yhden pysäkkialueen pysäkin kautta kulkevan reitin voimassaolon virheelliseksi.\nEnnen jatkamista muokkaa reittejä, joihin tämän pysäkkialueen pysäkit kuuluvat.',
       );
 
-      form.getVersionNameInput().clearAndType('E2E test copy #2');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #2');
       form.validity.setStartDate('2020-01-01');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2022-01-01');
@@ -962,7 +986,9 @@ describe('Stop area details', () => {
       stopAreaDetailsPage.copyModal.modal().shouldBeVisible();
       const { form } = stopAreaDetailsPage.copyModal;
 
-      form.getVersionNameInput().clearAndType('E2E test copy #1');
+      form.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E test copy #1');
       form.validity.setStartDate('2030-01-02');
       form.validity.setAsIndefinite(false);
       form.validity.setEndDate('2030-01-01');

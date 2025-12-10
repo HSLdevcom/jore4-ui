@@ -2,6 +2,7 @@ import { z } from 'zod';
 import {
   REQUIRED_FIELD_ERROR_MESSAGE,
   schema as changeValidityFormSchema,
+  reasonForChangeFormSchema,
   refineValidityPeriodSchema,
   requiredNumber,
   requiredString,
@@ -34,10 +35,9 @@ export const stopFormSchema = z
     locationFin: z.string().nullable().optional(),
     locationSwe: z.string().nullable().optional(),
     timingPlaceId: z.string().uuid().nullable().optional(),
-    versionName: z.string().nullable().optional(),
-    versionDescription: z.string().nullable().optional(),
     keyValues: z.array(keyValueSchema).optional(),
   })
+  .merge(reasonForChangeFormSchema)
   .merge(changeValidityFormSchema)
   .superRefine((stop, ctx) => {
     // We should either have both a StopPoint and a Quay ID, or neither.
