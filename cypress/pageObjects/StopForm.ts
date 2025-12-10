@@ -2,6 +2,7 @@ import { expectGraphQLCallToSucceed } from '../utils/assertions';
 import { ChangeValidityForm } from './ChangeValidityForm';
 import { CreateTimingPlaceForm } from './CreateTimingPlaceForm';
 import { PriorityForm, PriorityFormInfo } from './PriorityForm';
+import { ReasonForChangeForm } from './ReasonForChangeForm';
 import { ValidityPeriodFormInfo } from './ValidityPeriodForm';
 
 export interface BaseStopFormInfo
@@ -11,8 +12,7 @@ export interface BaseStopFormInfo
   longitude?: string;
   latitude?: string;
   timingPlace?: string;
-  versionName?: string;
-  versionDescription?: string;
+  reasonForChange?: string | null;
 }
 
 export interface NewStopFormInfo extends BaseStopFormInfo {
@@ -26,6 +26,8 @@ export class StopForm {
   createTimingPlaceForm = new CreateTimingPlaceForm();
 
   priorityForm = new PriorityForm();
+
+  reasonForChange = new ReasonForChangeForm();
 
   getPublicCodeInput() {
     return cy.getByTestId('StopFormComponent::publicCode');
@@ -71,10 +73,6 @@ export class StopForm {
 
   getAddTimingPlaceButton() {
     return cy.getByTestId('StopFormComponent::addTimingPlaceButton');
-  }
-
-  getVersionNameInput() {
-    return cy.getByTestId('StopFormComponent::versionName');
   }
 
   getModal() {

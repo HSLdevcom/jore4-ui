@@ -5,15 +5,12 @@ import { Row } from '../../../../../layoutComponents';
 import { SimpleButton } from '../../../../../uiComponents';
 import {
   FormRow,
-  InputField,
+  ReasonForChangeForm,
   ValidityPeriodForm,
 } from '../../../../forms/common';
-import { TerminalValidityFormState } from './TerminalValidityFormState';
 
 const testIds = {
   form: 'TerminalValidityForm::form',
-  versionName: 'TerminalValidityForm::versionName',
-  versionDescription: 'TerminalValidityForm::versionDescription',
   submitButton: 'TerminalValidityForm::submitButton',
   cancelButton: 'TerminalValidityForm::cancelButton',
 };
@@ -38,24 +35,7 @@ export const TerminalValidityForm: FC<TerminalValidityFormProps> = ({
       data-testid={testIds.form}
     >
       <FormRow>
-        <InputField<TerminalValidityFormState>
-          type="text"
-          translationPrefix="terminalDetails.version.fields"
-          fieldPath="versionName"
-          testId={testIds.versionName}
-        />
-      </FormRow>
-      <FormRow>
-        <InputField<TerminalValidityFormState>
-          type="text"
-          translationPrefix="terminalDetails.version.fields"
-          fieldPath="versionDescription"
-          testId={testIds.versionDescription}
-          disabled
-          title={t(
-            'terminalDetails.version.fields.versionDescriptionNotImplementedYetTitle',
-          )}
-        />
+        <ReasonForChangeForm />
       </FormRow>
 
       <FormRow>

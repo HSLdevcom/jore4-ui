@@ -10,8 +10,7 @@ export interface BaseTerminalFormInfo extends ValidityPeriodFormInfo {
   longitude?: string;
   latitude?: string;
   timingPlace?: string;
-  versionName?: string;
-  versionDescription?: string;
+  reasonForChange?: string | null;
 }
 
 export interface NewTerminalFormInfo extends BaseTerminalFormInfo {

@@ -138,7 +138,7 @@ export function mapToStopAreaCopyInput(
   return {
     ...omit(input, 'id'),
     keyValues,
-    versionComment: state.versionName,
+    versionComment: state.reasonForChange,
     quays: filteredQuays.length > 0 ? filteredQuays : undefined,
   };
 }

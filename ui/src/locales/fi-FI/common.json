@@ -545,9 +545,6 @@
         "cutTitle": "Päällekkäinen versio"
       },
       "fields": {
-        "versionName": "Version nimi",
-        "versionDescription": "Muutoksen peruste",
-        "versionDescriptionNotImplementedYetTitle": "Kenttää ei ole vielä toteutettu tässä Joren testiversiossa!",
         "affectedLines": "Huomaa vaikutukset seuraaviin reitteihin:"
       },
       "cutModal": {
@@ -691,11 +688,6 @@
     "version": {
       "title": {
         "edit": "Muokkaa voimassaoloaikaa"
-      },
-      "fields": {
-        "versionName": "Version nimi",
-        "versionDescription": "Muutoksen peruste",
-        "versionDescriptionNotImplementedYetTitle": "Kenttää ei ole vielä toteutettu tässä Joren testiversiossa!"
       },
       "success": {
         "edit": "Voimassaoloaika muokattu"
@@ -957,6 +949,10 @@
   "validityPeriod": {
     "validityStart": "Alkaa",
     "validityEnd": "Päättyy"
+  },
+  "reasonForChangeForm": {
+    "reasonForChange": "Muutoksen syy",
+    "characterLimit": "Merkkimäärä täynnä"
   },
   "vehicleModeEnum": {
     "bus": "Bussi",

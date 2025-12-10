@@ -15,6 +15,7 @@ import {
   FormColumn,
   InputField,
   InputLabel,
+  ReasonForChangeForm,
 } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { LocationTerminalDetails } from './LocationTerminalDetails';
@@ -178,6 +179,10 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
               )}
             />
           </Row>
+
+          <HorizontalSeparator />
+
+          <ReasonForChangeForm />
         </FormColumn>
       </form>
     </FormProvider>

@@ -59,7 +59,7 @@ function useUpdateStopArea() {
       cutDirection: CutDirection,
       validityStart: string,
       validityEnd: string | null,
-      versionName: string,
+      reasonForChange?: string | null,
       doRefetch: boolean = false,
     ): Promise<EnrichedStopPlace> => {
       const input = mapToEditStopAreaInput(
@@ -67,7 +67,7 @@ function useUpdateStopArea() {
         cutDirection,
         validityStart,
         validityEnd,
-        versionName,
+        reasonForChange,
       );
 
       if (!input) {
@@ -112,7 +112,7 @@ export function useCutStopAreaValidity() {
       cutDirection: CutDirection,
       validityStart: string,
       validityEnd: string | null,
-      versionName: string,
+      reasonForChange?: string | null,
       refetchArea: boolean = false,
     ): Promise<CutStopAreaValidityResult> => {
       const mutatedStopPoints = await updateStopPoints(
@@ -127,7 +127,7 @@ export function useCutStopAreaValidity() {
         cutDirection,
         validityStart,
         validityEnd,
-        versionName,
+        reasonForChange,
         refetchArea,
       );
 

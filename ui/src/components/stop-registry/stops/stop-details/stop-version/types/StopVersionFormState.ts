@@ -1,16 +1,14 @@
 import { z } from 'zod';
 import {
   priorityFormSchema,
+  reasonForChangeFormSchema,
   refineValidityPeriodSchema,
-  requiredString,
   validityPeriodFormSchema,
 } from '../../../../../forms/common';
 
 export const stopVersionSchema = z
-  .object({
-    versionName: requiredString,
-    versionDescription: z.string().optional(), // Not implemented
-  })
+  .object({})
+  .merge(reasonForChangeFormSchema)
   .merge(validityPeriodFormSchema)
   .merge(z.object({ validityRangeIsValidVirtualField: z.void() }))
   .merge(priorityFormSchema)

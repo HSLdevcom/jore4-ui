@@ -216,7 +216,7 @@ export function useCopyStopArea() {
         cutDirection,
         cutStart,
         cutEnd,
-        state.versionName,
+        state.reasonForChange,
         false,
       );
 

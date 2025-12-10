@@ -12,7 +12,7 @@ import {
   selectIsTimingPlaceModalOpen,
 } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
-import { FormColumn } from '../../../../../forms/common';
+import { FormColumn, ReasonForChangeForm } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
 import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
@@ -62,6 +62,8 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
             onClickOpenTimingSettingsModal={openTimingPlaceModal}
           />
           <StopTypesFormRow />
+          <HorizontalSeparator />
+          <ReasonForChangeForm />
         </FormColumn>
       </form>
       <Visible visible={isTimingPlaceModalOpen}>

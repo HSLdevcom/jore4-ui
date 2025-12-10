@@ -35,8 +35,7 @@ function useDefaultValues(
       indefinite: originalStop.validity_end === null,
       validityStart: validityStart?.toISODate() ?? '',
       validityEnd: '',
-      versionDescription: '',
-      versionName: '',
+      reasonForChange: null,
     };
   }, [originalStop]);
 }

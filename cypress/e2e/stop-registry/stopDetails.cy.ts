@@ -2522,7 +2522,7 @@ describe('Stop details', () => {
     }
 
     function createCopyForVersionTesting(
-      versionName: string,
+      reasonForChange: string,
       validityStartISODate: string,
       validityEndISODate?: string,
       priority?: Priority,
@@ -2540,7 +2540,9 @@ describe('Stop details', () => {
         .modal()
         .should('exist')
         .within(() => {
-          form.versionName().clearAndType(versionName);
+          form.reasonForChange
+            .getReasonForChangeInput()
+            .clearAndType(reasonForChange);
 
           if (priority) {
             form.priority.setPriority(priority);
@@ -2594,8 +2596,9 @@ describe('Stop details', () => {
 
           testValidityPeriodValidation(form);
 
-          form.versionName().clearAndType('Uusi versio');
-          form.versionDescription().shouldBeDisabled();
+          form.reasonForChange
+            .getReasonForChangeInput()
+            .clearAndType('Uusi versio');
           form.priority.setPriority(Priority.Temporary);
           form.validity.fillForm({ validityStartISODate: '2050-06-01' });
           form.submitButton().click();
@@ -2646,7 +2649,9 @@ describe('Stop details', () => {
         .modal()
         .should('exist')
         .within(() => {
-          form.versionName().clearAndType('Temp version');
+          form.reasonForChange
+            .getReasonForChangeInput()
+            .clearAndType('Temp version');
           form.priority.setPriority(Priority.Temporary);
           form.validity.fillForm({ validityStartISODate: '2020-03-20' });
           form.submitButton().click();
@@ -2663,7 +2668,9 @@ describe('Stop details', () => {
       stopDetailsPage.titleRow.actionsMenuCopyButton().click();
 
       copyModal.modal().within(() => {
-        form.versionName().clearAndType('Draft version');
+        form.reasonForChange
+          .getReasonForChangeInput()
+          .clearAndType('Draft version');
         form.priority.setPriority(Priority.Draft);
         form.validity.fillForm({
           validityStartISODate: '2020-03-20',
@@ -2709,7 +2716,9 @@ describe('Stop details', () => {
         .modal()
         .should('exist')
         .within(() => {
-          form.versionName().clearAndType('Shorter version');
+          form.reasonForChange
+            .getReasonForChangeInput()
+            .clearAndType('Shorter version');
           form.priority.setPriority(Priority.Standard);
           form.validity.fillForm({
             validityStartISODate: '2020-03-20',
@@ -2728,7 +2737,9 @@ describe('Stop details', () => {
         .modal()
         .should('exist')
         .within(() => {
-          form.versionName().clearAndType('Longer version');
+          form.reasonForChange
+            .getReasonForChangeInput()
+            .clearAndType('Longer version');
           form.priority.setPriority(Priority.Standard);
           form.validity.fillForm({
             validityStartISODate: '2020-03-20',
@@ -2765,7 +2776,9 @@ describe('Stop details', () => {
         .modal()
         .should('exist')
         .within(() => {
-          form.versionName().clearAndType('Temporary version');
+          form.reasonForChange
+            .getReasonForChangeInput()
+            .clearAndType('Temporary version');
           form.priority.setPriority(Priority.Temporary);
           form.submitButton().click();
         });
@@ -2819,7 +2832,9 @@ describe('Stop details', () => {
         .modal()
         .should('exist')
         .within(() => {
-          form.versionName().clearAndType('Temporary version with overlap');
+          form.reasonForChange
+            .getReasonForChangeInput()
+            .clearAndType('Temporary version with overlap');
           form.validity.fillForm({
             validityStartISODate: '2030-01-01',
             validityEndISODate: '2030-02-28',
@@ -2896,7 +2911,9 @@ describe('Stop details', () => {
         .modal()
         .should('exist')
         .within(() => {
-          form.versionName().clearAndType('Overlapping version');
+          form.reasonForChange
+            .getReasonForChangeInput()
+            .clearAndType('Overlapping version');
           form.priority.setPriority(Priority.Temporary);
           form.validity.fillForm({
             validityStartISODate: '2030-03-15',
@@ -2936,7 +2953,9 @@ describe('Stop details', () => {
         .modal()
         .should('exist')
         .within(() => {
-          form.versionName().clearAndType('Overlapping version');
+          form.reasonForChange
+            .getReasonForChangeInput()
+            .clearAndType('Overlapping version');
           form.priority.setPriority(Priority.Temporary);
           form.validity.fillForm({
             validityStartISODate: '2030-03-15',

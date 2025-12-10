@@ -186,7 +186,9 @@ describe('Stop editing tests', () => {
       stopForm.getLongitudeInput().clearAndType('24.93727036');
       stopForm.getLocationFinInput().clearAndType('Kopioitu');
       stopForm.getLocationSweInput().clearAndType('Kopierad');
-      stopForm.getVersionNameInput().clearAndType('Kopioitu versio');
+      stopForm.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('Kopioitu versio');
       stopForm.priorityForm.setAsTemporary();
       cy.getByTestId('Modal::saveButton').click();
 
@@ -425,7 +427,9 @@ describe('Stop editing tests', () => {
       stopForm.getLongitudeInput().clearAndType('24.93727036');
       stopForm.getLocationFinInput().clearAndType('Kopioitu');
       stopForm.getLocationSweInput().clearAndType('Kopierad');
-      stopForm.getVersionNameInput().clearAndType('Kopioitu versio');
+      stopForm.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('Kopioitu versio');
       stopForm.priorityForm.setAsStandard();
       cy.getByTestId('Modal::saveButton').click();
 

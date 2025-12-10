@@ -67,12 +67,11 @@ function useEditQuayValidity() {
   return useCallback(
     async (
       quayId: string,
-      versionComment: string,
       priority: number,
       validityStart: DateTime,
       validityEnd?: DateTime,
       indefinite?: boolean,
-      reasonForChange?: string,
+      reasonForChange?: string | null,
     ) => {
       const { data } = await getQuay({
         variables: { quayId },
@@ -120,9 +119,6 @@ function useEditQuayValidity() {
               }
             : null,
           { key: 'priority', values: [priority.toString()] },
-          reasonForChange
-            ? { key: 'reasonForChange', values: [reasonForChange] }
-            : null,
         ]),
       );
 
@@ -132,7 +128,7 @@ function useEditQuayValidity() {
             quayId,
             stopId: stopPlaceId,
             keyValues,
-            versionComment,
+            versionComment: reasonForChange,
           },
         }),
         QuayKeyValuesEditFailed,
@@ -159,11 +155,10 @@ export function useEditStopValidityAndPriority() {
     async (
       quayId: string | undefined | null,
       priority: number,
-      versionName: string,
       validityStart: string,
       validityEnd?: string,
       indefinite?: boolean,
-      reasonForChange?: string,
+      reasonForChange?: string | null,
     ): Promise<EditStopVersionResult> => {
       if (!quayId) {
         throw new Error('Stop place ref missing for the quay being edited!');
@@ -189,7 +184,6 @@ export function useEditStopValidityAndPriority() {
 
       const { stopPlaceId } = await editQuayValidity(
         quayId,
-        versionName,
         priority,
         validityStartDateTime,
         validityEndDateTime,

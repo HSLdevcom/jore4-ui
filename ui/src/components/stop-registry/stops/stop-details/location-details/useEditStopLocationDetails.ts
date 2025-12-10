@@ -3,6 +3,7 @@ import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
 import {
   StopRegistrySignContentType,
+  StopRegistryStopPlaceInput,
   useUpdateStopPlaceMutation,
 } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
@@ -27,15 +28,17 @@ export const useEditStopLocationDetails = () => {
   const mapStopEditChangesToTiamatDbInput = ({
     state,
     stop,
-  }: EditTiamatParams) => {
+  }: EditTiamatParams): StopRegistryStopPlaceInput => {
     const stopPlaceQuayId = stop.stop_place_ref;
     const otherQuays = getQuayIdsFromStopExcept(stop, stopPlaceQuayId);
 
     const initialGeneralSign =
       stop.quay?.placeEquipments?.generalSign?.[0] ?? {};
 
-    const input = {
+    return {
       id: stop.stop_place?.id,
+      versionComment:
+        state.reasonForChange !== '' ? state.reasonForChange : null,
       quays: [
         ...otherQuays,
         {
@@ -80,8 +83,6 @@ export const useEditStopLocationDetails = () => {
         },
       ],
     };
-
-    return input;
   };
 
   const prepareEditForTiamatDb = ({ state, stop }: EditTiamatParams) => {

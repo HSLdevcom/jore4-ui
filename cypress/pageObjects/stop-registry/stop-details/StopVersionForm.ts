@@ -1,4 +1,5 @@
 import { PriorityForm } from '../../PriorityForm';
+import { ReasonForChangeForm } from '../../ReasonForChangeForm';
 import { ValidityPeriodForm } from '../../ValidityPeriodForm';
 
 export class StopVersionForm {
@@ -6,16 +7,10 @@ export class StopVersionForm {
 
   validity = new ValidityPeriodForm();
 
+  reasonForChange = new ReasonForChangeForm();
+
   form() {
     return cy.getByTestId('StopVersionForm::form');
-  }
-
-  versionName() {
-    return cy.getByTestId('StopVersionForm::versionName');
-  }
-
-  versionDescription() {
-    return cy.getByTestId('StopVersionForm::versionDescription');
   }
 
   validityError() {

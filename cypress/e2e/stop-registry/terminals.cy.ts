@@ -599,8 +599,8 @@ describe('Terminal details', () => {
         .getModal()
         .shouldBeVisible();
 
-      terminalDetailsPage.editTerminalValidityModal.form
-        .versionName()
+      terminalDetailsPage.editTerminalValidityModal.form.reasonForChange
+        .getReasonForChangeInput()
         .clearAndType('Edit #1');
       terminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
         validityStartISODate: '2023-01-01',
@@ -632,8 +632,8 @@ describe('Terminal details', () => {
           .getModal()
           .shouldBeVisible();
 
-        terminalDetailsPage.editTerminalValidityModal.form
-          .versionName()
+        terminalDetailsPage.editTerminalValidityModal.form.reasonForChange
+          .getReasonForChangeInput()
           .clearAndType('Edit #1');
         terminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
           validityStartISODate: '2023-01-01',
@@ -667,8 +667,8 @@ describe('Terminal details', () => {
           .getModal()
           .shouldBeVisible();
 
-        terminalDetailsPage.editTerminalValidityModal.form
-          .versionName()
+        terminalDetailsPage.editTerminalValidityModal.form.reasonForChange
+          .getReasonForChangeInput()
           .clearAndType('Edit #1');
         terminalDetailsPage.editTerminalValidityModal.form.validity.fillForm({
           validityStartISODate: '2030-01-01',
