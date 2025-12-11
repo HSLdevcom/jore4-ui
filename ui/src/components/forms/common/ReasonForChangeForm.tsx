@@ -17,6 +17,7 @@ export type ReasonForChangeFormState = z.infer<
 
 const testIds = {
   reasonForChange: 'ReasonForChangeForm::reasonForChange',
+  characterLimitReached: 'ReasonForChangeForm::characterLimitReached',
 };
 
 type ReasonForChangeFormProps = {
@@ -51,7 +52,10 @@ export const ReasonForChangeForm: FC<ReasonForChangeFormProps> = ({
       />
 
       {characterCount >= 254 && (
-        <p className="mt-2 text-sm font-bold text-hsl-red">
+        <p
+          className="mt-2 text-sm font-bold text-hsl-red"
+          data-testid={testIds.characterLimitReached}
+        >
           {t('reasonForChangeForm.characterLimit')}
         </p>
       )}
