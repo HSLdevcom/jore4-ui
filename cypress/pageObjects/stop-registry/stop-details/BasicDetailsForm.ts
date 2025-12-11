@@ -1,7 +1,10 @@
 import { CreateTimingPlaceForm } from '../../CreateTimingPlaceForm';
+import { ReasonForChangeForm } from '../../ReasonForChangeForm';
 
 export class BasicDetailsForm {
   createTimingPlaceForm = new CreateTimingPlaceForm();
+
+  reasonForChange = new ReasonForChangeForm();
 
   getLabelInput = () => cy.getByTestId('StopBasicDetailsForm::label');
 

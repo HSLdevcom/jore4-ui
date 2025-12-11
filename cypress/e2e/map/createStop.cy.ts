@@ -86,6 +86,7 @@ describe('Stop creation tests', () => {
           stopPlace: testStopLabels.stopAreaPrivateCode,
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
+          reasonForChange: 'Initial creation',
         },
         clickRelativePoint: {
           xPercentage: 40,
@@ -119,6 +120,7 @@ describe('Stop creation tests', () => {
           stopPlace: testStopLabels.stopAreaPrivateCode,
           validityStartISODate: '2030-01-01',
           priority: Priority.Standard,
+          reasonForChange: 'Initial creation',
         },
         clickRelativePoint: {
           xPercentage: 40,
@@ -168,6 +170,7 @@ describe('Stop creation tests', () => {
           longitude: '24.92131574451069',
           validityStartISODate: '2022-01-01',
           priority: Priority.Standard,
+          reasonForChange: 'Initial creation',
         },
         clickRelativePoint: {
           xPercentage: 40,
@@ -205,6 +208,7 @@ describe('Stop creation tests', () => {
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2040-12-31',
           priority: Priority.Standard,
+          reasonForChange: 'Initial creation',
         },
         clickRelativePoint: {
           xPercentage: 40,
@@ -249,6 +253,7 @@ describe('Stop creation tests', () => {
           validityStartISODate: '2022-01-01',
           validityEndISODate: '2040-12-31',
           priority: Priority.Standard,
+          reasonForChange: 'Initial creation',
         },
         clickRelativePoint: {
           xPercentage: 40,
@@ -286,6 +291,7 @@ describe('Stop creation tests', () => {
         stopPlace: testStopLabels.stopAreaPrivateCode,
         validityStartISODate: '2022-01-01',
         priority: Priority.Standard,
+        reasonForChange: 'Initial creation',
       });
 
       mapPage.stopForm.save();
@@ -338,6 +344,7 @@ describe('Stop creation tests', () => {
         publicCode: 'H12345',
         validityStartISODate: '2022-01-01',
         priority: Priority.Standard,
+        reasonForChange: 'Initial creation',
       });
 
       mapPage.stopForm.save();
@@ -366,6 +373,7 @@ describe('Stop creation tests', () => {
         stopPlace: testStopLabels.stopAreaPrivateCode,
         validityStartISODate: '2022-01-01',
         priority: Priority.Standard,
+        reasonForChange: 'Initial creation',
       });
       form.save();
       mapPage.checkStopSubmitSuccessToast();

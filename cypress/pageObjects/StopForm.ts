@@ -115,6 +115,12 @@ export class StopForm {
       this.priorityForm.setPriority(values.priority);
     }
 
+    if (values.reasonForChange) {
+      this.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType(values.reasonForChange);
+    }
+
     this.changeValidityForm.validityPeriodForm.fillForm(values);
   }
 

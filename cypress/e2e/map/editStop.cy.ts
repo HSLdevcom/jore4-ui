@@ -238,6 +238,7 @@ describe('Stop editing tests', () => {
         validityStartISODate: '2024-01-01',
         validityEndISODate: '2029-12-31',
         priority: Priority.Draft,
+        reasonForChange: 'Updated stop info',
       };
 
       mapFilterPanel.toggleShowStops(ReusableComponentsVehicleModeEnum.Bus);
