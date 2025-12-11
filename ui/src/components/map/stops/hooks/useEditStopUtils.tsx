@@ -175,7 +175,11 @@ export function useEditStopUtils(
   };
 
   const onCancelEdit = () => {
-    setDisplayedEditor(MapEntityEditorViewState.EDIT);
+    setDisplayedEditor(
+      editChanges.isMove
+        ? MapEntityEditorViewState.POPUP
+        : MapEntityEditorViewState.EDIT,
+    );
     setEditChanges(null);
   };
 
