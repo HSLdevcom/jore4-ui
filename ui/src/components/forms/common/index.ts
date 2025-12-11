@@ -1,3 +1,4 @@
+export * from './AutomaticallyResizingTextArea';
 export * from './ChangeValidityForm';
 export * from './customZodSchemas';
 export * from './DateInputField';
