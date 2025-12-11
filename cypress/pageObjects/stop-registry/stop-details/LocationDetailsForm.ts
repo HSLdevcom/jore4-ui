@@ -1,4 +1,8 @@
+import { ReasonForChangeForm } from '../../ReasonForChangeForm';
+
 export class LocationDetailsForm {
+  reasonForChange = new ReasonForChangeForm();
+
   getStreetAddressInput = () =>
     cy.getByTestId('LocationDetailsForm::streetAddress');
 

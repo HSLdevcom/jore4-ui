@@ -641,6 +641,10 @@ describe('Stop details', () => {
 
         bdForm.getElyNumberInput().clearAndType('1234568');
 
+        bdForm.reasonForChange
+          .getReasonForChangeInput()
+          .clearAndType('E2E Testing');
+
         stopDetailsPage.basicDetails.getSaveButton().click();
 
         toast.expectSuccessToast('Pysäkki muokattu');
@@ -746,6 +750,41 @@ describe('Stop details', () => {
       },
     );
 
+    it('Should show character limit reached message for reason for change', () => {
+      stopDetailsPage.visit('H2003');
+      stopDetailsPage.page().shouldBeVisible();
+
+      bdView.getContent().shouldBeVisible();
+      stopDetailsPage.basicDetails.getEditButton().click();
+
+      // Initial height should be same as input
+      bdForm.reasonForChange
+        .getReasonForChangeInput()
+        .invoke('outerHeight')
+        .should('be.equal', 44);
+
+      bdForm.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType(
+          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula ' +
+            'eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient ' +
+            'montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, ' +
+            'pretium quis',
+        );
+
+      // Test that automatic resizing works correctly
+      bdForm.reasonForChange
+        .getReasonForChangeInput()
+        .invoke('outerHeight')
+        .should('be.gte', 44);
+
+      bdForm.reasonForChange.characterLimitReached().shouldBeVisible();
+
+      bdForm.reasonForChange.getReasonForChangeInput().type('{backspace}');
+
+      bdForm.reasonForChange.characterLimitReached().should('not.exist');
+    });
+
     describe('creating new timing place', () => {
       it(
         'should create new timing place correctly',
@@ -842,6 +881,10 @@ describe('Stop details', () => {
         .getSignContentTypeDropdownOptions()
         .contains('Ei opastetta')
         .click();
+
+      locationForm.reasonForChange
+        .getReasonForChangeInput()
+        .clearAndType('E2E Testing');
 
       stopDetailsPage.locationDetails.getSaveButton().click();
       toast.expectSuccessToast('Pysäkki muokattu');
