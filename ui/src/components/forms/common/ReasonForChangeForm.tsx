@@ -1,8 +1,9 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Column } from '../../../layoutComponents';
+import { AutomaticallyResizingTextArea } from './AutomaticallyResizingTextArea';
 import { InputLabel } from './InputLabel';
 import { ValidationErrorList } from './ValidationErrorList';
 
@@ -26,8 +27,7 @@ export const ReasonForChangeForm: FC<ReasonForChangeFormProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
-  const { register, watch } = useFormContext<ReasonForChangeFormState>();
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const { watch } = useFormContext<ReasonForChangeFormState>();
 
   const translationPrefix = 'reasonForChangeForm';
   const fieldPath = 'reasonForChange';
@@ -36,21 +36,6 @@ export const ReasonForChangeForm: FC<ReasonForChangeFormProps> = ({
   const reasonForChangeValue = watch(fieldPath);
   const characterCount = reasonForChangeValue?.length ?? 0;
 
-  const { ref, ...rest } = register(fieldPath);
-
-  const autoResize = () => {
-    const textarea = textareaRef.current;
-
-    if (textarea) {
-      textarea.style.height = 'auto';
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    }
-  };
-
-  useEffect(() => {
-    autoResize();
-  }, [reasonForChangeValue]);
-
   return (
     <Column className={className}>
       <InputLabel
@@ -58,18 +43,11 @@ export const ReasonForChangeForm: FC<ReasonForChangeFormProps> = ({
         translationPrefix={translationPrefix}
         customTitlePath={undefined}
       />
-      <textarea
+      <AutomaticallyResizingTextArea
         id={id}
-        className="resize-none overflow-hidden leading-tight"
-        rows={1}
-        data-testid={testIds.reasonForChange}
+        fieldPath={fieldPath}
+        testId={testIds.reasonForChange}
         maxLength={254}
-        ref={(e) => {
-          ref(e);
-          textareaRef.current = e;
-        }}
-        onInput={autoResize}
-        {...rest}
       />
 
       {characterCount >= 254 && (
