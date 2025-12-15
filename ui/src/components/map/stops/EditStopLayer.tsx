@@ -2,7 +2,7 @@ import { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { MapLayerMouseEvent } from 'react-map-gl/maplibre';
 import { useDispatch } from 'react-redux';
 import { ReusableComponentsVehicleModeEnum } from '../../../generated/graphql';
-import { useAppAction, useAppSelector } from '../../../hooks';
+import { useAppSelector } from '../../../hooks';
 import {
   MapEntityEditorViewState,
   Operation,
@@ -11,10 +11,12 @@ import {
   isModalOpen,
   selectCopyStopId,
   selectEditedStopAreaData,
+  selectMapStopSelection,
   selectMapStopViewState,
   setCopyStopIdAction,
   setMapStopViewStateAction,
   setSelectedRouteIdAction,
+  toggleStopSelectionAction,
 } from '../../../redux';
 import { EnrichedStopPlace, Point } from '../../../types';
 import { useMapDataLayerLoader } from '../../common/hooks';
@@ -121,9 +123,8 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
     const dispatch = useDispatch();
 
     const copyStopId = useAppSelector(selectCopyStopId);
+    const mapStopSelection = useAppSelector(selectMapStopSelection);
     const mapStopViewState = useAppSelector(selectMapStopViewState);
-    const setMapStopViewState = useAppAction(setMapStopViewStateAction);
-    const setCopyStopId = useAppAction(setCopyStopIdAction);
 
     const { stopInfo, loading } = useGetStopInfoForEditingOnMap(
       selectedStopId ?? copyStopId,
@@ -139,7 +140,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
     const [copyDialogOpen, setCopyDialogOpen] = useState(false);
 
     const onCloseEditors = () => {
-      setMapStopViewState(MapEntityEditorViewState.NONE);
+      dispatch(setMapStopViewStateAction(MapEntityEditorViewState.NONE));
       dispatch(closeTimingPlaceModalAction());
       onPopupClose();
     };
@@ -159,7 +160,7 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
       onProcessEditChanges,
       onConfirmEdit,
       onCancelEdit,
-    } = useEditStopUtils(stopInfo, setMapStopViewState, onFinishEditing);
+    } = useEditStopUtils(stopInfo, onFinishEditing);
 
     const { deleteChanges, onDeleteStop, onConfirmDelete, onCancelDelete } =
       useDeleteStopUtils(stopInfo, onFinishEditing);
@@ -196,21 +197,27 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
 
     const onCloseModal = () => {
       if (stopInfo) {
-        setMapStopViewState(MapEntityEditorViewState.POPUP);
+        dispatch(setMapStopViewStateAction(MapEntityEditorViewState.POPUP));
       } else {
         onCloseEditors();
       }
     };
 
     const onStartMoveStop = () => {
-      setMapStopViewState(MapEntityEditorViewState.MOVE);
+      dispatch(setMapStopViewStateAction(MapEntityEditorViewState.MOVE));
       dispatch(setSelectedRouteIdAction(undefined));
     };
 
     const onInitCopyStop = () => {
       if (selectedStopId) {
-        setCopyStopId(selectedStopId);
+        dispatch(setCopyStopIdAction(selectedStopId));
         setCopyDialogOpen(true);
+      }
+    };
+
+    const onToggleSelection = () => {
+      if (selectedStopId) {
+        dispatch(toggleStopSelectionAction(selectedStopId));
       }
     };
 
@@ -234,6 +241,16 @@ export const EditStopLayer = forwardRef<EditStoplayerRef, EditStopLayerProps>(
 
         {mapStopViewState === MapEntityEditorViewState.POPUP && stopInfo && (
           <StopPopup
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...(mapStopSelection.byResultSelection
+              ? { isSelectable: false }
+              : {
+                  isSelectable: true,
+                  isSelected: mapStopSelection.selected.includes(
+                    selectedStopId as string,
+                  ),
+                  onToggleSelection,
+                })}
             stop={stopInfo}
             onEdit={onStartEditingStop}
             onMove={onStartMoveStop}

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import {
   Units,
   bbox,
@@ -7,50 +7,61 @@ import {
   distance,
   geometryCollection,
 } from '@turf/turf';
-import type { BBox, Geometry, Point } from 'geojson';
-import compact from 'lodash/compact';
+import type { BBox, Geometry } from 'geojson';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useGetStopSearchResultLocationsLazyQuery } from '../../../../generated/graphql';
+import {
+  GetStopSearchResultDetailsForMapDocument,
+  GetStopSearchResultDetailsForMapQuery,
+  GetStopSearchResultDetailsForMapQueryVariables,
+} from '../../../../generated/graphql';
+import { useAppDispatch } from '../../../../hooks';
 import {
   FilterType,
   MapEntityType,
   MutableViewport,
   defaultViewPort as defaultReduxMapViewPort,
+  resetMapState,
   setShowMapEntityTypeFilterOverlayAction,
   setShowMapEntityTypesAction,
   setStopFiltersAction,
+  setStopSelectionAction,
   setViewPortAction,
 } from '../../../../redux';
 import { Viewport as ReduxViewPort } from '../../../../redux/types';
-import { isValidGeoJSONPoint, log } from '../../../../utils';
+import { ValidGeoJsonPoint, isValidGeoJSONPoint, log } from '../../../../utils';
 import {
   ViewPortParams as UrlViewPort,
   defaultViewPortParams as defaultUrlViewPortParams,
 } from '../../../map/types';
 import { useNavigateToMap } from '../../../map/utils/useNavigateToMap';
 import { StopSearchRow } from '../../components';
+import { mapCompactOrNull } from '../../utils';
 import { filtersAndResultSelectionToQueryVariables } from '../by-stop/filtersToQueryVariables';
 import { ResultSelection, StopSearchFilters } from '../types';
 
 const GQL_GET_STOP_SEARCH_RESULT_LOCATIONS = gql`
-  query GetStopSearchResultLocations(
+  query GetStopSearchResultDetailsForMap(
     $where: stops_database_quay_newest_version_bool_exp
   ) {
     stops_database {
       stops: stops_database_quay_newest_version(where: $where) {
-        id
+        netexId: netex_id
         centroid
+
+        # Prepopulate Selection component details into the cache
+        ...StopSelectionInfo
       }
     }
   }
 `;
 
 function useSetupMapReduxStore() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return useCallback(
-    (viewPort: ReduxViewPort) => {
+    (viewPort: ReduxViewPort, selectedStops: Array<string>) => {
+      dispatch(resetMapState());
+
       dispatch(setShowMapEntityTypeFilterOverlayAction(false));
 
       dispatch(
@@ -78,6 +89,13 @@ function useSetupMapReduxStore() {
       );
 
       dispatch(setViewPortAction(viewPort as MutableViewport));
+
+      dispatch(
+        setStopSelectionAction({
+          byResultSelection: false,
+          selected: selectedStops,
+        }),
+      );
     },
     [dispatch],
   );
@@ -163,15 +181,24 @@ function resultsToGeometry(results: ReadonlyArray<StopSearchRow>): Geometry {
   return geometryCollection(results.map((stop) => stop.location)).geometry;
 }
 
-function useResolveAllResultLocations() {
-  const [searchStops] = useGetStopSearchResultLocationsLazyQuery();
+type IdAndCentroid = {
+  readonly netexId: string;
+  readonly centroid: ValidGeoJsonPoint;
+};
+
+function useResolveAllResultDetailsForMap() {
+  const apollo = useApolloClient();
 
   return useCallback(
     async (
       filters: StopSearchFilters,
       resultSelection: ResultSelection,
-    ): Promise<Array<Point> | null> => {
-      const result = await searchStops({
+    ): Promise<Array<IdAndCentroid> | null> => {
+      const result = await apollo.query<
+        GetStopSearchResultDetailsForMapQuery,
+        GetStopSearchResultDetailsForMapQueryVariables
+      >({
+        query: GetStopSearchResultDetailsForMapDocument,
         variables: {
           where: filtersAndResultSelectionToQueryVariables(
             filters,
@@ -180,17 +207,18 @@ function useResolveAllResultLocations() {
         },
       });
 
-      const points = compact(
-        result.data?.stops_database?.stops.map((it) => it.centroid),
-      ).filter(isValidGeoJSONPoint);
+      return mapCompactOrNull(
+        result.data?.stops_database?.stops,
+        ({ centroid, netexId }): IdAndCentroid | null => {
+          if (isValidGeoJSONPoint(centroid) && netexId) {
+            return { centroid, netexId };
+          }
 
-      if (points.length === 0) {
-        return null;
-      }
-
-      return points;
+          return null;
+        },
+      );
     },
-    [searchStops],
+    [apollo],
   );
 }
 
@@ -207,8 +235,13 @@ export type OpenStopResultsOnMapParams = {
   | { readonly [key in keyof ByStopResultParams]?: never }
 );
 
-function useResolveResultGeometry() {
-  const resolveAllResultLocations = useResolveAllResultLocations();
+type ResultInfo = {
+  readonly netexIds: Array<string>;
+  readonly geometry: Geometry;
+};
+
+function useResolveResultInfo() {
+  const resolveAllResultDetailsForMap = useResolveAllResultDetailsForMap();
 
   return useCallback(
     async ({
@@ -216,25 +249,34 @@ function useResolveResultGeometry() {
       resultSelection,
       resultCount,
       results,
-    }: OpenStopResultsOnMapParams): Promise<Geometry | null> => {
+    }: OpenStopResultsOnMapParams): Promise<ResultInfo | null> => {
       // We already know all the results → Zoom in onto them
       if (results && results.length === resultCount) {
-        return resultsToGeometry(
-          filterKnownResultBySelection(results, resultSelection),
-        );
+        const filtered = filterKnownResultBySelection(results, resultSelection);
+
+        return {
+          netexIds: filtered.map((it) => it.netexId),
+          geometry: resultsToGeometry(filtered),
+        };
       }
 
       // Try to fetch all the results
-      const allResultLocations = await resolveAllResultLocations(
+      const allResultDetails = await resolveAllResultDetailsForMap(
         filters,
         resultSelection,
       );
 
-      return allResultLocations
-        ? geometryCollection(allResultLocations).geometry
-        : null;
+      if (!allResultDetails) {
+        return null;
+      }
+
+      return {
+        netexIds: allResultDetails.map((it) => it.netexId),
+        geometry: geometryCollection(allResultDetails.map((it) => it.centroid))
+          .geometry,
+      };
     },
-    [resolveAllResultLocations],
+    [resolveAllResultDetailsForMap],
   );
 }
 
@@ -244,7 +286,7 @@ export function useOpenStopResultsOnMap(
   const [transitioning, setTransitioning] = useState<boolean>(false);
   const transitionRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const resolveResultGeometry = useResolveResultGeometry();
+  const resolveResultInfo = useResolveResultInfo();
   const navigateToMap = useNavigateToMap();
   const setupMapReduxStore = useSetupMapReduxStore();
 
@@ -265,11 +307,11 @@ export function useOpenStopResultsOnMap(
 
     const initialAsyncScheduler = setTimeout(async () => {
       try {
-        const resultGeometry = await resolveResultGeometry(params);
+        const resultInfo = await resolveResultInfo(params);
 
         // Unable to resolve the result geometry for whatever reason.
         // Nothing to show on the map.
-        if (!resultGeometry) {
+        if (!resultInfo) {
           return;
         }
 
@@ -278,10 +320,11 @@ export function useOpenStopResultsOnMap(
           return;
         }
 
-        const { url: urlViewPort, redux: reduxViewPort } =
-          resolveViewPortInfo(resultGeometry);
+        const { url: urlViewPort, redux: reduxViewPort } = resolveViewPortInfo(
+          resultInfo.geometry,
+        );
 
-        setupMapReduxStore(reduxViewPort);
+        setupMapReduxStore(reduxViewPort, resultInfo.netexIds);
         navigateToMap({
           viewPort: urlViewPort,
           filters,

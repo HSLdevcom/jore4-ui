@@ -10,7 +10,7 @@ const { colors } = theme;
 
 const iconSize = 30;
 const selectedIconSize = 32;
-const centerDotSize = 3;
+const centerDotSize = 6;
 
 /** Stop map markers border color is determined in this function. There are
  * different aspects which are affecting this determination. These are
@@ -22,13 +22,18 @@ const centerDotSize = 3;
  * we use the vehicleMode color defined in colors theme.
  * * If none of the above apply, we use 'hsl-dark-80' as the border color
  */
-const determineBorderColor = (
+function determineBorderColor(
   isHighlighted: boolean,
   asMemberStop: boolean,
   isSelected: boolean,
   isPlaceholder: boolean,
-  stopVehicleMode?: ReusableComponentsVehicleModeEnum,
-) => {
+  stopVehicleMode: ReusableComponentsVehicleModeEnum | undefined,
+  inSelection: boolean,
+) {
+  if (inSelection) {
+    return colors.tweakedBrand;
+  }
+
   if (isPlaceholder) {
     return colors.grey;
   }
@@ -37,7 +42,7 @@ const determineBorderColor = (
     return colors.hslDark80;
   }
 
-  if (asMemberStop) {
+  if (inSelection || asMemberStop) {
     return colors.tweakedBrand;
   }
 
@@ -50,11 +55,30 @@ const determineBorderColor = (
   }
 
   return colors.hslDark80;
-};
+}
+
+function determineFillColor(
+  asMemberStop: boolean,
+  isSelected: boolean,
+  stopVehicleMode: ReusableComponentsVehicleModeEnum | undefined,
+  inSelection: boolean,
+) {
+  if (
+    stopVehicleMode !== undefined ||
+    isSelected ||
+    asMemberStop ||
+    inSelection
+  ) {
+    return 'white';
+  }
+
+  return colors.lightGrey;
+}
 
 type BaseStopProps = {
   readonly longitude: number;
   readonly latitude: number;
+  readonly inSelection?: boolean;
   readonly isHighlighted?: boolean;
   readonly asMemberStop?: boolean;
   readonly mapStopViewState: MapEntityEditorViewState;
@@ -81,6 +105,7 @@ type StopProps = PlaceholderStopProps | ExistingStopProps;
 
 export const Stop: FC<StopProps> = ({
   isHighlighted = false,
+  inSelection = false,
   asMemberStop = false,
   latitude,
   longitude,
@@ -102,12 +127,15 @@ export const Stop: FC<StopProps> = ({
     selected,
     isPlaceholder,
     vehicleMode,
+    inSelection,
   );
 
-  const iconFillColor =
-    vehicleMode !== undefined || selected || asMemberStop
-      ? 'white'
-      : colors.lightGrey;
+  const iconFillColor = determineFillColor(
+    asMemberStop,
+    selected,
+    vehicleMode,
+    inSelection,
+  );
 
   return (
     <Marker longitude={longitude} latitude={latitude} className="z-[2]">
@@ -120,6 +148,7 @@ export const Stop: FC<StopProps> = ({
         strokeDashArray={isPlaceholder ? 2 : 0}
         centerDot={selected}
         centerDotSize={selected ? centerDotSize * 1.5 : centerDotSize}
+        inSelection={inSelection}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...(stop
           ? ({ onClick, onResolveTitle, stop } as ExistingStopSpecialProps)

@@ -1,3 +1,4 @@
+import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdControlPointDuplicate, MdDelete } from 'react-icons/md';
@@ -14,16 +15,8 @@ import { StopInfoForEditingOnMap } from '../../forms/stop/utils/useGetStopInfoFo
 import { PriorityBadge } from '../PriorityBadge';
 import { useMapObservationDate } from '../utils/mapUrlState';
 
-type StopPopupProps = {
-  readonly stop: StopInfoForEditingOnMap;
-  readonly onEdit: () => void;
-  readonly onMove: () => void;
-  readonly onClose: () => void;
-  readonly onDelete: () => void;
-  readonly onCopy: () => void;
-};
-
 const testIds = {
+  isSelected: 'StopPopUp::isSelected',
   label: 'StopPopUp::label',
   moveButton: 'StopPopUp::moveButton',
   editButton: 'StopPopUp::editButton',
@@ -53,7 +46,30 @@ function useLinkToDetailsPage(publicCode: string, priority: Priority): string {
   });
 }
 
+type StopPopupProps = {
+  readonly stop: StopInfoForEditingOnMap;
+  readonly onEdit: () => void;
+  readonly onMove: () => void;
+  readonly onClose: () => void;
+  readonly onDelete: () => void;
+  readonly onCopy: () => void;
+} & (
+  | {
+      readonly isSelectable: true;
+      readonly isSelected: boolean;
+      readonly onToggleSelection: () => void;
+    }
+  | {
+      readonly isSelectable: false;
+      readonly isSelected?: never;
+      readonly onToggleSelection?: never;
+    }
+);
+
 export const StopPopup: FC<StopPopupProps> = ({
+  isSelectable,
+  isSelected = false,
+  onToggleSelection = noop,
   stop,
   onEdit,
   onMove,
@@ -92,6 +108,15 @@ export const StopPopup: FC<StopPopupProps> = ({
       closeButton={false}
     >
       <Row className="items-center gap-3">
+        <input
+          checked={isSelected}
+          className="h-7 w-7 accent-tweaked-brand"
+          data-testid={testIds.isSelected}
+          disabled={!isSelectable}
+          onChange={onToggleSelection}
+          type="checkbox"
+        />
+
         <Row className="flex-wrap items-center gap-x-3">
           <h3 className="text-lg">
             <a

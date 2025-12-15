@@ -84,7 +84,7 @@ export const relativeAlong = (
   return along(feature, featureLength * percentage);
 };
 
-type ValidGeoJsonPoint = Required<
+export type ValidGeoJsonPoint = Required<
   NonNullableKeys<StopRegistryGeoJson, 'coordinates'>
 > & { type: StopRegistryGeoJsonType.Point };
 
