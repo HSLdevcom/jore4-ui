@@ -1,4 +1,9 @@
-import { FC, ReactNode, isValidElement } from 'react';
+import {
+  ForwardRefRenderFunction,
+  ReactNode,
+  forwardRef,
+  isValidElement,
+} from 'react';
 import { twMerge } from 'tailwind-merge';
 import { addClassName } from '../utils/components';
 
@@ -14,23 +19,30 @@ type IconButtonProps = {
     readonly ariaLabel?: string;
   };
   readonly identifier?: string;
-  readonly onClick: () => void;
+  readonly onClick?: () => void;
 };
 
 const iconClassName = 'inline text-center';
 
-export const IconButton: FC<IconButtonProps> = ({
-  testId,
-  tooltip,
-  className,
-  disabled,
-  icon,
-  ariaAttributes,
-  identifier,
-  onClick,
-}) => {
+export const IconButtonImpl: ForwardRefRenderFunction<
+  HTMLButtonElement,
+  IconButtonProps
+> = (
+  {
+    testId,
+    tooltip,
+    className,
+    disabled,
+    icon,
+    ariaAttributes,
+    identifier,
+    onClick,
+  },
+  ref,
+) => {
   return (
     <button
+      ref={ref}
       id={identifier}
       data-testid={testId}
       title={tooltip}
@@ -46,3 +58,4 @@ export const IconButton: FC<IconButtonProps> = ({
     </button>
   );
 };
+export const IconButton = forwardRef(IconButtonImpl);

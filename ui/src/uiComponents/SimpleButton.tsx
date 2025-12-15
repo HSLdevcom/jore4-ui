@@ -196,7 +196,7 @@ export const SimpleButton: FC<SimpleButtonProps> = ({
 }: SimpleButtonProps) => {
   if (href) {
     return (
-      <span className={`inline-flex ${containerClassName}`}>
+      <span className={twMerge('inline-flex', containerClassName)}>
         <SimpleLinkButton
           id={id}
           className={className}
@@ -221,7 +221,7 @@ export const SimpleButton: FC<SimpleButtonProps> = ({
     type === 'reset'
   ) {
     return (
-      <span className={`inline-flex ${containerClassName}`}>
+      <span className={twMerge('inline-flex', containerClassName)}>
         <SimpleButtonButton
           id={id}
           data-selected={selected}
