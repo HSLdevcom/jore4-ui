@@ -69,6 +69,7 @@ module.exports = {
         'hsl-highlight-yellow-light': colors.hslHighlightYellowLight,
         'hsl-light-purple': colors.hslLightPurple,
         'hsl-orange': colors.hslOrange,
+        'accent-secondary': colors.accentSecondary,
       },
       borderWidth: {
         10: '10px',
