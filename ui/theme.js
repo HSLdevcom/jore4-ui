@@ -66,6 +66,7 @@ const theme = {
       tram: '#336D00',
     },
     selectedMapItem: '#DC0451',
+    accentSecondary: '#C53291',
   },
 };
 
