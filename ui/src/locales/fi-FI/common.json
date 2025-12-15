@@ -857,7 +857,22 @@
     "editStopArea": "Pysäkkialue {{stopArea}}",
     "error": "Karttavirhe: {{message}}",
     "searchResults": "Hakutuloksia:",
-    "searchResultCount": "$t(map.searchResults) {{count}}."
+    "searchResultCount": "$t(map.searchResults) {{count}}.",
+    "stopSelection": {
+      "showSelection": "Näytä valitut pysäkit",
+      "hideSelection": "Piilota valinnat",
+      "title": "Valitut pysäkit",
+      "download": "Lataa",
+      "nothingSelected": "Yhtään pysäkkiä ei ole valittuna.",
+      "resolvingSearchResultSelection": "Selvitetään valintoja hakutuloksista",
+      "resolvingSearchResultSelectionFailed": "Haun tulosten selvitys valinnoiksi epäonnistui",
+      "loadingMissingDetails": "Ladataan puuttuvia tietoja",
+      "loadingMissingDetailsFailed": "Puuttuvien tietojen lataus epäonnistui",
+      "showAll": "Näytä kaikki (1)",
+      "showAll_other": "Näytä kaikki ({{count}})",
+      "removeSelection": "Poista pysäkki valinnoista",
+      "retry": "Yritä uudelleen"
+    }
   },
   "saveChangesModal": {
     "title": "Tallenna muutos",

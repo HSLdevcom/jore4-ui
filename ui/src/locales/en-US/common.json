@@ -857,7 +857,22 @@
     "editStopArea": "Stop area {{stopArea}}",
     "error": "Map error: {{message}}",
     "searchResults": "Search results:",
-    "searchResultCount": "$t(map.searchResults) {{count}}."
+    "searchResultCount": "$t(map.searchResults) {{count}}.",
+    "stopSelection": {
+      "showSelection": "Show selected stops",
+      "hideSelection": "Hide selection",
+      "title": "Selected stops",
+      "download": "Download",
+      "nothingSelected": "No stops have been selected.",
+      "resolvingSearchResultSelection": "Resolving selection from search results",
+      "resolvingSearchResultSelectionFailed": "Resolving selection from search results failed!",
+      "loadingMissingDetails": "Loading missing details",
+      "loadingMissingDetailsFailed": "Loading missing details failed!",
+      "showAll": "Show all (1)",
+      "showAll_other": "Show all ({{count}})",
+      "removeSelection": "Remove stop from selection",
+      "retry": "Retry"
+    }
   },
   "saveChangesModal": {
     "title": "Save changes",

@@ -14,6 +14,7 @@ import {
   isEditorOpen,
   isPlacingOrMoving,
   selectDraftLocation,
+  selectMapStopSelection,
   selectSelectedStopAreaId,
   selectSelectedStopId,
   selectSelectedTerminalId,
@@ -28,6 +29,7 @@ import { useLoader } from '../../common/hooks';
 import { useResolveStopHoverTitle } from '../queries';
 import { EditStoplayerRef, StopsRef } from '../refTypes';
 import { MapStop, MapStopArea, MapTerminal } from '../types';
+import { useIsInSearchResultMode } from '../utils/useIsInSearchResultMode';
 import { useMapViewState } from '../utils/useMapViewState';
 import { CreateStopMarker } from './CreateStopMarker';
 import { EditStopLayer } from './EditStopLayer';
@@ -88,10 +90,13 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
 ) => {
   const [mapViewState, setMapViewState] = useMapViewState();
 
+  const isInSearchResultMode = useIsInSearchResultMode();
+
   const selectedStopId = useAppSelector(selectSelectedStopId);
   const selectedStopAreaId = useAppSelector(selectSelectedStopAreaId);
   const selectedTerminalId = useAppSelector(selectSelectedTerminalId);
   const draftLocation = useAppSelector(selectDraftLocation);
+  const mapStopSelection = useAppSelector(selectMapStopSelection);
 
   const setSelectedMapStopAreaId = useAppAction(setSelectedMapStopAreaIdAction);
   const setEditedStopAreaData = useAppAction(setEditedStopAreaDataAction);
@@ -201,6 +206,12 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
 
   const asMemberStop = !!(selectedStopAreaId ?? selectedTerminalId);
 
+  const selectedStops = mapStopSelection.byResultSelection
+    ? []
+    : mapStopSelection.selected;
+  const isInSelection = (stop: MapStop) =>
+    isInSearchResultMode || selectedStops.includes(stop.netex_id);
+
   return (
     <>
       {/* Display existing stops */}
@@ -210,6 +221,7 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
         return (
           <Stop
             isHighlighted={getStopHighlighted(item)}
+            inSelection={isInSelection(item)}
             asMemberStop={asMemberStop}
             key={item.netex_id}
             latitude={point.latitude}

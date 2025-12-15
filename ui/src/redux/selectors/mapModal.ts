@@ -7,3 +7,8 @@ export const selectMapViewport = createSelector(
   selectMapModal,
   (mapModal) => mapModal.viewport,
 );
+
+export const selectMapStopSelection = createSelector(
+  selectMapModal,
+  (mapModal) => mapModal.stopSelection,
+);

@@ -43,6 +43,10 @@ const GQL_GET_STOP_INFO_FOR_EDITING_ON_MAP = gql`
         validityStart: validity_start
         validityEnd: validity_end
 
+        # Ensure we have all info needed in the selection window
+        # prepopulated into the cache if this stop gets selected.
+        ...StopSelectionInfo
+
         keyValues: quay_key_values {
           key: key_values_key
           values: value {

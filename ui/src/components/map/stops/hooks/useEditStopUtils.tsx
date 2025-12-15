@@ -2,7 +2,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapLayerMouseEvent, useMap } from 'react-map-gl/maplibre';
 import { StopRegistryGeoJsonType } from '../../../../generated/graphql';
-import { MapEntityEditorViewState, Operation } from '../../../../redux';
+import { useAppDispatch } from '../../../../hooks';
+import {
+  MapEntityEditorViewState,
+  Operation,
+  setMapStopViewStateAction,
+} from '../../../../redux';
 import { isDateInRange } from '../../../../time';
 import {
   mapLngLatToGeoJSON,
@@ -42,10 +47,10 @@ type UseEditStopUtilsReturn = EditUtilsEditActive | EditUtilsEditInactive;
 
 export function useEditStopUtils(
   stopInfo: StopInfoForEditingOnMap | null,
-  setDisplayedEditor: (newViewState: MapEntityEditorViewState) => void,
   onFinishEditing: (netexId: string) => void,
 ): UseEditStopUtilsReturn {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const [editChanges, setEditChanges] = useState<EditChanges | null>(null);
 
@@ -83,7 +88,7 @@ export function useEditStopUtils(
       },
     });
 
-    setDisplayedEditor(MapEntityEditorViewState.EDIT);
+    dispatch(setMapStopViewStateAction(MapEntityEditorViewState.EDIT));
   };
 
   const onMoveStop = async (event: MapLayerMouseEvent) => {
@@ -175,10 +180,12 @@ export function useEditStopUtils(
   };
 
   const onCancelEdit = () => {
-    setDisplayedEditor(
-      editChanges.isMove
-        ? MapEntityEditorViewState.POPUP
-        : MapEntityEditorViewState.EDIT,
+    dispatch(
+      setMapStopViewStateAction(
+        editChanges.isMove
+          ? MapEntityEditorViewState.POPUP
+          : MapEntityEditorViewState.EDIT,
+      ),
     );
     setEditChanges(null);
   };

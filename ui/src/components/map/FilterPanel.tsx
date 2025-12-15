@@ -9,9 +9,9 @@ import {
   selectMapFilter,
   setShowMapEntityTypeFilterOverlayAction,
 } from '../../redux';
-import { IconButton } from '../../uiComponents/IconButton';
-import { IconToggle } from '../../uiComponents/IconToggle';
+import { IconButton, IconToggle } from '../../uiComponents';
 import { MapObservationDateControl } from './MapObservationDateControl';
+import { StopSelection } from './StopSelection';
 import { useIsInSearchResultMode } from './utils/useIsInSearchResultMode';
 
 const testIds = {
@@ -133,25 +133,29 @@ export const FilterPanel: FC<FilterPanelProps> = ({
             <h6 className={headingClassName}>{t('map.showRoutes')}</h6>
             <ToggleRow toggles={routes} />
           </div>
-          <div>
-            <IconButton
-              tooltip={t('accessibility:map.showFilters')}
-              className="block h-11 w-11 self-stretch rounded-md border border-black"
-              icon={
-                <MdLayers className="aria-hidden text-2xl text-tweaked-brand" />
-              }
-              onClick={() =>
-                dispatch(
-                  setShowMapEntityTypeFilterOverlayAction(
-                    !showMapEntityTypeFilterOverlay,
-                  ),
-                )
-              }
-              testId={testIds.toggleFiltersButton}
-            />
-          </div>
+
+          <IconButton
+            tooltip={t('accessibility:map.showFilters')}
+            className="block h-11 w-11 rounded-md border border-black"
+            icon={
+              <MdLayers className="aria-hidden text-2xl text-tweaked-brand" />
+            }
+            onClick={() =>
+              dispatch(
+                setShowMapEntityTypeFilterOverlayAction(
+                  !showMapEntityTypeFilterOverlay,
+                ),
+              )
+            }
+            testId={testIds.toggleFiltersButton}
+          />
         </>
       )}
+
+      <StopSelection
+        align={isInSearchResultMode ? 'left' : 'right'}
+        className="h-11 w-11 rounded-md border border-black"
+      />
     </div>
   );
 };
