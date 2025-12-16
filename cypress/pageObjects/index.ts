@@ -15,6 +15,7 @@ export * from './Map';
 export * from './MapFooter';
 export * from './MapItemTypeFiltersOverlay';
 export * from './MapPage';
+export * from './MapStopSelection';
 export * from './MapObservationDateControl';
 export * from './MapObservationDateFiltersOverlay';
 export * from './Navbar';
