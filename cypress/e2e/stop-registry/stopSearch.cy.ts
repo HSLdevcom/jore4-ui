@@ -32,6 +32,7 @@ import {
   Map,
   MapFooter,
   MapPage,
+  MapStopSelection,
   Pagination,
   SearchForStopAreas,
   SearchForTerminals,
@@ -43,6 +44,7 @@ import {
   StopSearchResultsPage,
   TerminalDetailsPage,
 } from '../../pageObjects';
+import { StopPopUp } from '../../pageObjects/StopPopUp';
 import { InsertQuayInput, InsertQuaysResult } from '../../support/types';
 import { UUID } from '../../types';
 import { SupportedResources, insertToDbHelper } from '../../utils';
@@ -62,6 +64,8 @@ const pagination = new Pagination();
 const map = new Map();
 const mapPage = new MapPage();
 const mapFooter = new MapFooter();
+const mapStopSelection = new MapStopSelection();
+const stopPopUp = new StopPopUp();
 
 function getUuid(index: number) {
   if (!Number.isInteger(index)) {
@@ -2165,6 +2169,61 @@ describe('Stop search', () => {
         });
 
       cy.getByTestId('TaskWithProgressBar').should('not.exist');
+    });
+
+    it.only('Should generate and download Equipment Details CSV report on Map', () => {
+      cy.window().then((win) => {
+        cy.stub(win, 'prompt').returns('EquipmentReportMapTest.csv');
+      });
+
+      // Search for stops
+      const observationDate = '2025-01-01';
+      stopSearchBar.getObservationDateInput().clearAndType(observationDate);
+      stopSearchBar.getSearchInput().type(`E2E00*{enter}`);
+      expectGraphQLCallToSucceed('@gqlSearchStops');
+
+      stopSearchResultsPage.getContainer().should('be.visible');
+      stopSearchResultsPage.getResultRows().should('have.length', 9);
+
+      // Open them on the Map
+      stopSearchResultsPage.getShowOnMapButton().click();
+      map.getLoader().shouldBeVisible();
+      map.waitForLoadToComplete();
+
+      // Check initial selection and remove E2E0001 from it
+      mapStopSelection.getOpenButton().shouldBeVisible().click();
+      mapStopSelection.getSelectedStops().should('have.length', 9);
+      mapStopSelection.getSelectedStop('E2E001').within(() => {
+        mapStopSelection.getRemoveSelectionButton().click();
+      });
+      mapStopSelection.getSelectedStops().should('have.length', 8);
+      mapStopSelection.getSelectedStop('E2E001').should('not.exist');
+
+      // Reselect E2E0001 From the map
+      map.getStopByStopLabelAndPriority('E2E001', Priority.Standard).click();
+      stopPopUp.getIsSelected().should('not.be.checked');
+      stopPopUp.getIsSelected().click();
+      stopPopUp.getIsSelected().should('be.checked');
+
+      // Ensure it is also back in selection
+      mapStopSelection.getOpenButton().shouldBeVisible().click();
+      mapStopSelection.getSelectedStops().should('have.length', 9);
+      mapStopSelection.getSelectedStop('E2E001');
+
+      // Trigger generation
+      mapStopSelection.getActionMenu().click();
+      mapStopSelection.getEquipmentReportMenuItem().click();
+
+      stopSearchResultsPage
+        .getDownloadedEquipmentDetailsCSVReport()
+        .then((generatedData) => {
+          cy.fixture<string>(
+            'csvReports/equipmentDetailsHardCodedData.csv',
+            'utf-8',
+          ).then((referenceData) => {
+            expect(generatedData).to.eql(referenceData);
+          });
+        });
     });
   });
 });

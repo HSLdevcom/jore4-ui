@@ -1,4 +1,8 @@
 export class StopPopUp {
+  getIsSelected() {
+    return cy.getByTestId('StopPopUp::isSelected');
+  }
+
   getMoveButton() {
     return cy.getByTestId('StopPopUp::moveButton');
   }
