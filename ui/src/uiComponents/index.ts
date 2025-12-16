@@ -25,6 +25,7 @@ export * from './SimpleDropdownMenuItem';
 export * from './SimpleDropdownMenuItems';
 export * from './SimpleSmallButton';
 export * from './SimpleRoundButton';
+export * from './SlimDropdownMenu';
 export * from './Spinner';
 export * from './Switch';
 export * from './TextButton';
