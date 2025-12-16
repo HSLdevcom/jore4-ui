@@ -3015,6 +3015,227 @@ export type LevelKeyValuesAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
+/** columns and relationships of "login_audit" */
+export type LoginAudit = {
+  __typename?: 'login_audit';
+  id: Scalars['bigint']['output'];
+  login_timestamp: Scalars['timestamptz']['output'];
+  user_id: Scalars['String']['output'];
+  user_name?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregated selection of "login_audit" */
+export type LoginAuditAggregate = {
+  __typename?: 'login_audit_aggregate';
+  aggregate?: Maybe<LoginAuditAggregateFields>;
+  nodes: Array<LoginAudit>;
+};
+
+/** aggregate fields of "login_audit" */
+export type LoginAuditAggregateFields = {
+  __typename?: 'login_audit_aggregate_fields';
+  avg?: Maybe<LoginAuditAvgFields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<LoginAuditMaxFields>;
+  min?: Maybe<LoginAuditMinFields>;
+  stddev?: Maybe<LoginAuditStddevFields>;
+  stddev_pop?: Maybe<LoginAuditStddevPopFields>;
+  stddev_samp?: Maybe<LoginAuditStddevSampFields>;
+  sum?: Maybe<LoginAuditSumFields>;
+  var_pop?: Maybe<LoginAuditVarPopFields>;
+  var_samp?: Maybe<LoginAuditVarSampFields>;
+  variance?: Maybe<LoginAuditVarianceFields>;
+};
+
+
+/** aggregate fields of "login_audit" */
+export type LoginAuditAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<LoginAuditSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type LoginAuditAvgFields = {
+  __typename?: 'login_audit_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "login_audit". All fields are combined with a logical 'AND'. */
+export type LoginAuditBoolExp = {
+  _and?: InputMaybe<Array<LoginAuditBoolExp>>;
+  _not?: InputMaybe<LoginAuditBoolExp>;
+  _or?: InputMaybe<Array<LoginAuditBoolExp>>;
+  id?: InputMaybe<BigintComparisonExp>;
+  login_timestamp?: InputMaybe<TimestamptzComparisonExp>;
+  user_id?: InputMaybe<StringComparisonExp>;
+  user_name?: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "login_audit" */
+export enum LoginAuditConstraint {
+  /** unique or primary key constraint on columns "id" */
+  LoginAuditPkey = 'login_audit_pkey'
+}
+
+/** input type for incrementing numeric columns in table "login_audit" */
+export type LoginAuditIncInput = {
+  id?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** input type for inserting data into table "login_audit" */
+export type LoginAuditInsertInput = {
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  login_timestamp?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['String']['input']>;
+  user_name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type LoginAuditMaxFields = {
+  __typename?: 'login_audit_max_fields';
+  id?: Maybe<Scalars['bigint']['output']>;
+  login_timestamp?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['String']['output']>;
+  user_name?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type LoginAuditMinFields = {
+  __typename?: 'login_audit_min_fields';
+  id?: Maybe<Scalars['bigint']['output']>;
+  login_timestamp?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['String']['output']>;
+  user_name?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "login_audit" */
+export type LoginAuditMutationResponse = {
+  __typename?: 'login_audit_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<LoginAudit>;
+};
+
+/** on_conflict condition type for table "login_audit" */
+export type LoginAuditOnConflict = {
+  constraint: LoginAuditConstraint;
+  update_columns?: Array<LoginAuditUpdateColumn>;
+  where?: InputMaybe<LoginAuditBoolExp>;
+};
+
+/** Ordering options when selecting data from "login_audit". */
+export type LoginAuditOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  login_timestamp?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
+  user_name?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: login_audit */
+export type LoginAuditPkColumnsInput = {
+  id: Scalars['bigint']['input'];
+};
+
+/** select columns of table "login_audit" */
+export enum LoginAuditSelectColumn {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LoginTimestamp = 'login_timestamp',
+  /** column name */
+  UserId = 'user_id',
+  /** column name */
+  UserName = 'user_name'
+}
+
+/** input type for updating data in table "login_audit" */
+export type LoginAuditSetInput = {
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  login_timestamp?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['String']['input']>;
+  user_name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type LoginAuditStddevFields = {
+  __typename?: 'login_audit_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type LoginAuditStddevPopFields = {
+  __typename?: 'login_audit_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type LoginAuditStddevSampFields = {
+  __typename?: 'login_audit_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "login_audit" */
+export type LoginAuditStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: LoginAuditStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type LoginAuditStreamCursorValueInput = {
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  login_timestamp?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['String']['input']>;
+  user_name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate sum on columns */
+export type LoginAuditSumFields = {
+  __typename?: 'login_audit_sum_fields';
+  id?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** update columns of table "login_audit" */
+export enum LoginAuditUpdateColumn {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LoginTimestamp = 'login_timestamp',
+  /** column name */
+  UserId = 'user_id',
+  /** column name */
+  UserName = 'user_name'
+}
+
+export type LoginAuditUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<LoginAuditIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<LoginAuditSetInput>;
+  /** filter the rows which have to be updated */
+  where: LoginAuditBoolExp;
+};
+
+/** aggregate var_pop on columns */
+export type LoginAuditVarPopFields = {
+  __typename?: 'login_audit_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type LoginAuditVarSampFields = {
+  __typename?: 'login_audit_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type LoginAuditVarianceFields = {
+  __typename?: 'login_audit_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
 /** mutation root */
 export type MutationRoot = {
   __typename?: 'mutation_root';
@@ -3051,6 +3272,10 @@ export type MutationRoot = {
   delete_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** delete single row from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
   delete_journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
+  /** delete data from the table: "login_audit" */
+  delete_login_audit?: Maybe<LoginAuditMutationResponse>;
+  /** delete single row from the table: "login_audit" */
+  delete_login_audit_by_pk?: Maybe<LoginAudit>;
   /** delete data from the table: "reusable_components.vehicle_mode" */
   delete_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** delete single row from the table: "reusable_components.vehicle_mode" */
@@ -3127,6 +3352,10 @@ export type MutationRoot = {
   insert_journey_pattern_scheduled_stop_point_in_journey_pattern?: Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>;
   /** insert a single row into the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
   insert_journey_pattern_scheduled_stop_point_in_journey_pattern_one?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
+  /** insert data into the table: "login_audit" */
+  insert_login_audit?: Maybe<LoginAuditMutationResponse>;
+  /** insert a single row into the table: "login_audit" */
+  insert_login_audit_one?: Maybe<LoginAudit>;
   /** insert data into the table: "reusable_components.vehicle_mode" */
   insert_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** insert a single row into the table: "reusable_components.vehicle_mode" */
@@ -3223,6 +3452,12 @@ export type MutationRoot = {
   update_journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** update multiples rows of table: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
   update_journey_pattern_scheduled_stop_point_in_journey_pattern_many?: Maybe<Array<Maybe<JourneyPatternScheduledStopPointInJourneyPatternMutationResponse>>>;
+  /** update data of the table: "login_audit" */
+  update_login_audit?: Maybe<LoginAuditMutationResponse>;
+  /** update single row of the table: "login_audit" */
+  update_login_audit_by_pk?: Maybe<LoginAudit>;
+  /** update multiples rows of table: "login_audit" */
+  update_login_audit_many?: Maybe<Array<Maybe<LoginAuditMutationResponse>>>;
   /** update data of the table: "reusable_components.vehicle_mode" */
   update_reusable_components_vehicle_mode?: Maybe<ReusableComponentsVehicleModeMutationResponse>;
   /** update single row of the table: "reusable_components.vehicle_mode" */
@@ -3393,6 +3628,18 @@ export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternAr
 export type MutationRootDeleteJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid']['input'];
   scheduled_stop_point_sequence: Scalars['Int']['input'];
+};
+
+
+/** mutation root */
+export type MutationRootDeleteLoginAuditArgs = {
+  where: LoginAuditBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteLoginAuditByPkArgs = {
+  id: Scalars['bigint']['input'];
 };
 
 
@@ -3642,6 +3889,20 @@ export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternAr
 export type MutationRootInsertJourneyPatternScheduledStopPointInJourneyPatternOneArgs = {
   object: JourneyPatternScheduledStopPointInJourneyPatternInsertInput;
   on_conflict?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertLoginAuditArgs = {
+  objects: Array<LoginAuditInsertInput>;
+  on_conflict?: InputMaybe<LoginAuditOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertLoginAuditOneArgs = {
+  object: LoginAuditInsertInput;
+  on_conflict?: InputMaybe<LoginAuditOnConflict>;
 };
 
 
@@ -3978,6 +4239,28 @@ export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternBy
 /** mutation root */
 export type MutationRootUpdateJourneyPatternScheduledStopPointInJourneyPatternManyArgs = {
   updates: Array<JourneyPatternScheduledStopPointInJourneyPatternUpdates>;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateLoginAuditArgs = {
+  _inc?: InputMaybe<LoginAuditIncInput>;
+  _set?: InputMaybe<LoginAuditSetInput>;
+  where: LoginAuditBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateLoginAuditByPkArgs = {
+  _inc?: InputMaybe<LoginAuditIncInput>;
+  _set?: InputMaybe<LoginAuditSetInput>;
+  pk_columns: LoginAuditPkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateLoginAuditManyArgs = {
+  updates: Array<LoginAuditUpdates>;
 };
 
 
@@ -4509,6 +4792,12 @@ export type QueryRoot = {
   journey_pattern_scheduled_stop_point_in_journey_pattern_aggregate: JourneyPatternScheduledStopPointInJourneyPatternAggregate;
   /** fetch data from the table: "journey_pattern.scheduled_stop_point_in_journey_pattern" using primary key columns */
   journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
+  /** fetch data from the table: "login_audit" */
+  login_audit: Array<LoginAudit>;
+  /** fetch aggregated fields from the table: "login_audit" */
+  login_audit_aggregate: LoginAuditAggregate;
+  /** fetch data from the table: "login_audit" using primary key columns */
+  login_audit_by_pk?: Maybe<LoginAudit>;
   /** fetch data from the table: "reusable_components.vehicle_mode" */
   reusable_components_vehicle_mode: Array<ReusableComponentsVehicleMode>;
   /** fetch aggregated fields from the table: "reusable_components.vehicle_mode" */
@@ -4834,6 +5123,29 @@ export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternAggregateAr
 export type QueryRootJourneyPatternScheduledStopPointInJourneyPatternByPkArgs = {
   journey_pattern_id: Scalars['uuid']['input'];
   scheduled_stop_point_sequence: Scalars['Int']['input'];
+};
+
+
+export type QueryRootLoginAuditArgs = {
+  distinct_on?: InputMaybe<Array<LoginAuditSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<LoginAuditOrderBy>>;
+  where?: InputMaybe<LoginAuditBoolExp>;
+};
+
+
+export type QueryRootLoginAuditAggregateArgs = {
+  distinct_on?: InputMaybe<Array<LoginAuditSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<LoginAuditOrderBy>>;
+  where?: InputMaybe<LoginAuditBoolExp>;
+};
+
+
+export type QueryRootLoginAuditByPkArgs = {
+  id: Scalars['bigint']['input'];
 };
 
 
@@ -59109,6 +59421,14 @@ export type SubscriptionRoot = {
   journey_pattern_scheduled_stop_point_in_journey_pattern_by_pk?: Maybe<JourneyPatternScheduledStopPointInJourneyPattern>;
   /** fetch data from the table in a streaming manner: "journey_pattern.scheduled_stop_point_in_journey_pattern" */
   journey_pattern_scheduled_stop_point_in_journey_pattern_stream: Array<JourneyPatternScheduledStopPointInJourneyPattern>;
+  /** fetch data from the table: "login_audit" */
+  login_audit: Array<LoginAudit>;
+  /** fetch aggregated fields from the table: "login_audit" */
+  login_audit_aggregate: LoginAuditAggregate;
+  /** fetch data from the table: "login_audit" using primary key columns */
+  login_audit_by_pk?: Maybe<LoginAudit>;
+  /** fetch data from the table in a streaming manner: "login_audit" */
+  login_audit_stream: Array<LoginAudit>;
   /** fetch data from the table: "reusable_components.vehicle_mode" */
   reusable_components_vehicle_mode: Array<ReusableComponentsVehicleMode>;
   /** fetch aggregated fields from the table: "reusable_components.vehicle_mode" */
@@ -59509,6 +59829,36 @@ export type SubscriptionRootJourneyPatternScheduledStopPointInJourneyPatternStre
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternStreamCursorInput>>;
   where?: InputMaybe<JourneyPatternScheduledStopPointInJourneyPatternBoolExp>;
+};
+
+
+export type SubscriptionRootLoginAuditArgs = {
+  distinct_on?: InputMaybe<Array<LoginAuditSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<LoginAuditOrderBy>>;
+  where?: InputMaybe<LoginAuditBoolExp>;
+};
+
+
+export type SubscriptionRootLoginAuditAggregateArgs = {
+  distinct_on?: InputMaybe<Array<LoginAuditSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<LoginAuditOrderBy>>;
+  where?: InputMaybe<LoginAuditBoolExp>;
+};
+
+
+export type SubscriptionRootLoginAuditByPkArgs = {
+  id: Scalars['bigint']['input'];
+};
+
+
+export type SubscriptionRootLoginAuditStreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<LoginAuditStreamCursorInput>>;
+  where?: InputMaybe<LoginAuditBoolExp>;
 };
 
 
@@ -68556,19 +68906,16 @@ export type GetAllStopPlaceLabelsAndIdsQuery = {
   __typename?: 'query_root',
   stop_registry?: {
     __typename?: 'stop_registryStopPlaceRegister',
-    stopPlace?: Array<
-      | {
-        __typename?: 'stop_registry_ParentStopPlace'
-      }
-      | {
-        __typename?: 'stop_registry_StopPlace',
-        id?: string | null,
-        privateCode?: {
-          __typename?: 'stop_registry_PrivateCode',
-          value?: string | null
-        } | null
-      }
-     | null> | null
+    stopPlace?: Array<{
+      __typename?: 'stop_registry_ParentStopPlace'
+    } | {
+      __typename?: 'stop_registry_StopPlace',
+      id?: string | null,
+      privateCode?: {
+        __typename?: 'stop_registry_PrivateCode',
+        value?: string | null
+      } | null
+    } | null> | null
   } | null
 };
 
