@@ -1,10 +1,11 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Children, FC, Fragment, ReactNode, isValidElement } from 'react';
-import { twJoin } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 import { addClassName } from '../utils';
 import { dropdownTransition } from './Listbox';
 
 type SimpleDropdownMenuItemsProps = {
+  readonly className?: string;
   readonly isOpen: boolean;
   readonly children: ReactNode;
   readonly alignItems: AlignDirection;
@@ -41,6 +42,7 @@ const commonMenuItemClassName = `border-x border-b first-of-type:border-t whites
 const activeMenuItemClassName = `bg-dark-grey text-white`;
 
 export const SimpleDropdownMenuItems: FC<SimpleDropdownMenuItemsProps> = ({
+  className,
   isOpen,
   children,
   alignItems,
@@ -50,7 +52,10 @@ export const SimpleDropdownMenuItems: FC<SimpleDropdownMenuItemsProps> = ({
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <Transition show={isOpen} as={Fragment} {...dropdownTransition}>
-      <Menu.Items static className={twJoin(commonClassName, alignClassName)}>
+      <Menu.Items
+        static
+        className={twMerge(commonClassName, alignClassName, className)}
+      >
         {Children.map(children, (child) =>
           isValidElement(child) ? (
             <Menu.Item>

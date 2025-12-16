@@ -39,7 +39,7 @@ function getCommonClassNames(inverted?: boolean, disabled?: boolean) {
   );
 }
 
-function getClassNames(
+export function getSimpleButtonClassNames(
   inverted?: boolean,
   disabled?: boolean,
   className?: string,
@@ -77,7 +77,7 @@ const SimpleButtonButtonImpl: ForwardRefRenderFunction<
     <button
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...buttonProps}
-      className={getClassNames(
+      className={getSimpleButtonClassNames(
         inverted,
         disabled,
         className,
@@ -124,7 +124,7 @@ export const SimpleLinkButtonImpl: ForwardRefRenderFunction<
     <Link
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...linkProps}
-      className={getClassNames(
+      className={getSimpleButtonClassNames(
         inverted,
         disabled,
         className,
