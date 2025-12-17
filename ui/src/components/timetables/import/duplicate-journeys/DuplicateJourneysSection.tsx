@@ -13,7 +13,7 @@ type DuplicateJourneysSectionProps = {
 };
 
 export const DuplicateJourneysSection: FC<DuplicateJourneysSectionProps> = ({
-  className = '',
+  className,
   duplicateJourneys,
 }) => {
   const { t } = useTranslation();

@@ -31,7 +31,7 @@ type StopBasicDetailsFormComponentProps = {
 const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   StopBasicDetailsFormComponentProps
-> = ({ className = '', defaultValues, onSubmit, stop }, ref) => {
+> = ({ className, defaultValues, onSubmit, stop }, ref) => {
   const dispatch = useDispatch();
   const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 

@@ -26,7 +26,7 @@ export const LabeledRadioButton: FC<LabeledRadioButtonProps> = ({
   fieldPath,
   value,
   testId,
-  className = '',
+  className,
   tooltip,
   selected,
   disabled,

@@ -16,7 +16,7 @@ type VehicleIconProps = {
 };
 
 export const VehicleIcon: FC<VehicleIconProps> = ({
-  className = '',
+  className,
   vehicleMode = VehicleMode.Bus,
   rowItem,
 }) => {

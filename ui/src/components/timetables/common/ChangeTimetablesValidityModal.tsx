@@ -27,7 +27,7 @@ type ChangeTimetablesValidityModalProps = {
 
 export const ChangeTimetablesValidityModal: FC<
   ChangeTimetablesValidityModalProps
-> = ({ isOpen, onClose, onChange, className = '' }) => {
+> = ({ isOpen, onClose, onChange, className }) => {
   const { t } = useTranslation();
   const wrappedOnClose = useWrapInContextNavigation(
     'ChangeTimetablesValidityForm',

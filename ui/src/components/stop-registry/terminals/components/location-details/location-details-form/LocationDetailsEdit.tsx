@@ -94,7 +94,7 @@ type TerminalDetailsEditProps = {
 const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   TerminalDetailsEditProps
-> = ({ terminal, className = '', onFinishEditing }, ref) => {
+> = ({ terminal, className, onFinishEditing }, ref) => {
   const { t } = useTranslation();
   const { upsertTerminalLocationDetails, defaultErrorHandler } =
     useUpsertTerminalLocationDetails();

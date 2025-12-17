@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import { FC, PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdHistory } from 'react-icons/md';
+import { twMerge } from 'tailwind-merge';
 import {
   RouteAllFieldsFragment,
   RouteDirectionEnum,
@@ -50,7 +51,7 @@ type RouteRowProps = {
 
 export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
   directionAndLabelId,
-  className = '',
+  className,
   route,
   observationDate,
   isExpanded,
@@ -81,7 +82,12 @@ export const RouteRow: FC<PropsWithChildren<RouteRowProps>> = ({
 
   return (
     <div
-      className={`relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24 ${pseudoBottomBorderClassName} ${alertStyle.listItemBorder ?? ''} ${className}`}
+      className={twMerge(
+        `relative grid min-h-16 items-center bg-background align-middle sm:grid-cols-12 md:grid-cols-24`,
+        pseudoBottomBorderClassName,
+        alertStyle.listItemBorder,
+        className,
+      )}
       data-testid={testIds.container(label, route.direction)}
     >
       <div

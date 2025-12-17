@@ -269,10 +269,7 @@ type StopFormProps = {
 const StopFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   StopFormProps
-> = (
-  { className = '', editing, defaultValues, onSubmit, submitState },
-  ref,
-) => {
+> = ({ className, editing, defaultValues, onSubmit, submitState }, ref) => {
   const { t } = useTranslation();
 
   const methods = useForm<StopFormState>({

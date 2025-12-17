@@ -25,7 +25,7 @@ const testIds = {
 
 export const CommonSubstitutePeriodSection: FC<
   CommonSubstitutePeriodSectionProps
-> = ({ className = '', dateRange }) => {
+> = ({ className, dateRange }) => {
   const { t } = useTranslation();
 
   const {

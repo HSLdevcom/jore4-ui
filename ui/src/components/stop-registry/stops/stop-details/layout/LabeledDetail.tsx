@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 function detailOrPlaceholder(detail: unknown): string {
   // Cases where the falsy value is OK.
@@ -24,10 +25,10 @@ export const LabeledDetail = <T extends ExplicitAny>({
   title,
   detail,
   testId = '',
-  className = '',
+  className,
 }: LabeledDetailProps<T>): ReactElement => {
   return (
-    <div className={`inline-flex flex-col ${className}`}>
+    <div className={twMerge('inline-flex flex-col', className)}>
       <div className="text-sm">{title}</div>
       <div className="text-sm font-bold" data-testid={testId}>
         {detailOrPlaceholder(detail)}

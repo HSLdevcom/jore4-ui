@@ -38,13 +38,7 @@ const testIds = {
 
 export const ChangeTimetablesValidityForm: FC<
   ChangeTimetablesValidityFormProps
-> = ({
-  defaultValues,
-  className = '',
-  onSubmit,
-  onCancel,
-  affectedRouteLabels,
-}) => {
+> = ({ defaultValues, className, onSubmit, onCancel, affectedRouteLabels }) => {
   const { t } = useTranslation();
   const formRef = useRef<ExplicitAny>(null);
 

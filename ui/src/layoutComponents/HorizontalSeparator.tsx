@@ -5,5 +5,5 @@ type HorizontalSeparatorProps = {
 };
 
 export const HorizontalSeparator = ({
-  className = '',
+  className,
 }: HorizontalSeparatorProps) => <hr className={twMerge('my-2', className)} />;

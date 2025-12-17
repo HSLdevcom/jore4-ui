@@ -13,7 +13,7 @@ type InputLabelProps<FormState extends FieldValues> = {
 
 const InputLabelImpl = <FormState extends FieldValues>(
   {
-    className = '',
+    className,
     fieldPath,
     translationPrefix,
     customTitlePath,

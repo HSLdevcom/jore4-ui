@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { DropdownMenu } from './DropdownMenu';
 
 export const testIds = {
@@ -11,9 +12,7 @@ type LanguageDropdownProps = {
   readonly className?: string;
 };
 
-export const LanguageDropdown: FC<LanguageDropdownProps> = ({
-  className = '',
-}) => {
+export const LanguageDropdown: FC<LanguageDropdownProps> = ({ className }) => {
   const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
   // TODO: this is is naive implementation and won't work if we have more than 2 supported languages at some point
@@ -24,7 +23,10 @@ export const LanguageDropdown: FC<LanguageDropdownProps> = ({
 
   return (
     <div
-      className={`z-10 self-stretch text-white hover:bg-brand-darker ${className}`}
+      className={twMerge(
+        'z-10 self-stretch text-white hover:bg-brand-darker',
+        className,
+      )}
     >
       <DropdownMenu
         buttonContent={currentLanguageText}

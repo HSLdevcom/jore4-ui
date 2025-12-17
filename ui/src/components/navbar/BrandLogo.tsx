@@ -8,7 +8,7 @@ type BrandLogoProps = {
   readonly style?: CSSProperties;
 };
 
-export const BrandLogo: FC<BrandLogoProps> = ({ className = '', style }) => {
+export const BrandLogo: FC<BrandLogoProps> = ({ className, style }) => {
   const { t } = useTranslation();
   const target = routeDetails[Path.root];
   return (

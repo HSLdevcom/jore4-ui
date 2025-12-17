@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 
 type TimetableIconProps = {
   readonly className?: string;
@@ -15,7 +16,7 @@ type TimetableIconProps = {
  * @returns A calendar icon
  */
 export const TimetableIcon: FC<TimetableIconProps> = ({
-  className = '',
+  className,
   hasTimetables = false,
 }) => {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ export const TimetableIcon: FC<TimetableIconProps> = ({
   const fontColor = hasTimetables ? 'text-tweaked-brand' : 'text-zinc-400';
   return (
     <i
-      className={`icon-calendar ${fontColor} ${className}`}
+      className={twMerge('icon-calendar', fontColor, className)}
       title={iconTitle}
       role="img"
     />

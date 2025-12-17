@@ -10,7 +10,7 @@ const testIds = {
 
 export const StopAreaVersioningRow: FC<StopAreaComponentProps> = ({
   area,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
 

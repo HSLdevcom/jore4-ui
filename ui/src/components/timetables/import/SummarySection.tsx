@@ -13,7 +13,7 @@ type SummarySectionProps = {
 };
 
 export const SummarySection: FC<SummarySectionProps> = ({
-  className = '',
+  className,
   deviations: routeDeviations,
   duplicateJourneys,
 }) => {

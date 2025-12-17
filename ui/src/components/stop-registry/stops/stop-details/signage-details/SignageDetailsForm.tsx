@@ -31,7 +31,7 @@ type SignageDetailsFormProps = {
 const SignageDetailsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   SignageDetailsFormProps
-> = ({ className = '', defaultValues, onSubmit }, ref) => {
+> = ({ className, defaultValues, onSubmit }, ref) => {
   const { t } = useTranslation();
   const methods = useForm<SignageDetailsFormState>({
     defaultValues,

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { twJoin } from 'tailwind-merge';
 import { SimpleButton } from './SimpleButton';
 
 type SimpleSmallButtonProps = {
@@ -22,7 +23,7 @@ export const SimpleSmallButton: FC<SimpleSmallButtonProps> = ({
   inverted,
   onClick,
   testId,
-  className = '',
+  className,
   disabled,
   tooltip,
   disabledTooltip,
@@ -30,14 +31,12 @@ export const SimpleSmallButton: FC<SimpleSmallButtonProps> = ({
   role,
   ariaControls,
 }) => {
-  const commonClassNames = `!rounded text-sm font-light py-0`;
-
   return (
     <SimpleButton
       id={id}
       onClick={onClick}
       testId={testId}
-      className={`${commonClassNames} ${className}`}
+      className={twJoin('!rounded py-0 text-sm font-light', className)}
       disabled={disabled}
       invertedClassName="!text-gray-900"
       inverted={inverted}

@@ -76,7 +76,7 @@ type StopAreaDetailsEditProps = {
 const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   StopAreaDetailsEditProps
-> = ({ area, className = '', refetch, onFinishEditing }, ref) => {
+> = ({ area, className, refetch, onFinishEditing }, ref) => {
   const { t } = useTranslation();
 
   const { observationDate, setObservationDateToUrl } =

@@ -34,7 +34,7 @@ type ChangeValidityFormProps = {
  * Can be merged with other forms.
  */
 export const ChangeValidityForm: FC<ChangeValidityFormProps> = ({
-  className = '',
+  className,
   hiddenPriorities,
   dateInputRowClassName,
 }) => {

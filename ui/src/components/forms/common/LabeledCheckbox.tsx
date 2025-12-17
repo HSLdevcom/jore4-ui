@@ -26,7 +26,7 @@ const LabeledCheckboxImpl: ForwardRefRenderFunction<
     label,
     onBlur,
     onClick,
-    className = '',
+    className,
     tooltip,
     id,
     testId,

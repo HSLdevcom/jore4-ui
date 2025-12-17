@@ -20,7 +20,7 @@ const testIds = {
 
 export const TerminalDetailsView: FC<TerminalComponentProps> = ({
   terminal,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
   const terminalType = parseTerminalType(terminal.terminalType);

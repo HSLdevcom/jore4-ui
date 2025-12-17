@@ -36,7 +36,7 @@ export const TabSelector: FC<TabSelectorProps> = ({
   activeTab,
   selectTab,
   stopsCount,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
   const stopsTitle = Number.isFinite(stopsCount)

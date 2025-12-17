@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { RouteDirectionEnum } from '../../../generated/graphql';
 import {
   mapDirectionToSymbol,
@@ -20,7 +21,7 @@ type DirectionBadgeProps = {
 
 export const DirectionBadge: FC<DirectionBadgeProps> = ({
   direction,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
 
@@ -29,7 +30,10 @@ export const DirectionBadge: FC<DirectionBadgeProps> = ({
     <span
       title={directionText}
       data-testid={testIds.container}
-      className={`relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white ${className}`}
+      className={twMerge(
+        'relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white',
+        className,
+      )}
     >
       <span
         aria-hidden

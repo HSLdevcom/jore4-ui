@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type ColumnProps = {
   readonly className?: string;
@@ -6,12 +7,12 @@ type ColumnProps = {
 };
 
 export const Column: FC<PropsWithChildren<ColumnProps>> = ({
-  className = '',
+  className,
   id,
   children,
 }) => {
   return (
-    <div id={id} className={`flex flex-col ${className}`}>
+    <div id={id} className={twMerge('flex flex-col', className)}>
       {children}
     </div>
   );

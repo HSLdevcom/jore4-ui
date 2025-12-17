@@ -1,6 +1,7 @@
 import get from 'lodash/get';
 import { InputHTMLAttributes, ReactElement } from 'react';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
+import { twMerge } from 'tailwind-merge';
 import { inputErrorStyles } from './InputElement';
 
 export type TextAreaElementDefaultProps = InputHTMLAttributes<Element> & {
@@ -15,7 +16,7 @@ type TextAreaElementProps<FormState extends FieldValues> =
   };
 
 export const TextAreaElement = <FormState extends FieldValues>({
-  className = '',
+  className,
   id,
   fieldPath,
   testId,
@@ -30,7 +31,7 @@ export const TextAreaElement = <FormState extends FieldValues>({
 
   return (
     <textarea
-      className={`${className} ${hasError ? inputErrorStyles : ''}`}
+      className={twMerge(hasError ? inputErrorStyles : '', className)}
       id={id}
       data-testid={testId}
       {...register(fieldPath)}

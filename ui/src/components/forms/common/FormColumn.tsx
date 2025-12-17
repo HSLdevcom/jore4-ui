@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
+import { twJoin } from 'tailwind-merge';
 import { Column } from '../../../layoutComponents';
 
 type FormColumnProps = {
@@ -7,12 +8,12 @@ type FormColumnProps = {
 };
 
 export const FormColumn: FC<PropsWithChildren<FormColumnProps>> = ({
-  className = '',
+  className,
   id,
   children,
 }) => {
   return (
-    <Column className={`${className} w-full space-y-5`} id={id}>
+    <Column className={twJoin('w-full space-y-5', className)} id={id}>
       {children}
     </Column>
   );

@@ -45,7 +45,7 @@ export const mapStopJourneyPatternToFormState = (
 
 export const ViaForm: FC<ViaFormProps> = ({
   defaultValues,
-  className = '',
+  className,
   onSubmit,
   onCancel,
   onRemove,

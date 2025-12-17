@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import { FC, PropsWithChildren } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { twJoin } from 'tailwind-merge';
 import { Row } from '../layoutComponents';
 import { Modal, NewModalBody } from './modal';
 import { SimpleButton } from './SimpleButton';
@@ -28,7 +28,7 @@ export const ConfirmModal: FC<PropsWithChildren<ConfirmModalProps>> = ({
   onConfirm,
   confirmButtonText,
   cancelButtonText,
-  className = '',
+  className,
   children,
   testId,
 }) => {
@@ -36,7 +36,7 @@ export const ConfirmModal: FC<PropsWithChildren<ConfirmModalProps>> = ({
     <Modal
       isOpen={isOpen}
       onClose={onCancel}
-      contentClassName={twMerge('w-1/4', className)}
+      contentClassName={twJoin('w-1/4', className)}
       testId={testId}
     >
       <Row className="flex justify-between px-5 py-4">

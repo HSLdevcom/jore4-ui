@@ -20,7 +20,7 @@ type DateControlProps = {
  */
 export const DateControl: FC<DateControlProps> = ({
   label,
-  className = '',
+  className,
   disabled = false,
   testId,
   dateInputId,

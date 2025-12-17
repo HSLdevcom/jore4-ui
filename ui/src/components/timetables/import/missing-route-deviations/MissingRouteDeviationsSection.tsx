@@ -16,7 +16,7 @@ type MissingRouteDeviationsSectionProps = {
 
 export const MissingRouteDeviationsSection: FC<
   MissingRouteDeviationsSectionProps
-> = ({ className = '', routeDeviations, handleClose }) => {
+> = ({ className, routeDeviations, handleClose }) => {
   const { t } = useTranslation();
   const { sortDeviations } = useMissingRouteDeviationsSort();
 

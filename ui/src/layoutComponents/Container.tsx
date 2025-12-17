@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type ContainerProps = {
   readonly className?: string;
@@ -6,13 +7,13 @@ type ContainerProps = {
 };
 
 export const Container: FC<PropsWithChildren<ContainerProps>> = ({
-  className = '',
+  className,
   testId,
   children,
 }) => {
   return (
     <div
-      className={`container mx-auto py-10 ${className}`}
+      className={twMerge('container mx-auto py-10', className)}
       data-testid={testId}
     >
       {children}

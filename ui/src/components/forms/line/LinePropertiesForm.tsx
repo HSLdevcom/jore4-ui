@@ -51,7 +51,7 @@ type LinePropertiesFormProps = {
 };
 
 export const LinePropertiesForm: FC<LinePropertiesFormProps> = ({
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
   const { getValues } = useFormContext<FormState>();

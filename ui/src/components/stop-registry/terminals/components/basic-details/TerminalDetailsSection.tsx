@@ -13,7 +13,7 @@ import { TerminalDetailsView } from './TerminalDetailsViewCard';
 
 export const TerminalDetails: FC<TerminalComponentProps> = ({
   terminal,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
   const formRef = useRef<HTMLFormElement>(null);

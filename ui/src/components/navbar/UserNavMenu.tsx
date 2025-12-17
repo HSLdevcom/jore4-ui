@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { LOGIN_URL, LOGOUT_URL } from '../../api/user';
 import { useAppSelector } from '../../hooks';
 import { selectUser } from '../../redux';
@@ -15,7 +16,7 @@ export const testIds = {
   logoutButton: 'UserNavMenu::logoutButton',
 };
 
-export const UserNavMenu: FC<UserNavMenuProps> = ({ className = '' }) => {
+export const UserNavMenu: FC<UserNavMenuProps> = ({ className }) => {
   const { userInfo } = useAppSelector(selectUser);
   const { t } = useTranslation();
 
@@ -23,7 +24,10 @@ export const UserNavMenu: FC<UserNavMenuProps> = ({ className = '' }) => {
 
   return (
     <div
-      className={`z-10 self-stretch text-white hover:bg-brand-darker ${className}`}
+      className={twMerge(
+        'z-10 self-stretch text-white hover:bg-brand-darker',
+        className,
+      )}
     >
       {!userInfo ? (
         <a

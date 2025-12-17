@@ -23,7 +23,7 @@ type ViaModalProps = {
   readonly className?: string;
 };
 
-export const ViaModal: FC<ViaModalProps> = ({ className = '' }) => {
+export const ViaModal: FC<ViaModalProps> = ({ className }) => {
   const { t } = useTranslation();
   const wrapInContextNavigation = useWrapInContextNavigation('ViaForm');
 

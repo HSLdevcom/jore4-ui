@@ -66,7 +66,7 @@ const ToastImpl: ForwardRefRenderFunction<HTMLDivElement, ToastProps> = (
 
   return (
     <div
-      className={twMerge(`rounded-md bg-white`, className)}
+      className={twMerge('rounded-md bg-white', className)}
       data-test-element-type="toast"
       data-testid={testId}
       ref={ref}
@@ -76,7 +76,7 @@ const ToastImpl: ForwardRefRenderFunction<HTMLDivElement, ToastProps> = (
           <IconButton
             tooltip={t('close')}
             icon={
-              <i className={twJoin(`icon-close-large text-lg`, textColor)} />
+              <i className={twJoin('icon-close-large text-lg', textColor)} />
             }
             className="-mb-2 ml-auto px-4 pt-2"
             onClick={() => toast.dismiss(toastId)}

@@ -25,7 +25,7 @@ type StopHeaderSummaryRowProps = {
 
 export const StopHeaderSummaryRow: FC<StopHeaderSummaryRowProps> = ({
   stopDetails,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
 

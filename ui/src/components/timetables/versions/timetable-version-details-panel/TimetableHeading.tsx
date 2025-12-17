@@ -19,7 +19,7 @@ export const TimetableHeading: FC<TimetableHeadingProps> = ({
   priority,
   dayTypeI18n,
   createdAt,
-  className = '',
+  className,
 }) => {
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
 

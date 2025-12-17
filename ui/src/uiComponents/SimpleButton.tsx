@@ -182,7 +182,7 @@ export const SimpleButton: FC<SimpleButtonProps> = ({
   disabled,
   testId,
   children,
-  containerClassName = '',
+  containerClassName,
   invertedClassName,
   tooltip,
   disabledTooltip,

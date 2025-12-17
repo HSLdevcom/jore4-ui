@@ -10,7 +10,7 @@ type CopyStopConfirmationDialogProps = {
 };
 export const CopyStopConfirmationDialog: FC<
   CopyStopConfirmationDialogProps
-> = ({ isOpen, onConfirm, onCancel, className = '' }) => {
+> = ({ isOpen, onConfirm, onCancel, className }) => {
   const { t } = useTranslation();
 
   return (

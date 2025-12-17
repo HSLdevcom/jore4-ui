@@ -15,7 +15,7 @@ type DeleteStopConfirmationDialogProps = {
 // renders a confirmation dialog for confirming changes when a stop is deleted
 export const DeleteStopConfirmationDialog: FC<
   DeleteStopConfirmationDialogProps
-> = ({ isOpen, onConfirm, onCancel, className = '', deleteChanges }) => {
+> = ({ isOpen, onConfirm, onCancel, className, deleteChanges }) => {
   const { t } = useTranslation();
 
   // TODO improve the confirmation dialog when Design has iterated on how this should look like

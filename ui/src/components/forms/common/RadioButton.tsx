@@ -16,7 +16,7 @@ type RadioButtonProps<FormState extends FieldValues> =
   };
 
 export const RadioButton = <FormState extends FieldValues>({
-  className = '',
+  className,
   id,
   fieldPath,
   testId,

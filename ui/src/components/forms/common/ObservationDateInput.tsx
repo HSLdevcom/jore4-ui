@@ -18,7 +18,7 @@ type ObservationDateInputProps = {
 export const ObservationDateInput: FC<ObservationDateInputProps> = ({
   value,
   onChange,
-  className = '',
+  className,
   containerClassName = className,
   inputClassName = className,
   testId,

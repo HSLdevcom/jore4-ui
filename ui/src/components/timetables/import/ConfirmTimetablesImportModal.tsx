@@ -23,7 +23,7 @@ type ConfirmTimetablesImportModalProps = {
 
 export const ConfirmTimetablesImportModal: FC<
   ConfirmTimetablesImportModalProps
-> = ({ isOpen, onClose, className = '' }) => {
+> = ({ isOpen, onClose, className }) => {
   const { t } = useTranslation();
   const wrappedOnClose = useWrapInContextNavigation(
     'ConfirmTimetablesImportForm',

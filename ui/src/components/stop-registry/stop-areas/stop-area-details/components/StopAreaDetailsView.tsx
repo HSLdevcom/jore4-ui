@@ -28,7 +28,7 @@ function validityPeriod(area: EnrichedStopPlace) {
 
 export const StopAreaDetailsView: FC<StopAreaComponentProps> = ({
   area,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
 

@@ -6,7 +6,7 @@ type ModalBodyProps = {
   readonly children: ReactNode;
 };
 
-export const ModalBody: FC<ModalBodyProps> = ({ className = '', children }) => {
+export const ModalBody: FC<ModalBodyProps> = ({ className, children }) => {
   return (
     <div
       className={twMerge(`mx-12 my-8 border-x border-light-grey`, className)}

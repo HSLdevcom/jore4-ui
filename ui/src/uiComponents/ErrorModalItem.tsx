@@ -1,5 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import { FC } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { Visible } from '../layoutComponents';
 
 const testIds = {
@@ -20,11 +21,11 @@ export const ErrorModalItem: FC<ErrorModalItemProps> = ({
   title,
   details,
   additionalDetails,
-  className = '',
+  className,
 }) => {
   return (
     <div
-      className={`rounded-sm px-4 py-3 ${className}`}
+      className={twMerge('rounded-sm px-4 py-3', className)}
       data-testid={testIds.modalItem}
     >
       <Visible visible={!!title}>

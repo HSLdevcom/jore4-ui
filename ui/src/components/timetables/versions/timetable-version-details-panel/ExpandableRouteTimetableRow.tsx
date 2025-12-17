@@ -26,7 +26,7 @@ export const ExpandableRouteTimetableRow: FC<
   routeLabel,
   routeName,
   sectionIdentifier,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);

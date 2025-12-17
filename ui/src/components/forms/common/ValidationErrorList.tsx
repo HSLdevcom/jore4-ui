@@ -7,6 +7,7 @@ import {
   useFormContext,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { twJoin } from 'tailwind-merge';
 import { Column, Row } from '../../../layoutComponents';
 import { REQUIRED_FIELD_ERROR_MESSAGE } from './customZodSchemas';
 
@@ -21,11 +22,11 @@ type ValidationErrorProps = {
 };
 
 export const ValidationError: FC<ValidationErrorProps> = ({
-  className = '',
+  className,
   errorMessage,
   fieldPath,
 }) => (
-  <Row className={`${className} items-center`}>
+  <Row className={twJoin('items-center', className)}>
     <i className="icon-alert mr-2 text-hsl-red" />
     <span
       className="text-sm text-hsl-red"
@@ -44,7 +45,7 @@ type ErrorListProps<FormState extends FieldValues> = {
 const INVALID_EMAIL_MESSAGE = 'Invalid email';
 
 export const ValidationErrorList = <FormState extends FieldValues>({
-  className = '',
+  className,
   fieldPath,
 }: ErrorListProps<FormState>): ReactElement | null => {
   const { t } = useTranslation();

@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FC, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import { Row } from '../../../layoutComponents';
 import { Operation } from '../../../redux';
@@ -42,7 +43,7 @@ type CreateTimingPlaceFormProps = {
 export type FormState = z.infer<typeof schema>;
 
 export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
-  className = '',
+  className,
   onCancel,
   onTimingPlaceCreated,
 }) => {
@@ -116,7 +117,7 @@ export const CreateTimingPlaceForm: FC<CreateTimingPlaceFormProps> = ({
       <form
         onSubmit={handleSubmit(onFormSubmit)}
         ref={formRef}
-        className={`space-y-4 ${className}`}
+        className={twMerge('space-y-4', className)}
       >
         <FormRow>
           <InputField<FormState>

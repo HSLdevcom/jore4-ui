@@ -5,6 +5,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdWarning } from 'react-icons/md';
+import { twJoin } from 'tailwind-merge';
 import { z } from 'zod';
 import { useAppSelector } from '../../../hooks';
 import { Visible } from '../../../layoutComponents';
@@ -28,12 +29,9 @@ type WarningTextProps = {
   readonly className?: string;
 };
 
-const WarningText: FC<WarningTextProps> = ({
-  warningMessage,
-  className = '',
-}) => {
+const WarningText: FC<WarningTextProps> = ({ warningMessage, className }) => {
   return (
-    <Row className={`${className} items-center`}>
+    <Row className={twJoin('items-center', className)}>
       <MdWarning className="mr-2 inline text-lg text-grey" />
       <span className="text-grey" data-testid={testIds.warningMessage}>
         {warningMessage}

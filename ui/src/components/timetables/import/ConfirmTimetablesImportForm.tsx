@@ -36,7 +36,7 @@ export const ConfirmTimetablesImportForm: FC<
   ConfirmTimetablesImportFormProps
 > = ({
   defaultValues,
-  className = '',
+  className,
   combiningSameContractTimetables,
   inconsistentSpecialDayPrioritiesStaged,
   fetchStagingAndTargetFramesForCombine,

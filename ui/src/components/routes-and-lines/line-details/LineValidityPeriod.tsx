@@ -17,7 +17,7 @@ type LineValidityPeriodProps = {
 };
 
 export const LineValidityPeriod: FC<LineValidityPeriodProps> = ({
-  className = '',
+  className,
   line,
 }) => {
   const { t } = useTranslation();

@@ -19,7 +19,7 @@ const testIds = {
 
 export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
   area,
-  className = '',
+  className,
   refetch,
 }) => {
   const { t } = useTranslation();

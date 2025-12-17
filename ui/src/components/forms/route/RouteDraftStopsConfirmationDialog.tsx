@@ -21,7 +21,7 @@ export const RouteDraftStopsConfirmationDialog: FC<
   onCancel,
   routeLabel,
   stopsLabelsToRemove,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
 

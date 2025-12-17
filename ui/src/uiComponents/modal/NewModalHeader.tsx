@@ -17,7 +17,7 @@ type NewModalHeaderProps = {
 export const NewModalHeader: FC<NewModalHeaderProps> = ({
   onClose,
   heading,
-  className = '',
+  className,
 }) => {
   return (
     <Row

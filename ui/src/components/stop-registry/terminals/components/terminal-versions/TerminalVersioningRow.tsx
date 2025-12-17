@@ -11,7 +11,7 @@ const testIds = {
 
 export const TerminalVersioningRow: FC<TerminalComponentProps> = ({
   terminal,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
 

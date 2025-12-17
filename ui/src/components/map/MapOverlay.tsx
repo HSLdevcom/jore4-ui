@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
+import { twJoin } from 'tailwind-merge';
 import { Column, Row } from '../../layoutComponents';
 
 type MapOverlayProps = {
@@ -6,11 +7,11 @@ type MapOverlayProps = {
 };
 
 export const MapOverlay: FC<PropsWithChildren<MapOverlayProps>> = ({
-  className = '',
+  className,
   children,
 }) => {
   return (
-    <Column className={`w-72 rounded bg-white shadow-md ${className}`}>
+    <Column className={twJoin('w-72 rounded bg-white shadow-md', className)}>
       {children}
     </Column>
   );
@@ -22,13 +23,16 @@ type MapOverlayHeaderProps = {
 };
 
 export const MapOverlayHeader: FC<PropsWithChildren<MapOverlayHeaderProps>> = ({
-  className = '',
+  className,
   children,
   testId,
 }) => {
   return (
     <Row
-      className={`flex items-center justify-between space-x-1 border-b border-gray-200 bg-background p-3 ${className}`}
+      className={twJoin(
+        'flex items-center justify-between space-x-1 border-b border-gray-200 bg-background p-3',
+        className,
+      )}
       testId={testId}
     >
       {children}

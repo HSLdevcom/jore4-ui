@@ -17,7 +17,7 @@ export const ListHeader: FC<ListHeaderProps> = ({
   limit,
   onShowOwnChange,
   onLimitChange,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
 

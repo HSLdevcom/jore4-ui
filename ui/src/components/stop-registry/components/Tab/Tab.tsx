@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { twJoin } from 'tailwind-merge';
 import { SlimSimpleButton } from '../../stops/stop-details/layout';
 
 type TabProps = {
@@ -18,7 +19,7 @@ export const Tab: FC<TabProps> = ({
   title,
   isActive,
   onClick,
-  className = '',
+  className,
 }) => {
   return (
     <SlimSimpleButton
@@ -27,7 +28,7 @@ export const Tab: FC<TabProps> = ({
       inverted={!isActive}
       ariaSelected={isActive}
       onClick={onClick}
-      className={`px-4 py-1 ${className}`}
+      className={twJoin('px-4 py-1', className)}
       aria-controls={tabPanelId}
       role="tab"
     >

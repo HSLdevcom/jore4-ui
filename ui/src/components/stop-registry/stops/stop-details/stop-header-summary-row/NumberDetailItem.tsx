@@ -22,7 +22,7 @@ export const NumberDetailItem: FC<NumberDetailItemProps> = ({
   count,
   translationKey,
   testIdPrefix,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
 

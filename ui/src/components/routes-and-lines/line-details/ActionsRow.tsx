@@ -15,7 +15,7 @@ type ActionsRowProps = {
   readonly className?: string;
 };
 
-export const ActionsRow: FC<ActionsRowProps> = ({ className = '' }) => {
+export const ActionsRow: FC<ActionsRowProps> = ({ className }) => {
   const { t } = useTranslation();
 
   const { line } = useGetLineDetails();

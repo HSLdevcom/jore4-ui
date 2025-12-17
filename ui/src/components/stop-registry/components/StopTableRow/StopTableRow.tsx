@@ -45,7 +45,7 @@ const yBorderClassNames = 'border-y border-y-light-grey';
 
 export const StopTableRow: FC<StopTableRowProps> = ({
   actionButtons,
-  className = '',
+  className,
   inEditMode,
   isSelected,
   menuItems,

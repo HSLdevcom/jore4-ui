@@ -1,6 +1,7 @@
 import noop from 'lodash/noop';
 import { FC, PropsWithChildren, ReactNode, Suspense } from 'react';
 import { PulseLoader } from 'react-spinners';
+import { twJoin } from 'tailwind-merge';
 import { theme } from '../generated/theme';
 
 type LoadingWrapperProps = {
@@ -25,7 +26,10 @@ const Loader: FC<Omit<LoadingWrapperProps, 'loading'>> = ({
 }) => (
   <div data-testid={testId} className={className}>
     <div
-      className={`inline-flex ${orientation === 'column' ? 'flex-col' : ''} items-center`}
+      className={twJoin(
+        'inline-flex items-center',
+        orientation === 'column' ? 'flex-col' : '',
+      )}
     >
       <PulseLoader
         color={color}

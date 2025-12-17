@@ -1,5 +1,6 @@
 import { Switch as HuiSwitch } from '@headlessui/react';
 import { FC, PropsWithChildren } from 'react';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 type SwitchProps = {
   readonly className?: string;
@@ -11,7 +12,7 @@ type SwitchProps = {
 // a pre-styled version of the Headless UI Switch component
 export const Switch: FC<SwitchProps> = ({
   testId,
-  className = '',
+  className,
   checked,
   onChange,
 }) => {
@@ -19,17 +20,20 @@ export const Switch: FC<SwitchProps> = ({
     <HuiSwitch
       checked={checked}
       onChange={onChange}
-      className={`${className} ${
-        checked ? 'border-brand bg-brand' : 'border-grey'
-      } relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring`}
+      className={twMerge(
+        'relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring',
+        checked ? 'border-brand bg-brand' : 'border-grey',
+        className,
+      )}
       data-testid={testId}
     >
       <span
-        className={`${
+        className={twJoin(
+          'inline-block h-6 w-6 transform rounded-full border bg-white transition-transform',
           checked
             ? 'translate-x-5 border-brand'
-            : '-translate-x-0.5 border-grey'
-        } inline-block h-6 w-6 transform rounded-full border bg-white transition-transform`}
+            : '-translate-x-0.5 border-grey',
+        )}
       />
     </HuiSwitch>
   );
@@ -40,11 +44,11 @@ type LabelProps = {
 };
 
 export const SwitchLabel: FC<PropsWithChildren<LabelProps>> = ({
-  className = '',
+  className,
   children,
 }) => {
   return (
-    <HuiSwitch.Label className={`${className} text-base font-normal`}>
+    <HuiSwitch.Label className={twMerge('text-base font-normal', className)}>
       {children}
     </HuiSwitch.Label>
   );

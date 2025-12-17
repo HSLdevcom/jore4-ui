@@ -43,7 +43,7 @@ type SelectStopDropdown = {
 };
 
 export const SelectStopDropdown: FC<SelectStopDropdown> = ({
-  className = '',
+  className,
   disabled,
   value,
   testId,

@@ -460,7 +460,21 @@ export const ChangeValidityForm = (...):  {
 
 It is possible to override tailwindcss styles by adding overriding classname after the one that has to be overridden, but this is not default functionality. This could be needed when we want to customise a component which already has themes. For example `SimpleButton` already has paddings, but `SimpleSmallButton` needs smaller paddings. We don't want to use ! / important styles though, as they override everything and and are practically impossible to override.
 
-It should be noted, that the order of classnames given to component does not automatically mean anything. The classes and styles are applied in the order that they are in the css file, which could be quite random and should not be relied on. For that reason we are using [tailwind-merge](https://www.npmjs.com/package/tailwind-merge) package, which takes the order in account and removes the classnames which are overridden. Therefore whenever classnames are used so that the order should be taken into account, `twMerge` function should be used to combine the classnames.
+It should be noted, that the order of classnames given to component does not automatically mean anything. The classes and styles are applied in the order that they are in the css file, which could be quite random and should not be relied on. For that reason we are using [tailwind-merge](https://www.npmjs.com/package/tailwind-merge) package, which takes the order in account and removes the classnames which are overridden. Therefore whenever classnames are used so that the order should be taken into account, `twMerge` & `twJoin` functions should be used to combine the classnames.
+
+- `twJoin`:
+  - Concatenates string values given to it as parameters, and discards any falsy values.
+  - Should be used when passing through class names to our own custom components.
+  - Can be used when all inputs are locally defined and known to not have conflicts.
+  - Is faster than `twMerge`.
+- `twMerge`:
+  - Concatenates input params like `twJoin`, but additionally removes any conflicting
+    and/or duplicate class definitions from the end string, giving preference to
+    classes declared later in the string.
+  - Example: `const className = 'py-0'; twMerge('px-5 py-5', className)` will result
+    in final string of `px-5 py-0`.
+  - Should be used as the final step when combining className lists and passing them
+    onto raw HTML nodes or external React components.
 
 ## Loading state of async request handling / indication
 

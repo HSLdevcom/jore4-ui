@@ -20,7 +20,7 @@ export const LocatorButton: FC<LocatorButtonProps> = ({
   testId,
   onClick,
   disabled,
-  className = '',
+  className,
   tooltipText,
 }) => {
   return (

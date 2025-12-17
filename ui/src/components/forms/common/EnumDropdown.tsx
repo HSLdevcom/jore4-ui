@@ -58,7 +58,7 @@ export const EnumDropdown = <TEnum extends string>({
   uiNameMapper,
   placeholder,
   value,
-  buttonClassName = '',
+  buttonClassName,
   includeAllOption,
   includeNullOption,
   ...formInputProps

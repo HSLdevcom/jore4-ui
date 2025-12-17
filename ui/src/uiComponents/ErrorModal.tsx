@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { twMerge } from 'tailwind-merge';
+import { twJoin } from 'tailwind-merge';
 import { Row } from '../layoutComponents';
 import { CloseIconButton } from './CloseIconButton';
 import { Modal, NewModalBody } from './modal';
@@ -26,8 +26,8 @@ export const ErrorModal: FC<ErrorModalProps> = ({
   heading,
   isOpen,
   onClose,
-  className = '',
-  bodyClassName = '',
+  className,
+  bodyClassName,
   children,
 }) => {
   const { t } = useTranslation();
@@ -38,7 +38,7 @@ export const ErrorModal: FC<ErrorModalProps> = ({
       testId={testIds.modal}
       onClose={onClose}
       dialogClassName="z-50" // Display on top of other possible modals.
-      contentClassName={twMerge('w-1/4', className)}
+      contentClassName={twJoin('w-1/4', className)}
     >
       <Row className="flex items-start justify-between px-5 pb-2 pt-4">
         <div className="flex space-x-1">

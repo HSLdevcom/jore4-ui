@@ -40,7 +40,7 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
   validityStart,
   validityEnd,
   dayTypeNameI18n,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
   const getLocalizedTextFromDbBlob = useGetLocalizedTextFromDbBlob();
@@ -68,7 +68,10 @@ export const VehicleJourneyGroupInfo: FC<VehicleJourneyGroupInfoProps> = ({
   return (
     <Row
       testId={testIds.container}
-      className={`items-center space-x-4 text-center text-sm text-hsl-dark-80 ${className}`}
+      className={twMerge(
+        'items-center space-x-4 text-center text-sm text-hsl-dark-80',
+        className,
+      )}
     >
       <IconButton
         tooltip={t('accessibility:timetables.changeValidityPeriod', {

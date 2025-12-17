@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { DetailTab } from '../components/DetailTab/DetailTab';
 
 const testIds = {
@@ -34,13 +35,13 @@ type DetailTabSelectorProps = {
 export const DetailTabSelector: FC<DetailTabSelectorProps> = ({
   activeDetailTab,
   selectDetailTab,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
 
   return (
     <div
-      className={`space-x-2 ${className}`}
+      className={twMerge('space-x-2', className)}
       role="tablist"
       // Screen readers seem to require this since the buttons are not _direct_ children of this tablist.
       aria-owns={[detailTabs.basic.buttonId, detailTabs.info.buttonId].join(

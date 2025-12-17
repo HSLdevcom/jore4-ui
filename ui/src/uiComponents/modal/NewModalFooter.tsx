@@ -12,7 +12,7 @@ type NewModalFooterProps = {
 
 export const NewModalFooter: FC<PropsWithChildren<NewModalFooterProps>> = ({
   children,
-  className = '',
+  className,
 }) => {
   return (
     <Row

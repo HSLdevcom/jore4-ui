@@ -14,7 +14,7 @@ const testIds = {
 
 export const TimetableVersionTable: FC<TimetableVersionTableProps> = ({
   data,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
 
@@ -37,7 +37,7 @@ export const TimetableVersionTable: FC<TimetableVersionTableProps> = ({
   // on same page. This is not by any means optimal solution, so feel free to
   // change if a better solution comes up.
   return (
-    <table data-testid={testIds.table} className={`${className}`}>
+    <table data-testid={testIds.table} className={className}>
       <thead className="text-center [&>th]:p-4">
         <tr>
           <th className="w-[10%]">

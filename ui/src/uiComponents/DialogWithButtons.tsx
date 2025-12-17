@@ -45,7 +45,7 @@ export const DialogWithButtons: FC<DialogWithButtonsProps> = ({
   description,
   buttons,
   onCancel,
-  className = '',
+  className,
   widthClassName = 'max-w-sm',
 }) => {
   return (

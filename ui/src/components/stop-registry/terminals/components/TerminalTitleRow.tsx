@@ -24,7 +24,7 @@ type TerminalTitleRowProps = TerminalComponentProps & {
 
 export const TerminalTitleRow: FC<TerminalTitleRowProps> = ({
   terminal,
-  className = '',
+  className,
   activeTab,
   selectTab,
   stopsCount,

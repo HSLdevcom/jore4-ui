@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { MdHistory } from 'react-icons/md';
+import { twMerge } from 'tailwind-merge';
 import {
   RouteStopFieldsFragment,
   RouteWithInfrastructureLinksWithStopsAndJpsFragment,
@@ -43,7 +44,7 @@ type RouteStopListItemProps = {
 };
 
 export const RouteStopListItem: FC<RouteStopListItemProps> = ({
-  className = '',
+  className,
   stop,
   route,
   labelledBy,
@@ -99,9 +100,13 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
 
   return (
     <li
-      className={`relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24 ${pseudoBottomBorderClassName} ${alertStyle.listItemBorder ?? ''} ${
-        stopBelongsToJourneyPattern ? '' : 'bg-background text-dark-grey'
-      } ${className}`}
+      className={twMerge(
+        'relative grid min-h-16 items-center border-r border-r-gray-100 sm:grid-cols-12 md:grid-cols-24',
+        pseudoBottomBorderClassName,
+        alertStyle.listItemBorder,
+        stopBelongsToJourneyPattern ? '' : 'bg-background text-dark-grey',
+        className,
+      )}
       aria-labelledby={labelledBy}
       data-testid={testIds.container}
     >

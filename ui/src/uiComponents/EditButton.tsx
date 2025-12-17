@@ -25,7 +25,7 @@ const ButtonContent = () => (
 );
 
 export const EditButton: FC<EditButtonProps> = (props) => {
-  const { testId, tooltip, className = '' } = props;
+  const { testId, tooltip, className } = props;
   const href = (props as LinkProps)?.href;
   const onClick = (props as ButtonProps)?.onClick;
 

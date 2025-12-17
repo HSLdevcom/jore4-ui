@@ -24,7 +24,7 @@ type FormRowProps = {
 };
 
 export const FormRow: FC<PropsWithChildren<FormRowProps>> = ({
-  className = '',
+  className,
   mdColumns,
   xxlColumns,
   xlColumns,

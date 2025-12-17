@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { FormColumn, FormRow, InputField } from '../common';
 import { RouteFormState } from './RoutePropertiesForm.types';
 
@@ -25,11 +26,11 @@ type TerminusNameInputsProps = {
 };
 
 export const TerminusNameInputs: FC<TerminusNameInputsProps> = ({
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
   return (
-    <div className={`${className} w-full px-4`}>
+    <div className={twMerge('w-full px-4', className)}>
       <h3 className="my-4 w-full pt-1">{t('routes.origin.title')}</h3>
       <FormColumn>
         <FormRow

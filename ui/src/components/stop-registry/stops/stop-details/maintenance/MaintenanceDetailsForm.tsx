@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { twMerge } from 'tailwind-merge';
 import {
   StopRegistryStopPlaceOrganisationRelationshipType as MaintainerType,
   StopPlaceOrganisationFieldsFragment,
@@ -45,7 +46,7 @@ type MaintenanceDetailsFormComponentProps = {
 const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   MaintenanceDetailsFormComponentProps
-> = ({ className = '', defaultValues, onSubmit }, ref) => {
+> = ({ className, defaultValues, onSubmit }, ref) => {
   const organisationsResult = useGetOrganisationsQuery();
   const organisations = (organisationsResult.data?.stop_registry
     ?.organisation ?? []) as ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
@@ -93,7 +94,7 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
-        className={`grid grid-cols-3 gap-4 lg:grid-cols-4 ${className}`}
+        className={twMerge('grid grid-cols-3 gap-4 lg:grid-cols-4', className)}
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >

@@ -26,7 +26,7 @@ export const LineTimetablesButton: FC<LineTimetablesButtonProps> = ({
   lineId,
   routeLabel,
   label,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();

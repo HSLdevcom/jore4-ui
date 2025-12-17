@@ -34,7 +34,7 @@ type RouteStopsOverlayProps = {
 };
 
 export const RouteStopsOverlay: FC<RouteStopsOverlayProps> = ({
-  className = '',
+  className,
 }) => {
   const dispatch = useAppDispatch();
   const routeEditingInProgress = useAppSelector(selectHasChangesInProgress);

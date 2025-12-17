@@ -65,7 +65,7 @@ type StopAreaFormProps = {
 const StopAreaFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   StopAreaFormProps
-> = ({ className = '', defaultValues, onSubmit }, ref) => {
+> = ({ className, defaultValues, onSubmit }, ref) => {
   const methods = useForm<StopAreaFormState>({
     defaultValues,
     resolver: zodResolver(stopAreaFormSchema),

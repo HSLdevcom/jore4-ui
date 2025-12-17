@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { twJoin } from 'tailwind-merge';
 import { SimpleButton, SimpleButtonProps } from './SimpleButton';
 
 /**
@@ -10,8 +10,8 @@ import { SimpleButton, SimpleButtonProps } from './SimpleButton';
 export const SimpleRoundButton: FC<SimpleButtonProps> = ({ ...props }) => (
   <SimpleButton
     {...props} // eslint-disable-line react/jsx-props-no-spreading
-    containerClassName={twMerge('justify-center', props.containerClassName)}
-    className={twMerge(
+    containerClassName={twJoin('justify-center', props.containerClassName)}
+    className={twJoin(
       'flex aspect-square items-center justify-center p-0',
       props.className,
     )}

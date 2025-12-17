@@ -1,6 +1,9 @@
 import { FC } from 'react';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
+import { twMerge } from 'tailwind-merge';
 import { IconButton } from './IconButton';
+
+const baseIconClassName = 'text-3xl text-tweaked-brand pointer-events-none';
 
 type AccordionButtonProps = {
   readonly testId: string;
@@ -27,8 +30,8 @@ export const AccordionButton: FC<AccordionButtonProps> = ({
   testId,
   onToggle,
   isOpen,
-  className = '',
-  iconClassName = '',
+  className,
+  iconClassName,
   controls,
   openTooltip,
   closeTooltip,
@@ -36,6 +39,7 @@ export const AccordionButton: FC<AccordionButtonProps> = ({
   identifier,
 }) => {
   const tooltip = isOpen ? closeTooltip : openTooltip;
+
   return (
     <IconButton
       identifier={identifier}
@@ -45,12 +49,12 @@ export const AccordionButton: FC<AccordionButtonProps> = ({
       icon={
         isOpen ? (
           <MdKeyboardArrowUp
-            className={`text-3xl text-tweaked-brand ${iconClassName} pointer-events-none`}
+            className={twMerge(baseIconClassName, iconClassName)}
             aria-hidden
           />
         ) : (
           <MdKeyboardArrowDown
-            className={`text-3xl text-tweaked-brand ${iconClassName} pointer-events-none`}
+            className={twMerge(baseIconClassName, iconClassName)}
             aria-hidden
           />
         )

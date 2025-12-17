@@ -48,7 +48,7 @@ type BaseSelectMemberStopsDropdownProps = SelectMemberStopsDropdownProps & {
 export const BaseSelectMemberStopsDropdown: FC<
   BaseSelectMemberStopsDropdownProps
 > = ({
-  className = '',
+  className,
   disabled,
   value = [],
   testId,

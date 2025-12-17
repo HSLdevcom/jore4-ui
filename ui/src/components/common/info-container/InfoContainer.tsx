@@ -75,7 +75,7 @@ const testIds = {
 
 // Proper docstring within the {@link InfoContainerProps} type
 export const InfoContainer: FC<InfoContainerProps> = ({
-  className = '',
+  className,
   children,
   colors: { backgroundColor, borderColor },
   controls,

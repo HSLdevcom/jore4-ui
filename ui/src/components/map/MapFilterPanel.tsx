@@ -14,7 +14,7 @@ export const MapFilterPanel: FC<MapFilterPanelProps> = ({
   routeDisplayed,
   showRoute,
   setShowRoute,
-  className = '',
+  className,
 }) => {
   const dispatch = useAppDispatch();
   const { stopFilters } = useAppSelector(selectMapFilter);

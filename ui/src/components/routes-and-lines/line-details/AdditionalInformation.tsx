@@ -27,7 +27,7 @@ type AdditionalInformationProps = {
 };
 
 export const AdditionalInformation: FC<AdditionalInformationProps> = ({
-  className = '',
+  className,
   line,
 }) => {
   const { t } = useTranslation();

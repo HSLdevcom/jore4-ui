@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type RowProps = {
   readonly className?: string;
@@ -9,7 +10,7 @@ type RowProps = {
 };
 
 export const Row: FC<PropsWithChildren<RowProps>> = ({
-  className = '',
+  className,
   children,
   testId = null,
   tooltip = '',
@@ -18,7 +19,7 @@ export const Row: FC<PropsWithChildren<RowProps>> = ({
 }) => {
   return (
     <div
-      className={`flex flex-row ${className}`}
+      className={twMerge('flex flex-row', className)}
       title={tooltip}
       data-testid={testId}
       id={identifier}

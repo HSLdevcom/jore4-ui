@@ -49,7 +49,7 @@ export const mapStopJourneyPatternToFormState = (
 
 export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
   defaultValues,
-  className = '',
+  className,
   onSubmit,
   onCancel,
 }) => {

@@ -101,7 +101,7 @@ type FilterPanelProps = {
 export const FilterPanel: FC<FilterPanelProps> = ({
   routes,
   stops,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
   const headingClassName = 'text-sm font-bold';

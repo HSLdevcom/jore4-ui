@@ -13,8 +13,8 @@ type ModalProps = {
 export const Modal: FC<PropsWithChildren<ModalProps>> = ({
   isOpen,
   onClose,
-  dialogClassName = '',
-  contentClassName = '',
+  dialogClassName,
+  contentClassName,
   testId = null,
   children,
 }) => {

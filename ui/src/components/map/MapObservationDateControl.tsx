@@ -18,7 +18,7 @@ type MapObservationDateControlProps = {
 };
 
 export const MapObservationDateControl: FC<MapObservationDateControlProps> = ({
-  className = '',
+  className,
   containerClassName = className,
   inputClassName = className,
   disabled = false,

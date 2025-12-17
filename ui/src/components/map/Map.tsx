@@ -177,7 +177,7 @@ type MapProps = {
 export const MapComponent: ForwardRefRenderFunction<
   RouteEditorRef,
   MapProps
-> = ({ className = '', width = '100vw', height = '100vh' }, externalRef) => {
+> = ({ className, width = '100vw', height = '100vh' }, externalRef) => {
   const [showRoute, setShowRoute] = useState(true);
 
   const editorRefs = useEditorRefs();

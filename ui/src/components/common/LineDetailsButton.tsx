@@ -23,7 +23,7 @@ export const LineDetailsButton: FC<LineDetailsButtonProps> = ({
   lineId,
   label,
   routeLabel,
-  className = '',
+  className,
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();

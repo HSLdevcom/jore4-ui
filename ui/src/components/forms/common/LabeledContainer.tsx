@@ -34,7 +34,7 @@ export const LabeledContainer: FC<PropsWithChildren<LabeledContainerProps>> = ({
   onBlur,
   onClick,
   role,
-  className = '',
+  className,
   tooltip,
   selected,
   disabled,

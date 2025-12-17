@@ -11,7 +11,7 @@ import { StopAreaMemberStopRow } from './StopAreaMemberStopRow';
 
 export const StopAreaMemberStopRows: FC<StopAreaComponentProps> = ({
   area,
-  className = '',
+  className,
 }) => {
   const { observationDate } = useObservationDateQueryParam({
     initialize: false,

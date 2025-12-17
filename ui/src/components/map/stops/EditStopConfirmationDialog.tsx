@@ -43,7 +43,7 @@ export const buildRouteLabelListString = (
 /** Renders a confirmation dialog for confirming changes when a stop is edited */
 export const EditStopConfirmationDialog: FC<
   EditStopConfirmationDialogProps
-> = ({ isOpen, onConfirm, onCancel, className = '', editChanges }) => {
+> = ({ isOpen, onConfirm, onCancel, className, editChanges }) => {
   const { t } = useTranslation();
 
   // TODO improve the confirmation dialog when Design has iterated on how this should look like

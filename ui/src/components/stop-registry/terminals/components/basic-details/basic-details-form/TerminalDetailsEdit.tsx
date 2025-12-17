@@ -120,7 +120,7 @@ type TerminalDetailsEditProps = {
 const TerminalDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   TerminalDetailsEditProps
-> = ({ terminal, className = '', onFinishEditing }, ref) => {
+> = ({ terminal, className, onFinishEditing }, ref) => {
   const { t } = useTranslation();
 
   const { updateTerminalDetails, defaultErrorHandler } =

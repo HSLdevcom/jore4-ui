@@ -107,7 +107,7 @@ type ConflictResolverModalProps = {
 
 export const ConflictResolverModal: FC<ConflictResolverModalProps> = ({
   onClose,
-  className = '',
+  className,
   conflicts = [],
 }) => {
   const { t } = useTranslation();

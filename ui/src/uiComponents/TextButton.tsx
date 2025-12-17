@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type TextButtonProps = {
   readonly active?: boolean;
@@ -10,14 +11,16 @@ export const TextButton: FC<PropsWithChildren<TextButtonProps>> = ({
   active,
   onClick,
   children,
-  className = '',
+  className,
 }) => (
   <button
     onClick={onClick}
     type="button"
-    className={`${className ?? ''} active:underline ${
-      active ? 'font-bold underline' : ''
-    }`}
+    className={twMerge(
+      'active:underline',
+      active ? 'font-bold underline' : '',
+      className,
+    )}
   >
     {children}
   </button>

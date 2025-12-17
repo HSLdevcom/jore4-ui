@@ -3,6 +3,7 @@ import uniqBy from 'lodash/uniqBy';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { twJoin } from 'tailwind-merge';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
 import { Column, Row } from '../../../layoutComponents';
 import { SimpleButton, SimpleSmallButton } from '../../../uiComponents';
@@ -34,7 +35,7 @@ const GQL_LINE_WITH_ROUTES_UNIQUE_FIELDS = gql`
 `;
 
 export const LineTitle: FC<LineTitleProps> = ({
-  className = '',
+  className,
   line,
   onCreateRoute,
   showValidityPeriod = true,
@@ -59,7 +60,7 @@ export const LineTitle: FC<LineTitleProps> = ({
   const lineRoutes = uniqBy(line.line_routes, (route) => route.label);
   return (
     <Column>
-      <Row className={`items-center ${className}`}>
+      <Row className={twJoin('items-center', className)}>
         <PageTitle.H1 className="mr-4" data-testid={testIds.heading}>
           {t('lines.line', { label: line.label })}
         </PageTitle.H1>

@@ -49,7 +49,7 @@ type RouteTableRowProps = {
  * determine where we navigate after clicking this row.
  */
 export const RouteTableRow: FC<RouteTableRowProps> = ({
-  className = '',
+  className,
   route,
   isSelectable = false,
   rowVariant,

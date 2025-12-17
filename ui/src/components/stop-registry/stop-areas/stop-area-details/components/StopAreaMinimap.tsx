@@ -15,7 +15,7 @@ const testIds = {
 
 export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
   area,
-  className = '',
+  className,
 }) => {
   const { t } = useTranslation();
   const showOnMap = useShowStopAreaOnMap();

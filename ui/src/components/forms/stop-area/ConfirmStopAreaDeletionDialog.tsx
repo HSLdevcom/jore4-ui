@@ -85,7 +85,7 @@ type ConfirmStopAreaDeletionDialogProps = {
 
 export const ConfirmStopAreaDeletionDialog: FC<
   ConfirmStopAreaDeletionDialogProps
-> = ({ isOpen, onConfirm, onCancel, className = '', stopArea }) => {
+> = ({ isOpen, onConfirm, onCancel, className, stopArea }) => {
   const { t } = useTranslation();
 
   const { observationDate } = useObservationDateQueryParam({

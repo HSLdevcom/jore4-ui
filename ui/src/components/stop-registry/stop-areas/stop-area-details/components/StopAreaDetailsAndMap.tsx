@@ -6,7 +6,7 @@ import { StopAreaMinimap } from './StopAreaMinimap';
 
 export const StopAreaDetailsAndMap: FC<EditableStopAreaComponentProps> = ({
   area,
-  className = '',
+  className,
   blockInEdit,
   onEditBlock,
   refetch,

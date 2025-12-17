@@ -18,7 +18,8 @@ export const DateInput: FC<DateInputProps> = ({
   value,
   label,
   onChange,
-  className = '',
+  // TODO: This prop is improperly used as input for multiple nested components (<Column> & <Input>). I do not know which one should actually get the the prop, as I am unable to open the use place due to lack of test data for Timetables. Thus cannot fix this.
+  className,
   testId,
   required = false,
   disabled = false,

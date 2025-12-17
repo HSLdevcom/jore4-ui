@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { CloseIconButton } from './CloseIconButton';
 
 const testIds = {
@@ -11,14 +12,13 @@ type PopoverProps = {
   readonly children: ReactNode;
 };
 
-export const Popover: FC<PopoverProps> = ({
-  children,
-  onClose,
-  className = '',
-}) => {
+export const Popover: FC<PopoverProps> = ({ children, onClose, className }) => {
   return (
     <div
-      className={`absolute inline-flex flex-row items-start rounded-lg border border-hsl-highlight-yellow-dark bg-hsl-highlight-yellow-light p-3 ${className}`}
+      className={twMerge(
+        'absolute inline-flex flex-row items-start rounded-lg border border-hsl-highlight-yellow-dark bg-hsl-highlight-yellow-light p-3',
+        className,
+      )}
     >
       <div className="mr-6">{children}</div>
       <CloseIconButton onClick={onClose} testId={testIds.closeButton} />

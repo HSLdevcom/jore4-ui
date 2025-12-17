@@ -69,7 +69,7 @@ type MeasurementsFormComponentProps = {
 const MeasurementsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   MeasurementsFormComponentProps
-> = ({ className = '', defaultValues, onSubmit }, ref) => {
+> = ({ className, defaultValues, onSubmit }, ref) => {
   const { t } = useTranslation();
   const methods = useForm<MeasurementsFormState>({
     defaultValues,

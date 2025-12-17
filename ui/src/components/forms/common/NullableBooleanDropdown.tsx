@@ -39,7 +39,7 @@ export const NullableBooleanDropdown: FC<NullableBooleanDropdownProps> = ({
   testId,
   value,
   translationKeys = defaultTranslationKeys,
-  buttonClassName = '',
+  buttonClassName,
   ...formInputProps
 }) => {
   const { t } = useTranslation();

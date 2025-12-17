@@ -9,7 +9,7 @@ type FieldValueProps = {
 };
 
 export const FieldValue: FC<FieldValueProps> = ({
-  className = '',
+  className,
   fieldName,
   value,
   testId,

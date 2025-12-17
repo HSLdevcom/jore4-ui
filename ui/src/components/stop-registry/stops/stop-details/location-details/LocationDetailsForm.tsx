@@ -45,7 +45,7 @@ type LocationDetailsFormComponentProps = {
 const LocationDetailsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   LocationDetailsFormComponentProps
-> = ({ className = '', defaultValues, onSubmit, stop }, ref) => {
+> = ({ className, defaultValues, onSubmit, stop }, ref) => {
   const { t } = useTranslation();
 
   const methods = useForm<LocationDetailsFormState>({

@@ -7,6 +7,7 @@ import {
   useRef,
 } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
+import { twMerge } from 'tailwind-merge';
 import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { SheltersFormState, sheltersFormSchema } from './schema';
@@ -34,7 +35,7 @@ const SheltersFormComponent: ForwardRefRenderFunction<
   SheltersFormRef,
   SheltersFormProps
 > = (
-  { className = '', defaultValues, formRef, onSubmit, onShelterCountChanged },
+  { className, defaultValues, formRef, onSubmit, onShelterCountChanged },
   ref,
 ) => {
   const formElementRef = useRef<HTMLFormElement>(null);
@@ -69,7 +70,7 @@ const SheltersFormComponent: ForwardRefRenderFunction<
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
-        className={`space-y-4 ${className}`}
+        className={twMerge('space-y-4', className)}
         onSubmit={handleSubmit(onSubmit)}
         ref={formRef}
       >

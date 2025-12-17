@@ -1,6 +1,7 @@
 import { ChangeEventHandler, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
+import { twMerge } from 'tailwind-merge';
 import {
   LineTableRowFragment,
   RouteTableRowFragment,
@@ -106,7 +107,7 @@ const getDisplayInformation = (
  * The visual component used for displaying RouteTableRow and LineTableRow
  */
 export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
-  className = '',
+  className,
   lineId,
   hasTimetables,
   onLocatorButtonClick,
@@ -158,7 +159,7 @@ export const RouteLineTableRow: FC<RouteLineTableRowProps> = ({
 
   return (
     <tr
-      className={`${rBorderClassNames} ${className}`}
+      className={twMerge(rBorderClassNames, className)}
       data-testid={testIds.row(testId)}
     >
       <Visible visible={!!onSelectChanged}>

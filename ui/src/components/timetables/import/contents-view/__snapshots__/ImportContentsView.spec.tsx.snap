@@ -41,7 +41,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           >
             <svg
               aria-hidden="true"
-              class="text-brand text-[50px] pointer-events-none inline text-center"
+              class="pointer-events-none text-brand text-[50px] inline text-center"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -94,7 +94,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           title=""
         >
           <span
-            class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
+            class="relative flex items-center justify-center bg-brand font-bold text-white mr-2 h-5 w-5 text-base"
             data-testid="DirectionBadge"
             title="1 - Keskustasta pois"
           >
@@ -144,7 +144,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           title=""
         >
           <span
-            class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
+            class="relative flex items-center justify-center bg-brand font-bold text-white mr-2 h-5 w-5 text-base"
             data-testid="DirectionBadge"
             title="2 - Keskustaan päin"
           >
@@ -194,7 +194,7 @@ exports[`<ImportContentsView /> should render an expanded block correctly 1`] = 
           title=""
         >
           <span
-            class="relative flex h-9 w-9 items-center justify-center bg-brand text-2xl font-bold text-white mr-2 h-5 w-5 text-base"
+            class="relative flex items-center justify-center bg-brand font-bold text-white mr-2 h-5 w-5 text-base"
             data-testid="DirectionBadge"
             title="1 - Keskustasta pois"
           >
@@ -283,7 +283,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="text-white text-[50px] pointer-events-none inline text-center"
+                class="pointer-events-none text-white text-[50px] inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -348,7 +348,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="text-brand text-[50px] pointer-events-none inline text-center"
+                      class="pointer-events-none text-brand text-[50px] inline text-center"
                       fill="currentColor"
                       height="1em"
                       stroke="currentColor"
@@ -411,7 +411,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="text-brand text-[50px] pointer-events-none inline text-center"
+                      class="pointer-events-none text-brand text-[50px] inline text-center"
                       fill="currentColor"
                       height="1em"
                       stroke="currentColor"
@@ -473,7 +473,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="text-white text-[50px] pointer-events-none inline text-center"
+                class="pointer-events-none text-white text-[50px] inline text-center"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -538,7 +538,7 @@ exports[`<ImportContentsView /> should render correctly 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="text-brand text-[50px] pointer-events-none inline text-center"
+                      class="pointer-events-none text-brand text-[50px] inline text-center"
                       fill="currentColor"
                       height="1em"
                       stroke="currentColor"

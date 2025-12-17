@@ -3,12 +3,12 @@
 exports[`<RoutesTable /> Renders the table with line data 1`] = `
 <DocumentFragment>
   <table
-    class="h-1 w-full "
+    class="h-1 w-full"
     data-testid="routesTable1"
   >
     <tbody>
       <tr
-        class="border-r border-r-light-grey "
+        class="border-r border-r-light-grey"
         data-testid="RouteLineTableRow::row::65"
       >
         <td
@@ -109,7 +109,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         </td>
       </tr>
       <tr
-        class="border-r border-r-light-grey "
+        class="border-r border-r-light-grey"
         data-testid="RouteLineTableRow::row::71"
       >
         <td
@@ -210,7 +210,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         </td>
       </tr>
       <tr
-        class="border-r border-r-light-grey "
+        class="border-r border-r-light-grey"
         data-testid="RouteLineTableRow::row::785K"
       >
         <td
@@ -311,7 +311,7 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
         </td>
       </tr>
       <tr
-        class="border-r border-r-light-grey "
+        class="border-r border-r-light-grey"
         data-testid="RouteLineTableRow::row::1234"
       >
         <td
@@ -419,12 +419,12 @@ exports[`<RoutesTable /> Renders the table with line data 1`] = `
 exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`] = `
 <DocumentFragment>
   <table
-    class="h-1 w-full "
+    class="h-1 w-full"
     data-testid="routesTable1"
   >
     <tbody>
       <tr
-        class="border-r border-r-light-grey "
+        class="border-r border-r-light-grey"
         data-testid="RouteLineTableRow::row::1"
       >
         <td
@@ -535,12 +535,12 @@ exports[`<RoutesTable /> Renders the table with route data (routes and lines) 1`
 exports[`<RoutesTable /> Renders the table with route data (timetables) 1`] = `
 <DocumentFragment>
   <table
-    class="h-1 w-full "
+    class="h-1 w-full"
     data-testid="routesTable1"
   >
     <tbody>
       <tr
-        class="border-r border-r-light-grey "
+        class="border-r border-r-light-grey"
         data-testid="RouteLineTableRow::row::1"
       >
         <td

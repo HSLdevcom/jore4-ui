@@ -44,7 +44,7 @@ const testIds = {
 export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   RoutePropertiesFormProps
-> = ({ id, routeLabel, className = '', defaultValues, onSubmit }, ref) => {
+> = ({ id, routeLabel, className, defaultValues, onSubmit }, ref) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 

@@ -40,7 +40,7 @@ type TerminalFormProps = {
 const TerminalFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   TerminalFormProps
-> = ({ className = '', defaultValues, onSubmit }, ref) => {
+> = ({ className, defaultValues, onSubmit }, ref) => {
   const { t } = useTranslation();
 
   const methods = useForm<TerminalFormState>({

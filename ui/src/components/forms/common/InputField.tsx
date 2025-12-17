@@ -46,8 +46,8 @@ type InputFieldProps<FormState extends FieldValues> =
     (ControlledInputProps | HTMLInputProps | HTMLTextAreaProps);
 
 export const InputField = <FormState extends FieldValues>({
-  className = '',
-  inputClassName = '',
+  className,
+  inputClassName,
   fieldPath,
   translationPrefix,
   customTitlePath,

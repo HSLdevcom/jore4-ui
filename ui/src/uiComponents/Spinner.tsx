@@ -6,7 +6,7 @@ type SpinnerProps = {
   readonly className?: string;
 };
 
-export const Spinner: FC<SpinnerProps> = ({ showSpinner, className = '' }) => {
+export const Spinner: FC<SpinnerProps> = ({ showSpinner, className }) => {
   return (
     <div className={className}>
       <ClipLoader loading={showSpinner} />

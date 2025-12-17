@@ -26,8 +26,8 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
   description,
   confirmText,
   cancelText,
-  className = '',
-  widthClassName = '',
+  className,
+  widthClassName,
 }) => {
   return (
     <DialogWithButtons

@@ -53,7 +53,7 @@ const GQL_LINE_TABLE_ROW = gql`
  * determine where we navigate after clicking this row.
  */
 export const LineTableRow: FC<LineTableRowProps> = ({
-  className = '',
+  className,
   line,
   isSelectable = false,
   rowVariant,

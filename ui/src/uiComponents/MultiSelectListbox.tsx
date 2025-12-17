@@ -34,8 +34,8 @@ export const MultiSelectListbox: FC<MultiSelectListboxProps> = ({
   onBlur,
   fieldState,
   disabled,
-  buttonClassNames = '',
-  arrowButtonClassNames = '',
+  buttonClassNames,
+  arrowButtonClassNames,
 }) => {
   const getRemovedItem = (
     changedItems: ReadonlyArray<string>,

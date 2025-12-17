@@ -46,8 +46,8 @@ export const Listbox: FC<ListboxProps> = ({
   onChange,
   onBlur,
   fieldState,
-  buttonClassNames = '',
-  arrowButtonClassNames = '',
+  buttonClassNames,
+  arrowButtonClassNames,
   disabled = false,
 }) => {
   const onItemSelected = (val: string) => {
