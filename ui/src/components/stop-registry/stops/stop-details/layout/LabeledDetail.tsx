@@ -21,7 +21,7 @@ type LabeledDetailProps<T> = {
   readonly className?: string;
 };
 
-export const LabeledDetail = <T extends ExplicitAny>({
+export const LabeledDetail = <T,>({
   title,
   detail,
   testId = '',

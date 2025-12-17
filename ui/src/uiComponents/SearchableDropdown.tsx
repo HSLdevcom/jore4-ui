@@ -17,7 +17,7 @@ type SearchableDropdownProps<T> = ComboboxInputProps & {
   readonly options: ReadonlyArray<ComboboxOptionRenderer>;
 };
 
-export const SearchableDropdown = <T extends ExplicitAny>({
+export const SearchableDropdown = <T,>({
   selectedItem,
   options,
   query,
