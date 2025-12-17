@@ -6,6 +6,5 @@ export * from './RedirectWithQuery';
 export * from './RouteLineTableRow';
 export * from './RouteTableRow';
 export * from './TimeRangeControl';
-export * from './Tooltip';
 export * from './search';
 export * from './info-container';
