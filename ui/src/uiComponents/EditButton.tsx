@@ -21,7 +21,7 @@ type CommonProps = {
 type EditButtonProps = CommonProps & (LinkProps | ButtonProps);
 
 const ButtonContent = () => (
-  <MdModeEdit className="aria-hidden text-2xl text-tweaked-brand" />
+  <MdModeEdit aria-hidden className="text-2xl text-tweaked-brand" />
 );
 
 export const EditButton: FC<EditButtonProps> = (props) => {

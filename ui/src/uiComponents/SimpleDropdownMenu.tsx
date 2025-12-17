@@ -40,7 +40,7 @@ export const SimpleDropdownMenu: FC<SimpleDropdownMenuProps> = ({
             disabled={disabled}
             title={tooltip}
           >
-            <MdMoreVert className="aria-hidden text-3xl text-brand" />
+            <MdMoreVert aria-hidden className="text-3xl text-brand" />
           </Menu.Button>
           <SimpleDropdownMenuItems isOpen={open} alignItems={alignItems}>
             {children}

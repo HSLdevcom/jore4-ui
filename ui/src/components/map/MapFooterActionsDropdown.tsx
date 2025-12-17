@@ -44,7 +44,7 @@ export const MapFooterActionsDropdown: FC<MapFooterActionsDropdownProps> = ({
               onClick={noop}
               inverted={!open}
             >
-              <MdMoreVert className="aria-hidden text-4xl" />
+              <MdMoreVert aria-hidden className="text-4xl" />
             </SimpleRoundButton>
           </Menu.Button>
           <SimpleDropdownMenuItems

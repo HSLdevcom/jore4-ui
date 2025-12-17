@@ -152,7 +152,10 @@ export const RouteStopListItem: FC<RouteStopListItemProps> = ({
       </div>
       <span className="col-span-4 text-center" data-testid={testIds.lastEdited}>
         !{mapToShortDateTime(DateTime.now())}
-        <MdHistory className="aria-hidden ml-1 inline text-xl text-tweaked-brand" />
+        <MdHistory
+          aria-hidden
+          className="ml-1 inline text-xl text-tweaked-brand"
+        />
       </span>
       <div className="col-span-2 flex justify-center">
         {hastusCode ? (

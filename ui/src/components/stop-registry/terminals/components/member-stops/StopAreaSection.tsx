@@ -53,7 +53,7 @@ const StopAreaHeader: FC<StopAreaHeaderProps> = ({
         data-testid={testIds.stopAreaHeader}
       >
         <span>{name}</span>
-        <i className="icon-open-in-new ml-1" aria-hidden="true" />
+        <i className="icon-open-in-new ml-1" aria-hidden />
       </Link>
     </h3>
   );

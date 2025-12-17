@@ -138,7 +138,7 @@ export const FilterPanel: FC<FilterPanelProps> = ({
             tooltip={t('accessibility:map.showFilters')}
             className="block h-11 w-11 rounded-md border border-black"
             icon={
-              <MdLayers className="aria-hidden text-2xl text-tweaked-brand" />
+              <MdLayers aria-hidden className="text-2xl text-tweaked-brand" />
             }
             onClick={() =>
               dispatch(

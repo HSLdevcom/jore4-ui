@@ -80,7 +80,7 @@ export const LocationTerminalDetails: FC<LocationTerminalDetailsProps> = ({
                 data-testid={testIds.terminalPrivateCode}
               >
                 <span>{terminalPrivateCode}</span>
-                <i className="icon-open-in-new ml-1" aria-hidden="true" />
+                <i className="icon-open-in-new ml-1" aria-hidden />
               </div>
             </div>
           </Link>

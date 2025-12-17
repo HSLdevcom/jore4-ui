@@ -60,7 +60,7 @@ export const LabeledRadioButton: FC<LabeledRadioButtonProps> = ({
         onChange={onClick}
         checked={selected}
         disabled={disabled}
-        aria-hidden="true"
+        aria-hidden
       />
     </LabeledContainer>
   );

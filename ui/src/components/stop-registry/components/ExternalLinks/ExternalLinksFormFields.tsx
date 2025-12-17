@@ -48,14 +48,14 @@ export const ExternalLinksFormFields: FC<ExternalLinksFormFieldsProps> = ({
               <span className="sr-only">
                 {t('stopDetails.externalLinks.cancelDeleteExternalLink')}
               </span>
-              <i className="icon-restore -ml-2.5 text-2xs" aria-hidden="true" />
+              <i className="icon-restore -ml-2.5 text-2xs" aria-hidden />
             </>
           ) : (
             <>
               <span className="sr-only">
                 {t('stopDetails.externalLinks.deleteExternalLink')}
               </span>
-              <i className="icon-trash text-lg" aria-hidden="true" />
+              <i className="icon-trash text-lg" aria-hidden />
             </>
           )}
         </SlimSimpleButton>

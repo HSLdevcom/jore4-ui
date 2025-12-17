@@ -76,7 +76,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
             title="Muokkaa reittiä 65x, suunta 1"
           >
             <svg
-              class="aria-hidden text-2xl text-tweaked-brand"
+              aria-hidden="true"
+              class="text-2xl text-tweaked-brand"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -109,7 +110,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
           >
             !14.2.2017 14.51
             <svg
-              class="aria-hidden ml-1 inline text-xl text-tweaked-brand"
+              aria-hidden="true"
+              class="ml-1 inline text-xl text-tweaked-brand"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -268,7 +270,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             title="Muokkaa reittiä 65x, suunta 1"
           >
             <svg
-              class="aria-hidden text-2xl text-tweaked-brand"
+              aria-hidden="true"
+              class="text-2xl text-tweaked-brand"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -301,7 +304,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
           >
             !14.2.2017 14.51
             <svg
-              class="aria-hidden ml-1 inline text-xl text-tweaked-brand"
+              aria-hidden="true"
+              class="ml-1 inline text-xl text-tweaked-brand"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -420,7 +424,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             >
               !14.2.2017 14.51
               <svg
-                class="aria-hidden ml-1 inline text-xl text-tweaked-brand"
+                aria-hidden="true"
+                class="ml-1 inline text-xl text-tweaked-brand"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -465,7 +470,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 type="button"
               >
                 <svg
-                  class="aria-hidden text-3xl text-brand"
+                  aria-hidden="true"
+                  class="text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -524,7 +530,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
             >
               !14.2.2017 14.51
               <svg
-                class="aria-hidden ml-1 inline text-xl text-tweaked-brand"
+                aria-hidden="true"
+                class="ml-1 inline text-xl text-tweaked-brand"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -569,7 +576,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 type="button"
               >
                 <svg
-                  class="aria-hidden text-3xl text-brand"
+                  aria-hidden="true"
+                  class="text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -672,7 +680,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             title="Muokkaa reittiä 65x, suunta 1"
           >
             <svg
-              class="aria-hidden text-2xl text-tweaked-brand"
+              aria-hidden="true"
+              class="text-2xl text-tweaked-brand"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -705,7 +714,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
           >
             !14.2.2017 14.51
             <svg
-              class="aria-hidden ml-1 inline text-xl text-tweaked-brand"
+              aria-hidden="true"
+              class="ml-1 inline text-xl text-tweaked-brand"
               fill="currentColor"
               height="1em"
               stroke="currentColor"
@@ -824,7 +834,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             >
               !14.2.2017 14.51
               <svg
-                class="aria-hidden ml-1 inline text-xl text-tweaked-brand"
+                aria-hidden="true"
+                class="ml-1 inline text-xl text-tweaked-brand"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -869,7 +880,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 type="button"
               >
                 <svg
-                  class="aria-hidden text-3xl text-brand"
+                  aria-hidden="true"
+                  class="text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -928,7 +940,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             >
               !14.2.2017 14.51
               <svg
-                class="aria-hidden ml-1 inline text-xl text-tweaked-brand"
+                aria-hidden="true"
+                class="ml-1 inline text-xl text-tweaked-brand"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -973,7 +986,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 type="button"
               >
                 <svg
-                  class="aria-hidden text-3xl text-brand"
+                  aria-hidden="true"
+                  class="text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"
@@ -1032,7 +1046,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
             >
               !14.2.2017 14.51
               <svg
-                class="aria-hidden ml-1 inline text-xl text-tweaked-brand"
+                aria-hidden="true"
+                class="ml-1 inline text-xl text-tweaked-brand"
                 fill="currentColor"
                 height="1em"
                 stroke="currentColor"
@@ -1077,7 +1092,8 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 type="button"
               >
                 <svg
-                  class="aria-hidden text-3xl text-brand"
+                  aria-hidden="true"
+                  class="text-3xl text-brand"
                   fill="currentColor"
                   height="1em"
                   stroke="currentColor"

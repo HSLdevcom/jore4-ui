@@ -43,7 +43,8 @@ export const IconToggle: FC<IconToggleProps> = ({
       title={tooltip}
     >
       <i
-        className={twMerge('aria-hidden text-xl', iconClassName)}
+        aria-hidden
+        className={twMerge('text-xl', iconClassName)}
         // our icon library's css file adds margins with ::before pseudo element and this inline style is hack to get rid of those
         style={{ marginLeft: '-.2em', marginRight: '-0.2em' }}
       />

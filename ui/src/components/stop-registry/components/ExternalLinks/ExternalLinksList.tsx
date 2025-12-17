@@ -50,7 +50,7 @@ export const ExternalLinksList: FC<ExternalLinksListProps> = ({
                     className="py-1 font-bold"
                   >
                     <span data-testid={testIds.name}>{link.name}</span>
-                    <i className="icon-open-in-new ml-1" aria-hidden="true" />
+                    <i className="icon-open-in-new ml-1" aria-hidden />
                   </a>
                 </Column>
               </Row>

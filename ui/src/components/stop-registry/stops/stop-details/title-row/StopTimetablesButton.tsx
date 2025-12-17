@@ -33,7 +33,7 @@ export const StopTimetablesButton: FC<StopTimetablesButtonProps> = ({
       disabled={disabledUntilImplemented}
       type="button"
     >
-      <i className="icon-calendar aria-hidden text-2xl text-brand" />
+      <i aria-hidden className="icon-calendar text-2xl text-brand" />
     </button>
   );
 };

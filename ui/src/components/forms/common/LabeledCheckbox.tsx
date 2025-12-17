@@ -63,7 +63,7 @@ const LabeledCheckboxImpl: ForwardRefRenderFunction<
         onChange={onClick}
         checked={selected}
         disabled={disabled}
-        aria-hidden="true"
+        aria-hidden
         ref={ref}
       />
     </LabeledContainer>

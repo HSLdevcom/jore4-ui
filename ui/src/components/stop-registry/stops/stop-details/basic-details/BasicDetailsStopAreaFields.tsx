@@ -62,7 +62,7 @@ export const StopAreaDetailsSection: FC<StopAreaDetailsSectionProps> = ({
               data-testid={testIds.areaPrivateCode}
             >
               <span>{stop.stop_place?.privateCode?.value}</span>
-              <i className="icon-open-in-new ml-1" aria-hidden="true" />
+              <i className="icon-open-in-new ml-1" aria-hidden />
             </div>
           </div>
         </Link>
