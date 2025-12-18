@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../hooks';
 import { resetSelectedRowsAction } from '../../../redux';
-import { SimpleSmallButton } from '../../../uiComponents';
+import { SimpleButton } from '../../../uiComponents';
 import { DisplayedSearchResultType } from '../../../utils';
 import { useSearch } from './useSearch';
 import { SearchQueryParameterNames } from './useSearchQueryParser';
@@ -35,18 +35,22 @@ export const ResultSelector: FC = () => {
 
   return (
     <div className="space-x-2">
-      <SimpleSmallButton
+      <SimpleButton
+        shape="compact"
         inverted={displayedType !== DisplayedSearchResultType.Lines}
         onClick={displayLines}
-        label={t('lines.lines')}
         testId={testIds.linesResultsButton}
-      />
-      <SimpleSmallButton
+      >
+        {t('lines.lines')}
+      </SimpleButton>
+      <SimpleButton
+        shape="compact"
         onClick={displayRoutes}
         inverted={displayedType !== DisplayedSearchResultType.Routes}
-        label={t('lines.routes')}
         testId={testIds.routesResultsButton}
-      />
+      >
+        {t('lines.routes')}
+      </SimpleButton>
     </div>
   );
 };

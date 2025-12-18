@@ -20,11 +20,11 @@ export const RoutesAndLinesMainPage: FC = () => {
     <Container>
       <Row>
         <PageTitle.H1>{t('routes.routes')}</PageTitle.H1>
-        <OpenDefaultMapButton containerClassName="ml-auto" />
+        <OpenDefaultMapButton className="ml-auto" />
         <SimpleButton
           id="create-line-button"
           data-testid={testIds.createLineButton}
-          containerClassName="ml-3"
+          className="ml-3"
           href={createLineReactRoute.getLink()}
         >
           {t('lines.createNew')}

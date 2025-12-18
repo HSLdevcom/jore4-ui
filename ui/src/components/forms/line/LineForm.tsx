@@ -74,9 +74,8 @@ export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
             />
           </FormContainer>
         </Row>
-        <Row className="mt-8 space-x-5">
+        <Row className="mt-8 justify-end gap-5">
           <SimpleButton
-            containerClassName="ml-auto"
             onClick={onCancel}
             inverted
             testId={testIds.cancelButton}

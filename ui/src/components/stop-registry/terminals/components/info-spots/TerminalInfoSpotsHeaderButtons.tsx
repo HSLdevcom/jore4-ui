@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { Visible } from '../../../../../layoutComponents';
+import { SimpleButton } from '../../../../../uiComponents';
 import { InfoContainerHeaderButtonsProps } from '../../../../common';
-import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 
 const testIds = {
   toggle: (prefix: string) => `${prefix}::toggle`,
@@ -27,16 +27,18 @@ export const TerminalInfoSpotsHeaderButtons: FC<
   return (
     <div className="flex space-x-2">
       <Visible visible={isEditable && !isInEditMode}>
-        <SlimSimpleButton
+        <SimpleButton
+          shape="slim"
           testId={testIds.addNewInfoSpotButton(testIdPrefix)}
           onClick={() => setIsInEditMode(true)}
         >
           {t('stopDetails.infoSpots.addInfoSpot')}
-        </SlimSimpleButton>
+        </SimpleButton>
       </Visible>
 
       <Visible visible={isExpandable && !isInEditMode}>
-        <SlimSimpleButton
+        <SimpleButton
+          shape="slim"
           onClick={() => setIsExpanded((expanded) => !expanded)}
           inverted={!isExpanded}
           testId={testIds.toggle(testIdPrefix)}
@@ -46,7 +48,7 @@ export const TerminalInfoSpotsHeaderButtons: FC<
           ) : (
             <FaChevronDown className="text-tweaked-brand" aria-hidden />
           )}
-        </SlimSimpleButton>
+        </SimpleButton>
       </Visible>
     </div>
   );

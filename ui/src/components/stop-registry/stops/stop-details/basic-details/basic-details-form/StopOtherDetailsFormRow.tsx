@@ -74,7 +74,7 @@ export const StopOtherDetailsFormRow: FC<StopOtherDetailsFormRowProps> = ({
             className="flex-1"
           />
           <SimpleButton
-            containerClassName="self-end ml-6"
+            className="ml-6 self-end"
             onClick={onClickOpenTimingSettingsModal}
             testId={testIds.addTimingPlaceButton}
             inverted

@@ -3,13 +3,13 @@ import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { Column, Row } from '../../../../../../layoutComponents';
+import { SimpleButton } from '../../../../../../uiComponents';
 import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
 import {
   FormRow,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../../forms/common';
-import { SlimSimpleButton } from '../../layout';
 import { InfoSpotsFormState } from '../types';
 import { InfoSpotsFormPosters } from './InfoSpotsFormPosters';
 import { PurposeFormFragment } from './PurposeFormFragment';
@@ -157,7 +157,8 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             disabled={toBeDeleted}
           />
 
-          <SlimSimpleButton
+          <SimpleButton
+            shape="slim"
             testId={testIds.deleteInfoSpot}
             onClick={() => onRemove(infoSpotIndex)}
             inverted
@@ -165,7 +166,7 @@ export const InfoSpotFormFields: FC<InfoSpotFormFieldsProps> = ({
             {toBeDeleted
               ? t('stopDetails.infoSpots.cancelDeleteInfoSpot')
               : t('stopDetails.infoSpots.deleteInfoSpot')}
-          </SlimSimpleButton>
+          </SimpleButton>
         </FormRow>
       </div>
       {posters?.length ? (

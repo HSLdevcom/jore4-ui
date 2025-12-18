@@ -1,5 +1,4 @@
 import { Menu } from '@headlessui/react';
-import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdMoreVert } from 'react-icons/md';
@@ -7,7 +6,7 @@ import {
   AlignDirection,
   SimpleDropdownMenuItem,
   SimpleDropdownMenuItems,
-  SimpleRoundButton,
+  getSimpleButtonClassNames,
 } from '../../uiComponents';
 
 const testIds = {
@@ -35,17 +34,11 @@ export const MapFooterActionsDropdown: FC<MapFooterActionsDropdownProps> = ({
         <>
           <Menu.Button
             data-testid={testIds.menu}
-            as="div"
-            className="flex justify-around"
+            className={getSimpleButtonClassNames(!open, disabled, 'round')}
+            title={t('map.footerActionsTooltip')}
+            aria-label={t('map.footerActionsTooltip')}
           >
-            <SimpleRoundButton
-              tooltip={t('map.footerActionsTooltip')}
-              disabled={disabled}
-              onClick={noop}
-              inverted={!open}
-            >
-              <MdMoreVert aria-hidden className="text-4xl" />
-            </SimpleRoundButton>
+            <MdMoreVert aria-hidden className="text-4xl" />
           </Menu.Button>
           <SimpleDropdownMenuItems
             isOpen={open}

@@ -74,7 +74,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
   );
 
   return (
-    <Row testId={testIds.mapFooter} className="space-x-4 bg-white px-10 py-5">
+    <Row testId={testIds.mapFooter} className="gap-4 bg-white px-10 py-5">
       <SimpleButton
         testId={testIds.drawRouteButton}
         onClick={onDrawRoute}
@@ -122,7 +122,8 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
         onCreateNewTerminal={onAddTerminal}
       />
       <SimpleButton
-        className="h-full !px-3 text-xl"
+        shape="round"
+        className="h-full text-xl"
         onClick={onDeleteRoute}
         disabled={!hasChangesInProgress || isRouteMetadataFormOpen}
       >
@@ -130,7 +131,7 @@ export const MapFooterFullBar: FC<MapFooterFullBarProps> = ({
       </SimpleButton>
       <Visible visible={hasChangesInProgress && !isRouteMetadataFormOpen}>
         <SimpleButton
-          containerClassName="!ml-auto"
+          className="ml-auto"
           onClick={onCancel}
           disabled={!hasChangesInProgress}
           testId={testIds.cancelButton}

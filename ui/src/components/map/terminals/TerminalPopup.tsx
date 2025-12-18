@@ -99,7 +99,8 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
 
         <Row className="mt-16">
           <SimpleButton
-            className="flex aspect-square h-[38px] w-[38px] items-center justify-center self-stretch p-0"
+            shape="round"
+            className="h-[38px]"
             onClick={onDelete}
             inverted
             testId={testIds.deleteButton}
@@ -109,7 +110,7 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
           </SimpleButton>
 
           <SimpleButton
-            containerClassName="ml-auto"
+            className="ml-auto"
             onClick={onMove}
             testId={testIds.moveButton}
           >
@@ -117,7 +118,7 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
           </SimpleButton>
 
           <SimpleButton
-            containerClassName="ml-2"
+            className="ml-2"
             onClick={onEdit}
             testId={testIds.editButton}
           >

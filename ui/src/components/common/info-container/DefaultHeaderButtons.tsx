@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { Visible } from '../../../layoutComponents';
-import { SlimSimpleButton } from '../../stop-registry/stops/stop-details/layout';
+import { SimpleButton } from '../../../uiComponents';
 import { InfoContainerHeaderButtonsProps } from './InfoContainerHeaderButtonsProps';
 
 const testIds = {
@@ -25,7 +25,8 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
   return (
     <div className="flex space-x-2">
       <Visible visible={isEditable && !isInEditMode}>
-        <SlimSimpleButton
+        <SimpleButton
+          shape="slim"
           testId={testIds.editButton(testIdPrefix)}
           onClick={() => {
             setIsInEditMode(true);
@@ -33,11 +34,12 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
           }}
         >
           {t('edit')}
-        </SlimSimpleButton>
+        </SimpleButton>
       </Visible>
 
       <Visible visible={isExpandable && !isInEditMode}>
-        <SlimSimpleButton
+        <SimpleButton
+          shape="slim"
           onClick={() => setIsExpanded((expanded) => !expanded)}
           inverted={!isExpanded}
           testId={testIds.toggle(testIdPrefix)}
@@ -47,7 +49,7 @@ export const DefaultHeaderButtons: FC<InfoContainerHeaderButtonsProps> = ({
           ) : (
             <FaChevronDown className="text-tweaked-brand" aria-hidden />
           )}
-        </SlimSimpleButton>
+        </SimpleButton>
       </Visible>
     </div>
   );

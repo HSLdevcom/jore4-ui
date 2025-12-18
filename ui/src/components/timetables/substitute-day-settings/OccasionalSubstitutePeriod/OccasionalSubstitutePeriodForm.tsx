@@ -197,7 +197,8 @@ export const OccasionalSubstitutePeriodForm: FC<
                 {t('timetables.settings.addRow')}
               </span>
               <SimpleButton
-                className="h-full px-3 text-xl"
+                shape="round"
+                className="h-[32px] text-xl"
                 onClick={() => append(emptyRowObject)}
                 testId={testIds.addRowButton}
               >

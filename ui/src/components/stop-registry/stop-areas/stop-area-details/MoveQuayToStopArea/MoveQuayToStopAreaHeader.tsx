@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedStopPlace } from '../../../../../types';
-import { SlimSimpleButton } from '../../../stops/stop-details/layout';
+import { SimpleButton } from '../../../../../uiComponents';
 import { MoveQuayToStopAreaModal } from './MoveQuayToStopAreaModal';
 
 const testIds = {
@@ -36,14 +36,15 @@ export const MoveQuayToStopAreaHeader: FC<MoveQuayToStopAreaHeaderProps> = ({
     <>
       <div className="flex-grow" />
 
-      <SlimSimpleButton
+      <SimpleButton
+        shape="slim"
         type="button"
         onClick={handleOpenModal}
         inverted
         testId={testIds.addStopButton}
       >
         {t('stopAreaDetails.memberStops.moveStopToArea')}
-      </SlimSimpleButton>
+      </SimpleButton>
 
       <MoveQuayToStopAreaModal
         isOpen={isModalOpen}

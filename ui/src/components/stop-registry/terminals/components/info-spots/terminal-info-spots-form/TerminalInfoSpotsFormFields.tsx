@@ -4,6 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { Column, Row } from '../../../../../../layoutComponents';
 import { EnrichedParentStopPlace } from '../../../../../../types';
+import { SimpleButton } from '../../../../../../uiComponents';
 import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
 import {
   FormRow,
@@ -12,7 +13,6 @@ import {
 } from '../../../../../forms/common';
 import { PurposeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/PurposeFormFragment';
 import { SizeFormFragment } from '../../../../stops/stop-details/info-spots/info-spots-form/SizeFormFragment';
-import { SlimSimpleButton } from '../../../../stops/stop-details/layout';
 import { TerminalInfoSpotFormState } from '../types';
 import { resolveQuayPublicCode } from '../utils';
 import { TerminalInfoSpotsFormPosters } from './TerminalInfoSpotsFormPosters';
@@ -161,7 +161,8 @@ export const TerminalInfoSpotFormFields: FC<
             disabled={toBeDeleted}
           />
 
-          <SlimSimpleButton
+          <SimpleButton
+            shape="slim"
             testId={testIds.deleteInfoSpot}
             onClick={onRemove}
             inverted
@@ -169,7 +170,7 @@ export const TerminalInfoSpotFormFields: FC<
             {toBeDeleted
               ? t('stopDetails.infoSpots.cancelDeleteInfoSpot')
               : t('stopDetails.infoSpots.deleteInfoSpot')}
-          </SlimSimpleButton>
+          </SimpleButton>
         </FormRow>
       </div>
 

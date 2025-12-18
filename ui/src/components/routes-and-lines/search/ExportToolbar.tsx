@@ -14,7 +14,7 @@ import {
   selectRowsAction,
   setIsSelectingRoutesForExportAction,
 } from '../../../redux';
-import { SimpleSmallButton } from '../../../uiComponents';
+import { SimpleButton } from '../../../uiComponents';
 import {
   DisplayedSearchResultType,
   isRouteActiveOnObservationDate,
@@ -116,19 +116,21 @@ export const ExportToolbar: FC = () => {
           resultCount,
         })}
       </h2>
-      <SimpleSmallButton
+      <SimpleButton
+        shape="compact"
         inverted={isSelectingRoutesForExport}
         onClick={toggleIsSelecting}
-        label={t(
+        testId={testIds.toggleSelectingButton}
+      >
+        {t(
           isSelectingRoutesForExport
             ? 'export.quitSelecting'
             : 'export.startSelecting',
         )}
-        className="!rounded-full"
-        testId={testIds.toggleSelectingButton}
-      />
+      </SimpleButton>
       <Visible visible={isSelectingRoutesForExport}>
-        <SimpleSmallButton
+        <SimpleButton
+          shape="compact"
           inverted
           disabled={
             !canExport ||
@@ -136,12 +138,12 @@ export const ExportToolbar: FC = () => {
             exportRouteLoadingState !== LoadingState.NotLoading
           }
           onClick={exportRoutes}
-          label={t('export.exportSelected')}
-          className="!rounded-full"
           testId={testIds.exportSelectedButton}
           tooltip={t('export.tooltip')}
           disabledTooltip={t('export.disabledTooltip')}
-        />
+        >
+          {t('export.exportSelected')}
+        </SimpleButton>
       </Visible>
     </Row>
   );

@@ -9,7 +9,51 @@ import {
 import { Link, LinkProps, To } from 'react-router';
 import { twJoin, twMerge } from 'tailwind-merge';
 
-export function getHoverStyles(inverted?: boolean, disabled?: boolean) {
+/**
+ * Normal: Big rounded pill shaped button
+ * Slim: Slim pill shaped button with reduced padding
+ * Square: Unrounded rectangular-ish button, with normalish padding
+ * compact: Unrounded rectangular-ish button, with minimal padding
+ * round: Circular button for a single icon
+ */
+type SimpleButtonShape = 'normal' | 'slim' | 'square' | 'compact' | 'round';
+
+function getShapeClassNames(shape: SimpleButtonShape) {
+  switch (shape) {
+    case 'square':
+      return 'rounded border text-sm font-light py-1 px-4';
+
+    case 'compact':
+      return 'rounded border text-sm font-light py-0 px-4';
+
+    case 'slim':
+      return 'px-4 py-1 font-bold border rounded-full';
+
+    case 'round':
+      return 'font-bold border rounded-full aspect-square  p-0';
+
+    case 'normal':
+    default:
+      return 'px-4 py-2 font-bold border rounded-full';
+  }
+}
+
+function getColorClassNames(inverted: boolean, shape: SimpleButtonShape) {
+  if (inverted) {
+    if (shape === 'compact' || shape === 'square') {
+      return 'text-gray-900 bg-white border-grey active:border-brand';
+    }
+
+    return 'text-brand bg-white border-grey active:border-brand';
+  }
+
+  return 'text-white bg-brand border-brand active:bg-opacity-50';
+}
+
+export function getHoverStyles(
+  inverted: boolean = false,
+  disabled: boolean = false,
+) {
   if (disabled) {
     return '';
   }
@@ -22,37 +66,40 @@ export function getHoverStyles(inverted?: boolean, disabled?: boolean) {
   );
 }
 
-function getCommonClassNames(inverted?: boolean, disabled?: boolean) {
-  const colorClassNames = inverted
-    ? 'text-brand bg-white border-grey active:border-brand'
-    : 'text-white bg-brand border-brand active:bg-opacity-50';
-
+function getCommonClassNames(
+  inverted: boolean,
+  disabled: boolean,
+  shape: SimpleButtonShape,
+) {
   const disabledClassNames = disabled
     ? 'cursor-not-allowed opacity-70 text-white bg-light-grey border-light-grey'
     : '';
 
   return twJoin(
-    'px-4 py-2 font-bold border rounded-full',
-    colorClassNames,
+    'flex justify-center items-center',
+    getShapeClassNames(shape),
+    getColorClassNames(inverted, shape),
     disabledClassNames,
     getHoverStyles(inverted, disabled),
   );
 }
 
 export function getSimpleButtonClassNames(
-  inverted?: boolean,
-  disabled?: boolean,
-  className?: string,
-  invertedClassName?: string,
+  inverted: boolean = false,
+  disabled: boolean = false,
+  shape: SimpleButtonShape = 'normal',
+  className: string = '',
+  invertedClassName: string = '',
 ): string {
   return twMerge(
-    getCommonClassNames(inverted, disabled),
+    getCommonClassNames(inverted, disabled, shape),
     className,
     inverted ? invertedClassName : null,
   );
 }
 
 type SimpleButtonButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  readonly shape?: SimpleButtonShape;
   readonly inverted?: boolean;
   readonly invertedClassName?: string;
   readonly testId?: string;
@@ -64,10 +111,11 @@ const SimpleButtonButtonImpl: ForwardRefRenderFunction<
 > = (
   {
     className,
-    inverted,
     disabled,
-    testId,
+    inverted,
     invertedClassName,
+    shape,
+    testId,
     type = 'button',
     ...buttonProps
   },
@@ -80,6 +128,7 @@ const SimpleButtonButtonImpl: ForwardRefRenderFunction<
       className={getSimpleButtonClassNames(
         inverted,
         disabled,
+        shape,
         className,
         invertedClassName,
       )}
@@ -94,6 +143,7 @@ const SimpleButtonButtonImpl: ForwardRefRenderFunction<
 export const SimpleButtonButton = forwardRef(SimpleButtonButtonImpl);
 
 type SimpleLinkButtonProps = LinkProps & {
+  readonly shape?: SimpleButtonShape;
   readonly disabled?: boolean;
   readonly inverted?: boolean;
   readonly invertedClassName?: string;
@@ -106,10 +156,11 @@ export const SimpleLinkButtonImpl: ForwardRefRenderFunction<
 > = (
   {
     className,
-    inverted,
     disabled,
-    testId,
+    inverted,
     invertedClassName,
+    shape,
+    testId,
     to,
     ...linkProps
   },
@@ -127,6 +178,7 @@ export const SimpleLinkButtonImpl: ForwardRefRenderFunction<
       className={getSimpleButtonClassNames(
         inverted,
         disabled,
+        shape,
         className,
         invertedClassName,
       )}
@@ -143,12 +195,12 @@ export const SimpleLinkButton = forwardRef(SimpleLinkButtonImpl);
 type CommonButtonProps = {
   readonly id?: string;
   readonly className?: string;
+  readonly shape?: SimpleButtonShape;
   readonly testId?: string;
   readonly inverted?: boolean;
   readonly selected?: boolean;
   readonly disabled?: boolean;
   readonly children?: ReactNode;
-  readonly containerClassName?: string;
   readonly invertedClassName?: string;
   readonly tooltip?: string;
   readonly disabledTooltip?: string;
@@ -177,12 +229,12 @@ export type SimpleButtonProps = CommonButtonProps &
 export const SimpleButton: FC<SimpleButtonProps> = ({
   id,
   className,
+  shape,
   inverted,
   selected,
   disabled,
   testId,
   children,
-  containerClassName,
   invertedClassName,
   tooltip,
   disabledTooltip,
@@ -196,22 +248,21 @@ export const SimpleButton: FC<SimpleButtonProps> = ({
 }: SimpleButtonProps) => {
   if (href) {
     return (
-      <span className={twMerge('inline-flex', containerClassName)}>
-        <SimpleLinkButton
-          id={id}
-          className={className}
-          disabled={disabled}
-          inverted={inverted}
-          invertedClassName={invertedClassName}
-          to={href}
-          state={state}
-          testId={testId}
-          aria-label={disabled ? disabledTooltip : tooltip}
-          title={disabled ? disabledTooltip : tooltip}
-        >
-          {children}
-        </SimpleLinkButton>
-      </span>
+      <SimpleLinkButton
+        id={id}
+        className={className}
+        shape={shape}
+        disabled={disabled}
+        inverted={inverted}
+        invertedClassName={invertedClassName}
+        to={href}
+        state={state}
+        testId={testId}
+        aria-label={disabled ? disabledTooltip : tooltip}
+        title={disabled ? disabledTooltip : tooltip}
+      >
+        {children}
+      </SimpleLinkButton>
     );
   }
 
@@ -221,26 +272,25 @@ export const SimpleButton: FC<SimpleButtonProps> = ({
     type === 'reset'
   ) {
     return (
-      <span className={twMerge('inline-flex', containerClassName)}>
-        <SimpleButtonButton
-          id={id}
-          data-selected={selected}
-          className={className}
-          invertedClassName={invertedClassName}
-          inverted={inverted}
-          type={type}
-          onClick={onClick}
-          disabled={disabled}
-          testId={testId}
-          aria-label={disabled ? disabledTooltip : tooltip}
-          title={disabled ? disabledTooltip : tooltip}
-          aria-selected={ariaSelected}
-          role={role}
-          aria-controls={ariaControls}
-        >
-          {children}
-        </SimpleButtonButton>
-      </span>
+      <SimpleButtonButton
+        id={id}
+        data-selected={selected}
+        className={className}
+        shape={shape}
+        invertedClassName={invertedClassName}
+        inverted={inverted}
+        type={type}
+        onClick={onClick}
+        disabled={disabled}
+        testId={testId}
+        aria-label={disabled ? disabledTooltip : tooltip}
+        title={disabled ? disabledTooltip : tooltip}
+        aria-selected={ariaSelected}
+        role={role}
+        aria-controls={ariaControls}
+      >
+        {children}
+      </SimpleButtonButton>
     );
   }
 

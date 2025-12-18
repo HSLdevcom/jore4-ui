@@ -6,7 +6,7 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import { twJoin } from 'tailwind-merge';
 import { LineWithRoutesUniqueFieldsFragment } from '../../../generated/graphql';
 import { Column, Row } from '../../../layoutComponents';
-import { SimpleButton, SimpleSmallButton } from '../../../uiComponents';
+import { SimpleButton } from '../../../uiComponents';
 import { PageTitle } from '../../common';
 import { LineValidityPeriod } from './LineValidityPeriod';
 import { useGetRoutesDisplayedInList } from './useGetRoutesDisplayedInList';
@@ -67,12 +67,14 @@ export const LineTitle: FC<LineTitleProps> = ({
         <span className="mr-2 space-x-2">
           {lineRoutes?.length > 0 &&
             lineRoutes.map((item) => (
-              <SimpleSmallButton
+              <SimpleButton
+                shape="compact"
                 key={item.route_id}
                 onClick={() => onRouteToggleClick(item.label)}
                 inverted={!displayedRouteLabels?.includes(item.label)}
-                label={item.label}
-              />
+              >
+                {item.label}
+              </SimpleButton>
             ))}
         </span>
         {onCreateRoute && (

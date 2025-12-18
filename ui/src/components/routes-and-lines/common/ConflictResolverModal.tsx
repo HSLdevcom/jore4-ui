@@ -144,12 +144,8 @@ export const ConflictResolverModal: FC<ConflictResolverModalProps> = ({
           </tbody>
         </table>
 
-        <Row>
-          <SimpleButton
-            containerClassName="ml-auto mt-14"
-            onClick={onClose}
-            inverted
-          >
+        <Row className="mt-14 justify-end">
+          <SimpleButton onClick={onClose} inverted>
             {t('cancel')}
           </SimpleButton>
         </Row>

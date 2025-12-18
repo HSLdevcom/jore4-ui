@@ -12,13 +12,13 @@ import {
   mapStopRegistryShelterTypeEnumToUiName,
 } from '../../../../../i18n/uiNameMappings';
 import { Column, Row } from '../../../../../layoutComponents';
+import { SimpleButton } from '../../../../../uiComponents';
 import {
   EnumDropdown,
   InputElement,
   InputField,
   NullableBooleanDropdown,
 } from '../../../../forms/common';
-import { SlimSimpleButton } from '../layout';
 import { SheltersFormState } from './schema';
 
 const testIds = {
@@ -270,7 +270,8 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
         {...register(`shelters.${index}.toBeDeleted`)}
       />
       <div className="grid auto-cols-max grid-flow-col items-center gap-4">
-        <SlimSimpleButton
+        <SimpleButton
+          shape="slim"
           testId={testIds.deleteShelter}
           onClick={() => onRemove(index)}
           inverted
@@ -280,14 +281,15 @@ export const ShelterFormFields: FC<ShelterFormFieldsProps> = ({
               ? 'stopDetails.shelters.cancelDeleteShelter'
               : 'stopDetails.shelters.deleteShelter',
           )}
-        </SlimSimpleButton>
-        <SlimSimpleButton
+        </SimpleButton>
+        <SimpleButton
+          shape="slim"
           testId={testIds.copyShelter}
           onClick={() => onCopy(index)}
           inverted
         >
           {t('stopDetails.shelters.copyShelter')}
-        </SlimSimpleButton>
+        </SimpleButton>
       </div>
     </Column>
   );

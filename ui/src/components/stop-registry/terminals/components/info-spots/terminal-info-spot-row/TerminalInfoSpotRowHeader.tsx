@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import {
   AccordionButton,
   CloseIconButton,
+  SimpleButton,
 } from '../../../../../../uiComponents';
 import {
   formatPurposeForDisplay,
   formatSizedDbItem,
 } from '../../../../stops/stop-details/info-spots/utils';
-import { SlimSimpleButton } from '../../../../stops/stop-details/layout';
 import { TerminalInfoSpotRowHeaderProps } from '../types';
 import {
   CSS_CLASSES,
@@ -99,13 +99,14 @@ export const TerminalInfoSpotRowHeader: FC<TerminalInfoSpotRowHeaderProps> = ({
               </div>
             ) : (
               <div className="float-right flex space-x-2 text-right align-middle">
-                <SlimSimpleButton
+                <SimpleButton
+                  shape="slim"
                   onClick={() => setIsInEditMode(true)}
                   inverted
                   testId={testIds.editButton}
                 >
                   {t('edit')}
-                </SlimSimpleButton>
+                </SimpleButton>
 
                 {accordionButton}
               </div>

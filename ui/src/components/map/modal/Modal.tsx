@@ -34,8 +34,8 @@ const ModalFooter: FC<ModalFooterProps> = ({
         className,
       )}
     >
-      <Row className="space-x-2">
-        <SimpleButton containerClassName="ml-auto" onClick={onCancel} inverted>
+      <Row className="justify-end gap-2">
+        <SimpleButton onClick={onCancel} inverted>
           {t('cancel')}
         </SimpleButton>
         <SimpleButton testId={testIds.saveButton} onClick={onSave}>

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { SlimSimpleButton } from '../../stops/stop-details/layout';
+import { SimpleButton } from '../../../../uiComponents';
 
 const testIds = {
   reason: 'StopSearch::GroupedStops::failedToLoadReason',
@@ -31,9 +31,13 @@ export const LoadingStopsErrorRow: FC<LoadingStopsErrorRowProps> = ({
       <span data-testid={testIds.reason}>
         {t('stopRegistrySearch.failedToFetchStops', { reason: String(error) })}
       </span>
-      <SlimSimpleButton data-testid={testIds.refetch} onClick={() => refetch()}>
+      <SimpleButton
+        testId={testIds.refetch}
+        shape="slim"
+        onClick={() => refetch()}
+      >
         {t('stopRegistrySearch.tryToRefetch')}
-      </SlimSimpleButton>
+      </SimpleButton>
     </div>
   );
 };

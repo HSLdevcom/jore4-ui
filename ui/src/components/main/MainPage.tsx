@@ -38,8 +38,7 @@ export const MainPage: FC = () => {
             onClick={() => {
               window.location.href = LOGIN_URL;
             }}
-            containerClassName="w-full justify-center"
-            className="!px-6 !py-3 text-sm"
+            className="mx-auto px-6 py-3 text-sm"
           >
             {t('welcomePage.login')}
           </SimpleButton>

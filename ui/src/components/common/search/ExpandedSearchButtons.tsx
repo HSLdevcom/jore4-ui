@@ -31,10 +31,9 @@ export const ExpandedSearchButtons: FC<ExpandedSearchButtonsProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Row className="flex justify-end bg-background py-4">
+    <Row className="justify-end gap-4 bg-background px-10 py-4">
       <SimpleButton
-        containerClassName="mr-4"
-        className="h-12 w-32"
+        className="w-32"
         inverted
         testId={testIds.hideButton(testIdPrefix)}
         onClick={toggleExpand}
@@ -42,8 +41,7 @@ export const ExpandedSearchButtons: FC<ExpandedSearchButtonsProps> = ({
         {t('hide')}
       </SimpleButton>
       <SimpleButton
-        containerClassName="mr-6"
-        className="h-12 w-32"
+        className="w-32"
         type={searchButtonType}
         onClick={searchButtonType === 'button' ? onSearch : undefined}
         testId={testIds.searchButton(testIdPrefix)}

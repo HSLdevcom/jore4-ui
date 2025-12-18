@@ -41,7 +41,7 @@ export const DetailTabSelector: FC<DetailTabSelectorProps> = ({
 
   return (
     <div
-      className={twMerge('space-x-2', className)}
+      className={twMerge('flex gap-2', className)}
       role="tablist"
       // Screen readers seem to require this since the buttons are not _direct_ children of this tablist.
       aria-owns={[detailTabs.basic.buttonId, detailTabs.info.buttonId].join(

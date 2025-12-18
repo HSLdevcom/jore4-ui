@@ -2,9 +2,9 @@ import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Row } from '../../../../../../layoutComponents';
+import { SimpleButton } from '../../../../../../uiComponents';
 import { AddNewButton } from '../../../../../../uiComponents/AddNewButton';
 import { InputField } from '../../../../../forms/common';
-import { SlimSimpleButton } from '../../layout';
 import { InfoSpotsFormState } from '../types';
 import { usePosterNames } from './InfoSpotsPosterNames';
 import { SizeFormFragment } from './SizeFormFragment';
@@ -78,7 +78,8 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
         />
       </Row>
       <Row className="px-10 pb-5">
-        <SlimSimpleButton
+        <SimpleButton
+          shape="slim"
           testId={testIds.deleteInfoSpotPoster}
           onClick={() => onRemovePoster(infoSpotIndex, posterIndex)}
           inverted
@@ -89,7 +90,7 @@ export const InfoSpotsFormPosters: FC<InfoSpotsFormPostersProps> = ({
               ? 'stopDetails.infoSpots.cancelDeleteInfoSpot'
               : 'stopDetails.infoSpots.deleteInfoSpotPoster',
           )}
-        </SlimSimpleButton>
+        </SimpleButton>
         {isLastPoster && !infoSpotToBeDeleted && (
           <AddNewButton
             testId={testIds.addInfoSpotPoster}

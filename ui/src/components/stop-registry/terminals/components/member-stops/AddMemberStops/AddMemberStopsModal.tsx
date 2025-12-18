@@ -6,11 +6,11 @@ import {
   CloseIconButton,
   ModalBody,
   NewModalFooter,
+  SimpleButton,
 } from '../../../../../../uiComponents';
 import { Modal } from '../../../../../../uiComponents/modal/Modal';
 import { submitFormByRef } from '../../../../../../utils';
 import { useWrapInContextNavigation } from '../../../../../forms/common/NavigationBlocker';
-import { SlimSimpleButton } from '../../../../stops/stop-details/layout';
 import { AddMemberStopsForm } from './AddMemberStopsForm';
 
 const testIds = {
@@ -81,11 +81,12 @@ export const AddMemberStopsModal: FC<AddMemberStopsModalProps> = ({
       </ModalBody>
 
       <NewModalFooter>
-        <SlimSimpleButton type="button" onClick={onClose} inverted>
+        <SimpleButton shape="slim" type="button" onClick={onClose} inverted>
           {t('cancel')}
-        </SlimSimpleButton>
+        </SimpleButton>
 
-        <SlimSimpleButton
+        <SimpleButton
+          shape="slim"
           className="opacity-100"
           type="button"
           onClick={onSubmit}
@@ -93,7 +94,7 @@ export const AddMemberStopsModal: FC<AddMemberStopsModalProps> = ({
           testId={testIds.saveButton}
         >
           {isSaving ? t('saving') : t('save')}
-        </SlimSimpleButton>
+        </SimpleButton>
       </NewModalFooter>
     </Modal>
   );

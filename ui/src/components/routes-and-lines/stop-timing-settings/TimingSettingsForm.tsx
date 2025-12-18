@@ -97,7 +97,7 @@ export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
         ref={formRef}
         className={className}
       >
-        <Row>
+        <Row className="gap-6">
           <InputField
             translationPrefix="stops"
             fieldPath="timingPlaceId"
@@ -113,7 +113,7 @@ export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
             className="w-[400px] max-w-full flex-1"
           />
           <SimpleButton
-            containerClassName="self-end ml-6"
+            className="self-end"
             onClick={() => dispatch(openTimingPlaceModalAction())}
             testId={testIds.addTimingPlaceButton}
           >
@@ -168,12 +168,8 @@ export const TimingSettingsForm: FC<TimingSettingsFormProps> = ({
             {t('timingSettingsModal.isLoadingTimeAllowed')}
           </label>
         </Row>
-        <Row className="mt-4 space-x-4">
-          <SimpleButton
-            onClick={onCancel}
-            inverted
-            containerClassName="ml-auto"
-          >
+        <Row className="mt-4 justify-end gap-4">
+          <SimpleButton onClick={onCancel} inverted>
             {t('cancel')}
           </SimpleButton>
 

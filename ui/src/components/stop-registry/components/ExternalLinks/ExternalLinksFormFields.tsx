@@ -2,8 +2,8 @@ import { t } from 'i18next';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Column, Row } from '../../../../layoutComponents';
+import { SimpleButton } from '../../../../uiComponents';
 import { InputField } from '../../../forms/common';
-import { SlimSimpleButton } from '../../stops/stop-details/layout';
 import { ExternalLinksFormState } from './schema';
 
 const testIds = {
@@ -37,28 +37,24 @@ export const ExternalLinksFormFields: FC<ExternalLinksFormFieldsProps> = ({
           testId={testIds.name}
           disabled={toBeDeleted}
         />
-        <SlimSimpleButton
+        <SimpleButton
+          shape="round"
           testId={testIds.deleteExternalLink}
           onClick={() => onRemove(index)}
           inverted
-          className="m-0 h-11 w-11 rounded-full p-0"
+          tooltip={
+            toBeDeleted
+              ? t('stopDetails.externalLinks.cancelDeleteExternalLink')
+              : t('stopDetails.externalLinks.deleteExternalLink')
+          }
+          className="h-11"
         >
           {toBeDeleted ? (
-            <>
-              <span className="sr-only">
-                {t('stopDetails.externalLinks.cancelDeleteExternalLink')}
-              </span>
-              <i className="icon-restore -ml-2.5 text-2xs" aria-hidden />
-            </>
+            <i className="icon-restore -ml-2.5 text-2xs" aria-hidden />
           ) : (
-            <>
-              <span className="sr-only">
-                {t('stopDetails.externalLinks.deleteExternalLink')}
-              </span>
-              <i className="icon-trash text-lg" aria-hidden />
-            </>
+            <i className="icon-trash text-lg" aria-hidden />
           )}
-        </SlimSimpleButton>
+        </SimpleButton>
       </Row>
       <Row className="flex w-full items-end">
         <InputField<ExternalLinksFormState>

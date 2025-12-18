@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
+import { SimpleButton } from '../../../../../uiComponents';
 import { mapLngLatToPoint } from '../../../../../utils';
-import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import { useShowStopAreaOnMap } from '../../../utils';
 // Don't forget to remove the image from the repo!
 import placeholderBg from '../PlaceholderMapFragment.png';
@@ -44,14 +44,15 @@ export const StopAreaMinimap: FC<StopAreaComponentProps> = ({
         </span>
       </div>
 
-      <SlimSimpleButton
+      <SimpleButton
+        shape="slim"
         className="absolute right-2 top-2"
         inverted
         onClick={() => showOnMap(area.id ?? undefined, point)}
         testId={testIds.openMapButton}
       >
         {t('stopAreaDetails.minimap.showOnMap')}
-      </SlimSimpleButton>
+      </SimpleButton>
     </div>
   );
 };

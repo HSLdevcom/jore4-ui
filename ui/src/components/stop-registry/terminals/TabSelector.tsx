@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
 import { Tab } from '../components/Tab/Tab';
 
 const testIds = {
@@ -45,7 +46,7 @@ export const TabSelector: FC<TabSelectorProps> = ({
 
   return (
     <div
-      className={className}
+      className={twMerge('flex', className)}
       role="tablist"
       // Screen readers seem to require this since the buttons are not _direct_ children of this tablist.
       aria-owns={[tabs.basic.buttonId, tabs.stops.buttonId].join(' ')}

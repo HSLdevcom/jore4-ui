@@ -118,7 +118,7 @@ export const OccasionalSubstitutePeriodRow: FC<
           />
         )}
       />
-      <Column className="col-span-1 justify-end">
+      <Column className="col-span-1 items-center justify-end">
         <input
           type="checkbox"
           hidden
@@ -126,7 +126,8 @@ export const OccasionalSubstitutePeriodRow: FC<
         />
         <Visible visible={!!field.periodId}>
           <SimpleButton
-            className="h-full px-3 text-xl"
+            shape="round"
+            className="h-[38px] text-xl"
             testId={testIds.removeButton}
             onClick={() => update(index, tobeDeleted)}
             inverted
@@ -140,11 +141,13 @@ export const OccasionalSubstitutePeriodRow: FC<
         </Visible>
         <Visible visible={!field.periodId}>
           <SimpleButton
-            className="h-full px-3 text-xl"
+            shape="round"
+            className="h-[38px] text-xl"
             testId={testIds.removeButton}
             onClick={() => remove(index)}
             inverted
           >
+            {/* TODO: needs proper label, we are not removing a route */}
             <MdDelete aria-label={t('map.deleteRoute')} />
           </SimpleButton>
         </Visible>

@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { twJoin } from 'tailwind-merge';
-import { SimpleSmallButton } from '../../../../uiComponents';
+import { SimpleButton } from '../../../../uiComponents';
 
 type DetailTabProps = {
   readonly id: string;
@@ -22,16 +21,18 @@ export const DetailTab: FC<DetailTabProps> = ({
   className,
 }) => {
   return (
-    <SimpleSmallButton
+    <SimpleButton
       id={id}
       testId={testId}
       inverted={!isActive}
       ariaSelected={isActive}
       onClick={onClick}
-      label={title}
-      className={twJoin('px-4 py-1', className)}
+      shape="square"
+      className={className}
       aria-controls={tabPanelId}
       role="tab"
-    />
+    >
+      {title}
+    </SimpleButton>
   );
 };

@@ -1,7 +1,7 @@
 import noop from 'lodash/noop';
 import { FC } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
-import { SlimSimpleButton } from './SlimSimpleButton';
+import { SimpleButton } from '../../../../../uiComponents';
 
 type EmptyListHeaderButtonsProps = {
   readonly addNewItemText: string;
@@ -21,21 +21,23 @@ export const EmptyListHeaderButtons: FC<EmptyListHeaderButtonsProps> = ({
 }) => {
   return (
     <div className="flex gap-2">
-      <SlimSimpleButton
+      <SimpleButton
+        shape="slim"
         testId={testIds.addNewItemButton(testIdPrefix)}
         inverted
         onClick={onAddNewItem}
       >
         {addNewItemText}
-      </SlimSimpleButton>
-      <SlimSimpleButton
+      </SimpleButton>
+      <SimpleButton
+        shape="slim"
         onClick={noop}
         inverted
         disabled
         testId={testIds.toggle(testIdPrefix)}
       >
         <FaChevronDown className="text-white" aria-hidden />
-      </SlimSimpleButton>
+      </SimpleButton>
     </div>
   );
 };

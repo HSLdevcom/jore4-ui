@@ -160,7 +160,8 @@ export const StopPopup: FC<StopPopupProps> = ({
 
       <Row className="mt-4">
         <SimpleButton
-          className="flex aspect-square h-[38px] w-[38px] items-center justify-center self-stretch p-0"
+          shape="round"
+          className="h-[38px]"
           onClick={onDelete}
           inverted
           testId={testIds.deleteButton}
@@ -170,7 +171,8 @@ export const StopPopup: FC<StopPopupProps> = ({
         </SimpleButton>
 
         <SimpleButton
-          className="ml-2 flex aspect-square h-[38px] w-[38px] items-center justify-center self-stretch p-0"
+          shape="round"
+          className="ml-2 h-[38px]"
           onClick={onCopy}
           inverted
           testId={testIds.copyButton}
@@ -180,7 +182,7 @@ export const StopPopup: FC<StopPopupProps> = ({
         </SimpleButton>
 
         <SimpleButton
-          containerClassName="ml-auto"
+          className="ml-auto"
           inverted
           onClick={onMove}
           testId={testIds.moveButton}
@@ -189,7 +191,7 @@ export const StopPopup: FC<StopPopupProps> = ({
         </SimpleButton>
 
         <SimpleButton
-          containerClassName="ml-2"
+          className="ml-2"
           onClick={onEdit}
           testId={testIds.editButton}
         >

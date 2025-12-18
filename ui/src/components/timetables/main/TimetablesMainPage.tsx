@@ -20,24 +20,24 @@ export const TimetablesMainPage: FC = () => {
 
   return (
     <Container>
-      <Row className="justify-between">
+      <Row className="items-end justify-between gap-4">
         <PageTitle.H1>{t('timetables.timetables')}</PageTitle.H1>
-        <div className="space-x-4">
-          <SimpleButton
-            id="timetables-settings-button"
-            testId={testIds.settingsButton}
-            href={substituteOperatingPeriodSettings.getLink()}
-          >
-            {t('timetables.settingsButton')}
-          </SimpleButton>
-          <SimpleButton
-            id="import-timetables-button"
-            testId={testIds.importButton}
-            href={importTimetablesRoute.getLink()}
-          >
-            {t('import.importTimetables')}
-          </SimpleButton>
-        </div>
+
+        <SimpleButton
+          className="ml-auto"
+          id="timetables-settings-button"
+          testId={testIds.settingsButton}
+          href={substituteOperatingPeriodSettings.getLink()}
+        >
+          {t('timetables.settingsButton')}
+        </SimpleButton>
+        <SimpleButton
+          id="import-timetables-button"
+          testId={testIds.importButton}
+          href={importTimetablesRoute.getLink()}
+        >
+          {t('import.importTimetables')}
+        </SimpleButton>
       </Row>
       <SearchContainer />
     </Container>

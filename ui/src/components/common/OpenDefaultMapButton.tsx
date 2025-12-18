@@ -5,12 +5,12 @@ import { SimpleButton } from '../../uiComponents';
 import { useNavigateToMap } from '../map/utils/useNavigateToMap';
 
 type OpenDefaultMapButtonProps = {
-  readonly containerClassName?: string;
+  readonly className?: string;
   readonly testId?: string;
 };
 
 export const OpenDefaultMapButton = ({
-  containerClassName,
+  className,
   testId,
 }: OpenDefaultMapButtonProps) => {
   const { t } = useTranslation();
@@ -34,11 +34,7 @@ export const OpenDefaultMapButton = ({
   };
 
   return (
-    <SimpleButton
-      containerClassName={containerClassName}
-      onClick={onOpenMap}
-      testId={testId}
-    >
+    <SimpleButton className={className} onClick={onOpenMap} testId={testId}>
       {t('map.open')}
     </SimpleButton>
   );

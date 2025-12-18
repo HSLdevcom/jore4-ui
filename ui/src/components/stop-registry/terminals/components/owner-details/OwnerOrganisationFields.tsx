@@ -7,8 +7,8 @@ import {
   useGetOrganisationsQuery,
 } from '../../../../../generated/graphql';
 import { Column, Visible } from '../../../../../layoutComponents';
+import { SimpleButton } from '../../../../../uiComponents';
 import { InputField } from '../../../../forms/common';
-import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import {
   CREATE_NEW_ORGANISATION_OPTION,
   ChooseOrganisationDropdown,
@@ -121,14 +121,15 @@ export const OwnerOrganizationFields: FC<MaintainerFormFieldsProps> = ({
 
         <div>
           <Visible visible={!!selectedOwner}>
-            <SlimSimpleButton
+            <SimpleButton
+              shape="slim"
               className="px-8"
               inverted
               onClick={() => onEditOrganisation(selectedOwner)}
               testId={testIds.editOrganisationButton}
             >
               {t('edit')}
-            </SlimSimpleButton>
+            </SimpleButton>
           </Visible>
         </div>
       </Column>

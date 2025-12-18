@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { SlimSimpleButton } from '../../../../stops/stop-details/layout';
+import { SimpleButton } from '../../../../../../uiComponents';
 import { AddMemberStopsModal } from './AddMemberStopsModal';
 
 const testIds = {
@@ -28,13 +28,14 @@ export const AddMemberStopsHeader: FC<AddMemberStopsHeaderProps> = ({
 
   return (
     <>
-      <SlimSimpleButton
+      <SimpleButton
+        shape="slim"
         inverted
         onClick={handleOpenModal}
         testId={testIds.addStopToTerminalButton}
       >
         {t('terminalDetails.stops.addStopToTerminal')}
-      </SlimSimpleButton>
+      </SimpleButton>
 
       <AddMemberStopsModal
         isOpen={isModalOpen}

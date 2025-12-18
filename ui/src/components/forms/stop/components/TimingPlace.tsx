@@ -37,7 +37,7 @@ export const TimingPlace: FC<TimingPlaceProps> = ({ className }) => {
       />
 
       <SimpleButton
-        containerClassName="self-end ml-6"
+        className="ml-6 self-end"
         onClick={() => dispatch(openTimingPlaceModalAction())}
         testId={testIds.addTimingPlaceButton}
         inverted

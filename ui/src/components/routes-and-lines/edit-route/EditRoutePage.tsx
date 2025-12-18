@@ -184,10 +184,9 @@ export const EditRoutePage: FC = () => {
             )}
           </FormContainer>
         </Row>
-        <Row className="mt-8">
+        <Row className="mt-8 justify-end gap-5">
           <SimpleButton
             id="delete-button"
-            containerClassName="ml-auto"
             onClick={() => setIsDeleting(true)}
             inverted
             testId={testIds.deleteButton}
@@ -196,7 +195,6 @@ export const EditRoutePage: FC = () => {
           </SimpleButton>
           <SimpleButton
             id="cancel-button"
-            containerClassName="ml-5"
             onClick={onCancel}
             inverted
             testId={testIds.cancelButton}
@@ -205,7 +203,6 @@ export const EditRoutePage: FC = () => {
           </SimpleButton>
           <SimpleButton
             id="save-button"
-            containerClassName="ml-5"
             onClick={onSave}
             testId={testIds.saveButton}
           >

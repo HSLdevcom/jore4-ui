@@ -33,8 +33,9 @@ export const SlimDropDownMenu: FC<SlimDropDownMenuProps> = ({
             className={getSimpleButtonClassNames(
               true,
               disabled,
+              'slim',
               twJoin(
-                'flex items-center px-3 py-0',
+                'px-3 py-0',
                 // Deround bottom left corner, or any other if aligment prop
                 // is added to this component too.
                 open ? 'rounded-bl-none' : null,

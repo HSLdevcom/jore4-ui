@@ -180,8 +180,7 @@ export const StopSelectionListing: FC<StopSelectionListingProps> = ({
 
       {stops !== stopsToShow && (
         <SimpleButton
-          className="my-2 py-1"
-          containerClassName="flex justify-center"
+          className="mx-auto my-2 py-1"
           inverted
           onClick={() => setShowAll(true)}
           testId={testIds.showAllButton}

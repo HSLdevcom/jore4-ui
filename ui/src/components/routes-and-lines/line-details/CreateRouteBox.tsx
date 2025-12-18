@@ -25,7 +25,7 @@ export const CreateRouteBox: FC<CreateRouteBoxProps> = ({
       {onCreateRoute && (
         <SimpleButton
           id="create-route-button"
-          containerClassName="mb-4"
+          className="mb-4"
           onClick={onCreateRoute}
         >
           {t('lines.createNewRoute')}

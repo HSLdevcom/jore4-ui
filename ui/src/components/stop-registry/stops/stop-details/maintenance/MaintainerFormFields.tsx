@@ -6,8 +6,8 @@ import {
   StopRegistryStopPlaceOrganisationRelationshipType,
 } from '../../../../../generated/graphql';
 import { Visible } from '../../../../../layoutComponents';
+import { SimpleButton } from '../../../../../uiComponents';
 import { InputField } from '../../../../forms/common';
-import { SlimSimpleButton } from '../layout';
 import {
   CREATE_NEW_ORGANISATION_OPTION,
   ChooseOrganisationDropdown,
@@ -97,14 +97,15 @@ export const MaintainerFormFields: FC<MaintainerFormFieldsProps> = ({
       </div>
       <div className="self-end lg:row-span-1 lg:row-start-2">
         <Visible visible={!!selectedMaintainer}>
-          <SlimSimpleButton
+          <SimpleButton
+            shape="slim"
             className="px-8"
             inverted
             onClick={onEditOrganisation}
             testId={testIds.editOrganisationButton}
           >
             {t('edit')}
-          </SlimSimpleButton>
+          </SimpleButton>
         </Visible>
       </div>
     </div>

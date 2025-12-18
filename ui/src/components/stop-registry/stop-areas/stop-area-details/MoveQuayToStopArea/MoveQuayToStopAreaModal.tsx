@@ -1,17 +1,17 @@
 import { DateTime } from 'luxon';
 import { ChangeEventHandler, FC, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row } from '../../../../../layoutComponents';
+import { Column, Row } from '../../../../../layoutComponents';
 import {
   CloseIconButton,
   ModalBody,
   NewModalFooter,
+  SimpleButton,
 } from '../../../../../uiComponents';
 import { Modal } from '../../../../../uiComponents/modal/Modal';
 import { showSuccessToast } from '../../../../../utils';
 import { SelectStopDropdown } from '../../../components/SelectMemberStops';
 import { SelectedStop } from '../../../components/SelectMemberStops/common/schema';
-import { SlimSimpleButton } from '../../../stops/stop-details/layout';
 import { useGetStopVersions } from '../../../stops/versions/queries/useGetStopVersions';
 import { StopVersion } from '../../../stops/versions/types';
 import { useGetStopAreaVersions } from '../../versions/queries/useGetStopAreaVersions';
@@ -241,31 +241,35 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
         </div>
 
         {hasSelection && (
-          <div className="border-t border-light-grey bg-background px-8 py-8">
-            <label className="block" htmlFor="observation-date-input">
-              {t('stopAreaDetails.memberStops.transferDate')}
-            </label>
-            <input
-              type="date"
-              id="observation-date-input"
-              data-testid={testIds.transferDateInput}
-              value={selectedDate}
-              onChange={handleDateChange}
-            />
-            <SlimSimpleButton
-              className="ml-5"
-              inverted
-              type="button"
-              onClick={handleGetStopVersions}
-              disabled={!canFetchVersions}
-              testId={testIds.getStopVersionsButton}
-            >
-              {stopVersionsResult.loading
-                ? t('loading')
-                : t(
-                    'stopAreaDetails.memberStops.actionButtons.getStopVersions',
-                  )}
-            </SlimSimpleButton>
+          <div className="items-center border-t border-light-grey bg-background px-8 py-8">
+            <Row className="items-end gap-5">
+              <Column>
+                <label className="block" htmlFor="observation-date-input">
+                  {t('stopAreaDetails.memberStops.transferDate')}
+                </label>
+                <input
+                  type="date"
+                  id="observation-date-input"
+                  data-testid={testIds.transferDateInput}
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                />
+              </Column>
+
+              <SimpleButton
+                inverted
+                type="button"
+                onClick={handleGetStopVersions}
+                disabled={!canFetchVersions}
+                testId={testIds.getStopVersionsButton}
+              >
+                {stopVersionsResult.loading
+                  ? t('loading')
+                  : t(
+                      'stopAreaDetails.memberStops.actionButtons.getStopVersions',
+                    )}
+              </SimpleButton>
+            </Row>
 
             {shouldShowVersionsList && (
               <StopVersionsList
@@ -286,15 +290,17 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
       </ModalBody>
 
       <NewModalFooter>
-        <SlimSimpleButton
+        <SimpleButton
+          shape="slim"
           type="button"
           onClick={handleClose}
           disabled={isSaving}
           inverted
         >
           {t('cancel')}
-        </SlimSimpleButton>
-        <SlimSimpleButton
+        </SimpleButton>
+        <SimpleButton
+          shape="slim"
           className="opacity-100"
           type="button"
           onClick={handleSave}
@@ -302,7 +308,7 @@ export const MoveQuayToStopAreaModal: FC<MoveQuayToStopAreaModalProps> = ({
           testId={testIds.saveButton}
         >
           {isSaving ? t('moving') : t('move')}
-        </SlimSimpleButton>
+        </SimpleButton>
       </NewModalFooter>
     </Modal>
   );
