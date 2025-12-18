@@ -10,116 +10,107 @@ import {
   mapStopRegistryShelterElectricityEnumToUiName,
   mapStopRegistryShelterTypeEnumToUiName,
 } from '../../../../../i18n/uiNameMappings';
-import { Column, Row } from '../../../../../layoutComponents';
 import { StopRowTdProps } from '../types';
 
+const placeholderIcon = 'icon-placeholder-dot text-light-grey';
+
+type EquipmentIconDetails = {
+  readonly icon: string;
+  readonly label: string;
+};
+
+type Details = EquipmentIconDetails | false | undefined | null | '';
+
 type EquipmentIconProps = {
-  readonly className: string;
-  readonly ariaLabel: string;
+  readonly className?: string;
+  readonly details: Details;
 };
 
-const EquipmentIcon: FC<EquipmentIconProps> = ({ className, ariaLabel }) => (
-  <i
-    className={`${className} py-3 text-4xl`}
-    aria-label={ariaLabel}
-    title={ariaLabel}
-  />
-);
+const EquipmentIcon: FC<EquipmentIconProps> = ({ className = '', details }) => {
+  if (!details) {
+    return (
+      <i
+        aria-hidden
+        className={`${className} ${placeholderIcon} py-3 text-4xl`}
+      />
+    );
+  }
 
-const PLACEHOLDER_ICON_CLASS = 'icon-placeholder-dot text-light-grey';
-
-const ELECTRICITY_ICON_MAP: Record<
-  StopRegistryShelterElectricity,
-  string | null
-> = {
-  [StopRegistryShelterElectricity.Light]: 'icon-time-limited-power',
-  [StopRegistryShelterElectricity.ContinuousPlanned]: 'icon-no-power',
-  [StopRegistryShelterElectricity.ContinuousUnderConstruction]: 'icon-no-power',
-  [StopRegistryShelterElectricity.TemporarilyOff]: 'icon-no-power',
-  [StopRegistryShelterElectricity.None]: 'icon-no-power',
-  [StopRegistryShelterElectricity.Continuous]: 'icon-power',
+  return (
+    <i
+      role="img"
+      className={`${className} ${details.icon} py-3 text-4xl`}
+      aria-label={details.label}
+      title={details.label}
+    />
+  );
 };
+
+function getElectricityIcon(electricity: string) {
+  switch (electricity) {
+    case StopRegistryShelterElectricity.Light:
+      return 'icon-time-limited-power';
+
+    case StopRegistryShelterElectricity.ContinuousPlanned:
+    case StopRegistryShelterElectricity.ContinuousUnderConstruction:
+    case StopRegistryShelterElectricity.TemporarilyOff:
+    case StopRegistryShelterElectricity.None:
+      return 'icon-no-power';
+
+    case StopRegistryShelterElectricity.Continuous:
+    default:
+      return 'icon-power';
+  }
+}
 
 export const IconsTd: FC<StopRowTdProps> = ({ className, stop }) => {
   const { t } = useTranslation();
 
-  const shelterIcon = stop.shelter
-    ? {
-        className:
-          stop.shelter.toLowerCase() ===
-          StopRegistryShelterType.Post.toLowerCase()
-            ? 'icon-post'
-            : 'icon-shelter',
-        ariaLabel: mapStopRegistryShelterTypeEnumToUiName(
-          t,
-          stop.shelter as StopRegistryShelterType,
-        ),
-      }
-    : { className: PLACEHOLDER_ICON_CLASS, ariaLabel: '' };
+  const replaceRailSignIcon: Details = stop.replacesRailSign && {
+    icon: 'icon-replacement-line-grey',
+    label: t('stopDetails.signs.replacesRailSign'),
+  };
 
-  const electricityIcon = stop.electricity
-    ? {
-        className:
-          ELECTRICITY_ICON_MAP[
-            stop.electricity as StopRegistryShelterElectricity
-          ] ?? 'icon-power',
-        ariaLabel: mapStopRegistryShelterElectricityEnumToUiName(
-          t,
-          stop.electricity as StopRegistryShelterElectricity,
-        ),
-      }
-    : { className: PLACEHOLDER_ICON_CLASS, ariaLabel: '' };
+  const electricityIcon: Details = stop.electricity && {
+    icon: getElectricityIcon(stop.electricity),
+    label: mapStopRegistryShelterElectricityEnumToUiName(
+      t,
+      stop.electricity as StopRegistryShelterElectricity,
+    ),
+  };
 
-  const accessibilityIcon =
-    stop.accessibility === StopRegistryAccessibilityLevel.FullyAccessible
-      ? {
-          className: 'icon-accessible',
-          ariaLabel: mapStopAccessibilityLevelToUiName(
-            t,
-            stop.accessibility as StopRegistryAccessibilityLevel,
-          ),
-        }
-      : { className: PLACEHOLDER_ICON_CLASS, ariaLabel: '' };
+  const shelterIcon: Details = stop.shelter && {
+    icon:
+      stop.shelter.toLowerCase() === StopRegistryShelterType.Post
+        ? 'icon-post'
+        : 'icon-shelter',
+    label: mapStopRegistryShelterTypeEnumToUiName(
+      t,
+      stop.shelter as StopRegistryShelterType,
+    ),
+  };
 
-  const replaceRailSignIcon = stop.replacesRailSign
-    ? {
-        className:
-          'icon-replacement-line-grey border-r border-r-background pr-2',
-        ariaLabel: t('stopDetails.signs.replacesRailSign'),
-      }
-    : {
-        className: `${PLACEHOLDER_ICON_CLASS} border-r border-r-background pr-2`,
-        ariaLabel: '',
-      };
+  const accessibilityIcon: Details = stop.accessibility ===
+    StopRegistryAccessibilityLevel.FullyAccessible && {
+    icon: 'icon-accessible',
+    label: mapStopAccessibilityLevelToUiName(
+      t,
+      stop.accessibility as StopRegistryAccessibilityLevel,
+    ),
+  };
 
   return (
     <td className={className}>
-      <Row>
-        <Column>
-          <EquipmentIcon
-            className={replaceRailSignIcon.className}
-            ariaLabel={replaceRailSignIcon.ariaLabel}
-          />
-        </Column>
-        <Column>
-          <EquipmentIcon
-            className={electricityIcon.className}
-            ariaLabel={electricityIcon.ariaLabel}
-          />
-        </Column>
-        <Column>
-          <EquipmentIcon
-            className={shelterIcon.className}
-            ariaLabel={shelterIcon.ariaLabel}
-          />
-        </Column>
-        <Column>
-          <EquipmentIcon
-            className={accessibilityIcon.className}
-            ariaLabel={accessibilityIcon.ariaLabel}
-          />
-        </Column>
-      </Row>
+      <EquipmentIcon
+        className="border-r border-r-background pr-2"
+        details={replaceRailSignIcon}
+      />
+
+      <EquipmentIcon details={electricityIcon} />
+
+      <EquipmentIcon details={shelterIcon} />
+
+      <EquipmentIcon details={accessibilityIcon} />
     </td>
   );
 };
