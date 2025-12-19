@@ -2,6 +2,7 @@ export * from './AutomaticallyResizingTextArea';
 export * from './ChangeValidityForm';
 export * from './customZodSchemas';
 export * from './DateInputField';
+export * from './FormActionButtons';
 export * from './DateRange';
 export * from './EnumDropdown';
 export * from './FormColumn';
