@@ -23,6 +23,7 @@ import {
 } from '../../../../../layoutComponents';
 import {
   EnumDropdown,
+  FormActionButtons,
   InputElement,
   InputField,
   NullableBooleanDropdown,
@@ -64,12 +65,14 @@ type MeasurementsFormComponentProps = {
   readonly className?: string;
   readonly defaultValues: Partial<MeasurementsFormState>;
   readonly onSubmit: (state: MeasurementsFormState) => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const MeasurementsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   MeasurementsFormComponentProps
-> = ({ className, defaultValues, onSubmit }, ref) => {
+> = ({ className, defaultValues, onSubmit, onCancel, testIdPrefix }, ref) => {
   const { t } = useTranslation();
   const methods = useForm<MeasurementsFormState>({
     defaultValues,
@@ -138,6 +141,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               type="number"
               translationPrefix="stopDetails.measurements"
               min={0}
+              step="any"
               fieldPath="shelterLaneDistance"
               className="max-w-36"
               inputClassName="w-20"
@@ -147,6 +151,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               type="number"
               translationPrefix="stopDetails.measurements"
               min={0}
+              step="any"
               fieldPath="curbBackOfRailDistance"
               className="max-w-36"
               inputClassName="w-20"
@@ -157,6 +162,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
             <InputField<MeasurementsFormState>
               type="number"
               translationPrefix="stopDetails.measurements"
+              step="any"
               fieldPath="stopAreaSideSlope"
               className="max-w-32"
               inputClassName="w-20"
@@ -166,6 +172,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               type="number"
               translationPrefix="stopDetails.measurements"
               min={0}
+              step="any"
               fieldPath="stopAreaLengthwiseSlope"
               className="max-w-32"
               inputClassName="w-20"
@@ -175,6 +182,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               type="number"
               translationPrefix="stopDetails.measurements"
               min={0}
+              step="any"
               fieldPath="structureLaneDistance"
               className="max-w-44"
               inputClassName="w-20"
@@ -184,6 +192,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               type="number"
               translationPrefix="stopDetails.measurements"
               min={0}
+              step="any"
               fieldPath="stopElevationFromRailTop"
               className="max-w-40"
               inputClassName="w-20"
@@ -193,6 +202,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               type="number"
               translationPrefix="stopDetails.measurements"
               min={0}
+              step="any"
               fieldPath="stopElevationFromSidewalk"
               className="max-w-48"
               inputClassName="w-20"
@@ -202,6 +212,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               type="number"
               translationPrefix="stopDetails.measurements"
               min={0}
+              step="any"
               fieldPath="lowerCleatHeight"
               className="max-w-24"
               testId={testIds.lowerCleatHeight}
@@ -212,6 +223,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               type="number"
               translationPrefix="stopDetails.measurements"
               min={0}
+              step="any"
               fieldPath="curbDriveSideOfRailDistance"
               className="max-w-44"
               inputClassName="w-20"
@@ -220,6 +232,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
             <InputField<MeasurementsFormState>
               type="number"
               translationPrefix="stopDetails.measurements"
+              step="any"
               fieldPath="endRampSlope"
               className="max-w-20"
               inputClassName="w-20"
@@ -229,6 +242,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               type="number"
               translationPrefix="stopDetails.measurements"
               min={0}
+              step="any"
               fieldPath="serviceAreaWidth"
               className="max-w-24"
               inputClassName="w-20"
@@ -238,6 +252,7 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
               type="number"
               translationPrefix="stopDetails.measurements"
               min={0}
+              step="any"
               fieldPath="serviceAreaLength"
               className="max-w-24"
               inputClassName="w-20"
@@ -384,6 +399,15 @@ const MeasurementsFormComponent: ForwardRefRenderFunction<
             </label>
           </Row>
         </Column>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          isSubmitting={methods.formState.isSubmitting}
+          variant="infoContainer"
+        />
       </form>
     </FormProvider>
   );

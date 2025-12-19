@@ -2,7 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { twMerge } from 'tailwind-merge';
 import { useObservationDateQueryParam } from '../../../../../hooks';
 import { Column } from '../../../../../layoutComponents';
 import { Operation } from '../../../../../redux';
@@ -11,6 +10,7 @@ import { EnrichedStopPlace } from '../../../../../types';
 import { mapLngLatToPoint, showSuccessToast } from '../../../../../utils';
 import { useLoader } from '../../../../common/hooks/useLoader';
 import {
+  FormActionButtons,
   FormColumn,
   FormRow,
   InputField,
@@ -71,12 +71,17 @@ type StopAreaDetailsEditProps = {
   readonly className?: string;
   readonly refetch: () => Promise<unknown>;
   readonly onFinishEditing: () => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   StopAreaDetailsEditProps
-> = ({ area, className, refetch, onFinishEditing }, ref) => {
+> = (
+  { area, className, refetch, onFinishEditing, onCancel, testIdPrefix },
+  ref,
+) => {
   const { t } = useTranslation();
 
   const { observationDate, setObservationDateToUrl } =
@@ -126,11 +131,7 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
-      <form
-        className={twMerge('space-y-6', className)}
-        onSubmit={handleSubmit(onSubmit)}
-        ref={ref}
-      >
+      <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <FormColumn>
           <FormRow lgColumns={4} mdColumns={2}>
             <Column>
@@ -186,6 +187,15 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
             <ValidityPeriodForm />
           </FormRow>
         </FormColumn>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          isSubmitting={methods.formState.isSubmitting}
+          variant="infoContainer"
+        />
       </form>
     </FormProvider>
   );
