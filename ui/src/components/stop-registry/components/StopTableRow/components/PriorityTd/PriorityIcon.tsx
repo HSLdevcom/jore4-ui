@@ -19,7 +19,7 @@ function getColorAndIconClassNames(
       return `${baseClasses} text-light-grey icon-draft`;
 
     default:
-      return baseClasses;
+      return `${baseClasses} text-light-grey icon-placeholder-dot`;
   }
 }
 
