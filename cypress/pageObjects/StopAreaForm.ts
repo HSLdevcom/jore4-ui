@@ -71,7 +71,7 @@ export class StopAreaForm {
   save(forceAction = false) {
     return cy
       .getByTestId('EditStopAreaModal')
-      .findByTestId('Modal::saveButton')
+      .findByTestId('EditStopAreaModal::saveButton')
       .click({ force: forceAction });
   }
 }

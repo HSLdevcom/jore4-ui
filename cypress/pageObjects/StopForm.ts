@@ -142,7 +142,7 @@ export class StopForm {
    */
   save(forceAction = false) {
     return this.getModal()
-      .findByTestId('Modal::saveButton')
+      .findByTestId('EditStopModal::saveButton')
       .click({ force: forceAction });
   }
 }
