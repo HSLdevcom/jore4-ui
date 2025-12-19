@@ -2,13 +2,13 @@ import { gql } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { twMerge } from 'tailwind-merge';
 import {
   StopRegistryStopPlaceOrganisationRelationshipType as MaintainerType,
   StopPlaceOrganisationFieldsFragment,
   StopRegistryStopPlaceOrganisationRelationshipType,
   useGetOrganisationsQuery,
 } from '../../../../../generated/graphql';
+import { FormActionButtons } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { MaintainerFormFields } from './MaintainerFormFields';
 import { OrganisationDetailsModal } from './OrganisationDetailsModal';
@@ -41,12 +41,14 @@ type MaintenanceDetailsFormComponentProps = {
   readonly className?: string;
   readonly defaultValues: Partial<MaintenanceDetailsFormState>;
   readonly onSubmit: (state: MaintenanceDetailsFormState) => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   MaintenanceDetailsFormComponentProps
-> = ({ className, defaultValues, onSubmit }, ref) => {
+> = ({ className, defaultValues, onSubmit, onCancel, testIdPrefix }, ref) => {
   const organisationsResult = useGetOrganisationsQuery();
   const organisations = (organisationsResult.data?.stop_registry
     ?.organisation ?? []) as ReadonlyArray<StopPlaceOrganisationFieldsFragment>;
@@ -85,7 +87,9 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
     onStopEditingOrganisation();
     // Select the newly created organisation as a maintainer (already selected if editing).
     if (editedMaintainerType && organisationId) {
-      setValue(`maintainers.${editedMaintainerType}`, organisationId);
+      setValue(`maintainers.${editedMaintainerType}`, organisationId, {
+        shouldDirty: true,
+      });
     }
     organisationsResult.refetch();
   };
@@ -93,47 +97,52 @@ const MaintenanceDetailsFormComponent: ForwardRefRenderFunction<
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
-      <form
-        className={twMerge('grid grid-cols-3 gap-4 lg:grid-cols-4', className)}
-        onSubmit={handleSubmit(onSubmit)}
-        ref={ref}
-      >
-        <StopOwnerFormField control={control} />
-        <MaintainerFormFields
-          testId={testIds.owner}
-          maintainerType={MaintainerType.Owner}
-          organisations={organisations}
-          editOrganisation={onEditOrganisation}
-        />
-        <MaintainerFormFields
-          testId={testIds.shelterMaintenance}
-          maintainerType={MaintainerType.ShelterMaintenance}
-          organisations={organisations}
-          editOrganisation={onEditOrganisation}
-        />
-        <MaintainerFormFields
-          testId={testIds.maintenance}
-          maintainerType={MaintainerType.Maintenance}
-          organisations={organisations}
-          editOrganisation={onEditOrganisation}
-        />
-        <MaintainerFormFields
-          testId={testIds.winterMaintenance}
-          maintainerType={MaintainerType.WinterMaintenance}
-          organisations={organisations}
-          editOrganisation={onEditOrganisation}
-        />
-        <MaintainerFormFields
-          testId={testIds.infoUpkeep}
-          maintainerType={MaintainerType.InfoUpkeep}
-          organisations={organisations}
-          editOrganisation={onEditOrganisation}
-        />
-        <MaintainerFormFields
-          testId={testIds.cleaning}
-          maintainerType={MaintainerType.Cleaning}
-          organisations={organisations}
-          editOrganisation={onEditOrganisation}
+      <form className={className} onSubmit={handleSubmit(onSubmit)} ref={ref}>
+        <div className="grid grid-cols-3 gap-4 lg:grid-cols-4">
+          <StopOwnerFormField control={control} />
+          <MaintainerFormFields
+            testId={testIds.owner}
+            maintainerType={MaintainerType.Owner}
+            organisations={organisations}
+            editOrganisation={onEditOrganisation}
+          />
+          <MaintainerFormFields
+            testId={testIds.shelterMaintenance}
+            maintainerType={MaintainerType.ShelterMaintenance}
+            organisations={organisations}
+            editOrganisation={onEditOrganisation}
+          />
+          <MaintainerFormFields
+            testId={testIds.maintenance}
+            maintainerType={MaintainerType.Maintenance}
+            organisations={organisations}
+            editOrganisation={onEditOrganisation}
+          />
+          <MaintainerFormFields
+            testId={testIds.winterMaintenance}
+            maintainerType={MaintainerType.WinterMaintenance}
+            organisations={organisations}
+            editOrganisation={onEditOrganisation}
+          />
+          <MaintainerFormFields
+            testId={testIds.infoUpkeep}
+            maintainerType={MaintainerType.InfoUpkeep}
+            organisations={organisations}
+            editOrganisation={onEditOrganisation}
+          />
+          <MaintainerFormFields
+            testId={testIds.cleaning}
+            maintainerType={MaintainerType.Cleaning}
+            organisations={organisations}
+            editOrganisation={onEditOrganisation}
+          />
+        </div>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
         />
       </form>
       <OrganisationDetailsModal

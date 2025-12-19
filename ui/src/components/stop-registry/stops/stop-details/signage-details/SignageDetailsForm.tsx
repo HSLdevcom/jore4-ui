@@ -7,6 +7,7 @@ import { Column, Row } from '../../../../../layoutComponents';
 import { StopPlaceSignType } from '../../../../../types/stop-registry';
 import {
   EnumDropdown,
+  FormActionButtons,
   InputElement,
   InputField,
   TextAreaElement,
@@ -26,12 +27,14 @@ type SignageDetailsFormProps = {
   readonly className?: string;
   readonly defaultValues: Partial<SignageDetailsFormState>;
   readonly onSubmit: (state: SignageDetailsFormState) => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const SignageDetailsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   SignageDetailsFormProps
-> = ({ className, defaultValues, onSubmit }, ref) => {
+> = ({ className, defaultValues, onSubmit, onCancel, testIdPrefix }, ref) => {
   const { t } = useTranslation();
   const methods = useForm<SignageDetailsFormState>({
     defaultValues,
@@ -107,6 +110,13 @@ const SignageDetailsFormComponent: ForwardRefRenderFunction<
             />
           </Column>
         </Row>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+        />
       </form>
     </FormProvider>
   );

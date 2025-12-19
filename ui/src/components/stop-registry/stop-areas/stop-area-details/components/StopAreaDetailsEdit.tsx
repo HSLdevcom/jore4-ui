@@ -11,6 +11,7 @@ import { EnrichedStopPlace } from '../../../../../types';
 import { mapLngLatToPoint, showSuccessToast } from '../../../../../utils';
 import { useLoader } from '../../../../common/hooks/useLoader';
 import {
+  FormActionButtons,
   FormColumn,
   FormRow,
   InputField,
@@ -71,12 +72,17 @@ type StopAreaDetailsEditProps = {
   readonly className?: string;
   readonly refetch: () => Promise<unknown>;
   readonly onFinishEditing: () => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   StopAreaDetailsEditProps
-> = ({ area, className, refetch, onFinishEditing }, ref) => {
+> = (
+  { area, className, refetch, onFinishEditing, onCancel, testIdPrefix },
+  ref,
+) => {
   const { t } = useTranslation();
 
   const { observationDate, setObservationDateToUrl } =
@@ -186,6 +192,14 @@ const StopAreaDetailsEditImpl: ForwardRefRenderFunction<
             <ValidityPeriodForm />
           </FormRow>
         </FormColumn>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          className="!-mb-5"
+        />
       </form>
     </FormProvider>
   );
