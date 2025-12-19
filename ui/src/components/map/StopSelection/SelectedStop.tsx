@@ -12,11 +12,12 @@ const testIds = {
   removeButton: 'Map::StopSelection::RemoveSelection',
 };
 
-const baseIconClasses = `text-3xl min-w-[48px]`;
+const baseIconClasses = `text-3xl min-w-[48px] flex justify-center items-center`;
 
 const knownPriorityIconsClasses: Readonly<Record<string, string>> = {
   [Priority.Temporary]: `${baseIconClasses} text-city-bicycle-yellow icon-temporary-alt`,
   [Priority.Draft]: `${baseIconClasses} text-light-grey icon-draft`,
+  [Priority.Standard]: `${baseIconClasses} text-light-grey icon-placeholder-dot`,
 };
 
 function getPriorityIconClasses(rawPriority?: string | null): string {
@@ -43,11 +44,11 @@ export const SelectedStop: FC<SelectedStop> = ({
   removeButtonTitle,
 }) => (
   <div
-    className="flex gap-5 border-b border-light-grey p-2"
+    className="flex border-b border-light-grey p-2"
     data-testid={testIds.stop(stop.public_code, stop.priority)}
   >
     <div className={getPriorityIconClasses(stop.priority)} />
-    <div className="flex flex-grow flex-col">
+    <div className="ml-2 flex flex-grow flex-col">
       <a
         className="font-bold"
         href={linkToDetailsPage}
@@ -63,6 +64,7 @@ export const SelectedStop: FC<SelectedStop> = ({
     </div>
 
     <CloseIconButton
+      className="ml-5"
       title={removeButtonTitle}
       onClick={onRemoveFromSelection}
       testId={testIds.removeButton}
