@@ -8,7 +8,11 @@ import { Operation } from '../../../../../redux';
 import { EnrichedParentStopPlace } from '../../../../../types';
 import { showSuccessToast } from '../../../../../utils';
 import { useLoader } from '../../../../common/hooks/useLoader';
-import { FormRow, InputField } from '../../../../forms/common';
+import {
+  FormActionButtons,
+  FormRow,
+  InputField,
+} from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { OwnerOrganizationFields } from './OwnerOrganisationFields';
 import {
@@ -37,12 +41,14 @@ type OwnerDetailsEditProps = {
   readonly terminal: EnrichedParentStopPlace;
   readonly className?: string;
   readonly onFinishEditing: () => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const OwnerDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   OwnerDetailsEditProps
-> = ({ terminal, className, onFinishEditing }, ref) => {
+> = ({ terminal, className, onFinishEditing, onCancel, testIdPrefix }, ref) => {
   const { t } = useTranslation();
 
   const { updateOwner, defaultErrorHandler } = useUpdateTerminalOwner();
@@ -105,6 +111,16 @@ const OwnerDetailsEditImpl: ForwardRefRenderFunction<
             />
           </Column>
         </FormRow>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          isSubmitting={methods.formState.isSubmitting}
+          variant="infoContainer"
+          className="!-mb-5"
+        />
       </form>
     </FormProvider>
   );

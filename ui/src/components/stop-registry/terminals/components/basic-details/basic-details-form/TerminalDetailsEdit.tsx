@@ -20,7 +20,12 @@ import {
   showSuccessToast,
 } from '../../../../../../utils';
 import { useLoader } from '../../../../../common/hooks/useLoader';
-import { FormColumn, FormRow, InputField } from '../../../../../forms/common';
+import {
+  FormActionButtons,
+  FormColumn,
+  FormRow,
+  InputField,
+} from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { AlternativeNamesEdit } from '../../../../components/AlternativeNames/AlternativeNamesEdit';
 import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';
@@ -120,12 +125,14 @@ type TerminalDetailsEditProps = {
   readonly terminal: EnrichedParentStopPlace;
   readonly className?: string;
   readonly onFinishEditing: () => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const TerminalDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   TerminalDetailsEditProps
-> = ({ terminal, className, onFinishEditing }, ref) => {
+> = ({ terminal, className, onFinishEditing, onCancel, testIdPrefix }, ref) => {
   const { t } = useTranslation();
 
   const { updateTerminalDetails, defaultErrorHandler } =
@@ -252,6 +259,16 @@ const TerminalDetailsEditImpl: ForwardRefRenderFunction<
             </Column>
           </FormRow>
         </FormColumn>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          isSubmitting={methods.formState.isSubmitting}
+          className="!-mb-5"
+          variant="infoContainer"
+        />
       </form>
     </FormProvider>
   );

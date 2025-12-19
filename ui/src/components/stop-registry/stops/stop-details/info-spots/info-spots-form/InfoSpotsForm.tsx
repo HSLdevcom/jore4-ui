@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
+import { FormActionButtons } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { InfoSpotsFormSchema, InfoSpotsFormState, PosterState } from '../types';
 import { mapInfoSpotDataToFormState } from '../utils';
@@ -28,6 +29,9 @@ type InfoSpotsFormProps = {
   readonly onSubmit: (state: InfoSpotsFormState) => void;
   readonly infoSpotLocations: (string | null)[];
   readonly setFormIsDirty?: (val: boolean) => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
+  readonly addNewButton?: React.ReactNode;
 };
 
 export type InfoSpotsFormRef = {
@@ -46,6 +50,9 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
     onSubmit,
     formRef,
     setFormIsDirty,
+    onCancel,
+    testIdPrefix,
+    addNewButton,
   },
   ref,
 ) => {
@@ -147,6 +154,17 @@ const InfoSpotsFormComponent: ForwardRefRenderFunction<
             />
           </div>
         ))}
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          isSubmitting={methods.formState.isSubmitting}
+          addNewButton={addNewButton}
+          variant="infoContainer"
+          className="mx-0 my-0"
+        />
       </form>
     </FormProvider>
   );
