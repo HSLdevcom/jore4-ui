@@ -1,4 +1,5 @@
 import { FC, FormEventHandler } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../../../../../layoutComponents';
@@ -27,6 +28,7 @@ export const TerminalValidityForm: FC<TerminalValidityFormProps> = ({
   onSubmit,
 }) => {
   const { t } = useTranslation();
+  const { formState } = useFormContext();
 
   return (
     <form
@@ -46,7 +48,11 @@ export const TerminalValidityForm: FC<TerminalValidityFormProps> = ({
         <SimpleButton inverted onClick={onCancel} testId={testIds.cancelButton}>
           {t('cancel')}
         </SimpleButton>
-        <SimpleButton type="submit" testId={testIds.submitButton}>
+        <SimpleButton
+          type="submit"
+          testId={testIds.submitButton}
+          disabled={!formState.isDirty || formState.isSubmitting}
+        >
           {t('save')}
         </SimpleButton>
       </Row>
