@@ -1,6 +1,5 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { submitFormByRef } from '../../../utils';
 import { StopFormState as FormState, StopForm } from '../../forms/stop';
 import { CustomOverlay } from '../CustomOverlay';
 import { Modal } from '../modal';
@@ -28,7 +27,6 @@ export const EditStopModal: FC<EditStopModalProps> = ({
   const { t } = useTranslation();
 
   const formRef = useRef<ExplicitAny>(null);
-  const onSave = () => submitFormByRef(formRef);
 
   const buildHeading = () => {
     const { publicCode: { value: label } = {} } = defaultValues;
@@ -50,11 +48,8 @@ export const EditStopModal: FC<EditStopModalProps> = ({
       <Modal
         className="pointer-events-auto flex max-h-full flex-col"
         headerClassName="*:text-xl px-4 py-4 items-center"
-        bodyClassName="mx-0 my-0"
-        footerClassName="px-4 py-2"
+        bodyClassName="mx-0 my-0 flex flex-col"
         testId={testIds.modal}
-        onSave={onSave}
-        onCancel={onCancel}
         onClose={onClose}
         heading={buildHeading()}
         navigationContext="StopForm"
@@ -63,7 +58,10 @@ export const EditStopModal: FC<EditStopModalProps> = ({
           defaultValues={defaultValues}
           editing={editing}
           onSubmit={onSubmit}
+          onCancel={onCancel}
+          testIdPrefix={testIds.modal}
           ref={formRef}
+          className="min-h-0"
         />
       </Modal>
     </CustomOverlay>

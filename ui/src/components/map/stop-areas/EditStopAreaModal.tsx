@@ -1,7 +1,6 @@
 import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedStopPlace } from '../../../types';
-import { submitFormByRef } from '../../../utils';
 import {
   StopAreaFormState,
   useGetNextPrivateCode,
@@ -54,7 +53,6 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
   const { t } = useTranslation();
 
   const formRef = useRef<ExplicitAny>(null);
-  const onSave = () => submitFormByRef(formRef);
 
   const getDefaultValues = useGetDefaultValues(editedArea);
 
@@ -70,11 +68,8 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
       <Modal
         className="pointer-events-auto flex max-h-full flex-col"
         headerClassName="*:text-xl px-4 py-4 items-center"
-        bodyClassName="mx-0 my-0"
-        footerClassName="px-4 py-2"
+        bodyClassName="mx-0 my-0 flex flex-col"
         testId={testIds.modal}
-        onSave={onSave}
-        onCancel={onCancel}
         onClose={onClose}
         heading={heading}
         navigationContext="StopAreaForm"
@@ -82,7 +77,10 @@ export const EditStopAreaModal: FC<EditStopAreaModalProps> = ({
         <StopAreaForm
           defaultValues={getDefaultValues}
           onSubmit={onSubmit}
+          onCancel={onCancel}
+          testIdPrefix={testIds.modal}
           ref={formRef}
+          className="min-h-0"
         />
       </Modal>
     </CustomOverlay>
