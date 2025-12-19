@@ -1,6 +1,5 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { submitFormByRef } from '../../../utils';
 import {
   StopFormState as FormState,
   StopForm,
@@ -30,7 +29,6 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
   const { t } = useTranslation();
 
   const formRef = useRef<ExplicitAny>(null);
-  const onSave = () => submitFormByRef(formRef);
 
   const onStopFormSubmit = (
     changes: CreateChanges | EditChanges,
@@ -49,11 +47,8 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
       <Modal
         className="pointer-events-auto flex max-h-full flex-col"
         headerClassName="*:text-xl px-4 py-4 items-center"
-        bodyClassName="mx-0 my-0"
-        footerClassName="px-4 py-2"
+        bodyClassName="mx-0 my-0 flex flex-col"
         testId={testIds.modal}
-        onSave={onSave}
-        onCancel={onCancel}
         onClose={onClose}
         heading={t('stops.createStopCopy', {
           stopLabel: defaultValues.publicCode?.value,
@@ -65,7 +60,10 @@ export const CopyStopModal: FC<CopyStopModalProps> = ({
           editing
           submitState
           onSubmit={onStopFormSubmit}
+          onCancel={onCancel}
+          testIdPrefix={testIds.modal}
           ref={formRef}
+          className="min-h-0"
         />
       </Modal>
     </CustomOverlay>

@@ -6,7 +6,7 @@ export class EditRouteModal {
    */
   save(forceAction = false) {
     cy.getByTestId('EditRouteModal')
-      .findByTestId('Modal::saveButton')
+      .findByTestId('EditRouteModal::saveButton')
       .click({ force: forceAction });
 
     // After save the edit route modal should close

@@ -1,7 +1,6 @@
 import { FC, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EnrichedParentStopPlace } from '../../../types';
-import { submitFormByRef } from '../../../utils';
 import { useGetNextPrivateCode } from '../../forms/stop-area';
 import { TerminalFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/schema';
 import { mapTerminalDataToFormState } from '../../stop-registry/terminals/components/basic-details/basic-details-form/TerminalDetailsEdit';
@@ -53,7 +52,6 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
   const { t } = useTranslation();
 
   const formRef = useRef<HTMLFormElement | null>(null);
-  const onSave = () => submitFormByRef(formRef);
 
   const getDefaultValues = useGetDefaultValues(editedTerminal);
 
@@ -67,11 +65,8 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
       <Modal
         className="pointer-events-auto flex max-h-full flex-col"
         headerClassName="*:text-xl px-4 py-4 items-center"
-        bodyClassName="mx-0 my-0"
-        footerClassName="px-4 py-2"
+        bodyClassName="mx-0 my-0 flex"
         testId={testIds.modal}
-        onSave={onSave}
-        onCancel={onCancel}
         onClose={onClose}
         heading={heading}
         navigationContext="TerminalForm"
@@ -79,6 +74,9 @@ export const EditTerminalModal: FC<EditTerminalModalProps> = ({
         <TerminalForm
           defaultValues={getDefaultValues}
           onSubmit={onSubmit}
+          onCancel={onCancel}
+          testIdPrefix={testIds.modal}
+          className="min-h-0"
           ref={formRef}
         />
       </Modal>
