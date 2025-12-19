@@ -210,7 +210,8 @@ export const StopsImpl: ForwardRefRenderFunction<StopsRef, StopsProps> = (
     ? []
     : mapStopSelection.selected;
   const isInSelection = (stop: MapStop) =>
-    isInSearchResultMode || selectedStops.includes(stop.netex_id);
+    (isInSearchResultMode && mapStopSelection.byResultSelection) ||
+    selectedStops.includes(stop.netex_id);
 
   return (
     <>
