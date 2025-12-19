@@ -1,3 +1,4 @@
+import noop from 'lodash/noop';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
@@ -19,13 +20,14 @@ export const StopTimetablesButton: FC<StopTimetablesButtonProps> = ({
 
   return (
     <SimpleButton
-      shape="compact"
+      shape="round"
       inverted
-      className={twJoin('px-2', className)}
+      className={twJoin('h-11 w-11', className)}
       testId={testIds.button}
       tooltip={t('accessibility:stops.stopTimetablesButton')}
       disabled={disabledUntilImplemented}
       type="button"
+      onClick={noop}
     >
       <i aria-hidden className="icon-calendar text-2xl text-brand" />
     </SimpleButton>
