@@ -12,7 +12,13 @@ import {
   setTemplateRouteIdAction,
 } from '../../../redux';
 import { Switch, SwitchLabel } from '../../../uiComponents';
-import { ChangeValidityForm, FormColumn, FormRow, InputField } from '../common';
+import {
+  ChangeValidityForm,
+  FormActionButtons,
+  FormColumn,
+  FormRow,
+  InputField,
+} from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { ChooseLineDropdown } from './ChooseLineDropdown';
 import { DirectionDropdown } from './DirectionDropdown';
@@ -29,6 +35,8 @@ export type RoutePropertiesFormProps = {
   readonly className?: string;
   readonly defaultValues: Partial<FormState>;
   readonly onSubmit: (state: FormState) => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const testIds = {
@@ -44,7 +52,18 @@ const testIds = {
 export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   RoutePropertiesFormProps
-> = ({ id, routeLabel, className, defaultValues, onSubmit }, ref) => {
+> = (
+  {
+    id,
+    routeLabel,
+    className,
+    defaultValues,
+    onSubmit,
+    onCancel,
+    testIdPrefix,
+  },
+  ref,
+) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -74,105 +93,115 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     <FormProvider {...methods}>
       <form
         id={id ?? 'route-properties-form'}
-        className={twMerge('space-y-6', className)}
+        className={twMerge('flex min-h-0 flex-1 flex-col', className)}
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >
-        {routeLabel && (
-          <Row>
-            <h2 className="mb-8">
-              {t('routes.route')} {routeLabel}
-            </h2>
-          </Row>
-        )}
-        <FormColumn className={twMerge('p-4', className)}>
-          <FormRow
-            className="sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
-            mdColumns={5}
-            smColumns={4}
-          >
-            <InputField<FormState>
-              type="text"
-              translationPrefix="routes"
-              fieldPath="finnishName"
-              testId={testIds.finnishName}
-              className="sm:col-span-3"
-            />
-            <InputField<FormState>
-              type="text"
-              translationPrefix="routes"
-              fieldPath="label"
-              testId={testIds.label}
-              className="col-span-1"
-            />
-            <InputField<FormState>
-              type="number"
-              translationPrefix="routes"
-              fieldPath="variant"
-              testId={testIds.variant}
-              className="col-span-1"
-              min={0}
-            />
-            <InputField<FormState>
-              translationPrefix="routes"
-              fieldPath="direction"
-              testId={testIds.directionDropdown}
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <DirectionDropdown
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                />
-              )}
-              className="col-span-2"
-            />
-            <InputField<FormState>
-              translationPrefix="routes"
-              fieldPath="onLineId"
-              testId={testIds.lineChoiceDropdown}
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <ChooseLineDropdown
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                />
-              )}
-              className="sm:col-span-3"
-            />
-          </FormRow>
-        </FormColumn>
-        <TerminusNameInputs />
-        {creatingNewRoute && (
-          <>
-            <Row className="flex-auto items-center px-4">
-              <HuiSwitch.Group>
-                <SwitchLabel className="my-1 mr-2">
-                  {t('routes.useTemplateRoute')}
-                </SwitchLabel>
-                <Switch
-                  checked={showTemplateRouteSelector}
-                  testId={testIds.useTemplateRouteButton}
-                  onChange={(enabled: boolean) => {
-                    setShowTemplateRouteSelector(enabled);
-
-                    if (!enabled) {
-                      setTemplateRoute(undefined);
-                    }
-                  }}
-                />
-              </HuiSwitch.Group>
+        <div className="space-y-6 overflow-auto">
+          {routeLabel && (
+            <Row>
+              <h2 className="mb-8">
+                {t('routes.route')} {routeLabel}
+              </h2>
             </Row>
-            {showTemplateRouteSelector && (
-              <TemplateRouteSelector
-                value={templateRouteId}
-                onChange={(e) => setTemplateRoute(e.target.value)}
+          )}
+          <FormColumn className={twMerge('p-4', className)}>
+            <FormRow
+              className="sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
+              mdColumns={5}
+              smColumns={4}
+            >
+              <InputField<FormState>
+                type="text"
+                translationPrefix="routes"
+                fieldPath="finnishName"
+                testId={testIds.finnishName}
+                className="sm:col-span-3"
               />
-            )}
-          </>
-        )}
-        <FormRow className="border-t border-light-grey p-4">
-          <ChangeValidityForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
-        </FormRow>
+              <InputField<FormState>
+                type="text"
+                translationPrefix="routes"
+                fieldPath="label"
+                testId={testIds.label}
+                className="col-span-1"
+              />
+              <InputField<FormState>
+                type="number"
+                translationPrefix="routes"
+                fieldPath="variant"
+                testId={testIds.variant}
+                className="col-span-1"
+                min={0}
+              />
+              <InputField<FormState>
+                translationPrefix="routes"
+                fieldPath="direction"
+                testId={testIds.directionDropdown}
+                // eslint-disable-next-line react/no-unstable-nested-components
+                inputElementRenderer={(props) => (
+                  <DirectionDropdown
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...props}
+                  />
+                )}
+                className="col-span-2"
+              />
+              <InputField<FormState>
+                translationPrefix="routes"
+                fieldPath="onLineId"
+                testId={testIds.lineChoiceDropdown}
+                // eslint-disable-next-line react/no-unstable-nested-components
+                inputElementRenderer={(props) => (
+                  <ChooseLineDropdown
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...props}
+                  />
+                )}
+                className="sm:col-span-3"
+              />
+            </FormRow>
+          </FormColumn>
+          <TerminusNameInputs />
+          {creatingNewRoute && (
+            <>
+              <Row className="flex-auto items-center px-4">
+                <HuiSwitch.Group>
+                  <SwitchLabel className="my-1 mr-2">
+                    {t('routes.useTemplateRoute')}
+                  </SwitchLabel>
+                  <Switch
+                    checked={showTemplateRouteSelector}
+                    testId={testIds.useTemplateRouteButton}
+                    onChange={(enabled: boolean) => {
+                      setShowTemplateRouteSelector(enabled);
+
+                      if (!enabled) {
+                        setTemplateRoute(undefined);
+                      }
+                    }}
+                  />
+                </HuiSwitch.Group>
+              </Row>
+              {showTemplateRouteSelector && (
+                <TemplateRouteSelector
+                  value={templateRouteId}
+                  onChange={(e) => setTemplateRoute(e.target.value)}
+                />
+              )}
+            </>
+          )}
+          <FormRow className="border-t border-light-grey p-4">
+            <ChangeValidityForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
+          </FormRow>
+        </div>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          className="mx-0 my-0 border border-light-grey bg-background"
+        />
       </form>
     </FormProvider>
   );

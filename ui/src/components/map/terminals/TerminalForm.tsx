@@ -4,6 +4,7 @@ import { FormProvider, useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
 import {
+  FormActionButtons,
   FormColumn,
   FormRow,
   InputField,
@@ -35,12 +36,14 @@ type TerminalFormProps = {
     | TerminalFormState
     | (() => Promise<TerminalFormState>);
   readonly onSubmit: (changes: TerminalFormState) => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const TerminalFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   TerminalFormProps
-> = ({ className, defaultValues, onSubmit }, ref) => {
+> = ({ className, defaultValues, onSubmit, onCancel, testIdPrefix }, ref) => {
   const { t } = useTranslation();
 
   const methods = useForm<TerminalFormState>({
@@ -66,88 +69,99 @@ const TerminalFormComponent: ForwardRefRenderFunction<
     <FormProvider {...methods}>
       <form
         data-testid={testIds.form}
-        className={twMerge('space-y-6', className)}
+        className={className}
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >
-        <FormColumn className={twMerge('bg-background p-4', className)}>
-          <div className="flex gap-4">
-            <InputField<TerminalFormState>
-              type="text"
-              translationPrefix="terminal"
-              fieldPath="privateCode"
-              testId={testIds.privateCode}
-              className="w-2/5"
-              disabled
-            />
-            <InputField<TerminalFormState>
-              type="text"
-              translationPrefix="terminal"
-              fieldPath="name"
-              testId={testIds.name}
-              className="w-full"
-            />
-          </div>
-
-          <FormRow>
-            <TerminalNames />
-          </FormRow>
-        </FormColumn>
-        <FormColumn>
-          <FormRow
-            mdColumns={4}
-            className="px-4 sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
-          >
-            <InputField<TerminalFormState>
-              type="number"
-              translationPrefix="map"
-              fieldPath="latitude"
-              testId={testIds.latitude}
-              step="any"
-            />
-            <InputField<TerminalFormState>
-              type="number"
-              translationPrefix="map"
-              fieldPath="longitude"
-              testId={testIds.longitude}
-              step="any"
-            />
-
-            <InputField<TerminalFormState>
-              translationPrefix="terminalDetails.basicDetails"
-              fieldPath="terminalType"
-              testId={testIds.terminalType}
-              className="md:col-span-2"
-              // eslint-disable-next-line react/no-unstable-nested-components
-              inputElementRenderer={(props) => (
-                <TerminalTypeDropdown
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...props}
-                />
-              )}
-            />
-          </FormRow>
-          <FormRow
-            mdColumns={1}
-            className="px-4 sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
-          >
-            <div>
-              <div className="mb-2 text-sm font-bold">
-                {t('terminalDetails.location.memberStopsTotal', {
-                  total: selectedStops.length,
-                })}
-              </div>
-              <SelectTerminalMemberStopsDropdown
-                value={selectedStops}
-                onChange={onSelectedStopsChange}
-                testId={testIds.memberStops}
+        <div className="space-y-6 overflow-auto">
+          <FormColumn className={twMerge('bg-background p-4', className)}>
+            <div className="flex gap-4">
+              <InputField<TerminalFormState>
+                type="text"
+                translationPrefix="terminal"
+                fieldPath="privateCode"
+                testId={testIds.privateCode}
+                className="w-2/5"
+                disabled
+              />
+              <InputField<TerminalFormState>
+                type="text"
+                translationPrefix="terminal"
+                fieldPath="name"
+                testId={testIds.name}
+                className="w-full"
               />
             </div>
-          </FormRow>
-          <FormRow className="border-t border-light-grey p-4">
-            <ValidityPeriodForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
-          </FormRow>
-        </FormColumn>
+
+            <FormRow>
+              <TerminalNames />
+            </FormRow>
+          </FormColumn>
+          <FormColumn>
+            <FormRow
+              mdColumns={4}
+              className="px-4 sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
+            >
+              <InputField<TerminalFormState>
+                type="number"
+                translationPrefix="map"
+                fieldPath="latitude"
+                testId={testIds.latitude}
+                step="any"
+              />
+              <InputField<TerminalFormState>
+                type="number"
+                translationPrefix="map"
+                fieldPath="longitude"
+                testId={testIds.longitude}
+                step="any"
+              />
+
+              <InputField<TerminalFormState>
+                translationPrefix="terminalDetails.basicDetails"
+                fieldPath="terminalType"
+                testId={testIds.terminalType}
+                className="md:col-span-2"
+                // eslint-disable-next-line react/no-unstable-nested-components
+                inputElementRenderer={(props) => (
+                  <TerminalTypeDropdown
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...props}
+                  />
+                )}
+              />
+            </FormRow>
+            <FormRow
+              mdColumns={1}
+              className="px-4 sm:gap-x-4 md:gap-x-4 lg:gap-x-4"
+            >
+              <div>
+                <div className="mb-2 text-sm font-bold">
+                  {t('terminalDetails.location.memberStopsTotal', {
+                    total: selectedStops.length,
+                  })}
+                </div>
+                <SelectTerminalMemberStopsDropdown
+                  value={selectedStops}
+                  onChange={onSelectedStopsChange}
+                  testId={testIds.memberStops}
+                />
+              </div>
+            </FormRow>
+            <FormRow className="border-t border-light-grey p-4">
+              <ValidityPeriodForm dateInputRowClassName="sm:gap-x-4 md:gap-x-4 lg:gap-x-4" />
+            </FormRow>
+          </FormColumn>
+        </div>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          isSubmitting={methods.formState.isSubmitting}
+          variant="modal"
+        />
       </form>
     </FormProvider>
   );
