@@ -38,6 +38,8 @@ export const LocationDetails: FC<TerminalComponentProps> = ({ terminal }) => {
           terminal={terminal}
           onFinishEditing={() => infoContainerControls.setIsInEditMode(false)}
           ref={formRef}
+          onCancel={() => infoContainerControls.onCancel()}
+          testIdPrefix="TerminalLocationDetailsSection"
         />
       ) : (
         <LocationDetailsView terminal={terminal} />

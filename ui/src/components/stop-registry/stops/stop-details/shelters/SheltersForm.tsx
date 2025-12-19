@@ -7,8 +7,8 @@ import {
   useRef,
 } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
-import { twMerge } from 'tailwind-merge';
 import { HorizontalSeparator, Visible } from '../../../../../layoutComponents';
+import { FormActionButtons } from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { SheltersFormState, sheltersFormSchema } from './schema';
 import { ShelterFormFields } from './ShelterFormFields';
@@ -25,6 +25,9 @@ type SheltersFormProps = {
   readonly formRef: RefObject<HTMLFormElement>;
   readonly onSubmit: (state: SheltersFormState) => void;
   readonly onShelterCountChanged: (newShelterCount: number) => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
+  readonly addNewButton?: React.ReactNode;
 };
 
 export type SheltersFormRef = {
@@ -35,7 +38,16 @@ const SheltersFormComponent: ForwardRefRenderFunction<
   SheltersFormRef,
   SheltersFormProps
 > = (
-  { className, defaultValues, formRef, onSubmit, onShelterCountChanged },
+  {
+    className,
+    defaultValues,
+    formRef,
+    onSubmit,
+    onShelterCountChanged,
+    onCancel,
+    testIdPrefix,
+    addNewButton,
+  },
   ref,
 ) => {
   const formElementRef = useRef<HTMLFormElement>(null);
@@ -70,7 +82,7 @@ const SheltersFormComponent: ForwardRefRenderFunction<
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
-        className={twMerge('space-y-4', className)}
+        className={className}
         onSubmit={handleSubmit(onSubmit)}
         ref={formRef}
       >
@@ -86,6 +98,16 @@ const SheltersFormComponent: ForwardRefRenderFunction<
             </Visible>
           </div>
         ))}
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          isSubmitting={methods.formState.isSubmitting}
+          addNewButton={addNewButton}
+          variant="infoContainer"
+        />
       </form>
     </FormProvider>
   );

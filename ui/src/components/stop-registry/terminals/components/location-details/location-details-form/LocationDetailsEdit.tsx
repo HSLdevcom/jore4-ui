@@ -18,6 +18,7 @@ import {
 } from '../../../../../../utils';
 import { useLoader } from '../../../../../common/hooks/useLoader';
 import {
+  FormActionButtons,
   FormColumn,
   InputField,
   InputLabel,
@@ -94,12 +95,14 @@ type TerminalDetailsEditProps = {
   readonly terminal: EnrichedParentStopPlace;
   readonly className?: string;
   readonly onFinishEditing: () => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   TerminalDetailsEditProps
-> = ({ terminal, className, onFinishEditing }, ref) => {
+> = ({ terminal, className, onFinishEditing, onCancel, testIdPrefix }, ref) => {
   const { t } = useTranslation();
   const { upsertTerminalLocationDetails, defaultErrorHandler } =
     useUpsertTerminalLocationDetails();
@@ -240,6 +243,15 @@ const TerminalLocationDetailsEditImpl: ForwardRefRenderFunction<
             />
           </Row>
         </FormColumn>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          isSubmitting={methods.formState.isSubmitting}
+          variant="infoContainer"
+        />
       </form>
     </FormProvider>
   );

@@ -2,13 +2,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ForwardRefRenderFunction, forwardRef, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { twMerge } from 'tailwind-merge';
 import { Column } from '../../../../../layoutComponents';
 import { Operation } from '../../../../../redux';
 import { EnrichedParentStopPlace } from '../../../../../types';
 import { showSuccessToast } from '../../../../../utils';
 import { useLoader } from '../../../../common/hooks/useLoader';
-import { FormRow, InputField } from '../../../../forms/common';
+import {
+  FormActionButtons,
+  FormRow,
+  InputField,
+} from '../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../forms/common/NavigationBlocker';
 import { OwnerOrganizationFields } from './OwnerOrganisationFields';
 import {
@@ -37,12 +40,14 @@ type OwnerDetailsEditProps = {
   readonly terminal: EnrichedParentStopPlace;
   readonly className?: string;
   readonly onFinishEditing: () => void;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const OwnerDetailsEditImpl: ForwardRefRenderFunction<
   HTMLFormElement,
   OwnerDetailsEditProps
-> = ({ terminal, className, onFinishEditing }, ref) => {
+> = ({ terminal, className, onFinishEditing, onCancel, testIdPrefix }, ref) => {
   const { t } = useTranslation();
 
   const { updateOwner, defaultErrorHandler } = useUpdateTerminalOwner();
@@ -77,7 +82,7 @@ const OwnerDetailsEditImpl: ForwardRefRenderFunction<
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
-        className={twMerge('space-y-6', className)}
+        className={className}
         onSubmit={methods.handleSubmit(onSubmit)}
         ref={ref}
       >
@@ -105,6 +110,15 @@ const OwnerDetailsEditImpl: ForwardRefRenderFunction<
             />
           </Column>
         </FormRow>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          isSubmitting={methods.formState.isSubmitting}
+          variant="infoContainer"
+        />
       </form>
     </FormProvider>
   );

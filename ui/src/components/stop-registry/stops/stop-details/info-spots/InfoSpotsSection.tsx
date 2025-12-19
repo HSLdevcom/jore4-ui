@@ -93,7 +93,7 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
 
   const { saveStopPlaceInfoSpots, defaultErrorHandler } =
     useEditStopInfoSpots();
-  const [formIsDirty, setFormIsDirty] = useState(false);
+  const [, setFormIsDirty] = useState(false);
 
   const { location } = stop;
 
@@ -147,15 +147,6 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
           />
         ) : undefined
       }
-      addNewButton={
-        isInEditMode ? (
-          <AddNewButton
-            onClick={handleAddNewInfoSpot}
-            label={t('stopDetails.infoSpots.addInfoSpot')}
-            testId={testIds.addInfoSpot}
-          />
-        ) : null
-      }
       title={
         <InfoSpotTitle
           infoSpotCount={infoSpotCount}
@@ -164,7 +155,6 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
         />
       }
       testIdPrefix="InfoSpotsSection"
-      disableSaveButton={!formIsDirty}
     >
       {infoContainerControls.isInEditMode ? (
         <InfoSpotsForm
@@ -175,6 +165,15 @@ export const InfoSpotsSection: FC<InfoSpotsSectionProps> = ({
           infoSpotLocations={infoSpotLocations}
           onSubmit={onSubmit}
           setFormIsDirty={setFormIsDirty}
+          onCancel={() => infoContainerControls.setIsInEditMode(false)}
+          testIdPrefix="InfoSpotsSection"
+          addNewButton={
+            <AddNewButton
+              onClick={handleAddNewInfoSpot}
+              label={t('stopDetails.infoSpots.addInfoSpot')}
+              testId={testIds.addInfoSpot}
+            />
+          }
         />
       ) : (
         <InfoSpotsViewList

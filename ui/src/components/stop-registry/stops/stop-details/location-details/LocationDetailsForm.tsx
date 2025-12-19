@@ -12,6 +12,7 @@ import {
 import { StopWithDetails } from '../../../../../types';
 import {
   EnumDropdown,
+  FormActionButtons,
   FormColumn,
   InputField,
   InputLabel,
@@ -40,12 +41,17 @@ type LocationDetailsFormComponentProps = {
   readonly defaultValues: Partial<LocationDetailsFormState>;
   readonly onSubmit: (state: LocationDetailsFormState) => void;
   readonly stop: StopWithDetails;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const LocationDetailsFormComponent: ForwardRefRenderFunction<
   ExplicitAny,
   LocationDetailsFormComponentProps
-> = ({ className, defaultValues, onSubmit, stop }, ref) => {
+> = (
+  { className, defaultValues, onSubmit, stop, onCancel, testIdPrefix },
+  ref,
+) => {
   const { t } = useTranslation();
 
   const methods = useForm<LocationDetailsFormState>({
@@ -184,6 +190,15 @@ const LocationDetailsFormComponent: ForwardRefRenderFunction<
 
           <ReasonForChangeForm />
         </FormColumn>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          isSubmitting={methods.formState.isSubmitting}
+          variant="infoContainer"
+        />
       </form>
     </FormProvider>
   );
