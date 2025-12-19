@@ -12,7 +12,7 @@ on:
 
 jobs:
   analyze:
-    uses: HSLdevcom/jore4-tools/.github/workflows/shared-codeql.yml@shared-ghas-workflows-v1
+    uses: HSLdevcom/jore4-tools/.github/workflows/shared-codeql.yml@shared-ghas-workflows-v2
     permissions:
       security-events: write
       packages: read
