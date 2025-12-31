@@ -59,6 +59,7 @@ export const stopSearchFiltersSchema = z.object({
 
   // Extra filters:
   stopPlaces: z.array(pgIdType),
+  quayIds: z.array(z.string()),
 });
 
 export type InfoSpotSize = z.infer<typeof infoSpotSize>;
@@ -82,6 +83,7 @@ export const defaultFilters: StopSearchFilters = {
 
   // Extra filters:
   stopPlaces: [],
+  quayIds: [],
 };
 
 export function pickMeaningfulFilters(filters: StopSearchFilters) {

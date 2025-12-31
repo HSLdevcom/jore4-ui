@@ -100,6 +100,7 @@ export const filterSerializers: UrlStateSerializers<StopSearchFilters> = {
 
   // Extra filters:
   stopPlaces: serializeArray,
+  quayIds: serializeArray,
 };
 
 const serializers: UrlStateSerializers<StopSearchUrlFlatState> = {
@@ -246,6 +247,7 @@ export const filterDeserializers: UrlStateDeserializers<StopSearchFilters> = {
 
   // Extra filters:
   stopPlaces: splitString,
+  quayIds: splitString,
 };
 
 const deserializers: UrlStateDeserializers<StopSearchUrlFlatState> = {
