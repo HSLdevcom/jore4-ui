@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useStopSearchRouterState } from '../utils';
+import { useGroupedResultSelection, useStopSearchRouterState } from '../utils';
 import { ActiveLineHeader } from './ActiveLineHeader';
 import { LineRoutesListing } from './LineRoutesListing';
 import { LineSelector } from './LineSelector';
@@ -21,6 +21,9 @@ export const StopsByLineSearchGroupedStopsResults: FC<
     setSortingInfo,
   } = useStopSearchRouterState();
 
+  const { onBatchUpdateSelection, onToggleSelectAll } =
+    useGroupedResultSelection();
+
   const { quayIds } = useResolveQuayIdsByLines(lines);
 
   const { observationDate } = filters;
@@ -39,7 +42,7 @@ export const StopsByLineSearchGroupedStopsResults: FC<
         setSortingInfo={setSortingInfo}
         sortingInfo={sortingInfo}
         allSelected={resultSelection.selectionState === 'ALL_SELECTED'}
-        onToggleSelectAll={() => console.log('DEBUG: All toggled')}
+        onToggleSelectAll={onToggleSelectAll}
         hasResults={selectedGroups.length > 0}
         resultSelection={resultSelection}
       />
@@ -50,11 +53,17 @@ export const StopsByLineSearchGroupedStopsResults: FC<
         .filter((line) => selectedGroups.includes(line.line_id))
         .map((line) => (
           <>
-            <ActiveLineHeader line={line} className="mt-6" />
+            <ActiveLineHeader
+              line={line}
+              className="mt-6"
+              onBatchUpdateSelection={onBatchUpdateSelection}
+              selection={resultSelection}
+            />
             <LineRoutesListing
               observationDate={observationDate}
               line={line}
               sortingInfo={sortingInfo}
+              selection={resultSelection}
             />
           </>
         ))}

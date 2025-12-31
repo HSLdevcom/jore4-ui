@@ -55,6 +55,14 @@ export class StopSearchResultsPage {
     return cy.getByTestId('StopTableRow::selectInput');
   }
 
+  getSelectAllStopsOfLineButton(line: string) {
+    return cy.getByTestId(`StopSearchByLine::line::selectAll::${line}`);
+  }
+
+  getSelectAllStopsOfRouteButton(route: string) {
+    return cy.getByTestId(`StopSearchByLine::route::selectAll::${route}`);
+  }
+
   getSelectAllButton() {
     return cy.getByTestId('StopSearchResultsPage::selectAllButton');
   }

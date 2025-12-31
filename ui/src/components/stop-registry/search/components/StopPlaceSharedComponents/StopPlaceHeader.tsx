@@ -4,9 +4,8 @@ import { Link } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { PathValue, routeDetails } from '../../../../../router/routeDetails';
 import { LocatorButton } from '../../../../../uiComponents';
-import { none } from '../../../../../utils';
 import { ResultSelection } from '../../types';
-import { BatchUpdateSelection } from '../../utils';
+import { BatchUpdateSelection, areAllStopsSelected } from '../../utils';
 import { SelectAllCheckbox } from '../SelectAllCheckbox';
 import { ActionMenu } from './ActionMenu/ActionMenu';
 import { OpenDetails } from './ActionMenu/OpenDetailsPage';
@@ -99,29 +98,6 @@ const StopPlaceHeaderContent: FC<StopPlaceHeaderContentProps> = ({
   );
 };
 
-function areAllAreaStopsSelected(
-  selection: ResultSelection,
-  stopIds: ReadonlyArray<string>,
-) {
-  if (selection.selectionState === 'ALL_SELECTED') {
-    return true;
-  }
-
-  if (selection.selectionState === 'NONE_SELECTED') {
-    return false;
-  }
-
-  if (stopIds.length === 0) {
-    return false;
-  }
-
-  if (selection.included.length) {
-    return stopIds.every((stopId) => selection.included.includes(stopId));
-  }
-
-  return none((stopId) => selection.excluded.includes(stopId), stopIds);
-}
-
 type SelectAllStopPlaceStopsProps = {
   readonly onBatchUpdateSelection: BatchUpdateSelection;
   readonly selection: ResultSelection;
@@ -135,11 +111,11 @@ const SelectAllStopPlaceStops: FC<SelectAllStopPlaceStopsProps> = ({
   stopIds,
   stopPlace,
 }) => {
-  const allSelected = areAllAreaStopsSelected(selection, stopIds);
+  const allSelected = areAllStopsSelected(selection, stopIds);
 
   const onToggleSelectAll = () =>
     onBatchUpdateSelection((actualSelection) => {
-      if (areAllAreaStopsSelected(actualSelection, stopIds)) {
+      if (areAllStopsSelected(actualSelection, stopIds)) {
         return { exclude: stopIds };
       }
 

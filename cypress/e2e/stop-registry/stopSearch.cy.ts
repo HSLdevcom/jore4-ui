@@ -797,6 +797,62 @@ describe('Stop search', () => {
       stopSearchByLine.getActiveLineName().eq(0).should('contain', '901');
       stopSearchByLine.getActiveLineName().eq(1).should('contain', '9999');
     });
+
+    it('should be able to select and deselect stops on line', () => {
+      stopSearchBar.searchCriteriaRadioButtons.getLineRadioButton().click();
+      stopSearchBar.getSearchInput().clearAndType(`901{enter}`);
+
+      stopSearchByLine.getActiveLineName().shouldHaveText('901 line 901');
+      stopSearchByLine
+        .getActiveLineValidity()
+        .should('contain', 'Voimassa 1.1.2022 -');
+
+      stopSearchResultsPage
+        .getSelectAllButton()
+        .shouldBeVisible()
+        .and('be.checked');
+      stopSearchResultsPage
+        .getSelectAllStopsOfLineButton('08d1fa6b-440c-421e-ad4d-0778d65afe60')
+        .shouldBeVisible()
+        .and('be.checked');
+      stopSearchResultsPage
+        .getSelectAllStopsOfRouteButton('994a7d79-4991-423b-9c1a-0ca621a6d9ed')
+        .shouldBeVisible()
+        .and('be.checked');
+      stopSearchResultsPage
+        .getSelectAllStopsOfRouteButton('5f1fff1a-2449-4a8f-8107-15edc6f46fce')
+        .shouldBeVisible()
+        .and('be.checked');
+
+      stopSearchResultsPage
+        .getRowByLabel('E2E004')
+        .shouldBeVisible()
+        .within(() =>
+          stopSearchResultsPage
+            .getSelectInput()
+            .shouldBeVisible()
+            .and('be.checked')
+            .click()
+            .and('not.be.checked'),
+        );
+
+      stopSearchResultsPage
+        .getSelectAllButton()
+        .shouldBeVisible()
+        .and('not.be.checked');
+      stopSearchResultsPage
+        .getSelectAllStopsOfLineButton('08d1fa6b-440c-421e-ad4d-0778d65afe60')
+        .shouldBeVisible()
+        .and('not.be.checked');
+      stopSearchResultsPage
+        .getSelectAllStopsOfRouteButton('994a7d79-4991-423b-9c1a-0ca621a6d9ed')
+        .shouldBeVisible()
+        .and('not.be.checked');
+      stopSearchResultsPage
+        .getSelectAllStopsOfRouteButton('5f1fff1a-2449-4a8f-8107-15edc6f46fce')
+        .shouldBeVisible()
+        .and('be.checked');
+    });
   });
 
   describe('for stop areas', () => {
