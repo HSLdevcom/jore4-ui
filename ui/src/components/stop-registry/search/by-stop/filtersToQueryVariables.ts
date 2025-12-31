@@ -252,6 +252,18 @@ function buildStopPlacesFilter({
   };
 }
 
+function buildQuayIdsFilter({
+  quayIds,
+}: StopSearchFilters): StopsDatabaseQuayNewestVersionBoolExp {
+  if (quayIds.length === 0) {
+    return {};
+  }
+
+  return {
+    netex_id: { _in: quayIds },
+  };
+}
+
 export function buildSearchStopsGqlQueryVariables(
   filters: StopSearchFilters,
   ...extraConditions: ReadonlyArray<StopsDatabaseQuayNewestVersionBoolExp>
@@ -273,6 +285,7 @@ export function buildSearchStopsGqlQueryVariables(
   const infoSpotsFilter = buildInfoSpotsFilter(filters);
   const stopOwnerFilter = buildStopOwnerFilter(filters);
   const stopPlacesFilter = buildStopPlacesFilter(filters);
+  const quayIdsFilter = buildQuayIdsFilter(filters);
 
   return {
     _and: [
@@ -288,6 +301,7 @@ export function buildSearchStopsGqlQueryVariables(
       infoSpotsFilter,
       stopOwnerFilter,
       stopPlacesFilter,
+      quayIdsFilter,
       ...extraConditions,
     ].filter((filter) => !isEmpty(filter)),
   };
