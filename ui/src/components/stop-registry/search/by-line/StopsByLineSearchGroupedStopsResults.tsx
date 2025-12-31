@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { useStopSearchRouterState } from '../utils';
 import { ActiveLineHeader } from './ActiveLineHeader';
-import { CountAndSortingRow } from './CountAndSortingRow';
 import { LineRoutesListing } from './LineRoutesListing';
 import { LineSelector } from './LineSelector';
+import { StopsByLineCountAndSortingRow } from './StopsByLineCountAndSortingRow';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
+import { useResolveQuayIdsByLines } from './useResolveQuayIdsByLines';
 
 type StopsByLineSearchGroupedStopsResultsProps = {
   readonly lines: ReadonlyArray<FindStopByLineInfo>;
@@ -14,23 +15,33 @@ export const StopsByLineSearchGroupedStopsResults: FC<
   StopsByLineSearchGroupedStopsResultsProps
 > = ({ lines }) => {
   const {
-    state: {
-      filters: { observationDate },
-      sortingInfo,
-    },
-    historyState: { selectedGroups },
+    state: { filters, sortingInfo },
+    historyState: { selectedGroups, resultSelection },
     setPagingInfo,
     setSortingInfo,
   } = useStopSearchRouterState();
 
+  const { quayIds } = useResolveQuayIdsByLines(lines);
+
+  const { observationDate } = filters;
+
+  const filtersWithQuayIds = {
+    ...filters,
+    quayIds: quayIds.slice(),
+  };
+
   return (
     <>
-      <CountAndSortingRow
-        className="mb-6"
-        resultCount={0}
+      <StopsByLineCountAndSortingRow
+        filters={filtersWithQuayIds}
+        resultCount={selectedGroups.length}
         setPagingInfo={setPagingInfo}
         setSortingInfo={setSortingInfo}
         sortingInfo={sortingInfo}
+        allSelected={resultSelection.selectionState === 'ALL_SELECTED'}
+        onToggleSelectAll={() => console.log('DEBUG: All toggled')}
+        hasResults={selectedGroups.length > 0}
+        resultSelection={resultSelection}
       />
 
       <LineSelector className="mb-6" lines={lines} />

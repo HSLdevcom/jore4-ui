@@ -8,7 +8,7 @@ import {
   StopSearchResultStopsTable,
 } from '../components';
 import { useStopSearchRouterState } from '../utils';
-import { CountAndSortingRow } from './CountAndSortingRow';
+import { StopsByLineCountAndSortingRow } from './StopsByLineCountAndSortingRow';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 import { useGetStopSearchByLinesResult } from './useGetStopSearchByLinesResult';
 
@@ -26,18 +26,16 @@ export const StopsByLineNongroupedStopsResults: FC<
   const { t } = useTranslation();
 
   const {
-    state: {
-      filters: { observationDate },
-      pagingInfo,
-      sortingInfo,
-    },
+    state: { filters, pagingInfo, sortingInfo },
     setPagingInfo,
     setSortingInfo,
+    historyState: { resultSelection },
   } = useStopSearchRouterState();
 
   const {
     stops,
     resultCount,
+    quayIds,
     loading,
     error,
     resolveStopPlaceIdsInError,
@@ -46,6 +44,13 @@ export const StopsByLineNongroupedStopsResults: FC<
     stopsRefetch,
   } = useGetStopSearchByLinesResult(lines, pagingInfo, sortingInfo);
 
+  const { observationDate } = filters;
+
+  const filtersWithQuayIds = {
+    ...filters,
+    quayIds: quayIds.slice(),
+  };
+
   return (
     <LoadingWrapper
       className="flex justify-center"
@@ -53,12 +58,17 @@ export const StopsByLineNongroupedStopsResults: FC<
       loading={loading}
       testId={testIds.loadingSearchResults}
     >
-      <CountAndSortingRow
+      <StopsByLineCountAndSortingRow
+        filters={filtersWithQuayIds}
         className="mb-6"
         resultCount={resultCount}
         setPagingInfo={setPagingInfo}
         setSortingInfo={setSortingInfo}
         sortingInfo={sortingInfo}
+        allSelected={resultSelection.selectionState === 'ALL_SELECTED'}
+        onToggleSelectAll={() => console.log('DEBUG: All toggled')}
+        hasResults={resultCount > 0}
+        resultSelection={resultSelection}
       />
 
       {error && resolveStopPlaceIdsInError && (
