@@ -23,6 +23,7 @@ export const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
       checked={allSelected}
       className={twJoin('h-7 w-7 accent-tweaked-brand', className)}
       data-testid={testId}
+      id={testId}
       onChange={onToggleSelectAll}
       type="checkbox"
     />

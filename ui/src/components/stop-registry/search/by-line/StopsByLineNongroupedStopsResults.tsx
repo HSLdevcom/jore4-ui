@@ -5,9 +5,9 @@ import { Pagination } from '../../../../uiComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import {
   LoadingStopsErrorRow,
-  StopSearchResultStopsTable,
+  SelectableStopSearchResultStopsTable,
 } from '../components';
-import { useStopSearchRouterState } from '../utils';
+import { useGroupedResultSelection, useStopSearchRouterState } from '../utils';
 import { StopsByLineCountAndSortingRow } from './StopsByLineCountAndSortingRow';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 import { useGetStopSearchByLinesResult } from './useGetStopSearchByLinesResult';
@@ -44,6 +44,8 @@ export const StopsByLineNongroupedStopsResults: FC<
     stopsRefetch,
   } = useGetStopSearchByLinesResult(lines, pagingInfo, sortingInfo);
 
+  const { onToggleSelectAll, onToggleSelection } = useGroupedResultSelection();
+
   const { observationDate } = filters;
 
   const filtersWithQuayIds = {
@@ -66,7 +68,7 @@ export const StopsByLineNongroupedStopsResults: FC<
         setSortingInfo={setSortingInfo}
         sortingInfo={sortingInfo}
         allSelected={resultSelection.selectionState === 'ALL_SELECTED'}
-        onToggleSelectAll={() => console.log('DEBUG: All toggled')}
+        onToggleSelectAll={onToggleSelectAll}
         hasResults={resultCount > 0}
         resultSelection={resultSelection}
       />
@@ -83,9 +85,11 @@ export const StopsByLineNongroupedStopsResults: FC<
       )}
 
       {!error && (
-        <StopSearchResultStopsTable
+        <SelectableStopSearchResultStopsTable
           observationDate={observationDate}
           stops={stops}
+          onToggleSelection={onToggleSelection}
+          selection={resultSelection}
         />
       )}
 

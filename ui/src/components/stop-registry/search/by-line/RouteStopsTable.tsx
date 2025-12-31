@@ -1,13 +1,14 @@
 import { DateTime } from 'luxon';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Visible } from '../../../../layoutComponents';
 import { LoadingWrapper } from '../../../../uiComponents/LoadingWrapper';
 import {
   LoadingStopsErrorRow,
-  StopSearchResultStopsTable,
+  SelectableStopSearchResultStopsTable,
 } from '../components';
-import { SortingInfo } from '../types';
+import { ResultSelection, SortingInfo } from '../types';
+import { useGroupedResultSelection } from '../utils';
 import { RouteInfoRow } from './RouteInfoRow';
 import { FindStopByLineRouteInfo } from './useFindLinesByStopSearch';
 import { useGetStopResultsByRouteId } from './useGetStopResultsByRouteId';
@@ -25,6 +26,7 @@ type RouteStopsTableProps = {
   readonly observationDate: DateTime;
   readonly route: FindStopByLineRouteInfo;
   readonly sortingInfo: SortingInfo;
+  readonly selection: ResultSelection;
 };
 
 export const RouteStopsTable: FC<RouteStopsTableProps> = ({
@@ -33,6 +35,7 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
   observationDate,
   route,
   sortingInfo,
+  selection,
 }) => {
   const { t } = useTranslation();
 
@@ -41,24 +44,45 @@ export const RouteStopsTable: FC<RouteStopsTableProps> = ({
     sortingInfo.sortOrder,
   );
 
+  const { onRegisterNewGroup, onBatchUpdateSelection, onToggleSelection } =
+    useGroupedResultSelection();
+
+  useEffect(() => {
+    onRegisterNewGroup(
+      route.route_id,
+      stops.map((stop) => stop.netexId),
+    );
+  }, [onRegisterNewGroup, route.route_id, stops]);
+
   return (
     <div className={className} data-testid={testIds.container(route.route_id)}>
-      <RouteInfoRow route={route} />
+      <RouteInfoRow
+        route={route}
+        onBatchUpdateSelection={onBatchUpdateSelection}
+        selection={selection}
+        stops={stops}
+      />
 
       <Visible visible={!!error}>
-        <LoadingStopsErrorRow error={error} refetch={refetch} />
+        <LoadingStopsErrorRow
+          className="ml-[calc(3rem+1px)]"
+          error={error}
+          refetch={refetch}
+        />
       </Visible>
 
       <LoadingWrapper
         testId={testIds.loader}
-        className="flex justify-center border border-light-grey p-8"
+        className="ml-[calc(3rem+1px)] flex justify-center border border-light-grey p-8"
         loadingText={t('search.searching')}
         loading={lineTransitionInProgress || (loading && stops.length === 0)}
       >
         <Visible visible={!lineTransitionInProgress && stops.length > 0}>
-          <StopSearchResultStopsTable
+          <SelectableStopSearchResultStopsTable
             observationDate={observationDate}
             stops={stops}
+            onToggleSelection={onToggleSelection}
+            selection={selection}
           />
         </Visible>
       </LoadingWrapper>
