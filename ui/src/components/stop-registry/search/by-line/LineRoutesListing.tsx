@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { FC, useDeferredValue } from 'react';
-import { SortingInfo } from '../types';
+import { ResultSelection, SortingInfo } from '../types';
 import { RouteStopsTable } from './RouteStopsTable';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 
@@ -8,12 +8,14 @@ type LineRoutesListingProps = {
   readonly line: FindStopByLineInfo;
   readonly observationDate: DateTime;
   readonly sortingInfo: SortingInfo;
+  readonly selection: ResultSelection;
 };
 
 export const LineRoutesListing: FC<LineRoutesListingProps> = ({
   line,
   observationDate,
   sortingInfo,
+  selection,
 }) => {
   // Rendering all the routes into tables is a slow process.
   // Show a spinner while React is doing the rendering.
@@ -29,6 +31,7 @@ export const LineRoutesListing: FC<LineRoutesListingProps> = ({
           observationDate={observationDate}
           route={route}
           sortingInfo={sortingInfo}
+          selection={selection}
         />
       ))}
     </>

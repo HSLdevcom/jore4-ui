@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import compact from 'lodash/compact';
 import uniq from 'lodash/uniq';
+import { useMemo } from 'react';
 import { useResolveStopPlaceNetexIdsByLineIdsQuery } from '../../../../generated/graphql';
 import { FindStopByLineInfo } from './useFindLinesByStopSearch';
 
@@ -36,11 +37,14 @@ export function useResolveQuayIdsByLines(
     variables: { routeIds },
   });
 
-  const rawQuayIds =
-    resolveStopPlaceIdsData?.stopPoints.map(
-      (stopPoints) => stopPoints.stop_place_ref,
-    ) ?? [];
-  const quayIds = uniq(compact(rawQuayIds));
+  const quayIds = useMemo(() => {
+    const rawQuayIds =
+      resolveStopPlaceIdsData?.stopPoints.map(
+        (stopPoints) => stopPoints.stop_place_ref,
+      ) ?? [];
+
+    return uniq(compact(rawQuayIds));
+  }, [resolveStopPlaceIdsData]);
 
   return {
     quayIds,
