@@ -7,7 +7,7 @@ import {
 } from '../../../../../../generated/graphql';
 import { parseDate } from '../../../../../../time';
 import { EnrichedStopPlace } from '../../../../../../types';
-import { findKeyValue } from '../../../../../../utils';
+import { KeyValueKeysEnum, findKeyValue } from '../../../../../../utils';
 import { BidirectionalQuayMap } from '../types';
 
 function mapStopPointInput(
@@ -57,8 +57,8 @@ function mapQuayToStopPoint(
     return null;
   }
 
-  const validityStart = findKeyValue(newQuay, 'validityStart');
-  const validityEnd = findKeyValue(newQuay, 'validityEnd');
+  const validityStart = findKeyValue(newQuay, KeyValueKeysEnum.ValidityStart);
+  const validityEnd = findKeyValue(newQuay, KeyValueKeysEnum.ValidityEnd);
   if (!validityStart) {
     return null;
   }

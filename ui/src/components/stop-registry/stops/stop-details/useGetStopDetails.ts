@@ -24,6 +24,7 @@ import {
 } from '../../../../types';
 import { Priority } from '../../../../types/enums';
 import {
+  KeyValueKeysEnum,
   findKeyValue,
   getGeometryPoint,
   getStopPlaceDetailsForEnrichment,
@@ -342,7 +343,8 @@ function getCorrectQuay(
   if (Number.isFinite(priority)) {
     return (
       validQuays.find(
-        (quay) => findKeyValue(quay, 'priority') === String(priority),
+        (quay) =>
+          findKeyValue(quay, KeyValueKeysEnum.Priority) === String(priority),
       ) ?? null
     );
   }
@@ -350,11 +352,13 @@ function getCorrectQuay(
   // Ignore drafts by default. Only show if requested separately by priority query param.
   // This is to align the behaviour of the page with how the map works.
   const nonDraftQuays = validQuays.filter(
-    (quay) => Number(findKeyValue(quay, 'priority')) !== Priority.Draft,
+    (quay) =>
+      Number(findKeyValue(quay, KeyValueKeysEnum.Priority)) !== Priority.Draft,
   );
   return (
-    maxBy(nonDraftQuays, (quay) => Number(findKeyValue(quay, 'priority'))) ??
-    null
+    maxBy(nonDraftQuays, (quay) =>
+      Number(findKeyValue(quay, KeyValueKeysEnum.Priority)),
+    ) ?? null
   );
 }
 

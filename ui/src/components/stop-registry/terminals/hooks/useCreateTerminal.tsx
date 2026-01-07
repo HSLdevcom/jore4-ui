@@ -11,6 +11,7 @@ import {
 } from '../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../types';
 import {
+  KeyValueKeysEnum,
   mapPointToStopRegistryGeoJSON,
   showDangerToastWithError,
 } from '../../../../utils';
@@ -60,47 +61,49 @@ const mapFormStateToInput = ({
     keyValues: compact([
       state.validityStart
         ? {
-            key: 'validityStart',
+            key: KeyValueKeysEnum.ValidityStart,
             values: [state.validityStart],
           }
         : undefined,
       state.validityEnd
         ? {
-            key: 'validityEnd',
+            key: KeyValueKeysEnum.ValidityEnd,
             values: [state.validityEnd],
           }
         : undefined,
       state.terminalType
         ? {
-            key: 'terminalType',
+            key: KeyValueKeysEnum.TerminalType,
             values: [state.terminalType],
           }
         : undefined,
       state.departurePlatforms
         ? {
-            key: 'departurePlatforms',
+            key: KeyValueKeysEnum.DeparturePlatforms,
             values: [state.departurePlatforms],
           }
         : undefined,
       state.arrivalPlatforms
         ? {
-            key: 'arrivalPlatforms',
+            key: KeyValueKeysEnum.ArrivalPlatforms,
             values: [state.arrivalPlatforms],
           }
         : undefined,
       state.loadingPlatforms
         ? {
-            key: 'loadingPlatforms',
+            key: KeyValueKeysEnum.LoadingPlatforms,
             values: [state.loadingPlatforms],
           }
         : undefined,
       state.electricCharging
         ? {
-            key: 'electricCharging',
+            key: KeyValueKeysEnum.ElectricCharging,
             values: [state.electricCharging],
           }
         : undefined,
-    ]).filter((kv) => (kv?.key !== 'validityEnd' ? true : !state.indefinite)),
+    ]).filter((kv) =>
+      kv?.key !== KeyValueKeysEnum.ValidityEnd ? true : !state.indefinite,
+    ),
     alternativeNames: [
       {
         name: { lang: 'swe', value: state.nameSwe },

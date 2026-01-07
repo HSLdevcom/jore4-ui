@@ -1,4 +1,5 @@
 import {
+  KeyValueKeysEnum,
   ReusableComponentsVehicleModeEnum,
   StopInsertInput,
   StopRegistryGeoJsonType,
@@ -269,7 +270,10 @@ describe('Terminal creation tests', () => {
                         type: StopRegistryGeoJsonType.Point,
                       },
                       keyValues: [
-                        { key: 'validityStart', values: ['2020-03-20'] },
+                        {
+                          key: KeyValueKeysEnum.ValidityStart,
+                          values: ['2020-03-20'],
+                        },
                       ],
                     },
                   ],

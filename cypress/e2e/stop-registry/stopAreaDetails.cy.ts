@@ -1,4 +1,5 @@
 import {
+  KeyValueKeysEnum,
   StopAreaInput,
   StopRegistryGeoJsonType,
 } from '@hsl/jore4-test-db-manager/dist/CypressSpecExports';
@@ -99,8 +100,8 @@ describe('Stop area details', () => {
         privateCode: { type: 'HSL/TEST', value: 'X0004' },
         name: { lang: 'fin', value: 'Kalevankatu 32' },
         keyValues: [
-          { key: 'validityStart', values: ['2000-01-01'] },
-          { key: 'validityEnd', values: ['2052-01-01'] },
+          { key: KeyValueKeysEnum.ValidityStart, values: ['2000-01-01'] },
+          { key: KeyValueKeysEnum.ValidityEnd, values: ['2052-01-01'] },
         ],
         geometry: {
           coordinates: [24.932914978884, 60.165538996581],
@@ -110,15 +111,21 @@ describe('Stop area details', () => {
           {
             publicCode: 'E2E003',
             keyValues: [
-              { key: 'streetAddress', values: ['Kalevankatu 32'] },
-              { key: 'elyNumber', values: ['E2E003'] },
+              {
+                key: KeyValueKeysEnum.StreetAddress,
+                values: ['Kalevankatu 32'],
+              },
+              { key: KeyValueKeysEnum.ElyNumber, values: ['E2E003'] },
             ],
           },
           {
             publicCode: 'E2E006',
             keyValues: [
-              { key: 'streetAddress', values: ['Kalevankatu 32'] },
-              { key: 'elyNumber', values: ['E2E006'] },
+              {
+                key: KeyValueKeysEnum.StreetAddress,
+                values: ['Kalevankatu 32'],
+              },
+              { key: KeyValueKeysEnum.ElyNumber, values: ['E2E006'] },
             ],
           },
         ],

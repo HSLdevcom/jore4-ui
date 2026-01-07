@@ -26,6 +26,7 @@ import { Priority, knownPriorityValues } from '../../types/enums';
 import { StopOwner, StopPlaceState } from '../../types/stop-registry';
 import { findKeyValue, findKeyValueParsed } from '../findKeyValue';
 import { mapLngLatToPoint } from '../gis';
+import { KeyValueKeysEnum } from '../keyValueKeys';
 
 type StopPlaceType = Pick<StopRegistryStopPlace, '__typename'>;
 type ParentStopPlaceType = Pick<StopRegistryParentStopPlace, '__typename'>;
@@ -241,36 +242,43 @@ export const getQuayDetailsForEnrichment = <
     | null
     | undefined,
 ): QuayEnrichmentProperties => {
-  const rawPriorityNumber = Number(findKeyValue(quay, 'priority'));
+  const rawPriorityNumber = Number(
+    findKeyValue(quay, KeyValueKeysEnum.Priority),
+  );
 
   return {
-    elyNumber: findKeyValue(quay, 'elyNumber'),
+    elyNumber: findKeyValue(quay, KeyValueKeysEnum.ElyNumber),
     privateCode: quay.privateCode?.value ?? null,
     locationFin: quay.description?.value ?? null,
     locationSwe:
       findAlternativeName(quay, 'swe', StopRegistryNameType.Other)?.value ??
       null,
-    streetAddress: findKeyValue(quay, 'streetAddress'),
-    postalCode: findKeyValue(quay, 'postalCode'),
-    functionalArea: findKeyValueParsed(quay, 'functionalArea', parseFloat),
+    streetAddress: findKeyValue(quay, KeyValueKeysEnum.StreetAddress),
+    postalCode: findKeyValue(quay, KeyValueKeysEnum.PostalCode),
+    functionalArea: findKeyValueParsed(
+      quay,
+      KeyValueKeysEnum.FunctionalArea,
+      parseFloat,
+    ),
     platformNumber:
       quay.placeEquipments?.generalSign?.[0]?.content?.value ?? null,
-    stopState: findKeyValue(quay, 'stopState') as StopPlaceState,
+    stopState: findKeyValue(quay, KeyValueKeysEnum.StopState) as StopPlaceState,
     accessibilityLevel:
       quay.accessibilityAssessment?.hslAccessibilityProperties
         ?.accessibilityLevel ??
       accessibilityAssessment?.hslAccessibilityProperties?.accessibilityLevel ??
       defaultAccessibilityLevel,
     stopType: {
-      virtual: findKeyValue(quay, 'virtual') === 'true',
-      railReplacement: findKeyValue(quay, 'railReplacement') === 'true',
+      virtual: findKeyValue(quay, KeyValueKeysEnum.Virtual) === 'true',
+      railReplacement:
+        findKeyValue(quay, KeyValueKeysEnum.RailReplacement) === 'true',
     },
-    validityStart: findKeyValue(quay, 'validityStart'),
-    validityEnd: findKeyValue(quay, 'validityEnd'),
+    validityStart: findKeyValue(quay, KeyValueKeysEnum.ValidityStart),
+    validityEnd: findKeyValue(quay, KeyValueKeysEnum.ValidityEnd),
     priority: knownPriorityValues.includes(rawPriorityNumber)
       ? (rawPriorityNumber as Priority)
       : null,
-    stopOwner: findKeyValue(quay, 'stopOwner') as StopOwner,
+    stopOwner: findKeyValue(quay, KeyValueKeysEnum.StopOwner) as StopOwner,
   };
 };
 
@@ -331,8 +339,10 @@ const extractSharedStopPlaceDetails = (stopPlace: {
     name: stopPlace.name?.value ?? undefined,
     locationLat: findCoordinate(stopPlace, 'latitude'),
     locationLong: findCoordinate(stopPlace, 'longitude'),
-    validityStart: findKeyValue(stopPlace, 'validityStart') ?? undefined,
-    validityEnd: findKeyValue(stopPlace, 'validityEnd') ?? undefined,
+    validityStart:
+      findKeyValue(stopPlace, KeyValueKeysEnum.ValidityStart) ?? undefined,
+    validityEnd:
+      findKeyValue(stopPlace, KeyValueKeysEnum.ValidityEnd) ?? undefined,
   };
 };
 
@@ -370,8 +380,8 @@ function findParentStopPlaceOwnerDetails(
     name: ownerOrg.organisation.name ?? null,
     email: ownerOrg.organisation.privateContactDetails?.email ?? null,
     phone: ownerOrg.organisation.privateContactDetails?.phone ?? null,
-    contractId: findKeyValue(parentStopPlace, 'owner-contractId'),
-    note: findKeyValue(parentStopPlace, 'owner-note'),
+    contractId: findKeyValue(parentStopPlace, KeyValueKeysEnum.OwnerContractId),
+    note: findKeyValue(parentStopPlace, KeyValueKeysEnum.OwnerNote),
   };
 }
 
@@ -383,18 +393,26 @@ export const getParentStopPlaceDetailsForEnrichment = <
   return {
     ...extractSharedStopPlaceDetails(parentStopPlace),
     municipality: parentStopPlace.topographicPlace?.name?.value ?? undefined,
-    streetAddress: findKeyValue(parentStopPlace, 'streetAddress') ?? undefined,
-    postalCode: findKeyValue(parentStopPlace, 'postalCode') ?? undefined,
+    streetAddress:
+      findKeyValue(parentStopPlace, KeyValueKeysEnum.StreetAddress) ??
+      undefined,
+    postalCode:
+      findKeyValue(parentStopPlace, KeyValueKeysEnum.PostalCode) ?? undefined,
     fareZone: parentStopPlace.fareZones?.at(0)?.name?.value ?? undefined,
     departurePlatforms:
-      findKeyValue(parentStopPlace, 'departurePlatforms') ?? undefined,
+      findKeyValue(parentStopPlace, KeyValueKeysEnum.DeparturePlatforms) ??
+      undefined,
     arrivalPlatforms:
-      findKeyValue(parentStopPlace, 'arrivalPlatforms') ?? undefined,
+      findKeyValue(parentStopPlace, KeyValueKeysEnum.ArrivalPlatforms) ??
+      undefined,
     loadingPlatforms:
-      findKeyValue(parentStopPlace, 'loadingPlatforms') ?? undefined,
+      findKeyValue(parentStopPlace, KeyValueKeysEnum.LoadingPlatforms) ??
+      undefined,
     electricCharging:
-      findKeyValue(parentStopPlace, 'electricCharging') ?? undefined,
-    terminalType: findKeyValue(parentStopPlace, 'terminalType') ?? undefined,
+      findKeyValue(parentStopPlace, KeyValueKeysEnum.ElectricCharging) ??
+      undefined,
+    terminalType:
+      findKeyValue(parentStopPlace, KeyValueKeysEnum.TerminalType) ?? undefined,
     owner: findParentStopPlaceOwnerDetails(parentStopPlace),
   } as ObjectWithAllKeyosOfParentStopPlaceEnrichmentProperties;
 };

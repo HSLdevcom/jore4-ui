@@ -19,6 +19,7 @@ import {
 import { StopWithDetails } from '../../../../../types';
 import {
   InternalError,
+  KeyValueKeysEnum,
   TimingPlaceRequiredError,
   defaultTo,
   patchAlternativeNames,
@@ -195,11 +196,11 @@ export const useEditStopBasicDetails = () => {
       ]),
       keyValues: patchKeyValues(stop.stop_place, [
         {
-          key: 'validityStart',
+          key: KeyValueKeysEnum.ValidityStart,
           values: stop.validity_start ? [stop.validity_start.toISODate()] : [],
         },
         {
-          key: 'validityEnd',
+          key: KeyValueKeysEnum.ValidityEnd,
           values: stop.validity_end ? [stop.validity_end.toISODate()] : [],
         },
       ]),
@@ -221,23 +222,23 @@ export const useEditStopBasicDetails = () => {
           ]),
           keyValues: patchKeyValues(stop.quay, [
             {
-              key: 'railReplacement',
+              key: KeyValueKeysEnum.RailReplacement,
               values: state.stopTypes.railReplacement
                 ? [state.stopTypes.railReplacement?.toString()]
                 : [],
             },
             {
-              key: 'virtual',
+              key: KeyValueKeysEnum.Virtual,
               values: state.stopTypes.virtual
                 ? [state.stopTypes.virtual?.toString()]
                 : [],
             },
             {
-              key: 'elyNumber',
+              key: KeyValueKeysEnum.ElyNumber,
               values: state.elyNumber ? [state.elyNumber] : [],
             },
             {
-              key: 'stopState',
+              key: KeyValueKeysEnum.StopState,
               values: state.stopState ? [state.stopState] : [],
             },
           ]),

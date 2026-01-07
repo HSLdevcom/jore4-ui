@@ -6,6 +6,7 @@ import {
 } from '../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../types';
 import {
+  KeyValueKeysEnum,
   mapPointToStopRegistryGeoJSON,
   patchAlternativeNames,
   patchKeyValues,
@@ -32,24 +33,26 @@ const mapFormStateToInput = ({
     compact([
       state.terminalType
         ? {
-            key: 'terminalType',
+            key: KeyValueKeysEnum.TerminalType,
             values: [state.terminalType],
           }
         : undefined,
       state.validityStart
         ? {
-            key: 'validityStart',
+            key: KeyValueKeysEnum.ValidityStart,
             values: [state.validityStart],
           }
         : undefined,
       state.validityEnd
         ? {
-            key: 'validityEnd',
+            key: KeyValueKeysEnum.ValidityEnd,
             values: [state.validityEnd],
           }
         : undefined,
     ]),
-  ).filter((kv) => (kv?.key !== 'validityEnd' ? true : !state.indefinite));
+  ).filter((kv) =>
+    kv?.key !== KeyValueKeysEnum.ValidityEnd ? true : !state.indefinite,
+  );
 
   return {
     id,

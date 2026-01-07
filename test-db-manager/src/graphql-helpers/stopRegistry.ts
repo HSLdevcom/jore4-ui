@@ -37,6 +37,7 @@ import {
   InsertOrganisationResult,
   InsertStopPlaceResult,
   InsertTerminalResult,
+  KeyValueKeysEnum,
   UpdateScheduledStopPointStopPlaceRefResult,
 } from '../types';
 
@@ -193,9 +194,12 @@ function getQuayHash(quay: StopRegistryQuayInput): string {
   const keyValues = quay.keyValues ?? [];
 
   try {
-    const validityStart = findKeyValue(keyValues, 'validityStart');
-    const validityEnd = findKeyValue(keyValues, 'validityEnd');
-    const priority = findKeyValue(keyValues, 'priority');
+    const validityStart = findKeyValue(
+      keyValues,
+      KeyValueKeysEnum.ValidityStart,
+    );
+    const validityEnd = findKeyValue(keyValues, KeyValueKeysEnum.ValidityEnd);
+    const priority = findKeyValue(keyValues, KeyValueKeysEnum.Priority);
 
     return `${quay.publicCode}-${validityStart}-${validityEnd}-${priority}`;
   } catch (cause) {
@@ -308,15 +312,15 @@ function getKeyValuesFromStopPoint(
 
   return [
     {
-      key: 'priority',
+      key: KeyValueKeysEnum.Priority,
       values: [ref.priority.toString(10)],
     },
     {
-      key: 'validityStart',
+      key: KeyValueKeysEnum.ValidityStart,
       values: [ref.validity_start],
     },
     {
-      key: 'validityEnd',
+      key: KeyValueKeysEnum.ValidityEnd,
       values: [ref.validity_end],
     },
   ];
@@ -358,15 +362,15 @@ function assembleStopPlace(
     keyValues: combineKeyValues(
       [
         {
-          key: 'priority',
+          key: KeyValueKeysEnum.Priority,
           values: ['10'],
         },
         {
-          key: 'validityStart',
+          key: KeyValueKeysEnum.ValidityStart,
           values: ['2000-01-01'],
         },
         {
-          key: 'validityEnd',
+          key: KeyValueKeysEnum.ValidityEnd,
           values: ['2052-01-01'],
         },
       ],

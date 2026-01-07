@@ -8,6 +8,7 @@ import { parseDate } from '../../../time';
 import { EnrichedParentStopPlace } from '../../../types';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import {
+  KeyValueKeysEnum,
   findKeyValueParsed,
   getGeometryPoint,
   mapToValidityPeriod,
@@ -92,8 +93,16 @@ export const TerminalPopup: FC<TerminalPopupProps> = ({
         <Row className="text-sm" testId={testIds.validityPeriod}>
           {mapToValidityPeriod(
             t,
-            findKeyValueParsed(terminal, 'validityStart', parseDate),
-            findKeyValueParsed(terminal, 'validityEnd', parseDate),
+            findKeyValueParsed(
+              terminal,
+              KeyValueKeysEnum.ValidityStart,
+              parseDate,
+            ),
+            findKeyValueParsed(
+              terminal,
+              KeyValueKeysEnum.ValidityEnd,
+              parseDate,
+            ),
           )}
         </Row>
 

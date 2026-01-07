@@ -10,6 +10,7 @@ import {
 import { OptionalKeys } from '../../../../types';
 import {
   IncompatibleWithExistingRoutesError,
+  KeyValueKeysEnum,
   findKeyValue,
   getRouteLabelVariantText,
   removeFromApolloCache,
@@ -172,7 +173,8 @@ export function useCreateStop() {
       ?.quays?.find(
         (it) =>
           it &&
-          findKeyValue(it, 'imported-id') === findKeyValue(quay, 'imported-id'),
+          findKeyValue(it, KeyValueKeysEnum.ImportedId) ===
+            findKeyValue(quay, KeyValueKeysEnum.ImportedId),
       )?.id;
 
     // This should never be true

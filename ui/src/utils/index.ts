@@ -9,6 +9,7 @@ export * from './gis';
 export * from './gql';
 export * from './graphql';
 export * from './journeyPattern';
+export * from './keyValueKeys';
 export * from './localizedString';
 export * from './logger';
 export * from './memoizeOne';

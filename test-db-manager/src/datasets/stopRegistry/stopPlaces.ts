@@ -21,6 +21,7 @@ import {
   StopRegistryStopType,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
+import { KeyValueKeysEnum } from '../../types';
 import { getKeyValue } from './utils';
 
 type OrganisationName = string;
@@ -182,17 +183,29 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
       externalLinks: seedStopPlace.externalLinks,
 
       keyValues: [
-        getKeyValue('elyNumber', seedStopPlace.elyNumber),
-        getKeyValue('streetAddress', seedStopPlace.streetAddress),
-        getKeyValue('postalCode', seedStopPlace.postalCode),
-        getKeyValue('functionalArea', seedStopPlace.functionalArea),
-        getKeyValue('stopState', seedStopPlace.stopState),
-        getKeyValue('railReplacement', seedStopPlace.stopType?.railReplacement),
-        getKeyValue('virtual', seedStopPlace.stopType?.virtual),
-        getKeyValue('priority', seedStopPlace.priority),
-        getKeyValue('validityStart', seedStopPlace.validityStart),
-        getKeyValue('validityEnd', seedStopPlace.validityEnd),
-        getKeyValue('stopOwner', seedStopPlace.stopOwner),
+        getKeyValue(KeyValueKeysEnum.ElyNumber, seedStopPlace.elyNumber),
+        getKeyValue(
+          KeyValueKeysEnum.StreetAddress,
+          seedStopPlace.streetAddress,
+        ),
+        getKeyValue(KeyValueKeysEnum.PostalCode, seedStopPlace.postalCode),
+        getKeyValue(
+          KeyValueKeysEnum.FunctionalArea,
+          seedStopPlace.functionalArea,
+        ),
+        getKeyValue(KeyValueKeysEnum.StopState, seedStopPlace.stopState),
+        getKeyValue(
+          KeyValueKeysEnum.RailReplacement,
+          seedStopPlace.stopType?.railReplacement,
+        ),
+        getKeyValue(KeyValueKeysEnum.Virtual, seedStopPlace.stopType?.virtual),
+        getKeyValue(KeyValueKeysEnum.Priority, seedStopPlace.priority),
+        getKeyValue(
+          KeyValueKeysEnum.ValidityStart,
+          seedStopPlace.validityStart,
+        ),
+        getKeyValue(KeyValueKeysEnum.ValidityEnd, seedStopPlace.validityEnd),
+        getKeyValue(KeyValueKeysEnum.StopOwner, seedStopPlace.stopOwner),
       ],
     },
   };

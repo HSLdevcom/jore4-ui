@@ -1,4 +1,5 @@
 import {
+  KeyValueKeysEnum,
   Priority,
   StopAreaInput,
   StopRegistryGeoJsonType,
@@ -48,12 +49,21 @@ function makeStopVersion(info: StopVersionInfo): StopVersionOutput {
 
   const input: StopRegistryQuayInput = {
     keyValues: compact([
-      { key: 'priority', values: [priority.toString(10)] },
-      { key: 'validityStart', values: [validityStart.toISODate()] },
+      { key: KeyValueKeysEnum.Priority, values: [priority.toString(10)] },
+      {
+        key: KeyValueKeysEnum.ValidityStart,
+        values: [validityStart.toISODate()],
+      },
       validityEnd
-        ? { key: 'validityEnd', values: [validityEnd.toISODate()] }
+        ? {
+            key: KeyValueKeysEnum.ValidityEnd,
+            values: [validityEnd.toISODate()],
+          }
         : null,
-      { key: 'imported-id', values: [(importedId++).toString(10)] },
+      {
+        key: KeyValueKeysEnum.ImportedId,
+        values: [(importedId++).toString(10)],
+      },
     ]),
     versionComment: comment,
     geometry: {
@@ -159,8 +169,14 @@ function makeStopArea(
         },
       ],
       keyValues: [
-        { key: 'validityStart', values: [areaValidityStart.toISODate()] },
-        { key: 'validityEnd', values: [areaValidityEnd.toISODate()] },
+        {
+          key: KeyValueKeysEnum.ValidityStart,
+          values: [areaValidityStart.toISODate()],
+        },
+        {
+          key: KeyValueKeysEnum.ValidityEnd,
+          values: [areaValidityEnd.toISODate()],
+        },
       ],
       geometry: {
         coordinates: [24.938927, 60.165433],

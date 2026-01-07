@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { useCallback } from 'react';
 import { StopRegistryParentStopPlaceInput } from '../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../types';
-import { patchKeyValues } from '../../../../utils';
+import { KeyValueKeysEnum, patchKeyValues } from '../../../../utils';
 import { TerminalValidityFormState } from '../components/terminal-versions/TerminalValidityFormState';
 import { useUpdateTerminal } from '../hooks';
 import { EditTerminalValidityResult } from '../types';
@@ -24,18 +24,20 @@ const mapFormStateToInput = ({
     compact([
       state.validityStart
         ? {
-            key: 'validityStart',
+            key: KeyValueKeysEnum.ValidityStart,
             values: [state.validityStart],
           }
         : undefined,
       state.validityEnd
         ? {
-            key: 'validityEnd',
+            key: KeyValueKeysEnum.ValidityEnd,
             values: [state.validityEnd],
           }
         : undefined,
     ]),
-  ).filter((kv) => (kv?.key !== 'validityEnd' ? true : !state.indefinite));
+  ).filter((kv) =>
+    kv?.key !== KeyValueKeysEnum.ValidityEnd ? true : !state.indefinite,
+  );
 
   return {
     id,

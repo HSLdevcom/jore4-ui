@@ -9,6 +9,7 @@ import {
   StopRegistryMapType,
   StopRegistryParentStopPlaceInput,
 } from '../../generated/graphql';
+import { KeyValueKeysEnum } from '../../types';
 import { mapToAlternativeNames } from './mapAlternativeNames';
 import { defaultAccessibilityLimitations } from './stopPlaces';
 import { getKeyValue } from './utils';
@@ -90,17 +91,29 @@ const mapToTerminalInput = (seedTerminal: TerminalSeedData): TerminalInput => {
         value: seedTerminal.privateCode,
       },
       keyValues: [
-        getKeyValue('streetAddress', seedTerminal.streetAddress),
-        getKeyValue('postalCode', seedTerminal.postalCode),
-        getKeyValue('municipality', seedTerminal.municipality),
-        getKeyValue('fareZone', seedTerminal.fareZone),
-        getKeyValue('departurePlatforms', seedTerminal.departurePlatforms),
-        getKeyValue('arrivalPlatforms', seedTerminal.arrivalPlatforms),
-        getKeyValue('loadingPlatforms', seedTerminal.loadingPlatforms),
-        getKeyValue('electricCharging', seedTerminal.electricCharging),
-        getKeyValue('terminalType', seedTerminal.terminalType),
-        getKeyValue('validityStart', seedTerminal.validityStart),
-        getKeyValue('validityEnd', seedTerminal.validityEnd),
+        getKeyValue(KeyValueKeysEnum.StreetAddress, seedTerminal.streetAddress),
+        getKeyValue(KeyValueKeysEnum.PostalCode, seedTerminal.postalCode),
+        getKeyValue(KeyValueKeysEnum.Municipality, seedTerminal.municipality),
+        getKeyValue(KeyValueKeysEnum.FareZone, seedTerminal.fareZone),
+        getKeyValue(
+          KeyValueKeysEnum.DeparturePlatforms,
+          seedTerminal.departurePlatforms,
+        ),
+        getKeyValue(
+          KeyValueKeysEnum.ArrivalPlatforms,
+          seedTerminal.arrivalPlatforms,
+        ),
+        getKeyValue(
+          KeyValueKeysEnum.LoadingPlatforms,
+          seedTerminal.loadingPlatforms,
+        ),
+        getKeyValue(
+          KeyValueKeysEnum.ElectricCharging,
+          seedTerminal.electricCharging,
+        ),
+        getKeyValue(KeyValueKeysEnum.TerminalType, seedTerminal.terminalType),
+        getKeyValue(KeyValueKeysEnum.ValidityStart, seedTerminal.validityStart),
+        getKeyValue(KeyValueKeysEnum.ValidityEnd, seedTerminal.validityEnd),
       ],
       externalLinks: seedTerminal.externalLinks,
 
