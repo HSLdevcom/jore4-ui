@@ -3,6 +3,7 @@ import {
   StopRegistryStopPlaceInput,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
+import { KnownValueKey } from '../../types';
 import { mapToAlternativeNames } from './mapAlternativeNames';
 import { StopPlaceMaintenance } from './stopPlaces';
 import { getKeyValue } from './utils';
@@ -51,8 +52,8 @@ const mapToStopAreaInput = (seedStopArea: StopAreaSeedData): StopAreaInput => {
             }
           : null,
       keyValues: [
-        getKeyValue('validityStart', seedStopArea.validityStart),
-        getKeyValue('validityEnd', seedStopArea.validityEnd),
+        getKeyValue(KnownValueKey.ValidityStart, seedStopArea.validityStart),
+        getKeyValue(KnownValueKey.ValidityEnd, seedStopArea.validityEnd),
       ],
     },
     organisations: seedStopArea.organisations ?? null,

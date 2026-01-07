@@ -9,6 +9,7 @@ import {
   StopRegistryStopPlaceOrganisationRef,
   StopRegistryStopPlaceOrganisationRelationshipType,
 } from '../../generated/graphql';
+import { KnownValueKey } from '../../types';
 import { isNotNullish } from '../../utils';
 import { InfoSpotInput } from './infoSpots';
 import { StopAreaInput } from './stopArea';
@@ -120,8 +121,11 @@ export const buildTerminalUpdateInput = (
   return {
     ...input.terminal,
     keyValues: compact(input.terminal.keyValues).concat(
-      { key: 'owner-contractId', values: [input.owner.contractId] },
-      { key: 'owner-note', values: [input.owner.note] },
+      {
+        key: KnownValueKey.OwnerContractId,
+        values: [input.owner.contractId],
+      },
+      { key: KnownValueKey.OwnerNote, values: [input.owner.note] },
     ),
     organisations: compact(input.terminal.organisations).concat({
       organisationRef: ownerRef,

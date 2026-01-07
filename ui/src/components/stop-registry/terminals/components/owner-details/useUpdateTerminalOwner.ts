@@ -6,7 +6,7 @@ import {
   StopRegistryStopPlaceOrganisationRelationshipType,
 } from '../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../types';
-import { patchKeyValues } from '../../../../../utils';
+import { KnownValueKey, patchKeyValues } from '../../../../../utils';
 import { useUpdateTerminal } from '../../hooks';
 import { TerminalOwnerFormState } from './terminalOwnerSchema';
 
@@ -40,8 +40,11 @@ const mapFormStateToInput = ({
           : [],
       ),
     keyValues: patchKeyValues(terminal, [
-      { key: 'owner-contractId', values: [state.contractId ?? ''] },
-      { key: 'owner-note', values: [state.note ?? ''] },
+      {
+        key: KnownValueKey.OwnerContractId,
+        values: [state.contractId ?? ''],
+      },
+      { key: KnownValueKey.OwnerNote, values: [state.note ?? ''] },
     ]),
   };
 };

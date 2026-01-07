@@ -5,7 +5,11 @@ import {
   StopRegistryParentStopPlaceInput,
 } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { patchAlternativeNames, patchKeyValues } from '../../../../../../utils';
+import {
+  KnownValueKey,
+  patchAlternativeNames,
+  patchKeyValues,
+} from '../../../../../../utils';
 import { useUpdateTerminal } from '../../../hooks';
 import { TerminalFormState } from './schema';
 
@@ -70,31 +74,31 @@ const mapFormStateToInput = ({
       compact([
         state.terminalType
           ? {
-              key: 'terminalType',
+              key: KnownValueKey.TerminalType,
               values: [state.terminalType],
             }
           : undefined,
         state.departurePlatforms
           ? {
-              key: 'departurePlatforms',
+              key: KnownValueKey.DeparturePlatforms,
               values: [state.departurePlatforms],
             }
           : undefined,
         state.arrivalPlatforms
           ? {
-              key: 'arrivalPlatforms',
+              key: KnownValueKey.ArrivalPlatforms,
               values: [state.arrivalPlatforms],
             }
           : undefined,
         state.loadingPlatforms
           ? {
-              key: 'loadingPlatforms',
+              key: KnownValueKey.LoadingPlatforms,
               values: [state.loadingPlatforms],
             }
           : undefined,
         state.electricCharging
           ? {
-              key: 'electricCharging',
+              key: KnownValueKey.ElectricCharging,
               values: [state.electricCharging],
             }
           : undefined,

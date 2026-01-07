@@ -7,7 +7,7 @@ import {
   useUpdateStopPointMutation,
 } from '../../../../../../generated/graphql';
 import { PartialScheduledStopPointSetInput } from '../../../../../../graphql';
-import { findKeyValue } from '../../../../../../utils';
+import { KnownValueKey, findKeyValue } from '../../../../../../utils';
 import {
   MoveQuayParams,
   MoveStopPlace,
@@ -43,7 +43,8 @@ export function extractStopPlaceQuays(
     .map((quay) => ({
       id: quay.id ?? '',
       publicCode: quay.publicCode ?? '',
-      validityStart: findKeyValue(quay, 'validityStart') ?? undefined,
+      validityStart:
+        findKeyValue(quay, KnownValueKey.ValidityStart) ?? undefined,
     }))
     .filter((quay) => quay.id && quay.publicCode);
 }
@@ -66,9 +67,8 @@ export function extractQuayValidityEnd(
     return undefined;
   }
 
-  const validityEnd = quay.keyValues?.find((kv) => kv?.key === 'validityEnd');
-  const validityEndValue = validityEnd?.values?.[0];
-  return validityEndValue ?? null;
+  const validityEnd = findKeyValue(quay, KnownValueKey.ValidityEnd);
+  return validityEnd ?? null;
 }
 
 export function createQuayMappingForCopiedQuay(

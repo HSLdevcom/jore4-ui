@@ -1,8 +1,9 @@
 import { StopRegistryKeyValuesInput } from '../../generated/graphql';
+import { KnownValueKey } from '../../types';
 import { isNotNullish } from '../../utils';
 
 export const getKeyValue = (
-  key: string,
+  key: KnownValueKey,
   value: string | boolean | null | undefined,
 ): StopRegistryKeyValuesInput | null => {
   if (isNotNullish(value)) {

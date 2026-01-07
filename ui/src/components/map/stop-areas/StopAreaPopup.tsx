@@ -7,6 +7,7 @@ import { parseDate } from '../../../time';
 import { EnrichedStopPlace } from '../../../types';
 import { CloseIconButton, SimpleButton } from '../../../uiComponents';
 import {
+  KnownValueKey,
   findKeyValueParsed,
   getGeometryPoint,
   mapToValidityPeriod,
@@ -93,8 +94,8 @@ export const StopAreaPopup = ({
         <Row className="text-sm" testId={testIds.validityPeriod}>
           {mapToValidityPeriod(
             t,
-            findKeyValueParsed(area, 'validityStart', parseDate),
-            findKeyValueParsed(area, 'validityEnd', parseDate),
+            findKeyValueParsed(area, KnownValueKey.ValidityStart, parseDate),
+            findKeyValueParsed(area, KnownValueKey.ValidityEnd, parseDate),
           )}
         </Row>
 

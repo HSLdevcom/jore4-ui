@@ -1,5 +1,6 @@
 import {
   InfrastructureNetworkDirectionEnum,
+  KnownValueKey,
   Priority,
   RouteTypeOfLineEnum,
   StopAreaInput,
@@ -80,9 +81,9 @@ function getUuid(index: number) {
 
 const template: StopRegistryQuayInput = {
   keyValues: [
-    { key: 'stopState', values: [StopPlaceState.InOperation] },
-    { key: 'priority', values: ['10'] },
-    { key: 'validityStart', values: ['2025-01-01'] },
+    { key: KnownValueKey.StopState, values: [StopPlaceState.InOperation] },
+    { key: KnownValueKey.Priority, values: ['10'] },
+    { key: KnownValueKey.ValidityStart, values: ['2025-01-01'] },
   ],
 };
 
@@ -1273,17 +1274,20 @@ describe('Stop search', () => {
                 type: StopRegistryGeoJsonType.Point,
               },
               keyValues: [
-                { key: 'priority', values: [stopPoint.priority.toString()] },
                 {
-                  key: 'validityStart',
+                  key: KnownValueKey.Priority,
+                  values: [stopPoint.priority.toString()],
+                },
+                {
+                  key: KnownValueKey.ValidityStart,
                   values: [stopPoint.validity_start?.toISODate() ?? null],
                 },
                 {
-                  key: 'validityEnd',
+                  key: KnownValueKey.ValidityEnd,
                   values: [stopPoint.validity_end?.toISODate() ?? null],
                 },
                 {
-                  key: 'imported-id',
+                  key: KnownValueKey.ImportedId,
                   values: [
                     `${stopPoint.label}-${stopPoint.validity_start}-${stopPoint.priority}`,
                   ],
@@ -1377,7 +1381,10 @@ describe('Stop search', () => {
         template: generateQuay(stopPlaceId),
         outOfUse: generateQuay(stopPlaceId, {
           keyValues: [
-            { key: 'stopState', values: [StopPlaceState.OutOfOperation] },
+            {
+              key: KnownValueKey.StopState,
+              values: [StopPlaceState.OutOfOperation],
+            },
           ],
         }),
         shelterPostUndefinedElectricity: generateQuay(stopPlaceId, {
@@ -1410,7 +1417,7 @@ describe('Stop search', () => {
           placeEquipments: { shelterEquipment: [shelterUrbanTemplate] },
         }),
         stopOwner: generateQuay(stopPlaceId, {
-          keyValues: [{ key: 'stopOwner', values: ['hkl'] }],
+          keyValues: [{ key: KnownValueKey.StopOwner, values: ['hkl'] }],
         }),
       };
     }

@@ -1,6 +1,6 @@
 import { QuayDetailsFragment } from '../../../../../../generated/graphql';
 import { parseDate } from '../../../../../../time';
-import { findKeyValue } from '../../../../../../utils';
+import { KnownValueKey, findKeyValue } from '../../../../../../utils';
 import { BidirectionalQuayMap } from '../types';
 
 function matchQuayDates(
@@ -8,8 +8,11 @@ function matchQuayDates(
   oldQuayValidityStart: string,
   oldQuayValidityEnd: string | null,
 ): boolean {
-  const newQuayValidityStart = findKeyValue(newQuay, 'validityStart');
-  const newQuayValidityEnd = findKeyValue(newQuay, 'validityEnd');
+  const newQuayValidityStart = findKeyValue(
+    newQuay,
+    KnownValueKey.ValidityStart,
+  );
+  const newQuayValidityEnd = findKeyValue(newQuay, KnownValueKey.ValidityEnd);
 
   if (!newQuayValidityStart) {
     return false;
@@ -39,8 +42,11 @@ function findMatchingNewQuay(
   }
 
   const oldQuayPublicCode = oldQuay.publicCode;
-  const oldQuayValidityStart = findKeyValue(oldQuay, 'validityStart');
-  const oldQuayValidityEnd = findKeyValue(oldQuay, 'validityEnd');
+  const oldQuayValidityStart = findKeyValue(
+    oldQuay,
+    KnownValueKey.ValidityStart,
+  );
+  const oldQuayValidityEnd = findKeyValue(oldQuay, KnownValueKey.ValidityEnd);
   if (!oldQuayValidityStart) {
     return null;
   }

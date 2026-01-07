@@ -11,6 +11,7 @@ import {
 } from '../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../types';
 import {
+  KnownValueKey,
   mapPointToStopRegistryGeoJSON,
   showDangerToastWithError,
 } from '../../../../utils';
@@ -60,47 +61,49 @@ const mapFormStateToInput = ({
     keyValues: compact([
       state.validityStart
         ? {
-            key: 'validityStart',
+            key: KnownValueKey.ValidityStart,
             values: [state.validityStart],
           }
         : undefined,
       state.validityEnd
         ? {
-            key: 'validityEnd',
+            key: KnownValueKey.ValidityEnd,
             values: [state.validityEnd],
           }
         : undefined,
       state.terminalType
         ? {
-            key: 'terminalType',
+            key: KnownValueKey.TerminalType,
             values: [state.terminalType],
           }
         : undefined,
       state.departurePlatforms
         ? {
-            key: 'departurePlatforms',
+            key: KnownValueKey.DeparturePlatforms,
             values: [state.departurePlatforms],
           }
         : undefined,
       state.arrivalPlatforms
         ? {
-            key: 'arrivalPlatforms',
+            key: KnownValueKey.ArrivalPlatforms,
             values: [state.arrivalPlatforms],
           }
         : undefined,
       state.loadingPlatforms
         ? {
-            key: 'loadingPlatforms',
+            key: KnownValueKey.LoadingPlatforms,
             values: [state.loadingPlatforms],
           }
         : undefined,
       state.electricCharging
         ? {
-            key: 'electricCharging',
+            key: KnownValueKey.ElectricCharging,
             values: [state.electricCharging],
           }
         : undefined,
-    ]).filter((kv) => (kv?.key !== 'validityEnd' ? true : !state.indefinite)),
+    ]).filter((kv) =>
+      kv?.key !== KnownValueKey.ValidityEnd ? true : !state.indefinite,
+    ),
     alternativeNames: [
       {
         name: { lang: 'swe', value: state.nameSwe },

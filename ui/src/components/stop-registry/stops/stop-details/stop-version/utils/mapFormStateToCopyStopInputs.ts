@@ -9,6 +9,7 @@ import {
 } from '../../../../../../generated/graphql';
 import { EnrichedQuay, StopWithDetails } from '../../../../../../types';
 import {
+  KnownValueKey,
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   mapPointToGeoJSON,
@@ -79,17 +80,17 @@ function getKeyValues(
   return patchKeyValues(
     getQuayFromStopWithDetails(originalStop),
     compact([
-      { key: 'validityStart', values: [state.validityStart] },
+      { key: KnownValueKey.ValidityStart, values: [state.validityStart] },
       !state.indefinite
         ? {
-            key: 'validityEnd',
+            key: KnownValueKey.ValidityEnd,
             values: [state.validityEnd as string],
           }
         : undefined,
-      { key: 'priority', values: [state.priority.toString(10)] },
+      { key: KnownValueKey.Priority, values: [state.priority.toString(10)] },
       // Make Tiamat see this copy as a unique Quay, and not a duplicate.
       {
-        key: 'imported-id',
+        key: KnownValueKey.ImportedId,
         values: [
           `${getQuayNetexId(originalStop)}-${state.validityStart}-${state.priority}`,
         ],

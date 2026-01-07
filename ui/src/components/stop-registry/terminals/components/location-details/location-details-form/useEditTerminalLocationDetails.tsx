@@ -2,7 +2,7 @@ import compact from 'lodash/compact';
 import { useCallback } from 'react';
 import { StopRegistryParentStopPlaceInput } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { patchKeyValues } from '../../../../../../utils';
+import { KnownValueKey, patchKeyValues } from '../../../../../../utils';
 import { SelectedStop } from '../../../../components/SelectMemberStops/common/schema';
 import { useUpdateTerminal } from '../../../hooks';
 import { TerminalLocationDetailsFormState } from './schema';
@@ -27,10 +27,13 @@ const mapFormStateToInput = ({
       terminal,
       compact([
         state.streetAddress
-          ? { key: 'streetAddress', values: [state.streetAddress] }
+          ? {
+              key: KnownValueKey.StreetAddress,
+              values: [state.streetAddress],
+            }
           : undefined,
         state.postalCode
-          ? { key: 'postalCode', values: [state.postalCode] }
+          ? { key: KnownValueKey.PostalCode, values: [state.postalCode] }
           : undefined,
       ]),
     ),

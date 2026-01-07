@@ -12,6 +12,7 @@ import { parseDate } from '../../../../../time';
 import { EnrichedStopPlace, StopPlace } from '../../../../../types';
 import { Priority, knownPriorityValues } from '../../../../../types/enums';
 import {
+  KnownValueKey,
   findKeyValue,
   findKeyValueParsed,
   getStopPlacesFromQueryResult,
@@ -230,10 +231,11 @@ function mapSingleTiamatStopAreaQuayToStopSearchRow<
     description: quay.description?.value ?? null,
 
     validityStart: requireValue(
-      findKeyValueParsed(quay, 'validityStart', parseDate),
+      findKeyValueParsed(quay, KnownValueKey.ValidityStart, parseDate),
     ),
-    validityEnd: findKeyValueParsed(quay, 'validityEnd', parseDate) ?? null,
-    priority: parsePriority(findKeyValue(quay, 'priority')),
+    validityEnd:
+      findKeyValueParsed(quay, KnownValueKey.ValidityEnd, parseDate) ?? null,
+    priority: parsePriority(findKeyValue(quay, KnownValueKey.Priority)),
 
     ...nameResolver(stopArea),
 

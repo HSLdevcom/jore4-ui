@@ -20,6 +20,7 @@ import { Visible } from '../../../layoutComponents';
 import { Operation, selectIsTimingPlaceModalOpen } from '../../../redux';
 import { RequiredKeys } from '../../../types';
 import {
+  KnownValueKey,
   mapDateInputToValidityEnd,
   mapDateInputToValidityStart,
   mapPointToGeoJSON,
@@ -90,16 +91,16 @@ function mapFormStateToQuayKeyValues(
 ): Array<{ key: string; values: string[] }> {
   return compact([
     {
-      key: 'imported-id',
+      key: KnownValueKey.ImportedId,
       values: [
         `${state.publicCode.value}-${state.validityStart}-${state.priority}`,
       ],
     },
-    { key: 'priority', values: [state.priority.toString(10)] },
-    { key: 'validityStart', values: [state.validityStart] },
+    { key: KnownValueKey.Priority, values: [state.priority.toString(10)] },
+    { key: KnownValueKey.ValidityStart, values: [state.validityStart] },
     state.validityEnd
       ? {
-          key: 'validityEnd',
+          key: KnownValueKey.ValidityEnd,
           values: [state.validityEnd],
         }
       : undefined,
@@ -182,7 +183,7 @@ function getKeyValuesPatch(
       formState,
       mapFormStateToQuayKeyValues(formState),
     ).filter((kv) =>
-      kv?.key !== 'validityEnd' ? true : !formState.indefinite,
+      kv?.key !== KnownValueKey.ValidityEnd ? true : !formState.indefinite,
     );
 
     return {
