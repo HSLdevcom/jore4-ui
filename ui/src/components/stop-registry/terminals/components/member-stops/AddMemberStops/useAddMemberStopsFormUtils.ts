@@ -10,6 +10,7 @@ import { Operation } from '../../../../../../redux';
 import { mapToISODate } from '../../../../../../time';
 import { EnrichedParentStopPlace } from '../../../../../../types';
 import {
+  KnownValueKey,
   findKeyValue,
   notNullish,
   showDangerToastWithError,
@@ -29,8 +30,12 @@ function mapQuayToSelectedStop(
   stopPlace: MemberStopStopPlaceDetailsFragment,
   quay: MemberStopQuayDetailsFragment,
 ): SelectedStop {
-  const validityStart = mapToISODate(findKeyValue(quay, 'validityStart'));
-  const validityEnd = mapToISODate(findKeyValue(quay, 'validityEnd'));
+  const validityStart = mapToISODate(
+    findKeyValue(quay, KnownValueKey.ValidityStart),
+  );
+  const validityEnd = mapToISODate(
+    findKeyValue(quay, KnownValueKey.ValidityEnd),
+  );
 
   return {
     stopPlaceId: stopPlace?.id ?? '',

@@ -7,7 +7,11 @@ import {
   StopRegistryStopPlaceInput,
 } from '../../../../../generated/graphql';
 import { EnrichedStopPlace } from '../../../../../types';
-import { findKeyValue, patchKeyValues } from '../../../../../utils';
+import {
+  KnownValueKey,
+  findKeyValue,
+  patchKeyValues,
+} from '../../../../../utils';
 import { omitTypeName } from '../../../utils';
 import { CutDirection } from './types';
 
@@ -17,8 +21,8 @@ function determineNeededUpdatesForQuay(
   validityStart: string,
   validityEnd: string | null,
 ) {
-  const quayValidityStart = findKeyValue(quay, 'validityStart');
-  const quayValidityEnd = findKeyValue(quay, 'validityEnd');
+  const quayValidityStart = findKeyValue(quay, KnownValueKey.ValidityStart);
+  const quayValidityEnd = findKeyValue(quay, KnownValueKey.ValidityEnd);
 
   // Every quay must have a validity start date, so this should not happen
   if (!quayValidityStart) {
@@ -81,13 +85,13 @@ function mapQuayToEditInput(
       compact([
         needsNewStartDate
           ? {
-              key: 'validityStart',
+              key: KnownValueKey.ValidityStart,
               values: [validityStart],
             }
           : null,
         needsNewEndDate && validityEnd
           ? {
-              key: 'validityEnd',
+              key: KnownValueKey.ValidityEnd,
               values: [validityEnd],
             }
           : null,
@@ -110,8 +114,9 @@ export function mapToEditStopAreaInput(
   validityEnd: string | null,
   reasonForChange?: string | null,
 ): StopRegistryStopPlaceInput | null {
-  const originalStartDate = findKeyValue(stopArea, 'validityStart');
-  const originalEndDate = findKeyValue(stopArea, 'validityEnd') ?? null;
+  const originalStartDate = findKeyValue(stopArea, KnownValueKey.ValidityStart);
+  const originalEndDate =
+    findKeyValue(stopArea, KnownValueKey.ValidityEnd) ?? null;
 
   const startDateCut = !originalStartDate || validityStart > originalStartDate;
   const endDateCut =
@@ -124,7 +129,7 @@ export function mapToEditStopAreaInput(
   if (startDateCut) {
     keyValues = patchKeyValues({ keyValues }, [
       {
-        key: 'validityStart',
+        key: KnownValueKey.ValidityStart,
         values: [validityStart],
       },
     ]);
@@ -136,12 +141,14 @@ export function mapToEditStopAreaInput(
       compact([
         validityEnd
           ? {
-              key: 'validityEnd',
+              key: KnownValueKey.ValidityEnd,
               values: [validityEnd],
             }
           : null,
       ]),
-    ).filter((kv) => (kv?.key !== 'validityEnd' ? true : !!validityEnd));
+    ).filter((kv) =>
+      kv?.key !== KnownValueKey.ValidityEnd ? true : !!validityEnd,
+    );
   }
 
   const mappedQuays = mapQuayToEditInput(

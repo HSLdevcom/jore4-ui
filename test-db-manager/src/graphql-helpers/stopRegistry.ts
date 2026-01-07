@@ -37,6 +37,7 @@ import {
   InsertOrganisationResult,
   InsertStopPlaceResult,
   InsertTerminalResult,
+  KnownValueKey,
   UpdateScheduledStopPointStopPlaceRefResult,
 } from '../types';
 
@@ -193,9 +194,9 @@ function getQuayHash(quay: StopRegistryQuayInput): string {
   const keyValues = quay.keyValues ?? [];
 
   try {
-    const validityStart = findKeyValue(keyValues, 'validityStart');
-    const validityEnd = findKeyValue(keyValues, 'validityEnd');
-    const priority = findKeyValue(keyValues, 'priority');
+    const validityStart = findKeyValue(keyValues, KnownValueKey.ValidityStart);
+    const validityEnd = findKeyValue(keyValues, KnownValueKey.ValidityEnd);
+    const priority = findKeyValue(keyValues, KnownValueKey.Priority);
 
     return `${quay.publicCode}-${validityStart}-${validityEnd}-${priority}`;
   } catch (cause) {
@@ -308,15 +309,15 @@ function getKeyValuesFromStopPoint(
 
   return [
     {
-      key: 'priority',
+      key: KnownValueKey.Priority,
       values: [ref.priority.toString(10)],
     },
     {
-      key: 'validityStart',
+      key: KnownValueKey.ValidityStart,
       values: [ref.validity_start],
     },
     {
-      key: 'validityEnd',
+      key: KnownValueKey.ValidityEnd,
       values: [ref.validity_end],
     },
   ];
@@ -358,15 +359,15 @@ function assembleStopPlace(
     keyValues: combineKeyValues(
       [
         {
-          key: 'priority',
+          key: KnownValueKey.Priority,
           values: ['10'],
         },
         {
-          key: 'validityStart',
+          key: KnownValueKey.ValidityStart,
           values: ['2000-01-01'],
         },
         {
-          key: 'validityEnd',
+          key: KnownValueKey.ValidityEnd,
           values: ['2052-01-01'],
         },
       ],

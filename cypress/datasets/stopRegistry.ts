@@ -1,4 +1,5 @@
 import {
+  KnownValueKey,
   Maybe,
   StopAreaInput,
   StopRegistryAlternativeName,
@@ -66,8 +67,8 @@ const stopPlaceData: Array<StopAreaInput> = [
       name: { lang: 'fin', value: 'Annankatu 15' },
       alternativeNames: Annankatu15AltNames,
       keyValues: [
-        { key: 'validityStart', values: ['2020-01-01'] },
-        { key: 'validityEnd', values: ['2050-01-01'] },
+        { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
+        { key: KnownValueKey.ValidityEnd, values: ['2050-01-01'] },
       ],
       geometry: {
         coordinates: [24.938927, 60.165433],
@@ -78,8 +79,8 @@ const stopPlaceData: Array<StopAreaInput> = [
           publicCode: 'E2E001',
           description: { lang: 'fin', value: 'Annankatu 15' },
           keyValues: [
-            { key: 'streetAddress', values: ['Annankatu 15'] },
-            { key: 'elyNumber', values: ['E2E001'] },
+            { key: KnownValueKey.StreetAddress, values: ['Annankatu 15'] },
+            { key: KnownValueKey.ElyNumber, values: ['E2E001'] },
           ],
           geometry: coordinatesToStopRegistryGeoJSON(
             stopCoordinatesByLabel.E2E001,
@@ -89,8 +90,8 @@ const stopPlaceData: Array<StopAreaInput> = [
           publicCode: 'E2E009',
           description: { lang: 'fin', value: 'Annankatu 15' },
           keyValues: [
-            { key: 'streetAddress', values: ['Annankatu 15'] },
-            { key: 'elyNumber', values: ['E2E009'] },
+            { key: KnownValueKey.StreetAddress, values: ['Annankatu 15'] },
+            { key: KnownValueKey.ElyNumber, values: ['E2E009'] },
           ],
           geometry: coordinatesToStopRegistryGeoJSON(
             stopCoordinatesByLabel.E2E009,
@@ -105,8 +106,8 @@ const stopPlaceData: Array<StopAreaInput> = [
       privateCode: { type: 'HSL/TEST', value: 'X0004' },
       name: { lang: 'fin', value: 'Kalevankatu 32' },
       keyValues: [
-        { key: 'validityStart', values: ['2020-01-01'] },
-        { key: 'validityEnd', values: ['2050-01-01'] },
+        { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
+        { key: KnownValueKey.ValidityEnd, values: ['2050-01-01'] },
       ],
       geometry: {
         coordinates: [24.93291498, 60.16553899],
@@ -116,8 +117,8 @@ const stopPlaceData: Array<StopAreaInput> = [
         {
           publicCode: 'E2E003',
           keyValues: [
-            { key: 'streetAddress', values: ['Kalevankatu 32'] },
-            { key: 'elyNumber', values: ['E2E003'] },
+            { key: KnownValueKey.StreetAddress, values: ['Kalevankatu 32'] },
+            { key: KnownValueKey.ElyNumber, values: ['E2E003'] },
           ],
           geometry: coordinatesToStopRegistryGeoJSON(
             stopCoordinatesByLabel.E2E003,
@@ -126,8 +127,8 @@ const stopPlaceData: Array<StopAreaInput> = [
         {
           publicCode: 'E2E006',
           keyValues: [
-            { key: 'streetAddress', values: ['Kalevankatu 32'] },
-            { key: 'elyNumber', values: ['E2E006'] },
+            { key: KnownValueKey.StreetAddress, values: ['Kalevankatu 32'] },
+            { key: KnownValueKey.ElyNumber, values: ['E2E006'] },
           ],
           geometry: coordinatesToStopRegistryGeoJSON(
             stopCoordinatesByLabel.E2E006,
@@ -150,8 +151,8 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E002,
           ),
           keyValues: [
-            { key: 'streetAddress', values: ['Annankatu 20'] },
-            { key: 'elyNumber', values: ['E2E002'] },
+            { key: KnownValueKey.StreetAddress, values: ['Annankatu 20'] },
+            { key: KnownValueKey.ElyNumber, values: ['E2E002'] },
           ],
         },
       ],
@@ -184,8 +185,11 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E004,
           ),
           keyValues: [
-            { key: 'streetAddress', values: ['Albertinkatu 38'] },
-            { key: 'elyNumber', values: ['E2E004'] },
+            {
+              key: KnownValueKey.StreetAddress,
+              values: ['Albertinkatu 38'],
+            },
+            { key: KnownValueKey.ElyNumber, values: ['E2E004'] },
           ],
         },
       ],
@@ -204,8 +208,11 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E005,
           ),
           keyValues: [
-            { key: 'streetAddress', values: ['Lönnrotinkatu 32'] },
-            { key: 'elyNumber', values: ['E2E005'] },
+            {
+              key: KnownValueKey.StreetAddress,
+              values: ['Lönnrotinkatu 32'],
+            },
+            { key: KnownValueKey.ElyNumber, values: ['E2E005'] },
           ],
         },
       ],
@@ -224,9 +231,9 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E005,
           ),
           keyValues: [
-            { key: 'streetAddress', values: ['Kalevankatu 18'] },
-            { key: 'elyNumber', values: ['E2E007'] },
-            { key: 'validityStart', values: ['2020-03-20'] },
+            { key: KnownValueKey.StreetAddress, values: ['Kalevankatu 18'] },
+            { key: KnownValueKey.ElyNumber, values: ['E2E007'] },
+            { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
           ],
         },
       ],
@@ -245,9 +252,12 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E005,
           ),
           keyValues: [
-            { key: 'streetAddress', values: ['Kuttulammentie 15'] },
-            { key: 'elyNumber', values: ['E2E008'] },
-            { key: 'validityStart', values: ['2020-03-20'] },
+            {
+              key: KnownValueKey.StreetAddress,
+              values: ['Kuttulammentie 15'],
+            },
+            { key: KnownValueKey.ElyNumber, values: ['E2E008'] },
+            { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
           ],
           placeEquipments: {
             generalSign: [
@@ -295,9 +305,9 @@ const stopPlaceData: Array<StopAreaInput> = [
             stopCoordinatesByLabel.E2E005,
           ),
           keyValues: [
-            { key: 'streetAddress', values: ['Finnoonkartano'] },
-            { key: 'elyNumber', values: ['E2E010'] },
-            { key: 'validityStart', values: ['2020-03-20'] },
+            { key: KnownValueKey.StreetAddress, values: ['Finnoonkartano'] },
+            { key: KnownValueKey.ElyNumber, values: ['E2E010'] },
+            { key: KnownValueKey.ValidityStart, values: ['2020-03-20'] },
           ],
         },
       ],
@@ -310,8 +320,8 @@ const stopPlaceData: Array<StopAreaInput> = [
       privateCode: { type: 'HSL/TEST', value: 'E2E011' },
       name: { lang: 'fin', value: 'Eteläinen Hesperiankatu' },
       keyValues: [
-        { key: 'validityStart', values: ['2020-01-01'] },
-        { key: 'validityEnd', values: ['2052-01-01'] },
+        { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
+        { key: KnownValueKey.ValidityEnd, values: ['2052-01-01'] },
       ],
       geometry: {
         coordinates: [24.920286, 60.176133],
@@ -321,10 +331,13 @@ const stopPlaceData: Array<StopAreaInput> = [
         {
           publicCode: 'E2E011',
           keyValues: [
-            { key: 'streetAddress', values: ['Eteläinen Hesperiankatu'] },
-            { key: 'elyNumber', values: ['E2E011'] },
-            { key: 'validityStart', values: ['2020-01-01'] },
-            { key: 'validityEnd', values: ['2052-01-01'] },
+            {
+              key: KnownValueKey.StreetAddress,
+              values: ['Eteläinen Hesperiankatu'],
+            },
+            { key: KnownValueKey.ElyNumber, values: ['E2E011'] },
+            { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
+            { key: KnownValueKey.ValidityEnd, values: ['2052-01-01'] },
           ],
           geometry: coordinatesToStopRegistryGeoJSON(
             stopCoordinatesByLabel.E2E011,
@@ -394,17 +407,20 @@ const terminalData: Array<TerminalInput> = [
         type: StopRegistryGeoJsonType.Point,
       },
       keyValues: [
-        { key: 'validityStart', values: ['2020-01-01'] },
-        { key: 'validityEnd', values: ['2050-01-01'] },
-        { key: 'streetAddress', values: ['Mannerheimintie 22-24'] },
-        { key: 'postalCode', values: ['00100'] },
-        { key: 'municipality', values: ['Helsinki'] },
-        { key: 'fareZone', values: ['A'] },
-        { key: 'terminalType', values: ['BusTerminal'] },
-        { key: 'departurePlatforms', values: ['7'] },
-        { key: 'arrivalPlatforms', values: ['6'] },
-        { key: 'loadingPlatforms', values: ['3'] },
-        { key: 'electricCharging', values: ['2'] },
+        { key: KnownValueKey.ValidityStart, values: ['2020-01-01'] },
+        { key: KnownValueKey.ValidityEnd, values: ['2050-01-01'] },
+        {
+          key: KnownValueKey.StreetAddress,
+          values: ['Mannerheimintie 22-24'],
+        },
+        { key: KnownValueKey.PostalCode, values: ['00100'] },
+        { key: KnownValueKey.Municipality, values: ['Helsinki'] },
+        { key: KnownValueKey.FareZone, values: ['A'] },
+        { key: KnownValueKey.TerminalType, values: ['BusTerminal'] },
+        { key: KnownValueKey.DeparturePlatforms, values: ['7'] },
+        { key: KnownValueKey.ArrivalPlatforms, values: ['6'] },
+        { key: KnownValueKey.LoadingPlatforms, values: ['3'] },
+        { key: KnownValueKey.ElectricCharging, values: ['2'] },
       ],
       externalLinks: [
         {

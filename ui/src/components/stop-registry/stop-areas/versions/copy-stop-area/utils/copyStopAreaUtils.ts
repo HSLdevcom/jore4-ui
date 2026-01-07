@@ -5,6 +5,7 @@ import { mapToISODate, parseDate } from '../../../../../../time';
 import { EnrichedStopPlace } from '../../../../../../types';
 import {
   ElementWithKeyValues,
+  KnownValueKey,
   findKeyValue,
   patchKeyValues,
 } from '../../../../../../utils';
@@ -22,8 +23,8 @@ function isObjectValidDuringPeriod(
   validityStart: string,
   validityEnd?: string,
 ): boolean {
-  const objectValidityStart = findKeyValue(object, 'validityStart');
-  const objectValidityEnd = findKeyValue(object, 'validityEnd');
+  const objectValidityStart = findKeyValue(object, KnownValueKey.ValidityStart);
+  const objectValidityEnd = findKeyValue(object, KnownValueKey.ValidityEnd);
 
   // Should not be possible to have object without validity start
   if (!objectValidityStart) {
@@ -68,8 +69,8 @@ function setInputQuayValidityDates(
   validityStart: string,
   validityEnd?: string,
 ): StopRegistryQuayInput {
-  const quayValidityStart = findKeyValue(quay, 'validityStart');
-  const quayValidityEnd = findKeyValue(quay, 'validityEnd');
+  const quayValidityStart = findKeyValue(quay, KnownValueKey.ValidityStart);
+  const quayValidityEnd = findKeyValue(quay, KnownValueKey.ValidityEnd);
   if (!quayValidityStart) {
     // Should not be possible
     throw new Error('Quay must have a validity start date.');
@@ -88,18 +89,20 @@ function setInputQuayValidityDates(
       compact([
         shouldUpdateValidityStart
           ? {
-              key: 'validityStart',
+              key: KnownValueKey.ValidityStart,
               values: [validityStart],
             }
           : null,
         newValidityEnd
           ? {
-              key: 'validityEnd',
+              key: KnownValueKey.ValidityEnd,
               values: [newValidityEnd],
             }
           : null,
       ]),
-    ).filter((kv) => (kv?.key !== 'validityEnd' ? true : !!newValidityEnd)),
+    ).filter((kv) =>
+      kv?.key !== KnownValueKey.ValidityEnd ? true : !!newValidityEnd,
+    ),
   };
 }
 
@@ -114,17 +117,19 @@ export function mapToStopAreaCopyInput(
     stopArea,
     compact([
       {
-        key: 'validityStart',
+        key: KnownValueKey.ValidityStart,
         values: [state.validityStart],
       },
       state.validityEnd
         ? {
-            key: 'validityEnd',
+            key: KnownValueKey.ValidityEnd,
             values: [state.validityEnd],
           }
         : null,
     ]),
-  ).filter((kv) => (kv?.key !== 'validityEnd' ? true : !state.indefinite));
+  ).filter((kv) =>
+    kv?.key !== KnownValueKey.ValidityEnd ? true : !state.indefinite,
+  );
 
   const allQuays = compact(input.quays);
   const onlyQuaysValidDuringPeriod = allQuays.filter((quay) =>

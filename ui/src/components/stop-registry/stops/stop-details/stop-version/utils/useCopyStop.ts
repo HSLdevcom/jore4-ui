@@ -6,7 +6,7 @@ import {
   useUpdateInfoSpotMutation,
 } from '../../../../../../generated/graphql';
 import { ScheduledStopPointSetInput } from '../../../../../../graphql';
-import { findKeyValue } from '../../../../../../utils';
+import { KnownValueKey, findKeyValue } from '../../../../../../utils';
 import { useDeleteQuay } from '../../../queries/useDeleteQuay';
 import {
   FailedToResolveNewShelters,
@@ -48,12 +48,13 @@ function useInsertStopPlace() {
       const stopPlaceId =
         response.data?.stop_registry?.mutateStopPlace?.at(0)?.id;
 
-      const copyImportedId = findKeyValue(quayCopy, 'imported-id');
+      const copyImportedId = findKeyValue(quayCopy, KnownValueKey.ImportedId);
       const quayId = response.data?.stop_registry?.mutateStopPlace
         ?.at(0)
         ?.quays?.find(
           (quay) =>
-            quay && findKeyValue(quay, 'imported-id') === copyImportedId,
+            quay &&
+            findKeyValue(quay, KnownValueKey.ImportedId) === copyImportedId,
         )?.id;
 
       if (!stopPlaceId) {

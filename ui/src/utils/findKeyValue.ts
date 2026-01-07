@@ -3,6 +3,7 @@ import {
   StopRegistryKeyValues,
   StopRegistryKeyValuesInput,
 } from '../generated/graphql';
+import { KnownValueKey } from './knownValueKey';
 
 export type ElementWithKeyValues = {
   readonly keyValues?: Maybe<
@@ -12,7 +13,7 @@ export type ElementWithKeyValues = {
 
 export function findKeyValue(
   element: ElementWithKeyValues,
-  key: string,
+  key: KnownValueKey,
 ): string | null {
   const keyValue = element.keyValues?.find((kv) => kv?.key === key);
   // Note: the "values" could be an array with many values.
@@ -21,7 +22,7 @@ export function findKeyValue(
 
 export function findKeyValueParsed<T = string>(
   element: ElementWithKeyValues,
-  key: string,
+  key: KnownValueKey,
   parser: (arg0: string) => T,
 ): T | null {
   const keyValue = findKeyValue(element, key);

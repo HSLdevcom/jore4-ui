@@ -8,6 +8,7 @@ import {
 } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
 import {
+  KnownValueKey,
   mapPointToStopRegistryGeoJSON,
   patchKeyValues,
   showDangerToast,
@@ -67,15 +68,15 @@ export const useEditStopLocationDetails = () => {
             stop.quay,
             compact([
               state.streetAddress && {
-                key: 'streetAddress',
+                key: KnownValueKey.StreetAddress,
                 values: [state.streetAddress.toString()],
               },
               state.postalCode && {
-                key: 'postalCode',
+                key: KnownValueKey.PostalCode,
                 values: [state.postalCode.toString()],
               },
               isNumber(state.functionalArea) && {
-                key: 'functionalArea',
+                key: KnownValueKey.FunctionalArea,
                 values: [state.functionalArea.toString()],
               },
             ]),

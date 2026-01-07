@@ -7,7 +7,7 @@ import {
   useEditScheduledStopPointValidityMutation,
   useGetQuayLazyQuery,
 } from '../../../../../../generated/graphql';
-import { setMultipleKeyValues } from '../../../../../../utils';
+import { KnownValueKey, setMultipleKeyValues } from '../../../../../../utils';
 import { QuayKeyValuesEditFailed } from '../errors/QuayKeyValuesEditFailed';
 import { ScheduledStopPointEditFailed } from '../errors/ScheduledStopPointEditFailed';
 import { EditStopVersionResult } from '../types/EditStopVersionResult';
@@ -102,23 +102,25 @@ function useEditQuayValidity() {
         compact(originalQuay.keyValues)
           .filter(
             ({ key }) =>
-              !['validityStart', 'validityEnd', 'priority'].includes(
-                key as string,
-              ),
+              ![
+                KnownValueKey.ValidityStart,
+                KnownValueKey.ValidityEnd,
+                KnownValueKey.Priority,
+              ].includes(key as KnownValueKey),
           )
           .map(pick(['key', 'values'])),
         compact([
           {
-            key: 'validityStart',
+            key: KnownValueKey.ValidityStart,
             values: [validityStart.toISODate()],
           },
           validityEnd && !indefinite
             ? {
-                key: 'validityEnd',
+                key: KnownValueKey.ValidityEnd,
                 values: [validityEnd.toISODate()],
               }
             : null,
-          { key: 'priority', values: [priority.toString()] },
+          { key: KnownValueKey.Priority, values: [priority.toString()] },
         ]),
       );
 

@@ -21,6 +21,7 @@ import {
   StopRegistryStopType,
   StopRegistryTransportModeType,
 } from '../../generated/graphql';
+import { KnownValueKey } from '../../types';
 import { getKeyValue } from './utils';
 
 type OrganisationName = string;
@@ -182,17 +183,20 @@ const mapToQuayInput = (seedStopPlace: StopPlaceQuaySeedData): QuayInput => {
       externalLinks: seedStopPlace.externalLinks,
 
       keyValues: [
-        getKeyValue('elyNumber', seedStopPlace.elyNumber),
-        getKeyValue('streetAddress', seedStopPlace.streetAddress),
-        getKeyValue('postalCode', seedStopPlace.postalCode),
-        getKeyValue('functionalArea', seedStopPlace.functionalArea),
-        getKeyValue('stopState', seedStopPlace.stopState),
-        getKeyValue('railReplacement', seedStopPlace.stopType?.railReplacement),
-        getKeyValue('virtual', seedStopPlace.stopType?.virtual),
-        getKeyValue('priority', seedStopPlace.priority),
-        getKeyValue('validityStart', seedStopPlace.validityStart),
-        getKeyValue('validityEnd', seedStopPlace.validityEnd),
-        getKeyValue('stopOwner', seedStopPlace.stopOwner),
+        getKeyValue(KnownValueKey.ElyNumber, seedStopPlace.elyNumber),
+        getKeyValue(KnownValueKey.StreetAddress, seedStopPlace.streetAddress),
+        getKeyValue(KnownValueKey.PostalCode, seedStopPlace.postalCode),
+        getKeyValue(KnownValueKey.FunctionalArea, seedStopPlace.functionalArea),
+        getKeyValue(KnownValueKey.StopState, seedStopPlace.stopState),
+        getKeyValue(
+          KnownValueKey.RailReplacement,
+          seedStopPlace.stopType?.railReplacement,
+        ),
+        getKeyValue(KnownValueKey.Virtual, seedStopPlace.stopType?.virtual),
+        getKeyValue(KnownValueKey.Priority, seedStopPlace.priority),
+        getKeyValue(KnownValueKey.ValidityStart, seedStopPlace.validityStart),
+        getKeyValue(KnownValueKey.ValidityEnd, seedStopPlace.validityEnd),
+        getKeyValue(KnownValueKey.StopOwner, seedStopPlace.stopOwner),
       ],
     },
   };

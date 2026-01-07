@@ -6,6 +6,7 @@ import {
 } from '../../../../../generated/graphql';
 import { StopWithDetails } from '../../../../../types';
 import {
+  KnownValueKey,
   notNullish,
   patchKeyValues,
   showDangerToast,
@@ -52,7 +53,7 @@ export const useEditStopMaintenanceDetails = () => {
             selectedOrganisations.length > 0 ? selectedOrganisations : [null],
           keyValues: patchKeyValues(stop.quay, [
             {
-              key: 'stopOwner',
+              key: KnownValueKey.StopOwner,
               values: state.stopOwner ? [state.stopOwner] : [],
             },
           ]),

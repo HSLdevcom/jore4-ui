@@ -9,6 +9,7 @@ import {
   StopRegistryMapType,
   StopRegistryParentStopPlaceInput,
 } from '../../generated/graphql';
+import { KnownValueKey } from '../../types';
 import { mapToAlternativeNames } from './mapAlternativeNames';
 import { defaultAccessibilityLimitations } from './stopPlaces';
 import { getKeyValue } from './utils';
@@ -90,17 +91,29 @@ const mapToTerminalInput = (seedTerminal: TerminalSeedData): TerminalInput => {
         value: seedTerminal.privateCode,
       },
       keyValues: [
-        getKeyValue('streetAddress', seedTerminal.streetAddress),
-        getKeyValue('postalCode', seedTerminal.postalCode),
-        getKeyValue('municipality', seedTerminal.municipality),
-        getKeyValue('fareZone', seedTerminal.fareZone),
-        getKeyValue('departurePlatforms', seedTerminal.departurePlatforms),
-        getKeyValue('arrivalPlatforms', seedTerminal.arrivalPlatforms),
-        getKeyValue('loadingPlatforms', seedTerminal.loadingPlatforms),
-        getKeyValue('electricCharging', seedTerminal.electricCharging),
-        getKeyValue('terminalType', seedTerminal.terminalType),
-        getKeyValue('validityStart', seedTerminal.validityStart),
-        getKeyValue('validityEnd', seedTerminal.validityEnd),
+        getKeyValue(KnownValueKey.StreetAddress, seedTerminal.streetAddress),
+        getKeyValue(KnownValueKey.PostalCode, seedTerminal.postalCode),
+        getKeyValue(KnownValueKey.Municipality, seedTerminal.municipality),
+        getKeyValue(KnownValueKey.FareZone, seedTerminal.fareZone),
+        getKeyValue(
+          KnownValueKey.DeparturePlatforms,
+          seedTerminal.departurePlatforms,
+        ),
+        getKeyValue(
+          KnownValueKey.ArrivalPlatforms,
+          seedTerminal.arrivalPlatforms,
+        ),
+        getKeyValue(
+          KnownValueKey.LoadingPlatforms,
+          seedTerminal.loadingPlatforms,
+        ),
+        getKeyValue(
+          KnownValueKey.ElectricCharging,
+          seedTerminal.electricCharging,
+        ),
+        getKeyValue(KnownValueKey.TerminalType, seedTerminal.terminalType),
+        getKeyValue(KnownValueKey.ValidityStart, seedTerminal.validityStart),
+        getKeyValue(KnownValueKey.ValidityEnd, seedTerminal.validityEnd),
       ],
       externalLinks: seedTerminal.externalLinks,
 
