@@ -93,7 +93,7 @@ export class TerminalForm {
    */
   save(forceAction = false) {
     return this.getModal()
-      .findByTestId('Modal::saveButton')
+      .findByTestId('EditTerminalModal::saveButton')
       .click({ force: forceAction });
   }
 }

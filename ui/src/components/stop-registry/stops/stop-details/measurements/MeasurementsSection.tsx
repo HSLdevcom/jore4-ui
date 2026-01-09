@@ -121,6 +121,8 @@ export const MeasurementsSection: FC<MeasurementsSectionProps> = ({ stop }) => {
           defaultValues={defaultValues}
           ref={formRef}
           onSubmit={onSubmit}
+          onCancel={() => infoContainerControls.setIsInEditMode(false)}
+          testIdPrefix={testIds.prefix}
         />
       ) : (
         <MeasurementsViewCard stop={stop} />

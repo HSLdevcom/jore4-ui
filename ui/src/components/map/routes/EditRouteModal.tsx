@@ -1,6 +1,5 @@
 import { FC, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { submitFormByRef } from '../../../utils';
 import { RoutePropertiesForm } from '../../forms/route/RoutePropertiesForm';
 import { RouteFormState } from '../../forms/route/RoutePropertiesForm.types';
 import { CustomOverlay } from '../CustomOverlay';
@@ -26,10 +25,6 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
   const formRef = useRef<ExplicitAny>(null);
   const { t } = useTranslation();
 
-  const onModalSave = () => {
-    submitFormByRef(formRef);
-  };
-
   return (
     <CustomOverlay
       className="min-h-full w-[calc(450px+(2*1.25rem))]"
@@ -38,11 +33,8 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
       <Modal
         className="pointer-events-auto flex max-h-full flex-col"
         headerClassName="*:text-xl px-4 py-4 items-center"
-        bodyClassName="mx-0 my-0"
-        footerClassName="px-4 py-2"
+        bodyClassName="mx-0 my-0 flex flex-1"
         testId={testIds.modal}
-        onSave={onModalSave}
-        onCancel={onCancel}
         onClose={onClose}
         heading={t('routes.enterRouteData')}
         navigationContext="RoutePropertiesForm"
@@ -51,6 +43,8 @@ export const EditRouteModal: FC<EditRouteModalProps> = ({
           defaultValues={defaultValues}
           ref={formRef}
           onSubmit={onSuccess}
+          onCancel={onCancel}
+          testIdPrefix={testIds.modal}
         />
       </Modal>
     </CustomOverlay>

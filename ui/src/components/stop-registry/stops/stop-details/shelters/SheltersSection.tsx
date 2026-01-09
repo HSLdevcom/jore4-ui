@@ -110,15 +110,6 @@ export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
           />
         ) : undefined
       }
-      addNewButton={
-        isInEditMode ? (
-          <AddNewButton
-            onClick={handleAddNewShelter}
-            label={t('stopDetails.shelters.addNewShelter')}
-            testId={testIds.addShelter}
-          />
-        ) : undefined
-      }
       title={sectionTitle}
       testIdPrefix="SheltersSection"
     >
@@ -129,6 +120,15 @@ export const SheltersSection: FC<SheltersSectionProps> = ({ stop }) => {
           ref={sheltersFormRef}
           onShelterCountChanged={setShelterCount}
           onSubmit={onSubmit}
+          onCancel={() => infoContainerControls.setIsInEditMode(false)}
+          testIdPrefix="SheltersSection"
+          addNewButton={
+            <AddNewButton
+              onClick={handleAddNewShelter}
+              label={t('stopDetails.shelters.addNewShelter')}
+              testId={testIds.addShelter}
+            />
+          }
         />
       ) : (
         <SheltersViewList shelters={shelters} />

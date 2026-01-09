@@ -71,6 +71,8 @@ export const MaintenanceSection: FC<MaintenanceSectionProps> = ({ stop }) => {
           defaultValues={maintenanceFormDefaults}
           ref={formRef}
           onSubmit={onSubmit}
+          onCancel={() => infoContainerControls.setIsInEditMode(false)}
+          testIdPrefix={testIds.prefix}
         />
       ) : (
         <MaintenanceViewCard stop={stop} />

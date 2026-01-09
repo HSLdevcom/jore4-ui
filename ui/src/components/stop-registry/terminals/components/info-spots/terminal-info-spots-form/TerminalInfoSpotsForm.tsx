@@ -3,6 +3,7 @@ import { ForwardRefRenderFunction, forwardRef, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
+import { FormActionButtons } from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { PosterState } from '../../../../stops/stop-details/info-spots/types';
 import { TerminalInfoSpotFormState, terminalInfoSpotSchema } from '../types';
@@ -19,13 +20,26 @@ type TerminalInfoSpotsFormProps = {
   readonly setFormIsDirty?: (val: boolean) => void;
   readonly onSubmit: (state: TerminalInfoSpotFormState) => void;
   readonly terminal: EnrichedParentStopPlace;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
+  readonly addNewButton?: React.ReactNode;
 };
 
 const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   TerminalInfoSpotsFormProps
 > = (
-  { className, defaultValues, setFormIsDirty, onSubmit, terminal, infoSpot },
+  {
+    className,
+    defaultValues,
+    setFormIsDirty,
+    onSubmit,
+    terminal,
+    infoSpot,
+    onCancel,
+    testIdPrefix,
+    addNewButton,
+  },
   ref,
 ) => {
   const methods = useForm<TerminalInfoSpotFormState>({
@@ -82,6 +96,15 @@ const TerminalInfoSpotsFormComponent: ForwardRefRenderFunction<
             addPoster={addNewPoster}
           />
         </div>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          addNewButton={addNewButton}
+          className="mx-0 my-0"
+        />
       </form>
     </FormProvider>
   );

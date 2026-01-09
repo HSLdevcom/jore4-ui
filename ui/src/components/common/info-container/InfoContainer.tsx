@@ -1,8 +1,6 @@
 import { Transition } from '@headlessui/react';
 import { FC, JSXElementConstructor, ReactNode, isValidElement } from 'react';
-import { useTranslation } from 'react-i18next';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { SimpleButton } from '../../../uiComponents';
 import { DefaultHeaderButtons } from './DefaultHeaderButtons';
 import { InfoContainerColors } from './InfoContainerColors';
 import { InfoContainerControls } from './InfoContainerControls';
@@ -61,16 +59,12 @@ type InfoContainerProps = {
    * See also headerButtons.
    */
   readonly title: ReactNode;
-  readonly addNewButton?: ReactNode;
-  readonly disableSaveButton?: boolean;
 };
 
 const testIds = {
   title: (prefix: string) => `${prefix}::title`,
   container: (prefix: string) => `${prefix}::container`,
   content: (prefix: string) => `${prefix}::content`,
-  cancelButton: (prefix: string) => `${prefix}::cancelButton`,
-  saveButton: (prefix: string) => `${prefix}::saveButton`,
 };
 
 // Proper docstring within the {@link InfoContainerProps} type
@@ -80,15 +74,11 @@ export const InfoContainer: FC<InfoContainerProps> = ({
   colors: { backgroundColor, borderColor },
   controls,
   headerButtons: HeaderButtons = DefaultHeaderButtons,
-  addNewButton,
   testIdPrefix = '',
   title,
   bodyClassName,
-  disableSaveButton,
 }) => {
-  const { t } = useTranslation();
-
-  const { isExpanded, isEditable, isInEditMode } = controls;
+  const { isExpanded } = controls;
 
   return (
     <div
@@ -135,28 +125,6 @@ export const InfoContainer: FC<InfoContainerProps> = ({
         >
           {children}
         </div>
-
-        {isEditable && isInEditMode && (
-          <div className="flex items-center justify-end space-x-2 border-t border-[--borderColor] bg-[--backgroundColor] px-4 py-2">
-            {addNewButton && <div className="mr-auto">{addNewButton}</div>}
-
-            <SimpleButton
-              inverted
-              onClick={controls.onCancel}
-              testId={testIds.cancelButton(testIdPrefix)}
-            >
-              {t('cancel')}
-            </SimpleButton>
-
-            <SimpleButton
-              onClick={controls.onSave}
-              testId={testIds.saveButton(testIdPrefix)}
-              disabled={disableSaveButton}
-            >
-              {t('save')}
-            </SimpleButton>
-          </div>
-        )}
       </Transition>
     </div>
   );

@@ -40,6 +40,8 @@ export const OwnerDetailsSection: FC<TerminalComponentProps> = ({
           terminal={terminal}
           onFinishEditing={() => infoContainerControls.setIsInEditMode(false)}
           ref={formRef}
+          onCancel={() => infoContainerControls.onCancel()}
+          testIdPrefix="TerminalOwnerDetailsSection"
         />
       ) : (
         <OwnerDetailsViewCard terminal={terminal} />

@@ -2,7 +2,6 @@ import { FC, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoSpotDetailsFragment } from '../../../../../../generated/graphql';
 import { EnrichedParentStopPlace } from '../../../../../../types';
-import { SimpleButton } from '../../../../../../uiComponents';
 import { showSuccessToast, submitFormByRef } from '../../../../../../utils';
 import { useInfoContainerControls } from '../../../../../common';
 import { useEditTerminalInfoSpots } from '../queries';
@@ -11,11 +10,6 @@ import { TerminalInfoSpotsViewCard } from '../TerminalInfoSpotsViewCard';
 import { TerminalInfoSpotFormState, TerminalInfoSpotRowProps } from '../types';
 import { mapTerminalInfoSpotDataToFormState } from '../utils';
 import { TerminalInfoSpotRowHeader } from './TerminalInfoSpotRowHeader';
-
-const testIds = {
-  saveButton: 'TerminalInfoSpotRow::saveButton',
-  cancelButton: 'TerminalInfoSpotRow::cancelButton',
-};
 
 const useExistingInfoSpotFormDefaultValues = (
   infoSpot: Readonly<InfoSpotDetailsFragment>,
@@ -37,7 +31,7 @@ export const TerminalInfoSpotRow: FC<TerminalInfoSpotRowProps> = ({
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(openByDefault ?? false);
-  const [formIsDirty, setFormIsDirty] = useState(false);
+  const [, setFormIsDirty] = useState(false);
 
   const { saveTerminalInfoSpots, defaultErrorHandler } =
     useEditTerminalInfoSpots();
@@ -102,26 +96,10 @@ export const TerminalInfoSpotRow: FC<TerminalInfoSpotRowProps> = ({
                 ref={formRef}
                 terminal={terminal}
                 onSubmit={onSubmit}
+                onCancel={() => infoContainerControls.onCancel()}
+                testIdPrefix="TerminalInfoSpotRow"
                 setFormIsDirty={setFormIsDirty}
               />
-            </div>
-
-            <div className="flex items-center justify-end space-x-2 border-b border-border-hsl-commuter-train-purple bg-[--backgroundColor] px-4 py-2">
-              <SimpleButton
-                inverted
-                onClick={infoContainerControls.onCancel}
-                testId={testIds.cancelButton}
-              >
-                {t('cancel')}
-              </SimpleButton>
-
-              <SimpleButton
-                onClick={infoContainerControls.onSave}
-                testId={testIds.saveButton}
-                disabled={!formIsDirty}
-              >
-                {t('save')}
-              </SimpleButton>
             </div>
           </td>
         </tr>

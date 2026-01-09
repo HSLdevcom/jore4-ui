@@ -38,7 +38,7 @@ import {
   useDefaultErrorHandler,
   usePrepareEdit,
 } from '../../map/stops/hooks/useEditStop';
-import { ValidationError } from '../common';
+import { FormActionButtons, ValidationError } from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import { Location, PublicCodeAndArea, VersionInfo } from './components';
 import { TimingPlaceModal } from './TimingPlaceModal';
@@ -253,6 +253,8 @@ type StopFormProps = {
   readonly className?: string;
   readonly editing: boolean;
   readonly defaultValues: DefaultValues<StopFormState>;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 } & (
   | {
       readonly onSubmit: (changes: CreateChanges | EditChanges) => void;
@@ -270,7 +272,18 @@ type StopFormProps = {
 const StopFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   StopFormProps
-> = ({ className, editing, defaultValues, onSubmit, submitState }, ref) => {
+> = (
+  {
+    className,
+    editing,
+    defaultValues,
+    onSubmit,
+    submitState,
+    onCancel,
+    testIdPrefix,
+  },
+  ref,
+) => {
   const { t } = useTranslation();
 
   const methods = useForm<StopFormState>({
@@ -350,25 +363,38 @@ const StopFormComponent: ForwardRefRenderFunction<
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form
-        className={twMerge('text-sm font-normal', className)}
+        className={twMerge(
+          'flex min-h-0 flex-1 flex-col text-sm font-normal',
+          className,
+        )}
         onSubmit={handleSubmit(onFormSubmit)}
         ref={ref}
       >
-        <PublicCodeAndArea
-          className="p-4"
-          publicCodeDisabled={editing}
-          // Either editing or stop creating was initiated from a Stip Area.
-          stopAreaDisabled={!!defaultValues.stopArea}
-        />
-        <Location className="p-4" />
-        <VersionInfo className="border-t border-light-grey p-4" />
-
-        {missingId ?? (
-          <ValidationError
-            errorMessage={t('stops.missingIds')}
-            fieldPath="stopId"
+        <div className="min-h-0 flex-1 overflow-auto">
+          <PublicCodeAndArea
+            className="p-4"
+            publicCodeDisabled={editing}
+            // Either editing or stop creating was initiated from a Stip Area.
+            stopAreaDisabled={!!defaultValues.stopArea}
           />
-        )}
+          <Location className="p-4" />
+          <VersionInfo className="border-t border-light-grey p-4" />
+
+          {missingId ?? (
+            <ValidationError
+              errorMessage={t('stops.missingIds')}
+              fieldPath="stopId"
+            />
+          )}
+        </div>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+          className="mx-0 my-0 border border-light-grey bg-background"
+        />
       </form>
 
       <Visible visible={isTimingPlaceModalOpen}>

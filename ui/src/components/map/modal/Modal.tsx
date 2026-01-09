@@ -54,8 +54,8 @@ type ModalProps = {
   readonly testId?: string;
   readonly heading: ReactNode;
   readonly onClose: () => void;
-  readonly onCancel: () => void;
-  readonly onSave: () => void;
+  readonly onCancel?: () => void;
+  readonly onSave?: () => void;
   readonly children: ReactNode;
   readonly navigationContext: NavigationContext;
 };
@@ -90,11 +90,13 @@ export const Modal: FC<ModalProps> = ({
       <ModalBody className={twMerge('overflow-auto', bodyClassName)}>
         {children}
       </ModalBody>
-      <ModalFooter
-        className={footerClassName}
-        onCancel={onCancel}
-        onSave={onSave}
-      />
+      {onCancel && onSave && (
+        <ModalFooter
+          className={footerClassName}
+          onCancel={onCancel}
+          onSave={onSave}
+        />
+      )}
     </div>
   );
 };

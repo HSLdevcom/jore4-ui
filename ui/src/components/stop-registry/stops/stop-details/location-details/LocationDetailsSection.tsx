@@ -74,6 +74,8 @@ export const LocationDetailsSection: FC<LocationDetailsSectionProps> = ({
           stop={stop}
           ref={formRef}
           onSubmit={onSubmit}
+          onCancel={() => infoContainerControls.setIsInEditMode(false)}
+          testIdPrefix="LocationDetailsSection"
         />
       ) : (
         <>

@@ -601,11 +601,6 @@ describe('Stop details', () => {
         alternativeNames.getAbbreviationFin().shouldHaveText('Pohj.esplanadi');
         alternativeNames.getAbbreviationSwe().shouldHaveText('N.esplanaden');
         alternativeNames.getAbbreviationEng().shouldHaveText('N.esplanade');
-
-        // Should be able to save without changing anything.
-        stopDetailsPage.basicDetails.getSaveButton().click();
-
-        toast.expectSuccessToast('Pysäkki muokattu');
       },
     );
 
@@ -3038,49 +3033,5 @@ describe('Stop details', () => {
       stopDetailsPage.loadingStopDetails().should('not.exist');
       stopDetailsPage.validityPeriod().should('contain', '15.3.2030-25.3.2030');
     });
-  });
-
-  // A regression test to ensure that our mutations don't eg. reset any fields they are not supposed to.
-  it('should keep stop place intact when submitting without actual changes', () => {
-    stopDetailsPage.visit('H2003');
-    stopDetailsPage.page().shouldBeVisible();
-
-    verifyInitialBasicDetails();
-    verifyInitialLocationDetails();
-    verifyInitialSignageDetails();
-
-    // Submit each section, without any actual changes.
-    stopDetailsPage.basicDetails.getEditButton().click();
-    stopDetailsPage.basicDetails.getSaveButton().click();
-    toast.expectSuccessToast('Pysäkki muokattu');
-
-    stopDetailsPage.locationDetails.getEditButton().click();
-    stopDetailsPage.locationDetails.getSaveButton().click();
-    toast.expectSuccessToast('Pysäkki muokattu');
-
-    stopDetailsPage.signageDetails.getEditButton().click();
-    stopDetailsPage.signageDetails.getSaveButton().click();
-    toast.expectSuccessToast('Pysäkki muokattu');
-
-    stopDetailsPage.technicalFeaturesTabButton().click();
-    stopDetailsPage.shelters.getEditButton().click();
-    stopDetailsPage.shelters.getSaveButton().click();
-    toast.expectSuccessToast('Pysäkki muokattu');
-
-    stopDetailsPage.measurements.getEditButton().click();
-    stopDetailsPage.measurements.getSaveButton().click();
-    toast.expectSuccessToast('Pysäkki muokattu');
-
-    // The stop should have same data as when we started.
-    stopDetailsPage.basicDetailsTabButton().click();
-    verifyInitialBasicDetails();
-    verifyInitialLocationDetails();
-    verifyInitialSignageDetails();
-    verifyInitialExternalLinks();
-
-    stopDetailsPage.technicalFeaturesTabButton().click();
-    verifyInitialShelters();
-    verifyInitialMeasurements();
-    verifyInitialMaintenanceDetails();
   });
 });

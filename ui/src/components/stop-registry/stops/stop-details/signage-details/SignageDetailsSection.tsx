@@ -68,6 +68,8 @@ export const SignageDetailsSection: FC<SignageDetailsSectionProps> = ({
           defaultValues={defaultValues}
           ref={formRef}
           onSubmit={onSubmit}
+          onCancel={() => infoContainerControls.setIsInEditMode(false)}
+          testIdPrefix="SignageDetailsSection"
         />
       ) : (
         <SignageDetailsViewCard stop={stop} />

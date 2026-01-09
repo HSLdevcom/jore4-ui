@@ -190,7 +190,7 @@ describe('Stop editing tests', () => {
         .getReasonForChangeInput()
         .clearAndType('Kopioitu versio');
       stopForm.priorityForm.setAsTemporary();
-      cy.getByTestId('Modal::saveButton').click();
+      cy.getByTestId('CopyStopModal::saveButton').click();
 
       expectGraphQLCallToSucceed('@gqlInsertQuayIntoStopPlace');
       expectGraphQLCallToSucceed('@gqlInsertStopPoint');
@@ -432,7 +432,7 @@ describe('Stop editing tests', () => {
         .getReasonForChangeInput()
         .clearAndType('Kopioitu versio');
       stopForm.priorityForm.setAsStandard();
-      cy.getByTestId('Modal::saveButton').click();
+      cy.getByTestId('CopyStopModal::saveButton').click();
 
       toast.expectDangerToast(
         'Pysäkin kopiointi epäonnistui: voimassaoloaika ja prioriteetti aiheuttavat päällekkäisyyden olemassa olevan version kanssa.',

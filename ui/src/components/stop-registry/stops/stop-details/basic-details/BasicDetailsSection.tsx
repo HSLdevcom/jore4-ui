@@ -73,6 +73,8 @@ export const BasicDetailsSection: FC<BasicDetailsSectionProps> = ({ stop }) => {
           ref={formRef}
           onSubmit={onSubmit}
           stop={stop}
+          onCancel={() => infoContainerControls.setIsInEditMode(false)}
+          testIdPrefix="BasicDetailsSection"
         />
       ) : (
         <BasicDetailsViewCard stop={stop} />

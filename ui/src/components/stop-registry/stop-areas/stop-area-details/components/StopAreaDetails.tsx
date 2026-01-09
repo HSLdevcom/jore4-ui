@@ -53,6 +53,8 @@ export const StopAreaDetails: FC<EditableStopAreaComponentProps> = ({
           ref={formRef}
           refetch={refetch}
           onFinishEditing={() => infoContainerControls.setIsInEditMode(false)}
+          onCancel={() => infoContainerControls.onCancel()}
+          testIdPrefix={testIds.editPrefix}
         />
       ) : (
         <StopAreaDetailsView area={area} />

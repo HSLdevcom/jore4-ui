@@ -12,7 +12,11 @@ import {
   selectIsTimingPlaceModalOpen,
 } from '../../../../../../redux';
 import { StopWithDetails } from '../../../../../../types';
-import { FormColumn, ReasonForChangeForm } from '../../../../../forms/common';
+import {
+  FormActionButtons,
+  FormColumn,
+  ReasonForChangeForm,
+} from '../../../../../forms/common';
 import { useDirtyFormBlockNavigation } from '../../../../../forms/common/NavigationBlocker';
 import { TimingPlaceModal } from '../../../../../forms/stop/TimingPlaceModal';
 import { StopAreaDetailsSection } from '../BasicDetailsStopAreaFields';
@@ -26,12 +30,17 @@ type StopBasicDetailsFormComponentProps = {
   readonly defaultValues: Partial<StopBasicDetailsFormState>;
   readonly onSubmit: (state: StopBasicDetailsFormState) => void;
   readonly stop: StopWithDetails;
+  readonly onCancel: () => void;
+  readonly testIdPrefix: string;
 };
 
 const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
   HTMLFormElement,
   StopBasicDetailsFormComponentProps
-> = ({ className, defaultValues, onSubmit, stop }, ref) => {
+> = (
+  { className, defaultValues, onSubmit, stop, onCancel, testIdPrefix },
+  ref,
+) => {
   const dispatch = useDispatch();
   const isTimingPlaceModalOpen = useAppSelector(selectIsTimingPlaceModalOpen);
 
@@ -43,7 +52,7 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
   const { handleSubmit } = methods;
 
   const onTimingPlaceCreated = (timingPlaceId: UUID) => {
-    methods.setValue('timingPlaceId', timingPlaceId);
+    methods.setValue('timingPlaceId', timingPlaceId, { shouldDirty: true });
   };
 
   const openTimingPlaceModal = () => {
@@ -65,6 +74,13 @@ const StopBasicDetailsFormComponent: ForwardRefRenderFunction<
           <HorizontalSeparator />
           <ReasonForChangeForm />
         </FormColumn>
+        <FormActionButtons
+          onCancel={onCancel}
+          testIdPrefix={testIdPrefix}
+          isDisabled={
+            !methods.formState.isDirty || methods.formState.isSubmitting
+          }
+        />
       </form>
       <Visible visible={isTimingPlaceModalOpen}>
         <TimingPlaceModal onTimingPlaceCreated={onTimingPlaceCreated} />

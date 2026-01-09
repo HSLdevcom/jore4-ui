@@ -41,6 +41,8 @@ export const TerminalDetails: FC<TerminalComponentProps> = ({
           terminal={terminal}
           onFinishEditing={() => infoContainerControls.setIsInEditMode(false)}
           ref={formRef}
+          onCancel={() => infoContainerControls.onCancel()}
+          testIdPrefix="TerminalDetailsSection"
         />
       ) : (
         <TerminalDetailsView terminal={terminal} />

@@ -7,12 +7,12 @@ import { Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
 import { FormContainer, SimpleButton } from '../../../uiComponents';
 import { submitFormByRef } from '../../../utils';
-import { refineValidityPeriodSchema } from '../common';
 import {
   ChangeValidityForm,
   FormState as ChangeValidityFormState,
   schema as changeValidityFormSaveFormSchema,
-} from '../common/ChangeValidityForm';
+  refineValidityPeriodSchema,
+} from '../common';
 import { useDirtyFormBlockNavigation } from '../common/NavigationBlocker';
 import {
   LinePropertiesForm,
@@ -39,7 +39,6 @@ type LineFormProps = {
 export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
   const navigate = useNavigate();
   const formRef = useRef<ExplicitAny>(null);
-
   const { t } = useTranslation();
 
   const methods = useForm<FormState>({
@@ -86,6 +85,9 @@ export const LineForm: FC<LineFormProps> = ({ defaultValues, onSubmit }) => {
             onClick={onSave}
             id="save-button"
             testId={testIds.saveButton}
+            disabled={
+              !methods.formState.isDirty || methods.formState.isSubmitting
+            }
           >
             {t('save')}
           </SimpleButton>
