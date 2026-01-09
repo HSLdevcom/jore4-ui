@@ -37,6 +37,10 @@ export type RoutePropertiesFormProps = {
   readonly onSubmit: (state: FormState) => void;
   readonly onCancel: () => void;
   readonly testIdPrefix: string;
+  readonly onDelete?: () => void;
+  readonly deleteButtonText?: string;
+  readonly actionButtonsClassName?: string;
+  readonly variant?: 'infoContainer' | 'modal';
 };
 
 const testIds = {
@@ -61,6 +65,10 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     onSubmit,
     onCancel,
     testIdPrefix,
+    onDelete,
+    deleteButtonText,
+    actionButtonsClassName,
+    variant,
   },
   ref,
 ) => {
@@ -93,7 +101,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
     <FormProvider {...methods}>
       <form
         id={id ?? 'route-properties-form'}
-        className={twMerge('flex min-h-0 flex-1 flex-col', className)}
+        className={twMerge('flex flex-col', className)}
         onSubmit={handleSubmit(onSubmit)}
         ref={ref}
       >
@@ -200,7 +208,11 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
           isDisabled={
             !methods.formState.isDirty || methods.formState.isSubmitting
           }
-          className="mx-0 my-0 border border-light-grey bg-background"
+          isSubmitting={methods.formState.isSubmitting}
+          className={actionButtonsClassName}
+          onDelete={onDelete}
+          deleteButtonText={deleteButtonText}
+          variant={variant}
         />
       </form>
     </FormProvider>
