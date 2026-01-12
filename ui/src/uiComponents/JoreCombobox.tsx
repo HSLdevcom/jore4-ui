@@ -4,8 +4,8 @@ import { Noop } from 'react-hook-form';
 import { MdCheck } from 'react-icons/md';
 import { twJoin } from 'tailwind-merge';
 import { JoreComboboxButton, comboboxStyles } from './headlessHelpers';
-import { dropdownTransition } from './Listbox';
-import { ListboxOptionItem } from './ListboxOptions';
+import { dropdownTransition } from './JoreListbox';
+import { ListboxOptionItem } from './JoreListboxOptions';
 
 export const testIds = {
   input: (testId: string) => `${testId}::input`,
@@ -20,7 +20,7 @@ export type ComboboxInputProps = {
 
 export type ComboboxOptionItem = ListboxOptionItem<string>;
 
-type ComboboxProps = ComboboxInputProps & {
+type JoreComboboxProps = ComboboxInputProps & {
   readonly id?: string;
   readonly buttonContent: ReactNode;
   readonly testId?: string;
@@ -29,7 +29,7 @@ type ComboboxProps = ComboboxInputProps & {
   readonly nullable?: boolean;
 };
 
-export const Combobox: FC<ComboboxProps> = ({
+export const JoreCombobox: FC<JoreComboboxProps> = ({
   id,
   buttonContent,
   testId,

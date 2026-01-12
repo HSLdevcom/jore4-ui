@@ -1,5 +1,9 @@
 import { ReactNode } from 'react';
-import { Combobox, ComboboxInputProps, ComboboxOptionItem } from './Combobox';
+import {
+  ComboboxInputProps,
+  ComboboxOptionItem,
+  JoreCombobox,
+} from './JoreCombobox';
 
 type SearchableDropdownProps<T> = ComboboxInputProps & {
   readonly id?: string;
@@ -56,7 +60,7 @@ export const SearchableDropdown = <T,>({
   const allOptions = [...(nullOption ? [nullOption] : []), ...options];
 
   return (
-    <Combobox
+    <JoreCombobox
       value={value ?? ''} // Replace undefined value with empty string to avoid error
       buttonContent={query === '' ? mapToButtonContent(selectedItem) : null}
       options={allOptions}

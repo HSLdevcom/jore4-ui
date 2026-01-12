@@ -1,7 +1,7 @@
 import { ReactElement, Ref, forwardRef } from 'react';
 import {
   BaseFormInputProps,
-  Listbox,
+  JoreListbox,
   ListboxOptionItem,
 } from '../../../uiComponents';
 import { AllOptionEnum, NullOptionEnum } from '../../../utils';
@@ -103,7 +103,7 @@ const EnumDropdownImpl = <TEnum extends string>(
   const mappedValue = value === null ? 'null' : value;
 
   return (
-    <Listbox
+    <JoreListbox
       id={id}
       testId={testId ?? testIds.enumDropdown}
       buttonContent={

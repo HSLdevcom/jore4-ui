@@ -1,8 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { fireFullMouseClickSequence, render } from '../utils/test-utils';
-import { Combobox, testIds } from './Combobox';
+import { JoreCombobox, testIds } from './JoreCombobox';
 
-describe('<Combobox />', () => {
+describe('<JoreCombobox />', () => {
   const testId = 'combobox1';
   const buttonContent = `button`;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -16,7 +16,7 @@ describe('<Combobox />', () => {
 
   test('Opens dropdown when clicked', async () => {
     render(
-      <Combobox
+      <JoreCombobox
         testId={testId}
         buttonContent={buttonContent}
         onChange={onChange}
@@ -40,7 +40,7 @@ describe('<Combobox />', () => {
 
   test('Changes query on input', async () => {
     render(
-      <Combobox
+      <JoreCombobox
         testId={testId}
         buttonContent={buttonContent}
         onChange={onChange}

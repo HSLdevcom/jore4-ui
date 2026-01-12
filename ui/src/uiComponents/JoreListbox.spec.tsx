@@ -1,6 +1,6 @@
 import { screen, waitFor } from '@testing-library/react';
 import { fireFullMouseClickSequence, render } from '../utils/test-utils';
-import { Listbox } from './Listbox';
+import { JoreListbox } from './JoreListbox';
 
 describe('<Listbox />', () => {
   const testId = 'listbox1';
@@ -16,7 +16,7 @@ describe('<Listbox />', () => {
 
   test('Opens dropdown when clicked', async () => {
     render(
-      <Listbox
+      <JoreListbox
         testId={testId}
         buttonContent={buttonContent}
         onChange={onChange}

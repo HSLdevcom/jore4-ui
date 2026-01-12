@@ -4,8 +4,8 @@ import { FC, Fragment, ReactNode } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
 import { AllOptionEnum } from '../utils/enum';
 import { JoreListboxButton, multiselectListboxStyles } from './headlessHelpers';
-import { ValueFn, dropdownTransition } from './Listbox';
-import { ListboxOptionItem, ListboxOptions } from './ListboxOptions';
+import { ValueFn, dropdownTransition } from './JoreListbox';
+import { JoreListboxOptions, ListboxOptionItem } from './JoreListboxOptions';
 
 type MultiSelectFormInputProps = {
   readonly value?: ReadonlyArray<string>;
@@ -113,7 +113,7 @@ export const MultiSelectListbox: FC<MultiSelectListboxProps> = ({
 
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>
-            <ListboxOptions
+            <JoreListboxOptions
               className={multiselectListboxStyles.options()}
               optionClassName={multiselectListboxStyles.option()}
               options={options}

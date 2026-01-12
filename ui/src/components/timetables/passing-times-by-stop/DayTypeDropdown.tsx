@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Listbox, ListboxOptionItem, ValueFn } from '../../../uiComponents';
+import { JoreListbox, ListboxOptionItem, ValueFn } from '../../../uiComponents';
 
 const testIds = {
   dropdown: 'DayTypeDropdown',
@@ -31,7 +31,7 @@ export const DayTypeDropdown: FC<DayTypeDropdownProps> = ({
   );
 
   return (
-    <Listbox
+    <JoreListbox
       id={id}
       testId={testId ?? testIds.dropdown}
       buttonContent={uiNameMapper(value)}

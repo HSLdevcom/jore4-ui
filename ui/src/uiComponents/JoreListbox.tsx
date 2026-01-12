@@ -6,7 +6,7 @@ import {
 import { Fragment, ReactElement, ReactNode, Ref, forwardRef } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
 import { JoreListboxButton, listboxStyles } from './headlessHelpers';
-import { ListboxOptionItem, ListboxOptions } from './ListboxOptions';
+import { JoreListboxOptions, ListboxOptionItem } from './JoreListboxOptions';
 
 export const dropdownTransition: TransitionClasses = {
   enter: 'transition ease-out duration-100',
@@ -37,7 +37,7 @@ export type TypedFormInputProps<ValueType> = BaseFormInputProps & {
   readonly onChange: (newValue: ValueType) => void;
 };
 
-type ListboxProps<ValueType> = TypedFormInputProps<ValueType> & {
+type JoreListboxProps<ValueType> = TypedFormInputProps<ValueType> & {
   readonly id?: string;
   readonly buttonClassNames?: string;
   readonly buttonContent: ReactNode;
@@ -46,7 +46,7 @@ type ListboxProps<ValueType> = TypedFormInputProps<ValueType> & {
   readonly testId?: string;
 };
 
-const ListboxImpl = <ValueType extends string>(
+const JoreListboxImpl = <ValueType extends string>(
   {
     id,
     buttonContent,
@@ -59,7 +59,7 @@ const ListboxImpl = <ValueType extends string>(
     onBlur,
     fieldState,
     disabled = false,
-  }: ListboxProps<ValueType>,
+  }: JoreListboxProps<ValueType>,
   ref: Ref<HTMLDivElement>,
 ): ReactElement => {
   const hasError = !!fieldState?.error;
@@ -87,7 +87,7 @@ const ListboxImpl = <ValueType extends string>(
 
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>
-            <ListboxOptions
+            <JoreListboxOptions
               testId={`${testId}::ListboxOptions`}
               options={options}
             />
@@ -98,7 +98,9 @@ const ListboxImpl = <ValueType extends string>(
   );
 };
 
-export const Listbox = forwardRef(ListboxImpl) as (<ValueType extends string>(
-  p: ListboxProps<ValueType> & { ref?: Ref<HTMLDivElement> },
+export const JoreListbox = forwardRef(JoreListboxImpl) as (<
+  ValueType extends string,
+>(
+  p: JoreListboxProps<ValueType> & { ref?: Ref<HTMLDivElement> },
 ) => ReactElement) & { displayName?: string };
-Listbox.displayName = 'Listbox';
+JoreListbox.displayName = 'JoreListbox';

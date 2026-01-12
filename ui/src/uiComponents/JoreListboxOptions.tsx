@@ -32,7 +32,7 @@ export type ListboxOptionItem<ValueType> =
       readonly content: ReactNode;
     };
 
-type ListboxOptionsProps<ValueType> = {
+type JoreListboxOptionsProps<ValueType> = {
   readonly className?: string;
   readonly optionClassName?: string;
   readonly options: ReadonlyArray<ListboxOptionItem<ValueType>>;
@@ -40,13 +40,13 @@ type ListboxOptionsProps<ValueType> = {
 };
 
 // HUIListbox throws an error if ref is not set when using children component for options
-const ListboxOptionsImpl = <ValueType extends string>(
+const JoreListboxOptionsImpl = <ValueType extends string>(
   {
     className,
     optionClassName,
     options,
     testId,
-  }: ListboxOptionsProps<ValueType>,
+  }: JoreListboxOptionsProps<ValueType>,
   ref: Ref<HTMLDivElement>,
 ): ReactElement => (
   <HUIListbox.Options
@@ -70,9 +70,9 @@ const ListboxOptionsImpl = <ValueType extends string>(
   </HUIListbox.Options>
 );
 
-export const ListboxOptions = forwardRef(ListboxOptionsImpl) as (<
+export const JoreListboxOptions = forwardRef(JoreListboxOptionsImpl) as (<
   ValueType extends string = string,
 >(
-  p: ListboxOptionsProps<ValueType> & { ref?: Ref<HTMLDivElement> },
+  p: JoreListboxOptionsProps<ValueType> & { ref?: Ref<HTMLDivElement> },
 ) => ReactElement) & { displayName?: string | undefined };
-ListboxOptions.displayName = 'ListboxOptions';
+JoreListboxOptions.displayName = 'JoreListboxOptions';

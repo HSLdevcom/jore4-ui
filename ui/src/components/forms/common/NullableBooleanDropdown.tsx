@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../i18n';
 import {
   BaseFormInputProps,
-  Listbox,
+  JoreListbox,
   ListboxOptionItem,
 } from '../../../uiComponents';
 
@@ -101,7 +101,7 @@ export const NullableBooleanDropdown: FC<NullableBooleanDropdownProps> = ({
   };
 
   return (
-    <Listbox
+    <JoreListbox
       id={id}
       testId={testId ?? testIds.dropdown}
       buttonContent={uiNameMapper(mappedValue)}

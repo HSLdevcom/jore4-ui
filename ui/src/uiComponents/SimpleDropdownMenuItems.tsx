@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Children, FC, Fragment, ReactNode } from 'react';
 import { dropdownMenuStyles } from './headlessHelpers';
-import { dropdownTransition } from './Listbox';
+import { dropdownTransition } from './JoreListbox';
 
 type SimpleDropdownMenuItemsProps = {
   readonly className?: string;
