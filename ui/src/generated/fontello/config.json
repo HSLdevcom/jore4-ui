@@ -512,7 +512,7 @@
     },
     {
       "uid": "b63829d445bfa2caf1a5d9b6aebefc1e",
-      "css": "park-&-ride",
+      "css": "park-and-ride",
       "code": 59431,
       "src": "custom_icons",
       "selected": true,
@@ -521,7 +521,7 @@
         "width": 1000
       },
       "search": [
-        "park-&-ride"
+        "park-and-ride"
       ]
     },
     {
