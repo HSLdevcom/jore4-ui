@@ -6,6 +6,7 @@ ui/out
 ui/graphql.schema.json
 
 ui/src/generated/*
+ui/next-env.d.ts
 
 # external docker dependencies
 docker
