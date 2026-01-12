@@ -3,10 +3,10 @@ import {
   Transition,
   TransitionClasses,
 } from '@headlessui/react';
-import { FC, Fragment, ReactNode } from 'react';
+import { Fragment, ReactElement, ReactNode, Ref, forwardRef } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
-import { ListboxButton } from './ListboxButton';
-import { ListboxOptionRenderer, ListboxOptions } from './ListboxOptions';
+import { JoreListboxButton, listboxStyles } from './headlessHelpers';
+import { ListboxOptionItem, ListboxOptions } from './ListboxOptions';
 
 export const dropdownTransition: TransitionClasses = {
   enter: 'transition ease-out duration-100',
@@ -20,62 +20,71 @@ export const dropdownTransition: TransitionClasses = {
 // copied from HeadlessUI Listbox as it's not exported
 export type ValueFn = (...event: ExplicitAny[]) => void;
 
-export type FormInputProps = {
-  readonly value?: string;
-  readonly onChange: ValueFn;
+// TODO: Move and/or inline these into a proper/better place
+export type BaseFormInputProps = {
   readonly onBlur?: Noop;
   readonly fieldState?: ControllerFieldState;
   readonly disabled?: boolean;
 };
 
-type ListboxProps = FormInputProps & {
-  readonly id?: string;
-  readonly buttonContent: ReactNode;
-  readonly testId?: string;
-  readonly options: ReadonlyArray<ListboxOptionRenderer>;
-  readonly buttonClassNames?: string;
-  readonly arrowButtonClassNames?: string;
+export type FormInputProps = BaseFormInputProps & {
+  readonly value?: string;
+  readonly onChange: ValueFn;
 };
 
-export const Listbox: FC<ListboxProps> = ({
-  id,
-  buttonContent,
-  testId,
-  options,
-  value,
-  onChange,
-  onBlur,
-  fieldState,
-  buttonClassNames,
-  arrowButtonClassNames,
-  disabled = false,
-}) => {
-  const onItemSelected = (val: string) => {
-    const event = { target: { value: val } };
-    onChange(event);
-  };
+export type TypedFormInputProps<ValueType> = BaseFormInputProps & {
+  readonly value?: ValueType;
+  readonly onChange: (newValue: ValueType) => void;
+};
 
+type ListboxProps<ValueType> = TypedFormInputProps<ValueType> & {
+  readonly id?: string;
+  readonly buttonClassNames?: string;
+  readonly buttonContent: ReactNode;
+  readonly className?: string;
+  readonly options: ReadonlyArray<ListboxOptionItem<ValueType>>;
+  readonly testId?: string;
+};
+
+const ListboxImpl = <ValueType extends string>(
+  {
+    id,
+    buttonContent,
+    buttonClassNames,
+    className,
+    testId,
+    options,
+    value,
+    onChange,
+    onBlur,
+    fieldState,
+    disabled = false,
+  }: ListboxProps<ValueType>,
+  ref: Ref<HTMLDivElement>,
+): ReactElement => {
   const hasError = !!fieldState?.error;
 
   return (
     <HUIListbox
       id={id ?? 'listbox'}
       as="div"
-      className="relative"
+      className={listboxStyles.root(className)}
       value={value}
-      onChange={onItemSelected}
+      onChange={onChange}
       onBlur={onBlur}
       disabled={disabled}
+      ref={ref}
     >
       {({ open }) => (
         <>
-          <ListboxButton
-            arrowButtonClassNames={arrowButtonClassNames}
-            buttonClassNames={buttonClassNames}
+          <JoreListboxButton
+            className={buttonClassNames}
             hasError={hasError}
             testId={`${testId}::ListboxButton`}
-            buttonContent={buttonContent}
-          />
+          >
+            {buttonContent}
+          </JoreListboxButton>
+
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <ListboxOptions
@@ -88,3 +97,8 @@ export const Listbox: FC<ListboxProps> = ({
     </HUIListbox>
   );
 };
+
+export const Listbox = forwardRef(ListboxImpl) as (<ValueType extends string>(
+  p: ListboxProps<ValueType> & { ref?: Ref<HTMLDivElement> },
+) => ReactElement) & { displayName?: string };
+Listbox.displayName = 'Listbox';

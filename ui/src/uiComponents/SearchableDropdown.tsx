@@ -1,10 +1,5 @@
-import { ReactElement } from 'react';
-import {
-  Combobox,
-  ComboboxEvent,
-  ComboboxInputProps,
-  ComboboxOptionRenderer,
-} from './Combobox';
+import { ReactNode } from 'react';
+import { Combobox, ComboboxInputProps, ComboboxOptionItem } from './Combobox';
 
 type SearchableDropdownProps<T> = ComboboxInputProps & {
   readonly id?: string;
@@ -12,10 +7,18 @@ type SearchableDropdownProps<T> = ComboboxInputProps & {
   readonly query: string;
   readonly selectedItem: T | undefined;
   readonly onQueryChange: (query: string) => void;
-  readonly mapToButtonContent: (displayedItem?: T) => ReactElement;
-  readonly nullOptionRender?: () => ReactElement;
-  readonly options: ReadonlyArray<ComboboxOptionRenderer>;
-};
+  readonly mapToButtonContent: (displayedItem?: T) => ReactNode;
+  readonly options: ReadonlyArray<ComboboxOptionItem>;
+} & (
+    | {
+        readonly nullOptionContent: ReactNode;
+        readonly onChange: (newValue: string | null) => void;
+      }
+    | {
+        readonly nullOptionContent?: never;
+        readonly onChange: (newValue: string) => void;
+      }
+  );
 
 export const SearchableDropdown = <T,>({
   selectedItem,
@@ -24,17 +27,21 @@ export const SearchableDropdown = <T,>({
   value,
   onChange,
   mapToButtonContent,
-  nullOptionRender,
+  nullOptionContent,
   onQueryChange: parentOnQueryChange,
   ...otherProps
 }: SearchableDropdownProps<T>) => {
-  const nullOption = nullOptionRender
-    ? { key: 'none', value: null, render: nullOptionRender }
+  const nullOption = nullOptionContent
+    ? { value: 'null', content: nullOptionContent }
     : undefined;
 
-  const onItemSelected = (e: ComboboxEvent) => {
+  const onItemSelected = (newValue: string) => {
     parentOnQueryChange('');
-    onChange(e);
+    if (nullOptionContent) {
+      onChange(newValue === 'null' ? null : newValue);
+    } else {
+      onChange(newValue);
+    }
   };
 
   const onQueryChange = (str: string) => {

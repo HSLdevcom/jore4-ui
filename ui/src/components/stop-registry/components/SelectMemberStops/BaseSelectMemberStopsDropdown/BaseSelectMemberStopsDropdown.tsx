@@ -1,7 +1,9 @@
 import { Combobox as HUICombobox, Transition } from '@headlessui/react';
 import { FC, ReactNode, useMemo, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
-import { dropdownTransition } from '../../../../../uiComponents';
+import {
+  comboboxStyles,
+  dropdownTransition,
+} from '../../../../../uiComponents';
 import { log } from '../../../../../utils';
 import {
   FETCH_MORE_OPTION,
@@ -108,7 +110,7 @@ export const BaseSelectMemberStopsDropdown: FC<
     <HUICombobox
       as="div"
       by={compareMembersById}
-      className={twMerge('relative w-full', className)}
+      className={comboboxStyles.root(className)}
       disabled={disabled}
       multiple
       nullable={false}
@@ -117,40 +119,39 @@ export const BaseSelectMemberStopsDropdown: FC<
       ref={onCloseRef}
       data-testid={testId}
     >
-      {renderWarning?.()}
+      {({ open }) => (
+        <>
+          {renderWarning?.()}
+          <div className="relative w-full">
+            <HUICombobox.Input
+              className={comboboxStyles.input()}
+              onChange={(e) => setQuery(e.target.value)}
+              value={query}
+              aria-label={inputAriaLabel}
+              data-testid={testIds.input}
+            />
 
-      <div className="relative w-full">
-        <HUICombobox.Input
-          className="relative h-full w-full border border-grey bg-white px-2 py-3 ui-open:rounded-b-none ui-not-open:rounded-md"
-          onChange={(e) => setQuery(e.target.value)}
-          value={query}
-          aria-label={inputAriaLabel}
-          data-testid={testIds.input}
-        />
+            <SelectMemberStopsDropdownButton selected={value} />
+          </div>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Transition show={open} {...dropdownTransition}>
+            <HUICombobox.Options as="div" className={comboboxStyles.options()}>
+              <SelectedMemberStops
+                selected={value}
+                hoveredStopPlaceId={hoveredStopPlaceId}
+                onHover={setHoveredStopPlaceId}
+              />
+              <MemberStopOptions options={unselectedOptions} allowDisable />
 
-        <SelectMemberStopsDropdownButton selected={value} />
-      </div>
-
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <Transition {...dropdownTransition}>
-        <HUICombobox.Options
-          as="div"
-          className="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
-        >
-          <SelectedMemberStops
-            selected={value}
-            hoveredStopPlaceId={hoveredStopPlaceId}
-            onHover={setHoveredStopPlaceId}
-          />
-          <MemberStopOptions options={unselectedOptions} allowDisable />
-
-          <SelectMemberStopQueryStatus
-            allFetched={allFetched}
-            loading={loading}
-            query={cleanQuery}
-          />
-        </HUICombobox.Options>
-      </Transition>
+              <SelectMemberStopQueryStatus
+                allFetched={allFetched}
+                loading={loading}
+                query={cleanQuery}
+              />
+            </HUICombobox.Options>
+          </Transition>
+        </>
+      )}
     </HUICombobox>
   );
 };

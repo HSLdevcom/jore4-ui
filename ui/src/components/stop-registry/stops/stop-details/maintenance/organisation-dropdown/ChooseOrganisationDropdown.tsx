@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../../generated/graphql';
 import {
+  ComboboxOptionItem,
   FormInputProps as ListboxInputProps,
   SearchableDropdown,
 } from '../../../../../../uiComponents';
@@ -15,16 +16,18 @@ type ChooseOrganisationDropdownProps = ListboxInputProps & {
   readonly optionAmount?: number;
 };
 
-const mapToOption = (item: StopPlaceOrganisationFieldsFragment) => ({
-  key: item.id ?? '',
+const mapToOption = (
+  item: StopPlaceOrganisationFieldsFragment,
+): ComboboxOptionItem => ({
   value: item.id ?? '',
-  render: () => <span>{item.name ?? ''}</span>,
+  content: item.name,
 });
 
-const createNewOrganisationOption = (t: (key: string) => string) => ({
-  key: CREATE_NEW_ORGANISATION_OPTION,
+const createNewOrganisationOption = (
+  t: (key: string) => string,
+): ComboboxOptionItem => ({
   value: CREATE_NEW_ORGANISATION_OPTION,
-  render: () => (
+  content: (
     <div className="flex items-center gap-2">
       {t('stopDetails.maintenance.organisation.createNewOrganisation')}
       <AiFillPlusCircle className="text-m text-brand" />
@@ -54,19 +57,17 @@ export const ChooseOrganisationDropdown: FC<
     return <div className="w-full">{displayedOrganisation?.name ?? '-'}</div>;
   };
 
-  const nullOptionRender = () => (
-    <div className="flex flex-col">
-      {t('stopDetails.maintenance.organisation.noContractor')}
-    </div>
-  );
-
   return (
     <SearchableDropdown
       id="choose-organisation-combobox"
       query={query}
       testId={testId}
       mapToButtonContent={mapToButtonContent}
-      nullOptionRender={query ? undefined : nullOptionRender}
+      nullOptionContent={
+        query
+          ? undefined
+          : t('stopDetails.maintenance.organisation.noContractor')
+      }
       options={options}
       value={value}
       onChange={onChange}

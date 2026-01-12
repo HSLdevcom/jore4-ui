@@ -1,14 +1,9 @@
-import { Listbox as HUIListbox, Transition } from '@headlessui/react';
 import pick from 'lodash/pick';
 import { FC } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { twMerge } from 'tailwind-merge';
-import {
-  ListboxButton,
-  dropdownTransition,
-} from '../../../../../../uiComponents';
-import { InputLabel } from '../../../../../forms/common';
+import { Column } from '../../../../../../layoutComponents';
+import { EnumDropdown, InputLabel } from '../../../../../forms/common';
 import { SearchFor, StopSearchFilters, defaultFilters } from '../../../types';
 import { trSearchFor } from '../../../utils';
 import { stopSearchBarTestIds } from '../stopSearchBarTestIds';
@@ -34,55 +29,26 @@ export const SearchForDropdown: FC<SearchForDropdownProps> = ({
 
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    field: { onChange: _unusedOnChange, value, ...controls },
+    field: { onChange: _unusedOnChange, ...controls },
   } = useController<StopSearchFilters, 'searchFor'>({
     name: 'searchFor',
   });
 
   return (
-    <HUIListbox
-      as="div"
-      className={twMerge('relative', className)}
-      onChange={onChange}
-      value={value}
-      data-testid={stopSearchBarTestIds.searchForDropdown}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...controls}
-    >
-      <HUIListbox.Label
-        as={InputLabel<StopSearchFilters>}
+    <Column className={className}>
+      <InputLabel
         fieldPath="searchFor"
         translationPrefix="stopRegistrySearch.fieldLabels"
       />
-
-      <ListboxButton
-        hasError={false}
-        buttonContent={trSearchFor(t, value)}
-        testId={`${stopSearchBarTestIds.searchForDropdown}::ListboxButton`}
+      <EnumDropdown<SearchFor>
+        placeholder=""
+        enumType={SearchFor}
+        onChange={onChange}
+        testId={stopSearchBarTestIds.searchForDropdown}
+        uiNameMapper={(key) => trSearchFor(t, key) ?? ''}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...controls}
       />
-
-      <HUIListbox.Options>
-        {({ open }) => (
-          <Transition
-            data-testid={`${stopSearchBarTestIds.searchForDropdown}::ListboxOptions`}
-            className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
-            show={open}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...dropdownTransition}
-          >
-            {Object.values(SearchFor).map((searchFor) => (
-              <HUIListbox.Option
-                as="div"
-                className="group flex border-b border-grey px-2 py-2 text-left ui-selected:bg-dark-grey ui-selected:text-white ui-active:bg-dark-grey ui-active:text-white"
-                key={searchFor}
-                value={searchFor}
-              >
-                {trSearchFor(t, searchFor)}
-              </HUIListbox.Option>
-            ))}
-          </Transition>
-        )}
-      </HUIListbox.Options>
-    </HUIListbox>
+    </Column>
   );
 };

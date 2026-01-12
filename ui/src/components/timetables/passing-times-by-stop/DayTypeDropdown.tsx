@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Listbox, ValueFn } from '../../../uiComponents';
+import { Listbox, ListboxOptionItem, ValueFn } from '../../../uiComponents';
 
 const testIds = {
   dropdown: 'DayTypeDropdown',
@@ -26,19 +26,9 @@ export const DayTypeDropdown: FC<DayTypeDropdownProps> = ({
   values,
   ...formInputProps
 }) => {
-  const mapToOption = (item: string) => ({
-    key: item,
-    value: item,
-    render: () => {
-      return (
-        <div className="cursor-default">
-          <div className="ml-2 mr-2">{uiNameMapper(item)}</div>
-        </div>
-      );
-    },
-  });
-
-  const options = values.map((item) => mapToOption(item));
+  const options: ReadonlyArray<ListboxOptionItem<string>> = values.map(
+    (item) => ({ value: item, content: uiNameMapper(item) }),
+  );
 
   return (
     <Listbox
@@ -47,7 +37,6 @@ export const DayTypeDropdown: FC<DayTypeDropdownProps> = ({
       buttonContent={uiNameMapper(value)}
       options={options}
       value={value}
-      arrowButtonClassNames="text-hsl-dark-80"
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />

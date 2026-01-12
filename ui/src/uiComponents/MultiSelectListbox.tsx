@@ -3,9 +3,9 @@ import first from 'lodash/first';
 import { FC, Fragment, ReactNode } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
 import { AllOptionEnum } from '../utils/enum';
+import { JoreListboxButton, multiselectListboxStyles } from './headlessHelpers';
 import { ValueFn, dropdownTransition } from './Listbox';
-import { ListboxButton } from './ListboxButton';
-import { ListboxOptionRenderer, ListboxOptions } from './ListboxOptions';
+import { ListboxOptionItem, ListboxOptions } from './ListboxOptions';
 
 type MultiSelectFormInputProps = {
   readonly value?: ReadonlyArray<string>;
@@ -18,15 +18,17 @@ type MultiSelectFormInputProps = {
 type MultiSelectListboxProps = MultiSelectFormInputProps & {
   readonly id?: string;
   readonly buttonContent: ReactNode;
-  readonly testId: string;
-  readonly options: ReadonlyArray<ListboxOptionRenderer>;
   readonly buttonClassNames?: string;
-  readonly arrowButtonClassNames?: string;
+  readonly className?: string;
+  readonly testId: string;
+  readonly options: ReadonlyArray<ListboxOptionItem<string>>;
 };
 
 export const MultiSelectListbox: FC<MultiSelectListboxProps> = ({
   id,
   buttonContent,
+  buttonClassNames,
+  className,
   testId,
   options,
   value,
@@ -34,8 +36,6 @@ export const MultiSelectListbox: FC<MultiSelectListboxProps> = ({
   onBlur,
   fieldState,
   disabled,
-  buttonClassNames,
-  arrowButtonClassNames,
 }) => {
   const getRemovedItem = (
     changedItems: ReadonlyArray<string>,
@@ -94,7 +94,7 @@ export const MultiSelectListbox: FC<MultiSelectListboxProps> = ({
     <HUIListbox
       id={id ?? 'multiSelectListbox'}
       as="div"
-      className="relative"
+      className={multiselectListboxStyles.root(className)}
       value={value}
       onChange={onItemSelect}
       onBlur={onBlur}
@@ -103,16 +103,19 @@ export const MultiSelectListbox: FC<MultiSelectListboxProps> = ({
     >
       {({ open }) => (
         <>
-          <ListboxButton
-            arrowButtonClassNames={arrowButtonClassNames}
-            buttonClassNames={buttonClassNames}
+          <JoreListboxButton
+            className={multiselectListboxStyles.button(buttonClassNames)}
             hasError={hasError}
             testId={`${testId}::ListboxButton`}
-            buttonContent={buttonContent}
-          />
+          >
+            {buttonContent}
+          </JoreListboxButton>
+
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <ListboxOptions
+              className={multiselectListboxStyles.options()}
+              optionClassName={multiselectListboxStyles.option()}
               options={options}
               testId={`${testId}::ListboxOptions`}
             />

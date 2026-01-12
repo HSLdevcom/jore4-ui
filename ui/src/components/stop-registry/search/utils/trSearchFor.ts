@@ -1,8 +1,7 @@
 import { TFunction } from 'i18next';
-import { ReactNode } from 'react';
 import { SearchFor } from '../types';
 
-export function trSearchFor(t: TFunction, searchFor: SearchFor): ReactNode {
+export function trSearchFor(t: TFunction, searchFor: SearchFor): string | null {
   switch (searchFor) {
     case SearchFor.Stops:
       return t('stopRegistrySearch.searchFor.stops');

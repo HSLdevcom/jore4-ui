@@ -11,7 +11,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 1`] = `
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3 focus:outline-none ui-open:rounded-b-none ui-open:border-b-0 ui-open:pb-[calc(0.75rem+1px)] ui-not-open:rounded-b-md ui-not-open:border-b ui-not-open:pb-3"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r5:"
@@ -22,7 +22,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 1`] = `
     <button
       aria-expanded="false"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::button"
       id="headlessui-combobox-button-:r6:"
@@ -35,7 +35,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 1`] = `
         Valitse reitti
       </div>
       <svg
-        class="ml-auto mr-1 text-2xl text-tweaked-brand"
+        class="mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -53,7 +53,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 1`] = `
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out rotate-0"
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -72,7 +72,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 2`] = `
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3 focus:outline-none ui-open:rounded-b-none ui-open:border-b-0 ui-open:pb-[calc(0.75rem+1px)] ui-not-open:rounded-b-md ui-not-open:border-b ui-not-open:pb-3"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r5:"
@@ -83,7 +83,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 2`] = `
     <button
       aria-expanded="false"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::button"
       id="headlessui-combobox-button-:r6:"
@@ -96,7 +96,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 2`] = `
         Valitse reitti
       </div>
       <svg
-        class="ml-auto mr-1 text-2xl text-tweaked-brand"
+        class="mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -114,7 +114,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 2`] = `
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out rotate-0"
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -135,7 +135,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
       aria-autocomplete="list"
       aria-controls="headlessui-combobox-options-:r7:"
       aria-expanded="true"
-      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3 focus:outline-none ui-open:rounded-b-none ui-open:border-b-0 ui-open:pb-[calc(0.75rem+1px)] ui-not-open:rounded-b-md ui-not-open:border-b ui-not-open:pb-3"
       data-headlessui-state="open"
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r5:"
@@ -147,7 +147,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
       aria-controls="headlessui-combobox-options-:r7:"
       aria-expanded="true"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
       data-headlessui-state="open"
       data-testid="ChooseRouteDropdown1::button"
       id="headlessui-combobox-button-:r6:"
@@ -155,7 +155,7 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
       type="button"
     >
       <svg
-        class="ml-auto mr-1 text-2xl text-tweaked-brand"
+        class="mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -173,63 +173,60 @@ exports[`<ChooseRouteDropdown /> Filters shown routes when query is set 3`] = `
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out -rotate-180"
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>
     <div
       aria-labelledby="headlessui-combobox-button-:r6:"
-      class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
+      class="absolute left-0 z-10 min-w-full overflow-hidden rounded-b-md border border-black border-opacity-20 bg-white shadow-md transition ease-out duration-100 opacity-0 scale-95"
       data-headlessui-state="open"
       id="headlessui-combobox-options-:r7:"
       role="listbox"
     >
       <div
         aria-selected="false"
+        class="flex items-center border-b last:border-b-0 p-2 text-left focus:outline-none cursor-default ui-active:bg-dark-grey ui-active:text-white ui-selected:bg-dark-grey ui-selected:text-white ui-disabled:cursor-not-allowed ui-disabled:bg-light-grey"
         data-headlessui-state="active"
         id="headlessui-combobox-option-:r8:"
         role="option"
         tabindex="-1"
       >
-        <span
-          class="bg-background flex group text-left pr-2 py-2 focus:outline-none items-center border-b border-grey cursor-pointer"
+        <svg
+          class="mx-1 text-2xl invisible"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            class="mx-1 text-2xl invisible"
-            fill="currentColor"
-            height="1em"
-            stroke="currentColor"
-            stroke-width="0"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-            <path
-              d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-            />
-          </svg>
+          <path
+            d="M0 0h24v24H0z"
+            fill="none"
+          />
+          <path
+            d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+          />
+        </svg>
+        <div>
           <div
-            class="flex flex-col"
+            data-testid="label-and-name"
           >
-            <div>
-              <span
-                class="font-bold"
-              >
-                123
-              </span>
-               | route 123
-            </div>
-            <div
-              class="text-sm"
+            <span
+              class="font-bold"
             >
-              21.3.2022 - 29.3.2022
-            </div>
+              123
+            </span>
+             | route 123
           </div>
-        </span>
+          <div
+            class="text-sm"
+          >
+            21.3.2022 - 29.3.2022
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -247,7 +244,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3 focus:outline-none ui-open:rounded-b-none ui-open:border-b-0 ui-open:pb-[calc(0.75rem+1px)] ui-not-open:rounded-b-md ui-not-open:border-b ui-not-open:pb-3"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r0:"
@@ -258,7 +255,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
     <button
       aria-expanded="false"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::button"
       id="headlessui-combobox-button-:r1:"
@@ -271,7 +268,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         Valitse reitti
       </div>
       <svg
-        class="ml-auto mr-1 text-2xl text-tweaked-brand"
+        class="mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -289,7 +286,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out rotate-0"
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -308,7 +305,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
     <input
       aria-autocomplete="list"
       aria-expanded="false"
-      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3 focus:outline-none ui-open:rounded-b-none ui-open:border-b-0 ui-open:pb-[calc(0.75rem+1px)] ui-not-open:rounded-b-md ui-not-open:border-b ui-not-open:pb-3"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r0:"
@@ -319,7 +316,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
     <button
       aria-expanded="false"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
       data-headlessui-state=""
       data-testid="ChooseRouteDropdown1::button"
       id="headlessui-combobox-button-:r1:"
@@ -332,7 +329,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         Valitse reitti
       </div>
       <svg
-        class="ml-auto mr-1 text-2xl text-tweaked-brand"
+        class="mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -350,7 +347,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out rotate-0"
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>
@@ -371,7 +368,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
       aria-autocomplete="list"
       aria-controls="headlessui-combobox-options-:r2:"
       aria-expanded="true"
-      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3"
+      class="relative h-full w-full rounded-md border border-grey bg-white px-2 py-3 focus:outline-none ui-open:rounded-b-none ui-open:border-b-0 ui-open:pb-[calc(0.75rem+1px)] ui-not-open:rounded-b-md ui-not-open:border-b ui-not-open:pb-3"
       data-headlessui-state="open"
       data-testid="ChooseRouteDropdown1::input"
       id="headlessui-combobox-input-:r0:"
@@ -383,7 +380,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
       aria-controls="headlessui-combobox-options-:r2:"
       aria-expanded="true"
       aria-haspopup="listbox"
-      class="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
+      class="absolute inset-y-0 right-0 flex h-full items-center justify-end px-3 text-left focus:outline-none w-full"
       data-headlessui-state="open"
       data-testid="ChooseRouteDropdown1::button"
       id="headlessui-combobox-button-:r1:"
@@ -396,7 +393,7 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         Valitse reitti
       </div>
       <svg
-        class="ml-auto mr-1 text-2xl text-tweaked-brand"
+        class="mr-1 text-2xl text-tweaked-brand"
         fill="currentColor"
         height="1em"
         stroke="currentColor"
@@ -414,110 +411,104 @@ exports[`<ChooseRouteDropdown /> Opens dropdown when clicked and shows all route
         />
       </svg>
       <i
-        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out -rotate-180"
+        class="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style="font-size: 10px;"
       />
     </button>
     <div
       aria-labelledby="headlessui-combobox-button-:r1:"
-      class="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none transition ease-out duration-100 opacity-0 scale-95"
+      class="absolute left-0 z-10 min-w-full overflow-hidden rounded-b-md border border-black border-opacity-20 bg-white shadow-md transition ease-out duration-100 opacity-0 scale-95"
       data-headlessui-state="open"
       id="headlessui-combobox-options-:r2:"
       role="listbox"
     >
       <div
         aria-selected="false"
+        class="flex items-center border-b last:border-b-0 p-2 text-left focus:outline-none cursor-default ui-active:bg-dark-grey ui-active:text-white ui-selected:bg-dark-grey ui-selected:text-white ui-disabled:cursor-not-allowed ui-disabled:bg-light-grey"
         data-headlessui-state="active"
         id="headlessui-combobox-option-:r3:"
         role="option"
         tabindex="-1"
       >
-        <span
-          class="bg-background flex group text-left pr-2 py-2 focus:outline-none items-center border-b border-grey cursor-pointer"
+        <svg
+          class="mx-1 text-2xl invisible"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            class="mx-1 text-2xl invisible"
-            fill="currentColor"
-            height="1em"
-            stroke="currentColor"
-            stroke-width="0"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-            <path
-              d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-            />
-          </svg>
+          <path
+            d="M0 0h24v24H0z"
+            fill="none"
+          />
+          <path
+            d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+          />
+        </svg>
+        <div>
           <div
-            class="flex flex-col"
+            data-testid="label-and-name"
           >
-            <div>
-              <span
-                class="font-bold"
-              >
-                123
-              </span>
-               | route 123
-            </div>
-            <div
-              class="text-sm"
+            <span
+              class="font-bold"
             >
-              21.3.2022 - 29.3.2022
-            </div>
+              123
+            </span>
+             | route 123
           </div>
-        </span>
+          <div
+            class="text-sm"
+          >
+            21.3.2022 - 29.3.2022
+          </div>
+        </div>
       </div>
       <div
         aria-selected="false"
+        class="flex items-center border-b last:border-b-0 p-2 text-left focus:outline-none cursor-default ui-active:bg-dark-grey ui-active:text-white ui-selected:bg-dark-grey ui-selected:text-white ui-disabled:cursor-not-allowed ui-disabled:bg-light-grey"
         data-headlessui-state=""
         id="headlessui-combobox-option-:r4:"
         role="option"
         tabindex="-1"
       >
-        <span
-          class=" flex group text-left pr-2 py-2 focus:outline-none items-center border-b border-grey cursor-pointer"
+        <svg
+          class="mx-1 text-2xl invisible"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            class="mx-1 text-2xl invisible"
-            fill="currentColor"
-            height="1em"
-            stroke="currentColor"
-            stroke-width="0"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-            <path
-              d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-            />
-          </svg>
+          <path
+            d="M0 0h24v24H0z"
+            fill="none"
+          />
+          <path
+            d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+          />
+        </svg>
+        <div>
           <div
-            class="flex flex-col"
+            data-testid="label-and-name"
           >
-            <div>
-              <span
-                class="font-bold"
-              >
-                456
-              </span>
-               | route 456
-            </div>
-            <div
-              class="text-sm"
+            <span
+              class="font-bold"
             >
-              2.1.2021 - 31.12.2022
-            </div>
+              456
+            </span>
+             | route 456
           </div>
-        </span>
+          <div
+            class="text-sm"
+          >
+            2.1.2021 - 31.12.2022
+          </div>
+        </div>
       </div>
     </div>
   </div>

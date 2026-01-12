@@ -1,7 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
-import { Children, FC, Fragment, ReactNode, isValidElement } from 'react';
-import { twJoin, twMerge } from 'tailwind-merge';
-import { addClassName } from '../utils';
+import { Children, FC, Fragment, ReactNode } from 'react';
+import { dropdownMenuStyles } from './headlessHelpers';
 import { dropdownTransition } from './Listbox';
 
 type SimpleDropdownMenuItemsProps = {
@@ -11,6 +10,8 @@ type SimpleDropdownMenuItemsProps = {
   readonly alignItems: AlignDirection;
 };
 
+// TODO: Redo these, currently Left === LeftBottom == NoAlign, Right === RightBottom, with Top rendering "TopLeft".
+// We should only have TopLeft, TopRight, BottomLeft & BottomRight
 export enum AlignDirection {
   Top,
   Right,
@@ -23,23 +24,19 @@ export enum AlignDirection {
 function getAlignClassName(alignItems: AlignDirection) {
   switch (alignItems) {
     case AlignDirection.Top:
-      return 'bottom-[calc(100%+10px)]';
+      return 'left-0 bottom-[calc(100%+10px)] rounded-t-md rounded-b-none';
     case AlignDirection.Right:
       return 'left-0';
     case AlignDirection.RightBottom:
       return 'left-0 top-full';
     case AlignDirection.Left:
-      return 'right-0';
+      return 'right-0 left-auto';
     case AlignDirection.LeftBottom:
-      return 'right-0 top-full';
+      return 'right-0 left-auto top-full';
     default:
       return '';
   }
 }
-
-const commonClassName = `absolute z-10 origin-top-right overflow-visible bg-white text-black shadow-md focus:outline-none`;
-const commonMenuItemClassName = `border-x border-b first-of-type:border-t whitespace-nowrap border-black w-full py-1 px-2 focus:outline-none text-left block`;
-const activeMenuItemClassName = `bg-dark-grey text-white`;
 
 export const SimpleDropdownMenuItems: FC<SimpleDropdownMenuItemsProps> = ({
   className,
@@ -54,25 +51,20 @@ export const SimpleDropdownMenuItems: FC<SimpleDropdownMenuItemsProps> = ({
     <Transition show={isOpen} as={Fragment} {...dropdownTransition}>
       <Menu.Items
         static
-        className={twMerge(commonClassName, alignClassName, className)}
-      >
-        {Children.map(children, (child) =>
-          isValidElement(child) ? (
-            <Menu.Item>
-              {({ active }) =>
-                addClassName(
-                  child,
-                  twJoin(
-                    commonMenuItemClassName,
-                    active ? activeMenuItemClassName : '',
-                  ),
-                )
-              }
-            </Menu.Item>
-          ) : (
-            <Menu.Item>{child}</Menu.Item>
-          ),
+        className={dropdownMenuStyles.options(
+          'origin-top-right',
+          alignClassName,
+          className,
         )}
+      >
+        {Children.map(children, (child) => (
+          <Menu.Item
+            as="div"
+            className={dropdownMenuStyles.option('whitespace-nowrap')}
+          >
+            {child}
+          </Menu.Item>
+        ))}
       </Menu.Items>
     </Transition>
   );

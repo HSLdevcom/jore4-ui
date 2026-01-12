@@ -1,6 +1,5 @@
-import { Combobox as HUICombobox } from '@headlessui/react';
 import { FC } from 'react';
-import { MdSearch } from 'react-icons/md';
+import { JoreComboboxButton } from '../../../../../uiComponents';
 import { SelectedStop } from './schema';
 
 const testIds = {
@@ -17,22 +16,13 @@ export const SelectMemberStopsDropdownButton: FC<
   const selectedText = selected.map((stop) => stop.publicCode).join(', ');
 
   return (
-    <HUICombobox.Button
-      data-testid={testIds.button}
-      className="absolute inset-y-0 right-0 flex h-full w-full items-center justify-end px-3 text-left focus:outline-none"
-    >
+    <JoreComboboxButton className="w-full" testId={testIds.button}>
       <span
-        className="hidden min-w-0 flex-1 truncate ui-not-open:block"
+        className="mr-auto hidden min-w-0 flex-1 truncate ui-not-open:block"
         title={selectedText}
       >
         {selectedText}
       </span>
-
-      <MdSearch className="ml-auto mr-1 text-2xl text-tweaked-brand" />
-      <i
-        className="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
-        style={{ fontSize: 10 }}
-      />
-    </HUICombobox.Button>
+    </JoreComboboxButton>
   );
 };

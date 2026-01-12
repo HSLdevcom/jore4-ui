@@ -1,6 +1,6 @@
 import { Listbox as HUIListbox } from '@headlessui/react';
-import { ReactNode, forwardRef, isValidElement } from 'react';
-import { addClassName } from '../utils/components';
+import { ReactElement, ReactNode, Ref, forwardRef } from 'react';
+import { listboxStyles } from './headlessHelpers';
 
 // copied from HeadlessUI Listbox as it's not exported
 export type OptionRenderPropArg = {
@@ -9,56 +9,70 @@ export type OptionRenderPropArg = {
   readonly disabled: boolean;
 };
 
-export type ListboxOptionRenderer = {
-  readonly key: string;
-  readonly value: string;
-  readonly render: (props: OptionRenderPropArg) => ReactNode;
-};
+function wrapInFragment(
+  renderer: (props: OptionRenderPropArg) => ReactNode,
+): (props: OptionRenderPropArg) => ReactElement {
+  const wrapped = (props: OptionRenderPropArg) => <>{renderer(props)}</>;
 
-type ListboxOptionsProps = {
-  readonly options: ReadonlyArray<ListboxOptionRenderer>;
+  const name = renderer.name || 'unnamed render function';
+  wrapped.displayName = `ListboxOptionFragmentWrapper(${name})`;
+
+  return wrapped;
+}
+
+export type ListboxOptionItem<ValueType> =
+  | {
+      readonly value: ValueType;
+      readonly render: (props: OptionRenderPropArg) => ReactNode;
+      readonly content?: never;
+    }
+  | {
+      readonly value: ValueType;
+      readonly render?: never;
+      readonly content: ReactNode;
+    };
+
+type ListboxOptionsProps<ValueType> = {
+  readonly className?: string;
+  readonly optionClassName?: string;
+  readonly options: ReadonlyArray<ListboxOptionItem<ValueType>>;
   readonly testId: string;
 };
 
 // HUIListbox throws an error if ref is not set when using children component for options
-export const ListboxOptions = forwardRef<HTMLDivElement, ListboxOptionsProps>(
-  // eslint-disable-next-line prefer-arrow-callback
-  function ListboxOptions({ options, testId }, ref) {
-    return (
-      <HUIListbox.Options
+const ListboxOptionsImpl = <ValueType extends string>(
+  {
+    className,
+    optionClassName,
+    options,
+    testId,
+  }: ListboxOptionsProps<ValueType>,
+  ref: Ref<HTMLDivElement>,
+): ReactElement => (
+  <HUIListbox.Options
+    as="div"
+    data-testid={testId}
+    ref={ref}
+    className={listboxStyles.options(className)}
+  >
+    {options?.map((item) => (
+      <HUIListbox.Option
         as="div"
-        data-testid={testId}
-        ref={ref}
-        className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
+        className={listboxStyles.option(optionClassName)}
+        id={`listbox-option-${item.value}`}
+        key={item.value}
+        value={item.value}
+        data-testid={`${testId}::${item.value}`}
       >
-        <div>
-          {options?.map((item) => (
-            <HUIListbox.Option
-              as="div"
-              id={`listbox-option-${item.key}`}
-              key={item.key}
-              value={item.value}
-              data-testid={`${testId}::${item.key}`}
-            >
-              {(optionProps) => {
-                const child = item.render(optionProps);
-                return isValidElement(child) ? (
-                  addClassName(
-                    child,
-                    `${
-                      optionProps.active ? 'bg-dark-grey text-white' : ''
-                    } flex group text-left px-2 py-2 border-b border-grey`,
-                  )
-                ) : (
-                  // HUIListboxOption requires all the rendered children to be of type ReactElement.
-                  // eslint-disable-next-line react/jsx-no-useless-fragment
-                  <>{child}</>
-                );
-              }}
-            </HUIListbox.Option>
-          ))}
-        </div>
-      </HUIListbox.Options>
-    );
-  },
+        {'content' in item ? item.content : wrapInFragment(item.render)}
+      </HUIListbox.Option>
+    ))}
+  </HUIListbox.Options>
 );
+
+export const ListboxOptions = forwardRef(ListboxOptionsImpl) as (<
+  ValueType extends string = string,
+>(
+  p: ListboxOptionsProps<ValueType> & { ref?: Ref<HTMLDivElement> },
+) => ReactElement) & { displayName?: string | undefined };
+ListboxOptions.displayName = 'ListboxOptions';

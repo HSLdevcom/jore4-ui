@@ -2,8 +2,8 @@ import first from 'lodash/first';
 import isUndefined from 'lodash/isUndefined';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MultiSelectListbox } from '../../../uiComponents';
-import { OptionRenderPropArg } from '../../../uiComponents/ListboxOptions';
+import { MdCheck } from 'react-icons/md';
+import { ListboxOptionItem, MultiSelectListbox } from '../../../uiComponents';
 import { AllOptionEnum, getEnumValues } from '../../../utils';
 import { EnumDropdownProps } from './EnumDropdown';
 
@@ -26,24 +26,14 @@ export const EnumMultiSelectDropdown = <TEnum extends string>({
 
   const values = [...getEnumValues(AllOptionEnum), ...getEnumValues(enumType)];
 
-  const mapToOption = (item: string) => ({
-    key: item,
-    value: item,
-    render: function EnumOption(optionRenderProps: OptionRenderPropArg) {
-      return (
-        <div className="cursor-default">
-          <input
-            type="checkbox"
-            className="mr-2 h-5 w-6"
-            checked={optionRenderProps.selected}
-            readOnly
-          />
-          <div className="ml-1 mr-2">
-            {uiNameMapper(item as unknown as TEnum)}
-          </div>
-        </div>
-      );
-    },
+  const mapToOption = (item: string): ListboxOptionItem<TEnum> => ({
+    value: item as TEnum,
+    content: (
+      <>
+        <MdCheck className="mr-2 rounded border border-grey text-2xl" />
+        <span>{uiNameMapper(item as unknown as TEnum)}</span>
+      </>
+    ),
   });
 
   const getButtonContent = (inputValue?: string): string => {
