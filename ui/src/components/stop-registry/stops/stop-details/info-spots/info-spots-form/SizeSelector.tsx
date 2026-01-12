@@ -1,8 +1,11 @@
-import { Listbox } from '@headlessui/react';
-import { FC } from 'react';
+import { Listbox, Transition } from '@headlessui/react';
+import { FC, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { twMerge } from 'tailwind-merge';
-import { ListboxButton } from '../../../../../../uiComponents';
+import {
+  JoreListboxButton,
+  dropdownTransition,
+  listboxStyles,
+} from '../../../../../../uiComponents';
 import { ItemSizeState, PosterSizeSubMenu } from '../types';
 import { formatOption } from '../utils';
 
@@ -30,42 +33,46 @@ export const SizeSelector: FC<SizeSelectorProps> = ({
   return (
     <Listbox
       as="div"
-      className={twMerge('relative', className)}
+      className={listboxStyles.root(className)}
       disabled={disabled}
       onChange={onChange}
       value={selectedItem}
       data-testid={testId}
     >
-      <ListboxButton
-        id={id}
-        buttonContent={formatOption(t, selectedItem)}
-        hasError={false}
-        testId={`${testId}::ListboxButton`}
-      />
+      {({ open }) => (
+        <>
+          <JoreListboxButton id={id} testId={`${testId}::ListboxButton`}>
+            {formatOption(t, selectedItem)}
+          </JoreListboxButton>
 
-      <Listbox.Options
-        className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
-        data-testid={`${testId}::ListboxOptions`}
-      >
-        {subMenus.map(({ label, options }) => (
-          <li key={label}>
-            <div className="w-full cursor-default border-b border-grey bg-tweaked-brand px-2 py-2 text-white">
-              {label}
-            </div>
-            <ul>
-              {options.map((option) => (
-                <Listbox.Option
-                  className="cursor-default border-b border-grey py-2 pl-4 pr-2 ui-active:bg-dark-grey ui-active:text-white"
-                  key={`${option.uiState}-${option.width}-${option.height}`}
-                  value={option}
-                >
-                  {formatOption(t, option)}
-                </Listbox.Option>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Transition show={open} as={Fragment} {...dropdownTransition}>
+            <Listbox.Options
+              className={listboxStyles.options()}
+              data-testid={`${testId}::ListboxOptions`}
+            >
+              {subMenus.map(({ label, options }) => (
+                <li key={label}>
+                  <div className="w-full cursor-default border-b border-grey bg-tweaked-brand px-2 py-2 text-white">
+                    {label}
+                  </div>
+                  <ul>
+                    {options.map((option) => (
+                      <Listbox.Option
+                        className={listboxStyles.option()}
+                        key={`${option.uiState}-${option.width}-${option.height}`}
+                        value={option}
+                      >
+                        {formatOption(t, option)}
+                      </Listbox.Option>
+                    ))}
+                  </ul>
+                </li>
               ))}
-            </ul>
-          </li>
-        ))}
-      </Listbox.Options>
+            </Listbox.Options>
+          </Transition>
+        </>
+      )}
     </Listbox>
   );
 };

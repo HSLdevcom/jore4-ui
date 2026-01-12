@@ -134,16 +134,16 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     // dropdown is open, both lines show
     const items = screen.queryAllByRole('option');
 
-    expect(items[0].querySelectorAll('div > div')[0].textContent).toBe(
-      `123 | route 123`,
-    );
-    expect(items[0].querySelectorAll('div > div')[1].textContent).toBe(
+    expect(
+      items[0].querySelector('[data-testid="label-and-name"]')?.textContent,
+    ).toBe(`123 | route 123`);
+    expect(items[0].querySelector('.text-sm')?.textContent).toBe(
       `21.3.2022 - 29.3.2022`,
     );
-    expect(items[1].querySelectorAll('div > div')[0].textContent).toBe(
-      `456 | route 456`,
-    );
-    expect(items[1].querySelectorAll('div > div')[1].textContent).toBe(
+    expect(
+      items[1].querySelector('[data-testid="label-and-name"]')?.textContent,
+    ).toBe(`456 | route 456`);
+    expect(items[1].querySelector('.text-sm')?.textContent).toBe(
       `2.1.2021 - 31.12.2022`,
     );
     expect(items.length).toBe(2);
@@ -191,10 +191,10 @@ describe(`<${ChooseRouteDropdown.name} />`, () => {
     // dropdown is open, first line shows
     const items = screen.queryAllByRole('option');
 
-    expect(items[0].querySelectorAll('div > div')[0].textContent).toBe(
-      `123 | route 123`,
-    );
-    expect(items[0].querySelectorAll('div > div')[1].textContent).toBe(
+    expect(
+      items[0].querySelector('[data-testid="label-and-name"]')?.textContent,
+    ).toBe(`123 | route 123`);
+    expect(items[0].querySelector('.text-sm')?.textContent).toBe(
       `21.3.2022 - 29.3.2022`,
     );
     expect(items.length).toBe(1);

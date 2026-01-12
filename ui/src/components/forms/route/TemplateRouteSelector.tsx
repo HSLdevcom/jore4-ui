@@ -5,7 +5,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Column, Row } from '../../../layoutComponents';
 import { Priority } from '../../../types/enums';
-import { ValueFn } from '../../../uiComponents';
 import {
   ObservationDateInput,
   PriorityForm,
@@ -17,7 +16,7 @@ import { ChooseRouteDropdown } from './ChooseRouteDropdown';
 
 type TemplateRouteSelectorProps = {
   readonly value?: UUID;
-  readonly onChange: ValueFn;
+  readonly onChange: (newValue: UUID) => void;
 };
 
 const testIds = {

@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TimingPlaceForComboboxFragment } from '../../../generated/graphql';
 import {
+  ComboboxOptionItem,
   FormInputProps as ListboxInputProps,
   SearchableDropdown,
 } from '../../../uiComponents';
@@ -12,16 +13,11 @@ type ChooseTimingPlaceDropdownProps = ListboxInputProps & {
   readonly optionAmount?: number;
 };
 
-const mapToOptionContent = (item: TimingPlaceForComboboxFragment) => (
-  <div>
-    <span>{`${item.label} (${item.description?.fi_FI})`}</span>
-  </div>
-);
-
-const mapToOption = (item: TimingPlaceForComboboxFragment) => ({
-  key: item.timing_place_id,
+const mapToOption = (
+  item: TimingPlaceForComboboxFragment,
+): ComboboxOptionItem => ({
   value: item.timing_place_id,
-  render: () => mapToOptionContent(item),
+  content: `${item.label} (${item.description?.fi_FI})`,
 });
 
 export const ChooseTimingPlaceDropdown: FC<ChooseTimingPlaceDropdownProps> = ({
@@ -59,17 +55,13 @@ export const ChooseTimingPlaceDropdown: FC<ChooseTimingPlaceDropdownProps> = ({
     );
   };
 
-  const nullOptionRender = () => (
-    <div className="flex flex-col">{t('stops.noTimingPlace')}</div>
-  );
-
   return (
     <SearchableDropdown
       id="choose-timing-place-combobox"
       query={query}
       testId={testId}
       mapToButtonContent={mapToButtonContent}
-      nullOptionRender={nullOptionRender}
+      nullOptionContent={t('stops.noTimingPlace')}
       options={options}
       value={value}
       onChange={onChange}

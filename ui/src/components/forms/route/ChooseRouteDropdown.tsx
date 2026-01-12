@@ -14,25 +14,22 @@ type ChooseRouteDropdownProps = ComboboxInputProps & {
   readonly priorities: ReadonlyArray<Priority>;
 };
 
-const mapToOptionContent = (item: RouteAllFieldsFragment) => (
-  <div className="flex flex-col">
-    <div>
-      <span className="font-bold">{item.label}</span>
-      {` | ${item.name_i18n?.fi_FI}`}
-    </div>
-    <div className="text-sm">
-      <DateRange
-        startDate={item.validity_start ?? MIN_DATE}
-        endDate={item.validity_end ?? MAX_DATE}
-      />
-    </div>
-  </div>
-);
-
 const mapToOption = (item: RouteAllFieldsFragment) => ({
-  key: item.route_id,
   value: item.route_id,
-  render: () => mapToOptionContent(item),
+  content: (
+    <div>
+      <div data-testid="label-and-name">
+        <span className="font-bold">{item.label}</span>
+        {` | ${item.name_i18n?.fi_FI}`}
+      </div>
+      <div className="text-sm">
+        <DateRange
+          startDate={item.validity_start ?? MIN_DATE}
+          endDate={item.validity_end ?? MAX_DATE}
+        />
+      </div>
+    </div>
+  ),
 });
 
 export const ChooseRouteDropdown: FC<ChooseRouteDropdownProps> = ({

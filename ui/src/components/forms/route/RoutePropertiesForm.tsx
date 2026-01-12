@@ -193,7 +193,7 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
               {showTemplateRouteSelector && (
                 <TemplateRouteSelector
                   value={templateRouteId}
-                  onChange={(e) => setTemplateRoute(e.target.value)}
+                  onChange={setTemplateRoute}
                 />
               )}
             </>

@@ -1,11 +1,18 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TranslationKey } from '../../../i18n';
-import { FormInputProps, Listbox } from '../../../uiComponents';
+import {
+  BaseFormInputProps,
+  Listbox,
+  ListboxOptionItem,
+} from '../../../uiComponents';
 
 const testIds = {
   dropdown: 'NullableBooleanDropdown::button',
 };
+
+const values = ['true', 'false', 'null'] as const;
+type ValidStringValue = (typeof values)[number];
 
 type DropdownTranslationKeys = {
   readonly true: TranslationKey;
@@ -13,12 +20,15 @@ type DropdownTranslationKeys = {
   readonly null: TranslationKey;
 };
 
-export type NullableBooleanDropdownProps = FormInputProps & {
+export type NullableBooleanDropdownProps = BaseFormInputProps & {
   readonly id?: string;
   readonly testId?: string;
   readonly className?: string;
   readonly translationKeys?: DropdownTranslationKeys;
   readonly buttonClassName?: string;
+  // Allow string in for compatability with old untyped use sites.
+  readonly value?: boolean | null | ValidStringValue | string;
+  readonly onChange: (newValue: boolean | null) => void;
 };
 
 const defaultTranslationKeys: DropdownTranslationKeys = {
@@ -38,48 +48,67 @@ export const NullableBooleanDropdown: FC<NullableBooleanDropdownProps> = ({
   id,
   testId,
   value,
+  onChange,
   translationKeys = defaultTranslationKeys,
   buttonClassName,
   ...formInputProps
 }) => {
   const { t } = useTranslation();
-  const values = ['true', 'false', 'null'];
 
-  const uiNameMapper = (val: string) => {
+  const uiNameMapper = (val: ValidStringValue) => {
     switch (val) {
       case 'true':
         return t(translationKeys.true ?? defaultTranslationKeys.true);
       case 'false':
         return t(translationKeys.false ?? defaultTranslationKeys.false);
-      case 'null':
-        return t(translationKeys.null ?? defaultTranslationKeys.null);
       default:
-        return '?'; // Should never happen, right?
+        return t(translationKeys.null ?? defaultTranslationKeys.null);
     }
   };
 
-  const mapToOption = (item: string) => ({
-    key: item,
-    value: item,
-    render: function NullableBooleanOption() {
-      return (
-        <div className="cursor-default">
-          <div className="ml-2 mr-2">{uiNameMapper(item)}</div>
-        </div>
-      );
-    },
-  });
+  const options: ReadonlyArray<ListboxOptionItem<ValidStringValue>> =
+    values.map((item) => ({
+      value: item,
+      content: uiNameMapper(item),
+    }));
 
-  const options = values.map((item) => mapToOption(String(item)));
+  if (process.env.NODE_ENV === 'development') {
+    const valueIsValid =
+      value === undefined ||
+      value === null ||
+      typeof value === 'boolean' ||
+      values.includes(value as ValidStringValue);
+
+    if (!valueIsValid) {
+      throw new TypeError(
+        `Invalid value (${value}) passed into <NullableBooleanDropdown>! Supported values are: true, false, null, and their string variants ${values.join(', ')}`,
+      );
+    }
+  }
+
+  const mappedValue: ValidStringValue =
+    typeof value === 'boolean' ? (String(value) as ValidStringValue) : 'null';
+
+  const typeConvertingOnChange = (newValue: ValidStringValue) => {
+    switch (newValue) {
+      case 'true':
+        return onChange(true);
+      case 'false':
+        return onChange(false);
+      default:
+        return onChange(null);
+    }
+  };
 
   return (
     <Listbox
       id={id}
       testId={testId ?? testIds.dropdown}
-      buttonContent={uiNameMapper(String(value ?? null))}
+      buttonContent={uiNameMapper(mappedValue)}
       options={options}
-      value={value}
+      value={mappedValue}
       buttonClassNames={buttonClassName}
+      onChange={typeConvertingOnChange}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
