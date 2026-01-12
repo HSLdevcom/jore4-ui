@@ -2,6 +2,7 @@ import { Menu } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { MdMoreVert } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
+import { dropdownMenuStyles } from './headlessHelpers';
 import {
   AlignDirection,
   SimpleDropdownMenuItems,
@@ -28,7 +29,7 @@ export const SimpleDropdownMenu: FC<SimpleDropdownMenuProps> = ({
   tooltip,
 }) => {
   return (
-    <Menu as="div" className={twMerge('relative', className)}>
+    <Menu as="div" className={dropdownMenuStyles.root(className)}>
       {({ open }) => (
         <>
           <Menu.Button
@@ -42,6 +43,7 @@ export const SimpleDropdownMenu: FC<SimpleDropdownMenuProps> = ({
           >
             <MdMoreVert aria-hidden className="text-3xl text-brand" />
           </Menu.Button>
+
           <SimpleDropdownMenuItems isOpen={open} alignItems={alignItems}>
             {children}
           </SimpleDropdownMenuItems>

@@ -4,7 +4,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineSearch } from 'react-icons/md';
-import { twMerge } from 'tailwind-merge';
+import { comboboxStyles } from '../../../../uiComponents';
 import { ValidationErrorList } from '../../common';
 import { StopFormState, StopModalStopAreaFormSchema } from '../types';
 import { formatIsoDateString, useFindStopAreas } from '../utils';
@@ -71,7 +71,10 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
   return (
     <Combobox<StopModalStopAreaFormSchema, 'div'>
       as="div"
-      className={twMerge('flex flex-col', className)}
+      className={comboboxStyles.root(
+        'flex flex-col justify-between',
+        className,
+      )}
       name="stopArea"
       nullable
       value={selected}
@@ -79,10 +82,13 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
       disabled={disabled}
     >
       <Combobox.Label>{t('stops.stopArea.label')}</Combobox.Label>
-      <div className="flex rounded-[5px] focus-within:outline focus-within:outline-1">
+      <div className="flex h-[--input-height]">
         <Combobox.Input<'input', StopModalStopAreaFormSchema>
           ref={ref}
-          className="grow rounded-br-none rounded-tr-none border-r-0 outline-0"
+          className={comboboxStyles.input(
+            'grow rounded-br-none rounded-tr-none border-r-0 outline-0',
+            'ui-open:rounded-bl-none',
+          )}
           onChange={(e) => onQueryChange(e.target.value)}
           displayValue={(it) => it?.nameFin ?? ''}
           autoComplete="off"
@@ -90,7 +96,10 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
         />
         <Combobox.Button
           disabled={!query}
-          className="flex h-[--input-height] w-[--input-height] items-center justify-center rounded-br-[5px] rounded-tr-[5px] bg-tweaked-brand text-xl"
+          className={comboboxStyles.button(
+            'static flex h-[--input-height] w-[--input-height] justify-center rounded-br-[5px] rounded-tr-[5px] bg-tweaked-brand text-xl',
+            'ui-open:rounded-br-none',
+          )}
           title={t('stops.stopArea.search')}
         >
           <MdOutlineSearch color="white" />
@@ -98,13 +107,10 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
       </div>
       <ValidationErrorList<StopFormState> fieldPath="stopArea" />
 
-      <Combobox.Options
-        as="div"
-        className="relative left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
-      >
+      <Combobox.Options as="div" className={comboboxStyles.options('relative')}>
         {loading && (
           <Combobox.Option
-            className="flex cursor-pointer items-center border-b p-2 text-left focus:outline-none ui-active:bg-dark-grey ui-active:text-white"
+            className={comboboxStyles.option()}
             value={null}
             disabled
             data-testid={testIds.loading}
@@ -115,21 +121,19 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
 
         {areas.map((area) => (
           <Combobox.Option
-            className="flex cursor-pointer items-center border-b p-2 text-left focus:outline-none ui-active:bg-dark-grey ui-active:text-white"
+            className={comboboxStyles.option()}
             key={area.netexId}
             value={area}
             data-testid={testIds.result(area.privateCode)}
           >
-            <div className="flex items-start">
-              <span className="flex-shrink-0 self-start font-bold">
-                {area.privateCode}
+            <span className="flex-shrink-0 self-start font-bold">
+              {area.privateCode}
+            </span>
+            <div className="mx-2 flex flex-grow flex-col">
+              <span>{area.nameFin ?? area.nameSwe}</span>
+              <span className="font-bold">
+                {`${formatIsoDateString(area.validityStart)} - ${formatIsoDateString(area.validityEnd)}`}
               </span>
-              <div className="mx-2 flex flex-grow flex-col">
-                <span>{area.nameFin ?? area.nameSwe}</span>
-                <span className="font-bold">
-                  {`${formatIsoDateString(area.validityStart)} - ${formatIsoDateString(area.validityEnd)}`}
-                </span>
-              </div>
             </div>
           </Combobox.Option>
         ))}

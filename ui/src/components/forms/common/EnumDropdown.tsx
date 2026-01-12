@@ -1,6 +1,10 @@
-import { ReactElement } from 'react';
-import { FormInputProps, Listbox } from '../../../uiComponents';
-import { AllOptionEnum, NullOptionEnum, getEnumValues } from '../../../utils';
+import { ReactElement, Ref, forwardRef } from 'react';
+import {
+  BaseFormInputProps,
+  Listbox,
+  ListboxOptionItem,
+} from '../../../uiComponents';
+import { AllOptionEnum, NullOptionEnum } from '../../../utils';
 
 const testIds = {
   enumDropdown: 'EnumDropdown::button',
@@ -10,13 +14,16 @@ const testIds = {
 // at least without using 'as' in many places (which in itself isn't type safe). Therefore,
 // this was implemented by processing the Enum values as strings.
 
-type EnumDropdownBaseProps<TEnum extends string> = FormInputProps & {
+type EnumDropdownBaseProps<TEnum extends string> = BaseFormInputProps & {
   readonly id?: string;
   readonly testId?: string;
   readonly className?: string;
   readonly buttonClassName?: string;
   readonly placeholder: string;
   readonly enumType: Readonly<Record<string, TEnum>>;
+  // Allow string in for compatability with old untyped use sites.
+  readonly value?: TEnum | string;
+  readonly onChange: (newValue: TEnum) => void;
 };
 
 type EnumDropdownWithNullOptionProps = {
@@ -48,55 +55,73 @@ export type EnumDropdownProps<TEnum extends string> =
     );
 
 /**
- * Creates dropdown from enum values. This dropdown can be enrichted with 'All' option by giving
+ * Creates dropdown from enum values. This dropdown can be enriched with 'All' option by giving
  * it the includeAllOption flag as true.
  */
-export const EnumDropdown = <TEnum extends string>({
-  id,
-  testId,
-  enumType,
-  uiNameMapper,
-  placeholder,
-  value,
-  buttonClassName,
-  includeAllOption,
-  includeNullOption,
-  ...formInputProps
-}: EnumDropdownProps<TEnum>): ReactElement => {
-  const values = getEnumValues({
-    ...(includeAllOption ? { ...AllOptionEnum } : {}),
-    ...enumType,
-    ...(includeNullOption ? { ...NullOptionEnum } : {}),
-  });
+const EnumDropdownImpl = <TEnum extends string>(
+  {
+    id,
+    testId,
+    enumType,
+    uiNameMapper,
+    placeholder,
+    value,
+    buttonClassName,
+    includeAllOption = false,
+    includeNullOption = false,
+    ...formInputProps
+  }: EnumDropdownProps<TEnum>,
+  ref: Ref<HTMLDivElement>,
+): ReactElement => {
+  type AllPossibleValues = TEnum | AllOptionEnum | NullOptionEnum;
+  const values: ReadonlyArray<AllPossibleValues> = [
+    ...Object.values(includeAllOption ? AllOptionEnum : {}),
+    ...Object.values(enumType),
+    ...Object.values(includeNullOption ? NullOptionEnum : {}),
+  ];
 
-  const mapToOption = (item: string) => ({
-    key: item,
-    value: item,
-    render: function EnumOption() {
-      return (
-        <div className="cursor-default">
-          <div className="ml-2 mr-2">
-            {uiNameMapper(item as unknown as TEnum)}
-          </div>
-        </div>
+  if (process.env.NODE_ENV === 'development') {
+    const valueIsValid =
+      value === undefined ||
+      (includeNullOption && value === null) ||
+      values.includes(value as AllPossibleValues);
+
+    if (!valueIsValid) {
+      throw new TypeError(
+        `Invalid value (${value}) passed into <EnumDropdown>! Supported values based on props are: ${values.map((v) => `'${v}'`).join(', ')}`,
       );
-    },
-  });
+    }
+  }
 
-  const options = values.map((item) => mapToOption(item));
+  const options: ReadonlyArray<ListboxOptionItem<TEnum>> = values.map(
+    (item) => ({
+      value: item as unknown as TEnum,
+      content: uiNameMapper(item as unknown as TEnum),
+    }),
+  );
+
+  const mappedValue = value === null ? 'null' : value;
 
   return (
     <Listbox
       id={id}
       testId={testId ?? testIds.enumDropdown}
       buttonContent={
-        value ? uiNameMapper(value as unknown as TEnum) : placeholder
+        value ? uiNameMapper(mappedValue as unknown as TEnum) : placeholder
       }
       options={options}
-      value={value}
+      value={mappedValue as TEnum}
       buttonClassNames={buttonClassName}
+      ref={ref}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...formInputProps}
     />
   );
 };
+
+export const EnumDropdown = forwardRef(EnumDropdownImpl) as (<
+  TEnum extends string,
+>(
+  p: EnumDropdownProps<TEnum> & { ref?: Ref<HTMLDivElement> },
+) => ReactElement) & { displayName?: string };
+EnumDropdown.displayName = 'EnumDropdown';

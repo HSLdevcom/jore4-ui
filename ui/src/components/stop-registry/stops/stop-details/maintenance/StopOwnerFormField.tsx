@@ -19,7 +19,10 @@ export const StopOwnerFormField: FC<StopOwnerFormFieldProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { field, fieldState } = useController({
+  const { field, fieldState } = useController<
+    MaintenanceDetailsFormState,
+    'stopOwner'
+  >({
     name: 'stopOwner',
     control,
   });

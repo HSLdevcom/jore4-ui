@@ -2,8 +2,11 @@ import { Listbox, Transition } from '@headlessui/react';
 import { FocusEventHandler, Fragment, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdCheck } from 'react-icons/md';
-import { twJoin, twMerge } from 'tailwind-merge';
-import { dropdownTransition } from '../../../../../../uiComponents';
+import {
+  JoreListboxButton,
+  dropdownTransition,
+  multiselectListboxStyles,
+} from '../../../../../../uiComponents';
 import { areEqual } from '../../../../../../utils';
 
 type LabellessMenuGroup<OptionT> = {
@@ -37,17 +40,13 @@ const MultiselectDropdownOptions = <OptionT,>({
 }: MultiselectDropdownOptionsProps<OptionT>): ReactNode =>
   options.map((option) => (
     <Listbox.Option
-      className={twJoin(
-        'flex cursor-pointer items-center py-2 pr-2 text-left focus:outline-none',
-        'ui-active:bg-dark-grey ui-active:text-white [&_svg]:ui-active:border-white',
-        '[&_svg]:ui-not-selected:text-transparent',
-      )}
+      className={multiselectListboxStyles.option()}
       as="div"
       key={keyOption(option)}
       value={option}
       data-testid={`${testIdBase}::Option::${keyOption(option)}`}
     >
-      <MdCheck className="mx-2 rounded border border-grey text-2xl" />
+      <MdCheck className="mr-2 rounded border border-grey text-2xl" />
       <span>{formatOption(option)}</span>
     </Listbox.Option>
   ));
@@ -66,7 +65,7 @@ const MultiselectDropdownGroups = <OptionT,>({
   testIdBase,
 }: MultiselectDropdownGroupsProps<OptionT>): ReactNode =>
   groups.map(({ key, label, options }) => (
-    <div className="" key={key} role="group">
+    <div key={key} role="group">
       {label ? (
         <span className="block w-full border-b border-grey bg-tweaked-brand px-2 py-2 text-white">
           {label}
@@ -129,7 +128,7 @@ export const MultiselectDropdownFilter = <OptionT,>({
     <Listbox
       as="div"
       by={areEqual}
-      className={twMerge('relative', className)}
+      className={multiselectListboxStyles.root(className)}
       data-testid={testId}
       disabled={disabled}
       multiple
@@ -139,32 +138,20 @@ export const MultiselectDropdownFilter = <OptionT,>({
     >
       {({ open }) => (
         <>
-          <Listbox.Button
-            id={id}
-            className={twJoin(
-              'flex h-[var(--input-height)] w-full items-center justify-between rounded-md border border-grey bg-white px-2 py-3 text-left',
-              'ui-disabled:bg-background ui-disabled:text-dark-grey',
-              'ui-open:rounded-b-none ui-open:border-b-0 ui-open:pb-[calc(0.75rem+1px)]',
-            )}
-            data-testid={`${testId}::button`}
-          >
+          <JoreListboxButton id={id} testId={`${testId}::button`}>
             <span>
               {value.length > 1
                 ? t('selected', { count: value.length })
                 : formatOption(value[0])}
             </span>
-            <i
-              className="icon-arrow rotate-0 text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180"
-              style={{ fontSize: 10 }}
-            />
-          </Listbox.Button>
+          </JoreListboxButton>
 
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Transition show={open} as={Fragment} {...dropdownTransition}>
             <Listbox.Options
               as="div"
               static
-              className="absolute left-0 z-10 w-full rounded-b-md border border-grey bg-white shadow-md focus:outline-none"
+              className={multiselectListboxStyles.options()}
             >
               {groupsOrOptions.groups ? (
                 <MultiselectDropdownGroups

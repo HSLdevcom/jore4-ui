@@ -1,8 +1,11 @@
 import { Combobox as HUICombobox, Transition } from '@headlessui/react';
 import { FC, useMemo, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
 import { mapToShortDate } from '../../../../../time';
-import { dropdownTransition } from '../../../../../uiComponents';
+import {
+  JoreComboboxButton,
+  comboboxStyles,
+  dropdownTransition,
+} from '../../../../../uiComponents';
 import { log } from '../../../../../utils';
 import {
   FETCH_MORE_OPTION,
@@ -11,10 +14,10 @@ import {
   SelectedStop,
   useFindQuaysByQuery,
 } from '../common';
-import { SelectStopDropdownButton } from './SelectStopDropdownButton';
 
 const testIds = {
   input: 'SelectStopDropdown::input',
+  button: 'SelectStopDropdownButton',
   warningText: 'SelectStopDropdown::warningText',
 };
 
@@ -104,7 +107,7 @@ export const SelectStopDropdown: FC<SelectStopDropdown> = ({
     <HUICombobox
       as="div"
       by={compareMembersById}
-      className={twMerge('relative w-full', className)}
+      className={comboboxStyles.root(className)}
       disabled={disabled}
       nullable={false}
       onChange={handleSelectionChange}
@@ -112,50 +115,51 @@ export const SelectStopDropdown: FC<SelectStopDropdown> = ({
       ref={onCloseRef}
       data-testid={testId}
     >
-      <div className="relative w-full">
-        <HUICombobox.Input
-          className="relative h-full w-full border border-grey bg-white px-2 py-3 pr-16 ui-open:rounded-b-none ui-not-open:rounded-md"
-          onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => setIsInputFocused(true)}
-          onBlur={() => setIsInputFocused(false)}
-          value={query}
-          aria-label={inputAriaLabel}
-          data-testid={testIds.input}
-        />
+      {({ open }) => (
+        <>
+          <div className="relative">
+            <HUICombobox.Input
+              className={comboboxStyles.input()}
+              onChange={(e) => setQuery(e.target.value)}
+              onFocus={() => setIsInputFocused(true)}
+              onBlur={() => setIsInputFocused(false)}
+              value={query}
+              aria-label={inputAriaLabel}
+              data-testid={testIds.input}
+            />
 
-        {value && !query.trim() && !isInputFocused && (
-          <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center">
-            <span
-              className="text-black"
-              title={`${value.publicCode} ${value.name}`}
-            >
-              <strong>
-                {value.publicCode} {value.name}
-              </strong>{' '}
-              {mapToShortDate(value.validityStart)} -{' '}
-              {mapToShortDate(value.validityEnd)}
-            </span>
+            {value && !query.trim() && !isInputFocused && (
+              <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center">
+                <span
+                  className="text-black"
+                  title={`${value.publicCode} ${value.name}`}
+                >
+                  <strong>
+                    {value.publicCode} {value.name}
+                  </strong>{' '}
+                  {mapToShortDate(value.validityStart)} -{' '}
+                  {mapToShortDate(value.validityEnd)}
+                </span>
+              </div>
+            )}
+
+            <JoreComboboxButton testId={testIds.button} />
           </div>
-        )}
 
-        <SelectStopDropdownButton />
-      </div>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Transition show={open} {...dropdownTransition}>
+            <HUICombobox.Options as="div" className={comboboxStyles.options()}>
+              <MemberStopOptions options={unselectedOptions} />
 
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <Transition {...dropdownTransition}>
-        <HUICombobox.Options
-          as="div"
-          className="absolute left-0 z-10 w-full rounded-b-md border border-black border-opacity-20 bg-white shadow-md focus:outline-none"
-        >
-          <MemberStopOptions options={unselectedOptions} />
-
-          <SelectMemberStopQueryStatus
-            allFetched={allFetched}
-            loading={loading}
-            query={cleanQuery}
-          />
-        </HUICombobox.Options>
-      </Transition>
+              <SelectMemberStopQueryStatus
+                allFetched={allFetched}
+                loading={loading}
+                query={cleanQuery}
+              />
+            </HUICombobox.Options>
+          </Transition>
+        </>
+      )}
     </HUICombobox>
   );
 };

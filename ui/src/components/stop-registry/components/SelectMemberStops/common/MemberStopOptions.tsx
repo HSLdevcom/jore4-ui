@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineAddCircle } from 'react-icons/md';
 import { mapToShortDate } from '../../../../../time';
+import { comboboxStyles } from '../../../../../uiComponents';
 import { SelectedStop } from './schema';
 
 const testIds = {
@@ -28,7 +29,7 @@ export const MemberStopOptions: FC<MemberStopOptionsProps> = ({
         as="div"
         key={stop.quayId}
         value={stop}
-        className="flex items-center border-b p-2 text-left focus:outline-none ui-active:bg-dark-grey ui-active:text-white ui-disabled:cursor-not-allowed ui-disabled:bg-light-grey"
+        className={comboboxStyles.option()}
         data-testid={testIds.option}
         disabled={isDisabled}
         title={
