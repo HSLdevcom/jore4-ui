@@ -35,6 +35,9 @@ jobs:
       - name: Build timetables data inserter module
         run: yarn ws:tdi timetables-data-inserter:build
 
+      - name: Run Next.js typegen
+        run: yarn run next typegen ui
+
       - name: Check ts syntax
         run: yarn ts:check
 
