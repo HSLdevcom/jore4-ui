@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
-import { useCallbackOnKeyEscape } from '../../../hooks';
+import { doOnEscape } from '../../../hooks';
 import { Row } from '../../../layoutComponents';
 import { SimpleButton } from '../../../uiComponents';
 import {
@@ -75,12 +75,13 @@ export const Modal: FC<ModalProps> = ({
 }) => {
   const wrapInContextNavigation = useWrapInContextNavigation(navigationContext);
   const requestNavigationOnClose = wrapInContextNavigation(onClose);
-  useCallbackOnKeyEscape(requestNavigationOnClose);
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       data-testid={testId}
       className={twMerge('overflow-hidden bg-white', className)}
+      onKeyDown={doOnEscape(requestNavigationOnClose)}
     >
       <ModalHeader
         className={headerClassName}

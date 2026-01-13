@@ -1,4 +1,16 @@
-import { useEffect } from 'react';
+import { KeyboardEventHandler, useEffect } from 'react';
+
+export function doOnEscape<E extends HTMLElement>(
+  callback: () => void,
+): KeyboardEventHandler<E> {
+  return (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      e.stopPropagation();
+      callback();
+    }
+  };
+}
 
 export const useCallbackOnKeyEscape = (callback: () => void) => {
   useEffect(() => {
