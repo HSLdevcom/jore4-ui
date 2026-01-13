@@ -457,6 +457,7 @@ describe('Stop search', () => {
         stopSearchBar.getExpandToggle().click();
         stopSearchBar.municipality.openDropdown();
         stopSearchBar.municipality.isSelected('Kaikki');
+        cy.closeDropdown();
         stopSearchBar.getSearchButton().click();
         expectGraphQLCallToSucceed('@gqlSearchStops');
         stopSearchResultsPage.getContainer().should('be.visible');
@@ -472,6 +473,7 @@ describe('Stop search', () => {
         stopSearchBar.municipality.openDropdown();
         stopSearchBar.municipality.isSelected('Kaikki');
         stopSearchBar.municipality.toggleOption('Espoo');
+        cy.closeDropdown();
         stopSearchBar.getSearchButton().click();
         expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1600,6 +1602,7 @@ describe('Stop search', () => {
       // Search for out of use stops
       stopSearchBar.stopState.openDropdown();
       stopSearchBar.stopState.toggleOption(StopPlaceState.OutOfOperation);
+      cy.closeDropdown();
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1609,6 +1612,7 @@ describe('Stop search', () => {
       stopSearchBar.stopState.openDropdown();
       stopSearchBar.stopState.toggleOption(StopPlaceState.InOperation);
       stopSearchBar.stopState.toggleOption(StopPlaceState.OutOfOperation);
+      cy.closeDropdown();
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1628,6 +1632,7 @@ describe('Stop search', () => {
       // Search for stops with shelter post
       stopSearchBar.shelters.openDropdown();
       stopSearchBar.shelters.toggleOption(StopRegistryShelterType.Post);
+      cy.closeDropdown();
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1636,6 +1641,7 @@ describe('Stop search', () => {
       // Search for stops without shelter
       stopSearchBar.shelters.openDropdown();
       stopSearchBar.shelters.toggleOption('Ei katosta');
+      cy.closeDropdown();
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1664,6 +1670,7 @@ describe('Stop search', () => {
       stopSearchBar.electricity.toggleOption(
         StopRegistryShelterElectricity.None,
       );
+      cy.closeDropdown();
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1672,6 +1679,7 @@ describe('Stop search', () => {
       // Search for stops with undefined electricity status
       stopSearchBar.electricity.openDropdown();
       stopSearchBar.electricity.toggleOption('Ei tiedossa');
+      cy.closeDropdown();
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1691,6 +1699,7 @@ describe('Stop search', () => {
       stopSearchBar.infoSpots.openDropdown();
       stopSearchBar.infoSpots.toggleOption('A4');
       stopSearchBar.infoSpots.toggleOption('A5');
+      cy.closeDropdown();
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1699,6 +1708,7 @@ describe('Stop search', () => {
       // Search for stops without InfoSpots
       stopSearchBar.infoSpots.openDropdown();
       stopSearchBar.infoSpots.toggleOption('Ei infopaikkaa');
+      cy.closeDropdown();
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1711,6 +1721,7 @@ describe('Stop search', () => {
 
       stopSearchBar.stopOwner.openDropdown();
       stopSearchBar.stopOwner.toggleOption('hkl');
+      cy.closeDropdown();
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1819,6 +1830,7 @@ describe('Stop search', () => {
       // Search for stops with the given shelter type
       stopSearchBar.shelters.openDropdown();
       stopSearchBar.shelters.toggleOption(type);
+      cy.closeDropdown();
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');
 
@@ -1953,6 +1965,7 @@ describe('Stop search', () => {
       stopSearchBar.shelters.openDropdown();
       stopSearchBar.shelters.toggleOption(StopRegistryShelterType.Urban);
       stopSearchBar.shelters.toggleOption(StopRegistryShelterType.Post);
+      cy.closeDropdown();
 
       stopSearchBar.getSearchButton().click();
       expectGraphQLCallToSucceed('@gqlSearchStops');

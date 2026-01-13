@@ -1,9 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  AlignDirection,
-  SimpleDropdownMenu,
-} from '../../../../../uiComponents';
+import { SimpleDropdownMenu } from '../../../../../uiComponents';
 
 const testIds = {
   actionMenu: 'StopTableRow::actionMenu',
@@ -31,7 +28,6 @@ export const ActionMenuTd: FC<ActionMenuTdProps> = ({
     <td className={className}>
       <SimpleDropdownMenu
         tooltip={t('accessibility:common.actionMenu')}
-        alignItems={AlignDirection.Left}
         testId={testIds.actionMenu}
       >
         {menuItems}

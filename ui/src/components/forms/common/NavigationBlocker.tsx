@@ -1,4 +1,9 @@
-import { Dialog } from '@headlessui/react';
+import {
+  Description,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+} from '@headlessui/react';
 import noop from 'lodash/noop';
 import without from 'lodash/without';
 import {
@@ -231,8 +236,8 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
        * Easier solution would have been to use max-width but that would be
        * dependent on the locale (actual texts).
        */}
-      <Dialog.Panel className="basis-[100px] rounded-md bg-white p-5 shadow-md">
-        <Dialog.Title
+      <DialogPanel className="basis-[100px] rounded-md bg-white p-5 shadow-md">
+        <DialogTitle
           as="h3"
           className="flex flex-nowrap justify-between space-x-5 text-nowrap"
           data-testid={testIds.title}
@@ -240,11 +245,11 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
           {t('navigationBlock.title')}
 
           <CloseIconButton onClick={onReset} testId={testIds.closeButton} />
-        </Dialog.Title>
+        </DialogTitle>
 
-        <Dialog.Description className="my-5" data-testid={testIds.body}>
+        <Description className="my-5" data-testid={testIds.body}>
           {t('navigationBlock.body')}
-        </Dialog.Description>
+        </Description>
 
         <div className="flex flex-nowrap space-x-5">
           <SimpleButtonButton
@@ -265,7 +270,7 @@ const NavigationBlockedDialog: FC<NavigationBlockedDialogProps> = ({
             {t('navigationBlock.cancel')}
           </SimpleButtonButton>
         </div>
-      </Dialog.Panel>
+      </DialogPanel>
     </Dialog>
   );
 };

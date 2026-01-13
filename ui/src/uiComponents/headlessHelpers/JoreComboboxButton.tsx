@@ -1,12 +1,13 @@
-import { Combobox } from '@headlessui/react';
+import { ComboboxButton, ComboboxButtonProps } from '@headlessui/react';
 import { ReactNode, forwardRef } from 'react';
 import { MdSearch } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
 
 type JoreComboboxButtonProps = Omit<
-  Parameters<typeof Combobox.Button>[0],
-  'as' | 'children'
+  ComboboxButtonProps,
+  'as' | 'children' | 'className'
 > & {
+  readonly className?: string;
   readonly children?: ReactNode;
   readonly testId?: string;
 };
@@ -16,7 +17,7 @@ export const JoreComboboxButton = forwardRef<
   JoreComboboxButtonProps
 >(({ children, className, testId, ...internalProps }, ref) => {
   return (
-    <Combobox.Button
+    <ComboboxButton
       ref={ref}
       data-testid={testId}
       className={twMerge(
@@ -32,7 +33,7 @@ export const JoreComboboxButton = forwardRef<
         className="icon-arrow text-tweaked-brand transition duration-150 ease-in-out ui-open:-rotate-180 ui-not-open:rotate-0"
         style={{ fontSize: 10 }}
       />
-    </Combobox.Button>
+    </ComboboxButton>
   );
 });
 

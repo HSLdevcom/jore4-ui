@@ -8,10 +8,11 @@ import { ComboboxInputProps, SearchableDropdown } from '../../../uiComponents';
 import { DateRange } from '../common/DateRange';
 import { useChooseRouteDropdown } from './useChooseRouteDropdown';
 
-type ChooseRouteDropdownProps = ComboboxInputProps & {
+type ChooseRouteDropdownProps = Omit<ComboboxInputProps, 'onChange'> & {
   readonly testId?: string;
   readonly date: DateTime;
   readonly priorities: ReadonlyArray<Priority>;
+  readonly onChange: (newValue: string) => void;
 };
 
 const mapToOption = (item: RouteAllFieldsFragment) => ({

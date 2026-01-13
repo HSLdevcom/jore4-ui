@@ -47,10 +47,7 @@ export class TemplateRouteSelector {
     }
     if (values.label) {
       this.getChooseRouteDropdownButton().click();
-      this.getChooseRouteDropdown()
-        .find('[role="option"]')
-        .contains(values.label)
-        .click();
+      cy.get('[role="option"]').contains(values.label).click();
     }
   }
 }

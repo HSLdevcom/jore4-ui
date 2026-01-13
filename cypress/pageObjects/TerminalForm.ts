@@ -83,6 +83,7 @@ export class TerminalForm {
       this.memberStops.dropdownButton().click();
       this.memberStops.getInput().clearAndType(stop);
       this.memberStops.common.getMemberOptions().click();
+      cy.closeDropdown();
     });
   }
 

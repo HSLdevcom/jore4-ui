@@ -359,15 +359,16 @@ describe('Terminal details', () => {
       edit.getSelectMemberStops().within(() => {
         selectTerminalMemberStopsDropdown.dropdownButton().click();
         selectTerminalMemberStopsDropdown.getInput().clearAndType('E2E009');
-        selectTerminalMemberStopsDropdown.common
-          .getMemberOptions()
-          .should('have.length', 1);
-        selectTerminalMemberStopsDropdown.common
-          .getMemberOptions()
-          .eq(0)
-          .should('contain.text', 'E2E009')
-          .click();
       });
+      selectTerminalMemberStopsDropdown.common
+        .getMemberOptions()
+        .should('have.length', 1);
+      selectTerminalMemberStopsDropdown.common
+        .getMemberOptions()
+        .eq(0)
+        .should('contain.text', 'E2E009')
+        .click();
+      cy.closeDropdown();
 
       terminalDetailsPage.locationDetails.getSaveButton().click();
       waitForSaveToBeFinished();
@@ -383,13 +384,16 @@ describe('Terminal details', () => {
 
       // Delete member stop
       terminalDetailsPage.locationDetails.getEditButton().click();
-      edit.getSelectMemberStops().within(() => {
-        selectTerminalMemberStopsDropdown.dropdownButton().click();
-        selectTerminalMemberStopsDropdown.common
-          .getSelectedMembers()
-          .contains('E2E010')
-          .click();
-      });
+      edit
+        .getSelectMemberStops()
+        .within(() =>
+          selectTerminalMemberStopsDropdown.dropdownButton().click(),
+        );
+      selectTerminalMemberStopsDropdown.common
+        .getSelectedMembers()
+        .contains('E2E010')
+        .click();
+      cy.closeDropdown();
 
       terminalDetailsPage.locationDetails.getSaveButton().click();
       waitForSaveToBeFinished();
@@ -399,13 +403,16 @@ describe('Terminal details', () => {
         .shouldHaveText('E2E008');
 
       terminalDetailsPage.locationDetails.getEditButton().click();
-      edit.getSelectMemberStops().within(() => {
-        selectTerminalMemberStopsDropdown.dropdownButton().click();
-        selectTerminalMemberStopsDropdown.common
-          .getSelectedMembers()
-          .contains('E2E008')
-          .click();
-      });
+      edit
+        .getSelectMemberStops()
+        .within(() =>
+          selectTerminalMemberStopsDropdown.dropdownButton().click(),
+        );
+      selectTerminalMemberStopsDropdown.common
+        .getSelectedMembers()
+        .contains('E2E008')
+        .click();
+      cy.closeDropdown();
 
       selectTerminalMemberStopsDropdown
         .getWarningText()
@@ -443,11 +450,7 @@ describe('Terminal details', () => {
 
       // Add a new owner
       edit.getOwnerDropdownButton().click();
-      edit
-        .getOwnerDropdown()
-        .find('[role="option"]')
-        .contains('Lisää uusi toimija')
-        .click();
+      edit.getOwnerDropdownOptions().contains('Lisää uusi toimija').click();
       ownerModal.form.getName().clearAndType('Uusi nimi');
       ownerModal.form.getPhone().clearAndType('987654321');
       ownerModal.form.getEmail().clearAndType('uusi.omistaja@hsl.fi');
@@ -477,11 +480,7 @@ describe('Terminal details', () => {
       //  Switch back to old owner.
       owner.getEditButton().click();
       edit.getOwnerDropdownButton().click();
-      edit
-        .getOwnerDropdown()
-        .find('[role="option"]')
-        .contains('Omistaja')
-        .click();
+      edit.getOwnerDropdownOptions().contains('Omistaja').click();
       owner.getSaveButton().click();
       toast.expectSuccessToast('Terminaali muokattu');
 
@@ -1077,10 +1076,12 @@ describe('Terminal details', () => {
         infoSpotSection.form.formFields.getAddPosterButton().click();
         infoSpotSection.form.formFields.getNthPosterContainer(0).within(() => {
           infoSpotSection.form.formFields.getSizeSelectorButton().click();
-          infoSpotSection.form.formFields
-            .getSizeSelectorOptions()
-            .contains('80 × 120 cm')
-            .click();
+          cy.withinHeadlessPortal(() =>
+            infoSpotSection.form.formFields
+              .getSizeSelectorOptions()
+              .contains('80 × 120 cm')
+              .click(),
+          );
 
           infoSpotSection.form.formFields
             .getPosterLabel()
@@ -1192,10 +1193,12 @@ describe('Terminal details', () => {
         infoSpotSection.form.formFields.getAddPosterButton().click();
         infoSpotSection.form.formFields.getNthPosterContainer(1).within(() => {
           infoSpotSection.form.formFields.getSizeSelectorButton().click();
-          infoSpotSection.form.formFields
-            .getSizeSelectorOptions()
-            .contains('80 × 120 cm')
-            .click();
+          cy.withinHeadlessPortal(() =>
+            infoSpotSection.form.formFields
+              .getSizeSelectorOptions()
+              .contains('80 × 120 cm')
+              .click(),
+          );
 
           infoSpotSection.form.formFields
             .getPosterLabel()

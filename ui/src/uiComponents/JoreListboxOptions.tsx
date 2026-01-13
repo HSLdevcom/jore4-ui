@@ -1,4 +1,4 @@
-import { Listbox as HUIListbox } from '@headlessui/react';
+import { ListboxOption, ListboxOptions } from '@headlessui/react';
 import { ReactElement, ReactNode, Ref, forwardRef } from 'react';
 import { listboxStyles } from './headlessHelpers';
 
@@ -49,15 +49,15 @@ const JoreListboxOptionsImpl = <ValueType extends string>(
   }: JoreListboxOptionsProps<ValueType>,
   ref: Ref<HTMLDivElement>,
 ): ReactElement => (
-  <HUIListbox.Options
-    as="div"
+  <ListboxOptions
+    anchor="bottom start"
     data-testid={testId}
     ref={ref}
     className={listboxStyles.options(className)}
+    transition
   >
     {options?.map((item) => (
-      <HUIListbox.Option
-        as="div"
+      <ListboxOption
         className={listboxStyles.option(optionClassName)}
         id={`listbox-option-${item.value}`}
         key={item.value}
@@ -65,9 +65,9 @@ const JoreListboxOptionsImpl = <ValueType extends string>(
         data-testid={`${testId}::${item.value}`}
       >
         {'content' in item ? item.content : wrapInFragment(item.render)}
-      </HUIListbox.Option>
+      </ListboxOption>
     ))}
-  </HUIListbox.Options>
+  </ListboxOptions>
 );
 
 export const JoreListboxOptions = forwardRef(JoreListboxOptionsImpl) as (<

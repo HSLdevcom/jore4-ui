@@ -12,6 +12,10 @@ a:focus {
 
 :root {
   --input-height: 44px;
+
+  /* Always leave at least 10px of padding between
+   * dropdown content and the screen edge. */
+  --anchor-padding: 10px;
 }
 
 input,

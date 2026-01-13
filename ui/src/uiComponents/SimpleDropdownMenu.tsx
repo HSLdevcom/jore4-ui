@@ -1,16 +1,12 @@
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { MdMoreVert } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
-import { dropdownMenuStyles } from './headlessHelpers';
-import {
-  AlignDirection,
-  SimpleDropdownMenuItems,
-} from './SimpleDropdownMenuItems';
+import { AnchorProps, dropdownMenuStyles } from './headlessHelpers';
+import { SimpleDropdownMenuItems } from './SimpleDropdownMenuItems';
 
 type SimpleDropdownMenuProps = {
-  /** Set value to align menu items to right or left. Default: no alignment */
-  readonly alignItems?: AlignDirection;
+  readonly anchorItems?: AnchorProps;
   readonly buttonClassName?: string;
   readonly className?: string;
   readonly disabled?: boolean;
@@ -20,7 +16,7 @@ type SimpleDropdownMenuProps = {
 };
 
 export const SimpleDropdownMenu: FC<SimpleDropdownMenuProps> = ({
-  alignItems = AlignDirection.NoAlign,
+  anchorItems,
   buttonClassName,
   className,
   children,
@@ -30,25 +26,21 @@ export const SimpleDropdownMenu: FC<SimpleDropdownMenuProps> = ({
 }) => {
   return (
     <Menu as="div" className={dropdownMenuStyles.root(className)}>
-      {({ open }) => (
-        <>
-          <Menu.Button
-            className={twMerge(
-              'mx-auto flex items-center rounded-full',
-              buttonClassName,
-            )}
-            data-testid={testId}
-            disabled={disabled}
-            title={tooltip}
-          >
-            <MdMoreVert aria-hidden className="text-3xl text-brand" />
-          </Menu.Button>
+      <MenuButton
+        className={twMerge(
+          'mx-auto flex items-center rounded-full',
+          buttonClassName,
+        )}
+        data-testid={testId}
+        disabled={disabled}
+        title={tooltip}
+      >
+        <MdMoreVert aria-hidden className="text-3xl text-brand" />
+      </MenuButton>
 
-          <SimpleDropdownMenuItems isOpen={open} alignItems={alignItems}>
-            {children}
-          </SimpleDropdownMenuItems>
-        </>
-      )}
+      <SimpleDropdownMenuItems anchor={anchorItems}>
+        {children}
+      </SimpleDropdownMenuItems>
     </Menu>
   );
 };

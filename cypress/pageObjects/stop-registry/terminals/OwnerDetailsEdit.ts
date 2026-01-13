@@ -9,8 +9,8 @@ export class OwnerDetailsEdit {
 
   getNote = () => cy.getByTestId('OwnerDetailsEdit::note');
 
-  getOwnerDropdown = () =>
-    cy.getByTestId('OwnerOrganizationFields::ownerDropdown');
+  getOwnerDropdownOptions = () =>
+    cy.get('[data-testid^="OwnerOrganizationFields::ownerDropdown::option::"]');
 
   getOwnerDropdownButton = () =>
     cy.get('[data-testid^="OwnerOrganizationFields::ownerDropdown::button"]');

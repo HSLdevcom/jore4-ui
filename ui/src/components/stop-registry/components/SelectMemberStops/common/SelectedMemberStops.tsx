@@ -1,4 +1,4 @@
-import { Combobox as HUICombobox } from '@headlessui/react';
+import { ComboboxOption } from '@headlessui/react';
 import { FC } from 'react';
 import { MdOutlineClear } from 'react-icons/md';
 import { twMerge } from 'tailwind-merge';
@@ -29,7 +29,7 @@ export const SelectedMemberStops: FC<SelectedMemberStopsProps> = ({
         const isHovered = hoveredStopPlaceId === stop.stopPlaceId;
 
         return (
-          <HUICombobox.Option
+          <ComboboxOption
             as="div"
             key={stop.quayId}
             value={stop}
@@ -46,7 +46,7 @@ export const SelectedMemberStops: FC<SelectedMemberStopsProps> = ({
           >
             {stop.publicCode}
             <MdOutlineClear className="ml-1 text-xl" />
-          </HUICombobox.Option>
+          </ComboboxOption>
         );
       })}
     </div>

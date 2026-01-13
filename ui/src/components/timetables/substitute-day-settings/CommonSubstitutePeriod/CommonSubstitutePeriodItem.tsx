@@ -107,14 +107,18 @@ export const CommonSubstitutePeriodItem: FC<
           testId={testIds.substituteDayOfWeek}
           fieldPath={`commonDays.${index}.substituteDayOfWeek`}
           // eslint-disable-next-line react/no-unstable-nested-components
-          inputElementRenderer={(props) => (
+          inputElementRenderer={({ value, ...rest }) => (
             <SubstituteDayOfWeekDropdown
               disabled={
                 (!field.fromDatabase && !edited) ||
                 (field.fromDatabase && toBeDeleted)
               }
+              // TODO: Fix this form so that it cannot include empty strings as values,
+              // which are not valid members of SubstituteDayOfWeek enum, nor a proper
+              // placeholder for empty (should be null).
+              value={value === '' ? undefined : value}
               // eslint-disable-next-line react/jsx-props-no-spreading
-              {...props}
+              {...rest}
             />
           )}
         />

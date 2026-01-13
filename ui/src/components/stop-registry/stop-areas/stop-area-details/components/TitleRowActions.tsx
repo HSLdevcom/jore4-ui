@@ -5,7 +5,6 @@ import { twJoin } from 'tailwind-merge';
 import { Path, routeDetails } from '../../../../../router/routeDetails';
 import { EnrichedStopPlace } from '../../../../../types';
 import {
-  AlignDirection,
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../../../uiComponents';
@@ -56,7 +55,6 @@ export const TitleRowActions: FC<TitleRowActionsProps> = ({
           'disabled:pointer-events-none disabled:bg-background disabled:opacity-70',
         )}
         tooltip={t('accessibility:common.actionMenu')}
-        alignItems={AlignDirection.Left}
         testId={testIds.actionMenu}
         disabled={!area}
       >

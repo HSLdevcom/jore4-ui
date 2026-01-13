@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AlignDirection, SimpleDropdownMenu } from '../../../../uiComponents';
+import { SimpleDropdownMenu } from '../../../../uiComponents';
 import { ResultSelection, StopSearchFilters } from '../types';
 import {
   EquipmentReportMenuItem,
@@ -32,7 +32,6 @@ export const ResultsActionMenu: FC<ResultsActionMenuProps> = ({
     <SimpleDropdownMenu
       className={className}
       tooltip={t('accessibility:common.actionMenu')}
-      alignItems={AlignDirection.Left}
       testId={testIds.actionMenu}
     >
       <EquipmentReportMenuItem

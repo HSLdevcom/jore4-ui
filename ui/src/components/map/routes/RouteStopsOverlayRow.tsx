@@ -6,7 +6,10 @@ import {
   excludeStopFromJourneyPatternAction,
   includeStopToJourneyPatternAction,
 } from '../../../redux';
-import { AlignDirection, SimpleDropdownMenu } from '../../../uiComponents';
+import {
+  SimpleDropdownMenu,
+  SimpleDropdownMenuItem,
+} from '../../../uiComponents';
 import { PriorityBadge } from '../PriorityBadge';
 
 type RouteStopsOverlayRowProps = {
@@ -66,23 +69,21 @@ export const RouteStopsOverlayRow: FC<RouteStopsOverlayRowProps> = ({
       {!isReadOnly && (
         <div className="text-tweaked-brand">
           <SimpleDropdownMenu
-            alignItems={AlignDirection.Left}
             testId={testIds.menuButton}
             tooltip={t('accessibility:map.routeStopsOverlayRowActions', {
               stopLabel: stop.label,
             })}
           >
-            <button
-              type="button"
+            <SimpleDropdownMenuItem
               onClick={() =>
                 setBelongsToJourneyPattern(!belongsToJourneyPattern)
               }
-              data-testid={testIds.toggleStopInJourneyPatternButton}
+              testId={testIds.toggleStopInJourneyPatternButton}
             >
               {belongsToJourneyPattern
                 ? t('stops.removeFromRoute')
                 : t('stops.addToRoute')}
-            </button>
+            </SimpleDropdownMenuItem>
           </SimpleDropdownMenu>
         </div>
       )}

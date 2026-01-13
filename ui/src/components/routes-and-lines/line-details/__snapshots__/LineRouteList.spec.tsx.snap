@@ -5,20 +5,23 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
   <div>
     <div
       class="flex items-center"
+      data-headlessui-state=""
     >
       <label
         class="text-base font-normal my-4 mr-4"
-        id="headlessui-label-:r0:"
+        data-headlessui-state=""
+        for="headlessui-control-:r0:"
+        id="headlessui-label-:r1:"
       >
         Näytä reittiin kuulumattomat pysäkit
       </label>
       <button
         aria-checked="false"
-        aria-labelledby="headlessui-label-:r0:"
+        aria-labelledby="headlessui-label-:r1:"
         class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring border-grey"
         data-headlessui-state=""
         data-testid="LineRouteList::showUnusedStopsSwitch"
-        id="headlessui-switch-:r1:"
+        id="headlessui-control-:r0:"
         role="switch"
         tabindex="0"
         type="button"
@@ -27,6 +30,10 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 1`] =
           class="inline-block h-6 w-6 transform rounded-full border bg-white transition-transform -translate-x-0.5 border-grey"
         />
       </button>
+      <span
+        hidden=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+      />
     </div>
     <ul>
       <li
@@ -199,20 +206,23 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
   <div>
     <div
       class="flex items-center"
+      data-headlessui-state=""
     >
       <label
         class="text-base font-normal my-4 mr-4"
-        id="headlessui-label-:r0:"
+        data-headlessui-state=""
+        for="headlessui-control-:r0:"
+        id="headlessui-label-:r1:"
       >
         Näytä reittiin kuulumattomat pysäkit
       </label>
       <button
         aria-checked="false"
-        aria-labelledby="headlessui-label-:r0:"
+        aria-labelledby="headlessui-label-:r1:"
         class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring border-grey"
         data-headlessui-state=""
         data-testid="LineRouteList::showUnusedStopsSwitch"
-        id="headlessui-switch-:r1:"
+        id="headlessui-control-:r0:"
         role="switch"
         tabindex="0"
         type="button"
@@ -221,6 +231,10 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
           class="inline-block h-6 w-6 transform rounded-full border bg-white transition-transform -translate-x-0.5 border-grey"
         />
       </button>
+      <span
+        hidden=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+      />
     </div>
     <ul>
       <li
@@ -456,7 +470,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               </div>
             </div>
             <div
-              class="relative"
+              class=""
               data-headlessui-state=""
             >
               <button
@@ -465,7 +479,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:r2:"
+                id="headlessui-menu-button-:r5:"
                 title="Lisää toimintoja pysäkille H1234"
                 type="button"
               >
@@ -562,7 +576,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
               </div>
             </div>
             <div
-              class="relative"
+              class=""
               data-headlessui-state=""
             >
               <button
@@ -571,7 +585,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 2`] =
                 class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:r3:"
+                id="headlessui-menu-button-:rb:"
                 title="Lisää toimintoja pysäkille H1236"
                 type="button"
               >
@@ -609,20 +623,25 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
   <div>
     <div
       class="flex items-center"
+      data-headlessui-state=""
     >
       <label
         class="text-base font-normal my-4 mr-4"
-        id="headlessui-label-:r0:"
+        data-headlessui-state=""
+        for="headlessui-control-:r0:"
+        id="headlessui-label-:r1:"
       >
         Näytä reittiin kuulumattomat pysäkit
       </label>
       <button
         aria-checked="true"
-        aria-labelledby="headlessui-label-:r0:"
+        aria-labelledby="headlessui-label-:r1:"
         class="relative inline-flex h-6 w-11 items-center rounded-full border transition-colors focus-visible:ring border-brand bg-brand"
-        data-headlessui-state="checked"
+        data-changing=""
+        data-checked=""
+        data-headlessui-state="checked changing"
         data-testid="LineRouteList::showUnusedStopsSwitch"
-        id="headlessui-switch-:r1:"
+        id="headlessui-control-:r0:"
         role="switch"
         tabindex="0"
         type="button"
@@ -631,6 +650,10 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
           class="inline-block h-6 w-6 transform rounded-full border bg-white transition-transform translate-x-5 border-brand"
         />
       </button>
+      <span
+        hidden=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+      />
     </div>
     <ul>
       <li
@@ -866,7 +889,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               </div>
             </div>
             <div
-              class="relative"
+              class=""
               data-headlessui-state=""
             >
               <button
@@ -875,7 +898,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:r2:"
+                id="headlessui-menu-button-:r5:"
                 title="Lisää toimintoja pysäkille H1234"
                 type="button"
               >
@@ -972,7 +995,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               </div>
             </div>
             <div
-              class="relative"
+              class=""
               data-headlessui-state=""
             >
               <button
@@ -981,7 +1004,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:r4:"
+                id="headlessui-menu-button-:rh:"
                 title="Lisää toimintoja pysäkille H1235"
                 type="button"
               >
@@ -1078,7 +1101,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
               </div>
             </div>
             <div
-              class="relative"
+              class=""
               data-headlessui-state=""
             >
               <button
@@ -1087,7 +1110,7 @@ exports[`<LineRouteList /> Renders the route with stops along its geometry 3`] =
                 class="mx-auto flex items-center rounded-full"
                 data-headlessui-state=""
                 data-testid="StopActionsDropdown::menu"
-                id="headlessui-menu-button-:r3:"
+                id="headlessui-menu-button-:rb:"
                 title="Lisää toimintoja pysäkille H1236"
                 type="button"
               >

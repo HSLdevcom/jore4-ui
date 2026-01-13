@@ -22,9 +22,7 @@ export class Navbar {
   toggleLanguage() {
     // This is naive implementation and expects that language
     // dropdown was when this is called
-    return this.getLanguageDropdown()
-      .click()
-      .getByTestId('LanguageDropdown::toggleLanguage')
-      .click();
+    this.getLanguageDropdown().click();
+    cy.getByTestId('LanguageDropdown::toggleLanguage').click();
   }
 }

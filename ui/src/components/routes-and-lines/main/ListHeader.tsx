@@ -1,4 +1,4 @@
-import { Switch as HuiSwitch } from '@headlessui/react';
+import { Field } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, Visible } from '../../../layoutComponents';
@@ -24,18 +24,16 @@ export const ListHeader: FC<ListHeaderProps> = ({
   const limitOptions = [5, 10, 15];
 
   return (
-    <Row className={`${className ?? ''} `}>
-      <Row className="grow items-center">
-        {/** Hide until "own routes" can be selected */}
-        <Visible visible={false}>
-          <HuiSwitch.Group>
-            <SwitchLabel className="my-1 mr-2">
-              {t('routes.showOwnLines')}
-            </SwitchLabel>
-            <Switch checked={showOwnLines} onChange={onShowOwnChange} />
-          </HuiSwitch.Group>
-        </Visible>
-      </Row>
+    <Row className={className}>
+      {/** Hide until "own routes" can be selected */}
+      <Visible visible={false}>
+        <Field as={Row} className="grow items-center">
+          <SwitchLabel className="my-1 mr-2">
+            {t('routes.showOwnLines')}
+          </SwitchLabel>
+          <Switch checked={showOwnLines} onChange={onShowOwnChange} />
+        </Field>
+      </Visible>
       <Row className="items-center">
         <span>{t('routes.showLimit')}:</span>
         {limitOptions.map((item, index) => (

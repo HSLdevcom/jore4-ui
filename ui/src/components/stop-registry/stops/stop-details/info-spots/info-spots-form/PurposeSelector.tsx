@@ -1,8 +1,7 @@
-import { Listbox, Transition } from '@headlessui/react';
-import { FC, Fragment } from 'react';
+import { Listbox, ListboxOption, ListboxOptions } from '@headlessui/react';
+import { FC } from 'react';
 import {
   JoreListboxButton,
-  dropdownTransition,
   listboxStyles,
 } from '../../../../../../uiComponents';
 import { InfoSpotPurposeEnum } from '../types/InfoSpotPurpose';
@@ -41,32 +40,27 @@ export const PurposeSelector: FC<PurposeSelectorProps> = ({
       value={selectedItem}
       data-testid={testId}
     >
-      {({ open }) => (
-        <>
-          <JoreListboxButton id={id} testId={`${testId}::ListboxButton`}>
-            {selectedItem.displayName}
-          </JoreListboxButton>
+      <JoreListboxButton id={id} testId={`${testId}::ListboxButton`}>
+        {selectedItem.displayName}
+      </JoreListboxButton>
 
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Transition show={open} as={Fragment} {...dropdownTransition}>
-            <Listbox.Options
-              className={listboxStyles.options()}
-              data-testid={`${testId}::ListboxOptions`}
-            >
-              {options.map((option, index) => (
-                <Listbox.Option
-                  className={listboxStyles.option()}
-                  key={`${option.purposeType}-${option.customPurpose ?? index}`}
-                  value={option}
-                  data-testid={`${testId}::Option::${option.purposeType}`}
-                >
-                  {option.displayName}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
-          </Transition>
-        </>
-      )}
+      <ListboxOptions
+        anchor="bottom start"
+        className={listboxStyles.options()}
+        data-testid={`${testId}::ListboxOptions`}
+        transition
+      >
+        {options.map((option, index) => (
+          <ListboxOption
+            className={listboxStyles.option()}
+            key={`${option.purposeType}-${option.customPurpose ?? index}`}
+            value={option}
+            data-testid={`${testId}::Option::${option.purposeType}`}
+          >
+            {option.displayName}
+          </ListboxOption>
+        ))}
+      </ListboxOptions>
     </Listbox>
   );
 };

@@ -266,13 +266,13 @@ describe('Route creation', () => {
         .shouldHaveText('E2E004 -');
 
       // Remove one stop from the journey pattern
-      routeStopsOverlay.getNthRouteStopsOverlayRow(2).within(() => {
-        routeStopsOverlayRow.getMenuButton().click();
-        routeStopsOverlayRow
-          .getToggleStopInJourneyPatternButton()
-          .contains('Poista reitin käytöstä')
-          .click();
-      });
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(2)
+        .within(() => routeStopsOverlayRow.getMenuButton().click());
+      routeStopsOverlayRow
+        .getToggleStopInJourneyPatternButton()
+        .contains('Poista reitin käytöstä')
+        .click();
 
       mapFooter.save();
       toast.expectSuccessToast('Reitti tallennettu');
@@ -353,13 +353,13 @@ describe('Route creation', () => {
         .shouldHaveText('E2E002 -');
 
       // Remove the other stop from the journey pattern
-      routeStopsOverlay.getNthRouteStopsOverlayRow(1).within(() => {
-        routeStopsOverlayRow.getMenuButton().click();
-        routeStopsOverlayRow
-          .getToggleStopInJourneyPatternButton()
-          .contains('Poista reitin käytöstä')
-          .click();
-      });
+      routeStopsOverlay
+        .getNthRouteStopsOverlayRow(1)
+        .within(() => routeStopsOverlayRow.getMenuButton().click());
+      routeStopsOverlayRow
+        .getToggleStopInJourneyPatternButton()
+        .contains('Poista reitin käytöstä')
+        .click();
 
       mapFooter.save();
       toast.expectDangerToast(

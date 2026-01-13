@@ -9,7 +9,6 @@ import {
   selectIsJoreOperationLoading,
 } from '../../../redux';
 import {
-  AlignDirection,
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../uiComponents';
@@ -118,7 +117,6 @@ export const StopActionsDropdown: FC<StopActionsDropdownProps> = ({
 
   return (
     <SimpleDropdownMenu
-      alignItems={AlignDirection.Left}
       testId={testIds.menu}
       disabled={isLoading}
       tooltip={tooltip}

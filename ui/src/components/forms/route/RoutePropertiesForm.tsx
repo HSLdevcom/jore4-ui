@@ -1,4 +1,4 @@
-import { Switch as HuiSwitch } from '@headlessui/react';
+import { Field } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -172,24 +172,22 @@ export const RoutePropertiesFormComponent: ForwardRefRenderFunction<
           <TerminusNameInputs />
           {creatingNewRoute && (
             <>
-              <Row className="flex-auto items-center px-4">
-                <HuiSwitch.Group>
-                  <SwitchLabel className="my-1 mr-2">
-                    {t('routes.useTemplateRoute')}
-                  </SwitchLabel>
-                  <Switch
-                    checked={showTemplateRouteSelector}
-                    testId={testIds.useTemplateRouteButton}
-                    onChange={(enabled: boolean) => {
-                      setShowTemplateRouteSelector(enabled);
+              <Field as={Row} className="flex-auto items-center px-4">
+                <SwitchLabel className="my-1 mr-2">
+                  {t('routes.useTemplateRoute')}
+                </SwitchLabel>
+                <Switch
+                  checked={showTemplateRouteSelector}
+                  testId={testIds.useTemplateRouteButton}
+                  onChange={(enabled: boolean) => {
+                    setShowTemplateRouteSelector(enabled);
 
-                      if (!enabled) {
-                        setTemplateRoute(undefined);
-                      }
-                    }}
-                  />
-                </HuiSwitch.Group>
-              </Row>
+                    if (!enabled) {
+                      setTemplateRoute(undefined);
+                    }
+                  }}
+                />
+              </Field>
               {showTemplateRouteSelector && (
                 <TemplateRouteSelector
                   value={templateRouteId}

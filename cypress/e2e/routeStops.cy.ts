@@ -151,9 +151,11 @@ describe('Line details page: stops on route', () => {
         // Add E2E003 to the route
         lineRouteListItem.getNthRouteStopListItem(2).within(() => {
           routeStopListItem.getStopActionsDropdown().click();
-          routeStopListItem.stopActionsDropdown
-            .getAddStopToRouteButton()
-            .click();
+          cy.withinHeadlessPortal(() =>
+            routeStopListItem.stopActionsDropdown
+              .getAddStopToRouteButton()
+              .click(),
+          );
         });
       });
 
@@ -167,17 +169,19 @@ describe('Line details page: stops on route', () => {
           .and('contain', 'Voimassa 20.3.2020 - 31.12.2050');
 
         // Then lets remove E2E004 from the route
-        lineRouteListItem.getNthRouteStopListItem(3).within(() => {
-          routeStopListItem
-            .getStopActionsDropdown()
-            .should('be.enabled')
-            .click();
-          routeStopListItem.stopActionsDropdown
-            .getRemoveStopFromRouteButton()
-            .should('be.enabled')
-            .click();
-        });
+        lineRouteListItem
+          .getNthRouteStopListItem(3)
+          .within(() =>
+            routeStopListItem
+              .getStopActionsDropdown()
+              .should('be.enabled')
+              .click(),
+          );
       });
+      routeStopListItem.stopActionsDropdown
+        .getRemoveStopFromRouteButton()
+        .should('be.enabled')
+        .click();
 
       toast.expectSuccessToast('Reitti tallennettu');
 
@@ -208,9 +212,11 @@ describe('Line details page: stops on route', () => {
         // Remove E2E002 from route
         lineRouteListItem.getNthRouteStopListItem(1).within(() => {
           routeStopListItem.getStopActionsDropdown().click();
-          routeStopListItem.stopActionsDropdown
-            .getRemoveStopFromRouteButton()
-            .click();
+          cy.withinHeadlessPortal(() =>
+            routeStopListItem.stopActionsDropdown
+              .getRemoveStopFromRouteButton()
+              .click(),
+          );
         });
         lineRouteListItem
           .getNthRouteStopListItem(1)
@@ -220,9 +226,11 @@ describe('Line details page: stops on route', () => {
         // Remove E2E004 from route
         lineRouteListItem.getNthRouteStopListItem(3).within(() => {
           routeStopListItem.getStopActionsDropdown().click();
-          routeStopListItem.stopActionsDropdown
-            .getRemoveStopFromRouteButton()
-            .click();
+          cy.withinHeadlessPortal(() =>
+            routeStopListItem.stopActionsDropdown
+              .getRemoveStopFromRouteButton()
+              .click(),
+          );
         });
         lineRouteListItem
           .getNthRouteStopListItem(3)
@@ -232,9 +240,11 @@ describe('Line details page: stops on route', () => {
         // Try to remove E2E005 from route
         lineRouteListItem.getNthRouteStopListItem(4).within(() => {
           routeStopListItem.getStopActionsDropdown().click();
-          routeStopListItem.stopActionsDropdown
-            .getRemoveStopFromRouteButton()
-            .click();
+          cy.withinHeadlessPortal(() =>
+            routeStopListItem.stopActionsDropdown
+              .getRemoveStopFromRouteButton()
+              .click(),
+          );
         });
       });
 
@@ -260,11 +270,9 @@ describe('Line details page: stops on route', () => {
           // Check that via-icon does not exist
           routeStopListItem.getViaIcon().should('not.exist');
           routeStopListItem.getStopActionsDropdown().click();
-          routeStopListItem.stopActionsDropdown
-            .getCreateViaPointButton()
-            .click();
         });
       });
+      routeStopListItem.stopActionsDropdown.getCreateViaPointButton().click();
 
       // Input via info to form
       viaForm.getViaFinnishNameInput().type('Via-piste');
@@ -280,7 +288,9 @@ describe('Line details page: stops on route', () => {
       lineRouteListItem.getNthRouteStopListItem(2).within(() => {
         routeStopListItem.getViaIcon().shouldBeVisible();
         routeStopListItem.getStopActionsDropdown().click();
-        routeStopListItem.stopActionsDropdown.getEditViaPointButton().click();
+        cy.withinHeadlessPortal(() =>
+          routeStopListItem.stopActionsDropdown.getEditViaPointButton().click(),
+        );
       });
 
       viaForm.getViaFinnishNameInput().should('have.value', 'Via-piste');
@@ -295,10 +305,10 @@ describe('Line details page: stops on route', () => {
       lineRouteListItem.getNthRouteStopListItem(2).within(() => {
         routeStopListItem.getViaIcon().should('not.exist');
         routeStopListItem.getStopActionsDropdown().click();
-        routeStopListItem.stopActionsDropdown
-          .getCreateViaPointButton()
-          .shouldBeVisible();
       });
+      routeStopListItem.stopActionsDropdown
+        .getCreateViaPointButton()
+        .shouldBeVisible();
     },
   );
 
@@ -356,12 +366,11 @@ describe('Line details page: stops on route', () => {
           routeStopListItem.getHastusCode().shouldHaveText('1ALKU');
           routeStopListItem.getOpenTimingSettingsButton().should('not.exist');
           routeStopListItem.getStopActionsDropdown().click();
-
-          routeStopListItem.stopActionsDropdown
-            .getOpenTimingSettingsButton()
-            .click();
         });
       });
+      routeStopListItem.stopActionsDropdown
+        .getOpenTimingSettingsButton()
+        .click();
 
       timingSettingsForm.getTimingPlaceDropdown().should('contain', '1ALKU');
       timingSettingsForm.getIsUsedAsTimingPointCheckbox().should('be.checked');

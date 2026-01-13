@@ -1,4 +1,4 @@
-import { Combobox as HUICombobox } from '@headlessui/react';
+import { ComboboxOption } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { comboboxStyles } from '../../../../../uiComponents';
@@ -35,12 +35,12 @@ export const SelectMemberStopQueryStatus: FC<
   }
 
   return (
-    <HUICombobox.Option
+    <ComboboxOption
       as="div"
       value={FETCH_MORE_OPTION}
       className={comboboxStyles.option('font-bold')}
     >
       {t('search.showMore')}
-    </HUICombobox.Option>
+    </ComboboxOption>
   );
 };

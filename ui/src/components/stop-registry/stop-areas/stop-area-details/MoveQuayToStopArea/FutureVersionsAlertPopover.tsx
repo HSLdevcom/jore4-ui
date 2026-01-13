@@ -1,4 +1,4 @@
-import { Popover } from '@headlessui/react';
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IoAlertSharp } from 'react-icons/io5';
@@ -16,7 +16,7 @@ export const FutureVersionsAlertPopover: FC<
 
   return (
     <Popover>
-      <Popover.Button
+      <PopoverButton
         className={twMerge(
           'h-8 w-8',
           'flex items-center justify-center',
@@ -27,12 +27,12 @@ export const FutureVersionsAlertPopover: FC<
         )}
       >
         <IoAlertSharp className="text-2xl text-brand" />
-      </Popover.Button>
-      <Popover.Panel className="absolute z-20 ml-2 mt-2 inline-flex w-52 flex-row items-start rounded-lg border border-light-grey bg-white p-2 drop-shadow-md">
+      </PopoverButton>
+      <PopoverPanel className="absolute z-20 ml-2 mt-2 inline-flex w-52 flex-row items-start rounded-lg border border-light-grey bg-white p-2 drop-shadow-md">
         <p className="text-xs">
           {t('stopAreaDetails.memberStops.futureVersionsAlert')}
         </p>
-      </Popover.Panel>
+      </PopoverPanel>
     </Popover>
   );
 };

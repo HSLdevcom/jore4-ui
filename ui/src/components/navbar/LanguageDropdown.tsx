@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { twMerge } from 'tailwind-merge';
-import { DropdownMenu } from './DropdownMenu';
+import { twJoin } from 'tailwind-merge';
+import { NavigationDropdownMenu } from './NavigationDropdownMenu';
+import { NavigationDropdownMenuButton } from './NavigationDropdownMenuItem';
 
 export const testIds = {
   toggleDropdown: 'LanguageDropdown::toggleDropdown',
@@ -22,24 +23,20 @@ export const LanguageDropdown: FC<LanguageDropdownProps> = ({ className }) => {
   const changeLanguageText = currentLanguage === 'fi-FI' ? 'EN' : 'FI';
 
   return (
-    <div
-      className={twMerge(
-        'z-10 self-stretch text-white hover:bg-brand-darker',
+    <NavigationDropdownMenu
+      className={twJoin(
+        'self-stretch text-white hover:bg-brand-darker',
         className,
       )}
+      buttonContent={currentLanguageText}
+      testId={testIds.toggleDropdown}
     >
-      <DropdownMenu
-        buttonContent={currentLanguageText}
-        testId={testIds.toggleDropdown}
+      <NavigationDropdownMenuButton
+        onClick={() => i18n.changeLanguage(anotherLanguage)}
+        testId={testIds.toggleLanguage}
       >
-        <button
-          type="button"
-          onClick={() => i18n.changeLanguage(anotherLanguage)}
-          data-testid={testIds.toggleLanguage}
-        >
-          {changeLanguageText}
-        </button>
-      </DropdownMenu>
-    </div>
+        {changeLanguageText}
+      </NavigationDropdownMenuButton>
+    </NavigationDropdownMenu>
   );
 };

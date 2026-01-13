@@ -1,17 +1,18 @@
-import { Listbox } from '@headlessui/react';
+import { ListboxButton, ListboxButtonProps } from '@headlessui/react';
 import { ReactNode, forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { listboxStyles } from './headlessStyles';
 
 const buttonErrorStyles =
-  '!border-hsl-red !bg-hsl-red !bg-opacity-5 !border-2 text-hsl-red';
+  'border-hsl-red bg-hsl-red bg-opacity-5 border-2 text-hsl-red';
 
 const arrowErrorStyles = 'text-hsl-red';
 
 type JoreListboxButtonProps = Omit<
-  Parameters<typeof Listbox.Button>[0],
-  'as' | 'children'
+  ListboxButtonProps,
+  'as' | 'children' | 'className'
 > & {
+  readonly className?: string;
   readonly children?: ReactNode;
   readonly hasError?: boolean;
   readonly testId?: string;
@@ -22,7 +23,7 @@ export const JoreListboxButton = forwardRef<
   JoreListboxButtonProps
 >(({ children, className, hasError, testId, ...internalProps }, ref) => {
   return (
-    <Listbox.Button
+    <ListboxButton
       ref={ref}
       data-testid={testId}
       className={listboxStyles.button(
@@ -41,7 +42,7 @@ export const JoreListboxButton = forwardRef<
         )}
         style={{ fontSize: 10 }}
       />
-    </Listbox.Button>
+    </ListboxButton>
   );
 });
 

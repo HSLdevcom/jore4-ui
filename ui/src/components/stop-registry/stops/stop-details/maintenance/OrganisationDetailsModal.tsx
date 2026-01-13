@@ -1,4 +1,4 @@
-import { Dialog } from '@headlessui/react';
+import { DialogTitle } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StopPlaceOrganisationFieldsFragment } from '../../../../../generated/graphql';
@@ -69,11 +69,11 @@ export const OrganisationDetailsModal: FC<OrganisationDetailsModalProps> = ({
       testId={testIds.modal}
     >
       <Row className="flex justify-between px-5 py-4">
-        <Dialog.Title as="h4" data-testid={testIds.title}>
+        <DialogTitle as="h4" data-testid={testIds.title}>
           {organisation?.id
             ? t('stopDetails.maintenance.organisation.modalTitleEdit')
             : t('stopDetails.maintenance.organisation.modalTitleCreate')}
-        </Dialog.Title>
+        </DialogTitle>
       </Row>
       <NewModalBody>
         <OrganisationDetailsForm

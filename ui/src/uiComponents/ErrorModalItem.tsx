@@ -1,4 +1,4 @@
-import { Dialog } from '@headlessui/react';
+import { Description } from '@headlessui/react';
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Visible } from '../layoutComponents';
@@ -34,9 +34,7 @@ export const ErrorModalItem: FC<ErrorModalItemProps> = ({
         </h5>
       </Visible>
       <div className="pl-3">
-        <Dialog.Description data-testid={testIds.textContent}>
-          {details}
-        </Dialog.Description>
+        <Description data-testid={testIds.textContent}>{details}</Description>
         <Visible visible={!!additionalDetails}>
           <p
             className="inline font-mono text-sm text-gray-500"

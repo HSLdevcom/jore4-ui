@@ -53,6 +53,25 @@ declare namespace Cypress {
     shouldBeDisabled(): Chainable<JQuery<HtmlElement>>;
 
     /**
+     * Closes active dropdown. (Presses escape)
+     */
+    closeDropdown(): Chainable<void>;
+
+    /**
+     * Grab and alias the body element, so we can perform actions
+     * within in it, even when withing other alternative within calls.
+     */
+    aliasBody(): Chainable<void>;
+
+    /**
+     * Perform actions within the Headless UI portal
+     * @param fn
+     */
+    withinHeadlessPortal(
+      fn: (currentSubject: Subject) => void,
+    ): Chainable<Subject>;
+
+    /**
      * Mimics admin login by mocking auth backend response and authenticating
      * graphql calls with secret admin headers.
      * Does not support logging it with given credentials or roles so far.

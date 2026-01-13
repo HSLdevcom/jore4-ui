@@ -1,4 +1,4 @@
-import { Dialog } from '@headlessui/react';
+import { Description, Dialog, DialogTitle } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { CloseIconButton } from './CloseIconButton';
@@ -65,20 +65,20 @@ export const DialogWithButtons: FC<DialogWithButtonsProps> = ({
             widthClassName,
           )}
         >
-          <Dialog.Title className="flex" as="h3">
+          <DialogTitle className="flex" as="h3">
             {title}
             <CloseIconButton
               className="ml-auto"
               onClick={onCancel}
               testId={testIds.closeButton}
             />
-          </Dialog.Title>
-          <Dialog.Description
+          </DialogTitle>
+          <Description
             className="my-5 whitespace-pre-line"
             data-testid={testIds.textContent}
           >
             {description}
-          </Dialog.Description>
+          </Description>
           <div className="flex justify-end space-x-2">
             {buttons.map((button, i) => (
               <SimpleButton

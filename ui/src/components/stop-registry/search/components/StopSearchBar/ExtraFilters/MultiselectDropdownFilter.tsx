@@ -1,10 +1,9 @@
-import { Listbox, Transition } from '@headlessui/react';
-import { FocusEventHandler, Fragment, ReactNode } from 'react';
+import { Listbox, ListboxOption, ListboxOptions } from '@headlessui/react';
+import { FocusEventHandler, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdCheck } from 'react-icons/md';
 import {
   JoreListboxButton,
-  dropdownTransition,
   multiselectListboxStyles,
 } from '../../../../../../uiComponents';
 import { areEqual } from '../../../../../../utils';
@@ -39,16 +38,15 @@ const MultiselectDropdownOptions = <OptionT,>({
   testIdBase,
 }: MultiselectDropdownOptionsProps<OptionT>): ReactNode =>
   options.map((option) => (
-    <Listbox.Option
+    <ListboxOption
       className={multiselectListboxStyles.option()}
-      as="div"
       key={keyOption(option)}
       value={option}
       data-testid={`${testIdBase}::Option::${keyOption(option)}`}
     >
       <MdCheck className="mr-2 rounded border border-grey text-2xl" />
       <span>{formatOption(option)}</span>
-    </Listbox.Option>
+    </ListboxOption>
   ));
 
 type MultiselectDropdownGroupsProps<OptionT> = {
@@ -136,42 +134,35 @@ export const MultiselectDropdownFilter = <OptionT,>({
       onBlur={onBlur}
       value={value as Array<OptionT>}
     >
-      {({ open }) => (
-        <>
-          <JoreListboxButton id={id} testId={`${testId}::button`}>
-            <span>
-              {value.length > 1
-                ? t('selected', { count: value.length })
-                : formatOption(value[0])}
-            </span>
-          </JoreListboxButton>
+      <JoreListboxButton id={id} testId={`${testId}::button`}>
+        <span>
+          {value.length > 1
+            ? t('selected', { count: value.length })
+            : formatOption(value[0])}
+        </span>
+      </JoreListboxButton>
 
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Transition show={open} as={Fragment} {...dropdownTransition}>
-            <Listbox.Options
-              as="div"
-              static
-              className={multiselectListboxStyles.options()}
-            >
-              {groupsOrOptions.groups ? (
-                <MultiselectDropdownGroups
-                  formatOption={formatOption}
-                  groups={groupsOrOptions.groups}
-                  keyOption={keyOption}
-                  testIdBase={testId}
-                />
-              ) : (
-                <MultiselectDropdownOptions
-                  formatOption={formatOption}
-                  keyOption={keyOption}
-                  options={groupsOrOptions.options}
-                  testIdBase={testId}
-                />
-              )}
-            </Listbox.Options>
-          </Transition>
-        </>
-      )}
+      <ListboxOptions
+        anchor="bottom start"
+        transition
+        className={multiselectListboxStyles.options()}
+      >
+        {groupsOrOptions.groups ? (
+          <MultiselectDropdownGroups
+            formatOption={formatOption}
+            groups={groupsOrOptions.groups}
+            keyOption={keyOption}
+            testIdBase={testId}
+          />
+        ) : (
+          <MultiselectDropdownOptions
+            formatOption={formatOption}
+            keyOption={keyOption}
+            options={groupsOrOptions.options}
+            testIdBase={testId}
+          />
+        )}
+      </ListboxOptions>
     </Listbox>
   );
 };

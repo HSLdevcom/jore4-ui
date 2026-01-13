@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
 import { StopWithDetails } from '../../../../../types';
 import {
-  AlignDirection,
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
 } from '../../../../../uiComponents';
@@ -29,11 +28,10 @@ export const ExtraActions: FC<ExtraActionsProps> = ({ className, stop }) => {
       <SimpleDropdownMenu
         className={className}
         buttonClassName={twJoin(
-          'flex h-11 w-11 items-center justify-center border border-grey',
+          'h-11 w-11 justify-center border border-grey',
           'disabled:pointer-events-none disabled:bg-background disabled:opacity-70',
         )}
         tooltip={t('accessibility:common.actionMenu')}
-        alignItems={AlignDirection.Left}
         testId={testIds.actionMenu}
         disabled={!stop}
       >

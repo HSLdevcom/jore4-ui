@@ -1,4 +1,4 @@
-import { Dialog } from '@headlessui/react';
+import { Description } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -62,9 +62,9 @@ export const DeleteTimetableModal: FC<DeleteTimetableModalProps> = ({
       confirmButtonText={t('deleteTimetableModal.confirmText')}
       cancelButtonText={t('deleteTimetableModal.cancelText')}
     >
-      <Dialog.Description data-testid={testIds.description}>
+      <Description data-testid={testIds.description}>
         {t('deleteTimetableModal.description')}
-      </Dialog.Description>
+      </Description>
       <AffectedRouteLabels
         affectedRouteLabels={affectedRouteLabels}
         text={t('deleteTimetableModal.affectedRoutesText')}

@@ -1,4 +1,4 @@
-import { Popover } from '@headlessui/react';
+import { PopoverPanel } from '@headlessui/react';
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twMerge } from 'tailwind-merge';
@@ -48,7 +48,7 @@ export const StopSelectionPanel: FC<StopSelectionPanelProps> = ({
   }, [mapStopSelection]);
 
   return (
-    <Popover.Panel
+    <PopoverPanel
       className={twMerge(
         'absolute z-10 w-[350px] rounded-md bg-white shadow-md',
         className,
@@ -77,6 +77,6 @@ export const StopSelectionPanel: FC<StopSelectionPanelProps> = ({
       </div>
 
       <StopSelectionListing />
-    </Popover.Panel>
+    </PopoverPanel>
   );
 };

@@ -14,7 +14,8 @@ export const Navbar: FC = () => {
       <LoggedIn>
         <NavLinks />
       </LoggedIn>
-      <UserNavMenu className={`${navMenuStyles} ml-auto`} />
+      <div className="flex-grow" />
+      <UserNavMenu className={navMenuStyles} />
       <LanguageDropdown className={navMenuStyles} />
     </nav>
   );

@@ -1,4 +1,4 @@
-import { Popover } from '@headlessui/react';
+import { Popover, PopoverButton } from '@headlessui/react';
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdList } from 'react-icons/md';
@@ -63,7 +63,7 @@ export const StopSelection: FC<StopSelectionProps> = ({ align, className }) => {
     >
       {({ open }) => (
         <>
-          <Popover.Button
+          <PopoverButton
             as={IconButton}
             className="relative flex-grow"
             tooltip={

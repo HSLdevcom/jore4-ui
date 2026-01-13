@@ -5,7 +5,7 @@ import {
   JoreCombobox,
 } from './JoreCombobox';
 
-type SearchableDropdownProps<T> = ComboboxInputProps & {
+type SearchableDropdownProps<T> = Omit<ComboboxInputProps, 'onChange'> & {
   readonly id?: string;
   readonly testId?: string;
   readonly query: string;
@@ -39,11 +39,16 @@ export const SearchableDropdown = <T,>({
     ? { value: 'null', content: nullOptionContent }
     : undefined;
 
-  const onItemSelected = (newValue: string) => {
+  const onItemSelected = (newValue: string | null) => {
     parentOnQueryChange('');
     if (nullOptionContent) {
       onChange(newValue === 'null' ? null : newValue);
     } else {
+      if (newValue === null) {
+        throw new TypeError(
+          '<SearchableDropdown> not marked as nullable but internal implementation triggered onChange with null!',
+        );
+      }
       onChange(newValue);
     }
   };

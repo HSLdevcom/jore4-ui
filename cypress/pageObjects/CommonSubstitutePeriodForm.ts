@@ -21,19 +21,24 @@ export class CommonSubstitutePeriodForm {
         this.commonSubstitutePeriodItem
           .getSubstituteDayOfWeekDropdown()
           .click();
-        cy.get('[role="option"]').contains(values.substituteDay).click();
+        cy.withinHeadlessPortal(() =>
+          cy.get('[role="option"]').contains(values.substituteDay).click(),
+        );
 
         if (values.lineTypes?.length) {
           this.commonSubstitutePeriodItem.getLineTypeDropdown().click();
 
-          values.lineTypes.forEach((lineType: string) => {
-            this.commonSubstitutePeriodItem
-              .getLineTypesList()
-              .find('[role="option"]')
-              .contains(lineType)
-              .click();
-          });
-          this.commonSubstitutePeriodItem.getLineTypeDropdown().click();
+          cy.withinHeadlessPortal(() =>
+            values.lineTypes?.forEach((lineType: string) => {
+              this.commonSubstitutePeriodItem
+                .getLineTypesList()
+                .find('[role="option"]')
+                .contains(lineType)
+                .click();
+            }),
+          );
+
+          cy.closeDropdown();
         }
       });
   }

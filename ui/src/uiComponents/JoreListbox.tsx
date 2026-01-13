@@ -1,21 +1,8 @@
-import {
-  Listbox as HUIListbox,
-  Transition,
-  TransitionClasses,
-} from '@headlessui/react';
-import { Fragment, ReactElement, ReactNode, Ref, forwardRef } from 'react';
+import { Listbox } from '@headlessui/react';
+import { ReactElement, ReactNode, Ref, forwardRef } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
 import { JoreListboxButton, listboxStyles } from './headlessHelpers';
 import { JoreListboxOptions, ListboxOptionItem } from './JoreListboxOptions';
-
-export const dropdownTransition: TransitionClasses = {
-  enter: 'transition ease-out duration-100',
-  enterFrom: 'opacity-0 scale-95',
-  enterTo: 'opacity-100 scale-100',
-  leave: 'transition ease-in duration-75',
-  leaveFrom: 'opacity-100 scale-100',
-  leaveTo: 'opacity-0 scale-95',
-};
 
 // copied from HeadlessUI Listbox as it's not exported
 export type ValueFn = (...event: ExplicitAny[]) => void;
@@ -65,7 +52,7 @@ const JoreListboxImpl = <ValueType extends string>(
   const hasError = !!fieldState?.error;
 
   return (
-    <HUIListbox
+    <Listbox
       id={id ?? 'listbox'}
       as="div"
       className={listboxStyles.root(className)}
@@ -75,26 +62,19 @@ const JoreListboxImpl = <ValueType extends string>(
       disabled={disabled}
       ref={ref}
     >
-      {({ open }) => (
-        <>
-          <JoreListboxButton
-            className={buttonClassNames}
-            hasError={hasError}
-            testId={`${testId}::ListboxButton`}
-          >
-            {buttonContent}
-          </JoreListboxButton>
+      <JoreListboxButton
+        className={buttonClassNames}
+        hasError={hasError}
+        testId={`${testId}::ListboxButton`}
+      >
+        {buttonContent}
+      </JoreListboxButton>
 
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Transition show={open} as={Fragment} {...dropdownTransition}>
-            <JoreListboxOptions
-              testId={`${testId}::ListboxOptions`}
-              options={options}
-            />
-          </Transition>
-        </>
-      )}
-    </HUIListbox>
+      <JoreListboxOptions
+        testId={`${testId}::ListboxOptions`}
+        options={options}
+      />
+    </Listbox>
   );
 };
 

@@ -1,9 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  AlignDirection,
-  SimpleDropdownMenu,
-} from '../../../../../uiComponents';
+import { SimpleDropdownMenu } from '../../../../../uiComponents';
 import { OpenDetailsPage, ShowOnMap } from '../../../components';
 import { ActionMenuStop } from '../types/ActionMenuStop';
 
@@ -27,7 +24,6 @@ export const StopVersionActionMenu: FC<StopVersionActionMenuProps> = ({
       className={className}
       buttonClassName="h-10 w-10 justify-center"
       tooltip={t('accessibility:common.actionMenu')}
-      alignItems={AlignDirection.LeftBottom}
       testId={testIds.actionMenu}
     >
       <ShowOnMap stop={stop} observationDate={stop.startDate} />

@@ -1,4 +1,4 @@
-import { Switch as HuiSwitch } from '@headlessui/react';
+import { Field } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -98,31 +98,27 @@ export const VehicleScheduleDetailsPage: FC = () => {
         <FormRow mdColumns={6} className="mb-8">
           <ObservationDateControl className="max-w-max" />
           <Visible visible={activeView === TimetablesView.DEFAULT}>
-            <div className="col-span-2 mb-1 flex items-center justify-normal space-x-4 self-end">
-              <HuiSwitch.Group>
-                <SwitchLabel>{t('timetables.showAllValid')}</SwitchLabel>
-                <Switch
-                  checked={showAllValid}
-                  testId={testIds.showAllValidSwitch}
-                  className="mb-1"
-                  onChange={onShowAllValidChanged}
-                />
-              </HuiSwitch.Group>
-            </div>
+            <Field className="col-span-2 mb-1 flex items-center justify-normal space-x-4 self-end">
+              <SwitchLabel>{t('timetables.showAllValid')}</SwitchLabel>
+              <Switch
+                checked={showAllValid}
+                testId={testIds.showAllValidSwitch}
+                className="mb-1"
+                onChange={onShowAllValidChanged}
+              />
+            </Field>
           </Visible>
           <Visible
             visible={activeView === TimetablesView.PASSING_TIMES_BY_STOP}
           >
-            <div className="col-span-2 flex items-center justify-normal space-x-4 self-end">
-              <HuiSwitch.Group>
-                <SwitchLabel>{t('timetables.showArrivalTimes')}</SwitchLabel>
-                <Switch
-                  checked={showArrivalTimes}
-                  onChange={onShowArrivalTimesChanged}
-                  testId={testIds.showArrivalTimesSwitch}
-                />
-              </HuiSwitch.Group>
-            </div>
+            <Field className="col-span-2 flex items-center justify-normal space-x-4 self-end">
+              <SwitchLabel>{t('timetables.showArrivalTimes')}</SwitchLabel>
+              <Switch
+                checked={showArrivalTimes}
+                onChange={onShowArrivalTimesChanged}
+                testId={testIds.showArrivalTimesSwitch}
+              />
+            </Field>
           </Visible>
           <FormColumn className="col-start-6 items-end justify-end">
             {line && (

@@ -127,13 +127,13 @@ describe('Hastus export', () => {
           routeRow.getToggleAccordionButton().click();
 
           // Open E2E001 timing settings
-          lineRouteListItem.getNthRouteStopListItem(0).within(() => {
-            routeStopListItem.getStopActionsDropdown().click();
-            routeStopListItem.stopActionsDropdown
-              .getOpenTimingSettingsButton()
-              .click();
-          });
+          lineRouteListItem
+            .getNthRouteStopListItem(0)
+            .within(() => routeStopListItem.getStopActionsDropdown().click());
         });
+        routeStopListItem.stopActionsDropdown
+          .getOpenTimingSettingsButton()
+          .click();
 
         // Set route 901 (outbound) first stop to not be used as timing point
         timingSettingsForm
@@ -168,13 +168,13 @@ describe('Hastus export', () => {
           routeRow.getToggleAccordionButton().click();
 
           // Open E2E005 timing settings
-          lineRouteListItem.getNthRouteStopListItem(4).within(() => {
-            routeStopListItem.getStopActionsDropdown().click();
-            routeStopListItem.stopActionsDropdown
-              .getOpenTimingSettingsButton()
-              .click();
-          });
+          lineRouteListItem
+            .getNthRouteStopListItem(4)
+            .within(() => routeStopListItem.getStopActionsDropdown().click());
         });
+        routeStopListItem.stopActionsDropdown
+          .getOpenTimingSettingsButton()
+          .click();
 
         timingSettingsForm
           .getIsUsedAsTimingPointCheckbox()
@@ -208,13 +208,13 @@ describe('Hastus export', () => {
           routeRow.getToggleAccordionButton().click();
 
           // Open E2E001 timing settings
-          lineRouteListItem.getNthRouteStopListItem(0).within(() => {
-            routeStopListItem.getStopActionsDropdown().click();
-            routeStopListItem.stopActionsDropdown
-              .getOpenTimingSettingsButton()
-              .click();
-          });
+          lineRouteListItem
+            .getNthRouteStopListItem(0)
+            .within(() => routeStopListItem.getStopActionsDropdown().click());
         });
+        routeStopListItem.stopActionsDropdown
+          .getOpenTimingSettingsButton()
+          .click();
 
         timingSettingsForm
           .getIsUsedAsTimingPointCheckbox()
@@ -224,13 +224,13 @@ describe('Hastus export', () => {
 
         lineRouteList.getNthLineRouteListItem(0).within(() => {
           // Open E2E005 timing settings
-          lineRouteListItem.getNthRouteStopListItem(4).within(() => {
-            routeStopListItem.getStopActionsDropdown().click();
-            routeStopListItem.stopActionsDropdown
-              .getOpenTimingSettingsButton()
-              .click();
-          });
+          lineRouteListItem
+            .getNthRouteStopListItem(4)
+            .within(() => routeStopListItem.getStopActionsDropdown().click());
         });
+        routeStopListItem.stopActionsDropdown
+          .getOpenTimingSettingsButton()
+          .click();
 
         // Set route 901 (outbound) last stop to not be used as timing point
         timingSettingsForm

@@ -14,7 +14,6 @@ import {
 import { mapToShortDate } from '../../../time';
 import { TimetablePriority } from '../../../types/enums';
 import {
-  AlignDirection,
   IconButton,
   SimpleDropdownMenu,
   SimpleDropdownMenuItem,
@@ -153,7 +152,6 @@ export const TimetableVersionTableRow: FC<TimetableVersionTableRowProps> = ({
       <td>
         <Visible visible={!!data.vehicleScheduleFrame.id}>
           <SimpleDropdownMenu
-            alignItems={AlignDirection.Right}
             testId={testIds.actions}
             tooltip={t('accessibility:timetables.versionActions', {
               status: statusText,

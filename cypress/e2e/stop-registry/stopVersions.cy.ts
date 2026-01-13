@@ -575,11 +575,9 @@ describe('Stop Versions Page', () => {
         row
           .rows()
           .eq(0)
-          .within(() => {
-            row.actionMenu().click();
-            row.actionMenuShowOnMap().click();
-          });
+          .within(() => row.actionMenu().click());
       });
+      row.actionMenuShowOnMap().click();
 
       map.waitForLoadToComplete();
 
@@ -595,11 +593,9 @@ describe('Stop Versions Page', () => {
         row
           .rows()
           .eq(0)
-          .within(() => {
-            row.actionMenu().click();
-            row.actionMenuShowStopDetails().click();
-          });
+          .within(() => row.actionMenu().click());
       });
+      row.actionMenuShowStopDetails().click();
 
       stopDetailsPage.loadingStopDetails().should('not.exist');
 

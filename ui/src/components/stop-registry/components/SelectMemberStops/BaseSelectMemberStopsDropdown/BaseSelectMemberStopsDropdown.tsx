@@ -1,9 +1,6 @@
-import { Combobox as HUICombobox, Transition } from '@headlessui/react';
+import { Combobox, ComboboxInput, ComboboxOptions } from '@headlessui/react';
 import { FC, ReactNode, useMemo, useState } from 'react';
-import {
-  comboboxStyles,
-  dropdownTransition,
-} from '../../../../../uiComponents';
+import { comboboxStyles } from '../../../../../uiComponents';
 import { log } from '../../../../../utils';
 import {
   FETCH_MORE_OPTION,
@@ -33,7 +30,6 @@ export type SelectMemberStopsDropdownProps = {
   readonly className?: string;
   readonly disabled?: boolean;
   readonly value: SelectedStop[] | undefined;
-  readonly onChange: (selected: SelectedStop[]) => void;
   readonly testId?: string;
 };
 
@@ -107,51 +103,48 @@ export const BaseSelectMemberStopsDropdown: FC<
   };
 
   return (
-    <HUICombobox
+    <Combobox
       as="div"
       by={compareMembersById}
       className={comboboxStyles.root(className)}
       disabled={disabled}
       multiple
-      nullable={false}
       onChange={handleSelectionChange}
       value={value}
       ref={onCloseRef}
       data-testid={testId}
     >
-      {({ open }) => (
-        <>
-          {renderWarning?.()}
-          <div className="relative w-full">
-            <HUICombobox.Input
-              className={comboboxStyles.input()}
-              onChange={(e) => setQuery(e.target.value)}
-              value={query}
-              aria-label={inputAriaLabel}
-              data-testid={testIds.input}
-            />
+      {renderWarning?.()}
+      <div className="relative w-full">
+        <ComboboxInput
+          className={comboboxStyles.input()}
+          onChange={(e) => setQuery(e.target.value)}
+          value={query}
+          aria-label={inputAriaLabel}
+          data-testid={testIds.input}
+        />
 
-            <SelectMemberStopsDropdownButton selected={value} />
-          </div>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Transition show={open} {...dropdownTransition}>
-            <HUICombobox.Options as="div" className={comboboxStyles.options()}>
-              <SelectedMemberStops
-                selected={value}
-                hoveredStopPlaceId={hoveredStopPlaceId}
-                onHover={setHoveredStopPlaceId}
-              />
-              <MemberStopOptions options={unselectedOptions} allowDisable />
+        <SelectMemberStopsDropdownButton selected={value} />
+      </div>
 
-              <SelectMemberStopQueryStatus
-                allFetched={allFetched}
-                loading={loading}
-                query={cleanQuery}
-              />
-            </HUICombobox.Options>
-          </Transition>
-        </>
-      )}
-    </HUICombobox>
+      <ComboboxOptions
+        anchor="bottom start"
+        className={comboboxStyles.options('w-[--button-width]')}
+        transition
+      >
+        <SelectedMemberStops
+          selected={value}
+          hoveredStopPlaceId={hoveredStopPlaceId}
+          onHover={setHoveredStopPlaceId}
+        />
+        <MemberStopOptions options={unselectedOptions} allowDisable />
+
+        <SelectMemberStopQueryStatus
+          allFetched={allFetched}
+          loading={loading}
+          query={cleanQuery}
+        />
+      </ComboboxOptions>
+    </Combobox>
   );
 };

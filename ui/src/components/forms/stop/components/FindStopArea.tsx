@@ -1,4 +1,11 @@
-import { Combobox } from '@headlessui/react';
+import {
+  Combobox,
+  ComboboxButton,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxOptions,
+  Label,
+} from '@headlessui/react';
 import debounce from 'lodash/debounce';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useController } from 'react-hook-form';
@@ -69,24 +76,23 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
   const loading = loadingResults || queryDebounced;
 
   return (
-    <Combobox<StopModalStopAreaFormSchema, 'div'>
+    <Combobox
       as="div"
       className={comboboxStyles.root(
         'flex flex-col justify-between',
         className,
       )}
       name="stopArea"
-      nullable
       value={selected}
       onChange={onSelect}
       disabled={disabled}
     >
-      <Combobox.Label>{t('stops.stopArea.label')}</Combobox.Label>
+      <Label>{t('stops.stopArea.label')}</Label>
       <div className="flex h-[--input-height]">
-        <Combobox.Input<'input', StopModalStopAreaFormSchema>
+        <ComboboxInput<StopModalStopAreaFormSchema>
           ref={ref}
           className={comboboxStyles.input(
-            'grow rounded-br-none rounded-tr-none border-r-0 outline-0',
+            'grow border-r-0 outline-0 ui-not-open:rounded-br-none ui-not-open:rounded-tr-none',
             'ui-open:rounded-bl-none',
           )}
           onChange={(e) => onQueryChange(e.target.value)}
@@ -94,7 +100,7 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
           autoComplete="off"
           data-testid={testIds.input}
         />
-        <Combobox.Button
+        <ComboboxButton
           disabled={!query}
           className={comboboxStyles.button(
             'static flex h-[--input-height] w-[--input-height] justify-center rounded-br-[5px] rounded-tr-[5px] bg-tweaked-brand text-xl',
@@ -103,24 +109,30 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
           title={t('stops.stopArea.search')}
         >
           <MdOutlineSearch color="white" />
-        </Combobox.Button>
+        </ComboboxButton>
       </div>
       <ValidationErrorList<StopFormState> fieldPath="stopArea" />
 
-      <Combobox.Options as="div" className={comboboxStyles.options('relative')}>
+      <ComboboxOptions
+        anchor="bottom start"
+        className={comboboxStyles.options(
+          'min-w-[calc(var(--button-width)+var(--input-width))]',
+        )}
+        transition
+      >
         {loading && (
-          <Combobox.Option
+          <ComboboxOption
             className={comboboxStyles.option()}
             value={null}
             disabled
             data-testid={testIds.loading}
           >
             {t('stops.stopArea.label')}
-          </Combobox.Option>
+          </ComboboxOption>
         )}
 
         {areas.map((area) => (
-          <Combobox.Option
+          <ComboboxOption
             className={comboboxStyles.option()}
             key={area.netexId}
             value={area}
@@ -135,19 +147,19 @@ export const FindStopArea: FC<FindStopAreaProps> = ({
                 {`${formatIsoDateString(area.validityStart)} - ${formatIsoDateString(area.validityEnd)}`}
               </span>
             </div>
-          </Combobox.Option>
+          </ComboboxOption>
         ))}
 
         {!query && !loading && (
-          <Combobox.Option
+          <ComboboxOption
             className="flex cursor-pointer items-center border-b p-2 text-left focus:outline-none ui-active:bg-dark-grey ui-active:text-white"
             value={null}
             disabled
           >
             {t('stops.stopArea.help')}
-          </Combobox.Option>
+          </ComboboxOption>
         )}
-      </Combobox.Options>
+      </ComboboxOptions>
     </Combobox>
   );
 };

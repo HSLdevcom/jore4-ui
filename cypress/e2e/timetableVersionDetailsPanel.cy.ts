@@ -74,10 +74,10 @@ describe('Timetable version details panel', () => {
       .eq(0)
       .within(() => {
         timetableVersionTableRow.getDayType().shouldHaveText('Lauantai');
-
         timetableVersionTableRow.getActionsButton().click();
-        timetableVersionTableRow.getVersionPanelMenuItemButton().click();
       });
+
+    timetableVersionTableRow.getVersionPanelMenuItemButton().click();
 
     timetableVersionDetailsPanel
       .getHeading()
@@ -199,10 +199,10 @@ describe('Timetable version details panel', () => {
       .eq(0)
       .within(() => {
         timetableVersionTableRow.getDayType().shouldHaveText('Lauantai');
-
         timetableVersionTableRow.getActionsButton().click();
-        timetableVersionTableRow.getVersionPanelMenuItemButton().click();
       });
+
+    timetableVersionTableRow.getVersionPanelMenuItemButton().click();
 
     timetableVersionDetailsPanel
       .getHeading()

@@ -92,8 +92,12 @@ function processSelection(
   return [...newValue];
 }
 
+type SelectTerminalMemberStopsDropdownProps = SelectMemberStopsDropdownProps & {
+  readonly onChange: (selected: SelectedStop[]) => void;
+};
+
 export const SelectTerminalMemberStopsDropdown: FC<
-  SelectMemberStopsDropdownProps
+  SelectTerminalMemberStopsDropdownProps
 > = ({ value = [], onChange, ...restProps }) => {
   const { t } = useTranslation();
 
@@ -130,7 +134,6 @@ export const SelectTerminalMemberStopsDropdown: FC<
   return (
     <BaseSelectMemberStopsDropdown
       value={value}
-      onChange={onChange}
       onSelectionChange={handleSelectionChange}
       renderWarning={renderWarning}
       inputAriaLabel={t('terminalDetails.location.memberStops')}

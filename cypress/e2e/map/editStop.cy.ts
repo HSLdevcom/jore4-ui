@@ -341,10 +341,10 @@ describe('Stop editing tests', () => {
       // Wait for the search results before trying to find the result list item
       expectGraphQLCallToSucceed('@gqlGetTimingPlacesForCombobox');
 
-      stopForm
-        .getTimingPlaceDropdown()
-        .find('[role="listbox"]')
-        .should('contain', testTimingPlaceLabels.label1);
+      cy.get('[role="listbox"]').should(
+        'contain',
+        testTimingPlaceLabels.label1,
+      );
     },
   );
 

@@ -1,4 +1,4 @@
-import { Dialog } from '@headlessui/react';
+import { DialogTitle } from '@headlessui/react';
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Row } from '../../layoutComponents';
@@ -26,7 +26,7 @@ export const NewModalHeader: FC<NewModalHeaderProps> = ({
         className,
       )}
     >
-      <Dialog.Title>{heading}</Dialog.Title>
+      <DialogTitle>{heading}</DialogTitle>
       <CloseIconButton onClick={onClose} testId={testIds.closeButton} />
     </Row>
   );

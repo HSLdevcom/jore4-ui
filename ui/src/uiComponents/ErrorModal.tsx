@@ -1,4 +1,4 @@
-import { Dialog } from '@headlessui/react';
+import { DialogTitle } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { twJoin } from 'tailwind-merge';
@@ -43,7 +43,7 @@ export const ErrorModal: FC<ErrorModalProps> = ({
       <Row className="flex items-start justify-between px-5 pb-2 pt-4">
         <div className="flex space-x-1">
           <i className="icon-alert text-lg text-hsl-red" />
-          <Dialog.Title as="h4">{heading}</Dialog.Title>
+          <DialogTitle as="h4">{heading}</DialogTitle>
         </div>
         <CloseIconButton onClick={onClose} testId={testIds.closeIconButton} />
       </Row>

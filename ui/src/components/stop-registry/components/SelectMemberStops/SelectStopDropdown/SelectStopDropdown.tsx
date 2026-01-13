@@ -1,10 +1,9 @@
-import { Combobox as HUICombobox, Transition } from '@headlessui/react';
+import { Combobox, ComboboxInput, ComboboxOptions } from '@headlessui/react';
 import { FC, useMemo, useState } from 'react';
 import { mapToShortDate } from '../../../../../time';
 import {
   JoreComboboxButton,
   comboboxStyles,
-  dropdownTransition,
 } from '../../../../../uiComponents';
 import { log } from '../../../../../utils';
 import {
@@ -104,62 +103,58 @@ export const SelectStopDropdown: FC<SelectStopDropdown> = ({
   };
 
   return (
-    <HUICombobox
+    <Combobox
       as="div"
       by={compareMembersById}
       className={comboboxStyles.root(className)}
       disabled={disabled}
-      nullable={false}
       onChange={handleSelectionChange}
       value={value}
       ref={onCloseRef}
       data-testid={testId}
     >
-      {({ open }) => (
-        <>
-          <div className="relative">
-            <HUICombobox.Input
-              className={comboboxStyles.input()}
-              onChange={(e) => setQuery(e.target.value)}
-              onFocus={() => setIsInputFocused(true)}
-              onBlur={() => setIsInputFocused(false)}
-              value={query}
-              aria-label={inputAriaLabel}
-              data-testid={testIds.input}
-            />
+      <div className="relative">
+        <ComboboxInput
+          className={comboboxStyles.input()}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setIsInputFocused(true)}
+          onBlur={() => setIsInputFocused(false)}
+          value={query}
+          aria-label={inputAriaLabel}
+          data-testid={testIds.input}
+        />
 
-            {value && !query.trim() && !isInputFocused && (
-              <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center">
-                <span
-                  className="text-black"
-                  title={`${value.publicCode} ${value.name}`}
-                >
-                  <strong>
-                    {value.publicCode} {value.name}
-                  </strong>{' '}
-                  {mapToShortDate(value.validityStart)} -{' '}
-                  {mapToShortDate(value.validityEnd)}
-                </span>
-              </div>
-            )}
-
-            <JoreComboboxButton testId={testIds.button} />
+        {value && !query.trim() && !isInputFocused && (
+          <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center">
+            <span
+              className="text-black"
+              title={`${value.publicCode} ${value.name}`}
+            >
+              <strong>
+                {value.publicCode} {value.name}
+              </strong>{' '}
+              {mapToShortDate(value.validityStart)} -{' '}
+              {mapToShortDate(value.validityEnd)}
+            </span>
           </div>
+        )}
 
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Transition show={open} {...dropdownTransition}>
-            <HUICombobox.Options as="div" className={comboboxStyles.options()}>
-              <MemberStopOptions options={unselectedOptions} />
+        <JoreComboboxButton testId={testIds.button} />
+      </div>
 
-              <SelectMemberStopQueryStatus
-                allFetched={allFetched}
-                loading={loading}
-                query={cleanQuery}
-              />
-            </HUICombobox.Options>
-          </Transition>
-        </>
-      )}
-    </HUICombobox>
+      <ComboboxOptions
+        anchor="bottom start"
+        className={comboboxStyles.options('w-[--input-width]')}
+        transition
+      >
+        <MemberStopOptions options={unselectedOptions} />
+
+        <SelectMemberStopQueryStatus
+          allFetched={allFetched}
+          loading={loading}
+          query={cleanQuery}
+        />
+      </ComboboxOptions>
+    </Combobox>
   );
 };

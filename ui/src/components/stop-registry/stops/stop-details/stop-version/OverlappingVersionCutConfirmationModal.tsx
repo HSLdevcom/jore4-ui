@@ -1,4 +1,4 @@
-import { Dialog } from '@headlessui/react';
+import { Description } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../../../hooks';
@@ -36,7 +36,7 @@ export const OverlappingVersionCutConfirmationModal: FC<
       cancelButtonText={t('cancel')}
       testId={testIds.modal}
     >
-      <Dialog.Description className="text-sm">
+      <Description className="text-sm">
         <p data-testid={testIds.currentVersion}>
           <span className="font-bold">
             {t('stopDetails.version.cutModal.currentVersion')}:
@@ -59,7 +59,7 @@ export const OverlappingVersionCutConfirmationModal: FC<
                 date: cutModalState.cutDate,
               })}
         </p>
-      </Dialog.Description>
+      </Description>
     </ConfirmModal>
   );
 };

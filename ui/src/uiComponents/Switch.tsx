@@ -1,4 +1,4 @@
-import { Switch as HuiSwitch } from '@headlessui/react';
+import { Switch as HuiSwitch, Label } from '@headlessui/react';
 import { FC, PropsWithChildren } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
 
@@ -48,8 +48,8 @@ export const SwitchLabel: FC<PropsWithChildren<LabelProps>> = ({
   children,
 }) => {
   return (
-    <HuiSwitch.Label className={twMerge('text-base font-normal', className)}>
+    <Label className={twMerge('text-base font-normal', className)}>
       {children}
-    </HuiSwitch.Label>
+    </Label>
   );
 };

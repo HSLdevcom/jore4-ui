@@ -1,10 +1,10 @@
-import { Listbox as HUIListbox, Transition } from '@headlessui/react';
+import { Listbox } from '@headlessui/react';
 import first from 'lodash/first';
-import { FC, Fragment, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { ControllerFieldState, Noop } from 'react-hook-form';
 import { AllOptionEnum } from '../utils/enum';
 import { JoreListboxButton, multiselectListboxStyles } from './headlessHelpers';
-import { ValueFn, dropdownTransition } from './JoreListbox';
+import { ValueFn } from './JoreListbox';
 import { JoreListboxOptions, ListboxOptionItem } from './JoreListboxOptions';
 
 type MultiSelectFormInputProps = {
@@ -91,7 +91,7 @@ export const MultiSelectListbox: FC<MultiSelectListboxProps> = ({
   const hasError = !!fieldState?.error;
 
   return (
-    <HUIListbox
+    <Listbox
       id={id ?? 'multiSelectListbox'}
       as="div"
       className={multiselectListboxStyles.root(className)}
@@ -101,27 +101,20 @@ export const MultiSelectListbox: FC<MultiSelectListboxProps> = ({
       multiple
       disabled={disabled}
     >
-      {({ open }) => (
-        <>
-          <JoreListboxButton
-            className={multiselectListboxStyles.button(buttonClassNames)}
-            hasError={hasError}
-            testId={`${testId}::ListboxButton`}
-          >
-            {buttonContent}
-          </JoreListboxButton>
+      <JoreListboxButton
+        className={multiselectListboxStyles.button(buttonClassNames)}
+        hasError={hasError}
+        testId={`${testId}::ListboxButton`}
+      >
+        {buttonContent}
+      </JoreListboxButton>
 
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Transition show={open} as={Fragment} {...dropdownTransition}>
-            <JoreListboxOptions
-              className={multiselectListboxStyles.options()}
-              optionClassName={multiselectListboxStyles.option()}
-              options={options}
-              testId={`${testId}::ListboxOptions`}
-            />
-          </Transition>
-        </>
-      )}
-    </HUIListbox>
+      <JoreListboxOptions
+        className={multiselectListboxStyles.options()}
+        optionClassName={multiselectListboxStyles.option()}
+        options={options}
+        testId={`${testId}::ListboxOptions`}
+      />
+    </Listbox>
   );
 };

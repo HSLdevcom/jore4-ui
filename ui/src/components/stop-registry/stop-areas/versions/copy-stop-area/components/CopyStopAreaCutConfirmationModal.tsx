@@ -1,4 +1,4 @@
-import { Dialog } from '@headlessui/react';
+import { Description } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mapToShortDate, parseDate } from '../../../../../../time';
@@ -62,7 +62,7 @@ export const CopyStopAreaCutConfirmationModal: FC<
       cancelButtonText={t('cancel')}
       testId={testIds.modal}
     >
-      <Dialog.Description className="text-sm">
+      <Description className="text-sm">
         <p>
           <span className="font-bold">
             {t('stopAreaDetails.version.cutModal.currentVersion')}:
@@ -89,7 +89,7 @@ export const CopyStopAreaCutConfirmationModal: FC<
                 date: displayState.cutDate,
               })}
         </p>
-      </Dialog.Description>
+      </Description>
     </ConfirmModal>
   );
 };

@@ -71,18 +71,22 @@ export class OccasionalSubstitutePeriodForm {
 
   selectDayType(dayType: string) {
     this.getOccasionalSubstitutePeriodFormDayTypeDropdown().click();
-    this.getDayTypeList().find('[role="option"]').contains(dayType).click();
+    cy.withinHeadlessPortal(() =>
+      this.getDayTypeList().find('[role="option"]').contains(dayType).click(),
+    );
   }
 
   selectLineTypes(lineTypes: string[]) {
     this.getOccasionalSubstitutePeriodFormLineTypesDropdown().click();
-    cy.get('[role="option"]').contains('Kaikki').click();
+    cy.withinHeadlessPortal(() => {
+      cy.get('[role="option"]').contains('Kaikki').click();
 
-    lineTypes.forEach((lineType: string) => {
-      cy.get('[role="option"]').contains(lineType).click();
+      lineTypes.forEach((lineType: string) => {
+        cy.get('[role="option"]').contains(lineType).click();
+      });
     });
 
-    this.getOccasionalSubstitutePeriodFormLineTypesDropdown().click();
+    cy.closeDropdown();
   }
 
   fillNthOccasionalSubstitutePeriodForm(values: {

@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.14.0",
-    "@headlessui/react": "1.7.10",
+    "@headlessui/react": "2.2.9",
     "@headlessui/tailwindcss": "^0.2.2",
     "@hookform/resolvers": "^3.10.0",
     "@mapbox/mapbox-gl-draw": "^1.5.1",

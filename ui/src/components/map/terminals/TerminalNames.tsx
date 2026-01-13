@@ -64,6 +64,7 @@ export const TerminalNames: FC = () => {
         />
       </div>
       <Transition
+        as="div"
         className="mt-2 flex flex-row flex-wrap gap-8 py-2"
         id={ID}
         role="region"

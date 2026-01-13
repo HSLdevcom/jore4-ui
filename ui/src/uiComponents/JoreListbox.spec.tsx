@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 import { fireFullMouseClickSequence, render } from '../utils/test-utils';
 import { JoreListbox } from './JoreListbox';
 
-describe('<Listbox />', () => {
+describe('<JoreListbox />', () => {
   const testId = 'listbox1';
   const buttonContent = `button`;
   // eslint-disable-next-line @typescript-eslint/no-empty-function

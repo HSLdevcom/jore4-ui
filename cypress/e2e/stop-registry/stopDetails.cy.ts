@@ -731,11 +731,7 @@ describe('Stop details', () => {
         bdForm.getStopPlaceStateDropdownOptions().contains('Käytössä').click();
         bdForm.getTimingPlaceDropdown().type('1AACKT');
 
-        bdForm
-          .getTimingPlaceDropdown()
-          .find('[role="option"]')
-          .contains('1AACKT')
-          .click();
+        cy.get('[role="option"]').contains('1AACKT').click();
 
         stopDetailsPage.basicDetails.getSaveButton().click();
         toast.expectSuccessToast('Pysäkki muokattu');
@@ -1114,22 +1110,33 @@ describe('Stop details', () => {
             shelter.getShelterExternalIdInput().clearAndType('98765');
             shelter.getShelterNumberInput().clearAndType('2');
             shelter.getShelterTypeDropdownButton().click();
-            shelter
-              .getShelterTypeDropdownOptions()
-              .contains('Puukatos')
-              .click();
+            cy.withinHeadlessPortal(() =>
+              shelter
+                .getShelterTypeDropdownOptions()
+                .contains('Puukatos')
+                .click(),
+            );
             shelter.getShelterElectricityDropdownButton().click();
-            shelter
-              .getShelterElectricityDropdownOptions()
-              .contains('Valosähkö')
-              .click();
+            cy.withinHeadlessPortal(() =>
+              shelter
+                .getShelterElectricityDropdownOptions()
+                .contains('Valosähkö')
+                .click(),
+            );
             shelter.getShelterLightingDropdownButton().click();
-            shelter.getShelterLightingDropdownOptions().contains('Ei').click();
+            cy.withinHeadlessPortal(() =>
+              shelter
+                .getShelterLightingDropdownOptions()
+                .contains('Ei')
+                .click(),
+            );
             shelter.getShelterConditionDropdownButton().click();
-            shelter
-              .getShelterConditionDropdownOptions()
-              .contains('Hyvä')
-              .click();
+            cy.withinHeadlessPortal(() =>
+              shelter
+                .getShelterConditionDropdownOptions()
+                .contains('Hyvä')
+                .click(),
+            );
             shelter.getTimetableCabinetsInput().clearAndType('42');
             shelter.getTrashCanCheckbox().click();
             shelter.getShelterHasDisplayCheckbox().click();
@@ -1703,54 +1710,30 @@ describe('Stop details', () => {
         // Change everything:
         form.getStopOwnerDropdownButton().click();
         form.getStopOwnerDropdownOptions().contains('Kunta').click();
-        form.getOwner().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('Clear Channel')
-            .click();
-        });
-        form.getShelterMaintenance().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('Clear Channel')
-            .click();
-        });
-        form.getMaintenance().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('JCD')
-            .click();
-        });
-        form.getWinterMaintenance().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('Ei toimijaa')
-            .click();
-        });
-        form.getInfoUpkeep().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('JCD')
-            .click();
-        });
-        form.getCleaning().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('ELY-keskus')
-            .click();
-        });
+        form
+          .getOwner()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('Clear Channel').click();
+        form
+          .getShelterMaintenance()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('Clear Channel').click();
+        form
+          .getMaintenance()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('JCD').click();
+        form
+          .getWinterMaintenance()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('Ei toimijaa').click();
+        form
+          .getInfoUpkeep()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('JCD').click();
+        form
+          .getCleaning()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('ELY-keskus').click();
 
         // Submit.
         stopDetailsPage.maintenance.getSaveButton().click();
@@ -1825,46 +1808,26 @@ describe('Stop details', () => {
         });
 
         // Change everything:
-        form.getOwner().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('Ei toimijaa')
-            .click();
-        });
-        form.getShelterMaintenance().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('Ei toimijaa')
-            .click();
-        });
-        form.getMaintenance().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('Ei toimijaa')
-            .click();
-        });
-        form.getWinterMaintenance().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('Ei toimijaa')
-            .click();
-        });
-        form.getCleaning().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('Ei toimijaa')
-            .click();
-        });
+        form
+          .getOwner()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('Ei toimijaa').click();
+        form
+          .getShelterMaintenance()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('Ei toimijaa').click();
+        form
+          .getMaintenance()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('Ei toimijaa').click();
+        form
+          .getWinterMaintenance()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('Ei toimijaa').click();
+        form
+          .getCleaning()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('Ei toimijaa').click();
 
         // Submit.
         stopDetailsPage.maintenance.getSaveButton().click();
@@ -1956,11 +1919,9 @@ describe('Stop details', () => {
             .getMaintainerDropdownButton()
             .shouldHaveText('ELY-keskus');
           form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('Lisää uusi toimija')
-            .click();
+          cy.withinHeadlessPortal(() =>
+            cy.get('[role="option"]').contains('Lisää uusi toimija').click(),
+          );
           form.fields
             .getMaintainerDropdownButton()
             .shouldHaveText('ELY-keskus');
@@ -2009,15 +1970,11 @@ describe('Stop details', () => {
         });
 
         // New maintainer would be visible for other maintainers too.
-        form.getInfoUpkeep().within(() => {
-          form.fields.getMaintainerDropdownButton().click();
-          form.fields
-            .getMaintainerDropdown()
-            .find('[role="option"]')
-            .contains('Uusi Toimija')
-            .shouldBeVisible();
-          form.fields.getMaintainerDropdownButton().click();
-        });
+        form
+          .getInfoUpkeep()
+          .within(() => form.fields.getMaintainerDropdownButton().click());
+        cy.get('[role="option"]').contains('Uusi Toimija').shouldBeVisible();
+        cy.closeDropdown();
 
         // Persist maintainers and check view.
         stopDetailsPage.maintenance.getSaveButton().click();
@@ -2085,16 +2042,25 @@ describe('Stop details', () => {
           // Change everything
           infoSpot.getLabel().clearAndType('IP98765432');
           infoSpot.getPurposeButton().click();
-          infoSpot.getPurposeOptions().contains('Muu käyttötarkoitus').click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot
+              .getPurposeOptions()
+              .contains('Muu käyttötarkoitus')
+              .click(),
+          );
           infoSpot.getPurposeCustom().shouldBeVisible();
           infoSpot.getPurposeCustom().clearAndType('Custom käyttötarkoitus');
           infoSpot.getSizeSelectorButton().click();
-          infoSpot
-            .getSizeSelectorOptions()
-            .contains('A4 (21.0 × 29.7 cm)')
-            .click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot
+              .getSizeSelectorOptions()
+              .contains('A4 (21.0 × 29.7 cm)')
+              .click(),
+          );
           infoSpot.getBacklightButton().click();
-          infoSpot.getBacklightOptions().contains('Ei').click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot.getBacklightOptions().contains('Ei').click(),
+          );
           infoSpot.getDescription().clearAndType('Infopaikan uusi kuvaus');
           infoSpot.getZoneLabel().clearAndType('B');
           infoSpot.getRailInformation().clearAndType('8');
@@ -2102,10 +2068,12 @@ describe('Stop details', () => {
           infoSpot.getNthPosterContainer(0).within(() => {
             infoSpot.getPosterLabel().clearAndType('PT1235');
             infoSpot.getSizeSelectorButton().click();
-            infoSpot
-              .getSizeSelectorOptions()
-              .contains('A3 (29.7 × 42.0 cm)')
-              .click();
+            cy.withinHeadlessPortal(() =>
+              infoSpot
+                .getSizeSelectorOptions()
+                .contains('A3 (29.7 × 42.0 cm)')
+                .click(),
+            );
             infoSpot.getPosterLines().clearAndType('2, 7, 18');
           });
         });
@@ -2152,7 +2120,9 @@ describe('Stop details', () => {
           // Change everything
           infoSpot.getLabel().clearAndType('IP2345678');
           infoSpot.getPurposeButton().click();
-          infoSpot.getPurposeOptions().contains('Pysäkkijuliste').click();
+          cy.withinHeadlessPortal(() =>
+            infoSpot.getPurposeOptions().contains('Pysäkkijuliste').click(),
+          );
           infoSpot.getPurposeCustom().should('not.exist');
           infoSpot.getDescription().clearAndType('Dynaaminen kuvaus');
           infoSpot.getZoneLabel().clearAndType('C');
@@ -2238,7 +2208,9 @@ describe('Stop details', () => {
           infoSpotForm.getNthInfoSpot(0).within(() => {
             infoSpot.getLabel().clearAndType('IP123');
             infoSpot.getPurposeButton().click();
-            infoSpot.getPurposeOptions().contains('Kartta').click();
+            cy.withinHeadlessPortal(() =>
+              infoSpot.getPurposeOptions().contains('Kartta').click(),
+            );
             infoSpot.getDescription().clearAndType('Dynaamisen kuvaus');
             infoSpot.getZoneLabel().clearAndType('A');
             infoSpot.getRailInformation().clearAndType('1');
@@ -2252,33 +2224,43 @@ describe('Stop details', () => {
           infoSpotForm.getNthInfoSpot(1).within(() => {
             infoSpot.getLabel().clearAndType('IP125');
             infoSpot.getPurposeButton().click();
-            infoSpot.getPurposeOptions().contains('Lähialuekartta').click();
+            cy.withinHeadlessPortal(() =>
+              infoSpot.getPurposeOptions().contains('Lähialuekartta').click(),
+            );
             infoSpot.getSizeSelectorButton().click();
-            infoSpot
-              .getSizeSelectorOptions()
-              .contains('A3 (29.7 × 42.0 cm)')
-              .click();
+            cy.withinHeadlessPortal(() =>
+              infoSpot
+                .getSizeSelectorOptions()
+                .contains('A3 (29.7 × 42.0 cm)')
+                .click(),
+            );
             infoSpot.getBacklightButton().click();
-            infoSpot.getBacklightOptions().contains('Kyllä').click();
+            cy.withinHeadlessPortal(() =>
+              infoSpot.getBacklightOptions().contains('Kyllä').click(),
+            );
             infoSpot.getDescription().clearAndType('Staattisen kuvaus');
             infoSpot.getAddPosterButton().click();
             infoSpot.getNthPosterContainer(0).within(() => {
               infoSpot.getPosterLabel().clearAndType('PT1236');
               infoSpot.getSizeSelectorButton().click();
-              infoSpot
-                .getSizeSelectorOptions()
-                .contains('A3 (29.7 × 42.0 cm)')
-                .click();
+              cy.withinHeadlessPortal(() =>
+                infoSpot
+                  .getSizeSelectorOptions()
+                  .contains('A3 (29.7 × 42.0 cm)')
+                  .click(),
+              );
               infoSpot.getPosterLines().clearAndType('2, 7, 1');
             });
             infoSpot.getAddPosterButton().click();
             infoSpot.getNthPosterContainer(1).within(() => {
               infoSpot.getPosterLabel().clearAndType('PT1237');
               infoSpot.getSizeSelectorButton().click();
-              infoSpot
-                .getSizeSelectorOptions()
-                .contains('A4 (21.0 × 29.7 cm)')
-                .click();
+              cy.withinHeadlessPortal(() =>
+                infoSpot
+                  .getSizeSelectorOptions()
+                  .contains('A4 (21.0 × 29.7 cm)')
+                  .click(),
+              );
               infoSpot.getPosterLines().clearAndType('2');
             });
             infoSpot.getZoneLabel().clearAndType('A');
@@ -2418,10 +2400,12 @@ describe('Stop details', () => {
           stopDetailsPage.infoSpots.getEditButton().click();
           infoSpotForm.getNthInfoSpot(0).within(() => {
             infoSpotForm.infoSpots.getSizeSelectorButton().click();
-            infoSpotForm.infoSpots
-              .getSizeSelectorOptions()
-              .contains('Syötä mitat')
-              .click();
+            cy.withinHeadlessPortal(() =>
+              infoSpotForm.infoSpots
+                .getSizeSelectorOptions()
+                .contains('Syötä mitat')
+                .click(),
+            );
             infoSpotForm.infoSpots.getSizeWidth().clearAndType('176');
             infoSpotForm.infoSpots.getSizeHeight().clearAndType('250');
           });
@@ -2436,18 +2420,20 @@ describe('Stop details', () => {
             infoSpotForm.infoSpots.getAddPosterButton().click();
             infoSpotForm.infoSpots.getNthPosterContainer(0).within(() => {
               infoSpotForm.infoSpots.getSizeSelectorButton().click();
-              const getOption = (index: number) =>
-                infoSpotForm.infoSpots
-                  .getSizeSelectorOptions()
-                  .get('[role="option"]')
-                  .eq(index);
+              cy.withinHeadlessPortal(() => {
+                const getOption = (index: number) =>
+                  infoSpotForm.infoSpots
+                    .getSizeSelectorOptions()
+                    .get('[role="option"]')
+                    .eq(index);
 
-              getOption(0).contains('80 × 120 cm');
-              getOption(1).contains('A3 (29.7 × 42.0 cm)');
-              getOption(2).contains('A4 (21.0 × 29.7 cm)');
-              getOption(3).contains('Ei tiedossa');
-              getOption(4).contains('Syötä mitat');
-              getOption(5).contains('B5 (17.6 × 25.0 cm)');
+                getOption(0).contains('80 × 120 cm');
+                getOption(1).contains('A3 (29.7 × 42.0 cm)');
+                getOption(2).contains('A4 (21.0 × 29.7 cm)');
+                getOption(3).contains('Ei tiedossa');
+                getOption(4).contains('Syötä mitat');
+                getOption(5).contains('B5 (17.6 × 25.0 cm)');
+              });
             });
           });
         });

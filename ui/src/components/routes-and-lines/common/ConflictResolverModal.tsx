@@ -1,4 +1,4 @@
-import { Dialog } from '@headlessui/react';
+import { Description, DialogTitle } from '@headlessui/react';
 import { DateTime } from 'luxon';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -116,17 +116,15 @@ export const ConflictResolverModal: FC<ConflictResolverModalProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} contentClassName={className}>
       <ModalBody>
-        <Dialog.Title className="flex text-xl font-bold">
+        <DialogTitle className="flex text-xl font-bold">
           {t('saveChangesModal.validityConflictTitle')}
           <CloseIconButton
             className="ml-auto"
             onClick={onClose}
             testId={testIds.closeButton}
           />
-        </Dialog.Title>
-        <Dialog.Description>
-          {t('saveChangesModal.validityConflictBody')}
-        </Dialog.Description>
+        </DialogTitle>
+        <Description>{t('saveChangesModal.validityConflictBody')}</Description>
 
         <table className="mt-6">
           <thead>

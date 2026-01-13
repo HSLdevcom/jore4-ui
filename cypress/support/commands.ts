@@ -81,6 +81,18 @@ Cypress.Commands.add('shouldBeDisabled', { prevSubject: true }, (subject) => {
   cy.wrap(subject).should('be.disabled');
 });
 
+Cypress.Commands.add('closeDropdown', () => {
+  cy.press('Escape');
+});
+
+Cypress.Commands.add('aliasBody', () => {
+  cy.get('body').as('body');
+});
+
+Cypress.Commands.add('withinHeadlessPortal', (commands) => {
+  cy.get('@body').find('#headlessui-portal-root').within(commands);
+});
+
 Cypress.Commands.add('mockLogin', () => {
   cy.fixture('users/e2e.json').then((userInfo) => {
     // return a mock user info instead of going for the auth backend
@@ -164,6 +176,8 @@ Cypress.Commands.add('setupTests', () => {
   });
 
   cy.intercept('/api/mapmatching/api/route/v1/**').as('mapMatching');
+
+  cy.aliasBody();
 });
 
 // workaround for 'commands.ts' cannot be compiled under '--isolatedModules' because it is considered a global script file. Add an import, export, or an empty 'export {}' statement to make it a module.ts(1208)

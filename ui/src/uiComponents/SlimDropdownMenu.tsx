@@ -1,12 +1,9 @@
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton } from '@headlessui/react';
 import { FC, ReactNode } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { getSimpleButtonClassNames } from './SimpleButton';
-import {
-  AlignDirection,
-  SimpleDropdownMenuItems,
-} from './SimpleDropdownMenuItems';
+import { SimpleDropdownMenuItems } from './SimpleDropdownMenuItems';
 
 type SlimDropDownMenuProps = {
   readonly buttonClassName?: string;
@@ -27,39 +24,21 @@ export const SlimDropDownMenu: FC<SlimDropDownMenuProps> = ({
 }) => {
   return (
     <Menu as="div" className={twMerge('relative', className)}>
-      {({ open }) => (
-        <>
-          <Menu.Button
-            className={getSimpleButtonClassNames(
-              true,
-              disabled,
-              'slim',
-              twJoin(
-                'px-3 py-0',
-                // Deround bottom left corner, or any other if aligment prop
-                // is added to this component too.
-                open ? 'rounded-bl-none' : null,
-                buttonClassName,
-              ),
-            )}
-            data-testid={testId}
-            disabled={disabled}
-          >
-            <div>{buttonText}</div>
-            <div className="mx-2 w-[1px] self-stretch bg-grey" />
-            <FaChevronDown />
-          </Menu.Button>
-          <SimpleDropdownMenuItems
-            // Move the menu up by one pixel to "merge"
-            // the border with the open button.
-            className="-mt-[1px]"
-            isOpen={open}
-            alignItems={AlignDirection.RightBottom}
-          >
-            {children}
-          </SimpleDropdownMenuItems>
-        </>
-      )}
+      <MenuButton
+        className={getSimpleButtonClassNames(
+          true,
+          disabled,
+          'slim',
+          twJoin('px-3 py-0 ui-open:rounded-bl-none', buttonClassName),
+        )}
+        data-testid={testId}
+        disabled={disabled}
+      >
+        <div>{buttonText}</div>
+        <div className="mx-2 w-[1px] self-stretch bg-grey" />
+        <FaChevronDown />
+      </MenuButton>
+      <SimpleDropdownMenuItems>{children}</SimpleDropdownMenuItems>
     </Menu>
   );
 };

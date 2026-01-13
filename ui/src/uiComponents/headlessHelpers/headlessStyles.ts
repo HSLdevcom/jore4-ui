@@ -14,21 +14,20 @@ function dropdownSelectionOptionStyles(...classLists: ClassLists) {
 
 function dropdownSelectionOptionsStyles(...classLists: ClassLists) {
   return twMerge(
-    'absolute left-0 z-10 min-w-full overflow-hidden rounded-b-md border border-black border-opacity-20 bg-white shadow-md',
+    'min-w-[--button-width]',
+    'z-[100] overflow-hidden border border-black border-opacity-20 bg-white focus:outline-none',
+    'flex flex-col items-stretch',
+    'data-[anchor~="bottom"]:rounded-b-md data-[anchor~="bottom"]:mt-[-1px] data-[anchor~="bottom"]:shadow-md',
+    'data-[anchor~="top"]:rounded-t-md data-[anchor~="top"]:mt-[1px] data-[anchor~="top"]:shadow-t-md',
+    'transition-opacity ease-in-out duration-100 data-[closed]:opacity-0',
     ...classLists,
   );
 }
 
-function dropdownSelectionRootStyles(...classLists: ClassLists) {
-  return twMerge('relative', ...classLists);
-}
-
 function comboboxInputStyles(...classLists: ClassLists) {
   return twMerge(
-    'relative h-full w-full rounded-md border border-grey bg-white px-2 py-3 focus:outline-none',
-    'ui-open:rounded-b-none ui-open:border-b-0 ui-open:pb-[calc(0.75rem+1px)]',
-    // Override above ones, if we are nested within a modal
-    'ui-not-open:rounded-b-md ui-not-open:border-b ui-not-open:pb-3',
+    'h-full w-full border border-grey bg-white px-2 py-3 focus:outline-none',
+    'ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none',
     ...classLists,
   );
 }
@@ -41,7 +40,7 @@ function comboboxButtonStyles(...classLists: ClassLists) {
 }
 
 export const comboboxStyles = {
-  root: dropdownSelectionRootStyles,
+  root: (...classLists: ClassLists) => twMerge('relative', ...classLists),
   input: comboboxInputStyles,
   button: comboboxButtonStyles,
   option: dropdownSelectionOptionStyles,
@@ -50,17 +49,15 @@ export const comboboxStyles = {
 
 function listboxButtonStyles(...classLists: ClassLists) {
   return twMerge(
-    'flex h-[var(--input-height)] w-full items-center rounded-md border border-grey bg-white gap-2 px-2 py-3 text-left',
+    'flex h-[var(--input-height)] w-full items-center border border-grey bg-white gap-2 px-2 py-3 text-left',
     'ui-disabled:bg-background ui-disabled:text-dark-grey',
-    'ui-open:rounded-b-none ui-open:border-b-0 ui-open:pb-[calc(0.75rem+1px)]',
-    // Override above ones, if we are nested within a modal
-    'ui-not-open:rounded-b-md ui-not-open:border-b ui-not-open:pb-3',
+    'ui-not-open:rounded-md transition-[border-radius] ease-in-out duration-100 ui-open:rounded-none',
     ...classLists,
   );
 }
 
 export const listboxStyles = {
-  root: dropdownSelectionRootStyles,
+  root: twMerge,
   button: listboxButtonStyles,
   option: dropdownSelectionOptionStyles,
   options: dropdownSelectionOptionsStyles,
@@ -76,14 +73,14 @@ function multiselectListboxOptionStyles(...classLists: ClassLists) {
 }
 
 export const multiselectListboxStyles = {
-  root: dropdownSelectionRootStyles,
+  root: twMerge,
   button: listboxButtonStyles,
   option: multiselectListboxOptionStyles,
   options: dropdownSelectionOptionsStyles,
 };
 
 export const dropdownMenuStyles = {
-  root: dropdownSelectionRootStyles,
+  root: twMerge,
   option: dropdownSelectionOptionStyles,
   options: dropdownSelectionOptionsStyles,
 };

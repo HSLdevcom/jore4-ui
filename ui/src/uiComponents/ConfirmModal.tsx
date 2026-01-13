@@ -1,4 +1,4 @@
-import { Dialog } from '@headlessui/react';
+import { DialogTitle } from '@headlessui/react';
 import { FC, PropsWithChildren } from 'react';
 import { twJoin } from 'tailwind-merge';
 import { Row } from '../layoutComponents';
@@ -40,7 +40,7 @@ export const ConfirmModal: FC<PropsWithChildren<ConfirmModalProps>> = ({
       testId={testId}
     >
       <Row className="flex justify-between px-5 py-4">
-        <Dialog.Title as="h4">{heading}</Dialog.Title>
+        <DialogTitle as="h4">{heading}</DialogTitle>
       </Row>
       <NewModalBody>{children}</NewModalBody>
       <Row className="justify-end space-x-1 px-5 py-4">

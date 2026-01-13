@@ -263,16 +263,17 @@ describe('Stop area details', () => {
         memberStops.getShowOnMapButton().shouldBeVisible();
 
         memberStops.getActionMenu().click();
-        memberStops
-          .getShowStopDetailsMenuItem()
-          .shouldBeVisible()
-          .shouldHaveText('Näytä pysäkin tiedot');
-        memberStops
-          .getShowOnMapMenuItem()
-          .shouldBeVisible()
-          .shouldHaveText('Näytä pysäkki kartalla');
-        memberStops.getActionMenu().click();
       });
+
+      memberStops
+        .getShowStopDetailsMenuItem()
+        .shouldBeVisible()
+        .shouldHaveText('Näytä pysäkin tiedot');
+      memberStops
+        .getShowOnMapMenuItem()
+        .shouldBeVisible()
+        .shouldHaveText('Näytä pysäkki kartalla');
+      cy.closeDropdown();
     }
 
     it('should have basic info', () => {

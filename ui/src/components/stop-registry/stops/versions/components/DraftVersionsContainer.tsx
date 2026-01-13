@@ -66,6 +66,7 @@ export const DraftVersionsContainer: FC<DraftVersionsContainerProps> = ({
       </Row>
 
       <Transition
+        as="div"
         className="mt-2"
         id={ID}
         role="region"

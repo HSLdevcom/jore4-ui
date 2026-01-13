@@ -84,10 +84,7 @@ export class StopForm {
     this.getTimingPlaceDropdown().type(timingPlaceName);
     // Wait for the search results before trying to find the result list item
     expectGraphQLCallToSucceed('@gqlGetTimingPlacesForCombobox');
-    this.getTimingPlaceDropdown()
-      .find('[role="option"]')
-      .contains(timingPlaceName)
-      .click();
+    cy.get('[role="option"]').contains(timingPlaceName).click();
   }
 
   fillBaseForm(values: BaseStopFormInfo) {

@@ -1,4 +1,4 @@
-import { Combobox as HUICombobox } from '@headlessui/react';
+import { ComboboxOption } from '@headlessui/react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineAddCircle } from 'react-icons/md';
@@ -25,7 +25,7 @@ export const MemberStopOptions: FC<MemberStopOptionsProps> = ({
     const isDisabled = stop.stopPlaceParentId !== null && allowDisable;
 
     return (
-      <HUICombobox.Option
+      <ComboboxOption
         as="div"
         key={stop.quayId}
         value={stop}
@@ -50,7 +50,7 @@ export const MemberStopOptions: FC<MemberStopOptionsProps> = ({
         {!isDisabled && (
           <MdOutlineAddCircle className="text-hsl mx-1 text-2xl text-brand" />
         )}
-      </HUICombobox.Option>
+      </ComboboxOption>
     );
   });
 };
