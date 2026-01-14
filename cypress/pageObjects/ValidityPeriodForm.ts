@@ -5,14 +5,9 @@ export interface ValidityPeriodFormInfo {
 
 export class ValidityPeriodForm {
   setStartDate(isoDate: string) {
-    // This invoke is a workaround to
-    // prevent map from zooming out when typing '-' value to the date input
-    cy.getByTestId('ValidityPeriodForm::startDateInput').clear();
-
     return cy
       .getByTestId('ValidityPeriodForm::startDateInput')
-      .invoke('removeAttr', 'type')
-      .type(isoDate);
+      .clearAndType(isoDate);
   }
 
   getStartDateInput() {
@@ -26,15 +21,14 @@ export class ValidityPeriodForm {
   setEndDate = (isoDate?: string) => {
     if (isoDate) {
       this.setAsIndefinite(false);
-      // This invoke is a workaround to
-      // prevent map from zooming out when typing '-' value to the date input
-      this.getEndDateInput().clear().invoke('removeAttr', 'type').type(isoDate);
+      this.getEndDateInput().clearAndType(isoDate);
     } else {
       this.setAsIndefinite();
     }
   };
 
   getIndefiniteCheckbox() {
+    cy.getByTestId('ValidityPeriodForm::indefiniteCheckbox').scrollIntoView();
     return cy.getByTestId('ValidityPeriodForm::indefiniteCheckbox');
   }
 

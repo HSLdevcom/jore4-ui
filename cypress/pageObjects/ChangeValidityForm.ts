@@ -8,6 +8,7 @@ export class ChangeValidityForm {
   validityPeriodForm = new ValidityPeriodForm();
 
   getContainer() {
+    cy.getByTestId('ChangeValidityForm::container').scrollIntoView();
     return cy.getByTestId('ChangeValidityForm::container');
   }
 
