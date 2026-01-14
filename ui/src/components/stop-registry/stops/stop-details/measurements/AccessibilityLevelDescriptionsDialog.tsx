@@ -73,7 +73,7 @@ export const AccessibilityLevelDescriptionsDialog: FC<
         className="border-0 bg-white pb-0"
       />
       <NewModalBody className="max-w-md p-0">
-        <div className={`${infoSectionClassName}`}>
+        <div className={infoSectionClassName}>
           <h3 className="text-lg">
             4: {t('stopAccessibilityLevelEnum.fullyAccessible')}
           </h3>
@@ -93,7 +93,7 @@ export const AccessibilityLevelDescriptionsDialog: FC<
             </Column>
           </Row>
         </div>
-        <div className={`${infoSectionClassName}`}>
+        <div className={infoSectionClassName}>
           <h3 className="text-lg">
             3: {t('stopAccessibilityLevelEnum.mostlyAccessible')}
           </h3>
@@ -113,7 +113,7 @@ export const AccessibilityLevelDescriptionsDialog: FC<
             </Column>
           </Row>
         </div>
-        <div className={`${infoSectionClassName}`}>
+        <div className={infoSectionClassName}>
           <h3 className="text-lg">
             2: {t('stopAccessibilityLevelEnum.partiallyInaccessible')}
           </h3>
@@ -133,7 +133,7 @@ export const AccessibilityLevelDescriptionsDialog: FC<
             </Column>
           </Row>
         </div>
-        <div className={`${infoSectionClassName}`}>
+        <div className={infoSectionClassName}>
           <h3 className="text-lg">
             1: {t('stopAccessibilityLevelEnum.inaccessible')}
           </h3>
@@ -153,7 +153,7 @@ export const AccessibilityLevelDescriptionsDialog: FC<
             </Column>
           </Row>
         </div>
-        <div className={`${infoSectionClassName}`}>
+        <div className={infoSectionClassName}>
           <h3 className="text-sm">
             {t(
               'stopDetails.accessibilityLevelDescriptions.additionalInfo.title',
